@@ -1,0 +1,487 @@
+- id: hero-丁奉
+  domain: hero
+  entry_kind: hero_profile
+  topic: 丁奉
+  aliases: []
+  facts:
+  - 丁奉是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 奋勇当先
+  priority: 88
+  structured_data:
+    name: 丁奉
+    aliases: []
+    faction: 魏
+    rarity: 紫
+    troop_types:
+    - 盾兵
+    role_tags: []
+    base_attributes:
+      military: 81
+      intelligence: 84
+      command: 88
+      initiative: 51
+    growth_attributes:
+      military: 1.65
+      intelligence: 0.8
+      command: 1.35
+      initiative: 1.37
+    max_attributes:
+      military: 155
+      intelligence: 120
+      command: 149
+      initiative: 113
+    signature_skills:
+    - 奋勇当先
+    notes:
+    - 自带战法「奋勇当先」效果（满级）：普通攻击后，自身先攻提升12.5-25，持续2回合。然后对敌军全体造成40%一80%兵刃伤害（发动概率：50%）
+    - 自带战法「奋勇当先」效果（初始）：普通攻击后，自身先攻提升12.5，持续2回合。然后对敌军全体造成40％兵刃伤害
+    - 缘分「江表虎臣」：黄盖、甘宁、徐盛、程普、周泰、凌统、蒋钦、丁奉、董袭、韩当、陈武、潘璋——部队中缘分武将统率提升10点，受到伤害降低3%
+    - 推荐战法：临阵突袭、乱敌方阵、以战养战、夜袭
+    - 赛季：s1
+    - 初始属性：武力81 智力84 统率88 先攻51
+    - 成长值：武力1.65 智力0.80 统率1.35 先攻1.37
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力155 智力120 统率149 先攻113
+- id: hero-张曼成
+  domain: hero
+  entry_kind: hero_profile
+  topic: 张曼成
+  aliases: []
+  facts:
+  - 张曼成是群阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 神上使
+  priority: 88
+  structured_data:
+    name: 张曼成
+    aliases: []
+    faction: 群
+    rarity: 紫
+    troop_types:
+    - 盾兵
+    role_tags: []
+    base_attributes:
+      military: 85
+      intelligence: 23
+      command: 90
+      initiative: 36
+    growth_attributes:
+      military: 1.55
+      intelligence: 0.28
+      command: 1.7
+      initiative: 1.39
+    max_attributes:
+      military: 155
+      intelligence: 36
+      command: 166
+      initiative: 99
+    signature_skills:
+    - 神上使
+    notes:
+    - 自带战法「神上使」效果（满级）：每个回合行动时有40%一80%概率对敌军随机两人施加妖术，持续2回合。自身受到伤害时，若伤害来源持有妖术状态，该次伤害降低15%-30%（受统率影响）（发动概率：100%）
+    - 自带战法「神上使」效果（初始）：每个回合行动时有40%概率对敌军随机两人施加妖术，持续2回合。自身受到伤害时，若伤害来源持有妖术状态，该次伤害降低15%(受统率影响）
+    - 缘分「黄巾起义」：张角、张宝、张梁、张曼成、张宁——战斗前2回合 ，部队中缘分武将主动战法发动率提升8%
+    - 推荐战法：避其锐气、坚壁清野、铸甲销戈、咏歌尝酒
+    - 赛季：s1
+    - 初始属性：武力85 智力23 统率90 先攻36
+    - 成长值：武力1.55 智力0.28 统率1.70 先攻1.39
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力155 智力36 统率166 先攻99
+- id: hero-曹洪
+  domain: hero
+  entry_kind: hero_profile
+  topic: 曹洪
+  aliases: []
+  facts:
+  - 曹洪是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 八虎雄首
+  priority: 88
+  structured_data:
+    name: 曹洪
+    aliases: []
+    faction: 魏
+    rarity: 紫
+    troop_types:
+    - 盾兵
+    role_tags: []
+    base_attributes:
+      military: 86
+      intelligence: 48
+      command: 82
+      initiative: 54
+    growth_attributes:
+      military: 1.65
+      intelligence: 0.77
+      command: 1.63
+      initiative: 1.84
+    max_attributes:
+      military: 160
+      intelligence: 83
+      command: 155
+      initiative: 137
+    signature_skills:
+    - 八虎雄首
+    notes:
+    - 自带战法「八虎雄首」效果（满级）：准备1回合，对敌军随机单体造成180%-360%兵刃和谋略伤害，若目标处于洪水状态该次伤害提升30%（发动概率：40%）
+    - 自带战法「八虎雄首」效果（初始）：准备1回合 ，对敌军随机单体造成180%兵刃和谋略伤害，若目标处于洪水状态该次伤害提升30%
+    - 缘分「曹魏宗将」：夏侯惇、夏侯渊、曹仁、曹真、曹洪——部队中缘分武将最高属性提升15点
+    - 推荐战法：迎敌、揭竿而起、克敌如风、疾行侧击
+    - 赛季：s1
+    - 初始属性：武力86 智力48 统率82 先攻54
+    - 成长值：武力1.65 智力0.77 统率1.63 先攻1.84
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力160 智力83 统率155 先攻137
+- id: hero-曹真
+  domain: hero
+  entry_kind: hero_profile
+  topic: 曹真
+  aliases: []
+  facts:
+  - 曹真是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 渊然难测
+  priority: 88
+  structured_data:
+    name: 曹真
+    aliases: []
+    faction: 魏
+    rarity: 紫
+    troop_types:
+    - 盾兵
+    role_tags: []
+    base_attributes:
+      military: 66
+      intelligence: 71
+      command: 101
+      initiative: 51
+    growth_attributes:
+      military: 1.31
+      intelligence: 1.32
+      command: 1.73
+      initiative: 1.3
+    max_attributes:
+      military: 125
+      intelligence: 130
+      command: 179
+      initiative: 110
+    signature_skills:
+    - 渊然难测
+    notes:
+    - 自带战法「渊然难测」效果（满级）：受到伤害后，若为兵刃伤害则使自身受到兵刃伤害降低5%-10%，否则自身受到谋略伤害降低5%一10%，可触发5次（发动概率：100%）
+    - 自带战法「渊然难测」效果（初始）：受到伤害后，若为兵刃伤害则使自身受到兵刃伤害降低5%，否则自身受到谋略伤害降低5%，可触发5次
+    - 缘分「曹魏宗将」：夏侯惇、夏侯渊、曹仁、曹真、曹洪——部队中缘分武将最高属性提升15点
+    - 推荐战法：避其锐气、坚壁清野、铸甲销戈
+    - 赛季：s1
+    - 初始属性：武力66 智力71 统率101 先攻51
+    - 成长值：武力1.31 智力1.32 统率1.73 先攻1.30
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力125 智力130 统率179 先攻110
+- id: hero-潘璋
+  domain: hero
+  entry_kind: hero_profile
+  topic: 潘璋
+  aliases: []
+  facts:
+  - 潘璋是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 驰军截刃
+  priority: 88
+  structured_data:
+    name: 潘璋
+    aliases: []
+    faction: 魏
+    rarity: 紫
+    troop_types:
+    - 盾兵
+    role_tags: []
+    base_attributes:
+      military: 84
+      intelligence: 82
+      command: 83
+      initiative: 69
+    growth_attributes:
+      military: 1.58
+      intelligence: 1.05
+      command: 1.55
+      initiative: 1.33
+    max_attributes:
+      military: 155
+      intelligence: 129
+      command: 153
+      initiative: 129
+    signature_skills:
+    - 驰军截刃
+    notes:
+    - 自带战法「驰军截刃」效果（满级）：自身武力和统率提升10%，自身发动主动或追击战法后，有60%概率对敌军随机单体造成40%一80%兵刃伤害（发动概率：100%）
+    - 自带战法「驰军截刃」效果（初始）：自身武力和统率提升10%，自身发动主动或追击战法后，有60%概率对敌军随机单体造成40%兵刃伤害
+    - 缘分「江表虎臣」：黄盖、甘宁、徐盛、程普、周泰、凌统、蒋钦、丁奉、董袭、韩当、陈武、潘璋——部队中缘分武将统率提升10点，受到伤害降低3%
+    - 推荐战法：滋智力、手先攻、驰军截刃、甘宁、徐盛、程普
+    - 赛季：s1
+    - 初始属性：武力84 智力82 统率83 先攻69
+    - 成长值：武力1.58 智力1.05 统率1.55 先攻1.33
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力155 智力129 统率153 先攻129
+- id: hero-董袭
+  domain: hero
+  entry_kind: hero_profile
+  topic: 董袭
+  aliases: []
+  facts:
+  - 董袭是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 飞身断虹
+  priority: 88
+  structured_data:
+    name: 董袭
+    aliases: []
+    faction: 魏
+    rarity: 紫
+    troop_types:
+    - 盾兵
+    role_tags: []
+    base_attributes:
+      military: 85
+      intelligence: 56
+      command: 88
+      initiative: 58
+    growth_attributes:
+      military: 1.55
+      intelligence: 0.87
+      command: 1.7
+      initiative: 1.43
+    max_attributes:
+      military: 155
+      intelligence: 95
+      command: 164
+      initiative: 122
+    signature_skills:
+    - 飞身断虹
+    notes:
+    - 自带战法「飞身断虹」效果（满级）：自身获得清醒状态，每个回合行动时自身受到恢复效果提升5%-10%（发动概率：100%）
+    - 自带战法「飞身断虹」效果（初始）：自身获得清醒状态，每个回合行动时自身受到恢复效果提升5%
+    - 缘分「江表虎臣」：黄盖、甘宁、徐盛、程普、周泰、凌统、蒋钦、丁奉、董袭、韩当、陈武、潘璋——部队中缘分武将统率提升10点，受到伤害降低3%
+    - 推荐战法：•统率、滋智力、手先攻、飞身断虹、甘宁、徐盛、程普
+    - 赛季：s1
+    - 初始属性：武力85 智力56 统率88 先攻58
+    - 成长值：武力1.55 智力0.87 统率1.70 先攻1.43
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力155 智力95 统率164 先攻122
+- id: hero-蒋钦
+  domain: hero
+  entry_kind: hero_profile
+  topic: 蒋钦
+  aliases: []
+  facts:
+  - 蒋钦是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 武略江洪
+  priority: 88
+  structured_data:
+    name: 蒋钦
+    aliases: []
+    faction: 魏
+    rarity: 紫
+    troop_types:
+    - 盾兵
+    role_tags: []
+    base_attributes:
+      military: 88
+      intelligence: 87
+      command: 86
+      initiative: 40
+    growth_attributes:
+      military: 1.72
+      intelligence: 1.68
+      command: 1.62
+      initiative: 1.41
+    max_attributes:
+      military: 165
+      intelligence: 163
+      command: 159
+      initiative: 103
+    signature_skills:
+    - 武略江洪
+    notes:
+    - 自带战法「武略江洪」效果（满级）：提升自身10-20点智力和武力，持续2回合，可叠加2次。对敌军随机两人施加洪水，持续2回合，若目标已持有洪水状态，则造成50%一100%兵刃和谋略伤害（发动概率：50%）
+    - 自带战法「武略江洪」效果（初始）：提升自身10点智力和武力，持续2回合，可叠加2次。对敌军随机两人施加洪水，持续2回合，若目标已持有洪水状态，则造成50%兵刃和谋略伤害
+    - 缘分「江表虎臣」：黄盖、甘宁、徐盛、程普、周泰、凌统、蒋钦、丁奉、董袭、韩当、陈武、潘璋——部队中缘分武将统率提升10点，受到伤害降低3%
+    - 推荐战法：决水破敌、束手无策、咏歌尝酒
+    - 赛季：s1
+    - 初始属性：武力88 智力87 统率86 先攻40
+    - 成长值：武力1.72 智力1.68 统率1.62 先攻1.41
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力165 智力163 统率159 先攻103
+- id: hero-陈武
+  domain: hero
+  entry_kind: hero_profile
+  topic: 陈武
+  aliases: []
+  facts:
+  - 陈武是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 悍战无畏
+  priority: 88
+  structured_data:
+    name: 陈武
+    aliases: []
+    faction: 魏
+    rarity: 紫
+    troop_types:
+    - 盾兵
+    role_tags: []
+    base_attributes:
+      military: 89
+      intelligence: 49
+      command: 99
+      initiative: 47
+    growth_attributes:
+      military: 1.77
+      intelligence: 0.58
+      command: 1.55
+      initiative: 1.39
+    max_attributes:
+      military: 169
+      intelligence: 75
+      command: 169
+      initiative: 110
+    signature_skills:
+    - 悍战无畏
+    notes:
+    - 自带战法「悍战无畏」效果（满级）：准备1回合，提升自身15-30点武力，持续1回合，然后对敌军全体造成130%-260%至150%一300%的兵刃伤害（发动概率：45%）
+    - 自带战法「悍战无畏」效果（初始）：准备1回合，提升自身15点武力，持续1回合，然后对敌军全体造成130%至150%的兵刃伤害
+    - 缘分「江表虎臣」：黄盖、甘宁、徐盛、程普、周泰、凌统、蒋钦、丁奉、董袭、韩当、陈武、潘璋——部队中缘分武将统率提升10点，受到伤害降低3%
+    - 推荐战法：迎敌、揭竿而起、克敌如风、疾行侧击
+    - 赛季：s1
+    - 初始属性：武力89 智力49 统率99 先攻47
+    - 成长值：武力1.77 智力0.58 统率1.55 先攻1.39
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力169 智力75 统率169 先攻110
+- id: hero-韩当
+  domain: hero
+  entry_kind: hero_profile
+  topic: 韩当
+  aliases: []
+  facts:
+  - 韩当是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 猿臂善射
+  priority: 88
+  structured_data:
+    name: 韩当
+    aliases: []
+    faction: 魏
+    rarity: 紫
+    troop_types:
+    - 盾兵
+    role_tags: []
+    base_attributes:
+      military: 96
+      intelligence: 71
+      command: 85
+      initiative: 53
+    growth_attributes:
+      military: 1.86
+      intelligence: 0.86
+      command: 1.35
+      initiative: 1.72
+    max_attributes:
+      military: 180
+      intelligence: 110
+      command: 146
+      initiative: 130
+    signature_skills:
+    - 猿臂善射
+    notes:
+    - 自带战法「猿臂善射」效果（满级）：友军普通攻击后，自身有17.5%一35%概率对其攻击的目标进行1次额外普通攻击（发动概率：100%）
+    - 自带战法「猿臂善射」效果（初始）：友军普通攻击后，自身有17.5%概率对其攻击的目标进行1次额外普通攻击
+    - 缘分「江表虎臣」：黄盖、甘宁、徐盛、程普、周泰、凌统、蒋钦、丁奉、董袭、韩当、陈武、潘璋——部队中缘分武将统率提升10点，受到伤害降低3%
+    - 推荐战法：临阵突袭、乱敌方阵、夜袭
+    - 赛季：s1
+    - 初始属性：武力96 智力71 统率85 先攻53
+    - 成长值：武力1.86 智力0.86 统率1.35 先攻1.72
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力180 智力110 统率146 先攻130
+- id: hero-皇甫嵩
+  domain: hero
+  entry_kind: hero_profile
+  topic: 皇甫嵩
+  aliases: []
+  facts:
+  - 皇甫嵩是群阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints:
+  - 属性与成长数值待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 平乱定叛
+  priority: 88
+  structured_data:
+    name: 皇甫嵩
+    aliases: []
+    faction: 群
+    rarity: 橙
+    troop_types:
+    - 骑兵
+    role_tags:
+    - T0
+    - 谋略追击
+    base_attributes: null
+    growth_attributes: null
+    signature_skills:
+    - 平乱定叛
+    notes:
+    - 缘分「汉末栋梁」：皇甫嵩2、朱儁、卢植、皇甫嵩——部队中缘分武将受到伤害降低5%
+    - 赛季：s6
+    - 初始属性：武力72 智力81 统率93 先攻23
+    - 成长值：武力1.27 智力0.76 统率1.74 先攻1.33
+    - 满级属性(Lv50)：武力136 智力119 统率180 先攻90

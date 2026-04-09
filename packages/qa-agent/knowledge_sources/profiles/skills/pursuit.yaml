@@ -1,1 +1,642 @@
-[]
+- id: skill-万军辟易
+  domain: skill
+  entry_kind: skill_profile
+  topic: 万军辟易
+  aliases: []
+  facts:
+  - 万军辟易是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 万军辟易
+    aliases: []
+    rarity: 橙
+    skill_type: 追击
+    trigger_type: 追击
+    target_scope: 敌军群体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：普通攻击后，对敌军全体造成70%→140%兵刃伤害，偶数回合发动时额外对敌军兵力最低单体造成50%100%兵刃伤害，若上个回合没有发动，该次战法伤害提升50%
+    - 效果（初始）：普通攻击后，对敌军全体造成70%→77.7%兵刃伤害，偶数回合发动时额外对敌军兵力最低单体造成50%55.5%兵刃伤害，若上个回合没有发动，该次战法伤害提升50%
+    - 满级发动概率：35%
+    - 初始发动概率：35%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-三军夺气
+  domain: skill
+  entry_kind: skill_profile
+  topic: 三军夺气
+  aliases: []
+  facts:
+  - 三军夺气是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 三军夺气
+    aliases: []
+    rarity: 橙
+    skill_type: 追击
+    trigger_type: 追击
+    target_scope: null
+    effect_tags:
+    - 辅助
+    preferred_roles: []
+    notes:
+    - 效果（满级）：普通攻击后，使攻击目标武力、智力、统率降低15-30点，持续2回合，最多可叠加5次
+    - 效果（初始）：普通攻击后，使攻击目标武力、智力、统率降低15点，持续2回合，最多可叠加5次
+    - 满级发动概率：55%
+    - 初始发动概率：55%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-临阵突袭
+  domain: skill
+  entry_kind: skill_profile
+  topic: 临阵突袭
+  aliases: []
+  facts:
+  - 临阵突袭是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 临阵突袭
+    aliases: []
+    rarity: 紫
+    skill_type: 追击
+    trigger_type: 追击
+    target_scope: null
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：普通攻击后，降低目标15一30点统率，持续2回合，然后对其造成125%-250%兵刃伤害
+    - 效果（初始）：普通攻击后，降低目标15点统率，持续2回合，然后对其造成125%兵刃伤害
+    - 满级发动概率：40%
+    - 初始发动概率：40%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-乘虚而入
+  domain: skill
+  entry_kind: skill_profile
+  topic: 乘虚而入
+  aliases: []
+  facts:
+  - 乘虚而入是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 乘虚而入
+    aliases: []
+    rarity: 橙
+    skill_type: 追击
+    trigger_type: 追击
+    target_scope: 敌军单体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：普通攻击后，对敌军随机单体造成140%-280%兵刃伤害，若目标持有虚弱状态，则该次伤害值提升30%，若未持有虚弱状态，则有65%概率施加虚弱，持续1回合
+    - 效果（初始）：普通攻击后，对敌军随机单体造成140%兵刃伤害，若目标持有虚弱状态,则该次伤害值提升30%，若未持有虛弱状态，则有65%概率施加虛弱，持续1回合
+    - 满级发动概率：40%
+    - 初始发动概率：40%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-乘间投隙
+  domain: skill
+  entry_kind: skill_profile
+  topic: 乘间投隙
+  aliases: []
+  facts:
+  - 乘间投隙是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 乘间投隙
+    aliases: []
+    rarity: 橙
+    skill_type: 追击
+    trigger_type: 追击
+    target_scope: 敌军单体
+    effect_tags:
+    - 谋略
+    preferred_roles: []
+    notes:
+    - 效果（满级）：普通攻击后，对敌军随机单体施加混乱，持续1回合，并造成60%-120％谋略伤害，若目标已处于混乱状悉，则对其友军随机单体造成50%一100%谋略伤害
+    - 效果（初始）：普通攻击后，对敌军随机单体施加混乱，持续1回合，并造成60%谋略伤害,若目标已处于混乱状态，则对其友军随机单体造成50%谋略伤害
+    - 满级发动概率：60%
+    - 初始发动概率：60%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-乱敌方阵
+  domain: skill
+  entry_kind: skill_profile
+  topic: 乱敌方阵
+  aliases: []
+  facts:
+  - 乱敌方阵是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 乱敌方阵
+    aliases: []
+    rarity: 紫
+    skill_type: 追击
+    trigger_type: 追击
+    target_scope: null
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：普通攻击后，对攻击目标造成110%-220%兵刃伤害。并施加混乱，持续1回合
+    - 效果（初始）：普通攻击后，对攻击目标造成110%兵刃伤害。并施加混乱，持续1回合
+    - 满级发动概率：35%
+    - 初始发动概率：35%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-兵贵神速
+  domain: skill
+  entry_kind: skill_profile
+  topic: 兵贵神速
+  aliases: []
+  facts:
+  - 兵贵神速是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 兵贵神速
+    aliases: []
+    rarity: 橙
+    skill_type: 追击
+    trigger_type: 追击
+    target_scope: 敌军单体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：普通攻击后，提升自身15一30点先攻，持续2回合，并对敌军随机两人造成90%-180%兵刃伤害(额外受先攻影响）
+    - 效果（初始）：普通攻击后，提升自身15点先攻，持续2回合，并对敌军随机两人造成90%兵刃伤害(额外受先攻影响）
+    - 满级发动概率：40%
+    - 初始发动概率：40%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-千里突袭
+  domain: skill
+  entry_kind: skill_profile
+  topic: 千里突袭
+  aliases: []
+  facts:
+  - 千里突袭是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 千里突袭
+    aliases: []
+    rarity: 橙
+    skill_type: 追击
+    trigger_type: 追击
+    target_scope: 敌军单体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：普通攻击后，对先攻最低的敌军单体造成140%-280%(额外受双方先攻差值影响）兵刃伤害，若目标为后排额外造成50%-100%兵刃伤害
+    - 效果（初始）：普通攻击后，对先攻最低的敌军单体造成140%（额外受双方先攻差值影响)兵刃伤害，若目标为后排额外造成50%兵刃伤害
+    - 满级发动概率：40%
+    - 初始发动概率：40%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-夜袭
+  domain: skill
+  entry_kind: skill_profile
+  topic: 夜袭
+  aliases: []
+  facts:
+  - 夜袭是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 夜袭
+    aliases: []
+    rarity: 紫
+    skill_type: 追击
+    trigger_type: 追击
+    target_scope: 敌军单体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：普通攻击后，对敌军随机两人造成60%-120%兵刃伤害，若自身先攻大于目标则额外造成25%一50%兵刃伤害
+    - 效果（初始）：普通攻击后，对敌军随机两人造成60%兵刃伤害，若自身先攻大于目标则额外造成25%兵刃伤害
+    - 满级发动概率：45%
+    - 初始发动概率：45%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-奇计迭出
+  domain: skill
+  entry_kind: skill_profile
+  topic: 奇计迭出
+  aliases: []
+  facts:
+  - 奇计迭出是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 奇计迭出
+    aliases: []
+    rarity: 紫
+    skill_type: 追击
+    trigger_type: 追击
+    target_scope: 敌军单体
+    effect_tags:
+    - 谋略
+    preferred_roles: []
+    notes:
+    - 效果（满级）：普通攻击后，对敌军随机单体造成125%一250%谋略伤害，优先选择敌军后排
+    - 效果（初始）：普通攻击后，对敌军随机单体造成125%谋略伤害，优先选择敌军后排
+    - 满级发动概率：40%
+    - 初始发动概率：40%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-攻其不备
+  domain: skill
+  entry_kind: skill_profile
+  topic: 攻其不备
+  aliases: []
+  facts:
+  - 攻其不备是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 攻其不备
+    aliases: []
+    rarity: 橙
+    skill_type: 追击
+    trigger_type: 追击
+    target_scope: null
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：普通攻击后，对攻击目标造成140%一280%兵刃伤害，并施加技穷，持续1回合。若目标已处于技穷状态则有50%概率施加震慑，持续1回合
+    - 效果（初始）：普通攻击后，对攻击目标造成140%兵刃伤害，并施加技穷，持续1回合。若目标已处于技穷状态则有50%概率施加震慑，持续1回合
+    - 满级发动概率：40%
+    - 初始发动概率：40%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-文韬武略
+  domain: skill
+  entry_kind: skill_profile
+  topic: 文韬武略
+  aliases: []
+  facts:
+  - 文韬武略是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 文韬武略
+    aliases: []
+    rarity: 橙
+    skill_type: 追击
+    trigger_type: 追击
+    target_scope: null
+    effect_tags:
+    - 文武兼备
+    preferred_roles: []
+    notes:
+    - 效果（满级）：普通攻击后，对敌军智力最低单体造成80%->160%谋略伤害，对敌军统率最低单体造成80%->160%兵刃伤害
+    - 效果（初始）：普通攻击后，对敌军智力最低单体造成80%->88.8%谋略伤害，对敌军统率最低单体造成80%->88.8%兵刃伤害
+    - 满级发动概率：50%
+    - 初始发动概率：32%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-智破千军
+  domain: skill
+  entry_kind: skill_profile
+  topic: 智破千军
+  aliases: []
+  facts:
+  - 智破千军是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 智破千军
+    aliases: []
+    rarity: 橙
+    skill_type: 追击
+    trigger_type: 追击
+    target_scope: 敌军单体
+    effect_tags:
+    - 谋略
+    preferred_roles: []
+    notes:
+    - 效果（满级）：普通攻击后，对敌军随机两人造成90%->180%谋略伤害，并有17.5%->35%（受智力影响）令该次伤害额外提升20%，每个目标独立判定
+    - 效果（初始）：普通攻击后，对敌军随机两人造成90%->100%谋略伤害，并有17.5%->19.4%（受智力影响）令该次伤害额外提升20%，每个目标独立判定
+    - 满级发动概率：50%
+    - 初始发动概率：50%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-横扫千军
+  domain: skill
+  entry_kind: skill_profile
+  topic: 横扫千军
+  aliases:
+  - 横扫
+  facts:
+  - 横扫千军是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 横扫千军
+    aliases:
+    - 横扫
+    rarity: 橙
+    skill_type: 追击
+    trigger_type: 追击
+    target_scope: 敌军群体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：普通攻击后，对敌军全体造成60%-120%兵刃伤害，成功释放后下一次横扫千军伤害系数提升12%，可叠加5次，持续到战斗结束
+    - 效果（初始）：普通攻击后，对敌军全体造成60%兵刃伤害，成功释放后下一次横扫千军伤害系数提升12%，可叠加5次，持续到战斗结束
+    - 满级发动概率：45%
+    - 初始发动概率：45%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-虎步连环
+  domain: skill
+  entry_kind: skill_profile
+  topic: 虎步连环
+  aliases: []
+  facts:
+  - 虎步连环是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 虎步连环
+    aliases: []
+    rarity: 橙
+    skill_type: 追击
+    trigger_type: 追击
+    target_scope: 敌军单体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：普通攻击后，对敌军随机两人造成55%→110%兵刃伤害并有30%→60%概率使目标随机获得1种控制状态，持续1回合，每个目标独立判定
+    - 效果（初始）：普通攻击后，对敌军随机两人造成55%→61.1%兵刃伤害并有30%→33.3%概率使目标随机获得1种控制状态，持续1回合，每个目标独立判定
+    - 满级发动概率：50%
+    - 初始发动概率：50%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-计袭粮仓
+  domain: skill
+  entry_kind: skill_profile
+  topic: 计袭粮仓
+  aliases: []
+  facts:
+  - 计袭粮仓是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 计袭粮仓
+    aliases: []
+    rarity: 橙
+    skill_type: 追击
+    trigger_type: 追击
+    target_scope: null
+    effect_tags:
+    - 谋略
+    preferred_roles: []
+    notes:
+    - 效果（满级）：普通攻击后，对攻击目标造成150%-300%谋略伤害，并施加断粮，持续2回合，若目标已持有断粮状态则额外对其造成50%一100%谋略伤害
+    - 效果（初始）：普通攻击后，对攻击目标造成150%谋略伤害，并施加断粮，持续2回合，若目标已持有断粮状态则额外对其造成50%谋略伤害
+    - 满级发动概率：45%
+    - 初始发动概率：45%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-谋而后动
+  domain: skill
+  entry_kind: skill_profile
+  topic: 谋而后动
+  aliases: []
+  facts:
+  - 谋而后动是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 谋而后动
+    aliases: []
+    rarity: 橙
+    skill_type: 追击
+    trigger_type: 追击
+    target_scope: 敌军群体
+    effect_tags:
+    - 谋略
+    preferred_roles: []
+    notes:
+    - 效果（满级）：普通攻击后，对敌军全体造成20%→40%谋略伤害，有50%概率(受智力影响)额外再发动一次谋而后动(无法再次发动)，谋而后动的伤害系数每回合提升6%→12%
+    - 效果（初始）：普通攻击后,对敌军全体造成20%→22.2%谋略伤害，有50%概率(受智力影响)额外再发动一次谋而后动(无法再次发动)，谋而后动的伤害系数每回合提升6%→6.6%
+    - 满级发动概率：75%
+    - 初始发动概率：75%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-轻装驰援
+  domain: skill
+  entry_kind: skill_profile
+  topic: 轻装驰援
+  aliases: []
+  facts:
+  - 轻装驰援是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 轻装驰援
+    aliases: []
+    rarity: 橙
+    skill_type: 追击
+    trigger_type: 追击
+    target_scope: null
+    effect_tags:
+    - 防御
+    preferred_roles: []
+    notes:
+    - 效果（满级）：普通攻击后，对我军随机两人施加1层抵御，并使其受到伤害降低10%-20%，持续2回合
+    - 效果（初始）：普通攻击后，对我军随机两人施加1层抵御，并使其受到伤害降低10%，持续2回合
+    - 满级发动概率：27.5%>> 50%
+    - 初始发动概率：27.5%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-辕门射戟
+  domain: skill
+  entry_kind: skill_profile
+  topic: 辕门射戟
+  aliases: []
+  facts:
+  - 辕门射戟是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 辕门射戟
+    aliases: []
+    rarity: 橙
+    skill_type: 追击
+    trigger_type: 追击
+    target_scope: 敌军单体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：普通攻击后，对敌军随机单体造成100%-200%兵刃伤害。若自身为后排，则有75%概率提升自身5%一10%主动战法发动率，持续2回合，可叠加3次
+    - 效果（初始）：普通攻击后，对敌军随机单体造成100%兵刃伤害。若自身为后排，则有75%概率提升自身5%主动战法发动率，持续2回合，可叠加3次
+    - 满级发动概率：70%
+    - 初始发动概率：70%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-铁骑横冲
+  domain: skill
+  entry_kind: skill_profile
+  topic: 铁骑横冲
+  aliases: []
+  facts:
+  - 铁骑横冲是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 铁骑横冲
+    aliases: []
+    rarity: 橙
+    skill_type: 追击
+    trigger_type: 追击
+    target_scope: 自身
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：普通攻击后，提升自身10%一20%会心几率，持续2回合，然后对当前目标造成200%一400%兵刃伤害。无论是否发动，该伤害系数每回合降低25%
+    - 效果（初始）：普通攻击后，提升自身10%会心几率，持续2回合，然后对当前目标造成200%兵刃伤害。无论是否发动，该伤害系数每回合降低25%
+    - 满级发动概率：40%
+    - 初始发动概率：40%
+    - 适配兵种：🛡️🏹️↖️🐎

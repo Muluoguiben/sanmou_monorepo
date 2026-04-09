@@ -4,7 +4,15 @@ from datetime import date
 
 from qa_agent.ingestion.config import AliasConfig, EnumConfig
 from qa_agent.ingestion.models import HeroRawRecord, ReviewStatus, SkillRawRecord, StagingEntry, StagingMetadata
-from qa_agent.knowledge.models import Domain, EntryKind, HeroStaticProfile, KnowledgeEntry, SkillStaticProfile
+from qa_agent.knowledge.models import (
+    AttributeGrowth,
+    AttributeSet,
+    Domain,
+    EntryKind,
+    HeroStaticProfile,
+    KnowledgeEntry,
+    SkillStaticProfile,
+)
 
 
 def _slugify(value: str) -> str:
@@ -33,6 +41,35 @@ def _normalize_list(values: list[str], mapping: dict[str, str]) -> list[str]:
 def normalize_hero_record(record: HeroRawRecord, aliases: AliasConfig, enums: EnumConfig) -> StagingEntry:
     canonical_name = aliases.canonical_map.get(record.canonical_name, record.canonical_name)
     merged_aliases = list(dict.fromkeys([*record.aliases, *aliases.aliases.get(canonical_name, [])]))
+    # Build structured attribute sets from raw record
+    base_attrs = None
+    growth_attrs = None
+    max_attrs = None
+    if record.base_attributes:
+        ba = record.base_attributes
+        base_attrs = AttributeSet(
+            military=ba.get("military"),
+            intelligence=ba.get("intelligence"),
+            command=ba.get("command"),
+            initiative=ba.get("initiative"),
+        )
+    if record.growth_attributes:
+        ga = record.growth_attributes
+        growth_attrs = AttributeGrowth(
+            military=ga.get("military"),
+            intelligence=ga.get("intelligence"),
+            command=ga.get("command"),
+            initiative=ga.get("initiative"),
+        )
+    if base_attrs and growth_attrs:
+        # Heroes start at Lv5, max Lv50 → 45 levels of growth
+        max_attrs = AttributeSet(
+            military=round((base_attrs.military or 0) + (growth_attrs.military or 0) * 45),
+            intelligence=round((base_attrs.intelligence or 0) + (growth_attrs.intelligence or 0) * 45),
+            command=round((base_attrs.command or 0) + (growth_attrs.command or 0) * 45),
+            initiative=round((base_attrs.initiative or 0) + (growth_attrs.initiative or 0) * 45),
+        )
+
     profile = HeroStaticProfile(
         name=canonical_name,
         aliases=merged_aliases,
@@ -40,9 +77,13 @@ def normalize_hero_record(record: HeroRawRecord, aliases: AliasConfig, enums: En
         rarity=_normalize_scalar(record.rarity, enums.rarities),
         troop_types=_normalize_list(record.troop_types, enums.troop_types),
         role_tags=_normalize_list(record.role_tags, enums.role_tags),
+        base_attributes=base_attrs,
+        growth_attributes=growth_attrs,
+        max_attributes=max_attrs,
         signature_skills=record.signature_skills,
         notes=record.notes,
     )
+    has_attrs = base_attrs is not None
     entry = KnowledgeEntry(
         id=f"hero-{_slugify(canonical_name)}",
         domain=Domain.HERO,
@@ -53,7 +94,7 @@ def normalize_hero_record(record: HeroRawRecord, aliases: AliasConfig, enums: En
             f"{canonical_name}是{profile.faction or '未知阵营'}阵营可录入的核心武将静态资料条目。",
             "当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。",
         ],
-        constraints=["属性与成长数值待后续有稳定来源后再补录。"],
+        constraints=[] if has_attrs else ["属性与成长数值待后续有稳定来源后再补录。"],
         source_ref=f"INGESTION-{record.source.source_site.upper()}-HERO",
         updated_at=date.today(),
         confidence=0.9,

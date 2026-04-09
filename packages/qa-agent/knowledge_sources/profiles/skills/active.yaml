@@ -2,26 +2,1698 @@
   domain: skill
   entry_kind: skill_profile
   topic: 草船借箭
-  aliases: [草船]
+  aliases:
+  - 草船
   facts:
-    - 草船借箭是可录入的高频战法静态资料条目。
-    - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  - 草船借箭是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
   constraints:
-    - 具体数值与发动率待后续有稳定来源后再补录。
+  - 具体数值与发动率待后续有稳定来源后再补录。
   source_type: manual_rule
   source_ref: SGMDTX-SKILL-2026-03-29
   updated_at: 2026-03-29
   confidence: 0.9
-  related_topics: [诸葛亮, 战法基础资料]
+  related_topics:
+  - 诸葛亮
+  - 战法基础资料
   priority: 88
   structured_data:
     name: 草船借箭
-    aliases: [草船]
+    aliases:
+    - 草船
     rarity: 橙
     skill_type: 主动
     trigger_type: 主动
     target_scope: 友军群体
-    effect_tags: [解控, 恢复, 功能性]
-    preferred_roles: [辅助]
+    effect_tags:
+    - 解控
+    - 恢复
+    - 功能性
+    preferred_roles:
+    - 辅助
     notes:
-      - 金样本条目，来源已人工复核。
+    - 金样本条目，来源已人工复核。
+- id: skill-一计决胜
+  domain: skill
+  entry_kind: skill_profile
+  topic: 一计决胜
+  aliases: []
+  facts:
+  - 一计决胜是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 一计决胜
+    aliases: []
+    rarity: 紫
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 谋略
+    preferred_roles: []
+    notes:
+    - 效果（满级）：准备1回合，对敌军随机两人造成110%-220%谋略伤害，并施加虛弱状态,持续2回合，若目标已持有虚弱状态，则额外造成25%-50%谋略伤害
+    - 效果（初始）：准备1回合，对敌军随机两人造成110%谋略伤害，并施加虛弱状态,持续2回合，若目标已持有虛弱状态，则额外造成25%谋略伤害
+    - 满级发动概率：35%
+    - 初始发动概率：35%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-上智为间
+  domain: skill
+  entry_kind: skill_profile
+  topic: 上智为间
+  aliases: []
+  facts:
+  - 上智为间是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 上智为间
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 谋略
+    preferred_roles: []
+    notes:
+    - 效果（满级）：使敌军随机单体混乱，持续1回合，并造成150%一300%谋略伤害
+    - 效果（初始）：使敌军随机单体混乱，持续1回合，并造成150%谋略伤害
+    - 满级发动概率：45%
+    - 初始发动概率：45%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-五雷轰顶
+  domain: skill
+  entry_kind: skill_profile
+  topic: 五雷轰顶
+  aliases: []
+  facts:
+  - 五雷轰顶是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 五雷轰顶
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 谋略
+    preferred_roles: []
+    notes:
+    - 效果（满级）：准备1回合 ，对敌军随机单体造成80%一160%谋略伤害，施放5次，每次命中持有洪水状态的目标时，额外对其造成20%一40%谋略伤害
+    - 效果（初始）：准备1回合，对敌军随机单体造成80%谋略伤害，施放5次，每次命中持有洪水状态的目标时，额外对其造成20%谋略伤害
+    - 满级发动概率：50%
+    - 初始发动概率：50%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-任人唯贤
+  domain: skill
+  entry_kind: skill_profile
+  topic: 任人唯贤
+  aliases: []
+  facts:
+  - 任人唯贤是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 任人唯贤
+    aliases: []
+    rarity: 紫
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: null
+    effect_tags:
+    - 辅助
+    preferred_roles: []
+    notes:
+    - 效果（满级）：提升我军随机两人7.5%-15%造成伤害，12.5-25点统率，持续2回合
+    - 效果（初始）：提升我军随机两人7.5%造成伤害,12.5点统率，持续2回合
+    - 满级发动概率：60%
+    - 初始发动概率：60%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-伏兵四起
+  domain: skill
+  entry_kind: skill_profile
+  topic: 伏兵四起
+  aliases: []
+  facts:
+  - 伏兵四起是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 伏兵四起
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对敌军随机单体造成50%一100%至70%-140%兵刃伤害，施放4次
+    - 效果（初始）：对敌军随机单体造成50%至70%兵刃伤害，施放4次
+    - 满级发动概率：50%
+    - 初始发动概率：50%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-克敌如风
+  domain: skill
+  entry_kind: skill_profile
+  topic: 克敌如风
+  aliases: []
+  facts:
+  - 克敌如风是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 克敌如风
+    aliases: []
+    rarity: 紫
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对敌军随机单体造成120%-240%兵刃伤害(优先选择后排），并施加风暴,持续2回合。若目标已处于风暴状态则额外降低其12.5-25点先攻，持续2回合
+    - 效果（初始）：对敌军随机单体造成120%兵刃伤害(优先选择后排），并施加风暴,持续2回合。若目标已处于风暴状态则额外降低其12.5点先攻，持续2回合
+    - 满级发动概率：50%
+    - 初始发动概率：50%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-冲锐巧变
+  domain: skill
+  entry_kind: skill_profile
+  topic: 冲锐巧变
+  aliases: []
+  facts:
+  - 冲锐巧变是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 冲锐巧变
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对敌军随机单体造成180%-360%兵刃伤害，并使自身下一次释放的准备战法跳过一定回合准备。
+    - 满级发动概率：40%
+    - 初始发动概率：22%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-决水破敌
+  domain: skill
+  entry_kind: skill_profile
+  topic: 决水破敌
+  aliases: []
+  facts:
+  - 决水破敌是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 决水破敌
+    aliases: []
+    rarity: 紫
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 谋略
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对敌军随机两人造成50%-100%谋略伤害，若目标处于洪水状态。则额外造成30%一60%谋略伤害，否则施加洪水，持续2回合
+    - 效果（初始）：对敌军随机两人造成50%谋略伤害，若目标处于洪水状态。则额外造成30%谋略伤害，否则施加洪水，持续2回合
+    - 满级发动概率：60%
+    - 初始发动概率：60%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-出其不意
+  domain: skill
+  entry_kind: skill_profile
+  topic: 出其不意
+  aliases: []
+  facts:
+  - 出其不意是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 出其不意
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 谋略
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对敌军随机单体造成175%一350%谋略伤害，若目标持有负面状态该次伤害值提升25%
+    - 效果（初始）：对敌军随机单体造成175%谋略伤害，若目标持有负面状态该次伤害值提升25%
+    - 满级发动概率：55%
+    - 初始发动概率：55%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-势如破竹
+  domain: skill
+  entry_kind: skill_profile
+  topic: 势如破竹
+  aliases: []
+  facts:
+  - 势如破竹是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 势如破竹
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军群体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：提升自身20%会心几率，持续2回合 ，然后对敌军全体造成70%一140％兵刃伤害
+    - 效果（初始）：提升自身20%会心几率，持续2回合，然后对敌军全体造成70%兵刃伤害
+    - 满级发动概率：27.5%> 50%
+    - 初始发动概率：27.5%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-十面埋伏
+  domain: skill
+  entry_kind: skill_profile
+  topic: 十面埋伏
+  aliases: []
+  facts:
+  - 十面埋伏是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 十面埋伏
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军群体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对敌军全体造成75%->150%兵刃伤害，并有75%概率施加断粮，持续1回合
+    - 效果（初始）：对敌军全体造成75%->83.3%兵刃伤害，并有75%概率施加断粮，持续1回合
+    - 满级发动概率：45%
+    - 初始发动概率：45%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-及锋而试
+  domain: skill
+  entry_kind: skill_profile
+  topic: 及锋而试
+  aliases: []
+  facts:
+  - 及锋而试是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 及锋而试
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：提升自身10%→20%兵刃伤害，持续2回合，然后对敌军随机两人造成80%→160%兵刃伤害，目标存在属性降低状态，该次伤害系数额外提升30%
+    - 效果（初始）：提升自身10%→11.1%兵刃伤害，持续2回合，然后对敌军随机两人造成80%→88.8%兵刃伤害，目标存在属性降低状态，该次伤害系数额外提升30%
+    - 满级发动概率：60%
+    - 初始发动概率：60%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-咏歌尝酒
+  domain: skill
+  entry_kind: skill_profile
+  topic: 咏歌尝酒
+  aliases: []
+  facts:
+  - 咏歌尝酒是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 咏歌尝酒
+    aliases: []
+    rarity: 紫
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: null
+    effect_tags:
+    - 治疗
+    preferred_roles: []
+    notes:
+    - 效果（满级）：恢复我军随机两人兵力(治疗率65%-130%，受智力影响），并提升其8-16点统率，持续2回合
+    - 效果（初始）：恢复我军随机两人兵力(治疗率65%，受智力影响），并提升其8点统率，持续2回合
+    - 满级发动概率：65%
+    - 初始发动概率：65%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-坚壁清野
+  domain: skill
+  entry_kind: skill_profile
+  topic: 坚壁清野
+  aliases: []
+  facts:
+  - 坚壁清野是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 坚壁清野
+    aliases: []
+    rarity: 紫
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军群体
+    effect_tags:
+    - 防御
+    preferred_roles: []
+    notes:
+    - 效果（满级）：嘲讽敌军全体，并提升自身18一36点统率，持续2回合
+    - 效果（初始）：嘲讽敌军全体，并提升自身18点统率，持续2回合
+    - 满级发动概率：50%
+    - 初始发动概率：50%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-坚如磐石
+  domain: skill
+  entry_kind: skill_profile
+  topic: 坚如磐石
+  aliases: []
+  facts:
+  - 坚如磐石是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 坚如磐石
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军群体
+    effect_tags:
+    - 防御
+    preferred_roles: []
+    notes:
+    - 效果（满级）：嘲讽全体敌军，并使自身受到伤害降低15%一30%，持续2回合
+    - 效果（初始）：嘲讽全体敌军，并使自身受到伤害降低15%，持续2回合
+    - 满级发动概率：55%
+    - 初始发动概率：55%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-奇门遁甲
+  domain: skill
+  entry_kind: skill_profile
+  topic: 奇门遁甲
+  aliases: []
+  facts:
+  - 奇门遁甲是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 奇门遁甲
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军群体
+    effect_tags:
+    - 谋略
+    preferred_roles: []
+    notes:
+    - 效果（满级）：准备1回合,对敌军全体造成125%一250%谋略伤害，并有12.5%-25％概率施加震慑，持续1回合，目标每多一种异常状态，谋略伤害系数提升25%，震慑概率提升8%，可提升5次
+    - 效果（初始）：准备1回合，对敌军全体造成125%谋略伤害，并有12.5%概率施加震慑，持续1回合，目标每多一种异常状态，谋略伤害系数提升25%，震慑概率提升8%，可提升5次
+    - 满级发动概率：40%
+    - 初始发动概率：40%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-威名显赫
+  domain: skill
+  entry_kind: skill_profile
+  topic: 威名显赫
+  aliases: []
+  facts:
+  - 威名显赫是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 威名显赫
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：提升自身30%倒戈，持续2回合。然后对敌军随机两人造成110%-220%兵刃伤害
+    - 效果（初始）：提升自身30%倒戈，持续2回合。然后对敌军随机两人造成110%兵刃伤害
+    - 满级发动概率：27.5%>> 50%
+    - 初始发动概率：27.5%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-屈人之兵
+  domain: skill
+  entry_kind: skill_profile
+  topic: 屈人之兵
+  aliases: []
+  facts:
+  - 屈人之兵是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 屈人之兵
+    aliases: []
+    rarity: 紫
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 防御
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对敌军随机两人施加缴械，持续1回合 ，若目标已持有缴械，则使其造成伤害降低7.5%一15%，持续2回合
+    - 效果（初始）：对敌军随机两人施加缴械，持续1回合，若目标已持有缴械，则使其造成伤害降低7.5%，持续2回合
+    - 满级发动概率：22% »40%
+    - 初始发动概率：22%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-巧利天灾
+  domain: skill
+  entry_kind: skill_profile
+  topic: 巧利天灾
+  aliases: []
+  facts:
+  - 巧利天灾是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 巧利天灾
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: null
+    effect_tags:
+    - 谋略
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对除自身外的敌我全体目标造成70%一140%谋略伤害若为敌军目标且处于火攻状态，则有35%概率施加混乱，持续1回合若为敌军目标且处于洪水状态，则有35%概率施加缴械，持续1回合若为敌军目标且处于风暴状态，则有35%概率施加技穷，持续1回合
+    - 效果（初始）：对除自身外的敌我全体目标造成70%谋略伤害 若为敌军目标且处于火攻状态，则有35%概率施加混乱，持续1回合若 为敌军目标且处于洪水状态，则有35%概率施加缴械，持续1回合
+      若为敌军目标且处于风暴状态，则有35%概率施加技穷，持续1回合
+    - 满级发动概率：50%
+    - 初始发动概率：50%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-御敌临前
+  domain: skill
+  entry_kind: skill_profile
+  topic: 御敌临前
+  aliases: []
+  facts:
+  - 御敌临前是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 御敌临前
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 自身
+    effect_tags:
+    - 防御
+    preferred_roles: []
+    notes:
+    - 效果（满级）：使自身和一名随机队友受到伤害降低10%→20%(受先攻影响)，持续1回合，若自身为前排，额外恢复自身兵力(治疗率60%→120%，受智力和先攻影响
+    - 效果（初始）：使自身和一名随机队友受到伤害降低10%→11.1%(受先攻影响),持续1回合，若自身为前排，额外恢复自身兵力(治疗率60%→66.6%，受智力和先攻影响
+    - 满级发动概率：75%
+    - 初始发动概率：75%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-战八方
+  domain: skill
+  entry_kind: skill_profile
+  topic: 战八方
+  aliases: []
+  facts:
+  - 战八方是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 战八方
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军群体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对敌军全体造成65%一130%兵刃伤害，并施加畏惧，持续2回合
+    - 效果（初始）：对敌军全体造成65%兵刃伤害，并施加畏惧，持续2回合
+    - 满级发动概率：55%
+    - 初始发动概率：55%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-指点乾坤
+  domain: skill
+  entry_kind: skill_profile
+  topic: 指点乾坤
+  aliases: []
+  facts:
+  - 指点乾坤是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 指点乾坤
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军群体
+    effect_tags:
+    - 文武兼备
+    preferred_roles: []
+    notes:
+    - 效果（满级）：令我军武力最高单体对敌军全体造成40%一80%兵刃伤害，令我军智力最高单体对敌军全体造成40%-80%谋略伤害
+    - 效果（初始）：令我军武力最高单体对敌军全体造成40%兵刃伤害，令我军智力最高单体对敌军全体造成40%谋略伤害
+    - 满级发动概率：50%
+    - 初始发动概率：50%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-揭竿而起
+  domain: skill
+  entry_kind: skill_profile
+  topic: 揭竿而起
+  aliases: []
+  facts:
+  - 揭竿而起是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 揭竿而起
+    aliases: []
+    rarity: 紫
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对敌军随机两人造成75%一150%兵刃伤害，并对目标施加断粮，持续1回合
+    - 效果（初始）：对敌军随机两人造成75%兵刃伤害，并对目标施加断粮，持续1回合
+    - 满级发动概率：45%
+    - 初始发动概率：45%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-文武双全
+  domain: skill
+  entry_kind: skill_profile
+  topic: 文武双全
+  aliases: []
+  facts:
+  - 文武双全是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 文武双全
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: null
+    effect_tags:
+    - 文武兼备
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对敌军武力最高单体造成110%-220%谋略伤害，对敌军智力最高单体造成110%一›220%兵刃伤害
+    - 效果（初始）：对敌军武力最高单体造成110%谋略伤害，对敌军智力最高单体造成110%兵刃伤害
+    - 满级发动概率：65%
+    - 初始发动概率：65%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-料事如神
+  domain: skill
+  entry_kind: skill_profile
+  topic: 料事如神
+  aliases: []
+  facts:
+  - 料事如神是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 料事如神
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 谋略
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对敌军随机两人造成90%-180%谋略伤害，并有50%概率施加技穷，持续1回合
+    - 效果（初始）：对敌军随机两人造成90%谋略伤害，并有50%概率施加技穷，持续1回合
+    - 满级发动概率：45%
+    - 初始发动概率：45%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-斩将夺旗
+  domain: skill
+  entry_kind: skill_profile
+  topic: 斩将夺旗
+  aliases: []
+  facts:
+  - 斩将夺旗是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 斩将夺旗
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对统率最低的敌军单体造成110%-220%兵刃伤害，并施加断粮，持续2回合，若目标已持有断粮状态，则额外造成40%一80%兵刃伤害
+    - 效果（初始）：对统率最低的敌军单体造成110%兵刃伤害，并施加断粮，持续2回合，若目标已持有断粮状态,则额外造成40%兵刃伤害
+    - 满级发动概率：55%
+    - 初始发动概率：55%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-断戈夺锋
+  domain: skill
+  entry_kind: skill_profile
+  topic: 断戈夺锋
+  aliases: []
+  facts:
+  - 断戈夺锋是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 断戈夺锋
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对敌军随机两人造成110%→220%兵刃伤害，并有37.5%→75%概率施加缴械，持续1回合
+    - 效果（初始）：对敌军随机两人造成110%→122.2%兵刃伤害，并有37.5%→41.6%概率施加缴械，持续1回合
+    - 满级发动概率：50%
+    - 初始发动概率：50%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-无难之志
+  domain: skill
+  entry_kind: skill_profile
+  topic: 无难之志
+  aliases: []
+  facts:
+  - 无难之志是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 无难之志
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: null
+    effect_tags:
+    - 辅助
+    preferred_roles: []
+    notes:
+    - 效果（满级）：提升两名队友22.5%一45%连击率和20%倒戈，持续2回合
+    - 效果（初始）：提升两名队友22.5%连击率和20%倒戈，持续2回合
+    - 满级发动概率：38.5%>> 70%
+    - 初始发动概率：38.5%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-明其虚实
+  domain: skill
+  entry_kind: skill_profile
+  topic: 明其虚实
+  aliases: []
+  facts:
+  - 明其虚实是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 明其虚实
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 谋略
+    preferred_roles: []
+    notes:
+    - 效果（满级）：夺取敌军随机两人10->20点智力，统率（受智力影响），持续2回合，并造成70%->140%谋略伤害
+    - 效果（初始）：夺取敌军随机两人10->11.1点智力、统率（受智力影响），持续2回合，并造成70%->77.7%谋略伤害
+    - 满级发动概率：45%
+    - 初始发动概率：45%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-未雨绸缪
+  domain: skill
+  entry_kind: skill_profile
+  topic: 未雨绸缪
+  aliases: []
+  facts:
+  - 未雨绸缪是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 未雨绸缪
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 谋略
+    preferred_roles: []
+    notes:
+    - 效果（满级）：获得1层抵御，且奇谋几率和奇谋伤害提升4%一8%（受智力影响，自身每存在1种功能性增益状态，额外提升1%->2%，最多可提升8次），持续2回合，然后对敌军随机两人造成70%->140％谋略伤害
+    - 效果（初始）：获得1层抵御，且奇谋几率和奇谋伤害提升4%->4.44%（受智力影响，自身每存在1种功能性增益状态，额外提升1%->1.11%，最多可提升8次），持续2回合，然后对敌军随机两人造成70%->77.78%谋略伤害
+    - 满级发动概率：60%
+    - 初始发动概率：60%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-束手无策
+  domain: skill
+  entry_kind: skill_profile
+  topic: 束手无策
+  aliases: []
+  facts:
+  - 束手无策是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 束手无策
+    aliases: []
+    rarity: 紫
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 谋略
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对敌军随机单体造成100%-200%谋略伤害，并施加技穷，持续1回合
+    - 效果（初始）：对敌军随机单体造成100%谋略伤害，并施加技穷，持续1回合
+    - 满级发动概率：45%
+    - 初始发动概率：45%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-水淹七军
+  domain: skill
+  entry_kind: skill_profile
+  topic: 水淹七军
+  aliases: []
+  facts:
+  - 水淹七军是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 水淹七军
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军群体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：准备1回合，对敌军全体施加洪水，持续2回合，并造成130%一260%兵刃伤害，并施加技穷或缴械中的一种，持续1回合
+    - 效果（初始）：准备1回合，对敌军全体施加洪水，持续2回合，并造成130%兵刃伤害，并施加技穷或缴械中的一种，持续1回合
+    - 满级发动概率：40%
+    - 初始发动概率：40%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-洞若观火
+  domain: skill
+  entry_kind: skill_profile
+  topic: 洞若观火
+  aliases: []
+  facts:
+  - 洞若观火是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 洞若观火
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: null
+    effect_tags:
+    - 治疗
+    preferred_roles: []
+    notes:
+    - 效果（满级）：恢复我军随机单体兵力(治疗率130%-260%，受智力影响），并使其获得清醒，持续2回合
+    - 效果（初始）：恢复我军随机单体兵力(治疗率130%，受智力影响），并使其获得清醒，持续2回合
+    - 满级发动概率：50%
+    - 初始发动概率：50%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-清风驱疾
+  domain: skill
+  entry_kind: skill_profile
+  topic: 清风驱疾
+  aliases: []
+  facts:
+  - 清风驱疾是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 清风驱疾
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: null
+    effect_tags:
+    - 治疗
+    preferred_roles: []
+    notes:
+    - 效果（满级）：驱散我军随机两人1种负面状态，并恢复其兵力(治疗率90%-180%，受智力影响）
+    - 效果（初始）：驱散我军随机两人1种负面状态，并恢复其兵力(治疗率90%，受智力影
+    - 满级发动概率：60%
+    - 初始发动概率：60%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-火羽
+  domain: skill
+  entry_kind: skill_profile
+  topic: 火羽
+  aliases: []
+  facts:
+  - 火羽是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 火羽
+    aliases: []
+    rarity: 紫
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军群体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对敌军全体造成75%一150%兵刃伤害，并施加火攻，持续2回合
+    - 效果（初始）：对敌军全体造成75%兵刃伤害，并施加火攻，持续2回合
+    - 满级发动概率：40%
+    - 初始发动概率：40%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-烈火张天
+  domain: skill
+  entry_kind: skill_profile
+  topic: 烈火张天
+  aliases: []
+  facts:
+  - 烈火张天是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 烈火张天
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军群体
+    effect_tags:
+    - 文武兼备
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对敌军全体施加火攻，持续2回合，并造成45%一90%谋略和兵刃伤害
+    - 效果（初始）：对敌军全体施加火攻，持续2回合，并造成45%一50%谋略和兵刃伤害
+    - 满级发动概率：50%
+    - 初始发动概率：50%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-烈火焚营
+  domain: skill
+  entry_kind: skill_profile
+  topic: 烈火焚营
+  aliases: []
+  facts:
+  - 烈火焚营是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 烈火焚营
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军群体
+    effect_tags:
+    - 谋略
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对敌军全体造成40%一80%谋略伤害，并施加火攻状态，持续2回合。再进行3次焚营：对敌军随机单体造成40%一80％谋略伤害。若目标处于风暴状态，焚营的伤害值提升30%
+    - 效果（初始）：对敌军全体造成40%谋略伤害，并施加火攻状态，持续2回合。再进行3次焚营：对敌军随机单体造成40%谋略伤害。若目标处于风暴状态,焚营的伤害值提升30%
+    - 满级发动概率：45%
+    - 初始发动概率：45%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-疾行侧击
+  domain: skill
+  entry_kind: skill_profile
+  topic: 疾行侧击
+  aliases: []
+  facts:
+  - 疾行侧击是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 疾行侧击
+    aliases: []
+    rarity: 紫
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对敌军随机单体造成75%一150%兵刃伤害，并施加畏惧，持续2回合，施放2次
+    - 效果（初始）：对敌军随机单体造成75%兵刃伤害，并施加畏惧，持续2回合，施放2次
+    - 满级发动概率：60%
+    - 初始发动概率：60%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-知人善任
+  domain: skill
+  entry_kind: skill_profile
+  topic: 知人善任
+  aliases: []
+  facts:
+  - 知人善任是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 知人善任
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: null
+    effect_tags:
+    - 防御
+    preferred_roles: []
+    notes:
+    - 效果（满级）：使我军智力最高单体受到伤害降低12.5%一25%（受智力影响），持续2回合，并获得1层抵御
+    - 效果（初始）：使我军智力最高单体受到伤害降低12.5%(受智力影响），持续2回合，并获得1层抵御
+    - 满级发动概率：75%
+    - 初始发动概率：75%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-破军袭敌
+  domain: skill
+  entry_kind: skill_profile
+  topic: 破军袭敌
+  aliases: []
+  facts:
+  - 破军袭敌是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 破军袭敌
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军群体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：准备1回合，对敌军全体造成150%-300%兵刃伤害
+    - 效果（初始）：准备1回合，对敌军全体造成150%兵刃伤害
+    - 满级发动概率：50%
+    - 初始发动概率：50%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-破阵驰围
+  domain: skill
+  entry_kind: skill_profile
+  topic: 破阵驰围
+  aliases: []
+  facts:
+  - 破阵驰围是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 破阵驰围
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：准备1回合，使敌军随机单体受到伤害提升15%一30%，持续2回合。然后对其造成220%一440%兵刃伤害
+    - 效果（初始）：准备1回合，使敌军随机单体受到伤害提升15%，持续2回合。然后对其造成220%兵刃伤害
+    - 满级发动概率：60%
+    - 初始发动概率：60%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-神略制变
+  domain: skill
+  entry_kind: skill_profile
+  topic: 神略制变
+  aliases: []
+  facts:
+  - 神略制变是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 神略制变
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 谋略
+    preferred_roles: []
+    notes:
+    - 效果（满级）：前4回合发动时，恢复我军随机两人兵力(治疗率55%→110%，受智力影响)后4回合发动时，对敌军随机两人造成80%→160%谋略伤害
+    - 效果（初始）：前4回合发动时，恢复我军随机两人兵力(治疗率55%→61.1%，受智力影响)后4回合发动时，对敌军随机两人造成80%→88.8%谋略伤害
+    - 满级发动概率：100%
+    - 初始发动概率：100%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-筹划良策
+  domain: skill
+  entry_kind: skill_profile
+  topic: 筹划良策
+  aliases: []
+  facts:
+  - 筹划良策是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 筹划良策
+    aliases: []
+    rarity: 紫
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 谋略
+    preferred_roles: []
+    notes:
+    - 效果（满级）：提升自身10一20点智力，持续2回合，对敌军随机两人造成80%-160％谋略伤害
+    - 效果（初始）：提升自身10点智力，持续2回合，对敌军随机两人造成80%谋略伤害
+    - 满级发动概率：50%
+    - 初始发动概率：50%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-经天纬地
+  domain: skill
+  entry_kind: skill_profile
+  topic: 经天纬地
+  aliases: []
+  facts:
+  - 经天纬地是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 经天纬地
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军群体
+    effect_tags:
+    - 谋略
+    preferred_roles: []
+    notes:
+    - 效果（满级）：准备1回合，对敌军全体造成130%->260%谋略伤害，并有40%->80%概率使目标随机获得1种控制状态，持续2回合
+    - 效果（初始）：准备1回合，对敌军全体造成130%->144.4%谋略伤害，并有40%->44.4%概率使目标随机获得1种控制状态，持续2回合
+    - 满级发动概率：45%
+    - 初始发动概率：45%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-诱敌深入
+  domain: skill
+  entry_kind: skill_profile
+  topic: 诱敌深入
+  aliases: []
+  facts:
+  - 诱敌深入是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 诱敌深入
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军群体
+    effect_tags:
+    - 防御
+    preferred_roles: []
+    notes:
+    - 效果（满级）：嘲讽全体敌军,持续1回合,并获得2.5%→5%(受先攻影响)当前兵力的伏兵。伏兵:功能性增益状态,数量上限1500,回合结束时消失，受到伤害时，消耗伏兵抵挡其中50%的伤害,并使伤害来源产生等额逃兵
+    - 效果（初始）：嘲讽全体敌军,持续1回合,并获得2.5%→2.7%(受先攻影响)当前兵力的伏兵。伏兵:功能性增益状态，数量上限1500,回合结束时消失,受到伤害时，消耗伏兵抵挡其中50%的伤害,并使伤害来源产生等额逃兵
+    - 满级发动概率：70%
+    - 初始发动概率：70%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-趁火打劫
+  domain: skill
+  entry_kind: skill_profile
+  topic: 趁火打劫
+  aliases: []
+  facts:
+  - 趁火打劫是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 趁火打劫
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 文武兼备
+    preferred_roles: []
+    notes:
+    - 效果（满级）：准备1回合 ，对敌军随机两人造成110%-220%谋略和兵刃伤害,若目标处于火攻状态，则额外施加混乱状态，持续2回合
+    - 效果（初始）：准备1回合，对敌军随机两人造成110%谋略和兵刃伤害，若目标处于火攻状态，则额外施加混乱状态，持续2回合
+    - 满级发动概率：50%
+    - 初始发动概率：50%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-迎敌
+  domain: skill
+  entry_kind: skill_profile
+  topic: 迎敌
+  aliases: []
+  facts:
+  - 迎敌是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 迎敌
+    aliases: []
+    rarity: 紫
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：准备1回合，提升自身10%-20%破甲，持续2回合，然后对敌军单体造成220%一440%兵刃伤害，优先选择前排目标
+    - 效果（初始）：准备1回合，提升自身10%破甲，持续2回合，然后对敌军单体造成220％兵刃伤害，优先选择前排目标
+    - 满级发动概率：50%
+    - 初始发动概率：50%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-运筹帷幄
+  domain: skill
+  entry_kind: skill_profile
+  topic: 运筹帷幄
+  aliases: []
+  facts:
+  - 运筹帷幄是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 运筹帷幄
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 辅助
+    preferred_roles: []
+    notes:
+    - 效果（满级）：降低敌军随机两人15-30武力，智力，统率，先攻(受智力影响），持续2回合
+    - 效果（初始）：降低敌军随机两人15武力，智力，统率，先攻(受智力影响），持续2回合
+    - 满级发动概率：45%
+    - 初始发动概率：45%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-青囊急救
+  domain: skill
+  entry_kind: skill_profile
+  topic: 青囊急救
+  aliases: []
+  facts:
+  - 青囊急救是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 青囊急救
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: null
+    effect_tags:
+    - 治疗
+    preferred_roles: []
+    notes:
+    - 效果（满级）：驱散我军兵力最低单体3种负面状态，并恢复其兵力(治疗率130%一260%，受智力影响）
+    - 效果（初始）：驱散我军兵力最低单体3种负面状态，并恢复其兵力(治疗率130%，受智力影响）
+    - 满级发动概率：55%
+    - 初始发动概率：55%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-风助火势
+  domain: skill
+  entry_kind: skill_profile
+  topic: 风助火势
+  aliases: []
+  facts:
+  - 风助火势是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 风助火势
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军群体
+    effect_tags:
+    - 文武兼备
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对敌军全体施加风暴和火攻,持续1回合,若目标已持有风暴状态,则额外使其武力降低10→20点(受武力影响),持续1回合;若目标已持有火攻状态,则额外使其智力降低10→20点(受智力影响),持续1回合
+    - 效果（初始）：对敌军全体施加风暴和火攻，持续1回合,若目标已持有风暴状态,则额外使其武力降低10→11.1点(受武力影响)持续1回合;若目标已持有火攻状态，则额外使其智力降低10→11.1点(受智力影响),持续1回合
+    - 满级发动概率：70%
+    - 初始发动概率：70%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-风卷残云
+  domain: skill
+  entry_kind: skill_profile
+  topic: 风卷残云
+  aliases: []
+  facts:
+  - 风卷残云是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 风卷残云
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: 敌军单体
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对敌军随机两人造成90%-180%兵刃伤害，若目标处于风暴状态，则该次伤害提升25%。若自身处于风暴状态，则自身规避率提升5%-10%，持续2回合
+    - 效果（初始）：对敌军随机两人造成90%兵刃伤害，若目标处于风暴状态，则该次伤害提升25%。若自身处于风暴状态，则自身规避率提升5%，持续2回合
+    - 满级发动概率：60%
+    - 初始发动概率：60%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-黄天惑心
+  domain: skill
+  entry_kind: skill_profile
+  topic: 黄天惑心
+  aliases: []
+  facts:
+  - 黄天惑心是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 黄天惑心
+    aliases: []
+    rarity: 橙
+    skill_type: 主动
+    trigger_type: 主动
+    target_scope: null
+    effect_tags:
+    - 谋略
+    preferred_roles: []
+    notes:
+    - 效果（满级）：对敌方全体造成70%→140%的谋略伤害，并施加妖术，持续2回合，若目标已持有妖术状态则额外使其造成伤害降低8%→16%，持续1回合
+    - 效果（初始）：对敌方全体造成70%→77.7%的谋略伤害，并施加妖术持续2回合，若目标已持有妖术状态则额外使其造成伤害降低8%→8.8%，持续1回合
+    - 满级发动概率：55%
+    - 初始发动概率：55%
+    - 适配兵种：🛡️🏹️↖️🐎

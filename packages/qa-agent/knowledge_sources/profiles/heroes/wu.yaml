@@ -1,2 +1,1090 @@
-[]
-
+- id: hero-凌统
+  domain: hero
+  entry_kind: hero_profile
+  topic: 凌统
+  aliases: []
+  facts:
+  - 凌统是吴阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 旋略勇进
+  priority: 88
+  structured_data:
+    name: 凌统
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 骑兵
+    role_tags:
+    - T2追击
+    base_attributes:
+      military: 102
+      intelligence: 63
+      command: 89
+      initiative: 90
+    growth_attributes:
+      military: 2.18
+      intelligence: 0.88
+      command: 1.42
+      initiative: 2.42
+    max_attributes:
+      military: 200
+      intelligence: 103
+      command: 153
+      initiative: 199
+    signature_skills:
+    - 旋略勇进
+    notes:
+    - 自带战法「旋略勇进」效果（满级）：普通攻击后,我军全体造成伤害提升3.5%→7%(额外受目标连击率影响)，持续2回合，可叠加4次;随后对敌军全体造成40%→80%兵刃伤害（发动概率：100%）
+    - 自带战法「旋略勇进」效果（初始）：普通攻击后，我军全体造成伤害提升3.5%→3.8%(额外受目标连击率影响),持续2回合，可叠加4次;随后对敌军全体造成40%→44.4%兵刃伤害
+    - 缘分「江表虎臣」：黄盖、甘宁、徐盛、程普、周泰、凌统、蒋钦、丁奉、董袭、韩当、陈武、潘璋——部队中缘分武将统率提升10点，受到伤害降低3%
+    - 缘分「弯弓饮羽」：太史慈、甘宁、凌统——部队中缘分武将普通攻击伤害提升8%
+    - 赛季：s9
+    - 初始属性：武力102 智力63 统率89 先攻90
+    - 成长值：武力2.18 智力0.88 统率1.42 先攻2.42
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力200 智力103 统率153 先攻199
+- id: hero-吕蒙
+  domain: hero
+  entry_kind: hero_profile
+  topic: 吕蒙
+  aliases: []
+  facts:
+  - 吕蒙是吴阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 白衣渡江
+  priority: 88
+  structured_data:
+    name: 吕蒙
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T1谋略
+    base_attributes:
+      military: 93
+      intelligence: 106
+      command: 103
+      initiative: 77
+    growth_attributes:
+      military: 1.9
+      intelligence: 2.38
+      command: 1.8
+      initiative: 2.19
+    max_attributes:
+      military: 178
+      intelligence: 213
+      command: 184
+      initiative: 176
+    signature_skills:
+    - 白衣渡江
+    notes:
+    - 自带战法「白衣渡江」效果（满级）：对敌军随机两人造成80%一160%谋略伤害，并施加断粮，持续2回合，若目标已处于断粮状态则额外对目标造成40%一80%谋略伤害（发动概率：70%）
+    - 自带战法「白衣渡江」效果（初始）：对敌军随机两人造成80%-88.8%谋略伤害，并施加断粮，持续2回合，若目标已处于断粮状态则额外对目标造成40%-44.4%谋略伤害
+    - 缘分「东吴大都督」：周瑜、鲁肃、吕蒙、陆逊——部队中缘分武将获得8%攻心
+    - 缘分「士别三日」：吕蒙、鲁肃——战斗第3回合开始时，部队中缘分武将受到主动战法伤害降低12%
+    - 推荐战法：韬光养晦、计袭粮仓、断敌粮道、出其不意、决水破敌、束手无策、一计决胜、筹划良策、计逐穷寇
+    - 赛季：s1
+    - 初始属性：武力93 智力106 统率103 先攻77
+    - 成长值：武力1.90 智力2.38 统率1.80 先攻2.19
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力178 智力213 统率184 先攻176
+- id: hero-周泰
+  domain: hero
+  entry_kind: hero_profile
+  topic: 周泰
+  aliases: []
+  facts:
+  - 周泰是吴阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 不屈意志
+  priority: 88
+  structured_data:
+    name: 周泰
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T1防御
+    base_attributes:
+      military: 87
+      intelligence: 52
+      command: 112
+      initiative: 63
+    growth_attributes:
+      military: 1.5
+      intelligence: 0.78
+      command: 2.21
+      initiative: 1.45
+    max_attributes:
+      military: 154
+      intelligence: 87
+      command: 211
+      initiative: 128
+    signature_skills:
+    - 不屈意志
+    notes:
+    - 自带战法「不屈意志」效果（满级）：当队友即将受到高于当前兵力10%的伤害时，有40%->80%概率（受统率影响）为队友承担此伤害，每回合每名队友最多3次，承担的伤害降低25%->50%（受统率影响）。自身即将阵亡且有队友存活时，有50%->100%概率触发不屈：免疫1次致命伤害。每次触发不屈后，下次触发概率降低5%-10%（发动概率：100%）
+    - 自带战法「不屈意志」效果（初始）：当队友即将受到高于当前兵力10%的伤害时，有40%->44.4%概率（受统率影响）为队友承担此伤害，每回合每名队友最多3次，承担的伤害降低25%->27.7%（受统率影响）。自身即将阵亡且有队友存活时，有50%-55.5%概率触发不屈：免疫1次致命伤害。每次触发不屈后，下次触发概率降低5%-5.5%
+    - 缘分「折冲左右」：孙权、甘宁、周泰——部队中缘分武将武力提升20点
+    - 缘分「江表虎臣」：黄盖、甘宁、徐盛、程普、周泰、凌统、蒋钦、丁奉、董袭、韩当、陈武、潘璋——部队中缘分武将统率提升10点，受到伤害降低3%
+    - 推荐战法：同舟共济、披坚执锐、以静制动、忘私相助、轻装驰援、坚壁清野、避其锐气、铸甲销戈、屈人之兵
+    - 赛季：s3
+    - 初始属性：武力87 智力52 统率112 先攻63
+    - 成长值：武力1.50 智力0.78 统率2.21 先攻1.45
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力154 智力87 统率211 先攻128
+- id: hero-周瑜
+  domain: hero
+  entry_kind: hero_profile
+  topic: 周瑜
+  aliases: []
+  facts:
+  - 周瑜是吴阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 临机制胜
+  priority: 88
+  structured_data:
+    name: 周瑜
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T0谋略
+    base_attributes:
+      military: 77
+      intelligence: 114
+      command: 104
+      initiative: 62
+    growth_attributes:
+      military: 0.95
+      intelligence: 2.75
+      command: 2.01
+      initiative: 1.73
+    max_attributes:
+      military: 120
+      intelligence: 238
+      command: 194
+      initiative: 140
+    signature_skills:
+    - 临机制胜
+    notes:
+    - 自带战法「临机制胜」效果（满级）：战斗中，敌我全体被施加异常状态时，有70%概率触发制胜：立刻对敌军随机两人造成30%一60%谋略伤害。每回合制胜最多触发4次。累积触发4次制胜后，恢复我军全体兵力(治疗率20%一40%，受智力影响）（发动概率：100%）
+    - 自带战法「临机制胜」效果（初始）：战斗中，敌我全体被施加异常状态时，有70%概率触发制胜：立刻对敌军随机两人造成30%-33.3%谋略伤害。每回合制胜最多触发4次。累积触发4次制胜后，恢复我军全体兵力(治疗率20%-22.2%，受智力影响）
+    - 缘分「顾曲唱和」：周瑜、小乔——部队中缘分武将主动战法发动率提升4%
+    - 缘分「东吴大都督」：周瑜、鲁肃、吕蒙、陆逊——部队中缘分武将获得8%攻心
+    - 缘分「苦肉计」：周瑜、黄盖——部队中缘分武将首次受到来自友方的伤害后，受到主动战法伤害降低12%
+    - 缘分「国之栋梁」：诸葛亮、周瑜、司马懿——战斗中造成的前3次谋略伤害提升50%
+    - 推荐战法：奇正相生、狂风大作、断敌粮道、王佐之才、烈火焚营、上智为间、料事如神、决水破敌、束手无策、一计决胜、筹划良策
+    - 赛季：s1
+    - 初始属性：武力77 智力114 统率104 先攻62
+    - 成长值：武力0.95 智力2.75 统率2.01 先攻1.73
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力120 智力238 统率194 先攻140
+- id: hero-大乔
+  domain: hero
+  entry_kind: hero_profile
+  topic: 大乔
+  aliases: []
+  facts:
+  - 大乔是吴阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 国色
+  priority: 88
+  structured_data:
+    name: 大乔
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T0辅助
+    base_attributes:
+      military: 24
+      intelligence: 95
+      command: 106
+      initiative: 35
+    growth_attributes:
+      military: 0.35
+      intelligence: 2.15
+      command: 1.69
+      initiative: 1.72
+    max_attributes:
+      military: 40
+      intelligence: 192
+      command: 182
+      initiative: 112
+    signature_skills:
+    - 国色
+    notes:
+    - 自带战法「国色」效果（满级）：每个回合开始时，敌军随机两人受到伤害提升10%-20%，恢复我军随机两人兵力(治疗率90%一180%，受智力影响）（发动概率：100%）
+    - 自带战法「国色」效果（初始）：每个回合开始时，敌军随机两人受到伤害提升10%，恢复我军随机两人兵力(治疗率90%，受智力影响）
+    - 缘分「吴宫冷闭」：小乔、大乔、步练师——部队中缘分武将智力提升20点
+    - 缘分「馨香俎豆」：孙策、大乔——部队中缘分武将统率提升20点
+    - 推荐战法：奇正相生、固若金汤、披坚执锐、青囊急救、清风驱疾、洞若观火、横征暴敛、无难之志、以静制动、指点乾坤、来好息师、避其锐气、铸甲销戈、咏歌尝酒、决水破敌、束手无策、一计决胜
+    - 赛季：s1
+    - 初始属性：武力24 智力95 统率106 先攻35
+    - 成长值：武力0.35 智力2.15 统率1.69 先攻1.72
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力40 智力192 统率182 先攻112
+- id: hero-太史慈
+  domain: hero
+  entry_kind: hero_profile
+  topic: 太史慈
+  aliases: []
+  facts:
+  - 太史慈是吴阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 弦无虛发
+  priority: 88
+  structured_data:
+    name: 太史慈
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T2追击
+    base_attributes:
+      military: 110
+      intelligence: 94
+      command: 108
+      initiative: 80
+    growth_attributes:
+      military: 2.49
+      intelligence: 1.22
+      command: 1.89
+      initiative: 2.54
+    max_attributes:
+      military: 222
+      intelligence: 149
+      command: 193
+      initiative: 194
+    signature_skills:
+    - 弦无虛发
+    notes:
+    - 自带战法「弦无虛发」效果（满级）：每个回合开始时，有45%-90%概率获得1层蓄力：成功普通攻击后可消耗所有蓄力层数进行额外的普通攻击(无视缴械状态,普通攻击次数等于蓄力层数）。自身普通攻击前，若处于缴械或无法普通攻击状态，则有45%-95%概率获得1层蓄力（发动概率：100%）
+    - 自带战法「弦无虛发」效果（初始）：每个回合开始时，有45%概率获得1层蓄力：成功普通攻击后可消耗所有蓄力层数进行额外的普通攻击(无视缴械状态，普通攻击次数等于蓄力层数）。自身普通攻击前，若处于缴械或无法普通攻击状态，则有45%概率获得1层蓄力
+    - 缘分「神亭酣战」：太史慈、孙策——部队中缘分武将武力提升20点
+    - 缘分「弯弓饮羽」：太史慈、甘宁、凌统——部队中缘分武将普通攻击伤害提升8%
+    - 推荐战法：三军夺气、乘间投隙、乘虚而入、攻其不备、轻装驰援、干里突裝、兵贵神速、横扫千军、临阵突袭、乱敌方阵、千里突袭、以战养战、夜袭
+    - 赛季：s1
+    - 初始属性：武力110 智力94 统率108 先攻80
+    - 成长值：武力2.49 智力1.22 统率1.89 先攻2.54
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力222 智力149 统率193 先攻194
+- id: hero-孙坚
+  domain: hero
+  entry_kind: hero_profile
+  topic: 孙坚
+  aliases: []
+  facts:
+  - 孙坚是吴阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 武烈破虏
+  priority: 88
+  structured_data:
+    name: 孙坚
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T2防御
+    base_attributes:
+      military: 100
+      intelligence: 82
+      command: 113
+      initiative: 73
+    growth_attributes:
+      military: 2.18
+      intelligence: 0.77
+      command: 2.3
+      initiative: 1.71
+    max_attributes:
+      military: 198
+      intelligence: 117
+      command: 216
+      initiative: 150
+    signature_skills:
+    - 武烈破虏
+    notes:
+    - 自带战法「武烈破虏」效果（满级）：降低敌军随机单体20-40点统率(受武力或统率最高值影响），持续2回合，并造成125%-250%兵刃伤害，若目标统率低于自身则额外施加震慑，持续1回合，高于自身则使降低统率效果提升50%（发动概率：55%）
+    - 自带战法「武烈破虏」效果（初始）：降低敌军随机单体20-22.2点统率(受武力或统率最高值影响），持续2回合，并造成125%-138.8%兵刃伤害，若目标统率低于自身则额外施加震慑，持续1回合，高于自身则使降低统率效果提升50%
+    - 缘分「志继江东」：孙坚、孙策、孙权、孙尚香、孙坚2——部队中缘分武将造成伤害提升7%
+    - 推荐战法：固若金汤、横征暴敛、忘私相助、坚如磐石、披坚执锐、战八方、伏兵四起、破阵驰围、威名显赫、斩将夺旗、坚壁清野、避其锐气、铸甲销戈
+    - 赛季：s1
+    - 初始属性：武力100 智力82 统率113 先攻73
+    - 成长值：武力2.18 智力0.77 统率2.30 先攻1.71
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力198 智力117 统率216 先攻150
+- id: hero-孙坚2
+  domain: hero
+  entry_kind: hero_profile
+  topic: 孙坚2
+  aliases: []
+  facts:
+  - 孙坚2是吴阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 诛凶殄逆
+  priority: 88
+  structured_data:
+    name: 孙坚2
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - 兵刃
+    base_attributes:
+      military: 106
+      intelligence: 70
+      command: 100
+      initiative: 85
+    growth_attributes:
+      military: 2.62
+      intelligence: 1.55
+      command: 2.34
+      initiative: 1.92
+    max_attributes:
+      military: 224
+      intelligence: 140
+      command: 205
+      initiative: 171
+    signature_skills:
+    - 诛凶殄逆
+    notes:
+    - 自带战法「诛凶殄逆」效果（满级）：对敌军统率最低两人施加1层凶逆：受到伤害提升1.5%->3%（受武力影响），可叠加5层，并对其造成75%->150%兵刃伤害，若目标存在5层凶逆效果，额外使目标产生逃兵（受武力和目标已损兵力影响，最高1000）。成功发动后，有25%->50%概率（受武力影响）额外再释放一次诛凶殄逆（无法再次发动）（发动概率：65%）
+    - 自带战法「诛凶殄逆」效果（初始）：对敌军统率最低两人施加1层凶逆：受到伤害提升1.5%->1.67%（受武力影响），可叠加5层，并对其造成75%->83.33%兵刃伤害，若目标存在5层凶逆效果，额外使目标产生逃兵（受武力和目标已损兵力影响，最高1000）。成功发动后，有25%->27.78%概率（受武力影响）额外再释放一次义殄（无法再次发动）
+    - 缘分「志继江东」：孙坚、孙策、孙权、孙尚香、孙坚2——部队中缘分武将造成伤害提升7%
+    - 赛季：s13
+    - 初始属性：武力106 智力70 统率100 先攻85
+    - 成长值：武力2.62 智力1.55 统率2.34 先攻1.92
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力224 智力140 统率205 先攻171
+- id: hero-孙尚香
+  domain: hero
+  entry_kind: hero_profile
+  topic: 孙尚香
+  aliases: []
+  facts:
+  - 孙尚香是吴阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 弓腰姬
+  priority: 88
+  structured_data:
+    name: 孙尚香
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T1追击
+    base_attributes:
+      military: 107
+      intelligence: 79
+      command: 97
+      initiative: 70
+    growth_attributes:
+      military: 2.38
+      intelligence: 0.98
+      command: 1.66
+      initiative: 2.41
+    max_attributes:
+      military: 214
+      intelligence: 123
+      command: 172
+      initiative: 178
+    signature_skills:
+    - 弓腰姬
+    notes:
+    - 自带战法「弓腰姬」效果（满级）：普通攻击后，对敌军随机单体造成160%-320%兵刃伤害，每有1名异性敌人，该次伤害系数提升15%-30%，75%概率优先选择后排目标（发动概率：65%）
+    - 自带战法「弓腰姬」效果（初始）：普通攻击后，对敌军随机单体造成160%-177.7%兵刃伤害，每有1名异性敌人，该次伤害系数提升15%-16.6%，75%概率优先选择后排目标
+    - 缘分「珠联璧合」：刘备、孙尚香——部队中缘分武将受到谋略伤害降低6%
+    - 缘分「志继江东」：孙坚、孙策、孙权、孙尚香、孙坚2——部队中缘分武将造成伤害提升7%
+    - 推荐战法：兵贵神速、铁骑横冲、横扫千军、攻其不备、干里突装、乘虛而入、骁勇之姿、乱敌方阵、临阵突裘、夜袭
+    - 赛季：s1
+    - 初始属性：武力107 智力79 统率97 先攻70
+    - 成长值：武力2.38 智力0.98 统率1.66 先攻2.41
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力214 智力123 统率172 先攻178
+- id: hero-孙权
+  domain: hero
+  entry_kind: hero_profile
+  topic: 孙权
+  aliases: []
+  facts:
+  - 孙权是吴阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 虎踞江东
+  priority: 88
+  structured_data:
+    name: 孙权
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T0辅助
+    base_attributes:
+      military: 90
+      intelligence: 96
+      command: 101
+      initiative: 74
+    growth_attributes:
+      military: 1.91
+      intelligence: 2.08
+      command: 2.09
+      initiative: 2.33
+    max_attributes:
+      military: 176
+      intelligence: 190
+      command: 195
+      initiative: 179
+    signature_skills:
+    - 虎踞江东
+    notes:
+    - 自带战法「虎踞江东」效果（满级）：自身每学习一个主动战法，我军全体提升3.5%-7%，受到兵刃伤害降低2.5%-5%，主动战法发动率自身每学习一个非主动战法，我军全体提升14%一28%连击率，到谋略伤害降低2.5%-5%(对自身的提升效果受最高属性影响）（发动概率：100%）
+    - 自带战法「虎踞江东」效果（初始）：自身每学习一个主动战法，我军全体提升3.5%-3.8%主动战法发动率,受到兵刃伤害降低2.5%-2.7%，自身每学习一个非主动战法，我军全体提升14%-15.5%连击率，受到谋略伤害降低2.5%-2.7%(对自身的提升效果受最高属性影响）
+    - 缘分「志继江东」：孙坚、孙策、孙权、孙尚香、孙坚2——部队中缘分武将造成伤害提升7%
+    - 缘分「三分天下」：曹操、刘备、孙权——部队中缘分武将受到伤害降低6%
+    - 缘分「折冲左右」：孙权、甘宁、周泰——部队中缘分武将武力提升20点
+    - 推荐战法：知人善任、三军夺气、指点乾坤、文武双全、水淹七军、出其不意、料事如神、奇门遁甲、上智为间、烈火焚营、运筹帷幄、洞若观火、青囊急救、舍生取义、披坚执锐、无难之志、轻装驰援、清风驱疾、决水破敌、束手无策、咏歌尝酒、坚壁清野、铸甲销戈、避其锐气、任人唯贤
+    - 赛季：s1
+    - 初始属性：武力90 智力96 统率101 先攻74
+    - 成长值：武力1.91 智力2.08 统率2.09 先攻2.33
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力176 智力190 统率195 先攻179
+- id: hero-孙策
+  domain: hero
+  entry_kind: hero_profile
+  topic: 孙策
+  aliases: []
+  facts:
+  - 孙策是吴阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 制霸江东
+  priority: 88
+  structured_data:
+    name: 孙策
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T1兵刃
+    base_attributes:
+      military: 112
+      intelligence: 77
+      command: 110
+      initiative: 74
+    growth_attributes:
+      military: 2.59
+      intelligence: 1.3
+      command: 2.12
+      initiative: 2.53
+    max_attributes:
+      military: 229
+      intelligence: 136
+      command: 205
+      initiative: 188
+    signature_skills:
+    - 制霸江东
+    notes:
+    - 自带战法「制霸江东」效果（满级）：对敌军随机两人造成100%一200%兵刃伤害(自身为后排时，兵刃系数提升25%-50%），并恢复自身兵力(治疗率50%一100%，额外受武力影响，自身为前排时，治疗系数提升15%-30%，受智力影响）（发动概率：65%）
+    - 自带战法「制霸江东」效果（初始）：对敌军随机两人造成100%兵刃伤害(自身为后排时，兵刃系数提升25％)，并恢复自身兵力(治疗率50%，额外受武力影响，自身为前排时，治疗系数提升15%，受智力影响）
+    - 缘分「馨香俎豆」：孙策、大乔——部队中缘分武将统率提升20点
+    - 缘分「志继江东」：孙坚、孙策、孙权、孙尚香、孙坚2——部队中缘分武将造成伤害提升7%
+    - 缘分「神亭酣战」：太史慈、孙策——部队中缘分武将武力提升20点
+    - 推荐战法：威名显赫、战八方、破阵驰围、势如破竹、破军袭敌、斩将夺旗、揭竿而起、克敌如风、破军袭敌、火羽
+    - 赛季：s1
+    - 初始属性：武力112 智力77 统率110 先攻74
+    - 成长值：武力2.59 智力1.30 统率2.12 先攻2.53
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力229 智力136 统率205 先攻188
+- id: hero-小乔
+  domain: hero
+  entry_kind: hero_profile
+  topic: 小乔
+  aliases: []
+  facts:
+  - 小乔是吴阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 天香
+  priority: 88
+  structured_data:
+    name: 小乔
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T2辅助
+    base_attributes:
+      military: 22
+      intelligence: 94
+      command: 88
+      initiative: 73
+    growth_attributes:
+      military: 0.38
+      intelligence: 2.14
+      command: 1.64
+      initiative: 2.39
+    max_attributes:
+      military: 39
+      intelligence: 190
+      command: 162
+      initiative: 181
+    signature_skills:
+    - 天香
+    notes:
+    - 自带战法「天香」效果（满级）：对敌军随机两人施加虚弱，持续1回合。恢复我军随机两人兵力(治疗率为125%-250%，受智方影响）（发动概率：35%）
+    - 自带战法「天香」效果（初始）：对敌军随机两人施加虛弱，持续1回合。恢复我军随机两人兵力(治疗率为125%-138.8%，受智力影响）
+    - 缘分「吴宫冷闭」：小乔、大乔、步练师——部队中缘分武将智力提升20点
+    - 缘分「顾曲唱和」：周瑜、小乔——部队中缘分武将主动战法发动率提升4%
+    - 推荐战法：韬光养晦、料事如神、出其不意、奇门遁甲、清风驱疾、洞若观火、青囊急救、运筹帷幄、一计决胜、决水破敌、束手无策、咏歌尝酒、屈人之兵、筹划良策
+    - 赛季：s1
+    - 初始属性：武力22 智力94 统率88 先攻73
+    - 成长值：武力0.38 智力2.14 统率1.64 先攻2.39
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力39 智力190 统率162 先攻181
+- id: hero-张昭
+  domain: hero
+  entry_kind: hero_profile
+  topic: 张昭
+  aliases: []
+  facts:
+  - 张昭是吴阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 直谏固政
+  priority: 88
+  structured_data:
+    name: 张昭
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 弓兵
+    role_tags:
+    - T2辅助
+    base_attributes:
+      military: 16
+      intelligence: 103
+      command: 83
+      initiative: 87
+    growth_attributes:
+      military: 0.23
+      intelligence: 2.3
+      command: 1.65
+      initiative: 1.79
+    max_attributes:
+      military: 26
+      intelligence: 206
+      command: 157
+      initiative: 168
+    signature_skills:
+    - 直谏固政
+    notes:
+    - 自带战法「直谏固政」效果（满级）：驱散我军随机两人2种负面状态，并恢复其兵力(治疗率:90%->180%，受智力影响)。并使敌军全体造成伤害降低12%->24%(受智力影响)持续2回合（发动概率：55%）
+    - 自带战法「直谏固政」效果（初始）：驱散我军随机两人2种负面状态，并恢复其兵力(治疗率:90%->100%，受智力影响)。并使敌军全体造成伤害降低12%->13.3%(受智力影响)持续2回合
+    - 缘分「柱石之臣」：张昭、陆逊、周瑜、陆抗、诸葛瑾——部队中缘分武将对持有异常状态的目标造成的伤害提升8%
+    - 赛季：s8
+    - 初始属性：武力16 智力103 统率83 先攻87
+    - 成长值：武力0.23 智力2.30 统率1.65 先攻1.79
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力26 智力206 统率157 先攻168
+- id: hero-步练师
+  domain: hero
+  entry_kind: hero_profile
+  topic: 步练师
+  aliases: []
+  facts:
+  - 步练师是吴阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 淑懿之德
+  priority: 88
+  structured_data:
+    name: 步练师
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T1辅助
+    base_attributes:
+      military: 33
+      intelligence: 105
+      command: 97
+      initiative: 81
+    growth_attributes:
+      military: 0.38
+      intelligence: 2.19
+      command: 1.69
+      initiative: 2.25
+    max_attributes:
+      military: 50
+      intelligence: 204
+      command: 173
+      initiative: 182
+    signature_skills:
+    - 淑懿之德
+    notes:
+    - 自带战法「淑懿之德」效果（满级）：使两名队友获得2回合安抚：谋略伤害提升10%->11.1%（受智力影响），每个回合行动前恢复兵力（治疗率150%->166.6%，受智力影响）（发动概率：55%）
+    - 缘分「共承天地」：孙权、步练师——部队中缘分武将前3回合受到伤害降低12%
+    - 赛季：s5
+    - 初始属性：武力33 智力105 统率97 先攻81
+    - 成长值：武力0.38 智力2.19 统率1.69 先攻2.25
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力50 智力204 统率173 先攻182
+- id: hero-甘宁
+  domain: hero
+  entry_kind: hero_profile
+  topic: 甘宁
+  aliases: []
+  facts:
+  - 甘宁是吴阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 锦帆渠魁
+  priority: 88
+  structured_data:
+    name: 甘宁
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T3追击
+    base_attributes:
+      military: 112
+      intelligence: 84
+      command: 107
+      initiative: 71
+    growth_attributes:
+      military: 2.51
+      intelligence: 1.32
+      command: 1.75
+      initiative: 2.59
+    max_attributes:
+      military: 225
+      intelligence: 143
+      command: 186
+      initiative: 188
+    signature_skills:
+    - 锦帆渠魁
+    notes:
+    - 自带战法「锦帆渠魁」效果（满级）：普通攻击伤害提升70%一140%，普通攻击前提升自身5-10点武力，持续2回合，可叠加4次（发动概率：100%）
+    - 自带战法「锦帆渠魁」效果（初始）：普通攻击伤害提升70%-77.7%，普通攻击前提升自身5-5.5点武力，持续2回合，可叠加4次
+    - 缘分「江表虎臣」：黄盖、甘宁、徐盛、程普、周泰、凌统、蒋钦、丁奉、董袭、韩当、陈武、潘璋——部队中缘分武将统率提升10点，受到伤害降低3%
+    - 缘分「弯弓饮羽」：太史慈、甘宁、凌统——部队中缘分武将普通攻击伤害提升8%
+    - 缘分「折冲左右」：孙权、甘宁、周泰——部队中缘分武将武力提升20点
+    - 推荐战法：万夫莫当、勇冠三军、锐不可当、攻其不备、横扫千军、千里突袭、乘虚而入、骁勇之姿、强袭、乱敌方阵、临阵突義、夜袭
+    - 赛季：s1
+    - 初始属性：武力112 智力84 统率107 先攻71
+    - 成长值：武力2.51 智力1.32 统率1.75 先攻2.59
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力225 智力143 统率186 先攻188
+- id: hero-程普
+  domain: hero
+  entry_kind: hero_profile
+  topic: 程普
+  aliases: []
+  facts:
+  - 程普是吴阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 兴王定霸
+  priority: 88
+  structured_data:
+    name: 程普
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T3防御
+    - T2辅助
+    base_attributes:
+      military: 79
+      intelligence: 81
+      command: 91
+      initiative: 59
+    growth_attributes:
+      military: 1.58
+      intelligence: 1.54
+      command: 2.32
+      initiative: 1.7
+    max_attributes:
+      military: 150
+      intelligence: 150
+      command: 195
+      initiative: 136
+    signature_skills:
+    - 兴王定霸
+    notes:
+    - 自带战法「兴王定霸」效果（满级）：我军全体造成兵刃伤害后有60%概率恢复兵力(治疗率20%一40%，受智力和统率影响)，造成谋略伤害后有60%概率使受到伤害降低7%一14%，持续2回合，可叠加2次（发动概率：100%）
+    - 自带战法「兴王定霸」效果（初始）：我军全体造成兵刃伤害后有60%概率恢复兵力(治疗率20%-22.2%，受智力和统率影响)，造成谋略伤害后有60%概率使受到伤害降低7%-7.7%，持续2回合,可叠加2次
+    - 缘分「江表虎臣」：黄盖、甘宁、徐盛、程普、周泰、凌统、蒋钦、丁奉、董袭、韩当、陈武、潘璋——部队中缘分武将统率提升10点，受到伤害降低3%
+    - 缘分「老当益壮」：程普、黄盖、黄忠、严颜——部队中缘分武将受到伤害降低5%
+    - 推荐战法：固若金汤、指点乾坤、披坚执锐、百战不殆、任人择势、蓄势待发、青囊急救、清风驱疾、洞若观火、忘私相助、避其锐气、坚壁清野、铸甲销戈、咏歌尝酒、来好息师
+    - 赛季：s1
+    - 初始属性：武力79 智力81 统率91 先攻59
+    - 成长值：武力1.58 智力1.54 统率2.32 先攻1.70
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力150 智力150 统率195 先攻136
+- id: hero-诸葛瑾
+  domain: hero
+  entry_kind: hero_profile
+  topic: 诸葛瑾
+  aliases: []
+  facts:
+  - 诸葛瑾是吴阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 慎思笃行
+  priority: 88
+  structured_data:
+    name: 诸葛瑾
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 弓兵
+    role_tags:
+    - T1辅助
+    base_attributes:
+      military: 38
+      intelligence: 104
+      command: 86
+      initiative: 78
+    growth_attributes:
+      military: 0.55
+      intelligence: 2.35
+      command: 2.28
+      initiative: 1.32
+    max_attributes:
+      military: 63
+      intelligence: 210
+      command: 189
+      initiative: 137
+    signature_skills:
+    - 慎思笃行
+    notes:
+    - 自带战法「慎思笃行」效果（满级）：两名队友自带战法每次造成伤害后，获得1层笃行:受到伤害降低2%→4%(受智力影响),造成奇谋和会心伤害提升7.5%→15%,可叠加5层。回合结束时,我军持有笃行的武将对敌军随机单体造成10%→20%伤害(伤害类型由武力和智力最高决定),每持有1层笃行，该次伤害系数提升10%→20%.会心和奇谋几率提升5%→10%.然后清除全部笃行层数（发动概率：100%）
+    - 自带战法「慎思笃行」效果（初始）：两名队友自带战法每次造成伤害后，获得1层笃行:受到伤害降低2%→2.2%(受智力影响),造成奇谋和会心伤害提升7.5%→8.3%,可叠加5层。回合结束时,我军持有笃行的武将对敌军随机单体造成10%→11.1%伤害(伤害类型由武力和智力最高决定),每持有1层笃行,该次伤害系数提升10%→11.1%，会心和奇谋几率提升5%→5.5%然后清除全部笃行层数
+    - 缘分「柱石之臣」：张昭、陆逊、周瑜、陆抗、诸葛瑾——部队中缘分武将对持有异常状态的目标造成的伤害提升8%
+    - 缘分「诸葛望族」：诸葛瑾、诸葛亮、诸葛亮2——部队中缘分武将破甲和看破提升，我军每存在一个诸葛望族缘分中的武将，诸葛望族缘分中全体武将破甲和看破提升5%
+    - 赛季：s12
+    - 初始属性：武力38 智力104 统率86 先攻78
+    - 成长值：武力0.55 智力2.35 统率2.28 先攻1.32
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力63 智力210 统率189 先攻137
+- id: hero-陆抗
+  domain: hero
+  entry_kind: hero_profile
+  topic: 陆抗
+  aliases: []
+  facts:
+  - 陆抗是吴阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 决堰倾涛
+  priority: 88
+  structured_data:
+    name: 陆抗
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 弓兵
+    role_tags:
+    - T0辅助
+    base_attributes:
+      military: 78
+      intelligence: 109
+      command: 108
+      initiative: 64
+    growth_attributes:
+      military: 1.73
+      intelligence: 2.6
+      command: 1.9
+      initiative: 1.85
+    max_attributes:
+      military: 156
+      intelligence: 226
+      command: 194
+      initiative: 147
+    signature_skills:
+    - 决堰倾涛
+    notes:
+    - 自带战法「决堰倾涛」效果（满级）：我军全体每次发动主动战法时,对敌军随机两人(优先未满层敌军)施加1层决堰:造成伤害降低1%→2%(受智力影响),可叠加15层,持续到战斗结束。第3回合开始时，对敌军全体施加3回合摧锋:每持有1层决堰，受到伤害提升1%→2%(受智力影响),且造成伤害后有4%→8%概率(受决堰尽数影响)受到虚弱(持续到回合结束)（发动概率：100%）
+    - 自带战法「决堰倾涛」效果（初始）：我军全体每次发动主动战法时,对敌军随机两人(优先未满层敌军)施加1层决堰:造成伤害降低1%→1.1%(受智力影响),可叠加15层,持续到战斗结束。第3回合开始时，对敌军全体施加3回合摧锋:每持有1层决堰，受到伤害提升1%→1.1%(受智力影响),且造成伤害后有4%→4.4%概率(受决堰层数影响)受到虚弱(持续到回合结束)
+    - 缘分「柱石之臣」：张昭、陆逊、周瑜、陆抗、诸葛瑾——部队中缘分武将对持有异常状态的目标造成的伤害提升8%
+    - 赛季：s12
+    - 初始属性：武力78 智力109 统率108 先攻64
+    - 成长值：武力1.73 智力2.60 统率1.90 先攻1.85
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力156 智力226 统率194 先攻147
+- id: hero-陆逊
+  domain: hero
+  entry_kind: hero_profile
+  topic: 陆逊
+  aliases: []
+  facts:
+  - 陆逊是吴阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 火烧连营
+  priority: 88
+  structured_data:
+    name: 陆逊
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T0谋略
+    base_attributes:
+      military: 66
+      intelligence: 104
+      command: 94
+      initiative: 40
+    growth_attributes:
+      military: 0.44
+      intelligence: 2.74
+      command: 1.96
+      initiative: 1.88
+    max_attributes:
+      military: 86
+      intelligence: 227
+      command: 182
+      initiative: 125
+    signature_skills:
+    - 火烧连营
+    notes:
+    - 自带战法「火烧连营」效果（满级）：对敌军随机单体施加火攻，持续2回合，然后对已持有火攻状态的敌军目标施加1层焚烧状态，持续2回合，同时造成110%-220%谋略伤害，并有40%概率(受智力影响)额外施加1层焚烧状态（发动概率：33%
+      »60%）
+    - 自带战法「火烧连营」效果（初始）：对敌军随机单体施加火攻，持续2回合，然后对已持有火攻状态的敌军目标施加1层焚烧状态，持续2回合，同时造成110%-122.2%谋略伤害，并有40％概率(受智力毾响)额外施加1层焚烧状态
+    - 缘分「东吴大都督」：周瑜、鲁肃、吕蒙、陆逊——部队中缘分武将获得8%攻心
+    - 推荐战法：明其虚实、韬光养晦、烈火焚营、奇门遁甲、断敌粮道、出其不意、筹划良策、一计决胜、束手无策、决水破敌
+    - 赛季：s2
+    - 初始属性：武力66 智力104 统率94 先攻40
+    - 成长值：武力0.44 智力2.74 统率1.96 先攻1.88
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力86 智力227 统率182 先攻125
+- id: hero-鲁肃
+  domain: hero
+  entry_kind: hero_profile
+  topic: 鲁肃
+  aliases: []
+  facts:
+  - 鲁肃是吴阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 划湘分荆
+  priority: 88
+  structured_data:
+    name: 鲁肃
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T3辅助
+    base_attributes:
+      military: 72
+      intelligence: 109
+      command: 98
+      initiative: 80
+    growth_attributes:
+      military: 0.36
+      intelligence: 2.4
+      command: 1.65
+      initiative: 2.09
+    max_attributes:
+      military: 88
+      intelligence: 217
+      command: 172
+      initiative: 174
+    signature_skills:
+    - 划湘分荆
+    notes:
+    - 自带战法「划湘分荆」效果（满级）：对敌我全体随机4个目标施加缴械，持续1回合。若选中我方目标，则使目标受到伤害降低10%一20%(受智力影响），持续1回合若选中敌方目标，则使目标受到伤害提升10%一20%(受智力影响），持续1回合（发动概率：45%）
+    - 自带战法「划湘分荆」效果（初始）：对敌我全体随机4个目标施加缴械，持续1回合。若选中我方目标，则使目标受到伤害降低10%-11.1%(受智力影响），持续1回合
+      若选中敌方目标，则使目标受到伤害提升10%-11.1%(受智力影响），持续1回合
+    - 缘分「东吴大都督」：周瑜、鲁肃、吕蒙、陆逊——部队中缘分武将获得8%攻心
+    - 缘分「士别三日」：吕蒙、鲁肃——战斗第3回合开始时，部队中缘分武将受到主动战法伤害降低12%
+    - 推荐战法：知人善任、指点乾坤、运筹帷幄、上智为间、烈火焚营、奇门遁甲、清风驱疾、洞若观火、青囊急救、一计决胜、束手无策、咏歌尝酒、屈人之兵、任人唯贤
+    - 赛季：s1
+    - 初始属性：武力72 智力109 统率98 先攻80
+    - 成长值：武力0.36 智力2.40 统率1.65 先攻2.09
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力88 智力217 统率172 先攻174
+- id: hero-黄盖
+  domain: hero
+  entry_kind: hero_profile
+  topic: 黄盖
+  aliases: []
+  facts:
+  - 黄盖是吴阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 苦肉计
+  priority: 88
+  structured_data:
+    name: 黄盖
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T1
+    - 防御
+    - 谋略
+    base_attributes:
+      military: 94
+      intelligence: 92
+      command: 113
+      initiative: 83
+    growth_attributes:
+      military: 1.58
+      intelligence: 1.62
+      command: 2.18
+      initiative: 1.91
+    max_attributes:
+      military: 165
+      intelligence: 165
+      command: 211
+      initiative: 169
+    signature_skills:
+    - 苦肉计
+    notes:
+    - 自带战法「苦肉计」效果（满级）：自身受到伤害降低15%-30%（受统率影响），持续2回合。令智力最高友军对自身造成30%-60%兵刃伤害，对敌军随机两人造成110%-220%谋略伤害，并施加火攻，持续2回合（发动概率：50%）
+    - 自带战法「苦肉计」效果（初始）：自身受到伤害降低15%-16.6%（受统率影响），持续2回合。令智力最高友军对自身造成30%-33.3%兵刃伤害，对敌军随机两人造成110%-122.2%谋略伤害，并施加火攻，持续2回合
+    - 缘分「江表虎臣」：黄盖、甘宁、徐盛、程普、周泰、凌统、蒋钦、丁奉、董袭、韩当、陈武、潘璋——部队中缘分武将统率提升10点，受到伤害降低3%
+    - 缘分「苦肉计」：周瑜、黄盖——部队中缘分武将首次受到来自友方的伤害后，受到主动战法伤害降低12%
+    - 缘分「老当益壮」：程普、黄盖、黄忠、严颜——部队中缘分武将受到伤害降低5%
+    - 推荐战法：固若金汤、横征暴敛、披坚执锐、忘私相助、坚如磐石、坚壁清野、避其锐气、铸甲销戈
+    - 赛季：s1
+    - 初始属性：武力94 智力92 统率113 先攻83
+    - 成长值：武力1.58 智力1.62 统率2.18 先攻1.91
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力165 智力165 统率211 先攻169

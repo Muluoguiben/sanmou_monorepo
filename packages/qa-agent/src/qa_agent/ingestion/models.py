@@ -56,6 +56,8 @@ class HeroRawRecord(BaseModel):
     rarity: str | None = None
     troop_types: list[str] = Field(default_factory=list)
     role_tags: list[str] = Field(default_factory=list)
+    base_attributes: dict[str, int] | None = None
+    growth_attributes: dict[str, float] | None = None
     signature_skills: list[str] = Field(default_factory=list)
     notes: list[str] = Field(default_factory=list)
     source: SourceRecord

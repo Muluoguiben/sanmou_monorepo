@@ -8,11 +8,10 @@
   facts:
   - 诸葛亮是蜀阵营可录入的核心武将静态资料条目。
   - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
-  constraints:
-  - 属性与成长数值待后续有稳定来源后再补录。
+  constraints: []
   source_type: manual_rule
   source_ref: INGESTION-SGMDTX-HERO
-  updated_at: '2026-04-09'
+  updated_at: '2026-04-10'
   confidence: 0.9
   related_topics:
   - 草船借箭
@@ -25,16 +24,37 @@
     faction: 蜀
     rarity: 橙
     troop_types:
-    - 弓兵
+    - 盾兵
     role_tags:
-    - 辅助
-    - 控制
-    base_attributes: null
-    growth_attributes: null
+    - T0谋略
+    base_attributes:
+      military: 50
+      intelligence: 125
+      command: 111
+      initiative: 57
+    growth_attributes:
+      military: 0.52
+      intelligence: 3.0
+      command: 2.3
+      initiative: 1.65
+    max_attributes:
+      military: 73
+      intelligence: 260
+      command: 214
+      initiative: 131
     signature_skills:
     - 草船借箭
     notes:
-    - 金样本候选，用于演示半自动采集流程。
+    - 自带战法「草船借箭」效果（满级）：自身攻心提升12%一24%，自身造成或受到伤害时，有50%概率对敌军随机单体造成40%一80%谋略伤害，每回合可触发5次（发动概率：100%）
+    - 自带战法「草船借箭」效果（初始）：自身攻心提升12%-13.3%，自身造成或受到伤害时，有50%概率对敌军随机单体造成40%-44.4%谋略伤害，每回合可触发5次
+    - 缘分「国之栋梁」：诸葛亮、周瑜、司马懿——战斗中造成的前3次谋略伤害提升50%
+    - 缘分「西蜀之智」：诸葛亮、徐庶、庞统、法正——部队中缘分武将受到谋略伤害降低8%
+    - 缘分「才堪相配」：诸葛亮、黄月英——部队中缘分武将受到的治疗效果提升8%
+    - 推荐战法：奇正相生、王佐之才、出其不意、料事如神、狂风大作、奇门遁甲、上智为间、烈火焚营、断敌粮道、运筹帷幄、忘私相助、决水破敌、束手无策、上兵伐谋、一计决胜、筹划良策
+    - 赛季：s1
+    - 初始属性：武力50 智力125 统率111 先攻57
+    - 成长值：武力0.52 智力3.00 统率2.30 先攻1.65
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力73 智力260 统率214 先攻131
 - id: hero-liubei
   domain: hero
   entry_kind: hero_profile
@@ -44,14 +64,13 @@
   facts:
   - 刘备是蜀阵营可录入的核心武将静态资料条目。
   - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
-  constraints:
-  - 属性与成长数值待后续有稳定来源后再补录。
+  constraints: []
   source_type: manual_rule
   source_ref: INGESTION-SGMDTX-HERO
-  updated_at: '2026-04-09'
+  updated_at: '2026-04-10'
   confidence: 0.9
   related_topics:
-  - 暂避其锋
+  - 携民渡江
   priority: 88
   structured_data:
     name: 刘备
@@ -62,11 +81,817 @@
     troop_types:
     - 盾兵
     role_tags:
-    - 辅助
-    - 前锋
-    base_attributes: null
-    growth_attributes: null
+    - T0
+    - 治疗
+    base_attributes:
+      military: 80
+      intelligence: 94
+      command: 109
+      initiative: 53
+    growth_attributes:
+      military: 1.43
+      intelligence: 2.31
+      command: 2.12
+      initiative: 1.72
+    max_attributes:
+      military: 144
+      intelligence: 198
+      command: 204
+      initiative: 130
     signature_skills:
-    - 暂避其锋
+    - 携民渡江
     notes:
-    - 金样本候选，用于演示半自动采集流程。
+    - 自带战法「携民渡江」效果（满级）：战斗开始时，提升我军全体9-18点统率(受智力影响），每回合结束时，恢复我军全体兵力(治疗率50%一100%，受智力影响），然后驱散我军兵力最低单体1种负面状态并对其额外进行1次恢复(治疗率45%-90%，受智力影响）（发动概率：100%）
+    - 自带战法「携民渡江」效果（初始）：战斗开始时，提升我军全体9点统率(受智力影响），每回合结束时，恢复我军全体兵力(治疗率50%，受智力影响），然后驱散我军兵力最低单体1种负面状态并对其额外进行1次恢复(治疗率45%，受智力影响）
+    - 缘分「珠联璧合」：刘备、孙尚香——部队中缘分武将受到谋略伤害降低6%
+    - 缘分「三分天下」：曹操、刘备、孙权——部队中缘分武将受到伤害降低6%
+    - 缘分「桃园结义」：刘备、关羽、张飞——第3回合时，部队中缘分武将行动前驱散自身随机1种负面状态
+    - 推荐战法：奇正相生、忘私相助、青囊急救、清风驱疾、洞若观火、蓄势待发、任人择势、百战不殆、避其锐气、铸甲销戈、咏歌尝酒、来好息师
+    - 赛季：s1
+    - 初始属性：武力80 智力94 统率109 先攻53
+    - 成长值：武力1.43 智力2.31 统率2.12 先攻1.72
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力144 智力198 统率204 先攻130
+- id: hero-关羽
+  domain: hero
+  entry_kind: hero_profile
+  topic: 关羽
+  aliases:
+  - 云长
+  facts:
+  - 关羽是蜀阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 威震华夏
+  priority: 88
+  structured_data:
+    name: 关羽
+    aliases:
+    - 云长
+    faction: 蜀
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T1
+    - 兵刃
+    base_attributes:
+      military: 120
+      intelligence: 86
+      command: 104
+      initiative: 79
+    growth_attributes:
+      military: 2.75
+      intelligence: 1.35
+      command: 2.13
+      initiative: 2.43
+    max_attributes:
+      military: 244
+      intelligence: 147
+      command: 200
+      initiative: 188
+    signature_skills:
+    - 威震华夏
+    notes:
+    - 自带战法「威震华夏」效果（满级）：提升自身4%一8%主动战法发动率，每有1个带有畏惧状态的敌军额外提升3%，持续2回合。然后对敌军全体造成80%-160%兵刃伤害，若目标持有控制状态，则使目标产生逃兵(受武力影响）（发动概率：45%）
+    - 自带战法「威震华夏」效果（初始）：提升自身4%主动战法发动率，每有1个带有畏惧状态的敌军额外提升3％,持续2回合。然后对敌军全体造成80%兵刃伤害，若目标持有控制状态，则使目标产生逃兵(受武力影响）
+    - 缘分「义薄云天」：关羽、关平、周仓、关银屏——部队中缘分武将破甲提升6%
+    - 缘分「桃园结义」：刘备、关羽、张飞——第3回合时，部队中缘分武将行动前驱散自身随机1种负面状态
+    - 缘分「五虎上将」：关羽、张飞、黄忠、赵云、马超——部队中缘分武将会心几率提升10%
+    - 推荐战法：水淹七军、斩将夺旗、战八方、伏兵四起、势如破竹、破军袭敌、破阵驰围、威名显赫、疾行侧击、揭竿而起、迎敌、克敌如风、火羽、如有神助
+    - 赛季：s1
+    - 初始属性：武力120 智力86 统率104 先攻79
+    - 成长值：武力2.75 智力1.35 统率2.13 先攻2.43
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力244 智力147 统率200 先攻188
+- id: hero-关银屏
+  domain: hero
+  entry_kind: hero_profile
+  topic: 关银屏
+  aliases: []
+  facts:
+  - 关银屏是蜀阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 虎啸生威
+  priority: 88
+  structured_data:
+    name: 关银屏
+    aliases: []
+    faction: 蜀
+    rarity: 橙
+    troop_types:
+    - 骑兵
+    role_tags:
+    - T2
+    - 辅助
+    base_attributes:
+      military: 108
+      intelligence: 60
+      command: 89
+      initiative: 86
+    growth_attributes:
+      military: 2.55
+      intelligence: 0.99
+      command: 1.78
+      initiative: 2.36
+    max_attributes:
+      military: 223
+      intelligence: 105
+      command: 169
+      initiative: 192
+    signature_skills:
+    - 虎啸生威
+    notes:
+    - 自带战法「虎啸生威」效果（满级）：战斗中，每回合首次发动主动战法后有20%->40%概率（受武力影响）对敌军随机两人造成130%->260%兵刃伤害，并对其施加虚弱状态，持续1回合（发动概率：100%）
+    - 自带战法「虎啸生威」效果（初始）：战斗中，每回合首次发动主动战法后有20%->22.2%概率（受武力影响）对敌军随机两人造成130%->144.4%兵刃伤害，并对其施加虚弱状态，持续1回合
+    - 缘分「义薄云天」：关羽、关平、周仓、关银屏——部队中缘分武将破甲提升6%
+    - 推荐战法：冲锐巧变、战八方、伏兵四起、破阵驰围、威名显赫、斩将夺旗、锐不可当、破军袭敌、勢如破个、疾行侧击、揭竿而起、迎敌、克敌如风、火羽、如有神助
+    - 赛季：s4
+    - 初始属性：武力108 智力60 统率89 先攻86
+    - 成长值：武力2.55 智力0.99 统率1.78 先攻2.36
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力223 智力105 统率169 先攻192
+- id: hero-姜维
+  domain: hero
+  entry_kind: hero_profile
+  topic: 姜维
+  aliases: []
+  facts:
+  - 姜维是蜀阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 九伐中原
+  priority: 88
+  structured_data:
+    name: 姜维
+    aliases: []
+    faction: 蜀
+    rarity: 橙
+    troop_types:
+    - 枪兵
+    role_tags:
+    - T0文武
+    base_attributes:
+      military: 101
+      intelligence: 111
+      command: 91
+      initiative: 76
+    growth_attributes:
+      military: 2.39
+      intelligence: 2.52
+      command: 2.01
+      initiative: 1.99
+    max_attributes:
+      military: 209
+      intelligence: 224
+      command: 181
+      initiative: 166
+    signature_skills:
+    - 九伐中原
+    notes:
+    - 自带战法「九伐中原」效果（满级）：每个回合结束时进行1-3次讨伐：对敌军随机两人造成20%-40%兵刃和谋酪伤害。我军全体造成伤害后会使当前回合讨伐伤害系数提升2.5%一5%，可提升9次。累积讨伐3次后使敌军兵力最低单体产生逃兵（受智力和武力影响）（发动概率：100%）
+    - 自带战法「九伐中原」效果（初始）：每个回合结束时进行1-3次讨伐：对敌军随机两人造成20%-22.2%兵刃和谋略伤害。我军全体造成伤害后会使当前回合讨伐伤害系数提升2.5%~2.7%，可提升9次。累积讨伐3次后使敌军兵力最低单体产生逃兵（受智力和武力影响)
+    - 缘分「薪火相传」：诸葛亮、姜维、诸葛亮2——部队中缘分武将智力和统率提升6%
+    - 赛季：s5
+    - 初始属性：武力101 智力111 统率91 先攻76
+    - 成长值：武力2.39 智力2.52 统率2.01 先攻1.99
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力209 智力224 统率181 先攻166
+- id: hero-庞统
+  domain: hero
+  entry_kind: hero_profile
+  topic: 庞统
+  aliases: []
+  facts:
+  - 庞统是蜀阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 连环计
+  priority: 88
+  structured_data:
+    name: 庞统
+    aliases: []
+    faction: 蜀
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T1
+    - 辅助
+    - 谋略
+    base_attributes:
+      military: 54
+      intelligence: 116
+      command: 83
+      initiative: 51
+    growth_attributes:
+      military: 0.55
+      intelligence: 2.65
+      command: 1.75
+      initiative: 1.65
+    max_attributes:
+      military: 79
+      intelligence: 235
+      command: 162
+      initiative: 125
+    signature_skills:
+    - 连环计
+    notes:
+    - 自带战法「连环计」效果（满级）：自身看破提升10%->20%（受智力影响）。奇数回合对敌军全体施加1回合连环：受到伤害后，两名队友会受到12.5%->25%（受智力影响）的传递伤害（发动概率：100%）
+    - 自带战法「连环计」效果（初始）：自身看破提升10%-11.1%（受智力影响）。奇数回合对敌军全体施加1回合连环：受到伤害后，两名队友会受到12.5%-13.8%（受智力影响）的传递伤害
+    - 缘分「西蜀之智」：诸葛亮、徐庶、庞统、法正——部队中缘分武将受到谋略伤害降低8%
+    - 推荐战法：明其虚实、奇正相生、出其不意、料事如神、王佐之才、狂风大作、奇门透甲、上智为间、烈火焚营、断敌粮道、决水破敌、束手无策、上兵伐谋、一计决胜、筹划良策
+    - 赛季：s3
+    - 初始属性：武力54 智力116 统率83 先攻51
+    - 成长值：武力0.55 智力2.65 统率1.75 先攻1.65
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力79 智力235 统率162 先攻125
+- id: hero-张飞
+  domain: hero
+  entry_kind: hero_profile
+  topic: 张飞
+  aliases: []
+  facts:
+  - 张飞是蜀阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 万人之敌
+  priority: 88
+  structured_data:
+    name: 张飞
+    aliases: []
+    faction: 蜀
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T2兵刃
+    - T1辅助
+    base_attributes:
+      military: 121
+      intelligence: 65
+      command: 99
+      initiative: 79
+    growth_attributes:
+      military: 2.78
+      intelligence: 1.04
+      command: 1.84
+      initiative: 2.29
+    max_attributes:
+      military: 246
+      intelligence: 112
+      command: 182
+      initiative: 182
+    signature_skills:
+    - 万人之敌
+    notes:
+    - 自带战法「万人之敌」效果（满级）：对敌军全体造成70%一140%兵刃伤害，并对持有畏惧状态的敌人 30%概率造成震慑，持续1回合。未持有畏惧的敌人施加畏惧，持续2回合（发动概率：55%）
+    - 自带战法「万人之敌」效果（初始）：对敌军全体造成70%兵刃伤害，并对持有畏惧状态的敌人30%概率造成震慑，持续1回合。未持有畏惧的敌人施加畏惧，持续2回合
+    - 缘分「桃园结义」：刘备、关羽、张飞——第3回合时，部队中缘分武将行动前驱散自身随机1种负面状态
+    - 缘分「五虎上将」：关羽、张飞、黃忠、赵云、马超——部队中缘分武将会心几率提升10%
+    - 推荐战法：战八方、伏兵四起、破阵驰围、威名显赫、斩将夺旗、锐不可当、破军袭敌、势如破竹、破军袭敌、疾行侧击、揭竿而起、迎敌、克敌如风、火羽、如有神助
+    - 赛季：s1
+    - 初始属性：武力121 智力65 统率99 先攻79
+    - 成长值：武力2.78 智力1.04 统率1.84 先攻2.29
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力246 智力112 统率182 先攻182
+- id: hero-徐庶
+  domain: hero
+  entry_kind: hero_profile
+  topic: 徐庶
+  aliases: []
+  facts:
+  - 徐庶是蜀阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 折节学问
+  priority: 88
+  structured_data:
+    name: 徐庶
+    aliases: []
+    faction: 蜀
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T3
+    - 文武
+    base_attributes:
+      military: 95
+      intelligence: 109
+      command: 93
+      initiative: 87
+    growth_attributes:
+      military: 1.95
+      intelligence: 2.55
+      command: 1.59
+      initiative: 2.36
+    max_attributes:
+      military: 183
+      intelligence: 224
+      command: 165
+      initiative: 193
+    signature_skills:
+    - 折节学问
+    notes:
+    - 自带战法「折节学问」效果（满级）：对敌军随机单体造成110%一220%谋略和兵刃伤害。若目标武力大于智力，则造成缴械，反之造成技穷，持续1回合（发动概率：60%）
+    - 自带战法「折节学问」效果（初始）：对敌军随机单体造成110%-122.2%谋略和兵刃伤害。若目标武力大于智力，则造成缴械，反之造成技穷，持续1回合
+    - 缘分「西蜀之智」：诸葛亮、徐庶、庞统、法正——部队中缘分武将受到谋略伤害降低8%
+    - 推荐战法：胜敌益强、文武双全、出其不意、料事如神、趁火打劫、文治武功、决水破敌、束手无策、上兵伐谋、一计决胜、筹划良策
+    - 赛季：s1
+    - 初始属性：武力95 智力109 统率93 先攻87
+    - 成长值：武力1.95 智力2.55 统率1.59 先攻2.36
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力183 智力224 统率165 先攻193
+- id: hero-法正
+  domain: hero
+  entry_kind: hero_profile
+  topic: 法正
+  aliases: []
+  facts:
+  - 法正是蜀阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 睹事知机
+  priority: 88
+  structured_data:
+    name: 法正
+    aliases: []
+    faction: 蜀
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T1
+    - 辅助
+    base_attributes:
+      military: 52
+      intelligence: 100
+      command: 83
+      initiative: 76
+    growth_attributes:
+      military: 0.29
+      intelligence: 2.59
+      command: 1.64
+      initiative: 2.3
+    max_attributes:
+      military: 65
+      intelligence: 217
+      command: 157
+      initiative: 180
+    signature_skills:
+    - 睹事知机
+    notes:
+    - 自带战法「睹事知机」效果（满级）：对敌军全体施加睹事：下一次受到非普通攻击伤害后为攻击者恢复兵力(治疗率30%一60%，受智力影响），并额外受到来自法正的60%-120%谋略伤害（发动概率：100%）
+    - 自带战法「睹事知机」效果（初始）：对敌军全体施加睹事：下一次受到非普通攻击伤害后为攻击者恢复兵力(治疗率30%-33.3%，受智力影响），并额外受到来自法正的60%-66.6%谋略伤害
+    - 缘分「西蜀之智」：诸葛亮、徐庶、庞统、法正——部队中缘分武将受到谋略伤害降低8%
+    - 推荐战法：明其虚实、知人善任、奇正相生、青囊急救、清风驱疾、洞若观火、指点乾坤、运筹帷幄、一计决胜、铸甲销戈、咏歌尝酒、屈人之兵、筹划良策、如有神助、任人唯贤
+    - 赛季：s2
+    - 初始属性：武力52 智力100 统率83 先攻76
+    - 成长值：武力0.29 智力2.59 统率1.64 先攻2.30
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力65 智力217 统率157 先攻180
+- id: hero-甘夫人
+  domain: hero
+  entry_kind: hero_profile
+  topic: 甘夫人
+  aliases: []
+  facts:
+  - 甘夫人是蜀阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 皇思淑仁
+  priority: 88
+  structured_data:
+    name: 甘夫人
+    aliases: []
+    faction: 蜀
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T1辅助
+    base_attributes:
+      military: 25
+      intelligence: 102
+      command: 106
+      initiative: 90
+    growth_attributes:
+      military: 0.29
+      intelligence: 1.95
+      command: 1.62
+      initiative: 1.68
+    max_attributes:
+      military: 38
+      intelligence: 190
+      command: 179
+      initiative: 166
+    signature_skills:
+    - 皇思淑仁
+    notes:
+    - 自带战法「皇思淑仁」效果（满级）：每个回合开始有30%-60%概率（受智力影响）提升我军随机两人9%一18%规避率（受智力影响），持续2回合。每个回合结束时恢复我军随机两人兵力（治疗率60％一120％）（发动概率：100%）
+    - 自带战法「皇思淑仁」效果（初始）：每个回合开始有30%-33.3%概率（受智力影响）提升我军随机两人9%规-10%避率（受智力影响），持续2回合。每个回合结束时恢复我军随机两人兵力（治疗率60%66.6%）
+    - 缘分「缘系皇思」：刘备、甘夫人——部队中缘分武将受到兵刃伤害降低6%
+    - 推荐战法：同舟共济、金城汤池、奇正相生、指点乾坤、披坚执锐、运筹帷幄、青囊急救、清风驱疾、洞若观火、断敌粮道、料事如神、避其锐气、铸甲销戈、咏歌尝酒、决水破敌、束手无策、一计决胜、屈人之兵
+    - 赛季：s3
+    - 初始属性：武力25 智力102 统率106 先攻90
+    - 成长值：武力0.29 智力1.95 统率1.62 先攻1.68
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力38 智力190 统率179 先攻166
+- id: hero-诸葛亮2
+  domain: hero
+  entry_kind: hero_profile
+  topic: 诸葛亮2
+  aliases: []
+  facts:
+  - 诸葛亮2是蜀阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 星罗棋布
+  priority: 88
+  structured_data:
+    name: 诸葛亮2
+    aliases: []
+    faction: 蜀
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T0辅助
+    - 谋略
+    base_attributes:
+      military: 53
+      intelligence: 125
+      command: 104
+      initiative: 61
+    growth_attributes:
+      military: 0.56
+      intelligence: 3.0
+      command: 2.24
+      initiative: 1.71
+    max_attributes:
+      military: 78
+      intelligence: 260
+      command: 205
+      initiative: 138
+    signature_skills:
+    - 星罗棋布
+    notes:
+    - 自带战法「星罗棋布」效果（满级）：我军全体受到谋略伤害降低5%→10%(受智力影响，对自身的效果提升30%)，战斗开始前施加星罗棋布，使阵型加成提升35%→70%(受智力影响)，并根据阵型类型获得棋局增益（发动概率：100%）
+    - 自带战法「星罗棋布」效果（初始）：我军全体受到谋略伤害降低5%→5.5%(受智力影响，对自身的效果提升30%)，战斗开始前施加星罗棋布，使阵型加成提升35%→38.8%(受智力影响)，并根据阵型类型获得棋局增益
+    - 缘分「才堪相配」：——部队中缘分武将受到的治疗效果提升8%
+    - 缘分「西蜀之智」：——部队中缘分武将受到谋略伤害降低8%
+    - 缘分「国之栋梁」：——战斗中造成的前3次谋略伤害提升50%
+    - 缘分「薪火相传」：诸葛亮、姜维、诸葛亮2——部队中缘分武将智力和统率提升6%
+    - 赛季：s8
+    - 初始属性：武力53 智力125 统率104 先攻61
+    - 成长值：武力0.56 智力3.00 统率2.24 先攻1.71
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力78 智力260 统率205 先攻138
+- id: hero-赵云
+  domain: hero
+  entry_kind: hero_profile
+  topic: 赵云
+  aliases:
+  - 子龙
+  facts:
+  - 赵云是蜀阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 七进七出
+  priority: 88
+  structured_data:
+    name: 赵云
+    aliases:
+    - 子龙
+    faction: 蜀
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T0兵刃
+    base_attributes:
+      military: 117
+      intelligence: 77
+      command: 107
+      initiative: 66
+    growth_attributes:
+      military: 2.65
+      intelligence: 1.52
+      command: 2.15
+      initiative: 2.29
+    max_attributes:
+      military: 236
+      intelligence: 145
+      command: 204
+      initiative: 169
+    signature_skills:
+    - 七进七出
+    notes:
+    - 自带战法「七进七出」效果（满级）：提升自身17.5%一-35%规避率，成功规避后触发龙胆：立刻对敌军随机两人造成45%-90%兵刃伤害，当前回合下一次龙胆的伤害系数降低5％-10%。龙胆每个回合可触发7次（发动概率：100%）
+    - 自带战法「七进七出」效果（初始）：提升自身17.5%-19.4%规避率，成功规避后触发龙胆：立刻对敌军随机两人造成45%-50%兵刃伤害，当前回合下一次龙胆的伤害系数降低5-5.5%%。龙胆每个回合可触发7次
+    - 缘分「五虎上将」：关羽、张飞、黄忠、赵云、马超——部队中缘分武将会心几率提升10%
+    - 推荐战法：摧坚克难、风卷残云、忘私相助、威名显赫、锐不可当、坚如磐石、克敌如风、揭竿而起
+    - 赛季：s1
+    - 初始属性：武力117 智力77 统率107 先攻66
+    - 成长值：武力2.65 智力1.52 统率2.15 先攻2.29
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力236 智力145 统率204 先攻169
+- id: hero-马云禄
+  domain: hero
+  entry_kind: hero_profile
+  topic: 马云禄
+  aliases: []
+  facts:
+  - 马云禄是蜀阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 红妆缭乱
+  priority: 88
+  structured_data:
+    name: 马云禄
+    aliases: []
+    faction: 蜀
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T1追击
+    base_attributes:
+      military: 104
+      intelligence: 53
+      command: 89
+      initiative: 93
+    growth_attributes:
+      military: 2.43
+      intelligence: 1.24
+      command: 1.65
+      initiative: 2.54
+    max_attributes:
+      military: 213
+      intelligence: 109
+      command: 163
+      initiative: 207
+    signature_skills:
+    - 红妆缭乱
+    notes:
+    - 自带战法「红妆缭乱」效果（满级）：普通攻击后，对攻击目标施加畏惧，持续2回合，然后造成110%-220%兵刃伤害，有40%一80%概率额外造成110%-220%兵刃伤害（发动概率：70%）
+    - 自带战法「红妆缭乱」效果（初始）：普通攻击后，对攻击目标施加畏惧，持续2回合，然后造成110%-122.2%兵刃伤害，有40%-44.4%概率额外造成110%-122.2%兵刃伤害
+    - 缘分「西凉铁骑」：马超、马云禄、马腾——部队中缘分武将追击战法伤害提升8%
+    - 推荐战法：三军夺气、兵贵神速、铁骑横冲、攻其不备、千里突袋、乘虚而入、轻装驰援、临阵突袭、千里突袭、阵突袭、乱敌方阵、夜袭、骁勇之姿
+    - 赛季：s2
+    - 初始属性：武力104 智力53 统率89 先攻93
+    - 成长值：武力2.43 智力1.24 统率1.65 先攻2.54
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力213 智力109 统率163 先攻207
+- id: hero-马超
+  domain: hero
+  entry_kind: hero_profile
+  topic: 马超
+  aliases: []
+  facts:
+  - 马超是蜀阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 纵马横枪
+  priority: 88
+  structured_data:
+    name: 马超
+    aliases: []
+    faction: 蜀
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T0兵刃
+    base_attributes:
+      military: 118
+      intelligence: 57
+      command: 103
+      initiative: 75
+    growth_attributes:
+      military: 2.78
+      intelligence: 1.01
+      command: 1.72
+      initiative: 2.53
+    max_attributes:
+      military: 243
+      intelligence: 102
+      command: 180
+      initiative: 189
+    signature_skills:
+    - 纵马横枪
+    notes:
+    - 自带战法「纵马横枪」效果（满级）：提升自身22.5%一45%会心几率，造成会心伤害后对目标发动追伤：造成1次30%一60%无视统率的兵刃伤害(无法触发会心)。若目标持有负面状态追伤伤害提升20%，追伤每个回合可触发5次（发动概率：100%）
+    - 自带战法「纵马横枪」效果（初始）：提升自身22.5%-25%会心几率，造成会心伤害后对目标发动追伤：造成1次30%-33.3%无视统率的兵刃伤害(无法触发会心)。若目标持有负面状态追伤伤害提升20%，追伤每个回合可触发5次
+    - 缘分「西凉铁骑」：马超、马云禄、马腾——部队中缘分武将追击战法伤害提升8%
+    - 缘分「五虎上将」：关羽、张飞、黄忠、赵云、马超——部队中缘分武将会心几率提升10%
+    - 推荐战法：摧坚克难、势如破竹、伏兵四起、战八方、威名显赫、铁骑横冲、揭竿而起、夜袭、疾行侧击、克敌如风、火羽
+    - 赛季：s1
+    - 初始属性：武力118 智力57 统率103 先攻75
+    - 成长值：武力2.78 智力1.01 统率1.72 先攻2.53
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力243 智力102 统率180 先攻189
+- id: hero-魏延
+  domain: hero
+  entry_kind: hero_profile
+  topic: 魏延
+  aliases: []
+  facts:
+  - 魏延是蜀阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 子午奇谋
+  priority: 88
+  structured_data:
+    name: 魏延
+    aliases: []
+    faction: 蜀
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T1兵刃
+    base_attributes:
+      military: 118
+      intelligence: 93
+      command: 102
+      initiative: 56
+    growth_attributes:
+      military: 2.66
+      intelligence: 1.6
+      command: 2.16
+      initiative: 1.63
+    max_attributes:
+      military: 238
+      intelligence: 165
+      command: 199
+      initiative: 129
+    signature_skills:
+    - 子午奇谋
+    notes:
+    - 自带战法「子午奇谋」效果（满级）：我军施加畏惧时，自身对目标造成30%→60%兵刃伤害并有15%→30%概率(受武力影响)施加1层流血，持续2回合每次造成流血伤害后，获得1层狂骨:倒戈提升3%，可叠加15层。自身持有狂骨层数首次达到9/15层时，立即结算友军和敌军全体的流血伤害(不清除状态）（发动概率：100%）
+    - 自带战法「子午奇谋」效果（初始）：我军施加畏惧时，自身对目标造成30%→33.3%兵刃伤害并有15%→16.6%概率(受武力影响)施加1层流血,持续2回合每次造成流血伤害后，获得1层狂骨:倒戈提升3%，可叠加15层。自身持有狂骨层数首次达到9/15层时，立即结算友军和敌军全体的流血伤害(不清除状态）
+    - 缘分「义烈同途」：魏延、黄忠——部队中缘分武将行动时，有50%概率对敌军随机单体施加畏惧效果
+    - 赛季：s10
+    - 初始属性：武力118 智力93 统率102 先攻56
+    - 成长值：武力2.66 智力1.60 统率2.16 先攻1.63
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力238 智力165 统率199 先攻129
+- id: hero-黄忠
+  domain: hero
+  entry_kind: hero_profile
+  topic: 黄忠
+  aliases: []
+  facts:
+  - 黄忠是蜀阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 定军扬威
+  priority: 88
+  structured_data:
+    name: 黄忠
+    aliases: []
+    faction: 蜀
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T2追击
+    base_attributes:
+      military: 115
+      intelligence: 71
+      command: 101
+      initiative: 58
+    growth_attributes:
+      military: 2.51
+      intelligence: 1.32
+      command: 1.69
+      initiative: 2.23
+    max_attributes:
+      military: 228
+      intelligence: 130
+      command: 177
+      initiative: 158
+    signature_skills:
+    - 定军扬威
+    notes:
+    - 自带战法「定军扬威」效果（满级）：普通攻击后，使攻击目标先攻和武力降低12-24(受武力影响），持续2回合。然后对持有负面状态的敌军目标造成90%-180%兵刃伤害（发动概率：55%）
+    - 自带战法「定军扬威」效果（初始）：普通攻击后，使攻击目标先攻和武力降低12-13.3(受武力影响），持续2回合。然后对持有负面状态的敌军目标造成90%-100%兵刃伤害
+    - 缘分「老当益壮」：程普、黄盖、黄忠、严颜——部队中缘分武将受到伤害降低5%
+    - 缘分「五虎上将」：关羽、张飞、黄忠、赵云、马超——部队中缘分武将会心几率提升10%
+    - 推荐战法：千里突袭、铁骑横冲、攻其不备、兵贵神速、乘虚而入、锐不可当、横扫千军、临阵突袭、乱敌方阵、夜袭、骁勇之姿、穷追不舍
+    - 赛季：s1
+    - 初始属性：武力115 智力71 统率101 先攻58
+    - 成长值：武力2.51 智力1.32 统率1.69 先攻2.23
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力228 智力130 统率177 先攻158
+- id: hero-黄月英
+  domain: hero
+  entry_kind: hero_profile
+  topic: 黄月英
+  aliases: []
+  facts:
+  - 黄月英是蜀阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 木牛流马
+  priority: 88
+  structured_data:
+    name: 黄月英
+    aliases: []
+    faction: 蜀
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T0
+    - 辅助
+    - 治疗
+    base_attributes:
+      military: 31
+      intelligence: 109
+      command: 93
+      initiative: 46
+    growth_attributes:
+      military: 0.33
+      intelligence: 2.28
+      command: 1.62
+      initiative: 2.0
+    max_attributes:
+      military: 46
+      intelligence: 212
+      command: 166
+      initiative: 136
+    signature_skills:
+    - 木牛流马
+    notes:
+    - 自带战法「木牛流马」效果（满级）：奇数回合开始时提升我军全体12.5%-25%造成伤害(受智力影响），持续至回合结束。偶数回合开始时恢复我军全体兵力(治疗率110%一220%，受智力影响)（发动概率：100%）
+    - 自带战法「木牛流马」效果（初始）：奇数回合开始时提升我军全体12.5%-13.8%造成伤害(受智力影响），持续至回合结束。偶数回合开始时恢复我军全体兵力(治疗率110%-122.2%，受智力影响）
+    - 缘分「才堪相配」：诸葛亮、黄月英——部队中缘分武将受到的治疗效果提升8%
+    - 推荐战法：奇正相生、指点乾坤、披坚执锐、运筹帷幄、青囊急救、清风驱疾、洞若观火、断敌粮道、料事如神、避其锐气、铸甲销戈、咏歌尝酒、决水破敌、束手无策、一计决胜、屈人之兵
+    - 赛季：s1
+    - 初始属性：武力31 智力109 统率93 先攻46
+    - 成长值：武力0.33 智力2.28 统率1.62 先攻2.00
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力46 智力212 统率166 先攻136

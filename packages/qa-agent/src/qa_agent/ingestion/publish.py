@@ -25,6 +25,9 @@ _SKILL_TRIGGER_BUCKET: dict[str, str] = {
 
 
 def _resolve_hero_bucket(entry: KnowledgeEntry) -> str:
+    rarity = getattr(entry.structured_data, "rarity", None) or ""
+    if rarity != "橙":
+        return "minor.yaml"
     faction = getattr(entry.structured_data, "faction", None) or ""
     return _HERO_FACTION_BUCKET.get(faction, "other.yaml")
 

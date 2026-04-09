@@ -1,0 +1,2343 @@
+domain: skill
+records:
+- canonical_name: 一计决胜
+  aliases: []
+  rarity: 紫
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：准备1回合，对敌军随机两人造成110%-220%谋略伤害，并施加虛弱状态,持续2回合，若目标已持有虚弱状态，则额外造成25%-50%谋略伤害
+  - 效果（初始）：准备1回合，对敌军随机两人造成110%谋略伤害，并施加虛弱状态,持续2回合，若目标已持有虛弱状态，则额外造成25%谋略伤害
+  - 满级发动概率：35%
+  - 初始发动概率：35%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E4%B8%80%E8%AE%A1%E5%86%B3%E8%83%9C
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 万军辟易
+  aliases: []
+  rarity: 橙
+  skill_type: 追击战法
+  trigger_type: 追击战法
+  target_scope: 敌军群体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，对敌军全体造成70%→140%兵刃伤害，偶数回合发动时额外对敌军兵力最低单体造成50%100%兵刃伤害，若上个回合没有发动，该次战法伤害提升50%
+  - 效果（初始）：普通攻击后，对敌军全体造成70%→77.7%兵刃伤害，偶数回合发动时额外对敌军兵力最低单体造成50%55.5%兵刃伤害，若上个回合没有发动，该次战法伤害提升50%
+  - 满级发动概率：35%
+  - 初始发动概率：35%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E4%B8%87%E5%86%9B%E8%BE%9F%E6%98%93
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 万夫莫当
+  aliases: []
+  rarity: 橙
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 自身
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，有60%概率对攻击目标的两名队友造成该次普通攻击50%-100%的传递伤害，若自身武力高于目标，则额外造成15%-30%兵刃伤害
+  - 效果（初始）：普通攻击后，有60%概率对攻击目标的两名队友造成该次普通攻击50％的传递伤害，若自身武力高于目标，则额外造成15%兵刃伤害
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E4%B8%87%E5%A4%AB%E8%8E%AB%E5%BD%93
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 三军夺气
+  aliases: []
+  rarity: 橙
+  skill_type: 追击战法
+  trigger_type: 追击战法
+  target_scope: null
+  effect_tags:
+  - 辅助
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，使攻击目标武力、智力、统率降低15-30点，持续2回合，最多可叠加5次
+  - 效果（初始）：普通攻击后，使攻击目标武力、智力、统率降低15点，持续2回合，最多可叠加5次
+  - 满级发动概率：55%
+  - 初始发动概率：55%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E4%B8%89%E5%86%9B%E5%A4%BA%E6%B0%94
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 上兵伐谋
+  aliases: []
+  rarity: 紫
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：回合开始时，对敌军随机单体造成60%-120%谋略伤害 ，上兵伐谋伤害会随着回合数增加，每回合提升伤害10%
+  - 效果（初始）：回合开始时，对敌军随机单体造成60%谋略伤害，上兵伐谋伤害会随着回合数增加，每回合提升伤害10%
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E4%B8%8A%E5%85%B5%E4%BC%90%E8%B0%8B
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 上智为间
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：使敌军随机单体混乱，持续1回合，并造成150%一300%谋略伤害
+  - 效果（初始）：使敌军随机单体混乱，持续1回合，并造成150%谋略伤害
+  - 满级发动概率：45%
+  - 初始发动概率：45%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E4%B8%8A%E6%99%BA%E4%B8%BA%E9%97%B4
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 临危勇烈
+  aliases: []
+  rarity: 紫
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 自身
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：自身反击率提升20%一40%，受到普通攻击伤害降低10%-20%
+  - 效果（初始）：自身反击率提升20%，受到普通攻击伤害降低10%
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E4%B8%B4%E5%8D%B1%E5%8B%87%E7%83%88
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 临阵突袭
+  aliases: []
+  rarity: 紫
+  skill_type: 追击战法
+  trigger_type: 追击战法
+  target_scope: null
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，降低目标15一30点统率，持续2回合，然后对其造成125%-250%兵刃伤害
+  - 效果（初始）：普通攻击后，降低目标15点统率，持续2回合，然后对其造成125%兵刃伤害
+  - 满级发动概率：40%
+  - 初始发动概率：40%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E4%B8%B4%E9%98%B5%E7%AA%81%E8%A2%AD
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 乘虚而入
+  aliases: []
+  rarity: 橙
+  skill_type: 追击战法
+  trigger_type: 追击战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，对敌军随机单体造成140%-280%兵刃伤害，若目标持有虚弱状态，则该次伤害值提升30%，若未持有虚弱状态，则有65%概率施加虚弱，持续1回合
+  - 效果（初始）：普通攻击后，对敌军随机单体造成140%兵刃伤害，若目标持有虚弱状态,则该次伤害值提升30%，若未持有虛弱状态，则有65%概率施加虛弱，持续1回合
+  - 满级发动概率：40%
+  - 初始发动概率：40%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E4%B9%98%E8%99%9A%E8%80%8C%E5%85%A5
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 乘间投隙
+  aliases: []
+  rarity: 橙
+  skill_type: 追击战法
+  trigger_type: 追击战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，对敌军随机单体施加混乱，持续1回合，并造成60%-120％谋略伤害，若目标已处于混乱状悉，则对其友军随机单体造成50%一100%谋略伤害
+  - 效果（初始）：普通攻击后，对敌军随机单体施加混乱，持续1回合，并造成60%谋略伤害,若目标已处于混乱状态，则对其友军随机单体造成50%谋略伤害
+  - 满级发动概率：60%
+  - 初始发动概率：60%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E4%B9%98%E9%97%B4%E6%8A%95%E9%9A%99
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 乱敌方阵
+  aliases: []
+  rarity: 紫
+  skill_type: 追击战法
+  trigger_type: 追击战法
+  target_scope: null
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，对攻击目标造成110%-220%兵刃伤害。并施加混乱，持续1回合
+  - 效果（初始）：普通攻击后，对攻击目标造成110%兵刃伤害。并施加混乱，持续1回合
+  - 满级发动概率：35%
+  - 初始发动概率：35%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E4%B9%B1%E6%95%8C%E6%96%B9%E9%98%B5
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 五雷轰顶
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：准备1回合 ，对敌军随机单体造成80%一160%谋略伤害，施放5次，每次命中持有洪水状态的目标时，额外对其造成20%一40%谋略伤害
+  - 效果（初始）：准备1回合，对敌军随机单体造成80%谋略伤害，施放5次，每次命中持有洪水状态的目标时，额外对其造成20%谋略伤害
+  - 满级发动概率：50%
+  - 初始发动概率：50%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E4%BA%94%E9%9B%B7%E8%BD%B0%E9%A1%B6
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 以战养战
+  aliases: []
+  rarity: 紫
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 自身
+  effect_tags:
+  - 治疗
+  preferred_roles: []
+  notes:
+  - 效果（满级）：武力提升10-20点，普通攻击后，恢复自身兵力(治疗率55%一110%，受智力和武力影响）
+  - 效果（初始）：武力提升10点，普通攻击后，恢复自身兵力(治疗率55%，受智力和武力影响）
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E4%BB%A5%E6%88%98%E5%85%BB%E6%88%98
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 以静制动
+  aliases: []
+  rarity: 橙
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 自身
+  effect_tags:
+  - 防御
+  preferred_roles: []
+  notes:
+  - 效果（满级）：奇数回合，自身无法进行普通攻击，受到兵刃伤害，普通攻击伤害，追击战法伤害减少15%一30%偶数回合，自身无法发动主动战法，受到谋略伤害，主动战法伤害减少15%-30%
+  - 效果（初始）：奇数回合，自身无法进行普通攻击，受到兵刃伤害，普通攻击伤害，追击战法伤害减少15% 偶数回合，自身无法发动主动战法，受到谋略伤害，主动战法伤害减少15%
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E4%BB%A5%E9%9D%99%E5%88%B6%E5%8A%A8
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 任人唯贤
+  aliases: []
+  rarity: 紫
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: null
+  effect_tags:
+  - 辅助
+  preferred_roles: []
+  notes:
+  - 效果（满级）：提升我军随机两人7.5%-15%造成伤害，12.5-25点统率，持续2回合
+  - 效果（初始）：提升我军随机两人7.5%造成伤害,12.5点统率，持续2回合
+  - 满级发动概率：60%
+  - 初始发动概率：60%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E4%BB%BB%E4%BA%BA%E5%94%AF%E8%B4%A4
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 任人择势
+  aliases: []
+  rarity: 橙
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: null
+  effect_tags:
+  - 辅助
+  preferred_roles: []
+  notes:
+  - 效果（满级）：第3回合起，两名队友每回合有40%-80%概率使下一次伤害必定触发会心和奇谋，且该次会心和奇谋伤害提升20%-40%
+  - 效果（初始）：第3回合起，两名队友每回合有40%概率使下一次伤害必定触发会心和奇谋，且该次会心和奇谋伤害提升20%
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E4%BB%BB%E4%BA%BA%E6%8B%A9%E5%8A%BF
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 伏兵四起
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对敌军随机单体造成50%一100%至70%-140%兵刃伤害，施放4次
+  - 效果（初始）：对敌军随机单体造成50%至70%兵刃伤害，施放4次
+  - 满级发动概率：50%
+  - 初始发动概率：50%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E4%BC%8F%E5%85%B5%E5%9B%9B%E8%B5%B7
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 克敌如风
+  aliases: []
+  rarity: 紫
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对敌军随机单体造成120%-240%兵刃伤害(优先选择后排），并施加风暴,持续2回合。若目标已处于风暴状态则额外降低其12.5-25点先攻，持续2回合
+  - 效果（初始）：对敌军随机单体造成120%兵刃伤害(优先选择后排），并施加风暴,持续2回合。若目标已处于风暴状态则额外降低其12.5点先攻，持续2回合
+  - 满级发动概率：50%
+  - 初始发动概率：50%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%85%8B%E6%95%8C%E5%A6%82%E9%A3%8E
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 兵贵神速
+  aliases: []
+  rarity: 橙
+  skill_type: 追击战法
+  trigger_type: 追击战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，提升自身15一30点先攻，持续2回合，并对敌军随机两人造成90%-180%兵刃伤害(额外受先攻影响）
+  - 效果（初始）：普通攻击后，提升自身15点先攻，持续2回合，并对敌军随机两人造成90%兵刃伤害(额外受先攻影响）
+  - 满级发动概率：40%
+  - 初始发动概率：40%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%85%B5%E8%B4%B5%E7%A5%9E%E9%80%9F
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 冲锐巧变
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对敌军随机单体造成180%-360%兵刃伤害，并使自身下一次释放的准备战法跳过一定回合准备。
+  - 满级发动概率：40%
+  - 初始发动概率：22%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%86%B2%E9%94%90%E5%B7%A7%E5%8F%98
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 决水破敌
+  aliases: []
+  rarity: 紫
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对敌军随机两人造成50%-100%谋略伤害，若目标处于洪水状态。则额外造成30%一60%谋略伤害，否则施加洪水，持续2回合
+  - 效果（初始）：对敌军随机两人造成50%谋略伤害，若目标处于洪水状态。则额外造成30%谋略伤害，否则施加洪水，持续2回合
+  - 满级发动概率：60%
+  - 初始发动概率：60%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%86%B3%E6%B0%B4%E7%A0%B4%E6%95%8C
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 出其不意
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对敌军随机单体造成175%一350%谋略伤害，若目标持有负面状态该次伤害值提升25%
+  - 效果（初始）：对敌军随机单体造成175%谋略伤害，若目标持有负面状态该次伤害值提升25%
+  - 满级发动概率：55%
+  - 初始发动概率：55%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%87%BA%E5%85%B6%E4%B8%8D%E6%84%8F
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 势如破竹
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军群体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：提升自身20%会心几率，持续2回合 ，然后对敌军全体造成70%一140％兵刃伤害
+  - 效果（初始）：提升自身20%会心几率，持续2回合，然后对敌军全体造成70%兵刃伤害
+  - 满级发动概率：27.5%> 50%
+  - 初始发动概率：27.5%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%8A%BF%E5%A6%82%E7%A0%B4%E7%AB%B9
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 勇冠三军
+  aliases: []
+  rarity: 橙
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：自身倒戈提升15%-30%，普通攻击之后，使自身造成兵刃伤害提升3％一6%，可叠加6次，累积进行3次普通攻击之后，对敌军随机单体造成100%-200%兵刃伤害
+  - 效果（初始）：自身倒戈提升15%，普通攻击之后，使自身造成兵刃伤害提升3%，可叠加6次，累积进行3次普通攻击之后，对敌军随机单体造成100%兵刃伤害
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%8B%87%E5%86%A0%E4%B8%89%E5%86%9B
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 十面埋伏
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军群体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对敌军全体造成75%->150%兵刃伤害，并有75%概率施加断粮，持续1回合
+  - 效果（初始）：对敌军全体造成75%->83.3%兵刃伤害，并有75%概率施加断粮，持续1回合
+  - 满级发动概率：45%
+  - 初始发动概率：45%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%8D%81%E9%9D%A2%E5%9F%8B%E4%BC%8F
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 千里突袭
+  aliases: []
+  rarity: 橙
+  skill_type: 追击战法
+  trigger_type: 追击战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，对先攻最低的敌军单体造成140%-280%(额外受双方先攻差值影响）兵刃伤害，若目标为后排额外造成50%-100%兵刃伤害
+  - 效果（初始）：普通攻击后，对先攻最低的敌军单体造成140%（额外受双方先攻差值影响)兵刃伤害，若目标为后排额外造成50%兵刃伤害
+  - 满级发动概率：40%
+  - 初始发动概率：40%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%8D%83%E9%87%8C%E7%AA%81%E8%A2%AD
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 及锋而试
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：提升自身10%→20%兵刃伤害，持续2回合，然后对敌军随机两人造成80%→160%兵刃伤害，目标存在属性降低状态，该次伤害系数额外提升30%
+  - 效果（初始）：提升自身10%→11.1%兵刃伤害，持续2回合，然后对敌军随机两人造成80%→88.8%兵刃伤害，目标存在属性降低状态，该次伤害系数额外提升30%
+  - 满级发动概率：60%
+  - 初始发动概率：60%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%8F%8A%E9%94%8B%E8%80%8C%E8%AF%95
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 同舟共济
+  aliases: []
+  rarity: 橙
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: 自身
+  effect_tags:
+  - 治疗
+  preferred_roles: []
+  notes:
+  - 效果（满级）：每个回合行动时恢复自身和随机一名队友兵力（治疗率45％->90％，受智力和统率影响）
+  - 效果（初始）：每个回合行动时恢复自身和随机一名队友兵力（治疗率45％->50％，受智力和统率影响）
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%90%8C%E8%88%9F%E5%85%B1%E6%B5%8E
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 咏歌尝酒
+  aliases: []
+  rarity: 紫
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: null
+  effect_tags:
+  - 治疗
+  preferred_roles: []
+  notes:
+  - 效果（满级）：恢复我军随机两人兵力(治疗率65%-130%，受智力影响），并提升其8-16点统率，持续2回合
+  - 效果（初始）：恢复我军随机两人兵力(治疗率65%，受智力影响），并提升其8点统率，持续2回合
+  - 满级发动概率：65%
+  - 初始发动概率：65%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%92%8F%E6%AD%8C%E5%B0%9D%E9%85%92
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 固若金汤
+  aliases: []
+  rarity: 橙
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 防御
+  preferred_roles: []
+  notes:
+  - 效果（满级）：自身统率提升7.5%-15%，第2回合起，每个回合开始时有30%-60%概率(受统率影响）嘲讽敌军随机两人，持续2回合
+  - 效果（初始）：自身统率提升7.5%，第2回合起，每个回合开始时有30%概率(受统率影响）嘲讽敌军随机两人，持续2回合
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%9B%BA%E8%8B%A5%E9%87%91%E6%B1%A4
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 坚壁清野
+  aliases: []
+  rarity: 紫
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军群体
+  effect_tags:
+  - 防御
+  preferred_roles: []
+  notes:
+  - 效果（满级）：嘲讽敌军全体，并提升自身18一36点统率，持续2回合
+  - 效果（初始）：嘲讽敌军全体，并提升自身18点统率，持续2回合
+  - 满级发动概率：50%
+  - 初始发动概率：50%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%9D%9A%E5%A3%81%E6%B8%85%E9%87%8E
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 坚如磐石
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军群体
+  effect_tags:
+  - 防御
+  preferred_roles: []
+  notes:
+  - 效果（满级）：嘲讽全体敌军，并使自身受到伤害降低15%一30%，持续2回合
+  - 效果（初始）：嘲讽全体敌军，并使自身受到伤害降低15%，持续2回合
+  - 满级发动概率：55%
+  - 初始发动概率：55%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%9D%9A%E5%A6%82%E7%A3%90%E7%9F%B3
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 夜袭
+  aliases: []
+  rarity: 紫
+  skill_type: 追击战法
+  trigger_type: 追击战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，对敌军随机两人造成60%-120%兵刃伤害，若自身先攻大于目标则额外造成25%一50%兵刃伤害
+  - 效果（初始）：普通攻击后，对敌军随机两人造成60%兵刃伤害，若自身先攻大于目标则额外造成25%兵刃伤害
+  - 满级发动概率：45%
+  - 初始发动概率：45%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%A4%9C%E8%A2%AD
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 奇正相生
+  aliases: []
+  rarity: 橙
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 治疗
+  preferred_roles: []
+  notes:
+  - 效果（满级）：第2回合起，回合开始时，有65%概率恢复我军随机两人兵力(治疗率为75%-150%，受智力影响），回合结束时，有65%概率对敌军随机两人造成75%-150%谋略伤害
+  - 效果（初始）：第2回合起，回合开始时，有65%概率恢复我军随机两人兵力(治疗率为75%，受智力影响），回合结束时，有65%概率对敌军随机两人造成75%谋略伤害
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%A5%87%E6%AD%A3%E7%9B%B8%E7%94%9F
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 奇计迭出
+  aliases: []
+  rarity: 紫
+  skill_type: 追击战法
+  trigger_type: 追击战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，对敌军随机单体造成125%一250%谋略伤害，优先选择敌军后排
+  - 效果（初始）：普通攻击后，对敌军随机单体造成125%谋略伤害，优先选择敌军后排
+  - 满级发动概率：40%
+  - 初始发动概率：40%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%A5%87%E8%AE%A1%E8%BF%AD%E5%87%BA
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 奇门遁甲
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军群体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：准备1回合,对敌军全体造成125%一250%谋略伤害，并有12.5%-25％概率施加震慑，持续1回合，目标每多一种异常状态，谋略伤害系数提升25%，震慑概率提升8%，可提升5次
+  - 效果（初始）：准备1回合，对敌军全体造成125%谋略伤害，并有12.5%概率施加震慑，持续1回合，目标每多一种异常状态，谋略伤害系数提升25%，震慑概率提升8%，可提升5次
+  - 满级发动概率：40%
+  - 初始发动概率：40%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 如有神助
+  aliases: []
+  rarity: 紫
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: null
+  effect_tags:
+  - 辅助
+  preferred_roles: []
+  notes:
+  - 效果（满级）：主动战法发动率提升4%一8%，主动战法伤害提升7.5%-15%
+  - 效果（初始）：主动战法发动率提升4%，主动战法伤害提升7.5%
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%A6%82%E6%9C%89%E7%A5%9E%E5%8A%A9
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 如沐春风
+  aliases: []
+  rarity: 紫
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 自身
+  effect_tags:
+  - 治疗
+  preferred_roles: []
+  notes:
+  - 效果（满级）：每个回合行动时恢复自身兵力(治疗率70%-140%，受智力和统率影响）
+  - 效果（初始）：每个回合行动时恢复自身兵力(治疗率70%，受智力和统率影响）
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%A6%82%E6%B2%90%E6%98%A5%E9%A3%8E
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 威名显赫
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：提升自身30%倒戈，持续2回合。然后对敌军随机两人造成110%-220%兵刃伤害
+  - 效果（初始）：提升自身30%倒戈，持续2回合。然后对敌军随机两人造成110%兵刃伤害
+  - 满级发动概率：27.5%>> 50%
+  - 初始发动概率：27.5%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%A8%81%E5%90%8D%E6%98%BE%E8%B5%AB
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 屈人之兵
+  aliases: []
+  rarity: 紫
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 防御
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对敌军随机两人施加缴械，持续1回合 ，若目标已持有缴械，则使其造成伤害降低7.5%一15%，持续2回合
+  - 效果（初始）：对敌军随机两人施加缴械，持续1回合，若目标已持有缴械，则使其造成伤害降低7.5%，持续2回合
+  - 满级发动概率：22% »40%
+  - 初始发动概率：22%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%B1%88%E4%BA%BA%E4%B9%8B%E5%85%B5
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 巧利天灾
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: null
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对除自身外的敌我全体目标造成70%一140%谋略伤害若为敌军目标且处于火攻状态，则有35%概率施加混乱，持续1回合若为敌军目标且处于洪水状态，则有35%概率施加缴械，持续1回合若为敌军目标且处于风暴状态，则有35%概率施加技穷，持续1回合
+  - 效果（初始）：对除自身外的敌我全体目标造成70%谋略伤害 若为敌军目标且处于火攻状态，则有35%概率施加混乱，持续1回合若 为敌军目标且处于洪水状态，则有35%概率施加缴械，持续1回合
+    若为敌军目标且处于风暴状态，则有35%概率施加技穷，持续1回合
+  - 满级发动概率：50%
+  - 初始发动概率：50%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%B7%A7%E5%88%A9%E5%A4%A9%E7%81%BE
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 强袭
+  aliases: []
+  rarity: 紫
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，对敌军随机单体造成该次普通攻击40%一80%的传递伤害
+  - 效果（初始）：普通攻击后，对敌军随机单体造成该次普通攻击40%的传递伤害
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%BC%BA%E8%A2%AD
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 御敌临前
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 自身
+  effect_tags:
+  - 防御
+  preferred_roles: []
+  notes:
+  - 效果（满级）：使自身和一名随机队友受到伤害降低10%→20%(受先攻影响)，持续1回合，若自身为前排，额外恢复自身兵力(治疗率60%→120%，受智力和先攻影响
+  - 效果（初始）：使自身和一名随机队友受到伤害降低10%→11.1%(受先攻影响),持续1回合，若自身为前排，额外恢复自身兵力(治疗率60%→66.6%，受智力和先攻影响
+  - 满级发动概率：75%
+  - 初始发动概率：75%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%BE%A1%E6%95%8C%E4%B8%B4%E5%89%8D
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 忘私相助
+  aliases: []
+  rarity: 橙
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 自身
+  effect_tags:
+  - 治疗
+  preferred_roles: []
+  notes:
+  - 效果（满级）：自身受到伤害前，有50%概率恢复两名队友兵力(治疗率25%-50%，受智力和统率影响）
+  - 效果（初始）：自身受到伤害前，有50%概率恢复两名队友兵力(治疗率25%，受智力和统率影响）
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E5%BF%98%E7%A7%81%E7%9B%B8%E5%8A%A9
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 恩威并行
+  aliases: []
+  rarity: 橙
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 防御
+  preferred_roles: []
+  notes:
+  - 效果（满级）：战斗开始前3回合，自带战法造成治疗后（攻心和倒戈无效），令目标受到伤害降低1.5%->3%（受智力和统率影响），可叠加6次，持续到战斗结束；第4回合起，每回合行动时，对敌军随机两人造成25%->50%谋略伤害（额外受全队累积治疗量影响）
+  - 效果（初始）：战斗开始前3回合，自带战法造成治疗后（攻心和倒戈无效），令目标受到伤害降低1.5%->1.67%（受智力和统率影响），可叠加6次，持续到战斗结束；第4回合起，每回合行动时，对敌军随机两人造成25%->27.78%谋略伤害（额外受全队累积治疗量影响）
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%81%A9%E5%A8%81%E5%B9%B6%E8%A1%8C
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 惩前毖后
+  aliases: []
+  rarity: 橙
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：每个回合开始时,对敌军随机两人造成45%→90%谋略伤害(额外受全队累积治疗量影响)。每个回合结束时，恢复我军前排兵力(治疗率25%→50%，受智力影响
+  - 效果（初始）：每个回合开始时，对敌军随机两人造成45%→50%谋略伤害(额外受全队累积治疗量影响)。每个回合结束时，恢复我军前排兵力(治疗率25%→27.7%，受智力影响)
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%83%A9%E5%89%8D%E6%AF%96%E5%90%8E
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 战八方
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军群体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对敌军全体造成65%一130%兵刃伤害，并施加畏惧，持续2回合
+  - 效果（初始）：对敌军全体造成65%兵刃伤害，并施加畏惧，持续2回合
+  - 满级发动概率：55%
+  - 初始发动概率：55%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%88%98%E5%85%AB%E6%96%B9
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 折冲御侮
+  aliases: []
+  rarity: 橙
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: null
+  effect_tags:
+  - 防御
+  preferred_roles: []
+  notes:
+  - 效果（满级）：战斗开始前3回合，我军随机两人受到伤害降低12%->24%（受智力影响），并在第4回合开始时为我军全体恢复兵力（治疗率180%->360%，受智力影响）
+  - 效果（初始）：战斗开始前3回合，我军随机两人受到伤害降低12%->13.3%（受智力影响），并在第4回合开始时为我军全体恢复兵力（治疗率180%->200%，受智力影响）
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%8A%98%E5%86%B2%E5%BE%A1%E4%BE%AE
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 披坚执锐
+  aliases: []
+  rarity: 橙
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 辅助
+  preferred_roles: []
+  notes:
+  - 效果（满级）：战斗开始时，使我军随机单体(优先前排)获得披坚：行动前恢复自身兵力(治疗率40%-80%，受目标智力统率影响），受到兵刃伤害降低10%-20%使我军武力最高单体获得执锐：普通攻击后，有50％概率对敌军随机单体造成1次50%一100%兵刃伤害
+  - 效果（初始）：战斗开始时，使我军随机单体(优先前排)获得披坚：行动前恢复自身兵力(治疗率40%，受目标智力统率影响)，受到兵刃伤害降低10%使我军武力最高单体获得执锐：普通攻击后，有50%概率对敌军随机单体造成1次50%兵刃伤害
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%8A%AB%E5%9D%9A%E6%89%A7%E9%94%90
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 指点乾坤
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军群体
+  effect_tags:
+  - 文武兼备
+  preferred_roles: []
+  notes:
+  - 效果（满级）：令我军武力最高单体对敌军全体造成40%一80%兵刃伤害，令我军智力最高单体对敌军全体造成40%-80%谋略伤害
+  - 效果（初始）：令我军武力最高单体对敌军全体造成40%兵刃伤害，令我军智力最高单体对敌军全体造成40%谋略伤害
+  - 满级发动概率：50%
+  - 初始发动概率：50%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%8C%87%E7%82%B9%E4%B9%BE%E5%9D%A4
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 挫锐折锋
+  aliases: []
+  rarity: 橙
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: null
+  effect_tags:
+  - 辅助
+  preferred_roles: []
+  notes:
+  - 效果（满级）：战斗开始前3回合，敌军武力最高单体造成兵刃伤害降低12.5%一25%（受统率影响），敌军智力最高单体造成谋略伤害降低12.5% 25%（受统率影响）
+  - 效果（初始）：战斗开始前3回合，敌军武力最高单体造成兵刃伤害降低12.5%-13.8%（受统率影响），敌军智力最高单体造成谋略伤害降低12.5% 13.8%（受统率影响）
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%8C%AB%E9%94%90%E6%8A%98%E9%94%8B
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 掠阵破军
+  aliases: []
+  rarity: 橙
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 敌军群体
+  effect_tags:
+  - 文武兼备
+  preferred_roles: []
+  notes:
+  - 效果（满级）：提升自身7.5%→15%破甲(受规避率影响),每回合结束时，对敌军全体造成25%→50%的伤害(伤害类型由武力和智力最高决定，本回合内自身每成功规避一次，额外提升10%系数，最高可提升50%
+  - 效果（初始）：提升自身7.5%→8.3%破甲(受规避率影响),每回合结束时，对敌军全体造成25%→27.7%的伤害(伤害类型由武力和智力最高决定，本回合内自身每成功规避一次，额外提升10%系数，最高可提升50%)
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%8E%A0%E9%98%B5%E7%A0%B4%E5%86%9B
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 揭竿而起
+  aliases: []
+  rarity: 紫
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对敌军随机两人造成75%一150%兵刃伤害，并对目标施加断粮，持续1回合
+  - 效果（初始）：对敌军随机两人造成75%兵刃伤害，并对目标施加断粮，持续1回合
+  - 满级发动概率：45%
+  - 初始发动概率：45%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%8F%AD%E7%AB%BF%E8%80%8C%E8%B5%B7
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 摧坚克难
+  aliases: []
+  rarity: 橙
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：提升自身20%会心几率，每个回合行动结束时对敌军随机两人造成55%-110%兵刃伤害
+  - 效果（初始）：提升自身20%会心几率，每个回合行动结束时对敌军随机两人造成55％兵刃伤害
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%91%A7%E5%9D%9A%E5%85%8B%E9%9A%BE
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 攻其不备
+  aliases: []
+  rarity: 橙
+  skill_type: 追击战法
+  trigger_type: 追击战法
+  target_scope: null
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，对攻击目标造成140%一280%兵刃伤害，并施加技穷，持续1回合。若目标已处于技穷状态则有50%概率施加震慑，持续1回合
+  - 效果（初始）：普通攻击后，对攻击目标造成140%兵刃伤害，并施加技穷，持续1回合。若目标已处于技穷状态则有50%概率施加震慑，持续1回合
+  - 满级发动概率：40%
+  - 初始发动概率：40%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%94%BB%E5%85%B6%E4%B8%8D%E5%A4%87
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 文武双全
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: null
+  effect_tags:
+  - 文武兼备
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对敌军武力最高单体造成110%-220%谋略伤害，对敌军智力最高单体造成110%一›220%兵刃伤害
+  - 效果（初始）：对敌军武力最高单体造成110%谋略伤害，对敌军智力最高单体造成110%兵刃伤害
+  - 满级发动概率：65%
+  - 初始发动概率：65%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%96%87%E6%AD%A6%E5%8F%8C%E5%85%A8
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 文治武功
+  aliases: []
+  rarity: 紫
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 文武兼备
+  preferred_roles: []
+  notes:
+  - 效果（满级）：每个回合行动时有60%概率对敌军随机两人造成50%-100%兵刃和谋略伤害
+  - 效果（初始）：每个回合行动时有60%概率对敌军随机两人造成50%兵刃和谋略伤害
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%96%87%E6%B2%BB%E6%AD%A6%E5%8A%9F
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 文韬武略
+  aliases: []
+  rarity: 橙
+  skill_type: 追击战法
+  trigger_type: 追击战法
+  target_scope: null
+  effect_tags:
+  - 文武兼备
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，对敌军智力最低单体造成80%->160%谋略伤害，对敌军统率最低单体造成80%->160%兵刃伤害
+  - 效果（初始）：普通攻击后，对敌军智力最低单体造成80%->88.8%谋略伤害，对敌军统率最低单体造成80%->88.8%兵刃伤害
+  - 满级发动概率：50%
+  - 初始发动概率：32%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%96%87%E9%9F%AC%E6%AD%A6%E7%95%A5
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 料事如神
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对敌军随机两人造成90%-180%谋略伤害，并有50%概率施加技穷，持续1回合
+  - 效果（初始）：对敌军随机两人造成90%谋略伤害，并有50%概率施加技穷，持续1回合
+  - 满级发动概率：45%
+  - 初始发动概率：45%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%96%99%E4%BA%8B%E5%A6%82%E7%A5%9E
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 斩将夺旗
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对统率最低的敌军单体造成110%-220%兵刃伤害，并施加断粮，持续2回合，若目标已持有断粮状态，则额外造成40%一80%兵刃伤害
+  - 效果（初始）：对统率最低的敌军单体造成110%兵刃伤害，并施加断粮，持续2回合，若目标已持有断粮状态,则额外造成40%兵刃伤害
+  - 满级发动概率：55%
+  - 初始发动概率：55%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%96%A9%E5%B0%86%E5%A4%BA%E6%97%97
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 断戈夺锋
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对敌军随机两人造成110%→220%兵刃伤害，并有37.5%→75%概率施加缴械，持续1回合
+  - 效果（初始）：对敌军随机两人造成110%→122.2%兵刃伤害，并有37.5%→41.6%概率施加缴械，持续1回合
+  - 满级发动概率：50%
+  - 初始发动概率：50%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%96%AD%E6%88%88%E5%A4%BA%E9%94%8B
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 断敌粮道
+  aliases: []
+  rarity: 橙
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：回合开始时，对敌军单体施加断粮，持续2回合。回合结束时，对持有断粮状态的敌军造成55%一110%谋略伤害
+  - 效果（初始）：回合开始时，对敌军单体施加断粮，持续2回合。回合结束时，对持有断粮状态的敌军造成55%谋略伤害
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%96%AD%E6%95%8C%E7%B2%AE%E9%81%93
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 无难之志
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: null
+  effect_tags:
+  - 辅助
+  preferred_roles: []
+  notes:
+  - 效果（满级）：提升两名队友22.5%一45%连击率和20%倒戈，持续2回合
+  - 效果（初始）：提升两名队友22.5%连击率和20%倒戈，持续2回合
+  - 满级发动概率：38.5%>> 70%
+  - 初始发动概率：38.5%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%97%A0%E9%9A%BE%E4%B9%8B%E5%BF%97
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 明其虚实
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：夺取敌军随机两人10->20点智力，统率（受智力影响），持续2回合，并造成70%->140%谋略伤害
+  - 效果（初始）：夺取敌军随机两人10->11.1点智力、统率（受智力影响），持续2回合，并造成70%->77.7%谋略伤害
+  - 满级发动概率：45%
+  - 初始发动概率：45%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%98%8E%E5%85%B6%E8%99%9A%E5%AE%9E
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 智破千军
+  aliases: []
+  rarity: 橙
+  skill_type: 追击战法
+  trigger_type: 追击战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，对敌军随机两人造成90%->180%谋略伤害，并有17.5%->35%（受智力影响）令该次伤害额外提升20%，每个目标独立判定
+  - 效果（初始）：普通攻击后，对敌军随机两人造成90%->100%谋略伤害，并有17.5%->19.4%（受智力影响）令该次伤害额外提升20%，每个目标独立判定
+  - 满级发动概率：50%
+  - 初始发动概率：50%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%99%BA%E7%A0%B4%E5%8D%83%E5%86%9B
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 未雨绸缪
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：获得1层抵御，且奇谋几率和奇谋伤害提升4%一8%（受智力影响，自身每存在1种功能性增益状态，额外提升1%->2%，最多可提升8次），持续2回合，然后对敌军随机两人造成70%->140％谋略伤害
+  - 效果（初始）：获得1层抵御，且奇谋几率和奇谋伤害提升4%->4.44%（受智力影响，自身每存在1种功能性增益状态，额外提升1%->1.11%，最多可提升8次），持续2回合，然后对敌军随机两人造成70%->77.78%谋略伤害
+  - 满级发动概率：60%
+  - 初始发动概率：60%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%9C%AA%E9%9B%A8%E7%BB%B8%E7%BC%AA
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 机变无穷
+  aliases: []
+  rarity: 橙
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: null
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：自带战法造成伤害后，有30%→60%概率(受智力影响)提升5%→10%谋略伤害，可叠加，持续到回合结束，并对随机敌军造成30%→60%谋略伤害。每回合最多触发4次
+  - 效果（初始）：自带战法造成伤害后,有30%→33.3%概率(受智力影响)提升5%→5.5%谋略伤害，可叠加，持续到回合结束，并对随机敌军造成30%→33.3%谋略伤害。每回合最多触发4次
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%9C%BA%E5%8F%98%E6%97%A0%E7%A9%B7
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 束手无策
+  aliases: []
+  rarity: 紫
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对敌军随机单体造成100%-200%谋略伤害，并施加技穷，持续1回合
+  - 效果（初始）：对敌军随机单体造成100%谋略伤害，并施加技穷，持续1回合
+  - 满级发动概率：45%
+  - 初始发动概率：45%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%9D%9F%E6%89%8B%E6%97%A0%E7%AD%96
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 来好息师
+  aliases: []
+  rarity: 紫
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: null
+  effect_tags:
+  - 治疗
+  preferred_roles: []
+  notes:
+  - 效果（满级）：每回合结束时，恢复我军前排全体兵力(治疗率45%-90%，受智力影
+  - 效果（初始）：每回合结束时，恢复我军前排全体兵力(治疗率45%，受智力影响）
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%9D%A5%E5%A5%BD%E6%81%AF%E5%B8%88
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 横征暴敛
+  aliases: []
+  rarity: 橙
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 自身
+  effect_tags:
+  - 防御
+  preferred_roles: []
+  notes:
+  - 效果（满级）：战斗中，施加负面效果后恢复自身兵力(治疗率20%-40%，受智力和统率影响），并使自身受到伤害降低5%一10%，持续2回合，可叠加4次
+  - 效果（初始）：战斗中，施加负面效果后恢复自身兵力(治疗率20%，受智力和统率影响），并使自身受到伤害降低5%，持续2回合，可叠加4次
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%A8%AA%E5%BE%81%E6%9A%B4%E6%95%9B
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 横扫千军
+  aliases: []
+  rarity: 橙
+  skill_type: 追击战法
+  trigger_type: 追击战法
+  target_scope: 敌军群体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，对敌军全体造成60%-120%兵刃伤害，成功释放后下一次横扫千军伤害系数提升12%，可叠加5次，持续到战斗结束
+  - 效果（初始）：普通攻击后，对敌军全体造成60%兵刃伤害，成功释放后下一次横扫千军伤害系数提升12%，可叠加5次，持续到战斗结束
+  - 满级发动概率：45%
+  - 初始发动概率：45%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%A8%AA%E6%89%AB%E5%8D%83%E5%86%9B
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 步步为营
+  aliases: []
+  rarity: 橙
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: 友军单体
+  effect_tags:
+  - 防御
+  preferred_roles: []
+  notes:
+  - 效果（满级）：每回合开始时，有60%概率使自身及随机友军单体受到的伤害降低12%->24%（受统率影响），持续1回合，每回合触发概率提升5%->10%，每个武将独立判断
+  - 效果（初始）：每回合开始时，有60%概率使自身及随机友军单体受到的伤害降低12%->13.3%（受统率影响），持续1回合，每回合触发概率提升5%->5.5%，每个武将独立判断
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%AD%A5%E6%AD%A5%E4%B8%BA%E8%90%A5
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 水淹七军
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军群体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：准备1回合，对敌军全体施加洪水，持续2回合，并造成130%一260%兵刃伤害，并施加技穷或缴械中的一种，持续1回合
+  - 效果（初始）：准备1回合，对敌军全体施加洪水，持续2回合，并造成130%兵刃伤害，并施加技穷或缴械中的一种，持续1回合
+  - 满级发动概率：40%
+  - 初始发动概率：40%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%B0%B4%E6%B7%B9%E4%B8%83%E5%86%9B
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 洗筋伐髓
+  aliases: []
+  rarity: 橙
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 自身
+  effect_tags:
+  - 辅助
+  preferred_roles: []
+  notes:
+  - '效果（满级）：回合开始时，使自身造成伤害提升5%->10%，可叠加3次，持续到战斗结束。
+
+    回合行动时，有55%概率使自身获得以下效果：恢复自身兵力（治疗率100%一200%，受最高属性影响）：受到伤害降低10%一20%，持续1回合，每个效果独立判断'
+  - '效果（初始）：回合开始时，使自身造成伤害提升5%->5.5%，可叠加3次，持续到战斗结束。
+
+    回合行动时，有55%概率使自身获得以下效果：恢复自身兵力（治疗率100%一111.1%，受最高属性影响）：受到伤害降低10%一11.1%，持续1回合，每个效果独立判断'
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%B4%97%E7%AD%8B%E4%BC%90%E9%AB%93
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 洞若观火
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: null
+  effect_tags:
+  - 治疗
+  preferred_roles: []
+  notes:
+  - 效果（满级）：恢复我军随机单体兵力(治疗率130%-260%，受智力影响），并使其获得清醒，持续2回合
+  - 效果（初始）：恢复我军随机单体兵力(治疗率130%，受智力影响），并使其获得清醒，持续2回合
+  - 满级发动概率：50%
+  - 初始发动概率：50%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%B4%9E%E8%8B%A5%E8%A7%82%E7%81%AB
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 清风驱疾
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: null
+  effect_tags:
+  - 治疗
+  preferred_roles: []
+  notes:
+  - 效果（满级）：驱散我军随机两人1种负面状态，并恢复其兵力(治疗率90%-180%，受智力影响）
+  - 效果（初始）：驱散我军随机两人1种负面状态，并恢复其兵力(治疗率90%，受智力影
+  - 满级发动概率：60%
+  - 初始发动概率：60%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%B8%85%E9%A3%8E%E9%A9%B1%E7%96%BE
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 潜龙在渊
+  aliases: []
+  rarity: 橙
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: 敌军群体
+  effect_tags:
+  - 文武兼备
+  preferred_roles: []
+  notes:
+  - 效果（满级）：战斗开始前3回合，自身无法进行普通攻击。第4、6、8回合结束时，分别对敌军全体造成170%->340%、190%->380%、210%->420%的伤害（伤害类型由武力和智力最高决定）
+  - 效果（初始）：战斗开始前3回合，自身无法进行普通攻击。第4、6、8回合结束时，分别对敌军全体造成170%->188.8%、190%->211.1%、210%->233.3%的伤害（伤害类型由武力和智力最高决定）
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E6%BD%9C%E9%BE%99%E5%9C%A8%E6%B8%8A
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 火羽
+  aliases: []
+  rarity: 紫
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军群体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对敌军全体造成75%一150%兵刃伤害，并施加火攻，持续2回合
+  - 效果（初始）：对敌军全体造成75%兵刃伤害，并施加火攻，持续2回合
+  - 满级发动概率：40%
+  - 初始发动概率：40%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E7%81%AB%E7%BE%BD
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 烈火张天
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军群体
+  effect_tags:
+  - 文武兼备
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对敌军全体施加火攻，持续2回合，并造成45%一90%谋略和兵刃伤害
+  - 效果（初始）：对敌军全体施加火攻，持续2回合，并造成45%一50%谋略和兵刃伤害
+  - 满级发动概率：50%
+  - 初始发动概率：50%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E7%83%88%E7%81%AB%E5%BC%A0%E5%A4%A9
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 烈火焚营
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军群体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对敌军全体造成40%一80%谋略伤害，并施加火攻状态，持续2回合。再进行3次焚营：对敌军随机单体造成40%一80％谋略伤害。若目标处于风暴状态，焚营的伤害值提升30%
+  - 效果（初始）：对敌军全体造成40%谋略伤害，并施加火攻状态，持续2回合。再进行3次焚营：对敌军随机单体造成40%谋略伤害。若目标处于风暴状态,焚营的伤害值提升30%
+  - 满级发动概率：45%
+  - 初始发动概率：45%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E7%83%88%E7%81%AB%E7%84%9A%E8%90%A5
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 狂风大作
+  aliases: []
+  rarity: 橙
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: 敌军群体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：第2和第4回合开始时，敌我全体会陷入风暴状态，持续2回合。奇数回合开始时，有60%概率对敌军全体造成50%一100%谋略伤害偶数回合开始时，有60%概率对敌军随机单体造成140%-280%谋略伤害
+  - 效果（初始）：第2和第4回合开始时，敌我全体会陷入风暴状态，持续2回合。奇数回合开始时，有60%概率对敌军全体造成50%谋略伤害。偶数回合开始时，有60%概率对敌军随机单体造成140%谋略伤害
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E7%8B%82%E9%A3%8E%E5%A4%A7%E4%BD%9C
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 王佐之才
+  aliases: []
+  rarity: 橙
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 自身
+  effect_tags:
+  - 辅助
+  preferred_roles: []
+  notes:
+  - 效果（满级）：自身奇谋提升10%一20%(受智力影响），造成谋略伤害后有50%概率提升百身5一10点智力，持续2回合，可叠加4次
+  - 效果（初始）：自身奇谋提升10%(受智力影响)，造成谋略伤害后有50%概率提升自身5点智力，持续2回合，可叠加4次
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E7%8E%8B%E4%BD%90%E4%B9%8B%E6%89%8D
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 疾行侧击
+  aliases: []
+  rarity: 紫
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对敌军随机单体造成75%一150%兵刃伤害，并施加畏惧，持续2回合，施放2次
+  - 效果（初始）：对敌军随机单体造成75%兵刃伤害，并施加畏惧，持续2回合，施放2次
+  - 满级发动概率：60%
+  - 初始发动概率：60%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E7%96%BE%E8%A1%8C%E4%BE%A7%E5%87%BB
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 百战不殆
+  aliases: []
+  rarity: 橙
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: null
+  effect_tags:
+  - 辅助
+  preferred_roles: []
+  notes:
+  - 效果（满级）：我军统率/智力/武力最高单体受到伤害时，有60%概率对应提升3.5-7点统率/智力/武力，可叠加8次，持续到战斗结束，可对同一目标生效
+  - 效果（初始）：我军统率/智力/武力最高单体受到伤害时，有60%概率对应提升3.5点统率/智力/武力，可叠加8次，持续到战斗结束，可对同一目标生效
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E7%99%BE%E6%88%98%E4%B8%8D%E6%AE%86
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 瞋目横矛
+  aliases: []
+  rarity: 橙
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: null
+  effect_tags:
+  - 辅助
+  preferred_roles: []
+  notes:
+  - 效果（满级）：战斗开始时,使我军随机单体(优先前排)获得横矛:造成伤害后,有25%→50%概率(受横矛持有者武力影响)对目标施加畏惧(每回合每名敌军最多触发1次)持续1回合,若目标已持有畏惧,则兵刃伤害提升1%→2%(受横持有者武力影响),可叠加
+  - 效果（初始）：战斗开始时,使我军随机单体(优先前排)获得横矛:造成伤害后,有25%→27.7%概率(受横矛持有者武力影响)对目标施加畏惧(每回合每名敌军最多触发1次)持续1回合,若目标已持有畏惧,则兵刃伤害提升1%→1.1%(受横矛持有者武力影响),可叠加
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E7%9E%8B%E7%9B%AE%E6%A8%AA%E7%9F%9B
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 知人善任
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: null
+  effect_tags:
+  - 防御
+  preferred_roles: []
+  notes:
+  - 效果（满级）：使我军智力最高单体受到伤害降低12.5%一25%（受智力影响），持续2回合，并获得1层抵御
+  - 效果（初始）：使我军智力最高单体受到伤害降低12.5%(受智力影响），持续2回合，并获得1层抵御
+  - 满级发动概率：75%
+  - 初始发动概率：75%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E7%9F%A5%E4%BA%BA%E5%96%84%E4%BB%BB
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 破军袭敌
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军群体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：准备1回合，对敌军全体造成150%-300%兵刃伤害
+  - 效果（初始）：准备1回合，对敌军全体造成150%兵刃伤害
+  - 满级发动概率：50%
+  - 初始发动概率：50%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E7%A0%B4%E5%86%9B%E8%A2%AD%E6%95%8C
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 破阵驰围
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：准备1回合，使敌军随机单体受到伤害提升15%一30%，持续2回合。然后对其造成220%一440%兵刃伤害
+  - 效果（初始）：准备1回合，使敌军随机单体受到伤害提升15%，持续2回合。然后对其造成220%兵刃伤害
+  - 满级发动概率：60%
+  - 初始发动概率：60%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E7%A0%B4%E9%98%B5%E9%A9%B0%E5%9B%B4
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 神略制变
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：前4回合发动时，恢复我军随机两人兵力(治疗率55%→110%，受智力影响)后4回合发动时，对敌军随机两人造成80%→160%谋略伤害
+  - 效果（初始）：前4回合发动时，恢复我军随机两人兵力(治疗率55%→61.1%，受智力影响)后4回合发动时，对敌军随机两人造成80%→88.8%谋略伤害
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E7%A5%9E%E7%95%A5%E5%88%B6%E5%8F%98
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 穷追不舍
+  aliases: []
+  rarity: 紫
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: null
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：每个回合行动时有60%概率对持有异常状态的敌军造成60%一120%兵刃伤害，每个目标独立判定
+  - 效果（初始）：每个回合行动时有60%概率对持有异常状态的敌军造成60%兵刃伤害，每个目标独立判定
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E7%A9%B7%E8%BF%BD%E4%B8%8D%E8%88%8D
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 空城计
+  aliases: []
+  rarity: 橙
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: null
+  effect_tags:
+  - 辅助
+  preferred_roles: []
+  notes:
+  - 效果（满级）：战斗开始前3回合，敌我全体主动战法发动率降低7%->14%（受智力影响）第4回合开始时，我军智力最高单体造成谋略伤害提升8%->16%（受智力影响），我军智力最低单体受到谋略伤害降低8%->16％（受智力影响）
+  - 效果（初始）：战斗开始前3回合，敌我全体主动战法发动率降低7%->7.7%（受智力影响）第4回合开始时，我军智力最高单体造成谋略伤害提升8%->8.8%（受智力影响），我军智力最低单体受到谋略伤害降低8%->8.8％（受智力影响）
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E7%A9%BA%E5%9F%8E%E8%AE%A1
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 筹划良策
+  aliases: []
+  rarity: 紫
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：提升自身10一20点智力，持续2回合，对敌军随机两人造成80%-160％谋略伤害
+  - 效果（初始）：提升自身10点智力，持续2回合，对敌军随机两人造成80%谋略伤害
+  - 满级发动概率：50%
+  - 初始发动概率：50%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E7%AD%B9%E5%88%92%E8%89%AF%E7%AD%96
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 经天纬地
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军群体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：准备1回合，对敌军全体造成130%->260%谋略伤害，并有40%->80%概率使目标随机获得1种控制状态，持续2回合
+  - 效果（初始）：准备1回合，对敌军全体造成130%->144.4%谋略伤害，并有40%->44.4%概率使目标随机获得1种控制状态，持续2回合
+  - 满级发动概率：45%
+  - 初始发动概率：45%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E7%BB%8F%E5%A4%A9%E7%BA%AC%E5%9C%B0
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 缮甲厉兵
+  aliases: []
+  rarity: 橙
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 自身
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：自身反击率提升25%一50%%，成功普通攻击后，使自身受到兵刃伤害降低2.5%-5%，持续2回合，可叠加4次
+  - 效果（初始）：自身反击率提升25%一27.7%，成功普通攻击后，使自身受到兵刃伤害降低2.5%-2.7%，持续2回合，可叠加4次
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E7%BC%AE%E7%94%B2%E5%8E%89%E5%85%B5
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 胜敌益强
+  aliases: []
+  rarity: 橙
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 自身
+  effect_tags:
+  - 文武兼备
+  preferred_roles: []
+  notes:
+  - 效果（满级）：造成兵刃伤害后提升自身8一16点武力，可叠加8次，造成谋略伤害后提升自身8一16点智力，可叠加8次
+  - 效果（初始）：造成兵刃伤害后提升自身8点武力，可叠加8次，造成谋略伤害后提升自身8点智力，可叠加8次
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E8%83%9C%E6%95%8C%E7%9B%8A%E5%BC%BA
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 舍生取义
+  aliases: []
+  rarity: 橙
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: 自身
+  effect_tags:
+  - 辅助
+  preferred_roles: []
+  notes:
+  - 效果（满级）：战斗开始前2回合 ，我军全体连击率提升15%一30%，我军武力最高单体获得清醒，自身获得震慑，持续2回合
+  - 效果（初始）：战斗开始前2回合，我军全体连击率提升15%，我军武力最高单体获得清醒，自身获得震慑，持续2回合
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E8%88%8D%E7%94%9F%E5%8F%96%E4%B9%89
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 蓄势待发
+  aliases: []
+  rarity: 橙
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: null
+  effect_tags:
+  - 辅助
+  preferred_roles: []
+  notes:
+  - 效果（满级）：每回合开始时提升两名队友3.5%一7%造成伤害，可叠加，持续到战斗结束
+  - 效果（初始）：每回合开始时提升两名队友3.5%造成伤害，可叠加，持续到战斗结束
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E8%93%84%E5%8A%BF%E5%BE%85%E5%8F%91
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 虎步连环
+  aliases: []
+  rarity: 橙
+  skill_type: 追击战法
+  trigger_type: 追击战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，对敌军随机两人造成55%→110%兵刃伤害并有30%→60%概率使目标随机获得1种控制状态，持续1回合，每个目标独立判定
+  - 效果（初始）：普通攻击后，对敌军随机两人造成55%→61.1%兵刃伤害并有30%→33.3%概率使目标随机获得1种控制状态，持续1回合，每个目标独立判定
+  - 满级发动概率：50%
+  - 初始发动概率：50%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E8%99%8E%E6%AD%A5%E8%BF%9E%E7%8E%AF
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 计袭粮仓
+  aliases: []
+  rarity: 橙
+  skill_type: 追击战法
+  trigger_type: 追击战法
+  target_scope: null
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，对攻击目标造成150%-300%谋略伤害，并施加断粮，持续2回合，若目标已持有断粮状态则额外对其造成50%一100%谋略伤害
+  - 效果（初始）：普通攻击后，对攻击目标造成150%谋略伤害，并施加断粮，持续2回合，若目标已持有断粮状态则额外对其造成50%谋略伤害
+  - 满级发动概率：45%
+  - 初始发动概率：45%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E8%AE%A1%E8%A2%AD%E7%B2%AE%E4%BB%93
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 计逐穷寇
+  aliases: []
+  rarity: 紫
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：造成谋略伤害后，有30%一60%概率对敌军随机单体造成1次普通攻击，每回合最多触发1次
+  - 效果（初始）：造成谋略伤害后，有30%概率对敌军随机单体造成1次普通攻击，每回合最多触发1次
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E8%AE%A1%E9%80%90%E7%A9%B7%E5%AF%87
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 诱敌深入
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军群体
+  effect_tags:
+  - 防御
+  preferred_roles: []
+  notes:
+  - 效果（满级）：嘲讽全体敌军,持续1回合,并获得2.5%→5%(受先攻影响)当前兵力的伏兵。伏兵:功能性增益状态,数量上限1500,回合结束时消失，受到伤害时，消耗伏兵抵挡其中50%的伤害,并使伤害来源产生等额逃兵
+  - 效果（初始）：嘲讽全体敌军,持续1回合,并获得2.5%→2.7%(受先攻影响)当前兵力的伏兵。伏兵:功能性增益状态，数量上限1500,回合结束时消失,受到伤害时，消耗伏兵抵挡其中50%的伤害,并使伤害来源产生等额逃兵
+  - 满级发动概率：70%
+  - 初始发动概率：70%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E8%AF%B1%E6%95%8C%E6%B7%B1%E5%85%A5
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 调和阴阳
+  aliases: []
+  rarity: 橙
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: 自身
+  effect_tags:
+  - 防御
+  preferred_roles: []
+  notes:
+  - 效果（满级）：自身与随机友方单体受到兵刃或谋略伤害前，有35%概率令得目标造成的该类伤害降低1.5%→3%,持续2回合，可叠加10次，同时恢复其兵力(治疗率12.5%→25%，受智力影响)，每回合最多触发3次。我军每存在一名女性武将该次治疗率额外提升10%
+  - 效果（初始）：自身与随机友方单体受到兵刃或谋略伤害前，有35%概率令得目标造成的该类伤害降低1.5%→1.6%，持续2回合可叠加10次，同时恢复其兵力(治疗率12.5%→13.8%，受智力影响)，每回合最多触发3次。我军每存在一名女性武将，该次治疗率额外提升10%
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E8%B0%83%E5%92%8C%E9%98%B4%E9%98%B3
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 谈笑诛心
+  aliases: []
+  rarity: 紫
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：敌军被施加负面状态时，有60%概率对敌军随机单体造成55%-110%谋略伤害，每回合最多触发2次
+  - 效果（初始）：敌军被施加负面状态时，有60%概率对敌军随机单体造成55%谋略伤害，每回合最多触发2次
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E8%B0%88%E7%AC%91%E8%AF%9B%E5%BF%83
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 谋而后动
+  aliases: []
+  rarity: 橙
+  skill_type: 追击战法
+  trigger_type: 追击战法
+  target_scope: 敌军群体
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，对敌军全体造成20%→40%谋略伤害，有50%概率(受智力影响)额外再发动一次谋而后动(无法再次发动)，谋而后动的伤害系数每回合提升6%→12%
+  - 效果（初始）：普通攻击后,对敌军全体造成20%→22.2%谋略伤害，有50%概率(受智力影响)额外再发动一次谋而后动(无法再次发动)，谋而后动的伤害系数每回合提升6%→6.6%
+  - 满级发动概率：75%
+  - 初始发动概率：75%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E8%B0%8B%E8%80%8C%E5%90%8E%E5%8A%A8
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 趁火打劫
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 文武兼备
+  preferred_roles: []
+  notes:
+  - 效果（满级）：准备1回合 ，对敌军随机两人造成110%-220%谋略和兵刃伤害,若目标处于火攻状态，则额外施加混乱状态，持续2回合
+  - 效果（初始）：准备1回合，对敌军随机两人造成110%谋略和兵刃伤害，若目标处于火攻状态，则额外施加混乱状态，持续2回合
+  - 满级发动概率：50%
+  - 初始发动概率：50%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E8%B6%81%E7%81%AB%E6%89%93%E5%8A%AB
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 践墨随敌
+  aliases: []
+  rarity: 橙
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 自身
+  effect_tags:
+  - 防御
+  preferred_roles: []
+  notes:
+  - 效果（满级）：战斗前3回合，自身受到伤害后，30%→60%概率降低伤害来源25→50点武力(受智力影响),25→50点智力(受统率影响),可叠加3次，持续到回合结束
+  - 效果（初始）：战斗前3回合，自身受到伤害后，30%→33.3%概率降低伤害来源25→27.7点武力(受智力影响)，25→27.7点智力(受统率影响)，可叠加3次，持续到回合结束
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E8%B7%B5%E5%A2%A8%E9%9A%8F%E6%95%8C
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 蹈锋饮血
+  aliases: []
+  rarity: 橙
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 自身
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：受到伤害后,有27.5%→55%概率提升自身2.5→5点武力(受武力影响)，可叠加15次，持续到战斗结束，并对伤害来源施加畏惧，持续2回合，若目标已持有畏惧效果，则额外使其受到伤害提升4%→8%，可加2次，持续2回合。每回合最多触发4次
+  - 效果（初始）：受到伤害后，有27.5%→30.5%概率提升自身2.5→2.7点武力(受武力影响),可叠加15次，持续到战斗结束，并对伤害来源施加畏惧，持续2回合，若目标已持有畏惧效果则额外使其受到伤害提升4%4.4%，可加2次，持续2回合。每回合最多触发4次
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E8%B9%88%E9%94%8B%E9%A5%AE%E8%A1%80
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 轻装驰援
+  aliases: []
+  rarity: 橙
+  skill_type: 追击战法
+  trigger_type: 追击战法
+  target_scope: null
+  effect_tags:
+  - 防御
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，对我军随机两人施加1层抵御，并使其受到伤害降低10%-20%，持续2回合
+  - 效果（初始）：普通攻击后，对我军随机两人施加1层抵御，并使其受到伤害降低10%，持续2回合
+  - 满级发动概率：27.5%>> 50%
+  - 初始发动概率：27.5%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E8%BD%BB%E8%A3%85%E9%A9%B0%E6%8F%B4
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 辕门射戟
+  aliases: []
+  rarity: 橙
+  skill_type: 追击战法
+  trigger_type: 追击战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，对敌军随机单体造成100%-200%兵刃伤害。若自身为后排，则有75%概率提升自身5%一10%主动战法发动率，持续2回合，可叠加3次
+  - 效果（初始）：普通攻击后，对敌军随机单体造成100%兵刃伤害。若自身为后排，则有75%概率提升自身5%主动战法发动率，持续2回合，可叠加3次
+  - 满级发动概率：70%
+  - 初始发动概率：70%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E8%BE%95%E9%97%A8%E5%B0%84%E6%88%9F
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 迎敌
+  aliases: []
+  rarity: 紫
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：准备1回合，提升自身10%-20%破甲，持续2回合，然后对敌军单体造成220%一440%兵刃伤害，优先选择前排目标
+  - 效果（初始）：准备1回合，提升自身10%破甲，持续2回合，然后对敌军单体造成220％兵刃伤害，优先选择前排目标
+  - 满级发动概率：50%
+  - 初始发动概率：50%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E8%BF%8E%E6%95%8C
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 运智铺谋
+  aliases: []
+  rarity: 橙
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 辅助
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，谋略伤害提升3.5%->7%，可叠加5次。造成谋略伤害后，有25%->50%概率对敌军随机单体造成1次普通攻击，每个回合最多触发1次
+  - 效果（初始）：普通攻击后，谋略伤害提升3.5%->3.8%，可叠加5次。造成谋略伤害后，有25%->27.7%概率对敌军随机单体造成1次普通攻击，每个回合最多触发1次
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E8%BF%90%E6%99%BA%E9%93%BA%E8%B0%8B
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 运筹帷幄
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 辅助
+  preferred_roles: []
+  notes:
+  - 效果（满级）：降低敌军随机两人15-30武力，智力，统率，先攻(受智力影响），持续2回合
+  - 效果（初始）：降低敌军随机两人15武力，智力，统率，先攻(受智力影响），持续2回合
+  - 满级发动概率：45%
+  - 初始发动概率：45%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E8%BF%90%E7%AD%B9%E5%B8%B7%E5%B9%84
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 避其锐气
+  aliases: []
+  rarity: 紫
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: 友军单体
+  effect_tags:
+  - 防御
+  preferred_roles: []
+  notes:
+  - 效果（满级）：战斗开始前4回合，自身及随机友军单体受到伤書减少13%-26%
+  - 效果（初始）：战斗开始前4回合，自身及随机友军单体受到伤害减少13%
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E9%81%BF%E5%85%B6%E9%94%90%E6%B0%94
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 金城汤池
+  aliases: []
+  rarity: 橙
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: null
+  effect_tags:
+  - 防御
+  preferred_roles: []
+  notes:
+  - 效果（满级）：回合开始时我军全体有40%一80%概率获得1层抵御，个回合概率降低12％
+  - 效果（初始）：回合开始时我军全体有40%-44.4%概率获得1层抵御，每个回合概率降低12％
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E9%87%91%E5%9F%8E%E6%B1%A4%E6%B1%A0
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 铁骑横冲
+  aliases: []
+  rarity: 橙
+  skill_type: 追击战法
+  trigger_type: 追击战法
+  target_scope: 自身
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：普通攻击后，提升自身10%一20%会心几率，持续2回合，然后对当前目标造成200%一400%兵刃伤害。无论是否发动，该伤害系数每回合降低25%
+  - 效果（初始）：普通攻击后，提升自身10%会心几率，持续2回合，然后对当前目标造成200%兵刃伤害。无论是否发动，该伤害系数每回合降低25%
+  - 满级发动概率：40%
+  - 初始发动概率：40%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E9%93%81%E9%AA%91%E6%A8%AA%E5%86%B2
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 铸甲销戈
+  aliases: []
+  rarity: 紫
+  skill_type: 指挥战法
+  trigger_type: 指挥战法
+  target_scope: null
+  effect_tags:
+  - 防御
+  preferred_roles: []
+  notes:
+  - 效果（满级）：战斗开始前3回合，我军全体在回合开始时有32.5%-65%概率获得1层抵御
+  - 效果（初始）：战斗开始前3回合，我军全体在回合开始时有32.5%概率获得1层抵御
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E9%93%B8%E7%94%B2%E9%94%80%E6%88%88
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 锐不可当
+  aliases: []
+  rarity: 橙
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 自身
+  effect_tags:
+  - 辅助
+  preferred_roles: []
+  notes:
+  - 效果（满级）：提升自身8%一16%破甲和17.5%-35%造成伤害
+  - 效果（初始）：提升自身8%破甲和17.5%造成伤害
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E9%94%90%E4%B8%8D%E5%8F%AF%E5%BD%93
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 青囊急救
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: null
+  effect_tags:
+  - 治疗
+  preferred_roles: []
+  notes:
+  - 效果（满级）：驱散我军兵力最低单体3种负面状态，并恢复其兵力(治疗率130%一260%，受智力影响）
+  - 效果（初始）：驱散我军兵力最低单体3种负面状态，并恢复其兵力(治疗率130%，受智力影响）
+  - 满级发动概率：55%
+  - 初始发动概率：55%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E9%9D%92%E5%9B%8A%E6%80%A5%E6%95%91
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 韬光养晦
+  aliases: []
+  rarity: 橙
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 自身
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：自带主动战法发动率提升3%一6%（受智力影响），每个回合开始时使自身造成谋略伤害提升4%一8%，可叠加，持续到战斗结束
+  - 效果（初始）：自带主动战法发动率提升3%(受智力影响），每个回合开始时使自身造成谋略伤害提升4%，可叠加，持续到战斗结束
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E9%9F%AC%E5%85%89%E5%85%BB%E6%99%A6
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 风助火势
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军群体
+  effect_tags:
+  - 文武兼备
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对敌军全体施加风暴和火攻,持续1回合,若目标已持有风暴状态,则额外使其武力降低10→20点(受武力影响),持续1回合;若目标已持有火攻状态,则额外使其智力降低10→20点(受智力影响),持续1回合
+  - 效果（初始）：对敌军全体施加风暴和火攻，持续1回合,若目标已持有风暴状态,则额外使其武力降低10→11.1点(受武力影响)持续1回合;若目标已持有火攻状态，则额外使其智力降低10→11.1点(受智力影响),持续1回合
+  - 满级发动概率：70%
+  - 初始发动概率：70%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E9%A3%8E%E5%8A%A9%E7%81%AB%E5%8A%BF
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 风卷残云
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: 敌军单体
+  effect_tags:
+  - 兵刃
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对敌军随机两人造成90%-180%兵刃伤害，若目标处于风暴状态，则该次伤害提升25%。若自身处于风暴状态，则自身规避率提升5%-10%，持续2回合
+  - 效果（初始）：对敌军随机两人造成90%兵刃伤害，若目标处于风暴状态，则该次伤害提升25%。若自身处于风暴状态，则自身规避率提升5%，持续2回合
+  - 满级发动概率：60%
+  - 初始发动概率：60%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E9%A3%8E%E5%8D%B7%E6%AE%8B%E4%BA%91
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 骁勇之姿
+  aliases: []
+  rarity: 紫
+  skill_type: 被动战法
+  trigger_type: 被动战法
+  target_scope: 自身
+  effect_tags:
+  - 辅助
+  preferred_roles: []
+  notes:
+  - 效果（满级）：自身连击率提升30%一60%，造成伤害提升5%-10%
+  - 效果（初始）：自身连击率提升30%，造成伤害提升5%
+  - 满级发动概率：100%
+  - 初始发动概率：100%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E9%AA%81%E5%8B%87%E4%B9%8B%E5%A7%BF
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'
+- canonical_name: 黄天惑心
+  aliases: []
+  rarity: 橙
+  skill_type: 主动战法
+  trigger_type: 主动战法
+  target_scope: null
+  effect_tags:
+  - 谋略
+  preferred_roles: []
+  notes:
+  - 效果（满级）：对敌方全体造成70%→140%的谋略伤害，并施加妖术，持续2回合，若目标已持有妖术状态则额外使其造成伤害降低8%→16%，持续1回合
+  - 效果（初始）：对敌方全体造成70%→77.7%的谋略伤害，并施加妖术持续2回合，若目标已持有妖术状态则额外使其造成伤害降低8%→8.8%，持续1回合
+  - 满级发动概率：55%
+  - 初始发动概率：55%
+  - 适配兵种：🛡️🏹️↖️🐎
+  source:
+    source_url: https://www.sgmdtx.com/zf/%E9%BB%84%E5%A4%A9%E6%83%91%E5%BF%83
+    source_site: sgmdtx
+    source_captured_at: '2026-04-09T19:02:12'

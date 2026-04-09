@@ -1,2 +1,1403 @@
-[]
-
+- id: hero-乐进
+  domain: hero
+  entry_kind: hero_profile
+  topic: 乐进
+  aliases: []
+  facts:
+  - 乐进是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 每战先登
+  priority: 88
+  structured_data:
+    name: 乐进
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T0辅助
+    base_attributes:
+      military: 113
+      intelligence: 56
+      command: 104
+      initiative: 92
+    growth_attributes:
+      military: 2.35
+      intelligence: 0.86
+      command: 1.81
+      initiative: 2.33
+    max_attributes:
+      military: 219
+      intelligence: 95
+      command: 185
+      initiative: 197
+    signature_skills:
+    - 每战先登
+    notes:
+    - 自带战法「每战先登」效果（满级）：战斗开始时，自身及随机一名队友（优先同排）获得先登：先攻提升15一30点，造成伤害提升7%一14%（受先攻影响），受到伤害降低7%一14%（受先攻影响）。战斗前2回合，若自身为前排先登效果提升30%（发动概率：100%）
+    - 自带战法「每战先登」效果（初始）：战斗开始时，自身及随机一名队友（优先同排）获得先登：先攻提升15-16.6点，造成伤害提升7-7.7%（受先攻影响），受到伤害降低7%-7.7%（受先攻影响）。战斗前2回合，若自身为前排先登效果提升30%
+    - 缘分「五子良将」：于禁、张郃、徐晃、张辽、乐进——部队中缘分武将破甲提升6%
+    - 推荐战法：同舟共济、金城汤池、固若金汤、以静制动、披坚执锐、坚如磐石、忘私相助、坚壁清野、避其锐气、铸甲销戈
+    - 赛季：s3
+    - 初始属性：武力113 智力56 统率104 先攻92
+    - 成长值：武力2.35 智力0.86 统率1.81 先攻2.33
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力219 智力95 统率185 先攻197
+- id: hero-于禁
+  domain: hero
+  entry_kind: hero_profile
+  topic: 于禁
+  aliases: []
+  facts:
+  - 于禁是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 持军毅重
+  priority: 88
+  structured_data:
+    name: 于禁
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T2
+    - 防御
+    base_attributes:
+      military: 88
+      intelligence: 70
+      command: 102
+      initiative: 44
+    growth_attributes:
+      military: 1.5
+      intelligence: 0.79
+      command: 2.05
+      initiative: 1.5
+    max_attributes:
+      military: 156
+      intelligence: 106
+      command: 194
+      initiative: 112
+    signature_skills:
+    - 持军毅重
+    notes:
+    - 自带战法「持军毅重」效果（满级）：自身统率提升15-30点，每回合首次受到伤害后使敌军随机两人受到伤害提升4%一8%(受统率影响），并有30%一60%概率使攻击者缴械，持续2回合（发动概率：100%）
+    - 自带战法「持军毅重」效果（初始）：自身统率提升15-16.6点，每回合首次受到伤害后使敌军随机两人受到伤害提升4%-4.4%(受统率影响），并有30%-33.3%概率使攻击者缴械，持续2回合
+    - 缘分「五子良将」：于禁、张郃、徐晃、张辽、乐进——部队中缘分武将破甲提升6%
+    - 推荐战法：固若金汤、横征暴敛、披坚执锐、坚如磐石、忘私相助、以静制动、坚壁清野、避其锐气、铸甲销戈、披坚执锐、临危勇烈
+    - 赛季：s1
+    - 初始属性：武力88 智力70 统率102 先攻44
+    - 成长值：武力1.50 智力0.79 统率2.05 先攻1.50
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力156 智力106 统率194 先攻112
+- id: hero-关平
+  domain: hero
+  entry_kind: hero_profile
+  topic: 关平
+  aliases: []
+  facts:
+  - 关平是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 龙吟四海
+  priority: 88
+  structured_data:
+    name: 关平
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T3兵刃
+    base_attributes:
+      military: 108
+      intelligence: 52
+      command: 100
+      initiative: 81
+    growth_attributes:
+      military: 2.42
+      intelligence: 0.99
+      command: 1.67
+      initiative: 2.22
+    max_attributes:
+      military: 217
+      intelligence: 97
+      command: 175
+      initiative: 181
+    signature_skills:
+    - 龙吟四海
+    notes:
+    - 自带战法「龙吟四海」效果（满级）：自身造成兵刃伤害后有37.5%-75%概率触发龙吟：对目标施加畏惧，持续2回合，若目标已处于畏惧状态，则改对其造成50%一100%兵刃伤害。每回合可触发4次龙吟（发动概率：100%）
+    - 自带战法「龙吟四海」效果（初始）：自身造成兵刃伤害后有37.5%-41.6%概率触发龙吟：对目标施加畏惧，持续2回合，若目标已处于畏惧状态，则改对其造成50%-55.5%兵刃伤害。每回合可触发4次龙吟
+    - 缘分「义薄云天」：关羽、关平、周仓、关银屏——部队中缘分武将破甲提升6%
+    - 推荐战法：战八方、伏兵四起、威名显赫、势如破竹、斩将夺旗、破军袭敌、疾并侧击、揭竿而起、破军袭敌、疾行侧击、迎敌、克敌如风、火羽
+    - 赛季：s1
+    - 初始属性：武力108 智力52 统率100 先攻81
+    - 成长值：武力2.42 智力0.99 统率1.67 先攻2.22
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力217 智力97 统率175 先攻181
+- id: hero-典韦
+  domain: hero
+  entry_kind: hero_profile
+  topic: 典韦
+  aliases: []
+  facts:
+  - 典韦是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 古之恶来
+  priority: 88
+  structured_data:
+    name: 典韦
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T2
+    - 反击
+    base_attributes:
+      military: 120
+      intelligence: 42
+      command: 114
+      initiative: 65
+    growth_attributes:
+      military: 2.78
+      intelligence: 0.37
+      command: 1.75
+      initiative: 2.3
+    max_attributes:
+      military: 245
+      intelligence: 59
+      command: 193
+      initiative: 168
+    signature_skills:
+    - 古之恶来
+    notes:
+    - 自带战法「古之恶来」效果（满级）：自身反击率提升30%一60%，自身受到伤害后提升自身10%-20%反击伤害和10一20点统率，持续2回合，可叠加5次（发动概率：100%）
+    - 自带战法「古之恶来」效果（初始）：自身反击率提升30%-33.3%，自身受到伤害后提升自身10%-11.1%，反击伤害和10-11.1点统率，持续2回合，可叠加5次
+    - 缘分「虎卫御侮」：曹操、许褚、典韦——部队中缘分武将普通攻击伤害提升12%
+    - 推荐战法：固若金汤、坚如磐石、万夫莫当、勇冠三军、锐不可当、忘私相助、坚壁清野、以战养战、强袭、锐不可当、临危勇烈、避其锐气、如沐春风
+    - 赛季：s1
+    - 初始属性：武力120 智力42 统率114 先攻65
+    - 成长值：武力2.78 智力0.37 统率1.75 先攻2.30
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力245 智力59 统率193 先攻168
+- id: hero-卞夫人
+  domain: hero
+  entry_kind: hero_profile
+  topic: 卞夫人
+  aliases: []
+  facts:
+  - 卞夫人是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 素衣约俭
+  priority: 88
+  structured_data:
+    name: 卞夫人
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 弓兵
+    role_tags:
+    - T2辅助
+    base_attributes:
+      military: 19
+      intelligence: 105
+      command: 106
+      initiative: 57
+    growth_attributes:
+      military: 0.23
+      intelligence: 2.18
+      command: 1.8
+      initiative: 1.5
+    max_attributes:
+      military: 29
+      intelligence: 203
+      command: 187
+      initiative: 124
+    signature_skills:
+    - 素衣约俭
+    notes:
+    - 自带战法「素衣约俭」效果（满级）：战斗前4回合，我军每累计受到2000兵力伤害后，使我军兵力最低的2人获得素衣:受到伤害降低7.5%→15%(受智力影响),持续到回合结束，可叠加4次;并有50%概率获得1层抵御（发动概率：100%）
+    - 自带战法「素衣约俭」效果（初始）：战斗前4回合，我军每累计受到2000兵力伤害后，使我军兵力最低的2人获得素衣:受到伤害降低7.5%→8.3%(受智力影响)，持续到回合结束，可叠加4次;并有50%概率获得1层抵御
+    - 缘分「懿范长存」：卞夫人、曹丕——部队中缘分武将前3回合受到兵刃伤害降低15%
+    - 缘分「武皇宣后」：卞夫人、曹操——部队中缘分武将前3回合受到谋略伤害降低15%
+    - 赛季：s10
+    - 初始属性：武力19 智力105 统率106 先攻57
+    - 成长值：武力0.23 智力2.18 统率1.80 先攻1.50
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力29 智力203 统率187 先攻124
+- id: hero-司马懿
+  domain: hero
+  entry_kind: hero_profile
+  topic: 司马懿
+  aliases: []
+  facts:
+  - 司马懿是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 鹰视狼顾
+  priority: 88
+  structured_data:
+    name: 司马懿
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T0谋略
+    base_attributes:
+      military: 69
+      intelligence: 119
+      command: 114
+      initiative: 47
+    growth_attributes:
+      military: 0.34
+      intelligence: 2.8
+      command: 2.11
+      initiative: 1.54
+    max_attributes:
+      military: 84
+      intelligence: 245
+      command: 209
+      initiative: 116
+    signature_skills:
+    - 鹰视狼顾
+    notes:
+    - 自带战法「鹰视狼顾」效果（满级）：进行布局，获得随机1种布局状态（优先获得不同的状态），持续到战斗结束，25%->50%概率（受智力影响）再布局1次。并对敌军随机两人造成25%->50%谋略伤害，每多持有1种布局可提供的状态，谋略伤害系数提升10%->20%，可提升8次（发动概率：100%）
+    - 自带战法「鹰视狼顾」效果（初始）：进行布局，获得随机1种布局状态（优先获得不同的状态），持续到战斗结束，25%-27.7%概率（受智力影响）再布局1次。并对敌军随机两人造成25%-27.7%谋略伤害，每多持有1种布局可提供的状态，谋略伤害系数提升10%-11.1%，可提升8次
+    - 缘分「国之栋梁」：诸葛亮、周瑜、司马懿——战斗中造成的前3次谋略伤害提升50%
+    - 推荐战法：明其虚实、奇正相生、狂风大作、断敌粮道、王佐之才、烈火焚营、上智为间、料事如神、决水破敌、束手无策、一计决胜、筹划良策
+    - 赛季：s3
+    - 初始属性：武力69 智力119 统率114 先攻47
+    - 成长值：武力0.34 智力2.8 统率2.11 先攻1.54
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力84 智力245 统率209 先攻116
+- id: hero-周仓
+  domain: hero
+  entry_kind: hero_profile
+  topic: 周仓
+  aliases: []
+  facts:
+  - 周仓是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 忠烈勇武
+  priority: 88
+  structured_data:
+    name: 周仓
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T2防御
+    base_attributes:
+      military: 89
+      intelligence: 70
+      command: 109
+      initiative: 71
+    growth_attributes:
+      military: 1.7
+      intelligence: 1.02
+      command: 2.05
+      initiative: 1.92
+    max_attributes:
+      military: 166
+      intelligence: 116
+      command: 201
+      initiative: 157
+    signature_skills:
+    - 忠烈勇武
+    notes:
+    - 自带战法「忠烈勇武」效果（满级）：每个回合行动时恢复自身兵力(治疗率100%-200%，受智力和统率影响），有20%一40%概率对敌军随机两人施加嘲讽和畏惧状态，持续2回合（发动概率：100%）
+    - 自带战法「忠烈勇武」效果（初始）：每个回合行动时恢复自身兵力(治疗率100%-111.1%，受智力和统率影响），有20%-22.2%概率对敌军随机两人施加嘲讽和畏惧状态，持续2回合
+    - 缘分「义薄云天」：关羽、关平、周仓、关银屏——部队中缘分武将破甲提升6%
+    - 推荐战法：横征暴敛、忘私相助、坚如磐石、坚壁清野、避其锐气、铸甲销戈
+    - 赛季：s1
+    - 初始属性：武力89 智力70 统率109 先攻71
+    - 成长值：武力1.70 智力1.02 统率2.05 先攻1.92
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力166 智力116 统率201 先攻157
+- id: hero-夏侯惇
+  domain: hero
+  entry_kind: hero_profile
+  topic: 夏侯惇
+  aliases: []
+  facts:
+  - 夏侯惇是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 刚烈
+  priority: 88
+  structured_data:
+    name: 夏侯惇
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T0
+    - 防御
+    base_attributes:
+      military: 102
+      intelligence: 72
+      command: 113
+      initiative: 71
+    growth_attributes:
+      military: 2.4
+      intelligence: 1.02
+      command: 2.03
+      initiative: 1.78
+    max_attributes:
+      military: 210
+      intelligence: 118
+      command: 204
+      initiative: 151
+    signature_skills:
+    - 刚烈
+    notes:
+    - 自带战法「刚烈」效果（满级）：自身受到伤害后，有20%一40%的概率对伤害来源造成40%一80%兵刃伤害(额外受统率影响），并使其造成伤害降低15%一30%，持续2回（发动概率：100%）
+    - 自带战法「刚烈」效果（初始）：自身受到伤害后，有20%-22.2%的概率对伤害来源造成40%-44.4%兵刃伤害(额外受统率影响），并使其造成伤害降低15%-16.6%，持续2回合
+    - 缘分「曹魏宗将」：夏侯惇、夏侯渊、曹仁、曹真、曹洪——部队中缘分武将最高属性提升15点
+    - 推荐战法：固若金汤、横征暴敛、坚如磐石、忘私相助、披坚执锐、坚壁清野、临危勇烈、避其锐气、铸甲销戈
+    - 赛季：s1
+    - 初始属性：武力102 智力72 统率113 先攻71
+    - 成长值：武力2.40 智力1.02 统率2.03 先攻1.78
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力210 智力118 统率204 先攻151
+- id: hero-夏侯渊
+  domain: hero
+  entry_kind: hero_profile
+  topic: 夏侯渊
+  aliases: []
+  facts:
+  - 夏侯渊是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 神速奔袭
+  priority: 88
+  structured_data:
+    name: 夏侯渊
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T2
+    - 兵刃
+    - 追击
+    base_attributes:
+      military: 107
+      intelligence: 59
+      command: 101
+      initiative: 94
+    growth_attributes:
+      military: 2.4
+      intelligence: 0.75
+      command: 1.74
+      initiative: 2.81
+    max_attributes:
+      military: 215
+      intelligence: 93
+      command: 179
+      initiative: 220
+    signature_skills:
+    - 神速奔袭
+    notes:
+    - 自带战法「神速奔袭」效果（满级）：每个回合行动时自身武力值提升，提升值为先攻值的20%一40%，持续1回合。若自身在先攻判定时处于首位，则获得1回合神速效果：造成伤害和会心几率提升12.5%-25%（发动概率：100%）
+    - 自带战法「神速奔袭」效果（初始）：每个回合行动时自身武力值提升，提升值为先攻值的20%-22.2%，持续1回合。若自身在先攻判定时处于首位，则获得1回合神速效果：造成伤害和会心几率提升12.5%-13.8%
+    - 缘分「曹魏宗将」：夏侯惇、夏侯渊、曹仁、曹真、曹洪——部队中缘分武将最高属性提升15点
+    - 推荐战法：兵贵神速、铁骑横冲、千里突袭、攻其不备、乘虚而入、斩将夺旗、势如破竹、临阵突袭、乱敌方阵、夜袭、疾行侧击、克敌如风、揭竿而起
+    - 赛季：s1
+    - 初始属性：武力107 智力59 统率101 先攻94
+    - 成长值：武力2.40 智力0.75 统率1.74 先攻2.81
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力215 智力93 统率179 先攻220
+- id: hero-张春华
+  domain: hero
+  entry_kind: hero_profile
+  topic: 张春华
+  aliases: []
+  facts:
+  - 张春华是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 荼蘼心计
+  priority: 88
+  structured_data:
+    name: 张春华
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T2辅助
+    base_attributes:
+      military: 43
+      intelligence: 96
+      command: 93
+      initiative: 69
+    growth_attributes:
+      military: 0.35
+      intelligence: 2.19
+      command: 2.12
+      initiative: 1.56
+    max_attributes:
+      military: 59
+      intelligence: 195
+      command: 188
+      initiative: 139
+    signature_skills:
+    - 荼蘼心计
+    notes:
+    - 自带战法「荼蘼心计」效果（满级）：我军智力最高单体普通攻击后对目标造成35%→70%谋略伤害(额外受心计层数影响),有10%→20%概率(受智力影响)获得1层心计:谋略伤害提升1.5%→3%，最多持有10层。每个回合智力最高单体行动后额外进行1次普通攻击(心计层数小于6层时无法发动追击战法（发动概率：100%）
+    - 自带战法「荼蘼心计」效果（初始）：我军智力最高单体普通攻击后对目标造成35%→38.8%谋略伤害(额外受心计层数影响),有10%→11.1%概率(受智力影响)获得1层心计:谋略伤害提升1.5%→1.6%,最多持有10层。每个回合智力最高单体行动后额外进行1次普通攻击(心计层数小于6层时无法发动追击战法)
+    - 缘分「懿德芳姿」：王异、步练师、大乔、甄洛、张春华——部队中缘分武将受到伤害时，有35%概率令伤害来源降低5点
+    - 缘分「枭鸾同谋」：张春华、司马懿——部队中缘分武将造成谋略伤害时有35%概率获得1种布阵状态(优先获得不同状态)，每个回合可触发1次
+    - 赛季：s8
+    - 初始属性：武力43 智力96 统率93 先攻69
+    - 成长值：武力0.35 智力2.19 统率2.12 先攻1.56
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力59 智力195 统率188 先攻139
+- id: hero-张辽
+  domain: hero
+  entry_kind: hero_profile
+  topic: 张辽
+  aliases: []
+  facts:
+  - 张辽是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 风袭逍遥
+  priority: 88
+  structured_data:
+    name: 张辽
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T0兵刃
+    base_attributes:
+      military: 113
+      intelligence: 92
+      command: 103
+      initiative: 87
+    growth_attributes:
+      military: 2.55
+      intelligence: 1.49
+      command: 1.95
+      initiative: 2.61
+    max_attributes:
+      military: 228
+      intelligence: 159
+      command: 191
+      initiative: 204
+    signature_skills:
+    - 风袭逍遥
+    notes:
+    - 自带战法「风袭逍遥」效果（满级）：破甲提升10%一20%。每个回合开始时有60%概率(受已损失兵力影响）获得1回合清醒。若自身为前排，造成伤害后对敌军随机单体造成25%一50%的传递伤害，优先选择后排目标（发动概率：100%）
+    - 自带战法「风袭逍遥」效果（初始）：破甲提升10%-11.1%。每个回合开始时有60%概率(受已损失兵力影响)获得1回合清醒。若自身为前排，造成伤害后对敌军随机单体造成25%27.7%的传递伤害，优先选择后排目标
+    - 缘分「五子良将」：于禁、张郃、徐晃、张辽、乐进——部队中缘分武将破甲提升6%
+    - 缘分「骁龙飞将」：吕布、张辽、陈宫——部队中缘分武将反击率提升10%
+    - 推荐战法：缮甲厉兵、沖锐巧变、摧坚克难、威名显赫、战八方、势如破竹、伏兵四起、破军袭敌、揭竿而起、疾行侧击、克敌如风、火羽、迎敌
+    - 赛季：s2
+    - 初始属性：武力113 智力92 统率103 先攻87
+    - 成长值：武力2.55 智力1.49 统率1.95 先攻2.61
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力228 智力159 统率191 先攻204
+- id: hero-张郃
+  domain: hero
+  entry_kind: hero_profile
+  topic: 张郃
+  aliases: []
+  facts:
+  - 张郃是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 大破街亭
+  priority: 88
+  structured_data:
+    name: 张郃
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T1
+    - 兵刃
+    base_attributes:
+      military: 104
+      intelligence: 81
+      command: 101
+      initiative: 67
+    growth_attributes:
+      military: 2.59
+      intelligence: 0.77
+      command: 1.91
+      initiative: 1.93
+    max_attributes:
+      military: 221
+      intelligence: 116
+      command: 187
+      initiative: 154
+    signature_skills:
+    - 大破街亭
+    notes:
+    - 自带战法「大破街亭」效果（满级）：提升自身2.5%一5%破甲，持续到战斗结束，可叠加4次。然后对敌军随机两人造成110%-220%兵刃伤害，并有65%概率施加缴械，持续1回合，若目标已持有缴械状态，则该次伤害提升30%（发动概率：60%）
+    - 自带战法「大破街亭」效果（初始）：提升自身2.5%-2.7%破甲，持续到战斗结束，可叠加4次。然后对敌军随机两人造成110%-122.2%兵刃伤害，并有65%概率施加缴械，持续1回合，若目标已持有缴械状态，则该次伤害提升30%
+    - 缘分「五子良将」：于禁、张郃、徐晃、张辽、乐进——部队中缘分武将破甲提升6%
+    - 缘分「河北庭将」：颜良、文丑、张郃——部队中缘分武将武力提升20点
+    - 推荐战法：锐不可当、势如破竹、破阵驰围、威名显赫、斩将夺旗、破军袭敌、水淹七军、战八方、迎敌、揭竿而起、疾行侧击、克敌如风、火羽
+    - 赛季：s1
+    - 初始属性：武力104 智力81 统率101 先攻67
+    - 成长值：武力2.59 智力0.77 统率1.91 先攻1.93
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力221 智力116 统率187 先攻154
+- id: hero-徐晃
+  domain: hero
+  entry_kind: hero_profile
+  topic: 徐晃
+  aliases: []
+  facts:
+  - 徐晃是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 长驱直入
+  priority: 88
+  structured_data:
+    name: 徐晃
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T2
+    - 兵刃
+    base_attributes:
+      military: 105
+      intelligence: 79
+      command: 106
+      initiative: 75
+    growth_attributes:
+      military: 2.58
+      intelligence: 0.88
+      command: 1.75
+      initiative: 2.12
+    max_attributes:
+      military: 221
+      intelligence: 119
+      command: 185
+      initiative: 170
+    signature_skills:
+    - 长驱直入
+    notes:
+    - 自带战法「长驱直入」效果（满级）：对敌军随机单体造成175%-350%兵刃伤害，并施加技穷，持续1回合，若目标已持有技穷状态或是敌军兵力最低单体，则该次伤害值提升30%（发动概率：60%）
+    - 自带战法「长驱直入」效果（初始）：对敌军随机单体造成175%-194.4%兵刃伤害，并施加技穷，持续1回合，若目标已持有技穷状态或是敌军兵力最低单体，则该次伤害值提升30%
+    - 缘分「五子良将」：于禁、张郃、徐晃、张辽、乐进——部队中缘分武将破甲提升6%
+    - 缘分「夺射锦袍」：徐晃、许褚——部队中缘分武将破甲提升5%
+    - 推荐战法：锐不可当、破阵驰围、势如破竹、威名显赫、斩将夺旗、战八方、破军袭敌、破军袭敌、水淹七军、迎敌、揭竿而起、疾行侧击、如有神助
+    - 赛季：s1
+    - 初始属性：武力105 智力79 统率106 先攻75
+    - 成长值：武力2.58 智力0.88 统率1.75 先攻2.12
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力221 智力119 统率185 先攻170
+- id: hero-徐盛
+  domain: hero
+  entry_kind: hero_profile
+  topic: 徐盛
+  aliases: []
+  facts:
+  - 徐盛是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 百里疑城
+  priority: 88
+  structured_data:
+    name: 徐盛
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T0防御
+    base_attributes:
+      military: 89
+      intelligence: 87
+      command: 107
+      initiative: 34
+    growth_attributes:
+      military: 1.61
+      intelligence: 1.89
+      command: 2.08
+      initiative: 1.52
+    max_attributes:
+      military: 161
+      intelligence: 172
+      command: 201
+      initiative: 102
+    signature_skills:
+    - 百里疑城
+    notes:
+    - 自带战法「百里疑城」效果（满级）：战斗开始前4回合，我军全体受到伤害前有12.5%-25%概率(受统率影响)获得1层抵御，第4回合开始时，自身统率提升20一40点，并对敌军全体施加洪水状态，持续2回合（发动概率：100%）
+    - 自带战法「百里疑城」效果（初始）：战斗开始前4回合 ，我军全体受到伤害前有12.5%-13.8%概率(受统率影响)获得1层抵御，第4回合开始时，自身统率提升20-22.2点，并对敌军全体施加洪水状态，持续2回合
+    - 缘分「江表虎臣」：黄盖、甘宁、徐盛、程普、周泰、凌统、蒋钦、丁奉、董袭、韩当、陈武、潘璋——部队中缘分武将统率提升10点，受到伤害降低3%
+    - 推荐战法：避其锐气、坚壁清野、铸甲销戈
+    - 赛季：s1
+    - 初始属性：武力89 智力87 统率107 先攻34
+    - 成长值：武力1.61 智力1.89 统率2.08 先攻1.52
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力161 智力172 统率201 先攻102
+- id: hero-曹丕
+  domain: hero
+  entry_kind: hero_profile
+  topic: 曹丕
+  aliases: []
+  facts:
+  - 曹丕是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 权御九锡
+  priority: 88
+  structured_data:
+    name: 曹丕
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 弓兵
+    role_tags:
+    - T1辅助
+    base_attributes:
+      military: 89
+      intelligence: 97
+      command: 103
+      initiative: 62
+    growth_attributes:
+      military: 1.62
+      intelligence: 2.28
+      command: 2.12
+      initiative: 1.62
+    max_attributes:
+      military: 162
+      intelligence: 200
+      command: 198
+      initiative: 135
+    signature_skills:
+    - 权御九锡
+    notes:
+    - 自带战法「权御九锡」效果（满级）：战斗开始时，夺取敌军随机两人4%->8%受到伤害降低效果（受智力影响），并使我军先攻最低单体获得九锡：每回合行动时，夺取敌军随机两人5->10点智力（受智力影响），可叠加，持续至战斗结束（发动概率：100%）
+    - 自带战法「权御九锡」效果（初始）：战斗开始时，夺取敌军随机两人4%->4.4%受到伤害降低效果（受智力影响），并使我军先攻最低单体获得九锡：每回合行动时，夺取敌军随机两人5->5.5点智力（受智力影响），可叠加，持续至战斗结束
+    - 缘分「嗣业承乾」：曹丕、曹操——部队中缘分武将统率提升20点
+    - 缘分「魏阙凝妆」：曹丕、甄洛——部队中缘分武将受到兵刃伤害降低6%
+    - 缘分「懿范长存」：卞夫人、曹丕——部队中缘分武将前3回合受到兵刃伤害降低15%
+    - 赛季：s9
+    - 初始属性：武力89 智力97 统率103 先攻62
+    - 成长值：武力1.62 智力2.28 统率2.12 先攻1.62
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力162 智力200 统率198 先攻135
+- id: hero-曹仁
+  domain: hero
+  entry_kind: hero_profile
+  topic: 曹仁
+  aliases: []
+  facts:
+  - 曹仁是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 固镇襄樊
+  priority: 88
+  structured_data:
+    name: 曹仁
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T1
+    - 防御
+    base_attributes:
+      military: 81
+      intelligence: 79
+      command: 113
+      initiative: 44
+    growth_attributes:
+      military: 1.35
+      intelligence: 1.53
+      command: 2.35
+      initiative: 1.55
+    max_attributes:
+      military: 142
+      intelligence: 148
+      command: 219
+      initiative: 114
+    signature_skills:
+    - 固镇襄樊
+    notes:
+    - 自带战法「固镇襄樊」效果（满级）：奇数回合自身受到来自后排的伤害降低15%一30%（受统率影响），来自前排的伤害降低7.5%一15%(受统率影响）。偶数回合开始时有37.5%一75%概率对敌军随机两人施加技穷，持续1回合，每个目标的概率独立判定（发动概率：100%）
+    - 自带战法「固镇襄樊」效果（初始）：奇数回合自身受到来自后排的伤害降低15%-16.6%(受统率影响），来自前排的伤害降低7.5%-8.3%（受统率影响）。偶数回合开始时有37.5%-41.6%概率对敌军随机两人施加技穷，持续1回合，每个目标的概率独立判定
+    - 缘分「曹魏宗将」：夏侯惇、夏侯渊、曹仁、曹真、曹洪——部队中缘分武将最高属性提升15点
+    - 推荐战法：固若金汤、以静制动、横征暴敛、披坚执锐、坚如磐石、忘私相助、坚壁清野、避其锐气、铸甲销戈
+    - 赛季：s1
+    - 初始属性：武力81 智力79 统率113 先攻44
+    - 成长值：武力1.35 智力1.53 统率2.35 先攻1.55
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力142 智力148 统率219 先攻114
+- id: hero-曹操
+  domain: hero
+  entry_kind: hero_profile
+  topic: 曹操
+  aliases: []
+  facts:
+  - 曹操是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 乱世奸雄
+  priority: 88
+  structured_data:
+    name: 曹操
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T0
+    - 辅助
+    - 防御
+    - 治疗
+    base_attributes:
+      military: 76
+      intelligence: 102
+      command: 107
+      initiative: 53
+    growth_attributes:
+      military: 1.3
+      intelligence: 2.3
+      command: 2.52
+      initiative: 1.79
+    max_attributes:
+      military: 134
+      intelligence: 206
+      command: 220
+      initiative: 134
+    signature_skills:
+    - 乱世奸雄
+    notes:
+    - 自带战法「乱世奸雄」效果（满级）：战斗开始时，使我军全体受到伤害降低7%一14%(受智力影响），获得3%-6%倒戈和攻心(受智力影响）。我军统率最高单体，每次受到伤害后，有15%-30%概率恢复自身兵力(治疗率20%一40%，受智力和统率影响）（发动概率：100%）
+    - 自带战法「乱世奸雄」效果（初始）：战斗开始时，使我军全体受到伤害降低7%-7.7%(受智力影响），获得3%-3.3%倒戈和攻心(受智力影响）。我军统率最高单体，每次受到伤害后，有15%-16.6%概率恢复自身兵力(治疗率20%-22.2%，受智力和统率影响）
+    - 缘分「三分天下」：曹操、刘备、孙权——部队中缘分武将受到伤害降低6%
+    - 缘分「虎卫御侮」：曹操、许褚、典韦——部队中缘分武将普通攻击伤害提升12%
+    - 推荐战法：披坚执锐、任人择势、蓄势待发、指点乾坤、青囊急救、清风驱疾、洞若观火、忘私相助、坚如磐石、百战不殆、避其锐气、坚壁清野、铸甲销戈、咏歌尝酒、来好息师
+    - 赛季：s1
+    - 初始属性：武力76 智力102 统率107 先攻53
+    - 成长值：武力1.30 智力2.30 统率2.52 先攻1.79
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力134 智力206 统率220 先攻134
+- id: hero-曹纯
+  domain: hero
+  entry_kind: hero_profile
+  topic: 曹纯
+  aliases: []
+  facts:
+  - 曹纯是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 天下骁锐
+  priority: 88
+  structured_data:
+    name: 曹纯
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 骑兵
+    role_tags:
+    - T0辅助
+    base_attributes:
+      military: 94
+      intelligence: 68
+      command: 100
+      initiative: 77
+    growth_attributes:
+      military: 2.13
+      intelligence: 0.67
+      command: 1.91
+      initiative: 2.0
+    max_attributes:
+      military: 190
+      intelligence: 98
+      command: 186
+      initiative: 167
+    signature_skills:
+    - 天下骁锐
+    notes:
+    - 自带战法「天下骁锐」效果（满级）：战斗开始后，我军骑兵和枪兵普通攻击之后，使自身造成伤害提升2.5%->5％（受最高属性影响），可叠加6次。第3回合起，使我军骑兵和枪兵行动时额外对敌军随机单体造成70%->140%兵刃伤害（发动概率：100%）
+    - 自带战法「天下骁锐」效果（初始）：战斗开始后，我军骑兵和枪兵普通攻击之后，使自身造成伤害提升2.5%->2.7%（受最高属性影响），可叠加6次。第3回合起，使我军骑兵和枪兵行动时额外对敌军随机单体造成70%->77.7%兵刃伤害
+    - 缘分「曹魏宗将」：夏侯惇、夏侯渊、曹仁、曹纯、曹真——部队中缘分武将最高属性提升15点
+    - 推荐战法：同舟共济、金城汤池、固若金汤、以静制动、披坚执锐、坚如磐石、忘私相助、坚壁清野、避其锐气、铸甲销戈
+    - 赛季：s4
+    - 初始属性：武力94 智力68 统率100 先攻77
+    - 成长值：武力2.13 智力0.67 统率1.91 先攻2.00
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力190 智力98 统率186 先攻167
+- id: hero-王异
+  domain: hero
+  entry_kind: hero_profile
+  topic: 王异
+  aliases: []
+  facts:
+  - 王异是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 巧策引锋
+  priority: 88
+  structured_data:
+    name: 王异
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 枪兵
+    role_tags:
+    - T0
+    - 谋略追击
+    base_attributes:
+      military: 17
+      intelligence: 110
+      command: 94
+      initiative: 86
+    growth_attributes:
+      military: 0.21
+      intelligence: 2.58
+      command: 1.98
+      initiative: 1.76
+    max_attributes:
+      military: 26
+      intelligence: 226
+      command: 183
+      initiative: 165
+    signature_skills:
+    - 巧策引锋
+    notes:
+    - 自带战法「巧策引锋」效果（满级）：自身普通攻击或发动追击战法后，有20%->40%概率（受智力影响）对敌军随机两人造成50%->100%谋略伤害，并使目标受到伤害提升2%->4%（受智力影响），可叠加4次，持续到战斗结束（发动概率：100%）
+    - 自带战法「巧策引锋」效果（初始）：自身普通攻击或发动追击战法后，有20%->22.2%概率（受智力影响）对敌军随机两人造成50%->55.5%谋略伤害，并使目标受到伤害提升2%->2.2%（受智力影响），可叠加4次，持续到战斗结束
+    - 缘分「乱世红颜」：貂蝉、蔡文姬、邹氏、甄洛、王异——战斗开始时，部队中缘分武将获得2层抵御
+    - 缘分「懿德芳姿」：王异、步练师、大乔、甄洛、张春华——部队中缘分武将受到伤害时，有35%概率令伤害来源降低5点
+    - 赛季：s6
+    - 初始属性：武力17 智力110 统率94 先攻86
+    - 成长值：武力0.21 智力2.58 统率1.98 先攻1.76
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力26 智力226 统率183 先攻165
+- id: hero-甄洛
+  domain: hero
+  entry_kind: hero_profile
+  topic: 甄洛
+  aliases: []
+  facts:
+  - 甄洛是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 流风回雪
+  priority: 88
+  structured_data:
+    name: 甄洛
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T0
+    - 辅助
+    base_attributes:
+      military: 22
+      intelligence: 103
+      command: 103
+      initiative: 56
+    growth_attributes:
+      military: 0.23
+      intelligence: 2.16
+      command: 1.62
+      initiative: 1.55
+    max_attributes:
+      military: 32
+      intelligence: 200
+      command: 176
+      initiative: 126
+    signature_skills:
+    - 流风回雪
+    notes:
+    - 自带战法「流风回雪」效果（满级）：每个回合开始时，恢复自身兵力(治疗率为70%-140%，受智力影响），并使随机一名队友(优先选择后排)获得1回合洛神：恢复自身兵力(治疗率为70%一140%，受智力影响），造成伤害提升12.5%-25%，获得洛神后的首次非普通攻击伤害必定触发会心和奇谋（发动概率：100%）
+    - 自带战法「流风回雪」效果（初始）：每个回合开始时，恢复自身兵力(治疗率为70%-77.7%，受智力影响），并使随机一名队友(优先选择后排)获得1回合洛神：恢复自身兵力(治疗率为70%-77.7%，受智力影响），造成伤害提升12.5%-13.8%，获得洛神后的首次非普通攻击伤害必定触发会心和奇谋
+    - 缘分「乱世红颜」：貂蝉、蔡文姬、邹氏、甄洛、王异——战斗开始时，部队中缘分武将获得2层抵御
+    - 推荐战法：知人善任、指点乾坤、披坚执锐、运筹帷幄、青囊急救、清风驱疾、洞若观火、避其锐气、铸甲销戈、避其锐气、咏歌尝酒、任人唯贤
+    - 赛季：s1
+    - 初始属性：武力22 智力103 统率103 先攻56
+    - 成长值：武力0.23 智力2.16 统率1.62 先攻1.55
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力32 智力200 统率176 先攻126
+- id: hero-程昱
+  domain: hero
+  entry_kind: hero_profile
+  topic: 程昱
+  aliases: []
+  facts:
+  - 程昱是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 勇冠贲育
+  priority: 88
+  structured_data:
+    name: 程昱
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T2
+    - 谋略
+    base_attributes:
+      military: 47
+      intelligence: 111
+      command: 84
+      initiative: 73
+    growth_attributes:
+      military: 0.57
+      intelligence: 2.46
+      command: 1.73
+      initiative: 2.24
+    max_attributes:
+      military: 73
+      intelligence: 222
+      command: 162
+      initiative: 174
+    signature_skills:
+    - 勇冠贲育
+    notes:
+    - 自带战法「勇冠贲育」效果（满级）：对敌军随机单体造成180%-360%谋略伤害，若目标为前排则额外使目标产生逃兵(受智力影响）（发动概率：60%）
+    - 自带战法「勇冠贲育」效果（初始）：对敌军随机单体造成180%-200%谋略伤害，若目标为前排则额外使目标产生逃兵(受智力影响）
+    - 缘分「五谋臣」：郭嘉、程昱、荀彧、荀攸、贾诩——部队中缘分武将看破提升5%，受到伤害降低4%
+    - 推荐战法：韬光养晦、料事如神、出其不意、上智为间、烈火焚营、清风驱疾、洞若观火、青囊急救、运筹帷幄、决水破敌、束手无策、咏歌尝酒、筹划良策、一计决胜、任人唯贤
+    - 赛季：s1
+    - 初始属性：武力47 智力111 统率84 先攻73
+    - 成长值：武力0.57 智力2.46 统率1.73 先攻2.24
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力73 智力222 统率162 先攻174
+- id: hero-荀彧
+  domain: hero
+  entry_kind: hero_profile
+  topic: 荀彧
+  aliases: []
+  facts:
+  - 荀彧是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 建计举人
+  priority: 88
+  structured_data:
+    name: 荀彧
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T3
+    - 辅助
+    - 增伤
+    base_attributes:
+      military: 37
+      intelligence: 120
+      command: 78
+      initiative: 57
+    growth_attributes:
+      military: 0.19
+      intelligence: 2.7
+      command: 1.6
+      initiative: 1.65
+    max_attributes:
+      military: 46
+      intelligence: 242
+      command: 150
+      initiative: 131
+    signature_skills:
+    - 建计举人
+    notes:
+    - 自带战法「建计举人」效果（满级）：我军全体奇谋和看破提升7.5%一15%(受智力影响）。自身造成的恢复效果有17.5%-35%概率(受奇谋影响)触发双倍恢复效果（发动概率：100%）
+    - 自带战法「建计举人」效果（初始）：我军全体奇谋和看破提升7.5%-8.3%(受智力影响）。自身造成的恢复效果有17.5%-19.4%概率(受奇谋影响）触发双倍恢复效果
+    - 缘分「五谋臣」：郭嘉、程昱、荀彧、荀攸、贾诩——部队中缘分武将看破提升5%，受到伤害降低4%
+    - 推荐战法：奇正相生、王佐之才、青囊急救、清风驱疾、洞若观火、咏歌尝酒、来好息师
+    - 赛季：s1
+    - 初始属性：武力37 智力120 统率78 先攻57
+    - 成长值：武力0.19 智力2.70 统率1.60 先攻1.65
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力46 智力242 统率150 先攻131
+- id: hero-荀攸
+  domain: hero
+  entry_kind: hero_profile
+  topic: 荀攸
+  aliases: []
+  facts:
+  - 荀攸是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 十二奇策
+  priority: 88
+  structured_data:
+    name: 荀攸
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 弓兵
+    role_tags:
+    - T1
+    - 谋略
+    base_attributes:
+      military: 41
+      intelligence: 114
+      command: 87
+      initiative: 59
+    growth_attributes:
+      military: 0.59
+      intelligence: 2.45
+      command: 1.69
+      initiative: 2.15
+    max_attributes:
+      military: 68
+      intelligence: 224
+      command: 163
+      initiative: 156
+    signature_skills:
+    - 十二奇策
+    notes:
+    - 自带战法「十二奇策」效果（满级）：对敌军随机两人造成110%一220%谋略伤害，并施加随机1种异常状态（优先施加未持有的状态），持续2回合（发动概率：60%）
+    - 自带战法「十二奇策」效果（初始）：对敌军随机两人造成110%一122.2%谋略伤害，并施加随机1种异常状态（优先施加未持有的状态）
+    - 缘分「五谋臣」：郭嘉、程昱、荀彧、荀攸、贾诩——部队中缘分武将看破提升5%，受到伤害降低4%
+    - 赛季：s5
+    - 初始属性：武力41 智力114 统率87 先攻59
+    - 成长值：武力0.59 智力2.45 统率1.69 先攻2.15
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力68 智力224 统率163 先攻156
+- id: hero-许褚
+  domain: hero
+  entry_kind: hero_profile
+  topic: 许褚
+  aliases: []
+  facts:
+  - 许褚是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 裸衣血战
+  priority: 88
+  structured_data:
+    name: 许褚
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T2
+    - 追击
+    - 兵刃
+    base_attributes:
+      military: 114
+      intelligence: 45
+      command: 95
+      initiative: 69
+    growth_attributes:
+      military: 2.75
+      intelligence: 0.43
+      command: 1.64
+      initiative: 2.6
+    max_attributes:
+      military: 238
+      intelligence: 64
+      command: 169
+      initiative: 186
+    signature_skills:
+    - 裸衣血战
+    notes:
+    - 自带战法「裸衣血战」效果（满级）：战斗开始时，自身先攻和武力提升10一20点，连击率提升50%-100%，统率降低15点（发动概率：100%）
+    - 自带战法「裸衣血战」效果（初始）：战斗开始时，自身先攻和武力提升10-11.1点，连击率提升50%-55.5%，统率降低15点
+    - 缘分「虎卫御侮」：曹操、许褚、典韦——部队中缘分武将普通攻击伤害提升12%
+    - 缘分「夺射锦袍」：徐晃、许褚——部队中缘分武将破甲提升5%
+    - 推荐战法：三军夺气、兵贵神速、铁骑横冲、横扫千军、攻其不备、千里突袭、轻装驰援、乘虚而入、临阵突袭、乱敌方阵、夜袭
+    - 赛季：s1
+    - 初始属性：武力114 智力45 统率95 先攻69
+    - 成长值：武力2.75 智力0.43 统率1.64 先攻2.60
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力238 智力64 统率169 先攻186
+- id: hero-贾诩
+  domain: hero
+  entry_kind: hero_profile
+  topic: 贾诩
+  aliases: []
+  facts:
+  - 贾诩是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 诡道玄机
+  priority: 88
+  structured_data:
+    name: 贾诩
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T1辅助
+    - T2谋略
+    base_attributes:
+      military: 58
+      intelligence: 106
+      command: 81
+      initiative: 56
+    growth_attributes:
+      military: 0.21
+      intelligence: 2.75
+      command: 1.73
+      initiative: 2.06
+    max_attributes:
+      military: 67
+      intelligence: 230
+      command: 159
+      initiative: 149
+    signature_skills:
+    - 诡道玄机
+    notes:
+    - 自带战法「诡道玄机」效果（满级）：每个回合开始时有90%概率对敌军随机单体和一名队友施加混乱,持续2回合，若敌军目标已持有混乱状态，则额外造成150%-300％谋略伤害，若友军目标已持有混乱状态，则额外恢复其和自身兵力(治疗率55%-110%，受智力影响）我军全体对自身和友军造成的伤害降低30%一60%（发动概率：100%）
+    - 自带战法「诡道玄机」效果（初始）：每个回合开始时有90%概率对敌军随机单体和一名队友施加混乱，持续2回合，若敌军目标已持有混乱状态，则额外造成150%-166.6%谋略伤害,若友军目标已持有混乱状态，则额外恢复其和自身兵力(治疗率55%-61.1%，受智力影响）我军全体对自身和友军造成的伤害降低30%-33.3%
+    - 缘分「五谋臣」：郭嘉、程昱、荀彧、荀攸、贾诩——部队中缘分武将看破提升5%，受到伤害降低4%
+    - 推荐战法：明其虚实、乘间投隙、上智为间、巧利天灾、运筹帷幄、横征暴敛、咏歌尝酒、束手无策、一计决胜、筹划良策
+    - 赛季：s2
+    - 初始属性：武力58 智力106 统率81 先攻56
+    - 成长值：武力0.21 智力2.75 统率1.73 先攻2.06
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力67 智力230 统率159 先攻149
+- id: hero-邓艾
+  domain: hero
+  entry_kind: hero_profile
+  topic: 邓艾
+  aliases: []
+  facts:
+  - 邓艾是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 屯田令
+  priority: 88
+  structured_data:
+    name: 邓艾
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T2
+    - 治疗
+    base_attributes:
+      military: 94
+      intelligence: 101
+      command: 100
+      initiative: 66
+    growth_attributes:
+      military: 1.8
+      intelligence: 2.1
+      command: 1.73
+      initiative: 1.75
+    max_attributes:
+      military: 175
+      intelligence: 196
+      command: 178
+      initiative: 145
+    signature_skills:
+    - 屯田令
+    notes:
+    - 自带战法「屯田令」效果（满级）：战斗开始前3回合，敌我全体造成伤害降低17.5%-35%。每个回合开始时，我军全体受到恢复效果提升10%，可叠加，然后恢复我军全体兵力(治疗率50%-100%，受智力影响）（发动概率：100%）
+    - 自带战法「屯田令」效果（初始）：战斗开始前3回合，敌我全体造成伤害降低17.5%-19.4%。每个回合开始时，我军全体受到恢复效果提升10%，可叠加，然后恢复我军全体兵力(治疗率50%-55.5%，受智力影响）
+    - 推荐战法：固若金汤、蓄势待发、百战不殆、坚如磐石、忘私相助、披坚执锐、青囊急救、清风驱疾、洞若观火、断敌粮道、来好息师、咏歌尝酒、上兵伐谋、铸甲销戈、避其锐气
+    - 赛季：s1
+    - 初始属性：武力94 智力101 统率100 先攻66
+    - 成长值：武力1.80 智力2.10 统率1.73 先攻1.75
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力175 智力196 统率178 先攻145
+- id: hero-郭嘉
+  domain: hero
+  entry_kind: hero_profile
+  topic: 郭嘉
+  aliases: []
+  facts:
+  - 郭嘉是魏阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints: []
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-10'
+  confidence: 0.9
+  related_topics:
+  - 算无遗策
+  priority: 88
+  structured_data:
+    name: 郭嘉
+    aliases: []
+    faction: 魏
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T0
+    - 谋略
+    base_attributes:
+      military: 36
+      intelligence: 118
+      command: 92
+      initiative: 53
+    growth_attributes:
+      military: 0.21
+      intelligence: 2.74
+      command: 1.7
+      initiative: 1.81
+    max_attributes:
+      military: 45
+      intelligence: 241
+      command: 168
+      initiative: 134
+    signature_skills:
+    - 算无遗策
+    notes:
+    - 自带战法「算无遗策」效果（满级）：战斗开始时，提升自身及智力最高友军3%一6%主动战法发动率。自身成功发动主动战法后，有30%一60%概率额外再发动一次(准备战法不需要再次准备）（发动概率：100%）
+    - 自带战法「算无遗策」效果（初始）：战斗开始时，提升自身及智力最高友军3%-3.3%主动战法发动率。自身成功发动主动战法后，有30%-33.3%概率额外再发动一次(准备战法不需要再次准备）
+    - 缘分「五谋臣」：郭嘉、程昱、荀彧、荀攸、贾诩——部队中缘分武将看破提升5%，受到伤害降低4%
+    - 推荐战法：奇门遁甲、出其不意、料事如神、上智为间、烈火焚营、巧利天灾、清风驱疾、洞若观火、青囊急救、运筹帷幄、决水破敌、束手无策、咏歌尝酒、筹划良策、一计决胜
+    - 赛季：s1
+    - 初始属性：武力36 智力118 统率92 先攻53
+    - 成长值：武力0.21 智力2.74 统率1.70 先攻1.81
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力45 智力241 统率168 先攻134
