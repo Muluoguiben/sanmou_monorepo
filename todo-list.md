@@ -1,10 +1,8 @@
 # Todo List
 
-> Last updated: 2026-04-10 (post-merge: feat/bridge-perception → master)
+> Last updated: 2026-04-10 (post-merge: feat/qa-scraper → master)
 
 ## In Progress
-
-- [ ] Web 爬虫：武将/战法爬虫已完成（104 武将 + 123 战法），待提交代码并合入 master
 
 ## Pending
 
@@ -28,3 +26,5 @@
 - [x] CLAUDE.md 项目级文档 + 包级 CLAUDE.md（qa-agent / pioneer-agent 会话隔离）
 - [x] Windows bridge server + WSL2 client（pioneer-agent/adapters/）
 - [x] Bridge 截图升级：dxcam (DXGI) 替换 mss，proxy 端自动前台切换，支持 DX 游戏窗口后台截图
+- [x] Web 爬虫（qa-agent）：sgmdtx.com 武将/战法爬虫，104 武将 + 123 战法入库，含满级属性/战法效果/缘分/赛季数据
+- [x] 知识库数据校验工具：review_quiz.py（随机出题 + 筛选 + API 校验）+ verify_quiz.py（自动化批量校验）
