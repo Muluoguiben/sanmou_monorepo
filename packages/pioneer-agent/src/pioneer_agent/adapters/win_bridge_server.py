@@ -15,20 +15,20 @@ import socket
 import struct
 import sys
 import time
-from io import BytesIO
 from typing import Any
 
+from io import BytesIO
+
 try:
-    import mss
-    import mss.tools
+    import dxcam
     import pyautogui
     import win32gui
-    import win32con
     from PIL import Image
 except ImportError as exc:
     print(f"Missing dependency: {exc}", file=sys.stderr)
-    print("Install with: pip install mss pyautogui pywin32 Pillow", file=sys.stderr)
+    print("Install with: pip install dxcam opencv-python-headless pyautogui pywin32 Pillow", file=sys.stderr)
     sys.exit(1)
+
 
 
 def find_window(title_substring: str) -> int:
@@ -49,19 +49,39 @@ def find_window(title_substring: str) -> int:
 
 
 def capture_window(hwnd: int) -> bytes:
-    """Capture a screenshot of the given window, return PNG bytes."""
+    """Capture a screenshot of the game window using DXGI Desktop Duplication (dxcam).
+
+    This works for DirectX/hardware-accelerated windows where GDI-based
+    capture (mss, BitBlt, PrintWindow) returns black frames.
+    Forces the window to foreground before capture.
+    """
     rect = win32gui.GetWindowRect(hwnd)
-    left, top, right, bottom = rect
-    monitor = {
-        "left": left,
-        "top": top,
-        "width": right - left,
-        "height": bottom - top,
-    }
-    with mss.mss() as sct:
-        img = sct.grab(monitor)
-        png_bytes = mss.tools.to_png(img.rgb, img.size)
-    return png_bytes
+    cam = dxcam.create()
+
+    # Clamp to screen bounds
+    left = max(0, rect[0])
+    top = max(0, rect[1])
+    right = min(cam.width, rect[2])
+    bottom = min(cam.height, rect[3])
+    if right <= left or bottom <= top:
+        del cam
+        raise RuntimeError(f"Invalid clamped region: ({left},{top},{right},{bottom}) from rect {rect}")
+
+    # Grab with retries — first grab may be stale/None
+    frame = None
+    for _ in range(10):
+        frame = cam.grab(region=(left, top, right, bottom))
+        if frame is not None and frame.mean() > 1.0:
+            break
+        time.sleep(0.1)
+    del cam
+    if frame is None:
+        raise RuntimeError("dxcam.grab() returned None after retries")
+
+    img = Image.fromarray(frame)
+    buf = BytesIO()
+    img.save(buf, format="PNG")
+    return buf.getvalue()
 
 
 def click_at(x: int, y: int, button: str = "left") -> None:
