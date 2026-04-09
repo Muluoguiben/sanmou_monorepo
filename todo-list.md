@@ -1,15 +1,16 @@
 # Todo List
 
-> Last updated: 2026-04-10
+> Last updated: 2026-04-10 (post-merge: feat/windows-bridge → master)
 
 ## In Progress
 
 - [ ] Web 爬虫：为 qa-agent 编写爬虫，从 sgmdtx.com 批量采集武将/战法数据填充 knowledge_sources
+- [ ] Windows Bridge：pioneer-agent 已添加 WSL2↔Windows bridge（`adapters/bridge_client.py` + `win_bridge_server.py`），待集成到 executor
 
 ## Pending
 
 - [ ] Perception 层：为 pioneer-agent 实现 domain-specific 屏幕提取器（`perception/domains/`）
-- [ ] Executor 实现：`ActionRunner` 对接游戏 API 或 UI 自动化，替代当前 `not_implemented` 桩
+- [ ] Executor 实现：`ActionRunner` 对接游戏 API 或 UI 自动化（可通过 Windows bridge 通信）
 - [ ] QA chat/retrieval 层：填充 `qa_agent/chat/` 和 `qa_agent/retrieval/`，支持对话式问答
 - [ ] Scoring 配置补全：`config/scoring.yaml` 只有 `opening_sprint` 阶段权重，需补齐其余阶段
 - [ ] Sanmou-common 数据补全：`config/*.yaml` 目前是模板，需填入真实游戏数据
@@ -24,4 +25,5 @@
 - [x] QA agent ingestion pipeline：raw → normalize → publish 直接入库，跳过人工 review
 - [x] MCP server：qa-agent stdio JSON-RPC 服务，暴露 3 个知识工具
 - [x] 测试覆盖：pioneer-agent 5 tests + qa-agent 38 tests 全部通过
-- [x] CLAUDE.md 项目级文档
+- [x] CLAUDE.md 项目级文档 + 包级 CLAUDE.md（qa-agent / pioneer-agent 会话隔离）
+- [x] Windows bridge server + WSL2 client（pioneer-agent/adapters/）
