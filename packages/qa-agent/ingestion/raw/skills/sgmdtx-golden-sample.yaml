@@ -1,0 +1,31 @@
+domain: skill
+records:
+  - canonical_name: 草船借箭
+    aliases: [草船]
+    rarity: 橙
+    skill_type: 主动战法
+    trigger_type: 主动战法
+    target_scope: 友军群体
+    effect_tags: [解控, 恢复, 功能性]
+    preferred_roles: [辅助]
+    notes:
+      - 金样本候选，用于演示半自动采集流程。
+    source:
+      source_url: https://www.sgmdtx.com/zhanfa
+      source_site: sgmdtx
+      source_captured_at: 2026-03-29T23:30:00
+  - canonical_name: 盛气凌敌
+    aliases: [盛气临敌]
+    rarity: 橙
+    skill_type: 指挥战法
+    trigger_type: 指挥战法
+    target_scope: 敌军群体
+    effect_tags: [控制, 普攻限制]
+    preferred_roles: [前排]
+    notes:
+      - 金样本候选，用于演示半自动采集流程。
+    source:
+      source_url: https://www.sgmdtx.com/zhanfa
+      source_site: sgmdtx
+      source_captured_at: 2026-03-29T23:30:00
+

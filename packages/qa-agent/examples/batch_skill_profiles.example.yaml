@@ -1,0 +1,26 @@
+- id: skill-template-sample
+  domain: skill
+  entry_kind: skill_profile
+  topic: 战法模板-待录入
+  aliases: [待录入战法模板]
+  facts:
+    - 这是战法静态资料批量录入模板示例，用于演示字段结构，不代表真实游戏数据。
+  constraints:
+    - 将模板替换为真实战法信息后再纳入正式 knowledge_sources。
+  source_type: manual_rule
+  source_ref: KB-TEMPLATE-SKILL-001
+  updated_at: 2026-03-29
+  confidence: 1.0
+  related_topics: [战法静态资料字段]
+  priority: 1
+  structured_data:
+    name: 待录入战法
+    aliases: [模板战法别名]
+    rarity: 待补充稀有度
+    skill_type: 待补充战法类型
+    trigger_type: 待补充触发方式
+    target_scope: 待补充目标范围
+    effect_tags: [待补充效果标签]
+    preferred_roles: [待补充适配定位]
+    notes:
+      - 用于批量导入时保持字段稳定。

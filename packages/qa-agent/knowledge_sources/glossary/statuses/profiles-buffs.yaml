@@ -1,0 +1,112 @@
+- id: status-crit-bonus
+  domain: status
+  entry_kind: status_profile
+  topic: 会心
+  aliases: [兵刃会心]
+  facts:
+    - 会心会让兵刃伤害在触发时显著提高。
+    - 它属于增益状态中的输出强化标签，适合归类为伤害增益类效果。
+  constraints:
+    - 具体触发概率与最终倍率以当前版本战法描述为准。
+  source_type: manual_rule
+  source_ref: SGMDTX-BUFF-2026-03-29
+  updated_at: 2026-03-29
+  confidence: 0.92
+  related_topics: [奇谋, 增益状态]
+  priority: 88
+  structured_data:
+    name: 会心
+    aliases: [兵刃会心]
+    status_group: 增益状态
+    polarity: 正面
+    trigger_notes:
+      - 造成兵刃伤害时触发强化。
+    effect_tags: [兵刃增伤, 输出强化]
+    removable_by: []
+    notes:
+      - 来源整理自三谋助手状态词典页面。
+
+- id: status-plot-bonus
+  domain: status
+  entry_kind: status_profile
+  topic: 奇谋
+  aliases: [谋略奇谋]
+  facts:
+    - 奇谋会让谋略伤害在触发时显著提高。
+    - 它与会心相对，属于谋略输出强化类增益状态。
+  constraints:
+    - 具体触发概率与最终倍率以当前版本战法描述为准。
+  source_type: manual_rule
+  source_ref: SGMDTX-BUFF-2026-03-29
+  updated_at: 2026-03-29
+  confidence: 0.92
+  related_topics: [会心, 增益状态]
+  priority: 88
+  structured_data:
+    name: 奇谋
+    aliases: [谋略奇谋]
+    status_group: 增益状态
+    polarity: 正面
+    trigger_notes:
+      - 造成谋略伤害时触发强化。
+    effect_tags: [谋略增伤, 输出强化]
+    removable_by: []
+    notes:
+      - 来源整理自三谋助手状态词典页面。
+
+- id: status-dodge
+  domain: status
+  entry_kind: status_profile
+  topic: 规避
+  aliases: [闪避规避]
+  facts:
+    - 规避使受到的某次伤害有概率无效。
+    - 它是典型的防御向功能性增益状态。
+  constraints:
+    - 实际生效概率与适用伤害类型以当前版本机制文本为准。
+  source_type: manual_rule
+  source_ref: SGMDTX-BUFF-2026-03-29
+  updated_at: 2026-03-29
+  confidence: 0.93
+  related_topics: [必中, 增益状态]
+  priority: 90
+  structured_data:
+    name: 规避
+    aliases: [闪避规避]
+    status_group: 增益状态
+    polarity: 正面
+    trigger_notes:
+      - 受到伤害时有概率使该次伤害无效。
+    effect_tags: [免伤, 生存强化, 功能性]
+    removable_by: [必中]
+    notes:
+      - 来源整理自三谋助手状态词典页面。
+
+- id: status-awake
+  domain: status
+  entry_kind: status_profile
+  topic: 清醒
+  aliases: [免控, 清醒状态]
+  facts:
+    - 清醒提供对控制状态的免疫能力。
+    - 它是功能性极强的防护类增益状态。
+  constraints:
+    - 具体免疫边界以当前版本控制状态定义为准。
+  source_type: manual_rule
+  source_ref: SGMDTX-BUFF-2026-03-29
+  updated_at: 2026-03-29
+  confidence: 0.95
+  related_topics: [控制状态, 异常状态]
+  priority: 94
+  structured_data:
+    name: 清醒
+    aliases: [免控, 清醒状态]
+    status_group: 增益状态
+    polarity: 正面
+    trigger_notes:
+      - 持有时可免疫控制状态。
+    effect_tags: [免疫控制, 功能性]
+    removable_by: []
+    notes:
+      - 来源整理自三谋助手状态词典页面。
+

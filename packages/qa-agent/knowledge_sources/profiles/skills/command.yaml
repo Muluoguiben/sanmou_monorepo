@@ -1,0 +1,27 @@
+- id: skill-shengqilingdi
+  domain: skill
+  entry_kind: skill_profile
+  topic: 盛气凌敌
+  aliases: [盛气临敌]
+  facts:
+    - 盛气凌敌是可录入的高频战法静态资料条目。
+    - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+    - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: SGMDTX-SKILL-2026-03-29
+  updated_at: 2026-03-29
+  confidence: 0.9
+  related_topics: [控制状态, 战法基础资料]
+  priority: 88
+  structured_data:
+    name: 盛气凌敌
+    aliases: [盛气临敌]
+    rarity: 橙
+    skill_type: 指挥
+    trigger_type: 指挥
+    target_scope: 敌军群体
+    effect_tags: [控制, 普攻限制]
+    preferred_roles: [前锋]
+    notes:
+      - 金样本条目，来源已人工复核。

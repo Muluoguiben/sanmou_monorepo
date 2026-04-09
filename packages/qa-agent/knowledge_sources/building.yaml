@@ -1,0 +1,47 @@
+- id: building-main-city
+  domain: building
+  topic: 主城
+  aliases: [城主府, 主城建筑]
+  facts:
+    - 主城是多数城建解锁和章节推进的核心建筑之一。
+    - 提升主城等级通常会带动更多功能、建筑前置和资源上限开放。
+  constraints:
+    - 具体升级前置和资源消耗以当前版本建筑面板为准。
+  source_type: manual_rule
+  source_ref: KB-RULE-BUILDING-001
+  updated_at: 2026-03-29
+  confidence: 0.94
+  related_topics: [建筑升级, 章节任务]
+  priority: 90
+
+- id: building-upgrade
+  domain: building
+  topic: 建筑升级
+  aliases: [升建筑, 升级建筑, 城建升级]
+  facts:
+    - 建筑升级需要同时满足资源充足和前置条件满足。
+    - 某些建筑升级还会影响章节任务推进和后续功能开放节奏。
+  constraints:
+    - 不同建筑的前置链和需求等级不同。
+  source_type: manual_rule
+  source_ref: KB-RULE-BUILDING-002
+  updated_at: 2026-03-29
+  confidence: 0.96
+  related_topics: [主城, 章节任务, 资源]
+  priority: 95
+
+- id: building-prerequisite
+  domain: building
+  topic: 建筑前置
+  aliases: [建筑前置条件, 升级前置, 前置建筑]
+  facts:
+    - 某项建筑能否升级，不只取决于资源，还取决于其他建筑等级或主城等级是否达到前置条件。
+    - 处理建筑规划时，前置链比单次升级收益更重要，因为它决定后续功能能否按节奏解锁。
+  constraints:
+    - 实际前置链以游戏内当前建筑树配置为准。
+  source_type: manual_rule
+  source_ref: KB-RULE-BUILDING-003
+  updated_at: 2026-03-29
+  confidence: 0.95
+  related_topics: [建筑升级, 主城]
+  priority: 93

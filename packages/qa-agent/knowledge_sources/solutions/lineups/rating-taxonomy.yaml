@@ -1,0 +1,15 @@
+- id: lineup-rating-taxonomy
+  domain: solution
+  topic: 阵容评级
+  aliases: [T0搭配, T1搭配, T2搭配]
+  facts:
+    - 三谋助手的阵容方案页按 T0、T1、T2 这类评级组织搭配方案。
+    - 阵容方案还带有赛季和阵营筛选维度，说明方案知识必须保留上下文标签。
+  constraints:
+    - 具体阵容名单需要以可验证来源补录，当前仅收录公开可见的分类结构。
+  source_type: manual_rule
+  source_ref: SGMDTX-LINEUP-2026-03-29
+  updated_at: 2026-03-29
+  confidence: 0.9
+  related_topics: [阵容方案, 阵容方案注册表]
+  priority: 84

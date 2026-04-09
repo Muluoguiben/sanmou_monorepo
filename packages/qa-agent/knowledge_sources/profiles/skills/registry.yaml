@@ -1,0 +1,16 @@
+- id: skill-batch-registry
+  domain: skill
+  topic: 战法批量录入注册表
+  aliases: [战法注册表, skill registry]
+  facts:
+    - 战法静态资料按触发类型分桶录入，优先维护 canonical name、aliases 和 trigger_type 一致性。
+    - 新增战法时，先补全基础分类字段，再补效果标签与备注。
+  constraints:
+    - 该文件只保存录入规范说明，不承载具体战法条目。
+  source_type: manual_rule
+  source_ref: KB-REGISTRY-SKILL-001
+  updated_at: 2026-03-29
+  confidence: 1.0
+  related_topics: [战法静态资料字段]
+  priority: 10
+

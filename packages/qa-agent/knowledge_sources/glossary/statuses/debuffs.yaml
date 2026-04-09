@@ -1,0 +1,16 @@
+- id: status-debuff-overview
+  domain: status
+  topic: 异常状态
+  aliases: [debuff, 负面状态]
+  facts:
+    - 异常状态用于施加控制、减益、持续伤害或行动限制，是机制解释中的高频查询项。
+    - 录入异常状态时，应优先描述效果定义、常见处理方式和效果标签。
+  constraints:
+    - 具体命中、持续和可驱散关系以当前版本机制文本为准。
+  source_type: manual_rule
+  source_ref: KB-RULE-STATUS-002
+  updated_at: 2026-03-29
+  confidence: 0.95
+  related_topics: [状态词典, 增益状态]
+  priority: 85
+

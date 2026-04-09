@@ -1,0 +1,139 @@
+- id: status-stun
+  domain: status
+  entry_kind: status_profile
+  topic: 震慑
+  aliases: [眩晕, stun]
+  facts:
+    - 震慑属于控制状态，会让目标无法行动。
+    - 它是高优先级的异常状态解释条目，适合作为控制类标准术语。
+  constraints:
+    - 具体持续回合和可免疫关系以当前版本机制文本为准。
+  source_type: manual_rule
+  source_ref: SGMDTX-BUFF-2026-03-29
+  updated_at: 2026-03-29
+  confidence: 0.96
+  related_topics: [控制状态, 清醒, 异常状态]
+  priority: 96
+  structured_data:
+    name: 震慑
+    aliases: [眩晕, stun]
+    status_group: 异常状态
+    polarity: 负面
+    trigger_notes:
+      - 持有时目标无法行动。
+    effect_tags: [控制, 行动限制]
+    removable_by: [清醒]
+    notes:
+      - 来源整理自三谋助手状态词典页面。
+
+- id: status-disarm
+  domain: status
+  entry_kind: status_profile
+  topic: 缴械
+  aliases: [禁普攻]
+  facts:
+    - 缴械会让目标无法进行普通攻击。
+    - 它属于限制普攻能力的控制类异常状态。
+  constraints:
+    - 对追击、主动等其他类型效果的影响以当前版本机制文本为准。
+  source_type: manual_rule
+  source_ref: SGMDTX-BUFF-2026-03-29
+  updated_at: 2026-03-29
+  confidence: 0.95
+  related_topics: [控制状态, 异常状态]
+  priority: 92
+  structured_data:
+    name: 缴械
+    aliases: [禁普攻]
+    status_group: 异常状态
+    polarity: 负面
+    trigger_notes:
+      - 持有时无法普通攻击。
+    effect_tags: [控制, 普攻限制]
+    removable_by: [清醒]
+    notes:
+      - 来源整理自三谋助手状态词典页面。
+
+- id: status-silence-skill
+  domain: status
+  entry_kind: status_profile
+  topic: 技穷
+  aliases: [封主动, 禁主动]
+  facts:
+    - 技穷会让目标无法发动主动战法。
+    - 它是战法限制类的典型控制状态。
+  constraints:
+    - 对非主动类战法是否生效以当前版本机制文本为准。
+  source_type: manual_rule
+  source_ref: SGMDTX-BUFF-2026-03-29
+  updated_at: 2026-03-29
+  confidence: 0.95
+  related_topics: [控制状态, 异常状态]
+  priority: 93
+  structured_data:
+    name: 技穷
+    aliases: [封主动, 禁主动]
+    status_group: 异常状态
+    polarity: 负面
+    trigger_notes:
+      - 持有时无法发动主动战法。
+    effect_tags: [控制, 主动战法限制]
+    removable_by: [清醒]
+    notes:
+      - 来源整理自三谋助手状态词典页面。
+
+- id: status-chaos
+  domain: status
+  entry_kind: status_profile
+  topic: 混乱
+  aliases: [乱战, 混乱状态]
+  facts:
+    - 混乱会让普通攻击、追击战法和主动战法无差别选择目标。
+    - 它属于目标控制类异常状态。
+  constraints:
+    - 具体影响范围以当前版本机制文本为准。
+  source_type: manual_rule
+  source_ref: SGMDTX-BUFF-2026-03-29
+  updated_at: 2026-03-29
+  confidence: 0.94
+  related_topics: [控制状态, 异常状态]
+  priority: 90
+  structured_data:
+    name: 混乱
+    aliases: [乱战, 混乱状态]
+    status_group: 异常状态
+    polarity: 负面
+    trigger_notes:
+      - 持有时会异常选取目标。
+    effect_tags: [控制, 目标紊乱]
+    removable_by: [清醒]
+    notes:
+      - 来源整理自三谋助手状态词典页面。
+
+- id: status-control-group
+  domain: status
+  entry_kind: status_profile
+  topic: 控制状态
+  aliases: [控制类状态, 控制效果]
+  facts:
+    - 控制状态通常包括震慑、缴械、技穷、混乱、嘲讽、虚弱和断粮等异常效果。
+    - 这是一类用于聚合解释的机制词典条目，而不是单一状态。
+  constraints:
+    - 控制状态的归类以当前版本词典和机制文本为准。
+  source_type: manual_rule
+  source_ref: SGMDTX-BUFF-2026-03-29
+  updated_at: 2026-03-29
+  confidence: 0.91
+  related_topics: [震慑, 缴械, 技穷, 混乱, 清醒]
+  priority: 87
+  structured_data:
+    name: 控制状态
+    aliases: [控制类状态, 控制效果]
+    status_group: 异常状态
+    polarity: 负面
+    trigger_notes:
+      - 用于聚合描述一组具有行动或目标限制效果的异常状态。
+    effect_tags: [控制, 分类词典]
+    removable_by: [清醒]
+    notes:
+      - 来源整理自三谋助手状态词典页面。

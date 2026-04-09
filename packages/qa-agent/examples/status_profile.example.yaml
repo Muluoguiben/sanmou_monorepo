@@ -1,0 +1,26 @@
+- id: status-template-sample
+  domain: status
+  entry_kind: status_profile
+  topic: 状态模板-待录入
+  aliases: [待录入状态模板]
+  facts:
+    - 这是状态词典批量录入模板示例，用于演示字段结构，不代表真实游戏数据。
+  constraints:
+    - 将模板替换为真实状态信息后再纳入正式 knowledge_sources。
+  source_type: manual_rule
+  source_ref: KB-TEMPLATE-STATUS-001
+  updated_at: 2026-03-29
+  confidence: 1.0
+  related_topics: [状态词典]
+  priority: 1
+  structured_data:
+    name: 待录入状态
+    aliases: [模板状态别名]
+    status_group: 待补充状态分组
+    polarity: 待补充正负面
+    trigger_notes: [待补充触发说明]
+    effect_tags: [待补充效果标签]
+    removable_by: [待补充处理方式]
+    notes:
+      - 用于批量导入时保持字段稳定。
+

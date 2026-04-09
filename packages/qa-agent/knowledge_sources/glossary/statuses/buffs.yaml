@@ -1,0 +1,16 @@
+- id: status-buff-overview
+  domain: status
+  topic: 增益状态
+  aliases: [buff, 正面状态]
+  facts:
+    - 增益状态用于提供正向战斗效果，例如提高属性、增加伤害或强化生存能力。
+    - 录入增益状态时，应优先描述效果定义、持续方式和标签，而不是具体阵容推荐。
+  constraints:
+    - 具体效果数值和持续回合以当前版本实际描述为准。
+  source_type: manual_rule
+  source_ref: KB-RULE-STATUS-001
+  updated_at: 2026-03-29
+  confidence: 0.95
+  related_topics: [状态词典, 异常状态]
+  priority: 85
+

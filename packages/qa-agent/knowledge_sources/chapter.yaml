@@ -1,0 +1,32 @@
+- id: chapter-task
+  domain: chapter
+  topic: 章节任务
+  aliases: [章节, 章节目标, 主线章节]
+  facts:
+    - 章节任务是条件驱动的推进系统，需要达成指定目标后才能领取奖励并进入下一阶段。
+    - 章节奖励往往会影响前期资源、节奏和功能开放优先级。
+  constraints:
+    - 每章目标和奖励内容以当前章节配置为准。
+  source_type: manual_rule
+  source_ref: KB-RULE-CHAPTER-001
+  updated_at: 2026-03-29
+  confidence: 0.95
+  related_topics: [章节奖励, 建筑升级]
+  priority: 90
+
+- id: chapter-reward
+  domain: chapter
+  topic: 章节奖励
+  aliases: [领章节奖励, 领取章节奖励, 章节领取]
+  facts:
+    - 当当前章节目标全部满足后，章节奖励即可领取。
+    - 领取章节奖励后通常会解锁下一章目标或新的推进条件。
+  constraints:
+    - 未完成当前章节目标时不能领取章节奖励。
+  source_type: manual_rule
+  source_ref: KB-RULE-CHAPTER-002
+  updated_at: 2026-03-29
+  confidence: 0.97
+  related_topics: [章节任务]
+  priority: 92
+

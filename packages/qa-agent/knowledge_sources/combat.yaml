@@ -1,0 +1,63 @@
+- id: combat-land
+  domain: combat
+  topic: 攻占地块
+  aliases: [打地, 攻地, 攻占土地]
+  facts:
+    - 攻占地块前需要确认目标可达、队伍可出征，并评估战损是否可接受。
+    - 打地收益不只看资源产出，还要看章节推进、体力消耗和节奏连续性。
+  constraints:
+    - 高等级地块和远距离目标通常意味着更高风险与时间成本。
+  source_type: manual_rule
+  source_ref: KB-RULE-COMBAT-001
+  updated_at: 2026-03-29
+  confidence: 0.95
+  related_topics: [体力, 队伍, 征兵]
+  priority: 96
+
+- id: combat-battle-loss
+  domain: combat
+  topic: 战损
+  aliases: [兵损, 战斗损失]
+  facts:
+    - 战损是评估打地和持续推进能力的关键成本之一。
+    - 如果战损过高，往往会拖慢征兵、体力利用和后续连续作战节奏。
+  constraints:
+    - 可接受战损阈值应结合当前阶段、资源和目标收益综合判断。
+  source_type: manual_rule
+  source_ref: KB-RULE-COMBAT-002
+  updated_at: 2026-03-29
+  confidence: 0.92
+  related_topics: [攻占地块, 征兵]
+  priority: 84
+
+- id: combat-march
+  domain: combat
+  topic: 行军时间
+  aliases: [行军, 跑路时间, 出征时间]
+  facts:
+    - 行军时间会影响打地的即时收益、往返节奏和后续动作衔接。
+    - 在收益相近时，更短的行军时间通常意味着更高的节奏价值。
+  constraints:
+    - 行军时间受距离、目标位置和当前队伍状态影响。
+  source_type: manual_rule
+  source_ref: KB-RULE-COMBAT-003
+  updated_at: 2026-03-29
+  confidence: 0.93
+  related_topics: [攻占地块, 体力]
+  priority: 88
+
+- id: combat-land-level
+  domain: combat
+  topic: 地块等级
+  aliases: [土地等级, 地等级, 几级地]
+  facts:
+    - 地块等级通常反映目标收益和守军强度，等级越高，收益与风险往往同时上升。
+    - 是否挑战更高等级地块，应结合队伍兵力、体力、战损承受能力和章节需求综合判断。
+  constraints:
+    - 不同等级地块的具体守军与收益以游戏内设定为准。
+  source_type: manual_rule
+  source_ref: KB-RULE-COMBAT-004
+  updated_at: 2026-03-29
+  confidence: 0.94
+  related_topics: [攻占地块, 战损, 兵力]
+  priority: 90

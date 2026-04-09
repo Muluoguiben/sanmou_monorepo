@@ -1,0 +1,72 @@
+- id: hero-zhugeliang
+  domain: hero
+  entry_kind: hero_profile
+  topic: 诸葛亮
+  aliases:
+  - 诸葛孔明
+  - 卧龙
+  facts:
+  - 诸葛亮是蜀阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints:
+  - 属性与成长数值待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-09'
+  confidence: 0.9
+  related_topics:
+  - 草船借箭
+  priority: 88
+  structured_data:
+    name: 诸葛亮
+    aliases:
+    - 诸葛孔明
+    - 卧龙
+    faction: 蜀
+    rarity: 橙
+    troop_types:
+    - 弓兵
+    role_tags:
+    - 辅助
+    - 控制
+    base_attributes: null
+    growth_attributes: null
+    signature_skills:
+    - 草船借箭
+    notes:
+    - 金样本候选，用于演示半自动采集流程。
+- id: hero-liubei
+  domain: hero
+  entry_kind: hero_profile
+  topic: 刘备
+  aliases:
+  - 玄德
+  facts:
+  - 刘备是蜀阵营可录入的核心武将静态资料条目。
+  - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
+  constraints:
+  - 属性与成长数值待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-HERO
+  updated_at: '2026-04-09'
+  confidence: 0.9
+  related_topics:
+  - 暂避其锋
+  priority: 88
+  structured_data:
+    name: 刘备
+    aliases:
+    - 玄德
+    faction: 蜀
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - 辅助
+    - 前锋
+    base_attributes: null
+    growth_attributes: null
+    signature_skills:
+    - 暂避其锋
+    notes:
+    - 金样本候选，用于演示半自动采集流程。

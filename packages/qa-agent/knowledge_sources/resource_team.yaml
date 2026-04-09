@@ -1,0 +1,111 @@
+- id: resource-basics
+  domain: resource
+  topic: 资源
+  aliases: [资源产出, 基础资源]
+  facts:
+    - 资源是建筑升级、征兵和持续开荒的基础成本。
+    - 资源是否紧缺会直接影响建筑、征兵和打地的优先级排序。
+  constraints:
+    - 不同阶段的资源瓶颈可能不同。
+  source_type: manual_rule
+  source_ref: KB-RULE-RESOURCE-001
+  updated_at: 2026-03-29
+  confidence: 0.93
+  related_topics: [建筑升级, 征兵]
+  priority: 85
+
+- id: team-stamina
+  domain: team
+  topic: 体力
+  aliases: [队伍体力, 武将体力]
+  facts:
+    - 体力决定队伍能否持续执行打地等高频动作，是前期节奏管理的重要约束。
+    - 当体力不足时，等待恢复通常比强行推进更安全。
+  constraints:
+    - 具体恢复速度和上限以游戏内当前机制为准。
+  source_type: manual_rule
+  source_ref: KB-RULE-TEAM-001
+  updated_at: 2026-03-29
+  confidence: 0.95
+  related_topics: [攻占地块, 队伍, 征兵]
+  priority: 92
+
+- id: team-troops
+  domain: team
+  topic: 兵力
+  aliases: [兵, 兵员, 士兵数量]
+  facts:
+    - 兵力是队伍作战能力和承伤能力的重要组成部分。
+    - 兵力不足会显著影响打地稳定性和可承受战损空间。
+  constraints:
+    - 兵力是否充足应与目标地块强度和武将状态一起判断。
+  source_type: manual_rule
+  source_ref: KB-RULE-TEAM-002
+  updated_at: 2026-03-29
+  confidence: 0.95
+  related_topics: [征兵, 战损]
+  priority: 91
+
+- id: team-recruit
+  domain: team
+  topic: 征兵
+  aliases: [补兵, 招兵, 补充兵力]
+  facts:
+    - 征兵用于恢复或补充队伍兵力，是维持持续作战能力的关键动作。
+    - 征兵决策通常要同时考虑资源是否充足、主力是否即将出征以及战损恢复需求。
+  constraints:
+    - 征兵效率和消耗以当前版本机制与队伍状态为准。
+  source_type: manual_rule
+  source_ref: KB-RULE-TEAM-003
+  updated_at: 2026-03-29
+  confidence: 0.96
+  related_topics: [兵力, 资源, 战损]
+  priority: 94
+
+- id: team-general
+  domain: team
+  topic: 队伍
+  aliases: [部队, 编队, 阵容容器]
+  facts:
+    - 队伍是承载武将、兵力和体力状态的直接作战单位。
+    - 队伍状态会直接影响能否出征、能打什么地以及是否需要先征兵或等待。
+  constraints:
+    - 第一版知识库仅解释基础概念，不负责给出最优阵容建议。
+  source_type: manual_rule
+  source_ref: KB-RULE-TEAM-004
+  updated_at: 2026-03-29
+  confidence: 0.93
+  related_topics: [体力, 兵力, 武将基础资料]
+  priority: 82
+
+- id: team-slot
+  domain: team
+  topic: 队伍槽位
+  aliases: [编队槽位, 队伍位置, 容器槽位]
+  facts:
+    - 队伍槽位是承载具体队伍状态的容器，决定某套武将和兵力当前挂载在哪个出征单位上。
+    - 在以节奏为核心的玩法里，槽位价值常常体现在体力复用和无损切换空间上。
+  constraints:
+    - 槽位数量和具体开启条件以当前账号与系统进度为准。
+  source_type: manual_rule
+  source_ref: KB-RULE-TEAM-005
+  updated_at: 2026-03-29
+  confidence: 0.91
+  related_topics: [队伍, 体力]
+  priority: 79
+
+- id: team-lineup-template
+  domain: team
+  topic: 阵容模板
+  aliases: [主力模板, 开荒模板, 队伍模板]
+  facts:
+    - 阵容模板指一套相对固定的武将和配置组合，用来持续承载核心开荒收益。
+    - 第一版知识库只解释模板概念，不直接判断哪套模板最优。
+  constraints:
+    - 模板强度依赖版本、战法、红度和配将细节。
+  source_type: manual_rule
+  source_ref: KB-RULE-TEAM-006
+  updated_at: 2026-03-29
+  confidence: 0.9
+  related_topics: [武将基础资料, 战法基础资料, 队伍槽位]
+  priority: 72
