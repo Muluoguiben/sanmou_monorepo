@@ -1,0 +1,49 @@
+{
+  "global_state": {
+    "server_open_time": "2026-03-29T10:00:00+08:00",
+    "current_time": "2026-03-29T16:30:00+08:00",
+    "settlement_time": "2026-04-01T12:00:00+08:00"
+  },
+  "progress": {
+    "current_chapter_id": 1,
+    "chapter_claimable": false,
+    "task_progress": {}
+  },
+  "economy": {
+    "resources": {
+      "wood": 0,
+      "stone": 0,
+      "iron": 0,
+      "grain": 0
+    },
+    "income_per_hour": {
+      "wood": 0,
+      "stone": 0,
+      "iron": 0,
+      "grain": 0
+    },
+    "reserve_troops": 0
+  },
+  "city": {
+    "upgradeable_buildings": []
+  },
+  "heroes": [],
+  "teams": [],
+  "map_state": {
+    "candidate_lands": []
+  },
+  "swap_window": {
+    "enabled": false
+  },
+  "main_lineup": {
+    "current_host_team_id": 1,
+    "hero_ids": []
+  },
+  "team_containers": [],
+  "carrier_pool": [],
+  "swap_constraints": {
+    "stamina_regen_per_hour": 12
+  },
+  "timing": {},
+  "field_meta": {}
+}

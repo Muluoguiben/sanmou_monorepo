@@ -1,0 +1,104 @@
+{
+  "global_state": {
+    "server_open_time": "2026-03-29T10:00:00+08:00",
+    "current_time": "2026-03-29T20:00:00+08:00",
+    "settlement_time": "2026-04-01T12:00:00+08:00"
+  },
+  "progress": {
+    "current_chapter_id": 6,
+    "chapter_claimable": false,
+    "task_progress": {
+      "main_hall_lv_9": {
+        "current": 8,
+        "target_level": 9,
+        "completed": false
+      }
+    }
+  },
+  "economy": {
+    "resources": {
+      "wood": 6400,
+      "stone": 5200,
+      "iron": 5100,
+      "grain": 6600
+    },
+    "income_per_hour": {
+      "wood": 2600,
+      "stone": 1800,
+      "iron": 1700,
+      "grain": 2100
+    },
+    "reserve_troops": 0
+  },
+  "main_lineup": {
+    "current_host_team_id": 1,
+    "hero_ids": ["A1", "A2", "A3"]
+  },
+  "heroes": [
+    {"hero_id": "A1", "level": 24, "red_level": 3},
+    {"hero_id": "A2", "level": 23, "red_level": 2},
+    {"hero_id": "A3", "level": 23, "red_level": 1}
+  ],
+  "city": {
+    "upgradeable_buildings": [
+      {
+        "building_id": "main_hall",
+        "target_level": 9,
+        "cost": {
+          "wood": 12000,
+          "stone": 8400,
+          "iron": 8600,
+          "grain": 10000
+        }
+      }
+    ]
+  },
+  "swap_window": {
+    "enabled": false
+  },
+  "swap_constraints": {
+    "stamina_regen_per_hour": 12
+  },
+  "carrier_pool": [],
+  "team_containers": [
+    {
+      "team_id": 1,
+      "slot_unlocked": true,
+      "exists": true,
+      "container_stamina": 20,
+      "soldiers": 18000,
+      "max_soldiers": 18000,
+      "status": "idle",
+      "position_context": "inner",
+      "can_host_now": true,
+      "can_march_now": true
+    }
+  ],
+  "teams": [
+    {
+      "team_id": 1,
+      "exists": true,
+      "soldiers": 18000,
+      "max_soldiers": 18000,
+      "status": "idle",
+      "can_recruit_now": true
+    }
+  ],
+  "map_state": {
+    "candidate_lands": [
+      {
+        "land_id": "L3001",
+        "level": 7,
+        "reachable": true,
+        "occupied": false,
+        "yield_per_hour": 1020,
+        "chapter_relevance": "none",
+        "strategic_tags": [],
+        "expected_battle_loss": 5200,
+        "march_seconds": 160,
+        "expected_win_rate": 0.78,
+        "required_stamina": 15
+      }
+    ]
+  }
+}

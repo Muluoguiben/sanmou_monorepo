@@ -1,0 +1,294 @@
+{
+  "global_state": {
+    "server_open_time": "2026-03-29T10:00:00+08:00",
+    "current_time": "2026-03-29T16:30:00+08:00",
+    "settlement_time": "2026-04-01T12:00:00+08:00",
+    "phase_tag": "opening_sprint",
+    "hours_since_server_open": 6.5,
+    "hours_until_settlement": 67.5
+  },
+  "progress": {
+    "current_chapter_id": 4,
+    "chapter_claimable": false,
+    "task_progress": {
+      "occupy_land": {
+        "current": 2,
+        "target_level": 6,
+        "completed": false
+      }
+    }
+  },
+  "economy": {
+    "resources": {
+      "wood": 12000,
+      "stone": 8000,
+      "iron": 9000,
+      "grain": 15000
+    },
+    "income_per_hour": {
+      "wood": 1800,
+      "stone": 1600,
+      "iron": 1400,
+      "grain": 1700
+    },
+    "reserve_troops": 3000
+  },
+  "city": {
+    "upgradeable_buildings": [
+      {
+        "building_id": "main_hall",
+        "target_level": 8,
+        "cost": {
+          "wood": 9000,
+          "stone": 7000,
+          "iron": 8000,
+          "grain": 11000
+        },
+        "chapter_relevance": "complete_current_task",
+        "economy_gain": 5,
+        "battle_support_gain": 8,
+        "resource_shortages": {},
+        "resource_ready": true,
+        "resource_cost_penalty": 8.75
+      },
+      {
+        "building_id": "barracks",
+        "target_level": 6,
+        "cost": {
+          "wood": 3000,
+          "stone": 2500,
+          "iron": 2800,
+          "grain": 3200
+        },
+        "chapter_relevance": "prepare_next_chapter",
+        "economy_gain": 2,
+        "battle_support_gain": 15,
+        "resource_shortages": {},
+        "resource_ready": true,
+        "resource_cost_penalty": 5
+      }
+    ]
+  },
+  "heroes": [
+    {
+      "hero_id": "A1",
+      "level": 20,
+      "red_level": 3
+    },
+    {
+      "hero_id": "A2",
+      "level": 21,
+      "red_level": 2
+    },
+    {
+      "hero_id": "A3",
+      "level": 19,
+      "red_level": 1
+    }
+  ],
+  "teams": [
+    {
+      "team_id": 1,
+      "exists": true,
+      "soldiers": 17000,
+      "max_soldiers": 18000,
+      "status": "idle",
+      "can_recruit_now": true
+    },
+    {
+      "team_id": 2,
+      "exists": true,
+      "soldiers": 18000,
+      "max_soldiers": 18000,
+      "status": "idle",
+      "can_recruit_now": true
+    }
+  ],
+  "map_state": {
+    "candidate_lands": [
+      {
+        "land_id": "L1001",
+        "level": 6,
+        "reachable": true,
+        "occupied": false,
+        "yield_per_hour": 800,
+        "chapter_relevance": "advance_current_task",
+        "strategic_tags": [
+          "good_chain"
+        ],
+        "expected_battle_loss": 1200,
+        "march_seconds": 80,
+        "expected_win_rate": 0.96,
+        "required_stamina": 15,
+        "host_stamina_gap": 0,
+        "level_fit": "safe"
+      },
+      {
+        "land_id": "L1002",
+        "level": 7,
+        "reachable": true,
+        "occupied": false,
+        "yield_per_hour": 1100,
+        "chapter_relevance": "advance_current_task",
+        "strategic_tags": [],
+        "expected_battle_loss": 3200,
+        "march_seconds": 140,
+        "expected_win_rate": 0.9,
+        "required_stamina": 15,
+        "host_stamina_gap": 0,
+        "level_fit": "edge"
+      }
+    ]
+  },
+  "swap_window": {
+    "enabled": true,
+    "hours_remaining": 41.5
+  },
+  "main_lineup": {
+    "current_host_team_id": 1,
+    "hero_ids": [
+      "A1",
+      "A2",
+      "A3"
+    ],
+    "avg_level": 20.0,
+    "min_core_level": 19.0,
+    "max_core_level": 21.0,
+    "primary_constraint": "level",
+    "combat_readiness_score": 87.0
+  },
+  "team_containers": [
+    {
+      "team_id": 1,
+      "slot_unlocked": true,
+      "exists": true,
+      "container_stamina": 18,
+      "soldiers": 17000,
+      "max_soldiers": 18000,
+      "status": "idle",
+      "position_context": "outer",
+      "can_host_now": true,
+      "can_march_now": true,
+      "combat_readiness_if_hosting_main": {
+        "level_readiness": 80.0,
+        "soldier_readiness": 85.0,
+        "stamina_readiness": 90.0,
+        "position_readiness": 90,
+        "stability_readiness": 90,
+        "combat_readiness_score": 87.0,
+        "primary_constraint": "level"
+      },
+      "host_score": 87.0,
+      "soldier_gap": 1000.0,
+      "soldier_fill_ratio": 0.9444
+    },
+    {
+      "team_id": 2,
+      "slot_unlocked": true,
+      "exists": true,
+      "container_stamina": 26,
+      "soldiers": 18000,
+      "max_soldiers": 18000,
+      "status": "idle",
+      "position_context": "outer",
+      "can_host_now": true,
+      "can_march_now": true,
+      "combat_readiness_if_hosting_main": {
+        "level_readiness": 80.0,
+        "soldier_readiness": 90.0,
+        "stamina_readiness": 100,
+        "position_readiness": 90,
+        "stability_readiness": 90,
+        "combat_readiness_score": 90.0,
+        "primary_constraint": "level"
+      },
+      "host_score": 90.0,
+      "soldier_gap": 0.0,
+      "soldier_fill_ratio": 1.0
+    }
+  ],
+  "carrier_pool": [
+    {
+      "hero_id": "P1",
+      "usable_for_swap": true
+    }
+  ],
+  "swap_constraints": {
+    "stamina_regen_per_hour": 12
+  },
+  "timing": {},
+  "field_meta": {
+    "global_state": {
+      "value": "loaded",
+      "confidence": 0.8,
+      "source": "seed_runtime_state",
+      "updated_at": "2026-03-29T16:30:00+08:00"
+    },
+    "progress": {
+      "value": "loaded",
+      "confidence": 0.8,
+      "source": "seed_runtime_state",
+      "updated_at": "2026-03-29T16:30:00+08:00"
+    },
+    "economy": {
+      "value": "loaded",
+      "confidence": 0.8,
+      "source": "seed_runtime_state",
+      "updated_at": "2026-03-29T16:30:00+08:00"
+    },
+    "city": {
+      "value": "loaded",
+      "confidence": 0.8,
+      "source": "seed_runtime_state",
+      "updated_at": "2026-03-29T16:30:00+08:00"
+    },
+    "heroes": {
+      "value": "loaded",
+      "confidence": 0.8,
+      "source": "seed_runtime_state",
+      "updated_at": "2026-03-29T16:30:00+08:00"
+    },
+    "teams": {
+      "value": "loaded",
+      "confidence": 0.8,
+      "source": "seed_runtime_state",
+      "updated_at": "2026-03-29T16:30:00+08:00"
+    },
+    "map_state": {
+      "value": "loaded",
+      "confidence": 0.8,
+      "source": "seed_runtime_state",
+      "updated_at": "2026-03-29T16:30:00+08:00"
+    },
+    "swap_window": {
+      "value": "loaded",
+      "confidence": 0.8,
+      "source": "seed_runtime_state",
+      "updated_at": "2026-03-29T16:30:00+08:00"
+    },
+    "main_lineup": {
+      "value": "loaded",
+      "confidence": 0.8,
+      "source": "seed_runtime_state",
+      "updated_at": "2026-03-29T16:30:00+08:00"
+    },
+    "team_containers": {
+      "value": "loaded",
+      "confidence": 0.8,
+      "source": "seed_runtime_state",
+      "updated_at": "2026-03-29T16:30:00+08:00"
+    },
+    "carrier_pool": {
+      "value": "loaded",
+      "confidence": 0.8,
+      "source": "seed_runtime_state",
+      "updated_at": "2026-03-29T16:30:00+08:00"
+    },
+    "swap_constraints": {
+      "value": "loaded",
+      "confidence": 0.8,
+      "source": "seed_runtime_state",
+      "updated_at": "2026-03-29T16:30:00+08:00"
+    }
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "global_state": {
+    "server_open_time": "2026-03-29T10:00:00+08:00",
+    "current_time": "2026-03-29T16:30:00+08:00",
+    "settlement_time": "2026-04-01T12:00:00+08:00",
+    "phase_tag": "opening_sprint"
+  },
+  "progress": {
+    "current_chapter_id": 4,
+    "chapter_claimable": false,
+    "task_progress": {
+      "occupy_land": {
+        "current": 2,
+        "target_level": 6,
+        "completed": false
+      }
+    }
+  },
+  "economy": {
+    "resources": {
+      "wood": 12000,
+      "stone": 8000,
+      "iron": 9000,
+      "grain": 15000
+    },
+    "income_per_hour": {
+      "wood": 1800,
+      "stone": 1600,
+      "iron": 1400,
+      "grain": 1700
+    },
+    "reserve_troops": 3000
+  },
+  "main_lineup": {
+    "current_host_team_id": 1,
+    "hero_ids": ["A1", "A2", "A3"]
+  },
+  "heroes": [
+    {"hero_id": "A1", "level": 20, "red_level": 3},
+    {"hero_id": "A2", "level": 21, "red_level": 2},
+    {"hero_id": "A3", "level": 19, "red_level": 1}
+  ],
+  "city": {
+    "upgradeable_buildings": [
+      {
+        "building_id": "main_hall",
+        "target_level": 8,
+        "cost": {
+          "wood": 9000,
+          "stone": 7000,
+          "iron": 8000,
+          "grain": 11000
+        }
+      },
+      {
+        "building_id": "barracks",
+        "target_level": 6,
+        "cost": {
+          "wood": 3000,
+          "stone": 2500,
+          "iron": 2800,
+          "grain": 3200
+        }
+      }
+    ]
+  },
+  "swap_window": {
+    "enabled": true,
+    "hours_remaining": 41.5
+  },
+  "swap_constraints": {
+    "stamina_regen_per_hour": 12
+  },
+  "carrier_pool": [
+    {"hero_id": "P1", "usable_for_swap": true}
+  ],
+  "team_containers": [
+    {
+      "team_id": 1,
+      "slot_unlocked": true,
+      "exists": true,
+      "container_stamina": 18,
+      "soldiers": 17000,
+      "max_soldiers": 18000,
+      "status": "idle",
+      "position_context": "outer",
+      "can_host_now": true,
+      "can_march_now": true
+    },
+    {
+      "team_id": 2,
+      "slot_unlocked": true,
+      "exists": true,
+      "container_stamina": 26,
+      "soldiers": 18000,
+      "max_soldiers": 18000,
+      "status": "idle",
+      "position_context": "outer",
+      "can_host_now": true,
+      "can_march_now": true
+    }
+  ],
+  "teams": [
+    {
+      "team_id": 1,
+      "exists": true,
+      "soldiers": 17000,
+      "max_soldiers": 18000,
+      "status": "idle",
+      "can_recruit_now": true
+    },
+    {
+      "team_id": 2,
+      "exists": true,
+      "soldiers": 18000,
+      "max_soldiers": 18000,
+      "status": "idle",
+      "can_recruit_now": true
+    }
+  ],
+  "map_state": {
+    "candidate_lands": [
+      {
+        "land_id": "L1001",
+        "level": 6,
+        "reachable": true,
+        "occupied": false,
+        "yield_per_hour": 800,
+        "chapter_relevance": "advance_current_task",
+        "strategic_tags": ["good_chain"],
+        "expected_battle_loss": 1200,
+        "march_seconds": 80,
+        "expected_win_rate": 0.96,
+        "required_stamina": 15
+      },
+      {
+        "land_id": "L1002",
+        "level": 7,
+        "reachable": true,
+        "occupied": false,
+        "yield_per_hour": 1100,
+        "chapter_relevance": "none",
+        "strategic_tags": [],
+        "expected_battle_loss": 3200,
+        "march_seconds": 140,
+        "expected_win_rate": 0.9,
+        "required_stamina": 15
+      }
+    ]
+  }
+}

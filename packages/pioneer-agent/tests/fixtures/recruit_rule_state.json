@@ -1,0 +1,93 @@
+{
+  "global_state": {
+    "server_open_time": "2026-03-29T10:00:00+08:00",
+    "current_time": "2026-03-29T18:40:00+08:00",
+    "settlement_time": "2026-04-01T12:00:00+08:00"
+  },
+  "progress": {
+    "current_chapter_id": 5,
+    "chapter_claimable": false,
+    "task_progress": {
+      "occupy_land": {
+        "current": 3,
+        "target_level": 7,
+        "completed": false
+      }
+    }
+  },
+  "economy": {
+    "resources": {
+      "wood": 11000,
+      "stone": 10000,
+      "iron": 9800,
+      "grain": 10800
+    },
+    "income_per_hour": {
+      "wood": 1800,
+      "stone": 1600,
+      "iron": 1500,
+      "grain": 1700
+    },
+    "reserve_troops": 9000
+  },
+  "main_lineup": {
+    "current_host_team_id": 1,
+    "hero_ids": ["A1", "A2", "A3"]
+  },
+  "heroes": [
+    {"hero_id": "A1", "level": 23, "red_level": 3},
+    {"hero_id": "A2", "level": 22, "red_level": 2},
+    {"hero_id": "A3", "level": 22, "red_level": 1}
+  ],
+  "city": {
+    "upgradeable_buildings": []
+  },
+  "swap_window": {
+    "enabled": false
+  },
+  "swap_constraints": {
+    "stamina_regen_per_hour": 12
+  },
+  "carrier_pool": [],
+  "team_containers": [
+    {
+      "team_id": 1,
+      "slot_unlocked": true,
+      "exists": true,
+      "container_stamina": 18,
+      "soldiers": 11000,
+      "max_soldiers": 18000,
+      "status": "idle",
+      "position_context": "outer",
+      "can_host_now": true,
+      "can_march_now": true
+    }
+  ],
+  "teams": [
+    {
+      "team_id": 1,
+      "exists": true,
+      "soldiers": 11000,
+      "max_soldiers": 18000,
+      "status": "idle",
+      "can_recruit_now": true
+    }
+  ],
+  "map_state": {
+    "candidate_lands": [
+      {
+        "land_id": "L7001",
+        "level": 7,
+        "reachable": true,
+        "occupied": false,
+        "yield_per_hour": 1080,
+        "chapter_relevance": "advance_current_task",
+        "strategic_tags": ["good_chain", "bridge_head"],
+        "expected_battle_loss": 2800,
+        "march_seconds": 90,
+        "expected_win_rate": 0.91,
+        "required_stamina": 15
+      }
+    ]
+  }
+}
