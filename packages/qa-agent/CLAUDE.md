@@ -12,7 +12,11 @@
 ## 不要触碰
 - `packages/pioneer-agent/` — 另一个会话负责
 - `packages/sanmou-common/` — 需要改动时先说明，避免和另一个会话冲突
-- 仓库根目录的 git 操作（commit/push）— 改完代码后告知用户，由用户统一提交
+
+## Git 规范
+- 默认分支：`master`
+- 通过 worktree 隔离开发（见项目级 CLAUDE.md 的 Worktree 流程）
+- 本会话可自行在当前 feature 分支上 commit/push
 
 ## 运行测试
 ```bash

@@ -103,6 +103,49 @@ Read these before making architectural changes:
 
 ## Workflow Rules
 
+### 多会话并行开发（Worktree 流程）
+
+多个 Claude 会话同时开发不同 package 时，**必须使用 git worktree 隔离**，否则任何一方 `git checkout` 会影响另一方。
+
+**开始干活 — 创建 worktree：**
+```bash
+# 在主仓库中创建 feature 分支的独立工作树
+cd ~/projects/sanmou_monorepo
+git worktree add ~/projects/sanmou-<name>-dev feat/<branch-name>
+
+# 然后在新目录下启动 claude
+cd ~/projects/sanmou-<name>-dev
+claude
+```
+
+命名约定：
+- worktree 目录：`~/projects/sanmou-<package>-dev`（如 `sanmou-qa-dev`、`sanmou-pioneer-dev`）
+- 分支名：`feat/<描述>`（如 `feat/qa-scraper`、`feat/bridge-perception`）
+
+**开发过程中：**
+- 在 worktree 目录内正常 commit / push，不影响主仓库和其他 worktree
+- 只修改自己 package 范围内的文件
+
+**完成后 — 合并并清理：**
+```bash
+# 1. 回到主仓库
+cd ~/projects/sanmou_monorepo
+
+# 2. 合入 master
+git checkout master
+git merge feat/<branch-name>
+git push origin master
+
+# 3. 删除 worktree 和分支
+git worktree remove ~/projects/sanmou-<name>-dev
+git branch -d feat/<branch-name>
+
+# 4. 更新 todo-list.md
+```
+
+### 其他规则
+
+- 默认分支：`master`
 - **每次合并代码或推送代码后，必须更新项目根目录的 `todo-list.md`**，反映最新的待办状态、已完成项和新增项。
 
 ## Code Conventions
