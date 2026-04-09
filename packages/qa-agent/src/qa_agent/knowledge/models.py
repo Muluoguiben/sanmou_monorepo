@@ -49,16 +49,14 @@ class AttributeSet(BaseModel):
     military: int | None = Field(default=None, ge=0)
     intelligence: int | None = Field(default=None, ge=0)
     command: int | None = Field(default=None, ge=0)
-    speed: int | None = Field(default=None, ge=0)
-    politics: int | None = Field(default=None, ge=0)
+    initiative: int | None = Field(default=None, ge=0)
 
 
 class AttributeGrowth(BaseModel):
     military: float | None = Field(default=None, ge=0.0)
     intelligence: float | None = Field(default=None, ge=0.0)
     command: float | None = Field(default=None, ge=0.0)
-    speed: float | None = Field(default=None, ge=0.0)
-    politics: float | None = Field(default=None, ge=0.0)
+    initiative: float | None = Field(default=None, ge=0.0)
 
 
 class HeroStaticProfile(BaseModel):
@@ -70,6 +68,7 @@ class HeroStaticProfile(BaseModel):
     role_tags: list[str] = Field(default_factory=list)
     base_attributes: AttributeSet | None = None
     growth_attributes: AttributeGrowth | None = None
+    max_attributes: AttributeSet | None = None
     signature_skills: list[str] = Field(default_factory=list)
     notes: list[str] = Field(default_factory=list)
 
@@ -81,6 +80,18 @@ class HeroStaticProfile(BaseModel):
     def searchable_terms(self) -> list[str]:
         return [self.name, *self.aliases]
 
+    def _format_attrs(self, attrs: AttributeSet, label: str) -> str:
+        parts = []
+        if attrs.military is not None:
+            parts.append(f"武力{attrs.military}")
+        if attrs.intelligence is not None:
+            parts.append(f"智力{attrs.intelligence}")
+        if attrs.command is not None:
+            parts.append(f"统率{attrs.command}")
+        if attrs.initiative is not None:
+            parts.append(f"先攻{attrs.initiative}")
+        return f"{label}：{' '.join(parts)}"
+
     def summary_lines(self) -> list[str]:
         lines: list[str] = []
         if self.faction or self.rarity:
@@ -90,6 +101,10 @@ class HeroStaticProfile(BaseModel):
             lines.append(f"兵种适性标签：{'、'.join(self.troop_types)}")
         if self.role_tags:
             lines.append(f"定位标签：{'、'.join(self.role_tags)}")
+        if self.max_attributes:
+            lines.append(self._format_attrs(self.max_attributes, "满级属性(Lv50)"))
+        elif self.base_attributes:
+            lines.append(self._format_attrs(self.base_attributes, "初始属性"))
         if self.signature_skills:
             lines.append(f"代表战法：{'、'.join(self.signature_skills[:3])}")
         if self.notes:

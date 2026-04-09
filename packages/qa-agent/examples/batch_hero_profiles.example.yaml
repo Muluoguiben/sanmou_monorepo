@@ -24,14 +24,12 @@
       military: 0
       intelligence: 0
       command: 0
-      speed: 0
-      politics: 0
+      initiative: 0
     growth_attributes:
       military: 0.0
       intelligence: 0.0
       command: 0.0
-      speed: 0.0
-      politics: 0.0
+      initiative: 0.0
     signature_skills: [待补充代表战法]
     notes:
       - 用于批量导入时保持字段稳定。
