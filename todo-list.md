@@ -1,11 +1,10 @@
 # Todo List
 
-> Last updated: 2026-04-10 (post-merge: feat/windows-bridge → master)
+> Last updated: 2026-04-10 (post-merge: feat/bridge-perception → master)
 
 ## In Progress
 
 - [ ] Web 爬虫：为 qa-agent 编写爬虫，从 sgmdtx.com 批量采集武将/战法数据填充 knowledge_sources
-- [ ] Windows Bridge：pioneer-agent 已添加 WSL2↔Windows bridge（`adapters/bridge_client.py` + `win_bridge_server.py`），待集成到 executor
 
 ## Pending
 
@@ -27,3 +26,4 @@
 - [x] 测试覆盖：pioneer-agent 5 tests + qa-agent 38 tests 全部通过
 - [x] CLAUDE.md 项目级文档 + 包级 CLAUDE.md（qa-agent / pioneer-agent 会话隔离）
 - [x] Windows bridge server + WSL2 client（pioneer-agent/adapters/）
+- [x] Bridge 截图升级：dxcam (DXGI) 替换 mss，proxy 端自动前台切换，支持 DX 游戏窗口后台截图
