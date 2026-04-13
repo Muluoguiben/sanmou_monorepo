@@ -1,0 +1,38 @@
+# Fixed-position UI button registry for 三国·谋定天下.
+#
+# Coordinates are fractional (0.0–1.0) relative to the game window's
+# client-area size. At execute time the controller multiplies by the live
+# window dimensions from bridge_client.screenshot() to get click pixels.
+#
+# These positions are stable across window sizes because the game uses
+# a responsive bottom bar. Re-calibrate with:
+#   PYTHONPATH=src python3 -m pioneer_agent.app.ui_calibrate \
+#       --image /path/to/screenshot.png --button 武将
+#
+# Reference screenshot: 2559x1329 (city view, /tmp/city_building.png).
+layout_version: 1
+buttons:
+  chu_cheng:             # 出城 — leave city to main map (bottom-left)
+    label: "出城"
+    x: 0.058
+    y: 0.945
+  wu_jiang:              # 武将 — heroes panel
+    label: "武将"
+    x: 0.592
+    y: 0.897
+  tong_meng:             # 同盟 — alliance panel
+    label: "同盟"
+    x: 0.680
+    y: 0.897
+  zhi_ye:                # 职业 — profession panel
+    label: "职业"
+    x: 0.767
+    y: 0.897
+  zheng_zhan_jun_yan:    # 征战军演 — campaign / drill
+    label: "征战军演"
+    x: 0.880
+    y: 0.897
+  esc_close:             # ESC / close button — top-right X on popups
+    label: "关闭"
+    x: 0.972
+    y: 0.055
