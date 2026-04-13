@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import re
 import time
 from dataclasses import dataclass
 from typing import Any
@@ -86,7 +87,8 @@ class GeminiChatClient:
                 last_exc = exc
                 logger.warning("gemini attempt %d/%d failed: %s", attempt + 1, max_retries + 1, exc)
                 if attempt < max_retries:
-                    time.sleep(retry_backoff_s * (attempt + 1))
+                    wait = self._extract_retry_delay(exc) or retry_backoff_s * (attempt + 1)
+                    time.sleep(wait)
 
         raise GeminiError(f"gemini generate failed after {max_retries + 1} attempts: {last_exc}")
 
@@ -113,3 +115,11 @@ class GeminiChatClient:
             config=config,
         )
         return json.loads(resp.text or "null")
+
+    @staticmethod
+    def _extract_retry_delay(exc: Exception) -> float | None:
+        msg = str(exc)
+        match = re.search(r"retryDelay['\"]?\s*:\s*['\"]?(\d+)s", msg)
+        if match:
+            return float(match.group(1)) + 1.0
+        return None

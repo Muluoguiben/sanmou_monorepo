@@ -33,6 +33,31 @@ class RetrieverTests(unittest.TestCase):
         ids = [c.entry.id for c in chunks]
         self.assertEqual(len(ids), len(set(ids)))
 
+    def test_ngram_finds_bond_faction_for_problem_question(self) -> None:
+        chunks = self.retriever.retrieve("问鼎国家队有什么加成？", top_k=5)
+        ids = [c.entry.id for c in chunks]
+        self.assertIn("mech-bond-faction", ids)
+
+    def test_ngram_finds_same_troop_bonus(self) -> None:
+        chunks = self.retriever.retrieve("三个武将同兵种有什么加成？", top_k=5)
+        ids = [c.entry.id for c in chunks]
+        self.assertIn("mech-troop-same-type-bonus", ids)
+
+    def test_ngram_finds_hero_level_cap(self) -> None:
+        chunks = self.retriever.retrieve("武将最高多少级？", top_k=5)
+        ids = [c.entry.id for c in chunks]
+        self.assertIn("mech-hero-level-cap", ids)
+
+    def test_ngram_finds_skill_slot_unlock(self) -> None:
+        chunks = self.retriever.retrieve(
+            "武将的三个战法位分别什么时候解锁？", top_k=5
+        )
+        ids = [c.entry.id for c in chunks]
+        self.assertTrue(
+            "mech-hero-deployment" in ids or "mech-skill-level-up" in ids,
+            f"expected skill-slot-unlock entry, got {ids}",
+        )
+
     def test_prompt_block_format(self) -> None:
         chunks = self.retriever.retrieve("诸葛亮", top_k=1)
         self.assertTrue(chunks)
