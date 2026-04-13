@@ -114,12 +114,55 @@ def click_at(x: int, y: int, button: str = "left") -> None:
 
 def click_window_relative(hwnd: int, rx: int, ry: int, button: str = "left") -> None:
     """Click at coordinates relative to the window's top-left corner."""
+    _ensure_window_onscreen(hwnd)
     rect = win32gui.GetWindowRect(hwnd)
     abs_x = rect[0] + rx
     abs_y = rect[1] + ry
-    win32gui.SetForegroundWindow(hwnd)
+    try:
+        win32gui.SetForegroundWindow(hwnd)
+    except Exception:
+        pass  # foreground-lock may reject; dx capture still works
     time.sleep(0.05)
     pyautogui.click(abs_x, abs_y, button=button)
+
+
+def move_window_relative(hwnd: int, rx: int, ry: int, duration: float = 0.0) -> None:
+    """Move mouse to window-relative coords. Useful for hover."""
+    _ensure_window_onscreen(hwnd)
+    rect = win32gui.GetWindowRect(hwnd)
+    pyautogui.moveTo(rect[0] + rx, rect[1] + ry, duration=duration)
+
+
+def drag_window_relative(
+    hwnd: int,
+    x1: int,
+    y1: int,
+    x2: int,
+    y2: int,
+    duration: float = 0.4,
+    button: str = "left",
+) -> None:
+    """Drag from (x1,y1) to (x2,y2) in window coordinates — for map panning."""
+    _ensure_window_onscreen(hwnd)
+    rect = win32gui.GetWindowRect(hwnd)
+    start = (rect[0] + x1, rect[1] + y1)
+    end = (rect[0] + x2, rect[1] + y2)
+    try:
+        win32gui.SetForegroundWindow(hwnd)
+    except Exception:
+        pass
+    time.sleep(0.05)
+    pyautogui.moveTo(start[0], start[1], duration=0.0)
+    pyautogui.dragTo(end[0], end[1], duration=duration, button=button)
+
+
+def key_press(key: str, modifiers: list[str] | None = None) -> None:
+    """Press a keyboard key. modifiers = ['ctrl','shift','alt'] optional."""
+    mods = [m for m in (modifiers or []) if m]
+    if mods:
+        pyautogui.hotkey(*mods, key)
+    else:
+        pyautogui.press(key)
 
 
 def get_window_info(hwnd: int) -> dict[str, Any]:
@@ -198,6 +241,39 @@ def handle_client(conn: socket.socket, window_title: str) -> None:
                 rx, ry = int(msg["x"]), int(msg["y"])
                 button = msg.get("button", "left")
                 click_window_relative(hwnd, rx, ry, button)
+                send_json(conn, {"status": "ok"})
+
+            elif cmd == "move":
+                if hwnd is None or not win32gui.IsWindow(hwnd):
+                    hwnd = find_window(window_title)
+                rx, ry = int(msg["x"]), int(msg["y"])
+                duration = float(msg.get("duration", 0.0))
+                move_window_relative(hwnd, rx, ry, duration=duration)
+                send_json(conn, {"status": "ok"})
+
+            elif cmd == "drag":
+                if hwnd is None or not win32gui.IsWindow(hwnd):
+                    hwnd = find_window(window_title)
+                drag_window_relative(
+                    hwnd,
+                    int(msg["x1"]),
+                    int(msg["y1"]),
+                    int(msg["x2"]),
+                    int(msg["y2"]),
+                    duration=float(msg.get("duration", 0.4)),
+                    button=msg.get("button", "left"),
+                )
+                send_json(conn, {"status": "ok"})
+
+            elif cmd == "key":
+                if hwnd is None or not win32gui.IsWindow(hwnd):
+                    hwnd = find_window(window_title)
+                try:
+                    win32gui.SetForegroundWindow(hwnd)
+                except Exception:
+                    pass
+                time.sleep(0.05)
+                key_press(msg["key"], modifiers=msg.get("modifiers"))
                 send_json(conn, {"status": "ok"})
 
             elif cmd == "window_info":
