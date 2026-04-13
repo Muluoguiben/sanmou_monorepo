@@ -1,63 +1,744 @@
 - id: hero-static
   domain: hero
   topic: 武将基础资料
-  aliases: [武将, 英雄, 武将面板]
+  aliases:
+  - 武将
+  - 英雄
+  - 武将面板
   facts:
-    - 武将基础资料通常包括兵种、属性、成长、阵营、定位标签和代表战法。
-    - 第一版知识库只提供静态资料与术语解释，不直接给出阵容强度推演。
+  - 武将基础资料通常包括兵种、属性、成长、阵营、定位标签和代表战法。
+  - 第一版知识库只提供静态资料与术语解释，不直接给出阵容强度推演。
   constraints:
-    - 具体武将强度和搭配仍需结合版本环境与战法组合判断。
+  - 具体武将强度和搭配仍需结合版本环境与战法组合判断。
   source_type: manual_rule
   source_ref: KB-RULE-HERO-001
   updated_at: 2026-03-29
   confidence: 0.9
-  related_topics: [武将静态资料字段, 战法基础资料, 队伍]
+  related_topics:
+  - 武将静态资料字段
+  - 战法基础资料
+  - 队伍
   priority: 70
-
 - id: hero-schema
   domain: hero
   topic: 武将静态资料字段
-  aliases: [武将资料字段, 武将 schema, 武将录入字段, 批量录入武将, 武将字段]
+  aliases:
+  - 武将资料字段
+  - 武将 schema
+  - 武将录入字段
+  - 批量录入武将
+  - 武将字段
   facts:
-    - 批量录入武将资料时，至少应包含姓名、别名、阵营、稀有度、兵种标签和定位标签。
-    - 如果掌握更细资料，建议继续补充基础属性、成长属性、代表战法和备注。
+  - 批量录入武将资料时，至少应包含姓名、别名、阵营、稀有度、兵种标签和定位标签。
+  - 如果掌握更细资料，建议继续补充基础属性、成长属性、代表战法和备注。
   constraints:
-    - 属性数值应与当前版本数据源保持一致，缺失字段可以留空，但字段名应保持稳定。
+  - 属性数值应与当前版本数据源保持一致，缺失字段可以留空，但字段名应保持稳定。
   source_type: manual_rule
   source_ref: KB-RULE-HERO-002
   updated_at: 2026-03-29
   confidence: 0.96
-  related_topics: [武将基础资料, 战法基础资料]
+  related_topics:
+  - 武将基础资料
+  - 战法基础资料
   priority: 92
-
 - id: skill-static
   domain: skill
   topic: 战法基础资料
-  aliases: [战法, 技能, 战法面板]
+  aliases:
+  - 战法
+  - 技能
+  - 战法面板
   facts:
-    - 战法基础资料通常包括类型、触发方式、目标范围、效果标签和适配定位。
-    - 第一版知识库只做术语解释和静态资料框架，不做复杂配将推荐。
+  - 战法基础资料通常包括类型、触发方式、目标范围、效果标签和适配定位。
+  - 第一版知识库只做术语解释和静态资料框架，不做复杂配将推荐。
   constraints:
-    - 具体战法收益需要结合武将、兵种和战斗环境判断。
+  - 具体战法收益需要结合武将、兵种和战斗环境判断。
   source_type: manual_rule
   source_ref: KB-RULE-SKILL-001
   updated_at: 2026-03-29
   confidence: 0.9
-  related_topics: [战法静态资料字段, 武将基础资料]
+  related_topics:
+  - 战法静态资料字段
+  - 武将基础资料
   priority: 70
-
 - id: skill-schema
   domain: skill
   topic: 战法静态资料字段
-  aliases: [战法资料字段, 战法 schema, 战法录入字段, 批量录入战法, 战法字段]
+  aliases:
+  - 战法资料字段
+  - 战法 schema
+  - 战法录入字段
+  - 批量录入战法
+  - 战法字段
   facts:
-    - 批量录入战法资料时，至少应包含名称、别名、稀有度、战法类型、触发方式和目标范围。
-    - 如果掌握更细资料，建议继续补充效果标签、适配定位和备注。
+  - 批量录入战法资料时，至少应包含名称、别名、稀有度、战法类型、触发方式和目标范围。
+  - 如果掌握更细资料，建议继续补充效果标签、适配定位和备注。
   constraints:
-    - 战法字段应优先表达稳定静态信息，不把临场策略判断写进静态资料层。
+  - 战法字段应优先表达稳定静态信息，不把临场策略判断写进静态资料层。
   source_type: manual_rule
   source_ref: KB-RULE-SKILL-002
   updated_at: 2026-03-29
   confidence: 0.96
-  related_topics: [战法基础资料, 武将静态资料字段]
+  related_topics:
+  - 战法基础资料
+  - 武将静态资料字段
   priority: 92
+- id: mech-bond-faction
+  domain: hero
+  entry_kind: generic_rule
+  topic: 阵营加成
+  aliases:
+  - 阵营
+  - 同阵营加成
+  - 同势力
+  facts:
+  - 同一国家 3 人上阵时，三人全部属性额外 +10%。
+  - 2 人同国 + 1 人他国时，三人全部属性额外 +5%（非 0）。
+  - 国家队（刘备/曹操/孙权所在国家队伍）额外享 +5% 全属性加成，但仅问鼎赛季生效，S1–S3 不生效。
+  - 阵营/国家加成与缘分加成独立，可叠加。
+  - 缘分加成仅对缘分内武将生效；队伍中未进入该缘分的武将吃不到该缘分效果。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-BOND-001
+  updated_at: '2026-04-13'
+  confidence: 0.92
+  related_topics:
+  - 缘分
+  - 部队上阵
+  - 国家队
+  - 问鼎赛季
+  priority: 87
+  structured_data: null
+- id: mech-bond-system
+  domain: hero
+  entry_kind: generic_rule
+  topic: 缘分系统
+  aliases:
+  - 缘分
+  - 羁绊
+  - 列传
+  facts:
+  - 缘分需要指定武将全部上阵于同一支部队才能触发，不要求相邻位置。
+  - 激活后给部队中缘分武将提供属性加成或特殊能力。
+  - 缘分、阵营、兵种加成三层独立叠加。
+  - 游戏内缘分不分 S/A/B 显式等级，效果差异由组合本身决定。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-BOND-002
+  updated_at: '2026-04-13'
+  confidence: 0.88
+  related_topics:
+  - 阵营加成
+  - 部队上阵
+  priority: 86
+  structured_data: null
+- id: mech-bond-taoyuan
+  domain: hero
+  entry_kind: generic_rule
+  topic: 桃园结义
+  aliases:
+  - 桃园
+  - 刘关张
+  facts:
+  - 缘分武将：刘备、关羽、张飞。
+  - 效果：第 3 回合开始为本队驱散 1 种负面状态。
+  - 属蜀国经典开荒三人组。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-BOND-003
+  updated_at: '2026-04-13'
+  confidence: 0.85
+  related_topics:
+  - 缘分系统
+  - 蜀国阵容
+  priority: 80
+  structured_data: null
+- id: mech-bond-wuhu
+  domain: hero
+  entry_kind: generic_rule
+  topic: 五虎上将
+  aliases:
+  - 五虎
+  facts:
+  - 缘分武将：关羽、张飞、赵云、马超、黄忠。
+  - 效果：本队所有缘分武将暴击率提升 6%。
+  - 任意 2 人及以上上阵即可激活部分效果（具体阶梯待核实）。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-BOND-004
+  updated_at: '2026-04-13'
+  confidence: 0.8
+  related_topics:
+  - 缘分系统
+  - 蜀国阵容
+  priority: 78
+  structured_data: null
+- id: mech-bond-jiangbiaohuchen
+  domain: hero
+  entry_kind: generic_rule
+  topic: 江表虎臣
+  aliases:
+  - 江表
+  facts:
+  - 缘分武将：黄盖、甘宁、徐盛、程普、周泰、凌统、蒋钦、丁奉、董袭、韩当、陈武、潘璋。
+  - 效果：部队中缘分武将统率提升 10 点，受到伤害降低 3%。
+  - 吴国弓兵向缘分。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-BOND-005
+  updated_at: '2026-04-13'
+  confidence: 0.8
+  related_topics:
+  - 缘分系统
+  - 吴国阵容
+  priority: 76
+  structured_data: null
+- id: mech-bond-wuziliangjiang
+  domain: hero
+  entry_kind: generic_rule
+  topic: 五子良将
+  aliases:
+  - 五子
+  facts:
+  - 缘分武将：张辽、张郃、徐晃、于禁、乐进。
+  - 效果：部队中缘分武将破甲提升 6%。
+  - 魏国经典破甲缘分。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-BOND-006
+  updated_at: '2026-04-13'
+  confidence: 0.8
+  related_topics:
+  - 缘分系统
+  - 魏国阵容
+  priority: 76
+  structured_data: null
+- id: mech-bond-caoweiwumou
+  domain: hero
+  entry_kind: generic_rule
+  topic: 曹魏五谋
+  aliases:
+  - 五谋
+  - 魏谋
+  facts:
+  - 缘分武将：荀彧、郭嘉、贾诩、程昱、荀攸。
+  - 属智谋系增益缘分（具体数值待补）。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-BOND-007
+  updated_at: '2026-04-13'
+  confidence: 0.7
+  related_topics:
+  - 缘分系统
+  - 魏国阵容
+  priority: 70
+  structured_data: null
+- id: mech-bond-guozhidongliang
+  domain: hero
+  entry_kind: generic_rule
+  topic: 国之栋梁
+  aliases:
+  - 国栋
+  - S3 缘分
+  facts:
+  - S3 引入的缘分组合，社区评价效果偏弱（「不尽如人意」）。
+  - 具体武将组合和数值待补。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-BOND-008
+  updated_at: '2026-04-13'
+  confidence: 0.6
+  related_topics:
+  - 缘分系统
+  priority: 60
+  structured_data: null
+- id: mech-hero-level-cap
+  domain: hero
+  entry_kind: generic_rule
+  topic: 武将等级上限
+  aliases:
+  - 武将等级
+  - 50级
+  - 等级上限
+  facts:
+  - 武将等级上限为 50 级。
+  - 橙卡和紫卡起始等级为 5 级，从 Lv5 成长到 Lv50 共获得 45 次属性成长。
+  - 满级属性 = 基础属性 + 成长值 × 45。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-HERO-001
+  updated_at: '2026-04-13'
+  confidence: 0.95
+  related_topics:
+  - 武将成长
+  - 武将升级
+  priority: 88
+  structured_data: null
+- id: mech-hero-level-up-cost
+  domain: hero
+  entry_kind: generic_rule
+  topic: 武将升级经验表
+  aliases:
+  - 升级经验
+  - 升级消耗
+  - 经验表
+  - Lv5到Lv50
+  facts:
+  - 从 Lv N 升到 Lv N+1 所需经验（单位：点）：
+  - 'Lv5→6: 2000；Lv6→7: 3000；Lv7→8: 4000；Lv8→9: 5000；Lv9→10: 6000。'
+  - 'Lv10→11: 8000；Lv11→12: 11000；Lv12→13: 14000；Lv13→14: 17000；Lv14→15: 20000。'
+  - 'Lv15→16: 28000；Lv16→17: 32000；Lv17→18: 36000；Lv18→19: 40000；Lv19→20: 44000。'
+  - 'Lv20→21: 80000；Lv21→22: 96000；Lv22→23: 114000；Lv23→24: 134000；Lv24→25: 158000。'
+  - 'Lv25→26: 192000；Lv26→27: 220000；Lv27→28: 252000；Lv28→29: 288000；Lv29→30: 328000。'
+  - 'Lv30→31: 380000；Lv31→32: 428000；Lv32→33: 480000；Lv33→34: 536000；Lv34→35: 596000。'
+  - 'Lv35→36: 720000；Lv36→37: 840000；Lv37→38: 960000；Lv38→39: 1080000；Lv39→40: 1200000。'
+  - 'Lv40→41: 1500000；Lv41→42: 1800000；Lv42→43: 2100000；Lv43→44: 2400000；Lv44→45:
+    2700000。'
+  - 'Lv45→46: 3000000；Lv46→47: 3300000；Lv47→48: 3600000；Lv48→49: 4000000；Lv49→50:
+    4500000。'
+  - 关键跳档：Lv20、Lv35、Lv40、Lv45 每档开始经验需求显著上调。
+  - Lv5→Lv50 累计约需 3800 万经验。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-HERO-002
+  updated_at: '2026-04-13'
+  confidence: 0.95
+  related_topics:
+  - 打地经验表
+  - 武将等级上限
+  - 练兵所
+  priority: 90
+  structured_data: null
+- id: mech-hero-exp-sources
+  domain: hero
+  entry_kind: generic_rule
+  topic: 武将经验获取
+  aliases:
+  - 武将升级
+  - 经验来源
+  - 怎么升级武将
+  facts:
+  - 主要经验来源：攻打土地（占大头）、讨伐贼寇（少量）、PVP 竞技场（队中未满级武将）。
+  - 储备经验来源：军演关卡挂机奖励；关卡通过越多，挂机收益越高。
+  - 任何等级的武将都可以吃挂机经验升级，没有「>47 级无法挂机」的限制。
+  - 储备经验使用规则：账号等级最高的 3 名武将（主力）无法使用储备经验升级。
+  - 若二队主力的等级与一队主力相同，则二队主力也被视为「主力」，同样无法使用储备经验升级。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-HERO-002
+  updated_at: '2026-04-13'
+  confidence: 0.9
+  related_topics:
+  - 练兵所
+  - 军演
+  - 打地经验衰减
+  priority: 86
+  structured_data: null
+- id: mech-hero-training-ground
+  domain: hero
+  entry_kind: generic_rule
+  topic: 练兵所
+  aliases:
+  - 挂机练兵
+  - 练兵场
+  facts:
+  - 练兵所供满体力武将挂机积攒储备经验。
+  - 账号等级最高的 3 名武将（主力）无法使用储备经验升级；非主力武将可随意使用。
+  - 若二队主力与一队主力等级持平，二队主力也被视作主力锁定，无法吃储备经验。
+  - 挂机经验本身对所有武将开放，不看等级高低。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-HERO-003
+  updated_at: '2026-04-13'
+  confidence: 0.88
+  related_topics:
+  - 武将经验获取
+  - 储备经验
+  priority: 82
+  structured_data: null
+- id: mech-hero-recruitment
+  domain: hero
+  entry_kind: generic_rule
+  topic: 武将获取途径
+  aliases:
+  - 寻访
+  - 抽卡
+  - 招贤纳士
+  - 定向寻访
+  facts:
+  - 寻访系统分 3 种卡池：①招贤纳士（常规全武将池，消耗求贤令/黄金）；②限时卡池（达对应霸业阶段开启）；③定向寻访（仅消耗信物积分）。
+  - 武将品质分蓝/紫/橙三档，阵营分魏/蜀/吴/群四方。
+  - 橙卡是开荒和实战的主力武将。
+  - 紫卡和蓝卡玩家都可获取，基本每个玩家都能达到全图鉴水平；它们主要用于图鉴、新手过渡和特殊缘分。
+  - 目前知识库中 13 名紫卡尚未录入数据（非「未开放」，是收录缺口），优先级低，后续需补录。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-HERO-004
+  updated_at: '2026-04-13'
+  confidence: 0.88
+  related_topics:
+  - 求贤令
+  - 信物
+  - 紫卡
+  - 橙卡
+  priority: 78
+  structured_data: null
+- id: mech-hero-deployment
+  domain: hero
+  entry_kind: generic_rule
+  topic: 部队上阵
+  aliases:
+  - 队伍结构
+  - 上阵
+  - 武将位置
+  facts:
+  - 每支部队上阵 3 名武将，三个位置平等，不区分主将/副将。
+  - 每个武将的战法位数量相同：各自带 1 个自身战法；武将 10 级解锁第 2 个战法位（携带位）；武将 20 级解锁第 3 个战法位（携带位）。
+  - 故每位武将最多可带 1 自带 + 2 携带 = 3 个战法。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-HERO-005
+  updated_at: '2026-04-13'
+  confidence: 0.95
+  related_topics:
+  - 战法栏位
+  - 阵营加成
+  - 缘分
+  priority: 78
+  structured_data: null
+- id: mech-profession-overview
+  domain: hero
+  entry_kind: generic_rule
+  topic: 职业系统
+  aliases:
+  - 职业
+  - 6职业
+  - 选职业
+  - 一阶二阶
+  facts:
+  - 游戏共 6 个职业：司仓、镇军、奇佐、天工、青囊、神行。
+  - 每个职业分一阶和二阶，分别解锁不同功能性天赋。
+  - 赛季重置后职业清空，需重新选择。
+  - 职业选择应与队伍定位、同盟分工配合（如同盟内分工覆盖补给/治疗/建造/机动）。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-PROFESSION-001
+  updated_at: '2026-04-14'
+  confidence: 0.85
+  related_topics:
+  - 司仓
+  - 镇军
+  - 奇佐
+  - 天工
+  - 青囊
+  - 神行
+  priority: 85
+  structured_data: null
+- id: mech-profession-sicang
+  domain: hero
+  entry_kind: generic_rule
+  topic: 司仓
+  aliases:
+  - 物资后勤
+  - 司仓职业
+  facts:
+  - 司仓是物资后勤职业，侧重资源产出与掠夺。
+  - 一阶天赋：资源掠夺效率提升（战斗后从对方获取更多资源）。
+  - 二阶天赋：特殊物资产出（支援盟内的稀缺资源）。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-PROFESSION-002
+  updated_at: '2026-04-14'
+  confidence: 0.7
+  related_topics:
+  - 职业系统
+  - 资源征兵
+  - 同盟
+  priority: 70
+  structured_data: null
+- id: mech-profession-zhenjun
+  domain: hero
+  entry_kind: generic_rule
+  topic: 镇军
+  aliases:
+  - 镇军职业
+  - 加体力职业
+  facts:
+  - 镇军是军事前线职业，侧重战斗持续力。
+  - 一阶天赋：提升武将体力上限（可将 200 上限提升至 240）。
+  - 二阶天赋：战斗持续力/重伤恢复相关加成。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-PROFESSION-003
+  updated_at: '2026-04-14'
+  confidence: 0.75
+  related_topics:
+  - 职业系统
+  - 体力机制
+  - 重伤
+  priority: 78
+  structured_data: null
+- id: mech-profession-qizuo
+  domain: hero
+  entry_kind: generic_rule
+  topic: 奇佐
+  aliases:
+  - 奇佐职业
+  - 战斗辅助
+  facts:
+  - 奇佐是战斗辅助职业，侧重战场控制与增益。
+  - 一阶天赋：战法增伤相关效果。
+  - 二阶天赋：附加控制、状态或治疗支援。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-PROFESSION-004
+  updated_at: '2026-04-14'
+  confidence: 0.7
+  related_topics:
+  - 职业系统
+  - 战法类型
+  priority: 72
+  structured_data: null
+- id: mech-profession-tiangong
+  domain: hero
+  entry_kind: generic_rule
+  topic: 天工
+  aliases:
+  - 天工职业
+  - 器械建造
+  facts:
+  - 天工是建造/器械职业，负责战争器械生产与攻城支援。
+  - 一阶天赋：建筑升级加速相关效果。
+  - 二阶天赋：战争器械生产/攻城加成。
+  - 冲车、投石车、拒马、箭塔等战争器械由天工建造。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-PROFESSION-005
+  updated_at: '2026-04-14'
+  confidence: 0.8
+  related_topics:
+  - 职业系统
+  - 战争器械
+  - 攻城战
+  priority: 76
+  structured_data: null
+- id: mech-profession-qingnang
+  domain: hero
+  entry_kind: generic_rule
+  topic: 青囊
+  aliases:
+  - 青囊职业
+  - 炼药职业
+  - 治疗职业
+  facts:
+  - 青囊是治疗/炼药职业，负责补给丹药与战场治愈。
+  - 一阶天赋：每日炼药（产出五味子、金疮药、行军丹、救治药等）。
+  - 二阶天赋：丹药礼盒可赠送盟友；【起死回生】效果期间战损部分转化为粮食。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-PROFESSION-006
+  updated_at: '2026-04-14'
+  confidence: 0.82
+  related_topics:
+  - 职业系统
+  - 五味子
+  - 金疮药
+  - 行军丹
+  - 救治药
+  priority: 80
+  structured_data: null
+- id: mech-profession-shenxing
+  domain: hero
+  entry_kind: generic_rule
+  topic: 神行
+  aliases:
+  - 神行职业
+  - 机动职业
+  - 行军职业
+  facts:
+  - 神行是机动/行军职业，侧重部队行军速度与战略机动。
+  - 一阶天赋：行军速度提升。
+  - 二阶天赋：特殊移动/传送能力。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-PROFESSION-007
+  updated_at: '2026-04-14'
+  confidence: 0.72
+  related_topics:
+  - 职业系统
+  - 行军
+  priority: 70
+  structured_data: null
+- id: mech-skill-level-up
+  domain: skill
+  entry_kind: generic_rule
+  topic: 战法升级
+  aliases:
+  - 战法等级
+  - 10级战法
+  - 战法升满级
+  facts:
+  - 战法最高 10 级，消耗铜币升级，逐级消耗递增（具体每级铜币表待补）。
+  - 战法重置可 100% 返还升级消耗的铜币。
+  - 武将初始有 1 个自身战法位（Lv5 起就带）；10 级解锁第 2 个战法位（可携带）；20 级解锁第 3 个战法位（可携带）；最多 1 自带 + 2 携带。
+  - 25 / 30 / 35 级各解锁 1 个韬略位，共 3 个韬略位。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-SKILL-001
+  updated_at: '2026-04-13'
+  confidence: 0.88
+  related_topics:
+  - 战法重置
+  - 战法栏位
+  - 韬略
+  priority: 86
+  structured_data: null
+- id: mech-skill-reset
+  domain: skill
+  entry_kind: generic_rule
+  topic: 战法重置
+  aliases:
+  - 重置战法
+  - 战法卸下
+  - 拆战法
+  facts:
+  - 每周一 0 点刷新重置次数。
+  - 每周前 10 次重置免费。
+  - 第 11–20 次每次消耗 20 黄金；第 21 次起每次消耗 50 黄金。
+  - 新手期内战法重置无限次免费。
+  - 战法从武将身上卸下后等级不变，可直接转给其他武将。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-SKILL-002
+  updated_at: '2026-04-13'
+  confidence: 0.92
+  related_topics:
+  - 战法升级
+  - 战法继承
+  priority: 84
+  structured_data: null
+- id: mech-skill-types
+  domain: skill
+  entry_kind: generic_rule
+  topic: 战法类型
+  aliases:
+  - 指挥战法
+  - 主动战法
+  - 被动战法
+  - 追击战法
+  facts:
+  - 指挥战法：战斗最先发动，不受控制状态影响，但武将阵亡后失效。
+  - 主动战法：武将行动后、普攻前按概率发动；受「技穷」状态压制，可被打断。
+  - 被动战法：满足特定条件时自动触发，提供持续 buff/debuff。
+  - 追击战法：普攻后按概率发动；受「缴械」状态压制。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-SKILL-003
+  updated_at: '2026-04-13'
+  confidence: 0.9
+  related_topics:
+  - 技穷
+  - 缴械
+  - 战法概率
+  priority: 83
+  structured_data: null
+- id: mech-skill-judge-order
+  domain: skill
+  entry_kind: generic_rule
+  topic: 战法判定顺序
+  aliases:
+  - 战法发动顺序
+  - 战法结算顺序
+  - 战法释放顺序
+  facts:
+  - 单回合内战法判定顺序为：被动 → 指挥 → 主动 → 普攻 → 追击。
+  - 同类型战法之间按携带位排序：自带战法先判定，然后第 1 格，最后第 2 格。
+  - 所以相同类型战法的携带需要考虑上下位置关系，想先触发的放上面。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-SKILL-005
+  updated_at: '2026-04-13'
+  confidence: 0.88
+  related_topics:
+  - 战法类型
+  - 战法携带
+  priority: 82
+  structured_data: null
+- id: mech-skill-pull-attack
+  domain: skill
+  entry_kind: generic_rule
+  topic: 借刀型战法
+  aliases:
+  - 借刀战法
+  - 拉打型战法
+  - 拉打
+  - 苦肉计
+  - 指点乾坤
+  - 舍身取义
+  facts:
+  - 玩家社区习惯称为「借刀型战法」（视频攻略中也常叫「拉打型战法」，指同一类）。
+  - 借刀/拉打战法（黄盖自带、苦肉计、指点乾坤等）会让携带者借队伍核心输出的手去打一套伤害。
+  - 伤害结果受被借者（作用目标武将）的属性影响（智力/武力增伤、法术/物理破甲等）。
+  - 同时受作用于携带者自身的同类型战法增伤影响（主动/追击/指挥/被动增伤按战法类型匹配）。
+  - 携带者自身的四维属性和其他类型增伤不参与借刀伤害计算。
+  - 例：黄盖苦肉计是主动战法，黄盖点鬼谋（主动增伤韬略）能增强本次借刀伤害。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-SKILL-006
+  updated_at: '2026-04-13'
+  confidence: 0.82
+  related_topics:
+  - 战法判定顺序
+  - 韬略
+  priority: 78
+  structured_data: null
+- id: mech-skill-attribute-scaling
+  domain: skill
+  entry_kind: generic_rule
+  topic: 战法属性加成
+  aliases:
+  - 战法括号
+  - 受属性影响
+  - 战法面板
+  facts:
+  - 大部分战法描述带括号，标明「受到叉叉属性影响」。
+  - 「受到自身叉叉属性影响」表示根据携带者属性增强战法实际效果，实战数值通常高于面板显示。
+  - 「受到目标叉叉属性影响」表示根据战法作用目标（非攻击目标）的属性增强效果；S1 自带战法无此类，携带战法中常见（如披坚执锐受目标智力/统帅影响）。
+  - 关键区别：作用目标是获得状态的武将，攻击目标是承伤武将。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-SKILL-007
+  updated_at: '2026-04-13'
+  confidence: 0.85
+  related_topics:
+  - 战法类型
+  - 战法判定顺序
+  priority: 80
+  structured_data: null
+- id: mech-skill-rarity
+  domain: skill
+  entry_kind: generic_rule
+  topic: 战法稀有度
+  aliases:
+  - 橙战法
+  - 紫战法
+  - 蓝战法
+  - 战法抽取
+  - 战法进阶
+  facts:
+  - 战法和武将稀有度规则相同，都分蓝、紫、橙 3 档，橙色最强。
+  - 寻访 20 抽触发保底机制。
+  - 战法/武将进阶到 5 星累计需要 1 + 1 + 2 + 3 + 3 = 10 张同名碎片（从 1 星升到 2/3/4/5 星分别消耗 1/1/2/3/3
+    张）。
+  constraints:
+  - 橙色战法数量有限，多余重复可拆解换其他战法。
+  source_type: manual_rule
+  source_ref: KB-MECH-SKILL-004
+  updated_at: '2026-04-13'
+  confidence: 0.92
+  related_topics:
+  - 战法进阶
+  - 寻访
+  - 武将稀有度
+  priority: 80
+  structured_data: null

@@ -1,0 +1,106 @@
+- id: mech-profession-overview
+  domain: hero
+  topic: 职业系统
+  aliases: [职业, 6职业, 选职业, 一阶二阶]
+  facts:
+    - 游戏共 6 个职业：司仓、镇军、奇佐、天工、青囊、神行。
+    - 每个职业分一阶和二阶，分别解锁不同功能性天赋。
+    - 赛季重置后职业清空，需重新选择。
+    - 职业选择应与队伍定位、同盟分工配合（如同盟内分工覆盖补给/治疗/建造/机动）。
+  source_type: manual_rule
+  source_ref: KB-MECH-PROFESSION-001
+  updated_at: 2026-04-14
+  confidence: 0.85
+  related_topics: [司仓, 镇军, 奇佐, 天工, 青囊, 神行]
+  priority: 85
+
+- id: mech-profession-sicang
+  domain: hero
+  topic: 司仓
+  aliases: [物资后勤, 司仓职业]
+  facts:
+    - 司仓是物资后勤职业，侧重资源产出与掠夺。
+    - 一阶天赋：资源掠夺效率提升（战斗后从对方获取更多资源）。
+    - 二阶天赋：特殊物资产出（支援盟内的稀缺资源）。
+  source_type: manual_rule
+  source_ref: KB-MECH-PROFESSION-002
+  updated_at: 2026-04-14
+  confidence: 0.7
+  related_topics: [职业系统, 资源征兵, 同盟]
+  priority: 70
+
+- id: mech-profession-zhenjun
+  domain: hero
+  topic: 镇军
+  aliases: [镇军职业, 加体力职业]
+  facts:
+    - 镇军是军事前线职业，侧重战斗持续力。
+    - 一阶天赋：提升武将体力上限（可将 200 上限提升至 240）。
+    - 二阶天赋：战斗持续力/重伤恢复相关加成。
+  source_type: manual_rule
+  source_ref: KB-MECH-PROFESSION-003
+  updated_at: 2026-04-14
+  confidence: 0.75
+  related_topics: [职业系统, 体力机制, 重伤]
+  priority: 78
+
+- id: mech-profession-qizuo
+  domain: hero
+  topic: 奇佐
+  aliases: [奇佐职业, 战斗辅助]
+  facts:
+    - 奇佐是战斗辅助职业，侧重战场控制与增益。
+    - 一阶天赋：战法增伤相关效果。
+    - 二阶天赋：附加控制、状态或治疗支援。
+  source_type: manual_rule
+  source_ref: KB-MECH-PROFESSION-004
+  updated_at: 2026-04-14
+  confidence: 0.7
+  related_topics: [职业系统, 战法类型]
+  priority: 72
+
+- id: mech-profession-tiangong
+  domain: hero
+  topic: 天工
+  aliases: [天工职业, 器械建造]
+  facts:
+    - 天工是建造/器械职业，负责战争器械生产与攻城支援。
+    - 一阶天赋：建筑升级加速相关效果。
+    - 二阶天赋：战争器械生产/攻城加成。
+    - 冲车、投石车、拒马、箭塔等战争器械由天工建造。
+  source_type: manual_rule
+  source_ref: KB-MECH-PROFESSION-005
+  updated_at: 2026-04-14
+  confidence: 0.8
+  related_topics: [职业系统, 战争器械, 攻城战]
+  priority: 76
+
+- id: mech-profession-qingnang
+  domain: hero
+  topic: 青囊
+  aliases: [青囊职业, 炼药职业, 治疗职业]
+  facts:
+    - 青囊是治疗/炼药职业，负责补给丹药与战场治愈。
+    - 一阶天赋：每日炼药（产出五味子、金疮药、行军丹、救治药等）。
+    - 二阶天赋：丹药礼盒可赠送盟友；【起死回生】效果期间战损部分转化为粮食。
+  source_type: manual_rule
+  source_ref: KB-MECH-PROFESSION-006
+  updated_at: 2026-04-14
+  confidence: 0.82
+  related_topics: [职业系统, 五味子, 金疮药, 行军丹, 救治药]
+  priority: 80
+
+- id: mech-profession-shenxing
+  domain: hero
+  topic: 神行
+  aliases: [神行职业, 机动职业, 行军职业]
+  facts:
+    - 神行是机动/行军职业，侧重部队行军速度与战略机动。
+    - 一阶天赋：行军速度提升。
+    - 二阶天赋：特殊移动/传送能力。
+  source_type: manual_rule
+  source_ref: KB-MECH-PROFESSION-007
+  updated_at: 2026-04-14
+  confidence: 0.72
+  related_topics: [职业系统, 行军]
+  priority: 70

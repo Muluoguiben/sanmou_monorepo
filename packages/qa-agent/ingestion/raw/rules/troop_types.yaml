@@ -1,0 +1,69 @@
+- id: mech-troop-counter-chain
+  domain: team
+  topic: 兵种克制
+  aliases: [兵种相克, 盾克弓, 弓克枪, 枪克骑, 骑克盾]
+  facts:
+    - 4 主战兵种：盾兵、骑兵、弓兵、枪兵。
+    - 克制链：盾克弓 → 弓克枪 → 枪克骑 → 骑克盾。
+    - 克制方对被克制兵种造成的伤害 +15%。
+  constraints:
+    - 器械（冲车/投石车/拒马/箭塔）属战争器械系统，不参与 4 兵种克制链。
+  source_type: manual_rule
+  source_ref: KB-MECH-TROOP-001
+  updated_at: 2026-04-13
+  confidence: 0.95
+  related_topics: [兵种加成, 器械, 兵种进阶]
+  priority: 90
+
+- id: mech-troop-same-type-bonus
+  domain: team
+  topic: 同兵种加成
+  aliases: [兵种加成, 3阵加成, 三盾, 三弓, 三骑, 三枪]
+  facts:
+    - 3 人同兵种部队整体获得 5% 加成。
+    - 弓兵 3 阵：+5% 增伤。
+    - 盾兵 3 阵：-5% 受伤（减伤）。
+    - 骑兵 3 阵：具体数值待补（已确认 5% 总加成，分配方向未核实）。
+    - 枪兵 3 阵：具体数值待补（已确认 5% 总加成，分配方向未核实）。
+  constraints:
+    - 2 阵（2 人同兵种）加成数值暂无权威数据，不要凭记忆填。
+  source_type: manual_rule
+  source_ref: KB-MECH-TROOP-002
+  updated_at: 2026-04-13
+  confidence: 0.85
+  related_topics: [兵种克制, 部队上阵]
+  priority: 86
+
+- id: mech-troop-siege-weapons
+  domain: team
+  topic: 战争器械
+  aliases: [器械, 冲车, 投石车, 拒马, 箭塔]
+  facts:
+    - 战争器械由【天工】职业建造，独立于 4 兵种克制链。
+    - 冲车用于攻城，投石车用于拆除城池耐久。
+    - 拒马、箭塔为防御性战略建筑（拒马建造约 30 分钟）。
+  source_type: manual_rule
+  source_ref: KB-MECH-TROOP-004
+  updated_at: 2026-04-13
+  confidence: 0.85
+  related_topics: [天工, 攻城战, 兵种克制]
+  priority: 72
+
+- id: mech-troop-reserve
+  domain: team
+  topic: 预备兵
+  aliases: [预备兵, 补兵, 征兵储备, 下阵返还]
+  facts:
+    - 预备兵由主城征兵所产出，是部队补员储备。
+    - 下阵武将返还规则分两种情况：
+    - 新手期内：下阵第二队武将，兵力直接转化为预备兵补充主力。
+    - 非新手期：下阵武将只返还 80% 的增兵粮食（不是兵力），不是预备兵。
+    - 征兵所升级可提升预备兵上限和每小时征兵数（具体数值待补）。
+  constraints:
+    - 新手期（48 小时）内的下阵返兵优势不要浪费，错过后同样操作只能拿粮食。
+  source_type: manual_rule
+  source_ref: KB-MECH-TROOP-005
+  updated_at: 2026-04-13
+  confidence: 0.9
+  related_topics: [征兵, 辎重征兵, 新手保护]
+  priority: 78

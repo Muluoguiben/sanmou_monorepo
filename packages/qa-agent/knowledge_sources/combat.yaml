@@ -1,63 +1,449 @@
 - id: combat-land
   domain: combat
   topic: 攻占地块
-  aliases: [打地, 攻地, 攻占土地]
+  aliases:
+  - 打地
+  - 攻地
+  - 攻占土地
   facts:
-    - 攻占地块前需要确认目标可达、队伍可出征，并评估战损是否可接受。
-    - 打地收益不只看资源产出，还要看章节推进、体力消耗和节奏连续性。
+  - 攻占地块前需要确认目标可达、队伍可出征，并评估战损是否可接受。
+  - 打地收益不只看资源产出，还要看章节推进、体力消耗和节奏连续性。
   constraints:
-    - 高等级地块和远距离目标通常意味着更高风险与时间成本。
+  - 高等级地块和远距离目标通常意味着更高风险与时间成本。
   source_type: manual_rule
   source_ref: KB-RULE-COMBAT-001
   updated_at: 2026-03-29
   confidence: 0.95
-  related_topics: [体力, 队伍, 征兵]
+  related_topics:
+  - 体力
+  - 队伍
+  - 征兵
   priority: 96
-
 - id: combat-battle-loss
   domain: combat
   topic: 战损
-  aliases: [兵损, 战斗损失]
+  aliases:
+  - 兵损
+  - 战斗损失
   facts:
-    - 战损是评估打地和持续推进能力的关键成本之一。
-    - 如果战损过高，往往会拖慢征兵、体力利用和后续连续作战节奏。
+  - 战损是评估打地和持续推进能力的关键成本之一。
+  - 如果战损过高，往往会拖慢征兵、体力利用和后续连续作战节奏。
   constraints:
-    - 可接受战损阈值应结合当前阶段、资源和目标收益综合判断。
+  - 可接受战损阈值应结合当前阶段、资源和目标收益综合判断。
   source_type: manual_rule
   source_ref: KB-RULE-COMBAT-002
   updated_at: 2026-03-29
   confidence: 0.92
-  related_topics: [攻占地块, 征兵]
+  related_topics:
+  - 攻占地块
+  - 征兵
   priority: 84
-
 - id: combat-march
   domain: combat
   topic: 行军时间
-  aliases: [行军, 跑路时间, 出征时间]
+  aliases:
+  - 行军
+  - 跑路时间
+  - 出征时间
   facts:
-    - 行军时间会影响打地的即时收益、往返节奏和后续动作衔接。
-    - 在收益相近时，更短的行军时间通常意味着更高的节奏价值。
+  - 行军时间会影响打地的即时收益、往返节奏和后续动作衔接。
+  - 在收益相近时，更短的行军时间通常意味着更高的节奏价值。
   constraints:
-    - 行军时间受距离、目标位置和当前队伍状态影响。
+  - 行军时间受距离、目标位置和当前队伍状态影响。
   source_type: manual_rule
   source_ref: KB-RULE-COMBAT-003
   updated_at: 2026-03-29
   confidence: 0.93
-  related_topics: [攻占地块, 体力]
+  related_topics:
+  - 攻占地块
+  - 体力
   priority: 88
-
 - id: combat-land-level
   domain: combat
   topic: 地块等级
-  aliases: [土地等级, 地等级, 几级地]
+  aliases:
+  - 土地等级
+  - 地等级
+  - 几级地
   facts:
-    - 地块等级通常反映目标收益和守军强度，等级越高，收益与风险往往同时上升。
-    - 是否挑战更高等级地块，应结合队伍兵力、体力、战损承受能力和章节需求综合判断。
+  - 地块等级通常反映目标收益和守军强度，等级越高，收益与风险往往同时上升。
+  - 是否挑战更高等级地块，应结合队伍兵力、体力、战损承受能力和章节需求综合判断。
   constraints:
-    - 不同等级地块的具体守军与收益以游戏内设定为准。
+  - 不同等级地块的具体守军与收益以游戏内设定为准。
   source_type: manual_rule
   source_ref: KB-RULE-COMBAT-004
   updated_at: 2026-03-29
   confidence: 0.94
-  related_topics: [攻占地块, 战损, 兵力]
+  related_topics:
+  - 攻占地块
+  - 战损
+  - 兵力
   priority: 90
+- id: mech-combat-injury
+  domain: combat
+  entry_kind: generic_rule
+  topic: 重伤
+  aliases:
+  - 重伤状态
+  - 休整
+  - 重伤时间
+  facts:
+  - 与玩家部队战斗后部队进入重伤状态，叠加「休整」层数。
+  - 每层休整 +1 分钟重伤时间；最多叠 20 层；每 10 分钟自然减 1 层。
+  - 与玩家战斗每次获得 3 层休整。
+  - 新手期重伤时间显著缩短。
+  - 金疮药可立即清除重伤；青囊【起死回生】可清除全队重伤。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-COMBAT-001
+  updated_at: '2026-04-13'
+  confidence: 0.88
+  related_topics:
+  - 战损
+  - 金疮药
+  - 青囊
+  priority: 84
+  structured_data: null
+- id: mech-combat-loss-return
+  domain: combat
+  entry_kind: generic_rule
+  topic: 战损返还
+  aliases:
+  - 战损
+  - 战损换粮
+  - 战损转化
+  facts:
+  - 清剿叛军营地：兵力按 90% 返还为粮食。
+  - 同盟出生州内与玩家战斗：战损 60% 以粮食返还。
+  - 青囊【起死回生】期间，部队战损转化为粮食。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-COMBAT-002
+  updated_at: '2026-04-13'
+  confidence: 0.8
+  related_topics:
+  - 重伤
+  - 青囊
+  - 新手保护
+  priority: 80
+  structured_data: null
+- id: mech-combat-siege
+  domain: combat
+  entry_kind: generic_rule
+  topic: 攻城战
+  aliases:
+  - 攻城
+  - 拆城
+  - 打城
+  - 城池战
+  facts:
+  - 攻城分主力队（破驻城守军）和拆迁队（拆城池耐久）。
+  - 必须先清空城市守军，否则上拆迁队会撞守军败退。
+  - 拆迁队单次拆迁值 300。
+  - 投石车是拆耐久主力。
+  - 攻城集结时间固定 3 分钟。
+  - 守军恢复时间 3 分钟。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-COMBAT-003
+  updated_at: '2026-04-13'
+  confidence: 0.85
+  related_topics:
+  - 战争器械
+  - 天工
+  priority: 78
+  structured_data: null
+- id: mech-combat-rounds
+  domain: combat
+  entry_kind: generic_rule
+  topic: 战斗回合机制
+  aliases:
+  - 8回合
+  - 连战
+  - 平局
+  - 战斗胜利条件
+  facts:
+  - 单场战斗固定 8 回合。
+  - 8 回合内未分胜负（平局）则以当前战斗状态进入下一轮战斗。
+  - 前一轮 8 回合中阵亡的武将，平局进入的第二场不加入战斗。
+  - 战斗胜利后进入连战时，下一轮开始前结算上一轮损失：部分伤兵转化为死兵，其余伤兵与阵亡武将重回战斗。
+  - 胜利判定：打光敌方所有兵力才算胜利，与「主将死即队伍败」的其他 SLG 不同。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-COMBAT-005
+  updated_at: '2026-04-13'
+  confidence: 0.9
+  related_topics:
+  - 连战
+  - 战损
+  - 重伤
+  priority: 86
+  structured_data: null
+- id: mech-combat-turn-order
+  domain: combat
+  entry_kind: generic_rule
+  topic: 出手顺序
+  aliases:
+  - 先攻
+  - 速度
+  - 行动顺序
+  facts:
+  - 己方队伍内部严格按先攻值从高到低出手。
+  - 敌我之间不纯粹按先攻值：先攻差 ≥ 70 点时高者必先出手；差 < 70 点时高者概率性先出手。
+  - 先攻值相同则双方各 50% 概率先出手；差距越大高者先手概率越大。
+  - 想让 A 比 B 先出手，只需进入战斗后 A 的先攻值高于 B 即可。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-COMBAT-006
+  updated_at: '2026-04-13'
+  confidence: 0.88
+  related_topics:
+  - 先攻
+  - 战法判定顺序
+  priority: 84
+  structured_data: null
+- id: mech-combat-damage-buff
+  domain: combat
+  entry_kind: generic_rule
+  topic: 增减伤与易伤
+  aliases:
+  - 增伤
+  - 减伤
+  - 易伤
+  - 伤害修正
+  facts:
+  - 增伤直接提升武将伤害；减伤降低承受伤害，两者抵消。
+  - 增减伤来源：武将自带战法、携带战法、装备马匹、韬略、原问、羁绊等。
+  - 我方增伤总和封顶 100%，超出部分溢出浪费（含武力增伤、谋略增伤等）。
+  - 施加于敌方的减伤降低效果（易伤）不受此封顶影响。
+  - 易伤可把敌方减伤压到负值，相当于增加我方实际伤害（如大乔国色）。
+  - 同数值下，易伤比我方增伤更强——不会被 100% 上限截断。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-COMBAT-007
+  updated_at: '2026-04-13'
+  confidence: 0.85
+  related_topics:
+  - 大乔国色
+  - 战法属性加成
+  - 韬略
+  priority: 82
+  structured_data: null
+- id: mech-combat-low-troop-penalty
+  domain: combat
+  entry_kind: generic_rule
+  topic: 兵力低伤害衰减
+  aliases:
+  - 残血伤害
+  - 兵力影响伤害
+  - 低兵伤害
+  facts:
+  - 武将当前兵力低于一定阈值时，其造成的伤害会显著下降。
+  - 观察案例：关平伏兵四起在 9000+ 兵力时对周瑜 ~270、孙权 ~360；兵力跌到 800 时对周瑜 ~90、孙权 ~120（降幅约 3 倍）。
+  - 实战含义：核心输出需要保证足够兵力在场，过度缺兵会严重拖低输出。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-COMBAT-008
+  updated_at: '2026-04-13'
+  confidence: 0.78
+  related_topics:
+  - 兵力
+  - 补兵
+  - 增减伤与易伤
+  priority: 75
+  structured_data: null
+- id: mech-combat-research-tech
+  domain: combat
+  entry_kind: generic_rule
+  topic: 研究所战斗科技
+  aliases:
+  - 科技加成
+  - 研究所
+  - 兵种科技
+  - 国家对抗
+  facts:
+  - 研究所战斗科技分三大类：基础属性、兵种增减伤、针对四国武将的国家对抗增减伤。
+  - 学习后的加成直接作用于战斗队伍（全局），无需装备。
+  - 兵种科技每个兵种点满 10 级后激活一个额外效果。
+  - 盾兵 10 级：第 2 回合减伤 +7%。
+  - 骑兵 10 级：首回合 +5% 规避率。
+  - 枪兵 10 级：第 4 回合 +8% 破甲。
+  - 工兵 10 级：第 3 回合 +10% 会心/奇谋几率。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-COMBAT-009
+  updated_at: '2026-04-13'
+  confidence: 0.86
+  related_topics:
+  - 兵种克制
+  - 建筑升级
+  - 增减伤与易伤
+  priority: 80
+  structured_data: null
+- id: mech-combat-aura-duration
+  domain: combat
+  entry_kind: generic_rule
+  topic: 辅助状态持续时间
+  aliases:
+  - 清醒状态
+  - 辅助时长
+  - 状态持续
+  facts:
+  - 辅助类战法给其他武将上的状态（如舍身取义给队友的清醒）持续至受状态武将下一次出手为止。
+  - 不只是回合数窗口——即使跨回合，只要目标未行动，状态仍有效。
+  - 目标开始行动时状态才消失。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-COMBAT-010
+  updated_at: '2026-04-13'
+  confidence: 0.82
+  related_topics:
+  - 舍身取义
+  - 战法判定顺序
+  priority: 72
+  structured_data: null
+- id: mech-combat-newbie-protection
+  domain: combat
+  entry_kind: generic_rule
+  topic: 新手保护
+  aliases:
+  - 新手期
+  - 新手保护期
+  facts:
+  - 新手保护期 48 小时。
+  - 保护期内：置换武将免费、重置战法免费、占地时间减半。
+  - 保护期后进入完整 PVP 环境。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-COMBAT-004
+  updated_at: '2026-04-13'
+  confidence: 0.88
+  related_topics:
+  - 战法重置
+  - 攻占地块
+  priority: 76
+  structured_data: null
+- id: mech-land-exp-table
+  domain: combat
+  entry_kind: generic_rule
+  topic: 打地经验表
+  aliases:
+  - 地块经验
+  - 各级地经验
+  - 打地收益
+  - 几级地多少经验
+  facts:
+  - 各等级资源地打通后基础经验（100% 经验倍率时）：
+  - '1 级地: 1,200；2 级地: 2,560；3 级地: 2,800；4 级地: 6,400；5 级地: 12,000。'
+  - '6 级地: 26,000；7 级地: 44,000；8 级地: 80,000；9 级地: 140,000；10 级地: 200,000。'
+  - '11 级地: 300,000；12 级地: 400,000（内城最高级）。'
+  - 实际获得经验 = 基础经验 × 经验倍率（100%/80%/70%/0%，由 mech-land-exp-decay 决定）。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-LAND-005
+  updated_at: '2026-04-13'
+  confidence: 0.95
+  related_topics:
+  - 打地经验衰减
+  - 武将升级经验表
+  - 内城地
+  priority: 90
+  structured_data: null
+- id: mech-land-exp-decay
+  domain: combat
+  entry_kind: generic_rule
+  topic: 打地经验衰减
+  aliases:
+  - 经验衰减
+  - 打地经验
+  - 越级打地
+  - 降级打地
+  facts:
+  - 判定依据为队伍中最低等级武将 vs 土地推荐等级。
+  - 等级远低于推荐等级：获得 70% 经验，消耗 20 体力。
+  - 等级与推荐等级相当：获得 100% 经验，消耗 20 体力。
+  - 等级远胜于推荐等级：获得 80% 经验，消耗 10 体力。
+  - 等级相差巨大（碾压）：获得 0 经验，消耗 0 体力。
+  constraints:
+  - 高级队打低级地无收益也不扣体力，用于清地刷资源。
+  - 降级打地可节省体力但牺牲 20% 经验。
+  source_type: manual_rule
+  source_ref: KB-MECH-LAND-001
+  updated_at: '2026-04-13'
+  confidence: 0.95
+  related_topics:
+  - 体力机制
+  - 武将升级
+  - 推荐等级
+  priority: 92
+  structured_data: null
+- id: mech-land-difficulty-factors
+  domain: combat
+  entry_kind: generic_rule
+  topic: 打地难度判断
+  aliases:
+  - 打地关键
+  - 打地兵力够不够
+  - 能不能打
+  facts:
+  - 打地能否通过主要看武将等级、武将红度（稀有度/进阶）、品度（品阶）。
+  - 兵力不是决定性因素，够用即可。
+  - 武将等级决定面板属性上限；红度/品度决定战法强度与面板加成。
+  constraints:
+  - 不要无脑堆兵打越级地——武将等级差距、战法等级不足时兵力多也打不穿。
+  source_type: manual_rule
+  source_ref: KB-MECH-LAND-002
+  updated_at: '2026-04-13'
+  confidence: 0.85
+  related_topics:
+  - 打地经验衰减
+  - 武将等级上限
+  - 武将进阶
+  priority: 86
+  structured_data: null
+- id: mech-land-inner-city
+  domain: combat
+  entry_kind: generic_rule
+  topic: 内城地
+  aliases:
+  - 内城
+  - 内城资源地
+  facts:
+  - 内城地随主线任务章节解锁。
+  - 最终总数固定：木头 6 块 + 铁 6 块 + 石头 6 块 + 粮食 6 块 = 24 块内城地。
+  - 内城地最高等级 12 级。
+  - 相比同级外城地，难度低、产出高、死兵少；开荒优先吃内城。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-LAND-003
+  updated_at: '2026-04-13'
+  confidence: 0.92
+  related_topics:
+  - 外城地
+  - 打地经验衰减
+  - 资源地
+  priority: 88
+  structured_data: null
+- id: mech-land-outer-city
+  domain: combat
+  entry_kind: generic_rule
+  topic: 外城地
+  aliases:
+  - 外城
+  - 外城资源地
+  - 扩充资源地
+  facts:
+  - 外城地随主线章节任务解锁。
+  - 研究所「点资源地」科技可扩充外城资源地上限。
+  - 外城资源地最终上限约 65 块（不同赛季剧本下数量不一致）。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-LAND-004
+  updated_at: '2026-04-13'
+  confidence: 0.85
+  related_topics:
+  - 内城地
+  - 研究所战斗科技
+  - 赛季剧本
+  priority: 82
+  structured_data: null

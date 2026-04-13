@@ -1,111 +1,485 @@
 - id: resource-basics
   domain: resource
   topic: 资源
-  aliases: [资源产出, 基础资源]
+  aliases:
+  - 资源产出
+  - 基础资源
   facts:
-    - 资源是建筑升级、征兵和持续开荒的基础成本。
-    - 资源是否紧缺会直接影响建筑、征兵和打地的优先级排序。
+  - 资源是建筑升级、征兵和持续开荒的基础成本。
+  - 资源是否紧缺会直接影响建筑、征兵和打地的优先级排序。
   constraints:
-    - 不同阶段的资源瓶颈可能不同。
+  - 不同阶段的资源瓶颈可能不同。
   source_type: manual_rule
   source_ref: KB-RULE-RESOURCE-001
   updated_at: 2026-03-29
   confidence: 0.93
-  related_topics: [建筑升级, 征兵]
+  related_topics:
+  - 建筑升级
+  - 征兵
   priority: 85
-
 - id: team-stamina
   domain: team
   topic: 体力
-  aliases: [队伍体力, 武将体力]
+  aliases:
+  - 队伍体力
+  - 武将体力
   facts:
-    - 体力决定队伍能否持续执行打地等高频动作，是前期节奏管理的重要约束。
-    - 当体力不足时，等待恢复通常比强行推进更安全。
+  - 体力决定队伍能否持续执行打地等高频动作，是前期节奏管理的重要约束。
+  - 当体力不足时，等待恢复通常比强行推进更安全。
   constraints:
-    - 具体恢复速度和上限以游戏内当前机制为准。
+  - 具体恢复速度和上限以游戏内当前机制为准。
   source_type: manual_rule
   source_ref: KB-RULE-TEAM-001
   updated_at: 2026-03-29
   confidence: 0.95
-  related_topics: [攻占地块, 队伍, 征兵]
+  related_topics:
+  - 攻占地块
+  - 队伍
+  - 征兵
   priority: 92
-
 - id: team-troops
   domain: team
   topic: 兵力
-  aliases: [兵, 兵员, 士兵数量]
+  aliases:
+  - 兵
+  - 兵员
+  - 士兵数量
   facts:
-    - 兵力是队伍作战能力和承伤能力的重要组成部分。
-    - 兵力不足会显著影响打地稳定性和可承受战损空间。
+  - 兵力是队伍作战能力和承伤能力的重要组成部分。
+  - 兵力不足会显著影响打地稳定性和可承受战损空间。
   constraints:
-    - 兵力是否充足应与目标地块强度和武将状态一起判断。
+  - 兵力是否充足应与目标地块强度和武将状态一起判断。
   source_type: manual_rule
   source_ref: KB-RULE-TEAM-002
   updated_at: 2026-03-29
   confidence: 0.95
-  related_topics: [征兵, 战损]
+  related_topics:
+  - 征兵
+  - 战损
   priority: 91
-
 - id: team-recruit
   domain: team
   topic: 征兵
-  aliases: [补兵, 招兵, 补充兵力]
+  aliases:
+  - 补兵
+  - 招兵
+  - 补充兵力
   facts:
-    - 征兵用于恢复或补充队伍兵力，是维持持续作战能力的关键动作。
-    - 征兵决策通常要同时考虑资源是否充足、主力是否即将出征以及战损恢复需求。
+  - 征兵用于恢复或补充队伍兵力，是维持持续作战能力的关键动作。
+  - 征兵决策通常要同时考虑资源是否充足、主力是否即将出征以及战损恢复需求。
   constraints:
-    - 征兵效率和消耗以当前版本机制与队伍状态为准。
+  - 征兵效率和消耗以当前版本机制与队伍状态为准。
   source_type: manual_rule
   source_ref: KB-RULE-TEAM-003
   updated_at: 2026-03-29
   confidence: 0.96
-  related_topics: [兵力, 资源, 战损]
+  related_topics:
+  - 兵力
+  - 资源
+  - 战损
   priority: 94
-
 - id: team-general
   domain: team
   topic: 队伍
-  aliases: [部队, 编队, 阵容容器]
+  aliases:
+  - 部队
+  - 编队
+  - 阵容容器
   facts:
-    - 队伍是承载武将、兵力和体力状态的直接作战单位。
-    - 队伍状态会直接影响能否出征、能打什么地以及是否需要先征兵或等待。
+  - 队伍是承载武将、兵力和体力状态的直接作战单位。
+  - 队伍状态会直接影响能否出征、能打什么地以及是否需要先征兵或等待。
   constraints:
-    - 第一版知识库仅解释基础概念，不负责给出最优阵容建议。
+  - 第一版知识库仅解释基础概念，不负责给出最优阵容建议。
   source_type: manual_rule
   source_ref: KB-RULE-TEAM-004
   updated_at: 2026-03-29
   confidence: 0.93
-  related_topics: [体力, 兵力, 武将基础资料]
+  related_topics:
+  - 体力
+  - 兵力
+  - 武将基础资料
   priority: 82
-
 - id: team-slot
   domain: team
   topic: 队伍槽位
-  aliases: [编队槽位, 队伍位置, 容器槽位]
+  aliases:
+  - 编队槽位
+  - 队伍位置
+  - 容器槽位
   facts:
-    - 队伍槽位是承载具体队伍状态的容器，决定某套武将和兵力当前挂载在哪个出征单位上。
-    - 在以节奏为核心的玩法里，槽位价值常常体现在体力复用和无损切换空间上。
+  - 队伍槽位是承载具体队伍状态的容器，决定某套武将和兵力当前挂载在哪个出征单位上。
+  - 在以节奏为核心的玩法里，槽位价值常常体现在体力复用和无损切换空间上。
   constraints:
-    - 槽位数量和具体开启条件以当前账号与系统进度为准。
+  - 槽位数量和具体开启条件以当前账号与系统进度为准。
   source_type: manual_rule
   source_ref: KB-RULE-TEAM-005
   updated_at: 2026-03-29
   confidence: 0.91
-  related_topics: [队伍, 体力]
+  related_topics:
+  - 队伍
+  - 体力
   priority: 79
-
 - id: team-lineup-template
   domain: team
   topic: 阵容模板
-  aliases: [主力模板, 开荒模板, 队伍模板]
+  aliases:
+  - 主力模板
+  - 开荒模板
+  - 队伍模板
   facts:
-    - 阵容模板指一套相对固定的武将和配置组合，用来持续承载核心开荒收益。
-    - 第一版知识库只解释模板概念，不直接判断哪套模板最优。
+  - 阵容模板指一套相对固定的武将和配置组合，用来持续承载核心开荒收益。
+  - 第一版知识库只解释模板概念，不直接判断哪套模板最优。
   constraints:
-    - 模板强度依赖版本、战法、红度和配将细节。
+  - 模板强度依赖版本、战法、红度和配将细节。
   source_type: manual_rule
   source_ref: KB-RULE-TEAM-006
   updated_at: 2026-03-29
   confidence: 0.9
-  related_topics: [武将基础资料, 战法基础资料, 队伍槽位]
+  related_topics:
+  - 武将基础资料
+  - 战法基础资料
+  - 队伍槽位
   priority: 72
+- id: mech-recruit-resource
+  domain: team
+  entry_kind: generic_rule
+  topic: 资源征兵
+  aliases:
+  - 征兵
+  - 普通征兵
+  - 征兵所
+  facts:
+  - 资源征兵消耗粮食 / 铁 / 石头 / 木头，按时间逐步产出预备兵。
+  - 征兵所等级越高，每小时征兵数越多。
+  - 木头、铁、石头的主要用途之一就是升级征兵所等级以提升征兵速率。
+  - 每兵具体资源消耗与分档数值待补。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-RECRUIT-001
+  updated_at: '2026-04-14'
+  confidence: 0.82
+  related_topics:
+  - 快速征兵
+  - 辎重征兵
+  - 预备兵
+  priority: 82
+  structured_data: null
+- id: mech-recruit-fast
+  domain: team
+  entry_kind: generic_rule
+  topic: 快速征兵
+  aliases:
+  - 快速征兵
+  - 加速征兵
+  facts:
+  - 开启快速征兵可立即获得预备兵，无需等待时间。
+  - 代价是相较普通征兵的粮食消耗大幅增加。
+  - 注意：游戏中没有「金券/金卷立即征兵」的机制，快速征兵本质就是用粮食换时间。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-RECRUIT-002
+  updated_at: '2026-04-14'
+  confidence: 0.85
+  related_topics:
+  - 资源征兵
+  - 辎重征兵
+  - 粮食
+  priority: 78
+  structured_data: null
+- id: mech-recruit-zizhong
+  domain: team
+  entry_kind: generic_rule
+  topic: 辎重征兵
+  aliases:
+  - 辎重
+  - 同盟征兵
+  - 辎重补兵
+  facts:
+  - 辎重征兵需在同盟城池或营帐补给范围内进行。
+  - 消耗辎重和主城预备兵，无时间消耗，不消耗额外资源。
+  - 辎重 ∶ 预备兵消耗比例 = 1 ∶ 1。
+  - 同盟营帐建造时间约 90 分钟。
+  constraints:
+  - 辎重是同盟资源，来源为工坊自产、司仓职业技能、盟内捐献。
+  - 离同盟大营过远无法使用辎重征兵。
+  source_type: manual_rule
+  source_ref: KB-MECH-RECRUIT-003
+  updated_at: '2026-04-13'
+  confidence: 0.88
+  related_topics:
+  - 辎重运输
+  - 司仓
+  - 预备兵
+  priority: 84
+  structured_data: null
+- id: mech-recruit-zizhong-transport
+  domain: team
+  entry_kind: generic_rule
+  topic: 辎重运输
+  aliases:
+  - 辎重运送
+  - 护送辎重
+  facts:
+  - 辎重路线设定后有 30 分钟准备时间，准备期间同盟成员可加入护送。
+  - 单条辎重路线最多 20 名同盟成员护送。
+  - 运输损耗随距离增大，最高 50% 封顶。
+  constraints:
+  - 辎重队全灭会销毁辎重，参战部队退守。
+  - 神行职业专门针对辎重运输骚扰。
+  source_type: manual_rule
+  source_ref: KB-MECH-RECRUIT-004
+  updated_at: '2026-04-13'
+  confidence: 0.85
+  related_topics:
+  - 辎重征兵
+  - 神行
+  priority: 78
+  structured_data: null
+- id: mech-stamina-basics
+  domain: team
+  entry_kind: generic_rule
+  topic: 体力机制
+  aliases:
+  - 体力
+  - 体力值
+  - 体力上限
+  - 体力回复
+  - 体力恢复
+  facts:
+  - 武将基础体力上限为 200 点，无职业差异；镇军职业通过天赋可将上限提升至 240 点。
+  - 体力自然回复速率为每 3 分钟恢复 1 点，回满 200 点需 10 小时。
+  - 体力耗尽后武将无法攻打土地、扫荡、参与攻城战等耗体力行为；建筑、科技、行军不消耗体力。
+  constraints:
+  - 自然回复不受道具影响，道具只是在回复之外额外补充。
+  source_type: manual_rule
+  source_ref: KB-MECH-STAMINA-001
+  updated_at: '2026-04-13'
+  confidence: 0.95
+  related_topics:
+  - 体力药
+  - 打地
+  - 重伤
+  priority: 90
+  structured_data: null
+- id: mech-stamina-kaoji
+  domain: team
+  entry_kind: generic_rule
+  topic: 烤鸡
+  aliases:
+  - 鸡腿
+  - 烤鸡道具
+  facts:
+  - 烤鸡是前期主线章节奖励道具，使用后恢复 60 点体力。
+  - 使用限制：武将等级 ≤ 30 级可用（30 级仍可使用），31 级起不可再使用；仅能对自己队伍使用，不能赠送盟友。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-STAMINA-002
+  updated_at: '2026-04-13'
+  confidence: 0.9
+  related_topics:
+  - 体力机制
+  - 五味子
+  priority: 82
+  structured_data: null
+- id: mech-stamina-wuweizi
+  domain: team
+  entry_kind: generic_rule
+  topic: 五味子
+  aliases:
+  - 体力药
+  - 青囊炼药
+  - 体力丹
+  - 加80体力药
+  - +60体力药
+  facts:
+  - 五味子由青囊职业【炼药】天赋产出，用于恢复武将体力，无武将等级限制。
+  - 品阶越高恢复量越大：普通五味子 +60 体力，精品五味子 +80 体力。
+  - 玩家俗称「+60 体力药」通常指烤鸡或普通五味子，「+80 体力药」指精品五味子。
+  - 一阶青囊每天炼丹 1 次（基础 +60，有概率出精品 +80）；二阶青囊额外产出可赠送盟友的丹药礼盒。
+  constraints:
+  - 需要队内或盟内有青囊职业玩家持续产出，不是普适道具。
+  source_type: manual_rule
+  source_ref: KB-MECH-STAMINA-003
+  updated_at: '2026-04-13'
+  confidence: 0.88
+  related_topics:
+  - 青囊
+  - 体力机制
+  - 烤鸡
+  priority: 85
+  structured_data: null
+- id: mech-item-xingjundan
+  domain: team
+  entry_kind: generic_rule
+  topic: 行军丹
+  aliases:
+  - 补兵丹
+  - 兵力药
+  - 恢复兵力药
+  facts:
+  - 行军丹用于恢复部队兵力，对队伍中每名武将恢复 2000 兵力。
+  - 由青囊职业【炼药】产出。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-ITEM-001
+  updated_at: '2026-04-13'
+  confidence: 0.88
+  related_topics:
+  - 青囊
+  - 兵力
+  - 补兵
+  - 五味子
+  priority: 78
+  structured_data: null
+- id: mech-item-jiuzhiyao
+  domain: team
+  entry_kind: generic_rule
+  topic: 救治药
+  aliases:
+  - 救治效果
+  - 救治buff
+  facts:
+  - 使用后获得 30 分钟「救治」效果。
+  - 效果期间全体部队与其他玩家战斗后，重伤时间 -50%。
+  - 效果期间死兵的 30% 返还为预备兵，预备兵总上限 15000。
+  - 每天限用 1 次。
+  constraints:
+  - 该效果只对与其他玩家战斗生效（PVP 情境），打地/清剿等 PVE 不享受。
+  source_type: manual_rule
+  source_ref: KB-MECH-ITEM-002
+  updated_at: '2026-04-13'
+  confidence: 0.88
+  related_topics:
+  - 重伤
+  - 预备兵
+  - 青囊
+  priority: 82
+  structured_data: null
+- id: mech-item-jinchuangyao
+  domain: team
+  entry_kind: generic_rule
+  topic: 金疮药
+  aliases:
+  - 解重伤药
+  - 重伤清除
+  facts:
+  - 立即清除部队重伤状态。
+  - 由青囊【炼药】技能产出。
+  constraints:
+  - 不恢复体力、不恢复兵力，仅清除重伤时间。
+  source_type: manual_rule
+  source_ref: KB-MECH-ITEM-003
+  updated_at: '2026-04-13'
+  confidence: 0.9
+  related_topics:
+  - 重伤
+  - 青囊
+  - 救治药
+  priority: 80
+  structured_data: null
+- id: mech-troop-counter-chain
+  domain: team
+  entry_kind: generic_rule
+  topic: 兵种克制
+  aliases:
+  - 兵种相克
+  - 盾克弓
+  - 弓克枪
+  - 枪克骑
+  - 骑克盾
+  facts:
+  - 4 主战兵种：盾兵、骑兵、弓兵、枪兵。
+  - 克制链：盾克弓 → 弓克枪 → 枪克骑 → 骑克盾。
+  - 克制方对被克制兵种造成的伤害 +15%。
+  constraints:
+  - 器械（冲车/投石车/拒马/箭塔）属战争器械系统，不参与 4 兵种克制链。
+  source_type: manual_rule
+  source_ref: KB-MECH-TROOP-001
+  updated_at: '2026-04-13'
+  confidence: 0.95
+  related_topics:
+  - 兵种加成
+  - 器械
+  - 兵种进阶
+  priority: 90
+  structured_data: null
+- id: mech-troop-same-type-bonus
+  domain: team
+  entry_kind: generic_rule
+  topic: 同兵种加成
+  aliases:
+  - 兵种加成
+  - 3阵加成
+  - 三盾
+  - 三弓
+  - 三骑
+  - 三枪
+  facts:
+  - 3 人同兵种部队整体获得 5% 加成。
+  - 弓兵 3 阵：+5% 增伤。
+  - 盾兵 3 阵：-5% 受伤（减伤）。
+  - 骑兵 3 阵：具体数值待补（已确认 5% 总加成，分配方向未核实）。
+  - 枪兵 3 阵：具体数值待补（已确认 5% 总加成，分配方向未核实）。
+  constraints:
+  - 2 阵（2 人同兵种）加成数值暂无权威数据，不要凭记忆填。
+  source_type: manual_rule
+  source_ref: KB-MECH-TROOP-002
+  updated_at: '2026-04-13'
+  confidence: 0.85
+  related_topics:
+  - 兵种克制
+  - 部队上阵
+  priority: 86
+  structured_data: null
+- id: mech-troop-siege-weapons
+  domain: team
+  entry_kind: generic_rule
+  topic: 战争器械
+  aliases:
+  - 器械
+  - 冲车
+  - 投石车
+  - 拒马
+  - 箭塔
+  facts:
+  - 战争器械由【天工】职业建造，独立于 4 兵种克制链。
+  - 冲车用于攻城，投石车用于拆除城池耐久。
+  - 拒马、箭塔为防御性战略建筑（拒马建造约 30 分钟）。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-TROOP-004
+  updated_at: '2026-04-13'
+  confidence: 0.85
+  related_topics:
+  - 天工
+  - 攻城战
+  - 兵种克制
+  priority: 72
+  structured_data: null
+- id: mech-troop-reserve
+  domain: team
+  entry_kind: generic_rule
+  topic: 预备兵
+  aliases:
+  - 预备兵
+  - 补兵
+  - 征兵储备
+  - 下阵返还
+  facts:
+  - 预备兵由主城征兵所产出，是部队补员储备。
+  - 下阵武将返还规则分两种情况：
+  - 新手期内：下阵第二队武将，兵力直接转化为预备兵补充主力。
+  - 非新手期：下阵武将只返还 80% 的增兵粮食（不是兵力），不是预备兵。
+  - 征兵所升级可提升预备兵上限和每小时征兵数（具体数值待补）。
+  constraints:
+  - 新手期（48 小时）内的下阵返兵优势不要浪费，错过后同样操作只能拿粮食。
+  source_type: manual_rule
+  source_ref: KB-MECH-TROOP-005
+  updated_at: '2026-04-13'
+  confidence: 0.9
+  related_topics:
+  - 征兵
+  - 辎重征兵
+  - 新手保护
+  priority: 78
+  structured_data: null
