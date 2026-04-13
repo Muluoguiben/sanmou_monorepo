@@ -1,0 +1,17 @@
+source:
+  video_id: BVBAD001
+  title: bad
+  uploader: bad
+  source_url: https://www.bilibili.com/video/BVBAD001
+  captured_at: 2026-04-13T21:30:00
+segments:
+  - segment_id: known-segment
+    start_sec: 0
+    end_sec: 12
+lineup_candidates:
+  - candidate_id: bad-candidate
+    segment_id: missing-segment
+    topic: 错误阵容
+    facts:
+      - 这是一条坏数据
+    confidence: 0.5

@@ -1,0 +1,33 @@
+source:
+  video_id: BV1TEST4x7yz
+  title: S13 开荒阵容讲解样例
+  uploader: 测试UP主
+  source_url: https://www.bilibili.com/video/BV1TEST4x7yz
+  published_at: 2026-04-12T10:00:00
+  captured_at: 2026-04-13T21:00:00
+segments:
+  - segment_id: intro-lineup
+    start_sec: 18
+    end_sec: 64
+    transcript: 这一段主要讲诸葛亮、刘备、黄月英的开荒阵容和技能替代。诸葛亮负责输出和控制，刘备负责续航，黄月英补充辅助功能。
+    ocr_lines:
+      - 诸葛亮
+      - 刘备
+      - 黄月英
+      - 盛气凌敌
+      - 草船借箭
+    visual_summary: 画面停留在阵容配置界面，展示三名武将与核心战法。
+    frame_refs:
+      - timestamp_sec: 22
+        image_path: data/video_frames/BV1TEST4x7yz/intro-lineup-022.jpg
+        notes:
+          - 阵容面板完整可见
+  - segment_id: matchup
+    start_sec: 64
+    end_sec: 118
+    transcript: 这套更适合前期开荒和中低战损打地，不适合后期高强度对冲。
+    ocr_lines:
+      - 开荒
+      - 打地
+    visual_summary: 画面切到实战回放，强调前期打地表现。
+lineup_candidates: []
