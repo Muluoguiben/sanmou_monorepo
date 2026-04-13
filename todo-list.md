@@ -24,7 +24,7 @@
 - [x] QA agent ingestion pipeline：raw → normalize → publish 直接入库，跳过人工 review
 - [x] MCP server：qa-agent stdio JSON-RPC 服务，暴露 3 个知识工具
 - [x] 测试覆盖：pioneer-agent 5 tests + qa-agent 38 tests 全部通过
-- [x] CLAUDE.md 项目级文档 + 包级 CLAUDE.md（qa-agent / pioneer-agent 会话隔离）
+- [x] `.claude/CLAUDE.md` 项目级文档 + 包级 `CLAUDE.md`（qa-agent / pioneer-agent 会话隔离）
 - [x] Windows bridge server + WSL2 client（pioneer-agent/adapters/）
 - [x] Bridge 截图升级：dxcam (DXGI) 替换 mss，proxy 端自动前台切换，支持 DX 游戏窗口后台截图
 - [x] Perception vision 模块：`pioneer_agent/perception/vision/`，Gemini (`gemini-flash-latest`) 结构化 JSON 提取，自动 resize + 重试，smoke test 通过
