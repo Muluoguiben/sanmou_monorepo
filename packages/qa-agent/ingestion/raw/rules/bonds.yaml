@@ -1,0 +1,120 @@
+- id: mech-bond-faction
+  domain: hero
+  topic: 阵营加成
+  aliases: [阵营, 同阵营加成, 同势力]
+  facts:
+    - 同一国家 3 人上阵时，三人全部属性额外 +10%。
+    - 2 人同国 + 1 人他国时，三人全部属性额外 +5%（非 0）。
+    - 国家队（刘备/曹操/孙权所在国家队伍）额外享 +5% 全属性加成，但仅问鼎赛季生效，S1–S3 不生效。
+    - 阵营/国家加成与缘分加成独立，可叠加。
+    - 缘分加成仅对缘分内武将生效；队伍中未进入该缘分的武将吃不到该缘分效果。
+  source_type: manual_rule
+  source_ref: KB-MECH-BOND-001
+  updated_at: 2026-04-13
+  confidence: 0.92
+  related_topics: [缘分, 部队上阵, 国家队, 问鼎赛季]
+  priority: 87
+
+- id: mech-bond-system
+  domain: hero
+  topic: 缘分系统
+  aliases: [缘分, 羁绊, 列传]
+  facts:
+    - 缘分需要指定武将全部上阵于同一支部队才能触发，不要求相邻位置。
+    - 激活后给部队中缘分武将提供属性加成或特殊能力。
+    - 缘分、阵营、兵种加成三层独立叠加。
+    - 游戏内缘分不分 S/A/B 显式等级，效果差异由组合本身决定。
+  source_type: manual_rule
+  source_ref: KB-MECH-BOND-002
+  updated_at: 2026-04-13
+  confidence: 0.88
+  related_topics: [阵营加成, 部队上阵]
+  priority: 86
+
+- id: mech-bond-taoyuan
+  domain: hero
+  topic: 桃园结义
+  aliases: [桃园, 刘关张]
+  facts:
+    - 缘分武将：刘备、关羽、张飞。
+    - 效果：第 3 回合开始为本队驱散 1 种负面状态。
+    - 属蜀国经典开荒三人组。
+  source_type: manual_rule
+  source_ref: KB-MECH-BOND-003
+  updated_at: 2026-04-13
+  confidence: 0.85
+  related_topics: [缘分系统, 蜀国阵容]
+  priority: 80
+
+- id: mech-bond-wuhu
+  domain: hero
+  topic: 五虎上将
+  aliases: [五虎]
+  facts:
+    - 缘分武将：关羽、张飞、赵云、马超、黄忠。
+    - 效果：本队所有缘分武将暴击率提升 6%。
+    - 任意 2 人及以上上阵即可激活部分效果（具体阶梯待核实）。
+  source_type: manual_rule
+  source_ref: KB-MECH-BOND-004
+  updated_at: 2026-04-13
+  confidence: 0.8
+  related_topics: [缘分系统, 蜀国阵容]
+  priority: 78
+
+- id: mech-bond-jiangbiaohuchen
+  domain: hero
+  topic: 江表虎臣
+  aliases: [江表]
+  facts:
+    - 缘分武将：黄盖、甘宁、徐盛、程普、周泰、凌统、蒋钦、丁奉、董袭、韩当、陈武、潘璋。
+    - 效果：部队中缘分武将统率提升 10 点，受到伤害降低 3%。
+    - 吴国弓兵向缘分。
+  source_type: manual_rule
+  source_ref: KB-MECH-BOND-005
+  updated_at: 2026-04-13
+  confidence: 0.8
+  related_topics: [缘分系统, 吴国阵容]
+  priority: 76
+
+- id: mech-bond-wuziliangjiang
+  domain: hero
+  topic: 五子良将
+  aliases: [五子]
+  facts:
+    - 缘分武将：张辽、张郃、徐晃、于禁、乐进。
+    - 效果：部队中缘分武将破甲提升 6%。
+    - 魏国经典破甲缘分。
+  source_type: manual_rule
+  source_ref: KB-MECH-BOND-006
+  updated_at: 2026-04-13
+  confidence: 0.8
+  related_topics: [缘分系统, 魏国阵容]
+  priority: 76
+
+- id: mech-bond-caoweiwumou
+  domain: hero
+  topic: 曹魏五谋
+  aliases: [五谋, 魏谋]
+  facts:
+    - 缘分武将：荀彧、郭嘉、贾诩、程昱、荀攸。
+    - 属智谋系增益缘分（具体数值待补）。
+  source_type: manual_rule
+  source_ref: KB-MECH-BOND-007
+  updated_at: 2026-04-13
+  confidence: 0.7
+  related_topics: [缘分系统, 魏国阵容]
+  priority: 70
+
+- id: mech-bond-guozhidongliang
+  domain: hero
+  topic: 国之栋梁
+  aliases: [国栋, S3 缘分]
+  facts:
+    - S3 引入的缘分组合，社区评价效果偏弱（「不尽如人意」）。
+    - 具体武将组合和数值待补。
+  source_type: manual_rule
+  source_ref: KB-MECH-BOND-008
+  updated_at: 2026-04-13
+  confidence: 0.6
+  related_topics: [缘分系统]
+  priority: 60

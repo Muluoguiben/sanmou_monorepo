@@ -1,0 +1,67 @@
+- id: mech-land-exp-decay
+  domain: combat
+  topic: 打地经验衰减
+  aliases: [经验衰减, 打地经验, 越级打地, 降级打地]
+  facts:
+    - 判定依据为队伍中最低等级武将 vs 土地推荐等级。
+    - 等级远低于推荐等级：获得 70% 经验，消耗 20 体力。
+    - 等级与推荐等级相当：获得 100% 经验，消耗 20 体力。
+    - 等级远胜于推荐等级：获得 80% 经验，消耗 10 体力。
+    - 等级相差巨大（碾压）：获得 0 经验，消耗 0 体力。
+  constraints:
+    - 高级队打低级地无收益也不扣体力，用于清地刷资源。
+    - 降级打地可节省体力但牺牲 20% 经验。
+  source_type: manual_rule
+  source_ref: KB-MECH-LAND-001
+  updated_at: 2026-04-13
+  confidence: 0.95
+  related_topics: [体力机制, 武将升级, 推荐等级]
+  priority: 92
+
+- id: mech-land-difficulty-factors
+  domain: combat
+  topic: 打地难度判断
+  aliases: [打地关键, 打地兵力够不够, 能不能打]
+  facts:
+    - 打地能否通过主要看武将等级、武将红度（稀有度/进阶）、品度（品阶）。
+    - 兵力不是决定性因素，够用即可。
+    - 武将等级决定面板属性上限；红度/品度决定战法强度与面板加成。
+  constraints:
+    - 不要无脑堆兵打越级地——武将等级差距、战法等级不足时兵力多也打不穿。
+  source_type: manual_rule
+  source_ref: KB-MECH-LAND-002
+  updated_at: 2026-04-13
+  confidence: 0.85
+  related_topics: [打地经验衰减, 武将等级上限, 武将进阶]
+  priority: 86
+
+- id: mech-land-inner-city
+  domain: combat
+  topic: 内城地
+  aliases: [内城, 内城资源地]
+  facts:
+    - 内城地随主线任务章节解锁。
+    - 最终总数固定：木头 6 块 + 铁 6 块 + 石头 6 块 + 粮食 6 块 = 24 块内城地。
+    - 内城地最高等级 12 级。
+    - 相比同级外城地，难度低、产出高、死兵少；开荒优先吃内城。
+  source_type: manual_rule
+  source_ref: KB-MECH-LAND-003
+  updated_at: 2026-04-13
+  confidence: 0.92
+  related_topics: [外城地, 打地经验衰减, 资源地]
+  priority: 88
+
+- id: mech-land-outer-city
+  domain: combat
+  topic: 外城地
+  aliases: [外城, 外城资源地, 扩充资源地]
+  facts:
+    - 外城地随主线章节任务解锁。
+    - 研究所「点资源地」科技可扩充外城资源地上限。
+    - 外城资源地最终上限约 65 块（不同赛季剧本下数量不一致）。
+  source_type: manual_rule
+  source_ref: KB-MECH-LAND-004
+  updated_at: 2026-04-13
+  confidence: 0.85
+  related_topics: [内城地, 研究所战斗科技, 赛季剧本]
+  priority: 82

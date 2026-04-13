@@ -1,32 +1,129 @@
 - id: chapter-task
   domain: chapter
   topic: 章节任务
-  aliases: [章节, 章节目标, 主线章节]
+  aliases:
+  - 章节
+  - 章节目标
+  - 主线章节
   facts:
-    - 章节任务是条件驱动的推进系统，需要达成指定目标后才能领取奖励并进入下一阶段。
-    - 章节奖励往往会影响前期资源、节奏和功能开放优先级。
+  - 章节任务是条件驱动的推进系统，需要达成指定目标后才能领取奖励并进入下一阶段。
+  - 章节奖励往往会影响前期资源、节奏和功能开放优先级。
   constraints:
-    - 每章目标和奖励内容以当前章节配置为准。
+  - 每章目标和奖励内容以当前章节配置为准。
   source_type: manual_rule
   source_ref: KB-RULE-CHAPTER-001
   updated_at: 2026-03-29
   confidence: 0.95
-  related_topics: [章节奖励, 建筑升级]
+  related_topics:
+  - 章节奖励
+  - 建筑升级
   priority: 90
-
 - id: chapter-reward
   domain: chapter
   topic: 章节奖励
-  aliases: [领章节奖励, 领取章节奖励, 章节领取]
+  aliases:
+  - 领章节奖励
+  - 领取章节奖励
+  - 章节领取
   facts:
-    - 当当前章节目标全部满足后，章节奖励即可领取。
-    - 领取章节奖励后通常会解锁下一章目标或新的推进条件。
+  - 当当前章节目标全部满足后，章节奖励即可领取。
+  - 领取章节奖励后通常会解锁下一章目标或新的推进条件。
   constraints:
-    - 未完成当前章节目标时不能领取章节奖励。
+  - 未完成当前章节目标时不能领取章节奖励。
   source_type: manual_rule
   source_ref: KB-RULE-CHAPTER-002
   updated_at: 2026-03-29
   confidence: 0.97
-  related_topics: [章节任务]
+  related_topics:
+  - 章节任务
   priority: 92
-
+- id: mech-season-duration
+  domain: chapter
+  entry_kind: generic_rule
+  topic: 赛季时长
+  aliases:
+  - 赛季周期
+  - 单赛季多久
+  facts:
+  - 单赛季时长约 7 周，即约 49 天，比同类 SLG 短。
+  - 社区常说「1 个半月左右」与官方节奏吻合。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-SEASON-001
+  updated_at: '2026-04-13'
+  confidence: 0.85
+  related_topics:
+  - 赛季保留
+  - 赛季重置
+  priority: 82
+  structured_data: null
+- id: mech-season-types
+  domain: chapter
+  entry_kind: generic_rule
+  topic: 赛季剧本
+  aliases:
+  - 赛季类型
+  - 赛季剧本
+  - S1
+  - S2
+  - 问鼎赛季
+  - 隆中对
+  - 赛季列表
+  facts:
+  - 目前游戏共有 13 个赛季剧本，每个赛季有差异化规则与内容。
+  - 赛季分类包括：新手赛季（S1）、常规赛季、问鼎赛季（进阶对抗，启用国家队加成等）、年度剧本（如「九州鼎沸」）、特色赛季（如「隆中对」支持自创武将与结缘信物）。
+  - 不同赛季下外城资源地上限、规则机制可能不同。
+  constraints:
+  - 赛季列表随版本更新，具体 13 个赛季的名称与编号需查版本内赛季面板。
+  source_type: manual_rule
+  source_ref: KB-MECH-SEASON-002
+  updated_at: '2026-04-13'
+  confidence: 0.75
+  related_topics:
+  - 赛季时长
+  - 赛季保留数据
+  - 问鼎赛季
+  - 外城地
+  priority: 80
+  structured_data: null
+- id: mech-season-preserved
+  domain: chapter
+  entry_kind: generic_rule
+  topic: 赛季保留数据
+  aliases:
+  - 赛季继承
+  - 保留什么
+  - 跨赛季保留
+  facts:
+  - 保留：武将、武将进阶、战法、战法进阶、玉石、黄金、名望值、武将信物、战法信物、求贤令、名将令、同盟令、永久外观、月卡剩余天数、活动进度、结义等级、情义值。
+  - 装备与坐骑仅赛季仓库内的保留，其他清除。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-SEASON-003
+  updated_at: '2026-04-13'
+  confidence: 0.92
+  related_topics:
+  - 赛季重置
+  - 赛季仓库
+  priority: 88
+  structured_data: null
+- id: mech-season-reset
+  domain: chapter
+  entry_kind: generic_rule
+  topic: 赛季重置数据
+  aliases:
+  - 赛季清除
+  - 重置什么
+  facts:
+  - 重置：武将等级、战法等级、领地建筑、土地占领、兵力、同盟、任务进度、职业、未领取奖励。
+  - 新赛季需要重选职业；同盟解散但同盟令记录历史。
+  constraints: []
+  source_type: manual_rule
+  source_ref: KB-MECH-SEASON-004
+  updated_at: '2026-04-13'
+  confidence: 0.9
+  related_topics:
+  - 赛季保留数据
+  - 职业系统
+  priority: 85
+  structured_data: null

@@ -4,7 +4,7 @@ from pathlib import Path
 
 import yaml
 
-from qa_agent.knowledge.models import KnowledgeEntry
+from qa_agent.knowledge.models import EntryKind, KnowledgeEntry
 
 
 # Hero faction → bucket file mapping
@@ -21,6 +21,18 @@ _SKILL_TRIGGER_BUCKET: dict[str, str] = {
     "被动": "passive.yaml",
     "指挥": "command.yaml",
     "追击": "pursuit.yaml",
+}
+
+# Generic-rule domain → top-level bucket file mapping
+_GENERIC_RULE_BUCKET: dict[str, str] = {
+    "building": "building.yaml",
+    "chapter": "chapter.yaml",
+    "combat": "combat.yaml",
+    "hero": "hero_skill.yaml",
+    "resource": "resource_team.yaml",
+    "skill": "hero_skill.yaml",
+    "team": "resource_team.yaml",
+    "term": "terms.yaml",
 }
 
 
@@ -68,7 +80,12 @@ def publish_entries(
     # Group entries by target bucket path
     buckets: dict[Path, list[KnowledgeEntry]] = {}
     for entry in entries:
-        if entry.domain.value == "hero":
+        if entry.entry_kind == EntryKind.GENERIC_RULE:
+            bucket_name = _GENERIC_RULE_BUCKET.get(entry.domain.value)
+            if not bucket_name:
+                continue
+            bucket_path = knowledge_root / bucket_name
+        elif entry.domain.value == "hero":
             bucket_path = hero_dir / _resolve_hero_bucket(entry)
         elif entry.domain.value == "skill":
             bucket_path = skill_dir / _resolve_skill_bucket(entry)

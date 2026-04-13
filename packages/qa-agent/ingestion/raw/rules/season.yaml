@@ -1,0 +1,58 @@
+- id: mech-season-duration
+  domain: chapter
+  topic: 赛季时长
+  aliases: [赛季周期, 单赛季多久]
+  facts:
+    - 单赛季时长约 7 周，即约 49 天，比同类 SLG 短。
+    - 社区常说「1 个半月左右」与官方节奏吻合。
+  source_type: manual_rule
+  source_ref: KB-MECH-SEASON-001
+  updated_at: 2026-04-13
+  confidence: 0.85
+  related_topics: [赛季保留, 赛季重置]
+  priority: 82
+
+- id: mech-season-types
+  domain: chapter
+  topic: 赛季剧本
+  aliases: [赛季类型, 赛季剧本, S1, S2, 问鼎赛季, 隆中对, 赛季列表]
+  facts:
+    - 目前游戏共有 13 个赛季剧本，每个赛季有差异化规则与内容。
+    - 赛季分类包括：新手赛季（S1）、常规赛季、问鼎赛季（进阶对抗，启用国家队加成等）、年度剧本（如「九州鼎沸」）、特色赛季（如「隆中对」支持自创武将与结缘信物）。
+    - 不同赛季下外城资源地上限、规则机制可能不同。
+  constraints:
+    - 赛季列表随版本更新，具体 13 个赛季的名称与编号需查版本内赛季面板。
+  source_type: manual_rule
+  source_ref: KB-MECH-SEASON-002
+  updated_at: 2026-04-13
+  confidence: 0.75
+  related_topics: [赛季时长, 赛季保留数据, 问鼎赛季, 外城地]
+  priority: 80
+
+- id: mech-season-preserved
+  domain: chapter
+  topic: 赛季保留数据
+  aliases: [赛季继承, 保留什么, 跨赛季保留]
+  facts:
+    - 保留：武将、武将进阶、战法、战法进阶、玉石、黄金、名望值、武将信物、战法信物、求贤令、名将令、同盟令、永久外观、月卡剩余天数、活动进度、结义等级、情义值。
+    - 装备与坐骑仅赛季仓库内的保留，其他清除。
+  source_type: manual_rule
+  source_ref: KB-MECH-SEASON-003
+  updated_at: 2026-04-13
+  confidence: 0.92
+  related_topics: [赛季重置, 赛季仓库]
+  priority: 88
+
+- id: mech-season-reset
+  domain: chapter
+  topic: 赛季重置数据
+  aliases: [赛季清除, 重置什么]
+  facts:
+    - 重置：武将等级、战法等级、领地建筑、土地占领、兵力、同盟、任务进度、职业、未领取奖励。
+    - 新赛季需要重选职业；同盟解散但同盟令记录历史。
+  source_type: manual_rule
+  source_ref: KB-MECH-SEASON-004
+  updated_at: 2026-04-13
+  confidence: 0.9
+  related_topics: [赛季保留数据, 职业系统]
+  priority: 85

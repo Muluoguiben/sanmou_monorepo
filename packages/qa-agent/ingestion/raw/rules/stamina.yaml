@@ -1,0 +1,96 @@
+- id: mech-stamina-basics
+  domain: team
+  topic: 体力机制
+  aliases: [体力, 体力值, 体力上限, 体力回复, 体力恢复]
+  facts:
+    - 武将基础体力上限为 200 点，无职业差异；镇军职业通过天赋可将上限提升至 240 点。
+    - 体力自然回复速率为每 3 分钟恢复 1 点，回满 200 点需 10 小时。
+    - 体力耗尽后武将无法攻打土地、扫荡、参与攻城战等耗体力行为；建筑、科技、行军不消耗体力。
+  constraints:
+    - 自然回复不受道具影响，道具只是在回复之外额外补充。
+  source_type: manual_rule
+  source_ref: KB-MECH-STAMINA-001
+  updated_at: 2026-04-13
+  confidence: 0.95
+  related_topics: [体力药, 打地, 重伤]
+  priority: 90
+
+- id: mech-stamina-kaoji
+  domain: team
+  topic: 烤鸡
+  aliases: [鸡腿, 烤鸡道具]
+  facts:
+    - 烤鸡是前期主线章节奖励道具，使用后恢复 60 点体力。
+    - 使用限制：武将等级 ≤ 30 级可用（30 级仍可使用），31 级起不可再使用；仅能对自己队伍使用，不能赠送盟友。
+  source_type: manual_rule
+  source_ref: KB-MECH-STAMINA-002
+  updated_at: 2026-04-13
+  confidence: 0.9
+  related_topics: [体力机制, 五味子]
+  priority: 82
+
+- id: mech-stamina-wuweizi
+  domain: team
+  topic: 五味子
+  aliases: [体力药, 青囊炼药, 体力丹, 加80体力药, +60体力药]
+  facts:
+    - 五味子由青囊职业【炼药】天赋产出，用于恢复武将体力，无武将等级限制。
+    - 品阶越高恢复量越大：普通五味子 +60 体力，精品五味子 +80 体力。
+    - 玩家俗称「+60 体力药」通常指烤鸡或普通五味子，「+80 体力药」指精品五味子。
+    - 一阶青囊每天炼丹 1 次（基础 +60，有概率出精品 +80）；二阶青囊额外产出可赠送盟友的丹药礼盒。
+  constraints:
+    - 需要队内或盟内有青囊职业玩家持续产出，不是普适道具。
+  source_type: manual_rule
+  source_ref: KB-MECH-STAMINA-003
+  updated_at: 2026-04-13
+  confidence: 0.88
+  related_topics: [青囊, 体力机制, 烤鸡]
+  priority: 85
+
+- id: mech-item-xingjundan
+  domain: team
+  topic: 行军丹
+  aliases: [补兵丹, 兵力药, 恢复兵力药]
+  facts:
+    - 行军丹用于恢复部队兵力，对队伍中每名武将恢复 2000 兵力。
+    - 由青囊职业【炼药】产出。
+  source_type: manual_rule
+  source_ref: KB-MECH-ITEM-001
+  updated_at: 2026-04-13
+  confidence: 0.88
+  related_topics: [青囊, 兵力, 补兵, 五味子]
+  priority: 78
+
+- id: mech-item-jiuzhiyao
+  domain: team
+  topic: 救治药
+  aliases: [救治效果, 救治buff]
+  facts:
+    - 使用后获得 30 分钟「救治」效果。
+    - 效果期间全体部队与其他玩家战斗后，重伤时间 -50%。
+    - 效果期间死兵的 30% 返还为预备兵，预备兵总上限 15000。
+    - 每天限用 1 次。
+  constraints:
+    - 该效果只对与其他玩家战斗生效（PVP 情境），打地/清剿等 PVE 不享受。
+  source_type: manual_rule
+  source_ref: KB-MECH-ITEM-002
+  updated_at: 2026-04-13
+  confidence: 0.88
+  related_topics: [重伤, 预备兵, 青囊]
+  priority: 82
+
+- id: mech-item-jinchuangyao
+  domain: team
+  topic: 金疮药
+  aliases: [解重伤药, 重伤清除]
+  facts:
+    - 立即清除部队重伤状态。
+    - 由青囊【炼药】技能产出。
+  constraints:
+    - 不恢复体力、不恢复兵力，仅清除重伤时间。
+  source_type: manual_rule
+  source_ref: KB-MECH-ITEM-003
+  updated_at: 2026-04-13
+  confidence: 0.9
+  related_topics: [重伤, 青囊, 救治药]
+  priority: 80
