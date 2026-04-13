@@ -33,5 +33,10 @@ data/perception/
 *.exe
 *.msi
 
+# Secrets
+.env
+.env.*
+!.env.example
+
 # Misc
 nul
