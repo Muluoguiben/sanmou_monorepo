@@ -1,6 +1,6 @@
 # Todo List
 
-> Last updated: 2026-04-13 (post-merge: bilibili-video-knowledge → master)
+> Last updated: 2026-04-14 (post-merge: feat/qa-chat → master, 61 mechanic rules)
 
 ## In Progress
 
@@ -8,6 +8,12 @@
 
 ## Pending
 
+- [ ] 缘分具体条目补充：桃园/五虎/江表虎臣/五子/五谋/国栋 等 6 个缘分条目待补
+- [ ] 职业二阶天赋细节：通过游戏内截图 OCR 补全（当前 7 条为概述级别）
+- [ ] 同兵种加成数值：骑兵/枪兵 3 阵具体增伤/减伤分配（弓/盾已确认 5%）
+- [ ] 征兵所数值：每小时征兵数、预备兵上限随建筑等级变化表
+- [ ] 赛季剧本列表：13 个赛季的具体名称与编号
+- [ ] 救治药/行军丹等道具的产出细节（青囊一阶/二阶产出数量）
 - [ ] Perception 层续接：已实现 `resource_bar` + `city_buildings`，待补 `hero_list` / `battle_result` / `chapter_panel`；打通 `sync_service` 把 fragment 合并进 RuntimeState
 - [ ] Executor 实现：`ActionRunner` 对接游戏 API 或 UI 自动化（可通过 Windows bridge 通信）
 - [ ] Scoring 配置补全：`config/scoring.yaml` 只有 `opening_sprint` 阶段权重，需补齐其余阶段
@@ -36,3 +42,4 @@
 - [x] Web 爬虫（qa-agent）：sgmdtx.com 武将/战法爬虫，104 武将 + 123 战法入库，含满级属性/战法效果/缘分/赛季数据
 - [x] 知识库数据校验工具：review_quiz.py（随机出题 + 筛选 + API 校验）+ verify_quiz.py（自动化批量校验）
 - [x] B 站视频知识 workflow：完成 `fetch_bilibili_bundle -> conclusion/subtitle evidence -> segmentation -> lineup/hero/skill/combat extraction -> reviewed staging -> publish -> query` 闭环，新增一键脚本、workflow 文档、项目级 skill、真实视频知识卡片，并在真实视频 `BV1Z5myBqEGV` 上完成 smoke 验证
+- [x] 游戏机制知识补录：61 条通用规则（stamina/land/hero/bonds/combat/skill/troop/profession/recruit/season），含 Lv5→50 升级经验表与 1–12 级地经验表（从玩家自制 sanguo-assist webapp 提取），新增 `qa_agent.app.publish_rules` CLI 路由 generic-rule → 顶层 bucket，2026-04-14 与游戏所有者逐条 review 通过
