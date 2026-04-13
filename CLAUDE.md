@@ -173,11 +173,12 @@ git branch -d feat/<branch-name>
 - QA agent: knowledge base with 38 passing tests, MCP server, 3 query tools, ingestion pipeline with `--publish`
 - Executor: scaffold only (`not_implemented`), no actual game interaction yet
 
-### Key Gaps to Fill
+### Current Focus
+- **QA agent chat layer**: build `qa_agent/chat/` + `qa_agent/retrieval/` — conversational RAG over the knowledge base (104 heroes + 123 skills + rules/terms)
+
+### Other Gaps
 - **Perception layer**: domain-specific OCR/screen extractors (`pioneer-agent/perception/domains/` is empty)
 - **Executor**: `ActionRunner` returns `not_implemented` — needs game API or UI automation bindings
-- **Web scraping**: qa-agent needs crawlers to bulk-populate knowledge_sources from game data sites (target: sgmdtx.com)
-- **QA agent chat layer**: `qa_agent/chat/` and `qa_agent/retrieval/` are empty placeholders
 - **Scoring config**: only `opening_sprint` phase weights are defined in `config/scoring.yaml`
 - **Sanmou-common enrichment**: config YAMLs are minimal templates, need real game data
 - **Cross-package integration**: qa-agent knowledge not yet consumed by pioneer-agent's decision logic
