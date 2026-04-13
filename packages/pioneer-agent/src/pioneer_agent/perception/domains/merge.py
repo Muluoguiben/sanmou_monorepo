@@ -16,6 +16,7 @@ from typing import Any
 
 from pioneer_agent.core.models import FieldMeta, RuntimeState
 
+from .city_buildings import CityBuildingsFragment
 from .resource_bar import ResourceBarFragment
 
 _DICT_DOMAINS = {
@@ -54,6 +55,55 @@ def apply_resource_bar(state: RuntimeState, fragment: ResourceBarFragment) -> Ru
     updates["field_meta"] = merged_meta
 
     return state.model_copy(update=updates)
+
+
+def apply_city_buildings(state: RuntimeState, fragment: CityBuildingsFragment) -> RuntimeState:
+    """Return a new RuntimeState with the city_buildings fragment merged in.
+
+    The `buildings` list is merged per-building by canonical name: updates from
+    the fragment override matching entries in the existing state; buildings in
+    state that aren't in the fragment are kept (partial observation).
+    """
+    updates: dict[str, Any] = {}
+
+    if fragment.city:
+        merged_city = _merge_city(dict(state.city), fragment.city)
+        updates["city"] = merged_city
+
+    merged_meta: dict[str, FieldMeta] = dict(state.field_meta)
+    merged_meta.update(fragment.field_meta)
+    updates["field_meta"] = merged_meta
+
+    return state.model_copy(update=updates)
+
+
+def _merge_city(base: dict[str, Any], overlay: dict[str, Any]) -> dict[str, Any]:
+    merged = dict(base)
+    for key, new_value in overlay.items():
+        if key == "buildings":
+            merged["buildings"] = _merge_building_list(
+                base.get("buildings") or [],
+                new_value,
+            )
+        else:
+            merged[key] = new_value
+    return merged
+
+
+def _merge_building_list(
+    existing: list[dict[str, Any]],
+    incoming: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    by_name: dict[str, dict[str, Any]] = {b["name"]: dict(b) for b in existing if "name" in b}
+    for entry in incoming:
+        name = entry.get("name")
+        if not name:
+            continue
+        if name in by_name:
+            by_name[name].update(entry)
+        else:
+            by_name[name] = dict(entry)
+    return list(by_name.values())
 
 
 def _deep_merge_two_level(base: dict[str, Any], overlay: dict[str, Any]) -> dict[str, Any]:
