@@ -176,6 +176,12 @@ git branch -d feat/<branch-name>
 ### Current Focus
 - **QA agent chat layer**: build `qa_agent/chat/` + `qa_agent/retrieval/` — conversational RAG over the knowledge base (104 heroes + 123 skills + rules/terms)
 
+## Claude Workflows
+
+- For Bilibili strategy-video extraction into reusable QA knowledge, use:
+  - `.claude/skills/bilibili-video-knowledge-workflow.md`
+  - `scripts/bilibili_video_knowledge_workflow.sh`
+
 ### Other Gaps
 - **Perception layer**: domain-specific OCR/screen extractors (`pioneer-agent/perception/domains/` is empty)
 - **Executor**: `ActionRunner` returns `not_implemented` — needs game API or UI automation bindings
