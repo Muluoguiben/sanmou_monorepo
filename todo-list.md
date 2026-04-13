@@ -1,6 +1,6 @@
 # Todo List
 
-> Last updated: 2026-04-13 (post-merge: feat/vision-probe-app → master)
+> Last updated: 2026-04-13 (post-merge: feat/city-building-extractor → master)
 
 ## In Progress
 
@@ -8,7 +8,7 @@
 
 ## Pending
 
-- [ ] Perception 层续接：已实现 `resource_bar`（顶部资源/军令/页面类型），待补 `hero_list` / `battle_result` / `chapter_panel` 等 domain 提取器；打通 `sync_service` 把 fragment 合并进 RuntimeState
+- [ ] Perception 层续接：已实现 `resource_bar` + `city_buildings`，待补 `hero_list` / `battle_result` / `chapter_panel`；打通 `sync_service` 把 fragment 合并进 RuntimeState
 - [ ] Executor 实现：`ActionRunner` 对接游戏 API 或 UI 自动化（可通过 Windows bridge 通信）
 - [ ] Scoring 配置补全：`config/scoring.yaml` 只有 `opening_sprint` 阶段权重，需补齐其余阶段
 - [ ] Sanmou-common 数据补全：`config/*.yaml` 目前是模板，需填入真实游戏数据
@@ -31,5 +31,7 @@
 - [x] Perception domain `resource_bar`：PageDetection → RuntimeState 片段 (global_state/economy + field_meta)，3 个单测（stub VisionClient，不打真实 API）
 - [x] Perception fragment 合并：`apply_resource_bar` 两级 deep-merge，economy.resources 按 key 更新不覆盖其他字段；field_meta 以新时间戳覆盖；4 个单测
 - [x] Vision E2E CLI：`pioneer_agent.app.vision_probe` 串起 `--image | --live` → Gemini → RuntimeState JSON，离线跑 /tmp/game_now.png 验证完整输出
+- [x] Bridge 截图可靠性修复：窗口最小化/离屏时自动 SC_RESTORE（server 端，无前台权限限制），proxy 端嗅 PNG magic 正确转发 JSON 错误
+- [x] Perception domain `city_buildings`：城内视图提取（繁荣/领地/道路 + buildings list 带等级/升级倒计时），按 name 合并，6 个单测；实拍 13 座建筑全中
 - [x] Web 爬虫（qa-agent）：sgmdtx.com 武将/战法爬虫，104 武将 + 123 战法入库，含满级属性/战法效果/缘分/赛季数据
 - [x] 知识库数据校验工具：review_quiz.py（随机出题 + 筛选 + API 校验）+ verify_quiz.py（自动化批量校验）
