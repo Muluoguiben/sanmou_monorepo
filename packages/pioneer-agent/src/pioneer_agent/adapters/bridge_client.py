@@ -71,8 +71,8 @@ class BridgeClient:
         self.connect()
         self._send({"cmd": "screenshot"})
         resp = self._read_line()
-        if resp.get("status") == "error":
-            raise RuntimeError(resp.get("message", "Screenshot failed"))
+        if resp.get("status") != "ok" or "data_b64" not in resp:
+            raise RuntimeError(resp.get("message") or f"Screenshot failed: {resp}")
         png_bytes = base64.b64decode(resp["data_b64"])
         if save_path is not None:
             path = Path(save_path)

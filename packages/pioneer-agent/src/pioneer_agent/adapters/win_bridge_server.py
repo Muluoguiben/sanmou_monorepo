@@ -48,13 +48,36 @@ def find_window(title_substring: str) -> int:
     return result[0]
 
 
+def _ensure_window_onscreen(hwnd: int) -> None:
+    """Un-minimize the window if needed so dxcam can capture it.
+
+    dxcam uses DXGI Desktop Duplication — it can grab any visible window
+    regardless of foreground status, but a minimized window lives at
+    (-32000, -32000) and has no capturable pixels.
+
+    SC_RESTORE via SendMessage has no foreground-lock restriction, so this
+    works from a long-running server process (SetForegroundWindow does not).
+    """
+    for _ in range(10):
+        if win32gui.IsIconic(hwnd):
+            win32gui.SendMessage(hwnd, 0x0112, 0xF120, 0)  # WM_SYSCOMMAND + SC_RESTORE
+            time.sleep(0.2)
+            continue
+        rect = win32gui.GetWindowRect(hwnd)
+        if rect[0] <= -10000 or rect[1] <= -10000:
+            win32gui.SendMessage(hwnd, 0x0112, 0xF120, 0)
+            time.sleep(0.2)
+            continue
+        return
+
+
 def capture_window(hwnd: int) -> bytes:
     """Capture a screenshot of the game window using DXGI Desktop Duplication (dxcam).
 
     This works for DirectX/hardware-accelerated windows where GDI-based
     capture (mss, BitBlt, PrintWindow) returns black frames.
-    Forces the window to foreground before capture.
     """
+    _ensure_window_onscreen(hwnd)
     rect = win32gui.GetWindowRect(hwnd)
     cam = dxcam.create()
 

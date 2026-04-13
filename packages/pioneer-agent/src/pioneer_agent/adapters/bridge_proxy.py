@@ -4,16 +4,23 @@ Connects to the bridge server via localhost and relays commands from
 stdin/stdout, allowing WSL2 to bypass network routing issues (e.g. WireGuard).
 
 Protocol: one JSON line per request on stdin, one JSON line per response on stdout.
-Screenshot binary data is base64-encoded in the response.
+Screenshot binary data is base64-encoded in the response — unless the server
+returned a JSON error (no PNG magic), in which case the error is parsed and
+forwarded unchanged so the caller sees a proper error response.
+
+Window un-minimization is done server-side via SendMessage(WM_SYSCOMMAND,
+SC_RESTORE), which has no foreground-lock restriction. The proxy does not
+manipulate windows.
 """
 
 import base64
-import ctypes
 import json
 import socket
 import struct
 import sys
-import time
+
+
+_PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
 
 
 def recv_exact(sock, n):
@@ -31,44 +38,10 @@ def send_cmd(sock, payload):
     sock.sendall(struct.pack(">I", len(body)) + body)
 
 
-def recv_response(sock, is_binary=False):
+def recv_frame(sock):
     raw_len = recv_exact(sock, 4)
     msg_len = struct.unpack(">I", raw_len)[0]
-    data = recv_exact(sock, msg_len)
-    if is_binary:
-        return data
-    return json.loads(data)
-
-
-def _focus_game_window(title_sub: str = "三国") -> bool:
-    """Bring the game window to the foreground.
-
-    This runs inside the proxy (a short-lived python.exe), which Windows
-    allows to call SetForegroundWindow — unlike the long-running server.
-    """
-    try:
-        import win32gui  # noqa: available on Windows python.exe
-
-        result = []
-        def cb(hwnd, _):
-            if win32gui.IsWindowVisible(hwnd):
-                if title_sub in win32gui.GetWindowText(hwnd):
-                    result.append(hwnd)
-            return True
-        win32gui.EnumWindows(cb, None)
-        if not result:
-            return False
-        hwnd = result[0]
-
-        if win32gui.IsIconic(hwnd):
-            win32gui.SendMessage(hwnd, 0x0112, 0xF120, 0)  # SC_RESTORE
-            time.sleep(0.5)
-
-        ctypes.windll.user32.SetForegroundWindow(hwnd)
-        time.sleep(0.2)
-        return True
-    except Exception:
-        return False
+    return recv_exact(sock, msg_len)
 
 
 def main():
@@ -81,7 +54,6 @@ def main():
         print(json.dumps({"status": "error", "message": str(exc)}), flush=True)
         sys.exit(1)
 
-    # Signal ready
     print(json.dumps({"status": "proxy_ready"}), flush=True)
 
     for line in sys.stdin:
@@ -96,19 +68,18 @@ def main():
 
         cmd = req.get("cmd", "")
         try:
-            if cmd == "screenshot":
-                _focus_game_window()
             send_cmd(sock, req)
-            if cmd == "screenshot":
-                data = recv_response(sock, is_binary=True)
+            data = recv_frame(sock)
+            if cmd == "screenshot" and data.startswith(_PNG_MAGIC):
                 print(json.dumps({
                     "status": "ok",
                     "data_b64": base64.b64encode(data).decode("ascii"),
                     "size": len(data),
                 }), flush=True)
             else:
-                resp = recv_response(sock)
-                print(json.dumps(resp), flush=True)
+                # Either a JSON control response, or a server-side error
+                # returned in place of PNG bytes.
+                print(data.decode("utf-8"), flush=True)
         except Exception as exc:
             print(json.dumps({"status": "error", "message": str(exc)}), flush=True)
 
