@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import logging
+from pathlib import Path
 
 from pioneer_agent.adapters.bridge_client import BridgeClient
 from pioneer_agent.executor.ui_actions import UIActions
@@ -15,12 +16,17 @@ from pioneer_agent.perception.ui_registry import UIRegistry
 from pioneer_agent.perception.vision import VisionClient
 from pioneer_agent.perception.vision_sync import VisionSync
 from pioneer_agent.runtime.autonomous_loop import AutonomousLoop
+from pioneer_agent.storage.loop_logger import LoopLogger
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Run the autonomous pioneer-agent loop.")
     parser.add_argument("--max-iterations", type=int, default=None,
                         help="Stop after N ticks (default: run forever).")
+    parser.add_argument("--log-dir", type=Path, default=Path("data/loop"),
+                        help="Directory for loop.jsonl + archived screenshots.")
+    parser.add_argument("--no-archive", action="store_true",
+                        help="Skip archiving screenshot PNGs (JSONL only).")
     parser.add_argument("--log-level", default="INFO")
     args = parser.parse_args(argv)
 
@@ -28,6 +34,8 @@ def main(argv: list[str] | None = None) -> int:
         level=args.log_level.upper(),
         format="%(asctime)s %(levelname)s %(name)s: %(message)s",
     )
+
+    loop_logger = LoopLogger(args.log_dir, archive_screenshots=not args.no_archive)
 
     with BridgeClient() as bridge:
         vision = VisionClient()
@@ -37,6 +45,7 @@ def main(argv: list[str] | None = None) -> int:
             bridge=bridge,
             vision_sync=VisionSync(vision),
             ui_actions=ui,
+            loop_logger=loop_logger,
         )
         loop.run_forever(max_iterations=args.max_iterations)
     return 0

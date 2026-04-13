@@ -151,6 +151,25 @@ class AutonomousLoopTests(unittest.TestCase):
         self.assertEqual(bridge.shots, 3)
         self.assertEqual(len(sleeps), 3)
 
+    def test_tick_writes_loop_logger_when_provided(self) -> None:
+        import json
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+
+        from pioneer_agent.storage.loop_logger import LoopLogger
+
+        with TemporaryDirectory() as tmp:
+            loop, _bridge, _ = self._loop(
+                action=None,
+                vision_payloads=[{"page_type": "main_map", "resources": {}}],
+            )
+            loop.loop_logger = LoopLogger(Path(tmp), archive_screenshots=False)
+            loop.tick(7)
+            payload = json.loads((Path(tmp) / "loop.jsonl").read_text().strip())
+            self.assertEqual(payload["iteration"], 7)
+            self.assertEqual(payload["page_type"], "main_map")
+            self.assertIsNone(payload["selected_action_type"])
+
     def test_run_forever_swallows_tick_errors(self) -> None:
         class _ExplodingVision:
             def extract(self, *a, **kw):  # noqa: ANN001
