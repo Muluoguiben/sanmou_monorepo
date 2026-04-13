@@ -45,6 +45,15 @@ def recv_frame(sock):
 
 
 def main():
+    # Force UTF-8 on stdio. Windows python.exe otherwise uses the system
+    # ANSI codepage (cp936 on zh-CN installs), which garbles Chinese window
+    # titles and other non-ASCII JSON fields when piped to WSL.
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", newline="\n")
+        sys.stdin.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 9877
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.settimeout(10)

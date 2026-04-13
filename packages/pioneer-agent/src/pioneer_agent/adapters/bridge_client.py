@@ -86,6 +86,39 @@ class BridgeClient:
         self._send({"cmd": "click", "x": x, "y": y, "button": button})
         return self._read_line()
 
+    def move(self, x: int, y: int, duration: float = 0.0) -> dict[str, Any]:
+        """Move the cursor to window-relative coordinates (hover)."""
+        self.connect()
+        self._send({"cmd": "move", "x": x, "y": y, "duration": duration})
+        return self._read_line()
+
+    def drag(
+        self,
+        x1: int,
+        y1: int,
+        x2: int,
+        y2: int,
+        duration: float = 0.4,
+        button: str = "left",
+    ) -> dict[str, Any]:
+        """Drag from (x1,y1) to (x2,y2) in window coords. Used to pan the map."""
+        self.connect()
+        self._send({
+            "cmd": "drag",
+            "x1": x1, "y1": y1, "x2": x2, "y2": y2,
+            "duration": duration, "button": button,
+        })
+        return self._read_line()
+
+    def key_press(self, key: str, modifiers: list[str] | None = None) -> dict[str, Any]:
+        """Press a keyboard key — e.g. 'escape', 'enter', 'tab'."""
+        self.connect()
+        payload: dict[str, Any] = {"cmd": "key", "key": key}
+        if modifiers:
+            payload["modifiers"] = modifiers
+        self._send(payload)
+        return self._read_line()
+
     def window_info(self) -> dict[str, Any]:
         """Get game window geometry info."""
         self.connect()
