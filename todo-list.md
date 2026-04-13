@@ -1,6 +1,6 @@
 # Todo List
 
-> Last updated: 2026-04-13 (post-merge: feat/perception-vision → master)
+> Last updated: 2026-04-13 (post-merge: feat/perception-domains → master)
 
 ## In Progress
 
@@ -8,7 +8,7 @@
 
 ## Pending
 
-- [ ] Perception 层：基于 `perception/vision/` 的 VisionClient 实现 domain-specific 屏幕提取器（`perception/domains/`），把 Gemini 输出映射到 RuntimeState 字段
+- [ ] Perception 层续接：已实现 `resource_bar`（顶部资源/军令/页面类型），待补 `hero_list` / `battle_result` / `chapter_panel` 等 domain 提取器；打通 `sync_service` 把 fragment 合并进 RuntimeState
 - [ ] Executor 实现：`ActionRunner` 对接游戏 API 或 UI 自动化（可通过 Windows bridge 通信）
 - [ ] Scoring 配置补全：`config/scoring.yaml` 只有 `opening_sprint` 阶段权重，需补齐其余阶段
 - [ ] Sanmou-common 数据补全：`config/*.yaml` 目前是模板，需填入真实游戏数据
@@ -28,5 +28,6 @@
 - [x] Windows bridge server + WSL2 client（pioneer-agent/adapters/）
 - [x] Bridge 截图升级：dxcam (DXGI) 替换 mss，proxy 端自动前台切换，支持 DX 游戏窗口后台截图
 - [x] Perception vision 模块：`pioneer_agent/perception/vision/`，Gemini (`gemini-flash-latest`) 结构化 JSON 提取，自动 resize + 重试，smoke test 通过
+- [x] Perception domain `resource_bar`：PageDetection → RuntimeState 片段 (global_state/economy + field_meta)，3 个单测（stub VisionClient，不打真实 API）
 - [x] Web 爬虫（qa-agent）：sgmdtx.com 武将/战法爬虫，104 武将 + 123 战法入库，含满级属性/战法效果/缘分/赛季数据
 - [x] 知识库数据校验工具：review_quiz.py（随机出题 + 筛选 + API 校验）+ verify_quiz.py（自动化批量校验）
