@@ -20,6 +20,7 @@ from pioneer_agent.executor.ui_actions import UIActions
 from pioneer_agent.executor.ui_runner import UIActionRunner
 from pioneer_agent.perception.vision_sync import VisionSync, VisionSyncSummary
 from pioneer_agent.selector.action_selector import ActionSelector
+from pioneer_agent.storage.loop_logger import LoopLogger
 
 logger = logging.getLogger(__name__)
 
@@ -56,6 +57,7 @@ class AutonomousLoop:
         deriver: StateDeriver | None = None,
         runner: UIActionRunner | None = None,
         sleeper=time.sleep,
+        loop_logger: LoopLogger | None = None,
     ) -> None:
         self.bridge = bridge
         self.vision_sync = vision_sync
@@ -64,14 +66,17 @@ class AutonomousLoop:
         self.deriver = deriver or StateDeriver()
         self.runner = runner or UIActionRunner(ui_actions)
         self.sleeper = sleeper
+        self.loop_logger = loop_logger
         self.state = RuntimeState()
 
     def tick(self, iteration: int) -> TickResult:
+        started_at = datetime.now()
+        t0 = time.monotonic()
         png = self.bridge.screenshot()
         logger.info("tick %d: captured %d bytes", iteration, len(png))
 
         self.state, vision_summary = self.vision_sync.sync(
-            png, state=self.state, captured_at=datetime.now()
+            png, state=self.state, captured_at=started_at
         )
         logger.info("tick %d: page=%s domains=%s", iteration, vision_summary.page_type, vision_summary.domains_run)
 
@@ -91,6 +96,18 @@ class AutonomousLoop:
             sleep_s = WAIT_SLEEP_S.get(selection.selected_action.action_type, DEFAULT_SLEEP_S)
         else:
             logger.info("tick %d: no selected action — idle", iteration)
+
+        if self.loop_logger is not None:
+            self.loop_logger.log_tick(
+                iteration=iteration,
+                started_at=started_at,
+                elapsed_s=time.monotonic() - t0,
+                png=png,
+                vision_summary=vision_summary,
+                selection=selection,
+                execution=execution,
+                sleep_s=sleep_s,
+            )
 
         return TickResult(iteration=iteration, summary=vision_summary, selection=selection,
                           execution=execution, sleep_s=sleep_s)
