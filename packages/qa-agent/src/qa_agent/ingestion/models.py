@@ -39,8 +39,13 @@ class StagingEntry(BaseModel):
 
     @model_validator(mode="after")
     def _validate_staging_entry(self) -> "StagingEntry":
-        if self.entry.entry_kind not in {EntryKind.HERO_PROFILE, EntryKind.SKILL_PROFILE}:
-            raise ValueError("staging entry must be hero_profile or skill_profile")
+        allowed_kinds = {
+            EntryKind.HERO_PROFILE,
+            EntryKind.SKILL_PROFILE,
+            EntryKind.LINEUP_SOLUTION,
+        }
+        if self.entry.entry_kind not in allowed_kinds:
+            raise ValueError("staging entry must be hero_profile, skill_profile, or lineup_solution")
         return self
 
     def to_reviewed_entry(self) -> KnowledgeEntry:
@@ -101,4 +106,3 @@ class RawBatchDocument(BaseModel):
         else:
             raise ValueError("raw batch document only supports hero or skill domain")
         return self
-

@@ -37,6 +37,18 @@ def _resolve_skill_bucket(entry: KnowledgeEntry) -> str:
     return _SKILL_TRIGGER_BUCKET.get(trigger, "active.yaml")
 
 
+def _slugify(value: str) -> str:
+    lowered = value.lower().strip()
+    return "-".join(part for part in lowered.replace("/", " ").replace("_", " ").split() if part)
+
+
+def _resolve_lineup_bucket(entry: KnowledgeEntry) -> str:
+    season_tags = list(getattr(entry.structured_data, "season_tags", []) or [])
+    if not season_tags:
+        return "season-misc.yaml"
+    return f"season-{_slugify(season_tags[0])}.yaml"
+
+
 def _load_bucket(path: Path) -> list[dict]:
     if not path.exists():
         return []
@@ -64,6 +76,8 @@ def publish_entries(
     """
     hero_dir = knowledge_root / "profiles" / "heroes"
     skill_dir = knowledge_root / "profiles" / "skills"
+    lineup_dir = knowledge_root / "solutions" / "lineups"
+    combat_file = knowledge_root / "combat.yaml"
 
     # Group entries by target bucket path
     buckets: dict[Path, list[KnowledgeEntry]] = {}
@@ -72,6 +86,10 @@ def publish_entries(
             bucket_path = hero_dir / _resolve_hero_bucket(entry)
         elif entry.domain.value == "skill":
             bucket_path = skill_dir / _resolve_skill_bucket(entry)
+        elif entry.domain.value == "solution" and entry.entry_kind.value == "lineup_solution":
+            bucket_path = lineup_dir / _resolve_lineup_bucket(entry)
+        elif entry.domain.value == "combat" and entry.entry_kind.value == "generic_rule":
+            bucket_path = combat_file
         else:
             continue
         buckets.setdefault(bucket_path, []).append(entry)
