@@ -189,3 +189,65 @@ CITY_BUILDINGS_INSTRUCTION = (
     "Also capture 繁荣 / 领地 / 道路 from the top-left panel if visible. "
     "Do not invent buildings that are not in the screenshot; omit fields you cannot read."
 )
+
+
+# ---------------------------------------------------------------------------
+# Generic element locator — returns bounding boxes normalized to 0-1000
+# ---------------------------------------------------------------------------
+
+class ElementBox(BaseModel):
+    label: str
+    # Gemini convention: [ymin, xmin, ymax, xmax] normalized to 0-1000.
+    # We preserve ordering here to avoid silent axis swaps downstream.
+    y_min: int
+    x_min: int
+    y_max: int
+    x_max: int
+
+
+class ElementLocation(BaseModel):
+    matches: list[ElementBox] = Field(default_factory=list)
+
+
+ELEMENT_LOCATION_SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "properties": {
+        "matches": {
+            "type": "array",
+            "description": (
+                "Zero or more bounding boxes for elements matching the query. "
+                "Coordinates are normalized to 0-1000 on each axis of the INPUT "
+                "image (not the game window). Return the tightest box around "
+                "the clickable target."
+            ),
+            "items": {
+                "type": "object",
+                "properties": {
+                    "label": {
+                        "type": "string",
+                        "description": "Short identifier — the text or icon name.",
+                    },
+                    "y_min": {"type": "integer", "minimum": 0, "maximum": 1000},
+                    "x_min": {"type": "integer", "minimum": 0, "maximum": 1000},
+                    "y_max": {"type": "integer", "minimum": 0, "maximum": 1000},
+                    "x_max": {"type": "integer", "minimum": 0, "maximum": 1000},
+                },
+                "required": ["label", "y_min", "x_min", "y_max", "x_max"],
+            },
+        },
+    },
+    "required": ["matches"],
+}
+
+
+def build_element_location_instruction(query: str) -> str:
+    return (
+        "You are looking at a screenshot from the Chinese mobile game "
+        "三国·谋定天下. Find all UI elements matching this description: "
+        f"\"{query}\". "
+        "Return each match's bounding box in the `matches` array. "
+        "Coordinates must be normalized to 0-1000 on each axis of the image "
+        "(the image center is y_min~450 y_max~550 x_min~450 x_max~550). "
+        "Give the tightest box around the clickable target. "
+        "If nothing matches, return an empty matches array — do not invent matches."
+    )
