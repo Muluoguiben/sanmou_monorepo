@@ -86,7 +86,9 @@ class _StubRunner:
 
 
 class AutonomousLoopTests(unittest.TestCase):
-    def _loop(self, *, action: CandidateAction | None, vision_payloads: list[dict[str, Any]]):
+    def _loop(self, *, action: CandidateAction | None, vision_payloads: list[dict[str, Any]],
+              dry_run: bool = False, stuck_threshold: int = 3,
+              runner: Any = None, ui_actions: Any = None):
         from pioneer_agent.executor.ui_actions import UIActions
         from pioneer_agent.perception.ui_registry import UIButton, UIRegistry
         from pioneer_agent.perception.vision_sync import VisionSync
@@ -94,7 +96,7 @@ class AutonomousLoopTests(unittest.TestCase):
         bridge = _StubBridge()
         vision = _ScriptedVision(vision_payloads)
         registry = UIRegistry({"esc_close": UIButton("esc_close", "关闭", 0.5, 0.5)})
-        ui = UIActions(bridge, registry, vision=vision)  # type: ignore[arg-type]
+        ui = ui_actions if ui_actions is not None else UIActions(bridge, registry, vision=vision)  # type: ignore[arg-type]
         sleeper_calls: list[float] = []
         loop = AutonomousLoop(
             bridge=bridge,
@@ -102,8 +104,10 @@ class AutonomousLoopTests(unittest.TestCase):
             ui_actions=ui,
             selector=_StubSelector(action),
             deriver=_StubDeriver(),  # type: ignore[arg-type]
-            runner=_StubRunner(),  # type: ignore[arg-type]
+            runner=runner if runner is not None else _StubRunner(),  # type: ignore[arg-type]
             sleeper=sleeper_calls.append,
+            dry_run=dry_run,
+            stuck_threshold=stuck_threshold,
         )
         return loop, bridge, sleeper_calls
 
@@ -169,6 +173,90 @@ class AutonomousLoopTests(unittest.TestCase):
             self.assertEqual(payload["iteration"], 7)
             self.assertEqual(payload["page_type"], "main_map")
             self.assertIsNone(payload["selected_action_type"])
+
+    def test_dry_run_skips_runner_and_marks_execution(self) -> None:
+        action = CandidateAction(
+            action_id="u1", action_type=ActionType.UPGRADE_BUILDING,
+            params={"building_name": "征兵所"},
+        )
+        runner = _StubRunner()
+        loop, _bridge, _ = self._loop(
+            action=action,
+            vision_payloads=[
+                {"page_type": "city", "resources": {}},
+                {"page_type": "city", "buildings": []},
+            ],
+            dry_run=True,
+            runner=runner,
+        )
+        result = loop.tick(0)
+        self.assertEqual(runner.actions, [])
+        self.assertIsNotNone(result.execution)
+        self.assertEqual(result.execution.status, "dry_run")
+        self.assertEqual(result.execution.verification_status, "not_applicable")
+        self.assertEqual(result.sleep_s, DEFAULT_SLEEP_S)
+
+    def test_is_stuck_conditions(self) -> None:
+        from pioneer_agent.perception.vision_sync import VisionSyncSummary
+
+        action = CandidateAction(action_id="a", action_type=ActionType.WAIT_FOR_STAMINA)
+        ok = SelectionResult(selected_action=action, ranked_actions=[action])
+        no_act = SelectionResult(selected_action=None, ranked_actions=[])
+        good_summary = VisionSyncSummary(page_type="city", domains_run=["resource_bar"], notes=[])
+        bad_summary = VisionSyncSummary(page_type="unknown", domains_run=[], notes=[])
+        none_summary = VisionSyncSummary(page_type=None, domains_run=[], notes=[])
+
+        self.assertTrue(AutonomousLoop._is_stuck(bad_summary, ok, None))
+        self.assertTrue(AutonomousLoop._is_stuck(none_summary, ok, None))
+        self.assertTrue(AutonomousLoop._is_stuck(good_summary, no_act, None))
+        self.assertTrue(AutonomousLoop._is_stuck(
+            good_summary, ok, ExecutionResult(action_id="a", status="failed")))
+        self.assertTrue(AutonomousLoop._is_stuck(
+            good_summary, ok, ExecutionResult(action_id="a", status="pending")))
+        self.assertFalse(AutonomousLoop._is_stuck(
+            good_summary, ok, ExecutionResult(action_id="a", status="ok")))
+
+    def test_stuck_threshold_triggers_esc_recovery(self) -> None:
+        class _RecordingUI:
+            def __init__(self) -> None:
+                self.esc_calls = 0
+
+            def close_popup(self):
+                self.esc_calls += 1
+                return object()
+
+        ui = _RecordingUI()
+        loop, _bridge, _ = self._loop(
+            action=None,
+            vision_payloads=[{"page_type": "unknown", "resources": {}}] * 4,
+            stuck_threshold=3,
+            ui_actions=ui,
+        )
+        loop.tick(0)
+        loop.tick(1)
+        self.assertEqual(ui.esc_calls, 0)
+        loop.tick(2)
+        self.assertEqual(ui.esc_calls, 1)
+        self.assertEqual(loop._stuck_count, 0)
+
+    def test_productive_tick_resets_stuck_counter(self) -> None:
+        loop, _bridge, _ = self._loop(
+            action=None,
+            vision_payloads=[
+                {"page_type": "unknown", "resources": {}},
+                {"page_type": "unknown", "resources": {}},
+                {"page_type": "city", "resources": {}},
+                {"page_type": "city", "buildings": []},
+            ],
+            stuck_threshold=3,
+        )
+        action = CandidateAction(action_id="w", action_type=ActionType.WAIT_FOR_STAMINA)
+        loop.tick(0)
+        loop.tick(1)
+        self.assertEqual(loop._stuck_count, 2)
+        loop.selector = _StubSelector(action)
+        loop.tick(2)
+        self.assertEqual(loop._stuck_count, 0)
 
     def test_run_forever_swallows_tick_errors(self) -> None:
         class _ExplodingVision:

@@ -28,6 +28,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--no-archive", action="store_true",
                         help="Skip archiving screenshot PNGs (JSONL only).")
     parser.add_argument("--log-level", default="INFO")
+    parser.add_argument("--dry-run", action="store_true",
+                        help="Run perception + decision but skip UI action dispatch.")
+    parser.add_argument("--stuck-threshold", type=int, default=3,
+                        help="Consecutive idle/unknown ticks before ESC recovery (default: 3).")
     args = parser.parse_args(argv)
 
     logging.basicConfig(
@@ -46,6 +50,8 @@ def main(argv: list[str] | None = None) -> int:
             vision_sync=VisionSync(vision),
             ui_actions=ui,
             loop_logger=loop_logger,
+            dry_run=args.dry_run,
+            stuck_threshold=args.stuck_threshold,
         )
         loop.run_forever(max_iterations=args.max_iterations)
     return 0

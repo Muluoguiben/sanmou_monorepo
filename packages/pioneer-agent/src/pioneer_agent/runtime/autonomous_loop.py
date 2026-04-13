@@ -44,6 +44,7 @@ WAIT_SLEEP_S = {
 }
 DEFAULT_SLEEP_S = 5.0                     # after an executed/pending action
 IDLE_SLEEP_S = 30.0                       # nothing to do
+STUCK_ESC_THRESHOLD = 3                   # consecutive unknown/idle ticks before recovery ESC
 
 
 class AutonomousLoop:
@@ -58,6 +59,8 @@ class AutonomousLoop:
         runner: UIActionRunner | None = None,
         sleeper=time.sleep,
         loop_logger: LoopLogger | None = None,
+        dry_run: bool = False,
+        stuck_threshold: int = STUCK_ESC_THRESHOLD,
     ) -> None:
         self.bridge = bridge
         self.vision_sync = vision_sync
@@ -67,6 +70,9 @@ class AutonomousLoop:
         self.runner = runner or UIActionRunner(ui_actions)
         self.sleeper = sleeper
         self.loop_logger = loop_logger
+        self.dry_run = dry_run
+        self.stuck_threshold = stuck_threshold
+        self._stuck_count = 0
         self.state = RuntimeState()
 
     def tick(self, iteration: int) -> TickResult:
@@ -86,16 +92,46 @@ class AutonomousLoop:
         execution: ExecutionResult | None = None
         sleep_s = IDLE_SLEEP_S
         if selection.selected_action is not None:
-            execution = self.runner.run(selection.selected_action)
-            logger.info(
-                "tick %d: action=%s status=%s",
-                iteration,
-                selection.selected_action.action_type.value,
-                execution.status,
-            )
+            if self.dry_run:
+                logger.info(
+                    "tick %d: dry_run — skipping action=%s",
+                    iteration,
+                    selection.selected_action.action_type.value,
+                )
+                execution = ExecutionResult(
+                    action_id=selection.selected_action.action_id,
+                    status="dry_run",
+                    verification_status="not_applicable",
+                    summary={"action_type": selection.selected_action.action_type.value,
+                             "note": "dry_run — no UI action dispatched"},
+                )
+            else:
+                execution = self.runner.run(selection.selected_action)
+                logger.info(
+                    "tick %d: action=%s status=%s",
+                    iteration,
+                    selection.selected_action.action_type.value,
+                    execution.status,
+                )
             sleep_s = WAIT_SLEEP_S.get(selection.selected_action.action_type, DEFAULT_SLEEP_S)
         else:
             logger.info("tick %d: no selected action — idle", iteration)
+
+        if self._is_stuck(vision_summary, selection, execution):
+            self._stuck_count += 1
+            if self._stuck_count >= self.stuck_threshold and not self.dry_run:
+                logger.warning(
+                    "tick %d: stuck for %d ticks — sending ESC to recover",
+                    iteration, self._stuck_count,
+                )
+                try:
+                    self.ui_actions.close_popup()
+                except Exception:  # noqa: BLE001
+                    logger.exception("ESC recovery failed")
+                self._stuck_count = 0
+                sleep_s = DEFAULT_SLEEP_S
+        else:
+            self._stuck_count = 0
 
         if self.loop_logger is not None:
             self.loop_logger.log_tick(
@@ -111,6 +147,23 @@ class AutonomousLoop:
 
         return TickResult(iteration=iteration, summary=vision_summary, selection=selection,
                           execution=execution, sleep_s=sleep_s)
+
+    @staticmethod
+    def _is_stuck(
+        summary: VisionSyncSummary,
+        selection: SelectionResult,
+        execution: ExecutionResult | None,
+    ) -> bool:
+        """A tick is 'stuck' when vision cannot classify the page or no useful
+        progress was made: unknown page, no selected action, or a pending/failed
+        execution. Accumulating stuck ticks triggers an ESC recovery."""
+        if summary.page_type in (None, "unknown"):
+            return True
+        if selection.selected_action is None:
+            return True
+        if execution is not None and execution.status in ("failed", "pending"):
+            return True
+        return False
 
     def run_forever(self, *, max_iterations: int | None = None) -> None:
         i = 0
