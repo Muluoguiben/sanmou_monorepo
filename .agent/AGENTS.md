@@ -64,4 +64,4 @@ High-value action types: `claim_chapter_reward`, `upgrade_building`, `transfer_m
 
 Reference this file and the canonical docs when starting new threads:
 
-> Continue based on AGENTS.md under the sanmou_monorepo root.
+> Continue based on .agent/AGENTS.md under the sanmou_monorepo root.

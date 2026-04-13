@@ -15,7 +15,7 @@
 
 ## Git 规范
 - 默认分支：`master`
-- 通过 worktree 隔离开发（见项目级 CLAUDE.md 的 Worktree 流程）
+- 通过 worktree 隔离开发（见项目级 `.claude/CLAUDE.md` 的 Worktree 流程）
 - 本会话可自行在当前 feature 分支上 commit/push
 
 ## 运行测试
