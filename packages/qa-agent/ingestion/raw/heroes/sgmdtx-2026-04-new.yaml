@@ -1,0 +1,68 @@
+domain: hero
+records:
+- canonical_name: 王双
+  aliases: []
+  faction: 魏国
+  rarity: 橙
+  troop_types:
+  - 骑兵
+  role_tags:
+  - 兵刃
+  base_attributes:
+    military: 106
+    intelligence: 54
+    command: 88
+    initiative: 87
+  growth_attributes:
+    military: 2.52
+    intelligence: 0.88
+    command: 1.68
+    initiative: 2.51
+  signature_skills:
+  - 恃勇克敌
+  notes:
+  - 自带战法「恃勇克敌」效果（满级）：普通攻击后，对敌军武力最高单体造成125%->250%兵刃伤害，并使其造成伤害降低10%->20%（受武力影响），持续1回合，有50%->50%概率额外对敌军兵力最低单体造成125%->250%兵刃伤害，并对其施加断粮，持续1回合（发动概率：60%）
+  - 自带战法「恃勇克敌」效果（初始）：普通攻击后，对敌军武力最高单体造成125%->138.89%兵刃伤害，并使其造成伤害降低10%->11.11%（受武力影响），持续1回合，有50%->50%概率额外对敌军兵力最低单体造成125%->138.89%兵刃伤害，并对其施加断粮，持续1回合
+  - 缘分「陈仓双壁」：郝昭、王双——部队中缘分武将前4回合受到伤害降低10%
+  - 赛季：s14
+  - 初始属性：武力106 智力54 统率88 先攻87
+  - 成长值：武力2.52 智力0.88 统率1.68 先攻2.51
+  - 满级属性(Lv50，Lv5起始+45级成长)：武力219 智力94 统率164 先攻200
+  source:
+    source_url: https://www.sgmdtx.com/wj/%E7%8E%8B%E5%8F%8C
+    source_site: sgmdtx
+    source_captured_at: '2026-04-14T06:35:48'
+- canonical_name: 郝昭
+  aliases: []
+  faction: 魏国
+  rarity: 橙
+  troop_types:
+  - 盾兵
+  role_tags:
+  - 辅助
+  base_attributes:
+    military: 92
+    intelligence: 97
+    command: 101
+    initiative: 56
+  growth_attributes:
+    military: 1.42
+    intelligence: 2.02
+    command: 2.32
+    initiative: 1.68
+  signature_skills:
+  - 千机重城
+  notes:
+  - 自带战法「千机重城」效果（满级）：我军全体行动时，30%->60%概率（受统率影响）获得1层抵御，若其兵力低于50%，有25%->50%概率额外获得1层抵御.
+    我军全体抵御消耗后，受到伤害降低4%->8%（受统率影响），造成谋略伤害提升4%->8%（受统率影响），可叠加2层. 持续到回合结束（发动概率：100%）
+  - 自带战法「千机重城」效果（初始）：我军全体行动时，30%->33.33%概率（受统率影响）获得1层抵御，若其兵力低于50%，有25%->27.78%概率额外获得1层抵御.
+    我军全体抵御消耗后，受到伤害降低4%->4.44%（受统率影响），造成谋略伤害提升4%->4.44%（受统率影响），可叠加2层. 持续到回合结束
+  - 缘分「陈仓双壁」：郝昭、王双——部队中缘分武将前4回合受到伤害降低10%
+  - 赛季：s14
+  - 初始属性：武力92 智力97 统率101 先攻56
+  - 成长值：武力1.42 智力2.02 统率2.32 先攻1.68
+  - 满级属性(Lv50，Lv5起始+45级成长)：武力156 智力188 统率205 先攻132
+  source:
+    source_url: https://www.sgmdtx.com/wj/%E9%83%9D%E6%98%AD
+    source_site: sgmdtx
+    source_captured_at: '2026-04-14T06:35:48'

@@ -22,6 +22,13 @@ def _build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Print retrieved evidence blocks before the answer.",
     )
+    parser.add_argument(
+        "--image",
+        action="append",
+        default=[],
+        metavar="URL_OR_PATH",
+        help="Attach an image (http(s) URL, data: URI, or local path). Repeatable.",
+    )
     return parser
 
 
@@ -38,6 +45,12 @@ def _print_reply(reply, show_evidence: bool) -> None:
         print("\n--- queries ---")
         for q in reply.queries:
             print(f"  · {q}")
+        if reply.identified_entities or reply.unresolved_entities:
+            print("\n--- image entities ---")
+            if reply.identified_entities:
+                print(f"  resolved: {'、'.join(reply.identified_entities)}")
+            if reply.unresolved_entities:
+                print(f"  unresolved: {'、'.join(reply.unresolved_entities)}")
         print("\n--- evidence ---")
         if not reply.evidence:
             print("  (none)")
@@ -59,7 +72,7 @@ def main() -> None:
     agent = ChatAgent.from_knowledge_dir(knowledge_dir)
 
     if args.question:
-        reply = agent.ask(args.question)
+        reply = agent.ask(args.question, images=args.image or None)
         _print_reply(reply, args.show_evidence)
         return
 
