@@ -4,13 +4,18 @@ import json
 import logging
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 from qa_agent.chat.llm_client import LLMClient, build_llm_client
 from qa_agent.chat.prompts import QUERY_REWRITE_PROMPT, SYSTEM_PROMPT
 from qa_agent.knowledge.models import Domain
 from qa_agent.retrieval.retriever import RetrievedChunk, Retriever
-from qa_agent.vision.extractor import ImageExtractor, VisionExtraction
-from qa_agent.vision.image_loader import prepare_image_inputs
+
+if TYPE_CHECKING:
+    # Lazy-imported at runtime to break a package import cycle:
+    # qa_agent.chat.__init__ eagerly imports ChatAgent, and vision.extractor
+    # imports from qa_agent.chat.openai_client which re-triggers chat.__init__.
+    from qa_agent.vision.extractor import ImageExtractor, VisionExtraction
 
 logger = logging.getLogger(__name__)
 
@@ -65,7 +70,9 @@ class ChatAgent:
         *,
         images: list[str] | None = None,
     ) -> ChatReply:
-        vision: VisionExtraction | None = None
+        from qa_agent.vision.image_loader import prepare_image_inputs
+
+        vision: "VisionExtraction | None" = None
         identified: list[str] = []
         unresolved: list[str] = []
         if images:
@@ -121,23 +128,27 @@ class ChatAgent:
             vision_raw_text=vision.raw_text if vision else "",
         )
 
-    def _get_image_extractor(self) -> ImageExtractor:
+    def _get_image_extractor(self) -> "ImageExtractor":
         if self._image_extractor is None:
             # Lazy so constructing a ChatAgent without vision use doesn't
-            # require OpenAI env to be configured.
-            self._image_extractor = ImageExtractor()
+            # require OpenAI env to be configured — and to break the chat ↔
+            # vision package import cycle.
+            from qa_agent.vision.extractor import ImageExtractor
+            self._image_extractor = ImageExtractor(retriever=self.retriever)
         return self._image_extractor
 
     def _resolve_vision_entities(
-        self, vision: VisionExtraction
+        self, vision: "VisionExtraction"
     ) -> tuple[list[str], list[str]]:
         """Return (identified, unresolved) canonical names.
 
         A candidate resolves when the retriever's alias index matches it to
         at least one KB entry of the expected domain. Unresolved names are
-        reported back to the caller (and mentioned to the LLM as 'unknown')
-        but NEVER injected as retrieval queries — that would let the
-        answering pass hallucinate about names we can't ground.
+        reported back (and mentioned to the LLM as "do not use") but NEVER
+        injected as retrieval queries. Whitelist prompting in ImageExtractor
+        carries the main load — fuzzy post-resolve was considered and
+        dropped because single-char Chinese edit distance cross-matches
+        unrelated heroes on 2-char names (e.g. 郭昭→郭嘉).
         """
         identified: list[str] = []
         unresolved: list[str] = []
