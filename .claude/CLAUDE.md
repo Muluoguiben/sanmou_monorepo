@@ -29,7 +29,7 @@ Both depend on: `pydantic>=2.6,<3`, `PyYAML>=6.0,<7`, Python `>=3.11`.
 # Tests — pioneer-agent (59 tests)
 cd packages/pioneer-agent && PYTHONPATH=src python3 -m unittest discover -s tests -p "test_*.py" -v
 
-# Tests — qa-agent (85 tests)
+# Tests — qa-agent (88 tests)
 cd packages/qa-agent && PYTHONPATH=src python3 -m unittest discover -s tests -p "test_*.py" -v
 
 # Local knowledge query
@@ -187,7 +187,7 @@ git branch -d feat/<branch-name>
 
 ### What's Working
 - **Pioneer agent**: sync → derive → select pipeline with 7 action types, scoring, priority rules; perception vision (Gemini) with `resource_bar` + `city_buildings` domains + bbox locator + UI layout registry; executor with UIActions primitives (click_button/click_element/pan_map/close_popup) and 8-type action_handlers; autonomous loop with loop_logger, `dry_run`, `stuck_threshold` self-recovery; 59 tests passing
-- **QA agent**: 104 heroes + 123 skills + 61 mechanic rules KB; MCP server with 3 tools; ingestion pipeline with `--publish`; conversational RAG via `qa_agent/chat/` (ChatAgent + tightened prompts + LLMClient Protocol with Gemini/MiniMax/OpenAI providers, GPT-5.4-mini default) + `qa_agent/retrieval/` (Chinese n-gram fallback); `qa_agent/vision/` two-pass image understanding (ImageExtractor → resolve vs KB → only grounded entities enter answering pass, anti-fabrication); `app/chat.py` CLI with repeatable `--image` flag (http/data-URI/local path); regression harness covering 20 single-turn + 5 multi-turn (25/25 pass); bilibili video knowledge workflow closed loop; 85 tests passing
+- **QA agent**: 104 heroes + 123 skills + 61 mechanic rules KB; MCP server with 3 tools; ingestion pipeline with `--publish`; conversational RAG via `qa_agent/chat/` (ChatAgent + tightened prompts + LLMClient Protocol with Gemini/MiniMax/OpenAI providers, GPT-5.4-mini default) + `qa_agent/retrieval/` (Chinese n-gram fallback); `qa_agent/vision/` two-pass image understanding (ImageExtractor injects KB canonical-name whitelist into system prompt → resolve vs alias index → only grounded entities enter answering pass, anti-fabrication; 100% on 13-image CDN eval); `app/chat.py` CLI with repeatable `--image` flag (http/data-URI/local path); regression harness covering 20 single-turn + 5 multi-turn (25/25 pass); bilibili video knowledge workflow closed loop; 88 tests passing
 
 ### Current Focus
 - **Cross-package integration**: qa-agent knowledge library (heroes/skills/rules) consumed by pioneer-agent scoring & decision logic
