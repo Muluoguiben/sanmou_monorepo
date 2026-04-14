@@ -1,0 +1,97 @@
+# Regression questions for qa-agent chat layer.
+# must_cite: at least one of these entry_ids should appear in evidence or answer
+# must_not_fabricate: if true, evidence should be empty AND answer should say 未收录
+# contains_any: answer should contain at least one of these substrings
+
+- id: q01-hero-basic
+  question: "诸葛亮是什么阵营？满级智力多少？"
+  must_cite: ["hero-zhugeliang"]
+  contains_any: ["蜀"]
+
+- id: q02-hero-alias
+  question: "卧龙的代表战法是什么？"
+  must_cite: ["hero-zhugeliang"]
+  contains_any: ["诸葛亮", "草船借箭"]
+
+- id: q03-skill-direct
+  question: "盛气凌敌这个战法的效果是什么？"
+  must_cite: ["skill-shengqilingdi"]
+
+- id: q04-skill-alias
+  question: "盛气临敌是哪种战法类型？"
+  must_cite: ["skill-shengqilingdi"]
+  contains_any: ["指挥"]
+
+- id: q05-rule-land-level
+  question: "打几级地划算？等级差很大时体力怎么算？"
+  must_cite: ["mech-land-difficulty-factors", "combat-land-level"]
+  contains_any: ["70%", "80%", "20", "10"]
+
+- id: q06-rule-stamina-item
+  question: "五味子是干什么用的？"
+  must_cite: ["mech-stamina-wuweizi"]
+  contains_any: ["体力"]
+
+- id: q07-rule-hero-slots
+  question: "武将的三个战法位分别什么时候解锁？"
+  must_cite: ["mech-hero-deployment", "mech-skill-level-up"]
+  contains_any: ["10", "20"]
+
+- id: q08-rule-level-cap
+  question: "武将最高多少级？"
+  must_cite: ["mech-hero-level-cap"]
+  contains_any: ["50"]
+
+- id: q09-bond-faction
+  question: "问鼎国家队有什么加成？"
+  must_cite: ["mech-bond-faction"]
+  contains_any: ["5%"]
+
+- id: q10-troop-same-type
+  question: "三个武将同兵种有什么加成？"
+  must_cite: ["mech-troop-same-type-bonus"]
+  contains_any: ["5%"]
+
+- id: q11-combat-newbie-protection
+  question: "新手保护期是多久？"
+  must_cite: ["mech-combat-newbie-protection"]
+
+- id: q12-recruit-fast
+  question: "快速征兵消耗什么？"
+  must_cite: ["mech-recruit-fast"]
+  contains_any: ["粮食"]
+
+- id: q13-term-borrow-knife
+  question: "借刀型战法指什么？"
+  must_cite: ["mech-skill-pull-attack"]
+
+- id: q14-season-count
+  question: "一共有多少个赛季剧本？"
+  must_cite: ["mech-season-types"]
+  contains_any: ["13"]
+
+- id: q15-not-found-equip
+  question: "神器怎么熔铸升星？"
+  must_not_fabricate: true
+
+- id: q16-not-found-guild-war
+  question: "联盟领土战的规则？"
+  must_not_fabricate: true
+
+- id: q17-profession-qingnang
+  question: "青囊这个职业有什么用？"
+  must_cite: ["mech-profession-qingnang"]
+
+- id: q18-skill-rarity
+  question: "战法稀有度有几档？"
+  must_cite: ["mech-skill-rarity"]
+  contains_any: ["蓝", "紫", "橙"]
+
+- id: q19-status-control
+  question: "震慑是什么状态？"
+  must_cite: ["status-stun"]
+  contains_any: ["无法行动"]
+
+- id: q20-multi-domain
+  question: "草船借箭这个战法的效果，以及诸葛亮的满级统率？"
+  must_cite: ["hero-zhugeliang"]

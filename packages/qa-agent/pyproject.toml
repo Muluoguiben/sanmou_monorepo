@@ -11,6 +11,8 @@ dependencies = [
   "sanmou-common",
   "pydantic>=2.6,<3",
   "PyYAML>=6.0,<7",
+  "google-genai>=1.0,<2",
+  "requests>=2.31,<3",
 ]
 
 [tool.setuptools]
