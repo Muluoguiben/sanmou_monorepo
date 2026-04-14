@@ -2,6 +2,7 @@ from .builder import VideoEvidenceBundle, VideoEvidenceSegment, build_video_know
 from .gemini import GeminiVideoKnowledgeExtractor, build_lineup_extraction_prompt
 from .heuristic import HeuristicVideoKnowledgeExtractor
 from .loader import dump_video_knowledge_document, load_video_knowledge_document
+from .openai import OpenAIVideoKnowledgeExtractor
 from .mapper import stage_all_video_entries, stage_lineup_candidate
 from .models import (
     VideoCombatCandidate,
@@ -17,6 +18,7 @@ from .models import (
 __all__ = [
     "GeminiVideoKnowledgeExtractor",
     "HeuristicVideoKnowledgeExtractor",
+    "OpenAIVideoKnowledgeExtractor",
     "VideoCombatCandidate",
     "VideoEvidenceBundle",
     "VideoEvidenceSegment",

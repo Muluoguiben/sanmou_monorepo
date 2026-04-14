@@ -5,6 +5,7 @@ from unittest.mock import patch
 
 from qa_agent.video.gemini import GeminiVideoKnowledgeExtractor, build_lineup_extraction_prompt
 from qa_agent.video.loader import load_video_knowledge_document
+from qa_agent.video.openai import OpenAIVideoKnowledgeExtractor
 
 
 class _FakeResponse:
@@ -74,6 +75,57 @@ class VideoExtractorTests(unittest.TestCase):
         self.assertEqual(len(candidates), 1)
         self.assertEqual(candidates[0].topic, "诸葛亮开荒队")
         self.assertEqual(candidates[0].segment_id, "intro-lineup")
+
+
+class _FakeChatResult:
+    def __init__(self, text: str) -> None:
+        self.text = text
+        self.model = "gpt-5.4"
+        self.prompt_tokens = 0
+        self.output_tokens = 0
+        self.elapsed_s = 0.0
+
+
+class _FakeOpenAIClient:
+    def __init__(self, text: str) -> None:
+        self._text = text
+        self.calls: list[dict] = []
+
+    def generate(self, **kwargs):
+        self.calls.append(kwargs)
+        return _FakeChatResult(self._text)
+
+
+class OpenAIVideoExtractorTests(unittest.TestCase):
+    def test_extractor_parses_openai_json(self) -> None:
+        project_root = Path(__file__).resolve().parents[1]
+        document = load_video_knowledge_document(
+            project_root / "ingestion" / "raw" / "videos" / "bilibili-evidence-sample.yaml"
+        )
+        payload = json.dumps(
+            {
+                "lineup_candidates": [
+                    {
+                        "candidate_id": "zg-openai",
+                        "segment_id": "intro-lineup",
+                        "topic": "诸葛亮开荒队",
+                        "hero_names": ["诸葛亮", "刘备", "黄月英"],
+                        "core_skills": ["盛气凌敌"],
+                        "facts": ["适合前期开荒。"],
+                        "confidence": 0.82,
+                    }
+                ]
+            },
+            ensure_ascii=False,
+        )
+        fake_client = _FakeOpenAIClient(f"```json\n{payload}\n```")
+        extractor = OpenAIVideoKnowledgeExtractor(client=fake_client)
+        candidates = extractor.extract_lineup_candidates(document)
+        self.assertEqual(len(candidates), 1)
+        self.assertEqual(candidates[0].topic, "诸葛亮开荒队")
+        self.assertEqual(candidates[0].segment_id, "intro-lineup")
+        self.assertEqual(len(fake_client.calls), 1)
+        self.assertIn("intro-lineup", fake_client.calls[0]["user_message"])
 
 
 if __name__ == "__main__":

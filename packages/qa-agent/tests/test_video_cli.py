@@ -52,11 +52,11 @@ class VideoCliTests(unittest.TestCase):
             self.assertEqual(staged[0]["entry"]["entry_kind"], "lineup_solution")
             self.assertTrue(staged[0]["entry"]["source_ref"].startswith("BILIBILI:BV1TEST4x7yz#"))
 
-    def test_video_extract_cli_requires_key_when_no_candidates_are_present(self) -> None:
+    def test_video_extract_cli_heuristic_fallback_without_llm(self) -> None:
         project_root = Path(__file__).resolve().parents[1]
         input_path = project_root / "ingestion" / "raw" / "videos" / "bilibili-evidence-sample.yaml"
         stdout = io.StringIO()
-        with patch.object(sys, "argv", ["video_extract", "--input", str(input_path)]):
+        with patch.object(sys, "argv", ["video_extract", "--input", str(input_path), "--extractor", "heuristic"]):
             with patch("sys.stdout", stdout):
                 main()
         result = json.loads(stdout.getvalue())

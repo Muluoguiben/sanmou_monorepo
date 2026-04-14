@@ -22,12 +22,12 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--workspace", required=True, help="Directory to place generated artifacts.")
     parser.add_argument(
         "--extractor",
-        choices=["auto", "gemini", "heuristic", "none"],
-        default="heuristic",
-        help="Knowledge extraction mode for the pipeline.",
+        choices=["auto", "openai", "gemini", "heuristic", "none"],
+        default="openai",
+        help="Knowledge extraction mode for the pipeline. Default 'openai' uses sub2api gpt-5.4.",
     )
     parser.add_argument("--api-key", help="Gemini API key for extractor=gemini/auto.")
-    parser.add_argument("--model", default="gemini-2.0-flash")
+    parser.add_argument("--model", default=None, help="Model name (extractor-specific default).")
     parser.add_argument("--timeout", type=int, default=60)
     return parser
 

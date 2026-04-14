@@ -12,6 +12,7 @@ from qa_agent.ingestion.models import ReviewStatus, StagingEntry
 from qa_agent.video import (
     GeminiVideoKnowledgeExtractor,
     HeuristicVideoKnowledgeExtractor,
+    OpenAIVideoKnowledgeExtractor,
     dump_video_knowledge_document,
     load_video_knowledge_document,
     stage_lineup_candidate,
@@ -25,9 +26,9 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--staging-output", help="Optional path to write lineup staging entries YAML.")
     parser.add_argument(
         "--extractor",
-        choices=["auto", "gemini", "heuristic", "none"],
+        choices=["auto", "openai", "gemini", "heuristic", "none"],
         default="auto",
-        help="How to obtain lineup candidates. 'auto' prefers existing candidates, then Gemini, then heuristic fallback.",
+        help="How to obtain lineup candidates. 'auto' prefers existing candidates, then OpenAI (sub2api), then Gemini, then heuristic fallback.",
     )
     parser.add_argument(
         "--review-status",
@@ -35,8 +36,8 @@ def _build_parser() -> argparse.ArgumentParser:
         default=ReviewStatus.NORMALIZED.value,
         help="Review status to attach to emitted staging entries.",
     )
-    parser.add_argument("--model", default="gemini-2.0-flash", help="Gemini model name.")
-    parser.add_argument("--timeout", type=int, default=60, help="HTTP timeout in seconds.")
+    parser.add_argument("--model", default=None, help="Model name (extractor-specific default).")
+    parser.add_argument("--timeout", type=int, default=60, help="HTTP timeout in seconds (Gemini only).")
     parser.add_argument("--api-key", help="Gemini API key. Falls back to GEMINI_API_KEY env var.")
     return parser
 
@@ -108,7 +109,7 @@ def _resolve_enriched_document(
     project_root: Path,
     extractor_mode: str,
     api_key: str | None,
-    model: str,
+    model: str | None,
     timeout: int,
 ):
     if extractor_mode == "none":
@@ -120,17 +121,31 @@ def _resolve_enriched_document(
         extractor = HeuristicVideoKnowledgeExtractor.from_project_root(project_root)
         return extractor.enrich_document(document)
 
+    if extractor_mode == "openai":
+        openai_kwargs = {}
+        if model:
+            openai_kwargs["model"] = model
+        extractor = OpenAIVideoKnowledgeExtractor(**openai_kwargs)
+        return extractor.enrich_document(document)
+
     if extractor_mode == "gemini":
         if not api_key:
             raise RuntimeError("Gemini API key is required when extractor=gemini.")
-        extractor = GeminiVideoKnowledgeExtractor(api_key=api_key, model=model, timeout_sec=timeout)
+        gemini_model = model or "gemini-2.0-flash"
+        extractor = GeminiVideoKnowledgeExtractor(api_key=api_key, model=gemini_model, timeout_sec=timeout)
         return extractor.enrich_document(document)
 
     if document.lineup_candidates:
         return document
+    try:
+        extractor = OpenAIVideoKnowledgeExtractor(model=model) if model else OpenAIVideoKnowledgeExtractor()
+        return extractor.enrich_document(document)
+    except Exception as exc:  # noqa: BLE001
+        print(f"OpenAI extraction failed, trying Gemini: {exc}", file=sys.stderr)
     if api_key:
         try:
-            extractor = GeminiVideoKnowledgeExtractor(api_key=api_key, model=model, timeout_sec=timeout)
+            gemini_model = model or "gemini-2.0-flash"
+            extractor = GeminiVideoKnowledgeExtractor(api_key=api_key, model=gemini_model, timeout_sec=timeout)
             return extractor.enrich_document(document)
         except RuntimeError as exc:
             print(f"Gemini extraction failed, falling back to heuristic extractor: {exc}", file=sys.stderr)

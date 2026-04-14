@@ -42,7 +42,7 @@ PYTHONPATH=src python3 -m qa_agent.app.query lookup_topic "建筑升级"
 | 任务 | 推荐模型 | 备注 |
 |---|---|---|
 | ChatAgent 对话（默认） | `gpt-5.4-mini` | 速度 4–10s，有 RAG 约束 |
-| 字幕/长文 JSON 抽取 | `gpt-5.4` | 1.05M context，JSON 合规性最稳 |
+| 字幕/长文 JSON 抽取 | `gpt-5.4` | 1.05M context，JSON 合规性最稳；bilibili `OpenAIVideoKnowledgeExtractor` 默认用它 |
 | 截图理解 / vision | `gpt-5.4` | ~6s，输出简洁 |
 
 避免：`gpt-5.4-nano`（网关 400）、`gpt-5.2`（JSON 有时返回 array 或 fenced）。
