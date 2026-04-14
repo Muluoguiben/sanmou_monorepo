@@ -48,9 +48,7 @@ def _load_questions(path: Path) -> list[dict]:
     return yaml.safe_load(path.read_text(encoding="utf-8"))
 
 
-def _run_one(agent: ChatAgent, spec: dict) -> QuestionResult:
-    agent.reset()
-    reply = agent.ask(spec["question"])
+def _check_reply(reply, spec: dict) -> list[CheckResult]:
     evidence_ids = [c.entry.id for c in reply.evidence]
     checks: list[CheckResult] = []
 
@@ -66,31 +64,70 @@ def _run_one(agent: ChatAgent, spec: dict) -> QuestionResult:
             says_not_found and no_fab_fluff,
             f"answer={reply.answer[:120]!r}",
         ))
-    else:
-        must_cite = spec.get("must_cite", [])
-        if must_cite:
-            cited = [eid for eid in must_cite if eid in evidence_ids or eid in reply.answer]
-            checks.append(CheckResult(
-                "must_cite",
-                bool(cited),
-                f"expected any of {must_cite}, evidence={evidence_ids}",
-            ))
+        return checks
 
-        contains_any = spec.get("contains_any", [])
-        if contains_any:
-            hits = [s for s in contains_any if s in reply.answer]
-            checks.append(CheckResult(
-                "contains_any",
-                bool(hits),
-                f"expected any of {contains_any}, got hits={hits}",
-            ))
+    must_cite = spec.get("must_cite", [])
+    if must_cite:
+        cited = [eid for eid in must_cite if eid in evidence_ids or eid in reply.answer]
+        checks.append(CheckResult(
+            "must_cite",
+            bool(cited),
+            f"expected any of {must_cite}, evidence={evidence_ids}",
+        ))
 
+    contains_any = spec.get("contains_any", [])
+    if contains_any:
+        hits = [s for s in contains_any if s in reply.answer]
+        checks.append(CheckResult(
+            "contains_any",
+            bool(hits),
+            f"expected any of {contains_any}, got hits={hits}",
+        ))
+
+    must_not_contain = spec.get("must_not_contain", [])
+    if must_not_contain:
+        leaks = [s for s in must_not_contain if s in reply.answer]
+        checks.append(CheckResult(
+            "must_not_contain",
+            not leaks,
+            f"unexpected leaks={leaks}" if leaks else "",
+        ))
+
+    return checks
+
+
+def _run_one(agent: ChatAgent, spec: dict) -> QuestionResult:
+    agent.reset()
+    reply = agent.ask(spec["question"])
     return QuestionResult(
         id=spec["id"],
         question=spec["question"],
         answer=reply.answer,
-        evidence_ids=evidence_ids,
-        checks=checks,
+        evidence_ids=[c.entry.id for c in reply.evidence],
+        checks=_check_reply(reply, spec),
+    )
+
+
+def _run_conversation(agent: ChatAgent, spec: dict, pace: float) -> QuestionResult:
+    agent.reset()
+    all_checks: list[CheckResult] = []
+    last_reply = None
+    last_ids: list[str] = []
+    for i, turn in enumerate(spec["turns"]):
+        if i > 0 and pace > 0:
+            time.sleep(pace)
+        last_reply = agent.ask(turn["question"])
+        last_ids = [c.entry.id for c in last_reply.evidence]
+        turn_checks = _check_reply(last_reply, turn)
+        for check in turn_checks:
+            check.name = f"turn{i+1}.{check.name}"
+        all_checks.extend(turn_checks)
+    return QuestionResult(
+        id=spec["id"],
+        question=spec["turns"][-1]["question"] if spec.get("turns") else "",
+        answer=last_reply.answer if last_reply else "",
+        evidence_ids=last_ids,
+        checks=all_checks,
     )
 
 
@@ -99,6 +136,21 @@ def main() -> int:
     parser.add_argument(
         "--fixtures",
         default="tests/fixtures/chat_regression_questions.yaml",
+    )
+    parser.add_argument(
+        "--conversations",
+        default="tests/fixtures/chat_regression_conversations.yaml",
+        help="Multi-turn fixture file (skipped if missing).",
+    )
+    parser.add_argument(
+        "--skip-single",
+        action="store_true",
+        help="Skip single-question fixture.",
+    )
+    parser.add_argument(
+        "--skip-conversations",
+        action="store_true",
+        help="Skip multi-turn fixture.",
     )
     parser.add_argument(
         "--only",
@@ -114,22 +166,33 @@ def main() -> int:
     args = parser.parse_args()
 
     package_root = Path(__file__).resolve().parents[1]
-    fixtures_path = package_root / args.fixtures
-    specs = _load_questions(fixtures_path)
+
+    single_specs: list[dict] = []
+    conv_specs: list[dict] = []
+
+    if not args.skip_single:
+        single_specs = _load_questions(package_root / args.fixtures)
+
+    if not args.skip_conversations:
+        conv_path = package_root / args.conversations
+        if conv_path.exists():
+            conv_specs = _load_questions(conv_path)
+
     if args.only:
         prefixes = [p.strip() for p in args.only.split(",") if p.strip()]
-        specs = [s for s in specs if any(s["id"].startswith(p) for p in prefixes)]
+        single_specs = [s for s in single_specs if any(s["id"].startswith(p) for p in prefixes)]
+        conv_specs = [s for s in conv_specs if any(s["id"].startswith(p) for p in prefixes)]
 
     agent = ChatAgent.from_knowledge_dir(package_root / "knowledge_sources")
 
     passed = 0
     failed: list[QuestionResult] = []
-    for i, spec in enumerate(specs):
-        if i > 0 and args.pace > 0:
-            time.sleep(args.pace)
-        result = _run_one(agent, spec)
+    api_call_idx = 0
+
+    def _handle(result: QuestionResult, label: str) -> None:
+        nonlocal passed
         status = "PASS" if result.all_passed else "FAIL"
-        print(f"[{status}] {result.id}  {spec['question'][:60]}")
+        print(f"[{status}] {result.id}  {label[:80]}")
         for check in result.checks:
             mark = "✓" if check.passed else "✗"
             print(f"    {mark} {check.name}: {check.detail}")
@@ -141,7 +204,21 @@ def main() -> int:
         else:
             failed.append(result)
 
-    total = len(specs)
+    for spec in single_specs:
+        if api_call_idx > 0 and args.pace > 0:
+            time.sleep(args.pace)
+        api_call_idx += 1
+        result = _run_one(agent, spec)
+        _handle(result, spec["question"])
+
+    for spec in conv_specs:
+        if api_call_idx > 0 and args.pace > 0:
+            time.sleep(args.pace)
+        api_call_idx += len(spec.get("turns", []))
+        result = _run_conversation(agent, spec, pace=args.pace)
+        _handle(result, spec.get("description", spec["id"]))
+
+    total = len(single_specs) + len(conv_specs)
     print(f"\n=== {passed}/{total} passed ===")
     if failed:
         print(f"failed: {[r.id for r in failed]}")

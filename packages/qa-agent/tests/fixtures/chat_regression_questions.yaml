@@ -39,7 +39,7 @@
 
 - id: q08-rule-level-cap
   question: "武将最高多少级？"
-  must_cite: ["mech-hero-exp-sources", "mech-hero-level-up-cost"]
+  must_cite: ["mech-hero-level-cap"]
   contains_any: ["50"]
 
 - id: q09-bond-faction

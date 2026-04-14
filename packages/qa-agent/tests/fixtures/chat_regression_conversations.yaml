@@ -1,0 +1,52 @@
+# Multi-turn regression fixtures.
+# Each item has a `turns` list; each turn is asked in order on the same ChatAgent
+# (no reset between turns). Checks apply to the last turn's reply unless the
+# turn specifies its own checks.
+
+- id: c01-hero-followup
+  description: 问武将 → 追问他的战法 → 追问搭配，测试代词/省略是否被正确解析
+  turns:
+    - question: "诸葛亮是什么阵营？"
+      must_cite: ["hero-zhugeliang"]
+      contains_any: ["蜀"]
+    - question: "他的代表战法是什么？"
+      must_cite: ["hero-zhugeliang"]
+      contains_any: ["草船借箭"]
+    - question: "那个战法的满级效果呢？"
+      contains_any: ["草船借箭", "12%", "24%", "40%", "80%"]
+
+- id: c02-alias-then-detail
+  description: 用别名开场 → 追问属性，看能否把"卧龙"对齐到"诸葛亮"后继续走
+  turns:
+    - question: "卧龙属于哪个阵营？"
+      must_cite: ["hero-zhugeliang"]
+      contains_any: ["蜀", "诸葛亮"]
+    - question: "满级智力多少？"
+      contains_any: ["诸葛亮", "智力"]
+
+- id: c03-topic-switch
+  description: 换话题后不该把之前的武将信息混进答复
+  turns:
+    - question: "盛气凌敌战法的类型？"
+      must_cite: ["skill-shengqilingdi"]
+      contains_any: ["指挥"]
+    - question: "新手保护期是多久？"
+      must_cite: ["mech-combat-newbie-protection"]
+      must_not_contain: ["盛气凌敌"]
+
+- id: c04-not-found-then-recover
+  description: 先问未收录 → 再问收录的，agent 不能因为前一轮"未收录"而对后一轮也消极
+  turns:
+    - question: "神器熔铸怎么操作？"
+      must_not_fabricate: true
+    - question: "诸葛亮的代表战法？"
+      must_cite: ["hero-zhugeliang"]
+      contains_any: ["草船借箭"]
+
+- id: c05-rule-drill-down
+  description: 规则类话题的追问，看是否稳定保持在同一条目
+  turns:
+    - question: "打地经验怎么算？"
+      contains_any: ["等级", "推荐"]
+    - question: "如果我武将等级远低于推荐等级呢？"
+      contains_any: ["70%", "20"]
