@@ -46,7 +46,7 @@ class LLMClient(Protocol):
 
 def build_llm_client(provider: str | None = None) -> LLMClient:
     load_package_env()
-    provider = (provider or os.environ.get("LLM_PROVIDER", "minimax")).lower()
+    provider = (provider or os.environ.get("LLM_PROVIDER", "openai")).lower()
     if provider == "minimax":
         from qa_agent.chat.minimax_client import MinimaxChatClient
         return MinimaxChatClient()
