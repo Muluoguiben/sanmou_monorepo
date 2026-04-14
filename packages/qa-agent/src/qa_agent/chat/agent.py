@@ -5,7 +5,7 @@ import logging
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from qa_agent.chat.gemini_client import GeminiChatClient
+from qa_agent.chat.llm_client import LLMClient, build_llm_client
 from qa_agent.chat.prompts import QUERY_REWRITE_PROMPT, SYSTEM_PROMPT
 from qa_agent.retrieval.retriever import RetrievedChunk, Retriever
 
@@ -33,13 +33,13 @@ class ChatAgent:
     def __init__(
         self,
         retriever: Retriever,
-        client: GeminiChatClient | None = None,
+        client: LLMClient | None = None,
         *,
         top_k_per_query: int = 3,
         total_evidence_cap: int = 8,
     ) -> None:
         self.retriever = retriever
-        self.client = client or GeminiChatClient()
+        self.client = client or build_llm_client()
         self.top_k_per_query = top_k_per_query
         self.total_evidence_cap = total_evidence_cap
         self.history: list[ChatTurn] = []
