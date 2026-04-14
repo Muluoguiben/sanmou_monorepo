@@ -800,3 +800,103 @@
     - 满级发动概率：100%
     - 初始发动概率：100%
     - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-千机重城
+  domain: skill
+  entry_kind: skill_profile
+  topic: 千机重城
+  aliases: []
+  facts:
+  - 千机重城是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-14'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 千机重城
+    aliases: []
+    rarity: 橙
+    skill_type: 指挥
+    trigger_type: 指挥
+    target_scope: null
+    effect_tags:
+    - 辅助
+    preferred_roles: []
+    notes:
+    - 效果（满级）：我军全体行动时，30%->60%概率（受统率影响）获得1层抵御，若其兵力低于50%，有25%->50%概率额外获得1层抵御. 我军全体抵御消耗后，受到伤害降低4%->8%（受统率影响），造成谋略伤害提升4%->8%（受统率影响），可叠加2层.
+      持续到回合结束
+    - 效果（初始）：我军全体行动时，30%->33.33%概率（受统率影响）获得1层抵御，若其兵力低于50%，有25%->27.78%概率额外获得1层抵御.
+      我军全体抵御消耗后，受到伤害降低4%->4.44%（受统率影响），造成谋略伤害提升4%->4.44%（受统率影响），可叠加2层. 持续到回合结束
+    - 满级发动概率：100%
+    - 初始发动概率：100%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-岿然不动
+  domain: skill
+  entry_kind: skill_profile
+  topic: 岿然不动
+  aliases:
+  - 屹然不动
+  facts:
+  - 岿然不动是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-14'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 岿然不动
+    aliases:
+    - 屹然不动
+    rarity: 橙
+    skill_type: 指挥
+    trigger_type: 指挥
+    target_scope: null
+    effect_tags:
+    - 防御
+    preferred_roles: []
+    notes:
+    - 效果（满级）：我军全体每消耗2次抵御，我军全体获得1层据守：统率提升12->24点，可叠加3次，持续到回合结束。回合结束时，恢复我军兵力最低单体兵力（治疗率30%->60%，受智力和统率影响），每持有1层据守，治疗率提升20%->20%
+    - 效果（初始）：我军全体每消耗2次抵御，我军全体获得1层据守：统率提升12->13.33点，可叠加3次，持续到回合结束。回合结束时，恢复我军兵力最低单体兵力（治疗率30%->33.33%，受智力和统率影响），每持有1层据守，治疗率提升20%->20%
+    - 满级发动概率：100%
+    - 初始发动概率：100%
+    - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-睿虑合图
+  domain: skill
+  entry_kind: skill_profile
+  topic: 睿虑合图
+  aliases: []
+  facts:
+  - 睿虑合图是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-14'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 睿虑合图
+    aliases: []
+    rarity: 橙
+    skill_type: 指挥
+    trigger_type: 指挥
+    target_scope: null
+    effect_tags:
+    - 辅助
+    preferred_roles: []
+    notes:
+    - 效果（满级）：我军前排受到伤害后，使我军随机2人奇谋提升1%->2%（受智力影响），可叠加15次，持续到战斗结束
+    - 效果（初始）：我军前排受到伤害后，使我军随机2人奇谋提升1%->1.11%（受智力影响），可叠加15次，持续到战斗结束
+    - 满级发动概率：100%
+    - 初始发动概率：100%
+    - 适配兵种：🛡️🏹️↖️🐎

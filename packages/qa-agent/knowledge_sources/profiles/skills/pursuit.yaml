@@ -640,3 +640,35 @@
     - 满级发动概率：40%
     - 初始发动概率：40%
     - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-恃勇克敌
+  domain: skill
+  entry_kind: skill_profile
+  topic: 恃勇克敌
+  aliases: []
+  facts:
+  - 恃勇克敌是可录入的高频战法静态资料条目。
+  - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
+  constraints:
+  - 具体数值与发动率待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: INGESTION-SGMDTX-SKILL
+  updated_at: '2026-04-14'
+  confidence: 0.9
+  related_topics: []
+  priority: 88
+  structured_data:
+    name: 恃勇克敌
+    aliases: []
+    rarity: 橙
+    skill_type: 追击
+    trigger_type: 追击
+    target_scope: null
+    effect_tags:
+    - 兵刃
+    preferred_roles: []
+    notes:
+    - 效果（满级）：普通攻击后，对敌军武力最高单体造成125%->250%兵刃伤害，并使其造成伤害降低10%->20%（受武力影响），持续1回合，有50%->50%概率额外对敌军兵力最低单体造成125%->250%兵刃伤害，并对其施加断粮，持续1回合
+    - 效果（初始）：普通攻击后，对敌军武力最高单体造成125%->138.89%兵刃伤害，并使其造成伤害降低10%->11.11%（受武力影响），持续1回合，有50%->50%概率额外对敌军兵力最低单体造成125%->138.89%兵刃伤害，并对其施加断粮，持续1回合
+    - 满级发动概率：60%
+    - 初始发动概率：60%
+    - 适配兵种：🛡️🏹️↖️🐎
