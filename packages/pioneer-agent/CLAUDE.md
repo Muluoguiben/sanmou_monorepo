@@ -26,6 +26,10 @@ PYTHONPATH=src python3 -m unittest discover -s tests -p "test_*.py" -v
 PYTHONPATH=src python3 -m pioneer_agent.app.main
 ```
 
+## Vision / LLM Provider
+
+Perception 层当前用 Gemini。若要 A/B 或切换到 GPT-5.x：sub2api 网关 `gpt-5.4` 截图理解 ~6s，JSON 输出干净。调用路径复用 `qa_agent.chat.openai_client.OpenAIChatClient`（必传 `reasoning_effort` + `store:false`，vision 走 `images=[url]`）。详见项目级 `.claude/CLAUDE.md` 的 "LLM Provider" 段。
+
 ## 设计文档
 改动架构前先读：
 - [MVP 状态模型](../../docs/sanguo-agent-mvp-model.md)

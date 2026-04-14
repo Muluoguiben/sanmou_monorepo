@@ -53,6 +53,19 @@ High-value action types: `claim_chapter_reward`, `upgrade_building`, `transfer_m
 - Retrieval-augmented Q&A
 - Strategy advice grounded in game data
 
+## LLM Provider
+
+Default: OpenAI-compatible sub2api gateway (`http://45.76.98.138/v1`, config in `packages/qa-agent/.env`).
+Gateway requires `reasoning_effort` (low/medium/high/xhigh) and `store: false` on every request.
+
+Model selection (per 2026-04-14 benchmark):
+- Chat / text QA: `gpt-5.4-mini`
+- JSON extraction (video subtitles, structured output): `gpt-5.4`
+- Vision (game screenshots): `gpt-5.4`
+- Avoid: `gpt-5.4-nano` (gateway 400), `gpt-5.2` (weak JSON compliance)
+
+Switch provider: `LLM_PROVIDER=openai|minimax|gemini` via `qa_agent.chat.llm_client.build_llm_client`.
+
 ## Safety Rules
 
 - Recheck preconditions before every high-value action.

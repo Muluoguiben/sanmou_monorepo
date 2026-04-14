@@ -148,6 +148,19 @@ git branch -d feat/<branch-name>
 - 默认分支：`master`
 - **每次合并代码或推送代码后，必须更新项目根目录的 `todo-list.md`**，反映最新的待办状态、已完成项和新增项。
 
+## LLM Provider
+
+默认走 OpenAI 兼容 sub2api 网关（`http://45.76.98.138/v1`），配置见 `packages/qa-agent/.env`。
+调用约束：请求必须带 `reasoning_effort`（`low/medium/high/xhigh`）和 `store: false`，否则 503。
+
+选型（2026-04-14 benchmark 结论）：
+- **文本对话 / ChatAgent 默认**：`gpt-5.4-mini`（`reasoning_effort=low`）
+- **字幕/长文结构化抽取**（bilibili workflow）：`gpt-5.4`，JSON 合规性最稳
+- **游戏截图 vision**（pioneer-agent perception 可选）：`gpt-5.4`，~6s 响应
+- 避免：`gpt-5.4-nano` 网关回 400，`gpt-5.2` JSON 合规性差
+
+切 provider：`LLM_PROVIDER=openai|minimax|gemini`（见 `qa_agent.chat.llm_client.build_llm_client`）。
+
 ## Code Conventions
 
 - All data models use Pydantic v2 (`BaseModel`, `field_validator`, `model_validator`).
