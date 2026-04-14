@@ -140,8 +140,11 @@ def _fetch_subtitle_catalog(bvid: str, cid: int, cookie_header: str | None) -> l
         "Referer": f"https://www.bilibili.com/video/{bvid}/",
         "Cookie": cookie_header,
     }
+    # Use wbi/v2 endpoint — player/v2 returns populated subtitle_url inconsistently
+    # (often empty for AI subtitles). wbi/v2 is the same response shape but reliably
+    # includes the signed aisubtitle.hdslb.com URL.
     response = _get_with_retries(
-        f"https://api.bilibili.com/x/player/v2?bvid={bvid}&cid={cid}",
+        f"https://api.bilibili.com/x/player/wbi/v2?bvid={bvid}&cid={cid}",
         headers=headers,
     )
     response.raise_for_status()
@@ -206,15 +209,28 @@ def _fetch_subtitle_body(subtitle_catalog: list[dict], cookie_header: str | None
 
 
 def _extract_relevance_tokens(title: str, description: str | None) -> list[str]:
-    tokens = re.findall(r"[\u4e00-\u9fffA-Za-z0-9]{2,}", f"{title} {description or ''}")
-    stop = {"全网", "最新", "重置版", "视频", "这里", "大家", "评论区"}
+    """Produce short (2-char) CJK bigrams + short ASCII tokens from title/description.
+
+    Chinese titles have no word boundaries so a naive `{2,}` regex match produces
+    compound spans (e.g. `月卡挑战三谋第一天`) that never appear verbatim in a
+    transcript. Sliding 2-char windows over each CJK run guarantees at least one
+    bigram (e.g. `三谋`, `月卡`) will match a real transcript, while the stop
+    list filters noise.
+    """
+    stop = {"全网", "最新", "重置", "视频", "这里", "大家", "评论", "关注", "拜托"}
     deduped: list[str] = []
-    for token in tokens:
-        if token in stop:
+    for run in re.findall(r"[\u4e00-\u9fff]+|[A-Za-z0-9]{2,}", f"{title} {description or ''}"):
+        if re.fullmatch(r"[A-Za-z0-9]{2,}", run):
+            candidate = run
+            if candidate not in stop and candidate not in deduped:
+                deduped.append(candidate)
             continue
-        if token not in deduped:
-            deduped.append(token)
-    return deduped[:10]
+        for i in range(len(run) - 1):
+            bigram = run[i : i + 2]
+            if bigram in stop or bigram in deduped:
+                continue
+            deduped.append(bigram)
+    return deduped[:20]
 
 
 def _subtitle_body_is_relevant(title: str, description: str | None, body: list[dict]) -> bool:

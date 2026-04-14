@@ -22,6 +22,9 @@ else
 fi
 
 mkdir -p "$WORKSPACE"
+# Absolute path — qa-agent CLIs resolve relative paths against the package root
+# (packages/qa-agent), not the monorepo root, which causes double-nesting.
+WORKSPACE="$(cd "$WORKSPACE" && pwd)"
 BUNDLE_PATH="$WORKSPACE/bilibili-bundle.yaml"
 
 python3 -m qa_agent.app.fetch_bilibili_bundle "${FETCH_ARGS[@]}" --output "$BUNDLE_PATH"
