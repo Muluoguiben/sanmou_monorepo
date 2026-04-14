@@ -13,7 +13,7 @@
 - 执行器与宏动作执行设计
 - 数据存储与日志体系
 
-本文档与 [sanguo-agent-mvp-model.md](D:\codex_playground\sanguo-agent-mvp-model.md) 配套使用。
+本文档与 [sanguo-agent-mvp-model.md](./sanguo-agent-mvp-model.md) 配套使用。
 
 ---
 

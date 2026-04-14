@@ -13,8 +13,8 @@
 
 本文档与以下文档配套使用：
 
-- [sanguo-agent-mvp-model.md](D:\codex_playground\sanguo-agent-mvp-model.md)
-- [sanguo-agent-runtime-design.md](D:\codex_playground\sanguo-agent-runtime-design.md)
+- [sanguo-agent-mvp-model.md](./sanguo-agent-mvp-model.md)
+- [sanguo-agent-runtime-design.md](./sanguo-agent-runtime-design.md)
 
 ---
 
@@ -239,9 +239,11 @@
 
 建议目录结构如下：
 
+> **2026-04 update**: 实际落地为 monorepo 布局 `packages/pioneer-agent/src/pioneer_agent/{core,perception,derivation,scoring,selector,executor,runtime,storage,adapters,app}`，配置在 `packages/sanmou-common/`。下文目录树保留为历史设计参考。
+
 ```text
-D:\codex_playground\
-  docs\
+<repo>/
+  docs/
   data\
   src\
     core\

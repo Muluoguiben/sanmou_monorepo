@@ -26,10 +26,10 @@ Both depend on: `pydantic>=2.6,<3`, `PyYAML>=6.0,<7`, Python `>=3.11`.
 ## How to Run
 
 ```bash
-# Tests — pioneer-agent (5 tests)
+# Tests — pioneer-agent (59 tests)
 cd packages/pioneer-agent && PYTHONPATH=src python3 -m unittest discover -s tests -p "test_*.py" -v
 
-# Tests — qa-agent (38 tests)
+# Tests — qa-agent (72 tests)
 cd packages/qa-agent && PYTHONPATH=src python3 -m unittest discover -s tests -p "test_*.py" -v
 
 # Local knowledge query
@@ -68,17 +68,21 @@ Priority rules (hard overrides before score ranking):
 4. Force chapter-bottleneck building upgrade
 5. Preserve attack window over other actions
 
-### QA Agent — Knowledge Service
+### QA Agent — Knowledge Service + Conversational RAG
 
-3 MCP tools: `lookup_topic`, `answer_rule_question`, `resolve_term`.
+**Two surfaces over the same KB:**
 
-Knowledge stored in YAML under `qa-agent/knowledge_sources/`, organized by:
-- Domain rules: building, chapter, combat, resource/team, terms, hero/skill schema
+1. **Structured MCP tools** (`qa_agent.mcp_server`): `lookup_topic`, `answer_rule_question`, `resolve_term` — deterministic lookup for programmatic callers (e.g. pioneer-agent).
+2. **Conversational RAG** (`qa_agent.chat` + `qa_agent.retrieval`): ChatAgent composes query-rewrite → retrieve → LLM answer with strict citation prompts. Retrieval uses whole-query normalized match + Chinese n-gram fallback for natural phrasing. LLM is swappable via `LLMClient` Protocol (Gemini / MiniMax / OpenAI-compatible sub2api); default `gpt-5.4-mini`. Never fabricates — empty-evidence queries return a fixed "未收录" response. CLI: `qa_agent.app.chat`.
+
+**Knowledge storage** — YAML under `qa-agent/knowledge_sources/`:
+- Domain rules: building, chapter, combat, resource/team, terms, hero/skill schema, mechanic rules (stamina/land/bonds/troop/profession/recruit/season)
 - Profiles: heroes (by faction), skills (by trigger type), statuses (buffs/debuffs)
 - Solutions: lineups (by season)
 
-Ingestion pipeline: raw YAML → normalize (alias/enum mapping) → publish to bucket files.
-Dedup by `topic`; existing entries updated in-place preserving original `id`.
+**Ingestion pipeline**: raw YAML → normalize (alias/enum mapping) → publish to bucket files. Dedup by `topic`; existing entries updated in-place preserving original `id`. Bilibili video workflow extracts lineup/hero/skill/combat knowledge from transcripts via a scripted closed loop (see Claude Workflows).
+
+**Regression**: `scripts/chat_regression.py` runs 20 single-turn + 5 multi-turn fixtures against the live LLM (pacing-aware, provider-agnostic).
 
 ### Sanmou-Common — Shared Config
 
@@ -182,12 +186,12 @@ git branch -d feat/<branch-name>
 ## Current Status & Next Steps
 
 ### What's Working
-- Pioneer agent: full sync → derive → select pipeline with 7 action types, scoring, priority rules, replay testing
-- QA agent: knowledge base with 38 passing tests, MCP server, 3 query tools, ingestion pipeline with `--publish`
-- Executor: scaffold only (`not_implemented`), no actual game interaction yet
+- **Pioneer agent**: sync → derive → select pipeline with 7 action types, scoring, priority rules; perception vision (Gemini) with `resource_bar` + `city_buildings` domains + bbox locator + UI layout registry; executor with UIActions primitives (click_button/click_element/pan_map/close_popup) and 8-type action_handlers; autonomous loop with loop_logger, `dry_run`, `stuck_threshold` self-recovery; 59 tests passing
+- **QA agent**: 104 heroes + 123 skills + 61 mechanic rules KB; MCP server with 3 tools; ingestion pipeline with `--publish`; conversational RAG via `qa_agent/chat/` (ChatAgent + tightened prompts + LLMClient Protocol with Gemini/MiniMax/OpenAI providers, GPT-5.4-mini default) + `qa_agent/retrieval/` (Chinese n-gram fallback); `app/chat.py` CLI; regression harness covering 20 single-turn + 5 multi-turn (25/25 pass); bilibili video knowledge workflow closed loop; 72 tests passing
 
 ### Current Focus
-- **QA agent chat layer**: build `qa_agent/chat/` + `qa_agent/retrieval/` — conversational RAG over the knowledge base (104 heroes + 123 skills + rules/terms)
+- **Cross-package integration**: qa-agent knowledge library (heroes/skills/rules) consumed by pioneer-agent scoring & decision logic
+- **Click-action calibration**: 6 click-class actions (claim_chapter, upgrade_building, attack_land, recruit_soldiers, transfer_main_lineup, abandon_land) currently return `pending` — need real-page calibration via `ui_calibrate` + `find_elements` to wire the confirmation dialog sequences
 
 ## Claude Workflows
 
@@ -196,9 +200,8 @@ git branch -d feat/<branch-name>
   - `scripts/bilibili_video_knowledge_workflow.sh`
 
 ### Other Gaps
-- **Perception layer**: domain-specific OCR/screen extractors (`pioneer-agent/perception/domains/` is empty)
-- **Executor**: `ActionRunner` returns `not_implemented` — needs game API or UI automation bindings
-- **Scoring config**: only `opening_sprint` phase weights are defined in `config/scoring.yaml`
+- **Perception domain coverage**: `resource_bar` + `city_buildings` landed; still missing `hero_list` / `battle_result` / `chapter_panel` extractors; `sync_service` fragment-merge into RuntimeState not yet fully wired for all domains
+- **Click-action execution**: 6 click-type handlers return `pending-calibration` (see Current Focus)
+- **Scoring config**: only `opening_sprint` phase weights are defined in `config/scoring.yaml`; other phases TBD
 - **Sanmou-common enrichment**: config YAMLs are minimal templates, need real game data
-- **Cross-package integration**: qa-agent knowledge not yet consumed by pioneer-agent's decision logic
 - **CI/CD**: no automated test pipeline or linting configured
