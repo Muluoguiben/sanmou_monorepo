@@ -107,6 +107,56 @@ class ImageExtractorTests(unittest.TestCase):
         self.assertEqual(result.skills, [])
 
 
+class ImageExtractorWhitelistTests(unittest.TestCase):
+    """Verify KB canonical names are injected into the vision system prompt."""
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.retriever = Retriever.from_knowledge_dir(KNOWLEDGE_DIR)
+
+    def test_retriever_injects_hero_and_skill_names(self) -> None:
+        client = MagicMock()
+        client.generate.return_value = ChatResult(
+            text='{"heroes":[],"skills":[],"text_snippets":[]}',
+            model="x", prompt_tokens=0, output_tokens=0, elapsed_s=0,
+        )
+        extractor = ImageExtractor(client=client, retriever=self.retriever)
+        extractor.extract(["https://x/a.png"])
+
+        sent_prompt = client.generate.call_args.kwargs["system_prompt"]
+        self.assertIn("合法武将名（共", sent_prompt)
+        self.assertIn("合法战法名（共", sent_prompt)
+        self.assertIn("诸葛亮", sent_prompt)
+        self.assertIn("郝昭", sent_prompt)  # newly ingested S14 hero
+        self.assertIn("千机重城", sent_prompt)  # newly ingested skill
+
+    def test_explicit_name_lists_override_retriever(self) -> None:
+        client = MagicMock()
+        client.generate.return_value = ChatResult(
+            text="{}", model="x", prompt_tokens=0, output_tokens=0, elapsed_s=0,
+        )
+        extractor = ImageExtractor(
+            client=client,
+            hero_names=["仅此一人"],
+            skill_names=["仅此一招"],
+        )
+        extractor.extract(["https://x/a.png"])
+        sent_prompt = client.generate.call_args.kwargs["system_prompt"]
+        self.assertIn("仅此一人", sent_prompt)
+        self.assertIn("仅此一招", sent_prompt)
+        self.assertNotIn("诸葛亮", sent_prompt)
+
+    def test_no_retriever_no_whitelist(self) -> None:
+        client = MagicMock()
+        client.generate.return_value = ChatResult(
+            text="{}", model="x", prompt_tokens=0, output_tokens=0, elapsed_s=0,
+        )
+        ImageExtractor(client=client).extract(["https://x/a.png"])
+        sent_prompt = client.generate.call_args.kwargs["system_prompt"]
+        self.assertNotIn("合法武将名（共", sent_prompt)
+        self.assertNotIn("合法战法名（共", sent_prompt)
+
+
 class ChatAgentVisionTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
