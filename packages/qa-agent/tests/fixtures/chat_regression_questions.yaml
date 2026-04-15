@@ -95,3 +95,53 @@
 - id: q20-multi-domain
   question: "草船借箭这个战法的效果，以及诸葛亮的满级统率？"
   must_cite: ["hero-zhugeliang"]
+
+- id: q21-tip-erdaiyi
+  question: "二带一里的 12/12/5 具体是什么意思？"
+  must_cite: ["kdocs-tip-erdaiyi"]
+  contains_any: ["5 级", "5级", "被带", "10 级"]
+
+- id: q22-tip-wubingying
+  question: "无兵营开八要用哪些武将组合？"
+  must_cite: ["kdocs-tip-wubingying-kai8"]
+  contains_any: ["左慈", "田丰", "张宁", "貂蝉", "祝融", "孟获"]
+
+- id: q23-term-hongdu
+  question: "三红算满红还是中红？"
+  must_cite: ["term-hongdu"]
+  contains_any: ["中红", "5 红", "5红", "满红"]
+
+- id: q24-term-taozei-exp
+  question: "8 级贼寇讨贼一次给多少经验？"
+  must_cite: ["term-taozei"]
+  contains_any: ["16000", "2000"]
+
+- id: q25-glyph-shenwei
+  question: "神威这个装备特技效果是什么？"
+  must_cite: ["sgmdtx-glyph-equipment-technique"]
+  contains_any: ["武力", "兵刃"]
+
+- id: q26-glyph-xianyu
+  question: "先御装备特技什么时候生效？"
+  must_cite: ["sgmdtx-glyph-equipment-technique"]
+  contains_any: ["第 2 回合", "第2回合", "抵御"]
+
+- id: q27-lineup-chencang-lv5
+  question: "陈仓之围五级地开荒最优队伍是什么？"
+  must_cite: ["kdocs-lineup-chencang-lv5"]
+  contains_any: ["貂蝉", "孟获", "祝融"]
+
+- id: q28-wangye-jiangying
+  question: "王业之争兵种特性里绛影的效果？"
+  must_cite: ["kdocs-wangye-troop-traits"]
+  contains_any: ["女性", "女", "20"]
+
+- id: q29-profession-top3
+  question: "开荒前三推荐哪些职业？"
+  must_cite: ["kdocs-profession-recommend"]
+  contains_any: ["司仓", "神行", "青囊"]
+
+- id: q30-neicheng-land
+  question: "内城土地最多能开垦到几级？"
+  must_cite: ["term-neicheng-land"]
+  contains_any: ["12"]
