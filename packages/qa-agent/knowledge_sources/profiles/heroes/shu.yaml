@@ -534,8 +534,11 @@
   domain: hero
   entry_kind: hero_profile
   topic: 诸葛亮2
-  aliases: []
+  aliases:
+  - SP诸葛亮
+  - sp诸葛亮
   facts:
+  - 诸葛亮2 即玩家常称的 SP诸葛亮（sgmdtx 图源 zhu_ge_liang2）。
   - 诸葛亮2是蜀阵营可录入的核心武将静态资料条目。
   - 当前条目优先收录稳定身份、兵种和定位标签，不直接表达版本强度结论。
   constraints: []
@@ -548,7 +551,9 @@
   priority: 88
   structured_data:
     name: 诸葛亮2
-    aliases: []
+    aliases:
+    - SP诸葛亮
+    - sp诸葛亮
     faction: 蜀
     rarity: 橙
     troop_types:
