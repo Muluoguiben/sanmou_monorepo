@@ -1,0 +1,44 @@
+- id: video-lineup-bv1jw2nbvedj-s2-s3-kaihuang-erdui-liubei-fazheng-machao
+  domain: solution
+  entry_kind: lineup_solution
+  topic: S2&S3开荒二队刘备法正马超
+  aliases:
+  - 二队刘备法正马超
+  facts:
+  - 视频口播明确提到“二队刘备、法正、马超”的配置。
+  - 该阵容被归入S2&S3开荒内容。
+  - 具体配置细节未在当前证据中展开，视频建议参考游戏内配将台搜索。
+  - 视频证据摘要：B站元数据导入。首帧：http://i1.hdslb.com/bfs/storyff/_00003s3vkch4gamuo1yv60wz6ab1qjb_firsti.jpg
+  constraints:
+  - 当前证据只确认武将组合与用途，未提供战法、兵种、加点或替代位。
+  - 是否适用于所有开荒阶段或所有资源地强度，当前证据未说明。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV1jw2nBvEdj#0-400
+  updated_at: '2026-04-14'
+  confidence: 0.79
+  related_topics:
+  - 刘备
+  - 法正
+  - 马超
+  priority: 70
+  structured_data:
+    name: S2&S3开荒二队刘备法正马超
+    aliases:
+    - 二队刘备法正马超
+    season_tags:
+    - S2
+    - S3
+    lineup_rating: null
+    factions:
+    - 蜀
+    hero_names:
+    - 刘备
+    - 法正
+    - 马超
+    core_skills: []
+    scenario_tags:
+    - 开荒
+    - 二队
+    notes:
+    - 来源为视频元数据摘要型转录，信息较简略。
+    - 证据片段：0s-400s

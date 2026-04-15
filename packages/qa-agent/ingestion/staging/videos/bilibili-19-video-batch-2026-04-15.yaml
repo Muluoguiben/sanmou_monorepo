@@ -1,0 +1,1588 @@
+- metadata:
+    source_url: https://www.bilibili.com/video/BV15xamzXEsF/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:10:41'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV15xamzXEsF
+    - segment=subtitle-chunk-13-342-376
+  entry:
+    id: video-lineup-bv15xamzxesf-sun-da-sheng-kai-huang-dui
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S1 孙大圣开荒队
+    aliases:
+    - 孙大圣开荒队
+    facts:
+    - 第2天可获得橙色武将孙策。
+    - 孙策可与徐盛、大乔搭配组成“孙大圣开荒队”。
+    - 视频将该队称为新手开荒神器。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 证据仅明确支持武将组合与开荒定位，未提供战法、加点或详细配速。
+    - 适用场景主要是新手前期开荒，未证明适合中后期或PVP。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV15xamzXEsF#342-376
+    updated_at: '2026-04-14'
+    confidence: 0.94
+    related_topics:
+    - 孙策
+    - 徐盛
+    - 大乔
+    priority: 70
+    structured_data:
+      name: S1 孙大圣开荒队
+      aliases:
+      - 孙大圣开荒队
+      season_tags:
+      - S1
+      lineup_rating: 新手开荒神器
+      factions: []
+      hero_names:
+      - 孙策
+      - 徐盛
+      - 大乔
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      - 新手
+      - 零氪月卡党
+      notes:
+      - 该阵容名称与定位来自视频原话。
+      - 证据片段：342s-376s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV16J4m1g7Ks/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:46:04'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV16J4m1g7Ks
+    - segment=subtitle-chunk-54-1219-1247
+  entry:
+    id: video-lineup-bv16j4m1g7ks-early-land-reclaim-xusheng-wenchou-sunjian
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 新手开荒过渡队：徐盛+文丑+孙坚
+    aliases:
+    - 前期开荒队
+    - 徐盛文丑孙坚开荒
+    facts:
+    - 徐盛学习“避其锐气”作为前排防御技能。
+    - 队伍中输出最高的武将学习输出技能，示例中以文丑作为主力输出。
+    - 中间位武将学习“永隔长久”，用于治疗并提升统帅。
+    - 该队思路是前排抗伤、主力输出、一个携带治疗辅助技能的过渡配置。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 适用于前期10级后解锁战法栏的开荒阶段。
+    - 输出位以当前队内面板更高的武将为准，不固定必须是同一名武将。
+    - 若抽到更好的防御或输出技能，可替换对应默认技能。
+    - 属于前期过渡思路，不代表中后期最终阵容。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV16J4m1g7Ks#1219-1247
+    updated_at: '2026-04-14'
+    confidence: 0.85
+    related_topics:
+    - 徐盛
+    - 文丑
+    - 孙坚
+    priority: 70
+    structured_data:
+      name: 新手开荒过渡队：徐盛+文丑+孙坚
+      aliases:
+      - 前期开荒队
+      - 徐盛文丑孙坚开荒
+      season_tags: []
+      lineup_rating: 推荐
+      factions: []
+      hero_names:
+      - 徐盛
+      - 文丑
+      - 孙坚
+      core_skills:
+      - 避其锐气
+      - 永隔长久
+      scenario_tags:
+      - 开荒
+      - 前期过渡
+      - 10级后
+      notes:
+      - 视频中示例先以文丑作为最高物理输出，孙坚作为中间位携带辅助治疗技能。
+      - 证据片段：1219s-1247s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV18hc6z7Epp/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:46:40'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV18hc6z7Epp
+    - segment=subtitle-chunk-1-0-27
+  entry:
+    id: video-lineup-bv18hc6z7epp-s13-menghuo-zhurong-zhujun-kaigang
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S13 孟获祝融朱儁开荒队
+    aliases:
+    - 孟获祝融朱儁
+    - 蛮子开荒
+    facts:
+    - 视频开头明确推荐使用孟获、祝融、朱儁上阵开荒。
+    - 该队被用于前期出城后占领三地。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 证据只支持其用于S13开荒前期流程，不足以证明适合中后期。
+    - 具体战法仅提到“推荐加点即可”，未给出可稳定识别的战法名称。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV18hc6z7Epp#0-27
+    updated_at: '2026-04-14'
+    confidence: 0.91
+    related_topics:
+    - 孟获
+    - 祝融夫人
+    - 朱儁
+    priority: 70
+    structured_data:
+      name: S13 孟获祝融朱儁开荒队
+      aliases:
+      - 孟获祝融朱儁
+      - 蛮子开荒
+      season_tags:
+      - S13
+      lineup_rating: 满红高品开荒
+      factions: []
+      hero_names:
+      - 孟获
+      - 祝融夫人
+      - 朱儁
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      - 前期开地
+      - 内城清理
+      notes:
+      - 同视频后续多次再次提到孟获祝融朱儁上阵清理内城。
+      - 证据片段：0s-27s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV18hc6z7Epp/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:46:40'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV18hc6z7Epp
+    - segment=subtitle-chunk-6-141-168
+  entry:
+    id: video-lineup-bv18hc6z7epp-s13-diaochan-zhangning-tianfeng-kaigang
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S13 貂蝉张宁田丰开荒过渡队
+    aliases:
+    - 貂蝉张宁田丰
+    - 张宁过渡队
+    facts:
+    - 20级时，视频明确提到与张宁进行置换。
+    - 同段提到田丰全先攻，说明田丰属于该阶段上阵武将。
+    - 后续紧接着说明要检查张宁是否为队内统帅最高。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 该候选主要适用于20级左右的开荒过渡阶段。
+    - 转队前后存在置换操作，说明不是全程固定阵容。
+    - 战法内容只有“如上”提示，缺少可直接验证的具体技能名。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV18hc6z7Epp#141-168
+    updated_at: '2026-04-14'
+    confidence: 0.79
+    related_topics:
+    - 貂蝉
+    - 张宁
+    - 田丰
+    priority: 70
+    structured_data:
+      name: S13 貂蝉张宁田丰开荒过渡队
+      aliases:
+      - 貂蝉张宁田丰
+      - 张宁过渡队
+      season_tags:
+      - S13
+      lineup_rating: 满红高品开荒
+      factions: []
+      hero_names:
+      - 貂蝉
+      - 张宁
+      - 田丰
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      - 20级过渡
+      - 内城攻打
+      notes:
+      - 上一段还提到貂蝉全智力，能与该过渡队形成连续证据。
+      - 证据片段：141s-168s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1D1A7zxEzd/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:45:23'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1D1A7zxEzd
+    - segment=subtitle-chunk-11-288-316
+  entry:
+    id: video-lineup-bv1d1a7zxezd-s1-sun-ce-da-qiao-xu-sheng-kai-huang
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S1 新手开荒队：孙策+大乔+徐盛
+    aliases:
+    - 孙大乔徐盛
+    - 新手T1开荒队
+    facts:
+    - 阵容组成为孙策、大乔、徐盛。
+    - 视频称孙策是第二天赠送的武将，具备输出能力。
+    - 视频称徐盛是新手专属防御武将，可在前排承担伤害并给敌方施加减益。
+    - 视频称大乔可为队伍提供增伤和回血，搭配输出技能后还能补充输出。
+    - 视频明确将这套阵容定义为新手最容易凑齐的T1级开荒队。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 大乔获取前提是购买六元新手礼包。
+    - 适用阶段主要是S1新手开荒。
+    - 核心结论来自视频推荐，未提供更细的战法与站位细节。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1D1A7zxEzd#288-316
+    updated_at: '2026-04-14'
+    confidence: 0.95
+    related_topics:
+    - 孙策
+    - 大乔
+    - 徐盛
+    priority: 70
+    structured_data:
+      name: S1 新手开荒队：孙策+大乔+徐盛
+      aliases:
+      - 孙大乔徐盛
+      - 新手T1开荒队
+      season_tags:
+      - S1
+      lineup_rating: T1级开荒队
+      factions: []
+      hero_names:
+      - 孙策
+      - 大乔
+      - 徐盛
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      - 新手
+      notes:
+      - 上一段提到该组合容易获取且发挥稳定。
+      - 证据片段：288s-316s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1D1A7zxEzd/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:45:23'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1D1A7zxEzd
+    - segment=subtitle-chunk-12-316-341
+  entry:
+    id: video-lineup-bv1d1a7zxezd-zhong-yi-gong-liu-bei-zhang-fei-huang-zhong
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 中期打架阵容：忠义弓
+    aliases:
+    - 忠义弓
+    facts:
+    - 视频推荐忠义弓作为开荒结束后的中期战斗阵容之一。
+    - 忠义弓阵容组成为刘备、张飞、黄忠。
+    - 视频将其归类为强度有保障、可供新手直接参考的组合。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 适用前提是开荒阶段结束后转入中期。
+    - 视频未提供战法、兵种或替代位细节。
+    - 武将获取情况取决于抽卡结果。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1D1A7zxEzd#316-341
+    updated_at: '2026-04-14'
+    confidence: 0.9
+    related_topics:
+    - 刘备
+    - 张飞
+    - 黄忠
+    priority: 70
+    structured_data:
+      name: 中期打架阵容：忠义弓
+      aliases:
+      - 忠义弓
+      season_tags:
+      - S1
+      lineup_rating: 强度有保障
+      factions: []
+      hero_names:
+      - 刘备
+      - 张飞
+      - 黄忠
+      core_skills: []
+      scenario_tags:
+      - 中期打架
+      - 中期过渡
+      notes:
+      - 证据片段：316s-341s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1D1A7zxEzd/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:45:23'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1D1A7zxEzd
+    - segment=subtitle-chunk-12-316-341
+  entry:
+    id: video-lineup-bv1d1a7zxezd-tong-que-gong-zhou-yu-da-qiao-xiao-qiao
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 中期打架阵容：铜雀弓
+    aliases:
+    - 铜雀宫
+    - 铜雀弓
+    facts:
+    - 视频推荐铜雀宫作为开荒结束后的中期战斗阵容之一。
+    - 该阵容组成为周瑜、大乔、小乔。
+    - 视频将其归类为强度有保障、可供新手直接参考的组合。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 适用前提是开荒阶段结束后转入中期。
+    - 视频未提供战法、兵种或站位细节。
+    - 武将获取情况取决于抽卡结果。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1D1A7zxEzd#316-341
+    updated_at: '2026-04-14'
+    confidence: 0.89
+    related_topics:
+    - 周瑜
+    - 大乔
+    - 小乔
+    priority: 70
+    structured_data:
+      name: 中期打架阵容：铜雀弓
+      aliases:
+      - 铜雀宫
+      - 铜雀弓
+      season_tags:
+      - S1
+      lineup_rating: 强度有保障
+      factions: []
+      hero_names:
+      - 周瑜
+      - 大乔
+      - 小乔
+      core_skills: []
+      scenario_tags:
+      - 中期打架
+      - 中期过渡
+      notes:
+      - 证据片段：316s-341s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1D1A7zxEzd/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:45:23'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1D1A7zxEzd
+    - segment=subtitle-chunk-12-316-341
+  entry:
+    id: video-lineup-bv1d1a7zxezd-hu-wei-cao-cao-dian-wei-fu-zhu
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 中期打架阵容：虎卫
+    aliases:
+    - 胡卫
+    - 虎卫
+    facts:
+    - 视频推荐虎卫作为开荒结束后的中期战斗阵容之一。
+    - 视频明确给出虎卫核心为曹操、典韦加一名辅助武将。
+    - 视频将其归类为强度有保障、可供新手直接参考的组合。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 第三名武将仅明确为辅助武将，视频未指明具体人选。
+    - 适用前提是开荒阶段结束后转入中期。
+    - 视频未提供战法、兵种或站位细节。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1D1A7zxEzd#316-341
+    updated_at: '2026-04-14'
+    confidence: 0.78
+    related_topics:
+    - 曹操
+    - 典韦
+    priority: 70
+    structured_data:
+      name: 中期打架阵容：虎卫
+      aliases:
+      - 胡卫
+      - 虎卫
+      season_tags:
+      - S1
+      lineup_rating: 强度有保障
+      factions: []
+      hero_names:
+      - 曹操
+      - 典韦
+      core_skills: []
+      scenario_tags:
+      - 中期打架
+      - 中期过渡
+      notes:
+      - 证据片段：316s-341s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1GXkDBMEzZ/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:55:56'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1GXkDBMEzZ
+    - segment=subtitle-chunk-84-2066-2085
+  entry:
+    id: video-lineup-bv1gxkdbmezz-daqiao-zhangfei-zhouyu-dafeiyu
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S1 大飞鱼阵容
+    aliases:
+    - 大飞鱼
+    - 大乔张飞周瑜
+    facts:
+    - 作者在获得张飞后明确将阵容更换为大飞鱼，即大乔、张飞、周瑜。
+    - 作者给出的战法搭配为：大乔带横征暴敛、披坚执锐；张飞带威名显赫、势如破竹；周瑜带王佐之才加谈笑诛心或绝水破敌。
+    - 作者随后用该队继续打地，并在后文展示其用于七级地和首开八级地。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 该队建立在作者后续补充小月卡拿到张飞的前提上，不属于纯初始阵容。
+    - 作者实战中提到八级地仍有较高风险，需要挑简单守军，31到32级会更稳定。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1GXkDBMEzZ#2066-2085
+    updated_at: '2026-04-14'
+    confidence: 0.95
+    related_topics:
+    - 大乔
+    - 张飞
+    - 周瑜
+    priority: 70
+    structured_data:
+      name: S1 大飞鱼阵容
+      aliases:
+      - 大飞鱼
+      - 大乔张飞周瑜
+      season_tags:
+      - S1
+      lineup_rating: 中后段转型强队
+      factions: []
+      hero_names:
+      - 大乔
+      - 张飞
+      - 周瑜
+      core_skills:
+      - 横征暴敛
+      - 披坚执锐
+      - 威名显赫
+      - 势如破竹
+      - 王佐之才
+      - 谈笑诛心
+      - 绝水破敌
+      scenario_tags:
+      - 开荒转型
+      - 七级地
+      - 八级地
+      notes:
+      - 作者建议张飞补先攻，以保证先手出手。
+      - 证据片段：2066s-2085s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1KaffYAEmb/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:55:48'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1KaffYAEmb
+    - segment=subtitle-chunk-42-1009-1031
+  entry:
+    id: video-lineup-bv1kaffyaemb-zhao-gan-ti-xi
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 赵甘体系
+    aliases:
+    - 赵甘
+    facts:
+    - 视频将“赵甘”列为少数例外队伍之一。
+    - 视频明确说明赵云比较特殊，不用别人提供控制，也不用任何人保。
+    - 视频明确说明在该体系里，甘夫人相当于去保另一个人。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 证据未给出第三名武将与完整战法，不能补全为标准阵容。
+    - 该结论是在“配件方法论”语境下提出，更偏结构性判断，不是完整配队教学。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1KaffYAEmb#1009-1031
+    updated_at: '2026-04-14'
+    confidence: 0.86
+    related_topics:
+    - 赵云
+    - 甘夫人
+    priority: 70
+    structured_data:
+      name: 赵甘体系
+      aliases:
+      - 赵甘
+      season_tags: []
+      lineup_rating: 少数例外队伍
+      factions:
+      - 蜀
+      hero_names:
+      - 赵云
+      - 甘夫人
+      core_skills: []
+      scenario_tags:
+      - 配队方法论
+      - 单辅助保双核例外
+      notes:
+      - 可作为体系候选，但不是可直接照抄的完整三人阵容。
+      - 证据片段：1009s-1031s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1KaffYAEmb/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:55:48'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1KaffYAEmb
+    - segment=subtitle-chunk-45-1077-1104
+  entry:
+    id: video-lineup-bv1kaffyaemb-qianpai-zhugeliang-jiangwei-dui
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 前排诸葛亮姜维队
+    aliases:
+    - 诸葛姜维
+    facts:
+    - 视频明确表示“诸葛姜维”不算双核心，因为诸葛亮是半辅助。
+    - 视频明确表示前排诸葛亮需要携带减伤战法和团队治疗。
+    - 视频明确表示前排诸葛亮只适用于四赛季，且依赖黄月英获得较大金书加强。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 证据未给出完整战法名称与最终三人固定配置，不能外推标准模板。
+    - 适用范围被明确限制在四赛季及特定强化条件下。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1KaffYAEmb#1077-1104
+    updated_at: '2026-04-14'
+    confidence: 0.82
+    related_topics:
+    - 诸葛亮
+    - 姜维
+    - 黄月英
+    priority: 70
+    structured_data:
+      name: 前排诸葛亮姜维队
+      aliases:
+      - 诸葛姜维
+      season_tags: []
+      lineup_rating: 特殊情况
+      factions:
+      - 蜀
+      hero_names:
+      - 诸葛亮
+      - 姜维
+      - 黄月英
+      core_skills: []
+      scenario_tags:
+      - 方法论例外
+      - 赛季限定适用
+      notes:
+      - 该候选更适合作为赛季限定体系认知，而非通用阵容。
+      - 证据片段：1077s-1104s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1PCQtBEEJg/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:46:50'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1PCQtBEEJg
+    - segment=subtitle-chunk-8-200-225
+  entry:
+    id: video-lineup-bv1pcqtbeejg-haozhao-simayi-lineup
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 郝昭司马懿体系
+    aliases:
+    - 郝昭司马懿队
+    facts:
+    - 最适合郝昭的体系仍然是司马懿体系。
+    - 郝昭有强度，但更适合已有高红或满红司马懿的账号补充。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 白板或低红司马懿不建议为了郝昭投入。
+    - 郝昭本身较吃红度，白板和满红强度差距明显。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1PCQtBEEJg#200-225
+    updated_at: '2026-04-14'
+    confidence: 0.91
+    related_topics:
+    - 郝昭
+    - 司马懿
+    priority: 70
+    structured_data:
+      name: 郝昭司马懿体系
+      aliases:
+      - 郝昭司马懿队
+      season_tags: []
+      lineup_rating: 可玩/有强度
+      factions:
+      - 魏
+      hero_names:
+      - 郝昭
+      - 司马懿
+      core_skills: []
+      scenario_tags:
+      - 常规对战
+      notes:
+      - 视频中提到郝昭也可能不配司马懿，但主播明确认为最适配的仍是司马懿。
+      - 证据片段：200s-225s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1PCQtBEEJg/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:46:50'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1PCQtBEEJg
+    - segment=subtitle-chunk-5-106-144
+  entry:
+    id: video-lineup-bv1pcqtbeejg-manzi-kaihuang-lineup
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 孟获祝融蛮子开荒队
+    aliases:
+    - 蛮子开荒
+    - 孟获祝融开荒
+    facts:
+    - 孟获和祝融组成的蛮子体系开荒能力非常强。
+    - 视频认为现阶段很难有武将或机制在开荒速度上淘汰蛮子。
+    - 视频提到蛮子开荒的极限表现可到26级开九。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 结论针对开荒场景，不等同于后期常规对战强度。
+    - 视频也提到未来蛮子机制和数值可能被时代淘汰，但当前开荒价值仍高。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1PCQtBEEJg#106-144
+    updated_at: '2026-04-14'
+    confidence: 0.95
+    related_topics:
+    - 孟获
+    - 祝融夫人
+    priority: 70
+    structured_data:
+      name: 孟获祝融蛮子开荒队
+      aliases:
+      - 蛮子开荒
+      - 孟获祝融开荒
+      season_tags: []
+      lineup_rating: 开荒顶级
+      factions: []
+      hero_names:
+      - 孟获
+      - 祝融夫人
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：106s-144s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1PCQtBEEJg/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:46:50'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1PCQtBEEJg
+    - segment=subtitle-chunk-14-372-395
+  entry:
+    id: video-lineup-bv1pcqtbeejg-zhugejin-zhouyu-lineup
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 诸葛瑾周瑜队
+    aliases:
+    - 老周瑜诸葛瑾
+    facts:
+    - 诸葛瑾可以和周瑜组队使用。
+    - 视频提到诸葛瑾对周瑜体系有配套价值，相关环节中畸变无穷是必不可少的。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - SP周瑜未来是否一定与诸葛瑾组队，视频明确表示不确定。
+    - 现有证据只稳定支持诸葛瑾可与老周瑜组队偶尔玩。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1PCQtBEEJg#372-395
+    updated_at: '2026-04-14'
+    confidence: 0.75
+    related_topics:
+    - 诸葛瑾
+    - 周瑜
+    priority: 70
+    structured_data:
+      name: 诸葛瑾周瑜队
+      aliases:
+      - 老周瑜诸葛瑾
+      season_tags: []
+      lineup_rating: 可偶尔使用
+      factions:
+      - 吴
+      hero_names:
+      - 诸葛瑾
+      - 周瑜
+      core_skills:
+      - 畸变无穷
+      scenario_tags:
+      - 常规对战
+      notes:
+      - 主播同时高度评价陆抗与诸葛瑾，但本候选仅保留明确成队信息。
+      - 证据片段：372s-395s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1PCQtBEEJg/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:46:50'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1PCQtBEEJg
+    - segment=subtitle-chunk-16-421-455
+  entry:
+    id: video-lineup-bv1pcqtbeejg-weiyan-zhangfei-liubei-lineup
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 魏延张飞刘备队
+    aliases:
+    - 魏延蜀枪
+    - 魏延刘备张飞
+    facts:
+    - 魏延、张飞、刘备这套常规队伍仍然能玩。
+    - 相较当前赛季，这套队伍后续强度会弱不少。
+    - 若使用普通张飞，队伍在频率与控制之间存在取舍。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 魏延当前仍缺少更强力的队友支持。
+    - 不用加强张飞时，带普通张飞会差点意思。
+    - 视频判断其数值够用，但可能不如本赛季强。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1PCQtBEEJg#421-455
+    updated_at: '2026-04-14'
+    confidence: 0.89
+    related_topics:
+    - 魏延
+    - 张飞
+    - 刘备
+    priority: 70
+    structured_data:
+      name: 魏延张飞刘备队
+      aliases:
+      - 魏延蜀枪
+      - 魏延刘备张飞
+      season_tags: []
+      lineup_rating: 常规强队/较本赛季走弱
+      factions:
+      - 蜀
+      hero_names:
+      - 魏延
+      - 张飞
+      - 刘备
+      core_skills:
+      - 沉木
+      - 折冲御侮
+      scenario_tags:
+      - 常规对战
+      notes:
+      - 后续片段提到可把沉木给张飞、刘备带折冲之类的配置。
+      - 证据片段：421s-455s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1a3rkBgEC6/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:46:55'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1a3rkBgEC6
+    - segment=subtitle-chunk-7-150-179
+  entry:
+    id: video-lineup-bv1a3rkbgec6-s12-day2-zhurong-zhugeliang-menghuo-swap-lineup
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S12 第二天一带二带三置换队
+    aliases:
+    - 第二波一带二带三
+    - 祝融-诸葛亮-孟获置换队
+    facts:
+    - 视频明确展示了第二天通过置换武将来组成一套以祝融、诸葛亮、孟获为核心的出门打地队伍。
+    - 操作顺序包括：将一个36级武将与5级祝融置换、将26级二队武将与诸葛亮置换、将22级三队武将与孟获置换，并补上装备、加点和战法。
+    - 完成置换后，作者表示该队伍可以轻松拿下外城九，并继续打多块九级地。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 该方案依赖高等级武将为5级武将提供等级与体力置换，不适用于没有置换条件的账号。
+    - 适用场景明确是S12第二天开荒中的一带二带三流程，不应直接外推到常规配队强度。
+    - 视频未清楚展示具体战法名称，因此不能确认核心战法配置。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1a3rkBgEC6#150-179
+    updated_at: '2026-04-14'
+    confidence: 0.83
+    related_topics:
+    - 祝融夫人
+    - 诸葛亮
+    - 孟获
+    priority: 70
+    structured_data:
+      name: S12 第二天一带二带三置换队
+      aliases:
+      - 第二波一带二带三
+      - 祝融-诸葛亮-孟获置换队
+      season_tags:
+      - S12
+      lineup_rating: null
+      factions:
+      - 蜀
+      - 群
+      hero_names:
+      - 祝融夫人
+      - 诸葛亮
+      - 孟获
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      - 第二天流程
+      - 一带二
+      - 一带三
+      - 置换练级
+      notes:
+      - 原视频还提到后续第三波一带二带三的置换步骤与第二波相同。
+      - 证据片段：150s-179s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1fCcmzHErn/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:46:50'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1fCcmzHErn
+    - segment=subtitle-chunk-13-179-198
+  entry:
+    id: video-lineup-bv1fccmzhern-s1-zero-spend-kaihuang-caiwenji-replace-xusheng
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S1零氪开荒队中蔡文姬替换徐盛方案
+    aliases:
+    - 蔡文姬开荒替换徐盛
+    facts:
+    - 完成相关任务后可获得蔡文姬。
+    - 蔡文姬被明确描述为非常强力的开荒武将。
+    - 蔡文姬提供全体治疗，效果被明确说优于徐盛的概率抵御。
+    - 获得蔡文姬后，视频中明确建议将徐盛替换为蔡文姬。
+    - 蔡文姬当前排使用时，加点全部点统帅以提高防御和站场能力。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 该方案只明确支持“蔡文姬替换徐盛”这一调整，视频片段未完整给出其余同队武将名单。
+    - 适用场景为S1零氪前期开荒，不能直接外推到其他赛季或后期对战。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1fCcmzHErn#179-198
+    updated_at: '2026-04-14'
+    confidence: 0.84
+    related_topics:
+    - 蔡文姬
+    - 徐盛
+    priority: 70
+    structured_data:
+      name: S1零氪开荒队中蔡文姬替换徐盛方案
+      aliases:
+      - 蔡文姬开荒替换徐盛
+      season_tags:
+      - S1
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 蔡文姬
+      - 徐盛
+      core_skills:
+      - 全体治疗
+      - 概率抵御
+      scenario_tags:
+      - 开荒
+      - 前期
+      - 土地攻打
+      notes:
+      - 这是基于单片段可确认的信息抽取出的高置信候选。
+      - 证据片段：179s-198s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1jw2nBvEdj/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:02:10'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1jw2nBvEdj
+    - segment=metadata-summary-0-400
+  entry:
+    id: video-lineup-bv1jw2nbvedj-s2-s3-kaihuang-erdui-liubei-fazheng-machao
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S2&S3开荒二队刘备法正马超
+    aliases:
+    - 二队刘备法正马超
+    facts:
+    - 视频口播明确提到“二队刘备、法正、马超”的配置。
+    - 该阵容被归入S2&S3开荒内容。
+    - 具体配置细节未在当前证据中展开，视频建议参考游戏内配将台搜索。
+    - 视频证据摘要：B站元数据导入。首帧：http://i1.hdslb.com/bfs/storyff/_00003s3vkch4gamuo1yv60wz6ab1qjb_firsti.jpg
+    constraints:
+    - 当前证据只确认武将组合与用途，未提供战法、兵种、加点或替代位。
+    - 是否适用于所有开荒阶段或所有资源地强度，当前证据未说明。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1jw2nBvEdj#0-400
+    updated_at: '2026-04-14'
+    confidence: 0.79
+    related_topics:
+    - 刘备
+    - 法正
+    - 马超
+    priority: 70
+    structured_data:
+      name: S2&S3开荒二队刘备法正马超
+      aliases:
+      - 二队刘备法正马超
+      season_tags:
+      - S2
+      - S3
+      lineup_rating: null
+      factions:
+      - 蜀
+      hero_names:
+      - 刘备
+      - 法正
+      - 马超
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      - 二队
+      notes:
+      - 来源为视频元数据摘要型转录，信息较简略。
+      - 证据片段：0s-400s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1kQXmBqEb9/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:46:47'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1kQXmBqEb9
+    - segment=subtitle-chunk-17-438-464
+  entry:
+    id: video-lineup-bv1kqxmbqeb9-zhongyi-gong
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S1 忠义弓
+    aliases:
+    - 忠义工
+    - 中立功
+    facts:
+    - 忠义弓可以在35级转出后，从开荒一路用到远征和打架。
+    - 视频明确提到忠义弓由刘备、张飞、黄忠组成。
+    - 白板忠义弓在35级后可作为一队长期使用。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 需要在35级时完成转型。
+    - 对兵书有要求，至少张飞和黄忠需要洗出对应兵书。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1kQXmBqEb9#438-464
+    updated_at: '2026-04-14'
+    confidence: 0.96
+    related_topics:
+    - 刘备
+    - 张飞
+    - 黄忠
+    priority: 70
+    structured_data:
+      name: S1 忠义弓
+      aliases:
+      - 忠义工
+      - 中立功
+      season_tags:
+      - S1
+      lineup_rating: T0
+      factions:
+      - 蜀
+      hero_names:
+      - 刘备
+      - 张飞
+      - 黄忠
+      core_skills:
+      - 兵书
+      - 仁义论
+      scenario_tags:
+      - 开荒
+      - 远征
+      - 打架
+      - 35级转型
+      notes:
+      - 主播将其定义为一赛季最均衡的核心队伍之一。
+      - 证据片段：438s-464s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1kQXmBqEb9/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:46:47'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1kQXmBqEb9
+    - segment=subtitle-chunk-8-217-252
+  entry:
+    id: video-lineup-bv1kqxmbqeb9-da-huang-zhu
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S1 大黄猪
+    aliases:
+    - 大黄酥
+    facts:
+    - 视频将大黄猪降级到T0.3减。
+    - 大黄猪仍被描述为首发时非常强的阵容。
+    - 大黄猪的优势是虐菜和清杂能力强。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 面对大量孙尚香环境时表现下滑。
+    - 雁行阵版本不好打孙尚香；改己形阵会降低内战和其他对局胜率。
+    - 调整为大乔带横征、替换部分配置后，整体强度仍会下降。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1kQXmBqEb9#217-252
+    updated_at: '2026-04-14'
+    confidence: 0.91
+    related_topics:
+    - 诸葛亮
+    - 大乔
+    - 黄盖
+    priority: 70
+    structured_data:
+      name: S1 大黄猪
+      aliases:
+      - 大黄酥
+      season_tags:
+      - S1
+      lineup_rating: T0.3-
+      factions:
+      - 吴
+      - 蜀
+      hero_names:
+      - 诸葛亮
+      - 大乔
+      - 黄盖
+      core_skills:
+      - 雁行阵
+      - 横征暴敛
+      - 铸甲销戈
+      scenario_tags:
+      - 首发
+      - 打架
+      - 清杂
+      - 虐菜
+      notes:
+      - 后文明确提到该队包含诸葛亮、黄盖、大乔。
+      - 证据片段：217s-252s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1kQXmBqEb9/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:46:47'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1kQXmBqEb9
+    - segment=subtitle-chunk-13-332-355
+  entry:
+    id: video-lineup-bv1kqxmbqeb9-diao-zhen-xiang
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S1 貂真香
+    aliases:
+    - 刁真香
+    - 真香体系
+    facts:
+    - 视频明确说明只要有甄姬和孙尚香，真香体系就是好阵容。
+    - 貂真香被主播称为最推荐的真香变体。
+    - 貂真香的特点是爆发高，依靠伤害解决战斗。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 若缺少部分核心战法，需要按视频所述进行降配替换。
+    - 孙尚香需要速度和先攻配置，否则追击内战容易后手。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1kQXmBqEb9#332-355
+    updated_at: '2026-04-14'
+    confidence: 0.95
+    related_topics:
+    - 貂蝉
+    - 甄洛
+    - 孙尚香
+    priority: 70
+    structured_data:
+      name: S1 貂真香
+      aliases:
+      - 刁真香
+      - 真香体系
+      season_tags:
+      - S1
+      lineup_rating: T0
+      factions:
+      - 群
+      - 吴
+      hero_names:
+      - 貂蝉
+      - 甄洛
+      - 孙尚香
+      core_skills:
+      - 雁行阵
+      - 骁勇之姿
+      - 锐不可当
+      - 战八方
+      scenario_tags:
+      - 打架
+      - 高爆发
+      - 平民可降配
+      notes:
+      - 视频还提到一赛季会送貂蝉，降低了组队门槛。
+      - 证据片段：332s-355s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1kQXmBqEb9/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:46:47'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1kQXmBqEb9
+    - segment=subtitle-chunk-15-383-410
+  entry:
+    id: video-lineup-bv1kqxmbqeb9-xiao-zhen-xiang
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S1 小真香
+    aliases:
+    - 小真相
+    facts:
+    - 小真香本质上是把貂真香里的貂蝉替换为小乔。
+    - 视频称小真香也是很好的阵容。
+    - 小乔版本相较貂蝉版本更偏强控制。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 小乔的虚弱和料事如神都被明确指出存在演戏问题，稳定性弱于貂真香。
+    - 不想承担高爆发路线时才更适合改用小乔版本。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1kQXmBqEb9#383-410
+    updated_at: '2026-04-14'
+    confidence: 0.9
+    related_topics:
+    - 小乔
+    - 甄洛
+    - 孙尚香
+    priority: 70
+    structured_data:
+      name: S1 小真香
+      aliases:
+      - 小真相
+      season_tags:
+      - S1
+      lineup_rating: T0
+      factions:
+      - 吴
+      hero_names:
+      - 小乔
+      - 甄洛
+      - 孙尚香
+      core_skills:
+      - 无难之志
+      - 战八方
+      scenario_tags:
+      - 打架
+      - 控制
+      notes:
+      - 视频同时指出小乔有机动离心，因此部分技能触发更稳定。
+      - 证据片段：383s-410s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1kQXmBqEb9/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:46:47'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1kQXmBqEb9
+    - segment=subtitle-chunk-31-786-817
+  entry:
+    id: video-lineup-bv1kqxmbqeb9-ding-mo-gong
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S1 顶魔弓
+    aliases:
+    - 顶魔攻
+    - 顶魔功
+    facts:
+    - 视频将顶魔弓评价为T0.3，并称其是最均衡的打架队之一。
+    - 视频明确点出该队核心武将为郭嘉、荀彧、曹操。
+    - 顶魔弓不适合作为标准开荒队，打地容易高损或翻车。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 开荒不稳，土地守军肉度高时不适合使用。
+    - 郭嘉必须保持队内智力第一；荀彧加点要兼顾智力与半速，不能乱加。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1kQXmBqEb9#786-817
+    updated_at: '2026-04-14'
+    confidence: 0.94
+    related_topics:
+    - 郭嘉
+    - 荀彧
+    - 曹操
+    priority: 70
+    structured_data:
+      name: S1 顶魔弓
+      aliases:
+      - 顶魔攻
+      - 顶魔功
+      season_tags:
+      - S1
+      lineup_rating: T0.3
+      factions:
+      - 魏
+      hero_names:
+      - 郭嘉
+      - 荀彧
+      - 曹操
+      core_skills:
+      - 文武双全
+      - 青囊急救
+      scenario_tags:
+      - 打架
+      - 均衡
+      - 法师队
+      notes:
+      - 视频称其对兵刃队有很强的秒杀能力，并依赖荀彧奶量与全队高智属性。
+      - 证据片段：786s-817s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1kQXmBqEb9/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:46:47'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1kQXmBqEb9
+    - segment=subtitle-chunk-46-1170-1196
+  entry:
+    id: video-lineup-bv1kqxmbqeb9-diao-liang-dun
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S1 雕梁盾
+    aliases:
+    - 刁兰盾
+    facts:
+    - 视频将雕梁盾评价为T0.5，并称其是非常坚实的存在。
+    - 视频明确说明该队由貂蝉、蔡文姬、张梁组成。
+    - 雕梁盾的核心特点是均衡，依靠抵御、回血和拖回合取胜。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 该队秒人能力不足。
+    - 张梁怕控，且主动战法存在演戏风险。
+    - 回合拖长会导致兵损和战功性价比下降。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1kQXmBqEb9#1170-1196
+    updated_at: '2026-04-14'
+    confidence: 0.93
+    related_topics:
+    - 貂蝉
+    - 蔡文姬
+    - 张梁
+    priority: 70
+    structured_data:
+      name: S1 雕梁盾
+      aliases:
+      - 刁兰盾
+      season_tags:
+      - S1
+      lineup_rating: T0.5
+      factions:
+      - 群
+      hero_names:
+      - 貂蝉
+      - 蔡文姬
+      - 张梁
+      core_skills:
+      - 百战不殆
+      - 兵令
+      - 一骑绝尘
+      scenario_tags:
+      - 打架
+      - 均衡
+      - 肉队
+      notes:
+      - 视频补充蔡文姬不能全速或全智，推荐约30速以卡破抵御节奏。
+      - 证据片段：1170s-1196s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1kQXmBqEb9/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:46:47'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1kQXmBqEb9
+    - segment=subtitle-chunk-62-1595-1626
+  entry:
+    id: video-lineup-bv1kqxmbqeb9-tong-que-gong
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S1 铜雀弓
+    aliases:
+    - 铜雀宫
+    - 同学宫
+    facts:
+    - 视频明确说明铜雀弓由大乔、小乔、周瑜组成。
+    - 铜雀弓的问题之一是输出速度慢。
+    - 该队主要依靠大乔持续治疗后排。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 小乔一旦演戏，后排保护会明显不足。
+    - 面对忠义弓、顶魔弓和真香体系都被明确指出不好打或不占优。
+    - 队伍平血线能力差，残兵再战容易被迅速击杀。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1kQXmBqEb9#1595-1626
+    updated_at: '2026-04-14'
+    confidence: 0.89
+    related_topics:
+    - 大乔
+    - 小乔
+    - 周瑜
+    priority: 70
+    structured_data:
+      name: S1 铜雀弓
+      aliases:
+      - 铜雀宫
+      - 同学宫
+      season_tags:
+      - S1
+      lineup_rating: 未明确分级
+      factions:
+      - 吴
+      hero_names:
+      - 大乔
+      - 小乔
+      - 周瑜
+      core_skills:
+      - 料事如神
+      scenario_tags:
+      - 开荒
+      - 打架
+      notes:
+      - 前文提到铜雀弓属于少数可从开荒用到打架的队伍之一。
+      - 证据片段：1595s-1626s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1kQXmBqEb9/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:46:47'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1kQXmBqEb9
+    - segment=subtitle-chunk-90-2292-2321
+  entry:
+    id: video-lineup-bv1kqxmbqeb9-sun-xiao-yu
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S1 孙小鱼
+    aliases: []
+    facts:
+    - 视频将孙小鱼列入T0.8梯队。
+    - 孙小鱼被描述为铜雀弓的变种，把大乔换成了孙权。
+    - 该队可以从开荒用到打架。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 续航下降，输出速度也下降。
+    - 如果控不住人，三人缺少减伤，容易直接崩盘。
+    - 稳定性不足，强度较看发挥。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1kQXmBqEb9#2292-2321
+    updated_at: '2026-04-14'
+    confidence: 0.9
+    related_topics:
+    - 孙权
+    - 小乔
+    - 周瑜
+    priority: 70
+    structured_data:
+      name: S1 孙小鱼
+      aliases: []
+      season_tags:
+      - S1
+      lineup_rating: T0.8
+      factions:
+      - 吴
+      hero_names:
+      - 孙权
+      - 小乔
+      - 周瑜
+      core_skills:
+      - 奇门遁甲
+      - 青囊急救
+      scenario_tags:
+      - 开荒
+      - 打架
+      - 控制
+      notes:
+      - 视频建议奇门遁甲可替换为青囊急救。
+      - 证据片段：2292s-2321s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1uXk5BaEyX/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:49:14'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1uXk5BaEyX
+    - segment=subtitle-chunk-26-614-638
+  entry:
+    id: video-lineup-bv1uxk5baeyx-sun-da-sheng-kaihuang
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 主流开荒队“孙大圣”
+    aliases:
+    - 孙大圣
+    - 徐盛孙策大乔开荒队
+    facts:
+    - 视频明确推荐徐盛、孙策、大乔组成“孙大圣”，称其为主流开荒队伍。
+    - 徐盛在队内承担前排抗伤职责。
+    - 孙策在队内承担输出，并附带一定恢复能力。
+    - 大乔在队内提供伤害与恢复，补足队伍续航。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 大乔被描述为首充/首次充值可获得，因此该队伍完整成型依赖获取大乔。
+    - 视频将其定位为开荒队，未提供更广泛赛季对战强度的充分证据。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1uXk5BaEyX#614-638
+    updated_at: '2026-04-14'
+    confidence: 0.97
+    related_topics:
+    - 徐盛
+    - 孙策
+    - 大乔
+    priority: 70
+    structured_data:
+      name: 主流开荒队“孙大圣”
+      aliases:
+      - 孙大圣
+      - 徐盛孙策大乔开荒队
+      season_tags: []
+      lineup_rating: 主流开荒
+      factions:
+      - 吴
+      hero_names:
+      - 徐盛
+      - 孙策
+      - 大乔
+      core_skills:
+      - 制霸江东
+      - 国色
+      scenario_tags:
+      - 开荒
+      - 前期开地
+      notes:
+      - 讲解中还提到徐盛首日赠送、孙策次日赠送。
+      - 证据片段：614s-638s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1uXk5BaEyX/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:49:14'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1uXk5BaEyX
+    - segment=subtitle-chunk-41-955-975
+  entry:
+    id: video-lineup-bv1uxk5baeyx-taoyuan-kaihuang
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 桃园开荒队
+    aliases:
+    - 桃园
+    - 刘备关羽张飞
+    - 桃园结义
+    facts:
+    - 视频明确说拿到张飞后可以搭配桃园队，阵容为刘备、关羽、张飞。
+    - 视频明确表示桃园在S1及后续赛季开荒都属于非常主流的队伍。
+    - 视频明确表示桃园三兄弟不仅能开荒，还能打架。
+    - 刘备自带战法被描述为开局提升全军统帅，偏向提升队伍防御。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 该候选建立在已拥有刘备、关羽、张飞的前提下。
+    - 视频未完整展开关羽的战法与详细配法，因此这里只保留队伍级结论。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1uXk5BaEyX#955-975
+    updated_at: '2026-04-14'
+    confidence: 0.95
+    related_topics:
+    - 刘备
+    - 关羽
+    - 张飞
+    priority: 70
+    structured_data:
+      name: 桃园开荒队
+      aliases:
+      - 桃园
+      - 刘备关羽张飞
+      - 桃园结义
+      season_tags:
+      - S1
+      lineup_rating: 非常主流
+      factions:
+      - 蜀
+      hero_names:
+      - 刘备
+      - 关羽
+      - 张飞
+      core_skills:
+      - 贤明渡江
+      - 威名显赫
+      scenario_tags:
+      - 开荒
+      - 前期打架
+      notes:
+      - 视频中提到累计充值68元可送张飞及战法“威名显赫”。
+      - 证据片段：955s-975s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1uXk5BaEyX/
+    source_site: bilibili
+    source_captured_at: '2026-04-14T09:49:14'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1uXk5BaEyX
+    - segment=subtitle-chunk-53-1257-1280
+  entry:
+    id: video-lineup-bv1uxk5baeyx-tongquegong-shuchu
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S1 输出队“铜雀宫”
+    aliases:
+    - 铜雀宫
+    - 大乔小乔周瑜
+    facts:
+    - 视频明确说大乔、小乔、周瑜统称“铜雀宫”，是一个输出队伍。
+    - 视频给出该队伍的核心配法：大乔推荐带横征、断敌；小乔推荐带奇门，并可配清风或束手；周瑜推荐带王佐、谈笑。
+    - 视频说明该队伍里大乔偏前排抗伤并恢复队友兵力，小乔偏辅助，周瑜偏输出。
+    - 视频说明大乔加点推荐智力与统帅各一半，周瑜主加智力。
+    - 视频特别强调小乔是该队伍关键点，并建议小乔补2点武力以降低被锁定武力最低目标的风险。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 视频明确提到演示账号是S2赛季，部分战法S1未必都有。
+    - 若缺少横征、断敌、王佐等战法，需用视频中提到的替代方案或无法完全复现。
+    - 视频强调该队伍较依赖保护小乔；若小乔被针对，输出能力会明显受影响。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1uXk5BaEyX#1257-1280
+    updated_at: '2026-04-14'
+    confidence: 0.93
+    related_topics:
+    - 大乔
+    - 小乔
+    - 周瑜
+    priority: 70
+    structured_data:
+      name: S1 输出队“铜雀宫”
+      aliases:
+      - 铜雀宫
+      - 大乔小乔周瑜
+      season_tags:
+      - S1
+      lineup_rating: 输出OK
+      factions:
+      - 吴
+      hero_names:
+      - 大乔
+      - 小乔
+      - 周瑜
+      core_skills:
+      - 横征暴敛
+      - 断敌粮道
+      - 奇门遁甲
+      - 清风驱疾
+      - 束手无策
+      - 王佐之才
+      - 谈笑诛心
+      scenario_tags:
+      - 输出队
+      - 打架
+      notes:
+      - 视频中将该队用于说明配将思路，强调其为S1的一类输出阵容。
+      - 证据片段：1257s-1280s
