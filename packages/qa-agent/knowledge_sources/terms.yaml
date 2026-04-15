@@ -111,3 +111,31 @@
   - 3兵讨贼
   priority: 78
   structured_data: null
+- id: term-season-code-vs-wcode
+  domain: term
+  entry_kind: generic_rule
+  topic: S 码与 W 码的区别
+  aliases:
+  - S 码
+  - W 码
+  - 赛季编号
+  - 剧本编号
+  - S代码
+  - W代码
+  facts:
+  - S 码（S1/S2/.../S14）是游戏的"赛季周期"递增编号，表示第几轮赛季（约一个半月一轮）。
+  - W 码（W2/W4/W6/W7/W11 等）是"剧本"编号，一个 W 剧本可能在多个 S 赛季重复开放（典型的如"业铸山河""兴汉讨逆"）。
+  - 问鼎赛季后引入"自选剧本"机制，同一 S 赛季内不同服务器可选择不同 W 剧本。
+  - 服务器号里的前缀（S3-434 服、W10-0020 服）是服务器批次号/剧本服务器分组，不是赛季号本身，需看上下文区分。
+  constraints:
+  - 服务器号前缀与赛季/剧本编号容易混淆，需看上下文。
+  source_type: manual_rule
+  source_ref: community_synthesis:2026-04-16
+  updated_at: '2026-04-16'
+  confidence: 0.85
+  related_topics:
+  - 赛季
+  - 剧本
+  - 问鼎赛季
+  priority: 78
+  structured_data: null
