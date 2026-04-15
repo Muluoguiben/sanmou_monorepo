@@ -747,3 +747,29 @@
   - 武将稀有度
   priority: 80
   structured_data: null
+- id: kdocs-equip-glyph-recommend
+  domain: hero
+  entry_kind: generic_rule
+  topic: 装备/马匹词条推荐（S14 开荒 vs 打架）
+  aliases:
+  - 装备词条推荐
+  - 词条推荐
+  - 马匹词条推荐
+  facts:
+  - 属性分配推荐：三智统 + 一武先（三件智统装 + 一件武力/先攻装）。
+  - 开荒词条推荐（优先级）：完璧（优先给神诸葛）> 先御 > 磐石（优先给孟获）、神威（优先给祝融夫人）、打磨、守拙、镇定、破虏（远征不生效）、灵光、夺志。
+  - 开荒马匹推荐：万象、君临、照影、疾驰、神速。
+  - 打架词条推荐：无畏、神威、断虹、铁壁、克己、守心、意志（S13 推荐）、神射。
+  - 打架马匹词条推荐：游龙、穿云、聪慧、灵心、碎岩、锐目、疾驰、神速、惊弦（S13 推荐）。
+  constraints:
+  - 开荒/打架词条需区分使用；远征场景"破虏"不生效。
+  source_type: manual_rule
+  source_ref: KDOCS:xiaozai-kaihuang-2026-04-14#detail-6
+  updated_at: '2026-04-16'
+  confidence: 0.9
+  related_topics:
+  - 装备
+  - 词条
+  - 马匹
+  priority: 78
+  structured_data: null

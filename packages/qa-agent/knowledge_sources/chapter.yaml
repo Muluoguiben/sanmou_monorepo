@@ -127,3 +127,23 @@
   - 职业系统
   priority: 85
   structured_data: null
+- id: kdocs-chapter10-upgrade-order
+  domain: chapter
+  entry_kind: generic_rule
+  topic: 第十章建筑过章顺序
+  aliases:
+  - 第十章过章顺序
+  - 第10章过章顺序
+  facts:
+  - 第十章过章建议升级顺序为：五级兵营 → 木/铁/石/粮资源 → 征兵所 → 民居 → 磨坊。
+  constraints:
+  - 顺序以快速通关第十章任务为目标，实际可按当前资源调整。
+  source_type: manual_rule
+  source_ref: KDOCS:xiaozai-kaihuang-2026-04-14#detail-5
+  updated_at: '2026-04-16'
+  confidence: 0.88
+  related_topics:
+  - 过章
+  - 建筑升级
+  priority: 74
+  structured_data: null

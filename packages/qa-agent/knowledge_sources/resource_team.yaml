@@ -483,3 +483,238 @@
   - 新手保护
   priority: 78
   structured_data: null
+- id: kdocs-tip-erdaiyi
+  domain: team
+  entry_kind: generic_rule
+  topic: 开荒技巧 二带一
+  aliases:
+  - 二带一
+  - 二带一开荒
+  facts:
+  - 二带一：先练一队高等级角色，用其中两人+即将要用到的主力角色，以 12/12/5 的等级直接打五级地。
+  - 主力队打的首块地就是五级地，比正常开节省 30 体力 + 获得更多经验。
+  constraints:
+  - 适用于开荒前期，新手期体力置换规则下。
+  source_type: manual_rule
+  source_ref: KDOCS:xiaozai-kaihuang-2026-04-14#technique-1
+  updated_at: '2026-04-16'
+  confidence: 0.9
+  related_topics:
+  - 开荒
+  - 体力
+  priority: 78
+  structured_data: null
+- id: kdocs-tip-diangao-daozhuan
+  domain: team
+  entry_kind: generic_rule
+  topic: 开荒技巧 电表倒转
+  aliases:
+  - 电表倒转
+  - 电表倒转置换
+  facts:
+  - 电表倒转：利用新手期置换规则，使等级更低、体力更少的一队，与体力更多、等级更高的一队置换，让角色从低体力继承为高体力。
+  - 示例：20级20体力祝融直接与30级30体力张宁置换，置换后祝融会变成30级30体力。
+  - 高换低需先让一队与 5 级角色置换，再与二队置换。例如祝融 37 级 20 体力先和 5 级角色置换，再和 20 级 100 体力的二队置换，祝融即可变成
+    20 级 100 体力。
+  constraints:
+  - 必须在新手期（周一上午十点前）完成，之后无法体力置换。
+  source_type: manual_rule
+  source_ref: KDOCS:xiaozai-kaihuang-2026-04-14#technique-2
+  updated_at: '2026-04-16'
+  confidence: 0.92
+  related_topics:
+  - 体力置换
+  - 新手期
+  priority: 82
+  structured_data: null
+- id: kdocs-tip-123-kaihuang
+  domain: team
+  entry_kind: generic_rule
+  topic: 开荒技巧 123开荒
+  aliases:
+  - 123开荒
+  - 一二三开荒
+  facts:
+  - 123 开荒：让当前等级最高的角色分别带二队与三队角色，开原本只有一队能打的高级地。
+  - 二队、三队需提前练级；参考等级门槛 1 队 35、二队 28、三队 24。
+  constraints:
+  - 需提前分配练级资源给二、三队。
+  source_type: manual_rule
+  source_ref: KDOCS:xiaozai-kaihuang-2026-04-14#technique-3
+  updated_at: '2026-04-16'
+  confidence: 0.9
+  related_topics:
+  - 开荒
+  - 多队协作
+  priority: 76
+  structured_data: null
+- id: kdocs-tip-3bing-taozei
+  domain: team
+  entry_kind: generic_rule
+  topic: 开荒技巧 3兵讨贼
+  aliases:
+  - 3兵讨贼
+  - 三兵讨贼
+  facts:
+  - 3 兵讨贼：让二队/三队不带兵 5 级蹭盟友讨贼车队，利用讨贼经验 + 军演经验，使二队、三队飞升十级，然后直接打五级地。
+  - 需在保证可以赢的前提下执行，并与队长提前沟通。
+  constraints:
+  - 需与讨贼主力达成沟通。
+  source_type: manual_rule
+  source_ref: KDOCS:xiaozai-kaihuang-2026-04-14#technique-4
+  updated_at: '2026-04-16'
+  confidence: 0.88
+  related_topics:
+  - 讨贼
+  - 军演
+  priority: 72
+  structured_data: null
+- id: kdocs-tip-wubingying-kai8
+  domain: team
+  entry_kind: generic_rule
+  topic: 开荒技巧 无兵营开八
+  aliases:
+  - 无兵营开八
+  - 无兵营开八级地
+  facts:
+  - 无兵营开八：刻意将任务卡在第七章不屯田或只屯田一次，让一队使用左田宁或貂蛮，在无兵营的前提下直接开内城八级地。
+  - 红度或运气任一符合即可成功；内城最多多屯 5 次八级地，首日多约 5 万资源。
+  constraints:
+  - 仅限内城八级地，且需严格卡第七章任务节奏。
+  source_type: manual_rule
+  source_ref: KDOCS:xiaozai-kaihuang-2026-04-14#technique-5
+  updated_at: '2026-04-16'
+  confidence: 0.88
+  related_topics:
+  - 内城
+  - 第七章
+  - 资源
+  priority: 78
+  structured_data: null
+- id: kdocs-tip-kong-bingsun
+  domain: team
+  entry_kind: generic_rule
+  topic: 开荒技巧 控兵损
+  aliases:
+  - 控兵损
+  - 兵损控制
+  facts:
+  - 控兵损：打任何等级的土地都需时刻关注自己的兵损。
+  - 兵损建议阈值：满红不超过 500-1000；中低红不超过 2000。
+  - 后期兵损比远比越级给的经验重要。
+  constraints:
+  - 适用于全赛季开荒及打地，非仅新手期。
+  source_type: manual_rule
+  source_ref: KDOCS:xiaozai-kaihuang-2026-04-14#technique-6
+  updated_at: '2026-04-16'
+  confidence: 0.9
+  related_topics:
+  - 兵损
+  - 开荒
+  priority: 80
+  structured_data: null
+- id: kdocs-resource-exchange-warning
+  domain: resource
+  entry_kind: generic_rule
+  topic: 少用资源置换
+  aliases:
+  - 资源置换不划算
+  facts:
+  - 资源置换一般都是亏的；即便提前一小时解锁五块九级地，额外获得的资源也只有约 15500/h。
+  constraints:
+  - 建议仅在关键卡点使用资源置换。
+  source_type: manual_rule
+  source_ref: KDOCS:xiaozai-kaihuang-2026-04-14#detail-12
+  updated_at: '2026-04-16'
+  confidence: 0.88
+  related_topics:
+  - 资源置换
+  priority: 70
+  structured_data: null
+- id: kdocs-stamina-exchange-deadline
+  domain: team
+  entry_kind: generic_rule
+  topic: 新手期结束后无法体力置换
+  aliases:
+  - 体力置换截止时间
+  - 新手期置换窗口
+  facts:
+  - 新手期结束后无法再体力置换，因此周一上午十点前必须把一队、二队甚至三队都配好。
+  constraints:
+  - 周一上午十点是新手期硬截止。
+  source_type: manual_rule
+  source_ref: KDOCS:xiaozai-kaihuang-2026-04-14#detail-13
+  updated_at: '2026-04-16'
+  confidence: 0.92
+  related_topics:
+  - 新手期
+  - 体力置换
+  priority: 82
+  structured_data: null
+- id: kdocs-stamina-exp-jitui-trick
+  domain: team
+  entry_kind: generic_rule
+  topic: 160体力无损吃鸡腿技巧
+  aliases:
+  - 鸡腿无损吃
+  - 体力经验半卡
+  facts:
+  - 攻击野地一瞬间，体力会正常消耗 20 点，但经验只增加一半；可用此方法在 160 点体力即将升 31 级时无损吃一个鸡腿。
+  constraints:
+  - 仅适用于 31 级升级节点附近，体力为 160 的临界场景。
+  source_type: manual_rule
+  source_ref: KDOCS:xiaozai-kaihuang-2026-04-14#detail-16
+  updated_at: '2026-04-16'
+  confidence: 0.85
+  related_topics:
+  - 鸡腿
+  - 体力
+  - 升级
+  priority: 72
+  structured_data: null
+- id: kdocs-expedition-tech-chapter12
+  domain: resource
+  entry_kind: generic_rule
+  topic: 远征十二章资源建筑节奏
+  aliases:
+  - 远征12章科技
+  - 远征建筑投入
+  facts:
+  - 远征 12 章，最多可以提前点 3 级资源地科技；十一章时可点 2 级，具体看开荒情况。
+  - 15-20 兵营共需 513w 资源；四项资源建筑 1-10 级共需 105w（已扣除奖励资源）。
+  constraints:
+  - 数字是"小仔哥 S14 合集"估算，随版本会有微调。
+  source_type: manual_rule
+  source_ref: KDOCS:xiaozai-kaihuang-2026-04-14#detail-17
+  updated_at: '2026-04-16'
+  confidence: 0.85
+  related_topics:
+  - 远征
+  - 兵营
+  - 资源地
+  priority: 74
+  structured_data: null
+- id: kdocs-profession-recommend
+  domain: team
+  entry_kind: generic_rule
+  topic: 开荒前三推荐职业与冲榜职业
+  aliases:
+  - 开荒职业推荐
+  - 冲榜职业推荐
+  facts:
+  - 开荒前三推荐职业：司仓、神行、青囊。
+  - 最适合冲榜拿金币的职业：镇军、奇佐。
+  - 转职节点非常靠后；青囊的救治现在无法在打地时生效，但可把青囊送的救治药卖掉换 2000 功勋。
+  - 司仓天赋落地先点"扩容"+"缴纳"+"保境"，开完军垦后重置再点满其他。
+  constraints:
+  - 青囊救治打地无效为当前版本结论，后续版本可能变化。
+  source_type: manual_rule
+  source_ref: KDOCS:xiaozai-kaihuang-2026-04-14#detail-8-14
+  updated_at: '2026-04-16'
+  confidence: 0.88
+  related_topics:
+  - 职业
+  - 司仓
+  - 青囊
+  priority: 76
+  structured_data: null
