@@ -16,6 +16,8 @@
 - [ ] 征兵所数值：每小时征兵数、预备兵上限随建筑等级变化表
 - [ ] 赛季剧本列表：13 个赛季的具体名称与编号
 - [ ] 救治药/行军丹等道具的产出细节（青囊一阶/二阶产出数量）
+- [ ] 词条缺口确认：小仔哥合集提到的「完璧」（优先给神诸葛）与「磐石」（优先给孟获）在 sgmdtx.com/texiao 未列出，待 Lan 确认是新词条还是别名
+- [ ] 坐骑特技效果数值：掠水/渡火/嘶风/救主/奔袭/疾驰/穿云/游龙/万象/君临 10 个特技 sgmdtx 仅列名，效果数值待补（可能需游戏内截图或其他数据源）
 - [ ] Perception 层续接：已实现 `resource_bar` + `city_buildings`，待补 `hero_list` / `battle_result` / `chapter_panel`；打通 `sync_service` 把 fragment 合并进 RuntimeState
 - [ ] 点击类 action 的实拍标定：claim_chapter / upgrade_building / attack_land / recruit_soldiers / transfer_main_lineup / abandon_land 当前返回 `pending`，需用真实对应页面截图走 `ui_calibrate` + `find_elements` 打通确认对话框序列
 - [ ] Scoring 配置补全：`config/scoring.yaml` 只有 `opening_sprint` 阶段权重，需补齐其余阶段
