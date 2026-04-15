@@ -1,16 +1,111 @@
 - id: lineup-s13-overview
   domain: solution
   topic: 阵容方案
-  aliases: [配队方案, 阵容搭配, 搭配方案]
+  aliases:
+  - 配队方案
+  - 阵容搭配
+  - 搭配方案
   facts:
-    - 阵容方案用于表达带有赛季和场景上下文的推荐组合，不等同于静态武将资料。
-    - 录入阵容方案时，应优先固定赛季、阵容评级、核心武将、核心战法和适用场景。
+  - 阵容方案用于表达带有赛季和场景上下文的推荐组合，不等同于静态武将资料。
+  - 录入阵容方案时，应优先固定赛季、阵容评级、核心武将、核心战法和适用场景。
   constraints:
-    - 阵容评级和优先级具有版本敏感性，需明确赛季或环境标签。
+  - 阵容评级和优先级具有版本敏感性，需明确赛季或环境标签。
   source_type: manual_rule
   source_ref: KB-RULE-LINEUP-001
   updated_at: 2026-03-29
   confidence: 0.94
-  related_topics: [阵容方案注册表, 武将基础资料, 战法基础资料]
+  related_topics:
+  - 阵容方案注册表
+  - 武将基础资料
+  - 战法基础资料
   priority: 86
-
+- id: video-lineup-bv18hc6z7epp-s13-menghuo-zhurong-zhujun-kaigang
+  domain: solution
+  entry_kind: lineup_solution
+  topic: S13 孟获祝融朱儁开荒队
+  aliases:
+  - 孟获祝融朱儁
+  - 蛮子开荒
+  facts:
+  - 视频开头明确推荐使用孟获、祝融、朱儁上阵开荒。
+  - 该队被用于前期出城后占领三地。
+  - 视频证据摘要：B站 AI 中文字幕切片。
+  constraints:
+  - 证据只支持其用于S13开荒前期流程，不足以证明适合中后期。
+  - 具体战法仅提到“推荐加点即可”，未给出可稳定识别的战法名称。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV18hc6z7Epp#0-27
+  updated_at: '2026-04-14'
+  confidence: 0.91
+  related_topics:
+  - 孟获
+  - 祝融夫人
+  - 朱儁
+  priority: 70
+  structured_data:
+    name: S13 孟获祝融朱儁开荒队
+    aliases:
+    - 孟获祝融朱儁
+    - 蛮子开荒
+    season_tags:
+    - S13
+    lineup_rating: 满红高品开荒
+    factions: []
+    hero_names:
+    - 孟获
+    - 祝融夫人
+    - 朱儁
+    core_skills: []
+    scenario_tags:
+    - 开荒
+    - 前期开地
+    - 内城清理
+    notes:
+    - 同视频后续多次再次提到孟获祝融朱儁上阵清理内城。
+    - 证据片段：0s-27s
+- id: video-lineup-bv18hc6z7epp-s13-diaochan-zhangning-tianfeng-kaigang
+  domain: solution
+  entry_kind: lineup_solution
+  topic: S13 貂蝉张宁田丰开荒过渡队
+  aliases:
+  - 貂蝉张宁田丰
+  - 张宁过渡队
+  facts:
+  - 20级时，视频明确提到与张宁进行置换。
+  - 同段提到田丰全先攻，说明田丰属于该阶段上阵武将。
+  - 后续紧接着说明要检查张宁是否为队内统帅最高。
+  - 视频证据摘要：B站 AI 中文字幕切片。
+  constraints:
+  - 该候选主要适用于20级左右的开荒过渡阶段。
+  - 转队前后存在置换操作，说明不是全程固定阵容。
+  - 战法内容只有“如上”提示，缺少可直接验证的具体技能名。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV18hc6z7Epp#141-168
+  updated_at: '2026-04-14'
+  confidence: 0.79
+  related_topics:
+  - 貂蝉
+  - 张宁
+  - 田丰
+  priority: 70
+  structured_data:
+    name: S13 貂蝉张宁田丰开荒过渡队
+    aliases:
+    - 貂蝉张宁田丰
+    - 张宁过渡队
+    season_tags:
+    - S13
+    lineup_rating: 满红高品开荒
+    factions: []
+    hero_names:
+    - 貂蝉
+    - 张宁
+    - 田丰
+    core_skills: []
+    scenario_tags:
+    - 开荒
+    - 20级过渡
+    - 内城攻打
+    notes:
+    - 上一段还提到貂蝉全智力，能与该过渡队形成连续证据。
+    - 证据片段：141s-168s

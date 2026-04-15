@@ -1,0 +1,340 @@
+- id: video-lineup-bv16j4m1g7ks-early-land-reclaim-xusheng-wenchou-sunjian
+  domain: solution
+  entry_kind: lineup_solution
+  topic: 新手开荒过渡队：徐盛+文丑+孙坚
+  aliases:
+  - 前期开荒队
+  - 徐盛文丑孙坚开荒
+  facts:
+  - 徐盛学习“避其锐气”作为前排防御技能。
+  - 队伍中输出最高的武将学习输出技能，示例中以文丑作为主力输出。
+  - 中间位武将学习“永隔长久”，用于治疗并提升统帅。
+  - 该队思路是前排抗伤、主力输出、一个携带治疗辅助技能的过渡配置。
+  - 视频证据摘要：B站 AI 中文字幕切片。
+  constraints:
+  - 适用于前期10级后解锁战法栏的开荒阶段。
+  - 输出位以当前队内面板更高的武将为准，不固定必须是同一名武将。
+  - 若抽到更好的防御或输出技能，可替换对应默认技能。
+  - 属于前期过渡思路，不代表中后期最终阵容。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV16J4m1g7Ks#1219-1247
+  updated_at: '2026-04-14'
+  confidence: 0.85
+  related_topics:
+  - 徐盛
+  - 文丑
+  - 孙坚
+  priority: 70
+  structured_data:
+    name: 新手开荒过渡队：徐盛+文丑+孙坚
+    aliases:
+    - 前期开荒队
+    - 徐盛文丑孙坚开荒
+    season_tags: []
+    lineup_rating: 推荐
+    factions: []
+    hero_names:
+    - 徐盛
+    - 文丑
+    - 孙坚
+    core_skills:
+    - 避其锐气
+    - 永隔长久
+    scenario_tags:
+    - 开荒
+    - 前期过渡
+    - 10级后
+    notes:
+    - 视频中示例先以文丑作为最高物理输出，孙坚作为中间位携带辅助治疗技能。
+    - 证据片段：1219s-1247s
+- id: video-lineup-bv1kaffyaemb-zhao-gan-ti-xi
+  domain: solution
+  entry_kind: lineup_solution
+  topic: 赵甘体系
+  aliases:
+  - 赵甘
+  facts:
+  - 视频将“赵甘”列为少数例外队伍之一。
+  - 视频明确说明赵云比较特殊，不用别人提供控制，也不用任何人保。
+  - 视频明确说明在该体系里，甘夫人相当于去保另一个人。
+  - 视频证据摘要：B站 AI 中文字幕切片。
+  constraints:
+  - 证据未给出第三名武将与完整战法，不能补全为标准阵容。
+  - 该结论是在“配件方法论”语境下提出，更偏结构性判断，不是完整配队教学。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV1KaffYAEmb#1009-1031
+  updated_at: '2026-04-14'
+  confidence: 0.86
+  related_topics:
+  - 赵云
+  - 甘夫人
+  priority: 70
+  structured_data:
+    name: 赵甘体系
+    aliases:
+    - 赵甘
+    season_tags: []
+    lineup_rating: 少数例外队伍
+    factions:
+    - 蜀
+    hero_names:
+    - 赵云
+    - 甘夫人
+    core_skills: []
+    scenario_tags:
+    - 配队方法论
+    - 单辅助保双核例外
+    notes:
+    - 可作为体系候选，但不是可直接照抄的完整三人阵容。
+    - 证据片段：1009s-1031s
+- id: video-lineup-bv1pcqtbeejg-zhugejin-zhouyu-lineup
+  domain: solution
+  entry_kind: lineup_solution
+  topic: 诸葛瑾周瑜队
+  aliases:
+  - 老周瑜诸葛瑾
+  facts:
+  - 诸葛瑾可以和周瑜组队使用。
+  - 视频提到诸葛瑾对周瑜体系有配套价值，相关环节中畸变无穷是必不可少的。
+  - 视频证据摘要：B站 AI 中文字幕切片。
+  constraints:
+  - SP周瑜未来是否一定与诸葛瑾组队，视频明确表示不确定。
+  - 现有证据只稳定支持诸葛瑾可与老周瑜组队偶尔玩。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV1PCQtBEEJg#372-395
+  updated_at: '2026-04-14'
+  confidence: 0.75
+  related_topics:
+  - 诸葛瑾
+  - 周瑜
+  priority: 70
+  structured_data:
+    name: 诸葛瑾周瑜队
+    aliases:
+    - 老周瑜诸葛瑾
+    season_tags: []
+    lineup_rating: 可偶尔使用
+    factions:
+    - 吴
+    hero_names:
+    - 诸葛瑾
+    - 周瑜
+    core_skills:
+    - 畸变无穷
+    scenario_tags:
+    - 常规对战
+    notes:
+    - 主播同时高度评价陆抗与诸葛瑾，但本候选仅保留明确成队信息。
+    - 证据片段：372s-395s
+- id: video-lineup-bv1pcqtbeejg-weiyan-zhangfei-liubei-lineup
+  domain: solution
+  entry_kind: lineup_solution
+  topic: 魏延张飞刘备队
+  aliases:
+  - 魏延蜀枪
+  - 魏延刘备张飞
+  facts:
+  - 魏延、张飞、刘备这套常规队伍仍然能玩。
+  - 相较当前赛季，这套队伍后续强度会弱不少。
+  - 若使用普通张飞，队伍在频率与控制之间存在取舍。
+  - 视频证据摘要：B站 AI 中文字幕切片。
+  constraints:
+  - 魏延当前仍缺少更强力的队友支持。
+  - 不用加强张飞时，带普通张飞会差点意思。
+  - 视频判断其数值够用，但可能不如本赛季强。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV1PCQtBEEJg#421-455
+  updated_at: '2026-04-14'
+  confidence: 0.89
+  related_topics:
+  - 魏延
+  - 张飞
+  - 刘备
+  priority: 70
+  structured_data:
+    name: 魏延张飞刘备队
+    aliases:
+    - 魏延蜀枪
+    - 魏延刘备张飞
+    season_tags: []
+    lineup_rating: 常规强队/较本赛季走弱
+    factions:
+    - 蜀
+    hero_names:
+    - 魏延
+    - 张飞
+    - 刘备
+    core_skills:
+    - 沉木
+    - 折冲御侮
+    scenario_tags:
+    - 常规对战
+    notes:
+    - 后续片段提到可把沉木给张飞、刘备带折冲之类的配置。
+    - 证据片段：421s-455s
+- id: video-lineup-bv1uxk5baeyx-sun-da-sheng-kaihuang
+  domain: solution
+  entry_kind: lineup_solution
+  topic: 主流开荒队“孙大圣”
+  aliases:
+  - 孙大圣
+  - 徐盛孙策大乔开荒队
+  facts:
+  - 视频明确推荐徐盛、孙策、大乔组成“孙大圣”，称其为主流开荒队伍。
+  - 徐盛在队内承担前排抗伤职责。
+  - 孙策在队内承担输出，并附带一定恢复能力。
+  - 大乔在队内提供伤害与恢复，补足队伍续航。
+  - 视频证据摘要：B站 AI 中文字幕切片。
+  constraints:
+  - 大乔被描述为首充/首次充值可获得，因此该队伍完整成型依赖获取大乔。
+  - 视频将其定位为开荒队，未提供更广泛赛季对战强度的充分证据。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV1uXk5BaEyX#614-638
+  updated_at: '2026-04-14'
+  confidence: 0.97
+  related_topics:
+  - 徐盛
+  - 孙策
+  - 大乔
+  priority: 70
+  structured_data:
+    name: 主流开荒队“孙大圣”
+    aliases:
+    - 孙大圣
+    - 徐盛孙策大乔开荒队
+    season_tags: []
+    lineup_rating: 主流开荒
+    factions:
+    - 吴
+    hero_names:
+    - 徐盛
+    - 孙策
+    - 大乔
+    core_skills:
+    - 制霸江东
+    - 国色
+    scenario_tags:
+    - 开荒
+    - 前期开地
+    notes:
+    - 讲解中还提到徐盛首日赠送、孙策次日赠送。
+    - 证据片段：614s-638s
+- id: video-lineup-bv1kaffyaemb-qianpai-zhugeliang-jiangwei-dui
+  domain: solution
+  entry_kind: lineup_solution
+  topic: 前排诸葛亮姜维队
+  aliases:
+  - 诸葛姜维
+  facts:
+  - 视频明确表示“诸葛姜维”不算双核心，因为诸葛亮是半辅助。
+  - 视频明确表示前排诸葛亮需要携带减伤战法和团队治疗。
+  - 视频明确表示前排诸葛亮只适用于四赛季，且依赖黄月英获得较大金书加强。
+  - 视频证据摘要：B站 AI 中文字幕切片。
+  constraints:
+  - 证据未给出完整战法名称与最终三人固定配置，不能外推标准模板。
+  - 适用范围被明确限制在四赛季及特定强化条件下。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV1KaffYAEmb#1077-1104
+  updated_at: '2026-04-14'
+  confidence: 0.82
+  related_topics:
+  - 诸葛亮
+  - 姜维
+  - 黄月英
+  priority: 70
+  structured_data:
+    name: 前排诸葛亮姜维队
+    aliases:
+    - 诸葛姜维
+    season_tags: []
+    lineup_rating: 特殊情况
+    factions:
+    - 蜀
+    hero_names:
+    - 诸葛亮
+    - 姜维
+    - 黄月英
+    core_skills: []
+    scenario_tags:
+    - 方法论例外
+    - 赛季限定适用
+    notes:
+    - 该候选更适合作为赛季限定体系认知，而非通用阵容。
+    - 证据片段：1077s-1104s
+- id: video-lineup-bv1pcqtbeejg-haozhao-simayi-lineup
+  domain: solution
+  entry_kind: lineup_solution
+  topic: 郝昭司马懿体系
+  aliases:
+  - 郝昭司马懿队
+  facts:
+  - 最适合郝昭的体系仍然是司马懿体系。
+  - 郝昭有强度，但更适合已有高红或满红司马懿的账号补充。
+  - 视频证据摘要：B站 AI 中文字幕切片。
+  constraints:
+  - 白板或低红司马懿不建议为了郝昭投入。
+  - 郝昭本身较吃红度，白板和满红强度差距明显。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV1PCQtBEEJg#200-225
+  updated_at: '2026-04-14'
+  confidence: 0.91
+  related_topics:
+  - 郝昭
+  - 司马懿
+  priority: 70
+  structured_data:
+    name: 郝昭司马懿体系
+    aliases:
+    - 郝昭司马懿队
+    season_tags: []
+    lineup_rating: 可玩/有强度
+    factions:
+    - 魏
+    hero_names:
+    - 郝昭
+    - 司马懿
+    core_skills: []
+    scenario_tags:
+    - 常规对战
+    notes:
+    - 视频中提到郝昭也可能不配司马懿，但主播明确认为最适配的仍是司马懿。
+    - 证据片段：200s-225s
+- id: video-lineup-bv1pcqtbeejg-manzi-kaihuang-lineup
+  domain: solution
+  entry_kind: lineup_solution
+  topic: 孟获祝融蛮子开荒队
+  aliases:
+  - 蛮子开荒
+  - 孟获祝融开荒
+  facts:
+  - 孟获和祝融组成的蛮子体系开荒能力非常强。
+  - 视频认为现阶段很难有武将或机制在开荒速度上淘汰蛮子。
+  - 视频提到蛮子开荒的极限表现可到26级开九。
+  - 视频证据摘要：B站 AI 中文字幕切片。
+  constraints:
+  - 结论针对开荒场景，不等同于后期常规对战强度。
+  - 视频也提到未来蛮子机制和数值可能被时代淘汰，但当前开荒价值仍高。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV1PCQtBEEJg#106-144
+  updated_at: '2026-04-14'
+  confidence: 0.95
+  related_topics:
+  - 孟获
+  - 祝融夫人
+  priority: 70
+  structured_data:
+    name: 孟获祝融蛮子开荒队
+    aliases:
+    - 蛮子开荒
+    - 孟获祝融开荒
+    season_tags: []
+    lineup_rating: 开荒顶级
+    factions: []
+    hero_names:
+    - 孟获
+    - 祝融夫人
+    core_skills: []
+    scenario_tags:
+    - 开荒
+    notes:
+    - 证据片段：106s-144s

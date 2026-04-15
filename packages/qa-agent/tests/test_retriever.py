@@ -22,7 +22,7 @@ class RetrieverTests(unittest.TestCase):
         self.assertTrue(any("体力" in t for t in topics))
 
     def test_retrieve_empty_for_totally_unknown(self) -> None:
-        chunks = self.retriever.retrieve("神器熔铸", top_k=3)
+        chunks = self.retriever.retrieve("泽田虎丸外星殖民", top_k=3)
         self.assertEqual(chunks, [])
 
     def test_retrieve_multi_dedups_and_caps(self) -> None:

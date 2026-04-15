@@ -1,0 +1,50 @@
+- id: video-lineup-bv1a3rkbgec6-s12-day2-zhurong-zhugeliang-menghuo-swap-lineup
+  domain: solution
+  entry_kind: lineup_solution
+  topic: S12 第二天一带二带三置换队
+  aliases:
+  - 第二波一带二带三
+  - 祝融-诸葛亮-孟获置换队
+  facts:
+  - 视频明确展示了第二天通过置换武将来组成一套以祝融、诸葛亮、孟获为核心的出门打地队伍。
+  - 操作顺序包括：将一个36级武将与5级祝融置换、将26级二队武将与诸葛亮置换、将22级三队武将与孟获置换，并补上装备、加点和战法。
+  - 完成置换后，作者表示该队伍可以轻松拿下外城九，并继续打多块九级地。
+  - 视频证据摘要：B站 AI 中文字幕切片。
+  constraints:
+  - 该方案依赖高等级武将为5级武将提供等级与体力置换，不适用于没有置换条件的账号。
+  - 适用场景明确是S12第二天开荒中的一带二带三流程，不应直接外推到常规配队强度。
+  - 视频未清楚展示具体战法名称，因此不能确认核心战法配置。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV1a3rkBgEC6#150-179
+  updated_at: '2026-04-14'
+  confidence: 0.83
+  related_topics:
+  - 祝融夫人
+  - 诸葛亮
+  - 孟获
+  priority: 70
+  structured_data:
+    name: S12 第二天一带二带三置换队
+    aliases:
+    - 第二波一带二带三
+    - 祝融-诸葛亮-孟获置换队
+    season_tags:
+    - S12
+    lineup_rating: null
+    factions:
+    - 蜀
+    - 群
+    hero_names:
+    - 祝融夫人
+    - 诸葛亮
+    - 孟获
+    core_skills: []
+    scenario_tags:
+    - 开荒
+    - 第二天流程
+    - 一带二
+    - 一带三
+    - 置换练级
+    notes:
+    - 原视频还提到后续第三波一带二带三的置换步骤与第二波相同。
+    - 证据片段：150s-179s
