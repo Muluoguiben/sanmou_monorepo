@@ -1,15 +1,113 @@
 - id: term-opening
   domain: term
   topic: 开荒
-  aliases: [前期开荒, 开局发育]
+  aliases:
+  - 前期开荒
+  - 开局发育
   facts:
-    - 开荒通常指服务器早期围绕资源、章节、地块和队伍成长展开的高节奏发展阶段。
-    - 开荒期的核心目标通常是用有限资源维持连续收益增长和关键进度推进。
+  - 开荒通常指服务器早期围绕资源、章节、地块和队伍成长展开的高节奏发展阶段。
+  - 开荒期的核心目标通常是用有限资源维持连续收益增长和关键进度推进。
   constraints:
-    - 不同玩家目标下，开荒节奏重点会有所不同。
+  - 不同玩家目标下，开荒节奏重点会有所不同。
   source_type: manual_rule
   source_ref: KB-RULE-TERM-001
   updated_at: 2026-03-29
   confidence: 0.94
-  related_topics: [资源, 攻占地块, 章节任务]
+  related_topics:
+  - 资源
+  - 攻占地块
+  - 章节任务
   priority: 80
+- id: term-hongdu
+  domain: term
+  entry_kind: generic_rule
+  topic: 红度
+  aliases:
+  - 满红
+  - 中红
+  - 红度档位
+  - 武将红度
+  facts:
+  - 红度是武将命星/觉醒强度标记，每抽一张同名武将可将红度 +1，最高 5 红即"满红"。
+  - 档位口语对应：1-2 红为低红，3 红为中红，4 红偏高红，5 红为满红。
+  - 小仔哥兵损阈值基于红度划分：满红不超过 500-1000，中低红不超过 2000。
+  constraints:
+  - 不同流派/玩家对中红边界叫法略有差异，3 红是主流"中红"定义。
+  source_type: manual_rule
+  source_ref: user_clarification:2026-04-16
+  updated_at: '2026-04-16'
+  confidence: 0.92
+  related_topics:
+  - 红度
+  - 觉醒
+  - 兵损
+  priority: 82
+  structured_data: null
+- id: term-neicheng-land
+  domain: term
+  entry_kind: generic_rule
+  topic: 内城土地
+  aliases:
+  - 内城地
+  - 军垦地
+  - 内城田
+  facts:
+  - 内城土地等级范围 2-12 级（外城土地仅到 8 级）。
+  - 内城 8 级地难度低于外城 8 级地，"无兵营开八"的目标就是屯内城 8 级军垦。
+  constraints:
+  - 等级解锁取决于章节进度。
+  source_type: manual_rule
+  source_ref: user_clarification:2026-04-16
+  updated_at: '2026-04-16'
+  confidence: 0.9
+  related_topics:
+  - 开荒
+  - 军垦
+  - 无兵营开八
+  priority: 78
+  structured_data: null
+- id: term-jitui
+  domain: term
+  entry_kind: generic_rule
+  topic: 鸡腿
+  aliases:
+  - 鸡腿道具
+  - 体力道具
+  facts:
+  - 鸡腿是体力恢复道具，每个恢复 60 点体力；体力上限 200。
+  - 160 无损吃鸡腿技巧：体力 160 时攻击野地瞬间虽扣 20 但经验只发一半，此时吃 60 体力鸡腿恰好回满到 200，实现升级节点附近体力经验双无损。
+  constraints:
+  - 无损触发局限于 31 级升级临界场景。
+  source_type: manual_rule
+  source_ref: user_clarification:2026-04-16
+  updated_at: '2026-04-16'
+  confidence: 0.9
+  related_topics:
+  - 体力
+  - 鸡腿
+  - 升级
+  priority: 76
+  structured_data: null
+- id: term-taozei
+  domain: term
+  entry_kind: generic_rule
+  topic: 讨贼
+  aliases:
+  - 讨贼活动
+  - 贼寇讨伐
+  facts:
+  - 讨贼是同盟独立玩法，与军演、主线经验是三套独立来源。
+  - 讨贼单次经验 = 贼寇等级 × 2000（8 级贼寇 = 16000 经验）。
+  - 3 兵讨贼技巧：二/三队不带兵 5 级蹭盟友讨贼车队，吃讨贼 + 军演双份经验即可快速飞到 10 级。
+  constraints:
+  - 不带兵蹭车需先跟队长沟通且有把握打赢。
+  source_type: manual_rule
+  source_ref: user_clarification:2026-04-16
+  updated_at: '2026-04-16'
+  confidence: 0.9
+  related_topics:
+  - 讨贼
+  - 军演
+  - 3兵讨贼
+  priority: 78
+  structured_data: null
