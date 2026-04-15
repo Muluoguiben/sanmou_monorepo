@@ -1,14 +1,15 @@
 # Todo List
 
-> Last updated: 2026-04-14 (post-merge: feat/qa-video-openai-extractor → master)
+> Last updated: 2026-04-15 (post-merge: feat/qa-video-batch-publish → master)
 
 ## In Progress
 
-- [ ] 派 subagent 批量学习 20 个「三谋新手攻略」bilibili 视频，stage-only 入库后 review 再 publish
+*(无)*
 
 ## Pending
 
 - [ ] Pioneer-agent perception 接入 GPT-5.4 vision：当前 perception/vision 用 Gemini，可切到 sub2api gpt-5.4（5.8s/198tok 成本合理）作为备份，或做 A/B 对比
+- [ ] 缘分成员名单补录：诸葛亮2 的「才堪相配 / 西蜀之智 / 国之栋梁」仅收录效果未收录 member list；其他橙卡缘分抽查疑有同类缺口
 - [ ] 缘分具体条目补充：桃园/五虎/江表虎臣/五子/五谋/国栋 等 6 个缘分条目待补
 - [ ] 职业二阶天赋细节：通过游戏内截图 OCR 补全（当前 7 条为概述级别）
 - [ ] 同兵种加成数值：骑兵/枪兵 3 阵具体增伤/减伤分配（弓/盾已确认 5%）
@@ -56,3 +57,4 @@
 - [x] 三谋数据补录（S14）：sgmdtx 新出的 2 武将（郝昭/王双）+ 4 战法（千机重城/恃勇克敌/岿然不动[alias 屹然不动]/睿虑合图）入库，含羁绊「陈仓双壁」
 - [x] Bilibili 视频 extractor 迁移至 OpenAI sub2api（gpt-5.4）：`OpenAIVideoKnowledgeExtractor` 新增并成为 `--extractor auto` 首选（Gemini/heuristic 作为兜底），prompt 内联 JSON schema 替代 Gemini native `response_schema`，非法候选跳过不中断；qa-agent 89 tests 全绿；解除 Gemini 免费档 20 req/day 限制，为批量 20 视频 ingestion 铺路
 - [x] 图像识别 hardening：`ImageExtractor` 接受 `retriever` 注入 KB 全量武将/战法规范名作为白名单写进 system prompt，告诉模型字形相近时（郝/郭、岿/屹）必须从列表选；`scripts/vision_eval.py` + 13 张 CDN 武将图 eval 基线 92.3%→白名单 100%（郝昭 ↗），baseline/hardened JSON 存档；fuzzy edit-distance-1 试过并弃用（2 字名下 郭昭→郭嘉 误匹配）；qa-agent 共 88 tests
+- [x] Bilibili 20 视频批量 ingestion：subtitle fetcher 双 bug 修复（wbi/v2 endpoint + CJK bigram relevance tokenizer）后 19 视频抽出 36 候选；`scripts/cleanup_video_batch.py` 合并 + 规则化（drop 跨游戏/不可解析武将、strip "Hero-Skill" 复合 + "输出技能"占位、normalize 季节标签），dropped 7 / kept 29；新增 hero 别名 祝融→祝融夫人 / 甄姬→甄洛 / SP诸葛亮→诸葛亮2 + skill 别名 8 条（横征→横征暴敛 等）；review 纠错"朱儁不是蛮子开荒第三人阵"（玩家共识：貂蝉/董卓/诸葛亮2）；29 条 lineup_solution 分入 s1/s2/s12/s13/misc，qa-agent 89 tests
