@@ -65,3 +65,344 @@
     notes:
     - 上一段还提到貂蝉全智力，能与该过渡队形成连续证据。
     - 证据片段：141s-168s
+- id: kdocs-lineup-s13_兴汉讨逆-lv5
+  domain: solution
+  entry_kind: lineup_solution
+  topic: 兴汉讨逆 5级地开荒阵
+  aliases:
+  - 兴汉讨逆5级地
+  - S135级地
+  facts:
+  - 最优队伍：董卓+孟获+祝融夫人（横征+金城+胜敌）。
+  - 推荐等级：满红8、中高红10、低红白板11。
+  - 开荒细节：优先打内城，简单很多。
+  - 5级地守军常见组合 - 首开：文聘、董袭、刘烨；皇甫嵩、丁奉、简雍
+  - 5级地守军常见组合 - 简单：马良、韩当、钟繇；孔融、张曼成、郭淮
+  - 5级地守军常见组合 - 中等：于禁、丁奉、沙摩柯；小乔、陈武、糜竺；邹氏、臧霸、刘表；邓艾、简雍、文聘
+  - 5级地守军常见组合 - 困难：黄盖、曹真、张曼成；周仓、杨修、皇甫嵩；徐晃、丁奉、陈琳；张梁、张曼成、王朗
+  constraints:
+  - 仅适用于 S13 兴汉讨逆 开荒场景。
+  source_type: manual_rule
+  source_ref: KDOCS:xiaozai-kaihuang-2026-02-27#S13-兴汉讨逆-lv5
+  updated_at: '2026-04-16'
+  confidence: 0.88
+  related_topics:
+  - 董卓
+  - 孟获
+  - 祝融夫人
+  priority: 70
+  structured_data:
+    name: 兴汉讨逆 5级地开荒阵
+    aliases:
+    - 兴汉讨逆5级地
+    - S135级地
+    season_tags:
+    - S13
+    lineup_rating: 最优
+    factions: []
+    hero_names:
+    - 董卓
+    - 孟获
+    - 祝融夫人
+    core_skills: []
+    scenario_tags:
+    - 开荒
+    - 5级地
+    notes:
+    - 来源：小仔哥《兴汉讨逆》 kdocs 开荒合集 (2026-02-27)。
+- id: kdocs-lineup-s13_兴汉讨逆-lv6
+  domain: solution
+  entry_kind: lineup_solution
+  topic: 兴汉讨逆 6级地开荒阵
+  aliases:
+  - 兴汉讨逆6级地
+  - S136级地
+  facts:
+  - 最优队伍：董卓+祝融夫人+孟获。
+  - 推荐等级：满红15、中高红16、低红白板17/18。
+  - 开荒细节：优先开刘烨/臧霸；开六翻车经验也比开五多。
+  - 6级地守军常见组合 - 首开：臧霸、文聘、董袭；刘烨、陈武、简雍（荐）
+  - 6级地守军常见组合 - 简单：蒋钦、马良、杨修
+  - 6级地守军常见组合 - 中等：曹真、孔融、张曼成
+  - 6级地守军常见组合 - 困难：徐庶、潘璋、皇甫嵩；华雄、刘烨、曹真；关平、郭淮、刘烨；孙坚、丁奉、蒋钦
+  constraints:
+  - 仅适用于 S13 兴汉讨逆 开荒场景。
+  source_type: manual_rule
+  source_ref: KDOCS:xiaozai-kaihuang-2026-02-27#S13-兴汉讨逆-lv6
+  updated_at: '2026-04-16'
+  confidence: 0.88
+  related_topics:
+  - 董卓
+  - 祝融夫人
+  - 孟获
+  priority: 70
+  structured_data:
+    name: 兴汉讨逆 6级地开荒阵
+    aliases:
+    - 兴汉讨逆6级地
+    - S136级地
+    season_tags:
+    - S13
+    lineup_rating: 最优
+    factions: []
+    hero_names:
+    - 董卓
+    - 祝融夫人
+    - 孟获
+    core_skills: []
+    scenario_tags:
+    - 开荒
+    - 6级地
+    notes:
+    - 来源：小仔哥《兴汉讨逆》 kdocs 开荒合集 (2026-02-27)。
+- id: kdocs-lineup-s13_兴汉讨逆-lv7
+  domain: solution
+  entry_kind: lineup_solution
+  topic: 兴汉讨逆 7级地开荒阵
+  aliases:
+  - 兴汉讨逆7级地
+  - S137级地
+  facts:
+  - 最优队伍：左田宁（挑邓艾）/ 董卓+祝融夫人+孟获（外城更优）。
+  - 推荐等级：满红21/20、中高红22/21、低红白板23/22。
+  - 开荒细节：南蛮内城避开程普，外城避开法师；左田宁田丰内城带束手、外城带料事；左慈内城带知人、外城带金城；或外城换南蛮更稳。
+  - 7级地守军常见组合 - 首开：邓艾、郭图、陈武；法正、曹真、潘璋
+  - 7级地守军常见组合 - 简单：于禁、张梁、董袭；甘宁、张郃、黄月英
+  - 7级地守军常见组合 - 中等：徐晃、邹氏、钟繇；程普、丁奉、蒋钦；大乔、小乔、孙尚香
+  - 7级地守军常见组合 - 困难：张宝、程昱、丁奉
+  constraints:
+  - 仅适用于 S13 兴汉讨逆 开荒场景。
+  source_type: manual_rule
+  source_ref: KDOCS:xiaozai-kaihuang-2026-02-27#S13-兴汉讨逆-lv7
+  updated_at: '2026-04-16'
+  confidence: 0.88
+  related_topics:
+  - 董卓
+  - 祝融夫人
+  - 孟获
+  priority: 70
+  structured_data:
+    name: 兴汉讨逆 7级地开荒阵
+    aliases:
+    - 兴汉讨逆7级地
+    - S137级地
+    season_tags:
+    - S13
+    lineup_rating: 最优
+    factions: []
+    hero_names:
+    - 董卓
+    - 祝融夫人
+    - 孟获
+    core_skills: []
+    scenario_tags:
+    - 开荒
+    - 7级地
+    notes:
+    - 来源：小仔哥《兴汉讨逆》 kdocs 开荒合集 (2026-02-27)。
+- id: kdocs-lineup-s13_兴汉讨逆-lv8
+  domain: solution
+  entry_kind: lineup_solution
+  topic: 兴汉讨逆 8级地开荒阵
+  aliases:
+  - 兴汉讨逆8级地
+  - S138级地
+  facts:
+  - 最优队伍：董卓+祝融夫人+孟获。
+  - 推荐等级：满红25、中高红26、低红白板28。
+  - 开荒细节：蛮族可优先打内城，避开带"斩将夺旗"的守军。
+  - 8级地守军常见组合 - 首开：张飞、许褚、文聘；马云禄、黄盖、甄洛
+  - 8级地守军常见组合 - 简单：曹仁、孙坚、孙尚香；黄忠、庞德、孔融
+  - 8级地守军常见组合 - 中等：张郃、程普、于禁；荀彧、法正、曹真；张宝、张梁、卢植
+  - 8级地守军常见组合 - 困难：许褚、吕蒙、小乔
+  constraints:
+  - 仅适用于 S13 兴汉讨逆 开荒场景。
+  source_type: manual_rule
+  source_ref: KDOCS:xiaozai-kaihuang-2026-02-27#S13-兴汉讨逆-lv8
+  updated_at: '2026-04-16'
+  confidence: 0.88
+  related_topics:
+  - 董卓
+  - 祝融夫人
+  - 孟获
+  priority: 70
+  structured_data:
+    name: 兴汉讨逆 8级地开荒阵
+    aliases:
+    - 兴汉讨逆8级地
+    - S138级地
+    season_tags:
+    - S13
+    lineup_rating: 最优
+    factions: []
+    hero_names:
+    - 董卓
+    - 祝融夫人
+    - 孟获
+    core_skills: []
+    scenario_tags:
+    - 开荒
+    - 8级地
+    notes:
+    - 来源：小仔哥《兴汉讨逆》 kdocs 开荒合集 (2026-02-27)。
+- id: kdocs-lineup-s13_兴汉讨逆-lv9
+  domain: solution
+  entry_kind: lineup_solution
+  topic: 兴汉讨逆 9级地开荒阵
+  aliases:
+  - 兴汉讨逆9级地
+  - S139级地
+  facts:
+  - 最优队伍：董卓+祝融夫人+孟获 / 蛮猪猪（雁形阵）。
+  - 推荐等级：满红30、中高红32、低红白板34。
+  - 开荒细节：打孙坚带挫锐；打甘宁带践墨；避开"斩将夺旗"；蛮猪猪等级高以后"避其"比"步步"好。
+  - 9级地守军常见组合 - 首开：张飞、孙尚香、蔡文姬
+  - 9级地守军常见组合 - 简单：貂蝉、徐晃、甄洛
+  - 9级地守军常见组合 - 中等：孙坚、邓艾、于禁（带挫锐）；黄忠、关平、黄月英；甘宁、大乔、华雄
+  - 9级地守军常见组合 - 困难：吕蒙、程昱、小乔
+  constraints:
+  - 仅适用于 S13 兴汉讨逆 开荒场景。
+  source_type: manual_rule
+  source_ref: KDOCS:xiaozai-kaihuang-2026-02-27#S13-兴汉讨逆-lv9
+  updated_at: '2026-04-16'
+  confidence: 0.88
+  related_topics:
+  - 董卓
+  - 祝融夫人
+  - 孟获
+  priority: 70
+  structured_data:
+    name: 兴汉讨逆 9级地开荒阵
+    aliases:
+    - 兴汉讨逆9级地
+    - S139级地
+    season_tags:
+    - S13
+    lineup_rating: 最优
+    factions: []
+    hero_names:
+    - 董卓
+    - 祝融夫人
+    - 孟获
+    core_skills: []
+    scenario_tags:
+    - 开荒
+    - 9级地
+    notes:
+    - 来源：小仔哥《兴汉讨逆》 kdocs 开荒合集 (2026-02-27)。
+- id: kdocs-lineup-s13_兴汉讨逆-lv10
+  domain: solution
+  entry_kind: lineup_solution
+  topic: 兴汉讨逆 10级地开荒阵
+  aliases:
+  - 兴汉讨逆10级地
+  - S1310级地
+  facts:
+  - 最优队伍：蛮猪猪。
+  - 推荐等级：满红35、中高红35、低红白板37。
+  - 开荒细节：空城计权重很高。
+  - 10级地守军常见组合 - 首开：无特别困难守军，普遍简单，首开可以邓艾
+  constraints:
+  - 仅适用于 S13 兴汉讨逆 开荒场景。
+  source_type: manual_rule
+  source_ref: KDOCS:xiaozai-kaihuang-2026-02-27#S13-兴汉讨逆-lv10
+  updated_at: '2026-04-16'
+  confidence: 0.88
+  related_topics:
+  - 兴汉讨逆
+  priority: 70
+  structured_data:
+    name: 兴汉讨逆 10级地开荒阵
+    aliases:
+    - 兴汉讨逆10级地
+    - S1310级地
+    season_tags:
+    - S13
+    lineup_rating: 最优
+    factions: []
+    hero_names: []
+    core_skills: []
+    scenario_tags:
+    - 开荒
+    - 10级地
+    notes:
+    - 来源：小仔哥《兴汉讨逆》 kdocs 开荒合集 (2026-02-27)。
+- id: kdocs-lineup-s13_兴汉讨逆-lv11
+  domain: solution
+  entry_kind: lineup_solution
+  topic: 兴汉讨逆 11级地开荒阵
+  aliases:
+  - 兴汉讨逆11级地
+  - S1311级地
+  facts:
+  - 最优队伍：蛮猪猪。
+  - 推荐等级：满红37、中高红38、低红白板39。
+  - 开荒细节：践墨随敌权重很高。
+  - 11级地守军常见组合 - 首开：太史慈、公孙瓒、许褚
+  - 11级地守军常见组合 - 简单：貂蝉、吕布、张辽
+  - 11级地守军常见组合 - 中等：大乔、小乔、周瑜；孙策、大乔、徐盛
+  - 11级地守军常见组合 - 困难：田丰、大乔、孙尚香
+  constraints:
+  - 仅适用于 S13 兴汉讨逆 开荒场景。
+  source_type: manual_rule
+  source_ref: KDOCS:xiaozai-kaihuang-2026-02-27#S13-兴汉讨逆-lv11
+  updated_at: '2026-04-16'
+  confidence: 0.88
+  related_topics:
+  - 兴汉讨逆
+  priority: 70
+  structured_data:
+    name: 兴汉讨逆 11级地开荒阵
+    aliases:
+    - 兴汉讨逆11级地
+    - S1311级地
+    season_tags:
+    - S13
+    lineup_rating: 最优
+    factions: []
+    hero_names: []
+    core_skills: []
+    scenario_tags:
+    - 开荒
+    - 11级地
+    notes:
+    - 来源：小仔哥《兴汉讨逆》 kdocs 开荒合集 (2026-02-27)。
+- id: kdocs-lineup-s13_兴汉讨逆-lv12
+  domain: solution
+  entry_kind: lineup_solution
+  topic: 兴汉讨逆 12级地开荒阵
+  aliases:
+  - 兴汉讨逆12级地
+  - S1312级地
+  facts:
+  - 最优队伍：蛮猪猪。
+  - 推荐等级：满红38、中高红39、低红白板40。
+  - 开荒细节：继续空城，避开双减。
+  - 12级地守军常见组合 - 首开：赵云、张飞、马超
+  - 12级地守军常见组合 - 中等：乐进、孙策、张辽
+  - 12级地守军常见组合 - 困难：周瑜、吕蒙、鲁肃；夏侯惇、邓艾、程昱
+  constraints:
+  - 仅适用于 S13 兴汉讨逆 开荒场景。
+  source_type: manual_rule
+  source_ref: KDOCS:xiaozai-kaihuang-2026-02-27#S13-兴汉讨逆-lv12
+  updated_at: '2026-04-16'
+  confidence: 0.88
+  related_topics:
+  - 兴汉讨逆
+  priority: 70
+  structured_data:
+    name: 兴汉讨逆 12级地开荒阵
+    aliases:
+    - 兴汉讨逆12级地
+    - S1312级地
+    season_tags:
+    - S13
+    lineup_rating: 最优
+    factions: []
+    hero_names: []
+    core_skills: []
+    scenario_tags:
+    - 开荒
+    - 12级地
+    notes:
+    - 来源：小仔哥《兴汉讨逆》 kdocs 开荒合集 (2026-02-27)。
