@@ -1,6 +1,6 @@
 # Todo List
 
-> Last updated: 2026-04-16 (kdocs 小仔哥开荒合集全 sheet 入库：陈仓S14 / 兴汉S13 / 弈定S12 / 四海S11 / 业铸山河S4 + 演武 + 王业之争 + 赛季流程)
+> Last updated: 2026-04-17 (赛季剧本列表 S1-S14 完成入库；缘分补录降优先级；下一轮聚焦 bilibili 视频学习)
 
 ## In Progress
 
@@ -9,12 +9,9 @@
 ## Pending
 
 - [ ] Pioneer-agent perception 接入 GPT-5.4 vision：当前 perception/vision 用 Gemini，可切到 sub2api gpt-5.4（5.8s/198tok 成本合理）作为备份，或做 A/B 对比
-- [ ] 缘分成员名单补录：诸葛亮2 的「才堪相配 / 西蜀之智 / 国之栋梁」仅收录效果未收录 member list；其他橙卡缘分抽查疑有同类缺口
-- [ ] 缘分具体条目补充：桃园/五虎/江表虎臣/五子/五谋/国栋 等 6 个缘分条目待补
 - [ ] 职业二阶天赋细节：通过游戏内截图 OCR 补全（当前 7 条为概述级别）
 - [ ] 同兵种加成数值：骑兵/枪兵 3 阵具体增伤/减伤分配（弓/盾已确认 5%）
 - [ ] 征兵所数值：每小时征兵数、预备兵上限随建筑等级变化表
-- [ ] 赛季剧本列表：13 个赛季的具体名称与编号
 - [ ] 救治药/行军丹等道具的产出细节（青囊一阶/二阶产出数量）
 - [ ] 词条缺口确认：小仔哥合集提到的「完璧」（优先给神诸葛）与「磐石」（优先给孟获）在 sgmdtx.com/texiao 未列出，待 Lan 确认是新词条还是别名
 - [ ] 坐骑特技效果数值：掠水/渡火/嘶风/救主/奔袭/疾驰/穿云/游龙/万象/君临 10 个特技 sgmdtx 仅列名，效果数值待补（可能需游戏内截图或其他数据源）
@@ -23,11 +20,13 @@
 - [ ] Scoring 配置补全：`config/scoring.yaml` 只有 `opening_sprint` 阶段权重，需补齐其余阶段
 - [ ] Sanmou-common 数据补全：`config/*.yaml` 目前是模板，需填入真实游戏数据
 - [ ] 紫卡武将补录：sgmdtx 未收录的 13 个紫卡（杨修/刘烨/文聘/钟繇/臧霸/郭淮/简雍/马谡/马良/沙摩柯/孔融/卢植/郭图），优先级低，需找其他数据源或手动添加
+- [ ] 缘分补录（低优）：诸葛亮2「才堪相配/西蜀之智/国之栋梁」member list + 桃园/五虎/江表虎臣/五子/五谋/国栋 6 个缘分条目
 - [ ] 跨包集成：qa-agent 知识库接入 pioneer-agent 决策逻辑（如查询武将/战法信息辅助评分）
 - [ ] CI/CD：配置自动化测试流水线和 lint 检查
 
 ## Done
 
+- [x] 赛季剧本列表 S1-S14 入库：`mech-season-timeline`（chapter domain）+ `term-season-code-vs-wcode`（term domain，澄清 S 码/W 码区别），含具体副标题/开启日期/W 码映射，社区综合多源 confidence=0.85；regression q14 PASS
 - [x] Monorepo 初始化：三包结构（sanmou-common / pioneer-agent / qa-agent）
 - [x] Pioneer agent 核心决策链：sync → derive → select pipeline，7 种 action，scoring + priority rules
 - [x] QA agent 迁移：sanguo-kb 代码迁入 monorepo 作为 qa-agent（包名 sanguo_kb → qa_agent）
