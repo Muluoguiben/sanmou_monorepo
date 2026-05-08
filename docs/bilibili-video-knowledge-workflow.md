@@ -68,6 +68,43 @@ scripts/bilibili_video_knowledge_workflow.sh \
   heuristic
 ```
 
+### Plan 2 — Multimodal (Subtitle + Frame Vision)
+
+For gameplay / subtitle-sparse videos (empty subtitle body, UP-only draft subtitles, or videos released before Bilibili's AI subtitle catalog is ready), enable frame sampling + vision enrichment:
+
+```bash
+BILIBILI_COOKIE='<cookie>' \
+WITH_FRAMES=1 ENRICH_FRAMES=1 FRAME_INTERVAL=30 FRAMES_PER_SEGMENT=3 \
+  scripts/bilibili_video_knowledge_workflow.sh \
+  'https://www.bilibili.com/video/BV1KGdbBPEfx/' \
+  /tmp/bili-video-plan2 \
+  openai
+```
+
+What this adds on top of the subtitle path:
+
+- `--with-frames` downloads the Bilibili DASH video stream (cookie required, lowest-quality track for cost) and samples one frame every `FRAME_INTERVAL` seconds via ffmpeg, attaching them to their matching `VideoEvidenceSegment` by timestamp range.
+- `--enrich-frames` runs `ImageExtractor` (gpt-5.4 vision + KB hero/skill whitelist) over `FRAMES_PER_SEGMENT` frames per segment, and folds recognized hero/skill names into each segment's `ocr_lines` (as `vision:hero:名` / `vision:skill:名`) and `visual_summary` (as `[视觉补充] ...`).
+- The text-mode LLM lineup extractor sees these injected signals via the existing prompt — no schema change required. A subtitle-empty gameplay video can therefore still produce auto-publishable lineup/hero candidates.
+
+Runtime requirements beyond the default path:
+
+- `imageio-ffmpeg` Python package (or a system `ffmpeg` on `$PATH`). Install with `pip install --user --break-system-packages imageio-ffmpeg` on PEP 668 systems.
+- `BILIBILI_COOKIE` in the environment — the DASH playurl API is cookie-gated.
+- `OPENAI_API_KEY` (sub2api) — `ImageExtractor` uses `gpt-5.4` vision.
+
+Env flags accepted by the script:
+
+| Flag | Default | Meaning |
+|---|---|---|
+| `WITH_FRAMES` | `0` | Sample video frames during bundle fetch. |
+| `FRAME_INTERVAL` | `30` | Seconds between sampled frames. |
+| `FRAME_MAX_COUNT` | `10` | Cap total frames per video. |
+| `ENRICH_FRAMES` | `0` | Run `ImageExtractor` on sampled frames before LLM extraction. |
+| `FRAMES_PER_SEGMENT` | `3` | Max frames sent to vision per segment. |
+
+Fail-open behavior: if the DASH download fails, a single segment vision call errors, or ffmpeg is unavailable, the workflow continues on the subtitle-only path rather than aborting.
+
 ## Agent Procedure
 
 1. Fetch Bilibili metadata into a raw bundle.
@@ -91,6 +128,7 @@ scripts/bilibili_video_knowledge_workflow.sh \
 - OCR is not yet in the stable path.
 - Local ASR fallback code exists, but depends on `faster-whisper` runtime availability.
 - Some videos still require human correction for ambiguous team names.
+- Plan 2 (frame vision): needs cookie + ffmpeg + per-video token cost (~$0.20 at `FRAMES_PER_SEGMENT=3`). Subtitle-rich videos gain little from enabling it.
 
 ## Verification
 

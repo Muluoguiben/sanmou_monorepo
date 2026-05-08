@@ -9,8 +9,11 @@ import yaml
 from qa_agent.ingestion.models import ReviewStatus, StagingEntry
 from qa_agent.ingestion.publish import publish_entries
 from qa_agent.knowledge.loader import load_entries
+from qa_agent.retrieval.retriever import Retriever
 from qa_agent.service.query_service import QueryService
 from qa_agent.video import VideoEvidenceBundle, build_video_knowledge_document, dump_video_knowledge_document, stage_all_video_entries
+from qa_agent.video.vision_enrichment import enrich_document_with_vision
+from qa_agent.vision.extractor import ImageExtractor
 from qa_agent.knowledge.source_paths import discover_source_paths
 
 from .video_extract import _resolve_enriched_document
@@ -29,6 +32,17 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--api-key", help="Gemini API key for extractor=gemini/auto.")
     parser.add_argument("--model", default=None, help="Model name (extractor-specific default).")
     parser.add_argument("--timeout", type=int, default=60)
+    parser.add_argument(
+        "--enrich-frames",
+        action="store_true",
+        help="Pre-process segments that have frame_refs with ImageExtractor before running the LLM extractor.",
+    )
+    parser.add_argument(
+        "--frames-per-segment",
+        type=int,
+        default=3,
+        help="Max frames sent to the vision model per segment (default 3).",
+    )
     return parser
 
 
@@ -53,6 +67,18 @@ def main() -> None:
     evidence_document = build_video_knowledge_document(raw_bundle)
     evidence_path = workspace / "video-evidence.yaml"
     dump_video_knowledge_document(evidence_path, evidence_document)
+
+    vision_stats = None
+    if args.enrich_frames:
+        knowledge_dir = project_root / "knowledge_sources"
+        retriever = Retriever.from_knowledge_dir(knowledge_dir) if knowledge_dir.exists() else None
+        image_extractor = ImageExtractor(retriever=retriever)
+        evidence_document, vision_stats = enrich_document_with_vision(
+            evidence_document,
+            extractor=image_extractor,
+            max_frames_per_segment=args.frames_per_segment,
+        )
+        dump_video_knowledge_document(evidence_path, evidence_document)
 
     enriched = _resolve_enriched_document(
         document=evidence_document,
@@ -113,6 +139,18 @@ def main() -> None:
                 "knowledge_root": str(knowledge_root),
                 "bucket_stats": bucket_stats,
                 "query_results": query_results,
+                "vision_stats": (
+                    {
+                        "segments_processed": vision_stats.segments_processed,
+                        "segments_enriched": vision_stats.segments_enriched,
+                        "frames_analyzed": vision_stats.frames_analyzed,
+                        "hero_hits": vision_stats.hero_hits,
+                        "skill_hits": vision_stats.skill_hits,
+                        "errors": vision_stats.errors,
+                    }
+                    if vision_stats is not None
+                    else None
+                ),
             },
             ensure_ascii=False,
             indent=2,

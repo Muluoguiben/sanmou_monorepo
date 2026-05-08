@@ -222,5 +222,79 @@ class FetchBilibiliBundleCliTests(unittest.TestCase):
             self.assertIn("忠义弓三十五级以后使用", data["segments"][0]["transcript_lines"])
 
 
+    @patch("qa_agent.app.fetch_bilibili_bundle._fetch_view_data")
+    @patch("qa_agent.app.fetch_bilibili_bundle._fetch_conclusion_data")
+    @patch("qa_agent.app.fetch_bilibili_bundle._fetch_subtitle_catalog")
+    @patch("qa_agent.app.fetch_bilibili_bundle._fetch_subtitle_body")
+    @patch("qa_agent.app.fetch_bilibili_bundle._sample_frames_for_bundle")
+    def test_fetch_bilibili_bundle_cli_with_frames(
+        self,
+        mocked_sample_frames,
+        mocked_fetch_subtitle_body,
+        mocked_subtitle_catalog,
+        mocked_conclusion,
+        mocked_fetch_view,
+    ) -> None:
+        from qa_agent.video import VideoFrameRef
+
+        mocked_fetch_view.return_value = {
+            "bvid": "BV1TESTF00",
+            "title": "［S14开荒］测试视频",
+            "owner": {"name": "测试UP"},
+            "desc": "描述",
+            "pubdate": 1765769779,
+            "duration": 120,
+            "cid": 999,
+            "pages": [{"first_frame": "http://example.com/frame.jpg"}],
+        }
+        mocked_conclusion.return_value = None
+        mocked_subtitle_catalog.return_value = [{"lan": "ai-zh", "lan_doc": "中文", "subtitle_url": ""}]
+        mocked_fetch_subtitle_body.return_value = [
+            {"from": 0.0, "to": 20.0, "content": "三谋开荒第一段"},
+            {"from": 20.0, "to": 50.0, "content": "三谋开荒第二段"},
+            {"from": 50.0, "to": 110.0, "content": "三谋开荒第三段"},
+        ]
+        mocked_sample_frames.return_value = [
+            VideoFrameRef(timestamp_sec=0.0, image_path="/tmp/frame-1.jpg", notes=[]),
+            VideoFrameRef(timestamp_sec=30.0, image_path="/tmp/frame-2.jpg", notes=[]),
+            VideoFrameRef(timestamp_sec=60.0, image_path="/tmp/frame-3.jpg", notes=[]),
+        ]
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output_path = Path(temp_dir) / "bundle.yaml"
+            stdout = io.StringIO()
+            with patch.object(
+                sys,
+                "argv",
+                [
+                    "fetch_bilibili_bundle",
+                    "--bvid",
+                    "BV1TESTF00",
+                    "--output",
+                    str(output_path),
+                    "--with-frames",
+                ],
+            ):
+                with patch("sys.stdout", stdout):
+                    main()
+            summary = json.loads(stdout.getvalue())
+            self.assertEqual(summary["frame_count"], 3)
+            self.assertTrue(mocked_sample_frames.called)
+            data = yaml.safe_load(output_path.read_text(encoding="utf-8"))
+            segments = data["segments"]
+            all_paths: set[str] = set()
+            for segment in segments:
+                all_paths.update(segment.get("frame_paths") or [])
+            for expected in ("/tmp/frame-1.jpg", "/tmp/frame-2.jpg", "/tmp/frame-3.jpg"):
+                self.assertIn(expected, all_paths)
+            # Frame at t=60 must land in a segment whose end_sec > 50.
+            for segment in segments:
+                if "/tmp/frame-3.jpg" in (segment.get("frame_paths") or []):
+                    self.assertGreaterEqual(float(segment["end_sec"]), 60.0)
+                    break
+            else:
+                self.fail("frame-3 not attached to any segment")
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -17,7 +17,16 @@ Use this workflow when a Claude agent needs to extract reusable Sanmou knowledge
 scripts/bilibili_video_knowledge_workflow.sh "<url-or-bvid>" "<workspace>" heuristic
 ```
 
-2. If cookie-authenticated evidence is needed, set `BILIBILI_COOKIE` in the environment before running the script.
+For gameplay / subtitle-sparse videos, enable multimodal extraction (Plan 2) via env flags:
+
+```bash
+WITH_FRAMES=1 ENRICH_FRAMES=1 FRAME_INTERVAL=30 FRAMES_PER_SEGMENT=3 \
+  scripts/bilibili_video_knowledge_workflow.sh "<url-or-bvid>" "<workspace>" openai
+```
+
+This samples still frames from the bilibili video stream (needs `imageio-ffmpeg` or system `ffmpeg`) and runs them through `ImageExtractor` with the KB whitelist before the LLM lineup extractor — critical for videos where the subtitle body is empty (e.g. UP-only draft subtitles, or brand-new releases before bilibili AI subtitle catalog is ready).
+
+2. If cookie-authenticated evidence is needed, set `BILIBILI_COOKIE` in the environment before running the script. For `WITH_FRAMES=1` the cookie is required (DASH playurl API is cookie-gated).
 
 3. Inspect these outputs:
 

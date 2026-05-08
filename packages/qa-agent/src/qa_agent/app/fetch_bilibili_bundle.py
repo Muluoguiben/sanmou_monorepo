@@ -14,7 +14,14 @@ import requests
 import yaml
 
 from qa_agent.video.asr import download_audio_file, fetch_bilibili_audio_url, transcribe_audio_with_faster_whisper
-from qa_agent.video import VideoEvidenceBundle, VideoEvidenceSegment, VideoSource
+from qa_agent.video.frame_sampler import (
+    FrameSampleRequest,
+    plan_sample_timestamps,
+    resolve_ffmpeg_binary,
+    sample_frames,
+)
+from qa_agent.video.video_download import download_video_file, fetch_bilibili_video_url
+from qa_agent.video import VideoEvidenceBundle, VideoEvidenceSegment, VideoFrameRef, VideoSource
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -25,6 +32,11 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--cookie-header", help="Optional Bilibili cookie header. Falls back to BILIBILI_COOKIE env var.")
     parser.add_argument("--asr-fallback", action="store_true", help="When subtitle body is unavailable, try local ASR from the Bilibili audio stream.")
     parser.add_argument("--asr-model", default="small", help="faster-whisper model name for ASR fallback.")
+    parser.add_argument("--with-frames", action="store_true", help="Download the video stream and sample still frames for multimodal extraction.")
+    parser.add_argument("--frame-interval", type=float, default=30.0, help="Seconds between sampled frames (default 30s).")
+    parser.add_argument("--frame-max-count", type=int, default=40, help="Maximum number of frames to sample per video (default 40).")
+    parser.add_argument("--frame-max-bytes", type=int, default=60 * 1024 * 1024, help="Cap bytes downloaded from the video stream (default 60MB).")
+    parser.add_argument("--frame-output-dir", help="Directory for sampled frame JPEGs (default: <bundle>.frames next to the bundle).")
     return parser
 
 
@@ -299,6 +311,70 @@ def _fetch_asr_body(
             audio_path.unlink()
 
 
+def _sample_frames_for_bundle(
+    bvid: str,
+    cid: int,
+    cookie_header: str | None,
+    source_url: str,
+    duration_sec: float,
+    output_dir: Path,
+    interval_sec: float,
+    max_frames: int,
+    max_bytes: int,
+) -> list[VideoFrameRef]:
+    if not cookie_header:
+        return []
+    video_url = fetch_bilibili_video_url(bvid=bvid, cid=cid, cookie_header=cookie_header, source_url=source_url)
+    if not video_url:
+        return []
+    try:
+        ffmpeg_path = resolve_ffmpeg_binary()
+    except FileNotFoundError:
+        return []
+    video_path = download_video_file(
+        video_url=video_url,
+        source_url=source_url,
+        cookie_header=cookie_header,
+        max_bytes=max_bytes,
+    )
+    try:
+        timestamps = plan_sample_timestamps(
+            duration_sec=duration_sec,
+            interval_sec=interval_sec,
+            max_frames=max_frames,
+        )
+        if not timestamps:
+            return []
+        request = FrameSampleRequest(
+            video_path=video_path,
+            output_dir=output_dir,
+            timestamps=tuple(timestamps),
+            filename_prefix=f"{bvid}-frame",
+        )
+        return sample_frames(request, ffmpeg_path=ffmpeg_path)
+    finally:
+        if video_path.exists():
+            video_path.unlink()
+
+
+def _attach_frames_to_evidence_segments(
+    segments: list[VideoEvidenceSegment],
+    frame_refs: list[VideoFrameRef],
+) -> None:
+    if not segments or not frame_refs:
+        return
+    for frame in frame_refs:
+        target = None
+        for segment in segments:
+            if segment.start_sec <= frame.timestamp_sec < segment.end_sec:
+                target = segment
+                break
+        if target is None:
+            target = segments[-1]
+        if frame.image_path not in target.frame_paths:
+            target.frame_paths.append(frame.image_path)
+
+
 def _build_segments_from_subtitle_body(body: list[dict], first_frame: str | None) -> list[VideoEvidenceSegment]:
     if not body:
         return []
@@ -410,6 +486,26 @@ def main() -> None:
                 frame_paths=[first_page["first_frame"]] if first_page.get("first_frame") else [],
             )
         ]
+    frame_refs: list[VideoFrameRef] = []
+    if args.with_frames:
+        duration_sec = float(view.get("duration") or 0.0)
+        frame_dir = (
+            _resolve_path(args.frame_output_dir, project_root)
+            if args.frame_output_dir
+            else output_path.with_suffix("").parent / f"{output_path.stem}.frames"
+        )
+        frame_refs = _sample_frames_for_bundle(
+            bvid=bvid,
+            cid=view["cid"],
+            cookie_header=cookie_header,
+            source_url=source_url,
+            duration_sec=duration_sec,
+            output_dir=frame_dir,
+            interval_sec=args.frame_interval,
+            max_frames=args.frame_max_count,
+            max_bytes=args.frame_max_bytes,
+        )
+        _attach_frames_to_evidence_segments(segments, frame_refs)
     bundle = VideoEvidenceBundle(
         source=VideoSource(
             video_id=bvid,
@@ -440,6 +536,7 @@ def main() -> None:
                 "subtitle_line_count": len(subtitle_body),
                 "segment_count": len(segments),
                 "asr_used": asr_used,
+                "frame_count": len(frame_refs),
                 "output": str(output_path),
             },
             ensure_ascii=False,
