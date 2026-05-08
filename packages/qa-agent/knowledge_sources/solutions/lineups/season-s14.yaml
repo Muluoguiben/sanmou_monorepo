@@ -374,3 +374,305 @@
     - 雁形阵
     notes:
     - 来源：小仔哥 kdocs 开荒合集 (2026-04-14)。
+- id: video-lineup-s14-dong-nanman-4-6
+  domain: solution
+  entry_kind: lineup_solution
+  topic: S14 董南蛮 4-6 级地开荒队
+  aliases:
+  - 董南蛮
+  - 董卓南蛮
+  - 董南蛮开荒
+  facts:
+  - 铁血雕馋 S14 通用极限开荒：第一天 4-6 级地用董南蛮（董卓+祝融夫人+孟获）刷级。
+  - 不同红度下董南蛮可以刷到不同目标等级，是开荒早期主力。
+  constraints:
+  - 视频未给出董南蛮的具体兵种与战法配置，需结合已有阵容知识补全。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV142QnBAE8a#77-101
+  updated_at: '2026-04-17'
+  confidence: 0.9
+  related_topics:
+  - 董卓
+  - 祝融夫人
+  - 孟获
+  - 开荒
+  priority: 78
+  structured_data:
+    name: S14 董南蛮 4-6 级地开荒队
+    aliases:
+    - 董南蛮
+    - 董卓南蛮
+    season_tags:
+    - S14
+    - 陈仓之围
+    - W11
+    lineup_rating: null
+    factions: []
+    hero_names:
+    - 董卓
+    - 祝融夫人
+    - 孟获
+    core_skills: []
+    scenario_tags:
+    - 开荒
+    - 4级地
+    - 5级地
+    - 6级地
+    notes:
+    - 来源：铁血雕馋 BV142QnBAE8a
+- id: video-lineup-s14-zuo-tian-ning-7
+  domain: solution
+  entry_kind: lineup_solution
+  topic: S14 左田宁 7 级地开荒队
+  aliases:
+  - 左田宁
+  - 左天宁
+  - 左田宁打七
+  facts:
+  - 铁血雕馋 S14 通用极限开荒：打 7 级地时把董南蛮置换成左田宁（左慈+田丰+张宁），目的是省兵。
+  - 左田宁兵损小，是 7 级地过渡到 8 级地前的核心主力。
+  constraints:
+  - 视频省流版未给出左田宁战法细节，参考既有 KB 阵容条目。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV142QnBAE8a#77-121
+  updated_at: '2026-04-17'
+  confidence: 0.92
+  related_topics:
+  - 左慈
+  - 田丰
+  - 张宁
+  - 开荒
+  priority: 80
+  structured_data:
+    name: S14 左田宁 7 级地开荒队
+    aliases:
+    - 左田宁
+    - 左天宁
+    season_tags:
+    - S14
+    - 陈仓之围
+    - W11
+    lineup_rating: null
+    factions: []
+    hero_names:
+    - 左慈
+    - 田丰
+    - 张宁
+    core_skills: []
+    scenario_tags:
+    - 开荒
+    - 7级地
+    - 省兵
+    notes:
+    - 来源：铁血雕馋 BV142QnBAE8a
+- id: video-lineup-s14-diao-man-8-9
+  domain: solution
+  entry_kind: lineup_solution
+  topic: S14 貂蛮 8-9 级地开荒队
+  aliases:
+  - 貂蛮
+  - 貂蝉南蛮
+  - 貂蛮打八九
+  facts:
+  - 铁血雕馋 S14 通用极限开荒：打 8-9 级地时把左田宁置换成貂蛮（貂蝉+祝融夫人+孟获）。
+  - 低红白板 28 级打 8 翻车概率高（伤害低减伤低），建议拉到战法点满再尝试。
+  constraints:
+  - 视频记录作者本人打 8 时曾翻车 4 次（马妹+法阵等位），说明该队非低红福利。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV142QnBAE8a#101-145
+  updated_at: '2026-04-17'
+  confidence: 0.9
+  related_topics:
+  - 貂蝉
+  - 祝融夫人
+  - 孟获
+  - 开荒
+  priority: 80
+  structured_data:
+    name: S14 貂蛮 8-9 级地开荒队
+    aliases:
+    - 貂蛮
+    - 貂蝉南蛮
+    season_tags:
+    - S14
+    - 陈仓之围
+    - W11
+    lineup_rating: null
+    factions: []
+    hero_names:
+    - 貂蝉
+    - 祝融夫人
+    - 孟获
+    core_skills: []
+    scenario_tags:
+    - 开荒
+    - 8级地
+    - 9级地
+    notes:
+    - 来源：铁血雕馋 BV142QnBAE8a
+- id: video-lineup-s14-sp-zhugenanman-day2-9
+  domain: solution
+  entry_kind: lineup_solution
+  topic: S14 第二天 SP诸葛南蛮开 9 级地
+  aliases:
+  - SP诸葛南蛮
+  - SP诸葛南蛮开9
+  - 诸葛亮2南蛮
+  facts:
+  - 铁血雕馋 S14 极限开荒的第二天主力：SP 诸葛亮（诸葛亮2）+祝融夫人+孟获 开 9 级地。
+  - 解锁雁行阵后（第二天）低红白板 33 级即可用该队打 9。
+  constraints:
+  - 第一天仅中红以上可开 9（具体红度-等级对应见独立条目）。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV142QnBAE8a#0-167
+  updated_at: '2026-04-17'
+  confidence: 0.92
+  related_topics:
+  - 诸葛亮2
+  - 祝融夫人
+  - 孟获
+  - 雁行阵
+  - 开荒
+  priority: 82
+  structured_data:
+    name: S14 第二天 SP诸葛南蛮开 9 级地
+    aliases:
+    - SP诸葛南蛮
+    - 诸葛亮2南蛮
+    season_tags:
+    - S14
+    - 陈仓之围
+    - W11
+    lineup_rating: null
+    factions: []
+    hero_names:
+    - 诸葛亮2
+    - 祝融夫人
+    - 孟获
+    core_skills: []
+    scenario_tags:
+    - 开荒
+    - 第二天
+    - 9级地
+    notes:
+    - 来源：铁血雕馋 BV142QnBAE8a
+- id: video-lineup-s14-simayi-haozhao-caopi-sanbaye
+  domain: solution
+  entry_kind: lineup_solution
+  topic: S14 司马懿-郝昭-曹丕三霸业队
+  aliases:
+  - 司马懿郝昭曹丕
+  - 三霸业组队
+  - 郝昭司马懿队
+  facts:
+  - 三谋史上首个"三霸业组队"阵容（司马懿、郝昭、曹丕三张霸业武将同队）。
+  - 战术核心：前四回合金城汤池+双冰令囤抵御，抵御溢出触发借刀，形成"无限抵御-无限借刀-无限谋击"循环。
+  - 曹丕第四回合潜龙在渊偷智力终结比赛；未雨绸缪+鹰视狼顾是司马懿的奇谋杠杆。
+  - 兵种盾兵：三盾对 >5% 当前兵力的伤害高优先级触发借刀，第四回合有增伤。
+  - 步步为营可定向奶兵力最低的队友（通常是郝昭，他在该队较脆）。
+  constraints:
+  - 视频作者指出该队怕马超。
+  - 阵容吃齐全战法配置，白板/低红难以拉满。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV1aeQnB3Ehw#0-580
+  updated_at: '2026-04-17'
+  confidence: 0.9
+  related_topics:
+  - 司马懿
+  - 郝昭
+  - 曹丕
+  - 未雨绸缪
+  - 鹰视狼顾
+  - 潜龙在渊
+  - 步步为营
+  - 金城汤池
+  priority: 85
+  structured_data:
+    name: S14 司马懿-郝昭-曹丕三霸业队
+    aliases:
+    - 司马懿郝昭曹丕
+    - 三霸业组队
+    season_tags:
+    - S14
+    - 陈仓之围
+    - W11
+    lineup_rating: null
+    factions:
+    - 魏
+    hero_names:
+    - 司马懿
+    - 郝昭
+    - 曹丕
+    core_skills:
+    - 未雨绸缪
+    - 鹰视狼顾
+    - 潜龙在渊
+    - 步步为营
+    - 金城汤池
+    - 双冰令
+    scenario_tags:
+    - PVP
+    - 主力队
+    - 盾兵
+    - 四回合终结
+    notes:
+    - 兵种三盾；怕马超
+    - 来源：三谋君不凡 BV1aeQnB3Ehw
+- id: video-lineup-s14-day2-zhuge-zhurong-menghuo-1-2
+  domain: solution
+  entry_kind: lineup_solution
+  topic: S14 第二天 诸葛祝融孟获 1-2 开荒队
+  aliases:
+  - 诸葛祝融孟获
+  - 诸满孟
+  - 1-2开荒
+  - 123开荒
+  facts:
+  - 小仔哥陈仓之围第二天实战：主力诸葛亮+祝融夫人+孟获，用 1-2 思路带二三队升级打 9 级地。
+  - 配 123 阵容（一队完整主力 + 二队三队各一个拖经验的低级角色），体力保持 200。
+  - 当二三队体力不够时切 113（一队带三队某低级角色+其他高级），继续打。
+  - 实测 21 级三队从 21 级开始打 9 级地；战损一队 ~900、二队 ~500。
+  - 一队 35 级以后，二三队等级不再关键。
+  - 例：一队 21 级诸葛亮 + 24 级孟获配合，也能 1-2 打 9 级地。
+  constraints:
+  - 避免碰"干宁"（甘宁）类定点突破战法，否则最弱的被集火直接减员。
+  - 简单 9 级地留给 123 正常打，困难 9 级地用 113 高配组合处理。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV1KGdbBPEfx#0-472
+  updated_at: '2026-04-17'
+  confidence: 0.88
+  related_topics:
+  - 诸葛亮
+  - 祝融夫人
+  - 孟获
+  - 开荒
+  - 1-2开荒
+  - 123开荒
+  - 雁行阵
+  priority: 82
+  structured_data:
+    name: S14 第二天 诸葛祝融孟获 1-2 开荒队
+    aliases:
+    - 诸葛祝融孟获
+    - 诸满孟
+    season_tags:
+    - S14
+    - 陈仓之围
+    - W11
+    lineup_rating: null
+    factions: []
+    hero_names:
+    - 诸葛亮
+    - 祝融夫人
+    - 孟获
+    core_skills: []
+    scenario_tags:
+    - 开荒
+    - 第二天
+    - 9级地
+    - 1-2开荒
+    - 123开荒
+    notes:
+    - 一队 35 级以后二三队等级不重要
+    - 金书第一本解锁即可触发链式奶
+    - 来源：小仔哥321 BV1KGdbBPEfx

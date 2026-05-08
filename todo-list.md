@@ -1,6 +1,6 @@
 # Todo List
 
-> Last updated: 2026-04-17 (赛季剧本列表 S1-S14 完成入库；缘分补录降优先级；下一轮聚焦 bilibili 视频学习)
+> Last updated: 2026-04-17 (Plan 2 三步闭环完成：帧采样 → vision 融合 → LLM 抽取，字幕空洞视频现可自动出阵容)
 
 ## In Progress
 
@@ -8,6 +8,9 @@
 
 ## Pending
 
+- [ ] **Plan 2 Step-4 批量 rerun**：把已抓的 20 视频（ingestion/video_batch/）全部重跑 `fetch_bilibili_bundle --with-frames` + `run_video_pipeline --enrich-frames`，看新增 lineup/hero candidates 数量是否值得人工 review 再入库；预期 subtitle-empty 的视频（先前被放弃的）现在也能出阵容条目。
+- [ ] **Plan 2 成本评估**：目前每视频 4-6 frames × 5-7s vision 调用 + 1 次文本 LLM，约 30-60s / 视频；若扩到 100+ 视频需要考虑并行 + gpt-5.4-mini 降本 A/B。
+- [ ] 帧采样参数调优：当前固定 30s 间隔，gameplay 视频需要更密（10-15s 抓到不同队伍切换），diagram 视频则稀疏 60s 即可；可以根据字幕密度自适应（subtitle_line_count 高 → 间隔大）。
 - [ ] Pioneer-agent perception 接入 GPT-5.4 vision：当前 perception/vision 用 Gemini，可切到 sub2api gpt-5.4（5.8s/198tok 成本合理）作为备份，或做 A/B 对比
 - [ ] 职业二阶天赋细节：通过游戏内截图 OCR 补全（当前 7 条为概述级别）
 - [ ] 同兵种加成数值：骑兵/枪兵 3 阵具体增伤/减伤分配（弓/盾已确认 5%）
@@ -61,3 +64,6 @@
 - [x] Kdocs 在线 xlsx 开荒表入库（陈仓之围 S14/W11，小仔哥 2026-04-14 版）：绕过 60MB CDN 限速（EE→北京 2-20 KB/s），`scripts/kdocs_range_fetch.py` 用 HTTP Range 解析 xlsx=zip 只拉 metadata + sheet XML（~100KB 代替 60MB），提取 12 张 sheet；陈仓之围 sheet 入库 8 条 lineup_solution（五-十二级地，每级含 首开/简单/中等/困难 守军组合 + 最优队伍 + 推荐等级 + 细节，season-s14.yaml）+ 13 条 generic_rule（6 技巧 二带一/电表倒转/123开荒/3兵讨贼/无兵营开八/控兵损 + 7 细节 装备词条/第十章过章/资源置换警告/新手期截止/鸡腿无损/远征科技/职业推荐）；89 tests 全绿
 - [x] Kdocs xlsx 剩余全 sheet 入库（小仔哥开荒合集 2026-04-14）：扩展到 4 个赛季 × 8 级地 = 32 条 lineup_solution（业铸山河 S4 / 四海归心 S11 / 弈定江淮 S12 / 兴汉讨逆 S13，bucket 路由 `_resolve_lineup_bucket` 基于 `season_tags[0]` slugify 落盘为 `season-s4业铸山河.yaml` / `season-s11.yaml` / `season-s12.yaml` / `season-s13.yaml`）；另补 11 条 generic_rule：7 条赛季流程（S1/S2&S3/S1赛季/S4业铸山河/四海归心/弈定江淮/兴汉讨逆 发展节奏，domain=team）+ 1 条演武 T1/T1.5 阵容基础逻辑（domain=combat）+ 3 条王业之争（战场逻辑 16 条含南郑粮车黑科技 / 兵种特性 15 条 神射游骑坚盾枪锋绛影魏武等 / 职业优势 6 条 司仓神行镇军青囊天工奇佐，domain=combat+team）；89 tests 全绿
 - [x] Bilibili 20 视频批量 ingestion：subtitle fetcher 双 bug 修复（wbi/v2 endpoint + CJK bigram relevance tokenizer）后 19 视频抽出 36 候选；`scripts/cleanup_video_batch.py` 合并 + 规则化（drop 跨游戏/不可解析武将、strip "Hero-Skill" 复合 + "输出技能"占位、normalize 季节标签），dropped 7 / kept 29；新增 hero 别名 祝融→祝融夫人 / 甄姬→甄洛 / SP诸葛亮→诸葛亮2 + skill 别名 8 条（横征→横征暴敛 等）；review 纠错"朱儁不是蛮子开荒第三人阵"（玩家共识：貂蝉/董卓/诸葛亮2）；29 条 lineup_solution 分入 s1/s2/s12/s13/misc，qa-agent 89 tests
+- [x] Bilibili S14 3 视频人工复核入库（2026-04-17）：铁血雕馋 BV142QnBAE8a（董南蛮/左田宁/貂蛮/SP诸葛南蛮 开荒四段 + 开9红度表 + W11 门客移民）+ 三谋君不凡 BV1aeQnB3Ehw（司马懿-郝昭-曹丕三霸业队 + 郝昭词条/千机重城/巍然不动/金书机制 + 越战越勇连战机制）+ 小仔哥321 BV1KGdbBPEfx（第二天 123/113 1-2 开荒），共 6 条 lineup_solution 入 season-s14.yaml + 4 条 generic_rule 入 chapter.yaml / hero_skill.yaml；workflow 脚本新增 `.env` 自动 source + `--asr-fallback` flag（解决 bilibili API 必须 cookie、新发视频无 UP 上传字幕的双重问题）；LLM extractor 仍偏保守（仅抓显式阵容名），需靠 Plan 2 帧采样 vision 提升 hero_names/skill 解析密度
+- [x] **Plan 2 Step-1/2 帧采样基建**（2026-04-17）：新增 `qa_agent/video/frame_sampler.py`（ffmpeg wrapper，env→imageio-ffmpeg→PATH 三级回退，支持 mock runner 注入）+ `qa_agent/video/video_download.py`（bilibili DASH 最低画质流 + max_bytes 截断）+ `fetch_bilibili_bundle.py` 的 `--with-frames/--frame-interval/--frame-max-count/--frame-max-bytes/--frame-output-dir` 五参数；frame_refs 按时间戳分配到对应 VideoEvidenceSegment.frame_paths；qa-agent 101 tests（+11 新增 frame_sampler 单测 + 1 CLI 多模态集成测试）；pip install imageio-ffmpeg 0.6.0；BV1KGdbBPEfx gameplay 视频验证：6 帧 vision pass 在纯字幕抽 0 武将的情况下抽到 14 hero hits（孙坚/邓艾/于禁 守军 + 诸葛亮/祝融夫人 主力 + 兵力 30000 等关键 UI 文本）
+- [x] **Plan 2 Step-3 vision→LLM extractor 融合**（2026-04-17）：新增 `qa_agent/video/vision_enrichment.py`（enrich_document_with_vision：每 segment 跑 ImageExtractor，把 hero/skill/text_snippets 注入 ocr_lines + visual_summary，保持 JSON schema 不变）+ `run_video_pipeline.py` 的 `--enrich-frames/--frames-per-segment` 参数；qa-agent 107 tests（+6 新增 vision_enrichment 单测）；端到端验证：BV1KGdbBPEfx（0 字幕）从"无输出"→自动产出 lineup "陈仓之围一带二队伍 [祝融夫人, 诸葛亮, 孟获] confidence 0.76" 并直入 season-misc.yaml；BV142QnBAE8a 产出 "S5-S14 通用开荒董南蛮队 [董卓, 孟获, 祝融夫人] confidence 0.92"（与人工复核一致）。字幕空洞的视频不再需要人工复核

@@ -1,0 +1,108 @@
+# Generic rules manually extracted from S14 bilibili videos (subtitle + hand review).
+# Matching lineup entries live in ingestion/staging/videos/bilibili-s14-enriched-2026-04-17.yaml.
+
+- id: mech-s14-chencang-open9-redline
+  domain: chapter
+  entry_kind: generic_rule
+  topic: S14 陈仓之围第一天开 9 级地的红度-等级对应
+  aliases:
+  - S14开9等级
+  - 陈仓之围开9红度
+  - 开9红度对应表
+  facts:
+  - 满红 30 级可开 9（抢榜 29 级开局）。
+  - 高红 31 级可开 9。
+  - 中红 32 级可开 9。
+  - 低红/白板第一天不建议开 9；第二天解锁雁行阵后 33 级可开 9（32.5 级也接近）。
+  - 该表对应第一天首发阶段，第二天门槛会下降 1-2 级。
+  constraints:
+  - 依赖核心装备/战法配齐，词条不全时实际等级门槛会上升。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV142QnBAE8a#121-167
+  updated_at: '2026-04-17'
+  confidence: 0.88
+  related_topics:
+  - 开荒
+  - 红度
+  - 9级地
+  - 雁行阵
+  priority: 80
+
+- id: mech-s14-w11-menke-yimin
+  domain: chapter
+  entry_kind: generic_rule
+  topic: S14 陈仓之围 W11 门客移民特殊玩法
+  aliases:
+  - W11门客移民
+  - 门客移民资源
+  - 陈仓之围门客
+  facts:
+  - W11 陈仓之围剧本开局强制触发门客选择移民玩法。
+  - 选择移民后每小时给 3000+ 的全资源产出（粮食除外）。
+  - 建议直接选上，是赛季开局的额外资源来源。
+  constraints:
+  - 仅此赛季特性，其他赛季剧本未必复用。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV142QnBAE8a#51-77
+  updated_at: '2026-04-17'
+  confidence: 0.85
+  related_topics:
+  - W11
+  - 陈仓之围
+  - 资源产出
+  priority: 70
+
+- id: mech-haozhao-ciyu
+  domain: hero
+  entry_kind: generic_rule
+  topic: 郝昭的四个统帅词条与金书机制
+  aliases:
+  - 郝昭词条
+  - 郝昭机制
+  - 千机重城
+  - 巍然不动
+  facts:
+  - 郝昭有四个受统帅加成的词条，第四个藏在金书里。
+  - 金书机制——消除敌方谋略减伤；若对面没有谋减则直接转化为易伤，与曹丕形成完美联动。
+  - 巍然不动（郝昭词条）——我军全体每消耗两次抵御触发借刀伤害，是该队抵御溢出循环的起点。
+  - 千机重城（郝昭自带，官方描述）——我军全体行动时 30%->60% 概率（受统率影响）获得 1 层抵御；若其兵力低于 50%，额外有 25%->50% 概率再获得 1 层抵御。
+  - 看似短板的"兵力 < 50% 判定"恰恰是司马懿连战掉兵后持续触发抵御的核心：每场战斗兵力下降 → 下场更易叠额外抵御。
+  - 抵御层数在该队可以溢出（不浪费），配合巍然不动就是越打抵御越多、抵御越多借刀越多的正反馈。
+  constraints:
+  - 额外抵御的触发上限官方给 50%，作者认为实战体感偏高。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV1aeQnB3Ehw#0-290
+  updated_at: '2026-04-17'
+  confidence: 0.85
+  related_topics:
+  - 郝昭
+  - 司马懿
+  - 曹丕
+  - 抵御
+  - 借刀
+  - 金书
+  priority: 78
+
+- id: mech-simayi-yuezhanyueyong
+  domain: hero
+  entry_kind: generic_rule
+  topic: 司马懿越战越勇连战机制
+  aliases:
+  - 司马懿越战越勇
+  - 司马懿连战
+  facts:
+  - 过去认为司马懿连战差、战损大；郝昭到位后这变成优势。
+  - 若出门 3 万兵、打完剩 2.2 万（约 73%），进入下一战兵力低于 50%（1.5 万）时可稳定触发千机重城的额外抵御。
+  - 兵力越低 → 千机重城额外抵御触发越稳 → 抵御/借刀循环越猛，所以司马懿在该队巴不得兵力低。
+  constraints:
+  - 该机制依赖队友抵御链（郝昭巍然不动 + 曹丕/步步为营）配齐，单带司马懿效果不成立。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV1aeQnB3Ehw#290-487
+  updated_at: '2026-04-17'
+  confidence: 0.82
+  related_topics:
+  - 司马懿
+  - 郝昭
+  - 连战
+  - 兵力
+  priority: 72
