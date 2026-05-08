@@ -23,6 +23,7 @@ from pioneer_agent.perception.domains import (
     apply_resource_bar,
     extract_resource_bar,
 )
+from pioneer_agent.perception.vision import build_vision_client
 
 
 def _capture_live() -> bytes:
@@ -43,12 +44,15 @@ def main(argv: list[str] | None = None) -> int:
     source.add_argument("--live", action="store_true", help="Capture live via Windows bridge.")
     parser.add_argument("--out", type=Path, help="Write merged RuntimeState JSON to this path.")
     parser.add_argument("--state-in", type=Path, help="Merge into this existing RuntimeState JSON.")
+    parser.add_argument("--vision-provider", choices=("gemini", "openai"), default=None,
+                        help="Vision provider override. Defaults to PIONEER_VISION_PROVIDER or gemini.")
     args = parser.parse_args(argv)
 
     image_bytes = _capture_live() if args.live else _load_image(args.image)
     print(f"[probe] image size: {len(image_bytes)} bytes", file=sys.stderr)
 
-    fragment = extract_resource_bar(image_bytes, captured_at=datetime.now())
+    vision = build_vision_client(args.vision_provider)
+    fragment = extract_resource_bar(image_bytes, client=vision, captured_at=datetime.now())
     print(f"[probe] page_type: {fragment.page_type}", file=sys.stderr)
     print(f"[probe] global_state: {fragment.global_state}", file=sys.stderr)
     print(f"[probe] economy: {fragment.economy}", file=sys.stderr)

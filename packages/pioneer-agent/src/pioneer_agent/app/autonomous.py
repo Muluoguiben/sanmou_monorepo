@@ -13,7 +13,7 @@ from pathlib import Path
 from pioneer_agent.adapters.bridge_client import BridgeClient
 from pioneer_agent.executor.ui_actions import UIActions
 from pioneer_agent.perception.ui_registry import UIRegistry
-from pioneer_agent.perception.vision import VisionClient
+from pioneer_agent.perception.vision import build_vision_client
 from pioneer_agent.perception.vision_sync import VisionSync
 from pioneer_agent.runtime.autonomous_loop import AutonomousLoop
 from pioneer_agent.storage.loop_logger import LoopLogger
@@ -32,6 +32,8 @@ def main(argv: list[str] | None = None) -> int:
                         help="Run perception + decision but skip UI action dispatch.")
     parser.add_argument("--stuck-threshold", type=int, default=3,
                         help="Consecutive idle/unknown ticks before ESC recovery (default: 3).")
+    parser.add_argument("--vision-provider", choices=("gemini", "openai"), default=None,
+                        help="Vision provider override. Defaults to PIONEER_VISION_PROVIDER or gemini.")
     args = parser.parse_args(argv)
 
     logging.basicConfig(
@@ -42,7 +44,7 @@ def main(argv: list[str] | None = None) -> int:
     loop_logger = LoopLogger(args.log_dir, archive_screenshots=not args.no_archive)
 
     with BridgeClient() as bridge:
-        vision = VisionClient()
+        vision = build_vision_client(args.vision_provider)
         registry = UIRegistry.load()
         ui = UIActions(bridge, registry, vision=vision)
         loop = AutonomousLoop(

@@ -23,7 +23,7 @@ import yaml
 from PIL import Image
 
 from pioneer_agent.perception.ui_registry import DEFAULT_LAYOUT_PATH, UIRegistry
-from pioneer_agent.perception.vision import VisionClient, find_elements
+from pioneer_agent.perception.vision import VisionExtractor, build_vision_client, find_elements
 
 QUERIES: dict[str, str] = {
     "chu_cheng": "出城 button at bottom-left corner of the screen",
@@ -35,7 +35,7 @@ QUERIES: dict[str, str] = {
 }
 
 
-def _calibrate_one(client: VisionClient, image_path: Path, key: str) -> tuple[float, float] | None:
+def _calibrate_one(client: VisionExtractor, image_path: Path, key: str) -> tuple[float, float] | None:
     query = QUERIES.get(key)
     if query is None:
         print(f"[calibrate] no query for key '{key}'", file=sys.stderr)
@@ -80,13 +80,15 @@ def main(argv: list[str] | None = None) -> int:
     group.add_argument("--all", action="store_true", help="Calibrate every known key.")
     parser.add_argument("--update", action="store_true", help="Write results back to ui_layout.yaml.")
     parser.add_argument("--layout", type=Path, default=DEFAULT_LAYOUT_PATH)
+    parser.add_argument("--vision-provider", choices=("gemini", "openai"), default=None,
+                        help="Vision provider override. Defaults to PIONEER_VISION_PROVIDER or gemini.")
     args = parser.parse_args(argv)
 
     # Surface current registry so user can compare.
     reg = UIRegistry.load(args.layout)
     print(f"[calibrate] current registry has {len(reg.keys())} buttons: {reg.keys()}", file=sys.stderr)
 
-    client = VisionClient()
+    client = build_vision_client(args.vision_provider)
     keys = list(QUERIES) if args.all else [args.button]
     updates: dict[str, tuple[float, float]] = {}
     for key in keys:

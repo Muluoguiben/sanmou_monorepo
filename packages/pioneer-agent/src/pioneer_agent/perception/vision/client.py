@@ -8,7 +8,6 @@ Design notes (from empirical testing against 三国·谋定天下 screenshots):
 """
 from __future__ import annotations
 
-import io
 import json
 import logging
 import time
@@ -18,14 +17,13 @@ from typing import Any
 
 from google import genai
 from google.genai import types
-from PIL import Image
+
+from .image import PreparedImage, prepare_image
 
 logger = logging.getLogger(__name__)
 
 DEFAULT_KEY_PATH = Path.home() / ".config" / "sanmou" / "gemini.key"
 DEFAULT_MODEL = "gemini-flash-latest"
-MAX_IMAGE_WIDTH = 1280
-MAX_IMAGE_BYTES = 2 * 1024 * 1024
 
 
 class VisionError(RuntimeError):
@@ -63,14 +61,14 @@ class VisionClient:
         max_retries: int = 2,
         retry_backoff_s: float = 2.0,
     ) -> VisionResult:
-        image_bytes = self._normalize_image(image)
+        prepared = self._normalize_image(image)
         config = types.GenerateContentConfig(
             response_mime_type="application/json",
             response_schema=response_schema,
             temperature=temperature,
         )
         contents = [
-            types.Part.from_bytes(data=image_bytes, mime_type="image/png"),
+            types.Part.from_bytes(data=prepared.data, mime_type=prepared.mime_type),
             instruction,
         ]
 
@@ -104,20 +102,5 @@ class VisionClient:
         raise VisionError(f"vision extraction failed after {max_retries + 1} attempts: {last_exc}") from last_exc
 
     @staticmethod
-    def _normalize_image(image: bytes | Path) -> bytes:
-        if isinstance(image, Path):
-            raw = image.read_bytes()
-        else:
-            raw = image
-
-        img = Image.open(io.BytesIO(raw))
-        needs_resize = img.width > MAX_IMAGE_WIDTH or len(raw) > MAX_IMAGE_BYTES
-        if not needs_resize:
-            return raw
-
-        ratio = MAX_IMAGE_WIDTH / img.width
-        new_size = (MAX_IMAGE_WIDTH, int(img.height * ratio))
-        resized = img.resize(new_size, Image.LANCZOS)
-        buf = io.BytesIO()
-        resized.save(buf, format="PNG", optimize=True)
-        return buf.getvalue()
+    def _normalize_image(image: bytes | Path) -> PreparedImage:
+        return prepare_image(image)
