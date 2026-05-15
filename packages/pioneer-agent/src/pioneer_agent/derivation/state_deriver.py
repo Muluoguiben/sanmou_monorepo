@@ -7,6 +7,7 @@ from typing import Any
 from pioneer_agent.core.models import RuntimeState
 from pioneer_agent.derivation.phase import derive_phase_tag
 from pioneer_agent.derivation.readiness import compute_combat_readiness
+from pioneer_agent.derivation.team_snapshot import apply_team_snapshot_judgements
 
 
 class StateDeriver:
@@ -33,6 +34,7 @@ class StateDeriver:
 
         self._derive_main_lineup_summary(derived)
         self._derive_team_container_readiness(derived)
+        apply_team_snapshot_judgements(derived)
         self._derive_candidate_land_features(derived)
         self._derive_building_features(derived)
         self._derive_primary_constraint(derived)

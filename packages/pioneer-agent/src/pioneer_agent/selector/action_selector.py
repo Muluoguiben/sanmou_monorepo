@@ -176,10 +176,26 @@ class ActionSelector:
         soldier_deficit_ratio = float(params.get("soldier_deficit_ratio") or 0)
         missing_detail_count = len(params.get("missing_detail_tabs") or [])
         review_count = len(params.get("review_items") or [])
-        score = base + min(soldier_deficit_ratio * 120, 24) + min(missing_detail_count * 1.5, 9) + min(review_count * 2, 8)
+        judgement = params.get("readiness_judgement") if isinstance(params.get("readiness_judgement"), dict) else {}
+        judgement_status = str(judgement.get("overall_status") or "")
+        judgement_weight = {
+            "insufficient_basis": 14.0,
+            "not_ready": 12.0,
+            "needs_review": 8.0,
+            "usable": 2.0,
+            "ready": 0.0,
+        }.get(judgement_status, 0.0)
+        score = (
+            base
+            + min(soldier_deficit_ratio * 120, 24)
+            + min(missing_detail_count * 1.5, 9)
+            + min(review_count * 2, 8)
+            + judgement_weight
+        )
         return round(score, 2), {
             "advisor_team_domain": base,
             "soldier_deficit": round(min(soldier_deficit_ratio * 120, 24), 2),
             "missing_details": round(min(missing_detail_count * 1.5, 9), 2),
             "review_items": round(min(review_count * 2, 8), 2),
+            "team_snapshot_judgement": judgement_weight,
         }

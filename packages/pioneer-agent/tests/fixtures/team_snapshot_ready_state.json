@@ -1,0 +1,160 @@
+{
+  "global_state": {
+    "server_open_time": "2026-05-14T10:00:00+08:00",
+    "current_time": "2026-05-14T18:00:00+08:00",
+    "phase_tag": "advisor_team_review",
+    "page_type": "team_detail"
+  },
+  "progress": {
+    "chapter_claimable": false,
+    "task_progress": {}
+  },
+  "economy": {
+    "reserve_troops": 0
+  },
+  "city": {
+    "upgradeable_buildings": []
+  },
+  "heroes": [],
+  "teams": [
+    {
+      "team_id": "部队一",
+      "page_type": "team_detail",
+      "formation": "雁形阵",
+      "formation_active": true,
+      "bond_active": true,
+      "soldiers": 33000,
+      "max_soldiers": 33000,
+      "soldier_deficit": 0,
+      "supply": 100,
+      "supply_max": 100,
+      "detail_status": {
+        "装备": "observed",
+        "马匹": "observed",
+        "兵书": "observed",
+        "属性加点": "observed",
+        "战法等级": "observed",
+        "兵种适性": "observed"
+      },
+      "missing_detail_tabs": [],
+      "heroes": [
+        {
+          "name": "祝融夫人",
+          "level": 50,
+          "soldiers": 11000,
+          "max_soldiers": 11000,
+          "stamina": 200,
+          "stamina_max": 200,
+          "tactics": ["南疆烈刃", "胜敌益强", "锐不可当"],
+          "attributes": {"武力": 345, "智力": 113, "统率": 192, "先攻": 190},
+          "attribute_points": {"武力": 100},
+          "soldier_specialties": ["骑兵 S"],
+          "equipment": [{"slot": "武器", "name": "虎头湛金枪", "attributes": {"武力": 13.4, "统率": 13}}],
+          "mount": {"name": "乌云踏雪", "attributes": {"武力": 9, "先攻": 9}, "skills": ["穿云", "碎岩"]},
+          "books": [{"slot": "韬略", "name": "火裔绝刃", "active": true}],
+          "tactic_details": [
+            {"slot": "自带", "name": "南疆烈刃", "level": 10, "max_level": 10},
+            {"slot": "二", "name": "胜敌益强", "level": 10, "max_level": 10},
+            {"slot": "三", "name": "锐不可当", "level": 10, "max_level": 10}
+          ]
+        },
+        {
+          "name": "孟获",
+          "level": 50,
+          "soldiers": 11000,
+          "max_soldiers": 11000,
+          "stamina": 200,
+          "stamina_max": 200,
+          "tactics": ["雄护南疆", "指点乾坤", "踏锋饮血"],
+          "attributes": {"武力": 310, "统率": 220, "先攻": 160},
+          "attribute_points": {"武力": 100},
+          "soldier_specialties": ["盾兵 S"],
+          "equipment": [{"slot": "武器", "name": "破阵斧", "attributes": {"武力": 12}}],
+          "mount": {"name": "绝影", "attributes": {"武力": 8}, "skills": ["疾驰"]},
+          "books": [{"slot": "韬略", "name": "得势", "active": true}],
+          "tactic_details": [
+            {"slot": "自带", "name": "雄护南疆", "level": 10, "max_level": 10},
+            {"slot": "二", "name": "指点乾坤", "level": 10, "max_level": 10},
+            {"slot": "三", "name": "踏锋饮血", "level": 10, "max_level": 10}
+          ]
+        },
+        {
+          "name": "诸葛亮",
+          "level": 50,
+          "soldiers": 11000,
+          "max_soldiers": 11000,
+          "stamina": 200,
+          "stamina_max": 200,
+          "tactics": ["草船借箭", "料事如神", "避其锐气"],
+          "attributes": {"智力": 350, "统率": 210, "先攻": 170},
+          "attribute_points": {"智力": 100},
+          "soldier_specialties": ["弓兵 S"],
+          "equipment": [{"slot": "武器", "name": "羽扇", "attributes": {"智力": 14}}],
+          "mount": {"name": "白鹄", "attributes": {"智力": 9}, "skills": ["游龙"]},
+          "books": [{"slot": "韬略", "name": "时利", "active": true}],
+          "tactic_details": [
+            {"slot": "自带", "name": "草船借箭", "level": 10, "max_level": 10},
+            {"slot": "二", "name": "料事如神", "level": 10, "max_level": 10},
+            {"slot": "三", "name": "避其锐气", "level": 10, "max_level": 10}
+          ]
+        }
+      ],
+      "team_effects": ["阵法已激活", "缘分已激活"],
+      "team_snapshot": {
+        "source": "vision.team_detail",
+        "detail_completion": {
+          "装备": true,
+          "马匹": true,
+          "兵书": true,
+          "属性加点": true,
+          "战法等级": true,
+          "兵种适性": true
+        },
+        "basis_fields": ["装备", "马匹", "兵书", "属性加点", "战法等级", "兵种适性"],
+        "pvp_pve_basis_ready": true
+      }
+    }
+  ],
+  "team_containers": [
+    {
+      "team_id": "部队一",
+      "soldiers": 33000,
+      "max_soldiers": 33000,
+      "soldier_deficit": 0,
+      "container_stamina": 200,
+      "status": "observed"
+    }
+  ],
+  "map_state": {
+    "candidate_lands": []
+  },
+  "swap_window": {
+    "enabled": false
+  },
+  "main_lineup": {
+    "current_host_team_id": "部队一",
+    "team_snapshot": {
+      "source": "vision.team_detail",
+      "detail_completion": {
+        "装备": true,
+        "马匹": true,
+        "兵书": true,
+        "属性加点": true,
+        "战法等级": true,
+        "兵种适性": true
+      },
+      "pvp_pve_basis_ready": true
+    },
+    "team_readiness": {
+      "missing_detail_tabs": [],
+      "requires_detail_review": false,
+      "pvp_pve_basis_ready": true
+    }
+  },
+  "carrier_pool": [],
+  "swap_constraints": {
+    "stamina_regen_per_hour": 12
+  },
+  "timing": {},
+  "field_meta": {}
+}

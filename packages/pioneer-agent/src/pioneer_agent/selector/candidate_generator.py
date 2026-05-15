@@ -342,6 +342,11 @@ class CandidateGenerator:
                 if isinstance(team_snapshot.get("detail_completion"), dict)
                 else {}
             )
+            readiness_judgement = (
+                team_snapshot.get("readiness_judgement")
+                if isinstance(team_snapshot.get("readiness_judgement"), dict)
+                else {}
+            )
             pvp_pve_basis_ready = bool(team_snapshot.get("pvp_pve_basis_ready"))
             hero_names = [
                 hero.get("name")
@@ -354,6 +359,7 @@ class CandidateGenerator:
                 missing_detail_tabs=missing_detail_tabs,
                 formation_active=team.get("formation_active"),
                 bond_active=team.get("bond_active"),
+                readiness_judgement=readiness_judgement,
             )
             if not review_items and not readiness_notes and pvp_pve_basis_ready:
                 continue
@@ -377,6 +383,7 @@ class CandidateGenerator:
                         "missing_detail_tabs": missing_detail_tabs,
                         "detail_completion": detail_completion,
                         "pvp_pve_basis_ready": pvp_pve_basis_ready,
+                        "readiness_judgement": readiness_judgement,
                         "readiness_notes": readiness_notes,
                         "review_items": review_items,
                     },
@@ -387,8 +394,9 @@ class CandidateGenerator:
                         "advisor_only": True,
                         "requires_detail_review": bool(missing_detail_tabs),
                         "pvp_pve_basis_ready": pvp_pve_basis_ready,
+                        "readiness_judgement": readiness_judgement,
                     },
-                    source_state_refs=["teams", "team_containers", "main_lineup.team_readiness"],
+                    source_state_refs=["teams", "team_containers", "main_lineup.team_readiness", "main_lineup.team_snapshot"],
                 )
             )
         return actions
@@ -478,6 +486,7 @@ class CandidateGenerator:
         missing_detail_tabs: list[str],
         formation_active: Any,
         bond_active: Any,
+        readiness_judgement: dict[str, Any] | None = None,
     ) -> list[str]:
         items: list[str] = []
         if soldier_deficit > 0:
@@ -488,4 +497,8 @@ class CandidateGenerator:
             items.append("检查缘分是否激活")
         if missing_detail_tabs:
             items.append("进入详情页补齐：" + "、".join(missing_detail_tabs[:6]))
+        if readiness_judgement:
+            for step in readiness_judgement.get("next_steps") or []:
+                if step not in items and step != "基础状态可用于 PVP/PVE/远征判断":
+                    items.append(str(step))
         return items
