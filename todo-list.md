@@ -1,17 +1,18 @@
 # Todo List
 
-> Last updated: 2026-05-14 (下一段重点：把 Bilibili 视频阵容图接入 team_panel/team_detail，自动结构化 UP 主阵容配置)
+> Last updated: 2026-05-15 (下一段重点：把 TeamSnapshot 变成 PVP/PVE/远征可判断的基础状态，并接入 Bilibili 阵容图结构化抽取)
 
 ## In Progress
 
 - [ ] Desktop Advisor 真机试用：用 PC 客户端、安卓模拟器、安卓真机、iOS 各 3-5 张真实截图跑 `apps/sanmou-advisor-desktop`，记录识别失败样例与 UI 卡点。
-- [ ] Vision 模式接入验证：在 GUI 关闭 `Mock` 后，用 `PIONEER_VISION_PROVIDER=openai` 或 Gemini 跑通真实 `VisionSync -> AdvisorReport`。
-- [ ] 今晚 MVP 实机验收：上传 1 张真实《三国：谋定天下》游戏截图，确认 GUI 展示截图解读、关键事实、下一步、风险，并能在对话中回答“这张图识别到了什么”。
+- [ ] TeamSnapshot 判断层：基于 `team_panel/team_detail` 输出的武将、战法等级、属性加点、装备、马匹、缘分、阵法、兵书字段，生成 PVP/PVE/远征可消费的 readiness/risk 结论。
 
 ## P0 — Advisor MVP 闭环
 
 - [ ] `chapter_panel` perception domain：章节面板截图识别当前章节、任务完成状态、奖励是否可领；输出 `progress.chapter_claimable/current_chapter_id` 与 field_meta。
 - [ ] `recruit_panel` / team soldier perception domain：识别队伍兵力、上限、预备兵、征兵按钮状态，支撑 `recruit_soldiers` Advisor 建议。
+- [ ] `event_tournament` / `mode_hub` perception domain：把演武大会、征战模式入口、远征/军演/养士兴功等页面从当前 `chapter` fallback 中拆出来，抽取积分、排名、倒计时、阶段状态、可重置/可报名等字段。
+- [ ] TeamSnapshot fixture/eval：把 5/14 的队伍总览 + 祝融夫人 4 张详情图沉淀为 screenshot fixture，校验 `detail_status/missing_detail_tabs/pvp_pve_basis_ready` 和关键字段不退化。
 - [ ] Desktop Advisor 历史记录：把上传截图、`DeviceProfile`、`RuntimeState`、`AdvisorReport` 写入可浏览历史，并支持重新打开。
 - [ ] Screenshot fixture dataset：建立 `tests/fixtures/screenshots/{pc_client,android_emulator,android,ios}/`，至少覆盖首页、城内、章节、队伍、武将、地图、战报。
 - [ ] Vision eval baseline：基于 screenshot fixture 输出 page/domain/entity accuracy，防止后续 perception 重构退化。
@@ -21,6 +22,8 @@
 ## P1 — 真实自动化闭环前置
 
 - [ ] Popup detector：识别通用弹窗、确认框、返回/关闭状态，作为 recovery/verifier 基础。
+- [ ] Sanmou 客户端冷启动弹窗 handler：覆盖网络错误/公告/公会邀请/钻石提示/续费弹窗等首屏弹窗；只对已知安全弹窗执行关闭/确认，未知弹窗挂起并回传 Advisor。
+- [ ] Sanmou 客户端安装路径自适应：`sanmou_client_control.ps1` / bootstrap 不再只硬编码 `D:\bilibili Game\NSLG`，优先解析桌面快捷方式、注册表或常见安装目录，找不到再 fallback。
 - [ ] Verifier framework：每个可执行动作必须声明 expected state delta 和 verify timeout；无 verifier 不允许自动执行。
 - [ ] Safety guardrail：基于 `CapabilityFlags`、risk schema、action_type、account/session mode 拦截高风险动作。
 - [ ] Manual kill switch：GUI 与 runtime 都要有本地停机开关；触发后 executor 不再派发输入。
@@ -31,7 +34,11 @@
 
 ## P2 — 策略与数据质量
 
+- [ ] Bilibili 字幕中文规范化 → 落库正字（2026-05-14 由 @muluo-lan 提出）：B 站 AI 中文字幕将三谋专有名词频繁同音替换（皇甫嵩→黄府松、固若金汤→金汤、百战不殆→百战、孟获/南蛮→穆路蛮、姜维→好新火/好星火/好心火 等），导致 `ingestion/staging/videos/bilibili-*.yaml` 的 hero_names/core_skills 落库时仍含错别字。需要在 `qa_agent.video` 增加一个"游戏术语词典 + 同音/近形替换"的字幕规范化层（输入：B站 raw 字幕 / view_conclusion；输出：规范化后的 transcript_lines），词典来自 `knowledge_sources/profiles/heroes/*.yaml` 武将名 + `knowledge_sources/profiles/skills/*.yaml` 战法名 + 已知队伍别名表；规范化在 LLM extractor 之前执行，并把替换日志写入 evidence 以便 review。验证：跑 `bilibili-chencang-2026-05-14.yaml` 上的 6 个视频，错别字应从当前的 ~15 种降到 0。
 - [ ] Bilibili 阵容图结构化抽取：在 `qa-agent` 视频 workflow 中新增 lineup frame extractor，自动从 UP 主视频关键帧分类阵容/武将详情/装备/兵书页，复用 `pioneer-agent` 的 `team_panel/team_detail` schema，按视频时间戳聚合每个队伍、每个武将的配置，输出 YAML staging 供人工审核后入库。
+- [ ] 赛季阶段规则结构化：把“首日 16:00-22:00 红利期 / 第二天 22:00 阵容洗牌”等视频里反复出现的时间窗口抽象成 `season_phase` 规则，供 Advisor 根据当前服务器时间选择阵容档位。
+- [ ] 赛季末武勋卷排行机制：补抓并入库陈仓之围赛末武勋卷排行玩法（候选视频：BV1Gz5J6EEPq），沉淀为 S14 generic_rule。
+- [ ] Kdocs 小仔哥陈仓之围 5-12 级地 publish 校对：确认 `ingestion/staging/kdocs/xiaozai-chencangzhiwei-2026-04-14.yaml` row5-row12 是否全部发布到 `knowledge_sources/solutions/lineups/season-s14.yaml`，尤其 row7-row12 的守军表。
 - [ ] Scoring 配置补全：`config/scoring.yaml` 只有 `opening_sprint` 阶段权重，需补齐 growth/chapter/settlement 等阶段。
 - [ ] Sanmou-common 数据补全：`config/*.yaml` 目前是模板，需填入真实建筑、章节、土地、阵容、资源消耗数据。
 - [ ] 征兵所数值：每小时征兵数、预备兵上限随建筑等级变化表。
@@ -56,12 +63,18 @@
 
 - [ ] CI/CD：配置 Python unittest、desktop typecheck/build、lint 检查。
 - [ ] Electron 打包发布：Windows/macOS/Linux 构建、签名、升级通道、崩溃日志。
+- [ ] Bilibili 视频自动发现 CLI：新增 `qa_agent.app.discover_bilibili`，按 keyword/时间范围搜索候选视频，排除已收录 BVID，输出可直接接入 bundle/pipeline 的候选清单。
+- [ ] 多 agent 协作约定：补 `notes/agent-collab.md` 或项目协作说明，约定 @Claude / @Codex 收到任务先 ack、谁 claim 谁负责、长时间无响应时如何转单。
 - [ ] ADB capture adapter：安卓模拟器/真机 live screenshot，不默认启用 input control。
 - [ ] MapGridState 可视化：截图坐标映射到地图逻辑格子，支持土地规划、格子占用、资源分配。
 - [ ] Copilot Mode：仅在 verifier/safety/recovery 完成后开放低风险动作自动执行。
 
 ## Done
 
+- [x] Team panel perception domain（2026-05-14）：新增 `team_panel` schema/domain/merge/selector/advisor report 接入，队伍总览截图可进入 `RuntimeState.teams/team_containers/main_lineup.team_readiness`，真实截图验证推荐 `inspect_team_readiness::部队一`；pioneer-agent 81 tests 全绿。
+- [x] Team detail perception domain（2026-05-14）：新增 `team_detail` schema/domain，覆盖武将详情、战法等级、装备马匹、兵书韬略、属性加点、兵种适性；详情页可合并回当前队伍并输出 `team_snapshot/detail_completion/pvp_pve_basis_ready`；pioneer-agent 86 tests 全绿。
+- [x] 祝融夫人详情页真实图验证（2026-05-14）：用 4 张手机截图跑通 OpenAI `VisionSync -> team_detail`，识别属性加点、3 个 10 级战法、装备 `虎头湛金枪`、马匹 `乌云踏雪`、兵书/韬略；修复阵营前缀与一字 OCR 漂移合并问题；pioneer-agent 87 tests 全绿。
+- [x] 真实 Advisor MVP 验收（2026-05-14）：用 `sanmou_after_enter_world.png` 在非 mock OpenAI vision 模式跑通 `/api/advisor/analyze` 与 `/api/advisor/chat`，GUI/接口可展示截图解读、关键事实、建议、风险并回答“这张图识别到了什么”；API tests、pioneer-agent tests、desktop typecheck/build 通过。
 - [x] 截图解读 MVP 链路（2026-05-13）：新增 `pioneer_agent.perception.screenshot_interpreter`，Advisor API 在真实 Vision 模式写入 `screenshot_interpretation`，mock 模式给出上传链路说明；桌面端摘要页展示“截图解读/关键信息/下一步/风险”，对话可回答截图识别问题；pioneer-agent 78 tests 全绿，desktop typecheck/build 通过。
 - [x] 多设备 Advisor-only foundation（2026-05-12）：新增 `DeviceProfile` / `ObservationSource` / `DeviceSession` / `AccountSession` / `CapabilityFlags` / `MapGridState` / `GridCell`，区分 capture/control adapter，`observe_only` source 不允许 UI execution；pioneer-agent tests 74/74 通过。
 - [x] Python Advisor API（2026-05-12）：`pioneer_agent.app.advisor_api` 提供 `/api/health`、`/api/advisor/analyze`、`/api/advisor/chat`；支持 screenshot upload、mock mode、reports.jsonl；新增 FastAPI/uvicorn/python-multipart 依赖与 advisor_api 单测。
