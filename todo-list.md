@@ -11,7 +11,7 @@
 - [ ] `chapter_panel` perception domain：章节面板截图识别当前章节、任务完成状态、奖励是否可领；输出 `progress.chapter_claimable/current_chapter_id` 与 field_meta。
 - [ ] `recruit_panel` / team soldier perception domain：识别队伍兵力、上限、预备兵、征兵按钮状态，支撑 `recruit_soldiers` Advisor 建议。
 - [ ] `event_tournament` / `mode_hub` perception domain：把演武大会、征战模式入口、远征/军演/养士兴功等页面从当前 `chapter` fallback 中拆出来，抽取积分、排名、倒计时、阶段状态、可重置/可报名等字段。
-- [ ] TeamSnapshot screenshot fixture/eval：把 5/14 的队伍总览 + 祝融夫人 4 张详情图沉淀为真实 screenshot fixture，接入 vision eval，覆盖 `detail_status/missing_detail_tabs/pvp_pve_basis_ready` 和关键字段端到端不退化。
+- [ ] TeamSnapshot 全队详情 fixture/eval：补充孟获、诸葛亮2 的详情页截图 fixture，让 `TeamSnapshot` 从“祝融夫人单将详情已覆盖”推进到 3/3 武将详情覆盖，并校验最终可进入 PVP/PVE/远征 ready/needs_review 判断。
 - [ ] Desktop Advisor 历史记录：把上传截图、`DeviceProfile`、`RuntimeState`、`AdvisorReport` 写入可浏览历史，并支持重新打开。
 - [ ] Screenshot fixture dataset：建立 `tests/fixtures/screenshots/{pc_client,android_emulator,android,ios}/`，至少覆盖首页、城内、章节、队伍、武将、地图、战报。
 - [ ] Vision eval baseline：基于 screenshot fixture 输出 page/domain/entity accuracy，防止后续 perception 重构退化。
@@ -71,6 +71,7 @@
 
 ## Done
 
+- [x] TeamSnapshot 真实截图 fixture/eval 首版（2026-05-15）：把 5/14 安卓队伍总览 + 祝融夫人 4 张详情图沉淀为 `tests/fixtures/screenshots/android/team_snapshot/` 真实截图 fixture，并新增 reviewed vision replay fixture `team_snapshot_mobile_20260514.json` 与 `test_team_snapshot_screenshot_eval.py`；离线跑通 `VisionSync -> TeamSnapshot judgement -> ActionSelector`，覆盖 `detail_status/missing_detail_tabs` 与祝融战法、装备、马匹、兵书、属性加点关键字段；当前预期判断为 `insufficient_basis`，因为只有祝融夫人 1/3 武将有详情，不能误判全队 ready。
 - [x] TeamSnapshot 判断层 + runtime fixture/eval（2026-05-15）：新增 `pioneer_agent.derivation.team_snapshot`，把 `team_panel/team_detail` 输出的武将、战法等级、属性加点、装备、马匹、缘分、阵法、兵书字段汇总为 `TeamReadinessJudgement`，输出 PVP/PVE/远征 readiness、风险、blocking issues、confidence、next_steps；`inspect_team_readiness` 推荐可消费该判断；新增 ready runtime-state fixture 与判断层单测；后续按真实账号配置校正 SP诸葛亮/诸葛亮2 战法为 `星罗棋布`、`折冲御侮`、`践墨随敌`；pioneer-agent 90 tests OK / 2 skipped（缺本地 `starlette`），commit `344bdda`。
 - [x] Team panel perception domain（2026-05-14）：新增 `team_panel` schema/domain/merge/selector/advisor report 接入，队伍总览截图可进入 `RuntimeState.teams/team_containers/main_lineup.team_readiness`，真实截图验证推荐 `inspect_team_readiness::部队一`；pioneer-agent 81 tests 全绿。
 - [x] Team detail perception domain（2026-05-14）：新增 `team_detail` schema/domain，覆盖武将详情、战法等级、装备马匹、兵书韬略、属性加点、兵种适性；详情页可合并回当前队伍并输出 `team_snapshot/detail_completion/pvp_pve_basis_ready`；pioneer-agent 86 tests 全绿。

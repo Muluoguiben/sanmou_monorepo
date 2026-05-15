@@ -1,0 +1,426 @@
+{
+  "schema_version": 1,
+  "source": {
+    "captured_at": "2026-05-14",
+    "platform": "android",
+    "description": "Real mobile screenshots supplied in #sanmou-knowledge on 2026-05-14: team panel plus Zhu Rong detail tabs.",
+    "note": "Payloads are reviewed vision outputs from the real screenshots. They replay the current VisionSync/domain merge path without calling an external LLM."
+  },
+  "screenshots": [
+    {
+      "id": "team_panel",
+      "image": "screenshots/android/team_snapshot/20260514-team-panel.png",
+      "captured_at": "2026-05-14T15:46:47+08:00",
+      "expected_domains": [
+        "resource_bar",
+        "team_panel"
+      ],
+      "payloads": [
+        {
+          "domain": "resource_bar",
+          "data": {
+            "page_type": "team",
+            "resources": {},
+            "visible_notes": [
+              "部队总览",
+              "部队一",
+              "雁形阵",
+              "阵已激活",
+              "缘已激活"
+            ]
+          }
+        },
+        {
+          "domain": "team_panel",
+          "data": {
+            "page_type": "team_panel",
+            "team_id": "部队一",
+            "formation": "雁形阵",
+            "formation_active": true,
+            "bond_active": true,
+            "total_soldiers": 32725,
+            "max_soldiers": 33000,
+            "supply": 100,
+            "supply_max": 100,
+            "heroes": [
+              {
+                "name": "祝融夫人",
+                "level": 50,
+                "soldiers": 10725,
+                "max_soldiers": 11000,
+                "stamina": 200,
+                "stamina_max": 200,
+                "tactics": [
+                  "南疆烈刃",
+                  "胜敌益强",
+                  "锐不可当"
+                ]
+              },
+              {
+                "name": "孟获",
+                "level": 50,
+                "soldiers": 11000,
+                "max_soldiers": 11000,
+                "stamina": 200,
+                "stamina_max": 200,
+                "tactics": [
+                  "雄护南疆",
+                  "指点乾坤",
+                  "踏锋饮血"
+                ]
+              },
+              {
+                "name": "诸葛亮2",
+                "level": 50,
+                "soldiers": 11000,
+                "max_soldiers": 11000,
+                "stamina": 200,
+                "stamina_max": 200,
+                "tactics": [
+                  "星罗棋布",
+                  "折冲御侮",
+                  "践墨随敌"
+                ]
+              }
+            ],
+            "visible_entry_points": [
+              "编队",
+              "配将助手"
+            ],
+            "readiness_notes": [
+              "祝融夫人未满兵"
+            ],
+            "missing_detail_tabs": [
+              "装备",
+              "马匹",
+              "兵书",
+              "属性加点",
+              "战法等级",
+              "兵种适性"
+            ],
+            "visible_notes": [
+              "补给 100/100",
+              "祝融夫人兵力 10725/11000"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "zhurong_books",
+      "image": "screenshots/android/team_snapshot/20260514-zhurong-books.png",
+      "captured_at": "2026-05-14T17:23:19+08:00",
+      "expected_domains": [
+        "resource_bar",
+        "team_detail"
+      ],
+      "payloads": [
+        {
+          "domain": "resource_bar",
+          "data": {
+            "page_type": "formation_books",
+            "resources": {
+              "copper": 4150000
+            },
+            "visible_notes": [
+              "韬略研读",
+              "火裔绝刃",
+              "时利",
+              "得势"
+            ]
+          }
+        },
+        {
+          "domain": "team_detail",
+          "data": {
+            "page_type": "formation_books",
+            "detail_tabs_observed": [
+              "兵书"
+            ],
+            "heroes": [
+              {
+                "name": "祝融夫人",
+                "books": [
+                  {
+                    "slot": "韬略一",
+                    "name": "火裔绝刃",
+                    "active": true,
+                    "effects": [
+                      "自带战法南疆烈刃夺取效果变更为回合开始时"
+                    ]
+                  },
+                  {
+                    "slot": "韬略二",
+                    "name": "时利",
+                    "active": true,
+                    "effects": [
+                      "对持有负面状态的目标造成的伤害提升8%"
+                    ]
+                  },
+                  {
+                    "slot": "韬略三",
+                    "name": "得势",
+                    "active": true,
+                    "effects": [
+                      "造成伤害后破甲提升1.5%，最多叠加5次"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "team_effects": [
+              "火裔绝刃",
+              "时利",
+              "得势"
+            ],
+            "visible_notes": [
+              "页面标题：韬略研读"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "zhurong_tactics",
+      "image": "screenshots/android/team_snapshot/20260514-zhurong-tactics.png",
+      "captured_at": "2026-05-14T17:23:20+08:00",
+      "expected_domains": [
+        "resource_bar",
+        "team_detail"
+      ],
+      "payloads": [
+        {
+          "domain": "resource_bar",
+          "data": {
+            "page_type": "hero_detail",
+            "resources": {},
+            "visible_notes": [
+              "武将详情",
+              "祝融夫人",
+              "战法等级"
+            ]
+          }
+        },
+        {
+          "domain": "team_detail",
+          "data": {
+            "page_type": "hero_detail",
+            "detail_tabs_observed": [
+              "战法等级",
+              "兵种适性"
+            ],
+            "heroes": [
+              {
+                "name": "祝融夫人",
+                "level": 50,
+                "attributes": {
+                  "武力": 345,
+                  "智力": 113,
+                  "统率": 192,
+                  "先攻": 190
+                },
+                "soldier_specialties": [
+                  "兵刃",
+                  "后排"
+                ],
+                "tactic_details": [
+                  {
+                    "slot": "自带",
+                    "name": "南疆烈刃",
+                    "level": 10,
+                    "max_level": 10
+                  },
+                  {
+                    "slot": "二",
+                    "name": "胜敌益强",
+                    "level": 10,
+                    "max_level": 10
+                  },
+                  {
+                    "slot": "三",
+                    "name": "锐不可当",
+                    "level": 10,
+                    "max_level": 10
+                  }
+                ],
+                "status_notes": [
+                  "体力 200/200"
+                ]
+              }
+            ],
+            "visible_notes": [
+              "基础属性可见",
+              "三个战法均为10级"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "zhurong_attribute_points",
+      "image": "screenshots/android/team_snapshot/20260514-zhurong-attribute-points.png",
+      "captured_at": "2026-05-14T17:23:21+08:00",
+      "expected_domains": [
+        "resource_bar",
+        "team_detail"
+      ],
+      "payloads": [
+        {
+          "domain": "resource_bar",
+          "data": {
+            "page_type": "hero_detail",
+            "resources": {},
+            "visible_notes": [
+              "武将加点",
+              "武力 +100"
+            ]
+          }
+        },
+        {
+          "domain": "team_detail",
+          "data": {
+            "page_type": "hero_detail",
+            "detail_tabs_observed": [
+              "属性加点",
+              "兵种适性"
+            ],
+            "heroes": [
+              {
+                "name": "祝融夫人",
+                "level": 50,
+                "attributes": {
+                  "武力": 345,
+                  "智力": 113,
+                  "统率": 192,
+                  "先攻": 190
+                },
+                "attribute_points": {
+                  "武力": 100
+                },
+                "soldier_specialties": [
+                  "兵刃",
+                  "后排"
+                ],
+                "status_notes": [
+                  "可使用属性点 0"
+                ]
+              }
+            ],
+            "visible_notes": [
+              "属性加点界面",
+              "武力 +100"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "zhurong_equipment_mount",
+      "image": "screenshots/android/team_snapshot/20260514-zhurong-equipment-mount.png",
+      "captured_at": "2026-05-14T17:23:22+08:00",
+      "expected_domains": [
+        "resource_bar",
+        "team_detail"
+      ],
+      "payloads": [
+        {
+          "domain": "resource_bar",
+          "data": {
+            "page_type": "equipment_mount",
+            "resources": {},
+            "visible_notes": [
+              "装备",
+              "虎头湛金枪",
+              "乌云踏雪"
+            ]
+          }
+        },
+        {
+          "domain": "team_detail",
+          "data": {
+            "page_type": "equipment_mount",
+            "detail_tabs_observed": [
+              "装备",
+              "马匹"
+            ],
+            "heroes": [
+              {
+                "name": "群祝融夫人",
+                "equipment": [
+                  {
+                    "slot": "武器",
+                    "name": "虎头湛金枪",
+                    "attributes": {
+                      "武力": 13.4,
+                      "统率": 13
+                    },
+                    "effects": [
+                      "特技[神威]",
+                      "特效[打磨]"
+                    ]
+                  }
+                ],
+                "mount": {
+                  "name": "乌云踏雪",
+                  "attributes": {
+                    "武力": 9,
+                    "先攻": 9
+                  },
+                  "skills": [
+                    "特技[穿云]",
+                    "特效[碎岩]"
+                  ]
+                }
+              }
+            ],
+            "visible_notes": [
+              "装备栏显示虎头湛金枪",
+              "坐骑栏显示乌云踏雪"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "expected": {
+    "team_id": "部队一",
+    "heroes": [
+      "祝融夫人",
+      "孟获",
+      "诸葛亮2"
+    ],
+    "zhurong": {
+      "tactic_details": [
+        "南疆烈刃",
+        "胜敌益强",
+        "锐不可当"
+      ],
+      "equipment": "虎头湛金枪",
+      "mount": "乌云踏雪",
+      "attribute_points": {
+        "武力": 100
+      },
+      "books": [
+        "火裔绝刃",
+        "时利",
+        "得势"
+      ]
+    },
+    "detail_status": {
+      "装备": "observed",
+      "马匹": "observed",
+      "兵书": "observed",
+      "属性加点": "observed",
+      "战法等级": "observed",
+      "兵种适性": "observed"
+    },
+    "missing_detail_tabs": [],
+    "judgement": {
+      "overall_status": "insufficient_basis",
+      "basis_ready": false,
+      "required_issue": "partial_hero_detail_coverage",
+      "detailed_hero_count": 1,
+      "hero_count": 3
+    }
+  }
+}
