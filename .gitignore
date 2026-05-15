@@ -6,6 +6,8 @@ __pycache__/
 dist/
 build/
 .eggs/
+node_modules/
+apps/*/dist-electron/
 
 # Virtual environments
 .venv/
@@ -27,6 +29,7 @@ Thumbs.db
 *.db
 data/agent_runs/
 data/perception/
+data/advisor/
 .omx/
 packages/qa-agent/ingestion/video_batch/
 packages/qa-agent/packages/

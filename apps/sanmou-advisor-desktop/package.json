@@ -1,0 +1,35 @@
+{
+  "name": "sanmou-advisor-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Desktop screenshot advisor for Sanmou.",
+  "main": "dist-electron/main.js",
+  "type": "module",
+  "scripts": {
+    "build": "npm run build:main && npm run build:renderer",
+    "build:main": "tsc -p tsconfig.node.json",
+    "build:renderer": "tsc -p tsconfig.json && vite build",
+    "dev": "npm run build:main && concurrently -k \"npm:dev:vite\" \"npm:watch:main\" \"npm:dev:electron\"",
+    "dev:vite": "vite --host 127.0.0.1",
+    "dev:electron": "wait-on http://127.0.0.1:5173 dist-electron/main.js && electron .",
+    "watch:main": "tsc -p tsconfig.node.json --watch --preserveWatchOutput",
+    "preview": "vite preview --host 127.0.0.1",
+    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.node.json"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "@types/react": "^18.2.67",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "concurrently": "^8.2.2",
+    "electron": "^29.1.4",
+    "typescript": "^5.4.3",
+    "vite": "^5.1.6",
+    "wait-on": "^7.2.0"
+  }
+}
