@@ -17,6 +17,7 @@ class CandidateGenerator:
         candidates.extend(self._generate_recruit_actions(state))
         candidates.extend(self._generate_wait_for_resource_actions(state))
         candidates.extend(self._generate_wait_for_stamina_actions(state))
+        candidates.extend(self._generate_team_readiness_actions(state))
         return candidates
 
     def _generate_claim_actions(self, state: RuntimeState) -> list[CandidateAction]:
@@ -324,6 +325,74 @@ class CandidateGenerator:
             )
         return actions
 
+    def _generate_team_readiness_actions(self, state: RuntimeState) -> list[CandidateAction]:
+        actions: list[CandidateAction] = []
+        for team in state.teams:
+            if team.get("page_type") not in {"team_panel", "team_detail", "lineup_config", "team"}:
+                continue
+
+            team_id = team.get("team_id") or "visible_team"
+            soldier_deficit = float(team.get("soldier_deficit", 0) or 0)
+            max_soldiers = float(team.get("max_soldiers", 0) or 0)
+            missing_detail_tabs = list(team.get("missing_detail_tabs") or [])
+            readiness_notes = list(team.get("readiness_notes") or [])
+            team_snapshot = team.get("team_snapshot") if isinstance(team.get("team_snapshot"), dict) else {}
+            detail_completion = (
+                team_snapshot.get("detail_completion")
+                if isinstance(team_snapshot.get("detail_completion"), dict)
+                else {}
+            )
+            pvp_pve_basis_ready = bool(team_snapshot.get("pvp_pve_basis_ready"))
+            hero_names = [
+                hero.get("name")
+                for hero in team.get("heroes", [])
+                if isinstance(hero, dict) and hero.get("name")
+            ]
+
+            review_items = self._team_readiness_review_items(
+                soldier_deficit=soldier_deficit,
+                missing_detail_tabs=missing_detail_tabs,
+                formation_active=team.get("formation_active"),
+                bond_active=team.get("bond_active"),
+            )
+            if not review_items and not readiness_notes and pvp_pve_basis_ready:
+                continue
+            if not review_items and not readiness_notes:
+                review_items = ["队伍面板已识别；进入详情页补齐装备、马匹、兵书、属性加点、战法等级后再做强度判断"]
+
+            actions.append(
+                CandidateAction(
+                    action_id=self._build_action_id(ActionType.INSPECT_TEAM_READINESS, team_id),
+                    action_type=ActionType.INSPECT_TEAM_READINESS,
+                    params={
+                        "team_id": team_id,
+                        "formation": team.get("formation"),
+                        "formation_active": team.get("formation_active"),
+                        "bond_active": team.get("bond_active"),
+                        "soldiers": team.get("soldiers"),
+                        "max_soldiers": team.get("max_soldiers"),
+                        "soldier_deficit": round(soldier_deficit, 2),
+                        "soldier_deficit_ratio": round(soldier_deficit / max_soldiers, 4) if max_soldiers > 0 else None,
+                        "hero_names": hero_names,
+                        "missing_detail_tabs": missing_detail_tabs,
+                        "detail_completion": detail_completion,
+                        "pvp_pve_basis_ready": pvp_pve_basis_ready,
+                        "readiness_notes": readiness_notes,
+                        "review_items": review_items,
+                    },
+                    preconditions=["team_panel_observed"],
+                    expected_gain={"team_state_completeness": True},
+                    expected_cost={"automation": "none"},
+                    risk={
+                        "advisor_only": True,
+                        "requires_detail_review": bool(missing_detail_tabs),
+                        "pvp_pve_basis_ready": pvp_pve_basis_ready,
+                    },
+                    source_state_refs=["teams", "team_containers", "main_lineup.team_readiness"],
+                )
+            )
+        return actions
+
     @staticmethod
     def _build_action_id(action_type: ActionType, *parts: object) -> str:
         normalized_parts = [str(part) for part in parts if part is not None and str(part) != ""]
@@ -401,3 +470,22 @@ class CandidateGenerator:
         loss_penalty = float(land.get("expected_battle_loss", 0)) / 120
         risk_penalty = (1 - float(land.get("expected_win_rate", 1.0))) * 100
         return round(float(land.get("yield_per_hour", 0)) / 12 + chapter_gain + strategic_gain - loss_penalty - risk_penalty, 2)
+
+    @staticmethod
+    def _team_readiness_review_items(
+        *,
+        soldier_deficit: float,
+        missing_detail_tabs: list[str],
+        formation_active: Any,
+        bond_active: Any,
+    ) -> list[str]:
+        items: list[str] = []
+        if soldier_deficit > 0:
+            items.append("补齐兵力缺口")
+        if formation_active is False:
+            items.append("检查阵法是否激活")
+        if bond_active is False:
+            items.append("检查缘分是否激活")
+        if missing_detail_tabs:
+            items.append("进入详情页补齐：" + "、".join(missing_detail_tabs[:6]))
+        return items

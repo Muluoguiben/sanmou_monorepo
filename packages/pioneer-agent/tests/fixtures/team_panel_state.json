@@ -1,0 +1,99 @@
+{
+  "global_state": {
+    "server_open_time": "2026-05-14T10:00:00+08:00",
+    "current_time": "2026-05-14T16:40:00+08:00",
+    "phase_tag": "advisor_team_review",
+    "page_type": "team"
+  },
+  "progress": {
+    "chapter_claimable": false,
+    "task_progress": {}
+  },
+  "economy": {
+    "reserve_troops": 0
+  },
+  "city": {
+    "upgradeable_buildings": []
+  },
+  "heroes": [],
+  "teams": [
+    {
+      "team_id": "部队一",
+      "page_type": "team_panel",
+      "formation": "雁形阵",
+      "formation_active": true,
+      "bond_active": true,
+      "soldiers": 32725,
+      "max_soldiers": 33000,
+      "soldier_deficit": 275,
+      "supply": 100,
+      "supply_max": 100,
+      "heroes": [
+        {
+          "name": "祝融夫人",
+          "level": 50,
+          "soldiers": 10725,
+          "max_soldiers": 11000,
+          "stamina": 200,
+          "stamina_max": 200,
+          "tactics": ["南疆烈刃", "胜敌益强", "锐不可当"]
+        },
+        {
+          "name": "孟获",
+          "level": 50,
+          "soldiers": 11000,
+          "max_soldiers": 11000,
+          "stamina": 200,
+          "stamina_max": 200,
+          "tactics": ["雄护南疆", "指点乾坤", "踏锋饮血"]
+        },
+        {
+          "name": "诸葛亮",
+          "level": 50,
+          "soldiers": 11000,
+          "max_soldiers": 11000,
+          "stamina": 200,
+          "stamina_max": 200,
+          "tactics": ["草船借箭", "料事如神", "避其锐气"]
+        }
+      ],
+      "visible_entry_points": ["编队", "配将助手"],
+      "readiness_notes": ["祝融夫人未满兵"],
+      "missing_detail_tabs": ["装备", "马匹", "兵书", "属性加点", "战法等级", "兵种适性"]
+    }
+  ],
+  "team_containers": [
+    {
+      "team_id": "部队一",
+      "soldiers": 32725,
+      "max_soldiers": 33000,
+      "soldier_deficit": 275,
+      "container_stamina": 200,
+      "status": "observed"
+    }
+  ],
+  "map_state": {
+    "candidate_lands": []
+  },
+  "swap_window": {
+    "enabled": false
+  },
+  "main_lineup": {
+    "current_host_team_id": "部队一",
+    "team_readiness": {
+      "formation_active": true,
+      "bond_active": true,
+      "soldier_deficit": 275,
+      "supply_ratio": 1.0,
+      "missing_detail_tabs": ["装备", "马匹", "兵书", "属性加点", "战法等级", "兵种适性"],
+      "requires_detail_review": true,
+      "notes": ["祝融夫人未满兵"]
+    }
+  },
+  "carrier_pool": [],
+  "swap_constraints": {
+    "stamina_regen_per_hour": 12
+  },
+  "timing": {},
+  "field_meta": {}
+}

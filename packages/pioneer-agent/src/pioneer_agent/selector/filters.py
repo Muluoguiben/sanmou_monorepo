@@ -55,6 +55,9 @@ class CandidateFilter:
         if candidate.action_type == ActionType.WAIT_FOR_STAMINA:
             return self._reject_wait_for_stamina(candidate)
 
+        if candidate.action_type == ActionType.INSPECT_TEAM_READINESS:
+            return None
+
         return None
 
     @staticmethod

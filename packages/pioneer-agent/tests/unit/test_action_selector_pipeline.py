@@ -12,6 +12,7 @@ FIXTURE_EXPECTATIONS = [
     ("recruit_rule_state.json", "recruit_soldiers", "priority_rule.recruit_main_host_before_risky_attack"),
     ("wait_resource_state.json", "wait_for_resource", "highest_score_after_scoring"),
     ("wait_stamina_state.json", "wait_for_stamina", "highest_score_after_scoring"),
+    ("team_panel_state.json", "inspect_team_readiness", "highest_score_after_scoring"),
 ]
 
 

@@ -9,6 +9,7 @@ class ActionType(str, Enum):
     RECRUIT_SOLDIERS = "recruit_soldiers"
     WAIT_FOR_RESOURCE = "wait_for_resource"
     WAIT_FOR_STAMINA = "wait_for_stamina"
+    INSPECT_TEAM_READINESS = "inspect_team_readiness"
     ABANDON_LAND = "abandon_land"
 
 
@@ -34,4 +35,3 @@ class EventType(str, Enum):
     CHAPTER_CLAIMABLE_NOW = "chapter_claimable_now"
     BUILDING_NOW_UPGRADEABLE = "building_now_upgradeable"
     FALLBACK_REPLAN = "fallback_replan"
-

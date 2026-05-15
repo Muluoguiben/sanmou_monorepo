@@ -15,8 +15,12 @@ from pioneer_agent.core.models import RuntimeState
 from pioneer_agent.perception.domains import (
     apply_city_buildings,
     apply_resource_bar,
+    apply_team_detail,
+    apply_team_panel,
     extract_city_buildings,
     extract_resource_bar,
+    extract_team_detail,
+    extract_team_panel,
 )
 from pioneer_agent.perception.vision import VisionClient
 
@@ -63,5 +67,23 @@ class VisionSync:
             domains.append("city_buildings")
             if city_fragment.notes:
                 notes.extend(city_fragment.notes)
+
+        if page in {"team", "team_panel", "lineup", "lineup_config"}:
+            team_fragment = extract_team_panel(
+                image, client=self.client, captured_at=captured_at
+            )
+            state = apply_team_panel(state, team_fragment)
+            domains.append("team_panel")
+            if team_fragment.notes:
+                notes.extend(team_fragment.notes)
+
+        if page in {"hero_detail", "tactic_detail", "equipment_mount", "formation_books"}:
+            detail_fragment = extract_team_detail(
+                image, client=self.client, captured_at=captured_at
+            )
+            state = apply_team_detail(state, detail_fragment)
+            domains.append("team_detail")
+            if detail_fragment.notes:
+                notes.extend(detail_fragment.notes)
 
         return state, VisionSyncSummary(page_type=page, domains_run=domains, notes=notes)

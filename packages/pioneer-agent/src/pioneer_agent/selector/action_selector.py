@@ -91,6 +91,8 @@ class ActionSelector:
             return score_wait_for_resource(candidate.params)
         if candidate.action_type == ActionType.WAIT_FOR_STAMINA:
             return score_wait_for_stamina(candidate.params)
+        if candidate.action_type == ActionType.INSPECT_TEAM_READINESS:
+            return ActionSelector._score_team_readiness(candidate.params)
         return 0.0, {}
 
     def _compute_next_replan_time(self, state: RuntimeState, selected: CandidateAction | None) -> datetime:
@@ -107,6 +109,8 @@ class ActionSelector:
             return current_time + timedelta(seconds=5)
         if selected.action_type == ActionType.RECRUIT_SOLDIERS:
             return current_time + timedelta(minutes=2)
+        if selected.action_type == ActionType.INSPECT_TEAM_READINESS:
+            return current_time + timedelta(minutes=10)
         return current_time + timedelta(minutes=3)
 
     @staticmethod
@@ -159,4 +163,23 @@ class ActionSelector:
             return (
                 f"{prefix}当前主力体力不足，等待约 {minutes} 分钟后可解锁土地 {selected.params.get('land_id')} 的出征窗口。"
             )
+        if selected.action_type == ActionType.INSPECT_TEAM_READINESS:
+            review_items = selected.params.get("review_items") or []
+            if review_items:
+                return f"{prefix}已识别队伍 {selected.params.get('team_id')}，建议先检查：" + "、".join(review_items)
+            return f"{prefix}已识别队伍 {selected.params.get('team_id')}，建议进入详情页补齐阵容信息后再判断。"
         return f"{prefix}根据 {selection_mode} 规则选择了当前最高分动作。"
+
+    @staticmethod
+    def _score_team_readiness(params: dict[str, Any]) -> tuple[float, dict[str, float]]:
+        base = 64.0
+        soldier_deficit_ratio = float(params.get("soldier_deficit_ratio") or 0)
+        missing_detail_count = len(params.get("missing_detail_tabs") or [])
+        review_count = len(params.get("review_items") or [])
+        score = base + min(soldier_deficit_ratio * 120, 24) + min(missing_detail_count * 1.5, 9) + min(review_count * 2, 8)
+        return round(score, 2), {
+            "advisor_team_domain": base,
+            "soldier_deficit": round(min(soldier_deficit_ratio * 120, 24), 2),
+            "missing_details": round(min(missing_detail_count * 1.5, 9), 2),
+            "review_items": round(min(review_count * 2, 8), 2),
+        }

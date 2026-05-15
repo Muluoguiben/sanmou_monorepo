@@ -32,6 +32,19 @@ def _wait_handler(action: CandidateAction, _ui: UIActions) -> ExecutionResult:
     )
 
 
+def _advisor_only_handler(action: CandidateAction, _ui: UIActions) -> ExecutionResult:
+    """Advisor-only inspection actions never dispatch UI input."""
+    return ExecutionResult(
+        action_id=action.action_id,
+        status="ok",
+        verification_status="not_applicable",
+        summary={
+            "action_type": action.action_type.value,
+            "note": "advisor inspection — no UI action",
+        },
+    )
+
+
 def _claim_chapter_reward(action: CandidateAction, ui: UIActions) -> ExecutionResult:
     # Typical flow: open chapter panel (fixed) → click reward row (dynamic) → confirm.
     # Panel button is not yet in registry; flow needs calibration screenshots.
@@ -93,6 +106,7 @@ HANDLERS: dict[ActionType, Handler] = {
     ActionType.TRANSFER_MAIN_LINEUP_TO_TEAM: _transfer_main_lineup,
     ActionType.ATTACK_LAND: _attack_land,
     ActionType.RECRUIT_SOLDIERS: _recruit_soldiers,
+    ActionType.INSPECT_TEAM_READINESS: _advisor_only_handler,
     ActionType.ABANDON_LAND: _abandon_land,
 }
 

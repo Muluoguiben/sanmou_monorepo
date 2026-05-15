@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import unittest
 
+from pioneer_agent.core.device import CapabilityFlags
 from pioneer_agent.core.enums import ActionType
 from pioneer_agent.core.models import CandidateAction
 from pioneer_agent.executor.action_handlers import dispatch
@@ -55,6 +56,24 @@ class DispatchTests(unittest.TestCase):
 class UIActionRunnerTests(unittest.TestCase):
     def test_runner_delegates_to_dispatch(self) -> None:
         runner = UIActionRunner(_NullUI())  # type: ignore[arg-type]
+        res = runner.run(_mk_action(ActionType.WAIT_FOR_STAMINA))
+        self.assertEqual(res.status, "ok")
+
+    def test_runner_blocks_observe_only_sources(self) -> None:
+        runner = UIActionRunner(
+            _NullUI(),  # type: ignore[arg-type]
+            capabilities=CapabilityFlags(observe_only=True),
+        )
+        res = runner.run(_mk_action(ActionType.CLAIM_CHAPTER_REWARD))
+        self.assertEqual(res.status, "blocked")
+        self.assertEqual(res.verification_status, "not_applicable")
+        self.assertIn("input_control", res.failure_reason or "")
+
+    def test_runner_allows_explicit_control_capability(self) -> None:
+        runner = UIActionRunner(
+            _NullUI(),  # type: ignore[arg-type]
+            capabilities=CapabilityFlags(input_control=True),
+        )
         res = runner.run(_mk_action(ActionType.WAIT_FOR_STAMINA))
         self.assertEqual(res.status, "ok")
 
