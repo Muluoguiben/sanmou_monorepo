@@ -1,32 +1,71 @@
 # Todo List
 
-> Last updated: 2026-05-08 (Pioneer perception 支持 GPT-5.4 vision；低价值 Bilibili batch rerun 暂缓)
+> Last updated: 2026-05-14 (下一段重点：把 Bilibili 视频阵容图接入 team_panel/team_detail，自动结构化 UP 主阵容配置)
 
 ## In Progress
 
-*(无)*
+- [ ] Desktop Advisor 真机试用：用 PC 客户端、安卓模拟器、安卓真机、iOS 各 3-5 张真实截图跑 `apps/sanmou-advisor-desktop`，记录识别失败样例与 UI 卡点。
+- [ ] Vision 模式接入验证：在 GUI 关闭 `Mock` 后，用 `PIONEER_VISION_PROVIDER=openai` 或 Gemini 跑通真实 `VisionSync -> AdvisorReport`。
+- [ ] 今晚 MVP 实机验收：上传 1 张真实《三国：谋定天下》游戏截图，确认 GUI 展示截图解读、关键事实、下一步、风险，并能在对话中回答“这张图识别到了什么”。
 
-## Pending
+## P0 — Advisor MVP 闭环
 
-- [ ] 职业二阶天赋细节：通过游戏内截图 OCR 补全（当前 7 条为概述级别）
-- [ ] 同兵种加成数值：骑兵/枪兵 3 阵具体增伤/减伤分配（弓/盾已确认 5%）
-- [ ] 征兵所数值：每小时征兵数、预备兵上限随建筑等级变化表
-- [ ] 救治药/行军丹等道具的产出细节（青囊一阶/二阶产出数量）
-- [ ] 词条缺口确认：小仔哥合集提到的「完璧」（优先给神诸葛）与「磐石」（优先给孟获）在 sgmdtx.com/texiao 未列出，待 Lan 确认是新词条还是别名
-- [ ] 坐骑特技效果数值：掠水/渡火/嘶风/救主/奔袭/疾驰/穿云/游龙/万象/君临 10 个特技 sgmdtx 仅列名，效果数值待补（可能需游戏内截图或其他数据源）
-- [ ] Perception 层续接：已实现 `resource_bar` + `city_buildings`，待补 `hero_list` / `battle_result` / `chapter_panel`；打通 `sync_service` 把 fragment 合并进 RuntimeState
-- [ ] 点击类 action 的实拍标定：claim_chapter / upgrade_building / attack_land / recruit_soldiers / transfer_main_lineup / abandon_land 当前返回 `pending`，需用真实对应页面截图走 `ui_calibrate` + `find_elements` 打通确认对话框序列
-- [ ] Scoring 配置补全：`config/scoring.yaml` 只有 `opening_sprint` 阶段权重，需补齐其余阶段
-- [ ] Sanmou-common 数据补全：`config/*.yaml` 目前是模板，需填入真实游戏数据
-- [ ] 紫卡武将补录：sgmdtx 未收录的 13 个紫卡（杨修/刘烨/文聘/钟繇/臧霸/郭淮/简雍/马谡/马良/沙摩柯/孔融/卢植/郭图），优先级低，需找其他数据源或手动添加
-- [ ] 缘分补录（低优）：诸葛亮2「才堪相配/西蜀之智/国之栋梁」member list + 桃园/五虎/江表虎臣/五子/五谋/国栋 6 个缘分条目
-- [ ] 跨包集成：qa-agent 知识库接入 pioneer-agent 决策逻辑（如查询武将/战法信息辅助评分）
-- [ ] CI/CD：配置自动化测试流水线和 lint 检查
-- [ ] Plan 2 新视频专项 rerun（低优）：仅当有高价值、字幕空洞的新 B 站视频时，再跑 `--with-frames` + `--enrich-frames`；旧 `ingestion/video_batch/` 已审计为低价值，不再整批重跑
-- [ ] Plan 2 成本/参数调优（低优）：等有高价值视频样本后再评估 frame interval、frames-per-segment、gpt-5.4-mini 降本 A/B
+- [ ] `chapter_panel` perception domain：章节面板截图识别当前章节、任务完成状态、奖励是否可领；输出 `progress.chapter_claimable/current_chapter_id` 与 field_meta。
+- [ ] `recruit_panel` / team soldier perception domain：识别队伍兵力、上限、预备兵、征兵按钮状态，支撑 `recruit_soldiers` Advisor 建议。
+- [ ] Desktop Advisor 历史记录：把上传截图、`DeviceProfile`、`RuntimeState`、`AdvisorReport` 写入可浏览历史，并支持重新打开。
+- [ ] Screenshot fixture dataset：建立 `tests/fixtures/screenshots/{pc_client,android_emulator,android,ios}/`，至少覆盖首页、城内、章节、队伍、武将、地图、战报。
+- [ ] Vision eval baseline：基于 screenshot fixture 输出 page/domain/entity accuracy，防止后续 perception 重构退化。
+- [ ] qa-agent 接入 Advisor chat：`/api/advisor/chat` 从当前本地模板升级为 `qa-agent QueryService/ChatAgent + AdvisorReport context`。
+- [ ] Desktop API packaging：Electron 启动 Python API 时自动发现可用 Python、依赖缺失时给出明确错误，并支持外部 `SANMOU_ADVISOR_API_URL`。
+
+## P1 — 真实自动化闭环前置
+
+- [ ] Popup detector：识别通用弹窗、确认框、返回/关闭状态，作为 recovery/verifier 基础。
+- [ ] Verifier framework：每个可执行动作必须声明 expected state delta 和 verify timeout；无 verifier 不允许自动执行。
+- [ ] Safety guardrail：基于 `CapabilityFlags`、risk schema、action_type、account/session mode 拦截高风险动作。
+- [ ] Manual kill switch：GUI 与 runtime 都要有本地停机开关；触发后 executor 不再派发输入。
+- [ ] High-risk confirmation：`attack_land` / `abandon_land` / `transfer_main_lineup` 必须人工确认。
+- [ ] Bridge health check：Windows bridge / future ADB adapter 需要 screenshot freshness、window info、input capability 自检。
+- [ ] Click-action calibration：claim_chapter / upgrade_building / recruit_soldiers / attack_land / transfer_main_lineup / abandon_land 当前返回 `pending`，需用真实页面截图走 `ui_calibrate` + `find_elements` 打通确认对话框序列。
+- [ ] Golden replay tests：用 `loop.jsonl + screenshots` 重放一次完整 Advisor/selector 决策，稳定输出相同推荐。
+
+## P2 — 策略与数据质量
+
+- [ ] Bilibili 阵容图结构化抽取：在 `qa-agent` 视频 workflow 中新增 lineup frame extractor，自动从 UP 主视频关键帧分类阵容/武将详情/装备/兵书页，复用 `pioneer-agent` 的 `team_panel/team_detail` schema，按视频时间戳聚合每个队伍、每个武将的配置，输出 YAML staging 供人工审核后入库。
+- [ ] Scoring 配置补全：`config/scoring.yaml` 只有 `opening_sprint` 阶段权重，需补齐 growth/chapter/settlement 等阶段。
+- [ ] Sanmou-common 数据补全：`config/*.yaml` 目前是模板，需填入真实建筑、章节、土地、阵容、资源消耗数据。
+- [ ] 征兵所数值：每小时征兵数、预备兵上限随建筑等级变化表。
+- [ ] 打地等级风险表：按赛季/开荒阵容/兵力/等级/克制关系形成 Advisor 可消费的 risk table。
+- [ ] 建筑优先级表：章节瓶颈、资源产出、兵力支撑、开荒节奏四类权重，供 `upgrade_building` scoring 使用。
+- [ ] 开荒阵容策略 snapshot：从 qa-agent reviewed knowledge 导出 `strategy_snapshot.yaml`，先离线供 pioneer-agent 使用。
+- [ ] 职业/赛季机制结构化：职业二阶天赋、赛季特殊机制进入 common/qa-agent 可查询 schema。
+
+## P3 — 知识库补全
+
+- [ ] 职业二阶天赋细节：通过游戏内截图 OCR 补全（当前 7 条为概述级别）。
+- [ ] 同兵种加成数值：骑兵/枪兵 3 阵具体增伤/减伤分配（弓/盾已确认 5%）。
+- [ ] 救治药/行军丹等道具的产出细节（青囊一阶/二阶产出数量）。
+- [ ] 词条缺口确认：小仔哥合集提到的「完璧」（优先给神诸葛）与「磐石」（优先给孟获）在 sgmdtx.com/texiao 未列出，待 Lan 确认是新词条还是别名。
+- [ ] 坐骑特技效果数值：掠水/渡火/嘶风/救主/奔袭/疾驰/穿云/游龙/万象/君临 10 个特技 sgmdtx 仅列名，效果数值待补。
+- [ ] 紫卡武将补录：sgmdtx 未收录的 13 个紫卡（杨修/刘烨/文聘/钟繇/臧霸/郭淮/简雍/马谡/马良/沙摩柯/孔融/卢植/郭图）。
+- [ ] 缘分补录（低优）：诸葛亮2「才堪相配/西蜀之智/国之栋梁」member list + 桃园/五虎/江表虎臣/五子/五谋/国栋 6 个缘分条目。
+- [ ] Plan 2 新视频专项 rerun（低优）：仅当有高价值、字幕空洞的新 B 站视频时，再跑 `--with-frames` + `--enrich-frames`；旧 `ingestion/video_batch/` 已审计为低价值，不再整批重跑。
+- [ ] Plan 2 成本/参数调优（低优）：等有高价值视频样本后再评估 frame interval、frames-per-segment、gpt-5.4-mini 降本 A/B。
+
+## P4 — 工程质量与长期增强
+
+- [ ] CI/CD：配置 Python unittest、desktop typecheck/build、lint 检查。
+- [ ] Electron 打包发布：Windows/macOS/Linux 构建、签名、升级通道、崩溃日志。
+- [ ] ADB capture adapter：安卓模拟器/真机 live screenshot，不默认启用 input control。
+- [ ] MapGridState 可视化：截图坐标映射到地图逻辑格子，支持土地规划、格子占用、资源分配。
+- [ ] Copilot Mode：仅在 verifier/safety/recovery 完成后开放低风险动作自动执行。
 
 ## Done
 
+- [x] 截图解读 MVP 链路（2026-05-13）：新增 `pioneer_agent.perception.screenshot_interpreter`，Advisor API 在真实 Vision 模式写入 `screenshot_interpretation`，mock 模式给出上传链路说明；桌面端摘要页展示“截图解读/关键信息/下一步/风险”，对话可回答截图识别问题；pioneer-agent 78 tests 全绿，desktop typecheck/build 通过。
+- [x] 多设备 Advisor-only foundation（2026-05-12）：新增 `DeviceProfile` / `ObservationSource` / `DeviceSession` / `AccountSession` / `CapabilityFlags` / `MapGridState` / `GridCell`，区分 capture/control adapter，`observe_only` source 不允许 UI execution；pioneer-agent tests 74/74 通过。
+- [x] Python Advisor API（2026-05-12）：`pioneer_agent.app.advisor_api` 提供 `/api/health`、`/api/advisor/analyze`、`/api/advisor/chat`；支持 screenshot upload、mock mode、reports.jsonl；新增 FastAPI/uvicorn/python-multipart 依赖与 advisor_api 单测。
+- [x] Electron Desktop Advisor vertical slice（2026-05-12）：新增 `apps/sanmou-advisor-desktop`（Electron + React + Vite），支持截图选择/预览、设备/账号标签、结构化 AdvisorReport 展示、对话入口；`npm run build` / `npm run typecheck` 通过；浏览器验证 `http://127.0.0.1:5173/` 非空且 API 在线。
 - [x] 赛季剧本列表 S1-S14 入库：`mech-season-timeline`（chapter domain）+ `term-season-code-vs-wcode`（term domain，澄清 S 码/W 码区别），含具体副标题/开启日期/W 码映射，社区综合多源 confidence=0.85；regression q14 PASS
 - [x] Monorepo 初始化：三包结构（sanmou-common / pioneer-agent / qa-agent）
 - [x] Pioneer agent 核心决策链：sync → derive → select pipeline，7 种 action，scoring + priority rules

@@ -8,6 +8,7 @@
 - `ingestion/` 采集管道
 - `configs/` 别名和枚举配置
 - `tests/` 测试
+- 为 `pioneer-agent` / Desktop Advisor 提供可引用的知识服务：阵容、战法、开荒节奏、建筑优先级、打地风险、赛季机制。
 
 ## 不要触碰
 - `packages/pioneer-agent/` — 另一个会话负责
@@ -27,6 +28,16 @@ PYTHONPATH=src python3 -m unittest discover -s tests -p "test_*.py" -v
 ```bash
 PYTHONPATH=src python3 -m qa_agent.app.query lookup_topic "建筑升级"
 ```
+
+## Advisor Integration Direction
+
+Desktop Advisor 的首版 chat 目前在 `pioneer-agent` API 内是本地模板回答。下一步应由 qa-agent 提供知识底座：
+
+- 离线：导出 `strategy_snapshot.yaml`，供 pioneer-agent scoring / selector 稳定消费。
+- 在线：`QueryService` 或 `ChatAgent` 接收 `AdvisorReport` 里的状态摘要和用户问题，返回带证据的建议。
+- MCP：保留给外部工具或 Agent Runtime 调用，不作为 Electron GUI 首选链路。
+
+适合进入决策的知识：开荒阵容、建筑优先级、战法替换、打地等级风险、职业/赛季机制。不要把未 review 的 `ingestion/video_batch/` 产物直接作为决策依据。
 
 ## LLM Provider
 
