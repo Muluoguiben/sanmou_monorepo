@@ -79,23 +79,23 @@
           ]
         },
         {
-          "name": "诸葛亮",
+          "name": "诸葛亮2",
           "level": 50,
           "soldiers": 11000,
           "max_soldiers": 11000,
           "stamina": 200,
           "stamina_max": 200,
-          "tactics": ["草船借箭", "料事如神", "避其锐气"],
+          "tactics": ["星罗棋布", "折冲御侮", "缄墨"],
           "attributes": {"智力": 350, "统率": 210, "先攻": 170},
           "attribute_points": {"智力": 100},
-          "soldier_specialties": ["弓兵 S"],
+          "soldier_specialties": ["盾兵 S"],
           "equipment": [{"slot": "武器", "name": "羽扇", "attributes": {"智力": 14}}],
           "mount": {"name": "白鹄", "attributes": {"智力": 9}, "skills": ["游龙"]},
           "books": [{"slot": "韬略", "name": "时利", "active": true}],
           "tactic_details": [
-            {"slot": "自带", "name": "草船借箭", "level": 10, "max_level": 10},
-            {"slot": "二", "name": "料事如神", "level": 10, "max_level": 10},
-            {"slot": "三", "name": "避其锐气", "level": 10, "max_level": 10}
+            {"slot": "自带", "name": "星罗棋布", "level": 10, "max_level": 10},
+            {"slot": "二", "name": "折冲御侮", "level": 10, "max_level": 10},
+            {"slot": "三", "name": "缄墨", "level": 10, "max_level": 10}
           ]
         }
       ],
