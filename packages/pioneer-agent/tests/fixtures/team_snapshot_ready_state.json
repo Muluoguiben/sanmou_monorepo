@@ -85,7 +85,7 @@
           "max_soldiers": 11000,
           "stamina": 200,
           "stamina_max": 200,
-          "tactics": ["星罗棋布", "折冲御侮", "缄墨"],
+          "tactics": ["星罗棋布", "折冲御侮", "践墨随敌"],
           "attributes": {"智力": 350, "统率": 210, "先攻": 170},
           "attribute_points": {"智力": 100},
           "soldier_specialties": ["盾兵 S"],
@@ -95,7 +95,7 @@
           "tactic_details": [
             {"slot": "自带", "name": "星罗棋布", "level": 10, "max_level": 10},
             {"slot": "二", "name": "折冲御侮", "level": 10, "max_level": 10},
-            {"slot": "三", "name": "缄墨", "level": 10, "max_level": 10}
+            {"slot": "三", "name": "践墨随敌", "level": 10, "max_level": 10}
           ]
         }
       ],

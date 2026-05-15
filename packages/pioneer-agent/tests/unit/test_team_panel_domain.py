@@ -106,7 +106,7 @@ def _team_payload() -> dict[str, Any]:
                 "max_soldiers": 11000,
                 "stamina": 200,
                 "stamina_max": 200,
-                "tactics": ["星罗棋布", "折冲御侮", "缄墨"],
+                "tactics": ["星罗棋布", "折冲御侮", "践墨随敌"],
             },
         ],
         "visible_entry_points": ["编队", "配将助手"],

@@ -82,7 +82,7 @@ class TeamSnapshotJudgementTests(unittest.TestCase):
                     "soldier_specialties": ["骑兵 S"],
                 },
                 {"name": "孟获", "tactics": ["雄护南疆", "指点乾坤", "踏锋饮血"]},
-                {"name": "诸葛亮2", "tactics": ["星罗棋布", "折冲御侮", "缄墨"]},
+                {"name": "诸葛亮2", "tactics": ["星罗棋布", "折冲御侮", "践墨随敌"]},
             ],
         }
 
