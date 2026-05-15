@@ -34,6 +34,7 @@
 ## P2 — 策略与数据质量
 
 - [ ] Bilibili 字幕中文规范化 → 落库正字（2026-05-14 由 @muluo-lan 提出）：B 站 AI 中文字幕将三谋专有名词频繁同音替换（皇甫嵩→黄府松、固若金汤→金汤、百战不殆→百战、孟获/南蛮→穆路蛮、姜维→好新火/好星火/好心火 等），导致 `ingestion/staging/videos/bilibili-*.yaml` 的 hero_names/core_skills 落库时仍含错别字。需要在 `qa_agent.video` 增加一个"游戏术语词典 + 同音/近形替换"的字幕规范化层（输入：B站 raw 字幕 / view_conclusion；输出：规范化后的 transcript_lines），词典来自 `knowledge_sources/profiles/heroes/*.yaml` 武将名 + `knowledge_sources/profiles/skills/*.yaml` 战法名 + 已知队伍别名表；规范化在 LLM extractor 之前执行，并把替换日志写入 evidence 以便 review。验证：跑 `bilibili-chencang-2026-05-14.yaml` 上的 6 个视频，错别字应从当前的 ~15 种降到 0。
+- [ ] 陈仓之围 Bilibili staging 重新 review：commit `e26b351` 新增的 `packages/qa-agent/ingestion/staging/videos/bilibili-chencang-2026-05-14.yaml` 仍是 `review_status: pending`，且由 GPT-5.4-mini 基于 B 站 AI ASR 自动抽取，存在同音字、阵容别名、缺失 hero_names/core_skills、评级/时间窗口误归因风险。后续在字幕规范化和阵容图抽取完善后，需要逐条复核、必要时 rerun pipeline，对比视频证据后再 publish。
 - [ ] Bilibili 阵容图结构化抽取：在 `qa-agent` 视频 workflow 中新增 lineup frame extractor，自动从 UP 主视频关键帧分类阵容/武将详情/装备/兵书页，复用 `pioneer-agent` 的 `team_panel/team_detail` schema，按视频时间戳聚合每个队伍、每个武将的配置，输出 YAML staging 供人工审核后入库。
 - [ ] 赛季阶段规则结构化：把“首日 16:00-22:00 红利期 / 第二天 22:00 阵容洗牌”等视频里反复出现的时间窗口抽象成 `season_phase` 规则，供 Advisor 根据当前服务器时间选择阵容档位。
 - [ ] 赛季末武勋卷排行机制：补抓并入库陈仓之围赛末武勋卷排行玩法（候选视频：BV1Gz5J6EEPq），沉淀为 S14 generic_rule。
