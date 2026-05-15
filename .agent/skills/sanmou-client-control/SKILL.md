@@ -51,7 +51,9 @@ Get-Process | Where-Object { $_.ProcessName -like '*nslg*' -or $_.ProcessName -l
 
    This registers `SanmouController` as an on-demand scheduled task with run level `Highest`, logon type `Interactive`, and no trigger. After this, ordinary Claude/Codex processes communicate with it using `send`.
 
-   If UAC is not visible from the current agent session, use the explicit bootstrap script instead: right-click `C:\Users\Lan\Desktop\sanmou_install_controller_task.bat` and choose "Run as administrator". The repo copy lives at `.agent/skills/sanmou-client-control/scripts/install_sanmou_controller_task.bat`.
+   If UAC is not visible from the current agent session, use the explicit bootstrap script instead: run `C:\Users\Lan\Desktop\sanmou_install_controller_task.bat` and approve the single Administrator prompt. The repo copy lives at `.agent/skills/sanmou-client-control/scripts/install_sanmou_controller_task.bat`.
+
+   The installer copies the controller script into `%LOCALAPPDATA%\SanmouClientControl` before registering the task. That makes the scheduled task independent of WSL UNC availability and keeps later GUI control UAC-free.
 
 3. Start the game through the controller:
 
@@ -85,13 +87,23 @@ powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projec
 powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\.agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1" send -Command click-relative -ProcessName com.bilibili.nslg -Rx 0.875 -Ry 0.173
 ```
 
-8. If the server selection page is visible, click the main enter button:
+8. Use drag and safe key commands for routine navigation when needed:
+
+```powershell
+# Swipe/drag from one normalized point to another.
+powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\.agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1" send -Command drag-relative -ProcessName com.bilibili.nslg -Rx 0.500 -Ry 0.750 -Rx2 0.500 -Ry2 0.350 -Duration 0.4
+
+# Safe navigation keys only: ESC, ENTER, TAB, SPACE, BACKSPACE, DELETE, arrows, HOME/END/PAGEUP/PAGEDOWN.
+powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\.agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1" send -Command key-press -ProcessName com.bilibili.nslg -Key ESC
+```
+
+9. If the server selection page is visible, click the main enter button:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\.agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1" send -Command click-relative -ProcessName com.bilibili.nslg -Rx 0.500 -Ry 0.800
 ```
 
-9. Interpret the screenshot with the repository vision flow when `/home/lan/projects/sanmou_monorepo` is available:
+10. Interpret the screenshot with the repository vision flow when `/home/lan/projects/sanmou_monorepo` is available:
 
 ```powershell
 $script = @'
@@ -138,7 +150,7 @@ Supported actions:
 - `register-task` — one-time setup; self-elevates and creates the `SanmouLaunch` scheduled task at run level `Highest`. Idempotent (re-registers with `-Force`).
 - `install-controller-task` — one-time setup; self-elevates and creates the `SanmouController` scheduled task at run level `Highest`. This is preferred for repeated automation.
 - `start-controller` — starts the `SanmouController` scheduled task and waits for `ready.json`.
-- `send` — sends a whitelisted command to `SanmouController`. Use `-Command start-game|integrity|capture-window|click-relative|stop`.
+- `send` — sends a whitelisted command to `SanmouController`. Use `-Command start-game|integrity|capture-window|click-relative|drag-relative|key-press|stop`.
 - `stop-controller` — sends `-Command stop` to the controller and exits its loop.
 - `controller` — internal scheduled-task entry point; do not call from ordinary agent turns.
 - `integrity`
@@ -165,4 +177,6 @@ The controller uses only local files under `%LOCALAPPDATA%\SanmouClientControl`:
 - `status.json`
 - `stop`
 
-`send` writes a new command with a GUID and waits for a matching `status.json`. The controller accepts only `start-game`, `integrity`, `capture-window`, `click-relative`, and `stop`. It does not accept arbitrary PowerShell or shell commands.
+`send` writes a new command with a GUID and waits for a matching `status.json`. The controller accepts only `start-game`, `integrity`, `capture-window`, `click-relative`, `drag-relative`, `key-press`, and `stop`. It does not accept arbitrary PowerShell or shell commands.
+
+Do not send account passwords through the file-based controller. If a future login path needs typing secrets, keep the credential ephemeral and ask the user to complete that step manually until a non-file secret channel exists.

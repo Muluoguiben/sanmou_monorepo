@@ -47,7 +47,7 @@ Supported actions:
 powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\.agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1" install-controller-task
 ```
 
-If UAC is not visible from the agent session, right-click `C:\Users\Lan\Desktop\sanmou_install_controller_task.bat` and choose "Run as administrator". The repo copy is `.agent/skills/sanmou-client-control/scripts/install_sanmou_controller_task.bat`.
+If UAC is not visible from the agent session, run `C:\Users\Lan\Desktop\sanmou_install_controller_task.bat` and approve the single Administrator prompt. The repo copy is `.agent/skills/sanmou-client-control/scripts/install_sanmou_controller_task.bat`. The installer copies the controller script into `%LOCALAPPDATA%\SanmouClientControl` before registering the scheduled task, so later agent calls do not depend on WSL UNC access.
 
 2. Start the game through the controller:
 
@@ -77,7 +77,15 @@ powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projec
 powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\.agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1" send -Command click-relative -ProcessName com.bilibili.nslg -Rx 0.500 -Ry 0.800
 ```
 
-6. Interpret the screenshot with the repository vision flow:
+6. Drag/swipe and send safe navigation keys through the same controller when needed:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\.agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1" send -Command drag-relative -ProcessName com.bilibili.nslg -Rx 0.500 -Ry 0.750 -Rx2 0.500 -Ry2 0.350 -Duration 0.4
+
+powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\.agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1" send -Command key-press -ProcessName com.bilibili.nslg -Key ESC
+```
+
+7. Interpret the screenshot with the repository vision flow:
 
 ```powershell
 $code = @"
@@ -109,6 +117,8 @@ The controller uses `%LOCALAPPDATA%\SanmouClientControl` and accepts only these 
 - `integrity`
 - `capture-window`
 - `click-relative`
+- `drag-relative`
+- `key-press`
 - `stop`
 
 Use `stop-controller` when done with a long session:
@@ -116,3 +126,5 @@ Use `stop-controller` when done with a long session:
 ```powershell
 powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\.agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1" stop-controller
 ```
+
+Do not send account passwords through the file-based controller. If a future login path needs typing secrets, keep the credential ephemeral and ask the user to complete that step manually until a non-file secret channel exists.

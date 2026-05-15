@@ -9,11 +9,15 @@ param(
   [string]$TaskName = 'SanmouLaunch',
   [string]$ControllerTaskName = 'SanmouController',
   [string]$ControlDir = "$env:LOCALAPPDATA\SanmouClientControl",
-  [ValidateSet('start-game', 'integrity', 'capture-window', 'click-relative', 'stop')]
+  [ValidateSet('start-game', 'integrity', 'capture-window', 'click-relative', 'drag-relative', 'key-press', 'stop')]
   [string]$Command = 'integrity',
   [string]$Out = "$env:TEMP\sanmou_current.png",
   [double]$Rx = 0.5,
   [double]$Ry = 0.5,
+  [double]$Rx2 = 0.5,
+  [double]$Ry2 = 0.5,
+  [double]$Duration = 0.4,
+  [string]$Key = 'ESC',
   [string]$StatusPath = ''
 )
 
@@ -55,8 +59,9 @@ public static class SanmouNative {
   [StructLayout(LayoutKind.Sequential)] public struct RECT { public int Left; public int Top; public int Right; public int Bottom; }
   [StructLayout(LayoutKind.Sequential)] struct POINT { public int X; public int Y; }
   [StructLayout(LayoutKind.Sequential)] struct INPUT { public uint type; public INPUTUNION U; }
-  [StructLayout(LayoutKind.Explicit)] struct INPUTUNION { [FieldOffset(0)] public MOUSEINPUT mi; }
+  [StructLayout(LayoutKind.Explicit)] struct INPUTUNION { [FieldOffset(0)] public MOUSEINPUT mi; [FieldOffset(0)] public KEYBDINPUT ki; }
   [StructLayout(LayoutKind.Sequential)] struct MOUSEINPUT { public int dx; public int dy; public uint mouseData; public uint dwFlags; public uint time; public IntPtr dwExtraInfo; }
+  [StructLayout(LayoutKind.Sequential)] struct KEYBDINPUT { public ushort wVk; public ushort wScan; public uint dwFlags; public uint time; public IntPtr dwExtraInfo; }
 
   public static Process FindProcess(string name) {
     Process[] ps = Process.GetProcessesByName(name);
@@ -154,6 +159,86 @@ public static class SanmouNative {
     GetCursorPos(out cp);
     return String.Format("OK click sent={0} hwnd=0x{1:X} rect={2},{3},{4}x{5} target={6},{7} cursor={8},{9} virtual={10},{11},{12}x{13}", sent, hwnd.ToInt64(), r.Left, r.Top, w, h, x, y, cp.X, cp.Y, vx, vy, vw, vh);
   }
+
+  static int AbsoluteX(int x, int vx, int vw) {
+    return (int)Math.Round((x - vx) * 65535.0 / Math.Max(1, vw - 1));
+  }
+
+  static int AbsoluteY(int y, int vy, int vh) {
+    return (int)Math.Round((y - vy) * 65535.0 / Math.Max(1, vh - 1));
+  }
+
+  public static string DragRelative(string processName, double rx, double ry, double rx2, double ry2, double durationSeconds) {
+    SetProcessDpiAwarenessContext(new IntPtr(-4));
+    Process p = FindProcess(processName);
+    if (p == null || p.MainWindowHandle == IntPtr.Zero) return "ERR no_window " + processName;
+    IntPtr hwnd = p.MainWindowHandle;
+    ShowWindow(hwnd, 9);
+    SetForegroundWindow(hwnd);
+    System.Threading.Thread.Sleep(350);
+    RECT r;
+    GetWindowRect(hwnd, out r);
+    int w = r.Right - r.Left;
+    int h = r.Bottom - r.Top;
+    int x1 = r.Left + (int)Math.Round(w * rx);
+    int y1 = r.Top + (int)Math.Round(h * ry);
+    int x2 = r.Left + (int)Math.Round(w * rx2);
+    int y2 = r.Top + (int)Math.Round(h * ry2);
+    int vx = GetSystemMetrics(76), vy = GetSystemMetrics(77), vw = GetSystemMetrics(78), vh = GetSystemMetrics(79);
+    int steps = Math.Max(2, Math.Min(60, (int)Math.Round(Math.Max(0.05, durationSeconds) * 30.0)));
+    INPUT[] inputs = new INPUT[steps + 3];
+    for (int i = 0; i < inputs.Length; i++) {
+      inputs[i].type = 0;
+      inputs[i].U.mi.mouseData = 0;
+      inputs[i].U.mi.time = 0;
+      inputs[i].U.mi.dwExtraInfo = IntPtr.Zero;
+    }
+    inputs[0].U.mi.dx = AbsoluteX(x1, vx, vw);
+    inputs[0].U.mi.dy = AbsoluteY(y1, vy, vh);
+    inputs[0].U.mi.dwFlags = 0x0001 | 0x8000 | 0x4000;
+    inputs[1].U.mi.dx = inputs[0].U.mi.dx;
+    inputs[1].U.mi.dy = inputs[0].U.mi.dy;
+    inputs[1].U.mi.dwFlags = 0x0002;
+    for (int i = 0; i < steps; i++) {
+      double t = (i + 1.0) / steps;
+      int x = (int)Math.Round(x1 + (x2 - x1) * t);
+      int y = (int)Math.Round(y1 + (y2 - y1) * t);
+      inputs[i + 2].U.mi.dx = AbsoluteX(x, vx, vw);
+      inputs[i + 2].U.mi.dy = AbsoluteY(y, vy, vh);
+      inputs[i + 2].U.mi.dwFlags = 0x0001 | 0x8000 | 0x4000;
+    }
+    inputs[steps + 2].U.mi.dx = AbsoluteX(x2, vx, vw);
+    inputs[steps + 2].U.mi.dy = AbsoluteY(y2, vy, vh);
+    inputs[steps + 2].U.mi.dwFlags = 0x0004;
+    uint sent = SendInput((uint)inputs.Length, inputs, Marshal.SizeOf(typeof(INPUT)));
+    System.Threading.Thread.Sleep(250);
+    POINT cp;
+    GetCursorPos(out cp);
+    return String.Format("OK drag sent={0} hwnd=0x{1:X} rect={2},{3},{4}x{5} from={6},{7} to={8},{9} cursor={10},{11}", sent, hwnd.ToInt64(), r.Left, r.Top, w, h, x1, y1, x2, y2, cp.X, cp.Y);
+  }
+
+  public static string KeyPress(string processName, ushort vk) {
+    SetProcessDpiAwarenessContext(new IntPtr(-4));
+    Process p = FindProcess(processName);
+    if (p == null || p.MainWindowHandle == IntPtr.Zero) return "ERR no_window " + processName;
+    IntPtr hwnd = p.MainWindowHandle;
+    ShowWindow(hwnd, 9);
+    SetForegroundWindow(hwnd);
+    System.Threading.Thread.Sleep(200);
+    INPUT[] inputs = new INPUT[2];
+    for (int i = 0; i < inputs.Length; i++) {
+      inputs[i].type = 1;
+      inputs[i].U.ki.wVk = vk;
+      inputs[i].U.ki.wScan = 0;
+      inputs[i].U.ki.time = 0;
+      inputs[i].U.ki.dwExtraInfo = IntPtr.Zero;
+    }
+    inputs[0].U.ki.dwFlags = 0;
+    inputs[1].U.ki.dwFlags = 0x0002;
+    uint sent = SendInput((uint)inputs.Length, inputs, Marshal.SizeOf(typeof(INPUT)));
+    System.Threading.Thread.Sleep(150);
+    return String.Format("OK key sent={0} hwnd=0x{1:X} vk=0x{2:X}", sent, hwnd.ToInt64(), vk);
+  }
 }
 "@ -ReferencedAssemblies System.Drawing
 }
@@ -188,6 +273,10 @@ function Invoke-ElevatedSelf {
     '-Out', $Out,
     '-Rx', ([string]$Rx),
     '-Ry', ([string]$Ry),
+    '-Rx2', ([string]$Rx2),
+    '-Ry2', ([string]$Ry2),
+    '-Duration', ([string]$Duration),
+    '-Key', $Key,
     '-StatusPath', $status
   )
   Start-Process -FilePath powershell.exe -ArgumentList $args -Verb RunAs | Out-Null
@@ -211,6 +300,44 @@ function Get-ControlPaths {
     Status = Join-Path $ControlDir 'status.json'
     Stop = Join-Path $ControlDir 'stop'
   }
+}
+
+function Copy-ControllerScriptLocal {
+  $paths = Get-ControlPaths
+  $localScript = Join-Path $paths.Dir 'sanmou_client_control.ps1'
+  $sourcePath = [System.IO.Path]::GetFullPath($PSCommandPath)
+  $targetPath = [System.IO.Path]::GetFullPath($localScript)
+  if ($sourcePath -ne $targetPath) {
+    Copy-Item -LiteralPath $PSCommandPath -Destination $localScript -Force
+  }
+  return $localScript
+}
+
+function Resolve-KeyVirtualCode {
+  param([string]$Name)
+  $map = @{
+    ESC = 0x1B
+    ESCAPE = 0x1B
+    ENTER = 0x0D
+    RETURN = 0x0D
+    TAB = 0x09
+    SPACE = 0x20
+    BACKSPACE = 0x08
+    DELETE = 0x2E
+    UP = 0x26
+    DOWN = 0x28
+    LEFT = 0x25
+    RIGHT = 0x27
+    HOME = 0x24
+    END = 0x23
+    PAGEUP = 0x21
+    PAGEDOWN = 0x22
+  }
+  $normalized = $Name.Trim().ToUpperInvariant()
+  if (-not $map.ContainsKey($normalized)) {
+    throw "unsupported key '$Name'; allowed keys: $($map.Keys -join ', ')"
+  }
+  return [uint16]$map[$normalized]
 }
 
 function Wait-ControllerReady {
@@ -270,6 +397,10 @@ function Invoke-ControllerCommand {
     out = $Out
     rx = $Rx
     ry = $Ry
+    rx2 = $Rx2
+    ry2 = $Ry2
+    duration = $Duration
+    key = $Key
     created_at = (Get-Date).ToString('o')
   }
 
@@ -340,10 +471,19 @@ function Invoke-ControllerLoop {
               $result = [SanmouNative]::Capture([string]$cmd.process, [string]$cmd.out)
               $ok = $result.StartsWith('OK')
             }
-            'click-relative' {
-              $result = [SanmouNative]::ClickRelative([string]$cmd.process, [double]$cmd.rx, [double]$cmd.ry)
-              $ok = $result.StartsWith('OK')
-            }
+	            'click-relative' {
+	              $result = [SanmouNative]::ClickRelative([string]$cmd.process, [double]$cmd.rx, [double]$cmd.ry)
+	              $ok = $result.StartsWith('OK')
+	            }
+	            'drag-relative' {
+	              $result = [SanmouNative]::DragRelative([string]$cmd.process, [double]$cmd.rx, [double]$cmd.ry, [double]$cmd.rx2, [double]$cmd.ry2, [double]$cmd.duration)
+	              $ok = $result.StartsWith('OK')
+	            }
+	            'key-press' {
+	              $vk = Resolve-KeyVirtualCode ([string]$cmd.key)
+	              $result = [SanmouNative]::KeyPress([string]$cmd.process, $vk)
+	              $ok = $result.StartsWith('OK')
+	            }
             'stop' {
               $result = 'OK stopping controller'
               $ok = $true
@@ -389,8 +529,8 @@ switch ($Action) {
       break
     }
     try {
-      $scriptPath = $PSCommandPath
-      $scriptDir = Split-Path -Parent $scriptPath
+	      $scriptPath = Copy-ControllerScriptLocal
+	      $scriptDir = Split-Path -Parent $scriptPath
       $argList = @(
         '-NoProfile',
         '-ExecutionPolicy', 'Bypass',

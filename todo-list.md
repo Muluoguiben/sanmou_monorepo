@@ -1,6 +1,6 @@
 # Todo List
 
-> Last updated: 2026-05-15 (下一段重点：多设备 Desktop Advisor 真机试用、真实 screenshot fixture/eval，以及接入 Bilibili 阵容图结构化抽取)
+> Last updated: 2026-05-15 (下一段重点：多设备 Desktop Advisor 真机试用、真实 screenshot fixture/eval、SanmouController 一次授权验证，以及接入 Bilibili 阵容图结构化抽取)
 
 ## In Progress
 
@@ -71,6 +71,7 @@
 
 ## Done
 
+- [x] SanmouController 一次授权链路 hardening（2026-05-15）：确认 `SanmouLaunch` 只能高权限启动游戏，不能替 agent 点击 High integrity 游戏窗口；将 `sanmou_install_controller_task.bat` 改成自提升安装，并把 controller 脚本复制到 `%LOCALAPPDATA%\SanmouClientControl` 后注册 `SanmouController`，避免 scheduled task 依赖 WSL UNC 路径；controller 白名单扩展为 `start-game/integrity/capture-window/click-relative/drag-relative/key-press/stop`，覆盖后续低风险 GUI 截图、点击、拖拽、ESC/ENTER 等导航。仍不允许通过 file-based controller 传输账号密码。
 - [x] TeamSnapshot 真实截图 fixture/eval 首版（2026-05-15）：把 5/14 安卓队伍总览 + 祝融夫人 4 张详情图沉淀为 `tests/fixtures/screenshots/android/team_snapshot/` 真实截图 fixture，并新增 reviewed vision replay fixture `team_snapshot_mobile_20260514.json` 与 `test_team_snapshot_screenshot_eval.py`；离线跑通 `VisionSync -> TeamSnapshot judgement -> ActionSelector`，覆盖 `detail_status/missing_detail_tabs` 与祝融战法、装备、马匹、兵书、属性加点关键字段；当前预期判断为 `insufficient_basis`，因为只有祝融夫人 1/3 武将有详情，不能误判全队 ready。
 - [x] TeamSnapshot 判断层 + runtime fixture/eval（2026-05-15）：新增 `pioneer_agent.derivation.team_snapshot`，把 `team_panel/team_detail` 输出的武将、战法等级、属性加点、装备、马匹、缘分、阵法、兵书字段汇总为 `TeamReadinessJudgement`，输出 PVP/PVE/远征 readiness、风险、blocking issues、confidence、next_steps；`inspect_team_readiness` 推荐可消费该判断；新增 ready runtime-state fixture 与判断层单测；后续按真实账号配置校正 SP诸葛亮/诸葛亮2 战法为 `星罗棋布`、`折冲御侮`、`践墨随敌`；pioneer-agent 90 tests OK / 2 skipped（缺本地 `starlette`），commit `344bdda`。
 - [x] Team panel perception domain（2026-05-14）：新增 `team_panel` schema/domain/merge/selector/advisor report 接入，队伍总览截图可进入 `RuntimeState.teams/team_containers/main_lineup.team_readiness`，真实截图验证推荐 `inspect_team_readiness::部队一`；pioneer-agent 81 tests 全绿。
