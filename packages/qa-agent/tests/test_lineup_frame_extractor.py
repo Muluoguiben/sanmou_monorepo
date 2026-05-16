@@ -34,7 +34,7 @@ class _FakeExtractor:
         self._fail = fail
         self.calls = []
 
-    def extract(self, image_urls, *, question=None):
+    def extract(self, image_urls, *, question=None, **kwargs):
         self.calls.append(list(image_urls))
         if self._fail:
             raise RuntimeError("simulated vision outage")

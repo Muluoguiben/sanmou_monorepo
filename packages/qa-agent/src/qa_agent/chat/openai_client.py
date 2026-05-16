@@ -76,20 +76,33 @@ class OpenAIChatClient:
         max_retries: int = 2,
         retry_backoff_s: float = 2.0,
         images: list[str] | None = None,
+        image_detail: str | None = None,
+        verbosity: str | None = None,
+        reasoning_effort: str | None = None,
     ) -> ChatResult:
+        """`image_detail`: OpenAI image_url detail hint ("original"/"high"/"low")
+        — dense small-text tables want "original" per the GPT-5.4 vision
+        cookbook. `verbosity`: "high" pushes literal OCR-style rendering.
+        `reasoning_effort`: per-call override (e.g. "high" for table cross-ref
+        parsing) of the client default.
+        """
         messages: list[dict[str, Any]] = [{"role": "system", "content": system_prompt}]
         for turn in history:
             role = "user" if turn["role"] == "user" else "assistant"
             messages.append({"role": role, "content": turn["content"]})
-        messages.append({"role": "user", "content": _build_user_content(user_message, images)})
+        messages.append(
+            {"role": "user", "content": _build_user_content(user_message, images, image_detail)}
+        )
 
         payload: dict[str, Any] = {
             "model": self._model,
             "max_tokens": max_tokens,
             "messages": messages,
-            "reasoning_effort": self._reasoning_effort,
+            "reasoning_effort": reasoning_effort or self._reasoning_effort,
             "store": False,
         }
+        if verbosity:
+            payload["text"] = {"verbosity": verbosity}
         # GPT-5 reasoning models ignore temperature; only send when user overrides default.
         if temperature != 0.2:
             payload["temperature"] = temperature
@@ -156,12 +169,17 @@ class OpenAIChatClient:
         return json.loads(_strip_json_fence(result.text))
 
 
-def _build_user_content(message: str, images: list[str] | None) -> Any:
+def _build_user_content(
+    message: str, images: list[str] | None, image_detail: str | None = None
+) -> Any:
     if not images:
         return message
     parts: list[dict[str, Any]] = [{"type": "text", "text": message}]
     for url in images:
-        parts.append({"type": "image_url", "image_url": {"url": url}})
+        image_url: dict[str, Any] = {"url": url}
+        if image_detail:
+            image_url["detail"] = image_detail
+        parts.append({"type": "image_url", "image_url": image_url})
     return parts
 
 

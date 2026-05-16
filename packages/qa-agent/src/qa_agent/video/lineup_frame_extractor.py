@@ -181,6 +181,7 @@ class LineupFrameExtractor:
         *,
         canonicalize=None,
         prepare_images=None,
+        vision_params: dict | None = None,
     ) -> None:
         """`canonicalize`: optional ``str -> str`` mapping a raw recognized
         name to its KB-canonical form (typically wired to the
@@ -194,6 +195,14 @@ class LineupFrameExtractor:
         """
         self._extractor = extractor
         self._canon = canonicalize or (lambda s: s)
+        # Dense-table vision params (task #11 v2, per GPT-5.4 vision cookbook).
+        # Overridable so the model-comparison eval can sweep them.
+        self._vision_params = vision_params if vision_params is not None else {
+            "image_detail": "original",
+            "reasoning_effort": "high",
+            "verbosity": "high",
+            "max_tokens": 2000,
+        }
         if prepare_images is None:
             from qa_agent.vision.image_loader import prepare_image_inputs
 
@@ -229,6 +238,7 @@ class LineupFrameExtractor:
                     "这是三国谋定天下 UP 主视频里的阵容/武将配置画面，"
                     "列出画面中可辨识的武将名与战法名。"
                 ),
+                **self._vision_params,
             )
         except Exception as exc:  # noqa: BLE001 - fail open per pipeline policy
             logger.warning("lineup_frame_extractor: vision failed %s#%s-%s: %s",

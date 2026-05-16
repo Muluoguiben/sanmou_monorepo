@@ -113,7 +113,17 @@ class ImageExtractor:
         image_urls: list[str],
         *,
         question: str | None = None,
+        image_detail: str | None = None,
+        reasoning_effort: str | None = None,
+        verbosity: str | None = None,
+        max_tokens: int = 512,
     ) -> VisionExtraction:
+        """`image_detail`/`reasoning_effort`/`verbosity`/`max_tokens`: opt-in
+        dense-table mode (task #11 v2). Defaults preserve the existing
+        vision_enrichment behaviour; pass detail="original",
+        reasoning_effort="high", verbosity="high", max_tokens>=1500 for dense
+        小字阵容表 per the GPT-5.4 vision cookbook.
+        """
         if not image_urls:
             return VisionExtraction()
 
@@ -126,8 +136,11 @@ class ImageExtractor:
             history=[],
             user_message=user_msg,
             temperature=0.0,
-            max_tokens=512,
+            max_tokens=max_tokens,
             images=image_urls,
+            image_detail=image_detail,
+            reasoning_effort=reasoning_effort,
+            verbosity=verbosity,
         )
 
         parsed = _safe_parse_json(result.text)
