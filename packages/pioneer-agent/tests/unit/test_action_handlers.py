@@ -77,6 +77,16 @@ class UIActionRunnerTests(unittest.TestCase):
         res = runner.run(_mk_action(ActionType.WAIT_FOR_STAMINA))
         self.assertEqual(res.status, "ok")
 
+    def test_runner_requires_confirmation_for_sensitive_action(self) -> None:
+        runner = UIActionRunner(
+            _NullUI(),  # type: ignore[arg-type]
+            capabilities=CapabilityFlags(input_control=True),
+        )
+        res = runner.run(_mk_action(ActionType.ATTACK_LAND))
+        self.assertEqual(res.status, "requires_confirmation")
+        self.assertEqual(res.summary["blocked_by"], "safety_guard")
+        self.assertEqual(res.summary["guard_decision"], "require_confirmation")
+
 
 if __name__ == "__main__":
     unittest.main()

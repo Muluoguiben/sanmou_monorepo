@@ -174,6 +174,31 @@ class AutonomousLoopTests(unittest.TestCase):
             self.assertEqual(payload["page_type"], "main_map")
             self.assertIsNone(payload["selected_action_type"])
 
+    def test_tick_writes_trace_store_when_provided(self) -> None:
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+
+        from pioneer_agent.storage.trace_store import TracePhase, TraceStore
+
+        with TemporaryDirectory() as tmp:
+            loop, _bridge, _ = self._loop(
+                action=None,
+                vision_payloads=[{"page_type": "main_map", "resources": {}}],
+            )
+            loop.trace_store = TraceStore(Path(tmp) / "trace.jsonl")
+            loop.tick(3)
+
+            records = loop.trace_store.read()
+            self.assertEqual(len(records), 1)
+            trace = records[0]
+            self.assertEqual(trace.iteration, 3)
+            self.assertEqual(trace.current_phase, TracePhase.TRACE)
+            self.assertEqual(trace.observe.outputs["page_type"], "main_map")
+            self.assertEqual(trace.decide.outputs["selected_action_id"], None)
+            self.assertEqual(trace.act.outputs["status"], "idle")
+            self.assertEqual(trace.screenshot.raw_size.width, 1920)
+            self.assertEqual(trace.screenshot.raw_size.height, 1080)
+
     def test_dry_run_skips_runner_and_marks_execution(self) -> None:
         action = CandidateAction(
             action_id="u1", action_type=ActionType.UPGRADE_BUILDING,

@@ -26,7 +26,7 @@
 - [ ] Bridge health check：Windows bridge / future ADB adapter 需要 screenshot freshness、window info、input capability 自检。
 - [ ] Click-action calibration：claim_chapter / upgrade_building / recruit_soldiers / attack_land / transfer_main_lineup / abandon_land 当前返回 `pending`，需用真实页面截图走 `ui_calibrate` + `find_elements` 打通确认对话框序列。
 - [ ] Screenshot / coordinate trace metadata：每次 vision 与 click 都记录原始截图尺寸、prepared 图尺寸、display/window 坐标空间、DPR/scale、normalized bbox、pixel bbox、实际点击点，防止坐标漂移不可追踪。
-- [ ] Trace Store schema：用结构化 trace store 代替散落日志；每次动作必须能回答“看到了什么、为什么选、执行了什么、验证是否通过、失败后如何恢复”。
+- [x] Trace Store schema（2026-05-17）：新增 `pioneer_agent.storage.trace_store`，并把 `AutonomousLoop` 接入可选 `TraceStore`；每个 traced tick 记录 observe/decide/act/verify/trace/recover 阶段、状态快照、vision summary、selected/ranked action、execution、verification、recovery 和截图尺寸。
 - [ ] Golden replay tests：用 `loop.jsonl + screenshots` 重放一次完整 Advisor/selector 决策，稳定输出相同推荐。
 - [ ] `event_tournament` / `mode_hub` perception domain：把演武大会、征战模式入口、远征/军演/养士兴功等页面从当前 `chapter` fallback 中拆出来，抽取积分、排名、倒计时、阶段状态、可重置/可报名等字段。
 - [ ] TeamSnapshot 全队详情 fixture/eval：补充孟获、诸葛亮2 的详情页截图 fixture，让 `TeamSnapshot` 从“祝融夫人单将详情已覆盖”推进到 3/3 武将详情覆盖，并校验最终可进入 PVP/PVE/远征 ready/needs_review 判断。
