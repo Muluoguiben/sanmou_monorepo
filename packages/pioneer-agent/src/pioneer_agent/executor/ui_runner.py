@@ -10,7 +10,7 @@ from pioneer_agent.core.device import CapabilityFlags
 from pioneer_agent.core.models import CandidateAction, ExecutionResult
 from pioneer_agent.executor.action_handlers import dispatch
 from pioneer_agent.executor.ui_actions import UIActions
-from pioneer_agent.safety.guard import GuardDecision, SafetyGuard
+from pioneer_agent.safety.guard import GuardDecision, SafetyGuard, SessionMode
 
 
 class UIActionRunner:
@@ -20,16 +20,19 @@ class UIActionRunner:
         *,
         capabilities: CapabilityFlags | None = None,
         safety_guard: SafetyGuard | None = None,
+        session_mode: SessionMode | str | None = None,
     ) -> None:
         self.ui = ui
         self.capabilities = capabilities
         self.safety_guard = safety_guard or SafetyGuard()
+        self.session_mode = session_mode
 
     def run(self, action: CandidateAction) -> ExecutionResult:
         verdict = self.safety_guard.evaluate(
             action.action_type,
             risk=action.risk,
             capabilities=self.capabilities,
+            session_mode=self.session_mode,
         )
         if verdict.decision != GuardDecision.ALLOW:
             status = "requires_confirmation" if verdict.decision == GuardDecision.REQUIRE_CONFIRMATION else "blocked"

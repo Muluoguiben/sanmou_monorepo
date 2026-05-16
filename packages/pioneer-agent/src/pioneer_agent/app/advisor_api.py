@@ -26,6 +26,7 @@ from pioneer_agent.perception.screenshot_interpreter import (
 from pioneer_agent.perception.vision import build_vision_client
 from pioneer_agent.perception.vision_sync import VisionSync, VisionSyncSummary
 from pioneer_agent.runtime.advisor_loop import AdvisorLoop, AdvisorReport, build_advisor_report
+from pioneer_agent.safety.kill_switch import KillSwitch, default_kill_switch_path
 
 MAX_UPLOAD_BYTES = 10 * 1024 * 1024
 IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp"}
@@ -42,23 +43,44 @@ class AdvisorChatResponse(BaseModel):
     mode: str = "local_advisor"
 
 
+class KillSwitchStatus(BaseModel):
+    triggered: bool
+    path: str
+
+
 class AdvisorApiService:
     def __init__(
         self,
         *,
         data_dir: Path | None = None,
         default_mock_mode: bool | None = None,
+        kill_switch: KillSwitch | None = None,
     ) -> None:
         self.project_root = _project_root()
         self.data_dir = data_dir or _default_data_dir(self.project_root)
         self.upload_dir = self.data_dir / "uploads"
         self.report_log = self.data_dir / "reports.jsonl"
+        self.kill_switch = kill_switch or KillSwitch(default_kill_switch_path(self.project_root))
         self.default_mock_mode = (
             _env_bool("SANMOU_ADVISOR_MOCK", default=False)
             if default_mock_mode is None
             else default_mock_mode
         )
         self.upload_dir.mkdir(parents=True, exist_ok=True)
+
+    def kill_switch_status(self) -> KillSwitchStatus:
+        return KillSwitchStatus(
+            triggered=self.kill_switch.is_triggered(),
+            path=str(self.kill_switch.path),
+        )
+
+    def trigger_kill_switch(self) -> KillSwitchStatus:
+        self.kill_switch.trigger()
+        return self.kill_switch_status()
+
+    def clear_kill_switch(self) -> KillSwitchStatus:
+        self.kill_switch.clear()
+        return self.kill_switch_status()
 
     def analyze_upload(
         self,
@@ -307,11 +329,24 @@ def create_app(service: AdvisorApiService | None = None) -> FastAPI:
             "status": "ok",
             "data_dir": str(service.data_dir),
             "mock_default": service.default_mock_mode,
+            "kill_switch": service.kill_switch_status().model_dump(mode="json"),
         }
 
     @app.get("/api/advisor/platforms")
     def platforms() -> dict[str, list[str]]:
         return {"platforms": [item.value for item in DevicePlatform]}
+
+    @app.get("/api/runtime/kill-switch")
+    def get_kill_switch() -> KillSwitchStatus:
+        return service.kill_switch_status()
+
+    @app.post("/api/runtime/kill-switch")
+    def trigger_kill_switch() -> KillSwitchStatus:
+        return service.trigger_kill_switch()
+
+    @app.delete("/api/runtime/kill-switch")
+    def clear_kill_switch() -> KillSwitchStatus:
+        return service.clear_kill_switch()
 
     @app.post("/api/advisor/analyze")
     def analyze(

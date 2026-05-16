@@ -196,6 +196,39 @@ select:focus {
   color: #a33b3b;
 }
 
+.kill-status {
+  display: grid;
+  grid-template-columns: 1fr 42px;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  border: 1px solid #d8e0e8;
+  border-radius: 8px;
+  padding: 10px;
+  background: #f8fafc;
+}
+
+.kill-status.active {
+  border-color: #e3a1a1;
+  background: #fff4f4;
+}
+
+.kill-status strong,
+.kill-status span {
+  display: block;
+}
+
+.kill-status strong {
+  color: #203246;
+  font-size: 13px;
+}
+
+.kill-status span {
+  margin-top: 2px;
+  color: #657282;
+  font-size: 12px;
+}
+
 .workspace {
   padding: 22px;
   min-width: 0;
@@ -246,6 +279,11 @@ select:focus {
   padding: 0;
   background: #1f6fb2;
   color: #ffffff;
+}
+
+.danger-button {
+  background: #fae8e8;
+  color: #a33b3b;
 }
 
 .content-grid {

@@ -221,6 +221,40 @@ class AutonomousLoopTests(unittest.TestCase):
         self.assertEqual(result.execution.verification_status, "not_applicable")
         self.assertEqual(result.sleep_s, DEFAULT_SLEEP_S)
 
+    def test_kill_switch_blocks_runner_dispatch(self) -> None:
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+
+        from pioneer_agent.safety.kill_switch import KillSwitch
+
+        action = CandidateAction(
+            action_id="u1",
+            action_type=ActionType.UPGRADE_BUILDING,
+            params={"building_name": "征兵所"},
+        )
+        runner = _StubRunner()
+
+        with TemporaryDirectory() as tmp:
+            kill_switch = KillSwitch(Path(tmp) / "STOP")
+            kill_switch.trigger()
+            loop, _bridge, _ = self._loop(
+                action=action,
+                vision_payloads=[
+                    {"page_type": "city", "resources": {}},
+                    {"page_type": "city", "buildings": []},
+                ],
+                runner=runner,
+            )
+            loop.kill_switch = kill_switch
+
+            result = loop.tick(0)
+
+        self.assertEqual(runner.actions, [])
+        self.assertIsNotNone(result.execution)
+        self.assertEqual(result.execution.status, "blocked")
+        self.assertEqual(result.execution.summary["blocked_by"], "kill_switch")
+        self.assertIn("kill switch", result.execution.failure_reason or "")
+
     def test_is_stuck_conditions(self) -> None:
         from pioneer_agent.perception.vision_sync import VisionSyncSummary
 

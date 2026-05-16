@@ -5,7 +5,7 @@ import unittest
 from pioneer_agent.core.device import CapabilityFlags
 from pioneer_agent.core.enums import ActionType
 from pioneer_agent.core.risk import RiskLevel
-from pioneer_agent.safety.guard import GuardDecision, SafetyGuard
+from pioneer_agent.safety.guard import GuardDecision, SafetyGuard, SessionMode
 
 
 class SafetyGuardTests(unittest.TestCase):
@@ -37,6 +37,27 @@ class SafetyGuardTests(unittest.TestCase):
 
         self.assertEqual(verdict.decision, GuardDecision.BLOCK)
         self.assertIn("input_control", verdict.reason)
+
+    def test_advisor_session_mode_blocks_ui_execution(self) -> None:
+        verdict = SafetyGuard().evaluate(
+            ActionType.CLAIM_CHAPTER_REWARD,
+            risk="low",
+            capabilities=CapabilityFlags(input_control=True),
+            session_mode=SessionMode.ADVISOR,
+        )
+
+        self.assertEqual(verdict.decision, GuardDecision.BLOCK)
+        self.assertIn("session mode advisor", verdict.reason)
+
+    def test_automation_test_session_mode_can_execute_allowlisted_action(self) -> None:
+        verdict = SafetyGuard().evaluate(
+            ActionType.CLAIM_CHAPTER_REWARD,
+            risk="low",
+            capabilities=CapabilityFlags(input_control=True),
+            session_mode="automation_test",
+        )
+
+        self.assertEqual(verdict.decision, GuardDecision.ALLOW)
 
     def test_sensitive_actions_require_confirmation_by_default(self) -> None:
         for action_type in (

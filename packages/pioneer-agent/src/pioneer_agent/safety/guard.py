@@ -15,6 +15,13 @@ class GuardDecision(str, Enum):
     REQUIRE_CONFIRMATION = "require_confirmation"
 
 
+class SessionMode(str, Enum):
+    OBSERVE_ONLY = "observe_only"
+    ADVISOR = "advisor"
+    AUTOMATION_TEST = "automation_test"
+    LIVE = "live"
+
+
 @dataclass(frozen=True)
 class GuardVerdict:
     decision: GuardDecision
@@ -80,9 +87,19 @@ class SafetyGuard:
         *,
         risk: RiskLevel | str | Mapping[str, Any] | None = None,
         capabilities: CapabilityFlags | None = None,
+        session_mode: SessionMode | str | None = None,
     ) -> GuardVerdict:
         normalized_action = _normalize_action_type(action_type)
         risk_level = normalize_risk_level(risk)
+        normalized_session_mode = _normalize_session_mode(session_mode)
+
+        if normalized_session_mode in (SessionMode.OBSERVE_ONLY, SessionMode.ADVISOR):
+            return GuardVerdict(
+                decision=GuardDecision.BLOCK,
+                reason=f"session mode {normalized_session_mode.value} does not allow UI execution",
+                action_type=normalized_action,
+                risk_level=risk_level,
+            )
 
         if capabilities is not None and not capabilities.can_execute_input:
             return GuardVerdict(
@@ -129,6 +146,14 @@ def _normalize_action_type(action_type: ActionType | str) -> str:
     if isinstance(action_type, ActionType):
         return action_type.value
     return action_type
+
+
+def _normalize_session_mode(session_mode: SessionMode | str | None) -> SessionMode | None:
+    if session_mode is None:
+        return None
+    if isinstance(session_mode, SessionMode):
+        return session_mode
+    return SessionMode(session_mode)
 
 
 def _normalize_action_set(

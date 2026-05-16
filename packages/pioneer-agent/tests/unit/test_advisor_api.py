@@ -11,17 +11,18 @@ from pioneer_agent.core.device import DevicePlatform
 
 def _require_api_deps():
     try:
+        from fastapi.testclient import TestClient
         from starlette.datastructures import UploadFile
 
-        from pioneer_agent.app.advisor_api import AdvisorApiService, AdvisorChatRequest
+        from pioneer_agent.app.advisor_api import AdvisorApiService, AdvisorChatRequest, create_app
     except ModuleNotFoundError as exc:
         raise unittest.SkipTest(f"advisor API dependencies not installed: {exc}") from exc
-    return UploadFile, AdvisorApiService, AdvisorChatRequest
+    return UploadFile, AdvisorApiService, AdvisorChatRequest, TestClient, create_app
 
 
 class AdvisorApiTests(unittest.TestCase):
     def test_mock_analyze_upload_writes_report_and_blocks_execution(self) -> None:
-        UploadFile, AdvisorApiService, _AdvisorChatRequest = _require_api_deps()
+        UploadFile, AdvisorApiService, _AdvisorChatRequest, _TestClient, _create_app = _require_api_deps()
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
             image_path = root / "screen.png"
@@ -50,7 +51,7 @@ class AdvisorApiTests(unittest.TestCase):
             self.assertTrue((root / "advisor" / "reports.jsonl").exists())
 
     def test_local_chat_uses_report_context(self) -> None:
-        UploadFile, AdvisorApiService, AdvisorChatRequest = _require_api_deps()
+        UploadFile, AdvisorApiService, AdvisorChatRequest, _TestClient, _create_app = _require_api_deps()
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
             image_path = root / "screen.png"
@@ -81,6 +82,39 @@ class AdvisorApiTests(unittest.TestCase):
             )
             self.assertIn("这张图的解读", vision_response.answer)
             self.assertIn("关键事实", vision_response.answer)
+
+    def test_kill_switch_api_can_trigger_and_clear_stop_file(self) -> None:
+        (
+            _UploadFile,
+            AdvisorApiService,
+            _AdvisorChatRequest,
+            TestClient,
+            create_app,
+        ) = _require_api_deps()
+        from pioneer_agent.safety.kill_switch import KillSwitch
+
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            service = AdvisorApiService(
+                data_dir=root / "advisor",
+                default_mock_mode=True,
+                kill_switch=KillSwitch(root / "STOP"),
+            )
+            client = TestClient(create_app(service))
+
+            initial = client.get("/api/runtime/kill-switch")
+            self.assertEqual(initial.status_code, 200)
+            self.assertFalse(initial.json()["triggered"])
+
+            triggered = client.post("/api/runtime/kill-switch")
+            self.assertEqual(triggered.status_code, 200)
+            self.assertTrue(triggered.json()["triggered"])
+            self.assertTrue((root / "STOP").exists())
+
+            cleared = client.delete("/api/runtime/kill-switch")
+            self.assertEqual(cleared.status_code, 200)
+            self.assertFalse(cleared.json()["triggered"])
+            self.assertFalse((root / "STOP").exists())
 
 
 if __name__ == "__main__":

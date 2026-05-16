@@ -69,6 +69,18 @@ class UIActionRunnerTests(unittest.TestCase):
         self.assertEqual(res.verification_status, "not_applicable")
         self.assertIn("input_control", res.failure_reason or "")
 
+    def test_runner_blocks_advisor_session_mode(self) -> None:
+        runner = UIActionRunner(
+            _NullUI(),  # type: ignore[arg-type]
+            capabilities=CapabilityFlags(input_control=True),
+            session_mode="advisor",
+        )
+        res = runner.run(_mk_action(ActionType.CLAIM_CHAPTER_REWARD))
+        self.assertEqual(res.status, "blocked")
+        self.assertEqual(res.summary["blocked_by"], "safety_guard")
+        self.assertEqual(res.summary["guard_decision"], "block")
+        self.assertIn("session mode advisor", res.failure_reason or "")
+
     def test_runner_allows_explicit_control_capability(self) -> None:
         runner = UIActionRunner(
             _NullUI(),  # type: ignore[arg-type]

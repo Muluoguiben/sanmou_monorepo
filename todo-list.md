@@ -1,6 +1,6 @@
 # Todo List
 
-> Last updated: 2026-05-17 (下一段重点：低风险真实自动化闭环、PC 客户端 GUI 捕获/控制可靠性、动作后 verifier、safety/recovery、computer-use trace metadata、真实 screenshot fixture/eval、`loop.jsonl + screenshots` golden replay，以及 qa-agent strategy snapshot 接入)
+> Last updated: 2026-05-17 (下一段重点：低风险真实自动化闭环、PC 客户端 GUI 捕获/控制可靠性、动作后 verifier/recovery、computer-use trace metadata、真实 screenshot fixture/eval、`loop.jsonl + screenshots` golden replay，以及 qa-agent strategy snapshot 接入)
 
 ## In Progress
 
@@ -19,9 +19,9 @@
 - [ ] `upgrade_building` low-risk flow + verifier：只对白名单低风险建筑执行升级；动作后验证建筑等级变化、升级倒计时出现或资源消耗符合预期。
 - [ ] Popup detector：识别通用弹窗、确认框、返回/关闭状态，作为 recovery/verifier 基础。
 - [ ] Verifier framework：每个可执行动作必须声明 expected state delta 和 verify timeout；无 verifier 不允许自动执行。
-- [ ] Safety guardrail：基于 `CapabilityFlags`、risk schema、action_type、account/session mode 拦截高风险动作。
+- [x] Safety guardrail（2026-05-17）：基于 `CapabilityFlags`、risk schema、action_type、account/session mode 拦截高风险动作；`UIActionRunner` 在派发前统一执行 `SafetyGuard`，advisor/observe-only 阻断输入，敏感/高风险动作返回 `requires_confirmation`。
 - [ ] Computer-use input sandbox / allowlist：所有 GUI 输入动作必须经过 allowlist policy；只允许已注册的安全按钮、已校准 bbox、已确认的 low-risk flow 派发点击/拖拽/按键。
-- [ ] Manual kill switch：GUI 与 runtime 都要有本地停机开关；触发后 executor 不再派发输入。
+- [x] Manual kill switch（2026-05-17）：新增文件型 `KillSwitch`，`AutonomousLoop` 在 runner 派发前检查 stop file；Advisor API 暴露触发/清除 endpoint，Desktop Advisor 侧边栏提供停机/清除按钮；触发后 executor 不再派发输入。
 - [ ] High-risk confirmation：`attack_land` / `abandon_land` / `transfer_main_lineup` 必须人工确认。
 - [ ] Bridge health check：Windows bridge / future ADB adapter 需要 screenshot freshness、window info、input capability 自检。
 - [ ] Click-action calibration：claim_chapter / upgrade_building / recruit_soldiers / attack_land / transfer_main_lineup / abandon_land 当前返回 `pending`，需用真实页面截图走 `ui_calibrate` + `find_elements` 打通确认对话框序列。

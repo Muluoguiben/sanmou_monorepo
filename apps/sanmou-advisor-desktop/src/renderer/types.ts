@@ -11,6 +11,18 @@ export type RuntimeConfig = {
   externalApi: boolean;
 };
 
+export type KillSwitchStatus = {
+  triggered: boolean;
+  path: string;
+};
+
+export type HealthStatus = {
+  status: string;
+  data_dir: string;
+  mock_default: boolean;
+  kill_switch: KillSwitchStatus;
+};
+
 export type AdvisorReport = {
   mode: string;
   captured_at: string;

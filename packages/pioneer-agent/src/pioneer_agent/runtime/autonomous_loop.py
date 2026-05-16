@@ -22,6 +22,7 @@ from pioneer_agent.derivation.state_deriver import StateDeriver
 from pioneer_agent.executor.ui_actions import UIActions
 from pioneer_agent.executor.ui_runner import UIActionRunner
 from pioneer_agent.perception.vision_sync import VisionSync, VisionSyncSummary
+from pioneer_agent.safety.kill_switch import KillSwitch
 from pioneer_agent.selector.action_selector import ActionSelector
 from pioneer_agent.storage.loop_logger import LoopLogger
 from pioneer_agent.storage.trace_store import (
@@ -71,6 +72,7 @@ class AutonomousLoop:
         sleeper=time.sleep,
         loop_logger: LoopLogger | None = None,
         trace_store: TraceStore | None = None,
+        kill_switch: KillSwitch | None = None,
         dry_run: bool = False,
         stuck_threshold: int = STUCK_ESC_THRESHOLD,
     ) -> None:
@@ -83,6 +85,7 @@ class AutonomousLoop:
         self.sleeper = sleeper
         self.loop_logger = loop_logger
         self.trace_store = trace_store
+        self.kill_switch = kill_switch
         self.dry_run = dry_run
         self.stuck_threshold = stuck_threshold
         self._stuck_count = 0
@@ -107,7 +110,24 @@ class AutonomousLoop:
         execution: ExecutionResult | None = None
         sleep_s = IDLE_SLEEP_S
         if selection.selected_action is not None:
-            if self.dry_run:
+            if self.kill_switch is not None and self.kill_switch.is_triggered():
+                logger.warning(
+                    "tick %d: kill switch active — blocking action=%s",
+                    iteration,
+                    selection.selected_action.action_type.value,
+                )
+                execution = ExecutionResult(
+                    action_id=selection.selected_action.action_id,
+                    status="blocked",
+                    verification_status="not_applicable",
+                    failure_reason="manual kill switch is active",
+                    recovery_required=False,
+                    summary={
+                        "action_type": selection.selected_action.action_type.value,
+                        "blocked_by": "kill_switch",
+                    },
+                )
+            elif self.dry_run:
                 logger.info(
                     "tick %d: dry_run — skipping action=%s",
                     iteration,

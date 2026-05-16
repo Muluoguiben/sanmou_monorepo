@@ -16,6 +16,7 @@ from pioneer_agent.perception.ui_registry import UIRegistry
 from pioneer_agent.perception.vision import build_vision_client
 from pioneer_agent.perception.vision_sync import VisionSync
 from pioneer_agent.runtime.autonomous_loop import AutonomousLoop
+from pioneer_agent.safety.kill_switch import KillSwitch, default_kill_switch_path
 from pioneer_agent.storage.loop_logger import LoopLogger
 
 
@@ -34,7 +35,12 @@ def main(argv: list[str] | None = None) -> int:
                         help="Consecutive idle/unknown ticks before ESC recovery (default: 3).")
     parser.add_argument("--vision-provider", choices=("gemini", "openai"), default=None,
                         help="Vision provider override. Defaults to PIONEER_VISION_PROVIDER or gemini.")
+    parser.add_argument("--kill-switch-file", type=Path, default=None,
+                        help="Stop dispatching UI actions when this file exists.")
     args = parser.parse_args(argv)
+    kill_switch_path = args.kill_switch_file or default_kill_switch_path(
+        Path(__file__).resolve().parents[5]
+    )
 
     logging.basicConfig(
         level=args.log_level.upper(),
@@ -52,6 +58,7 @@ def main(argv: list[str] | None = None) -> int:
             vision_sync=VisionSync(vision),
             ui_actions=ui,
             loop_logger=loop_logger,
+            kill_switch=KillSwitch(kill_switch_path),
             dry_run=args.dry_run,
             stuck_threshold=args.stuck_threshold,
         )

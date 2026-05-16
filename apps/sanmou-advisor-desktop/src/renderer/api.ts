@@ -1,4 +1,11 @@
-import type { AnalyzeOptions, AdvisorReport, ChatResponse, RuntimeConfig } from "./types";
+import type {
+  AnalyzeOptions,
+  AdvisorReport,
+  ChatResponse,
+  HealthStatus,
+  KillSwitchStatus,
+  RuntimeConfig
+} from "./types";
 
 const DEFAULT_API_BASE_URL = "http://127.0.0.1:8765";
 
@@ -15,11 +22,38 @@ export async function getRuntimeConfig(): Promise<RuntimeConfig> {
   return runtimeConfigPromise;
 }
 
-export async function healthCheck(): Promise<{ status: string; data_dir: string; mock_default: boolean }> {
+export async function healthCheck(): Promise<HealthStatus> {
   const config = await getRuntimeConfig();
   const response = await fetch(`${config.apiBaseUrl}/api/health`);
   if (!response.ok) {
     throw new Error(`API health check failed: ${response.status}`);
+  }
+  return response.json();
+}
+
+export async function getKillSwitchStatus(): Promise<KillSwitchStatus> {
+  const config = await getRuntimeConfig();
+  const response = await fetch(`${config.apiBaseUrl}/api/runtime/kill-switch`);
+  if (!response.ok) {
+    throw new Error(`Kill switch status failed: ${response.status}`);
+  }
+  return response.json();
+}
+
+export async function triggerKillSwitch(): Promise<KillSwitchStatus> {
+  const config = await getRuntimeConfig();
+  const response = await fetch(`${config.apiBaseUrl}/api/runtime/kill-switch`, { method: "POST" });
+  if (!response.ok) {
+    throw new Error(`Kill switch trigger failed: ${response.status}`);
+  }
+  return response.json();
+}
+
+export async function clearKillSwitch(): Promise<KillSwitchStatus> {
+  const config = await getRuntimeConfig();
+  const response = await fetch(`${config.apiBaseUrl}/api/runtime/kill-switch`, { method: "DELETE" });
+  if (!response.ok) {
+    throw new Error(`Kill switch clear failed: ${response.status}`);
   }
   return response.json();
 }

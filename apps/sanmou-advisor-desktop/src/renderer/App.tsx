@@ -6,6 +6,8 @@ import {
   Loader2,
   MessageSquareText,
   Monitor,
+  OctagonX,
+  RotateCcw,
   Send,
   Server,
   ShieldCheck,
@@ -13,8 +15,14 @@ import {
 } from "lucide-react";
 import { ChangeEvent, DragEvent, FormEvent, useEffect, useMemo, useRef, useState } from "react";
 
-import { analyzeScreenshot, healthCheck, sendAdvisorMessage } from "./api";
-import type { AnalyzeOptions, AdvisorReport, ChatMessage, DevicePlatform } from "./types";
+import {
+  analyzeScreenshot,
+  clearKillSwitch,
+  healthCheck,
+  sendAdvisorMessage,
+  triggerKillSwitch
+} from "./api";
+import type { AnalyzeOptions, AdvisorReport, ChatMessage, DevicePlatform, KillSwitchStatus } from "./types";
 
 const platformOptions: Array<{ value: DevicePlatform; label: string }> = [
   { value: "unknown", label: "自动" },
@@ -37,6 +45,8 @@ const initialOptions: AnalyzeOptions = {
 export default function App() {
   const [apiStatus, setApiStatus] = useState<"checking" | "ok" | "down">("checking");
   const [dataDir, setDataDir] = useState("");
+  const [killSwitch, setKillSwitch] = useState<KillSwitchStatus | null>(null);
+  const [killSwitchBusy, setKillSwitchBusy] = useState(false);
   const [options, setOptions] = useState<AnalyzeOptions>(initialOptions);
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -61,6 +71,7 @@ export default function App() {
       .then((payload) => {
         setApiStatus(payload.status === "ok" ? "ok" : "down");
         setDataDir(payload.data_dir);
+        setKillSwitch(payload.kill_switch);
       })
       .catch(() => setApiStatus("down"));
   }, []);
@@ -181,6 +192,30 @@ export default function App() {
     }
   }
 
+  async function onTriggerKillSwitch() {
+    setKillSwitchBusy(true);
+    setError("");
+    try {
+      setKillSwitch(await triggerKillSwitch());
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setKillSwitchBusy(false);
+    }
+  }
+
+  async function onClearKillSwitch() {
+    setKillSwitchBusy(true);
+    setError("");
+    try {
+      setKillSwitch(await clearKillSwitch());
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setKillSwitchBusy(false);
+    }
+  }
+
   return (
     <main className="app-shell">
       <aside className="sidebar">
@@ -274,6 +309,21 @@ export default function App() {
             <span>API {apiStatusLabel(apiStatus)}</span>
           </div>
           <p title={dataDir}>{dataDir || "data/advisor"}</p>
+          <div className={`kill-status ${killSwitch?.triggered ? "active" : ""}`}>
+            <div>
+              <strong>停机开关</strong>
+              <span title={killSwitch?.path}>{killSwitch?.triggered ? "已触发" : "未触发"}</span>
+            </div>
+            {killSwitch?.triggered ? (
+              <button className="icon-button" onClick={onClearKillSwitch} disabled={killSwitchBusy || apiStatus !== "ok"}>
+                {killSwitchBusy ? <Loader2 size={16} className="spin" /> : <RotateCcw size={16} />}
+              </button>
+            ) : (
+              <button className="icon-button danger-button" onClick={onTriggerKillSwitch} disabled={killSwitchBusy || apiStatus !== "ok"}>
+                {killSwitchBusy ? <Loader2 size={16} className="spin" /> : <OctagonX size={16} />}
+              </button>
+            )}
+          </div>
         </section>
       </aside>
 
