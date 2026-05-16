@@ -152,7 +152,9 @@ class BackfillTests(unittest.TestCase):
         )
         canon = {"黄府松": "皇甫嵩", "金汤": "金城汤池"}.get
         ex = LineupFrameExtractor(
-            fake, canonicalize=lambda s: canon(s) or s
+            fake,
+            canonicalize=lambda s: canon(s) or s,
+            prepare_images=lambda paths: paths,
         )
         staging, stats = ex.backfill_entries(
             self._staging(), {"BV1x": self._bundle()}
@@ -170,7 +172,21 @@ class BackfillTests(unittest.TestCase):
         self.assertEqual(stats.entries_targeted, 1)
 
     def test_vision_failure_is_fail_open(self):
-        ex = LineupFrameExtractor(_FakeExtractor(fail=True))
+        ex = LineupFrameExtractor(
+            _FakeExtractor(fail=True), prepare_images=lambda paths: paths
+        )
+        staging, stats = ex.backfill_entries(
+            self._staging(), {"BV1x": self._bundle()}
+        )
+        self.assertEqual(staging[0]["entry"]["structured_data"]["hero_names"], [])
+        self.assertEqual(stats.vision_errors, 1)
+        self.assertEqual(stats.entries_filled_hero, 0)
+
+    def test_image_prep_failure_is_fail_open(self):
+        def _boom(_paths):
+            raise FileNotFoundError("frame not on disk")
+
+        ex = LineupFrameExtractor(_FakeExtractor(), prepare_images=_boom)
         staging, stats = ex.backfill_entries(
             self._staging(), {"BV1x": self._bundle()}
         )
@@ -179,7 +195,9 @@ class BackfillTests(unittest.TestCase):
         self.assertEqual(stats.entries_filled_hero, 0)
 
     def test_missing_bundle_skips(self):
-        ex = LineupFrameExtractor(_FakeExtractor())
+        ex = LineupFrameExtractor(
+            _FakeExtractor(), prepare_images=lambda paths: paths
+        )
         staging, stats = ex.backfill_entries(self._staging(), {})
         self.assertEqual(stats.entries_targeted, 0)
 

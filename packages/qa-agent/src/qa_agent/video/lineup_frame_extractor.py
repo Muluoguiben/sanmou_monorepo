@@ -180,12 +180,25 @@ class LineupFrameExtractor:
         extractor: _VisionExtractorProtocol,
         *,
         canonicalize=None,
+        prepare_images=None,
     ) -> None:
         """`canonicalize`: optional ``str -> str`` mapping a raw recognized
         name to its KB-canonical form (typically wired to the
-        subtitle_normalizer dictionary so frame names match task #8/#9)."""
+        subtitle_normalizer dictionary so frame names match task #8/#9).
+
+        `prepare_images`: optional ``list[str] -> list[str]`` converting local
+        frame paths to gateway-acceptable inputs (base64 data URIs). Defaults
+        to ``qa_agent.vision.image_loader.prepare_image_inputs`` — the same
+        step `vision_enrichment` uses. Passing local paths straight to the
+        OpenAI-compatible gateway yields HTTP 400; tests inject identity.
+        """
         self._extractor = extractor
         self._canon = canonicalize or (lambda s: s)
+        if prepare_images is None:
+            from qa_agent.vision.image_loader import prepare_image_inputs
+
+            prepare_images = prepare_image_inputs
+        self._prepare_images = prepare_images
 
     def extract_window(
         self,
@@ -202,8 +215,16 @@ class LineupFrameExtractor:
             return sig
         sig.frames_used = [f.path for f in window]
         try:
+            image_inputs = self._prepare_images([f.path for f in window])
+        except Exception as exc:  # noqa: BLE001 - bad/missing frame, fail open
+            logger.warning("lineup_frame_extractor: image prep failed %s#%s-%s: %s",
+                           bvid, start_sec, end_sec, exc)
+            if stats is not None:
+                stats.vision_errors += 1
+            return sig
+        try:
             result = self._extractor.extract(
-                [f.path for f in window],
+                image_inputs,
                 question=(
                     "这是三国谋定天下 UP 主视频里的阵容/武将配置画面，"
                     "列出画面中可辨识的武将名与战法名。"
