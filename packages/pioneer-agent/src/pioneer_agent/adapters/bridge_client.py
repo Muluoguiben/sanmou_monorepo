@@ -24,8 +24,9 @@ def _to_windows_path(linux_path: Path) -> str:
 class BridgeClient:
     """Client that talks to the Windows bridge server via python.exe proxy."""
 
-    def __init__(self, port: int = 9877) -> None:
+    def __init__(self, port: int = 9877, *, capture_backend: str | None = None) -> None:
         self.port = port
+        self.capture_backend = capture_backend
         self._proc: subprocess.Popen[str] | None = None
 
     def connect(self) -> None:
@@ -69,7 +70,10 @@ class BridgeClient:
     def screenshot(self, save_path: Path | str | None = None) -> bytes:
         """Capture a screenshot of the game window. Returns PNG bytes."""
         self.connect()
-        self._send({"cmd": "screenshot"})
+        payload = {"cmd": "screenshot"}
+        if self.capture_backend:
+            payload["backend"] = self.capture_backend
+        self._send(payload)
         resp = self._read_line()
         if resp.get("status") != "ok" or "data_b64" not in resp:
             raise RuntimeError(resp.get("message") or f"Screenshot failed: {resp}")
@@ -123,6 +127,15 @@ class BridgeClient:
         """Get game window geometry info."""
         self.connect()
         self._send({"cmd": "window_info"})
+        return self._read_line()
+
+    def list_windows(self, title_substring: str | None = None) -> dict[str, Any]:
+        """List candidate target windows known to the bridge."""
+        self.connect()
+        payload = {"cmd": "list_windows"}
+        if title_substring is not None:
+            payload["title"] = title_substring
+        self._send(payload)
         return self._read_line()
 
     def __enter__(self) -> BridgeClient:

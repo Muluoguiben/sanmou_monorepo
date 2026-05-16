@@ -1,6 +1,6 @@
 # Todo List
 
-> Last updated: 2026-05-16 (下一段重点：多设备 Desktop Advisor 真机试用、真实 screenshot fixture/eval、`loop.jsonl + screenshots` golden replay，以及接入 Bilibili 阵容图结构化抽取)
+> Last updated: 2026-05-16 (下一段重点：多设备 Desktop Advisor 真机试用、PC 客户端 GUI 捕获/控制可靠性、真实 screenshot fixture/eval、`loop.jsonl + screenshots` golden replay，以及接入 Bilibili 阵容图结构化抽取)
 
 ## In Progress
 
@@ -23,11 +23,13 @@
 - [ ] Popup detector：识别通用弹窗、确认框、返回/关闭状态，作为 recovery/verifier 基础。
 - [ ] Sanmou 客户端冷启动弹窗 handler：覆盖网络错误/公告/公会邀请/钻石提示/续费弹窗等首屏弹窗；只对已知安全弹窗执行关闭/确认，未知弹窗挂起并回传 Advisor。
 - [ ] Sanmou 客户端安装路径自适应：`sanmou_client_control.ps1` / bootstrap 不再只硬编码 `D:\bilibili Game\NSLG`，优先解析桌面快捷方式、注册表或常见安装目录，找不到再 fallback。
+- [ ] Windows 桥接器 GUI 稳定性第一版：补齐 `list-windows` 全量候选窗口上报（hwnd/rect/visible/iconic/usable），`win_bridge_server.py`/`bridge_client.py` 在每次截图前拒绝最小化/坏尺寸 `hwnd`，并为无效截图（过小/近黑帧）返回可判定错误，作为 sanity 入口；后续继续补 OCR/关键字级别识别 `slock/claude/chrome`。
 - [ ] Verifier framework：每个可执行动作必须声明 expected state delta 和 verify timeout；无 verifier 不允许自动执行。
 - [ ] Safety guardrail：基于 `CapabilityFlags`、risk schema、action_type、account/session mode 拦截高风险动作。
 - [ ] Manual kill switch：GUI 与 runtime 都要有本地停机开关；触发后 executor 不再派发输入。
 - [ ] High-risk confirmation：`attack_land` / `abandon_land` / `transfer_main_lineup` 必须人工确认。
 - [ ] Bridge health check：Windows bridge / future ADB adapter 需要 screenshot freshness、window info、input capability 自检。
+- [ ] PC 客户端 foreground-independent capture：为三谋 Windows 客户端补 WGC/DXGI 截图 backend 与窗口 sanity check，允许用户切到 Slock/Codex/Claude 等其它窗口时仍能稳定获得游戏截图；要求拒绝最小化/离屏/坏尺寸 hwnd，截图后识别到非游戏窗口（Slock/Codex/Chrome 等）必须判失败，不进入 Advisor/automation 判断；点击仍按短暂置前 → 白名单输入 → 截图校验的低风险事务执行。
 - [ ] Click-action calibration：claim_chapter / upgrade_building / recruit_soldiers / attack_land / transfer_main_lineup / abandon_land 当前返回 `pending`，需用真实页面截图走 `ui_calibrate` + `find_elements` 打通确认对话框序列。
 - [ ] Golden replay tests：用 `loop.jsonl + screenshots` 重放一次完整 Advisor/selector 决策，稳定输出相同推荐。
 

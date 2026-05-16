@@ -13,6 +13,7 @@ description: Open, foreground-control, screenshot, and visually interpret the Sa
 - Expect integrity-level blocking. `com.bilibili.nslg` commonly runs as High integrity; a Medium shell cannot reliably click it with `SetCursorPos`, `SendInput`, or window messages.
 - Prefer the scheduled `SanmouController` helper after one-time setup. It runs as High integrity and accepts only whitelisted JSON commands, so later Claude/Codex calls do not need repeated UAC consent.
 - Use ad-hoc self-elevation only as a fallback when the controller task has not been installed.
+- When the user is switching windows, prefer the Python Windows bridge capture path with `--capture-backend auto` or `wgc`. `SanmouController capture-window` is still screen-rectangle based and must reject minimized/offscreen/bad-size windows instead of returning misleading screenshots.
 
 ## Paths
 
@@ -81,6 +82,18 @@ powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projec
 powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\.agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1" send -Command capture-window -ProcessName com.bilibili.nslg -Out "$env:TEMP\sanmou_current.png"
 ```
 
+For foreground-independent capture, start the Windows bridge server with WGC/DXGI auto mode and use the repository bridge client:
+
+```powershell
+python \\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\packages\pioneer-agent\src\pioneer_agent\adapters\win_bridge_server.py --capture-backend auto --window "三国：谋定天下"
+```
+
+The WGC backend requires the optional Windows package:
+
+```powershell
+python -m pip install windows-capture
+```
+
 7. If a popup blocks progress, click by normalized window coordinates:
 
 ```powershell
@@ -129,9 +142,17 @@ Use normalized coordinates against the captured game window:
 
 | Screen | Target | Rx | Ry |
 |---|---:|---:|---:|
-| Notice popup | close button | `0.875` | `0.173` |
+| Notice popup (公告) | close button (×) | `0.332` | `0.053` |
+| Notice popup (公告) | close via ESC (preferred) | — | — |
 | Server page | enter / 征战天下 | `0.500` | `0.800` |
+| Server list error (获取服务器列表失败) | 重试 button | `0.500` | `0.700` |
+| Login timeout (登录超时) | 回到登录 button | `0.500` | `0.700` |
+| Exit confirm (确认退出?) | 取消 (stay) — use ESC to avoid triggering | — | — |
 | Launcher | open game / 打开游戏 | `0.846` | `0.891` |
+
+**Bilibili login dialog note:** The Bilibili 游戏 登录 dialog is a separate window owned by `PCGamePlatform.exe`, NOT `com.bilibili.nslg`. Target `PCGamePlatform` when sending clicks to the login form. Button 登录 at Rx=0.50, Ry=0.68 of the PCGamePlatform window.
+
+**ESC side-effect:** Pressing ESC on the server selection page (outside any popup) triggers an "确认退出?" dialog. Prefer click-relative to close popups when possible; use ESC only inside known popup contexts (e.g. 公告).
 
 Always verify by capturing again after a click.
 

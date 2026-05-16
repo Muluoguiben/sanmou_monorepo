@@ -42,10 +42,18 @@ using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 
 public static class SanmouNative {
+  delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
   [DllImport("user32.dll")] static extern bool SetProcessDpiAwarenessContext(IntPtr value);
   [DllImport("user32.dll")] static extern bool SetForegroundWindow(IntPtr hWnd);
   [DllImport("user32.dll")] static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+  [DllImport("user32.dll")] static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
+  [DllImport("user32.dll")] static extern bool BringWindowToTop(IntPtr hWnd);
+  [DllImport("user32.dll")] static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, UInt32 uFlags);
+  [DllImport("user32.dll")] static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
+  [DllImport("user32.dll")] static extern bool IsWindowVisible(IntPtr hWnd);
+  [DllImport("user32.dll")] static extern bool IsIconic(IntPtr hWnd);
   [DllImport("user32.dll")] static extern bool GetWindowRect(IntPtr hWnd, out RECT rect);
+  [DllImport("user32.dll")] static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
   [DllImport("user32.dll")] static extern uint SendInput(uint nInputs, INPUT[] pInputs, int cbSize);
   [DllImport("user32.dll")] static extern int GetSystemMetrics(int nIndex);
   [DllImport("user32.dll", SetLastError=true)] static extern bool GetCursorPos(out POINT lpPoint);
@@ -63,11 +71,76 @@ public static class SanmouNative {
   [StructLayout(LayoutKind.Sequential)] struct MOUSEINPUT { public int dx; public int dy; public uint mouseData; public uint dwFlags; public uint time; public IntPtr dwExtraInfo; }
   [StructLayout(LayoutKind.Sequential)] struct KEYBDINPUT { public ushort wVk; public ushort wScan; public uint dwFlags; public uint time; public IntPtr dwExtraInfo; }
 
-  public static Process FindProcess(string name) {
-    Process[] ps = Process.GetProcessesByName(name);
-    foreach (Process p in ps) if (p.MainWindowHandle != IntPtr.Zero) return p;
-    return ps.Length > 0 ? ps[0] : null;
-  }
+	  public static Process FindProcess(string name) {
+	    Process[] ps = Process.GetProcessesByName(name);
+	    foreach (Process p in ps) if (p.MainWindowHandle != IntPtr.Zero) return p;
+	    return ps.Length > 0 ? ps[0] : null;
+	  }
+
+	  static int[] targetPids = new int[0];
+	  static IntPtr bestWindow = IntPtr.Zero;
+	  static long bestArea = 0;
+
+	  static bool UsableWindow(IntPtr hwnd, out RECT r, out long area) {
+	    GetWindowRect(hwnd, out r);
+	    int w = r.Right - r.Left;
+	    int h = r.Bottom - r.Top;
+	    area = (long)Math.Max(0, w) * (long)Math.Max(0, h);
+	    if (IsIconic(hwnd)) return false;
+	    if (r.Left <= -10000 || r.Top <= -10000) return false;
+	    return w > 20 && h > 20;
+	  }
+
+	  static bool EnumProcessWindow(IntPtr hwnd, IntPtr lParam) {
+	    if (!IsWindowVisible(hwnd)) return true;
+	    uint pid;
+	    GetWindowThreadProcessId(hwnd, out pid);
+	    bool owned = false;
+	    foreach (int targetPid in targetPids) {
+	      if (targetPid == (int)pid) {
+	        owned = true;
+	        break;
+	      }
+	    }
+	    if (!owned) return true;
+	    RECT r;
+	    long area;
+	    if (UsableWindow(hwnd, out r, out area) && area > bestArea) {
+	      bestArea = area;
+	      bestWindow = hwnd;
+	    }
+	    return true;
+	  }
+
+	  public static IntPtr FindWindow(string name) {
+	    Process[] ps = Process.GetProcessesByName(name);
+	    if (ps.Length == 0) return IntPtr.Zero;
+	    foreach (Process p in ps) {
+	      if (p.MainWindowHandle != IntPtr.Zero) {
+	        ShowWindowAsync(p.MainWindowHandle, 9);
+	      }
+	    }
+	    System.Threading.Thread.Sleep(200);
+	    targetPids = new int[ps.Length];
+	    for (int i = 0; i < ps.Length; i++) targetPids[i] = ps[i].Id;
+	    bestWindow = IntPtr.Zero;
+	    bestArea = 0;
+	    EnumWindows(EnumProcessWindow, IntPtr.Zero);
+	    if (bestWindow != IntPtr.Zero) return bestWindow;
+	    return IntPtr.Zero;
+	  }
+
+	  static void ActivateWindow(IntPtr hwnd) {
+	    ShowWindow(hwnd, 9);
+	    UInt32 flags = 0x0001 | 0x0002 | 0x0040;
+	    SetWindowPos(hwnd, new IntPtr(-1), 0, 0, 0, 0, flags);
+	    BringWindowToTop(hwnd);
+	    SetForegroundWindow(hwnd);
+	    System.Threading.Thread.Sleep(150);
+	    SetWindowPos(hwnd, new IntPtr(-2), 0, 0, 0, 0, flags);
+	    SetForegroundWindow(hwnd);
+	    System.Threading.Thread.Sleep(350);
+	  }
 
   public static string Integrity(uint pid) {
     IntPtr ph = OpenProcess(0x1000, false, pid);
@@ -107,30 +180,28 @@ public static class SanmouNative {
     return sidString + " " + level;
   }
 
-  public static string Capture(string processName, string outPath) {
-    SetProcessDpiAwarenessContext(new IntPtr(-4));
-    Process p = FindProcess(processName);
-    if (p == null || p.MainWindowHandle == IntPtr.Zero) return "ERR no_window " + processName;
-    RECT r;
-    GetWindowRect(p.MainWindowHandle, out r);
-    int w = r.Right - r.Left;
-    int h = r.Bottom - r.Top;
+	  public static string Capture(string processName, string outPath) {
+	    SetProcessDpiAwarenessContext(new IntPtr(-4));
+	    IntPtr hwnd = FindWindow(processName);
+	    if (hwnd == IntPtr.Zero) return "ERR no_window " + processName;
+	    ActivateWindow(hwnd);
+	    RECT r;
+	    GetWindowRect(hwnd, out r);
+	    int w = r.Right - r.Left;
+	    int h = r.Bottom - r.Top;
     using (Bitmap bmp = new Bitmap(w, h))
     using (Graphics g = Graphics.FromImage(bmp)) {
       g.CopyFromScreen(r.Left, r.Top, 0, 0, new Size(w, h));
       bmp.Save(outPath, ImageFormat.Png);
     }
-    return String.Format("OK capture path={0} rect={1},{2},{3}x{4}", outPath, r.Left, r.Top, w, h);
-  }
+	    return String.Format("OK capture path={0} hwnd=0x{1:X} rect={2},{3},{4}x{5}", outPath, hwnd.ToInt64(), r.Left, r.Top, w, h);
+	  }
 
-  public static string ClickRelative(string processName, double rx, double ry) {
-    SetProcessDpiAwarenessContext(new IntPtr(-4));
-    Process p = FindProcess(processName);
-    if (p == null || p.MainWindowHandle == IntPtr.Zero) return "ERR no_window " + processName;
-    IntPtr hwnd = p.MainWindowHandle;
-    ShowWindow(hwnd, 9);
-    SetForegroundWindow(hwnd);
-    System.Threading.Thread.Sleep(350);
+	  public static string ClickRelative(string processName, double rx, double ry) {
+	    SetProcessDpiAwarenessContext(new IntPtr(-4));
+	    IntPtr hwnd = FindWindow(processName);
+	    if (hwnd == IntPtr.Zero) return "ERR no_window " + processName;
+	    ActivateWindow(hwnd);
     RECT r;
     GetWindowRect(hwnd, out r);
     int w = r.Right - r.Left;
@@ -168,14 +239,11 @@ public static class SanmouNative {
     return (int)Math.Round((y - vy) * 65535.0 / Math.Max(1, vh - 1));
   }
 
-  public static string DragRelative(string processName, double rx, double ry, double rx2, double ry2, double durationSeconds) {
-    SetProcessDpiAwarenessContext(new IntPtr(-4));
-    Process p = FindProcess(processName);
-    if (p == null || p.MainWindowHandle == IntPtr.Zero) return "ERR no_window " + processName;
-    IntPtr hwnd = p.MainWindowHandle;
-    ShowWindow(hwnd, 9);
-    SetForegroundWindow(hwnd);
-    System.Threading.Thread.Sleep(350);
+	  public static string DragRelative(string processName, double rx, double ry, double rx2, double ry2, double durationSeconds) {
+	    SetProcessDpiAwarenessContext(new IntPtr(-4));
+	    IntPtr hwnd = FindWindow(processName);
+	    if (hwnd == IntPtr.Zero) return "ERR no_window " + processName;
+	    ActivateWindow(hwnd);
     RECT r;
     GetWindowRect(hwnd, out r);
     int w = r.Right - r.Left;
@@ -217,14 +285,11 @@ public static class SanmouNative {
     return String.Format("OK drag sent={0} hwnd=0x{1:X} rect={2},{3},{4}x{5} from={6},{7} to={8},{9} cursor={10},{11}", sent, hwnd.ToInt64(), r.Left, r.Top, w, h, x1, y1, x2, y2, cp.X, cp.Y);
   }
 
-  public static string KeyPress(string processName, ushort vk) {
-    SetProcessDpiAwarenessContext(new IntPtr(-4));
-    Process p = FindProcess(processName);
-    if (p == null || p.MainWindowHandle == IntPtr.Zero) return "ERR no_window " + processName;
-    IntPtr hwnd = p.MainWindowHandle;
-    ShowWindow(hwnd, 9);
-    SetForegroundWindow(hwnd);
-    System.Threading.Thread.Sleep(200);
+	  public static string KeyPress(string processName, ushort vk) {
+	    SetProcessDpiAwarenessContext(new IntPtr(-4));
+	    IntPtr hwnd = FindWindow(processName);
+	    if (hwnd == IntPtr.Zero) return "ERR no_window " + processName;
+	    ActivateWindow(hwnd);
     INPUT[] inputs = new INPUT[2];
     for (int i = 0; i < inputs.Length; i++) {
       inputs[i].type = 1;
@@ -349,7 +414,9 @@ function Wait-ControllerReady {
       try {
         $ready = Get-Content -LiteralPath $paths.Ready -Raw | ConvertFrom-Json
         if ($ready.ready -eq $true) {
-          return $ready
+          if ($ready.pid -and (Get-Process -Id ([int]$ready.pid) -ErrorAction SilentlyContinue)) {
+            return $ready
+          }
         }
       } catch {
         # File may be mid-write; retry.
@@ -361,16 +428,28 @@ function Wait-ControllerReady {
 }
 
 function Start-ControllerTask {
-  $taskInfo = Get-ScheduledTask -TaskName $ControllerTaskName -ErrorAction SilentlyContinue
-  if ($null -eq $taskInfo) {
-    return @{ ok = $false; error = "scheduled task '$ControllerTaskName' not found; run install-controller-task once"; task = $ControllerTaskName }
-  }
   $paths = Get-ControlPaths
   Remove-Item -LiteralPath $paths.Stop -Force -ErrorAction SilentlyContinue
-  try {
-    Start-ScheduledTask -TaskName $ControllerTaskName -ErrorAction Stop
-  } catch {
-    return @{ ok = $false; error = $_.Exception.Message; task = $ControllerTaskName }
+  Remove-Item -LiteralPath $paths.Command -Force -ErrorAction SilentlyContinue
+  Remove-Item -LiteralPath $paths.Status -Force -ErrorAction SilentlyContinue
+
+  $ready = Wait-ControllerReady -TimeoutSeconds 1
+  if ($null -ne $ready) {
+    return @{ ok = $true; task = $ControllerTaskName; ready = $ready; already_running = $true }
+  }
+
+  $queryOutput = & schtasks.exe /Query /TN $ControllerTaskName 2>&1
+  if ($LASTEXITCODE -ne 0) {
+    return @{ ok = $false; error = "scheduled task '$ControllerTaskName' not found; run install-controller-task once"; task = $ControllerTaskName }
+  }
+
+  $runOutput = & schtasks.exe /Run /TN $ControllerTaskName 2>&1
+  if ($LASTEXITCODE -ne 0) {
+    $ready = Wait-ControllerReady -TimeoutSeconds 2
+    if ($null -ne $ready) {
+      return @{ ok = $true; task = $ControllerTaskName; ready = $ready; already_running = $true; run_warning = ($runOutput -join "`n") }
+    }
+    return @{ ok = $false; error = ($runOutput -join "`n"); task = $ControllerTaskName; query = ($queryOutput -join "`n") }
   }
   $ready = Wait-ControllerReady
   if ($null -eq $ready) {
@@ -435,6 +514,9 @@ function Invoke-ControllerLoop {
     Set-Content -LiteralPath $paths.Ready -Encoding UTF8
 
   $lastTick = $null
+  if (Test-Path -LiteralPath $paths.Command) {
+    $lastTick = (Get-Item -LiteralPath $paths.Command).LastWriteTimeUtc.Ticks
+  }
   while (-not (Test-Path -LiteralPath $paths.Stop)) {
     if (Test-Path -LiteralPath $paths.Command) {
       $item = Get-Item -LiteralPath $paths.Command

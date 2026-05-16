@@ -19,6 +19,16 @@ dependencies = [
   "python-multipart>=0.0.9,<1",
 ]
 
+[project.optional-dependencies]
+windows-bridge = [
+  "dxcam>=0.3; platform_system == 'Windows'",
+  "opencv-python>=4.8; platform_system == 'Windows'",
+  "Pillow>=10.0; platform_system == 'Windows'",
+  "pyautogui>=0.9; platform_system == 'Windows'",
+  "pywin32>=306; platform_system == 'Windows'",
+  "windows-capture>=2.0; platform_system == 'Windows'",
+]
+
 [tool.setuptools]
 package-dir = {"" = "src"}
 
