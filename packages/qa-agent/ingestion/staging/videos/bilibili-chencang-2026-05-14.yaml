@@ -17,7 +17,7 @@
     facts:
     - 大成周瑜被评价为本赛季排在最前面的队伍之一，属于T0.5级别。
     - 大成周瑜不适合首发环境，首发期容易遇到开放SP诸葛和高红新火枪。
-    - SP诸葛是大成周瑜的重要克制点，原因包括高智力、钝命形态、全队谋略减伤以及箭墨随敌。
+    - SP诸葛是大成周瑜的重要克制点，原因包括高智力、钝命形态、全队谋略减伤以及践墨随敌。
     - 在左剑宁登场率下降后，高满红玩家更倾向回到周瑜体系。
     - 视频证据摘要：B站 AI 中文字幕切片。
     constraints:
@@ -30,7 +30,7 @@
     confidence: 0.92
     related_topics:
     - 周瑜
-    - 箭墨随敌
+    - 践墨随敌
     priority: 70
     structured_data:
       name: S14 大成周瑜
@@ -44,7 +44,7 @@
       hero_names:
       - 周瑜
       core_skills:
-      - 箭墨随敌
+      - 践墨随敌
       scenario_tags:
       - 后期
       - 高满红
@@ -118,15 +118,15 @@
     id: video-lineup-bv1r4d3bfenk-s14-haoxinhuo
     domain: solution
     entry_kind: lineup_solution
-    topic: S14 好新火
+    topic: S14 郝昭薪火枪
     aliases:
-    - 好心火
+    - 郝昭薪火枪
     - 新火
     facts:
-    - 好新火被主播评价为纯平民队，并且本赛季升到第一排。
-    - 主播称好新火达到T0.5附近的位置，对平民队来说很不容易。
-    - 好新火上升的重要原因之一是当前环境下，左剑宁、皇太尉、大成周瑜对它并不好打。
-    - 好新火容易成型、预期低、成本相对廉价。
+    - 郝昭薪火枪被主播评价为纯平民队，并且本赛季升到第一排。
+    - 主播称郝昭薪火枪达到T0.5附近的位置，对平民队来说很不容易。
+    - 郝昭薪火枪上升的重要原因之一是当前环境下，左剑宁、皇太尉、大成周瑜对它并不好打。
+    - 郝昭薪火枪容易成型、预期低、成本相对廉价。
     - 视频证据摘要：B站 AI 中文字幕切片。
     constraints:
     - 具体细节分析在本视频中较少。
@@ -139,9 +139,9 @@
     - 姜维
     priority: 70
     structured_data:
-      name: S14 好新火
+      name: S14 郝昭薪火枪
       aliases:
-      - 好心火
+      - 郝昭薪火枪
       - 新火
       season_tags:
       - S14
@@ -223,7 +223,7 @@
     - 主播明确表示诸葛飞燕是真的是个好队伍。
     - 诸葛飞燕需要避开三盾去打，因为三盾区间抽奖成分高，抽到司马懿就容易回家。
     - 该队相对不太吃红度，魏延也较容易变红。
-    - 主播认为它能打部分周瑜、好新火和孙坚体系，对低红白板玩家来说表现不错。
+    - 主播认为它能打部分周瑜、郝昭薪火枪和孙坚体系，对低红白板玩家来说表现不错。
     - 视频证据摘要：B站 AI 中文字幕切片。
     constraints:
     - 需要主动避开三盾环境。
@@ -322,11 +322,11 @@
     aliases:
     - SP猪哥魏延
     facts:
-    - 主播给出的中低红白板共存思路之一，是不选好新火时把SP诸葛拿出来组成SP诸葛魏延。
+    - 主播给出的中低红白板共存思路之一，是不选郝昭薪火枪时把SP诸葛拿出来组成SP诸葛魏延。
     - 该队用于青尾营补位，并与前三队互换战法。
     - 视频证据摘要：B站 AI 中文字幕切片。
     constraints:
-    - 这是建立在“第二队二选一里没有选择好新火”的前提下。
+    - 这是建立在“第二队二选一里没有选择郝昭薪火枪”的前提下。
     - 定位是共存补位，不是视频中最高评级主C队。
     source_type: manual_rule
     source_ref: BILIBILI:BV1R4d3BfENk#1337-1360
@@ -585,7 +585,7 @@
     aliases:
     - 黄马
     facts:
-    - 黄马在视频中明确有两个版本：过了金汤的版本，以及百战不殆的版本。
+    - 黄马在视频中明确有两个版本：过了金城汤池的版本，以及百战不殆的版本。
     - 这两个版本的主要差别体现在面对左田孙时的表现。
     - 如果司马懿红度不足，可以选择百战不殆版本。
     - 视频证据摘要：B站 AI 中文字幕切片。
@@ -597,8 +597,8 @@
     updated_at: '2026-05-14'
     confidence: 0.83
     related_topics:
-    - 金汤
-    - 百战
+    - 金城汤池
+    - 百战不殆
     priority: 70
     structured_data:
       name: 黄马双版本队
@@ -610,8 +610,8 @@
       factions: []
       hero_names: []
       core_skills:
-      - 金汤
-      - 百战
+      - 金城汤池
+      - 百战不殆
       scenario_tags:
       - 多队共存
       - 对抗左田孙
@@ -742,11 +742,11 @@
     id: video-lineup-bv1jargbyeye-haoxinghuo-special-lineup
     domain: solution
     entry_kind: lineup_solution
-    topic: 好星火特色队
+    topic: 郝昭薪火枪特色队
     aliases:
-    - 好星火
+    - 郝昭薪火枪
     facts:
-    - 好星火被视频列为陈仓之围相关的特色队伍之一。
+    - 郝昭薪火枪被视频列为陈仓之围相关的特色队伍之一。
     - 这队面对常见黄马时有较高胜率。
     - 该队需要携带2到3个纤玉，其中3个纤玉被描述为重要质变。
     - 该队有两个版本：匮蓝不动版本与空城计版本。
@@ -766,9 +766,9 @@
     - 纤玉
     priority: 70
     structured_data:
-      name: 好星火特色队
+      name: 郝昭薪火枪特色队
       aliases:
-      - 好星火
+      - 郝昭薪火枪
       season_tags:
       - S14
       - 陈仓之围
@@ -873,7 +873,7 @@
     - 司马懿
     - 皇甫嵩
     - 猎士
-    - 睽然不动
+    - 岿然不动
     - 固若金汤
     priority: 70
     structured_data:
@@ -892,14 +892,14 @@
       - 皇甫嵩
       core_skills:
       - 猎士
-      - 睽然不动
+      - 岿然不动
       - 固若金汤
       scenario_tags:
       - 首发队
       - 低红可用
       - 内战
       notes:
-      - 视频给出的配法倾向是睽然不动+固若金汤，并建议皇甫嵩加一定速度以跑过部分关键目标。
+      - 视频给出的配法倾向是岿然不动+固若金汤，并建议皇甫嵩加一定速度以跑过部分关键目标。
       - 证据片段：76s-106s
 - metadata:
     source_url: https://www.bilibili.com/video/BV1kVohBPEeS/
@@ -1316,7 +1316,7 @@
     aliases:
     - 黄马
     facts:
-    - 在视频所述高满推荐的七套阵容里，只有黄马被明确说成是不需要和其他队伍争抢“见不随敌”的方案。
+    - 在视频所述高满推荐的七套阵容里，只有黄马被明确说成是不需要和其他队伍争抢“践墨随敌”的方案。
     - 在一队全部顶配且不降配的前提下，黄马被明确说成是唯一可以与另一队共存的队伍。
     - 视频证据摘要：B站 AI 中文字幕切片。
     constraints:
@@ -1327,7 +1327,7 @@
     updated_at: '2026-05-14'
     confidence: 0.91
     related_topics:
-    - 见不随敌
+    - 践墨随敌
     priority: 70
     structured_data:
       name: 高满首发黄马
@@ -1339,7 +1339,7 @@
       factions: []
       hero_names: []
       core_skills:
-      - 见不随敌
+      - 践墨随敌
       scenario_tags:
       - 高满
       - 首发
@@ -1455,18 +1455,18 @@
     id: video-lineup-bv1qdrkb6e7s-mu-lu-man-shao-zhou-yu-huan-jing
     domain: solution
     entry_kind: lineup_solution
-    topic: 穆路蛮首发针对少周瑜环境
+    topic: 木鹿大王首发针对少周瑜环境
     aliases:
-    - 穆路蛮
+    - 木鹿大王
     - 目录蛮
     facts:
-    - 如果前期环境里周瑜比较少，视频建议出一套穆路蛮。
-    - 视频明确说穆路蛮最大的克星就是周瑜。
-    - 视频明确说穆路蛮打马妹是好打的。
+    - 如果前期环境里周瑜比较少，视频建议出一套木鹿大王。
+    - 视频明确说木鹿大王最大的克星就是周瑜。
+    - 视频明确说木鹿大王打马妹是好打的。
     - 视频证据摘要：B站 AI 中文字幕切片。
     constraints:
     - 该推荐建立在周瑜较少的环境前提下。
-    - 若周瑜多，穆路蛮会因其最大克星存在而不适合优先首发。
+    - 若周瑜多，木鹿大王会因其最大克星存在而不适合优先首发。
     source_type: manual_rule
     source_ref: BILIBILI:BV1QdRKB6E7S#125-148
     updated_at: '2026-05-14'
@@ -1474,9 +1474,9 @@
     related_topics: []
     priority: 70
     structured_data:
-      name: 穆路蛮首发针对少周瑜环境
+      name: 木鹿大王首发针对少周瑜环境
       aliases:
-      - 穆路蛮
+      - 木鹿大王
       - 目录蛮
       season_tags:
       - 陈仓之围
@@ -1504,12 +1504,12 @@
     id: video-lineup-bv1qdrkb6e7s-hao-xing-huo-bu-dai-zhe-chong
     domain: solution
     entry_kind: lineup_solution
-    topic: 改良版不带折冲好星火
+    topic: 改良版不带折冲郝昭薪火枪
     aliases:
-    - 好星火
+    - 郝昭薪火枪
     facts:
-    - 如果想出一个通解阵容，视频非常推荐好星火。
-    - 视频特别推荐其改良版“不带折冲”的好星火。
+    - 如果想出一个通解阵容，视频非常推荐郝昭薪火枪。
+    - 视频特别推荐其改良版“不带折冲”的郝昭薪火枪。
     - 视频明确说折冲对于这一队没有任何提升。
     - 视频证据摘要：B站 AI 中文字幕切片。
     constraints:
@@ -1523,9 +1523,9 @@
     - 折冲
     priority: 70
     structured_data:
-      name: 改良版不带折冲好星火
+      name: 改良版不带折冲郝昭薪火枪
       aliases:
-      - 好星火
+      - 郝昭薪火枪
       season_tags:
       - 陈仓之围
       lineup_rating: 强烈推荐
@@ -1553,16 +1553,16 @@
     id: video-lineup-bv1qdrkb6e7s-hao-xing-huo-dai-kong-cheng-da-huang-ma
     domain: solution
     entry_kind: lineup_solution
-    topic: 带空城的好星火打黄马
+    topic: 带空城的郝昭薪火枪打黄马
     aliases:
-    - 好星火
+    - 郝昭薪火枪
     facts:
-    - 视频明确说这套好星火“最好打的就是黄马”。
-    - 视频明确说带了空城以后，这套好星火打黄马非常好打。
+    - 视频明确说这套郝昭薪火枪“最好打的就是黄马”。
+    - 视频明确说带了空城计后，这套郝昭薪火枪打黄马非常好打。
     - 视频同时表示它对黄马和南蛮属于明显优势对局。
     - 视频证据摘要：B站 AI 中文字幕切片。
     constraints:
-    - 结论针对视频中的这套改良版好星火。
+    - 结论针对视频中的这套改良版郝昭薪火枪。
     - 具体是否成立仍依赖技能与配置按视频思路搭建。
     source_type: manual_rule
     source_ref: BILIBILI:BV1QdRKB6E7S#255-271
@@ -1572,9 +1572,9 @@
     - 空城
     priority: 70
     structured_data:
-      name: 带空城的好星火打黄马
+      name: 带空城的郝昭薪火枪打黄马
       aliases:
-      - 好星火
+      - 郝昭薪火枪
       season_tags:
       - 陈仓之围
       lineup_rating: 推荐
@@ -1587,7 +1587,7 @@
       - 通解
       - 对黄马
       notes:
-      - 该段是在前一段“不带折冲好星火”的基础上继续说明对局关系。
+      - 该段是在前一段“不带折冲郝昭薪火枪”的基础上继续说明对局关系。
       - 证据片段：255s-271s
 - metadata:
     source_url: https://www.bilibili.com/video/BV1QdRKB6E7S/
@@ -1651,7 +1651,7 @@
     facts:
     - 视频明确说依字星火在打一些主动队时更强。
     - 视频举例说明依字星火打黄马、左田坚时更强。
-    - 视频说明其原因之一是依字星火带了空城，专门针对一些主动的快攻队伍。
+    - 视频说明其原因之一是依字星火带了空城计专门针对一些主动的快攻队伍。
     - 视频证据摘要：B站 AI 中文字幕切片。
     constraints:
     - 视频同时说依字星火面对马妹容易被单点突破。
@@ -1944,7 +1944,7 @@
     facts:
     - 视频明确说白板玩家非常推荐“昨天间/孙间”这队。
     - 带来“决胜左使”的幕僚后，这队不再需要准备“一计决胜”。
-    - 该队会被“空城记”克制。
+    - 该队会被“空城计”克制。
     - 面对单后排阵容时，如果后排满足被吸统和被孙间锁头的条件，这队有明显针对性。
     - 视频证据摘要：B站 AI 中文字幕切片。
     constraints:
@@ -1958,7 +1958,7 @@
     - 孙间
     - 田封
     - 一计决胜
-    - 空城记
+    - 空城计
     priority: 70
     structured_data:
       name: 孙间队
@@ -1976,7 +1976,7 @@
       - 田封
       core_skills:
       - 一计决胜
-      - 空城记
+      - 空城计
       scenario_tags:
       - 锁头
       - 单后排克制
@@ -1995,12 +1995,12 @@
     id: video-lineup-bv1fxosbgehd-hao-xinghuo
     domain: solution
     entry_kind: lineup_solution
-    topic: 好星火队
+    topic: 郝昭薪火枪队
     aliases:
-    - 好星火
+    - 郝昭薪火枪
     - 新火
     facts:
-    - 视频称好星火是前两天先锋服研究出来的一套黑科技。
+    - 视频称郝昭薪火枪是前两天先锋服研究出来的一套黑科技。
     - 其克制面与星火枪基本一致。
     - 作者认为其强度高于老版刘备星火枪。
     - 视频证据摘要：B站 AI 中文字幕切片。
@@ -2015,9 +2015,9 @@
     - 刘备
     priority: 70
     structured_data:
-      name: 好星火队
+      name: 郝昭薪火枪队
       aliases:
-      - 好星火
+      - 郝昭薪火枪
       - 新火
       season_tags:
       - 前期首发
@@ -2043,14 +2043,14 @@
     id: video-lineup-bv1fxosbgehd-huangfusong-haozhao-simayi-matchups
     domain: solution
     entry_kind: lineup_solution
-    topic: 黄府松好招司马翼对局特性
+    topic: 皇甫嵩好招司马懿对局特性
     aliases:
-    - 黄府松司马翼
+    - 皇甫嵩司马懿
     facts:
     - 作者表示这队目前主要害怕孙先以及新火枪。
     - 即使面对被克制情况，这队也并非全无还手之力。
     - 作者因此将该队评价为比较强力。
-    - 作者个人更倾向于让司马翼带机动力型配置，以提升稳定性。
+    - 作者个人更倾向于让司马懿带机动力型配置，以提升稳定性。
     - 视频证据摘要：B站 AI 中文字幕切片。
     constraints:
     - 会被孙先和新火枪针对。
@@ -2060,23 +2060,23 @@
     updated_at: '2026-05-14'
     confidence: 0.79
     related_topics:
-    - 黄府松
-    - 司马翼
-    - 卫羽成魔
+    - 皇甫嵩
+    - 司马懿
+    - 未雨绸缪
     priority: 70
     structured_data:
-      name: 黄府松好招司马翼对局特性
+      name: 皇甫嵩好招司马懿对局特性
       aliases:
-      - 黄府松司马翼
+      - 皇甫嵩司马懿
       season_tags:
       - 前期首发
       lineup_rating: 强力队伍
       factions: []
       hero_names:
-      - 黄府松
-      - 司马翼
+      - 皇甫嵩
+      - 司马懿
       core_skills:
-      - 卫羽成魔
+      - 未雨绸缪
       scenario_tags:
       - 机动力
       - 外战
@@ -2094,11 +2094,11 @@
     id: video-lineup-bv1fxosbgehd-hao-sima-mid-late
     domain: solution
     entry_kind: lineup_solution
-    topic: 好司马队
+    topic: 好司马懿
     aliases:
     - 好司马
     facts:
-    - 作者认为好司马还没到发力的时候。
+    - 作者认为好司马懿没到发力的时候。
     - 视频判断等科技起来后，这队强度会回暖。
     - 作者明确表示不推荐大家先手去用。
     - 视频证据摘要：B站 AI 中文字幕切片。
@@ -2113,7 +2113,7 @@
     - 司马懿
     priority: 70
     structured_data:
-      name: 好司马队
+      name: 好司马懿
       aliases:
       - 好司马
       season_tags:
@@ -2144,10 +2144,10 @@
     aliases:
     - 行军司马
     facts:
-    - 视频称第十套阵容是“行军司马”。
+    - 视频称第十套阵容是“行军司马懿。
     - 作者指出“克难”这个技能让该队变得更强，可以给马超提供更多武力。
     - 作者评价这队是有强度的。
-    - 若后期黄马变多，马超的增伤可作为克制黄府松的对策。
+    - 若后期黄马变多，马超的增伤可作为克制皇甫嵩的对策。
     - 视频证据摘要：B站 AI 中文字幕切片。
     constraints:
     - 被南蛮克制得厉害。
@@ -2158,7 +2158,7 @@
     confidence: 0.8
     related_topics:
     - 马超
-    - 黄府松
+    - 皇甫嵩
     - 克难
     priority: 70
     structured_data:
@@ -2171,7 +2171,7 @@
       factions: []
       hero_names:
       - 马超
-      - 黄府松
+      - 皇甫嵩
       core_skills:
       - 克难
       scenario_tags:
@@ -2191,33 +2191,33 @@
     id: video-lineup-bv1fxosbgehd-huangfusong-haozhao-simayi
     domain: solution
     entry_kind: lineup_solution
-    topic: 黄府松加入好招司马翼
+    topic: 皇甫嵩加入好招司马懿
     aliases:
-    - 黄府松司马翼
+    - 皇甫嵩司马懿
     - 黄马
     facts:
-    - 视频指出黄府松一直是大汉体系核心，需求是有人帮助其叠统帅。
-    - 作者认为本赛季新战法“困然不动”已经能满足黄府松对统帅的需求。
-    - 片段提到还可以带“百弹不殆”或“乌若金汤”。
-    - 作者表示这里把黄府松加入好招司马翼，替掉原本较弱的“草皮”，使队伍实现一加一大于二。
+    - 视频指出皇甫嵩一直是大汉体系核心，需求是有人帮助其叠统帅。
+    - 作者认为本赛季新战法“岿然不动”已经能满足皇甫嵩对统帅的需求。
+    - 片段提到还可以带“百战不殆”或“固若金汤”。
+    - 作者表示这里把皇甫嵩加入好招司马懿，替掉原本较弱的“草皮”，使队伍实现一加一大于二。
     - 视频证据摘要：B站 AI 中文字幕切片。
     constraints:
-    - 构筑建立在黄府松依赖统帅支持这一前提上。
+    - 构筑建立在皇甫嵩依赖统帅支持这一前提上。
     source_type: manual_rule
     source_ref: BILIBILI:BV1fXosBGEHd#180-197
     updated_at: '2026-05-14'
     confidence: 0.82
     related_topics:
-    - 黄府松
-    - 司马翼
-    - 困然不动
-    - 百弹不殆
-    - 乌若金汤
+    - 皇甫嵩
+    - 司马懿
+    - 岿然不动
+    - 百战不殆
+    - 固若金汤
     priority: 70
     structured_data:
-      name: 黄府松加入好招司马翼
+      name: 皇甫嵩加入好招司马懿
       aliases:
-      - 黄府松司马翼
+      - 皇甫嵩司马懿
       - 黄马
       season_tags:
       - 本赛季
@@ -2226,17 +2226,17 @@
       factions:
       - 大汉
       hero_names:
-      - 黄府松
-      - 司马翼
+      - 皇甫嵩
+      - 司马懿
       core_skills:
-      - 困然不动
-      - 百弹不殆
-      - 乌若金汤
+      - 岿然不动
+      - 百战不殆
+      - 固若金汤
       scenario_tags:
       - 统帅叠加
       - 组件替换
       notes:
-      - 转写中部分技能和武将名存在误差，但黄府松、司马翼、困然不动的组合关系较明确。
+      - 转写中部分技能和武将名存在误差，但皇甫嵩、司马懿、岿然不动的组合关系较明确。
       - 证据片段：180s-197s
 - metadata:
     source_url: https://www.bilibili.com/video/BV1fXosBGEHd/
