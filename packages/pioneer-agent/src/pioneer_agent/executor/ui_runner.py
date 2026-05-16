@@ -33,6 +33,7 @@ class UIActionRunner:
             risk=action.risk,
             capabilities=self.capabilities,
             session_mode=self.session_mode,
+            confirmation_token=_confirmation_token(action),
         )
         if verdict.decision != GuardDecision.ALLOW:
             status = "requires_confirmation" if verdict.decision == GuardDecision.REQUIRE_CONFIRMATION else "blocked"
@@ -51,3 +52,8 @@ class UIActionRunner:
                 },
             )
         return dispatch(action, self.ui)
+
+
+def _confirmation_token(action: CandidateAction) -> str | None:
+    value = action.params.get("confirmation_token")
+    return value if isinstance(value, str) else None

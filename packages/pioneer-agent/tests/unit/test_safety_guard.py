@@ -28,6 +28,17 @@ class SafetyGuardTests(unittest.TestCase):
 
         self.assertEqual(verdict.decision, GuardDecision.REQUIRE_CONFIRMATION)
 
+    def test_high_risk_action_allows_with_confirmation_token(self) -> None:
+        verdict = SafetyGuard().evaluate(
+            ActionType.UPGRADE_BUILDING,
+            risk=RiskLevel.HIGH,
+            capabilities=CapabilityFlags(input_control=True),
+            confirmation_token="manual-ok",
+        )
+
+        self.assertEqual(verdict.decision, GuardDecision.ALLOW)
+        self.assertIn("confirmation token", verdict.reason)
+
     def test_observe_only_blocks_ui_execution(self) -> None:
         verdict = SafetyGuard().evaluate(
             ActionType.CLAIM_CHAPTER_REWARD,
@@ -70,6 +81,15 @@ class SafetyGuardTests(unittest.TestCase):
                 capabilities=CapabilityFlags(input_control=True),
             )
             self.assertEqual(verdict.decision, GuardDecision.REQUIRE_CONFIRMATION)
+
+    def test_sensitive_action_allows_with_confirmation_token(self) -> None:
+        verdict = SafetyGuard().evaluate(
+            ActionType.ATTACK_LAND,
+            capabilities=CapabilityFlags(input_control=True),
+            confirmation_token="manual-ok",
+        )
+
+        self.assertEqual(verdict.decision, GuardDecision.ALLOW)
 
     def test_non_allowlisted_action_is_blocked(self) -> None:
         verdict = SafetyGuard(input_allowlist=[]).evaluate(

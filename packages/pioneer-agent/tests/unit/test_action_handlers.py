@@ -99,6 +99,15 @@ class UIActionRunnerTests(unittest.TestCase):
         self.assertEqual(res.summary["blocked_by"], "safety_guard")
         self.assertEqual(res.summary["guard_decision"], "require_confirmation")
 
+    def test_runner_dispatches_sensitive_action_with_confirmation_token(self) -> None:
+        runner = UIActionRunner(
+            _NullUI(),  # type: ignore[arg-type]
+            capabilities=CapabilityFlags(input_control=True),
+        )
+        res = runner.run(_mk_action(ActionType.ATTACK_LAND, confirmation_token="manual-ok"))
+        self.assertEqual(res.status, "pending")
+        self.assertIn("attack flow", res.failure_reason or "")
+
 
 if __name__ == "__main__":
     unittest.main()

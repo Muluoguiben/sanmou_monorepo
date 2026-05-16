@@ -22,7 +22,7 @@
 - [x] Safety guardrail（2026-05-17）：基于 `CapabilityFlags`、risk schema、action_type、account/session mode 拦截高风险动作；`UIActionRunner` 在派发前统一执行 `SafetyGuard`，advisor/observe-only 阻断输入，敏感/高风险动作返回 `requires_confirmation`。
 - [ ] Computer-use input sandbox / allowlist：所有 GUI 输入动作必须经过 allowlist policy；只允许已注册的安全按钮、已校准 bbox、已确认的 low-risk flow 派发点击/拖拽/按键。
 - [x] Manual kill switch（2026-05-17）：新增文件型 `KillSwitch`，`AutonomousLoop` 在 runner 派发前检查 stop file；Advisor API 暴露触发/清除 endpoint，Desktop Advisor 侧边栏提供停机/清除按钮；触发后 executor 不再派发输入。
-- [ ] High-risk confirmation：`attack_land` / `abandon_land` / `transfer_main_lineup` 必须人工确认。
+- [x] High-risk confirmation（2026-05-17）：`attack_land` / `abandon_land` / `transfer_main_lineup` 默认返回 `requires_confirmation`；只有 action params 明确带 `confirmation_token` 时，`SafetyGuard` 才允许进入 handler。
 - [ ] Bridge health check：Windows bridge / future ADB adapter 需要 screenshot freshness、window info、input capability 自检。
 - [ ] Click-action calibration：claim_chapter / upgrade_building / recruit_soldiers / attack_land / transfer_main_lineup / abandon_land 当前返回 `pending`，需用真实页面截图走 `ui_calibrate` + `find_elements` 打通确认对话框序列。
 - [ ] Screenshot / coordinate trace metadata：每次 vision 与 click 都记录原始截图尺寸、prepared 图尺寸、display/window 坐标空间、DPR/scale、normalized bbox、pixel bbox、实际点击点，防止坐标漂移不可追踪。

@@ -88,10 +88,12 @@ class SafetyGuard:
         risk: RiskLevel | str | Mapping[str, Any] | None = None,
         capabilities: CapabilityFlags | None = None,
         session_mode: SessionMode | str | None = None,
+        confirmation_token: str | None = None,
     ) -> GuardVerdict:
         normalized_action = _normalize_action_type(action_type)
         risk_level = normalize_risk_level(risk)
         normalized_session_mode = _normalize_session_mode(session_mode)
+        confirmed = _has_confirmation_token(confirmation_token)
 
         if normalized_session_mode in (SessionMode.OBSERVE_ONLY, SessionMode.ADVISOR):
             return GuardVerdict(
@@ -109,11 +111,22 @@ class SafetyGuard:
                 risk_level=risk_level,
             )
 
+        requires_confirmation = normalized_action in self.confirmation_actions or risk_at_least(
+            risk_level, self.confirmation_threshold
+        )
+
         if normalized_action not in self.input_allowlist:
-            if normalized_action in self.confirmation_actions:
+            if normalized_action in self.confirmation_actions and not confirmed:
                 return GuardVerdict(
                     decision=GuardDecision.REQUIRE_CONFIRMATION,
                     reason="sensitive action requires human confirmation",
+                    action_type=normalized_action,
+                    risk_level=risk_level,
+                )
+            if normalized_action in self.confirmation_actions and confirmed:
+                return GuardVerdict(
+                    decision=GuardDecision.ALLOW,
+                    reason="human confirmation token accepted",
                     action_type=normalized_action,
                     risk_level=risk_level,
                 )
@@ -124,12 +137,17 @@ class SafetyGuard:
                 risk_level=risk_level,
             )
 
-        if normalized_action in self.confirmation_actions or risk_at_least(
-            risk_level, self.confirmation_threshold
-        ):
+        if requires_confirmation and not confirmed:
             return GuardVerdict(
                 decision=GuardDecision.REQUIRE_CONFIRMATION,
                 reason="risk policy requires human confirmation",
+                action_type=normalized_action,
+                risk_level=risk_level,
+            )
+        if requires_confirmation and confirmed:
+            return GuardVerdict(
+                decision=GuardDecision.ALLOW,
+                reason="human confirmation token accepted",
                 action_type=normalized_action,
                 risk_level=risk_level,
             )
@@ -154,6 +172,10 @@ def _normalize_session_mode(session_mode: SessionMode | str | None) -> SessionMo
     if isinstance(session_mode, SessionMode):
         return session_mode
     return SessionMode(session_mode)
+
+
+def _has_confirmation_token(value: str | None) -> bool:
+    return isinstance(value, str) and bool(value.strip())
 
 
 def _normalize_action_set(
