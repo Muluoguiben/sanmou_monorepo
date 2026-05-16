@@ -1701,3 +1701,64 @@
     - 满级发动概率：55%
     - 初始发动概率：55%
     - 适配兵种：🛡️🏹️↖️🐎
+- id: skill-缄默
+  domain: skill
+  entry_kind: skill_profile
+  topic: 缄默
+  aliases:
+  - 芥末随机
+  facts:
+  - 缄默是可录入的战法静态资料条目（task #9 Part B 从陈仓 Bilibili 视频字幕识别补录）。
+  - 当前条目仅占位以保证名称可解析，分类/数值待稳定来源后补全。
+  constraints:
+  - 具体效果、发动率、兵种适配与稀有度待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV1kVohBPEeS
+  updated_at: '2026-05-16'
+  confidence: 0.5
+  related_topics: []
+  priority: 60
+  structured_data:
+    name: 缄默
+    aliases:
+    - 芥末随机
+    rarity: null
+    skill_type: null
+    trigger_type: null
+    target_scope: null
+    effect_tags: []
+    preferred_roles: []
+    notes:
+    - ASR 来源：B站 AI 字幕「芥末随机」(jiè mò) → 正字「缄默」(jiān mò)，@muluo-lan 2026-05-16 确认。
+    - BV1kVohBPEeS 曹丕司马懿队携带；效果数值待补。
+- id: skill-诛凶殄逆
+  domain: skill
+  entry_kind: skill_profile
+  topic: 诛凶殄逆
+  aliases:
+  - 诸雄铁力
+  facts:
+  - 诛凶殄逆是群·孙坚的自带技能（task #9 Part B 从陈仓 Bilibili 视频字幕识别补录）。
+  - 当前条目仅占位以保证名称可解析，分类/数值待稳定来源后补全。
+  constraints:
+  - 具体效果、发动率与数值待后续有稳定来源后再补录。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV1kVohBPEeS
+  updated_at: '2026-05-16'
+  confidence: 0.5
+  related_topics:
+  - 孙坚
+  priority: 60
+  structured_data:
+    name: 诛凶殄逆
+    aliases:
+    - 诸雄铁力
+    rarity: null
+    skill_type: 自带
+    trigger_type: 自带
+    target_scope: null
+    effect_tags: []
+    preferred_roles: []
+    notes:
+    - ASR 来源：B站 AI 字幕「诸雄铁力」(zhū xióng tiě lì) → 正字「诛凶殄逆」(zhū xiōng tiǎn nì)，@muluo-lan 2026-05-16 确认。
+    - 群·孙坚自带技能；BV1kVohBPEeS 左田孙队语境「靠诛凶殄逆和斩将夺旗」；效果数值待补。

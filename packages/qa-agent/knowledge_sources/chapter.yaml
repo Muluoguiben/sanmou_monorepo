@@ -238,3 +238,28 @@
   - 资源产出
   priority: 70
   structured_data: null
+- id: mech-s14-w11-zhenyue-shuwei
+  domain: chapter
+  entry_kind: generic_rule
+  topic: S14 陈仓之围 镇岳戍卫幕僚玩法
+  aliases:
+  - 镇岳戍卫
+  - 陈仓幕僚玩法
+  - 正月数位
+  facts:
+  - 镇岳戍卫是陈仓之围（W11）赛季的「幕僚玩法/机制」，不是战法。
+  - 视频提到该机制为相关队伍提供加强（如让某些队伍变为三盾兵、增强快攻），属赛季阶段性机制。
+  - 下游应归到赛季机制/season_phase 处理，不可作为 core_skills 战法落库。
+  constraints:
+  - 仅陈仓之围赛季特性，其他赛季剧本未必复用。
+  - 具体规则数值待稳定来源后补全（当前仅占位以保证名称可解析）。
+  source_type: manual_rule
+  source_ref: BILIBILI:BV1fXosBGEHd
+  updated_at: '2026-05-16'
+  confidence: 0.6
+  related_topics:
+  - W11
+  - 陈仓之围
+  - 幕僚
+  priority: 65
+  structured_data: null
