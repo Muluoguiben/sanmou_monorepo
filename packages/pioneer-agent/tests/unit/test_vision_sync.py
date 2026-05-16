@@ -27,7 +27,9 @@ class _ScriptedVisionClient:
 
     def extract(self, image, instruction, response_schema, **kwargs):  # noqa: ANN001
         # Differentiate by instruction prefix — cheap and accurate enough for tests.
-        if "resource" in instruction.lower() or "top bar" in instruction.lower() or "page type" in instruction.lower():
+        if "popup" in instruction.lower() or "弹窗" in instruction or "dialog" in instruction.lower():
+            kind = "popup"
+        elif "resource" in instruction.lower() or "top bar" in instruction.lower() or "page type" in instruction.lower():
             kind = "resource_bar"
         elif "城内" in instruction or "city" in instruction.lower() or "building" in instruction.lower():
             kind = "city_buildings"
@@ -86,6 +88,33 @@ class VisionSyncTests(unittest.TestCase):
         sync = VisionSync(client)
         _state, summary = sync.sync(b"png")
         self.assertEqual(summary.domains_run, ["resource_bar"])
+
+    def test_popup_note_runs_popup_detector(self) -> None:
+        client = _ScriptedVisionClient(
+            [
+                {
+                    "page_type": "chapter",
+                    "resources": {},
+                    "visible_notes": ["发现确认弹窗"],
+                },
+                {
+                    "popup_visible": True,
+                    "popup_type": "confirmation",
+                    "title": "确认",
+                    "blocking": True,
+                    "safe_default_action": "cancel",
+                    "buttons": [{"label": "取消", "role": "cancel"}],
+                    "visible_notes": ["确认框"],
+                },
+            ]
+        )
+        sync = VisionSync(client)
+        state, summary = sync.sync(b"png")
+        self.assertEqual(summary.domains_run, ["resource_bar", "popup"])
+        self.assertEqual(client.calls, ["resource_bar", "popup"])
+        self.assertTrue(state.global_state["popup"]["visible"])
+        self.assertEqual(state.global_state["popup"]["safe_default_action"], "cancel")
+        self.assertIn("确认框", summary.notes)
 
     def test_team_page_runs_team_panel(self) -> None:
         client = _ScriptedVisionClient(

@@ -111,6 +111,84 @@ PAGE_DETECTION_INSTRUCTION = (
 
 
 # ---------------------------------------------------------------------------
+# Popup detector (通用弹窗 / 确认框)
+# ---------------------------------------------------------------------------
+
+class PopupButtonDetection(BaseModel):
+    label: str
+    role: Literal["confirm", "cancel", "close", "other"] = "other"
+    enabled: bool = True
+    x_min: int | None = Field(default=None, ge=0, le=1000)
+    y_min: int | None = Field(default=None, ge=0, le=1000)
+    x_max: int | None = Field(default=None, ge=0, le=1000)
+    y_max: int | None = Field(default=None, ge=0, le=1000)
+
+
+class PopupDetection(BaseModel):
+    popup_visible: bool = False
+    popup_type: Literal["confirmation", "reward", "error", "notice", "unknown"] = "unknown"
+    title: str | None = None
+    message: str | None = None
+    blocking: bool = False
+    safe_default_action: Literal["close", "cancel", "confirm", "none", "unknown"] = "unknown"
+    buttons: list[PopupButtonDetection] = Field(default_factory=list)
+    visible_notes: list[str] = Field(default_factory=list)
+
+
+POPUP_DETECTION_SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "properties": {
+        "popup_visible": {"type": "boolean"},
+        "popup_type": {
+            "type": "string",
+            "enum": ["confirmation", "reward", "error", "notice", "unknown"],
+        },
+        "title": {"type": "string"},
+        "message": {"type": "string"},
+        "blocking": {"type": "boolean"},
+        "safe_default_action": {
+            "type": "string",
+            "enum": ["close", "cancel", "confirm", "none", "unknown"],
+        },
+        "buttons": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "label": {"type": "string"},
+                    "role": {
+                        "type": "string",
+                        "enum": ["confirm", "cancel", "close", "other"],
+                    },
+                    "enabled": {"type": "boolean"},
+                    "x_min": {"type": "integer"},
+                    "y_min": {"type": "integer"},
+                    "x_max": {"type": "integer"},
+                    "y_max": {"type": "integer"},
+                },
+                "required": ["label", "role"],
+            },
+        },
+        "visible_notes": {
+            "type": "array",
+            "items": {"type": "string"},
+        },
+    },
+    "required": ["popup_visible", "popup_type", "buttons"],
+}
+
+
+POPUP_DETECTION_INSTRUCTION = (
+    "This screenshot may contain a modal popup, confirmation dialog, reward panel, "
+    "notice, error dialog, or blocking overlay in 三国·谋定天下. Detect only the "
+    "topmost blocking popup. Extract its title, visible message, buttons and "
+    "button roles. Use 0-1000 normalized bbox coordinates for buttons when clear. "
+    "safe_default_action should be close/cancel for unknown or risky dialogs; only "
+    "use confirm for clearly harmless reward/acknowledgement popups."
+)
+
+
+# ---------------------------------------------------------------------------
 # City buildings (城内建筑) — internal city view
 # ---------------------------------------------------------------------------
 

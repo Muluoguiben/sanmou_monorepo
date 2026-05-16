@@ -14,10 +14,12 @@ from typing import Any
 from pioneer_agent.core.models import RuntimeState
 from pioneer_agent.perception.domains import (
     apply_city_buildings,
+    apply_popup,
     apply_resource_bar,
     apply_team_detail,
     apply_team_panel,
     extract_city_buildings,
+    extract_popup,
     extract_resource_bar,
     extract_team_detail,
     extract_team_panel,
@@ -59,6 +61,15 @@ class VisionSync:
         if res_fragment.notes:
             notes.extend(res_fragment.notes)
 
+        if _should_run_popup_detector(res_fragment.notes):
+            popup_fragment = extract_popup(
+                image, client=self.client, captured_at=captured_at
+            )
+            state = apply_popup(state, popup_fragment)
+            domains.append("popup")
+            if popup_fragment.notes:
+                notes.extend(popup_fragment.notes)
+
         if page == "city":
             city_fragment = extract_city_buildings(
                 image, client=self.client, captured_at=captured_at
@@ -87,3 +98,12 @@ class VisionSync:
                 notes.extend(detail_fragment.notes)
 
         return state, VisionSyncSummary(page_type=page, domains_run=domains, notes=notes)
+
+
+def _should_run_popup_detector(notes: list[str]) -> bool:
+    popup_markers = ("弹窗", "确认", "取消", "关闭", "奖励", "提示", "popup", "dialog")
+    return any(
+        marker in note.lower()
+        for note in notes
+        for marker in popup_markers
+    )

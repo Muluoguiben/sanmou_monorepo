@@ -18,6 +18,7 @@ from typing import Any
 from pioneer_agent.core.models import FieldMeta, RuntimeState
 
 from .city_buildings import CityBuildingsFragment
+from .popup import PopupFragment
 from .resource_bar import ResourceBarFragment
 from .team_detail import TeamDetailFragment
 from .team_panel import TeamPanelFragment
@@ -53,6 +54,21 @@ def apply_resource_bar(state: RuntimeState, fragment: ResourceBarFragment) -> Ru
     if fragment.economy:
         merged_economy = _deep_merge_two_level(dict(state.economy), fragment.economy)
         updates["economy"] = merged_economy
+
+    merged_meta: dict[str, FieldMeta] = dict(state.field_meta)
+    merged_meta.update(fragment.field_meta)
+    updates["field_meta"] = merged_meta
+
+    return state.model_copy(update=updates)
+
+
+def apply_popup(state: RuntimeState, fragment: PopupFragment) -> RuntimeState:
+    updates: dict[str, Any] = {}
+
+    if fragment.global_state:
+        merged_global = dict(state.global_state)
+        merged_global.update(fragment.global_state)
+        updates["global_state"] = merged_global
 
     merged_meta: dict[str, FieldMeta] = dict(state.field_meta)
     merged_meta.update(fragment.field_meta)
