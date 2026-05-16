@@ -121,3 +121,20 @@ export type ChatResponse = {
   evidence: string[];
   mode: string;
 };
+
+export type AdvisorHistoryItem = {
+  history_id: string;
+  created_at: string;
+  image_path: string;
+  screenshot_url: string;
+  mock_mode: boolean;
+  platform?: string | null;
+  page_type?: string | null;
+  recommended_action_type?: string | null;
+  account_label?: string | null;
+};
+
+export type AdvisorHistoryDetail = {
+  item: AdvisorHistoryItem;
+  report: AdvisorReport;
+};

@@ -229,6 +229,43 @@ select:focus {
   font-size: 12px;
 }
 
+.history-list {
+  display: grid;
+  gap: 8px;
+}
+
+.history-item {
+  display: grid;
+  width: 100%;
+  gap: 4px;
+  border: 1px solid #d8e0e8;
+  border-radius: 6px;
+  background: #ffffff;
+  padding: 10px;
+  color: #203246;
+  text-align: left;
+}
+
+.history-item:hover:not(:disabled) {
+  border-color: #2b6cb0;
+  background: #f5f9fd;
+}
+
+.history-item strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.history-item span {
+  overflow: hidden;
+  color: #657282;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 11px;
+}
+
 .workspace {
   padding: 22px;
   min-width: 0;

@@ -2,6 +2,7 @@ import {
   AlertTriangle,
   CheckCircle2,
   ChevronRight,
+  History,
   ImagePlus,
   Loader2,
   MessageSquareText,
@@ -17,13 +18,24 @@ import { ChangeEvent, DragEvent, FormEvent, useEffect, useMemo, useRef, useState
 
 import {
   analyzeScreenshot,
+  advisorHistoryScreenshotUrl,
   clearKillSwitch,
+  getAdvisorHistory,
   getRuntimeConfig,
   healthCheck,
+  listAdvisorHistory,
   sendAdvisorMessage,
   triggerKillSwitch
 } from "./api";
-import type { AnalyzeOptions, AdvisorReport, ChatMessage, DevicePlatform, KillSwitchStatus, RuntimeConfig } from "./types";
+import type {
+  AnalyzeOptions,
+  AdvisorHistoryItem,
+  AdvisorReport,
+  ChatMessage,
+  DevicePlatform,
+  KillSwitchStatus,
+  RuntimeConfig
+} from "./types";
 
 const platformOptions: Array<{ value: DevicePlatform; label: string }> = [
   { value: "unknown", label: "自动" },
@@ -49,6 +61,8 @@ export default function App() {
   const [dataDir, setDataDir] = useState("");
   const [killSwitch, setKillSwitch] = useState<KillSwitchStatus | null>(null);
   const [killSwitchBusy, setKillSwitchBusy] = useState(false);
+  const [historyItems, setHistoryItems] = useState<AdvisorHistoryItem[]>([]);
+  const [historyBusy, setHistoryBusy] = useState(false);
   const [options, setOptions] = useState<AnalyzeOptions>(initialOptions);
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -85,6 +99,13 @@ export default function App() {
         setApiStatus(payload.status === "ok" ? "ok" : "down");
         setDataDir(payload.data_dir);
         setKillSwitch(payload.kill_switch);
+        listAdvisorHistory()
+          .then((items) => {
+            if (!cancelled) {
+              setHistoryItems(items);
+            }
+          })
+          .catch(() => undefined);
       } catch {
         if (cancelled) {
           return;
@@ -105,7 +126,7 @@ export default function App() {
   useEffect(() => {
     return () => {
       if (previewUrl) {
-        URL.revokeObjectURL(previewUrl);
+        revokePreviewUrl(previewUrl);
       }
     };
   }, [previewUrl]);
@@ -137,7 +158,7 @@ export default function App() {
     setReport(null);
     setFile(nextFile);
     if (previewUrl) {
-      URL.revokeObjectURL(previewUrl);
+      revokePreviewUrl(previewUrl);
     }
     setPreviewUrl(URL.createObjectURL(nextFile));
   }
@@ -177,6 +198,7 @@ export default function App() {
           text: buildReportMessage(nextReport)
         }
       ]);
+      refreshHistory();
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
     } finally {
@@ -239,6 +261,41 @@ export default function App() {
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setKillSwitchBusy(false);
+    }
+  }
+
+  async function refreshHistory() {
+    try {
+      setHistoryItems(await listAdvisorHistory());
+    } catch {
+      // History is supplemental; screenshot analysis should remain usable if it fails.
+    }
+  }
+
+  async function onOpenHistory(item: AdvisorHistoryItem) {
+    setHistoryBusy(true);
+    setError("");
+    try {
+      const detail = await getAdvisorHistory(item.history_id);
+      setReport(detail.report);
+      setActiveReportTab("summary");
+      setFile(null);
+      if (previewUrl) {
+        revokePreviewUrl(previewUrl);
+      }
+      setPreviewUrl(await advisorHistoryScreenshotUrl(detail.item));
+      setMessages((messages) => [
+        ...messages,
+        {
+          id: crypto.randomUUID(),
+          role: "assistant",
+          text: buildReportMessage(detail.report)
+        }
+      ]);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setHistoryBusy(false);
     }
   }
 
@@ -351,6 +408,27 @@ export default function App() {
                 {killSwitchBusy ? <Loader2 size={16} className="spin" /> : <OctagonX size={16} />}
               </button>
             )}
+          </div>
+        </section>
+
+        <section className="side-section">
+          <div className="section-title">
+            <History size={16} />
+            <span>历史</span>
+          </div>
+          <div className="history-list">
+            {historyItems.slice(0, 6).map((item) => (
+              <button
+                key={item.history_id}
+                className="history-item"
+                onClick={() => onOpenHistory(item)}
+                disabled={historyBusy || apiStatus !== "ok"}
+              >
+                <strong>{item.page_type || "unknown"}</strong>
+                <span>{formatHistoryMeta(item)}</span>
+              </button>
+            ))}
+            {!historyItems.length ? <p className="muted">暂无历史</p> : null}
           </div>
         </section>
       </aside>
@@ -584,6 +662,22 @@ function formatApiLaunchError(config: RuntimeConfig): string {
   }
   const attempted = launch.attemptedPython?.length ? `；已尝试 ${launch.attemptedPython.join(", ")}` : "";
   return `${launch.error}${attempted}`;
+}
+
+function formatHistoryMeta(item: AdvisorHistoryItem): string {
+  const parts = [
+    formatCapturedAt(item.created_at),
+    item.platform || "unknown",
+    item.recommended_action_type || "none",
+    item.mock_mode ? "Mock" : "Vision"
+  ];
+  return parts.join(" / ");
+}
+
+function revokePreviewUrl(value: string): void {
+  if (value.startsWith("blob:")) {
+    URL.revokeObjectURL(value);
+  }
 }
 
 async function waitForHealth(maxAttempts = 20, delayMs = 500) {

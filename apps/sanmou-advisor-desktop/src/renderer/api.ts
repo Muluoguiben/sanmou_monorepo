@@ -1,5 +1,7 @@
 import type {
   AnalyzeOptions,
+  AdvisorHistoryDetail,
+  AdvisorHistoryItem,
   AdvisorReport,
   ChatResponse,
   HealthStatus,
@@ -79,6 +81,30 @@ export async function analyzeScreenshot(file: File, options: AnalyzeOptions): Pr
     throw new Error(payload?.detail || `Analyze failed: ${response.status}`);
   }
   return response.json();
+}
+
+export async function listAdvisorHistory(limit = 20): Promise<AdvisorHistoryItem[]> {
+  const config = await getRuntimeConfig();
+  const response = await fetch(`${config.apiBaseUrl}/api/advisor/history?limit=${limit}`);
+  if (!response.ok) {
+    throw new Error(`History failed: ${response.status}`);
+  }
+  const payload = await response.json();
+  return payload.items ?? [];
+}
+
+export async function getAdvisorHistory(historyId: string): Promise<AdvisorHistoryDetail> {
+  const config = await getRuntimeConfig();
+  const response = await fetch(`${config.apiBaseUrl}/api/advisor/history/${historyId}`);
+  if (!response.ok) {
+    throw new Error(`History detail failed: ${response.status}`);
+  }
+  return response.json();
+}
+
+export async function advisorHistoryScreenshotUrl(item: AdvisorHistoryItem): Promise<string> {
+  const config = await getRuntimeConfig();
+  return `${config.apiBaseUrl}${item.screenshot_url}`;
 }
 
 export async function sendAdvisorMessage(message: string, report: AdvisorReport | null): Promise<ChatResponse> {

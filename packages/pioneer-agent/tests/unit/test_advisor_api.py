@@ -50,6 +50,49 @@ class AdvisorApiTests(unittest.TestCase):
             self.assertIsNotNone(report.screenshot_interpretation)
             self.assertIn("上传链路正常", report.screenshot_interpretation.key_facts)  # type: ignore[union-attr]
             self.assertTrue((root / "advisor" / "reports.jsonl").exists())
+            history = service.list_history()
+            self.assertEqual(len(history), 1)
+            self.assertEqual(history[0].platform, DevicePlatform.IOS.value)
+            self.assertEqual(history[0].recommended_action_type, "wait_for_resource")
+            detail = service.get_history_detail(history[0].history_id)
+            self.assertEqual(detail.report["mode"], "advisor")
+            self.assertTrue(service.history_screenshot_path(history[0].history_id).exists())
+
+    def test_history_api_lists_and_reopens_report(self) -> None:
+        UploadFile, AdvisorApiService, _AdvisorChatRequest, TestClient, create_app = _require_api_deps()
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            image_path = root / "screen.png"
+            Image.new("RGB", (320, 180), (20, 30, 40)).save(image_path)
+            service = AdvisorApiService(data_dir=root / "advisor", default_mock_mode=True)
+            client = TestClient(create_app(service))
+
+            with image_path.open("rb") as handle:
+                upload = UploadFile(file=handle, filename="screen.png")
+                service.analyze_upload(
+                    upload=upload,
+                    platform=DevicePlatform.PC_CLIENT,
+                    account_label="main",
+                    server_id="s1",
+                    season_id="s0",
+                    role_name="主公",
+                    vision_provider=None,
+                    mock_mode=True,
+                )
+
+            history = client.get("/api/advisor/history")
+            self.assertEqual(history.status_code, 200)
+            items = history.json()["items"]
+            self.assertEqual(len(items), 1)
+            self.assertEqual(items[0]["account_label"], "main")
+
+            detail = client.get(f"/api/advisor/history/{items[0]['history_id']}")
+            self.assertEqual(detail.status_code, 200)
+            self.assertEqual(detail.json()["report"]["mode"], "advisor")
+
+            screenshot = client.get(items[0]["screenshot_url"])
+            self.assertEqual(screenshot.status_code, 200)
+            self.assertGreater(len(screenshot.content), 0)
 
     def test_local_chat_uses_report_context(self) -> None:
         UploadFile, AdvisorApiService, AdvisorChatRequest, _TestClient, _create_app = _require_api_deps()

@@ -11,6 +11,7 @@ renders the returned `AdvisorReport`.
 - Screenshot upload by file picker, drag/drop, or clipboard paste.
 - Platform/account metadata: PC client, Android emulator, Android, iOS, server, season, role name.
 - Advisor report summary: screenshot interpretation, page type, confidence, recommended action, evidence, raw JSON.
+- Browse recent Advisor history and reopen saved screenshot/report pairs.
 - Chat panel backed by `/api/advisor/chat`.
 - Mock mode for GUI/API smoke tests without a vision model.
 

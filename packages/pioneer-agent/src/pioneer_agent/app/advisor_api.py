@@ -13,6 +13,7 @@ from uuid import uuid4
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from PIL import Image, UnidentifiedImageError
 from pydantic import BaseModel, Field
 
@@ -47,6 +48,23 @@ class AdvisorChatResponse(BaseModel):
 class KillSwitchStatus(BaseModel):
     triggered: bool
     path: str
+
+
+class AdvisorHistoryItem(BaseModel):
+    history_id: str
+    created_at: str
+    image_path: str
+    screenshot_url: str
+    mock_mode: bool = False
+    platform: str | None = None
+    page_type: str | None = None
+    recommended_action_type: str | None = None
+    account_label: str | None = None
+
+
+class AdvisorHistoryDetail(BaseModel):
+    item: AdvisorHistoryItem
+    report: dict[str, Any]
 
 
 class AdvisorApiService:
@@ -118,6 +136,29 @@ class AdvisorApiService:
             )
         self._append_report(path, report, mock_mode=use_mock)
         return report
+
+    def list_history(self, *, limit: int = 50) -> list[AdvisorHistoryItem]:
+        records = self._read_history_records()
+        safe_limit = max(1, min(limit, 200))
+        return [record["item"] for record in records[-safe_limit:]][::-1]
+
+    def get_history_detail(self, history_id: str) -> AdvisorHistoryDetail:
+        for record in self._read_history_records():
+            item = record["item"]
+            if item.history_id == history_id:
+                return AdvisorHistoryDetail(item=item, report=record["report"])
+        raise HTTPException(status_code=404, detail=f"history item not found: {history_id}")
+
+    def history_screenshot_path(self, history_id: str) -> Path:
+        detail = self.get_history_detail(history_id)
+        path = Path(detail.item.image_path)
+        try:
+            path.relative_to(self.upload_dir)
+        except ValueError as exc:
+            raise HTTPException(status_code=403, detail="history screenshot path is outside upload directory") from exc
+        if not path.exists():
+            raise HTTPException(status_code=404, detail=f"history screenshot missing: {history_id}")
+        return path
 
     def chat(self, request: AdvisorChatRequest) -> AdvisorChatResponse:
         message = request.message.strip()
@@ -364,6 +405,7 @@ class AdvisorApiService:
     def _append_report(self, image_path: Path, report: AdvisorReport, *, mock_mode: bool) -> None:
         self.report_log.parent.mkdir(parents=True, exist_ok=True)
         payload: dict[str, Any] = {
+            "history_id": uuid4().hex,
             "created_at": datetime.now(UTC).isoformat(),
             "image_path": str(image_path),
             "mock_mode": mock_mode,
@@ -371,6 +413,24 @@ class AdvisorApiService:
         }
         with self.report_log.open("a", encoding="utf-8") as handle:
             handle.write(json.dumps(payload, ensure_ascii=False) + "\n")
+
+    def _read_history_records(self) -> list[dict[str, Any]]:
+        if not self.report_log.exists():
+            return []
+        records: list[dict[str, Any]] = []
+        with self.report_log.open("r", encoding="utf-8") as handle:
+            for index, line in enumerate(handle):
+                try:
+                    payload = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                report = payload.get("report")
+                if not isinstance(report, dict):
+                    continue
+                history_id = str(payload.get("history_id") or f"line-{index}")
+                item = _history_item_from_payload(history_id, payload, report)
+                records.append({"item": item, "report": report})
+        return records
 
 
 def create_app(service: AdvisorApiService | None = None) -> FastAPI:
@@ -397,6 +457,18 @@ def create_app(service: AdvisorApiService | None = None) -> FastAPI:
     @app.get("/api/advisor/platforms")
     def platforms() -> dict[str, list[str]]:
         return {"platforms": [item.value for item in DevicePlatform]}
+
+    @app.get("/api/advisor/history")
+    def advisor_history(limit: int = 50) -> dict[str, list[AdvisorHistoryItem]]:
+        return {"items": service.list_history(limit=limit)}
+
+    @app.get("/api/advisor/history/{history_id}")
+    def advisor_history_detail(history_id: str) -> AdvisorHistoryDetail:
+        return service.get_history_detail(history_id)
+
+    @app.get("/api/advisor/history/{history_id}/screenshot")
+    def advisor_history_screenshot(history_id: str) -> FileResponse:
+        return FileResponse(service.history_screenshot_path(history_id))
 
     @app.get("/api/runtime/kill-switch")
     def get_kill_switch() -> KillSwitchStatus:
@@ -511,6 +583,37 @@ def _qa_evidence_strings(response: Any) -> list[str]:
         suffix = f" [{source_ref}]" if source_ref else ""
         evidence.append(f"{entry_id}: {topic} - {summary}{suffix}")
     return evidence
+
+
+def _history_item_from_payload(
+    history_id: str,
+    payload: dict[str, Any],
+    report: dict[str, Any],
+) -> AdvisorHistoryItem:
+    device_session = report.get("device_session") if isinstance(report.get("device_session"), dict) else {}
+    profile = device_session.get("profile") if isinstance(device_session.get("profile"), dict) else {}
+    summary = report.get("current_state_summary") if isinstance(report.get("current_state_summary"), dict) else {}
+    vision_summary = report.get("vision_summary") if isinstance(report.get("vision_summary"), dict) else {}
+    interpretation = report.get("screenshot_interpretation") if isinstance(report.get("screenshot_interpretation"), dict) else {}
+    recommended = report.get("recommended_action") if isinstance(report.get("recommended_action"), dict) else {}
+    account = report.get("account_session") if isinstance(report.get("account_session"), dict) else {}
+    page_type = (
+        interpretation.get("page_type")
+        or summary.get("interpreted_page_type")
+        or summary.get("page_type")
+        or vision_summary.get("page_type")
+    )
+    return AdvisorHistoryItem(
+        history_id=history_id,
+        created_at=str(payload.get("created_at") or ""),
+        image_path=str(payload.get("image_path") or ""),
+        screenshot_url=f"/api/advisor/history/{history_id}/screenshot",
+        mock_mode=bool(payload.get("mock_mode")),
+        platform=profile.get("platform"),
+        page_type=page_type,
+        recommended_action_type=recommended.get("action_type"),
+        account_label=account.get("account_label"),
+    )
 
 
 def main(argv: list[str] | None = None) -> int:
