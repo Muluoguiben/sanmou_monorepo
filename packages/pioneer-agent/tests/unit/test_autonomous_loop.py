@@ -28,10 +28,27 @@ class _ScriptedVision:
     def __init__(self, payloads: list[dict[str, Any]]) -> None:
         self._payloads = payloads
         self.calls = 0
+        self._trace_events: list[dict[str, Any]] = []
+
+    def reset_trace_events(self) -> None:
+        self._trace_events.clear()
+
+    def consume_trace_events(self) -> list[dict[str, Any]]:
+        events = list(self._trace_events)
+        self._trace_events.clear()
+        return events
 
     def extract(self, image, instruction, response_schema, **kwargs):  # noqa: ANN001
         p = self._payloads[self.calls]
         self.calls += 1
+        self._trace_events.append(
+            {
+                "model": "stub",
+                "raw_size": {"width": 1920, "height": 1080},
+                "prepared_size": {"width": 1280, "height": 720},
+                "resized": True,
+            }
+        )
         return _StubResult(data=p)
 
 
@@ -198,6 +215,8 @@ class AutonomousLoopTests(unittest.TestCase):
             self.assertEqual(trace.act.outputs["status"], "idle")
             self.assertEqual(trace.screenshot.raw_size.width, 1920)
             self.assertEqual(trace.screenshot.raw_size.height, 1080)
+            self.assertEqual(trace.screenshot.prepared_size.width, 1280)
+            self.assertEqual(trace.screenshot.metadata["vision"][0]["prepared_size"]["height"], 720)
             self.assertIsNotNone(trace.recover)
             self.assertEqual(trace.recover.outputs["status"], "not_required")
             self.assertEqual(trace.next_recovery_strategy, "none")
@@ -205,6 +224,55 @@ class AutonomousLoopTests(unittest.TestCase):
                 trace.metadata["loop_contract"],
                 ["observe", "decide", "act", "verify", "trace", "recover"],
             )
+
+    def test_tick_trace_includes_ui_input_coordinates(self) -> None:
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+
+        from pioneer_agent.executor.ui_actions import UIActions
+        from pioneer_agent.perception.ui_registry import UIButton, UIRegistry
+        from pioneer_agent.perception.vision_sync import VisionSync
+        from pioneer_agent.storage.trace_store import TraceStore
+
+        class _ClickingRunner:
+            def __init__(self, ui: UIActions) -> None:
+                self.ui = ui
+
+            def run(self, action):  # noqa: ANN001
+                out = self.ui.click_button("wu_jiang")
+                return ExecutionResult(
+                    action_id=action.action_id,
+                    status="ok" if out.success else "failed",
+                    summary={"click": out.trace},
+                )
+
+        with TemporaryDirectory() as tmp:
+            action = CandidateAction(
+                action_id="u1",
+                action_type=ActionType.UPGRADE_BUILDING,
+                params={"building_name": "征兵所"},
+            )
+            bridge = _StubBridge()
+            vision = _ScriptedVision([{"page_type": "main_map", "resources": {}}])
+            registry = UIRegistry({"wu_jiang": UIButton("wu_jiang", "武将", 0.5, 0.9)})
+            ui = UIActions(bridge, registry, vision=vision)  # type: ignore[arg-type]
+            loop = AutonomousLoop(
+                bridge=bridge,
+                vision_sync=VisionSync(vision),  # type: ignore[arg-type]
+                ui_actions=ui,
+                selector=_StubSelector(action),
+                deriver=_StubDeriver(),  # type: ignore[arg-type]
+                runner=_ClickingRunner(ui),  # type: ignore[arg-type]
+                sleeper=lambda _seconds: None,
+                trace_store=TraceStore(Path(tmp) / "trace.jsonl"),
+            )
+
+            loop.tick(0)
+
+            trace = loop.trace_store.read()[0]
+            self.assertEqual(trace.screenshot.coordinates[0].click_point.x, 960)
+            self.assertEqual(trace.screenshot.coordinates[0].coordinate_space, "window:relative")
+            self.assertEqual(trace.screenshot.metadata["input_events"][0]["target"]["key"], "wu_jiang")
 
     def test_dry_run_skips_runner_and_marks_execution(self) -> None:
         action = CandidateAction(

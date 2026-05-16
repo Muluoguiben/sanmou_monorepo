@@ -12,7 +12,7 @@ import time
 from dataclasses import dataclass
 from datetime import datetime
 from io import BytesIO
-from typing import Protocol
+from typing import Any, Protocol
 
 from PIL import Image, UnidentifiedImageError
 
@@ -27,7 +27,11 @@ from pioneer_agent.safety.kill_switch import KillSwitch
 from pioneer_agent.selector.action_selector import ActionSelector
 from pioneer_agent.storage.loop_logger import LoopLogger
 from pioneer_agent.storage.trace_store import (
+    CoordinateTraceMetadata,
     ImageSize,
+    NormalizedBBox,
+    PixelBBox,
+    PixelPoint,
     ScreenshotTraceMetadata,
     TickTrace,
     TracePhase,
@@ -109,6 +113,7 @@ class AutonomousLoop:
         state_after = self.state.model_dump(mode="json")
 
         execution: ExecutionResult | None = None
+        input_trace: list[dict] = []
         sleep_s = IDLE_SLEEP_S
         if selection.selected_action is not None:
             if self.kill_switch is not None and self.kill_switch.is_triggered():
@@ -142,7 +147,9 @@ class AutonomousLoop:
                              "note": "dry_run — no UI action dispatched"},
                 )
             else:
+                _reset_input_trace(self.ui_actions)
                 execution = self.runner.run(selection.selected_action)
+                input_trace = _consume_input_trace(self.ui_actions)
                 logger.info(
                     "tick %d: action=%s status=%s",
                     iteration,
@@ -201,6 +208,8 @@ class AutonomousLoop:
                     execution=execution,
                     sleep_s=sleep_s,
                     recovery_strategy=recovery_strategy,
+                    vision_traces=_consume_remaining_vision_trace_events(self.vision_sync),
+                    input_trace=input_trace,
                 )
             )
             self.trace_store.append(trace)
@@ -253,16 +262,30 @@ def _build_tick_trace(
     execution: ExecutionResult | None,
     sleep_s: float,
     recovery_strategy: str | None,
+    vision_traces: list[dict] | None = None,
+    input_trace: list[dict] | None = None,
 ) -> TickTrace:
     action = selection.selected_action
     screenshot_size = _image_size_from_png(png)
+    all_vision_traces = list(vision_summary.image_traces)
+    if vision_traces:
+        all_vision_traces.extend(vision_traces)
+    input_events = list(input_trace or [])
     return TickTrace(
         iteration=iteration,
         created_at=started_at,
         current_phase=TracePhase.TRACE,
         screenshot=ScreenshotTraceMetadata(
             path=screenshot_path,
-            raw_size=screenshot_size,
+            raw_size=screenshot_size or _image_size_from_trace(all_vision_traces, "raw_size"),
+            prepared_size=_image_size_from_trace(all_vision_traces, "prepared_size"),
+            display_coordinate_space=_coordinate_space_from_input(input_events, "display_coordinate_space"),
+            window_coordinate_space=_coordinate_space_from_input(input_events, "window_coordinate_space"),
+            coordinates=_coordinate_metadata_from_input_trace(input_events),
+            metadata={
+                "vision": all_vision_traces,
+                "input_events": input_events,
+            },
         ),
         observe=TraceStep(
             phase=TracePhase.OBSERVE,
@@ -304,6 +327,7 @@ def _build_tick_trace(
             "page_type": vision_summary.page_type,
             "domains_run": list(vision_summary.domains_run),
             "notes": list(vision_summary.notes),
+            "image_traces": all_vision_traces,
         },
         state_after=state_after,
         selected_action=action.model_dump(mode="json") if action else None,
@@ -324,3 +348,109 @@ def _image_size_from_png(png: bytes) -> ImageSize | None:
     except (UnidentifiedImageError, OSError):
         return None
     return ImageSize(width=width, height=height)
+
+
+def _reset_input_trace(ui_actions: UIActions) -> None:
+    reset = getattr(ui_actions, "reset_input_trace", None)
+    if callable(reset):
+        reset()
+
+
+def _consume_input_trace(ui_actions: UIActions) -> list[dict[str, Any]]:
+    consume = getattr(ui_actions, "consume_input_trace", None)
+    if not callable(consume):
+        return []
+    events = consume()
+    return list(events) if events else []
+
+
+def _consume_remaining_vision_trace_events(vision_sync: VisionSync) -> list[dict[str, Any]]:
+    client = getattr(vision_sync, "client", None)
+    consume = getattr(client, "consume_trace_events", None)
+    if not callable(consume):
+        return []
+    events = consume()
+    return list(events) if events else []
+
+
+def _image_size_from_trace(events: list[dict[str, Any]], key: str) -> ImageSize | None:
+    for event in events:
+        raw = event.get(key)
+        if not isinstance(raw, dict):
+            continue
+        width = raw.get("width")
+        height = raw.get("height")
+        if isinstance(width, int) and isinstance(height, int) and width > 0 and height > 0:
+            return ImageSize(width=width, height=height)
+    return None
+
+
+def _coordinate_space_from_input(events: list[dict[str, Any]], key: str) -> str | None:
+    for event in events:
+        value = event.get(key)
+        if isinstance(value, str):
+            return value
+    return None
+
+
+def _coordinate_metadata_from_input_trace(
+    events: list[dict[str, Any]],
+) -> list[CoordinateTraceMetadata]:
+    coordinates: list[CoordinateTraceMetadata] = []
+    for event in events:
+        click_point = _pixel_point(event.get("click_point"))
+        if click_point is None:
+            continue
+        coordinates.append(
+            CoordinateTraceMetadata(
+                coordinate_space=_optional_str(event.get("coordinate_space")),
+                dpr=_optional_float(event.get("dpr")),
+                scale=_optional_float(event.get("scale")),
+                normalized_bbox=_normalized_bbox(event.get("normalized_bbox")),
+                pixel_bbox=_pixel_bbox(event.get("pixel_bbox")),
+                click_point=click_point,
+            )
+        )
+    return coordinates
+
+
+def _pixel_point(raw: Any) -> PixelPoint | None:
+    if not isinstance(raw, dict):
+        return None
+    x = raw.get("x")
+    y = raw.get("y")
+    if isinstance(x, int) and isinstance(y, int):
+        return PixelPoint(x=x, y=y)
+    return None
+
+
+def _pixel_bbox(raw: Any) -> PixelBBox | None:
+    if not isinstance(raw, dict):
+        return None
+    x = raw.get("x")
+    y = raw.get("y")
+    width = raw.get("width")
+    height = raw.get("height")
+    if all(isinstance(value, int) for value in (x, y, width, height)):
+        return PixelBBox(x=x, y=y, width=width, height=height)
+    return None
+
+
+def _normalized_bbox(raw: Any) -> NormalizedBBox | None:
+    if not isinstance(raw, dict):
+        return None
+    x = raw.get("x")
+    y = raw.get("y")
+    width = raw.get("width")
+    height = raw.get("height")
+    if all(isinstance(value, (int, float)) for value in (x, y, width, height)):
+        return NormalizedBBox(x=x, y=y, width=width, height=height)
+    return None
+
+
+def _optional_str(raw: Any) -> str | None:
+    return raw if isinstance(raw, str) else None
+
+
+def _optional_float(raw: Any) -> float | None:
+    return float(raw) if isinstance(raw, (int, float)) else None

@@ -6,7 +6,7 @@ extractor on every screenshot (e.g. while on the main map).
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -38,6 +38,7 @@ class VisionSyncSummary:
     page_type: str | None
     domains_run: list[str]
     notes: list[str]
+    image_traces: list[dict[str, Any]] = field(default_factory=list)
 
 
 class VisionSync:
@@ -55,6 +56,7 @@ class VisionSync:
     ) -> tuple[RuntimeState, VisionSyncSummary]:
         state = state or RuntimeState()
         captured_at = captured_at or datetime.now()
+        _reset_vision_trace_events(self.client)
         domains: list[str] = []
         notes: list[str] = []
 
@@ -76,7 +78,7 @@ class VisionSync:
             if popup_fragment.notes:
                 notes.extend(popup_fragment.notes)
             if state.global_state.get("popup", {}).get("blocking"):
-                return state, VisionSyncSummary(page_type=page, domains_run=domains, notes=notes)
+                return state, self._summary(page=page, domains=domains, notes=notes)
 
         if page == "chapter":
             chapter_fragment = extract_chapter_panel(
@@ -132,7 +134,21 @@ class VisionSync:
             if detail_fragment.notes:
                 notes.extend(detail_fragment.notes)
 
-        return state, VisionSyncSummary(page_type=page, domains_run=domains, notes=notes)
+        return state, self._summary(page=page, domains=domains, notes=notes)
+
+    def _summary(
+        self,
+        *,
+        page: str | None,
+        domains: list[str],
+        notes: list[str],
+    ) -> VisionSyncSummary:
+        return VisionSyncSummary(
+            page_type=page,
+            domains_run=domains,
+            notes=notes,
+            image_traces=_consume_vision_trace_events(self.client),
+        )
 
 
 def _should_run_popup_detector(notes: list[str]) -> bool:
@@ -142,3 +158,17 @@ def _should_run_popup_detector(notes: list[str]) -> bool:
         for note in notes
         for marker in popup_markers
     )
+
+
+def _reset_vision_trace_events(client: Any) -> None:
+    reset = getattr(client, "reset_trace_events", None)
+    if callable(reset):
+        reset()
+
+
+def _consume_vision_trace_events(client: Any) -> list[dict[str, Any]]:
+    consume = getattr(client, "consume_trace_events", None)
+    if not callable(consume):
+        return []
+    events = consume()
+    return list(events) if events else []

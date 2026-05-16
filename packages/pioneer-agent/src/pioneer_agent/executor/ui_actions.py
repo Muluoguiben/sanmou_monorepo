@@ -10,7 +10,7 @@ bridge_client mouse/keyboard commands. Two tiers:
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from io import BytesIO
 from pathlib import Path
 from typing import Any
@@ -42,6 +42,7 @@ class ClickOutcome:
     px: tuple[int, int]
     reason: str | None = None
     matched_label: str | None = None
+    trace: dict[str, Any] = field(default_factory=dict)
 
 
 class UIActions:
@@ -56,6 +57,15 @@ class UIActions:
         self.registry = registry
         self.vision = vision
         self.input_policy = input_policy or InputPolicy()
+        self._input_trace: list[dict[str, Any]] = []
+
+    def reset_input_trace(self) -> None:
+        self._input_trace.clear()
+
+    def consume_input_trace(self) -> list[dict[str, Any]]:
+        events = list(self._input_trace)
+        self._input_trace.clear()
+        return events
 
     # --- fixed positions --------------------------------------------------
 
@@ -65,10 +75,19 @@ class UIActions:
             return ClickOutcome(success=False, px=(0, 0), reason=verdict.reason)
         png = self.bridge.screenshot()
         w, h = _image_size(png)
-        x, y = self.registry.resolve_pixel(key, w, h)
+        button = self.registry.get(key)
+        x, y = button.resolve(w, h)
         resp = self.bridge.click(x, y)
         ok = resp.get("status") == "ok"
-        return ClickOutcome(success=ok, px=(x, y), reason=None if ok else str(resp))
+        trace = _input_trace_event(
+            action="click_button",
+            coordinate_space="window:relative",
+            raw_size=(w, h),
+            click_point=(x, y),
+            target={"key": key, "label": button.label},
+        )
+        self._input_trace.append(trace)
+        return ClickOutcome(success=ok, px=(x, y), reason=None if ok else str(resp), trace=trace)
 
     # --- dynamic (vision-located) -----------------------------------------
 
@@ -89,11 +108,22 @@ class UIActions:
         cx, cy = pix.center
         resp = self.bridge.click(cx, cy)
         ok = resp.get("status") == "ok"
+        trace = _input_trace_event(
+            action="click_element",
+            coordinate_space="window:relative",
+            raw_size=(w, h),
+            click_point=(cx, cy),
+            target={"query": query, "index": index, "matched_label": pix.label},
+            normalized_bbox=_normalized_bbox(boxes[index]),
+            pixel_bbox={"x": pix.x, "y": pix.y, "width": pix.width, "height": pix.height},
+        )
+        self._input_trace.append(trace)
         return ClickOutcome(
             success=ok,
             px=(cx, cy),
             matched_label=pix.label,
             reason=None if ok else str(resp),
+            trace=trace,
         )
 
     # --- navigation -------------------------------------------------------
@@ -108,7 +138,15 @@ class UIActions:
         cx, cy = w // 2, h // 2
         resp = self.bridge.drag(cx, cy, cx + dx, cy + dy, duration=duration)
         ok = resp.get("status") == "ok"
-        return ClickOutcome(success=ok, px=(cx + dx, cy + dy), reason=None if ok else str(resp))
+        trace = _input_trace_event(
+            action="drag",
+            coordinate_space="window:relative",
+            raw_size=(w, h),
+            click_point=(cx + dx, cy + dy),
+            target={"from": _point_dict(cx, cy), "to": _point_dict(cx + dx, cy + dy), "duration": duration},
+        )
+        self._input_trace.append(trace)
+        return ClickOutcome(success=ok, px=(cx + dx, cy + dy), reason=None if ok else str(resp), trace=trace)
 
     def close_popup(self) -> ClickOutcome:
         # Prefer ESC keystroke over clicking the X, which may not exist on every dialog.
@@ -117,9 +155,60 @@ class UIActions:
             return ClickOutcome(success=False, px=(0, 0), reason=verdict.reason)
         resp = self.bridge.key_press("escape")
         ok = resp.get("status") == "ok"
-        return ClickOutcome(success=ok, px=(0, 0), reason=None if ok else str(resp))
+        trace = {
+            "action": "key_press",
+            "key": "escape",
+            "coordinate_space": "keyboard",
+        }
+        self._input_trace.append(trace)
+        return ClickOutcome(success=ok, px=(0, 0), reason=None if ok else str(resp), trace=trace)
 
 
 def _image_size(png_bytes: bytes) -> tuple[int, int]:
     img = Image.open(BytesIO(png_bytes))
     return img.width, img.height
+
+
+def _input_trace_event(
+    *,
+    action: str,
+    coordinate_space: str,
+    raw_size: tuple[int, int],
+    click_point: tuple[int, int],
+    target: dict[str, Any],
+    normalized_bbox: dict[str, float] | None = None,
+    pixel_bbox: dict[str, int] | None = None,
+) -> dict[str, Any]:
+    event: dict[str, Any] = {
+        "action": action,
+        "coordinate_space": coordinate_space,
+        "window_coordinate_space": "window:relative",
+        "display_coordinate_space": "unknown",
+        "raw_size": {"width": raw_size[0], "height": raw_size[1]},
+        "prepared_size": {"width": raw_size[0], "height": raw_size[1]},
+        "scale": 1.0,
+        "click_point": _point_dict(*click_point),
+        "target": target,
+    }
+    if normalized_bbox is not None:
+        event["normalized_bbox"] = normalized_bbox
+    if pixel_bbox is not None:
+        event["pixel_bbox"] = pixel_bbox
+    return event
+
+
+def _normalized_bbox(box: Any) -> dict[str, float]:
+    x1 = min(box.x_min, box.x_max) / 1000
+    x2 = max(box.x_min, box.x_max) / 1000
+    y1 = min(box.y_min, box.y_max) / 1000
+    y2 = max(box.y_min, box.y_max) / 1000
+    return {
+        "x": x1,
+        "y": y1,
+        "width": x2 - x1,
+        "height": y2 - y1,
+    }
+
+
+def _point_dict(x: int, y: int) -> dict[str, int]:
+    return {"x": x, "y": y}

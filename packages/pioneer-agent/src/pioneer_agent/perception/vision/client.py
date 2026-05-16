@@ -38,6 +38,9 @@ class VisionResult:
     prompt_tokens: int
     output_tokens: int
     elapsed_s: float
+    original_size: tuple[int, int] | None = None
+    prepared_size: tuple[int, int] | None = None
+    resized: bool | None = None
 
 
 class VisionClient:
@@ -51,6 +54,15 @@ class VisionClient:
             api_key = key_path.read_text().strip()
         self._client = genai.Client(api_key=api_key)
         self._model = model
+        self._trace_events: list[dict[str, Any]] = []
+
+    def reset_trace_events(self) -> None:
+        self._trace_events.clear()
+
+    def consume_trace_events(self) -> list[dict[str, Any]]:
+        events = list(self._trace_events)
+        self._trace_events.clear()
+        return events
 
     def extract(
         self,
@@ -85,12 +97,26 @@ class VisionClient:
                 elapsed = time.monotonic() - start
                 data = json.loads(resp.text)
                 usage = resp.usage_metadata
+                prompt_tokens = getattr(usage, "prompt_token_count", 0) or 0
+                output_tokens = getattr(usage, "candidates_token_count", 0) or 0
+                self._trace_events.append(
+                    _image_trace_event(
+                        prepared=prepared,
+                        model=self._model,
+                        prompt_tokens=prompt_tokens,
+                        output_tokens=output_tokens,
+                        elapsed_s=elapsed,
+                    )
+                )
                 return VisionResult(
                     data=data,
                     model=self._model,
-                    prompt_tokens=getattr(usage, "prompt_token_count", 0) or 0,
-                    output_tokens=getattr(usage, "candidates_token_count", 0) or 0,
+                    prompt_tokens=prompt_tokens,
+                    output_tokens=output_tokens,
                     elapsed_s=elapsed,
+                    original_size=prepared.original_size,
+                    prepared_size=prepared.prepared_size,
+                    resized=prepared.resized,
                 )
             except Exception as exc:  # noqa: BLE001
                 last_exc = exc
@@ -105,3 +131,26 @@ class VisionClient:
     @staticmethod
     def _normalize_image(image: bytes | Path) -> PreparedImage:
         return prepare_image(image)
+
+
+def _image_trace_event(
+    *,
+    prepared: PreparedImage,
+    model: str,
+    prompt_tokens: int,
+    output_tokens: int,
+    elapsed_s: float,
+) -> dict[str, Any]:
+    return {
+        "model": model,
+        "raw_size": _size_dict(prepared.original_size),
+        "prepared_size": _size_dict(prepared.prepared_size),
+        "resized": prepared.resized,
+        "prompt_tokens": prompt_tokens,
+        "output_tokens": output_tokens,
+        "elapsed_s": round(elapsed_s, 3),
+    }
+
+
+def _size_dict(size: tuple[int, int]) -> dict[str, int]:
+    return {"width": size[0], "height": size[1]}

@@ -74,6 +74,8 @@ class UIActionsTests(unittest.TestCase):
         self.assertTrue(out.success)
         self.assertEqual(out.px, (960, 972))
         self.assertEqual(bridge.clicks, [(960, 972)])
+        self.assertEqual(out.trace["click_point"], {"x": 960, "y": 972})
+        self.assertEqual(actions.consume_input_trace()[0]["target"]["key"], "wu_jiang")
 
     def test_click_button_forwards_failure(self) -> None:
         bridge = _StubBridge(_make_png(800, 600), click_ok=False)
@@ -98,6 +100,9 @@ class UIActionsTests(unittest.TestCase):
         # center of (300-500, 200-300) on 1000x1000 = (400, 250)
         self.assertEqual(out.px, (400, 250))
         self.assertEqual(out.matched_label, "征兵所")
+        self.assertEqual(out.trace["normalized_bbox"]["x"], 0.3)
+        self.assertEqual(out.trace["pixel_bbox"], {"x": 300, "y": 200, "width": 200, "height": 100})
+        self.assertEqual(actions.consume_input_trace()[0]["click_point"], {"x": 400, "y": 250})
 
     def test_click_element_blocks_non_allowlisted_query(self) -> None:
         bridge = _StubBridge(_make_png(1000, 1000))
@@ -135,6 +140,7 @@ class UIActionsTests(unittest.TestCase):
         out = actions.pan_map(dx=-400, dy=0)
         self.assertTrue(out.success)
         self.assertEqual(bridge.drags, [(1000, 500, 600, 500)])
+        self.assertEqual(actions.consume_input_trace()[0]["target"]["to"], {"x": 600, "y": 500})
 
     def test_pan_map_blocks_when_policy_disallows_drag(self) -> None:
         bridge = _StubBridge(_make_png(2000, 1000))
@@ -150,6 +156,7 @@ class UIActionsTests(unittest.TestCase):
         out = actions.close_popup()
         self.assertTrue(out.success)
         self.assertEqual(bridge.keys, ["escape"])
+        self.assertEqual(actions.consume_input_trace()[0]["action"], "key_press")
 
 
 if __name__ == "__main__":
