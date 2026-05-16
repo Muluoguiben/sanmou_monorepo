@@ -1,37 +1,48 @@
 # Todo List
 
-> Last updated: 2026-05-16 (下一段重点：多设备 Desktop Advisor 真机试用、PC 客户端 GUI 捕获/控制可靠性、真实 screenshot fixture/eval、`loop.jsonl + screenshots` golden replay，以及接入 Bilibili 阵容图结构化抽取)
+> Last updated: 2026-05-17 (下一段重点：低风险真实自动化闭环、PC 客户端 GUI 捕获/控制可靠性、动作后 verifier、safety/recovery、computer-use trace metadata、真实 screenshot fixture/eval、`loop.jsonl + screenshots` golden replay，以及 qa-agent strategy snapshot 接入)
 
 ## In Progress
 
 - [ ] Desktop Advisor 真机试用：用 PC 客户端、安卓模拟器、安卓真机、iOS 各 3-5 张真实截图跑 `apps/sanmou-advisor-desktop`，记录识别失败样例与 UI 卡点。
 
-## P0 — Advisor MVP 闭环
+## P0 — Advisor MVP + 低风险真实自动化闭环
 
+- [ ] Agent loop contract：把 runtime 明确成 `observe -> decide -> act -> verify -> trace -> recover`，每个 tick 都必须落出当前阶段、输入/输出、失败原因和下一步恢复策略。
 - [ ] `chapter_panel` perception domain：章节面板截图识别当前章节、任务完成状态、奖励是否可领；输出 `progress.chapter_claimable/current_chapter_id` 与 field_meta。
+- [ ] `claim_chapter_reward` flow：打开章节面板 → 定位可领取奖励 → 点击领取/确认 → 返回稳定页面；非 dry-run 执行成功时返回 `ok`。
+- [ ] `claim_chapter_reward` verifier：动作后重新截图，验证 `chapter_claimable=false`、奖励状态变化或章节任务状态变化；无 verifier 不允许自动执行。
 - [ ] `recruit_panel` / team soldier perception domain：识别队伍兵力、上限、预备兵、征兵按钮状态，支撑 `recruit_soldiers` Advisor 建议。
+- [ ] `recruit_soldiers` flow：打开征兵面板 → 选择可征兵队伍/数量 → 确认征兵或安全退出；遇到资源不足、队伍 busy、未知弹窗时不得重复点击。
+- [ ] `recruit_soldiers` verifier：动作后重新截图，验证兵力变化、征兵倒计时出现或预备兵减少三者之一。
+- [ ] `upgrade_dialog` perception domain：识别建筑升级确认框、资源消耗、升级按钮、不可升级原因、关闭/取消按钮，支撑低风险建筑升级。
+- [ ] `upgrade_building` low-risk flow + verifier：只对白名单低风险建筑执行升级；动作后验证建筑等级变化、升级倒计时出现或资源消耗符合预期。
+- [ ] Popup detector：识别通用弹窗、确认框、返回/关闭状态，作为 recovery/verifier 基础。
+- [ ] Verifier framework：每个可执行动作必须声明 expected state delta 和 verify timeout；无 verifier 不允许自动执行。
+- [ ] Safety guardrail：基于 `CapabilityFlags`、risk schema、action_type、account/session mode 拦截高风险动作。
+- [ ] Computer-use input sandbox / allowlist：所有 GUI 输入动作必须经过 allowlist policy；只允许已注册的安全按钮、已校准 bbox、已确认的 low-risk flow 派发点击/拖拽/按键。
+- [ ] Manual kill switch：GUI 与 runtime 都要有本地停机开关；触发后 executor 不再派发输入。
+- [ ] High-risk confirmation：`attack_land` / `abandon_land` / `transfer_main_lineup` 必须人工确认。
+- [ ] Bridge health check：Windows bridge / future ADB adapter 需要 screenshot freshness、window info、input capability 自检。
+- [ ] Click-action calibration：claim_chapter / upgrade_building / recruit_soldiers / attack_land / transfer_main_lineup / abandon_land 当前返回 `pending`，需用真实页面截图走 `ui_calibrate` + `find_elements` 打通确认对话框序列。
+- [ ] Screenshot / coordinate trace metadata：每次 vision 与 click 都记录原始截图尺寸、prepared 图尺寸、display/window 坐标空间、DPR/scale、normalized bbox、pixel bbox、实际点击点，防止坐标漂移不可追踪。
+- [ ] Trace Store schema：用结构化 trace store 代替散落日志；每次动作必须能回答“看到了什么、为什么选、执行了什么、验证是否通过、失败后如何恢复”。
+- [ ] Golden replay tests：用 `loop.jsonl + screenshots` 重放一次完整 Advisor/selector 决策，稳定输出相同推荐。
 - [ ] `event_tournament` / `mode_hub` perception domain：把演武大会、征战模式入口、远征/军演/养士兴功等页面从当前 `chapter` fallback 中拆出来，抽取积分、排名、倒计时、阶段状态、可重置/可报名等字段。
 - [ ] TeamSnapshot 全队详情 fixture/eval：补充孟获、诸葛亮2 的详情页截图 fixture，让 `TeamSnapshot` 从“祝融夫人单将详情已覆盖”推进到 3/3 武将详情覆盖，并校验最终可进入 PVP/PVE/远征 ready/needs_review 判断。
 - [ ] Desktop Advisor 历史记录：把上传截图、`DeviceProfile`、`RuntimeState`、`AdvisorReport` 写入可浏览历史，并支持重新打开。
 - [ ] Screenshot fixture dataset：建立 `tests/fixtures/screenshots/{pc_client,android_emulator,android,ios}/`，至少覆盖首页、城内、章节、队伍、武将、地图、战报。
 - [ ] Vision eval baseline：基于 screenshot fixture 输出 page/domain/entity accuracy，防止后续 perception 重构退化。
+- [ ] Action verifier eval：为 `claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` 建立 verifier fixture/eval，覆盖成功、状态未变化、误识别、超时、弹窗打断五类结果。
 - [ ] qa-agent 接入 Advisor chat：`/api/advisor/chat` 从当前本地模板升级为 `qa-agent QueryService/ChatAgent + AdvisorReport context`。
+- [ ] 开荒阵容策略 snapshot：从 qa-agent reviewed knowledge 导出 `strategy_snapshot.yaml`，先离线供 pioneer-agent selector/scoring 使用，避免 runtime 每 tick 依赖 LLM。
 - [ ] Desktop API packaging：Electron 启动 Python API 时自动发现可用 Python、依赖缺失时给出明确错误，并支持外部 `SANMOU_ADVISOR_API_URL`。
 
-## P1 — 真实自动化闭环前置
+## P1 — 真实自动化环境适配
 
-- [ ] Popup detector：识别通用弹窗、确认框、返回/关闭状态，作为 recovery/verifier 基础。
 - [ ] Sanmou 客户端冷启动弹窗 handler：覆盖网络错误/公告/公会邀请/钻石提示/续费弹窗等首屏弹窗；只对已知安全弹窗执行关闭/确认，未知弹窗挂起并回传 Advisor。
 - [ ] Sanmou 客户端安装路径自适应：`sanmou_client_control.ps1` / bootstrap 不再只硬编码 `D:\bilibili Game\NSLG`，优先解析桌面快捷方式、注册表或常见安装目录，找不到再 fallback。
-- [ ] Windows 桥接器 GUI 稳定性第一版：补齐 `list-windows` 全量候选窗口上报（hwnd/rect/visible/iconic/usable），`win_bridge_server.py`/`bridge_client.py` 在每次截图前拒绝最小化/坏尺寸 `hwnd`，并为无效截图（过小/近黑帧）返回可判定错误，作为 sanity 入口；后续继续补 OCR/关键字级别识别 `slock/claude/chrome`。
-- [ ] Verifier framework：每个可执行动作必须声明 expected state delta 和 verify timeout；无 verifier 不允许自动执行。
-- [ ] Safety guardrail：基于 `CapabilityFlags`、risk schema、action_type、account/session mode 拦截高风险动作。
-- [ ] Manual kill switch：GUI 与 runtime 都要有本地停机开关；触发后 executor 不再派发输入。
-- [ ] High-risk confirmation：`attack_land` / `abandon_land` / `transfer_main_lineup` 必须人工确认。
-- [ ] Bridge health check：Windows bridge / future ADB adapter 需要 screenshot freshness、window info、input capability 自检。
-- [ ] PC 客户端 foreground-independent capture：为三谋 Windows 客户端补 WGC/DXGI 截图 backend 与窗口 sanity check，允许用户切到 Slock/Codex/Claude 等其它窗口时仍能稳定获得游戏截图；要求拒绝最小化/离屏/坏尺寸 hwnd，截图后识别到非游戏窗口（Slock/Codex/Chrome 等）必须判失败，不进入 Advisor/automation 判断；点击仍按短暂置前 → 白名单输入 → 截图校验的低风险事务执行。
-- [ ] Click-action calibration：claim_chapter / upgrade_building / recruit_soldiers / attack_land / transfer_main_lineup / abandon_land 当前返回 `pending`，需用真实页面截图走 `ui_calibrate` + `find_elements` 打通确认对话框序列。
-- [ ] Golden replay tests：用 `loop.jsonl + screenshots` 重放一次完整 Advisor/selector 决策，稳定输出相同推荐。
+- [ ] Windows 桥接器 GUI 稳定性后续：在 `list-windows` / WGC+DXGI capture backend / 坏 hwnd 和近黑帧 sanity 已有第一版基础上，继续补 OCR/关键字级别识别 `slock/claude/chrome`、screenshot freshness、input capability 自检，并把点击做成短暂置前 → 白名单输入 → 截图校验的低风险事务。
 
 ## P2 — 策略与数据质量
 
@@ -46,7 +57,6 @@
 - [ ] 征兵所数值：每小时征兵数、预备兵上限随建筑等级变化表。
 - [ ] 打地等级风险表：按赛季/开荒阵容/兵力/等级/克制关系形成 Advisor 可消费的 risk table。
 - [ ] 建筑优先级表：章节瓶颈、资源产出、兵力支撑、开荒节奏四类权重，供 `upgrade_building` scoring 使用。
-- [ ] 开荒阵容策略 snapshot：从 qa-agent reviewed knowledge 导出 `strategy_snapshot.yaml`，先离线供 pioneer-agent 使用。
 - [ ] 职业/赛季机制结构化：职业二阶天赋、赛季特殊机制进入 common/qa-agent 可查询 schema。
 
 ## P3 — 知识库补全
@@ -67,6 +77,8 @@
 - [ ] Electron 打包发布：Windows/macOS/Linux 构建、签名、升级通道、崩溃日志。
 - [ ] Bilibili 视频自动发现 CLI：新增 `qa_agent.app.discover_bilibili`，按 keyword/时间范围搜索候选视频，排除已收录 BVID，输出可直接接入 bundle/pipeline 的候选清单。
 - [ ] 多 agent 协作约定：补 `notes/agent-collab.md` 或项目协作说明，约定 @Claude / @Codex 收到任务先 ack、谁 claim 谁负责、长时间无响应时如何转单。
+- [ ] Repo-local runbook 收敛：把 `AGENTS.md` / `CLAUDE.md` 风格说明收敛成仓库内 runbook，至少覆盖 knowledge ingestion、Advisor fixture/eval、computer-use safety、model probing、发布/回滚步骤。
+- [ ] Workflow / session boundary：把知识采集、模型探测、Advisor fixture/eval、自动化执行拆成独立 workflow/session，明确输入输出、环境变量、日志位置和禁止跨 session 复用的上下文，减少长上下文污染。
 - [ ] ADB capture adapter：安卓模拟器/真机 live screenshot，不默认启用 input control。
 - [ ] MapGridState 可视化：截图坐标映射到地图逻辑格子，支持土地规划、格子占用、资源分配。
 - [ ] Copilot Mode：仅在 verifier/safety/recovery 完成后开放低风险动作自动执行。
