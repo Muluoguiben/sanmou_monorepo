@@ -198,6 +198,13 @@ class AutonomousLoopTests(unittest.TestCase):
             self.assertEqual(trace.act.outputs["status"], "idle")
             self.assertEqual(trace.screenshot.raw_size.width, 1920)
             self.assertEqual(trace.screenshot.raw_size.height, 1080)
+            self.assertIsNotNone(trace.recover)
+            self.assertEqual(trace.recover.outputs["status"], "not_required")
+            self.assertEqual(trace.next_recovery_strategy, "none")
+            self.assertEqual(
+                trace.metadata["loop_contract"],
+                ["observe", "decide", "act", "verify", "trace", "recover"],
+            )
 
     def test_dry_run_skips_runner_and_marks_execution(self) -> None:
         action = CandidateAction(

@@ -22,6 +22,7 @@ from pioneer_agent.derivation.state_deriver import StateDeriver
 from pioneer_agent.executor.ui_actions import UIActions
 from pioneer_agent.executor.ui_runner import UIActionRunner
 from pioneer_agent.perception.vision_sync import VisionSync, VisionSyncSummary
+from pioneer_agent.runtime.loop_contract import LOOP_PHASE_ORDER, ensure_loop_contract
 from pioneer_agent.safety.kill_switch import KillSwitch
 from pioneer_agent.selector.action_selector import ActionSelector
 from pioneer_agent.storage.loop_logger import LoopLogger
@@ -186,7 +187,7 @@ class AutonomousLoop:
             screenshot_path = record.screenshot_path
 
         if self.trace_store is not None:
-            self.trace_store.append(
+            trace = ensure_loop_contract(
                 _build_tick_trace(
                     iteration=iteration,
                     started_at=started_at,
@@ -202,6 +203,7 @@ class AutonomousLoop:
                     recovery_strategy=recovery_strategy,
                 )
             )
+            self.trace_store.append(trace)
 
         return TickResult(iteration=iteration, summary=vision_summary, selection=selection,
                           execution=execution, sleep_s=sleep_s)
@@ -294,8 +296,9 @@ def _build_tick_trace(
         ),
         recover=TraceStep(
             phase=TracePhase.RECOVER,
-            recovery_strategy=recovery_strategy,
-        ) if recovery_strategy else None,
+            outputs={"status": "attempted" if recovery_strategy else "not_required"},
+            recovery_strategy=recovery_strategy or "none",
+        ),
         state_before=state_before,
         vision={
             "page_type": vision_summary.page_type,
@@ -307,9 +310,10 @@ def _build_tick_trace(
         ranked_actions=[item.model_dump(mode="json") for item in selection.ranked_actions],
         execution=execution.model_dump(mode="json") if execution else None,
         verification={"status": execution.verification_status} if execution else None,
-        recovery={"strategy": recovery_strategy} if recovery_strategy else None,
+        recovery={"strategy": recovery_strategy or "none"},
         failure_reason=execution.failure_reason if execution else None,
-        next_recovery_strategy=recovery_strategy,
+        next_recovery_strategy=recovery_strategy or "none",
+        metadata={"loop_contract": [phase.value for phase in LOOP_PHASE_ORDER]},
     )
 
 

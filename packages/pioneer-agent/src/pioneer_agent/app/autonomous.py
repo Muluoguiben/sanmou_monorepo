@@ -18,6 +18,7 @@ from pioneer_agent.perception.vision_sync import VisionSync
 from pioneer_agent.runtime.autonomous_loop import AutonomousLoop
 from pioneer_agent.safety.kill_switch import KillSwitch, default_kill_switch_path
 from pioneer_agent.storage.loop_logger import LoopLogger
+from pioneer_agent.storage.trace_store import TraceStore
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -26,6 +27,8 @@ def main(argv: list[str] | None = None) -> int:
                         help="Stop after N ticks (default: run forever).")
     parser.add_argument("--log-dir", type=Path, default=Path("data/loop"),
                         help="Directory for loop.jsonl + archived screenshots.")
+    parser.add_argument("--trace-path", type=Path, default=None,
+                        help="Structured trace JSONL path (default: log-dir/trace.jsonl).")
     parser.add_argument("--no-archive", action="store_true",
                         help="Skip archiving screenshot PNGs (JSONL only).")
     parser.add_argument("--log-level", default="INFO")
@@ -48,6 +51,7 @@ def main(argv: list[str] | None = None) -> int:
     )
 
     loop_logger = LoopLogger(args.log_dir, archive_screenshots=not args.no_archive)
+    trace_store = TraceStore(args.trace_path or args.log_dir / "trace.jsonl")
 
     with BridgeClient() as bridge:
         vision = build_vision_client(args.vision_provider)
@@ -58,6 +62,7 @@ def main(argv: list[str] | None = None) -> int:
             vision_sync=VisionSync(vision),
             ui_actions=ui,
             loop_logger=loop_logger,
+            trace_store=trace_store,
             kill_switch=KillSwitch(kill_switch_path),
             dry_run=args.dry_run,
             stuck_threshold=args.stuck_threshold,
