@@ -20,7 +20,7 @@
 - [ ] Popup detector：识别通用弹窗、确认框、返回/关闭状态，作为 recovery/verifier 基础。
 - [x] Verifier framework（2026-05-17）：新增 `VerifierRegistry/VerifierSpec`，所有会派发 GUI 输入的动作必须声明 expected state delta 和 verify timeout；`UIActionRunner` 在 dispatch 前检查 verifier spec，无 verifier 直接 blocked。
 - [x] Safety guardrail（2026-05-17）：基于 `CapabilityFlags`、risk schema、action_type、account/session mode 拦截高风险动作；`UIActionRunner` 在派发前统一执行 `SafetyGuard`，advisor/observe-only 阻断输入，敏感/高风险动作返回 `requires_confirmation`。
-- [ ] Computer-use input sandbox / allowlist：所有 GUI 输入动作必须经过 allowlist policy；只允许已注册的安全按钮、已校准 bbox、已确认的 low-risk flow 派发点击/拖拽/按键。
+- [x] Computer-use input sandbox / allowlist（2026-05-17）：新增 `InputPolicy` 并接入 `UIActions` primitive 层；固定按钮必须来自 `UIRegistry`，动态元素 query 必须显式 allowlist，地图拖拽默认关闭，按键默认只允许 ESC。
 - [x] Manual kill switch（2026-05-17）：新增文件型 `KillSwitch`，`AutonomousLoop` 在 runner 派发前检查 stop file；Advisor API 暴露触发/清除 endpoint，Desktop Advisor 侧边栏提供停机/清除按钮；触发后 executor 不再派发输入。
 - [x] High-risk confirmation（2026-05-17）：`attack_land` / `abandon_land` / `transfer_main_lineup` 默认返回 `requires_confirmation`；只有 action params 明确带 `confirmation_token` 时，`SafetyGuard` 才允许进入 handler。
 - [ ] Bridge health check：Windows bridge / future ADB adapter 需要 screenshot freshness、window info、input capability 自检。

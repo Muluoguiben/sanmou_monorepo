@@ -8,6 +8,7 @@ from typing import Any
 
 from PIL import Image
 
+from pioneer_agent.executor.input_policy import InputPolicy
 from pioneer_agent.executor.ui_actions import UIActions
 from pioneer_agent.perception.ui_registry import UIButton, UIRegistry
 
@@ -86,17 +87,38 @@ class UIActionsTests(unittest.TestCase):
         vision = _StubVision(
             {"matches": [{"label": "征兵所", "y_min": 200, "x_min": 300, "y_max": 300, "x_max": 500}]}
         )
-        actions = UIActions(bridge, self._registry(), vision=vision)
+        actions = UIActions(
+            bridge,
+            self._registry(),
+            vision=vision,
+            input_policy=InputPolicy(allowed_element_queries=frozenset({"征兵所 building"})),
+        )
         out = actions.click_element("征兵所 building")
         self.assertTrue(out.success)
         # center of (300-500, 200-300) on 1000x1000 = (400, 250)
         self.assertEqual(out.px, (400, 250))
         self.assertEqual(out.matched_label, "征兵所")
 
+    def test_click_element_blocks_non_allowlisted_query(self) -> None:
+        bridge = _StubBridge(_make_png(1000, 1000))
+        vision = _StubVision(
+            {"matches": [{"label": "征兵所", "y_min": 200, "x_min": 300, "y_max": 300, "x_max": 500}]}
+        )
+        actions = UIActions(bridge, self._registry(), vision=vision)
+        out = actions.click_element("征兵所 building")
+        self.assertFalse(out.success)
+        self.assertIn("not allowlisted", out.reason or "")
+        self.assertEqual(bridge.clicks, [])
+
     def test_click_element_no_match(self) -> None:
         bridge = _StubBridge(_make_png(1000, 1000))
         vision = _StubVision({"matches": []})
-        actions = UIActions(bridge, self._registry(), vision=vision)
+        actions = UIActions(
+            bridge,
+            self._registry(),
+            vision=vision,
+            input_policy=InputPolicy(allowed_element_queries=frozenset({"missing target"})),
+        )
         out = actions.click_element("missing target")
         self.assertFalse(out.success)
         self.assertEqual(bridge.clicks, [])
@@ -109,10 +131,18 @@ class UIActionsTests(unittest.TestCase):
 
     def test_pan_map_drags_from_center(self) -> None:
         bridge = _StubBridge(_make_png(2000, 1000))
-        actions = UIActions(bridge, self._registry())
+        actions = UIActions(bridge, self._registry(), input_policy=InputPolicy(allow_map_drag=True))
         out = actions.pan_map(dx=-400, dy=0)
         self.assertTrue(out.success)
         self.assertEqual(bridge.drags, [(1000, 500, 600, 500)])
+
+    def test_pan_map_blocks_when_policy_disallows_drag(self) -> None:
+        bridge = _StubBridge(_make_png(2000, 1000))
+        actions = UIActions(bridge, self._registry())
+        out = actions.pan_map(dx=-400, dy=0)
+        self.assertFalse(out.success)
+        self.assertIn("not enabled", out.reason or "")
+        self.assertEqual(bridge.drags, [])
 
     def test_close_popup_sends_escape(self) -> None:
         bridge = _StubBridge(_make_png())

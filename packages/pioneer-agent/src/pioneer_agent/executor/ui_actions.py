@@ -17,6 +17,7 @@ from typing import Any
 
 from PIL import Image
 
+from pioneer_agent.executor.input_policy import InputPolicy
 from pioneer_agent.perception.ui_registry import UIRegistry
 from pioneer_agent.perception.vision import (
     PixelBox,
@@ -49,14 +50,19 @@ class UIActions:
         bridge: _BridgeLike,
         registry: UIRegistry,
         vision: VisionClient | None = None,
+        input_policy: InputPolicy | None = None,
     ) -> None:
         self.bridge = bridge
         self.registry = registry
         self.vision = vision
+        self.input_policy = input_policy or InputPolicy()
 
     # --- fixed positions --------------------------------------------------
 
     def click_button(self, key: str) -> ClickOutcome:
+        verdict = self.input_policy.evaluate_button(key, registered_keys=self.registry.keys())
+        if not verdict.allowed:
+            return ClickOutcome(success=False, px=(0, 0), reason=verdict.reason)
         png = self.bridge.screenshot()
         w, h = _image_size(png)
         x, y = self.registry.resolve_pixel(key, w, h)
@@ -69,6 +75,9 @@ class UIActions:
     def click_element(self, query: str, *, index: int = 0) -> ClickOutcome:
         if self.vision is None:
             raise RuntimeError("VisionClient required for dynamic element clicks")
+        verdict = self.input_policy.evaluate_element_query(query)
+        if not verdict.allowed:
+            return ClickOutcome(success=False, px=(0, 0), reason=verdict.reason)
         png = self.bridge.screenshot()
         w, h = _image_size(png)
         boxes = find_elements(self.vision, png, query)
@@ -91,6 +100,9 @@ class UIActions:
 
     def pan_map(self, dx: int, dy: int, duration: float = 0.4) -> ClickOutcome:
         """Drag the map by (dx, dy) from the window center."""
+        verdict = self.input_policy.evaluate_drag()
+        if not verdict.allowed:
+            return ClickOutcome(success=False, px=(0, 0), reason=verdict.reason)
         png = self.bridge.screenshot()
         w, h = _image_size(png)
         cx, cy = w // 2, h // 2
@@ -100,6 +112,9 @@ class UIActions:
 
     def close_popup(self) -> ClickOutcome:
         # Prefer ESC keystroke over clicking the X, which may not exist on every dialog.
+        verdict = self.input_policy.evaluate_key("escape")
+        if not verdict.allowed:
+            return ClickOutcome(success=False, px=(0, 0), reason=verdict.reason)
         resp = self.bridge.key_press("escape")
         ok = resp.get("status") == "ok"
         return ClickOutcome(success=ok, px=(0, 0), reason=None if ok else str(resp))
