@@ -4,6 +4,7 @@ import io
 import unittest
 from dataclasses import dataclass
 from datetime import datetime
+from pathlib import Path
 from typing import Any
 
 from PIL import Image
@@ -20,9 +21,12 @@ from pioneer_agent.core.device import (
 )
 from pioneer_agent.core.enums import ActionType
 from pioneer_agent.core.models import CandidateAction, RuntimeState, SelectionResult
+from pioneer_agent.core.runtime_state_io import load_runtime_state_record
+from pioneer_agent.derivation.state_deriver import StateDeriver
 from pioneer_agent.perception.screenshot_interpreter import ScreenshotInterpretation
 from pioneer_agent.perception.vision_sync import VisionSyncSummary
 from pioneer_agent.runtime.advisor_loop import AdvisorLoop, build_advisor_report
+from pioneer_agent.selector.action_selector import ActionSelector
 
 
 def _png(size: tuple[int, int]) -> bytes:
@@ -225,6 +229,62 @@ class AdvisorLoopTests(unittest.TestCase):
         self.assertEqual(report.vision_summary["interpretation"]["page_type"], "chapter")
         self.assertIn("vision.interpretation", report.evidence)
         self.assertEqual(report.confidence, 0.73)
+
+    def test_fixture_replay_builds_advisor_reports_for_desktop_contract(self) -> None:
+        expectations = [
+            ("chapter_claimable_state.json", ActionType.CLAIM_CHAPTER_REWARD),
+            ("transfer_priority_state.json", ActionType.TRANSFER_MAIN_LINEUP_TO_TEAM),
+            ("sample_state.json", ActionType.ATTACK_LAND),
+            ("recruit_priority_state.json", ActionType.RECRUIT_SOLDIERS),
+            ("recruit_rule_state.json", ActionType.RECRUIT_SOLDIERS),
+            ("wait_resource_state.json", ActionType.WAIT_FOR_RESOURCE),
+            ("wait_stamina_state.json", ActionType.WAIT_FOR_STAMINA),
+            ("team_panel_state.json", ActionType.INSPECT_TEAM_READINESS),
+        ]
+        project_root = Path(__file__).resolve().parents[2]
+        deriver = StateDeriver()
+        selector = ActionSelector()
+        frame = CaptureFrame(
+            png=b"not-used",
+            captured_at=datetime(2026, 1, 1, 0, 0, 0),
+            device_session=_session(
+                DevicePlatform.ANDROID_EMULATOR,
+                ObservationSourceType.SCREENSHOT_FILE,
+                (1080, 2400),
+            ),
+            source_type=ObservationSourceType.SCREENSHOT_FILE,
+        )
+
+        for fixture_name, expected_action_type in expectations:
+            with self.subTest(fixture_name=fixture_name):
+                state = load_runtime_state_record(
+                    project_root / "tests" / "fixtures" / fixture_name
+                ).state
+                derived = deriver.derive(state)
+                selection = selector.select(derived)
+                report = build_advisor_report(
+                    frame=frame,
+                    state=derived,
+                    selection=selection,
+                    vision_summary=VisionSyncSummary(
+                        page_type="fixture_replay",
+                        domains_run=["runtime_fixture"],
+                        notes=[fixture_name],
+                    ),
+                )
+
+                self.assertIsNotNone(report.recommended_action)
+                self.assertEqual(report.recommended_action.action_type, expected_action_type)  # type: ignore[union-attr]
+                self.assertFalse(report.recommended_action.executable)  # type: ignore[union-attr]
+                self.assertEqual(report.recommended_action.execution_blocked_reason, "advisor_mode")  # type: ignore[union-attr]
+                self.assertGreater(len(report.available_actions), 0)
+                self.assertEqual(report.current_state_summary["page_type"], "fixture_replay")
+                self.assertIn("vision.domain:runtime_fixture", report.evidence)
+                self.assertIn("pipeline", report.selection_reason)
+                self.assertGreaterEqual(
+                    report.selection_reason["pipeline"]["generated"],
+                    report.selection_reason["pipeline"]["viable"],
+                )
 
 
 if __name__ == "__main__":

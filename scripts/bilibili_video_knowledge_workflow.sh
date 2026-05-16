@@ -56,5 +56,15 @@ if [[ "$ENRICH_FRAMES" == "1" ]]; then
   PIPELINE_EXTRA+=(--enrich-frames --frames-per-segment "$FRAMES_PER_SEGMENT")
 fi
 
-python3 -m qa_agent.app.fetch_bilibili_bundle "${FETCH_ARGS[@]}" --output "$BUNDLE_PATH" --asr-fallback "${FETCH_EXTRA[@]}"
-python3 -m qa_agent.app.run_video_pipeline --input "$BUNDLE_PATH" --workspace "$WORKSPACE" --extractor "$EXTRACTOR" "${PIPELINE_EXTRA[@]}"
+fetch_cmd=(python3 -m qa_agent.app.fetch_bilibili_bundle "${FETCH_ARGS[@]}" --output "$BUNDLE_PATH" --asr-fallback)
+if [[ ${#FETCH_EXTRA[@]} -gt 0 ]]; then
+  fetch_cmd+=("${FETCH_EXTRA[@]}")
+fi
+
+pipeline_cmd=(python3 -m qa_agent.app.run_video_pipeline --input "$BUNDLE_PATH" --workspace "$WORKSPACE" --extractor "$EXTRACTOR")
+if [[ ${#PIPELINE_EXTRA[@]} -gt 0 ]]; then
+  pipeline_cmd+=("${PIPELINE_EXTRA[@]}")
+fi
+
+"${fetch_cmd[@]}"
+"${pipeline_cmd[@]}"
