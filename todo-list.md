@@ -23,7 +23,7 @@
 - [x] Computer-use input sandbox / allowlist（2026-05-17）：新增 `InputPolicy` 并接入 `UIActions` primitive 层；固定按钮必须来自 `UIRegistry`，动态元素 query 必须显式 allowlist，地图拖拽默认关闭，按键默认只允许 ESC。
 - [x] Manual kill switch（2026-05-17）：新增文件型 `KillSwitch`，`AutonomousLoop` 在 runner 派发前检查 stop file；Advisor API 暴露触发/清除 endpoint，Desktop Advisor 侧边栏提供停机/清除按钮；触发后 executor 不再派发输入。
 - [x] High-risk confirmation（2026-05-17）：`attack_land` / `abandon_land` / `transfer_main_lineup` 默认返回 `requires_confirmation`；只有 action params 明确带 `confirmation_token` 时，`SafetyGuard` 才允许进入 handler。
-- [ ] Bridge health check：Windows bridge / future ADB adapter 需要 screenshot freshness、window info、input capability 自检。
+- [x] Bridge health check（2026-05-17）：新增 adapter-agnostic `BridgeHealthChecker`，覆盖 ping、PNG screenshot sanity/freshness、window width/height、input capability method 自检；stub 测试覆盖 healthy、bad screenshot、observe-only/degraded 三类结果。
 - [ ] Click-action calibration：claim_chapter / upgrade_building / recruit_soldiers / attack_land / transfer_main_lineup / abandon_land 当前返回 `pending`，需用真实页面截图走 `ui_calibrate` + `find_elements` 打通确认对话框序列。
 - [ ] Screenshot / coordinate trace metadata：每次 vision 与 click 都记录原始截图尺寸、prepared 图尺寸、display/window 坐标空间、DPR/scale、normalized bbox、pixel bbox、实际点击点，防止坐标漂移不可追踪。
 - [x] Trace Store schema（2026-05-17）：新增 `pioneer_agent.storage.trace_store`，并把 `AutonomousLoop` 接入可选 `TraceStore`；每个 traced tick 记录 observe/decide/act/verify/trace/recover 阶段、状态快照、vision summary、selected/ranked action、execution、verification、recovery 和截图尺寸。
