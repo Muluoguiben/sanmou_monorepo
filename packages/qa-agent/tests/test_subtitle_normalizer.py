@@ -81,6 +81,57 @@ class GreedyExactReplaceTests(unittest.TestCase):
         self.assertEqual(out, "岿然不动 + 岿然不动")
         self.assertEqual(len(applied), 2)
 
+    def test_compound_guard_skips_金汤_inside_固若金汤(self) -> None:
+        """`金汤 → 金城汤池` must NOT fire inside the canonical `固若金汤`."""
+        rules = [
+            NormalizationRule(source="金汤", canonical="金城汤池", kind="skill", confidence=0.85, rule_source="homophone"),
+        ]
+        dictionary = _make_dictionary(rules, canonical_terms={"金城汤池", "固若金汤"})
+        out, applied = _greedy_replace_exact(
+            "带固若金汤出场", dictionary.sorted_exact_rules(), dictionary.canonical_terms
+        )
+        self.assertEqual(out, "带固若金汤出场")  # untouched
+        self.assertEqual(applied, [])
+
+    def test_compound_guard_skips_百战_inside_百战不殆(self) -> None:
+        """`百战 → 百战不殆` must NOT double-expand the already-correct
+        canonical `百战不殆` into `百战不殆不殆`."""
+        rules = [
+            NormalizationRule(source="百战", canonical="百战不殆", kind="skill", confidence=0.90, rule_source="homophone"),
+        ]
+        dictionary = _make_dictionary(rules, canonical_terms={"百战不殆"})
+        out, applied = _greedy_replace_exact(
+            "可以选择百战不殆版本", dictionary.sorted_exact_rules(), dictionary.canonical_terms
+        )
+        self.assertEqual(out, "可以选择百战不殆版本")  # untouched
+        self.assertEqual(applied, [])
+
+    def test_compound_guard_still_replaces_bare_source(self) -> None:
+        """Bare `金汤` (not inside a longer canonical) is still rewritten."""
+        rules = [
+            NormalizationRule(source="金汤", canonical="金城汤池", kind="skill", confidence=0.85, rule_source="homophone"),
+        ]
+        dictionary = _make_dictionary(rules, canonical_terms={"金城汤池", "固若金汤"})
+        out, applied = _greedy_replace_exact(
+            "过了金汤的版本", dictionary.sorted_exact_rules(), dictionary.canonical_terms
+        )
+        self.assertEqual(out, "过了金城汤池的版本")
+        self.assertEqual(len(applied), 1)
+
+    def test_longer_source_rule_wins_over_bare(self) -> None:
+        """`乌若金汤 → 固若金汤` (4-char) must fire before bare `金汤 → 金城汤池`
+        (2-char); result `固若金汤` is then canonical-protected."""
+        rules = [
+            NormalizationRule(source="金汤", canonical="金城汤池", kind="skill", confidence=0.85, rule_source="homophone"),
+            NormalizationRule(source="乌若金汤", canonical="固若金汤", kind="skill", confidence=0.92, rule_source="homophone"),
+        ]
+        dictionary = _make_dictionary(rules, canonical_terms={"金城汤池", "固若金汤"})
+        out, applied = _greedy_replace_exact(
+            "可以带乌若金汤", dictionary.sorted_exact_rules(), dictionary.canonical_terms
+        )
+        self.assertEqual(out, "可以带固若金汤")
+        self.assertEqual([r.canonical for r in applied], ["固若金汤"])
+
 
 class NeighborhoodGuardTests(unittest.TestCase):
     def test_other_canonical_in_window_blocks_fuzzy(self) -> None:

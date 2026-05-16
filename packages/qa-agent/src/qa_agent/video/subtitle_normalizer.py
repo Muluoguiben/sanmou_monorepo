@@ -439,16 +439,51 @@ def _neighborhood_has_other_canonical(
 # ---------------------------------------------------------------------------
 
 
+def _span_inside_longer_canonical(
+    text: str,
+    i: int,
+    span_len: int,
+    canonical_terms: set[str],
+) -> bool:
+    """True if `text[i : i+span_len]` is fully contained inside an occurrence of
+    a *longer* canonical term.
+
+    Guards exact replacement against breaking already-correct compound terms:
+    - `金汤 → 金城汤池` must NOT fire inside the canonical `固若金汤`
+      (otherwise `固若金汤` → `固若金城汤池`).
+    - `百战 → 百战不殆` must NOT fire inside the canonical `百战不殆`
+      (otherwise `百战不殆` → `百战不殆不殆`).
+    """
+    for term in canonical_terms:
+        lt = len(term)
+        if lt <= span_len:
+            continue
+        lo = max(0, i - lt + 1)
+        hi = i + span_len + lt
+        idx = text.find(term, lo, hi)
+        while idx != -1:
+            if idx <= i and idx + lt >= i + span_len:
+                return True
+            idx = text.find(term, idx + 1, hi)
+    return False
+
+
 def _greedy_replace_exact(
     text: str,
     rules: list[NormalizationRule],
+    canonical_terms: set[str] | None = None,
 ) -> tuple[str, list[NormalizationRule]]:
     """Apply exact `rules` greedily left-to-right; return rewritten text + applied rules.
 
     Rules are assumed pre-sorted by descending source length. Multiple
     occurrences of the same rule each produce an applied entry so the log
     reflects every replacement.
+
+    `canonical_terms` (optional) enables the compound-term guard: a short
+    `source` (e.g. `金汤`, `百战`) is NOT rewritten when it sits inside a longer
+    canonical term that is already correct (`固若金汤`, `百战不殆`).
     """
+    terms = canonical_terms or set()
     applied: list[NormalizationRule] = []
     out_chars: list[str] = []
     i = 0
@@ -460,6 +495,9 @@ def _greedy_replace_exact(
             if L == 0:
                 continue
             if i + L <= n and text[i : i + L] == rule.source:
+                # Skip if this span is inside an already-correct longer canonical.
+                if terms and _span_inside_longer_canonical(text, i, L, terms):
+                    continue
                 matched = rule
                 break
         if matched is None:
@@ -533,7 +571,7 @@ def normalize_text(
     if not text:
         return text
     rules = dictionary.sorted_exact_rules()
-    new_text, applied = _greedy_replace_exact(text, rules)
+    new_text, applied = _greedy_replace_exact(text, rules, dictionary.canonical_terms)
     if log_sink is not None:
         for rule in applied:
             log_sink.append(

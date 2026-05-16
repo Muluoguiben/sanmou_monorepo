@@ -73,11 +73,20 @@ homophones:
     kind: lineup
     confidence: 0.90
   # —— 战法/队伍黑话（陈仓批次确认上下文唯一）——
+  # 先放长 source（乌若金汤 → 固若金汤），exact 规则按 source 长度降序匹配，
+  # 保证 4 字「乌若金汤」先于 2 字「金汤」命中，且结果 固若金汤 是受保护
+  # canonical，后续 金汤→金城汤池 不会再误改它。
+  - source: 乌若金汤
+    canonical: 固若金汤
+    kind: skill
+    confidence: 0.92
+    notes: 「固若金汤」(gù ruò jīn tāng) 被 ASR 听成「乌若金汤」；必须先于裸 金汤 规则命中，否则会被改成 乌若金城汤池
+    example_videos: [BV1JARgBYEYE]
   - source: 金汤
     canonical: 金城汤池
     kind: skill
     confidence: 0.85
-    notes: 用户确认陈仓批次「皇马队 = 皇甫嵩 + 司马懿」所带的「金汤」均指 金城汤池（非 固若金汤）；如其他视频出现固若金汤语境再单独抽离
+    notes: 用户确认陈仓批次「皇马队 = 皇甫嵩 + 司马懿」所带的「金汤」均指 金城汤池（非 固若金汤）；裸 金汤 才替换，固若金汤/乌若金汤 由 compound-guard + 上一条规则保护
     example_videos: [BV1JARgBYEYE]
   - source: 百战
     canonical: 百战不殆
