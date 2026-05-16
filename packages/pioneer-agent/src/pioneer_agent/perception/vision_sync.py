@@ -16,12 +16,14 @@ from pioneer_agent.perception.domains import (
     apply_chapter_panel,
     apply_city_buildings,
     apply_popup,
+    apply_recruit_panel,
     apply_resource_bar,
     apply_team_detail,
     apply_team_panel,
     extract_chapter_panel,
     extract_city_buildings,
     extract_popup,
+    extract_recruit_panel,
     extract_resource_bar,
     extract_team_detail,
     extract_team_panel,
@@ -82,6 +84,15 @@ class VisionSync:
             domains.append("chapter_panel")
             if chapter_fragment.notes:
                 notes.extend(chapter_fragment.notes)
+
+        if page == "recruit":
+            recruit_fragment = extract_recruit_panel(
+                image, client=self.client, captured_at=captured_at
+            )
+            state = apply_recruit_panel(state, recruit_fragment)
+            domains.append("recruit_panel")
+            if recruit_fragment.notes:
+                notes.extend(recruit_fragment.notes)
 
         if page == "city":
             city_fragment = extract_city_buildings(

@@ -31,6 +31,8 @@ class _ScriptedVisionClient:
             kind = "popup"
         elif "chapter task panel" in instruction.lower() or "章节" in instruction:
             kind = "chapter_panel"
+        elif "recruitment/soldier panel" in instruction.lower() or "征兵" in instruction:
+            kind = "recruit_panel"
         elif "resource" in instruction.lower() or "top bar" in instruction.lower() or "page type" in instruction.lower():
             kind = "resource_bar"
         elif "城内" in instruction or "city" in instruction.lower() or "building" in instruction.lower():
@@ -148,6 +150,37 @@ class VisionSyncTests(unittest.TestCase):
         self.assertTrue(state.progress["chapter_claimable"])
         self.assertEqual(state.progress["current_chapter_id"], 3)
         self.assertIn("奖励可领", summary.notes)
+
+    def test_recruit_page_runs_recruit_panel(self) -> None:
+        client = _ScriptedVisionClient(
+            [
+                {
+                    "page_type": "recruit",
+                    "resources": {},
+                    "visible_notes": ["征兵"],
+                },
+                {
+                    "reserve_troops": 9000,
+                    "teams": [
+                        {
+                            "team_id": "部队一",
+                            "soldiers": 24000,
+                            "max_soldiers": 30000,
+                            "recruit_button_visible": True,
+                            "recruit_button_enabled": True,
+                        }
+                    ],
+                    "visible_notes": ["可征兵"],
+                },
+            ]
+        )
+        sync = VisionSync(client)
+        state, summary = sync.sync(b"png")
+        self.assertEqual(summary.domains_run, ["resource_bar", "recruit_panel"])
+        self.assertEqual(client.calls, ["resource_bar", "recruit_panel"])
+        self.assertEqual(state.economy["reserve_troops"], 9000)
+        self.assertEqual(state.teams[0]["soldier_deficit"], 6000)
+        self.assertIn("可征兵", summary.notes)
 
     def test_team_page_runs_team_panel(self) -> None:
         client = _ScriptedVisionClient(

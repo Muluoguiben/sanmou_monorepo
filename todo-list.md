@@ -12,7 +12,7 @@
 - [x] `chapter_panel` perception domain（2026-05-17）：新增章节面板 schema/domain/merge/sync，识别当前章节、任务完成状态、奖励是否可领、领取按钮 bbox；输出 `progress.chapter_claimable/current_chapter_id/chapter_tasks` 与 `field_meta["progress.chapter_panel"]`。
 - [ ] `claim_chapter_reward` flow：打开章节面板 → 定位可领取奖励 → 点击领取/确认 → 返回稳定页面；非 dry-run 执行成功时返回 `ok`。
 - [ ] `claim_chapter_reward` verifier：动作后重新截图，验证 `chapter_claimable=false`、奖励状态变化或章节任务状态变化；无 verifier 不允许自动执行。
-- [ ] `recruit_panel` / team soldier perception domain：识别队伍兵力、上限、预备兵、征兵按钮状态，支撑 `recruit_soldiers` Advisor 建议。
+- [x] `recruit_panel` / team soldier perception domain（2026-05-17）：新增征兵面板 schema/domain/merge/sync，识别预备兵、队伍兵力/上限/缺口、征兵中状态、征兵按钮 enabled/bbox，写入 `economy.reserve_troops` 与 `teams[*]`。
 - [ ] `recruit_soldiers` flow：打开征兵面板 → 选择可征兵队伍/数量 → 确认征兵或安全退出；遇到资源不足、队伍 busy、未知弹窗时不得重复点击。
 - [ ] `recruit_soldiers` verifier：动作后重新截图，验证兵力变化、征兵倒计时出现或预备兵减少三者之一。
 - [ ] `upgrade_dialog` perception domain：识别建筑升级确认框、资源消耗、升级按钮、不可升级原因、关闭/取消按钮，支撑低风险建筑升级。

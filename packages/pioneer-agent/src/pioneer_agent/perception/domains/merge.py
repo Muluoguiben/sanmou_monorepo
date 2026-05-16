@@ -20,6 +20,7 @@ from pioneer_agent.core.models import FieldMeta, RuntimeState
 from .chapter_panel import ChapterPanelFragment
 from .city_buildings import CityBuildingsFragment
 from .popup import PopupFragment
+from .recruit_panel import RecruitPanelFragment
 from .resource_bar import ResourceBarFragment
 from .team_detail import TeamDetailFragment
 from .team_panel import TeamPanelFragment
@@ -85,6 +86,23 @@ def apply_chapter_panel(state: RuntimeState, fragment: ChapterPanelFragment) -> 
         merged_progress = dict(state.progress)
         merged_progress.update(fragment.progress)
         updates["progress"] = merged_progress
+
+    merged_meta: dict[str, FieldMeta] = dict(state.field_meta)
+    merged_meta.update(fragment.field_meta)
+    updates["field_meta"] = merged_meta
+
+    return state.model_copy(update=updates)
+
+
+def apply_recruit_panel(state: RuntimeState, fragment: RecruitPanelFragment) -> RuntimeState:
+    updates: dict[str, Any] = {}
+
+    if fragment.economy:
+        merged_economy = dict(state.economy)
+        merged_economy.update(fragment.economy)
+        updates["economy"] = merged_economy
+    if fragment.teams:
+        updates["teams"] = _merge_team_detail_list(state.teams, fragment.teams)
 
     merged_meta: dict[str, FieldMeta] = dict(state.field_meta)
     merged_meta.update(fragment.field_meta)

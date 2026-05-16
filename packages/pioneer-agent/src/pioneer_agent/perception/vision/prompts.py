@@ -18,6 +18,7 @@ PageType = Literal[
     "building",
     "battle",
     "chapter",
+    "recruit",
     "team",
     "team_panel",
     "lineup",
@@ -62,6 +63,7 @@ PAGE_DETECTION_SCHEMA: dict[str, Any] = {
                 "building",
                 "battle",
                 "chapter",
+                "recruit",
                 "team",
                 "team_panel",
                 "lineup",
@@ -256,6 +258,72 @@ CHAPTER_PANEL_INSTRUCTION = (
     "button is visible, report whether it is enabled and provide its 0-1000 "
     "normalized bbox coordinates when clear. Do not mark chapter_claimable true "
     "unless a visible enabled reward/领取 button is present."
+)
+
+
+# ---------------------------------------------------------------------------
+# Recruit panel (征兵 / 预备兵 / 队伍兵力)
+# ---------------------------------------------------------------------------
+
+class RecruitTeamDetection(BaseModel):
+    team_id: str | None = None
+    team_name: str | None = None
+    soldiers: int | None = None
+    max_soldiers: int | None = None
+    recruiting: bool = False
+    recruit_finish_time: str | None = None
+    can_recruit_now: bool = True
+    recruit_button_visible: bool = False
+    recruit_button_enabled: bool = False
+    button_x_min: int | None = Field(default=None, ge=0, le=1000)
+    button_y_min: int | None = Field(default=None, ge=0, le=1000)
+    button_x_max: int | None = Field(default=None, ge=0, le=1000)
+    button_y_max: int | None = Field(default=None, ge=0, le=1000)
+
+
+class RecruitPanelDetection(BaseModel):
+    reserve_troops: int | None = None
+    teams: list[RecruitTeamDetection] = Field(default_factory=list)
+    visible_notes: list[str] = Field(default_factory=list)
+
+
+RECRUIT_PANEL_SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "properties": {
+        "reserve_troops": {"type": "integer"},
+        "teams": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "team_id": {"type": "string"},
+                    "team_name": {"type": "string"},
+                    "soldiers": {"type": "integer"},
+                    "max_soldiers": {"type": "integer"},
+                    "recruiting": {"type": "boolean"},
+                    "recruit_finish_time": {"type": "string"},
+                    "can_recruit_now": {"type": "boolean"},
+                    "recruit_button_visible": {"type": "boolean"},
+                    "recruit_button_enabled": {"type": "boolean"},
+                    "button_x_min": {"type": "integer"},
+                    "button_y_min": {"type": "integer"},
+                    "button_x_max": {"type": "integer"},
+                    "button_y_max": {"type": "integer"},
+                },
+            },
+        },
+        "visible_notes": {"type": "array", "items": {"type": "string"}},
+    },
+    "required": ["teams"],
+}
+
+
+RECRUIT_PANEL_INSTRUCTION = (
+    "This screenshot shows the recruitment/soldier panel in 三国·谋定天下. "
+    "Extract reserve troops (预备兵), each visible team slot, current soldiers, "
+    "max soldiers, whether recruiting is already in progress, recruitment finish "
+    "countdown/time, and whether the recruit/征兵 button is visible and enabled. "
+    "Use 0-1000 normalized bbox coordinates for the recruit button when clear."
 )
 
 
