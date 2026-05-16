@@ -4,7 +4,7 @@ import unittest
 
 import yaml
 
-from pioneer_agent.knowledge.strategy_snapshot import load_strategy_snapshot
+from pioneer_agent.knowledge.strategy_snapshot import load_default_strategy_snapshot, load_strategy_snapshot
 
 
 class StrategySnapshotTests(unittest.TestCase):
@@ -33,6 +33,7 @@ class StrategySnapshotTests(unittest.TestCase):
         self.assertEqual(snapshot.schema_version, "strategy_snapshot.v1")
         self.assertEqual(snapshot.generated_at, "2026-04-13")
         self.assertEqual(snapshot.get_building_priority("building-upgrade")["topic"], "建筑升级")
+        self.assertEqual(snapshot.find_building_priority("建筑升级")["key"], "building-upgrade")
         self.assertEqual(snapshot.get_land_risk_rule("combat-land-level")["priority"], 90)
         self.assertEqual(snapshot.get_lineup_hint("lineup-s1-example")["hero_names"], ["武将甲", "武将乙"])
         self.assertIsNone(snapshot.get("building_priorities", "missing"))
@@ -44,6 +45,21 @@ class StrategySnapshotTests(unittest.TestCase):
 
             with self.assertRaises(ValueError):
                 load_strategy_snapshot(path)
+
+    def test_load_generated_strategy_snapshot_artifact(self) -> None:
+        project_root = Path(__file__).resolve().parents[2]
+        snapshot = load_strategy_snapshot(project_root / "data" / "strategy_snapshot.yaml")
+
+        self.assertGreater(len(snapshot.section("building_priorities")), 0)
+        self.assertGreater(len(snapshot.section("land_risk_rules")), 0)
+        self.assertGreater(len(snapshot.section("lineup_hints")), 0)
+
+    def test_load_default_strategy_snapshot_from_repo_data(self) -> None:
+        snapshot = load_default_strategy_snapshot()
+
+        self.assertIsNotNone(snapshot)
+        assert snapshot is not None
+        self.assertEqual(snapshot.schema_version, "strategy_snapshot.v1")
 
 
 if __name__ == "__main__":

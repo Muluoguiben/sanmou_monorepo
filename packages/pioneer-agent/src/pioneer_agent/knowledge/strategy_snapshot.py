@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -15,6 +16,8 @@ REQUIRED_SECTIONS = (
     "land_risk_rules",
     "lineup_hints",
 )
+DEFAULT_STRATEGY_SNAPSHOT_ENV = "SANMOU_STRATEGY_SNAPSHOT_PATH"
+DEFAULT_STRATEGY_SNAPSHOT_PATH = Path(__file__).resolve().parents[3] / "data" / "strategy_snapshot.yaml"
 
 
 @dataclass(frozen=True)
@@ -45,8 +48,26 @@ class StrategySnapshot:
                 return item
         return default
 
+    def find(self, section: str, term: str | None, default: Any = None) -> dict[str, Any] | Any:
+        if not term:
+            return default
+        normalized = str(term).strip().lower()
+        for item in self.section(section):
+            candidates = [
+                item.get("key"),
+                item.get("topic"),
+                item.get("name"),
+                *(item.get("aliases") or []),
+            ]
+            if any(str(candidate).strip().lower() == normalized for candidate in candidates if candidate):
+                return item
+        return default
+
     def get_building_priority(self, key: str, default: Any = None) -> dict[str, Any] | Any:
         return self.get("building_priorities", key, default)
+
+    def find_building_priority(self, term: str | None, default: Any = None) -> dict[str, Any] | Any:
+        return self.find("building_priorities", term, default)
 
     def get_land_risk_rule(self, key: str, default: Any = None) -> dict[str, Any] | Any:
         return self.get("land_risk_rules", key, default)
@@ -71,3 +92,10 @@ def load_strategy_snapshot(path: Path) -> StrategySnapshot:
     else:
         data = yaml.safe_load(text)
     return StrategySnapshot(_validate_snapshot(data))
+
+
+def load_default_strategy_snapshot(path: Path | None = None) -> StrategySnapshot | None:
+    snapshot_path = path or Path(os.environ.get(DEFAULT_STRATEGY_SNAPSHOT_ENV, DEFAULT_STRATEGY_SNAPSHOT_PATH))
+    if not snapshot_path.exists():
+        return None
+    return load_strategy_snapshot(snapshot_path)

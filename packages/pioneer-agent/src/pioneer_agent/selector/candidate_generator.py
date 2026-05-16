@@ -40,6 +40,7 @@ class CandidateGenerator:
         actions: list[CandidateAction] = []
         for building in state.city.get("upgradeable_buildings", []):
             building_id = building.get("building_id")
+            building_name = building.get("building_name") or building.get("name")
             target_level = building.get("target_level")
             shortages = self._positive_float_map(building.get("resource_shortages", {}))
             total_shortage = round(sum(shortages.values()), 2)
@@ -50,6 +51,7 @@ class CandidateGenerator:
                     action_type=ActionType.UPGRADE_BUILDING,
                     params={
                         "building_id": building_id,
+                        "building_name": building_name,
                         "target_level": target_level,
                         "chapter_relevance": building.get("chapter_relevance", "low_relevance"),
                         "economy_gain": float(building.get("economy_gain", 0)),

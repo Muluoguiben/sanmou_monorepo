@@ -1,0 +1,2244 @@
+schema_version: strategy_snapshot.v1
+generated_at: '2026-05-16'
+sources:
+- path: building.yaml
+  entry_count: 3
+  entry_ids:
+  - building-main-city
+  - building-prerequisite
+  - building-upgrade
+- path: chapter.yaml
+  entry_count: 11
+  entry_ids:
+  - chapter-reward
+  - chapter-task
+  - kdocs-chapter10-upgrade-order
+  - mech-s14-chencang-open9-redline
+  - mech-s14-w11-menke-yimin
+  - mech-s14-w11-zhenyue-shuwei
+  - mech-season-duration
+  - mech-season-preserved
+  - mech-season-reset
+  - mech-season-timeline
+  - mech-season-types
+- path: combat.yaml
+  entry_count: 22
+  entry_ids:
+  - combat-battle-loss
+  - combat-land
+  - combat-land-level
+  - combat-march
+  - kdocs-wangye-logic
+  - kdocs-wangye-troop-traits
+  - kdocs-yanwu-logic
+  - mech-combat-aura-duration
+  - mech-combat-damage-buff
+  - mech-combat-injury
+  - mech-combat-loss-return
+  - mech-combat-low-troop-penalty
+  - mech-combat-newbie-protection
+  - mech-combat-research-tech
+  - mech-combat-rounds
+  - mech-combat-siege
+  - mech-combat-turn-order
+  - mech-land-difficulty-factors
+  - mech-land-exp-decay
+  - mech-land-exp-table
+  - mech-land-inner-city
+  - mech-land-outer-city
+- path: glossary/statuses/buffs.yaml
+  entry_count: 1
+  entry_ids:
+  - status-buff-overview
+- path: glossary/statuses/debuffs.yaml
+  entry_count: 1
+  entry_ids:
+  - status-debuff-overview
+- path: glossary/statuses/profiles-buffs.yaml
+  entry_count: 4
+  entry_ids:
+  - status-awake
+  - status-crit-bonus
+  - status-dodge
+  - status-plot-bonus
+- path: glossary/statuses/profiles-debuffs.yaml
+  entry_count: 5
+  entry_ids:
+  - status-chaos
+  - status-control-group
+  - status-disarm
+  - status-silence-skill
+  - status-stun
+- path: glossary/statuses/registry.yaml
+  entry_count: 1
+  entry_ids:
+  - status-batch-registry
+- path: hero_skill.yaml
+  entry_count: 39
+  entry_ids:
+  - hero-schema
+  - hero-static
+  - kdocs-equip-glyph-recommend
+  - mech-bond-caoweiwumou
+  - mech-bond-faction
+  - mech-bond-guozhidongliang
+  - mech-bond-jiangbiaohuchen
+  - mech-bond-system
+  - mech-bond-taoyuan
+  - mech-bond-wuhu
+  - mech-bond-wuziliangjiang
+  - mech-haozhao-ciyu
+  - mech-hero-deployment
+  - mech-hero-exp-sources
+  - mech-hero-level-cap
+  - mech-hero-level-up-cost
+  - mech-hero-recruitment
+  - mech-hero-training-ground
+  - mech-profession-overview
+  - mech-profession-qingnang
+  - mech-profession-qizuo
+  - mech-profession-shenxing
+  - mech-profession-sicang
+  - mech-profession-tiangong
+  - mech-profession-zhenjun
+  - mech-simayi-yuezhanyueyong
+  - mech-skill-attribute-scaling
+  - mech-skill-judge-order
+  - mech-skill-level-up
+  - mech-skill-pull-attack
+  - mech-skill-rarity
+  - mech-skill-reset
+  - mech-skill-types
+  - sgmdtx-glyph-equipment-effect
+  - sgmdtx-glyph-equipment-technique
+  - sgmdtx-mount-effect
+  - sgmdtx-mount-technique
+  - skill-schema
+  - skill-static
+- path: profiles/heroes/minor.yaml
+  entry_count: 10
+  entry_ids:
+  - hero-丁奉
+  - hero-张曼成
+  - hero-曹洪
+  - hero-曹真
+  - hero-潘璋
+  - hero-皇甫嵩
+  - hero-董袭
+  - hero-蒋钦
+  - hero-陈武
+  - hero-韩当
+- path: profiles/heroes/other.yaml
+  entry_count: 0
+  entry_ids: []
+- path: profiles/heroes/qun.yaml
+  entry_count: 30
+  entry_ids:
+  - hero-于吉
+  - hero-公孙瓒
+  - hero-华佗
+  - hero-华雄
+  - hero-吕布
+  - hero-孟获
+  - hero-左慈
+  - hero-庞德
+  - hero-张宁
+  - hero-张宝
+  - hero-张梁
+  - hero-张角
+  - hero-文丑
+  - hero-木鹿大王
+  - hero-朱儁
+  - hero-李儒
+  - hero-田丰
+  - hero-皇甫嵩
+  - hero-皇甫嵩2
+  - hero-祝融夫人
+  - hero-董卓
+  - hero-蔡文姬
+  - hero-袁术
+  - hero-袁绍
+  - hero-貂蝉
+  - hero-邹氏
+  - hero-陈宫
+  - hero-颜良
+  - hero-马腾
+  - hero-高顺
+- path: profiles/heroes/registry.yaml
+  entry_count: 1
+  entry_ids:
+  - hero-batch-registry
+- path: profiles/heroes/shu.yaml
+  entry_count: 17
+  entry_ids:
+  - hero-liubei
+  - hero-zhugeliang
+  - hero-关羽
+  - hero-关银屏
+  - hero-姜维
+  - hero-庞统
+  - hero-张飞
+  - hero-徐庶
+  - hero-法正
+  - hero-甘夫人
+  - hero-诸葛亮2
+  - hero-赵云
+  - hero-马云禄
+  - hero-马超
+  - hero-魏延
+  - hero-黄忠
+  - hero-黄月英
+- path: profiles/heroes/wei.yaml
+  entry_count: 29
+  entry_ids:
+  - hero-乐进
+  - hero-于禁
+  - hero-关平
+  - hero-典韦
+  - hero-卞夫人
+  - hero-司马懿
+  - hero-周仓
+  - hero-夏侯惇
+  - hero-夏侯渊
+  - hero-张春华
+  - hero-张辽
+  - hero-张郃
+  - hero-徐晃
+  - hero-徐盛
+  - hero-曹丕
+  - hero-曹仁
+  - hero-曹操
+  - hero-曹纯
+  - hero-王双
+  - hero-王异
+  - hero-甄洛
+  - hero-程昱
+  - hero-荀彧
+  - hero-荀攸
+  - hero-许褚
+  - hero-贾诩
+  - hero-邓艾
+  - hero-郝昭
+  - hero-郭嘉
+- path: profiles/heroes/wu.yaml
+  entry_count: 21
+  entry_ids:
+  - hero-凌统
+  - hero-吕蒙
+  - hero-周泰
+  - hero-周瑜
+  - hero-大乔
+  - hero-太史慈
+  - hero-孙坚
+  - hero-孙坚2
+  - hero-孙尚香
+  - hero-孙权
+  - hero-孙策
+  - hero-小乔
+  - hero-张昭
+  - hero-步练师
+  - hero-甘宁
+  - hero-程普
+  - hero-诸葛瑾
+  - hero-陆抗
+  - hero-陆逊
+  - hero-鲁肃
+  - hero-黄盖
+- path: profiles/skills/active.yaml
+  entry_count: 55
+  entry_ids:
+  - skill-caochuanjiejian
+  - skill-一计决胜
+  - skill-上智为间
+  - skill-五雷轰顶
+  - skill-任人唯贤
+  - skill-伏兵四起
+  - skill-克敌如风
+  - skill-冲锐巧变
+  - skill-决水破敌
+  - skill-出其不意
+  - skill-势如破竹
+  - skill-十面埋伏
+  - skill-及锋而试
+  - skill-咏歌尝酒
+  - skill-坚壁清野
+  - skill-坚如磐石
+  - skill-奇门遁甲
+  - skill-威名显赫
+  - skill-屈人之兵
+  - skill-巧利天灾
+  - skill-御敌临前
+  - skill-战八方
+  - skill-指点乾坤
+  - skill-揭竿而起
+  - skill-文武双全
+  - skill-料事如神
+  - skill-斩将夺旗
+  - skill-断戈夺锋
+  - skill-无难之志
+  - skill-明其虚实
+  - skill-未雨绸缪
+  - skill-束手无策
+  - skill-水淹七军
+  - skill-洞若观火
+  - skill-清风驱疾
+  - skill-火羽
+  - skill-烈火张天
+  - skill-烈火焚营
+  - skill-疾行侧击
+  - skill-知人善任
+  - skill-破军袭敌
+  - skill-破阵驰围
+  - skill-神略制变
+  - skill-筹划良策
+  - skill-经天纬地
+  - skill-缄默
+  - skill-诛凶殄逆
+  - skill-诱敌深入
+  - skill-趁火打劫
+  - skill-迎敌
+  - skill-运筹帷幄
+  - skill-青囊急救
+  - skill-风助火势
+  - skill-风卷残云
+  - skill-黄天惑心
+- path: profiles/skills/command.yaml
+  entry_count: 28
+  entry_ids:
+  - skill-shengqilingdi
+  - skill-上兵伐谋
+  - skill-任人择势
+  - skill-千机重城
+  - skill-同舟共济
+  - skill-固若金汤
+  - skill-奇正相生
+  - skill-岿然不动
+  - skill-恩威并行
+  - skill-惩前毖后
+  - skill-折冲御侮
+  - skill-披坚执锐
+  - skill-挫锐折锋
+  - skill-文治武功
+  - skill-断敌粮道
+  - skill-步步为营
+  - skill-潜龙在渊
+  - skill-狂风大作
+  - skill-百战不殆
+  - skill-睿虑合图
+  - skill-瞋目横矛
+  - skill-空城计
+  - skill-舍生取义
+  - skill-蓄势待发
+  - skill-调和阴阳
+  - skill-避其锐气
+  - skill-金城汤池
+  - skill-铸甲销戈
+- path: profiles/skills/passive.yaml
+  entry_count: 27
+  entry_ids:
+  - skill-万夫莫当
+  - skill-临危勇烈
+  - skill-以战养战
+  - skill-以静制动
+  - skill-勇冠三军
+  - skill-如有神助
+  - skill-如沐春风
+  - skill-强袭
+  - skill-忘私相助
+  - skill-掠阵破军
+  - skill-摧坚克难
+  - skill-机变无穷
+  - skill-来好息师
+  - skill-横征暴敛
+  - skill-洗筋伐髓
+  - skill-王佐之才
+  - skill-穷追不舍
+  - skill-缮甲厉兵
+  - skill-胜敌益强
+  - skill-计逐穷寇
+  - skill-谈笑诛心
+  - skill-践墨随敌
+  - skill-蹈锋饮血
+  - skill-运智铺谋
+  - skill-锐不可当
+  - skill-韬光养晦
+  - skill-骁勇之姿
+- path: profiles/skills/pursuit.yaml
+  entry_count: 21
+  entry_ids:
+  - skill-万军辟易
+  - skill-三军夺气
+  - skill-临阵突袭
+  - skill-乘虚而入
+  - skill-乘间投隙
+  - skill-乱敌方阵
+  - skill-兵贵神速
+  - skill-千里突袭
+  - skill-夜袭
+  - skill-奇计迭出
+  - skill-恃勇克敌
+  - skill-攻其不备
+  - skill-文韬武略
+  - skill-智破千军
+  - skill-横扫千军
+  - skill-虎步连环
+  - skill-计袭粮仓
+  - skill-谋而后动
+  - skill-轻装驰援
+  - skill-辕门射戟
+  - skill-铁骑横冲
+- path: profiles/skills/registry.yaml
+  entry_count: 1
+  entry_ids:
+  - skill-batch-registry
+- path: resource_team.yaml
+  entry_count: 40
+  entry_ids:
+  - kdocs-expedition-tech-chapter12
+  - kdocs-profession-recommend
+  - kdocs-resource-exchange-warning
+  - kdocs-stamina-exchange-deadline
+  - kdocs-stamina-exp-jitui-trick
+  - kdocs-tip-123-kaihuang
+  - kdocs-tip-3bing-taozei
+  - kdocs-tip-diangao-daozhuan
+  - kdocs-tip-erdaiyi
+  - kdocs-tip-kong-bingsun
+  - kdocs-tip-wubingying-kai8
+  - kdocs-walkthrough-s1
+  - kdocs-walkthrough-s10-nanjun
+  - kdocs-walkthrough-s11
+  - kdocs-walkthrough-s12
+  - kdocs-walkthrough-s13
+  - kdocs-walkthrough-s2-s3
+  - kdocs-walkthrough-s4-yezhushanhe
+  - kdocs-wangye-professions
+  - mech-item-jinchuangyao
+  - mech-item-jiuzhiyao
+  - mech-item-xingjundan
+  - mech-recruit-fast
+  - mech-recruit-resource
+  - mech-recruit-zizhong
+  - mech-recruit-zizhong-transport
+  - mech-stamina-basics
+  - mech-stamina-kaoji
+  - mech-stamina-wuweizi
+  - mech-troop-counter-chain
+  - mech-troop-reserve
+  - mech-troop-same-type-bonus
+  - mech-troop-siege-weapons
+  - resource-basics
+  - team-general
+  - team-lineup-template
+  - team-recruit
+  - team-slot
+  - team-stamina
+  - team-troops
+- path: solutions/lineups/rating-taxonomy.yaml
+  entry_count: 1
+  entry_ids:
+  - lineup-rating-taxonomy
+- path: solutions/lineups/registry.yaml
+  entry_count: 1
+  entry_ids:
+  - lineup-batch-registry
+- path: solutions/lineups/season-misc.yaml
+  entry_count: 8
+  entry_ids:
+  - video-lineup-bv16j4m1g7ks-early-land-reclaim-xusheng-wenchou-sunjian
+  - video-lineup-bv1kaffyaemb-qianpai-zhugeliang-jiangwei-dui
+  - video-lineup-bv1kaffyaemb-zhao-gan-ti-xi
+  - video-lineup-bv1pcqtbeejg-haozhao-simayi-lineup
+  - video-lineup-bv1pcqtbeejg-manzi-kaihuang-lineup
+  - video-lineup-bv1pcqtbeejg-weiyan-zhangfei-liubei-lineup
+  - video-lineup-bv1pcqtbeejg-zhugejin-zhouyu-lineup
+  - video-lineup-bv1uxk5baeyx-sun-da-sheng-kaihuang
+- path: solutions/lineups/season-s1.yaml
+  entry_count: 17
+  entry_ids:
+  - video-lineup-bv15xamzxesf-sun-da-sheng-kai-huang-dui
+  - video-lineup-bv1d1a7zxezd-hu-wei-cao-cao-dian-wei-fu-zhu
+  - video-lineup-bv1d1a7zxezd-s1-sun-ce-da-qiao-xu-sheng-kai-huang
+  - video-lineup-bv1d1a7zxezd-tong-que-gong-zhou-yu-da-qiao-xiao-qiao
+  - video-lineup-bv1d1a7zxezd-zhong-yi-gong-liu-bei-zhang-fei-huang-zhong
+  - video-lineup-bv1fccmzhern-s1-zero-spend-kaihuang-caiwenji-replace-xusheng
+  - video-lineup-bv1gxkdbmezz-daqiao-zhangfei-zhouyu-dafeiyu
+  - video-lineup-bv1kqxmbqeb9-da-huang-zhu
+  - video-lineup-bv1kqxmbqeb9-diao-liang-dun
+  - video-lineup-bv1kqxmbqeb9-diao-zhen-xiang
+  - video-lineup-bv1kqxmbqeb9-ding-mo-gong
+  - video-lineup-bv1kqxmbqeb9-sun-xiao-yu
+  - video-lineup-bv1kqxmbqeb9-tong-que-gong
+  - video-lineup-bv1kqxmbqeb9-xiao-zhen-xiang
+  - video-lineup-bv1kqxmbqeb9-zhongyi-gong
+  - video-lineup-bv1uxk5baeyx-taoyuan-kaihuang
+  - video-lineup-bv1uxk5baeyx-tongquegong-shuchu
+- path: solutions/lineups/season-s11.yaml
+  entry_count: 8
+  entry_ids:
+  - kdocs-lineup-s11_四海归心-lv10
+  - kdocs-lineup-s11_四海归心-lv11
+  - kdocs-lineup-s11_四海归心-lv12
+  - kdocs-lineup-s11_四海归心-lv5
+  - kdocs-lineup-s11_四海归心-lv6
+  - kdocs-lineup-s11_四海归心-lv7
+  - kdocs-lineup-s11_四海归心-lv8
+  - kdocs-lineup-s11_四海归心-lv9
+- path: solutions/lineups/season-s12.yaml
+  entry_count: 9
+  entry_ids:
+  - kdocs-lineup-s12_弈定江淮-lv10
+  - kdocs-lineup-s12_弈定江淮-lv11
+  - kdocs-lineup-s12_弈定江淮-lv12
+  - kdocs-lineup-s12_弈定江淮-lv5
+  - kdocs-lineup-s12_弈定江淮-lv6
+  - kdocs-lineup-s12_弈定江淮-lv7
+  - kdocs-lineup-s12_弈定江淮-lv8
+  - kdocs-lineup-s12_弈定江淮-lv9
+  - video-lineup-bv1a3rkbgec6-s12-day2-zhurong-zhugeliang-menghuo-swap-lineup
+- path: solutions/lineups/season-s13.yaml
+  entry_count: 10
+  entry_ids:
+  - kdocs-lineup-s13_兴汉讨逆-lv10
+  - kdocs-lineup-s13_兴汉讨逆-lv11
+  - kdocs-lineup-s13_兴汉讨逆-lv12
+  - kdocs-lineup-s13_兴汉讨逆-lv5
+  - kdocs-lineup-s13_兴汉讨逆-lv6
+  - kdocs-lineup-s13_兴汉讨逆-lv7
+  - kdocs-lineup-s13_兴汉讨逆-lv8
+  - kdocs-lineup-s13_兴汉讨逆-lv9
+  - lineup-s13-overview
+  - video-lineup-bv18hc6z7epp-s13-diaochan-zhangning-tianfeng-kaigang
+- path: solutions/lineups/season-s14.yaml
+  entry_count: 14
+  entry_ids:
+  - kdocs-lineup-chencang-lv10
+  - kdocs-lineup-chencang-lv11
+  - kdocs-lineup-chencang-lv12
+  - kdocs-lineup-chencang-lv5
+  - kdocs-lineup-chencang-lv6
+  - kdocs-lineup-chencang-lv7
+  - kdocs-lineup-chencang-lv8
+  - kdocs-lineup-chencang-lv9
+  - video-lineup-s14-day2-zhuge-zhurong-menghuo-1-2
+  - video-lineup-s14-diao-man-8-9
+  - video-lineup-s14-dong-nanman-4-6
+  - video-lineup-s14-simayi-haozhao-caopi-sanbaye
+  - video-lineup-s14-sp-zhugenanman-day2-9
+  - video-lineup-s14-zuo-tian-ning-7
+- path: solutions/lineups/season-s2.yaml
+  entry_count: 1
+  entry_ids:
+  - video-lineup-bv1jw2nbvedj-s2-s3-kaihuang-erdui-liubei-fazheng-machao
+- path: solutions/lineups/season-s4业铸山河.yaml
+  entry_count: 8
+  entry_ids:
+  - kdocs-lineup-s4_业铸山河-lv10
+  - kdocs-lineup-s4_业铸山河-lv11
+  - kdocs-lineup-s4_业铸山河-lv12
+  - kdocs-lineup-s4_业铸山河-lv5
+  - kdocs-lineup-s4_业铸山河-lv6
+  - kdocs-lineup-s4_业铸山河-lv7
+  - kdocs-lineup-s4_业铸山河-lv8
+  - kdocs-lineup-s4_业铸山河-lv9
+- path: terms.yaml
+  entry_count: 6
+  entry_ids:
+  - term-hongdu
+  - term-jitui
+  - term-neicheng-land
+  - term-opening
+  - term-season-code-vs-wcode
+  - term-taozei
+building_priorities:
+- key: building-upgrade
+  topic: 建筑升级
+  aliases:
+  - 升建筑
+  - 升级建筑
+  - 城建升级
+  priority: 95
+  rationale: 建筑升级需要同时满足资源充足和前置条件满足。
+  constraints:
+  - 不同建筑的前置链和需求等级不同。
+  source_ref: KB-RULE-BUILDING-002
+- key: building-prerequisite
+  topic: 建筑前置
+  aliases:
+  - 建筑前置条件
+  - 升级前置
+  - 前置建筑
+  priority: 93
+  rationale: 某项建筑能否升级，不只取决于资源，还取决于其他建筑等级或主城等级是否达到前置条件。
+  constraints:
+  - 实际前置链以游戏内当前建筑树配置为准。
+  source_ref: KB-RULE-BUILDING-003
+- key: building-main-city
+  topic: 主城
+  aliases:
+  - 城主府
+  - 主城建筑
+  priority: 90
+  rationale: 主城是多数城建解锁和章节推进的核心建筑之一。
+  constraints:
+  - 具体升级前置和资源消耗以当前版本建筑面板为准。
+  source_ref: KB-RULE-BUILDING-001
+land_risk_rules:
+- key: combat-land
+  topic: 攻占地块
+  priority: 96
+  signals:
+  - 体力
+  - 征兵
+  - 打地
+  - 攻占土地
+  - 攻地
+  - 队伍
+  rule: 攻占地块前需要确认目标可达、队伍可出征，并评估战损是否可接受。
+  constraints:
+  - 高等级地块和远距离目标通常意味着更高风险与时间成本。
+  source_ref: KB-RULE-COMBAT-001
+- key: mech-land-exp-decay
+  topic: 打地经验衰减
+  priority: 92
+  signals:
+  - 体力机制
+  - 打地经验
+  - 推荐等级
+  - 武将升级
+  - 经验衰减
+  - 越级打地
+  - 降级打地
+  rule: 判定依据为队伍中最低等级武将 vs 土地推荐等级。
+  constraints:
+  - 高级队打低级地无收益也不扣体力，用于清地刷资源。
+  - 降级打地可节省体力但牺牲 20% 经验。
+  source_ref: KB-MECH-LAND-001
+- key: combat-land-level
+  topic: 地块等级
+  priority: 90
+  signals:
+  - 兵力
+  - 几级地
+  - 土地等级
+  - 地等级
+  - 战损
+  - 攻占地块
+  rule: 地块等级通常反映目标收益和守军强度，等级越高，收益与风险往往同时上升。
+  constraints:
+  - 不同等级地块的具体守军与收益以游戏内设定为准。
+  source_ref: KB-RULE-COMBAT-004
+- key: mech-land-exp-table
+  topic: 打地经验表
+  priority: 90
+  signals:
+  - 内城地
+  - 几级地多少经验
+  - 各级地经验
+  - 地块经验
+  - 打地收益
+  - 打地经验衰减
+  - 武将升级经验表
+  rule: 各等级资源地打通后基础经验（100% 经验倍率时）：
+  constraints: []
+  source_ref: KB-MECH-LAND-005
+- key: combat-march
+  topic: 行军时间
+  priority: 88
+  signals:
+  - 体力
+  - 出征时间
+  - 攻占地块
+  - 行军
+  - 跑路时间
+  rule: 行军时间会影响打地的即时收益、往返节奏和后续动作衔接。
+  constraints:
+  - 行军时间受距离、目标位置和当前队伍状态影响。
+  source_ref: KB-RULE-COMBAT-003
+- key: mech-land-inner-city
+  topic: 内城地
+  priority: 88
+  signals:
+  - 内城
+  - 内城资源地
+  - 外城地
+  - 打地经验衰减
+  - 资源地
+  rule: 内城地随主线任务章节解锁。
+  constraints: []
+  source_ref: KB-MECH-LAND-003
+- key: mech-combat-rounds
+  topic: 战斗回合机制
+  priority: 86
+  signals:
+  - 8回合
+  - 平局
+  - 战损
+  - 战斗胜利条件
+  - 连战
+  - 重伤
+  rule: 单场战斗固定 8 回合。
+  constraints: []
+  source_ref: KB-MECH-COMBAT-005
+- key: mech-land-difficulty-factors
+  topic: 打地难度判断
+  priority: 86
+  signals:
+  - 打地关键
+  - 打地兵力够不够
+  - 打地经验衰减
+  - 武将等级上限
+  - 武将进阶
+  - 能不能打
+  rule: 打地能否通过主要看武将等级、武将红度（稀有度/进阶）、品度（品阶）。
+  constraints:
+  - 不要无脑堆兵打越级地——武将等级差距、战法等级不足时兵力多也打不穿。
+  source_ref: KB-MECH-LAND-002
+- key: combat-battle-loss
+  topic: 战损
+  priority: 84
+  signals:
+  - 兵损
+  - 征兵
+  - 战斗损失
+  - 攻占地块
+  rule: 战损是评估打地和持续推进能力的关键成本之一。
+  constraints:
+  - 可接受战损阈值应结合当前阶段、资源和目标收益综合判断。
+  source_ref: KB-RULE-COMBAT-002
+- key: mech-combat-injury
+  topic: 重伤
+  priority: 84
+  signals:
+  - 休整
+  - 战损
+  - 重伤时间
+  - 重伤状态
+  - 金疮药
+  - 青囊
+  rule: 与玩家部队战斗后部队进入重伤状态，叠加「休整」层数。
+  constraints: []
+  source_ref: KB-MECH-COMBAT-001
+- key: mech-land-outer-city
+  topic: 外城地
+  priority: 82
+  signals:
+  - 内城地
+  - 外城
+  - 外城资源地
+  - 扩充资源地
+  - 研究所战斗科技
+  - 赛季剧本
+  rule: 外城地随主线章节任务解锁。
+  constraints: []
+  source_ref: KB-MECH-LAND-004
+- key: mech-combat-loss-return
+  topic: 战损返还
+  priority: 80
+  signals:
+  - 战损
+  - 战损换粮
+  - 战损转化
+  - 新手保护
+  - 重伤
+  - 青囊
+  rule: 清剿叛军营地：兵力按 90% 返还为粮食。
+  constraints: []
+  source_ref: KB-MECH-COMBAT-002
+- key: mech-combat-newbie-protection
+  topic: 新手保护
+  priority: 76
+  signals:
+  - 战法重置
+  - 攻占地块
+  - 新手保护期
+  - 新手期
+  rule: 新手保护期 48 小时。
+  constraints: []
+  source_ref: KB-MECH-COMBAT-004
+- key: mech-combat-low-troop-penalty
+  topic: 兵力低伤害衰减
+  priority: 75
+  signals:
+  - 低兵伤害
+  - 兵力
+  - 兵力影响伤害
+  - 增减伤与易伤
+  - 残血伤害
+  - 补兵
+  rule: 武将当前兵力低于一定阈值时，其造成的伤害会显著下降。
+  constraints: []
+  source_ref: KB-MECH-COMBAT-008
+lineup_hints:
+- key: video-lineup-s14-simayi-haozhao-caopi-sanbaye
+  name: S14 司马懿-郝昭-曹丕三霸业队
+  aliases:
+  - 司马懿郝昭曹丕
+  - 三霸业组队
+  season_tags:
+  - S14
+  - 陈仓之围
+  - W11
+  lineup_rating: null
+  hero_names:
+  - 司马懿
+  - 郝昭
+  - 曹丕
+  core_skills:
+  - 未雨绸缪
+  - 鹰视狼顾
+  - 潜龙在渊
+  - 步步为营
+  - 金城汤池
+  - 双冰令
+  scenario_tags:
+  - PVP
+  - 主力队
+  - 盾兵
+  - 四回合终结
+  notes:
+  - 兵种三盾；怕马超
+  - 来源：三谋君不凡 BV1aeQnB3Ehw
+  source_ref: BILIBILI:BV1aeQnB3Ehw#0-580
+- key: video-lineup-s14-day2-zhuge-zhurong-menghuo-1-2
+  name: S14 第二天 诸葛祝融孟获 1-2 开荒队
+  aliases:
+  - 诸葛祝融孟获
+  - 诸满孟
+  season_tags:
+  - S14
+  - 陈仓之围
+  - W11
+  lineup_rating: null
+  hero_names:
+  - 诸葛亮
+  - 祝融夫人
+  - 孟获
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 第二天
+  - 9级地
+  - 1-2开荒
+  - 123开荒
+  notes:
+  - 一队 35 级以后二三队等级不重要
+  - 金书第一本解锁即可触发链式奶
+  - 来源：小仔哥321 BV1KGdbBPEfx
+  source_ref: BILIBILI:BV1KGdbBPEfx#0-472
+- key: video-lineup-s14-sp-zhugenanman-day2-9
+  name: S14 第二天 SP诸葛南蛮开 9 级地
+  aliases:
+  - SP诸葛南蛮
+  - 诸葛亮2南蛮
+  season_tags:
+  - S14
+  - 陈仓之围
+  - W11
+  lineup_rating: null
+  hero_names:
+  - 诸葛亮2
+  - 祝融夫人
+  - 孟获
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 第二天
+  - 9级地
+  notes:
+  - 来源：铁血雕馋 BV142QnBAE8a
+  source_ref: BILIBILI:BV142QnBAE8a#0-167
+- key: video-lineup-s14-diao-man-8-9
+  name: S14 貂蛮 8-9 级地开荒队
+  aliases:
+  - 貂蛮
+  - 貂蝉南蛮
+  season_tags:
+  - S14
+  - 陈仓之围
+  - W11
+  lineup_rating: null
+  hero_names:
+  - 貂蝉
+  - 祝融夫人
+  - 孟获
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 8级地
+  - 9级地
+  notes:
+  - 来源：铁血雕馋 BV142QnBAE8a
+  source_ref: BILIBILI:BV142QnBAE8a#101-145
+- key: video-lineup-s14-zuo-tian-ning-7
+  name: S14 左田宁 7 级地开荒队
+  aliases:
+  - 左田宁
+  - 左天宁
+  season_tags:
+  - S14
+  - 陈仓之围
+  - W11
+  lineup_rating: null
+  hero_names:
+  - 左慈
+  - 田丰
+  - 张宁
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 7级地
+  - 省兵
+  notes:
+  - 来源：铁血雕馋 BV142QnBAE8a
+  source_ref: BILIBILI:BV142QnBAE8a#77-121
+- key: video-lineup-s14-dong-nanman-4-6
+  name: S14 董南蛮 4-6 级地开荒队
+  aliases:
+  - 董南蛮
+  - 董卓南蛮
+  season_tags:
+  - S14
+  - 陈仓之围
+  - W11
+  lineup_rating: null
+  hero_names:
+  - 董卓
+  - 祝融夫人
+  - 孟获
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 4级地
+  - 5级地
+  - 6级地
+  notes:
+  - 来源：铁血雕馋 BV142QnBAE8a
+  source_ref: BILIBILI:BV142QnBAE8a#77-101
+- key: kdocs-lineup-chencang-lv10
+  name: 陈仓之围 十级地开荒阵
+  aliases:
+  - 陈仓之围10级地
+  - S14十级地
+  season_tags:
+  - S14
+  lineup_rating: 最优
+  hero_names:
+  - 孟获
+  - 祝融夫人
+  core_skills:
+  - 空城计
+  scenario_tags:
+  - 开荒
+  - 十级地
+  - 雁形阵
+  notes:
+  - 来源：小仔哥 kdocs 开荒合集 (2026-04-14)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-04-14#chencangzhiwei-row10
+- key: kdocs-lineup-chencang-lv11
+  name: 陈仓之围 十一级地开荒阵
+  aliases:
+  - 陈仓之围11级地
+  - S14十一级地
+  season_tags:
+  - S14
+  lineup_rating: 最优
+  hero_names:
+  - 孟获
+  - 祝融夫人
+  core_skills:
+  - 践墨随敌
+  scenario_tags:
+  - 开荒
+  - 十一级地
+  - 雁形阵
+  notes:
+  - 来源：小仔哥 kdocs 开荒合集 (2026-04-14)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-04-14#chencangzhiwei-row11
+- key: kdocs-lineup-chencang-lv12
+  name: 陈仓之围 十二级地开荒阵
+  aliases:
+  - 陈仓之围12级地
+  - S14十二级地
+  season_tags:
+  - S14
+  lineup_rating: 最优
+  hero_names:
+  - 孟获
+  - 祝融夫人
+  core_skills:
+  - 空城计
+  scenario_tags:
+  - 开荒
+  - 十二级地
+  - 雁形阵
+  notes:
+  - 来源：小仔哥 kdocs 开荒合集 (2026-04-14)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-04-14#chencangzhiwei-row12
+- key: kdocs-lineup-chencang-lv5
+  name: 陈仓之围 五级地开荒阵
+  aliases:
+  - 陈仓之围5级地
+  - S14五级地
+  season_tags:
+  - S14
+  lineup_rating: 最优
+  hero_names:
+  - 貂蝉
+  - 孟获
+  - 祝融夫人
+  core_skills:
+  - 折冲御侮
+  - 金城汤池
+  - 胜敌而益强
+  scenario_tags:
+  - 开荒
+  - 五级地
+  - 内城优先
+  notes:
+  - 战法简称对照：折冲=折冲御侮，金城=金城汤池，胜敌=胜敌而益强。
+  - 来源：小仔哥 kdocs 开荒合集 (2026-04-14)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-04-14#chencangzhiwei-row5
+- key: kdocs-lineup-chencang-lv6
+  name: 陈仓之围 六级地开荒阵
+  aliases:
+  - 陈仓之围6级地
+  - S14六级地
+  season_tags:
+  - S14
+  lineup_rating: 最优
+  hero_names:
+  - 貂蝉
+  - 祝融夫人
+  - 孟获
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 六级地
+  notes:
+  - 简称对照：貂蛮=貂蝉+祝融夫人+孟获。
+  - 来源：小仔哥 kdocs 开荒合集 (2026-04-14)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-04-14#chencangzhiwei-row6
+- key: kdocs-lineup-chencang-lv7
+  name: 陈仓之围 七级地开荒阵
+  aliases:
+  - 陈仓之围7级地
+  - S14七级地
+  season_tags:
+  - S14
+  lineup_rating: 最优
+  hero_names:
+  - 左慈
+  - 田丰
+  - 张宁
+  core_skills:
+  - 束手无策
+  scenario_tags:
+  - 开荒
+  - 七级地
+  - 外城
+  notes:
+  - 简称对照：左田宁=左慈+田丰+张宁；南蛮=蛮族开荒队（孟获+祝融夫人+第三人）。
+  - 来源：小仔哥 kdocs 开荒合集 (2026-04-14)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-04-14#chencangzhiwei-row7
+- key: kdocs-lineup-chencang-lv8
+  name: 陈仓之围 八级地开荒阵
+  aliases:
+  - 陈仓之围8级地
+  - S14八级地
+  season_tags:
+  - S14
+  lineup_rating: 最优
+  hero_names:
+  - 董卓
+  - 祝融夫人
+  - 孟获
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 八级地
+  - 内城
+  notes:
+  - 简称对照：董蛮=董卓+祝融夫人+孟获。
+  - 来源：小仔哥 kdocs 开荒合集 (2026-04-14)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-04-14#chencangzhiwei-row8
+- key: kdocs-lineup-chencang-lv9
+  name: 陈仓之围 九级地开荒阵
+  aliases:
+  - 陈仓之围9级地
+  - S14九级地
+  season_tags:
+  - S14
+  lineup_rating: 最优
+  hero_names:
+  - 孟获
+  - 祝融夫人
+  core_skills:
+  - 挫锐
+  - 践墨随敌
+  - 披坚执锐
+  scenario_tags:
+  - 开荒
+  - 九级地
+  - 雁形阵
+  notes:
+  - 简称对照：南蛮/蛮猪猪=蛮族开荒队；第三人视情况为董卓、貂蝉、诸葛亮2。
+  - 来源：小仔哥 kdocs 开荒合集 (2026-04-14)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-04-14#chencangzhiwei-row9
+- key: kdocs-lineup-s11_四海归心-lv10
+  name: 四海归心 10级地开荒阵
+  aliases:
+  - 四海归心10级地
+  - S1110级地
+  season_tags:
+  - S11
+  lineup_rating: 最优
+  hero_names: []
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 10级地
+  notes:
+  - 来源：小仔哥《四海归心》 kdocs 开荒合集 (2025-12-25)。
+  source_ref: KDOCS:xiaozai-kaihuang-2025-12-25#S11-四海归心-lv10
+- key: kdocs-lineup-s11_四海归心-lv11
+  name: 四海归心 11级地开荒阵
+  aliases:
+  - 四海归心11级地
+  - S1111级地
+  season_tags:
+  - S11
+  lineup_rating: 最优
+  hero_names: []
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 11级地
+  notes:
+  - 来源：小仔哥《四海归心》 kdocs 开荒合集 (2025-12-25)。
+  source_ref: KDOCS:xiaozai-kaihuang-2025-12-25#S11-四海归心-lv11
+- key: kdocs-lineup-s11_四海归心-lv12
+  name: 四海归心 12级地开荒阵
+  aliases:
+  - 四海归心12级地
+  - S1112级地
+  season_tags:
+  - S11
+  lineup_rating: 最优
+  hero_names: []
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 12级地
+  notes:
+  - 来源：小仔哥《四海归心》 kdocs 开荒合集 (2025-12-25)。
+  source_ref: KDOCS:xiaozai-kaihuang-2025-12-25#S11-四海归心-lv12
+- key: kdocs-lineup-s11_四海归心-lv5
+  name: 四海归心 5级地开荒阵
+  aliases:
+  - 四海归心5级地
+  - S115级地
+  season_tags:
+  - S11
+  lineup_rating: 最优
+  hero_names:
+  - 董卓
+  - 祝融夫人
+  - 孟获
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 5级地
+  notes:
+  - 来源：小仔哥《四海归心》 kdocs 开荒合集 (2025-12-25)。
+  source_ref: KDOCS:xiaozai-kaihuang-2025-12-25#S11-四海归心-lv5
+- key: kdocs-lineup-s11_四海归心-lv6
+  name: 四海归心 6级地开荒阵
+  aliases:
+  - 四海归心6级地
+  - S116级地
+  season_tags:
+  - S11
+  lineup_rating: 最优
+  hero_names:
+  - 董卓
+  - 祝融夫人
+  - 孟获
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 6级地
+  notes:
+  - 来源：小仔哥《四海归心》 kdocs 开荒合集 (2025-12-25)。
+  source_ref: KDOCS:xiaozai-kaihuang-2025-12-25#S11-四海归心-lv6
+- key: kdocs-lineup-s11_四海归心-lv7
+  name: 四海归心 7级地开荒阵
+  aliases:
+  - 四海归心7级地
+  - S117级地
+  season_tags:
+  - S11
+  lineup_rating: 最优
+  hero_names:
+  - 左慈
+  - 田丰
+  - 张宁
+  - 董卓
+  - 祝融夫人
+  - 孟获
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 7级地
+  notes:
+  - 来源：小仔哥《四海归心》 kdocs 开荒合集 (2025-12-25)。
+  source_ref: KDOCS:xiaozai-kaihuang-2025-12-25#S11-四海归心-lv7
+- key: kdocs-lineup-s11_四海归心-lv8
+  name: 四海归心 8级地开荒阵
+  aliases:
+  - 四海归心8级地
+  - S118级地
+  season_tags:
+  - S11
+  lineup_rating: 最优
+  hero_names:
+  - 左慈
+  - 田丰
+  - 张宁
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 8级地
+  notes:
+  - 来源：小仔哥《四海归心》 kdocs 开荒合集 (2025-12-25)。
+  source_ref: KDOCS:xiaozai-kaihuang-2025-12-25#S11-四海归心-lv8
+- key: kdocs-lineup-s11_四海归心-lv9
+  name: 四海归心 9级地开荒阵
+  aliases:
+  - 四海归心9级地
+  - S119级地
+  season_tags:
+  - S11
+  lineup_rating: 最优
+  hero_names: []
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 9级地
+  notes:
+  - 来源：小仔哥《四海归心》 kdocs 开荒合集 (2025-12-25)。
+  source_ref: KDOCS:xiaozai-kaihuang-2025-12-25#S11-四海归心-lv9
+- key: kdocs-lineup-s12_弈定江淮-lv10
+  name: 弈定江淮 10级地开荒阵
+  aliases:
+  - 弈定江淮10级地
+  - S1210级地
+  season_tags:
+  - S12
+  lineup_rating: 最优
+  hero_names: []
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 10级地
+  notes:
+  - 来源：小仔哥《弈定江淮》 kdocs 开荒合集 (2026-01-14)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-01-14#S12-弈定江淮-lv10
+- key: kdocs-lineup-s12_弈定江淮-lv11
+  name: 弈定江淮 11级地开荒阵
+  aliases:
+  - 弈定江淮11级地
+  - S1211级地
+  season_tags:
+  - S12
+  lineup_rating: 最优
+  hero_names: []
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 11级地
+  notes:
+  - 来源：小仔哥《弈定江淮》 kdocs 开荒合集 (2026-01-14)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-01-14#S12-弈定江淮-lv11
+- key: kdocs-lineup-s12_弈定江淮-lv12
+  name: 弈定江淮 12级地开荒阵
+  aliases:
+  - 弈定江淮12级地
+  - S1212级地
+  season_tags:
+  - S12
+  lineup_rating: 最优
+  hero_names: []
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 12级地
+  notes:
+  - 来源：小仔哥《弈定江淮》 kdocs 开荒合集 (2026-01-14)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-01-14#S12-弈定江淮-lv12
+- key: kdocs-lineup-s12_弈定江淮-lv5
+  name: 弈定江淮 5级地开荒阵
+  aliases:
+  - 弈定江淮5级地
+  - S125级地
+  season_tags:
+  - S12
+  lineup_rating: 最优
+  hero_names:
+  - 董卓
+  - 祝融夫人
+  - 孟获
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 5级地
+  notes:
+  - 来源：小仔哥《弈定江淮》 kdocs 开荒合集 (2026-01-14)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-01-14#S12-弈定江淮-lv5
+- key: kdocs-lineup-s12_弈定江淮-lv6
+  name: 弈定江淮 6级地开荒阵
+  aliases:
+  - 弈定江淮6级地
+  - S126级地
+  season_tags:
+  - S12
+  lineup_rating: 最优
+  hero_names:
+  - 董卓
+  - 祝融夫人
+  - 孟获
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 6级地
+  notes:
+  - 来源：小仔哥《弈定江淮》 kdocs 开荒合集 (2026-01-14)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-01-14#S12-弈定江淮-lv6
+- key: kdocs-lineup-s12_弈定江淮-lv7
+  name: 弈定江淮 7级地开荒阵
+  aliases:
+  - 弈定江淮7级地
+  - S127级地
+  season_tags:
+  - S12
+  lineup_rating: 最优
+  hero_names:
+  - 董卓
+  - 祝融夫人
+  - 孟获
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 7级地
+  notes:
+  - 来源：小仔哥《弈定江淮》 kdocs 开荒合集 (2026-01-14)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-01-14#S12-弈定江淮-lv7
+- key: kdocs-lineup-s12_弈定江淮-lv8
+  name: 弈定江淮 8级地开荒阵
+  aliases:
+  - 弈定江淮8级地
+  - S128级地
+  season_tags:
+  - S12
+  lineup_rating: 最优
+  hero_names:
+  - 董卓
+  - 祝融夫人
+  - 孟获
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 8级地
+  notes:
+  - 来源：小仔哥《弈定江淮》 kdocs 开荒合集 (2026-01-14)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-01-14#S12-弈定江淮-lv8
+- key: kdocs-lineup-s12_弈定江淮-lv9
+  name: 弈定江淮 9级地开荒阵
+  aliases:
+  - 弈定江淮9级地
+  - S129级地
+  season_tags:
+  - S12
+  lineup_rating: 最优
+  hero_names:
+  - 董卓
+  - 祝融夫人
+  - 孟获
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 9级地
+  notes:
+  - 来源：小仔哥《弈定江淮》 kdocs 开荒合集 (2026-01-14)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-01-14#S12-弈定江淮-lv9
+- key: kdocs-lineup-s13_兴汉讨逆-lv10
+  name: 兴汉讨逆 10级地开荒阵
+  aliases:
+  - 兴汉讨逆10级地
+  - S1310级地
+  season_tags:
+  - S13
+  lineup_rating: 最优
+  hero_names: []
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 10级地
+  notes:
+  - 来源：小仔哥《兴汉讨逆》 kdocs 开荒合集 (2026-02-27)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-02-27#S13-兴汉讨逆-lv10
+- key: kdocs-lineup-s13_兴汉讨逆-lv11
+  name: 兴汉讨逆 11级地开荒阵
+  aliases:
+  - 兴汉讨逆11级地
+  - S1311级地
+  season_tags:
+  - S13
+  lineup_rating: 最优
+  hero_names: []
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 11级地
+  notes:
+  - 来源：小仔哥《兴汉讨逆》 kdocs 开荒合集 (2026-02-27)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-02-27#S13-兴汉讨逆-lv11
+- key: kdocs-lineup-s13_兴汉讨逆-lv12
+  name: 兴汉讨逆 12级地开荒阵
+  aliases:
+  - 兴汉讨逆12级地
+  - S1312级地
+  season_tags:
+  - S13
+  lineup_rating: 最优
+  hero_names: []
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 12级地
+  notes:
+  - 来源：小仔哥《兴汉讨逆》 kdocs 开荒合集 (2026-02-27)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-02-27#S13-兴汉讨逆-lv12
+- key: kdocs-lineup-s13_兴汉讨逆-lv5
+  name: 兴汉讨逆 5级地开荒阵
+  aliases:
+  - 兴汉讨逆5级地
+  - S135级地
+  season_tags:
+  - S13
+  lineup_rating: 最优
+  hero_names:
+  - 董卓
+  - 孟获
+  - 祝融夫人
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 5级地
+  notes:
+  - 来源：小仔哥《兴汉讨逆》 kdocs 开荒合集 (2026-02-27)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-02-27#S13-兴汉讨逆-lv5
+- key: kdocs-lineup-s13_兴汉讨逆-lv6
+  name: 兴汉讨逆 6级地开荒阵
+  aliases:
+  - 兴汉讨逆6级地
+  - S136级地
+  season_tags:
+  - S13
+  lineup_rating: 最优
+  hero_names:
+  - 董卓
+  - 祝融夫人
+  - 孟获
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 6级地
+  notes:
+  - 来源：小仔哥《兴汉讨逆》 kdocs 开荒合集 (2026-02-27)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-02-27#S13-兴汉讨逆-lv6
+- key: kdocs-lineup-s13_兴汉讨逆-lv7
+  name: 兴汉讨逆 7级地开荒阵
+  aliases:
+  - 兴汉讨逆7级地
+  - S137级地
+  season_tags:
+  - S13
+  lineup_rating: 最优
+  hero_names:
+  - 董卓
+  - 祝融夫人
+  - 孟获
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 7级地
+  notes:
+  - 来源：小仔哥《兴汉讨逆》 kdocs 开荒合集 (2026-02-27)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-02-27#S13-兴汉讨逆-lv7
+- key: kdocs-lineup-s13_兴汉讨逆-lv8
+  name: 兴汉讨逆 8级地开荒阵
+  aliases:
+  - 兴汉讨逆8级地
+  - S138级地
+  season_tags:
+  - S13
+  lineup_rating: 最优
+  hero_names:
+  - 董卓
+  - 祝融夫人
+  - 孟获
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 8级地
+  notes:
+  - 来源：小仔哥《兴汉讨逆》 kdocs 开荒合集 (2026-02-27)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-02-27#S13-兴汉讨逆-lv8
+- key: kdocs-lineup-s13_兴汉讨逆-lv9
+  name: 兴汉讨逆 9级地开荒阵
+  aliases:
+  - 兴汉讨逆9级地
+  - S139级地
+  season_tags:
+  - S13
+  lineup_rating: 最优
+  hero_names:
+  - 董卓
+  - 祝融夫人
+  - 孟获
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 9级地
+  notes:
+  - 来源：小仔哥《兴汉讨逆》 kdocs 开荒合集 (2026-02-27)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-02-27#S13-兴汉讨逆-lv9
+- key: kdocs-lineup-s4_业铸山河-lv10
+  name: 业铸山河 10级地开荒阵
+  aliases:
+  - 业铸山河10级地
+  - S4业铸山河10级地
+  season_tags:
+  - S4业铸山河
+  lineup_rating: 最优
+  hero_names: []
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 10级地
+  notes:
+  - 来源：小仔哥《业铸山河》 kdocs 开荒合集 (2026-03-03)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-03-03#S4-业铸山河-lv10
+- key: kdocs-lineup-s4_业铸山河-lv11
+  name: 业铸山河 11级地开荒阵
+  aliases:
+  - 业铸山河11级地
+  - S4业铸山河11级地
+  season_tags:
+  - S4业铸山河
+  lineup_rating: 最优
+  hero_names: []
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 11级地
+  notes:
+  - 来源：小仔哥《业铸山河》 kdocs 开荒合集 (2026-03-03)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-03-03#S4-业铸山河-lv11
+- key: kdocs-lineup-s4_业铸山河-lv12
+  name: 业铸山河 12级地开荒阵
+  aliases:
+  - 业铸山河12级地
+  - S4业铸山河12级地
+  season_tags:
+  - S4业铸山河
+  lineup_rating: 最优
+  hero_names: []
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 12级地
+  notes:
+  - 来源：小仔哥《业铸山河》 kdocs 开荒合集 (2026-03-03)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-03-03#S4-业铸山河-lv12
+- key: kdocs-lineup-s4_业铸山河-lv5
+  name: 业铸山河 5级地开荒阵
+  aliases:
+  - 业铸山河5级地
+  - S4业铸山河5级地
+  season_tags:
+  - S4业铸山河
+  lineup_rating: 最优
+  hero_names:
+  - 袁绍
+  - 蔡文姬
+  - 董卓
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 5级地
+  notes:
+  - 来源：小仔哥《业铸山河》 kdocs 开荒合集 (2026-03-03)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-03-03#S4-业铸山河-lv5
+- key: kdocs-lineup-s4_业铸山河-lv6
+  name: 业铸山河 6级地开荒阵
+  aliases:
+  - 业铸山河6级地
+  - S4业铸山河6级地
+  season_tags:
+  - S4业铸山河
+  lineup_rating: 最优
+  hero_names:
+  - 袁绍
+  - 蔡文姬
+  - 董卓
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 6级地
+  notes:
+  - 来源：小仔哥《业铸山河》 kdocs 开荒合集 (2026-03-03)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-03-03#S4-业铸山河-lv6
+- key: kdocs-lineup-s4_业铸山河-lv7
+  name: 业铸山河 7级地开荒阵
+  aliases:
+  - 业铸山河7级地
+  - S4业铸山河7级地
+  season_tags:
+  - S4业铸山河
+  lineup_rating: 最优
+  hero_names:
+  - 左慈
+  - 田丰
+  - 张宁
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 7级地
+  notes:
+  - 来源：小仔哥《业铸山河》 kdocs 开荒合集 (2026-03-03)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-03-03#S4-业铸山河-lv7
+- key: kdocs-lineup-s4_业铸山河-lv8
+  name: 业铸山河 8级地开荒阵
+  aliases:
+  - 业铸山河8级地
+  - S4业铸山河8级地
+  season_tags:
+  - S4业铸山河
+  lineup_rating: 最优
+  hero_names:
+  - 左慈
+  - 田丰
+  - 张宁
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 8级地
+  notes:
+  - 来源：小仔哥《业铸山河》 kdocs 开荒合集 (2026-03-03)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-03-03#S4-业铸山河-lv8
+- key: kdocs-lineup-s4_业铸山河-lv9
+  name: 业铸山河 9级地开荒阵
+  aliases:
+  - 业铸山河9级地
+  - S4业铸山河9级地
+  season_tags:
+  - S4业铸山河
+  lineup_rating: 最优
+  hero_names: []
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 9级地
+  notes:
+  - 来源：小仔哥《业铸山河》 kdocs 开荒合集 (2026-03-03)。
+  source_ref: KDOCS:xiaozai-kaihuang-2026-03-03#S4-业铸山河-lv9
+- key: video-lineup-bv15xamzxesf-sun-da-sheng-kai-huang-dui
+  name: S1 孙大圣开荒队
+  aliases:
+  - 孙大圣开荒队
+  season_tags:
+  - S1
+  lineup_rating: 新手开荒神器
+  hero_names:
+  - 孙策
+  - 徐盛
+  - 大乔
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 新手
+  - 零氪月卡党
+  notes:
+  - 该阵容名称与定位来自视频原话。
+  - 证据片段：342s-376s
+  source_ref: BILIBILI:BV15xamzXEsF#342-376
+- key: video-lineup-bv16j4m1g7ks-early-land-reclaim-xusheng-wenchou-sunjian
+  name: 新手开荒过渡队：徐盛+文丑+孙坚
+  aliases:
+  - 前期开荒队
+  - 徐盛文丑孙坚开荒
+  season_tags: []
+  lineup_rating: 推荐
+  hero_names:
+  - 徐盛
+  - 文丑
+  - 孙坚
+  core_skills:
+  - 避其锐气
+  - 永隔长久
+  scenario_tags:
+  - 开荒
+  - 前期过渡
+  - 10级后
+  notes:
+  - 视频中示例先以文丑作为最高物理输出，孙坚作为中间位携带辅助治疗技能。
+  - 证据片段：1219s-1247s
+  source_ref: BILIBILI:BV16J4m1g7Ks#1219-1247
+- key: video-lineup-bv18hc6z7epp-s13-diaochan-zhangning-tianfeng-kaigang
+  name: S13 貂蝉张宁田丰开荒过渡队
+  aliases:
+  - 貂蝉张宁田丰
+  - 张宁过渡队
+  season_tags:
+  - S13
+  lineup_rating: 满红高品开荒
+  hero_names:
+  - 貂蝉
+  - 张宁
+  - 田丰
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 20级过渡
+  - 内城攻打
+  notes:
+  - 上一段还提到貂蝉全智力，能与该过渡队形成连续证据。
+  - 证据片段：141s-168s
+  source_ref: BILIBILI:BV18hc6z7Epp#141-168
+- key: video-lineup-bv1a3rkbgec6-s12-day2-zhurong-zhugeliang-menghuo-swap-lineup
+  name: S12 第二天一带二带三置换队
+  aliases:
+  - 第二波一带二带三
+  - 祝融-诸葛亮-孟获置换队
+  season_tags:
+  - S12
+  lineup_rating: null
+  hero_names:
+  - 祝融夫人
+  - 诸葛亮
+  - 孟获
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 第二天流程
+  - 一带二
+  - 一带三
+  - 置换练级
+  notes:
+  - 原视频还提到后续第三波一带二带三的置换步骤与第二波相同。
+  - 证据片段：150s-179s
+  source_ref: BILIBILI:BV1a3rkBgEC6#150-179
+- key: video-lineup-bv1d1a7zxezd-hu-wei-cao-cao-dian-wei-fu-zhu
+  name: 中期打架阵容：虎卫
+  aliases:
+  - 胡卫
+  - 虎卫
+  season_tags:
+  - S1
+  lineup_rating: 强度有保障
+  hero_names:
+  - 曹操
+  - 典韦
+  core_skills: []
+  scenario_tags:
+  - 中期打架
+  - 中期过渡
+  notes:
+  - 证据片段：316s-341s
+  source_ref: BILIBILI:BV1D1A7zxEzd#316-341
+- key: video-lineup-bv1d1a7zxezd-s1-sun-ce-da-qiao-xu-sheng-kai-huang
+  name: S1 新手开荒队：孙策+大乔+徐盛
+  aliases:
+  - 孙大乔徐盛
+  - 新手T1开荒队
+  season_tags:
+  - S1
+  lineup_rating: T1级开荒队
+  hero_names:
+  - 孙策
+  - 大乔
+  - 徐盛
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 新手
+  notes:
+  - 上一段提到该组合容易获取且发挥稳定。
+  - 证据片段：288s-316s
+  source_ref: BILIBILI:BV1D1A7zxEzd#288-316
+- key: video-lineup-bv1d1a7zxezd-tong-que-gong-zhou-yu-da-qiao-xiao-qiao
+  name: 中期打架阵容：铜雀弓
+  aliases:
+  - 铜雀宫
+  - 铜雀弓
+  season_tags:
+  - S1
+  lineup_rating: 强度有保障
+  hero_names:
+  - 周瑜
+  - 大乔
+  - 小乔
+  core_skills: []
+  scenario_tags:
+  - 中期打架
+  - 中期过渡
+  notes:
+  - 证据片段：316s-341s
+  source_ref: BILIBILI:BV1D1A7zxEzd#316-341
+- key: video-lineup-bv1d1a7zxezd-zhong-yi-gong-liu-bei-zhang-fei-huang-zhong
+  name: 中期打架阵容：忠义弓
+  aliases:
+  - 忠义弓
+  season_tags:
+  - S1
+  lineup_rating: 强度有保障
+  hero_names:
+  - 刘备
+  - 张飞
+  - 黄忠
+  core_skills: []
+  scenario_tags:
+  - 中期打架
+  - 中期过渡
+  notes:
+  - 证据片段：316s-341s
+  source_ref: BILIBILI:BV1D1A7zxEzd#316-341
+- key: video-lineup-bv1fccmzhern-s1-zero-spend-kaihuang-caiwenji-replace-xusheng
+  name: S1零氪开荒队中蔡文姬替换徐盛方案
+  aliases:
+  - 蔡文姬开荒替换徐盛
+  season_tags:
+  - S1
+  lineup_rating: null
+  hero_names:
+  - 蔡文姬
+  - 徐盛
+  core_skills:
+  - 全体治疗
+  - 概率抵御
+  scenario_tags:
+  - 开荒
+  - 前期
+  - 土地攻打
+  notes:
+  - 这是基于单片段可确认的信息抽取出的高置信候选。
+  - 证据片段：179s-198s
+  source_ref: BILIBILI:BV1fCcmzHErn#179-198
+- key: video-lineup-bv1gxkdbmezz-daqiao-zhangfei-zhouyu-dafeiyu
+  name: S1 大飞鱼阵容
+  aliases:
+  - 大飞鱼
+  - 大乔张飞周瑜
+  season_tags:
+  - S1
+  lineup_rating: 中后段转型强队
+  hero_names:
+  - 大乔
+  - 张飞
+  - 周瑜
+  core_skills:
+  - 横征暴敛
+  - 披坚执锐
+  - 威名显赫
+  - 势如破竹
+  - 王佐之才
+  - 谈笑诛心
+  - 绝水破敌
+  scenario_tags:
+  - 开荒转型
+  - 七级地
+  - 八级地
+  notes:
+  - 作者建议张飞补先攻，以保证先手出手。
+  - 证据片段：2066s-2085s
+  source_ref: BILIBILI:BV1GXkDBMEzZ#2066-2085
+- key: video-lineup-bv1jw2nbvedj-s2-s3-kaihuang-erdui-liubei-fazheng-machao
+  name: S2&S3开荒二队刘备法正马超
+  aliases:
+  - 二队刘备法正马超
+  season_tags:
+  - S2
+  - S3
+  lineup_rating: null
+  hero_names:
+  - 刘备
+  - 法正
+  - 马超
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  - 二队
+  notes:
+  - 来源为视频元数据摘要型转录，信息较简略。
+  - 证据片段：0s-400s
+  source_ref: BILIBILI:BV1jw2nBvEdj#0-400
+- key: video-lineup-bv1kaffyaemb-qianpai-zhugeliang-jiangwei-dui
+  name: 前排诸葛亮姜维队
+  aliases:
+  - 诸葛姜维
+  season_tags: []
+  lineup_rating: 特殊情况
+  hero_names:
+  - 诸葛亮
+  - 姜维
+  - 黄月英
+  core_skills: []
+  scenario_tags:
+  - 方法论例外
+  - 赛季限定适用
+  notes:
+  - 该候选更适合作为赛季限定体系认知，而非通用阵容。
+  - 证据片段：1077s-1104s
+  source_ref: BILIBILI:BV1KaffYAEmb#1077-1104
+- key: video-lineup-bv1kaffyaemb-zhao-gan-ti-xi
+  name: 赵甘体系
+  aliases:
+  - 赵甘
+  season_tags: []
+  lineup_rating: 少数例外队伍
+  hero_names:
+  - 赵云
+  - 甘夫人
+  core_skills: []
+  scenario_tags:
+  - 配队方法论
+  - 单辅助保双核例外
+  notes:
+  - 可作为体系候选，但不是可直接照抄的完整三人阵容。
+  - 证据片段：1009s-1031s
+  source_ref: BILIBILI:BV1KaffYAEmb#1009-1031
+- key: video-lineup-bv1kqxmbqeb9-da-huang-zhu
+  name: S1 大黄猪
+  aliases:
+  - 大黄酥
+  season_tags:
+  - S1
+  lineup_rating: T0.3-
+  hero_names:
+  - 诸葛亮
+  - 大乔
+  - 黄盖
+  core_skills:
+  - 雁行阵
+  - 横征暴敛
+  - 铸甲销戈
+  scenario_tags:
+  - 首发
+  - 打架
+  - 清杂
+  - 虐菜
+  notes:
+  - 后文明确提到该队包含诸葛亮、黄盖、大乔。
+  - 证据片段：217s-252s
+  source_ref: BILIBILI:BV1kQXmBqEb9#217-252
+- key: video-lineup-bv1kqxmbqeb9-diao-liang-dun
+  name: S1 雕梁盾
+  aliases:
+  - 刁兰盾
+  season_tags:
+  - S1
+  lineup_rating: T0.5
+  hero_names:
+  - 貂蝉
+  - 蔡文姬
+  - 张梁
+  core_skills:
+  - 百战不殆
+  - 兵令
+  - 一骑绝尘
+  scenario_tags:
+  - 打架
+  - 均衡
+  - 肉队
+  notes:
+  - 视频补充蔡文姬不能全速或全智，推荐约30速以卡破抵御节奏。
+  - 证据片段：1170s-1196s
+  source_ref: BILIBILI:BV1kQXmBqEb9#1170-1196
+- key: video-lineup-bv1kqxmbqeb9-diao-zhen-xiang
+  name: S1 貂真香
+  aliases:
+  - 刁真香
+  - 真香体系
+  season_tags:
+  - S1
+  lineup_rating: T0
+  hero_names:
+  - 貂蝉
+  - 甄洛
+  - 孙尚香
+  core_skills:
+  - 雁行阵
+  - 骁勇之姿
+  - 锐不可当
+  - 战八方
+  scenario_tags:
+  - 打架
+  - 高爆发
+  - 平民可降配
+  notes:
+  - 视频还提到一赛季会送貂蝉，降低了组队门槛。
+  - 证据片段：332s-355s
+  source_ref: BILIBILI:BV1kQXmBqEb9#332-355
+- key: video-lineup-bv1kqxmbqeb9-ding-mo-gong
+  name: S1 顶魔弓
+  aliases:
+  - 顶魔攻
+  - 顶魔功
+  season_tags:
+  - S1
+  lineup_rating: T0.3
+  hero_names:
+  - 郭嘉
+  - 荀彧
+  - 曹操
+  core_skills:
+  - 文武双全
+  - 青囊急救
+  scenario_tags:
+  - 打架
+  - 均衡
+  - 法师队
+  notes:
+  - 视频称其对兵刃队有很强的秒杀能力，并依赖荀彧奶量与全队高智属性。
+  - 证据片段：786s-817s
+  source_ref: BILIBILI:BV1kQXmBqEb9#786-817
+- key: video-lineup-bv1kqxmbqeb9-sun-xiao-yu
+  name: S1 孙小鱼
+  aliases: []
+  season_tags:
+  - S1
+  lineup_rating: T0.8
+  hero_names:
+  - 孙权
+  - 小乔
+  - 周瑜
+  core_skills:
+  - 奇门遁甲
+  - 青囊急救
+  scenario_tags:
+  - 开荒
+  - 打架
+  - 控制
+  notes:
+  - 视频建议奇门遁甲可替换为青囊急救。
+  - 证据片段：2292s-2321s
+  source_ref: BILIBILI:BV1kQXmBqEb9#2292-2321
+- key: video-lineup-bv1kqxmbqeb9-tong-que-gong
+  name: S1 铜雀弓
+  aliases:
+  - 铜雀宫
+  - 同学宫
+  season_tags:
+  - S1
+  lineup_rating: 未明确分级
+  hero_names:
+  - 大乔
+  - 小乔
+  - 周瑜
+  core_skills:
+  - 料事如神
+  scenario_tags:
+  - 开荒
+  - 打架
+  notes:
+  - 前文提到铜雀弓属于少数可从开荒用到打架的队伍之一。
+  - 证据片段：1595s-1626s
+  source_ref: BILIBILI:BV1kQXmBqEb9#1595-1626
+- key: video-lineup-bv1kqxmbqeb9-xiao-zhen-xiang
+  name: S1 小真香
+  aliases:
+  - 小真相
+  season_tags:
+  - S1
+  lineup_rating: T0
+  hero_names:
+  - 小乔
+  - 甄洛
+  - 孙尚香
+  core_skills:
+  - 无难之志
+  - 战八方
+  scenario_tags:
+  - 打架
+  - 控制
+  notes:
+  - 视频同时指出小乔有机动离心，因此部分技能触发更稳定。
+  - 证据片段：383s-410s
+  source_ref: BILIBILI:BV1kQXmBqEb9#383-410
+- key: video-lineup-bv1kqxmbqeb9-zhongyi-gong
+  name: S1 忠义弓
+  aliases:
+  - 忠义工
+  - 中立功
+  season_tags:
+  - S1
+  lineup_rating: T0
+  hero_names:
+  - 刘备
+  - 张飞
+  - 黄忠
+  core_skills:
+  - 兵书
+  - 仁义论
+  scenario_tags:
+  - 开荒
+  - 远征
+  - 打架
+  - 35级转型
+  notes:
+  - 主播将其定义为一赛季最均衡的核心队伍之一。
+  - 证据片段：438s-464s
+  source_ref: BILIBILI:BV1kQXmBqEb9#438-464
+- key: video-lineup-bv1pcqtbeejg-haozhao-simayi-lineup
+  name: 郝昭司马懿体系
+  aliases:
+  - 郝昭司马懿队
+  season_tags: []
+  lineup_rating: 可玩/有强度
+  hero_names:
+  - 郝昭
+  - 司马懿
+  core_skills: []
+  scenario_tags:
+  - 常规对战
+  notes:
+  - 视频中提到郝昭也可能不配司马懿，但主播明确认为最适配的仍是司马懿。
+  - 证据片段：200s-225s
+  source_ref: BILIBILI:BV1PCQtBEEJg#200-225
+- key: video-lineup-bv1pcqtbeejg-manzi-kaihuang-lineup
+  name: 孟获祝融蛮子开荒队
+  aliases:
+  - 蛮子开荒
+  - 孟获祝融开荒
+  season_tags: []
+  lineup_rating: 开荒顶级
+  hero_names:
+  - 孟获
+  - 祝融夫人
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  notes:
+  - 开荒三人阵第三人候选：貂蝉 / 董卓 / 诸葛亮2（SP诸葛亮）（玩家共识，2026-04-15）。
+  - 证据片段：106s-144s
+  source_ref: BILIBILI:BV1PCQtBEEJg#106-144
+- key: video-lineup-bv1pcqtbeejg-weiyan-zhangfei-liubei-lineup
+  name: 魏延张飞刘备队
+  aliases:
+  - 魏延蜀枪
+  - 魏延刘备张飞
+  season_tags: []
+  lineup_rating: 常规强队/较本赛季走弱
+  hero_names:
+  - 魏延
+  - 张飞
+  - 刘备
+  core_skills:
+  - 沉木
+  - 折冲御侮
+  scenario_tags:
+  - 常规对战
+  notes:
+  - 后续片段提到可把沉木给张飞、刘备带折冲之类的配置。
+  - 证据片段：421s-455s
+  source_ref: BILIBILI:BV1PCQtBEEJg#421-455
+- key: video-lineup-bv1pcqtbeejg-zhugejin-zhouyu-lineup
+  name: 诸葛瑾周瑜队
+  aliases:
+  - 老周瑜诸葛瑾
+  season_tags: []
+  lineup_rating: 可偶尔使用
+  hero_names:
+  - 诸葛瑾
+  - 周瑜
+  core_skills:
+  - 畸变无穷
+  scenario_tags:
+  - 常规对战
+  notes:
+  - 主播同时高度评价陆抗与诸葛瑾，但本候选仅保留明确成队信息。
+  - 证据片段：372s-395s
+  source_ref: BILIBILI:BV1PCQtBEEJg#372-395
+- key: video-lineup-bv1uxk5baeyx-sun-da-sheng-kaihuang
+  name: 主流开荒队“孙大圣”
+  aliases:
+  - 孙大圣
+  - 徐盛孙策大乔开荒队
+  season_tags: []
+  lineup_rating: 主流开荒
+  hero_names:
+  - 徐盛
+  - 孙策
+  - 大乔
+  core_skills:
+  - 制霸江东
+  - 国色
+  scenario_tags:
+  - 开荒
+  - 前期开地
+  notes:
+  - 讲解中还提到徐盛首日赠送、孙策次日赠送。
+  - 证据片段：614s-638s
+  source_ref: BILIBILI:BV1uXk5BaEyX#614-638
+- key: video-lineup-bv1uxk5baeyx-taoyuan-kaihuang
+  name: 桃园开荒队
+  aliases:
+  - 桃园
+  - 刘备关羽张飞
+  - 桃园结义
+  season_tags:
+  - S1
+  lineup_rating: 非常主流
+  hero_names:
+  - 刘备
+  - 关羽
+  - 张飞
+  core_skills:
+  - 贤明渡江
+  - 威名显赫
+  scenario_tags:
+  - 开荒
+  - 前期打架
+  notes:
+  - 视频中提到累计充值68元可送张飞及战法“威名显赫”。
+  - 证据片段：955s-975s
+  source_ref: BILIBILI:BV1uXk5BaEyX#955-975
+- key: video-lineup-bv1uxk5baeyx-tongquegong-shuchu
+  name: S1 输出队“铜雀宫”
+  aliases:
+  - 铜雀宫
+  - 大乔小乔周瑜
+  season_tags:
+  - S1
+  lineup_rating: 输出OK
+  hero_names:
+  - 大乔
+  - 小乔
+  - 周瑜
+  core_skills:
+  - 横征暴敛
+  - 断敌粮道
+  - 奇门遁甲
+  - 清风驱疾
+  - 束手无策
+  - 王佐之才
+  - 谈笑诛心
+  scenario_tags:
+  - 输出队
+  - 打架
+  notes:
+  - 视频中将该队用于说明配将思路，强调其为S1的一类输出阵容。
+  - 证据片段：1257s-1280s
+  source_ref: BILIBILI:BV1uXk5BaEyX#1257-1280

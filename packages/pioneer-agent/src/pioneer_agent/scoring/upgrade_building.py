@@ -9,11 +9,13 @@ def score_upgrade_building(building: dict[str, Any]) -> tuple[float, dict[str, f
     battle_gain = float(building.get("battle_support_gain", 0))
     tempo_gain = 10.0 if building.get("chapter_relevance") == "complete_current_task" else 4.0
     resource_penalty = float(building.get("resource_cost_penalty", 0))
+    strategy_priority_bonus = min(float(building.get("strategy_priority", 0) or 0) / 10.0, 12.0)
     breakdown = {
         "chapter_gain": chapter_gain,
         "economy_gain": economy_gain,
         "battle_gain": battle_gain,
         "tempo_gain": tempo_gain,
+        "strategy_priority_bonus": strategy_priority_bonus,
         "resource_penalty": -resource_penalty,
     }
     return round(sum(breakdown.values()), 2), {key: round(value, 2) for key, value in breakdown.items()}

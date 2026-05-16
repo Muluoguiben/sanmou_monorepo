@@ -6,6 +6,7 @@ from typing import Any
 
 from pioneer_agent.core.enums import ActionType
 from pioneer_agent.core.models import CandidateAction, RuntimeState, SelectionResult
+from pioneer_agent.knowledge.strategy_snapshot import StrategySnapshot, load_default_strategy_snapshot
 from pioneer_agent.scoring.attack_land import score_attack_land
 from pioneer_agent.scoring.recruit import score_recruit_soldiers
 from pioneer_agent.scoring.transfer import score_transfer
@@ -17,10 +18,18 @@ from pioneer_agent.selector.priority_rules import PriorityRules
 
 
 class ActionSelector:
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        *,
+        strategy_snapshot: StrategySnapshot | None = None,
+        load_default_strategy: bool = True,
+    ) -> None:
         self.candidate_generator = CandidateGenerator()
         self.candidate_filter = CandidateFilter()
         self.priority_rules = PriorityRules()
+        self.strategy_snapshot = strategy_snapshot
+        if self.strategy_snapshot is None and load_default_strategy:
+            self.strategy_snapshot = load_default_strategy_snapshot()
 
     def select(self, state: RuntimeState) -> SelectionResult:
         generated = self.candidate_generator.generate(state)
@@ -75,12 +84,11 @@ class ActionSelector:
         ranked.sort(key=lambda item: item.score_total, reverse=True)
         return ranked
 
-    @staticmethod
-    def _score_candidate(candidate: CandidateAction) -> tuple[float, dict[str, float]]:
+    def _score_candidate(self, candidate: CandidateAction) -> tuple[float, dict[str, float]]:
         if candidate.action_type == ActionType.CLAIM_CHAPTER_REWARD:
             return 10_000.0, {"priority_rule": 10_000.0}
         if candidate.action_type == ActionType.UPGRADE_BUILDING:
-            return score_upgrade_building(candidate.params)
+            return score_upgrade_building(self._with_strategy_snapshot(candidate.params))
         if candidate.action_type == ActionType.TRANSFER_MAIN_LINEUP_TO_TEAM:
             return score_transfer(candidate.params)
         if candidate.action_type == ActionType.ATTACK_LAND:
@@ -94,6 +102,30 @@ class ActionSelector:
         if candidate.action_type == ActionType.INSPECT_TEAM_READINESS:
             return ActionSelector._score_team_readiness(candidate.params)
         return 0.0, {}
+
+    def _with_strategy_snapshot(self, params: dict[str, Any]) -> dict[str, Any]:
+        if self.strategy_snapshot is None:
+            return params
+        priority = self._find_building_priority(params)
+        if not priority:
+            return params
+        enriched = dict(params)
+        enriched["strategy_priority"] = float(priority.get("priority", 0) or 0)
+        enriched["strategy_key"] = priority.get("key")
+        return enriched
+
+    def _find_building_priority(self, params: dict[str, Any]) -> dict[str, Any] | None:
+        if self.strategy_snapshot is None:
+            return None
+        for term in (
+            params.get("building_id"),
+            params.get("building_name"),
+            params.get("name"),
+        ):
+            match = self.strategy_snapshot.find_building_priority(str(term) if term else None)
+            if match:
+                return match
+        return None
 
     def _compute_next_replan_time(self, state: RuntimeState, selected: CandidateAction | None) -> datetime:
         current_time = self._get_current_time(state) or datetime.utcnow()
