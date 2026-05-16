@@ -44,7 +44,10 @@ npm run dev
 ```
 
 The Electron main process starts `pioneer_agent.app.advisor_api` on
-`127.0.0.1:8765`. Set `SANMOU_ADVISOR_API_URL` to use an already running API.
+`127.0.0.1:8765`. It probes `PYTHON`, repo `.venv`, package `.venv`, and
+system Python before spawning the API, and surfaces missing dependency errors
+in the app status panel. Set `SANMOU_ADVISOR_API_URL` to use an already running
+API and skip local Python startup.
 
 ## Checks
 
@@ -63,7 +66,7 @@ npm run build
 - `SANMOU_ADVISOR_API_URL`: use an external API instead of starting Python from Electron.
 - `SANMOU_ADVISOR_PORT`: local API port, default `8765`.
 - `SANMOU_REPO_ROOT`: explicit repo root for Electron main process.
-- `PYTHON`: Python executable used by Electron when starting the API.
+- `PYTHON`: first Python executable Electron probes when starting the API.
 
 ## Product Boundary
 

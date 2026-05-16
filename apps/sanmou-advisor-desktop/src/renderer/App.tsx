@@ -18,11 +18,12 @@ import { ChangeEvent, DragEvent, FormEvent, useEffect, useMemo, useRef, useState
 import {
   analyzeScreenshot,
   clearKillSwitch,
+  getRuntimeConfig,
   healthCheck,
   sendAdvisorMessage,
   triggerKillSwitch
 } from "./api";
-import type { AnalyzeOptions, AdvisorReport, ChatMessage, DevicePlatform, KillSwitchStatus } from "./types";
+import type { AnalyzeOptions, AdvisorReport, ChatMessage, DevicePlatform, KillSwitchStatus, RuntimeConfig } from "./types";
 
 const platformOptions: Array<{ value: DevicePlatform; label: string }> = [
   { value: "unknown", label: "自动" },
@@ -44,6 +45,7 @@ const initialOptions: AnalyzeOptions = {
 
 export default function App() {
   const [apiStatus, setApiStatus] = useState<"checking" | "ok" | "down">("checking");
+  const [runtimeConfig, setRuntimeConfig] = useState<RuntimeConfig | null>(null);
   const [dataDir, setDataDir] = useState("");
   const [killSwitch, setKillSwitch] = useState<KillSwitchStatus | null>(null);
   const [killSwitchBusy, setKillSwitchBusy] = useState(false);
@@ -67,13 +69,37 @@ export default function App() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    healthCheck()
-      .then((payload) => {
+    let cancelled = false;
+
+    async function refreshHealth() {
+      const config = await getRuntimeConfig().catch(() => null);
+      if (cancelled) {
+        return;
+      }
+      setRuntimeConfig(config);
+      try {
+        const payload = await waitForHealth();
+        if (cancelled) {
+          return;
+        }
         setApiStatus(payload.status === "ok" ? "ok" : "down");
         setDataDir(payload.data_dir);
         setKillSwitch(payload.kill_switch);
-      })
-      .catch(() => setApiStatus("down"));
+      } catch {
+        if (cancelled) {
+          return;
+        }
+        setApiStatus("down");
+        if (config?.apiLaunch?.status === "failed" || config?.apiLaunch?.status === "exited") {
+          setError(formatApiLaunchError(config));
+        }
+      }
+    }
+
+    refreshHealth();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
@@ -308,7 +334,9 @@ export default function App() {
             {apiStatus === "checking" ? <Loader2 size={14} className="spin" /> : <CheckCircle2 size={14} />}
             <span>API {apiStatusLabel(apiStatus)}</span>
           </div>
-          <p title={dataDir}>{dataDir || "data/advisor"}</p>
+          <p title={runtimeConfig?.apiLaunch?.detail || dataDir}>
+            {apiStatus === "ok" ? dataDir || "data/advisor" : apiLaunchLabel(runtimeConfig)}
+          </p>
           <div className={`kill-status ${killSwitch?.triggered ? "active" : ""}`}>
             <div>
               <strong>停机开关</strong>
@@ -527,6 +555,52 @@ function apiStatusLabel(status: "checking" | "ok" | "down"): string {
     return "在线";
   }
   return "离线";
+}
+
+function apiLaunchLabel(config: RuntimeConfig | null): string {
+  const launch = config?.apiLaunch;
+  if (!launch) {
+    return "等待 API 启动信息";
+  }
+  if (launch.mode === "external") {
+    return `外部 API：${config?.apiBaseUrl ?? launch.apiBaseUrl}`;
+  }
+  if (launch.status === "running") {
+    return `Python：${launch.python ?? "已启动"}`;
+  }
+  if (launch.status === "failed") {
+    return "Python 启动失败";
+  }
+  if (launch.status === "exited") {
+    return "Python API 已退出";
+  }
+  return "Python API 未启动";
+}
+
+function formatApiLaunchError(config: RuntimeConfig): string {
+  const launch = config.apiLaunch;
+  if (!launch?.error) {
+    return `API 离线：${config.apiBaseUrl}`;
+  }
+  const attempted = launch.attemptedPython?.length ? `；已尝试 ${launch.attemptedPython.join(", ")}` : "";
+  return `${launch.error}${attempted}`;
+}
+
+async function waitForHealth(maxAttempts = 20, delayMs = 500) {
+  let lastError: unknown = null;
+  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+    try {
+      return await healthCheck();
+    } catch (err) {
+      lastError = err;
+      await delay(delayMs);
+    }
+  }
+  throw lastError;
+}
+
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => window.setTimeout(resolve, ms));
 }
 
 function formatCapturedAt(value: string): string {

@@ -36,7 +36,7 @@
 - [x] Action verifier eval（2026-05-17）：新增 `tests/fixtures/verifier/action_verifier_eval.json` 与 `pioneer_agent.verifier.eval`，覆盖 `claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` 的成功、状态未变化、误识别、超时、弹窗打断；同时让 `VerifierBase` 支持 `teams.0.*` / `city.buildings.0.*` 列表索引路径。
 - [x] qa-agent 接入 Advisor chat（2026-05-17）：`/api/advisor/chat` 对建筑/打地/阵容/战法等知识问题懒加载 `qa-agent QueryService`，结合 `AdvisorReport` 的页面与推荐动作生成回答和 evidence；无 qa-agent 环境或无证据时回退本地 Advisor 模板，不引入 runtime LLM 依赖。
 - [x] 开荒阵容策略 snapshot（2026-05-17）：从 qa-agent reviewed knowledge 导出 `packages/pioneer-agent/data/strategy_snapshot.yaml`；`pioneer_agent.knowledge.strategy_snapshot` 支持默认加载，`ActionSelector` 默认读取离线 snapshot，并把建筑优先级注入 `upgrade_building` scoring，避免 runtime 每 tick 依赖 LLM。
-- [ ] Desktop API packaging：Electron 启动 Python API 时自动发现可用 Python、依赖缺失时给出明确错误，并支持外部 `SANMOU_ADVISOR_API_URL`。
+- [x] Desktop API packaging（2026-05-17）：Electron 启动 Python API 时按 `PYTHON`、repo `.venv`、package `.venv`、系统 Python 自动探测可用解释器；启动前 probe `pioneer_agent.app.advisor_api` / FastAPI / Uvicorn / multipart 依赖，失败时把明确错误和已尝试 Python 写入 runtime config 与前端状态；继续支持外部 `SANMOU_ADVISOR_API_URL` 跳过本地启动。
 
 ## P1 — 真实自动化环境适配
 

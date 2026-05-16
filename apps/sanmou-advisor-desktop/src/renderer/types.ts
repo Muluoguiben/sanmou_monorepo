@@ -9,6 +9,17 @@ export type RuntimeConfig = {
   apiBaseUrl: string;
   repoRoot: string;
   externalApi: boolean;
+  apiLaunch?: ApiLaunchStatus;
+};
+
+export type ApiLaunchStatus = {
+  mode: "embedded" | "external";
+  status: "skipped" | "running" | "failed" | "exited";
+  apiBaseUrl: string;
+  python?: string;
+  error?: string;
+  detail?: string;
+  attemptedPython?: string[];
 };
 
 export type KillSwitchStatus = {
