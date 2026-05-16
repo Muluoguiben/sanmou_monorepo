@@ -31,6 +31,39 @@ homophones:
     canonical: 皇甫嵩
     kind: hero
     confidence: 0.95
+  # —— 武将名 ASR 同音错字（task #9 Part B 字幕回查确认）——
+  - source: 卫言
+    canonical: 魏延
+    kind: hero
+    confidence: 0.90
+    notes: 同音 wèi yán；BV1fXosBGEHd「南蛮克制魏延，魏延克制孙坚」
+    example_videos: [BV1fXosBGEHd]
+  - source: 卫炎
+    canonical: 魏延
+    kind: hero
+    confidence: 0.90
+  - source: 孙间
+    canonical: 孙坚
+    kind: hero
+    confidence: 0.88
+    notes: 同音 sūn jiān；BV1fXosBGEHd「孙间斩将夺旗」
+    example_videos: [BV1fXosBGEHd]
+  - source: 田封
+    canonical: 田丰
+    kind: hero
+    confidence: 0.88
+    notes: 同音 tián fēng；BV1fXosBGEHd 左田孙语境
+    example_videos: [BV1fXosBGEHd]
+  - source: 填封
+    canonical: 田丰
+    kind: hero
+    confidence: 0.85
+  - source: 马妹
+    canonical: 马云禄
+    kind: hero
+    confidence: 0.88
+    notes: 马超之妹昵称；BV1R4d3BfENk「红利期最能砍马妹…带舍生取义」；KB 有马云禄
+    example_videos: [BV1R4d3BfENk]
   # —— 战法 ASR 同音错字 ——
   - source: 屹然不动
     canonical: 岿然不动
@@ -41,6 +74,22 @@ homophones:
     canonical: 岿然不动
     kind: skill
     confidence: 0.85
+  - source: 匮蓝不动
+    canonical: 岿然不动
+    kind: skill
+    confidence: 0.88
+    notes: 同音 kuì lán→kuī rán，「不动」精确；BV1JARgBYEYE 好星火 special lineup
+    example_videos: [BV1JARgBYEYE]
+  - source: 一技学生
+    canonical: 一计决胜
+    kind: skill
+    confidence: 0.88
+    notes: 同音 yī jì xué shēng→yī jì jué shèng；BV1JARgBYEYE「田丰带了一计决胜…打周瑜直接给到周瑜就会获胜」；KB 有 skill 一计决胜
+    example_videos: [BV1JARgBYEYE]
+  - source: 一计学生
+    canonical: 一计决胜
+    kind: skill
+    confidence: 0.90
   - source: 见不随敌
     canonical: 践墨随敌
     kind: skill
@@ -51,6 +100,30 @@ homophones:
     canonical: 践墨随敌
     kind: skill
     confidence: 0.95
+  - source: 导崩引穴
+    canonical: 蹈锋饮血
+    kind: skill
+    confidence: 0.88
+    notes: 同音 dǎo bēng yǐn xué→dǎo fēng yǐn xuè；BV1JARgBYEYE C方案百爆周瑜「断敌粮道+蹈锋饮血」；KB skills/passive 有蹈锋饮血（用户确认）
+    example_videos: [BV1JARgBYEYE]
+  - source: 芥末随机
+    canonical: 缄默
+    kind: skill
+    confidence: 0.85
+    notes: 同音 jiè mò→jiān mò（随机为 ASR 噪声）；BV1kVohBPEeS 曹丕司马懿携带；用户确认 canonical=缄默（KB skills 暂未收录，属 KB 补全缺口）
+    example_videos: [BV1kVohBPEeS]
+  - source: 诸雄铁力
+    canonical: 诛凶殄逆
+    kind: skill
+    confidence: 0.85
+    notes: 同音 zhū xióng tiě lì→zhū xiōng tiǎn nì；BV1kVohBPEeS 左田孙「靠诛凶殄逆和斩将夺旗」；用户确认=群孙坚自带技能 诛凶殄逆（KB 暂未收录）
+    example_videos: [BV1kVohBPEeS]
+  - source: 正月数位
+    canonical: 镇岳戍卫
+    kind: skill
+    confidence: 0.85
+    notes: 同音 zhēng yuè shù wèi→zhèn yuè shù wèi；BV1fXosBGEHd「下赛季的镇岳戍卫让这队变成三盾兵」；用户确认 canonical=镇岳戍卫（幕僚为队伍类型上下文；KB 暂未收录）
+    example_videos: [BV1fXosBGEHd]
   - source: 卫羽成魔
     canonical: 未雨绸缪
     kind: skill
