@@ -77,8 +77,8 @@
 - [ ] Electron 打包发布：Windows/macOS/Linux 构建、签名、升级通道、崩溃日志。
 - [ ] Bilibili 视频自动发现 CLI：新增 `qa_agent.app.discover_bilibili`，按 keyword/时间范围搜索候选视频，排除已收录 BVID，输出可直接接入 bundle/pipeline 的候选清单。
 - [ ] 多 agent 协作约定：补 `notes/agent-collab.md` 或项目协作说明，约定 @Claude / @Codex 收到任务先 ack、谁 claim 谁负责、长时间无响应时如何转单。
-- [ ] Repo-local runbook 收敛：把 `AGENTS.md` / `CLAUDE.md` 风格说明收敛成仓库内 runbook，至少覆盖 knowledge ingestion、Advisor fixture/eval、computer-use safety、model probing、发布/回滚步骤。
-- [ ] Workflow / session boundary：把知识采集、模型探测、Advisor fixture/eval、自动化执行拆成独立 workflow/session，明确输入输出、环境变量、日志位置和禁止跨 session 复用的上下文，减少长上下文污染。
+- [x] Repo-local runbook 收敛（2026-05-17）：新增 `docs/repo-local-runbook.md`，收敛 `AGENTS.md` / `CLAUDE.md` 风格说明，覆盖 knowledge ingestion、Advisor fixture/eval、computer-use safety、model probing、automation execution、发布/回滚与 handoff 规则。
+- [x] Workflow / session boundary（2026-05-17）：`docs/repo-local-runbook.md` 明确 knowledge ingestion、model probing、Advisor fixture/eval、automation execution 四类独立 workflow/session 的输入、输出/日志和禁止跨 session 复用的上下文。
 - [ ] ADB capture adapter：安卓模拟器/真机 live screenshot，不默认启用 input control。
 - [ ] MapGridState 可视化：截图坐标映射到地图逻辑格子，支持土地规划、格子占用、资源分配。
 - [ ] Copilot Mode：仅在 verifier/safety/recovery 完成后开放低风险动作自动执行。
