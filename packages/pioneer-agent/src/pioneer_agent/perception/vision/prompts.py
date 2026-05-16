@@ -193,6 +193,93 @@ POPUP_DETECTION_INSTRUCTION = (
 
 
 # ---------------------------------------------------------------------------
+# Mode hub / event tournament (征战入口 / 演武大会等活动)
+# ---------------------------------------------------------------------------
+
+class ModeHubEntryDetection(BaseModel):
+    name: str
+    status: Literal["available", "locked", "in_progress", "finished", "unknown"] = "unknown"
+    score: int | None = None
+    rank: int | None = None
+    countdown: str | None = None
+    can_enter: bool = False
+    can_claim: bool = False
+    can_reset: bool = False
+    can_register: bool = False
+    button_label: str | None = None
+    x_min: int | None = Field(default=None, ge=0, le=1000)
+    y_min: int | None = Field(default=None, ge=0, le=1000)
+    x_max: int | None = Field(default=None, ge=0, le=1000)
+    y_max: int | None = Field(default=None, ge=0, le=1000)
+
+
+class ModeHubDetection(BaseModel):
+    page_type: Literal["event_tournament", "mode_hub", "unknown"] = "unknown"
+    title: str | None = None
+    active_tab: str | None = None
+    entries: list[ModeHubEntryDetection] = Field(default_factory=list)
+    total_score: int | None = None
+    rank: int | None = None
+    phase_status: str | None = None
+    countdown: str | None = None
+    visible_notes: list[str] = Field(default_factory=list)
+
+
+MODE_HUB_SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "properties": {
+        "page_type": {
+            "type": "string",
+            "enum": ["event_tournament", "mode_hub", "unknown"],
+        },
+        "title": {"type": "string"},
+        "active_tab": {"type": "string"},
+        "entries": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string"},
+                    "status": {
+                        "type": "string",
+                        "enum": ["available", "locked", "in_progress", "finished", "unknown"],
+                    },
+                    "score": {"type": "integer"},
+                    "rank": {"type": "integer"},
+                    "countdown": {"type": "string"},
+                    "can_enter": {"type": "boolean"},
+                    "can_claim": {"type": "boolean"},
+                    "can_reset": {"type": "boolean"},
+                    "can_register": {"type": "boolean"},
+                    "button_label": {"type": "string"},
+                    "x_min": {"type": "integer"},
+                    "y_min": {"type": "integer"},
+                    "x_max": {"type": "integer"},
+                    "y_max": {"type": "integer"},
+                },
+                "required": ["name", "status"],
+            },
+        },
+        "total_score": {"type": "integer"},
+        "rank": {"type": "integer"},
+        "phase_status": {"type": "string"},
+        "countdown": {"type": "string"},
+        "visible_notes": {"type": "array", "items": {"type": "string"}},
+    },
+    "required": ["page_type", "entries"],
+}
+
+
+MODE_HUB_INSTRUCTION = (
+    "This screenshot may show 三国·谋定天下 mode hub / 征战入口 / 演武大会 / "
+    "远征 / 军演 / 养士兴功 pages. Extract the page type, title, active tab, "
+    "visible activity entries, score, rank, countdown, phase/status, and whether "
+    "each entry can be entered, claimed, reset, or registered. Use 0-1000 "
+    "normalized bbox coordinates for clear entry/action buttons."
+)
+
+
+# ---------------------------------------------------------------------------
 # Chapter panel (章节任务 / 章节奖励)
 # ---------------------------------------------------------------------------
 

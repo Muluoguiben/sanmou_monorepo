@@ -15,6 +15,7 @@ from pioneer_agent.core.models import RuntimeState
 from pioneer_agent.perception.domains import (
     apply_chapter_panel,
     apply_city_buildings,
+    apply_mode_hub,
     apply_popup,
     apply_recruit_panel,
     apply_resource_bar,
@@ -23,6 +24,7 @@ from pioneer_agent.perception.domains import (
     apply_upgrade_dialog,
     extract_chapter_panel,
     extract_city_buildings,
+    extract_mode_hub,
     extract_popup,
     extract_recruit_panel,
     extract_resource_bar,
@@ -106,6 +108,15 @@ class VisionSync:
             domains.append("upgrade_dialog")
             if upgrade_fragment.notes:
                 notes.extend(upgrade_fragment.notes)
+
+        if page in {"event_tournament", "mode_hub"}:
+            mode_fragment = extract_mode_hub(
+                image, client=self.client, captured_at=captured_at
+            )
+            state = apply_mode_hub(state, mode_fragment)
+            domains.append("mode_hub")
+            if mode_fragment.notes:
+                notes.extend(mode_fragment.notes)
 
         if page == "city":
             city_fragment = extract_city_buildings(

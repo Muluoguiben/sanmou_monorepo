@@ -19,6 +19,7 @@ from pioneer_agent.core.models import FieldMeta, RuntimeState
 
 from .chapter_panel import ChapterPanelFragment
 from .city_buildings import CityBuildingsFragment
+from .mode_hub import ModeHubFragment
 from .popup import PopupFragment
 from .recruit_panel import RecruitPanelFragment
 from .resource_bar import ResourceBarFragment
@@ -66,6 +67,21 @@ def apply_resource_bar(state: RuntimeState, fragment: ResourceBarFragment) -> Ru
 
 
 def apply_popup(state: RuntimeState, fragment: PopupFragment) -> RuntimeState:
+    updates: dict[str, Any] = {}
+
+    if fragment.global_state:
+        merged_global = dict(state.global_state)
+        merged_global.update(fragment.global_state)
+        updates["global_state"] = merged_global
+
+    merged_meta: dict[str, FieldMeta] = dict(state.field_meta)
+    merged_meta.update(fragment.field_meta)
+    updates["field_meta"] = merged_meta
+
+    return state.model_copy(update=updates)
+
+
+def apply_mode_hub(state: RuntimeState, fragment: ModeHubFragment) -> RuntimeState:
     updates: dict[str, Any] = {}
 
     if fragment.global_state:

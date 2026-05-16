@@ -3,6 +3,7 @@ from .city_buildings import CityBuildingsFragment, extract_city_buildings
 from .merge import (
     apply_chapter_panel,
     apply_city_buildings,
+    apply_mode_hub,
     apply_popup,
     apply_recruit_panel,
     apply_resource_bar,
@@ -10,6 +11,7 @@ from .merge import (
     apply_team_panel,
     apply_upgrade_dialog,
 )
+from .mode_hub import ModeHubFragment, extract_mode_hub
 from .popup import PopupFragment, extract_popup
 from .recruit_panel import RecruitPanelFragment, extract_recruit_panel
 from .resource_bar import (
@@ -23,6 +25,7 @@ from .upgrade_dialog import UpgradeDialogFragment, extract_upgrade_dialog
 __all__ = [
     "CityBuildingsFragment",
     "ChapterPanelFragment",
+    "ModeHubFragment",
     "PopupFragment",
     "RecruitPanelFragment",
     "ResourceBarFragment",
@@ -31,6 +34,7 @@ __all__ = [
     "UpgradeDialogFragment",
     "apply_chapter_panel",
     "apply_city_buildings",
+    "apply_mode_hub",
     "apply_popup",
     "apply_recruit_panel",
     "apply_resource_bar",
@@ -39,6 +43,7 @@ __all__ = [
     "apply_upgrade_dialog",
     "extract_chapter_panel",
     "extract_city_buildings",
+    "extract_mode_hub",
     "extract_popup",
     "extract_recruit_panel",
     "extract_resource_bar",

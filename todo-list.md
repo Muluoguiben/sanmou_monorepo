@@ -28,7 +28,7 @@
 - [x] Screenshot / coordinate trace metadata（2026-05-17）：`VisionClient` 记录每次 vision 的原图/prepared 图尺寸与 resize/token 信息；`UIActions` 自动缓冲 click/drag/key trace，`AutonomousLoop` 写入 `TraceStore.screenshot.metadata/coordinates`，包含 window/display 坐标空间、scale、normalized bbox、pixel bbox、实际点击点。
 - [x] Trace Store schema（2026-05-17）：新增 `pioneer_agent.storage.trace_store`，并把 `AutonomousLoop` 接入可选 `TraceStore`；每个 traced tick 记录 observe/decide/act/verify/trace/recover 阶段、状态快照、vision summary、selected/ranked action、execution、verification、recovery 和截图尺寸。
 - [x] Golden replay tests（2026-05-17）：新增 `GoldenReplayRunner`，校验 `loop.jsonl` 引用的 screenshot 存在，并用 RuntimeState fixture 重放 selector，比较 loop 记录的推荐动作与重放输出；覆盖匹配、mismatch、缺 screenshot 三类测试。
-- [ ] `event_tournament` / `mode_hub` perception domain：把演武大会、征战模式入口、远征/军演/养士兴功等页面从当前 `chapter` fallback 中拆出来，抽取积分、排名、倒计时、阶段状态、可重置/可报名等字段。
+- [x] `event_tournament` / `mode_hub` perception domain（2026-05-17）：新增 `perception.domains.mode_hub` 与 vision schema/sync，识别演武大会、征战入口、远征/军演/养士兴功等页面的入口、积分、排名、倒计时、阶段状态、可进入/可领取/可重置/可报名及按钮 bbox，写入 `global_state.event_tournament/mode_hub`。
 - [ ] TeamSnapshot 全队详情 fixture/eval：补充孟获、诸葛亮2 的详情页截图 fixture，让 `TeamSnapshot` 从“祝融夫人单将详情已覆盖”推进到 3/3 武将详情覆盖，并校验最终可进入 PVP/PVE/远征 ready/needs_review 判断。
 - [ ] Desktop Advisor 历史记录：把上传截图、`DeviceProfile`、`RuntimeState`、`AdvisorReport` 写入可浏览历史，并支持重新打开。
 - [ ] Screenshot fixture dataset：建立 `tests/fixtures/screenshots/{pc_client,android_emulator,android,ios}/`，至少覆盖首页、城内、章节、队伍、武将、地图、战报。

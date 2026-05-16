@@ -27,7 +27,9 @@ class _ScriptedVisionClient:
 
     def extract(self, image, instruction, response_schema, **kwargs):  # noqa: ANN001
         # Differentiate by instruction prefix — cheap and accurate enough for tests.
-        if "building upgrade confirmation" in instruction.lower() or "建筑升级确认框" in instruction:
+        if "mode hub" in instruction.lower() or "演武大会" in instruction or "征战入口" in instruction:
+            kind = "mode_hub"
+        elif "building upgrade confirmation" in instruction.lower() or "建筑升级确认框" in instruction:
             kind = "upgrade_dialog"
         elif "popup" in instruction.lower() or "弹窗" in instruction or "dialog" in instruction.lower():
             kind = "popup"
@@ -219,6 +221,41 @@ class VisionSyncTests(unittest.TestCase):
         self.assertFalse(state.city["upgrade_dialog"]["can_upgrade"])
         self.assertEqual(state.city["upgrade_dialog"]["confirm_button"]["bbox"]["x_min"], 720)
         self.assertIn("资源不足", summary.notes)
+
+    def test_event_tournament_page_runs_mode_hub(self) -> None:
+        client = _ScriptedVisionClient(
+            [
+                {
+                    "page_type": "event_tournament",
+                    "resources": {},
+                    "visible_notes": ["演武大会"],
+                },
+                {
+                    "page_type": "event_tournament",
+                    "title": "演武大会",
+                    "active_tab": "征战",
+                    "entries": [
+                        {
+                            "name": "演武大会",
+                            "status": "available",
+                            "can_enter": True,
+                            "can_register": True,
+                            "button_label": "前往",
+                        }
+                    ],
+                    "total_score": 1280,
+                    "rank": 36,
+                    "visible_notes": ["可报名"],
+                },
+            ]
+        )
+        sync = VisionSync(client)
+        state, summary = sync.sync(b"png")
+        self.assertEqual(summary.domains_run, ["resource_bar", "mode_hub"])
+        self.assertEqual(client.calls, ["resource_bar", "mode_hub"])
+        self.assertEqual(state.global_state["event_tournament"]["title"], "演武大会")
+        self.assertTrue(state.global_state["event_tournament"]["entries"][0]["can_enter"])
+        self.assertIn("可报名", summary.notes)
 
     def test_team_page_runs_team_panel(self) -> None:
         client = _ScriptedVisionClient(
