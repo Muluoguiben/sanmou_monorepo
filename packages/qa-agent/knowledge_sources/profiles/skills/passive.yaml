@@ -322,7 +322,8 @@
   domain: skill
   entry_kind: skill_profile
   topic: 摧坚克难
-  aliases: []
+  aliases:
+  - 克难
   facts:
   - 摧坚克难是可录入的高频战法静态资料条目。
   - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
@@ -336,7 +337,8 @@
   priority: 88
   structured_data:
     name: 摧坚克难
-    aliases: []
+    aliases:
+    - 克难
     rarity: 橙
     skill_type: 被动
     trigger_type: 被动

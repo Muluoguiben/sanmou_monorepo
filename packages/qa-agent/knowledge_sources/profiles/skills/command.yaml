@@ -260,7 +260,8 @@
   domain: skill
   entry_kind: skill_profile
   topic: 折冲御侮
-  aliases: []
+  aliases:
+  - 折冲
   facts:
   - 折冲御侮是可录入的高频战法静态资料条目。
   - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
@@ -274,7 +275,8 @@
   priority: 88
   structured_data:
     name: 折冲御侮
-    aliases: []
+    aliases:
+    - 折冲
     rarity: 橙
     skill_type: 指挥
     trigger_type: 指挥
@@ -580,7 +582,8 @@
   domain: skill
   entry_kind: skill_profile
   topic: 空城计
-  aliases: []
+  aliases:
+  - 空城
   facts:
   - 空城计是可录入的高频战法静态资料条目。
   - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
@@ -594,7 +597,8 @@
   priority: 88
   structured_data:
     name: 空城计
-    aliases: []
+    aliases:
+    - 空城
     rarity: 橙
     skill_type: 指挥
     trigger_type: 指挥

@@ -229,7 +229,8 @@
   domain: skill
   entry_kind: skill_profile
   topic: 冲锐巧变
-  aliases: []
+  aliases:
+  - 冲锐
   facts:
   - 冲锐巧变是可录入的高频战法静态资料条目。
   - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
@@ -243,7 +244,8 @@
   priority: 88
   structured_data:
     name: 冲锐巧变
-    aliases: []
+    aliases:
+    - 冲锐
     rarity: 橙
     skill_type: 主动
     trigger_type: 主动
@@ -1029,7 +1031,8 @@
   domain: skill
   entry_kind: skill_profile
   topic: 水淹七军
-  aliases: []
+  aliases:
+  - 水淹
   facts:
   - 水淹七军是可录入的高频战法静态资料条目。
   - 当前条目优先收录稳定分类、目标范围与效果标签，不直接表达版本强度结论。
@@ -1043,7 +1046,8 @@
   priority: 88
   structured_data:
     name: 水淹七军
-    aliases: []
+    aliases:
+    - 水淹
     rarity: 橙
     skill_type: 主动
     trigger_type: 主动
