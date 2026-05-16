@@ -1,0 +1,103 @@
+# Bilibili AI 字幕 → 三谋专有名词规范化词典
+#
+# 词典只负责 B 站 AI ASR 同音/形近替换；游戏内别名走 knowledge_sources/profiles/*.yaml
+# 里 hero/skill 的 aliases 字段，不要在这里重复。
+#
+# 维护规则：
+# 1. 每条 entry 必须给 source（ASR 错字）+ canonical（KB 中的规范名）+ confidence。
+# 2. 仅当 source 是 B 站 AI 字幕里反复出现且对应 canonical 在 knowledge_sources 已存在时录入。
+# 3. 2 字 source（如「金汤」「百战」）默认置 require_token_boundary: true，
+#    只允许在动词/名词独立位置替换；正字本身存在二义性的，写 manual_only: true，
+#    normalizer 仅记录候选不替换，留人工审核。
+# 4. 新增条目时附 example_video（BVID）方便回溯。
+
+homophones:
+  # —— 武将名 ASR 同音错字 ——
+  - source: 黄府松
+    canonical: 皇甫嵩
+    kind: hero
+    confidence: 0.95
+    notes: B 站 AI 字幕极常见错字
+    example_videos: [BV1R4d3BfENk]
+  - source: 黄府嵩
+    canonical: 皇甫嵩
+    kind: hero
+    confidence: 0.95
+  - source: 皇府松
+    canonical: 皇甫嵩
+    kind: hero
+    confidence: 0.95
+  - source: 黄甫松
+    canonical: 皇甫嵩
+    kind: hero
+    confidence: 0.95
+  # —— 战法 ASR 同音错字 ——
+  - source: 屹然不动
+    canonical: 岿然不动
+    kind: skill
+    confidence: 0.95
+    notes: 字幕高频写成「屹然不动」，KB alias 已收录但部分句子仍漏匹配
+  - source: 巍然不动
+    canonical: 岿然不动
+    kind: skill
+    confidence: 0.85
+  - source: 见不随敌
+    canonical: 践墨随敌
+    kind: skill
+    confidence: 0.90
+    notes: ASR 把「践墨随敌」高频识别成「见不随敌」（编辑距离 2，超出 fuzzy 阈值）
+    example_videos: [BV1QdRKB6E7S]
+  - source: 见墨随敌
+    canonical: 践墨随敌
+    kind: skill
+    confidence: 0.95
+  - source: 卫羽成魔
+    canonical: 未雨绸缪
+    kind: skill
+    confidence: 0.90
+    notes: 「未雨绸缪」(wèi yǔ chóu móu) 被 ASR 整体替换成同音字组合，编辑距离过高，靠 exact 兜底
+    example_videos: [BV1JARgBYEYE]
+  # —— 阵容/队伍别名 ASR 同音错字 ——
+  - source: 好星火
+    canonical: 薪火
+    kind: lineup
+    confidence: 0.85
+    notes: 「(好/那个/这个) 薪火 队」被 ASR 听成「好星火」；薪火是诸葛亮+姜维缘分的队伍前缀
+    example_videos: [BV1fXosBGEHd]
+  - source: 好新火
+    canonical: 薪火
+    kind: lineup
+    confidence: 0.85
+  - source: 好心火
+    canonical: 薪火
+    kind: lineup
+    confidence: 0.85
+  # —— 阵容/队伍别名（player-coined，非 ASR 错字） ——
+  # 这些不写进 homophones；如果某条玩家黑话稳定出现在多视频，
+  # 走 knowledge_sources/profiles/heroes/<faction>.yaml 的 aliases 字段。
+
+# 二义性 / 需人工 review 的同音模式（normalizer 只产生日志候选，不替换原文）
+ambiguous:
+  - pattern: 金汤
+    canonical_candidates: [固若金汤, 金城汤池]
+    kind: skill
+    confidence: 0.60
+    notes: 字幕里「金汤」既可能指 固若金汤，也可能指 金城汤池，留 candidate 不替换
+    example_videos: [BV1JARgBYEYE]
+  - pattern: 百战
+    canonical_candidates: [百战不殆]
+    kind: skill
+    confidence: 0.70
+    notes: 字幕里「百战」常常是 百战不殆 的简写，但也可能是「身经百战」普通词
+  - pattern: 穆路蛮
+    canonical_candidates: [南蛮入侵, 孟获队]
+    kind: lineup
+    confidence: 0.50
+    notes: 玩家黑话指代南蛮队/孟获主将，过于模糊，留人工
+
+# 词典本身的元数据
+metadata:
+  schema_version: 1
+  updated_at: 2026-05-15
+  maintainers: [Claude, Codex]
+  scope: bilibili_zh_ai_subtitles

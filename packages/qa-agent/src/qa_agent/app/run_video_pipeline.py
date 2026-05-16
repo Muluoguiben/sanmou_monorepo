@@ -12,6 +12,13 @@ from qa_agent.knowledge.loader import load_entries
 from qa_agent.retrieval.retriever import Retriever
 from qa_agent.service.query_service import QueryService
 from qa_agent.video import VideoEvidenceBundle, build_video_knowledge_document, dump_video_knowledge_document, stage_all_video_entries
+from qa_agent.video.subtitle_normalizer import (
+    build_dictionary_from_profiles,
+    default_homophones_path,
+    default_knowledge_sources_dir,
+    normalize_candidate_fields,
+    normalize_document,
+)
 from qa_agent.video.vision_enrichment import enrich_document_with_vision
 from qa_agent.vision.extractor import ImageExtractor
 from qa_agent.knowledge.source_paths import discover_source_paths
@@ -43,6 +50,31 @@ def _build_parser() -> argparse.ArgumentParser:
         default=3,
         help="Max frames sent to the vision model per segment (default 3).",
     )
+    parser.add_argument(
+        "--normalize-subtitles",
+        dest="normalize_subtitles",
+        action="store_true",
+        default=True,
+        help="(Default on) Normalize Bilibili AI-subtitle 同音/形近错字 against KB hero/skill profiles + manual homophones before LLM extraction.",
+    )
+    parser.add_argument(
+        "--no-normalize-subtitles",
+        dest="normalize_subtitles",
+        action="store_false",
+        help="Disable subtitle normalization (e.g. when sources are already clean).",
+    )
+    parser.add_argument(
+        "--no-fuzzy-normalize",
+        dest="fuzzy_normalize",
+        action="store_false",
+        default=True,
+        help="Disable ≥3-char edit-distance-≤1 fuzzy fallback inside subtitle normalization (keep only exact homophone + alias).",
+    )
+    parser.add_argument(
+        "--homophones",
+        default=None,
+        help="Path to subtitle homophones YAML. Defaults to packages/qa-agent/config/subtitle_homophones.yaml.",
+    )
     return parser
 
 
@@ -65,6 +97,33 @@ def main() -> None:
 
     raw_bundle = VideoEvidenceBundle.model_validate(yaml.safe_load(input_path.read_text(encoding="utf-8")) or {})
     evidence_document = build_video_knowledge_document(raw_bundle)
+
+    # Subtitle normalization: rewrite Bilibili 中文 AI 字幕的同音/形近错字到 KB 正字。
+    normalization_log_entries: list = []
+    normalization_stats = None
+    normalization_log_path: Path | None = None
+    if args.normalize_subtitles:
+        homophones_path = (
+            Path(args.homophones).expanduser().resolve()
+            if args.homophones
+            else default_homophones_path(project_root / "packages" / "qa-agent")
+        )
+        knowledge_sources_dir = default_knowledge_sources_dir(project_root / "packages" / "qa-agent")
+        dictionary = build_dictionary_from_profiles(
+            knowledge_sources_dir=knowledge_sources_dir,
+            homophones_path=homophones_path,
+        )
+        evidence_document, segment_logs, normalization_stats = normalize_document(
+            evidence_document,
+            dictionary,
+            enable_fuzzy=args.fuzzy_normalize,
+        )
+        normalization_log_entries.extend(segment_logs)
+        # Stash dictionary for post-extraction sweep below.
+        normalization_dictionary = dictionary
+    else:
+        normalization_dictionary = None
+
     evidence_path = workspace / "video-evidence.yaml"
     dump_video_knowledge_document(evidence_path, evidence_document)
 
@@ -88,8 +147,32 @@ def main() -> None:
         model=args.model,
         timeout=args.timeout,
     )
+
+    # Post-extraction sweep: even with normalized transcript, LLM may still emit
+    # 同音错字 (especially in `hero_names` / `core_skills`). Re-apply the same
+    # dictionary to all candidate fields so the staging YAML lands as canonical.
+    if normalization_dictionary is not None:
+        enriched = normalize_candidate_fields(
+            enriched,
+            normalization_dictionary,
+            enable_fuzzy=args.fuzzy_normalize,
+            log_sink=normalization_log_entries,
+        )
+
     enriched_path = workspace / "video-knowledge.yaml"
     dump_video_knowledge_document(enriched_path, enriched)
+
+    if normalization_log_entries:
+        normalization_log_path = workspace / "subtitle-normalization-log.yaml"
+        normalization_log_path.write_text(
+            yaml.dump(
+                [entry.model_dump(mode="json") for entry in normalization_log_entries],
+                allow_unicode=True,
+                default_flow_style=False,
+                sort_keys=False,
+            ),
+            encoding="utf-8",
+        )
 
     staged_entries, direct_entries = stage_all_video_entries(enriched, project_root)
     staged_entries = [
@@ -149,6 +232,18 @@ def main() -> None:
                         "errors": vision_stats.errors,
                     }
                     if vision_stats is not None
+                    else None
+                ),
+                "normalization_stats": (
+                    {
+                        "segments_processed": normalization_stats.segments_processed,
+                        "segments_changed": normalization_stats.segments_changed,
+                        "exact_replacements": normalization_stats.exact_replacements,
+                        "fuzzy_replacements": normalization_stats.fuzzy_replacements,
+                        "ambiguous_candidates": normalization_stats.ambiguous_candidates,
+                        "log_path": str(normalization_log_path) if normalization_log_path else None,
+                    }
+                    if normalization_stats is not None
                     else None
                 ),
             },
