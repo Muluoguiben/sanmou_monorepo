@@ -8,6 +8,7 @@ from pioneer_agent.core.enums import ActionType
 from pioneer_agent.core.models import CandidateAction
 from pioneer_agent.executor.action_handlers import dispatch
 from pioneer_agent.executor.ui_runner import UIActionRunner
+from pioneer_agent.verifier import ExpectedStateDelta, VerifierRegistry, VerifierSpec
 
 
 class _NullUI:
@@ -99,10 +100,35 @@ class UIActionRunnerTests(unittest.TestCase):
         self.assertEqual(res.summary["blocked_by"], "safety_guard")
         self.assertEqual(res.summary["guard_decision"], "require_confirmation")
 
-    def test_runner_dispatches_sensitive_action_with_confirmation_token(self) -> None:
+    def test_runner_blocks_ui_action_without_verifier_spec(self) -> None:
         runner = UIActionRunner(
             _NullUI(),  # type: ignore[arg-type]
             capabilities=CapabilityFlags(input_control=True),
+        )
+        res = runner.run(_mk_action(ActionType.CLAIM_CHAPTER_REWARD))
+        self.assertEqual(res.status, "blocked")
+        self.assertEqual(res.summary["blocked_by"], "verifier_registry")
+        self.assertIn("requires a verifier", res.failure_reason or "")
+
+    def test_runner_dispatches_confirmed_sensitive_action_with_verifier_spec(self) -> None:
+        registry = VerifierRegistry(
+            {
+                ActionType.ATTACK_LAND: VerifierSpec(
+                    action_type=ActionType.ATTACK_LAND,
+                    expected_deltas=(
+                        ExpectedStateDelta(
+                            path="map_state.last_attack_id",
+                            expected_after="attack-1",
+                        ),
+                    ),
+                    timeout_seconds=10.0,
+                )
+            }
+        )
+        runner = UIActionRunner(
+            _NullUI(),  # type: ignore[arg-type]
+            capabilities=CapabilityFlags(input_control=True),
+            verifier_registry=registry,
         )
         res = runner.run(_mk_action(ActionType.ATTACK_LAND, confirmation_token="manual-ok"))
         self.assertEqual(res.status, "pending")

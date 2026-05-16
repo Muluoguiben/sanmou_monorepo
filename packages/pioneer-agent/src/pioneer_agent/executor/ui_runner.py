@@ -11,6 +11,7 @@ from pioneer_agent.core.models import CandidateAction, ExecutionResult
 from pioneer_agent.executor.action_handlers import dispatch
 from pioneer_agent.executor.ui_actions import UIActions
 from pioneer_agent.safety.guard import GuardDecision, SafetyGuard, SessionMode
+from pioneer_agent.verifier.registry import VerifierGateDecision, VerifierRegistry
 
 
 class UIActionRunner:
@@ -21,11 +22,13 @@ class UIActionRunner:
         capabilities: CapabilityFlags | None = None,
         safety_guard: SafetyGuard | None = None,
         session_mode: SessionMode | str | None = None,
+        verifier_registry: VerifierRegistry | None = None,
     ) -> None:
         self.ui = ui
         self.capabilities = capabilities
         self.safety_guard = safety_guard or SafetyGuard()
         self.session_mode = session_mode
+        self.verifier_registry = verifier_registry or VerifierRegistry()
 
     def run(self, action: CandidateAction) -> ExecutionResult:
         verdict = self.safety_guard.evaluate(
@@ -49,6 +52,20 @@ class UIActionRunner:
                     "guard_decision": verdict.decision.value,
                     "risk_level": verdict.risk_level.value,
                     "observe_only": self.capabilities.observe_only if self.capabilities else None,
+                },
+            )
+        verifier_verdict = self.verifier_registry.evaluate(action.action_type)
+        if verifier_verdict.decision != VerifierGateDecision.ALLOW:
+            return ExecutionResult(
+                action_id=action.action_id,
+                status="blocked",
+                verification_status="not_applicable",
+                failure_reason=verifier_verdict.reason,
+                recovery_required=False,
+                summary={
+                    "action_type": action.action_type.value,
+                    "blocked_by": "verifier_registry",
+                    "verifier_decision": verifier_verdict.decision.value,
                 },
             )
         return dispatch(action, self.ui)
