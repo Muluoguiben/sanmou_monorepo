@@ -32,7 +32,7 @@
 - [ ] TeamSnapshot 全队详情 fixture/eval：补充孟获、诸葛亮2 的详情页截图 fixture，让 `TeamSnapshot` 从“祝融夫人单将详情已覆盖”推进到 3/3 武将详情覆盖，并校验最终可进入 PVP/PVE/远征 ready/needs_review 判断。
 - [ ] Desktop Advisor 历史记录：把上传截图、`DeviceProfile`、`RuntimeState`、`AdvisorReport` 写入可浏览历史，并支持重新打开。
 - [ ] Screenshot fixture dataset：建立 `tests/fixtures/screenshots/{pc_client,android_emulator,android,ios}/`，至少覆盖首页、城内、章节、队伍、武将、地图、战报。
-- [ ] Vision eval baseline：基于 screenshot fixture 输出 page/domain/entity accuracy，防止后续 perception 重构退化。
+- [x] Vision eval baseline（2026-05-17）：新增 `pioneer_agent.perception.vision_eval`，基于 reviewed screenshot fixture replay 输出 page/domain/entity accuracy；`team_snapshot_mobile_20260514.json` 补充 initial_state 与 entity checks，离线 baseline 当前 5 张截图 page/domain/entity accuracy 均为 1.0。
 - [x] Action verifier eval（2026-05-17）：新增 `tests/fixtures/verifier/action_verifier_eval.json` 与 `pioneer_agent.verifier.eval`，覆盖 `claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` 的成功、状态未变化、误识别、超时、弹窗打断；同时让 `VerifierBase` 支持 `teams.0.*` / `city.buildings.0.*` 列表索引路径。
 - [ ] qa-agent 接入 Advisor chat：`/api/advisor/chat` 从当前本地模板升级为 `qa-agent QueryService/ChatAgent + AdvisorReport context`。
 - [ ] 开荒阵容策略 snapshot：从 qa-agent reviewed knowledge 导出 `strategy_snapshot.yaml`，先离线供 pioneer-agent selector/scoring 使用，避免 runtime 每 tick 依赖 LLM。

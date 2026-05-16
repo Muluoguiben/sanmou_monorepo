@@ -6,6 +6,26 @@
     "description": "Real mobile screenshots supplied in #sanmou-knowledge on 2026-05-14: team panel plus Zhu Rong detail tabs.",
     "note": "Payloads are reviewed vision outputs from the real screenshots. They replay the current VisionSync/domain merge path without calling an external LLM."
   },
+  "initial_state": {
+    "global_state": {
+      "server_open_time": "2026-05-14T10:00:00+08:00",
+      "current_time": "2026-05-14T17:30:00+08:00",
+      "phase_tag": "advisor_team_review"
+    },
+    "progress": {
+      "chapter_claimable": false,
+      "task_progress": {}
+    },
+    "economy": {
+      "reserve_troops": 0
+    },
+    "city": {
+      "upgradeable_buildings": []
+    },
+    "map_state": {
+      "candidate_lands": []
+    }
+  },
   "screenshots": [
     {
       "id": "team_panel",
@@ -422,5 +442,43 @@
       "detailed_hero_count": 1,
       "hero_count": 3
     }
-  }
+  },
+  "expected_state_checks": [
+    {
+      "path": "teams.0.team_id",
+      "expected": "部队一"
+    },
+    {
+      "path": "teams.0.heroes.0.name",
+      "expected": "祝融夫人"
+    },
+    {
+      "path": "teams.0.heroes.1.name",
+      "expected": "孟获"
+    },
+    {
+      "path": "teams.0.heroes.2.name",
+      "expected": "诸葛亮2"
+    },
+    {
+      "path": "teams.0.heroes.0.tactic_details.0.name",
+      "expected": "南疆烈刃"
+    },
+    {
+      "path": "teams.0.heroes.0.equipment.0.name",
+      "expected": "虎头湛金枪"
+    },
+    {
+      "path": "teams.0.heroes.0.mount.name",
+      "expected": "乌云踏雪"
+    },
+    {
+      "path": "teams.0.heroes.0.attribute_points.武力",
+      "expected": 100
+    },
+    {
+      "path": "teams.0.missing_detail_tabs",
+      "expected": []
+    }
+  ]
 }
