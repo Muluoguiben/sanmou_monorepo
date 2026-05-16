@@ -44,6 +44,86 @@ class _VisionExtractorProtocol(Protocol):
     def extract(self, image_urls: list[str], *, question: str | None = ...): ...
 
 
+# Frame-kind taxonomy (task #11 v2): only 汇总表 / 方案表 are worth per-column
+# extraction; 克制图 is a counter graph (relations, not per-team config);
+# `other` = talking-head / transition.
+FRAME_SUMMARY_TABLE = "summary_table"   # 全流程阵容汇总表: 4-8 teams in columns
+FRAME_SCHEME_TABLE = "scheme_table"     # 方案A/B 配置表: rows 阵型/战法/加点/...
+FRAME_COUNTER_GRAPH = "counter_graph"   # 克制关系图: graph of matchups
+FRAME_OTHER = "other"
+
+_CLASSIFY_RULES = (
+    ("汇总", FRAME_SUMMARY_TABLE),
+    ("全流派", FRAME_SUMMARY_TABLE),
+    ("全流程", FRAME_SUMMARY_TABLE),
+    ("方案", FRAME_SCHEME_TABLE),
+    ("共存", FRAME_SCHEME_TABLE),
+    ("克制", FRAME_COUNTER_GRAPH),
+    ("克制关系", FRAME_COUNTER_GRAPH),
+)
+
+TABLE_FRAME_KINDS = (FRAME_SUMMARY_TABLE, FRAME_SCHEME_TABLE)
+
+
+def classify_frame_kind(text_signals: list[str]) -> str:
+    """Cheap title/snippet heuristic → frame kind.
+
+    Fed by the vision text_snippets (page title is the most reliable cue) or
+    the segment transcript. Avoids spending a dedicated vision call just to
+    classify. Order matters: 汇总/方案 before 克制 since a 方案 table can also
+    mention 克制 in cell text.
+    """
+    blob = " ".join(s for s in text_signals if s)
+    for needle, kind in _CLASSIFY_RULES:
+        if needle in blob:
+            return kind
+    return FRAME_OTHER
+
+
+def crop_into_columns(
+    image_path: str,
+    n_cols: int,
+    out_dir: str,
+    *,
+    overlap_frac: float = 0.04,
+    upscale: int = 2,
+    top_crop_frac: float = 0.0,
+) -> list[str]:
+    """Split a table frame into `n_cols` equal-width column images.
+
+    Each slice carries a small horizontal `overlap_frac` so a team's column
+    isn't clipped at the seam, is optionally cropped below a `top_crop_frac`
+    title band, and is upscaled `upscale`x (the sampled frames are only
+    640x360 — upscaling + detail="original" recovers small 战法 text). Returns
+    the written sub-image paths left→right.
+    """
+    from PIL import Image  # local import keeps module load light
+
+    if n_cols < 1:
+        raise ValueError("n_cols must be >= 1")
+    out = Path(out_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    img = Image.open(image_path)
+    w, h = img.size
+    top = int(h * max(0.0, min(0.9, top_crop_frac)))
+    col_w = w / n_cols
+    ov = int(col_w * max(0.0, overlap_frac))
+    stem = Path(image_path).stem
+    paths: list[str] = []
+    for i in range(n_cols):
+        left = max(0, int(i * col_w) - ov)
+        right = min(w, int((i + 1) * col_w) + ov)
+        crop = img.crop((left, top, right, h))
+        if upscale and upscale > 1:
+            crop = crop.resize(
+                (crop.width * upscale, crop.height * upscale), Image.LANCZOS
+            )
+        dest = out / f"{stem}-col{i + 1}of{n_cols}.png"
+        crop.save(dest)
+        paths.append(str(dest))
+    return paths
+
+
 @dataclass(frozen=True)
 class FrameRef:
     """A single sampled frame with a recovered timestamp."""

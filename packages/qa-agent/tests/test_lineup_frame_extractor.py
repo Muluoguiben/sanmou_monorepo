@@ -6,10 +6,16 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from qa_agent.video.lineup_frame_extractor import (  # noqa: E402
+    FRAME_COUNTER_GRAPH,
+    FRAME_OTHER,
+    FRAME_SCHEME_TABLE,
+    FRAME_SUMMARY_TABLE,
     BackfillStats,
     FrameRef,
     LineupFrameExtractor,
+    classify_frame_kind,
     collect_frames_from_bundle,
+    crop_into_columns,
     frames_in_window,
     looks_like_lineup_segment,
     parse_frame_timestamp,
@@ -104,6 +110,66 @@ class LooksLikeLineupTests(unittest.TestCase):
 
     def test_negative(self):
         self.assertFalse(looks_like_lineup_segment("今天天气不错", []))
+
+
+class ClassifyFrameKindTests(unittest.TestCase):
+    def test_summary_table(self):
+        self.assertEqual(
+            classify_frame_kind(["三国谋定天下", "全流程阵容汇总"]),
+            FRAME_SUMMARY_TABLE,
+        )
+
+    def test_scheme_table(self):
+        self.assertEqual(
+            classify_frame_kind(["S14 陈仓之围 六队共存 方案A"]),
+            FRAME_SCHEME_TABLE,
+        )
+
+    def test_counter_graph(self):
+        self.assertEqual(
+            classify_frame_kind(["S14首发队伍克制关系图"]), FRAME_COUNTER_GRAPH
+        )
+
+    def test_other(self):
+        self.assertEqual(classify_frame_kind(["主播口播镜头"]), FRAME_OTHER)
+
+    def test_summary_precedence_over_counter(self):
+        # a 方案 table cell may mention 克制; title cue wins
+        self.assertEqual(
+            classify_frame_kind(["方案A", "本队克制周瑜"]), FRAME_SCHEME_TABLE
+        )
+
+
+class CropIntoColumnsTests(unittest.TestCase):
+    def test_splits_and_upscales(self):
+        import tempfile
+
+        from PIL import Image
+
+        with tempfile.TemporaryDirectory() as td:
+            src = Path(td) / "BVx-frame-001-0s.jpg"
+            Image.new("RGB", (600, 300), "white").save(src)
+            paths = crop_into_columns(
+                str(src), 3, str(Path(td) / "cols"), overlap_frac=0.0, upscale=2
+            )
+            self.assertEqual(len(paths), 3)
+            for p in paths:
+                self.assertTrue(Path(p).exists())
+                w, h = Image.open(p).size
+                # 600/3 = 200 col, upscale 2 → ~400 wide, 300*2=600 tall
+                self.assertEqual(h, 600)
+                self.assertAlmostEqual(w, 400, delta=4)
+
+    def test_invalid_n_cols(self):
+        import tempfile
+
+        from PIL import Image
+
+        with tempfile.TemporaryDirectory() as td:
+            src = Path(td) / "f.jpg"
+            Image.new("RGB", (100, 100), "white").save(src)
+            with self.assertRaises(ValueError):
+                crop_into_columns(str(src), 0, str(Path(td) / "o"))
 
 
 class BackfillTests(unittest.TestCase):
