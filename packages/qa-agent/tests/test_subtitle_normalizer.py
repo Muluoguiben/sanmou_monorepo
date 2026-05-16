@@ -368,9 +368,10 @@ class BuildDictionaryFromProfilesTests(unittest.TestCase):
         # Expect the homophone rule to be loaded
         homophone_sources = {r.source for r in dictionary.exact_rules if r.rule_source == "homophone"}
         self.assertIn("黄府松", homophone_sources)
-        # Ambiguous patterns should be loaded
-        ambiguous_patterns = {p.pattern for p in dictionary.ambiguous_patterns}
-        self.assertIn("金汤", ambiguous_patterns)
+        # 用户在 task #8 review 时升级的几条 exact homophone 必须被加载
+        self.assertIn("卫羽成魔", homophone_sources)
+        self.assertIn("好星火", homophone_sources)
+        self.assertIn("金汤", homophone_sources)
 
 
 if __name__ == "__main__":

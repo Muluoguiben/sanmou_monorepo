@@ -59,41 +59,45 @@ homophones:
     example_videos: [BV1JARgBYEYE]
   # —— 阵容/队伍别名 ASR 同音错字 ——
   - source: 好星火
-    canonical: 薪火
+    canonical: 郝昭薪火枪
     kind: lineup
-    confidence: 0.85
-    notes: 「(好/那个/这个) 薪火 队」被 ASR 听成「好星火」；薪火是诸葛亮+姜维缘分的队伍前缀
+    confidence: 0.90
+    notes: 「郝昭(zhāo) 薪火(xīn huǒ) 枪」队 → ASR「好(hǎo) 星火」；郝昭主将 + 薪火相传缘分 + 枪兵阵
     example_videos: [BV1fXosBGEHd]
   - source: 好新火
-    canonical: 薪火
+    canonical: 郝昭薪火枪
     kind: lineup
-    confidence: 0.85
+    confidence: 0.90
   - source: 好心火
-    canonical: 薪火
+    canonical: 郝昭薪火枪
     kind: lineup
+    confidence: 0.90
+  # —— 战法/队伍黑话（陈仓批次确认上下文唯一）——
+  - source: 金汤
+    canonical: 金城汤池
+    kind: skill
     confidence: 0.85
+    notes: 用户确认陈仓批次「皇马队 = 皇甫嵩 + 司马懿」所带的「金汤」均指 金城汤池（非 固若金汤）；如其他视频出现固若金汤语境再单独抽离
+    example_videos: [BV1JARgBYEYE]
+  - source: 百战
+    canonical: 百战不殆
+    kind: skill
+    confidence: 0.90
+    notes: 用户确认「百战」简写 = 百战不殆（非「身经百战」）
+  - source: 穆路蛮
+    canonical: 木鹿大王
+    kind: hero
+    confidence: 0.90
+    notes: 「木鹿(mù lù) 蛮」队 → ASR「穆路蛮」；主将 木鹿大王 + 祝融 + 孟获，是南蛮队的一种主流变体
   # —— 阵容/队伍别名（player-coined，非 ASR 错字） ——
   # 这些不写进 homophones；如果某条玩家黑话稳定出现在多视频，
   # 走 knowledge_sources/profiles/heroes/<faction>.yaml 的 aliases 字段。
 
 # 二义性 / 需人工 review 的同音模式（normalizer 只产生日志候选，不替换原文）
-ambiguous:
-  - pattern: 金汤
-    canonical_candidates: [固若金汤, 金城汤池]
-    kind: skill
-    confidence: 0.60
-    notes: 字幕里「金汤」既可能指 固若金汤，也可能指 金城汤池，留 candidate 不替换
-    example_videos: [BV1JARgBYEYE]
-  - pattern: 百战
-    canonical_candidates: [百战不殆]
-    kind: skill
-    confidence: 0.70
-    notes: 字幕里「百战」常常是 百战不殆 的简写，但也可能是「身经百战」普通词
-  - pattern: 穆路蛮
-    canonical_candidates: [南蛮入侵, 孟获队]
-    kind: lineup
-    confidence: 0.50
-    notes: 玩家黑话指代南蛮队/孟获主将，过于模糊，留人工
+#
+# 当前陈仓批次已无 ambiguous-only 项目（金汤/百战/穆路蛮 经用户确认升级为 exact）。
+# 仅保留一个示例占位，便于将来新增；空列表也合法。
+ambiguous: []
 
 # 词典本身的元数据
 metadata:
