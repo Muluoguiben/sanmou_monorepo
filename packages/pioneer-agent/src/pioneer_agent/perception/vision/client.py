@@ -3,7 +3,8 @@
 Design notes (from empirical testing against 三国·谋定天下 screenshots):
 - Model `gemini-flash-latest` works for EU-region accounts; `gemini-2.0-flash` is
   blocked at the account level with 429 limit:0.
-- Images >2MB stall the google-genai SDK; downscale to <=1280px width beforehand.
+- Images are normalized before SDK calls to keep capture dimensions aligned to model
+  limits and avoid resize/screenshot coordinate drift.
 - `response_schema` + `response_mime_type="application/json"` gives reliable JSON.
 """
 from __future__ import annotations

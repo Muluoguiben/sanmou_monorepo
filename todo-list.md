@@ -71,6 +71,8 @@
 
 ## Done
 
+- [x] 覆盖视觉输入流程优化（2026-05-16）：`vision/image.py` 采用 API-fit 长边/总像素预处理（对齐 1.15MP 与 1280 长边约束），补充 `prepare_image` 限制回退，不再在原图不满足字节约束时只按单一宽度重采样；新增 `test_prepare_image.py` 覆盖小图透传、横/竖图按比例缩放、体积兜底缩小回退，防止坐标/点击偏移与异常图片体积导致失败。
+
 - [x] macOS 非 Windows 验证与 Advisor fixture replay hardening（2026-05-16）：修复 `apps/sanmou-advisor-desktop/tsconfig.node.json`，让 Electron main/preload 稳定输出到 `dist-electron/`，避免 macOS `npm run dev` 卡在 `wait-on dist-electron/main.js`；修复 `scripts/bilibili_video_knowledge_workflow.sh` 在 macOS Bash 3.2 + `set -u` 下空数组展开失败的问题并补 executable bit；新增 Advisor runtime fixture regression，8 个现有 `RuntimeState` fixture 离线走 `StateDeriver -> ActionSelector -> build_advisor_report`，锁住 Desktop/API 消费的 recommended action、advisor-only execution block、evidence 和 pipeline contract；pioneer-agent 92 tests、qa-agent 127 tests、desktop typecheck/build 全绿。
 - [x] SanmouController 一次授权链路 hardening（2026-05-15）：确认 `SanmouLaunch` 只能高权限启动游戏，不能替 agent 点击 High integrity 游戏窗口；将 `sanmou_install_controller_task.bat` 改成自提升安装，并把 controller 脚本复制到 `%LOCALAPPDATA%\SanmouClientControl` 后注册 `SanmouController`，避免 scheduled task 依赖 WSL UNC 路径；controller 白名单扩展为 `start-game/integrity/capture-window/click-relative/drag-relative/key-press/stop`，覆盖后续低风险 GUI 截图、点击、拖拽、ESC/ENTER 等导航。仍不允许通过 file-based controller 传输账号密码。
 - [x] TeamSnapshot 真实截图 fixture/eval 首版（2026-05-15）：把 5/14 安卓队伍总览 + 祝融夫人 4 张详情图沉淀为 `tests/fixtures/screenshots/android/team_snapshot/` 真实截图 fixture，并新增 reviewed vision replay fixture `team_snapshot_mobile_20260514.json` 与 `test_team_snapshot_screenshot_eval.py`；离线跑通 `VisionSync -> TeamSnapshot judgement -> ActionSelector`，覆盖 `detail_status/missing_detail_tabs` 与祝融战法、装备、马匹、兵书、属性加点关键字段；当前预期判断为 `insufficient_basis`，因为只有祝融夫人 1/3 武将有详情，不能误判全队 ready。
