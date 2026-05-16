@@ -30,12 +30,14 @@ def _make_dictionary(
     canonical_terms: set[str] | None = None,
     canonical_kind: dict[str, str] | None = None,
     ambiguous: list[AmbiguousPattern] | None = None,
+    protected_substrings: set[str] | None = None,
 ) -> NormalizationDictionary:
     return NormalizationDictionary(
         exact_rules=list(rules),
         canonical_terms=set(canonical_terms or {r.canonical for r in rules}),
         canonical_kind=dict(canonical_kind or {r.canonical: r.kind for r in rules}),
         ambiguous_patterns=list(ambiguous or []),
+        protected_substrings=set(protected_substrings or set()),
     )
 
 
@@ -102,6 +104,42 @@ class NeighborhoodGuardTests(unittest.TestCase):
                 end=3,
                 proposed_canonical="皇甫嵩",
                 canonical_terms=canonicals,
+            )
+        )
+
+    def test_protected_substring_in_window_blocks_fuzzy(self) -> None:
+        """When a player-coined team name overlaps the fuzzy window, suppress
+        even if no canonical KB term is in the neighborhood.
+
+        Regression: `诸葛飞燕` (player-coined team) sliced as 3-char `诸葛飞`
+        was fuzzy-matched to canonical `诸葛瑾`, corrupting the team name.
+        """
+        canonicals = {"诸葛瑾"}
+        protected = {"诸葛飞燕"}
+        self.assertTrue(
+            _neighborhood_has_other_canonical(
+                text="S14 诸葛飞燕",
+                start=4,
+                end=7,  # 诸葛飞 inside 诸葛飞燕
+                proposed_canonical="诸葛瑾",
+                canonical_terms=canonicals,
+                protected_substrings=protected,
+            )
+        )
+
+    def test_protected_prefix_in_window_blocks_fuzzy(self) -> None:
+        """Speaker prefix (SP诸葛 / 神诸葛) must suppress fuzzy that would chop
+        across the connecting word (e.g. SP诸葛是大成周瑜)."""
+        canonicals = {"诸葛瑾"}
+        protected = {"SP诸葛"}
+        self.assertTrue(
+            _neighborhood_has_other_canonical(
+                text="SP诸葛是大成",
+                start=2,
+                end=5,  # 诸葛是
+                proposed_canonical="诸葛瑾",
+                canonical_terms=canonicals,
+                protected_substrings=protected,
             )
         )
 
@@ -372,6 +410,12 @@ class BuildDictionaryFromProfilesTests(unittest.TestCase):
         self.assertIn("卫羽成魔", homophone_sources)
         self.assertIn("好星火", homophone_sources)
         self.assertIn("金汤", homophone_sources)
+        # protected_substrings must include the manual chencang aliases and
+        # the solutions/lineups topic+aliases auto-injection.
+        self.assertIn("诸葛飞燕", dictionary.protected_substrings)
+        self.assertIn("SP诸葛", dictionary.protected_substrings)
+        # Auto-injected from solutions/lineups/season-s14.yaml:
+        self.assertIn("SP诸葛南蛮", dictionary.protected_substrings)
 
 
 if __name__ == "__main__":

@@ -102,6 +102,11 @@ class NormalizationDictionary:
     canonical_terms: set[str] = field(default_factory=set)
     canonical_kind: dict[str, str] = field(default_factory=dict)  # term → hero|skill
     ambiguous_patterns: list[AmbiguousPattern] = field(default_factory=list)
+    # Player-coined team / prefix strings that should suppress fuzzy matches when
+    # they overlap the candidate window — used by the neighborhood guard ONLY
+    # (we do NOT want fuzzy to fire toward these as targets). Populated from
+    # solutions/lineups topics+aliases and the homophone YAML's `protected_substrings`.
+    protected_substrings: set[str] = field(default_factory=set)
 
     def sorted_exact_rules(self) -> list[NormalizationRule]:
         return sorted(self.exact_rules, key=lambda r: (-len(r.source), r.source))
@@ -118,6 +123,45 @@ def _iter_profile_entries(profiles_dir: Path) -> Iterable[KnowledgeEntry]:
             yield from load_entries_from_file(path)
         except Exception as exc:  # noqa: BLE001 — bad yaml shouldn't break pipeline
             logger.warning("subtitle_normalizer: failed to load %s: %s", path, exc)
+
+
+def _iter_lineup_protected_terms(lineups_dir: Path) -> Iterable[str]:
+    """Yield every player-coined team / topic / alias string from
+    `solutions/lineups/*.yaml`.
+
+    These are NOT canonical hero/skill names (so they're not replacement
+    targets), but they ARE meaningful player-coined identifiers that the fuzzy
+    matcher must avoid corrupting. Adding them to the neighborhood-guard set
+    stops cases like `诸葛飞燕` being sliced into `诸葛飞 → 诸葛瑾燕` because
+    `诸葛飞` is edit-distance-1 from canonical `诸葛瑾`.
+    """
+    if not lineups_dir.exists():
+        return
+    for path in sorted(lineups_dir.rglob("*.yaml")):
+        try:
+            payload = yaml.safe_load(path.read_text(encoding="utf-8"))
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("subtitle_normalizer: failed to load lineup yaml %s: %s", path, exc)
+            continue
+        if not isinstance(payload, list):
+            continue
+        for item in payload:
+            if not isinstance(item, dict):
+                continue
+            topic = item.get("topic")
+            if isinstance(topic, str) and topic.strip():
+                yield topic.strip()
+            for alias in item.get("aliases") or []:
+                if isinstance(alias, str) and alias.strip():
+                    yield alias.strip()
+            structured = item.get("structured_data") or {}
+            if isinstance(structured, dict):
+                name = structured.get("name")
+                if isinstance(name, str) and name.strip():
+                    yield name.strip()
+                for alias in structured.get("aliases") or []:
+                    if isinstance(alias, str) and alias.strip():
+                        yield alias.strip()
 
 
 def _extract_terms_for_entry(entry: KnowledgeEntry) -> tuple[str, list[str], str]:
@@ -189,6 +233,14 @@ def build_dictionary_from_profiles(
                     )
                 )
 
+    # 1.5) solutions/lineups topics + aliases → protected_substrings only
+    lineups_dir = knowledge_sources_dir / "solutions" / "lineups"
+    for term in _iter_lineup_protected_terms(lineups_dir):
+        # We only need terms long enough to overlap a ≥3-char fuzzy window;
+        # adding 1-2 char snippets adds noise without value.
+        if len(term) >= 3:
+            dictionary.protected_substrings.add(term)
+
     # 2) manual homophone YAML
     if homophones_path is not None and homophones_path.exists():
         payload = yaml.safe_load(homophones_path.read_text(encoding="utf-8")) or {}
@@ -231,6 +283,13 @@ def build_dictionary_from_profiles(
                     confidence=float(item.get("confidence", 0.60)),
                 )
             )
+        # `protected_substrings:` are player-coined names that aren't yet in
+        # canonical KB (e.g. 神诸葛南蛮, 诸葛飞燕, SP诸葛 prefix) but must be
+        # protected from fuzzy corruption.
+        for raw in payload.get("protected_substrings", []) or []:
+            term = str(raw).strip()
+            if len(term) >= 3:
+                dictionary.protected_substrings.add(term)
 
     return dictionary
 
@@ -278,6 +337,7 @@ def _fuzzy_match_canonical(
     canonical_terms: set[str],
     *,
     min_length: int = 3,
+    protected_substrings: set[str] | None = None,
 ) -> list[tuple[int, int, str]]:
     """Return non-overlapping (start, end, canonical) fuzzy matches for `text`.
 
@@ -286,7 +346,7 @@ def _fuzzy_match_canonical(
     not already equal to canonical (caller handles exact matches via the rule
     table). Greedy non-overlap by leftmost-longest.
 
-    Guardrails against false positives (2026-05-15 lessons from chencang batch):
+    Guardrails against false positives (2026-05-15 / -16 lessons from chencang batch):
 
     1. **Neighborhood canonical check**: if the substring's local neighborhood
        (`±_FUZZY_NEIGHBORHOOD_PAD` chars) already contains a DIFFERENT canonical
@@ -294,9 +354,17 @@ def _fuzzy_match_canonical(
        `祝融夫人` → `祝甘夫人` (where `融夫人` is edit-distance 1 from canonical
        `甘夫人`) and `皇甫嵩带` → `皇甫嵩2` (where the canonical `皇甫嵩2`
        exists but `皇甫嵩` is already present untouched).
-    2. **Self-overlap check**: if the substring equals (post-strip) one of the
+    2. **Protected-substring neighborhood check**: same guard, but also against
+       a separate set of player-coined team names + speaker prefixes
+       (`protected_substrings`) that aren't replacement targets themselves. This
+       stops `诸葛飞燕` → `诸葛瑾燕` (where `诸葛飞` is edit-distance 1 from
+       canonical `诸葛瑾`) and `对抗神诸葛南蛮` → `对抗神诸葛瑾蛮` (3-char
+       fuzzy slicing across word boundary). `protected_substrings` is iterated
+       in the guard ONLY — fuzzy never tries to match toward them as targets.
+    3. **Self-overlap check**: if the substring equals (post-strip) one of the
        canonical terms via exact match, treat as no-op.
     """
+    protected = protected_substrings or set()
     candidates: list[tuple[int, int, str, int]] = []  # (start, end, canonical, len)
     for canonical in canonical_terms:
         L = len(canonical)
@@ -314,6 +382,7 @@ def _fuzzy_match_canonical(
                 end=start + L,
                 proposed_canonical=canonical,
                 canonical_terms=canonical_terms,
+                protected_substrings=protected,
             ):
                 continue
             candidates.append((start, start + L, canonical, L))
@@ -337,10 +406,12 @@ def _neighborhood_has_other_canonical(
     end: int,
     proposed_canonical: str,
     canonical_terms: set[str],
+    protected_substrings: set[str] | None = None,
     pad: int = _FUZZY_NEIGHBORHOOD_PAD,
 ) -> bool:
-    """Return True if a canonical name OTHER than `proposed_canonical` appears
-    as a substring of `text[start-pad : end+pad]`.
+    """Return True if a canonical name OTHER than `proposed_canonical`, OR any
+    `protected_substrings` entry, appears as a substring of
+    `text[start-pad : end+pad]`.
     """
     window_start = max(0, start - pad)
     window_end = min(len(text), end + pad)
@@ -354,6 +425,12 @@ def _neighborhood_has_other_canonical(
             continue
         if term in window:
             return True
+    if protected_substrings:
+        for term in protected_substrings:
+            if not term or term == proposed_canonical:
+                continue
+            if term in window:
+                return True
     return False
 
 
@@ -400,9 +477,15 @@ def _apply_fuzzy(
     canonical_terms: set[str],
     *,
     min_length: int = 3,
+    protected_substrings: set[str] | None = None,
 ) -> tuple[str, list[tuple[str, str]]]:
     """Apply fuzzy edit-distance-≤1 rewrites; return new text + (before, after) pairs."""
-    matches = _fuzzy_match_canonical(text, canonical_terms, min_length=min_length)
+    matches = _fuzzy_match_canonical(
+        text,
+        canonical_terms,
+        min_length=min_length,
+        protected_substrings=protected_substrings,
+    )
     if not matches:
         return text, []
     rewrites: list[tuple[str, str]] = []
@@ -468,7 +551,12 @@ def normalize_text(
             )
 
     if enable_fuzzy and dictionary.canonical_terms:
-        new_text, fuzzy_rewrites = _apply_fuzzy(new_text, dictionary.canonical_terms, min_length=3)
+        new_text, fuzzy_rewrites = _apply_fuzzy(
+            new_text,
+            dictionary.canonical_terms,
+            min_length=3,
+            protected_substrings=dictionary.protected_substrings,
+        )
         if log_sink is not None:
             for before, after in fuzzy_rewrites:
                 log_sink.append(
