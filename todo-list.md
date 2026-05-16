@@ -1,10 +1,11 @@
 # Todo List
 
-> Last updated: 2026-05-17 (下一段重点：低风险真实自动化闭环、PC 客户端 GUI 捕获/控制可靠性、动作后 verifier/recovery、computer-use trace metadata、真实 screenshot fixture/eval、`loop.jsonl + screenshots` golden replay，以及 qa-agent strategy snapshot 接入)
+> Last updated: 2026-05-17 (macOS 可独立完成的 P0 已清掉：qa-agent strategy snapshot 接入、Desktop API packaging、Desktop Advisor 历史记录；下一段重点转为真实截图/真机试用、click-action calibration、claim/recruit/upgrade flow + verifier、screenshot fixture dataset)
 
 ## In Progress
 
 - [ ] Desktop Advisor 真机试用：用 PC 客户端、安卓模拟器、安卓真机、iOS 各 3-5 张真实截图跑 `apps/sanmou-advisor-desktop`，记录识别失败样例与 UI 卡点。
+- [x] macOS 可独立完成 P0 收口（2026-05-17）：已完成并推送 `strategy_snapshot.yaml` 默认接入 selector/scoring、Electron API 启动/依赖探测、Advisor history list/detail/screenshot；剩余 P0 均需要真实游戏截图、可控设备/模拟器、Windows 客户端或人工采集样本。
 
 ## P0 — Advisor MVP + 低风险真实自动化闭环
 
