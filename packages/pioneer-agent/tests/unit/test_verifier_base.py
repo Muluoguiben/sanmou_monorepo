@@ -44,6 +44,18 @@ class VerifierBaseTests(unittest.TestCase):
 
         self.assertEqual(result.status, VerificationStatus.UNKNOWN)
 
+    def test_verifier_supports_list_index_paths(self) -> None:
+        verifier = VerifierBase(
+            [ExpectedStateDelta(path="teams.0.recruiting", before=False, expected_after=True)]
+        )
+
+        result = verifier.verify(
+            before_state={"teams": [{"recruiting": False}]},
+            after_state={"teams": [{"recruiting": True}]},
+        )
+
+        self.assertEqual(result.status, VerificationStatus.VERIFIED)
+
 
 if __name__ == "__main__":
     unittest.main()

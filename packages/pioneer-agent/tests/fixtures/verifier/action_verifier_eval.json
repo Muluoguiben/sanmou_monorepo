@@ -1,0 +1,206 @@
+{
+  "cases": [
+    {
+      "id": "claim_chapter_reward_success",
+      "action_type": "claim_chapter_reward",
+      "case_type": "success",
+      "expected_deltas": [
+        {
+          "path": "progress.chapter_claimable",
+          "before": true,
+          "expected_after": false
+        }
+      ],
+      "before_state": {
+        "progress": {
+          "chapter_claimable": true
+        }
+      },
+      "after_state": {
+        "progress": {
+          "chapter_claimable": false
+        }
+      },
+      "expected_status": "verified",
+      "reason_contains": "all expected state deltas matched"
+    },
+    {
+      "id": "claim_chapter_reward_popup_interrupt",
+      "action_type": "claim_chapter_reward",
+      "case_type": "popup_interrupt",
+      "expected_deltas": [
+        {
+          "path": "progress.chapter_claimable",
+          "before": true,
+          "expected_after": false
+        }
+      ],
+      "before_state": {
+        "progress": {
+          "chapter_claimable": true
+        }
+      },
+      "after_state": {
+        "global_state": {
+          "popup": {
+            "visible": true,
+            "blocking": true
+          }
+        },
+        "progress": {
+          "chapter_claimable": true
+        }
+      },
+      "expected_status": "failed",
+      "reason_contains": "expected progress.chapter_claimable"
+    },
+    {
+      "id": "recruit_soldiers_success",
+      "action_type": "recruit_soldiers",
+      "case_type": "success",
+      "expected_deltas": [
+        {
+          "path": "teams.0.recruiting",
+          "before": false,
+          "expected_after": true
+        }
+      ],
+      "before_state": {
+        "teams": [
+          {
+            "team_id": "部队一",
+            "recruiting": false
+          }
+        ]
+      },
+      "after_state": {
+        "teams": [
+          {
+            "team_id": "部队一",
+            "recruiting": true,
+            "recruit_finish_time": "00:12:00"
+          }
+        ]
+      },
+      "expected_status": "verified"
+    },
+    {
+      "id": "recruit_soldiers_no_change",
+      "action_type": "recruit_soldiers",
+      "case_type": "no_change",
+      "expected_deltas": [
+        {
+          "path": "teams.0.recruiting",
+          "before": false,
+          "expected_after": true
+        }
+      ],
+      "before_state": {
+        "teams": [
+          {
+            "team_id": "部队一",
+            "recruiting": false
+          }
+        ]
+      },
+      "after_state": {
+        "teams": [
+          {
+            "team_id": "部队一",
+            "recruiting": false
+          }
+        ]
+      },
+      "expected_status": "failed",
+      "reason_contains": "expected teams.0.recruiting"
+    },
+    {
+      "id": "recruit_soldiers_timeout",
+      "action_type": "recruit_soldiers",
+      "case_type": "timeout",
+      "expected_deltas": [
+        {
+          "path": "teams.0.recruiting",
+          "expected_after": true
+        }
+      ],
+      "before_state": {
+        "teams": [
+          {
+            "team_id": "部队一",
+            "recruiting": false
+          }
+        ]
+      },
+      "after_state": null,
+      "expected_status": "unknown",
+      "reason_contains": "no post-action state was provided",
+      "timeout_seconds": 30
+    },
+    {
+      "id": "upgrade_building_success",
+      "action_type": "upgrade_building",
+      "case_type": "success",
+      "expected_deltas": [
+        {
+          "path": "city.buildings.0.level",
+          "before": 9,
+          "expected_after": 10
+        }
+      ],
+      "before_state": {
+        "city": {
+          "buildings": [
+            {
+              "name": "征兵所",
+              "level": 9
+            }
+          ]
+        }
+      },
+      "after_state": {
+        "city": {
+          "buildings": [
+            {
+              "name": "征兵所",
+              "level": 10
+            }
+          ]
+        }
+      },
+      "expected_status": "verified"
+    },
+    {
+      "id": "upgrade_building_misrecognition",
+      "action_type": "upgrade_building",
+      "case_type": "misrecognition",
+      "expected_deltas": [
+        {
+          "path": "city.buildings.0.level",
+          "before": 9,
+          "expected_after": 10
+        }
+      ],
+      "before_state": {
+        "city": {
+          "buildings": [
+            {
+              "name": "征兵所",
+              "level": 9
+            }
+          ]
+        }
+      },
+      "after_state": {
+        "city": {
+          "upgrade_dialog": {
+            "visible": true,
+            "building_name": "仓库"
+          }
+        }
+      },
+      "expected_status": "failed",
+      "reason_contains": "missing expected path after action"
+    }
+  ]
+}

@@ -107,7 +107,20 @@ class VerifierBase:
 def _get_path(state: Mapping[str, Any], path: str) -> tuple[bool, Any]:
     current: Any = state
     for part in path.split("."):
-        if not isinstance(current, Mapping) or part not in current:
-            return False, None
-        current = current[part]
+        if isinstance(current, Mapping):
+            if part not in current:
+                return False, None
+            current = current[part]
+            continue
+        if _is_sequence(current) and part.isdigit():
+            index = int(part)
+            if index >= len(current):
+                return False, None
+            current = current[index]
+            continue
+        return False, None
     return True, current
+
+
+def _is_sequence(value: Any) -> bool:
+    return isinstance(value, Sequence) and not isinstance(value, (str, bytes, bytearray))

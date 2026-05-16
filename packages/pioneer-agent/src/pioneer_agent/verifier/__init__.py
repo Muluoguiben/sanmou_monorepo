@@ -4,6 +4,12 @@ from pioneer_agent.verifier.base import (
     VerificationStatus,
     VerifierBase,
 )
+from pioneer_agent.verifier.eval import (
+    ActionVerifierEvalCase,
+    ActionVerifierEvalResult,
+    load_action_verifier_eval,
+    run_action_verifier_eval,
+)
 from pioneer_agent.verifier.registry import (
     VerifierGateDecision,
     VerifierGateVerdict,
@@ -13,6 +19,8 @@ from pioneer_agent.verifier.registry import (
 
 __all__ = [
     "ExpectedStateDelta",
+    "ActionVerifierEvalCase",
+    "ActionVerifierEvalResult",
     "VerifierGateDecision",
     "VerifierGateVerdict",
     "VerifierRegistry",
@@ -20,4 +28,6 @@ __all__ = [
     "VerificationResult",
     "VerificationStatus",
     "VerifierBase",
+    "load_action_verifier_eval",
+    "run_action_verifier_eval",
 ]
