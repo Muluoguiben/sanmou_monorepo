@@ -120,9 +120,9 @@ homophones:
     example_videos: [BV1kVohBPEeS]
   - source: 正月数位
     canonical: 镇岳戍卫
-    kind: skill
+    kind: mechanic
     confidence: 0.85
-    notes: 同音 zhēng yuè shù wèi→zhèn yuè shù wèi；BV1fXosBGEHd「下赛季的镇岳戍卫让这队变成三盾兵」；用户确认 canonical=镇岳戍卫（幕僚为队伍类型上下文；KB 暂未收录）
+    notes: 同音 zhēng yuè shù wèi→zhèn yuè shù wèi；BV1fXosBGEHd「下赛季的镇岳戍卫让这队变成三盾兵」。用户确认：镇岳戍卫是【陈仓之围赛季的幕僚玩法】，**不是战法** —— 同音改名仍做，但不可落进 core_skills；下游应归到赛季机制/season_phase 而非 skill
     example_videos: [BV1fXosBGEHd]
   - source: 卫羽成魔
     canonical: 未雨绸缪
