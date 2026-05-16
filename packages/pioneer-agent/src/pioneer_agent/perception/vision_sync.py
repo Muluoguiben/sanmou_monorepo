@@ -13,11 +13,13 @@ from typing import Any
 
 from pioneer_agent.core.models import RuntimeState
 from pioneer_agent.perception.domains import (
+    apply_chapter_panel,
     apply_city_buildings,
     apply_popup,
     apply_resource_bar,
     apply_team_detail,
     apply_team_panel,
+    extract_chapter_panel,
     extract_city_buildings,
     extract_popup,
     extract_resource_bar,
@@ -69,6 +71,17 @@ class VisionSync:
             domains.append("popup")
             if popup_fragment.notes:
                 notes.extend(popup_fragment.notes)
+            if state.global_state.get("popup", {}).get("blocking"):
+                return state, VisionSyncSummary(page_type=page, domains_run=domains, notes=notes)
+
+        if page == "chapter":
+            chapter_fragment = extract_chapter_panel(
+                image, client=self.client, captured_at=captured_at
+            )
+            state = apply_chapter_panel(state, chapter_fragment)
+            domains.append("chapter_panel")
+            if chapter_fragment.notes:
+                notes.extend(chapter_fragment.notes)
 
         if page == "city":
             city_fragment = extract_city_buildings(

@@ -189,6 +189,77 @@ POPUP_DETECTION_INSTRUCTION = (
 
 
 # ---------------------------------------------------------------------------
+# Chapter panel (章节任务 / 章节奖励)
+# ---------------------------------------------------------------------------
+
+class ChapterTaskDetection(BaseModel):
+    name: str
+    completed: bool | None = None
+    current: int | None = None
+    required: int | None = None
+    reward_claimable: bool = False
+
+
+class ChapterPanelDetection(BaseModel):
+    current_chapter_id: int | None = None
+    current_chapter_title: str | None = None
+    chapter_claimable: bool = False
+    claim_button_visible: bool = False
+    claim_button_enabled: bool = False
+    claim_x_min: int | None = Field(default=None, ge=0, le=1000)
+    claim_y_min: int | None = Field(default=None, ge=0, le=1000)
+    claim_x_max: int | None = Field(default=None, ge=0, le=1000)
+    claim_y_max: int | None = Field(default=None, ge=0, le=1000)
+    tasks: list[ChapterTaskDetection] = Field(default_factory=list)
+    visible_notes: list[str] = Field(default_factory=list)
+
+
+CHAPTER_PANEL_SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "properties": {
+        "current_chapter_id": {"type": "integer"},
+        "current_chapter_title": {"type": "string"},
+        "chapter_claimable": {"type": "boolean"},
+        "claim_button_visible": {"type": "boolean"},
+        "claim_button_enabled": {"type": "boolean"},
+        "claim_x_min": {"type": "integer"},
+        "claim_y_min": {"type": "integer"},
+        "claim_x_max": {"type": "integer"},
+        "claim_y_max": {"type": "integer"},
+        "tasks": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string"},
+                    "completed": {"type": "boolean"},
+                    "current": {"type": "integer"},
+                    "required": {"type": "integer"},
+                    "reward_claimable": {"type": "boolean"},
+                },
+                "required": ["name"],
+            },
+        },
+        "visible_notes": {
+            "type": "array",
+            "items": {"type": "string"},
+        },
+    },
+    "required": ["chapter_claimable", "claim_button_visible", "claim_button_enabled", "tasks"],
+}
+
+
+CHAPTER_PANEL_INSTRUCTION = (
+    "This screenshot shows the chapter task panel in 三国·谋定天下. Extract the "
+    "current chapter id/title, visible task rows, progress numbers, completion "
+    "state, and whether any chapter reward can be claimed now. If a claim/reward "
+    "button is visible, report whether it is enabled and provide its 0-1000 "
+    "normalized bbox coordinates when clear. Do not mark chapter_claimable true "
+    "unless a visible enabled reward/领取 button is present."
+)
+
+
+# ---------------------------------------------------------------------------
 # City buildings (城内建筑) — internal city view
 # ---------------------------------------------------------------------------
 

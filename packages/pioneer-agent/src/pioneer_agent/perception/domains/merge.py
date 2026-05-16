@@ -17,6 +17,7 @@ from typing import Any
 
 from pioneer_agent.core.models import FieldMeta, RuntimeState
 
+from .chapter_panel import ChapterPanelFragment
 from .city_buildings import CityBuildingsFragment
 from .popup import PopupFragment
 from .resource_bar import ResourceBarFragment
@@ -69,6 +70,21 @@ def apply_popup(state: RuntimeState, fragment: PopupFragment) -> RuntimeState:
         merged_global = dict(state.global_state)
         merged_global.update(fragment.global_state)
         updates["global_state"] = merged_global
+
+    merged_meta: dict[str, FieldMeta] = dict(state.field_meta)
+    merged_meta.update(fragment.field_meta)
+    updates["field_meta"] = merged_meta
+
+    return state.model_copy(update=updates)
+
+
+def apply_chapter_panel(state: RuntimeState, fragment: ChapterPanelFragment) -> RuntimeState:
+    updates: dict[str, Any] = {}
+
+    if fragment.progress:
+        merged_progress = dict(state.progress)
+        merged_progress.update(fragment.progress)
+        updates["progress"] = merged_progress
 
     merged_meta: dict[str, FieldMeta] = dict(state.field_meta)
     merged_meta.update(fragment.field_meta)

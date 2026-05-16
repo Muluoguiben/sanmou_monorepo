@@ -9,7 +9,7 @@
 ## P0 — Advisor MVP + 低风险真实自动化闭环
 
 - [x] Agent loop contract（2026-05-17）：新增 `runtime.loop_contract`，把 runtime 固化为 `observe -> decide -> act -> verify -> trace -> recover`；`AutonomousLoop` 写 trace 前校验每个 tick 的阶段完整性，并默认在 CLI 产出结构化 `trace.jsonl`。
-- [ ] `chapter_panel` perception domain：章节面板截图识别当前章节、任务完成状态、奖励是否可领；输出 `progress.chapter_claimable/current_chapter_id` 与 field_meta。
+- [x] `chapter_panel` perception domain（2026-05-17）：新增章节面板 schema/domain/merge/sync，识别当前章节、任务完成状态、奖励是否可领、领取按钮 bbox；输出 `progress.chapter_claimable/current_chapter_id/chapter_tasks` 与 `field_meta["progress.chapter_panel"]`。
 - [ ] `claim_chapter_reward` flow：打开章节面板 → 定位可领取奖励 → 点击领取/确认 → 返回稳定页面；非 dry-run 执行成功时返回 `ok`。
 - [ ] `claim_chapter_reward` verifier：动作后重新截图，验证 `chapter_claimable=false`、奖励状态变化或章节任务状态变化；无 verifier 不允许自动执行。
 - [ ] `recruit_panel` / team soldier perception domain：识别队伍兵力、上限、预备兵、征兵按钮状态，支撑 `recruit_soldiers` Advisor 建议。

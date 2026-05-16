@@ -29,6 +29,8 @@ class _ScriptedVisionClient:
         # Differentiate by instruction prefix — cheap and accurate enough for tests.
         if "popup" in instruction.lower() or "弹窗" in instruction or "dialog" in instruction.lower():
             kind = "popup"
+        elif "chapter task panel" in instruction.lower() or "章节" in instruction:
+            kind = "chapter_panel"
         elif "resource" in instruction.lower() or "top bar" in instruction.lower() or "page type" in instruction.lower():
             kind = "resource_bar"
         elif "城内" in instruction or "city" in instruction.lower() or "building" in instruction.lower():
@@ -115,6 +117,37 @@ class VisionSyncTests(unittest.TestCase):
         self.assertTrue(state.global_state["popup"]["visible"])
         self.assertEqual(state.global_state["popup"]["safe_default_action"], "cancel")
         self.assertIn("确认框", summary.notes)
+
+    def test_chapter_page_runs_chapter_panel(self) -> None:
+        client = _ScriptedVisionClient(
+            [
+                {
+                    "page_type": "chapter",
+                    "resources": {},
+                    "visible_notes": ["章节任务"],
+                },
+                {
+                    "current_chapter_id": 3,
+                    "current_chapter_title": "开疆拓土",
+                    "chapter_claimable": True,
+                    "claim_button_visible": True,
+                    "claim_button_enabled": True,
+                    "claim_x_min": 700,
+                    "claim_y_min": 800,
+                    "claim_x_max": 900,
+                    "claim_y_max": 900,
+                    "tasks": [{"name": "占领 4 级地", "completed": True}],
+                    "visible_notes": ["奖励可领"],
+                },
+            ]
+        )
+        sync = VisionSync(client)
+        state, summary = sync.sync(b"png")
+        self.assertEqual(summary.domains_run, ["resource_bar", "chapter_panel"])
+        self.assertEqual(client.calls, ["resource_bar", "chapter_panel"])
+        self.assertTrue(state.progress["chapter_claimable"])
+        self.assertEqual(state.progress["current_chapter_id"], 3)
+        self.assertIn("奖励可领", summary.notes)
 
     def test_team_page_runs_team_panel(self) -> None:
         client = _ScriptedVisionClient(
