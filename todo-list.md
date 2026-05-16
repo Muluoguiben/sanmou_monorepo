@@ -1,6 +1,6 @@
 # Todo List
 
-> Last updated: 2026-05-17 (macOS 侧高优知识任务已补：Bilibili 字幕规范化/阵容图结构化抽取状态纠偏，新增 Bilibili 视频自动发现 CLI，完成 100 条“三谋开荒”视频截图+vision 门禁沉淀，补充开荒基础玩法 baseline；下一段重点转为真实截图/真机试用、click-action calibration、claim/recruit/upgrade flow + verifier、screenshot fixture dataset)
+> Last updated: 2026-05-17 (macOS 侧高优知识任务已补：Bilibili 字幕规范化/阵容图结构化抽取状态纠偏，新增 Bilibili 视频自动发现 CLI，完成 100 条“三谋开荒”视频截图+vision 门禁沉淀，补充开荒基础玩法 baseline；已补 action-loop 模型路由；下一段重点转为真实截图/真机试用、click-action calibration、claim/recruit/upgrade flow + verifier、screenshot fixture dataset)
 
 ## In Progress
 
@@ -30,6 +30,7 @@
 - [x] Screenshot / coordinate trace metadata（2026-05-17）：`VisionClient` 记录每次 vision 的原图/prepared 图尺寸与 resize/token 信息；`UIActions` 自动缓冲 click/drag/key trace，`AutonomousLoop` 写入 `TraceStore.screenshot.metadata/coordinates`，包含 window/display 坐标空间、scale、normalized bbox、pixel bbox、实际点击点。
 - [x] Trace Store schema（2026-05-17）：新增 `pioneer_agent.storage.trace_store`，并把 `AutonomousLoop` 接入可选 `TraceStore`；每个 traced tick 记录 observe/decide/act/verify/trace/recover 阶段、状态快照、vision summary、selected/ranked action、execution、verification、recovery 和截图尺寸。
 - [x] Golden replay tests（2026-05-17）：新增 `GoldenReplayRunner`，校验 `loop.jsonl` 引用的 screenshot 存在，并用 RuntimeState fixture 重放 selector，比较 loop 记录的推荐动作与重放输出；覆盖匹配、mismatch、缺 screenshot 三类测试。
+- [x] Action-loop 模型路由策略（2026-05-17）：新增 `docs/action-loop-model-routing.md` 与 `pioneer_agent.perception.vision.model_routing`，把 realtime/recovery/verifier/dense_table/eval 五类 profile 固化；OpenAI vision 支持 `PIONEER_VISION_MODEL_PROFILE`、`openai:<profile>`、per-call `reasoning_effort/image_detail/verbosity/max_tokens`；runbook 明确强模型结果仍需 canonical/GT 校验，误填率优先于召回率，真实点击仍受 allowlist/safety/verifier 约束。
 - [x] `event_tournament` / `mode_hub` perception domain（2026-05-17）：新增 `perception.domains.mode_hub` 与 vision schema/sync，识别演武大会、征战入口、远征/军演/养士兴功等页面的入口、积分、排名、倒计时、阶段状态、可进入/可领取/可重置/可报名及按钮 bbox，写入 `global_state.event_tournament/mode_hub`。
 - [ ] TeamSnapshot 全队详情 fixture/eval：补充孟获、诸葛亮2 的详情页截图 fixture，让 `TeamSnapshot` 从“祝融夫人单将详情已覆盖”推进到 3/3 武将详情覆盖，并校验最终可进入 PVP/PVE/远征 ready/needs_review 判断。
 - [x] Desktop Advisor 历史记录（2026-05-17）：`advisor_api` 为 `reports.jsonl + uploads/` 增加 history list/detail/screenshot API；历史条目记录上传截图、`DeviceProfile`、`RuntimeState`/`AdvisorReport` 摘要，桌面端侧栏可浏览最近记录并重新打开保存的截图和报告。

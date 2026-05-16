@@ -55,6 +55,15 @@ Unknown UI state means stop or recover with a known safe close/navigation action
 - Do not paste or persist secret env values. Record only variable names and whether they were present.
 - Avoid mixing provider benchmarks with knowledge ingestion runs; they answer different questions.
 
+## Action-loop Model Routing
+
+- Use `docs/action-loop-model-routing.md` as the canonical routing policy for screenshot -> recognition -> action -> verifier work.
+- Default live Advisor perception should use the low-cost `realtime` profile; do not silently promote every tick to a high-reasoning model.
+- Use `dense_table` only after deterministic local crop/zoom has isolated the relevant table, column, or row.
+- Treat dense vision output as evidence until it is checked against canonical game terms or reviewed ground truth. A model reading plausible names is not enough for `knowledge_sources`.
+- False positives are worse than missing data for knowledge ingestion and action planning. Prefer `pending`/refusal over unverified backfill.
+- Real clicks still require allowlist, safety guard, verifier, and trace regardless of model confidence.
+
 ## Automation Execution
 
 - The runtime contract is `observe -> decide -> act -> verify -> trace -> recover`.

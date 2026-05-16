@@ -52,6 +52,24 @@ python3 -m pioneer_agent.app.vision_probe --image /path/to/screenshot.png
 
 OpenAI/sub2api 请求必须带 `reasoning_effort` + `store:false`；详见项目级 `.claude/CLAUDE.md` 的 "LLM Provider" 段。
 
+### Model routing profiles
+
+截图 -> 识别 -> action loop 的模型分层见 `../../docs/action-loop-model-routing.md`。OpenAI vision 支持：
+
+```bash
+PIONEER_VISION_PROVIDER=openai
+PIONEER_VISION_MODEL_PROFILE=realtime      # realtime / recovery / verifier / dense_table / eval
+PIONEER_OPENAI_MODEL=gpt-5.4               # gpt-5.5 可用后可通过 env 覆盖
+```
+
+也可用 provider 字符串快速选择：
+
+```bash
+python3 -m pioneer_agent.app.vision_probe --vision-provider openai:dense_table --image /path/to/table.png
+```
+
+实时 loop 默认用 `realtime`；密集小字阵容表必须先裁剪/放大，再用 `dense_table` 或离线 `eval`。模型输出不能绕过 allowlist、safety guard、verifier 或人工确认。
+
 ## 当前边界
 
 - V1 是 Advisor-only：截图观察、状态识别、策略建议，不自动点击。

@@ -21,10 +21,19 @@ def build_vision_client(provider: str | None = None) -> VisionExtractor:
         from .client import VisionClient
 
         return VisionClient()
-    if selected in {"openai", "gpt", "gpt-5.4"}:
+    if selected.startswith("openai:"):
+        from .openai_client import OpenAIVisionClient
+
+        return OpenAIVisionClient(profile=selected.split(":", 1)[1])
+    if selected in {"openai", "gpt"}:
         from .openai_client import OpenAIVisionClient
 
         return OpenAIVisionClient()
+    if selected.startswith("gpt-5."):
+        from .openai_client import OpenAIVisionClient
+
+        return OpenAIVisionClient(model=selected)
     raise ValueError(
-        f"unknown vision provider: {selected!r} (expected 'gemini' or 'openai')"
+        f"unknown vision provider: {selected!r} (expected 'gemini', 'openai', "
+        "'openai:<profile>', or a gpt-5.x model)"
     )

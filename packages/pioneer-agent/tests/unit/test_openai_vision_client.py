@@ -9,6 +9,7 @@ from PIL import Image
 
 from pioneer_agent.perception.vision import build_vision_client
 from pioneer_agent.perception.vision.client import VisionError
+from pioneer_agent.perception.vision.model_routing import get_vision_model_profile
 from pioneer_agent.perception.vision.openai_client import OpenAIVisionClient
 
 
@@ -87,6 +88,7 @@ class OpenAIVisionClientTests(unittest.TestCase):
         self.assertEqual(captured["headers"]["Authorization"], "Bearer test-key")
         self.assertEqual(captured["payload"]["model"], "gpt-5.4")
         self.assertEqual(captured["payload"]["reasoning_effort"], "medium")
+        self.assertEqual(captured["payload"]["max_tokens"], 1024)
         self.assertFalse(captured["payload"]["store"])
         content = captured["payload"]["messages"][1]["content"]
         self.assertIn("Read the page.", content[0]["text"])
@@ -94,6 +96,10 @@ class OpenAIVisionClientTests(unittest.TestCase):
         self.assertTrue(
             content[1]["image_url"]["url"].startswith("data:image/png;base64,")
         )
+        self.assertNotIn("detail", content[1]["image_url"])
+        self.assertEqual(result.original_size, (8, 8))
+        self.assertEqual(result.prepared_size, (8, 8))
+        self.assertFalse(result.resized)
 
     def test_missing_api_key_raises_vision_error(self) -> None:
         with patch.dict(os.environ, {}, clear=True):
@@ -106,6 +112,102 @@ class OpenAIVisionClientTests(unittest.TestCase):
             with patch("pioneer_agent.perception.vision.openai_client.load_vision_env"):
                 client = build_vision_client("openai")
         self.assertIsInstance(client, OpenAIVisionClient)
+
+    def test_dense_table_profile_sets_original_detail_and_high_reasoning(self) -> None:
+        captured: dict = {}
+
+        def fake_post(url, *, headers, json, timeout):
+            captured["payload"] = json
+            return _FakeResponse(
+                {
+                    "model": "gpt-5.4",
+                    "choices": [{"message": {"content": '{"page_type":"team"}'}}],
+                    "usage": {"prompt_tokens": 20, "completion_tokens": 9},
+                }
+            )
+
+        with patch.dict(
+            os.environ,
+            {
+                "OPENAI_API_KEY": "test-key",
+                "PIONEER_OPENAI_BASE_URL": "http://example.test/v1",
+            },
+            clear=False,
+        ):
+            with patch("pioneer_agent.perception.vision.openai_client.load_vision_env"):
+                with patch(
+                    "pioneer_agent.perception.vision.openai_client.requests.post",
+                    fake_post,
+                ):
+                    client = OpenAIVisionClient(profile="dense_table")
+                    result = client.extract(
+                        image=_png_bytes(),
+                        instruction="Read table.",
+                        response_schema={"type": "object", "properties": {}},
+                    )
+
+        self.assertEqual(result.data["page_type"], "team")
+        self.assertEqual(captured["payload"]["model"], "gpt-5.4")
+        self.assertEqual(captured["payload"]["reasoning_effort"], "high")
+        self.assertEqual(captured["payload"]["max_tokens"], 2000)
+        self.assertEqual(captured["payload"]["text"]["verbosity"], "high")
+        content = captured["payload"]["messages"][1]["content"]
+        self.assertEqual(content[1]["image_url"]["detail"], "original")
+        trace = client.consume_trace_events()
+        self.assertEqual(trace[0]["profile"], "dense_table")
+        self.assertEqual(trace[0]["image_detail"], "original")
+
+    def test_extract_call_can_override_profile_knobs(self) -> None:
+        captured: dict = {}
+
+        def fake_post(url, *, headers, json, timeout):
+            captured["payload"] = json
+            return _FakeResponse(
+                {
+                    "model": "gpt-5.4",
+                    "choices": [{"message": {"content": '{"ok":true}'}}],
+                    "usage": {"prompt_tokens": 1, "completion_tokens": 1},
+                }
+            )
+
+        with patch.dict(os.environ, {"OPENAI_API_KEY": "test-key"}, clear=False):
+            with patch("pioneer_agent.perception.vision.openai_client.load_vision_env"):
+                with patch(
+                    "pioneer_agent.perception.vision.openai_client.requests.post",
+                    fake_post,
+                ):
+                    client = OpenAIVisionClient(profile="dense_table")
+                    client.extract(
+                        image=_png_bytes(),
+                        instruction="Read.",
+                        response_schema={"type": "object", "properties": {}},
+                        reasoning_effort="low",
+                        image_detail="high",
+                        verbosity="medium",
+                        max_tokens=256,
+                    )
+
+        self.assertEqual(captured["payload"]["reasoning_effort"], "low")
+        self.assertEqual(captured["payload"]["max_tokens"], 256)
+        self.assertEqual(captured["payload"]["text"]["verbosity"], "medium")
+        content = captured["payload"]["messages"][1]["content"]
+        self.assertEqual(content[1]["image_url"]["detail"], "high")
+
+    def test_factory_accepts_profile_and_explicit_gpt_model(self) -> None:
+        with patch.dict(os.environ, {"OPENAI_API_KEY": "test-key"}, clear=False):
+            with patch("pioneer_agent.perception.vision.openai_client.load_vision_env"):
+                dense = build_vision_client("openai:dense_table")
+                explicit = build_vision_client("gpt-5.4-mini")
+        self.assertIsInstance(dense, OpenAIVisionClient)
+        self.assertIsInstance(explicit, OpenAIVisionClient)
+
+    def test_model_profile_registry_documents_routing_defaults(self) -> None:
+        realtime = get_vision_model_profile("realtime")
+        dense = get_vision_model_profile("dense-table")
+        self.assertEqual(realtime.reasoning_effort, "low")
+        self.assertIsNone(realtime.image_detail)
+        self.assertEqual(dense.reasoning_effort, "high")
+        self.assertEqual(dense.image_detail, "original")
 
 
 if __name__ == "__main__":
