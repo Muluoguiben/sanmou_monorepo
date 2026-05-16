@@ -3,6 +3,7 @@ from __future__ import annotations
 import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from types import SimpleNamespace
 
 from PIL import Image
 
@@ -82,6 +83,51 @@ class AdvisorApiTests(unittest.TestCase):
             )
             self.assertIn("这张图的解读", vision_response.answer)
             self.assertIn("关键事实", vision_response.answer)
+
+    def test_chat_uses_qa_query_service_for_knowledge_questions(self) -> None:
+        _UploadFile, AdvisorApiService, AdvisorChatRequest, _TestClient, _create_app = _require_api_deps()
+
+        class _FakeQaQueryService:
+            def __init__(self) -> None:
+                self.calls: list[tuple[str, str | None]] = []
+
+            def answer_rule_question(self, question: str, domain: str | None = None):  # noqa: ANN001
+                self.calls.append((question, domain))
+                return SimpleNamespace(
+                    answer="优先升级征兵所，兵力瓶颈解除后再看资源建筑。",
+                    evidence=[
+                        SimpleNamespace(
+                            entry_id="building-priority-recruit",
+                            topic="征兵所升级",
+                            summary="征兵所影响预备兵与补兵节奏。",
+                            source_ref="knowledge_sources/rules/buildings.yaml",
+                        )
+                    ],
+                )
+
+        qa = _FakeQaQueryService()
+        with TemporaryDirectory() as tmp:
+            service = AdvisorApiService(
+                data_dir=Path(tmp) / "advisor",
+                default_mock_mode=True,
+                qa_query_service=qa,
+            )
+            response = service.chat(
+                AdvisorChatRequest(
+                    message="建筑升级优先级是什么",
+                    report={
+                        "recommended_action": {"action_type": "upgrade_building"},
+                        "current_state_summary": {"page_type": "city"},
+                        "evidence": [],
+                    },
+                )
+            )
+
+        self.assertEqual(response.mode, "qa_query_service")
+        self.assertIn("页面=city", response.answer)
+        self.assertIn("优先升级征兵所", response.answer)
+        self.assertIn("building-priority-recruit", response.evidence[0])
+        self.assertEqual(qa.calls, [("建筑升级优先级是什么", "building")])
 
     def test_kill_switch_api_can_trigger_and_clear_stop_file(self) -> None:
         (

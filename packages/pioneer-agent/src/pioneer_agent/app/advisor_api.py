@@ -5,6 +5,7 @@ import json
 import os
 import re
 import shutil
+import sys
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Annotated, Any
@@ -55,12 +56,16 @@ class AdvisorApiService:
         data_dir: Path | None = None,
         default_mock_mode: bool | None = None,
         kill_switch: KillSwitch | None = None,
+        qa_query_service: Any | None = None,
     ) -> None:
         self.project_root = _project_root()
         self.data_dir = data_dir or _default_data_dir(self.project_root)
         self.upload_dir = self.data_dir / "uploads"
         self.report_log = self.data_dir / "reports.jsonl"
         self.kill_switch = kill_switch or KillSwitch(default_kill_switch_path(self.project_root))
+        self._qa_query_service = qa_query_service
+        self._qa_query_load_attempted = qa_query_service is not None
+        self._qa_query_error: str | None = None
         self.default_mock_mode = (
             _env_bool("SANMOU_ADVISOR_MOCK", default=False)
             if default_mock_mode is None
@@ -122,6 +127,10 @@ class AdvisorApiService:
                 evidence=[],
             )
 
+        qa_response = self._qa_chat(request)
+        if qa_response is not None:
+            return qa_response
+
         recommended = request.report.get("recommended_action") or {}
         interpretation = request.report.get("screenshot_interpretation") or {}
         summary = request.report.get("current_state_summary") or {}
@@ -163,6 +172,59 @@ class AdvisorApiService:
                 "你可以继续问“下一步做什么”“这个动作风险高吗”“这张图识别到了什么”。"
             )
         return AdvisorChatResponse(answer=answer, evidence=evidence)
+
+    def _qa_chat(self, request: AdvisorChatRequest) -> AdvisorChatResponse | None:
+        message = request.message.strip()
+        if not _should_use_qa_chat(message):
+            return None
+        service = self._get_qa_query_service()
+        if service is None:
+            return None
+        domain = _infer_qa_domain(message)
+        response = service.answer_rule_question(message, domain=domain)
+        evidence = _qa_evidence_strings(response)
+        if not evidence:
+            return None
+
+        report = request.report or {}
+        recommended = report.get("recommended_action") or {}
+        summary = report.get("current_state_summary") or {}
+        page_type = summary.get("page_type") or summary.get("interpreted_page_type") or "unknown"
+        action_type = recommended.get("action_type") or "none"
+        answer = (
+            f"结合当前截图上下文：页面={page_type}，推荐动作={action_type}。"
+            f"知识库建议：{response.answer}"
+        )
+        return AdvisorChatResponse(
+            answer=answer,
+            evidence=evidence[:8],
+            mode="qa_query_service",
+        )
+
+    def _get_qa_query_service(self) -> Any | None:
+        if self._qa_query_service is not None:
+            return self._qa_query_service
+        if self._qa_query_load_attempted:
+            return None
+        self._qa_query_load_attempted = True
+        if _env_bool("SANMOU_ADVISOR_DISABLE_QA_CHAT", default=False):
+            self._qa_query_error = "disabled by SANMOU_ADVISOR_DISABLE_QA_CHAT"
+            return None
+        try:
+            qa_src = self.project_root / "packages" / "qa-agent" / "src"
+            if qa_src.exists() and str(qa_src) not in sys.path:
+                sys.path.insert(0, str(qa_src))
+            from qa_agent.knowledge.source_paths import discover_source_paths
+            from qa_agent.service.query_service import QueryService
+
+            source_root = self.project_root / "packages" / "qa-agent" / "knowledge_sources"
+            self._qa_query_service = QueryService.from_source_paths(
+                discover_source_paths(source_root)
+            )
+            return self._qa_query_service
+        except Exception as exc:  # noqa: BLE001
+            self._qa_query_error = str(exc)
+            return None
 
     def _save_upload(self, upload: UploadFile) -> Path:
         suffix = Path(upload.filename or "screenshot.png").suffix.lower()
@@ -404,6 +466,51 @@ def _interpretation_report_update(
         "evidence": evidence,
         "confidence": min(report.confidence, interpretation.confidence),
     }
+
+
+def _should_use_qa_chat(message: str) -> bool:
+    markers = (
+        "建筑",
+        "升级",
+        "打地",
+        "土地",
+        "战损",
+        "兵力",
+        "阵容",
+        "武将",
+        "战法",
+        "赛季",
+        "机制",
+        "优先级",
+        "开荒",
+    )
+    return any(marker in message for marker in markers)
+
+
+def _infer_qa_domain(message: str) -> str | None:
+    if any(marker in message for marker in ("建筑", "升级", "征兵所", "仓库")):
+        return "building"
+    if any(marker in message for marker in ("打地", "土地", "战损", "兵力", "军令", "克制")):
+        return "combat"
+    if any(marker in message for marker in ("阵容", "队伍", "开荒")):
+        return "solution"
+    if any(marker in message for marker in ("武将", "英雄")):
+        return "hero"
+    if "战法" in message:
+        return "skill"
+    return None
+
+
+def _qa_evidence_strings(response: Any) -> list[str]:
+    evidence: list[str] = []
+    for item in getattr(response, "evidence", []) or []:
+        entry_id = getattr(item, "entry_id", "unknown")
+        topic = getattr(item, "topic", "unknown")
+        summary = getattr(item, "summary", "")
+        source_ref = getattr(item, "source_ref", "")
+        suffix = f" [{source_ref}]" if source_ref else ""
+        evidence.append(f"{entry_id}: {topic} - {summary}{suffix}")
+    return evidence
 
 
 def main(argv: list[str] | None = None) -> int:
