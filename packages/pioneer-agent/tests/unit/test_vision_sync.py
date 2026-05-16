@@ -27,7 +27,9 @@ class _ScriptedVisionClient:
 
     def extract(self, image, instruction, response_schema, **kwargs):  # noqa: ANN001
         # Differentiate by instruction prefix — cheap and accurate enough for tests.
-        if "popup" in instruction.lower() or "弹窗" in instruction or "dialog" in instruction.lower():
+        if "building upgrade confirmation" in instruction.lower() or "建筑升级确认框" in instruction:
+            kind = "upgrade_dialog"
+        elif "popup" in instruction.lower() or "弹窗" in instruction or "dialog" in instruction.lower():
             kind = "popup"
         elif "chapter task panel" in instruction.lower() or "章节" in instruction:
             kind = "chapter_panel"
@@ -181,6 +183,42 @@ class VisionSyncTests(unittest.TestCase):
         self.assertEqual(state.economy["reserve_troops"], 9000)
         self.assertEqual(state.teams[0]["soldier_deficit"], 6000)
         self.assertIn("可征兵", summary.notes)
+
+    def test_upgrade_dialog_page_runs_upgrade_dialog(self) -> None:
+        client = _ScriptedVisionClient(
+            [
+                {
+                    "page_type": "upgrade_dialog",
+                    "resources": {},
+                    "visible_notes": ["建筑升级确认框"],
+                },
+                {
+                    "dialog_visible": True,
+                    "building_name": "征兵所",
+                    "current_level": 9,
+                    "next_level": 10,
+                    "can_upgrade": False,
+                    "cannot_upgrade_reason": "石料不足",
+                    "costs": [{"name": "石料", "required": 12000, "available": 8000, "enough": False}],
+                    "confirm_button_visible": True,
+                    "confirm_button_enabled": False,
+                    "confirm_x_min": 720,
+                    "confirm_y_min": 820,
+                    "confirm_x_max": 920,
+                    "confirm_y_max": 900,
+                    "close_button_visible": True,
+                    "visible_notes": ["资源不足"],
+                },
+            ]
+        )
+        sync = VisionSync(client)
+        state, summary = sync.sync(b"png")
+        self.assertEqual(summary.domains_run, ["resource_bar", "upgrade_dialog"])
+        self.assertEqual(client.calls, ["resource_bar", "upgrade_dialog"])
+        self.assertEqual(state.city["upgrade_dialog"]["building_name"], "征兵所")
+        self.assertFalse(state.city["upgrade_dialog"]["can_upgrade"])
+        self.assertEqual(state.city["upgrade_dialog"]["confirm_button"]["bbox"]["x_min"], 720)
+        self.assertIn("资源不足", summary.notes)
 
     def test_team_page_runs_team_panel(self) -> None:
         client = _ScriptedVisionClient(

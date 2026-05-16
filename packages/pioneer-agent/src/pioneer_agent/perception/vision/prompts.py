@@ -16,6 +16,7 @@ PageType = Literal[
     "city",
     "hero_list",
     "building",
+    "upgrade_dialog",
     "battle",
     "chapter",
     "recruit",
@@ -61,6 +62,7 @@ PAGE_DETECTION_SCHEMA: dict[str, Any] = {
                 "city",
                 "hero_list",
                 "building",
+                "upgrade_dialog",
                 "battle",
                 "chapter",
                 "recruit",
@@ -324,6 +326,87 @@ RECRUIT_PANEL_INSTRUCTION = (
     "max soldiers, whether recruiting is already in progress, recruitment finish "
     "countdown/time, and whether the recruit/征兵 button is visible and enabled. "
     "Use 0-1000 normalized bbox coordinates for the recruit button when clear."
+)
+
+
+# ---------------------------------------------------------------------------
+# Upgrade dialog (建筑升级确认框)
+# ---------------------------------------------------------------------------
+
+class UpgradeResourceCostDetection(BaseModel):
+    name: str
+    required: int | None = None
+    available: int | None = None
+    enough: bool | None = None
+
+
+class UpgradeDialogDetection(BaseModel):
+    dialog_visible: bool = False
+    building_name: str | None = None
+    current_level: int | None = None
+    next_level: int | None = None
+    can_upgrade: bool | None = None
+    cannot_upgrade_reason: str | None = None
+    costs: list[UpgradeResourceCostDetection] = Field(default_factory=list)
+    confirm_button_visible: bool = False
+    confirm_button_enabled: bool = False
+    confirm_x_min: int | None = Field(default=None, ge=0, le=1000)
+    confirm_y_min: int | None = Field(default=None, ge=0, le=1000)
+    confirm_x_max: int | None = Field(default=None, ge=0, le=1000)
+    confirm_y_max: int | None = Field(default=None, ge=0, le=1000)
+    close_button_visible: bool = False
+    close_x_min: int | None = Field(default=None, ge=0, le=1000)
+    close_y_min: int | None = Field(default=None, ge=0, le=1000)
+    close_x_max: int | None = Field(default=None, ge=0, le=1000)
+    close_y_max: int | None = Field(default=None, ge=0, le=1000)
+    visible_notes: list[str] = Field(default_factory=list)
+
+
+UPGRADE_DIALOG_SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "properties": {
+        "dialog_visible": {"type": "boolean"},
+        "building_name": {"type": "string"},
+        "current_level": {"type": "integer"},
+        "next_level": {"type": "integer"},
+        "can_upgrade": {"type": "boolean"},
+        "cannot_upgrade_reason": {"type": "string"},
+        "costs": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string"},
+                    "required": {"type": "integer"},
+                    "available": {"type": "integer"},
+                    "enough": {"type": "boolean"},
+                },
+                "required": ["name"],
+            },
+        },
+        "confirm_button_visible": {"type": "boolean"},
+        "confirm_button_enabled": {"type": "boolean"},
+        "confirm_x_min": {"type": "integer"},
+        "confirm_y_min": {"type": "integer"},
+        "confirm_x_max": {"type": "integer"},
+        "confirm_y_max": {"type": "integer"},
+        "close_button_visible": {"type": "boolean"},
+        "close_x_min": {"type": "integer"},
+        "close_y_min": {"type": "integer"},
+        "close_x_max": {"type": "integer"},
+        "close_y_max": {"type": "integer"},
+        "visible_notes": {"type": "array", "items": {"type": "string"}},
+    },
+    "required": ["dialog_visible", "costs", "confirm_button_visible", "confirm_button_enabled"],
+}
+
+
+UPGRADE_DIALOG_INSTRUCTION = (
+    "This screenshot may show a building upgrade confirmation dialog in 三国·谋定天下. "
+    "Extract building name, current/next level, required resources, available resources, "
+    "whether the upgrade can proceed, any visible disabled reason, and confirm/close "
+    "button states. Use 0-1000 normalized bbox coordinates for confirm and close buttons "
+    "when clear. Do not mark can_upgrade true unless the visible upgrade/升级 button is enabled."
 )
 
 

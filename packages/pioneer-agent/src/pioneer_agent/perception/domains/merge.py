@@ -25,6 +25,7 @@ from .resource_bar import ResourceBarFragment
 from .team_detail import TeamDetailFragment
 from .team_panel import TeamPanelFragment
 from .team_panel import DEFAULT_MISSING_DETAIL_TABS
+from .upgrade_dialog import UpgradeDialogFragment
 
 _DICT_DOMAINS = {
     "global_state",
@@ -122,6 +123,21 @@ def apply_city_buildings(state: RuntimeState, fragment: CityBuildingsFragment) -
 
     if fragment.city:
         merged_city = _merge_city(dict(state.city), fragment.city)
+        updates["city"] = merged_city
+
+    merged_meta: dict[str, FieldMeta] = dict(state.field_meta)
+    merged_meta.update(fragment.field_meta)
+    updates["field_meta"] = merged_meta
+
+    return state.model_copy(update=updates)
+
+
+def apply_upgrade_dialog(state: RuntimeState, fragment: UpgradeDialogFragment) -> RuntimeState:
+    updates: dict[str, Any] = {}
+
+    if fragment.city:
+        merged_city = dict(state.city)
+        merged_city.update(fragment.city)
         updates["city"] = merged_city
 
     merged_meta: dict[str, FieldMeta] = dict(state.field_meta)

@@ -20,6 +20,7 @@ from pioneer_agent.perception.domains import (
     apply_resource_bar,
     apply_team_detail,
     apply_team_panel,
+    apply_upgrade_dialog,
     extract_chapter_panel,
     extract_city_buildings,
     extract_popup,
@@ -27,6 +28,7 @@ from pioneer_agent.perception.domains import (
     extract_resource_bar,
     extract_team_detail,
     extract_team_panel,
+    extract_upgrade_dialog,
 )
 from pioneer_agent.perception.vision import VisionClient
 
@@ -65,7 +67,7 @@ class VisionSync:
         if res_fragment.notes:
             notes.extend(res_fragment.notes)
 
-        if _should_run_popup_detector(res_fragment.notes):
+        if page != "upgrade_dialog" and _should_run_popup_detector(res_fragment.notes):
             popup_fragment = extract_popup(
                 image, client=self.client, captured_at=captured_at
             )
@@ -93,6 +95,15 @@ class VisionSync:
             domains.append("recruit_panel")
             if recruit_fragment.notes:
                 notes.extend(recruit_fragment.notes)
+
+        if page in {"building", "upgrade_dialog"}:
+            upgrade_fragment = extract_upgrade_dialog(
+                image, client=self.client, captured_at=captured_at
+            )
+            state = apply_upgrade_dialog(state, upgrade_fragment)
+            domains.append("upgrade_dialog")
+            if upgrade_fragment.notes:
+                notes.extend(upgrade_fragment.notes)
 
         if page == "city":
             city_fragment = extract_city_buildings(

@@ -8,6 +8,7 @@ from .merge import (
     apply_resource_bar,
     apply_team_detail,
     apply_team_panel,
+    apply_upgrade_dialog,
 )
 from .popup import PopupFragment, extract_popup
 from .recruit_panel import RecruitPanelFragment, extract_recruit_panel
@@ -17,6 +18,7 @@ from .resource_bar import (
 )
 from .team_detail import TeamDetailFragment, extract_team_detail
 from .team_panel import TeamPanelFragment, extract_team_panel
+from .upgrade_dialog import UpgradeDialogFragment, extract_upgrade_dialog
 
 __all__ = [
     "CityBuildingsFragment",
@@ -26,6 +28,7 @@ __all__ = [
     "ResourceBarFragment",
     "TeamDetailFragment",
     "TeamPanelFragment",
+    "UpgradeDialogFragment",
     "apply_chapter_panel",
     "apply_city_buildings",
     "apply_popup",
@@ -33,6 +36,7 @@ __all__ = [
     "apply_resource_bar",
     "apply_team_detail",
     "apply_team_panel",
+    "apply_upgrade_dialog",
     "extract_chapter_panel",
     "extract_city_buildings",
     "extract_popup",
@@ -40,4 +44,5 @@ __all__ = [
     "extract_resource_bar",
     "extract_team_detail",
     "extract_team_panel",
+    "extract_upgrade_dialog",
 ]
