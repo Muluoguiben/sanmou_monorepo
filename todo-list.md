@@ -1,28 +1,22 @@
 # Todo List
 
-> Last updated: 2026-05-16 (下一段重点：多设备 Desktop Advisor 真机试用、真实 screenshot fixture/eval、`loop.jsonl + screenshots` golden replay，以及接入 Bilibili 阵容图结构化抽取)
+> Last updated: 2026-05-17 (下一段重点：低风险真实自动化闭环、动作后 verifier、safety/recovery、真实 screenshot fixture/eval、`loop.jsonl + screenshots` golden replay，以及 qa-agent strategy snapshot 接入)
 
 ## In Progress
 
 - [ ] Desktop Advisor 真机试用：用 PC 客户端、安卓模拟器、安卓真机、iOS 各 3-5 张真实截图跑 `apps/sanmou-advisor-desktop`，记录识别失败样例与 UI 卡点。
 
-## P0 — Advisor MVP 闭环
+## P0 — Advisor MVP + 低风险真实自动化闭环
 
 - [ ] `chapter_panel` perception domain：章节面板截图识别当前章节、任务完成状态、奖励是否可领；输出 `progress.chapter_claimable/current_chapter_id` 与 field_meta。
+- [ ] `claim_chapter_reward` flow：打开章节面板 → 定位可领取奖励 → 点击领取/确认 → 返回稳定页面；非 dry-run 执行成功时返回 `ok`。
+- [ ] `claim_chapter_reward` verifier：动作后重新截图，验证 `chapter_claimable=false`、奖励状态变化或章节任务状态变化；无 verifier 不允许自动执行。
 - [ ] `recruit_panel` / team soldier perception domain：识别队伍兵力、上限、预备兵、征兵按钮状态，支撑 `recruit_soldiers` Advisor 建议。
-- [ ] `event_tournament` / `mode_hub` perception domain：把演武大会、征战模式入口、远征/军演/养士兴功等页面从当前 `chapter` fallback 中拆出来，抽取积分、排名、倒计时、阶段状态、可重置/可报名等字段。
-- [ ] TeamSnapshot 全队详情 fixture/eval：补充孟获、诸葛亮2 的详情页截图 fixture，让 `TeamSnapshot` 从“祝融夫人单将详情已覆盖”推进到 3/3 武将详情覆盖，并校验最终可进入 PVP/PVE/远征 ready/needs_review 判断。
-- [ ] Desktop Advisor 历史记录：把上传截图、`DeviceProfile`、`RuntimeState`、`AdvisorReport` 写入可浏览历史，并支持重新打开。
-- [ ] Screenshot fixture dataset：建立 `tests/fixtures/screenshots/{pc_client,android_emulator,android,ios}/`，至少覆盖首页、城内、章节、队伍、武将、地图、战报。
-- [ ] Vision eval baseline：基于 screenshot fixture 输出 page/domain/entity accuracy，防止后续 perception 重构退化。
-- [ ] qa-agent 接入 Advisor chat：`/api/advisor/chat` 从当前本地模板升级为 `qa-agent QueryService/ChatAgent + AdvisorReport context`。
-- [ ] Desktop API packaging：Electron 启动 Python API 时自动发现可用 Python、依赖缺失时给出明确错误，并支持外部 `SANMOU_ADVISOR_API_URL`。
-
-## P1 — 真实自动化闭环前置
-
+- [ ] `recruit_soldiers` flow：打开征兵面板 → 选择可征兵队伍/数量 → 确认征兵或安全退出；遇到资源不足、队伍 busy、未知弹窗时不得重复点击。
+- [ ] `recruit_soldiers` verifier：动作后重新截图，验证兵力变化、征兵倒计时出现或预备兵减少三者之一。
+- [ ] `upgrade_dialog` perception domain：识别建筑升级确认框、资源消耗、升级按钮、不可升级原因、关闭/取消按钮，支撑低风险建筑升级。
+- [ ] `upgrade_building` low-risk flow + verifier：只对白名单低风险建筑执行升级；动作后验证建筑等级变化、升级倒计时出现或资源消耗符合预期。
 - [ ] Popup detector：识别通用弹窗、确认框、返回/关闭状态，作为 recovery/verifier 基础。
-- [ ] Sanmou 客户端冷启动弹窗 handler：覆盖网络错误/公告/公会邀请/钻石提示/续费弹窗等首屏弹窗；只对已知安全弹窗执行关闭/确认，未知弹窗挂起并回传 Advisor。
-- [ ] Sanmou 客户端安装路径自适应：`sanmou_client_control.ps1` / bootstrap 不再只硬编码 `D:\bilibili Game\NSLG`，优先解析桌面快捷方式、注册表或常见安装目录，找不到再 fallback。
 - [ ] Verifier framework：每个可执行动作必须声明 expected state delta 和 verify timeout；无 verifier 不允许自动执行。
 - [ ] Safety guardrail：基于 `CapabilityFlags`、risk schema、action_type、account/session mode 拦截高风险动作。
 - [ ] Manual kill switch：GUI 与 runtime 都要有本地停机开关；触发后 executor 不再派发输入。
@@ -30,6 +24,19 @@
 - [ ] Bridge health check：Windows bridge / future ADB adapter 需要 screenshot freshness、window info、input capability 自检。
 - [ ] Click-action calibration：claim_chapter / upgrade_building / recruit_soldiers / attack_land / transfer_main_lineup / abandon_land 当前返回 `pending`，需用真实页面截图走 `ui_calibrate` + `find_elements` 打通确认对话框序列。
 - [ ] Golden replay tests：用 `loop.jsonl + screenshots` 重放一次完整 Advisor/selector 决策，稳定输出相同推荐。
+- [ ] `event_tournament` / `mode_hub` perception domain：把演武大会、征战模式入口、远征/军演/养士兴功等页面从当前 `chapter` fallback 中拆出来，抽取积分、排名、倒计时、阶段状态、可重置/可报名等字段。
+- [ ] TeamSnapshot 全队详情 fixture/eval：补充孟获、诸葛亮2 的详情页截图 fixture，让 `TeamSnapshot` 从“祝融夫人单将详情已覆盖”推进到 3/3 武将详情覆盖，并校验最终可进入 PVP/PVE/远征 ready/needs_review 判断。
+- [ ] Desktop Advisor 历史记录：把上传截图、`DeviceProfile`、`RuntimeState`、`AdvisorReport` 写入可浏览历史，并支持重新打开。
+- [ ] Screenshot fixture dataset：建立 `tests/fixtures/screenshots/{pc_client,android_emulator,android,ios}/`，至少覆盖首页、城内、章节、队伍、武将、地图、战报。
+- [ ] Vision eval baseline：基于 screenshot fixture 输出 page/domain/entity accuracy，防止后续 perception 重构退化。
+- [ ] qa-agent 接入 Advisor chat：`/api/advisor/chat` 从当前本地模板升级为 `qa-agent QueryService/ChatAgent + AdvisorReport context`。
+- [ ] 开荒阵容策略 snapshot：从 qa-agent reviewed knowledge 导出 `strategy_snapshot.yaml`，先离线供 pioneer-agent selector/scoring 使用，避免 runtime 每 tick 依赖 LLM。
+- [ ] Desktop API packaging：Electron 启动 Python API 时自动发现可用 Python、依赖缺失时给出明确错误，并支持外部 `SANMOU_ADVISOR_API_URL`。
+
+## P1 — 真实自动化环境适配
+
+- [ ] Sanmou 客户端冷启动弹窗 handler：覆盖网络错误/公告/公会邀请/钻石提示/续费弹窗等首屏弹窗；只对已知安全弹窗执行关闭/确认，未知弹窗挂起并回传 Advisor。
+- [ ] Sanmou 客户端安装路径自适应：`sanmou_client_control.ps1` / bootstrap 不再只硬编码 `D:\bilibili Game\NSLG`，优先解析桌面快捷方式、注册表或常见安装目录，找不到再 fallback。
 
 ## P2 — 策略与数据质量
 
@@ -44,7 +51,6 @@
 - [ ] 征兵所数值：每小时征兵数、预备兵上限随建筑等级变化表。
 - [ ] 打地等级风险表：按赛季/开荒阵容/兵力/等级/克制关系形成 Advisor 可消费的 risk table。
 - [ ] 建筑优先级表：章节瓶颈、资源产出、兵力支撑、开荒节奏四类权重，供 `upgrade_building` scoring 使用。
-- [ ] 开荒阵容策略 snapshot：从 qa-agent reviewed knowledge 导出 `strategy_snapshot.yaml`，先离线供 pioneer-agent 使用。
 - [ ] 职业/赛季机制结构化：职业二阶天赋、赛季特殊机制进入 common/qa-agent 可查询 schema。
 
 ## P3 — 知识库补全

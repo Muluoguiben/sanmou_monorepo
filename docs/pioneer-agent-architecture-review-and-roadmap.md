@@ -1,5 +1,7 @@
 # Sanmou Monorepo / Pioneer Agent 架构评审与路线图
 
+> Updated: 2026-05-17. 本次更新将低风险真实自动化闭环、动作后 verifier、safety/recovery、fixture/eval/replay、qa-agent strategy snapshot 明确前置为 P0。
+
 ## 1. Executive Summary
 
 - 当前仓库已经具备清晰的 monorepo 分层：`sanmou-common` 放共享配置，`pioneer-agent` 放开荒 Agent runtime/决策/GUI 自动化，`qa-agent` 放知识问答、RAG、视频证据链和 MCP。
@@ -296,13 +298,19 @@ flowchart TD
 | `recruit_panel` domain | 征兵是低风险高频动作 | 识别队伍、兵力、可征兵、确认按钮、倒计时 | `perception/domains/recruit_panel.py` |
 | `recruit_soldiers` flow | 打通第二个低风险闭环 | 能进入征兵界面、选择队伍/数量、确认或安全退出 | `executor/flows/recruit_soldiers.py` |
 | recruit verifier | 防止重复点击和误判 | 验证兵力变化、征兵倒计时或预备兵减少 | `verifier/recruit.py` |
+| `upgrade_dialog` domain | 建筑升级需要确认框结构化识别 | 识别资源消耗、升级按钮、不可升级原因、关闭/取消按钮 | `perception/domains/upgrade_dialog.py` |
+| `upgrade_building` low-risk flow + verifier | 建筑升级是开荒核心 | 只允许白名单低风险建筑；动作后验证等级变化、倒计时或资源消耗 | `executor/flows/upgrade_building.py`, `verifier/building.py` |
 | popup detector/handler | 弹窗会阻断所有 flow | 识别确认/取消/关闭/错误弹窗，并可由 executor 调用 | `perception/domains/popup.py`, `executor/popup_handler.py` |
+| verifier framework | 无动作后验证就不能托管 | 每个可执行动作声明 expected state delta、verify timeout；无 verifier 不自动执行 | `pioneer_agent/verifier/` |
 | safety guardrail | 防真实 GUI 误操作 | 所有动作执行前经过 risk policy；高风险默认 blocked/confirmation | `pioneer_agent/safety/`, `config/safety.yaml` |
 | manual kill switch | 长跑必须可接管 | 每 tick 检查 kill file/hotkey/flag，触发后停止输入并写 log | `runtime/autonomous_loop.py`, `app/autonomous.py` |
+| high-risk confirmation | 防不可逆/中高风险误操作 | `attack_land/abandon_land/transfer_main_lineup` 默认 require confirmation | `pioneer_agent/safety/`, `executor/ui_runner.py` |
 | bridge health check | bridge 不稳定会误操作 | 周期检查 ping、window_info、截图非黑屏；失败进入 recovery | `adapters/bridge_client.py`, `runtime/health.py` |
-| `upgrade_building` 低风险流 | 建筑升级是开荒核心 | 只允许白名单低风险建筑；动作后 verifier 通过 | `executor/flows/upgrade_building.py`, `verifier/building.py` |
+| click-action calibration | 当前点击类 action 仍为 pending | claim/recruit/upgrade/attack/transfer/abandon 用真实截图完成 `ui_calibrate` + `find_elements` 序列 | `app/ui_calibrate.py`, `executor/action_handlers.py` |
 | screenshot fixture dataset | 无实拍 fixture 无法安全重构 | 覆盖 city/chapter/recruit/popup，每张有 expected JSON | `tests/fixtures/screenshots/` |
+| vision eval baseline | 防 perception prompt/domain 回归 | 基于 screenshot fixture 输出 page/domain/entity accuracy | `perception/eval/`, `tests/fixtures/screenshots/` |
 | golden replay tests | 防视觉/selector/executor 回归 | 固定截图序列可重放到期望 action 和 verifier 结果 | `tests/unit/test_golden_replay.py`, `storage/trace_store.py` |
+| qa-agent -> pioneer strategy snapshot | 避免 runtime 每 tick 依赖 LLM | 生成 `strategy_snapshot.yaml`，pioneer 可加载用于 selector/scoring | `qa_agent/app/export_strategy_snapshot.py`, `pioneer_agent/knowledge/` |
 
 ### P1：策略与数据质量
 
@@ -313,7 +321,6 @@ flowchart TD
 | common 建筑表 | 建筑升级需要真实成本/前置 | 建筑 id、等级、成本、前置、收益完整 | `sanmou_common/config/buildings.yaml` |
 | common 章节表 | 章节推进要静态任务驱动 | 章节任务、奖励、claim 条件可被 deriver 使用 | `sanmou_common/config/chapters.yaml` |
 | common 土地表 | 打地风险/收益需基线 | 1-12 级地收益、守军强度、经验、风险标签 | `sanmou_common/config/lands.yaml` |
-| qa-agent -> pioneer strategy snapshot | 降低 runtime LLM 延迟和不确定性 | 生成 `strategy_snapshot.yaml`，pioneer 可加载用于 scoring/selector | `qa_agent/app/export_strategy_snapshot.py`, `pioneer_agent/knowledge/` |
 | phase-aware strategy | 不同阶段策略不同 | selector/scoring 按阶段切换动作优先级和风险阈值 | `derivation/phase.py`, `selector/`, `scoring/` |
 
 ### P2：知识库补全
