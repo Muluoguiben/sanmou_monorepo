@@ -1,0 +1,76 @@
+- id: opening-baseline-priority
+  domain: chapter
+  entry_kind: generic_rule
+  topic: 开荒基础优先级
+  aliases:
+  - 基础玩法优先级
+  - 开荒优先级
+  - 前48小时优先级
+  - 开荒先做什么
+  facts:
+  - 开荒 Advisor 应先处理低风险且可验证的收益动作，再处理高风险动作；推荐顺序是：领取已满足的章节奖励、补足主力兵力、升级章节瓶颈或低风险建筑、再评估打地。
+  - 打地建议不能只看目标等级，还需要同时检查主力体力、兵力缺口、目标收益、行军时间、战损承受能力和当前章节需求。
+  - 自动执行侧应把领奖、征兵、低风险建筑升级作为第一批可自动动作；打地、放弃土地、主力换队等动作默认需要人工确认。
+  constraints:
+  - 该条是仓库内 Advisor baseline，不替代具体赛季、阵容、红度和服务器时间窗口的高置信策略。
+  source_type: manual_rule
+  source_ref: REPO-BASELINE-OPENING-001
+  updated_at: 2026-05-17
+  confidence: 0.82
+  related_topics:
+  - 章节奖励
+  - 征兵
+  - 建筑升级
+  - 攻占地块
+  priority: 94
+  structured_data: null
+
+- id: opening-observation-checklist
+  domain: term
+  entry_kind: generic_rule
+  topic: 开荒状态观察清单
+  aliases:
+  - Advisor观察清单
+  - 开荒观察字段
+  - 自动化观察字段
+  facts:
+  - 给出开荒建议前，应先确认当前页面、弹窗状态、章节进度、资源与预备兵、主力队伍兵力/体力、建筑队列、可领取奖励和可执行按钮。
+  - 如果截图缺少关键字段，Advisor 应明确标记需要补充截图或进入对应页面，不应猜测具体数值。
+  - 每次自动化 tick 都应保留截图、识别摘要、决策理由、执行结果和验证状态，便于 replay 与人工复盘。
+  constraints:
+  - observe-only 设备或无 verifier 的动作只能给建议，不应派发 GUI 输入。
+  source_type: manual_rule
+  source_ref: REPO-BASELINE-OPENING-002
+  updated_at: 2026-05-17
+  confidence: 0.84
+  related_topics:
+  - 开荒基础优先级
+  - 截图识别
+  - 自动化安全
+  priority: 91
+  structured_data: null
+
+- id: opening-land-risk-baseline
+  domain: combat
+  entry_kind: generic_rule
+  topic: 开荒打地风险基线
+  aliases:
+  - 打地基础风险
+  - 打地风险判断
+  - 土地风险基线
+  facts:
+  - 开荒期挑战更高等级土地前，应先确认队伍兵力接近上限、体力足够、目标可达、预计战损可接受，且失败不会阻断当前章节或征兵节奏。
+  - 连续失败、高战损、主力兵力不足、关键武将重伤或弹窗/页面识别不确定时，应停止自动打地并要求人工确认。
+  - 在缺少赛季/阵容专属风险表时，Advisor 只能给风险提示和下一步观察建议，不应把打地作为可自动执行动作。
+  constraints:
+  - 具体几级地可打取决于赛季、阵容、等级、红度、战法、兵种克制和守军组合，需要后续结构化 risk table 补强。
+  source_type: manual_rule
+  source_ref: REPO-BASELINE-OPENING-003
+  updated_at: 2026-05-17
+  confidence: 0.8
+  related_topics:
+  - 攻占地块
+  - 战损
+  - 兵力
+  priority: 89
+  structured_data: null

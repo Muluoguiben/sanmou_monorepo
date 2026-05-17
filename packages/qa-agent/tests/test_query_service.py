@@ -60,6 +60,17 @@ class QueryServiceTests(unittest.TestCase):
             f"expected difficulty/land-level entry in evidence, got {top_ids}",
         )
 
+    def test_opening_baseline_priority_is_queryable(self) -> None:
+        response = self.service.lookup_topic("基础玩法优先级", domain="chapter")
+        self.assertEqual(response.coverage, Coverage.EXACT)
+        self.assertEqual(response.evidence[0].entry_id, "opening-baseline-priority")
+        self.assertIn("领取已满足的章节奖励", response.answer)
+
+    def test_opening_land_risk_baseline_is_queryable(self) -> None:
+        response = self.service.answer_rule_question("打地基础风险要看什么？", domain="combat")
+        self.assertEqual(response.evidence[0].entry_id, "opening-land-risk-baseline")
+        self.assertIn("队伍兵力", response.answer)
+
     def test_hero_schema_topic_is_queryable(self) -> None:
         response = self.service.lookup_topic("武将资料字段", domain="hero")
         self.assertEqual(response.coverage, Coverage.EXACT)

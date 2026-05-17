@@ -1,0 +1,43 @@
+opening_baseline:
+  version: "2026-05-17"
+  purpose: "Shared baseline for macOS Advisor/eval work before device-specific GUI automation is available."
+  advisor_priority_order:
+    - action_type: claim_chapter_reward
+      risk_level: low
+      auto_execute_when:
+        - "chapter_claimable is true"
+        - "claim_chapter_reward verifier is available"
+        - "no blocking unknown popup"
+    - action_type: recruit_soldiers
+      risk_level: low
+      auto_execute_when:
+        - "main lineup has troop deficit"
+        - "reserve troops/resources are available"
+        - "recruit_soldiers verifier is available"
+    - action_type: upgrade_building
+      risk_level: low
+      auto_execute_when:
+        - "building is on low-risk allowlist"
+        - "resources and prerequisites are satisfied"
+        - "upgrade_building verifier is available"
+    - action_type: attack_land
+      risk_level: medium_high
+      auto_execute_when: []
+      requires_confirmation: true
+  observe_checklist:
+    - page_type
+    - popup
+    - chapter_progress
+    - resources
+    - reserve_troops
+    - team_troops
+    - team_stamina
+    - city_build_queue
+    - available_buttons
+  stop_conditions:
+    - unknown_blocking_popup
+    - missing_verifier
+    - bridge_unhealthy
+    - screenshot_stale_or_blank
+    - repeated_failed_or_pending_action
+    - high_risk_action_without_confirmation

@@ -1,11 +1,12 @@
 # Todo List
 
-> Last updated: 2026-05-17 (macOS 可独立完成的 P0 已清掉：qa-agent strategy snapshot 接入、Desktop API packaging、Desktop Advisor 历史记录；下一段重点转为真实截图/真机试用、click-action calibration、claim/recruit/upgrade flow + verifier、screenshot fixture dataset)
+> Last updated: 2026-05-17 (macOS 侧高优知识任务已补：Bilibili 字幕规范化/阵容图结构化抽取状态纠偏，新增 Bilibili 视频自动发现 CLI，补充开荒基础玩法 baseline；下一段重点转为真实截图/真机试用、click-action calibration、claim/recruit/upgrade flow + verifier、screenshot fixture dataset)
 
 ## In Progress
 
 - [ ] Desktop Advisor 真机试用：用 PC 客户端、安卓模拟器、安卓真机、iOS 各 3-5 张真实截图跑 `apps/sanmou-advisor-desktop`，记录识别失败样例与 UI 卡点。
 - [x] macOS 可独立完成 P0 收口（2026-05-17）：已完成并推送 `strategy_snapshot.yaml` 默认接入 selector/scoring、Electron API 启动/依赖探测、Advisor history list/detail/screenshot；剩余 P0 均需要真实游戏截图、可控设备/模拟器、Windows 客户端或人工采集样本。
+- [x] macOS 知识采集高优收口（2026-05-17）：Bilibili 字幕规范化与阵容图结构化抽取主体已由历史 commit 落地；新增 `qa_agent.app.discover_bilibili` 自动发现候选视频，并补充 `opening_baseline` 基础玩法知识/配置入口。
 
 ## P0 — Advisor MVP + 低风险真实自动化闭环
 
@@ -45,11 +46,13 @@
 - [ ] Sanmou 客户端安装路径自适应：`sanmou_client_control.ps1` / bootstrap 不再只硬编码 `D:\bilibili Game\NSLG`，优先解析桌面快捷方式、注册表或常见安装目录，找不到再 fallback。
 - [ ] Windows 桥接器 GUI 稳定性后续：在 `list-windows` / WGC+DXGI capture backend / 坏 hwnd 和近黑帧 sanity 已有第一版基础上，继续补 OCR/关键字级别识别 `slock/claude/chrome`、screenshot freshness、input capability 自检，并把点击做成短暂置前 → 白名单输入 → 截图校验的低风险事务。
 
-## P2 — 策略与数据质量
+## P2 — 策略、知识采集与数据质量
 
-- [ ] Bilibili 字幕中文规范化 → 落库正字（2026-05-14 由 @muluo-lan 提出）：B 站 AI 中文字幕将三谋专有名词频繁同音替换（皇甫嵩→黄府松、固若金汤→金汤、百战不殆→百战、孟获/南蛮→穆路蛮、姜维→好新火/好星火/好心火 等），导致 `ingestion/staging/videos/bilibili-*.yaml` 的 hero_names/core_skills 落库时仍含错别字。需要在 `qa_agent.video` 增加一个"游戏术语词典 + 同音/近形替换"的字幕规范化层（输入：B站 raw 字幕 / view_conclusion；输出：规范化后的 transcript_lines），词典来自 `knowledge_sources/profiles/heroes/*.yaml` 武将名 + `knowledge_sources/profiles/skills/*.yaml` 战法名 + 已知队伍别名表；规范化在 LLM extractor 之前执行，并把替换日志写入 evidence 以便 review。验证：跑 `bilibili-chencang-2026-05-14.yaml` 上的 6 个视频，错别字应从当前的 ~15 种降到 0。
+- [x] Bilibili 字幕中文规范化 → 落库正字（2026-05-17 状态纠偏）：主体已落地于 `qa_agent.video.subtitle_normalizer`，结合 `config/subtitle_homophones.yaml`、KB 武将/战法 alias 与保守 fuzzy match，在 LLM extractor 之前规范化字幕并记录替换日志；相关历史 commit 包括 `094d1c1`、`82c8924`、`6bc4685`、`fe53666`、`c1c9758`。剩余工作不再作为“未实现”任务，而是归入陈仓 staging review/eval 验收。
 - [ ] 陈仓之围 Bilibili staging 重新 review：commit `e26b351` 新增的 `packages/qa-agent/ingestion/staging/videos/bilibili-chencang-2026-05-14.yaml` 仍是 `review_status: pending`，且由 GPT-5.4-mini 基于 B 站 AI ASR 自动抽取，存在同音字、阵容别名、缺失 hero_names/core_skills、评级/时间窗口误归因风险。后续在字幕规范化和阵容图抽取完善后，需要逐条复核、必要时 rerun pipeline，对比视频证据后再 publish。
-- [ ] Bilibili 阵容图结构化抽取：在 `qa-agent` 视频 workflow 中新增 lineup frame extractor，自动从 UP 主视频关键帧分类阵容/武将详情/装备/兵书页，复用 `pioneer-agent` 的 `team_panel/team_detail` schema，按视频时间戳聚合每个队伍、每个武将的配置，输出 YAML staging 供人工审核后入库。
+- [x] Bilibili 阵容图结构化抽取（2026-05-17 状态纠偏）：主体已落地于 `qa_agent.video.lineup_frame_extractor` 与 `qa_agent.app.backfill_chencang_lineups`，支持关键帧分类、阵容/武将页识别、列裁剪、dense-table vision 参数、KB canonical 对齐和保守 backfill；相关历史 commit 包括 `1108a87`、`d1434db`、`a3f75c4`、`da43cd5`。剩余工作归入真实视频 eval/review/publish 验收。
+- [x] Bilibili 视频自动发现 CLI（2026-05-17）：新增 `qa_agent.app.discover_bilibili`，按 keyword/时间范围搜索候选视频，扫描本地 `knowledge_sources/` 与 `ingestion/` 排除已收录 BVID，输出可直接接入 `fetch_bilibili_bundle` / `run_video_pipeline` 的候选清单；测试覆盖已收录排除、HTML title 清洗、duration 解析、发布时间过滤。
+- [x] 三谋基础玩法 baseline（2026-05-17）：新增 `knowledge_sources/opening_baseline.yaml` 与 `sanmou_common.config/opening_baseline.yaml`，沉淀开荒基础优先级、观察清单、打地风险基线、低风险自动动作顺序与 stop conditions，供 Advisor/fixture/eval 先消费；后续仍需补齐真实数值表。
 - [ ] 赛季阶段规则结构化：把“首日 16:00-22:00 红利期 / 第二天 22:00 阵容洗牌”等视频里反复出现的时间窗口抽象成 `season_phase` 规则，供 Advisor 根据当前服务器时间选择阵容档位。
 - [ ] 赛季末武勋卷排行机制：补抓并入库陈仓之围赛末武勋卷排行玩法（候选视频：BV1Gz5J6EEPq），沉淀为 S14 generic_rule。
 - [ ] Kdocs 小仔哥陈仓之围 5-12 级地 publish 校对：确认 `ingestion/staging/kdocs/xiaozai-chencangzhiwei-2026-04-14.yaml` row5-row12 是否全部发布到 `knowledge_sources/solutions/lineups/season-s14.yaml`，尤其 row7-row12 的守军表。
@@ -76,7 +79,6 @@
 
 - [ ] CI/CD：配置 Python unittest、desktop typecheck/build、lint 检查。
 - [ ] Electron 打包发布：Windows/macOS/Linux 构建、签名、升级通道、崩溃日志。
-- [ ] Bilibili 视频自动发现 CLI：新增 `qa_agent.app.discover_bilibili`，按 keyword/时间范围搜索候选视频，排除已收录 BVID，输出可直接接入 bundle/pipeline 的候选清单。
 - [ ] 多 agent 协作约定：补 `notes/agent-collab.md` 或项目协作说明，约定 @Claude / @Codex 收到任务先 ack、谁 claim 谁负责、长时间无响应时如何转单。
 - [x] Repo-local runbook 收敛（2026-05-17）：新增 `docs/repo-local-runbook.md`，收敛 `AGENTS.md` / `CLAUDE.md` 风格说明，覆盖 knowledge ingestion、Advisor fixture/eval、computer-use safety、model probing、automation execution、发布/回滚与 handoff 规则。
 - [x] Workflow / session boundary（2026-05-17）：`docs/repo-local-runbook.md` 明确 knowledge ingestion、model probing、Advisor fixture/eval、automation execution 四类独立 workflow/session 的输入、输出/日志和禁止跨 session 复用的上下文。
