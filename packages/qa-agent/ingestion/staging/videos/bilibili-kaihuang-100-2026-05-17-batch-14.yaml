@@ -1,0 +1,1722 @@
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1wizGYLEjz/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:55:52'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1wizGYLEjz
+    - segment=subtitle-chunk-1-0-22
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-lineup-bv1wizgylejz-s4开荒阵容开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S4开荒阵容开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括开荒阵容、赵云、夏侯惇。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1wizGYLEjz#0-22
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 开荒阵容
+    - 赵云
+    - 夏侯惇
+    priority: 70
+    structured_data:
+      name: S4开荒阵容开荒队
+      aliases: []
+      season_tags:
+      - S4
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 开荒阵容
+      - 赵云
+      - 夏侯惇
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-22s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1wizGYLEjz/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:55:52'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1wizGYLEjz
+    - segment=subtitle-chunk-9-161-181
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-lineup-bv1wizgylejz-s4t0.5阵容
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S4T0.5阵容
+    aliases: []
+    facts:
+    - 核心武将包括T0.5、重盾兵、重骑兵。
+    - 高频提及战法包括长枪兵、知人善任。
+    - 视频证据摘要：B站 AI 中文字幕切片。 [视觉补充] 华佗(0.98), 陈宫(0.74), 田丰(0.68)
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1wizGYLEjz#161-181
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - T0.5
+    - 重盾兵
+    - 重骑兵
+    - 长枪兵
+    - 知人善任
+    priority: 70
+    structured_data:
+      name: S4T0.5阵容
+      aliases: []
+      season_tags:
+      - S4
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - T0.5
+      - 重盾兵
+      - 重骑兵
+      core_skills:
+      - 长枪兵
+      - 知人善任
+      scenario_tags: []
+      notes:
+      - 证据片段：161s-181s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1wizGYLEjz/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:55:52'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1wizGYLEjz
+    - segment=subtitle-chunk-1-0-22
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1wizgylejz-subtitle-chunk-1-0-22-赵云
+    domain: hero
+    entry_kind: hero_profile
+    topic: 赵云
+    aliases: []
+    facts:
+    - 视频片段将赵云列为当前阶段的重要武将。
+    - 赵云在片段中与夏侯惇、貂蝉一起被讨论。
+    - 视频证据摘要：共存五队现在出不了 但是包含藏书阁 貂蝉月英在内的所有主流队伍盘点 这里小仔哥为大家整理出来了 同时这其中还加入了个人的一些小理解 尽可能为大家理清所有队伍间的克制关系
+      首先是大金马 目前普遍认为大金马是前期对 包括这里我也备注的是前期可用
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1wizGYLEjz#0-22
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 夏侯惇
+    - 貂蝉
+    - 赵云
+    priority: 64
+    structured_data:
+      name: 赵云
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1wizGYLEjz/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:55:52'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1wizGYLEjz
+    - segment=subtitle-chunk-1-0-22
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1wizgylejz-subtitle-chunk-1-0-22-夏侯惇
+    domain: hero
+    entry_kind: hero_profile
+    topic: 夏侯惇
+    aliases: []
+    facts:
+    - 视频片段将夏侯惇列为当前阶段的重要武将。
+    - 夏侯惇在片段中与貂蝉、赵云一起被讨论。
+    - 视频证据摘要：共存五队现在出不了 但是包含藏书阁 貂蝉月英在内的所有主流队伍盘点 这里小仔哥为大家整理出来了 同时这其中还加入了个人的一些小理解 尽可能为大家理清所有队伍间的克制关系
+      首先是大金马 目前普遍认为大金马是前期对 包括这里我也备注的是前期可用
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1wizGYLEjz#0-22
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 夏侯惇
+    - 貂蝉
+    - 赵云
+    priority: 64
+    structured_data:
+      name: 夏侯惇
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1wizGYLEjz/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:55:52'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1wizGYLEjz
+    - segment=subtitle-chunk-1-0-22
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1wizgylejz-subtitle-chunk-1-0-22-貂蝉
+    domain: hero
+    entry_kind: hero_profile
+    topic: 貂蝉
+    aliases: []
+    facts:
+    - 视频片段将貂蝉列为当前阶段的重要武将。
+    - 貂蝉在片段中与夏侯惇、赵云一起被讨论。
+    - 视频证据摘要：共存五队现在出不了 但是包含藏书阁 貂蝉月英在内的所有主流队伍盘点 这里小仔哥为大家整理出来了 同时这其中还加入了个人的一些小理解 尽可能为大家理清所有队伍间的克制关系
+      首先是大金马 目前普遍认为大金马是前期对 包括这里我也备注的是前期可用
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1wizGYLEjz#0-22
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 夏侯惇
+    - 貂蝉
+    - 赵云
+    priority: 64
+    structured_data:
+      name: 貂蝉
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1wizGYLEjz/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:55:52'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1wizGYLEjz
+    - segment=subtitle-chunk-9-161-181
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1wizgylejz-subtitle-chunk-9-161-181-鲁肃
+    domain: hero
+    entry_kind: hero_profile
+    topic: 鲁肃
+    aliases: []
+    facts:
+    - 视频片段将鲁肃列为当前阶段的重要武将。
+    - 鲁肃在片段中与陆逊、田丰一起被讨论。
+    - 视频证据摘要：可以带知人善任 但这么做的话 和田丰搭配 陆逊就必定是队伍中武力与统帅第一的角色 有的技能就很难规避 还是更推荐使用鲁肃技能配置不变 加点方面
+      鲁肃一速左慈151桶 陆逊略点先攻后全制即可 这对从水友提供的战报看 只要鲁肃或者田丰及时给清醒
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1wizGYLEjz#161-181
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 鲁肃
+    - 陆逊
+    - 田丰
+    priority: 64
+    structured_data:
+      name: 鲁肃
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1wizGYLEjz/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:55:52'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1wizGYLEjz
+    - segment=subtitle-chunk-9-161-181
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1wizgylejz-subtitle-chunk-9-161-181-陆逊
+    domain: hero
+    entry_kind: hero_profile
+    topic: 陆逊
+    aliases: []
+    facts:
+    - 视频片段将陆逊列为当前阶段的重要武将。
+    - 陆逊在片段中与鲁肃、田丰一起被讨论。
+    - 视频证据摘要：可以带知人善任 但这么做的话 和田丰搭配 陆逊就必定是队伍中武力与统帅第一的角色 有的技能就很难规避 还是更推荐使用鲁肃技能配置不变 加点方面
+      鲁肃一速左慈151桶 陆逊略点先攻后全制即可 这对从水友提供的战报看 只要鲁肃或者田丰及时给清醒
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1wizGYLEjz#161-181
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 鲁肃
+    - 陆逊
+    - 田丰
+    priority: 64
+    structured_data:
+      name: 陆逊
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1wizGYLEjz/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:55:52'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1wizGYLEjz
+    - segment=subtitle-chunk-9-161-181
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1wizgylejz-subtitle-chunk-9-161-181-田丰
+    domain: hero
+    entry_kind: hero_profile
+    topic: 田丰
+    aliases: []
+    facts:
+    - 视频片段将田丰列为当前阶段的重要武将。
+    - 田丰在片段中与鲁肃、陆逊一起被讨论。
+    - 视频证据摘要：可以带知人善任 但这么做的话 和田丰搭配 陆逊就必定是队伍中武力与统帅第一的角色 有的技能就很难规避 还是更推荐使用鲁肃技能配置不变 加点方面
+      鲁肃一速左慈151桶 陆逊略点先攻后全制即可 这对从水友提供的战报看 只要鲁肃或者田丰及时给清醒
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1wizGYLEjz#161-181
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 鲁肃
+    - 陆逊
+    - 田丰
+    priority: 64
+    structured_data:
+      name: 田丰
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1wizGYLEjz/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:55:52'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1wizGYLEjz
+    - segment=subtitle-chunk-9-161-181
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1wizgylejz-subtitle-chunk-9-161-181-陈宫
+    domain: hero
+    entry_kind: hero_profile
+    topic: 陈宫
+    aliases: []
+    facts:
+    - 视频片段将陈宫列为当前阶段的重要武将。
+    - 陈宫在片段中与鲁肃、陆逊一起被讨论。
+    - 视频证据摘要：可以带知人善任 但这么做的话 和田丰搭配 陆逊就必定是队伍中武力与统帅第一的角色 有的技能就很难规避 还是更推荐使用鲁肃技能配置不变 加点方面
+      鲁肃一速左慈151桶 陆逊略点先攻后全制即可 这对从水友提供的战报看 只要鲁肃或者田丰及时给清醒
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1wizGYLEjz#161-181
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 鲁肃
+    - 陆逊
+    - 田丰
+    priority: 64
+    structured_data:
+      name: 陈宫
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1wizGYLEjz/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:55:52'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1wizGYLEjz
+    - segment=subtitle-chunk-9-161-181
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-skill-bv1wizgylejz-subtitle-chunk-9-161-181-知人善任
+    domain: skill
+    entry_kind: skill_profile
+    topic: 知人善任
+    aliases: []
+    facts:
+    - 视频片段提到知人善任是当前讨论阵容中的关键战法。
+    - 视频证据摘要：可以带知人善任 但这么做的话 和田丰搭配 陆逊就必定是队伍中武力与统帅第一的角色 有的技能就很难规避 还是更推荐使用鲁肃技能配置不变 加点方面
+      鲁肃一速左慈151桶 陆逊略点先攻后全制即可 这对从水友提供的战报看 只要鲁肃或者田丰及时给清醒
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1wizGYLEjz#161-181
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 鲁肃
+    - 陆逊
+    - 田丰
+    priority: 64
+    structured_data:
+      name: 知人善任
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1Ez5x6kEUp/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:56:50'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1Ez5x6kEUp
+    - segment=subtitle-chunk-1-0-17
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-lineup-bv1ez5x6keup-s143-4阵容
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S143/4阵容
+    aliases: []
+    facts:
+    - 核心武将包括3/4、预约、英雄。
+    - 高频提及战法包括同盟、职业、征战。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1Ez5x6kEUp#0-17
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 3/4
+    - 预约
+    - 英雄
+    - 同盟
+    - 职业
+    - 征战
+    priority: 70
+    structured_data:
+      name: S143/4阵容
+      aliases: []
+      season_tags:
+      - s14
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 3/4
+      - 预约
+      - 英雄
+      core_skills:
+      - 同盟
+      - 职业
+      - 征战
+      scenario_tags: []
+      notes:
+      - 证据片段：0s-17s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1Ez5x6kEUp/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:56:50'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1Ez5x6kEUp
+    - segment=subtitle-chunk-10-168-189
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-lineup-bv1ez5x6keup-s14部队总览阵容
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S14部队总览阵容
+    aliases: []
+    facts:
+    - 核心武将包括部队总览、部队三、50。
+    - 高频提及战法包括百战不殆、金城汤池、固若金汤。
+    - 视频证据摘要：B站 AI 中文字幕切片。 [视觉补充] 曹操(0.75), 赵云(0.65), 关羽(0.75)
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1Ez5x6kEUp#168-189
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 部队总览
+    - 部队三
+    - '50'
+    - 百战不殆
+    - 金城汤池
+    - 固若金汤
+    priority: 70
+    structured_data:
+      name: S14部队总览阵容
+      aliases: []
+      season_tags:
+      - s14
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 部队总览
+      - 部队三
+      - '50'
+      core_skills:
+      - 百战不殆
+      - 金城汤池
+      - 固若金汤
+      scenario_tags: []
+      notes:
+      - 证据片段：168s-189s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1Ez5x6kEUp/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:56:50'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1Ez5x6kEUp
+    - segment=subtitle-chunk-19-355-370
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-lineup-bv1ez5x6keup-s14部队总览阵容
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S14部队总览阵容
+    aliases: []
+    facts:
+    - 核心武将包括部队总览、50级、已激活。
+    - 高频提及战法包括奇门遁甲、勇冠三军、青囊急救。
+    - 视频证据摘要：B站 AI 中文字幕切片。 [视觉补充] 诸葛亮(0.75), 关羽(0.68), 黄月英(0.62)
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1Ez5x6kEUp#355-370
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 部队总览
+    - 50级
+    - 已激活
+    - 奇门遁甲
+    - 勇冠三军
+    - 青囊急救
+    priority: 70
+    structured_data:
+      name: S14部队总览阵容
+      aliases: []
+      season_tags:
+      - s14
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 部队总览
+      - 50级
+      - 已激活
+      core_skills:
+      - 奇门遁甲
+      - 勇冠三军
+      - 青囊急救
+      scenario_tags: []
+      notes:
+      - 证据片段：355s-370s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1Ez5x6kEUp/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:56:50'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1Ez5x6kEUp
+    - segment=subtitle-chunk-1-0-17
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1ez5x6keup-subtitle-chunk-1-0-17-英雄
+    domain: hero
+    entry_kind: hero_profile
+    topic: 英雄
+    aliases: []
+    facts:
+    - 视频片段将英雄列为当前阶段的重要武将。
+    - 英雄在片段中与职业一起被讨论。
+    - 视频证据摘要：大家赛季末了 给大家分享一下S14的一个总结 还有一些队伍的推荐吧 首先S14的特点就是这个门客的幕僚嘛 走第一个问题就是幕僚哦 就是那个名望要怎么升级
+      你就算你只要不断消耗就行 一开始我我还好奇 为什么别人这个等级这么高 原来是要不断刷
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1Ez5x6kEUp#0-17
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 英雄
+    - 职业
+    priority: 64
+    structured_data:
+      name: 英雄
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1Ez5x6kEUp/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:56:50'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1Ez5x6kEUp
+    - segment=subtitle-chunk-1-0-17
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1ez5x6keup-subtitle-chunk-1-0-17-职业
+    domain: hero
+    entry_kind: hero_profile
+    topic: 职业
+    aliases: []
+    facts:
+    - 视频片段将职业列为当前阶段的重要武将。
+    - 职业在片段中与英雄一起被讨论。
+    - 视频证据摘要：大家赛季末了 给大家分享一下S14的一个总结 还有一些队伍的推荐吧 首先S14的特点就是这个门客的幕僚嘛 走第一个问题就是幕僚哦 就是那个名望要怎么升级
+      你就算你只要不断消耗就行 一开始我我还好奇 为什么别人这个等级这么高 原来是要不断刷
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1Ez5x6kEUp#0-17
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 英雄
+    - 职业
+    priority: 64
+    structured_data:
+      name: 职业
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1Ez5x6kEUp/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:56:50'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1Ez5x6kEUp
+    - segment=subtitle-chunk-19-355-370
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1ez5x6keup-subtitle-chunk-19-355-370-诸葛亮
+    domain: hero
+    entry_kind: hero_profile
+    topic: 诸葛亮
+    aliases: []
+    facts:
+    - 视频片段将诸葛亮列为当前阶段的重要武将。
+    - 诸葛亮在片段中与黄月英、50级一起被讨论。
+    - 视频证据摘要：所以我就这样换着吧 这样玩的没啥特别紫卡 就是没啥特别研究 剩下的战法也不多了 随便带吧 哦还有这一队 这队强度倒还可以哦 剩下的剩下的战法我就组了这一对
+      网易其实强度还行 然后话说起来 我他妈的那些辅助将一直满红 你给我干什么
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1Ez5x6kEUp#355-370
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 黄月英
+    - 50级
+    - 诸葛亮
+    priority: 64
+    structured_data:
+      name: 诸葛亮
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1Ez5x6kEUp/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:56:50'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1Ez5x6kEUp
+    - segment=subtitle-chunk-19-355-370
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1ez5x6keup-subtitle-chunk-19-355-370-关羽
+    domain: hero
+    entry_kind: hero_profile
+    topic: 关羽
+    aliases: []
+    facts:
+    - 视频片段将关羽列为当前阶段的重要武将。
+    - 关羽在片段中与黄月英、50级一起被讨论。
+    - 视频证据摘要：所以我就这样换着吧 这样玩的没啥特别紫卡 就是没啥特别研究 剩下的战法也不多了 随便带吧 哦还有这一队 这队强度倒还可以哦 剩下的剩下的战法我就组了这一对
+      网易其实强度还行 然后话说起来 我他妈的那些辅助将一直满红 你给我干什么
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1Ez5x6kEUp#355-370
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 黄月英
+    - 50级
+    - 诸葛亮
+    priority: 64
+    structured_data:
+      name: 关羽
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1Ez5x6kEUp/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:56:50'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1Ez5x6kEUp
+    - segment=subtitle-chunk-19-355-370
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1ez5x6keup-subtitle-chunk-19-355-370-黄月英
+    domain: hero
+    entry_kind: hero_profile
+    topic: 黄月英
+    aliases: []
+    facts:
+    - 视频片段将黄月英列为当前阶段的重要武将。
+    - 黄月英在片段中与50级、诸葛亮一起被讨论。
+    - 视频证据摘要：所以我就这样换着吧 这样玩的没啥特别紫卡 就是没啥特别研究 剩下的战法也不多了 随便带吧 哦还有这一队 这队强度倒还可以哦 剩下的剩下的战法我就组了这一对
+      网易其实强度还行 然后话说起来 我他妈的那些辅助将一直满红 你给我干什么
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1Ez5x6kEUp#355-370
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 黄月英
+    - 50级
+    - 诸葛亮
+    priority: 64
+    structured_data:
+      name: 黄月英
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1Ez5x6kEUp/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:56:50'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1Ez5x6kEUp
+    - segment=subtitle-chunk-19-355-370
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1ez5x6keup-subtitle-chunk-19-355-370-50级
+    domain: hero
+    entry_kind: hero_profile
+    topic: 50级
+    aliases: []
+    facts:
+    - 视频片段将50级列为当前阶段的重要武将。
+    - 50级在片段中与黄月英、诸葛亮一起被讨论。
+    - 视频证据摘要：所以我就这样换着吧 这样玩的没啥特别紫卡 就是没啥特别研究 剩下的战法也不多了 随便带吧 哦还有这一队 这队强度倒还可以哦 剩下的剩下的战法我就组了这一对
+      网易其实强度还行 然后话说起来 我他妈的那些辅助将一直满红 你给我干什么
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1Ez5x6kEUp#355-370
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 黄月英
+    - 50级
+    - 诸葛亮
+    priority: 64
+    structured_data:
+      name: 50级
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1Ez5x6kEUp/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:56:50'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1Ez5x6kEUp
+    - segment=subtitle-chunk-10-168-189
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-skill-bv1ez5x6keup-subtitle-chunk-10-168-189-百战不殆
+    domain: skill
+    entry_kind: skill_profile
+    topic: 百战不殆
+    aliases: []
+    facts:
+    - 视频片段提到百战不殆是当前讨论阵容中的关键战法。
+    - 视频证据摘要：加那个风柱 风柱那个负面状态太牛逼了 不解释行 然后第三强队就是皇马队 皇马队 我现在换成这种代码 这个代码其实跟传统的 就是那个固若金汤的区别
+      我之前带百战不殆或者说畸形韧带 那个旺斯都没有这样带那个护佑金城汤池强 具体原因我还真不太清楚
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1Ez5x6kEUp#168-189
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics: []
+    priority: 64
+    structured_data:
+      name: 百战不殆
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1Ez5x6kEUp/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:56:50'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1Ez5x6kEUp
+    - segment=subtitle-chunk-10-168-189
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-skill-bv1ez5x6keup-subtitle-chunk-10-168-189-金城汤池
+    domain: skill
+    entry_kind: skill_profile
+    topic: 金城汤池
+    aliases: []
+    facts:
+    - 视频片段提到金城汤池是当前讨论阵容中的关键战法。
+    - 视频证据摘要：加那个风柱 风柱那个负面状态太牛逼了 不解释行 然后第三强队就是皇马队 皇马队 我现在换成这种代码 这个代码其实跟传统的 就是那个固若金汤的区别
+      我之前带百战不殆或者说畸形韧带 那个旺斯都没有这样带那个护佑金城汤池强 具体原因我还真不太清楚
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1Ez5x6kEUp#168-189
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics: []
+    priority: 64
+    structured_data:
+      name: 金城汤池
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1Ez5x6kEUp/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:56:50'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1Ez5x6kEUp
+    - segment=subtitle-chunk-10-168-189
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-skill-bv1ez5x6keup-subtitle-chunk-10-168-189-固若金汤
+    domain: skill
+    entry_kind: skill_profile
+    topic: 固若金汤
+    aliases: []
+    facts:
+    - 视频片段提到固若金汤是当前讨论阵容中的关键战法。
+    - 视频证据摘要：加那个风柱 风柱那个负面状态太牛逼了 不解释行 然后第三强队就是皇马队 皇马队 我现在换成这种代码 这个代码其实跟传统的 就是那个固若金汤的区别
+      我之前带百战不殆或者说畸形韧带 那个旺斯都没有这样带那个护佑金城汤池强 具体原因我还真不太清楚
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1Ez5x6kEUp#168-189
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics: []
+    priority: 64
+    structured_data:
+      name: 固若金汤
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1Ez5x6kEUp/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:56:50'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1Ez5x6kEUp
+    - segment=subtitle-chunk-19-355-370
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-skill-bv1ez5x6keup-subtitle-chunk-19-355-370-奇门遁甲
+    domain: skill
+    entry_kind: skill_profile
+    topic: 奇门遁甲
+    aliases: []
+    facts:
+    - 视频片段提到奇门遁甲是当前讨论阵容中的关键战法。
+    - 视频证据摘要：所以我就这样换着吧 这样玩的没啥特别紫卡 就是没啥特别研究 剩下的战法也不多了 随便带吧 哦还有这一队 这队强度倒还可以哦 剩下的剩下的战法我就组了这一对
+      网易其实强度还行 然后话说起来 我他妈的那些辅助将一直满红 你给我干什么
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1Ez5x6kEUp#355-370
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 诸葛亮
+    - 关羽
+    - 黄月英
+    priority: 64
+    structured_data:
+      name: 奇门遁甲
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1Ez5x6kEUp/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:56:50'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1Ez5x6kEUp
+    - segment=subtitle-chunk-19-355-370
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-skill-bv1ez5x6keup-subtitle-chunk-19-355-370-勇冠三军
+    domain: skill
+    entry_kind: skill_profile
+    topic: 勇冠三军
+    aliases: []
+    facts:
+    - 视频片段提到勇冠三军是当前讨论阵容中的关键战法。
+    - 视频证据摘要：所以我就这样换着吧 这样玩的没啥特别紫卡 就是没啥特别研究 剩下的战法也不多了 随便带吧 哦还有这一队 这队强度倒还可以哦 剩下的剩下的战法我就组了这一对
+      网易其实强度还行 然后话说起来 我他妈的那些辅助将一直满红 你给我干什么
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1Ez5x6kEUp#355-370
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 诸葛亮
+    - 关羽
+    - 黄月英
+    priority: 64
+    structured_data:
+      name: 勇冠三军
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1Ez5x6kEUp/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:56:50'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1Ez5x6kEUp
+    - segment=subtitle-chunk-19-355-370
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-skill-bv1ez5x6keup-subtitle-chunk-19-355-370-青囊急救
+    domain: skill
+    entry_kind: skill_profile
+    topic: 青囊急救
+    aliases: []
+    facts:
+    - 视频片段提到青囊急救是当前讨论阵容中的关键战法。
+    - 视频证据摘要：所以我就这样换着吧 这样玩的没啥特别紫卡 就是没啥特别研究 剩下的战法也不多了 随便带吧 哦还有这一队 这队强度倒还可以哦 剩下的剩下的战法我就组了这一对
+      网易其实强度还行 然后话说起来 我他妈的那些辅助将一直满红 你给我干什么
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1Ez5x6kEUp#355-370
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 诸葛亮
+    - 关羽
+    - 黄月英
+    priority: 64
+    structured_data:
+      name: 青囊急救
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1Ez5x6kEUp/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:56:50'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1Ez5x6kEUp
+    - segment=subtitle-chunk-19-355-370
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-skill-bv1ez5x6keup-subtitle-chunk-19-355-370-瞋目横矛
+    domain: skill
+    entry_kind: skill_profile
+    topic: 瞋目横矛
+    aliases: []
+    facts:
+    - 视频片段提到瞋目横矛是当前讨论阵容中的关键战法。
+    - 视频证据摘要：所以我就这样换着吧 这样玩的没啥特别紫卡 就是没啥特别研究 剩下的战法也不多了 随便带吧 哦还有这一队 这队强度倒还可以哦 剩下的剩下的战法我就组了这一对
+      网易其实强度还行 然后话说起来 我他妈的那些辅助将一直满红 你给我干什么
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1Ez5x6kEUp#355-370
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 诸葛亮
+    - 关羽
+    - 黄月英
+    priority: 64
+    structured_data:
+      name: 瞋目横矛
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1Ez5x6kEUp/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:56:50'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1Ez5x6kEUp
+    - segment=subtitle-chunk-19-355-370
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-skill-bv1ez5x6keup-subtitle-chunk-19-355-370-料事如神
+    domain: skill
+    entry_kind: skill_profile
+    topic: 料事如神
+    aliases: []
+    facts:
+    - 视频片段提到料事如神是当前讨论阵容中的关键战法。
+    - 视频证据摘要：所以我就这样换着吧 这样玩的没啥特别紫卡 就是没啥特别研究 剩下的战法也不多了 随便带吧 哦还有这一队 这队强度倒还可以哦 剩下的剩下的战法我就组了这一对
+      网易其实强度还行 然后话说起来 我他妈的那些辅助将一直满红 你给我干什么
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1Ez5x6kEUp#355-370
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 诸葛亮
+    - 关羽
+    - 黄月英
+    priority: 64
+    structured_data:
+      name: 料事如神
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1BCdvBKE6K/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:58:34'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1BCdvBKE6K
+    - segment=subtitle-chunk-7-167-197
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-lineup-bv1bcdvbke6k-养士兴功开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 养士兴功开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括养士兴功、名望2级、主招募。
+    - 高频提及战法包括贤才录、门客、幕僚。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 真的不推荐郝昭本身的强度是够的 但是开荒不适合这种拖回合阵容 然后还有一个幕僚的问题 目前已经是先锋服的第三天七点多了 呃不知道为什么没有给奉贤呢 可能在正式服中的第三天是没有办法解锁
+      明万三级的 要第四天才有 那如果是低红的话呢 也是推荐在第四天解锁这个镇岳戍卫之后 再去打远征 满红高品可以直接通关的话。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1BCdvBKE6K#167-197
+    updated_at: '2026-05-17'
+    confidence: 0.58
+    related_topics:
+    - 养士兴功
+    - 名望2级
+    - 主招募
+    - 贤才录
+    - 门客
+    - 幕僚
+    priority: 70
+    structured_data:
+      name: 养士兴功开荒队
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 养士兴功
+      - 名望2级
+      - 主招募
+      core_skills:
+      - 贤才录
+      - 门客
+      - 幕僚
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：167s-197s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1BCdvBKE6K/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:58:34'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1BCdvBKE6K
+    - segment=subtitle-chunk-1-0-30
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1bcdvbke6k-subtitle-chunk-1-0-30-郝昭
+    domain: hero
+    entry_kind: hero_profile
+    topic: 郝昭
+    aliases: []
+    facts:
+    - 视频片段将郝昭列为当前阶段的重要武将。
+    - 视频证据摘要：好召开荒开一块DISS 1万兵一玩一个不支撑 玩过的都流泪了 OKOK这一期还还还是W10陈仓之围的开荒攻略 这回的开荒一图流呢 真的是再再再再再也不改版了
+      图片放在评论区自取 昨天下午刚出完攻略 三模马上就热更新了门客的设定 up主的命就
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1BCdvBKE6K#0-30
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 郝昭
+    priority: 64
+    structured_data:
+      name: 郝昭
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1BCdvBKE6K/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:58:34'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1BCdvBKE6K
+    - segment=subtitle-chunk-7-167-197
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1bcdvbke6k-subtitle-chunk-7-167-197-郝昭
+    domain: hero
+    entry_kind: hero_profile
+    topic: 郝昭
+    aliases: []
+    facts:
+    - 视频片段将郝昭列为当前阶段的重要武将。
+    - 视频证据摘要：真的不推荐郝昭本身的强度是够的 但是开荒不适合这种拖回合阵容 然后还有一个幕僚的问题 目前已经是先锋服的第三天七点多了 呃不知道为什么没有给奉贤呢
+      可能在正式服中的第三天是没有办法解锁 明万三级的 要第四天才有 那如果是低红的话呢 也是推荐
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1BCdvBKE6K#167-197
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 郝昭
+    priority: 64
+    structured_data:
+      name: 郝昭
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1rM73ztE4g/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:59'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1rM73ztE4g
+    - segment=subtitle-chunk-1-0-26
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-lineup-bv1rm73zte4g-孙尚香开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 孙尚香开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括孙尚香、黄忠、貂蝉。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1rM73ztE4g#0-26
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 孙尚香
+    - 黄忠
+    - 貂蝉
+    priority: 70
+    structured_data:
+      name: 孙尚香开荒队
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 孙尚香
+      - 黄忠
+      - 貂蝉
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-26s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1rM73ztE4g/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:59'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1rM73ztE4g
+    - segment=subtitle-chunk-8-167-197
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-lineup-bv1rm73zte4g-开荒配置开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 开荒配置开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括开荒配置、开荒新神、刘备。
+    - 视频证据摘要：B站 AI 中文字幕切片。 [视觉补充] 关银屏(0.55), 刘备(0.75), 诸葛亮2(0.60)
+    constraints:
+    - 也就是这四个技能 保证全队的奶量和伤害频率 以及姜维身上的固定减伤 然后加点方面就是诸葛瑾度低于其余权制 刘备无所谓 然后开九的配置一定是雁行阵 通过诸葛给姜维找两次伤害
+      这个时候姜维就要保证统帅最低 不然他不能通过诸葛瑾打伤害 然后诸葛瑾远是速度第一 其余全制也要保证 承前毕后和自己的普攻先打出来。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1rM73ztE4g#167-197
+    updated_at: '2026-05-17'
+    confidence: 0.58
+    related_topics:
+    - 开荒配置
+    - 开荒新神
+    - 刘备
+    priority: 70
+    structured_data:
+      name: 开荒配置开荒队
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 开荒配置
+      - 开荒新神
+      - 刘备
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：167s-197s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1rM73ztE4g/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:59'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1rM73ztE4g
+    - segment=subtitle-chunk-1-0-26
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1rm73zte4g-subtitle-chunk-1-0-26-孙尚香
+    domain: hero
+    entry_kind: hero_profile
+    topic: 孙尚香
+    aliases: []
+    facts:
+    - 视频片段将孙尚香列为当前阶段的重要武将。
+    - 孙尚香在片段中与黄忠、貂蝉一起被讨论。
+    - 视频证据摘要：哈喽大家好 我是貂蝉 这个赛季兄弟们应该开局都翻麻了 然后先来放几张解压的图片啊 首先左边我已经打了码 这个是几乎同一天理啊 这个是同一天里同一块土地守军的黄忠
+      干碎了四个马红啊 拿下了四连斩啊 黄忠说让你把我放放仓库 这应该是这种一赛季老
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1rM73ztE4g#0-26
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 孙尚香
+    - 黄忠
+    - 貂蝉
+    priority: 64
+    structured_data:
+      name: 孙尚香
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1rM73ztE4g/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:59'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1rM73ztE4g
+    - segment=subtitle-chunk-1-0-26
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1rm73zte4g-subtitle-chunk-1-0-26-黄忠
+    domain: hero
+    entry_kind: hero_profile
+    topic: 黄忠
+    aliases: []
+    facts:
+    - 视频片段将黄忠列为当前阶段的重要武将。
+    - 黄忠在片段中与孙尚香、貂蝉一起被讨论。
+    - 视频证据摘要：哈喽大家好 我是貂蝉 这个赛季兄弟们应该开局都翻麻了 然后先来放几张解压的图片啊 首先左边我已经打了码 这个是几乎同一天理啊 这个是同一天里同一块土地守军的黄忠
+      干碎了四个马红啊 拿下了四连斩啊 黄忠说让你把我放放仓库 这应该是这种一赛季老
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1rM73ztE4g#0-26
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 孙尚香
+    - 黄忠
+    - 貂蝉
+    priority: 64
+    structured_data:
+      name: 黄忠
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1rM73ztE4g/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:59'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1rM73ztE4g
+    - segment=subtitle-chunk-1-0-26
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1rm73zte4g-subtitle-chunk-1-0-26-貂蝉
+    domain: hero
+    entry_kind: hero_profile
+    topic: 貂蝉
+    aliases: []
+    facts:
+    - 视频片段将貂蝉列为当前阶段的重要武将。
+    - 貂蝉在片段中与孙尚香、黄忠一起被讨论。
+    - 视频证据摘要：哈喽大家好 我是貂蝉 这个赛季兄弟们应该开局都翻麻了 然后先来放几张解压的图片啊 首先左边我已经打了码 这个是几乎同一天理啊 这个是同一天里同一块土地守军的黄忠
+      干碎了四个马红啊 拿下了四连斩啊 黄忠说让你把我放放仓库 这应该是这种一赛季老
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1rM73ztE4g#0-26
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 孙尚香
+    - 黄忠
+    - 貂蝉
+    priority: 64
+    structured_data:
+      name: 貂蝉
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1rM73ztE4g/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:59'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1rM73ztE4g
+    - segment=subtitle-chunk-1-0-26
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1rm73zte4g-subtitle-chunk-1-0-26-武将
+    domain: hero
+    entry_kind: hero_profile
+    topic: 武将
+    aliases: []
+    facts:
+    - 视频片段将武将列为当前阶段的重要武将。
+    - 武将在片段中与孙尚香、黄忠一起被讨论。
+    - 视频证据摘要：哈喽大家好 我是貂蝉 这个赛季兄弟们应该开局都翻麻了 然后先来放几张解压的图片啊 首先左边我已经打了码 这个是几乎同一天理啊 这个是同一天里同一块土地守军的黄忠
+      干碎了四个马红啊 拿下了四连斩啊 黄忠说让你把我放放仓库 这应该是这种一赛季老
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1rM73ztE4g#0-26
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 孙尚香
+    - 黄忠
+    - 貂蝉
+    priority: 64
+    structured_data:
+      name: 武将
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1rM73ztE4g/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:59'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1rM73ztE4g
+    - segment=subtitle-chunk-8-167-197
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1rm73zte4g-subtitle-chunk-8-167-197-刘备
+    domain: hero
+    entry_kind: hero_profile
+    topic: 刘备
+    aliases: []
+    facts:
+    - 视频片段将刘备列为当前阶段的重要武将。
+    - 刘备在片段中与诸葛瑾、姜维一起被讨论。
+    - 视频证据摘要：也就是这四个技能 保证全队的奶量和伤害频率 以及姜维身上的固定减伤 然后加点方面就是诸葛瑾度低于其余权制 刘备无所谓 然后开九的配置一定是雁行阵
+      通过诸葛给姜维找两次伤害 这个时候姜维就要保证统帅最低 不然他不能通过诸葛瑾打伤害 然后诸葛瑾
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1rM73ztE4g#167-197
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 诸葛瑾
+    - 刘备
+    - 姜维
+    priority: 64
+    structured_data:
+      name: 刘备
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1rM73ztE4g/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:59'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1rM73ztE4g
+    - segment=subtitle-chunk-8-167-197
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1rm73zte4g-subtitle-chunk-8-167-197-诸葛瑾
+    domain: hero
+    entry_kind: hero_profile
+    topic: 诸葛瑾
+    aliases: []
+    facts:
+    - 视频片段将诸葛瑾列为当前阶段的重要武将。
+    - 诸葛瑾在片段中与刘备、姜维一起被讨论。
+    - 视频证据摘要：也就是这四个技能 保证全队的奶量和伤害频率 以及姜维身上的固定减伤 然后加点方面就是诸葛瑾度低于其余权制 刘备无所谓 然后开九的配置一定是雁行阵
+      通过诸葛给姜维找两次伤害 这个时候姜维就要保证统帅最低 不然他不能通过诸葛瑾打伤害 然后诸葛瑾
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1rM73ztE4g#167-197
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 诸葛瑾
+    - 刘备
+    - 姜维
+    priority: 64
+    structured_data:
+      name: 诸葛瑾
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1rM73ztE4g/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:59'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1rM73ztE4g
+    - segment=subtitle-chunk-8-167-197
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1rm73zte4g-subtitle-chunk-8-167-197-姜维
+    domain: hero
+    entry_kind: hero_profile
+    topic: 姜维
+    aliases: []
+    facts:
+    - 视频片段将姜维列为当前阶段的重要武将。
+    - 姜维在片段中与诸葛瑾、刘备一起被讨论。
+    - 视频证据摘要：也就是这四个技能 保证全队的奶量和伤害频率 以及姜维身上的固定减伤 然后加点方面就是诸葛瑾度低于其余权制 刘备无所谓 然后开九的配置一定是雁行阵
+      通过诸葛给姜维找两次伤害 这个时候姜维就要保证统帅最低 不然他不能通过诸葛瑾打伤害 然后诸葛瑾
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1rM73ztE4g#167-197
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 诸葛瑾
+    - 刘备
+    - 姜维
+    priority: 64
+    structured_data:
+      name: 姜维
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []

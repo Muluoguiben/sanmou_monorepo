@@ -1,0 +1,833 @@
+- metadata:
+    source_url: https://www.bilibili.com/video/BV18n4y1f7sd/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:48:55'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV18n4y1f7sd
+    - segment=subtitle-chunk-1-0-29
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-lineup-bv18n4y1f7sd-领地等级开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 领地等级开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒、打地。
+    - 核心武将包括领地等级、经验、领地兵力。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV18n4y1f7sd#0-29
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 领地等级
+    - 经验
+    - 领地兵力
+    priority: 70
+    structured_data:
+      name: 领地等级开荒队
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 领地等级
+      - 经验
+      - 领地兵力
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      - 打地
+      notes:
+      - 证据片段：0s-29s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV18n4y1f7sd/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:48:55'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV18n4y1f7sd
+    - segment=subtitle-chunk-7-169-197
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-lineup-bv18n4y1f7sd-6级石矿开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 6级石矿开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒、驻守。
+    - 核心武将包括6级石矿、开垦、青囊。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV18n4y1f7sd#169-197
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 6级石矿
+    - 开垦
+    - 青囊
+    priority: 70
+    structured_data:
+      name: 6级石矿开荒队
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 6级石矿
+      - 开垦
+      - 青囊
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      - 驻守
+      notes:
+      - 证据片段：169s-197s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV18n4y1f7sd/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:48:55'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV18n4y1f7sd
+    - segment=subtitle-chunk-1-0-29
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv18n4y1f7sd-subtitle-chunk-1-0-29-选职业
+    domain: hero
+    entry_kind: hero_profile
+    topic: 选职业
+    aliases: []
+    facts:
+    - 视频片段将选职业列为当前阶段的重要武将。
+    - 选职业在片段中与司仓、神行一起被讨论。
+    - 视频证据摘要：既然各位都已经玩过S1了 我这里就不过多描述新手相的东西了 主要是指导各位每个等级段该做什么 至于鸡腿怎么用体力什么时候恢复自己 游戏里可以看见哈
+      与S1不同的是 进入S20选的职业不可以在中途转职 所以需要慎重考虑 这里我给出选职业建议
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV18n4y1f7sd#0-29
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 选职业
+    - 司仓
+    - 神行
+    priority: 64
+    structured_data:
+      name: 选职业
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV18n4y1f7sd/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:48:55'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV18n4y1f7sd
+    - segment=subtitle-chunk-1-0-29
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv18n4y1f7sd-subtitle-chunk-1-0-29-司仓
+    domain: hero
+    entry_kind: hero_profile
+    topic: 司仓
+    aliases: []
+    facts:
+    - 视频片段将司仓列为当前阶段的重要武将。
+    - 司仓在片段中与选职业、神行一起被讨论。
+    - 视频证据摘要：既然各位都已经玩过S1了 我这里就不过多描述新手相的东西了 主要是指导各位每个等级段该做什么 至于鸡腿怎么用体力什么时候恢复自己 游戏里可以看见哈
+      与S1不同的是 进入S20选的职业不可以在中途转职 所以需要慎重考虑 这里我给出选职业建议
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV18n4y1f7sd#0-29
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 选职业
+    - 司仓
+    - 神行
+    priority: 64
+    structured_data:
+      name: 司仓
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV18n4y1f7sd/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:48:55'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV18n4y1f7sd
+    - segment=subtitle-chunk-1-0-29
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv18n4y1f7sd-subtitle-chunk-1-0-29-神行
+    domain: hero
+    entry_kind: hero_profile
+    topic: 神行
+    aliases: []
+    facts:
+    - 视频片段将神行列为当前阶段的重要武将。
+    - 神行在片段中与选职业、司仓一起被讨论。
+    - 视频证据摘要：既然各位都已经玩过S1了 我这里就不过多描述新手相的东西了 主要是指导各位每个等级段该做什么 至于鸡腿怎么用体力什么时候恢复自己 游戏里可以看见哈
+      与S1不同的是 进入S20选的职业不可以在中途转职 所以需要慎重考虑 这里我给出选职业建议
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV18n4y1f7sd#0-29
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 选职业
+    - 司仓
+    - 神行
+    priority: 64
+    structured_data:
+      name: 神行
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV18n4y1f7sd/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:48:55'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV18n4y1f7sd
+    - segment=subtitle-chunk-1-0-29
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv18n4y1f7sd-subtitle-chunk-1-0-29-职业
+    domain: hero
+    entry_kind: hero_profile
+    topic: 职业
+    aliases: []
+    facts:
+    - 视频片段将职业列为当前阶段的重要武将。
+    - 职业在片段中与选职业、司仓一起被讨论。
+    - 视频证据摘要：既然各位都已经玩过S1了 我这里就不过多描述新手相的东西了 主要是指导各位每个等级段该做什么 至于鸡腿怎么用体力什么时候恢复自己 游戏里可以看见哈
+      与S1不同的是 进入S20选的职业不可以在中途转职 所以需要慎重考虑 这里我给出选职业建议
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV18n4y1f7sd#0-29
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 选职业
+    - 司仓
+    - 神行
+    priority: 64
+    structured_data:
+      name: 职业
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV18n4y1f7sd/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:48:55'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV18n4y1f7sd
+    - segment=subtitle-chunk-7-169-197
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv18n4y1f7sd-subtitle-chunk-7-169-197-青囊
+    domain: hero
+    entry_kind: hero_profile
+    topic: 青囊
+    aliases: []
+    facts:
+    - 视频片段将青囊列为当前阶段的重要武将。
+    - 视频证据摘要：我们回到内城 这里我们将内城的地开至六级后 可以完成一次屯田来过主线任务 青囊可以利用技能优势 使用体力单继续刷等级留到七级的 用三刷级
+      在能保证过六级地后 就是枯燥乏味的刷级开拓的过程 当等级来到23~25之间时 我们准备开七 满红大佬可
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV18n4y1f7sd#169-197
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 青囊
+    priority: 64
+    structured_data:
+      name: 青囊
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1FG5s6GE1j/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:49'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1FG5s6GE1j
+    - segment=subtitle-chunk-1-0-24
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-lineup-bv1fg5s6ge1j-s15武将开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S15武将开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括武将、同盟、职业。
+    - 高频提及战法包括征战。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1FG5s6GE1j#0-24
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 武将
+    - 同盟
+    - 职业
+    - 征战
+    priority: 70
+    structured_data:
+      name: S15武将开荒队
+      aliases: []
+      season_tags:
+      - S15
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 武将
+      - 同盟
+      - 职业
+      core_skills:
+      - 征战
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-24s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1FG5s6GE1j/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:49'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1FG5s6GE1j
+    - segment=subtitle-chunk-8-162-183
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-lineup-bv1fg5s6ge1j-s15江东燎原开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S15江东燎原开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括江东燎原、缘分、周瑜。
+    - 高频提及战法包括战法类型、主动战法。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1FG5s6GE1j#162-183
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 江东燎原
+    - 缘分
+    - 周瑜
+    - 战法类型
+    - 主动战法
+    priority: 70
+    structured_data:
+      name: S15江东燎原开荒队
+      aliases: []
+      season_tags:
+      - S15
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 江东燎原
+      - 缘分
+      - 周瑜
+      core_skills:
+      - 战法类型
+      - 主动战法
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：162s-183s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1FG5s6GE1j/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:49'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1FG5s6GE1j
+    - segment=subtitle-chunk-17-349-366
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-lineup-bv1fg5s6ge1j-s15第七回开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S15第七回开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括第七回、双雄合纵、第八回。
+    - 高频提及战法包括乌林烽火、数量:1、第九回。
+    - 视频证据摘要：B站 AI 中文字幕切片。 [视觉补充] 烈火焚营(0.78)
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1FG5s6GE1j#349-366
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 第七回
+    - 双雄合纵
+    - 第八回
+    - 乌林烽火
+    - 数量:1
+    - 第九回
+    priority: 70
+    structured_data:
+      name: S15第七回开荒队
+      aliases: []
+      season_tags:
+      - S15
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 第七回
+      - 双雄合纵
+      - 第八回
+      core_skills:
+      - 乌林烽火
+      - 数量:1
+      - 第九回
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：349s-366s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1FG5s6GE1j/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:49'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1FG5s6GE1j
+    - segment=subtitle-chunk-1-0-24
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1fg5s6ge1j-subtitle-chunk-1-0-24-武将
+    domain: hero
+    entry_kind: hero_profile
+    topic: 武将
+    aliases: []
+    facts:
+    - 视频片段将武将列为当前阶段的重要武将。
+    - 武将在片段中与职业一起被讨论。
+    - 视频证据摘要：好的我们现在就是在S15的前瞻服啊 史上最好玩的赛季 我先玩为敬呃 这里的话是赛季限定玩法 就是这个镜照赤壁点进来看一下啊 一共是11回
+      这个演义和视频里展示的好像不太一样 我记得视频里展示的是 有点像那个业主申和赛季 然后一个圆圆的到一个
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1FG5s6GE1j#0-24
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 武将
+    - 职业
+    priority: 64
+    structured_data:
+      name: 武将
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1FG5s6GE1j/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:49'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1FG5s6GE1j
+    - segment=subtitle-chunk-1-0-24
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1fg5s6ge1j-subtitle-chunk-1-0-24-职业
+    domain: hero
+    entry_kind: hero_profile
+    topic: 职业
+    aliases: []
+    facts:
+    - 视频片段将职业列为当前阶段的重要武将。
+    - 职业在片段中与武将一起被讨论。
+    - 视频证据摘要：好的我们现在就是在S15的前瞻服啊 史上最好玩的赛季 我先玩为敬呃 这里的话是赛季限定玩法 就是这个镜照赤壁点进来看一下啊 一共是11回
+      这个演义和视频里展示的好像不太一样 我记得视频里展示的是 有点像那个业主申和赛季 然后一个圆圆的到一个
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1FG5s6GE1j#0-24
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 武将
+    - 职业
+    priority: 64
+    structured_data:
+      name: 职业
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1FG5s6GE1j/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:49'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1FG5s6GE1j
+    - segment=subtitle-chunk-8-162-183
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1fg5s6ge1j-subtitle-chunk-8-162-183-缘分
+    domain: hero
+    entry_kind: hero_profile
+    topic: 缘分
+    aliases: []
+    facts:
+    - 视频片段将缘分列为当前阶段的重要武将。
+    - 缘分在片段中与周瑜一起被讨论。
+    - 视频证据摘要：而且是SP周瑜使用是吧 SP周瑜可能真是舒服 激活缘分时 对敌军随机2~3人 主动战法和主动战法造成伤害120%哇 这个倍率不低吧 若目标已持有火攻
+      夺取其8%受到伤害降低效果 夺取减伤并使伤害的25%诶 这个感觉有点弱啊 是不是有点弱 发
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1FG5s6GE1j#162-183
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 缘分
+    - 周瑜
+    priority: 64
+    structured_data:
+      name: 缘分
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1FG5s6GE1j/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:49'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1FG5s6GE1j
+    - segment=subtitle-chunk-8-162-183
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1fg5s6ge1j-subtitle-chunk-8-162-183-周瑜
+    domain: hero
+    entry_kind: hero_profile
+    topic: 周瑜
+    aliases: []
+    facts:
+    - 视频片段将周瑜列为当前阶段的重要武将。
+    - 周瑜在片段中与缘分一起被讨论。
+    - 视频证据摘要：而且是SP周瑜使用是吧 SP周瑜可能真是舒服 激活缘分时 对敌军随机2~3人 主动战法和主动战法造成伤害120%哇 这个倍率不低吧 若目标已持有火攻
+      夺取其8%受到伤害降低效果 夺取减伤并使伤害的25%诶 这个感觉有点弱啊 是不是有点弱 发
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1FG5s6GE1j#162-183
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 缘分
+    - 周瑜
+    priority: 64
+    structured_data:
+      name: 周瑜
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1FG5s6GE1j/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:49'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1FG5s6GE1j
+    - segment=subtitle-chunk-8-162-183
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-skill-bv1fg5s6ge1j-subtitle-chunk-8-162-183-战法类型
+    domain: skill
+    entry_kind: skill_profile
+    topic: 战法类型
+    aliases: []
+    facts:
+    - 视频片段提到战法类型是当前讨论阵容中的关键战法。
+    - 视频证据摘要：而且是SP周瑜使用是吧 SP周瑜可能真是舒服 激活缘分时 对敌军随机2~3人 主动战法和主动战法造成伤害120%哇 这个倍率不低吧 若目标已持有火攻
+      夺取其8%受到伤害降低效果 夺取减伤并使伤害的25%诶 这个感觉有点弱啊 是不是有点弱 发
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1FG5s6GE1j#162-183
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 缘分
+    - 周瑜
+    priority: 64
+    structured_data:
+      name: 战法类型
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1FG5s6GE1j/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:49'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1FG5s6GE1j
+    - segment=subtitle-chunk-8-162-183
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-skill-bv1fg5s6ge1j-subtitle-chunk-8-162-183-主动战法
+    domain: skill
+    entry_kind: skill_profile
+    topic: 主动战法
+    aliases: []
+    facts:
+    - 视频片段提到主动战法是当前讨论阵容中的关键战法。
+    - 视频证据摘要：而且是SP周瑜使用是吧 SP周瑜可能真是舒服 激活缘分时 对敌军随机2~3人 主动战法和主动战法造成伤害120%哇 这个倍率不低吧 若目标已持有火攻
+      夺取其8%受到伤害降低效果 夺取减伤并使伤害的25%诶 这个感觉有点弱啊 是不是有点弱 发
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1FG5s6GE1j#162-183
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 缘分
+    - 周瑜
+    priority: 64
+    structured_data:
+      name: 主动战法
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1FG5s6GE1j/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:49'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1FG5s6GE1j
+    - segment=subtitle-chunk-17-349-366
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-skill-bv1fg5s6ge1j-subtitle-chunk-17-349-366-十面埋伏
+    domain: skill
+    entry_kind: skill_profile
+    topic: 十面埋伏
+    aliases: []
+    facts:
+    - 视频片段提到十面埋伏是当前讨论阵容中的关键战法。
+    - 视频证据摘要：嘶三军利刃第六回 第六回的话 可能到中期结算了吧 估计进本是吧 看下进本有啥 进本是谋而后动 韬光养晦 十面埋伏 还是这三 还是这三儿 还是这三
+      好吧
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1FG5s6GE1j#349-366
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics: []
+    priority: 64
+    structured_data:
+      name: 十面埋伏
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1FG5s6GE1j/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:49'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1FG5s6GE1j
+    - segment=subtitle-chunk-17-349-366
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-skill-bv1fg5s6ge1j-subtitle-chunk-17-349-366-谋而后动
+    domain: skill
+    entry_kind: skill_profile
+    topic: 谋而后动
+    aliases: []
+    facts:
+    - 视频片段提到谋而后动是当前讨论阵容中的关键战法。
+    - 视频证据摘要：嘶三军利刃第六回 第六回的话 可能到中期结算了吧 估计进本是吧 看下进本有啥 进本是谋而后动 韬光养晦 十面埋伏 还是这三 还是这三儿 还是这三
+      好吧
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1FG5s6GE1j#349-366
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics: []
+    priority: 64
+    structured_data:
+      name: 谋而后动
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1FG5s6GE1j/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:49'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1FG5s6GE1j
+    - segment=subtitle-chunk-17-349-366
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-skill-bv1fg5s6ge1j-subtitle-chunk-17-349-366-韬光养晦
+    domain: skill
+    entry_kind: skill_profile
+    topic: 韬光养晦
+    aliases: []
+    facts:
+    - 视频片段提到韬光养晦是当前讨论阵容中的关键战法。
+    - 视频证据摘要：嘶三军利刃第六回 第六回的话 可能到中期结算了吧 估计进本是吧 看下进本有啥 进本是谋而后动 韬光养晦 十面埋伏 还是这三 还是这三儿 还是这三
+      好吧
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1FG5s6GE1j#349-366
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics: []
+    priority: 64
+    structured_data:
+      name: 韬光养晦
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []

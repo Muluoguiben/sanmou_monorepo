@@ -6,9 +6,11 @@ from pathlib import Path
 
 from qa_agent.video.frame_sampler import (
     FrameSampleRequest,
+    RemoteFrameSampleRequest,
     attach_frames_to_segments,
     plan_sample_timestamps,
     sample_frames,
+    sample_remote_frames,
 )
 from qa_agent.video.models import VideoFrameRef
 
@@ -83,6 +85,33 @@ class SampleFramesTests(unittest.TestCase):
             )
             refs = sample_frames(request, ffmpeg_path="/usr/bin/ffmpeg", runner=fake_runner)
         self.assertEqual(refs, [])
+
+    def test_sample_remote_frames_uses_headers_and_timeout(self) -> None:
+        recorded: list[list[str]] = []
+
+        def fake_runner(args):
+            recorded.append(list(args))
+            Path(args[-1]).write_bytes(b"\xff\xd8\xff\xe0")
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            request = RemoteFrameSampleRequest(
+                video_url="https://upos.example/video.m4s",
+                source_url="https://www.bilibili.com/video/BV1TEST/",
+                output_dir=Path(temp_dir),
+                timestamps=(30.0,),
+                filename_prefix="remote",
+                timeout_sec=8,
+            )
+            refs = sample_remote_frames(request, ffmpeg_path="/usr/bin/ffmpeg", runner=fake_runner)
+
+        self.assertEqual(len(refs), 1)
+        args = recorded[0]
+        self.assertIn("-rw_timeout", args)
+        self.assertEqual(args[args.index("-rw_timeout") + 1], "8000000")
+        self.assertIn("-headers", args)
+        headers = args[args.index("-headers") + 1]
+        self.assertIn("Referer: https://www.bilibili.com/video/BV1TEST/", headers)
+        self.assertEqual(args[args.index("-i") + 1], "https://upos.example/video.m4s")
 
     def test_empty_timestamps_short_circuits(self) -> None:
         request = FrameSampleRequest(

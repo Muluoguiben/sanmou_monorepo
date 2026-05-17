@@ -1,0 +1,45 @@
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1WCQjBUEN7/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:02:20'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1WCQjBUEN7
+    - segment=subtitle-chunk-1-0-28
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-lineup-bv1wcqjbuen7-s14仓曹掾开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S14仓曹掾开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括仓曹掾、龙脉之地。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1WCQjBUEN7#0-28
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 仓曹掾
+    - 龙脉之地
+    priority: 70
+    structured_data:
+      name: S14仓曹掾开荒队
+      aliases: []
+      season_tags:
+      - S14
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 仓曹掾
+      - 龙脉之地
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-28s

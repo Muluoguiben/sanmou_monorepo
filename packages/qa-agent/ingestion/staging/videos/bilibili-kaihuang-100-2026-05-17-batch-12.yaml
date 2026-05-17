@@ -1,0 +1,43 @@
+- metadata:
+    source_url: https://www.bilibili.com/video/BV14woMBVErV/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:13:38'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV14woMBVErV
+    - segment=subtitle-chunk-1-0-19
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-lineup-bv14wombverv-bv14wombverv-复刻真实古代强军风貌，轻松开荒养兵，
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 复刻真实古代强军风貌，轻松开荒养兵，
+    aliases: []
+    facts:
+    - 该视频主题聚焦于复刻真实古代强军风貌，轻松开荒养兵，顶配阵容自由搭配。
+    - 登录态已确认字幕目录可见：中文。
+    - 可确认场景标签：开荒、打地。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 当前候选仅基于视频标题/描述等弱证据生成，需后续用字幕或画面证据复核。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV14woMBVErV#0-19
+    updated_at: '2026-05-17'
+    confidence: 0.34
+    related_topics: []
+    priority: 70
+    structured_data:
+      name: 复刻真实古代强军风貌，轻松开荒养兵，
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names: []
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      - 打地
+      notes:
+      - 证据片段：0s-19s

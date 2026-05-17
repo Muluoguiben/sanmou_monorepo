@@ -23,6 +23,18 @@ class FrameSampleRequest:
     quality: int = 2
 
 
+@dataclass(frozen=True)
+class RemoteFrameSampleRequest:
+    video_url: str
+    source_url: str
+    output_dir: Path
+    timestamps: tuple[float, ...]
+    filename_prefix: str = "frame"
+    image_format: str = "jpg"
+    quality: int = 2
+    timeout_sec: int = 20
+
+
 def resolve_ffmpeg_binary() -> str:
     env_override = os.getenv("FFMPEG_BINARY")
     if env_override and Path(env_override).exists():
@@ -91,6 +103,43 @@ def _build_ffmpeg_args(
     ]
 
 
+def _build_remote_ffmpeg_args(
+    ffmpeg_path: str,
+    video_url: str,
+    source_url: str,
+    timestamp: float,
+    output_path: Path,
+    quality: int,
+    timeout_sec: int,
+) -> list[str]:
+    headers = (
+        "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36\r\n"
+        f"Referer: {source_url}\r\n"
+    )
+    return [
+        ffmpeg_path,
+        "-hide_banner",
+        "-loglevel",
+        "error",
+        "-nostdin",
+        "-rw_timeout",
+        str(max(1, timeout_sec) * 1_000_000),
+        "-headers",
+        headers,
+        "-ss",
+        f"{timestamp:.3f}",
+        "-i",
+        video_url,
+        "-frames:v",
+        "1",
+        "-q:v",
+        str(quality),
+        "-y",
+        str(output_path),
+    ]
+
+
 def sample_frames(
     request: FrameSampleRequest,
     *,
@@ -115,6 +164,55 @@ def sample_frames(
         output_path = request.output_dir / filename
         args = _build_ffmpeg_args(binary, request.video_path, timestamp, output_path, request.quality)
         run(args)
+        if not output_path.exists():
+            continue
+        refs.append(
+            VideoFrameRef(
+                timestamp_sec=float(timestamp),
+                image_path=str(output_path),
+                notes=[],
+            )
+        )
+    return refs
+
+
+def sample_remote_frames(
+    request: RemoteFrameSampleRequest,
+    *,
+    ffmpeg_path: str | None = None,
+    runner: FrameRunner | None = None,
+) -> list[VideoFrameRef]:
+    """Extract frames directly from a remote DASH URL.
+
+    This avoids downloading a partial MP4 first. Some Bilibili CDN streams are
+    slow or non-seekable when truncated, while ffmpeg can seek the remote DASH
+    URL directly and fail fast via `-rw_timeout`.
+    """
+    if not request.timestamps:
+        return []
+    binary = ffmpeg_path or resolve_ffmpeg_binary()
+    run = runner or _default_runner
+    request.output_dir.mkdir(parents=True, exist_ok=True)
+
+    refs: list[VideoFrameRef] = []
+    for index, timestamp in enumerate(request.timestamps, start=1):
+        filename = f"{request.filename_prefix}-{index:03d}-{int(round(timestamp))}s.{request.image_format}"
+        output_path = request.output_dir / filename
+        args = _build_remote_ffmpeg_args(
+            binary,
+            request.video_url,
+            request.source_url,
+            timestamp,
+            output_path,
+            request.quality,
+            request.timeout_sec,
+        )
+        try:
+            run(args)
+        except subprocess.CalledProcessError:
+            if output_path.exists():
+                output_path.unlink()
+            continue
         if not output_path.exists():
             continue
         refs.append(

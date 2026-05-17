@@ -1,0 +1,752 @@
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1qZd8BnE3B/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:55:58'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1qZd8BnE3B
+    - segment=subtitle-chunk-1-0-21
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-hero-bv1qzd8bne3b-subtitle-chunk-1-0-21-桃园
+    domain: hero
+    entry_kind: hero_profile
+    topic: 桃园
+    aliases: []
+    facts:
+    - 视频片段将桃园列为当前阶段的重要武将。
+    - 视频证据摘要：S14当前最强开荒攻略 低红也能速通关 首先在S14赛季里开服 就会送一个鸡腿和20个书简 因此如果你的屈服强度不是很高的话 这边不建议你来二拖一
+      以为你的体力是完全够用的 其次就是开局的门客选择上建议选择移民 因为前期的资源是发展的资本
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1qZd8BnE3B#0-21
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 桃园
+    priority: 64
+    structured_data:
+      name: 桃园
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1uXdhBCEwx/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:57:11'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1uXdhBCEwx
+    - segment=metadata-summary-0-12
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-lineup-bv1uxdhbcewx-s14t0阵容开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S14T0阵容开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括T0阵容、S13。
+    - 视频证据摘要：B站元数据导入。首帧：http://i1.hdslb.com/bfs/storyff/_00000fo9350ezwdcu1zfniirxspzk1b_firsti.jpg
+      [视觉补充] 张角(0.70), 于吉(0.60), 左慈(0.60)
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1uXdhBCEwx#0-12
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - T0阵容
+    - S13
+    priority: 70
+    structured_data:
+      name: S14T0阵容开荒队
+      aliases: []
+      season_tags:
+      - S14
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - T0阵容
+      - S13
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-12s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1MDdbBTEzu/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:57:54'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1MDdbBTEzu
+    - segment=subtitle-chunk-1-0-17
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-lineup-bv1mddbbtezu-陈仓之围开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 陈仓之围开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括陈仓之围、祝融夫人、职业。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1MDdbBTEzu#0-17
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 陈仓之围
+    - 祝融夫人
+    - 职业
+    priority: 70
+    structured_data:
+      name: 陈仓之围开荒队
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 陈仓之围
+      - 祝融夫人
+      - 职业
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-17s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1MDdbBTEzu/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:57:54'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1MDdbBTEzu
+    - segment=subtitle-chunk-1-0-17
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-hero-bv1mddbbtezu-subtitle-chunk-1-0-17-祝融夫人
+    domain: hero
+    entry_kind: hero_profile
+    topic: 祝融夫人
+    aliases: []
+    facts:
+    - 视频片段将祝融夫人列为当前阶段的重要武将。
+    - 视频证据摘要：主播昨天在陈仓作为先锋区 用三红祝融开到总榜第一 现在把我总结的攻略分享给大家 一共有两份 一份是简单的意图流 就一张图片涵盖所有 一份是更加详细的文字版
+      包括土地守军难度表 然后装备怎么带 然后还有一些更细节的操作 内容更丰富 细节更详尽
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1MDdbBTEzu#0-17
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 职业
+    priority: 64
+    structured_data:
+      name: 祝融夫人
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1MDdbBTEzu/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:57:54'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1MDdbBTEzu
+    - segment=subtitle-chunk-1-0-17
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-hero-bv1mddbbtezu-subtitle-chunk-1-0-17-职业
+    domain: hero
+    entry_kind: hero_profile
+    topic: 职业
+    aliases: []
+    facts:
+    - 视频片段将职业列为当前阶段的重要武将。
+    - 视频证据摘要：主播昨天在陈仓作为先锋区 用三红祝融开到总榜第一 现在把我总结的攻略分享给大家 一共有两份 一份是简单的意图流 就一张图片涵盖所有 一份是更加详细的文字版
+      包括土地守军难度表 然后装备怎么带 然后还有一些更细节的操作 内容更丰富 细节更详尽
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1MDdbBTEzu#0-17
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 职业
+    priority: 64
+    structured_data:
+      name: 职业
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1GqQnBgEEb/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:36'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1GqQnBgEEb
+    - segment=subtitle-chunk-1-0-46
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-lineup-bv1gqqnbgeeb-s14东阳府君开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S14东阳府君开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括东阳府君、祝融夫人、关羽。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1GqQnBgEEb#0-46
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 东阳府君
+    - 祝融夫人
+    - 关羽
+    priority: 70
+    structured_data:
+      name: S14东阳府君开荒队
+      aliases: []
+      season_tags:
+      - S14
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 东阳府君
+      - 祝融夫人
+      - 关羽
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-46s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1GqQnBgEEb/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:36'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1GqQnBgEEb
+    - segment=subtitle-chunk-4-179-227
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-lineup-bv1gqqnbgeeb-s14第七章开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S14第七章开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒、打地。
+    - 核心武将包括第七章、主公队、武将。
+    - 高频提及战法包括同盟、职业、征战。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1GqQnBgEEb#179-227
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 第七章
+    - 主公队
+    - 武将
+    - 同盟
+    - 职业
+    - 征战
+    priority: 70
+    structured_data:
+      name: S14第七章开荒队
+      aliases: []
+      season_tags:
+      - S14
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 第七章
+      - 主公队
+      - 武将
+      core_skills:
+      - 同盟
+      - 职业
+      - 征战
+      scenario_tags:
+      - 开荒
+      - 打地
+      notes:
+      - 证据片段：179s-227s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1GqQnBgEEb/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:36'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1GqQnBgEEb
+    - segment=subtitle-chunk-6-331-382
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-lineup-bv1gqqnbgeeb-s14部队开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S14部队开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括部队、部队一、未上阵。
+    - 高频提及战法包括已激活、重置战法。
+    - 视频证据摘要：B站 AI 中文字幕切片。 [视觉补充] 张梁(0.98), 张角(0.98), 张宝(0.75)
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1GqQnBgEEb#331-382
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 部队
+    - 部队一
+    - 未上阵
+    - 已激活
+    - 重置战法
+    priority: 70
+    structured_data:
+      name: S14部队开荒队
+      aliases: []
+      season_tags:
+      - S14
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 部队
+      - 部队一
+      - 未上阵
+      core_skills:
+      - 已激活
+      - 重置战法
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：331s-382s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1GqQnBgEEb/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:36'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1GqQnBgEEb
+    - segment=subtitle-chunk-1-0-46
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1gqqnbgeeb-subtitle-chunk-1-0-46-祝融夫人
+    domain: hero
+    entry_kind: hero_profile
+    topic: 祝融夫人
+    aliases: []
+    facts:
+    - 视频片段将祝融夫人列为当前阶段的重要武将。
+    - 祝融夫人在片段中与貂蝉、孟获一起被讨论。
+    - 视频证据摘要：一红祝融陈仓之围先锋服开荒实录 貂蝉一红孟获白板 非常平民的阵容 先做准备工作 买铜币 然后上打工一队桃园过任务 用其他杂牌也行 这里张飞要比关羽快一点
+      先手挂畏惧 新玩法 门客跟着任务走
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1GqQnBgEEb#0-46
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 貂蝉
+    - 孟获
+    - 张飞
+    priority: 64
+    structured_data:
+      name: 祝融夫人
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1GqQnBgEEb/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:36'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1GqQnBgEEb
+    - segment=subtitle-chunk-1-0-46
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1gqqnbgeeb-subtitle-chunk-1-0-46-关羽
+    domain: hero
+    entry_kind: hero_profile
+    topic: 关羽
+    aliases: []
+    facts:
+    - 视频片段将关羽列为当前阶段的重要武将。
+    - 关羽在片段中与貂蝉、孟获一起被讨论。
+    - 视频证据摘要：一红祝融陈仓之围先锋服开荒实录 貂蝉一红孟获白板 非常平民的阵容 先做准备工作 买铜币 然后上打工一队桃园过任务 用其他杂牌也行 这里张飞要比关羽快一点
+      先手挂畏惧 新玩法 门客跟着任务走
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1GqQnBgEEb#0-46
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 貂蝉
+    - 孟获
+    - 张飞
+    priority: 64
+    structured_data:
+      name: 关羽
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1GqQnBgEEb/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:36'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1GqQnBgEEb
+    - segment=subtitle-chunk-1-0-46
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1gqqnbgeeb-subtitle-chunk-1-0-46-貂蝉
+    domain: hero
+    entry_kind: hero_profile
+    topic: 貂蝉
+    aliases: []
+    facts:
+    - 视频片段将貂蝉列为当前阶段的重要武将。
+    - 貂蝉在片段中与孟获、张飞一起被讨论。
+    - 视频证据摘要：一红祝融陈仓之围先锋服开荒实录 貂蝉一红孟获白板 非常平民的阵容 先做准备工作 买铜币 然后上打工一队桃园过任务 用其他杂牌也行 这里张飞要比关羽快一点
+      先手挂畏惧 新玩法 门客跟着任务走
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1GqQnBgEEb#0-46
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 貂蝉
+    - 孟获
+    - 张飞
+    priority: 64
+    structured_data:
+      name: 貂蝉
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1GqQnBgEEb/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:36'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1GqQnBgEEb
+    - segment=subtitle-chunk-1-0-46
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1gqqnbgeeb-subtitle-chunk-1-0-46-孟获
+    domain: hero
+    entry_kind: hero_profile
+    topic: 孟获
+    aliases: []
+    facts:
+    - 视频片段将孟获列为当前阶段的重要武将。
+    - 孟获在片段中与貂蝉、张飞一起被讨论。
+    - 视频证据摘要：一红祝融陈仓之围先锋服开荒实录 貂蝉一红孟获白板 非常平民的阵容 先做准备工作 买铜币 然后上打工一队桃园过任务 用其他杂牌也行 这里张飞要比关羽快一点
+      先手挂畏惧 新玩法 门客跟着任务走
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1GqQnBgEEb#0-46
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 貂蝉
+    - 孟获
+    - 张飞
+    priority: 64
+    structured_data:
+      name: 孟获
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1GqQnBgEEb/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:36'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1GqQnBgEEb
+    - segment=subtitle-chunk-4-179-227
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1gqqnbgeeb-subtitle-chunk-4-179-227-职业
+    domain: hero
+    entry_kind: hero_profile
+    topic: 职业
+    aliases: []
+    facts:
+    - 视频片段将职业列为当前阶段的重要武将。
+    - 职业在片段中与武将一起被讨论。
+    - 视频证据摘要：记得摸一下军演 一直打五 先打内城 15级穿装备
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1GqQnBgEEb#179-227
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 职业
+    - 武将
+    priority: 64
+    structured_data:
+      name: 职业
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1GqQnBgEEb/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:36'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1GqQnBgEEb
+    - segment=subtitle-chunk-4-179-227
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1gqqnbgeeb-subtitle-chunk-4-179-227-武将
+    domain: hero
+    entry_kind: hero_profile
+    topic: 武将
+    aliases: []
+    facts:
+    - 视频片段将武将列为当前阶段的重要武将。
+    - 武将在片段中与职业一起被讨论。
+    - 视频证据摘要：记得摸一下军演 一直打五 先打内城 15级穿装备
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1GqQnBgEEb#179-227
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 职业
+    - 武将
+    priority: 64
+    structured_data:
+      name: 武将
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1GqQnBgEEb/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:36'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1GqQnBgEEb
+    - segment=subtitle-chunk-6-331-382
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1gqqnbgeeb-subtitle-chunk-6-331-382-上阵
+    domain: hero
+    entry_kind: hero_profile
+    topic: 上阵
+    aliases: []
+    facts:
+    - 视频片段将上阵列为当前阶段的重要武将。
+    - 上阵在片段中与五子一起被讨论。
+    - 视频证据摘要：打城外一个六过任务 主力重置战法 下阵上满体力打工 二队 我用的三宝用更红的五子 孙太大 孙大圣也行 扫荡城外三集地 升到九级打成内四
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1GqQnBgEEb#331-382
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 上阵
+    - 五子
+    priority: 64
+    structured_data:
+      name: 上阵
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1GqQnBgEEb/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:36'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1GqQnBgEEb
+    - segment=subtitle-chunk-6-331-382
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1gqqnbgeeb-subtitle-chunk-6-331-382-五子
+    domain: hero
+    entry_kind: hero_profile
+    topic: 五子
+    aliases: []
+    facts:
+    - 视频片段将五子列为当前阶段的重要武将。
+    - 五子在片段中与上阵一起被讨论。
+    - 视频证据摘要：打城外一个六过任务 主力重置战法 下阵上满体力打工 二队 我用的三宝用更红的五子 孙太大 孙大圣也行 扫荡城外三集地 升到九级打成内四
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1GqQnBgEEb#331-382
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 上阵
+    - 五子
+    priority: 64
+    structured_data:
+      name: 五子
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1GqQnBgEEb/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:36'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1GqQnBgEEb
+    - segment=subtitle-chunk-6-331-382
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-skill-bv1gqqnbgeeb-subtitle-chunk-6-331-382-重置战法
+    domain: skill
+    entry_kind: skill_profile
+    topic: 重置战法
+    aliases: []
+    facts:
+    - 视频片段提到重置战法是当前讨论阵容中的关键战法。
+    - 视频证据摘要：打城外一个六过任务 主力重置战法 下阵上满体力打工 二队 我用的三宝用更红的五子 孙太大 孙大圣也行 扫荡城外三集地 升到九级打成内四
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1GqQnBgEEb#331-382
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 上阵
+    - 五子
+    priority: 64
+    structured_data:
+      name: 重置战法
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []

@@ -1,0 +1,256 @@
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1WL9xB2Erj/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:58:47'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1WL9xB2Erj
+    - segment=metadata-summary-0-22
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-lineup-bv1wl9xb2erj-s14s14阵容
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S14S14阵容
+    aliases: []
+    facts:
+    - 核心武将包括S14、五队共存。
+    - 视频证据摘要：B站元数据导入。首帧：http://i0.hdslb.com/bfs/storyff/_00000eqiamlbl33yj2fmuqccvl7g48b_firsti.jpg
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1WL9xB2Erj#0-22
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - S14
+    - 五队共存
+    priority: 70
+    structured_data:
+      name: S14S14阵容
+      aliases: []
+      season_tags:
+      - S14
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - S14
+      - 五队共存
+      core_skills: []
+      scenario_tags: []
+      notes:
+      - 证据片段：0s-22s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1pW9DB7EB8/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:35'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1pW9DB7EB8
+    - segment=subtitle-chunk-1-0-17
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-lineup-bv1pw9db7eb8-三谋阵容
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 三谋阵容
+    aliases: []
+    facts:
+    - 核心武将包括三谋、万人敌。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1pW9DB7EB8#0-17
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 三谋
+    - 万人敌
+    priority: 70
+    structured_data:
+      name: 三谋阵容
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 三谋
+      - 万人敌
+      core_skills: []
+      scenario_tags: []
+      notes:
+      - 证据片段：0s-17s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1Ga9yBmErh/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:00:22'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1Ga9yBmErh
+    - segment=metadata-summary-0-51
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-lineup-bv1ga9ybmerh-s14s14阵容
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S14S14阵容
+    aliases: []
+    facts:
+    - 核心武将包括S14、三队共存、中后期。
+    - 视频证据摘要：B站元数据导入。首帧：http://i1.hdslb.com/bfs/storyff/_0000219hlg788ar8i2vkvvzainkayvb_firsti.jpg
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1Ga9yBmErh#0-51
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - S14
+    - 三队共存
+    - 中后期
+    priority: 70
+    structured_data:
+      name: S14S14阵容
+      aliases: []
+      season_tags:
+      - S14
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - S14
+      - 三队共存
+      - 中后期
+      core_skills: []
+      scenario_tags: []
+      notes:
+      - 证据片段：0s-51s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1UHoaB2EBd/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:01:13'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1UHoaB2EBd
+    - segment=subtitle-chunk-15-345-372
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-lineup-bv1uhoab2ebd-s15烽烟南卷阵容
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S15烽烟南卷阵容
+    aliases: []
+    facts:
+    - 核心武将包括烽烟南卷、武将。
+    - 视频证据摘要：B站 AI 中文字幕切片。 [视觉补充] 诸葛亮(0.55)
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1UHoaB2EBd#345-372
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 烽烟南卷
+    - 武将
+    priority: 70
+    structured_data:
+      name: S15烽烟南卷阵容
+      aliases: []
+      season_tags:
+      - S15
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 烽烟南卷
+      - 武将
+      core_skills: []
+      scenario_tags: []
+      notes:
+      - 证据片段：345s-372s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1UHoaB2EBd/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:01:13'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1UHoaB2EBd
+    - segment=subtitle-chunk-15-345-372
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-hero-bv1uhoab2ebd-subtitle-chunk-15-345-372-武将
+    domain: hero
+    entry_kind: hero_profile
+    topic: 武将
+    aliases: []
+    facts:
+    - 视频片段将武将列为当前阶段的重要武将。
+    - 视频证据摘要：后续会根据玩家的反馈不断优化水战机制 丰富水战内容 比如新增更多的水战武将 水战装备 水战任务等 让咱们的水战体验变得更完善更精彩 相信在官方的努力下
+      水战玩法会成为三模的核心玩法之一 为咱们带来更多的乐趣和挑战 三模二载玩法不断创新 这次
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1UHoaB2EBd#345-372
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 武将
+    priority: 64
+    structured_data:
+      name: 武将
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1LboHBcE2K/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:05:31'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1LboHBcE2K
+    - segment=subtitle-chunk-1-0-24
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-lineup-bv1lbohbce2k-bv1lbohbce2k-【三谋二周年】热力值常驻活动！——《
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 【三谋二周年】热力值常驻活动！——《
+    aliases: []
+    facts:
+    - 该视频主题聚焦于【三谋二周年】热力值常驻活动！——《三国：谋定天下》。
+    - 本篇为最近版本，直接使用即可！。
+    - 登录态已确认字幕目录可见：中文、日本語、Español、العربية。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 当前候选仅基于视频标题/描述等弱证据生成，需后续用字幕或画面证据复核。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1LboHBcE2K#0-24
+    updated_at: '2026-05-17'
+    confidence: 0.34
+    related_topics: []
+    priority: 70
+    structured_data:
+      name: 【三谋二周年】热力值常驻活动！——《
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names: []
+      core_skills: []
+      scenario_tags:
+      - 攻城
+      notes:
+      - 证据片段：0s-24s

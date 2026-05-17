@@ -6,7 +6,7 @@ from pathlib import Path
 
 from qa_agent.index.search_index import SearchIndex, normalize_text
 from qa_agent.knowledge.loader import load_entries
-from qa_agent.knowledge.models import Domain, KnowledgeEntry
+from qa_agent.knowledge.models import Domain, EntryKind, KnowledgeEntry
 from qa_agent.knowledge.source_paths import discover_source_paths
 
 # Stopwords that should NEVER be used as retrieval tokens on their own — they
@@ -81,33 +81,25 @@ class Retriever:
         domain: Domain | None = None,
     ) -> list[RetrievedChunk]:
         results: list[RetrievedChunk] = []
-        seen_ids: set[str] = set()
 
         for entry in self.index.resolve_term(query, domain=domain):
-            if entry.id not in seen_ids:
-                results.append(RetrievedChunk(entry=entry, score=1.0, matched_query=query))
-                seen_ids.add(entry.id)
+            results.append(RetrievedChunk(entry=entry, score=1.0, matched_query=query))
 
         for entry in self.index.search(query, domain=domain):
-            if entry.id in seen_ids:
-                continue
             results.append(RetrievedChunk(entry=entry, score=0.6, matched_query=query))
-            seen_ids.add(entry.id)
 
-        # N-gram fallback: if the whole-query index missed (common for multi-term
-        # Chinese questions), try sliding windows over the question and do
-        # fact-level substring matching. Lower score than whole-query hits.
-        if len(results) < top_k:
-            ngram_hits = self._ngram_fact_search(query, domain=domain, limit=top_k * 2)
-            for entry in ngram_hits:
-                if entry.id in seen_ids:
-                    continue
-                results.append(RetrievedChunk(entry=entry, score=0.4, matched_query=query))
-                seen_ids.add(entry.id)
-                if len(results) >= top_k:
-                    break
+        # N-gram matching guards long Chinese mechanism questions against broad
+        # term hits like "武将" or "战法" drowning out the actual rule entry.
+        for entry, raw_score in self._ngram_fact_search(query, domain=domain, limit=top_k * 3):
+            results.append(
+                RetrievedChunk(
+                    entry=entry,
+                    score=self._ngram_chunk_score(entry, raw_score),
+                    matched_query=query,
+                )
+            )
 
-        return results[:top_k]
+        return self._dedupe_and_rank(results)[:top_k]
 
     def _ngram_fact_search(
         self,
@@ -115,7 +107,7 @@ class Retriever:
         *,
         domain: Domain | None,
         limit: int,
-    ) -> list[KnowledgeEntry]:
+    ) -> list[tuple[KnowledgeEntry, int]]:
         tokens = _chinese_ngrams(query)
         if not tokens:
             return []
@@ -150,7 +142,29 @@ class Retriever:
             key=lambda item: (item[0], item[1].priority, item[1].confidence),
             reverse=True,
         )
-        return [entry for _, entry in ranked[:limit]]
+        return [(entry, score) for score, entry in ranked[:limit]]
+
+    @staticmethod
+    def _ngram_chunk_score(entry: KnowledgeEntry, raw_score: int) -> float:
+        base = 0.58 + min(raw_score, 40) / 200
+        if entry.entry_kind == EntryKind.GENERIC_RULE:
+            base += 0.08
+        elif entry.entry_kind == EntryKind.LINEUP_SOLUTION:
+            base -= 0.08
+        return max(0.35, min(base, 0.85))
+
+    @staticmethod
+    def _dedupe_and_rank(chunks: list[RetrievedChunk]) -> list[RetrievedChunk]:
+        best_by_id: dict[str, RetrievedChunk] = {}
+        for chunk in chunks:
+            existing = best_by_id.get(chunk.entry.id)
+            if existing is None or chunk.score > existing.score:
+                best_by_id[chunk.entry.id] = chunk
+        return sorted(
+            best_by_id.values(),
+            key=lambda c: (c.score, c.entry.priority, c.entry.confidence),
+            reverse=True,
+        )
 
     def retrieve_multi(
         self,

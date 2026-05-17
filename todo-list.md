@@ -1,12 +1,12 @@
 # Todo List
 
-> Last updated: 2026-05-17 (macOS 侧高优知识任务已补：Bilibili 字幕规范化/阵容图结构化抽取状态纠偏，新增 Bilibili 视频自动发现 CLI，补充开荒基础玩法 baseline；下一段重点转为真实截图/真机试用、click-action calibration、claim/recruit/upgrade flow + verifier、screenshot fixture dataset)
+> Last updated: 2026-05-17 (macOS 侧高优知识任务已补：Bilibili 字幕规范化/阵容图结构化抽取状态纠偏，新增 Bilibili 视频自动发现 CLI，完成 100 条“三谋开荒”视频截图+vision 门禁沉淀，补充开荒基础玩法 baseline；下一段重点转为真实截图/真机试用、click-action calibration、claim/recruit/upgrade flow + verifier、screenshot fixture dataset)
 
 ## In Progress
 
 - [ ] Desktop Advisor 真机试用：用 PC 客户端、安卓模拟器、安卓真机、iOS 各 3-5 张真实截图跑 `apps/sanmou-advisor-desktop`，记录识别失败样例与 UI 卡点。
 - [x] macOS 可独立完成 P0 收口（2026-05-17）：已完成并推送 `strategy_snapshot.yaml` 默认接入 selector/scoring、Electron API 启动/依赖探测、Advisor history list/detail/screenshot；剩余 P0 均需要真实游戏截图、可控设备/模拟器、Windows 客户端或人工采集样本。
-- [x] macOS 知识采集高优收口（2026-05-17）：Bilibili 字幕规范化与阵容图结构化抽取主体已由历史 commit 落地；新增 `qa_agent.app.discover_bilibili` 自动发现候选视频，并补充 `opening_baseline` 基础玩法知识/配置入口。
+- [x] macOS 知识采集高优收口（2026-05-17）：Bilibili 字幕规范化与阵容图结构化抽取主体已由历史 commit 落地；新增 `qa_agent.app.discover_bilibili` 自动发现候选视频，完成 100 条“三谋开荒”视频的本地截图+vision 门禁沉淀，字幕/结论文本只作为辅助证据，并补充 `opening_baseline` 基础玩法知识/配置入口。
 
 ## P0 — Advisor MVP + 低风险真实自动化闭环
 
@@ -53,7 +53,7 @@
 - [x] Bilibili 阵容图结构化抽取（2026-05-17 状态纠偏）：主体已落地于 `qa_agent.video.lineup_frame_extractor` 与 `qa_agent.app.backfill_chencang_lineups`，支持关键帧分类、阵容/武将页识别、列裁剪、dense-table vision 参数、KB canonical 对齐和保守 backfill；相关历史 commit 包括 `1108a87`、`d1434db`、`a3f75c4`、`da43cd5`。剩余工作归入真实视频 eval/review/publish 验收。
 - [x] Bilibili 视频自动发现 CLI（2026-05-17）：新增 `qa_agent.app.discover_bilibili`，按 keyword/时间范围搜索候选视频，扫描本地 `knowledge_sources/` 与 `ingestion/` 排除已收录 BVID，输出可直接接入 `fetch_bilibili_bundle` / `run_video_pipeline` 的候选清单；测试覆盖已收录排除、HTML title 清洗、duration 解析、发布时间过滤。
 - [x] Bilibili metadata-only run 清理（2026-05-17）：已删除无字幕、无截图/帧、无 ASR 的 `video_discovery` 与 `raw/videos/discovery-*` 产物；这类 title-only 结果没有知识沉淀价值，不进入仓库，不进入正式 `knowledge_sources/`。
-- [ ] Bilibili 有证据视频二次沉淀：配置 `BILIBILI_COOKIE` 后重新发现/抓取高价值视频，并要求至少满足字幕、ASR、关键帧/截图、人工复核四者之一；只有具备可追溯证据的条目才允许 publish 到正式 `knowledge_sources/` 或 `ingestion/staging/videos/`。
+- [x] Bilibili 有证据视频二次沉淀（2026-05-17）：配置 `BILIBILI_COOKIE` 后，对 100 条“三谋开荒”候选视频按 20 个 batch 并行抓取；严格禁止字幕-only，候选条目必须同时绑定本地视频截图帧并经过 vision enrichment。最终沉淀 86 个 raw bundle、151 张本地截图、414 条 staging entry，并从 103 个正式候选中去重发布 90 条 lineup/combat 条目到 `knowledge_sources/`；hero/skill 自动抽取仅保留 staging，待人工复核后再覆盖正式静态资料。
 - [x] 三谋基础玩法 baseline（2026-05-17）：新增 `knowledge_sources/opening_baseline.yaml` 与 `sanmou_common.config/opening_baseline.yaml`，沉淀开荒基础优先级、观察清单、打地风险基线、低风险自动动作顺序与 stop conditions，供 Advisor/fixture/eval 先消费；后续仍需补齐真实数值表。
 - [ ] 赛季阶段规则结构化：把“首日 16:00-22:00 红利期 / 第二天 22:00 阵容洗牌”等视频里反复出现的时间窗口抽象成 `season_phase` 规则，供 Advisor 根据当前服务器时间选择阵容档位。
 - [ ] 赛季末武勋卷排行机制：补抓并入库陈仓之围赛末武勋卷排行玩法（候选视频：BV1Gz5J6EEPq），沉淀为 S14 generic_rule。

@@ -93,6 +93,33 @@ class EnrichDocumentWithVisionTests(unittest.TestCase):
         self.assertIn("[视觉补充]", enriched.segments[0].visual_summary)
         self.assertIn("诸葛亮", enriched.segments[0].visual_summary)
 
+    def test_mojibake_text_snippet_is_repaired(self) -> None:
+        frame = _make_frame("vision-frame-mojibake.jpg")
+        segment = VideoSegment(
+            segment_id="seg-mojibake",
+            start_sec=0.0,
+            end_sec=30.0,
+            frame_refs=[frame],
+        )
+        result = VisionExtraction(text_snippets=["ä¸»å\x8a\x9b1é\x98\x9f"])
+        extractor = _FakeExtractor(result)
+        enriched, _stats = enrich_document_with_vision(_make_doc([segment]), extractor=extractor)
+        self.assertIn("主力1队", enriched.segments[0].ocr_lines)
+
+    def test_mojibake_entity_names_are_repaired(self) -> None:
+        frame = _make_frame("vision-frame-mojibake-entity.jpg")
+        segment = VideoSegment(
+            segment_id="seg-mojibake-entity",
+            start_sec=0.0,
+            end_sec=30.0,
+            frame_refs=[frame],
+        )
+        result = VisionExtraction(heroes=[ExtractedEntity(name="è¯¸è\x91\x9bäº®", confidence=0.8)])
+        extractor = _FakeExtractor(result)
+        enriched, _stats = enrich_document_with_vision(_make_doc([segment]), extractor=extractor)
+        self.assertIn("vision:hero:诸葛亮", enriched.segments[0].ocr_lines)
+        self.assertIn("诸葛亮(0.80)", enriched.segments[0].visual_summary)
+
     def test_duplicate_vision_names_are_deduped(self) -> None:
         frame = _make_frame("vision-frame-2.jpg")
         segment = VideoSegment(

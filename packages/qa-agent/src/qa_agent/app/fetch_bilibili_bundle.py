@@ -16,11 +16,13 @@ import yaml
 from qa_agent.video.asr import download_audio_file, fetch_bilibili_audio_url, transcribe_audio_with_faster_whisper
 from qa_agent.video.frame_sampler import (
     FrameSampleRequest,
+    RemoteFrameSampleRequest,
     plan_sample_timestamps,
     resolve_ffmpeg_binary,
     sample_frames,
+    sample_remote_frames,
 )
-from qa_agent.video.video_download import download_video_file, fetch_bilibili_video_url
+from qa_agent.video.video_download import download_video_file, fetch_bilibili_video_url, fetch_bilibili_video_urls
 from qa_agent.video import VideoEvidenceBundle, VideoEvidenceSegment, VideoFrameRef, VideoSource
 
 
@@ -324,27 +326,42 @@ def _sample_frames_for_bundle(
 ) -> list[VideoFrameRef]:
     if not cookie_header:
         return []
-    video_url = fetch_bilibili_video_url(bvid=bvid, cid=cid, cookie_header=cookie_header, source_url=source_url)
-    if not video_url:
-        return []
     try:
         ffmpeg_path = resolve_ffmpeg_binary()
     except FileNotFoundError:
         return []
-    video_path = download_video_file(
-        video_url=video_url,
-        source_url=source_url,
-        cookie_header=cookie_header,
-        max_bytes=max_bytes,
+    timestamps = plan_sample_timestamps(
+        duration_sec=duration_sec,
+        interval_sec=interval_sec,
+        max_frames=max_frames,
     )
-    try:
-        timestamps = plan_sample_timestamps(
-            duration_sec=duration_sec,
-            interval_sec=interval_sec,
-            max_frames=max_frames,
+    if not timestamps:
+        return []
+    for candidate in fetch_bilibili_video_urls(
+        bvid=bvid,
+        cid=cid,
+        cookie_header=cookie_header,
+        source_url=source_url,
+    ):
+        refs = sample_remote_frames(
+            RemoteFrameSampleRequest(
+                video_url=candidate.url,
+                source_url=source_url,
+                output_dir=output_dir,
+                timestamps=tuple(timestamps),
+                filename_prefix=f"{bvid}-frame",
+                timeout_sec=10,
+            ),
+            ffmpeg_path=ffmpeg_path,
         )
-        if not timestamps:
-            return []
+        if refs:
+            return refs
+
+    video_url = fetch_bilibili_video_url(bvid=bvid, cid=cid, cookie_header=cookie_header, source_url=source_url)
+    if not video_url:
+        return []
+    video_path = download_video_file(video_url=video_url, source_url=source_url, cookie_header=cookie_header, max_bytes=max_bytes)
+    try:
         request = FrameSampleRequest(
             video_path=video_path,
             output_dir=output_dir,
@@ -370,7 +387,13 @@ def _attach_frames_to_evidence_segments(
                 target = segment
                 break
         if target is None:
-            target = segments[-1]
+            target = min(
+                segments,
+                key=lambda segment: min(
+                    abs(frame.timestamp_sec - segment.start_sec),
+                    abs(frame.timestamp_sec - segment.end_sec),
+                ),
+            )
         if frame.image_path not in target.frame_paths:
             target.frame_paths.append(frame.image_path)
 

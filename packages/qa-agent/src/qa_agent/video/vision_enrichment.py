@@ -109,18 +109,24 @@ def _merge_vision_result(segment: VideoSegment, vision: VisionExtraction) -> Vid
     """
     existing_ocr = set(segment.ocr_lines)
     additions: list[str] = []
+    summary_mentions: list[str] = []
 
     for hero in vision.heroes:
-        tag = f"vision:hero:{hero.name}"
+        hero_name = _repair_mojibake(hero.name)
+        summary_mentions.append(f"{hero_name}({hero.confidence:.2f})")
+        tag = f"vision:hero:{hero_name}"
         if tag not in existing_ocr:
             additions.append(tag)
             existing_ocr.add(tag)
     for skill in vision.skills:
-        tag = f"vision:skill:{skill.name}"
+        skill_name = _repair_mojibake(skill.name)
+        summary_mentions.append(f"{skill_name}({skill.confidence:.2f})")
+        tag = f"vision:skill:{skill_name}"
         if tag not in existing_ocr:
             additions.append(tag)
             existing_ocr.add(tag)
     for snippet in vision.text_snippets:
+        snippet = _repair_mojibake(snippet)
         if snippet and snippet not in existing_ocr:
             additions.append(snippet)
             existing_ocr.add(snippet)
@@ -129,10 +135,7 @@ def _merge_vision_result(segment: VideoSegment, vision: VisionExtraction) -> Vid
         return segment
 
     summary_prefix = segment.visual_summary or ""
-    top_mentions = ", ".join(
-        f"{h.name}({h.confidence:.2f})"
-        for h in (vision.heroes + vision.skills)[:3]
-    )
+    top_mentions = ", ".join(summary_mentions[:3])
     new_summary = summary_prefix
     if top_mentions:
         suffix = f"[视觉补充] {top_mentions}"
@@ -144,6 +147,17 @@ def _merge_vision_result(segment: VideoSegment, vision: VisionExtraction) -> Vid
             "visual_summary": new_summary,
         }
     )
+
+
+def _repair_mojibake(value: str) -> str:
+    """Repair common UTF-8-as-Latin-1 OCR text from vision providers."""
+    if not any(marker in value for marker in ("Ã", "ä", "å", "é", "è", "ç", "æ")):
+        return value
+    try:
+        repaired = value.encode("latin1").decode("utf-8")
+    except UnicodeError:
+        return value
+    return repaired if repaired.strip() else value
 
 
 def build_image_extractor_from_retriever(retriever, **kwargs) -> ImageExtractor:

@@ -1,0 +1,718 @@
+- metadata:
+    source_url: https://www.bilibili.com/video/BV175daBbEiw/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:49:08'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV175daBbEiw
+    - segment=metadata-summary-0-4641
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-lineup-bv175dabbeiw-s14建造仓库开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S14建造仓库开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括建造仓库、刘备、郝昭。
+    - 视频证据摘要：B站元数据导入。首帧：http://i1.hdslb.com/bfs/storyff/_00002hyh9ud192bs92ug5bi66ggxg6b_firsti.jpg
+      [视觉补充] 曹真(0.85), 郝昭(0.88), 诸葛亮(0.65)
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV175daBbEiw#0-4641
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 建造仓库
+    - 刘备
+    - 郝昭
+    priority: 70
+    structured_data:
+      name: S14建造仓库开荒队
+      aliases: []
+      season_tags:
+      - S14
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 建造仓库
+      - 刘备
+      - 郝昭
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-4641s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV175daBbEiw/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:49:08'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV175daBbEiw
+    - segment=metadata-summary-0-4641
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv175dabbeiw-metadata-summary-0-4641-刘备
+    domain: hero
+    entry_kind: hero_profile
+    topic: 刘备
+    aliases: []
+    facts:
+    - 视频片段将刘备列为当前阶段的重要武将。
+    - 刘备在片段中与郝昭、天工一起被讨论。
+    - 视频证据摘要：【S14/W11开荒】无刘备天工开局！一镜到底！第一天——《三国：谋定天下》 本篇为最近版本，直接使用即可！
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV175daBbEiw#0-4641
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 郝昭
+    - 天工
+    - 曹真
+    priority: 64
+    structured_data:
+      name: 刘备
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV175daBbEiw/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:49:08'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV175daBbEiw
+    - segment=metadata-summary-0-4641
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv175dabbeiw-metadata-summary-0-4641-郝昭
+    domain: hero
+    entry_kind: hero_profile
+    topic: 郝昭
+    aliases: []
+    facts:
+    - 视频片段将郝昭列为当前阶段的重要武将。
+    - 郝昭在片段中与天工、曹真一起被讨论。
+    - 视频证据摘要：【S14/W11开荒】无刘备天工开局！一镜到底！第一天——《三国：谋定天下》 本篇为最近版本，直接使用即可！
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV175daBbEiw#0-4641
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 郝昭
+    - 天工
+    - 曹真
+    priority: 64
+    structured_data:
+      name: 郝昭
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV175daBbEiw/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:49:08'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV175daBbEiw
+    - segment=metadata-summary-0-4641
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv175dabbeiw-metadata-summary-0-4641-天工
+    domain: hero
+    entry_kind: hero_profile
+    topic: 天工
+    aliases: []
+    facts:
+    - 视频片段将天工列为当前阶段的重要武将。
+    - 天工在片段中与郝昭、曹真一起被讨论。
+    - 视频证据摘要：【S14/W11开荒】无刘备天工开局！一镜到底！第一天——《三国：谋定天下》 本篇为最近版本，直接使用即可！
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV175daBbEiw#0-4641
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 郝昭
+    - 天工
+    - 曹真
+    priority: 64
+    structured_data:
+      name: 天工
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV175daBbEiw/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:49:08'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV175daBbEiw
+    - segment=metadata-summary-0-4641
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv175dabbeiw-metadata-summary-0-4641-曹真
+    domain: hero
+    entry_kind: hero_profile
+    topic: 曹真
+    aliases: []
+    facts:
+    - 视频片段将曹真列为当前阶段的重要武将。
+    - 曹真在片段中与郝昭、天工一起被讨论。
+    - 视频证据摘要：【S14/W11开荒】无刘备天工开局！一镜到底！第一天——《三国：谋定天下》 本篇为最近版本，直接使用即可！
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV175daBbEiw#0-4641
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 郝昭
+    - 天工
+    - 曹真
+    priority: 64
+    structured_data:
+      name: 曹真
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1uZdvBdEyA/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:26'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1uZdvBdEyA
+    - segment=metadata-summary-0-30
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-lineup-bv1uzdvbdeya-s14阶段开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S14阶段开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括阶段、准备工作、第一步。
+    - 视频证据摘要：B站元数据导入。首帧：http://i1.hdslb.com/bfs/storyff/_000001bwh9o9c4ixq26walny3krxteb_firsti.jpg
+      [视觉补充] 蔡文姬(0.55)
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1uZdvBdEyA#0-30
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 阶段
+    - 准备工作
+    - 第一步
+    priority: 70
+    structured_data:
+      name: S14阶段开荒队
+      aliases: []
+      season_tags:
+      - S14
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 阶段
+      - 准备工作
+      - 第一步
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-30s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1uZdvBdEyA/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:26'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1uZdvBdEyA
+    - segment=metadata-summary-0-30
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-hero-bv1uzdvbdeya-metadata-summary-0-30-桃园
+    domain: hero
+    entry_kind: hero_profile
+    topic: 桃园
+    aliases: []
+    facts:
+    - 视频片段将桃园列为当前阶段的重要武将。
+    - '视频证据摘要：三谋S14细节开荒全攻略、需要自行保存截图，祝各位新赛季开荒一马当先！ #三谋新赛季
+
+      #三谋s14
+
+      #三谋开荒
+
+      #三谋攻略'
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1uZdvBdEyA#0-30
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 桃园
+    priority: 64
+    structured_data:
+      name: 桃园
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1NwdaBqEic/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:59'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1NwdaBqEic
+    - segment=subtitle-chunk-1-0-19
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-lineup-bv1nwdabqeic-个人开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 个人开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括个人、同盟、阵营。
+    - 高频提及战法包括6级、排名、姓名。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1NwdaBqEic#0-19
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 个人
+    - 同盟
+    - 阵营
+    - 6级
+    - 排名
+    - 姓名
+    priority: 70
+    structured_data:
+      name: 个人开荒队
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 个人
+      - 同盟
+      - 阵营
+      core_skills:
+      - 6级
+      - 排名
+      - 姓名
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-19s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1NwdaBqEic/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:59'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1NwdaBqEic
+    - segment=subtitle-chunk-9-175-194
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-lineup-bv1nwdabqeic-胜开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 胜开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括胜、败、貂蝉。
+    - 视频证据摘要：B站 AI 中文字幕切片。 [视觉补充] 祝融夫人(0.86), 马云禄(0.78), 司马懿(0.82)
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1NwdaBqEic#175-194
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 胜
+    - 败
+    - 貂蝉
+    priority: 70
+    structured_data:
+      name: 胜开荒队
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 胜
+      - 败
+      - 貂蝉
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：175s-194s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1NwdaBqEic/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:59'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1NwdaBqEic
+    - segment=subtitle-chunk-1-0-19
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1nwdabqeic-subtitle-chunk-1-0-19-董卓
+    domain: hero
+    entry_kind: hero_profile
+    topic: 董卓
+    aliases: []
+    facts:
+    - 视频片段将董卓列为当前阶段的重要武将。
+    - 董卓在片段中与孟获、阵营一起被讨论。
+    - 视频证据摘要：第一名蛮子19级开 战法配置可直接参考加点控 董卓一速孟获全统 最容全武帝即可 第二名也是蛮子 10SPA级开有点悬 红度相近 可以参考白板
+      也能参考开六阶段 我认为还是有冒险价值的 五基地和六基地的经验差异非常悬殊 第三名还是蛮子
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1NwdaBqEic#0-19
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 董卓
+    - 孟获
+    - 阵营
+    priority: 64
+    structured_data:
+      name: 董卓
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1NwdaBqEic/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:59'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1NwdaBqEic
+    - segment=subtitle-chunk-1-0-19
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1nwdabqeic-subtitle-chunk-1-0-19-孟获
+    domain: hero
+    entry_kind: hero_profile
+    topic: 孟获
+    aliases: []
+    facts:
+    - 视频片段将孟获列为当前阶段的重要武将。
+    - 孟获在片段中与董卓、阵营一起被讨论。
+    - 视频证据摘要：第一名蛮子19级开 战法配置可直接参考加点控 董卓一速孟获全统 最容全武帝即可 第二名也是蛮子 10SPA级开有点悬 红度相近 可以参考白板
+      也能参考开六阶段 我认为还是有冒险价值的 五基地和六基地的经验差异非常悬殊 第三名还是蛮子
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1NwdaBqEic#0-19
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 董卓
+    - 孟获
+    - 阵营
+    priority: 64
+    structured_data:
+      name: 孟获
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1NwdaBqEic/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:59'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1NwdaBqEic
+    - segment=subtitle-chunk-1-0-19
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1nwdabqeic-subtitle-chunk-1-0-19-阵营
+    domain: hero
+    entry_kind: hero_profile
+    topic: 阵营
+    aliases: []
+    facts:
+    - 视频片段将阵营列为当前阶段的重要武将。
+    - 阵营在片段中与董卓、孟获一起被讨论。
+    - 视频证据摘要：第一名蛮子19级开 战法配置可直接参考加点控 董卓一速孟获全统 最容全武帝即可 第二名也是蛮子 10SPA级开有点悬 红度相近 可以参考白板
+      也能参考开六阶段 我认为还是有冒险价值的 五基地和六基地的经验差异非常悬殊 第三名还是蛮子
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1NwdaBqEic#0-19
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 董卓
+    - 孟获
+    - 阵营
+    priority: 64
+    structured_data:
+      name: 阵营
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1NwdaBqEic/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:59'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1NwdaBqEic
+    - segment=subtitle-chunk-1-0-19
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1nwdabqeic-subtitle-chunk-1-0-19-职业
+    domain: hero
+    entry_kind: hero_profile
+    topic: 职业
+    aliases: []
+    facts:
+    - 视频片段将职业列为当前阶段的重要武将。
+    - 职业在片段中与董卓、孟获一起被讨论。
+    - 视频证据摘要：第一名蛮子19级开 战法配置可直接参考加点控 董卓一速孟获全统 最容全武帝即可 第二名也是蛮子 10SPA级开有点悬 红度相近 可以参考白板
+      也能参考开六阶段 我认为还是有冒险价值的 五基地和六基地的经验差异非常悬殊 第三名还是蛮子
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1NwdaBqEic#0-19
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 董卓
+    - 孟获
+    - 阵营
+    priority: 64
+    structured_data:
+      name: 职业
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1NwdaBqEic/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:59'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1NwdaBqEic
+    - segment=subtitle-chunk-9-175-194
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1nwdabqeic-subtitle-chunk-9-175-194-貂蝉
+    domain: hero
+    entry_kind: hero_profile
+    topic: 貂蝉
+    aliases: []
+    facts:
+    - 视频片段将貂蝉列为当前阶段的重要武将。
+    - 貂蝉在片段中与张飞一起被讨论。
+    - 视频证据摘要：八级D首先是貂蝉版蛮子 八级D可以考虑换为蛮子 因为守军普遍兵刃输出 尤其比较弱的张飞马云怒 这两队26集首开 但翻车了 27集 貂蝉版蛮子红度偏高
+      兵损较低 打穿了两队守军 26级 蛮子兵损较大
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1NwdaBqEic#175-194
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 貂蝉
+    - 张飞
+    priority: 64
+    structured_data:
+      name: 貂蝉
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1NwdaBqEic/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:52:59'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1NwdaBqEic
+    - segment=subtitle-chunk-9-175-194
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1nwdabqeic-subtitle-chunk-9-175-194-张飞
+    domain: hero
+    entry_kind: hero_profile
+    topic: 张飞
+    aliases: []
+    facts:
+    - 视频片段将张飞列为当前阶段的重要武将。
+    - 张飞在片段中与貂蝉一起被讨论。
+    - 视频证据摘要：八级D首先是貂蝉版蛮子 八级D可以考虑换为蛮子 因为守军普遍兵刃输出 尤其比较弱的张飞马云怒 这两队26集首开 但翻车了 27集 貂蝉版蛮子红度偏高
+      兵损较低 打穿了两队守军 26级 蛮子兵损较大
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1NwdaBqEic#175-194
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 貂蝉
+    - 张飞
+    priority: 64
+    structured_data:
+      name: 张飞
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1bVdhBgEDf/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:55:15'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1bVdhBgEDf
+    - segment=metadata-summary-0-26
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-lineup-bv1bvdhbgedf-bv1bvdhbgedf-s14开荒攻略
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S14开荒攻略
+    aliases: []
+    facts:
+    - 该视频主题聚焦于S14赛季开荒攻略｜一图流阵容指南。
+    - -。
+    - 可确认场景标签：开荒。
+    - 视频证据摘要：B站元数据导入。首帧：http://i0.hdslb.com/bfs/storyff/_00003sydi6mqka2rp22wfp61fxgcaab_firsti.jpg
+    constraints:
+    - 当前候选仅基于视频标题/描述等弱证据生成，需后续用字幕或画面证据复核。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1bVdhBgEDf#0-26
+    updated_at: '2026-05-17'
+    confidence: 0.28
+    related_topics: []
+    priority: 70
+    structured_data:
+      name: S14开荒攻略
+      aliases: []
+      season_tags:
+      - S14
+      lineup_rating: null
+      factions: []
+      hero_names: []
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-26s

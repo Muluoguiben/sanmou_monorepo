@@ -1,0 +1,223 @@
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1JRR5B5EDq/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:57:44'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1JRR5B5EDq
+    - segment=subtitle-chunk-1-0-27
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-lineup-bv1jrr5b5edq-s1450开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S1450开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括50、SP、诸葛亮。
+    - 视频证据摘要：B站 AI 中文字幕切片。 [视觉补充] 祝融夫人(0.95), 孟获(0.95), 诸葛亮(0.90)
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1JRR5B5EDq#0-27
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - '50'
+    - SP
+    - 诸葛亮
+    priority: 70
+    structured_data:
+      name: S1450开荒队
+      aliases: []
+      season_tags:
+      - S14
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - '50'
+      - SP
+      - 诸葛亮
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-27s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1JRR5B5EDq/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:57:44'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1JRR5B5EDq
+    - segment=subtitle-chunk-1-0-27
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-hero-bv1jrr5b5edq-subtitle-chunk-1-0-27-诸葛亮
+    domain: hero
+    entry_kind: hero_profile
+    topic: 诸葛亮
+    aliases: []
+    facts:
+    - 视频片段将诸葛亮列为当前阶段的重要武将。
+    - 诸葛亮在片段中与马云禄、周瑜一起被讨论。
+    - 视频证据摘要：诸葛亮王倒下后 谁能想到站出来的居然是开荒二姐张陵 一个开荒用的武将竟然能大用 胜率榜前三的马云禄和百爆周瑜 最离谱的是这对开荒和打架两不误
+      详细的配对如下 张宁能弥补低红孙坚伤害不足的短板 所以尤其适合低红的群孙坚的小伙伴使用 不过对张宁
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1JRR5B5EDq#0-27
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 诸葛亮
+    - 马云禄
+    - 周瑜
+    priority: 64
+    structured_data:
+      name: 诸葛亮
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1JRR5B5EDq/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:57:44'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1JRR5B5EDq
+    - segment=subtitle-chunk-1-0-27
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-hero-bv1jrr5b5edq-subtitle-chunk-1-0-27-马云禄
+    domain: hero
+    entry_kind: hero_profile
+    topic: 马云禄
+    aliases: []
+    facts:
+    - 视频片段将马云禄列为当前阶段的重要武将。
+    - 马云禄在片段中与诸葛亮、周瑜一起被讨论。
+    - 视频证据摘要：诸葛亮王倒下后 谁能想到站出来的居然是开荒二姐张陵 一个开荒用的武将竟然能大用 胜率榜前三的马云禄和百爆周瑜 最离谱的是这对开荒和打架两不误
+      详细的配对如下 张宁能弥补低红孙坚伤害不足的短板 所以尤其适合低红的群孙坚的小伙伴使用 不过对张宁
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1JRR5B5EDq#0-27
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 诸葛亮
+    - 马云禄
+    - 周瑜
+    priority: 64
+    structured_data:
+      name: 马云禄
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1JRR5B5EDq/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:57:44'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1JRR5B5EDq
+    - segment=subtitle-chunk-1-0-27
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-hero-bv1jrr5b5edq-subtitle-chunk-1-0-27-周瑜
+    domain: hero
+    entry_kind: hero_profile
+    topic: 周瑜
+    aliases: []
+    facts:
+    - 视频片段将周瑜列为当前阶段的重要武将。
+    - 周瑜在片段中与诸葛亮、马云禄一起被讨论。
+    - 视频证据摘要：诸葛亮王倒下后 谁能想到站出来的居然是开荒二姐张陵 一个开荒用的武将竟然能大用 胜率榜前三的马云禄和百爆周瑜 最离谱的是这对开荒和打架两不误
+      详细的配对如下 张宁能弥补低红孙坚伤害不足的短板 所以尤其适合低红的群孙坚的小伙伴使用 不过对张宁
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1JRR5B5EDq#0-27
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 诸葛亮
+    - 马云禄
+    - 周瑜
+    priority: 64
+    structured_data:
+      name: 周瑜
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1JRR5B5EDq/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:57:44'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1JRR5B5EDq
+    - segment=subtitle-chunk-1-0-27
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-hero-bv1jrr5b5edq-subtitle-chunk-1-0-27-武将
+    domain: hero
+    entry_kind: hero_profile
+    topic: 武将
+    aliases: []
+    facts:
+    - 视频片段将武将列为当前阶段的重要武将。
+    - 武将在片段中与诸葛亮、马云禄一起被讨论。
+    - 视频证据摘要：诸葛亮王倒下后 谁能想到站出来的居然是开荒二姐张陵 一个开荒用的武将竟然能大用 胜率榜前三的马云禄和百爆周瑜 最离谱的是这对开荒和打架两不误
+      详细的配对如下 张宁能弥补低红孙坚伤害不足的短板 所以尤其适合低红的群孙坚的小伙伴使用 不过对张宁
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1JRR5B5EDq#0-27
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 诸葛亮
+    - 马云禄
+    - 周瑜
+    priority: 64
+    structured_data:
+      name: 武将
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []

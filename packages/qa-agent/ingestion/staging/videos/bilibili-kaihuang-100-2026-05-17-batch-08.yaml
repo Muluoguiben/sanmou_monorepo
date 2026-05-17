@@ -1,0 +1,572 @@
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1NSDxBkEAU/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:14:10'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1NSDxBkEAU
+    - segment=subtitle-chunk-1-0-19
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-lineup-bv1nsdxbkeau-孙小瑜开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 孙小瑜开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括孙小瑜、阵容介绍、孙尚香。
+    - 视频证据摘要：B站 AI 中文字幕切片。 [视觉补充] 孙尚香(0.55)
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1NSDxBkEAU#0-19
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 孙小瑜
+    - 阵容介绍
+    - 孙尚香
+    priority: 70
+    structured_data:
+      name: 孙小瑜开荒队
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 孙小瑜
+      - 阵容介绍
+      - 孙尚香
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-19s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1NSDxBkEAU/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:14:10'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1NSDxBkEAU
+    - segment=subtitle-chunk-1-0-19
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-hero-bv1nsdxbkeau-subtitle-chunk-1-0-19-孙尚香
+    domain: hero
+    entry_kind: hero_profile
+    topic: 孙尚香
+    aliases: []
+    facts:
+    - 视频片段将孙尚香列为当前阶段的重要武将。
+    - 孙尚香在片段中与孙权、周瑜一起被讨论。
+    - 视频证据摘要：有主公问了 抽出孙权后不知道该怎么配对 配了队之后又打不过对方 该怎么办呢 各位主公先别慌 今天给大家带来的阵容是孙小瑜 孙小鱼 顾名思义是由孙权小乔周瑜组成
+      该阵容的阵型首选畸形阵 该阵容周瑜是核心输出 周瑜可联动异常状态打出伤害以及恢复
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1NSDxBkEAU#0-19
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 孙尚香
+    - 孙权
+    - 周瑜
+    priority: 64
+    structured_data:
+      name: 孙尚香
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1NSDxBkEAU/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:14:10'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1NSDxBkEAU
+    - segment=subtitle-chunk-1-0-19
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-hero-bv1nsdxbkeau-subtitle-chunk-1-0-19-孙权
+    domain: hero
+    entry_kind: hero_profile
+    topic: 孙权
+    aliases: []
+    facts:
+    - 视频片段将孙权列为当前阶段的重要武将。
+    - 孙权在片段中与孙尚香、周瑜一起被讨论。
+    - 视频证据摘要：有主公问了 抽出孙权后不知道该怎么配对 配了队之后又打不过对方 该怎么办呢 各位主公先别慌 今天给大家带来的阵容是孙小瑜 孙小鱼 顾名思义是由孙权小乔周瑜组成
+      该阵容的阵型首选畸形阵 该阵容周瑜是核心输出 周瑜可联动异常状态打出伤害以及恢复
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1NSDxBkEAU#0-19
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 孙尚香
+    - 孙权
+    - 周瑜
+    priority: 64
+    structured_data:
+      name: 孙权
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1NSDxBkEAU/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:14:10'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1NSDxBkEAU
+    - segment=subtitle-chunk-1-0-19
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-hero-bv1nsdxbkeau-subtitle-chunk-1-0-19-周瑜
+    domain: hero
+    entry_kind: hero_profile
+    topic: 周瑜
+    aliases: []
+    facts:
+    - 视频片段将周瑜列为当前阶段的重要武将。
+    - 周瑜在片段中与孙尚香、孙权一起被讨论。
+    - 视频证据摘要：有主公问了 抽出孙权后不知道该怎么配对 配了队之后又打不过对方 该怎么办呢 各位主公先别慌 今天给大家带来的阵容是孙小瑜 孙小鱼 顾名思义是由孙权小乔周瑜组成
+      该阵容的阵型首选畸形阵 该阵容周瑜是核心输出 周瑜可联动异常状态打出伤害以及恢复
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1NSDxBkEAU#0-19
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 孙尚香
+    - 孙权
+    - 周瑜
+    priority: 64
+    structured_data:
+      name: 周瑜
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1NSDxBkEAU/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:14:10'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1NSDxBkEAU
+    - segment=subtitle-chunk-1-0-19
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-hero-bv1nsdxbkeau-subtitle-chunk-1-0-19-小乔
+    domain: hero
+    entry_kind: hero_profile
+    topic: 小乔
+    aliases: []
+    facts:
+    - 视频片段将小乔列为当前阶段的重要武将。
+    - 小乔在片段中与孙尚香、孙权一起被讨论。
+    - 视频证据摘要：有主公问了 抽出孙权后不知道该怎么配对 配了队之后又打不过对方 该怎么办呢 各位主公先别慌 今天给大家带来的阵容是孙小瑜 孙小鱼 顾名思义是由孙权小乔周瑜组成
+      该阵容的阵型首选畸形阵 该阵容周瑜是核心输出 周瑜可联动异常状态打出伤害以及恢复
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1NSDxBkEAU#0-19
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 孙尚香
+    - 孙权
+    - 周瑜
+    priority: 64
+    structured_data:
+      name: 小乔
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1XYDvB5E3s/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:14:37'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1XYDvB5E3s
+    - segment=subtitle-chunk-12-355-383
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-lineup-bv1xydvb5e3s-开荒攻略开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 开荒攻略开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括开荒攻略、刘备、刘关张。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1XYDvB5E3s#355-383
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 开荒攻略
+    - 刘备
+    - 刘关张
+    priority: 70
+    structured_data:
+      name: 开荒攻略开荒队
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 开荒攻略
+      - 刘备
+      - 刘关张
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：355s-383s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1XYDvB5E3s/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:14:37'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1XYDvB5E3s
+    - segment=subtitle-chunk-12-355-383
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1xydvb5e3s-subtitle-chunk-12-355-383-刘备
+    domain: hero
+    entry_kind: hero_profile
+    topic: 刘备
+    aliases: []
+    facts:
+    - 视频片段将刘备列为当前阶段的重要武将。
+    - 刘备在片段中与刘关张、曹操一起被讨论。
+    - 视频证据摘要：我们换一个曹操吧 有辨识度一点好吧啊 比如说我现在是用刘关张在开好吧 我们假打假装啊 假装这个这个曹操是刘备啊 我们用刘关张 用桃园再开
+      然后我开完了 我体力打干了 然后这个时候我的二队啊 我的二队他是 挂机啊
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1XYDvB5E3s#355-383
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 刘关张
+    - 曹操
+    - 刘备
+    priority: 64
+    structured_data:
+      name: 刘备
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1XYDvB5E3s/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:14:37'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1XYDvB5E3s
+    - segment=subtitle-chunk-12-355-383
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1xydvb5e3s-subtitle-chunk-12-355-383-刘关张
+    domain: hero
+    entry_kind: hero_profile
+    topic: 刘关张
+    aliases: []
+    facts:
+    - 视频片段将刘关张列为当前阶段的重要武将。
+    - 刘关张在片段中与曹操、刘备一起被讨论。
+    - 视频证据摘要：我们换一个曹操吧 有辨识度一点好吧啊 比如说我现在是用刘关张在开好吧 我们假打假装啊 假装这个这个曹操是刘备啊 我们用刘关张 用桃园再开
+      然后我开完了 我体力打干了 然后这个时候我的二队啊 我的二队他是 挂机啊
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1XYDvB5E3s#355-383
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 刘关张
+    - 曹操
+    - 刘备
+    priority: 64
+    structured_data:
+      name: 刘关张
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1XYDvB5E3s/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:14:37'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1XYDvB5E3s
+    - segment=subtitle-chunk-12-355-383
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1xydvb5e3s-subtitle-chunk-12-355-383-曹操
+    domain: hero
+    entry_kind: hero_profile
+    topic: 曹操
+    aliases: []
+    facts:
+    - 视频片段将曹操列为当前阶段的重要武将。
+    - 曹操在片段中与刘关张、刘备一起被讨论。
+    - 视频证据摘要：我们换一个曹操吧 有辨识度一点好吧啊 比如说我现在是用刘关张在开好吧 我们假打假装啊 假装这个这个曹操是刘备啊 我们用刘关张 用桃园再开
+      然后我开完了 我体力打干了 然后这个时候我的二队啊 我的二队他是 挂机啊
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1XYDvB5E3s#355-383
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 刘关张
+    - 曹操
+    - 刘备
+    priority: 64
+    structured_data:
+      name: 曹操
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1XYDvB5E3s/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:14:37'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1XYDvB5E3s
+    - segment=subtitle-chunk-12-355-383
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1xydvb5e3s-subtitle-chunk-12-355-383-桃园
+    domain: hero
+    entry_kind: hero_profile
+    topic: 桃园
+    aliases: []
+    facts:
+    - 视频片段将桃园列为当前阶段的重要武将。
+    - 桃园在片段中与刘关张、曹操一起被讨论。
+    - 视频证据摘要：我们换一个曹操吧 有辨识度一点好吧啊 比如说我现在是用刘关张在开好吧 我们假打假装啊 假装这个这个曹操是刘备啊 我们用刘关张 用桃园再开
+      然后我开完了 我体力打干了 然后这个时候我的二队啊 我的二队他是 挂机啊
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1XYDvB5E3s#355-383
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 刘关张
+    - 曹操
+    - 刘备
+    priority: 64
+    structured_data:
+      name: 桃园
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1cMSfBdEnt/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:19:28'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1cMSfBdEnt
+    - segment=subtitle-chunk-1-0-17
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-lineup-bv1cmsfbdent-s1引言开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S1引言开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括引言、小骑士。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1cMSfBdEnt#0-17
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 引言
+    - 小骑士
+    priority: 70
+    structured_data:
+      name: S1引言开荒队
+      aliases: []
+      season_tags:
+      - S1
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 引言
+      - 小骑士
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-17s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1QsSoBKEnD/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:24:37'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1QsSoBKEnD
+    - segment=subtitle-chunk-1-0-20
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-lineup-bv1qssobkend-bv1qssobkend-497世界杯各盟开荒数据统计，墨染阵
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 497世界杯各盟开荒数据统计，墨染阵
+    aliases: []
+    facts:
+    - 该视频主题聚焦于497世界杯各盟开荒数据统计，墨染阵营开荒大优。
+    - -。
+    - 登录态已确认字幕目录可见：中文。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints:
+    - 当前候选仅基于视频标题/描述等弱证据生成，需后续用字幕或画面证据复核。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1QsSoBKEnD#0-20
+    updated_at: '2026-05-17'
+    confidence: 0.34
+    related_topics: []
+    priority: 70
+    structured_data:
+      name: 497世界杯各盟开荒数据统计，墨染阵
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names: []
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-20s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1QsSoBKEnD/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:24:37'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1QsSoBKEnD
+    - segment=subtitle-chunk-1-0-20
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-hero-bv1qssobkend-subtitle-chunk-1-0-20-阵营
+    domain: hero
+    entry_kind: hero_profile
+    topic: 阵营
+    aliases: []
+    facts:
+    - 视频片段将阵营列为当前阶段的重要武将。
+    - 视频证据摘要：来吧先看一下我们的世界杯 我们的前300 我们先看一下烟骑 看一下我们的枫林宛城上榜34 风铃花城不太行啊 上榜才算24个 果然我们风林外城是最菜的
+      哈哈我去木法沙盒82个 你这快占了1/3了 都龙耀的这谁啊 糖心啊 不是等一下呢
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1QsSoBKEnD#0-20
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 阵营
+    priority: 64
+    structured_data:
+      name: 阵营
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []

@@ -1,0 +1,854 @@
+- metadata:
+    source_url: https://www.bilibili.com/video/BV13s421M76J/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:58:35'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV13s421M76J
+    - segment=subtitle-chunk-1-0-24
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-lineup-bv13s421m76j-背包阵容
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 背包阵容
+    aliases: []
+    facts:
+    - 核心武将包括背包、道具、装备。
+    - 高频提及战法包括坐骑、信物、使用。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV13s421M76J#0-24
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 背包
+    - 道具
+    - 装备
+    - 坐骑
+    - 信物
+    - 使用
+    priority: 70
+    structured_data:
+      name: 背包阵容
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 背包
+      - 道具
+      - 装备
+      core_skills:
+      - 坐骑
+      - 信物
+      - 使用
+      scenario_tags: []
+      notes:
+      - 证据片段：0s-24s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV13s421M76J/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:58:35'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV13s421M76J
+    - segment=subtitle-chunk-1-0-24
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-hero-bv13s421m76j-subtitle-chunk-1-0-24-武将
+    domain: hero
+    entry_kind: hero_profile
+    topic: 武将
+    aliases: []
+    facts:
+    - 视频片段将武将列为当前阶段的重要武将。
+    - 视频证据摘要：不小心 OK这里是老马今天带来的攻略啊 是装备系统 之前说过很多武将的阵容搭配 一直没提到过装备系统啊 这期老妈给大家补上 装备呢是通过在主城内的铁匠铺内获取
+      通过消耗打造材料打造装备 不同品级的打造材料 打造出高级装备的概率是各不相同的
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV13s421M76J#0-24
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 武将
+    priority: 64
+    structured_data:
+      name: 武将
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV13m411Z7Bk/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:43'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV13m411Z7Bk
+    - segment=subtitle-chunk-1-0-29
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-lineup-bv13m411z7bk-开荒实操开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 开荒实操开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括开荒实操、榜三！、裸转北伐。
+    - 视频证据摘要：B站 AI 中文字幕切片。 [视觉补充] 刘备(0.55), 关羽(0.55), 张飞(0.75)
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV13m411Z7Bk#0-29
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 开荒实操
+    - 榜三！
+    - 裸转北伐
+    priority: 70
+    structured_data:
+      name: 开荒实操开荒队
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 开荒实操
+      - 榜三！
+      - 裸转北伐
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-29s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV13m411Z7Bk/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:43'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV13m411Z7Bk
+    - segment=subtitle-chunk-7-173-194
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-lineup-bv13m411z7bk-带裸衣开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 带裸衣开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括带裸衣、带铁骑、带突击。
+    - 高频提及战法包括不建议。
+    - 视频证据摘要：B站 AI 中文字幕切片。 [视觉补充] 马超(0.98), 孙尚香(0.98), 夏侯渊(0.98)
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV13m411Z7Bk#173-194
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 带裸衣
+    - 带铁骑
+    - 带突击
+    - 不建议
+    priority: 70
+    structured_data:
+      name: 带裸衣开荒队
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 带裸衣
+      - 带铁骑
+      - 带突击
+      core_skills:
+      - 不建议
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：173s-194s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV13m411Z7Bk/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:43'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV13m411Z7Bk
+    - segment=subtitle-chunk-1-0-29
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv13m411z7bk-subtitle-chunk-1-0-29-刘关张
+    domain: hero
+    entry_kind: hero_profile
+    topic: 刘关张
+    aliases: []
+    facts:
+    - 视频片段将刘关张列为当前阶段的重要武将。
+    - 刘关张在片段中与张春华、蔡文姬一起被讨论。
+    - 视频证据摘要：关妹张飞春华开荒功勋再花点不足 如何实现四天内北伐枪36集 势力第三贡献38 在我的开荒实录完结后 很多玩家留言没有蔡文姬是否能张春华开荒
+      还有一些玩家质疑自己最强的PVP队伍没法开荒 用于首发 我们今天通过这个案例来剖析一下 开荒常犯的四
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV13m411Z7Bk#0-29
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 刘关张
+    - 张春华
+    - 蔡文姬
+    priority: 64
+    structured_data:
+      name: 刘关张
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV13m411Z7Bk/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:43'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV13m411Z7Bk
+    - segment=subtitle-chunk-1-0-29
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv13m411z7bk-subtitle-chunk-1-0-29-张春华
+    domain: hero
+    entry_kind: hero_profile
+    topic: 张春华
+    aliases: []
+    facts:
+    - 视频片段将张春华列为当前阶段的重要武将。
+    - 张春华在片段中与刘关张、蔡文姬一起被讨论。
+    - 视频证据摘要：关妹张飞春华开荒功勋再花点不足 如何实现四天内北伐枪36集 势力第三贡献38 在我的开荒实录完结后 很多玩家留言没有蔡文姬是否能张春华开荒
+      还有一些玩家质疑自己最强的PVP队伍没法开荒 用于首发 我们今天通过这个案例来剖析一下 开荒常犯的四
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV13m411Z7Bk#0-29
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 刘关张
+    - 张春华
+    - 蔡文姬
+    priority: 64
+    structured_data:
+      name: 张春华
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV13m411Z7Bk/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:43'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV13m411Z7Bk
+    - segment=subtitle-chunk-1-0-29
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv13m411z7bk-subtitle-chunk-1-0-29-蔡文姬
+    domain: hero
+    entry_kind: hero_profile
+    topic: 蔡文姬
+    aliases: []
+    facts:
+    - 视频片段将蔡文姬列为当前阶段的重要武将。
+    - 蔡文姬在片段中与刘关张、张春华一起被讨论。
+    - 视频证据摘要：关妹张飞春华开荒功勋再花点不足 如何实现四天内北伐枪36集 势力第三贡献38 在我的开荒实录完结后 很多玩家留言没有蔡文姬是否能张春华开荒
+      还有一些玩家质疑自己最强的PVP队伍没法开荒 用于首发 我们今天通过这个案例来剖析一下 开荒常犯的四
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV13m411Z7Bk#0-29
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 刘关张
+    - 张春华
+    - 蔡文姬
+    priority: 64
+    structured_data:
+      name: 蔡文姬
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV13m411Z7Bk/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:43'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV13m411Z7Bk
+    - segment=subtitle-chunk-1-0-29
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv13m411z7bk-subtitle-chunk-1-0-29-张飞
+    domain: hero
+    entry_kind: hero_profile
+    topic: 张飞
+    aliases: []
+    facts:
+    - 视频片段将张飞列为当前阶段的重要武将。
+    - 张飞在片段中与刘关张、张春华一起被讨论。
+    - 视频证据摘要：关妹张飞春华开荒功勋再花点不足 如何实现四天内北伐枪36集 势力第三贡献38 在我的开荒实录完结后 很多玩家留言没有蔡文姬是否能张春华开荒
+      还有一些玩家质疑自己最强的PVP队伍没法开荒 用于首发 我们今天通过这个案例来剖析一下 开荒常犯的四
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV13m411Z7Bk#0-29
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 刘关张
+    - 张春华
+    - 蔡文姬
+    priority: 64
+    structured_data:
+      name: 张飞
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV13m411Z7Bk/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:43'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV13m411Z7Bk
+    - segment=subtitle-chunk-7-173-194
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv13m411z7bk-subtitle-chunk-7-173-194-夏侯渊
+    domain: hero
+    entry_kind: hero_profile
+    topic: 夏侯渊
+    aliases: []
+    facts:
+    - 视频片段将夏侯渊列为当前阶段的重要武将。
+    - 夏侯渊在片段中与黄月英、孙尚香一起被讨论。
+    - 视频证据摘要：很多人啊学会了碰瓷就会过度使用 却不明白过犹不及的道理 比如这种情况 通过高频碰瓷 十二十三集开五也许会成功 但同时也会带来以下两个问题
+      第一碰瓷特别累 至少要碰到5000左右 这样呢就特别消磨耐心 如果碰瓷不好 一直碰不掉 可能体力快回满
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV13m411Z7Bk#173-194
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 夏侯渊
+    - 黄月英
+    - 孙尚香
+    priority: 64
+    structured_data:
+      name: 夏侯渊
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV13m411Z7Bk/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:43'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV13m411Z7Bk
+    - segment=subtitle-chunk-7-173-194
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv13m411z7bk-subtitle-chunk-7-173-194-黄月英
+    domain: hero
+    entry_kind: hero_profile
+    topic: 黄月英
+    aliases: []
+    facts:
+    - 视频片段将黄月英列为当前阶段的重要武将。
+    - 黄月英在片段中与夏侯渊、孙尚香一起被讨论。
+    - 视频证据摘要：很多人啊学会了碰瓷就会过度使用 却不明白过犹不及的道理 比如这种情况 通过高频碰瓷 十二十三集开五也许会成功 但同时也会带来以下两个问题
+      第一碰瓷特别累 至少要碰到5000左右 这样呢就特别消磨耐心 如果碰瓷不好 一直碰不掉 可能体力快回满
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV13m411Z7Bk#173-194
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 夏侯渊
+    - 黄月英
+    - 孙尚香
+    priority: 64
+    structured_data:
+      name: 黄月英
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV13m411Z7Bk/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:43'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV13m411Z7Bk
+    - segment=subtitle-chunk-7-173-194
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv13m411z7bk-subtitle-chunk-7-173-194-孙尚香
+    domain: hero
+    entry_kind: hero_profile
+    topic: 孙尚香
+    aliases: []
+    facts:
+    - 视频片段将孙尚香列为当前阶段的重要武将。
+    - 孙尚香在片段中与夏侯渊、黄月英一起被讨论。
+    - 视频证据摘要：很多人啊学会了碰瓷就会过度使用 却不明白过犹不及的道理 比如这种情况 通过高频碰瓷 十二十三集开五也许会成功 但同时也会带来以下两个问题
+      第一碰瓷特别累 至少要碰到5000左右 这样呢就特别消磨耐心 如果碰瓷不好 一直碰不掉 可能体力快回满
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV13m411Z7Bk#173-194
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 夏侯渊
+    - 黄月英
+    - 孙尚香
+    priority: 64
+    structured_data:
+      name: 孙尚香
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV13m411Z7Bk/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T07:59:43'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV13m411Z7Bk
+    - segment=subtitle-chunk-7-173-194
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv13m411z7bk-subtitle-chunk-7-173-194-太史慈
+    domain: hero
+    entry_kind: hero_profile
+    topic: 太史慈
+    aliases: []
+    facts:
+    - 视频片段将太史慈列为当前阶段的重要武将。
+    - 太史慈在片段中与夏侯渊、黄月英一起被讨论。
+    - 视频证据摘要：很多人啊学会了碰瓷就会过度使用 却不明白过犹不及的道理 比如这种情况 通过高频碰瓷 十二十三集开五也许会成功 但同时也会带来以下两个问题
+      第一碰瓷特别累 至少要碰到5000左右 这样呢就特别消磨耐心 如果碰瓷不好 一直碰不掉 可能体力快回满
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV13m411Z7Bk#173-194
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 夏侯渊
+    - 黄月英
+    - 孙尚香
+    priority: 64
+    structured_data:
+      name: 太史慈
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1ZZUgY9EMD/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:02:06'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1ZZUgY9EMD
+    - segment=subtitle-chunk-13-340-364
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-lineup-bv1zzugy9emd-部队一开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 部队一开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括部队一、部队二、部队三。
+    - 高频提及战法包括部队四、部队五、手上阵。
+    - 视频证据摘要：B站 AI 中文字幕切片。 [视觉补充] 关羽(0.90), 于禁(0.85), 张飞(0.75)
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1ZZUgY9EMD#340-364
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 部队一
+    - 部队二
+    - 部队三
+    - 部队四
+    - 部队五
+    - 手上阵
+    priority: 70
+    structured_data:
+      name: 部队一开荒队
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 部队一
+      - 部队二
+      - 部队三
+      core_skills:
+      - 部队四
+      - 部队五
+      - 手上阵
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：340s-364s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1ZZUgY9EMD/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:02:06'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1ZZUgY9EMD
+    - segment=subtitle-chunk-7-178-204
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1zzugy9emd-subtitle-chunk-7-178-204-武将
+    domain: hero
+    entry_kind: hero_profile
+    topic: 武将
+    aliases: []
+    facts:
+    - 视频片段将武将列为当前阶段的重要武将。
+    - 视频证据摘要：也可以说是开荒期啊 新手开荒期 这是一个比较重要的阶段 这个阶段呢你换武将换战法 他都是完全无损失的 这两天来说呢 你打资源地 无论是占领的时间还是你重伤恢复的时间
+      他这个时间呢都是比正常情况下的时间要短的 这两天48小时的新手的开荒机 它
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1ZZUgY9EMD#178-204
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 武将
+    priority: 64
+    structured_data:
+      name: 武将
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1ZZUgY9EMD/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:02:06'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1ZZUgY9EMD
+    - segment=subtitle-chunk-13-340-364
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1zzugy9emd-subtitle-chunk-13-340-364-关羽
+    domain: hero
+    entry_kind: hero_profile
+    topic: 关羽
+    aliases: []
+    facts:
+    - 视频片段将关羽列为当前阶段的重要武将。
+    - 关羽在片段中与许褚、董卓一起被讨论。
+    - 视频证据摘要：第三个阶段你就跟其他的玩家 就是任何包括那些氪金玩家 你在资源上 还有整个的科技上 他是没有任何区别 这个游戏呢到了三阶段 后期主要差距还是在你的武将和你的战法上嗯
+      所以真的不用特别焦虑 开荒开得好不好 没有太多时间等等这些事情 但是我依然
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1ZZUgY9EMD#340-364
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 许褚
+    - 董卓
+    - 貂蝉
+    priority: 64
+    structured_data:
+      name: 关羽
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1ZZUgY9EMD/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:02:06'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1ZZUgY9EMD
+    - segment=subtitle-chunk-13-340-364
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1zzugy9emd-subtitle-chunk-13-340-364-许褚
+    domain: hero
+    entry_kind: hero_profile
+    topic: 许褚
+    aliases: []
+    facts:
+    - 视频片段将许褚列为当前阶段的重要武将。
+    - 许褚在片段中与董卓、貂蝉一起被讨论。
+    - 视频证据摘要：第三个阶段你就跟其他的玩家 就是任何包括那些氪金玩家 你在资源上 还有整个的科技上 他是没有任何区别 这个游戏呢到了三阶段 后期主要差距还是在你的武将和你的战法上嗯
+      所以真的不用特别焦虑 开荒开得好不好 没有太多时间等等这些事情 但是我依然
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1ZZUgY9EMD#340-364
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 许褚
+    - 董卓
+    - 貂蝉
+    priority: 64
+    structured_data:
+      name: 许褚
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1ZZUgY9EMD/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:02:06'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1ZZUgY9EMD
+    - segment=subtitle-chunk-13-340-364
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1zzugy9emd-subtitle-chunk-13-340-364-董卓
+    domain: hero
+    entry_kind: hero_profile
+    topic: 董卓
+    aliases: []
+    facts:
+    - 视频片段将董卓列为当前阶段的重要武将。
+    - 董卓在片段中与许褚、貂蝉一起被讨论。
+    - 视频证据摘要：第三个阶段你就跟其他的玩家 就是任何包括那些氪金玩家 你在资源上 还有整个的科技上 他是没有任何区别 这个游戏呢到了三阶段 后期主要差距还是在你的武将和你的战法上嗯
+      所以真的不用特别焦虑 开荒开得好不好 没有太多时间等等这些事情 但是我依然
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1ZZUgY9EMD#340-364
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 许褚
+    - 董卓
+    - 貂蝉
+    priority: 64
+    structured_data:
+      name: 董卓
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1ZZUgY9EMD/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:02:06'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1ZZUgY9EMD
+    - segment=subtitle-chunk-13-340-364
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv1zzugy9emd-subtitle-chunk-13-340-364-貂蝉
+    domain: hero
+    entry_kind: hero_profile
+    topic: 貂蝉
+    aliases: []
+    facts:
+    - 视频片段将貂蝉列为当前阶段的重要武将。
+    - 貂蝉在片段中与许褚、董卓一起被讨论。
+    - 视频证据摘要：第三个阶段你就跟其他的玩家 就是任何包括那些氪金玩家 你在资源上 还有整个的科技上 他是没有任何区别 这个游戏呢到了三阶段 后期主要差距还是在你的武将和你的战法上嗯
+      所以真的不用特别焦虑 开荒开得好不好 没有太多时间等等这些事情 但是我依然
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1ZZUgY9EMD#340-364
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 许褚
+    - 董卓
+    - 貂蝉
+    priority: 64
+    structured_data:
+      name: 貂蝉
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1AVU5Y3Eh3/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:10:54'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1AVU5Y3Eh3
+    - segment=subtitle-chunk-1-0-27
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-lineup-bv1avu5y3eh3-s4三谋老表开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S4三谋老表开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括三谋老表、V1.1。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1AVU5Y3Eh3#0-27
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 三谋老表
+    - V1.1
+    priority: 70
+    structured_data:
+      name: S4三谋老表开荒队
+      aliases: []
+      season_tags:
+      - s4
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 三谋老表
+      - V1.1
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-27s

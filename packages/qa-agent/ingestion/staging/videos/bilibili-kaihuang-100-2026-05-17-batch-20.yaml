@@ -1,0 +1,1199 @@
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1G2oNB1E4R/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:31:55'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1G2oNB1E4R
+    - segment=subtitle-chunk-1-0-26
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-lineup-bv1g2onb1e4r-s14s14开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S14S14开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括S14、开荒锦囊、祝融夫人。
+    - 高频提及战法包括折冲御侮、金城汤池、胜敌益强。
+    - 视频证据摘要：B站 AI 中文字幕切片。
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1G2oNB1E4R#0-26
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - S14
+    - 开荒锦囊
+    - 祝融夫人
+    - 折冲御侮
+    - 金城汤池
+    - 胜敌益强
+    priority: 70
+    structured_data:
+      name: S14S14开荒队
+      aliases: []
+      season_tags:
+      - S14
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - S14
+      - 开荒锦囊
+      - 祝融夫人
+      core_skills:
+      - 折冲御侮
+      - 金城汤池
+      - 胜敌益强
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-26s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1G2oNB1E4R/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:31:55'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1G2oNB1E4R
+    - segment=subtitle-chunk-1-0-26
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-hero-bv1g2onb1e4r-subtitle-chunk-1-0-26-祝融夫人
+    domain: hero
+    entry_kind: hero_profile
+    topic: 祝融夫人
+    aliases: []
+    facts:
+    - 视频片段将祝融夫人列为当前阶段的重要武将。
+    - 祝融夫人在片段中与孟获、田丰一起被讨论。
+    - 视频证据摘要：三谋S14开荒阵容抢先看 全网最细开荒教程 所有阵法统一畸形阵上阵 武将貂蝉 孟获祝融 貂蝉全智加点携带战法折冲御侮御武 孟获全统加点携带战法
+      金城汤池祝融速度大于96 携带战法胜敌益强 稳定开荒到六级全置换 左田宁降低兵损上阵武将左慈田丰
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1G2oNB1E4R#0-26
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 孟获
+    - 田丰
+    - 上阵
+    priority: 64
+    structured_data:
+      name: 祝融夫人
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1G2oNB1E4R/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:31:55'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1G2oNB1E4R
+    - segment=subtitle-chunk-1-0-26
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-hero-bv1g2onb1e4r-subtitle-chunk-1-0-26-孟获
+    domain: hero
+    entry_kind: hero_profile
+    topic: 孟获
+    aliases: []
+    facts:
+    - 视频片段将孟获列为当前阶段的重要武将。
+    - 孟获在片段中与田丰、上阵一起被讨论。
+    - 视频证据摘要：三谋S14开荒阵容抢先看 全网最细开荒教程 所有阵法统一畸形阵上阵 武将貂蝉 孟获祝融 貂蝉全智加点携带战法折冲御侮御武 孟获全统加点携带战法
+      金城汤池祝融速度大于96 携带战法胜敌益强 稳定开荒到六级全置换 左田宁降低兵损上阵武将左慈田丰
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1G2oNB1E4R#0-26
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 孟获
+    - 田丰
+    - 上阵
+    priority: 64
+    structured_data:
+      name: 孟获
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1G2oNB1E4R/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:31:55'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1G2oNB1E4R
+    - segment=subtitle-chunk-1-0-26
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-hero-bv1g2onb1e4r-subtitle-chunk-1-0-26-田丰
+    domain: hero
+    entry_kind: hero_profile
+    topic: 田丰
+    aliases: []
+    facts:
+    - 视频片段将田丰列为当前阶段的重要武将。
+    - 田丰在片段中与孟获、上阵一起被讨论。
+    - 视频证据摘要：三谋S14开荒阵容抢先看 全网最细开荒教程 所有阵法统一畸形阵上阵 武将貂蝉 孟获祝融 貂蝉全智加点携带战法折冲御侮御武 孟获全统加点携带战法
+      金城汤池祝融速度大于96 携带战法胜敌益强 稳定开荒到六级全置换 左田宁降低兵损上阵武将左慈田丰
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1G2oNB1E4R#0-26
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 孟获
+    - 田丰
+    - 上阵
+    priority: 64
+    structured_data:
+      name: 田丰
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1G2oNB1E4R/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:31:55'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1G2oNB1E4R
+    - segment=subtitle-chunk-1-0-26
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-hero-bv1g2onb1e4r-subtitle-chunk-1-0-26-上阵
+    domain: hero
+    entry_kind: hero_profile
+    topic: 上阵
+    aliases: []
+    facts:
+    - 视频片段将上阵列为当前阶段的重要武将。
+    - 上阵在片段中与孟获、田丰一起被讨论。
+    - 视频证据摘要：三谋S14开荒阵容抢先看 全网最细开荒教程 所有阵法统一畸形阵上阵 武将貂蝉 孟获祝融 貂蝉全智加点携带战法折冲御侮御武 孟获全统加点携带战法
+      金城汤池祝融速度大于96 携带战法胜敌益强 稳定开荒到六级全置换 左田宁降低兵损上阵武将左慈田丰
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1G2oNB1E4R#0-26
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 孟获
+    - 田丰
+    - 上阵
+    priority: 64
+    structured_data:
+      name: 上阵
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1G2oNB1E4R/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:31:55'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1G2oNB1E4R
+    - segment=subtitle-chunk-1-0-26
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-skill-bv1g2onb1e4r-subtitle-chunk-1-0-26-折冲御侮
+    domain: skill
+    entry_kind: skill_profile
+    topic: 折冲御侮
+    aliases: []
+    facts:
+    - 视频片段提到折冲御侮是当前讨论阵容中的关键战法。
+    - 视频证据摘要：三谋S14开荒阵容抢先看 全网最细开荒教程 所有阵法统一畸形阵上阵 武将貂蝉 孟获祝融 貂蝉全智加点携带战法折冲御侮御武 孟获全统加点携带战法
+      金城汤池祝融速度大于96 携带战法胜敌益强 稳定开荒到六级全置换 左田宁降低兵损上阵武将左慈田丰
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1G2oNB1E4R#0-26
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 祝融夫人
+    - 孟获
+    - 田丰
+    priority: 64
+    structured_data:
+      name: 折冲御侮
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1G2oNB1E4R/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:31:55'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1G2oNB1E4R
+    - segment=subtitle-chunk-1-0-26
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-skill-bv1g2onb1e4r-subtitle-chunk-1-0-26-金城汤池
+    domain: skill
+    entry_kind: skill_profile
+    topic: 金城汤池
+    aliases: []
+    facts:
+    - 视频片段提到金城汤池是当前讨论阵容中的关键战法。
+    - 视频证据摘要：三谋S14开荒阵容抢先看 全网最细开荒教程 所有阵法统一畸形阵上阵 武将貂蝉 孟获祝融 貂蝉全智加点携带战法折冲御侮御武 孟获全统加点携带战法
+      金城汤池祝融速度大于96 携带战法胜敌益强 稳定开荒到六级全置换 左田宁降低兵损上阵武将左慈田丰
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1G2oNB1E4R#0-26
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 祝融夫人
+    - 孟获
+    - 田丰
+    priority: 64
+    structured_data:
+      name: 金城汤池
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1G2oNB1E4R/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:31:55'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1G2oNB1E4R
+    - segment=subtitle-chunk-1-0-26
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-skill-bv1g2onb1e4r-subtitle-chunk-1-0-26-胜敌益强
+    domain: skill
+    entry_kind: skill_profile
+    topic: 胜敌益强
+    aliases: []
+    facts:
+    - 视频片段提到胜敌益强是当前讨论阵容中的关键战法。
+    - 视频证据摘要：三谋S14开荒阵容抢先看 全网最细开荒教程 所有阵法统一畸形阵上阵 武将貂蝉 孟获祝融 貂蝉全智加点携带战法折冲御侮御武 孟获全统加点携带战法
+      金城汤池祝融速度大于96 携带战法胜敌益强 稳定开荒到六级全置换 左田宁降低兵损上阵武将左慈田丰
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1G2oNB1E4R#0-26
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 祝融夫人
+    - 孟获
+    - 田丰
+    priority: 64
+    structured_data:
+      name: 胜敌益强
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1G2oNB1E4R/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:31:55'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1G2oNB1E4R
+    - segment=subtitle-chunk-1-0-26
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=1; require_vision=True
+  entry:
+    id: video-skill-bv1g2onb1e4r-subtitle-chunk-1-0-26-折冲
+    domain: skill
+    entry_kind: skill_profile
+    topic: 折冲御侮
+    aliases: []
+    facts:
+    - 视频片段提到折冲御侮是当前讨论阵容中的关键战法。
+    - 视频证据摘要：三谋S14开荒阵容抢先看 全网最细开荒教程 所有阵法统一畸形阵上阵 武将貂蝉 孟获祝融 貂蝉全智加点携带战法折冲御侮御武 孟获全统加点携带战法
+      金城汤池祝融速度大于96 携带战法胜敌益强 稳定开荒到六级全置换 左田宁降低兵损上阵武将左慈田丰
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1G2oNB1E4R#0-26
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 祝融夫人
+    - 孟获
+    - 田丰
+    priority: 64
+    structured_data:
+      name: 折冲御侮
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV16GE9zUE5z/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:33:52'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV16GE9zUE5z
+    - segment=subtitle-chunk-1-0-31
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-lineup-bv16ge9zue5z-法正队开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 法正队开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括法正队、法正。
+    - 视频证据摘要：B站 AI 中文字幕切片。 [视觉补充] 法正(0.65)
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV16GE9zUE5z#0-31
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 法正队
+    - 法正
+    priority: 70
+    structured_data:
+      name: 法正队开荒队
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 法正队
+      - 法正
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-31s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV16GE9zUE5z/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:33:52'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV16GE9zUE5z
+    - segment=subtitle-chunk-8-175-198
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-lineup-bv16ge9zue5z-标记成功开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 标记成功开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括标记成功、部队、地图。
+    - 高频提及战法包括好友、信件、任务。
+    - 视频证据摘要：B站 AI 中文字幕切片。 [视觉补充] 法正(0.75), 司马懿(0.85), 张辽(0.70)
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV16GE9zUE5z#175-198
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 标记成功
+    - 部队
+    - 地图
+    - 好友
+    - 信件
+    - 任务
+    priority: 70
+    structured_data:
+      name: 标记成功开荒队
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 标记成功
+      - 部队
+      - 地图
+      core_skills:
+      - 好友
+      - 信件
+      - 任务
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：175s-198s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV16GE9zUE5z/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:33:52'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV16GE9zUE5z
+    - segment=subtitle-chunk-16-348-368
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-lineup-bv16ge9zue5z-败开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 败开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括败、胜、战斗回放。
+    - 高频提及战法包括战斗地点、1/2、存兵 0。
+    - "视频证据摘要：B站 AI 中文字幕切片。 [视觉补充] 赵云(0.75), 黄忠(0.55), 关羽(0.85)"
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV16GE9zUE5z#348-368
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 败
+    - 胜
+    - 战斗回放
+    - 战斗地点
+    - 1/2
+    - 存兵 0
+    priority: 70
+    structured_data:
+      name: 败开荒队
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 败
+      - 胜
+      - 战斗回放
+      core_skills:
+      - 战斗地点
+      - 1/2
+      - 存兵 0
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：348s-368s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV16GE9zUE5z/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:33:52'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV16GE9zUE5z
+    - segment=subtitle-chunk-1-0-31
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv16ge9zue5z-subtitle-chunk-1-0-31-法正
+    domain: hero
+    entry_kind: hero_profile
+    topic: 法正
+    aliases: []
+    facts:
+    - 视频片段将法正列为当前阶段的重要武将。
+    - 视频证据摘要：把马克三小时20级全程复盘 纯干货 开荒节奏经验分享 保姆级别细节解析 学会了下一个开荒高手 就是你兄弟们 今天给大家做一个法 马克三小时速通20级的一个全面的解析
+      这个号是不到一点就20级了 这个是4000缺段拉姆发发老板的这个号 这个是
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV16GE9zUE5z#0-31
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 法正
+    priority: 64
+    structured_data:
+      name: 法正
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV16GE9zUE5z/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:33:52'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV16GE9zUE5z
+    - segment=subtitle-chunk-8-175-198
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv16ge9zue5z-subtitle-chunk-8-175-198-司马懿
+    domain: hero
+    entry_kind: hero_profile
+    topic: 司马懿
+    aliases: []
+    facts:
+    - 视频片段将司马懿列为当前阶段的重要武将。
+    - 司马懿在片段中与武将一起被讨论。
+    - 视频证据摘要：一队斯巴达去铺路 另一队就一队两兵斯巴达西葫芦 另一队这个像这个司马懿这种一兵 我去撞我主一的这两队一起行动 你像这块地 它是五级地 他是撞出来一个必中骑
+      就李觉郭四这个骑兵 那这个咱们是八级左右 是是可以打的 这可以多碰一点 低等级是可以
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV16GE9zUE5z#175-198
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 司马懿
+    - 武将
+    priority: 64
+    structured_data:
+      name: 司马懿
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV16GE9zUE5z/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:33:52'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV16GE9zUE5z
+    - segment=subtitle-chunk-8-175-198
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=3; require_vision=True
+  entry:
+    id: video-hero-bv16ge9zue5z-subtitle-chunk-8-175-198-武将
+    domain: hero
+    entry_kind: hero_profile
+    topic: 武将
+    aliases: []
+    facts:
+    - 视频片段将武将列为当前阶段的重要武将。
+    - 武将在片段中与司马懿一起被讨论。
+    - 视频证据摘要：一队斯巴达去铺路 另一队就一队两兵斯巴达西葫芦 另一队这个像这个司马懿这种一兵 我去撞我主一的这两队一起行动 你像这块地 它是五级地 他是撞出来一个必中骑
+      就李觉郭四这个骑兵 那这个咱们是八级左右 是是可以打的 这可以多碰一点 低等级是可以
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV16GE9zUE5z#175-198
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 司马懿
+    - 武将
+    priority: 64
+    structured_data:
+      name: 武将
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1mGQ4BSEoR/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:36:06'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1mGQ4BSEoR
+    - segment=subtitle-chunk-1-0-19
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-lineup-bv1mgq4bseor-跟上时代开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 跟上时代开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括跟上时代、开荒教程、6小时。
+    - 高频提及战法包括低损开6。
+    - 视频证据摘要：B站 AI 中文字幕切片。 [视觉补充] 太史慈(0.99)
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1mGQ4BSEoR#0-19
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 跟上时代
+    - 开荒教程
+    - 6小时
+    - 低损开6
+    priority: 70
+    structured_data:
+      name: 跟上时代开荒队
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 跟上时代
+      - 开荒教程
+      - 6小时
+      core_skills:
+      - 低损开6
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-19s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1mGQ4BSEoR/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:36:06'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1mGQ4BSEoR
+    - segment=subtitle-chunk-9-170-191
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-lineup-bv1mgq4bseor-战斗回放开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 战斗回放开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括战斗回放、战斗地点、返回。
+    - 高频提及战法包括士气96、伤兵95、战果。
+    - 视频证据摘要：B站 AI 中文字幕切片。 [视觉补充] 张飞(0.75), 关羽(0.55), 左慈(0.65)
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1mGQ4BSEoR#170-191
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 战斗回放
+    - 战斗地点
+    - 返回
+    - 士气96
+    - 伤兵95
+    - 战果
+    priority: 70
+    structured_data:
+      name: 战斗回放开荒队
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 战斗回放
+      - 战斗地点
+      - 返回
+      core_skills:
+      - 士气96
+      - 伤兵95
+      - 战果
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：170s-191s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1mGQ4BSEoR/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:36:06'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1mGQ4BSEoR
+    - segment=subtitle-chunk-1-0-19
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1mgq4bseor-subtitle-chunk-1-0-19-太史慈
+    domain: hero
+    entry_kind: hero_profile
+    topic: 太史慈
+    aliases: []
+    facts:
+    - 视频片段将太史慈列为当前阶段的重要武将。
+    - 太史慈在片段中与马超一起被讨论。
+    - 视频证据摘要：兄弟们 今天我们来聊聊太史慈开荒 这是我这赛季呃自己开荒的所有的战报 我都记录下来了 方便我自己总结 因为我也经常会忘 大家温故而知新 先给他定个基调啊
+      他的开荒水平是跟SP马超 在六级地之前是一样的 七级地开始过后啊 有圣器了
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1mGQ4BSEoR#0-19
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 太史慈
+    - 马超
+    priority: 64
+    structured_data:
+      name: 太史慈
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1mGQ4BSEoR/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:36:06'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1mGQ4BSEoR
+    - segment=subtitle-chunk-1-0-19
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1mgq4bseor-subtitle-chunk-1-0-19-马超
+    domain: hero
+    entry_kind: hero_profile
+    topic: 马超
+    aliases: []
+    facts:
+    - 视频片段将马超列为当前阶段的重要武将。
+    - 马超在片段中与太史慈一起被讨论。
+    - 视频证据摘要：兄弟们 今天我们来聊聊太史慈开荒 这是我这赛季呃自己开荒的所有的战报 我都记录下来了 方便我自己总结 因为我也经常会忘 大家温故而知新 先给他定个基调啊
+      他的开荒水平是跟SP马超 在六级地之前是一样的 七级地开始过后啊 有圣器了
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1mGQ4BSEoR#0-19
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 太史慈
+    - 马超
+    priority: 64
+    structured_data:
+      name: 马超
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1mGQ4BSEoR/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:36:06'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1mGQ4BSEoR
+    - segment=subtitle-chunk-9-170-191
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1mgq4bseor-subtitle-chunk-9-170-191-关羽
+    domain: hero
+    entry_kind: hero_profile
+    topic: 关羽
+    aliases: []
+    facts:
+    - 视频片段将关羽列为当前阶段的重要武将。
+    - 关羽在片段中与张飞、郭嘉一起被讨论。
+    - 视频证据摘要：诶有点意外的啊 一般这种都要掉到个6000多吧 然后这个是第二队 第二队一个韩当弓 我竟然也只掉了700血 我非常意外啊 第一次打就这个优势非常大了
+      这个这就奠定了这对啊 直接起飞了 就那么这时候啊 我们技能带的是士别3日盛气吹风 速成武当
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1mGQ4BSEoR#170-191
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 张飞
+    - 郭嘉
+    - 韩当
+    priority: 64
+    structured_data:
+      name: 关羽
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1mGQ4BSEoR/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:36:06'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1mGQ4BSEoR
+    - segment=subtitle-chunk-9-170-191
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1mgq4bseor-subtitle-chunk-9-170-191-张飞
+    domain: hero
+    entry_kind: hero_profile
+    topic: 张飞
+    aliases: []
+    facts:
+    - 视频片段将张飞列为当前阶段的重要武将。
+    - 张飞在片段中与郭嘉、韩当一起被讨论。
+    - 视频证据摘要：诶有点意外的啊 一般这种都要掉到个6000多吧 然后这个是第二队 第二队一个韩当弓 我竟然也只掉了700血 我非常意外啊 第一次打就这个优势非常大了
+      这个这就奠定了这对啊 直接起飞了 就那么这时候啊 我们技能带的是士别3日盛气吹风 速成武当
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1mGQ4BSEoR#170-191
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 张飞
+    - 郭嘉
+    - 韩当
+    priority: 64
+    structured_data:
+      name: 张飞
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1mGQ4BSEoR/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:36:06'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1mGQ4BSEoR
+    - segment=subtitle-chunk-9-170-191
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1mgq4bseor-subtitle-chunk-9-170-191-郭嘉
+    domain: hero
+    entry_kind: hero_profile
+    topic: 郭嘉
+    aliases: []
+    facts:
+    - 视频片段将郭嘉列为当前阶段的重要武将。
+    - 郭嘉在片段中与张飞、韩当一起被讨论。
+    - 视频证据摘要：诶有点意外的啊 一般这种都要掉到个6000多吧 然后这个是第二队 第二队一个韩当弓 我竟然也只掉了700血 我非常意外啊 第一次打就这个优势非常大了
+      这个这就奠定了这对啊 直接起飞了 就那么这时候啊 我们技能带的是士别3日盛气吹风 速成武当
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1mGQ4BSEoR#170-191
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 张飞
+    - 郭嘉
+    - 韩当
+    priority: 64
+    structured_data:
+      name: 郭嘉
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1mGQ4BSEoR/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:36:06'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1mGQ4BSEoR
+    - segment=subtitle-chunk-9-170-191
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-hero-bv1mgq4bseor-subtitle-chunk-9-170-191-韩当
+    domain: hero
+    entry_kind: hero_profile
+    topic: 韩当
+    aliases: []
+    facts:
+    - 视频片段将韩当列为当前阶段的重要武将。
+    - 韩当在片段中与张飞、郭嘉一起被讨论。
+    - 视频证据摘要：诶有点意外的啊 一般这种都要掉到个6000多吧 然后这个是第二队 第二队一个韩当弓 我竟然也只掉了700血 我非常意外啊 第一次打就这个优势非常大了
+      这个这就奠定了这对啊 直接起飞了 就那么这时候啊 我们技能带的是士别3日盛气吹风 速成武当
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1mGQ4BSEoR#170-191
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 张飞
+    - 郭嘉
+    - 韩当
+    priority: 64
+    structured_data:
+      name: 韩当
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1mGQ4BSEoR/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:36:06'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1mGQ4BSEoR
+    - segment=subtitle-chunk-9-170-191
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-skill-bv1mgq4bseor-subtitle-chunk-9-170-191-横扫千军
+    domain: skill
+    entry_kind: skill_profile
+    topic: 横扫千军
+    aliases: []
+    facts:
+    - 视频片段提到横扫千军是当前讨论阵容中的关键战法。
+    - 视频证据摘要：诶有点意外的啊 一般这种都要掉到个6000多吧 然后这个是第二队 第二队一个韩当弓 我竟然也只掉了700血 我非常意外啊 第一次打就这个优势非常大了
+      这个这就奠定了这对啊 直接起飞了 就那么这时候啊 我们技能带的是士别3日盛气吹风 速成武当
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1mGQ4BSEoR#170-191
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 关羽
+    - 张飞
+    - 郭嘉
+    priority: 64
+    structured_data:
+      name: 横扫千军
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1mGQ4BSEoR/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:36:06'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1mGQ4BSEoR
+    - segment=subtitle-chunk-9-170-191
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-skill-bv1mgq4bseor-subtitle-chunk-9-170-191-料事如神
+    domain: skill
+    entry_kind: skill_profile
+    topic: 料事如神
+    aliases: []
+    facts:
+    - 视频片段提到料事如神是当前讨论阵容中的关键战法。
+    - 视频证据摘要：诶有点意外的啊 一般这种都要掉到个6000多吧 然后这个是第二队 第二队一个韩当弓 我竟然也只掉了700血 我非常意外啊 第一次打就这个优势非常大了
+      这个这就奠定了这对啊 直接起飞了 就那么这时候啊 我们技能带的是士别3日盛气吹风 速成武当
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1mGQ4BSEoR#170-191
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 关羽
+    - 张飞
+    - 郭嘉
+    priority: 64
+    structured_data:
+      name: 料事如神
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1mGQ4BSEoR/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:36:06'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1mGQ4BSEoR
+    - segment=subtitle-chunk-9-170-191
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-skill-bv1mgq4bseor-subtitle-chunk-9-170-191-上兵伐谋
+    domain: skill
+    entry_kind: skill_profile
+    topic: 上兵伐谋
+    aliases: []
+    facts:
+    - 视频片段提到上兵伐谋是当前讨论阵容中的关键战法。
+    - 视频证据摘要：诶有点意外的啊 一般这种都要掉到个6000多吧 然后这个是第二队 第二队一个韩当弓 我竟然也只掉了700血 我非常意外啊 第一次打就这个优势非常大了
+      这个这就奠定了这对啊 直接起飞了 就那么这时候啊 我们技能带的是士别3日盛气吹风 速成武当
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1mGQ4BSEoR#170-191
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 关羽
+    - 张飞
+    - 郭嘉
+    priority: 64
+    structured_data:
+      name: 上兵伐谋
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1mGQ4BSEoR/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T08:36:06'
+    review_status: normalized
+    review_notes:
+    - auto-normalized from bilibili video BV1mGQ4BSEoR
+    - segment=subtitle-chunk-9-170-191
+    - 'evidence_gate: subtitle/conclusion text combined with localized video screenshot
+      frame'
+    - frame_count=2; require_vision=True
+  entry:
+    id: video-skill-bv1mgq4bseor-subtitle-chunk-9-170-191-横扫
+    domain: skill
+    entry_kind: skill_profile
+    topic: 横扫千军
+    aliases: []
+    facts:
+    - 视频片段提到横扫千军是当前讨论阵容中的关键战法。
+    - 视频证据摘要：诶有点意外的啊 一般这种都要掉到个6000多吧 然后这个是第二队 第二队一个韩当弓 我竟然也只掉了700血 我非常意外啊 第一次打就这个优势非常大了
+      这个这就奠定了这对啊 直接起飞了 就那么这时候啊 我们技能带的是士别3日盛气吹风 速成武当
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1mGQ4BSEoR#170-191
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 关羽
+    - 张飞
+    - 郭嘉
+    priority: 64
+    structured_data:
+      name: 横扫千军
+      aliases: []
+      rarity: null
+      skill_type: null
+      trigger_type: null
+      target_scope: null
+      effect_tags: []
+      preferred_roles: []
+      notes: []
