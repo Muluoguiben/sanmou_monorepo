@@ -22,6 +22,7 @@ from typing import Protocol
 from qa_agent.vision.extractor import ImageExtractor, VisionExtraction
 from qa_agent.vision.image_loader import prepare_image_inputs
 
+from .evidence_quality import classify_vision_frame_kind
 from .models import VideoKnowledgeDocument, VideoSegment
 
 logger = logging.getLogger(__name__)
@@ -130,6 +131,16 @@ def _merge_vision_result(segment: VideoSegment, vision: VisionExtraction) -> Vid
         if snippet and snippet not in existing_ocr:
             additions.append(snippet)
             existing_ocr.add(snippet)
+
+    frame_kind = classify_vision_frame_kind(
+        hero_count=len(vision.heroes),
+        skill_count=len(vision.skills),
+        text_snippets=[_repair_mojibake(snippet) for snippet in vision.text_snippets],
+    )
+    frame_kind_tag = f"vision:frame_kind:{frame_kind}"
+    if frame_kind_tag not in existing_ocr:
+        additions.append(frame_kind_tag)
+        existing_ocr.add(frame_kind_tag)
 
     if not additions:
         return segment

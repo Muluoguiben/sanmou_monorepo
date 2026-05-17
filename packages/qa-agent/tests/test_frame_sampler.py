@@ -8,6 +8,7 @@ from qa_agent.video.frame_sampler import (
     FrameSampleRequest,
     RemoteFrameSampleRequest,
     attach_frames_to_segments,
+    plan_evidence_frame_timestamps,
     plan_sample_timestamps,
     sample_frames,
     sample_remote_frames,
@@ -39,6 +40,23 @@ class PlanSampleTimestampsTests(unittest.TestCase):
     def test_max_frames_caps_output(self) -> None:
         result = plan_sample_timestamps(duration_sec=600.0, interval_sec=30.0, max_frames=3)
         self.assertEqual(result, [0.0, 30.0, 60.0])
+
+    def test_evidence_plan_prefers_keyword_segments_and_skips_intro(self) -> None:
+        segments = [
+            {"start_sec": 0.0, "end_sec": 10.0, "transcript_lines": ["开场封面"]},
+            {"start_sec": 20.0, "end_sec": 40.0, "transcript_lines": ["这里讲开荒阵容和武将"]},
+            {"start_sec": 80.0, "end_sec": 100.0, "transcript_lines": ["普通闲聊"]},
+        ]
+        self.assertEqual(
+            plan_evidence_frame_timestamps(
+                duration_sec=180.0,
+                segments=segments,
+                interval_sec=60.0,
+                start_sec=15.0,
+                max_frames=3,
+            ),
+            [15.0, 30.0, 75.0],
+        )
 
 
 class SampleFramesTests(unittest.TestCase):

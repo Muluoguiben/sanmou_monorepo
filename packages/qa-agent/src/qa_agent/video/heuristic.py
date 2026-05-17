@@ -56,6 +56,14 @@ def _scan_entities(text: str, lookup: dict[str, str]) -> list[str]:
     return hits
 
 
+def _scan_terms(text: str, terms: list[str]) -> list[str]:
+    hits: list[str] = []
+    for term in terms:
+        if term in text and term not in hits:
+            hits.append(term)
+    return hits
+
+
 def _extract_excluded_hero_terms(text: str) -> set[str]:
     excluded: set[str] = set()
     for match in re.finditer(r"解锁了(.{1,4})的经书", text):
@@ -120,6 +128,20 @@ class HeuristicVideoKnowledgeExtractor:
             excluded_heroes = _extract_excluded_hero_terms(merged_text)
 
             for token in segment.ocr_lines:
+                if token.startswith("vision:hero:"):
+                    raw_name = token.split(":", 2)[2]
+                    canonical_hero = hero_lookup.get(raw_name) or (raw_name if raw_name in self.hero_terms else None)
+                    if canonical_hero and canonical_hero not in hero_names:
+                        hero_names.append(canonical_hero)
+                    continue
+                if token.startswith("vision:skill:"):
+                    raw_name = token.split(":", 2)[2]
+                    canonical_skill = skill_lookup.get(raw_name) or (raw_name if raw_name in self.skill_terms else None)
+                    if canonical_skill and canonical_skill not in core_skills and canonical_skill not in _SKILL_STOPWORDS:
+                        core_skills.append(canonical_skill)
+                    continue
+                if token.startswith("vision:frame_kind:"):
+                    continue
                 canonical_hero = hero_lookup.get(token)
                 if canonical_hero and canonical_hero not in hero_names:
                     hero_names.append(canonical_hero)
@@ -128,11 +150,6 @@ class HeuristicVideoKnowledgeExtractor:
                 if canonical_skill and canonical_skill not in core_skills:
                     core_skills.append(canonical_skill)
                     continue
-                if 2 <= len(token) <= 4 and token not in _ENTITY_STOPWORDS:
-                    if len(hero_names) < 3 and token not in hero_names:
-                        hero_names.append(token)
-                    elif token not in core_skills:
-                        core_skills.append(token)
 
             for canonical in _scan_entities(merged_text, hero_lookup):
                 if canonical not in hero_names and canonical not in excluded_heroes:
@@ -301,17 +318,29 @@ class HeuristicVideoKnowledgeExtractor:
     def _extract_hero_names(self, text: str) -> list[str]:
         names: list[str] = []
         hero_lookup = _build_reverse_alias_map(self.hero_aliases)
+        for line in text.split():
+            if line.startswith("vision:hero:"):
+                raw_name = line.split(":", 2)[2]
+                canonical = hero_lookup.get(raw_name) or (raw_name if raw_name in self.hero_terms else None)
+                if canonical and canonical not in names:
+                    names.append(canonical)
         for canonical in _scan_entities(text, hero_lookup):
             if canonical not in names:
                 names.append(canonical)
-        for term in self.hero_terms:
-            if term in text and term not in names:
+        for term in _scan_terms(text, self.hero_terms):
+            if term not in names:
                 names.append(term)
         return names
 
     def _extract_skill_names(self, text: str) -> list[str]:
         names: list[str] = []
         skill_lookup = _build_reverse_alias_map(self.skill_aliases)
+        for line in text.split():
+            if line.startswith("vision:skill:"):
+                raw_name = line.split(":", 2)[2]
+                canonical = skill_lookup.get(raw_name) or (raw_name if raw_name in self.skill_terms else None)
+                if canonical and canonical not in names and canonical not in _SKILL_STOPWORDS:
+                    names.append(canonical)
         for canonical in _scan_entities(text, skill_lookup):
             if canonical not in names and canonical not in _SKILL_STOPWORDS:
                 names.append(canonical)

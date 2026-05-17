@@ -88,6 +88,7 @@ class EnrichDocumentWithVisionTests(unittest.TestCase):
         new_lines = enriched.segments[0].ocr_lines
         self.assertIn("vision:hero:诸葛亮", new_lines)
         self.assertIn("vision:hero:祝融夫人", new_lines)
+        self.assertIn("vision:frame_kind:lineup_table", new_lines)
         self.assertIn("兵力 30000", new_lines)
         self.assertIn("原有一行", new_lines)
         self.assertIn("[视觉补充]", enriched.segments[0].visual_summary)
@@ -135,7 +136,8 @@ class EnrichDocumentWithVisionTests(unittest.TestCase):
         extractor = _FakeExtractor(result)
         enriched, stats = enrich_document_with_vision(_make_doc([segment]), extractor=extractor)
         self.assertEqual(enriched.segments[0].ocr_lines.count("vision:hero:诸葛亮"), 1)
-        self.assertEqual(stats.segments_enriched, 0)
+        self.assertIn("vision:frame_kind:unknown", enriched.segments[0].ocr_lines)
+        self.assertEqual(stats.segments_enriched, 1)
 
     def test_extractor_error_leaves_segment_untouched(self) -> None:
         frame = _make_frame("vision-frame-3.jpg")

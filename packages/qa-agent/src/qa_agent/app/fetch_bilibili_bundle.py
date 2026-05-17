@@ -17,7 +17,7 @@ from qa_agent.video.asr import download_audio_file, fetch_bilibili_audio_url, tr
 from qa_agent.video.frame_sampler import (
     FrameSampleRequest,
     RemoteFrameSampleRequest,
-    plan_sample_timestamps,
+    plan_evidence_frame_timestamps,
     resolve_ffmpeg_binary,
     sample_frames,
     sample_remote_frames,
@@ -36,6 +36,7 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--asr-model", default="small", help="faster-whisper model name for ASR fallback.")
     parser.add_argument("--with-frames", action="store_true", help="Download the video stream and sample still frames for multimodal extraction.")
     parser.add_argument("--frame-interval", type=float, default=30.0, help="Seconds between sampled frames (default 30s).")
+    parser.add_argument("--frame-start", type=float, default=15.0, help="Skip intro/title-card seconds before sampling frames (default 15s).")
     parser.add_argument("--frame-max-count", type=int, default=40, help="Maximum number of frames to sample per video (default 40).")
     parser.add_argument("--frame-max-bytes", type=int, default=60 * 1024 * 1024, help="Cap bytes downloaded from the video stream (default 60MB).")
     parser.add_argument("--frame-output-dir", help="Directory for sampled frame JPEGs (default: <bundle>.frames next to the bundle).")
@@ -321,8 +322,10 @@ def _sample_frames_for_bundle(
     duration_sec: float,
     output_dir: Path,
     interval_sec: float,
+    start_sec: float,
     max_frames: int,
     max_bytes: int,
+    segments: list[VideoEvidenceSegment],
 ) -> list[VideoFrameRef]:
     if not cookie_header:
         return []
@@ -330,9 +333,11 @@ def _sample_frames_for_bundle(
         ffmpeg_path = resolve_ffmpeg_binary()
     except FileNotFoundError:
         return []
-    timestamps = plan_sample_timestamps(
+    timestamps = plan_evidence_frame_timestamps(
         duration_sec=duration_sec,
+        segments=segments,
         interval_sec=interval_sec,
+        start_sec=start_sec,
         max_frames=max_frames,
     )
     if not timestamps:
@@ -525,8 +530,10 @@ def main() -> None:
             duration_sec=duration_sec,
             output_dir=frame_dir,
             interval_sec=args.frame_interval,
+            start_sec=args.frame_start,
             max_frames=args.frame_max_count,
             max_bytes=args.frame_max_bytes,
+            segments=segments,
         )
         _attach_frames_to_evidence_segments(segments, frame_refs)
     bundle = VideoEvidenceBundle(

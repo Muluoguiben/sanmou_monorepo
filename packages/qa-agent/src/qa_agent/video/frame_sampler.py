@@ -12,6 +12,22 @@ from .models import VideoFrameRef
 
 FrameRunner = Callable[[Sequence[str]], None]
 
+_EVIDENCE_FRAME_KEYWORDS = (
+    "阵容",
+    "武将",
+    "战法",
+    "开荒",
+    "打地",
+    "守军",
+    "兵力",
+    "战报",
+    "战损",
+    "等级",
+    "部队",
+    "体力",
+    "征兵",
+)
+
 
 @dataclass(frozen=True)
 class FrameSampleRequest:
@@ -75,6 +91,72 @@ def plan_sample_timestamps(
             break
         current += interval_sec
     return timestamps
+
+
+def plan_evidence_frame_timestamps(
+    *,
+    duration_sec: float,
+    segments: Iterable[object],
+    interval_sec: float = 120.0,
+    start_sec: float = 15.0,
+    max_frames: int | None = None,
+) -> list[float]:
+    """Prefer frames near informative subtitle segments, then fill by interval.
+
+    The Bilibili workflow previously sampled t=0 heavily, which often captures
+    covers/title cards. This planner skips the intro by default and places
+    frames near segments that mention concrete game evidence terms.
+    """
+    if duration_sec <= 0:
+        return []
+    if interval_sec <= 0:
+        raise ValueError("interval_sec must be positive")
+    limit = max_frames if max_frames is not None else 10**9
+    timestamps: list[float] = []
+
+    for segment in segments:
+        start = _segment_value(segment, "start_sec")
+        end = _segment_value(segment, "end_sec")
+        if end <= start or end < start_sec:
+            continue
+        text = _segment_text(segment)
+        if not any(keyword in text for keyword in _EVIDENCE_FRAME_KEYWORDS):
+            continue
+        timestamp = min(max((start + end) / 2.0, start_sec), max(end - 0.2, start_sec))
+        _append_unique_timestamp(timestamps, timestamp)
+        if len(timestamps) >= limit:
+            return sorted(timestamps[:limit])
+
+    for timestamp in plan_sample_timestamps(
+        duration_sec=duration_sec,
+        interval_sec=interval_sec,
+        start_sec=start_sec,
+        max_frames=max_frames,
+    ):
+        _append_unique_timestamp(timestamps, timestamp)
+        if len(timestamps) >= limit:
+            break
+    return sorted(timestamps[:limit])
+
+
+def _segment_value(segment: object, field: str) -> float:
+    if isinstance(segment, dict):
+        return float(segment.get(field) or 0.0)
+    return float(getattr(segment, field, 0.0) or 0.0)
+
+
+def _segment_text(segment: object) -> str:
+    if isinstance(segment, dict):
+        lines = segment.get("transcript_lines") or []
+        return " ".join([str(segment.get("title") or ""), str(segment.get("transcript") or ""), *map(str, lines)])
+    lines = getattr(segment, "transcript_lines", []) or []
+    return " ".join([str(getattr(segment, "title", "") or ""), str(getattr(segment, "transcript", "") or ""), *map(str, lines)])
+
+
+def _append_unique_timestamp(timestamps: list[float], timestamp: float) -> None:
+    rounded = round(timestamp, 3)
+    if rounded not in timestamps:
+        timestamps.append(rounded)
 
 
 def _build_ffmpeg_args(

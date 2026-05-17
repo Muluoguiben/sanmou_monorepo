@@ -17,10 +17,9 @@ import yaml
 from qa_agent.chat.env import load_package_env
 from qa_agent.ingestion.models import ReviewStatus, StagingEntry
 from qa_agent.ingestion.publish import publish_entries
-from qa_agent.knowledge.loader import load_entries_from_file
 from qa_agent.knowledge.models import Domain, EntryKind, KnowledgeEntry
 from qa_agent.video import dump_video_knowledge_document, load_video_knowledge_document, stage_all_video_entries
-from qa_agent.video.models import VideoKnowledgeDocument
+from qa_agent.video.evidence_quality import filter_document_for_evidence_quality, load_evidence_quality_context
 
 
 @dataclass(frozen=True)
@@ -48,9 +47,11 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--extractor", choices=["heuristic", "openai", "gemini", "auto"], default="heuristic")
     parser.add_argument("--frames-per-segment", type=int, default=2)
     parser.add_argument("--frame-interval", type=float, default=120.0)
+    parser.add_argument("--frame-start", type=float, default=15.0)
     parser.add_argument("--frame-max-count", type=int, default=6)
     parser.add_argument("--min-confidence", type=float, default=0.5)
     parser.add_argument("--allow-no-vision", action="store_true", help="Accept segments with a local frame even if vision enrichment returned no text.")
+    parser.add_argument("--publish", action="store_true", help="Update formal knowledge_sources. Default is staging-only.")
     parser.add_argument("--no-publish", action="store_true", help="Write staging/summary only; do not update formal knowledge_sources.")
     parser.add_argument("--raw-dir", default="packages/qa-agent/ingestion/raw/videos/bilibili-kaihuang-100-2026-05-17")
     parser.add_argument("--frame-dir", default="packages/qa-agent/ingestion/raw/videos/bilibili-kaihuang-100-2026-05-17-frames")
@@ -63,6 +64,10 @@ def _build_parser() -> argparse.ArgumentParser:
 
 def _project_root() -> Path:
     return Path(__file__).resolve().parents[5]
+
+
+def _package_root(project_root: Path) -> Path:
+    return project_root / "packages" / "qa-agent"
 
 
 def _resolve_path(raw: str, project_root: Path) -> Path:
@@ -163,38 +168,6 @@ def _localize_bundle_frames(
     return count
 
 
-def _segment_has_vision(segment: Any) -> bool:
-    visual_summary = getattr(segment, "visual_summary", "") or ""
-    if "[视觉补充]" in visual_summary:
-        return True
-    ocr_lines = [str(line).strip() for line in getattr(segment, "ocr_lines", []) or [] if str(line).strip()]
-    if any(line.startswith("vision:") for line in ocr_lines):
-        return True
-    return bool(ocr_lines)
-
-
-def _valid_frame_segment_ids(document: VideoKnowledgeDocument, *, require_vision: bool) -> set[str]:
-    valid: set[str] = set()
-    for segment in document.segments:
-        if not segment.frame_refs:
-            continue
-        if require_vision and not _segment_has_vision(segment):
-            continue
-        valid.add(segment.segment_id)
-    return valid
-
-
-def _filter_document_to_segments(document: VideoKnowledgeDocument, valid_segment_ids: set[str]) -> VideoKnowledgeDocument:
-    return document.model_copy(
-        update={
-            "lineup_candidates": [c for c in document.lineup_candidates if c.segment_id in valid_segment_ids],
-            "hero_candidates": [c for c in document.hero_candidates if c.segment_id in valid_segment_ids],
-            "skill_candidates": [c for c in document.skill_candidates if c.segment_id in valid_segment_ids],
-            "combat_candidates": [c for c in document.combat_candidates if c.segment_id in valid_segment_ids],
-        }
-    )
-
-
 def _mark_staging_normalized(items: list[StagingEntry], *, frame_count: int, require_vision: bool) -> list[dict[str, Any]]:
     out: list[dict[str, Any]] = []
     for item in items:
@@ -212,18 +185,6 @@ def _mark_staging_normalized(items: list[StagingEntry], *, frame_count: int, req
         )
         out.append(normalized.model_dump(mode="json"))
     return out
-
-
-def _load_entries_from_tree(root: Path) -> list[KnowledgeEntry]:
-    entries: list[KnowledgeEntry] = []
-    if not root.exists():
-        return entries
-    for path in sorted(root.rglob("*.yaml")):
-        try:
-            entries.extend(load_entries_from_file(path))
-        except Exception:
-            continue
-    return entries
 
 
 def _slugify_bucket(value: str) -> str:
@@ -295,8 +256,10 @@ def _process_one(
     extractor: str,
     frames_per_segment: int,
     frame_interval: float,
+    frame_start: float,
     frame_max_count: int,
     require_vision: bool,
+    quality_context: Any,
 ) -> dict[str, Any]:
     started = time.time()
     bvid = str(candidate["bvid"])
@@ -313,6 +276,8 @@ def _process_one(
             "--with-frames",
             "--frame-interval",
             str(frame_interval),
+            "--frame-start",
+            str(frame_start),
             "--frame-max-count",
             str(frame_max_count),
             "--frame-output-dir",
@@ -334,6 +299,7 @@ def _process_one(
     staging_items: list[dict[str, Any]] = []
     publish_entries_for_video: list[KnowledgeEntry] = []
     valid_segment_count = 0
+    quality_stats: dict[str, object] = {}
     if fetch_ok and frame_count > 0:
         pipeline_ok, pipeline_summary, pipeline_error = _run_module(
             project_root,
@@ -355,12 +321,15 @@ def _process_one(
         if pipeline_ok:
             enriched_path = Path(pipeline_summary["enriched_path"])
             document = load_video_knowledge_document(enriched_path)
-            valid_segment_ids = _valid_frame_segment_ids(document, require_vision=require_vision)
-            valid_segment_count = len(valid_segment_ids)
-            filtered = _filter_document_to_segments(document, valid_segment_ids)
+            filtered, quality_stats = filter_document_for_evidence_quality(
+                document,
+                quality_context,
+                require_vision=require_vision,
+            )
+            valid_segment_count = int(quality_stats["allowed_segments"])
             filtered_path = workspace / "video-knowledge-frame-gated.yaml"
             dump_video_knowledge_document(filtered_path, filtered)
-            staged, direct_entries = stage_all_video_entries(filtered, project_root)
+            staged, direct_entries = stage_all_video_entries(filtered, _package_root(project_root))
             staging_items = _mark_staging_normalized(staged, frame_count=frame_count, require_vision=require_vision)
             publish_entries_for_video = [
                 item.entry
@@ -374,6 +343,8 @@ def _process_one(
                 "skill": len(filtered.skill_candidates),
                 "combat": len(filtered.combat_candidates),
             }
+        else:
+            quality_stats = {}
     elif fetch_ok:
         pipeline_error = "skipped: no localized screenshot frame"
     return {
@@ -387,6 +358,7 @@ def _process_one(
         "pipeline_error": pipeline_error,
         "pipeline_summary": pipeline_summary,
         "valid_segment_count": valid_segment_count,
+        "quality_stats": quality_stats if fetch_ok and pipeline_ok else {},
         "filtered_counts": filtered_counts,
         "staging_items": staging_items,
         "publish_entries": publish_entries_for_video,
@@ -417,7 +389,7 @@ def _write_summary(
         f"- 本地化截图成功视频：{sum(1 for r in results if r['frame_count'] > 0)}",
         f"- 截图+vision 门禁通过视频：{len(accepted)}",
         f"- 聚合 staging entries：{staging_count}",
-        f"- 正式发布 entries：{len(selected_publish)}",
+        f"- formal publishable entries：{len(selected_publish)}",
         f"- skipped_existing_topic：{skipped_existing}",
         f"- skipped_batch_duplicate：{skipped_duplicate}",
         f"- publish stats：`{json.dumps(publish_stats, ensure_ascii=False, sort_keys=True)}`",
@@ -426,6 +398,9 @@ def _write_summary(
         "",
         "- 禁止字幕-only：候选条目必须来自带截图帧的 segment，字幕或结论文本不得单独入库。",
         f"- 当前 require_vision={require_vision}：默认要求截图经过 vision enrichment 后产生视觉补充。",
+        "- frame kind 只允许 lineup_table / hero_detail / skill_detail / battle_report / land_risk / gameplay_ui。",
+        "- lineup 必须至少包含 2 个 canonical 武将，并同时获得视觉实体与字幕实体支持。",
+        "- 默认不写入正式 `knowledge_sources/`；必须显式传 `--publish` 才会发布。",
         "- 自动抽取的 hero/skill 仅进入 staging，不自动覆盖正式静态资料。",
         "- 正式 `knowledge_sources/` 只接收 lineup/combat，且跳过已有 topic，避免把低置信自动抽取覆盖人工知识。",
         "",
@@ -472,6 +447,7 @@ def main() -> None:
     env = _build_env(project_root)
     candidates = _load_manifest(args, project_root)
     require_vision = not args.allow_no_vision
+    quality_context = load_evidence_quality_context(_package_root(project_root))
     manifest_ref = args.manifest or args.manifest_git_ref
 
     results: list[dict[str, Any]] = []
@@ -487,8 +463,10 @@ def main() -> None:
                 extractor=args.extractor,
                 frames_per_segment=args.frames_per_segment,
                 frame_interval=args.frame_interval,
+                frame_start=args.frame_start,
                 frame_max_count=args.frame_max_count,
                 require_vision=require_vision,
+                quality_context=quality_context,
             ): candidate
             for candidate in candidates
         }
@@ -523,7 +501,7 @@ def main() -> None:
         knowledge_root=paths.knowledge_root,
         min_confidence=args.min_confidence,
     )
-    publish_stats = {} if args.no_publish else publish_entries(selected_publish, paths.knowledge_root)
+    publish_stats = {} if (args.no_publish or not args.publish) else publish_entries(selected_publish, paths.knowledge_root)
     _write_summary(
         paths.summary_output,
         manifest_ref=str(manifest_ref),
@@ -542,7 +520,8 @@ def main() -> None:
                 "videos": len(results),
                 "accepted_videos": sum(1 for result in results if result["pipeline_ok"] and result["valid_segment_count"] > 0),
                 "staging_entries": len(staging_items),
-                "publish_entries": len(selected_publish),
+                "publishable_entries": len(selected_publish),
+                "publish_executed": bool(args.publish and not args.no_publish),
                 "publish_stats": publish_stats,
                 "staging_output": str(paths.staging_output),
                 "summary_output": str(paths.summary_output),
