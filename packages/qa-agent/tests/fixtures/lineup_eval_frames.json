@@ -1,0 +1,31 @@
+[
+  {
+    "path": "/tmp/bili-chencang-frames/BV1JARgBYEYE-frames/BV1JARgBYEYE-frame-008-140s.jpg",
+    "expected_kind": "scheme_table",
+    "n_cols": 3,
+    "note": "S14 陈仓 六队共存 方案A; hero GT authoritative from @muluo-lan msg 4c76c2a9",
+    "columns_gt": [
+      {"heroes": ["皇甫嵩", "郝昭", "司马懿"]},
+      {"heroes": ["左慈", "孙坚", "张宁"]},
+      {"heroes": ["木鹿大王", "祝融夫人", "孟获"]}
+    ]
+  },
+  {
+    "path": "/tmp/bili-chencang-frames/BV1QdRKB6E7S-frames/BV1QdRKB6E7S-frame-004-60s.jpg",
+    "expected_kind": "summary_table",
+    "n_cols": 4,
+    "note": "全流程阵容汇总表 4 队: 木鹿蛮/马妹/皇马/周瑜 (no per-col hero GT; measures kind+misfill+cost)"
+  },
+  {
+    "path": "/tmp/bili-chencang-frames/BV1R4d3BfENk-frames/BV1R4d3BfENk-frame-015-280s.jpg",
+    "expected_kind": "summary_table",
+    "n_cols": 5,
+    "note": "出队路线5.0 汇总 5 队: 大成周瑜/神诸葛马/左坚宁/皇太尉/郝薪火"
+  },
+  {
+    "path": "/tmp/bili-chencang-frames/BV1kVohBPEeS-frames/BV1kVohBPEeS-frame-001-0s.jpg",
+    "expected_kind": "counter_graph",
+    "n_cols": 0,
+    "note": "S14首发队伍克制关系图 — should be classified counter_graph and skipped from column extraction"
+  }
+]
