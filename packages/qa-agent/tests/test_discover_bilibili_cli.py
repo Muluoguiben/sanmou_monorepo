@@ -9,8 +9,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from unittest.mock import patch
 
+import requests
 import yaml
 
+from qa_agent.app import discover_bilibili
 from qa_agent.app.discover_bilibili import main
 
 
@@ -110,6 +112,41 @@ class DiscoverBilibiliCliTests(unittest.TestCase):
 
             data = json.loads(output_path.read_text(encoding="utf-8"))
             self.assertEqual([item["bvid"] for item in data["candidates"]], ["BV1NEW4567"])
+
+    def test_search_type_412_falls_back_to_all_search_video_group(self) -> None:
+        class FakeResponse:
+            def __init__(self, status_code: int, payload: dict) -> None:
+                self.status_code = status_code
+                self._payload = payload
+
+            def raise_for_status(self) -> None:
+                if self.status_code >= 400:
+                    raise requests.HTTPError(response=self)
+
+            def json(self) -> dict:
+                return self._payload
+
+        responses = [
+            FakeResponse(412, {"code": -412, "message": "request was banned"}),
+            FakeResponse(
+                200,
+                {
+                    "code": 0,
+                    "data": {
+                        "result": [
+                            {"result_type": "tips", "data": []},
+                            {"result_type": "video", "data": [{"bvid": "BV1FALLBACK", "title": "三谋开荒"}]},
+                        ]
+                    },
+                },
+            ),
+        ]
+
+        with patch("qa_agent.app.discover_bilibili.requests.get", side_effect=responses) as mocked_get:
+            results = discover_bilibili._fetch_search_page("三谋开荒", 1, "pubdate", {"User-Agent": "test"})
+
+        self.assertEqual(results[0]["bvid"], "BV1FALLBACK")
+        self.assertEqual(mocked_get.call_count, 2)
 
 
 if __name__ == "__main__":

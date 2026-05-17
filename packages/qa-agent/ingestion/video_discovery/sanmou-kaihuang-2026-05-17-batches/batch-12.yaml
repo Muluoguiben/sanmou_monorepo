@@ -1,0 +1,74 @@
+source: packages/qa-agent/ingestion/video_discovery/sanmou-kaihuang-2026-05-17.yaml
+batch_no: 12
+candidate_count: 5
+candidates:
+- bvid: BV14zoLBcEWL
+  title: 开荒为什么没上榜！
+  uploader: 三谋质检员
+  published_at: '2026-04-24T14:02:04Z'
+  duration_sec: 17
+  url: http://www.bilibili.com/video/av116460034725070
+  keyword: 三国谋定天下开荒
+  already_known: false
+  reason: keyword=三国谋定天下开荒; matched=开荒
+  bundle_output: packages/qa-agent/ingestion/raw/videos/bilibili-BV14zoLBcEWL.yaml
+  fetch_bundle_command: python -m qa_agent.app.fetch_bilibili_bundle --bvid BV14zoLBcEWL
+    --output packages/qa-agent/ingestion/raw/videos/bilibili-BV14zoLBcEWL.yaml
+  pipeline_command: python -m qa_agent.app.run_video_pipeline --input packages/qa-agent/ingestion/raw/videos/bilibili-BV14zoLBcEWL.yaml
+    --workspace packages/qa-agent/ingestion/video_batch/BV14zoLBcEWL
+- bvid: BV1GKojBkEqg
+  title: 【S14/W11】前期主流无双8队！——《三国：谋定天下》
+  uploader: 一剑落星河-三谋
+  published_at: '2026-04-24T12:25:38Z'
+  duration_sec: 34
+  url: http://www.bilibili.com/video/av116459665621041
+  keyword: 三国谋定天下开荒
+  already_known: false
+  reason: keyword=三国谋定天下开荒; matched=谋定天下
+  bundle_output: packages/qa-agent/ingestion/raw/videos/bilibili-BV1GKojBkEqg.yaml
+  fetch_bundle_command: python -m qa_agent.app.fetch_bilibili_bundle --bvid BV1GKojBkEqg
+    --output packages/qa-agent/ingestion/raw/videos/bilibili-BV1GKojBkEqg.yaml
+  pipeline_command: python -m qa_agent.app.run_video_pipeline --input packages/qa-agent/ingestion/raw/videos/bilibili-BV1GKojBkEqg.yaml
+    --workspace packages/qa-agent/ingestion/video_batch/BV1GKojBkEqg
+- bvid: BV14woMBVErV
+  title: 复刻真实古代强军风貌，轻松开荒养兵，顶配阵容自由搭配
+  uploader: 三国社会曹老板
+  published_at: '2026-04-23T14:34:50Z'
+  duration_sec: 57
+  url: http://www.bilibili.com/video/av116454498305270
+  keyword: 三国谋定天下开荒
+  already_known: false
+  reason: keyword=三国谋定天下开荒; matched=开荒,阵容
+  bundle_output: packages/qa-agent/ingestion/raw/videos/bilibili-BV14woMBVErV.yaml
+  fetch_bundle_command: python -m qa_agent.app.fetch_bilibili_bundle --bvid BV14woMBVErV
+    --output packages/qa-agent/ingestion/raw/videos/bilibili-BV14woMBVErV.yaml
+  pipeline_command: python -m qa_agent.app.run_video_pipeline --input packages/qa-agent/ingestion/raw/videos/bilibili-BV14woMBVErV.yaml
+    --workspace packages/qa-agent/ingestion/video_batch/BV14woMBVErV
+- bvid: BV14woMBVEDB
+  title: 50 万大军堪比天价开销！这款三国降肝减负，开荒顺滑，125 抽免费领
+  uploader: 三国社会曹老板
+  published_at: '2026-04-23T14:33:14Z'
+  duration_sec: 51
+  url: http://www.bilibili.com/video/av116454498305684
+  keyword: 三国谋定天下开荒
+  already_known: false
+  reason: keyword=三国谋定天下开荒; matched=开荒
+  bundle_output: packages/qa-agent/ingestion/raw/videos/bilibili-BV14woMBVEDB.yaml
+  fetch_bundle_command: python -m qa_agent.app.fetch_bilibili_bundle --bvid BV14woMBVEDB
+    --output packages/qa-agent/ingestion/raw/videos/bilibili-BV14woMBVEDB.yaml
+  pipeline_command: python -m qa_agent.app.run_video_pipeline --input packages/qa-agent/ingestion/raw/videos/bilibili-BV14woMBVEDB.yaml
+    --workspace packages/qa-agent/ingestion/video_batch/BV14woMBVEDB
+- bvid: BV1WwUhYXErd
+  title: 【三国谋定天下】S4开荒实录（0剪辑）
+  uploader: 双黄莲蓉粽子
+  published_at: '2024-11-16T05:34:03Z'
+  duration_sec: 7200
+  url: http://www.bilibili.com/video/av113490937255105
+  keyword: 三国谋定天下开荒
+  already_known: false
+  reason: keyword=三国谋定天下开荒; matched=谋定天下,开荒
+  bundle_output: packages/qa-agent/ingestion/raw/videos/bilibili-BV1WwUhYXErd.yaml
+  fetch_bundle_command: python -m qa_agent.app.fetch_bilibili_bundle --bvid BV1WwUhYXErd
+    --output packages/qa-agent/ingestion/raw/videos/bilibili-BV1WwUhYXErd.yaml
+  pipeline_command: python -m qa_agent.app.run_video_pipeline --input packages/qa-agent/ingestion/raw/videos/bilibili-BV1WwUhYXErd.yaml
+    --workspace packages/qa-agent/ingestion/video_batch/BV1WwUhYXErd

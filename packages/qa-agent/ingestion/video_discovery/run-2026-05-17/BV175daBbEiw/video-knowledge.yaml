@@ -1,0 +1,69 @@
+source:
+  video_id: BV175daBbEiw
+  title: 【S14/W11开荒】无刘备天工开局！一镜到底！第一天——《三国：谋定天下》
+  uploader: 一剑落星河-三谋
+  source_url: https://www.bilibili.com/video/BV175daBbEiw/
+  description: 本篇为最近版本，直接使用即可！
+  ai_summary: null
+  ai_outline: []
+  subtitle_catalog: []
+  published_at: '2026-04-17T03:00:00'
+  captured_at: '2026-05-17T05:09:49'
+segments:
+- segment_id: metadata-summary-0-4641
+  start_sec: 0.0
+  end_sec: 4641.0
+  transcript: 【S14/W11开荒】无刘备天工开局！一镜到底！第一天——《三国：谋定天下》 本篇为最近版本，直接使用即可！
+  ocr_lines: []
+  visual_summary: B站元数据导入。首帧：http://i1.hdslb.com/bfs/storyff/_00002hyh9ud192bs92ug5bi66ggxg6b_firsti.jpg
+  frame_refs:
+  - timestamp_sec: 0.0
+    image_path: http://i1.hdslb.com/bfs/storyff/_00002hyh9ud192bs92ug5bi66ggxg6b_firsti.jpg
+    notes:
+    - metadata-summary
+lineup_candidates:
+- candidate_id: s14刘备开荒队
+  segment_id: metadata-summary-0-4641
+  topic: S14刘备开荒队
+  aliases: []
+  season_tags:
+  - S14
+  lineup_rating: null
+  factions: []
+  hero_names:
+  - 刘备
+  - 天工
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  facts:
+  - 该阵容主要用于开荒。
+  - 核心武将包括刘备、天工。
+  constraints: []
+  notes: []
+  confidence: 0.62
+hero_candidates:
+- candidate_id: metadata-summary-0-4641-刘备
+  segment_id: metadata-summary-0-4641
+  hero_name: 刘备
+  facts:
+  - 视频片段将刘备列为当前阶段的重要武将。
+  - 刘备在片段中与天工一起被讨论。
+  constraints: []
+  related_topics:
+  - 刘备
+  - 天工
+  confidence: 0.55
+- candidate_id: metadata-summary-0-4641-天工
+  segment_id: metadata-summary-0-4641
+  hero_name: 天工
+  facts:
+  - 视频片段将天工列为当前阶段的重要武将。
+  - 天工在片段中与刘备一起被讨论。
+  constraints: []
+  related_topics:
+  - 刘备
+  - 天工
+  confidence: 0.55
+skill_candidates: []
+combat_candidates: []

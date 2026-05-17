@@ -1,0 +1,74 @@
+source: packages/qa-agent/ingestion/video_discovery/sanmou-kaihuang-2026-05-17.yaml
+batch_no: 8
+candidate_count: 5
+candidates:
+- bvid: BV1NSDxBkEAU
+  title: 孙小瑜-三谋开荒打架双推荐
+  uploader: 三谋_小九
+  published_at: '2026-04-09T12:11:57Z'
+  duration_sec: 67
+  url: http://www.bilibili.com/video/av116374672246658
+  keyword: 三谋开荒
+  already_known: false
+  reason: keyword=三谋开荒; matched=三谋,开荒
+  bundle_output: packages/qa-agent/ingestion/raw/videos/bilibili-BV1NSDxBkEAU.yaml
+  fetch_bundle_command: python -m qa_agent.app.fetch_bilibili_bundle --bvid BV1NSDxBkEAU
+    --output packages/qa-agent/ingestion/raw/videos/bilibili-BV1NSDxBkEAU.yaml
+  pipeline_command: python -m qa_agent.app.run_video_pipeline --input packages/qa-agent/ingestion/raw/videos/bilibili-BV1NSDxBkEAU.yaml
+    --workspace packages/qa-agent/ingestion/video_batch/BV1NSDxBkEAU
+- bvid: BV1XYDvB5E3s
+  title: 三谋全赛季开荒冲榜通用焚诀
+  uploader: 伯渊__
+  published_at: '2026-04-07T08:38:54Z'
+  duration_sec: 978
+  url: http://www.bilibili.com/video/av116362508768297
+  keyword: 三谋开荒
+  already_known: false
+  reason: keyword=三谋开荒; matched=三谋,开荒,赛季
+  bundle_output: packages/qa-agent/ingestion/raw/videos/bilibili-BV1XYDvB5E3s.yaml
+  fetch_bundle_command: python -m qa_agent.app.fetch_bilibili_bundle --bvid BV1XYDvB5E3s
+    --output packages/qa-agent/ingestion/raw/videos/bilibili-BV1XYDvB5E3s.yaml
+  pipeline_command: python -m qa_agent.app.run_video_pipeline --input packages/qa-agent/ingestion/raw/videos/bilibili-BV1XYDvB5E3s.yaml
+    --workspace packages/qa-agent/ingestion/video_batch/BV1XYDvB5E3s
+- bvid: BV1cMSfBdEnt
+  title: 三谋S1赛季开荒配队攻略，三个愿望一次满足
+  uploader: 斗主公
+  published_at: '2026-04-06T13:54:32Z'
+  duration_sec: 126
+  url: http://www.bilibili.com/video/av116358096362764
+  keyword: 三谋开荒
+  already_known: false
+  reason: keyword=三谋开荒; matched=三谋,开荒,赛季
+  bundle_output: packages/qa-agent/ingestion/raw/videos/bilibili-BV1cMSfBdEnt.yaml
+  fetch_bundle_command: python -m qa_agent.app.fetch_bilibili_bundle --bvid BV1cMSfBdEnt
+    --output packages/qa-agent/ingestion/raw/videos/bilibili-BV1cMSfBdEnt.yaml
+  pipeline_command: python -m qa_agent.app.run_video_pipeline --input packages/qa-agent/ingestion/raw/videos/bilibili-BV1cMSfBdEnt.yaml
+    --workspace packages/qa-agent/ingestion/video_batch/BV1cMSfBdEnt
+- bvid: BV1QsSoBKEnD
+  title: 497世界杯各盟开荒数据统计，墨染阵营开荒大优
+  uploader: 三谋薇薇ovo
+  published_at: '2026-04-06T09:41:42Z'
+  duration_sec: 145
+  url: http://www.bilibili.com/video/av116357089728714
+  keyword: 三谋开荒
+  already_known: false
+  reason: keyword=三谋开荒; matched=开荒
+  bundle_output: packages/qa-agent/ingestion/raw/videos/bilibili-BV1QsSoBKEnD.yaml
+  fetch_bundle_command: python -m qa_agent.app.fetch_bilibili_bundle --bvid BV1QsSoBKEnD
+    --output packages/qa-agent/ingestion/raw/videos/bilibili-BV1QsSoBKEnD.yaml
+  pipeline_command: python -m qa_agent.app.run_video_pipeline --input packages/qa-agent/ingestion/raw/videos/bilibili-BV1QsSoBKEnD.yaml
+    --workspace packages/qa-agent/ingestion/video_batch/BV1QsSoBKEnD
+- bvid: BV1gKSwYHEDj
+  title: S1全开荒阵容一览，绝对有你能出的一队【三国：谋定天下】
+  uploader: 诸葛不亮了T_T
+  published_at: '2024-11-19T12:26:18Z'
+  duration_sec: 138
+  url: http://www.bilibili.com/video/av113509593585569
+  keyword: 三谋开荒
+  already_known: false
+  reason: keyword=三谋开荒; matched=谋定天下,开荒,阵容,赛季
+  bundle_output: packages/qa-agent/ingestion/raw/videos/bilibili-BV1gKSwYHEDj.yaml
+  fetch_bundle_command: python -m qa_agent.app.fetch_bilibili_bundle --bvid BV1gKSwYHEDj
+    --output packages/qa-agent/ingestion/raw/videos/bilibili-BV1gKSwYHEDj.yaml
+  pipeline_command: python -m qa_agent.app.run_video_pipeline --input packages/qa-agent/ingestion/raw/videos/bilibili-BV1gKSwYHEDj.yaml
+    --workspace packages/qa-agent/ingestion/video_batch/BV1gKSwYHEDj

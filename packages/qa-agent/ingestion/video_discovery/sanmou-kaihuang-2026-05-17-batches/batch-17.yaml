@@ -1,0 +1,74 @@
+source: packages/qa-agent/ingestion/video_discovery/sanmou-kaihuang-2026-05-17.yaml
+batch_no: 17
+candidate_count: 5
+candidates:
+- bvid: BV1g8PNeYEvP
+  title: S6·开荒实录——低红稳榜前三
+  uploader: 铁血雕馋
+  published_at: '2025-02-22T06:09:11Z'
+  duration_sec: 6650
+  url: http://www.bilibili.com/video/av114045994733643
+  keyword: 三国谋定天下开荒
+  already_known: false
+  reason: keyword=三国谋定天下开荒; matched=开荒
+  bundle_output: packages/qa-agent/ingestion/raw/videos/bilibili-BV1g8PNeYEvP.yaml
+  fetch_bundle_command: python -m qa_agent.app.fetch_bilibili_bundle --bvid BV1g8PNeYEvP
+    --output packages/qa-agent/ingestion/raw/videos/bilibili-BV1g8PNeYEvP.yaml
+  pipeline_command: python -m qa_agent.app.run_video_pipeline --input packages/qa-agent/ingestion/raw/videos/bilibili-BV1g8PNeYEvP.yaml
+    --workspace packages/qa-agent/ingestion/video_batch/BV1g8PNeYEvP
+- bvid: BV17gmRYrEnP
+  title: S4开荒流程图，多种阵容推荐，一图在手，开荒不愁
+  uploader: 骞与骞寻i
+  published_at: '2024-11-15T08:01:00Z'
+  duration_sec: 50
+  url: http://www.bilibili.com/video/av113485904090283
+  keyword: 三国谋定天下开荒
+  already_known: false
+  reason: keyword=三国谋定天下开荒; matched=三谋,开荒,阵容
+  bundle_output: packages/qa-agent/ingestion/raw/videos/bilibili-BV17gmRYrEnP.yaml
+  fetch_bundle_command: python -m qa_agent.app.fetch_bilibili_bundle --bvid BV17gmRYrEnP
+    --output packages/qa-agent/ingestion/raw/videos/bilibili-BV17gmRYrEnP.yaml
+  pipeline_command: python -m qa_agent.app.run_video_pipeline --input packages/qa-agent/ingestion/raw/videos/bilibili-BV17gmRYrEnP.yaml
+    --workspace packages/qa-agent/ingestion/video_batch/BV17gmRYrEnP
+- bvid: BV17ibzzAEHD
+  title: 【S1最强马超队】可能是继大黄诸之后，又一个T0队伍
+  uploader: 三谋老头
+  published_at: '2025-08-14T10:37:57Z'
+  duration_sec: 311
+  url: http://www.bilibili.com/video/av115026673274212
+  keyword: 三国谋定天下开荒
+  already_known: false
+  reason: keyword=三国谋定天下开荒
+  bundle_output: packages/qa-agent/ingestion/raw/videos/bilibili-BV17ibzzAEHD.yaml
+  fetch_bundle_command: python -m qa_agent.app.fetch_bilibili_bundle --bvid BV17ibzzAEHD
+    --output packages/qa-agent/ingestion/raw/videos/bilibili-BV17ibzzAEHD.yaml
+  pipeline_command: python -m qa_agent.app.run_video_pipeline --input packages/qa-agent/ingestion/raw/videos/bilibili-BV17ibzzAEHD.yaml
+    --workspace packages/qa-agent/ingestion/video_batch/BV17ibzzAEHD
+- bvid: BV1EroEB4ESY
+  title: S14·前期共存 优化版
+  uploader: 铁血雕馋
+  published_at: '2026-04-24T15:31:09Z'
+  duration_sec: 1080
+  url: http://www.bilibili.com/video/av116460387111235
+  keyword: 三国谋定天下开荒
+  already_known: false
+  reason: keyword=三国谋定天下开荒; matched=开荒,赛季
+  bundle_output: packages/qa-agent/ingestion/raw/videos/bilibili-BV1EroEB4ESY.yaml
+  fetch_bundle_command: python -m qa_agent.app.fetch_bilibili_bundle --bvid BV1EroEB4ESY
+    --output packages/qa-agent/ingestion/raw/videos/bilibili-BV1EroEB4ESY.yaml
+  pipeline_command: python -m qa_agent.app.run_video_pipeline --input packages/qa-agent/ingestion/raw/videos/bilibili-BV1EroEB4ESY.yaml
+    --workspace packages/qa-agent/ingestion/video_batch/BV1EroEB4ESY
+- bvid: BV1xbgzzAE1P
+  title: 更新s1保姆级开荒及打架攻略，仅供参考，欢迎交流。
+  uploader: 墨镜老表
+  published_at: '2025-07-21T06:02:23Z'
+  duration_sec: 992
+  url: http://www.bilibili.com/video/av114889502822179
+  keyword: 三国谋定天下开荒
+  already_known: false
+  reason: keyword=三国谋定天下开荒; matched=开荒
+  bundle_output: packages/qa-agent/ingestion/raw/videos/bilibili-BV1xbgzzAE1P.yaml
+  fetch_bundle_command: python -m qa_agent.app.fetch_bilibili_bundle --bvid BV1xbgzzAE1P
+    --output packages/qa-agent/ingestion/raw/videos/bilibili-BV1xbgzzAE1P.yaml
+  pipeline_command: python -m qa_agent.app.run_video_pipeline --input packages/qa-agent/ingestion/raw/videos/bilibili-BV1xbgzzAE1P.yaml
+    --workspace packages/qa-agent/ingestion/video_batch/BV1xbgzzAE1P

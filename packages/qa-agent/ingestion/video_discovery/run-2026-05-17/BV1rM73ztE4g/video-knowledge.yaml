@@ -1,0 +1,76 @@
+source:
+  video_id: BV1rM73ztE4g
+  title: 问鼎开荒新神——薪火枪——开荒变天（白板超稳定开789）
+  uploader: 铁血雕馋
+  source_url: https://www.bilibili.com/video/BV1rM73ztE4g/
+  description: '🐧二群 1044188806
+
+    🐧一群  727618062（已满）
+
+    首发队推荐、全赛季强队合集、五队共存、开荒攻略、演武武将强度、武将价值、战法价值、装备词条、都在里面，持续更新'
+  ai_summary: null
+  ai_outline: []
+  subtitle_catalog: []
+  published_at: '2025-06-01T05:21:35'
+  captured_at: '2026-05-17T05:19:17'
+segments:
+- segment_id: metadata-summary-0-266
+  start_sec: 0.0
+  end_sec: 266.0
+  transcript: '问鼎开荒新神——薪火枪——开荒变天（白板超稳定开789） 🐧二群 1044188806
+
+    🐧一群  727618062（已满）
+
+    首发队推荐、全赛季强队合集、五队共存、开荒攻略、演武武将强度、武将价值、战法价值、装备词条、都在里面，持续更新'
+  ocr_lines: []
+  visual_summary: B站元数据导入。首帧：http://i2.hdslb.com/bfs/storyff/n250601sa4492osqqj7z93iwluw2a8qc_firsti.jpg
+  frame_refs:
+  - timestamp_sec: 0.0
+    image_path: http://i2.hdslb.com/bfs/storyff/n250601sa4492osqqj7z93iwluw2a8qc_firsti.jpg
+    notes:
+    - metadata-summary
+lineup_candidates:
+- candidate_id: 装备词条开荒队
+  segment_id: metadata-summary-0-266
+  topic: 装备词条开荒队
+  aliases: []
+  season_tags: []
+  lineup_rating: null
+  factions: []
+  hero_names:
+  - 装备词条
+  - 武将
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  facts:
+  - 该阵容主要用于开荒。
+  - 核心武将包括装备词条、武将。
+  constraints: []
+  notes: []
+  confidence: 0.62
+hero_candidates:
+- candidate_id: metadata-summary-0-266-装备词条
+  segment_id: metadata-summary-0-266
+  hero_name: 装备词条
+  facts:
+  - 视频片段将装备词条列为当前阶段的重要武将。
+  - 装备词条在片段中与武将一起被讨论。
+  constraints: []
+  related_topics:
+  - 装备词条
+  - 武将
+  confidence: 0.55
+- candidate_id: metadata-summary-0-266-武将
+  segment_id: metadata-summary-0-266
+  hero_name: 武将
+  facts:
+  - 视频片段将武将列为当前阶段的重要武将。
+  - 武将在片段中与装备词条一起被讨论。
+  constraints: []
+  related_topics:
+  - 装备词条
+  - 武将
+  confidence: 0.55
+skill_candidates: []
+combat_candidates: []

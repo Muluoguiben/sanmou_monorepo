@@ -1,0 +1,99 @@
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1mGQ4BSEoR/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T05:23:56'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1mGQ4BSEoR
+    - segment=metadata-summary-0-225
+  entry:
+    id: video-lineup-bv1mgq4bseor-bv1mgq4bseor-太史慈开荒教程，6小时低损开6
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 太史慈开荒教程，6小时低损开6
+    aliases: []
+    facts:
+    - 该视频主题聚焦于太史慈开荒教程，6小时低损开6。
+    - 可确认场景标签：开荒。
+    - 视频证据摘要：B站元数据导入。首帧：http://i0.hdslb.com/bfs/storyff/_00002ceqghlp2wyyq1ymc6u5xdow2ob_firsti.jpg
+    constraints:
+    - 当前候选仅基于视频标题/描述等弱证据生成，需后续用字幕或画面证据复核。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1mGQ4BSEoR#0-225
+    updated_at: '2026-05-17'
+    confidence: 0.28
+    related_topics: []
+    priority: 70
+    structured_data:
+      name: 太史慈开荒教程，6小时低损开6
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names: []
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-225s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1mGQ4BSEoR/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T05:23:56'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1mGQ4BSEoR
+    - segment=metadata-summary-0-225
+  entry:
+    id: video-hero-bv1mgq4bseor-metadata-summary-0-225-太史慈
+    domain: hero
+    entry_kind: hero_profile
+    topic: 太史慈
+    aliases: []
+    facts:
+    - 视频片段将太史慈列为当前阶段的重要武将。
+    - 视频证据摘要：太史慈开荒教程，6小时低损开6
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1mGQ4BSEoR#0-225
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 太史慈
+    priority: 64
+    structured_data:
+      name: 太史慈
+      aliases: []
+      faction: 吴
+      rarity: 橙
+      troop_types:
+      - 盾兵
+      role_tags:
+      - T2追击
+      base_attributes:
+        military: 110
+        intelligence: 94
+        command: 108
+        initiative: 80
+      growth_attributes:
+        military: 2.49
+        intelligence: 1.22
+        command: 1.89
+        initiative: 2.54
+      max_attributes:
+        military: 222
+        intelligence: 149
+        command: 193
+        initiative: 194
+      signature_skills:
+      - 弦无虛发
+      notes:
+      - 自带战法「弦无虛发」效果（满级）：每个回合开始时，有45%-90%概率获得1层蓄力：成功普通攻击后可消耗所有蓄力层数进行额外的普通攻击(无视缴械状态,普通攻击次数等于蓄力层数）。自身普通攻击前，若处于缴械或无法普通攻击状态，则有45%-95%概率获得1层蓄力（发动概率：100%）
+      - 自带战法「弦无虛发」效果（初始）：每个回合开始时，有45%概率获得1层蓄力：成功普通攻击后可消耗所有蓄力层数进行额外的普通攻击(无视缴械状态，普通攻击次数等于蓄力层数）。自身普通攻击前，若处于缴械或无法普通攻击状态，则有45%概率获得1层蓄力
+      - 缘分「神亭酣战」：太史慈、孙策——部队中缘分武将武力提升20点
+      - 缘分「弯弓饮羽」：太史慈、甘宁、凌统——部队中缘分武将普通攻击伤害提升8%
+      - 推荐战法：三军夺气、乘间投隙、乘虚而入、攻其不备、轻装驰援、干里突裝、兵贵神速、横扫千军、临阵突袭、乱敌方阵、千里突袭、以战养战、夜袭
+      - 赛季：s1
+      - 初始属性：武力110 智力94 统率108 先攻80
+      - 成长值：武力2.49 智力1.22 统率1.89 先攻2.54
+      - 满级属性(Lv50，Lv5起始+45级成长)：武力222 智力149 统率193 先攻194

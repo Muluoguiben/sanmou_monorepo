@@ -106,9 +106,9 @@ def main() -> None:
         homophones_path = (
             Path(args.homophones).expanduser().resolve()
             if args.homophones
-            else default_homophones_path(project_root / "packages" / "qa-agent")
+            else default_homophones_path(project_root)
         )
-        knowledge_sources_dir = default_knowledge_sources_dir(project_root / "packages" / "qa-agent")
+        knowledge_sources_dir = default_knowledge_sources_dir(project_root)
         dictionary = build_dictionary_from_profiles(
             knowledge_sources_dir=knowledge_sources_dir,
             homophones_path=homophones_path,

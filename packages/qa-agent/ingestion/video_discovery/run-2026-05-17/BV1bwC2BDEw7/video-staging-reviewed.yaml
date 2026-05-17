@@ -1,0 +1,80 @@
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1bwC2BDEw7/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T05:19:14'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1bwC2BDEw7
+    - segment=metadata-summary-0-1684
+  entry:
+    id: video-lineup-bv1bwc2bdew7-bv1bwc2bdew7-s2开荒攻略
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S2开荒攻略
+    aliases: []
+    facts:
+    - 该视频主题聚焦于S2赛季平民极限开荒。
+    - 大家好，我是阿华，我把踩过的坑、研究出的套路，都做成了通俗易懂的攻略。不敢说让你一夜成神，但一定能让你少走弯路，真正享受运筹帷幄的快感。我的攻略没有浮夸的标题，
+    - 可确认场景标签：开荒。
+    - 视频证据摘要：B站元数据导入。首帧：http://i0.hdslb.com/bfs/storyff/_00003nswrwlz1p5tt2vai21ia87yc9b_firsti.jpg
+    constraints:
+    - 当前候选仅基于视频标题/描述等弱证据生成，需后续用字幕或画面证据复核。
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1bwC2BDEw7#0-1684
+    updated_at: '2026-05-17'
+    confidence: 0.28
+    related_topics: []
+    priority: 70
+    structured_data:
+      name: S2开荒攻略
+      aliases: []
+      season_tags:
+      - S2
+      lineup_rating: null
+      factions: []
+      hero_names: []
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-1684s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1bwC2BDEw7/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T05:19:14'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1bwC2BDEw7
+    - segment=metadata-summary-0-1684
+  entry:
+    id: video-skill-bv1bwc2bdew7-metadata-summary-0-1684-运筹帷幄
+    domain: skill
+    entry_kind: skill_profile
+    topic: 运筹帷幄
+    aliases: []
+    facts:
+    - 视频片段提到运筹帷幄是当前讨论阵容中的关键战法。
+    - 视频证据摘要：S2赛季平民极限开荒 大家好，我是阿华，我把踩过的坑、研究出的套路，都做成了通俗易懂的攻略。不敢说让你一夜成神，但一定能让你少走弯路，真正享受运筹帷幄的快感。我的攻略没有浮夸的标题，只有实打实的干货和心得，请把我当成你在游戏里的一位老朋友，
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1bwC2BDEw7#0-1684
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics: []
+    priority: 64
+    structured_data:
+      name: 运筹帷幄
+      aliases: []
+      rarity: 橙
+      skill_type: 主动
+      trigger_type: 主动
+      target_scope: 敌军单体
+      effect_tags:
+      - 辅助
+      preferred_roles: []
+      notes:
+      - 效果（满级）：降低敌军随机两人15-30武力，智力，统率，先攻(受智力影响），持续2回合
+      - 效果（初始）：降低敌军随机两人15武力，智力，统率，先攻(受智力影响），持续2回合
+      - 满级发动概率：45%
+      - 初始发动概率：45%
+      - 适配兵种：🛡️🏹️↖️🐎

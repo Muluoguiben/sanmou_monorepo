@@ -1,0 +1,136 @@
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1EroEB4ESY/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T05:23:58'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1EroEB4ESY
+    - segment=metadata-summary-0-1080
+  entry:
+    id: video-lineup-bv1eroeb4esy-s14装备词条开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: S14装备词条开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括装备词条、武将。
+    - 视频证据摘要：B站元数据导入。首帧：http://i0.hdslb.com/bfs/storyff/_00001naor5c1xrx4u2v721x0itnq6tb_firsti.jpg
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1EroEB4ESY#0-1080
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 装备词条
+    - 武将
+    priority: 70
+    structured_data:
+      name: S14装备词条开荒队
+      aliases: []
+      season_tags:
+      - S14
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 装备词条
+      - 武将
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-1080s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1EroEB4ESY/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T05:23:58'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1EroEB4ESY
+    - segment=metadata-summary-0-1080
+  entry:
+    id: video-hero-bv1eroeb4esy-metadata-summary-0-1080-装备词条
+    domain: hero
+    entry_kind: hero_profile
+    topic: 装备词条
+    aliases: []
+    facts:
+    - 视频片段将装备词条列为当前阶段的重要武将。
+    - 装备词条在片段中与武将一起被讨论。
+    - '视频证据摘要：S14·前期共存  优化版 🐧一群  727618062
+
+      🐧二群 1044188806
+
+      🐧三群  244565165
+
+      🐧四群  1097868369加这个
+
+      首发队推荐、全赛季强队合集、五队共存、开荒攻略、演武武将强度、武将价值、战法价值、装'
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1EroEB4ESY#0-1080
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 装备词条
+    - 武将
+    priority: 64
+    structured_data:
+      name: 装备词条
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []
+- metadata:
+    source_url: https://www.bilibili.com/video/BV1EroEB4ESY/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T05:23:58'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV1EroEB4ESY
+    - segment=metadata-summary-0-1080
+  entry:
+    id: video-hero-bv1eroeb4esy-metadata-summary-0-1080-武将
+    domain: hero
+    entry_kind: hero_profile
+    topic: 武将
+    aliases: []
+    facts:
+    - 视频片段将武将列为当前阶段的重要武将。
+    - 武将在片段中与装备词条一起被讨论。
+    - '视频证据摘要：S14·前期共存  优化版 🐧一群  727618062
+
+      🐧二群 1044188806
+
+      🐧三群  244565165
+
+      🐧四群  1097868369加这个
+
+      首发队推荐、全赛季强队合集、五队共存、开荒攻略、演武武将强度、武将价值、战法价值、装'
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV1EroEB4ESY#0-1080
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 装备词条
+    - 武将
+    priority: 64
+    structured_data:
+      name: 武将
+      aliases: []
+      faction: null
+      rarity: null
+      troop_types: []
+      role_tags: []
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes: []

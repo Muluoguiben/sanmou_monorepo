@@ -1,0 +1,68 @@
+source:
+  video_id: BV1pY5t6sEzU
+  title: 巅峰庞统正面硬刚司马懿，胜负结局你敢猜吗？来三谋亲历顶尖谋略对决，玩法良心体验拉满，丰厚福利轻松开荒
+  uploader: 三国社会曹老板
+  source_url: https://www.bilibili.com/video/BV1pY5t6sEzU/
+  description: null
+  ai_summary: null
+  ai_outline: []
+  subtitle_catalog: []
+  published_at: '2026-05-11T14:53:32'
+  captured_at: '2026-05-17T05:14:27'
+segments:
+- segment_id: metadata-summary-0-51
+  start_sec: 0.0
+  end_sec: 51.0
+  transcript: 巅峰庞统正面硬刚司马懿，胜负结局你敢猜吗？来三谋亲历顶尖谋略对决，玩法良心体验拉满，丰厚福利轻松开荒
+  ocr_lines: []
+  visual_summary: B站元数据导入。首帧：http://i2.hdslb.com/bfs/storyff/_00002q1tmyav1dlwj2elbwyge0xx5hb_firsti.jpg
+  frame_refs:
+  - timestamp_sec: 0.0
+    image_path: http://i2.hdslb.com/bfs/storyff/_00002q1tmyav1dlwj2elbwyge0xx5hb_firsti.jpg
+    notes:
+    - metadata-summary
+lineup_candidates:
+- candidate_id: 司马懿开荒队
+  segment_id: metadata-summary-0-51
+  topic: 司马懿开荒队
+  aliases: []
+  season_tags: []
+  lineup_rating: null
+  factions: []
+  hero_names:
+  - 司马懿
+  - 庞统
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  facts:
+  - 该阵容主要用于开荒。
+  - 核心武将包括司马懿、庞统。
+  constraints: []
+  notes: []
+  confidence: 0.62
+hero_candidates:
+- candidate_id: metadata-summary-0-51-司马懿
+  segment_id: metadata-summary-0-51
+  hero_name: 司马懿
+  facts:
+  - 视频片段将司马懿列为当前阶段的重要武将。
+  - 司马懿在片段中与庞统一起被讨论。
+  constraints: []
+  related_topics:
+  - 司马懿
+  - 庞统
+  confidence: 0.55
+- candidate_id: metadata-summary-0-51-庞统
+  segment_id: metadata-summary-0-51
+  hero_name: 庞统
+  facts:
+  - 视频片段将庞统列为当前阶段的重要武将。
+  - 庞统在片段中与司马懿一起被讨论。
+  constraints: []
+  related_topics:
+  - 司马懿
+  - 庞统
+  confidence: 0.55
+skill_candidates: []
+combat_candidates: []

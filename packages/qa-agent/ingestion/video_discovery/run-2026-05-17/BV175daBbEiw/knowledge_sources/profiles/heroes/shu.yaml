@@ -1,0 +1,58 @@
+- id: video-hero-bv175dabbeiw-metadata-summary-0-4641-刘备
+  domain: hero
+  entry_kind: hero_profile
+  topic: 刘备
+  aliases:
+  - 玄德
+  facts:
+  - 视频片段将刘备列为当前阶段的重要武将。
+  - 刘备在片段中与天工一起被讨论。
+  - 视频证据摘要：【S14/W11开荒】无刘备天工开局！一镜到底！第一天——《三国：谋定天下》 本篇为最近版本，直接使用即可！
+  constraints: []
+  source_type: manual_rule
+  source_ref: BILIBILI:BV175daBbEiw#0-4641
+  updated_at: '2026-05-17'
+  confidence: 0.55
+  related_topics:
+  - 刘备
+  - 天工
+  priority: 64
+  structured_data:
+    name: 刘备
+    aliases:
+    - 玄德
+    faction: 蜀
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T0
+    - 治疗
+    base_attributes:
+      military: 80
+      intelligence: 94
+      command: 109
+      initiative: 53
+    growth_attributes:
+      military: 1.43
+      intelligence: 2.31
+      command: 2.12
+      initiative: 1.72
+    max_attributes:
+      military: 144
+      intelligence: 198
+      command: 204
+      initiative: 130
+    signature_skills:
+    - 携民渡江
+    notes:
+    - 自带战法「携民渡江」效果（满级）：战斗开始时，提升我军全体9-18点统率(受智力影响），每回合结束时，恢复我军全体兵力(治疗率50%一100%，受智力影响），然后驱散我军兵力最低单体1种负面状态并对其额外进行1次恢复(治疗率45%-90%，受智力影响）（发动概率：100%）
+    - 自带战法「携民渡江」效果（初始）：战斗开始时，提升我军全体9点统率(受智力影响），每回合结束时，恢复我军全体兵力(治疗率50%，受智力影响），然后驱散我军兵力最低单体1种负面状态并对其额外进行1次恢复(治疗率45%，受智力影响）
+    - 缘分「珠联璧合」：刘备、孙尚香——部队中缘分武将受到谋略伤害降低6%
+    - 缘分「三分天下」：曹操、刘备、孙权——部队中缘分武将受到伤害降低6%
+    - 缘分「桃园结义」：刘备、关羽、张飞——第3回合时，部队中缘分武将行动前驱散自身随机1种负面状态
+    - 推荐战法：奇正相生、忘私相助、青囊急救、清风驱疾、洞若观火、蓄势待发、任人择势、百战不殆、避其锐气、铸甲销戈、咏歌尝酒、来好息师
+    - 赛季：s1
+    - 初始属性：武力80 智力94 统率109 先攻53
+    - 成长值：武力1.43 智力2.31 统率2.12 先攻1.72
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力144 智力198 统率204 先攻130

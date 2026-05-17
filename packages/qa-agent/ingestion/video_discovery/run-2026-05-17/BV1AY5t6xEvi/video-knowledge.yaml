@@ -1,0 +1,69 @@
+source:
+  video_id: BV1AY5t6xEvi
+  title: 卧龙早逝、凤雏掌权，能翻盘曹魏司马懿吗？来三谋圆梦，保底出橙轻松开荒
+  uploader: 三国社会曹老板
+  source_url: https://www.bilibili.com/video/BV1AY5t6xEvi/
+  description: null
+  ai_summary: null
+  ai_outline: []
+  subtitle_catalog: []
+  published_at: '2026-05-11T14:55:38'
+  captured_at: '2026-05-17T05:14:16'
+segments:
+- segment_id: metadata-summary-0-48
+  start_sec: 0.0
+  end_sec: 48.0
+  transcript: 诸葛亮早逝、凤雏掌权，能翻盘曹魏司马懿吗？来三谋圆梦，保底出橙轻松开荒
+  ocr_lines: []
+  visual_summary: B站元数据导入。首帧：http://i0.hdslb.com/bfs/storyff/_00003eh1y1nuzackv23wt2tdvln7svb_firsti.jpg
+  frame_refs:
+  - timestamp_sec: 0.0
+    image_path: http://i0.hdslb.com/bfs/storyff/_00003eh1y1nuzackv23wt2tdvln7svb_firsti.jpg
+    notes:
+    - metadata-summary
+lineup_candidates:
+- candidate_id: 诸葛亮开荒队
+  segment_id: metadata-summary-0-48
+  topic: 诸葛亮开荒队
+  aliases: []
+  season_tags: []
+  lineup_rating: null
+  factions: []
+  hero_names:
+  - 诸葛亮
+  - 司马懿
+  - 诸葛亮
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  facts:
+  - 该阵容主要用于开荒。
+  - 核心武将包括诸葛亮、司马懿、诸葛亮。
+  constraints: []
+  notes: []
+  confidence: 0.62
+hero_candidates:
+- candidate_id: metadata-summary-0-48-诸葛亮
+  segment_id: metadata-summary-0-48
+  hero_name: 诸葛亮
+  facts:
+  - 视频片段将诸葛亮列为当前阶段的重要武将。
+  - 诸葛亮在片段中与司马懿一起被讨论。
+  constraints: []
+  related_topics:
+  - 诸葛亮
+  - 司马懿
+  confidence: 0.55
+- candidate_id: metadata-summary-0-48-司马懿
+  segment_id: metadata-summary-0-48
+  hero_name: 司马懿
+  facts:
+  - 视频片段将司马懿列为当前阶段的重要武将。
+  - 司马懿在片段中与诸葛亮一起被讨论。
+  constraints: []
+  related_topics:
+  - 诸葛亮
+  - 司马懿
+  confidence: 0.55
+skill_candidates: []
+combat_candidates: []

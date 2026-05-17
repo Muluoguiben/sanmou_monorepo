@@ -1,0 +1,111 @@
+- id: video-hero-bv1jrr5b5edq-metadata-summary-0-163-周瑜
+  domain: hero
+  entry_kind: hero_profile
+  topic: 周瑜
+  aliases: []
+  facts:
+  - 视频片段将周瑜列为当前阶段的重要武将。
+  - 周瑜在片段中与马云禄、孙坚一起被讨论。
+  - 视频证据摘要：S14左孙宁：开荒打架两不误，低红孙坚福音！【三国谋定天下】 一个开荒用的武将，竟然能大优胜率榜前三的马云禄和百爆周瑜！
+  constraints: []
+  source_type: manual_rule
+  source_ref: BILIBILI:BV1JRR5B5EDq#0-163
+  updated_at: '2026-05-17'
+  confidence: 0.55
+  related_topics:
+  - 马云禄
+  - 周瑜
+  - 孙坚
+  priority: 64
+  structured_data:
+    name: 周瑜
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T0谋略
+    base_attributes:
+      military: 77
+      intelligence: 114
+      command: 104
+      initiative: 62
+    growth_attributes:
+      military: 0.95
+      intelligence: 2.75
+      command: 2.01
+      initiative: 1.73
+    max_attributes:
+      military: 120
+      intelligence: 238
+      command: 194
+      initiative: 140
+    signature_skills:
+    - 临机制胜
+    notes:
+    - 自带战法「临机制胜」效果（满级）：战斗中，敌我全体被施加异常状态时，有70%概率触发制胜：立刻对敌军随机两人造成30%一60%谋略伤害。每回合制胜最多触发4次。累积触发4次制胜后，恢复我军全体兵力(治疗率20%一40%，受智力影响）（发动概率：100%）
+    - 自带战法「临机制胜」效果（初始）：战斗中，敌我全体被施加异常状态时，有70%概率触发制胜：立刻对敌军随机两人造成30%-33.3%谋略伤害。每回合制胜最多触发4次。累积触发4次制胜后，恢复我军全体兵力(治疗率20%-22.2%，受智力影响）
+    - 缘分「顾曲唱和」：周瑜、小乔——部队中缘分武将主动战法发动率提升4%
+    - 缘分「东吴大都督」：周瑜、鲁肃、吕蒙、陆逊——部队中缘分武将获得8%攻心
+    - 缘分「苦肉计」：周瑜、黄盖——部队中缘分武将首次受到来自友方的伤害后，受到主动战法伤害降低12%
+    - 缘分「国之栋梁」：诸葛亮、周瑜、司马懿——战斗中造成的前3次谋略伤害提升50%
+    - 推荐战法：奇正相生、狂风大作、断敌粮道、王佐之才、烈火焚营、上智为间、料事如神、决水破敌、束手无策、一计决胜、筹划良策
+    - 赛季：s1
+    - 初始属性：武力77 智力114 统率104 先攻62
+    - 成长值：武力0.95 智力2.75 统率2.01 先攻1.73
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力120 智力238 统率194 先攻140
+- id: video-hero-bv1jrr5b5edq-metadata-summary-0-163-孙坚
+  domain: hero
+  entry_kind: hero_profile
+  topic: 孙坚
+  aliases: []
+  facts:
+  - 视频片段将孙坚列为当前阶段的重要武将。
+  - 孙坚在片段中与马云禄、周瑜一起被讨论。
+  - 视频证据摘要：S14左孙宁：开荒打架两不误，低红孙坚福音！【三国谋定天下】 一个开荒用的武将，竟然能大优胜率榜前三的马云禄和百爆周瑜！
+  constraints: []
+  source_type: manual_rule
+  source_ref: BILIBILI:BV1JRR5B5EDq#0-163
+  updated_at: '2026-05-17'
+  confidence: 0.55
+  related_topics:
+  - 马云禄
+  - 周瑜
+  - 孙坚
+  priority: 64
+  structured_data:
+    name: 孙坚
+    aliases: []
+    faction: 吴
+    rarity: 橙
+    troop_types:
+    - 盾兵
+    role_tags:
+    - T2防御
+    base_attributes:
+      military: 100
+      intelligence: 82
+      command: 113
+      initiative: 73
+    growth_attributes:
+      military: 2.18
+      intelligence: 0.77
+      command: 2.3
+      initiative: 1.71
+    max_attributes:
+      military: 198
+      intelligence: 117
+      command: 216
+      initiative: 150
+    signature_skills:
+    - 武烈破虏
+    notes:
+    - 自带战法「武烈破虏」效果（满级）：降低敌军随机单体20-40点统率(受武力或统率最高值影响），持续2回合，并造成125%-250%兵刃伤害，若目标统率低于自身则额外施加震慑，持续1回合，高于自身则使降低统率效果提升50%（发动概率：55%）
+    - 自带战法「武烈破虏」效果（初始）：降低敌军随机单体20-22.2点统率(受武力或统率最高值影响），持续2回合，并造成125%-138.8%兵刃伤害，若目标统率低于自身则额外施加震慑，持续1回合，高于自身则使降低统率效果提升50%
+    - 缘分「志继江东」：孙坚、孙策、孙权、孙尚香、孙坚2——部队中缘分武将造成伤害提升7%
+    - 推荐战法：固若金汤、横征暴敛、忘私相助、坚如磐石、披坚执锐、战八方、伏兵四起、破阵驰围、威名显赫、斩将夺旗、坚壁清野、避其锐气、铸甲销戈
+    - 赛季：s1
+    - 初始属性：武力100 智力82 统率113 先攻73
+    - 成长值：武力2.18 智力0.77 统率2.30 先攻1.71
+    - 满级属性(Lv50，Lv5起始+45级成长)：武力198 智力117 统率216 先攻150

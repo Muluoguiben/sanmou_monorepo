@@ -110,25 +110,51 @@ def _find_known_bvids(project_root: Path) -> set[str]:
 
 
 def _fetch_search_page(keyword: str, page: int, order: str, headers: dict[str, str]) -> list[dict[str, Any]]:
+    params = {
+        "search_type": "video",
+        "keyword": keyword,
+        "page": page,
+        "order": order,
+        "duration": 0,
+    }
+    try:
+        response = requests.get(
+            "https://api.bilibili.com/x/web-interface/search/type",
+            params=params,
+            headers=headers,
+            timeout=20,
+        )
+        response.raise_for_status()
+        payload = response.json()
+    except requests.HTTPError as exc:
+        if exc.response is None or exc.response.status_code != 412:
+            raise
+        return _fetch_search_all_video_page(keyword, page, headers)
+    if payload.get("code") != 0:
+        raise RuntimeError(f"Bilibili search API returned non-zero code: {payload}")
+    data = payload.get("data") or {}
+    result = data.get("result") or []
+    return [item for item in result if isinstance(item, dict)]
+
+
+def _fetch_search_all_video_page(keyword: str, page: int, headers: dict[str, str]) -> list[dict[str, Any]]:
     response = requests.get(
-        "https://api.bilibili.com/x/web-interface/search/type",
-        params={
-            "search_type": "video",
-            "keyword": keyword,
-            "page": page,
-            "order": order,
-            "duration": 0,
-        },
+        "https://api.bilibili.com/x/web-interface/search/all/v2",
+        params={"keyword": keyword, "page": page},
         headers=headers,
         timeout=20,
     )
     response.raise_for_status()
     payload = response.json()
     if payload.get("code") != 0:
-        raise RuntimeError(f"Bilibili search API returned non-zero code: {payload}")
+        raise RuntimeError(f"Bilibili all-search API returned non-zero code: {payload}")
     data = payload.get("data") or {}
-    result = data.get("result") or []
-    return [item for item in result if isinstance(item, dict)]
+    for group in data.get("result") or []:
+        if not isinstance(group, dict) or group.get("result_type") != "video":
+            continue
+        videos = group.get("data") or []
+        return [item for item in videos if isinstance(item, dict)]
+    return []
 
 
 def _candidate_from_result(item: dict[str, Any], keyword: str, known_bvids: set[str]) -> dict[str, Any] | None:

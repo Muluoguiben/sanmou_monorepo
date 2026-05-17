@@ -1,0 +1,74 @@
+source: packages/qa-agent/ingestion/video_discovery/sanmou-kaihuang-2026-05-17.yaml
+batch_no: 10
+candidate_count: 5
+candidates:
+- bvid: BV1kQd3BkEwW
+  title: 十万铁骑在手，能否撼动位面之子刘秀？沉浸式梦回乱世争霸，三谋兼顾良心玩法，降肝减负轻松开荒，丰厚好礼助你逐鹿天下
+  uploader: 三国社会曹老板
+  published_at: '2026-05-08T13:26:26Z'
+  duration_sec: 56
+  url: http://www.bilibili.com/video/av116539172913772
+  keyword: 三国谋定天下开荒
+  already_known: false
+  reason: keyword=三国谋定天下开荒; matched=三谋,开荒
+  bundle_output: packages/qa-agent/ingestion/raw/videos/bilibili-BV1kQd3BkEwW.yaml
+  fetch_bundle_command: python -m qa_agent.app.fetch_bilibili_bundle --bvid BV1kQd3BkEwW
+    --output packages/qa-agent/ingestion/raw/videos/bilibili-BV1kQd3BkEwW.yaml
+  pipeline_command: python -m qa_agent.app.run_video_pipeline --input packages/qa-agent/ingestion/raw/videos/bilibili-BV1kQd3BkEwW.yaml
+    --workspace packages/qa-agent/ingestion/video_batch/BV1kQd3BkEwW
+- bvid: BV1wQd3BCEV3
+  title: 倘若落凤坡身死的是诸葛亮，庞统能否逆天改写蜀汉命运？来三谋亲历架空三国，玩法降肝减氪轻松开荒，丰厚开局福利加持，由你亲手重塑乱世格局
+  uploader: 三国社会曹老板
+  published_at: '2026-05-08T13:25:12Z'
+  duration_sec: 48
+  url: http://www.bilibili.com/video/av116539172980238
+  keyword: 三国谋定天下开荒
+  already_known: false
+  reason: keyword=三国谋定天下开荒; matched=三谋,开荒
+  bundle_output: packages/qa-agent/ingestion/raw/videos/bilibili-BV1wQd3BCEV3.yaml
+  fetch_bundle_command: python -m qa_agent.app.fetch_bilibili_bundle --bvid BV1wQd3BCEV3
+    --output packages/qa-agent/ingestion/raw/videos/bilibili-BV1wQd3BCEV3.yaml
+  pipeline_command: python -m qa_agent.app.run_video_pipeline --input packages/qa-agent/ingestion/raw/videos/bilibili-BV1wQd3BCEV3.yaml
+    --workspace packages/qa-agent/ingestion/video_batch/BV1wQd3BCEV3
+- bvid: BV1qcdGBiEjY
+  title: 古代私藏重甲为何是诛灭重罪？一副铠甲背后暗藏王朝安危。三谋高度还原乱世法度，主打降肝减氪轻松开荒，海量开局福利助你打造属于的重甲雄师
+  uploader: 三国社会曹老板
+  published_at: '2026-05-08T13:16:01Z'
+  duration_sec: 64
+  url: http://www.bilibili.com/video/av116539139359747
+  keyword: 三国谋定天下开荒
+  already_known: false
+  reason: keyword=三国谋定天下开荒; matched=三谋,开荒
+  bundle_output: packages/qa-agent/ingestion/raw/videos/bilibili-BV1qcdGBiEjY.yaml
+  fetch_bundle_command: python -m qa_agent.app.fetch_bilibili_bundle --bvid BV1qcdGBiEjY
+    --output packages/qa-agent/ingestion/raw/videos/bilibili-BV1qcdGBiEjY.yaml
+  pipeline_command: python -m qa_agent.app.run_video_pipeline --input packages/qa-agent/ingestion/raw/videos/bilibili-BV1qcdGBiEjY.yaml
+    --workspace packages/qa-agent/ingestion/video_batch/BV1qcdGBiEjY
+- bvid: BV1dsdwBuEZa
+  title: 全网刷屏的开庭人格测试！看看你是开荒冲榜党还是佛系囤鼠，我是追番达人，在三谋轻松领大会员 + 表情包福利
+  uploader: 三国社会小乔姐
+  published_at: '2026-05-07T10:33:04Z'
+  duration_sec: 24
+  url: http://www.bilibili.com/video/av116532831061588
+  keyword: 三国谋定天下开荒
+  already_known: false
+  reason: keyword=三国谋定天下开荒; matched=三谋,开荒
+  bundle_output: packages/qa-agent/ingestion/raw/videos/bilibili-BV1dsdwBuEZa.yaml
+  fetch_bundle_command: python -m qa_agent.app.fetch_bilibili_bundle --bvid BV1dsdwBuEZa
+    --output packages/qa-agent/ingestion/raw/videos/bilibili-BV1dsdwBuEZa.yaml
+  pipeline_command: python -m qa_agent.app.run_video_pipeline --input packages/qa-agent/ingestion/raw/videos/bilibili-BV1dsdwBuEZa.yaml
+    --workspace packages/qa-agent/ingestion/video_batch/BV1dsdwBuEZa
+- bvid: BV1JRR5B5EDq
+  title: S14左孙宁：开荒打架两不误，低红孙坚福音！【三国谋定天下】
+  uploader: 珍珠齁甜
+  published_at: '2026-05-02T02:15:24Z'
+  duration_sec: 163
+  url: http://www.bilibili.com/video/av116502565034801
+  keyword: 三国谋定天下开荒
+  already_known: false
+  reason: keyword=三国谋定天下开荒; matched=谋定天下,开荒
+  bundle_output: packages/qa-agent/ingestion/raw/videos/bilibili-BV1JRR5B5EDq.yaml
+  fetch_bundle_command: python -m qa_agent.app.fetch_bilibili_bundle --bvid BV1JRR5B5EDq
+    --output packages/qa-agent/ingestion/raw/videos/bilibili-BV1JRR5B5EDq.yaml
+  pipeline_command: python -m qa_agent.app.run_video_pipeline --input packages/qa-agent/ingestion/raw/videos/bilibili-BV1JRR5B5EDq.yaml
+    --workspace packages/qa-agent/ingestion/video_batch/BV1JRR5B5EDq

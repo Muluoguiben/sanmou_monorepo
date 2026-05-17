@@ -1,0 +1,68 @@
+source:
+  video_id: BV1wQd3BCEV3
+  title: 倘若落凤坡身死的是诸葛亮，庞统能否逆天改写蜀汉命运？来三谋亲历架空三国，玩法降肝减氪轻松开荒，丰厚开局福利加持，由你亲手重塑乱世格局
+  uploader: 三国社会曹老板
+  source_url: https://www.bilibili.com/video/BV1wQd3BCEV3/
+  description: null
+  ai_summary: null
+  ai_outline: []
+  subtitle_catalog: []
+  published_at: '2026-05-08T13:25:12'
+  captured_at: '2026-05-17T05:14:02'
+segments:
+- segment_id: metadata-summary-0-48
+  start_sec: 0.0
+  end_sec: 48.0
+  transcript: 倘若落凤坡身死的是诸葛亮，庞统能否逆天改写蜀汉命运？来三谋亲历架空三国，玩法降肝减氪轻松开荒，丰厚开局福利加持，由你亲手重塑乱世格局
+  ocr_lines: []
+  visual_summary: B站元数据导入。首帧：http://i0.hdslb.com/bfs/storyff/_00002bb1afxp398xi2nk4mnc7lu6zpb_firsti.jpg
+  frame_refs:
+  - timestamp_sec: 0.0
+    image_path: http://i0.hdslb.com/bfs/storyff/_00002bb1afxp398xi2nk4mnc7lu6zpb_firsti.jpg
+    notes:
+    - metadata-summary
+lineup_candidates:
+- candidate_id: 诸葛亮开荒队
+  segment_id: metadata-summary-0-48
+  topic: 诸葛亮开荒队
+  aliases: []
+  season_tags: []
+  lineup_rating: null
+  factions: []
+  hero_names:
+  - 诸葛亮
+  - 庞统
+  core_skills: []
+  scenario_tags:
+  - 开荒
+  facts:
+  - 该阵容主要用于开荒。
+  - 核心武将包括诸葛亮、庞统。
+  constraints: []
+  notes: []
+  confidence: 0.62
+hero_candidates:
+- candidate_id: metadata-summary-0-48-诸葛亮
+  segment_id: metadata-summary-0-48
+  hero_name: 诸葛亮
+  facts:
+  - 视频片段将诸葛亮列为当前阶段的重要武将。
+  - 诸葛亮在片段中与庞统一起被讨论。
+  constraints: []
+  related_topics:
+  - 诸葛亮
+  - 庞统
+  confidence: 0.55
+- candidate_id: metadata-summary-0-48-庞统
+  segment_id: metadata-summary-0-48
+  hero_name: 庞统
+  facts:
+  - 视频片段将庞统列为当前阶段的重要武将。
+  - 庞统在片段中与诸葛亮一起被讨论。
+  constraints: []
+  related_topics:
+  - 诸葛亮
+  - 庞统
+  confidence: 0.55
+skill_candidates: []
+combat_candidates: []

@@ -1,0 +1,233 @@
+- metadata:
+    source_url: https://www.bilibili.com/video/BV155djBVEsN/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T05:09:47'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV155djBVEsN
+    - segment=metadata-summary-0-614
+  entry:
+    id: video-lineup-bv155djbvesn-司马懿开荒队
+    domain: solution
+    entry_kind: lineup_solution
+    topic: 司马懿开荒队
+    aliases: []
+    facts:
+    - 该阵容主要用于开荒。
+    - 核心武将包括司马懿、诸葛瑾、郝昭。
+    - 视频证据摘要：B站元数据导入。首帧：http://i0.hdslb.com/bfs/storyff/_00003gd5mb3p9c73u2e045856oe93kb_firsti.jpg
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV155djBVEsN#0-614
+    updated_at: '2026-05-17'
+    confidence: 0.62
+    related_topics:
+    - 司马懿
+    - 诸葛瑾
+    - 郝昭
+    priority: 70
+    structured_data:
+      name: 司马懿开荒队
+      aliases: []
+      season_tags: []
+      lineup_rating: null
+      factions: []
+      hero_names:
+      - 司马懿
+      - 诸葛瑾
+      - 郝昭
+      core_skills: []
+      scenario_tags:
+      - 开荒
+      notes:
+      - 证据片段：0s-614s
+- metadata:
+    source_url: https://www.bilibili.com/video/BV155djBVEsN/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T05:09:47'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV155djBVEsN
+    - segment=metadata-summary-0-614
+  entry:
+    id: video-hero-bv155djbvesn-metadata-summary-0-614-司马懿
+    domain: hero
+    entry_kind: hero_profile
+    topic: 司马懿
+    aliases: []
+    facts:
+    - 视频片段将司马懿列为当前阶段的重要武将。
+    - 司马懿在片段中与诸葛瑾、郝昭一起被讨论。
+    - '视频证据摘要：三谋问鼎赛季《陈仓之围》开荒攻略  司马懿郝昭二队开荒优秀 35以后开好韬略可打12 和诸葛瑾蛮完美共存 #三谋开荒攻略#三谋开荒#开荒攻略#三谋W11开荒攻略#三谋W11陈仓之围'
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV155djBVEsN#0-614
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 司马懿
+    - 诸葛瑾
+    - 郝昭
+    priority: 64
+    structured_data:
+      name: 司马懿
+      aliases: []
+      faction: 魏
+      rarity: 橙
+      troop_types:
+      - 盾兵
+      role_tags:
+      - T0谋略
+      base_attributes:
+        military: 69
+        intelligence: 119
+        command: 114
+        initiative: 47
+      growth_attributes:
+        military: 0.34
+        intelligence: 2.8
+        command: 2.11
+        initiative: 1.54
+      max_attributes:
+        military: 84
+        intelligence: 245
+        command: 209
+        initiative: 116
+      signature_skills:
+      - 鹰视狼顾
+      notes:
+      - 自带战法「鹰视狼顾」效果（满级）：进行布局，获得随机1种布局状态（优先获得不同的状态），持续到战斗结束，25%->50%概率（受智力影响）再布局1次。并对敌军随机两人造成25%->50%谋略伤害，每多持有1种布局可提供的状态，谋略伤害系数提升10%->20%，可提升8次（发动概率：100%）
+      - 自带战法「鹰视狼顾」效果（初始）：进行布局，获得随机1种布局状态（优先获得不同的状态），持续到战斗结束，25%-27.7%概率（受智力影响）再布局1次。并对敌军随机两人造成25%-27.7%谋略伤害，每多持有1种布局可提供的状态，谋略伤害系数提升10%-11.1%，可提升8次
+      - 缘分「国之栋梁」：诸葛亮、周瑜、司马懿——战斗中造成的前3次谋略伤害提升50%
+      - 推荐战法：明其虚实、奇正相生、狂风大作、断敌粮道、王佐之才、烈火焚营、上智为间、料事如神、决水破敌、束手无策、一计决胜、筹划良策
+      - 赛季：s3
+      - 初始属性：武力69 智力119 统率114 先攻47
+      - 成长值：武力0.34 智力2.8 统率2.11 先攻1.54
+      - 满级属性(Lv50，Lv5起始+45级成长)：武力84 智力245 统率209 先攻116
+- metadata:
+    source_url: https://www.bilibili.com/video/BV155djBVEsN/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T05:09:47'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV155djBVEsN
+    - segment=metadata-summary-0-614
+  entry:
+    id: video-hero-bv155djbvesn-metadata-summary-0-614-诸葛瑾
+    domain: hero
+    entry_kind: hero_profile
+    topic: 诸葛瑾
+    aliases: []
+    facts:
+    - 视频片段将诸葛瑾列为当前阶段的重要武将。
+    - 诸葛瑾在片段中与司马懿、郝昭一起被讨论。
+    - '视频证据摘要：三谋问鼎赛季《陈仓之围》开荒攻略  司马懿郝昭二队开荒优秀 35以后开好韬略可打12 和诸葛瑾蛮完美共存 #三谋开荒攻略#三谋开荒#开荒攻略#三谋W11开荒攻略#三谋W11陈仓之围'
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV155djBVEsN#0-614
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 司马懿
+    - 诸葛瑾
+    - 郝昭
+    priority: 64
+    structured_data:
+      name: 诸葛瑾
+      aliases: []
+      faction: 吴
+      rarity: 橙
+      troop_types:
+      - 弓兵
+      role_tags:
+      - T1辅助
+      base_attributes:
+        military: 38
+        intelligence: 104
+        command: 86
+        initiative: 78
+      growth_attributes:
+        military: 0.55
+        intelligence: 2.35
+        command: 2.28
+        initiative: 1.32
+      max_attributes:
+        military: 63
+        intelligence: 210
+        command: 189
+        initiative: 137
+      signature_skills:
+      - 慎思笃行
+      notes:
+      - 自带战法「慎思笃行」效果（满级）：两名队友自带战法每次造成伤害后，获得1层笃行:受到伤害降低2%→4%(受智力影响),造成奇谋和会心伤害提升7.5%→15%,可叠加5层。回合结束时,我军持有笃行的武将对敌军随机单体造成10%→20%伤害(伤害类型由武力和智力最高决定),每持有1层笃行，该次伤害系数提升10%→20%.会心和奇谋几率提升5%→10%.然后清除全部笃行层数（发动概率：100%）
+      - 自带战法「慎思笃行」效果（初始）：两名队友自带战法每次造成伤害后，获得1层笃行:受到伤害降低2%→2.2%(受智力影响),造成奇谋和会心伤害提升7.5%→8.3%,可叠加5层。回合结束时,我军持有笃行的武将对敌军随机单体造成10%→11.1%伤害(伤害类型由武力和智力最高决定),每持有1层笃行,该次伤害系数提升10%→11.1%，会心和奇谋几率提升5%→5.5%然后清除全部笃行层数
+      - 缘分「柱石之臣」：张昭、陆逊、周瑜、陆抗、诸葛瑾——部队中缘分武将对持有异常状态的目标造成的伤害提升8%
+      - 缘分「诸葛望族」：诸葛瑾、诸葛亮、诸葛亮2——部队中缘分武将破甲和看破提升，我军每存在一个诸葛望族缘分中的武将，诸葛望族缘分中全体武将破甲和看破提升5%
+      - 赛季：s12
+      - 初始属性：武力38 智力104 统率86 先攻78
+      - 成长值：武力0.55 智力2.35 统率2.28 先攻1.32
+      - 满级属性(Lv50，Lv5起始+45级成长)：武力63 智力210 统率189 先攻137
+- metadata:
+    source_url: https://www.bilibili.com/video/BV155djBVEsN/
+    source_site: bilibili
+    source_captured_at: '2026-05-17T05:09:47'
+    review_status: reviewed
+    review_notes:
+    - auto-normalized from bilibili video BV155djBVEsN
+    - segment=metadata-summary-0-614
+  entry:
+    id: video-hero-bv155djbvesn-metadata-summary-0-614-郝昭
+    domain: hero
+    entry_kind: hero_profile
+    topic: 郝昭
+    aliases: []
+    facts:
+    - 视频片段将郝昭列为当前阶段的重要武将。
+    - 郝昭在片段中与司马懿、诸葛瑾一起被讨论。
+    - '视频证据摘要：三谋问鼎赛季《陈仓之围》开荒攻略  司马懿郝昭二队开荒优秀 35以后开好韬略可打12 和诸葛瑾蛮完美共存 #三谋开荒攻略#三谋开荒#开荒攻略#三谋W11开荒攻略#三谋W11陈仓之围'
+    constraints: []
+    source_type: manual_rule
+    source_ref: BILIBILI:BV155djBVEsN#0-614
+    updated_at: '2026-05-17'
+    confidence: 0.55
+    related_topics:
+    - 司马懿
+    - 诸葛瑾
+    - 郝昭
+    priority: 64
+    structured_data:
+      name: 郝昭
+      aliases: []
+      faction: 魏
+      rarity: 橙
+      troop_types:
+      - 盾兵
+      role_tags:
+      - 辅助
+      base_attributes:
+        military: 92
+        intelligence: 97
+        command: 101
+        initiative: 56
+      growth_attributes:
+        military: 1.42
+        intelligence: 2.02
+        command: 2.32
+        initiative: 1.68
+      max_attributes:
+        military: 156
+        intelligence: 188
+        command: 205
+        initiative: 132
+      signature_skills:
+      - 千机重城
+      notes:
+      - 自带战法「千机重城」效果（满级）：我军全体行动时，30%->60%概率（受统率影响）获得1层抵御，若其兵力低于50%，有25%->50%概率额外获得1层抵御.
+        我军全体抵御消耗后，受到伤害降低4%->8%（受统率影响），造成谋略伤害提升4%->8%（受统率影响），可叠加2层. 持续到回合结束（发动概率：100%）
+      - 自带战法「千机重城」效果（初始）：我军全体行动时，30%->33.33%概率（受统率影响）获得1层抵御，若其兵力低于50%，有25%->27.78%概率额外获得1层抵御.
+        我军全体抵御消耗后，受到伤害降低4%->4.44%（受统率影响），造成谋略伤害提升4%->4.44%（受统率影响），可叠加2层. 持续到回合结束
+      - 缘分「陈仓双壁」：郝昭、王双——部队中缘分武将前4回合受到伤害降低10%
+      - 赛季：s14
+      - 初始属性：武力92 智力97 统率101 先攻56
+      - 成长值：武力1.42 智力2.02 统率2.32 先攻1.68
+      - 满级属性(Lv50，Lv5起始+45级成长)：武力156 智力188 统率205 先攻132
