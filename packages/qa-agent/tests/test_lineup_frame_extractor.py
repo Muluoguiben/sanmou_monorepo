@@ -125,6 +125,19 @@ class ClassifyFrameKindTests(unittest.TestCase):
             FRAME_SCHEME_TABLE,
         )
 
+    def test_route_table_is_summary(self):
+        # eval finding: this title was misclassified `other`
+        self.assertEqual(
+            classify_frame_kind(["三谋 S14·W11·陈仓之战·出队路线5.0-最终版"]),
+            FRAME_SUMMARY_TABLE,
+        )
+
+    def test_scheme_wins_over_route_when_both_present(self):
+        self.assertEqual(
+            classify_frame_kind(["六队共存多套方案 出队路线5.0"]),
+            FRAME_SCHEME_TABLE,
+        )
+
     def test_counter_graph(self):
         self.assertEqual(
             classify_frame_kind(["S14首发队伍克制关系图"]), FRAME_COUNTER_GRAPH
@@ -223,11 +236,13 @@ class BackfillTests(unittest.TestCase):
             prepare_images=lambda paths: paths,
         )
         staging, stats = ex.backfill_entries(
-            self._staging(), {"BV1x": self._bundle()}
+            self._staging(), {"BV1x": self._bundle()},
+            allow_canonical_fill=True,
         )
         empty_sd = staging[0]["entry"]["structured_data"]
         self.assertEqual(empty_sd["hero_names"], ["皇甫嵩"])
         self.assertEqual(empty_sd["core_skills"], ["金城汤池"])
+        self.assertNotIn("needs_review", empty_sd)
         self.assertTrue(any("阵容图抽取" in n for n in empty_sd["notes"]))
         # existing values untouched
         full_sd = staging[1]["entry"]["structured_data"]
@@ -236,6 +251,35 @@ class BackfillTests(unittest.TestCase):
         self.assertEqual(stats.entries_filled_hero, 1)
         self.assertEqual(stats.entries_filled_skill, 1)
         self.assertEqual(stats.entries_targeted, 1)
+
+    def test_default_is_pending_not_canonical(self):
+        fake = _FakeExtractor(
+            mapping={
+                ("/t/BV1x-frame-003-40s.jpg", "/t/BV1x-frame-004-60s.jpg"): (
+                    ["黄府松"],
+                    ["金汤"],
+                )
+            }
+        )
+        canon = {"黄府松": "皇甫嵩", "金汤": "金城汤池"}.get
+        ex = LineupFrameExtractor(
+            fake,
+            canonicalize=lambda s: canon(s) or s,
+            prepare_images=lambda paths: paths,
+        )
+        staging, stats = ex.backfill_entries(
+            self._staging(), {"BV1x": self._bundle()}
+        )
+        sd = staging[0]["entry"]["structured_data"]
+        # canonical slots stay empty; candidates + review flag instead
+        self.assertEqual(sd["hero_names"], [])
+        self.assertEqual(sd["core_skills"], [])
+        self.assertEqual(sd["frame_candidate_hero_names"], ["皇甫嵩"])
+        self.assertEqual(sd["frame_candidate_core_skills"], ["金城汤池"])
+        self.assertTrue(sd["needs_review"])
+        self.assertTrue(any("候选待审" in n for n in sd["notes"]))
+        self.assertEqual(stats.entries_filled_hero, 0)
+        self.assertEqual(stats.entries_pending, 1)
 
     def test_vision_failure_is_fail_open(self):
         ex = LineupFrameExtractor(

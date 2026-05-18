@@ -58,6 +58,11 @@ _CLASSIFY_RULES = (
     ("全流程", FRAME_SUMMARY_TABLE),
     ("方案", FRAME_SCHEME_TABLE),
     ("共存", FRAME_SCHEME_TABLE),
+    # 出队路线/路线图 X.0 tables list many teams in columns (eval found
+    # BV1R4d3BfENk-frame-015 "陈仓之战·出队路线5.0-最终版" misclassified
+    # other). Placed after 方案/共存 so a 方案 route table still wins scheme.
+    ("出队路线", FRAME_SUMMARY_TABLE),
+    ("路线图", FRAME_SUMMARY_TABLE),
     ("克制", FRAME_COUNTER_GRAPH),
     ("克制关系", FRAME_COUNTER_GRAPH),
 )
@@ -217,6 +222,7 @@ class BackfillStats:
     entries_targeted: int = 0
     entries_filled_hero: int = 0
     entries_filled_skill: int = 0
+    entries_pending: int = 0
     frames_analyzed: int = 0
     vision_errors: int = 0
 
@@ -340,11 +346,22 @@ class LineupFrameExtractor:
         self,
         staging: list[dict],
         bundles_by_bvid: dict[str, dict],
+        *,
+        allow_canonical_fill: bool = False,
     ) -> tuple[list[dict], BackfillStats]:
         """Fill *empty* hero_names / core_skills on staging entries from frames.
 
         Never overwrites existing values. Records a per-entry trace under
         ``structured_data.notes`` so a human can audit before publish.
+
+        ``allow_canonical_fill`` gates whether frame-extracted names are written
+        into the canonical ``hero_names``/``core_skills`` (publish-eligible) or
+        only into ``frame_candidate_*`` + ``needs_review`` (pending). The task
+        #11 v2 eval measured ≤0.56 GT hero recall for gpt-5.4* on the
+        hand-verified frame, with errors that are *valid KB heroes on the wrong
+        team* (low misfill, so a naive canonical check passes them). Per the
+        "宁 pending 不污染 KB" doctrine this defaults to ``False``; flip to
+        ``True`` only once a model clears the recall gate (see task #2/#4).
         """
         stats = BackfillStats(entries_total=len(staging))
         frame_cache: dict[str, list[FrameRef]] = {}
@@ -374,24 +391,43 @@ class LineupFrameExtractor:
                 bvid, frame_cache[bvid], s, e, stats=stats
             )
             trace: list[str] = []
+            pending = False
             if hero_empty and sig.hero_names:
-                sd["hero_names"] = sig.hero_names
-                stats.entries_filled_hero += 1
-                trace.append(
-                    f"hero_names 由阵容图回填 (raw={sig.raw_hero_names})"
-                )
+                if allow_canonical_fill:
+                    sd["hero_names"] = sig.hero_names
+                    stats.entries_filled_hero += 1
+                    trace.append(
+                        f"hero_names 由阵容图回填 (raw={sig.raw_hero_names})"
+                    )
+                else:
+                    sd["frame_candidate_hero_names"] = sig.hero_names
+                    pending = True
+                    trace.append(
+                        f"hero_names 候选待审 (raw={sig.raw_hero_names})"
+                    )
             if skill_empty and sig.core_skills:
-                sd["core_skills"] = sig.core_skills
-                stats.entries_filled_skill += 1
-                trace.append(
-                    f"core_skills 由阵容图回填 (raw={sig.raw_core_skills})"
-                )
+                if allow_canonical_fill:
+                    sd["core_skills"] = sig.core_skills
+                    stats.entries_filled_skill += 1
+                    trace.append(
+                        f"core_skills 由阵容图回填 (raw={sig.raw_core_skills})"
+                    )
+                else:
+                    sd["frame_candidate_core_skills"] = sig.core_skills
+                    pending = True
+                    trace.append(
+                        f"core_skills 候选待审 (raw={sig.raw_core_skills})"
+                    )
+            if pending:
+                sd["needs_review"] = True
+                stats.entries_pending += 1
             if trace:
+                tag = "[task#11 阵容图抽取-候选待审]" if pending else "[task#11 阵容图抽取]"
                 notes = sd.get("notes")
                 if not isinstance(notes, list):
                     notes = []
                 notes.append(
-                    "[task#11 阵容图抽取] "
+                    tag + " "
                     + "；".join(trace)
                     + f"；源帧={[Path(p).name for p in sig.frames_used]}"
                     + f"；source_ref={bvid}#{int(s)}-{int(e)}"

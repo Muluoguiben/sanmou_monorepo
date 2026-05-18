@@ -37,6 +37,16 @@ def _build_parser() -> argparse.ArgumentParser:
     p.add_argument("--staging", required=True, help="Path to the chencang staging YAML.")
     p.add_argument("--bundles-dir", required=True, help="Dir with <BVID>.yaml --with-frames bundles.")
     p.add_argument("--dry-run", action="store_true", help="Do not write the staging YAML back.")
+    p.add_argument(
+        "--allow-canonical-fill",
+        action="store_true",
+        help=(
+            "Write frame names into canonical hero_names/core_skills (publish-"
+            "eligible). DEFAULT OFF: until a vision model clears the task #11 "
+            "v2 recall gate, candidates go to frame_candidate_* + needs_review "
+            "only (宁 pending 不污染 KB)."
+        ),
+    )
     p.add_argument("--package-root", default=None, help="qa-agent package root (KB dictionary).")
     return p
 
@@ -87,7 +97,9 @@ def main() -> None:
         ImageExtractor(),
         canonicalize=_make_canonicalizer(package_root),
     )
-    staging, stats = extractor.backfill_entries(staging, bundles_by_bvid)
+    staging, stats = extractor.backfill_entries(
+        staging, bundles_by_bvid, allow_canonical_fill=args.allow_canonical_fill
+    )
 
     if not args.dry_run:
         staging_path.write_text(
@@ -101,11 +113,13 @@ def main() -> None:
                 "staging": str(staging_path),
                 "bundles_loaded": sorted(bundles_by_bvid),
                 "dry_run": args.dry_run,
+                "allow_canonical_fill": args.allow_canonical_fill,
                 "stats": {
                     "entries_total": stats.entries_total,
                     "entries_targeted": stats.entries_targeted,
                     "entries_filled_hero": stats.entries_filled_hero,
                     "entries_filled_skill": stats.entries_filled_skill,
+                    "entries_pending": stats.entries_pending,
                     "frames_analyzed": stats.frames_analyzed,
                     "vision_errors": stats.vision_errors,
                 },
