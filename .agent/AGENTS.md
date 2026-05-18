@@ -1,5 +1,9 @@
 # AGENTS.md
 
+> Authoritative project guide: `.claude/CLAUDE.md`. This file is the English
+> mirror for non-Claude agents; on any conflict (repo layout, run commands,
+> test counts, canonical-docs list), `.claude/CLAUDE.md` wins.
+
 ## Project
 
 Sanmou monorepo — automation agents for 《三国：谋定天下》.

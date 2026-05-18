@@ -1,5 +1,9 @@
 # Sanmou Client Control
 
+> Single source of truth: [`.agent/skills/sanmou-client-control/SKILL.md`](../../.agent/skills/sanmou-client-control/SKILL.md)
+> (more complete, ships the controller scripts). This Claude-side copy is a discovery
+> entry point; if the two ever diverge, follow the `.agent/skills` SKILL.md.
+
 Use this workflow when a Claude agent needs to open, foreground-control, screenshot, and visually interpret the Sanmou / NSLG Windows client.
 
 ## Trigger Phrases

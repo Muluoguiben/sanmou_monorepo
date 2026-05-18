@@ -1,5 +1,8 @@
 # Bilibili Video Knowledge Workflow
 
+> Single source of truth: [`.agent/skills/bilibili-video-knowledge-workflow/SKILL.md`](../../.agent/skills/bilibili-video-knowledge-workflow/SKILL.md).
+> This Claude-side copy is a discovery entry point; if the two ever diverge, follow the `.agent/skills` SKILL.md.
+
 Use this workflow when a Claude agent needs to extract reusable Sanmou knowledge from a Bilibili video.
 
 ## Trigger Phrases

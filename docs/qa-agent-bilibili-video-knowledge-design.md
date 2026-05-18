@@ -1,4 +1,8 @@
-# B 站视频知识 Agent
+# B 站视频知识 Agent（设计意图）
+
+> 本文件原为仓库根目录 `agent.md`，因易与 `.agent/AGENTS.md`（agent 操作指南）混淆而改名归入 `docs/`。
+> 它记录 B 站视频知识链路的**设计意图与早期闭环快照**；落地方案见 [qa-agent-bilibili-video-knowledge-plan.md](qa-agent-bilibili-video-knowledge-plan.md)，
+> 最新实现状态以 `todo-list.md` 与 `.claude/CLAUDE.md` 为准（下文“当前实现状态”小节为历史快照，可能滞后）。
 
 ## 目标
 

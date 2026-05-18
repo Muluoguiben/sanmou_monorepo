@@ -22,7 +22,6 @@
 ```text
 sanmou_monorepo/
   README.md
-  agent.md
   todo-list.md
   docs/
     bridge-architecture.md
@@ -31,6 +30,7 @@ sanmou_monorepo/
     sanguo-agent-mvp-engineering-plan.md
     state-snapshot-field-guide.md
     qa-agent-bilibili-video-knowledge-plan.md
+    qa-agent-bilibili-video-knowledge-design.md
     bilibili-video-knowledge-workflow.md
     knowledge-cards/
   packages/

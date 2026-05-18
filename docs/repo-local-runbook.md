@@ -1,5 +1,8 @@
 # Repo-local Runbook
 
+> Authoritative project guide: `.claude/CLAUDE.md` (repo layout, run commands, conventions, product direction).
+> This runbook only adds operational handoff detail; on any conflict, `.claude/CLAUDE.md` wins.
+
 This runbook is the repo-local handoff for future Codex/Claude/agent sessions. Keep it short, current, and operational. Package-specific details still live in `packages/qa-agent/CLAUDE.md` and `packages/pioneer-agent/CLAUDE.md`.
 
 ## Default Rules
