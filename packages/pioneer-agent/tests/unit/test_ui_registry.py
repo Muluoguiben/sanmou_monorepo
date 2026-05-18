@@ -18,12 +18,35 @@ class UIRegistryTests(unittest.TestCase):
     def test_default_layout_loads(self) -> None:
         registry = UIRegistry.load()
         # Must include every bottom-menu key we depend on
-        for key in ["chu_cheng", "wu_jiang", "tong_meng", "zhi_ye", "zheng_zhan_jun_yan", "esc_close"]:
+        for key in [
+            "chu_cheng",
+            "wu_jiang",
+            "tong_meng",
+            "zhi_ye",
+            "zheng_zhan_jun_yan",
+            "esc_close",
+            "notice_popup_close",
+            "war_summary_no_more_today",
+            "war_summary_approve",
+            "war_summary_close",
+            "weekly_task_first_claimable",
+            "map_target_action",
+        ]:
             self.assertIn(key, registry.keys())
         b = registry.get("wu_jiang")
         self.assertEqual(b.label, "武将")
         self.assertTrue(0 < b.x_frac < 1)
         self.assertTrue(0 < b.y_frac < 1)
+
+    def test_live_pc_calibrated_coordinates_resolve(self) -> None:
+        registry = UIRegistry.load()
+
+        self.assertEqual(registry.resolve_pixel("notice_popup_close", 2572, 1331), (2253, 240))
+        self.assertEqual(
+            registry.resolve_pixel("weekly_task_first_claimable", 2572, 1331),
+            (270, 443),
+        )
+        self.assertEqual(registry.resolve_pixel("map_target_action", 2572, 1331), (1674, 780))
 
     def test_resolve_pixel_scales_to_window(self) -> None:
         with TemporaryDirectory() as tmp:

@@ -142,13 +142,19 @@ Use normalized coordinates against the captured game window:
 
 | Screen | Target | Rx | Ry |
 |---|---:|---:|---:|
-| Notice popup (公告) | close button (×) | `0.332` | `0.053` |
-| Notice popup (公告) | close via ESC (preferred) | — | — |
+| Notice popup (公告) | close button (×) | `0.876` | `0.180` |
+| Notice popup (公告) | close via ESC (only after screenshot confirms popup context) | — | — |
+| War summary popup (战情摘要) | 今日不再弹出 checkbox | `0.753` | `0.902` |
+| War summary popup (战情摘要) | 批复 button | `0.647` | `0.802` |
+| War summary popup (战情摘要) | close button (×) | `0.882` | `0.253` |
+| Main city weekly task panel | first claimable weekly task row | `0.105` | `0.333` |
 | Server page | enter / 征战天下 | `0.500` | `0.800` |
 | Server list error (获取服务器列表失败) | 重试 button | `0.500` | `0.700` |
 | Login timeout (登录超时) | 回到登录 button | `0.500` | `0.700` |
 | Exit confirm (确认退出?) | 取消 (stay) — use ESC to avoid triggering | — | — |
 | Launcher | open game / 打开游戏 | `0.846` | `0.891` |
+
+**Observed 2026-05-18:** The old notice coordinate `Rx=0.332, Ry=0.053` hit the notice content and scrolled it instead of closing. The working notice close button was measured from a `2572x1331` capture at pixel center about `(2254, 240)`.
 
 **Bilibili login dialog note:** The Bilibili 游戏 登录 dialog is a separate window owned by `PCGamePlatform.exe`, NOT `com.bilibili.nslg`. Target `PCGamePlatform` when sending clicks to the login form. Button 登录 at Rx=0.50, Ry=0.68 of the PCGamePlatform window.
 
@@ -179,6 +185,8 @@ Supported actions:
 - `click-relative`
 
 The script writes no account credentials. Elevated click status files contain only action metadata such as window rect, target coordinates, and result.
+
+**Minimized Unity window note:** If the game process exists but `capture-window` returns `ERR no_window com.bilibili.nslg`, the actual Unity window may be an offscreen/minimized child/top-level window while `MainWindowHandle` is empty or points to a tiny helper window. The controller window lookup restores every visible top-level window owned by the target process before choosing the largest usable window.
 
 ### Picking the right launch action
 

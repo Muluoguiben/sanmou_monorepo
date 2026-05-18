@@ -81,6 +81,15 @@ public static class SanmouNative {
 	  static IntPtr bestWindow = IntPtr.Zero;
 	  static long bestArea = 0;
 
+	  static bool WindowOwnedByTargetProcess(IntPtr hwnd) {
+	    uint pid;
+	    GetWindowThreadProcessId(hwnd, out pid);
+	    foreach (int targetPid in targetPids) {
+	      if (targetPid == (int)pid) return true;
+	    }
+	    return false;
+	  }
+
 	  static bool UsableWindow(IntPtr hwnd, out RECT r, out long area) {
 	    GetWindowRect(hwnd, out r);
 	    int w = r.Right - r.Left;
@@ -93,16 +102,7 @@ public static class SanmouNative {
 
 	  static bool EnumProcessWindow(IntPtr hwnd, IntPtr lParam) {
 	    if (!IsWindowVisible(hwnd)) return true;
-	    uint pid;
-	    GetWindowThreadProcessId(hwnd, out pid);
-	    bool owned = false;
-	    foreach (int targetPid in targetPids) {
-	      if (targetPid == (int)pid) {
-	        owned = true;
-	        break;
-	      }
-	    }
-	    if (!owned) return true;
+	    if (!WindowOwnedByTargetProcess(hwnd)) return true;
 	    RECT r;
 	    long area;
 	    if (UsableWindow(hwnd, out r, out area) && area > bestArea) {
@@ -112,17 +112,25 @@ public static class SanmouNative {
 	    return true;
 	  }
 
+	  static bool RestoreProcessWindow(IntPtr hwnd, IntPtr lParam) {
+	    if (!IsWindowVisible(hwnd)) return true;
+	    if (!WindowOwnedByTargetProcess(hwnd)) return true;
+	    ShowWindowAsync(hwnd, 9);
+	    return true;
+	  }
+
 	  public static IntPtr FindWindow(string name) {
 	    Process[] ps = Process.GetProcessesByName(name);
 	    if (ps.Length == 0) return IntPtr.Zero;
+	    targetPids = new int[ps.Length];
+	    for (int i = 0; i < ps.Length; i++) targetPids[i] = ps[i].Id;
 	    foreach (Process p in ps) {
 	      if (p.MainWindowHandle != IntPtr.Zero) {
 	        ShowWindowAsync(p.MainWindowHandle, 9);
 	      }
 	    }
-	    System.Threading.Thread.Sleep(200);
-	    targetPids = new int[ps.Length];
-	    for (int i = 0; i < ps.Length; i++) targetPids[i] = ps[i].Id;
+	    EnumWindows(RestoreProcessWindow, IntPtr.Zero);
+	    System.Threading.Thread.Sleep(500);
 	    bestWindow = IntPtr.Zero;
 	    bestArea = 0;
 	    EnumWindows(EnumProcessWindow, IntPtr.Zero);

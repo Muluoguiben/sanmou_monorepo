@@ -1,0 +1,92 @@
+{
+  "id": "pc_client_live_20260518",
+  "captured_at": "2026-05-18T21:00:00+08:00",
+  "device": {
+    "platform": "windows_pc_client",
+    "process": "com.bilibili.nslg",
+    "window_rect": {
+      "left": -6,
+      "top": 127,
+      "width": 2572,
+      "height": 1331
+    },
+    "capture_size": {
+      "width": 2572,
+      "height": 1331
+    },
+    "fixture_size": {
+      "width": 1286,
+      "height": 666
+    }
+  },
+  "screenshots": [
+    {
+      "id": "notice_popup",
+      "image": "notice_popup.jpg",
+      "page": "startup_notice_popup",
+      "notes": "Half-size JPEG fixture. Original capture showed an announcement dialog blocking server entry.",
+      "click_targets": [
+        {
+          "key": "notice_popup_close",
+          "label": "notice close button",
+          "rx": 0.876,
+          "ry": 0.180,
+          "live_pixel": [2254, 240],
+          "fixture_pixel": [1127, 120],
+          "verified": true
+        }
+      ]
+    },
+    {
+      "id": "server_page",
+      "image": "server_page.jpg",
+      "page": "server_selection",
+      "notes": "Half-size JPEG fixture. Original capture was taken after the notice popup closed, with server enter button visible.",
+      "click_targets": [
+        {
+          "key": "server_enter",
+          "label": "征战天下",
+          "rx": 0.500,
+          "ry": 0.800,
+          "live_pixel": [1286, 1065],
+          "fixture_pixel": [643, 533],
+          "verified": true
+        }
+      ]
+    },
+    {
+      "id": "main_city_weekly_panel",
+      "image": "main_city_weekly_panel.jpg",
+      "page": "main_city",
+      "notes": "Half-size JPEG fixture. Original capture showed main city with left weekly task panel open.",
+      "click_targets": [
+        {
+          "key": "weekly_task_first_claimable",
+          "label": "first claimable weekly task row",
+          "rx": 0.105,
+          "ry": 0.333,
+          "live_pixel": [270, 443],
+          "fixture_pixel": [135, 222],
+          "verified": true
+        }
+      ]
+    },
+    {
+      "id": "map_target_647_905",
+      "image": "map_target_647_905.jpg",
+      "page": "world_map_target",
+      "notes": "Half-size JPEG fixture. Original capture was centered on target coordinate (647,905), showing action icons for the target dock.",
+      "click_targets": [
+        {
+          "key": "map_target_action",
+          "label": "target action icon",
+          "rx": 0.651,
+          "ry": 0.586,
+          "live_pixel": [1675, 780],
+          "fixture_pixel": [837, 390],
+          "verified": true
+        }
+      ]
+    }
+  ]
+}
