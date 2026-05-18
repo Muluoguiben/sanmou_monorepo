@@ -48,7 +48,8 @@ python -m pioneer_agent.app.advisor_api --host 127.0.0.1 --port 8765 --mock
 pip install -e packages/qa-agent
 cd packages/qa-agent && PYTHONPATH=src python -m qa_agent.app.chat
 
-# 运行测试（当前 pioneer-agent 78 tests；无 FastAPI 依赖时 advisor_api 测试会 skip）
+# 运行测试（pioneer-agent 175 tests / qa-agent 166 tests）
+# 全绿需先装可选依赖：Pillow httpx google-genai fastapi uvicorn python-multipart；缺失时相关 vision/advisor_api 测试会 skip
 cd packages/pioneer-agent && python -m unittest discover -s tests -p "test_*.py" -v
 cd packages/qa-agent && PYTHONPATH=src python -m unittest discover -s tests -p "test_*.py" -v
 

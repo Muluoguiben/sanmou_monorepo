@@ -27,15 +27,17 @@ qa-agent       ──depends-on──>  sanmou-common
 
 Both Python packages depend on: `pydantic>=2.6,<3`, `PyYAML>=6.0,<7`, Python `>=3.11`.
 
+Running the full test suites additionally needs the optional vision/API deps: `Pillow`, `httpx`, `google-genai` (pioneer-agent vision + qa-agent), plus `fastapi`, `uvicorn`, `python-multipart` (advisor_api). Without them the affected test modules skip; a fresh/cloud session must install these before `unittest` reports green.
+
 Desktop app calls the local `pioneer-agent` Advisor API over `127.0.0.1`; it must not reimplement perception, selector, qa-agent, or execution logic in TypeScript.
 
 ## How to Run
 
 ```bash
-# Tests — pioneer-agent (76 tests; advisor_api tests skip if FastAPI deps are absent)
+# Tests — pioneer-agent (175 tests; vision/advisor_api tests skip if optional deps are absent)
 cd packages/pioneer-agent && PYTHONPATH=src:../sanmou-common/src python3 -m unittest discover -s tests -p "test_*.py" -v
 
-# Tests — qa-agent
+# Tests — qa-agent (166 tests)
 cd packages/qa-agent && PYTHONPATH=src python3 -m unittest discover -s tests -p "test_*.py" -v
 
 # Local Advisor API, mock mode does not call a vision model
@@ -249,8 +251,8 @@ git branch -d feat/<branch-name>
 ### What's Working
 - **Desktop Advisor**: `apps/sanmou-advisor-desktop` Electron + React + Vite GUI with screenshot upload/preview, device/account metadata, AdvisorReport display, and chat panel; `npm run typecheck` and `npm run build` pass.
 - **Advisor API**: `pioneer_agent.app.advisor_api` FastAPI service with `/api/health`, `/api/advisor/analyze`, `/api/advisor/chat`, screenshot upload, mock mode, local `reports.jsonl` logging, and desktop CORS.
-- **Pioneer agent**: capture/control adapter split, platform-neutral device/session models, `AdvisorLoop`, sync → derive → select pipeline with 8 action types, OpenAI/Gemini vision provider support, `resource_bar` + `city_buildings` domains, bbox locator, UI layout registry, UIActions primitives, autonomous loop with loop_logger, `dry_run`, `stuck_threshold`; 76 tests pass when API deps are installed, advisor API tests skip cleanly without FastAPI.
-- **QA agent**: 104 heroes + 123 skills + 61 mechanic rules KB; MCP server with 3 tools; ingestion pipeline with `--publish`; conversational RAG via `qa_agent/chat/` with Gemini/MiniMax/OpenAI providers; `qa_agent/vision/` grounded image understanding; bilibili video knowledge workflow closed loop.
+- **Pioneer agent**: capture/control adapter split, platform-neutral device/session models, `AdvisorLoop`, sync → derive → select pipeline with 8 action types, OpenAI/Gemini vision provider support, `resource_bar` + `city_buildings` domains, bbox locator, UI layout registry, UIActions primitives, autonomous loop with loop_logger, `dry_run`, `stuck_threshold`; 175 tests pass when optional vision/API deps are installed, vision/advisor API tests skip cleanly without them.
+- **QA agent**: 166 tests; 104 heroes + 123 skills + 61 mechanic rules KB; MCP server with 3 tools; ingestion pipeline with `--publish`; conversational RAG via `qa_agent/chat/` with Gemini/MiniMax/OpenAI providers; `qa_agent/vision/` grounded image understanding; bilibili video knowledge workflow closed loop.
 
 ### Current Focus
 - **Advisor MVP hardening**: run the desktop app on real PC/emulator/phone/iOS screenshots, collect screenshot fixtures, add vision eval, and improve GUI history.
