@@ -15,6 +15,13 @@ dependencies = [
   "requests>=2.31,<3",
 ]
 
+[project.optional-dependencies]
+# qa_agent.video.lineup_frame_extractor does a lazy `from PIL import Image`
+# for the Bilibili lineup-frame workflow; not needed for core QA/KB tests.
+video = [
+  "Pillow>=10.0",
+]
+
 [tool.setuptools]
 package-dir = {"" = "src"}
 
