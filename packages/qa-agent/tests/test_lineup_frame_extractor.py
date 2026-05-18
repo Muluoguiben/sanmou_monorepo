@@ -11,6 +11,7 @@ from qa_agent.video.lineup_frame_extractor import (  # noqa: E402
     FRAME_SCHEME_TABLE,
     FRAME_SUMMARY_TABLE,
     BackfillStats,
+    ConsensusLineupExtractor,
     FrameRef,
     LineupFrameExtractor,
     classify_frame_kind,
@@ -310,6 +311,101 @@ class BackfillTests(unittest.TestCase):
         )
         staging, stats = ex.backfill_entries(self._staging(), {})
         self.assertEqual(stats.entries_targeted, 0)
+
+
+class _ConsensusFake:
+    """Answers the cheap classify call with a title, dense calls with a team."""
+
+    def __init__(self, title, heroes, skills=None):
+        self._title = title
+        self._heroes = heroes
+        self._skills = skills or []
+
+    def extract(self, image_urls, *, question=None, **kwargs):
+        if question and "标题" in question:
+            return _Vis(text_snippets=[self._title])
+        return _Vis(
+            heroes=[_Ent(x) for x in self._heroes],
+            skills=[_Ent(x) for x in self._skills],
+        )
+
+
+class ConsensusExtractorTests(unittest.TestCase):
+    def _staging(self):
+        return [
+            {
+                "entry": {
+                    "topic": "S14 空队",
+                    "source_ref": "BILIBILI:BV1x#40-60",
+                    "structured_data": {"hero_names": [], "core_skills": []},
+                }
+            }
+        ]
+
+    def _bundle(self):
+        return {
+            "segments": [
+                {"start_sec": 40.0, "frame_paths": ["/t/BV1x-frame-003-40s.jpg"]},
+                {"start_sec": 60.0, "frame_paths": ["/t/BV1x-frame-004-60s.jpg"]},
+            ]
+        }
+
+    def _run(self, fa, fb):
+        ex = ConsensusLineupExtractor(
+            fa, fb, prepare_images=lambda paths: paths
+        )
+        return ex.backfill_entries(self._staging(), {"BV1x": self._bundle()})
+
+    def test_agreement_on_full_team_emits_pending_candidate(self):
+        team = ["皇甫嵩", "郝昭", "司马懿"]
+        staging, stats = self._run(
+            _ConsensusFake("全流程阵容汇总表", team, ["金城汤池"]),
+            _ConsensusFake("全流程阵容汇总表", list(reversed(team)), ["金城汤池"]),
+        )
+        sd = staging[0]["entry"]["structured_data"]
+        self.assertEqual(set(sd["frame_candidate_hero_names"]), set(team))
+        self.assertEqual(sd["frame_candidate_core_skills"], ["金城汤池"])
+        self.assertTrue(sd["needs_review"])
+        self.assertEqual(sd["hero_names"], [])
+        self.assertEqual(stats.entries_pending, 1)
+
+    def test_disagreement_drops_heroes(self):
+        staging, _ = self._run(
+            _ConsensusFake("全流程阵容汇总表", ["皇甫嵩", "郝昭", "司马懿"]),
+            _ConsensusFake("全流程阵容汇总表", ["陆逊", "鲁肃", "孙坚"]),
+        )
+        sd = staging[0]["entry"]["structured_data"]
+        self.assertNotIn("frame_candidate_hero_names", sd)
+        self.assertEqual(sd["hero_names"], [])
+
+    def test_partial_team_dropped(self):
+        # both agree but only 2 heroes -> not a complete sanmou team
+        staging, _ = self._run(
+            _ConsensusFake("全流程阵容汇总表", ["皇甫嵩", "郝昭"]),
+            _ConsensusFake("全流程阵容汇总表", ["皇甫嵩", "郝昭"]),
+        )
+        sd = staging[0]["entry"]["structured_data"]
+        self.assertNotIn("frame_candidate_hero_names", sd)
+
+    def test_non_table_frame_skipped_entirely(self):
+        team = ["皇甫嵩", "郝昭", "司马懿"]
+        staging, stats = self._run(
+            _ConsensusFake("主播口播镜头", team),
+            _ConsensusFake("主播口播镜头", team),
+        )
+        sd = staging[0]["entry"]["structured_data"]
+        self.assertNotIn("frame_candidate_hero_names", sd)
+        self.assertNotIn("needs_review", sd)
+        self.assertEqual(stats.entries_pending, 0)
+
+    def test_skill_intersection_only(self):
+        team = ["皇甫嵩", "郝昭", "司马懿"]
+        staging, _ = self._run(
+            _ConsensusFake("方案A", team, ["金城汤池", "步步为营"]),
+            _ConsensusFake("方案A", team, ["金城汤池", "未雨绸缪"]),
+        )
+        sd = staging[0]["entry"]["structured_data"]
+        self.assertEqual(sd["frame_candidate_core_skills"], ["金城汤池"])
 
 
 if __name__ == "__main__":

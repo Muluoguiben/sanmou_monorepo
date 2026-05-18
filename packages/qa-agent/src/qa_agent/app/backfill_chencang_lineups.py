@@ -22,7 +22,10 @@ from pathlib import Path
 
 import yaml
 
-from qa_agent.video.lineup_frame_extractor import LineupFrameExtractor
+from qa_agent.video.lineup_frame_extractor import (
+    ConsensusLineupExtractor,
+    LineupFrameExtractor,
+)
 from qa_agent.video.subtitle_normalizer import (
     build_dictionary_from_profiles,
     default_homophones_path,
@@ -47,6 +50,18 @@ def _build_parser() -> argparse.ArgumentParser:
             "only (宁 pending 不污染 KB)."
         ),
     )
+    p.add_argument(
+        "--mode",
+        choices=("high-confidence", "single"),
+        default="high-confidence",
+        help=(
+            "high-confidence (default): classify-gate + dual-model consensus "
+            "(model-a ∩ model-b, complete 3-hero team only). single: one model, "
+            "flat window (legacy)."
+        ),
+    )
+    p.add_argument("--model-a", default=None, help="Consensus model A (default: OPENAI_MODEL env, gpt-5.4-mini).")
+    p.add_argument("--model-b", default="gpt-5.4", help="Consensus model B (default: gpt-5.4).")
     p.add_argument("--package-root", default=None, help="qa-agent package root (KB dictionary).")
     return p
 
@@ -91,12 +106,21 @@ def main() -> None:
         except Exception as exc:  # noqa: BLE001
             print(f"skip bundle {yml.name}: {exc}")
 
+    from qa_agent.chat.openai_client import OpenAIChatClient
     from qa_agent.vision.extractor import ImageExtractor
 
-    extractor = LineupFrameExtractor(
-        ImageExtractor(),
-        canonicalize=_make_canonicalizer(package_root),
-    )
+    canon = _make_canonicalizer(package_root)
+    if args.mode == "high-confidence":
+        client_a = (
+            OpenAIChatClient(model=args.model_a) if args.model_a else OpenAIChatClient()
+        )
+        extractor = ConsensusLineupExtractor(
+            ImageExtractor(client=client_a),
+            ImageExtractor(client=OpenAIChatClient(model=args.model_b)),
+            canonicalize=canon,
+        )
+    else:
+        extractor = LineupFrameExtractor(ImageExtractor(), canonicalize=canon)
     staging, stats = extractor.backfill_entries(
         staging, bundles_by_bvid, allow_canonical_fill=args.allow_canonical_fill
     )
@@ -113,6 +137,7 @@ def main() -> None:
                 "staging": str(staging_path),
                 "bundles_loaded": sorted(bundles_by_bvid),
                 "dry_run": args.dry_run,
+                "mode": args.mode,
                 "allow_canonical_fill": args.allow_canonical_fill,
                 "stats": {
                     "entries_total": stats.entries_total,

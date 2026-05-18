@@ -434,3 +434,119 @@ class LineupFrameExtractor:
                 )
                 sd["notes"] = notes
         return staging, stats
+
+
+# Cheap classify pass (read the title band only) — same prompt family as the
+# task #11 v2 eval. Keeps non-table frames from ever reaching candidate output.
+_CONSENSUS_CLASSIFY_PROMPT = (
+    "只读出这张图最上方的大标题文字，不要识别武将战法。"
+)
+_CONSENSUS_CLASSIFY_PARAMS = {
+    "image_detail": "low",
+    "reasoning_effort": "low",
+    "max_tokens": 128,
+}
+# A 三国谋定天下 team is exactly 3 heroes; a partial/!=3 set is not a clean
+# read and is dropped (high-confidence-only mode, per Lan 2026-05-18).
+_SANMOU_TEAM_SIZE = 3
+
+
+class ConsensusLineupExtractor(LineupFrameExtractor):
+    """High-confidence-only extractor: classify-gate + dual-model consensus.
+
+    Rationale (task #11 v2 eval, 2026-05-18): with no gpt-5.5, gpt-5.4* gets
+    ≤0.56 GT hero recall and the errors are valid KB heroes on the wrong team
+    (low misfill, would pass a naive check). But the eval also showed the
+    *clean* column (well-spaced COL3) was read identically by both 5.4-mini
+    and 5.4, while the dense columns Lan corrected disagreed. So cross-model
+    agreement is the available, evidence-grounded confidence signal:
+
+    - skip any frame that does not classify as a table (cheap title pass);
+    - emit heroes only when both models produce the **same** canonical set of
+      exactly 3 heroes; emit skills only on canonical agreement (intersection);
+    - anything partial / disagreeing / non-table yields nothing (not even
+      pending) — we deliberately trade recall for precision here.
+
+    Inherits ``backfill_entries`` unchanged (it calls ``self.extract_window``);
+    output still flows through the pending gate (frame_candidate_* +
+    needs_review) for human review.
+    """
+
+    def __init__(
+        self,
+        extractor_a: _VisionExtractorProtocol,
+        extractor_b: _VisionExtractorProtocol,
+        *,
+        canonicalize=None,
+        prepare_images=None,
+        vision_params: dict | None = None,
+    ) -> None:
+        super().__init__(
+            extractor_a,
+            canonicalize=canonicalize,
+            prepare_images=prepare_images,
+            vision_params=vision_params,
+        )
+        self._lfx_a = LineupFrameExtractor(
+            extractor_a,
+            canonicalize=self._canon,
+            prepare_images=self._prepare_images,
+            vision_params=self._vision_params,
+        )
+        self._lfx_b = LineupFrameExtractor(
+            extractor_b,
+            canonicalize=self._canon,
+            prepare_images=self._prepare_images,
+            vision_params=self._vision_params,
+        )
+
+    def _classify_window(self, window: list[FrameRef]) -> str:
+        """Cheap title-band read on the window's first frame → frame kind.
+
+        Fail-closed: any error classifies as OTHER (skip), because emitting a
+        candidate we could not even classify defeats high-confidence mode.
+        """
+        try:
+            imgs = self._prepare_images([window[0].path])
+            r = self._extractor.extract(
+                imgs,
+                question=_CONSENSUS_CLASSIFY_PROMPT,
+                **_CONSENSUS_CLASSIFY_PARAMS,
+            )
+        except Exception as exc:  # noqa: BLE001 - fail closed
+            logger.warning("consensus classify failed: %s", exc)
+            return FRAME_OTHER
+        signals = list(getattr(r, "text_snippets", []) or [])
+        signals.append(getattr(r, "raw_text", "") or "")
+        return classify_frame_kind(signals)
+
+    def extract_window(
+        self,
+        bvid: str,
+        frames: list[FrameRef],
+        start_sec: float,
+        end_sec: float,
+        *,
+        stats: BackfillStats | None = None,
+    ) -> FrameLineupSignal:
+        sig = FrameLineupSignal(bvid=bvid, start_sec=start_sec, end_sec=end_sec)
+        window = frames_in_window(frames, start_sec, end_sec)
+        if not window:
+            return sig
+        if self._classify_window(window) not in TABLE_FRAME_KINDS:
+            return sig  # non-table frame: no candidate at all
+        a = self._lfx_a.extract_window(bvid, frames, start_sec, end_sec, stats=stats)
+        b = self._lfx_b.extract_window(bvid, frames, start_sec, end_sec)
+        sig.frames_used = a.frames_used or b.frames_used
+        sig.raw_hero_names = _dedupe(a.raw_hero_names + b.raw_hero_names)
+        sig.raw_core_skills = _dedupe(a.raw_core_skills + b.raw_core_skills)
+        # Heroes: strict set agreement AND a complete 3-hero team.
+        ha, hb = set(a.hero_names), set(b.hero_names)
+        if ha and ha == hb and len(ha) == _SANMOU_TEAM_SIZE:
+            sig.hero_names = [n for n in a.hero_names if n in hb]
+        # Skills: canonical intersection (count varies, no team-size rule).
+        sb = set(b.core_skills)
+        agreed_skills = [s for s in a.core_skills if s in sb]
+        if agreed_skills:
+            sig.core_skills = _dedupe(agreed_skills)
+        return sig
