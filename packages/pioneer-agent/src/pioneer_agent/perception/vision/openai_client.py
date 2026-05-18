@@ -26,9 +26,13 @@ from .model_routing import get_vision_model_profile
 logger = logging.getLogger(__name__)
 
 DEFAULT_BASE_URL = "http://45.76.98.138/v1"
-DEFAULT_MODEL = "gpt-5.4"
-DEFAULT_REASONING_EFFORT = "low"
+# Model / reasoning defaults now live in model_routing.PROFILES (the realtime
+# profile is the runtime default). Only the max-tokens floor remains here as a
+# last-resort fallback when neither env nor profile supplies one.
 DEFAULT_MAX_TOKENS = 1024
+# Soft cap so a long-lived client that never consume_trace_events() can't grow
+# the trace buffer without bound; oldest events are dropped first.
+TRACE_EVENT_CAP = 256
 
 
 class OpenAIVisionClient:
@@ -189,6 +193,8 @@ class OpenAIVisionClient:
                         "elapsed_s": round(elapsed, 3),
                     }
                 )
+                if len(self._trace_events) > TRACE_EVENT_CAP:
+                    del self._trace_events[:-TRACE_EVENT_CAP]
                 return VisionResult(
                     data=data if isinstance(data, dict) else {},
                     model=body.get("model", self._model),

@@ -201,6 +201,35 @@ class OpenAIVisionClientTests(unittest.TestCase):
         self.assertIsInstance(dense, OpenAIVisionClient)
         self.assertIsInstance(explicit, OpenAIVisionClient)
 
+    def test_trace_events_are_soft_capped(self) -> None:
+        from pioneer_agent.perception.vision.openai_client import TRACE_EVENT_CAP
+
+        def fake_post(url, *, headers, json, timeout):
+            return _FakeResponse(
+                {
+                    "model": "gpt-5.4",
+                    "choices": [{"message": {"content": '{"ok":true}'}}],
+                    "usage": {"prompt_tokens": 1, "completion_tokens": 1},
+                }
+            )
+
+        with patch.dict(os.environ, {"OPENAI_API_KEY": "test-key"}, clear=False):
+            with patch("pioneer_agent.perception.vision.openai_client.load_vision_env"):
+                with patch(
+                    "pioneer_agent.perception.vision.openai_client.requests.post",
+                    fake_post,
+                ):
+                    client = OpenAIVisionClient(profile="realtime")
+                    for _ in range(TRACE_EVENT_CAP + 25):
+                        client.extract(
+                            image=_png_bytes(),
+                            instruction="x",
+                            response_schema={"type": "object", "properties": {}},
+                        )
+        events = client.consume_trace_events()
+        self.assertEqual(len(events), TRACE_EVENT_CAP)
+        self.assertEqual(client.consume_trace_events(), [])
+
     def test_model_profile_registry_documents_routing_defaults(self) -> None:
         realtime = get_vision_model_profile("realtime")
         dense = get_vision_model_profile("dense-table")

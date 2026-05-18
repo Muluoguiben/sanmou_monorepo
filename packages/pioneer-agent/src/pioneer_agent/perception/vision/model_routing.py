@@ -4,6 +4,13 @@ The real-time Sanmou loop should not use the strongest/slowest model for every
 tick. These profiles make the routing explicit and keep dense visual extraction,
 normal state extraction, recovery, verifier, and offline eval from drifting into
 one unreviewable default.
+
+Canonical source of vision knobs: the dense-table tuning validated by task #11
+(detail=original / reasoning=high / verbosity=high / large max_tokens) lives in
+the `dense_table` profile below. qa-agent's eval harness
+(qa_agent.app.eval_lineup_vision.COLUMN_VISION_PARAMS) currently duplicates
+these values; keep the two in sync until a shared profiles module exists.
+See docs/action-loop-model-routing.md.
 """
 from __future__ import annotations
 
