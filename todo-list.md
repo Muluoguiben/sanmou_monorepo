@@ -1,6 +1,6 @@
 # Todo List
 
-> Last updated: 2026-05-17 (macOS 侧高优知识任务已补：Bilibili 字幕规范化/阵容图结构化抽取状态纠偏，新增 Bilibili 视频自动发现 CLI，完成 100 条“三谋开荒”视频截图+vision 门禁沉淀，补充开荒基础玩法 baseline；已补 action-loop 模型路由；下一段重点转为真实截图/真机试用、click-action calibration、claim/recruit/upgrade flow + verifier、screenshot fixture dataset)
+> Last updated: 2026-05-18 (仓库文档与配置整理：阐正 README/CLAUDE.md/pioneer-agent CLAUDE.md 测试数为 175/166 并补可选依赖说明；删未引用孤儿 fixture template_runtime_state.json；修 pyproject 重复/缺失依赖声明、桌面端 tsconfig moduleResolution、controller 安装脚本硬编码 WSL 路径；收敛文档结构。上一轮 2026-05-17：Bilibili 字幕规范化/阵容图结构化抽取状态纠偏，新增 Bilibili 视频自动发现 CLI，完成 100 条“三谋开荒”视频截图+vision 门禁沉淀，补充开荒基础玩法 baseline，已补 action-loop 模型路由；下一段重点转为真实截图/真机试用、click-action calibration、claim/recruit/upgrade flow + verifier、screenshot fixture dataset)
 
 ## In Progress
 

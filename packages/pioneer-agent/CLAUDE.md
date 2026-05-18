@@ -25,7 +25,7 @@
 PYTHONPATH=src:../sanmou-common/src python3 -m unittest discover -s tests -p "test_*.py" -v
 ```
 
-当前测试状态：76 tests。若未安装 FastAPI / python-multipart，`test_advisor_api.py` 会 skip；安装 `pioneer-agent` 开发依赖后应完整通过。
+当前测试状态：175 tests。若未安装可选的 vision/API 依赖（Pillow / google-genai / fastapi / uvicorn / python-multipart），相关 vision 与 `test_advisor_api.py` 测试会 skip；装齐后应完整通过。
 
 ## 运行 Agent / Advisor
 ```bash

@@ -24,7 +24,8 @@ docs/                Cross-project design documents
 1. [sanguo-agent-mvp-model.md](docs/sanguo-agent-mvp-model.md)
 2. [sanguo-agent-runtime-design.md](docs/sanguo-agent-runtime-design.md)
 3. [sanguo-agent-mvp-engineering-plan.md](docs/sanguo-agent-mvp-engineering-plan.md)
-4. [pioneer-agent-architecture-review-and-roadmap.md](docs/pioneer-agent-architecture-review-and-roadmap.md)
+4. [state-snapshot-field-guide.md](docs/state-snapshot-field-guide.md)
+5. [pioneer-agent-architecture-review-and-roadmap.md](docs/pioneer-agent-architecture-review-and-roadmap.md)
 
 ## Package Dependencies
 
