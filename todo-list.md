@@ -1,12 +1,42 @@
 # Todo List
 
-> Last updated: 2026-05-17 (macOS 侧高优知识任务已补：Bilibili 字幕规范化/阵容图结构化抽取状态纠偏，新增 Bilibili 视频自动发现 CLI，完成 100 条“三谋开荒”视频截图+vision 门禁沉淀，补充开荒基础玩法 baseline；已补 action-loop 模型路由；下一段重点转为真实截图/真机试用、click-action calibration、claim/recruit/upgrade flow + verifier、screenshot fixture dataset)
+> Last updated: 2026-05-19 (保留远端 action-loop 模型路由更新；原始架构 ADR 已按 `docs/sanmou-architecture-design.md` 入库，补充派生执行路线与模块设计文档；Architecture Iteration 现在是最高优先级，下一段重点是结构化 evidence、citation validator、vision semantic validators、Advisor golden replay 与低风险动作 verifier)
+
+## Highest Priority — Architecture Iteration
+
+- [ ] Architecture Iteration 收口（最高优先级）：以原始 ADR `docs/sanmou-architecture-design.md` 为架构源文档，按派生执行路线 `docs/sanmou-monorepo-architecture-iteration-path.md` 推进 Advisor 可信闭环；所有新功能/自动化任务默认让位于结构化 evidence、entry_id 校验、vision semantic validators、golden replay 扩展和低风险 verifier。
+- [x] 模块设计文档入库：新增 `docs/modules/sanmou-common-design.md`、`docs/modules/qa-agent-design.md`、`docs/modules/pioneer-agent-design.md`、`docs/modules/sanmou-advisor-desktop-design.md`，后续模块级改动先对齐对应设计文档。
+- [x] 架构审查修正入库：`docs/sanmou-monorepo-architecture-iteration-path.md` 明确 ports 已完成、LLM-as-Judge 仅实验、ActionDSL 暂不进 common、离线 vision 与实时 perception 不合并、TOS/隐私/停止条件前置。
+- [ ] PR-1 结构化 evidence：`AdvisorReport/ActionRecommendation` 从字符串 evidence 迁移到结构化 evidence，并保持旧 UI/API 消费兼容。
+- [ ] PR-2 Evidence validator：推荐引用的 `entry_id` 必须来自 QA 检索结果或 `strategy_snapshot.yaml`，伪造/缺失 evidence 有 regression tests。
+- [ ] PR-3 `strategy_snapshot.entry_ids` 贯通：建筑升级 scoring 的 priority 与 evidence 同时输出，推荐层可反查 QA knowledge。
+- [ ] PR-4 Vision semantic validators：当前 vision schema 增加 bbox、visible/enabled、page/domain 一致性校验和失败 fixture。
+- [ ] PR-5 Golden replay 扩展：真实截图 fixture 覆盖首页、城内、章节、征兵、建筑升级、队伍，锁住 action/evidence/confidence。
+- [ ] PR-6 低风险 verifier specs：先补 `claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` expected deltas，不先追求完整自动点击 flow。
 
 ## In Progress
 
 - [ ] Desktop Advisor 真机试用：用 PC 客户端、安卓模拟器、安卓真机、iOS 各 3-5 张真实截图跑 `apps/sanmou-advisor-desktop`，记录识别失败样例与 UI 卡点。
 - [x] macOS 可独立完成 P0 收口（2026-05-17）：已完成并推送 `strategy_snapshot.yaml` 默认接入 selector/scoring、Electron API 启动/依赖探测、Advisor history list/detail/screenshot；剩余 P0 均需要真实游戏截图、可控设备/模拟器、Windows 客户端或人工采集样本。
 - [x] macOS 知识采集高优收口（2026-05-17）：Bilibili 字幕规范化与阵容图结构化抽取主体已由历史 commit 落地；新增 `qa_agent.app.discover_bilibili` 自动发现候选视频，完成 100 条“三谋开荒”视频的本地截图+vision 门禁沉淀，字幕/结论文本只作为辅助证据，并补充 `opening_baseline` 基础玩法知识/配置入口。
+
+## Architecture Iteration Path — 2026-05-19
+
+- [x] 原始架构 ADR 入库：从 `/Users/bytedance/Downloads/sanmou-architecture-design.md` 原样复制为 `docs/sanmou-architecture-design.md`，作为仓库内 canonical 架构 Markdown。
+- [x] 派生执行路线入库：新增 `docs/sanmou-monorepo-architecture-iteration-path.md`，在原始 ADR 基础上补充当前代码校正结论、P0-P3 路线和下一批 PR 建议。
+- [x] 跨包最小契约：新增 `sanmou_common.ports`，定义 `Evidence`、`KnowledgeAnswer`、`KnowledgeProvider`、`ModelAdapter`，避免 `pioneer-agent` 长期直接绑定 `qa-agent` 内部模型。
+- [x] QA 知识适配器：新增 `qa_agent.adapters.QaKnowledgeProvider`，把现有 `QueryService` 输出转换为 common 契约；Advisor API 懒加载改为使用该 adapter。
+- [ ] Advisor 结构化 evidence：把 `ActionRecommendation.evidence: list[str]` 升级为结构化 evidence，至少包含 `entry_id/topic/domain/summary/source_ref/confidence`。
+- [ ] Evidence validator：推荐引用的 `entry_id` 必须来自真实检索结果或 `strategy_snapshot.yaml`，伪造、缺失、过期 evidence 必须被测试覆盖。
+- [ ] `strategy_snapshot.entry_ids` 贯通：建筑升级 scoring 注入 priority 的同时，把相关 `entry_ids` 传到推荐和解释层。
+- [ ] Vision semantic validators：对当前视觉 schema 增加语义校验，包括 bbox 范围、按钮 visible/enabled 与 bbox 一致性、page/domain 一致性。
+- [ ] Advisor golden replay 扩展：把真实截图 fixture 扩展到首页、城内、章节、征兵、建筑升级、队伍，锁住 action/evidence/confidence 输出。
+- [ ] ExplainerLLM 边界：只允许 LLM 基于 rule reason + evidence 生成 narrative，不允许修改 action type、关键 params、safety verdict。
+- [ ] LLM-as-Judge 灰度：只在 top2 score 接近且已有 eval baseline 后启用 pairwise rerank；默认关闭。
+- [ ] 停止条件执行：没有 golden replay baseline 前不启用 LLM-as-Judge；低风险 verifier false positive 未覆盖前不开放 semi-auto；地图/战报/队伍 verifier 未完成前不开放高风险全自动。
+- [ ] 低风险 verifier specs：优先补 `claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` 的 expected deltas 和 timeout。
+- [ ] 低风险 action handlers：三个低风险动作从 `pending` 推进到真实 UI flow，动作失败必须 block/recover，不允许继续连点。
+- [ ] 高风险自动化边界：`attack_land`、`transfer_main_lineup`、`abandon_land` 在地图识别、战报识别、队伍状态 verifier 完成前保持人工确认或 block。
 
 ## P0 — Advisor MVP + 低风险真实自动化闭环
 

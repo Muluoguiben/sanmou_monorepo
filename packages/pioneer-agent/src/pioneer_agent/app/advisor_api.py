@@ -255,13 +255,10 @@ class AdvisorApiService:
             qa_src = self.project_root / "packages" / "qa-agent" / "src"
             if qa_src.exists() and str(qa_src) not in sys.path:
                 sys.path.insert(0, str(qa_src))
-            from qa_agent.knowledge.source_paths import discover_source_paths
-            from qa_agent.service.query_service import QueryService
+            from qa_agent.adapters import QaKnowledgeProvider
 
             source_root = self.project_root / "packages" / "qa-agent" / "knowledge_sources"
-            self._qa_query_service = QueryService.from_source_paths(
-                discover_source_paths(source_root)
-            )
+            self._qa_query_service = QaKnowledgeProvider.from_knowledge_root(source_root)
             return self._qa_query_service
         except Exception as exc:  # noqa: BLE001
             self._qa_query_error = str(exc)
