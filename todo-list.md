@@ -1,11 +1,15 @@
 # Todo List
 
-> Last updated: 2026-05-19 (保留远端 action-loop 模型路由更新；补充两份架构设计 Markdown 的校正结论，新增 `docs/sanmou-monorepo-architecture-iteration-path.md`，并落地 common ports + qa-agent KnowledgeProvider adapter；下一段重点是结构化 evidence、citation validator、vision semantic validators、Advisor golden replay 与低风险动作 verifier)
+> Last updated: 2026-05-19 (保留远端 action-loop 模型路由更新；补充两份架构设计 Markdown 的校正结论，新增 `docs/sanmou-monorepo-architecture-iteration-path.md` 与模块设计文档；Architecture Iteration 现在是最高优先级，下一段重点是结构化 evidence、citation validator、vision semantic validators、Advisor golden replay 与低风险动作 verifier)
+
+## Highest Priority — Architecture Iteration
+
+- [ ] Architecture Iteration 收口（最高优先级）：按 `docs/sanmou-monorepo-architecture-iteration-path.md` 推进 Advisor 可信闭环，所有新功能/自动化任务默认让位于结构化 evidence、entry_id 校验、vision semantic validators、golden replay 扩展和低风险 verifier。
+- [x] 模块设计文档入库：新增 `docs/modules/sanmou-common-design.md`、`docs/modules/qa-agent-design.md`、`docs/modules/pioneer-agent-design.md`、`docs/modules/sanmou-advisor-desktop-design.md`，后续模块级改动先对齐对应设计文档。
 
 ## In Progress
 
 - [ ] Desktop Advisor 真机试用：用 PC 客户端、安卓模拟器、安卓真机、iOS 各 3-5 张真实截图跑 `apps/sanmou-advisor-desktop`，记录识别失败样例与 UI 卡点。
-- [ ] Architecture Iteration 收口：按 `docs/sanmou-monorepo-architecture-iteration-path.md` 推进 Advisor 可信闭环，优先完成结构化 evidence、entry_id 校验、vision semantic validators、golden replay 扩展和低风险 verifier。
 - [x] macOS 可独立完成 P0 收口（2026-05-17）：已完成并推送 `strategy_snapshot.yaml` 默认接入 selector/scoring、Electron API 启动/依赖探测、Advisor history list/detail/screenshot；剩余 P0 均需要真实游戏截图、可控设备/模拟器、Windows 客户端或人工采集样本。
 - [x] macOS 知识采集高优收口（2026-05-17）：Bilibili 字幕规范化与阵容图结构化抽取主体已由历史 commit 落地；新增 `qa_agent.app.discover_bilibili` 自动发现候选视频，完成 100 条“三谋开荒”视频的本地截图+vision 门禁沉淀，字幕/结论文本只作为辅助证据，并补充 `opening_baseline` 基础玩法知识/配置入口。
 

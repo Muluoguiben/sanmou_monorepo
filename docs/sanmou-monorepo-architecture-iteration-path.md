@@ -53,6 +53,13 @@ flowchart LR
 - 推荐结果必须带结构化 evidence，且 evidence 必须可校验。
 - 执行动作必须先满足 safety gate 与 verifier gate。
 
+## 模块设计文档
+
+- `sanmou-common`：`docs/modules/sanmou-common-design.md`
+- `qa-agent`：`docs/modules/qa-agent-design.md`
+- `pioneer-agent`：`docs/modules/pioneer-agent-design.md`
+- `sanmou-advisor-desktop`：`docs/modules/sanmou-advisor-desktop-design.md`
+
 ## P0：Advisor 可信闭环
 
 周期：2-3 周。
