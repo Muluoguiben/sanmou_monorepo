@@ -2,6 +2,15 @@
 
 更新时间：2026-05-19
 
+## 上位文档
+
+本模块设计参考并服从：
+
+- `docs/sanmou-architecture-design.md`：总架构 ADR，重点对应 `2.1 三包职责边界与模块切分`、`4.1 顶层模块图`、`4.2 关键接口契约`、`5 Phase 1`。
+- `docs/sanmou-monorepo-architecture-iteration-path.md`：基于当前代码状态修正后的执行路线。
+
+总架构 ADR 对 `sanmou-common` 的核心要求是补齐 ports 层，让 `pioneer-agent` 和 `qa-agent` 通过 `KnowledgeProvider`、`ModelAdapter`、`Evidence` 等稳定契约协作。
+
 ## 模块定位
 
 `packages/sanmou-common` 是 monorepo 的共享契约与静态配置层。它不负责业务决策、不调用 LLM、不读取设备截图，也不依赖 `qa-agent` 或 `pioneer-agent` 的内部实现。

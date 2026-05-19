@@ -2,6 +2,15 @@
 
 更新时间：2026-05-19
 
+## 上位文档
+
+本模块设计参考并服从：
+
+- `docs/sanmou-architecture-design.md`：总架构 ADR，重点对应 `1 执行摘要`、`4.1 顶层模块图`、`4.3 端到端 Sequence Diagram`、`5 迁移路径`。
+- `docs/sanmou-monorepo-architecture-iteration-path.md`：基于当前代码状态修正后的执行路线。
+
+总架构 ADR 对 `sanmou-advisor-desktop` 的核心要求是承担 Advisor 可视化和人工确认入口，不把前端变成第二套 selector，也不绕过后端 safety/verifier 执行 UI 输入。
+
 ## 模块定位
 
 `apps/sanmou-advisor-desktop` 是用户面对的 Electron + React 桌面 Advisor。它负责截图上传、报告展示、历史浏览、对话入口和运行时控制，不负责策略决策本身。

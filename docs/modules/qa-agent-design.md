@@ -2,6 +2,15 @@
 
 更新时间：2026-05-19
 
+## 上位文档
+
+本模块设计参考并服从：
+
+- `docs/sanmou-architecture-design.md`：总架构 ADR，重点对应 `1 执行摘要`、`2.1 三包职责边界与模块切分`、`3.12 HybridRAG / GraphRAG`、`3.13 Evidence-Grounded Action Recommendation`、`3.14 Citation-Enhanced Generation`、`4.1 顶层模块图`、`5 Phase 2`。
+- `docs/sanmou-monorepo-architecture-iteration-path.md`：基于当前代码状态修正后的执行路线。
+
+总架构 ADR 对 `qa-agent` 的核心要求是从独立 RAG 问答模块升级为 `KnowledgeProvider` 实现方，为 Advisor 推荐提供可校验 evidence，而不是直接生成 action。
+
 ## 模块定位
 
 `packages/qa-agent` 是游戏知识库、检索、问答和知识采集模块。它的职责是把人工规则、结构化资料、视频证据和截图抽取结果沉淀成可检索、可引用、可审计的知识。

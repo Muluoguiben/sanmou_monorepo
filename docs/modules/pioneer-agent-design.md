@@ -2,6 +2,15 @@
 
 更新时间：2026-05-19
 
+## 上位文档
+
+本模块设计参考并服从：
+
+- `docs/sanmou-architecture-design.md`：总架构 ADR，重点对应 `2.2 advisor_loop 主循环评估`、`2.4 决策层混合架构成熟度`、`4.1 顶层模块图`、`4.3 端到端 Sequence Diagram`、`5 Phase 1-3`。
+- `docs/sanmou-monorepo-architecture-iteration-path.md`：基于当前代码状态修正后的执行路线。
+
+总架构 ADR 对 `pioneer-agent` 的核心要求是保留 perception -> derivation -> selector -> recommendation 骨架，把 LLM 限定在 judge/explainer/vision adapter 边界内，并在 executor 前补齐 evidence、eval、verifier 和 safety 闭环。
+
 ## 模块定位
 
 `packages/pioneer-agent` 是截图感知、状态同步、决策推荐、低风险执行和验证闭环模块。它是 Sanmou Agent 的运行时核心。
