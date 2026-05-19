@@ -82,7 +82,15 @@ class UpgradeDialogDomainTests(unittest.TestCase):
                     "costs": [],
                     "confirm_button_visible": True,
                     "confirm_button_enabled": True,
+                    "confirm_x_min": 720,
+                    "confirm_y_min": 820,
+                    "confirm_x_max": 920,
+                    "confirm_y_max": 900,
                     "close_button_visible": True,
+                    "close_x_min": 930,
+                    "close_y_min": 80,
+                    "close_x_max": 980,
+                    "close_y_max": 140,
                 }
             ),
         )

@@ -21,6 +21,7 @@ class ExportStrategySnapshotTests(unittest.TestCase):
 
         building = snapshot["building_priorities"][0]
         self.assertIn("key", building)
+        self.assertEqual(building["entry_ids"], [building["key"]])
         self.assertIn("priority", building)
         self.assertIn("rationale", building)
 

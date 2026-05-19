@@ -18,6 +18,7 @@ class ActionSelectorStrategySnapshotTests(unittest.TestCase):
                 "building_priorities": [
                     {
                         "key": "recruit-building",
+                        "entry_ids": ["recruit-building"],
                         "topic": "征兵所",
                         "aliases": ["barracks"],
                         "priority": 100,
@@ -31,7 +32,7 @@ class ActionSelectorStrategySnapshotTests(unittest.TestCase):
             city={
                 "upgradeable_buildings": [
                     {
-                        "building_id": "farm",
+                        "building_id": "mill",
                         "target_level": 2,
                         "chapter_relevance": "low_relevance",
                         "resource_shortages": {},
@@ -52,6 +53,8 @@ class ActionSelectorStrategySnapshotTests(unittest.TestCase):
         selected = result.selected_action
         assert selected is not None
         self.assertEqual(selected.params["building_id"], "barracks")
+        self.assertEqual(selected.params["strategy_entry_ids"], ["recruit-building"])
+        self.assertEqual(selected.params["strategy_topic"], "征兵所")
         self.assertEqual(selected.score_breakdown["strategy_priority_bonus"], 10.0)
 
     def test_generated_snapshot_prioritizes_named_building(self) -> None:
@@ -61,15 +64,15 @@ class ActionSelectorStrategySnapshotTests(unittest.TestCase):
             city={
                 "upgradeable_buildings": [
                     {
-                        "building_id": "farm",
-                        "building_name": "农田",
+                        "building_id": "mill",
+                        "building_name": "磨坊",
                         "target_level": 2,
                         "chapter_relevance": "low_relevance",
                         "resource_shortages": {},
                     },
                     {
                         "building_id": "main_hall",
-                        "building_name": "城主府",
+                        "building_name": "君王殿",
                         "target_level": 2,
                         "chapter_relevance": "low_relevance",
                         "resource_shortages": {},
@@ -84,23 +87,26 @@ class ActionSelectorStrategySnapshotTests(unittest.TestCase):
         selected = result.selected_action
         assert selected is not None
         self.assertEqual(selected.params["building_id"], "main_hall")
-        self.assertEqual(selected.params["building_name"], "城主府")
+        self.assertEqual(selected.params["building_name"], "君王殿")
+        self.assertIn("building-main-city", selected.params["strategy_entry_ids"])
         self.assertEqual(selected.score_breakdown["strategy_priority_bonus"], 9.0)
+        self.assertIn("建议升级 君王殿", result.selection_reason["summary"])
+        self.assertIn("知识库依据：君王殿是多数城建解锁和章节推进的核心建筑之一", result.selection_reason["summary"])
 
     def test_default_selector_loads_generated_snapshot(self) -> None:
         state = RuntimeState(
             city={
                 "upgradeable_buildings": [
                     {
-                        "building_id": "farm",
-                        "building_name": "农田",
+                        "building_id": "mill",
+                        "building_name": "磨坊",
                         "target_level": 2,
                         "chapter_relevance": "low_relevance",
                         "resource_shortages": {},
                     },
                     {
                         "building_id": "main_hall",
-                        "building_name": "城主府",
+                        "building_name": "君王殿",
                         "target_level": 2,
                         "chapter_relevance": "low_relevance",
                         "resource_shortages": {},

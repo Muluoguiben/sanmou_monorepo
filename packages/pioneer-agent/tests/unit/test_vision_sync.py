@@ -172,6 +172,10 @@ class VisionSyncTests(unittest.TestCase):
                             "max_soldiers": 30000,
                             "recruit_button_visible": True,
                             "recruit_button_enabled": True,
+                            "button_x_min": 760,
+                            "button_y_min": 820,
+                            "button_x_max": 920,
+                            "button_y_max": 900,
                         }
                     ],
                     "visible_notes": ["可征兵"],
@@ -209,6 +213,10 @@ class VisionSyncTests(unittest.TestCase):
                     "confirm_x_max": 920,
                     "confirm_y_max": 900,
                     "close_button_visible": True,
+                    "close_x_min": 930,
+                    "close_y_min": 80,
+                    "close_x_max": 980,
+                    "close_y_max": 140,
                     "visible_notes": ["资源不足"],
                 },
             ]

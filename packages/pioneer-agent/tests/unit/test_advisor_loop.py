@@ -25,6 +25,7 @@ from pioneer_agent.core.runtime_state_io import load_runtime_state_record
 from pioneer_agent.derivation.state_deriver import StateDeriver
 from pioneer_agent.perception.screenshot_interpreter import ScreenshotInterpretation
 from pioneer_agent.perception.vision_sync import VisionSyncSummary
+from pioneer_agent.runtime.evidence import EvidenceValidationError
 from pioneer_agent.runtime.advisor_loop import AdvisorLoop, build_advisor_report
 from pioneer_agent.selector.action_selector import ActionSelector
 
@@ -187,6 +188,108 @@ class AdvisorLoopTests(unittest.TestCase):
         self.assertEqual(report.recommended_action.score, 12.0)  # type: ignore[union-attr]
         self.assertIn("vision.domain:resource_bar", report.evidence)
         self.assertIn("selector.rule:resource_gate", report.evidence)
+        self.assertIn("vision.domain:resource_bar", [item.ref for item in report.structured_evidence])
+        self.assertIn("selector.rule:resource_gate", [item.ref for item in report.structured_evidence])
+
+    def test_build_report_includes_strategy_snapshot_structured_evidence(self) -> None:
+        action = CandidateAction(
+            action_id="upgrade-main-hall",
+            action_type=ActionType.UPGRADE_BUILDING,
+            params={
+                "building_id": "main_hall",
+                "building_name": "君王殿",
+                "strategy_key": "building-main-city",
+                "strategy_entry_ids": ["building-main-city"],
+                "strategy_topic": "君王殿",
+                "strategy_rationale": "君王殿是多数城建解锁和章节推进的核心建筑之一。",
+                "strategy_source_ref": "KB-RULE-BUILDING-001",
+            },
+            source_state_refs=["city.upgradeable_buildings"],
+        ).model_copy(update={"score_total": 88.0})
+        selection = SelectionResult(
+            selected_action=action,
+            ranked_actions=[action],
+            selection_reason={"triggered_rules": ["chapter_progress"]},
+        )
+        frame = CaptureFrame(
+            png=b"not-used",
+            captured_at=datetime(2026, 1, 1, 0, 0, 0),
+            device_session=_session(DevicePlatform.ANDROID, ObservationSourceType.SCREENSHOT_FILE, (2400, 1080)),
+            source_type=ObservationSourceType.SCREENSHOT_FILE,
+        )
+
+        report = build_advisor_report(
+            frame=frame,
+            state=RuntimeState(city={"upgradeable_buildings": []}),
+            selection=selection,
+            vision_summary=VisionSyncSummary(page_type="city", domains_run=["city_buildings"], notes=[]),
+        )
+
+        assert report.recommended_action is not None
+        structured = report.recommended_action.structured_evidence
+        self.assertIn("strategy_snapshot:building-main-city", report.recommended_action.evidence)
+        self.assertEqual(structured[-1].entry_id, "building-main-city")
+        self.assertEqual(structured[-1].topic, "君王殿")
+        self.assertEqual(structured[-1].source_ref, "KB-RULE-BUILDING-001")
+
+    def test_build_report_rejects_strategy_key_without_entry_ids(self) -> None:
+        action = CandidateAction(
+            action_id="upgrade-main-hall",
+            action_type=ActionType.UPGRADE_BUILDING,
+            params={
+                "building_id": "main_hall",
+                "strategy_key": "building-main-city",
+            },
+        ).model_copy(update={"score_total": 88.0})
+        selection = SelectionResult(
+            selected_action=action,
+            ranked_actions=[action],
+            selection_reason={"triggered_rules": []},
+        )
+        frame = CaptureFrame(
+            png=b"not-used",
+            captured_at=datetime(2026, 1, 1, 0, 0, 0),
+            device_session=_session(DevicePlatform.ANDROID, ObservationSourceType.SCREENSHOT_FILE, (2400, 1080)),
+            source_type=ObservationSourceType.SCREENSHOT_FILE,
+        )
+
+        with self.assertRaisesRegex(EvidenceValidationError, "strategy_key requires strategy_entry_ids"):
+            build_advisor_report(
+                frame=frame,
+                state=RuntimeState(),
+                selection=selection,
+                vision_summary=VisionSyncSummary(page_type="city", domains_run=[], notes=[]),
+            )
+
+    def test_build_report_rejects_forged_strategy_entry_ids(self) -> None:
+        action = CandidateAction(
+            action_id="upgrade-main-hall",
+            action_type=ActionType.UPGRADE_BUILDING,
+            params={
+                "building_id": "main_hall",
+                "strategy_key": "made-up-entry",
+                "strategy_entry_ids": ["made-up-entry"],
+            },
+        ).model_copy(update={"score_total": 88.0})
+        selection = SelectionResult(
+            selected_action=action,
+            ranked_actions=[action],
+            selection_reason={"triggered_rules": []},
+        )
+        frame = CaptureFrame(
+            png=b"not-used",
+            captured_at=datetime(2026, 1, 1, 0, 0, 0),
+            device_session=_session(DevicePlatform.ANDROID, ObservationSourceType.SCREENSHOT_FILE, (2400, 1080)),
+            source_type=ObservationSourceType.SCREENSHOT_FILE,
+        )
+
+        with self.assertRaisesRegex(EvidenceValidationError, "not present in allowed"):
+            build_advisor_report(
+                frame=frame,
+                state=RuntimeState(),
+                selection=selection,
+                vision_summary=VisionSyncSummary(page_type="city", domains_run=[], notes=[]),
+            )
 
     def test_build_report_includes_screenshot_interpretation(self) -> None:
         action = CandidateAction(

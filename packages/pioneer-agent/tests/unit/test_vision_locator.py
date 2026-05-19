@@ -5,6 +5,8 @@ import unittest
 from dataclasses import dataclass
 from typing import Any
 
+from pydantic import ValidationError
+
 from pioneer_agent.perception.vision import (
     ElementBox,
     PixelBox,
@@ -76,19 +78,13 @@ class PixelConversionTests(unittest.TestCase):
         self.assertEqual(pix.height, 540)
         self.assertEqual(pix.center, (480, 270))
 
-    def test_inverted_box_is_corrected(self) -> None:
-        box = ElementBox(label="bad", y_min=600, x_min=700, y_max=400, x_max=500)
-        pix = to_pixel_box(box, image_width=1000, image_height=1000)
-        self.assertEqual(pix.x, 500)
-        self.assertEqual(pix.y, 400)
-        self.assertEqual(pix.width, 200)
-        self.assertEqual(pix.height, 200)
+    def test_inverted_box_is_rejected(self) -> None:
+        with self.assertRaises(ValidationError):
+            ElementBox(label="bad", y_min=600, x_min=700, y_max=400, x_max=500)
 
-    def test_zero_size_box_gets_minimum(self) -> None:
-        box = ElementBox(label="dot", y_min=500, x_min=500, y_max=500, x_max=500)
-        pix = to_pixel_box(box, image_width=1000, image_height=1000)
-        self.assertEqual(pix.width, 1)
-        self.assertEqual(pix.height, 1)
+    def test_zero_size_box_is_rejected(self) -> None:
+        with self.assertRaises(ValidationError):
+            ElementBox(label="dot", y_min=500, x_min=500, y_max=500, x_max=500)
 
     def test_returns_pixel_box_type(self) -> None:
         box = ElementBox(label="x", y_min=0, x_min=0, y_max=100, x_max=100)

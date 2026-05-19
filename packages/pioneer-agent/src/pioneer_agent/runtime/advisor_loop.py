@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from functools import lru_cache
 from typing import Any
 
 from pydantic import BaseModel, Field
@@ -10,8 +11,18 @@ from pioneer_agent.core.device import AccountSession, DeviceSession
 from pioneer_agent.core.enums import ActionType
 from pioneer_agent.core.models import CandidateAction, RuntimeState, SelectionResult
 from pioneer_agent.derivation.state_deriver import StateDeriver
+from pioneer_agent.knowledge.strategy_snapshot import load_default_strategy_snapshot
 from pioneer_agent.perception.screenshot_interpreter import ScreenshotInterpretation
 from pioneer_agent.perception.vision_sync import VisionSync, VisionSyncSummary
+from pioneer_agent.runtime.evidence import (
+    AdvisorEvidence,
+    EvidenceValidationError,
+    selector_rule_evidence,
+    state_evidence,
+    strategy_snapshot_evidence,
+    validate_evidence_entry_ids,
+    vision_evidence,
+)
 from pioneer_agent.selector.action_selector import ActionSelector
 
 
@@ -22,6 +33,7 @@ class ActionRecommendation(BaseModel):
     score: float = 0.0
     risk: dict[str, Any] = Field(default_factory=dict)
     evidence: list[str] = Field(default_factory=list)
+    structured_evidence: list[AdvisorEvidence] = Field(default_factory=list)
     confidence: float = 1.0
     executable: bool = False
     execution_blocked_reason: str = "advisor_mode"
@@ -38,6 +50,7 @@ class AdvisorReport(BaseModel):
     recommended_action: ActionRecommendation | None = None
     risks: list[dict[str, Any]] = Field(default_factory=list)
     evidence: list[str] = Field(default_factory=list)
+    structured_evidence: list[AdvisorEvidence] = Field(default_factory=list)
     confidence: float = 1.0
     screenshot_interpretation: ScreenshotInterpretation | None = None
     vision_summary: dict[str, Any] = Field(default_factory=dict)
@@ -100,7 +113,13 @@ def build_advisor_report(
         else None
     )
     risks = [item.risk for item in available if item.risk]
-    evidence = _collect_evidence(selection, vision_summary, recommended, screenshot_interpretation)
+    structured_evidence = _collect_structured_evidence(
+        selection,
+        vision_summary,
+        recommended,
+        screenshot_interpretation,
+    )
+    evidence = _legacy_evidence(structured_evidence)
     confidence_values = [item.confidence for item in available]
     if screenshot_interpretation is not None:
         confidence_values.append(screenshot_interpretation.confidence)
@@ -115,6 +134,7 @@ def build_advisor_report(
         recommended_action=recommended,
         risks=risks,
         evidence=evidence,
+        structured_evidence=structured_evidence,
         confidence=confidence,
         screenshot_interpretation=screenshot_interpretation,
         vision_summary={
@@ -133,13 +153,15 @@ def _recommendation_from_candidate(
     state: RuntimeState,
     candidate: CandidateAction,
 ) -> ActionRecommendation:
+    structured_evidence = _candidate_structured_evidence(state, candidate)
     return ActionRecommendation(
         action_id=candidate.action_id,
         action_type=candidate.action_type,
         params=dict(candidate.params),
         score=candidate.score_total,
         risk=dict(candidate.risk),
-        evidence=list(candidate.source_state_refs),
+        evidence=_legacy_evidence(structured_evidence),
+        structured_evidence=structured_evidence,
         confidence=_confidence_for_candidate(state, candidate),
         executable=False,
         execution_blocked_reason="advisor_mode",
@@ -155,23 +177,107 @@ def _confidence_for_candidate(state: RuntimeState, candidate: CandidateAction) -
     return min(confidences) if confidences else 1.0
 
 
-def _collect_evidence(
+def _candidate_structured_evidence(state: RuntimeState, candidate: CandidateAction) -> list[AdvisorEvidence]:
+    evidence: list[AdvisorEvidence] = []
+    for ref in candidate.source_state_refs:
+        meta = state.field_meta.get(ref)
+        evidence.append(
+            state_evidence(
+                ref,
+                confidence=meta.confidence if meta is not None else None,
+                source=meta.source if meta is not None else None,
+            )
+        )
+    evidence.extend(_strategy_evidence_from_params(candidate.params))
+    return evidence
+
+
+def _strategy_evidence_from_params(params: dict[str, Any]) -> list[AdvisorEvidence]:
+    strategy_key = _optional_string(params.get("strategy_key"))
+    entry_ids = _string_list(params.get("strategy_entry_ids"))
+    if strategy_key and not entry_ids:
+        raise EvidenceValidationError("strategy_key requires strategy_entry_ids evidence")
+    if not entry_ids:
+        return []
+
+    topic = _optional_string(params.get("strategy_topic")) or _optional_string(params.get("building_name"))
+    summary = _optional_string(params.get("strategy_rationale")) or ""
+    source_ref = _optional_string(params.get("strategy_source_ref"))
+    evidence = [
+        strategy_snapshot_evidence(
+            entry_id=entry_id,
+            topic=topic,
+            domain="building",
+            summary=summary,
+            source_ref=source_ref,
+            strategy_key=strategy_key,
+        )
+        for entry_id in entry_ids
+    ]
+    validate_evidence_entry_ids(
+        evidence,
+        allowed_entry_ids=(*_default_strategy_entry_ids(), *_string_list(params.get("qa_entry_ids"))),
+    )
+    return evidence
+
+
+def _collect_structured_evidence(
     selection: SelectionResult,
     vision_summary: VisionSyncSummary,
     recommended: ActionRecommendation | None,
     screenshot_interpretation: ScreenshotInterpretation | None,
-) -> list[str]:
-    evidence: list[str] = []
-    evidence.extend(f"vision.domain:{domain}" for domain in vision_summary.domains_run)
+) -> list[AdvisorEvidence]:
+    evidence: list[AdvisorEvidence] = []
+    evidence.extend(
+        vision_evidence(
+            f"vision.domain:{domain}",
+            summary="vision extraction domain completed",
+        )
+        for domain in vision_summary.domains_run
+    )
     if vision_summary.page_type:
-        evidence.append(f"vision.page_type:{vision_summary.page_type}")
+        evidence.append(
+            vision_evidence(
+                f"vision.page_type:{vision_summary.page_type}",
+                summary="vision page classification",
+            )
+        )
     if screenshot_interpretation is not None:
-        evidence.append("vision.interpretation")
+        evidence.append(vision_evidence("vision.interpretation", summary=screenshot_interpretation.summary))
     if recommended is not None:
-        evidence.extend(recommended.evidence)
+        evidence.extend(recommended.structured_evidence)
     triggered_rules = selection.selection_reason.get("triggered_rules", [])
-    evidence.extend(f"selector.rule:{rule}" for rule in triggered_rules)
+    evidence.extend(selector_rule_evidence(str(rule)) for rule in triggered_rules)
     return evidence
+
+
+def _legacy_evidence(evidence: list[AdvisorEvidence]) -> list[str]:
+    return [item.to_legacy_string() for item in evidence]
+
+
+def _string_list(value: Any) -> list[str]:
+    if value is None:
+        return []
+    if isinstance(value, str):
+        return [value] if value else []
+    if isinstance(value, (list, tuple, set)):
+        return [str(item) for item in value if item]
+    return [str(value)]
+
+
+def _optional_string(value: Any) -> str | None:
+    if value is None:
+        return None
+    text = str(value).strip()
+    return text or None
+
+
+@lru_cache(maxsize=1)
+def _default_strategy_entry_ids() -> frozenset[str]:
+    snapshot = load_default_strategy_snapshot()
+    if snapshot is None:
+        return frozenset()
+    return frozenset(snapshot.entry_ids())
 
 
 def _state_summary(
