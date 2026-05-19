@@ -18,6 +18,7 @@ class ActionSelectorStrategySnapshotTests(unittest.TestCase):
                 "building_priorities": [
                     {
                         "key": "recruit-building",
+                        "entry_ids": ["recruit-building"],
                         "topic": "征兵所",
                         "aliases": ["barracks"],
                         "priority": 100,
@@ -52,6 +53,8 @@ class ActionSelectorStrategySnapshotTests(unittest.TestCase):
         selected = result.selected_action
         assert selected is not None
         self.assertEqual(selected.params["building_id"], "barracks")
+        self.assertEqual(selected.params["strategy_entry_ids"], ["recruit-building"])
+        self.assertEqual(selected.params["strategy_topic"], "征兵所")
         self.assertEqual(selected.score_breakdown["strategy_priority_bonus"], 10.0)
 
     def test_generated_snapshot_prioritizes_named_building(self) -> None:
@@ -85,6 +88,7 @@ class ActionSelectorStrategySnapshotTests(unittest.TestCase):
         assert selected is not None
         self.assertEqual(selected.params["building_id"], "main_hall")
         self.assertEqual(selected.params["building_name"], "城主府")
+        self.assertIn("building-main-city", selected.params["strategy_entry_ids"])
         self.assertEqual(selected.score_breakdown["strategy_priority_bonus"], 9.0)
 
     def test_default_selector_loads_generated_snapshot(self) -> None:

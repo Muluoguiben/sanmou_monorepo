@@ -44,6 +44,7 @@ def _building_priorities(entries: list[KnowledgeEntry]) -> list[dict[str, Any]]:
     return [
         {
             "key": _entry_key(entry),
+            "entry_ids": [_entry_key(entry)],
             "topic": entry.topic,
             "aliases": entry.aliases,
             "priority": entry.priority,
@@ -66,6 +67,7 @@ def _land_risk_rules(entries: list[KnowledgeEntry]) -> list[dict[str, Any]]:
     return [
         {
             "key": _entry_key(entry),
+            "entry_ids": [_entry_key(entry)],
             "topic": entry.topic,
             "priority": entry.priority,
             "signals": sorted({*entry.aliases, *entry.related_topics}),
@@ -85,6 +87,7 @@ def _lineup_hints(entries: list[KnowledgeEntry]) -> list[dict[str, Any]]:
         hints.append(
             {
                 "key": _entry_key(entry),
+                "entry_ids": [_entry_key(entry)],
                 "name": getattr(profile, "name", entry.topic),
                 "aliases": getattr(profile, "aliases", entry.aliases),
                 "season_tags": getattr(profile, "season_tags", []),

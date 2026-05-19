@@ -36,6 +36,7 @@ class StrategySnapshotTests(unittest.TestCase):
         self.assertEqual(snapshot.find_building_priority("建筑升级")["key"], "building-upgrade")
         self.assertEqual(snapshot.get_land_risk_rule("combat-land-level")["priority"], 90)
         self.assertEqual(snapshot.get_lineup_hint("lineup-s1-example")["hero_names"], ["武将甲", "武将乙"])
+        self.assertIn("building-upgrade", snapshot.entry_ids())
         self.assertIsNone(snapshot.get("building_priorities", "missing"))
 
     def test_load_strategy_snapshot_rejects_missing_required_section(self) -> None:
@@ -53,6 +54,7 @@ class StrategySnapshotTests(unittest.TestCase):
         self.assertGreater(len(snapshot.section("building_priorities")), 0)
         self.assertGreater(len(snapshot.section("land_risk_rules")), 0)
         self.assertGreater(len(snapshot.section("lineup_hints")), 0)
+        self.assertIn("building-main-city", snapshot.entry_ids())
 
     def test_load_default_strategy_snapshot_from_repo_data(self) -> None:
         snapshot = load_default_strategy_snapshot()

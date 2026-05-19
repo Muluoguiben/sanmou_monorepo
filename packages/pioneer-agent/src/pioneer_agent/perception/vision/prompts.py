@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from typing import Any, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 PageType = Literal[
     "main_map",
@@ -32,6 +32,57 @@ PageType = Literal[
     "mode_hub",
     "unknown",
 ]
+
+BBoxFields = tuple[str, str, str, str]
+
+
+def _bbox_values(model: BaseModel, fields: BBoxFields) -> list[int | None]:
+    return [getattr(model, field) for field in fields]
+
+
+def _bbox_has_any(model: BaseModel, fields: BBoxFields) -> bool:
+    return any(value is not None for value in _bbox_values(model, fields))
+
+
+def _validate_bbox(model: BaseModel, fields: BBoxFields, label: str, *, required: bool = False) -> None:
+    values = _bbox_values(model, fields)
+    if not required and not any(value is not None for value in values):
+        return
+    if any(value is None for value in values):
+        raise ValueError(f"{label} bbox must include x_min, y_min, x_max, y_max")
+    x_min, y_min, x_max, y_max = values
+    if x_min >= x_max or y_min >= y_max:
+        raise ValueError(f"{label} bbox must satisfy x_min < x_max and y_min < y_max")
+
+
+def _validate_visible_button(
+    model: BaseModel,
+    *,
+    visible_field: str,
+    enabled_field: str,
+    bbox_fields: BBoxFields,
+    label: str,
+) -> None:
+    visible = bool(getattr(model, visible_field))
+    enabled = bool(getattr(model, enabled_field))
+    if enabled and not visible:
+        raise ValueError(f"{label} cannot be enabled when not visible")
+    if not visible and _bbox_has_any(model, bbox_fields):
+        raise ValueError(f"{label} bbox cannot be present when not visible")
+    _validate_bbox(model, bbox_fields, label, required=visible)
+
+
+def _validate_visible_bbox(
+    model: BaseModel,
+    *,
+    visible_field: str,
+    bbox_fields: BBoxFields,
+    label: str,
+) -> None:
+    visible = bool(getattr(model, visible_field))
+    if not visible and _bbox_has_any(model, bbox_fields):
+        raise ValueError(f"{label} bbox cannot be present when not visible")
+    _validate_bbox(model, bbox_fields, label, required=visible)
 
 
 class ResourceBar(BaseModel):
@@ -127,6 +178,11 @@ class PopupButtonDetection(BaseModel):
     x_max: int | None = Field(default=None, ge=0, le=1000)
     y_max: int | None = Field(default=None, ge=0, le=1000)
 
+    @model_validator(mode="after")
+    def _validate_button_bbox(self):
+        _validate_bbox(self, ("x_min", "y_min", "x_max", "y_max"), "popup button")
+        return self
+
 
 class PopupDetection(BaseModel):
     popup_visible: bool = False
@@ -211,6 +267,11 @@ class ModeHubEntryDetection(BaseModel):
     y_min: int | None = Field(default=None, ge=0, le=1000)
     x_max: int | None = Field(default=None, ge=0, le=1000)
     y_max: int | None = Field(default=None, ge=0, le=1000)
+
+    @model_validator(mode="after")
+    def _validate_entry_bbox(self):
+        _validate_bbox(self, ("x_min", "y_min", "x_max", "y_max"), "mode hub entry")
+        return self
 
 
 class ModeHubDetection(BaseModel):
@@ -304,6 +365,19 @@ class ChapterPanelDetection(BaseModel):
     tasks: list[ChapterTaskDetection] = Field(default_factory=list)
     visible_notes: list[str] = Field(default_factory=list)
 
+    @model_validator(mode="after")
+    def _validate_claim_button(self):
+        _validate_visible_button(
+            self,
+            visible_field="claim_button_visible",
+            enabled_field="claim_button_enabled",
+            bbox_fields=("claim_x_min", "claim_y_min", "claim_x_max", "claim_y_max"),
+            label="chapter claim button",
+        )
+        if self.chapter_claimable and not self.claim_button_enabled:
+            raise ValueError("chapter_claimable requires an enabled claim button")
+        return self
+
 
 CHAPTER_PANEL_SCHEMA: dict[str, Any] = {
     "type": "object",
@@ -368,6 +442,17 @@ class RecruitTeamDetection(BaseModel):
     button_y_min: int | None = Field(default=None, ge=0, le=1000)
     button_x_max: int | None = Field(default=None, ge=0, le=1000)
     button_y_max: int | None = Field(default=None, ge=0, le=1000)
+
+    @model_validator(mode="after")
+    def _validate_recruit_button(self):
+        _validate_visible_button(
+            self,
+            visible_field="recruit_button_visible",
+            enabled_field="recruit_button_enabled",
+            bbox_fields=("button_x_min", "button_y_min", "button_x_max", "button_y_max"),
+            label="recruit button",
+        )
+        return self
 
 
 class RecruitPanelDetection(BaseModel):
@@ -447,6 +532,46 @@ class UpgradeDialogDetection(BaseModel):
     close_x_max: int | None = Field(default=None, ge=0, le=1000)
     close_y_max: int | None = Field(default=None, ge=0, le=1000)
     visible_notes: list[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def _validate_dialog_semantics(self):
+        confirm_fields = ("confirm_x_min", "confirm_y_min", "confirm_x_max", "confirm_y_max")
+        close_fields = ("close_x_min", "close_y_min", "close_x_max", "close_y_max")
+        if not self.dialog_visible:
+            has_dialog_payload = any(
+                (
+                    self.building_name,
+                    self.current_level is not None,
+                    self.next_level is not None,
+                    self.can_upgrade is not None,
+                    self.cannot_upgrade_reason,
+                    self.costs,
+                    self.confirm_button_visible,
+                    self.confirm_button_enabled,
+                    self.close_button_visible,
+                    _bbox_has_any(self, confirm_fields),
+                    _bbox_has_any(self, close_fields),
+                )
+            )
+            if has_dialog_payload:
+                raise ValueError("upgrade dialog fields require dialog_visible=true")
+            return self
+        _validate_visible_button(
+            self,
+            visible_field="confirm_button_visible",
+            enabled_field="confirm_button_enabled",
+            bbox_fields=confirm_fields,
+            label="upgrade confirm button",
+        )
+        _validate_visible_bbox(
+            self,
+            visible_field="close_button_visible",
+            bbox_fields=close_fields,
+            label="upgrade close button",
+        )
+        if self.can_upgrade is True and not self.confirm_button_enabled:
+            raise ValueError("can_upgrade requires an enabled confirm button")
+        return self
 
 
 UPGRADE_DIALOG_SCHEMA: dict[str, Any] = {
@@ -627,6 +752,20 @@ class TeamPanelDetection(BaseModel):
     missing_detail_tabs: list[str] = Field(default_factory=list)
     visible_notes: list[str] = Field(default_factory=list)
 
+    @model_validator(mode="after")
+    def _validate_page_domain(self):
+        if self.page_type == "unknown" and any(
+            (
+                self.team_id,
+                self.team_name,
+                self.formation,
+                self.heroes,
+                self.visible_entry_points,
+            )
+        ):
+            raise ValueError("unknown team page_type cannot include team panel payload")
+        return self
+
 
 TEAM_PANEL_SCHEMA: dict[str, Any] = {
     "type": "object",
@@ -798,6 +937,20 @@ class TeamDetailDetection(BaseModel):
     missing_detail_tabs: list[str] = Field(default_factory=list)
     visible_notes: list[str] = Field(default_factory=list)
 
+    @model_validator(mode="after")
+    def _validate_page_domain(self):
+        if self.page_type == "unknown" and any(
+            (
+                self.team_id,
+                self.team_name,
+                self.detail_tabs_observed,
+                self.heroes,
+                self.team_effects,
+            )
+        ):
+            raise ValueError("unknown team detail page_type cannot include detail payload")
+        return self
+
 
 TEAM_DETAIL_SCHEMA: dict[str, Any] = {
     "type": "object",
@@ -950,10 +1103,15 @@ class ElementBox(BaseModel):
     label: str
     # Gemini convention: [ymin, xmin, ymax, xmax] normalized to 0-1000.
     # We preserve ordering here to avoid silent axis swaps downstream.
-    y_min: int
-    x_min: int
-    y_max: int
-    x_max: int
+    y_min: int = Field(ge=0, le=1000)
+    x_min: int = Field(ge=0, le=1000)
+    y_max: int = Field(ge=0, le=1000)
+    x_max: int = Field(ge=0, le=1000)
+
+    @model_validator(mode="after")
+    def _validate_box_order(self):
+        _validate_bbox(self, ("x_min", "y_min", "x_max", "y_max"), "element")
+        return self
 
 
 class ElementLocation(BaseModel):

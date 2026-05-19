@@ -72,9 +72,10 @@ class ActionSelector:
     def _score_candidates(self, candidates: list[CandidateAction]) -> list[CandidateAction]:
         ranked: list[CandidateAction] = []
         for candidate in candidates:
-            score_total, score_breakdown = self._score_candidate(candidate)
+            candidate_for_scoring = self._candidate_with_strategy_snapshot(candidate)
+            score_total, score_breakdown = self._score_candidate(candidate_for_scoring)
             ranked.append(
-                candidate.model_copy(
+                candidate_for_scoring.model_copy(
                     update={
                         "score_total": score_total,
                         "score_breakdown": score_breakdown,
@@ -84,11 +85,19 @@ class ActionSelector:
         ranked.sort(key=lambda item: item.score_total, reverse=True)
         return ranked
 
+    def _candidate_with_strategy_snapshot(self, candidate: CandidateAction) -> CandidateAction:
+        if candidate.action_type != ActionType.UPGRADE_BUILDING:
+            return candidate
+        enriched_params = self._with_strategy_snapshot(candidate.params)
+        if enriched_params is candidate.params:
+            return candidate
+        return candidate.model_copy(update={"params": enriched_params})
+
     def _score_candidate(self, candidate: CandidateAction) -> tuple[float, dict[str, float]]:
         if candidate.action_type == ActionType.CLAIM_CHAPTER_REWARD:
             return 10_000.0, {"priority_rule": 10_000.0}
         if candidate.action_type == ActionType.UPGRADE_BUILDING:
-            return score_upgrade_building(self._with_strategy_snapshot(candidate.params))
+            return score_upgrade_building(candidate.params)
         if candidate.action_type == ActionType.TRANSFER_MAIN_LINEUP_TO_TEAM:
             return score_transfer(candidate.params)
         if candidate.action_type == ActionType.ATTACK_LAND:
@@ -112,6 +121,10 @@ class ActionSelector:
         enriched = dict(params)
         enriched["strategy_priority"] = float(priority.get("priority", 0) or 0)
         enriched["strategy_key"] = priority.get("key")
+        enriched["strategy_entry_ids"] = self._string_list(priority.get("entry_ids"))
+        enriched["strategy_topic"] = priority.get("topic")
+        enriched["strategy_source_ref"] = priority.get("source_ref")
+        enriched["strategy_rationale"] = priority.get("rationale") or priority.get("rule") or ""
         return enriched
 
     def _find_building_priority(self, params: dict[str, Any]) -> dict[str, Any] | None:
@@ -157,6 +170,16 @@ class ActionSelector:
             return datetime.fromisoformat(value)
         except ValueError:
             return None
+
+    @staticmethod
+    def _string_list(value: Any) -> list[str]:
+        if value is None:
+            return []
+        if isinstance(value, str):
+            return [value] if value else []
+        if isinstance(value, (list, tuple, set)):
+            return [str(item) for item in value if item]
+        return [str(value)]
 
     @staticmethod
     def _build_summary(

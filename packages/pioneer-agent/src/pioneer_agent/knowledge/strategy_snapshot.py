@@ -36,6 +36,15 @@ class StrategySnapshot:
     def sources(self) -> list[dict[str, Any]]:
         return list(self.data["sources"])
 
+    def entry_ids(self) -> set[str]:
+        entry_ids: set[str] = set()
+        for source in self.sources:
+            entry_ids.update(str(entry_id) for entry_id in source.get("entry_ids", []) if entry_id)
+        for section in ("building_priorities", "land_risk_rules", "lineup_hints"):
+            for item in self.section(section):
+                entry_ids.update(str(entry_id) for entry_id in item.get("entry_ids", []) if entry_id)
+        return entry_ids
+
     def section(self, name: str) -> list[dict[str, Any]]:
         value = self.data.get(name, [])
         if not isinstance(value, list):

@@ -66,6 +66,7 @@ export type AdvisorReport = {
   recommended_action?: ActionRecommendation | null;
   risks: Array<Record<string, unknown>>;
   evidence: string[];
+  structured_evidence?: StructuredEvidence[];
   confidence: number;
   screenshot_interpretation?: ScreenshotInterpretation | null;
   vision_summary: {
@@ -87,6 +88,19 @@ export type ScreenshotInterpretation = {
   confidence: number;
 };
 
+export type StructuredEvidence = {
+  evidence_id: string;
+  source_type: "vision" | "state" | "selector" | "strategy_snapshot" | "qa";
+  ref?: string | null;
+  entry_id?: string | null;
+  topic?: string | null;
+  domain?: string | null;
+  summary: string;
+  source_ref?: string | null;
+  confidence?: number | null;
+  metadata: Record<string, unknown>;
+};
+
 export type ActionRecommendation = {
   action_id: string;
   action_type: string;
@@ -94,6 +108,7 @@ export type ActionRecommendation = {
   score: number;
   risk: Record<string, unknown>;
   evidence: string[];
+  structured_evidence?: StructuredEvidence[];
   confidence: number;
   executable: boolean;
   execution_blocked_reason: string;

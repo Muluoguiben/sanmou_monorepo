@@ -88,10 +88,10 @@ flowchart LR
 
 - [x] 在 `sanmou-common` 增加最小 ports：`Evidence`、`KnowledgeAnswer`、`KnowledgeProvider`、`ModelAdapter`。
 - [x] 在 `qa-agent` 增加 `QaKnowledgeProvider`，把现有 `QueryService` 转成 common 契约。
-- [ ] 把 `ActionRecommendation.evidence: list[str]` 升级为结构化 evidence。
-- [ ] Advisor 推荐中引用的 `entry_id` 必须来自真实检索结果或 `strategy_snapshot.yaml`。
-- [ ] 增加 citation/evidence validator，伪造 entry_id 必须失败。
-- [ ] 给视觉结构化输出加语义校验：bbox 范围、按钮可见性、页面 domain 一致性。
+- [x] 把 `ActionRecommendation.evidence: list[str]` 升级为结构化 evidence，保留旧字符串 evidence 兼容。
+- [x] Advisor 推荐中引用的 `entry_id` 必须来自真实检索结果或 `strategy_snapshot.yaml`。
+- [x] 增加 citation/evidence validator，伪造 entry_id 必须失败。
+- [x] 给视觉结构化输出加语义校验：bbox 范围、按钮可见性、页面 domain 一致性。
 - [ ] 建立截图 fixture + golden eval，覆盖首页、城内、章节、征兵、建筑升级、队伍。
 
 验收标准：
@@ -107,7 +107,7 @@ flowchart LR
 
 待办：
 
-- [ ] 建筑升级推荐携带 `strategy_snapshot.entry_ids`，并展示对应知识证据。
+- [x] 建筑升级推荐携带 `strategy_snapshot.entry_ids`，并展示对应知识证据。
 - [ ] 征兵推荐结合资源、主力体力、队伍兵力缺口和开荒 baseline。
 - [ ] 打地风险先做 Advisor 判断，不做自动执行。
 - [ ] 阵容建议从 QA 知识库读取武将、战法、赛季队伍知识，只输出建议。
@@ -170,10 +170,10 @@ precheck -> click/action -> observe -> verifier -> trace -> recovery/block
 
 ## 下一批 PR 建议
 
-1. 结构化 evidence 接入 `AdvisorReport/ActionRecommendation`，保持 API 向后兼容。
-2. evidence validator 和 citation regression tests，伪造 `entry_id` 必须失败。
-3. `strategy_snapshot.entry_ids` 贯通到建筑升级推荐，并能反查 QA knowledge。
-4. vision schema 语义校验和失败 fixture，优先覆盖 bbox、visible/enabled、page/domain。
+1. [x] 结构化 evidence 接入 `AdvisorReport/ActionRecommendation`，保持 API 向后兼容。
+2. [x] evidence validator 和 citation regression tests，伪造 `entry_id` 必须失败。
+3. [x] `strategy_snapshot.entry_ids` 贯通到建筑升级推荐，并能反查 QA knowledge。
+4. [x] vision schema 语义校验和失败 fixture，优先覆盖 bbox、visible/enabled、page/domain。
 5. Advisor golden replay runner 扩展真实截图集，锁住 action/evidence/confidence。
 6. 三个低风险动作的 verifier specs，不先写完整 click flow。
 7. Desktop evidence/degraded 展示，确保无证据推荐不会被 UI 展示成确定结论。

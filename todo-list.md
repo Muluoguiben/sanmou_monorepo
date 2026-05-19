@@ -1,16 +1,16 @@
 # Todo List
 
-> Last updated: 2026-05-19 (保留远端 action-loop 模型路由更新；原始架构 ADR 已按 `docs/sanmou-architecture-design.md` 入库，补充派生执行路线与模块设计文档；Architecture Iteration 现在是最高优先级，下一段重点是结构化 evidence、citation validator、vision semantic validators、Advisor golden replay 与低风险动作 verifier)
+> Last updated: 2026-05-19 (保留远端 action-loop 模型路由更新；原始架构 ADR 已按 `docs/sanmou-architecture-design.md` 入库，补充派生执行路线与模块设计文档；Architecture Iteration 现在是最高优先级；PR-1~PR-4 已完成，下一段重点转为 Advisor golden replay 与低风险动作 verifier)
 
 ## Highest Priority — Architecture Iteration
 
 - [ ] Architecture Iteration 收口（最高优先级）：以原始 ADR `docs/sanmou-architecture-design.md` 为架构源文档，按派生执行路线 `docs/sanmou-monorepo-architecture-iteration-path.md` 推进 Advisor 可信闭环；所有新功能/自动化任务默认让位于结构化 evidence、entry_id 校验、vision semantic validators、golden replay 扩展和低风险 verifier。
 - [x] 模块设计文档入库：新增 `docs/modules/sanmou-common-design.md`、`docs/modules/qa-agent-design.md`、`docs/modules/pioneer-agent-design.md`、`docs/modules/sanmou-advisor-desktop-design.md`，后续模块级改动先对齐对应设计文档。
 - [x] 架构审查修正入库：`docs/sanmou-monorepo-architecture-iteration-path.md` 明确 ports 已完成、LLM-as-Judge 仅实验、ActionDSL 暂不进 common、离线 vision 与实时 perception 不合并、TOS/隐私/停止条件前置。
-- [ ] PR-1 结构化 evidence：`AdvisorReport/ActionRecommendation` 从字符串 evidence 迁移到结构化 evidence，并保持旧 UI/API 消费兼容。
-- [ ] PR-2 Evidence validator：推荐引用的 `entry_id` 必须来自 QA 检索结果或 `strategy_snapshot.yaml`，伪造/缺失 evidence 有 regression tests。
-- [ ] PR-3 `strategy_snapshot.entry_ids` 贯通：建筑升级 scoring 的 priority 与 evidence 同时输出，推荐层可反查 QA knowledge。
-- [ ] PR-4 Vision semantic validators：当前 vision schema 增加 bbox、visible/enabled、page/domain 一致性校验和失败 fixture。
+- [x] PR-1 结构化 evidence（2026-05-19）：`AdvisorReport/ActionRecommendation` 新增 `structured_evidence`，保留旧 `evidence: list[str]` 兼容 UI/API。
+- [x] PR-2 Evidence validator（2026-05-19）：推荐引用的 `entry_id` 必须来自 QA 检索结果或 `strategy_snapshot.yaml`，伪造/缺失 evidence 有 regression tests。
+- [x] PR-3 `strategy_snapshot.entry_ids` 贯通（2026-05-19）：建筑升级 scoring 的 priority 与 evidence 同时输出，推荐层可反查 QA knowledge。
+- [x] PR-4 Vision semantic validators（2026-05-19）：当前 vision schema 增加 bbox、visible/enabled、page/domain 一致性校验和失败 fixture。
 - [ ] PR-5 Golden replay 扩展：真实截图 fixture 覆盖首页、城内、章节、征兵、建筑升级、队伍，锁住 action/evidence/confidence。
 - [ ] PR-6 低风险 verifier specs：先补 `claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` expected deltas，不先追求完整自动点击 flow。
 
@@ -26,10 +26,10 @@
 - [x] 派生执行路线入库：新增 `docs/sanmou-monorepo-architecture-iteration-path.md`，在原始 ADR 基础上补充当前代码校正结论、P0-P3 路线和下一批 PR 建议。
 - [x] 跨包最小契约：新增 `sanmou_common.ports`，定义 `Evidence`、`KnowledgeAnswer`、`KnowledgeProvider`、`ModelAdapter`，避免 `pioneer-agent` 长期直接绑定 `qa-agent` 内部模型。
 - [x] QA 知识适配器：新增 `qa_agent.adapters.QaKnowledgeProvider`，把现有 `QueryService` 输出转换为 common 契约；Advisor API 懒加载改为使用该 adapter。
-- [ ] Advisor 结构化 evidence：把 `ActionRecommendation.evidence: list[str]` 升级为结构化 evidence，至少包含 `entry_id/topic/domain/summary/source_ref/confidence`。
-- [ ] Evidence validator：推荐引用的 `entry_id` 必须来自真实检索结果或 `strategy_snapshot.yaml`，伪造、缺失、过期 evidence 必须被测试覆盖。
-- [ ] `strategy_snapshot.entry_ids` 贯通：建筑升级 scoring 注入 priority 的同时，把相关 `entry_ids` 传到推荐和解释层。
-- [ ] Vision semantic validators：对当前视觉 schema 增加语义校验，包括 bbox 范围、按钮 visible/enabled 与 bbox 一致性、page/domain 一致性。
+- [x] Advisor 结构化 evidence（2026-05-19）：`ActionRecommendation/AdvisorReport` 输出结构化 `structured_evidence`，旧字符串 evidence 继续兼容。
+- [x] Evidence validator（2026-05-19）：推荐引用的 `entry_id` 必须来自真实检索结果或 `strategy_snapshot.yaml`，伪造、缺失 evidence 已有测试覆盖。
+- [x] `strategy_snapshot.entry_ids` 贯通（2026-05-19）：建筑升级 scoring 注入 priority 的同时，把相关 `entry_ids` 传到推荐和解释层。
+- [x] Vision semantic validators（2026-05-19）：对当前视觉 schema 增加语义校验，包括 bbox 范围、按钮 visible/enabled 与 bbox 一致性、page/domain 一致性。
 - [ ] Advisor golden replay 扩展：把真实截图 fixture 扩展到首页、城内、章节、征兵、建筑升级、队伍，锁住 action/evidence/confidence 输出。
 - [ ] ExplainerLLM 边界：只允许 LLM 基于 rule reason + evidence 生成 narrative，不允许修改 action type、关键 params、safety verdict。
 - [ ] LLM-as-Judge 灰度：只在 top2 score 接近且已有 eval baseline 后启用 pairwise rerank；默认关闭。
