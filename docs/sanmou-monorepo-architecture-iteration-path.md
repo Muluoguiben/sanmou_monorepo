@@ -6,7 +6,7 @@
 
 本文件基于两份外部 Markdown：
 
-- `/Users/bytedance/Downloads/sanmou-architecture-design.md`
+- `docs/sanmou-architecture-design.md`，由 `/Users/bytedance/Downloads/sanmou-architecture-design.md` 原样入库，是 canonical 架构 ADR。
 - `/Users/bytedance/Downloads/compass_artifact_wf-e8a7f969-37b2-454b-a591-4cc7dff32f73_text_markdown.md`
 
 第二份基本是第一份的 HTML 化版本，核心设计结论一致：

@@ -1,10 +1,10 @@
 # Todo List
 
-> Last updated: 2026-05-19 (保留远端 action-loop 模型路由更新；补充两份架构设计 Markdown 的校正结论，新增 `docs/sanmou-monorepo-architecture-iteration-path.md` 与模块设计文档；Architecture Iteration 现在是最高优先级，下一段重点是结构化 evidence、citation validator、vision semantic validators、Advisor golden replay 与低风险动作 verifier)
+> Last updated: 2026-05-19 (保留远端 action-loop 模型路由更新；原始架构 ADR 已按 `docs/sanmou-architecture-design.md` 入库，补充派生执行路线与模块设计文档；Architecture Iteration 现在是最高优先级，下一段重点是结构化 evidence、citation validator、vision semantic validators、Advisor golden replay 与低风险动作 verifier)
 
 ## Highest Priority — Architecture Iteration
 
-- [ ] Architecture Iteration 收口（最高优先级）：按 `docs/sanmou-monorepo-architecture-iteration-path.md` 推进 Advisor 可信闭环，所有新功能/自动化任务默认让位于结构化 evidence、entry_id 校验、vision semantic validators、golden replay 扩展和低风险 verifier。
+- [ ] Architecture Iteration 收口（最高优先级）：以原始 ADR `docs/sanmou-architecture-design.md` 为架构源文档，按派生执行路线 `docs/sanmou-monorepo-architecture-iteration-path.md` 推进 Advisor 可信闭环；所有新功能/自动化任务默认让位于结构化 evidence、entry_id 校验、vision semantic validators、golden replay 扩展和低风险 verifier。
 - [x] 模块设计文档入库：新增 `docs/modules/sanmou-common-design.md`、`docs/modules/qa-agent-design.md`、`docs/modules/pioneer-agent-design.md`、`docs/modules/sanmou-advisor-desktop-design.md`，后续模块级改动先对齐对应设计文档。
 
 ## In Progress
@@ -15,7 +15,8 @@
 
 ## Architecture Iteration Path — 2026-05-19
 
-- [x] 架构 Markdown 入库：新增 `docs/sanmou-monorepo-architecture-iteration-path.md`，沉淀两份外部 Markdown 的校正结论、目标架构、P0-P3 路线和下一批 PR 建议。
+- [x] 原始架构 ADR 入库：从 `/Users/bytedance/Downloads/sanmou-architecture-design.md` 原样复制为 `docs/sanmou-architecture-design.md`，作为仓库内 canonical 架构 Markdown。
+- [x] 派生执行路线入库：新增 `docs/sanmou-monorepo-architecture-iteration-path.md`，在原始 ADR 基础上补充当前代码校正结论、P0-P3 路线和下一批 PR 建议。
 - [x] 跨包最小契约：新增 `sanmou_common.ports`，定义 `Evidence`、`KnowledgeAnswer`、`KnowledgeProvider`、`ModelAdapter`，避免 `pioneer-agent` 长期直接绑定 `qa-agent` 内部模型。
 - [x] QA 知识适配器：新增 `qa_agent.adapters.QaKnowledgeProvider`，把现有 `QueryService` 输出转换为 common 契约；Advisor API 懒加载改为使用该 adapter。
 - [ ] Advisor 结构化 evidence：把 `ActionRecommendation.evidence: list[str]` 升级为结构化 evidence，至少包含 `entry_id/topic/domain/summary/source_ref/confidence`。
