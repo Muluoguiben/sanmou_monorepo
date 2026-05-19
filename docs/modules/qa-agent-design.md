@@ -69,6 +69,13 @@ answer = provider.answer_rule_question("建筑升级优先级是什么", domain=
 - `coverage=not_found` 时不得返回伪证据。
 - 视频自动抽取内容进入正式库前必须 reviewed 或经过明确 gate。
 
+## 架构审查修正
+
+- `qa-agent` 只做 knowledge/evidence provider，不生成 action，不重排 `pioneer-agent` 的候选动作。
+- 离线 knowledge ingestion vision 和实时 Advisor perception 不合并。离线流程可以慢、贵、人工 review；实时流程必须快、可降级、可回放。
+- `strategy_snapshot.yaml` 应被视为 QA knowledge 的离线投影，后续必须保留可反查的 `entry_id`。
+- citation regression 的优先级高于生成更长 narrative；引用不存在时宁可降级回答，也不要输出看似权威的假证据。
+
 ## 近期迭代
 
 最高优先级：

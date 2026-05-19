@@ -55,6 +55,13 @@ apps/sanmou-advisor-desktop/
 - 在前端生成或篡改 evidence。
 - 绕过 Python API 直接控制游戏窗口。
 
+## 架构审查修正
+
+- 桌面端必须把无 evidence、validator 失败、低置信、degraded report 展示成不确定状态，不能渲染成确定建议。
+- history 保存策略需要显式说明截图、账号标签、服务器、角色名的 retention；默认不把这些字段用于任何远程同步。
+- 所有未来 semi-auto 按钮都必须展示 safety/verifier 状态和 kill switch，不允许只给一个“执行”按钮。
+- 前端 evidence 组件只展示后端结构化字段，不自行拼接或推断 `entry_id`。
+
 ## 数据契约
 
 桌面端主要消费：

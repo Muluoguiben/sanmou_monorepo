@@ -23,8 +23,26 @@
 
 1. QA 不是完全孤岛。`pioneer-agent` 的 Advisor API 已经能懒加载 `qa-agent` 做聊天回答，`ActionSelector` 也会消费 `packages/pioneer-agent/data/strategy_snapshot.yaml`。
 2. Verifier 不是完全缺失。仓库已有 `VerifierRegistry/VerifierSpec` 和执行前 gate，但具体动作的 expected delta、真实 UI handler、后置 observe 校验还没有打通。
+3. Phase 1 的第一步 ports 已在本分支落地：`sanmou_common.ports` 提供 `Evidence/KnowledgeAnswer/KnowledgeProvider/ModelAdapter`，`qa_agent.adapters.QaKnowledgeProvider` 已实现最小 adapter。
 
 因此下一步不应该重写架构，而应该补齐闭环。
+
+## 架构审查修正
+
+以下是对原始 ADR 的工程约束修正，作为后续 PR review 的默认准则：
+
+- `KnowledgeProvider` 和结构化 `Evidence` 是主路径；`LLM-as-Judge` 不是主路径，只能在 replay baseline 稳定后作为实验开关接入。
+- `ActionDSL` 暂不进入 `sanmou-common`。action 是 runtime 行为，先放在 `pioneer-agent` 内部，等出现跨包真实调用方再上提。
+- `qa-agent` 的离线 vision 和 `pioneer-agent` 的实时 perception 不合并成一个 pipeline。它们可以共享底层模型工具、schema 规范和 canonical 对齐，但保留不同 latency、review、fallback 策略。
+- `ModelAdapter` 当前只是最小 common Protocol。具体 vision provider、reasoning effort、image detail、fallback chain 先留在 `pioneer-agent` runtime 内部，不让 common 过早吸收模型脏细节。
+- TOS、截图外传、history retention、账号标签保存属于架构约束，不是 Phase 3 才看的合规备注；所有 UI 自动化入口必须默认可停机、可追踪、可关闭。
+
+停止条件：
+
+- 没有结构化 evidence 和 entry_id validator 前，不接入推荐层 ExplainerLLM。
+- 没有 golden replay baseline 前，不启用 LLM-as-Judge。
+- 低风险动作 verifier false positive 未被 fixture 覆盖前，不开放 semi-auto。
+- 地图识别、战报识别、队伍状态 verifier 未完成前，`attack_land`、`transfer_main_lineup`、`abandon_land` 不开放全自动。
 
 ## 目标架构
 
@@ -94,7 +112,7 @@ flowchart LR
 - [ ] 打地风险先做 Advisor 判断，不做自动执行。
 - [ ] 阵容建议从 QA 知识库读取武将、战法、赛季队伍知识，只输出建议。
 - [ ] `ExplainerLLM` 只负责把 rule reason 和 evidence 讲清楚，不允许修改 action。
-- [ ] `LLM-as-Judge` 只在 top2 分数接近时启用，并且必须有 golden eval 后再接入。
+- [ ] `LLM-as-Judge` 只在 top2 分数接近时作为实验开关启用，并且必须有 golden eval 后再接入。
 
 验收标准：
 
@@ -152,9 +170,10 @@ precheck -> click/action -> observe -> verifier -> trace -> recovery/block
 
 ## 下一批 PR 建议
 
-1. 结构化 evidence 接入 `AdvisorReport/ActionRecommendation`。
-2. `strategy_snapshot.entry_ids` 贯通到建筑升级推荐。
-3. evidence validator 和 citation regression tests。
-4. vision schema 语义校验和失败 fixture。
-5. Advisor golden replay runner 扩展真实截图集。
-6. 三个低风险动作的 verifier specs。
+1. 结构化 evidence 接入 `AdvisorReport/ActionRecommendation`，保持 API 向后兼容。
+2. evidence validator 和 citation regression tests，伪造 `entry_id` 必须失败。
+3. `strategy_snapshot.entry_ids` 贯通到建筑升级推荐，并能反查 QA knowledge。
+4. vision schema 语义校验和失败 fixture，优先覆盖 bbox、visible/enabled、page/domain。
+5. Advisor golden replay runner 扩展真实截图集，锁住 action/evidence/confidence。
+6. 三个低风险动作的 verifier specs，不先写完整 click flow。
+7. Desktop evidence/degraded 展示，确保无证据推荐不会被 UI 展示成确定结论。

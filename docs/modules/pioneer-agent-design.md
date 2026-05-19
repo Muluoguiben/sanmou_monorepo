@@ -76,6 +76,14 @@ precheck -> UI action -> observe -> verifier -> trace -> recover/block
 - 在缺少 verifier spec 时派发 UI 输入。
 - 在未知弹窗或状态不稳定时继续连点。
 
+## 架构审查修正
+
+- `LLM-as-Judge` 只作为实验开关，不进入默认主路径；没有 golden replay baseline 前不得启用。
+- `ExplainerLLM` 只能基于 rule reason 和 evidence 生成 narrative，不允许修改 action type、关键 params、risk 或 safety verdict。
+- Action DSL 和 UI execution contract 先留在 `pioneer-agent`，不提前上提到 common。
+- 高风险动作默认 block 或人工确认；地图识别、战报识别、队伍状态 verifier 未闭环前不开放全自动。
+- 所有 semi-auto 入口必须同时满足 safety gate、verifier spec、trace 记录和 kill switch。
+
 ## 证据化推荐
 
 下一阶段 `ActionRecommendation` 应从字符串 evidence 迁移到结构化 evidence：
@@ -126,6 +134,12 @@ selection_reason
 - 全自动打地。
 - 长时托管。
 - LLM-as-Judge 默认开启。
+
+停止条件：
+
+- evidence validator 未完成时，不接入推荐层 ExplainerLLM。
+- replay fixture 未覆盖目标场景时，不接受“模型看起来能识别”的主观验收。
+- verifier false positive 未被测试覆盖时，不把 pending handler 改成真实点击。
 
 ## 验收标准
 

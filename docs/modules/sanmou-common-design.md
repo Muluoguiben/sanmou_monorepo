@@ -67,6 +67,13 @@ packages/sanmou-common/
 - 在 common 中调用 LLM、RAG、设备桥接器或业务 selector。
 - 过早引入完整 Action DSL，除非已有两个以上调用方真实消费。
 
+## 架构审查修正
+
+- `KnowledgeProvider`、`KnowledgeAnswer`、`Evidence` 是当前主路径契约。
+- `ModelAdapter` 保持最小 Protocol，不在 common 内沉淀 provider fallback、reasoning effort、image detail、网关参数等 runtime 细节。
+- `ActionDSL` 暂不进入 common。动作语义和执行状态先归 `pioneer-agent` 管，只有出现跨包生产调用方后再考虑上提。
+- common 不承接 offline vision 与 realtime perception 的合并诉求；最多提供共享 schema 或纯数据结构。
+
 ## 近期迭代
 
 最高优先级：
