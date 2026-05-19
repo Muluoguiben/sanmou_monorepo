@@ -1,0 +1,1092 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sanmou Monorepo 架构与迭代路径</title>
+  <style>
+    :root {
+      --bg: #f5f6f1;
+      --ink: #18211f;
+      --muted: #66706b;
+      --line: #d8ded5;
+      --panel: #ffffff;
+      --panel-soft: #eef5f3;
+      --green: #1f7a67;
+      --green-dark: #125342;
+      --amber: #b97712;
+      --red: #ad3c35;
+      --blue: #2f5d9a;
+      --purple: #6a4c93;
+      --shadow: 0 18px 45px rgba(24, 33, 31, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.55;
+    }
+
+    a {
+      color: var(--green-dark);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .shell {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 28px 22px;
+      background: #18211f;
+      color: #f9fbf7;
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 26px;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 8px;
+      background: #24312e;
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.15;
+    }
+
+    .brand p {
+      margin: 0;
+      color: #bac6c0;
+      font-size: 13px;
+    }
+
+    .nav a {
+      display: block;
+      padding: 9px 10px;
+      border-radius: 7px;
+      color: #dce6e1;
+      font-size: 14px;
+    }
+
+    .nav a:hover {
+      background: rgba(255, 255, 255, 0.08);
+      text-decoration: none;
+    }
+
+    main {
+      min-width: 0;
+    }
+
+    .hero {
+      padding: 46px 48px 30px;
+      background:
+        linear-gradient(135deg, rgba(31, 122, 103, 0.92), rgba(18, 83, 66, 0.96)),
+        linear-gradient(45deg, #1f7a67, #2f5d9a);
+      color: #fff;
+    }
+
+    .hero-inner {
+      max-width: 1180px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 13px;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .hero h2 {
+      margin: 0;
+      max-width: 980px;
+      font-size: 42px;
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .hero-summary {
+      margin: 18px 0 0;
+      max-width: 980px;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 17px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .hero-stat {
+      min-height: 112px;
+      padding: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.11);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 25px;
+      line-height: 1.2;
+    }
+
+    .hero-stat span {
+      display: block;
+      margin-top: 8px;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 13px;
+    }
+
+    .content {
+      max-width: 1180px;
+      padding: 34px 48px 80px;
+    }
+
+    section {
+      margin-top: 34px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 25px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      line-height: 1.3;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .panel {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .pkg-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .pkg {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      min-height: 210px;
+    }
+
+    .pkg .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--panel-soft);
+      color: var(--green-dark);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .pkg h3 {
+      margin-top: 13px;
+    }
+
+    .pkg ul,
+    .panel ul,
+    .panel ol {
+      margin: 12px 0 0;
+      padding-left: 18px;
+    }
+
+    li {
+      margin: 6px 0;
+    }
+
+    .flow {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .lane {
+      display: grid;
+      grid-template-columns: 1.05fr 42px 1.05fr 42px 1.05fr;
+      align-items: stretch;
+      gap: 10px;
+    }
+
+    .node {
+      padding: 14px 15px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      min-height: 96px;
+    }
+
+    .node strong {
+      display: block;
+      font-size: 15px;
+    }
+
+    .node span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .arrow {
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .accent-green {
+      border-top: 4px solid var(--green);
+    }
+
+    .accent-amber {
+      border-top: 4px solid var(--amber);
+    }
+
+    .accent-blue {
+      border-top: 4px solid var(--blue);
+    }
+
+    .accent-red {
+      border-top: 4px solid var(--red);
+    }
+
+    .accent-purple {
+      border-top: 4px solid var(--purple);
+    }
+
+    .matrix {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .matrix th,
+    .matrix td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    .matrix th {
+      background: #edf2ef;
+      color: #33413d;
+      font-weight: 800;
+    }
+
+    .matrix tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 25px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .pill.done {
+      background: #d9efe7;
+      color: #13523f;
+    }
+
+    .pill.partial {
+      background: #f6e9ce;
+      color: #805008;
+    }
+
+    .pill.blocked {
+      background: #f3d8d4;
+      color: #84261f;
+    }
+
+    .pill.plan {
+      background: #dfe9f6;
+      color: #284f85;
+    }
+
+    .code-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    pre {
+      margin: 0;
+      padding: 16px;
+      overflow-x: auto;
+      border-radius: 8px;
+      background: #101815;
+      color: #e9f0ec;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    .caption {
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .milestone {
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .milestone-time {
+      color: var(--green-dark);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .priority-list {
+      display: grid;
+      gap: 10px;
+      counter-reset: item;
+    }
+
+    .priority-item {
+      position: relative;
+      padding: 15px 15px 15px 52px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .priority-item::before {
+      counter-increment: item;
+      content: counter(item);
+      position: absolute;
+      left: 15px;
+      top: 15px;
+      display: grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: var(--green);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .priority-item strong {
+      display: block;
+    }
+
+    .priority-item span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-note {
+      margin-top: 36px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 1020px) {
+      .shell {
+        display: block;
+      }
+
+      .nav {
+        position: static;
+        height: auto;
+      }
+
+      .hero,
+      .content {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+
+      .hero-grid,
+      .pkg-grid,
+      .grid-3,
+      .grid-2,
+      .code-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .lane {
+        grid-template-columns: 1fr;
+      }
+
+      .arrow {
+        min-height: 20px;
+        transform: rotate(90deg);
+      }
+
+      .milestone {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      .shell {
+        display: block;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .hero,
+      .content {
+        padding: 22px;
+      }
+
+      .panel,
+      .pkg,
+      .matrix,
+      .milestone,
+      .priority-item {
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="nav" aria-label="页面导航">
+      <div class="brand">
+        <div class="brand-mark">谋</div>
+        <div>
+          <h1>Sanmou Monorepo</h1>
+          <p>架构与迭代路径</p>
+        </div>
+      </div>
+      <a href="#summary">结论</a>
+      <a href="#packages">包职责</a>
+      <a href="#architecture">当前架构</a>
+      <a href="#runtime">运行链路</a>
+      <a href="#knowledge">知识链路</a>
+      <a href="#status">成熟度矩阵</a>
+      <a href="#evidence">源码证据</a>
+      <a href="#roadmap">迭代路径</a>
+      <a href="#next">下一步</a>
+    </nav>
+
+    <main>
+      <header class="hero" id="summary">
+        <div class="hero-inner">
+          <p class="eyebrow">Read from repo: /Users/bytedance/Documents/sanmou 2</p>
+          <h2>截图 Advisor 已经形成端到端产品骨架，真实自动化仍处在受控封锁状态。</h2>
+          <p class="hero-summary">
+            当前 monorepo 的主线是“桌面截图顾问 + Python Advisor API + 视觉感知/决策 + QA 知识底座”。
+            代码已经补上多个感知域、QA 查询接入、kill switch、safety guard、verifier gate 和 trace store。
+            但低风险点击动作仍未完成校准，默认 verifier registry 为空，所以自动输入链路不会放行真实 GUI 动作。
+          </p>
+          <div class="hero-grid">
+            <div class="hero-stat">
+              <strong>4</strong>
+              <span>主要交付单元：桌面端、pioneer-agent、qa-agent、sanmou-common</span>
+            </div>
+            <div class="hero-stat">
+              <strong>26k+</strong>
+              <span>源码和设计文档行数，含 Python、TypeScript、CSS、Markdown</span>
+            </div>
+            <div class="hero-stat">
+              <strong>70</strong>
+              <span>当前测试文件数：pioneer 43、qa 26、common 1</span>
+            </div>
+            <div class="hero-stat">
+              <strong>34</strong>
+              <span>正式知识 YAML 文件，另有 136 个 raw/staging ingestion 文件</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <section id="packages">
+          <div class="section-head">
+            <div>
+              <h2>包职责</h2>
+              <p class="muted">当前仓库分层清晰，业务逻辑集中在 Python，Electron 保持薄 UI。</p>
+            </div>
+          </div>
+          <div class="pkg-grid">
+            <article class="pkg">
+              <span class="tag">apps</span>
+              <h3>sanmou-advisor-desktop</h3>
+              <p class="muted">Electron + React 截图顾问台。负责上传、预览、报告展示、历史、聊天和停机开关。</p>
+              <ul>
+                <li>启动或连接本地 Advisor API</li>
+                <li>上传截图到 `/api/advisor/analyze`</li>
+                <li>展示 AdvisorReport 与 raw JSON</li>
+              </ul>
+            </article>
+            <article class="pkg">
+              <span class="tag">packages</span>
+              <h3>pioneer-agent</h3>
+              <p class="muted">开荒 Advisor 和自动化 runtime。包含感知、派生、候选动作、评分、选择、安全、执行和 trace。</p>
+              <ul>
+                <li>Advisor-only 链路已经可用</li>
+                <li>AutonomousLoop 框架存在</li>
+                <li>核心点击 flow 仍 pending</li>
+              </ul>
+            </article>
+            <article class="pkg">
+              <span class="tag">packages</span>
+              <h3>qa-agent</h3>
+              <p class="muted">知识库、检索、RAG 对话、MCP 工具、Bilibili 视频证据链和 strategy snapshot 生成。</p>
+              <ul>
+                <li>QueryService 可直接被 Advisor API 调用</li>
+                <li>支持视频到 staging 到 knowledge_sources</li>
+                <li>可导出离线策略快照</li>
+              </ul>
+            </article>
+            <article class="pkg">
+              <span class="tag">packages</span>
+              <h3>sanmou-common</h3>
+              <p class="muted">共享 YAML 配置 loader 和静态配置承载点。</p>
+              <ul>
+                <li>loader 已完成</li>
+                <li>buildings/chapters/lands/lineups 仍是模板</li>
+                <li>下一步应承接 qa-agent 已审阅知识</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section id="architecture">
+          <div class="section-head">
+            <div>
+              <h2>当前架构</h2>
+              <p class="muted">首屏产品是 Advisor，不是托管自动化。架构上保留了向 Copilot/Autopilot 演进的接口。</p>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>截图 Advisor 主链路</h3>
+            <div class="flow">
+              <div class="lane">
+                <div class="node accent-green">
+                  <strong>Electron Renderer</strong>
+                  <span>选择、拖拽或粘贴截图，填写平台和账号标签，展示报告、历史和聊天。</span>
+                </div>
+                <div class="arrow">-&gt;</div>
+                <div class="node accent-blue">
+                  <strong>Advisor API</strong>
+                  <span>FastAPI 保存上传图片，校验 10MB 内图片，调用 mock 或真实视觉链路。</span>
+                </div>
+                <div class="arrow">-&gt;</div>
+                <div class="node accent-purple">
+                  <strong>AdvisorLoop</strong>
+                  <span>capture -> VisionSync -> RuntimeState -> Deriver -> ActionSelector -> AdvisorReport。</span>
+                </div>
+              </div>
+              <div class="lane">
+                <div class="node accent-amber">
+                  <strong>Vision Domains</strong>
+                  <span>resource_bar、chapter_panel、recruit_panel、upgrade_dialog、mode_hub、city_buildings、team_panel、team_detail、popup。</span>
+                </div>
+                <div class="arrow">-&gt;</div>
+                <div class="node accent-green">
+                  <strong>Selector + Strategy Snapshot</strong>
+                  <span>候选动作生成、过滤、评分、优先级规则。建筑评分会读取 `data/strategy_snapshot.yaml`。</span>
+                </div>
+                <div class="arrow">-&gt;</div>
+                <div class="node accent-blue">
+                  <strong>Report + Chat</strong>
+                  <span>报告固定 `executable=false`。聊天优先接 qa-agent QueryService，否则用本地 Advisor 回答。</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="runtime">
+          <div class="grid-2">
+            <div class="panel">
+              <h3>自动化 runtime 已有的骨架</h3>
+              <ol>
+                <li>Windows bridge 支持 dxcam 截图和 pyautogui 输入。</li>
+                <li>`AutonomousLoop` 串起 observe、vision、derive、select、act、verify、trace、recover。</li>
+                <li>`SafetyGuard` 默认在 observe/advisor 模式阻止输入，高风险动作要求人工确认。</li>
+                <li>`VerifierRegistry` 默认要求点击类动作必须先声明 verifier spec。</li>
+                <li>`TraceStore` 记录 state_before、vision、ranked_actions、execution、verification 和 recovery。</li>
+              </ol>
+            </div>
+            <div class="panel">
+              <h3>自动化 runtime 当前不能托管的原因</h3>
+              <ol>
+                <li>默认 `VerifierRegistry()` 没有任何 spec，点击类动作会被阻断。</li>
+                <li>`claim_chapter_reward`、`upgrade_building`、`recruit_soldiers`、`attack_land`、`transfer_main_lineup_to_team`、`abandon_land` handler 仍返回 pending。</li>
+                <li>现有 recovery 主要是 stuck 后发送 ESC，缺少页面导航、弹窗策略和重试预算。</li>
+                <li>缺 `map_land` 和 `battle_result` 感知域，无法闭环出征和战报复盘。</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="panel" style="margin-top:16px">
+            <h3>目标自动化闭环</h3>
+            <div class="flow">
+              <div class="lane">
+                <div class="node accent-blue">
+                  <strong>Bridge Health</strong>
+                  <span>窗口身份、截图 freshness、非黑屏检测、输入能力和坐标空间。</span>
+                </div>
+                <div class="arrow">-&gt;</div>
+                <div class="node accent-green">
+                  <strong>Perception + State</strong>
+                  <span>多域识别写入 RuntimeState 和 field_meta，并保留截图证据。</span>
+                </div>
+                <div class="arrow">-&gt;</div>
+                <div class="node accent-amber">
+                  <strong>Safety + Verifier Gate</strong>
+                  <span>低风险动作有 verifier 才自动执行，中高风险动作默认人工确认。</span>
+                </div>
+              </div>
+              <div class="lane">
+                <div class="node accent-purple">
+                  <strong>Action Flow</strong>
+                  <span>claim、recruit、upgrade 先闭环；attack、transfer、abandon 后置。</span>
+                </div>
+                <div class="arrow">-&gt;</div>
+                <div class="node accent-red">
+                  <strong>Post-action Verify</strong>
+                  <span>动作后重新截图，断言章节、兵力、建筑等级或倒计时变化。</span>
+                </div>
+                <div class="arrow">-&gt;</div>
+                <div class="node accent-blue">
+                  <strong>Trace + Replay</strong>
+                  <span>每个 tick 都能用固定截图和 state 复现选择、执行结果和恢复策略。</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="knowledge">
+          <div class="section-head">
+            <div>
+              <h2>知识链路</h2>
+              <p class="muted">qa-agent 已经是可复用知识底座，不只是聊天壳。</p>
+            </div>
+          </div>
+          <div class="grid-3">
+            <div class="panel">
+              <h3>正式知识库</h3>
+              <p class="muted">`knowledge_sources` 覆盖 building、chapter、combat、hero、skill、solution、status、term 等域。</p>
+              <ul>
+                <li>34 个正式 YAML 文件</li>
+                <li>武将、战法、状态、阵容分 bucket 管理</li>
+                <li>QueryService 返回 answer、evidence、coverage 和 confidence</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h3>视频证据链</h3>
+              <p class="muted">Bilibili workflow 产出证据 bundle、视频知识、reviewed staging 和临时 knowledge_sources。</p>
+              <ul>
+                <li>优先 subtitle 和 conclusion</li>
+                <li>可选 frame vision enrichment</li>
+                <li>发布前走 staging/review</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h3>进入 Advisor 的方式</h3>
+              <p class="muted">当前已有两条接入：chat 运行时查询，selector 离线 strategy snapshot。</p>
+              <ul>
+                <li>Advisor API 按关键词调用 QueryService</li>
+                <li>qa-agent 导出 `strategy_snapshot.v1`</li>
+                <li>pioneer selector 用快照增强建筑优先级</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="status">
+          <div class="section-head">
+            <div>
+              <h2>成熟度矩阵</h2>
+              <p class="muted">基于当前源码，不按旧文档状态估算。</p>
+            </div>
+          </div>
+          <table class="matrix">
+            <thead>
+              <tr>
+                <th>能力</th>
+                <th>当前状态</th>
+                <th>证据文件</th>
+                <th>下一步判断</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>桌面截图 Advisor</td>
+                <td><span class="pill done">可用</span></td>
+                <td>`apps/sanmou-advisor-desktop/src/renderer/App.tsx`、`api.ts`</td>
+                <td>继续保持薄 UI，避免把游戏逻辑搬进 TypeScript。</td>
+              </tr>
+              <tr>
+                <td>本地 Advisor API</td>
+                <td><span class="pill done">可用</span></td>
+                <td>`pioneer_agent/app/advisor_api.py`</td>
+                <td>补充 API 合约测试和错误码文档。</td>
+              </tr>
+              <tr>
+                <td>视觉感知域</td>
+                <td><span class="pill partial">部分可用</span></td>
+                <td>`perception/vision_sync.py`、`perception/domains/*`</td>
+                <td>补 `map_land`、`battle_result`，并建立截图 fixture eval。</td>
+              </tr>
+              <tr>
+                <td>状态派生和动作选择</td>
+                <td><span class="pill done">骨架完整</span></td>
+                <td>`derivation/*`、`selector/*`、`scoring/*`</td>
+                <td>风险 schema、阶段权重、知识快照消费还要继续收敛。</td>
+              </tr>
+              <tr>
+                <td>QA 知识底座</td>
+                <td><span class="pill done">成熟度较高</span></td>
+                <td>`qa_agent/service/query_service.py`、`retrieval/retriever.py`</td>
+                <td>把 reviewed 知识持续导入 common 和 strategy snapshot。</td>
+              </tr>
+              <tr>
+                <td>安全和停机</td>
+                <td><span class="pill partial">已有闸门</span></td>
+                <td>`safety/guard.py`、`kill_switch.py`、`executor/ui_runner.py`</td>
+                <td>接入桌面端状态提示、自动化入口配置和运行手册。</td>
+              </tr>
+              <tr>
+                <td>动作 verifier</td>
+                <td><span class="pill partial">框架存在</span></td>
+                <td>`verifier/base.py`、`verifier/registry.py`</td>
+                <td>为低风险动作实现具体 spec 和动作后截图验证。</td>
+              </tr>
+              <tr>
+                <td>真实 GUI 动作</td>
+                <td><span class="pill blocked">被阻断</span></td>
+                <td>`executor/action_handlers.py`</td>
+                <td>claim/recruit/upgrade 先做，attack/transfer/abandon 后置。</td>
+              </tr>
+              <tr>
+                <td>Trace 和 replay</td>
+                <td><span class="pill partial">结构已成型</span></td>
+                <td>`storage/trace_store.py`、`runtime/golden_replay.py`</td>
+                <td>从 selector replay 升级到 screenshot -> vision -> action 的 golden replay。</td>
+              </tr>
+              <tr>
+                <td>共享静态配置</td>
+                <td><span class="pill blocked">数据薄</span></td>
+                <td>`sanmou_common/config/*.yaml`</td>
+                <td>把建筑、章节、土地、阵容配置从 qa-agent 已审知识导出。</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="evidence">
+          <div class="section-head">
+            <div>
+              <h2>源码证据</h2>
+              <p class="muted">关键结论对应的核心代码片段。</p>
+            </div>
+          </div>
+          <div class="code-grid">
+            <div>
+              <p class="caption">Advisor-only 边界：`packages/pioneer-agent/src/pioneer_agent/runtime/advisor_loop.py`</p>
+              <pre><code>class AdvisorLoop:
+    """Observe -> perceive -> derive -> select -> recommend,
+    with no UI input path."""
+
+def _recommendation_from_candidate(...):
+    return ActionRecommendation(
+        ...,
+        executable=False,
+        execution_blocked_reason="advisor_mode",
+    )</code></pre>
+            </div>
+            <div>
+              <p class="caption">安全闸门：`packages/pioneer-agent/src/pioneer_agent/executor/ui_runner.py`</p>
+              <pre><code>verdict = self.safety_guard.evaluate(
+    action.action_type,
+    risk=action.risk,
+    capabilities=self.capabilities,
+    session_mode=self.session_mode,
+    confirmation_token=_confirmation_token(action),
+)
+if verdict.decision != GuardDecision.ALLOW:
+    return ExecutionResult(status="blocked" or "requires_confirmation")
+
+verifier_verdict = self.verifier_registry.evaluate(action.action_type)
+if verifier_verdict.decision != VerifierGateDecision.ALLOW:
+    return ExecutionResult(status="blocked")</code></pre>
+            </div>
+            <div>
+              <p class="caption">感知域路由：`packages/pioneer-agent/src/pioneer_agent/perception/vision_sync.py`</p>
+              <pre><code>if page == "chapter":
+    state = apply_chapter_panel(state, extract_chapter_panel(...))
+if page == "recruit":
+    state = apply_recruit_panel(state, extract_recruit_panel(...))
+if page in {"team", "team_panel", "lineup", "lineup_config"}:
+    state = apply_team_panel(state, extract_team_panel(...))
+if page in {"hero_detail", "tactic_detail", "equipment_mount", "formation_books"}:
+    state = apply_team_detail(state, extract_team_detail(...))</code></pre>
+            </div>
+            <div>
+              <p class="caption">真实点击尚未就绪：`packages/pioneer-agent/src/pioneer_agent/executor/action_handlers.py`</p>
+              <pre><code>def _claim_chapter_reward(action, ui):
+    return _pending(action, "chapter panel button not yet calibrated")
+
+def _attack_land(action, _ui):
+    return _pending(action, "attack flow ... not yet calibrated")
+
+def _recruit_soldiers(action, _ui):
+    return _pending(action, "recruit dialog ... not yet calibrated")</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section id="roadmap">
+          <div class="section-head">
+            <div>
+              <h2>迭代路径</h2>
+              <p class="muted">路线应从 Advisor 可信度和低风险闭环开始，不先冲 48 小时托管。</p>
+            </div>
+          </div>
+          <div class="timeline">
+            <article class="milestone">
+              <div class="milestone-time">M0 当前基线</div>
+              <div>
+                <h3>截图 Advisor 产品化</h3>
+                <p class="muted">目标是稳定读取截图、生成可解释报告、引用知识库、保存历史，并明确“不自动点击”。</p>
+                <ul>
+                  <li>完成：桌面端上传、mock/vision 模式、报告、聊天、历史、kill switch 展示。</li>
+                  <li>补强：API 合约测试、视觉错误退化提示、报告字段说明。</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="milestone">
+              <div class="milestone-time">M1 可信感知</div>
+              <div>
+                <h3>截图 fixture 和视觉 eval</h3>
+                <p class="muted">把现有多个感知域变成可回归资产，而不是只靠在线模型临场表现。</p>
+                <ul>
+                  <li>建立 city/chapter/recruit/team/detail/upgrade/popup 的真实截图 fixture。</li>
+                  <li>每张截图配 expected JSON，统计 page/domain/entity accuracy。</li>
+                  <li>将 `field_meta` 细化到核心字段，记录 confidence/source/captured_at。</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="milestone">
+              <div class="milestone-time">M2 低风险自动化</div>
+              <div>
+                <h3>claim、recruit、upgrade 三类动作闭环</h3>
+                <p class="muted">只做可验证、可撤回或低损失动作，且每个动作必须有 post-action verifier。</p>
+                <ul>
+                  <li>`claim_chapter_reward`：识别按钮、点击、验证 `chapter_claimable=false` 或章节变化。</li>
+                  <li>`recruit_soldiers`：进入征兵、确认队伍和数量、验证兵力/倒计时/预备兵变化。</li>
+                  <li>`upgrade_building`：只对白名单建筑执行，验证等级、倒计时或资源变化。</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="milestone">
+              <div class="milestone-time">M3 安全 Copilot</div>
+              <div>
+                <h3>人工确认的半自动开荒助手</h3>
+                <p class="muted">高风险动作不自动执行，先让系统做观察、解释、排队和确认。</p>
+                <ul>
+                  <li>SafetyGuard 接配置，风险统一为 level/reason/confirm_required/irreversible。</li>
+                  <li>桌面端展示“可自动/需确认/已阻断”的执行状态。</li>
+                  <li>qa-agent strategy snapshot 覆盖建筑优先级、土地风险规则和阵容提示。</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="milestone">
+              <div class="milestone-time">M4 打地闭环</div>
+              <div>
+                <h3>map_land + battle_result + 出征 verifier</h3>
+                <p class="muted">打地是中高风险动作，必须等低风险闭环、trace、recovery、人工确认稳定后再做。</p>
+                <ul>
+                  <li>`map_land` 感知候选地、等级、可达性、距离和目标 bbox。</li>
+                  <li>`battle_result` 识别胜负、战损、经验、重伤和后续恢复动作。</li>
+                  <li>连续失败或高战损进入 stop/recovery，不继续尝试。</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="milestone">
+              <div class="milestone-time">M5 48 小时托管</div>
+              <div>
+                <h3>长跑、复盘和人工接管</h3>
+                <p class="muted">只有在低中风险动作都可 replay、可恢复、可解释后，才进入测试账号长跑。</p>
+                <ul>
+                  <li>Bridge watchdog：截图 freshness、黑屏、窗口偏移、server 重连。</li>
+                  <li>Golden replay：固定截图序列复现感知、决策、执行和 verifier。</li>
+                  <li>运行手册：停机、回滚、日志保留、账号风险边界。</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="next">
+          <div class="section-head">
+            <div>
+              <h2>最值得马上做的 10 件事</h2>
+              <p class="muted">按解锁真实闭环的依赖顺序排列。</p>
+            </div>
+          </div>
+          <div class="priority-list">
+            <div class="priority-item">
+              <strong>建立截图 fixture 目录和 eval harness</strong>
+              <span>覆盖现有所有 vision domains，先让感知可回归。</span>
+            </div>
+            <div class="priority-item">
+              <strong>为 claim_chapter_reward 实现 verifier spec</strong>
+              <span>没有 verifier spec，UIActionRunner 会继续阻断点击动作。</span>
+            </div>
+            <div class="priority-item">
+              <strong>实现 claim_chapter_reward flow</strong>
+              <span>这是最低风险端到端动作，适合作为第一个真实闭环。</span>
+            </div>
+            <div class="priority-item">
+              <strong>实现 popup handler 和安全默认动作</strong>
+              <span>确认框、奖励框、错误提示会影响所有后续 flow。</span>
+            </div>
+            <div class="priority-item">
+              <strong>实现 recruit_soldiers verifier + flow</strong>
+              <span>征兵高频、低风险，是 30 分钟长跑的关键动作。</span>
+            </div>
+            <div class="priority-item">
+              <strong>实现 upgrade_building 白名单 flow</strong>
+              <span>先只允许低风险建筑，动作后验证等级、倒计时或资源变化。</span>
+            </div>
+            <div class="priority-item">
+              <strong>把 SafetyGuard 配置化</strong>
+              <span>把 allowlist、confirmation_actions、threshold 从代码常量移到配置和桌面状态。</span>
+            </div>
+            <div class="priority-item">
+              <strong>补 bridge health 和 reconnect</strong>
+              <span>窗口、截图、坐标和输入能力不稳定时应停止动作，而不是继续点击。</span>
+            </div>
+            <div class="priority-item">
+              <strong>把 strategy_snapshot 消费扩大到打地和阵容</strong>
+              <span>当前主要增强建筑优先级，下一步接土地风险和 lineup_hints。</span>
+            </div>
+            <div class="priority-item">
+              <strong>从 qa-agent 导出 common 静态配置</strong>
+              <span>填充 `sanmou-common/config`，让 runtime 少依赖散落知识条目。</span>
+            </div>
+          </div>
+        </section>
+
+        <p class="footer-note">
+          生成依据：当前工作区源码、README、docs、pyproject/package.json、关键 runtime/vision/selector/executor/safety/verifier/qa-agent 文件。
+          未启动真实 Windows bridge，也未调用在线视觉模型。本报告用于展示架构和迭代路径，不代表已具备真实账号托管能力。
+        </p>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
