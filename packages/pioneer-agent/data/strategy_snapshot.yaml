@@ -586,12 +586,13 @@ building_priorities:
 - key: building-main-city
   entry_ids:
   - building-main-city
-  topic: 主城
+  topic: 君王殿
   aliases:
-  - 城主府
+  - 主城
   - 主城建筑
+  - main_hall
   priority: 90
-  rationale: 主城是多数城建解锁和章节推进的核心建筑之一。
+  rationale: 君王殿是多数城建解锁和章节推进的核心建筑之一。
   constraints:
   - 具体升级前置和资源消耗以当前版本建筑面板为准。
   source_ref: KB-RULE-BUILDING-001

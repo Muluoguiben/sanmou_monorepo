@@ -22,9 +22,9 @@ class EvidenceValidatorTests(unittest.TestCase):
             ),
             strategy_snapshot_evidence(
                 entry_id="building-main-city",
-                topic="主城",
+                topic="君王殿",
                 domain="building",
-                summary="主城是多数城建解锁和章节推进的核心建筑之一。",
+                summary="君王殿是多数城建解锁和章节推进的核心建筑之一。",
                 source_ref="KB-RULE-BUILDING-001",
                 strategy_key="building-main-city",
             ),

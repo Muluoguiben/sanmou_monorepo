@@ -204,7 +204,21 @@ class ActionSelector:
                 "建议执行无损置换。"
             )
         if selected.action_type == ActionType.UPGRADE_BUILDING:
-            return f"{prefix}建筑 {selected.params.get('building_id')} 可以直接升级，对当前章节推进和成长收益都更优。"
+            building_label = selected.params.get("building_name") or selected.params.get("building_id")
+            reasons: list[str] = []
+            if selected.params.get("resource_ready") is True:
+                reasons.append("当前资源和前置条件满足")
+            chapter_relevance = selected.params.get("chapter_relevance")
+            if chapter_relevance == "complete_current_task":
+                reasons.append("可完成当前章节任务")
+            elif chapter_relevance == "prepare_next_chapter":
+                reasons.append("可准备后续章节")
+            if selected.params.get("strategy_rationale"):
+                reasons.append(f"知识库依据：{selected.params.get('strategy_rationale')}")
+            if not reasons:
+                reasons.append("综合评分在可升级建筑中最高")
+            normalized_reasons = [reason.rstrip("。") for reason in reasons]
+            return f"{prefix}建议升级 {building_label}：" + "；".join(normalized_reasons) + "。"
         if selected.action_type == ActionType.RECRUIT_SOLDIERS:
             return f"{prefix}队伍 {selected.params.get('team_id')} 兵力缺口明显，先补兵能更快恢复作战能力。"
         if selected.action_type == ActionType.WAIT_FOR_RESOURCE:

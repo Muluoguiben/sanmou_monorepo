@@ -197,11 +197,11 @@ class AdvisorLoopTests(unittest.TestCase):
             action_type=ActionType.UPGRADE_BUILDING,
             params={
                 "building_id": "main_hall",
-                "building_name": "城主府",
+                "building_name": "君王殿",
                 "strategy_key": "building-main-city",
                 "strategy_entry_ids": ["building-main-city"],
-                "strategy_topic": "主城",
-                "strategy_rationale": "主城是多数城建解锁和章节推进的核心建筑之一。",
+                "strategy_topic": "君王殿",
+                "strategy_rationale": "君王殿是多数城建解锁和章节推进的核心建筑之一。",
                 "strategy_source_ref": "KB-RULE-BUILDING-001",
             },
             source_state_refs=["city.upgradeable_buildings"],
@@ -229,7 +229,7 @@ class AdvisorLoopTests(unittest.TestCase):
         structured = report.recommended_action.structured_evidence
         self.assertIn("strategy_snapshot:building-main-city", report.recommended_action.evidence)
         self.assertEqual(structured[-1].entry_id, "building-main-city")
-        self.assertEqual(structured[-1].topic, "主城")
+        self.assertEqual(structured[-1].topic, "君王殿")
         self.assertEqual(structured[-1].source_ref, "KB-RULE-BUILDING-001")
 
     def test_build_report_rejects_strategy_key_without_entry_ids(self) -> None:

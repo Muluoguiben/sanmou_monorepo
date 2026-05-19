@@ -1,17 +1,17 @@
 - id: building-main-city
   domain: building
-  topic: 主城
-  aliases: [城主府, 主城建筑]
+  topic: 君王殿
+  aliases: [主城, 主城建筑, main_hall]
   facts:
-    - 主城是多数城建解锁和章节推进的核心建筑之一。
-    - 提升主城等级通常会带动更多功能、建筑前置和资源上限开放。
+    - 君王殿是多数城建解锁和章节推进的核心建筑之一。
+    - 提升君王殿等级通常会带动更多功能、建筑前置和资源上限开放。
   constraints:
     - 具体升级前置和资源消耗以当前版本建筑面板为准。
   source_type: manual_rule
   source_ref: KB-RULE-BUILDING-001
   updated_at: 2026-03-29
   confidence: 0.94
-  related_topics: [建筑升级, 章节任务]
+  related_topics: [建筑升级, 章节任务, 主城]
   priority: 90
 
 - id: building-upgrade
