@@ -13,7 +13,7 @@
 - Evidence: Current highest priority remains Advisor golden replay expansion and low-risk verifier specs in `todo-list.md`.
 - Owner: Codex sessions should keep root `AGENTS.md`, `docs/codex-operating-model.md`, and this shared memory aligned.
 - Blocker: Existing worktree has many modified files from prior architecture/evidence work; future commits should scope staging carefully.
-- Next: Add `$browser` Desktop Advisor smoke, qa-agent MCP connector docs, and shared-memory rules; then run docs validation.
+- Next: Extend PR-5 golden replay fixture coverage and low-risk verifier specs; the Codex workflow docs, shared memory rules, MCP replay tools, and local smoke slice now exist.
 - Links:
   - `docs/codex-operating-model.md`
   - `docs/advisor-browser-smoke.md`
@@ -29,3 +29,15 @@
 - Next: Keep this matrix current when adding new Codex skills, automations, or MCP tools.
 - Links:
   - `docs/codex-workflow-verification.md`
+
+## 2026-05-21 - Codex workflow executable slice
+
+- Decision: Promote the Codex workflow layer from docs-only to executable repo-local workflows.
+- Evidence: Added three `.agent/skills/` workflows, qa-agent MCP tools `advisor_golden_replay_status` and `advisor_fixture_eval`, and pioneer-agent golden expectation manifest.
+- Owner: Codex sessions in this repo.
+- Blocker: `$browser` native pipe was unavailable in this session, so the Desktop Advisor smoke used Codex bundled Playwright + local Chrome fallback.
+- Next: Keep expanding PR-5 fixture coverage; do not mark full golden replay coverage complete until homepage, city, chapter, recruit, building upgrade, and team screenshots all have action/evidence/confidence expectations.
+- Links:
+  - `.agent/skills/sanmou-advisor-golden-replay/SKILL.md`
+  - `packages/qa-agent/src/qa_agent/mcp_server/advisor_tools.py`
+  - `packages/pioneer-agent/tests/golden/advisor_fixture_expectations.json`

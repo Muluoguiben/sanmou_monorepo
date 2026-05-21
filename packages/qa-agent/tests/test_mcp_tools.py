@@ -14,7 +14,16 @@ class McpToolTests(unittest.TestCase):
 
     def test_tool_definitions_are_stable(self) -> None:
         definitions = self.handler.tool_definitions()
-        self.assertEqual([item["name"] for item in definitions], ["lookup_topic", "answer_rule_question", "resolve_term"])
+        self.assertEqual(
+            [item["name"] for item in definitions],
+            [
+                "lookup_topic",
+                "answer_rule_question",
+                "resolve_term",
+                "advisor_golden_replay_status",
+                "advisor_fixture_eval",
+            ],
+        )
 
     def test_lookup_topic_tool_returns_structured_content(self) -> None:
         result = self.handler.call_tool("lookup_topic", {"topic": "建筑升级"})
@@ -33,6 +42,27 @@ class McpToolTests(unittest.TestCase):
         payload = result["structuredContent"]
         self.assertEqual(payload["coverage"], "exact")
         self.assertEqual(payload["evidence"][0]["topic"], "攻占地块")
+
+    def test_advisor_golden_replay_status_reports_expectation_failures(self) -> None:
+        result = self.handler.call_tool("advisor_golden_replay_status", {})
+        payload = result["structuredContent"]
+        self.assertFalse(result["isError"])
+        self.assertEqual(payload["status"], "ok")
+        self.assertEqual(payload["fixture_count"], 10)
+        self.assertEqual(payload["expectation_count"], 10)
+        self.assertEqual(payload["failures"], [])
+
+    def test_advisor_fixture_eval_returns_selected_action(self) -> None:
+        result = self.handler.call_tool(
+            "advisor_fixture_eval",
+            {"fixture": "chapter_claimable_state.json"},
+        )
+        payload = result["structuredContent"]
+        self.assertFalse(result["isError"])
+        self.assertTrue(payload["matched"])
+        self.assertEqual(payload["expected_action_type"], "claim_chapter_reward")
+        self.assertEqual(payload["actual_action_type"], "claim_chapter_reward")
+        self.assertEqual(payload["selected_action"]["action_type"], "claim_chapter_reward")
 
 
 if __name__ == "__main__":

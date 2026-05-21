@@ -18,8 +18,8 @@
 | 本地网页 / localhost / file preview | `$browser` | 验证 Desktop Advisor Web 入口、Vite 页面、API mock、截图上传和报告展示 | 不用于需要用户登录态的远程站点 |
 | 已登录远程网页 | `@chrome` | Bilibili、Kdocs、GitHub、Slack 等需要用户 cookies 或扩展环境的页面核验 | 不用于普通本地页面 smoke |
 | 本机 GUI / 游戏窗口 | `@computer` 或 repo-local `sanmou-client-control` skill | 观察 NSLG/三谋客户端、采集真实截图、做低风险 UI 校准 dry-run | 不绕过 `SafetyGuard`、verifier、allowlist、kill switch，不做账号/支付/高风险自动化 |
-| 游戏知识查询 | qa-agent MCP | 通过 `lookup_topic`、`answer_rule_question`、`resolve_term` 查询 reviewed KB | 不把 pending staging 或未 review 抽取当作知识事实 |
-| 重复工作流 | repo/local skills | Advisor golden replay、QA review/publish、客户端观察安全流程 | 不把一次性结论散落在聊天里 |
+| 游戏知识查询 | qa-agent MCP | 通过 `lookup_topic`、`answer_rule_question`、`resolve_term` 查询 reviewed KB；通过 `advisor_golden_replay_status`、`advisor_fixture_eval` 查询 Advisor replay baseline | 不把 pending staging 或未 review 抽取当作知识事实 |
+| 重复工作流 | repo/local skills | `.agent/skills/sanmou-advisor-golden-replay`、`.agent/skills/sanmou-qa-knowledge-review`、`.agent/skills/sanmou-computer-use-safety` | 不把一次性结论散落在聊天里 |
 | 定期巡检 | Codex automations | golden replay 周报、todo stale check、CI/build 摘要 | 不自动执行游戏点击，不自动发布知识，不启动逆向长循环 |
 | 跨会话上下文 | `shared-memory/` | 记录决策、卡点、负责人、链接、下一步 | 不存 secrets、cookie、账号状态、原始大截图、未经核验模型输出 |
 
@@ -54,6 +54,8 @@
 5. 用 `$browser` 验证 Desktop Advisor 展示：推荐、evidence、risk、confidence、degraded 状态。
 6. 只在行为应该变化时更新 expected outputs。
 7. 把失败样例、下一步和持久决策写入 `shared-memory/projects/sanmou.md`。
+
+Codex 可直接通过 qa-agent MCP 查询 replay baseline：`advisor_golden_replay_status` 用于汇总 drift，`advisor_fixture_eval` 用于单 fixture 诊断。
 
 ### QA Knowledge / MCP
 

@@ -170,8 +170,8 @@ Read these before making architectural changes:
 - `$browser` is the default for local web verification: Vite, localhost, file previews, Desktop Advisor browser smoke, screenshot upload, history, evidence/degraded rendering.
 - `@chrome` is only for remote pages that need the user's real Chrome profile, cookies, extensions, or logged-in sessions, such as Bilibili, Kdocs, GitHub, or Slack. Do not use it for ordinary localhost checks.
 - `@computer` / GUI control is only for local desktop or NSLG/Sanmou client observation and calibrated low-risk workflows. It must obey `docs/repo-local-runbook.md`, `.agent/skills/sanmou-client-control/SKILL.md`, safety guard, verifier, allowlist, trace, and kill switch rules.
-- qa-agent MCP is the preferred structured knowledge surface for Codex: `lookup_topic`, `answer_rule_question`, and `resolve_term`. It may query reviewed KB, not pending staging or unreviewed reverse-engineering outputs.
-- Repo/local skills should capture repeated workflows, especially Advisor golden replay, QA knowledge review/publish, and Sanmou client-control safety. Do not leave durable workflow logic only in chat history.
+- qa-agent MCP is the preferred structured knowledge surface for Codex: `lookup_topic`, `answer_rule_question`, `resolve_term`, `advisor_golden_replay_status`, and `advisor_fixture_eval`. It may query reviewed KB and committed Advisor replay baselines, not pending staging or unreviewed reverse-engineering outputs.
+- Repo/local skills should capture repeated workflows, especially `.agent/skills/sanmou-advisor-golden-replay`, `.agent/skills/sanmou-qa-knowledge-review`, `.agent/skills/sanmou-computer-use-safety`, and Sanmou client-control safety. Do not leave durable workflow logic only in chat history.
 - Automations are for low-noise recurring checks such as golden replay summaries, stale todo review, test/build summaries, and commit URL reminders. They must not auto-publish knowledge, auto-click the game, or restart uncapped reverse-engineering loops.
 
 ### Shared Memory
@@ -270,7 +270,7 @@ git branch -d feat/<branch-name>
 - **Desktop Advisor**: `apps/sanmou-advisor-desktop` Electron + React + Vite GUI with screenshot upload/preview, device/account metadata, AdvisorReport display, and chat panel; `npm run typecheck` and `npm run build` pass.
 - **Advisor API**: `pioneer_agent.app.advisor_api` FastAPI service with `/api/health`, `/api/advisor/analyze`, `/api/advisor/chat`, screenshot upload, mock mode, local `reports.jsonl` logging, and desktop CORS.
 - **Pioneer agent**: capture/control adapter split, platform-neutral device/session models, `AdvisorLoop`, sync → derive → select pipeline with 8 action types, OpenAI/Gemini vision provider support, `resource_bar` + `city_buildings` domains, bbox locator, UI layout registry, UIActions primitives, autonomous loop with loop_logger, `dry_run`, `stuck_threshold`; 76 tests pass when API deps are installed, advisor API tests skip cleanly without FastAPI.
-- **QA agent**: 104 heroes + 123 skills + 61 mechanic rules KB; MCP server with 3 tools; ingestion pipeline with `--publish`; conversational RAG via `qa_agent/chat/` with Gemini/MiniMax/OpenAI providers; `qa_agent/vision/` grounded image understanding; bilibili video knowledge workflow closed loop.
+- **QA agent**: 104 heroes + 123 skills + 61 mechanic rules KB; MCP server with 5 tools (`lookup_topic`, `answer_rule_question`, `resolve_term`, `advisor_golden_replay_status`, `advisor_fixture_eval`); ingestion pipeline with `--publish`; conversational RAG via `qa_agent/chat/` with Gemini/MiniMax/OpenAI providers; `qa_agent/vision/` grounded image understanding; bilibili video knowledge workflow closed loop.
 
 ### Current Focus
 - **Advisor MVP hardening**: run the desktop app on real PC/emulator/phone/iOS screenshots, collect screenshot fixtures, add vision eval, and improve GUI history.
@@ -281,8 +281,11 @@ git branch -d feat/<branch-name>
 ## Codex Workflows
 
 - For Bilibili strategy-video extraction into reusable QA knowledge, use:
-  - `.Codex/skills/bilibili-video-knowledge-workflow.md`
+  - `.agent/skills/bilibili-video-knowledge-workflow/SKILL.md`
   - `scripts/bilibili_video_knowledge_workflow.sh`
+- For Advisor replay and browser smoke, use `.agent/skills/sanmou-advisor-golden-replay/SKILL.md`.
+- For QA staging review/publish, use `.agent/skills/sanmou-qa-knowledge-review/SKILL.md`.
+- For Sanmou GUI/client safety checks, use `.agent/skills/sanmou-computer-use-safety/SKILL.md` and `.agent/skills/sanmou-client-control/SKILL.md`.
 
 ### Other Gaps
 - **Perception domain coverage**: `resource_bar` + `city_buildings` landed; still missing `hero_list` / `team_panel` / `recruit_panel` / `battle_result` / `chapter_panel` / `map_land` extractors.

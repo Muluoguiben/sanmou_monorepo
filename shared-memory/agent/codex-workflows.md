@@ -5,9 +5,23 @@
 - `$browser`: local web verification, especially Desktop Advisor/Vite/localhost.
 - `@chrome`: authenticated remote browser sessions such as Bilibili, Kdocs, GitHub, Slack.
 - `@computer`: local GUI and game-window observation only after safety rules are checked.
-- MCP: query reviewed Sanmou KB through qa-agent tools.
+- MCP: query reviewed Sanmou KB and committed Advisor replay baselines through qa-agent tools.
 - Skills: encode repeated workflows such as golden replay, QA knowledge review, and client-control safety.
 - Automations: low-noise recurring checks only.
+
+## Implemented Repo-local Skills
+
+- `.agent/skills/sanmou-advisor-golden-replay/SKILL.md`
+- `.agent/skills/sanmou-qa-knowledge-review/SKILL.md`
+- `.agent/skills/sanmou-computer-use-safety/SKILL.md`
+
+## Implemented qa-agent MCP Tools
+
+- `lookup_topic`
+- `answer_rule_question`
+- `resolve_term`
+- `advisor_golden_replay_status`
+- `advisor_fixture_eval`
 
 ## Commit Reporting
 

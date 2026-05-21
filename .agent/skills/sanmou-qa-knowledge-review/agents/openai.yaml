@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sanmou QA Knowledge Review"
+  short_description: "Review and publish Sanmou QA knowledge safely."
+  default_prompt: "Review Sanmou QA staging knowledge, publish approved entries, and run query smoke tests."

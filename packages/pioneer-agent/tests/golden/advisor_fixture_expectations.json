@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "description": "Expected selected action types for committed runtime-state fixtures. This locks the selector replay baseline used by qa-agent MCP advisor tools.",
+  "fixtures": {
+    "chapter_claimable_state.json": {
+      "expected_action_type": "claim_chapter_reward"
+    },
+    "from_real_sync_log.json": {
+      "expected_action_type": "attack_land"
+    },
+    "recruit_priority_state.json": {
+      "expected_action_type": "recruit_soldiers"
+    },
+    "recruit_rule_state.json": {
+      "expected_action_type": "recruit_soldiers"
+    },
+    "sample_state.json": {
+      "expected_action_type": "attack_land"
+    },
+    "team_panel_state.json": {
+      "expected_action_type": "inspect_team_readiness"
+    },
+    "team_snapshot_ready_state.json": {
+      "expected_action_type": null
+    },
+    "transfer_priority_state.json": {
+      "expected_action_type": "transfer_main_lineup_to_team"
+    },
+    "wait_resource_state.json": {
+      "expected_action_type": "wait_for_resource"
+    },
+    "wait_stamina_state.json": {
+      "expected_action_type": "wait_for_stamina"
+    }
+  }
+}

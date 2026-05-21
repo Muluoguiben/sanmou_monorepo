@@ -21,10 +21,10 @@ docs/                Cross-project design documents
 
 ## Canonical Docs
 
-1. [sanguo-agent-mvp-model.md](docs/sanguo-agent-mvp-model.md)
-2. [sanguo-agent-runtime-design.md](docs/sanguo-agent-runtime-design.md)
-3. [sanguo-agent-mvp-engineering-plan.md](docs/sanguo-agent-mvp-engineering-plan.md)
-4. [pioneer-agent-architecture-review-and-roadmap.md](docs/pioneer-agent-architecture-review-and-roadmap.md)
+1. [sanguo-agent-mvp-model.md](../docs/sanguo-agent-mvp-model.md)
+2. [sanguo-agent-runtime-design.md](../docs/sanguo-agent-runtime-design.md)
+3. [sanguo-agent-mvp-engineering-plan.md](../docs/sanguo-agent-mvp-engineering-plan.md)
+4. [pioneer-agent-architecture-review-and-roadmap.md](../docs/pioneer-agent-architecture-review-and-roadmap.md)
 
 ## Package Dependencies
 
@@ -126,6 +126,13 @@ python -m pioneer_agent.app.advisor_api --host 127.0.0.1 --port 8765 --mock
 cd packages/pioneer-agent
 PYTHONPATH=src:../sanmou-common/src python -m unittest discover -s tests
 ```
+
+## Repo-local Skills
+
+- `.agent/skills/sanmou-advisor-golden-replay/SKILL.md`: Advisor fixture replay, golden expectation status, and browser smoke checks.
+- `.agent/skills/sanmou-qa-knowledge-review/SKILL.md`: staging review, evidence checks, publish, and query smoke.
+- `.agent/skills/sanmou-computer-use-safety/SKILL.md`: observe-only, dry-run, allowlist, trace, verifier, and kill-switch checks before GUI/client control.
+- `.agent/skills/sanmou-client-control/SKILL.md`: concrete Windows NSLG/Sanmou client launch/capture/control mechanics.
 
 ## How To Continue
 

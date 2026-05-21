@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sanmou Advisor Golden Replay"
+  short_description: "Run Advisor fixture replay and browser smoke checks."
+  default_prompt: "Run the Sanmou Advisor golden replay workflow and report failures."

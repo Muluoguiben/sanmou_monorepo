@@ -84,3 +84,10 @@ cd packages/pioneer-agent && PYTHONPATH=src:../sanmou-common/src python3 -m unit
 
 只改文档或 shared-memory 时，可用 markdown/link 检查和 `git diff --check`。
 
+## 2026-05-21 Smoke Result
+
+- URL: `http://127.0.0.1:5173/`
+- API mode: mock
+- Fixture: `packages/pioneer-agent/tests/fixtures/screenshots/android/team_snapshot/20260514-team-panel.png`
+- Result: API health `ok`; upload returned confidence `1.0`, 6 evidence refs including `vision.domain:mock_upload`, 1 mock-mode risk, recommended action `wait_for_resource`, preview rendered, latest history item changed.
+- Note: `$browser` native pipe was unavailable in this session (`browser-client is not trusted`), so the smoke used Codex bundled Playwright with local Chrome as an equivalent browser fallback. Keep `$browser` as the default when available.

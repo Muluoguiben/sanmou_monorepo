@@ -32,8 +32,23 @@ PYTHONPATH=src python3 -m qa_agent.mcp_server.stdio_server --sources-dir knowled
 | `lookup_topic` | `topic`, optional `domain` | 查询规范 topic，返回结构化 evidence |
 | `answer_rule_question` | `question`, optional `domain` | 用 curated entries 回答窄规则问题 |
 | `resolve_term` | `term`, optional `domain` | 将别名或术语解析到 canonical topic |
+| `advisor_golden_replay_status` | optional `include_fixture_results` | 汇总 pioneer-agent runtime fixture 覆盖、golden expectation drift 和失败场景 |
+| `advisor_fixture_eval` | `fixture`, optional `expected_action_type` | 对指定 runtime-state fixture 运行离线 Advisor selector replay，并返回 selected action / reason / derived state |
 
 Domain enum 来自 `qa_agent.knowledge.models.Domain`。
+
+## Advisor Replay Tools
+
+`advisor_golden_replay_status` 使用 `packages/pioneer-agent/tests/golden/advisor_fixture_expectations.json` 作为 baseline。默认会运行 committed runtime-state fixtures，并比较实际 selected action 与 expected action。
+
+`advisor_fixture_eval` 只允许读取 `packages/pioneer-agent/tests/fixtures/` 下的 fixture，避免 MCP 客户端传入任意文件路径。它通过 subprocess 调用 `pioneer_agent.app.replay_fixture`，不让 qa-agent 在 import 阶段硬依赖 pioneer-agent。
+
+最小验证：
+
+```bash
+cd packages/qa-agent
+PYTHONPATH=src python3 -m unittest tests.test_mcp_tools -v
+```
 
 ## Connector 配置草案
 
@@ -71,7 +86,7 @@ PYTHONPATH=src python3 -m qa_agent.app.query answer_rule_question "体力不足�
 
 MCP client 验证：
 
-1. `tools/list` 应返回 3 个工具。
+1. `tools/list` 应返回 5 个工具。
 2. `lookup_topic` 对已存在 topic 返回 `isError=false` 和 `structuredContent`。
 3. 未收录问题应返回 not-found 风格结果，不得编造答案。
 
@@ -88,9 +103,6 @@ MCP client 验证：
 
 | Tool | 目的 |
 |---|---|
-| `advisor_golden_replay_status` | 汇总 fixture 覆盖、最近 replay drift、失败场景 |
-| `advisor_fixture_eval` | 对指定 fixture 运行离线 eval 并返回结构化结果 |
 | `knowledge_entry_trace` | 给定 entry_id 返回来源、review 状态和被 Advisor 引用情况 |
 
 这些工具应优先返回结构化 JSON，方便 Codex、Slack 和 automation 消费。
-

@@ -4,17 +4,22 @@ from pathlib import Path
 
 from qa_agent.knowledge.source_paths import discover_source_paths
 from qa_agent.knowledge.models import Domain, QueryResponse
+from qa_agent.mcp_server.advisor_tools import AdvisorReplayTools
 from qa_agent.service.query_service import QueryService
 
 
 class KnowledgeToolHandler:
-    def __init__(self, service: QueryService) -> None:
+    def __init__(self, service: QueryService, advisor_tools: AdvisorReplayTools | None = None) -> None:
         self.service = service
+        self.advisor_tools = advisor_tools or AdvisorReplayTools.from_qa_project_root(Path(__file__).resolve().parents[3])
 
     @classmethod
     def from_project_root(cls, project_root: Path) -> "KnowledgeToolHandler":
         source_paths = discover_source_paths(project_root / "knowledge_sources")
-        return cls(QueryService.from_source_paths(source_paths))
+        return cls(
+            QueryService.from_source_paths(source_paths),
+            advisor_tools=AdvisorReplayTools.from_qa_project_root(project_root),
+        )
 
     def tool_definitions(self) -> list[dict]:
         domain_enum = [domain.value for domain in Domain]
@@ -58,6 +63,40 @@ class KnowledgeToolHandler:
                     "additionalProperties": False,
                 },
             },
+            {
+                "name": "advisor_golden_replay_status",
+                "description": "Summarize Sanmou Advisor fixture coverage and golden replay expectation failures.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "include_fixture_results": {
+                            "type": "boolean",
+                            "default": True,
+                            "description": "When true, run fixture replay and compare against the golden expectation manifest.",
+                        }
+                    },
+                    "additionalProperties": False,
+                },
+            },
+            {
+                "name": "advisor_fixture_eval",
+                "description": "Run offline Sanmou Advisor replay for one runtime-state fixture and return the selected action.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "fixture": {
+                            "type": "string",
+                            "description": "Fixture filename under pioneer-agent tests/fixtures, or a repo-relative fixture path.",
+                        },
+                        "expected_action_type": {
+                            "type": ["string", "null"],
+                            "description": "Optional expected selected action type. Defaults to the golden manifest value when present.",
+                        },
+                    },
+                    "required": ["fixture"],
+                    "additionalProperties": False,
+                },
+            },
         ]
 
     def call_tool(self, name: str, arguments: dict) -> dict:
@@ -67,6 +106,17 @@ class KnowledgeToolHandler:
             response = self.service.answer_rule_question(arguments["question"], arguments.get("domain"))
         elif name == "resolve_term":
             response = self.service.resolve_term(arguments["term"], arguments.get("domain"))
+        elif name == "advisor_golden_replay_status":
+            payload = self.advisor_tools.golden_replay_status(
+                include_fixture_results=arguments.get("include_fixture_results", True)
+            )
+            return self._payload_tool_result(payload)
+        elif name == "advisor_fixture_eval":
+            payload = self.advisor_tools.fixture_eval(
+                fixture=arguments["fixture"],
+                expected_action_type=arguments.get("expected_action_type"),
+            )
+            return self._payload_tool_result(payload)
         else:
             raise ValueError(f"Unknown tool: {name}")
         return self._tool_result(response)
@@ -79,3 +129,17 @@ class KnowledgeToolHandler:
             "structuredContent": payload,
             "isError": False,
         }
+
+    @staticmethod
+    def _payload_tool_result(payload: dict) -> dict:
+        return {
+            "content": [{"type": "text", "text": json_dumps(payload)}],
+            "structuredContent": payload,
+            "isError": False,
+        }
+
+
+def json_dumps(payload: dict) -> str:
+    import json
+
+    return json.dumps(payload, ensure_ascii=False, indent=2)
