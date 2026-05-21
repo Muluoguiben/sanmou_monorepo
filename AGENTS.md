@@ -208,6 +208,7 @@ git branch -d feat/<branch-name>
 
 - 默认分支：`master`
 - **每次合并代码或推送代码后，必须更新项目根目录的 `todo-list.md`**，反映最新的待办状态、已完成项和新增项。
+- 每次成功创建 commit 后，回复里必须给出 commit hash 和可打开的 commit URL；GitHub SSH remote 形如 `git@github.com:owner/repo.git` 时，URL 格式为 `https://github.com/owner/repo/commit/<commit-sha>`。
 
 ## LLM Provider
 
