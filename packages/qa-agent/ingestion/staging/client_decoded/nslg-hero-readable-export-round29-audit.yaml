@@ -1,0 +1,930 @@
+source_id: hero-readable-export-round29
+source_url: local-nslg-client-decoded
+source_site: nslg_client_decode
+generated_at: '2026-05-16T05:21:47.931752Z'
+export_summary: Consolidated readable NSLG hero export from local decoded payloads.
+  Static hero metadata, roster status, LineupAssistantHero1 skill slots and attr vectors,
+  plus GVG skill/attr/warBook records are merged by heroID.
+export_counts:
+  static_hero_count: 63
+  total_export_records: 65
+  gvg_only_records_not_in_static_master: 2
+  lineup_skill_heroes: 55
+  lineup_attr_heroes: 55
+  lineup_nonzero_attr_heroes: 8
+  gvg_skill_heroes: 17
+  gvg_attr_heroes: 7
+  gvg_warbook_rows: 17
+  gvg_warbook_configured: 12
+field_semantics:
+  lineup.skillSlots: 'customFeatures inline skill records: position, skillId, orderLevel,
+    level, customComp_objId, skillSkinInfo_objId, userList_objId'
+  lineup.attrList: 'five-slot allocation vector: slot=attr id 1..5, value=cnt'
+  gvg.skillList: battle/preparation skill records with same skillId/orderLevel semantics
+    as lineup primary skill records
+  gvg.attrList: 'five-slot allocation vector: slot=field17, value=field18'
+  gvg.warBook.warBookProfileId: field13 candidate; most configured rows match floor(primarySkillId
+    / 10) + 1, with verified exceptions
+known_limitations:
+- attr slot ids 1..5 are readable but not safely mapped to Chinese attribute labels
+  from local enum evidence yet.
+- warBookProfileId exception ids 208023, 403013, and 40122 are readable but not mapped
+  to static warBook names yet.
+- LineupAssistantHero1 and GVG use compatible field schemas, but secondary skill slot
+  contents can differ by context.
+- Two GVG hero ids in this payload are not present in the local static cardmodel master
+  table and are retained as GVG-only export rows.
+staging:
+  candidate_entries: 63
+  review_status: normalized
+  publish_default: blocked_until_reviewed
+  skipped_non_static_records: 2
+hero_coverage:
+  total_static_heroes: 63
+  mapped_heroes: 62
+  mapped_hero_items:
+  - hero_id: 1000
+    codename: caocao
+    canonical_name: 曹操
+    confidence: 0.95
+  - hero_id: 1002
+    codename: dianwei_zhanji
+    canonical_name: 典韦
+    confidence: 0.9
+  - hero_id: 1003
+    codename: xunyou
+    canonical_name: 荀攸
+    confidence: 0.95
+  - hero_id: 1004
+    codename: jiaxu
+    canonical_name: 贾诩
+    confidence: 0.95
+  - hero_id: 1005
+    codename: guojia
+    canonical_name: 郭嘉
+    confidence: 0.95
+  - hero_id: 1008
+    codename: xunyu_xinxiang
+    canonical_name: 荀彧
+    confidence: 0.9
+  - hero_id: 1009
+    codename: simayi
+    canonical_name: 司马懿
+    confidence: 0.95
+  - hero_id: 1011
+    codename: caopi_denglin
+    canonical_name: 曹丕
+    confidence: 0.9
+  - hero_id: 1012
+    codename: dengai
+    canonical_name: 邓艾
+    confidence: 0.9
+  - hero_id: 1014
+    codename: yuejin_canglang
+    canonical_name: 乐进
+    confidence: 0.9
+  - hero_id: 1017
+    codename: zhangchunhua
+    canonical_name: 张春华
+    confidence: 0.95
+  - hero_id: 1020
+    codename: wangyi
+    canonical_name: 王异
+    confidence: 0.95
+  - hero_id: 1022
+    codename: haozhao_xiongguan
+    canonical_name: 郝昭
+    confidence: 0.9
+  - hero_id: 1023
+    codename: xiahoudun_yuxue
+    canonical_name: 夏侯惇
+    confidence: 0.9
+  - hero_id: 1026
+    codename: zhenji
+    canonical_name: 甄洛
+    confidence: 0.9
+  - hero_id: 1027
+    codename: bianfuren
+    canonical_name: 卞夫人
+    confidence: 0.95
+  - hero_id: 2000
+    codename: liubei
+    canonical_name: 刘备
+    confidence: 0.95
+  - hero_id: 2001
+    codename: guanyu
+    canonical_name: 关羽
+    confidence: 0.95
+  - hero_id: 2002
+    codename: zhangfei
+    canonical_name: 张飞
+    confidence: 0.95
+  - hero_id: 2003
+    codename: zhugeliang
+    canonical_name: 诸葛亮
+    confidence: 0.9
+  - hero_id: 2005
+    codename: xushu
+    canonical_name: 徐庶
+    confidence: 0.95
+  - hero_id: 2009
+    codename: huangyueying
+    canonical_name: 黄月英
+    confidence: 0.95
+  - hero_id: 2011
+    codename: guanyinping
+    canonical_name: 关银屏
+    confidence: 0.95
+  - hero_id: 2012
+    codename: zhaoyun
+    canonical_name: 赵云
+    confidence: 0.95
+  - hero_id: 2013
+    codename: mayunlu
+    canonical_name: 马云禄
+    confidence: 0.95
+  - hero_id: 2015
+    codename: machao
+    canonical_name: 马超
+    confidence: 0.95
+  - hero_id: 2017
+    codename: weiyan_nigu
+    canonical_name: 魏延
+    confidence: 0.9
+  - hero_id: 2019
+    codename: ganfuren
+    canonical_name: 甘夫人
+    confidence: 0.95
+  - hero_id: 2021
+    codename: jiangwei
+    canonical_name: 姜维
+    confidence: 0.95
+  - hero_id: 2022
+    codename: zhugeliang
+    canonical_name: 诸葛亮2
+    confidence: 0.82
+  - hero_id: 3000
+    codename: sunquan
+    canonical_name: 孙权
+    confidence: 0.95
+  - hero_id: 3001
+    codename: sunce
+    canonical_name: 孙策
+    confidence: 0.95
+  - hero_id: 3002
+    codename: sunshangxiang
+    canonical_name: 孙尚香
+    confidence: 0.95
+  - hero_id: 3003
+    codename: xiaoqiao
+    canonical_name: 小乔
+    confidence: 0.95
+  - hero_id: 3004
+    codename: daqiao
+    canonical_name: 大乔
+    confidence: 0.95
+  - hero_id: 3005
+    codename: lusu
+    canonical_name: 鲁肃
+    confidence: 0.95
+  - hero_id: 3006
+    codename: ganning
+    canonical_name: 甘宁
+    confidence: 0.95
+  - hero_id: 3007
+    codename: zhouyu
+    canonical_name: 周瑜
+    confidence: 0.95
+  - hero_id: 3008
+    codename: luxun
+    canonical_name: 陆逊
+    confidence: 0.95
+  - hero_id: 3010
+    codename: lvmeng
+    canonical_name: 吕蒙
+    confidence: 0.95
+  - hero_id: 3016
+    codename: lukang_jueyan
+    canonical_name: 陆抗
+    confidence: 0.9
+  - hero_id: 4000
+    codename: lvbu
+    canonical_name: 吕布
+    confidence: 0.95
+  - hero_id: 4001
+    codename: zhangliao_shuangfeng
+    canonical_name: 张辽
+    confidence: 0.72
+  - hero_id: 4002
+    codename: caiwenji
+    canonical_name: 蔡文姬
+    confidence: 0.95
+  - hero_id: 4004
+    codename: yuanshao_liangjian
+    canonical_name: 袁绍
+    confidence: 0.85
+  - hero_id: 4005
+    codename: menghuo_xunshou
+    canonical_name: 孟获
+    confidence: 0.9
+  - hero_id: 4006
+    codename: zhurongfuren
+    canonical_name: 祝融夫人
+    confidence: 0.95
+  - hero_id: 4010
+    codename: liru
+    canonical_name: 李儒
+    confidence: 0.95
+  - hero_id: 4011
+    codename: zhangjiao
+    canonical_name: 张角
+    confidence: 0.95
+  - hero_id: 4012
+    codename: zuoci
+    canonical_name: 左慈
+    confidence: 0.95
+  - hero_id: 4013
+    codename: chengong
+    canonical_name: 陈宫
+    confidence: 0.95
+  - hero_id: 4019
+    codename: huatuo
+    canonical_name: 华佗
+    confidence: 0.95
+  - hero_id: 4023
+    codename: diaochan
+    canonical_name: 貂蝉
+    confidence: 0.95
+  - hero_id: 4024
+    codename: zhangning
+    canonical_name: 张宁
+    confidence: 0.95
+  - hero_id: 4026
+    codename: mateng
+    canonical_name: 马腾
+    confidence: 0.95
+  - hero_id: 4028
+    codename: dongzhuo
+    canonical_name: 董卓
+    confidence: 0.95
+  - hero_id: 4029
+    codename: zoushi
+    canonical_name: 邹氏
+    confidence: 0.95
+  - hero_id: 4032
+    codename: sunjian_huxiao
+    canonical_name: 孙坚2
+    confidence: 0.7
+  - hero_id: 5026
+    codename: bulianshi
+    canonical_name: 步练师
+    confidence: 0.95
+  - hero_id: 5034
+    codename: xusheng
+    canonical_name: 徐盛
+    confidence: 0.9
+  - hero_id: 5048
+    codename: zhangliang
+    canonical_name: 张梁
+    confidence: 0.95
+  - hero_id: 5055
+    codename: zhangbao
+    canonical_name: 张宝
+    confidence: 0.95
+  unmapped_heroes:
+  - hero_id: 5005
+    codename: zhongyao
+  low_confidence_mappings:
+  - hero_id: 4001
+    codename: zhangliao_shuangfeng
+    canonical_name: 张辽
+    confidence: 0.72
+  - hero_id: 4032
+    codename: sunjian_huxiao
+    canonical_name: 孙坚2
+    confidence: 0.7
+skill_coverage:
+  total_unique_skill_ids: 74
+  mapped_skill_ids: 57
+  mapped_skill_items:
+  - skill_id: 100001
+    canonical_name: 乱世奸雄
+    confidence: 0.9
+  - skill_id: 100201
+    canonical_name: 古之恶来
+    confidence: 0.85
+  - skill_id: 100301
+    canonical_name: 十二奇策
+    confidence: 0.9
+  - skill_id: 100401
+    canonical_name: 诡道玄机
+    confidence: 0.9
+  - skill_id: 100501
+    canonical_name: 算无遗策
+    confidence: 0.9
+  - skill_id: 100801
+    canonical_name: 建计举人
+    confidence: 0.85
+  - skill_id: 100901
+    canonical_name: 鹰视狼顾
+    confidence: 0.9
+  - skill_id: 101201
+    canonical_name: 屯田令
+    confidence: 0.85
+  - skill_id: 101401
+    canonical_name: 每战先登
+    confidence: 0.85
+  - skill_id: 101701
+    canonical_name: 荼蘼心计
+    confidence: 0.9
+  - skill_id: 102001
+    canonical_name: 巧策引锋
+    confidence: 0.9
+  - skill_id: 102301
+    canonical_name: 刚烈
+    confidence: 0.85
+  - skill_id: 102601
+    canonical_name: 流风回雪
+    confidence: 0.85
+  - skill_id: 200001
+    canonical_name: 携民渡江
+    confidence: 0.9
+  - skill_id: 200101
+    canonical_name: 威震华夏
+    confidence: 0.9
+  - skill_id: 200201
+    canonical_name: 万人之敌
+    confidence: 0.9
+  - skill_id: 200301
+    canonical_name: 草船借箭
+    confidence: 0.85
+  - skill_id: 200501
+    canonical_name: 折节学问
+    confidence: 0.9
+  - skill_id: 200901
+    canonical_name: 木牛流马
+    confidence: 0.9
+  - skill_id: 201101
+    canonical_name: 虎啸生威
+    confidence: 0.9
+  - skill_id: 201201
+    canonical_name: 七进七出
+    confidence: 0.9
+  - skill_id: 201301
+    canonical_name: 红妆缭乱
+    confidence: 0.9
+  - skill_id: 201501
+    canonical_name: 纵马横枪
+    confidence: 0.9
+  - skill_id: 201901
+    canonical_name: 皇思淑仁
+    confidence: 0.9
+  - skill_id: 202101
+    canonical_name: 九伐中原
+    confidence: 0.9
+  - skill_id: 202201
+    canonical_name: 星罗棋布
+    confidence: 0.8
+  - skill_id: 300001
+    canonical_name: 虎踞江东
+    confidence: 0.9
+  - skill_id: 300101
+    canonical_name: 制霸江东
+    confidence: 0.9
+  - skill_id: 300201
+    canonical_name: 弓腰姬
+    confidence: 0.9
+  - skill_id: 300301
+    canonical_name: 天香
+    confidence: 0.9
+  - skill_id: 300401
+    canonical_name: 国色
+    confidence: 0.9
+  - skill_id: 300501
+    canonical_name: 划湘分荆
+    confidence: 0.9
+  - skill_id: 300601
+    canonical_name: 锦帆渠魁
+    confidence: 0.9
+  - skill_id: 300701
+    canonical_name: 临机制胜
+    confidence: 0.9
+  - skill_id: 300801
+    canonical_name: 火烧连营
+    confidence: 0.9
+  - skill_id: 301001
+    canonical_name: 白衣渡江
+    confidence: 0.9
+  - skill_id: 301601
+    canonical_name: 决堰倾涛
+    confidence: 0.85
+  - skill_id: 400001
+    canonical_name: 骁勇无前
+    confidence: 0.9
+  - skill_id: 400101
+    canonical_name: 风袭逍遥
+    confidence: 0.72
+  - skill_id: 400201
+    canonical_name: 悲愤诗
+    confidence: 0.9
+  - skill_id: 400401
+    canonical_name: 合聚群雄
+    confidence: 0.82
+  - skill_id: 400501
+    canonical_name: 雄护南疆
+    confidence: 0.85
+  - skill_id: 400601
+    canonical_name: 南疆烈刃
+    confidence: 0.9
+  - skill_id: 401001
+    canonical_name: 鸩饮毒弑
+    confidence: 0.9
+  - skill_id: 401101
+    canonical_name: 黄天当立
+    confidence: 0.9
+  - skill_id: 401201
+    canonical_name: 云行雨施
+    confidence: 0.9
+  - skill_id: 401301
+    canonical_name: 智令从计
+    confidence: 0.9
+  - skill_id: 401901
+    canonical_name: 麻沸散
+    confidence: 0.9
+  - skill_id: 402301
+    canonical_name: 闭月
+    confidence: 0.9
+  - skill_id: 402401
+    canonical_name: 太平余响
+    confidence: 0.9
+  - skill_id: 402601
+    canonical_name: 雄踞西凉
+    confidence: 0.9
+  - skill_id: 402801
+    canonical_name: 权倾朝野
+    confidence: 0.9
+  - skill_id: 402901
+    canonical_name: 顾盼生姿
+    confidence: 0.9
+  - skill_id: 502601
+    canonical_name: 淑懿之德
+    confidence: 0.9
+  - skill_id: 503401
+    canonical_name: 百里疑城
+    confidence: 0.85
+  - skill_id: 504801
+    canonical_name: 妖武
+    confidence: 0.9
+  - skill_id: 505501
+    canonical_name: 妖风大作
+    confidence: 0.9
+  unmapped_skill_ids:
+  - 20130
+  - 20220
+  - 20450
+  - 20600
+  - 20630
+  - 20640
+  - 20670
+  - 20730
+  - 20760
+  - 20790
+  - 20810
+  - 20890
+  - 20930
+  - 70060
+  - 500501
+  - 800006
+  - 800040
+  low_confidence_mappings:
+  - skill_id: 400101
+    canonical_name: 风袭逍遥
+    confidence: 0.72
+knowledge_validation:
+  knowledge_entries_loaded: 447
+  mapped_hero_names_checked: 62
+  mapped_skill_names_checked: 57
+  hero_mappings_missing_kb_topic: []
+  skill_mappings_missing_skill_profile:
+  - skill_id: 100001
+    canonical_name: 乱世奸雄
+    confidence: 0.9
+  - skill_id: 100201
+    canonical_name: 古之恶来
+    confidence: 0.85
+  - skill_id: 100301
+    canonical_name: 十二奇策
+    confidence: 0.9
+  - skill_id: 100401
+    canonical_name: 诡道玄机
+    confidence: 0.9
+  - skill_id: 100501
+    canonical_name: 算无遗策
+    confidence: 0.9
+  - skill_id: 100801
+    canonical_name: 建计举人
+    confidence: 0.85
+  - skill_id: 100901
+    canonical_name: 鹰视狼顾
+    confidence: 0.9
+  - skill_id: 101201
+    canonical_name: 屯田令
+    confidence: 0.85
+  - skill_id: 101401
+    canonical_name: 每战先登
+    confidence: 0.85
+  - skill_id: 101701
+    canonical_name: 荼蘼心计
+    confidence: 0.9
+  - skill_id: 102001
+    canonical_name: 巧策引锋
+    confidence: 0.9
+  - skill_id: 102301
+    canonical_name: 刚烈
+    confidence: 0.85
+  - skill_id: 102601
+    canonical_name: 流风回雪
+    confidence: 0.85
+  - skill_id: 200001
+    canonical_name: 携民渡江
+    confidence: 0.9
+  - skill_id: 200101
+    canonical_name: 威震华夏
+    confidence: 0.9
+  - skill_id: 200201
+    canonical_name: 万人之敌
+    confidence: 0.9
+  - skill_id: 200501
+    canonical_name: 折节学问
+    confidence: 0.9
+  - skill_id: 200901
+    canonical_name: 木牛流马
+    confidence: 0.9
+  - skill_id: 201101
+    canonical_name: 虎啸生威
+    confidence: 0.9
+  - skill_id: 201201
+    canonical_name: 七进七出
+    confidence: 0.9
+  - skill_id: 201301
+    canonical_name: 红妆缭乱
+    confidence: 0.9
+  - skill_id: 201501
+    canonical_name: 纵马横枪
+    confidence: 0.9
+  - skill_id: 201901
+    canonical_name: 皇思淑仁
+    confidence: 0.9
+  - skill_id: 202101
+    canonical_name: 九伐中原
+    confidence: 0.9
+  - skill_id: 202201
+    canonical_name: 星罗棋布
+    confidence: 0.8
+  - skill_id: 300001
+    canonical_name: 虎踞江东
+    confidence: 0.9
+  - skill_id: 300101
+    canonical_name: 制霸江东
+    confidence: 0.9
+  - skill_id: 300201
+    canonical_name: 弓腰姬
+    confidence: 0.9
+  - skill_id: 300301
+    canonical_name: 天香
+    confidence: 0.9
+  - skill_id: 300401
+    canonical_name: 国色
+    confidence: 0.9
+  - skill_id: 300501
+    canonical_name: 划湘分荆
+    confidence: 0.9
+  - skill_id: 300601
+    canonical_name: 锦帆渠魁
+    confidence: 0.9
+  - skill_id: 300701
+    canonical_name: 临机制胜
+    confidence: 0.9
+  - skill_id: 300801
+    canonical_name: 火烧连营
+    confidence: 0.9
+  - skill_id: 301001
+    canonical_name: 白衣渡江
+    confidence: 0.9
+  - skill_id: 301601
+    canonical_name: 决堰倾涛
+    confidence: 0.85
+  - skill_id: 400001
+    canonical_name: 骁勇无前
+    confidence: 0.9
+  - skill_id: 400101
+    canonical_name: 风袭逍遥
+    confidence: 0.72
+  - skill_id: 400201
+    canonical_name: 悲愤诗
+    confidence: 0.9
+  - skill_id: 400401
+    canonical_name: 合聚群雄
+    confidence: 0.82
+  - skill_id: 400501
+    canonical_name: 雄护南疆
+    confidence: 0.85
+  - skill_id: 400601
+    canonical_name: 南疆烈刃
+    confidence: 0.9
+  - skill_id: 401001
+    canonical_name: 鸩饮毒弑
+    confidence: 0.9
+  - skill_id: 401101
+    canonical_name: 黄天当立
+    confidence: 0.9
+  - skill_id: 401201
+    canonical_name: 云行雨施
+    confidence: 0.9
+  - skill_id: 401301
+    canonical_name: 智令从计
+    confidence: 0.9
+  - skill_id: 401901
+    canonical_name: 麻沸散
+    confidence: 0.9
+  - skill_id: 402301
+    canonical_name: 闭月
+    confidence: 0.9
+  - skill_id: 402401
+    canonical_name: 太平余响
+    confidence: 0.9
+  - skill_id: 402601
+    canonical_name: 雄踞西凉
+    confidence: 0.9
+  - skill_id: 402801
+    canonical_name: 权倾朝野
+    confidence: 0.9
+  - skill_id: 402901
+    canonical_name: 顾盼生姿
+    confidence: 0.9
+  - skill_id: 502601
+    canonical_name: 淑懿之德
+    confidence: 0.9
+  - skill_id: 503401
+    canonical_name: 百里疑城
+    confidence: 0.85
+  - skill_id: 504801
+    canonical_name: 妖武
+    confidence: 0.9
+  - skill_id: 505501
+    canonical_name: 妖风大作
+    confidence: 0.9
+  skill_mappings_found_as_hero_signature:
+  - skill_id: 100001
+    canonical_name: 乱世奸雄
+    confidence: 0.9
+  - skill_id: 100201
+    canonical_name: 古之恶来
+    confidence: 0.85
+  - skill_id: 100301
+    canonical_name: 十二奇策
+    confidence: 0.9
+  - skill_id: 100401
+    canonical_name: 诡道玄机
+    confidence: 0.9
+  - skill_id: 100501
+    canonical_name: 算无遗策
+    confidence: 0.9
+  - skill_id: 100801
+    canonical_name: 建计举人
+    confidence: 0.85
+  - skill_id: 100901
+    canonical_name: 鹰视狼顾
+    confidence: 0.9
+  - skill_id: 101201
+    canonical_name: 屯田令
+    confidence: 0.85
+  - skill_id: 101401
+    canonical_name: 每战先登
+    confidence: 0.85
+  - skill_id: 101701
+    canonical_name: 荼蘼心计
+    confidence: 0.9
+  - skill_id: 102001
+    canonical_name: 巧策引锋
+    confidence: 0.9
+  - skill_id: 102301
+    canonical_name: 刚烈
+    confidence: 0.85
+  - skill_id: 102601
+    canonical_name: 流风回雪
+    confidence: 0.85
+  - skill_id: 200001
+    canonical_name: 携民渡江
+    confidence: 0.9
+  - skill_id: 200101
+    canonical_name: 威震华夏
+    confidence: 0.9
+  - skill_id: 200201
+    canonical_name: 万人之敌
+    confidence: 0.9
+  - skill_id: 200301
+    canonical_name: 草船借箭
+    confidence: 0.85
+  - skill_id: 200501
+    canonical_name: 折节学问
+    confidence: 0.9
+  - skill_id: 200901
+    canonical_name: 木牛流马
+    confidence: 0.9
+  - skill_id: 201101
+    canonical_name: 虎啸生威
+    confidence: 0.9
+  - skill_id: 201201
+    canonical_name: 七进七出
+    confidence: 0.9
+  - skill_id: 201301
+    canonical_name: 红妆缭乱
+    confidence: 0.9
+  - skill_id: 201501
+    canonical_name: 纵马横枪
+    confidence: 0.9
+  - skill_id: 201901
+    canonical_name: 皇思淑仁
+    confidence: 0.9
+  - skill_id: 202101
+    canonical_name: 九伐中原
+    confidence: 0.9
+  - skill_id: 202201
+    canonical_name: 星罗棋布
+    confidence: 0.8
+  - skill_id: 300001
+    canonical_name: 虎踞江东
+    confidence: 0.9
+  - skill_id: 300101
+    canonical_name: 制霸江东
+    confidence: 0.9
+  - skill_id: 300201
+    canonical_name: 弓腰姬
+    confidence: 0.9
+  - skill_id: 300301
+    canonical_name: 天香
+    confidence: 0.9
+  - skill_id: 300401
+    canonical_name: 国色
+    confidence: 0.9
+  - skill_id: 300501
+    canonical_name: 划湘分荆
+    confidence: 0.9
+  - skill_id: 300601
+    canonical_name: 锦帆渠魁
+    confidence: 0.9
+  - skill_id: 300701
+    canonical_name: 临机制胜
+    confidence: 0.9
+  - skill_id: 300801
+    canonical_name: 火烧连营
+    confidence: 0.9
+  - skill_id: 301001
+    canonical_name: 白衣渡江
+    confidence: 0.9
+  - skill_id: 301601
+    canonical_name: 决堰倾涛
+    confidence: 0.85
+  - skill_id: 400001
+    canonical_name: 骁勇无前
+    confidence: 0.9
+  - skill_id: 400101
+    canonical_name: 风袭逍遥
+    confidence: 0.72
+  - skill_id: 400201
+    canonical_name: 悲愤诗
+    confidence: 0.9
+  - skill_id: 400401
+    canonical_name: 合聚群雄
+    confidence: 0.82
+  - skill_id: 400501
+    canonical_name: 雄护南疆
+    confidence: 0.85
+  - skill_id: 400601
+    canonical_name: 南疆烈刃
+    confidence: 0.9
+  - skill_id: 401001
+    canonical_name: 鸩饮毒弑
+    confidence: 0.9
+  - skill_id: 401101
+    canonical_name: 黄天当立
+    confidence: 0.9
+  - skill_id: 401201
+    canonical_name: 云行雨施
+    confidence: 0.9
+  - skill_id: 401301
+    canonical_name: 智令从计
+    confidence: 0.9
+  - skill_id: 401901
+    canonical_name: 麻沸散
+    confidence: 0.9
+  - skill_id: 402301
+    canonical_name: 闭月
+    confidence: 0.9
+  - skill_id: 402401
+    canonical_name: 太平余响
+    confidence: 0.9
+  - skill_id: 402601
+    canonical_name: 雄踞西凉
+    confidence: 0.9
+  - skill_id: 402801
+    canonical_name: 权倾朝野
+    confidence: 0.9
+  - skill_id: 402901
+    canonical_name: 顾盼生姿
+    confidence: 0.9
+  - skill_id: 502601
+    canonical_name: 淑懿之德
+    confidence: 0.9
+  - skill_id: 503401
+    canonical_name: 百里疑城
+    confidence: 0.85
+  - skill_id: 504801
+    canonical_name: 妖武
+    confidence: 0.9
+  - skill_id: 505501
+    canonical_name: 妖风大作
+    confidence: 0.9
+security_scan:
+  checked_staged_entries: 63
+  sensitive_markers_found: []
+review_blockers:
+- staging entries are normalized, not reviewed; publish_staging skips them by default
+- some static hero ids are not mapped to canonical KB hero names
+- some decoded skill ids are not mapped to canonical skill names
+- some mappings are below confidence 0.8 and need manual review
+- some mapped skill names are not formal skill_profile topics
+next_review_actions:
+- review unmapped hero ids and decide whether they are missing KB topics, variants,
+  or non-publishable records
+- map remaining decoded skill ids to canonical skill names with evidence before publish
+- promote entries from normalized to reviewed only after Chinese names, skill ids,
+  and field semantics are checked
+- add or confirm formal skill_profile entries for mapped skill names that currently
+  only appear as hero signature skills
+- manually confirm mappings below confidence 0.8
+evidence_refs:
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1000
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1002
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1003
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1004
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1005
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1008
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1009
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1011
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1012
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1014
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1017
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1020
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1022
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1023
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1026
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1027
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2000
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2001
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2002
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2003
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2005
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2009
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2011
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2012
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2013
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2015
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2017
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2019
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2021
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2022
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3000
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3001
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3002
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3003
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3004
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3005
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3006
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3007
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3008
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3010
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3016
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4000
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4001
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4002
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4004
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4005
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4006
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4010
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4011
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4012
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4013
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4019
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4023
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4024
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4026
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4028
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4029
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4032
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5005
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5026
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5034
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5048
+- NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5055

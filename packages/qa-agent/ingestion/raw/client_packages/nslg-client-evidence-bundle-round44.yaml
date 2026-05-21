@@ -1,0 +1,683 @@
+schema_version: nslg.client_evidence_bundle.v1
+source_id: nslg-client-offline-bundle-round44
+generated_at: '2026-05-20T14:32:21.238608Z'
+source_type: nslg_client_offline_evidence_bundle
+client_version:
+  app_version: 1.29.0
+  global_bundle_version: 1.0.0
+  streaming_assets_global_bundle_version: 1.0.0
+  app_git_version: 0de45a91
+  global_bundle_git_version: 7a56faae
+  pc_package_info: {}
+artifact_count: 7
+artifact_status_counts:
+  decoder_target_pending: 2
+  evidence_inventory: 1
+  negative_provenance_route_closure: 1
+  normalized_staging_blocked: 1
+  static_trace_seed: 2
+knowledge_domain_counts:
+  asset_bundle: 1
+  asset_inventory: 1
+  binary_anchor: 1
+  binary_transform: 1
+  building: 1
+  combat: 1
+  decoder_routing: 2
+  hero: 2
+  lua_scripts: 4
+  metadata: 1
+  native_binary: 3
+  protector: 3
+  skill: 2
+  story_plot: 1
+  unknown: 1
+  version_tracking: 1
+evidence_ref_count: 346
+import_readiness:
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  normalized_staging_entries: 63
+  missing_artifacts: []
+  decoder_target_artifacts:
+  - luascripts_textasset_catalog
+  - luascripts_crypto_evidence
+  - nep2_luascripts_static_evidence
+  - gameassembly_route_trace
+  blocker_count: 19
+  reason: client evidence still contains normalized staging, decoder targets, missing
+    artifacts, or review blockers
+artifacts:
+- artifact_id: client_package_manifest
+  artifact_type: client_package_inventory
+  path: ingestion/raw/client_packages/nslg-pc-1.29.0-manifest.yaml
+  source_id: client-package-1.29.0
+  source_site: nslg_client_install
+  source_url: local-nslg-client-install
+  status: evidence_inventory
+  publish_readiness: routing_input_not_publishable
+  knowledge_domains:
+  - version_tracking
+  - asset_inventory
+  - binary_anchor
+  counts:
+    total_files_seen: 678
+    included_files: 187
+    skipped_files: 491
+    knowledge_value:asset_bundle_candidate: 1
+    knowledge_value:low_or_unknown: 107
+    knowledge_value:low_third_party_runtime: 58
+    knowledge_value:reverse_engineering_anchor: 3
+    knowledge_value:text_config_candidate: 11
+    knowledge_value:version_or_schema_anchor: 7
+    detected_type:client_runtime_config: 3
+    detected_type:il2cpp_global_metadata: 1
+    detected_type:native_binary: 75
+    detected_type:nslg_version_manifest: 1
+    detected_type:text_config: 11
+    detected_type:third_party_cef_pack: 58
+    detected_type:unity_asset_bundle: 1
+    detected_type:unity_runtime_manifest: 2
+    detected_type:unknown_binary: 34
+    detected_type:wwise_soundbank: 1
+  version_info:
+    manifest:
+      ProjectID: Windows-Release
+      VersionServerUrl: https://l1-prod-all-list-nslg.bilibiligame.net/release/ob
+      m_AppVersion: 1.29.0
+      m_GlobalBundleVersion: 1.0.0
+      m_StreamingAssetsGlobalBundleVersion: 1.0.0
+      m_AppGitVersion: 0de45a91
+      m_GlobalBundleGitVersion: 7a56faae
+      m_StreamingAssetsGlobalBundleGitVersion: 7a56faae
+      m_HashCode: 611962478
+    pc_package_info.txt: '{"game_version":"1.29.0.0","create_time":"2026-04-17 15:56:53"}'
+    com.bilibili.nslg_Data/app.info: 'huayu
+
+      三国：谋定天下'
+  evidence_refs:
+  - NSLG_CLIENT:GameAssembly.dll#sha256=7b2db14aa341bc2f
+  - NSLG_CLIENT:KernelDumpAnalyzer.exe#sha256=b8dd1887c9a04019
+  - NSLG_CLIENT:NEP2.dll#sha256=109b4af46054a534
+  - NSLG_CLIENT:NSLG_config.ini#sha256=a8dce8c8524ed2ba
+  - NSLG_CLIENT:UnityCrashHandler64.exe#sha256=605829fd2a9c3670
+  - NSLG_CLIENT:UnityPlayer.dll#sha256=76e66c9f665ec1ba
+  - NSLG_CLIENT:api-ms-win-core-console-l1-1-0.dll#sha256=191e08dea0ad5ac0
+  - NSLG_CLIENT:api-ms-win-core-console-l1-2-0.dll#sha256=9e04918d9e751dbc
+  - NSLG_CLIENT:api-ms-win-core-datetime-l1-1-0.dll#sha256=a94b80a5111aabef
+  - NSLG_CLIENT:api-ms-win-core-debug-l1-1-0.dll#sha256=263e038363527b7b
+  - NSLG_CLIENT:api-ms-win-core-errorhandling-l1-1-0.dll#sha256=085968d938ea9248
+  - NSLG_CLIENT:api-ms-win-core-fibers-l1-1-0.dll#sha256=c86ebc9f48e2db65
+  - NSLG_CLIENT:api-ms-win-core-file-l1-1-0.dll#sha256=120c3afed9ce2a98
+  - NSLG_CLIENT:api-ms-win-core-file-l1-2-0.dll#sha256=0dc1f695befddb8e
+  - NSLG_CLIENT:api-ms-win-core-file-l2-1-0.dll#sha256=18655793b4d489f7
+  - NSLG_CLIENT:api-ms-win-core-handle-l1-1-0.dll#sha256=7e45a1b997331f4d
+  - NSLG_CLIENT:api-ms-win-core-heap-l1-1-0.dll#sha256=dd1e8c7700268562
+  - NSLG_CLIENT:api-ms-win-core-interlocked-l1-1-0.dll#sha256=ea60d03a35ef2c50
+  - NSLG_CLIENT:api-ms-win-core-libraryloader-l1-1-0.dll#sha256=929298566ba01d1c
+  - NSLG_CLIENT:api-ms-win-core-localization-l1-2-0.dll#sha256=dc570708327c4c84
+  - NSLG_CLIENT:api-ms-win-core-memory-l1-1-0.dll#sha256=8a4b66cea7b47450
+  - NSLG_CLIENT:api-ms-win-core-namedpipe-l1-1-0.dll#sha256=e8382a73730c2f7f
+  - NSLG_CLIENT:api-ms-win-core-processenvironment-l1-1-0.dll#sha256=9c1afc7cd0b0e0d1
+  - NSLG_CLIENT:api-ms-win-core-processthreads-l1-1-0.dll#sha256=6e5bd110a2f4dc34
+  - NSLG_CLIENT:api-ms-win-core-processthreads-l1-1-1.dll#sha256=19b018be16afe143
+  - NSLG_CLIENT:api-ms-win-core-profile-l1-1-0.dll#sha256=cc3c609193f2e99f
+  - NSLG_CLIENT:api-ms-win-core-rtlsupport-l1-1-0.dll#sha256=bcb9a6dd2cc0caaa
+  - NSLG_CLIENT:api-ms-win-core-string-l1-1-0.dll#sha256=9b071b842445a5dd
+  - NSLG_CLIENT:api-ms-win-core-synch-l1-1-0.dll#sha256=a981a24c9231e023
+  - NSLG_CLIENT:api-ms-win-core-synch-l1-2-0.dll#sha256=69dd52caffe1ea6e
+  - NSLG_CLIENT:api-ms-win-core-sysinfo-l1-1-0.dll#sha256=3513cffa44c88ec1
+  - NSLG_CLIENT:api-ms-win-core-timezone-l1-1-0.dll#sha256=24f4530debf2161e
+  - NSLG_CLIENT:api-ms-win-core-util-l1-1-0.dll#sha256=2e1cc12f93837a4e
+  - NSLG_CLIENT:api-ms-win-crt-conio-l1-1-0.dll#sha256=1368b9af85f186a2
+  - NSLG_CLIENT:api-ms-win-crt-convert-l1-1-0.dll#sha256=2ccb01b62188ddc0
+  - NSLG_CLIENT:api-ms-win-crt-environment-l1-1-0.dll#sha256=5a2ae5b270c1eaf4
+  - NSLG_CLIENT:api-ms-win-crt-filesystem-l1-1-0.dll#sha256=42a99227775e85ca
+  - NSLG_CLIENT:api-ms-win-crt-heap-l1-1-0.dll#sha256=43c80120970be1ef
+  - NSLG_CLIENT:api-ms-win-crt-locale-l1-1-0.dll#sha256=6011ece89f4833dc
+  - NSLG_CLIENT:api-ms-win-crt-math-l1-1-0.dll#sha256=5ba8f9c2842990cc
+  - NSLG_CLIENT:api-ms-win-crt-multibyte-l1-1-0.dll#sha256=77328a716589be3c
+  - NSLG_CLIENT:api-ms-win-crt-private-l1-1-0.dll#sha256=0e2751637bbeb7cc
+  - NSLG_CLIENT:api-ms-win-crt-process-l1-1-0.dll#sha256=cfc12dd7c1deabf3
+  - NSLG_CLIENT:api-ms-win-crt-runtime-l1-1-0.dll#sha256=698fa887c5b99437
+  - NSLG_CLIENT:api-ms-win-crt-stdio-l1-1-0.dll#sha256=c1541ed4dc6879a1
+  - NSLG_CLIENT:api-ms-win-crt-string-l1-1-0.dll#sha256=4429b8e6707645fb
+  - NSLG_CLIENT:api-ms-win-crt-time-l1-1-0.dll#sha256=f3e6f692cec86adb
+  - NSLG_CLIENT:api-ms-win-crt-utility-l1-1-0.dll#sha256=6c78d4aba91877c5
+  - NSLG_CLIENT:baselib.dll#sha256=697c1e2c2c2ec761
+  - NSLG_CLIENT:com.bilibili.nslg.exe#sha256=481c5e0cd18baf2b
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/AVProVideo.dll#sha256=a491974e64f94688
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/AVProVideoWinRT.dll#sha256=4b4c10d84ac34c57
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/AkSoundEngine.dll#sha256=ae9bbd5780b2cc27
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/AkWaapiClient.dll#sha256=e08a6a72ed77813d
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/Audio360.dll#sha256=d650fac4673d8aac
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/chrome_elf.dll#sha256=adc6d9036348fb5f
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/d3dcompiler_47.dll#sha256=be8702ac21cba0f5
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/icudtl.dat#sha256=594637e10b8f5c97
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/libEGL.dll#sha256=d51da30848520c52
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/libGLESv2.dll#sha256=304130e7dca47365
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/libcef.dll#sha256=183c8db291fc4122
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/snapshot_blob.bin#sha256=007d065c8b317f2a
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/swiftshader/libEGL.dll#sha256=3da726f1ad81fe33
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/swiftshader/libGLESv2.dll#sha256=99b74a3c310e22b0
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/v8_context_snapshot.bin#sha256=1e9b99985e53b10e
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/PCGamePlatform.exe#sha256=dfd9ca8aee24db5a
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/game_security_protection.exe#sha256=09ab9c3644ee6ac9
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/skin.zip#sha256=e047812fe7bc55a3
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/DiskUtilsWinAPI.dll#sha256=58e5e926c2be7648
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/ONE_SDK.txt#sha256=b496f3514daad4b1
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/PCGameSDK.dll#sha256=95e1b832256af39a
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/PCOneSDK.dll#sha256=9d5e6735bac8966d
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/lib_burst_generated.dll#sha256=bb4af46f62460eb9
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/license.txt#sha256=f18c7ca97861f444
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/sentry.dll#sha256=25500fd605c3d59b
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/xlua.dll#sha256=dad40e20866bee21
+  - NSLG_CLIENT:com.bilibili.nslg_Data/Resources/unity default resources#sha256=4fcba1590f150270
+  - NSLG_CLIENT:com.bilibili.nslg_Data/RuntimeInitializeOnLoads.json#sha256=58b6c1a83166bc98
+  - NSLG_CLIENT:com.bilibili.nslg_Data/ScriptingAssemblies.json#sha256=92634ff90e5ae27a
+  - NSLG_CLIENT:com.bilibili.nslg_Data/StreamingAssets/assets/Audio/GeneratedSoundBanks/Windows/Init.bnk#sha256=7b362b2d7775cdfc
+  - NSLG_CLIENT:com.bilibili.nslg_Data/StreamingAssets/assets/manifest.json#sha256=22dcf647047a91b6
+  - NSLG_CLIENT:com.bilibili.nslg_Data/app.info#sha256=249576e481bb56bb
+  - NSLG_CLIENT:com.bilibili.nslg_Data/boot.config#sha256=307b9f8d94b94744
+  - NSLG_CLIENT:com.bilibili.nslg_Data/data.unity3d#sha256=f543f3711e8a46dc
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Metadata/global-metadata.dat#sha256=34e4dbda23e22bee
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/DocumentFormat.OpenXml.Framework.dll-resources.dat#sha256=9f647d6ac0472d8e
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/Newtonsoft.Json.dll-resources.dat#sha256=10543fb9f9c7267c
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/RemoteInspectorRuntime-resources.dat#sha256=355b7a68346e7413
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/Sentry.System.Buffers.dll-resources.dat#sha256=439209737decff0e
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/Sentry.System.Collections.Immutable.dll-resources.dat#sha256=0ea326960e489d77
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/Sentry.System.Memory.dll-resources.dat#sha256=7b1e50a9a2f05306
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/Sentry.System.Numerics.Vectors.dll-resources.dat#sha256=612c2191dd0e28fa
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/Sentry.System.Reflection.Metadata.dll-resources.dat#sha256=b1d4250aaef6c0eb
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/Sentry.System.Text.Encodings.Web.dll-resources.dat#sha256=9d9b62c9034606cd
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/Sentry.System.Text.Json.dll-resources.dat#sha256=21895d3ba0553356
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/System.Buffers.dll-resources.dat#sha256=439209737decff0e
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/System.Collections.Immutable.dll-resources.dat#sha256=0ea326960e489d77
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/System.IO.Packaging.dll-resources.dat#sha256=341bfc7e80d0d3b6
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/System.Memory.dll-resources.dat#sha256=7b1e50a9a2f05306
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/System.Numerics.Vectors.dll-resources.dat#sha256=612c2191dd0e28fa
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/System.Reflection.Metadata.dll-resources.dat#sha256=b1d4250aaef6c0eb
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/System.Text.Encodings.Web.dll-resources.dat#sha256=9d9b62c9034606cd
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/System.Text.Json.dll-resources.dat#sha256=21895d3ba0553356
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/mscorlib.dll-resources.dat#sha256=c5baa176a5b72cd5
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/2.0/Browsers/Compat.browser#sha256=608f631452812425
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx#sha256=751861040b69ea63
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/2.0/machine.config#sha256=edc5bcf685d930a6
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/2.0/settings.map#sha256=49c6160f9d54af42
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/2.0/web.config#sha256=3c1a76a5849074b4
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.0/Browsers/Compat.browser#sha256=608f631452812425
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.0/DefaultWsdlHelpGenerator.aspx#sha256=751861040b69ea63
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.0/machine.config#sha256=6919d5af506aae0d
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.0/settings.map#sha256=ce1db1ad8a951207
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.0/web.config#sha256=f1a6416eeedd9d04
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.5/Browsers/Compat.browser#sha256=608f631452812425
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.5/DefaultWsdlHelpGenerator.aspx#sha256=751861040b69ea63
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.5/machine.config#sha256=ef9b9387168fd1dd
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.5/settings.map#sha256=ce1db1ad8a951207
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.5/web.config#sha256=15a2c7a9242bf54d
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/browscap.ini#sha256=4ddd50f31fb968f3
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/config#sha256=60099cf91bb1a571
+  - NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/mconfig/config.xml#sha256=0c56e34c69124510
+  - NSLG_CLIENT:crashpad_handler.exe#sha256=e52e86867c63c68e
+  - NSLG_CLIENT:crashpad_wer.dll#sha256=de9276279362e0f9
+  - NSLG_CLIENT:msvcp140.dll#sha256=8f141b4454fa78db
+  - NSLG_CLIENT:pc_package_info.txt#sha256=d3223d0780772f01
+  - NSLG_CLIENT:ucrtbase.dll#sha256=d2ebd8719455ae46
+  - NSLG_CLIENT:vcruntime140.dll#sha256=0205071c36c17f1e
+  - NSLG_CLIENT:vcruntime140_1.dll#sha256=963e45edd0645459
+  blockers:
+  - file inventory identifies candidate assets and binaries but is not semantic game
+    knowledge
+  - runtime/log/database files are intentionally skipped by default
+  next_actions:
+  - route asset_bundle_candidate records into domain-specific decoders
+  - use reverse_engineering_anchor binaries for offline static symbol and transform
+    tracing
+- artifact_id: luascripts_textasset_catalog
+  artifact_type: unity_textasset_catalog
+  path: ingestion/raw/client_packages/nslg-luascripts-textassets-round31-catalog.yaml
+  source_id: luascripts-textasset-round31
+  source_site: nslg_client_luascripts
+  source_url: local-nslg-client-luascripts
+  status: decoder_target_pending
+  publish_readiness: blocked_pending_decoder
+  knowledge_domains:
+  - building
+  - combat
+  - hero
+  - skill
+  - story_plot
+  - unknown
+  counts:
+    total_container_entries: 7994
+    total_data_entries: 1278
+    cataloged_records: 104
+    unique_stems: 16
+    high_value_stems: 15
+    domain:building: 1
+    domain:combat: 28
+    domain:hero: 49
+    domain:skill: 27
+    domain:story_plot: 23
+    domain:unknown: 1
+    extraction_status:obfuscated_binary_pending_decoder: 104
+  version_info: {}
+  evidence_refs:
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xa488d4186ddd8982
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x1257b7f970d539bf
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xe6f42a218b2553
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xe74bfbbff51f5870
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x7ff8c1303d007579
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x7241b95bfeb892db
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xdfefdea1c0b0d0b3
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xc5396ebce2b4603
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x26e91e6951bc67ad
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0xf569ca10d6040cf2
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xc79520633d64caab
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xdbb2059174ff15ac
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x7ca4367fd632fd6c
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0xe1f808a7796a0b28
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x4dee599a705003dc
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x6902ba4c08b7c02a
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xbffb1615c640ef38
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0xff50ab4ca1805a48
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x6e08b7320ab564ae
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xaf69fb15b51b07cc
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x6f6a7a599e13edb5
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x79db0c44c70d52c1
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x2e3a9d969f2899ee
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x340cc60559be2c2a
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xf1e0a616dd0d287b
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x8aae3d327cfacea2
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xd665df60ce6900f8
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xb1c06fe424e13acd
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x77c395d0858ce290
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x861d40cef7d42081
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xa608ce81b405cd0e
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x12769ba7f1784843
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x593208a12cbe6599
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x19b5d05f04f77dbb
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x49974e83c16e94ee
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x2f2e9df9d4a23c67
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x7444b79bf30f1ce9
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x730550c0b77f838e
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x83bc38c9378660ab
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xaf9feb30e5eddb90
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x721eaceb04e92240
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0xd2e8f76eefe8f625
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x487dfb220676db73
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x168ee217c9e5a49b
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x56087ad9e2f41dc0
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x6b6dfe031f22b3ec
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x52da34e0bbf7ba8
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x9ad3d587a79fd10f
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x3138da92d5ec4760
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x783491f36e72b230
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xd2fa5cbac750c4e6
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x8ac0ca4cfe048fb1
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x437dcdf2db5f07b9
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x20e76ce3d65c232
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x7acb35a09139350b
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xf48db81bfe11a8fb
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xb6b300f058565619
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x1173612878377885
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xff8d1bb9219aed8d
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x5a33b08827c0b7e2
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xaa18706955efe9c7
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0xd75d6d0912cd0
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xe08c70a5b8780b92
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xbf932c06f26d5dc3
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x3110b9198cd785c1
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x2220e0273b0ad0ef
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xc11151b37ae80b5d
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xa93c6f06e128dfcc
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xc5fdef621c1739aa
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0xf6e1c2debd00789f
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x9b62636c295c27ae
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x3236dc1ebda5f162
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xb6f88a4b72e521d6
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x4aec4bc141f13798
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xa340610a0d6eaa16
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x5e94ff98797f073b
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x5cc5a4acc8b746ba
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x66b96943a779d080
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xf2dc1350f5af003f
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x4e43e14d178215f9
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xaaaae94420d9331d
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x3fead4930e1a881a
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xc538defdc79be1bb
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xaf2411ce16748227
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xfaec644eddcec630
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x53569516c05f1058
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xef2d73d9b7f1df30
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xd60e6fa314ca59ca
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x8a243e59938b58d4
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0xa225ed69ecfad6da
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x852b8ee2bcd2924e
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x6baaf337adc8e2bf
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:battle_record:0x5a69023b2efb158d
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:battle_replay:0xcbe6217592435c3e
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:battle_reports:0xc04e79a4be573ba7
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:custom_hero:0xb01c10da8b502bf3
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_talent:0x70fd56d85f06ca81
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:heros:0x2152b542dfcaf0df
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:lineup_assistant:0x257423ff09641de5
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:sandbox_battle_config:0x86cc9bc6dd7483ce
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:scene_building_skill:0x3a34845192ffb4d0
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:skills:0xc5a9e6f261f4d377
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:warbook:0x1c594c47d614f353
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:water_battle:0x4526f038e796965c
+  blockers:
+  - cataloged LuaScripts TextAsset payloads are not readable game knowledge until
+    decoded
+  - high-value stems need decoder validation before any facts are promoted
+  next_actions:
+  - prioritize high-value stems for protected LuaScripts decoding
+  - after decoding, stage domain facts with source_ref per TextAsset evidence_ref
+- artifact_id: luascripts_crypto_evidence
+  artifact_type: payload_transform_evidence
+  path: ingestion/raw/client_packages/nslg-luascripts-crypto-evidence-round32.yaml
+  source_id: luascripts-crypto-round32
+  source_site: nslg_client_lua_crypto
+  source_url: local-nslg-client-lua-crypto
+  status: decoder_target_pending
+  publish_readiness: not_publishable_static_evidence
+  knowledge_domains:
+  - lua_scripts
+  - protector
+  - binary_transform
+  counts:
+    binary_string_hit_summaries: 3
+    payload_block_samples: 9
+    runtime_initialize_lua_entries: 1
+    skipped_runtime_patch_samples: 5
+    payload_status:high_entropy_16byte_aligned: 9
+  version_info: {}
+  evidence_refs:
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:GameAssembly.dll
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:xlua.dll
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:global-metadata.dat
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:warbook.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:skills.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:heros.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:lineup_assistant.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:custom_hero.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:hero_talent.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:battle_record.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:battle_reports.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:battle_replay.bytes.bin
+  blockers:
+  - this report is sanitized reverse-engineering evidence, not decoded game knowledge
+  - runtime lua patch samples were counted but not persisted because they are local
+    runtime cache artifacts
+  - no live instrumentation or online protocol data is included
+  next_actions:
+  - GameAssembly xluaL_loadbuffer / TextAsset::get_bytes call path
+  - NSLGame.Patcher.GameUpdater.InitLuaEnv runtime initialize entry
+  - global-metadata.dat protection/deobfuscation needed before normal IL2CPP symbol
+    recovery
+  - 16-byte-aligned LuaScripts payload block transform
+- artifact_id: nep2_luascripts_static_evidence
+  artifact_type: native_protector_static_evidence
+  path: ingestion/raw/client_packages/nslg-nep2-luascripts-evidence-round34.yaml
+  source_id: nep2-luascripts-round34
+  source_site: nslg_client_nep2_luascripts
+  source_url: local-nslg-client-nep2-luascripts
+  status: static_trace_seed
+  publish_readiness: not_publishable_static_evidence
+  knowledge_domains:
+  - lua_scripts
+  - protector
+  - native_binary
+  counts:
+    size_bytes: 40235512
+    init_luascripts_occurrences: 3
+    pointer_refs_to_init_luascripts: 0
+    candidate_string_count: 1417
+    selected_candidate_strings: 14
+    xref_count: 6
+    string_chunk_registrations: 6
+  version_info: {}
+  evidence_refs:
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:InitLuaScriptsScan:0x88135e
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:InitLuaScriptsScan:0x88205d
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:InitLuaScriptsScan:0x8820c5
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3f4a
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3f67
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3f91
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3fbb
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3fe5
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x400f
+  blockers:
+  - this report is sanitized static evidence only; it does not prove the decryptor
+    body yet
+  - direct pointer refs to InitLuaScriptsScan were not found in the round34 scan
+  - no live instrumentation or online protocol data is included
+  next_actions:
+  - trace CGameProtector::InitLuaScriptsScan call sites or data-table consumers
+  - inspect xrefs around LuaJitLuaSrcLuaSrcEncrytedLuacCompiled and luaL_loadbuffer
+    strings
+  - follow NEP2 string-decode helper at xref windows that call 0x180021240
+  - check whether NEP2 hands decrypted LuaScripts bytes to xlua or writes decoded
+    payloads
+- artifact_id: nep2_provenance_closure_batch
+  artifact_type: native_protector_negative_provenance
+  path: ingestion/raw/client_packages/nslg-nep2-provenance-closures-round40.yaml
+  source_id: nep2-provenance-closures-round40
+  source_site: nslg_client_nep2_provenance
+  source_url: local-nslg-client-nep2-provenance
+  status: negative_provenance_route_closure
+  publish_readiness: not_publishable_static_evidence
+  knowledge_domains:
+  - lua_scripts
+  - protector
+  - native_binary
+  - decoder_routing
+  counts:
+    artifact_count: 23
+    closed_rvas: 23
+    round_min: 137
+    round_max: 159
+    closure_status:closed_no_file_buffer_provenance: 23
+    target_verdict:metadata/control helper; no current CAB transform proof: 11
+    target_verdict:nontrivial helper but no file/CAB provenance: 12
+    pointer_ref_classification:internal_rdata_tables_no_asset_owner: 18
+    pointer_ref_classification:none: 5
+  version_info:
+    binary_name: NEP2.dll
+    next_unclosed_shape_lead: '0x4a28e9'
+  evidence_refs:
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=137:rva=0x620670
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=138:rva=0x678a20
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=139:rva=0x5e6b10
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=140:rva=0x6093f0
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=141:rva=0x6513b0
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=142:rva=0x6284d8
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=143:rva=0x63fbc0
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=144:rva=0x55eb00
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=145:rva=0x488583
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=146:rva=0x10c210
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=147:rva=0x619660
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=148:rva=0x65f828
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=149:rva=0x69396c
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=150:rva=0x106210
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=151:rva=0x60fd50
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=152:rva=0x484e50
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=153:rva=0x489d8e
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=154:rva=0x560f70
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=155:rva=0x54de20
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=156:rva=0x66fbc8
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=157:rva=0x4e0890
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=158:rva=0x67df3c
+  - NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=159:rva=0x4a471a
+  blockers:
+  - bounded caller/callee and pointer-ref provenance found no CAB, SerializedFile,
+    global-metadata, AssetBundle, LuaScripts payload, keyword/import, or file-buffer
+    owner path
+  - stop broad shape-only scanning; continue only with caller/callee provenance, keyword/import
+    ownership, or file-buffer/asset owner evidence
+  next_actions:
+  - treat closed NEP2 RVAs as negative routing evidence and avoid broad shape-only
+    rescans
+  - continue only when a candidate has caller/callee provenance, keyword/import ownership,
+    or file-buffer/asset owner evidence
+  - 'next unclosed NEP2 shape lead from external analysis log: 0x4a28e9'
+- artifact_id: gameassembly_route_trace
+  artifact_type: gameassembly_static_route_trace
+  path: ingestion/raw/client_packages/nslg-gameassembly-route-trace-round43.yaml
+  source_id: gameassembly-route-trace-round43
+  source_site: nslg_client_gameassembly_trace
+  source_url: local-nslg-client-gameassembly-trace
+  status: static_trace_seed
+  publish_readiness: not_publishable_static_evidence
+  knowledge_domains:
+  - lua_scripts
+  - native_binary
+  - decoder_routing
+  - asset_bundle
+  - metadata
+  counts:
+    artifact_count: 6
+    route_signal_record_count: 0
+    total_target_strings: 270
+    total_code_refs: 15
+    total_function_refs: 31
+    round_min: 42
+    round_max: 160
+    status:negative_route_correlation: 3
+    status:static_trace_seed: 3
+    artifact_kind:assetbundle_neighborhood: 1
+    artifact_kind:global_metadata_trace: 1
+    artifact_kind:global_metadata_xref_function_triage: 1
+    artifact_kind:metadata_assetbundle_xrefs: 1
+    artifact_kind:textasset_loadbuffer_correlation: 1
+    artifact_kind:xlua_global_metadata_anchor_trace: 1
+  version_info:
+    binary_name: GameAssembly.dll
+    textasset_loadbuffer_bridge_proven: false
+  evidence_refs:
+  - NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=42:kind=xlua_global_metadata_anchor_trace
+  - NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=71:kind=global_metadata_trace
+  - NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=105:kind=global_metadata_xref_function_triage
+  - NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=123:kind=metadata_assetbundle_xrefs
+  - NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=124:kind=assetbundle_neighborhood
+  - NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=160:kind=textasset_loadbuffer_correlation
+  blockers:
+  - static GameAssembly string inventory confirms TextAsset::get_bytes and xluaL_loadbuffer
+    names, but current exact-ref scan does not prove a bridge between them
+  - keep GameAssembly as decoder routing evidence; prioritize NEP2 InitLuaScriptsScan
+    or a runtime-independent TextAsset payload decoder before promoting any knowledge
+  next_actions:
+  - use GameAssembly traces as decoder routing evidence, not game knowledge
+  - recover TextAsset/LuaScripts payload decoder before staging facts
+  - prefer NEP2 InitLuaScriptsScan or runtime-independent TextAsset payload decoder
+    recovery next
+- artifact_id: decoded_hero_audit
+  artifact_type: client_decoded_staging_audit
+  path: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-audit.yaml
+  source_id: hero-readable-export-round29
+  source_site: nslg_client_decode
+  source_url: local-nslg-client-decoded
+  status: normalized_staging_blocked
+  publish_readiness: blocked_until_reviewed
+  knowledge_domains:
+  - hero
+  - skill
+  counts:
+    candidate_entries: 63
+    skipped_non_static_records: 2
+    mapped_heroes: 62
+    unmapped_heroes: 1
+    mapped_skill_ids: 57
+    unmapped_skill_ids: 17
+    knowledge_entries_loaded: 447
+    sensitive_markers_found: 0
+    review_blockers: 5
+  version_info: {}
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1000
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1002
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1003
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1004
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1005
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1008
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1009
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1011
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1012
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1014
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1017
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1020
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1022
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1023
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1026
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1027
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2000
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2001
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2002
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2003
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2005
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2009
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2011
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2012
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2013
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2015
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2017
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2019
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2021
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2022
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3000
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3001
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3002
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3003
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3004
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3005
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3006
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3007
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3008
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3010
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3016
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4000
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4001
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4002
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4004
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4005
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4006
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4010
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4011
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4012
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4013
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4019
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4023
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4024
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4026
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4028
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4029
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4032
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5005
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5026
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5034
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5048
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5055
+  blockers:
+  - staging entries are normalized, not reviewed; publish_staging skips them by default
+  - some static hero ids are not mapped to canonical KB hero names
+  - some decoded skill ids are not mapped to canonical skill names
+  - some mappings are below confidence 0.8 and need manual review
+  - some mapped skill names are not formal skill_profile topics
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+guardrails:
+- offline evidence only; no account password, token, online protocol, or live instrumentation
+  data is included
+- normalized client-decoded staging entries must remain blocked until manual review
+- LuaScripts and NEP2 evidence are decoder targets until readable payloads are recovered
+  and semantically validated
+- artifact paths are repo-relative and safe to move across machines

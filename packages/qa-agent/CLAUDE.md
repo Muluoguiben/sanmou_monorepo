@@ -29,6 +29,24 @@ PYTHONPATH=src python3 -m unittest discover -s tests -p "test_*.py" -v
 PYTHONPATH=src python3 -m qa_agent.app.query lookup_topic "建筑升级"
 ```
 
+## NSLG Client Resource Evidence
+
+当前离线客户端资源链路已按 ROI 收口暂停。它只允许静态证据进入 qa-agent，不发布为玩法知识，也不作为默认后续主线继续探索。
+
+- `ingestion/raw/client_packages/nslg-client-resource-surface-gap-scan-round133.yaml`：安装目录资源面扫描，确认 369 个安全 `.ns` bundle。
+- `ingestion/raw/client_packages/nslg-ns-bundle-format-index-round136.yaml`：Round191 `.ns` UnityFS / CAB format index，369 个 bundle 均可解析外层 envelope、block-info、first block 和 SerializedFile header，但 metadata 仍为 protected。
+- `ingestion/raw/client_packages/nslg-client-evidence-bundle-round137.yaml`：当前 evidence bundle，`artifact_count=38`。
+- `ingestion/raw/client_packages/nslg-client-import-queue-round138.yaml`：当前 import queue，`queue_item_count=106`，包含 `ns_bundle_format_index_target`。
+
+未达成项：LuaScripts 明文未恢复，protected SerializedFile metadata transform 未恢复，decoded hero staging 仍不可 publish。除非用户明确批准一个小预算封顶专项，只能继续追 `protected metadata transform` 且必须有明确失败条件；否则默认转向 screenshot Advisor、golden replay、低风险 verifier 和公开/人工 review 知识沉淀。
+
+重建命令：
+```bash
+PYTHONPATH=src python3 -m qa_agent.app.summarize_ns_bundle_format_index --input "/mnt/c/Users/Lan/Documents/New project/threads/artifacts/ns_bundle_format_index_round191.json" --output ingestion/raw/client_packages/nslg-ns-bundle-format-index-round136.yaml --source-id ns-bundle-format-index-round136
+PYTHONPATH=src python3 -m qa_agent.app.build_client_evidence_bundle --repo-root . --output ingestion/raw/client_packages/nslg-client-evidence-bundle-round137.yaml --source-id nslg-client-offline-bundle
+PYTHONPATH=src python3 -m qa_agent.app.build_client_import_queue --repo-root . --output ingestion/raw/client_packages/nslg-client-import-queue-round138.yaml --source-id nslg-client-import-queue
+```
+
 ## Advisor Integration Direction
 
 Desktop Advisor 的首版 chat 目前在 `pioneer-agent` API 内是本地模板回答。下一步应由 qa-agent 提供知识底座：

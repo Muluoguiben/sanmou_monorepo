@@ -1,0 +1,660 @@
+schema_version: nslg.nep2_global_metadata_loader_deep_slice.v1
+source_id: nep2-global-metadata-loader-deep-slice-round70
+source_url: local-nslg-client-nep2-global-metadata-loader-deep-slice
+source_site: nslg_client_nep2_global_metadata_loader_deep_slice
+generated_at: '2026-05-20T16:39:34.352812Z'
+round: 169
+slice: nep2_global_metadata_loader_candidate_deep_slice
+input_artifacts:
+- file_name: global_metadata_loader_mutation_scan_round168.json
+  sha256: 01a9a8f4ee1eb4fa4de0d06fe9c2182e88dba3511f409e1002e2494bf18ab98e
+  missing: false
+- file_name: global_metadata_transform_probe_round167.json
+  sha256: 2f13c2d0a455da2e4569473f0f5048ff6b70c9880fdd2cc1d9e876f9a4812ac8
+  missing: false
+- file_name: runtime_init_metadata_route_round164.json
+  sha256: d5e6ca663a4b1f8aa64f4284302e7eeac7a98e05217bc0cf7e2d28a46ddd29b3
+  missing: false
+target_rvas:
+- '0xd410'
+- '0xd870'
+counts:
+  target_count: 2
+  closed_target_count: 2
+  read_or_mapping_target_count: 0
+  metadata_ref_target_count: 0
+  directory_walker_target_count: 1
+  file_status_helper_target_count: 1
+  publishable_knowledge_entries: 0
+verdict_counts:
+  closed_directory_size_walker_not_metadata_loader: 1
+  closed_file_status_helper_not_metadata_loader: 1
+targets:
+- target_rva: '0xd410'
+  function:
+    begin: '0xd410'
+    end: '0xd71e'
+    size: '0x30e'
+  verdict: closed_directory_size_walker_not_metadata_loader
+  counts:
+    constant:invalid_handle_or_status_minus1: 2
+    import_class:directory_enum: 3
+    import:FindFirstFileW: 1
+    backward_branch: 3
+    constant:file_attribute_directory_or_block16: 1
+    qword_accumulator_write: 1
+    import:FindNextFileW: 1
+    import:FindClose: 1
+  imports_seen:
+  - FindClose
+  - FindFirstFileW
+  - FindNextFileW
+  has_read_or_mapping_import: false
+  has_metadata_string_or_constant_ref: false
+  directory_walker_signature: true
+  file_status_helper_signature: false
+  string_refs:
+  - from_rva: '0xd5a8'
+    text: '0000d5a8: lea      rcx, [rip + 0x77021d]'
+    target:
+      rva: '0x77d7cc'
+      section: .rdata
+      ascii: .
+      utf16le: .
+  - from_rva: '0xd5dd'
+    text: '0000d5dd: lea      rcx, [rip + 0x7701fc]'
+    target:
+      rva: '0x77d7e0'
+      section: .rdata
+      ascii: .
+      utf16le: ..
+  metadata_keyword_hits: []
+  metadata_string_refs: []
+  constants:
+  - rva: '0xd463'
+    label: invalid_handle_or_status_minus1
+    value: '0xffffffffffffffff'
+    text: '0000d463: mov      qword ptr [rsp + 0x28], 0xffffffffffffffff'
+  - rva: '0xd560'
+    label: invalid_handle_or_status_minus1
+    value: '0xffffffffffffffff'
+    text: '0000d560: cmp      qword ptr [rsp + 0x28], -1'
+  - rva: '0xd611'
+    label: file_attribute_directory_or_block16
+    value: '0x10'
+    text: '0000d611: and      eax, 0x10'
+  size_accumulator_events:
+  - rva: '0xd69f'
+    text: '0000d69f: add      rax, qword ptr [rcx]'
+    context:
+    - '0000d680: nop'
+    - '0000d681: lea      rcx, [rsp + 0xc8]'
+    - '0000d689: call     0x36bb0'
+    - '0000d68e: jmp      0xd6ad'
+    - '0000d690: mov      eax, dword ptr [rsp + 0x110]'
+    - '0000d697: mov      rcx, qword ptr [rsp + 0x368]'
+    - '0000d69f: add      rax, qword ptr [rcx]'
+    - '0000d6a2: mov      rcx, qword ptr [rsp + 0x368]'
+    - '0000d6aa: mov      qword ptr [rcx], rax'
+    - '0000d6ad: lea      rdx, [rsp + 0xf0]'
+    - '0000d6b5: mov      rcx, qword ptr [rsp + 0x28]'
+    - '0000d6ba: call     qword ptr [rip + 0x6e5118]'
+    - '0000d6c0: test     eax, eax'
+  import_events:
+  - rva: '0xd555'
+    import: KERNEL32.dll!FindFirstFileW
+    class: directory_enum
+    context:
+    - '0000d530: lea      rcx, [rsp + 0xa8]'
+    - '0000d538: call     0x12ae0'
+    - '0000d53d: lea      rcx, [rsp + 0xa8]'
+    - '0000d545: call     0x12a70'
+    - '0000d54a: lea      rdx, [rsp + 0xf0]'
+    - '0000d552: mov      rcx, rax'
+    - '0000d555: call     qword ptr [rip + 0x6e5285]'
+    - '0000d55b: mov      qword ptr [rsp + 0x28], rax'
+    - '0000d560: cmp      qword ptr [rsp + 0x28], -1'
+    - '0000d566: jne      0xd5a0'
+    - '0000d568: mov      byte ptr [rsp + 0x21], 0'
+    - '0000d56d: lea      rcx, [rsp + 0xa8]'
+    - '0000d575: call     0x36bb0'
+  - rva: '0xd6ba'
+    import: KERNEL32.dll!FindNextFileW
+    class: directory_enum
+    context:
+    - '0000d697: mov      rcx, qword ptr [rsp + 0x368]'
+    - '0000d69f: add      rax, qword ptr [rcx]'
+    - '0000d6a2: mov      rcx, qword ptr [rsp + 0x368]'
+    - '0000d6aa: mov      qword ptr [rcx], rax'
+    - '0000d6ad: lea      rdx, [rsp + 0xf0]'
+    - '0000d6b5: mov      rcx, qword ptr [rsp + 0x28]'
+    - '0000d6ba: call     qword ptr [rip + 0x6e5118]'
+    - '0000d6c0: test     eax, eax'
+    - '0000d6c2: jne      0xd5a0'
+    - '0000d6c8: mov      rcx, qword ptr [rsp + 0x28]'
+    - '0000d6cd: call     qword ptr [rip + 0x6e50fd]'
+    - '0000d6d3: mov      byte ptr [rsp + 0x22], 1'
+    - '0000d6d8: lea      rcx, [rsp + 0xa8]'
+  - rva: '0xd6cd'
+    import: KERNEL32.dll!FindClose
+    class: directory_enum
+    context:
+    - '0000d6ad: lea      rdx, [rsp + 0xf0]'
+    - '0000d6b5: mov      rcx, qword ptr [rsp + 0x28]'
+    - '0000d6ba: call     qword ptr [rip + 0x6e5118]'
+    - '0000d6c0: test     eax, eax'
+    - '0000d6c2: jne      0xd5a0'
+    - '0000d6c8: mov      rcx, qword ptr [rsp + 0x28]'
+    - '0000d6cd: call     qword ptr [rip + 0x6e50fd]'
+    - '0000d6d3: mov      byte ptr [rsp + 0x22], 1'
+    - '0000d6d8: lea      rcx, [rsp + 0xa8]'
+    - '0000d6e0: call     0x36bb0'
+    - '0000d6e5: nop'
+    - '0000d6e6: lea      rcx, [rsp + 0x88]'
+    - '0000d6ee: call     0x36bb0'
+  direct_callers:
+  - site: '0xd67b'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    target_rva: '0xd410'
+  direct_callees:
+  - rva: '0xd43b'
+    callee:
+      begin: '0x129b0'
+      end: '0x129e4'
+      size: '0x34'
+    self_recursive: false
+  - rva: '0xd454'
+    callee:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+    self_recursive: false
+  - rva: '0xd47c'
+    callee:
+      begin: '0x36600'
+      end: '0x366b5'
+      size: '0xb5'
+    self_recursive: false
+  - rva: '0xd48a'
+    callee:
+      begin: '0x36a60'
+      end: '0x36ab3'
+      size: '0x53'
+    self_recursive: false
+  - rva: '0xd4b1'
+    callee:
+      begin: '0x363c0'
+      end: '0x36425'
+      size: '0x65'
+    self_recursive: false
+  - rva: '0xd4cb'
+    callee:
+      begin: '0x36360'
+      end: '0x363b8'
+      size: '0x58'
+    self_recursive: false
+  - rva: '0xd4ec'
+    callee:
+      begin: '0x19de0'
+      end: '0x19e6c'
+      size: '0x8c'
+    self_recursive: false
+  - rva: '0xd4f9'
+    callee:
+      begin: '0x12a90'
+      end: '0x12ad3'
+      size: '0x43'
+    self_recursive: false
+  - rva: '0xd512'
+    callee:
+      begin: '0x12ae0'
+      end: '0x12b8f'
+      size: '0xaf'
+    self_recursive: false
+  - rva: '0xd527'
+    callee:
+      begin: '0x12d10'
+      end: '0x12d61'
+      size: '0x51'
+    self_recursive: false
+  - rva: '0xd538'
+    callee:
+      begin: '0x12ae0'
+      end: '0x12b8f'
+      size: '0xaf'
+    self_recursive: false
+  - rva: '0xd545'
+    callee:
+      begin: '0x12a70'
+      end: '0x12a8b'
+      size: '0x1b'
+    self_recursive: false
+  - rva: '0xd575'
+    callee:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+    self_recursive: false
+  - rva: '0xd583'
+    callee:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+    self_recursive: false
+  - rva: '0xd591'
+    callee:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+    self_recursive: false
+  - rva: '0xd628'
+    callee:
+      begin: '0x36600'
+      end: '0x366b5'
+      size: '0xb5'
+    self_recursive: false
+  - rva: '0xd63e'
+    callee:
+      begin: '0x12c80'
+      end: '0x12ca2'
+      size: '0x22'
+    self_recursive: false
+  - rva: '0xd65a'
+    callee:
+      begin: '0x36600'
+      end: '0x366b5'
+      size: '0xb5'
+    self_recursive: false
+  - rva: '0xd67b'
+    callee:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    self_recursive: true
+  - rva: '0xd689'
+    callee:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+    self_recursive: false
+  - rva: '0xd6e0'
+    callee:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+    self_recursive: false
+  - rva: '0xd6ee'
+    callee:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+    self_recursive: false
+  - rva: '0xd6fc'
+    callee:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+    self_recursive: false
+  - rva: '0xd711'
+    callee:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+    self_recursive: false
+  data_pointer_refs:
+  - kind: rva32
+    section: .rdata
+    ptr_rva: '0x719258'
+    target_rva: '0xd599'
+  - kind: rva32
+    section: .rdata
+    ptr_rva: '0x750844'
+    target_rva: '0xd700'
+  - kind: rva32
+    section: .rdata
+    ptr_rva: '0x750938'
+    target_rva: '0xd600'
+  - kind: rva32
+    section: .rdata
+    ptr_rva: '0x750ae4'
+    target_rva: '0xd500'
+  evidence_ref: NSLG_NEP2_METADATA_LOADER_DEEP_SLICE:nep2-global-metadata-loader-deep-slice-round169:0xd410
+- target_rva: '0xd870'
+  function:
+    begin: '0xd870'
+    end: '0xda81'
+    size: '0x211'
+  verdict: closed_file_status_helper_not_metadata_loader
+  counts:
+    constant:payload_offset_8: 2
+    import_class:file_status_or_handle: 5
+    import:GetFileAttributesW: 1
+    constant:invalid_handle_or_status_minus1: 3
+    import:GetLastError: 2
+    constant:generic_access_mask: 1
+    import:CreateFileW: 1
+    import_class:directory_enum: 2
+    import:FindFirstFileW: 1
+    constant:file_attribute_directory_or_block16: 1
+    import:FindClose: 1
+    import:CloseHandle: 1
+  imports_seen:
+  - CloseHandle
+  - CreateFileW
+  - FindClose
+  - FindFirstFileW
+  - GetFileAttributesW
+  - GetLastError
+  has_read_or_mapping_import: false
+  has_metadata_string_or_constant_ref: false
+  directory_walker_signature: false
+  file_status_helper_signature: true
+  string_refs:
+  - from_rva: '0xd945'
+    text: '0000d945: lea      rdx, [rip + 0x76fe9c]'
+    target:
+      rva: '0x77d7e8'
+      section: .rdata
+      ascii: \
+      utf16le: \\?\
+  metadata_keyword_hits: []
+  metadata_string_refs: []
+  constants:
+  - rva: '0xd89e'
+    label: payload_offset_8
+    value: '0x8'
+    text: '0000d89e: mov      edx, 8'
+  - rva: '0xd8ed'
+    label: invalid_handle_or_status_minus1
+    value: '0xffffffffffffffff'
+    text: '0000d8ed: cmp      dword ptr [rsp + 0x40], -1'
+  - rva: '0xd914'
+    label: payload_offset_8
+    value: '0x8'
+    text: '0000d914: mov      edx, 8'
+  - rva: '0xd9ab'
+    label: generic_access_mask
+    value: '0x80000000'
+    text: '0000d9ab: mov      edx, 0x80000000'
+  - rva: '0xd9be'
+    label: invalid_handle_or_status_minus1
+    value: '0xffffffffffffffff'
+    text: '0000d9be: cmp      qword ptr [rsp + 0x58], -1'
+  - rva: '0xda0b'
+    label: invalid_handle_or_status_minus1
+    value: '0xffffffffffffffff'
+    text: '0000da0b: cmp      qword ptr [rsp + 0x50], -1'
+  - rva: '0xda1d'
+    label: file_attribute_directory_or_block16
+    value: '0x10'
+    text: '0000da1d: mov      dword ptr [rsp + 0x40], 0x10'
+  size_accumulator_events: []
+  import_events:
+  - rva: '0xd8e3'
+    import: KERNEL32.dll!GetFileAttributesW
+    class: file_status_or_handle
+    context:
+    - '0000d8be: mov      rdx, qword ptr [rsp + 0x300]'
+    - '0000d8c6: lea      rcx, [rsp + 0x80]'
+    - '0000d8ce: call     0x13880'
+    - '0000d8d3: lea      rcx, [rsp + 0x80]'
+    - '0000d8db: call     0x9e50'
+    - '0000d8e0: mov      rcx, rax'
+    - '0000d8e3: call     qword ptr [rip + 0x6e4f3f]'
+    - '0000d8e9: mov      dword ptr [rsp + 0x40], eax'
+    - '0000d8ed: cmp      dword ptr [rsp + 0x40], -1'
+    - '0000d8f2: jne      0xda50'
+    - '0000d8f8: call     qword ptr [rip + 0x6e4eb2]'
+    - '0000d8fe: mov      dword ptr [rsp + 0x44], eax'
+    - '0000d902: cmp      dword ptr [rsp + 0x44], 2'
+  - rva: '0xd8f8'
+    import: KERNEL32.dll!GetLastError
+    class: file_status_or_handle
+    context:
+    - '0000d8db: call     0x9e50'
+    - '0000d8e0: mov      rcx, rax'
+    - '0000d8e3: call     qword ptr [rip + 0x6e4f3f]'
+    - '0000d8e9: mov      dword ptr [rsp + 0x40], eax'
+    - '0000d8ed: cmp      dword ptr [rsp + 0x40], -1'
+    - '0000d8f2: jne      0xda50'
+    - '0000d8f8: call     qword ptr [rip + 0x6e4eb2]'
+    - '0000d8fe: mov      dword ptr [rsp + 0x44], eax'
+    - '0000d902: cmp      dword ptr [rsp + 0x44], 2'
+    - '0000d907: je       0xd914'
+    - '0000d909: cmp      dword ptr [rsp + 0x44], 3'
+    - '0000d90e: jne      0xda50'
+    - '0000d914: mov      edx, 8'
+  - rva: '0xd9b3'
+    import: KERNEL32.dll!CreateFileW
+    class: file_status_or_handle
+    context:
+    - '0000d992: mov      dword ptr [rsp + 0x28], 0'
+    - '0000d99a: mov      dword ptr [rsp + 0x20], 3'
+    - '0000d9a2: xor      r9d, r9d'
+    - '0000d9a5: mov      r8d, 1'
+    - '0000d9ab: mov      edx, 0x80000000'
+    - '0000d9b0: mov      rcx, rax'
+    - '0000d9b3: call     qword ptr [rip + 0x6e4def]'
+    - '0000d9b9: mov      qword ptr [rsp + 0x58], rax'
+    - '0000d9be: cmp      qword ptr [rsp + 0x58], -1'
+    - '0000d9c4: jne      0xda32'
+    - '0000d9c6: call     qword ptr [rip + 0x6e4de4]'
+    - '0000d9cc: mov      dword ptr [rsp + 0x44], eax'
+    - '0000d9d0: cmp      dword ptr [rsp + 0x44], 2'
+  - rva: '0xd9c6'
+    import: KERNEL32.dll!GetLastError
+    class: file_status_or_handle
+    context:
+    - '0000d9ab: mov      edx, 0x80000000'
+    - '0000d9b0: mov      rcx, rax'
+    - '0000d9b3: call     qword ptr [rip + 0x6e4def]'
+    - '0000d9b9: mov      qword ptr [rsp + 0x58], rax'
+    - '0000d9be: cmp      qword ptr [rsp + 0x58], -1'
+    - '0000d9c4: jne      0xda32'
+    - '0000d9c6: call     qword ptr [rip + 0x6e4de4]'
+    - '0000d9cc: mov      dword ptr [rsp + 0x44], eax'
+    - '0000d9d0: cmp      dword ptr [rsp + 0x44], 2'
+    - '0000d9d5: je       0xd9de'
+    - '0000d9d7: cmp      dword ptr [rsp + 0x44], 3'
+    - '0000d9dc: jne      0xd9e8'
+    - '0000d9de: mov      dword ptr [rsp + 0x40], 0xffffffff'
+  - rva: '0xda00'
+    import: KERNEL32.dll!FindFirstFileW
+    class: directory_enum
+    context:
+    - '0000d9de: mov      dword ptr [rsp + 0x40], 0xffffffff'
+    - '0000d9e6: jmp      0xda30'
+    - '0000d9e8: lea      rcx, [rsp + 0x80]'
+    - '0000d9f0: call     0x9e50'
+    - '0000d9f5: lea      rdx, [rsp + 0x90]'
+    - '0000d9fd: mov      rcx, rax'
+    - '0000da00: call     qword ptr [rip + 0x6e4dda]'
+    - '0000da06: mov      qword ptr [rsp + 0x50], rax'
+    - '0000da0b: cmp      qword ptr [rsp + 0x50], -1'
+    - '0000da11: jne      0xda1d'
+    - '0000da13: mov      dword ptr [rsp + 0x40], 0xffffffff'
+    - '0000da1b: jmp      0xda30'
+    - '0000da1d: mov      dword ptr [rsp + 0x40], 0x10'
+  - rva: '0xda2a'
+    import: KERNEL32.dll!FindClose
+    class: directory_enum
+    context:
+    - '0000da0b: cmp      qword ptr [rsp + 0x50], -1'
+    - '0000da11: jne      0xda1d'
+    - '0000da13: mov      dword ptr [rsp + 0x40], 0xffffffff'
+    - '0000da1b: jmp      0xda30'
+    - '0000da1d: mov      dword ptr [rsp + 0x40], 0x10'
+    - '0000da25: mov      rcx, qword ptr [rsp + 0x50]'
+    - '0000da2a: call     qword ptr [rip + 0x6e4da0]'
+    - '0000da30: jmp      0xda46'
+    - '0000da32: mov      dword ptr [rsp + 0x40], 0x80'
+    - '0000da3a: mov      rcx, qword ptr [rsp + 0x58]'
+    - '0000da3f: call     qword ptr [rip + 0x6e4ddb]'
+    - '0000da45: nop'
+    - '0000da46: lea      rcx, [rsp + 0x78]'
+  - rva: '0xda3f'
+    import: KERNEL32.dll!CloseHandle
+    class: file_status_or_handle
+    context:
+    - '0000da1d: mov      dword ptr [rsp + 0x40], 0x10'
+    - '0000da25: mov      rcx, qword ptr [rsp + 0x50]'
+    - '0000da2a: call     qword ptr [rip + 0x6e4da0]'
+    - '0000da30: jmp      0xda46'
+    - '0000da32: mov      dword ptr [rsp + 0x40], 0x80'
+    - '0000da3a: mov      rcx, qword ptr [rsp + 0x58]'
+    - '0000da3f: call     qword ptr [rip + 0x6e4ddb]'
+    - '0000da45: nop'
+    - '0000da46: lea      rcx, [rsp + 0x78]'
+    - '0000da4b: call     0xa410'
+    - '0000da50: mov      eax, dword ptr [rsp + 0x40]'
+    - '0000da54: mov      dword ptr [rsp + 0x48], eax'
+    - '0000da58: lea      rcx, [rsp + 0x80]'
+  direct_callers: []
+  direct_callees:
+  - rva: '0xd8ab'
+    callee:
+      begin: '0xa540'
+      end: '0xa55b'
+      size: '0x1b'
+    self_recursive: false
+  - rva: '0xd8b8'
+    callee:
+      begin: '0xb0a0'
+      end: '0xb0c6'
+      size: '0x26'
+    self_recursive: false
+  - rva: '0xd8ce'
+    callee:
+      begin: '0x13880'
+      end: '0x138a7'
+      size: '0x27'
+    self_recursive: false
+  - rva: '0xd91e'
+    callee:
+      begin: '0xa540'
+      end: '0xa55b'
+      size: '0x1b'
+    self_recursive: false
+  - rva: '0xd928'
+    callee:
+      begin: '0xb0a0'
+      end: '0xb0c6'
+      size: '0x26'
+    self_recursive: false
+  - rva: '0xd93b'
+    callee:
+      begin: '0x138b0'
+      end: '0x138d7'
+      size: '0x27'
+    self_recursive: false
+  - rva: '0xd951'
+    callee:
+      begin: '0x12ff0'
+      end: '0x130d2'
+      size: '0xe2'
+    self_recursive: false
+  - rva: '0xd96f'
+    callee:
+      begin: '0x138b0'
+      end: '0x138d7'
+      size: '0x27'
+    self_recursive: false
+  - rva: '0xd97a'
+    callee:
+      begin: '0xa410'
+      end: '0xa429'
+      size: '0x19'
+    self_recursive: false
+  - rva: '0xda4b'
+    callee:
+      begin: '0xa410'
+      end: '0xa429'
+      size: '0x19'
+    self_recursive: false
+  - rva: '0xda60'
+    callee:
+      begin: '0xa410'
+      end: '0xa429'
+      size: '0x19'
+    self_recursive: false
+  - rva: '0xda74'
+    callee:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+    self_recursive: false
+  data_pointer_refs:
+  - kind: rva32
+    section: .rdata
+    ptr_rva: '0x7509f8'
+    target_rva: '0xda00'
+  - kind: rva32
+    section: .rdata
+    ptr_rva: '0x750ba4'
+    target_rva: '0xd900'
+  - kind: rva32
+    section: .rdata
+    ptr_rva: '0x813b54'
+    target_rva: '0xda02'
+  - kind: rva32
+    section: .rdata
+    ptr_rva: '0x813b88'
+    target_rva: '0xda02'
+  - kind: rva32
+    section: .rdata
+    ptr_rva: '0x813bbc'
+    target_rva: '0xda02'
+  evidence_ref: NSLG_NEP2_METADATA_LOADER_DEEP_SLICE:nep2-global-metadata-loader-deep-slice-round169:0xd870
+route_conclusion:
+  targets_closed_as_metadata_loader_candidates: true
+  global_metadata_loader_proven: false
+  file_buffer_owner_proven: false
+  metadata_wrapper_or_string_provenance_found: false
+  read_or_mapping_proven: false
+  plaintext_metadata_recovered: false
+  init_lua_env_method_ownership_recovered: false
+  lua_payload_decoder_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: NEP2 0xd410 resolves as a recursive directory-size walker
+    and 0xd870 resolves as a file-status/open helper.
+  strongest_negative_signal: Neither target calls ReadFile/MapViewOfFile/GetFileSize,
+    references global-metadata strings/constants, or proves ownership of the protected
+    +8 metadata payload buffer.
+  search_policy: Demote NEP2 0xd410/0xd870 for metadata-loader recovery; next pivot
+    should target actual ReadFile/MapViewOfFile owners or NEP2 InitLuaScriptsScan
+    file-buffer provenance.
+evidence_refs:
+- NSLG_NEP2_METADATA_LOADER_DEEP_SLICE:nep2-global-metadata-loader-deep-slice-round169:summary
+- NSLG_NEP2_METADATA_LOADER_DEEP_SLICE:nep2-global-metadata-loader-deep-slice-round169:0xd410
+- NSLG_NEP2_METADATA_LOADER_DEEP_SLICE:nep2-global-metadata-loader-deep-slice-round169:0xd870
+next_static_targets:
+- Use the Round119 NEP2 import-owner graph to prioritize functions with actual ReadFile/MapViewOfFile/GetFileSize
+  imports rather than directory enumeration helpers.
+- Trace NEP2 InitLuaScriptsScan file-buffer provenance only where caller/callee paths
+  prove asset, LuaScripts, or global-metadata payload ownership.
+- Do not promote metadata recovery until standard IL2CPP header pairs and readable
+  Assembly-CSharp/NSLGame strings are recovered.
+limitations:
+- Offline/static deep-slice only; no live Frida, runtime attach, account data, credentials,
+  or online protocol were used.
+- The slice closes only NEP2 0xd410 and 0xd870 as metadata-loader candidates; it does
+  not close all NEP2 file import owners.
+- File-system helper classification is based on imports, string refs, recursion/status
+  patterns, and absence of read/mapping or metadata provenance.
+guardrails:
+- offline/static NEP2 deep-slice only; no live instrumentation, account data, or online
+  protocol data is included
+- absolute local paths are not persisted; only file names, hashes, target RVAs, counts,
+  and sanitized summaries are stored
+- closed helper functions are negative decoder-routing evidence and must not be promoted
+  as gameplay knowledge
+- metadata recovery requires file-buffer ownership plus standard IL2CPP header pairs
+  and readable Assembly-CSharp/NSLGame strings

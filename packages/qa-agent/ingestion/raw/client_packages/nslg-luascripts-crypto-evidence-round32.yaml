@@ -1,0 +1,199 @@
+source_id: luascripts-crypto-round32
+source_url: local-nslg-client-lua-crypto
+source_site: nslg_client_lua_crypto
+generated_at: '2026-05-16T08:31:53.569638Z'
+binary_string_hits:
+- binary_name: GameAssembly.dll
+  size_bytes: 94127168
+  term_hit_counts:
+    CBC: 3
+    TextAsset::get_bytes: 1
+    aes: 11
+    crypt: 1
+    luaL_loadbuffer: 1
+    xluaL_loadbuffer: 1
+    xlua_getloaders: 1
+    xor: 1
+  selected_context_strings:
+  - luaopen_xlua_unity_profiler
+  - xlua_open_object
+  - xlua_create_object
+  - xlua_release_object
+  - xlua_get_process_list
+  - xlua_free_process_list
+  - luaopen_client_crypt
+  - xlua_get_lib_version
+  - xlua_gen_alloc_report
+  - xlua_newstate
+  - luaopen_xlua
+  - xlua_objlen
+  - xlua_getglobal
+  - xlua_setglobal
+  - xlua_getloaders
+  - xlua_profiler_pcallk
+  - xlua_rawgeti
+  - xlua_rawseti
+  - xlua_upvalueindex
+  - xlua_profiler_pcall
+  - xlua_tointeger
+  - xlua_touint
+  - xlua_pushinteger
+  - xlua_pushuint
+- binary_name: xlua.dll
+  size_bytes: 1643072
+  term_hit_counts:
+    crypt: 5
+    luaL_loadbuffer: 3
+    patch_: 1
+    xluaL_loadbuffer: 1
+    xlua_getloaders: 1
+    xor: 2
+  selected_context_strings:
+  - xlua_unity_profiler
+  - luaJIT_BC_%s
+  - LuaJIT 2.1.0-beta3
+  - xlua.dll
+  - luaJIT_profile_dumpstack
+  - luaJIT_profile_start
+  - luaJIT_profile_stop
+  - luaJIT_setmode
+  - luaJIT_version_2_1_0_beta3
+  - luaL_loadbuffer
+  - luaL_loadbufferx
+- binary_name: global-metadata.dat
+  size_bytes: 21182776
+  term_hit_counts:
+    AES: 3
+    RC4: 1
+    Xor: 1
+  selected_context_strings:
+  - oAeS
+  - Rc4O
+  - RC4b
+  - z<kAESu
+  - '''AES'
+payload_block_samples:
+- file_name: warbook.bytes.bin
+  size_bytes: 12144
+  size_mod_16: 0
+  entropy: 7.9858
+  unique_byte_values: 256
+  block_count_16: 759
+  duplicate_16byte_blocks: 0
+  first_block_hex: 27 17 84 2b ac 45 5e 84 dd 4a 07 b8 f0 42 1b 2a
+  last_block_hex: 2a 3b e3 e8 84 9c a6 78 8b 61 d4 f2 2a c8 01 27
+- file_name: skills.bytes.bin
+  size_bytes: 51760
+  size_mod_16: 0
+  entropy: 7.9965
+  unique_byte_values: 256
+  block_count_16: 3235
+  duplicate_16byte_blocks: 0
+  first_block_hex: 83 4e 80 b2 fd 78 39 44 e9 82 76 5d 10 52 42 68
+  last_block_hex: e1 79 43 59 43 f2 66 62 35 85 91 9b cf b4 7a f0
+- file_name: heros.bytes.bin
+  size_bytes: 23232
+  size_mod_16: 0
+  entropy: 7.9914
+  unique_byte_values: 256
+  block_count_16: 1452
+  duplicate_16byte_blocks: 0
+  first_block_hex: cc 20 79 fa 68 39 ce c7 30 df fd 68 11 d8 78 6b
+  last_block_hex: bf b2 2c ee 8b b8 8f b6 ef 75 5e df 78 34 db 56
+- file_name: lineup_assistant.bytes.bin
+  size_bytes: 22608
+  size_mod_16: 0
+  entropy: 7.9924
+  unique_byte_values: 256
+  block_count_16: 1413
+  duplicate_16byte_blocks: 0
+  first_block_hex: 2e 88 a9 5c 76 34 8b 0a a0 96 d0 e3 3b 28 8f 37
+  last_block_hex: b2 e0 ca 7c d6 d8 4a b1 48 cb 09 6a 7c 2f b6 3a
+- file_name: custom_hero.bytes.bin
+  size_bytes: 19392
+  size_mod_16: 0
+  entropy: 7.9905
+  unique_byte_values: 256
+  block_count_16: 1212
+  duplicate_16byte_blocks: 0
+  first_block_hex: 6d be be f0 c3 1c cc 1b 2e 07 5c e7 4d ab fd df
+  last_block_hex: ce 1b d0 d5 c7 13 44 68 b4 72 9b 83 12 92 eb 78
+- file_name: hero_talent.bytes.bin
+  size_bytes: 2096
+  size_mod_16: 0
+  entropy: 7.9131
+  unique_byte_values: 256
+  block_count_16: 131
+  duplicate_16byte_blocks: 0
+  first_block_hex: 99 c1 df 84 5a a0 04 f9 47 be 9b 3e b1 03 6e a4
+  last_block_hex: f9 58 f7 a9 5d 6c a5 db a0 ef c0 62 06 3a 48 c2
+- file_name: battle_record.bytes.bin
+  size_bytes: 2512
+  size_mod_16: 0
+  entropy: 7.9092
+  unique_byte_values: 256
+  block_count_16: 157
+  duplicate_16byte_blocks: 0
+  first_block_hex: 99 8a 2b 16 1a 73 73 c0 00 ec 40 64 1d 6c d5 68
+  last_block_hex: be 35 34 5f f4 5f 48 d1 7e a5 0e e9 85 4d 9e f3
+- file_name: battle_reports.bytes.bin
+  size_bytes: 1904
+  size_mod_16: 0
+  entropy: 7.8915
+  unique_byte_values: 256
+  block_count_16: 119
+  duplicate_16byte_blocks: 0
+  first_block_hex: 17 81 a4 7e 9a b2 bf 13 99 80 08 49 b9 22 a9 e7
+  last_block_hex: 88 be 65 ed 21 0d 65 9f e7 c5 08 e5 a6 c1 62 b2
+- file_name: battle_replay.bytes.bin
+  size_bytes: 4320
+  size_mod_16: 0
+  entropy: 7.9607
+  unique_byte_values: 256
+  block_count_16: 270
+  duplicate_16byte_blocks: 0
+  first_block_hex: 91 2a 02 ac 4e 0a e0 47 12 83 97 cd 38 a6 76 03
+  last_block_hex: bb 99 4a 84 ea b2 0d b5 df 6d 36 cd 3f aa 9f d4
+payload_status_counts:
+  high_entropy_16byte_aligned: 9
+runtime_initialize_lua_entries:
+- assembly_name: Assembly-CSharp
+  namespace: NSLGame.Patcher
+  class_name: GameUpdater
+  method_name: InitLuaEnv
+  load_types: 4
+il2cpp_dumper_probe:
+  result: failed_invalid_metadata
+  evidence: 'Il2CppDumper reports ERROR: Metadata file supplied is not valid metadata
+    file. global-metadata.dat starts with the IL2CPP magic bytes but has protected/invalid
+    header fields, so normal IL2CPP symbol recovery is blocked until metadata deobfuscation/decryption
+    is reversed.'
+skipped_runtime_patch_samples: 5
+sanitized_conclusions:
+- Target LuaScripts/Data payloads and downloaded lua-patches are high entropy and
+  all sizes checked are divisible by 16, which rules out plain Lua/source and makes
+  simple compression/XOR unlikely.
+- Direct standard decompression probes from Round 31 failed; this round adds block-size
+  evidence consistent with AES or another 16-byte block transform.
+- Game runtime uses IL2CPP with NSLGame.Patcher.GameUpdater.InitLuaEnv from RuntimeInitializeOnLoads.json;
+  global-metadata.dat has a valid IL2CPP magic but protected/obfuscated header fields,
+  so normal symbol recovery is blocked without metadata deobfuscation.
+- GameAssembly exposes xlua exports including xlua_getloaders and xluaL_loadbuffer
+  plus Unity TextAsset APIs, but no clear plaintext loader/decryptor method name or
+  key string was found by raw string search.
+- 'Next useful slice: recover/deobfuscate IL2CPP metadata or locate xrefs around xluaL_loadbuffer/TextAsset::get_bytes
+  in GameAssembly to find the native call path that decrypts the 16-byte-aligned Lua
+  payloads.'
+- Il2CppDumper was executed through PowerShell and failed with invalid metadata, confirming
+  the metadata protection blocker rather than a missing tool issue.
+next_decoder_targets:
+- GameAssembly xluaL_loadbuffer / TextAsset::get_bytes call path
+- NSLGame.Patcher.GameUpdater.InitLuaEnv runtime initialize entry
+- global-metadata.dat protection/deobfuscation needed before normal IL2CPP symbol
+  recovery
+- 16-byte-aligned LuaScripts payload block transform
+limitations:
+- this report is sanitized reverse-engineering evidence, not decoded game knowledge
+- runtime lua patch samples were counted but not persisted because they are local
+  runtime cache artifacts
+- no live instrumentation or online protocol data is included

@@ -1,0 +1,545 @@
+schema_version: nslg.gameassembly_registration_pair_context_probe.v1
+source_id: gameassembly-registration-pair-context-probe-round109
+source_url: local-nslg-client-gameassembly-registration-pair-context-probe
+source_site: nslg_client_gameassembly_registration_pair_context_probe
+generated_at: '2026-05-21T07:34:48.103337Z'
+round: 182
+slice: gameassembly_registration_pair_context_probe
+input_artifacts:
+- file_name: GameAssembly.dll
+  role: module:GameAssembly.dll
+  size_bytes: 94127168
+  sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  missing: false
+- file_name: gameassembly_registration_layout_probe_round181.json
+  role: round181_registration_layout_probe
+  size_bytes: 150192
+  sha256: cf169267ac4d93527fd1b9f7963976e3e9c350fea82fbb3b1277269c0281a053
+  missing: false
+- file_name: gameassembly_registration_anchor_probe_round180.json
+  role: round180_registration_anchor_probe
+  size_bytes: 43738
+  sha256: 982719544c58de6980cc5998f8b7d324be634fab45d591ec8d2ff2d06423ce22
+  missing: false
+- file_name: gameassembly_codegen_module_probe_round179.json
+  role: round179_codegen_module_probe
+  size_bytes: 23089
+  sha256: ef470e0f5451169568286d47bc69921f8c8aa3a3b9b32c260701e958bde8fc90
+  missing: false
+round181_layout_anchor:
+  primary_code_registration_start_rva: 70461232
+  codegen_modules_field_offset: 120
+  metadata_registration_candidate_count: 58746
+registration_targets:
+- label: code_registration_start
+  rva: '0x4332730'
+  role: direct_code_registration_start
+- label: codegen_modules_count_field
+  rva: '0x43327a8'
+  role: code_registration_field
+- label: codegen_modules_pointer_field
+  rva: '0x43327b0'
+  role: code_registration_field
+- label: codegen_modules_array
+  rva: '0x50a2840'
+  role: code_registration_field_target
+- label: code_registration_field_0x0_ptr_target
+  rva: '0x4371af0'
+  role: code_registration_field_target
+- label: code_registration_field_0x10_ptr_target
+  rva: '0x480fd10'
+  role: code_registration_field_target
+- label: code_registration_field_0x28_ptr_target
+  rva: '0x43327d0'
+  role: code_registration_field_target
+- label: code_registration_field_0x38_ptr_target
+  rva: '0x438a000'
+  role: code_registration_field_target
+- label: code_registration_field_0x58_ptr_target
+  rva: '0x50a2b60'
+  role: code_registration_field_target
+- label: code_registration_field_0x78_ptr_target
+  rva: '0x50a2840'
+  role: code_registration_field_target
+metadata_targets:
+- label: metadata_candidate_rank_1
+  rva: '0x45893d0'
+  role: metadata_registration_like_candidate
+  rank: 1
+  score: 121
+  count_pointer_pair_count: 9
+- label: metadata_candidate_rank_2
+  rva: '0x4589370'
+  role: metadata_registration_like_candidate
+  rank: 2
+  score: 120
+  count_pointer_pair_count: 9
+- label: metadata_candidate_rank_3
+  rva: '0x4589380'
+  role: metadata_registration_like_candidate
+  rank: 3
+  score: 120
+  count_pointer_pair_count: 9
+- label: metadata_candidate_rank_4
+  rva: '0x4583c10'
+  role: metadata_registration_like_candidate
+  rank: 4
+  score: 119
+  count_pointer_pair_count: 9
+- label: metadata_candidate_rank_5
+  rva: '0x4589390'
+  role: metadata_registration_like_candidate
+  rank: 5
+  score: 119
+  count_pointer_pair_count: 9
+- label: metadata_candidate_rank_6
+  rva: '0x45893e0'
+  role: metadata_registration_like_candidate
+  rank: 6
+  score: 119
+  count_pointer_pair_count: 9
+- label: metadata_candidate_rank_7
+  rva: '0x4589430'
+  role: metadata_registration_like_candidate
+  rank: 7
+  score: 119
+  count_pointer_pair_count: 9
+- label: metadata_candidate_rank_8
+  rva: '0x4589490'
+  role: metadata_registration_like_candidate
+  rank: 8
+  score: 119
+  count_pointer_pair_count: 9
+- label: metadata_candidate_rank_9
+  rva: '0x45894f0'
+  role: metadata_registration_like_candidate
+  rank: 9
+  score: 119
+  count_pointer_pair_count: 9
+- label: metadata_candidate_rank_10
+  rva: '0x4589550'
+  role: metadata_registration_like_candidate
+  rank: 10
+  score: 119
+  count_pointer_pair_count: 9
+- label: metadata_candidate_rank_11
+  rva: '0x45895b0'
+  role: metadata_registration_like_candidate
+  rank: 11
+  score: 119
+  count_pointer_pair_count: 9
+- label: metadata_candidate_rank_12
+  rva: '0x45893f0'
+  role: metadata_registration_like_candidate
+  rank: 12
+  score: 118
+  count_pointer_pair_count: 9
+raw_registration_ref_summary:
+  target_count: 10
+  raw_ref_count: 7
+  section_counts:
+    .rdata: 7
+  target_role_counts:
+    code_registration_field_target: 7
+  target_ref_counts:
+    code_registration_field_0x0_ptr_target: 1
+    code_registration_field_0x10_ptr_target: 1
+    code_registration_field_0x28_ptr_target: 1
+    code_registration_field_0x38_ptr_target: 1
+    code_registration_field_0x58_ptr_target: 1
+    code_registration_field_0x78_ptr_target: 1
+    codegen_modules_array: 1
+  refs:
+  - target_label: codegen_modules_array
+    target_role: code_registration_field_target
+    target_rva: '0x50a2840'
+    ref_rva: '0x43327b0'
+    ref_section: .rdata
+  - target_label: code_registration_field_0x0_ptr_target
+    target_role: code_registration_field_target
+    target_rva: '0x4371af0'
+    ref_rva: '0x4332738'
+    ref_section: .rdata
+  - target_label: code_registration_field_0x10_ptr_target
+    target_role: code_registration_field_target
+    target_rva: '0x480fd10'
+    ref_rva: '0x4332748'
+    ref_section: .rdata
+  - target_label: code_registration_field_0x28_ptr_target
+    target_role: code_registration_field_target
+    target_rva: '0x43327d0'
+    ref_rva: '0x4332760'
+    ref_section: .rdata
+  - target_label: code_registration_field_0x38_ptr_target
+    target_role: code_registration_field_target
+    target_rva: '0x438a000'
+    ref_rva: '0x4332770'
+    ref_section: .rdata
+  - target_label: code_registration_field_0x58_ptr_target
+    target_role: code_registration_field_target
+    target_rva: '0x50a2b60'
+    ref_rva: '0x4332790'
+    ref_section: .rdata
+  - target_label: code_registration_field_0x78_ptr_target
+    target_role: code_registration_field_target
+    target_rva: '0x50a2840'
+    ref_rva: '0x43327b0'
+    ref_section: .rdata
+raw_metadata_ref_summary:
+  target_count: 12
+  raw_ref_count: 25
+  section_counts:
+    .data: 13
+    .rdata: 12
+  target_role_counts:
+    metadata_registration_like_candidate: 25
+  target_ref_counts:
+    metadata_candidate_rank_1: 2
+    metadata_candidate_rank_10: 2
+    metadata_candidate_rank_11: 2
+    metadata_candidate_rank_12: 1
+    metadata_candidate_rank_2: 3
+    metadata_candidate_rank_3: 2
+    metadata_candidate_rank_4: 2
+    metadata_candidate_rank_5: 1
+    metadata_candidate_rank_6: 2
+    metadata_candidate_rank_7: 2
+    metadata_candidate_rank_8: 4
+    metadata_candidate_rank_9: 2
+  refs:
+  - target_label: metadata_candidate_rank_1
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x45893d0'
+    ref_rva: '0x45464b0'
+    ref_section: .rdata
+  - target_label: metadata_candidate_rank_1
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x45893d0'
+    ref_rva: '0x53279f8'
+    ref_section: .data
+  - target_label: metadata_candidate_rank_2
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589370'
+    ref_rva: '0x45464a8'
+    ref_section: .rdata
+  - target_label: metadata_candidate_rank_2
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589370'
+    ref_rva: '0x5327798'
+    ref_section: .data
+  - target_label: metadata_candidate_rank_2
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589370'
+    ref_rva: '0x540b278'
+    ref_section: .data
+  - target_label: metadata_candidate_rank_3
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589380'
+    ref_rva: '0x454e4a8'
+    ref_section: .rdata
+  - target_label: metadata_candidate_rank_3
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589380'
+    ref_rva: '0x53d4d68'
+    ref_section: .data
+  - target_label: metadata_candidate_rank_4
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4583c10'
+    ref_rva: '0x4545d60'
+    ref_section: .rdata
+  - target_label: metadata_candidate_rank_4
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4583c10'
+    ref_rva: '0x52f87c8'
+    ref_section: .data
+  - target_label: metadata_candidate_rank_5
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589390'
+    ref_rva: '0x45564a8'
+    ref_section: .rdata
+  - target_label: metadata_candidate_rank_6
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x45893e0'
+    ref_rva: '0x454e4b0'
+    ref_section: .rdata
+  - target_label: metadata_candidate_rank_6
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x45893e0'
+    ref_rva: '0x53d4fa8'
+    ref_section: .data
+  - target_label: metadata_candidate_rank_7
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589430'
+    ref_rva: '0x45464b8'
+    ref_section: .rdata
+  - target_label: metadata_candidate_rank_7
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589430'
+    ref_rva: '0x5327c78'
+    ref_section: .data
+  - target_label: metadata_candidate_rank_8
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589490'
+    ref_rva: '0x45464c0'
+    ref_section: .rdata
+  - target_label: metadata_candidate_rank_8
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589490'
+    ref_rva: '0x5327ef8'
+    ref_section: .data
+  - target_label: metadata_candidate_rank_8
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589490'
+    ref_rva: '0x534e508'
+    ref_section: .data
+  - target_label: metadata_candidate_rank_8
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589490'
+    ref_rva: '0x5358498'
+    ref_section: .data
+  - target_label: metadata_candidate_rank_9
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x45894f0'
+    ref_rva: '0x45464c8'
+    ref_section: .rdata
+  - target_label: metadata_candidate_rank_9
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x45894f0'
+    ref_rva: '0x5328168'
+    ref_section: .data
+  - target_label: metadata_candidate_rank_10
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589550'
+    ref_rva: '0x45464d0'
+    ref_section: .rdata
+  - target_label: metadata_candidate_rank_10
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589550'
+    ref_rva: '0x53283e8'
+    ref_section: .data
+  - target_label: metadata_candidate_rank_11
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x45895b0'
+    ref_rva: '0x45464d8'
+    ref_section: .rdata
+  - target_label: metadata_candidate_rank_11
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x45895b0'
+    ref_rva: '0x5328668'
+    ref_section: .data
+  - target_label: metadata_candidate_rank_12
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x45893f0'
+    ref_rva: '0x45564b0'
+    ref_section: .rdata
+code_ref_summary:
+  searched_target_count: 22
+  code_ref_count: 0
+  registration_code_ref_count: 0
+  metadata_candidate_code_ref_count: 0
+  refs: []
+pair_neighborhood_scan:
+  window_size_bytes: 512
+  paired_neighborhood_count: 0
+  neighborhoods: []
+call_argument_window_scan:
+  available: true
+  candidate_window_count: 0
+  windows: []
+metadata_ref_families:
+  family_cluster_count: 17
+  clusters:
+  - section: .rdata
+    start_rva: '0x45464a8'
+    end_rva: '0x45464d8'
+    ref_count: 7
+    unique_target_count: 7
+    target_labels:
+    - metadata_candidate_rank_1
+    - metadata_candidate_rank_10
+    - metadata_candidate_rank_11
+    - metadata_candidate_rank_2
+    - metadata_candidate_rank_7
+    - metadata_candidate_rank_8
+    - metadata_candidate_rank_9
+  - section: .rdata
+    start_rva: '0x454e4a8'
+    end_rva: '0x454e4b0'
+    ref_count: 2
+    unique_target_count: 2
+    target_labels:
+    - metadata_candidate_rank_3
+    - metadata_candidate_rank_6
+  - section: .rdata
+    start_rva: '0x45564a8'
+    end_rva: '0x45564b0'
+    ref_count: 2
+    unique_target_count: 2
+    target_labels:
+    - metadata_candidate_rank_12
+    - metadata_candidate_rank_5
+  - section: .data
+    start_rva: '0x52f87c8'
+    end_rva: '0x52f87c8'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_4
+  - section: .data
+    start_rva: '0x5327798'
+    end_rva: '0x5327798'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_2
+  - section: .data
+    start_rva: '0x53279f8'
+    end_rva: '0x53279f8'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_1
+  - section: .data
+    start_rva: '0x5327c78'
+    end_rva: '0x5327c78'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_7
+  - section: .data
+    start_rva: '0x5327ef8'
+    end_rva: '0x5327ef8'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_8
+  - section: .data
+    start_rva: '0x5328168'
+    end_rva: '0x5328168'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_9
+  - section: .data
+    start_rva: '0x53283e8'
+    end_rva: '0x53283e8'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_10
+  - section: .data
+    start_rva: '0x5328668'
+    end_rva: '0x5328668'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_11
+  - section: .data
+    start_rva: '0x534e508'
+    end_rva: '0x534e508'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_8
+  - section: .data
+    start_rva: '0x5358498'
+    end_rva: '0x5358498'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_8
+  - section: .data
+    start_rva: '0x53d4d68'
+    end_rva: '0x53d4d68'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_3
+  - section: .data
+    start_rva: '0x53d4fa8'
+    end_rva: '0x53d4fa8'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_6
+  - section: .data
+    start_rva: '0x540b278'
+    end_rva: '0x540b278'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_2
+  - section: .rdata
+    start_rva: '0x4545d60'
+    end_rva: '0x4545d60'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_4
+counts:
+  registration_target_count: 10
+  metadata_target_count: 12
+  raw_registration_ref_count: 7
+  raw_code_registration_start_ref_count: 0
+  raw_metadata_candidate_ref_count: 25
+  registration_code_ref_count: 0
+  metadata_candidate_code_ref_count: 0
+  paired_neighborhood_count: 0
+  call_argument_pair_window_count: 0
+  metadata_ref_family_cluster_count: 17
+  registration_pair_recovered: 0
+  metadata_registration_paired_by_callsite: 0
+  init_lua_env_method_pointer_recovered: 0
+  publishable_knowledge_entries: 0
+route_conclusion:
+  registration_pair_recovered: false
+  metadata_registration_paired_by_callsite: false
+  metadata_candidate_family_refs_found: true
+  direct_code_registration_start_ref_found: false
+  call_argument_pair_window_found: false
+  pair_neighborhood_found: false
+  method_index_to_pointer_map_recovered: false
+  init_lua_env_method_pointer_recovered: false
+  protected_metadata_method_ownership_recovered: false
+  lua_payload_decoder_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: Top MetadataRegistration-like candidates have exact raw
+    references clustered in data/rdata, which is useful as a candidate-family map
+    but not as ownership proof.
+  strongest_negative_signal: No exact raw reference to the CodeRegistration start,
+    no static code references to either side, no paired pointer neighborhood, and
+    no call-argument window were recovered.
+  search_policy: Treat direct pointer-pair xref recovery as a negative route for now;
+    continue with decoded metadata ownership or a broader IL2CPP initialization dispatcher
+    trace before mapping methods.
+evidence_refs:
+- NSLG_REGISTRATION_PAIR_CONTEXT:round182:raw-registration-refs
+- NSLG_REGISTRATION_PAIR_CONTEXT:round182:raw-metadata-candidate-refs
+- NSLG_REGISTRATION_PAIR_CONTEXT:round182:pair-neighborhood-scan
+- NSLG_REGISTRATION_PAIR_CONTEXT:round182:call-argument-window-scan
+next_static_targets:
+- Treat direct CodeRegistration/MetadataRegistration pointer-pair search as negative
+  for this build unless a later broader initializer trace finds an indirect loader.
+- Pivot from exact pointer-pair xrefs to protected metadata method-definition ownership
+  or a higher-level IL2CPP initialization dispatcher trace.
+- Keep top MetadataRegistration-like windows as weak data-family candidates only;
+  do not promote them as MetadataRegistration without a proven owner.
+- Do not map InitLuaEnv or TextAsset methods until decoded metadata or registration
+  ownership proves method-index mapping.
+limitations:
+- Offline/static probe only; no runtime attach, live instrumentation, account data,
+  or online protocol is used.
+- The probe uses exact VA references, local pointer neighborhoods, and static disassembly;
+  it cannot see values constructed dynamically at runtime.
+- MetadataRegistration-like windows are ranked from local count/pointer shape only
+  and remain unpaired candidates.
+- This artifact is decoder-routing evidence and must not be promoted as gameplay knowledge.
+guardrails:
+- offline/static GameAssembly registration pair-context probe only; no live instrumentation,
+  account data, or online protocol data is included
+- direct pointer-pair xref evidence is negative in this artifact; absence of static
+  refs does not prove runtime values cannot be constructed dynamically
+- MetadataRegistration-like candidates remain weak data-family candidates until a
+  callsite or decoded metadata proves ownership
+- route evidence is not publishable gameplay knowledge

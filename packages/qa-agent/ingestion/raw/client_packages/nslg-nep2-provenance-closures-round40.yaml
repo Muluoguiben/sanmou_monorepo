@@ -1,0 +1,1269 @@
+schema_version: nslg.nep2_provenance_closure_batch.v1
+source_id: nep2-provenance-closures-round40
+source_url: local-nslg-client-nep2-provenance
+source_site: nslg_client_nep2_provenance
+generated_at: '2026-05-20T14:07:27.042448Z'
+binary_name: NEP2.dll
+artifact_count: 23
+round_range:
+  min: 137
+  max: 159
+closure_status_counts:
+  closed_no_file_buffer_provenance: 23
+target_verdict_counts:
+  metadata/control helper; no current CAB transform proof: 11
+  nontrivial helper but no file/CAB provenance: 12
+pointer_ref_classification_counts:
+  internal_rdata_tables_no_asset_owner: 18
+  none: 5
+closed_rvas:
+- '0x620670'
+- '0x678a20'
+- '0x5e6b10'
+- '0x6093f0'
+- '0x6513b0'
+- '0x6284d8'
+- '0x63fbc0'
+- '0x55eb00'
+- '0x488583'
+- '0x10c210'
+- '0x619660'
+- '0x65f828'
+- '0x69396c'
+- '0x106210'
+- '0x60fd50'
+- '0x484e50'
+- '0x489d8e'
+- '0x560f70'
+- '0x54de20'
+- '0x66fbc8'
+- '0x4e0890'
+- '0x67df3c'
+- '0x4a471a'
+next_unclosed_shape_lead: '0x4a28e9'
+route_conclusion:
+  closed_shape_only_leads: 23
+  needs_review_signal_leads: 0
+  strongest_negative_signal: bounded caller/callee and pointer-ref provenance found
+    no CAB, SerializedFile, global-metadata, AssetBundle, LuaScripts payload, keyword/import,
+    or file-buffer owner path
+  search_policy: stop broad shape-only scanning; continue only with caller/callee
+    provenance, keyword/import ownership, or file-buffer/asset owner evidence
+  next_unclosed_shape_lead: '0x4a28e9'
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+records:
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=137:rva=0x620670
+  round: 137
+  target_rva: '0x620670'
+  function:
+    begin: '0x620670'
+    end: '0x62618a'
+    size: '0x5b1a'
+  artifact_files:
+  - nep2_620670_provenance_closure_round137.json
+  - nep2_620670_provenance_closure_round137.md
+  - nep2_620670_provenance_closure_round137.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: nontrivial helper but no file/CAB provenance
+  pointer_ref_classification: internal_rdata_tables_no_asset_owner
+  pointer_ref_count: 15
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 5130
+    memory_writes: 622
+    logic_ops: 28
+    simd_ops: 404
+    imm_128: 13
+    non_stack_writes: 152
+    backward_branches: 177
+    imm_4: 34
+    imm_256: 40
+    imm_40: 9
+    indirect_branches: 5
+    imm_4096: 1
+    imm_8: 5
+    imm_32: 12
+    imm_64: 17
+    imm_16: 21
+    imm_20: 2
+    imm_24: 14
+    imm_12: 5
+    imm_22: 1
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - Nonexec pointer refs are .rdata RVA/table-style refs without asset keywords; they
+    do not prove file-buffer ownership.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x620670 as closed: no caller/callee provenance, no keyword/import
+    path, and pointer refs are only .rdata table refs.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=138:rva=0x678a20
+  round: 138
+  target_rva: '0x678a20'
+  function:
+    begin: '0x678a20'
+    end: '0x67a0b1'
+    size: '0x1691'
+  artifact_files:
+  - nep2_678a20_provenance_closure_round138.json
+  - nep2_678a20_provenance_closure_round138.md
+  - nep2_678a20_provenance_closure_round138.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: metadata/control helper; no current CAB transform proof
+  pointer_ref_classification: none
+  pointer_ref_count: 0
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 1061
+    simd_ops: 385
+    memory_writes: 18
+    logic_ops: 128
+    backward_branches: 46
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x678a20 as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=139:rva=0x5e6b10
+  round: 139
+  target_rva: '0x5e6b10'
+  function:
+    begin: '0x5e6b10'
+    end: '0x5e8c84'
+    size: '0x2174'
+  artifact_files:
+  - nep2_5e6b10_provenance_closure_round139.json
+  - nep2_5e6b10_provenance_closure_round139.md
+  - nep2_5e6b10_provenance_closure_round139.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: nontrivial helper but no file/CAB provenance
+  pointer_ref_classification: internal_rdata_tables_no_asset_owner
+  pointer_ref_count: 1
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 2277
+    memory_writes: 197
+    non_stack_writes: 138
+    simd_ops: 152
+    logic_ops: 224
+    imm_8: 42
+    imm_4: 113
+    imm_12: 2
+    backward_branches: 127
+    indirect_branches: 1
+    imm_64: 5
+    imm_16: 6
+    imm_20: 1
+    imm_128: 1
+    imm_32: 1
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - Nonexec pointer refs are .rdata RVA/table-style refs without asset keywords; they
+    do not prove file-buffer ownership.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x5e6b10 as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=140:rva=0x6093f0
+  round: 140
+  target_rva: '0x6093f0'
+  function:
+    begin: '0x6093f0'
+    end: '0x60a4af'
+    size: '0x10bf'
+  artifact_files:
+  - nep2_6093f0_provenance_closure_round140.json
+  - nep2_6093f0_provenance_closure_round140.md
+  - nep2_6093f0_provenance_closure_round140.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: nontrivial helper but no file/CAB provenance
+  pointer_ref_classification: none
+  pointer_ref_count: 0
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 1032
+    memory_writes: 155
+    non_stack_writes: 54
+    simd_ops: 74
+    logic_ops: 17
+    indirect_branches: 23
+    imm_24: 3
+    backward_branches: 6
+    imm_22: 4
+    imm_16: 12
+    imm_4096: 7
+    imm_8: 1
+    imm_64: 3
+    imm_4: 1
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x6093f0 as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=141:rva=0x6513b0
+  round: 141
+  target_rva: '0x6513b0'
+  function:
+    begin: '0x6513b0'
+    end: '0x6528a4'
+    size: '0x14f4'
+  artifact_files:
+  - nep2_6513b0_provenance_closure_round141.json
+  - nep2_6513b0_provenance_closure_round141.md
+  - nep2_6513b0_provenance_closure_round141.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: nontrivial helper but no file/CAB provenance
+  pointer_ref_classification: internal_rdata_tables_no_asset_owner
+  pointer_ref_count: 1
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 1292
+    memory_writes: 268
+    imm_48: 3
+    non_stack_writes: 249
+    backward_branches: 79
+    imm_32: 8
+    indirect_branches: 1
+    logic_ops: 175
+    simd_ops: 16
+    imm_4: 2
+    imm_256: 3
+    imm_8: 1
+    imm_16: 2
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - Nonexec pointer refs are .rdata RVA/table-style refs without asset keywords; they
+    do not prove file-buffer ownership.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x6513b0 as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=142:rva=0x6284d8
+  round: 142
+  target_rva: '0x6284d8'
+  function:
+    begin: '0x6284d8'
+    end: '0x62b33c'
+    size: '0x2e64'
+  artifact_files:
+  - nep2_6284d8_provenance_closure_round142.json
+  - nep2_6284d8_provenance_closure_round142.md
+  - nep2_6284d8_provenance_closure_round142.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: nontrivial helper but no file/CAB provenance
+  pointer_ref_classification: internal_rdata_tables_no_asset_owner
+  pointer_ref_count: 2
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 2749
+    imm_32: 2
+    backward_branches: 333
+    memory_writes: 368
+    non_stack_writes: 60
+    imm_4: 9
+    indirect_branches: 28
+    imm_8: 21
+    imm_64: 3
+    logic_ops: 18
+    simd_ops: 43
+    imm_128: 1
+    imm_16: 1
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - Nonexec pointer refs are .rdata RVA/table-style refs without asset keywords; they
+    do not prove file-buffer ownership.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x6284d8 as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=143:rva=0x63fbc0
+  round: 143
+  target_rva: '0x63fbc0'
+  function:
+    begin: '0x63fbc0'
+    end: '0x6411cc'
+    size: '0x160c'
+  artifact_files:
+  - nep2_63fbc0_provenance_closure_round143.json
+  - nep2_63fbc0_provenance_closure_round143.md
+  - nep2_63fbc0_provenance_closure_round143.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: metadata/control helper; no current CAB transform proof
+  pointer_ref_classification: internal_rdata_tables_no_asset_owner
+  pointer_ref_count: 80
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 1346
+    logic_ops: 20
+    memory_writes: 139
+    simd_ops: 14
+    imm_4: 32
+    imm_64: 3
+    backward_branches: 51
+    indirect_branches: 1
+    imm_8: 5
+    imm_16: 1
+    imm_12: 2
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - Nonexec pointer refs are .rdata RVA/table-style refs without asset keywords; they
+    do not prove file-buffer ownership.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x63fbc0 as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=144:rva=0x55eb00
+  round: 144
+  target_rva: '0x55eb00'
+  function:
+    begin: '0x55eb00'
+    end: '0x560d36'
+    size: '0x2236'
+  artifact_files:
+  - nep2_55eb00_provenance_closure_round144.json
+  - nep2_55eb00_provenance_closure_round144.md
+  - nep2_55eb00_provenance_closure_round144.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: nontrivial helper but no file/CAB provenance
+  pointer_ref_classification: internal_rdata_tables_no_asset_owner
+  pointer_ref_count: 37
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 2180
+    memory_writes: 205
+    simd_ops: 50
+    logic_ops: 790
+    imm_128: 1
+    non_stack_writes: 10
+    imm_8: 10
+    imm_32: 96
+    imm_24: 96
+    imm_16: 96
+    backward_branches: 1
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - Nonexec pointer refs are .rdata RVA/table-style refs without asset keywords; they
+    do not prove file-buffer ownership.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x55eb00 as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=145:rva=0x488583
+  round: 145
+  target_rva: '0x488583'
+  function:
+    begin: '0x488583'
+    end: '0x48961c'
+    size: '0x1099'
+  artifact_files:
+  - nep2_488583_provenance_closure_round145.json
+  - nep2_488583_provenance_closure_round145.md
+  - nep2_488583_provenance_closure_round145.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: nontrivial helper but no file/CAB provenance
+  pointer_ref_classification: internal_rdata_tables_no_asset_owner
+  pointer_ref_count: 2
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 1111
+    memory_writes: 125
+    imm_4096: 1
+    imm_1024: 1
+    logic_ops: 425
+    non_stack_writes: 99
+    imm_4: 2
+    imm_256: 1
+    backward_branches: 6
+    imm_16: 23
+    imm_8: 19
+    simd_ops: 21
+    imm_32: 2
+    imm_128: 3
+    imm_22: 1
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - Nonexec pointer refs are .rdata RVA/table-style refs without asset keywords; they
+    do not prove file-buffer ownership.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x488583 as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=146:rva=0x10c210
+  round: 146
+  target_rva: '0x10c210'
+  function:
+    begin: '0x10c210'
+    end: '0x10f950'
+    size: '0x3740'
+  artifact_files:
+  - nep2_10c210_provenance_closure_round146.json
+  - nep2_10c210_provenance_closure_round146.md
+  - nep2_10c210_provenance_closure_round146.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: metadata/control helper; no current CAB transform proof
+  pointer_ref_classification: internal_rdata_tables_no_asset_owner
+  pointer_ref_count: 26
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 3115
+    memory_writes: 542
+    logic_ops: 188
+    imm_4: 23
+    non_stack_writes: 92
+    indirect_branches: 1
+    backward_branches: 158
+    imm_256: 5
+    imm_32: 5
+    imm_8: 45
+    imm_64: 1
+    imm_1024: 1
+    imm_16: 11
+    imm_24: 1
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - Nonexec pointer refs are .rdata RVA/table-style refs without asset keywords; they
+    do not prove file-buffer ownership.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x10c210 as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=147:rva=0x619660
+  round: 147
+  target_rva: '0x619660'
+  function:
+    begin: '0x619660'
+    end: '0x61ab44'
+    size: '0x14e4'
+  artifact_files:
+  - nep2_619660_provenance_closure_round147.json
+  - nep2_619660_provenance_closure_round147.md
+  - nep2_619660_provenance_closure_round147.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: nontrivial helper but no file/CAB provenance
+  pointer_ref_classification: internal_rdata_tables_no_asset_owner
+  pointer_ref_count: 1
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 1111
+    memory_writes: 140
+    logic_ops: 7
+    non_stack_writes: 138
+    backward_branches: 116
+    indirect_branches: 4
+    imm_1024: 1
+    imm_4: 2
+    imm_512: 1
+    imm_22: 1
+    imm_128: 1
+    imm_256: 2
+    imm_20: 1
+    simd_ops: 1
+    imm_16: 1
+    imm_8: 1
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - Nonexec pointer refs are .rdata RVA/table-style refs without asset keywords; they
+    do not prove file-buffer ownership.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x619660 as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=148:rva=0x65f828
+  round: 148
+  target_rva: '0x65f828'
+  function:
+    begin: '0x65f828'
+    end: '0x66168d'
+    size: '0x1e65'
+  artifact_files:
+  - nep2_65f828_provenance_closure_round148.json
+  - nep2_65f828_provenance_closure_round148.md
+  - nep2_65f828_provenance_closure_round148.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: metadata/control helper; no current CAB transform proof
+  pointer_ref_classification: internal_rdata_tables_no_asset_owner
+  pointer_ref_count: 59
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 1877
+    memory_writes: 217
+    logic_ops: 97
+    imm_32: 31
+    backward_branches: 65
+    non_stack_writes: 8
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - Nonexec pointer refs are .rdata RVA/table-style refs without asset keywords; they
+    do not prove file-buffer ownership.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x65f828 as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=149:rva=0x69396c
+  round: 149
+  target_rva: '0x69396c'
+  function:
+    begin: '0x69396c'
+    end: '0x694bac'
+    size: '0x1240'
+  artifact_files:
+  - nep2_69396c_provenance_closure_round149.json
+  - nep2_69396c_provenance_closure_round149.md
+  - nep2_69396c_provenance_closure_round149.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: metadata/control helper; no current CAB transform proof
+  pointer_ref_classification: none
+  pointer_ref_count: 0
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 1203
+    logic_ops: 93
+    memory_writes: 128
+    imm_32: 15
+    non_stack_writes: 14
+    imm_4: 3
+    backward_branches: 54
+    simd_ops: 3
+    imm_48: 2
+    imm_8: 1
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x69396c as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=150:rva=0x106210
+  round: 150
+  target_rva: '0x106210'
+  function:
+    begin: '0x106210'
+    end: '0x10784c'
+    size: '0x163c'
+  artifact_files:
+  - nep2_106210_provenance_closure_round150.json
+  - nep2_106210_provenance_closure_round150.md
+  - nep2_106210_provenance_closure_round150.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: metadata/control helper; no current CAB transform proof
+  pointer_ref_classification: internal_rdata_tables_no_asset_owner
+  pointer_ref_count: 51
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 1159
+    memory_writes: 194
+    logic_ops: 23
+    imm_256: 1
+    non_stack_writes: 64
+    imm_32: 1
+    backward_branches: 27
+    imm_16: 14
+    imm_8: 21
+    imm_4: 4
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - Nonexec pointer refs are .rdata RVA/table-style refs without asset keywords; they
+    do not prove file-buffer ownership.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x106210 as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=151:rva=0x60fd50
+  round: 151
+  target_rva: '0x60fd50'
+  function:
+    begin: '0x60fd50'
+    end: '0x611584'
+    size: '0x1834'
+  artifact_files:
+  - nep2_60fd50_provenance_closure_round151.json
+  - nep2_60fd50_provenance_closure_round151.md
+  - nep2_60fd50_provenance_closure_round151.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: metadata/control helper; no current CAB transform proof
+  pointer_ref_classification: internal_rdata_tables_no_asset_owner
+  pointer_ref_count: 80
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 1386
+    memory_writes: 314
+    imm_64: 23
+    logic_ops: 148
+    indirect_branches: 4
+    non_stack_writes: 269
+    imm_128: 17
+    backward_branches: 58
+    imm_32: 25
+    imm_16: 31
+    imm_256: 12
+    imm_24: 6
+    imm_8: 47
+    imm_48: 5
+    imm_4: 24
+    imm_1024: 1
+    imm_512: 5
+    imm_4096: 1
+    imm_22: 1
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - Nonexec pointer refs are .rdata RVA/table-style refs without asset keywords; they
+    do not prove file-buffer ownership.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x60fd50 as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=152:rva=0x484e50
+  round: 152
+  target_rva: '0x484e50'
+  function:
+    begin: '0x484e50'
+    end: '0x485b3e'
+    size: '0xcee'
+  artifact_files:
+  - nep2_484e50_provenance_closure_round152.json
+  - nep2_484e50_provenance_closure_round152.md
+  - nep2_484e50_provenance_closure_round152.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: nontrivial helper but no file/CAB provenance
+  pointer_ref_classification: internal_rdata_tables_no_asset_owner
+  pointer_ref_count: 6
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 888
+    memory_writes: 128
+    simd_ops: 15
+    logic_ops: 371
+    imm_128: 2
+    non_stack_writes: 96
+    imm_32: 2
+    imm_24: 1
+    imm_22: 1
+    imm_20: 1
+    imm_16: 3
+    imm_12: 1
+    imm_8: 1
+    imm_4: 1
+    backward_branches: 3
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - Nonexec pointer refs are .rdata RVA/table-style refs without asset keywords; they
+    do not prove file-buffer ownership.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x484e50 as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=153:rva=0x489d8e
+  round: 153
+  target_rva: '0x489d8e'
+  function:
+    begin: '0x489d8e'
+    end: '0x48aa68'
+    size: '0xcda'
+  artifact_files:
+  - nep2_489d8e_provenance_closure_round153.json
+  - nep2_489d8e_provenance_closure_round153.md
+  - nep2_489d8e_provenance_closure_round153.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: nontrivial helper but no file/CAB provenance
+  pointer_ref_classification: internal_rdata_tables_no_asset_owner
+  pointer_ref_count: 4
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 883
+    memory_writes: 128
+    simd_ops: 15
+    logic_ops: 371
+    imm_128: 2
+    non_stack_writes: 96
+    imm_32: 2
+    imm_24: 1
+    imm_22: 1
+    imm_20: 1
+    imm_16: 3
+    imm_12: 1
+    imm_8: 1
+    imm_4: 1
+    backward_branches: 3
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - Nonexec pointer refs are .rdata RVA/table-style refs without asset keywords; they
+    do not prove file-buffer ownership.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x489d8e as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=154:rva=0x560f70
+  round: 154
+  target_rva: '0x560f70'
+  function:
+    begin: '0x560f70'
+    end: '0x5628be'
+    size: '0x194e'
+  artifact_files:
+  - nep2_560f70_provenance_closure_round154.json
+  - nep2_560f70_provenance_closure_round154.md
+  - nep2_560f70_provenance_closure_round154.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: nontrivial helper but no file/CAB provenance
+  pointer_ref_classification: internal_rdata_tables_no_asset_owner
+  pointer_ref_count: 5
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 1836
+    memory_writes: 175
+    logic_ops: 662
+    imm_64: 1
+    simd_ops: 51
+    non_stack_writes: 10
+    imm_4: 5
+    imm_16: 80
+    imm_12: 85
+    imm_8: 85
+    backward_branches: 1
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - Nonexec pointer refs are .rdata RVA/table-style refs without asset keywords; they
+    do not prove file-buffer ownership.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x560f70 as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=155:rva=0x54de20
+  round: 155
+  target_rva: '0x54de20'
+  function:
+    begin: '0x54de20'
+    end: '0x54f585'
+    size: '0x1765'
+  artifact_files:
+  - nep2_54de20_provenance_closure_round155.json
+  - nep2_54de20_provenance_closure_round155.md
+  - nep2_54de20_provenance_closure_round155.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: nontrivial helper but no file/CAB provenance
+  pointer_ref_classification: internal_rdata_tables_no_asset_owner
+  pointer_ref_count: 1
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 1160
+    memory_writes: 173
+    logic_ops: 428
+    simd_ops: 21
+    imm_16: 51
+    non_stack_writes: 37
+    backward_branches: 2
+    imm_8: 44
+    imm_24: 32
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - Nonexec pointer refs are .rdata RVA/table-style refs without asset keywords; they
+    do not prove file-buffer ownership.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x54de20 as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=156:rva=0x66fbc8
+  round: 156
+  target_rva: '0x66fbc8'
+  function:
+    begin: '0x66fbc8'
+    end: '0x670aad'
+    size: '0xee5'
+  artifact_files:
+  - nep2_66fbc8_provenance_closure_round156.json
+  - nep2_66fbc8_provenance_closure_round156.md
+  - nep2_66fbc8_provenance_closure_round156.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: metadata/control helper; no current CAB transform proof
+  pointer_ref_classification: internal_rdata_tables_no_asset_owner
+  pointer_ref_count: 54
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 1005
+    memory_writes: 157
+    backward_branches: 80
+    logic_ops: 28
+    imm_48: 12
+    non_stack_writes: 77
+    imm_22: 2
+    imm_4: 1
+    imm_8: 1
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - Nonexec pointer refs are .rdata RVA/table-style refs without asset keywords; they
+    do not prove file-buffer ownership.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x66fbc8 as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=157:rva=0x4e0890
+  round: 157
+  target_rva: '0x4e0890'
+  function:
+    begin: '0x4e0890'
+    end: '0x4e1468'
+    size: '0xbd8'
+  artifact_files:
+  - nep2_4e0890_provenance_closure_round157.json
+  - nep2_4e0890_provenance_closure_round157.md
+  - nep2_4e0890_provenance_closure_round157.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: metadata/control helper; no current CAB transform proof
+  pointer_ref_classification: none
+  pointer_ref_count: 0
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 709
+    memory_writes: 83
+    logic_ops: 7
+    imm_16: 2
+    backward_branches: 35
+    non_stack_writes: 17
+    imm_8: 7
+    imm_4: 1
+    imm_20: 1
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x4e0890 as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=158:rva=0x67df3c
+  round: 158
+  target_rva: '0x67df3c'
+  function:
+    begin: '0x67df3c'
+    end: '0x67e62a'
+    size: '0x6ee'
+  artifact_files:
+  - nep2_67df3c_provenance_closure_round158.json
+  - nep2_67df3c_provenance_closure_round158.md
+  - nep2_67df3c_provenance_closure_round158.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: metadata/control helper; no current CAB transform proof
+  pointer_ref_classification: none
+  pointer_ref_count: 0
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 380
+    memory_writes: 30
+    non_stack_writes: 8
+    simd_ops: 148
+    logic_ops: 32
+    backward_branches: 7
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x67df3c as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+- evidence_ref: NSLG_NEP2_PROVENANCE:nep2-provenance-closures-round40:round=159:rva=0x4a471a
+  round: 159
+  target_rva: '0x4a471a'
+  function:
+    begin: '0x4a471a'
+    end: '0x4a6345'
+    size: '0x1c2b'
+  artifact_files:
+  - nep2_4a471a_provenance_closure_round159.json
+  - nep2_4a471a_provenance_closure_round159.md
+  - nep2_4a471a_provenance_closure_round159.asm
+  closure_status: closed_no_file_buffer_provenance
+  strong_provenance_found: false
+  target_verdict: metadata/control helper; no current CAB transform proof
+  pointer_ref_classification: internal_rdata_tables_no_asset_owner
+  pointer_ref_count: 6
+  pointer_owner_signal_count: 0
+  direct_caller_count: 0
+  direct_callee_count: 0
+  selected_node_count: 1
+  interesting_node_count: 0
+  path_counts:
+    downstream_to_signal: 0
+    upstream_from_signal: 0
+    downstream_to_closed: 0
+    upstream_from_closed: 0
+  instruction_counts:
+    instructions: 1940
+    memory_writes: 69
+    logic_ops: 920
+    imm_8: 128
+    backward_branches: 2
+    non_stack_writes: 8
+  blockers:
+  - No CAB/Serialized/global-metadata/AssetBundle/file-buffer provenance reaches target
+    in the bounded graph.
+  - Nonexec pointer refs are .rdata RVA/table-style refs without asset keywords; they
+    do not prove file-buffer ownership.
+  - The function remains a shape-only byte/table/vector loop candidate, not a protector-quality
+    lead.
+  - No path to already-closed routes was needed for demotion; absence of provenance
+    is enough in this slice.
+  next_actions:
+  - 'Mark NEP2 0x4a471a as closed: no caller/callee provenance, no keyword/import
+    path, and no file-buffer owner.'
+  - Move to the next top shape-only lead only with caller/callee provenance, not broad
+    shape scanning.
+guardrails:
+- offline/static provenance closure only; no live instrumentation or online protocol
+  data is included
+- external artifact absolute paths are not persisted; only artifact filenames and
+  evidence refs are stored
+- closed RVA records are negative evidence for decoder search routing, not game knowledge
+  entries
+- do not promote any item into knowledge_sources until readable payloads are decoded
+  and reviewed

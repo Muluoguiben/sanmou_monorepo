@@ -1,0 +1,183 @@
+schema_version: nslg.gameassembly_registration_anchor_probe.v1
+source_id: gameassembly-registration-anchor-probe-round103
+source_url: local-nslg-client-gameassembly-registration-anchor-probe
+source_site: nslg_client_gameassembly_registration_anchor_probe
+generated_at: '2026-05-21T06:56:49.168959Z'
+round: 180
+slice: gameassembly_registration_anchor_probe
+input_artifacts:
+- file_name: GameAssembly.dll
+  role: module:GameAssembly.dll
+  size_bytes: 94127168
+  sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  missing: false
+- file_name: gameassembly_codegen_module_probe_round179.json
+  role: round179_codegen_module_probe
+  size_bytes: 23089
+  sha256: ef470e0f5451169568286d47bc69921f8c8aa3a3b9b32c260701e958bde8fc90
+  missing: false
+- file_name: runtime_init_registry_probe_round178.json
+  role: round178_runtime_init_registry_probe
+  size_bytes: 18997
+  sha256: bf780a9cabc59ed477eed7460760c21dfa4e18451788d963170e8ee3722fd6ed
+  missing: false
+- file_name: global_metadata_transform_probe_round167.json
+  role: round167_global_metadata_transform_probe
+  size_bytes: 127246
+  sha256: 2f13c2d0a455da2e4569473f0f5048ff6b70c9880fdd2cc1d9e876f9a4812ac8
+  missing: false
+registration_anchor:
+  codegen_modules_pointer_ref_rva: '0x43327b0'
+  codegen_modules_pointer_ref_section: .rdata
+  codegen_modules_count_field_rva: '0x43327a8'
+  declared_codegen_module_count: 98
+  codegen_modules_array_rva: '0x50a2840'
+  codegen_modules_array_va: '0x1850a2840'
+  field_owner_candidate_rva: '0x4332718'
+  field_owner_note: owner is inferred from the CodeRegistration-style count/pointer
+    field neighborhood; the exact CodeRegistration struct start is not named without
+    a recovered registration callsite
+module_array_summary:
+  declared_or_scanned_module_count: 98
+  parsed_module_count: 98
+  nonzero_method_module_count: 96
+  zero_method_module_count: 2
+  assembly_csharp_index: 5
+  assembly_csharp_struct_rva: '0x44196a0'
+  assembly_csharp_method_pointer_count: 30078
+  assembly_csharp_method_pointer_table_rva: '0x50b9840'
+  assembly_csharp_firstpass_index: 4
+  assembly_csharp_firstpass_struct_rva: '0x4416490'
+  assembly_csharp_firstpass_method_pointer_count: 354
+  sample_modules:
+  - index: 0
+    module_name: AVProVideo.Extensions.Timeline.dll
+    method_pointer_count: 2
+    method_pointer_table_rva: '0x50f5980'
+  - index: 1
+    module_name: AVProVideo.Extensions.UnityUI.dll
+    method_pointer_count: 54
+    method_pointer_table_rva: '0x50f5990'
+  - index: 2
+    module_name: AVProVideo.Extensions.VisualEffectGraph.dll
+    method_pointer_count: 2
+    method_pointer_table_rva: '0x50f5b40'
+  - index: 3
+    module_name: AVProVideo.Runtime.dll
+    method_pointer_count: 1318
+    method_pointer_table_rva: '0x50f5b50'
+  - index: 4
+    module_name: Assembly-CSharp-firstpass.dll
+    method_pointer_count: 354
+    method_pointer_table_rva: '0x50b8c70'
+  - index: 5
+    module_name: Assembly-CSharp.dll
+    method_pointer_count: 30078
+    method_pointer_table_rva: '0x50b9840'
+  - index: 6
+    module_name: Coffee.UIParticle.dll
+    method_pointer_count: 127
+    method_pointer_table_rva: '0x50f8550'
+  - index: 7
+    module_name: DOTween.dll
+    method_pointer_count: 1167
+    method_pointer_table_rva: '0x519bba0'
+  - index: 8
+    module_name: DocumentFormat.OpenXml.dll
+    method_pointer_count: 67261
+    method_pointer_table_rva: '0x50ff640'
+  - index: 9
+    module_name: DocumentFormat.OpenXml.Framework.dll
+    method_pointer_count: 3174
+    method_pointer_table_rva: '0x50f8950'
+  - index: 10
+    module_name: HYGames.DynamicAtlas.Runtime.dll
+    method_pointer_count: 540
+    method_pointer_table_rva: '0x519ea60'
+  - index: 11
+    module_name: HYGames.DynamicAtlas.Runtime.Integration.dll
+    method_pointer_count: 245
+    method_pointer_table_rva: '0x519e1b0'
+  - index: 12
+    module_name: LitJson.dll
+    method_pointer_count: 389
+    method_pointer_table_rva: '0x541ca40'
+  - index: 13
+    module_name: Mono.Security.dll
+    method_pointer_count: 594
+    method_pointer_table_rva: '0x541d730'
+  - index: 14
+    module_name: Sentry.dll
+    method_pointer_count: 3528
+    method_pointer_table_rva: '0x5459cb0'
+  - index: 15
+    module_name: Sentry.Microsoft.Bcl.AsyncInterfaces.dll
+    method_pointer_count: 46
+    method_pointer_table_rva: '0x543df60'
+code_ref_summary:
+  available: true
+  searched_target_count: 3
+  code_ref_count: 0
+  code_refs: []
+counts:
+  codegen_modules_field_candidate_count: 1
+  declared_codegen_module_count: 98
+  parsed_codegen_module_count: 98
+  nonzero_method_module_count: 96
+  assembly_csharp_index: 5
+  assembly_csharp_method_pointer_count: 30078
+  registration_anchor_code_ref_count: 0
+  metadata_registration_candidate_count: 0
+  metadata_registration_callsite_count: 0
+  method_index_to_pointer_map_recovered: 0
+  init_lua_env_method_pointer_recovered: 0
+  publishable_knowledge_entries: 0
+route_conclusion:
+  codegen_registration_anchor_found: true
+  full_codegen_module_array_recovered: true
+  assembly_csharp_module_index_found: true
+  codegen_registration_callsite_recovered: false
+  metadata_registration_candidate_recovered: false
+  method_index_to_pointer_map_recovered: false
+  init_lua_env_method_pointer_recovered: false
+  protected_metadata_method_ownership_recovered: false
+  lua_payload_decoder_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: 'A CodeRegistration-side CodeGenModules count/pointer
+    field was found: 98 declared modules at 0x50a2840, with Assembly-CSharp.dll at
+    module index 5.'
+  strongest_negative_signal: No registration callsite or MetadataRegistration pairing
+    was recovered, so method names and InitLuaEnv ownership still cannot be mapped
+    to method pointers.
+  search_policy: Use the CodeGenModules field as a registration anchor, then recover
+    a CodeRegistration/MetadataRegistration pairing or decoded metadata before naming
+    any method pointer.
+evidence_refs:
+- NSLG_REGISTRATION_ANCHOR:round180:codegen-modules-field
+- NSLG_REGISTRATION_ANCHOR:round180:codegen-modules-array
+- NSLG_REGISTRATION_ANCHOR:round180:assembly-csharp-index
+next_static_targets:
+- Use Assembly-CSharp.dll CodeGenModule index 5 and method pointer table 0x50b9840
+  as registration-side anchors.
+- Recover the codegen registration function or registration-callsite arguments that
+  pair CodeRegistration with MetadataRegistration.
+- Recover protected metadata string/method-definition tables before mapping NSLGame.Patcher.GameUpdater.InitLuaEnv
+  to a method pointer.
+- Do not infer method names from CodeGenModule array order alone.
+limitations:
+- Offline/static probe only; no runtime attach, live instrumentation, account data,
+  or online protocol is used.
+- The CodeRegistration-side CodeGenModules field is found, but MetadataRegistration
+  is not paired by a recovered registration callsite.
+- Method pointer tables still do not expose method names without decoded metadata
+  or a proven metadata-registration map.
+- This artifact is decoder-routing evidence and must not be promoted as gameplay knowledge.
+guardrails:
+- offline/static GameAssembly registration anchor probe only; no live instrumentation,
+  account data, or online protocol data is included
+- CodeGenModules anchors do not name methods without decoded metadata or MetadataRegistration
+  ownership
+- InitLuaEnv ownership remains blocked until metadata-registration pairing or decoded
+  metadata exists
+- route evidence is not publishable gameplay knowledge

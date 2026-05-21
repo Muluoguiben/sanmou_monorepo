@@ -1,0 +1,3418 @@
+source_id: luascripts-textasset-round31
+source_url: local-nslg-client-luascripts
+source_site: nslg_client_luascripts
+generated_at: '2026-05-16T07:09:00.358917Z'
+bundle_name: CAB-6f8976987e2c6d3d11c101e0f5ec2aad
+total_container_entries: 7994
+total_data_entries: 1278
+cataloged_records: 104
+unique_stems: 16
+scenarios:
+- Scenario1
+- Scenario10
+- Scenario1000
+- Scenario1001
+- Scenario1002
+- Scenario1003
+- Scenario103
+- Scenario11
+- Scenario12
+- Scenario13
+- Scenario14
+- Scenario16
+- Scenario2
+- Scenario2001
+- Scenario3
+- Scenario3001
+- Scenario4
+- Scenario5
+- Scenario6
+- Scenario7
+- Scenario8
+- Scenario9
+- Scenario999
+kb_domain_counts:
+  building: 1
+  combat: 28
+  hero: 49
+  skill: 27
+  story_plot: 23
+  unknown: 1
+extraction_status_counts:
+  obfuscated_binary_pending_decoder: 104
+high_value_stems:
+- army_config
+- battle_record
+- battle_replay
+- battle_reports
+- custom_hero
+- hero_propose
+- hero_story
+- hero_talent
+- heros
+- sandbox_battle_config
+- scene_building_skill
+- skills
+- super_skill
+- warbook
+- water_battle
+limitations:
+- catalog records are sanitized metadata from offline Unity TextAsset extraction,
+  not reviewed knowledge entries
+- payload samples are currently obfuscated or encrypted binary unless extraction_status
+  says otherwise
+- catalog intentionally omits absolute local install paths and runtime-cache paths
+records:
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xa488d4186ddd8982
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario1/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario1
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0xa488d4186ddd8982'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x1257b7f970d539bf
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario1
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0x1257b7f970d539bf'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xe6f42a218b2553
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario1
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0xe6f42a218b2553'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xe74bfbbff51f5870
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario1
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0xe74bfbbff51f5870'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x7ff8c1303d007579
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario10/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario10
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0x7ff8c1303d007579'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x7241b95bfeb892db
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario10
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0x7241b95bfeb892db'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xdfefdea1c0b0d0b3
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario10
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0xdfefdea1c0b0d0b3'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xc5396ebce2b4603
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario10
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0xc5396ebce2b4603'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x26e91e6951bc67ad
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario1000/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario1000
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0x26e91e6951bc67ad'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0xf569ca10d6040cf2
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario1000
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0xf569ca10d6040cf2'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xc79520633d64caab
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario1000
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0xc79520633d64caab'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xdbb2059174ff15ac
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario1000
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0xdbb2059174ff15ac'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x7ca4367fd632fd6c
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario1001/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario1001
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0x7ca4367fd632fd6c'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0xe1f808a7796a0b28
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario1001
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0xe1f808a7796a0b28'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x4dee599a705003dc
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario1001
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0x4dee599a705003dc'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x6902ba4c08b7c02a
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario1001/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario1001
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0x6902ba4c08b7c02a'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xbffb1615c640ef38
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario1002/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario1002
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0xbffb1615c640ef38'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0xff50ab4ca1805a48
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario1002
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0xff50ab4ca1805a48'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x6e08b7320ab564ae
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario1002
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0x6e08b7320ab564ae'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xaf69fb15b51b07cc
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario1002/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario1002
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0xaf69fb15b51b07cc'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x6f6a7a599e13edb5
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario1003/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario1003
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0x6f6a7a599e13edb5'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x79db0c44c70d52c1
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario1003
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0x79db0c44c70d52c1'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x2e3a9d969f2899ee
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario1003
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0x2e3a9d969f2899ee'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x340cc60559be2c2a
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario1003/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario1003
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0x340cc60559be2c2a'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xf1e0a616dd0d287b
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario103/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario103
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0xf1e0a616dd0d287b'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x8aae3d327cfacea2
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario103/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario103
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0x8aae3d327cfacea2'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xd665df60ce6900f8
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario103/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario103
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0xd665df60ce6900f8'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xb1c06fe424e13acd
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario103/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario103
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0xb1c06fe424e13acd'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x77c395d0858ce290
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario11/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario11
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0x77c395d0858ce290'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x861d40cef7d42081
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario11/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario11
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0x861d40cef7d42081'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xa608ce81b405cd0e
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario11/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario11
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0xa608ce81b405cd0e'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x12769ba7f1784843
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario11/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario11
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0x12769ba7f1784843'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x593208a12cbe6599
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario12/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario12
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0x593208a12cbe6599'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x19b5d05f04f77dbb
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario12/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario12
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0x19b5d05f04f77dbb'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x49974e83c16e94ee
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario12/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario12
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0x49974e83c16e94ee'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x2f2e9df9d4a23c67
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario12/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario12
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0x2f2e9df9d4a23c67'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x7444b79bf30f1ce9
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario13/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario13
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0x7444b79bf30f1ce9'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x730550c0b77f838e
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario13/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario13
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0x730550c0b77f838e'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x83bc38c9378660ab
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario13/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario13
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0x83bc38c9378660ab'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xaf9feb30e5eddb90
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario13/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario13
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0xaf9feb30e5eddb90'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x721eaceb04e92240
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario14/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario14
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0x721eaceb04e92240'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0xd2e8f76eefe8f625
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario14/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario14
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0xd2e8f76eefe8f625'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x487dfb220676db73
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario14/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario14
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0x487dfb220676db73'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x168ee217c9e5a49b
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario14/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario14
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0x168ee217c9e5a49b'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x56087ad9e2f41dc0
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario16/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario16
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0x56087ad9e2f41dc0'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x6b6dfe031f22b3ec
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario16/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario16
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0x6b6dfe031f22b3ec'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x52da34e0bbf7ba8
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario16/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario16
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0x52da34e0bbf7ba8'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x9ad3d587a79fd10f
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario16/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario16
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0x9ad3d587a79fd10f'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x3138da92d5ec4760
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario2/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario2
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0x3138da92d5ec4760'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x783491f36e72b230
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario2/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario2
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0x783491f36e72b230'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xd2fa5cbac750c4e6
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario2/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario2
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0xd2fa5cbac750c4e6'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x8ac0ca4cfe048fb1
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario2/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario2
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0x8ac0ca4cfe048fb1'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x437dcdf2db5f07b9
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario2001/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario2001
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0x437dcdf2db5f07b9'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x20e76ce3d65c232
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario2001/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario2001
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0x20e76ce3d65c232'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x7acb35a09139350b
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario2001/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario2001
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0x7acb35a09139350b'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xf48db81bfe11a8fb
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario2001/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario2001
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0xf48db81bfe11a8fb'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xb6b300f058565619
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario3/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario3
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0xb6b300f058565619'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x1173612878377885
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario3/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario3
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0x1173612878377885'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xff8d1bb9219aed8d
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario3/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario3
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0xff8d1bb9219aed8d'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x5a33b08827c0b7e2
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario3/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario3
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0x5a33b08827c0b7e2'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xaa18706955efe9c7
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario3001/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario3001
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0xaa18706955efe9c7'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0xd75d6d0912cd0
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario3001/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario3001
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0xd75d6d0912cd0'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xe08c70a5b8780b92
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario3001/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario3001
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0xe08c70a5b8780b92'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xbf932c06f26d5dc3
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario3001/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario3001
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0xbf932c06f26d5dc3'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x3110b9198cd785c1
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario4/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario4
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0x3110b9198cd785c1'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x2220e0273b0ad0ef
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario4/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario4
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0x2220e0273b0ad0ef'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xc11151b37ae80b5d
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario4/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario4
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0xc11151b37ae80b5d'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xa93c6f06e128dfcc
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario4/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario4
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0xa93c6f06e128dfcc'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xc5fdef621c1739aa
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario5/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario5
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0xc5fdef621c1739aa'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0xf6e1c2debd00789f
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario5/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario5
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0xf6e1c2debd00789f'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x9b62636c295c27ae
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario5/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario5
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0x9b62636c295c27ae'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x3236dc1ebda5f162
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario5/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario5
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0x3236dc1ebda5f162'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xb6f88a4b72e521d6
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario6/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario6
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0xb6f88a4b72e521d6'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x4aec4bc141f13798
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario6/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario6
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0x4aec4bc141f13798'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xa340610a0d6eaa16
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario6/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario6
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0xa340610a0d6eaa16'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x5e94ff98797f073b
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario6/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario6
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0x5e94ff98797f073b'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x5cc5a4acc8b746ba
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario7/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario7
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0x5cc5a4acc8b746ba'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x66b96943a779d080
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario7/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario7
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0x66b96943a779d080'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xf2dc1350f5af003f
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario7/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario7
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0xf2dc1350f5af003f'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x4e43e14d178215f9
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario7/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario7
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0x4e43e14d178215f9'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xaaaae94420d9331d
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario8/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario8
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0xaaaae94420d9331d'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x3fead4930e1a881a
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario8/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario8
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0x3fead4930e1a881a'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xc538defdc79be1bb
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario8/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario8
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0xc538defdc79be1bb'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xaf2411ce16748227
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario8/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario8
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0xaf2411ce16748227'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xfaec644eddcec630
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario9/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario9
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0xfaec644eddcec630'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x53569516c05f1058
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario9/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario9
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0x53569516c05f1058'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xef2d73d9b7f1df30
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario9/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario9
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0xef2d73d9b7f1df30'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xd60e6fa314ca59ca
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario9/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario9
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0xd60e6fa314ca59ca'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x8a243e59938b58d4
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario999/army/army_config.bytes
+  stem: army_config
+  scenario: Scenario999
+  asset_group: army
+  kb_domains:
+  - combat
+  path_id_hex: '0x8a243e59938b58d4'
+  script_len: 18352
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  printable_score: 0.3953
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0xa225ed69ecfad6da
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario999/hero_propose.bytes
+  stem: hero_propose
+  scenario: Scenario999
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0xa225ed69ecfad6da'
+  script_len: 2032
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  printable_score: 0.3829
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x852b8ee2bcd2924e
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario999/skill/super_skill.bytes
+  stem: super_skill
+  scenario: Scenario999
+  asset_group: skill
+  kb_domains:
+  - skill
+  path_id_hex: '0x852b8ee2bcd2924e'
+  script_len: 2320
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  printable_score: 0.3966
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x6baaf337adc8e2bf
+  asset_path: Assets/Bundles/LuaScripts/Data/Scenario999/story/hero_story.bytes
+  stem: hero_story
+  scenario: Scenario999
+  asset_group: story
+  kb_domains:
+  - hero
+  - story_plot
+  path_id_hex: '0x6baaf337adc8e2bf'
+  script_len: 2336
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  printable_score: 0.3814
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:battle_record:0x5a69023b2efb158d
+  asset_path: Assets/Bundles/LuaScripts/Data/battle_record.bytes
+  stem: battle_record
+  scenario: null
+  asset_group: null
+  kb_domains:
+  - combat
+  path_id_hex: '0x5a69023b2efb158d'
+  script_len: 2512
+  sha1: 9403f9f38e241167787fc548f53a41bf6f925b2e
+  printable_score: 0.3901
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/battle_record.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:battle_replay:0xcbe6217592435c3e
+  asset_path: Assets/Bundles/LuaScripts/Data/battle_replay.bytes
+  stem: battle_replay
+  scenario: null
+  asset_group: null
+  kb_domains:
+  - combat
+  path_id_hex: '0xcbe6217592435c3e'
+  script_len: 4320
+  sha1: 5b49106f8a24de73e2ebe84d207794e449ea9f6c
+  printable_score: 0.3887
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/battle_replay.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:battle_reports:0xc04e79a4be573ba7
+  asset_path: Assets/Bundles/LuaScripts/Data/battle_reports.bytes
+  stem: battle_reports
+  scenario: null
+  asset_group: null
+  kb_domains:
+  - combat
+  path_id_hex: '0xc04e79a4be573ba7'
+  script_len: 1904
+  sha1: f6440d6607bb6c9a1fe4770f3f6862a693a00a67
+  printable_score: 0.3803
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/battle_reports.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:custom_hero:0xb01c10da8b502bf3
+  asset_path: Assets/Bundles/LuaScripts/Data/custom_hero.bytes
+  stem: custom_hero
+  scenario: null
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0xb01c10da8b502bf3'
+  script_len: 19392
+  sha1: 369b5ad7aa9cf24f665fffa019c19842c16e7454
+  printable_score: 0.3704
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/custom_hero.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_talent:0x70fd56d85f06ca81
+  asset_path: Assets/Bundles/LuaScripts/Data/hero_talent.bytes
+  stem: hero_talent
+  scenario: null
+  asset_group: null
+  kb_domains:
+  - hero
+  - skill
+  path_id_hex: '0x70fd56d85f06ca81'
+  script_len: 2096
+  sha1: 35f23f533e7c0f5e5572ad4231d2d67583005543
+  printable_score: 0.3793
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/hero_talent.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:heros:0x2152b542dfcaf0df
+  asset_path: Assets/Bundles/LuaScripts/Data/heros.bytes
+  stem: heros
+  scenario: null
+  asset_group: null
+  kb_domains:
+  - hero
+  path_id_hex: '0x2152b542dfcaf0df'
+  script_len: 23232
+  sha1: 77d04fdc1d4a5d667351369a3ebbaedbd6b38689
+  printable_score: 0.3708
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/heros.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:lineup_assistant:0x257423ff09641de5
+  asset_path: Assets/Bundles/LuaScripts/Data/lineup_assistant.bytes
+  stem: lineup_assistant
+  scenario: null
+  asset_group: null
+  kb_domains:
+  - unknown
+  path_id_hex: '0x257423ff09641de5'
+  script_len: 22608
+  sha1: 50c865abf3ce09ba5735d2f7297f7183257883e5
+  printable_score: 0.3813
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/lineup_assistant.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:sandbox_battle_config:0x86cc9bc6dd7483ce
+  asset_path: Assets/Bundles/LuaScripts/Data/sandbox_battle_config.bytes
+  stem: sandbox_battle_config
+  scenario: null
+  asset_group: null
+  kb_domains:
+  - combat
+  path_id_hex: '0x86cc9bc6dd7483ce'
+  script_len: 3568
+  sha1: d6f7429552e01428238a0294baf440f295c2380a
+  printable_score: 0.3957
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/sandbox_battle_config.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:scene_building_skill:0x3a34845192ffb4d0
+  asset_path: Assets/Bundles/LuaScripts/Data/skill/scene_building_skill.bytes
+  stem: scene_building_skill
+  scenario: null
+  asset_group: null
+  kb_domains:
+  - skill
+  - building
+  path_id_hex: '0x3a34845192ffb4d0'
+  script_len: 1136
+  sha1: 455dd2e5e5ec41a7b1d1e1c0328a6df37421b9f2
+  printable_score: 0.3768
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/scene_building_skill.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:skills:0xc5a9e6f261f4d377
+  asset_path: Assets/Bundles/LuaScripts/Data/skill/skills.bytes
+  stem: skills
+  scenario: null
+  asset_group: null
+  kb_domains:
+  - skill
+  path_id_hex: '0xc5a9e6f261f4d377'
+  script_len: 51760
+  sha1: 58945250821435c55d8d7a2cf6ccd51b22f62dfd
+  printable_score: 0.3911
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/skills.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:warbook:0x1c594c47d614f353
+  asset_path: Assets/Bundles/LuaScripts/Data/warbook.bytes
+  stem: warbook
+  scenario: null
+  asset_group: null
+  kb_domains:
+  - skill
+  path_id_hex: '0x1c594c47d614f353'
+  script_len: 12144
+  sha1: 6304156ae74bf59348bf7f30f07bf6e6ad4a5c39
+  printable_score: 0.396
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: LZ4BlockError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/warbook.bytes.bin
+- evidence_ref: NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:water_battle:0x4526f038e796965c
+  asset_path: Assets/Bundles/LuaScripts/Data/water_battle.bytes
+  stem: water_battle
+  scenario: null
+  asset_group: null
+  kb_domains:
+  - combat
+  path_id_hex: '0x4526f038e796965c'
+  script_len: 1328
+  sha1: 19cf2774c47586f46e80d737ede0c9658a3737ba
+  printable_score: 0.3833
+  extraction_status: obfuscated_binary_pending_decoder
+  decoder_attempts:
+  - name: zlib
+    ok: false
+    error_type: error
+  - name: gzip
+    ok: false
+    error_type: BadGzipFile
+  - name: lzma
+    ok: false
+    error_type: LZMAError
+  - name: bz2
+    ok: false
+    error_type: OSError
+  - name: lz4_frame
+    ok: false
+    error_type: RuntimeError
+  - name: lz4_block_no_size
+    ok: false
+    error_type: ValueError
+  extracted_artifact: threads/artifacts/round31_luascripts_textassets/water_battle.bytes.bin

@@ -1,0 +1,508 @@
+schema_version: nslg.global_metadata_transform_probe.v1
+source_id: global-metadata-transform-probe-round64
+source_url: local-nslg-client-global-metadata-transform-probe
+source_site: nslg_client_global_metadata
+generated_at: '2026-05-20T16:10:41.888893Z'
+round: 167
+slice: global_metadata_header_transform_probe
+input_artifacts:
+- file_name: global_metadata_structure_round72.json
+  sha256: 9b3a1ed9104d5095fa5eb6dc4cb071f0766f255dd43f50dc1b7c537004049db6
+  missing: false
+- file_name: metadata_magic_use_site_scan_round73.json
+  sha256: 45ffa7ca28d52c0b2a5fdf0b3aff273d60034810ec93f5a5210ed2da5ee31a80
+  missing: false
+- file_name: gameassembly_global_metadata_xref_function_triage_round105.json
+  sha256: 8fa471c83c2926ce91a5775f13880d56867ab57db676c95bad82409527d475c6
+  missing: false
+- file_name: runtime_init_metadata_route_round164.json
+  sha256: d5e6ca663a4b1f8aa64f4284302e7eeac7a98e05217bc0cf7e2d28a46ddd29b3
+  missing: false
+counts:
+  global_metadata_file_size: 21182776
+  protected_size_mod_16: 0
+  transform_candidate_count: 1314
+  needle_hit_candidate_count: 0
+  best_header_valid_pair_count: 0
+  repeated_block_duplicate_kinds_16: 20744
+  repeated_block_extra_instances_16: 143452
+  publishable_knowledge_entries: 0
+file_summary:
+  sha256: 34e4dbda23e22bee41eefd6b3bc3ff878ee6f010db40dab2424b68a84a42bb22
+  file_size: 21182776
+  word0: '0xfab11baf'
+  word1: 21182776
+  word1_equals_file_size: true
+  protected_offset: 8
+  protected_size: 21182768
+  protected_size_mod_16: 0
+  protected_entropy_first_4k: 7.511458759692413
+  protected_entropy_first_1m: 7.947271924252494
+transform_probe:
+  candidate_count: 1314
+  needle_hit_candidate_count: 0
+  tested_transform_families:
+  - identity
+  - bitwise_not
+  - nibble_swap
+  - byte rotate left/right
+  - dword byte-swap
+  - single-byte xor/add/sub
+  - 4-byte repeating xor keyed to common IL2CPP versions
+  - 4-byte repeating xor keyed to plausible first pair offsets
+  - dword add/sub with small constants, file size, payload size, and magic
+  best_header_candidates:
+  - name: dword_xor_to_inline_version
+    params:
+      version: 16
+      key_hex: '0x3846e25e'
+    header_score: 20
+    model: payload_starts_with_version
+    valid_pair_count: 0
+    monotonic_pair_count: 0
+    version_standard_int: true
+  - name: dword_xor_to_inline_version
+    params:
+      version: 19
+      key_hex: '0x3846e25d'
+    header_score: 20
+    model: payload_starts_with_version
+    valid_pair_count: 0
+    monotonic_pair_count: 0
+    version_standard_int: true
+  - name: dword_xor_to_inline_version
+    params:
+      version: 20
+      key_hex: '0x3846e25a'
+    header_score: 20
+    model: payload_starts_with_version
+    valid_pair_count: 0
+    monotonic_pair_count: 0
+    version_standard_int: true
+  - name: dword_xor_to_inline_version
+    params:
+      version: 21
+      key_hex: '0x3846e25b'
+    header_score: 20
+    model: payload_starts_with_version
+    valid_pair_count: 0
+    monotonic_pair_count: 0
+    version_standard_int: true
+  - name: dword_xor_to_inline_version
+    params:
+      version: 22
+      key_hex: '0x3846e258'
+    header_score: 20
+    model: payload_starts_with_version
+    valid_pair_count: 0
+    monotonic_pair_count: 0
+    version_standard_int: true
+  - name: dword_xor_to_inline_version
+    params:
+      version: 23
+      key_hex: '0x3846e259'
+    header_score: 20
+    model: payload_starts_with_version
+    valid_pair_count: 0
+    monotonic_pair_count: 0
+    version_standard_int: true
+  - name: dword_xor_to_inline_version
+    params:
+      version: 24
+      key_hex: '0x3846e256'
+    header_score: 20
+    model: payload_starts_with_version
+    valid_pair_count: 0
+    monotonic_pair_count: 0
+    version_standard_int: true
+  - name: dword_xor_to_inline_version
+    params:
+      version: 27
+      key_hex: '0x3846e255'
+    header_score: 20
+    model: payload_starts_with_version
+    valid_pair_count: 0
+    monotonic_pair_count: 0
+    version_standard_int: true
+  - name: dword_xor_to_inline_version
+    params:
+      version: 29
+      key_hex: '0x3846e253'
+    header_score: 20
+    model: payload_starts_with_version
+    valid_pair_count: 0
+    monotonic_pair_count: 0
+    version_standard_int: true
+  - name: dword_xor_to_inline_version
+    params:
+      version: 30
+      key_hex: '0x3846e250'
+    header_score: 20
+    model: payload_starts_with_version
+    valid_pair_count: 0
+    monotonic_pair_count: 0
+    version_standard_int: true
+  - name: dword_xor_to_inline_version
+    params:
+      version: 31
+      key_hex: '0x3846e251'
+    header_score: 20
+    model: payload_starts_with_version
+    valid_pair_count: 0
+    monotonic_pair_count: 0
+    version_standard_int: true
+  - name: identity
+    params: {}
+    header_score: 0
+    model: payload_starts_with_version
+    valid_pair_count: 0
+    monotonic_pair_count: 0
+    version_standard_int: false
+  - name: bitwise_not
+    params: {}
+    header_score: 0
+    model: payload_starts_with_version
+    valid_pair_count: 0
+    monotonic_pair_count: 0
+    version_standard_int: false
+  - name: nibble_swap
+    params: {}
+    header_score: 0
+    model: payload_starts_with_version
+    valid_pair_count: 0
+    monotonic_pair_count: 0
+    version_standard_int: false
+  - name: bswap_dwords
+    params: {}
+    header_score: 0
+    model: payload_starts_with_version
+    valid_pair_count: 0
+    monotonic_pair_count: 0
+    version_standard_int: false
+  - name: rol_byte
+    params:
+      shift: 1
+    header_score: 0
+    model: payload_starts_with_version
+    valid_pair_count: 0
+    monotonic_pair_count: 0
+    version_standard_int: false
+  - name: rotr_byte
+    params:
+      shift: 1
+    header_score: 0
+    model: payload_starts_with_version
+    valid_pair_count: 0
+    monotonic_pair_count: 0
+    version_standard_int: false
+  - name: rol_byte
+    params:
+      shift: 2
+    header_score: 0
+    model: payload_starts_with_version
+    valid_pair_count: 0
+    monotonic_pair_count: 0
+    version_standard_int: false
+  - name: rotr_byte
+    params:
+      shift: 2
+    header_score: 0
+    model: payload_starts_with_version
+    valid_pair_count: 0
+    monotonic_pair_count: 0
+    version_standard_int: false
+  - name: rol_byte
+    params:
+      shift: 3
+    header_score: 0
+    model: payload_starts_with_version
+    valid_pair_count: 0
+    monotonic_pair_count: 0
+    version_standard_int: false
+  needle_hit_candidates: []
+repeated_block_probe:
+  by_block_size:
+  - block_size: 8
+    total_blocks: 2647846
+    unique_blocks: 1901332
+    duplicate_block_kinds: 96391
+    duplicate_extra_instances: 746514
+    max_repetition: 3154
+    top_repeated_blocks:
+    - block_hex: 705b1a7d5c728d63
+      count: 3154
+      sample_file_offsets:
+      - '0x433a88'
+      - '0x435108'
+      - '0x435e88'
+      - '0x436308'
+      - '0x436788'
+      - '0x437088'
+    - block_hex: 03db421bea1caf6b
+      count: 3130
+      sample_file_offsets:
+      - '0x434cd0'
+      - '0x435150'
+      - '0x435ed0'
+      - '0x436350'
+      - '0x4370d0'
+      - '0x437550'
+    - block_hex: 6f16d6cf785f300f
+      count: 3122
+      sample_file_offsets:
+      - '0x434da8'
+      - '0x435228'
+      - '0x435fa8'
+      - '0x436428'
+      - '0x436d28'
+      - '0x437628'
+    - block_hex: 572ddf9567d8bf39
+      count: 3102
+      sample_file_offsets:
+      - '0x4339f8'
+      - '0x435078'
+      - '0x436278'
+      - '0x436b78'
+      - '0x436ff8'
+      - '0x437d78'
+    - block_hex: 685caaecda1c8ceb
+      count: 3084
+      sample_file_offsets:
+      - '0x433e30'
+      - '0x4342b0'
+      - '0x435030'
+      - '0x4354b0'
+      - '0x435db0'
+      - '0x436230'
+    - block_hex: cf6178127820b93b
+      count: 3083
+      sample_file_offsets:
+      - '0x433cc8'
+      - '0x434148'
+      - '0x434ec8'
+      - '0x435348'
+      - '0x4360c8'
+      - '0x436548'
+    - block_hex: 07b5447aec4cc3e8
+      count: 3074
+      sample_file_offsets:
+      - '0x433bf0'
+      - '0x434070'
+      - '0x434df0'
+      - '0x435270'
+      - '0x435ff0'
+      - '0x436470'
+    - block_hex: 9c14bf6b62b679eb
+      count: 2932
+      sample_file_offsets:
+      - '0x433a40'
+      - '0x433ec0'
+      - '0x434340'
+      - '0x434c40'
+      - '0x4350c0'
+      - '0x435e40'
+  - block_size: 16
+    total_blocks: 1323923
+    unique_blocks: 1180471
+    duplicate_block_kinds: 20744
+    duplicate_extra_instances: 143452
+    max_repetition: 696
+    top_repeated_blocks:
+    - block_hex: 99f0b2141beb61209c14bf6b62b679eb
+      count: 696
+      sample_file_offsets:
+      - '0x433eb8'
+      - '0x434338'
+      - '0x434c38'
+      - '0x436738'
+      - '0x437938'
+      - '0x4386b8'
+    - block_hex: bd3487ed87df46cc03db421bea1caf6b
+      count: 691
+      sample_file_offsets:
+      - '0x434cc8'
+      - '0x438bc8'
+      - '0x43cac8'
+      - '0x43e148'
+      - '0x4424c8'
+      - '0x4436c8'
+    - block_hex: c554d44055e8de048efdbbdbc7683f71
+      count: 690
+      sample_file_offsets:
+      - '0x435d18'
+      - '0x437398'
+      - '0x438a18'
+      - '0x439318'
+      - '0x441598'
+      - '0x442c18'
+    - block_hex: c58cf71517a288ce07b5447aec4cc3e8
+      count: 689
+      sample_file_offsets:
+      - '0x434068'
+      - '0x436d68'
+      - '0x4383e8'
+      - '0x438868'
+      - '0x438ce8'
+      - '0x439168'
+    - block_hex: 1d43293087a0cff8685caaecda1c8ceb
+      count: 689
+      sample_file_offsets:
+      - '0x4342a8'
+      - '0x4354a8'
+      - '0x435da8'
+      - '0x437428'
+      - '0x438628'
+      - '0x439ca8'
+    - block_hex: 3978206a852740ce8813ba74f0241e86
+      count: 686
+      sample_file_offsets:
+      - '0x436978'
+      - '0x439f78'
+      - '0x43d9f8'
+      - '0x43f078'
+      - '0x4433f8'
+      - '0x444ef8'
+    - block_hex: c9162e5f6cb2b62f2885ad710d0b7012
+      count: 681
+      sample_file_offsets:
+      - '0x436858'
+      - '0x437158'
+      - '0x437a58'
+      - '0x4399d8'
+      - '0x43a2d8'
+      - '0x43a758'
+    - block_hex: 5744f220b26d4694437751d1dda031f4
+      count: 660
+      sample_file_offsets:
+      - '0x43e388'
+      - '0x443908'
+      - '0x444208'
+      - '0x445408'
+      - '0x447388'
+      - '0x449788'
+  - block_size: 32
+    total_blocks: 661961
+    unique_blocks: 617246
+    duplicate_block_kinds: 6039
+    duplicate_extra_instances: 44715
+    max_repetition: 178
+    top_repeated_blocks:
+    - block_hex: 58e287ed81df46c41e10bde411e35094bac02e5f7cb2b627a906528ee3f48fed
+      count: 178
+      sample_file_offsets:
+      - '0xff2148'
+      - '0xff22c8'
+      - '0xff25c8'
+      - '0xff2748'
+      - '0xff2a48'
+      - '0xff2bc8'
+    - block_hex: 3092f220b76d469cd4f4ae2e245fce0baacad44051e8de0c9b7e44243d97c08e
+      count: 176
+      sample_file_offsets:
+      - '0xff2308'
+      - '0xff2608'
+      - '0xff2788'
+      - '0xff2a88'
+      - '0xff2c08'
+      - '0xff2f08'
+    - block_hex: 7a95293082a0cff0ffdf551323e373143eff57ae9775c298d7f9c394e6f55275
+      count: 175
+      sample_file_offsets:
+      - '0xff2128'
+      - '0xff22a8'
+      - '0xff25a8'
+      - '0xff2728'
+      - '0xff2a28'
+      - '0xff2ba8'
+    - block_hex: aa12f71513a288c61236bb8516b33c17c0ae206a9e2740c68bd8458b14dbe179
+      count: 175
+      sample_file_offsets:
+      - '0xff22e8'
+      - '0xff25e8'
+      - '0xff2768'
+      - '0xff2a68'
+      - '0xff2be8'
+      - '0xff2ee8'
+    - block_hex: 6d90e582a78d729c0bc79d0c3893ae25a71c77f0dadbd89821d9c5df794c792e
+      count: 174
+      sample_file_offsets:
+      - '0xff2108'
+      - '0xff2288'
+      - '0xff2588'
+      - '0xff2708'
+      - '0xff2a08'
+      - '0xff2b88'
+    - block_hex: 5d15b1fce3ead8526d77611377d04036fe26b2141eeb61280b9740949b498614
+      count: 174
+      sample_file_offsets:
+      - '0xff2328'
+      - '0xff2628'
+      - '0xff27a8'
+      - '0xff2aa8'
+      - '0xff2c28'
+      - '0xff2f28'
+    - block_hex: 402cbbd973c72682e8d907568fc6198aa9ae98e9767ed6092e158c20a49a0ced
+      count: 172
+      sample_file_offsets:
+      - '0xff21c8'
+      - '0xff2348'
+      - '0xff2648'
+      - '0xff27c8'
+      - '0xff2ac8'
+      - '0xff2c48'
+    - block_hex: 877edbfe12ef19e22bb62349a2aa7e2f029eece00249f670835c25a5cdddba43
+      count: 172
+      sample_file_offsets:
+      - '0xff21e8'
+      - '0xff2368'
+      - '0xff2668'
+      - '0xff27e8'
+      - '0xff2ae8'
+      - '0xff2c68'
+route_conclusion:
+  protected_wrapper_confirmed: true
+  plaintext_metadata_recovered: false
+  init_lua_env_method_ownership_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  verdict:
+  - 'The file remains a protected IL2CPP metadata wrapper: magic is intact, word1
+    is file size, and the protected payload starts at +8.'
+  - The bounded transform probe did not recover a plausible IL2CPP header or known
+    metadata plaintext strings.
+  - Single-byte xor/add/sub, byte rotations, nibble swap, dword byte-swap, simple
+    4-byte repeating xor, and small dword add/sub transforms are not enough to recover
+    the metadata.
+  - The repeated aligned-block pressure still points to a deterministic block-oriented
+    protection layer rather than a plaintext metadata table.
+  - This round does not recover NSLGame.Patcher.GameUpdater.InitLuaEnv method ownership.
+next_static_targets:
+- Pivot from file-only transforms to the loader mutation point that consumes global-metadata.dat
+  +8 payload bytes.
+- Prioritize NEP2 or GameAssembly functions that combine CreateFile/ReadFile/MapViewOfFile
+  with 16-byte loops and references to metadata wrapper constants.
+- Use recovered metadata only after a transform yields standard IL2CPP header pairs
+  plus readable Assembly-CSharp/NSLGame strings.
+- If method ownership is recovered later, re-check InitLuaEnv, TextAsset.get_bytes,
+  and xLua loadbuffer handoff using that address-level evidence.
+limitations:
+- Offline/static only; no runtime attach, live Frida, account data, credentials, or
+  online protocol were used.
+- This is a bounded transform probe, not an exhaustive cryptanalytic attack.
+- No decoded game configuration or publishable gameplay knowledge is produced by this
+  artifact.
+- Absolute local paths are intentionally kept out of qa-agent import artifacts; binary
+  identity should be tracked by hash.
+evidence_refs:
+- NSLG_GLOBAL_METADATA_TRANSFORM:global-metadata-transform-probe-round167:wrapper
+- NSLG_GLOBAL_METADATA_TRANSFORM:global-metadata-transform-probe-round167:transform-probe
+- NSLG_GLOBAL_METADATA_TRANSFORM:global-metadata-transform-probe-round167:repeated-block-signal
+guardrails:
+- offline/static transform probe only; no live instrumentation, account data, or online
+  protocol data is included
+- absolute local paths are not persisted; only file names, hashes, counts, and sanitized
+  probe summaries are stored
+- negative transform evidence is decoder-planning evidence and must not be promoted
+  as gameplay knowledge
+- standard IL2CPP header pairs and readable Assembly-CSharp/NSLGame strings are required
+  before metadata recovery is accepted

@@ -1,0 +1,167 @@
+schema_version: nslg.gameassembly_global_metadata_owner_probe.v1
+source_id: gameassembly-global-metadata-owner-probe-round127
+source_url: local-nslg-client-gameassembly-global-metadata-owner-probe
+source_site: nslg_client_gameassembly_global_metadata_owner_probe
+generated_at: '2026-05-21T09:38:51.533377Z'
+round: 188
+slice: gameassembly_global_metadata_owner_probe
+input_artifacts:
+- file_name: GameAssembly.dll
+  sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  missing: false
+- file_name: gameassembly_initializer_dispatch_trace_round183.json
+  sha256: 563656088d5a6889e9e1d89d234716f18512e4fa05364408b890bb51fb6a41e6
+  missing: false
+- file_name: gameassembly_function_pointer_table_probe_round184.json
+  sha256: 20e129a19e1f35edb832161a3e8a12c5fa92a8e865da40a7cae0c0eb023d4a4b
+  missing: false
+- file_name: gameassembly_metadata_registration_candidate_taxonomy_round185.json
+  sha256: 10deacc8c6935dacb2f485ec7d6b4a28179a759479742bc8027e95fd84ed4a74
+  missing: false
+gameassembly_summary:
+  file_name: GameAssembly.dll
+  size_bytes: 94127168
+  sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  entry_rva: '0x5faa3c'
+  pdata_function_count: 290472
+selection_policy:
+  seed_rvas:
+    '0x55f6d0': round183_global_metadata_string_ref_function
+    '0x5736d0': round183_global_metadata_string_ref_function
+  caller_depth: 2
+  callee_depth: 1
+  candidate_window_source: Round185 exact-ref and high-count MetadataRegistration-like
+    windows
+  promotion_rule: require global-metadata string, file/mapping ownership, and MetadataRegistration
+    candidate or wrapper evidence in one static context before owner promotion
+counts:
+  target_count: 2
+  seed_function_count: 2
+  metadata_string_ref_function_count: 2
+  caller_context_function_count: 0
+  callee_context_function_count: 0
+  file_or_mapping_import_function_count: 0
+  metadata_candidate_ref_function_count: 0
+  loader_owner_candidate_count: 0
+  publishable_knowledge_entries: 0
+targets:
+- target_rva: '0x55f6d0'
+  function:
+    begin: '0x55f6d0'
+    end: '0x55f83a'
+    size: '0x16a'
+  contexts:
+  - seed_rva: '0x55f6d0'
+    seed_label: round183_global_metadata_string_ref_function
+    role: seed
+    depth: 0
+    path_length: 0
+  verdict: metadata_string_ref_without_file_or_registration_owner
+  counts:
+    instructions: 73
+    metadata_string_ref: 1
+    call_count: 8
+    imm:8: 4
+  imports: []
+  metadata_string_refs:
+  - rva: '0x55f6e0'
+    target_rva: '0x4d88a98'
+    terms:
+    - global-metadata.dat
+    - global-metadata
+    text: '0055f6e0: lea      rcx, [rip + 0x48293b1]'
+  metadata_candidate_refs: []
+  constants:
+  - rva: '0x55f767'
+    value: '0x8'
+    label: payload_offset_8
+    text: '0055f767: mov      edx, 8'
+  - rva: '0x55f7ad'
+    value: '0x8'
+    label: payload_offset_8
+    text: '0055f7ad: mov      edx, 8'
+  - rva: '0x55f7e3'
+    value: '0x8'
+    label: payload_offset_8
+    text: '0055f7e3: mov      edx, 8'
+  - rva: '0x55f7f8'
+    value: '0x8'
+    label: payload_offset_8
+    text: '0055f7f8: mov      edx, 8'
+  direct_caller_count: 0
+  direct_callee_count: 0
+  evidence_ref: NSLG_GAMEASSEMBLY_GLOBAL_METADATA_OWNER:gameassembly-global-metadata-owner-probe-round188:target:0x55f6d0
+- target_rva: '0x5736d0'
+  function:
+    begin: '0x5736d0'
+    end: '0x5739de'
+    size: '0x30e'
+  contexts:
+  - seed_rva: '0x5736d0'
+    seed_label: round183_global_metadata_string_ref_function
+    role: seed
+    depth: 0
+    path_length: 0
+  verdict: metadata_string_ref_without_file_or_registration_owner
+  counts:
+    instructions: 170
+    call_count: 42
+    metadata_string_ref: 1
+  imports: []
+  metadata_string_refs:
+  - rva: '0x573902'
+    target_rva: '0x4d8e180'
+    terms:
+    - global-metadata.dat
+    - 'global-metadata.dat size:'
+    - global-metadata
+    text: '00573902: lea      rdx, [rip + 0x481a877]'
+  metadata_candidate_refs: []
+  constants: []
+  direct_caller_count: 0
+  direct_callee_count: 0
+  evidence_ref: NSLG_GAMEASSEMBLY_GLOBAL_METADATA_OWNER:gameassembly-global-metadata-owner-probe-round188:target:0x5736d0
+route_conclusion:
+  global_metadata_owner_candidate_found: false
+  global_metadata_string_refs_confirmed: true
+  file_or_mapping_api_link_found: false
+  metadata_registration_candidate_link_found: false
+  metadata_registration_owner_recovered: false
+  protected_metadata_method_ownership_recovered: false
+  plaintext_metadata_recovered: false
+  init_lua_env_method_pointer_recovered: false
+  lua_payload_decoder_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: global-metadata string reference functions are present
+    but do not combine file/mapping APIs with MetadataRegistration candidate ownership
+  strongest_negative_signal: no inspected global-metadata seed/caller/callee context
+    proves protected metadata owner or readable metadata
+  search_policy: use global-metadata string refs as route evidence only until file-buffer
+    ownership or decoded metadata validates the owner
+evidence_refs:
+- NSLG_GAMEASSEMBLY_GLOBAL_METADATA_OWNER:gameassembly-global-metadata-owner-probe-round188:summary
+- NSLG_GAMEASSEMBLY_GLOBAL_METADATA_OWNER:gameassembly-global-metadata-owner-probe-round188:target:0x55f6d0
+- NSLG_GAMEASSEMBLY_GLOBAL_METADATA_OWNER:gameassembly-global-metadata-owner-probe-round188:target:0x5736d0
+next_static_targets:
+- Do not promote global-metadata string refs alone as loader ownership.
+- Prioritize protected global-metadata method-definition recovery or a file-buffer
+  owner that links to MetadataRegistration candidates.
+- Keep RuntimeInitializeOnLoads.json and CodeGenModule tables as route evidence until
+  decoded metadata maps names to method pointers.
+limitations:
+- Offline/static direct-call and local context probe only; no live Frida, runtime
+  attach, account data, credentials, or online protocol were used.
+- The probe covers the two known global-metadata string-ref functions plus bounded
+  caller/callee context; indirect dispatch and runtime-filled owners are out of scope.
+- No decoded protected metadata, LuaScripts payload, or publishable gameplay knowledge
+  is produced by this artifact.
+guardrails:
+- offline/static GameAssembly direct-call context scan only; no live instrumentation,
+  account data, or online protocol data is included
+- absolute local paths are not persisted; only file names, hashes, RVAs, counts, and
+  sanitized summaries are stored
+- global-metadata string references are route evidence only until file-buffer ownership
+  or decoded metadata validates the owner
+- no decoded protected metadata, LuaScripts payload, or gameplay knowledge is promoted
+  from this artifact

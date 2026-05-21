@@ -1,0 +1,788 @@
+schema_version: nslg.nep2_file_helper_caller_provenance.v1
+source_id: nep2-file-helper-caller-provenance-round124
+source_url: local-nslg-client-nep2-file-helper-caller-provenance
+source_site: nslg_client_nep2_file_helper_caller_provenance
+generated_at: '2026-05-21T09:24:58.991232Z'
+round: 187
+slice: nep2_file_helper_caller_provenance_static_trace
+input_artifacts:
+- file_name: nep2_vector_candidate_provenance_round186.json
+  sha256: b8dfea364cbedac6573bffb3d0859e1f3f908a9d874f68a2c2e3f558b7ebdfe2
+  missing: false
+nep2_file:
+  file_name: NEP2.dll
+  size_bytes: 40235512
+  sha256: 109b4af46054a534a4e3b815d022a9bd26709d5bd644cbba4c4d456d4b61f382
+  pdata_function_count: 42977
+selection_policy:
+  helper_seed_rvas:
+    '0xda90': round186_file_helper_reached_from_read_owner
+    '0xd720': round170_GetFileSizeEx_owner_calls_file_helper_0xda90
+    '0xd7c0': round170_GetFileSize_owner
+  caller_depth: 3
+  callee_depth: 2
+  payload_terms:
+  - global-metadata
+  - global-metadata.dat
+  - LuaScripts
+  - TextAsset
+  - SerializedFile
+  - Assembly-CSharp
+  - NSLGame
+  - InitLuaScriptsScan
+  - CGameProtector
+  - StreamingAssets
+  - AssetBundle
+  - resources.assets
+  - .lua
+  - .bytes
+  - .dat
+  purpose: close or promote the Round186 read-owner to file-helper route by checking
+    caller/callee payload ownership evidence
+counts:
+  target_count: 24
+  callee_path_from_helper_count: 19
+  negative_context_function_count: 24
+  caller_path_to_helper_count: 4
+  helper_seed_target_count: 3
+  read_mapping_import_function_count: 2
+  createfile_import_function_count: 1
+  payload_keyword_ref_function_count: 0
+  payload_keyword_caller_reaches_file_helper_count: 0
+  payload_keyword_callee_reached_from_file_helper_count: 0
+  publishable_knowledge_entries: 0
+targets:
+- target_rva: '0x9cd0'
+  function:
+    begin: '0x9cd0'
+    end: '0x9ceb'
+    size: '0x1b'
+  verdict: callee_from_file_helper_no_payload_refs
+  round186_verdict: ''
+  helper_seed: ''
+  counts:
+    instructions: 7
+  imports: []
+  payload_keyword_refs: []
+  direct_caller_count: 20
+  direct_callee_count: 0
+  paths_to_helper_seed: []
+  paths_from_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 2
+    path_length: 2
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x9cd0
+- target_rva: '0xa410'
+  function:
+    begin: '0xa410'
+    end: '0xa429'
+    size: '0x19'
+  verdict: callee_from_file_helper_no_payload_refs
+  round186_verdict: ''
+  helper_seed: ''
+  counts:
+    instructions: 7
+  imports: []
+  payload_keyword_refs: []
+  direct_caller_count: 37
+  direct_callee_count: 1
+  paths_to_helper_seed: []
+  paths_from_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 1
+    path_length: 1
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 1
+    path_length: 1
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 2
+    path_length: 2
+  - seed_rva: '0xd720'
+    seed_label: round170_GetFileSizeEx_owner_calls_file_helper_0xda90
+    depth: 2
+    path_length: 2
+  - seed_rva: '0xd720'
+    seed_label: round170_GetFileSizeEx_owner_calls_file_helper_0xda90
+    depth: 2
+    path_length: 2
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xa410
+- target_rva: '0xa4c0'
+  function:
+    begin: '0xa4c0'
+    end: '0xa53b'
+    size: '0x7b'
+  verdict: callee_from_file_helper_no_payload_refs
+  round186_verdict: ''
+  helper_seed: ''
+  counts:
+    instructions: 31
+    logic_transform_instruction: 2
+    backward_branch: 2
+  imports: []
+  payload_keyword_refs: []
+  direct_caller_count: 5
+  direct_callee_count: 2
+  paths_to_helper_seed: []
+  paths_from_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 2
+    path_length: 2
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xa4c0
+- target_rva: '0xa540'
+  function:
+    begin: '0xa540'
+    end: '0xa55b'
+    size: '0x1b'
+  verdict: callee_from_file_helper_no_payload_refs
+  round186_verdict: ''
+  helper_seed: ''
+  counts:
+    instructions: 9
+    logic_transform_instruction: 1
+  imports: []
+  payload_keyword_refs: []
+  direct_caller_count: 106
+  direct_callee_count: 0
+  paths_to_helper_seed: []
+  paths_from_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 1
+    path_length: 1
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 2
+    path_length: 2
+  - seed_rva: '0xd720'
+    seed_label: round170_GetFileSizeEx_owner_calls_file_helper_0xda90
+    depth: 2
+    path_length: 2
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xa540
+- target_rva: '0xafe0'
+  function:
+    begin: '0xafe0'
+    end: '0xafef'
+    size: '0xf'
+  verdict: callee_from_file_helper_no_payload_refs
+  round186_verdict: ''
+  helper_seed: ''
+  counts:
+    instructions: 5
+  imports: []
+  payload_keyword_refs: []
+  direct_caller_count: 4
+  direct_callee_count: 1
+  paths_to_helper_seed: []
+  paths_from_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 2
+    path_length: 2
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xafe0
+- target_rva: '0xb070'
+  function:
+    begin: '0xb070'
+    end: '0xb097'
+    size: '0x27'
+  verdict: callee_from_file_helper_no_payload_refs
+  round186_verdict: ''
+  helper_seed: ''
+  counts:
+    instructions: 9
+  imports: []
+  payload_keyword_refs: []
+  direct_caller_count: 1
+  direct_callee_count: 1
+  paths_to_helper_seed: []
+  paths_from_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 2
+    path_length: 2
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xb070
+- target_rva: '0xb0a0'
+  function:
+    begin: '0xb0a0'
+    end: '0xb0c6'
+    size: '0x26'
+  verdict: callee_from_file_helper_no_payload_refs
+  round186_verdict: ''
+  helper_seed: ''
+  counts:
+    instructions: 10
+  imports: []
+  payload_keyword_refs: []
+  direct_caller_count: 17
+  direct_callee_count: 2
+  paths_to_helper_seed: []
+  paths_from_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 1
+    path_length: 1
+  - seed_rva: '0xd720'
+    seed_label: round170_GetFileSizeEx_owner_calls_file_helper_0xda90
+    depth: 2
+    path_length: 2
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xb0a0
+- target_rva: '0xb4b0'
+  function:
+    begin: '0xb4b0'
+    end: '0xb880'
+    size: '0x3d0'
+  verdict: caller_reaches_file_helper_no_payload_refs
+  round186_verdict: ''
+  helper_seed: ''
+  counts:
+    instructions: 173
+    logic_transform_instruction: 5
+    file_import_call: 1
+    imm:8: 1
+    imm:16: 2
+    large_imm64_count_sampled: 1
+  imports:
+  - rva: '0xb4f8'
+    import: KERNEL32.dll!GetFileAttributesW
+    import_name: GetFileAttributesW
+    class: file_or_other
+    text: '0000b4f8: call     qword ptr [rip + 0x6e732a]'
+  payload_keyword_refs: []
+  direct_caller_count: 0
+  direct_callee_count: 28
+  paths_to_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 2
+    path_length: 2
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 2
+    path_length: 2
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 2
+    path_length: 2
+  - seed_rva: '0xd720'
+    seed_label: round170_GetFileSizeEx_owner_calls_file_helper_0xda90
+    depth: 1
+    path_length: 1
+  paths_from_helper_seed: []
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xb4b0
+- target_rva: '0xd720'
+  function:
+    begin: '0xd720'
+    end: '0xd7c0'
+    size: '0xa0'
+  verdict: read_mapping_helper_no_payload_path_refs
+  round186_verdict: read_mapping_helper_no_payload_keyword
+  helper_seed: round170_GetFileSizeEx_owner_calls_file_helper_0xda90
+  counts:
+    instructions: 32
+    logic_transform_instruction: 3
+    read_mapping_import_call: 1
+    file_import_call: 2
+    large_imm64_count_sampled: 1
+  imports:
+  - rva: '0xd798'
+    import: KERNEL32.dll!GetFileSizeEx
+    import_name: GetFileSizeEx
+    class: read_or_mapping
+    text: '0000d798: call     qword ptr [rip + 0x6e502a]'
+  - rva: '0xd7a3'
+    import: KERNEL32.dll!CloseHandle
+    import_name: CloseHandle
+    class: file_or_other
+    text: '0000d7a3: call     qword ptr [rip + 0x6e5077]'
+  payload_keyword_refs: []
+  direct_caller_count: 1
+  direct_callee_count: 2
+  paths_to_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 1
+    path_length: 1
+  paths_from_helper_seed: []
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xd720
+- target_rva: '0xd7c0'
+  function:
+    begin: '0xd7c0'
+    end: '0xd812'
+    size: '0x52'
+  verdict: read_mapping_helper_no_payload_path_refs
+  round186_verdict: read_mapping_helper_no_payload_keyword
+  helper_seed: round170_GetFileSize_owner
+  counts:
+    instructions: 18
+    read_mapping_import_call: 1
+    file_import_call: 1
+    large_imm64_count_sampled: 2
+  imports:
+  - rva: '0xd7f0'
+    import: KERNEL32.dll!GetFileSize
+    import_name: GetFileSize
+    class: read_or_mapping
+    text: '0000d7f0: call     qword ptr [rip + 0x6e4fca]'
+  payload_keyword_refs: []
+  direct_caller_count: 0
+  direct_callee_count: 0
+  paths_to_helper_seed: []
+  paths_from_helper_seed: []
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xd7c0
+- target_rva: '0xda90'
+  function:
+    begin: '0xda90'
+    end: '0xdbad'
+    size: '0x11d'
+  verdict: createfile_helper_no_payload_path_refs
+  round186_verdict: file_helper_without_payload_provenance
+  helper_seed: round186_file_helper_reached_from_read_owner
+  counts:
+    instructions: 55
+    logic_transform_instruction: 2
+    imm:8: 1
+    file_import_call: 1
+    large_imm64_count_sampled: 1
+  imports:
+  - rva: '0xdb74'
+    import: KERNEL32.dll!CreateFileW
+    import_name: CreateFileW
+    class: file_or_other
+    text: '0000db74: call     qword ptr [rip + 0x6e4c2e]'
+  payload_keyword_refs: []
+  direct_caller_count: 3
+  direct_callee_count: 8
+  paths_to_helper_seed: []
+  paths_from_helper_seed:
+  - seed_rva: '0xd720'
+    seed_label: round170_GetFileSizeEx_owner_calls_file_helper_0xda90
+    depth: 1
+    path_length: 1
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xda90
+- target_rva: '0xdf60'
+  function:
+    begin: '0xdf60'
+    end: '0xe145'
+    size: '0x1e5'
+  verdict: caller_reaches_file_helper_no_payload_refs
+  round186_verdict: ''
+  helper_seed: ''
+  counts:
+    instructions: 96
+    logic_transform_instruction: 6
+    file_import_call: 1
+    large_imm64_count_sampled: 1
+  imports:
+  - rva: '0xe01e'
+    import: KERNEL32.dll!GetFileTime
+    import_name: GetFileTime
+    class: other
+    text: '0000e01e: call     qword ptr [rip + 0x6e477c]'
+  - rva: '0xe036'
+    import: KERNEL32.dll!FileTimeToSystemTime
+    import_name: FileTimeToSystemTime
+    class: other
+    text: '0000e036: call     qword ptr [rip + 0x6e445c]'
+  - rva: '0xe04c'
+    import: KERNEL32.dll!SystemTimeToTzSpecificLocalTime
+    import_name: SystemTimeToTzSpecificLocalTime
+    class: other
+    text: '0000e04c: call     qword ptr [rip + 0x6e443e]'
+  - rva: '0xe075'
+    import: KERNEL32.dll!FileTimeToSystemTime
+    import_name: FileTimeToSystemTime
+    class: other
+    text: '0000e075: call     qword ptr [rip + 0x6e441d]'
+  - rva: '0xe08b'
+    import: KERNEL32.dll!SystemTimeToTzSpecificLocalTime
+    import_name: SystemTimeToTzSpecificLocalTime
+    class: other
+    text: '0000e08b: call     qword ptr [rip + 0x6e43ff]'
+  - rva: '0xe0b7'
+    import: KERNEL32.dll!FileTimeToSystemTime
+    import_name: FileTimeToSystemTime
+    class: other
+    text: '0000e0b7: call     qword ptr [rip + 0x6e43db]'
+  - rva: '0xe0cd'
+    import: KERNEL32.dll!SystemTimeToTzSpecificLocalTime
+    import_name: SystemTimeToTzSpecificLocalTime
+    class: other
+    text: '0000e0cd: call     qword ptr [rip + 0x6e43bd]'
+  - rva: '0xe123'
+    import: KERNEL32.dll!CloseHandle
+    import_name: CloseHandle
+    class: file_or_other
+    text: '0000e123: call     qword ptr [rip + 0x6e46f7]'
+  payload_keyword_refs: []
+  direct_caller_count: 2
+  direct_callee_count: 5
+  paths_to_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 1
+    path_length: 1
+  paths_from_helper_seed: []
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xdf60
+- target_rva: '0x10180'
+  function:
+    begin: '0x10180'
+    end: '0x1042b'
+    size: '0x2ab'
+  verdict: caller_reaches_file_helper_no_payload_refs
+  round186_verdict: ''
+  helper_seed: ''
+  counts:
+    instructions: 130
+    logic_transform_instruction: 9
+    file_import_call: 1
+    large_imm64_count_sampled: 1
+  imports:
+  - rva: '0x10222'
+    import: KERNEL32.dll!GetTempPathW
+    import_name: GetTempPathW
+    class: other
+    text: '00010222: call     qword ptr [rip + 0x6e25c8]'
+  - rva: '0x1036f'
+    import: KERNEL32.dll!CloseHandle
+    import_name: CloseHandle
+    class: file_or_other
+    text: '0001036f: call     qword ptr [rip + 0x6e24ab]'
+  payload_keyword_refs: []
+  direct_caller_count: 0
+  direct_callee_count: 23
+  paths_to_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 1
+    path_length: 1
+  paths_from_helper_seed: []
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x10180
+- target_rva: '0x12ff0'
+  function:
+    begin: '0x12ff0'
+    end: '0x130d2'
+    size: '0xe2'
+  verdict: callee_from_file_helper_no_payload_refs
+  round186_verdict: ''
+  helper_seed: ''
+  counts:
+    instructions: 48
+    logic_transform_instruction: 3
+    imm:8: 1
+  imports: []
+  payload_keyword_refs: []
+  direct_caller_count: 2
+  direct_callee_count: 9
+  paths_to_helper_seed: []
+  paths_from_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 1
+    path_length: 1
+  - seed_rva: '0xd720'
+    seed_label: round170_GetFileSizeEx_owner_calls_file_helper_0xda90
+    depth: 2
+    path_length: 2
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x12ff0
+- target_rva: '0x13880'
+  function:
+    begin: '0x13880'
+    end: '0x138a7'
+    size: '0x27'
+  verdict: callee_from_file_helper_no_payload_refs
+  round186_verdict: ''
+  helper_seed: ''
+  counts:
+    instructions: 9
+  imports: []
+  payload_keyword_refs: []
+  direct_caller_count: 6
+  direct_callee_count: 1
+  paths_to_helper_seed: []
+  paths_from_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 1
+    path_length: 1
+  - seed_rva: '0xd720'
+    seed_label: round170_GetFileSizeEx_owner_calls_file_helper_0xda90
+    depth: 2
+    path_length: 2
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x13880
+- target_rva: '0x138b0'
+  function:
+    begin: '0x138b0'
+    end: '0x138d7'
+    size: '0x27'
+  verdict: callee_from_file_helper_no_payload_refs
+  round186_verdict: ''
+  helper_seed: ''
+  counts:
+    instructions: 9
+  imports: []
+  payload_keyword_refs: []
+  direct_caller_count: 14
+  direct_callee_count: 1
+  paths_to_helper_seed: []
+  paths_from_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 1
+    path_length: 1
+  - seed_rva: '0xd720'
+    seed_label: round170_GetFileSizeEx_owner_calls_file_helper_0xda90
+    depth: 2
+    path_length: 2
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x138b0
+- target_rva: '0x139a0'
+  function:
+    begin: '0x139a0'
+    end: '0x139c8'
+    size: '0x28'
+  verdict: callee_from_file_helper_no_payload_refs
+  round186_verdict: ''
+  helper_seed: ''
+  counts:
+    instructions: 10
+  imports: []
+  payload_keyword_refs: []
+  direct_caller_count: 17
+  direct_callee_count: 1
+  paths_to_helper_seed: []
+  paths_from_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 2
+    path_length: 2
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x139a0
+- target_rva: '0x16370'
+  function:
+    begin: '0x16370'
+    end: '0x163b6'
+    size: '0x46'
+  verdict: callee_from_file_helper_no_payload_refs
+  round186_verdict: ''
+  helper_seed: ''
+  counts:
+    instructions: 17
+  imports: []
+  payload_keyword_refs: []
+  direct_caller_count: 7
+  direct_callee_count: 2
+  paths_to_helper_seed: []
+  paths_from_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 2
+    path_length: 2
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x16370
+- target_rva: '0x16490'
+  function:
+    begin: '0x16490'
+    end: '0x164b8'
+    size: '0x28'
+  verdict: callee_from_file_helper_no_payload_refs
+  round186_verdict: ''
+  helper_seed: ''
+  counts:
+    instructions: 10
+  imports: []
+  payload_keyword_refs: []
+  direct_caller_count: 3
+  direct_callee_count: 1
+  paths_to_helper_seed: []
+  paths_from_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 2
+    path_length: 2
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x16490
+- target_rva: '0x164c0'
+  function:
+    begin: '0x164c0'
+    end: '0x1654f'
+    size: '0x8f'
+  verdict: callee_from_file_helper_no_payload_refs
+  round186_verdict: ''
+  helper_seed: ''
+  counts:
+    instructions: 33
+  imports: []
+  payload_keyword_refs: []
+  direct_caller_count: 3
+  direct_callee_count: 4
+  paths_to_helper_seed: []
+  paths_from_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 2
+    path_length: 2
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x164c0
+- target_rva: '0x16550'
+  function:
+    begin: '0x16550'
+    end: '0x16594'
+    size: '0x44'
+  verdict: callee_from_file_helper_no_payload_refs
+  round186_verdict: ''
+  helper_seed: ''
+  counts:
+    instructions: 17
+    logic_transform_instruction: 1
+    backward_branch: 1
+    large_imm64_count_sampled: 1
+  imports: []
+  payload_keyword_refs: []
+  direct_caller_count: 4
+  direct_callee_count: 0
+  paths_to_helper_seed: []
+  paths_from_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 2
+    path_length: 2
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x16550
+- target_rva: '0x16600'
+  function:
+    begin: '0x16600'
+    end: '0x16627'
+    size: '0x27'
+  verdict: callee_from_file_helper_no_payload_refs
+  round186_verdict: ''
+  helper_seed: ''
+  counts:
+    instructions: 9
+  imports: []
+  payload_keyword_refs: []
+  direct_caller_count: 1
+  direct_callee_count: 1
+  paths_to_helper_seed: []
+  paths_from_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 2
+    path_length: 2
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x16600
+- target_rva: '0x16630'
+  function:
+    begin: '0x16630'
+    end: '0x166f0'
+    size: '0xc0'
+  verdict: callee_from_file_helper_no_payload_refs
+  round186_verdict: ''
+  helper_seed: ''
+  counts:
+    instructions: 44
+  imports: []
+  payload_keyword_refs: []
+  direct_caller_count: 1
+  direct_callee_count: 6
+  paths_to_helper_seed: []
+  paths_from_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 2
+    path_length: 2
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x16630
+- target_rva: '0x48eab0'
+  function:
+    begin: '0x48eab0'
+    end: '0x48eace'
+    size: '0x1e'
+  verdict: callee_from_file_helper_no_payload_refs
+  round186_verdict: ''
+  helper_seed: ''
+  counts:
+    instructions: 8
+    logic_transform_instruction: 2
+    imm:16: 2
+  imports: []
+  payload_keyword_refs: []
+  direct_caller_count: 119
+  direct_callee_count: 0
+  paths_to_helper_seed: []
+  paths_from_helper_seed:
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 1
+    path_length: 1
+  - seed_rva: '0xda90'
+    seed_label: round186_file_helper_reached_from_read_owner
+    depth: 2
+    path_length: 2
+  - seed_rva: '0xd720'
+    seed_label: round170_GetFileSizeEx_owner_calls_file_helper_0xda90
+    depth: 1
+    path_length: 1
+  - seed_rva: '0xd720'
+    seed_label: round170_GetFileSizeEx_owner_calls_file_helper_0xda90
+    depth: 2
+    path_length: 2
+  evidence_ref: NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x48eab0
+route_conclusion:
+  file_helper_payload_owner_proven: false
+  metadata_or_luascripts_keyword_link_found: false
+  read_mapping_to_file_helper_path_found: true
+  protected_metadata_method_ownership_recovered: false
+  plaintext_metadata_recovered: false
+  lua_payload_decoder_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: the 0xda90/0xd720 file-helper route has callers and callees,
+    but no inspected context carries payload path keywords
+  strongest_negative_signal: no inspected caller/callee around the Round186 file-helper
+    path references global-metadata, LuaScripts, TextAsset, or known asset path terms
+  search_policy: treat 0xda90 as generic file-helper evidence unless a caller with
+    payload path ownership is recovered
+evidence_refs:
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:summary
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x9cd0
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xa410
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xa4c0
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xa540
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xafe0
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xb070
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xb0a0
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xb4b0
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xd720
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xd7c0
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xda90
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0xdf60
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x10180
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x12ff0
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x13880
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x138b0
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x139a0
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x16370
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x16490
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x164c0
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x16550
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x16600
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x16630
+- NSLG_NEP2_FILE_HELPER_CALLER:nep2-file-helper-caller-provenance-round187:target:0x48eab0
+next_static_targets:
+- Do not promote 0xda90/0xd720 as payload owner unless a payload-path caller is recovered.
+- Continue with GameAssembly MetadataRegistration / protected global-metadata ownership
+  routes if NEP2 file helper remains generic.
+- Use any future payload keyword caller as a bounded seed for transform/decoder tracing.
+limitations:
+- Offline/static NEP2 direct-call graph only; no live Frida, runtime attach, account
+  data, credentials, or online protocol were used.
+- The scan covers direct calls and RIP-relative string references; indirect dispatch
+  and computed string assembly remain out of scope.
+- File API and helper-shape evidence is not decoder proof without payload-buffer ownership.
+- No decoded metadata, LuaScripts payload, or publishable gameplay knowledge is produced
+  by this artifact.
+guardrails:
+- offline/static NEP2 direct-call graph scan only; no live instrumentation, account
+  data, or online protocol data is included
+- absolute local paths are not persisted; only file names, hashes, RVAs, counts, and
+  sanitized summaries are stored
+- file-helper evidence is route-closure evidence only and requires payload-buffer
+  ownership before decoder promotion
+- no decoded global-metadata, LuaScripts payload, or gameplay knowledge is promoted
+  from this artifact

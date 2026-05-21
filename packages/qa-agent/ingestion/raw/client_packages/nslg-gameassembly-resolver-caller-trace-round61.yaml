@@ -1,0 +1,5606 @@
+schema_version: nslg.gameassembly_resolver_caller_trace.v1
+source_id: gameassembly-resolver-caller-trace-round61
+source_url: local-nslg-client-gameassembly-resolver-caller-trace
+source_site: nslg_client_gameassembly_resolver_caller_trace
+generated_at: '2026-05-20T15:54:10.545416Z'
+round: 166
+slice: gameassembly_resolver_caller_payload_owner_trace
+input_artifacts:
+- role: gameassembly_binary
+  file_name: GameAssembly.dll
+  sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  missing: false
+- role: round165_resolver_trace
+  file_name: gameassembly_resolver_candidate_trace_round165.json
+  sha256: d2ffc1ee94d7742b8f754a6d139c2474195683cf92d8f950c4f650164add5694
+  missing: false
+target:
+  resolver_candidate_rva: '0x5ccc30'
+  search_scope: all direct rel32 caller functions with pdata coverage
+counts:
+  target_string_hit_count: 237
+  target_string_unique_rva_count: 233
+  target_string_slot_ref_count: 0
+  resolver_candidate_direct_callsite_count: 2948
+  unique_direct_caller_function_count: 2870
+  caller_with_any_keyword_or_slot_ref_count: 150
+  caller_with_xlua_api_ref_count: 150
+  caller_with_textasset_ref_count: 0
+  caller_with_luascripts_or_data_stem_ref_count: 0
+  caller_with_payload_label_count: 0
+  caller_with_owner_signal_count: 0
+  payload_owner_candidate_count: 0
+  xlua_descriptor_only_count: 150
+category_counts:
+  xlua_api: 150
+classification_counts:
+  no_payload_signal: 2720
+  xlua_descriptor_only: 150
+payload_owner_candidates: []
+payload_label_callers: []
+owner_signal_callers: []
+xlua_descriptor_only_samples:
+- function:
+    begin: '0xc75e0'
+    end: '0xc76ab'
+    size: '0xcb'
+  counts:
+    instructions: 45
+    direct_calls: 6
+    import_calls: 0
+    indirect_slots: 1
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xc762c'
+    target_rva: '0x429b1a8'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c762c: lea      rax, [rip + 0x41d3b75]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc75fc'
+    text: '000c75fc: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc7605'
+    text: '000c7605: call     0x5ccaf0'
+    target_rva: '0x5ccaf0'
+    target_function: null
+  - site: '0xc7663'
+    text: '000c7663: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc7672'
+    text: '000c7672: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0xc768b'
+    text: '000c768b: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  - site: '0xc7696'
+    text: '000c7696: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  sample_disasm:
+  - '000c75e0: mov      qword ptr [rsp + 8], rbx'
+  - '000c75e5: mov      qword ptr [rsp + 0x10], rsi'
+  - '000c75ea: push     rdi'
+  - '000c75eb: sub      rsp, 0x50'
+  - '000c75ef: mov      rbx, r8'
+  - '000c75f2: mov      edi, edx'
+  - '000c75f4: mov      rsi, rcx'
+  - '000c75f7: lea      rcx, [rsp + 0x78]'
+  - '000c75fc: call     0x55b180'
+  - '000c7601: nop'
+  - '000c7602: mov      rcx, rbx'
+  - '000c7605: call     0x5ccaf0'
+  - '000c760a: mov      rbx, rax'
+  - '000c760d: cmp      qword ptr [rip + 0x5435a23], 0'
+  - '000c7615: jne      0xc766f'
+  - '000c7617: lea      rax, [rip + 0x41c669a]'
+  - '000c761e: mov      qword ptr [rsp + 0x20], rax'
+  - '000c7623: mov      qword ptr [rsp + 0x28], 4'
+  - '000c762c: lea      rax, [rip + 0x41d3b75]'
+  - '000c7633: mov      qword ptr [rsp + 0x30], rax'
+- function:
+    begin: '0xc76b0'
+    end: '0xc776d'
+    size: '0xbd'
+  counts:
+    instructions: 41
+    direct_calls: 6
+    import_calls: 0
+    indirect_slots: 1
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xc76f5'
+    target_rva: '0x429b108'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c76f5: lea      rax, [rip + 0x41d3a0c]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc76c5'
+    text: '000c76c5: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc76ce'
+    text: '000c76ce: call     0x5ccaf0'
+    target_rva: '0x5ccaf0'
+    target_function: null
+  - site: '0xc772c'
+    text: '000c772c: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc773b'
+    text: '000c773b: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0xc7752'
+    text: '000c7752: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  - site: '0xc775d'
+    text: '000c775d: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  sample_disasm:
+  - '000c76b0: mov      qword ptr [rsp + 8], rbx'
+  - '000c76b5: push     rdi'
+  - '000c76b6: sub      rsp, 0x50'
+  - '000c76ba: mov      rbx, rdx'
+  - '000c76bd: mov      rdi, rcx'
+  - '000c76c0: lea      rcx, [rsp + 0x70]'
+  - '000c76c5: call     0x55b180'
+  - '000c76ca: nop'
+  - '000c76cb: mov      rcx, rbx'
+  - '000c76ce: call     0x5ccaf0'
+  - '000c76d3: mov      rbx, rax'
+  - '000c76d6: cmp      qword ptr [rip + 0x543590a], 0'
+  - '000c76de: jne      0xc7738'
+  - '000c76e0: lea      rax, [rip + 0x41c65d1]'
+  - '000c76e7: mov      qword ptr [rsp + 0x20], rax'
+  - '000c76ec: mov      qword ptr [rsp + 0x28], 4'
+  - '000c76f5: lea      rax, [rip + 0x41d3a0c]'
+  - '000c76fc: mov      qword ptr [rsp + 0x30], rax'
+  - '000c7701: mov      qword ptr [rsp + 0x38], 0xd'
+  - '000c770a: mov      dword ptr [rsp + 0x40], 1'
+- function:
+    begin: '0xc7770'
+    end: '0xc7801'
+    size: '0x91'
+  counts:
+    instructions: 31
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 9
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xc77a5'
+    target_rva: '0x429b250'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c77a5: lea      rax, [rip + 0x41d3aa4]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc777e'
+    text: '000c777e: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc77dc'
+    text: '000c77dc: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc77f4'
+    text: '000c77f4: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  sample_disasm:
+  - '000c7770: push     rbx'
+  - '000c7772: sub      rsp, 0x50'
+  - '000c7776: mov      rbx, rcx'
+  - '000c7779: lea      rcx, [rsp + 0x68]'
+  - '000c777e: call     0x55b180'
+  - '000c7783: nop'
+  - '000c7784: mov      rax, qword ptr [rip + 0x54358f5]'
+  - '000c778b: test     rax, rax'
+  - '000c778e: jne      0xc77e8'
+  - '000c7790: lea      rax, [rip + 0x41c6521]'
+  - '000c7797: mov      qword ptr [rsp + 0x20], rax'
+  - '000c779c: mov      qword ptr [rsp + 0x28], 4'
+  - '000c77a5: lea      rax, [rip + 0x41d3aa4]'
+  - '000c77ac: mov      qword ptr [rsp + 0x30], rax'
+  - '000c77b1: mov      qword ptr [rsp + 0x38], 0xa'
+  - '000c77ba: mov      dword ptr [rsp + 0x40], 1'
+  - '000c77c2: mov      dword ptr [rsp + 0x44], 2'
+  - '000c77ca: mov      dword ptr [rsp + 0x48], 8'
+  - '000c77d2: mov      byte ptr [rsp + 0x4c], 0'
+  - '000c77d7: lea      rcx, [rsp + 0x20]'
+- function:
+    begin: '0xc7810'
+    end: '0xc78ab'
+    size: '0x9b'
+  counts:
+    instructions: 34
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xc784b'
+    target_rva: '0x429b168'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c784b: lea      rax, [rip + 0x41d3916]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc7824'
+    text: '000c7824: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc7882'
+    text: '000c7882: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc789b'
+    text: '000c789b: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  sample_disasm:
+  - '000c7810: mov      qword ptr [rsp + 8], rbx'
+  - '000c7815: push     rdi'
+  - '000c7816: sub      rsp, 0x50'
+  - '000c781a: mov      ebx, edx'
+  - '000c781c: mov      rdi, rcx'
+  - '000c781f: lea      rcx, [rsp + 0x70]'
+  - '000c7824: call     0x55b180'
+  - '000c7829: nop'
+  - '000c782a: mov      rax, qword ptr [rip + 0x54357e7]'
+  - '000c7831: test     rax, rax'
+  - '000c7834: jne      0xc788e'
+  - '000c7836: lea      rax, [rip + 0x41c647b]'
+  - '000c783d: mov      qword ptr [rsp + 0x20], rax'
+  - '000c7842: mov      qword ptr [rsp + 0x28], 4'
+  - '000c784b: lea      rax, [rip + 0x41d3916]'
+  - '000c7852: mov      qword ptr [rsp + 0x30], rax'
+  - '000c7857: mov      qword ptr [rsp + 0x38], 0xa'
+  - '000c7860: mov      dword ptr [rsp + 0x40], 1'
+  - '000c7868: mov      dword ptr [rsp + 0x44], 2'
+  - '000c7870: mov      dword ptr [rsp + 0x48], 0xc'
+- function:
+    begin: '0xc78b0'
+    end: '0xc794e'
+    size: '0x9e'
+  counts:
+    instructions: 35
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xc78eb'
+    target_rva: '0x429b4b0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c78eb: lea      rax, [rip + 0x41d3bbe]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc78c4'
+    text: '000c78c4: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc7922'
+    text: '000c7922: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc793c'
+    text: '000c793c: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  sample_disasm:
+  - '000c78b0: mov      qword ptr [rsp + 8], rbx'
+  - '000c78b5: push     rdi'
+  - '000c78b6: sub      rsp, 0x50'
+  - '000c78ba: mov      ebx, edx'
+  - '000c78bc: mov      rdi, rcx'
+  - '000c78bf: lea      rcx, [rsp + 0x70]'
+  - '000c78c4: call     0x55b180'
+  - '000c78c9: nop'
+  - '000c78ca: mov      rax, qword ptr [rip + 0x54358df]'
+  - '000c78d1: test     rax, rax'
+  - '000c78d4: jne      0xc792e'
+  - '000c78d6: lea      rax, [rip + 0x41c63db]'
+  - '000c78dd: mov      qword ptr [rsp + 0x20], rax'
+  - '000c78e2: mov      qword ptr [rsp + 0x28], 4'
+  - '000c78eb: lea      rax, [rip + 0x41d3bbe]'
+  - '000c78f2: mov      qword ptr [rsp + 0x30], rax'
+  - '000c78f7: mov      qword ptr [rsp + 0x38], 8'
+  - '000c7900: mov      dword ptr [rsp + 0x40], 1'
+  - '000c7908: mov      dword ptr [rsp + 0x44], 2'
+  - '000c7910: mov      dword ptr [rsp + 0x48], 0xc'
+- function:
+    begin: '0xc7950'
+    end: '0xc7a11'
+    size: '0xc1'
+  counts:
+    instructions: 43
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 12
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xc799b'
+    target_rva: '0x429b318'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '000c799b: lea      rax, [rip + 0x41d3976]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc7974'
+    text: '000c7974: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc79d2'
+    text: '000c79d2: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc79f2'
+    text: '000c79f2: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  sample_disasm:
+  - '000c7950: mov      qword ptr [rsp + 8], rbx'
+  - '000c7955: mov      qword ptr [rsp + 0x10], rbp'
+  - '000c795a: mov      qword ptr [rsp + 0x18], rsi'
+  - '000c795f: push     rdi'
+  - '000c7960: sub      rsp, 0x60'
+  - '000c7964: mov      ebx, r9d'
+  - '000c7967: mov      edi, r8d'
+  - '000c796a: mov      esi, edx'
+  - '000c796c: mov      rbp, rcx'
+  - '000c796f: lea      rcx, [rsp + 0x20]'
+  - '000c7974: call     0x55b180'
+  - '000c7979: nop'
+  - '000c797a: mov      rax, qword ptr [rip + 0x5435767]'
+  - '000c7981: test     rax, rax'
+  - '000c7984: jne      0xc79de'
+  - '000c7986: lea      rax, [rip + 0x41c632b]'
+  - '000c798d: mov      qword ptr [rsp + 0x28], rax'
+  - '000c7992: mov      qword ptr [rsp + 0x30], 4'
+  - '000c799b: lea      rax, [rip + 0x41d3976]'
+  - '000c79a2: mov      qword ptr [rsp + 0x38], rax'
+- function:
+    begin: '0xc7a20'
+    end: '0xc7af7'
+    size: '0xd7'
+  counts:
+    instructions: 48
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 14
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xc7a6b'
+    target_rva: '0x429b1c8'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '000c7a6b: lea      rax, [rip + 0x41d3756]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc7a44'
+    text: '000c7a44: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc7aa2'
+    text: '000c7aa2: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc7ada'
+    text: '000c7ada: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  sample_disasm:
+  - '000c7a20: mov      qword ptr [rsp + 8], rbx'
+  - '000c7a25: mov      qword ptr [rsp + 0x10], rbp'
+  - '000c7a2a: mov      qword ptr [rsp + 0x18], rsi'
+  - '000c7a2f: push     rdi'
+  - '000c7a30: sub      rsp, 0x70'
+  - '000c7a34: mov      ebx, r9d'
+  - '000c7a37: mov      edi, r8d'
+  - '000c7a3a: mov      esi, edx'
+  - '000c7a3c: mov      rbp, rcx'
+  - '000c7a3f: lea      rcx, [rsp + 0x30]'
+  - '000c7a44: call     0x55b180'
+  - '000c7a49: nop'
+  - '000c7a4a: mov      rax, qword ptr [rip + 0x54355f7]'
+  - '000c7a51: test     rax, rax'
+  - '000c7a54: jne      0xc7aae'
+  - '000c7a56: lea      rax, [rip + 0x41c625b]'
+  - '000c7a5d: mov      qword ptr [rsp + 0x38], rax'
+  - '000c7a62: mov      qword ptr [rsp + 0x40], 4'
+  - '000c7a6b: lea      rax, [rip + 0x41d3756]'
+  - '000c7a72: mov      qword ptr [rsp + 0x48], rax'
+- function:
+    begin: '0xc7b00'
+    end: '0xc7ba0'
+    size: '0xa0'
+  counts:
+    instructions: 36
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xc7b3b'
+    target_rva: '0x429b3b0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c7b3b: lea      rax, [rip + 0x41d386e]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc7b14'
+    text: '000c7b14: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc7b72'
+    text: '000c7b72: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc7b90'
+    text: '000c7b90: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  sample_disasm:
+  - '000c7b00: mov      qword ptr [rsp + 8], rbx'
+  - '000c7b05: push     rdi'
+  - '000c7b06: sub      rsp, 0x50'
+  - '000c7b0a: mov      ebx, edx'
+  - '000c7b0c: mov      rdi, rcx'
+  - '000c7b0f: lea      rcx, [rsp + 0x70]'
+  - '000c7b14: call     0x55b180'
+  - '000c7b19: nop'
+  - '000c7b1a: mov      rax, qword ptr [rip + 0x5435617]'
+  - '000c7b21: test     rax, rax'
+  - '000c7b24: jne      0xc7b7e'
+  - '000c7b26: lea      rax, [rip + 0x41c618b]'
+  - '000c7b2d: mov      qword ptr [rsp + 0x20], rax'
+  - '000c7b32: mov      qword ptr [rsp + 0x28], 4'
+  - '000c7b3b: lea      rax, [rip + 0x41d386e]'
+  - '000c7b42: mov      qword ptr [rsp + 0x30], rax'
+  - '000c7b47: mov      qword ptr [rsp + 0x38], 0xf'
+  - '000c7b50: mov      dword ptr [rsp + 0x40], 1'
+  - '000c7b58: mov      dword ptr [rsp + 0x44], 2'
+  - '000c7b60: mov      dword ptr [rsp + 0x48], 0xc'
+- function:
+    begin: '0xc7ba0'
+    end: '0xc7c4d'
+    size: '0xad'
+  counts:
+    instructions: 38
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xc7be4'
+    target_rva: '0x429b228'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c7be4: lea      rax, [rip + 0x41d363d]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc7bbd'
+    text: '000c7bbd: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc7c1b'
+    text: '000c7c1b: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc7c38'
+    text: '000c7c38: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  sample_disasm:
+  - '000c7ba0: mov      qword ptr [rsp + 8], rbx'
+  - '000c7ba5: mov      qword ptr [rsp + 0x10], rsi'
+  - '000c7baa: push     rdi'
+  - '000c7bab: sub      rsp, 0x50'
+  - '000c7baf: mov      ebx, r8d'
+  - '000c7bb2: mov      rdi, rdx'
+  - '000c7bb5: mov      rsi, rcx'
+  - '000c7bb8: lea      rcx, [rsp + 0x78]'
+  - '000c7bbd: call     0x55b180'
+  - '000c7bc2: nop'
+  - '000c7bc3: mov      rax, qword ptr [rip + 0x54354a6]'
+  - '000c7bca: test     rax, rax'
+  - '000c7bcd: jne      0xc7c27'
+  - '000c7bcf: lea      rax, [rip + 0x41c60e2]'
+  - '000c7bd6: mov      qword ptr [rsp + 0x20], rax'
+  - '000c7bdb: mov      qword ptr [rsp + 0x28], 4'
+  - '000c7be4: lea      rax, [rip + 0x41d363d]'
+  - '000c7beb: mov      qword ptr [rsp + 0x30], rax'
+  - '000c7bf0: mov      qword ptr [rsp + 0x38], 0x10'
+  - '000c7bf9: mov      dword ptr [rsp + 0x40], 1'
+- function:
+    begin: '0xc7c80'
+    end: '0xc7d24'
+    size: '0xa4'
+  counts:
+    instructions: 34
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xc7cc0'
+    target_rva: '0x429b3a0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c7cc0: lea      rax, [rip + 0x41d36d9]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc7c99'
+    text: '000c7c99: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc7cf7'
+    text: '000c7cf7: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc7d14'
+    text: '000c7d14: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  sample_disasm:
+  - '000c7c80: push     rbx'
+  - '000c7c82: sub      rsp, 0x60'
+  - '000c7c86: movaps   xmmword ptr [rsp + 0x50], xmm6'
+  - '000c7c8b: movaps   xmm6, xmm1'
+  - '000c7c8e: mov      rbx, rcx'
+  - '000c7c91: lea      rcx, [rsp + 0x80]'
+  - '000c7c99: call     0x55b180'
+  - '000c7c9e: nop'
+  - '000c7c9f: mov      rax, qword ptr [rip + 0x543548a]'
+  - '000c7ca6: test     rax, rax'
+  - '000c7ca9: jne      0xc7d03'
+  - '000c7cab: lea      rax, [rip + 0x41c6006]'
+  - '000c7cb2: mov      qword ptr [rsp + 0x20], rax'
+  - '000c7cb7: mov      qword ptr [rsp + 0x28], 4'
+  - '000c7cc0: lea      rax, [rip + 0x41d36d9]'
+  - '000c7cc7: mov      qword ptr [rsp + 0x30], rax'
+  - '000c7ccc: mov      qword ptr [rsp + 0x38], 0xe'
+  - '000c7cd5: mov      dword ptr [rsp + 0x40], 1'
+  - '000c7cdd: mov      dword ptr [rsp + 0x44], 2'
+  - '000c7ce5: mov      dword ptr [rsp + 0x48], 0x10'
+- function:
+    begin: '0xc7d80'
+    end: '0xc7e1b'
+    size: '0x9b'
+  counts:
+    instructions: 34
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xc7dbb'
+    target_rva: '0x429b218'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c7dbb: lea      rax, [rip + 0x41d3456]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc7d94'
+    text: '000c7d94: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc7df2'
+    text: '000c7df2: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc7e0b'
+    text: '000c7e0b: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  sample_disasm:
+  - '000c7d80: mov      qword ptr [rsp + 8], rbx'
+  - '000c7d85: push     rdi'
+  - '000c7d86: sub      rsp, 0x50'
+  - '000c7d8a: mov      ebx, edx'
+  - '000c7d8c: mov      rdi, rcx'
+  - '000c7d8f: lea      rcx, [rsp + 0x70]'
+  - '000c7d94: call     0x55b180'
+  - '000c7d99: nop'
+  - '000c7d9a: mov      rax, qword ptr [rip + 0x54352c7]'
+  - '000c7da1: test     rax, rax'
+  - '000c7da4: jne      0xc7dfe'
+  - '000c7da6: lea      rax, [rip + 0x41c5f0b]'
+  - '000c7dad: mov      qword ptr [rsp + 0x20], rax'
+  - '000c7db2: mov      qword ptr [rsp + 0x28], 4'
+  - '000c7dbb: lea      rax, [rip + 0x41d3456]'
+  - '000c7dc2: mov      qword ptr [rsp + 0x30], rax'
+  - '000c7dc7: mov      qword ptr [rsp + 0x38], 0xd'
+  - '000c7dd0: mov      dword ptr [rsp + 0x40], 1'
+  - '000c7dd8: mov      dword ptr [rsp + 0x44], 2'
+  - '000c7de0: mov      dword ptr [rsp + 0x48], 0xc'
+- function:
+    begin: '0xc7e60'
+    end: '0xc7f0b'
+    size: '0xab'
+  counts:
+    instructions: 38
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xc7ea3'
+    target_rva: '0x429b198'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c7ea3: lea      rax, [rip + 0x41d32ee]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc7e7c'
+    text: '000c7e7c: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc7eda'
+    text: '000c7eda: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc7ef6'
+    text: '000c7ef6: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  sample_disasm:
+  - '000c7e60: mov      qword ptr [rsp + 8], rbx'
+  - '000c7e65: mov      qword ptr [rsp + 0x10], rsi'
+  - '000c7e6a: push     rdi'
+  - '000c7e6b: sub      rsp, 0x50'
+  - '000c7e6f: mov      ebx, r8d'
+  - '000c7e72: mov      edi, edx'
+  - '000c7e74: mov      rsi, rcx'
+  - '000c7e77: lea      rcx, [rsp + 0x78]'
+  - '000c7e7c: call     0x55b180'
+  - '000c7e81: nop'
+  - '000c7e82: mov      rax, qword ptr [rip + 0x54351a7]'
+  - '000c7e89: test     rax, rax'
+  - '000c7e8c: jne      0xc7ee6'
+  - '000c7e8e: lea      rax, [rip + 0x41c5e23]'
+  - '000c7e95: mov      qword ptr [rsp + 0x20], rax'
+  - '000c7e9a: mov      qword ptr [rsp + 0x28], 4'
+  - '000c7ea3: lea      rax, [rip + 0x41d32ee]'
+  - '000c7eaa: mov      qword ptr [rsp + 0x30], rax'
+  - '000c7eaf: mov      qword ptr [rsp + 0x38], 0xb'
+  - '000c7eb8: mov      dword ptr [rsp + 0x40], 1'
+- function:
+    begin: '0xc7f10'
+    end: '0xc7fab'
+    size: '0x9b'
+  counts:
+    instructions: 34
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xc7f4b'
+    target_rva: '0x429b1e0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c7f4b: lea      rax, [rip + 0x41d328e]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc7f24'
+    text: '000c7f24: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc7f82'
+    text: '000c7f82: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc7f9b'
+    text: '000c7f9b: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  sample_disasm:
+  - '000c7f10: mov      qword ptr [rsp + 8], rbx'
+  - '000c7f15: push     rdi'
+  - '000c7f16: sub      rsp, 0x50'
+  - '000c7f1a: mov      ebx, edx'
+  - '000c7f1c: mov      rdi, rcx'
+  - '000c7f1f: lea      rcx, [rsp + 0x70]'
+  - '000c7f24: call     0x55b180'
+  - '000c7f29: nop'
+  - '000c7f2a: mov      rax, qword ptr [rip + 0x543511f]'
+  - '000c7f31: test     rax, rax'
+  - '000c7f34: jne      0xc7f8e'
+  - '000c7f36: lea      rax, [rip + 0x41c5d7b]'
+  - '000c7f3d: mov      qword ptr [rsp + 0x20], rax'
+  - '000c7f42: mov      qword ptr [rsp + 0x28], 4'
+  - '000c7f4b: lea      rax, [rip + 0x41d328e]'
+  - '000c7f52: mov      qword ptr [rsp + 0x30], rax'
+  - '000c7f57: mov      qword ptr [rsp + 0x38], 0xa'
+  - '000c7f60: mov      dword ptr [rsp + 0x40], 1'
+  - '000c7f68: mov      dword ptr [rsp + 0x44], 2'
+  - '000c7f70: mov      dword ptr [rsp + 0x48], 0xc'
+- function:
+    begin: '0xc7fb0'
+    end: '0xc804b'
+    size: '0x9b'
+  counts:
+    instructions: 34
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xc7feb'
+    target_rva: '0x429b178'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c7feb: lea      rax, [rip + 0x41d3186]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc7fc4'
+    text: '000c7fc4: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc8022'
+    text: '000c8022: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc803b'
+    text: '000c803b: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  sample_disasm:
+  - '000c7fb0: mov      qword ptr [rsp + 8], rbx'
+  - '000c7fb5: push     rdi'
+  - '000c7fb6: sub      rsp, 0x50'
+  - '000c7fba: mov      ebx, edx'
+  - '000c7fbc: mov      rdi, rcx'
+  - '000c7fbf: lea      rcx, [rsp + 0x70]'
+  - '000c7fc4: call     0x55b180'
+  - '000c7fc9: nop'
+  - '000c7fca: mov      rax, qword ptr [rip + 0x543504f]'
+  - '000c7fd1: test     rax, rax'
+  - '000c7fd4: jne      0xc802e'
+  - '000c7fd6: lea      rax, [rip + 0x41c5cdb]'
+  - '000c7fdd: mov      qword ptr [rsp + 0x20], rax'
+  - '000c7fe2: mov      qword ptr [rsp + 0x28], 4'
+  - '000c7feb: lea      rax, [rip + 0x41d3186]'
+  - '000c7ff2: mov      qword ptr [rsp + 0x30], rax'
+  - '000c7ff7: mov      qword ptr [rsp + 0x38], 0xa'
+  - '000c8000: mov      dword ptr [rsp + 0x40], 1'
+  - '000c8008: mov      dword ptr [rsp + 0x44], 2'
+  - '000c8010: mov      dword ptr [rsp + 0x48], 0xc'
+- function:
+    begin: '0xc8050'
+    end: '0xc811b'
+    size: '0xcb'
+  counts:
+    instructions: 45
+    direct_calls: 6
+    import_calls: 0
+    indirect_slots: 1
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xc809c'
+    target_rva: '0x429b1b8'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c809c: lea      rax, [rip + 0x41d3115]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc806c'
+    text: '000c806c: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc8075'
+    text: '000c8075: call     0x5ccaf0'
+    target_rva: '0x5ccaf0'
+    target_function: null
+  - site: '0xc80d3'
+    text: '000c80d3: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc80e2'
+    text: '000c80e2: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0xc80fb'
+    text: '000c80fb: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  - site: '0xc8106'
+    text: '000c8106: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  sample_disasm:
+  - '000c8050: mov      qword ptr [rsp + 8], rbx'
+  - '000c8055: mov      qword ptr [rsp + 0x10], rsi'
+  - '000c805a: push     rdi'
+  - '000c805b: sub      rsp, 0x50'
+  - '000c805f: mov      rbx, r8'
+  - '000c8062: mov      edi, edx'
+  - '000c8064: mov      rsi, rcx'
+  - '000c8067: lea      rcx, [rsp + 0x78]'
+  - '000c806c: call     0x55b180'
+  - '000c8071: nop'
+  - '000c8072: mov      rcx, rbx'
+  - '000c8075: call     0x5ccaf0'
+  - '000c807a: mov      rbx, rax'
+  - '000c807d: cmp      qword ptr [rip + 0x5434fbb], 0'
+  - '000c8085: jne      0xc80df'
+  - '000c8087: lea      rax, [rip + 0x41c5c2a]'
+  - '000c808e: mov      qword ptr [rsp + 0x20], rax'
+  - '000c8093: mov      qword ptr [rsp + 0x28], 4'
+  - '000c809c: lea      rax, [rip + 0x41d3115]'
+  - '000c80a3: mov      qword ptr [rsp + 0x30], rax'
+- function:
+    begin: '0xc8120'
+    end: '0xc81dd'
+    size: '0xbd'
+  counts:
+    instructions: 41
+    direct_calls: 6
+    import_calls: 0
+    indirect_slots: 1
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xc8165'
+    target_rva: '0x429b128'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c8165: lea      rax, [rip + 0x41d2fbc]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc8135'
+    text: '000c8135: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc813e'
+    text: '000c813e: call     0x5ccaf0'
+    target_rva: '0x5ccaf0'
+    target_function: null
+  - site: '0xc819c'
+    text: '000c819c: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc81ab'
+    text: '000c81ab: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0xc81c2'
+    text: '000c81c2: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  - site: '0xc81cd'
+    text: '000c81cd: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  sample_disasm:
+  - '000c8120: mov      qword ptr [rsp + 8], rbx'
+  - '000c8125: push     rdi'
+  - '000c8126: sub      rsp, 0x50'
+  - '000c812a: mov      rbx, rdx'
+  - '000c812d: mov      rdi, rcx'
+  - '000c8130: lea      rcx, [rsp + 0x70]'
+  - '000c8135: call     0x55b180'
+  - '000c813a: nop'
+  - '000c813b: mov      rcx, rbx'
+  - '000c813e: call     0x5ccaf0'
+  - '000c8143: mov      rbx, rax'
+  - '000c8146: cmp      qword ptr [rip + 0x5434eaa], 0'
+  - '000c814e: jne      0xc81a8'
+  - '000c8150: lea      rax, [rip + 0x41c5b61]'
+  - '000c8157: mov      qword ptr [rsp + 0x20], rax'
+  - '000c815c: mov      qword ptr [rsp + 0x28], 4'
+  - '000c8165: lea      rax, [rip + 0x41d2fbc]'
+  - '000c816c: mov      qword ptr [rsp + 0x30], rax'
+  - '000c8171: mov      qword ptr [rsp + 0x38], 0xd'
+  - '000c817a: mov      dword ptr [rsp + 0x40], 1'
+- function:
+    begin: '0xc8220'
+    end: '0xc82e3'
+    size: '0xc3'
+  counts:
+    instructions: 42
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 13
+    non_stack_writes: 2
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xc826c'
+    target_rva: '0x429b380'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c826c: lea      rax, [rip + 0x41d310d]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc823c'
+    text: '000c823c: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc82a3'
+    text: '000c82a3: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc82cb'
+    text: '000c82cb: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  sample_disasm:
+  - '000c8220: mov      qword ptr [rsp + 8], rbx'
+  - '000c8225: mov      qword ptr [rsp + 0x10], rsi'
+  - '000c822a: push     rdi'
+  - '000c822b: sub      rsp, 0x50'
+  - '000c822f: mov      rdi, r8'
+  - '000c8232: mov      ebx, edx'
+  - '000c8234: mov      rsi, rcx'
+  - '000c8237: lea      rcx, [rsp + 0x78]'
+  - '000c823c: call     0x55b180'
+  - '000c8241: nop'
+  - '000c8242: mov      qword ptr [rsp + 0x70], 0'
+  - '000c824b: mov      rax, qword ptr [rip + 0x5434ec6]'
+  - '000c8252: test     rax, rax'
+  - '000c8255: jne      0xc82af'
+  - '000c8257: lea      rax, [rip + 0x41c5a5a]'
+  - '000c825e: mov      qword ptr [rsp + 0x20], rax'
+  - '000c8263: mov      qword ptr [rsp + 0x28], 4'
+  - '000c826c: lea      rax, [rip + 0x41d310d]'
+  - '000c8273: mov      qword ptr [rsp + 0x30], rax'
+  - '000c8278: mov      qword ptr [rsp + 0x38], 0xd'
+- function:
+    begin: '0xc83e0'
+    end: '0xc84a5'
+    size: '0xc5'
+  counts:
+    instructions: 44
+    direct_calls: 6
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xc8425'
+    target_rva: '0x429b090'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '000c8425: lea      rax, [rip + 0x41d2c64]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc83f5'
+    text: '000c83f5: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc83fe'
+    text: '000c83fe: call     0x5ccaf0'
+    target_rva: '0x5ccaf0'
+    target_function: null
+  - site: '0xc845c'
+    text: '000c845c: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc846b'
+    text: '000c846b: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0xc8488'
+    text: '000c8488: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  - site: '0xc8493'
+    text: '000c8493: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  sample_disasm:
+  - '000c83e0: mov      qword ptr [rsp + 8], rbx'
+  - '000c83e5: push     rdi'
+  - '000c83e6: sub      rsp, 0x50'
+  - '000c83ea: mov      rbx, rdx'
+  - '000c83ed: mov      rdi, rcx'
+  - '000c83f0: lea      rcx, [rsp + 0x70]'
+  - '000c83f5: call     0x55b180'
+  - '000c83fa: nop'
+  - '000c83fb: mov      rcx, rbx'
+  - '000c83fe: call     0x5ccaf0'
+  - '000c8403: mov      rbx, rax'
+  - '000c8406: cmp      qword ptr [rip + 0x5434ba2], 0'
+  - '000c840e: jne      0xc8468'
+  - '000c8410: lea      rax, [rip + 0x41c58a1]'
+  - '000c8417: mov      qword ptr [rsp + 0x20], rax'
+  - '000c841c: mov      qword ptr [rsp + 0x28], 4'
+  - '000c8425: lea      rax, [rip + 0x41d2c64]'
+  - '000c842c: mov      qword ptr [rsp + 0x30], rax'
+  - '000c8431: mov      qword ptr [rsp + 0x38], 0x15'
+  - '000c843a: mov      dword ptr [rsp + 0x40], 1'
+- function:
+    begin: '0x664860'
+    end: '0x664981'
+    size: '0x121'
+  counts:
+    instructions: 67
+    direct_calls: 8
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 15
+    non_stack_writes: 4
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0x6648f2'
+    target_rva: '0x428e108'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '006648f2: lea      rax, [rip + 0x3c2980f]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0x664885'
+    text: '00664885: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x6648a1'
+    text: '006648a1: call     0x5735c0'
+    target_rva: '0x5735c0'
+    target_function: null
+  - site: '0x6648a8'
+    text: '006648a8: call     0x670b40'
+    target_rva: '0x670b40'
+    target_function:
+      begin: '0x670b40'
+      end: '0x670bd7'
+      size: '0x97'
+  - site: '0x6648b8'
+    text: '006648b8: call     0x367ea10'
+    target_rva: '0x367ea10'
+    target_function:
+      begin: '0x367ea10'
+      end: '0x367ea8e'
+      size: '0x7e'
+  - site: '0x6648c6'
+    text: '006648c6: call     0x34652f0'
+    target_rva: '0x34652f0'
+    target_function:
+      begin: '0x34652f0'
+      end: '0x346534a'
+      size: '0x5a'
+  - site: '0x664924'
+    text: '00664924: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0x664933'
+    text: '00664933: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0x66494c'
+    text: '0066494c: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  sample_disasm:
+  - '00664860: mov      qword ptr [rsp + 0x10], rbx'
+  - '00664865: mov      qword ptr [rsp + 0x18], rsi'
+  - '0066486a: push     rdi'
+  - '0066486b: sub      rsp, 0x50'
+  - '0066486f: cmp      byte ptr [rip + 0x4e92574], 0'
+  - '00664876: mov      rdi, rdx'
+  - '00664879: mov      rbx, rcx'
+  - '0066487c: jne      0x664891'
+  - '0066487e: lea      rcx, [rip + 0x4c6e37b]'
+  - '00664885: call     0x5cc970'
+  - '0066488a: mov      byte ptr [rip + 0x4e92559], 1'
+  - '00664891: mov      rcx, qword ptr [rip + 0x4c6e368]'
+  - '00664898: cmp      dword ptr [rcx + 0xe0], 0'
+  - '0066489f: jne      0x6648a6'
+  - '006648a1: call     0x5735c0'
+  - '006648a6: xor      ecx, ecx'
+  - '006648a8: call     0x670b40'
+  - '006648ad: xor      edx, edx'
+  - '006648af: mov      dword ptr [rsp + 0x60], eax'
+  - '006648b3: lea      rcx, [rsp + 0x60]'
+- function:
+    begin: '0x6667d0'
+    end: '0x666adf'
+    size: '0x30f'
+  counts:
+    instructions: 168
+    direct_calls: 33
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 2
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 22
+    non_stack_writes: 4
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0x66687e'
+    target_rva: '0x428e138'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '0066687e: lea      rax, [rip + 0x3c278b3]'
+  - site: '0x6668fa'
+    target_rva: '0x428e150'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '006668fa: lea      rax, [rip + 0x3c2784f]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0x6667f4'
+    text: '006667f4: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x666800'
+    text: '00666800: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x66680c'
+    text: '0066680c: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x666818'
+    text: '00666818: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x666824'
+    text: '00666824: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x666830'
+    text: '00666830: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x66683c'
+    text: '0066683c: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x666848'
+    text: '00666848: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  sample_disasm:
+  - '006667d0: mov      qword ptr [rsp + 8], rbx'
+  - '006667d5: mov      qword ptr [rsp + 0x10], rbp'
+  - '006667da: mov      qword ptr [rsp + 0x18], rsi'
+  - '006667df: push     rdi'
+  - '006667e0: sub      rsp, 0x50'
+  - '006667e4: cmp      byte ptr [rip + 0x4e90671], 0'
+  - '006667eb: jne      0x666854'
+  - '006667ed: lea      rcx, [rip + 0x4c5d53c]'
+  - '006667f4: call     0x5cc970'
+  - '006667f9: lea      rcx, [rip + 0x4bb7410]'
+  - '00666800: call     0x5cc970'
+  - '00666805: lea      rcx, [rip + 0x4ba260c]'
+  - '0066680c: call     0x5cc970'
+  - '00666811: lea      rcx, [rip + 0x4c066c8]'
+  - '00666818: call     0x5cc970'
+  - '0066681d: lea      rcx, [rip + 0x4c6b584]'
+  - '00666824: call     0x5cc970'
+  - '00666829: lea      rcx, [rip + 0x4c6c3d0]'
+  - '00666830: call     0x5cc970'
+  - '00666835: lea      rcx, [rip + 0x4c03d1c]'
+- function:
+    begin: '0x66f300'
+    end: '0x66f3f9'
+    size: '0xf9'
+  counts:
+    instructions: 54
+    direct_calls: 8
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 12
+    non_stack_writes: 2
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0x66f38a'
+    target_rva: '0x428e0f0'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '0066f38a: lea      rax, [rip + 0x3c1ed5f]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0x66f31d'
+    text: '0066f31d: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x66f339'
+    text: '0066f339: call     0x5735c0'
+    target_rva: '0x5735c0'
+    target_function: null
+  - site: '0x66f340'
+    text: '0066f340: call     0x670b40'
+    target_rva: '0x670b40'
+    target_function:
+      begin: '0x670b40'
+      end: '0x670bd7'
+      size: '0x97'
+  - site: '0x66f350'
+    text: '0066f350: call     0x367ea10'
+    target_rva: '0x367ea10'
+    target_function:
+      begin: '0x367ea10'
+      end: '0x367ea8e'
+      size: '0x7e'
+  - site: '0x66f35e'
+    text: '0066f35e: call     0x34652f0'
+    target_rva: '0x34652f0'
+    target_function:
+      begin: '0x34652f0'
+      end: '0x346534a'
+      size: '0x5a'
+  - site: '0x66f3bc'
+    text: '0066f3bc: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0x66f3cb'
+    text: '0066f3cb: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0x66f3e4'
+    text: '0066f3e4: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  sample_disasm:
+  - '0066f300: mov      qword ptr [rsp + 0x10], rbx'
+  - '0066f305: push     rdi'
+  - '0066f306: sub      rsp, 0x50'
+  - '0066f30a: cmp      byte ptr [rip + 0x4e87ad8], 0'
+  - '0066f311: mov      rbx, rcx'
+  - '0066f314: jne      0x66f329'
+  - '0066f316: lea      rcx, [rip + 0x4c638e3]'
+  - '0066f31d: call     0x5cc970'
+  - '0066f322: mov      byte ptr [rip + 0x4e87ac0], 1'
+  - '0066f329: mov      rcx, qword ptr [rip + 0x4c638d0]'
+  - '0066f330: cmp      dword ptr [rcx + 0xe0], 0'
+  - '0066f337: jne      0x66f33e'
+  - '0066f339: call     0x5735c0'
+  - '0066f33e: xor      ecx, ecx'
+  - '0066f340: call     0x670b40'
+  - '0066f345: xor      edx, edx'
+  - '0066f347: mov      dword ptr [rsp + 0x60], eax'
+  - '0066f34b: lea      rcx, [rsp + 0x60]'
+  - '0066f350: call     0x367ea10'
+  - '0066f355: xor      r8d, r8d'
+- function:
+    begin: '0x66f910'
+    end: '0x66f9f6'
+    size: '0xe6'
+  counts:
+    instructions: 48
+    direct_calls: 8
+    import_calls: 0
+    indirect_slots: 1
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 2
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0x66f996'
+    target_rva: '0x428e120'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '0066f996: lea      rax, [rip + 0x3c1e783]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0x66f929'
+    text: '0066f929: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x66f945'
+    text: '0066f945: call     0x5735c0'
+    target_rva: '0x5735c0'
+    target_function: null
+  - site: '0x66f94c'
+    text: '0066f94c: call     0x670b40'
+    target_rva: '0x670b40'
+    target_function:
+      begin: '0x670b40'
+      end: '0x670bd7'
+      size: '0x97'
+  - site: '0x66f95c'
+    text: '0066f95c: call     0x367ea10'
+    target_rva: '0x367ea10'
+    target_function:
+      begin: '0x367ea10'
+      end: '0x367ea8e'
+      size: '0x7e'
+  - site: '0x66f96a'
+    text: '0066f96a: call     0x34652f0'
+    target_rva: '0x34652f0'
+    target_function:
+      begin: '0x34652f0'
+      end: '0x346534a'
+      size: '0x5a'
+  - site: '0x66f9c8'
+    text: '0066f9c8: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0x66f9d7'
+    text: '0066f9d7: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0x66f9eb'
+    text: '0066f9eb: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  sample_disasm:
+  - '0066f910: push     rbx'
+  - '0066f912: sub      rsp, 0x50'
+  - '0066f916: cmp      byte ptr [rip + 0x4e874ce], 0'
+  - '0066f91d: mov      rbx, rcx'
+  - '0066f920: jne      0x66f935'
+  - '0066f922: lea      rcx, [rip + 0x4c632d7]'
+  - '0066f929: call     0x5cc970'
+  - '0066f92e: mov      byte ptr [rip + 0x4e874b6], 1'
+  - '0066f935: mov      rcx, qword ptr [rip + 0x4c632c4]'
+  - '0066f93c: cmp      dword ptr [rcx + 0xe0], 0'
+  - '0066f943: jne      0x66f94a'
+  - '0066f945: call     0x5735c0'
+  - '0066f94a: xor      ecx, ecx'
+  - '0066f94c: call     0x670b40'
+  - '0066f951: xor      edx, edx'
+  - '0066f953: mov      dword ptr [rsp + 0x60], eax'
+  - '0066f957: lea      rcx, [rsp + 0x60]'
+  - '0066f95c: call     0x367ea10'
+  - '0066f961: xor      r8d, r8d'
+  - '0066f964: mov      rdx, rax'
+- function:
+    begin: '0x671110'
+    end: '0x6713c2'
+    size: '0x2b2'
+  counts:
+    instructions: 145
+    direct_calls: 23
+    import_calls: 0
+    indirect_slots: 1
+    keyword_refs: 2
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 32
+    non_stack_writes: 4
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0x671133'
+    target_rva: '0x428e120'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00671133: lea      r13, [rip + 0x3c1cfe6]'
+  - site: '0x67114d'
+    target_rva: '0x428e108'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '0067114d: lea      rdi, [rip + 0x3c1cfb4]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0x67116f'
+    text: '0067116f: call     0x573e80'
+    target_rva: '0x573e80'
+    target_function: null
+  - site: '0x671181'
+    text: '00671181: call     0x34685b0'
+    target_rva: '0x34685b0'
+    target_function:
+      begin: '0x34685b0'
+      end: '0x346870e'
+      size: '0x15e'
+  - site: '0x671199'
+    text: '00671199: call     0x5735c0'
+    target_rva: '0x5735c0'
+    target_function: null
+  - site: '0x6711ae'
+    text: '006711ae: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x6711ce'
+    text: '006711ce: call     0x5735c0'
+    target_rva: '0x5735c0'
+    target_function: null
+  - site: '0x6711d5'
+    text: '006711d5: call     0x670b40'
+    target_rva: '0x670b40'
+    target_function:
+      begin: '0x670b40'
+      end: '0x670bd7'
+      size: '0x97'
+  - site: '0x6711e3'
+    text: '006711e3: call     0x367ea10'
+    target_rva: '0x367ea10'
+    target_function:
+      begin: '0x367ea10'
+      end: '0x367ea8e'
+      size: '0x7e'
+  - site: '0x6711f1'
+    text: '006711f1: call     0x34652f0'
+    target_rva: '0x34652f0'
+    target_function:
+      begin: '0x34652f0'
+      end: '0x346534a'
+      size: '0x5a'
+  sample_disasm:
+  - '00671110: mov      qword ptr [rsp + 0x90], rbx'
+  - '00671118: mov      qword ptr [rsp + 0x78], rsi'
+  - '0067111d: mov      qword ptr [rsp + 0x70], rdi'
+  - '00671122: mov      qword ptr [rsp + 0x68], r12'
+  - '00671127: lea      r12, [rip + 0x3c1cb8a]'
+  - '0067112e: mov      qword ptr [rsp + 0x60], r13'
+  - '00671133: lea      r13, [rip + 0x3c1cfe6]'
+  - '0067113a: mov      qword ptr [rsp + 0x58], r14'
+  - '0067113f: mov      r14d, 1'
+  - '00671145: mov      qword ptr [rsp + 0x50], r15'
+  - '0067114a: xor      r15d, r15d'
+  - '0067114d: lea      rdi, [rip + 0x3c1cfb4]'
+  - '00671154: nop      dword ptr [rax]'
+  - '00671158: nop      dword ptr [rax + rax]'
+  - '00671160: mov      rcx, qword ptr [rip + 0x4bdc769]'
+  - '00671167: lea      rdx, [rbp + 0x28]'
+  - '0067116b: mov      dword ptr [rbp + 0x28], r14d'
+  - '0067116f: call     0x573e80'
+  - '00671174: mov      rcx, qword ptr [rip + 0x4c14e35]'
+  - '0067117b: xor      r8d, r8d'
+- function:
+    begin: '0x671c00'
+    end: '0x671c9d'
+    size: '0x9d'
+  counts:
+    instructions: 33
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0x671c31'
+    target_rva: '0x428e108'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00671c31: lea      rax, [rip + 0x3c1c4d0]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0x671c63'
+    text: '00671c63: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0x671c72'
+    text: '00671c72: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0x671c8b'
+    text: '00671c8b: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  sample_disasm:
+  - '00671c00: mov      qword ptr [rsp + 8], rbx'
+  - '00671c05: push     rdi'
+  - '00671c06: sub      rsp, 0x50'
+  - '00671c0a: cmp      qword ptr [rip + 0x4e851b6], 0'
+  - '00671c12: mov      rbx, rcx'
+  - '00671c15: jne      0x671c6f'
+  - '00671c17: lea      rax, [rip + 0x3c1c09a]'
+  - '00671c1e: mov      qword ptr [rsp + 0x28], 4'
+  - '00671c27: mov      qword ptr [rsp + 0x20], rax'
+  - '00671c2c: lea      rcx, [rsp + 0x20]'
+  - '00671c31: lea      rax, [rip + 0x3c1c4d0]'
+  - '00671c38: mov      qword ptr [rsp + 0x38], 0x12'
+  - '00671c41: mov      qword ptr [rsp + 0x30], rax'
+  - '00671c46: mov      dword ptr [rsp + 0x40], 1'
+  - '00671c4e: mov      dword ptr [rsp + 0x44], 2'
+  - '00671c56: mov      dword ptr [rsp + 0x48], 8'
+  - '00671c5e: mov      byte ptr [rsp + 0x4c], 0'
+  - '00671c63: call     0x5ccc30'
+  - '00671c68: mov      qword ptr [rip + 0x4e85159], rax'
+  - '00671c6f: mov      rcx, rbx'
+- function:
+    begin: '0x671ca0'
+    end: '0x671d18'
+    size: '0x78'
+  counts:
+    instructions: 24
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 9
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0x671ccf'
+    target_rva: '0x428e150'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00671ccf: lea      rax, [rip + 0x3c1c47a]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0x671d01'
+    text: '00671d01: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00671ca0: push     rbx'
+  - '00671ca2: sub      rsp, 0x50'
+  - '00671ca6: mov      rax, qword ptr [rip + 0x4e85133]'
+  - '00671cad: mov      rbx, rcx'
+  - '00671cb0: test     rax, rax'
+  - '00671cb3: jne      0x671d0d'
+  - '00671cb5: lea      rax, [rip + 0x3c1bffc]'
+  - '00671cbc: mov      qword ptr [rsp + 0x28], 4'
+  - '00671cc5: mov      qword ptr [rsp + 0x20], rax'
+  - '00671cca: lea      rcx, [rsp + 0x20]'
+  - '00671ccf: lea      rax, [rip + 0x3c1c47a]'
+  - '00671cd6: mov      qword ptr [rsp + 0x38], 0x16'
+  - '00671cdf: mov      qword ptr [rsp + 0x30], rax'
+  - '00671ce4: mov      dword ptr [rsp + 0x40], 1'
+  - '00671cec: mov      dword ptr [rsp + 0x44], 2'
+  - '00671cf4: mov      dword ptr [rsp + 0x48], 8'
+  - '00671cfc: mov      byte ptr [rsp + 0x4c], 0'
+  - '00671d01: call     0x5ccc30'
+  - '00671d06: mov      qword ptr [rip + 0x4e850d3], rax'
+  - '00671d0d: mov      rcx, rbx'
+- function:
+    begin: '0x671d20'
+    end: '0x671d88'
+    size: '0x68'
+  counts:
+    instructions: 19
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 8
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0x671d4a'
+    target_rva: '0x428e138'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00671d4a: lea      rax, [rip + 0x3c1c3e7]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0x671d75'
+    text: '00671d75: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00671d20: sub      rsp, 0x58'
+  - '00671d24: mov      rax, qword ptr [rip + 0x4e850ad]'
+  - '00671d2b: test     rax, rax'
+  - '00671d2e: jne      0x671d81'
+  - '00671d30: lea      rax, [rip + 0x3c1bf81]'
+  - '00671d37: mov      qword ptr [rsp + 0x28], 4'
+  - '00671d40: mov      qword ptr [rsp + 0x20], rax'
+  - '00671d45: lea      rcx, [rsp + 0x20]'
+  - '00671d4a: lea      rax, [rip + 0x3c1c3e7]'
+  - '00671d51: mov      qword ptr [rsp + 0x38], 0x15'
+  - '00671d5a: mov      qword ptr [rsp + 0x30], rax'
+  - '00671d5f: mov      dword ptr [rsp + 0x40], 1'
+  - '00671d67: mov      qword ptr [rsp + 0x44], 2'
+  - '00671d70: mov      byte ptr [rsp + 0x4c], 0'
+  - '00671d75: call     0x5ccc30'
+  - '00671d7a: mov      qword ptr [rip + 0x4e85057], rax'
+  - '00671d81: call     rax'
+  - '00671d83: add      rsp, 0x58'
+  - '00671d87: ret'
+- function:
+    begin: '0x671d90'
+    end: '0x671e2d'
+    size: '0x9d'
+  counts:
+    instructions: 33
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0x671dc1'
+    target_rva: '0x428e0f0'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00671dc1: lea      rax, [rip + 0x3c1c328]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0x671df3'
+    text: '00671df3: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0x671e02'
+    text: '00671e02: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0x671e1b'
+    text: '00671e1b: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  sample_disasm:
+  - '00671d90: mov      qword ptr [rsp + 8], rbx'
+  - '00671d95: push     rdi'
+  - '00671d96: sub      rsp, 0x50'
+  - '00671d9a: cmp      qword ptr [rip + 0x4e8501e], 0'
+  - '00671da2: mov      rbx, rcx'
+  - '00671da5: jne      0x671dff'
+  - '00671da7: lea      rax, [rip + 0x3c1bf0a]'
+  - '00671dae: mov      qword ptr [rsp + 0x28], 4'
+  - '00671db7: mov      qword ptr [rsp + 0x20], rax'
+  - '00671dbc: lea      rcx, [rsp + 0x20]'
+  - '00671dc1: lea      rax, [rip + 0x3c1c328]'
+  - '00671dc8: mov      qword ptr [rsp + 0x38], 0x10'
+  - '00671dd1: mov      qword ptr [rsp + 0x30], rax'
+  - '00671dd6: mov      dword ptr [rsp + 0x40], 1'
+  - '00671dde: mov      dword ptr [rsp + 0x44], 2'
+  - '00671de6: mov      dword ptr [rsp + 0x48], 8'
+  - '00671dee: mov      byte ptr [rsp + 0x4c], 0'
+  - '00671df3: call     0x5ccc30'
+  - '00671df8: mov      qword ptr [rip + 0x4e84fc1], rax'
+  - '00671dff: mov      rcx, rbx'
+- function:
+    begin: '0x671e30'
+    end: '0x671ebc'
+    size: '0x8c'
+  counts:
+    instructions: 27
+    direct_calls: 2
+    import_calls: 0
+    indirect_slots: 1
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 9
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0x671e5d'
+    target_rva: '0x428e120'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00671e5d: lea      rax, [rip + 0x3c1c2bc]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0x671e8f'
+    text: '00671e8f: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0x671e9e'
+    text: '00671e9e: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  sample_disasm:
+  - '00671e30: push     rbx'
+  - '00671e32: sub      rsp, 0x50'
+  - '00671e36: cmp      qword ptr [rip + 0x4e84f92], 0'
+  - '00671e3e: mov      rbx, rcx'
+  - '00671e41: jne      0x671e9b'
+  - '00671e43: lea      rax, [rip + 0x3c1be6e]'
+  - '00671e4a: mov      qword ptr [rsp + 0x28], 4'
+  - '00671e53: mov      qword ptr [rsp + 0x20], rax'
+  - '00671e58: lea      rcx, [rsp + 0x20]'
+  - '00671e5d: lea      rax, [rip + 0x3c1c2bc]'
+  - '00671e64: mov      qword ptr [rsp + 0x38], 0x13'
+  - '00671e6d: mov      qword ptr [rsp + 0x30], rax'
+  - '00671e72: mov      dword ptr [rsp + 0x40], 1'
+  - '00671e7a: mov      dword ptr [rsp + 0x44], 2'
+  - '00671e82: mov      dword ptr [rsp + 0x48], 8'
+  - '00671e8a: mov      byte ptr [rsp + 0x4c], 0'
+  - '00671e8f: call     0x5ccc30'
+  - '00671e94: mov      qword ptr [rip + 0x4e84f35], rax'
+  - '00671e9b: mov      rcx, rbx'
+  - '00671e9e: call     0x5ccab0'
+- function:
+    begin: '0xd848f0'
+    end: '0xd84a95'
+    size: '0x1a5'
+  counts:
+    instructions: 90
+    direct_calls: 7
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 9
+    non_stack_writes: 2
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd8497a'
+    target_rva: '0x429b438'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00d8497a: lea      rax, [rip + 0x3516ab7]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd84904'
+    text: '00d84904: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0xd84910'
+    text: '00d84910: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0xd84937'
+    text: '00d84937: call     0x5735c0'
+    target_rva: '0x5735c0'
+    target_function: null
+  - site: '0xd849a5'
+    text: '00d849a5: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xd84a0d'
+    text: '00d84a0d: call     0x5735c0'
+    target_rva: '0x5735c0'
+    target_function: null
+  - site: '0xd84a19'
+    text: '00d84a19: call     0x3665320'
+    target_rva: '0x3665320'
+    target_function:
+      begin: '0x3665320'
+      end: '0x366537e'
+      size: '0x5e'
+  - site: '0xd84a2d'
+    text: '00d84a2d: call     0x3663640'
+    target_rva: '0x3663640'
+    target_function:
+      begin: '0x3663640'
+      end: '0x366370d'
+      size: '0xcd'
+  sample_disasm:
+  - '00d848f0: sub      rsp, 0x78'
+  - '00d848f4: cmp      byte ptr [rip + 0x477888d], 0'
+  - '00d848fb: jne      0xd8491c'
+  - '00d848fd: lea      rcx, [rip + 0x4551c9c]'
+  - '00d84904: call     0x5cc970'
+  - '00d84909: lea      rcx, [rip + 0x4487020]'
+  - '00d84910: call     0x5cc970'
+  - '00d84915: mov      byte ptr [rip + 0x477886c], 1'
+  - '00d8491c: mov      rax, qword ptr [rip + 0x448700d]'
+  - '00d84923: xorps    xmm0, xmm0'
+  - '00d84926: movups   xmmword ptr [rsp + 0x20], xmm0'
+  - '00d8492b: cmp      dword ptr [rax + 0xe0], 0'
+  - '00d84932: jne      0xd84943'
+  - '00d84934: mov      rcx, rax'
+  - '00d84937: call     0x5735c0'
+  - '00d8493c: mov      rax, qword ptr [rip + 0x4486fed]'
+  - '00d84943: mov      rax, qword ptr [rax + 0xb8]'
+  - '00d8494a: cmp      byte ptr [rax + 0x60], 0'
+  - '00d8494e: jne      0xd849fd'
+  - '00d84954: mov      rax, qword ptr [rip + 0x4778825]'
+- function:
+    begin: '0xd84b30'
+    end: '0xd84bce'
+    size: '0x9e'
+  counts:
+    instructions: 33
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 1
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd84b64'
+    target_rva: '0x429b640'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00d84b64: lea      rax, [rip + 0x3516ad5]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd84b96'
+    text: '00d84b96: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xd84ba5'
+    text: '00d84ba5: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0xd84bbc'
+    text: '00d84bbc: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  sample_disasm:
+  - '00d84b30: mov      qword ptr [rsp + 8], rbx'
+  - '00d84b35: push     rdi'
+  - '00d84b36: sub      rsp, 0x50'
+  - '00d84b3a: cmp      qword ptr [rip + 0x4778716], 0'
+  - '00d84b42: mov      rbx, rdx'
+  - '00d84b45: mov      rdi, rcx'
+  - '00d84b48: jne      0xd84ba2'
+  - '00d84b4a: lea      rax, [rip + 0x3509167]'
+  - '00d84b51: mov      qword ptr [rsp + 0x28], 4'
+  - '00d84b5a: mov      qword ptr [rsp + 0x20], rax'
+  - '00d84b5f: lea      rcx, [rsp + 0x20]'
+  - '00d84b64: lea      rax, [rip + 0x3516ad5]'
+  - '00d84b6b: mov      qword ptr [rsp + 0x38], 0x15'
+  - '00d84b74: mov      qword ptr [rsp + 0x30], rax'
+  - '00d84b79: mov      dword ptr [rsp + 0x40], 1'
+  - '00d84b81: mov      dword ptr [rsp + 0x44], 2'
+  - '00d84b89: mov      dword ptr [rsp + 0x48], 0x10'
+  - '00d84b91: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d84b96: call     0x5ccc30'
+  - '00d84b9b: mov      qword ptr [rip + 0x47786b6], rax'
+- function:
+    begin: '0xd84da0'
+    end: '0xd84e16'
+    size: '0x76'
+  counts:
+    instructions: 24
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 9
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd84dce'
+    target_rva: '0x429b0a8'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00d84dce: lea      rax, [rip + 0x35162d3]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd84e00'
+    text: '00d84e00: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d84da0: push     rbx'
+  - '00d84da2: sub      rsp, 0x50'
+  - '00d84da6: mov      rax, qword ptr [rip + 0x477820b]'
+  - '00d84dad: mov      ebx, ecx'
+  - '00d84daf: test     rax, rax'
+  - '00d84db2: jne      0xd84e0c'
+  - '00d84db4: lea      rax, [rip + 0x3508efd]'
+  - '00d84dbb: mov      qword ptr [rsp + 0x28], 4'
+  - '00d84dc4: mov      qword ptr [rsp + 0x20], rax'
+  - '00d84dc9: lea      rcx, [rsp + 0x20]'
+  - '00d84dce: lea      rax, [rip + 0x35162d3]'
+  - '00d84dd5: mov      qword ptr [rsp + 0x38], 0xd'
+  - '00d84dde: mov      qword ptr [rsp + 0x30], rax'
+  - '00d84de3: mov      dword ptr [rsp + 0x40], 1'
+  - '00d84deb: mov      dword ptr [rsp + 0x44], 2'
+  - '00d84df3: mov      dword ptr [rsp + 0x48], 4'
+  - '00d84dfb: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d84e00: call     0x5ccc30'
+  - '00d84e05: mov      qword ptr [rip + 0x47781ac], rax'
+  - '00d84e0c: mov      ecx, ebx'
+- function:
+    begin: '0xd850c0'
+    end: '0xd85154'
+    size: '0x94'
+  counts:
+    instructions: 29
+    direct_calls: 2
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd850f4'
+    target_rva: '0x429b390'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d850f4: lea      rax, [rip + 0x3516295]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd85126'
+    text: '00d85126: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xd85135'
+    text: '00d85135: call     0x54a150'
+    target_rva: '0x54a150'
+    target_function: null
+  sample_disasm:
+  - '00d850c0: mov      qword ptr [rsp + 8], rbx'
+  - '00d850c5: push     rdi'
+  - '00d850c6: sub      rsp, 0x50'
+  - '00d850ca: cmp      qword ptr [rip + 0x4778056], 0'
+  - '00d850d2: mov      rbx, rdx'
+  - '00d850d5: mov      rdi, rcx'
+  - '00d850d8: jne      0xd85132'
+  - '00d850da: lea      rax, [rip + 0x3508bd7]'
+  - '00d850e1: mov      qword ptr [rsp + 0x28], 4'
+  - '00d850ea: mov      qword ptr [rsp + 0x20], rax'
+  - '00d850ef: lea      rcx, [rsp + 0x20]'
+  - '00d850f4: lea      rax, [rip + 0x3516295]'
+  - '00d850fb: mov      qword ptr [rsp + 0x38], 0xb'
+  - '00d85104: mov      qword ptr [rsp + 0x30], rax'
+  - '00d85109: mov      dword ptr [rsp + 0x40], 1'
+  - '00d85111: mov      dword ptr [rsp + 0x44], 2'
+  - '00d85119: mov      dword ptr [rsp + 0x48], 0x10'
+  - '00d85121: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d85126: call     0x5ccc30'
+  - '00d8512b: mov      qword ptr [rip + 0x4777ff6], rax'
+- function:
+    begin: '0xd85160'
+    end: '0xd851ea'
+    size: '0x8a'
+  counts:
+    instructions: 30
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd85195'
+    target_rva: '0x429b4a0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d85195: lea      rax, [rip + 0x3516304]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd851c7'
+    text: '00d851c7: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d85160: mov      qword ptr [rsp + 8], rbx'
+  - '00d85165: push     rdi'
+  - '00d85166: sub      rsp, 0x50'
+  - '00d8516a: mov      rax, qword ptr [rip + 0x4778037]'
+  - '00d85171: mov      ebx, edx'
+  - '00d85173: mov      rdi, rcx'
+  - '00d85176: test     rax, rax'
+  - '00d85179: jne      0xd851d3'
+  - '00d8517b: lea      rax, [rip + 0x3508b36]'
+  - '00d85182: mov      qword ptr [rsp + 0x28], 4'
+  - '00d8518b: mov      qword ptr [rsp + 0x20], rax'
+  - '00d85190: lea      rcx, [rsp + 0x20]'
+  - '00d85195: lea      rax, [rip + 0x3516304]'
+  - '00d8519c: mov      qword ptr [rsp + 0x38], 0xe'
+  - '00d851a5: mov      qword ptr [rsp + 0x30], rax'
+  - '00d851aa: mov      dword ptr [rsp + 0x40], 1'
+  - '00d851b2: mov      dword ptr [rsp + 0x44], 2'
+  - '00d851ba: mov      dword ptr [rsp + 0x48], 0xc'
+  - '00d851c2: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d851c7: call     0x5ccc30'
+- function:
+    begin: '0xd85200'
+    end: '0xd85278'
+    size: '0x78'
+  counts:
+    instructions: 24
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 9
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd8522f'
+    target_rva: '0x429b0b8'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d8522f: lea      rax, [rip + 0x3515e82]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd85261'
+    text: '00d85261: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d85200: push     rbx'
+  - '00d85202: sub      rsp, 0x50'
+  - '00d85206: mov      rax, qword ptr [rip + 0x4777db3]'
+  - '00d8520d: mov      rbx, rcx'
+  - '00d85210: test     rax, rax'
+  - '00d85213: jne      0xd8526d'
+  - '00d85215: lea      rax, [rip + 0x3508a9c]'
+  - '00d8521c: mov      qword ptr [rsp + 0x28], 4'
+  - '00d85225: mov      qword ptr [rsp + 0x20], rax'
+  - '00d8522a: lea      rcx, [rsp + 0x20]'
+  - '00d8522f: lea      rax, [rip + 0x3515e82]'
+  - '00d85236: mov      qword ptr [rsp + 0x38], 9'
+  - '00d8523f: mov      qword ptr [rsp + 0x30], rax'
+  - '00d85244: mov      dword ptr [rsp + 0x40], 1'
+  - '00d8524c: mov      dword ptr [rsp + 0x44], 2'
+  - '00d85254: mov      dword ptr [rsp + 0x48], 8'
+  - '00d8525c: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d85261: call     0x5ccc30'
+  - '00d85266: mov      qword ptr [rip + 0x4777d53], rax'
+  - '00d8526d: mov      rcx, rbx'
+- function:
+    begin: '0xd85280'
+    end: '0xd85311'
+    size: '0x91'
+  counts:
+    instructions: 33
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 7
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd852c3'
+    target_rva: '0x429b0f8'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d852c3: lea      rax, [rip + 0x3515e2e]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd852eb'
+    text: '00d852eb: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d85280: mov      r11, rsp'
+  - '00d85283: mov      qword ptr [r11 + 8], rbx'
+  - '00d85287: mov      qword ptr [r11 + 0x10], rsi'
+  - '00d8528b: push     rdi'
+  - '00d8528c: sub      rsp, 0x50'
+  - '00d85290: mov      rax, qword ptr [rip + 0x4777d49]'
+  - '00d85297: mov      ebx, r8d'
+  - '00d8529a: mov      edi, edx'
+  - '00d8529c: mov      rsi, rcx'
+  - '00d8529f: test     rax, rax'
+  - '00d852a2: jne      0xd852f7'
+  - '00d852a4: mov      qword ptr [r11 - 0x30], 4'
+  - '00d852ac: lea      rax, [rip + 0x3508a05]'
+  - '00d852b3: mov      qword ptr [r11 - 0x38], rax'
+  - '00d852b7: lea      rcx, [r11 - 0x38]'
+  - '00d852bb: mov      qword ptr [r11 - 0x20], 0xf'
+  - '00d852c3: lea      rax, [rip + 0x3515e2e]'
+  - '00d852ca: mov      qword ptr [r11 - 0x28], rax'
+  - '00d852ce: mov      dword ptr [rsp + 0x40], 1'
+  - '00d852d6: mov      dword ptr [rsp + 0x44], 2'
+- function:
+    begin: '0xd85350'
+    end: '0xd853e1'
+    size: '0x91'
+  counts:
+    instructions: 33
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 7
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd85393'
+    target_rva: '0x429b048'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d85393: lea      rax, [rip + 0x3515cae]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd853bb'
+    text: '00d853bb: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d85350: mov      r11, rsp'
+  - '00d85353: mov      qword ptr [r11 + 8], rbx'
+  - '00d85357: mov      qword ptr [r11 + 0x10], rsi'
+  - '00d8535b: push     rdi'
+  - '00d8535c: sub      rsp, 0x50'
+  - '00d85360: mov      rax, qword ptr [rip + 0x4777c21]'
+  - '00d85367: mov      ebx, r8d'
+  - '00d8536a: mov      edi, edx'
+  - '00d8536c: mov      rsi, rcx'
+  - '00d8536f: test     rax, rax'
+  - '00d85372: jne      0xd853c7'
+  - '00d85374: mov      qword ptr [r11 - 0x30], 4'
+  - '00d8537c: lea      rax, [rip + 0x3508935]'
+  - '00d85383: mov      qword ptr [r11 - 0x38], rax'
+  - '00d85387: lea      rcx, [r11 - 0x38]'
+  - '00d8538b: mov      qword ptr [r11 - 0x20], 6'
+  - '00d85393: lea      rax, [rip + 0x3515cae]'
+  - '00d8539a: mov      qword ptr [r11 - 0x28], rax'
+  - '00d8539e: mov      dword ptr [rsp + 0x40], 1'
+  - '00d853a6: mov      dword ptr [rsp + 0x44], 2'
+- function:
+    begin: '0xd853f0'
+    end: '0xd85495'
+    size: '0xa5'
+  counts:
+    instructions: 36
+    direct_calls: 2
+    import_calls: 0
+    indirect_slots: 1
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 7
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd85431'
+    target_rva: '0x429b1a8'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d85431: lea      rax, [rip + 0x3515d70]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd85459'
+    text: '00d85459: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xd85468'
+    text: '00d85468: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  sample_disasm:
+  - '00d853f0: mov      r11, rsp'
+  - '00d853f3: mov      qword ptr [r11 + 8], rbx'
+  - '00d853f7: mov      qword ptr [r11 + 0x10], rsi'
+  - '00d853fb: push     rdi'
+  - '00d853fc: sub      rsp, 0x50'
+  - '00d85400: cmp      qword ptr [rip + 0x4777c30], 0'
+  - '00d85408: mov      rbx, r8'
+  - '00d8540b: mov      edi, edx'
+  - '00d8540d: mov      rsi, rcx'
+  - '00d85410: jne      0xd85465'
+  - '00d85412: mov      qword ptr [r11 - 0x30], 4'
+  - '00d8541a: lea      rax, [rip + 0x3508897]'
+  - '00d85421: mov      qword ptr [r11 - 0x38], rax'
+  - '00d85425: lea      rcx, [r11 - 0x38]'
+  - '00d85429: mov      qword ptr [r11 - 0x20], 0xc'
+  - '00d85431: lea      rax, [rip + 0x3515d70]'
+  - '00d85438: mov      qword ptr [r11 - 0x28], rax'
+  - '00d8543c: mov      dword ptr [rsp + 0x40], 1'
+  - '00d85444: mov      dword ptr [rsp + 0x44], 2'
+  - '00d8544c: mov      dword ptr [rsp + 0x48], 0x14'
+- function:
+    begin: '0xd854a0'
+    end: '0xd8553b'
+    size: '0x9b'
+  counts:
+    instructions: 31
+    direct_calls: 2
+    import_calls: 0
+    indirect_slots: 1
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd854d4'
+    target_rva: '0x429b108'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d854d4: lea      rax, [rip + 0x3515c2d]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd85506'
+    text: '00d85506: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xd85515'
+    text: '00d85515: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  sample_disasm:
+  - '00d854a0: mov      qword ptr [rsp + 8], rbx'
+  - '00d854a5: push     rdi'
+  - '00d854a6: sub      rsp, 0x50'
+  - '00d854aa: cmp      qword ptr [rip + 0x4777b36], 0'
+  - '00d854b2: mov      rbx, rdx'
+  - '00d854b5: mov      rdi, rcx'
+  - '00d854b8: jne      0xd85512'
+  - '00d854ba: lea      rax, [rip + 0x35087f7]'
+  - '00d854c1: mov      qword ptr [rsp + 0x28], 4'
+  - '00d854ca: mov      qword ptr [rsp + 0x20], rax'
+  - '00d854cf: lea      rcx, [rsp + 0x20]'
+  - '00d854d4: lea      rax, [rip + 0x3515c2d]'
+  - '00d854db: mov      qword ptr [rsp + 0x38], 0xd'
+  - '00d854e4: mov      qword ptr [rsp + 0x30], rax'
+  - '00d854e9: mov      dword ptr [rsp + 0x40], 1'
+  - '00d854f1: mov      dword ptr [rsp + 0x44], 2'
+  - '00d854f9: mov      dword ptr [rsp + 0x48], 0x10'
+  - '00d85501: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d85506: call     0x5ccc30'
+  - '00d8550b: mov      qword ptr [rip + 0x4777ad6], rax'
+- function:
+    begin: '0xd85540'
+    end: '0xd855dc'
+    size: '0x9c'
+  counts:
+    instructions: 34
+    direct_calls: 2
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd85584'
+    target_rva: '0x429b290'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00d85584: lea      rax, [rip + 0x3515d05]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd85557'
+    text: '00d85557: call     0xe3b4f0'
+    target_rva: '0xe3b4f0'
+    target_function:
+      begin: '0xe3b4f0'
+      end: '0xe3b548'
+      size: '0x58'
+  - site: '0xd855b6'
+    text: '00d855b6: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d85540: mov      qword ptr [rsp + 8], rbx'
+  - '00d85545: mov      qword ptr [rsp + 0x10], rsi'
+  - '00d8554a: push     rdi'
+  - '00d8554b: sub      rsp, 0x50'
+  - '00d8554f: mov      rdi, rcx'
+  - '00d85552: movsxd   rbx, edx'
+  - '00d85555: xor      ecx, ecx'
+  - '00d85557: call     0xe3b4f0'
+  - '00d8555c: mov      esi, eax'
+  - '00d8555e: mov      rax, qword ptr [rip + 0x4777b3b]'
+  - '00d85565: test     rax, rax'
+  - '00d85568: jne      0xd855c2'
+  - '00d8556a: lea      rax, [rip + 0x3508747]'
+  - '00d85571: mov      qword ptr [rsp + 0x28], 4'
+  - '00d8557a: mov      qword ptr [rsp + 0x20], rax'
+  - '00d8557f: lea      rcx, [rsp + 0x20]'
+  - '00d85584: lea      rax, [rip + 0x3515d05]'
+  - '00d8558b: mov      qword ptr [rsp + 0x38], 0xc'
+  - '00d85594: mov      qword ptr [rsp + 0x30], rax'
+  - '00d85599: mov      dword ptr [rsp + 0x40], 1'
+- function:
+    begin: '0xd855e0'
+    end: '0xd85658'
+    size: '0x78'
+  counts:
+    instructions: 24
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 9
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd8560f'
+    target_rva: '0x429b250'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d8560f: lea      rax, [rip + 0x3515c3a]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd85641'
+    text: '00d85641: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d855e0: push     rbx'
+  - '00d855e2: sub      rsp, 0x50'
+  - '00d855e6: mov      rax, qword ptr [rip + 0x4777a93]'
+  - '00d855ed: mov      rbx, rcx'
+  - '00d855f0: test     rax, rax'
+  - '00d855f3: jne      0xd8564d'
+  - '00d855f5: lea      rax, [rip + 0x35086bc]'
+  - '00d855fc: mov      qword ptr [rsp + 0x28], 4'
+  - '00d85605: mov      qword ptr [rsp + 0x20], rax'
+  - '00d8560a: lea      rcx, [rsp + 0x20]'
+  - '00d8560f: lea      rax, [rip + 0x3515c3a]'
+  - '00d85616: mov      qword ptr [rsp + 0x38], 0xa'
+  - '00d8561f: mov      qword ptr [rsp + 0x30], rax'
+  - '00d85624: mov      dword ptr [rsp + 0x40], 1'
+  - '00d8562c: mov      dword ptr [rsp + 0x44], 2'
+  - '00d85634: mov      dword ptr [rsp + 0x48], 8'
+  - '00d8563c: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d85641: call     0x5ccc30'
+  - '00d85646: mov      qword ptr [rip + 0x4777a33], rax'
+  - '00d8564d: mov      rcx, rbx'
+- function:
+    begin: '0xd85660'
+    end: '0xd856f1'
+    size: '0x91'
+  counts:
+    instructions: 33
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 7
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd856a3'
+    target_rva: '0x429b050'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d856a3: lea      rax, [rip + 0x35159a6]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd856cb'
+    text: '00d856cb: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d85660: mov      r11, rsp'
+  - '00d85663: mov      qword ptr [r11 + 8], rbx'
+  - '00d85667: mov      qword ptr [r11 + 0x10], rsi'
+  - '00d8566b: push     rdi'
+  - '00d8566c: sub      rsp, 0x50'
+  - '00d85670: mov      rax, qword ptr [rip + 0x4777919]'
+  - '00d85677: mov      ebx, r8d'
+  - '00d8567a: mov      edi, edx'
+  - '00d8567c: mov      rsi, rcx'
+  - '00d8567f: test     rax, rax'
+  - '00d85682: jne      0xd856d7'
+  - '00d85684: mov      qword ptr [r11 - 0x30], 4'
+  - '00d8568c: lea      rax, [rip + 0x3508625]'
+  - '00d85693: mov      qword ptr [r11 - 0x38], rax'
+  - '00d85697: lea      rcx, [r11 - 0x38]'
+  - '00d8569b: mov      qword ptr [r11 - 0x20], 0xe'
+  - '00d856a3: lea      rax, [rip + 0x35159a6]'
+  - '00d856aa: mov      qword ptr [r11 - 0x28], rax'
+  - '00d856ae: mov      dword ptr [rsp + 0x40], 1'
+  - '00d856b6: mov      dword ptr [rsp + 0x44], 2'
+- function:
+    begin: '0xd85700'
+    end: '0xd85785'
+    size: '0x85'
+  counts:
+    instructions: 28
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd85735'
+    target_rva: '0x429b168'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d85735: lea      rax, [rip + 0x3515a2c]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd85767'
+    text: '00d85767: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d85700: mov      qword ptr [rsp + 8], rbx'
+  - '00d85705: push     rdi'
+  - '00d85706: sub      rsp, 0x50'
+  - '00d8570a: mov      rax, qword ptr [rip + 0x4777907]'
+  - '00d85711: mov      ebx, edx'
+  - '00d85713: mov      rdi, rcx'
+  - '00d85716: test     rax, rax'
+  - '00d85719: jne      0xd85773'
+  - '00d8571b: lea      rax, [rip + 0x3508596]'
+  - '00d85722: mov      qword ptr [rsp + 0x28], 4'
+  - '00d8572b: mov      qword ptr [rsp + 0x20], rax'
+  - '00d85730: lea      rcx, [rsp + 0x20]'
+  - '00d85735: lea      rax, [rip + 0x3515a2c]'
+  - '00d8573c: mov      qword ptr [rsp + 0x38], 0xa'
+  - '00d85745: mov      qword ptr [rsp + 0x30], rax'
+  - '00d8574a: mov      dword ptr [rsp + 0x40], 1'
+  - '00d85752: mov      dword ptr [rsp + 0x44], 2'
+  - '00d8575a: mov      dword ptr [rsp + 0x48], 0xc'
+  - '00d85762: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d85767: call     0x5ccc30'
+- function:
+    begin: '0xd857d0'
+    end: '0xd8585a'
+    size: '0x8a'
+  counts:
+    instructions: 30
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd85805'
+    target_rva: '0x429b5e0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d85805: lea      rax, [rip + 0x3515dd4]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd85837'
+    text: '00d85837: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d857d0: mov      qword ptr [rsp + 8], rbx'
+  - '00d857d5: push     rdi'
+  - '00d857d6: sub      rsp, 0x50'
+  - '00d857da: mov      rax, qword ptr [rip + 0x4777a4f]'
+  - '00d857e1: mov      ebx, edx'
+  - '00d857e3: mov      rdi, rcx'
+  - '00d857e6: test     rax, rax'
+  - '00d857e9: jne      0xd85843'
+  - '00d857eb: lea      rax, [rip + 0x35084c6]'
+  - '00d857f2: mov      qword ptr [rsp + 0x28], 4'
+  - '00d857fb: mov      qword ptr [rsp + 0x20], rax'
+  - '00d85800: lea      rcx, [rsp + 0x20]'
+  - '00d85805: lea      rax, [rip + 0x3515dd4]'
+  - '00d8580c: mov      qword ptr [rsp + 0x38], 0xb'
+  - '00d85815: mov      qword ptr [rsp + 0x30], rax'
+  - '00d8581a: mov      dword ptr [rsp + 0x40], 1'
+  - '00d85822: mov      dword ptr [rsp + 0x44], 2'
+  - '00d8582a: mov      dword ptr [rsp + 0x48], 0xc'
+  - '00d85832: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d85837: call     0x5ccc30'
+- function:
+    begin: '0xd85860'
+    end: '0xd858ea'
+    size: '0x8a'
+  counts:
+    instructions: 30
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd85895'
+    target_rva: '0x429b2e0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d85895: lea      rax, [rip + 0x3515a44]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd858c7'
+    text: '00d858c7: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d85860: mov      qword ptr [rsp + 8], rbx'
+  - '00d85865: push     rdi'
+  - '00d85866: sub      rsp, 0x50'
+  - '00d8586a: mov      rax, qword ptr [rip + 0x4777857]'
+  - '00d85871: mov      ebx, edx'
+  - '00d85873: mov      rdi, rcx'
+  - '00d85876: test     rax, rax'
+  - '00d85879: jne      0xd858d3'
+  - '00d8587b: lea      rax, [rip + 0x3508436]'
+  - '00d85882: mov      qword ptr [rsp + 0x28], 4'
+  - '00d8588b: mov      qword ptr [rsp + 0x20], rax'
+  - '00d85890: lea      rcx, [rsp + 0x20]'
+  - '00d85895: lea      rax, [rip + 0x3515a44]'
+  - '00d8589c: mov      qword ptr [rsp + 0x38], 0xd'
+  - '00d858a5: mov      qword ptr [rsp + 0x30], rax'
+  - '00d858aa: mov      dword ptr [rsp + 0x40], 1'
+  - '00d858b2: mov      dword ptr [rsp + 0x44], 2'
+  - '00d858ba: mov      dword ptr [rsp + 0x48], 0xc'
+  - '00d858c2: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d858c7: call     0x5ccc30'
+- function:
+    begin: '0xd85930'
+    end: '0xd859ba'
+    size: '0x8a'
+  counts:
+    instructions: 30
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd85965'
+    target_rva: '0x429b270'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d85965: lea      rax, [rip + 0x3515904]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd85997'
+    text: '00d85997: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d85930: mov      qword ptr [rsp + 8], rbx'
+  - '00d85935: push     rdi'
+  - '00d85936: sub      rsp, 0x50'
+  - '00d8593a: mov      rax, qword ptr [rip + 0x477774f]'
+  - '00d85941: mov      ebx, edx'
+  - '00d85943: mov      rdi, rcx'
+  - '00d85946: test     rax, rax'
+  - '00d85949: jne      0xd859a3'
+  - '00d8594b: lea      rax, [rip + 0x3508366]'
+  - '00d85952: mov      qword ptr [rsp + 0x28], 4'
+  - '00d8595b: mov      qword ptr [rsp + 0x20], rax'
+  - '00d85960: lea      rcx, [rsp + 0x20]'
+  - '00d85965: lea      rax, [rip + 0x3515904]'
+  - '00d8596c: mov      qword ptr [rsp + 0x38], 0xc'
+  - '00d85975: mov      qword ptr [rsp + 0x30], rax'
+  - '00d8597a: mov      dword ptr [rsp + 0x40], 1'
+  - '00d85982: mov      dword ptr [rsp + 0x44], 2'
+  - '00d8598a: mov      dword ptr [rsp + 0x48], 0xc'
+  - '00d85992: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d85997: call     0x5ccc30'
+- function:
+    begin: '0xd859c0'
+    end: '0xd85a4a'
+    size: '0x8a'
+  counts:
+    instructions: 30
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd859f5'
+    target_rva: '0x429b2d0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d859f5: lea      rax, [rip + 0x35158d4]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd85a27'
+    text: '00d85a27: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d859c0: mov      qword ptr [rsp + 8], rbx'
+  - '00d859c5: push     rdi'
+  - '00d859c6: sub      rsp, 0x50'
+  - '00d859ca: mov      rax, qword ptr [rip + 0x47776ef]'
+  - '00d859d1: mov      ebx, edx'
+  - '00d859d3: mov      rdi, rcx'
+  - '00d859d6: test     rax, rax'
+  - '00d859d9: jne      0xd85a33'
+  - '00d859db: lea      rax, [rip + 0x35082d6]'
+  - '00d859e2: mov      qword ptr [rsp + 0x28], 4'
+  - '00d859eb: mov      qword ptr [rsp + 0x20], rax'
+  - '00d859f0: lea      rcx, [rsp + 0x20]'
+  - '00d859f5: lea      rax, [rip + 0x35158d4]'
+  - '00d859fc: mov      qword ptr [rsp + 0x38], 0xc'
+  - '00d85a05: mov      qword ptr [rsp + 0x30], rax'
+  - '00d85a0a: mov      dword ptr [rsp + 0x40], 1'
+  - '00d85a12: mov      dword ptr [rsp + 0x44], 2'
+  - '00d85a1a: mov      dword ptr [rsp + 0x48], 0xc'
+  - '00d85a22: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d85a27: call     0x5ccc30'
+- function:
+    begin: '0xd85a90'
+    end: '0xd85b1a'
+    size: '0x8a'
+  counts:
+    instructions: 30
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd85ac5'
+    target_rva: '0x429b5f0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d85ac5: lea      rax, [rip + 0x3515b24]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd85af7'
+    text: '00d85af7: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d85a90: mov      qword ptr [rsp + 8], rbx'
+  - '00d85a95: push     rdi'
+  - '00d85a96: sub      rsp, 0x50'
+  - '00d85a9a: mov      rax, qword ptr [rip + 0x4777797]'
+  - '00d85aa1: mov      ebx, edx'
+  - '00d85aa3: mov      rdi, rcx'
+  - '00d85aa6: test     rax, rax'
+  - '00d85aa9: jne      0xd85b03'
+  - '00d85aab: lea      rax, [rip + 0x3508206]'
+  - '00d85ab2: mov      qword ptr [rsp + 0x28], 4'
+  - '00d85abb: mov      qword ptr [rsp + 0x20], rax'
+  - '00d85ac0: lea      rcx, [rsp + 0x20]'
+  - '00d85ac5: lea      rax, [rip + 0x3515b24]'
+  - '00d85acc: mov      qword ptr [rsp + 0x38], 0xc'
+  - '00d85ad5: mov      qword ptr [rsp + 0x30], rax'
+  - '00d85ada: mov      dword ptr [rsp + 0x40], 1'
+  - '00d85ae2: mov      dword ptr [rsp + 0x44], 2'
+  - '00d85aea: mov      dword ptr [rsp + 0x48], 0xc'
+  - '00d85af2: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d85af7: call     0x5ccc30'
+- function:
+    begin: '0xd85b30'
+    end: '0xd85bb5'
+    size: '0x85'
+  counts:
+    instructions: 28
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd85b65'
+    target_rva: '0x429b4b0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d85b65: lea      rax, [rip + 0x3515944]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd85b97'
+    text: '00d85b97: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d85b30: mov      qword ptr [rsp + 8], rbx'
+  - '00d85b35: push     rdi'
+  - '00d85b36: sub      rsp, 0x50'
+  - '00d85b3a: mov      rax, qword ptr [rip + 0x477766f]'
+  - '00d85b41: mov      ebx, edx'
+  - '00d85b43: mov      rdi, rcx'
+  - '00d85b46: test     rax, rax'
+  - '00d85b49: jne      0xd85ba3'
+  - '00d85b4b: lea      rax, [rip + 0x3508166]'
+  - '00d85b52: mov      qword ptr [rsp + 0x28], 4'
+  - '00d85b5b: mov      qword ptr [rsp + 0x20], rax'
+  - '00d85b60: lea      rcx, [rsp + 0x20]'
+  - '00d85b65: lea      rax, [rip + 0x3515944]'
+  - '00d85b6c: mov      qword ptr [rsp + 0x38], 8'
+  - '00d85b75: mov      qword ptr [rsp + 0x30], rax'
+  - '00d85b7a: mov      dword ptr [rsp + 0x40], 1'
+  - '00d85b82: mov      dword ptr [rsp + 0x44], 2'
+  - '00d85b8a: mov      dword ptr [rsp + 0x48], 0xc'
+  - '00d85b92: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d85b97: call     0x5ccc30'
+- function:
+    begin: '0xd85bc0'
+    end: '0xd85c60'
+    size: '0xa0'
+  counts:
+    instructions: 37
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 12
+    non_stack_writes: 8
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd85c0a'
+    target_rva: '0x429b318'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00d85c0a: lea      rax, [rip + 0x3515707]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd85c32'
+    text: '00d85c32: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d85bc0: mov      r11, rsp'
+  - '00d85bc3: mov      qword ptr [r11 + 8], rbx'
+  - '00d85bc7: mov      qword ptr [r11 + 0x10], rbp'
+  - '00d85bcb: mov      qword ptr [r11 + 0x18], rsi'
+  - '00d85bcf: push     rdi'
+  - '00d85bd0: sub      rsp, 0x50'
+  - '00d85bd4: mov      rax, qword ptr [rip + 0x477750d]'
+  - '00d85bdb: mov      ebx, r9d'
+  - '00d85bde: mov      edi, r8d'
+  - '00d85be1: mov      esi, edx'
+  - '00d85be3: mov      rbp, rcx'
+  - '00d85be6: test     rax, rax'
+  - '00d85be9: jne      0xd85c3e'
+  - '00d85beb: mov      qword ptr [r11 - 0x30], 4'
+  - '00d85bf3: lea      rax, [rip + 0x35080be]'
+  - '00d85bfa: mov      qword ptr [r11 - 0x38], rax'
+  - '00d85bfe: lea      rcx, [r11 - 0x38]'
+  - '00d85c02: mov      qword ptr [r11 - 0x20], 0x13'
+  - '00d85c0a: lea      rax, [rip + 0x3515707]'
+  - '00d85c11: mov      qword ptr [r11 - 0x28], rax'
+- function:
+    begin: '0xd85c60'
+    end: '0xd85d1b'
+    size: '0xbb'
+  counts:
+    instructions: 41
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 14
+    non_stack_writes: 8
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd85caa'
+    target_rva: '0x429b1c8'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00d85caa: lea      rax, [rip + 0x3515517]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd85cd2'
+    text: '00d85cd2: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d85c60: mov      r11, rsp'
+  - '00d85c63: mov      qword ptr [r11 + 8], rbx'
+  - '00d85c67: mov      qword ptr [r11 + 0x10], rbp'
+  - '00d85c6b: mov      qword ptr [r11 + 0x18], rsi'
+  - '00d85c6f: push     rdi'
+  - '00d85c70: sub      rsp, 0x60'
+  - '00d85c74: mov      rax, qword ptr [rip + 0x47773cd]'
+  - '00d85c7b: mov      ebx, r9d'
+  - '00d85c7e: mov      edi, r8d'
+  - '00d85c81: mov      esi, edx'
+  - '00d85c83: mov      rbp, rcx'
+  - '00d85c86: test     rax, rax'
+  - '00d85c89: jne      0xd85cde'
+  - '00d85c8b: mov      qword ptr [r11 - 0x30], 4'
+  - '00d85c93: lea      rax, [rip + 0x350801e]'
+  - '00d85c9a: mov      qword ptr [r11 - 0x38], rax'
+  - '00d85c9e: lea      rcx, [r11 - 0x38]'
+  - '00d85ca2: mov      qword ptr [r11 - 0x20], 0x14'
+  - '00d85caa: lea      rax, [rip + 0x3515517]'
+  - '00d85cb1: mov      qword ptr [r11 - 0x28], rax'
+- function:
+    begin: '0xd85d30'
+    end: '0xd85db6'
+    size: '0x86'
+  counts:
+    instructions: 28
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd85d66'
+    target_rva: '0x429b3b0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d85d66: lea      rax, [rip + 0x3515643]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd85d98'
+    text: '00d85d98: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d85d30: mov      qword ptr [rsp + 8], rbx'
+  - '00d85d35: push     rdi'
+  - '00d85d36: sub      rsp, 0x50'
+  - '00d85d3a: mov      rax, qword ptr [rip + 0x47773f7]'
+  - '00d85d41: mov      rdi, rcx'
+  - '00d85d44: movzx    ebx, dl'
+  - '00d85d47: test     rax, rax'
+  - '00d85d4a: jne      0xd85da4'
+  - '00d85d4c: lea      rax, [rip + 0x3507f65]'
+  - '00d85d53: mov      qword ptr [rsp + 0x28], 4'
+  - '00d85d5c: mov      qword ptr [rsp + 0x20], rax'
+  - '00d85d61: lea      rcx, [rsp + 0x20]'
+  - '00d85d66: lea      rax, [rip + 0x3515643]'
+  - '00d85d6d: mov      qword ptr [rsp + 0x38], 0xf'
+  - '00d85d76: mov      qword ptr [rsp + 0x30], rax'
+  - '00d85d7b: mov      dword ptr [rsp + 0x40], 1'
+  - '00d85d83: mov      dword ptr [rsp + 0x44], 2'
+  - '00d85d8b: mov      dword ptr [rsp + 0x48], 0xc'
+  - '00d85d93: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d85d98: call     0x5ccc30'
+- function:
+    begin: '0xd85dc0'
+    end: '0xd85e53'
+    size: '0x93'
+  counts:
+    instructions: 33
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 7
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd85e04'
+    target_rva: '0x429b228'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d85e04: lea      rax, [rip + 0x351541d]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd85e2c'
+    text: '00d85e2c: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d85dc0: mov      r11, rsp'
+  - '00d85dc3: mov      qword ptr [r11 + 8], rbx'
+  - '00d85dc7: mov      qword ptr [r11 + 0x10], rsi'
+  - '00d85dcb: push     rdi'
+  - '00d85dcc: sub      rsp, 0x50'
+  - '00d85dd0: mov      rax, qword ptr [rip + 0x4777299]'
+  - '00d85dd7: mov      ebx, r8d'
+  - '00d85dda: mov      rdi, rdx'
+  - '00d85ddd: mov      rsi, rcx'
+  - '00d85de0: test     rax, rax'
+  - '00d85de3: jne      0xd85e38'
+  - '00d85de5: mov      qword ptr [r11 - 0x30], 4'
+  - '00d85ded: lea      rax, [rip + 0x3507ec4]'
+  - '00d85df4: mov      qword ptr [r11 - 0x38], rax'
+  - '00d85df8: lea      rcx, [r11 - 0x38]'
+  - '00d85dfc: mov      qword ptr [r11 - 0x20], 0x10'
+  - '00d85e04: lea      rax, [rip + 0x351541d]'
+  - '00d85e0b: mov      qword ptr [r11 - 0x28], rax'
+  - '00d85e0f: mov      dword ptr [rsp + 0x40], 1'
+  - '00d85e17: mov      dword ptr [rsp + 0x44], 2'
+- function:
+    begin: '0xd85e60'
+    end: '0xd85ee7'
+    size: '0x87'
+  counts:
+    instructions: 28
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd85e96'
+    target_rva: '0x429b5c0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d85e96: lea      rax, [rip + 0x3515723]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd85ec8'
+    text: '00d85ec8: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d85e60: mov      qword ptr [rsp + 8], rbx'
+  - '00d85e65: push     rdi'
+  - '00d85e66: sub      rsp, 0x50'
+  - '00d85e6a: mov      rax, qword ptr [rip + 0x47773af]'
+  - '00d85e71: mov      rbx, rdx'
+  - '00d85e74: mov      rdi, rcx'
+  - '00d85e77: test     rax, rax'
+  - '00d85e7a: jne      0xd85ed4'
+  - '00d85e7c: lea      rax, [rip + 0x3507e35]'
+  - '00d85e83: mov      qword ptr [rsp + 0x28], 4'
+  - '00d85e8c: mov      qword ptr [rsp + 0x20], rax'
+  - '00d85e91: lea      rcx, [rsp + 0x20]'
+  - '00d85e96: lea      rax, [rip + 0x3515723]'
+  - '00d85e9d: mov      qword ptr [rsp + 0x38], 0xd'
+  - '00d85ea6: mov      qword ptr [rsp + 0x30], rax'
+  - '00d85eab: mov      dword ptr [rsp + 0x40], 1'
+  - '00d85eb3: mov      dword ptr [rsp + 0x44], 2'
+  - '00d85ebb: mov      dword ptr [rsp + 0x48], 0x10'
+  - '00d85ec3: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d85ec8: call     0x5ccc30'
+- function:
+    begin: '0xd85ef0'
+    end: '0xd85f77'
+    size: '0x87'
+  counts:
+    instructions: 28
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd85f26'
+    target_rva: '0x429b4c0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d85f26: lea      rax, [rip + 0x3515593]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd85f58'
+    text: '00d85f58: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d85ef0: mov      qword ptr [rsp + 8], rbx'
+  - '00d85ef5: push     rdi'
+  - '00d85ef6: sub      rsp, 0x50'
+  - '00d85efa: mov      rax, qword ptr [rip + 0x47772b7]'
+  - '00d85f01: mov      rbx, rdx'
+  - '00d85f04: mov      rdi, rcx'
+  - '00d85f07: test     rax, rax'
+  - '00d85f0a: jne      0xd85f64'
+  - '00d85f0c: lea      rax, [rip + 0x3507da5]'
+  - '00d85f13: mov      qword ptr [rsp + 0x28], 4'
+  - '00d85f1c: mov      qword ptr [rsp + 0x20], rax'
+  - '00d85f21: lea      rcx, [rsp + 0x20]'
+  - '00d85f26: lea      rax, [rip + 0x3515593]'
+  - '00d85f2d: mov      qword ptr [rsp + 0x38], 0x15'
+  - '00d85f36: mov      qword ptr [rsp + 0x30], rax'
+  - '00d85f3b: mov      dword ptr [rsp + 0x40], 1'
+  - '00d85f43: mov      dword ptr [rsp + 0x44], 2'
+  - '00d85f4b: mov      dword ptr [rsp + 0x48], 0x10'
+  - '00d85f53: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d85f58: call     0x5ccc30'
+- function:
+    begin: '0xd85f80'
+    end: '0xd85ff8'
+    size: '0x78'
+  counts:
+    instructions: 24
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 9
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd85faf'
+    target_rva: '0x429b2f0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d85faf: lea      rax, [rip + 0x351533a]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd85fe1'
+    text: '00d85fe1: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d85f80: push     rbx'
+  - '00d85f82: sub      rsp, 0x50'
+  - '00d85f86: mov      rax, qword ptr [rip + 0x4777143]'
+  - '00d85f8d: mov      rbx, rcx'
+  - '00d85f90: test     rax, rax'
+  - '00d85f93: jne      0xd85fed'
+  - '00d85f95: lea      rax, [rip + 0x3507d1c]'
+  - '00d85f9c: mov      qword ptr [rsp + 0x28], 4'
+  - '00d85fa5: mov      qword ptr [rsp + 0x20], rax'
+  - '00d85faa: lea      rcx, [rsp + 0x20]'
+  - '00d85faf: lea      rax, [rip + 0x351533a]'
+  - '00d85fb6: mov      qword ptr [rsp + 0x38], 0xb'
+  - '00d85fbf: mov      qword ptr [rsp + 0x30], rax'
+  - '00d85fc4: mov      dword ptr [rsp + 0x40], 1'
+  - '00d85fcc: mov      dword ptr [rsp + 0x44], 2'
+  - '00d85fd4: mov      dword ptr [rsp + 0x48], 8'
+  - '00d85fdc: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d85fe1: call     0x5ccc30'
+  - '00d85fe6: mov      qword ptr [rip + 0x47770e3], rax'
+  - '00d85fed: mov      rcx, rbx'
+- function:
+    begin: '0xd86000'
+    end: '0xd86088'
+    size: '0x88'
+  counts:
+    instructions: 28
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd86037'
+    target_rva: '0x429b3a0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d86037: lea      rax, [rip + 0x3515362]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd86069'
+    text: '00d86069: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d86000: push     rbx'
+  - '00d86002: sub      rsp, 0x60'
+  - '00d86006: mov      rax, qword ptr [rip + 0x4777123]'
+  - '00d8600d: mov      rbx, rcx'
+  - '00d86010: movaps   xmmword ptr [rsp + 0x50], xmm6'
+  - '00d86015: movaps   xmm6, xmm1'
+  - '00d86018: test     rax, rax'
+  - '00d8601b: jne      0xd86075'
+  - '00d8601d: lea      rax, [rip + 0x3507c94]'
+  - '00d86024: mov      qword ptr [rsp + 0x28], 4'
+  - '00d8602d: mov      qword ptr [rsp + 0x20], rax'
+  - '00d86032: lea      rcx, [rsp + 0x20]'
+  - '00d86037: lea      rax, [rip + 0x3515362]'
+  - '00d8603e: mov      qword ptr [rsp + 0x38], 0xe'
+  - '00d86047: mov      qword ptr [rsp + 0x30], rax'
+  - '00d8604c: mov      dword ptr [rsp + 0x40], 1'
+  - '00d86054: mov      dword ptr [rsp + 0x44], 2'
+  - '00d8605c: mov      dword ptr [rsp + 0x48], 0x10'
+  - '00d86064: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d86069: call     0x5ccc30'
+- function:
+    begin: '0xd86090'
+    end: '0xd86176'
+    size: '0xe6'
+  counts:
+    instructions: 47
+    direct_calls: 5
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 12
+    non_stack_writes: 2
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd8611d'
+    target_rva: '0x429b620'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00d8611d: lea      rax, [rip + 0x35154fc]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd860b8'
+    text: '00d860b8: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0xd860c4'
+    text: '00d860c4: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0xd860e0'
+    text: '00d860e0: call     0x5735c0'
+    target_rva: '0x5735c0'
+    target_function: null
+  - site: '0xd860ef'
+    text: '00d860ef: call     0x1dbde60'
+    target_rva: '0x1dbde60'
+    target_function:
+      begin: '0x1dbde60'
+      end: '0x1dbdf2b'
+      size: '0xcb'
+  - site: '0xd8614f'
+    text: '00d8614f: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d86090: mov      qword ptr [rsp + 8], rbx'
+  - '00d86095: mov      qword ptr [rsp + 0x10], rsi'
+  - '00d8609a: push     rdi'
+  - '00d8609b: sub      rsp, 0x50'
+  - '00d8609f: cmp      byte ptr [rip + 0x4777032], 0'
+  - '00d860a6: mov      edi, r8d'
+  - '00d860a9: mov      rbx, rdx'
+  - '00d860ac: mov      rsi, rcx'
+  - '00d860af: jne      0xd860d0'
+  - '00d860b1: lea      rcx, [rip + 0x44c8cc0]'
+  - '00d860b8: call     0x5cc970'
+  - '00d860bd: lea      rcx, [rip + 0x44e6e1c]'
+  - '00d860c4: call     0x5cc970'
+  - '00d860c9: mov      byte ptr [rip + 0x4777008], 1'
+  - '00d860d0: mov      rcx, qword ptr [rip + 0x44e6e09]'
+  - '00d860d7: cmp      dword ptr [rcx + 0xe0], 0'
+  - '00d860de: jne      0xd860e5'
+  - '00d860e0: call     0x5735c0'
+  - '00d860e5: mov      rdx, qword ptr [rip + 0x44c8c8c]'
+  - '00d860ec: mov      rcx, rbx'
+- function:
+    begin: '0xd862e9'
+    end: '0xd8636b'
+    size: '0x82'
+  counts:
+    instructions: 25
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 9
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd862fe'
+    target_rva: '0x429b3e8'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00d862fe: lea      rcx, [rip + 0x35150e3]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd86335'
+    text: '00d86335: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d862e9: lea      rcx, [rip + 0x35079c8]'
+  - '00d862f0: mov      qword ptr [rsp + 0x48], 4'
+  - '00d862f9: mov      qword ptr [rsp + 0x40], rcx'
+  - '00d862fe: lea      rcx, [rip + 0x35150e3]'
+  - '00d86305: mov      qword ptr [rsp + 0x50], rcx'
+  - '00d8630a: lea      rcx, [rsp + 0x40]'
+  - '00d8630f: mov      qword ptr [rsp + 0x58], 0x10'
+  - '00d86318: mov      dword ptr [rsp + 0x60], 1'
+  - '00d86320: mov      dword ptr [rsp + 0x64], 2'
+  - '00d86328: mov      dword ptr [rsp + 0x68], 0x14'
+  - '00d86330: mov      byte ptr [rsp + 0x6c], bpl'
+  - '00d86335: call     0x5ccc30'
+  - '00d8633a: mov      qword ptr [rip + 0x4776e17], rax'
+  - '00d86341: lea      rdx, [rbx + 0x20]'
+  - '00d86345: test     rbx, rbx'
+  - '00d86348: mov      r8d, edi'
+  - '00d8634b: mov      rcx, rsi'
+  - '00d8634e: cmove    rdx, rbp'
+  - '00d86352: call     rax'
+  - '00d86354: mov      rbx, qword ptr [rsp + 0x90]'
+- function:
+    begin: '0xd8636b'
+    end: '0xd86407'
+    size: '0x9c'
+  counts:
+    instructions: 31
+    direct_calls: 5
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 9
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd863ba'
+    target_rva: '0x429b3e8'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00d863ba: lea      rcx, [rip + 0x3515027]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd8636b'
+    text: '00d8636b: call     0x34907e0'
+    target_rva: '0x34907e0'
+    target_function:
+      begin: '0x34907e0'
+      end: '0x3490897'
+      size: '0xb7'
+  - site: '0xd86376'
+    text: '00d86376: call     0x5cbd40'
+    target_rva: '0x5cbd40'
+    target_function:
+      begin: '0x5cbd40'
+      end: '0x5cbd54'
+      size: '0x14'
+  - site: '0xd86386'
+    text: '00d86386: call     0x3640'
+    target_rva: '0x3640'
+    target_function:
+      begin: '0x3640'
+      end: '0x369f'
+      size: '0x5f'
+  - site: '0xd86391'
+    text: '00d86391: call     0x5cbd40'
+    target_rva: '0x5cbd40'
+    target_function:
+      begin: '0x5cbd40'
+      end: '0x5cbd54'
+      size: '0x14'
+  - site: '0xd863f0'
+    text: '00d863f0: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d8636b: call     0x34907e0'
+  - '00d86370: mov      rcx, rax'
+  - '00d86373: mov      rbx, rax'
+  - '00d86376: call     0x5cbd40'
+  - '00d8637b: mov      ecx, 0x13'
+  - '00d86380: mov      r8, rdi'
+  - '00d86383: mov      rdx, rbx'
+  - '00d86386: call     0x3640'
+  - '00d8638b: mov      rcx, rax'
+  - '00d8638e: mov      rbx, rax'
+  - '00d86391: call     0x5cbd40'
+  - '00d86396: mov      rax, qword ptr [rip + 0x4776dbb]'
+  - '00d8639d: mov      edi, dword ptr [rbx + 0x18]'
+  - '00d863a0: test     rax, rax'
+  - '00d863a3: jne      0xd863fc'
+  - '00d863a5: lea      rcx, [rip + 0x350790c]'
+  - '00d863ac: mov      qword ptr [rsp + 0x48], 4'
+  - '00d863b5: mov      qword ptr [rsp + 0x40], rcx'
+  - '00d863ba: lea      rcx, [rip + 0x3515027]'
+  - '00d863c1: mov      qword ptr [rsp + 0x50], rcx'
+- function:
+    begin: '0xd86439'
+    end: '0xd864c9'
+    size: '0x90'
+  counts:
+    instructions: 29
+    direct_calls: 2
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd8646f'
+    target_rva: '0x429b3e8'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00d8646f: lea      rax, [rip + 0x3514f72]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd86441'
+    text: '00d86441: call     0x5cbd40'
+    target_rva: '0x5cbd40'
+    target_function:
+      begin: '0x5cbd40'
+      end: '0x5cbd54'
+      size: '0x14'
+  - site: '0xd864a1'
+    text: '00d864a1: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d86439: mov      qword ptr [rsp + 0x60], rsi'
+  - '00d8643e: mov      rcx, rdx'
+  - '00d86441: call     0x5cbd40'
+  - '00d86446: mov      rax, qword ptr [rip + 0x4776d0b]'
+  - '00d8644d: mov      esi, dword ptr [rbx + 0x18]'
+  - '00d86450: test     rax, rax'
+  - '00d86453: jne      0xd864ad'
+  - '00d86455: lea      rax, [rip + 0x350785c]'
+  - '00d8645c: mov      qword ptr [rsp + 0x28], 4'
+  - '00d86465: mov      qword ptr [rsp + 0x20], rax'
+  - '00d8646a: lea      rcx, [rsp + 0x20]'
+  - '00d8646f: lea      rax, [rip + 0x3514f72]'
+  - '00d86476: mov      qword ptr [rsp + 0x38], 0x10'
+  - '00d8647f: mov      qword ptr [rsp + 0x30], rax'
+  - '00d86484: mov      dword ptr [rsp + 0x40], 1'
+  - '00d8648c: mov      dword ptr [rsp + 0x44], 2'
+  - '00d86494: mov      dword ptr [rsp + 0x48], 0x14'
+  - '00d8649c: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d864a1: call     0x5ccc30'
+  - '00d864a6: mov      qword ptr [rip + 0x4776cab], rax'
+- function:
+    begin: '0xd864e0'
+    end: '0xd86558'
+    size: '0x78'
+  counts:
+    instructions: 24
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 9
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd8650f'
+    target_rva: '0x429b070'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d8650f: lea      rax, [rip + 0x3514b5a]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd86541'
+    text: '00d86541: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d864e0: push     rbx'
+  - '00d864e2: sub      rsp, 0x50'
+  - '00d864e6: mov      rax, qword ptr [rip + 0x4776ab3]'
+  - '00d864ed: mov      rbx, rcx'
+  - '00d864f0: test     rax, rax'
+  - '00d864f3: jne      0xd8654d'
+  - '00d864f5: lea      rax, [rip + 0x35077bc]'
+  - '00d864fc: mov      qword ptr [rsp + 0x28], 4'
+  - '00d86505: mov      qword ptr [rsp + 0x20], rax'
+  - '00d8650a: lea      rcx, [rsp + 0x20]'
+  - '00d8650f: lea      rax, [rip + 0x3514b5a]'
+  - '00d86516: mov      qword ptr [rsp + 0x38], 0xe'
+  - '00d8651f: mov      qword ptr [rsp + 0x30], rax'
+  - '00d86524: mov      dword ptr [rsp + 0x40], 1'
+  - '00d8652c: mov      dword ptr [rsp + 0x44], 2'
+  - '00d86534: mov      dword ptr [rsp + 0x48], 8'
+  - '00d8653c: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d86541: call     0x5ccc30'
+  - '00d86546: mov      qword ptr [rip + 0x4776a53], rax'
+  - '00d8654d: mov      rcx, rbx'
+- function:
+    begin: '0xd86560'
+    end: '0xd865e7'
+    size: '0x87'
+  counts:
+    instructions: 28
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd86596'
+    target_rva: '0x429b5d0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d86596: lea      rax, [rip + 0x3515033]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd865c8'
+    text: '00d865c8: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d86560: mov      qword ptr [rsp + 8], rbx'
+  - '00d86565: push     rdi'
+  - '00d86566: sub      rsp, 0x50'
+  - '00d8656a: mov      rax, qword ptr [rip + 0x4776cb7]'
+  - '00d86571: mov      rbx, rdx'
+  - '00d86574: mov      rdi, rcx'
+  - '00d86577: test     rax, rax'
+  - '00d8657a: jne      0xd865d4'
+  - '00d8657c: lea      rax, [rip + 0x3507735]'
+  - '00d86583: mov      qword ptr [rsp + 0x28], 4'
+  - '00d8658c: mov      qword ptr [rsp + 0x20], rax'
+  - '00d86591: lea      rcx, [rsp + 0x20]'
+  - '00d86596: lea      rax, [rip + 0x3515033]'
+  - '00d8659d: mov      qword ptr [rsp + 0x38], 0xe'
+  - '00d865a6: mov      qword ptr [rsp + 0x30], rax'
+  - '00d865ab: mov      dword ptr [rsp + 0x40], 1'
+  - '00d865b3: mov      dword ptr [rsp + 0x44], 2'
+  - '00d865bb: mov      dword ptr [rsp + 0x48], 0x10'
+  - '00d865c3: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d865c8: call     0x5ccc30'
+- function:
+    begin: '0xd865f0'
+    end: '0xd86675'
+    size: '0x85'
+  counts:
+    instructions: 28
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd86625'
+    target_rva: '0x429b218'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d86625: lea      rax, [rip + 0x3514bec]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd86657'
+    text: '00d86657: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d865f0: mov      qword ptr [rsp + 8], rbx'
+  - '00d865f5: push     rdi'
+  - '00d865f6: sub      rsp, 0x50'
+  - '00d865fa: mov      rax, qword ptr [rip + 0x4776a67]'
+  - '00d86601: mov      ebx, edx'
+  - '00d86603: mov      rdi, rcx'
+  - '00d86606: test     rax, rax'
+  - '00d86609: jne      0xd86663'
+  - '00d8660b: lea      rax, [rip + 0x35076a6]'
+  - '00d86612: mov      qword ptr [rsp + 0x28], 4'
+  - '00d8661b: mov      qword ptr [rsp + 0x20], rax'
+  - '00d86620: lea      rcx, [rsp + 0x20]'
+  - '00d86625: lea      rax, [rip + 0x3514bec]'
+  - '00d8662c: mov      qword ptr [rsp + 0x38], 0xd'
+  - '00d86635: mov      qword ptr [rsp + 0x30], rax'
+  - '00d8663a: mov      dword ptr [rsp + 0x40], 1'
+  - '00d86642: mov      dword ptr [rsp + 0x44], 2'
+  - '00d8664a: mov      dword ptr [rsp + 0x48], 0xc'
+  - '00d86652: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d86657: call     0x5ccc30'
+- function:
+    begin: '0xd86680'
+    end: '0xd86711'
+    size: '0x91'
+  counts:
+    instructions: 33
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 7
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd866c3'
+    target_rva: '0x429b208'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d866c3: lea      rax, [rip + 0x3514b3e]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd866eb'
+    text: '00d866eb: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d86680: mov      r11, rsp'
+  - '00d86683: mov      qword ptr [r11 + 8], rbx'
+  - '00d86687: mov      qword ptr [r11 + 0x10], rsi'
+  - '00d8668b: push     rdi'
+  - '00d8668c: sub      rsp, 0x50'
+  - '00d86690: mov      rax, qword ptr [rip + 0x47769c9]'
+  - '00d86697: mov      ebx, r8d'
+  - '00d8669a: mov      edi, edx'
+  - '00d8669c: mov      rsi, rcx'
+  - '00d8669f: test     rax, rax'
+  - '00d866a2: jne      0xd866f7'
+  - '00d866a4: mov      qword ptr [r11 - 0x30], 4'
+  - '00d866ac: lea      rax, [rip + 0x3507605]'
+  - '00d866b3: mov      qword ptr [r11 - 0x38], rax'
+  - '00d866b7: lea      rcx, [r11 - 0x38]'
+  - '00d866bb: mov      qword ptr [r11 - 0x20], 0xc'
+  - '00d866c3: lea      rax, [rip + 0x3514b3e]'
+  - '00d866ca: mov      qword ptr [r11 - 0x28], rax'
+  - '00d866ce: mov      dword ptr [rsp + 0x40], 1'
+  - '00d866d6: mov      dword ptr [rsp + 0x44], 2'
+- function:
+    begin: '0xd86720'
+    end: '0xd867a5'
+    size: '0x85'
+  counts:
+    instructions: 28
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd86755'
+    target_rva: '0x429b188'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d86755: lea      rax, [rip + 0x3514a2c]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd86787'
+    text: '00d86787: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d86720: mov      qword ptr [rsp + 8], rbx'
+  - '00d86725: push     rdi'
+  - '00d86726: sub      rsp, 0x50'
+  - '00d8672a: mov      rax, qword ptr [rip + 0x47768f7]'
+  - '00d86731: mov      ebx, edx'
+  - '00d86733: mov      rdi, rcx'
+  - '00d86736: test     rax, rax'
+  - '00d86739: jne      0xd86793'
+  - '00d8673b: lea      rax, [rip + 0x3507576]'
+  - '00d86742: mov      qword ptr [rsp + 0x28], 4'
+  - '00d8674b: mov      qword ptr [rsp + 0x20], rax'
+  - '00d86750: lea      rcx, [rsp + 0x20]'
+  - '00d86755: lea      rax, [rip + 0x3514a2c]'
+  - '00d8675c: mov      qword ptr [rsp + 0x38], 0xa'
+  - '00d86765: mov      qword ptr [rsp + 0x30], rax'
+  - '00d8676a: mov      dword ptr [rsp + 0x40], 1'
+  - '00d86772: mov      dword ptr [rsp + 0x44], 2'
+  - '00d8677a: mov      dword ptr [rsp + 0x48], 0xc'
+  - '00d86782: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d86787: call     0x5ccc30'
+- function:
+    begin: '0xd867b0'
+    end: '0xd86841'
+    size: '0x91'
+  counts:
+    instructions: 33
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 7
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd867f3'
+    target_rva: '0x429b198'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d867f3: lea      rax, [rip + 0x351499e]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd8681b'
+    text: '00d8681b: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d867b0: mov      r11, rsp'
+  - '00d867b3: mov      qword ptr [r11 + 8], rbx'
+  - '00d867b7: mov      qword ptr [r11 + 0x10], rsi'
+  - '00d867bb: push     rdi'
+  - '00d867bc: sub      rsp, 0x50'
+  - '00d867c0: mov      rax, qword ptr [rip + 0x4776869]'
+  - '00d867c7: mov      ebx, r8d'
+  - '00d867ca: mov      edi, edx'
+  - '00d867cc: mov      rsi, rcx'
+  - '00d867cf: test     rax, rax'
+  - '00d867d2: jne      0xd86827'
+  - '00d867d4: mov      qword ptr [r11 - 0x30], 4'
+  - '00d867dc: lea      rax, [rip + 0x35074d5]'
+  - '00d867e3: mov      qword ptr [r11 - 0x38], rax'
+  - '00d867e7: lea      rcx, [r11 - 0x38]'
+  - '00d867eb: mov      qword ptr [r11 - 0x20], 0xb'
+  - '00d867f3: lea      rax, [rip + 0x351499e]'
+  - '00d867fa: mov      qword ptr [r11 - 0x28], rax'
+  - '00d867fe: mov      dword ptr [rsp + 0x40], 1'
+  - '00d86806: mov      dword ptr [rsp + 0x44], 2'
+- function:
+    begin: '0xd86850'
+    end: '0xd868d5'
+    size: '0x85'
+  counts:
+    instructions: 28
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd86885'
+    target_rva: '0x429b1e0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d86885: lea      rax, [rip + 0x3514954]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd868b7'
+    text: '00d868b7: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d86850: mov      qword ptr [rsp + 8], rbx'
+  - '00d86855: push     rdi'
+  - '00d86856: sub      rsp, 0x50'
+  - '00d8685a: mov      rax, qword ptr [rip + 0x47767ef]'
+  - '00d86861: mov      ebx, edx'
+  - '00d86863: mov      rdi, rcx'
+  - '00d86866: test     rax, rax'
+  - '00d86869: jne      0xd868c3'
+  - '00d8686b: lea      rax, [rip + 0x3507446]'
+  - '00d86872: mov      qword ptr [rsp + 0x28], 4'
+  - '00d8687b: mov      qword ptr [rsp + 0x20], rax'
+  - '00d86880: lea      rcx, [rsp + 0x20]'
+  - '00d86885: lea      rax, [rip + 0x3514954]'
+  - '00d8688c: mov      qword ptr [rsp + 0x38], 0xa'
+  - '00d86895: mov      qword ptr [rsp + 0x30], rax'
+  - '00d8689a: mov      dword ptr [rsp + 0x40], 1'
+  - '00d868a2: mov      dword ptr [rsp + 0x44], 2'
+  - '00d868aa: mov      dword ptr [rsp + 0x48], 0xc'
+  - '00d868b2: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d868b7: call     0x5ccc30'
+- function:
+    begin: '0xd868e0'
+    end: '0xd86965'
+    size: '0x85'
+  counts:
+    instructions: 28
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd86915'
+    target_rva: '0x429b178'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d86915: lea      rax, [rip + 0x351485c]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd86947'
+    text: '00d86947: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d868e0: mov      qword ptr [rsp + 8], rbx'
+  - '00d868e5: push     rdi'
+  - '00d868e6: sub      rsp, 0x50'
+  - '00d868ea: mov      rax, qword ptr [rip + 0x477672f]'
+  - '00d868f1: mov      ebx, edx'
+  - '00d868f3: mov      rdi, rcx'
+  - '00d868f6: test     rax, rax'
+  - '00d868f9: jne      0xd86953'
+  - '00d868fb: lea      rax, [rip + 0x35073b6]'
+  - '00d86902: mov      qword ptr [rsp + 0x28], 4'
+  - '00d8690b: mov      qword ptr [rsp + 0x20], rax'
+  - '00d86910: lea      rcx, [rsp + 0x20]'
+  - '00d86915: lea      rax, [rip + 0x351485c]'
+  - '00d8691c: mov      qword ptr [rsp + 0x38], 0xa'
+  - '00d86925: mov      qword ptr [rsp + 0x30], rax'
+  - '00d8692a: mov      dword ptr [rsp + 0x40], 1'
+  - '00d86932: mov      dword ptr [rsp + 0x44], 2'
+  - '00d8693a: mov      dword ptr [rsp + 0x48], 0xc'
+  - '00d86942: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d86947: call     0x5ccc30'
+- function:
+    begin: '0xd86970'
+    end: '0xd869f5'
+    size: '0x85'
+  counts:
+    instructions: 28
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd869a5'
+    target_rva: '0x429b240'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d869a5: lea      rax, [rip + 0x3514894]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd869d7'
+    text: '00d869d7: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d86970: mov      qword ptr [rsp + 8], rbx'
+  - '00d86975: push     rdi'
+  - '00d86976: sub      rsp, 0x50'
+  - '00d8697a: mov      rax, qword ptr [rip + 0x47766f7]'
+  - '00d86981: mov      ebx, edx'
+  - '00d86983: mov      rdi, rcx'
+  - '00d86986: test     rax, rax'
+  - '00d86989: jne      0xd869e3'
+  - '00d8698b: lea      rax, [rip + 0x3507326]'
+  - '00d86992: mov      qword ptr [rsp + 0x28], 4'
+  - '00d8699b: mov      qword ptr [rsp + 0x20], rax'
+  - '00d869a0: lea      rcx, [rsp + 0x20]'
+  - '00d869a5: lea      rax, [rip + 0x3514894]'
+  - '00d869ac: mov      qword ptr [rsp + 0x38], 0xb'
+  - '00d869b5: mov      qword ptr [rsp + 0x30], rax'
+  - '00d869ba: mov      dword ptr [rsp + 0x40], 1'
+  - '00d869c2: mov      dword ptr [rsp + 0x44], 2'
+  - '00d869ca: mov      dword ptr [rsp + 0x48], 0xc'
+  - '00d869d2: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d869d7: call     0x5ccc30'
+- function:
+    begin: '0xd86a00'
+    end: '0xd86a85'
+    size: '0x85'
+  counts:
+    instructions: 28
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd86a35'
+    target_rva: '0x429b080'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d86a35: lea      rax, [rip + 0x3514644]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd86a67'
+    text: '00d86a67: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d86a00: mov      qword ptr [rsp + 8], rbx'
+  - '00d86a05: push     rdi'
+  - '00d86a06: sub      rsp, 0x50'
+  - '00d86a0a: mov      rax, qword ptr [rip + 0x4776597]'
+  - '00d86a11: mov      ebx, edx'
+  - '00d86a13: mov      rdi, rcx'
+  - '00d86a16: test     rax, rax'
+  - '00d86a19: jne      0xd86a73'
+  - '00d86a1b: lea      rax, [rip + 0x3507296]'
+  - '00d86a22: mov      qword ptr [rsp + 0x28], 4'
+  - '00d86a2b: mov      qword ptr [rsp + 0x20], rax'
+  - '00d86a30: lea      rcx, [rsp + 0x20]'
+  - '00d86a35: lea      rax, [rip + 0x3514644]'
+  - '00d86a3c: mov      qword ptr [rsp + 0x38], 0xb'
+  - '00d86a45: mov      qword ptr [rsp + 0x30], rax'
+  - '00d86a4a: mov      dword ptr [rsp + 0x40], 1'
+  - '00d86a52: mov      dword ptr [rsp + 0x44], 2'
+  - '00d86a5a: mov      dword ptr [rsp + 0x48], 0xc'
+  - '00d86a62: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d86a67: call     0x5ccc30'
+- function:
+    begin: '0xd86a90'
+    end: '0xd86b35'
+    size: '0xa5'
+  counts:
+    instructions: 36
+    direct_calls: 2
+    import_calls: 0
+    indirect_slots: 1
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 7
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd86ad1'
+    target_rva: '0x429b1b8'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d86ad1: lea      rax, [rip + 0x35146e0]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd86af9'
+    text: '00d86af9: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xd86b08'
+    text: '00d86b08: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  sample_disasm:
+  - '00d86a90: mov      r11, rsp'
+  - '00d86a93: mov      qword ptr [r11 + 8], rbx'
+  - '00d86a97: mov      qword ptr [r11 + 0x10], rsi'
+  - '00d86a9b: push     rdi'
+  - '00d86a9c: sub      rsp, 0x50'
+  - '00d86aa0: cmp      qword ptr [rip + 0x4776598], 0'
+  - '00d86aa8: mov      rbx, r8'
+  - '00d86aab: mov      edi, edx'
+  - '00d86aad: mov      rsi, rcx'
+  - '00d86ab0: jne      0xd86b05'
+  - '00d86ab2: mov      qword ptr [r11 - 0x30], 4'
+  - '00d86aba: lea      rax, [rip + 0x35071f7]'
+  - '00d86ac1: mov      qword ptr [r11 - 0x38], rax'
+  - '00d86ac5: lea      rcx, [r11 - 0x38]'
+  - '00d86ac9: mov      qword ptr [r11 - 0x20], 0xc'
+  - '00d86ad1: lea      rax, [rip + 0x35146e0]'
+  - '00d86ad8: mov      qword ptr [r11 - 0x28], rax'
+  - '00d86adc: mov      dword ptr [rsp + 0x40], 1'
+  - '00d86ae4: mov      dword ptr [rsp + 0x44], 2'
+  - '00d86aec: mov      dword ptr [rsp + 0x48], 0x14'
+- function:
+    begin: '0xd86b40'
+    end: '0xd86bdb'
+    size: '0x9b'
+  counts:
+    instructions: 31
+    direct_calls: 2
+    import_calls: 0
+    indirect_slots: 1
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd86b74'
+    target_rva: '0x429b128'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d86b74: lea      rax, [rip + 0x35145ad]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd86ba6'
+    text: '00d86ba6: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xd86bb5'
+    text: '00d86bb5: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  sample_disasm:
+  - '00d86b40: mov      qword ptr [rsp + 8], rbx'
+  - '00d86b45: push     rdi'
+  - '00d86b46: sub      rsp, 0x50'
+  - '00d86b4a: cmp      qword ptr [rip + 0x47764a6], 0'
+  - '00d86b52: mov      rbx, rdx'
+  - '00d86b55: mov      rdi, rcx'
+  - '00d86b58: jne      0xd86bb2'
+  - '00d86b5a: lea      rax, [rip + 0x3507157]'
+  - '00d86b61: mov      qword ptr [rsp + 0x28], 4'
+  - '00d86b6a: mov      qword ptr [rsp + 0x20], rax'
+  - '00d86b6f: lea      rcx, [rsp + 0x20]'
+  - '00d86b74: lea      rax, [rip + 0x35145ad]'
+  - '00d86b7b: mov      qword ptr [rsp + 0x38], 0xd'
+  - '00d86b84: mov      qword ptr [rsp + 0x30], rax'
+  - '00d86b89: mov      dword ptr [rsp + 0x40], 1'
+  - '00d86b91: mov      dword ptr [rsp + 0x44], 2'
+  - '00d86b99: mov      dword ptr [rsp + 0x48], 0x10'
+  - '00d86ba1: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d86ba6: call     0x5ccc30'
+  - '00d86bab: mov      qword ptr [rip + 0x4776446], rax'
+- function:
+    begin: '0xd86be0'
+    end: '0xd86c65'
+    size: '0x85'
+  counts:
+    instructions: 28
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd86c15'
+    target_rva: '0x429b1f0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d86c15: lea      rax, [rip + 0x35145d4]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd86c47'
+    text: '00d86c47: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d86be0: mov      qword ptr [rsp + 8], rbx'
+  - '00d86be5: push     rdi'
+  - '00d86be6: sub      rsp, 0x50'
+  - '00d86bea: mov      rax, qword ptr [rip + 0x4776467]'
+  - '00d86bf1: mov      ebx, edx'
+  - '00d86bf3: mov      rdi, rcx'
+  - '00d86bf6: test     rax, rax'
+  - '00d86bf9: jne      0xd86c53'
+  - '00d86bfb: lea      rax, [rip + 0x35070b6]'
+  - '00d86c02: mov      qword ptr [rsp + 0x28], 4'
+  - '00d86c0b: mov      qword ptr [rsp + 0x20], rax'
+  - '00d86c10: lea      rcx, [rsp + 0x20]'
+  - '00d86c15: lea      rax, [rip + 0x35145d4]'
+  - '00d86c1c: mov      qword ptr [rsp + 0x38], 0x10'
+  - '00d86c25: mov      qword ptr [rsp + 0x30], rax'
+  - '00d86c2a: mov      dword ptr [rsp + 0x40], 1'
+  - '00d86c32: mov      dword ptr [rsp + 0x44], 2'
+  - '00d86c3a: mov      dword ptr [rsp + 0x48], 0xc'
+  - '00d86c42: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d86c47: call     0x5ccc30'
+- function:
+    begin: '0xd86c70'
+    end: '0xd86cf5'
+    size: '0x85'
+  counts:
+    instructions: 28
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd86ca5'
+    target_rva: '0x429b158'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d86ca5: lea      rax, [rip + 0x35144ac]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd86cd7'
+    text: '00d86cd7: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d86c70: mov      qword ptr [rsp + 8], rbx'
+  - '00d86c75: push     rdi'
+  - '00d86c76: sub      rsp, 0x50'
+  - '00d86c7a: mov      rax, qword ptr [rip + 0x477638f]'
+  - '00d86c81: mov      ebx, edx'
+  - '00d86c83: mov      rdi, rcx'
+  - '00d86c86: test     rax, rax'
+  - '00d86c89: jne      0xd86ce3'
+  - '00d86c8b: lea      rax, [rip + 0x3507026]'
+  - '00d86c92: mov      qword ptr [rsp + 0x28], 4'
+  - '00d86c9b: mov      qword ptr [rsp + 0x20], rax'
+  - '00d86ca0: lea      rcx, [rsp + 0x20]'
+  - '00d86ca5: lea      rax, [rip + 0x35144ac]'
+  - '00d86cac: mov      qword ptr [rsp + 0x38], 0xa'
+  - '00d86cb5: mov      qword ptr [rsp + 0x30], rax'
+  - '00d86cba: mov      dword ptr [rsp + 0x40], 1'
+  - '00d86cc2: mov      dword ptr [rsp + 0x44], 2'
+  - '00d86cca: mov      dword ptr [rsp + 0x48], 0xc'
+  - '00d86cd2: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d86cd7: call     0x5ccc30'
+- function:
+    begin: '0xd86d00'
+    end: '0xd86d91'
+    size: '0x91'
+  counts:
+    instructions: 33
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 7
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd86d43'
+    target_rva: '0x429b060'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d86d43: lea      rax, [rip + 0x3514316]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd86d6b'
+    text: '00d86d6b: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d86d00: mov      r11, rsp'
+  - '00d86d03: mov      qword ptr [r11 + 8], rbx'
+  - '00d86d07: mov      qword ptr [r11 + 0x10], rsi'
+  - '00d86d0b: push     rdi'
+  - '00d86d0c: sub      rsp, 0x50'
+  - '00d86d10: mov      rax, qword ptr [rip + 0x4776281]'
+  - '00d86d17: mov      ebx, r8d'
+  - '00d86d1a: mov      edi, edx'
+  - '00d86d1c: mov      rsi, rcx'
+  - '00d86d1f: test     rax, rax'
+  - '00d86d22: jne      0xd86d77'
+  - '00d86d24: mov      qword ptr [r11 - 0x30], 4'
+  - '00d86d2c: lea      rax, [rip + 0x3506f85]'
+  - '00d86d33: mov      qword ptr [r11 - 0x38], rax'
+  - '00d86d37: lea      rcx, [r11 - 0x38]'
+  - '00d86d3b: mov      qword ptr [r11 - 0x20], 0xe'
+  - '00d86d43: lea      rax, [rip + 0x3514316]'
+  - '00d86d4a: mov      qword ptr [r11 - 0x28], rax'
+  - '00d86d4e: mov      dword ptr [rsp + 0x40], 1'
+  - '00d86d56: mov      dword ptr [rsp + 0x44], 2'
+- function:
+    begin: '0xd86da0'
+    end: '0xd86e2a'
+    size: '0x8a'
+  counts:
+    instructions: 30
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd86dd5'
+    target_rva: '0x429b360'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d86dd5: lea      rax, [rip + 0x3514584]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd86e07'
+    text: '00d86e07: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d86da0: mov      qword ptr [rsp + 8], rbx'
+  - '00d86da5: push     rdi'
+  - '00d86da6: sub      rsp, 0x50'
+  - '00d86daa: mov      rax, qword ptr [rip + 0x4776357]'
+  - '00d86db1: mov      ebx, edx'
+  - '00d86db3: mov      rdi, rcx'
+  - '00d86db6: test     rax, rax'
+  - '00d86db9: jne      0xd86e13'
+  - '00d86dbb: lea      rax, [rip + 0x3506ef6]'
+  - '00d86dc2: mov      qword ptr [rsp + 0x28], 4'
+  - '00d86dcb: mov      qword ptr [rsp + 0x20], rax'
+  - '00d86dd0: lea      rcx, [rsp + 0x20]'
+  - '00d86dd5: lea      rax, [rip + 0x3514584]'
+  - '00d86ddc: mov      qword ptr [rsp + 0x38], 0xd'
+  - '00d86de5: mov      qword ptr [rsp + 0x30], rax'
+  - '00d86dea: mov      dword ptr [rsp + 0x40], 1'
+  - '00d86df2: mov      dword ptr [rsp + 0x44], 2'
+  - '00d86dfa: mov      dword ptr [rsp + 0x48], 0xc'
+  - '00d86e02: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d86e07: call     0x5ccc30'
+- function:
+    begin: '0xd86e30'
+    end: '0xd86f88'
+    size: '0x158'
+  counts:
+    instructions: 77
+    direct_calls: 9
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 14
+    non_stack_writes: 2
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd86eb1'
+    target_rva: '0x429b380'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d86eb1: lea      rax, [rip + 0x35144c8]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd86e4f'
+    text: '00d86e4f: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0xd86e5b'
+    text: '00d86e5b: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0xd86e7d'
+    text: '00d86e7d: call     0xd87560'
+    target_rva: '0xd87560'
+    target_function:
+      begin: '0xd87560'
+      end: '0xd875e5'
+      size: '0x85'
+  - site: '0xd86ee3'
+    text: '00d86ee3: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xd86f06'
+    text: '00d86f06: call     0x36a6c10'
+    target_rva: '0x36a6c10'
+    target_function: null
+  - site: '0xd86f16'
+    text: '00d86f16: call     0x109c4d0'
+    target_rva: '0x109c4d0'
+    target_function: null
+  - site: '0xd86f26'
+    text: '00d86f26: call     0x5cbda0'
+    target_rva: '0x5cbda0'
+    target_function: null
+  - site: '0xd86f3e'
+    text: '00d86f3e: call     0x5735c0'
+    target_rva: '0x5735c0'
+    target_function: null
+  sample_disasm:
+  - '00d86e30: mov      qword ptr [rsp + 0x18], rbx'
+  - '00d86e35: push     rdi'
+  - '00d86e36: sub      rsp, 0x60'
+  - '00d86e3a: cmp      byte ptr [rip + 0x4776320], 0'
+  - '00d86e41: mov      ebx, edx'
+  - '00d86e43: mov      rdi, rcx'
+  - '00d86e46: jne      0xd86e67'
+  - '00d86e48: lea      rcx, [rip + 0x44cc509]'
+  - '00d86e4f: call     0x5cc970'
+  - '00d86e54: lea      rcx, [rip + 0x44e6085]'
+  - '00d86e5b: call     0x5cc970'
+  - '00d86e60: mov      byte ptr [rip + 0x47762fa], 1'
+  - '00d86e67: xor      r8d, r8d'
+  - '00d86e6a: mov      qword ptr [rsp + 0x78], rsi'
+  - '00d86e6f: mov      edx, ebx'
+  - '00d86e71: mov      qword ptr [rsp + 0x70], 0'
+  - '00d86e7a: mov      rcx, rdi'
+  - '00d86e7d: call     0xd87560'
+  - '00d86e82: cmp      eax, 4'
+  - '00d86e85: jne      0xd86f73'
+- function:
+    begin: '0xd86f90'
+    end: '0xd87015'
+    size: '0x85'
+  counts:
+    instructions: 28
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd86fc5'
+    target_rva: '0x429b600'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d86fc5: lea      rax, [rip + 0x3514634]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd86ff7'
+    text: '00d86ff7: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d86f90: mov      qword ptr [rsp + 8], rbx'
+  - '00d86f95: push     rdi'
+  - '00d86f96: sub      rsp, 0x50'
+  - '00d86f9a: mov      rax, qword ptr [rip + 0x477629f]'
+  - '00d86fa1: mov      ebx, edx'
+  - '00d86fa3: mov      rdi, rcx'
+  - '00d86fa6: test     rax, rax'
+  - '00d86fa9: jne      0xd87003'
+  - '00d86fab: lea      rax, [rip + 0x3506d06]'
+  - '00d86fb2: mov      qword ptr [rsp + 0x28], 4'
+  - '00d86fbb: mov      qword ptr [rsp + 0x20], rax'
+  - '00d86fc0: lea      rcx, [rsp + 0x20]'
+  - '00d86fc5: lea      rax, [rip + 0x3514634]'
+  - '00d86fcc: mov      qword ptr [rsp + 0x38], 0xb'
+  - '00d86fd5: mov      qword ptr [rsp + 0x30], rax'
+  - '00d86fda: mov      dword ptr [rsp + 0x40], 1'
+  - '00d86fe2: mov      dword ptr [rsp + 0x44], 2'
+  - '00d86fea: mov      dword ptr [rsp + 0x48], 0xc'
+  - '00d86ff2: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d86ff7: call     0x5ccc30'
+- function:
+    begin: '0xd87020'
+    end: '0xd870b1'
+    size: '0x91'
+  counts:
+    instructions: 33
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 7
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd87063'
+    target_rva: '0x429b380'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d87063: lea      rax, [rip + 0x3514316]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd8708b'
+    text: '00d8708b: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d87020: mov      r11, rsp'
+  - '00d87023: mov      qword ptr [r11 + 8], rbx'
+  - '00d87027: mov      qword ptr [r11 + 0x10], rsi'
+  - '00d8702b: push     rdi'
+  - '00d8702c: sub      rsp, 0x50'
+  - '00d87030: mov      rax, qword ptr [rip + 0x47760e1]'
+  - '00d87037: mov      rbx, r8'
+  - '00d8703a: mov      edi, edx'
+  - '00d8703c: mov      rsi, rcx'
+  - '00d8703f: test     rax, rax'
+  - '00d87042: jne      0xd87097'
+  - '00d87044: mov      qword ptr [r11 - 0x30], 4'
+  - '00d8704c: lea      rax, [rip + 0x3506c65]'
+  - '00d87053: mov      qword ptr [r11 - 0x38], rax'
+  - '00d87057: lea      rcx, [r11 - 0x38]'
+  - '00d8705b: mov      qword ptr [r11 - 0x20], 0xd'
+  - '00d87063: lea      rax, [rip + 0x3514316]'
+  - '00d8706a: mov      qword ptr [r11 - 0x28], rax'
+  - '00d8706e: mov      dword ptr [rsp + 0x40], 1'
+  - '00d87076: mov      dword ptr [rsp + 0x44], 2'
+- function:
+    begin: '0xd870c0'
+    end: '0xd87145'
+    size: '0x85'
+  counts:
+    instructions: 28
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  payload_trace:
+    categories:
+    - xlua_api
+    payload_label_count: 0
+    payload_constant_hits: []
+    owner_signal_count: 0
+    has_payload_label: false
+    has_owner_signal: false
+    payload_owner_candidate: false
+    classification: xlua_descriptor_only
+  keyword_refs:
+  - site: '0xd870f5'
+    target_rva: '0x429b330'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '00d870f5: lea      rax, [rip + 0x3514234]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xd87127'
+    text: '00d87127: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  sample_disasm:
+  - '00d870c0: mov      qword ptr [rsp + 8], rbx'
+  - '00d870c5: push     rdi'
+  - '00d870c6: sub      rsp, 0x50'
+  - '00d870ca: mov      rax, qword ptr [rip + 0x477601f]'
+  - '00d870d1: mov      ebx, edx'
+  - '00d870d3: mov      rdi, rcx'
+  - '00d870d6: test     rax, rax'
+  - '00d870d9: jne      0xd87133'
+  - '00d870db: lea      rax, [rip + 0x3506bd6]'
+  - '00d870e2: mov      qword ptr [rsp + 0x28], 4'
+  - '00d870eb: mov      qword ptr [rsp + 0x20], rax'
+  - '00d870f0: lea      rcx, [rsp + 0x20]'
+  - '00d870f5: lea      rax, [rip + 0x3514234]'
+  - '00d870fc: mov      qword ptr [rsp + 0x38], 0xc'
+  - '00d87105: mov      qword ptr [rsp + 0x30], rax'
+  - '00d8710a: mov      dword ptr [rsp + 0x40], 1'
+  - '00d87112: mov      dword ptr [rsp + 0x44], 2'
+  - '00d8711a: mov      dword ptr [rsp + 0x48], 0xc'
+  - '00d87122: mov      byte ptr [rsp + 0x4c], 0'
+  - '00d87127: call     0x5ccc30'
+route_conclusion:
+  all_direct_resolver_callers_scanned: true
+  textasset_payload_owner_proven: false
+  file_buffer_payload_owner_proven: false
+  lua_payload_decoder_recovered: false
+  resolver_layer_has_payload_owner_candidate: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: 150 direct callers are xLua/lua descriptor-only shapes;
+    this refines Round165 away from payload ownership.
+  strongest_negative_signal: No direct 0x5ccc30 caller combines TextAsset/LuaScripts/data-stem
+    refs with file-buffer, memory/crypto import, or payload-size evidence.
+  search_policy: Stop treating GameAssembly 0x5ccc30 resolver callers as payload-owner
+    leads unless a caller gains TextAsset/file-buffer provenance from metadata recovery
+    or a separate owner trace.
+next_static_targets:
+- Prioritize protected global-metadata recovery for InitLuaEnv method ownership; the
+  direct resolver caller layer is descriptor-only.
+- If GameAssembly is revisited, require a caller to reference TextAsset/LuaScripts/data
+  stems and also show buffer-owner provenance before deeper analysis.
+- Pivot back to NEP2 InitLuaScriptsScan or runtime metadata reconstruction for payload
+  decoder evidence.
+limitations:
+- Offline/static evidence only; no live Frida, runtime attach, account data, online
+  protocol, or credentials were used.
+- The scan covers direct rel32 callers with pdata function coverage; runtime-generated
+  indirect dispatch is not visible.
+- This artifact does not decode LuaScripts payloads and must not be promoted as game
+  knowledge.
+evidence_refs:
+- NSLG_GAMEASSEMBLY_RESOLVER_CALLER_TRACE:gameassembly-resolver-caller-payload-round166:target:0x5ccc30
+- NSLG_GAMEASSEMBLY_RESOLVER_CALLER_TRACE:gameassembly-resolver-caller-payload-round166:direct_callers:2948
+- NSLG_GAMEASSEMBLY_RESOLVER_CALLER_TRACE:gameassembly-resolver-caller-payload-round166:payload_owner_candidates:0
+guardrails:
+- offline/static resolver-caller trace only; no live instrumentation, account data,
+  or online protocol data is included
+- input artifact paths are not persisted; only file names, hashes, RVAs, and sanitized
+  counts are stored
+- descriptor-only caller evidence must not be promoted as gameplay knowledge
+- payload-buffer provenance is required before decoder promotion

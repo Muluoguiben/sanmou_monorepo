@@ -1,0 +1,2944 @@
+schema_version: nslg.ns_bundle_format_index.v1
+source_id: ns-bundle-format-index-round136
+source_url: local-nslg-client-ns-bundle-format-index
+source_site: nslg_client_ns_bundle_static_format_index
+generated_at: '2026-05-21T10:29:32.797822Z'
+round: 191
+slice: ns_bundle_format_index
+input:
+  bundle_root_label: bundles
+  bundle_root_exists: true
+scan_policy:
+  mode: offline_static_unityfs_header_and_first_block_only
+  bundle_root: LocalPersistentData/assets/bundles
+  content_scope: parse UnityFS envelope, tail block-info, directory nodes, and first
+    decompressed data block only; no account DB/log/session/protocol data
+  first_block_sample_limit: 512
+  full_bundle_decompression: false
+  semantic_game_knowledge_promotion: false
+counts:
+  bundle_count: 369
+  unityfs_parse_ok_count: 369
+  block_info_parse_ok_count: 369
+  first_block_decompress_ok_count: 369
+  serialized_header_parse_ok_count: 369
+  protected_serialized_metadata_count: 369
+  cab_only_bundle_count: 63
+  cab_plus_ress_bundle_count: 306
+  publishable_knowledge_entries: 0
+  asset_group:animationtexture.ns: 1
+  asset_group:army: 6
+  asset_group:army.ns: 1
+  asset_group:bakedshadow.ns: 1
+  asset_group:building: 35
+  asset_group:building.ns: 1
+  asset_group:cardmodels: 101
+  asset_group:commonres.ns: 1
+  asset_group:dynamicatlas.ns: 1
+  asset_group:effect: 1
+  asset_group:effect.ns: 1
+  asset_group:effectres.ns: 1
+  asset_group:font.ns: 1
+  asset_group:global.ns: 1
+  asset_group:luascripts.ns: 1
+  asset_group:mapres.ns: 1
+  asset_group:misc.ns: 1
+  asset_group:scenedata: 18
+  asset_group:scenes: 13
+  asset_group:scenes.ns: 1
+  asset_group:shaders.ns: 1
+  asset_group:sharedassets.ns: 1
+  asset_group:sharedassets2.ns: 1
+  asset_group:sprite.ns: 1
+  asset_group:terrain: 67
+  asset_group:timeline.ns: 1
+  asset_group:tutorial.ns: 1
+  asset_group:ui: 107
+  asset_group:videos.ns: 1
+  engine_version:2022.3.61f2: 369
+  directory_shape:cab_only: 63
+  directory_shape:cab_plus_resS: 306
+  data_block_compression:lz4: 294
+  data_block_compression:lz4hc: 75
+format_groups:
+- asset_group: terrain
+  bundle_count: 67
+  total_bytes: 4424087306
+  parse_ok_count: 67
+  protected_metadata_count: 67
+  directory_shapes:
+    cab_only: 33
+    cab_plus_resS: 34
+  sample_rel_paths:
+  - terrain/common.ns
+  - terrain/nslg04/h0.ns
+  - terrain/nslg03/h0.ns
+  - terrain/nslg05/h0.ns
+  - terrain/nslg02/h0.ns
+  - terrain/nslg01/h0.ns
+  - terrain/nslg11/h0.ns
+  - terrain/demo/h0.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:da52cbf55a3c
+- asset_group: ui
+  bundle_count: 107
+  total_bytes: 1109956890
+  parse_ok_count: 107
+  protected_metadata_count: 107
+  directory_shapes:
+    cab_only: 3
+    cab_plus_resS: 104
+  sample_rel_paths:
+  - ui/rawtextures.ns
+  - ui/activity.ns
+  - ui/recruit.ns
+  - ui/guide.ns
+  - ui/union.ns
+  - ui/activitynew/activity_operational.ns
+  - ui/role.ns
+  - ui/rawtextures/plot_v1.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:636117b25f17
+- asset_group: cardmodels
+  bundle_count: 101
+  total_bytes: 766348705
+  parse_ok_count: 101
+  protected_metadata_count: 101
+  directory_shapes:
+    cab_only: 1
+    cab_plus_resS: 100
+  sample_rel_paths:
+  - cardmodels/2022_zhugeliang_moyi.ns
+  - cardmodels/1000_caocao_gch.ns
+  - cardmodels/2013_mayunlu_yucong.ns
+  - cardmodels/1022_haozhao_xiongguan.ns
+  - cardmodels/2021_jiangwei_xiguang.ns
+  - cardmodels/4000_lvbu_longji.ns
+  - cardmodels/2011_guanyinping_bailu.ns
+  - cardmodels/2012_zhaoyun_jinmie.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:f058fe78d0d0
+- asset_group: building.ns
+  bundle_count: 1
+  total_bytes: 184227274
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_plus_resS: 1
+  sample_rel_paths:
+  - building.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:4523aa024485
+- asset_group: effect.ns
+  bundle_count: 1
+  total_bytes: 144345674
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_plus_resS: 1
+  sample_rel_paths:
+  - effect.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:932e07ac7762
+- asset_group: building
+  bundle_count: 35
+  total_bytes: 120075892
+  parse_ok_count: 35
+  protected_metadata_count: 35
+  directory_shapes:
+    cab_only: 3
+    cab_plus_resS: 32
+  sample_rel_paths:
+  - building/scenario/s13_luoyang_building.ns
+  - building/scenario/s999_gvg.ns
+  - building/scenario/s11_taomanguanai.ns
+  - building/scenario/s9_guanai.ns
+  - building/scenario/s7_ai_npc_building.ns
+  - building/scenario/s11_pve_manzu_building.ns
+  - building/scenario/s14_talent_building.ns
+  - building/scenario/s9_talent_building.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:b8114546a306
+- asset_group: scenedata
+  bundle_count: 18
+  total_bytes: 109695908
+  parse_ok_count: 18
+  protected_metadata_count: 18
+  directory_shapes:
+    cab_only: 1
+    cab_plus_resS: 17
+  sample_rel_paths:
+  - scenedata/demo.ns
+  - scenedata/nslg05.ns
+  - scenedata/nslg01.ns
+  - scenedata/nslg07.ns
+  - scenedata/nslg10.ns
+  - scenedata/nslg09.ns
+  - scenedata/nslg08.ns
+  - scenedata/nslg03.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:a6f98732d86e
+- asset_group: sharedassets.ns
+  bundle_count: 1
+  total_bytes: 65509248
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_plus_resS: 1
+  sample_rel_paths:
+  - sharedassets.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:0c57e694b449
+- asset_group: mapres.ns
+  bundle_count: 1
+  total_bytes: 57180360
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_plus_resS: 1
+  sample_rel_paths:
+  - mapres.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:1aae03ca0102
+- asset_group: luascripts.ns
+  bundle_count: 1
+  total_bytes: 33098121
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_only: 1
+  sample_rel_paths:
+  - luascripts.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:4ec9d5907644
+- asset_group: animationtexture.ns
+  bundle_count: 1
+  total_bytes: 31839745
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_plus_resS: 1
+  sample_rel_paths:
+  - animationtexture.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:72c0a9a4d4c6
+- asset_group: effectres.ns
+  bundle_count: 1
+  total_bytes: 28856164
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_plus_resS: 1
+  sample_rel_paths:
+  - effectres.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:368726ca8ba9
+- asset_group: army
+  bundle_count: 6
+  total_bytes: 25702637
+  parse_ok_count: 6
+  protected_metadata_count: 6
+  directory_shapes:
+    cab_only: 1
+    cab_plus_resS: 5
+  sample_rel_paths:
+  - army/2d/armyspritescommon.ns
+  - army/2d/armysprites6.ns
+  - army/2d/armysprites11.ns
+  - army/3d/armys11.ns
+  - army/3d/armys6.ns
+  - army/3d/armyscommon.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:0b50dd7e1b37
+- asset_group: font.ns
+  bundle_count: 1
+  total_bytes: 25315832
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_plus_resS: 1
+  sample_rel_paths:
+  - font.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:48e5e6fa42f8
+- asset_group: bakedshadow.ns
+  bundle_count: 1
+  total_bytes: 23679790
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_only: 1
+  sample_rel_paths:
+  - bakedshadow.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:54f53d9ca98e
+- asset_group: army.ns
+  bundle_count: 1
+  total_bytes: 20573138
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_plus_resS: 1
+  sample_rel_paths:
+  - army.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:a13634bf4eba
+- asset_group: misc.ns
+  bundle_count: 1
+  total_bytes: 7727841
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_plus_resS: 1
+  sample_rel_paths:
+  - misc.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:ba0a50607f35
+- asset_group: effect
+  bundle_count: 1
+  total_bytes: 6611944
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_plus_resS: 1
+  sample_rel_paths:
+  - effect/plot_v1.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:68d1dae1af85
+- asset_group: scenes.ns
+  bundle_count: 1
+  total_bytes: 3369801
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_plus_resS: 1
+  sample_rel_paths:
+  - scenes.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:a3a0197b5755
+- asset_group: tutorial.ns
+  bundle_count: 1
+  total_bytes: 2040736
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_only: 1
+  sample_rel_paths:
+  - tutorial.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:2a8dd8a60818
+- asset_group: scenes
+  bundle_count: 13
+  total_bytes: 1825721
+  parse_ok_count: 13
+  protected_metadata_count: 13
+  directory_shapes:
+    cab_only: 13
+  sample_rel_paths:
+  - scenes/nslg10.ns
+  - scenes/nslg04.ns
+  - scenes/nslg07.ns
+  - scenes/nslg02.ns
+  - scenes/nslg06.ns
+  - scenes/nslg05.ns
+  - scenes/nslg03.ns
+  - scenes/nslg11.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:2d2bcc494b6a
+- asset_group: sprite.ns
+  bundle_count: 1
+  total_bytes: 1805373
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_plus_resS: 1
+  sample_rel_paths:
+  - sprite.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:096da2543d15
+- asset_group: shaders.ns
+  bundle_count: 1
+  total_bytes: 1548566
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_only: 1
+  sample_rel_paths:
+  - shaders.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:8093573e751d
+- asset_group: sharedassets2.ns
+  bundle_count: 1
+  total_bytes: 1101917
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_plus_resS: 1
+  sample_rel_paths:
+  - sharedassets2.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:a7abbed24434
+- asset_group: global.ns
+  bundle_count: 1
+  total_bytes: 333411
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_plus_resS: 1
+  sample_rel_paths:
+  - global.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:f56a670beb84
+- asset_group: timeline.ns
+  bundle_count: 1
+  total_bytes: 200924
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_only: 1
+  sample_rel_paths:
+  - timeline.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:963f90ddeae6
+- asset_group: commonres.ns
+  bundle_count: 1
+  total_bytes: 163561
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_only: 1
+  sample_rel_paths:
+  - commonres.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:bf5777d4565e
+- asset_group: videos.ns
+  bundle_count: 1
+  total_bytes: 31959
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_only: 1
+  sample_rel_paths:
+  - videos.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:b76ef247c263
+- asset_group: dynamicatlas.ns
+  bundle_count: 1
+  total_bytes: 4738
+  parse_ok_count: 1
+  protected_metadata_count: 1
+  directory_shapes:
+    cab_only: 1
+  sample_rel_paths:
+  - dynamicatlas.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:group:bafa2f2d3202
+cab_block2_groups:
+- metadata_block2_hex: c5 30 54 e1 bf c4 02 33 6b 5b 4f db ac 32 1f 79
+  bundle_count: 32
+  asset_group_counts:
+    bakedshadow.ns: 1
+    dynamicatlas.ns: 1
+    terrain: 30
+  sample_rel_paths:
+  - bakedshadow.ns
+  - dynamicatlas.ns
+  - terrain/demo/h0.ns
+  - terrain/demo/heightatlas.ns
+  - terrain/gvg00/h0.ns
+  - terrain/gvg00/heightatlas.ns
+  - terrain/manor/h0.ns
+  - terrain/manor/heightatlas.ns
+  - terrain/nslg01/h0.ns
+  - terrain/nslg01/heightatlas.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:c26d0cd04ea6
+- metadata_block2_hex: c5 39 15 e1 bf c4 02 33 6b cb df db ac 32 1f 79
+  bundle_count: 25
+  asset_group_counts:
+    building: 15
+    scenedata: 10
+  sample_rel_paths:
+  - building/scenario/s10_fenhuotai.ns
+  - building/scenario/s11_official_building.ns
+  - building/scenario/s12_tiebi.ns
+  - building/scenario/s13_ai_npc_daying.ns
+  - building/scenario/s13_ai_npc_judian.ns
+  - building/scenario/s14_darkpass_build.ns
+  - building/scenario/s14_talent_building.ns
+  - building/scenario/s3_didao.ns
+  - building/scenario/s3_union_building.ns
+  - building/scenario/s7_ai_npc_building.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:22c966b038ae
+- metadata_block2_hex: c5 27 15 e1 bf c4 02 33 6b 8b d4 db ac 32 1f 79
+  bundle_count: 22
+  asset_group_counts:
+    cardmodels: 18
+    terrain: 2
+    ui: 2
+  sample_rel_paths:
+  - cardmodels/1000_caocao.ns
+  - cardmodels/1005_guojia.ns
+  - cardmodels/1012_dengai.ns
+  - cardmodels/1026_zhenji.ns
+  - cardmodels/2000_liubei.ns
+  - cardmodels/2005_xushu.ns
+  - cardmodels/2009_huangyueying.ns
+  - cardmodels/2013_mayunlu.ns
+  - cardmodels/2015_machao.ns
+  - cardmodels/2019_ganfuren.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:375ad456789b
+- metadata_block2_hex: 4f 7e 13 6e 14 69 02 e8 f4 22 a9 0c 84 32 27 d3
+  bundle_count: 18
+  asset_group_counts:
+    terrain: 18
+  sample_rel_paths:
+  - terrain/demo/splat.ns
+  - terrain/gvg00/splat.ns
+  - terrain/manor/splat.ns
+  - terrain/nslg01/splat.ns
+  - terrain/nslg02/splat.ns
+  - terrain/nslg03/splat.ns
+  - terrain/nslg04/splat.ns
+  - terrain/nslg05/splat.ns
+  - terrain/nslg06/splat.ns
+  - terrain/nslg07/splat.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:67dc4aa8996f
+- metadata_block2_hex: c5 2c 54 e1 bf c4 02 33 6b 1b 44 db ac 32 1f 79
+  bundle_count: 16
+  asset_group_counts:
+    cardmodels: 15
+    ui: 1
+  sample_rel_paths:
+  - cardmodels/1009_simayi_qingjin.ns
+  - cardmodels/1012_dengai_zhiqu.ns
+  - cardmodels/1014_yuejin_canglang.ns
+  - cardmodels/1020_wangyi.ns
+  - cardmodels/1020_wangyi_gucheng.ns
+  - cardmodels/1022_haozhao_xiongguan.ns
+  - cardmodels/2011_guanyinping_bailu.ns
+  - cardmodels/2021_jiangwei_lingyun.ns
+  - cardmodels/2021_jiangwei_xiguang.ns
+  - cardmodels/2022_zhugeliang.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:e66a9207264c
+- metadata_block2_hex: c5 20 54 e1 bf c4 02 33 6b 5b 46 db ac 32 1f 79
+  bundle_count: 15
+  asset_group_counts:
+    army: 1
+    building: 2
+    cardmodels: 4
+    terrain: 8
+  sample_rel_paths:
+  - army/3d/armys11.ns
+  - building/scenario/s13_luoyang_building.ns
+  - building/scenario/s8_hedi.ns
+  - cardmodels/3003_xiaoqiao.ns
+  - cardmodels/3005_lusu.ns
+  - cardmodels/5005_zhongyao.ns
+  - cardmodels/5026_bulianshi.ns
+  - terrain/nslg01.ns
+  - terrain/nslg02.ns
+  - terrain/nslg05.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:bee7a79b8492
+- metadata_block2_hex: c5 13 15 e1 bf c4 02 33 6b cb cd db ac 32 1f 79
+  bundle_count: 14
+  asset_group_counts:
+    cardmodels: 13
+    ui: 1
+  sample_rel_paths:
+  - cardmodels/1000_caocao_jianzhi.ns
+  - cardmodels/1002_dianwei_zhanji.ns
+  - cardmodels/1026_zhenluo_yuehua.ns
+  - cardmodels/2012_zhaoyun_jinmie.ns
+  - cardmodels/2013_mayunlu_yucong.ns
+  - cardmodels/2015_machao_duanyi.ns
+  - cardmodels/2022_zhugeliang_moyi.ns
+  - cardmodels/3002_sunshangxiang_luohua.ns
+  - cardmodels/3004_daqiao_shanhe.ns
+  - cardmodels/3016_lukang_jueyan.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:e7aff5bd76c4
+- metadata_block2_hex: c5 36 54 e1 bf c4 02 33 6b 1b 4d db ac 32 1f 79
+  bundle_count: 14
+  asset_group_counts:
+    scenes: 13
+    ui: 1
+  sample_rel_paths:
+  - scenes/gvg00.ns
+  - scenes/nslg01.ns
+  - scenes/nslg02.ns
+  - scenes/nslg03.ns
+  - scenes/nslg04.ns
+  - scenes/nslg05.ns
+  - scenes/nslg06.ns
+  - scenes/nslg07.ns
+  - scenes/nslg08.ns
+  - scenes/nslg09.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:fb7333013f68
+- metadata_block2_hex: c5 28 54 e1 bf c4 02 33 6b 5b 46 db ac 32 1f 79
+  bundle_count: 11
+  asset_group_counts:
+    cardmodels: 11
+  sample_rel_paths:
+  - cardmodels/1027_bianfuren.ns
+  - cardmodels/2000_liubei_chunxi.ns
+  - cardmodels/2012_zhaoyun.ns
+  - cardmodels/2019_ganfuren_qingbo.ns
+  - cardmodels/2021_jiangwei.ns
+  - cardmodels/3000_sunquan.ns
+  - cardmodels/3000_sunquan_chengtian.ns
+  - cardmodels/3007_zhouyu_mingxian.ns
+  - cardmodels/3008_luxun_yinma.ns
+  - cardmodels/4000_lvbu.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:2200d949270a
+- metadata_block2_hex: c5 2f 15 e1 bf c4 02 33 6b 8b d4 db ac 32 1f 79
+  bundle_count: 10
+  asset_group_counts:
+    cardmodels: 8
+    ui: 2
+  sample_rel_paths:
+  - cardmodels/1023_xiahoudun_yuxue.ns
+  - cardmodels/2001_guanyu.ns
+  - cardmodels/2003_zhugeliang_qixing.ns
+  - cardmodels/2005_xushu_jianxiao.ns
+  - cardmodels/3003_xiaoqiao_zhongqiu.ns
+  - cardmodels/4010_liru.ns
+  - cardmodels/4012_zuoci.ns
+  - cardmodels/4024_zhangning_lingquan.ns
+  - ui/activitynew/activity_blg_sea.ns
+  - ui/activitynew/activity_cbt2.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:3acfd35574e1
+- metadata_block2_hex: c5 21 15 e1 bf c4 02 33 6b cb d6 db ac 32 1f 79
+  bundle_count: 9
+  asset_group_counts:
+    building: 1
+    cardmodels: 7
+    terrain: 1
+  sample_rel_paths:
+  - building/scenario/s11_pve_manzu_building.ns
+  - cardmodels/1004_jiaxu.ns
+  - cardmodels/1009_simayi.ns
+  - cardmodels/2003_zhugeliang.ns
+  - cardmodels/3002_sunshangxiang.ns
+  - cardmodels/3004_daqiao.ns
+  - cardmodels/4023_diaochan.ns
+  - cardmodels/4029_zoushi.ns
+  - terrain/nslg09.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:814e9960876c
+- metadata_block2_hex: c5 1d 15 e1 bf c4 02 33 6b 8b cf db ac 32 1f 79
+  bundle_count: 8
+  asset_group_counts:
+    ui: 8
+  sample_rel_paths:
+  - ui/activitynew/activity_lottery24.ns
+  - ui/herostory.ns
+  - ui/policy.ns
+  - ui/propose.ns
+  - ui/scenarioui/proposehero.ns
+  - ui/scenarioui/s12rulearmy.ns
+  - ui/tactics.ns
+  - ui/weather.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:2f5ad5136222
+- metadata_block2_hex: c5 3f 15 e1 bf c4 02 33 6b 8b dd db ac 32 1f 79
+  bundle_count: 8
+  asset_group_counts:
+    building: 4
+    mapres.ns: 1
+    sharedassets2.ns: 1
+    terrain: 2
+  sample_rel_paths:
+  - building/scenario/s11_jiebing_big.ns
+  - building/scenario/s6_jiebing.ns
+  - building/scenario/s8_wotu.ns
+  - building/scenario/s8_zhaoze.ns
+  - mapres.ns
+  - sharedassets2.ns
+  - terrain/nslg13.ns
+  - terrain/nslg14.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:b4f3aab5e350
+- metadata_block2_hex: c5 26 54 e1 bf c4 02 33 6b 1b 44 db ac 32 1f 79
+  bundle_count: 6
+  asset_group_counts:
+    cardmodels: 5
+    ui: 1
+  sample_rel_paths:
+  - cardmodels/1003_xunyou.ns
+  - cardmodels/2002_zhangfei.ns
+  - cardmodels/3008_luxun.ns
+  - cardmodels/4026_mateng.ns
+  - cardmodels/5055_zhangbao.ns
+  - ui/video.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:677e9601802c
+- metadata_block2_hex: c5 2e 54 e1 bf c4 02 33 6b 1b 44 db ac 32 1f 79
+  bundle_count: 6
+  asset_group_counts:
+    cardmodels: 2
+    ui: 4
+  sample_rel_paths:
+  - cardmodels/1011_caopi_denglin.ns
+  - cardmodels/2001_guanyu_jinhui.ns
+  - ui/activitynew/activity_blg.ns
+  - ui/housekeeper.ns
+  - ui/seasonintroduce.ns
+  - ui/update.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:7fa338439056
+- metadata_block2_hex: c5 35 15 e1 bf c4 02 33 6b 8b dd db ac 32 1f 79
+  bundle_count: 6
+  asset_group_counts:
+    scenedata: 3
+    terrain: 1
+    ui: 2
+  sample_rel_paths:
+  - scenedata/demo.ns
+  - scenedata/nslg13.ns
+  - scenedata/nslg14.ns
+  - terrain/race01.ns
+  - ui/activitynew/activity_qixi.ns
+  - ui/headhud.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:7c0d5a96f890
+- metadata_block2_hex: c5 3e 54 e1 bf c4 02 33 6b 1b 4d db ac 32 1f 79
+  bundle_count: 6
+  asset_group_counts:
+    building: 3
+    sharedassets.ns: 1
+    terrain: 2
+  sample_rel_paths:
+  - building/scenario/s10_judian.ns
+  - building/scenario/s11_taomanguanai.ns
+  - building/scenario/s8_jicejunqi.ns
+  - sharedassets.ns
+  - terrain/manor.ns
+  - terrain/xinshou.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:368e07803957
+- metadata_block2_hex: c5 05 15 e1 bf c4 02 33 6b 8b c6 db ac 32 1f 79
+  bundle_count: 5
+  asset_group_counts:
+    ui: 5
+  sample_rel_paths:
+  - ui/createrole.ns
+  - ui/recruit.ns
+  - ui/scenarioui/s13dlc.ns
+  - ui/scenarioui/s14dlc.ns
+  - ui/sworn.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:4ba24daf5f76
+- metadata_block2_hex: c5 29 15 e1 bf c4 02 33 6b cb d6 db ac 32 1f 79
+  bundle_count: 5
+  asset_group_counts:
+    cardmodels: 4
+    ui: 1
+  sample_rel_paths:
+  - cardmodels/2002_zhangfei_yinshe.ns
+  - cardmodels/4000_lvbu_longji.ns
+  - cardmodels/4001_zhangliao_shuangfeng.ns
+  - cardmodels/4011_zhangjiao.ns
+  - ui/activitypop.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:86e159a18de1
+- metadata_block2_hex: c5 2d 15 e1 bf c4 02 33 6b 8b d4 db ac 32 1f 79
+  bundle_count: 5
+  asset_group_counts:
+    cardmodels: 5
+  sample_rel_paths:
+  - cardmodels/1000_caocao_gch.ns
+  - cardmodels/1008_xunyu_xinxiang.ns
+  - cardmodels/1017_zhangchunhua_yuying.ns
+  - cardmodels/4006_zhurongfuren.ns
+  - cardmodels/4011_zhangjiao_tianshi.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:6335c6b5ed5f
+- metadata_block2_hex: c5 3b 15 e1 bf c4 02 33 6b cb df db ac 32 1f 79
+  bundle_count: 5
+  asset_group_counts:
+    army: 3
+    font.ns: 1
+    ui: 1
+  sample_rel_paths:
+  - army/2d/armysprites11.ns
+  - army/2d/armysprites6.ns
+  - army/2d/armyspritescommon.ns
+  - font.ns
+  - ui/spriteprefabs.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:38ec00a7c551
+- metadata_block2_hex: 4f 7f 13 6e 14 69 02 e8 f4 b2 a9 0c 84 32 27 d3
+  bundle_count: 4
+  asset_group_counts:
+    scenedata: 1
+    ui: 3
+  sample_rel_paths:
+  - scenedata/xinshou.ns
+  - ui/rawtextures/loading.ns
+  - ui/rawtextures/plot_v1.ns
+  - ui/rawtextures.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:18754388d66c
+- metadata_block2_hex: c5 02 54 e1 bf c4 02 33 6b 5b 54 db ac 32 1f 79
+  bundle_count: 4
+  asset_group_counts:
+    ui: 4
+  sample_rel_paths:
+  - ui/activitynew/activity_newyear.ns
+  - ui/activitynew/activity_worldcup26.ns
+  - ui/aiarmy.ns
+  - ui/mail.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:9755bd92b98f
+- metadata_block2_hex: c5 03 15 e1 bf c4 02 33 6b cb c4 db ac 32 1f 79
+  bundle_count: 4
+  asset_group_counts:
+    ui: 4
+  sample_rel_paths:
+  - ui/activitynew/activity_labor.ns
+  - ui/ranklist.ns
+  - ui/replay.ns
+  - ui/scenarioui/pvecrusade.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:40a0bcb0cb8f
+- metadata_block2_hex: c5 06 54 e1 bf c4 02 33 6b 1b 56 db ac 32 1f 79
+  bundle_count: 4
+  asset_group_counts:
+    ui: 4
+  sample_rel_paths:
+  - ui/activitynew/activity_huofeng.ns
+  - ui/activitynew/activity_lottery25.ns
+  - ui/guide.ns
+  - ui/selftricks.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:172cfbfc694d
+- metadata_block2_hex: c5 0a 54 e1 bf c4 02 33 6b 5b 54 db ac 32 1f 79
+  bundle_count: 4
+  asset_group_counts:
+    ui: 4
+  sample_rel_paths:
+  - ui/activitynew/activity_springfestival26.ns
+  - ui/battle.ns
+  - ui/mainui.ns
+  - ui/scenarioui/customhero.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:e42b19b0371e
+- metadata_block2_hex: c5 1f 15 e1 bf c4 02 33 6b 8b cf db ac 32 1f 79
+  bundle_count: 4
+  asset_group_counts:
+    army.ns: 1
+    ui: 3
+  sample_rel_paths:
+  - army.ns
+  - ui/activitynew/activitycommon.ns
+  - ui/debugui.ns
+  - ui/unionappearance.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:0626e74fadc6
+- metadata_block2_hex: c5 2a 54 e1 bf c4 02 33 6b 5b 46 db ac 32 1f 79
+  bundle_count: 4
+  asset_group_counts:
+    cardmodels: 4
+  sample_rel_paths:
+  - cardmodels/1017_zhangchunhua.ns
+  - cardmodels/3004_daqiao_zhongqiu.ns
+  - cardmodels/4013_chengong.ns
+  - cardmodels/5048_zhangliang.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:626acaf238d9
+- metadata_block2_hex: c5 04 54 e1 bf c4 02 33 6b 1b 56 db ac 32 1f 79
+  bundle_count: 3
+  asset_group_counts:
+    ui: 3
+  sample_rel_paths:
+  - ui/database.ns
+  - ui/scenarioui/s11conquer.ns
+  - ui/unionglory.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:d10eedce5cf2
+- metadata_block2_hex: c5 07 15 e1 bf c4 02 33 6b 8b c6 db ac 32 1f 79
+  bundle_count: 3
+  asset_group_counts:
+    ui: 3
+  sample_rel_paths:
+  - ui/skill.ns
+  - ui/task.ns
+  - ui/welfare.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:a5db2aff67a2
+- metadata_block2_hex: c5 09 15 e1 bf c4 02 33 6b cb c4 db ac 32 1f 79
+  bundle_count: 3
+  asset_group_counts:
+    ui: 3
+  sample_rel_paths:
+  - ui/arena.ns
+  - ui/package.ns
+  - ui/team.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:3a0d553e114a
+- metadata_block2_hex: c5 0b 15 e1 bf c4 02 33 6b cb c4 db ac 32 1f 79
+  bundle_count: 3
+  asset_group_counts:
+    ui: 3
+  sample_rel_paths:
+  - ui/activitynew/activity_lottery26.ns
+  - ui/scenarioui/s15navalwarfare.ns
+  - ui/tower.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:04eef9ac8f98
+- metadata_block2_hex: c5 0d 15 e1 bf c4 02 33 6b 8b c6 db ac 32 1f 79
+  bundle_count: 3
+  asset_group_counts:
+    ui: 3
+  sample_rel_paths:
+  - ui/campwar.ns
+  - ui/scenarioui/w7dlc.ns
+  - ui/setting.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:35cbad1059b9
+- metadata_block2_hex: c5 0e 54 e1 bf c4 02 33 6b 1b 56 db ac 32 1f 79
+  bundle_count: 3
+  asset_group_counts:
+    ui: 3
+  sample_rel_paths:
+  - ui/appearceshop.ns
+  - ui/season.ns
+  - ui/union.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:66e5a543a7ce
+- metadata_block2_hex: c5 15 15 e1 bf c4 02 33 6b 8b cf db ac 32 1f 79
+  bundle_count: 3
+  asset_group_counts:
+    building.ns: 1
+    ui: 2
+  sample_rel_paths:
+  - building.ns
+  - ui/info.ns
+  - ui/newplayers.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:4ecad210ef58
+- metadata_block2_hex: c5 1e 54 e1 bf c4 02 33 6b 1b 5f db ac 32 1f 79
+  bundle_count: 3
+  asset_group_counts:
+    ui: 3
+  sample_rel_paths:
+  - ui/activitynew/activity_horserace.ns
+  - ui/influence.ns
+  - ui/parliament.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:0106b1a77fd5
+- metadata_block2_hex: c5 22 54 e1 bf c4 02 33 6b 5b 46 db ac 32 1f 79
+  bundle_count: 3
+  asset_group_counts:
+    cardmodels: 1
+    terrain: 1
+    timeline.ns: 1
+  sample_rel_paths:
+  - cardmodels/2011_guanyinping.ns
+  - terrain/demo.ns
+  - timeline.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:1eeb7b5ff345
+- metadata_block2_hex: c5 37 15 e1 bf c4 02 33 6b 8b dd db ac 32 1f 79
+  bundle_count: 3
+  asset_group_counts:
+    animationtexture.ns: 1
+    luascripts.ns: 1
+    ui: 1
+  sample_rel_paths:
+  - animationtexture.ns
+  - luascripts.ns
+  - ui/watermark.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:ea6066dce06c
+- metadata_block2_hex: c5 38 54 e1 bf c4 02 33 6b 5b 4f db ac 32 1f 79
+  bundle_count: 3
+  asset_group_counts:
+    army: 1
+    building: 1
+    scenedata: 1
+  sample_rel_paths:
+  - army/3d/armyscommon.ns
+  - building/scenario/s14_vfx.ns
+  - scenedata/nslg05.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:fc3c0eecacbb
+- metadata_block2_hex: c5 3d 15 e1 bf c4 02 33 6b 8b dd db ac 32 1f 79
+  bundle_count: 3
+  asset_group_counts:
+    building: 1
+    misc.ns: 1
+    ui: 1
+  sample_rel_paths:
+  - building/scenario/s999_gvg.ns
+  - misc.ns
+  - ui/emoji.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:5f28129fa9a6
+- metadata_block2_hex: c5 72 54 e1 bf c4 02 33 6b 5b 6b db ac 32 1f 79
+  bundle_count: 3
+  asset_group_counts:
+    ui: 3
+  sample_rel_paths:
+  - ui/hero.ns
+  - ui/manor.ns
+  - ui/role.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:5912b15d4414
+- metadata_block2_hex: 5d f9 5a ed ab c3 fa 7e 1d 02 30 f5 14 7f 42 58
+  bundle_count: 2
+  asset_group_counts:
+    building: 2
+  sample_rel_paths:
+  - building/scenario/s4_cunzhuang.ns
+  - building/scenario/s8_junzhai.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:d97f1baba2a8
+- metadata_block2_hex: c5 00 54 e1 bf c4 02 33 6b 5b 54 db ac 32 1f 79
+  bundle_count: 2
+  asset_group_counts:
+    ui: 2
+  sample_rel_paths:
+  - ui/activitynew/activity_antiquities.ns
+  - ui/scenarioui/s15redcliffs.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:6338402ba745
+- metadata_block2_hex: c5 01 15 e1 bf c4 02 33 6b cb c4 db ac 32 1f 79
+  bundle_count: 2
+  asset_group_counts:
+    ui: 2
+  sample_rel_paths:
+  - ui/promotion.ns
+  - ui/scenarioui/s9worldhistory.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:ff7dd7226f5c
+- metadata_block2_hex: c5 0c 54 e1 bf c4 02 33 6b 1b 56 db ac 32 1f 79
+  bundle_count: 2
+  asset_group_counts:
+    ui: 2
+  sample_rel_paths:
+  - ui/activity.ns
+  - ui/activitynew/activity_springfestival25.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:62792d914da1
+- metadata_block2_hex: c5 10 54 e1 bf c4 02 33 6b 5b 5d db ac 32 1f 79
+  bundle_count: 2
+  asset_group_counts:
+    ui: 2
+  sample_rel_paths:
+  - ui/activitynew/activity_tourdialog.ns
+  - ui/unionkeeper.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:1cd3303758b4
+- metadata_block2_hex: c5 11 15 e1 bf c4 02 33 6b cb cd db ac 32 1f 79
+  bundle_count: 2
+  asset_group_counts:
+    cardmodels: 1
+    ui: 1
+  sample_rel_paths:
+  - cardmodels/2009_huangyueying_jiqiao.ns
+  - ui/activitynew/activity_zhongqiu.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:b1a25d3239d2
+- metadata_block2_hex: c5 12 54 e1 bf c4 02 33 6b 5b 5d db ac 32 1f 79
+  bundle_count: 2
+  asset_group_counts:
+    cardmodels: 1
+    ui: 1
+  sample_rel_paths:
+  - cardmodels/2017_weiyan_nigu.ns
+  - ui/activitynew/activitynormal.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:6d7978ac7927
+- metadata_block2_hex: c5 14 54 e1 bf c4 02 33 6b 1b 5f db ac 32 1f 79
+  bundle_count: 2
+  asset_group_counts:
+    ui: 2
+  sample_rel_paths:
+  - ui/activitynew/activity_obt.ns
+  - ui/topbar.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:ade837b0ecc3
+- metadata_block2_hex: c5 19 15 e1 bf c4 02 33 6b cb cd db ac 32 1f 79
+  bundle_count: 2
+  asset_group_counts:
+    ui: 2
+  sample_rel_paths:
+  - ui/share.ns
+  - ui/thiefbattle.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:018b350cf5e8
+- metadata_block2_hex: c5 23 15 e1 bf c4 02 33 6b cb d6 db ac 32 1f 79
+  bundle_count: 2
+  asset_group_counts:
+    army: 1
+    scenedata: 1
+  sample_rel_paths:
+  - army/3d/armys6.ns
+  - scenedata/nslg04.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:ba26b1b4d9d1
+- metadata_block2_hex: c5 24 54 e1 bf c4 02 33 6b 1b 44 db ac 32 1f 79
+  bundle_count: 2
+  asset_group_counts:
+    terrain: 2
+  sample_rel_paths:
+  - terrain/common.ns
+  - terrain/gvg00.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:8140df92a318
+- metadata_block2_hex: c5 25 15 e1 bf c4 02 33 6b 8b d4 db ac 32 1f 79
+  bundle_count: 2
+  asset_group_counts:
+    building: 1
+    ui: 1
+  sample_rel_paths:
+  - building/scenario/horserace.ns
+  - ui/turingtest.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:2dc32ad771c1
+- metadata_block2_hex: c5 34 54 e1 bf c4 02 33 6b 1b 4d db ac 32 1f 79
+  bundle_count: 2
+  asset_group_counts:
+    building: 1
+    shaders.ns: 1
+  sample_rel_paths:
+  - building/scenario/s9_dual_build.ns
+  - shaders.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:d13c1507c8bd
+- metadata_block2_hex: c5 3c 54 e1 bf c4 02 33 6b 1b 4d db ac 32 1f 79
+  bundle_count: 2
+  asset_group_counts:
+    ui: 1
+    videos.ns: 1
+  sample_rel_paths:
+  - ui/firephoenix.ns
+  - videos.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:b1f159d3faf0
+- metadata_block2_hex: f8 e7 7b c0 f9 e7 23 60 f9 09 4b 67 46 f0 6f fd
+  bundle_count: 2
+  asset_group_counts:
+    building: 2
+  sample_rel_paths:
+  - building/scenario/s15_fuboying.ns
+  - building/scenario/s15_siege_water.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:197c2a4edf52
+- metadata_block2_hex: 21 c3 82 09 98 7b 46 2f 49 17 4a 52 29 e9 73 84
+  bundle_count: 1
+  asset_group_counts:
+    cardmodels: 1
+  sample_rel_paths:
+  - cardmodels/sharedassets.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:b7510ef485d0
+- metadata_block2_hex: 41 4e 2f f5 9c e8 e1 c3 2a 80 56 56 aa f4 ee f6
+  bundle_count: 1
+  asset_group_counts:
+    scenes.ns: 1
+  sample_rel_paths:
+  - scenes.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:9493d409bc7a
+- metadata_block2_hex: 4f 71 13 6e 14 69 02 e8 f4 12 ac 0c 84 32 27 d3
+  bundle_count: 1
+  asset_group_counts:
+    effectres.ns: 1
+  sample_rel_paths:
+  - effectres.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:bf25c2aecc0c
+- metadata_block2_hex: 4f 7b 13 6e 14 69 02 e8 f4 b2 a9 0c 84 32 27 d3
+  bundle_count: 1
+  asset_group_counts:
+    sprite.ns: 1
+  sample_rel_paths:
+  - sprite.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:1bea994a90e8
+- metadata_block2_hex: 53 c2 db 34 06 d9 0b b4 6e 99 bf 6d 68 af 01 65
+  bundle_count: 1
+  asset_group_counts:
+    building: 1
+  sample_rel_paths:
+  - building/scenario/s14_zhandao_build.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:f67c4f6db4aa
+- metadata_block2_hex: 59 84 30 e1 83 96 78 61 eb 44 2d 63 d1 5e a3 9b
+  bundle_count: 1
+  asset_group_counts:
+    scenedata: 1
+  sample_rel_paths:
+  - scenedata/race01.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:100d7941d9d4
+- metadata_block2_hex: 59 85 30 e1 83 96 78 61 eb 44 2d 63 d1 5e a3 9b
+  bundle_count: 1
+  asset_group_counts:
+    scenedata: 1
+  sample_rel_paths:
+  - scenedata/manor.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:7998909bf9fa
+- metadata_block2_hex: 5d fb 5a ed ab c3 fa 7e 1d 02 30 f5 14 7f 42 58
+  bundle_count: 1
+  asset_group_counts:
+    cardmodels: 1
+  sample_rel_paths:
+  - cardmodels/xiaoqiao_obj.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:b4cb4ea6111b
+- metadata_block2_hex: c5 08 54 e1 bf c4 02 33 6b 5b 54 db ac 32 1f 79
+  bundle_count: 1
+  asset_group_counts:
+    ui: 1
+  sample_rel_paths:
+  - ui/activitynew/activity_anniversary25.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:76b50bb29e68
+- metadata_block2_hex: c5 0f 15 e1 bf c4 02 33 6b 8b c6 db ac 32 1f 79
+  bundle_count: 1
+  asset_group_counts:
+    ui: 1
+  sample_rel_paths:
+  - ui/activitynew/activity_operational.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:e2b6c082785d
+- metadata_block2_hex: c5 16 54 e1 bf c4 02 33 6b 1b 5f db ac 32 1f 79
+  bundle_count: 1
+  asset_group_counts:
+    ui: 1
+  sample_rel_paths:
+  - ui/battlebuff.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:32e4defbf0a9
+- metadata_block2_hex: c5 18 54 e1 bf c4 02 33 6b 5b 5d db ac 32 1f 79
+  bundle_count: 1
+  asset_group_counts:
+    ui: 1
+  sample_rel_paths:
+  - ui/activitynew/activity_nationalday.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:3c2f0f90fa91
+- metadata_block2_hex: c5 1a 54 e1 bf c4 02 33 6b 5b 5d db ac 32 1f 79
+  bundle_count: 1
+  asset_group_counts:
+    ui: 1
+  sample_rel_paths:
+  - ui/scenarioui/s12struggle.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:956517a38e34
+- metadata_block2_hex: c5 1b 15 e1 bf c4 02 33 6b cb cd db ac 32 1f 79
+  bundle_count: 1
+  asset_group_counts:
+    ui: 1
+  sample_rel_paths:
+  - ui/activitynew/activity_anniversary24.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:74234658486c
+- metadata_block2_hex: c5 1c 54 e1 bf c4 02 33 6b 1b 5f db ac 32 1f 79
+  bundle_count: 1
+  asset_group_counts:
+    ui: 1
+  sample_rel_paths:
+  - ui/construction.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:bc7f9220f0b9
+- metadata_block2_hex: c5 2b 15 e1 bf c4 02 33 6b cb d6 db ac 32 1f 79
+  bundle_count: 1
+  asset_group_counts:
+    effect: 1
+  sample_rel_paths:
+  - effect/plot_v1.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:9eb6021fe606
+- metadata_block2_hex: c5 3a 54 e1 bf c4 02 33 6b 5b 4f db ac 32 1f 79
+  bundle_count: 1
+  asset_group_counts:
+    building: 1
+  sample_rel_paths:
+  - building/scenario/s10_cloud.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:1d294a06dabb
+- metadata_block2_hex: c5 61 15 e1 bf c4 02 33 6b cb f2 db ac 32 1f 79
+  bundle_count: 1
+  asset_group_counts:
+    global.ns: 1
+  sample_rel_paths:
+  - global.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:928d4705e4e3
+- metadata_block2_hex: c5 76 54 e1 bf c4 02 33 6b 1b 69 db ac 32 1f 79
+  bundle_count: 1
+  asset_group_counts:
+    effect.ns: 1
+  sample_rel_paths:
+  - effect.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:bdeaecaae222
+- metadata_block2_hex: c5 78 54 e1 bf c4 02 33 6b 5b 6b db ac 32 1f 79
+  bundle_count: 1
+  asset_group_counts:
+    ui: 1
+  sample_rel_paths:
+  - ui/map.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:3e04424ce049
+- metadata_block2_hex: c5 7b 15 e1 bf c4 02 33 6b cb fb db ac 32 1f 79
+  bundle_count: 1
+  asset_group_counts:
+    ui: 1
+  sample_rel_paths:
+  - ui/common.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:cac44841d58c
+- metadata_block2_hex: d5 83 f8 16 e8 76 d3 24 1d ba 06 61 5a 5a 49 ff
+  bundle_count: 1
+  asset_group_counts:
+    commonres.ns: 1
+  sample_rel_paths:
+  - commonres.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:062e64b8342f
+- metadata_block2_hex: ea 09 93 ad 65 c9 df 95 51 e4 b9 4b 46 6b 9b 61
+  bundle_count: 1
+  asset_group_counts:
+    ui: 1
+  sample_rel_paths:
+  - ui/buff.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:62b419bdd4e1
+- metadata_block2_hex: ea 0b 93 ad 65 c9 df 95 51 c4 b8 4b 46 6b 9b 61
+  bundle_count: 1
+  asset_group_counts:
+    ui: 1
+  sample_rel_paths:
+  - ui/textures.ns
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:block2:67e4e7aae9ef
+priority_records:
+- rel_path: luascripts.ns
+  asset_group: luascripts.ns
+  priority_rank: 1
+  size_bytes: 33098121
+  directory_shape: cab_only
+  block_count: 257
+  directory_node_count: 1
+  serialized_version: 22
+  metadata_size: 196733
+  data_offset: 196784
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 76d272cb449f52a60f6c2a15bb7b36b2cbd8bfb2
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:4ec9d5907644
+- rel_path: building.ns
+  asset_group: building.ns
+  priority_rank: 2
+  size_bytes: 184227274
+  directory_shape: cab_plus_resS
+  block_count: 1765
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 1825886
+  data_offset: 1825936
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: e0882dab065f2fb30de9882ba89575559d39ac3d
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:4523aa024485
+- rel_path: mapres.ns
+  asset_group: mapres.ns
+  priority_rank: 3
+  size_bytes: 57180360
+  directory_shape: cab_plus_resS
+  block_count: 728
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 98893
+  data_offset: 98944
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 2ea04883751101a9c316f50a27775164116d0270
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:1aae03ca0102
+- rel_path: sprite.ns
+  asset_group: sprite.ns
+  priority_rank: 4
+  size_bytes: 1805373
+  directory_shape: cab_plus_resS
+  block_count: 32
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 20649
+  data_offset: 20704
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 7fa9e95eeb42a7b4dca60a8972ca45eb4cfd0bfe
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:096da2543d15
+- rel_path: sharedassets.ns
+  asset_group: sharedassets.ns
+  priority_rank: 5
+  size_bytes: 65509248
+  directory_shape: cab_plus_resS
+  block_count: 637
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 49137
+  data_offset: 49200
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 48f19a8809bd9a3749f7c3954667f80876a67781
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:0c57e694b449
+- rel_path: sharedassets2.ns
+  asset_group: sharedassets2.ns
+  priority_rank: 6
+  size_bytes: 1101917
+  directory_shape: cab_plus_resS
+  block_count: 12
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 38710
+  data_offset: 38768
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 2ea04883751101a9c316f50a27775164116d0270
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:a7abbed24434
+- rel_path: ui/activity.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 75841342
+  directory_shape: cab_plus_resS
+  block_count: 648
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 1090609
+  data_offset: 1090672
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 34a52be8aa4ef3bc2a17f345db87fe7fe6ae9c28
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:295bc39a9c7d
+- rel_path: ui/activitynew/activity_anniversary24.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 1321614
+  directory_shape: cab_plus_resS
+  block_count: 22
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 301014
+  data_offset: 301072
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 7f590a3135a27477d1adcd493390defe0fba1cd8
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:b4f5782bf400
+- rel_path: ui/activitynew/activity_anniversary25.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 11159560
+  directory_shape: cab_plus_resS
+  block_count: 135
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 647214
+  data_offset: 647264
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: b02a73e09c877879222298bba62745b8b08b40c3
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:54fd673cf6fd
+- rel_path: ui/activitynew/activity_antiquities.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 10760106
+  directory_shape: cab_plus_resS
+  block_count: 102
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 436352
+  data_offset: 436400
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 8819c362bbb43d8e26cd8f0ab6a57c2feaac8f1e
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:08ff4e067dc5
+- rel_path: ui/activitynew/activity_blg.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 4837509
+  directory_shape: cab_plus_resS
+  block_count: 39
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 201715
+  data_offset: 201776
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 46caee23157b83651e21df49c3775a01c2ee3df0
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:9f2df763bae5
+- rel_path: ui/activitynew/activity_blg_sea.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 2048648
+  directory_shape: cab_plus_resS
+  block_count: 18
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 200347
+  data_offset: 200400
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 538b51b41d6cda2d23db9247e9574a21caddb0de
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:03f850bd0097
+- rel_path: ui/activitynew/activity_cbt.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 11907958
+  directory_shape: cab_plus_resS
+  block_count: 136
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 51771
+  data_offset: 51824
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 13f298a7f1c47640ea370f1e88630108029da552
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:6e9e07b225b5
+- rel_path: ui/activitynew/activity_cbt2.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 618279
+  directory_shape: cab_plus_resS
+  block_count: 6
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 61799
+  data_offset: 61856
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 538b51b41d6cda2d23db9247e9574a21caddb0de
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:d45e8dbbc6fc
+- rel_path: ui/activitynew/activity_commonlink_sea.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 813583
+  directory_shape: cab_plus_resS
+  block_count: 7
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 50669
+  data_offset: 50720
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 13f298a7f1c47640ea370f1e88630108029da552
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:57dd2c7e1646
+- rel_path: ui/activitynew/activity_horserace.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 6965158
+  directory_shape: cab_plus_resS
+  block_count: 80
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 515061
+  data_offset: 515120
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: c5fa9ce29992c4955e5e2829469dd0ed929b1d24
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:135ec693a325
+- rel_path: ui/activitynew/activity_huofeng.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 27016475
+  directory_shape: cab_plus_resS
+  block_count: 246
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 582525
+  data_offset: 582576
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: e4c09e46b76f327e7410b4362781e7c2949d6384
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:1f6772aeb894
+- rel_path: ui/activitynew/activity_labor.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 1619137
+  directory_shape: cab_plus_resS
+  block_count: 17
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 261633
+  data_offset: 261696
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 577e3c98d1135ca4da4f62488d3cccea7aa69b45
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:a54dfc1afcae
+- rel_path: ui/activitynew/activity_lottery24.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 4193992
+  directory_shape: cab_plus_resS
+  block_count: 41
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 327594
+  data_offset: 327648
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: ac20bf1422f0db428d3ffca42f85e0f1d2809260
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:56536423baa7
+- rel_path: ui/activitynew/activity_lottery25.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 8144291
+  directory_shape: cab_plus_resS
+  block_count: 92
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 474057
+  data_offset: 474112
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: e4c09e46b76f327e7410b4362781e7c2949d6384
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:3d24e52bda61
+- rel_path: ui/activitynew/activity_lottery26.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 15270179
+  directory_shape: cab_plus_resS
+  block_count: 141
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 524931
+  data_offset: 524992
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 875376faa2975a40f3364da8f20a74bad9668231
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:474e1bd2af86
+- rel_path: ui/activitynew/activity_nationalday.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 2441357
+  directory_shape: cab_plus_resS
+  block_count: 23
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 244578
+  data_offset: 244640
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 6237038dce271d2833f2c8dafc11e3a442de4c2c
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:d1beedcdcd02
+- rel_path: ui/activitynew/activity_newyear.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 4706178
+  directory_shape: cab_plus_resS
+  block_count: 47
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 301217
+  data_offset: 301280
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 2a0678ada684bc9781046ef16c106108c02ab24b
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:3d28c938e602
+- rel_path: ui/activitynew/activity_obt.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 4001160
+  directory_shape: cab_plus_resS
+  block_count: 36
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 261290
+  data_offset: 261344
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: f91f3c1c92e6fa7385162a13f6cb156303ded72e
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:24e345fd00b6
+- rel_path: ui/activitynew/activity_operational.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 30548284
+  directory_shape: cab_plus_resS
+  block_count: 303
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 998789
+  data_offset: 998848
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 3cd140c4eae19d6bd66d59e12fe97422b887c760
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:f1dda691ec80
+- rel_path: ui/activitynew/activity_qingming.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 2101736
+  directory_shape: cab_plus_resS
+  block_count: 17
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 24661
+  data_offset: 24720
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 89ae751dc8ebf8b6202bb153a506eddc00e2ec81
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:13205e42aa62
+- rel_path: ui/activitynew/activity_qixi.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 3230461
+  directory_shape: cab_plus_resS
+  block_count: 36
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 26763
+  data_offset: 26816
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: be14f64905127dfe92d42e67b4e157ee7ac1ff0e
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:65d06fb3ab42
+- rel_path: ui/activitynew/activity_springfestival25.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 17315884
+  directory_shape: cab_plus_resS
+  block_count: 206
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 821321
+  data_offset: 821376
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 34a52be8aa4ef3bc2a17f345db87fe7fe6ae9c28
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:789916c79208
+- rel_path: ui/activitynew/activity_springfestival26.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 23275114
+  directory_shape: cab_plus_resS
+  block_count: 226
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 596050
+  data_offset: 596112
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 517e957e39af20dc0b964a5c4a22664954996c4e
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:c3f9b884e8de
+- rel_path: ui/activitynew/activity_tourdialog.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 1215749
+  directory_shape: cab_plus_resS
+  block_count: 13
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 219677
+  data_offset: 219728
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 9ff9e718f893d62528f8cf53358217aa31a38016
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:86a4488fdc92
+- rel_path: ui/activitynew/activity_worldcup26.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 5291858
+  directory_shape: cab_plus_resS
+  block_count: 52
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 440882
+  data_offset: 440944
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 2a0678ada684bc9781046ef16c106108c02ab24b
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:80668b3180b1
+- rel_path: ui/activitynew/activity_zhongqiu.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 2104400
+  directory_shape: cab_plus_resS
+  block_count: 19
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 223556
+  data_offset: 223616
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 6fed4a30a10a5927388b42d3c2943f3ec3705741
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:420aae5994cd
+- rel_path: ui/activitynew/activitycommon.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 4505358
+  directory_shape: cab_plus_resS
+  block_count: 40
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 245483
+  data_offset: 245536
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 8123cfd378c567054f229007f0cfa6e83b434f30
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:89b04768601e
+- rel_path: ui/activitynew/activitynormal.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 1337886
+  directory_shape: cab_plus_resS
+  block_count: 12
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 204465
+  data_offset: 204528
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 7139e8abb19874268c3598725dd919da42e3d734
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:57af1d0c6303
+- rel_path: ui/activitypop.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 6066300
+  directory_shape: cab_plus_resS
+  block_count: 49
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 198999
+  data_offset: 199056
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: aafbb051e210f08de1870289beb6f37b8923e305
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:94b1e7e621ee
+- rel_path: ui/aiarmy.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 4188643
+  directory_shape: cab_plus_resS
+  block_count: 41
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 335580
+  data_offset: 335632
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 2a0678ada684bc9781046ef16c106108c02ab24b
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:003481b8ef14
+- rel_path: ui/appearceshop.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 18067649
+  directory_shape: cab_plus_resS
+  block_count: 250
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 1404331
+  data_offset: 1404384
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: cae35088f28dc53c097540000117c2bfa8c8f9e6
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:1c36dc485c5c
+- rel_path: ui/arena.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 11867985
+  directory_shape: cab_plus_resS
+  block_count: 138
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 989671
+  data_offset: 989728
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 71dd46aab99ac194f4b37722552a073b316a397a
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:8f85ff9b8457
+- rel_path: ui/battle.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 4111107
+  directory_shape: cab_plus_resS
+  block_count: 70
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 968661
+  data_offset: 968720
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 517e957e39af20dc0b964a5c4a22664954996c4e
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:23bdbdd9f217
+- rel_path: ui/battlebuff.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 2232175
+  directory_shape: cab_plus_resS
+  block_count: 22
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 230872
+  data_offset: 230928
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: de55395de32838d2f605c9f05d220d840c6a2d29
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:a6edd8de8232
+- rel_path: ui/buff.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 27981
+  directory_shape: cab_plus_resS
+  block_count: 1
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 13905
+  data_offset: 13968
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 56075525b72eb1debb7e53db1742e158fdd57d59
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:eec7610e8bab
+- rel_path: ui/campwar.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 16745992
+  directory_shape: cab_plus_resS
+  block_count: 185
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 970451
+  data_offset: 970512
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 4f37a3d5589e71ef67ce7fa406ef4da47a3eff48
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:f4c7fefb905e
+- rel_path: ui/common.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 23637507
+  directory_shape: cab_plus_resS
+  block_count: 257
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 1383573
+  data_offset: 1383632
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 4745380c4c46da429f7e32a956b379c5315a939e
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:e0a5c5243880
+- rel_path: ui/construction.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 1829664
+  directory_shape: cab_plus_resS
+  block_count: 28
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 446548
+  data_offset: 446608
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 9ae0eb05c27bb76ba7c048c625d973ac38213a27
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:46bbf4998579
+- rel_path: ui/createrole.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 23154318
+  directory_shape: cab_plus_resS
+  block_count: 197
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 763438
+  data_offset: 763488
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 29fa843b49e089f5d347068b36c0eea66e7f563b
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:1b79c0783432
+- rel_path: ui/database.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 2692049
+  directory_shape: cab_plus_resS
+  block_count: 36
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 498264
+  data_offset: 498320
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 89a014bdd2aff42b87e3b43e6bc4306464f54355
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:b889b7543f72
+- rel_path: ui/debugui.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 364513
+  directory_shape: cab_plus_resS
+  block_count: 7
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 317511
+  data_offset: 317568
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 8123cfd378c567054f229007f0cfa6e83b434f30
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:2da82f48ee2c
+- rel_path: ui/emoji.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 2282114
+  directory_shape: cab_plus_resS
+  block_count: 37
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 62469
+  data_offset: 62528
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: c4939cdc879d212e3699ee5c5e15176e399967d1
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:0097acc69299
+- rel_path: ui/firephoenix.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 39699
+  directory_shape: cab_plus_resS
+  block_count: 1
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 37461
+  data_offset: 37520
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 5d3bb8a377a25c93e84fde8b13037996cd939590
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:c3af2b6f9420
+- rel_path: ui/guide.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 31280734
+  directory_shape: cab_plus_resS
+  block_count: 251
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 447600
+  data_offset: 447648
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: e4c09e46b76f327e7410b4362781e7c2949d6384
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:2f1bf12bf2ee
+- rel_path: ui/headhud.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 68533
+  directory_shape: cab_plus_resS
+  block_count: 1
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 16901
+  data_offset: 16960
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: be14f64905127dfe92d42e67b4e157ee7ac1ff0e
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:da9c000aee63
+- rel_path: ui/hero.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 8100098
+  directory_shape: cab_plus_resS
+  block_count: 121
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 1006448
+  data_offset: 1006496
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 374c7b54338db4eb2d838f40ae38dc943bd30cd7
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:4702e319728e
+- rel_path: ui/herostory.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 888210
+  directory_shape: cab_plus_resS
+  block_count: 12
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 280292
+  data_offset: 280352
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: ac20bf1422f0db428d3ffca42f85e0f1d2809260
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:de1e240714e2
+- rel_path: ui/housekeeper.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 1626775
+  directory_shape: cab_plus_resS
+  block_count: 15
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 200871
+  data_offset: 200928
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 46caee23157b83651e21df49c3775a01c2ee3df0
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:d853112f2bbb
+- rel_path: ui/influence.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 4654881
+  directory_shape: cab_plus_resS
+  block_count: 43
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 291493
+  data_offset: 291552
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: c5fa9ce29992c4955e5e2829469dd0ed929b1d24
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:9a49e46ebadf
+- rel_path: ui/info.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 545194
+  directory_shape: cab_plus_resS
+  block_count: 7
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 240938
+  data_offset: 240992
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: e0882dab065f2fb30de9882ba89575559d39ac3d
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:74cdd6b93b89
+- rel_path: ui/mail.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 581542
+  directory_shape: cab_plus_resS
+  block_count: 11
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 310656
+  data_offset: 310704
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 2a0678ada684bc9781046ef16c106108c02ab24b
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:86343580c3f1
+- rel_path: ui/mainui.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 11052999
+  directory_shape: cab_plus_resS
+  block_count: 175
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 1684639
+  data_offset: 1684688
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 517e957e39af20dc0b964a5c4a22664954996c4e
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:840db49ab7e9
+- rel_path: ui/manor.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 13384213
+  directory_shape: cab_plus_resS
+  block_count: 163
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 1178620
+  data_offset: 1178672
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 374c7b54338db4eb2d838f40ae38dc943bd30cd7
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:2daba2d0f6b9
+- rel_path: ui/map.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 27789864
+  directory_shape: cab_plus_resS
+  block_count: 281
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 1556929
+  data_offset: 1556992
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: f0f247c5cbaf3997ecbadf6ed5f78952b5dc1385
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:4f1744d9623e
+- rel_path: ui/newplayers.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 1243083
+  directory_shape: cab_plus_resS
+  block_count: 11
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 110936
+  data_offset: 110992
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: e0882dab065f2fb30de9882ba89575559d39ac3d
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:647e258554f9
+- rel_path: ui/package.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 6732328
+  directory_shape: cab_plus_resS
+  block_count: 100
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 1042455
+  data_offset: 1042512
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 71dd46aab99ac194f4b37722552a073b316a397a
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:29c7b85c6d8f
+- rel_path: ui/parliament.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 1456459
+  directory_shape: cab_plus_resS
+  block_count: 20
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 293294
+  data_offset: 293344
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: c5fa9ce29992c4955e5e2829469dd0ed929b1d24
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:122778fc43fd
+- rel_path: ui/plot.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 593682
+  directory_shape: cab_plus_resS
+  block_count: 6
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 104559
+  data_offset: 104608
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: f515aeeb4226ca8f79fd607c05d4facbb372216d
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:278dee05e5e0
+- rel_path: ui/policy.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 2416530
+  directory_shape: cab_plus_resS
+  block_count: 23
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 276458
+  data_offset: 276512
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: ac20bf1422f0db428d3ffca42f85e0f1d2809260
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:b1facb9e4b8b
+- rel_path: ui/promotion.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 4790574
+  directory_shape: cab_plus_resS
+  block_count: 44
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 287467
+  data_offset: 287520
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 3f31cd4ddcd3ad42cd5ddecd3e74460cafe6ec89
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:668209b0c1b0
+- rel_path: ui/propose.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 6748142
+  directory_shape: cab_plus_resS
+  block_count: 64
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 296419
+  data_offset: 296480
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: ac20bf1422f0db428d3ffca42f85e0f1d2809260
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:caf2a5178662
+- rel_path: ui/ranklist.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 1024565
+  directory_shape: cab_plus_resS
+  block_count: 19
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 393202
+  data_offset: 393264
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 577e3c98d1135ca4da4f62488d3cccea7aa69b45
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:9e95b2d704ef
+- rel_path: ui/rawtextures.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 207493837
+  directory_shape: cab_plus_resS
+  block_count: 1599
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 84497
+  data_offset: 84560
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 77eefd5a86d58607c43554838981d97da3434996
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:658df104aad2
+- rel_path: ui/rawtextures/hero_story_v1.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 5178250
+  directory_shape: cab_plus_resS
+  block_count: 41
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 13841
+  data_offset: 13904
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 5ee34f82c714cdfdf901c884060f7db202a0bb28
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:f6efafcf97d9
+- rel_path: ui/rawtextures/loading.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 8132549
+  directory_shape: cab_plus_resS
+  block_count: 63
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 12017
+  data_offset: 12080
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 77eefd5a86d58607c43554838981d97da3434996
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:cfcf2f431331
+- rel_path: ui/rawtextures/plot_v1.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 30116830
+  directory_shape: cab_plus_resS
+  block_count: 231
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 15617
+  data_offset: 15680
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 77eefd5a86d58607c43554838981d97da3434996
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:5922e831030d
+- rel_path: ui/recruit.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 44740380
+  directory_shape: cab_plus_resS
+  block_count: 375
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 716556
+  data_offset: 716608
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 29fa843b49e089f5d347068b36c0eea66e7f563b
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:08b97226575e
+- rel_path: ui/replay.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 654102
+  directory_shape: cab_plus_resS
+  block_count: 9
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 268734
+  data_offset: 268784
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 577e3c98d1135ca4da4f62488d3cccea7aa69b45
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:48e23d44666b
+- rel_path: ui/role.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 30296213
+  directory_shape: cab_plus_resS
+  block_count: 390
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 2674064
+  data_offset: 2674112
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 374c7b54338db4eb2d838f40ae38dc943bd30cd7
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:e80634ef5115
+- rel_path: ui/scenarioui/customhero.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 23781107
+  directory_shape: cab_plus_resS
+  block_count: 231
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 735927
+  data_offset: 735984
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 517e957e39af20dc0b964a5c4a22664954996c4e
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:05af003e04e2
+- rel_path: ui/scenarioui/proposehero.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 3648883
+  directory_shape: cab_plus_resS
+  block_count: 40
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 293715
+  data_offset: 293776
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: ac20bf1422f0db428d3ffca42f85e0f1d2809260
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:f7a853dd6ca4
+- rel_path: ui/scenarioui/pvecrusade.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 5290201
+  directory_shape: cab_plus_resS
+  block_count: 50
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 366066
+  data_offset: 366128
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 577e3c98d1135ca4da4f62488d3cccea7aa69b45
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:388f70377e10
+- rel_path: ui/scenarioui/s11conquer.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 7368987
+  directory_shape: cab_plus_resS
+  block_count: 78
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 330696
+  data_offset: 330752
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 89a014bdd2aff42b87e3b43e6bc4306464f54355
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:0a8a60202f40
+- rel_path: ui/scenarioui/s12rulearmy.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 12477914
+  directory_shape: cab_plus_resS
+  block_count: 131
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 404176
+  data_offset: 404224
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: ac20bf1422f0db428d3ffca42f85e0f1d2809260
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:00a8d67e6d45
+- rel_path: ui/scenarioui/s12struggle.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 2799357
+  directory_shape: cab_plus_resS
+  block_count: 26
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 249980
+  data_offset: 250032
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 3552c59e16a15734c39121f6d6982f8135ee0e3d
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:1d95a9487b14
+- rel_path: ui/scenarioui/s13dlc.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 16033589
+  directory_shape: cab_plus_resS
+  block_count: 152
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 513743
+  data_offset: 513792
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 29fa843b49e089f5d347068b36c0eea66e7f563b
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:f6fb9c428c86
+- rel_path: ui/scenarioui/s14dlc.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 4503887
+  directory_shape: cab_plus_resS
+  block_count: 52
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 497307
+  data_offset: 497360
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 29fa843b49e089f5d347068b36c0eea66e7f563b
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:e82aee47a505
+- rel_path: ui/scenarioui/s15navalwarfare.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 6084638
+  directory_shape: cab_plus_resS
+  block_count: 67
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 498650
+  data_offset: 498704
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 875376faa2975a40f3364da8f20a74bad9668231
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:8f595e72bd8a
+- rel_path: ui/scenarioui/s15redcliffs.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 9411675
+  directory_shape: cab_plus_resS
+  block_count: 86
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 319652
+  data_offset: 319712
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 8819c362bbb43d8e26cd8f0ab6a57c2feaac8f1e
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:8cf2d546bb79
+- rel_path: ui/scenarioui/s9worldhistory.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 5211838
+  directory_shape: cab_plus_resS
+  block_count: 47
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 312059
+  data_offset: 312112
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 3f31cd4ddcd3ad42cd5ddecd3e74460cafe6ec89
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:61ae55c0a762
+- rel_path: ui/scenarioui/w7dlc.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 8560749
+  directory_shape: cab_plus_resS
+  block_count: 126
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 890555
+  data_offset: 890608
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 4f37a3d5589e71ef67ce7fa406ef4da47a3eff48
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:7a39297d426c
+- rel_path: ui/season.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 17414517
+  directory_shape: cab_plus_resS
+  block_count: 212
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 1327883
+  data_offset: 1327936
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: cae35088f28dc53c097540000117c2bfa8c8f9e6
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:444b62b203d5
+- rel_path: ui/seasonintroduce.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 129746
+  directory_shape: cab_only
+  block_count: 3
+  directory_node_count: 1
+  serialized_version: 22
+  metadata_size: 190505
+  data_offset: 190560
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 46caee23157b83651e21df49c3775a01c2ee3df0
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:02f7aebc0042
+- rel_path: ui/selftricks.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 5391267
+  directory_shape: cab_plus_resS
+  block_count: 69
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 476550
+  data_offset: 476608
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: e4c09e46b76f327e7410b4362781e7c2949d6384
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:a3a3f48dcaa3
+- rel_path: ui/setting.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 4971101
+  directory_shape: cab_plus_resS
+  block_count: 67
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 908896
+  data_offset: 908944
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 4f37a3d5589e71ef67ce7fa406ef4da47a3eff48
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:ae9a84919d40
+- rel_path: ui/share.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 9262346
+  directory_shape: cab_plus_resS
+  block_count: 84
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 349247
+  data_offset: 349296
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 8565415389cbb7e9af1c91d9b603a40753efba33
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:3648d9a1862c
+- rel_path: ui/skill.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 1734675
+  directory_shape: cab_plus_resS
+  block_count: 27
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 454630
+  data_offset: 454688
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 0c23be2db23529120a0fd069654eeef5ed0c14e8
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:656e0d26a238
+- rel_path: ui/spriteprefabs.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 51857
+  directory_shape: cab_only
+  block_count: 1
+  directory_node_count: 1
+  serialized_version: 22
+  metadata_size: 27969
+  data_offset: 28032
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 40548ace8244483944c0bf89d586d5f3129478a4
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:3a294c67f6e3
+- rel_path: ui/sworn.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 2854274
+  directory_shape: cab_plus_resS
+  block_count: 38
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 457916
+  data_offset: 457968
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 29fa843b49e089f5d347068b36c0eea66e7f563b
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:bba85408a847
+- rel_path: ui/tactics.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 1493136
+  directory_shape: cab_plus_resS
+  block_count: 20
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 426717
+  data_offset: 426768
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: ac20bf1422f0db428d3ffca42f85e0f1d2809260
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:5268dc41e653
+- rel_path: ui/task.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 13163157
+  directory_shape: cab_plus_resS
+  block_count: 119
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 417044
+  data_offset: 417104
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 0c23be2db23529120a0fd069654eeef5ed0c14e8
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:9d11df4edfec
+- rel_path: ui/team.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 5565222
+  directory_shape: cab_plus_resS
+  block_count: 126
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 1600942
+  data_offset: 1600992
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 71dd46aab99ac194f4b37722552a073b316a397a
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:b1a2b72de39a
+- rel_path: ui/textures.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 18900536
+  directory_shape: cab_plus_resS
+  block_count: 161
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 91333
+  data_offset: 91392
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 6ac21f578436782cd9c7bdd395eb9635a8fee4b6
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:60098ef580dc
+- rel_path: ui/thiefbattle.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 615883
+  directory_shape: cab_plus_resS
+  block_count: 12
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 276930
+  data_offset: 276992
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 8565415389cbb7e9af1c91d9b603a40753efba33
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:a9d51ee5471f
+- rel_path: ui/topbar.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 409748
+  directory_shape: cab_plus_resS
+  block_count: 6
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 307945
+  data_offset: 308000
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: f91f3c1c92e6fa7385162a13f6cb156303ded72e
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:73fc3a49f3c0
+- rel_path: ui/tower.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 8850506
+  directory_shape: cab_plus_resS
+  block_count: 151
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 1265973
+  data_offset: 1266032
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 875376faa2975a40f3364da8f20a74bad9668231
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:13d9a53b7a32
+- rel_path: ui/trade.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 1332455
+  directory_shape: cab_plus_resS
+  block_count: 11
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 71134
+  data_offset: 71184
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 93f0087b7b367b7cd796e133fa2649c0a0625dd3
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:5440a3a0de6c
+- rel_path: ui/turingtest.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 153032
+  directory_shape: cab_plus_resS
+  block_count: 2
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 57529
+  data_offset: 57584
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 12b9aa27032ee3d9ef88269e1832076638a11a85
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:5d4cfa7c12ff
+- rel_path: ui/union.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 31109534
+  directory_shape: cab_plus_resS
+  block_count: 493
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 2035305
+  data_offset: 2035360
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: cae35088f28dc53c097540000117c2bfa8c8f9e6
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:75799583dfd1
+- rel_path: ui/unionappearance.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 595924
+  directory_shape: cab_plus_resS
+  block_count: 11
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 341931
+  data_offset: 341984
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 8123cfd378c567054f229007f0cfa6e83b434f30
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:0c4cb1bddd59
+- rel_path: ui/unionglory.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 8311527
+  directory_shape: cab_plus_resS
+  block_count: 75
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 405395
+  data_offset: 405456
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 89a014bdd2aff42b87e3b43e6bc4306464f54355
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:2c6c1bfb08f3
+- rel_path: ui/unionkeeper.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 1582184
+  directory_shape: cab_plus_resS
+  block_count: 20
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 282389
+  data_offset: 282448
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 9ff9e718f893d62528f8cf53358217aa31a38016
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:b2603a4df879
+- rel_path: ui/update.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 730038
+  directory_shape: cab_plus_resS
+  block_count: 6
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 67133
+  data_offset: 67184
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 46caee23157b83651e21df49c3775a01c2ee3df0
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:6d9f5d4d7c95
+- rel_path: ui/video.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 449447
+  directory_shape: cab_plus_resS
+  block_count: 5
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 178485
+  data_offset: 178544
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: b740b4689174943b97b8be5232b4af4030243d42
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:031aff176260
+- rel_path: ui/watermark.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 19308
+  directory_shape: cab_only
+  block_count: 1
+  directory_node_count: 1
+  serialized_version: 22
+  metadata_size: 6638
+  data_offset: 6688
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 76d272cb449f52a60f6c2a15bb7b36b2cbd8bfb2
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:9b2ecff626fd
+- rel_path: ui/weather.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 4208470
+  directory_shape: cab_plus_resS
+  block_count: 36
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 253380
+  data_offset: 253440
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: ac20bf1422f0db428d3ffca42f85e0f1d2809260
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:1b2acb07de5f
+- rel_path: ui/welfare.ns
+  asset_group: ui
+  priority_rank: 7
+  size_bytes: 11992656
+  directory_shape: cab_plus_resS
+  block_count: 123
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 615340
+  data_offset: 615392
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 0c23be2db23529120a0fd069654eeef5ed0c14e8
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:8374f2bfc2d9
+- rel_path: building/scenario/horserace.ns
+  asset_group: building
+  priority_rank: 8
+  size_bytes: 2442022
+  directory_shape: cab_plus_resS
+  block_count: 30
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 469034
+  data_offset: 469088
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 12b9aa27032ee3d9ef88269e1832076638a11a85
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:54bab49e3a7e
+- rel_path: building/scenario/s10_cloud.ns
+  asset_group: building
+  priority_rank: 8
+  size_bytes: 83585
+  directory_shape: cab_only
+  block_count: 2
+  directory_node_count: 1
+  serialized_version: 22
+  metadata_size: 140761
+  data_offset: 140816
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: e7c56375c9bba021f314d2adf68b14bf41be068d
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:d1abbff69533
+- rel_path: building/scenario/s10_fenhuotai.ns
+  asset_group: building
+  priority_rank: 8
+  size_bytes: 920013
+  directory_shape: cab_plus_resS
+  block_count: 8
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 25337
+  data_offset: 25392
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: abdc49d084338f0449048c0483c93da4b19253d1
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:0e5bb6fec0dd
+- rel_path: building/scenario/s10_judian.ns
+  asset_group: building
+  priority_rank: 8
+  size_bytes: 3457761
+  directory_shape: cab_plus_resS
+  block_count: 38
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 50505
+  data_offset: 50560
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 48f19a8809bd9a3749f7c3954667f80876a67781
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:3b8c3b704803
+- rel_path: building/scenario/s11_jiebing_big.ns
+  asset_group: building
+  priority_rank: 8
+  size_bytes: 1814844
+  directory_shape: cab_plus_resS
+  block_count: 19
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 37609
+  data_offset: 37664
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: 2ea04883751101a9c316f50a27775164116d0270
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:b00a8000483f
+- rel_path: building/scenario/s11_official_building.ns
+  asset_group: building
+  priority_rank: 8
+  size_bytes: 939590
+  directory_shape: cab_plus_resS
+  block_count: 8
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 25337
+  data_offset: 25392
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: abdc49d084338f0449048c0483c93da4b19253d1
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:36bfdd3e3ef8
+- rel_path: building/scenario/s11_pve_manzu_building.ns
+  asset_group: building
+  priority_rank: 8
+  size_bytes: 5306585
+  directory_shape: cab_plus_resS
+  block_count: 48
+  directory_node_count: 2
+  serialized_version: 22
+  metadata_size: 90021
+  data_offset: 90080
+  metadata_block1_sha1: b4df4fb245788c80afc355bd5eb5d40199562883
+  metadata_block2_sha1: cf20b110e2e1d50cb2d5b1bf8c033fa8c534b3e2
+  protected_metadata_likely: true
+  evidence_ref: NSLG_NS_BUNDLE_FORMAT_INDEX:round191:bundle:458d0edac682
+route_conclusion:
+  ns_bundle_index_built: true
+  unityfs_envelope_parseable: true
+  block_info_index_parseable: true
+  first_block_decompression_supported: true
+  serialized_header_parseable: true
+  protected_serialized_metadata_present: true
+  all_indexed_bundles_look_protected: true
+  decoded_game_knowledge_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: all indexed .ns files expose parseable UnityFS envelopes
+    and first-block SerializedFile headers without full bundle extraction
+  strongest_negative_signal: CAB metadata version/type-tree area remains protected,
+    so object tables and path IDs are still not readable
+  search_policy: use this index to target protected SerializedFile metadata transform
+    recovery and resource-family extraction, starting with luascripts/building/map/ui
+evidence_refs:
+- NSLG_NS_BUNDLE_FORMAT_INDEX:round191:summary
+- NSLG_NS_BUNDLE_FORMAT_INDEX:round191:format-groups
+- NSLG_NS_BUNDLE_FORMAT_INDEX:round191:cab-block2-groups
+- NSLG_NS_BUNDLE_FORMAT_INDEX:round191:priority-records
+next_static_targets:
+- derive a deterministic protected SerializedFile metadata transform from repeated
+  CAB block1/block2 groups
+- build a first-block metadata corpus keyed by asset_group and cab_block2 fingerprint
+- 'use the index to route high-value bundles: luascripts.ns, building.ns, mapres.ns,
+  sprite.ns, sharedassets.ns, ui, terrain, cardmodels'
+- attempt safe object-data string extraction only after metadata/path ownership constraints
+  are recorded
+limitations:
+- this index does not decode Unity SerializedFile metadata tables
+- only the first compressed data block is decompressed per bundle
+- directory node names are UnityFS CAB/resS names, not gameplay object paths
+- no raw account, log, database, session, token, or protocol data is read
+- no gameplay fact is publishable from this artifact alone
+guardrails:
+- offline/static .ns UnityFS format index only; no live instrumentation, account data,
+  credentials, or online protocol data is included
+- bundle payload bytes are not exported; records contain sanitized counts, hashes,
+  relative paths, and short header fingerprints
+- all indexed bundles remain protected SerializedFile decoder targets, not publishable
+  gameplay knowledge

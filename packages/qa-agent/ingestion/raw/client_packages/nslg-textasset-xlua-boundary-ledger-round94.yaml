@@ -1,0 +1,253 @@
+schema_version: nslg.textasset_xlua_boundary_ledger.v1
+source_id: textasset-xlua-boundary-ledger-round94
+source_url: local-nslg-client-textasset-xlua-boundary-ledger
+source_site: nslg_client_textasset_xlua_boundary_ledger
+generated_at: '2026-05-21T06:07:25.873982Z'
+round: 177
+slice: textasset_xlua_boundary_route_ledger
+input_artifacts:
+- file_name: gameassembly_textasset_loadbuffer_correlation_round160.json
+  role: GameAssembly TextAsset/loadbuffer correlation route
+  size_bytes: 4371
+  sha256: f6c7dba9157815a2fcb4dca811982f37676e30e882fadfccb94c24f3aa6bf9af
+  missing: false
+- file_name: native_loadbuffer_boundary_trace_round163.json
+  role: Native xLua loadbuffer import/export boundary trace
+  size_bytes: 1439588
+  sha256: 3dedf83b0265150db1fabebeb041d6fe4161fc421c74cf6004ae777301311df2
+  missing: false
+- file_name: gameassembly_resolver_candidate_trace_round165.json
+  role: GameAssembly 0x5ccc30 resolver candidate trace
+  size_bytes: 639848
+  sha256: d2ffc1ee94d7742b8f754a6d139c2474195683cf92d8f950c4f650164add5694
+  missing: false
+- file_name: gameassembly_resolver_caller_payload_trace_round166.json
+  role: GameAssembly 0x5ccc30 direct caller payload-owner trace
+  size_bytes: 228557
+  sha256: cdf7eec679db59848294561884e80c58c67ed4e6847b858135494475ce53dc7f
+  missing: false
+- file_name: resolved_payload_native_anchor_scan_round176.json
+  role: Resolved path_id/object_offset/payload native anchor scan
+  size_bytes: 128498
+  sha256: 3895fc7e6e5604571b710f3cd9f2ebb1d181573827d589788afdce1d6c2a37cf
+  missing: false
+route_records:
+- route_id: gameassembly_textasset_loadbuffer_static_route
+  title: GameAssembly TextAsset/get_bytes to xLua loadbuffer static correlation
+  status: closed_negative
+  maturity: negative_static_correlation
+  source_round: 160
+  evidence_refs:
+  - NSLG_GAMEASSEMBLY_TEXTASSET_LOADBUFFER:round160:summary
+  signal_summary:
+  - target_string_count=9
+  - code_ref_count=0
+  - route_signal_function_count=0
+  blocking_signals:
+  - No code refs or route-signal functions tied TextAsset/get_bytes to xLua loadbuffer
+    in this static pass.
+  counts:
+    target_string_count: 9
+    code_ref_count: 0
+    function_ref_count: 0
+    route_signal_function_count: 0
+  next_actions:
+  - Do not repeat broad TextAsset/loadbuffer string correlation unless method ownership
+    is recovered.
+- route_id: native_loadbuffer_import_export_boundary
+  title: Native xLua loadbuffer import/export boundary
+  status: closed_negative
+  maturity: negative_static_boundary
+  source_round: 163
+  evidence_refs:
+  - NSLG_NATIVE_LOADBUFFER_BOUNDARY:round163:summary
+  signal_summary:
+  - loadbuffer_export_signal_count=3
+  - boundary_import_call_count=224
+  - candidate_function_signal_count=1
+  blocking_signals:
+  - xLua loadbuffer exports exist, but GameAssembly has no static xLua/loadbuffer
+    import bridge.
+  - No import/IAT caller proved TextAsset bytes, file-buffer ownership, mutation,
+    and loadbuffer handoff together.
+  counts:
+    loadbuffer_export_signal_count: 3
+    boundary_import_call_count: 224
+    candidate_function_signal_count: 1
+    total_import_calls: 1811
+    total_keyword_data_refs: 9
+  next_actions:
+  - Treat import/export tracing as closed negative route evidence.
+  - Resume only if a caller gains concrete TextAsset/file-buffer provenance from another
+    route.
+- route_id: gameassembly_resolver_candidate_0x5ccc30
+  title: GameAssembly 0x5ccc30 resolver candidate
+  status: blocked_pending_metadata
+  maturity: descriptor_resolver_only
+  source_round: 165
+  evidence_refs:
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:round165:summary
+  signal_summary:
+  - direct_callsite_count=2948
+  - sampled_caller_function_count=240
+  - caller_keyword_ref_function_count=28
+  blocking_signals:
+  - 0x5ccc30 supports descriptor/internal resolver routing, not payload-buffer ownership.
+  - Method ownership remains unrecovered, so the route cannot name InitLuaEnv or TextAsset
+    script-buffer APIs.
+  counts:
+    direct_callsite_count: 2948
+    sampled_caller_function_count: 240
+    caller_keyword_ref_function_count: 28
+    candidate_has_payload_owner_signal: 0
+    method_ownership_recovered: 0
+  next_actions:
+  - Keep 0x5ccc30 as descriptor evidence only.
+  - Re-open only with protected metadata/method ownership that maps a caller to TextAsset
+    or InitLuaEnv.
+- route_id: gameassembly_resolver_direct_callers_payload_owner
+  title: GameAssembly 0x5ccc30 direct callers as payload-owner candidates
+  status: closed_negative
+  maturity: negative_payload_owner_gate
+  source_round: 166
+  evidence_refs:
+  - NSLG_GAMEASSEMBLY_RESOLVER_CALLER_TRACE:round166:summary
+  signal_summary:
+  - unique_direct_caller_function_count=2870
+  - xlua_descriptor_only_count=150
+  - payload_owner_candidate_count=0
+  blocking_signals:
+  - All direct 0x5ccc30 callers were scanned.
+  - No direct caller combines TextAsset/LuaScripts/data-stem refs with owner or payload-size
+    signals.
+  counts:
+    unique_direct_caller_function_count: 2870
+    caller_with_xlua_api_ref_count: 150
+    caller_with_textasset_ref_count: 0
+    caller_with_luascripts_or_data_stem_ref_count: 0
+    payload_owner_candidate_count: 0
+    xlua_descriptor_only_count: 150
+  next_actions:
+  - Stop treating direct 0x5ccc30 callers as payload-owner leads.
+- route_id: resolved_payload_native_exact_anchor_scan
+  title: Resolved path_id/object_offset/payload native exact-anchor scan
+  status: closed_negative
+  maturity: negative_exact_anchor_scan
+  source_round: 176
+  evidence_refs:
+  - NSLG_RESOLVED_PAYLOAD_NATIVE_ANCHOR:round176:summary
+  signal_summary:
+  - anchor_count=368
+  - native_strong_anchor_hit_count_capped=0
+  - native_strong_anchor_cooccurrence_count=0
+  blocking_signals:
+  - CAB control verified anchors, but native modules had 0 strong exact anchor hits.
+  - Weak numeric hits are noise without strong co-occurrence.
+  counts:
+    anchor_count: 368
+    strong_anchor_count: 272
+    weak_anchor_count: 96
+    present_module_count: 4
+    native_strong_anchor_hit_count_capped: 0
+    native_weak_anchor_hit_count_capped: 990
+    native_strong_anchor_cooccurrence_count: 0
+  next_actions:
+  - Do not search native modules for embedded resolved payload constants again unless
+    new evidence appears.
+- route_id: protected_metadata_method_ownership_or_boundary_control_flow
+  title: Protected metadata method ownership or boundary-focused control-flow
+  status: next_viable_target
+  maturity: requires_new_static_ownership_evidence
+  source_round: 177
+  evidence_refs:
+  - NSLG_TEXTASSET_XLUA_BOUNDARY_LEDGER:round177:route:protected_metadata_method_ownership_or_boundary_control_flow
+  signal_summary:
+  - Resolved TextAsset path_id/object_offset/payload offsets are available as validation
+    anchors.
+  - Closed negative routes now constrain the next search to method ownership or proven
+    buffer flow.
+  blocking_signals:
+  - Protected IL2CPP metadata/method ownership is not recovered.
+  - No native function is currently proven to own TextAsset script bytes before xLua
+    loadbuffer.
+  counts:
+    resolved_textasset_record_count: 255
+    known_closed_route_count: 4
+    method_ownership_recovered: 0
+    native_payload_buffer_owner_proven: 0
+  next_actions:
+  - Recover protected metadata or a method ownership map that names InitLuaEnv/TextAsset
+    script-buffer APIs.
+  - Use resolved payload offsets and lengths only as validation anchors after an owner
+    function is found.
+  - If metadata remains protected, inspect boundary-focused control-flow near already
+    identified route functions, not broad strings or embedded constants.
+route_status_counts:
+  closed_negative: 4
+  blocked_pending_metadata: 1
+  next_viable_target: 1
+counts:
+  input_artifact_count: 5
+  route_record_count: 6
+  closed_negative_route_count: 4
+  blocked_route_count: 1
+  next_viable_route_count: 1
+  proven_payload_owner_route_count: 0
+  lua_payload_decoder_recovered: 0
+  native_loadbuffer_boundary_candidate_count: 1
+  native_boundary_import_call_count: 224
+  gameassembly_resolver_direct_callsite_count: 2948
+  gameassembly_resolver_direct_caller_count: 2870
+  gameassembly_resolver_payload_owner_candidate_count: 0
+  resolver_xlua_descriptor_only_count: 150
+  exact_anchor_native_hit_count: 0
+  strong_anchor_cooccurrence_count: 0
+  textasset_loadbuffer_route_signal_count: 0
+  publishable_knowledge_entries: 0
+route_conclusion:
+  native_payload_buffer_owner_proven: false
+  lua_payload_decoder_recovered: false
+  gameassembly_static_xlua_import_route_closed: true
+  resolver_direct_caller_route_closed: true
+  exact_native_anchor_route_closed: true
+  protected_metadata_method_ownership_recovered: false
+  next_viable_route: protected_metadata_method_ownership_or_boundary_control_flow
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: Resolved LuaScripts TextAsset path_id/object_offset/payload
+    offsets are valid, and four static native boundary routes are now closed as negative
+    evidence.
+  strongest_negative_signal: No current route proves a native TextAsset script-buffer
+    owner or LuaScripts decoder; 0x5ccc30 direct callers are descriptor-only and exact
+    native payload anchors are absent.
+  search_policy: Proceed with protected metadata/method ownership recovery or narrow
+    control-flow around owner candidates; do not run broad string scans or embedded
+    constant scans.
+evidence_refs:
+- NSLG_GAMEASSEMBLY_TEXTASSET_LOADBUFFER:round160:summary
+- NSLG_NATIVE_LOADBUFFER_BOUNDARY:round163:summary
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:round165:summary
+- NSLG_GAMEASSEMBLY_RESOLVER_CALLER_TRACE:round166:summary
+- NSLG_RESOLVED_PAYLOAD_NATIVE_ANCHOR:round176:summary
+- NSLG_TEXTASSET_XLUA_BOUNDARY_LEDGER:round177:summary
+next_static_targets:
+- recover protected metadata/method ownership to map InitLuaEnv and TextAsset script-buffer
+  APIs
+- trace boundary-focused control-flow only after a function has method or payload-buffer
+  ownership evidence
+- use resolved object offsets, payload offsets, and payload lengths as validation
+  anchors, not as broad native search constants
+limitations:
+- Ledger consolidates prior offline/static route evidence; it does not decode LuaScripts
+  payloads.
+- No live instrumentation, account data, online protocol data, or decrypted gameplay
+  facts are included.
+- Closed routes are negative planning evidence, not semantic game knowledge.
+guardrails:
+- offline/static route ledger only; no live instrumentation, account data, or online
+  protocol data is included
+- closed routes are negative planning evidence and must not be promoted as game knowledge
+- absolute local paths are not persisted; only sanitized artifact names, counts, statuses,
+  and evidence refs are stored
+- continue with method ownership or proven buffer-flow evidence, not broad string
+  or embedded-constant scans

@@ -1,0 +1,133 @@
+source_id: nep2-luascripts-round34
+source_url: local-nslg-client-nep2-luascripts
+source_site: nslg_client_nep2_luascripts
+binary_name: NEP2.dll
+size_bytes: 40235512
+sha256: 109b4af46054a534a4e3b815d022a9bd26709d5bd644cbba4c4d456d4b61f382
+init_luascripts_occurrences:
+- rva: '0x88135e'
+  section: .data
+  selected_ascii:
+  - InitLuaScriptsSc
+  - InitKernelMemSca
+  - n@CGameProtector
+- rva: '0x88205d'
+  section: .data
+  selected_ascii:
+  - InitLuaScriptsSc
+  - EAV0?4??InitLuaS
+  - Protector@@QEAAX
+- rva: '0x8820c5'
+  section: .data
+  selected_ascii:
+  - Protector@@QEAAX
+  - InitLuaScriptsSc
+  - _1>@?1??InitConf
+  - eProtector@@QEAA
+pointer_refs_to_init_luascripts: 0
+candidate_string_count: 1417
+selected_candidate_strings:
+- decryptedPOP
+- decrypt
+- unprotectedAttrs
+- LUABOX
+- unprotected
+- protected
+- LuaJitLuaSrcLuaSrcEncrytedLuacCompiled
+- O3P1P1_1P2P3WAES
+- luaL_loadbuffer
+- CryptDecrypt
+- VirtualProtect
+- luaFindFileWithGivenDirByMD5
+- luaFindFileWithGivenDirByText
+- luaFindSpecifiedFileByHash0rText
+xref_count: 6
+xrefs:
+- string: O3P1P1_1P2P3WAES
+  ref_rva: '0x3f4a'
+  ref_section: .text
+  instruction: lea rdx, [rip + 0x7989e7]
+- string: O3P1P1_1P2P3WAES
+  ref_rva: '0x3f67'
+  ref_section: .text
+  instruction: lea rax, [rip + 0x7989ca]
+- string: O3P1P1_1P2P3WAES
+  ref_rva: '0x3f91'
+  ref_section: .text
+  instruction: lea rax, [rip + 0x7989a0]
+- string: O3P1P1_1P2P3WAES
+  ref_rva: '0x3fbb'
+  ref_section: .text
+  instruction: lea rax, [rip + 0x798976]
+- string: O3P1P1_1P2P3WAES
+  ref_rva: '0x3fe5'
+  ref_section: .text
+  instruction: lea rax, [rip + 0x79894c]
+- string: O3P1P1_1P2P3WAES
+  ref_rva: '0x400f'
+  ref_section: .text
+  instruction: lea rax, [rip + 0x798922]
+string_chunk_registrations:
+- source_string: O3P1P1_1P2P3WAES
+  ref_rva: '0x3f4a'
+  descriptor_rva: '0x88e620'
+  chunk_offset: 0
+  chunk_length: 2
+  chunk_text: O3
+  target_helper: '0x180021240'
+- source_string: O3P1P1_1P2P3WAES
+  ref_rva: '0x3f67'
+  descriptor_rva: '0x88e638'
+  chunk_offset: 2
+  chunk_length: 2
+  chunk_text: P1
+  target_helper: '0x180021240'
+- source_string: O3P1P1_1P2P3WAES
+  ref_rva: '0x3f91'
+  descriptor_rva: '0x88e650'
+  chunk_offset: 4
+  chunk_length: 4
+  chunk_text: P1_1
+  target_helper: '0x180021240'
+- source_string: O3P1P1_1P2P3WAES
+  ref_rva: '0x3fbb'
+  descriptor_rva: '0x88e668'
+  chunk_offset: 8
+  chunk_length: 2
+  chunk_text: P2
+  target_helper: '0x180021240'
+- source_string: O3P1P1_1P2P3WAES
+  ref_rva: '0x3fe5'
+  descriptor_rva: '0x88e680'
+  chunk_offset: 10
+  chunk_length: 2
+  chunk_text: P3
+  target_helper: '0x180021240'
+- source_string: O3P1P1_1P2P3WAES
+  ref_rva: '0x400f'
+  descriptor_rva: '0x88e698'
+  chunk_offset: 12
+  chunk_length: 4
+  chunk_text: WAES
+  target_helper: '0x180021240'
+interpretation:
+  candidate_scan: NEP2.dll contains LuaScripts and many crypto/security/protection
+    strings; this makes it a stronger candidate for the protected LuaScripts/metadata
+    path than GameAssembly direct string xrefs. Direct code xrefs to the selected
+    strings are limited/need deeper import-table or indirect table analysis.
+  init_scan: InitLuaScriptsScan appears as a concrete NEP2 identifier. If it is exported
+    or referenced through a data table, its function head is included for the next
+    reverse step.
+  next_step: Trace InitLuaScriptsScan call sites/export consumer and inspect its code
+    path for bundle/TextAsset byte scanning or 16-byte block transforms.
+next_static_targets:
+- trace CGameProtector::InitLuaScriptsScan call sites or data-table consumers
+- inspect xrefs around LuaJitLuaSrcLuaSrcEncrytedLuacCompiled and luaL_loadbuffer
+  strings
+- follow NEP2 string-decode helper at xref windows that call 0x180021240
+- check whether NEP2 hands decrypted LuaScripts bytes to xlua or writes decoded payloads
+limitations:
+- this report is sanitized static evidence only; it does not prove the decryptor body
+  yet
+- direct pointer refs to InitLuaScriptsScan were not found in the round34 scan
+- no live instrumentation or online protocol data is included

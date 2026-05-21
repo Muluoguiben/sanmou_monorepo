@@ -1,0 +1,300 @@
+schema_version: nslg.nep2_read_mapping_owner_scan.v1
+source_id: nslg-nep2-read-mapping-owner-scan-round73
+source_url: local-nslg-client-nep2-read-mapping-owner-scan
+source_site: nslg_client_nep2_read_mapping_owner_scan
+generated_at: '2026-05-21T04:22:39.885901Z'
+round: 170
+slice: nep2_read_mapping_owner_static_scan
+input_artifacts:
+- file_name: nep2_global_metadata_loader_deep_slice_round169.json
+  sha256: f17d17ad5dd13e3d16aff0082691d04764156bb665bf7d079674b53e0e2b19a8
+  missing: false
+- file_name: global_metadata_loader_mutation_scan_round168.json
+  sha256: 01a9a8f4ee1eb4fa4de0d06fe9c2182e88dba3511f409e1002e2494bf18ab98e
+  missing: false
+- file_name: global_metadata_transform_probe_round167.json
+  sha256: 2f13c2d0a455da2e4569473f0f5048ff6b70c9880fdd2cc1d9e876f9a4812ac8
+  missing: false
+nep2_file:
+  file_name: NEP2.dll
+  sha256: 109b4af46054a534a4e3b815d022a9bd26709d5bd644cbba4c4d456d4b61f382
+import_class_counts:
+  crypto_api: 18
+  directory_enum: 3
+  file_open_or_status: 4
+  memory_alloc_or_protect: 5
+  other: 358
+  read_or_mapping: 7
+counts:
+  read_mapping_owner_count: 2
+  readfile_owner_count: 0
+  mapview_owner_count: 0
+  create_file_mapping_owner_count: 0
+  get_file_size_owner_count: 2
+  set_file_pointer_owner_count: 0
+  metadata_provenance_owner_count: 0
+  luascripts_provenance_owner_count: 0
+  protected_payload_signal_owner_count: 0
+  provenance_linked_owner_count: 0
+  publishable_knowledge_entries: 0
+verdict_counts:
+  actual_read_mapping_owner_no_metadata_or_luascripts_provenance: 2
+read_mapping_import_owner_counts:
+  GetFileSize: 1
+  GetFileSizeEx: 1
+owners:
+- target_rva: '0xd720'
+  function:
+    begin: '0xd720'
+    end: '0xd7c0'
+    size: '0xa0'
+  verdict: actual_read_mapping_owner_no_metadata_or_luascripts_provenance
+  owner_read_mapping_events:
+  - rva: '0xd798'
+    import: KERNEL32.dll!GetFileSizeEx
+    import_name: GetFileSizeEx
+    class: read_or_mapping
+    text: '0000d798: call     qword ptr [rip + 0x6e502a]'
+  counts:
+    transform_mnemonic: 2
+    constant:invalid_handle_or_status_minus1: 1
+    import:GetFileSizeEx: 1
+    import_class:read_or_mapping: 1
+    import:CloseHandle: 1
+    import_class:file_open_or_status: 1
+  imports_seen:
+  - CloseHandle
+  - GetFileSizeEx
+  read_mapping_imports_seen:
+  - GetFileSizeEx
+  provenance_labels: []
+  neighborhood_provenance_labels: []
+  has_read_or_mapping_import: true
+  has_metadata_provenance: false
+  has_luascripts_provenance: false
+  has_protected_payload_signal: false
+  has_16byte_or_loop_signal: true
+  string_refs: []
+  metadata_keyword_hits: []
+  constants:
+  - rva: '0xd786'
+    label: invalid_handle_or_status_minus1
+    value: '0xffffffffffffffff'
+    text: '0000d786: cmp      qword ptr [rsp + 0x40], -1'
+  import_events:
+  - rva: '0xd798'
+    import: KERNEL32.dll!GetFileSizeEx
+    import_name: GetFileSizeEx
+    class: read_or_mapping
+    text: '0000d798: call     qword ptr [rip + 0x6e502a]'
+    context:
+    - '0000d781: mov      qword ptr [rsp + 0x40], rax'
+    - '0000d786: cmp      qword ptr [rsp + 0x40], -1'
+    - '0000d78c: je       0xd7a9'
+    - '0000d78e: lea      rdx, [rsp + 0x48]'
+    - '0000d793: mov      rcx, qword ptr [rsp + 0x40]'
+    - '0000d798: call     qword ptr [rip + 0x6e502a]'
+    - '0000d79e: mov      rcx, qword ptr [rsp + 0x40]'
+    - '0000d7a3: call     qword ptr [rip + 0x6e5077]'
+    - '0000d7a9: mov      rax, qword ptr [rsp + 0x48]'
+    - '0000d7ae: mov      rcx, qword ptr [rsp + 0x50]'
+    - '0000d7b3: xor      rcx, rsp'
+  - rva: '0xd7a3'
+    import: KERNEL32.dll!CloseHandle
+    import_name: CloseHandle
+    class: file_open_or_status
+    text: '0000d7a3: call     qword ptr [rip + 0x6e5077]'
+    context:
+    - '0000d78c: je       0xd7a9'
+    - '0000d78e: lea      rdx, [rsp + 0x48]'
+    - '0000d793: mov      rcx, qword ptr [rsp + 0x40]'
+    - '0000d798: call     qword ptr [rip + 0x6e502a]'
+    - '0000d79e: mov      rcx, qword ptr [rsp + 0x40]'
+    - '0000d7a3: call     qword ptr [rip + 0x6e5077]'
+    - '0000d7a9: mov      rax, qword ptr [rsp + 0x48]'
+    - '0000d7ae: mov      rcx, qword ptr [rsp + 0x50]'
+    - '0000d7b3: xor      rcx, rsp'
+    - '0000d7b6: call     0x48eab0'
+    - '0000d7bb: add      rsp, 0x68'
+  direct_callers:
+  - edge:
+      site: '0xb512'
+      caller:
+        begin: '0xb4b0'
+        end: '0xb880'
+        size: '0x3d0'
+      callee:
+        begin: '0xd720'
+        end: '0xd7c0'
+        size: '0xa0'
+      target_rva: '0xd720'
+    signal:
+      function:
+        begin: '0xb4b0'
+        end: '0xb880'
+        size: '0x3d0'
+      counts:
+        transform_mnemonic: 2
+        import:GetFileAttributesW: 1
+        import_class:file_open_or_status: 1
+        constant:payload_offset_8: 1
+        constant:block_size_or_file_attribute_16: 2
+      imports_seen:
+      - GetFileAttributesW
+      provenance_labels: []
+  direct_callees:
+  - edge:
+      site: '0xd77c'
+      caller:
+        begin: '0xd720'
+        end: '0xd7c0'
+        size: '0xa0'
+      callee:
+        begin: '0xda90'
+        end: '0xdbad'
+        size: '0x11d'
+      target_rva: '0xda90'
+    signal:
+      function:
+        begin: '0xda90'
+        end: '0xdbad'
+        size: '0x11d'
+      counts:
+        transform_mnemonic: 2
+        constant:payload_offset_8: 1
+        import:CreateFileW: 1
+        import_class:file_open_or_status: 1
+      imports_seen:
+      - CreateFileW
+      provenance_labels: []
+  - edge:
+      site: '0xd7b6'
+      caller:
+        begin: '0xd720'
+        end: '0xd7c0'
+        size: '0xa0'
+      callee:
+        begin: '0x48eab0'
+        end: '0x48eace'
+        size: '0x1e'
+      target_rva: '0x48eab0'
+    signal:
+      function:
+        begin: '0x48eab0'
+        end: '0x48eace'
+        size: '0x1e'
+      counts:
+        constant:block_size_or_file_attribute_16: 2
+        transform_mnemonic: 2
+      imports_seen: []
+      provenance_labels: []
+  evidence_ref: NSLG_NEP2_READ_MAPPING_OWNER:nep2-read-mapping-owner-scan-round170:0xd720
+- target_rva: '0xd7c0'
+  function:
+    begin: '0xd7c0'
+    end: '0xd812'
+    size: '0x52'
+  verdict: actual_read_mapping_owner_no_metadata_or_luascripts_provenance
+  owner_read_mapping_events:
+  - rva: '0xd7f0'
+    import: KERNEL32.dll!GetFileSize
+    import_name: GetFileSize
+    class: read_or_mapping
+    text: '0000d7f0: call     qword ptr [rip + 0x6e4fca]'
+  counts:
+    constant:invalid_handle_or_status_minus1: 2
+    import:GetFileSize: 1
+    import_class:read_or_mapping: 1
+  imports_seen:
+  - GetFileSize
+  read_mapping_imports_seen:
+  - GetFileSize
+  provenance_labels: []
+  neighborhood_provenance_labels: []
+  has_read_or_mapping_import: true
+  has_metadata_provenance: false
+  has_luascripts_provenance: false
+  has_protected_payload_signal: false
+  has_16byte_or_loop_signal: false
+  string_refs: []
+  metadata_keyword_hits: []
+  constants:
+  - rva: '0xd7de'
+    label: invalid_handle_or_status_minus1
+    value: '0xffffffffffffffff'
+    text: '0000d7de: cmp      qword ptr [rsp + 0x40], -1'
+  - rva: '0xd7fa'
+    label: invalid_handle_or_status_minus1
+    value: '0xffffffffffffffff'
+    text: '0000d7fa: cmp      dword ptr [rsp + 0x20], -1'
+  import_events:
+  - rva: '0xd7f0'
+    import: KERNEL32.dll!GetFileSize
+    import_name: GetFileSize
+    class: read_or_mapping
+    text: '0000d7f0: call     qword ptr [rip + 0x6e4fca]'
+    context:
+    - '0000d7dc: je       0xd809'
+    - '0000d7de: cmp      qword ptr [rsp + 0x40], -1'
+    - '0000d7e4: je       0xd809'
+    - '0000d7e6: mov      rdx, qword ptr [rsp + 0x48]'
+    - '0000d7eb: mov      rcx, qword ptr [rsp + 0x40]'
+    - '0000d7f0: call     qword ptr [rip + 0x6e4fca]'
+    - '0000d7f6: mov      dword ptr [rsp + 0x20], eax'
+    - '0000d7fa: cmp      dword ptr [rsp + 0x20], -1'
+    - '0000d7ff: jne      0xd809'
+    - '0000d801: mov      dword ptr [rsp + 0x20], 0'
+    - '0000d809: mov      eax, dword ptr [rsp + 0x20]'
+  direct_callers: []
+  direct_callees: []
+  evidence_ref: NSLG_NEP2_READ_MAPPING_OWNER:nep2-read-mapping-owner-scan-round170:0xd7c0
+route_conclusion:
+  actual_read_mapping_owners_found: true
+  metadata_linked_read_mapping_owner_found: false
+  global_metadata_loader_proven: false
+  file_buffer_owner_proven: false
+  metadata_wrapper_or_string_provenance_found: false
+  luascripts_or_init_scan_provenance_found: false
+  protected_payload_signal_found: false
+  plaintext_metadata_recovered: false
+  init_lua_env_method_ownership_recovered: false
+  lua_payload_decoder_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: NEP2 has actual imported read/mapping/file-size owner
+    functions; each is retained only if its function or bounded caller/callee neighborhood
+    is recorded.
+  strongest_negative_signal: Read/mapping import ownership alone is not decoder proof;
+    promotion still requires global-metadata.dat, LuaScripts, InitLuaScriptsScan,
+    or protected +8 payload provenance.
+  search_policy: Promote only provenance-linked read/mapping owners to the next static
+    deep-slice; keep generic file helpers as negative or low-priority route evidence.
+evidence_refs:
+- NSLG_NEP2_READ_MAPPING_OWNER:nep2-read-mapping-owner-scan-round170:summary
+- NSLG_NEP2_READ_MAPPING_OWNER:nep2-read-mapping-owner-scan-round170:0xd720
+- NSLG_NEP2_READ_MAPPING_OWNER:nep2-read-mapping-owner-scan-round170:0xd7c0
+next_static_targets:
+- Deep-slice only read/mapping owners whose self or neighborhood provenance mentions
+  global-metadata.dat, LuaScripts, InitLuaScriptsScan, Assembly-CSharp, NSLGame, or
+  protected payload constants.
+- If no provenance-linked owner exists, pivot to data-reference ownership around NEP2
+  InitLuaScriptsScan / CGameProtector records rather than scanning generic file IO
+  again.
+- Do not promote plaintext metadata or LuaScripts recovery until a transform yields
+  standard IL2CPP header pairs or readable Lua/text payload strings.
+limitations:
+- Offline/static NEP2 import-owner scan only; no live Frida, runtime attach, account
+  data, credentials, or online protocol were used.
+- The scan proves static import ownership and bounded caller/callee/string context;
+  it does not prove runtime execution order.
+- Generic ReadFile/MapViewOfFile ownership without metadata/LuaScripts/protected-payload
+  provenance remains insufficient for qa-agent publishable knowledge.
+guardrails:
+- offline/static NEP2 import-owner scan only; no live instrumentation, account data,
+  or online protocol data is included
+- absolute local paths are not persisted; only file names, hashes, target RVAs, counts,
+  and sanitized owner summaries are stored
+- read/mapping import ownership without metadata/LuaScripts/protected-payload provenance
+  is not decoder proof
+- metadata recovery requires file-buffer ownership plus standard IL2CPP header pairs
+  and readable Assembly-CSharp/NSLGame strings

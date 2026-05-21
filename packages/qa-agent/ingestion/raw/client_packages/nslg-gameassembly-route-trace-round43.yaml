@@ -1,0 +1,2605 @@
+schema_version: nslg.gameassembly_route_trace_batch.v1
+source_id: gameassembly-route-trace-round43
+source_url: local-nslg-client-gameassembly-trace
+source_site: nslg_client_gameassembly_trace
+generated_at: '2026-05-20T14:32:15.110427Z'
+binary_name: GameAssembly.dll
+artifact_count: 6
+round_range:
+  min: 42
+  max: 160
+status_counts:
+  negative_route_correlation: 3
+  static_trace_seed: 3
+artifact_kind_counts:
+  assetbundle_neighborhood: 1
+  global_metadata_trace: 1
+  global_metadata_xref_function_triage: 1
+  metadata_assetbundle_xrefs: 1
+  textasset_loadbuffer_correlation: 1
+  xlua_global_metadata_anchor_trace: 1
+route_signal_record_count: 0
+total_target_strings: 270
+total_code_refs: 15
+total_function_refs: 31
+evidence_refs:
+- NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=42:kind=xlua_global_metadata_anchor_trace
+- NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=71:kind=global_metadata_trace
+- NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=105:kind=global_metadata_xref_function_triage
+- NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=123:kind=metadata_assetbundle_xrefs
+- NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=124:kind=assetbundle_neighborhood
+- NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=160:kind=textasset_loadbuffer_correlation
+route_conclusion:
+  route_signal_records: 0
+  textasset_loadbuffer_bridge_proven: false
+  strongest_current_signal: static GameAssembly string inventory confirms TextAsset::get_bytes
+    and xluaL_loadbuffer names, but current exact-ref scan does not prove a bridge
+    between them
+  search_policy: keep GameAssembly as decoder routing evidence; prioritize NEP2 InitLuaScriptsScan
+    or a runtime-independent TextAsset payload decoder before promoting any knowledge
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+records:
+- evidence_ref: NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=42:kind=xlua_global_metadata_anchor_trace
+  round: 42
+  artifact_kind: xlua_global_metadata_anchor_trace
+  artifact_files:
+  - gameassembly_anchor_trace_round42.json
+  status: static_trace_seed
+  publish_readiness: not_publishable_static_evidence
+  slice: GameAssembly anchor function trace
+  binary_name: GameAssembly.dll
+  binary_sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  target_string_count: 12
+  code_ref_count: 10
+  function_ref_count: 10
+  route_signal_function_count: 0
+  counts:
+    pdata_function_count: 290472
+    watched_string_count: 12
+    hit_count: 10
+    target_string_count: 12
+    code_ref_count: 10
+    function_ref_count: 10
+    route_signal_function_count: 0
+  target_strings:
+  - rva: '0x4d88a98'
+    label: global-metadata.dat:first
+  - rva: '0x4d8e180'
+    label: global-metadata.dat:size-log
+  - rva: '0x429b45e'
+    label: xluaL_loadbuffer
+  - rva: '0x428dca0'
+    label: xlua:first
+  - rva: '0x428dcb8'
+    label: xlua:utf16
+  - rva: '0x429b030'
+    label: xlua:ascii_429b030
+  - rva: '0x429b090'
+    label: xlua:ascii_429b090
+  - rva: '0x429b1c8'
+    label: xlua:ascii_429b1c8
+  - rva: '0x429b318'
+    label: xlua:ascii_429b318
+  - rva: '0x429b4f8'
+    label: xlua:ascii_429b4f8
+  - rva: '0x429b6d0'
+    label: xlua:ascii_429b6d0
+  - rva: '0x43bae24'
+    label: AssetBundle:selected
+  focus_functions: []
+  verdict:
+  - Mapped selected Round 41 executable/string-pointer hits to PE exception-table
+    function boundaries.
+  - 'The apparent global-metadata.dat size-log RVA32 hit at 0x4635bc is a false positive:
+    it is the disp32 of a RIP-relative access whose real target is 0x51f1740, not
+    the string at 0x4d8e180.'
+  - Most xlua references near 0xc7xxx and 0xd87xx group into adjacent il2cpp functions,
+    likely registration/binding code rather than the LuaScripts data transform by
+    itself.
+  - The next useful probe is to focus on xlua/loadbuffer binding paths or runtime-instrument
+    TextAsset/LuaScripts bytes; the global-metadata.dat string still lacks a proven
+    direct static xref.
+  blockers:
+  - static GameAssembly route evidence is not readable game knowledge
+  - xlua_global_metadata_anchor_trace has not produced a reviewed payload decoder
+  next_actions:
+  - use this GameAssembly trace only as decoder planning evidence
+  - recover a readable TextAsset/LuaScripts payload decoder before staging knowledge
+- evidence_ref: NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=71:kind=global_metadata_trace
+  round: 71
+  artifact_kind: global_metadata_trace
+  artifact_files:
+  - gameassembly_global_metadata_trace_round71.json
+  - gameassembly_global_metadata_trace_round71.md
+  - gameassembly_global_metadata_trace_round71.asm
+  status: static_trace_seed
+  publish_readiness: not_publishable_static_evidence
+  slice: GameAssembly global-metadata string/import and block-transform candidate
+    ranking
+  binary_name: GameAssembly.dll
+  binary_sha256: null
+  target_string_count: 171
+  code_ref_count: 2
+  function_ref_count: 2
+  route_signal_function_count: 0
+  counts:
+    keyword_hits: 171
+    data_refs_to_keyword_strings: 5
+    code_refs: 2
+    top_xref_candidates: 2
+    top_block_candidates: 0
+    global_metadata_size: 21182776
+    target_string_count: 171
+    code_ref_count: 2
+    function_ref_count: 2
+    route_signal_function_count: 0
+  target_strings: []
+  focus_functions: []
+  verdict:
+  - 'GameAssembly pdata functions: 290472; exports: 386; imports: 231.'
+  - 'Keyword hits: 171; non-exec data refs to keyword strings: 5.'
+  - 'Code refs: 2 total; keyword/code=0, data-slot=0, imports=2.'
+  - 'Disassembled 472553 instructions; strong crypto ops: 0; endian ops: 0.'
+  - 'Known first-block hits in GameAssembly: plaintext=0, ciphertext=0.'
+  - 'global-metadata.dat: exists=True size=21182776 magic=0xfab11baf offset4_u32=21182776
+    offset4_equals_size=True.'
+  blockers:
+  - static GameAssembly route evidence is not readable game knowledge
+  - global_metadata_trace has not produced a reviewed payload decoder
+  next_actions:
+  - Run a dedicated offline global-metadata.dat header/structure check and then trace
+    the nonstandard loader path, because GameAssembly string/import xrefs only exposed
+    import stubs and no visible CAB/AES transform.
+- evidence_ref: NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=105:kind=global_metadata_xref_function_triage
+  round: 105
+  artifact_kind: global_metadata_xref_function_triage
+  artifact_files:
+  - gameassembly_global_metadata_xref_function_triage_round105.json
+  - gameassembly_global_metadata_xref_function_triage_round105.md
+  - gameassembly_global_metadata_xref_function_triage_round105.asm
+  status: negative_route_correlation
+  publish_readiness: not_publishable_static_evidence
+  slice: Focused triage of corrected GameAssembly global-metadata xref functions
+  binary_name: GameAssembly.dll
+  binary_sha256: null
+  target_string_count: 3
+  code_ref_count: 2
+  function_ref_count: 2
+  route_signal_function_count: 0
+  counts:
+    focus_functions: 2
+    direct_callers: 2
+    direct_caller_summaries: 1
+    direct_callee_summaries: 12
+    hard_risky_rows: 0
+    soft_16byte_rows: 4
+    target_string_count: 3
+    code_ref_count: 2
+    function_ref_count: 2
+    route_signal_function_count: 0
+  target_strings: []
+  focus_functions:
+  - function:
+      begin: '0x55f6d0'
+      end: '0x55f83a'
+      size: '0x16a'
+    found: true
+    instruction_count: 73
+    mnemonic_top:
+    - - mov
+      - 34
+    - - call
+      - 8
+    - - movsxd
+      - 7
+    - - shr
+      - 4
+    - - lea
+      - 3
+    - - movabs
+      - 3
+    - - mul
+      - 3
+    - - add
+      - 2
+    - - pop
+      - 2
+    - - ret
+      - 2
+    - - push
+      - 1
+    - - sub
+      - 1
+    - - test
+      - 1
+    - - jne
+      - 1
+    - - xchg
+      - 1
+    strings:
+    - site: '0x55f6e0'
+      target_rva: '0x4d88a98'
+      text: '0055f6e0: lea      rcx, [rip + 0x48293b1]'
+      string: global-metadata.dat
+    file_import_refs: []
+    calls:
+    - site: '0x55f6e7'
+      text: '0055f6e7: call     0x586690'
+      target: '0x586690'
+      target_function:
+        begin: '0x586690'
+        end: '0x5868b2'
+        size: '0x222'
+    - site: '0x55f706'
+      text: '0055f706: call     0x537ab0'
+      target: '0x537ab0'
+      target_function:
+        begin: '0x537ab0'
+        end: '0x537be0'
+        size: '0x130'
+    - site: '0x55f75b'
+      text: '0055f75b: call     0x536c80'
+      target: '0x536c80'
+      target_function: null
+    - site: '0x55f77d'
+      text: '0055f77d: call     0x536c80'
+      target: '0x536c80'
+      target_function: null
+    - site: '0x55f7b6'
+      text: '0055f7b6: call     0x536c80'
+      target: '0x536c80'
+      target_function: null
+    - site: '0x55f7ec'
+      text: '0055f7ec: call     0x536c80'
+      target: '0x536c80'
+      target_function: null
+    - site: '0x55f80e'
+      text: '0055f80e: call     0x536c80'
+      target: '0x536c80'
+      target_function: null
+    - site: '0x55f828'
+      text: '0055f828: call     0x560580'
+      target: '0x560580'
+      target_function:
+        begin: '0x560580'
+        end: '0x5605a4'
+        size: '0x24'
+    direct_callee_functions:
+    - begin: '0x586690'
+      end: '0x5868b2'
+      size: '0x222'
+    - begin: '0x537ab0'
+      end: '0x537be0'
+      size: '0x130'
+    - begin: '0x560580'
+      end: '0x5605a4'
+      size: '0x24'
+    crypto_ops: []
+    simd_ops: []
+    sixteen_byte_evidence: []
+    non_stack_mem_writes:
+    - site: '0x55f6ec'
+      text: '0055f6ec: mov      qword ptr [rip + 0x4fc11b5], rax'
+    - site: '0x55f70b'
+      text: '0055f70b: xchg     qword ptr [rip + 0x4fc1226], rax'
+    - site: '0x55f723'
+      text: '0055f723: mov      qword ptr [rip + 0x4fc1186], r8'
+    - site: '0x55f738'
+      text: '0055f738: mov      dword ptr [rdi], edx'
+    - site: '0x55f74b'
+      text: '0055f74b: mov      dword ptr [rip + 0x4fc0f2f], edx'
+    - site: '0x55f759'
+      text: '0055f759: mov      dword ptr [rbx], eax'
+    - site: '0x55f760'
+      text: '0055f760: mov      qword ptr [rip + 0x4fc0f21], rax'
+    - site: '0x55f782'
+      text: '0055f782: mov      qword ptr [rip + 0x4fc0f1f], rax'
+    - site: '0x55f7bb'
+      text: '0055f7bb: mov      qword ptr [rip + 0x4fc0eee], rax'
+    - site: '0x55f7f1'
+      text: '0055f7f1: mov      qword ptr [rip + 0x4fc0ea0], rax'
+    - site: '0x55f81a'
+      text: '0055f81a: mov      qword ptr [rip + 0x4fc0e6f], rax'
+    backward_branches: []
+    verdict_flags:
+      has_file_import_refs: false
+      has_crypto_ops: false
+      has_global_metadata_string_ref: true
+      has_cab_or_serialized_string_ref: false
+      has_16byte_evidence: false
+      has_non_stack_mem_writes: true
+    disassembly:
+    - '0055f6d0: mov      qword ptr [rsp + 8], rbx'
+    - '0055f6d5: push     rdi'
+    - '0055f6d6: sub      rsp, 0x20'
+    - '0055f6da: mov      rdi, rcx'
+    - '0055f6dd: mov      rbx, rdx'
+    - '0055f6e0: lea      rcx, [rip + 0x48293b1]'
+    - '0055f6e7: call     0x586690'
+    - '0055f6ec: mov      qword ptr [rip + 0x4fc11b5], rax'
+    - '0055f6f3: test     rax, rax'
+    - '0055f6f6: jne      0x55f703'
+    - '0055f6f8: mov      rbx, qword ptr [rsp + 0x30]'
+    - '0055f6fd: add      rsp, 0x20'
+    - '0055f701: pop      rdi'
+    - '0055f702: ret'
+    - '0055f703: mov      rcx, rax'
+    - '0055f706: call     0x537ab0'
+    - '0055f70b: xchg     qword ptr [rip + 0x4fc1226], rax'
+    - '0055f712: mov      r8, qword ptr [rip + 0x4fc118f]'
+    - '0055f719: movabs   rax, 0xcccccccccccccccd'
+    - '0055f723: mov      qword ptr [rip + 0x4fc1186], r8'
+    - '0055f72a: movsxd   rcx, dword ptr [r8 + 0xac]'
+    - '0055f731: mul      rcx'
+    - '0055f734: shr      rdx, 5'
+    - '0055f738: mov      dword ptr [rdi], edx'
+    - '0055f73a: movsxd   rax, dword ptr [r8 + 0xb4]'
+    - '0055f741: mov      r8d, 3'
+    - '0055f747: shr      rax, 6'
+    - '0055f74b: mov      dword ptr [rip + 0x4fc0f2f], edx'
+    - '0055f751: movsxd   rcx, edx'
+    - '0055f754: mov      edx, 0x18'
+    - '0055f759: mov      dword ptr [rbx], eax'
+    - '0055f75b: call     0x536c80'
+    - '0055f760: mov      qword ptr [rip + 0x4fc0f21], rax'
+    - '0055f767: mov      edx, 8'
+    - '0055f76c: mov      rax, qword ptr [rip + 0x4fc114d]'
+    - '0055f773: mov      r8d, 3'
+    - '0055f779: movsxd   rcx, dword ptr [rax + 0x30]'
+    - '0055f77d: call     0x536c80'
+    - '0055f782: mov      qword ptr [rip + 0x4fc0f1f], rax'
+    - '0055f789: mov      r8d, 3'
+    - '0055f78f: mov      rax, qword ptr [rip + 0x4fc111a]'
+    - '0055f796: movsxd   rcx, dword ptr [rax + 0xa4]'
+    - '0055f79d: movabs   rax, 0x2e8ba2e8ba2e8ba3'
+    - '0055f7a7: mul      rcx'
+    - '0055f7aa: mov      rcx, rdx'
+    - '0055f7ad: mov      edx, 8'
+    - '0055f7b2: shr      rcx, 4'
+    - '0055f7b6: call     0x536c80'
+    - '0055f7bb: mov      qword ptr [rip + 0x4fc0eee], rax'
+    - '0055f7c2: mov      r8d, 3'
+    - '0055f7c8: mov      rax, qword ptr [rip + 0x4fc10e1]'
+    - '0055f7cf: movsxd   rcx, dword ptr [rax + 0x34]'
+    - '0055f7d3: movabs   rax, 0xe38e38e38e38e38f'
+    - '0055f7dd: mul      rcx'
+    - '0055f7e0: mov      rcx, rdx'
+    - '0055f7e3: mov      edx, 8'
+    - '0055f7e8: shr      rcx, 5'
+    - '0055f7ec: call     0x536c80'
+    - '0055f7f1: mov      qword ptr [rip + 0x4fc0ea0], rax'
+    - '0055f7f8: mov      edx, 8'
+    - '0055f7fd: mov      rax, qword ptr [rip + 0x4fc10bc]'
+    - '0055f804: mov      r8d, 3'
+    - '0055f80a: movsxd   rcx, dword ptr [rax + 0x40]'
+    - '0055f80e: call     0x536c80'
+    - '0055f813: lea      rdx, [rip + 0x166]'
+    - '0055f81a: mov      qword ptr [rip + 0x4fc0e6f], rax'
+    - '0055f821: lea      rcx, [rip + 0x738]'
+    - '0055f828: call     0x560580'
+    - '0055f82d: mov      rbx, qword ptr [rsp + 0x30]'
+    - '0055f832: mov      al, 1'
+    - '0055f834: add      rsp, 0x20'
+    - '0055f838: pop      rdi'
+    - '0055f839: ret'
+  - function:
+      begin: '0x5736d0'
+      end: '0x5739de'
+      size: '0x30e'
+    found: true
+    instruction_count: 170
+    mnemonic_top:
+    - - mov
+      - 50
+    - - lea
+      - 47
+    - - call
+      - 42
+    - - nop
+      - 11
+    - - test
+      - 3
+    - - jne
+      - 2
+    - - and
+      - 2
+    - - push
+      - 1
+    - - sub
+      - 1
+    - - movsxd
+      - 1
+    - - cmp
+      - 1
+    - - cmovne
+      - 1
+    - - or
+      - 1
+    - - add
+      - 1
+    - - pop
+      - 1
+    - - ret
+      - 1
+    - - je
+      - 1
+    - - jmp
+      - 1
+    - - cmove
+      - 1
+    - - int3
+      - 1
+    strings:
+    - site: '0x57377f'
+      target_rva: '0x4d8e080'
+      text: '0057377f: lea      rdx, [rip + 0x481a8fa]'
+      string: 'Class static data size:  '
+    - site: '0x573902'
+      target_rva: '0x4d8e180'
+      text: '00573902: lea      rdx, [rip + 0x481a877]'
+      string: 'global-metadata.dat size:'
+    file_import_refs: []
+    calls:
+    - site: '0x5736ef'
+      text: '005736ef: call     0x56dd90'
+      target: '0x56dd90'
+      target_function:
+        begin: '0x56dd90'
+        end: '0x56dfe2'
+        size: '0x252'
+    - site: '0x573709'
+      text: '00573709: call     0x5719d0'
+      target: '0x5719d0'
+      target_function:
+        begin: '0x5719d0'
+        end: '0x571b67'
+        size: '0x197'
+    - site: '0x57371a'
+      text: '0057371a: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x57372b'
+      text: '0057372b: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x57373b'
+      text: '0057373b: call     0x56e930'
+      target: '0x56e930'
+      target_function:
+        begin: '0x56e930'
+        end: '0x56ec35'
+        size: '0x305'
+    - site: '0x57374a'
+      text: '0057374a: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x57375b'
+      text: '0057375b: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x57376b'
+      text: '0057376b: call     0x56e930'
+      target: '0x56e930'
+      target_function:
+        begin: '0x56e930'
+        end: '0x56ec35'
+        size: '0x305'
+    - site: '0x57377a'
+      text: '0057377a: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x57378b'
+      text: '0057378b: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x57379b'
+      text: '0057379b: call     0x56e930'
+      target: '0x56e930'
+      target_function:
+        begin: '0x56e930'
+        end: '0x56ec35'
+        size: '0x305'
+    - site: '0x5737aa'
+      text: '005737aa: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x5737bb'
+      text: '005737bb: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x5737cb'
+      text: '005737cb: call     0x56e930'
+      target: '0x56e930'
+      target_function:
+        begin: '0x56e930'
+        end: '0x56ec35'
+        size: '0x305'
+    - site: '0x5737da'
+      text: '005737da: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x5737eb'
+      text: '005737eb: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x5737fb'
+      text: '005737fb: call     0x56e930'
+      target: '0x56e930'
+      target_function:
+        begin: '0x56e930'
+        end: '0x56ec35'
+        size: '0x305'
+    - site: '0x57380a'
+      text: '0057380a: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x57381b'
+      text: '0057381b: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x57382b'
+      text: '0057382b: call     0x56e930'
+      target: '0x56e930'
+      target_function:
+        begin: '0x56e930'
+        end: '0x56ec35'
+        size: '0x305'
+    - site: '0x57383a'
+      text: '0057383a: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x57384b'
+      text: '0057384b: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x57385b'
+      text: '0057385b: call     0x56e930'
+      target: '0x56e930'
+      target_function:
+        begin: '0x56e930'
+        end: '0x56ec35'
+        size: '0x305'
+    - site: '0x57386a'
+      text: '0057386a: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x57387b'
+      text: '0057387b: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x57388b'
+      text: '0057388b: call     0x56e930'
+      target: '0x56e930'
+      target_function:
+        begin: '0x56e930'
+        end: '0x56ec35'
+        size: '0x305'
+    - site: '0x57389a'
+      text: '0057389a: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x5738ab'
+      text: '005738ab: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x5738b3'
+      text: '005738b3: call     0x5be660'
+      target: '0x5be660'
+      target_function:
+        begin: '0x5be660'
+        end: '0x5be699'
+        size: '0x39'
+    - site: '0x5738be'
+      text: '005738be: call     0x56e930'
+      target: '0x56e930'
+      target_function:
+        begin: '0x56e930'
+        end: '0x56ec35'
+        size: '0x305'
+    - site: '0x5738cd'
+      text: '005738cd: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x5738de'
+      text: '005738de: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x5738ee'
+      text: '005738ee: call     0x56e930'
+      target: '0x56e930'
+      target_function:
+        begin: '0x56e930'
+        end: '0x56ec35'
+        size: '0x305'
+    - site: '0x5738fd'
+      text: '005738fd: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x57390e'
+      text: '0057390e: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x57391e'
+      text: '0057391e: call     0x56e930'
+      target: '0x56e930'
+      target_function:
+        begin: '0x56e930'
+        end: '0x56ec35'
+        size: '0x305'
+    - site: '0x57392d'
+      text: '0057392d: call     0x56cea0'
+      target: '0x56cea0'
+      target_function:
+        begin: '0x56cea0'
+        end: '0x56d164'
+        size: '0x2c4'
+    - site: '0x573937'
+      text: '00573937: call     0x570660'
+      target: '0x570660'
+      target_function:
+        begin: '0x570660'
+        end: '0x570759'
+        size: '0xf9'
+    - site: '0x573975'
+      text: '00573975: call     0x56ec40'
+      target: '0x56ec40'
+      target_function:
+        begin: '0x56ec40'
+        end: '0x56ed04'
+        size: '0xc4'
+    - site: '0x5739b9'
+      text: '005739b9: call     0x5718e0'
+      target: '0x5718e0'
+      target_function: null
+    - site: '0x5739c8'
+      text: '005739c8: call     0x56e300'
+      target: '0x56e300'
+      target_function:
+        begin: '0x56e300'
+        end: '0x56e332'
+        size: '0x32'
+    - site: '0x5739d8'
+      text: '005739d8: call     0x5fb0a0'
+      target: '0x5fb0a0'
+      target_function:
+        begin: '0x5fb0a0'
+        end: '0x5fb147'
+        size: '0xa7'
+    direct_callee_functions:
+    - begin: '0x56dd90'
+      end: '0x56dfe2'
+      size: '0x252'
+    - begin: '0x5719d0'
+      end: '0x571b67'
+      size: '0x197'
+    - begin: '0x56cea0'
+      end: '0x56d164'
+      size: '0x2c4'
+    - begin: '0x56e930'
+      end: '0x56ec35'
+      size: '0x305'
+    - begin: '0x5be660'
+      end: '0x5be699'
+      size: '0x39'
+    - begin: '0x570660'
+      end: '0x570759'
+      size: '0xf9'
+    - begin: '0x56ec40'
+      end: '0x56ed04'
+      size: '0xc4'
+    - begin: '0x56e300'
+      end: '0x56e332'
+      size: '0x32'
+    - begin: '0x5fb0a0'
+      end: '0x5fb147'
+      size: '0xa7'
+    crypto_ops: []
+    simd_ops: []
+    sixteen_byte_evidence: []
+    non_stack_mem_writes: []
+    backward_branches: []
+    verdict_flags:
+      has_file_import_refs: false
+      has_crypto_ops: false
+      has_global_metadata_string_ref: true
+      has_cab_or_serialized_string_ref: false
+      has_16byte_evidence: false
+      has_non_stack_mem_writes: false
+    disassembly:
+    - '005736d0: mov      qword ptr [rsp + 8], rbx'
+    - '005736d5: push     rbp'
+    - '005736d6: lea      rbp, [rsp - 0x80]'
+    - '005736db: sub      rsp, 0x180'
+    - '005736e2: mov      rbx, rcx'
+    - '005736e5: mov      edx, 1'
+    - '005736ea: lea      rcx, [rsp + 0x20]'
+    - '005736ef: call     0x56dd90'
+    - '005736f4: nop'
+    - '005736f5: mov      r9d, 0x40'
+    - '005736fb: mov      r8d, 0x12'
+    - '00573701: mov      rdx, rbx'
+    - '00573704: lea      rcx, [rsp + 0x20]'
+    - '00573709: call     0x5719d0'
+    - '0057370e: lea      rdx, [rip + 0x481a8f3]'
+    - '00573715: lea      rcx, [rsp + 0x30]'
+    - '0057371a: call     0x56cea0'
+    - '0057371f: lea      rdx, [rip + 0x481a91a]'
+    - '00573726: lea      rcx, [rsp + 0x30]'
+    - '0057372b: call     0x56cea0'
+    - '00573730: mov      rdx, qword ptr [rip + 0x4fad1b9]'
+    - '00573737: nop'
+    - '00573738: mov      rcx, rax'
+    - '0057373b: call     0x56e930'
+    - '00573740: mov      rcx, rax'
+    - '00573743: lea      rdx, [rip + 0x481240e]'
+    - '0057374a: call     0x56cea0'
+    - '0057374f: lea      rdx, [rip + 0x481a90a]'
+    - '00573756: lea      rcx, [rsp + 0x30]'
+    - '0057375b: call     0x56cea0'
+    - '00573760: mov      rdx, qword ptr [rip + 0x4fad199]'
+    - '00573767: nop'
+    - '00573768: mov      rcx, rax'
+    - '0057376b: call     0x56e930'
+    - '00573770: mov      rcx, rax'
+    - '00573773: lea      rdx, [rip + 0x48123de]'
+    - '0057377a: call     0x56cea0'
+    - '0057377f: lea      rdx, [rip + 0x481a8fa]'
+    - '00573786: lea      rcx, [rsp + 0x30]'
+    - '0057378b: call     0x56cea0'
+    - '00573790: mov      rdx, qword ptr [rip + 0x4fad171]'
+    - '00573797: nop'
+    - '00573798: mov      rcx, rax'
+    - '0057379b: call     0x56e930'
+    - '005737a0: mov      rcx, rax'
+    - '005737a3: lea      rdx, [rip + 0x48123ae]'
+    - '005737aa: call     0x56cea0'
+    - '005737af: lea      rdx, [rip + 0x481a8ea]'
+    - '005737b6: lea      rcx, [rsp + 0x30]'
+    - '005737bb: call     0x56cea0'
+    - '005737c0: mov      rdx, qword ptr [rip + 0x4fad159]'
+    - '005737c7: nop'
+    - '005737c8: mov      rcx, rax'
+    - '005737cb: call     0x56e930'
+    - '005737d0: mov      rcx, rax'
+    - '005737d3: lea      rdx, [rip + 0x481237e]'
+    - '005737da: call     0x56cea0'
+    - '005737df: lea      rdx, [rip + 0x481a8da]'
+    - '005737e6: lea      rcx, [rsp + 0x30]'
+    - '005737eb: call     0x56cea0'
+    - '005737f0: mov      rdx, qword ptr [rip + 0x4fad131]'
+    - '005737f7: nop'
+    - '005737f8: mov      rcx, rax'
+    - '005737fb: call     0x56e930'
+    - '00573800: mov      rcx, rax'
+    - '00573803: lea      rdx, [rip + 0x481234e]'
+    - '0057380a: call     0x56cea0'
+    - '0057380f: lea      rdx, [rip + 0x481a8ca]'
+    - '00573816: lea      rcx, [rsp + 0x30]'
+    - '0057381b: call     0x56cea0'
+    - '00573820: mov      rdx, qword ptr [rip + 0x4fad0d1]'
+    - '00573827: nop'
+    - '00573828: mov      rcx, rax'
+    - '0057382b: call     0x56e930'
+    - '00573830: mov      rcx, rax'
+    - '00573833: lea      rdx, [rip + 0x481231e]'
+    - '0057383a: call     0x56cea0'
+    - '0057383f: lea      rdx, [rip + 0x481a8ba]'
+    - '00573846: lea      rcx, [rsp + 0x30]'
+    - '0057384b: call     0x56cea0'
+    - '00573850: mov      rdx, qword ptr [rip + 0x4fad0b9]'
+    - '00573857: nop'
+    - '00573858: mov      rcx, rax'
+    - '0057385b: call     0x56e930'
+    - '00573860: mov      rcx, rax'
+    - '00573863: lea      rdx, [rip + 0x48122ee]'
+    - '0057386a: call     0x56cea0'
+    - '0057386f: lea      rdx, [rip + 0x481a8aa]'
+    - '00573876: lea      rcx, [rsp + 0x30]'
+    - '0057387b: call     0x56cea0'
+    - '00573880: mov      rdx, qword ptr [rip + 0x4fad091]'
+    - '00573887: nop'
+    - '00573888: mov      rcx, rax'
+    - '0057388b: call     0x56e930'
+    - '00573890: mov      rcx, rax'
+    - '00573893: lea      rdx, [rip + 0x48122be]'
+    - '0057389a: call     0x56cea0'
+    - '0057389f: lea      rdx, [rip + 0x481a89a]'
+    - '005738a6: lea      rcx, [rsp + 0x30]'
+    - '005738ab: call     0x56cea0'
+    - '005738b0: mov      rbx, rax'
+    - '005738b3: call     0x5be660'
+    - '005738b8: mov      rdx, rax'
+    - '005738bb: mov      rcx, rbx'
+    - '005738be: call     0x56e930'
+    - '005738c3: mov      rcx, rax'
+    - '005738c6: lea      rdx, [rip + 0x481228b]'
+    - '005738cd: call     0x56cea0'
+    - '005738d2: lea      rdx, [rip + 0x481a887]'
+    - '005738d9: lea      rcx, [rsp + 0x30]'
+    - '005738de: call     0x56cea0'
+    - '005738e3: mov      rdx, qword ptr [rip + 0x4fad046]'
+    - '005738ea: nop'
+    - '005738eb: mov      rcx, rax'
+    - '005738ee: call     0x56e930'
+    - '005738f3: mov      rcx, rax'
+    - '005738f6: lea      rdx, [rip + 0x481225b]'
+    - '005738fd: call     0x56cea0'
+    - '00573902: lea      rdx, [rip + 0x481a877]'
+    - '00573909: lea      rcx, [rsp + 0x30]'
+    - '0057390e: call     0x56cea0'
+    - '00573913: mov      rdx, qword ptr [rip + 0x4fad01e]'
+    - '0057391a: nop'
+    - '0057391b: mov      rcx, rax'
+    - '0057391e: call     0x56e930'
+    - '00573923: mov      rcx, rax'
+    - '00573926: lea      rdx, [rip + 0x481222b]'
+    - '0057392d: call     0x56cea0'
+    - '00573932: lea      rcx, [rsp + 0x38]'
+    - '00573937: call     0x570660'
+    - '0057393c: test     rax, rax'
+    - '0057393f: jne      0x573970'
+    - '00573941: mov      rax, qword ptr [rsp + 0x20]'
+    - '00573946: movsxd   rcx, dword ptr [rax + 4]'
+    - '0057394a: mov      eax, 6'
+    - '0057394f: mov      edx, 2'
+    - '00573954: cmp      qword ptr [rsp + rcx + 0x68], 0'
+    - '0057395a: cmovne   eax, edx'
+    - '0057395d: or       eax, dword ptr [rsp + rcx + 0x30]'
+    - '00573961: and      eax, 0x17'
+    - '00573964: mov      dword ptr [rsp + rcx + 0x30], eax'
+    - '00573968: mov      edx, dword ptr [rsp + rcx + 0x34]'
+    - '0057396c: and      edx, eax'
+    - '0057396e: jne      0x57398d'
+    - '00573970: lea      rcx, [rsp + 0x20]'
+    - '00573975: call     0x56ec40'
+    - '0057397a: mov      al, 1'
+    - '0057397c: mov      rbx, qword ptr [rsp + 0x190]'
+    - '00573984: add      rsp, 0x180'
+    - '0057398b: pop      rbp'
+    - '0057398c: ret'
+    - '0057398d: test     dl, 4'
+    - '00573990: je       0x57399b'
+    - '00573992: lea      rbx, [rip + 0x481a4f7]'
+    - '00573999: jmp      0x5739b0'
+    - '0057399b: test     dl, 2'
+    - '0057399e: lea      rbx, [rip + 0x481a503]'
+    - '005739a5: lea      rax, [rip + 0x481a514]'
+    - '005739ac: cmove    rbx, rax'
+    - '005739b0: mov      edx, 1'
+    - '005739b5: lea      rcx, [rbp + 0x40]'
+    - '005739b9: call     0x5718e0'
+    - '005739be: mov      r8, rax'
+    - '005739c1: mov      rdx, rbx'
+    - '005739c4: lea      rcx, [rbp + 0x50]'
+    - '005739c8: call     0x56e300'
+    - '005739cd: lea      rdx, [rip + 0x4ad6874]'
+    - '005739d4: lea      rcx, [rbp + 0x50]'
+    - '005739d8: call     0x5fb0a0'
+    - '005739dd: int3'
+  verdict:
+  - 0x55f6d0 and 0x5736d0 are confirmed narrow string/metadata xref functions, not
+    proven CAB/global-metadata file-buffer protectors.
+  - 'Direct file-related import refs inside focus funcs/direct callees: 0.'
+  - 'Crypto/AES/pshufb ops inside focus funcs/direct callees: 0.'
+  - 'Hard risky rows with file/crypto/CAB/non-stack-vector evidence: 0.'
+  - 'Soft 0xf/0x10 length-constant-only rows: 4.'
+  - No direct bridge from corrected global-metadata string xrefs to CreateFile/ReadFile/MapViewOfFile
+    or a non-stack 16-byte transform was found.
+  blockers:
+  - static GameAssembly route evidence is not readable game knowledge
+  - global_metadata_xref_function_triage has not produced a reviewed payload decoder
+  next_actions:
+  - Stop broad GameAssembly global-metadata string-xref rounds; pivot to NEP2/UnityPlayer
+    concrete file-buffer mutation surfaces and target functions that touch CAB/SerializedFile
+    buffers plus file APIs.
+- evidence_ref: NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=123:kind=metadata_assetbundle_xrefs
+  round: 123
+  artifact_kind: metadata_assetbundle_xrefs
+  artifact_files:
+  - gameassembly_metadata_assetbundle_xrefs_round123.json
+  - gameassembly_metadata_assetbundle_xrefs_round123.md
+  - gameassembly_metadata_assetbundle_xrefs_round123.asm
+  status: static_trace_seed
+  publish_readiness: not_publishable_static_evidence
+  slice: GameAssembly metadata/AssetBundle string xrefs
+  binary_name: GameAssembly.dll
+  binary_sha256: null
+  target_string_count: 70
+  code_ref_count: 0
+  function_ref_count: 12
+  route_signal_function_count: 0
+  counts:
+    needle_strings: 70
+    ranked_functions: 12
+    target_string_count: 70
+    code_ref_count: 0
+    function_ref_count: 12
+    route_signal_function_count: 0
+  target_strings: []
+  focus_functions: []
+  verdict:
+  - 'Needle strings found: 70.'
+  - 'String xrefs found: 15.'
+  - 'Functions with string xrefs: 12.'
+  - 'Target import hits inside xref functions: 0.'
+  - 'Crypto instruction hits inside xref functions: 0.'
+  - 'Mem16 writes inside xref functions: 50.'
+  - 'Top xref function: {''begin'': ''0x3149fb0'', ''end'': ''0x314a383'', ''size'':
+    ''0x3d3''} score=185.'
+  blockers:
+  - static GameAssembly route evidence is not readable game knowledge
+  - metadata_assetbundle_xrefs has not produced a reviewed payload decoder
+  next_actions:
+  - Deep-slice the top GameAssembly xref functions and caller/callee neighborhoods
+    to test whether metadata/AssetBundle strings connect to file buffers or 16-byte
+    mutation.
+- evidence_ref: NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=124:kind=assetbundle_neighborhood
+  round: 124
+  artifact_kind: assetbundle_neighborhood
+  artifact_files:
+  - gameassembly_assetbundle_neighborhood_round124.json
+  - gameassembly_assetbundle_neighborhood_round124.md
+  - gameassembly_assetbundle_neighborhood_round124.asm
+  status: negative_route_correlation
+  publish_readiness: not_publishable_static_evidence
+  slice: GameAssembly AssetBundle xref neighborhood
+  binary_name: GameAssembly.dll
+  binary_sha256: null
+  target_string_count: 5
+  code_ref_count: 1
+  function_ref_count: 5
+  route_signal_function_count: 0
+  counts:
+    targets: 5
+    target_string_count: 5
+    code_ref_count: 1
+    function_ref_count: 5
+    route_signal_function_count: 0
+  target_strings: []
+  focus_functions:
+  - rva: '0x30628da'
+    label: AssetBundle::LoadFromNativeMemory_Internal
+    target:
+      function:
+        begin: '0x30628da'
+        end: '0x3062a89'
+        size: '0x1af'
+      instruction_count: 107
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x30628f1'
+        target: '0x5735c0'
+        text: '030628f1: call     0x5735c0'
+      - site: '0x30628fb'
+        target: '0x36aa960'
+        text: '030628fb: call     0x36aa960'
+      - site: '0x3062913'
+        target: '0x5735c0'
+        text: '03062913: call     0x5735c0'
+      - site: '0x3062921'
+        target: '0x36c6c60'
+        text: '03062921: call     0x36c6c60'
+      - site: '0x3062939'
+        target: '0x599450'
+        text: '03062939: call     0x599450'
+      - site: '0x3062947'
+        target: '0x5cce40'
+        text: '03062947: call     0x5cce40'
+      - site: '0x306295b'
+        target: '0x599450'
+        text: '0306295b: call     0x599450'
+      - site: '0x3062972'
+        target: '0x572ba0'
+        text: '03062972: call     0x572ba0'
+      - site: '0x3062992'
+        target: '0x5a3c50'
+        text: '03062992: call     0x5a3c50'
+      - site: '0x306299f'
+        target: '0x36178b0'
+        text: '0306299f: call     0x36178b0'
+      - site: '0x30629b4'
+        target: '0x599450'
+        text: '030629b4: call     0x599450'
+      - site: '0x30629c2'
+        target: '0x5cce40'
+        text: '030629c2: call     0x5cce40'
+      - site: '0x30629d6'
+        target: '0x599450'
+        text: '030629d6: call     0x599450'
+      - site: '0x30629ed'
+        target: '0x572ba0'
+        text: '030629ed: call     0x572ba0'
+      - site: '0x3062a0a'
+        target: '0x5a3c50'
+        text: '03062a0a: call     0x5a3c50'
+      - site: '0x3062a17'
+        target: '0x360e7f0'
+        text: '03062a17: call     0x360e7f0'
+      - site: '0x3062a2c'
+        target: '0x599450'
+        text: '03062a2c: call     0x599450'
+      - site: '0x3062a3a'
+        target: '0x5cce40'
+        text: '03062a3a: call     0x5cce40'
+      - site: '0x3062a4e'
+        target: '0x599450'
+        text: '03062a4e: call     0x599450'
+      - site: '0x3062a61'
+        target: '0x572ba0'
+        text: '03062a61: call     0x572ba0'
+      - site: '0x3062a83'
+        target: '0x5cbd60'
+        text: '03062a83: call     0x5cbd60'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    callers: []
+    callees:
+    - function:
+        begin: '0x36aa960'
+        end: '0x36aa9c0'
+        size: '0x60'
+      instruction_count: 26
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x36aa979'
+        target: '0x5cc970'
+        text: '036aa979: call     0x5cc970'
+      - site: '0x36aa98d'
+        target: '0xdebdd0'
+        text: '036aa98d: call     0xdebdd0'
+      - site: '0x36aa9a6'
+        target: '0x5735c0'
+        text: '036aa9a6: call     0x5735c0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x36c6c60'
+        end: '0x36c6dcf'
+        size: '0x16f'
+      instruction_count: 97
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x36c6c85'
+        target: '0x5cc970'
+        text: '036c6c85: call     0x5cc970'
+      - site: '0x36c6c91'
+        target: '0x5cc970'
+        text: '036c6c91: call     0x5cc970'
+      - site: '0x36c6ca9'
+        target: '0x5cbda0'
+        text: '036c6ca9: call     0x5cbda0'
+      - site: '0x36c6cb4'
+        target: '0x5cbd40'
+        text: '036c6cb4: call     0x5cbd40'
+      - site: '0x36c6cc8'
+        target: '0x5cbd20'
+        text: '036c6cc8: call     0x5cbd20'
+      - site: '0x36c6ceb'
+        target: '0x5cbd00'
+        text: '036c6ceb: call     0x5cbd00'
+      - site: '0x36c6d00'
+        target: '0x5735c0'
+        text: '036c6d00: call     0x5735c0'
+      - site: '0x36c6d0b'
+        target: '0x56bce0'
+        text: '036c6d0b: call     0x56bce0'
+      - site: '0x36c6d21'
+        target: '0x5cbd40'
+        text: '036c6d21: call     0x5cbd40'
+      - site: '0x36c6d30'
+        target: '0x572ba0'
+        text: '036c6d30: call     0x572ba0'
+      - site: '0x36c6d42'
+        target: '0x5cbd40'
+        text: '036c6d42: call     0x5cbd40'
+      - site: '0x36c6d54'
+        target: '0x572ba0'
+        text: '036c6d54: call     0x572ba0'
+      - site: '0x36c6d68'
+        target: '0x36c9680'
+        text: '036c6d68: call     0x36c9680'
+      - site: '0x36c6d73'
+        target: '0x5cbd40'
+        text: '036c6d73: call     0x5cbd40'
+      - site: '0x36c6d8c'
+        target: '0x356ddd0'
+        text: '036c6d8c: call     0x356ddd0'
+      - site: '0x36c6da7'
+        target: '0x5cbd60'
+        text: '036c6da7: call     0x5cbd60'
+      - site: '0x36c6dad'
+        target: '0x5cc5d0'
+        text: '036c6dad: call     0x5cc5d0'
+      - site: '0x36c6db7'
+        target: '0x5ccba0'
+        text: '036c6db7: call     0x5ccba0'
+      - site: '0x36c6dbd'
+        target: '0x5ccbd0'
+        text: '036c6dbd: call     0x5ccbd0'
+      - site: '0x36c6dc9'
+        target: '0x5cbd60'
+        text: '036c6dc9: call     0x5cbd60'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x599450'
+        end: '0x599486'
+        size: '0x36'
+      instruction_count: 16
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x599459'
+        target: '0x5daaf0'
+        text: '00599459: call     0x5daaf0'
+      - site: '0x599476'
+        target: '0x532350'
+        text: '00599476: call     0x532350'
+      - site: '0x599480'
+        target: '0x5beac0'
+        text: '00599480: call     0x5beac0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x5cce40'
+        end: '0x5cce7c'
+        size: '0x3c'
+      instruction_count: 19
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x5cce59'
+        target: '0x5b6a60'
+        text: '005cce59: call     0x5b6a60'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x599450'
+        end: '0x599486'
+        size: '0x36'
+      instruction_count: 16
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x599459'
+        target: '0x5daaf0'
+        text: '00599459: call     0x5daaf0'
+      - site: '0x599476'
+        target: '0x532350'
+        text: '00599476: call     0x532350'
+      - site: '0x599480'
+        target: '0x5beac0'
+        text: '00599480: call     0x5beac0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x36178b0'
+        end: '0x36178e9'
+        size: '0x39'
+      instruction_count: 13
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x36178c9'
+        target: '0x5cc970'
+        text: '036178c9: call     0x5cc970'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x599450'
+        end: '0x599486'
+        size: '0x36'
+      instruction_count: 16
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x599459'
+        target: '0x5daaf0'
+        text: '00599459: call     0x5daaf0'
+      - site: '0x599476'
+        target: '0x532350'
+        text: '00599476: call     0x532350'
+      - site: '0x599480'
+        target: '0x5beac0'
+        text: '00599480: call     0x5beac0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x5cce40'
+        end: '0x5cce7c'
+        size: '0x3c'
+      instruction_count: 19
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x5cce59'
+        target: '0x5b6a60'
+        text: '005cce59: call     0x5b6a60'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x599450'
+        end: '0x599486'
+        size: '0x36'
+      instruction_count: 16
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x599459'
+        target: '0x5daaf0'
+        text: '00599459: call     0x5daaf0'
+      - site: '0x599476'
+        target: '0x532350'
+        text: '00599476: call     0x532350'
+      - site: '0x599480'
+        target: '0x5beac0'
+        text: '00599480: call     0x5beac0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x360e7f0'
+        end: '0x360e829'
+        size: '0x39'
+      instruction_count: 13
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x360e809'
+        target: '0x5cc970'
+        text: '0360e809: call     0x5cc970'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x599450'
+        end: '0x599486'
+        size: '0x36'
+      instruction_count: 16
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x599459'
+        target: '0x5daaf0'
+        text: '00599459: call     0x5daaf0'
+      - site: '0x599476'
+        target: '0x532350'
+        text: '00599476: call     0x532350'
+      - site: '0x599480'
+        target: '0x5beac0'
+        text: '00599480: call     0x5beac0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x5cce40'
+        end: '0x5cce7c'
+        size: '0x3c'
+      instruction_count: 19
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x5cce59'
+        target: '0x5b6a60'
+        text: '005cce59: call     0x5b6a60'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x599450'
+        end: '0x599486'
+        size: '0x36'
+      instruction_count: 16
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x599459'
+        target: '0x5daaf0'
+        text: '00599459: call     0x5daaf0'
+      - site: '0x599476'
+        target: '0x532350'
+        text: '00599476: call     0x532350'
+      - site: '0x599480'
+        target: '0x5beac0'
+        text: '00599480: call     0x5beac0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x5cbd60'
+        end: '0x5cbd96'
+        size: '0x36'
+      instruction_count: 15
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x5cbd73'
+        target: '0x537430'
+        text: '005cbd73: call     0x537430'
+      - site: '0x5cbd7e'
+        target: '0x521b30'
+        text: '005cbd7e: call     0x521b30'
+      - site: '0x5cbd86'
+        target: '0x5cc610'
+        text: '005cbd86: call     0x5cc610'
+      - site: '0x5cbd90'
+        target: '0x5ccba0'
+        text: '005cbd90: call     0x5ccba0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+  - rva: '0x37ffeb2'
+    label: AssetBundle::LoadAssetAsync_Internal
+    target:
+      function:
+        begin: '0x37ffeb2'
+        end: '0x37fff4a'
+        size: '0x98'
+      instruction_count: 35
+      target_imports: []
+      crypto: []
+      mem16_writes:
+      - site: '0x37ffecb'
+        text: '037ffecb: movaps   xmmword ptr [rbp - 0x71], xmm0'
+        context:
+        - '037ffebb: lea      r9, [rbp + 0x5f]'
+        - '037ffebf: mov      r8d, esi'
+        - '037ffec2: movsd    xmm1, qword ptr [rbp - 0x41]'
+        - '037ffec7: lea      rdx, [rbp - 0x71]'
+        - '037ffecb: movaps   xmmword ptr [rbp - 0x71], xmm0'
+        - '037ffecf: lea      rcx, [rbp - 0x51]'
+        - '037ffed3: movups   xmm0, xmmword ptr [rbp - 0x31]'
+        - '037ffed7: mov      qword ptr [rsp + 0x20], r13'
+        - '037ffedc: movsd    qword ptr [rbp - 0x61], xmm1'
+        - '037ffee1: movsd    xmm1, qword ptr [rbp - 0x21]'
+      - site: '0x37ffee6'
+        text: '037ffee6: movaps   xmmword ptr [rbp - 0x51], xmm0'
+        context:
+        - '037ffed3: movups   xmm0, xmmword ptr [rbp - 0x31]'
+        - '037ffed7: mov      qword ptr [rsp + 0x20], r13'
+        - '037ffedc: movsd    qword ptr [rbp - 0x61], xmm1'
+        - '037ffee1: movsd    xmm1, qword ptr [rbp - 0x21]'
+        - '037ffee6: movaps   xmmword ptr [rbp - 0x51], xmm0'
+        - '037ffeea: movsd    qword ptr [rbp - 0x41], xmm1'
+        - '037ffeef: call     0x380baa0'
+        - '037ffef4: mov      rax, qword ptr [rip + 0x19f88e5]'
+        - '037ffefb: lea      rcx, [rbp - 0x11]'
+        - '037ffeff: mov      r9d, dword ptr [rbp + 0x5f]'
+      - site: '0x37fff11'
+        text: '037fff11: movups   xmmword ptr [rbp - 0x11], xmm0'
+        context:
+        - '037fff03: xorps    xmm0, xmm0'
+        - '037fff06: xor      r8d, r8d'
+        - '037fff09: mov      qword ptr [rsp + 0x20], rax'
+        - '037fff0e: mov      rdx, rbx'
+        - '037fff11: movups   xmmword ptr [rbp - 0x11], xmm0'
+        - '037fff15: call     0x2f94e00'
+        - '037fff1a: movups   xmm0, xmmword ptr [rbp - 0x11]'
+        - '037fff1e: xor      edx, edx'
+        - '037fff20: mov      rcx, r14'
+        - '037fff23: movups   xmmword ptr [r14], xmm0'
+      - site: '0x37fff23'
+        text: '037fff23: movups   xmmword ptr [r14], xmm0'
+        context:
+        - '037fff15: call     0x2f94e00'
+        - '037fff1a: movups   xmm0, xmmword ptr [rbp - 0x11]'
+        - '037fff1e: xor      edx, edx'
+        - '037fff20: mov      rcx, r14'
+        - '037fff23: movups   xmmword ptr [r14], xmm0'
+        - '037fff27: call     0x5cbd00'
+        - '037fff2c: mov      rbx, qword ptr [rip + 0x1a5ec4d]'
+        - '037fff33: movups   xmm0, xmmword ptr [r14]'
+        - '037fff37: mov      r13, qword ptr [rsp + 0xc0]'
+        - '037fff3f: cmp      qword ptr [rbx + 0x38], 0'
+      - site: '0x37fff44'
+        text: '037fff44: movaps   xmmword ptr [rbp - 0x31], xmm0'
+        context:
+        - '037fff2c: mov      rbx, qword ptr [rip + 0x1a5ec4d]'
+        - '037fff33: movups   xmm0, xmmword ptr [r14]'
+        - '037fff37: mov      r13, qword ptr [rsp + 0xc0]'
+        - '037fff3f: cmp      qword ptr [rbx + 0x38], 0'
+        - '037fff44: movaps   xmmword ptr [rbp - 0x31], xmm0'
+        - '037fff48: jne      0x37fff52'
+      calls:
+      - site: '0x37ffeb2'
+        target: '0x5735c0'
+        text: '037ffeb2: call     0x5735c0'
+      - site: '0x37ffeef'
+        target: '0x380baa0'
+        text: '037ffeef: call     0x380baa0'
+      - site: '0x37fff15'
+        target: '0x2f94e00'
+        text: '037fff15: call     0x2f94e00'
+      - site: '0x37fff27'
+        target: '0x5cbd00'
+        text: '037fff27: call     0x5cbd00'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    callers: []
+    callees:
+    - function:
+        begin: '0x380baa0'
+        end: '0x380bbb3'
+        size: '0x113'
+      instruction_count: 60
+      target_imports: []
+      crypto: []
+      mem16_writes:
+      - site: '0x380bb8f'
+        text: '0380bb8f: movups   xmmword ptr [rbp - 0x21], xmm1'
+        context:
+        - '0380bb7e: movups   xmm1, xmmword ptr [rax]'
+        - '0380bb81: movsd    xmm0, qword ptr [rax + 0x10]'
+        - '0380bb86: movsd    qword ptr [rbp - 0x11], xmm0'
+        - '0380bb8b: movups   xmm0, xmmword ptr [r14]'
+        - '0380bb8f: movups   xmmword ptr [rbp - 0x21], xmm1'
+        - '0380bb93: movsd    xmm1, qword ptr [r14 + 0x10]'
+        - '0380bb99: movaps   xmmword ptr [rbp - 0x41], xmm0'
+        - '0380bb9d: movsd    qword ptr [rbp - 0x31], xmm1'
+        - '0380bba2: call     0x24d65c0'
+        - '0380bba7: mov      dword ptr [rdi], ebx'
+      - site: '0x380bb99'
+        text: '0380bb99: movaps   xmmword ptr [rbp - 0x41], xmm0'
+        context:
+        - '0380bb86: movsd    qword ptr [rbp - 0x11], xmm0'
+        - '0380bb8b: movups   xmm0, xmmword ptr [r14]'
+        - '0380bb8f: movups   xmmword ptr [rbp - 0x21], xmm1'
+        - '0380bb93: movsd    xmm1, qword ptr [r14 + 0x10]'
+        - '0380bb99: movaps   xmmword ptr [rbp - 0x41], xmm0'
+        - '0380bb9d: movsd    qword ptr [rbp - 0x31], xmm1'
+        - '0380bba2: call     0x24d65c0'
+        - '0380bba7: mov      dword ptr [rdi], ebx'
+        - '0380bba9: cmp      ebx, dword ptr [r13 + 0x10]'
+        - '0380bbad: jge      0x380bf93'
+      calls:
+      - site: '0x380bad2'
+        target: '0x5cc970'
+        text: '0380bad2: call     0x5cc970'
+      - site: '0x380bade'
+        target: '0x5cc970'
+        text: '0380bade: call     0x5cc970'
+      - site: '0x380baea'
+        target: '0x5cc970'
+        text: '0380baea: call     0x5cc970'
+      - site: '0x380baf6'
+        target: '0x5cc970'
+        text: '0380baf6: call     0x5cc970'
+      - site: '0x380bb02'
+        target: '0x5cc970'
+        text: '0380bb02: call     0x5cc970'
+      - site: '0x380bb0e'
+        target: '0x5cc970'
+        text: '0380bb0e: call     0x5cc970'
+      - site: '0x380bb1a'
+        target: '0x5cc970'
+        text: '0380bb1a: call     0x5cc970'
+      - site: '0x380bb26'
+        target: '0x5cc970'
+        text: '0380bb26: call     0x5cc970'
+      - site: '0x380bb32'
+        target: '0x5cc970'
+        text: '0380bb32: call     0x5cc970'
+      - site: '0x380bb6a'
+        target: '0x162370'
+        text: '0380bb6a: call     0x162370'
+      - site: '0x380bba2'
+        target: '0x24d65c0'
+        text: '0380bba2: call     0x24d65c0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x2f94e00'
+        end: '0x2f94e7c'
+        size: '0x7c'
+      instruction_count: 38
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x2f94e28'
+        target: '0x5cbd40'
+        text: '02f94e28: call     0x5cbd40'
+      - site: '0x2f94e35'
+        target: '0x5cbd40'
+        text: '02f94e35: call     0x5cbd40'
+      - site: '0x2f94e4e'
+        target: '0x36a54c0'
+        text: '02f94e4e: call     0x36a54c0'
+      - site: '0x2f94e5c'
+        target: '0x5cbd00'
+        text: '02f94e5c: call     0x5cbd00'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+  - rva: '0x3952890'
+    label: AssetBundleCreateRequest::get_assetBundle
+    target:
+      function:
+        begin: '0x3952890'
+        end: '0x3952b08'
+        size: '0x278'
+      instruction_count: 177
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x39528b3'
+        target: '0x5cc970'
+        text: '039528b3: call     0x5cc970'
+      - site: '0x39528c6'
+        target: '0x5cbd40'
+        text: '039528c6: call     0x5cbd40'
+      - site: '0x39528f1'
+        target: '0x599410'
+        text: '039528f1: call     0x599410'
+      - site: '0x3952923'
+        target: '0x5cbd40'
+        text: '03952923: call     0x5cbd40'
+      - site: '0x395294f'
+        target: '0x599410'
+        text: '0395294f: call     0x599410'
+      - site: '0x395296b'
+        target: '0x5cbd40'
+        text: '0395296b: call     0x5cbd40'
+      - site: '0x3952998'
+        target: '0x599410'
+        text: '03952998: call     0x599410'
+      - site: '0x39529ce'
+        target: '0x5cbda0'
+        text: '039529ce: call     0x5cbda0'
+      - site: '0x39529e3'
+        target: '0x5cbd40'
+        text: '039529e3: call     0x5cbd40'
+      - site: '0x39529f3'
+        target: '0xbd780'
+        text: '039529f3: call     0xbd780'
+      - site: '0x39529fe'
+        target: '0x5cbd40'
+        text: '039529fe: call     0x5cbd40'
+      - site: '0x3952a12'
+        target: '0x5cbd20'
+        text: '03952a12: call     0x5cbd20'
+      - site: '0x3952a3c'
+        target: '0x5cbd00'
+        text: '03952a3c: call     0x5cbd00'
+      - site: '0x3952a4a'
+        target: '0x5cbd40'
+        text: '03952a4a: call     0x5cbd40'
+      - site: '0x3952a5e'
+        target: '0x5cbd20'
+        text: '03952a5e: call     0x5cbd20'
+      - site: '0x3952a6d'
+        target: '0x5cbd40'
+        text: '03952a6d: call     0x5cbd40'
+      - site: '0x3952a81'
+        target: '0x5cbd20'
+        text: '03952a81: call     0x5cbd20'
+      - site: '0x3952aa3'
+        target: '0x5cbd00'
+        text: '03952aa3: call     0x5cbd00'
+      - site: '0x3952ad2'
+        target: '0x5ccbd0'
+        text: '03952ad2: call     0x5ccbd0'
+      - site: '0x3952ad8'
+        target: '0x5cc5d0'
+        text: '03952ad8: call     0x5cc5d0'
+      - site: '0x3952ae2'
+        target: '0x5ccba0'
+        text: '03952ae2: call     0x5ccba0'
+      - site: '0x3952ae8'
+        target: '0x5cc5d0'
+        text: '03952ae8: call     0x5cc5d0'
+      - site: '0x3952af2'
+        target: '0x5ccba0'
+        text: '03952af2: call     0x5ccba0'
+      - site: '0x3952af8'
+        target: '0x5cc5d0'
+        text: '03952af8: call     0x5cc5d0'
+      - site: '0x3952b02'
+        target: '0x5ccba0'
+        text: '03952b02: call     0x5ccba0'
+      suspicious_indirect_calls:
+      - site: '0x3952912'
+        text: '03952912: call     rax'
+        context:
+        - '039528fc: mov      rcx, r14'
+        - '039528ff: mov      rdx, qword ptr [rdx + 8]'
+        - '03952903: mov      qword ptr [rsp + 0x50], rsi'
+        - '03952908: mov      qword ptr [rsp + 0x58], rdi'
+        - '0395290d: mov      qword ptr [rsp + 0x60], r15'
+        - '03952912: call     rax'
+        - '03952914: mov      r13d, eax'
+        - '03952917: test     eax, eax'
+        - '03952919: jle      0x3952ab3'
+        - '0395291f: nop'
+        - '03952920: mov      rcx, r14'
+        - '03952923: call     0x5cbd40'
+        - '03952928: mov      rax, qword ptr [r14]'
+        - '0395292b: test     byte ptr [rax + 0x136], 0x20'
+      - site: '0x3952963'
+        text: '03952963: call     rax'
+        context:
+        - '03952954: mov      r8, rax'
+        - '03952957: mov      rax, qword ptr [r8]'
+        - '0395295a: mov      edx, ebp'
+        - '0395295c: mov      r8, qword ptr [r8 + 8]'
+        - '03952960: mov      rcx, r14'
+        - '03952963: call     rax'
+        - '03952965: mov      rcx, r12'
+        - '03952968: mov      rdi, rax'
+        - '0395296b: call     0x5cbd40'
+        - '03952970: mov      rax, qword ptr [r12]'
+        - '03952974: test     byte ptr [rax + 0x136], 0x20'
+        - '0395297b: je       0x3952990'
+        - '0395297d: cmp      qword ptr [rax + 0x180], 0'
+        - '03952985: je       0x3952990'
+      - site: '0x39529ad'
+        text: '039529ad: call     rax'
+        context:
+        - '0395299d: mov      r8, rax'
+        - '039529a0: mov      rax, qword ptr [r8]'
+        - '039529a3: mov      rdx, rdi'
+        - '039529a6: mov      r8, qword ptr [r8 + 8]'
+        - '039529aa: mov      rcx, r12'
+        - '039529ad: call     rax'
+        - '039529af: mov      r15, rax'
+        - '039529b2: test     rbx, rbx'
+        - '039529b5: jne      0x3952a6a'
+        - '039529bb: cmp      rax, rdi'
+        - '039529be: je       0x3952aa8'
+        - '039529c4: mov      rcx, qword ptr [rip + 0x1905d3d]'
+        - '039529cb: mov      edx, r13d'
+        - '039529ce: call     0x5cbda0'
+      calls_to_target: []
+    callers:
+    - function:
+        begin: '0x39532a0'
+        end: '0x39533a0'
+        size: '0x100'
+      instruction_count: 66
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x39532c5'
+        target: '0x5cc970'
+        text: '039532c5: call     0x5cc970'
+      - site: '0x39532d1'
+        target: '0x5cc970'
+        text: '039532d1: call     0x5cc970'
+      - site: '0x39532e6'
+        target: '0x3952890'
+        text: '039532e6: call     0x3952890'
+      - site: '0x39532f1'
+        target: '0x5cbd40'
+        text: '039532f1: call     0x5cbd40'
+      - site: '0x39532fb'
+        target: '0x386c800'
+        text: '039532fb: call     0x386c800'
+      - site: '0x3953314'
+        target: '0x1d5e1e0'
+        text: '03953314: call     0x1d5e1e0'
+      - site: '0x395331f'
+        target: '0x5cbd40'
+        text: '0395331f: call     0x5cbd40'
+      - site: '0x3953329'
+        target: '0x386c800'
+        text: '03953329: call     0x386c800'
+      - site: '0x395334e'
+        target: '0x5cbd40'
+        text: '0395334e: call     0x5cbd40'
+      - site: '0x3953379'
+        target: '0x599410'
+        text: '03953379: call     0x599410'
+      suspicious_indirect_calls: []
+      calls_to_target:
+      - site: '0x39532e6'
+        text: '039532e6: call     0x3952890'
+        before:
+        - '039532be: lea      rcx, [rip + 0x18e4b73]'
+        - '039532c5: call     0x5cc970'
+        - '039532ca: lea      rcx, [rip + 0x196af2f]'
+        - '039532d1: call     0x5cc970'
+        - '039532d6: mov      byte ptr [rip + 0x1bbf378], 1'
+        - '039532dd: xor      r8d, r8d'
+        - '039532e0: mov      rdx, rbx'
+        - '039532e3: mov      rcx, rsi'
+        after:
+        - '039532eb: mov      rcx, rbx'
+        - '039532ee: mov      rdi, rax'
+        - '039532f1: call     0x5cbd40'
+        pointer_arg_setup:
+        - '039532be: lea      rcx, [rip + 0x18e4b73]'
+        - '039532ca: lea      rcx, [rip + 0x196af2f]'
+        - '039532e0: mov      rdx, rbx'
+        - '039532e3: mov      rcx, rsi'
+        scalar_return: []
+        pointer_return: []
+    callees:
+    - function:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      instruction_count: 5
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x5cc974'
+        target: '0x5dbbf0'
+        text: '005cc974: call     0x5dbbf0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      instruction_count: 7
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x5cbd4e'
+        target: '0x5ccbe0'
+        text: '005cbd4e: call     0x5ccbe0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      instruction_count: 7
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x5cbd4e'
+        target: '0x5ccbe0'
+        text: '005cbd4e: call     0x5ccbe0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      instruction_count: 7
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x5cbd4e'
+        target: '0x5ccbe0'
+        text: '005cbd4e: call     0x5ccbe0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      instruction_count: 7
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x5cbd4e'
+        target: '0x5ccbe0'
+        text: '005cbd4e: call     0x5ccbe0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0xbd780'
+        end: '0xbd7de'
+        size: '0x5e'
+      instruction_count: 27
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0xbd7c0'
+        target: '0x599410'
+        text: '000bd7c0: call     0x599410'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      instruction_count: 7
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x5cbd4e'
+        target: '0x5ccbe0'
+        text: '005cbd4e: call     0x5ccbe0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      instruction_count: 7
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x5cbd4e'
+        target: '0x5ccbe0'
+        text: '005cbd4e: call     0x5ccbe0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      instruction_count: 7
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x5cbd4e'
+        target: '0x5ccbe0'
+        text: '005cbd4e: call     0x5ccbe0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x5ccbd0'
+        end: '0x5ccbda'
+        size: '0xa'
+      instruction_count: 3
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x5ccbd4'
+        target: '0x5bebc0'
+        text: '005ccbd4: call     0x5bebc0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x5ccba0'
+        end: '0x5ccbce'
+        size: '0x2e'
+      instruction_count: 13
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x5ccbb4'
+        target: '0x5cbbf0'
+        text: '005ccbb4: call     0x5cbbf0'
+      - site: '0x5ccbbd'
+        target: '0x5cbbf0'
+        text: '005ccbbd: call     0x5cbbf0'
+      - site: '0x5ccbc8'
+        target: '0x5beac0'
+        text: '005ccbc8: call     0x5beac0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x5ccba0'
+        end: '0x5ccbce'
+        size: '0x2e'
+      instruction_count: 13
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x5ccbb4'
+        target: '0x5cbbf0'
+        text: '005ccbb4: call     0x5cbbf0'
+      - site: '0x5ccbbd'
+        target: '0x5cbbf0'
+        text: '005ccbbd: call     0x5cbbf0'
+      - site: '0x5ccbc8'
+        target: '0x5beac0'
+        text: '005ccbc8: call     0x5beac0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x5ccba0'
+        end: '0x5ccbce'
+        size: '0x2e'
+      instruction_count: 13
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x5ccbb4'
+        target: '0x5cbbf0'
+        text: '005ccbb4: call     0x5cbbf0'
+      - site: '0x5ccbbd'
+        target: '0x5cbbf0'
+        text: '005ccbbd: call     0x5cbbf0'
+      - site: '0x5ccbc8'
+        target: '0x5beac0'
+        text: '005ccbc8: call     0x5beac0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+  - rva: '0x3638802'
+    label: AssetBundleRecompressOperation::get_success
+    target:
+      function:
+        begin: '0x3638802'
+        end: '0x3638912'
+        size: '0x110'
+      instruction_count: 60
+      target_imports: []
+      crypto: []
+      mem16_writes:
+      - site: '0x36388ac'
+        text: '036388ac: movdqa   xmmword ptr [rbp - 0x11], xmm0'
+        context:
+        - '0363889a: movaps   xmm0, xmmword ptr [rbp - 0x31]'
+        - '0363889e: lea      rcx, [rbp - 0x31]'
+        - '036388a2: mov      r8, qword ptr [rip + 0x1c000bf]'
+        - '036388a9: mov      rdx, rsi'
+        - '036388ac: movdqa   xmmword ptr [rbp - 0x11], xmm0'
+        - '036388b1: call     0x252edd0'
+        - '036388b6: movaps   xmm0, xmmword ptr [rbp - 0x31]'
+        - '036388ba: lea      rdx, [rbp - 0x31]'
+        - '036388be: mov      r8, qword ptr [rip + 0x1beeb13]'
+        - '036388c5: lea      rcx, [rbp - 0x11]'
+      - site: '0x36388c9'
+        text: '036388c9: movdqa   xmmword ptr [rbp - 0x31], xmm0'
+        context:
+        - '036388b6: movaps   xmm0, xmmword ptr [rbp - 0x31]'
+        - '036388ba: lea      rdx, [rbp - 0x31]'
+        - '036388be: mov      r8, qword ptr [rip + 0x1beeb13]'
+        - '036388c5: lea      rcx, [rbp - 0x11]'
+        - '036388c9: movdqa   xmmword ptr [rbp - 0x31], xmm0'
+        - '036388ce: call     0x24d6630'
+        - '036388d3: mov      rdx, qword ptr [rip + 0x1bea8e6]'
+        - '036388da: mov      rcx, r14'
+        - '036388dd: call     0x21e9440'
+        - '036388e2: mov      ecx, 0x1e'
+      calls:
+      - site: '0x363881a'
+        target: '0x5735c0'
+        text: '0363881a: call     0x5735c0'
+      - site: '0x3638826'
+        target: '0xc8a90'
+        text: '03638826: call     0xc8a90'
+      - site: '0x3638838'
+        target: '0x21e9440'
+        text: '03638838: call     0x21e9440'
+      - site: '0x3638843'
+        target: '0x5cbd40'
+        text: '03638843: call     0x5cbd40'
+      - site: '0x363886f'
+        target: '0x599410'
+        text: '0363886f: call     0x599410'
+      - site: '0x3638895'
+        target: '0x249f730'
+        text: '03638895: call     0x249f730'
+      - site: '0x36388b1'
+        target: '0x252edd0'
+        text: '036388b1: call     0x252edd0'
+      - site: '0x36388ce'
+        target: '0x24d6630'
+        text: '036388ce: call     0x24d6630'
+      - site: '0x36388dd'
+        target: '0x21e9440'
+        text: '036388dd: call     0x21e9440'
+      - site: '0x36388f9'
+        target: '0xe7160'
+        text: '036388f9: call     0xe7160'
+      suspicious_indirect_calls:
+      - site: '0x3638881'
+        text: '03638881: call     r9'
+        context:
+        - '0363886f: call     0x599410'
+        - '03638874: mov      r9, qword ptr [rax]'
+        - '03638877: mov      edx, r12d'
+        - '0363887a: mov      r8, qword ptr [rax + 8]'
+        - '0363887e: mov      rcx, rsi'
+        - '03638881: call     r9'
+        - '03638884: mov      r8, qword ptr [rip + 0x1beaaad]'
+        - '0363888b: lea      rcx, [rbp - 0x31]'
+        - '0363888f: mov      rdx, r14'
+        - '03638892: mov      rsi, rax'
+        - '03638895: call     0x249f730'
+        - '0363889a: movaps   xmm0, xmmword ptr [rbp - 0x31]'
+        - '0363889e: lea      rcx, [rbp - 0x31]'
+        - '036388a2: mov      r8, qword ptr [rip + 0x1c000bf]'
+      calls_to_target: []
+    callers: []
+    callees:
+    - function:
+        begin: '0xc8a90'
+        end: '0xc8b28'
+        size: '0x98'
+      instruction_count: 36
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0xc8aa9'
+        target: '0x599450'
+        text: '000c8aa9: call     0x599450'
+      - site: '0xc8aba'
+        target: '0x5cce40'
+        text: '000c8aba: call     0x5cce40'
+      - site: '0xc8acb'
+        target: '0x599450'
+        text: '000c8acb: call     0x599450'
+      - site: '0xc8adc'
+        target: '0x5735c0'
+        text: '000c8adc: call     0x5735c0'
+      - site: '0xc8af1'
+        target: '0x599450'
+        text: '000c8af1: call     0x599450'
+      - site: '0xc8b02'
+        target: '0x5cce40'
+        text: '000c8b02: call     0x5cce40'
+      - site: '0xc8b13'
+        target: '0x599450'
+        text: '000c8b13: call     0x599450'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      instruction_count: 7
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x5cbd4e'
+        target: '0x5ccbe0'
+        text: '005cbd4e: call     0x5ccbe0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x249f730'
+        end: '0x249f7d2'
+        size: '0xa2'
+      instruction_count: 35
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x249f752'
+        target: '0x5cc970'
+        text: '0249f752: call     0x5cc970'
+      - site: '0x249f75e'
+        target: '0x5cc970'
+        text: '0249f75e: call     0x5cc970'
+      - site: '0x249f76a'
+        target: '0x5cc970'
+        text: '0249f76a: call     0x5cc970'
+      - site: '0x249f7a2'
+        target: '0x599450'
+        text: '0249f7a2: call     0x599450'
+      - site: '0x249f7b3'
+        target: '0x5ccec0'
+        text: '0249f7b3: call     0x5ccec0'
+      - site: '0x249f7cb'
+        target: '0x5735c0'
+        text: '0249f7cb: call     0x5735c0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x252edd0'
+        end: '0x252ee58'
+        size: '0x88'
+      instruction_count: 39
+      target_imports: []
+      crypto: []
+      mem16_writes:
+      - site: '0x252ede7'
+        text: '0252ede7: movups   xmmword ptr [rcx], xmm0'
+        context:
+        - '0252edda: mov      rax, qword ptr [r8 + 0x20]'
+        - '0252edde: xorps    xmm0, xmm0'
+        - '0252ede1: mov      rdi, rdx'
+        - '0252ede4: mov      rbx, rcx'
+        - '0252ede7: movups   xmmword ptr [rcx], xmm0'
+        - '0252edea: test     byte ptr [rax + 0x135], 1'
+        - '0252edf1: jne      0x252edfb'
+        - '0252edf3: mov      rcx, rax'
+        - '0252edf6: call     0x599450'
+        - '0252edfb: mov      rcx, qword ptr [rax + 0xc0]'
+      - site: '0x252ee4a'
+        text: '0252ee4a: movups   xmmword ptr [rbx], xmm0'
+        context:
+        - '0252ee42: pop      rdi'
+        - '0252ee43: ret'
+        - '0252ee44: xorps    xmm0, xmm0'
+        - '0252ee47: mov      rax, rbx'
+        - '0252ee4a: movups   xmmword ptr [rbx], xmm0'
+        - '0252ee4d: mov      rbx, qword ptr [rsp + 0x30]'
+        - '0252ee52: add      rsp, 0x20'
+        - '0252ee56: pop      rdi'
+        - '0252ee57: ret'
+      calls:
+      - site: '0x252edf6'
+        target: '0x599450'
+        text: '0252edf6: call     0x599450'
+      - site: '0x252ee07'
+        target: '0x5cce80'
+        text: '0252ee07: call     0x5cce80'
+      - site: '0x252ee14'
+        target: '0x5cbd40'
+        text: '0252ee14: call     0x5cbd40'
+      - site: '0x252ee1c'
+        target: '0x5cbd40'
+        text: '0252ee1c: call     0x5cbd40'
+      - site: '0x252ee2b'
+        target: '0x5cbd40'
+        text: '0252ee2b: call     0x5cbd40'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x24d6630'
+        end: '0x24d66d7'
+        size: '0xa7'
+      instruction_count: 43
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x24d6660'
+        target: '0x599450'
+        text: '024d6660: call     0x599450'
+      - site: '0x24d6671'
+        target: '0x5cce80'
+        text: '024d6671: call     0x5cce80'
+      - site: '0x24d667d'
+        target: '0x36a5190'
+        text: '024d667d: call     0x36a5190'
+      - site: '0x24d669b'
+        target: '0x599450'
+        text: '024d669b: call     0x599450'
+      - site: '0x24d66ac'
+        target: '0x5cce80'
+        text: '024d66ac: call     0x5cce80'
+      - site: '0x24d66bd'
+        target: '0x1d141d0'
+        text: '024d66bd: call     0x1d141d0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0xe7160'
+        end: '0xe71e4'
+        size: '0x84'
+      instruction_count: 36
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0xe71a8'
+        target: '0x599410'
+        text: '000e71a8: call     0x599410'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+  - rva: '0x3062c4e'
+    label: AssetBundleRequest::GetResult
+    target:
+      function:
+        begin: '0x3062c4e'
+        end: '0x3062d60'
+        size: '0x112'
+      instruction_count: 69
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x3062c5d'
+        target: '0x36aa960'
+        text: '03062c5d: call     0x36aa960'
+      - site: '0x3062c7d'
+        target: '0x572ba0'
+        text: '03062c7d: call     0x572ba0'
+      - site: '0x3062c9e'
+        target: '0x36aa960'
+        text: '03062c9e: call     0x36aa960'
+      - site: '0x3062cac'
+        target: '0xdebdd0'
+        text: '03062cac: call     0xdebdd0'
+      - site: '0x3062cd0'
+        target: '0x5735c0'
+        text: '03062cd0: call     0x5735c0'
+      - site: '0x3062cda'
+        target: '0x36aa960'
+        text: '03062cda: call     0x36aa960'
+      - site: '0x3062ce8'
+        target: '0xdebdd0'
+        text: '03062ce8: call     0xdebdd0'
+      - site: '0x3062d05'
+        target: '0x599450'
+        text: '03062d05: call     0x599450'
+      - site: '0x3062d16'
+        target: '0x5ccec0'
+        text: '03062d16: call     0x5ccec0'
+      - site: '0x3062d2e'
+        target: '0x5735c0'
+        text: '03062d2e: call     0x5735c0'
+      - site: '0x3062d38'
+        target: '0x36aa960'
+        text: '03062d38: call     0x36aa960'
+      - site: '0x3062d43'
+        target: '0x5cbd40'
+        text: '03062d43: call     0x5cbd40'
+      - site: '0x3062d53'
+        target: '0x3640'
+        text: '03062d53: call     0x3640'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    callers: []
+    callees:
+    - function:
+        begin: '0x36aa960'
+        end: '0x36aa9c0'
+        size: '0x60'
+      instruction_count: 26
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x36aa979'
+        target: '0x5cc970'
+        text: '036aa979: call     0x5cc970'
+      - site: '0x36aa98d'
+        target: '0xdebdd0'
+        text: '036aa98d: call     0xdebdd0'
+      - site: '0x36aa9a6'
+        target: '0x5735c0'
+        text: '036aa9a6: call     0x5735c0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x36aa960'
+        end: '0x36aa9c0'
+        size: '0x60'
+      instruction_count: 26
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x36aa979'
+        target: '0x5cc970'
+        text: '036aa979: call     0x5cc970'
+      - site: '0x36aa98d'
+        target: '0xdebdd0'
+        text: '036aa98d: call     0xdebdd0'
+      - site: '0x36aa9a6'
+        target: '0x5735c0'
+        text: '036aa9a6: call     0x5735c0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x36aa960'
+        end: '0x36aa9c0'
+        size: '0x60'
+      instruction_count: 26
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x36aa979'
+        target: '0x5cc970'
+        text: '036aa979: call     0x5cc970'
+      - site: '0x36aa98d'
+        target: '0xdebdd0'
+        text: '036aa98d: call     0xdebdd0'
+      - site: '0x36aa9a6'
+        target: '0x5735c0'
+        text: '036aa9a6: call     0x5735c0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x599450'
+        end: '0x599486'
+        size: '0x36'
+      instruction_count: 16
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x599459'
+        target: '0x5daaf0'
+        text: '00599459: call     0x5daaf0'
+      - site: '0x599476'
+        target: '0x532350'
+        text: '00599476: call     0x532350'
+      - site: '0x599480'
+        target: '0x5beac0'
+        text: '00599480: call     0x5beac0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x5ccec0'
+        end: '0x5ccefc'
+        size: '0x3c'
+      instruction_count: 19
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x5cced9'
+        target: '0x5b6ff0'
+        text: '005cced9: call     0x5b6ff0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x36aa960'
+        end: '0x36aa9c0'
+        size: '0x60'
+      instruction_count: 26
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x36aa979'
+        target: '0x5cc970'
+        text: '036aa979: call     0x5cc970'
+      - site: '0x36aa98d'
+        target: '0xdebdd0'
+        text: '036aa98d: call     0xdebdd0'
+      - site: '0x36aa9a6'
+        target: '0x5735c0'
+        text: '036aa9a6: call     0x5735c0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      instruction_count: 7
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x5cbd4e'
+        target: '0x5ccbe0'
+        text: '005cbd4e: call     0x5ccbe0'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+    - function:
+        begin: '0x3640'
+        end: '0x369f'
+        size: '0x5f'
+      instruction_count: 27
+      target_imports: []
+      crypto: []
+      mem16_writes: []
+      calls:
+      - site: '0x3680'
+        target: '0x599410'
+        text: '00003680: call     0x599410'
+      suspicious_indirect_calls: []
+      calls_to_target: []
+  verdict:
+  - 'AssetBundle targets deep-sliced: 5.'
+  - 'Target/caller/callee file-memory import hits: 0.'
+  - 'Target/caller/callee crypto hits: 0.'
+  - 'Target/caller/callee mem16 writes: 11.'
+  - 'Caller pointer-arg setup rows before target calls: 4.'
+  - 'Caller pointer-return uses after target calls: 0.'
+  - 'Caller scalar/status return uses after target calls: 0.'
+  - 'Suspicious indirect calls inside target functions: 4.'
+  blockers:
+  - static GameAssembly route evidence is not readable game knowledge
+  - assetbundle_neighborhood has not produced a reviewed payload decoder
+  next_actions:
+  - Mark GameAssembly direct AssetBundle API xrefs as metadata/API wrappers. Pivot
+    back to data files/artifact-level known plaintext analysis or search non-string
+    code/data xrefs for CAB first-block relation.
+- evidence_ref: NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=160:kind=textasset_loadbuffer_correlation
+  round: 160
+  artifact_kind: textasset_loadbuffer_correlation
+  artifact_files:
+  - gameassembly_textasset_loadbuffer_correlation_round160.json
+  - gameassembly_textasset_loadbuffer_correlation_round160.md
+  - gameassembly_textasset_loadbuffer_correlation_round160.asm
+  status: negative_route_correlation
+  publish_readiness: not_publishable_static_evidence
+  slice: GameAssembly TextAsset/get_bytes/xluaL_loadbuffer static correlation
+  binary_name: GameAssembly.dll
+  binary_sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  target_string_count: 9
+  code_ref_count: 0
+  function_ref_count: 0
+  route_signal_function_count: 0
+  counts:
+    pdata_function_count: 290472
+    import_count: 231
+    target_string_count: 9
+    code_ref_count: 0
+    function_ref_count: 0
+    route_signal_function_count: 0
+  target_strings:
+  - rva: '0x43baac0'
+    hit_rvas:
+    - '0x43baad9'
+    section: .rdata
+    encoding: ascii
+    text: UnityEngine.AssetBundle::LoadFromMemory_Internal(System.Byte[],System.UInt32)
+    labels:
+    - assetbundle_memory
+    end_rva: '0x43bab0d'
+  - rva: '0x43bab10'
+    hit_rvas:
+    - '0x43bab29'
+    section: .rdata
+    encoding: ascii
+    text: UnityEngine.AssetBundle::LoadFromNativeMemory_Internal(System.IntPtr,System.Int32,System.UInt32)
+    labels:
+    - assetbundle_native_memory
+    end_rva: '0x43bab70'
+  - rva: '0x43e1e20'
+    hit_rvas:
+    - '0x43e1e2c'
+    - '0x43e1e37'
+    section: .rdata
+    encoding: ascii
+    text: UnityEngine.TextAsset::get_bytes()
+    labels:
+    - textasset
+    - textasset_get_bytes
+    end_rva: '0x43e1e42'
+  - rva: '0x43e1e48'
+    hit_rvas:
+    - '0x43e1e54'
+    section: .rdata
+    encoding: ascii
+    text: UnityEngine.TextAsset::GetPreviewBytes(System.Int32)
+    labels:
+    - textasset
+    end_rva: '0x43e1e7c'
+  - rva: '0x43e1e80'
+    hit_rvas:
+    - '0x43e1e8c'
+    - '0x43e1ebb'
+    section: .rdata
+    encoding: ascii
+    text: UnityEngine.TextAsset::Internal_CreateInstance(UnityEngine.TextAsset,System.String)
+    labels:
+    - textasset
+    end_rva: '0x43e1ed3'
+  - rva: '0x43e1ed8'
+    hit_rvas:
+    - '0x43e1ee4'
+    section: .rdata
+    encoding: ascii
+    text: UnityEngine.TextAsset::GetDataPtr()
+    labels:
+    - textasset
+    end_rva: '0x43e1efb'
+  - rva: '0x43e1f00'
+    hit_rvas:
+    - '0x43e1f0c'
+    section: .rdata
+    encoding: ascii
+    text: UnityEngine.TextAsset::GetDataSize()
+    labels:
+    - textasset
+    end_rva: '0x43e1f24'
+  - rva: '0x43b1ef0'
+    hit_rvas:
+    - '0x43b1efe'
+    section: .rdata
+    encoding: ascii
+    text: mono_btls_key_get_bytes
+    labels:
+    - textasset_get_bytes
+    end_rva: '0x43b1f07'
+  - rva: '0x429b458'
+    hit_rvas:
+    - '0x429b458'
+    section: .rdata
+    encoding: ascii
+    text: xluaL_loadbuffer
+    labels:
+    - xlua_loadbuffer
+    end_rva: '0x429b468'
+  focus_functions: []
+  verdict:
+  - 'Target strings found: 9.'
+  - 'Code refs to target strings: 0.'
+  - 'Functions with target string refs: 0.'
+  - 'Route-signal functions needing review: 0.'
+  - No readable payloads are decoded by this pass; this is static route evidence only.
+  - No static TextAsset/get_bytes -> xluaL_loadbuffer bridge was proven in this pass.
+  blockers:
+  - static string/ref correlation does not prove decoded LuaScripts payload semantics
+  - do not publish game knowledge until TextAsset bytes are decoded and semantically
+    reviewed
+  - absolute local paths are omitted from qa-agent import artifacts; binary identity
+    is tracked by hash only
+  next_actions:
+  - manually inspect route-signal functions if any combine TextAsset/get_bytes, LuaScripts,
+    and xluaL_loadbuffer refs
+  - otherwise prioritize NEP2 InitLuaScriptsScan and runtime-independent TextAsset
+    payload decoder recovery
+  - carry this route evidence into qa-agent only as decoder planning evidence
+  - prefer NEP2 InitLuaScriptsScan or runtime-independent TextAsset payload decoder
+    recovery next
+guardrails:
+- offline/static GameAssembly evidence only; no live instrumentation or online protocol
+  data is included
+- external absolute paths are not persisted; only artifact filenames, RVAs, hashes,
+  and evidence refs are stored
+- GameAssembly route traces are decoder planning evidence, not reviewed game knowledge
+- do not promote any fact until readable TextAsset/LuaScripts payloads are decoded
+  and manually reviewed

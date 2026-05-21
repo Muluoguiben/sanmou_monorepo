@@ -1,0 +1,2059 @@
+schema_version: nslg.nep2_init_data_owner_scan.v1
+source_id: nslg-nep2-init-data-owner-scan-round76
+source_url: local-nslg-client-nep2-init-data-owner-scan
+source_site: nslg_client_nep2_init_data_owner_scan
+generated_at: '2026-05-21T04:36:13.723557Z'
+round: 171
+slice: nep2_init_luascripts_data_owner_scan
+binary_name: NEP2.dll
+input_artifacts:
+- file_name: nep2_init_luascripts_bridge_summary_round161.json
+  sha256: e3f1101ce9187c983c06f4f2874367d6a74ae43374c9e230b8492b4dacdc1913
+  missing: false
+- file_name: nep2_read_mapping_owner_scan_round170.json
+  sha256: 415841bf4b11277e46bf1d59a18ac0c090ec54bb4957e8ec52fbc38dd1b5f633
+  missing: false
+- file_name: nep2_threadpool_bridge_expansion_round97.json
+  sha256: 3c7bd7adf71b32d15c5d98e1503f82642755b33c856a14d9f73033cef8a578d2
+  missing: false
+counts:
+  focus_target_count: 90
+  data_reference_count: 255
+  data_ref_owner_function_count: 0
+  bridge_record_window_count: 4
+  bridge_record_with_code_pointer_count: 2
+  inspected_function_count: 13
+  payload_owner_candidate_count: 0
+  partial_provenance_function_count: 1
+  publishable_knowledge_entries: 0
+target_kind_counts:
+  bridge_code_pointer_slot: 2
+  bridge_code_pointer_target: 2
+  bridge_record: 4
+  candidate_function: 13
+  constructor_enqueue_seed: 4
+  raw_string_hit: 71
+  type_descriptor: 4
+  type_name: 4
+data_ref_section_counts:
+  .data: 73
+  .rdata: 2
+  .rsrc: 180
+candidate_verdict_counts:
+  control_or_helper_no_payload_provenance: 3
+  provenance_partial_no_payload_owner: 1
+  tiny_metadata_or_lambda_helper: 9
+data_reference_samples:
+- kind: va64
+  section: .rdata
+  at_rva: '0x6f3390'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: va64
+  section: .rdata
+  at_rva: '0x6f3a00'
+  target_rva: '0x6bc0'
+  target_labels:
+  - round161 candidate 0x6bc0
+  target_kinds:
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x878108'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x878134'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x87815c'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x8782b8'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x8782e8'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x878314'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x878394'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x878544'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x878578'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x878768'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x8787fc'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x8788ac'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x878bc0'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x878c60'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x8790a4'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x879300'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x879630'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x8797c4'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x879a98'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x87a208'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x87b318'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x87b6ec'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x87b7ac'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x87c078'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x87c284'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x87ca34'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x87cb04'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x87cbd4'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x87d5e0'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x87defc'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x87e89c'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x87ec5c'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x87ee20'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x87ef98'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x87f188'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x87f834'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x87fb70'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x8807d4'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x880b18'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x880ba8'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x880c38'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x880dc8'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x88111c'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x881290'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rel32_next
+  section: .data
+  at_rva: '0x88131c'
+  target_rva: '0x881320'
+  target_labels:
+  - .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@
+  target_kinds:
+  - bridge_record
+  - type_descriptor
+  - type_name
+  owner_function: {}
+- kind: rel32_next
+  section: .data
+  at_rva: '0x88132c'
+  target_rva: '0x881330'
+  target_labels:
+  - .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@
+  target_kinds:
+  - bridge_record
+  - type_descriptor
+  - type_name
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x881390'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x8817ac'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x88187c'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x881ad4'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x881bb0'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x881ca8'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rel32_next
+  section: .data
+  at_rva: '0x88201c'
+  target_rva: '0x882020'
+  target_labels:
+  - .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?
+  target_kinds:
+  - bridge_record
+  - type_descriptor
+  - type_name
+  owner_function: {}
+- kind: rel32_next
+  section: .data
+  at_rva: '0x88202c'
+  target_rva: '0x882030'
+  target_labels:
+  - .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?
+  target_kinds:
+  - bridge_record
+  - type_descriptor
+  - type_name
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x8820f0'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x882394'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x882704'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x882840'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x882ac0'
+  target_rva: '0x405a40'
+  target_labels:
+  - 'code pointer from 0x882020: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - 'code pointer from 0x882030: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?'
+  - round161 candidate 0x405a40
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x882fc8'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x883014'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x8830e8'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x88313c'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x8831ac'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x883370'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x883464'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x88348c'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x883518'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x8836b0'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x883834'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x8839d4'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x883b48'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .data
+  at_rva: '0x883c7c'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .rsrc
+  at_rva: '0xd0cd04'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .rsrc
+  at_rva: '0xd3e6a8'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .rsrc
+  at_rva: '0xd84f28'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .rsrc
+  at_rva: '0xd91ce4'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+- kind: rva32
+  section: .rsrc
+  at_rva: '0xf04940'
+  target_rva: '0x4040'
+  target_labels:
+  - 'code pointer from 0x881320: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - 'code pointer from 0x881330: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@'
+  - round161 candidate 0x4040
+  target_kinds:
+  - bridge_code_pointer_target
+  - candidate_function
+  owner_function: {}
+bridge_record_windows:
+- center_rva: '0x881320'
+  label: rva:.?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@
+  section: .data
+  code_pointer_count: 2
+  data_pointer_count: 3
+  string_ref_count: 0
+  code_pointer_samples:
+  - kind: rva32
+    at_rva: '0x881290'
+    target_rva: '0x4040'
+    target_section: .text
+  - kind: rva32
+    at_rva: '0x881390'
+    target_rva: '0x4040'
+    target_section: .text
+  data_pointer_samples:
+  - kind: va64
+    at_rva: '0x8812a0'
+    target_rva: '0x6f3cb0'
+    target_section: .rdata
+  - kind: va64
+    at_rva: '0x881320'
+    target_rva: '0x6f3cb0'
+    target_section: .rdata
+  - kind: va64
+    at_rva: '0x8813a0'
+    target_rva: '0x6f3cb0'
+    target_section: .rdata
+  string_ref_samples: []
+- center_rva: '0x881330'
+  label: rva:.?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@
+  section: .data
+  code_pointer_count: 1
+  data_pointer_count: 3
+  string_ref_count: 0
+  code_pointer_samples:
+  - kind: rva32
+    at_rva: '0x881390'
+    target_rva: '0x4040'
+    target_section: .text
+  data_pointer_samples:
+  - kind: va64
+    at_rva: '0x8812a0'
+    target_rva: '0x6f3cb0'
+    target_section: .rdata
+  - kind: va64
+    at_rva: '0x881320'
+    target_rva: '0x6f3cb0'
+    target_section: .rdata
+  - kind: va64
+    at_rva: '0x8813a0'
+    target_rva: '0x6f3cb0'
+    target_section: .rdata
+  string_ref_samples: []
+- center_rva: '0x882020'
+  label: rva:.?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?
+  section: .data
+  code_pointer_count: 0
+  data_pointer_count: 1
+  string_ref_count: 0
+  code_pointer_samples: []
+  data_pointer_samples:
+  - kind: va64
+    at_rva: '0x882020'
+    target_rva: '0x6f3cb0'
+    target_section: .rdata
+  string_ref_samples: []
+- center_rva: '0x882030'
+  label: rva:.?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?
+  section: .data
+  code_pointer_count: 0
+  data_pointer_count: 1
+  string_ref_count: 0
+  code_pointer_samples: []
+  data_pointer_samples:
+  - kind: va64
+    at_rva: '0x882020'
+    target_rva: '0x6f3cb0'
+    target_section: .rdata
+  string_ref_samples: []
+inspected_functions:
+- evidence_ref: NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x603670
+  function:
+    begin: '0x603670'
+    end: '0x604652'
+    size: '0xfe2'
+  source: round161_candidate
+  verdict: control_or_helper_no_payload_provenance
+  score: 348
+  counts:
+    instructions: 991
+    memory_writes: 105
+    non_stack_writes: 25
+    vector_ops: 35
+    logic_transform_ops: 14
+    imm:24: 6
+    backward_branches: 10
+    imm:15: 7
+    imm:16: 15
+    imm:4096: 8
+    imm:8: 3
+  file_import_names: []
+  payload_keyword_refs: []
+  bridge_keyword_refs: []
+  has_16byte_or_loop_signal: true
+  imports:
+  - rva: '0x60372f'
+    import: USER32.dll!EnumDisplayDevicesW
+    import_name: EnumDisplayDevicesW
+    context:
+    - '0060371e: mov      r12d, r14d'
+    - '00603721: xor      r9d, r9d'
+    - '00603724: lea      r8, [rbp + 0x4f0]'
+    - '0060372b: xor      edx, edx'
+    - '0060372d: xor      ecx, ecx'
+    - '0060372f: call     qword ptr [rip + 0xef2d3]'
+    - '00603735: test     eax, eax'
+    - '00603737: je       0x603b54'
+    - '0060373d: mov      ebx, 0xdc'
+    - '00603742: mov      r8, rbx'
+    - '00603745: xor      edx, edx'
+  - rva: '0x60376d'
+    import: USER32.dll!EnumDisplaySettingsW
+    import_name: EnumDisplaySettingsW
+    context:
+    - '0060374e: call     0x659070'
+    - '00603753: mov      word ptr [rbp + 0x104], bx'
+    - '0060375a: lea      r8, [rbp + 0xc0]'
+    - '00603761: mov      edx, 0xffffffff'
+    - '00603766: lea      rcx, [rbp + 0x4f4]'
+    - '0060376d: call     qword ptr [rip + 0xef28d]'
+    - '00603773: test     eax, eax'
+    - '00603775: je       0x603b27'
+    - '0060377b: xor      edx, edx'
+    - '0060377d: mov      r8d, 0x344'
+    - '00603783: lea      rcx, [rbp + 0x1a4]'
+  - rva: '0x6037ac'
+    import: USER32.dll!EnumDisplayDevicesW
+    import_name: EnumDisplayDevicesW
+    context:
+    - '0060378f: mov      dword ptr [rbp + 0x1a0], 0x348'
+    - '00603799: xor      r9d, r9d'
+    - '0060379c: lea      r8, [rbp + 0x1a0]'
+    - '006037a3: xor      edx, edx'
+    - '006037a5: lea      rcx, [rbp + 0x4f4]'
+    - '006037ac: call     qword ptr [rip + 0xef256]'
+    - '006037b2: test     eax, eax'
+    - '006037b4: je       0x603b48'
+    - '006037ba: call     0xafe0'
+    - '006037bf: mov      rcx, rax'
+    - '006037c2: test     rax, rax'
+  - rva: '0x60399a'
+    import: KERNEL32.dll!WideCharToMultiByte
+    import_name: WideCharToMultiByte
+    context:
+    - '00603988: mov      qword ptr [rsp + 0x20], r14'
+    - '0060398d: mov      r9d, 0xffffffff'
+    - '00603993: mov      r8, rbx'
+    - '00603996: xor      edx, edx'
+    - '00603998: xor      ecx, ecx'
+    - '0060399a: call     qword ptr [rip + 0xeeae0]'
+    - '006039a0: movsxd   r14, eax'
+    - '006039a3: test     eax, eax'
+    - '006039a5: jle      0x603a25'
+    - '006039a7: lfence'
+    - '006039aa: lea      ecx, [r14 + 1]'
+  - rva: '0x6039e7'
+    import: KERNEL32.dll!WideCharToMultiByte
+    import_name: WideCharToMultiByte
+    context:
+    - '006039d7: lea      r9d, [rax - 1]'
+    - '006039db: mov      rbx, qword ptr [rsp + 0x48]'
+    - '006039e0: mov      r8, rbx'
+    - '006039e3: xor      edx, edx'
+    - '006039e5: xor      ecx, ecx'
+    - '006039e7: call     qword ptr [rip + 0xeea93]'
+    - '006039ed: mov      byte ptr [r14 + rsi], 0'
+    - '006039f2: mov      r8, 0xffffffffffffffff'
+    - '006039f9: nop      dword ptr [rax]'
+    - '00603a00: inc      r8'
+    - '00603a03: cmp      byte ptr [rsi + r8], 0'
+  - rva: '0x603b39'
+    import: USER32.dll!EnumDisplayDevicesW
+    import_name: EnumDisplayDevicesW
+    context:
+    - '00603b27: inc      r12d'
+    - '00603b2a: xor      r9d, r9d'
+    - '00603b2d: lea      r8, [rbp + 0x4f0]'
+    - '00603b34: mov      edx, r12d'
+    - '00603b37: xor      ecx, ecx'
+    - '00603b39: call     qword ptr [rip + 0xeeec9]'
+    - '00603b3f: test     eax, eax'
+    - '00603b41: je       0x603b50'
+    - '00603b43: jmp      0x603742'
+    - '00603b48: mov      dword ptr [rsp + 0x54], 1'
+    - '00603b50: mov      rsi, qword ptr [rbp - 0x70]'
+  - rva: '0x603daa'
+    import: KERNEL32.dll!MultiByteToWideChar
+    import_name: MultiByteToWideChar
+    context:
+    - '00603d9b: mov      qword ptr [rsp + 0x20], r14'
+    - '00603da0: mov      r9d, r12d'
+    - '00603da3: mov      r8, rbx'
+    - '00603da6: xor      edx, edx'
+    - '00603da8: xor      ecx, ecx'
+    - '00603daa: call     qword ptr [rip + 0xee960]'
+    - '00603db0: movsxd   rsi, eax'
+    - '00603db3: test     eax, eax'
+    - '00603db5: jle      0x603e11'
+    - '00603db7: lfence'
+    - '00603dba: lea      ecx, [rsi + 1]'
+  - rva: '0x603df2'
+    import: KERNEL32.dll!MultiByteToWideChar
+    import_name: MultiByteToWideChar
+    context:
+    - '00603de3: mov      qword ptr [rsp + 0x20], rax'
+    - '00603de8: mov      r9d, r12d'
+    - '00603deb: mov      r8, rbx'
+    - '00603dee: xor      edx, edx'
+    - '00603df0: xor      ecx, ecx'
+    - '00603df2: call     qword ptr [rip + 0xee918]'
+    - '00603df8: mov      word ptr [rdi + rsi*2], r14w'
+    - '00603dfd: mov      rdx, rdi'
+    - '00603e00: lea      rcx, [rbp]'
+    - '00603e04: call     0x362a0'
+    - '00603e09: mov      rcx, rdi'
+  - rva: '0x60419e'
+    import: KERNEL32.dll!WideCharToMultiByte
+    import_name: WideCharToMultiByte
+    context:
+    - '0060418f: mov      qword ptr [rsp + 0x20], r14'
+    - '00604194: mov      r9d, r12d'
+    - '00604197: mov      r8, rbx'
+    - '0060419a: xor      edx, edx'
+    - '0060419c: xor      ecx, ecx'
+    - '0060419e: call     qword ptr [rip + 0xee2dc]'
+    - '006041a4: movsxd   rsi, eax'
+    - '006041a7: test     eax, eax'
+    - '006041a9: jle      0x604218'
+    - '006041ab: lfence'
+    - '006041ae: lea      ecx, [rsi + 1]'
+  - rva: '0x6041e6'
+    import: KERNEL32.dll!WideCharToMultiByte
+    import_name: WideCharToMultiByte
+    context:
+    - '006041d7: mov      r9d, r12d'
+    - '006041da: mov      rbx, qword ptr [rsp + 0x40]'
+    - '006041df: mov      r8, rbx'
+    - '006041e2: xor      edx, edx'
+    - '006041e4: xor      ecx, ecx'
+    - '006041e6: call     qword ptr [rip + 0xee294]'
+    - '006041ec: mov      byte ptr [rsi + rdi], 0'
+    - '006041f0: mov      r8, r12'
+    - '006041f3: inc      r8'
+    - '006041f6: cmp      byte ptr [rdi + r8], 0'
+    - '006041fb: jne      0x6041f3'
+  keyword_refs: []
+  constants:
+  - rva: '0x6037d1'
+    value: '0x18'
+    text: '006037d1: add      rax, 0x18'
+  - rva: '0x603964'
+    value: '0xf'
+    text: '00603964: mov      qword ptr [rbp - 8], 0xf'
+  - rva: '0x603a35'
+    value: '0xf'
+    text: '00603a35: mov      qword ptr [rbp - 8], 0xf'
+  - rva: '0x603a52'
+    value: '0xf'
+    text: '00603a52: mov      qword ptr [rbp - 8], 0xf'
+  - rva: '0x603a66'
+    value: '0x10'
+    text: '00603a66: cmp      qword ptr [rbp + 0x78], 0x10'
+  - rva: '0x603a77'
+    value: '0x10'
+    text: '00603a77: cmp      qword ptr [rcx + 0x18], 0x10'
+  - rva: '0x603a97'
+    value: '0x10'
+    text: '00603a97: cmp      rdx, 0x10'
+  - rva: '0x603aa7'
+    value: '0x1000'
+    text: '00603aa7: cmp      rdx, 0x1000'
+  - rva: '0x603b9b'
+    value: '0x10'
+    text: '00603b9b: cmp      rbx, 0x10'
+  - rva: '0x603bd2'
+    value: '0x10'
+    text: '00603bd2: cmp      qword ptr [r15 + 0xa0], 0x10'
+  - rva: '0x603c2f'
+    value: '0x10'
+    text: '00603c2f: cmp      rbx, 0x10'
+  - rva: '0x603c38'
+    value: '0x10'
+    text: '00603c38: cmp      rsi, 0x10'
+  - rva: '0x603c45'
+    value: '0xf'
+    text: '00603c45: mov      qword ptr [rbp - 0x28], 0xf'
+  - rva: '0x603c55'
+    value: '0xf'
+    text: '00603c55: or       rbx, 0xf'
+  - rva: '0x603c6e'
+    value: '0x1000'
+    text: '00603c6e: cmp      rcx, 0x1000'
+  - rva: '0x603cf3'
+    value: '0x10'
+    text: '00603cf3: cmp      qword ptr [r15 + 0xa0], 0x10'
+  - rva: '0x603d31'
+    value: '0x10'
+    text: '00603d31: cmp      qword ptr [r15 + 0xc0], 0x10'
+  - rva: '0x603d69'
+    value: '0x18'
+    text: '00603d69: add      rax, 0x18'
+  - rva: '0x603d76'
+    value: '0x10'
+    text: '00603d76: cmp      qword ptr [rbp - 0x28], 0x10'
+  - rva: '0x603e3b'
+    value: '0x8'
+    text: '00603e3b: cmp      qword ptr [rbp + 0x98], 8'
+  - rva: '0x603e67'
+    value: '0x8'
+    text: '00603e67: cmp      rdx, 8'
+  - rva: '0x603e7f'
+    value: '0x1000'
+    text: '00603e7f: cmp      rdx, 0x1000'
+  - rva: '0x603ee1'
+    value: '0x18'
+    text: '00603ee1: add      rax, 0x18'
+  - rva: '0x604038'
+    value: '0x18'
+    text: '00604038: add      rax, 0x18'
+  direct_callers: []
+  direct_callees: []
+  interesting_instructions:
+  - '00603673: mov      qword ptr [rax + 8], rbx'
+  - '00603677: mov      qword ptr [rax + 0x18], rsi'
+  - '0060367b: mov      qword ptr [rax + 0x20], rdi'
+  - '00603696: movaps   xmmword ptr [rax - 0x38], xmm6'
+  - '0060369a: movaps   xmmword ptr [rax - 0x48], xmm7'
+  - '006036a5: xor      rax, rsp'
+  - '006036c7: xorps    xmm0, xmm0'
+  - '006036ca: movdqu   xmmword ptr [rbp - 0x60], xmm0'
+  - '006036d7: call     0x60a4b0'
+  - '006036dc: xorps    xmm0, xmm0'
+  - '006036df: movdqu   xmmword ptr [rsp + 0x68], xmm0'
+  - '006036f6: call     0x6093f0'
+  - '0060370a: call     0x659070'
+  - '0060372f: call     qword ptr [rip + 0xef2d3]'
+  - '0060374e: call     0x659070'
+  - '0060376d: call     qword ptr [rip + 0xef28d]'
+  - '0060378a: call     0x659070'
+  - '006037ac: call     qword ptr [rip + 0xef256]'
+  - '006037ba: call     0xafe0'
+  - '006037d1: add      rax, 0x18'
+  - '006037f8: call     0x18b10'
+  - '00603818: jne      0x603810'
+  - '00603829: call     0x18c60'
+  - '00603848: call     0x658860'
+  - '0060385c: sar      rdi, 1'
+  - '00603892: call     0x658860'
+  - '006038a3: sar      rax, 1'
+  - '006038c1: call     0x16240'
+  - '006038e5: call     0x18b50'
+  - '006038f2: lock xadd dword ptr [rbx + 0x10], ecx'
+  - '00603920: call     0x18c60'
+  - '00603933: lock xadd dword ptr [rdx + 0x10], eax'
+  - '00603964: mov      qword ptr [rbp - 8], 0xf'
+  - '0060399a: call     qword ptr [rip + 0xeeae0]'
+  - '006039b1: call     0x48eb14'
+  - '006039e7: call     qword ptr [rip + 0xeea93]'
+  - '006039ed: mov      byte ptr [r14 + rsi], 0'
+  - '00603a08: jne      0x603a00'
+  - '00603a11: call     0x380b0'
+  - '00603a19: call     0x48ead0'
+  - '00603a25: movups   xmm0, xmmword ptr [rbp - 0x20]'
+  - '00603a29: movups   xmmword ptr [rbp + 0x60], xmm0'
+  - '00603a2d: movups   xmm1, xmmword ptr [rbp - 0x10]'
+  - '00603a31: movups   xmmword ptr [rbp + 0x70], xmm1'
+  - '00603a35: mov      qword ptr [rbp - 8], 0xf'
+  - '00603a42: movups   xmm0, xmmword ptr [rbp - 0x20]'
+  - '00603a46: movups   xmmword ptr [rbp + 0x60], xmm0'
+  - '00603a4a: movups   xmm1, xmmword ptr [rbp - 0x10]'
+- evidence_ref: NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x6033f0
+  function:
+    begin: '0x6033f0'
+    end: '0x60366d'
+    size: '0x27d'
+  source: round161_candidate
+  verdict: provenance_partial_no_payload_owner
+  score: 308
+  counts:
+    instructions: 144
+    memory_writes: 25
+    logic_transform_ops: 4
+    file_import_calls: 2
+    imm:24: 1
+    imm:1024: 2
+    imm:15: 1
+    imm:16: 1
+    imm:4096: 1
+  file_import_names:
+  - CloseHandle
+  - CreateFileW
+  payload_keyword_refs: []
+  bridge_keyword_refs: []
+  has_16byte_or_loop_signal: true
+  imports:
+  - rva: '0x6034ad'
+    import: KERNEL32.dll!CreateFileW
+    import_name: CreateFileW
+    context:
+    - '00603495: mov      dword ptr [rsp + 0x20], 3'
+    - '0060349d: xor      r9d, r9d'
+    - '006034a0: xor      edx, edx'
+    - '006034a2: lea      r8d, [r14 + 3]'
+    - '006034a6: lea      rcx, [rbp + 0x88]'
+    - '006034ad: call     qword ptr [rip + 0xef2f5]'
+    - '006034b3: mov      rsi, rax'
+    - '006034b6: cmp      rax, -1'
+    - '006034ba: je       0x60363e'
+    - '006034c0: mov      qword ptr [rsp + 0x38], r14'
+    - '006034c5: lea      rax, [rsp + 0x44]'
+  - rva: '0x6034ee'
+    import: KERNEL32.dll!DeviceIoControl
+    import_name: DeviceIoControl
+    context:
+    - '006034db: mov      qword ptr [rsp + 0x20], rax'
+    - '006034e0: xor      r9d, r9d'
+    - '006034e3: xor      r8d, r8d'
+    - '006034e6: mov      edx, 0x70000'
+    - '006034eb: mov      rcx, rsi'
+    - '006034ee: call     qword ptr [rip + 0xef06c]'
+    - '006034f4: mov      ebx, eax'
+    - '006034f6: mov      rcx, rsi'
+    - '006034f9: call     qword ptr [rip + 0xef321]'
+    - '006034ff: test     ebx, ebx'
+    - '00603501: je       0x60363e'
+  - rva: '0x6034f9'
+    import: KERNEL32.dll!CloseHandle
+    import_name: CloseHandle
+    context:
+    - '006034e6: mov      edx, 0x70000'
+    - '006034eb: mov      rcx, rsi'
+    - '006034ee: call     qword ptr [rip + 0xef06c]'
+    - '006034f4: mov      ebx, eax'
+    - '006034f6: mov      rcx, rsi'
+    - '006034f9: call     qword ptr [rip + 0xef321]'
+    - '006034ff: test     ebx, ebx'
+    - '00603501: je       0x60363e'
+    - '00603507: mov      ebx, dword ptr [rbp + 0x84]'
+    - '0060350d: mov      eax, dword ptr [rbp + 0x80]'
+    - '00603513: imul     rbx, rax'
+  keyword_refs: []
+  constants:
+  - rva: '0x6034cf'
+    value: '0x18'
+    text: '006034cf: mov      dword ptr [rsp + 0x28], 0x18'
+  - rva: '0x60353d'
+    value: '0x400'
+    text: '0060353d: cmp      rbx, 0x400'
+  - rva: '0x603557'
+    value: '0xf'
+    text: '00603557: mov      qword ptr [rbp + 0x68], 0xf'
+  - rva: '0x6035d4'
+    value: '0x10'
+    text: '006035d4: cmp      rdx, 0x10'
+  - rva: '0x6035e4'
+    value: '0x1000'
+    text: '006035e4: cmp      rdx, 0x1000'
+  - rva: '0x603610'
+    value: '0x400'
+    text: '00603610: cmp      rbx, 0x400'
+  direct_callers: []
+  direct_callees: []
+  interesting_instructions:
+  - '00603414: xor      rax, rsp'
+  - '006034ad: call     qword ptr [rip + 0xef2f5]'
+  - '006034cf: mov      dword ptr [rsp + 0x28], 0x18'
+  - '006034ee: call     qword ptr [rip + 0xef06c]'
+  - '006034f9: call     qword ptr [rip + 0xef321]'
+  - '00603523: shr      rbx, 0x14'
+  - '00603530: call     0x11330'
+  - '00603539: shr      rdx, 0xa'
+  - '0060353d: cmp      rbx, 0x400'
+  - '0060354d: call     0x2ee4c0'
+  - '00603557: mov      qword ptr [rbp + 0x68], 0xf'
+  - '006035be: call     0x380b0'
+  - '006035cb: call     0x19640'
+  - '006035d4: cmp      rdx, 0x10'
+  - '006035e4: cmp      rdx, 0x1000'
+  - '00603602: call     0x48ead0'
+  - '00603610: cmp      rbx, 0x400'
+  - '00603627: call     0x37950'
+  - '00603632: call     0x10140'
+  - '00603647: xor      rcx, rsp'
+  - '0060364a: call     0x48eab0'
+  - '00603667: call     0x66e6a8'
+- evidence_ref: NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x2e12b0
+  function:
+    begin: '0x2e12b0'
+    end: '0x2e13b1'
+    size: '0x101'
+  source: round161_candidate
+  verdict: tiny_metadata_or_lambda_helper
+  score: 18
+  counts:
+    instructions: 58
+    memory_writes: 11
+    imm:16: 4
+    non_stack_writes: 4
+    logic_transform_ops: 1
+  file_import_names: []
+  payload_keyword_refs: []
+  bridge_keyword_refs: []
+  has_16byte_or_loop_signal: true
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x2e131c'
+    value: '0x10'
+    text: '002e131c: mov      ecx, 0x10'
+  - rva: '0x2e1346'
+    value: '0x10'
+    text: '002e1346: mov      ecx, 0x10'
+  - rva: '0x2e135d'
+    value: '0x10'
+    text: '002e135d: mov      ecx, 0x10'
+  - rva: '0x2e1374'
+    value: '0x10'
+    text: '002e1374: mov      ecx, 0x10'
+  direct_callers: []
+  direct_callees: []
+  interesting_instructions:
+  - '002e12ff: call     0x2e2460'
+  - '002e130c: call     0x2e24a0'
+  - '002e131c: mov      ecx, 0x10'
+  - '002e1321: rep movsb byte ptr [rdi], byte ptr [rsi]'
+  - '002e1336: call     0x73e60'
+  - '002e1346: mov      ecx, 0x10'
+  - '002e134b: rep movsb byte ptr [rdi], byte ptr [rsi]'
+  - '002e135d: mov      ecx, 0x10'
+  - '002e1362: rep movsb byte ptr [rdi], byte ptr [rsi]'
+  - '002e1374: mov      ecx, 0x10'
+  - '002e1379: rep movsb byte ptr [rdi], byte ptr [rsi]'
+  - '002e138d: call     0x73e90'
+  - '002e1397: or       eax, 1'
+- evidence_ref: NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x4040
+  function:
+    begin: '0x4040'
+    end: '0x40ea'
+    size: '0xaa'
+  source: round161_candidate
+  verdict: tiny_metadata_or_lambda_helper
+  score: 16
+  counts:
+    instructions: 29
+    imm:40: 2
+    memory_writes: 4
+    non_stack_writes: 4
+    imm:8: 3
+  file_import_names: []
+  payload_keyword_refs: []
+  bridge_keyword_refs: []
+  has_16byte_or_loop_signal: false
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x4040'
+    value: '0x28'
+    text: '00004040: sub      rsp, 0x28'
+  - rva: '0x4072'
+    value: '0x8'
+    text: '00004072: mov      r8d, 8'
+  - rva: '0x409c'
+    value: '0x8'
+    text: '0000409c: mov      r8d, 8'
+  - rva: '0x40c6'
+    value: '0x8'
+    text: '000040c6: mov      r8d, 8'
+  - rva: '0x40e5'
+    value: '0x28'
+    text: '000040e5: add      rsp, 0x28'
+  direct_callers: []
+  direct_callees: []
+  interesting_instructions:
+  - '00004040: sub      rsp, 0x28'
+  - '00004058: call     0x21240'
+  - '0000405d: mov      dword ptr [rip + 0x88a659], 0'
+  - '00004072: mov      r8d, 8'
+  - '00004082: call     0x21240'
+  - '00004087: mov      dword ptr [rip + 0x88a647], 1'
+  - '0000409c: mov      r8d, 8'
+  - '000040ac: call     0x21240'
+  - '000040b1: mov      dword ptr [rip + 0x88a635], 2'
+  - '000040c6: mov      r8d, 8'
+  - '000040d6: call     0x21240'
+  - '000040db: mov      dword ptr [rip + 0x88a623], 3'
+  - '000040e5: add      rsp, 0x28'
+- evidence_ref: NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x442050
+  function:
+    begin: '0x442050'
+    end: '0x442241'
+    size: '0x1f1'
+  source: round161_candidate
+  verdict: control_or_helper_no_payload_provenance
+  score: 12
+  counts:
+    instructions: 98
+    memory_writes: 20
+    logic_transform_ops: 2
+    imm:16: 5
+    imm:48: 1
+    non_stack_writes: 2
+  file_import_names: []
+  payload_keyword_refs: []
+  bridge_keyword_refs: []
+  has_16byte_or_loop_signal: true
+  imports:
+  - rva: '0x4420ce'
+    import: KERNEL32.dll!GetModuleFileNameW
+    import_name: GetModuleFileNameW
+    context:
+    - '004420b7: mov      ecx, 0x20a'
+    - '004420bc: rep stosb byte ptr [rdi], al'
+    - '004420be: mov      r8d, 0x104'
+    - '004420c4: lea      rdx, [rsp + 0xc0]'
+    - '004420cc: xor      ecx, ecx'
+    - '004420ce: call     qword ptr [rip + 0x2b072c]'
+    - '004420d4: mov      dx, 0x5c'
+    - '004420d8: lea      rcx, [rsp + 0xc0]'
+    - '004420e0: call     0x36700'
+    - '004420e5: mov      ecx, 2'
+    - '004420ea: imul     rcx, rcx, 1'
+  keyword_refs: []
+  constants:
+  - rva: '0x442088'
+    value: '0x10'
+    text: '00442088: add      rax, 0x10'
+  - rva: '0x44209d'
+    value: '0x30'
+    text: '0044209d: add      rax, 0x30'
+  - rva: '0x4420fc'
+    value: '0x10'
+    text: '004420fc: add      rax, 0x10'
+  - rva: '0x442133'
+    value: '0x10'
+    text: '00442133: add      rax, 0x10'
+  - rva: '0x442175'
+    value: '0x10'
+    text: '00442175: add      rax, 0x10'
+  - rva: '0x4421b7'
+    value: '0x10'
+    text: '004421b7: add      rax, 0x10'
+  direct_callers:
+  - site: '0x6bdc'
+    caller:
+      begin: '0x6bc0'
+      end: '0x6bf2'
+      size: '0x32'
+    callee:
+      begin: '0x442050'
+      end: '0x442241'
+      size: '0x1f1'
+    target_rva: '0x442050'
+  direct_callees: []
+  interesting_instructions:
+  - '00442064: xor      rax, rsp'
+  - '0044207a: call     0x4434f0'
+  - '00442088: add      rax, 0x10'
+  - '0044208f: call     0x36a60'
+  - '0044209d: add      rax, 0x30'
+  - '004420a4: call     0x95850'
+  - '004420bc: rep stosb byte ptr [rdi], al'
+  - '004420ce: call     qword ptr [rip + 0x2b072c]'
+  - '004420e0: call     0x36700'
+  - '004420f0: mov      word ptr [rax + rcx], dx'
+  - '004420fc: add      rax, 0x10'
+  - '0044210b: call     0x12ce0'
+  - '00442133: add      rax, 0x10'
+  - '00442149: call     0x36360'
+  - '00442175: add      rax, 0x10'
+  - '0044218b: call     0x363c0'
+  - '004421b7: add      rax, 0x10'
+  - '004421cd: call     0x36360'
+  - '0044221a: call     0x3d4a0'
+  - '00442230: xor      rcx, rsp'
+  - '00442233: call     0x48eab0'
+- evidence_ref: NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x115db0
+  function:
+    begin: '0x115db0'
+    end: '0x116073'
+    size: '0x2c3'
+  source: round161_seed
+  verdict: control_or_helper_no_payload_provenance
+  score: 4
+  counts:
+    instructions: 125
+    memory_writes: 23
+    logic_transform_ops: 2
+  file_import_names: []
+  payload_keyword_refs: []
+  bridge_keyword_refs: []
+  has_16byte_or_loop_signal: true
+  imports: []
+  keyword_refs: []
+  constants: []
+  direct_callers: []
+  direct_callees: []
+  interesting_instructions:
+  - '00115dd1: xor      rax, rsp'
+  - '00115de4: call     0x6c430'
+  - '00115df9: call     0x6c4e0'
+  - '00115e18: call     0x35830'
+  - '00115e3c: call     0x71810'
+  - '00115e5b: call     0x36600'
+  - '00115e7f: call     0x6c500'
+  - '00115e9e: call     0x36600'
+  - '00115ec2: call     0x6c570'
+  - '00115eda: call     0x6c5e0'
+  - '00115ef9: call     0x36600'
+  - '00115f29: call     0x71880'
+  - '00115f4e: call     0x36600'
+  - '00115f7e: call     0x104660'
+  - '00115f93: call     0x115980'
+  - '00115f98: call     0x3f1e40'
+  - '00115fa0: call     0x6c730'
+  - '00115fc0: call     0x239490'
+  - '00115fcc: call     0x3f1e40'
+  - '00115fd4: call     0x6c730'
+  - '00116002: call     0x239bd0'
+  - '00116010: call     0x6d7a0'
+  - '0011601e: call     0x384e0'
+  - '0011602c: call     0x36bb0'
+  - '0011603a: call     0x36bb0'
+  - '00116048: call     0x36bb0'
+  - '00116056: call     0x36bb0'
+  - '00116063: xor      rcx, rsp'
+  - '00116066: call     0x48eab0'
+- evidence_ref: NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x86ab0
+  function:
+    begin: '0x86ab0'
+    end: '0x86afa'
+    size: '0x4a'
+  source: round161_seed
+  verdict: tiny_metadata_or_lambda_helper
+  score: 4
+  counts:
+    instructions: 18
+    memory_writes: 3
+    imm:40: 2
+    non_stack_writes: 1
+  file_import_names: []
+  payload_keyword_refs: []
+  bridge_keyword_refs: []
+  has_16byte_or_loop_signal: false
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x86aba'
+    value: '0x28'
+    text: '00086aba: sub      rsp, 0x28'
+  - rva: '0x86af5'
+    value: '0x28'
+    text: '00086af5: add      rsp, 0x28'
+  direct_callers: []
+  direct_callees: []
+  interesting_instructions:
+  - '00086aba: sub      rsp, 0x28'
+  - '00086ac3: call     0x2cd1f0'
+  - '00086ad5: mov      qword ptr [rax], rcx'
+  - '00086add: call     0xae50'
+  - '00086aea: call     0x86a40'
+  - '00086af5: add      rsp, 0x28'
+- evidence_ref: NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x86b00
+  function:
+    begin: '0x86b00'
+    end: '0x86b4a'
+    size: '0x4a'
+  source: round161_candidate
+  verdict: tiny_metadata_or_lambda_helper
+  score: 4
+  counts:
+    instructions: 18
+    memory_writes: 3
+    imm:40: 2
+    non_stack_writes: 1
+  file_import_names: []
+  payload_keyword_refs: []
+  bridge_keyword_refs: []
+  has_16byte_or_loop_signal: false
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x86b0a'
+    value: '0x28'
+    text: '00086b0a: sub      rsp, 0x28'
+  - rva: '0x86b45'
+    value: '0x28'
+    text: '00086b45: add      rsp, 0x28'
+  direct_callers: []
+  direct_callees: []
+  interesting_instructions:
+  - '00086b0a: sub      rsp, 0x28'
+  - '00086b13: call     0x2cd4a0'
+  - '00086b25: mov      qword ptr [rax], rcx'
+  - '00086b2d: call     0xae50'
+  - '00086b3a: call     0x86a40'
+  - '00086b45: add      rsp, 0x28'
+- evidence_ref: NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x86b50
+  function:
+    begin: '0x86b50'
+    end: '0x86b9a'
+    size: '0x4a'
+  source: round161_seed
+  verdict: tiny_metadata_or_lambda_helper
+  score: 4
+  counts:
+    instructions: 18
+    memory_writes: 3
+    imm:40: 2
+    non_stack_writes: 1
+  file_import_names: []
+  payload_keyword_refs: []
+  bridge_keyword_refs: []
+  has_16byte_or_loop_signal: false
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x86b5a'
+    value: '0x28'
+    text: '00086b5a: sub      rsp, 0x28'
+  - rva: '0x86b95'
+    value: '0x28'
+    text: '00086b95: add      rsp, 0x28'
+  direct_callers: []
+  direct_callees: []
+  interesting_instructions:
+  - '00086b5a: sub      rsp, 0x28'
+  - '00086b63: call     0x2cd750'
+  - '00086b75: mov      qword ptr [rax], rcx'
+  - '00086b7d: call     0xae50'
+  - '00086b8a: call     0x86a40'
+  - '00086b95: add      rsp, 0x28'
+- evidence_ref: NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x261220
+  function:
+    begin: '0x261220'
+    end: '0x26129b'
+    size: '0x7b'
+  source: round161_seed
+  verdict: tiny_metadata_or_lambda_helper
+  score: 0
+  counts:
+    instructions: 29
+    memory_writes: 4
+    imm:32: 1
+  file_import_names: []
+  payload_keyword_refs: []
+  bridge_keyword_refs: []
+  has_16byte_or_loop_signal: false
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x26124c'
+    value: '0x20'
+    text: '0026124c: add      rax, 0x20'
+  direct_callers: []
+  direct_callees: []
+  interesting_instructions:
+  - '00261242: call     0x260e10'
+  - '0026124c: add      rax, 0x20'
+  - '00261266: call     0x747c0'
+  - '00261276: call     0x273220'
+  - '00261286: call     0x260000'
+  - '00261291: call     0x425c0'
+- evidence_ref: NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x404000
+  function:
+    begin: '0x404000'
+    end: '0x404068'
+    size: '0x68'
+  source: round161_candidate
+  verdict: tiny_metadata_or_lambda_helper
+  score: 0
+  counts:
+    instructions: 25
+    memory_writes: 4
+    imm:24: 1
+  file_import_names: []
+  payload_keyword_refs: []
+  bridge_keyword_refs: []
+  has_16byte_or_loop_signal: false
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x404029'
+    value: '0x18'
+    text: '00404029: mov      ecx, 0x18'
+  direct_callers: []
+  direct_callees: []
+  interesting_instructions:
+  - '00404013: call     0x282b0'
+  - '00404029: mov      ecx, 0x18'
+  - '0040402e: call     0x231c0'
+  - '0040403d: call     0xae50'
+  - '00404051: call     0x4052c0'
+  - '0040405e: call     0x50c80'
+- evidence_ref: NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x405a40
+  function:
+    begin: '0x405a40'
+    end: '0x405a58'
+    size: '0x18'
+  source: round161_candidate
+  verdict: tiny_metadata_or_lambda_helper
+  score: 0
+  counts:
+    instructions: 6
+    memory_writes: 1
+    imm:40: 2
+  file_import_names: []
+  payload_keyword_refs: []
+  bridge_keyword_refs: []
+  has_16byte_or_loop_signal: false
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x405a45'
+    value: '0x28'
+    text: '00405a45: sub      rsp, 0x28'
+  - rva: '0x405a53'
+    value: '0x28'
+    text: '00405a53: add      rsp, 0x28'
+  direct_callers: []
+  direct_callees: []
+  interesting_instructions:
+  - '00405a45: sub      rsp, 0x28'
+  - '00405a4e: call     0x405ff0'
+  - '00405a53: add      rsp, 0x28'
+- evidence_ref: NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x6bc0
+  function:
+    begin: '0x6bc0'
+    end: '0x6bf2'
+    size: '0x32'
+  source: round161_candidate
+  verdict: tiny_metadata_or_lambda_helper
+  score: 0
+  counts:
+    instructions: 10
+    imm:40: 2
+    imm:64: 1
+  file_import_names: []
+  payload_keyword_refs: []
+  bridge_keyword_refs: []
+  has_16byte_or_loop_signal: false
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x6bc0'
+    value: '0x28'
+    text: '00006bc0: sub      rsp, 0x28'
+  - rva: '0x6bc4'
+    value: '0x40'
+    text: '00006bc4: mov      edx, 0x40'
+  - rva: '0x6bed'
+    value: '0x28'
+    text: '00006bed: add      rsp, 0x28'
+  direct_callers: []
+  direct_callees:
+  - site: '0x6bd0'
+    caller:
+      begin: '0x6bc0'
+      end: '0x6bf2'
+      size: '0x32'
+    callee:
+      begin: '0xa540'
+      end: '0xa55b'
+      size: '0x1b'
+    target_rva: '0xa540'
+  - site: '0x6bdc'
+    caller:
+      begin: '0x6bc0'
+      end: '0x6bf2'
+      size: '0x32'
+    callee:
+      begin: '0x442050'
+      end: '0x442241'
+      size: '0x1f1'
+    target_rva: '0x442050'
+  - site: '0x6be8'
+    caller:
+      begin: '0x6bc0'
+      end: '0x6bf2'
+      size: '0x32'
+    callee:
+      begin: '0x48f11c'
+      end: '0x48f133'
+      size: '0x17'
+    target_rva: '0x48f11c'
+  interesting_instructions:
+  - '00006bc0: sub      rsp, 0x28'
+  - '00006bc4: mov      edx, 0x40'
+  - '00006bd0: call     0xa540'
+  - '00006bdc: call     0x442050'
+  - '00006be8: call     0x48f11c'
+  - '00006bed: add      rsp, 0x28'
+route_conclusion:
+  init_luascripts_bridge_metadata_confirmed: true
+  data_reference_owners_found: false
+  bridge_record_code_pointers_found: true
+  payload_owner_candidate_found: false
+  file_buffer_owner_proven: false
+  lua_payload_decoder_recovered: false
+  global_metadata_loader_proven: false
+  plaintext_metadata_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: InitLuaScriptsScan/CGameProtector RTTI and bridge record
+    windows still resolve to metadata/lambda support pointers plus EH/FH4 data references.
+  strongest_negative_signal: No inspected data-record consumer combines payload keywords,
+    file-buffer imports, and 16-byte/loop mutation evidence.
+  search_policy: Treat InitLuaScriptsScan/CGameProtector data records as routing evidence
+    only; next static slice should inspect the highest-scoring nontrivial helper and
+    task-object field flows only if payload provenance can be attached.
+evidence_refs:
+- NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:summary
+- NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x603670
+- NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x6033f0
+- NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x2e12b0
+- NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x4040
+- NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x442050
+- NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x115db0
+- NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x86ab0
+- NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x86b00
+- NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x86b50
+- NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x261220
+- NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x404000
+- NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x405a40
+- NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x6bc0
+next_static_targets:
+- Deep-slice the highest-scoring nontrivial helper only if a caller/callee or data-field
+  trace attaches LuaScripts/global-metadata/SerializedFile payload provenance.
+- Trace task-object field stores around bridge code pointers 0x4040 and 0x405a40 as
+  metadata/lambda support until buffer ownership is proven.
+- If data-owner scan remains negative, prioritize recovering TextAsset/LuaScripts
+  payload decoder from file payload shape and xLua boundary evidence instead of CGameProtector
+  RTTI.
+limitations:
+- Offline/static NEP2 data-reference scan only; no live Frida, runtime attach, account
+  data, credentials, or online protocol were used.
+- RTTI/type descriptor/code-pointer adjacency does not prove runtime callback execution
+  or payload-buffer ownership.
+- No decoded LuaScripts/global-metadata/gameplay configuration is promoted from this
+  artifact.
+guardrails:
+- offline/static NEP2 data-reference scan only; no live instrumentation, account data,
+  or online protocol data is included
+- absolute local paths are not persisted; only file names, hashes, RVAs, counts, and
+  sanitized summaries are stored
+- RTTI/type descriptor/code-pointer adjacency is routing evidence only, not payload-buffer
+  ownership proof
+- no decoded LuaScripts/global-metadata/gameplay configuration is promoted from this
+  artifact

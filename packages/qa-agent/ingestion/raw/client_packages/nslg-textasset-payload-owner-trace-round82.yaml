@@ -1,0 +1,333 @@
+schema_version: nslg.textasset_payload_owner_trace.v1
+source_id: textasset-payload-owner-trace-round82
+source_url: local-nslg-client-textasset-payload-owner-trace
+source_site: nslg_client_textasset_payload_owner_trace
+generated_at: '2026-05-21T05:10:25.705360Z'
+round: 173
+slice: textasset_payload_owner_static_trace
+input_artifacts:
+- file_name: luascripts_payload_variant_corpus_round172.json
+  role: expanded encrypted LuaScripts payload corpus
+  sha256: ''
+  missing: false
+- file_name: luascripts_textasset_extract_round31.json
+  role: TextAsset path/stem/object-offset source
+  sha256: ''
+  missing: false
+- file_name: native_loadbuffer_boundary_trace_round163.json
+  role: native xLua/loadbuffer boundary context
+  sha256: ''
+  missing: false
+- file_name: nep2_init_data_owner_scan_round171.json
+  role: NEP2 InitLuaScriptsScan route context
+  sha256: ''
+  missing: false
+prior_context:
+  round172_payload_variant_count: 932
+  round172_unique_ciphertext_hash_count: 52
+  round163_textasset_to_loadbuffer_owner_proven: false
+  round171_payload_owner_candidate_found: false
+counts:
+  module_count: 4
+  term_count: 315
+  term_hit_count: 706
+  exact_asset_path_or_stem_hit_count: 0
+  code_ref_count: 0
+  candidate_function_count: 0
+  payload_owner_candidate_count: 0
+  route_candidate_count: 0
+  publishable_knowledge_entries: 0
+term_kind_counts:
+  asset_filename: 16
+  asset_path: 104
+  asset_path_tail: 142
+  asset_stem: 13
+  route_keyword: 17
+  scenario: 23
+module_records:
+- module: GameAssembly.dll
+  counts:
+    term_hit_count: 45
+    unique_term_hit_count: 8
+    exact_asset_path_or_stem_hit_count: 0
+    code_ref_count: 0
+    candidate_function_count: 0
+    payload_owner_candidate_count: 0
+    route_candidate_count: 0
+  term_kind_counts:
+    route_keyword: 45
+  term_encoding_counts:
+    ascii: 45
+  term_hit_samples:
+  - kind: route_keyword
+    value: xluaL_loadbuffer
+    encoding: ascii
+    rva: '0x429b458'
+    section: .rdata
+  - kind: route_keyword
+    value: luaL_loadbuffer
+    encoding: ascii
+    rva: '0x429b459'
+    section: .rdata
+  - kind: route_keyword
+    value: bytes
+    encoding: ascii
+    rva: '0x43b1f02'
+    section: .rdata
+  - kind: route_keyword
+    value: AssetBundle
+    encoding: ascii
+    rva: '0x43baa0c'
+    section: .rdata
+  - kind: route_keyword
+    value: AssetBundle
+    encoding: ascii
+    rva: '0x43baa6c'
+    section: .rdata
+  - kind: route_keyword
+    value: AssetBundle
+    encoding: ascii
+    rva: '0x43baacc'
+    section: .rdata
+  - kind: route_keyword
+    value: AssetBundle
+    encoding: ascii
+    rva: '0x43bab1c'
+    section: .rdata
+  - kind: route_keyword
+    value: AssetBundle
+    encoding: ascii
+    rva: '0x43bab8c'
+    section: .rdata
+  - kind: route_keyword
+    value: AssetBundle
+    encoding: ascii
+    rva: '0x43babdc'
+    section: .rdata
+  - kind: route_keyword
+    value: AssetBundle
+    encoding: ascii
+    rva: '0x43bac2c'
+    section: .rdata
+  code_ref_samples: []
+  candidate_functions: []
+- module: NEP2.dll
+  counts:
+    term_hit_count: 329
+    unique_term_hit_count: 6
+    exact_asset_path_or_stem_hit_count: 0
+    code_ref_count: 0
+    candidate_function_count: 0
+    payload_owner_candidate_count: 0
+    route_candidate_count: 0
+  term_kind_counts:
+    route_keyword: 329
+  term_encoding_counts:
+    ascii: 213
+    utf16le: 116
+  term_hit_samples:
+  - kind: route_keyword
+    value: bytes
+    encoding: ascii
+    rva: '0x878751'
+    section: .data
+  - kind: route_keyword
+    value: CGameProtector
+    encoding: ascii
+    rva: '0x880f9c'
+    section: .data
+  - kind: route_keyword
+    value: CGameProtector
+    encoding: ascii
+    rva: '0x88100b'
+    section: .data
+  - kind: route_keyword
+    value: CGameProtector
+    encoding: ascii
+    rva: '0x88107a'
+    section: .data
+  - kind: route_keyword
+    value: CGameProtector
+    encoding: ascii
+    rva: '0x8810fd'
+    section: .data
+  - kind: route_keyword
+    value: CGameProtector
+    encoding: ascii
+    rva: '0x881170'
+    section: .data
+  - kind: route_keyword
+    value: CGameProtector
+    encoding: ascii
+    rva: '0x8811f4'
+    section: .data
+  - kind: route_keyword
+    value: CGameProtector
+    encoding: ascii
+    rva: '0x881271'
+    section: .data
+  - kind: route_keyword
+    value: CGameProtector
+    encoding: ascii
+    rva: '0x8812f3'
+    section: .data
+  - kind: route_keyword
+    value: InitLuaScriptsScan
+    encoding: ascii
+    rva: '0x88135e'
+    section: .data
+  code_ref_samples: []
+  candidate_functions: []
+- module: UnityPlayer.dll
+  counts:
+    term_hit_count: 326
+    unique_term_hit_count: 8
+    exact_asset_path_or_stem_hit_count: 0
+    code_ref_count: 0
+    candidate_function_count: 0
+    payload_owner_candidate_count: 0
+    route_candidate_count: 0
+  term_kind_counts:
+    route_keyword: 326
+  term_encoding_counts:
+    ascii: 320
+    utf16le: 6
+  term_hit_samples:
+  - kind: route_keyword
+    value: bytes
+    encoding: ascii
+    rva: '0x187f93e'
+    section: .rdata
+  - kind: route_keyword
+    value: bytes
+    encoding: ascii
+    rva: '0x187f94f'
+    section: .rdata
+  - kind: route_keyword
+    value: bytes
+    encoding: ascii
+    rva: '0x1880439'
+    section: .rdata
+  - kind: route_keyword
+    value: bytes
+    encoding: ascii
+    rva: '0x188049a'
+    section: .rdata
+  - kind: route_keyword
+    value: bytes
+    encoding: ascii
+    rva: '0x1880ae6'
+    section: .rdata
+  - kind: route_keyword
+    value: bytes
+    encoding: ascii
+    rva: '0x1884c53'
+    section: .rdata
+  - kind: route_keyword
+    value: bytes
+    encoding: ascii
+    rva: '0x18c6e82'
+    section: .rdata
+  - kind: route_keyword
+    value: bytes
+    encoding: ascii
+    rva: '0x18c6ed6'
+    section: .rdata
+  - kind: route_keyword
+    value: bytes
+    encoding: ascii
+    rva: '0x18c7043'
+    section: .rdata
+  - kind: route_keyword
+    value: bytes
+    encoding: ascii
+    rva: '0x18c70d5'
+    section: .rdata
+  code_ref_samples: []
+  candidate_functions: []
+- module: xlua.dll
+  counts:
+    term_hit_count: 6
+    unique_term_hit_count: 4
+    exact_asset_path_or_stem_hit_count: 0
+    code_ref_count: 0
+    candidate_function_count: 0
+    payload_owner_candidate_count: 0
+    route_candidate_count: 0
+  term_kind_counts:
+    route_keyword: 6
+  term_encoding_counts:
+    ascii: 6
+  term_hit_samples:
+  - kind: route_keyword
+    value: bytes
+    encoding: ascii
+    rva: '0x17057c'
+    section: .data
+  - kind: route_keyword
+    value: luaL_loadbuffer
+    encoding: ascii
+    rva: '0x16a191'
+    section: .rdata
+  - kind: route_keyword
+    value: luaL_loadbuffer
+    encoding: ascii
+    rva: '0x16a1a1'
+    section: .rdata
+  - kind: route_keyword
+    value: luaL_loadbufferx
+    encoding: ascii
+    rva: '0x16a1a1'
+    section: .rdata
+  - kind: route_keyword
+    value: xluaL_loadbuffer
+    encoding: ascii
+    rva: '0x16ab01'
+    section: .rdata
+  - kind: route_keyword
+    value: luaL_loadbuffer
+    encoding: ascii
+    rva: '0x16ab02'
+    section: .rdata
+  code_ref_samples: []
+  candidate_functions: []
+route_conclusion:
+  textasset_payload_owner_proven: false
+  textasset_payload_owner_candidate_found: false
+  exact_asset_path_or_stem_native_hit_found: false
+  native_code_refs_to_textasset_terms_found: false
+  lua_payload_decoder_recovered: false
+  safe_for_publish: false
+  strongest_positive_signal: Native module string hits exist, but no code owner reference
+    was attached in this static pass.
+  strongest_negative_signal: No candidate is promoted as a proven TextAsset script-buffer
+    owner; static string/code-ref evidence still does not attach CAB payload bytes
+    to a native decoder.
+  search_policy: Retain candidate functions only as route evidence. Promote a function
+    only after a bounded caller/callee path proves TextAsset bytes or the CAB payload
+    buffer reaches decode/loadbuffer logic.
+evidence_refs:
+- NSLG_TEXTASSET_PAYLOAD_OWNER:textasset-payload-owner-trace-round173:summary
+next_static_targets:
+- For any route_candidate_unproven function, inspect bounded direct callers/callees
+  for a concrete byte pointer and length pair.
+- If exact asset path/stem strings remain absent from native modules, shift from string
+  provenance to SerializedFile object layout and managed metadata recovery.
+- Use the 932-variant corpus as validation only after a candidate decoder or buffer
+  transform is identified.
+limitations:
+- Offline/static PE and extracted CAB metadata scan only; no live Frida, runtime attach,
+  account data, credentials, or online protocol were used.
+- String/code-reference ownership does not prove runtime execution order or dataflow.
+- A TextAsset/LuaScripts keyword owner is not a decoder proof unless payload pointer
+  and length provenance are attached.
+- This artifact is not publishable game knowledge; it is route/eval evidence for qa-agent
+  import planning.
+guardrails:
+- offline/static PE and extracted CAB metadata scan only; no live instrumentation,
+  account data, or online protocol data is included
+- absolute local paths are not persisted; only file names, module names, RVAs, sanitized
+  asset paths/stems, counts, and summaries are stored
+- TextAsset/LuaScripts string or code-reference ownership is route evidence only,
+  not payload-buffer ownership proof
+- no decoded LuaScripts/gameplay configuration is promoted from this artifact

@@ -1,0 +1,2849 @@
+schema_version: nslg.gameassembly_registration_layout_probe.v1
+source_id: gameassembly-registration-layout-probe-round106
+source_url: local-nslg-client-gameassembly-registration-layout-probe
+source_site: nslg_client_gameassembly_registration_layout_probe
+generated_at: '2026-05-21T07:18:27.883184Z'
+round: 181
+slice: gameassembly_registration_layout_probe
+input_artifacts:
+- file_name: GameAssembly.dll
+  role: module:GameAssembly.dll
+  size_bytes: 94127168
+  sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  missing: false
+- file_name: gameassembly_registration_anchor_probe_round180.json
+  role: round180_registration_anchor_probe
+  size_bytes: 43738
+  sha256: 982719544c58de6980cc5998f8b7d324be634fab45d591ec8d2ff2d06423ce22
+  missing: false
+- file_name: gameassembly_codegen_module_probe_round179.json
+  role: round179_codegen_module_probe
+  size_bytes: 23089
+  sha256: ef470e0f5451169568286d47bc69921f8c8aa3a3b9b32c260701e958bde8fc90
+  missing: false
+- file_name: runtime_init_registry_probe_round178.json
+  role: round178_runtime_init_registry_probe
+  size_bytes: 18997
+  sha256: bf780a9cabc59ed477eed7460760c21dfa4e18451788d963170e8ee3722fd6ed
+  missing: false
+round180_anchor:
+  registration_anchor:
+    codegen_modules_pointer_ref_rva: '0x43327b0'
+    codegen_modules_count_field_rva: '0x43327a8'
+    declared_codegen_module_count: 98
+    codegen_modules_array_rva: '0x50a2840'
+    field_owner_candidate_rva: '0x4332718'
+    field_owner_note: owner is inferred from the CodeRegistration-style count/pointer
+      field neighborhood; the exact CodeRegistration struct start is not named without
+      a recovered registration callsite
+  counts:
+    codegen_modules_field_candidate_count: 1
+    declared_codegen_module_count: 98
+    parsed_codegen_module_count: 98
+    nonzero_method_module_count: 96
+    assembly_csharp_index: 5
+    assembly_csharp_method_pointer_count: 30078
+    registration_anchor_code_ref_count: 0
+    metadata_registration_candidate_count: 0
+    metadata_registration_callsite_count: 0
+    method_index_to_pointer_map_recovered: 0
+    init_lua_env_method_pointer_recovered: 0
+    publishable_knowledge_entries: 0
+code_registration_start_candidates:
+- candidate_start_rva: '0x4332730'
+  candidate_start_section: .rdata
+  score: 147
+  count_pointer_pair_count: 6
+  nonzero_count_pointer_pair_count: 6
+  pointer_only_field_count: 9
+  codegen_modules_count_field_offset: '0x78'
+  codegen_modules_pointer_field_offset: '0x80'
+  codegen_modules_count_field_rva: '0x43327a8'
+  codegen_modules_pointer_field_rva: '0x43327b0'
+  codegen_modules_array_rva: '0x50a2840'
+  sample_fields:
+  - offset: '0x0'
+    rva: '0x4332730'
+    qword: 12450
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x184371af0'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x4371af0'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x8'
+    rva: '0x4332738'
+    qword: '0x184371af0'
+    points_to_section: .rdata
+    points_to_rva: '0x4371af0'
+    next_qword: 150506
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x10'
+    rva: '0x4332740'
+    qword: 150506
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x18480fd10'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x480fd10'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x18'
+    rva: '0x4332748'
+    qword: '0x18480fd10'
+    points_to_section: .rdata
+    points_to_rva: '0x480fd10'
+    next_qword: '0x1844cd030'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x44cd030'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x20'
+    rva: '0x4332750'
+    qword: '0x1844cd030'
+    points_to_section: .rdata
+    points_to_rva: '0x44cd030'
+    next_qword: 32356
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x28'
+    rva: '0x4332758'
+    qword: 32356
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x1843327d0'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x43327d0'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x30'
+    rva: '0x4332760'
+    qword: '0x1843327d0'
+    points_to_section: .rdata
+    points_to_rva: '0x43327d0'
+    next_qword: 6632
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x38'
+    rva: '0x4332768'
+    qword: 6632
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x18438a000'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x438a000'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x40'
+    rva: '0x4332770'
+    qword: '0x18438a000'
+    points_to_section: .rdata
+    points_to_rva: '0x438a000'
+    next_qword: '0x184396f40'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x4396f40'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x48'
+    rva: '0x4332778'
+    qword: '0x184396f40'
+    points_to_section: .rdata
+    points_to_rva: '0x4396f40'
+    next_qword: '0x1843a3e80'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x43a3e80'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x50'
+    rva: '0x4332780'
+    qword: '0x1843a3e80'
+    points_to_section: .rdata
+    points_to_rva: '0x43a3e80'
+    next_qword: 1614
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x58'
+    rva: '0x4332788'
+    qword: 1614
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x1850a2b60'
+    next_points_to_section: .data
+    next_points_to_rva: '0x50a2b60'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+- candidate_start_rva: '0x4332740'
+  candidate_start_section: .rdata
+  score: 104
+  count_pointer_pair_count: 6
+  nonzero_count_pointer_pair_count: 5
+  pointer_only_field_count: 9
+  codegen_modules_count_field_offset: '0x68'
+  codegen_modules_pointer_field_offset: '0x70'
+  codegen_modules_count_field_rva: '0x43327a8'
+  codegen_modules_pointer_field_rva: '0x43327b0'
+  codegen_modules_array_rva: '0x50a2840'
+  sample_fields:
+  - offset: '0x0'
+    rva: '0x4332740'
+    qword: 150506
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x18480fd10'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x480fd10'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x8'
+    rva: '0x4332748'
+    qword: '0x18480fd10'
+    points_to_section: .rdata
+    points_to_rva: '0x480fd10'
+    next_qword: '0x1844cd030'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x44cd030'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x10'
+    rva: '0x4332750'
+    qword: '0x1844cd030'
+    points_to_section: .rdata
+    points_to_rva: '0x44cd030'
+    next_qword: 32356
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x18'
+    rva: '0x4332758'
+    qword: 32356
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x1843327d0'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x43327d0'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x20'
+    rva: '0x4332760'
+    qword: '0x1843327d0'
+    points_to_section: .rdata
+    points_to_rva: '0x43327d0'
+    next_qword: 6632
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x28'
+    rva: '0x4332768'
+    qword: 6632
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x18438a000'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x438a000'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x30'
+    rva: '0x4332770'
+    qword: '0x18438a000'
+    points_to_section: .rdata
+    points_to_rva: '0x438a000'
+    next_qword: '0x184396f40'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x4396f40'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x38'
+    rva: '0x4332778'
+    qword: '0x184396f40'
+    points_to_section: .rdata
+    points_to_rva: '0x4396f40'
+    next_qword: '0x1843a3e80'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x43a3e80'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x40'
+    rva: '0x4332780'
+    qword: '0x1843a3e80'
+    points_to_section: .rdata
+    points_to_rva: '0x43a3e80'
+    next_qword: 1614
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x48'
+    rva: '0x4332788'
+    qword: 1614
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x1850a2b60'
+    next_points_to_section: .data
+    next_points_to_rva: '0x50a2b60'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x50'
+    rva: '0x4332790'
+    qword: '0x1850a2b60'
+    points_to_section: .data
+    points_to_rva: '0x50a2b60'
+    next_qword: 0
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x58'
+    rva: '0x4332798'
+    qword: 0
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: 0
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+- candidate_start_rva: '0x4332758'
+  candidate_start_section: .rdata
+  score: 92
+  count_pointer_pair_count: 5
+  nonzero_count_pointer_pair_count: 4
+  pointer_only_field_count: 10
+  codegen_modules_count_field_offset: '0x50'
+  codegen_modules_pointer_field_offset: '0x58'
+  codegen_modules_count_field_rva: '0x43327a8'
+  codegen_modules_pointer_field_rva: '0x43327b0'
+  codegen_modules_array_rva: '0x50a2840'
+  sample_fields:
+  - offset: '0x0'
+    rva: '0x4332758'
+    qword: 32356
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x1843327d0'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x43327d0'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x8'
+    rva: '0x4332760'
+    qword: '0x1843327d0'
+    points_to_section: .rdata
+    points_to_rva: '0x43327d0'
+    next_qword: 6632
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x10'
+    rva: '0x4332768'
+    qword: 6632
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x18438a000'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x438a000'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x18'
+    rva: '0x4332770'
+    qword: '0x18438a000'
+    points_to_section: .rdata
+    points_to_rva: '0x438a000'
+    next_qword: '0x184396f40'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x4396f40'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x20'
+    rva: '0x4332778'
+    qword: '0x184396f40'
+    points_to_section: .rdata
+    points_to_rva: '0x4396f40'
+    next_qword: '0x1843a3e80'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x43a3e80'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x28'
+    rva: '0x4332780'
+    qword: '0x1843a3e80'
+    points_to_section: .rdata
+    points_to_rva: '0x43a3e80'
+    next_qword: 1614
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x30'
+    rva: '0x4332788'
+    qword: 1614
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x1850a2b60'
+    next_points_to_section: .data
+    next_points_to_rva: '0x50a2b60'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x38'
+    rva: '0x4332790'
+    qword: '0x1850a2b60'
+    points_to_section: .data
+    points_to_rva: '0x50a2b60'
+    next_qword: 0
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x40'
+    rva: '0x4332798'
+    qword: 0
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: 0
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x48'
+    rva: '0x43327a0'
+    qword: 0
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: 98
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x50'
+    rva: '0x43327a8'
+    qword: 98
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x1850a2840'
+    next_points_to_section: .data
+    next_points_to_rva: '0x50a2840'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: CodeGenModules.count
+    pointer_sample: []
+  - offset: '0x58'
+    rva: '0x43327b0'
+    qword: '0x1850a2840'
+    points_to_section: .data
+    points_to_rva: '0x50a2840'
+    next_qword: '0x700000001'
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: CodeGenModules.ptr
+    pointer_sample: []
+- candidate_start_rva: '0x4332720'
+  candidate_start_section: .rdata
+  score: 87
+  count_pointer_pair_count: 6
+  nonzero_count_pointer_pair_count: 6
+  pointer_only_field_count: 9
+  codegen_modules_count_field_offset: '0x88'
+  codegen_modules_pointer_field_offset: '0x90'
+  codegen_modules_count_field_rva: '0x43327a8'
+  codegen_modules_pointer_field_rva: '0x43327b0'
+  codegen_modules_array_rva: '0x50a2840'
+  sample_fields:
+  - offset: '0x0'
+    rva: '0x4332720'
+    qword: '0xffffffff00000010'
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: 16
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x8'
+    rva: '0x4332728'
+    qword: 16
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: 12450
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x10'
+    rva: '0x4332730'
+    qword: 12450
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x184371af0'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x4371af0'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x18'
+    rva: '0x4332738'
+    qword: '0x184371af0'
+    points_to_section: .rdata
+    points_to_rva: '0x4371af0'
+    next_qword: 150506
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x20'
+    rva: '0x4332740'
+    qword: 150506
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x18480fd10'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x480fd10'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x28'
+    rva: '0x4332748'
+    qword: '0x18480fd10'
+    points_to_section: .rdata
+    points_to_rva: '0x480fd10'
+    next_qword: '0x1844cd030'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x44cd030'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x30'
+    rva: '0x4332750'
+    qword: '0x1844cd030'
+    points_to_section: .rdata
+    points_to_rva: '0x44cd030'
+    next_qword: 32356
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x38'
+    rva: '0x4332758'
+    qword: 32356
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x1843327d0'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x43327d0'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x40'
+    rva: '0x4332760'
+    qword: '0x1843327d0'
+    points_to_section: .rdata
+    points_to_rva: '0x43327d0'
+    next_qword: 6632
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x48'
+    rva: '0x4332768'
+    qword: 6632
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x18438a000'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x438a000'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x50'
+    rva: '0x4332770'
+    qword: '0x18438a000'
+    points_to_section: .rdata
+    points_to_rva: '0x438a000'
+    next_qword: '0x184396f40'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x4396f40'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x58'
+    rva: '0x4332778'
+    qword: '0x184396f40'
+    points_to_section: .rdata
+    points_to_rva: '0x4396f40'
+    next_qword: '0x1843a3e80'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x43a3e80'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+- candidate_start_rva: '0x4332768'
+  candidate_start_section: .rdata
+  score: 80
+  count_pointer_pair_count: 4
+  nonzero_count_pointer_pair_count: 3
+  pointer_only_field_count: 11
+  codegen_modules_count_field_offset: '0x40'
+  codegen_modules_pointer_field_offset: '0x48'
+  codegen_modules_count_field_rva: '0x43327a8'
+  codegen_modules_pointer_field_rva: '0x43327b0'
+  codegen_modules_array_rva: '0x50a2840'
+  sample_fields:
+  - offset: '0x0'
+    rva: '0x4332768'
+    qword: 6632
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x18438a000'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x438a000'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x8'
+    rva: '0x4332770'
+    qword: '0x18438a000'
+    points_to_section: .rdata
+    points_to_rva: '0x438a000'
+    next_qword: '0x184396f40'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x4396f40'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x10'
+    rva: '0x4332778'
+    qword: '0x184396f40'
+    points_to_section: .rdata
+    points_to_rva: '0x4396f40'
+    next_qword: '0x1843a3e80'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x43a3e80'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x18'
+    rva: '0x4332780'
+    qword: '0x1843a3e80'
+    points_to_section: .rdata
+    points_to_rva: '0x43a3e80'
+    next_qword: 1614
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x20'
+    rva: '0x4332788'
+    qword: 1614
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x1850a2b60'
+    next_points_to_section: .data
+    next_points_to_rva: '0x50a2b60'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x28'
+    rva: '0x4332790'
+    qword: '0x1850a2b60'
+    points_to_section: .data
+    points_to_rva: '0x50a2b60'
+    next_qword: 0
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x30'
+    rva: '0x4332798'
+    qword: 0
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: 0
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x38'
+    rva: '0x43327a0'
+    qword: 0
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: 98
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x40'
+    rva: '0x43327a8'
+    qword: 98
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x1850a2840'
+    next_points_to_section: .data
+    next_points_to_rva: '0x50a2840'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: CodeGenModules.count
+    pointer_sample: []
+  - offset: '0x48'
+    rva: '0x43327b0'
+    qword: '0x1850a2840'
+    points_to_section: .data
+    points_to_rva: '0x50a2840'
+    next_qword: '0x700000001'
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: CodeGenModules.ptr
+    pointer_sample: []
+  - offset: '0x50'
+    rva: '0x43327b8'
+    qword: '0x700000001'
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: 1
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x58'
+    rva: '0x43327c0'
+    qword: 1
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: 0
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+- candidate_start_rva: '0x4332728'
+  candidate_start_section: .rdata
+  score: 77
+  count_pointer_pair_count: 6
+  nonzero_count_pointer_pair_count: 6
+  pointer_only_field_count: 9
+  codegen_modules_count_field_offset: '0x80'
+  codegen_modules_pointer_field_offset: '0x88'
+  codegen_modules_count_field_rva: '0x43327a8'
+  codegen_modules_pointer_field_rva: '0x43327b0'
+  codegen_modules_array_rva: '0x50a2840'
+  sample_fields:
+  - offset: '0x0'
+    rva: '0x4332728'
+    qword: 16
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: 12450
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x8'
+    rva: '0x4332730'
+    qword: 12450
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x184371af0'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x4371af0'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x10'
+    rva: '0x4332738'
+    qword: '0x184371af0'
+    points_to_section: .rdata
+    points_to_rva: '0x4371af0'
+    next_qword: 150506
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x18'
+    rva: '0x4332740'
+    qword: 150506
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x18480fd10'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x480fd10'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x20'
+    rva: '0x4332748'
+    qword: '0x18480fd10'
+    points_to_section: .rdata
+    points_to_rva: '0x480fd10'
+    next_qword: '0x1844cd030'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x44cd030'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x28'
+    rva: '0x4332750'
+    qword: '0x1844cd030'
+    points_to_section: .rdata
+    points_to_rva: '0x44cd030'
+    next_qword: 32356
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x30'
+    rva: '0x4332758'
+    qword: 32356
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x1843327d0'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x43327d0'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x38'
+    rva: '0x4332760'
+    qword: '0x1843327d0'
+    points_to_section: .rdata
+    points_to_rva: '0x43327d0'
+    next_qword: 6632
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x40'
+    rva: '0x4332768'
+    qword: 6632
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x18438a000'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x438a000'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x48'
+    rva: '0x4332770'
+    qword: '0x18438a000'
+    points_to_section: .rdata
+    points_to_rva: '0x438a000'
+    next_qword: '0x184396f40'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x4396f40'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x50'
+    rva: '0x4332778'
+    qword: '0x184396f40'
+    points_to_section: .rdata
+    points_to_rva: '0x4396f40'
+    next_qword: '0x1843a3e80'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x43a3e80'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x58'
+    rva: '0x4332780'
+    qword: '0x1843a3e80'
+    points_to_section: .rdata
+    points_to_rva: '0x43a3e80'
+    next_qword: 1614
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+- candidate_start_rva: '0x4332738'
+  candidate_start_section: .rdata
+  score: 74
+  count_pointer_pair_count: 5
+  nonzero_count_pointer_pair_count: 5
+  pointer_only_field_count: 9
+  codegen_modules_count_field_offset: '0x70'
+  codegen_modules_pointer_field_offset: '0x78'
+  codegen_modules_count_field_rva: '0x43327a8'
+  codegen_modules_pointer_field_rva: '0x43327b0'
+  codegen_modules_array_rva: '0x50a2840'
+  sample_fields:
+  - offset: '0x0'
+    rva: '0x4332738'
+    qword: '0x184371af0'
+    points_to_section: .rdata
+    points_to_rva: '0x4371af0'
+    next_qword: 150506
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x8'
+    rva: '0x4332740'
+    qword: 150506
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x18480fd10'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x480fd10'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x10'
+    rva: '0x4332748'
+    qword: '0x18480fd10'
+    points_to_section: .rdata
+    points_to_rva: '0x480fd10'
+    next_qword: '0x1844cd030'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x44cd030'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x18'
+    rva: '0x4332750'
+    qword: '0x1844cd030'
+    points_to_section: .rdata
+    points_to_rva: '0x44cd030'
+    next_qword: 32356
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x20'
+    rva: '0x4332758'
+    qword: 32356
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x1843327d0'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x43327d0'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x28'
+    rva: '0x4332760'
+    qword: '0x1843327d0'
+    points_to_section: .rdata
+    points_to_rva: '0x43327d0'
+    next_qword: 6632
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x30'
+    rva: '0x4332768'
+    qword: 6632
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x18438a000'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x438a000'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x38'
+    rva: '0x4332770'
+    qword: '0x18438a000'
+    points_to_section: .rdata
+    points_to_rva: '0x438a000'
+    next_qword: '0x184396f40'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x4396f40'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x40'
+    rva: '0x4332778'
+    qword: '0x184396f40'
+    points_to_section: .rdata
+    points_to_rva: '0x4396f40'
+    next_qword: '0x1843a3e80'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x43a3e80'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x48'
+    rva: '0x4332780'
+    qword: '0x1843a3e80'
+    points_to_section: .rdata
+    points_to_rva: '0x43a3e80'
+    next_qword: 1614
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x50'
+    rva: '0x4332788'
+    qword: 1614
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x1850a2b60'
+    next_points_to_section: .data
+    next_points_to_rva: '0x50a2b60'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x58'
+    rva: '0x4332790'
+    qword: '0x1850a2b60'
+    points_to_section: .data
+    points_to_rva: '0x50a2b60'
+    next_qword: 0
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+- candidate_start_rva: '0x4332710'
+  candidate_start_section: .rdata
+  score: 73
+  count_pointer_pair_count: 5
+  nonzero_count_pointer_pair_count: 5
+  pointer_only_field_count: 8
+  codegen_modules_count_field_offset: '0x98'
+  codegen_modules_pointer_field_offset: '0xa0'
+  codegen_modules_count_field_rva: '0x43327a8'
+  codegen_modules_pointer_field_rva: '0x43327b0'
+  codegen_modules_array_rva: '0x50a2840'
+  sample_fields:
+  - offset: '0x0'
+    rva: '0x4332710'
+    qword: '0xffffffff00000010'
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: 136
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x8'
+    rva: '0x4332718'
+    qword: 136
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0xffffffff00000010'
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x10'
+    rva: '0x4332720'
+    qword: '0xffffffff00000010'
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: 16
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x18'
+    rva: '0x4332728'
+    qword: 16
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: 12450
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x20'
+    rva: '0x4332730'
+    qword: 12450
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x184371af0'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x4371af0'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x28'
+    rva: '0x4332738'
+    qword: '0x184371af0'
+    points_to_section: .rdata
+    points_to_rva: '0x4371af0'
+    next_qword: 150506
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x30'
+    rva: '0x4332740'
+    qword: 150506
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x18480fd10'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x480fd10'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x38'
+    rva: '0x4332748'
+    qword: '0x18480fd10'
+    points_to_section: .rdata
+    points_to_rva: '0x480fd10'
+    next_qword: '0x1844cd030'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x44cd030'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x40'
+    rva: '0x4332750'
+    qword: '0x1844cd030'
+    points_to_section: .rdata
+    points_to_rva: '0x44cd030'
+    next_qword: 32356
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x48'
+    rva: '0x4332758'
+    qword: 32356
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x1843327d0'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x43327d0'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x50'
+    rva: '0x4332760'
+    qword: '0x1843327d0'
+    points_to_section: .rdata
+    points_to_rva: '0x43327d0'
+    next_qword: 6632
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x58'
+    rva: '0x4332768'
+    qword: 6632
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x18438a000'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x438a000'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+primary_code_registration_layout:
+  candidate_start_rva: '0x4332730'
+  candidate_start_va: '0x184332730'
+  candidate_end_rva: '0x43327b8'
+  codegen_modules_field_offsets:
+    count_offset: '0x78'
+    pointer_offset: '0x80'
+    count_rva: '0x43327a8'
+    pointer_rva: '0x43327b0'
+    array_rva: '0x50a2840'
+  field_rows:
+  - offset: '0x0'
+    rva: '0x4332730'
+    qword: 12450
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x184371af0'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x4371af0'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x8'
+    rva: '0x4332738'
+    qword: '0x184371af0'
+    points_to_section: .rdata
+    points_to_rva: '0x4371af0'
+    next_qword: 150506
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x10'
+    rva: '0x4332740'
+    qword: 150506
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x18480fd10'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x480fd10'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x18'
+    rva: '0x4332748'
+    qword: '0x18480fd10'
+    points_to_section: .rdata
+    points_to_rva: '0x480fd10'
+    next_qword: '0x1844cd030'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x44cd030'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x20'
+    rva: '0x4332750'
+    qword: '0x1844cd030'
+    points_to_section: .rdata
+    points_to_rva: '0x44cd030'
+    next_qword: 32356
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x28'
+    rva: '0x4332758'
+    qword: 32356
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x1843327d0'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x43327d0'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x30'
+    rva: '0x4332760'
+    qword: '0x1843327d0'
+    points_to_section: .rdata
+    points_to_rva: '0x43327d0'
+    next_qword: 6632
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x38'
+    rva: '0x4332768'
+    qword: 6632
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x18438a000'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x438a000'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x40'
+    rva: '0x4332770'
+    qword: '0x18438a000'
+    points_to_section: .rdata
+    points_to_rva: '0x438a000'
+    next_qword: '0x184396f40'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x4396f40'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x48'
+    rva: '0x4332778'
+    qword: '0x184396f40'
+    points_to_section: .rdata
+    points_to_rva: '0x4396f40'
+    next_qword: '0x1843a3e80'
+    next_points_to_section: .rdata
+    next_points_to_rva: '0x43a3e80'
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x50'
+    rva: '0x4332780'
+    qword: '0x1843a3e80'
+    points_to_section: .rdata
+    points_to_rva: '0x43a3e80'
+    next_qword: 1614
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x58'
+    rva: '0x4332788'
+    qword: 1614
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x1850a2b60'
+    next_points_to_section: .data
+    next_points_to_rva: '0x50a2b60'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x60'
+    rva: '0x4332790'
+    qword: '0x1850a2b60'
+    points_to_section: .data
+    points_to_rva: '0x50a2b60'
+    next_qword: 0
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x68'
+    rva: '0x4332798'
+    qword: 0
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: 0
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x70'
+    rva: '0x43327a0'
+    qword: 0
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: 98
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+  - offset: '0x78'
+    rva: '0x43327a8'
+    qword: 98
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: '0x1850a2840'
+    next_points_to_section: .data
+    next_points_to_rva: '0x50a2840'
+    looks_like_count_pointer_pair: true
+    looks_like_pointer_only: false
+    known_field: CodeGenModules.count
+    pointer_sample: []
+  - offset: '0x80'
+    rva: '0x43327b0'
+    qword: '0x1850a2840'
+    points_to_section: .data
+    points_to_rva: '0x50a2840'
+    next_qword: '0x700000001'
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: true
+    known_field: CodeGenModules.ptr
+    pointer_sample: []
+  - offset: '0x88'
+    rva: '0x43327b8'
+    qword: '0x700000001'
+    points_to_section: ''
+    points_to_rva: ''
+    next_qword: 0
+    next_points_to_section: ''
+    next_points_to_rva: ''
+    looks_like_count_pointer_pair: false
+    looks_like_pointer_only: false
+    known_field: ''
+    pointer_sample: []
+registration_xref_summary:
+  available: true
+  searched_target_count: 10
+  code_ref_count: 0
+  raw_va_ref_count: 7
+  code_refs: []
+  raw_va_refs:
+  - target_label: codegen_modules_array
+    target_rva: '0x50a2840'
+    ref_rva: '0x43327b0'
+    ref_section: .rdata
+  - target_label: field_0x0_ptr_target
+    target_rva: '0x4371af0'
+    ref_rva: '0x4332738'
+    ref_section: .rdata
+  - target_label: field_0x10_ptr_target
+    target_rva: '0x480fd10'
+    ref_rva: '0x4332748'
+    ref_section: .rdata
+  - target_label: field_0x28_ptr_target
+    target_rva: '0x43327d0'
+    ref_rva: '0x4332760'
+    ref_section: .rdata
+  - target_label: field_0x38_ptr_target
+    target_rva: '0x438a000'
+    ref_rva: '0x4332770'
+    ref_section: .rdata
+  - target_label: field_0x58_ptr_target
+    target_rva: '0x50a2b60'
+    ref_rva: '0x4332790'
+    ref_section: .rdata
+  - target_label: field_0x78_ptr_target
+    target_rva: '0x50a2840'
+    ref_rva: '0x43327b0'
+    ref_section: .rdata
+  search_note: No static code xref to the CodeRegistration start is expected in some
+    protected builds; absence of xrefs blocks callsite pairing but does not invalidate
+    the local layout shape.
+metadata_registration_candidate_scan:
+  candidate_count: 58746
+  top_candidates:
+  - candidate_rva: '0x45893d0'
+    score: 121
+    count_pointer_pair_count: 9
+    pointer_section_counts:
+      .data: 9
+    sample_text_pointer_count: 0
+    sample_data_pointer_count: 31
+    fields:
+    - offset: '0x0'
+      count: 4
+      pointer_rva: '0x51ba7c0'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185343040'
+        target_section: .data
+        target_rva: '0x5343040'
+      - index: 1
+        value: '0x185414a00'
+        target_section: .data
+        target_rva: '0x5414a00'
+      - index: 2
+        value: '0x1853246d0'
+        target_section: .data
+        target_rva: '0x53246d0'
+      - index: 3
+        value: '0x185344c10'
+        target_section: .data
+        target_rva: '0x5344c10'
+    - offset: '0x10'
+      count: 2
+      pointer_rva: '0x51ba7e0'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853df3a0'
+        target_section: .data
+        target_rva: '0x53df3a0'
+      - index: 1
+        value: '0x185364a20'
+        target_section: .data
+        target_rva: '0x5364a20'
+    - offset: '0x20'
+      count: 9
+      pointer_rva: '0x51ba7f0'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185343680'
+        target_section: .data
+        target_rva: '0x5343680'
+      - index: 1
+        value: '0x185415050'
+        target_section: .data
+        target_rva: '0x5415050'
+      - index: 2
+        value: '0x185324cf0'
+        target_section: .data
+        target_rva: '0x5324cf0'
+      - index: 3
+        value: '0x185345240'
+        target_section: .data
+        target_rva: '0x5345240'
+    - offset: '0x30'
+      count: 4
+      pointer_rva: '0x51ba838'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185308120'
+        target_section: .data
+        target_rva: '0x5308120'
+      - index: 1
+        value: '0x185308120'
+        target_section: .data
+        target_rva: '0x5308120'
+      - index: 2
+        value: '0x1852edc50'
+        target_section: .data
+        target_rva: '0x52edc50'
+      - index: 3
+        value: '0x185308120'
+        target_section: .data
+        target_rva: '0x5308120'
+    - offset: '0x40'
+      count: 1
+      pointer_rva: '0x51ba858'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185348c30'
+        target_section: .data
+        target_rva: '0x5348c30'
+    - offset: '0x50'
+      count: 2
+      pointer_rva: '0x51ba860'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853032f0'
+        target_section: .data
+        target_rva: '0x53032f0'
+      - index: 1
+        value: '0x185319c80'
+        target_section: .data
+        target_rva: '0x5319c80'
+  - candidate_rva: '0x4589370'
+    score: 120
+    count_pointer_pair_count: 9
+    pointer_section_counts:
+      .data: 9
+    sample_text_pointer_count: 0
+    sample_data_pointer_count: 30
+    fields:
+    - offset: '0x0'
+      count: 4
+      pointer_rva: '0x51ba720'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x18533f950'
+        target_section: .data
+        target_rva: '0x533f950'
+      - index: 1
+        value: '0x185412430'
+        target_section: .data
+        target_rva: '0x5412430'
+      - index: 2
+        value: '0x1853226d0'
+        target_section: .data
+        target_rva: '0x53226d0'
+      - index: 3
+        value: '0x185342e60'
+        target_section: .data
+        target_rva: '0x5342e60'
+    - offset: '0x10'
+      count: 2
+      pointer_rva: '0x51ba740'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853df3a0'
+        target_section: .data
+        target_rva: '0x53df3a0'
+      - index: 1
+        value: '0x184bc73d8'
+        target_section: .rdata
+        target_rva: '0x4bc73d8'
+    - offset: '0x20'
+      count: 8
+      pointer_rva: '0x51ba750'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185343520'
+        target_section: .data
+        target_rva: '0x5343520'
+      - index: 1
+        value: '0x185414f10'
+        target_section: .data
+        target_rva: '0x5414f10'
+      - index: 2
+        value: '0x185324bd0'
+        target_section: .data
+        target_rva: '0x5324bd0'
+      - index: 3
+        value: '0x185345100'
+        target_section: .data
+        target_rva: '0x5345100'
+    - offset: '0x30'
+      count: 3
+      pointer_rva: '0x51ba790'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x184bbd658'
+        target_section: .rdata
+        target_rva: '0x4bbd658'
+      - index: 1
+        value: '0x1852edc50'
+        target_section: .data
+        target_rva: '0x52edc50'
+      - index: 2
+        value: '0x1852edc50'
+        target_section: .data
+        target_rva: '0x52edc50'
+    - offset: '0x40'
+      count: 1
+      pointer_rva: '0x51ba7a8'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185348890'
+        target_section: .data
+        target_rva: '0x5348890'
+    - offset: '0x50'
+      count: 2
+      pointer_rva: '0x51ba7b0'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853032f0'
+        target_section: .data
+        target_rva: '0x53032f0'
+      - index: 1
+        value: '0x1852edc50'
+        target_section: .data
+        target_rva: '0x52edc50'
+  - candidate_rva: '0x4589380'
+    score: 120
+    count_pointer_pair_count: 9
+    pointer_section_counts:
+      .data: 9
+    sample_text_pointer_count: 0
+    sample_data_pointer_count: 30
+    fields:
+    - offset: '0x0'
+      count: 2
+      pointer_rva: '0x51ba740'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853df3a0'
+        target_section: .data
+        target_rva: '0x53df3a0'
+      - index: 1
+        value: '0x184bc73d8'
+        target_section: .rdata
+        target_rva: '0x4bc73d8'
+    - offset: '0x10'
+      count: 8
+      pointer_rva: '0x51ba750'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185343520'
+        target_section: .data
+        target_rva: '0x5343520'
+      - index: 1
+        value: '0x185414f10'
+        target_section: .data
+        target_rva: '0x5414f10'
+      - index: 2
+        value: '0x185324bd0'
+        target_section: .data
+        target_rva: '0x5324bd0'
+      - index: 3
+        value: '0x185345100'
+        target_section: .data
+        target_rva: '0x5345100'
+    - offset: '0x20'
+      count: 3
+      pointer_rva: '0x51ba790'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x184bbd658'
+        target_section: .rdata
+        target_rva: '0x4bbd658'
+      - index: 1
+        value: '0x1852edc50'
+        target_section: .data
+        target_rva: '0x52edc50'
+      - index: 2
+        value: '0x1852edc50'
+        target_section: .data
+        target_rva: '0x52edc50'
+    - offset: '0x30'
+      count: 1
+      pointer_rva: '0x51ba7a8'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185348890'
+        target_section: .data
+        target_rva: '0x5348890'
+    - offset: '0x40'
+      count: 2
+      pointer_rva: '0x51ba7b0'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853032f0'
+        target_section: .data
+        target_rva: '0x53032f0'
+      - index: 1
+        value: '0x1852edc50'
+        target_section: .data
+        target_rva: '0x52edc50'
+    - offset: '0x50'
+      count: 4
+      pointer_rva: '0x51ba7c0'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185343040'
+        target_section: .data
+        target_rva: '0x5343040'
+      - index: 1
+        value: '0x185414a00'
+        target_section: .data
+        target_rva: '0x5414a00'
+      - index: 2
+        value: '0x1853246d0'
+        target_section: .data
+        target_rva: '0x53246d0'
+      - index: 3
+        value: '0x185344c10'
+        target_section: .data
+        target_rva: '0x5344c10'
+  - candidate_rva: '0x4583c10'
+    score: 119
+    count_pointer_pair_count: 9
+    pointer_section_counts:
+      .data: 9
+    sample_text_pointer_count: 0
+    sample_data_pointer_count: 29
+    fields:
+    - offset: '0x0'
+      count: 10
+      pointer_rva: '0x51b5cc0'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185372640'
+        target_section: .data
+        target_rva: '0x5372640'
+      - index: 1
+        value: '0x1852e9670'
+        target_section: .data
+        target_rva: '0x52e9670'
+      - index: 2
+        value: '0x18532d600'
+        target_section: .data
+        target_rva: '0x532d600'
+      - index: 3
+        value: '0x18534d1e0'
+        target_section: .data
+        target_rva: '0x534d1e0'
+    - offset: '0x10'
+      count: 2
+      pointer_rva: '0x51b5d10'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x18538f1d0'
+        target_section: .data
+        target_rva: '0x538f1d0'
+      - index: 1
+        value: '0x1853bf6a0'
+        target_section: .data
+        target_rva: '0x53bf6a0'
+    - offset: '0x20'
+      count: 4
+      pointer_rva: '0x51b5d20'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1852ed990'
+        target_section: .data
+        target_rva: '0x52ed990'
+      - index: 1
+        value: '0x1852ee0c0'
+        target_section: .data
+        target_rva: '0x52ee0c0'
+      - index: 2
+        value: '0x1852ed990'
+        target_section: .data
+        target_rva: '0x52ed990'
+      - index: 3
+        value: '0x185399870'
+        target_section: .data
+        target_rva: '0x5399870'
+    - offset: '0x30'
+      count: 2
+      pointer_rva: '0x51b5d40'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853ebd60'
+        target_section: .data
+        target_rva: '0x53ebd60'
+      - index: 1
+        value: '0x1853a1e40'
+        target_section: .data
+        target_rva: '0x53a1e40'
+    - offset: '0x40'
+      count: 1
+      pointer_rva: '0x51b5d50'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853d1280'
+        target_section: .data
+        target_rva: '0x53d1280'
+    - offset: '0x50'
+      count: 2
+      pointer_rva: '0x51b5d58'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853d4ef0'
+        target_section: .data
+        target_rva: '0x53d4ef0'
+      - index: 1
+        value: '0x1853031c0'
+        target_section: .data
+        target_rva: '0x53031c0'
+  - candidate_rva: '0x4589390'
+    score: 119
+    count_pointer_pair_count: 9
+    pointer_section_counts:
+      .data: 9
+    sample_text_pointer_count: 0
+    sample_data_pointer_count: 29
+    fields:
+    - offset: '0x0'
+      count: 8
+      pointer_rva: '0x51ba750'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185343520'
+        target_section: .data
+        target_rva: '0x5343520'
+      - index: 1
+        value: '0x185414f10'
+        target_section: .data
+        target_rva: '0x5414f10'
+      - index: 2
+        value: '0x185324bd0'
+        target_section: .data
+        target_rva: '0x5324bd0'
+      - index: 3
+        value: '0x185345100'
+        target_section: .data
+        target_rva: '0x5345100'
+    - offset: '0x10'
+      count: 3
+      pointer_rva: '0x51ba790'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x184bbd658'
+        target_section: .rdata
+        target_rva: '0x4bbd658'
+      - index: 1
+        value: '0x1852edc50'
+        target_section: .data
+        target_rva: '0x52edc50'
+      - index: 2
+        value: '0x1852edc50'
+        target_section: .data
+        target_rva: '0x52edc50'
+    - offset: '0x20'
+      count: 1
+      pointer_rva: '0x51ba7a8'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185348890'
+        target_section: .data
+        target_rva: '0x5348890'
+    - offset: '0x30'
+      count: 2
+      pointer_rva: '0x51ba7b0'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853032f0'
+        target_section: .data
+        target_rva: '0x53032f0'
+      - index: 1
+        value: '0x1852edc50'
+        target_section: .data
+        target_rva: '0x52edc50'
+    - offset: '0x40'
+      count: 4
+      pointer_rva: '0x51ba7c0'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185343040'
+        target_section: .data
+        target_rva: '0x5343040'
+      - index: 1
+        value: '0x185414a00'
+        target_section: .data
+        target_rva: '0x5414a00'
+      - index: 2
+        value: '0x1853246d0'
+        target_section: .data
+        target_rva: '0x53246d0'
+      - index: 3
+        value: '0x185344c10'
+        target_section: .data
+        target_rva: '0x5344c10'
+    - offset: '0x50'
+      count: 2
+      pointer_rva: '0x51ba7e0'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853df3a0'
+        target_section: .data
+        target_rva: '0x53df3a0'
+      - index: 1
+        value: '0x185364a20'
+        target_section: .data
+        target_rva: '0x5364a20'
+  - candidate_rva: '0x45893e0'
+    score: 119
+    count_pointer_pair_count: 9
+    pointer_section_counts:
+      .data: 9
+    sample_text_pointer_count: 0
+    sample_data_pointer_count: 29
+    fields:
+    - offset: '0x0'
+      count: 2
+      pointer_rva: '0x51ba7e0'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853df3a0'
+        target_section: .data
+        target_rva: '0x53df3a0'
+      - index: 1
+        value: '0x185364a20'
+        target_section: .data
+        target_rva: '0x5364a20'
+    - offset: '0x10'
+      count: 9
+      pointer_rva: '0x51ba7f0'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185343680'
+        target_section: .data
+        target_rva: '0x5343680'
+      - index: 1
+        value: '0x185415050'
+        target_section: .data
+        target_rva: '0x5415050'
+      - index: 2
+        value: '0x185324cf0'
+        target_section: .data
+        target_rva: '0x5324cf0'
+      - index: 3
+        value: '0x185345240'
+        target_section: .data
+        target_rva: '0x5345240'
+    - offset: '0x20'
+      count: 4
+      pointer_rva: '0x51ba838'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185308120'
+        target_section: .data
+        target_rva: '0x5308120'
+      - index: 1
+        value: '0x185308120'
+        target_section: .data
+        target_rva: '0x5308120'
+      - index: 2
+        value: '0x1852edc50'
+        target_section: .data
+        target_rva: '0x52edc50'
+      - index: 3
+        value: '0x185308120'
+        target_section: .data
+        target_rva: '0x5308120'
+    - offset: '0x30'
+      count: 1
+      pointer_rva: '0x51ba858'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185348c30'
+        target_section: .data
+        target_rva: '0x5348c30'
+    - offset: '0x40'
+      count: 2
+      pointer_rva: '0x51ba860'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853032f0'
+        target_section: .data
+        target_rva: '0x53032f0'
+      - index: 1
+        value: '0x185319c80'
+        target_section: .data
+        target_rva: '0x5319c80'
+    - offset: '0x50'
+      count: 4
+      pointer_rva: '0x51ba870'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853aea90'
+        target_section: .data
+        target_rva: '0x53aea90'
+      - index: 1
+        value: '0x185301ca0'
+        target_section: .data
+        target_rva: '0x5301ca0'
+      - index: 2
+        value: '0x185337380'
+        target_section: .data
+        target_rva: '0x5337380'
+      - index: 3
+        value: '0x185352f90'
+        target_section: .data
+        target_rva: '0x5352f90'
+  - candidate_rva: '0x4589430'
+    score: 119
+    count_pointer_pair_count: 9
+    pointer_section_counts:
+      .data: 9
+    sample_text_pointer_count: 0
+    sample_data_pointer_count: 29
+    fields:
+    - offset: '0x0'
+      count: 4
+      pointer_rva: '0x51ba870'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853aea90'
+        target_section: .data
+        target_rva: '0x53aea90'
+      - index: 1
+        value: '0x185301ca0'
+        target_section: .data
+        target_rva: '0x5301ca0'
+      - index: 2
+        value: '0x185337380'
+        target_section: .data
+        target_rva: '0x5337380'
+      - index: 3
+        value: '0x185352f90'
+        target_section: .data
+        target_rva: '0x5352f90'
+    - offset: '0x10'
+      count: 2
+      pointer_rva: '0x51ba890'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853dfd00'
+        target_section: .data
+        target_rva: '0x53dfd00'
+      - index: 1
+        value: '0x184bb9818'
+        target_section: .rdata
+        target_rva: '0x4bb9818'
+    - offset: '0x20'
+      count: 10
+      pointer_rva: '0x51ba8a0'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853437a0'
+        target_section: .data
+        target_rva: '0x53437a0'
+      - index: 1
+        value: '0x185415190'
+        target_section: .data
+        target_rva: '0x5415190'
+      - index: 2
+        value: '0x185324e50'
+        target_section: .data
+        target_rva: '0x5324e50'
+      - index: 3
+        value: '0x185345360'
+        target_section: .data
+        target_rva: '0x5345360'
+    - offset: '0x30'
+      count: 2
+      pointer_rva: '0x51ba8f0'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1852ec400'
+        target_section: .data
+        target_rva: '0x52ec400'
+      - index: 1
+        value: '0x184bf9aa8'
+        target_section: .rdata
+        target_rva: '0x4bf9aa8'
+    - offset: '0x40'
+      count: 1
+      pointer_rva: '0x51ba900'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x18535e710'
+        target_section: .data
+        target_rva: '0x535e710'
+    - offset: '0x50'
+      count: 2
+      pointer_rva: '0x51ba908'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853032f0'
+        target_section: .data
+        target_rva: '0x53032f0'
+      - index: 1
+        value: '0x185319f40'
+        target_section: .data
+        target_rva: '0x5319f40'
+  - candidate_rva: '0x4589490'
+    score: 119
+    count_pointer_pair_count: 9
+    pointer_section_counts:
+      .data: 9
+    sample_text_pointer_count: 0
+    sample_data_pointer_count: 29
+    fields:
+    - offset: '0x0'
+      count: 4
+      pointer_rva: '0x51ba918'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853d4120'
+        target_section: .data
+        target_rva: '0x53d4120'
+      - index: 1
+        value: '0x18530ef50'
+        target_section: .data
+        target_rva: '0x530ef50'
+      - index: 2
+        value: '0x18533a500'
+        target_section: .data
+        target_rva: '0x533a500'
+      - index: 3
+        value: '0x1853550d0'
+        target_section: .data
+        target_rva: '0x53550d0'
+    - offset: '0x10'
+      count: 2
+      pointer_rva: '0x51ba938'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853dfd00'
+        target_section: .data
+        target_rva: '0x53dfd00'
+      - index: 1
+        value: '0x18532df10'
+        target_section: .data
+        target_rva: '0x532df10'
+    - offset: '0x20'
+      count: 11
+      pointer_rva: '0x51ba950'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185343900'
+        target_section: .data
+        target_rva: '0x5343900'
+      - index: 1
+        value: '0x1854152b0'
+        target_section: .data
+        target_rva: '0x54152b0'
+      - index: 2
+        value: '0x185324f70'
+        target_section: .data
+        target_rva: '0x5324f70'
+      - index: 3
+        value: '0x1853454c0'
+        target_section: .data
+        target_rva: '0x53454c0'
+    - offset: '0x30'
+      count: 2
+      pointer_rva: '0x51ba9a8'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x184bde8f8'
+        target_section: .rdata
+        target_rva: '0x4bde8f8'
+      - index: 1
+        value: '0x18539c010'
+        target_section: .data
+        target_rva: '0x539c010'
+    - offset: '0x40'
+      count: 1
+      pointer_rva: '0x51ba9b8'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x18535e970'
+        target_section: .data
+        target_rva: '0x535e970'
+    - offset: '0x50'
+      count: 2
+      pointer_rva: '0x51ba9c0'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x18533b180'
+        target_section: .data
+        target_rva: '0x533b180'
+      - index: 1
+        value: '0x1852ec4a0'
+        target_section: .data
+        target_rva: '0x52ec4a0'
+  - candidate_rva: '0x45894f0'
+    score: 119
+    count_pointer_pair_count: 9
+    pointer_section_counts:
+      .data: 9
+    sample_text_pointer_count: 0
+    sample_data_pointer_count: 29
+    fields:
+    - offset: '0x0'
+      count: 4
+      pointer_rva: '0x51ba9d0'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185383060'
+        target_section: .data
+        target_rva: '0x5383060'
+      - index: 1
+        value: '0x185392800'
+        target_section: .data
+        target_rva: '0x5392800'
+      - index: 2
+        value: '0x1853a0280'
+        target_section: .data
+        target_rva: '0x53a0280'
+      - index: 3
+        value: '0x1853ac040'
+        target_section: .data
+        target_rva: '0x53ac040'
+    - offset: '0x10'
+      count: 2
+      pointer_rva: '0x51ba9f0'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853dfd00'
+        target_section: .data
+        target_rva: '0x53dfd00'
+      - index: 1
+        value: '0x185364a20'
+        target_section: .data
+        target_rva: '0x5364a20'
+    - offset: '0x20'
+      count: 12
+      pointer_rva: '0x51baa00'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185343a00'
+        target_section: .data
+        target_rva: '0x5343a00'
+      - index: 1
+        value: '0x185415400'
+        target_section: .data
+        target_rva: '0x5415400'
+      - index: 2
+        value: '0x1853250a0'
+        target_section: .data
+        target_rva: '0x53250a0'
+      - index: 3
+        value: '0x1853455c0'
+        target_section: .data
+        target_rva: '0x53455c0'
+    - offset: '0x30'
+      count: 2
+      pointer_rva: '0x51baa60'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x184bde9b8'
+        target_section: .rdata
+        target_rva: '0x4bde9b8'
+      - index: 1
+        value: '0x18539c380'
+        target_section: .data
+        target_rva: '0x539c380'
+    - offset: '0x40'
+      count: 1
+      pointer_rva: '0x51baa70'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x18535ebd0'
+        target_section: .data
+        target_rva: '0x535ebd0'
+    - offset: '0x50'
+      count: 2
+      pointer_rva: '0x51baa78'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185303360'
+        target_section: .data
+        target_rva: '0x5303360'
+      - index: 1
+        value: '0x184bf65d8'
+        target_section: .rdata
+        target_rva: '0x4bf65d8'
+  - candidate_rva: '0x4589550'
+    score: 119
+    count_pointer_pair_count: 9
+    pointer_section_counts:
+      .data: 9
+    sample_text_pointer_count: 0
+    sample_data_pointer_count: 29
+    fields:
+    - offset: '0x0'
+      count: 4
+      pointer_rva: '0x51baa88'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x18538e350'
+        target_section: .data
+        target_rva: '0x538e350'
+      - index: 1
+        value: '0x18539c7d0'
+        target_section: .data
+        target_rva: '0x539c7d0'
+      - index: 2
+        value: '0x1853a8ea0'
+        target_section: .data
+        target_rva: '0x53a8ea0'
+      - index: 3
+        value: '0x1853b3c40'
+        target_section: .data
+        target_rva: '0x53b3c40'
+    - offset: '0x10'
+      count: 2
+      pointer_rva: '0x51baaa8'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853dfd00'
+        target_section: .data
+        target_rva: '0x53dfd00'
+      - index: 1
+        value: '0x1853dac30'
+        target_section: .data
+        target_rva: '0x53dac30'
+    - offset: '0x20'
+      count: 13
+      pointer_rva: '0x51baac0'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185343b80'
+        target_section: .data
+        target_rva: '0x5343b80'
+      - index: 1
+        value: '0x185415520'
+        target_section: .data
+        target_rva: '0x5415520'
+      - index: 2
+        value: '0x1853251e0'
+        target_section: .data
+        target_rva: '0x53251e0'
+      - index: 3
+        value: '0x185345740'
+        target_section: .data
+        target_rva: '0x5345740'
+    - offset: '0x30'
+      count: 2
+      pointer_rva: '0x51bab28'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x184baf228'
+        target_section: .rdata
+        target_rva: '0x4baf228'
+      - index: 1
+        value: '0x18539d6e0'
+        target_section: .data
+        target_rva: '0x539d6e0'
+    - offset: '0x40'
+      count: 1
+      pointer_rva: '0x51bab38'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x18535ee50'
+        target_section: .data
+        target_rva: '0x535ee50'
+    - offset: '0x50'
+      count: 2
+      pointer_rva: '0x51bab40'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1852ec340'
+        target_section: .data
+        target_rva: '0x52ec340'
+      - index: 1
+        value: '0x1853031c0'
+        target_section: .data
+        target_rva: '0x53031c0'
+  - candidate_rva: '0x45895b0'
+    score: 119
+    count_pointer_pair_count: 9
+    pointer_section_counts:
+      .data: 9
+    sample_text_pointer_count: 0
+    sample_data_pointer_count: 29
+    fields:
+    - offset: '0x0'
+      count: 4
+      pointer_rva: '0x51bab50'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185391ff0'
+        target_section: .data
+        target_rva: '0x5391ff0'
+      - index: 1
+        value: '0x18539fbc0'
+        target_section: .data
+        target_rva: '0x539fbc0'
+      - index: 2
+        value: '0x1853aba90'
+        target_section: .data
+        target_rva: '0x53aba90'
+      - index: 3
+        value: '0x1853b5f90'
+        target_section: .data
+        target_rva: '0x53b5f90'
+    - offset: '0x10'
+      count: 2
+      pointer_rva: '0x51bab70'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853e3870'
+        target_section: .data
+        target_rva: '0x53e3870'
+      - index: 1
+        value: '0x185364a20'
+        target_section: .data
+        target_rva: '0x5364a20'
+    - offset: '0x20'
+      count: 14
+      pointer_rva: '0x51bab80'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185343c80'
+        target_section: .data
+        target_rva: '0x5343c80'
+      - index: 1
+        value: '0x185415680'
+        target_section: .data
+        target_rva: '0x5415680'
+      - index: 2
+        value: '0x185325320'
+        target_section: .data
+        target_rva: '0x5325320'
+      - index: 3
+        value: '0x185345840'
+        target_section: .data
+        target_rva: '0x5345840'
+    - offset: '0x30'
+      count: 2
+      pointer_rva: '0x51babf0'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x184bf1c48'
+        target_section: .rdata
+        target_rva: '0x4bf1c48'
+      - index: 1
+        value: '0x1852ec340'
+        target_section: .data
+        target_rva: '0x52ec340'
+    - offset: '0x40'
+      count: 1
+      pointer_rva: '0x51bac00'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x18535f0b0'
+        target_section: .data
+        target_rva: '0x535f0b0'
+    - offset: '0x50'
+      count: 2
+      pointer_rva: '0x51bac08'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1852ec340'
+        target_section: .data
+        target_rva: '0x52ec340'
+      - index: 1
+        value: '0x1852edc50'
+        target_section: .data
+        target_rva: '0x52edc50'
+  - candidate_rva: '0x45893f0'
+    score: 118
+    count_pointer_pair_count: 9
+    pointer_section_counts:
+      .data: 9
+    sample_text_pointer_count: 0
+    sample_data_pointer_count: 28
+    fields:
+    - offset: '0x0'
+      count: 9
+      pointer_rva: '0x51ba7f0'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185343680'
+        target_section: .data
+        target_rva: '0x5343680'
+      - index: 1
+        value: '0x185415050'
+        target_section: .data
+        target_rva: '0x5415050'
+      - index: 2
+        value: '0x185324cf0'
+        target_section: .data
+        target_rva: '0x5324cf0'
+      - index: 3
+        value: '0x185345240'
+        target_section: .data
+        target_rva: '0x5345240'
+    - offset: '0x10'
+      count: 4
+      pointer_rva: '0x51ba838'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185308120'
+        target_section: .data
+        target_rva: '0x5308120'
+      - index: 1
+        value: '0x185308120'
+        target_section: .data
+        target_rva: '0x5308120'
+      - index: 2
+        value: '0x1852edc50'
+        target_section: .data
+        target_rva: '0x52edc50'
+      - index: 3
+        value: '0x185308120'
+        target_section: .data
+        target_rva: '0x5308120'
+    - offset: '0x20'
+      count: 1
+      pointer_rva: '0x51ba858'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x185348c30'
+        target_section: .data
+        target_rva: '0x5348c30'
+    - offset: '0x30'
+      count: 2
+      pointer_rva: '0x51ba860'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853032f0'
+        target_section: .data
+        target_rva: '0x53032f0'
+      - index: 1
+        value: '0x185319c80'
+        target_section: .data
+        target_rva: '0x5319c80'
+    - offset: '0x40'
+      count: 4
+      pointer_rva: '0x51ba870'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853aea90'
+        target_section: .data
+        target_rva: '0x53aea90'
+      - index: 1
+        value: '0x185301ca0'
+        target_section: .data
+        target_rva: '0x5301ca0'
+      - index: 2
+        value: '0x185337380'
+        target_section: .data
+        target_rva: '0x5337380'
+      - index: 3
+        value: '0x185352f90'
+        target_section: .data
+        target_rva: '0x5352f90'
+    - offset: '0x50'
+      count: 2
+      pointer_rva: '0x51ba890'
+      pointer_section: .data
+      sample:
+      - index: 0
+        value: '0x1853dfd00'
+        target_section: .data
+        target_rva: '0x53dfd00'
+      - index: 1
+        value: '0x184bb9818'
+        target_section: .rdata
+        target_rva: '0x4bb9818'
+  scan_policy: weak/unpaired MetadataRegistration-like windows only; require registration
+    callsite or decoded metadata before promotion
+counts:
+  code_registration_start_candidate_count: 1
+  primary_code_registration_start_rva: 70461232
+  code_registration_count_pointer_pair_count: 6
+  code_registration_pointer_only_field_count: 9
+  codegen_modules_field_offset: 120
+  known_codegen_modules_count: 98
+  layout_field_row_count: 18
+  registration_code_ref_count: 0
+  registration_raw_va_ref_count: 7
+  metadata_registration_candidate_count: 58746
+  metadata_registration_paired_by_callsite: 0
+  init_lua_env_method_pointer_recovered: 0
+  publishable_knowledge_entries: 0
+route_conclusion:
+  code_registration_layout_refined: true
+  round180_owner_inference_corrected: true
+  codegen_modules_field_offset_confirmed: true
+  registration_callsite_recovered: false
+  metadata_registration_candidate_recovered: true
+  metadata_registration_paired_by_callsite: false
+  method_index_to_pointer_map_recovered: false
+  init_lua_env_method_pointer_recovered: false
+  protected_metadata_method_ownership_recovered: false
+  lua_payload_decoder_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: The CodeRegistration-like layout is refined to start at
+    0x4332730; CodeGenModules count/pointer are at +0x78/+0x80, with count 98 and
+    array 0x50a2840.
+  strongest_negative_signal: Static xref sweep still finds no recovered registration
+    callsite, and MetadataRegistration-like windows remain unpaired candidates.
+  search_policy: Use 0x4332730 as the CodeRegistration-side layout anchor, then require
+    either a callsite pair or decoded metadata before mapping method names such as
+    InitLuaEnv.
+evidence_refs:
+- NSLG_REGISTRATION_LAYOUT:round181:code-registration-start
+- NSLG_REGISTRATION_LAYOUT:round181:code-registration-fields
+- NSLG_REGISTRATION_LAYOUT:round181:registration-xref-sweep
+- NSLG_REGISTRATION_LAYOUT:round181:metadata-registration-candidate-scan
+next_static_targets:
+- Treat CodeRegistration start as 0x4332730 and CodeGenModules as field offset +0x78/+0x80.
+- Do not use the previous 0x4332718 owner inference as the exact structure start.
+- Recover a registration callsite or a proven pointer to MetadataRegistration before
+  pairing any metadata table candidate.
+- Use the metadata-registration candidate scan only as weak routing evidence until
+  a callsite or decoded metadata confirms it.
+limitations:
+- Offline/static probe only; no runtime attach, live instrumentation, account data,
+  or online protocol is used.
+- The CodeRegistration layout is inferred from local count/pointer shape and the known
+  CodeGenModules field.
+- No code reference to the CodeRegistration start or CodeGenModules field was recovered
+  in the static xref sweep.
+- MetadataRegistration-like windows are unpaired candidates and must not be promoted
+  as method ownership.
+- This artifact is decoder-routing evidence and must not be promoted as gameplay knowledge.
+guardrails:
+- offline/static GameAssembly registration layout probe only; no live instrumentation,
+  account data, or online protocol data is included
+- the 0x4332730 CodeRegistration-like start is a layout anchor, not a method-name
+  mapping
+- MetadataRegistration-like windows remain weak/unpaired candidates until a callsite
+  or decoded metadata proves ownership
+- InitLuaEnv ownership remains blocked until metadata-registration pairing or decoded
+  metadata exists
+- route evidence is not publishable gameplay knowledge

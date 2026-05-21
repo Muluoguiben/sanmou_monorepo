@@ -1,0 +1,2115 @@
+schema_version: nslg.client_resource_surface_gap_scan.v1
+source_id: client-resource-surface-gap-scan-round133
+source_url: local-nslg-client-install-resource-surface
+source_site: nslg_client_install_static_inventory
+generated_at: '2026-05-21T10:07:42.797244Z'
+round: 190
+slice: client_resource_surface_gap_scan
+input:
+  game_root_label: NSLG Game
+  game_root_exists: true
+scan_policy:
+  mode: offline_static_metadata_only
+  safe_package_roots:
+  - com.bilibili.nslg_Data
+  - LocalPersistentData/assets/bundles
+  aggregate_only_roots:
+  - LocalPersistentData
+  sensitive_extensions_skipped:
+  - .db
+  - .ldb
+  - .lock
+  - .log
+  - .session
+  - .sqlite
+  - .sqlite3
+  sensitive_name_markers_skipped:
+  - account
+  - auth
+  - cookie
+  - credential
+  - login
+  - password
+  - session
+  - token
+  - user
+  content_policy: only file metadata and first-byte magic samples are persisted; user/runtime
+    state, logs, databases, credentials, and online protocol data are not read
+counts:
+  total_files_seen: 677
+  safe_file_count: 556
+  aggregate_only_file_count: 76
+  sensitive_or_runtime_file_count: 45
+  ns_bundle_count: 369
+  ns_total_bytes: 7197259176
+  safe_magic_sample_count: 240
+  publishable_knowledge_entries: 0
+  classification:aggregate_only: 76
+  classification:safe_package_resource: 556
+  classification:sensitive_or_runtime: 45
+  safe_ext:.aspx: 3
+  safe_ext:.bin: 2
+  safe_ext:.bnk: 1
+  safe_ext:.browser: 3
+  safe_ext:.config: 7
+  safe_ext:.dat: 21
+  safe_ext:.dll: 69
+  safe_ext:.exe: 6
+  safe_ext:.info: 1
+  safe_ext:.ini: 2
+  safe_ext:.json: 3
+  safe_ext:.map: 3
+  safe_ext:.ns: 369
+  safe_ext:.pak: 58
+  safe_ext:.txt: 3
+  safe_ext:.unity3d: 1
+  safe_ext:.xml: 1
+  safe_ext:.zip: 1
+  safe_ext:<none>: 2
+  ns_top_level_group:animationtexture.ns: 1
+  ns_top_level_group:army: 6
+  ns_top_level_group:army.ns: 1
+  ns_top_level_group:bakedshadow.ns: 1
+  ns_top_level_group:building: 35
+  ns_top_level_group:building.ns: 1
+  ns_top_level_group:cardmodels: 101
+  ns_top_level_group:commonres.ns: 1
+  ns_top_level_group:dynamicatlas.ns: 1
+  ns_top_level_group:effect: 1
+  ns_top_level_group:effect.ns: 1
+  ns_top_level_group:effectres.ns: 1
+  ns_top_level_group:font.ns: 1
+  ns_top_level_group:global.ns: 1
+  ns_top_level_group:luascripts.ns: 1
+  ns_top_level_group:mapres.ns: 1
+  ns_top_level_group:misc.ns: 1
+  ns_top_level_group:scenedata: 18
+  ns_top_level_group:scenes: 13
+  ns_top_level_group:scenes.ns: 1
+  ns_top_level_group:shaders.ns: 1
+  ns_top_level_group:sharedassets.ns: 1
+  ns_top_level_group:sharedassets2.ns: 1
+  ns_top_level_group:sprite.ns: 1
+  ns_top_level_group:terrain: 67
+  ns_top_level_group:timeline.ns: 1
+  ns_top_level_group:tutorial.ns: 1
+  ns_top_level_group:ui: 107
+  ns_top_level_group:videos.ns: 1
+root_groups:
+- root: GameAssembly.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 94127168
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - GameAssembly.dll
+- root: KernelDumpAnalyzer.exe
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 26112
+  extension_counts:
+    .exe: 1
+  sample_rel_paths:
+  - KernelDumpAnalyzer.exe
+- root: LocalPersistentData
+  classification: aggregate_only
+  file_count: 76
+  total_bytes: 1274966869
+  extension_counts:
+    .5c8b2387bb2cd63bb4d0aec0284158e7: 1
+    .957d61d120c18c15af2cfcbdf565537c: 1
+    .bnk: 1
+    .c0c10847b3bbff87625cf8e438298637: 1
+    .ce6c9fa43d85dc11a8dad8b86fd69552: 1
+    .dat: 1
+    .data: 1
+    .ebcd5f73dffe537a700a8532b67470dd: 1
+    .jpg: 1
+    .json: 1
+    .ktx: 8
+    .mp4: 27
+    .ns: 6
+    .pck: 13
+    .png: 1
+    .txt: 6
+    <none>: 5
+  sample_rel_paths:
+  - LocalPersistentData/Activity_PandoraUI/0c64270ae52b6545174b49c7f810611a7ce31086.ktx
+  - LocalPersistentData/Activity_PandoraUI/2c1c4ed4a5c6ac1d923a50e001eb7be6faa0ba58.ktx
+  - LocalPersistentData/Activity_PandoraUI/4906b3a94ae7377d300cfceaa9f41c217f6aad03.ktx
+  - LocalPersistentData/Activity_PandoraUI/6701f6dd1e7c81e06041423a859aa21c76f64cf2.ktx
+  - LocalPersistentData/Activity_PandoraUI/8a312d39a8199504059da1b9fac7acb4250b4cb9.ktx
+  - LocalPersistentData/Activity_PandoraUI/e4d87732822b80c33fd3b12d554abe1dc744f1da.ktx
+  - LocalPersistentData/Activity_PandoraUI/e6f4e50eda14e04cb8dcc07164fb7a0989ac2c97.ktx
+  - LocalPersistentData/Activity_PandoraUI/ea63d86fb529730faae66eec4473dd68ba4d1a24.jpg
+- root: LocalPersistentData
+  classification: safe_package_resource
+  file_count: 369
+  total_bytes: 7197259176
+  extension_counts:
+    .ns: 369
+  sample_rel_paths:
+  - LocalPersistentData/assets/bundles/animationtexture.ns
+  - LocalPersistentData/assets/bundles/army.ns
+  - LocalPersistentData/assets/bundles/army/2d/armysprites11.ns
+  - LocalPersistentData/assets/bundles/army/2d/armysprites6.ns
+  - LocalPersistentData/assets/bundles/army/2d/armyspritescommon.ns
+  - LocalPersistentData/assets/bundles/army/3d/armys11.ns
+  - LocalPersistentData/assets/bundles/army/3d/armys6.ns
+  - LocalPersistentData/assets/bundles/army/3d/armyscommon.ns
+- root: LocalPersistentData
+  classification: sensitive_or_runtime
+  file_count: 42
+  total_bytes: 279130067
+  extension_counts:
+    .db: 30
+    .lock: 1
+    .log: 2
+    .mp4: 8
+    <none>: 1
+  sample_rel_paths:
+  - LocalPersistentData/Player-prev.log
+  - LocalPersistentData/Player.log
+  - LocalPersistentData/Sentry/A045403D37EF264D18BB8AA6AA20E00E5AB6D59F/.session
+  - LocalPersistentData/assets/Videos/Login/login_001.mp4
+  - LocalPersistentData/assets/Videos/Login/login_001_low.mp4
+  - LocalPersistentData/assets/Videos/Login/login_001_v.mp4
+  - LocalPersistentData/assets/Videos/Login/login_001_v_low.mp4
+  - LocalPersistentData/assets/Videos/Login/login_seas_001.mp4
+- root: NEP2.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 40235512
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - NEP2.dll
+- root: NSLG_config.ini
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 49
+  extension_counts:
+    .ini: 1
+  sample_rel_paths:
+  - NSLG_config.ini
+- root: UnityCrashHandler64.exe
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 1174528
+  extension_counts:
+    .exe: 1
+  sample_rel_paths:
+  - UnityCrashHandler64.exe
+- root: UnityPlayer.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 31099968
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - UnityPlayer.dll
+- root: api-ms-win-core-console-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20960
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-console-l1-1-0.dll
+- root: api-ms-win-core-console-l1-2-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20928
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-console-l1-2-0.dll
+- root: api-ms-win-core-datetime-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-datetime-l1-1-0.dll
+- root: api-ms-win-core-debug-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-debug-l1-1-0.dll
+- root: api-ms-win-core-errorhandling-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-errorhandling-l1-1-0.dll
+- root: api-ms-win-core-fibers-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-fibers-l1-1-0.dll
+- root: api-ms-win-core-file-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 25032
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-file-l1-1-0.dll
+- root: api-ms-win-core-file-l1-2-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-file-l1-2-0.dll
+- root: api-ms-win-core-file-l2-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-file-l2-1-0.dll
+- root: api-ms-win-core-handle-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20928
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-handle-l1-1-0.dll
+- root: api-ms-win-core-heap-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-heap-l1-1-0.dll
+- root: api-ms-win-core-interlocked-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-interlocked-l1-1-0.dll
+- root: api-ms-win-core-libraryloader-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-libraryloader-l1-1-0.dll
+- root: api-ms-win-core-localization-l1-2-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-localization-l1-2-0.dll
+- root: api-ms-win-core-memory-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-memory-l1-1-0.dll
+- root: api-ms-win-core-namedpipe-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-namedpipe-l1-1-0.dll
+- root: api-ms-win-core-processenvironment-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-processenvironment-l1-1-0.dll
+- root: api-ms-win-core-processthreads-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-processthreads-l1-1-0.dll
+- root: api-ms-win-core-processthreads-l1-1-1.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-processthreads-l1-1-1.dll
+- root: api-ms-win-core-profile-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20960
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-profile-l1-1-0.dll
+- root: api-ms-win-core-rtlsupport-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-rtlsupport-l1-1-0.dll
+- root: api-ms-win-core-string-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-string-l1-1-0.dll
+- root: api-ms-win-core-synch-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-synch-l1-1-0.dll
+- root: api-ms-win-core-synch-l1-2-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20960
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-synch-l1-2-0.dll
+- root: api-ms-win-core-sysinfo-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20928
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-sysinfo-l1-1-0.dll
+- root: api-ms-win-core-timezone-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-timezone-l1-1-0.dll
+- root: api-ms-win-core-util-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-core-util-l1-1-0.dll
+- root: api-ms-win-crt-conio-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-crt-conio-l1-1-0.dll
+- root: api-ms-win-crt-convert-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 25032
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-crt-convert-l1-1-0.dll
+- root: api-ms-win-crt-environment-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-crt-environment-l1-1-0.dll
+- root: api-ms-win-crt-filesystem-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20928
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-crt-filesystem-l1-1-0.dll
+- root: api-ms-win-crt-heap-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-crt-heap-l1-1-0.dll
+- root: api-ms-win-crt-locale-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-crt-locale-l1-1-0.dll
+- root: api-ms-win-crt-math-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 29120
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-crt-math-l1-1-0.dll
+- root: api-ms-win-crt-multibyte-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 29128
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-crt-multibyte-l1-1-0.dll
+- root: api-ms-win-crt-private-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 74184
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-crt-private-l1-1-0.dll
+- root: api-ms-win-crt-process-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20936
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-crt-process-l1-1-0.dll
+- root: api-ms-win-crt-runtime-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 25040
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-crt-runtime-l1-1-0.dll
+- root: api-ms-win-crt-stdio-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 25032
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-crt-stdio-l1-1-0.dll
+- root: api-ms-win-crt-string-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 25032
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-crt-string-l1-1-0.dll
+- root: api-ms-win-crt-time-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20928
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-crt-time-l1-1-0.dll
+- root: api-ms-win-crt-utility-l1-1-0.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 20928
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - api-ms-win-crt-utility-l1-1-0.dll
+- root: baselib.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 430144
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - baselib.dll
+- root: com.bilibili.nslg.exe
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 690752
+  extension_counts:
+    .exe: 1
+  sample_rel_paths:
+  - com.bilibili.nslg.exe
+- root: com.bilibili.nslg_Data
+  classification: safe_package_resource
+  file_count: 130
+  total_bytes: 253431400
+  extension_counts:
+    .aspx: 3
+    .bin: 2
+    .bnk: 1
+    .browser: 3
+    .config: 7
+    .dat: 21
+    .dll: 18
+    .exe: 2
+    .info: 1
+    .ini: 1
+    .json: 3
+    .map: 3
+    .pak: 58
+    .txt: 2
+    .unity3d: 1
+    .xml: 1
+    .zip: 1
+    <none>: 2
+  sample_rel_paths:
+  - com.bilibili.nslg_Data/Plugins/x86_64/AVProVideo.dll
+  - com.bilibili.nslg_Data/Plugins/x86_64/AVProVideoWinRT.dll
+  - com.bilibili.nslg_Data/Plugins/x86_64/AkSoundEngine.dll
+  - com.bilibili.nslg_Data/Plugins/x86_64/AkWaapiClient.dll
+  - com.bilibili.nslg_Data/Plugins/x86_64/Audio360.dll
+  - com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/cef.pak
+  - com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/cef_100_percent.pak
+  - com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/cef_200_percent.pak
+- root: com.bilibili.nslg_Data
+  classification: sensitive_or_runtime
+  file_count: 3
+  total_bytes: 1826816
+  extension_counts:
+    .db: 3
+  sample_rel_paths:
+  - com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/PLLog.db
+  - com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/SPLog.db
+  - com.bilibili.nslg_Data/Plugins/x86_64/failedlog.db
+- root: crashpad_handler.exe
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 643072
+  extension_counts:
+    .exe: 1
+  sample_rel_paths:
+  - crashpad_handler.exe
+- root: crashpad_wer.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 643584
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - crashpad_wer.dll
+- root: msvcp140.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 557648
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - msvcp140.dll
+- root: pc_package_info.txt
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 63
+  extension_counts:
+    .txt: 1
+  sample_rel_paths:
+  - pc_package_info.txt
+- root: ucrtbase.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 1118664
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - ucrtbase.dll
+- root: vcruntime140.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 124496
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - vcruntime140.dll
+- root: vcruntime140_1.dll
+  classification: safe_package_resource
+  file_count: 1
+  total_bytes: 49744
+  extension_counts:
+    .dll: 1
+  sample_rel_paths:
+  - vcruntime140_1.dll
+safe_magic_samples:
+- rel_path: LocalPersistentData/assets/bundles/animationtexture.ns
+  size: 31839745
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000001e5d60100000ca100000ca1000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:a1c22ad8ac17
+- rel_path: LocalPersistentData/assets/bundles/army/2d/armyspritescommon.ns
+  size: 9839177
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000009622490000029f00000599000002430000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:b30c5ae5f8e8
+- rel_path: LocalPersistentData/assets/bundles/army/2d/armysprites6.ns
+  size: 6640784
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000655490000001f8000003ff000002430000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:9cb54b585cac
+- rel_path: LocalPersistentData/assets/bundles/army/2d/armysprites11.ns
+  size: 6600723
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000064b813000001df000003cd000002430000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:e7d866be7927
+- rel_path: LocalPersistentData/assets/bundles/army/3d/armys11.ns
+  size: 1416365
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000159cad0000012500000125000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:9a755ba9dd81
+- rel_path: LocalPersistentData/assets/bundles/army/3d/armys6.ns
+  size: 1183921
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000001210b10000010700000107000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:8bff737c2eef
+- rel_path: LocalPersistentData/assets/bundles/army/3d/armyscommon.ns
+  size: 21667
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000000054a3000000410000005b000002430000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:dea44aabd268
+- rel_path: LocalPersistentData/assets/bundles/army.ns
+  size: 20573138
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000139ebd2000009f9000009f9000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:bf1b1640a7eb
+- rel_path: LocalPersistentData/assets/bundles/bakedshadow.ns
+  size: 23679790
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000169532e0000041a00000925000002430000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:7254ad0fcf2e
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s13_luoyang_building.ns
+  size: 36955495
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000233e56700000d5500000d55000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:47f8a8f8bbf2
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s999_gvg.ns
+  size: 11269412
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000abf5240000053500000535000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:d8281b35ac07
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s11_taomanguanai.ns
+  size: 6400108
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000061a86c000003cd000003cd000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:813c9b9cf354
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s9_guanai.ns
+  size: 5869890
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000005991420000030500000305000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:93c318a90151
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s7_ai_npc_building.ns
+  size: 5683495
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000056b927000002ab000002ab000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:43ed1494b87d
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s11_pve_manzu_building.ns
+  size: 5306585
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000050f8d90000026f0000026f000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:7f073fd6e83f
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s14_talent_building.ns
+  size: 4186061
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000003fdfcd000000a9000001ed000002430000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:7be505861f31
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s9_talent_building.ns
+  size: 4156350
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000003f6bbe000001e3000001e3000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:69931fd483aa
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s10_judian.ns
+  size: 3457761
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000034c2e10000020b0000020b000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:7f64c6f82160
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s8_junzhai.ns
+  size: 3389316
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000033b784000001c5000001c5000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:89c0fee2221b
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s13_ai_npc_daying.ns
+  size: 2826513
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000002b2111000000a100000193000002430000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:0714cc1fc5e2
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s14_darkpass_build.ns
+  size: 2785311
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000002a801f000000970000017f000002430000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:ad4c02a756ca
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/horserace.ns
+  size: 2442022
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000254326000000dd000001bb000002430000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:b42a36bca4e9
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s8_hedi.ns
+  size: 2236713
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000222129000001b1000001b1000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:907186090f10
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s3_union_building.ns
+  size: 2217530
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000021d63a0000017500000175000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:9c47736262e7
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s8_wotu.ns
+  size: 2096418
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000001ffd220000015700000157000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:fec6cd88b25c
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s15_siege_water.ns
+  size: 2008299
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000001ea4eb000000c10000017f000002430000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:f8ccc9737364
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s4_cunzhuang.ns
+  size: 1822510
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000001bcf2e0000014300000143000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:3de0721a8807
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s11_jiebing_big.ns
+  size: 1814844
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000001bb13c0000014d0000014d000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:7ecee499324d
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s6_jiebing.ns
+  size: 1786496
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000001b42800000014d0000014d000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:07276068c260
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s13_ai_npc_judian.ns
+  size: 1735504
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000001a7b500000007f00000125000002430000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:72a2348a51cc
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s14_zhandao_build.ns
+  size: 1604139
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000187a2b0000009d0000012f000002430000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:c98c8c3e5900
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s8_zhaoze.ns
+  size: 1164782
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000011c5ee000000f3000000f3000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:6fd5ac2976e8
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s3_didao.ns
+  size: 1038804
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000000fd9d4000000e9000000e9000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:b5f36b70788d
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s11_official_building.ns
+  size: 939590
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000000e5646000000df000000df000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:d191a4027e7d
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s10_fenhuotai.ns
+  size: 920013
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000000e09cd000000df000000df000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:796b5e8eeedb
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s8_fuqiao.ns
+  size: 857633
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000000d1621000000f3000000f3000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:83f919b128b7
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s8_jicejunqi.ns
+  size: 664791
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000000a24d7000000d5000000d5000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:234673aa1055
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s9_shandao.ns
+  size: 630041
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000099d19000000d5000000d5000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:5185c81c3246
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s9_chengzhai.ns
+  size: 605013
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000093b55000000cb000000cb000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:f97ad5eb7c10
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s12_tiebi.ns
+  size: 579226
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000008d69a000000cb000000cb000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:a06695d93d13
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s15_fuboying.ns
+  size: 474144
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000073c2000000075000000c1000002430000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:c852bc32e21b
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s10_cloud.ns
+  size: 83585
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000000146810000004c00000065000002430000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:b7723e79b76e
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s14_vfx.ns
+  size: 58707
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000000e5530000004d00000065000002430000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:7cce6d2772eb
+- rel_path: LocalPersistentData/assets/bundles/building/scenario/s9_dual_build.ns
+  size: 8791
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000002257000000410000005b000002430000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:a6e09a3a9dc4
+- rel_path: LocalPersistentData/assets/bundles/building.ns
+  size: 184227274
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000afb15ca0000458100004581000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:f5f39b3c5899
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2022_zhugeliang_moyi.ns
+  size: 21775397
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000014c4425000007e7000007e7000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:a24b204588e6
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/1000_caocao_gch.ns
+  size: 17636977
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000010d1e71000006c5000006c5000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:c0c3ab2cd5a4
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2013_mayunlu_yucong.ns
+  size: 17271350
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000001078a36000002d1000006e3000002430000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:ab1494055665
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/1022_haozhao_xiongguan.ns
+  size: 15713884
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000efc65c0000064d0000064d000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:f3d1f47b640c
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2021_jiangwei_xiguang.ns
+  size: 15117849
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000e6ae190000060700000607000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:33054eb0fe12
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/4000_lvbu_longji.ns
+  size: 14794143
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000e1bd9f000005cb000005cb000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:ea21fc80c48a
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2011_guanyinping_bailu.ns
+  size: 13723864
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000d168d80000058f0000058f000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:5d623e6ee1cc
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2012_zhaoyun_jinmie.ns
+  size: 13419911
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000ccc5870000056700000567000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:0554a675e8f9
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/4006_zhurongfuren_lieyan.ns
+  size: 13254898
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000ca40f20000055d0000055d000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:5360d71b09a5
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2015_machao_duanyi.ns
+  size: 12811972
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000c37ec40000052b0000052b000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:8a98af6462b9
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/3004_daqiao_shanhe.ns
+  size: 12620729
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000c093b90000060700000607000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:ae7498bd547e
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/3016_lukang_jueyan.ns
+  size: 12373031
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000bccc270000058500000585000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:ca967e696399
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/4032_sunjian_huxiao.ns
+  size: 12309867
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000bbd56b0000054900000549000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:906c69716b21
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2001_guanyu.ns
+  size: 12222842
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000ba817a0000053f0000053f000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:a05f5297a6dc
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/4028_dongzhuo_lijian.ns
+  size: 12198566
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000ba22a6000004b3000004b3000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:e6e856df051a
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/1023_xiahoudun_yuxue.ns
+  size: 12098029
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000b899ed0000050d0000050d000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:45f875334af0
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/3008_luxun_yinma.ns
+  size: 11071629
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000a8f08d000004bd000004bd000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:5b341ee10fd1
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/1002_dianwei_zhanji.ns
+  size: 11030426
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000a84f9a0000049f0000049f000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:2bbafc181005
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/1008_xunyu_xinxiang.ns
+  size: 10992996
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000a7bd64000004f9000004f9000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:8c38af0b7a82
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/4024_zhangning_lingquan.ns
+  size: 10731380
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000a3bf74000004ef000004ef000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:5fa8864f358c
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2002_zhangfei_yinshe.ns
+  size: 10644750
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000a26d0e0000046300000463000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:4fcaa6ff5854
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/4005_menghuo_xunshou.ns
+  size: 10589393
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000a194d10000048100000481000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:1c3e426931b6
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/3003_xiaoqiao_yuxiao.ns
+  size: 10582203
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000a178bb0000045900000459000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:dd6d16a10fe4
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2000_liubei_chunxi.ns
+  size: 10539886
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000a0d36e000004e5000004e5000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:83b207eaf22c
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/1026_zhenluo_yuehua.ns
+  size: 10309201
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000009d4e510000044500000445000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:c41ee1632b86
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/4011_zhangjiao_tianshi.ns
+  size: 10279417
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000009cd9f90000046d0000046d000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:714a4c2aeec5
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/3002_sunshangxiang_luohua.ns
+  size: 10193849
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000009b8bb90000042700000427000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:8c86df578de9
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/3007_zhouyu_mingxian.ns
+  size: 10168846
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000009b2a0e0000044500000445000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:dc1c7891e0a2
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/1009_simayi_qingjin.ns
+  size: 9961874
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000009801920000041d0000041d000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:eb71e76b74e5
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/1020_wangyi_gucheng.ns
+  size: 9676101
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000093a545000003f5000003f5000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:aea634f956a8
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2022_zhugeliang.ns
+  size: 9611254
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000092a7f6000003ff000003ff000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:0fab7d27bc07
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/3000_sunquan_chengtian.ns
+  size: 9539931
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000091915b000003f5000003f5000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:54343eeaa4eb
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2009_huangyueying_jiqiao.ns
+  size: 9510334
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000911dbe0000041300000413000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:cd17c04093ba
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/1014_yuejin_canglang.ns
+  size: 9493644
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000090dc8c000003ff000003ff000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:5232445702e3
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2021_jiangwei_lingyun.ns
+  size: 9418536
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000008fb7280000041d0000041d000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:f5be1b1a6a30
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2001_guanyu_jinhui.ns
+  size: 9250535
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000008d26e70000042700000427000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:204d15533bfe
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/4001_zhangliao_shuangfeng.ns
+  size: 9225893
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000008cc6a5000003ff000003ff000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:35d5e7b85ee5
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/4024_zhangning.ns
+  size: 8990564
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000892f64000003eb000003eb000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:56ce624c5069
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/3004_daqiao_zhongqiu.ns
+  size: 8936589
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000885c8d0000041300000413000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:0b0b5872f273
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2003_zhugeliang_qixing.ns
+  size: 8760749
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000085adad000003b9000003b9000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:be65fc3537d0
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/4023_diaochan_yiwu.ns
+  size: 8552275
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000827f53000003af000003af000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:062d0c2d5a08
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/1011_caopi_denglin.ns
+  size: 8456427
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000008108eb0000041300000413000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:cd596463f1bd
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/4000_lvbu.ns
+  size: 8416053
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000806b35000003ff000003ff000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:7683af0572c0
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/1000_caocao_jianzhi.ns
+  size: 8039355
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000007aabbb000001cb000003d7000002430000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:719e0716b034
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2012_zhaoyun.ns
+  size: 7944089
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000007937990000037d0000037d000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:ee5985f6742a
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/1017_zhangchunhua_yuying.ns
+  size: 7708712
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000075a0280000036900000369000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:1b43047a2e9b
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2017_weiyan_nigu.ns
+  size: 7682600
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000753a280000039100000391000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:c7c62c2deb74
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/1027_bianfuren.ns
+  size: 7531644
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000072ec7c0000036900000369000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:91ce2e73c1f3
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/4002_caiwenji_qingjian.ns
+  size: 7321001
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000006fb5a90000035f0000035f000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:e99f9394278f
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2015_machao.ns
+  size: 7237374
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000006e6efe0000030500000305000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:d3977b57b2af
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2019_ganfuren_qingbo.ns
+  size: 7222590
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000006e353e0000033700000337000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:dd9b9dad84b5
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/4006_zhurongfuren.ns
+  size: 6733934
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000066c06e000002fb000002fb000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:e23234f727e4
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/1012_dengai_zhiqu.ns
+  size: 6702522
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000006645ba000002f1000002f1000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:ef95f55698a8
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2005_xushu_jianxiao.ns
+  size: 6635725
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000006540cd000002e7000002e7000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:ee2f1353b8f5
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/1017_zhangchunhua.ns
+  size: 6356037
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000060fc450000030500000305000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:0d6fd27e4a77
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/3001_sunce.ns
+  size: 6330801
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000006099b1000002b5000002b5000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:a2f163e86e3e
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/3003_xiaoqiao_zhongqiu.ns
+  size: 6243268
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000005f43c40000030500000305000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:67f938a6b8b1
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/4011_zhangjiao.ns
+  size: 6154723
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000005de9e3000002c9000002c9000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:1b671b513e5c
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2021_jiangwei.ns
+  size: 5874143
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000059a1df000002a1000002a1000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:04bf755e79b3
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/4013_chengong.ns
+  size: 5795429
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000586e65000002a1000002a1000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:8a3e75f4cdb5
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2011_guanyinping.ns
+  size: 5679530
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000056a9aa0000026f0000026f000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:ecab8a768bf3
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/1009_simayi.ns
+  size: 5662876
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000056689c0000027900000279000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:c0cde70e1920
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/5055_zhangbao.ns
+  size: 5615272
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000055aea80000028300000283000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:87377e0a99d8
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/4004_yuanshao_liangjian.ns
+  size: 5490260
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000053c654000002a1000002a1000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:bfc49c82f3cc
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/4010_liru.ns
+  size: 5377947
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e36316632000000000000520f9b000002dd000002dd000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:e56ccd627fdd
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/3008_luxun.ns
+  size: 5251178
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000050206a0000026500000265000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:89567bab87e5
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2003_zhugeliang.ns
+  size: 5108398
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000004df2ae0000025b0000025b000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:df00d0380428
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/5048_zhangliang.ns
+  size: 5044883
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000004cfa930000025b0000025b000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:1bb232f2d895
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/4012_zuoci.ns
+  size: 4971060
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000004bda340000026500000265000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:3ac7b35c0cb1
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/3000_sunquan.ns
+  size: 4841450
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000049dfea0000024700000247000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:a3f55a025eab
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/4002_caiwenji.ns
+  size: 4773974
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000048d8560000024700000247000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:ec5e7049c023
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/3010_lvmeng.ns
+  size: 4539090
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000004542d20000025b0000025b000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:c85eadf998fd
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2002_zhangfei.ns
+  size: 4475253
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000004449750000021f0000021f000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:1938eabed79c
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/2005_xushu.ns
+  size: 4198443
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e3631663200000000000040102b0000020100000201000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:cf3e5a5ad9a1
+- rel_path: LocalPersistentData/assets/bundles/cardmodels/3004_daqiao.ns
+  size: 4167552
+  suffix: .ns
+  classification_reason: resource_cache_bundle_whitelist
+  magic_hex: 556e69747946530000000008352e782e7800323032322e332e363166320000000000003f97800000022900000229000000c00000000000000000000000000000
+  magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:magic:b2cd6074f79c
+ns_bundle_groups:
+- group: terrain
+  file_count: 67
+  total_bytes: 4424087306
+  largest_file_bytes: 417732287
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/terrain/common.ns
+    size: 417732287
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/terrain/nslg04/h0.ns
+    size: 181225991
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/terrain/nslg03/h0.ns
+    size: 158341834
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/terrain/nslg05/h0.ns
+    size: 153568629
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/terrain/nslg02/h0.ns
+    size: 144911658
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/terrain/nslg01/h0.ns
+    size: 138587402
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/terrain/nslg11/h0.ns
+    size: 136282740
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/terrain/demo/h0.ns
+    size: 129820626
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/terrain/nslg09/splat.ns
+    size: 125905774
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/terrain/nslg05/splat.ns
+    size: 125834287
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/terrain/nslg06/splat.ns
+    size: 125593212
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/terrain/nslg07/splat.ns
+    size: 125481822
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:da52cbf55a3c
+- group: ui
+  file_count: 107
+  total_bytes: 1109956890
+  largest_file_bytes: 207493837
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/ui/rawtextures.ns
+    size: 207493837
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/ui/activity.ns
+    size: 75841342
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/ui/recruit.ns
+    size: 44740380
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/ui/guide.ns
+    size: 31280734
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/ui/union.ns
+    size: 31109534
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/ui/activitynew/activity_operational.ns
+    size: 30548284
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/ui/role.ns
+    size: 30296213
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/ui/rawtextures/plot_v1.ns
+    size: 30116830
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/ui/map.ns
+    size: 27789864
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/ui/activitynew/activity_huofeng.ns
+    size: 27016475
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/ui/scenarioui/customhero.ns
+    size: 23781107
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/ui/common.ns
+    size: 23637507
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:636117b25f17
+- group: cardmodels
+  file_count: 101
+  total_bytes: 766348705
+  largest_file_bytes: 21775397
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/cardmodels/2022_zhugeliang_moyi.ns
+    size: 21775397
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/cardmodels/1000_caocao_gch.ns
+    size: 17636977
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/cardmodels/2013_mayunlu_yucong.ns
+    size: 17271350
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/cardmodels/1022_haozhao_xiongguan.ns
+    size: 15713884
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/cardmodels/2021_jiangwei_xiguang.ns
+    size: 15117849
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/cardmodels/4000_lvbu_longji.ns
+    size: 14794143
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/cardmodels/2011_guanyinping_bailu.ns
+    size: 13723864
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/cardmodels/2012_zhaoyun_jinmie.ns
+    size: 13419911
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/cardmodels/4006_zhurongfuren_lieyan.ns
+    size: 13254898
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/cardmodels/2015_machao_duanyi.ns
+    size: 12811972
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/cardmodels/3004_daqiao_shanhe.ns
+    size: 12620729
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/cardmodels/3016_lukang_jueyan.ns
+    size: 12373031
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:f058fe78d0d0
+- group: building.ns
+  file_count: 1
+  total_bytes: 184227274
+  largest_file_bytes: 184227274
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/building.ns
+    size: 184227274
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:4523aa024485
+- group: effect.ns
+  file_count: 1
+  total_bytes: 144345674
+  largest_file_bytes: 144345674
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/effect.ns
+    size: 144345674
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:932e07ac7762
+- group: building
+  file_count: 35
+  total_bytes: 120075892
+  largest_file_bytes: 36955495
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/building/scenario/s13_luoyang_building.ns
+    size: 36955495
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/building/scenario/s999_gvg.ns
+    size: 11269412
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/building/scenario/s11_taomanguanai.ns
+    size: 6400108
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/building/scenario/s9_guanai.ns
+    size: 5869890
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/building/scenario/s7_ai_npc_building.ns
+    size: 5683495
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/building/scenario/s11_pve_manzu_building.ns
+    size: 5306585
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/building/scenario/s14_talent_building.ns
+    size: 4186061
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/building/scenario/s9_talent_building.ns
+    size: 4156350
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/building/scenario/s10_judian.ns
+    size: 3457761
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/building/scenario/s8_junzhai.ns
+    size: 3389316
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/building/scenario/s13_ai_npc_daying.ns
+    size: 2826513
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/building/scenario/s14_darkpass_build.ns
+    size: 2785311
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:b8114546a306
+- group: scenedata
+  file_count: 18
+  total_bytes: 109695908
+  largest_file_bytes: 19636607
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/scenedata/demo.ns
+    size: 19636607
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenedata/nslg05.ns
+    size: 17062255
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenedata/nslg01.ns
+    size: 14864529
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenedata/nslg07.ns
+    size: 10876717
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenedata/nslg10.ns
+    size: 10242114
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenedata/nslg09.ns
+    size: 7490551
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenedata/nslg08.ns
+    size: 5285628
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenedata/nslg03.ns
+    size: 5004531
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenedata/nslg02.ns
+    size: 4872128
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenedata/nslg04.ns
+    size: 4862742
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenedata/nslg06.ns
+    size: 4696374
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenedata/nslg11.ns
+    size: 4209095
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:a6f98732d86e
+- group: sharedassets.ns
+  file_count: 1
+  total_bytes: 65509248
+  largest_file_bytes: 65509248
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/sharedassets.ns
+    size: 65509248
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:0c57e694b449
+- group: mapres.ns
+  file_count: 1
+  total_bytes: 57180360
+  largest_file_bytes: 57180360
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/mapres.ns
+    size: 57180360
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:1aae03ca0102
+- group: luascripts.ns
+  file_count: 1
+  total_bytes: 33098121
+  largest_file_bytes: 33098121
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/luascripts.ns
+    size: 33098121
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:4ec9d5907644
+- group: animationtexture.ns
+  file_count: 1
+  total_bytes: 31839745
+  largest_file_bytes: 31839745
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/animationtexture.ns
+    size: 31839745
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:72c0a9a4d4c6
+- group: effectres.ns
+  file_count: 1
+  total_bytes: 28856164
+  largest_file_bytes: 28856164
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/effectres.ns
+    size: 28856164
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:368726ca8ba9
+- group: army
+  file_count: 6
+  total_bytes: 25702637
+  largest_file_bytes: 9839177
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/army/2d/armyspritescommon.ns
+    size: 9839177
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/army/2d/armysprites6.ns
+    size: 6640784
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/army/2d/armysprites11.ns
+    size: 6600723
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/army/3d/armys11.ns
+    size: 1416365
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/army/3d/armys6.ns
+    size: 1183921
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/army/3d/armyscommon.ns
+    size: 21667
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:0b50dd7e1b37
+- group: font.ns
+  file_count: 1
+  total_bytes: 25315832
+  largest_file_bytes: 25315832
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/font.ns
+    size: 25315832
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:48e5e6fa42f8
+- group: bakedshadow.ns
+  file_count: 1
+  total_bytes: 23679790
+  largest_file_bytes: 23679790
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/bakedshadow.ns
+    size: 23679790
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:54f53d9ca98e
+- group: army.ns
+  file_count: 1
+  total_bytes: 20573138
+  largest_file_bytes: 20573138
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/army.ns
+    size: 20573138
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:a13634bf4eba
+- group: misc.ns
+  file_count: 1
+  total_bytes: 7727841
+  largest_file_bytes: 7727841
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/misc.ns
+    size: 7727841
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:ba0a50607f35
+- group: effect
+  file_count: 1
+  total_bytes: 6611944
+  largest_file_bytes: 6611944
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/effect/plot_v1.ns
+    size: 6611944
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:68d1dae1af85
+- group: scenes.ns
+  file_count: 1
+  total_bytes: 3369801
+  largest_file_bytes: 3369801
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/scenes.ns
+    size: 3369801
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:a3a0197b5755
+- group: tutorial.ns
+  file_count: 1
+  total_bytes: 2040736
+  largest_file_bytes: 2040736
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/tutorial.ns
+    size: 2040736
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:2a8dd8a60818
+- group: scenes
+  file_count: 13
+  total_bytes: 1825721
+  largest_file_bytes: 155341
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/scenes/nslg10.ns
+    size: 155341
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenes/nslg04.ns
+    size: 144324
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenes/nslg07.ns
+    size: 141638
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenes/nslg02.ns
+    size: 141521
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenes/nslg06.ns
+    size: 141209
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenes/nslg05.ns
+    size: 141170
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenes/nslg03.ns
+    size: 141153
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenes/nslg11.ns
+    size: 141099
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenes/nslg09.ns
+    size: 140814
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenes/nslg01.ns
+    size: 140462
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenes/gvg00.ns
+    size: 134305
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  - rel_path: LocalPersistentData/assets/bundles/scenes/nslg08.ns
+    size: 133959
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:2d2bcc494b6a
+- group: sprite.ns
+  file_count: 1
+  total_bytes: 1805373
+  largest_file_bytes: 1805373
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/sprite.ns
+    size: 1805373
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:096da2543d15
+- group: shaders.ns
+  file_count: 1
+  total_bytes: 1548566
+  largest_file_bytes: 1548566
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/shaders.ns
+    size: 1548566
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:8093573e751d
+- group: sharedassets2.ns
+  file_count: 1
+  total_bytes: 1101917
+  largest_file_bytes: 1101917
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/sharedassets2.ns
+    size: 1101917
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:a7abbed24434
+- group: global.ns
+  file_count: 1
+  total_bytes: 333411
+  largest_file_bytes: 333411
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/global.ns
+    size: 333411
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:f56a670beb84
+- group: timeline.ns
+  file_count: 1
+  total_bytes: 200924
+  largest_file_bytes: 200924
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/timeline.ns
+    size: 200924
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:963f90ddeae6
+- group: commonres.ns
+  file_count: 1
+  total_bytes: 163561
+  largest_file_bytes: 163561
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/commonres.ns
+    size: 163561
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:bf5777d4565e
+- group: videos.ns
+  file_count: 1
+  total_bytes: 31959
+  largest_file_bytes: 31959
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/videos.ns
+    size: 31959
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:b76ef247c263
+- group: dynamicatlas.ns
+  file_count: 1
+  total_bytes: 4738
+  largest_file_bytes: 4738
+  sample_files:
+  - rel_path: LocalPersistentData/assets/bundles/dynamicatlas.ns
+    size: 4738
+    magic_ascii: UnityFS.....5.x.x.2022.3.61f2...
+    magic_hex_prefix: 556e69747946530000000008352e782e
+  evidence_ref: NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-group:bafa2f2d3202
+route_conclusion:
+  resource_surface_gap_identified: true
+  resource_cache_bundle_root_found: true
+  luascripts_ns_found: true
+  map_resource_ns_found: true
+  db_or_log_content_read: false
+  account_or_protocol_data_included: false
+  decoded_game_knowledge_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: client resource cache contains large .ns bundle corpus
+    under LocalPersistentData/assets/bundles
+  strongest_negative_signal: this inventory does not decode .ns bundles or recover
+    semantic gameplay tables
+  search_policy: prioritize .ns bundle index/format classification and LuaScripts/resource
+    payload extraction before promoting knowledge
+evidence_refs:
+- NSLG_CLIENT_RESOURCE_SURFACE:round190:summary
+- NSLG_CLIENT_RESOURCE_SURFACE:round190:ns-bundle-groups
+- NSLG_CLIENT_RESOURCE_SURFACE:round190:safe-magic-samples
+next_static_targets:
+- build a sanitized .ns bundle index for LocalPersistentData/assets/bundles
+- classify .ns headers and container format for luascripts.ns, building.ns, mapres.ns,
+  sprite.ns, and sharedassets.ns
+- compare .ns resource families against existing LuaScripts TextAsset catalog gaps
+- add a decoder/eval corpus for non-account resource cache bundles only
+limitations:
+- resource cache bundles are inventoried but not decoded
+- no database, log, credential, session, or online protocol content is read
+- absolute machine paths are not persisted
+- magic samples are first-byte routing evidence, not semantic game knowledge
+guardrails:
+- offline/static resource-surface inventory only; no live instrumentation, account
+  data, credentials, or online protocol data is included
+- resource-cache files are represented by metadata, first-byte magic samples, counts,
+  and repo-portable relative paths only
+- LocalPersistentData outside assets/bundles remains aggregate-only or skipped
+- no decoded gameplay knowledge is promoted from this artifact

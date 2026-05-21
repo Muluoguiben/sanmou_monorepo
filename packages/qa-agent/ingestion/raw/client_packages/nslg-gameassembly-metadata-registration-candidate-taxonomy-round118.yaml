@@ -1,0 +1,1860 @@
+schema_version: nslg.gameassembly_metadata_registration_candidate_taxonomy.v1
+source_id: gameassembly-metadata-registration-candidate-taxonomy-round118
+source_url: local-nslg-client-gameassembly-metadata-registration-candidate-taxonomy
+source_site: nslg_client_gameassembly_metadata_registration_candidate_taxonomy
+generated_at: '2026-05-21T08:52:41.454135Z'
+round: 185
+slice: gameassembly_metadata_registration_candidate_taxonomy
+input_artifacts:
+- file_name: GameAssembly.dll
+  role: module:GameAssembly.dll
+  size_bytes: 94127168
+  sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  missing: false
+- file_name: gameassembly_registration_layout_probe_round181.json
+  role: round181_registration_layout_probe
+  size_bytes: 150192
+  sha256: cf169267ac4d93527fd1b9f7963976e3e9c350fea82fbb3b1277269c0281a053
+  missing: false
+- file_name: gameassembly_registration_pair_context_probe_round182.json
+  role: round182_registration_pair_context_probe
+  size_bytes: 25264
+  sha256: 978d22c440ee313d1ada0bf88e1ef7285cb2fee132b1e942d39904aad8f10b48
+  missing: false
+- file_name: gameassembly_function_pointer_table_probe_round184.json
+  role: round184_function_pointer_table_probe
+  size_bytes: 115765
+  sha256: 20e129a19e1f35edb832161a3e8a12c5fa92a8e865da40a7cae0c0eb023d4a4b
+  missing: false
+gameassembly_summary:
+  file_name: GameAssembly.dll
+  size_bytes: 94127168
+  sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  image_base: '0x180000000'
+  section_count: 6
+  pdata_function_count: 290472
+scan_policy:
+  section: .rdata
+  window_span: '0xa0'
+  window_step: '0x10'
+  minimum_count_pointer_pairs: 6
+  medium_count_threshold: 64
+  high_count_threshold: 1000
+  max_count_value: 1000000
+  sample_per_field: 4
+  candidate_source: Round181 MetadataRegistration-like count/pointer scan, resampled
+    with richer taxonomy
+  raw_reference_source: Round182 exact raw references to top MetadataRegistration-like
+    candidates
+  interpretation_rule: Exact references alone are weak; a plausible MetadataRegistration
+    owner needs non-tiny counts plus a proven owner/callsite or decoded protected
+    metadata.
+round181_top_candidate_summary:
+  candidate_count: 58746
+  top_candidate_count: 12
+  top_candidate_max_count: 15
+  top_candidate_all_counts_below_medium_threshold: true
+  paired_by_callsite: false
+  scan_policy: MetadataRegistration-like windows are ranked by count/pointer shape
+    and sampled pointer targets. They remain weak until a registration callsite or
+    decoded metadata proves ownership.
+  sample:
+  - candidate_rva: '0x45893d0'
+    score: 121
+    count_pointer_pair_count: 9
+    max_count: 10
+  - candidate_rva: '0x4589370'
+    score: 120
+    count_pointer_pair_count: 9
+    max_count: 9
+  - candidate_rva: '0x4589380'
+    score: 120
+    count_pointer_pair_count: 9
+    max_count: 9
+  - candidate_rva: '0x4583c10'
+    score: 119
+    count_pointer_pair_count: 9
+    max_count: 11
+  - candidate_rva: '0x4589390'
+    score: 119
+    count_pointer_pair_count: 9
+    max_count: 9
+  - candidate_rva: '0x45893e0'
+    score: 119
+    count_pointer_pair_count: 9
+    max_count: 10
+  - candidate_rva: '0x4589430'
+    score: 119
+    count_pointer_pair_count: 9
+    max_count: 11
+  - candidate_rva: '0x4589490'
+    score: 119
+    count_pointer_pair_count: 9
+    max_count: 12
+  - candidate_rva: '0x45894f0'
+    score: 119
+    count_pointer_pair_count: 9
+    max_count: 13
+  - candidate_rva: '0x4589550'
+    score: 119
+    count_pointer_pair_count: 9
+    max_count: 14
+  - candidate_rva: '0x45895b0'
+    score: 119
+    count_pointer_pair_count: 9
+    max_count: 15
+  - candidate_rva: '0x45893f0'
+    score: 118
+    count_pointer_pair_count: 9
+    max_count: 10
+round182_raw_ref_summary:
+  target_count: 12
+  raw_ref_count: 25
+  section_counts:
+    .data: 13
+    .rdata: 12
+  target_role_counts:
+    metadata_registration_like_candidate: 25
+  target_ref_counts:
+    metadata_candidate_rank_1: 2
+    metadata_candidate_rank_10: 2
+    metadata_candidate_rank_11: 2
+    metadata_candidate_rank_12: 1
+    metadata_candidate_rank_2: 3
+    metadata_candidate_rank_3: 2
+    metadata_candidate_rank_4: 2
+    metadata_candidate_rank_5: 1
+    metadata_candidate_rank_6: 2
+    metadata_candidate_rank_7: 2
+    metadata_candidate_rank_8: 4
+    metadata_candidate_rank_9: 2
+metadata_ref_family_summary:
+  family_cluster_count: 17
+  section_counts:
+    .data: 13
+    .rdata: 4
+  top_clusters:
+  - section: .rdata
+    start_rva: '0x45464a8'
+    end_rva: '0x45464d8'
+    ref_count: 7
+    unique_target_count: 7
+    target_labels:
+    - metadata_candidate_rank_1
+    - metadata_candidate_rank_10
+    - metadata_candidate_rank_11
+    - metadata_candidate_rank_2
+    - metadata_candidate_rank_7
+    - metadata_candidate_rank_8
+    - metadata_candidate_rank_9
+  - section: .rdata
+    start_rva: '0x454e4a8'
+    end_rva: '0x454e4b0'
+    ref_count: 2
+    unique_target_count: 2
+    target_labels:
+    - metadata_candidate_rank_3
+    - metadata_candidate_rank_6
+  - section: .rdata
+    start_rva: '0x45564a8'
+    end_rva: '0x45564b0'
+    ref_count: 2
+    unique_target_count: 2
+    target_labels:
+    - metadata_candidate_rank_12
+    - metadata_candidate_rank_5
+  - section: .data
+    start_rva: '0x52f87c8'
+    end_rva: '0x52f87c8'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_4
+  - section: .data
+    start_rva: '0x5327798'
+    end_rva: '0x5327798'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_2
+  - section: .data
+    start_rva: '0x53279f8'
+    end_rva: '0x53279f8'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_1
+  - section: .data
+    start_rva: '0x5327c78'
+    end_rva: '0x5327c78'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_7
+  - section: .data
+    start_rva: '0x5327ef8'
+    end_rva: '0x5327ef8'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_8
+  - section: .data
+    start_rva: '0x5328168'
+    end_rva: '0x5328168'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_9
+  - section: .data
+    start_rva: '0x53283e8'
+    end_rva: '0x53283e8'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_10
+  - section: .data
+    start_rva: '0x5328668'
+    end_rva: '0x5328668'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_11
+  - section: .data
+    start_rva: '0x534e508'
+    end_rva: '0x534e508'
+    ref_count: 1
+    unique_target_count: 1
+    target_labels:
+    - metadata_candidate_rank_8
+shifted_window_summary:
+  exact_ref_candidate_count: 12
+  overlap_edge_count: 11
+  cluster_count: 6
+  clusters:
+  - member_count: 7
+    candidate_rvas:
+    - '0x4589370'
+    - '0x4589380'
+    - '0x4589390'
+    - '0x45893d0'
+    - '0x45893e0'
+    - '0x45893f0'
+    - '0x4589430'
+    rva_min: '0x4589370'
+    rva_max: '0x4589430'
+    shared_pointer_rva_count: 0
+    max_raw_ref_count: 3
+    max_count: 11
+  - member_count: 1
+    candidate_rvas:
+    - '0x4589490'
+    rva_min: '0x4589490'
+    rva_max: '0x4589490'
+    shared_pointer_rva_count: 10
+    max_raw_ref_count: 4
+    max_count: 12
+  - member_count: 1
+    candidate_rvas:
+    - '0x4583c10'
+    rva_min: '0x4583c10'
+    rva_max: '0x4583c10'
+    shared_pointer_rva_count: 10
+    max_raw_ref_count: 2
+    max_count: 11
+  - member_count: 1
+    candidate_rvas:
+    - '0x45894f0'
+    rva_min: '0x45894f0'
+    rva_max: '0x45894f0'
+    shared_pointer_rva_count: 10
+    max_raw_ref_count: 2
+    max_count: 13
+  - member_count: 1
+    candidate_rvas:
+    - '0x4589550'
+    rva_min: '0x4589550'
+    rva_max: '0x4589550'
+    shared_pointer_rva_count: 10
+    max_raw_ref_count: 2
+    max_count: 14
+  - member_count: 1
+    candidate_rvas:
+    - '0x45895b0'
+    rva_min: '0x45895b0'
+    rva_max: '0x45895b0'
+    shared_pointer_rva_count: 10
+    max_raw_ref_count: 2
+    max_count: 15
+  overlap_edges:
+  - left_rva: '0x4589370'
+    right_rva: '0x4589380'
+    shared_pointer_rva_count: 9
+    jaccard: 0.818
+  - left_rva: '0x4589380'
+    right_rva: '0x4589390'
+    shared_pointer_rva_count: 9
+    jaccard: 0.818
+  - left_rva: '0x45893d0'
+    right_rva: '0x45893e0'
+    shared_pointer_rva_count: 9
+    jaccard: 0.818
+  - left_rva: '0x45893e0'
+    right_rva: '0x45893f0'
+    shared_pointer_rva_count: 9
+    jaccard: 0.818
+  - left_rva: '0x4589370'
+    right_rva: '0x4589390'
+    shared_pointer_rva_count: 8
+    jaccard: 0.667
+  - left_rva: '0x45893d0'
+    right_rva: '0x45893f0'
+    shared_pointer_rva_count: 8
+    jaccard: 0.667
+  - left_rva: '0x4589390'
+    right_rva: '0x45893d0'
+    shared_pointer_rva_count: 6
+    jaccard: 0.429
+  - left_rva: '0x45893f0'
+    right_rva: '0x4589430'
+    shared_pointer_rva_count: 6
+    jaccard: 0.429
+  - left_rva: '0x4589380'
+    right_rva: '0x45893d0'
+    shared_pointer_rva_count: 5
+    jaccard: 0.333
+  - left_rva: '0x4589390'
+    right_rva: '0x45893e0'
+    shared_pointer_rva_count: 5
+    jaccard: 0.333
+  - left_rva: '0x45893e0'
+    right_rva: '0x4589430'
+    shared_pointer_rva_count: 5
+    jaccard: 0.333
+exact_ref_candidate_summary:
+  candidate_count: 12
+  raw_ref_total: 25
+  max_count: 15
+  non_tiny_candidate_count: 0
+  all_exact_ref_candidates_are_tiny_count: true
+  interpretation: Round182 exact raw refs point to tiny-count candidate-family windows,
+    not a proven MetadataRegistration owner.
+high_count_candidate_summary:
+  candidate_count: 182
+  referenced_candidate_count: 0
+  strong_high_count_candidate_count: 169
+  low_sample_validity_candidate_count: 176
+  top_max_count: 197543
+  top_sum_count: 506412
+  interpretation: High-count windows exist, but in this round they have no exact raw-ref
+    owner and must remain weak scan leads.
+exact_ref_candidates:
+- candidate_rva: '0x4589490'
+  pair_count: 10
+  tiny_count_pair_count: 10
+  medium_count_pair_count: 0
+  high_count_pair_count: 0
+  max_count: 12
+  sum_count: 42
+  raw_ref_count: 4
+  pointer_section_counts:
+    .data: 10
+  sample_target_section_counts:
+    .data: 25
+    .rdata: 2
+  valid_sample_pointer_count: 27
+  plausibility: exact_ref_tiny_count_family
+  raw_refs:
+  - target_label: metadata_candidate_rank_8
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589490'
+    ref_rva: '0x45464c0'
+    ref_section: .rdata
+  - target_label: metadata_candidate_rank_8
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589490'
+    ref_rva: '0x5327ef8'
+    ref_section: .data
+  - target_label: metadata_candidate_rank_8
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589490'
+    ref_rva: '0x534e508'
+    ref_section: .data
+  - target_label: metadata_candidate_rank_8
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589490'
+    ref_rva: '0x5358498'
+    ref_section: .data
+  field_counts:
+  - 4
+  - 2
+  - 11
+  - 2
+  - 1
+  - 2
+  - 4
+  - 2
+  - 12
+  - 2
+  pointer_rvas:
+  - '0x51ba918'
+  - '0x51ba938'
+  - '0x51ba950'
+  - '0x51ba9a8'
+  - '0x51ba9b8'
+  - '0x51ba9c0'
+  - '0x51ba9d0'
+  - '0x51ba9f0'
+  - '0x51baa00'
+  - '0x51baa60'
+- candidate_rva: '0x4589370'
+  pair_count: 10
+  tiny_count_pair_count: 10
+  medium_count_pair_count: 0
+  high_count_pair_count: 0
+  max_count: 9
+  sum_count: 39
+  raw_ref_count: 3
+  pointer_section_counts:
+    .data: 10
+  sample_target_section_counts:
+    .data: 28
+    .rdata: 2
+  valid_sample_pointer_count: 30
+  plausibility: exact_ref_tiny_count_family
+  raw_refs:
+  - target_label: metadata_candidate_rank_2
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589370'
+    ref_rva: '0x45464a8'
+    ref_section: .rdata
+  - target_label: metadata_candidate_rank_2
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589370'
+    ref_rva: '0x5327798'
+    ref_section: .data
+  - target_label: metadata_candidate_rank_2
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589370'
+    ref_rva: '0x540b278'
+    ref_section: .data
+  field_counts:
+  - 4
+  - 2
+  - 8
+  - 3
+  - 1
+  - 2
+  - 4
+  - 2
+  - 9
+  - 4
+  pointer_rvas:
+  - '0x51ba720'
+  - '0x51ba740'
+  - '0x51ba750'
+  - '0x51ba790'
+  - '0x51ba7a8'
+  - '0x51ba7b0'
+  - '0x51ba7c0'
+  - '0x51ba7e0'
+  - '0x51ba7f0'
+  - '0x51ba838'
+- candidate_rva: '0x45895b0'
+  pair_count: 10
+  tiny_count_pair_count: 10
+  medium_count_pair_count: 0
+  high_count_pair_count: 0
+  max_count: 15
+  sum_count: 48
+  raw_ref_count: 2
+  pointer_section_counts:
+    .data: 10
+  sample_target_section_counts:
+    .data: 26
+    .rdata: 1
+  valid_sample_pointer_count: 27
+  plausibility: exact_ref_tiny_count_family
+  raw_refs:
+  - target_label: metadata_candidate_rank_11
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x45895b0'
+    ref_rva: '0x45464d8'
+    ref_section: .rdata
+  - target_label: metadata_candidate_rank_11
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x45895b0'
+    ref_rva: '0x5328668'
+    ref_section: .data
+  field_counts:
+  - 4
+  - 2
+  - 14
+  - 2
+  - 1
+  - 2
+  - 4
+  - 2
+  - 15
+  - 2
+  pointer_rvas:
+  - '0x51bab50'
+  - '0x51bab70'
+  - '0x51bab80'
+  - '0x51babf0'
+  - '0x51bac00'
+  - '0x51bac08'
+  - '0x51bac18'
+  - '0x51bac38'
+  - '0x51bac50'
+  - '0x51bacc8'
+- candidate_rva: '0x4589550'
+  pair_count: 10
+  tiny_count_pair_count: 10
+  medium_count_pair_count: 0
+  high_count_pair_count: 0
+  max_count: 14
+  sum_count: 46
+  raw_ref_count: 2
+  pointer_section_counts:
+    .data: 10
+  sample_target_section_counts:
+    .data: 25
+    .rdata: 2
+  valid_sample_pointer_count: 27
+  plausibility: exact_ref_tiny_count_family
+  raw_refs:
+  - target_label: metadata_candidate_rank_10
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589550'
+    ref_rva: '0x45464d0'
+    ref_section: .rdata
+  - target_label: metadata_candidate_rank_10
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589550'
+    ref_rva: '0x53283e8'
+    ref_section: .data
+  field_counts:
+  - 4
+  - 2
+  - 13
+  - 2
+  - 1
+  - 2
+  - 4
+  - 2
+  - 14
+  - 2
+  pointer_rvas:
+  - '0x51baa88'
+  - '0x51baaa8'
+  - '0x51baac0'
+  - '0x51bab28'
+  - '0x51bab38'
+  - '0x51bab40'
+  - '0x51bab50'
+  - '0x51bab70'
+  - '0x51bab80'
+  - '0x51babf0'
+- candidate_rva: '0x45894f0'
+  pair_count: 10
+  tiny_count_pair_count: 10
+  medium_count_pair_count: 0
+  high_count_pair_count: 0
+  max_count: 13
+  sum_count: 44
+  raw_ref_count: 2
+  pointer_section_counts:
+    .data: 10
+  sample_target_section_counts:
+    .data: 24
+    .rdata: 3
+  valid_sample_pointer_count: 27
+  plausibility: exact_ref_tiny_count_family
+  raw_refs:
+  - target_label: metadata_candidate_rank_9
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x45894f0'
+    ref_rva: '0x45464c8'
+    ref_section: .rdata
+  - target_label: metadata_candidate_rank_9
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x45894f0'
+    ref_rva: '0x5328168'
+    ref_section: .data
+  field_counts:
+  - 4
+  - 2
+  - 12
+  - 2
+  - 1
+  - 2
+  - 4
+  - 2
+  - 13
+  - 2
+  pointer_rvas:
+  - '0x51ba9d0'
+  - '0x51ba9f0'
+  - '0x51baa00'
+  - '0x51baa60'
+  - '0x51baa70'
+  - '0x51baa78'
+  - '0x51baa88'
+  - '0x51baaa8'
+  - '0x51baac0'
+  - '0x51bab28'
+- candidate_rva: '0x4583c10'
+  pair_count: 10
+  tiny_count_pair_count: 10
+  medium_count_pair_count: 0
+  high_count_pair_count: 0
+  max_count: 11
+  sum_count: 40
+  raw_ref_count: 2
+  pointer_section_counts:
+    .data: 10
+  sample_target_section_counts:
+    .data: 27
+  valid_sample_pointer_count: 27
+  plausibility: exact_ref_tiny_count_family
+  raw_refs:
+  - target_label: metadata_candidate_rank_4
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4583c10'
+    ref_rva: '0x4545d60'
+    ref_section: .rdata
+  - target_label: metadata_candidate_rank_4
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4583c10'
+    ref_rva: '0x52f87c8'
+    ref_section: .data
+  field_counts:
+  - 10
+  - 2
+  - 4
+  - 2
+  - 1
+  - 2
+  - 11
+  - 2
+  - 4
+  - 2
+  pointer_rvas:
+  - '0x51b5cc0'
+  - '0x51b5d10'
+  - '0x51b5d20'
+  - '0x51b5d40'
+  - '0x51b5d50'
+  - '0x51b5d58'
+  - '0x51b5d70'
+  - '0x51b5dc8'
+  - '0x51b5dd8'
+  - '0x51b5df8'
+- candidate_rva: '0x4589430'
+  pair_count: 10
+  tiny_count_pair_count: 10
+  medium_count_pair_count: 0
+  high_count_pair_count: 0
+  max_count: 11
+  sum_count: 40
+  raw_ref_count: 2
+  pointer_section_counts:
+    .data: 10
+  sample_target_section_counts:
+    .data: 24
+    .rdata: 3
+  valid_sample_pointer_count: 27
+  plausibility: exact_ref_tiny_count_family
+  raw_refs:
+  - target_label: metadata_candidate_rank_7
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589430'
+    ref_rva: '0x45464b8'
+    ref_section: .rdata
+  - target_label: metadata_candidate_rank_7
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589430'
+    ref_rva: '0x5327c78'
+    ref_section: .data
+  field_counts:
+  - 4
+  - 2
+  - 10
+  - 2
+  - 1
+  - 2
+  - 4
+  - 2
+  - 11
+  - 2
+  pointer_rvas:
+  - '0x51ba870'
+  - '0x51ba890'
+  - '0x51ba8a0'
+  - '0x51ba8f0'
+  - '0x51ba900'
+  - '0x51ba908'
+  - '0x51ba918'
+  - '0x51ba938'
+  - '0x51ba950'
+  - '0x51ba9a8'
+- candidate_rva: '0x45893d0'
+  pair_count: 10
+  tiny_count_pair_count: 10
+  medium_count_pair_count: 0
+  high_count_pair_count: 0
+  max_count: 10
+  sum_count: 40
+  raw_ref_count: 2
+  pointer_section_counts:
+    .data: 10
+  sample_target_section_counts:
+    .data: 27
+    .rdata: 2
+  valid_sample_pointer_count: 29
+  plausibility: exact_ref_tiny_count_family
+  raw_refs:
+  - target_label: metadata_candidate_rank_1
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x45893d0'
+    ref_rva: '0x45464b0'
+    ref_section: .rdata
+  - target_label: metadata_candidate_rank_1
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x45893d0'
+    ref_rva: '0x53279f8'
+    ref_section: .data
+  field_counts:
+  - 4
+  - 2
+  - 9
+  - 4
+  - 1
+  - 2
+  - 4
+  - 2
+  - 10
+  - 2
+  pointer_rvas:
+  - '0x51ba7c0'
+  - '0x51ba7e0'
+  - '0x51ba7f0'
+  - '0x51ba838'
+  - '0x51ba858'
+  - '0x51ba860'
+  - '0x51ba870'
+  - '0x51ba890'
+  - '0x51ba8a0'
+  - '0x51ba8f0'
+- candidate_rva: '0x45893e0'
+  pair_count: 10
+  tiny_count_pair_count: 10
+  medium_count_pair_count: 0
+  high_count_pair_count: 0
+  max_count: 10
+  sum_count: 37
+  raw_ref_count: 2
+  pointer_section_counts:
+    .data: 10
+  sample_target_section_counts:
+    .data: 24
+    .rdata: 2
+  valid_sample_pointer_count: 26
+  plausibility: exact_ref_tiny_count_family
+  raw_refs:
+  - target_label: metadata_candidate_rank_6
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x45893e0'
+    ref_rva: '0x454e4b0'
+    ref_section: .rdata
+  - target_label: metadata_candidate_rank_6
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x45893e0'
+    ref_rva: '0x53d4fa8'
+    ref_section: .data
+  field_counts:
+  - 2
+  - 9
+  - 4
+  - 1
+  - 2
+  - 4
+  - 2
+  - 10
+  - 2
+  - 1
+  pointer_rvas:
+  - '0x51ba7e0'
+  - '0x51ba7f0'
+  - '0x51ba838'
+  - '0x51ba858'
+  - '0x51ba860'
+  - '0x51ba870'
+  - '0x51ba890'
+  - '0x51ba8a0'
+  - '0x51ba8f0'
+  - '0x51ba900'
+- candidate_rva: '0x4589380'
+  pair_count: 10
+  tiny_count_pair_count: 10
+  medium_count_pair_count: 0
+  high_count_pair_count: 0
+  max_count: 9
+  sum_count: 36
+  raw_ref_count: 2
+  pointer_section_counts:
+    .data: 10
+  sample_target_section_counts:
+    .data: 25
+    .rdata: 2
+  valid_sample_pointer_count: 27
+  plausibility: exact_ref_tiny_count_family
+  raw_refs:
+  - target_label: metadata_candidate_rank_3
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589380'
+    ref_rva: '0x454e4a8'
+    ref_section: .rdata
+  - target_label: metadata_candidate_rank_3
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589380'
+    ref_rva: '0x53d4d68'
+    ref_section: .data
+  field_counts:
+  - 2
+  - 8
+  - 3
+  - 1
+  - 2
+  - 4
+  - 2
+  - 9
+  - 4
+  - 1
+  pointer_rvas:
+  - '0x51ba740'
+  - '0x51ba750'
+  - '0x51ba790'
+  - '0x51ba7a8'
+  - '0x51ba7b0'
+  - '0x51ba7c0'
+  - '0x51ba7e0'
+  - '0x51ba7f0'
+  - '0x51ba838'
+  - '0x51ba858'
+- candidate_rva: '0x45893f0'
+  pair_count: 10
+  tiny_count_pair_count: 10
+  medium_count_pair_count: 0
+  high_count_pair_count: 0
+  max_count: 10
+  sum_count: 37
+  raw_ref_count: 1
+  pointer_section_counts:
+    .data: 10
+  sample_target_section_counts:
+    .data: 24
+    .rdata: 2
+  valid_sample_pointer_count: 26
+  plausibility: exact_ref_tiny_count_family
+  raw_refs:
+  - target_label: metadata_candidate_rank_12
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x45893f0'
+    ref_rva: '0x45564b0'
+    ref_section: .rdata
+  field_counts:
+  - 9
+  - 4
+  - 1
+  - 2
+  - 4
+  - 2
+  - 10
+  - 2
+  - 1
+  - 2
+  pointer_rvas:
+  - '0x51ba7f0'
+  - '0x51ba838'
+  - '0x51ba858'
+  - '0x51ba860'
+  - '0x51ba870'
+  - '0x51ba890'
+  - '0x51ba8a0'
+  - '0x51ba8f0'
+  - '0x51ba900'
+  - '0x51ba908'
+- candidate_rva: '0x4589390'
+  pair_count: 10
+  tiny_count_pair_count: 10
+  medium_count_pair_count: 0
+  high_count_pair_count: 0
+  max_count: 9
+  sum_count: 36
+  raw_ref_count: 1
+  pointer_section_counts:
+    .data: 10
+  sample_target_section_counts:
+    .data: 26
+    .rdata: 1
+  valid_sample_pointer_count: 27
+  plausibility: exact_ref_tiny_count_family
+  raw_refs:
+  - target_label: metadata_candidate_rank_5
+    target_role: metadata_registration_like_candidate
+    target_rva: '0x4589390'
+    ref_rva: '0x45564a8'
+    ref_section: .rdata
+  field_counts:
+  - 8
+  - 3
+  - 1
+  - 2
+  - 4
+  - 2
+  - 9
+  - 4
+  - 1
+  - 2
+  pointer_rvas:
+  - '0x51ba750'
+  - '0x51ba790'
+  - '0x51ba7a8'
+  - '0x51ba7b0'
+  - '0x51ba7c0'
+  - '0x51ba7e0'
+  - '0x51ba7f0'
+  - '0x51ba838'
+  - '0x51ba858'
+  - '0x51ba860'
+high_count_candidates:
+- candidate_rva: '0x4e3ced0'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 31770
+  sum_count: 202844
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts:
+    .rdata: 3
+  valid_sample_pointer_count: 3
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 15361
+  - 15370
+  - 16385
+  - 16394
+  - 17418
+  - 18442
+  - 19466
+  - 20490
+  - 31748
+  - 31770
+  pointer_rvas:
+  - '0x4e3dae8'
+  - '0x4e3daf8'
+  - '0x4e3db08'
+  - '0x4e3db18'
+  - '0x4e3db28'
+  - '0x4e3db38'
+  - '0x4e3db48'
+  - '0x4e3db58'
+  - '0x4e3db68'
+  - '0x4e3db78'
+- candidate_rva: '0x4e3cec0'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 31748
+  sum_count: 185420
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts:
+    .rdata: 1
+  valid_sample_pointer_count: 1
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 14346
+  - 15361
+  - 15370
+  - 16385
+  - 16394
+  - 17418
+  - 18442
+  - 19466
+  - 20490
+  - 31748
+  pointer_rvas:
+  - '0x4e3dad8'
+  - '0x4e3dae8'
+  - '0x4e3daf8'
+  - '0x4e3db08'
+  - '0x4e3db18'
+  - '0x4e3db28'
+  - '0x4e3db38'
+  - '0x4e3db48'
+  - '0x4e3db58'
+  - '0x4e3db68'
+- candidate_rva: '0x4e3ceb0'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 20490
+  sum_count: 168009
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 14337
+  - 14346
+  - 15361
+  - 15370
+  - 16385
+  - 16394
+  - 17418
+  - 18442
+  - 19466
+  - 20490
+  pointer_rvas:
+  - '0x4e3dac8'
+  - '0x4e3dad8'
+  - '0x4e3dae8'
+  - '0x4e3daf8'
+  - '0x4e3db08'
+  - '0x4e3db18'
+  - '0x4e3db28'
+  - '0x4e3db38'
+  - '0x4e3db48'
+  - '0x4e3db58'
+- candidate_rva: '0x4e3cea0'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 19466
+  sum_count: 160841
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 13322
+  - 14337
+  - 14346
+  - 15361
+  - 15370
+  - 16385
+  - 16394
+  - 17418
+  - 18442
+  - 19466
+  pointer_rvas:
+  - '0x4e3dab8'
+  - '0x4e3dac8'
+  - '0x4e3dad8'
+  - '0x4e3dae8'
+  - '0x4e3daf8'
+  - '0x4e3db08'
+  - '0x4e3db18'
+  - '0x4e3db28'
+  - '0x4e3db38'
+  - '0x4e3db48'
+- candidate_rva: '0x4e3ce90'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 18442
+  sum_count: 154696
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 13321
+  - 13322
+  - 14337
+  - 14346
+  - 15361
+  - 15370
+  - 16385
+  - 16394
+  - 17418
+  - 18442
+  pointer_rvas:
+  - '0x4e3daa8'
+  - '0x4e3dab8'
+  - '0x4e3dac8'
+  - '0x4e3dad8'
+  - '0x4e3dae8'
+  - '0x4e3daf8'
+  - '0x4e3db08'
+  - '0x4e3db18'
+  - '0x4e3db28'
+  - '0x4e3db38'
+- candidate_rva: '0x4e3ce80'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 17418
+  sum_count: 149567
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 13313
+  - 13321
+  - 13322
+  - 14337
+  - 14346
+  - 15361
+  - 15370
+  - 16385
+  - 16394
+  - 17418
+  pointer_rvas:
+  - '0x4e3da98'
+  - '0x4e3daa8'
+  - '0x4e3dab8'
+  - '0x4e3dac8'
+  - '0x4e3dad8'
+  - '0x4e3dae8'
+  - '0x4e3daf8'
+  - '0x4e3db08'
+  - '0x4e3db18'
+  - '0x4e3db28'
+- candidate_rva: '0x4e3ce70'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 16394
+  sum_count: 144447
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 12298
+  - 13313
+  - 13321
+  - 13322
+  - 14337
+  - 14346
+  - 15361
+  - 15370
+  - 16385
+  - 16394
+  pointer_rvas:
+  - '0x4e3da88'
+  - '0x4e3da98'
+  - '0x4e3daa8'
+  - '0x4e3dab8'
+  - '0x4e3dac8'
+  - '0x4e3dad8'
+  - '0x4e3dae8'
+  - '0x4e3daf8'
+  - '0x4e3db08'
+  - '0x4e3db18'
+- candidate_rva: '0x4e3ce60'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 16385
+  sum_count: 140350
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 12297
+  - 12298
+  - 13313
+  - 13321
+  - 13322
+  - 14337
+  - 14346
+  - 15361
+  - 15370
+  - 16385
+  pointer_rvas:
+  - '0x4e3da78'
+  - '0x4e3da88'
+  - '0x4e3da98'
+  - '0x4e3daa8'
+  - '0x4e3dab8'
+  - '0x4e3dac8'
+  - '0x4e3dad8'
+  - '0x4e3dae8'
+  - '0x4e3daf8'
+  - '0x4e3db08'
+- candidate_rva: '0x4e3ce50'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 15370
+  sum_count: 136254
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 12289
+  - 12297
+  - 12298
+  - 13313
+  - 13321
+  - 13322
+  - 14337
+  - 14346
+  - 15361
+  - 15370
+  pointer_rvas:
+  - '0x4e3da68'
+  - '0x4e3da78'
+  - '0x4e3da88'
+  - '0x4e3da98'
+  - '0x4e3daa8'
+  - '0x4e3dab8'
+  - '0x4e3dac8'
+  - '0x4e3dad8'
+  - '0x4e3dae8'
+  - '0x4e3daf8'
+- candidate_rva: '0x4e3ce40'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 15361
+  sum_count: 132158
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 11274
+  - 12289
+  - 12297
+  - 12298
+  - 13313
+  - 13321
+  - 13322
+  - 14337
+  - 14346
+  - 15361
+  pointer_rvas:
+  - '0x4e3da58'
+  - '0x4e3da68'
+  - '0x4e3da78'
+  - '0x4e3da88'
+  - '0x4e3da98'
+  - '0x4e3daa8'
+  - '0x4e3dab8'
+  - '0x4e3dac8'
+  - '0x4e3dad8'
+  - '0x4e3dae8'
+- candidate_rva: '0x4e3ce30'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 14346
+  sum_count: 128070
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 11273
+  - 11274
+  - 12289
+  - 12297
+  - 12298
+  - 13313
+  - 13321
+  - 13322
+  - 14337
+  - 14346
+  pointer_rvas:
+  - '0x4e3da48'
+  - '0x4e3da58'
+  - '0x4e3da68'
+  - '0x4e3da78'
+  - '0x4e3da88'
+  - '0x4e3da98'
+  - '0x4e3daa8'
+  - '0x4e3dab8'
+  - '0x4e3dac8'
+  - '0x4e3dad8'
+- candidate_rva: '0x4e3ce20'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 14337
+  sum_count: 124989
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 11265
+  - 11273
+  - 11274
+  - 12289
+  - 12297
+  - 12298
+  - 13313
+  - 13321
+  - 13322
+  - 14337
+  pointer_rvas:
+  - '0x4e3da38'
+  - '0x4e3da48'
+  - '0x4e3da58'
+  - '0x4e3da68'
+  - '0x4e3da78'
+  - '0x4e3da88'
+  - '0x4e3da98'
+  - '0x4e3daa8'
+  - '0x4e3dab8'
+  - '0x4e3dac8'
+- candidate_rva: '0x4e3ce10'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 13322
+  sum_count: 120902
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 10250
+  - 11265
+  - 11273
+  - 11274
+  - 12289
+  - 12297
+  - 12298
+  - 13313
+  - 13321
+  - 13322
+  pointer_rvas:
+  - '0x4e3da28'
+  - '0x4e3da38'
+  - '0x4e3da48'
+  - '0x4e3da58'
+  - '0x4e3da68'
+  - '0x4e3da78'
+  - '0x4e3da88'
+  - '0x4e3da98'
+  - '0x4e3daa8'
+  - '0x4e3dab8'
+- candidate_rva: '0x4e3ce00'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 13321
+  sum_count: 117829
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 10249
+  - 10250
+  - 11265
+  - 11273
+  - 11274
+  - 12289
+  - 12297
+  - 12298
+  - 13313
+  - 13321
+  pointer_rvas:
+  - '0x4e3da18'
+  - '0x4e3da28'
+  - '0x4e3da38'
+  - '0x4e3da48'
+  - '0x4e3da58'
+  - '0x4e3da68'
+  - '0x4e3da78'
+  - '0x4e3da88'
+  - '0x4e3da98'
+  - '0x4e3daa8'
+- candidate_rva: '0x4e3cdf0'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 13313
+  sum_count: 114749
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 10241
+  - 10249
+  - 10250
+  - 11265
+  - 11273
+  - 11274
+  - 12289
+  - 12297
+  - 12298
+  - 13313
+  pointer_rvas:
+  - '0x4e3da08'
+  - '0x4e3da18'
+  - '0x4e3da28'
+  - '0x4e3da38'
+  - '0x4e3da48'
+  - '0x4e3da58'
+  - '0x4e3da68'
+  - '0x4e3da78'
+  - '0x4e3da88'
+  - '0x4e3da98'
+- candidate_rva: '0x4e3cde0'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 12298
+  sum_count: 110711
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 9275
+  - 10241
+  - 10249
+  - 10250
+  - 11265
+  - 11273
+  - 11274
+  - 12289
+  - 12297
+  - 12298
+  pointer_rvas:
+  - '0x4e3d9f8'
+  - '0x4e3da08'
+  - '0x4e3da18'
+  - '0x4e3da28'
+  - '0x4e3da38'
+  - '0x4e3da48'
+  - '0x4e3da58'
+  - '0x4e3da68'
+  - '0x4e3da78'
+  - '0x4e3da88'
+- candidate_rva: '0x4e3cdd0'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 12297
+  sum_count: 107639
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 9226
+  - 9275
+  - 10241
+  - 10249
+  - 10250
+  - 11265
+  - 11273
+  - 11274
+  - 12289
+  - 12297
+  pointer_rvas:
+  - '0x4e3d9e8'
+  - '0x4e3d9f8'
+  - '0x4e3da08'
+  - '0x4e3da18'
+  - '0x4e3da28'
+  - '0x4e3da38'
+  - '0x4e3da48'
+  - '0x4e3da58'
+  - '0x4e3da68'
+  - '0x4e3da78'
+- candidate_rva: '0x4e3cdc0'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 12289
+  sum_count: 104567
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 9225
+  - 9226
+  - 9275
+  - 10241
+  - 10249
+  - 10250
+  - 11265
+  - 11273
+  - 11274
+  - 12289
+  pointer_rvas:
+  - '0x4e3d9d8'
+  - '0x4e3d9e8'
+  - '0x4e3d9f8'
+  - '0x4e3da08'
+  - '0x4e3da18'
+  - '0x4e3da28'
+  - '0x4e3da38'
+  - '0x4e3da48'
+  - '0x4e3da58'
+  - '0x4e3da68'
+- candidate_rva: '0x4e3cdb0'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 11274
+  sum_count: 101495
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 9217
+  - 9225
+  - 9226
+  - 9275
+  - 10241
+  - 10249
+  - 10250
+  - 11265
+  - 11273
+  - 11274
+  pointer_rvas:
+  - '0x4e3d9c8'
+  - '0x4e3d9d8'
+  - '0x4e3d9e8'
+  - '0x4e3d9f8'
+  - '0x4e3da08'
+  - '0x4e3da18'
+  - '0x4e3da28'
+  - '0x4e3da38'
+  - '0x4e3da48'
+  - '0x4e3da58'
+- candidate_rva: '0x4e3cda0'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 11273
+  sum_count: 98472
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 8251
+  - 9217
+  - 9225
+  - 9226
+  - 9275
+  - 10241
+  - 10249
+  - 10250
+  - 11265
+  - 11273
+  pointer_rvas:
+  - '0x4e3d9b8'
+  - '0x4e3d9c8'
+  - '0x4e3d9d8'
+  - '0x4e3d9e8'
+  - '0x4e3d9f8'
+  - '0x4e3da08'
+  - '0x4e3da18'
+  - '0x4e3da28'
+  - '0x4e3da38'
+  - '0x4e3da48'
+- candidate_rva: '0x4e3cd90'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 11265
+  sum_count: 95401
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 8202
+  - 8251
+  - 9217
+  - 9225
+  - 9226
+  - 9275
+  - 10241
+  - 10249
+  - 10250
+  - 11265
+  pointer_rvas:
+  - '0x4e3d9a8'
+  - '0x4e3d9b8'
+  - '0x4e3d9c8'
+  - '0x4e3d9d8'
+  - '0x4e3d9e8'
+  - '0x4e3d9f8'
+  - '0x4e3da08'
+  - '0x4e3da18'
+  - '0x4e3da28'
+  - '0x4e3da38'
+- candidate_rva: '0x4e3cd80'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 10250
+  sum_count: 92337
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 8201
+  - 8202
+  - 8251
+  - 9217
+  - 9225
+  - 9226
+  - 9275
+  - 10241
+  - 10249
+  - 10250
+  pointer_rvas:
+  - '0x4e3d998'
+  - '0x4e3d9a8'
+  - '0x4e3d9b8'
+  - '0x4e3d9c8'
+  - '0x4e3d9d8'
+  - '0x4e3d9e8'
+  - '0x4e3d9f8'
+  - '0x4e3da08'
+  - '0x4e3da18'
+  - '0x4e3da28'
+- candidate_rva: '0x4e3cd70'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 10249
+  sum_count: 90280
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 8193
+  - 8201
+  - 8202
+  - 8251
+  - 9217
+  - 9225
+  - 9226
+  - 9275
+  - 10241
+  - 10249
+  pointer_rvas:
+  - '0x4e3d988'
+  - '0x4e3d998'
+  - '0x4e3d9a8'
+  - '0x4e3d9b8'
+  - '0x4e3d9c8'
+  - '0x4e3d9d8'
+  - '0x4e3d9e8'
+  - '0x4e3d9f8'
+  - '0x4e3da08'
+  - '0x4e3da18'
+- candidate_rva: '0x4e3cd60'
+  pair_count: 10
+  tiny_count_pair_count: 0
+  medium_count_pair_count: 0
+  high_count_pair_count: 10
+  max_count: 10241
+  sum_count: 87258
+  raw_ref_count: 0
+  pointer_section_counts:
+    .rdata: 10
+  sample_target_section_counts: {}
+  valid_sample_pointer_count: 0
+  plausibility: high_count_unowned_low_sample_validity
+  raw_refs: []
+  field_counts:
+  - 7227
+  - 8193
+  - 8201
+  - 8202
+  - 8251
+  - 9217
+  - 9225
+  - 9226
+  - 9275
+  - 10241
+  pointer_rvas:
+  - '0x4e3d978'
+  - '0x4e3d988'
+  - '0x4e3d998'
+  - '0x4e3d9a8'
+  - '0x4e3d9b8'
+  - '0x4e3d9c8'
+  - '0x4e3d9d8'
+  - '0x4e3d9e8'
+  - '0x4e3d9f8'
+  - '0x4e3da08'
+counts:
+  metadata_candidate_window_count: 58879
+  exact_ref_candidate_count: 12
+  exact_ref_non_tiny_candidate_count: 0
+  exact_ref_max_count: 15
+  high_count_candidate_count: 182
+  strong_high_count_candidate_count: 169
+  referenced_high_count_candidate_count: 0
+  shifted_window_cluster_count: 6
+  shifted_window_overlap_edge_count: 11
+  metadata_ref_family_cluster_count: 17
+  metadata_registration_owner_recovered: 0
+  protected_metadata_method_ownership_recovered: 0
+  init_lua_env_method_pointer_recovered: 0
+  publishable_knowledge_entries: 0
+route_conclusion:
+  metadata_candidate_taxonomy_completed: true
+  exact_ref_metadata_candidates_are_tiny_count_family: true
+  high_count_metadata_like_candidates_found: true
+  high_count_candidates_have_exact_refs: false
+  metadata_registration_owner_recovered: false
+  metadata_registration_paired_by_callsite: false
+  protected_metadata_method_ownership_recovered: false
+  init_lua_env_method_pointer_recovered: false
+  lua_payload_decoder_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: Round182 exact raw refs point to tiny-count MetadataRegistration-like
+    candidate families; these are useful for routing but not ownership proof.
+  strongest_negative_signal: No exact-ref candidate has medium/high count fields;
+    high-count windows are unreferenced and remain weak false-positive-prone scan
+    leads.
+  search_policy: Require decoded protected metadata or a proven MetadataRegistration
+    owner/callsite before mapping method names or InitLuaEnv to native method pointers.
+evidence_refs:
+- NSLG_METADATA_TAXONOMY:round185:candidate-window-rescan
+- NSLG_METADATA_TAXONOMY:round185:raw-ref-candidate-classification
+- NSLG_METADATA_TAXONOMY:round185:high-count-candidate-classification
+- NSLG_METADATA_TAXONOMY:round185:shifted-window-family-check
+next_static_targets:
+- Demote Round181 top raw-ref candidates as tiny-count candidate-family evidence unless
+  a later owner proves otherwise.
+- Treat high-count unreferenced windows as weak scan leads only; require code owner,
+  callsite pair, or decoded metadata before promotion.
+- Continue toward protected global-metadata decoding or a proven MetadataRegistration
+  owner rather than naming InitLuaEnv from table shape.
+- If staying in GameAssembly, inspect only metadata candidate families that gain both
+  non-tiny counts and owner/callsite evidence.
+limitations:
+- Offline/static candidate taxonomy only; no runtime attach, live instrumentation,
+  account data, credentials, or online protocol is used.
+- The probe classifies count/pointer window shapes and raw references; it does not
+  decode protected global-metadata.dat.
+- High-count windows without owner references can be false positives from arbitrary
+  .rdata integer/pointer neighborhoods.
+- This artifact is decoder-routing evidence and must not be promoted as gameplay knowledge.
+guardrails:
+- offline/static GameAssembly MetadataRegistration candidate taxonomy only; no live
+  instrumentation, account data, or online protocol data is included
+- exact raw references to tiny-count candidate families are routing evidence, not
+  MetadataRegistration ownership
+- high-count windows without exact refs or a callsite remain weak scan leads
+- route evidence is not publishable gameplay knowledge

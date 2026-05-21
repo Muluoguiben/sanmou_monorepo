@@ -1,6 +1,6 @@
 # Todo List
 
-> Last updated: 2026-05-19 (保留远端 action-loop 模型路由更新；原始架构 ADR 已按 `docs/sanmou-architecture-design.md` 入库，补充派生执行路线与模块设计文档；Architecture Iteration 现在是最高优先级；PR-1~PR-4 已完成，下一段重点转为 Advisor golden replay 与低风险动作 verifier)
+> Last updated: 2026-05-21 (NSLG 客户端逆向线按 ROI 收口暂停；保留离线证据链和资源地图，不再作为主线继续烧 token；Architecture Iteration 仍是最高优先级，下一段重点是 Advisor golden replay 与低风险动作 verifier)
 
 ## Highest Priority — Architecture Iteration
 
@@ -86,6 +86,7 @@
 - [x] Bilibili metadata-only run 清理（2026-05-17）：已删除无字幕、无截图/帧、无 ASR 的 `video_discovery` 与 `raw/videos/discovery-*` 产物；这类 title-only 结果没有知识沉淀价值，不进入仓库，不进入正式 `knowledge_sources/`。
 - [x] Bilibili 有证据视频二次沉淀（2026-05-17）：配置 `BILIBILI_COOKIE` 后，对 100 条“三谋开荒”候选视频按 20 个 batch 并行抓取；严格禁止字幕-only，候选条目必须同时绑定本地视频截图帧并经过 vision enrichment。最终沉淀 86 个 raw bundle、151 张本地截图、414 条 staging entry，并从 103 个正式候选中去重发布 90 条 lineup/combat 条目到 `knowledge_sources/`；hero/skill 自动抽取仅保留 staging，待人工复核后再覆盖正式静态资料。
 - [x] 三谋基础玩法 baseline（2026-05-17）：新增 `knowledge_sources/opening_baseline.yaml` 与 `sanmou_common.config/opening_baseline.yaml`，沉淀开荒基础优先级、观察清单、打地风险基线、低风险自动动作顺序与 stop conditions，供 Advisor/fixture/eval 先消费；后续仍需补齐真实数值表。
+- [x] NSLG 客户端资源逆向收口暂停（2026-05-21）：已形成离线证据链、资源面扫描、`.ns` bundle format index、38 个 client evidence artifact、1071 个 evidence ref、106 个 import queue item；但 LuaScripts 明文、protected SerializedFile metadata transform、可发布玩法配置均未恢复，`publishable_knowledge_entries=0`。后续除非用户明确批准一个小预算封顶专项，否则不再作为主线推进；知识库优先走公开攻略、人工 review、视频证据链和截图 Advisor 闭环。
 - [ ] 赛季阶段规则结构化：把“首日 16:00-22:00 红利期 / 第二天 22:00 阵容洗牌”等视频里反复出现的时间窗口抽象成 `season_phase` 规则，供 Advisor 根据当前服务器时间选择阵容档位。
 - [ ] 赛季末武勋卷排行机制：补抓并入库陈仓之围赛末武勋卷排行玩法（候选视频：BV1Gz5J6EEPq），沉淀为 S14 generic_rule。
 - [ ] Kdocs 小仔哥陈仓之围 5-12 级地 publish 校对：确认 `ingestion/staging/kdocs/xiaozai-chencangzhiwei-2026-04-14.yaml` row5-row12 是否全部发布到 `knowledge_sources/solutions/lineups/season-s14.yaml`，尤其 row7-row12 的守军表。

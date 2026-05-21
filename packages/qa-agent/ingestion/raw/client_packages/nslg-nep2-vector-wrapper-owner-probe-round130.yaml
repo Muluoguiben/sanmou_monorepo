@@ -1,0 +1,995 @@
+schema_version: nslg.nep2_vector_wrapper_owner_probe.v1
+source_id: nep2-vector-wrapper-owner-probe-round130
+source_url: local-nslg-client-nep2-vector-wrapper-owner-probe
+source_site: nslg_client_nep2_vector_wrapper_owner_probe
+generated_at: '2026-05-21T09:51:11.481882Z'
+round: 189
+slice: nep2_vector_wrapper_owner_static_probe
+input_artifacts:
+- file_name: nep2_vector_candidate_provenance_round186.json
+  sha256: b8dfea364cbedac6573bffb3d0859e1f3f908a9d874f68a2c2e3f558b7ebdfe2
+  missing: false
+- file_name: round186_nep2_vector_candidate_provenance.py
+  sha256: 322d657def0be8eb812713ac0135aaa3110e0cd0de31f42dcbd5134698b2938d
+  missing: false
+nep2_file:
+  file_name: NEP2.dll
+  size_bytes: 40235512
+  sha256: 109b4af46054a534a4e3b815d022a9bd26709d5bd644cbba4c4d456d4b61f382
+  pdata_function_count: 42977
+selection_policy:
+  base_artifact: nep2_vector_candidate_provenance_round186.json
+  vector_target_count: 11
+  vector_targets:
+  - target_rva: '0x120c0'
+    round186_verdict: vector_or_block_helper_without_payload_provenance
+    round186_direct_caller_count: 11
+    round186_vector_instruction_count: 54
+    round186_evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x120c0
+  - target_rva: '0x123e0'
+    round186_verdict: vector_or_block_helper_without_payload_provenance
+    round186_direct_caller_count: 32
+    round186_vector_instruction_count: 36
+    round186_evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x123e0
+  - target_rva: '0x8310'
+    round186_verdict: vector_or_block_helper_without_payload_provenance
+    round186_direct_caller_count: 0
+    round186_vector_instruction_count: 31
+    round186_evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x8310
+  - target_rva: '0x81e0'
+    round186_verdict: vector_or_block_helper_without_payload_provenance
+    round186_direct_caller_count: 0
+    round186_vector_instruction_count: 22
+    round186_evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x81e0
+  - target_rva: '0x10670'
+    round186_verdict: vector_or_block_helper_without_payload_provenance
+    round186_direct_caller_count: 16
+    round186_vector_instruction_count: 18
+    round186_evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x10670
+  - target_rva: '0x8460'
+    round186_verdict: vector_or_block_helper_without_payload_provenance
+    round186_direct_caller_count: 0
+    round186_vector_instruction_count: 8
+    round186_evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x8460
+  - target_rva: '0x75c0'
+    round186_verdict: vector_or_block_helper_without_payload_provenance
+    round186_direct_caller_count: 0
+    round186_vector_instruction_count: 4
+    round186_evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x75c0
+  - target_rva: '0x74e0'
+    round186_verdict: vector_or_block_helper_without_payload_provenance
+    round186_direct_caller_count: 0
+    round186_vector_instruction_count: 2
+    round186_evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x74e0
+  - target_rva: '0x7660'
+    round186_verdict: vector_or_block_helper_without_payload_provenance
+    round186_direct_caller_count: 0
+    round186_vector_instruction_count: 2
+    round186_evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x7660
+  - target_rva: '0x79d0'
+    round186_verdict: helper_without_payload_provenance
+    round186_direct_caller_count: 0
+    round186_vector_instruction_count: 2
+    round186_evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x79d0
+  - target_rva: '0x7a30'
+    round186_verdict: helper_without_payload_provenance
+    round186_direct_caller_count: 0
+    round186_vector_instruction_count: 2
+    round186_evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x7a30
+  wrapper_selection:
+  - direct callers of Round186 vector/helper targets
+  - one reverse-callgraph ancestor layer for each direct vector caller
+  provenance_seed_rvas:
+    '0xd720': round170_read_mapping_owner_GetFileSizeEx
+    '0xd7c0': round170_read_mapping_owner_GetFileSize
+    '0x6033f0': round171_partial_CreateFileW_provenance_no_payload_owner
+  known_file_helper_rvas:
+    '0xd720': GetFileSizeEx helper
+    '0xd7c0': GetFileSize helper
+    '0xda90': CreateFileW helper
+    '0x6033f0': Round171 partial CreateFileW helper
+  max_read_seed_depth: 5
+counts:
+  wrapper_function_count: 13
+  direct_vector_wrapper_count: 12
+  wrapper_with_vector_call_count: 12
+  vector_call_edge_count: 59
+  wrapper_with_file_helper_call_count: 0
+  wrapper_with_keyword_ref_count: 0
+  wrapper_with_read_mapping_import_count: 0
+  wrapper_with_provenance_path_count: 0
+  vector_wrapper_owner_candidate_count: 0
+  weak_file_helper_vector_bridge_count: 0
+  vector_target_count: 11
+  publishable_knowledge_entries: 0
+wrappers:
+- wrapper_rva: '0x1670'
+  function:
+    begin: '0x1670'
+    end: '0x16dc'
+    size: '0x6c'
+  selection:
+    roles:
+    - direct_vector_caller
+    seed_vector_rvas:
+    - '0x123e0'
+    sample_sites:
+    - '0x16b6'
+  verdict: vector_wrapper_without_payload_source
+  counts:
+    instructions: 27
+    logic_transform_instruction: 2
+  imports: []
+  keyword_refs: []
+  constants: []
+  large_immediates: []
+  vector_calls:
+  - site: '0x16b6'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  file_helper_calls: []
+  parent_context_count: 0
+  parent_contexts: []
+  provenance_paths: []
+  direct_caller_count: 0
+  direct_callee_count: 4
+  evidence_ref: NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x1670
+- wrapper_rva: '0x1910'
+  function:
+    begin: '0x1910'
+    end: '0x197c'
+    size: '0x6c'
+  selection:
+    roles:
+    - direct_vector_caller
+    seed_vector_rvas:
+    - '0x10670'
+    sample_sites:
+    - '0x1956'
+  verdict: vector_wrapper_without_payload_source
+  counts:
+    instructions: 27
+    logic_transform_instruction: 2
+  imports: []
+  keyword_refs: []
+  constants: []
+  large_immediates: []
+  vector_calls:
+  - site: '0x1956'
+    target_rva: '0x10670'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+  file_helper_calls: []
+  parent_context_count: 0
+  parent_contexts: []
+  provenance_paths: []
+  direct_caller_count: 0
+  direct_callee_count: 4
+  evidence_ref: NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x1910
+- wrapper_rva: '0x1980'
+  function:
+    begin: '0x1980'
+    end: '0x19ec'
+    size: '0x6c'
+  selection:
+    roles:
+    - direct_vector_caller
+    seed_vector_rvas:
+    - '0x10670'
+    sample_sites:
+    - '0x19c6'
+  verdict: vector_wrapper_without_payload_source
+  counts:
+    instructions: 27
+    logic_transform_instruction: 2
+  imports: []
+  keyword_refs: []
+  constants: []
+  large_immediates: []
+  vector_calls:
+  - site: '0x19c6'
+    target_rva: '0x10670'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+  file_helper_calls: []
+  parent_context_count: 0
+  parent_contexts: []
+  provenance_paths: []
+  direct_caller_count: 0
+  direct_callee_count: 4
+  evidence_ref: NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x1980
+- wrapper_rva: '0x25a0'
+  function:
+    begin: '0x25a0'
+    end: '0x2816'
+    size: '0x276'
+  selection:
+    roles:
+    - direct_vector_caller
+    seed_vector_rvas:
+    - '0x10670'
+    - '0x123e0'
+    sample_sites:
+    - '0x25fb'
+    - '0x2651'
+    - '0x26aa'
+    - '0x2703'
+    - '0x275c'
+  verdict: vector_wrapper_without_payload_source
+  counts:
+    instructions: 146
+    logic_transform_instruction: 10
+    imm:16: 2
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x27ac'
+    value: '0x10'
+    label: block_size_16
+    text: '000027ac: mov      ecx, 0x10'
+  - rva: '0x27c3'
+    value: '0x10'
+    label: block_size_16
+    text: '000027c3: mov      ecx, 0x10'
+  large_immediates: []
+  vector_calls:
+  - site: '0x25fb'
+    target_rva: '0x10670'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+  - site: '0x2651'
+    target_rva: '0x10670'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+  - site: '0x26aa'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x2703'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x275c'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  file_helper_calls: []
+  parent_context_count: 0
+  parent_contexts: []
+  provenance_paths: []
+  direct_caller_count: 0
+  direct_callee_count: 19
+  evidence_ref: NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x25a0
+- wrapper_rva: '0x2900'
+  function:
+    begin: '0x2900'
+    end: '0x2a90'
+    size: '0x190'
+  selection:
+    roles:
+    - direct_vector_caller
+    seed_vector_rvas:
+    - '0x10670'
+    - '0x123e0'
+    sample_sites:
+    - '0x2a0a'
+    - '0x295e'
+    - '0x29b4'
+  verdict: vector_wrapper_without_payload_source
+  counts:
+    instructions: 94
+    imm:16: 2
+    logic_transform_instruction: 6
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x290a'
+    value: '0x10'
+    label: block_size_16
+    text: '0000290a: mov      edx, 0x10'
+  - rva: '0x2a45'
+    value: '0x10'
+    label: block_size_16
+    text: '00002a45: mov      ecx, 0x10'
+  large_immediates: []
+  vector_calls:
+  - site: '0x295e'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x29b4'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x2a0a'
+    target_rva: '0x10670'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+  file_helper_calls: []
+  parent_context_count: 0
+  parent_contexts: []
+  provenance_paths: []
+  direct_caller_count: 0
+  direct_callee_count: 13
+  evidence_ref: NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x2900
+- wrapper_rva: '0x2a90'
+  function:
+    begin: '0x2a90'
+    end: '0x2d84'
+    size: '0x2f4'
+  selection:
+    roles:
+    - direct_vector_caller
+    seed_vector_rvas:
+    - '0x10670'
+    - '0x123e0'
+    sample_sites:
+    - '0x2bf3'
+    - '0x2aee'
+    - '0x2b44'
+    - '0x2b9d'
+    - '0x2c4c'
+    - '0x2ca5'
+    - '0x2cfe'
+  verdict: vector_wrapper_without_payload_source
+  counts:
+    instructions: 178
+    imm:16: 2
+    logic_transform_instruction: 14
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x2a9a'
+    value: '0x10'
+    label: block_size_16
+    text: '00002a9a: mov      edx, 0x10'
+  - rva: '0x2d39'
+    value: '0x10'
+    label: block_size_16
+    text: '00002d39: mov      ecx, 0x10'
+  large_immediates: []
+  vector_calls:
+  - site: '0x2aee'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x2b44'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x2b9d'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x2bf3'
+    target_rva: '0x10670'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+  - site: '0x2c4c'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x2ca5'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x2cfe'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  file_helper_calls: []
+  parent_context_count: 0
+  parent_contexts: []
+  provenance_paths: []
+  direct_caller_count: 0
+  direct_callee_count: 25
+  evidence_ref: NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x2a90
+- wrapper_rva: '0x2df0'
+  function:
+    begin: '0x2df0'
+    end: '0x2f80'
+    size: '0x190'
+  selection:
+    roles:
+    - direct_vector_caller
+    seed_vector_rvas:
+    - '0x10670'
+    - '0x123e0'
+    sample_sites:
+    - '0x2efa'
+    - '0x2e4e'
+    - '0x2ea4'
+  verdict: vector_wrapper_without_payload_source
+  counts:
+    instructions: 94
+    imm:16: 2
+    logic_transform_instruction: 6
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x2dfa'
+    value: '0x10'
+    label: block_size_16
+    text: '00002dfa: mov      edx, 0x10'
+  - rva: '0x2f35'
+    value: '0x10'
+    label: block_size_16
+    text: '00002f35: mov      ecx, 0x10'
+  large_immediates: []
+  vector_calls:
+  - site: '0x2e4e'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x2ea4'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x2efa'
+    target_rva: '0x10670'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+  file_helper_calls: []
+  parent_context_count: 0
+  parent_contexts: []
+  provenance_paths: []
+  direct_caller_count: 0
+  direct_callee_count: 13
+  evidence_ref: NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x2df0
+- wrapper_rva: '0x2ff0'
+  function:
+    begin: '0x2ff0'
+    end: '0x379b'
+    size: '0x7ab'
+  selection:
+    roles:
+    - direct_vector_caller
+    seed_vector_rvas:
+    - '0x120c0'
+    - '0x123e0'
+    sample_sites:
+    - '0x3249'
+    - '0x32a1'
+    - '0x32f9'
+    - '0x3401'
+    - '0x3509'
+    - '0x3561'
+    - '0x3611'
+    - '0x36c1'
+    - '0x3719'
+    - '0x3039'
+    - '0x3091'
+    - '0x30e9'
+    - '0x3141'
+    - '0x3199'
+    - '0x31f1'
+    - '0x3351'
+  verdict: vector_wrapper_without_payload_source
+  counts:
+    instructions: 469
+    logic_transform_instruction: 44
+  imports: []
+  keyword_refs: []
+  constants: []
+  large_immediates: []
+  vector_calls:
+  - site: '0x3039'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x3091'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x30e9'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x3141'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x3199'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x31f1'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x3249'
+    target_rva: '0x120c0'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+  - site: '0x32a1'
+    target_rva: '0x120c0'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+  - site: '0x32f9'
+    target_rva: '0x120c0'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+  - site: '0x3351'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x33a9'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x3401'
+    target_rva: '0x120c0'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+  - site: '0x3459'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x34b1'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x3509'
+    target_rva: '0x120c0'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+  - site: '0x3561'
+    target_rva: '0x120c0'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+  - site: '0x35b9'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x3611'
+    target_rva: '0x120c0'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+  - site: '0x3669'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x36c1'
+    target_rva: '0x120c0'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+  - site: '0x3719'
+    target_rva: '0x120c0'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+  - site: '0x3771'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  file_helper_calls: []
+  parent_context_count: 0
+  parent_contexts: []
+  provenance_paths: []
+  direct_caller_count: 0
+  direct_callee_count: 67
+  evidence_ref: NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x2ff0
+- wrapper_rva: '0x6de0'
+  function:
+    begin: '0x6de0'
+    end: '0x7388'
+    size: '0x5a8'
+  selection:
+    roles:
+    - direct_vector_caller
+    seed_vector_rvas:
+    - '0x10670'
+    - '0x120c0'
+    - '0x123e0'
+    sample_sites:
+    - '0x6e8b'
+    - '0x6f3d'
+    - '0x6fef'
+    - '0x70a4'
+    - '0x7162'
+    - '0x7220'
+    - '0x72de'
+    - '0x7112'
+    - '0x6e3e'
+    - '0x6ef0'
+    - '0x6fa2'
+    - '0x7054'
+  verdict: vector_wrapper_without_payload_source
+  counts:
+    instructions: 318
+    imm:16: 2
+    logic_transform_instruction: 28
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x6dea'
+    value: '0x10'
+    label: block_size_16
+    text: '00006dea: mov      edx, 0x10'
+  - rva: '0x7337'
+    value: '0x10'
+    label: block_size_16
+    text: '00007337: mov      ecx, 0x10'
+  large_immediates: []
+  vector_calls:
+  - site: '0x6e3e'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x6e8b'
+    target_rva: '0x10670'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+  - site: '0x6ef0'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x6f3d'
+    target_rva: '0x10670'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+  - site: '0x6fa2'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x6fef'
+    target_rva: '0x10670'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+  - site: '0x7054'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  - site: '0x70a4'
+    target_rva: '0x10670'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+  - site: '0x7112'
+    target_rva: '0x120c0'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+  - site: '0x7162'
+    target_rva: '0x10670'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+  - site: '0x7220'
+    target_rva: '0x10670'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+  - site: '0x72de'
+    target_rva: '0x10670'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+  file_helper_calls: []
+  parent_context_count: 0
+  parent_contexts: []
+  provenance_paths: []
+  direct_caller_count: 0
+  direct_callee_count: 39
+  evidence_ref: NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x6de0
+- wrapper_rva: '0xe150'
+  function:
+    begin: '0xe150'
+    end: '0xe299'
+    size: '0x149'
+  selection:
+    roles:
+    - direct_vector_caller
+    seed_vector_rvas:
+    - '0x123e0'
+    sample_sites:
+    - '0xe1c7'
+  verdict: vector_wrapper_without_payload_source
+  counts:
+    instructions: 73
+    logic_transform_instruction: 6
+  imports: []
+  keyword_refs: []
+  constants: []
+  large_immediates: []
+  vector_calls:
+  - site: '0xe1c7'
+    target_rva: '0x123e0'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+  file_helper_calls: []
+  parent_context_count: 0
+  parent_contexts: []
+  provenance_paths: []
+  direct_caller_count: 0
+  direct_callee_count: 12
+  evidence_ref: NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0xe150
+- wrapper_rva: '0xe2a0'
+  function:
+    begin: '0xe2a0'
+    end: '0xe3f2'
+    size: '0x152'
+  selection:
+    roles:
+    - direct_vector_caller
+    seed_vector_rvas:
+    - '0x120c0'
+    sample_sites:
+    - '0xe317'
+  verdict: vector_wrapper_without_payload_source
+  counts:
+    instructions: 73
+    logic_transform_instruction: 6
+  imports: []
+  keyword_refs: []
+  constants: []
+  large_immediates: []
+  vector_calls:
+  - site: '0xe317'
+    target_rva: '0x120c0'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+  file_helper_calls: []
+  parent_context_count: 0
+  parent_contexts: []
+  provenance_paths: []
+  direct_caller_count: 0
+  direct_callee_count: 12
+  evidence_ref: NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0xe2a0
+- wrapper_rva: '0x10430'
+  function:
+    begin: '0x10430'
+    end: '0x10457'
+    size: '0x27'
+  selection:
+    roles:
+    - ancestor_depth_1
+    seed_vector_rvas:
+    - '0x10670'
+    sample_sites:
+    - '0x1044b'
+  verdict: ancestor_or_wrapper_without_payload_source
+  counts:
+    instructions: 10
+  imports: []
+  keyword_refs: []
+  constants: []
+  large_immediates: []
+  vector_calls: []
+  file_helper_calls: []
+  parent_context_count: 1
+  parent_contexts:
+  - site: '0x105ef'
+    caller:
+      begin: '0x105c0'
+      end: '0x1063d'
+      size: '0x7d'
+    caller_rva: '0x105c0'
+  provenance_paths: []
+  direct_caller_count: 1
+  direct_callee_count: 1
+  evidence_ref: NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x10430
+- wrapper_rva: '0x10460'
+  function:
+    begin: '0x10460'
+    end: '0x105b4'
+    size: '0x154'
+  selection:
+    roles:
+    - direct_vector_caller
+    seed_vector_rvas:
+    - '0x10670'
+    sample_sites:
+    - '0x104bf'
+    - '0x1051e'
+  verdict: vector_wrapper_without_payload_source
+  counts:
+    instructions: 80
+    logic_transform_instruction: 7
+  imports:
+  - rva: '0x104c7'
+    import: KERNEL32.dll!GetModuleHandleA
+    import_name: GetModuleHandleA
+    class: other
+    text: '000104c7: call     qword ptr [rip + 0x6e234b]'
+  - rva: '0x1052b'
+    import: KERNEL32.dll!GetProcAddress
+    import_name: GetProcAddress
+    class: other
+    text: '0001052b: call     qword ptr [rip + 0x6e22df]'
+  keyword_refs: []
+  constants: []
+  large_immediates: []
+  vector_calls:
+  - site: '0x104bf'
+    target_rva: '0x10670'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+  - site: '0x1051e'
+    target_rva: '0x10670'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+  file_helper_calls: []
+  parent_context_count: 1
+  parent_contexts:
+  - site: '0x1044b'
+    caller:
+      begin: '0x10430'
+      end: '0x10457'
+      size: '0x27'
+    caller_rva: '0x10430'
+  provenance_paths: []
+  direct_caller_count: 1
+  direct_callee_count: 5
+  evidence_ref: NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x10460
+route_conclusion:
+  vector_wrapper_owner_candidate_found: false
+  vector_wrapper_payload_owner_proven: false
+  read_mapping_to_vector_wrapper_path_found: false
+  read_mapping_import_in_vector_wrapper_found: false
+  file_helper_to_vector_wrapper_bridge_found: false
+  metadata_or_luascripts_keyword_link_found: false
+  protected_metadata_method_ownership_recovered: false
+  plaintext_metadata_recovered: false
+  lua_payload_decoder_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: vector wrappers call NEP2 vector helpers, but no payload
+    keyword, read/mapping import, or read-seed path reaches those wrappers
+  strongest_negative_signal: Round189 found no static proof that NEP2 vector wrappers
+    consume global-metadata or LuaScripts payload buffers
+  search_policy: demote isolated vector-wrapper clusters unless a file-buffer owner,
+    payload path, or decoded metadata validates them
+evidence_refs:
+- NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:summary
+- NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x1670
+- NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x1910
+- NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x1980
+- NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x25a0
+- NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x2900
+- NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x2a90
+- NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x2df0
+- NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x2ff0
+- NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x6de0
+- NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0xe150
+- NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0xe2a0
+- NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x10430
+- NSLG_NEP2_VECTOR_WRAPPER_OWNER:nep2-vector-wrapper-owner-probe-round189:wrapper:0x10460
+next_static_targets:
+- Do not prioritize NEP2 vector wrappers again unless a payload source reaches the
+  wrapper cluster.
+- Continue toward a proven TextAsset/LuaScripts payload owner or protected global-metadata
+  method ownership.
+- Accept vector-wrapper decoder promotion only after readable IL2CPP metadata or Lua
+  payload bytes are recovered.
+limitations:
+- Offline/static NEP2 callgraph expansion only; no live Frida, runtime attach, account
+  data, credentials, or online protocol were used.
+- Direct-call and one-layer reverse-callgraph expansion does not cover indirect calls
+  or runtime-dispatched callbacks.
+- Calling a vector helper is helper-shape evidence, not decoder proof without file-buffer
+  or payload ownership.
+- No decoded metadata, LuaScripts payload, or publishable gameplay knowledge is produced
+  by this artifact.
+guardrails:
+- offline/static NEP2 callgraph wrapper scan only; no live instrumentation, account
+  data, or online protocol data is included
+- absolute local paths are not persisted; only file names, hashes, RVAs, counts, and
+  sanitized summaries are stored
+- vector-wrapper call edges are route evidence only and require payload-buffer provenance
+  before decoder promotion
+- no decoded global-metadata, LuaScripts payload, or gameplay knowledge is promoted
+  from this artifact

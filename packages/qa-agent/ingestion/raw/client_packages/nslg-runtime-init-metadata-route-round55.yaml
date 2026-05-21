@@ -1,0 +1,320 @@
+schema_version: nslg.runtime_init_metadata_route.v1
+source_id: runtime-init-metadata-route-round55
+source_url: local-nslg-client-runtime-init-metadata-route
+source_site: nslg_client_runtime_init_metadata_route
+generated_at: '2026-05-20T15:28:44.676690Z'
+round: 164
+slice: runtime_init_metadata_route_summary
+input_artifacts:
+- role: round49_runtime_hook_targets
+  file_name: gameassembly_runtime_hook_targets_round49.json
+  sha256: 197280941082cf1d27a10cfe6701e04ff4bc597aceee47536587e9ae5cabae15
+  missing: false
+- role: round72_global_metadata_structure
+  file_name: global_metadata_structure_round72.json
+  sha256: 9b3a1ed9104d5095fa5eb6dc4cb071f0766f255dd43f50dc1b7c537004049db6
+  missing: false
+- role: round105_global_metadata_xref_triage
+  file_name: gameassembly_global_metadata_xref_function_triage_round105.json
+  sha256: 8fa471c83c2926ce91a5775f13880d56867ab57db676c95bad82409527d475c6
+  missing: false
+- role: round160_textasset_loadbuffer_correlation
+  file_name: gameassembly_textasset_loadbuffer_correlation_round160.json
+  sha256: f6c7dba9157815a2fcb4dca811982f37676e30e882fadfccb94c24f3aa6bf9af
+  missing: false
+- role: round161_nep2_init_bridge
+  file_name: nep2_init_luascripts_bridge_summary_round161.json
+  sha256: e3f1101ce9187c983c06f4f2874367d6a74ae43374c9e230b8492b4dacdc1913
+  missing: false
+- role: round163_native_boundary
+  file_name: native_loadbuffer_boundary_trace_round163.json
+  sha256: 3dedf83b0265150db1fabebeb041d6fe4161fc421c74cf6004ae777301311df2
+  missing: false
+- role: analysis_markdown
+  file_name: nslg_local_data_analysis.md
+  sha256: 0f99fc93f204635f51c486a1285bd4f2914d466314334363c8ffe1e276087787
+  missing: false
+counts:
+  input_artifact_count: 7
+  runtime_initialize_anchor_count: 1
+  runtime_hook_module_count: 3
+  target_payload_count: 5
+  global_metadata_file_size: 21182776
+  global_metadata_plaintext_needle_hit_count: 0
+  global_metadata_duplicate_block_kinds_16: 20744
+  gameassembly_textasset_target_string_count: 9
+  gameassembly_textasset_route_signal_function_count: 0
+  native_boundary_loadbuffer_export_signal_count: 3
+  native_boundary_candidate_function_signal_count: 1
+  nep2_init_bridge_record_count: 4
+  nep2_init_bridge_candidate_function_count: 13
+runtime_initialize_anchor:
+  runtime_initialize_onloads_file_present: false
+  init_lua_env_anchor_found_in_analysis: true
+  assembly: Assembly-CSharp
+  managed_type: NSLGame.Patcher.GameUpdater
+  method: InitLuaEnv
+  anchor_status: known_from_prior_analysis
+  evidence_ref: NSLG_RUNTIME_INIT_ROUTE:runtime-init-metadata-route-round164:anchor:initluaenv
+runtime_hook_targets:
+  round: 49
+  target_payload_lengths:
+    warbook.bytes: 12144
+    skills.bytes: 51760
+    heros.bytes: 23232
+    lineup_assistant.bytes: 22608
+    custom_hero.bytes: 19392
+  module_summaries:
+    GameAssembly.dll:
+      binary_sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+      exports_count: 386
+      interesting_exports_count: 0
+      string_hit_counts:
+        xluaL_loadbuffer: 1
+        luaL_loadbuffer: 1
+        xlua: 71
+        UnityEngine.TextAsset: 6
+        TextAsset: 6
+        get_bytes: 2
+        LuaScripts: 0
+        InitLuaScriptsScan: 0
+      exact_rva_ref_key_count: 73
+    UnityPlayer.dll:
+      binary_sha256: 76e66c9f665ec1ba93473c1b03b68366c25137949124d7f2f8d639e4efff6dcf
+      exports_count: 2
+      interesting_exports_count: 0
+      string_hit_counts:
+        xluaL_loadbuffer: 0
+        luaL_loadbuffer: 0
+        xlua: 0
+        UnityEngine.TextAsset: 5
+        TextAsset: 8
+        get_bytes: 1
+        LuaScripts: 0
+        InitLuaScriptsScan: 0
+      exact_rva_ref_key_count: 54
+    NEP2.dll:
+      binary_sha256: 109b4af46054a534a4e3b815d022a9bd26709d5bd644cbba4c4d456d4b61f382
+      exports_count: 1
+      interesting_exports_count: 0
+      string_hit_counts:
+        xluaL_loadbuffer: 0
+        luaL_loadbuffer: 1
+        xlua: 0
+        UnityEngine.TextAsset: 0
+        TextAsset: 0
+        get_bytes: 0
+        LuaScripts: 3
+        InitLuaScriptsScan: 3
+      exact_rva_ref_key_count: 8
+  summary:
+  - 'GameAssembly exports: 386; interesting exports: 0.'
+  - 'GameAssembly lua/xlua exports: 0; il2cpp_resolve_icall export present: False.'
+  - 'GameAssembly TextAsset string hits: 6; static loadbuffer string hits: 2.'
+  - 'Internal resolver candidate: 0x5ccc30; xLua/TextAsset RIP ref hits: 4.'
+  - 'UnityPlayer exports: 2; NEP2 exports: 1.'
+  - 'Runtime hook route: hook GameAssembly+0x5ccc30 descriptor resolver, then hook
+    resolved xluaL_loadbuffer/TextAsset.get_bytes return pointers.'
+  internal_resolver_candidate_rva: '0x5ccc30'
+global_metadata_wrapper:
+  round: 72
+  file_size: 21182776
+  word0: '0xfab11baf'
+  word1: 21182776
+  word1_equals_file_size: true
+  protected_offset: 8
+  protected_size: 21182768
+  protected_size_mod_16: 0
+  entropy_whole: 7.872639369764739
+  plaintext_needle_hit_count: 0
+  block16_total_blocks: 1323923
+  block16_unique_blocks: 1180471
+  block16_duplicate_block_kinds: 20744
+  block16_duplicate_extra_instances: 143452
+  best_duplicate_phase_16:
+    phase: 0
+    duplicate_extra_instances: 143452
+    duplicate_block_kinds: 20744
+    max_repetition: 696
+  xor4_probe_candidate_count: 11
+  next_step: Search binaries for constants/use-sites of 0xFAB11BAF, file-size word
+    handling, +8 payload starts, and 16-byte loops around metadata load rather than
+    relying on global-metadata.dat string xrefs.
+metadata_xref_closure:
+  round: 105
+  focus_function_rvas:
+  - '0x55f6d0'
+  - '0x5736d0'
+  verdict:
+  - 0x55f6d0 and 0x5736d0 are confirmed narrow string/metadata xref functions, not
+    proven CAB/global-metadata file-buffer protectors.
+  - 'Direct file-related import refs inside focus funcs/direct callees: 0.'
+  - 'Crypto/AES/pshufb ops inside focus funcs/direct callees: 0.'
+  - 'Hard risky rows with file/crypto/CAB/non-stack-vector evidence: 0.'
+  - 'Soft 0xf/0x10 length-constant-only rows: 4.'
+  - No direct bridge from corrected global-metadata string xrefs to CreateFile/ReadFile/MapViewOfFile
+    or a non-stack 16-byte transform was found.
+  hard_risky_row_count: 0
+  soft_16byte_row_count: 4
+  next_step: Stop broad GameAssembly global-metadata string-xref rounds; pivot to
+    NEP2/UnityPlayer concrete file-buffer mutation surfaces and target functions that
+    touch CAB/SerializedFile buffers plus file APIs.
+textasset_route:
+  round: 160
+  counts:
+    pdata_function_count: 290472
+    import_count: 231
+    target_string_count: 9
+    code_ref_count: 0
+    function_ref_count: 0
+    route_signal_function_count: 0
+  verdict:
+  - 'Target strings found: 9.'
+  - 'Code refs to target strings: 0.'
+  - 'Functions with target string refs: 0.'
+  - 'Route-signal functions needing review: 0.'
+  - No readable payloads are decoded by this pass; this is static route evidence only.
+  - No static TextAsset/get_bytes -> xluaL_loadbuffer bridge was proven in this pass.
+  blockers:
+  - static string/ref correlation does not prove decoded LuaScripts payload semantics
+  - do not publish game knowledge until TextAsset bytes are decoded and semantically
+    reviewed
+  - absolute local paths are omitted from qa-agent import artifacts; binary identity
+    is tracked by hash only
+  next:
+  - manually inspect route-signal functions if any combine TextAsset/get_bytes, LuaScripts,
+    and xluaL_loadbuffer refs
+  - otherwise prioritize NEP2 InitLuaScriptsScan and runtime-independent TextAsset
+    payload decoder recovery
+  - carry this route evidence into qa-agent only as decoder planning evidence
+nep2_init_bridge:
+  round: 161
+  counts:
+    init_luascripts_occurrences_round34: 3
+    bridge_record_count: 4
+    bridge_code_pointer_count: 4
+    range_summary_count: 2
+    seed_summary_count: 4
+    candidate_function_count: 13
+    candidate_with_file_import_count: 1
+    candidate_with_keyword_xref_count: 0
+    candidate_crypto_like_count: 0
+    round97_executable_bridge_ref_count: 0
+    round97_nearby_code_ptr_count: 16
+    round98_interesting_signal_function_count: 1
+    round99_interesting_candidate_count: 3
+  route_conclusion:
+    bridge_metadata_confirmed: true
+    decryptor_body_proven: false
+    file_buffer_owner_proven: false
+    lua_payload_decoder_recovered: false
+    safe_for_publish: false
+    publishable_knowledge_entries: 0
+    strongest_current_signal: InitLuaScriptsScan CGameProtector RTTI/lambda bridge
+      metadata is real and connected to EH/FH4 owner records.
+    strongest_negative_signal: No inspected bridge, seed, or owner candidate combines
+      LuaScripts/CAB/Serialized keyword ownership, file-buffer imports, AES/pshufb-like
+      crypto, and 16-byte payload mutation proof.
+    search_policy: use this as decoder routing evidence only; continue with provenance-backed
+      InitLuaScriptsScan or payload-decoder candidates, not broad string chasing
+  top_candidate_functions:
+  - evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x603670
+    function_rva: '0x603670'
+    verdict: nontrivial helper but no file/CAB provenance
+    score: 570
+    file_import_names: []
+  - evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x6033f0
+    function_rva: '0x6033f0'
+    verdict: needs_deep_buffer_trace
+    score: 132
+    file_import_names:
+    - CreateFileW
+  - evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x442050
+    function_rva: '0x442050'
+    verdict: metadata/control helper; no current CAB transform proof
+    score: 68
+    file_import_names: []
+  - evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x2e12b0
+    function_rva: '0x2e12b0'
+    verdict: tiny metadata/lambda helper; no CAB transform proof
+    score: 64
+    file_import_names: []
+  - evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x4040
+    function_rva: '0x4040'
+    verdict: tiny metadata/lambda helper; no CAB transform proof
+    score: 16
+    file_import_names: []
+native_boundary:
+  round: 163
+  counts:
+    module_count: 4
+    loadbuffer_export_signal_count: 3
+    boundary_import_call_count: 224
+    candidate_function_signal_count: 1
+    total_import_calls: 1811
+    total_keyword_data_refs: 9
+  route_conclusion:
+    native_loadbuffer_export_present: true
+    gameassembly_static_xlua_import_present: false
+    gameassembly_to_xlua_static_bridge_proven: false
+    textasset_to_loadbuffer_owner_proven: false
+    lua_payload_decoder_recovered: false
+    safe_for_publish: false
+    publishable_knowledge_entries: 0
+    strongest_current_signal: xLua loadbuffer exports are present in the plugin, but
+      GameAssembly does not statically import xlua/lua/loadbuffer symbols.
+    strongest_negative_signal: No static import/IAT caller or keyword data-ref path
+      proves TextAsset bytes flow into a decoder and then into xLua loadbuffer.
+    search_policy: Treat import/export analysis as negative boundary evidence; continue
+      with provenance-backed buffer-owner tracing or metadata/runtime-init reconstruction,
+      not broad string scans.
+route_conclusion:
+  runtime_init_anchor_known: true
+  runtime_initialize_onloads_file_present: false
+  global_metadata_protected_wrapper_confirmed: true
+  protected_global_metadata_decoded: false
+  init_lua_env_method_address_recovered: false
+  textasset_to_loadbuffer_owner_proven: false
+  nep2_init_bridge_metadata_confirmed: true
+  lua_payload_decoder_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: RuntimeInitializeOnLoads names InitLuaEnv and NEP2 InitLuaScriptsScan
+    bridge metadata is confirmed; xLua loadbuffer exports are present.
+  strongest_blocker: global-metadata.dat is still protected and no static route proves
+    TextAsset payload-buffer ownership into a decoder/loadbuffer call.
+  search_policy: Recover metadata/method ownership or a provenance-backed payload-buffer
+    edge before any further decoder promotion; do not rely on broad strings/imports
+    alone.
+next_static_targets:
+- Recover protected global-metadata.dat enough to map NSLGame.Patcher.GameUpdater.InitLuaEnv
+  to IL2CPP method ownership.
+- Trace runtime registration/descriptor resolver tables around GameAssembly internal
+  resolver candidate 0x5ccc30 without live attach.
+- Use NEP2 InitLuaScriptsScan only with a proven file-buffer or asset-owner edge;
+  do not promote metadata bridge records alone.
+- After method ownership is recovered, re-check TextAsset.get_bytes and xLua loadbuffer
+  callsites for payload-buffer handoff.
+limitations:
+- Offline/static routing summary only; no live Frida, runtime attach, account data,
+  online protocol, or credentials were used.
+- RuntimeInitializeOnLoads.json is referenced from prior local analysis text; the
+  standalone JSON file is not present in this workspace snapshot.
+- global-metadata.dat remains protected and unreadable to normal IL2CPP metadata tooling.
+- This artifact does not decode LuaScripts payloads and must not be promoted as game
+  knowledge.
+evidence_refs:
+- NSLG_RUNTIME_INIT_ROUTE:runtime-init-metadata-route-round164:anchor:initluaenv
+- NSLG_RUNTIME_INIT_ROUTE:runtime-init-metadata-route-round164:global-metadata-wrapper
+- NSLG_RUNTIME_INIT_ROUTE:runtime-init-metadata-route-round164:textasset-route
+- NSLG_RUNTIME_INIT_ROUTE:runtime-init-metadata-route-round164:nep2-init-bridge
+- NSLG_RUNTIME_INIT_ROUTE:runtime-init-metadata-route-round164:native-boundary
+guardrails:
+- offline/static route summary only; no live instrumentation, account data, or online
+  protocol data is included
+- input artifact paths are not persisted; only file names, hashes, and sanitized counts
+  are stored
+- this artifact is decoder-planning evidence and must not be promoted as gameplay
+  knowledge
+- global-metadata method ownership or payload-buffer provenance is required before
+  decoder promotion

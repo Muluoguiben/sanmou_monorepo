@@ -1,0 +1,653 @@
+schema_version: nslg.gameassembly_initializer_dispatch_trace.v1
+source_id: gameassembly-initializer-dispatch-trace-round112
+source_url: local-nslg-client-gameassembly-initializer-dispatch-trace
+source_site: nslg_client_gameassembly_initializer_dispatch_trace
+generated_at: '2026-05-21T07:59:59.944688Z'
+round: 183
+slice: gameassembly_initializer_dispatch_trace
+input_artifacts:
+- file_name: GameAssembly.dll
+  role: module:GameAssembly.dll
+  size_bytes: 94127168
+  sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  missing: false
+- file_name: gameassembly_global_metadata_xref_function_triage_round105.json
+  role: round105_global_metadata_xref_function_triage
+  size_bytes: 184327
+  sha256: 8fa471c83c2926ce91a5775f13880d56867ab57db676c95bad82409527d475c6
+  missing: false
+- file_name: global_metadata_loader_mutation_scan_round168.json
+  role: round168_global_metadata_loader_mutation_scan
+  size_bytes: 428612
+  sha256: 01a9a8f4ee1eb4fa4de0d06fe9c2182e88dba3511f409e1002e2494bf18ab98e
+  missing: false
+- file_name: runtime_init_registry_probe_round178.json
+  role: round178_runtime_init_registry_probe
+  size_bytes: 18997
+  sha256: bf780a9cabc59ed477eed7460760c21dfa4e18451788d963170e8ee3722fd6ed
+  missing: false
+- file_name: gameassembly_codegen_module_probe_round179.json
+  role: round179_codegen_module_probe
+  size_bytes: 23089
+  sha256: ef470e0f5451169568286d47bc69921f8c8aa3a3b9b32c260701e958bde8fc90
+  missing: false
+- file_name: gameassembly_registration_layout_probe_round181.json
+  role: round181_registration_layout_probe
+  size_bytes: 150192
+  sha256: cf169267ac4d93527fd1b9f7963976e3e9c350fea82fbb3b1277269c0281a053
+  missing: false
+- file_name: gameassembly_registration_pair_context_probe_round182.json
+  role: round182_registration_pair_context_probe
+  size_bytes: 25264
+  sha256: 978d22c440ee313d1ada0bf88e1ef7285cb2fee132b1e942d39904aad8f10b48
+  missing: false
+gameassembly:
+  file_name: GameAssembly.dll
+  size_bytes: 94127168
+  sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  entry_rva: '0x5faa3c'
+  pdata_function_count: 290472
+  export_count: 386
+target_summary:
+  target_count: 29
+  by_category:
+    registration: 4
+    codegen_method_pointers: 2
+    metadata_candidate: 12
+    metadata_family_ref: 8
+    string: 3
+  sample:
+  - label: code_registration_struct
+    category: registration
+    start: '0x4332730'
+    end: '0x43327b8'
+  - label: codegen_modules_count_field
+    category: registration
+    start: '0x43327a8'
+    end: '0x43327b0'
+  - label: codegen_modules_pointer_field
+    category: registration
+    start: '0x43327b0'
+    end: '0x43327b8'
+  - label: codegen_modules_array
+    category: registration
+    start: '0x50a2840'
+    end: '0x50a2848'
+  - label: Assembly-CSharp-firstpass.dll:method_pointer_table_sample
+    category: codegen_method_pointers
+    start: '0x50b8c70'
+    end: '0x50b8e70'
+  - label: Assembly-CSharp.dll:method_pointer_table_sample
+    category: codegen_method_pointers
+    start: '0x50b9840'
+    end: '0x50b9a40'
+  - label: metadata_candidate_rank_1
+    category: metadata_candidate
+    start: '0x45893d0'
+    end: '0x4589460'
+  - label: metadata_candidate_rank_2
+    category: metadata_candidate
+    start: '0x4589370'
+    end: '0x4589400'
+  - label: metadata_candidate_rank_3
+    category: metadata_candidate
+    start: '0x4589380'
+    end: '0x4589410'
+  - label: metadata_candidate_rank_4
+    category: metadata_candidate
+    start: '0x4583c10'
+    end: '0x4583ca0'
+  - label: metadata_candidate_rank_5
+    category: metadata_candidate
+    start: '0x4589390'
+    end: '0x4589420'
+  - label: metadata_candidate_rank_6
+    category: metadata_candidate
+    start: '0x45893e0'
+    end: '0x4589470'
+  - label: metadata_candidate_rank_7
+    category: metadata_candidate
+    start: '0x4589430'
+    end: '0x45894c0'
+  - label: metadata_candidate_rank_8
+    category: metadata_candidate
+    start: '0x4589490'
+    end: '0x4589520'
+  - label: metadata_candidate_rank_9
+    category: metadata_candidate
+    start: '0x45894f0'
+    end: '0x4589580'
+  - label: metadata_candidate_rank_10
+    category: metadata_candidate
+    start: '0x4589550'
+    end: '0x45895e0'
+  - label: metadata_candidate_rank_11
+    category: metadata_candidate
+    start: '0x45895b0'
+    end: '0x4589640'
+  - label: metadata_candidate_rank_12
+    category: metadata_candidate
+    start: '0x45893f0'
+    end: '0x4589480'
+  - label: metadata_ref_family_1
+    category: metadata_family_ref
+    start: '0x45464a8'
+    end: '0x45464e0'
+  - label: metadata_ref_family_2
+    category: metadata_family_ref
+    start: '0x454e4a8'
+    end: '0x454e4b8'
+  - label: metadata_ref_family_3
+    category: metadata_family_ref
+    start: '0x45564a8'
+    end: '0x45564b8'
+  - label: metadata_ref_family_4
+    category: metadata_family_ref
+    start: '0x52f87c8'
+    end: '0x52f87d0'
+  - label: metadata_ref_family_5
+    category: metadata_family_ref
+    start: '0x5327798'
+    end: '0x53277a0'
+  - label: metadata_ref_family_6
+    category: metadata_family_ref
+    start: '0x53279f8'
+    end: '0x5327a00'
+roots:
+  root_count: 4
+  items:
+  - label: pe_entry
+    kind: entry
+    rva: '0x5faa3c'
+    function:
+      begin: '0x5faa3c'
+      end: '0x5faa79'
+      size: '0x3d'
+  - label: export:DllCanUnloadNow
+    kind: export
+    rva: '0x5c0300'
+    function:
+      begin: ''
+      end: ''
+      size: ''
+  - label: global_metadata_string_ref_function
+    kind: evidence_root
+    rva: '0x55f6d0'
+    function:
+      begin: '0x55f6d0'
+      end: '0x55f83a'
+      size: '0x16a'
+  - label: global_metadata_string_ref_function
+    kind: evidence_root
+    rva: '0x5736d0'
+    function:
+      begin: '0x5736d0'
+      end: '0x5739de'
+      size: '0x30e'
+scan_counts:
+  instructions: 16265170
+  indirect_branches: 98232
+  string_refs: 3
+  interesting_import_calls: 39
+goal_function_summary:
+  registration_anchor_ref_functions: []
+  registration_anchor_ref_functions_count: 0
+  metadata_candidate_ref_functions: []
+  metadata_candidate_ref_functions_count: 0
+  global_metadata_string_ref_functions:
+  - function:
+      begin: '0x55f6d0'
+      end: '0x55f83a'
+      size: '0x16a'
+    instruction_count: 73
+    direct_callee_count: 3
+    direct_caller_count: 1
+    indirect_branch_count: 0
+    target_ref_counts:
+      string: 1
+    target_ref_label_counts:
+      string:global-metadata.dat: 1
+    target_refs:
+    - insn_rva: '0x55f6e0'
+      target_rva: '0x4d88a98'
+      mnemonic: lea
+      op_str: rcx, [rip + 0x48293b1]
+      target:
+        label: string:global-metadata.dat
+        category: string
+  - function:
+      begin: '0x5736d0'
+      end: '0x5739de'
+      size: '0x30e'
+    instruction_count: 170
+    direct_callee_count: 9
+    direct_caller_count: 0
+    indirect_branch_count: 0
+    target_ref_counts:
+      string: 2
+    target_ref_label_counts:
+      string:global-metadata.dat: 1
+      'string:global-metadata.dat size:': 1
+    target_refs:
+    - insn_rva: '0x573902'
+      target_rva: '0x4d8e180'
+      mnemonic: lea
+      op_str: rdx, [rip + 0x481a877]
+      target:
+        label: string:global-metadata.dat
+        category: string
+    - insn_rva: '0x573902'
+      target_rva: '0x4d8e180'
+      mnemonic: lea
+      op_str: rdx, [rip + 0x481a877]
+      target:
+        label: 'string:global-metadata.dat size:'
+        category: string
+  global_metadata_string_ref_functions_count: 2
+bounded_path_report:
+  registration_anchor_ref:
+    goal_function_count: 0
+    bounded_forward_path:
+      found: false
+      depth: null
+      path: []
+    bounded_reverse_paths: []
+  metadata_candidate_ref:
+    goal_function_count: 0
+    bounded_forward_path:
+      found: false
+      depth: null
+      path: []
+    bounded_reverse_paths: []
+  global_metadata_string_ref:
+    goal_function_count: 2
+    bounded_forward_path:
+      found: false
+      depth: null
+      path: []
+    bounded_reverse_paths: []
+nonexec_function_pointer_hits:
+  target_function_count: 3
+  hit_count: 0
+  hits: []
+dispatcher_candidates:
+- function:
+    begin: '0xe4ec50'
+    end: '0xe508e3'
+    size: '0x1c93'
+  score: 70
+  reasons:
+  - direct-fanout=52
+  - indirect-branches=18
+  direct_callee_count: 52
+  direct_caller_count: 2
+  indirect_branch_count: 18
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0xebae50'
+    end: '0xebc60a'
+    size: '0x17ba'
+  score: 70
+  reasons:
+  - direct-fanout=52
+  - indirect-branches=13
+  direct_callee_count: 52
+  direct_caller_count: 1
+  indirect_branch_count: 13
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0xebc610'
+    end: '0xebdd3a'
+    size: '0x172a'
+  score: 70
+  reasons:
+  - direct-fanout=40
+  - indirect-branches=11
+  direct_callee_count: 40
+  direct_caller_count: 2
+  indirect_branch_count: 11
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0xec71d0'
+    end: '0xec9d0c'
+    size: '0x2b3c'
+  score: 70
+  reasons:
+  - direct-fanout=79
+  - indirect-branches=20
+  direct_callee_count: 79
+  direct_caller_count: 2
+  indirect_branch_count: 20
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0x3b464f0'
+    end: '0x3b484aa'
+    size: '0x1fba'
+  score: 69
+  reasons:
+  - direct-fanout=39
+  - indirect-branches=22
+  direct_callee_count: 39
+  direct_caller_count: 2
+  indirect_branch_count: 22
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0x2c6ee40'
+    end: '0x2c72900'
+    size: '0x3ac0'
+  score: 68
+  reasons:
+  - direct-fanout=38
+  - indirect-branches=11
+  direct_callee_count: 38
+  direct_caller_count: 0
+  indirect_branch_count: 11
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0x38f1840'
+    end: '0x38f2631'
+    size: '0xdf1'
+  score: 67
+  reasons:
+  - direct-fanout=37
+  - indirect-branches=10
+  direct_callee_count: 37
+  direct_caller_count: 0
+  indirect_branch_count: 10
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0xee4260'
+    end: '0xee51b6'
+    size: '0xf56'
+  score: 66
+  reasons:
+  - direct-fanout=36
+  - indirect-branches=11
+  direct_callee_count: 36
+  direct_caller_count: 2
+  indirect_branch_count: 11
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0x33fb140'
+    end: '0x33fc2f4'
+    size: '0x11b4'
+  score: 66
+  reasons:
+  - direct-fanout=36
+  - indirect-branches=19
+  direct_callee_count: 36
+  direct_caller_count: 3
+  indirect_branch_count: 19
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0xee33d0'
+    end: '0xee4258'
+    size: '0xe88'
+  score: 64
+  reasons:
+  - direct-fanout=34
+  - indirect-branches=14
+  direct_callee_count: 34
+  direct_caller_count: 3
+  indirect_branch_count: 14
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0x389f550'
+    end: '0x38a0329'
+    size: '0xdd9'
+  score: 64
+  reasons:
+  - direct-fanout=34
+  - indirect-branches=16
+  direct_callee_count: 34
+  direct_caller_count: 1
+  indirect_branch_count: 16
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0x39ce610'
+    end: '0x39d0154'
+    size: '0x1b44'
+  score: 64
+  reasons:
+  - direct-fanout=52
+  - indirect-branches=8
+  direct_callee_count: 52
+  direct_caller_count: 1
+  indirect_branch_count: 8
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0x10a5d10'
+    end: '0x10a7097'
+    size: '0x1387'
+  score: 63
+  reasons:
+  - direct-fanout=33
+  - indirect-branches=12
+  direct_callee_count: 33
+  direct_caller_count: 1
+  indirect_branch_count: 12
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0x340f800'
+    end: '0x3411cb9'
+    size: '0x24b9'
+  score: 63
+  reasons:
+  - direct-fanout=33
+  - indirect-branches=51
+  direct_callee_count: 33
+  direct_caller_count: 2
+  indirect_branch_count: 51
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0x1df36e0'
+    end: '0x1df4600'
+    size: '0xf20'
+  score: 62
+  reasons:
+  - direct-fanout=32
+  - indirect-branches=31
+  direct_callee_count: 32
+  direct_caller_count: 2
+  indirect_branch_count: 31
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0x3893bd0'
+    end: '0x3894c9f'
+    size: '0x10cf'
+  score: 61
+  reasons:
+  - direct-fanout=37
+  - indirect-branches=8
+  direct_callee_count: 37
+  direct_caller_count: 0
+  indirect_branch_count: 8
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0x1064b90'
+    end: '0x106532c'
+    size: '0x79c'
+  score: 60
+  reasons:
+  - direct-fanout=30
+  - indirect-branches=10
+  direct_callee_count: 30
+  direct_caller_count: 2
+  indirect_branch_count: 10
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0x39c4aa0'
+    end: '0x39c5b49'
+    size: '0x10a9'
+  score: 60
+  reasons:
+  - direct-fanout=30
+  - indirect-branches=15
+  direct_callee_count: 30
+  direct_caller_count: 0
+  indirect_branch_count: 15
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0xe4c0f0'
+    end: '0xe4d0c8'
+    size: '0xfd8'
+  score: 59
+  reasons:
+  - direct-fanout=32
+  - indirect-branches=9
+  direct_callee_count: 32
+  direct_caller_count: 1
+  indirect_branch_count: 9
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0xe8a9c0'
+    end: '0xe8b884'
+    size: '0xec4'
+  score: 59
+  reasons:
+  - direct-fanout=29
+  - indirect-branches=11
+  direct_callee_count: 29
+  direct_caller_count: 1
+  indirect_branch_count: 11
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0x10c5f40'
+    end: '0x10c6bf7'
+    size: '0xcb7'
+  score: 59
+  reasons:
+  - direct-fanout=29
+  - indirect-branches=32
+  direct_callee_count: 29
+  direct_caller_count: 17
+  indirect_branch_count: 32
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0x3b12f2f'
+    end: '0x3b142a5'
+    size: '0x1376'
+  score: 58
+  reasons:
+  - direct-fanout=46
+  - indirect-branches=6
+  direct_callee_count: 46
+  direct_caller_count: 0
+  indirect_branch_count: 6
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0x3bab320'
+    end: '0x3bac362'
+    size: '0x1042'
+  score: 58
+  reasons:
+  - direct-fanout=42
+  - indirect-branches=6
+  direct_callee_count: 42
+  direct_caller_count: 1
+  indirect_branch_count: 6
+  target_ref_counts: {}
+  interesting_import_calls: {}
+- function:
+    begin: '0x33f6d60'
+    end: '0x33f7b97'
+    size: '0xe37'
+  score: 57
+  reasons:
+  - direct-fanout=27
+  - indirect-branches=19
+  direct_callee_count: 27
+  direct_caller_count: 0
+  indirect_branch_count: 19
+  target_ref_counts: {}
+  interesting_import_calls: {}
+counts:
+  instruction_count: 16265170
+  function_row_count: 290472
+  registration_anchor_ref_function_count: 0
+  metadata_candidate_ref_function_count: 0
+  global_metadata_string_ref_function_count: 2
+  entry_to_registration_path_found: 0
+  entry_to_metadata_candidate_path_found: 0
+  entry_to_global_metadata_path_found: 0
+  nonexec_pointer_hit_count: 0
+  dispatcher_candidate_count: 24
+  init_lua_env_method_pointer_recovered: 0
+  protected_metadata_method_ownership_recovered: 0
+  publishable_knowledge_entries: 0
+route_conclusion:
+  initializer_dispatcher_route_recovered: false
+  registration_ownership_recovered: false
+  metadata_registration_paired_by_dispatch_trace: false
+  protected_metadata_method_ownership_recovered: false
+  init_lua_env_method_pointer_recovered: false
+  safe_for_publish: false
+  summary: Bounded direct-call dispatcher trace did not recover a registration/metadata
+    owner.
+  positive_signal:
+  - global_metadata_string_ref_function_count=2
+  - dispatcher_candidate_count=24
+  - nonexec_pointer_hit_count=0
+  negative_signal:
+  - registration_anchor_ref_function_count=0
+  - metadata_candidate_ref_function_count=0
+  - entry_to_registration_path_found=False
+  - entry_to_metadata_candidate_path_found=False
+  search_policy:
+  - Treat bounded direct-call dispatcher trace as negative for registration pairing
+    in this build.
+  - Focus next on protected metadata method-definition ownership or indirect initializer
+    table decoding.
+  - Do not map RuntimeInitializeOnLoads.json managed names to native pointers without
+    decoded metadata.
+evidence_refs:
+- NSLG_INITIALIZER_DISPATCH_TRACE:round183:entry-and-export-roots
+- NSLG_INITIALIZER_DISPATCH_TRACE:round183:global-metadata-string-functions
+- NSLG_INITIALIZER_DISPATCH_TRACE:round183:registration-anchor-code-ref-check
+- NSLG_INITIALIZER_DISPATCH_TRACE:round183:bounded-callgraph-paths
+- NSLG_INITIALIZER_DISPATCH_TRACE:round183:nonexec-function-pointer-scan
+next_static_targets:
+- Do not repeat exact CodeRegistration/MetadataRegistration pointer-pair xrefs unless
+  a new indirect owner is found.
+- Recover protected global-metadata method-definition ownership or an indirect init
+  table decoder before mapping InitLuaEnv.
+- If continuing dispatcher work, inspect indirect initializer tables that are referenced
+  by DllMain/CRT startup helpers rather than only direct call edges.
+- Keep RuntimeInitializeOnLoads.json as managed-name evidence only; it does not contain
+  native method addresses.
+limitations:
+- Offline/static probe only; no runtime attach, live instrumentation, account data,
+  credentials, or online protocol is used.
+- The call graph records direct calls and import thunks; indirect function-pointer
+  dispatch is only sampled through non-exec pointer hits.
+- No decoded protected metadata or method-definition table is produced by this artifact.
+- This artifact is decoder-routing evidence and must not be promoted as gameplay knowledge.
+guardrails:
+- offline/static GameAssembly initializer dispatch trace only; no live instrumentation,
+  account data, or online protocol data is included
+- bounded direct-call trace is not proof of indirect runtime dispatch absence
+- registration and metadata ownership remain unresolved until decoded metadata or
+  proven init table ownership exists
+- route evidence is not publishable gameplay knowledge

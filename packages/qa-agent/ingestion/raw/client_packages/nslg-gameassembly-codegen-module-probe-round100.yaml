@@ -1,0 +1,489 @@
+schema_version: nslg.gameassembly_codegen_module_probe.v1
+source_id: gameassembly-codegen-module-probe-round100
+source_url: local-nslg-client-gameassembly-codegen-module-probe
+source_site: nslg_client_gameassembly_codegen_module_probe
+generated_at: '2026-05-21T06:38:00.650505Z'
+round: 179
+slice: gameassembly_codegen_module_probe
+input_artifacts:
+- file_name: GameAssembly.dll
+  role: module:GameAssembly.dll
+  size_bytes: 94127168
+  sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  missing: false
+- file_name: RuntimeInitializeOnLoads.json
+  role: runtime_initialize_onloads_json
+  size_bytes: 2053
+  sha256: 58b6c1a83166bc985322af6ef5484d5a6ac6c1000507202252d72ac525ad3745
+  missing: false
+- file_name: global-metadata.dat
+  role: module:global-metadata.dat
+  size_bytes: 21182776
+  sha256: 34e4dbda23e22bee41eefd6b3bc3ff878ee6f010db40dab2424b68a84a42bb22
+  missing: false
+- file_name: runtime_init_registry_probe_round178.json
+  role: prior runtime-init registry probe
+  size_bytes: 18997
+  sha256: bf780a9cabc59ed477eed7460760c21dfa4e18451788d963170e8ee3722fd6ed
+  missing: false
+- file_name: textasset_xlua_boundary_ledger_round177.json
+  role: prior TextAsset/xLua boundary ledger
+  size_bytes: 12726
+  sha256: 78f03f1c64bb8bfd0102de1948f4120fbf11cb94e3454cce4c1fd8d98208d57c
+  missing: false
+- file_name: serialized_textasset_path_resolution_round175.json
+  role: prior LuaScripts TextAsset path resolution
+  size_bytes: 668520
+  sha256: fef425f228257f2cc91da99d9ce3425e3c0963835ca46e01750661e0df6a22d9
+  missing: false
+- file_name: global_metadata_transform_probe_round167.json
+  role: prior protected metadata transform probe
+  size_bytes: 127246
+  sha256: 2f13c2d0a455da2e4569473f0f5048ff6b70c9880fdd2cc1d9e876f9a4812ac8
+  missing: false
+gameassembly_summary:
+  file_name: GameAssembly.dll
+  size_bytes: 94127168
+  sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  image_base_hex: '0x180000000'
+  section_count: 6
+  pdata_function_count: 290472
+  sections:
+  - name: .text
+    virtual_address_hex: '0x1000'
+    virtual_size: 6480688
+    raw_size: 6480896
+  - name: il2cpp
+    virtual_address_hex: '0x630000'
+    virtual_size: 63293097
+    raw_size: 63293440
+  - name: .rdata
+    virtual_address_hex: '0x428d000'
+    virtual_size: 14427878
+    raw_size: 14428160
+  - name: .data
+    virtual_address_hex: '0x5050000'
+    virtual_size: 7825140
+    raw_size: 4876800
+  - name: .pdata
+    virtual_address_hex: '0x57c7000'
+    virtual_size: 3485664
+    raw_size: 3485696
+  - name: .reloc
+    virtual_address_hex: '0x5b1a000'
+    virtual_size: 1539848
+    raw_size: 1540096
+codegen_module_summary:
+  candidate_count: 95
+  unique_module_name_count: 95
+  contiguous_run_count: 4
+  largest_contiguous_run_count: 49
+  assembly_csharp_module_count: 2
+  assembly_csharp_module_names:
+  - Assembly-CSharp-firstpass.dll
+  - Assembly-CSharp.dll
+  top_method_pointer_modules:
+  - module_name: DocumentFormat.OpenXml.dll
+    method_pointer_count: 67261
+    method_pointer_table_rva: '0x50ff640'
+  - module_name: Assembly-CSharp.dll
+    method_pointer_count: 30078
+    method_pointer_table_rva: '0x50b9840'
+  - module_name: mscorlib.dll
+    method_pointer_count: 14161
+    method_pointer_table_rva: '0x54224d0'
+  - module_name: Unity.Mathematics.dll
+    method_pointer_count: 9338
+    method_pointer_table_rva: '0x549a550'
+  - module_name: UnityEngine.CoreModule.dll
+    method_pointer_count: 7628
+    method_pointer_table_rva: '0x54d2440'
+  - module_name: System.dll
+    method_pointer_count: 5736
+    method_pointer_table_rva: '0x5474760'
+  - module_name: System.Xml.dll
+    method_pointer_count: 5646
+    method_pointer_table_rva: '0x5468da0'
+  - module_name: Unity.Burst.dll
+    method_pointer_count: 3642
+    method_pointer_table_rva: '0x548a410'
+  - module_name: Sentry.dll
+    method_pointer_count: 3528
+    method_pointer_table_rva: '0x5459cb0'
+  - module_name: Sentry.System.Reflection.Metadata.dll
+    method_pointer_count: 3432
+    method_pointer_table_rva: '0x544a930'
+  - module_name: UniTask.dll
+    method_pointer_count: 3346
+    method_pointer_table_rva: '0x5483060'
+  - module_name: DocumentFormat.OpenXml.Framework.dll
+    method_pointer_count: 3174
+    method_pointer_table_rva: '0x50f8950'
+assembly_csharp_modules:
+- module_name: Assembly-CSharp-firstpass.dll
+  struct_rva: '0x4416490'
+  ref_rva: '0x50a2860'
+  method_pointer_count: 354
+  method_pointer_table_rva: '0x50b8c70'
+  method_pointer_table_section: .data
+  adjustor_thunk_count: 12
+  adjustor_thunk_table_rva: '0x50b9780'
+  invoker_indices_rva: '0x4415ec0'
+  reverse_pinvoke_wrapper_count: 0
+  rgctx_ranges_count: 2
+  rgctxs_count: 3
+  method_pointer_table_stats:
+    scanned_count: 354
+    text_pointer_count: 351
+    null_pointer_count: 3
+    other_pointer_count: 0
+    sample_size: 64
+    sample_text_pointer_count: 61
+    sample_null_pointer_count: 3
+    sample_other_pointer_count: 0
+    sample_entries:
+    - index: 0
+      pointer_rva: '0x63e190'
+      section: il2cpp
+      is_null: false
+    - index: 1
+      pointer_rva: '0x63a690'
+      section: il2cpp
+      is_null: false
+    - index: 2
+      pointer_rva: '0x63a6a0'
+      section: il2cpp
+      is_null: false
+    - index: 3
+      pointer_rva: '0x63a800'
+      section: il2cpp
+      is_null: false
+    - index: 4
+      pointer_rva: '0x63a750'
+      section: il2cpp
+      is_null: false
+    - index: 5
+      pointer_rva: '0x639bd0'
+      section: il2cpp
+      is_null: false
+    - index: 6
+      pointer_rva: '0x639db0'
+      section: il2cpp
+      is_null: false
+    - index: 7
+      pointer_rva: '0x639cc0'
+      section: il2cpp
+      is_null: false
+    - index: 8
+      pointer_rva: '0x639ee0'
+      section: il2cpp
+      is_null: false
+    - index: 9
+      pointer_rva: '0x639ed0'
+      section: il2cpp
+      is_null: false
+    - index: 10
+      pointer_rva: '0x639ea0'
+      section: il2cpp
+      is_null: false
+    - index: 11
+      pointer_rva: '0x63a2b0'
+      section: il2cpp
+      is_null: false
+    - index: 12
+      pointer_rva: '0x63a110'
+      section: il2cpp
+      is_null: false
+    - index: 13
+      pointer_rva: ''
+      section: ''
+      is_null: true
+    - index: 14
+      pointer_rva: '0x63a5b0'
+      section: il2cpp
+      is_null: false
+    - index: 15
+      pointer_rva: '0x63a440'
+      section: il2cpp
+      is_null: false
+    - index: 17
+      pointer_rva: '0x639ef0'
+      section: il2cpp
+      is_null: false
+    - index: 19
+      pointer_rva: '0x63a690'
+      section: il2cpp
+      is_null: false
+    - index: 20
+      pointer_rva: '0x630150'
+      section: il2cpp
+      is_null: false
+    - index: 21
+      pointer_rva: '0x630450'
+      section: il2cpp
+      is_null: false
+    - index: 22
+      pointer_rva: '0x630760'
+      section: il2cpp
+      is_null: false
+    - index: 23
+      pointer_rva: '0x6300f0'
+      section: il2cpp
+      is_null: false
+    - index: 24
+      pointer_rva: '0x6303a0'
+      section: il2cpp
+      is_null: false
+    - index: 25
+      pointer_rva: '0x6302e0'
+      section: il2cpp
+      is_null: false
+- module_name: Assembly-CSharp.dll
+  struct_rva: '0x44196a0'
+  ref_rva: '0x50a2868'
+  method_pointer_count: 30078
+  method_pointer_table_rva: '0x50b9840'
+  method_pointer_table_section: .data
+  adjustor_thunk_count: 341
+  adjustor_thunk_table_rva: '0x50f4430'
+  invoker_indices_rva: '0x4419740'
+  reverse_pinvoke_wrapper_count: 12425
+  rgctx_ranges_count: 140
+  rgctxs_count: 685
+  method_pointer_table_stats:
+    scanned_count: 30078
+    text_pointer_count: 29351
+    null_pointer_count: 727
+    other_pointer_count: 0
+    sample_size: 64
+    sample_text_pointer_count: 51
+    sample_null_pointer_count: 13
+    sample_other_pointer_count: 0
+    sample_entries:
+    - index: 0
+      pointer_rva: ''
+      section: ''
+      is_null: true
+    - index: 1
+      pointer_rva: ''
+      section: ''
+      is_null: true
+    - index: 2
+      pointer_rva: ''
+      section: ''
+      is_null: true
+    - index: 3
+      pointer_rva: ''
+      section: ''
+      is_null: true
+    - index: 4
+      pointer_rva: ''
+      section: ''
+      is_null: true
+    - index: 5
+      pointer_rva: ''
+      section: ''
+      is_null: true
+    - index: 6
+      pointer_rva: ''
+      section: ''
+      is_null: true
+    - index: 7
+      pointer_rva: ''
+      section: ''
+      is_null: true
+    - index: 8
+      pointer_rva: ''
+      section: ''
+      is_null: true
+    - index: 9
+      pointer_rva: ''
+      section: ''
+      is_null: true
+    - index: 10
+      pointer_rva: ''
+      section: ''
+      is_null: true
+    - index: 11
+      pointer_rva: ''
+      section: ''
+      is_null: true
+    - index: 12
+      pointer_rva: ''
+      section: ''
+      is_null: true
+    - index: 13
+      pointer_rva: '0x641b00'
+      section: il2cpp
+      is_null: false
+    - index: 14
+      pointer_rva: '0x641b00'
+      section: il2cpp
+      is_null: false
+    - index: 15
+      pointer_rva: '0x64f130'
+      section: il2cpp
+      is_null: false
+    - index: 16
+      pointer_rva: '0x63e4e0'
+      section: il2cpp
+      is_null: false
+    - index: 17
+      pointer_rva: '0x64f1c0'
+      section: il2cpp
+      is_null: false
+    - index: 18
+      pointer_rva: '0x648b30'
+      section: il2cpp
+      is_null: false
+    - index: 19
+      pointer_rva: '0x63f2f0'
+      section: il2cpp
+      is_null: false
+    - index: 20
+      pointer_rva: '0x63a690'
+      section: il2cpp
+      is_null: false
+    - index: 21
+      pointer_rva: '0x64ee20'
+      section: il2cpp
+      is_null: false
+    - index: 22
+      pointer_rva: '0x64f120'
+      section: il2cpp
+      is_null: false
+    - index: 23
+      pointer_rva: '0x63f2f0'
+      section: il2cpp
+      is_null: false
+codegen_module_runs:
+- start_ref_rva: '0x50a2840'
+  end_ref_rva: '0x50a29c0'
+  module_count: 49
+  first_module: AVProVideo.Extensions.Timeline.dll
+  last_module: UnityEngine.AudioModule.dll
+  contains_assembly_csharp: true
+  contains_assembly_csharp_firstpass: true
+  sample_modules:
+  - AVProVideo.Extensions.Timeline.dll
+  - AVProVideo.Extensions.UnityUI.dll
+  - AVProVideo.Extensions.VisualEffectGraph.dll
+  - AVProVideo.Runtime.dll
+  - Assembly-CSharp-firstpass.dll
+  - Assembly-CSharp.dll
+  - Coffee.UIParticle.dll
+  - DOTween.dll
+  - DocumentFormat.OpenXml.dll
+  - DocumentFormat.OpenXml.Framework.dll
+  - HYGames.DynamicAtlas.Runtime.dll
+  - HYGames.DynamicAtlas.Runtime.Integration.dll
+- start_ref_rva: '0x50a29d0'
+  end_ref_rva: '0x50a2a48'
+  module_count: 16
+  first_module: UnityEngine.CoreModule.dll
+  last_module: UnityEngine.SpriteMaskModule.dll
+  contains_assembly_csharp: false
+  contains_assembly_csharp_firstpass: false
+  sample_modules:
+  - UnityEngine.CoreModule.dll
+  - UnityEngine.DirectorModule.dll
+  - UnityEngine.GridModule.dll
+  - UnityEngine.IMGUIModule.dll
+  - UnityEngine.ImageConversionModule.dll
+  - UnityEngine.InputLegacyModule.dll
+  - UnityEngine.InputModule.dll
+  - UnityEngine.JSONSerializeModule.dll
+  - UnityEngine.LocalizationModule.dll
+  - UnityEngine.ParticleSystemModule.dll
+  - UnityEngine.Physics2DModule.dll
+  - UnityEngine.PhysicsModule.dll
+- start_ref_rva: '0x50a2a58'
+  end_ref_rva: '0x50a2b30'
+  module_count: 28
+  first_module: UnityEngine.SubsystemsModule.dll
+  last_module: ZString.dll
+  contains_assembly_csharp: false
+  contains_assembly_csharp_firstpass: false
+  sample_modules:
+  - UnityEngine.SubsystemsModule.dll
+  - UnityEngine.TerrainModule.dll
+  - UnityEngine.TextCoreFontEngineModule.dll
+  - UnityEngine.TextRenderingModule.dll
+  - UnityEngine.TilemapModule.dll
+  - UnityEngine.UIElementsModule.dll
+  - UnityEngine.UIModule.dll
+  - UnityEngine.UI.dll
+  - UnityEngine.UnityAnalyticsModule.dll
+  - UnityEngine.UnityWebRequestModule.dll
+  - UnityEngine.UnityWebRequestTextureModule.dll
+  - UnityEngine.VFXModule.dll
+- start_ref_rva: '0x50a2b40'
+  end_ref_rva: '0x50a2b48'
+  module_count: 2
+  first_module: io.sentry.unity.runtime.dll
+  last_module: mscorlib.dll
+  contains_assembly_csharp: false
+  contains_assembly_csharp_firstpass: false
+  sample_modules:
+  - io.sentry.unity.runtime.dll
+  - mscorlib.dll
+counts:
+  codegen_module_candidate_count: 95
+  codegen_module_run_count: 4
+  largest_codegen_module_run_count: 49
+  assembly_csharp_module_count: 2
+  assembly_csharp_method_pointer_count: 30078
+  assembly_csharp_method_pointer_text_count: 29351
+  assembly_csharp_method_pointer_null_count: 727
+  assembly_csharp_firstpass_method_pointer_count: 354
+  assembly_csharp_firstpass_method_pointer_text_count: 351
+  init_lua_env_method_pointer_recovered: 0
+  protected_metadata_method_ownership_recovered: 0
+  publishable_knowledge_entries: 0
+route_conclusion:
+  assembly_csharp_codegen_module_found: true
+  assembly_csharp_method_pointer_table_found: true
+  codegen_module_array_found: true
+  init_lua_env_method_pointer_recovered: false
+  protected_metadata_method_ownership_recovered: false
+  lua_payload_decoder_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: GameAssembly contains IL2CPP CodeGenModule-like records
+    for Assembly-CSharp.dll and Assembly-CSharp-firstpass.dll with dense method pointer
+    tables into executable sections.
+  strongest_negative_signal: CodeGenModule records expose method pointer tables but
+    not protected metadata names; InitLuaEnv cannot be mapped to a pointer without
+    decoded metadata or metadata-registration ownership.
+  search_policy: Use CodeGenModule method pointer tables as registration-side anchors,
+    then recover protected metadata/methodDefinition or metadata-registration index
+    maps before naming any method pointer.
+evidence_refs:
+- NSLG_CODEGEN_MODULE:round179:module:Assembly-CSharp.dll
+- NSLG_CODEGEN_MODULE:round179:module:Assembly-CSharp-firstpass.dll
+- NSLG_CODEGEN_MODULE:round179:codegen-module-array
+- NSLG_CODEGEN_MODULE:round179:method-pointer-table
+next_static_targets:
+- Use the Assembly-CSharp.dll CodeGenModule method pointer table as the registration-side
+  anchor for later method-index mapping.
+- Recover protected global-metadata string/method-definition tables or metadata registration
+  index maps before naming a method pointer.
+- Do not infer InitLuaEnv ownership from method pointer table order without decoded
+  metadata or an IL2CPP metadata-registration bridge.
+- After method ownership exists, validate TextAsset.get_bytes and xLua loadbuffer
+  handoff with resolved LuaScripts object offsets and payload lengths.
+limitations:
+- Offline/static probe only; no runtime attach, live instrumentation, account data,
+  or online protocol is used.
+- CodeGenModule structures expose method pointer counts and tables but not protected
+  metadata names.
+- InitLuaEnv method pointer is not recovered because protected global-metadata remains
+  unreadable.
+- This artifact is decoder-routing evidence and must not be promoted as gameplay knowledge.
+guardrails:
+- offline/static GameAssembly CodeGenModule probe only; no live instrumentation, account
+  data, or online protocol data is included
+- method pointer tables are registration-side anchors, not decoded method names
+- InitLuaEnv ownership requires decoded metadata or metadata-registration evidence
+  before a pointer can be named
+- route evidence is not publishable gameplay knowledge

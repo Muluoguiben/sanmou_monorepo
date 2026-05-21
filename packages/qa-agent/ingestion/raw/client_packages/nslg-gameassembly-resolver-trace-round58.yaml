@@ -1,0 +1,3057 @@
+schema_version: nslg.gameassembly_resolver_trace.v1
+source_id: gameassembly-resolver-trace-round58
+source_url: local-nslg-client-gameassembly-resolver-trace
+source_site: nslg_client_gameassembly_resolver_trace
+generated_at: '2026-05-20T15:44:49.322978Z'
+round: 165
+slice: gameassembly_resolver_candidate_static_trace
+input_artifacts:
+- role: gameassembly_binary
+  file_name: GameAssembly.dll
+  sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  missing: false
+- role: round49_runtime_hook_targets
+  file_name: gameassembly_runtime_hook_targets_round49.json
+  sha256: 197280941082cf1d27a10cfe6701e04ff4bc597aceee47536587e9ae5cabae15
+  missing: false
+binary:
+  file_name: GameAssembly.dll
+  image_base: '0x180000000'
+  entry_rva: '0x5faa3c'
+  section_count: 6
+round49_anchor:
+  file_name: gameassembly_runtime_hook_targets_round49.json
+  sha256: 197280941082cf1d27a10cfe6701e04ff4bc597aceee47536587e9ae5cabae15
+  primary_internal_resolver_candidate: '0x5ccc30'
+  primary_internal_resolver_evidence: Functions that reference xLua API names build
+    a stack descriptor and call 0x5ccc30, then store/call the returned pointer. Example
+    around 0xc78b0 resolves xlua/lua_next.
+  xlua_api_string_count: 47
+  rip_refs_to_xlua_or_textasset_names: 4
+target:
+  resolver_candidate_rva: '0x5ccc30'
+  candidate_function:
+    begin: '0x5ccc30'
+    end: '0x5cce50'
+    size: '0x220'
+  candidate_found: true
+counts:
+  pdata_function_count: 290472
+  target_string_hit_count: 234
+  target_string_unique_rva_count: 233
+  target_string_slot_ref_count: 0
+  resolver_candidate_direct_callsite_count: 2948
+  resolver_candidate_direct_caller_function_count: 240
+  resolver_candidate_keyword_ref_count: 0
+  resolver_candidate_string_slot_ref_count: 0
+  resolver_candidate_import_call_count: 0
+  resolver_candidate_crypto_op_count: 0
+  caller_keyword_ref_function_count: 28
+  caller_import_call_function_count: 0
+target_string_summary:
+  assetbundle: 18
+  metadata: 2
+  textasset: 6
+  textasset_get_bytes: 2
+  textasset_get_text: 20
+  xlua_api: 186
+resolver_candidate:
+  function:
+    begin: '0x5ccc30'
+    end: '0x5cce50'
+    size: '0x220'
+  found: true
+  pdata_function_found: false
+  counts:
+    instructions: 182
+    direct_calls: 12
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 0
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 2
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs: []
+  string_slot_refs: []
+  direct_calls:
+  - site: '0x5ccc49'
+    text: '005ccc49: call     0x5bf080'
+    target_rva: '0x5bf080'
+    target_function:
+      begin: '0x5bf080'
+      end: '0x5bf41e'
+      size: '0x39e'
+  - site: '0x5ccc5c'
+    text: '005ccc5c: call     0x5bcf00'
+    target_rva: '0x5bcf00'
+    target_function:
+      begin: '0x5bcf00'
+      end: '0x5bcf2c'
+      size: '0x2c'
+  - site: '0x5ccc66'
+    text: '005ccc66: call     0x5beac0'
+    target_rva: '0x5beac0'
+    target_function:
+      begin: '0x5beac0'
+      end: '0x5beaed'
+      size: '0x2d'
+  - site: '0x5ccc94'
+    text: '005ccc94: call     0x5cbd40'
+    target_rva: '0x5cbd40'
+    target_function:
+      begin: '0x5cbd40'
+      end: '0x5cbd54'
+      size: '0x14'
+  - site: '0x5ccc9f'
+    text: '005ccc9f: call     0x5a1bd0'
+    target_rva: '0x5a1bd0'
+    target_function:
+      begin: '0x5a1bd0'
+      end: '0x5a1bf4'
+      size: '0x24'
+  - site: '0x5cccdf'
+    text: '005cccdf: call     0x583de0'
+    target_rva: '0x583de0'
+    target_function:
+      begin: '0x583de0'
+      end: '0x5840d3'
+      size: '0x2f3'
+  - site: '0x5ccd3f'
+    text: '005ccd3f: call     0x62a540'
+    target_rva: '0x62a540'
+    target_function:
+      begin: '0x62a540'
+      end: '0x62abad'
+      size: '0x66d'
+  - site: '0x5ccd56'
+    text: '005ccd56: call     0x59f590'
+    target_rva: '0x59f590'
+    target_function:
+      begin: '0x59f590'
+      end: '0x59f656'
+      size: '0xc6'
+  - site: '0x5ccd86'
+    text: '005ccd86: call     0x5ccbe0'
+    target_rva: '0x5ccbe0'
+    target_function:
+      begin: '0x5ccbe0'
+      end: '0x5ccbea'
+      size: '0xa'
+  - site: '0x5ccdd5'
+    text: '005ccdd5: call     0x584620'
+    target_rva: '0x584620'
+    target_function: null
+  - site: '0x5ccde6'
+    text: '005ccde6: call     0x62a540'
+    target_rva: '0x62a540'
+    target_function:
+      begin: '0x62a540'
+      end: '0x62abad'
+      size: '0x66d'
+  - site: '0x5cce2b'
+    text: '005cce2b: call     0x62a540'
+    target_rva: '0x62a540'
+    target_function:
+      begin: '0x62a540'
+      end: '0x62abad'
+      size: '0x66d'
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '005ccc30: jmp      0x5a3ee0'
+  - '005ccc35: int3'
+  - '005ccc36: int3'
+  - '005ccc37: int3'
+  - '005ccc38: int3'
+  - '005ccc39: int3'
+  - '005ccc3a: int3'
+  - '005ccc3b: int3'
+  - '005ccc3c: int3'
+  - '005ccc3d: int3'
+  - '005ccc3e: int3'
+  - '005ccc3f: int3'
+  - '005ccc40: push     rbx'
+  - '005ccc42: sub      rsp, 0x20'
+  - '005ccc46: mov      rbx, rcx'
+  - '005ccc49: call     0x5bf080'
+  - '005ccc4e: test     rax, rax'
+  - '005ccc51: je       0x5ccc59'
+  - '005ccc53: add      rsp, 0x20'
+  - '005ccc57: pop      rbx'
+  - '005ccc58: ret'
+  - '005ccc59: mov      rcx, rbx'
+  - '005ccc5c: call     0x5bcf00'
+  - '005ccc61: mov      rcx, rax'
+  - '005ccc64: xor      edx, edx'
+  - '005ccc66: call     0x5beac0'
+  - '005ccc6b: int3'
+  - '005ccc6c: int3'
+  - '005ccc6d: int3'
+  - '005ccc6e: int3'
+  - '005ccc6f: int3'
+  - '005ccc70: mov      qword ptr [rsp + 8], rbx'
+  - '005ccc75: mov      qword ptr [rsp + 0x10], rsi'
+  - '005ccc7a: push     rdi'
+  - '005ccc7b: sub      rsp, 0x30'
+  - '005ccc7f: cmp      dword ptr [rcx + 0x28], 0'
+  verdict: no_route_signal_in_this_function
+notable_caller_functions:
+- function:
+    begin: '0x6667d0'
+    end: '0x666adf'
+    size: '0x30f'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 168
+    direct_calls: 33
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 2
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 22
+    non_stack_writes: 4
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0x66687e'
+    target_rva: '0x428e138'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '0066687e: lea      rax, [rip + 0x3c278b3]'
+  - site: '0x6668fa'
+    target_rva: '0x428e150'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '006668fa: lea      rax, [rip + 0x3c2784f]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0x6667f4'
+    text: '006667f4: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x666800'
+    text: '00666800: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x66680c'
+    text: '0066680c: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x666818'
+    text: '00666818: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x666824'
+    text: '00666824: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x666830'
+    text: '00666830: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x66683c'
+    text: '0066683c: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x666848'
+    text: '00666848: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x666864'
+    text: '00666864: call     0x5735c0'
+    target_rva: '0x5735c0'
+    target_function: null
+  - site: '0x6668bc'
+    text: '006668bc: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0x6668dc'
+    text: '006668dc: call     0x5735c0'
+    target_rva: '0x5735c0'
+    target_function: null
+  - site: '0x6668e6'
+    text: '006668e6: call     0x354a4b0'
+    target_rva: '0x354a4b0'
+    target_function: null
+  - site: '0x66693f'
+    text: '0066693f: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0x666953'
+    text: '00666953: call     0x5cbd40'
+    target_rva: '0x5cbd40'
+    target_function:
+      begin: '0x5cbd40'
+      end: '0x5cbd54'
+      size: '0x14'
+  - site: '0x666963'
+    text: '00666963: call     0x346f0c0'
+    target_rva: '0x346f0c0'
+    target_function:
+      begin: '0x346f0c0'
+      end: '0x346f0e2'
+      size: '0x22'
+  - site: '0x66696e'
+    text: '0066696e: call     0x5cbd40'
+    target_rva: '0x5cbd40'
+    target_function:
+      begin: '0x5cbd40'
+      end: '0x5cbd54'
+      size: '0x14'
+  - site: '0x666981'
+    text: '00666981: call     0x346db10'
+    target_rva: '0x346db10'
+    target_function:
+      begin: '0x346db10'
+      end: '0x346db87'
+      size: '0x77'
+  - site: '0x666990'
+    text: '00666990: call     0x5a3c50'
+    target_rva: '0x5a3c50'
+    target_function: null
+  - site: '0x6669a2'
+    text: '006669a2: call     0x2028390'
+    target_rva: '0x2028390'
+    target_function:
+      begin: '0x2028390'
+      end: '0x2028425'
+      size: '0x95'
+  - site: '0x6669ce'
+    text: '006669ce: call     0x5cbd00'
+    target_rva: '0x5cbd00'
+    target_function: null
+  - site: '0x6669d6'
+    text: '006669d6: call     0x5cbd40'
+    target_rva: '0x5cbd40'
+    target_function:
+      begin: '0x5cbd40'
+      end: '0x5cbd54'
+      size: '0x14'
+  - site: '0x6669fa'
+    text: '006669fa: call     0x5cbd40'
+    target_rva: '0x5cbd40'
+    target_function:
+      begin: '0x5cbd40'
+      end: '0x5cbd54'
+      size: '0x14'
+  - site: '0x666a16'
+    text: '00666a16: call     0x5cbd40'
+    target_rva: '0x5cbd40'
+    target_function:
+      begin: '0x5cbd40'
+      end: '0x5cbd54'
+      size: '0x14'
+  - site: '0x666a24'
+    text: '00666a24: call     0x3465400'
+    target_rva: '0x3465400'
+    target_function:
+      begin: '0x3465400'
+      end: '0x34655d6'
+      size: '0x1d6'
+  - site: '0x666a30'
+    text: '00666a30: call     0x5cbd40'
+    target_rva: '0x5cbd40'
+    target_function:
+      begin: '0x5cbd40'
+      end: '0x5cbd54'
+      size: '0x14'
+  - site: '0x666a56'
+    text: '00666a56: call     0x5735c0'
+    target_rva: '0x5735c0'
+    target_function: null
+  - site: '0x666a60'
+    text: '00666a60: call     0x358b890'
+    target_rva: '0x358b890'
+    target_function:
+      begin: '0x358b890'
+      end: '0x358b8f1'
+      size: '0x61'
+  - site: '0x666a6e'
+    text: '00666a6e: call     0x5a3c50'
+    target_rva: '0x5a3c50'
+    target_function: null
+  - site: '0x666a85'
+    text: '00666a85: call     0x67cea0'
+    target_rva: '0x67cea0'
+    target_function:
+      begin: '0x67cea0'
+      end: '0x67cf4f'
+      size: '0xaf'
+  - site: '0x666a9a'
+    text: '00666a9a: call     0x5735c0'
+    target_rva: '0x5735c0'
+    target_function: null
+  - site: '0x666aa7'
+    text: '00666aa7: call     0x665df0'
+    target_rva: '0x665df0'
+    target_function:
+      begin: '0x665df0'
+      end: '0x665e8f'
+      size: '0x9f'
+  - site: '0x666ab2'
+    text: '00666ab2: call     0x5cbd40'
+    target_rva: '0x5cbd40'
+    target_function:
+      begin: '0x5cbd40'
+      end: '0x5cbd54'
+      size: '0x14'
+  - site: '0x666ad9'
+    text: '00666ad9: call     0x5ccbd0'
+    target_rva: '0x5ccbd0'
+    target_function:
+      begin: '0x5ccbd0'
+      end: '0x5ccbda'
+      size: '0xa'
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '006667d0: mov      qword ptr [rsp + 8], rbx'
+  - '006667d5: mov      qword ptr [rsp + 0x10], rbp'
+  - '006667da: mov      qword ptr [rsp + 0x18], rsi'
+  - '006667df: push     rdi'
+  - '006667e0: sub      rsp, 0x50'
+  - '006667e4: cmp      byte ptr [rip + 0x4e90671], 0'
+  - '006667eb: jne      0x666854'
+  - '006667ed: lea      rcx, [rip + 0x4c5d53c]'
+  - '006667f4: call     0x5cc970'
+  - '006667f9: lea      rcx, [rip + 0x4bb7410]'
+  - '00666800: call     0x5cc970'
+  - '00666805: lea      rcx, [rip + 0x4ba260c]'
+  - '0066680c: call     0x5cc970'
+  - '00666811: lea      rcx, [rip + 0x4c066c8]'
+  - '00666818: call     0x5cc970'
+  - '0066681d: lea      rcx, [rip + 0x4c6b584]'
+  - '00666824: call     0x5cc970'
+  - '00666829: lea      rcx, [rip + 0x4c6c3d0]'
+  - '00666830: call     0x5cc970'
+  - '00666835: lea      rcx, [rip + 0x4c03d1c]'
+  - '0066683c: call     0x5cc970'
+  - '00666841: lea      rcx, [rip + 0x4be4e28]'
+  - '00666848: call     0x5cc970'
+  - '0066684d: mov      byte ptr [rip + 0x4e90608], 1'
+  - '00666854: mov      rcx, qword ptr [rip + 0x4c6c3a5]'
+  - '0066685b: cmp      dword ptr [rcx + 0xe0], 0'
+  - '00666862: jne      0x666869'
+  - '00666864: call     0x5735c0'
+  - '00666869: mov      rax, qword ptr [rip + 0x4e90568]'
+  - '00666870: lea      rbp, [rip + 0x3c27441]'
+  - '00666877: xor      esi, esi'
+  - '00666879: test     rax, rax'
+  - '0066687c: jne      0x6668c8'
+  - '0066687e: lea      rax, [rip + 0x3c278b3]'
+  - '00666885: mov      qword ptr [rsp + 0x20], rbp'
+  - '0066688a: lea      rcx, [rsp + 0x20]'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0x671110'
+    end: '0x6713c2'
+    size: '0x2b2'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 145
+    direct_calls: 23
+    import_calls: 0
+    indirect_slots: 1
+    keyword_refs: 2
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 32
+    non_stack_writes: 4
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0x671133'
+    target_rva: '0x428e120'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00671133: lea      r13, [rip + 0x3c1cfe6]'
+  - site: '0x67114d'
+    target_rva: '0x428e108'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '0067114d: lea      rdi, [rip + 0x3c1cfb4]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0x67116f'
+    text: '0067116f: call     0x573e80'
+    target_rva: '0x573e80'
+    target_function: null
+  - site: '0x671181'
+    text: '00671181: call     0x34685b0'
+    target_rva: '0x34685b0'
+    target_function:
+      begin: '0x34685b0'
+      end: '0x346870e'
+      size: '0x15e'
+  - site: '0x671199'
+    text: '00671199: call     0x5735c0'
+    target_rva: '0x5735c0'
+    target_function: null
+  - site: '0x6711ae'
+    text: '006711ae: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x6711ce'
+    text: '006711ce: call     0x5735c0'
+    target_rva: '0x5735c0'
+    target_function: null
+  - site: '0x6711d5'
+    text: '006711d5: call     0x670b40'
+    target_rva: '0x670b40'
+    target_function:
+      begin: '0x670b40'
+      end: '0x670bd7'
+      size: '0x97'
+  - site: '0x6711e3'
+    text: '006711e3: call     0x367ea10'
+    target_rva: '0x367ea10'
+    target_function:
+      begin: '0x367ea10'
+      end: '0x367ea8e'
+      size: '0x7e'
+  - site: '0x6711f1'
+    text: '006711f1: call     0x34652f0'
+    target_rva: '0x34652f0'
+    target_function:
+      begin: '0x34652f0'
+      end: '0x346534a'
+      size: '0x5a'
+  - site: '0x671237'
+    text: '00671237: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0x671246'
+    text: '00671246: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0x67125f'
+    text: '0067125f: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  - site: '0x67127c'
+    text: '0067127c: call     0x3465020'
+    target_rva: '0x3465020'
+    target_function:
+      begin: '0x3465020'
+      end: '0x34652ec'
+      size: '0x2cc'
+  - site: '0x671294'
+    text: '00671294: call     0x5735c0'
+    target_rva: '0x5735c0'
+    target_function: null
+  - site: '0x67129e'
+    text: '0067129e: call     0x408c610'
+    target_rva: '0x408c610'
+    target_function:
+      begin: '0x408c610'
+      end: '0x408c6d3'
+      size: '0xc3'
+  - site: '0x6712c3'
+    text: '006712c3: call     0x5735c0'
+    target_rva: '0x5735c0'
+    target_function: null
+  - site: '0x6712d8'
+    text: '006712d8: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x6712f8'
+    text: '006712f8: call     0x5735c0'
+    target_rva: '0x5735c0'
+    target_function: null
+  - site: '0x6712ff'
+    text: '006712ff: call     0x670b40'
+    target_rva: '0x670b40'
+    target_function:
+      begin: '0x670b40'
+      end: '0x670bd7'
+      size: '0x97'
+  - site: '0x67130d'
+    text: '0067130d: call     0x367ea10'
+    target_rva: '0x367ea10'
+    target_function:
+      begin: '0x367ea10'
+      end: '0x367ea8e'
+      size: '0x7e'
+  - site: '0x67131b'
+    text: '0067131b: call     0x34652f0'
+    target_rva: '0x34652f0'
+    target_function:
+      begin: '0x34652f0'
+      end: '0x346534a'
+      size: '0x5a'
+  - site: '0x671361'
+    text: '00671361: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0x671370'
+    text: '00671370: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0x671384'
+    text: '00671384: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  import_calls: []
+  indirect_slots:
+  - site: '0x67137b'
+    text: '0067137b: call     qword ptr [rip + 0x4e85a4f]'
+    slot_rva: '0x54f6dd0'
+  crypto_ops: []
+  sample_disasm:
+  - '00671110: mov      qword ptr [rsp + 0x90], rbx'
+  - '00671118: mov      qword ptr [rsp + 0x78], rsi'
+  - '0067111d: mov      qword ptr [rsp + 0x70], rdi'
+  - '00671122: mov      qword ptr [rsp + 0x68], r12'
+  - '00671127: lea      r12, [rip + 0x3c1cb8a]'
+  - '0067112e: mov      qword ptr [rsp + 0x60], r13'
+  - '00671133: lea      r13, [rip + 0x3c1cfe6]'
+  - '0067113a: mov      qword ptr [rsp + 0x58], r14'
+  - '0067113f: mov      r14d, 1'
+  - '00671145: mov      qword ptr [rsp + 0x50], r15'
+  - '0067114a: xor      r15d, r15d'
+  - '0067114d: lea      rdi, [rip + 0x3c1cfb4]'
+  - '00671154: nop      dword ptr [rax]'
+  - '00671158: nop      dword ptr [rax + rax]'
+  - '00671160: mov      rcx, qword ptr [rip + 0x4bdc769]'
+  - '00671167: lea      rdx, [rbp + 0x28]'
+  - '0067116b: mov      dword ptr [rbp + 0x28], r14d'
+  - '0067116f: call     0x573e80'
+  - '00671174: mov      rcx, qword ptr [rip + 0x4c14e35]'
+  - '0067117b: xor      r8d, r8d'
+  - '0067117e: mov      rdx, rax'
+  - '00671181: call     0x34685b0'
+  - '00671186: mov      rcx, qword ptr [rip + 0x4c61a73]'
+  - '0067118d: mov      rsi, rax'
+  - '00671190: cmp      dword ptr [rcx + 0xe0], r15d'
+  - '00671197: jne      0x67119e'
+  - '00671199: call     0x5735c0'
+  - '0067119e: cmp      byte ptr [rip + 0x4e85c45], r15b'
+  - '006711a5: jne      0x6711ba'
+  - '006711a7: lea      rcx, [rip + 0x4c61a52]'
+  - '006711ae: call     0x5cc970'
+  - '006711b3: mov      byte ptr [rip + 0x4e85c30], 1'
+  - '006711ba: mov      rcx, qword ptr [rip + 0x4c61a3f]'
+  - '006711c1: mov      dword ptr [rbp + 0x18], r15d'
+  - '006711c5: cmp      dword ptr [rcx + 0xe0], r15d'
+  - '006711cc: jne      0x6711d3'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0xc75e0'
+    end: '0xc76ab'
+    size: '0xcb'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 45
+    direct_calls: 6
+    import_calls: 0
+    indirect_slots: 1
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0xc762c'
+    target_rva: '0x429b1a8'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c762c: lea      rax, [rip + 0x41d3b75]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc75fc'
+    text: '000c75fc: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc7605'
+    text: '000c7605: call     0x5ccaf0'
+    target_rva: '0x5ccaf0'
+    target_function: null
+  - site: '0xc7663'
+    text: '000c7663: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc7672'
+    text: '000c7672: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0xc768b'
+    text: '000c768b: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  - site: '0xc7696'
+    text: '000c7696: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  import_calls: []
+  indirect_slots:
+  - site: '0xc7682'
+    text: '000c7682: call     qword ptr [rip + 0x54359b0]'
+    slot_rva: '0x54fd038'
+  crypto_ops: []
+  sample_disasm:
+  - '000c75e0: mov      qword ptr [rsp + 8], rbx'
+  - '000c75e5: mov      qword ptr [rsp + 0x10], rsi'
+  - '000c75ea: push     rdi'
+  - '000c75eb: sub      rsp, 0x50'
+  - '000c75ef: mov      rbx, r8'
+  - '000c75f2: mov      edi, edx'
+  - '000c75f4: mov      rsi, rcx'
+  - '000c75f7: lea      rcx, [rsp + 0x78]'
+  - '000c75fc: call     0x55b180'
+  - '000c7601: nop'
+  - '000c7602: mov      rcx, rbx'
+  - '000c7605: call     0x5ccaf0'
+  - '000c760a: mov      rbx, rax'
+  - '000c760d: cmp      qword ptr [rip + 0x5435a23], 0'
+  - '000c7615: jne      0xc766f'
+  - '000c7617: lea      rax, [rip + 0x41c669a]'
+  - '000c761e: mov      qword ptr [rsp + 0x20], rax'
+  - '000c7623: mov      qword ptr [rsp + 0x28], 4'
+  - '000c762c: lea      rax, [rip + 0x41d3b75]'
+  - '000c7633: mov      qword ptr [rsp + 0x30], rax'
+  - '000c7638: mov      qword ptr [rsp + 0x38], 0xc'
+  - '000c7641: mov      dword ptr [rsp + 0x40], 1'
+  - '000c7649: mov      dword ptr [rsp + 0x44], 2'
+  - '000c7651: mov      dword ptr [rsp + 0x48], 0x14'
+  - '000c7659: mov      byte ptr [rsp + 0x4c], 0'
+  - '000c765e: lea      rcx, [rsp + 0x20]'
+  - '000c7663: call     0x5ccc30'
+  - '000c7668: mov      qword ptr [rip + 0x54359c9], rax'
+  - '000c766f: mov      rcx, rbx'
+  - '000c7672: call     0x5ccab0'
+  - '000c7677: mov      rbx, rax'
+  - '000c767a: mov      r8, rax'
+  - '000c767d: mov      edx, edi'
+  - '000c767f: mov      rcx, rsi'
+  - '000c7682: call     qword ptr [rip + 0x54359b0]'
+  - '000c7688: mov      rcx, rbx'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0xc76b0'
+    end: '0xc776d'
+    size: '0xbd'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 41
+    direct_calls: 6
+    import_calls: 0
+    indirect_slots: 1
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0xc76f5'
+    target_rva: '0x429b108'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c76f5: lea      rax, [rip + 0x41d3a0c]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc76c5'
+    text: '000c76c5: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc76ce'
+    text: '000c76ce: call     0x5ccaf0'
+    target_rva: '0x5ccaf0'
+    target_function: null
+  - site: '0xc772c'
+    text: '000c772c: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc773b'
+    text: '000c773b: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0xc7752'
+    text: '000c7752: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  - site: '0xc775d'
+    text: '000c775d: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  import_calls: []
+  indirect_slots:
+  - site: '0xc7749'
+    text: '000c7749: call     qword ptr [rip + 0x5435899]'
+    slot_rva: '0x54fcfe8'
+  crypto_ops: []
+  sample_disasm:
+  - '000c76b0: mov      qword ptr [rsp + 8], rbx'
+  - '000c76b5: push     rdi'
+  - '000c76b6: sub      rsp, 0x50'
+  - '000c76ba: mov      rbx, rdx'
+  - '000c76bd: mov      rdi, rcx'
+  - '000c76c0: lea      rcx, [rsp + 0x70]'
+  - '000c76c5: call     0x55b180'
+  - '000c76ca: nop'
+  - '000c76cb: mov      rcx, rbx'
+  - '000c76ce: call     0x5ccaf0'
+  - '000c76d3: mov      rbx, rax'
+  - '000c76d6: cmp      qword ptr [rip + 0x543590a], 0'
+  - '000c76de: jne      0xc7738'
+  - '000c76e0: lea      rax, [rip + 0x41c65d1]'
+  - '000c76e7: mov      qword ptr [rsp + 0x20], rax'
+  - '000c76ec: mov      qword ptr [rsp + 0x28], 4'
+  - '000c76f5: lea      rax, [rip + 0x41d3a0c]'
+  - '000c76fc: mov      qword ptr [rsp + 0x30], rax'
+  - '000c7701: mov      qword ptr [rsp + 0x38], 0xd'
+  - '000c770a: mov      dword ptr [rsp + 0x40], 1'
+  - '000c7712: mov      dword ptr [rsp + 0x44], 2'
+  - '000c771a: mov      dword ptr [rsp + 0x48], 0x10'
+  - '000c7722: mov      byte ptr [rsp + 0x4c], 0'
+  - '000c7727: lea      rcx, [rsp + 0x20]'
+  - '000c772c: call     0x5ccc30'
+  - '000c7731: mov      qword ptr [rip + 0x54358b0], rax'
+  - '000c7738: mov      rcx, rbx'
+  - '000c773b: call     0x5ccab0'
+  - '000c7740: mov      rbx, rax'
+  - '000c7743: mov      rdx, rax'
+  - '000c7746: mov      rcx, rdi'
+  - '000c7749: call     qword ptr [rip + 0x5435899]'
+  - '000c774f: mov      rcx, rbx'
+  - '000c7752: call     0x5cca80'
+  - '000c7757: nop'
+  - '000c7758: lea      rcx, [rsp + 0x70]'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0xc7770'
+    end: '0xc7801'
+    size: '0x91'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 31
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 9
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0xc77a5'
+    target_rva: '0x429b250'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c77a5: lea      rax, [rip + 0x41d3aa4]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc777e'
+    text: '000c777e: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc77dc'
+    text: '000c77dc: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc77f4'
+    text: '000c77f4: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '000c7770: push     rbx'
+  - '000c7772: sub      rsp, 0x50'
+  - '000c7776: mov      rbx, rcx'
+  - '000c7779: lea      rcx, [rsp + 0x68]'
+  - '000c777e: call     0x55b180'
+  - '000c7783: nop'
+  - '000c7784: mov      rax, qword ptr [rip + 0x54358f5]'
+  - '000c778b: test     rax, rax'
+  - '000c778e: jne      0xc77e8'
+  - '000c7790: lea      rax, [rip + 0x41c6521]'
+  - '000c7797: mov      qword ptr [rsp + 0x20], rax'
+  - '000c779c: mov      qword ptr [rsp + 0x28], 4'
+  - '000c77a5: lea      rax, [rip + 0x41d3aa4]'
+  - '000c77ac: mov      qword ptr [rsp + 0x30], rax'
+  - '000c77b1: mov      qword ptr [rsp + 0x38], 0xa'
+  - '000c77ba: mov      dword ptr [rsp + 0x40], 1'
+  - '000c77c2: mov      dword ptr [rsp + 0x44], 2'
+  - '000c77ca: mov      dword ptr [rsp + 0x48], 8'
+  - '000c77d2: mov      byte ptr [rsp + 0x4c], 0'
+  - '000c77d7: lea      rcx, [rsp + 0x20]'
+  - '000c77dc: call     0x5ccc30'
+  - '000c77e1: mov      qword ptr [rip + 0x5435898], rax'
+  - '000c77e8: mov      rcx, rbx'
+  - '000c77eb: call     rax'
+  - '000c77ed: mov      ebx, eax'
+  - '000c77ef: lea      rcx, [rsp + 0x68]'
+  - '000c77f4: call     0x55b3c0'
+  - '000c77f9: mov      eax, ebx'
+  - '000c77fb: add      rsp, 0x50'
+  - '000c77ff: pop      rbx'
+  - '000c7800: ret'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0xc7810'
+    end: '0xc78ab'
+    size: '0x9b'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 34
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0xc784b'
+    target_rva: '0x429b168'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c784b: lea      rax, [rip + 0x41d3916]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc7824'
+    text: '000c7824: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc7882'
+    text: '000c7882: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc789b'
+    text: '000c789b: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '000c7810: mov      qword ptr [rsp + 8], rbx'
+  - '000c7815: push     rdi'
+  - '000c7816: sub      rsp, 0x50'
+  - '000c781a: mov      ebx, edx'
+  - '000c781c: mov      rdi, rcx'
+  - '000c781f: lea      rcx, [rsp + 0x70]'
+  - '000c7824: call     0x55b180'
+  - '000c7829: nop'
+  - '000c782a: mov      rax, qword ptr [rip + 0x54357e7]'
+  - '000c7831: test     rax, rax'
+  - '000c7834: jne      0xc788e'
+  - '000c7836: lea      rax, [rip + 0x41c647b]'
+  - '000c783d: mov      qword ptr [rsp + 0x20], rax'
+  - '000c7842: mov      qword ptr [rsp + 0x28], 4'
+  - '000c784b: lea      rax, [rip + 0x41d3916]'
+  - '000c7852: mov      qword ptr [rsp + 0x30], rax'
+  - '000c7857: mov      qword ptr [rsp + 0x38], 0xa'
+  - '000c7860: mov      dword ptr [rsp + 0x40], 1'
+  - '000c7868: mov      dword ptr [rsp + 0x44], 2'
+  - '000c7870: mov      dword ptr [rsp + 0x48], 0xc'
+  - '000c7878: mov      byte ptr [rsp + 0x4c], 0'
+  - '000c787d: lea      rcx, [rsp + 0x20]'
+  - '000c7882: call     0x5ccc30'
+  - '000c7887: mov      qword ptr [rip + 0x543578a], rax'
+  - '000c788e: mov      edx, ebx'
+  - '000c7890: mov      rcx, rdi'
+  - '000c7893: call     rax'
+  - '000c7895: nop'
+  - '000c7896: lea      rcx, [rsp + 0x70]'
+  - '000c789b: call     0x55b3c0'
+  - '000c78a0: mov      rbx, qword ptr [rsp + 0x60]'
+  - '000c78a5: add      rsp, 0x50'
+  - '000c78a9: pop      rdi'
+  - '000c78aa: ret'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0xc78b0'
+    end: '0xc794e'
+    size: '0x9e'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 35
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0xc78eb'
+    target_rva: '0x429b4b0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c78eb: lea      rax, [rip + 0x41d3bbe]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc78c4'
+    text: '000c78c4: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc7922'
+    text: '000c7922: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc793c'
+    text: '000c793c: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '000c78b0: mov      qword ptr [rsp + 8], rbx'
+  - '000c78b5: push     rdi'
+  - '000c78b6: sub      rsp, 0x50'
+  - '000c78ba: mov      ebx, edx'
+  - '000c78bc: mov      rdi, rcx'
+  - '000c78bf: lea      rcx, [rsp + 0x70]'
+  - '000c78c4: call     0x55b180'
+  - '000c78c9: nop'
+  - '000c78ca: mov      rax, qword ptr [rip + 0x54358df]'
+  - '000c78d1: test     rax, rax'
+  - '000c78d4: jne      0xc792e'
+  - '000c78d6: lea      rax, [rip + 0x41c63db]'
+  - '000c78dd: mov      qword ptr [rsp + 0x20], rax'
+  - '000c78e2: mov      qword ptr [rsp + 0x28], 4'
+  - '000c78eb: lea      rax, [rip + 0x41d3bbe]'
+  - '000c78f2: mov      qword ptr [rsp + 0x30], rax'
+  - '000c78f7: mov      qword ptr [rsp + 0x38], 8'
+  - '000c7900: mov      dword ptr [rsp + 0x40], 1'
+  - '000c7908: mov      dword ptr [rsp + 0x44], 2'
+  - '000c7910: mov      dword ptr [rsp + 0x48], 0xc'
+  - '000c7918: mov      byte ptr [rsp + 0x4c], 0'
+  - '000c791d: lea      rcx, [rsp + 0x20]'
+  - '000c7922: call     0x5ccc30'
+  - '000c7927: mov      qword ptr [rip + 0x5435882], rax'
+  - '000c792e: mov      edx, ebx'
+  - '000c7930: mov      rcx, rdi'
+  - '000c7933: call     rax'
+  - '000c7935: mov      ebx, eax'
+  - '000c7937: lea      rcx, [rsp + 0x70]'
+  - '000c793c: call     0x55b3c0'
+  - '000c7941: mov      eax, ebx'
+  - '000c7943: mov      rbx, qword ptr [rsp + 0x60]'
+  - '000c7948: add      rsp, 0x50'
+  - '000c794c: pop      rdi'
+  - '000c794d: ret'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0xc7950'
+    end: '0xc7a11'
+    size: '0xc1'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 43
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 12
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0xc799b'
+    target_rva: '0x429b318'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '000c799b: lea      rax, [rip + 0x41d3976]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc7974'
+    text: '000c7974: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc79d2'
+    text: '000c79d2: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc79f2'
+    text: '000c79f2: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '000c7950: mov      qword ptr [rsp + 8], rbx'
+  - '000c7955: mov      qword ptr [rsp + 0x10], rbp'
+  - '000c795a: mov      qword ptr [rsp + 0x18], rsi'
+  - '000c795f: push     rdi'
+  - '000c7960: sub      rsp, 0x60'
+  - '000c7964: mov      ebx, r9d'
+  - '000c7967: mov      edi, r8d'
+  - '000c796a: mov      esi, edx'
+  - '000c796c: mov      rbp, rcx'
+  - '000c796f: lea      rcx, [rsp + 0x20]'
+  - '000c7974: call     0x55b180'
+  - '000c7979: nop'
+  - '000c797a: mov      rax, qword ptr [rip + 0x5435767]'
+  - '000c7981: test     rax, rax'
+  - '000c7984: jne      0xc79de'
+  - '000c7986: lea      rax, [rip + 0x41c632b]'
+  - '000c798d: mov      qword ptr [rsp + 0x28], rax'
+  - '000c7992: mov      qword ptr [rsp + 0x30], 4'
+  - '000c799b: lea      rax, [rip + 0x41d3976]'
+  - '000c79a2: mov      qword ptr [rsp + 0x38], rax'
+  - '000c79a7: mov      qword ptr [rsp + 0x40], 0x13'
+  - '000c79b0: mov      dword ptr [rsp + 0x48], 1'
+  - '000c79b8: mov      dword ptr [rsp + 0x4c], 2'
+  - '000c79c0: mov      dword ptr [rsp + 0x50], 0x14'
+  - '000c79c8: mov      byte ptr [rsp + 0x54], 0'
+  - '000c79cd: lea      rcx, [rsp + 0x28]'
+  - '000c79d2: call     0x5ccc30'
+  - '000c79d7: mov      qword ptr [rip + 0x543570a], rax'
+  - '000c79de: mov      r9d, ebx'
+  - '000c79e1: mov      r8d, edi'
+  - '000c79e4: mov      edx, esi'
+  - '000c79e6: mov      rcx, rbp'
+  - '000c79e9: call     rax'
+  - '000c79eb: mov      ebx, eax'
+  - '000c79ed: lea      rcx, [rsp + 0x20]'
+  - '000c79f2: call     0x55b3c0'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0xc7a20'
+    end: '0xc7af7'
+    size: '0xd7'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 48
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 14
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0xc7a6b'
+    target_rva: '0x429b1c8'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '000c7a6b: lea      rax, [rip + 0x41d3756]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc7a44'
+    text: '000c7a44: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc7aa2'
+    text: '000c7aa2: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc7ada'
+    text: '000c7ada: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '000c7a20: mov      qword ptr [rsp + 8], rbx'
+  - '000c7a25: mov      qword ptr [rsp + 0x10], rbp'
+  - '000c7a2a: mov      qword ptr [rsp + 0x18], rsi'
+  - '000c7a2f: push     rdi'
+  - '000c7a30: sub      rsp, 0x70'
+  - '000c7a34: mov      ebx, r9d'
+  - '000c7a37: mov      edi, r8d'
+  - '000c7a3a: mov      esi, edx'
+  - '000c7a3c: mov      rbp, rcx'
+  - '000c7a3f: lea      rcx, [rsp + 0x30]'
+  - '000c7a44: call     0x55b180'
+  - '000c7a49: nop'
+  - '000c7a4a: mov      rax, qword ptr [rip + 0x54355f7]'
+  - '000c7a51: test     rax, rax'
+  - '000c7a54: jne      0xc7aae'
+  - '000c7a56: lea      rax, [rip + 0x41c625b]'
+  - '000c7a5d: mov      qword ptr [rsp + 0x38], rax'
+  - '000c7a62: mov      qword ptr [rsp + 0x40], 4'
+  - '000c7a6b: lea      rax, [rip + 0x41d3756]'
+  - '000c7a72: mov      qword ptr [rsp + 0x48], rax'
+  - '000c7a77: mov      qword ptr [rsp + 0x50], 0x14'
+  - '000c7a80: mov      dword ptr [rsp + 0x58], 1'
+  - '000c7a88: mov      dword ptr [rsp + 0x5c], 2'
+  - '000c7a90: mov      dword ptr [rsp + 0x60], 0x20'
+  - '000c7a98: mov      byte ptr [rsp + 0x64], 0'
+  - '000c7a9d: lea      rcx, [rsp + 0x38]'
+  - '000c7aa2: call     0x5ccc30'
+  - '000c7aa7: mov      qword ptr [rip + 0x543559a], rax'
+  - '000c7aae: mov      rcx, qword ptr [rsp + 0xa8]'
+  - '000c7ab6: mov      qword ptr [rsp + 0x28], rcx'
+  - '000c7abb: mov      ecx, dword ptr [rsp + 0xa0]'
+  - '000c7ac2: mov      dword ptr [rsp + 0x20], ecx'
+  - '000c7ac6: mov      r9d, ebx'
+  - '000c7ac9: mov      r8d, edi'
+  - '000c7acc: mov      edx, esi'
+  - '000c7ace: mov      rcx, rbp'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0xc7b00'
+    end: '0xc7ba0'
+    size: '0xa0'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 36
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0xc7b3b'
+    target_rva: '0x429b3b0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c7b3b: lea      rax, [rip + 0x41d386e]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc7b14'
+    text: '000c7b14: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc7b72'
+    text: '000c7b72: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc7b90'
+    text: '000c7b90: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '000c7b00: mov      qword ptr [rsp + 8], rbx'
+  - '000c7b05: push     rdi'
+  - '000c7b06: sub      rsp, 0x50'
+  - '000c7b0a: mov      ebx, edx'
+  - '000c7b0c: mov      rdi, rcx'
+  - '000c7b0f: lea      rcx, [rsp + 0x70]'
+  - '000c7b14: call     0x55b180'
+  - '000c7b19: nop'
+  - '000c7b1a: mov      rax, qword ptr [rip + 0x5435617]'
+  - '000c7b21: test     rax, rax'
+  - '000c7b24: jne      0xc7b7e'
+  - '000c7b26: lea      rax, [rip + 0x41c618b]'
+  - '000c7b2d: mov      qword ptr [rsp + 0x20], rax'
+  - '000c7b32: mov      qword ptr [rsp + 0x28], 4'
+  - '000c7b3b: lea      rax, [rip + 0x41d386e]'
+  - '000c7b42: mov      qword ptr [rsp + 0x30], rax'
+  - '000c7b47: mov      qword ptr [rsp + 0x38], 0xf'
+  - '000c7b50: mov      dword ptr [rsp + 0x40], 1'
+  - '000c7b58: mov      dword ptr [rsp + 0x44], 2'
+  - '000c7b60: mov      dword ptr [rsp + 0x48], 0xc'
+  - '000c7b68: mov      byte ptr [rsp + 0x4c], 0'
+  - '000c7b6d: lea      rcx, [rsp + 0x20]'
+  - '000c7b72: call     0x5ccc30'
+  - '000c7b77: mov      qword ptr [rip + 0x54355ba], rax'
+  - '000c7b7e: xor      edx, edx'
+  - '000c7b80: test     ebx, ebx'
+  - '000c7b82: setne    dl'
+  - '000c7b85: mov      rcx, rdi'
+  - '000c7b88: call     rax'
+  - '000c7b8a: nop'
+  - '000c7b8b: lea      rcx, [rsp + 0x70]'
+  - '000c7b90: call     0x55b3c0'
+  - '000c7b95: mov      rbx, qword ptr [rsp + 0x60]'
+  - '000c7b9a: add      rsp, 0x50'
+  - '000c7b9e: pop      rdi'
+  - '000c7b9f: ret'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0xc7ba0'
+    end: '0xc7c4d'
+    size: '0xad'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 38
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0xc7be4'
+    target_rva: '0x429b228'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c7be4: lea      rax, [rip + 0x41d363d]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc7bbd'
+    text: '000c7bbd: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc7c1b'
+    text: '000c7c1b: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc7c38'
+    text: '000c7c38: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '000c7ba0: mov      qword ptr [rsp + 8], rbx'
+  - '000c7ba5: mov      qword ptr [rsp + 0x10], rsi'
+  - '000c7baa: push     rdi'
+  - '000c7bab: sub      rsp, 0x50'
+  - '000c7baf: mov      ebx, r8d'
+  - '000c7bb2: mov      rdi, rdx'
+  - '000c7bb5: mov      rsi, rcx'
+  - '000c7bb8: lea      rcx, [rsp + 0x78]'
+  - '000c7bbd: call     0x55b180'
+  - '000c7bc2: nop'
+  - '000c7bc3: mov      rax, qword ptr [rip + 0x54354a6]'
+  - '000c7bca: test     rax, rax'
+  - '000c7bcd: jne      0xc7c27'
+  - '000c7bcf: lea      rax, [rip + 0x41c60e2]'
+  - '000c7bd6: mov      qword ptr [rsp + 0x20], rax'
+  - '000c7bdb: mov      qword ptr [rsp + 0x28], 4'
+  - '000c7be4: lea      rax, [rip + 0x41d363d]'
+  - '000c7beb: mov      qword ptr [rsp + 0x30], rax'
+  - '000c7bf0: mov      qword ptr [rsp + 0x38], 0x10'
+  - '000c7bf9: mov      dword ptr [rsp + 0x40], 1'
+  - '000c7c01: mov      dword ptr [rsp + 0x44], 2'
+  - '000c7c09: mov      dword ptr [rsp + 0x48], 0x14'
+  - '000c7c11: mov      byte ptr [rsp + 0x4c], 0'
+  - '000c7c16: lea      rcx, [rsp + 0x20]'
+  - '000c7c1b: call     0x5ccc30'
+  - '000c7c20: mov      qword ptr [rip + 0x5435449], rax'
+  - '000c7c27: mov      r8d, ebx'
+  - '000c7c2a: mov      rdx, rdi'
+  - '000c7c2d: mov      rcx, rsi'
+  - '000c7c30: call     rax'
+  - '000c7c32: nop'
+  - '000c7c33: lea      rcx, [rsp + 0x78]'
+  - '000c7c38: call     0x55b3c0'
+  - '000c7c3d: mov      rbx, qword ptr [rsp + 0x60]'
+  - '000c7c42: mov      rsi, qword ptr [rsp + 0x68]'
+  - '000c7c47: add      rsp, 0x50'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0xc7c80'
+    end: '0xc7d24'
+    size: '0xa4'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 34
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0xc7cc0'
+    target_rva: '0x429b3a0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c7cc0: lea      rax, [rip + 0x41d36d9]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc7c99'
+    text: '000c7c99: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc7cf7'
+    text: '000c7cf7: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc7d14'
+    text: '000c7d14: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '000c7c80: push     rbx'
+  - '000c7c82: sub      rsp, 0x60'
+  - '000c7c86: movaps   xmmword ptr [rsp + 0x50], xmm6'
+  - '000c7c8b: movaps   xmm6, xmm1'
+  - '000c7c8e: mov      rbx, rcx'
+  - '000c7c91: lea      rcx, [rsp + 0x80]'
+  - '000c7c99: call     0x55b180'
+  - '000c7c9e: nop'
+  - '000c7c9f: mov      rax, qword ptr [rip + 0x543548a]'
+  - '000c7ca6: test     rax, rax'
+  - '000c7ca9: jne      0xc7d03'
+  - '000c7cab: lea      rax, [rip + 0x41c6006]'
+  - '000c7cb2: mov      qword ptr [rsp + 0x20], rax'
+  - '000c7cb7: mov      qword ptr [rsp + 0x28], 4'
+  - '000c7cc0: lea      rax, [rip + 0x41d36d9]'
+  - '000c7cc7: mov      qword ptr [rsp + 0x30], rax'
+  - '000c7ccc: mov      qword ptr [rsp + 0x38], 0xe'
+  - '000c7cd5: mov      dword ptr [rsp + 0x40], 1'
+  - '000c7cdd: mov      dword ptr [rsp + 0x44], 2'
+  - '000c7ce5: mov      dword ptr [rsp + 0x48], 0x10'
+  - '000c7ced: mov      byte ptr [rsp + 0x4c], 0'
+  - '000c7cf2: lea      rcx, [rsp + 0x20]'
+  - '000c7cf7: call     0x5ccc30'
+  - '000c7cfc: mov      qword ptr [rip + 0x543542d], rax'
+  - '000c7d03: movaps   xmm1, xmm6'
+  - '000c7d06: mov      rcx, rbx'
+  - '000c7d09: call     rax'
+  - '000c7d0b: nop'
+  - '000c7d0c: lea      rcx, [rsp + 0x80]'
+  - '000c7d14: call     0x55b3c0'
+  - '000c7d19: movaps   xmm6, xmmword ptr [rsp + 0x50]'
+  - '000c7d1e: add      rsp, 0x60'
+  - '000c7d22: pop      rbx'
+  - '000c7d23: ret'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0xc7d80'
+    end: '0xc7e1b'
+    size: '0x9b'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 34
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0xc7dbb'
+    target_rva: '0x429b218'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c7dbb: lea      rax, [rip + 0x41d3456]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc7d94'
+    text: '000c7d94: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc7df2'
+    text: '000c7df2: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc7e0b'
+    text: '000c7e0b: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '000c7d80: mov      qword ptr [rsp + 8], rbx'
+  - '000c7d85: push     rdi'
+  - '000c7d86: sub      rsp, 0x50'
+  - '000c7d8a: mov      ebx, edx'
+  - '000c7d8c: mov      rdi, rcx'
+  - '000c7d8f: lea      rcx, [rsp + 0x70]'
+  - '000c7d94: call     0x55b180'
+  - '000c7d99: nop'
+  - '000c7d9a: mov      rax, qword ptr [rip + 0x54352c7]'
+  - '000c7da1: test     rax, rax'
+  - '000c7da4: jne      0xc7dfe'
+  - '000c7da6: lea      rax, [rip + 0x41c5f0b]'
+  - '000c7dad: mov      qword ptr [rsp + 0x20], rax'
+  - '000c7db2: mov      qword ptr [rsp + 0x28], 4'
+  - '000c7dbb: lea      rax, [rip + 0x41d3456]'
+  - '000c7dc2: mov      qword ptr [rsp + 0x30], rax'
+  - '000c7dc7: mov      qword ptr [rsp + 0x38], 0xd'
+  - '000c7dd0: mov      dword ptr [rsp + 0x40], 1'
+  - '000c7dd8: mov      dword ptr [rsp + 0x44], 2'
+  - '000c7de0: mov      dword ptr [rsp + 0x48], 0xc'
+  - '000c7de8: mov      byte ptr [rsp + 0x4c], 0'
+  - '000c7ded: lea      rcx, [rsp + 0x20]'
+  - '000c7df2: call     0x5ccc30'
+  - '000c7df7: mov      qword ptr [rip + 0x543526a], rax'
+  - '000c7dfe: mov      edx, ebx'
+  - '000c7e00: mov      rcx, rdi'
+  - '000c7e03: call     rax'
+  - '000c7e05: nop'
+  - '000c7e06: lea      rcx, [rsp + 0x70]'
+  - '000c7e0b: call     0x55b3c0'
+  - '000c7e10: mov      rbx, qword ptr [rsp + 0x60]'
+  - '000c7e15: add      rsp, 0x50'
+  - '000c7e19: pop      rdi'
+  - '000c7e1a: ret'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0xc7e60'
+    end: '0xc7f0b'
+    size: '0xab'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 38
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0xc7ea3'
+    target_rva: '0x429b198'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c7ea3: lea      rax, [rip + 0x41d32ee]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc7e7c'
+    text: '000c7e7c: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc7eda'
+    text: '000c7eda: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc7ef6'
+    text: '000c7ef6: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '000c7e60: mov      qword ptr [rsp + 8], rbx'
+  - '000c7e65: mov      qword ptr [rsp + 0x10], rsi'
+  - '000c7e6a: push     rdi'
+  - '000c7e6b: sub      rsp, 0x50'
+  - '000c7e6f: mov      ebx, r8d'
+  - '000c7e72: mov      edi, edx'
+  - '000c7e74: mov      rsi, rcx'
+  - '000c7e77: lea      rcx, [rsp + 0x78]'
+  - '000c7e7c: call     0x55b180'
+  - '000c7e81: nop'
+  - '000c7e82: mov      rax, qword ptr [rip + 0x54351a7]'
+  - '000c7e89: test     rax, rax'
+  - '000c7e8c: jne      0xc7ee6'
+  - '000c7e8e: lea      rax, [rip + 0x41c5e23]'
+  - '000c7e95: mov      qword ptr [rsp + 0x20], rax'
+  - '000c7e9a: mov      qword ptr [rsp + 0x28], 4'
+  - '000c7ea3: lea      rax, [rip + 0x41d32ee]'
+  - '000c7eaa: mov      qword ptr [rsp + 0x30], rax'
+  - '000c7eaf: mov      qword ptr [rsp + 0x38], 0xb'
+  - '000c7eb8: mov      dword ptr [rsp + 0x40], 1'
+  - '000c7ec0: mov      dword ptr [rsp + 0x44], 2'
+  - '000c7ec8: mov      dword ptr [rsp + 0x48], 0x10'
+  - '000c7ed0: mov      byte ptr [rsp + 0x4c], 0'
+  - '000c7ed5: lea      rcx, [rsp + 0x20]'
+  - '000c7eda: call     0x5ccc30'
+  - '000c7edf: mov      qword ptr [rip + 0x543514a], rax'
+  - '000c7ee6: mov      r8d, ebx'
+  - '000c7ee9: mov      edx, edi'
+  - '000c7eeb: mov      rcx, rsi'
+  - '000c7eee: call     rax'
+  - '000c7ef0: nop'
+  - '000c7ef1: lea      rcx, [rsp + 0x78]'
+  - '000c7ef6: call     0x55b3c0'
+  - '000c7efb: mov      rbx, qword ptr [rsp + 0x60]'
+  - '000c7f00: mov      rsi, qword ptr [rsp + 0x68]'
+  - '000c7f05: add      rsp, 0x50'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0xc7f10'
+    end: '0xc7fab'
+    size: '0x9b'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 34
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0xc7f4b'
+    target_rva: '0x429b1e0'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c7f4b: lea      rax, [rip + 0x41d328e]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc7f24'
+    text: '000c7f24: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc7f82'
+    text: '000c7f82: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc7f9b'
+    text: '000c7f9b: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '000c7f10: mov      qword ptr [rsp + 8], rbx'
+  - '000c7f15: push     rdi'
+  - '000c7f16: sub      rsp, 0x50'
+  - '000c7f1a: mov      ebx, edx'
+  - '000c7f1c: mov      rdi, rcx'
+  - '000c7f1f: lea      rcx, [rsp + 0x70]'
+  - '000c7f24: call     0x55b180'
+  - '000c7f29: nop'
+  - '000c7f2a: mov      rax, qword ptr [rip + 0x543511f]'
+  - '000c7f31: test     rax, rax'
+  - '000c7f34: jne      0xc7f8e'
+  - '000c7f36: lea      rax, [rip + 0x41c5d7b]'
+  - '000c7f3d: mov      qword ptr [rsp + 0x20], rax'
+  - '000c7f42: mov      qword ptr [rsp + 0x28], 4'
+  - '000c7f4b: lea      rax, [rip + 0x41d328e]'
+  - '000c7f52: mov      qword ptr [rsp + 0x30], rax'
+  - '000c7f57: mov      qword ptr [rsp + 0x38], 0xa'
+  - '000c7f60: mov      dword ptr [rsp + 0x40], 1'
+  - '000c7f68: mov      dword ptr [rsp + 0x44], 2'
+  - '000c7f70: mov      dword ptr [rsp + 0x48], 0xc'
+  - '000c7f78: mov      byte ptr [rsp + 0x4c], 0'
+  - '000c7f7d: lea      rcx, [rsp + 0x20]'
+  - '000c7f82: call     0x5ccc30'
+  - '000c7f87: mov      qword ptr [rip + 0x54350c2], rax'
+  - '000c7f8e: mov      edx, ebx'
+  - '000c7f90: mov      rcx, rdi'
+  - '000c7f93: call     rax'
+  - '000c7f95: nop'
+  - '000c7f96: lea      rcx, [rsp + 0x70]'
+  - '000c7f9b: call     0x55b3c0'
+  - '000c7fa0: mov      rbx, qword ptr [rsp + 0x60]'
+  - '000c7fa5: add      rsp, 0x50'
+  - '000c7fa9: pop      rdi'
+  - '000c7faa: ret'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0xc7fb0'
+    end: '0xc804b'
+    size: '0x9b'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 34
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0xc7feb'
+    target_rva: '0x429b178'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c7feb: lea      rax, [rip + 0x41d3186]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc7fc4'
+    text: '000c7fc4: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc8022'
+    text: '000c8022: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc803b'
+    text: '000c803b: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '000c7fb0: mov      qword ptr [rsp + 8], rbx'
+  - '000c7fb5: push     rdi'
+  - '000c7fb6: sub      rsp, 0x50'
+  - '000c7fba: mov      ebx, edx'
+  - '000c7fbc: mov      rdi, rcx'
+  - '000c7fbf: lea      rcx, [rsp + 0x70]'
+  - '000c7fc4: call     0x55b180'
+  - '000c7fc9: nop'
+  - '000c7fca: mov      rax, qword ptr [rip + 0x543504f]'
+  - '000c7fd1: test     rax, rax'
+  - '000c7fd4: jne      0xc802e'
+  - '000c7fd6: lea      rax, [rip + 0x41c5cdb]'
+  - '000c7fdd: mov      qword ptr [rsp + 0x20], rax'
+  - '000c7fe2: mov      qword ptr [rsp + 0x28], 4'
+  - '000c7feb: lea      rax, [rip + 0x41d3186]'
+  - '000c7ff2: mov      qword ptr [rsp + 0x30], rax'
+  - '000c7ff7: mov      qword ptr [rsp + 0x38], 0xa'
+  - '000c8000: mov      dword ptr [rsp + 0x40], 1'
+  - '000c8008: mov      dword ptr [rsp + 0x44], 2'
+  - '000c8010: mov      dword ptr [rsp + 0x48], 0xc'
+  - '000c8018: mov      byte ptr [rsp + 0x4c], 0'
+  - '000c801d: lea      rcx, [rsp + 0x20]'
+  - '000c8022: call     0x5ccc30'
+  - '000c8027: mov      qword ptr [rip + 0x5434ff2], rax'
+  - '000c802e: mov      edx, ebx'
+  - '000c8030: mov      rcx, rdi'
+  - '000c8033: call     rax'
+  - '000c8035: nop'
+  - '000c8036: lea      rcx, [rsp + 0x70]'
+  - '000c803b: call     0x55b3c0'
+  - '000c8040: mov      rbx, qword ptr [rsp + 0x60]'
+  - '000c8045: add      rsp, 0x50'
+  - '000c8049: pop      rdi'
+  - '000c804a: ret'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0xc8050'
+    end: '0xc811b'
+    size: '0xcb'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 45
+    direct_calls: 6
+    import_calls: 0
+    indirect_slots: 1
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0xc809c'
+    target_rva: '0x429b1b8'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c809c: lea      rax, [rip + 0x41d3115]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc806c'
+    text: '000c806c: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc8075'
+    text: '000c8075: call     0x5ccaf0'
+    target_rva: '0x5ccaf0'
+    target_function: null
+  - site: '0xc80d3'
+    text: '000c80d3: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc80e2'
+    text: '000c80e2: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0xc80fb'
+    text: '000c80fb: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  - site: '0xc8106'
+    text: '000c8106: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  import_calls: []
+  indirect_slots:
+  - site: '0xc80f2'
+    text: '000c80f2: call     qword ptr [rip + 0x5434f48]'
+    slot_rva: '0x54fd040'
+  crypto_ops: []
+  sample_disasm:
+  - '000c8050: mov      qword ptr [rsp + 8], rbx'
+  - '000c8055: mov      qword ptr [rsp + 0x10], rsi'
+  - '000c805a: push     rdi'
+  - '000c805b: sub      rsp, 0x50'
+  - '000c805f: mov      rbx, r8'
+  - '000c8062: mov      edi, edx'
+  - '000c8064: mov      rsi, rcx'
+  - '000c8067: lea      rcx, [rsp + 0x78]'
+  - '000c806c: call     0x55b180'
+  - '000c8071: nop'
+  - '000c8072: mov      rcx, rbx'
+  - '000c8075: call     0x5ccaf0'
+  - '000c807a: mov      rbx, rax'
+  - '000c807d: cmp      qword ptr [rip + 0x5434fbb], 0'
+  - '000c8085: jne      0xc80df'
+  - '000c8087: lea      rax, [rip + 0x41c5c2a]'
+  - '000c808e: mov      qword ptr [rsp + 0x20], rax'
+  - '000c8093: mov      qword ptr [rsp + 0x28], 4'
+  - '000c809c: lea      rax, [rip + 0x41d3115]'
+  - '000c80a3: mov      qword ptr [rsp + 0x30], rax'
+  - '000c80a8: mov      qword ptr [rsp + 0x38], 0xc'
+  - '000c80b1: mov      dword ptr [rsp + 0x40], 1'
+  - '000c80b9: mov      dword ptr [rsp + 0x44], 2'
+  - '000c80c1: mov      dword ptr [rsp + 0x48], 0x14'
+  - '000c80c9: mov      byte ptr [rsp + 0x4c], 0'
+  - '000c80ce: lea      rcx, [rsp + 0x20]'
+  - '000c80d3: call     0x5ccc30'
+  - '000c80d8: mov      qword ptr [rip + 0x5434f61], rax'
+  - '000c80df: mov      rcx, rbx'
+  - '000c80e2: call     0x5ccab0'
+  - '000c80e7: mov      rbx, rax'
+  - '000c80ea: mov      r8, rax'
+  - '000c80ed: mov      edx, edi'
+  - '000c80ef: mov      rcx, rsi'
+  - '000c80f2: call     qword ptr [rip + 0x5434f48]'
+  - '000c80f8: mov      rcx, rbx'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0xc8120'
+    end: '0xc81dd'
+    size: '0xbd'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 41
+    direct_calls: 6
+    import_calls: 0
+    indirect_slots: 1
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0xc8165'
+    target_rva: '0x429b128'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c8165: lea      rax, [rip + 0x41d2fbc]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc8135'
+    text: '000c8135: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc813e'
+    text: '000c813e: call     0x5ccaf0'
+    target_rva: '0x5ccaf0'
+    target_function: null
+  - site: '0xc819c'
+    text: '000c819c: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc81ab'
+    text: '000c81ab: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0xc81c2'
+    text: '000c81c2: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  - site: '0xc81cd'
+    text: '000c81cd: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  import_calls: []
+  indirect_slots:
+  - site: '0xc81b9'
+    text: '000c81b9: call     qword ptr [rip + 0x5434e39]'
+    slot_rva: '0x54fcff8'
+  crypto_ops: []
+  sample_disasm:
+  - '000c8120: mov      qword ptr [rsp + 8], rbx'
+  - '000c8125: push     rdi'
+  - '000c8126: sub      rsp, 0x50'
+  - '000c812a: mov      rbx, rdx'
+  - '000c812d: mov      rdi, rcx'
+  - '000c8130: lea      rcx, [rsp + 0x70]'
+  - '000c8135: call     0x55b180'
+  - '000c813a: nop'
+  - '000c813b: mov      rcx, rbx'
+  - '000c813e: call     0x5ccaf0'
+  - '000c8143: mov      rbx, rax'
+  - '000c8146: cmp      qword ptr [rip + 0x5434eaa], 0'
+  - '000c814e: jne      0xc81a8'
+  - '000c8150: lea      rax, [rip + 0x41c5b61]'
+  - '000c8157: mov      qword ptr [rsp + 0x20], rax'
+  - '000c815c: mov      qword ptr [rsp + 0x28], 4'
+  - '000c8165: lea      rax, [rip + 0x41d2fbc]'
+  - '000c816c: mov      qword ptr [rsp + 0x30], rax'
+  - '000c8171: mov      qword ptr [rsp + 0x38], 0xd'
+  - '000c817a: mov      dword ptr [rsp + 0x40], 1'
+  - '000c8182: mov      dword ptr [rsp + 0x44], 2'
+  - '000c818a: mov      dword ptr [rsp + 0x48], 0x10'
+  - '000c8192: mov      byte ptr [rsp + 0x4c], 0'
+  - '000c8197: lea      rcx, [rsp + 0x20]'
+  - '000c819c: call     0x5ccc30'
+  - '000c81a1: mov      qword ptr [rip + 0x5434e50], rax'
+  - '000c81a8: mov      rcx, rbx'
+  - '000c81ab: call     0x5ccab0'
+  - '000c81b0: mov      rbx, rax'
+  - '000c81b3: mov      rdx, rax'
+  - '000c81b6: mov      rcx, rdi'
+  - '000c81b9: call     qword ptr [rip + 0x5434e39]'
+  - '000c81bf: mov      rcx, rbx'
+  - '000c81c2: call     0x5cca80'
+  - '000c81c7: nop'
+  - '000c81c8: lea      rcx, [rsp + 0x70]'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0xc8220'
+    end: '0xc82e3'
+    size: '0xc3'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 42
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 13
+    non_stack_writes: 2
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0xc826c'
+    target_rva: '0x429b380'
+    labels:
+    - xlua_api:ascii:lua_
+    text: '000c826c: lea      rax, [rip + 0x41d310d]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc823c'
+    text: '000c823c: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc82a3'
+    text: '000c82a3: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc82cb'
+    text: '000c82cb: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '000c8220: mov      qword ptr [rsp + 8], rbx'
+  - '000c8225: mov      qword ptr [rsp + 0x10], rsi'
+  - '000c822a: push     rdi'
+  - '000c822b: sub      rsp, 0x50'
+  - '000c822f: mov      rdi, r8'
+  - '000c8232: mov      ebx, edx'
+  - '000c8234: mov      rsi, rcx'
+  - '000c8237: lea      rcx, [rsp + 0x78]'
+  - '000c823c: call     0x55b180'
+  - '000c8241: nop'
+  - '000c8242: mov      qword ptr [rsp + 0x70], 0'
+  - '000c824b: mov      rax, qword ptr [rip + 0x5434ec6]'
+  - '000c8252: test     rax, rax'
+  - '000c8255: jne      0xc82af'
+  - '000c8257: lea      rax, [rip + 0x41c5a5a]'
+  - '000c825e: mov      qword ptr [rsp + 0x20], rax'
+  - '000c8263: mov      qword ptr [rsp + 0x28], 4'
+  - '000c826c: lea      rax, [rip + 0x41d310d]'
+  - '000c8273: mov      qword ptr [rsp + 0x30], rax'
+  - '000c8278: mov      qword ptr [rsp + 0x38], 0xd'
+  - '000c8281: mov      dword ptr [rsp + 0x40], 1'
+  - '000c8289: mov      dword ptr [rsp + 0x44], 2'
+  - '000c8291: mov      dword ptr [rsp + 0x48], 0x14'
+  - '000c8299: mov      byte ptr [rsp + 0x4c], 0'
+  - '000c829e: lea      rcx, [rsp + 0x20]'
+  - '000c82a3: call     0x5ccc30'
+  - '000c82a8: mov      qword ptr [rip + 0x5434e69], rax'
+  - '000c82af: lea      r8, [rsp + 0x70]'
+  - '000c82b4: mov      edx, ebx'
+  - '000c82b6: mov      rcx, rsi'
+  - '000c82b9: call     rax'
+  - '000c82bb: mov      rbx, rax'
+  - '000c82be: mov      rcx, qword ptr [rsp + 0x70]'
+  - '000c82c3: mov      qword ptr [rdi], rcx'
+  - '000c82c6: lea      rcx, [rsp + 0x78]'
+  - '000c82cb: call     0x55b3c0'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0xc83e0'
+    end: '0xc84a5'
+    size: '0xc5'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 44
+    direct_calls: 6
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0xc8425'
+    target_rva: '0x429b090'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '000c8425: lea      rax, [rip + 0x41d2c64]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0xc83f5'
+    text: '000c83f5: call     0x55b180'
+    target_rva: '0x55b180'
+    target_function:
+      begin: '0x55b180'
+      end: '0x55b1a8'
+      size: '0x28'
+  - site: '0xc83fe'
+    text: '000c83fe: call     0x5ccaf0'
+    target_rva: '0x5ccaf0'
+    target_function: null
+  - site: '0xc845c'
+    text: '000c845c: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0xc846b'
+    text: '000c846b: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0xc8488'
+    text: '000c8488: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  - site: '0xc8493'
+    text: '000c8493: call     0x55b3c0'
+    target_rva: '0x55b3c0'
+    target_function:
+      begin: '0x55b3c0'
+      end: '0x55b3df'
+      size: '0x1f'
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '000c83e0: mov      qword ptr [rsp + 8], rbx'
+  - '000c83e5: push     rdi'
+  - '000c83e6: sub      rsp, 0x50'
+  - '000c83ea: mov      rbx, rdx'
+  - '000c83ed: mov      rdi, rcx'
+  - '000c83f0: lea      rcx, [rsp + 0x70]'
+  - '000c83f5: call     0x55b180'
+  - '000c83fa: nop'
+  - '000c83fb: mov      rcx, rbx'
+  - '000c83fe: call     0x5ccaf0'
+  - '000c8403: mov      rbx, rax'
+  - '000c8406: cmp      qword ptr [rip + 0x5434ba2], 0'
+  - '000c840e: jne      0xc8468'
+  - '000c8410: lea      rax, [rip + 0x41c58a1]'
+  - '000c8417: mov      qword ptr [rsp + 0x20], rax'
+  - '000c841c: mov      qword ptr [rsp + 0x28], 4'
+  - '000c8425: lea      rax, [rip + 0x41d2c64]'
+  - '000c842c: mov      qword ptr [rsp + 0x30], rax'
+  - '000c8431: mov      qword ptr [rsp + 0x38], 0x15'
+  - '000c843a: mov      dword ptr [rsp + 0x40], 1'
+  - '000c8442: mov      dword ptr [rsp + 0x44], 2'
+  - '000c844a: mov      dword ptr [rsp + 0x48], 0x10'
+  - '000c8452: mov      byte ptr [rsp + 0x4c], 0'
+  - '000c8457: lea      rcx, [rsp + 0x20]'
+  - '000c845c: call     0x5ccc30'
+  - '000c8461: mov      qword ptr [rip + 0x5434b48], rax'
+  - '000c8468: mov      rcx, rbx'
+  - '000c846b: call     0x5ccab0'
+  - '000c8470: mov      rbx, rax'
+  - '000c8473: mov      r8, qword ptr [rip + 0x5434b36]'
+  - '000c847a: mov      rdx, rax'
+  - '000c847d: mov      rcx, rdi'
+  - '000c8480: call     r8'
+  - '000c8483: mov      edi, eax'
+  - '000c8485: mov      rcx, rbx'
+  - '000c8488: call     0x5cca80'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0x664860'
+    end: '0x664981'
+    size: '0x121'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 67
+    direct_calls: 8
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 15
+    non_stack_writes: 4
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0x6648f2'
+    target_rva: '0x428e108'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '006648f2: lea      rax, [rip + 0x3c2980f]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0x664885'
+    text: '00664885: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x6648a1'
+    text: '006648a1: call     0x5735c0'
+    target_rva: '0x5735c0'
+    target_function: null
+  - site: '0x6648a8'
+    text: '006648a8: call     0x670b40'
+    target_rva: '0x670b40'
+    target_function:
+      begin: '0x670b40'
+      end: '0x670bd7'
+      size: '0x97'
+  - site: '0x6648b8'
+    text: '006648b8: call     0x367ea10'
+    target_rva: '0x367ea10'
+    target_function:
+      begin: '0x367ea10'
+      end: '0x367ea8e'
+      size: '0x7e'
+  - site: '0x6648c6'
+    text: '006648c6: call     0x34652f0'
+    target_rva: '0x34652f0'
+    target_function:
+      begin: '0x34652f0'
+      end: '0x346534a'
+      size: '0x5a'
+  - site: '0x664924'
+    text: '00664924: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0x664933'
+    text: '00664933: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0x66494c'
+    text: '0066494c: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '00664860: mov      qword ptr [rsp + 0x10], rbx'
+  - '00664865: mov      qword ptr [rsp + 0x18], rsi'
+  - '0066486a: push     rdi'
+  - '0066486b: sub      rsp, 0x50'
+  - '0066486f: cmp      byte ptr [rip + 0x4e92574], 0'
+  - '00664876: mov      rdi, rdx'
+  - '00664879: mov      rbx, rcx'
+  - '0066487c: jne      0x664891'
+  - '0066487e: lea      rcx, [rip + 0x4c6e37b]'
+  - '00664885: call     0x5cc970'
+  - '0066488a: mov      byte ptr [rip + 0x4e92559], 1'
+  - '00664891: mov      rcx, qword ptr [rip + 0x4c6e368]'
+  - '00664898: cmp      dword ptr [rcx + 0xe0], 0'
+  - '0066489f: jne      0x6648a6'
+  - '006648a1: call     0x5735c0'
+  - '006648a6: xor      ecx, ecx'
+  - '006648a8: call     0x670b40'
+  - '006648ad: xor      edx, edx'
+  - '006648af: mov      dword ptr [rsp + 0x60], eax'
+  - '006648b3: lea      rcx, [rsp + 0x60]'
+  - '006648b8: call     0x367ea10'
+  - '006648bd: xor      r8d, r8d'
+  - '006648c0: mov      rdx, rax'
+  - '006648c3: mov      rcx, rbx'
+  - '006648c6: call     0x34652f0'
+  - '006648cb: cmp      qword ptr [rip + 0x4e924f5], 0'
+  - '006648d3: mov      rbx, rax'
+  - '006648d6: jne      0x664930'
+  - '006648d8: lea      rax, [rip + 0x3c293d9]'
+  - '006648df: mov      qword ptr [rsp + 0x28], 4'
+  - '006648e8: mov      qword ptr [rsp + 0x20], rax'
+  - '006648ed: lea      rcx, [rsp + 0x20]'
+  - '006648f2: lea      rax, [rip + 0x3c2980f]'
+  - '006648f9: mov      qword ptr [rsp + 0x38], 0x12'
+  - '00664902: mov      qword ptr [rsp + 0x30], rax'
+  - '00664907: mov      dword ptr [rsp + 0x40], 1'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0x66f300'
+    end: '0x66f3f9'
+    size: '0xf9'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 54
+    direct_calls: 8
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 12
+    non_stack_writes: 2
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0x66f38a'
+    target_rva: '0x428e0f0'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '0066f38a: lea      rax, [rip + 0x3c1ed5f]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0x66f31d'
+    text: '0066f31d: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x66f339'
+    text: '0066f339: call     0x5735c0'
+    target_rva: '0x5735c0'
+    target_function: null
+  - site: '0x66f340'
+    text: '0066f340: call     0x670b40'
+    target_rva: '0x670b40'
+    target_function:
+      begin: '0x670b40'
+      end: '0x670bd7'
+      size: '0x97'
+  - site: '0x66f350'
+    text: '0066f350: call     0x367ea10'
+    target_rva: '0x367ea10'
+    target_function:
+      begin: '0x367ea10'
+      end: '0x367ea8e'
+      size: '0x7e'
+  - site: '0x66f35e'
+    text: '0066f35e: call     0x34652f0'
+    target_rva: '0x34652f0'
+    target_function:
+      begin: '0x34652f0'
+      end: '0x346534a'
+      size: '0x5a'
+  - site: '0x66f3bc'
+    text: '0066f3bc: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0x66f3cb'
+    text: '0066f3cb: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0x66f3e4'
+    text: '0066f3e4: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '0066f300: mov      qword ptr [rsp + 0x10], rbx'
+  - '0066f305: push     rdi'
+  - '0066f306: sub      rsp, 0x50'
+  - '0066f30a: cmp      byte ptr [rip + 0x4e87ad8], 0'
+  - '0066f311: mov      rbx, rcx'
+  - '0066f314: jne      0x66f329'
+  - '0066f316: lea      rcx, [rip + 0x4c638e3]'
+  - '0066f31d: call     0x5cc970'
+  - '0066f322: mov      byte ptr [rip + 0x4e87ac0], 1'
+  - '0066f329: mov      rcx, qword ptr [rip + 0x4c638d0]'
+  - '0066f330: cmp      dword ptr [rcx + 0xe0], 0'
+  - '0066f337: jne      0x66f33e'
+  - '0066f339: call     0x5735c0'
+  - '0066f33e: xor      ecx, ecx'
+  - '0066f340: call     0x670b40'
+  - '0066f345: xor      edx, edx'
+  - '0066f347: mov      dword ptr [rsp + 0x60], eax'
+  - '0066f34b: lea      rcx, [rsp + 0x60]'
+  - '0066f350: call     0x367ea10'
+  - '0066f355: xor      r8d, r8d'
+  - '0066f358: mov      rdx, rax'
+  - '0066f35b: mov      rcx, rbx'
+  - '0066f35e: call     0x34652f0'
+  - '0066f363: cmp      qword ptr [rip + 0x4e87a55], 0'
+  - '0066f36b: mov      rbx, rax'
+  - '0066f36e: jne      0x66f3c8'
+  - '0066f370: lea      rax, [rip + 0x3c1e941]'
+  - '0066f377: mov      qword ptr [rsp + 0x28], 4'
+  - '0066f380: mov      qword ptr [rsp + 0x20], rax'
+  - '0066f385: lea      rcx, [rsp + 0x20]'
+  - '0066f38a: lea      rax, [rip + 0x3c1ed5f]'
+  - '0066f391: mov      qword ptr [rsp + 0x38], 0x10'
+  - '0066f39a: mov      qword ptr [rsp + 0x30], rax'
+  - '0066f39f: mov      dword ptr [rsp + 0x40], 1'
+  - '0066f3a7: mov      dword ptr [rsp + 0x44], 2'
+  - '0066f3af: mov      dword ptr [rsp + 0x48], 8'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0x66f910'
+    end: '0x66f9f6'
+    size: '0xe6'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 48
+    direct_calls: 8
+    import_calls: 0
+    indirect_slots: 1
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 11
+    non_stack_writes: 2
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0x66f996'
+    target_rva: '0x428e120'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '0066f996: lea      rax, [rip + 0x3c1e783]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0x66f929'
+    text: '0066f929: call     0x5cc970'
+    target_rva: '0x5cc970'
+    target_function:
+      begin: '0x5cc970'
+      end: '0x5cc983'
+      size: '0x13'
+  - site: '0x66f945'
+    text: '0066f945: call     0x5735c0'
+    target_rva: '0x5735c0'
+    target_function: null
+  - site: '0x66f94c'
+    text: '0066f94c: call     0x670b40'
+    target_rva: '0x670b40'
+    target_function:
+      begin: '0x670b40'
+      end: '0x670bd7'
+      size: '0x97'
+  - site: '0x66f95c'
+    text: '0066f95c: call     0x367ea10'
+    target_rva: '0x367ea10'
+    target_function:
+      begin: '0x367ea10'
+      end: '0x367ea8e'
+      size: '0x7e'
+  - site: '0x66f96a'
+    text: '0066f96a: call     0x34652f0'
+    target_rva: '0x34652f0'
+    target_function:
+      begin: '0x34652f0'
+      end: '0x346534a'
+      size: '0x5a'
+  - site: '0x66f9c8'
+    text: '0066f9c8: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0x66f9d7'
+    text: '0066f9d7: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0x66f9eb'
+    text: '0066f9eb: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  import_calls: []
+  indirect_slots:
+  - site: '0x66f9e2'
+    text: '0066f9e2: call     qword ptr [rip + 0x4e873e8]'
+    slot_rva: '0x54f6dd0'
+  crypto_ops: []
+  sample_disasm:
+  - '0066f910: push     rbx'
+  - '0066f912: sub      rsp, 0x50'
+  - '0066f916: cmp      byte ptr [rip + 0x4e874ce], 0'
+  - '0066f91d: mov      rbx, rcx'
+  - '0066f920: jne      0x66f935'
+  - '0066f922: lea      rcx, [rip + 0x4c632d7]'
+  - '0066f929: call     0x5cc970'
+  - '0066f92e: mov      byte ptr [rip + 0x4e874b6], 1'
+  - '0066f935: mov      rcx, qword ptr [rip + 0x4c632c4]'
+  - '0066f93c: cmp      dword ptr [rcx + 0xe0], 0'
+  - '0066f943: jne      0x66f94a'
+  - '0066f945: call     0x5735c0'
+  - '0066f94a: xor      ecx, ecx'
+  - '0066f94c: call     0x670b40'
+  - '0066f951: xor      edx, edx'
+  - '0066f953: mov      dword ptr [rsp + 0x60], eax'
+  - '0066f957: lea      rcx, [rsp + 0x60]'
+  - '0066f95c: call     0x367ea10'
+  - '0066f961: xor      r8d, r8d'
+  - '0066f964: mov      rdx, rax'
+  - '0066f967: mov      rcx, rbx'
+  - '0066f96a: call     0x34652f0'
+  - '0066f96f: cmp      qword ptr [rip + 0x4e87459], 0'
+  - '0066f977: mov      rbx, rax'
+  - '0066f97a: jne      0x66f9d4'
+  - '0066f97c: lea      rax, [rip + 0x3c1e335]'
+  - '0066f983: mov      qword ptr [rsp + 0x28], 4'
+  - '0066f98c: mov      qword ptr [rsp + 0x20], rax'
+  - '0066f991: lea      rcx, [rsp + 0x20]'
+  - '0066f996: lea      rax, [rip + 0x3c1e783]'
+  - '0066f99d: mov      qword ptr [rsp + 0x38], 0x13'
+  - '0066f9a6: mov      qword ptr [rsp + 0x30], rax'
+  - '0066f9ab: mov      dword ptr [rsp + 0x40], 1'
+  - '0066f9b3: mov      dword ptr [rsp + 0x44], 2'
+  - '0066f9bb: mov      dword ptr [rsp + 0x48], 8'
+  - '0066f9c3: mov      byte ptr [rsp + 0x4c], 0'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0x671c00'
+    end: '0x671c9d'
+    size: '0x9d'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 33
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0x671c31'
+    target_rva: '0x428e108'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00671c31: lea      rax, [rip + 0x3c1c4d0]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0x671c63'
+    text: '00671c63: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0x671c72'
+    text: '00671c72: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0x671c8b'
+    text: '00671c8b: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '00671c00: mov      qword ptr [rsp + 8], rbx'
+  - '00671c05: push     rdi'
+  - '00671c06: sub      rsp, 0x50'
+  - '00671c0a: cmp      qword ptr [rip + 0x4e851b6], 0'
+  - '00671c12: mov      rbx, rcx'
+  - '00671c15: jne      0x671c6f'
+  - '00671c17: lea      rax, [rip + 0x3c1c09a]'
+  - '00671c1e: mov      qword ptr [rsp + 0x28], 4'
+  - '00671c27: mov      qword ptr [rsp + 0x20], rax'
+  - '00671c2c: lea      rcx, [rsp + 0x20]'
+  - '00671c31: lea      rax, [rip + 0x3c1c4d0]'
+  - '00671c38: mov      qword ptr [rsp + 0x38], 0x12'
+  - '00671c41: mov      qword ptr [rsp + 0x30], rax'
+  - '00671c46: mov      dword ptr [rsp + 0x40], 1'
+  - '00671c4e: mov      dword ptr [rsp + 0x44], 2'
+  - '00671c56: mov      dword ptr [rsp + 0x48], 8'
+  - '00671c5e: mov      byte ptr [rsp + 0x4c], 0'
+  - '00671c63: call     0x5ccc30'
+  - '00671c68: mov      qword ptr [rip + 0x4e85159], rax'
+  - '00671c6f: mov      rcx, rbx'
+  - '00671c72: call     0x5ccab0'
+  - '00671c77: mov      rdx, qword ptr [rip + 0x4e8514a]'
+  - '00671c7e: mov      rcx, rax'
+  - '00671c81: mov      rdi, rax'
+  - '00671c84: call     rdx'
+  - '00671c86: mov      rcx, rdi'
+  - '00671c89: mov      ebx, eax'
+  - '00671c8b: call     0x5cca80'
+  - '00671c90: mov      eax, ebx'
+  - '00671c92: mov      rbx, qword ptr [rsp + 0x60]'
+  - '00671c97: add      rsp, 0x50'
+  - '00671c9b: pop      rdi'
+  - '00671c9c: ret'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0x671ca0'
+    end: '0x671d18'
+    size: '0x78'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 24
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 9
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0x671ccf'
+    target_rva: '0x428e150'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00671ccf: lea      rax, [rip + 0x3c1c47a]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0x671d01'
+    text: '00671d01: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '00671ca0: push     rbx'
+  - '00671ca2: sub      rsp, 0x50'
+  - '00671ca6: mov      rax, qword ptr [rip + 0x4e85133]'
+  - '00671cad: mov      rbx, rcx'
+  - '00671cb0: test     rax, rax'
+  - '00671cb3: jne      0x671d0d'
+  - '00671cb5: lea      rax, [rip + 0x3c1bffc]'
+  - '00671cbc: mov      qword ptr [rsp + 0x28], 4'
+  - '00671cc5: mov      qword ptr [rsp + 0x20], rax'
+  - '00671cca: lea      rcx, [rsp + 0x20]'
+  - '00671ccf: lea      rax, [rip + 0x3c1c47a]'
+  - '00671cd6: mov      qword ptr [rsp + 0x38], 0x16'
+  - '00671cdf: mov      qword ptr [rsp + 0x30], rax'
+  - '00671ce4: mov      dword ptr [rsp + 0x40], 1'
+  - '00671cec: mov      dword ptr [rsp + 0x44], 2'
+  - '00671cf4: mov      dword ptr [rsp + 0x48], 8'
+  - '00671cfc: mov      byte ptr [rsp + 0x4c], 0'
+  - '00671d01: call     0x5ccc30'
+  - '00671d06: mov      qword ptr [rip + 0x4e850d3], rax'
+  - '00671d0d: mov      rcx, rbx'
+  - '00671d10: call     rax'
+  - '00671d12: add      rsp, 0x50'
+  - '00671d16: pop      rbx'
+  - '00671d17: ret'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0x671d20'
+    end: '0x671d88'
+    size: '0x68'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 19
+    direct_calls: 1
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 8
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0x671d4a'
+    target_rva: '0x428e138'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00671d4a: lea      rax, [rip + 0x3c1c3e7]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0x671d75'
+    text: '00671d75: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '00671d20: sub      rsp, 0x58'
+  - '00671d24: mov      rax, qword ptr [rip + 0x4e850ad]'
+  - '00671d2b: test     rax, rax'
+  - '00671d2e: jne      0x671d81'
+  - '00671d30: lea      rax, [rip + 0x3c1bf81]'
+  - '00671d37: mov      qword ptr [rsp + 0x28], 4'
+  - '00671d40: mov      qword ptr [rsp + 0x20], rax'
+  - '00671d45: lea      rcx, [rsp + 0x20]'
+  - '00671d4a: lea      rax, [rip + 0x3c1c3e7]'
+  - '00671d51: mov      qword ptr [rsp + 0x38], 0x15'
+  - '00671d5a: mov      qword ptr [rsp + 0x30], rax'
+  - '00671d5f: mov      dword ptr [rsp + 0x40], 1'
+  - '00671d67: mov      qword ptr [rsp + 0x44], 2'
+  - '00671d70: mov      byte ptr [rsp + 0x4c], 0'
+  - '00671d75: call     0x5ccc30'
+  - '00671d7a: mov      qword ptr [rip + 0x4e85057], rax'
+  - '00671d81: call     rax'
+  - '00671d83: add      rsp, 0x58'
+  - '00671d87: ret'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0x671d90'
+    end: '0x671e2d'
+    size: '0x9d'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 33
+    direct_calls: 3
+    import_calls: 0
+    indirect_slots: 0
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 10
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0x671dc1'
+    target_rva: '0x428e0f0'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00671dc1: lea      rax, [rip + 0x3c1c328]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0x671df3'
+    text: '00671df3: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0x671e02'
+    text: '00671e02: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  - site: '0x671e1b'
+    text: '00671e1b: call     0x5cca80'
+    target_rva: '0x5cca80'
+    target_function: null
+  import_calls: []
+  indirect_slots: []
+  crypto_ops: []
+  sample_disasm:
+  - '00671d90: mov      qword ptr [rsp + 8], rbx'
+  - '00671d95: push     rdi'
+  - '00671d96: sub      rsp, 0x50'
+  - '00671d9a: cmp      qword ptr [rip + 0x4e8501e], 0'
+  - '00671da2: mov      rbx, rcx'
+  - '00671da5: jne      0x671dff'
+  - '00671da7: lea      rax, [rip + 0x3c1bf0a]'
+  - '00671dae: mov      qword ptr [rsp + 0x28], 4'
+  - '00671db7: mov      qword ptr [rsp + 0x20], rax'
+  - '00671dbc: lea      rcx, [rsp + 0x20]'
+  - '00671dc1: lea      rax, [rip + 0x3c1c328]'
+  - '00671dc8: mov      qword ptr [rsp + 0x38], 0x10'
+  - '00671dd1: mov      qword ptr [rsp + 0x30], rax'
+  - '00671dd6: mov      dword ptr [rsp + 0x40], 1'
+  - '00671dde: mov      dword ptr [rsp + 0x44], 2'
+  - '00671de6: mov      dword ptr [rsp + 0x48], 8'
+  - '00671dee: mov      byte ptr [rsp + 0x4c], 0'
+  - '00671df3: call     0x5ccc30'
+  - '00671df8: mov      qword ptr [rip + 0x4e84fc1], rax'
+  - '00671dff: mov      rcx, rbx'
+  - '00671e02: call     0x5ccab0'
+  - '00671e07: mov      rdx, qword ptr [rip + 0x4e84fb2]'
+  - '00671e0e: mov      rcx, rax'
+  - '00671e11: mov      rdi, rax'
+  - '00671e14: call     rdx'
+  - '00671e16: mov      rcx, rdi'
+  - '00671e19: mov      ebx, eax'
+  - '00671e1b: call     0x5cca80'
+  - '00671e20: mov      eax, ebx'
+  - '00671e22: mov      rbx, qword ptr [rsp + 0x60]'
+  - '00671e27: add      rsp, 0x50'
+  - '00671e2b: pop      rdi'
+  - '00671e2c: ret'
+  verdict: string_descriptor_or_api_resolver_shape
+- function:
+    begin: '0x671e30'
+    end: '0x671ebc'
+    size: '0x8c'
+  found: true
+  pdata_function_found: true
+  counts:
+    instructions: 27
+    direct_calls: 2
+    import_calls: 0
+    indirect_slots: 1
+    keyword_refs: 1
+    string_slot_refs: 0
+    crypto_ops: 0
+    memory_writes: 9
+    non_stack_writes: 1
+    file_buffer_import_calls: 0
+    memory_import_calls: 0
+    crypto_import_calls: 0
+  import_names: []
+  keyword_refs:
+  - site: '0x671e5d'
+    target_rva: '0x428e120'
+    labels:
+    - xlua_api:ascii:xlua
+    text: '00671e5d: lea      rax, [rip + 0x3c1c2bc]'
+  string_slot_refs: []
+  direct_calls:
+  - site: '0x671e8f'
+    text: '00671e8f: call     0x5ccc30'
+    target_rva: '0x5ccc30'
+    target_function: null
+  - site: '0x671e9e'
+    text: '00671e9e: call     0x5ccab0'
+    target_rva: '0x5ccab0'
+    target_function: null
+  import_calls: []
+  indirect_slots:
+  - site: '0x671ea9'
+    text: '00671ea9: call     qword ptr [rip + 0x4e84f21]'
+    slot_rva: '0x54f6dd0'
+  crypto_ops: []
+  sample_disasm:
+  - '00671e30: push     rbx'
+  - '00671e32: sub      rsp, 0x50'
+  - '00671e36: cmp      qword ptr [rip + 0x4e84f92], 0'
+  - '00671e3e: mov      rbx, rcx'
+  - '00671e41: jne      0x671e9b'
+  - '00671e43: lea      rax, [rip + 0x3c1be6e]'
+  - '00671e4a: mov      qword ptr [rsp + 0x28], 4'
+  - '00671e53: mov      qword ptr [rsp + 0x20], rax'
+  - '00671e58: lea      rcx, [rsp + 0x20]'
+  - '00671e5d: lea      rax, [rip + 0x3c1c2bc]'
+  - '00671e64: mov      qword ptr [rsp + 0x38], 0x13'
+  - '00671e6d: mov      qword ptr [rsp + 0x30], rax'
+  - '00671e72: mov      dword ptr [rsp + 0x40], 1'
+  - '00671e7a: mov      dword ptr [rsp + 0x44], 2'
+  - '00671e82: mov      dword ptr [rsp + 0x48], 8'
+  - '00671e8a: mov      byte ptr [rsp + 0x4c], 0'
+  - '00671e8f: call     0x5ccc30'
+  - '00671e94: mov      qword ptr [rip + 0x4e84f35], rax'
+  - '00671e9b: mov      rcx, rbx'
+  - '00671e9e: call     0x5ccab0'
+  - '00671ea3: mov      rcx, rax'
+  - '00671ea6: mov      rbx, rax'
+  - '00671ea9: call     qword ptr [rip + 0x4e84f21]'
+  - '00671eaf: mov      rcx, rbx'
+  - '00671eb2: add      rsp, 0x50'
+  - '00671eb6: pop      rbx'
+  - '00671eb7: jmp      0x5cca80'
+  verdict: string_descriptor_or_api_resolver_shape
+route_conclusion:
+  resolver_candidate_known: true
+  resolver_candidate_function_found: true
+  descriptor_resolver_pattern_supported: true
+  candidate_has_payload_owner_signal: false
+  method_ownership_recovered: false
+  textasset_payload_owner_proven: false
+  lua_payload_decoder_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: 28 direct caller function(s) combine xLua/TextAsset-related
+    string refs with calls to 0x5ccc30, supporting descriptor/resolver routing.
+  strongest_negative_signal: 0x5ccc30 did not prove InitLuaEnv method ownership, TextAsset
+    payload-buffer ownership, or a LuaScripts decoder path in offline static analysis.
+  search_policy: Keep this as GameAssembly resolver/descriptor evidence; continue
+    with protected metadata recovery or caller provenance that proves asset/file-buffer
+    ownership.
+next_static_targets:
+- Trace the highest-signal callers that reference TextAsset/get_bytes and call 0x5ccc30
+  only if they also expose payload-buffer ownership.
+- Recover protected global-metadata.dat enough to map NSLGame.Patcher.GameUpdater.InitLuaEnv
+  to an IL2CPP method address.
+- Treat xLua API string descriptor calls as resolver evidence, not decoder evidence,
+  until a readable LuaScripts payload or buffer owner is proven.
+- If GameAssembly remains descriptor-only, pivot back to NEP2 InitLuaScriptsScan file-buffer
+  provenance.
+limitations:
+- Offline/static evidence only; no live Frida, runtime attach, account data, online
+  protocol, or credentials were used.
+- Direct rel32 call scanning does not see runtime-generated callbacks, encrypted metadata-derived
+  dispatch, or indirect calls through mutated tables.
+- This artifact does not decode LuaScripts payloads and must not be promoted as game
+  knowledge.
+evidence_refs:
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:candidate:0x5ccc30
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:round49:0x5ccc30
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0x6667d0
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0x671110
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc75e0
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc76b0
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7770
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7810
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc78b0
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7950
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7a20
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7b00
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7ba0
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7c80
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7d80
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7e60
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7f10
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7fb0
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc8050
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc8120
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc8220
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc83e0
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0x664860
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0x66f300
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0x66f910
+- NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0x671c00
+guardrails:
+- offline/static resolver trace only; no live instrumentation, account data, or online
+  protocol data is included
+- input artifact paths are not persisted; only file names, hashes, RVAs, and sanitized
+  counts are stored
+- this artifact is decoder-planning evidence and must not be promoted as gameplay
+  knowledge
+- method ownership or payload-buffer provenance is required before decoder promotion

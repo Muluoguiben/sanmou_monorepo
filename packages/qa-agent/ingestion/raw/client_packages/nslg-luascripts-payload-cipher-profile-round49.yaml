@@ -1,0 +1,484 @@
+schema_version: nslg.luascripts_payload_cipher_profile.v1
+source_id: luascripts-payload-cipher-profile-round49
+source_url: local-nslg-client-luascripts-cipher-profile
+source_site: nslg_client_luascripts_cipher_profile
+generated_at: '2026-05-20T14:59:04.371751Z'
+round: 162
+slice: luascripts_payload_cipher_profile
+input_artifacts:
+- file_name: luascripts_textasset_extract_round31.json
+  sha256: e5def679cf3671d1309749488b6f3abab151939e7b87024c2f819a74b4b46d8d
+- file_name: luascripts_payload_targets_round31.json
+  sha256: c0f377de6b542148ba4ec223ceeea8a5a5dd11624aa46ec21f44748b80fb590c
+- file_name: luascripts_decryptor_evidence_round32.json
+  sha256: 24c3e1f11f8e8dbe6f253a61d5aee2733e3073a349bb1abfdbe03d246b273fd9
+- file_name: global_metadata_protection_round33.json
+  sha256: b041e89c09500dc4ce67736e9af0b16f879ff6b92a52fd2d59038bbd6351f22f
+- file_name: nep2_crypto_key_triage_round48.json
+  sha256: b676e9a1f7a8ab94dfab898ec0049c6c3c0fecdd5394c675badd83b138f525ad
+- file_name: cab_metadata_obfuscation_triage_round53.json
+  sha256: 9444added3f65642d1e5d3f846ca4db1c2a97df05dd7427508c517636354e0c7
+- file_name: block_crypto_static_trace_round56.json
+  sha256: edddb9da2f372dea0c3cbd6a439bda900539f9535acca83171c6eba2e517cb9a
+catalog_summary:
+  container_luascripts_bytes_entries: 7994
+  data_entry_count: 1278
+  sample_data_name_count: 134
+  relevant_record_count: 104
+  unique_stem_count: 16
+  scenario_count: 23
+  sample_stems:
+  - army_config
+  - battle_record
+  - battle_replay
+  - battle_reports
+  - custom_hero
+  - hero_propose
+  - hero_story
+  - hero_talent
+  - heros
+  - lineup_assistant
+  - sandbox_battle_config
+  - scene_building_skill
+  - skills
+  - super_skill
+  - warbook
+  - water_battle
+payload_profile_count: 16
+payload_status_counts:
+  high_entropy_16byte_aligned: 16
+payload_profiles:
+- evidence_ref: NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:army_config.bytes.bin
+  file_name: army_config.bytes.bin
+  stem: army_config
+  asset_path: ''
+  size_bytes: 18352
+  size_mod_16: 0
+  sha1: a78766d32b76ab210cfe86ae2cba9c9b21e4d832
+  sha256: f7862ea79567d272d57dd1b16dfe82183ec30386902785ea7ee3bfa145c62799
+  entropy: 7.9896
+  printable_score: 0.3953
+  block_count_16: 1147
+  duplicate_16byte_blocks: 0
+  unique_16byte_blocks: 1147
+  compression_magic: none
+  best_single_byte_xor:
+    key_hex: '06'
+    printable_score: 0.3975
+    term_hits: 0
+  direct_term_hits: {}
+  status: high_entropy_16byte_aligned
+- evidence_ref: NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:battle_record.bytes.bin
+  file_name: battle_record.bytes.bin
+  stem: battle_record
+  asset_path: Assets/Bundles/LuaScripts/Data/battle_record.bytes
+  size_bytes: 2512
+  size_mod_16: 0
+  sha1: 9403f9f38e241167787fc548f53a41bf6f925b2e
+  sha256: 5108236d751dd84adc8179f052ecf879c31eca5202ec79f6bf3794e99a17b6c8
+  entropy: 7.9092
+  printable_score: 0.3901
+  block_count_16: 157
+  duplicate_16byte_blocks: 0
+  unique_16byte_blocks: 157
+  compression_magic: none
+  best_single_byte_xor:
+    key_hex: 5c
+    printable_score: 0.4025
+    term_hits: 0
+  direct_term_hits: {}
+  status: high_entropy_16byte_aligned
+- evidence_ref: NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:battle_replay.bytes.bin
+  file_name: battle_replay.bytes.bin
+  stem: battle_replay
+  asset_path: Assets/Bundles/LuaScripts/Data/battle_replay.bytes
+  size_bytes: 4320
+  size_mod_16: 0
+  sha1: 5b49106f8a24de73e2ebe84d207794e449ea9f6c
+  sha256: c82898abffa880ef041ebe393168cb76b3bc1b950771cdc3da641ff345da3427
+  entropy: 7.9607
+  printable_score: 0.3887
+  block_count_16: 270
+  duplicate_16byte_blocks: 0
+  unique_16byte_blocks: 270
+  compression_magic: none
+  best_single_byte_xor:
+    key_hex: 7a
+    printable_score: 0.3948
+    term_hits: 0
+  direct_term_hits: {}
+  status: high_entropy_16byte_aligned
+- evidence_ref: NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:battle_reports.bytes.bin
+  file_name: battle_reports.bytes.bin
+  stem: battle_reports
+  asset_path: Assets/Bundles/LuaScripts/Data/battle_reports.bytes
+  size_bytes: 1904
+  size_mod_16: 0
+  sha1: f6440d6607bb6c9a1fe4770f3f6862a693a00a67
+  sha256: 46300e566b851890ac5e8ff8dd03de07da6b9bdf74b1b943a8c73959c60c5ee3
+  entropy: 7.8915
+  printable_score: 0.3803
+  block_count_16: 119
+  duplicate_16byte_blocks: 0
+  unique_16byte_blocks: 119
+  compression_magic: none
+  best_single_byte_xor:
+    key_hex: ca
+    printable_score: 0.3986
+    term_hits: 0
+  direct_term_hits: {}
+  status: high_entropy_16byte_aligned
+- evidence_ref: NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:custom_hero.bytes.bin
+  file_name: custom_hero.bytes.bin
+  stem: custom_hero
+  asset_path: Assets/Bundles/LuaScripts/Data/custom_hero.bytes
+  size_bytes: 19392
+  size_mod_16: 0
+  sha1: 369b5ad7aa9cf24f665fffa019c19842c16e7454
+  sha256: 1697337f04ed8aea1033408369a4046f744aa9a1b3df981dab987ae9f8272c23
+  entropy: 7.9905
+  printable_score: 0.3704
+  block_count_16: 1212
+  duplicate_16byte_blocks: 0
+  unique_16byte_blocks: 1212
+  compression_magic: none
+  best_single_byte_xor:
+    key_hex: ab
+    printable_score: 0.3926
+    term_hits: 0
+  direct_term_hits: {}
+  status: high_entropy_16byte_aligned
+- evidence_ref: NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:hero_propose.bytes.bin
+  file_name: hero_propose.bytes.bin
+  stem: hero_propose
+  asset_path: ''
+  size_bytes: 2032
+  size_mod_16: 0
+  sha1: 5c43c0d822d35ff9db79f3eb8ae8d1d763cd69f2
+  sha256: 38564341017e0ceba2a6a24e3e7f3e64859e6232d05326a5b39eadd4484596e9
+  entropy: 7.9106
+  printable_score: 0.3829
+  block_count_16: 127
+  duplicate_16byte_blocks: 0
+  unique_16byte_blocks: 127
+  compression_magic: none
+  best_single_byte_xor:
+    key_hex: af
+    printable_score: 0.3937
+    term_hits: 0
+  direct_term_hits: {}
+  status: high_entropy_16byte_aligned
+- evidence_ref: NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:hero_story.bytes.bin
+  file_name: hero_story.bytes.bin
+  stem: hero_story
+  asset_path: ''
+  size_bytes: 2336
+  size_mod_16: 0
+  sha1: 5d79ae1856801ba2ee64687f73c154e94dc389ac
+  sha256: 2e33d04cef6460747aed052fb1477e354d75113b2ac52f9a47bedf6a3547ead3
+  entropy: 7.9255
+  printable_score: 0.3814
+  block_count_16: 146
+  duplicate_16byte_blocks: 0
+  unique_16byte_blocks: 146
+  compression_magic: none
+  best_single_byte_xor:
+    key_hex: ff
+    printable_score: 0.3934
+    term_hits: 0
+  direct_term_hits: {}
+  status: high_entropy_16byte_aligned
+- evidence_ref: NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:hero_talent.bytes.bin
+  file_name: hero_talent.bytes.bin
+  stem: hero_talent
+  asset_path: Assets/Bundles/LuaScripts/Data/hero_talent.bytes
+  size_bytes: 2096
+  size_mod_16: 0
+  sha1: 35f23f533e7c0f5e5572ad4231d2d67583005543
+  sha256: 5963fa82d862589c6e69810f2acebdc45c0165a557a34f8ba0f278129536a1c0
+  entropy: 7.9131
+  printable_score: 0.3793
+  block_count_16: 131
+  duplicate_16byte_blocks: 0
+  unique_16byte_blocks: 131
+  compression_magic: none
+  best_single_byte_xor:
+    key_hex: '59'
+    printable_score: 0.4031
+    term_hits: 0
+  direct_term_hits: {}
+  status: high_entropy_16byte_aligned
+- evidence_ref: NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:heros.bytes.bin
+  file_name: heros.bytes.bin
+  stem: heros
+  asset_path: Assets/Bundles/LuaScripts/Data/heros.bytes
+  size_bytes: 23232
+  size_mod_16: 0
+  sha1: 77d04fdc1d4a5d667351369a3ebbaedbd6b38689
+  sha256: 2c72e8512e6aacce2d1f1c75dc4fa90e829e091e56b3a3e4ec310d68b3ca497d
+  entropy: 7.9914
+  printable_score: 0.3708
+  block_count_16: 1452
+  duplicate_16byte_blocks: 0
+  unique_16byte_blocks: 1452
+  compression_magic: none
+  best_single_byte_xor:
+    key_hex: ce
+    printable_score: 0.3948
+    term_hits: 0
+  direct_term_hits: {}
+  status: high_entropy_16byte_aligned
+- evidence_ref: NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:lineup_assistant.bytes.bin
+  file_name: lineup_assistant.bytes.bin
+  stem: lineup_assistant
+  asset_path: Assets/Bundles/LuaScripts/Data/lineup_assistant.bytes
+  size_bytes: 22608
+  size_mod_16: 0
+  sha1: 50c865abf3ce09ba5735d2f7297f7183257883e5
+  sha256: a44727097fdfc650f021f46b7342f2243e116a3aa96aec555cc10faa081317ce
+  entropy: 7.9924
+  printable_score: 0.3813
+  block_count_16: 1413
+  duplicate_16byte_blocks: 0
+  unique_16byte_blocks: 1413
+  compression_magic: none
+  best_single_byte_xor:
+    key_hex: '55'
+    printable_score: 0.3972
+    term_hits: 0
+  direct_term_hits: {}
+  status: high_entropy_16byte_aligned
+- evidence_ref: NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:sandbox_battle_config.bytes.bin
+  file_name: sandbox_battle_config.bytes.bin
+  stem: sandbox_battle_config
+  asset_path: ''
+  size_bytes: 3568
+  size_mod_16: 0
+  sha1: d6f7429552e01428238a0294baf440f295c2380a
+  sha256: 1dc1f2b630421a573a9b35246e190ca69969dc75b7a37916f4c0896fd1c67b84
+  entropy: 7.9525
+  printable_score: 0.3957
+  block_count_16: 223
+  duplicate_16byte_blocks: 0
+  unique_16byte_blocks: 223
+  compression_magic: none
+  best_single_byte_xor:
+    key_hex: 6d
+    printable_score: 0.4075
+    term_hits: 0
+  direct_term_hits: {}
+  status: high_entropy_16byte_aligned
+- evidence_ref: NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:scene_building_skill.bytes.bin
+  file_name: scene_building_skill.bytes.bin
+  stem: scene_building_skill
+  asset_path: ''
+  size_bytes: 1136
+  size_mod_16: 0
+  sha1: 455dd2e5e5ec41a7b1d1e1c0328a6df37421b9f2
+  sha256: 7f524ca94494aef339cd1b3ee349f719ee0640f64426bd45145b4f9d39e1cb92
+  entropy: 7.827
+  printable_score: 0.3768
+  block_count_16: 71
+  duplicate_16byte_blocks: 0
+  unique_16byte_blocks: 71
+  compression_magic: none
+  best_single_byte_xor:
+    key_hex: d6
+    printable_score: 0.4014
+    term_hits: 0
+  direct_term_hits: {}
+  status: high_entropy_16byte_aligned
+- evidence_ref: NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:skills.bytes.bin
+  file_name: skills.bytes.bin
+  stem: skills
+  asset_path: Assets/Bundles/LuaScripts/Data/skill/skills.bytes
+  size_bytes: 51760
+  size_mod_16: 0
+  sha1: 58945250821435c55d8d7a2cf6ccd51b22f62dfd
+  sha256: 933f587e391893961f5238f39ba92bec0c6d71cd356b12f4618518858d74e41b
+  entropy: 7.9965
+  printable_score: 0.3911
+  block_count_16: 3235
+  duplicate_16byte_blocks: 0
+  unique_16byte_blocks: 3235
+  compression_magic: none
+  best_single_byte_xor:
+    key_hex: '29'
+    printable_score: 0.3982
+    term_hits: 0
+  direct_term_hits: {}
+  status: high_entropy_16byte_aligned
+- evidence_ref: NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:super_skill.bytes.bin
+  file_name: super_skill.bytes.bin
+  stem: super_skill
+  asset_path: ''
+  size_bytes: 2320
+  size_mod_16: 0
+  sha1: 89c37b83aa7247f87a0605d2dae094c85066453b
+  sha256: 1a73c1fbb28816759154c8822f5f5939f91606692ac6dcdae7112e65a20cfbaf
+  entropy: 7.9199
+  printable_score: 0.3966
+  block_count_16: 145
+  duplicate_16byte_blocks: 0
+  unique_16byte_blocks: 145
+  compression_magic: none
+  best_single_byte_xor:
+    key_hex: 3b
+    printable_score: 0.403
+    term_hits: 0
+  direct_term_hits: {}
+  status: high_entropy_16byte_aligned
+- evidence_ref: NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:warbook.bytes.bin
+  file_name: warbook.bytes.bin
+  stem: warbook
+  asset_path: Assets/Bundles/LuaScripts/Data/warbook.bytes
+  size_bytes: 12144
+  size_mod_16: 0
+  sha1: 6304156ae74bf59348bf7f30f07bf6e6ad4a5c39
+  sha256: 6b3c3d7b7faf406613887c047a27505ba1ba4587ddbaba38ad0a8b202eadba06
+  entropy: 7.9858
+  printable_score: 0.396
+  block_count_16: 759
+  duplicate_16byte_blocks: 0
+  unique_16byte_blocks: 759
+  compression_magic: none
+  best_single_byte_xor:
+    key_hex: 1e
+    printable_score: 0.4006
+    term_hits: 0
+  direct_term_hits: {}
+  status: high_entropy_16byte_aligned
+- evidence_ref: NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:water_battle.bytes.bin
+  file_name: water_battle.bytes.bin
+  stem: water_battle
+  asset_path: ''
+  size_bytes: 1328
+  size_mod_16: 0
+  sha1: 19cf2774c47586f46e80d737ede0c9658a3737ba
+  sha256: 936f3132551d745344bbc3d5c39dc0a5923e084e91306ca02d31d56336085ac4
+  entropy: 7.8759
+  printable_score: 0.3833
+  block_count_16: 83
+  duplicate_16byte_blocks: 0
+  unique_16byte_blocks: 83
+  compression_magic: none
+  best_single_byte_xor:
+    key_hex: '65'
+    printable_score: 0.4044
+    term_hits: 0
+  direct_term_hits: {}
+  status: high_entropy_16byte_aligned
+cross_file_block_profile:
+  file_count: 16
+  total_unique_16byte_blocks: 10690
+  cross_file_shared_16byte_block_count: 0
+  shared_block_samples: []
+  duplicate_first_block_count: 0
+  pairwise_hamming_first512_min: 0.479
+  pairwise_hamming_first512_avg: 0.4995
+  pairwise_hamming_first512_max: 0.5193
+simple_transform_summary:
+  payload_count: 16
+  all_sizes_16byte_aligned: true
+  all_unique_256_bytes: false
+  min_entropy: 7.827
+  max_entropy: 7.9965
+  compression_magic_counts:
+    none: 16
+  decompression_successes: []
+  direct_plaintext_term_file_count: 0
+xor_crib_probe_summary:
+  single_byte_xor_plaintext_like_count: 0
+  crib_xor_plaintext_like_count: 0
+  best_single_byte_xor_scores:
+  - file_name: sandbox_battle_config.bytes.bin
+    key_hex: 6d
+    printable_score: 0.4075
+    term_hits: 0
+  - file_name: water_battle.bytes.bin
+    key_hex: '65'
+    printable_score: 0.4044
+    term_hits: 0
+  - file_name: hero_talent.bytes.bin
+    key_hex: '59'
+    printable_score: 0.4031
+    term_hits: 0
+  - file_name: super_skill.bytes.bin
+    key_hex: 3b
+    printable_score: 0.403
+    term_hits: 0
+  - file_name: battle_record.bytes.bin
+    key_hex: 5c
+    printable_score: 0.4025
+    term_hits: 0
+  - file_name: scene_building_skill.bytes.bin
+    key_hex: d6
+    printable_score: 0.4014
+    term_hits: 0
+  - file_name: warbook.bytes.bin
+    key_hex: 1e
+    printable_score: 0.4006
+    term_hits: 0
+  - file_name: battle_reports.bytes.bin
+    key_hex: ca
+    printable_score: 0.3986
+    term_hits: 0
+route_conclusion:
+  lua_payload_decoder_recovered: false
+  simple_compression_ruled_out: true
+  single_byte_or_crib_xor_ruled_out: true
+  ecb_like_shared_block_signal: false
+  sizes_all_16byte_aligned: true
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: LuaScripts payload samples are uniformly 16-byte aligned,
+    high entropy, and have no cross-file shared 16-byte blocks, which fits a per-file
+    IV/chaining or stream-like protected payload better than a shared ECB-like plaintext
+    transform.
+  strongest_negative_signal: Standard compression, direct plaintext terms, single-byte
+    XOR, simple crib-derived repeating XOR, printable static key probes, and broad
+    static xLua/TextAsset string routes have not recovered readable payloads.
+  search_policy: Stop static key/string brute force for this route; prioritize locating
+    the native buffer owner at TextAsset bytes -> decoder -> xLua loadbuffer boundaries.
+  prior_route_anchor_count: 29
+next_decoder_targets:
+- Locate the first native owner that receives these 16-byte-aligned LuaScripts TextAsset
+  bytes before xLua loadbuffer.
+- Trace decryption or transform at a buffer boundary; static key/string brute force
+  is now low-yield.
+- Keep NEP2 InitLuaScriptsScan as a routing lead only when file-buffer or asset-owner
+  provenance appears.
+- Use block-profile mismatch with global-metadata.dat to avoid assuming the same ECB-like
+  transform for LuaScripts payloads.
+limitations:
+- Static payload analysis only; no live Frida, runtime attach, account data, online
+  protocol, or credentials were used.
+- This profile does not decode the payloads and must not be promoted as game knowledge.
+- XOR crib probes are elimination evidence only; failure does not rule out derived-key
+  AES, stream ciphers, or per-file IV modes.
+- Only the extracted unique high-value TextAsset payload samples are inspected here.
+evidence_refs:
+- NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:army_config.bytes.bin
+- NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:battle_record.bytes.bin
+- NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:battle_replay.bytes.bin
+- NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:battle_reports.bytes.bin
+- NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:custom_hero.bytes.bin
+- NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:hero_propose.bytes.bin
+- NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:hero_story.bytes.bin
+- NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:hero_talent.bytes.bin
+- NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:heros.bytes.bin
+- NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:lineup_assistant.bytes.bin
+- NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:sandbox_battle_config.bytes.bin
+- NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:scene_building_skill.bytes.bin
+- NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:skills.bytes.bin
+- NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:super_skill.bytes.bin
+- NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:warbook.bytes.bin
+- NSLG_LUASCRIPT_CIPHER_PROFILE:luascripts-payload-cipher-profile-round49:payload:water_battle.bytes.bin
+guardrails:
+- offline/static payload evidence only; no live instrumentation or online protocol
+  data is included
+- payload profiles are decoder planning evidence, not reviewed game knowledge
+- external absolute paths are not persisted; payload file names, hashes, and evidence
+  refs are stored
+- do not promote any fact until readable LuaScripts payloads are decoded and manually
+  reviewed

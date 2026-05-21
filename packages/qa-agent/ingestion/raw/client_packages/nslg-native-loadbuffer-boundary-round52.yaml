@@ -1,0 +1,144 @@
+schema_version: nslg.native_loadbuffer_boundary_trace.v1
+source_id: native-loadbuffer-boundary-round52
+source_url: local-nslg-client-native-loadbuffer-boundary
+source_site: nslg_client_native_boundary_trace
+generated_at: '2026-05-20T15:18:03.683829Z'
+round: 163
+slice: native_loadbuffer_boundary_trace
+summary:
+- Scanned 4 native modules for xLua/loadbuffer imports, exports, dynamic loader callsites,
+  and keyword data refs.
+- 'Loadbuffer exports found: 3.'
+- 'Boundary import calls found in scanned callers: 224.'
+- 'Candidate functions with combined boundary score: 1.'
+- GameAssembly import table does not expose xlua/lua/loadbuffer imports under this
+  static pass.
+- No inspected import caller combines LuaScripts/TextAsset/loadbuffer keyword refs
+  with file-buffer ownership and crypto/mutation evidence.
+counts:
+  module_count: 4
+  loadbuffer_export_signal_count: 3
+  boundary_import_call_count: 224
+  candidate_function_signal_count: 1
+  total_import_calls: 1811
+  total_keyword_data_refs: 9
+module_records:
+- evidence_ref: NSLG_NATIVE_BOUNDARY:native-loadbuffer-boundary-round52:module:GameAssembly.dll
+  module: GameAssembly.dll
+  binary_sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  size_bytes: 94127168
+  import_count: 231
+  target_import_count: 13
+  export_count: 386
+  target_export_count: 0
+  keyword_hit_count: 33
+  keyword_data_ref_count: 0
+  import_call_count: 44
+  inspected_function_count: 31
+  boundary_signal_count: 18
+  boundary_signal_kinds:
+    boundary_import_call: 18
+  route_flags:
+    has_xlua_or_loadbuffer_import: false
+    has_loadbuffer_export: false
+- evidence_ref: NSLG_NATIVE_BOUNDARY:native-loadbuffer-boundary-round52:module:NEP2.dll
+  module: NEP2.dll
+  binary_sha256: 109b4af46054a534a4e3b815d022a9bd26709d5bd644cbba4c4d456d4b61f382
+  size_bytes: 40235512
+  import_count: 395
+  target_import_count: 40
+  export_count: 1
+  target_export_count: 0
+  keyword_hit_count: 7
+  keyword_data_ref_count: 0
+  import_call_count: 546
+  inspected_function_count: 80
+  boundary_signal_count: 306
+  boundary_signal_kinds:
+    boundary_import_call: 80
+  route_flags:
+    has_xlua_or_loadbuffer_import: false
+    has_loadbuffer_export: false
+- evidence_ref: NSLG_NATIVE_BOUNDARY:native-loadbuffer-boundary-round52:module:UnityPlayer.dll
+  module: UnityPlayer.dll
+  binary_sha256: 76e66c9f665ec1ba93473c1b03b68366c25137949124d7f2f8d639e4efff6dcf
+  size_bytes: 31099968
+  import_count: 502
+  target_import_count: 24
+  export_count: 2
+  target_export_count: 0
+  keyword_hit_count: 143
+  keyword_data_ref_count: 4
+  import_call_count: 1115
+  inspected_function_count: 80
+  boundary_signal_count: 1033
+  boundary_signal_kinds:
+    boundary_import_call: 79
+    candidate_function: 1
+  route_flags:
+    has_xlua_or_loadbuffer_import: false
+    has_loadbuffer_export: false
+- evidence_ref: NSLG_NATIVE_BOUNDARY:native-loadbuffer-boundary-round52:module:xlua.dll
+  module: xlua.dll
+  binary_sha256: dad40e20866bee2165991f264d4146b43570a4b2c98eddd77629b7cb3f23d0eb
+  size_bytes: 1643072
+  import_count: 449
+  target_import_count: 14
+  export_count: 437
+  target_export_count: 241
+  keyword_hit_count: 7
+  keyword_data_ref_count: 5
+  import_call_count: 106
+  inspected_function_count: 57
+  boundary_signal_count: 55
+  boundary_signal_kinds:
+    boundary_import_call: 47
+    loadbuffer_export: 3
+    rva32: 5
+  route_flags:
+    has_xlua_or_loadbuffer_import: false
+    has_loadbuffer_export: true
+route_conclusion:
+  native_loadbuffer_export_present: true
+  gameassembly_static_xlua_import_present: false
+  gameassembly_to_xlua_static_bridge_proven: false
+  textasset_to_loadbuffer_owner_proven: false
+  lua_payload_decoder_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: xLua loadbuffer exports are present in the plugin, but
+    GameAssembly does not statically import xlua/lua/loadbuffer symbols.
+  strongest_negative_signal: No static import/IAT caller or keyword data-ref path
+    proves TextAsset bytes flow into a decoder and then into xLua loadbuffer.
+  search_policy: Treat import/export analysis as negative boundary evidence; continue
+    with provenance-backed buffer-owner tracing or metadata/runtime-init reconstruction,
+    not broad string scans.
+next_static_targets:
+- Trace runtime registration tables or managed RuntimeInitializeOnLoad metadata for
+  NSLGame.Patcher.GameUpdater.InitLuaEnv without live attach.
+- Use deobfuscated/protected global-metadata recovery to get IL2CPP method ownership
+  for TextAsset bytes and Lua env initialization.
+- If staying in native static analysis, inspect only functions with proven file-buffer
+  or asset-owner provenance before xLua loadbuffer.
+- Keep NEP2 InitLuaScriptsScan as a routing lead, but require payload buffer ownership
+  before promoting any candidate.
+limitations:
+- Static native boundary evidence only; no live Frida, runtime attach, account data,
+  online protocol, or credentials were used.
+- Import/IAT analysis cannot see runtime-generated function pointers or encrypted
+  metadata-derived dispatch.
+- This artifact does not decode LuaScripts payloads and must not be promoted as game
+  knowledge.
+evidence_refs:
+- NSLG_NATIVE_BOUNDARY:native-loadbuffer-boundary-round52:module:GameAssembly.dll
+- NSLG_NATIVE_BOUNDARY:native-loadbuffer-boundary-round52:module:NEP2.dll
+- NSLG_NATIVE_BOUNDARY:native-loadbuffer-boundary-round52:module:UnityPlayer.dll
+- NSLG_NATIVE_BOUNDARY:native-loadbuffer-boundary-round52:module:xlua.dll
+guardrails:
+- offline/static native boundary evidence only; no live instrumentation, account data,
+  or online protocol data is included
+- module paths are not persisted; only module names, hashes, counts, and evidence
+  refs are stored
+- this artifact is decoder-routing evidence and must not be promoted as game knowledge
+- continue only from provenance-backed file-buffer, asset-owner, or runtime-init metadata
+  leads

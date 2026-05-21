@@ -1,0 +1,2619 @@
+schema_version: nslg.client_package_manifest.v1
+source_type: nslg_client_install
+root_name: NSLG Game
+root_path: null
+scanned_at: '2026-05-16T03:38:59.475654Z'
+scan_policy:
+  include_absolute_paths: false
+  include_runtime_files: false
+  excluded_dirs:
+  - LauncherLog
+  - LocalPersistentData
+  - __pycache__
+  excluded_suffixes:
+  - .db
+  - .log
+  notes:
+  - Default scan skips local persistent data, launcher logs, .db, and .log files.
+  - Manifest is an evidence inventory only; it does not promote client data into knowledge_sources.
+version_info:
+  manifest:
+    ProjectID: Windows-Release
+    VersionServerUrl: https://l1-prod-all-list-nslg.bilibiligame.net/release/ob
+    m_AppVersion: 1.29.0
+    m_GlobalBundleVersion: 1.0.0
+    m_StreamingAssetsGlobalBundleVersion: 1.0.0
+    m_AppGitVersion: 0de45a91
+    m_GlobalBundleGitVersion: 7a56faae
+    m_StreamingAssetsGlobalBundleGitVersion: 7a56faae
+    m_HashCode: 611962478
+  pc_package_info.txt: '{"game_version":"1.29.0.0","create_time":"2026-04-17 15:56:53"}'
+  com.bilibili.nslg_Data/app.info: 'huayu
+
+    三国：谋定天下'
+total_files_seen: 678
+included_files: 187
+skipped_files: 491
+files:
+- relative_path: GameAssembly.dll
+  size_bytes: 94127168
+  modified_at: '2026-04-17T07:57:21.453471Z'
+  sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 18 01 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: reverse_engineering_anchor
+  source_ref: NSLG_CLIENT:GameAssembly.dll#sha256=7b2db14aa341bc2f
+  reasons:
+  - native binary
+- relative_path: KernelDumpAnalyzer.exe
+  size_bytes: 26112
+  modified_at: '2026-04-16T17:42:44Z'
+  sha256: b8dd1887c9a04019e31a581b15c09c317ab98698a08bed0899bf09aee8a0a4a6
+  extension: .exe
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 F0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:KernelDumpAnalyzer.exe#sha256=b8dd1887c9a04019
+  reasons:
+  - native binary
+- relative_path: NEP2.dll
+  size_bytes: 40235512
+  modified_at: '2026-04-16T17:42:30Z'
+  sha256: 109b4af46054a534a4e3b815d022a9bd26709d5bd644cbba4c4d456d4b61f382
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 80 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: reverse_engineering_anchor
+  source_ref: NSLG_CLIENT:NEP2.dll#sha256=109b4af46054a534
+  reasons:
+  - native binary
+- relative_path: NSLG_config.ini
+  size_bytes: 49
+  modified_at: '2026-04-22T04:09:18.212302Z'
+  sha256: a8dce8c8524ed2ba5709e14c36399e125d830a89dc2ad485f23d36acaac4c37f
+  extension: .ini
+  head_hex: 5B 44 4C 43 4E 55 4D 5D 0D 0A 43 4F 55 4E 54 3D 30 0D 0A 5B 47 41 4D 45
+    5D 0D 0A 67 61 6D 65 76 65 72 73 69 6F 6E 3D 31 2E 32 39 2E 30 2E 30 0D 0A
+  head_ascii: '[DLCNUM]..COUNT=0..[GAME]..gameversion=1.29.0.0..'
+  detected_type: text_config
+  knowledge_value: text_config_candidate
+  source_ref: NSLG_CLIENT:NSLG_config.ini#sha256=a8dce8c8524ed2ba
+  reasons:
+  - text/config candidate
+- relative_path: UnityCrashHandler64.exe
+  size_bytes: 1174528
+  modified_at: '2026-01-09T10:59:36Z'
+  sha256: 605829fd2a9c3670c32cbd679218474a218598f9175ea2fbe078bedde20981f3
+  extension: .exe
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 10 01 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:UnityCrashHandler64.exe#sha256=605829fd2a9c3670
+  reasons:
+  - native binary
+- relative_path: UnityPlayer.dll
+  size_bytes: 31099968
+  modified_at: '2026-04-17T07:57:30.057729Z'
+  sha256: 76e66c9f665ec1ba93473c1b03b68366c25137949124d7f2f8d639e4efff6dcf
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 38 01 00 00
+  head_ascii: MZ......................@...................................8...
+  detected_type: native_binary
+  knowledge_value: reverse_engineering_anchor
+  source_ref: NSLG_CLIENT:UnityPlayer.dll#sha256=76e66c9f665ec1ba
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-console-l1-1-0.dll
+  size_bytes: 20960
+  modified_at: '2025-09-26T09:24:39.010394Z'
+  sha256: 191e08dea0ad5ac02e7e84669d9fffa5aa67dc696e36077c5fa20d81c80b6a56
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-console-l1-1-0.dll#sha256=191e08dea0ad5ac0
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-console-l1-2-0.dll
+  size_bytes: 20928
+  modified_at: '2025-09-26T09:24:39.011490Z'
+  sha256: 9e04918d9e751dbc56d0251d3ada573381b469a012599554d72aa4affda9658a
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-console-l1-2-0.dll#sha256=9e04918d9e751dbc
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-datetime-l1-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.011490Z'
+  sha256: a94b80a5111aabefb1309609abdd300bb626d861cd8e0938b9735ab711a43c22
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-datetime-l1-1-0.dll#sha256=a94b80a5111aabef
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-debug-l1-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.011490Z'
+  sha256: 263e038363527b7bed05110f37f7e5b95f82aab9c0280c9c522cf7bfce10fd7d
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-debug-l1-1-0.dll#sha256=263e038363527b7b
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-errorhandling-l1-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.012491Z'
+  sha256: 085968d938ea924827c4740697713674850218a8fe91dd9982e93b0effacc820
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-errorhandling-l1-1-0.dll#sha256=085968d938ea9248
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-fibers-l1-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.012491Z'
+  sha256: c86ebc9f48e2db659e80d9c7ad5f29e6b6c850eea58813c041baeff496ae4f18
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-fibers-l1-1-0.dll#sha256=c86ebc9f48e2db65
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-file-l1-1-0.dll
+  size_bytes: 25032
+  modified_at: '2025-09-26T09:24:39.012491Z'
+  sha256: 120c3afed9ce2a981c61208757fca0665f43926751ec8d0d13e10ef1096a0d48
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-file-l1-1-0.dll#sha256=120c3afed9ce2a98
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-file-l1-2-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.012491Z'
+  sha256: 0dc1f695befddb8ee52a308801410f2f1d115fc70668131075c2dbcfa0b6f9a0
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-file-l1-2-0.dll#sha256=0dc1f695befddb8e
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-file-l2-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.012491Z'
+  sha256: 18655793b4d489f769327e3c8710aced6b763c7873b6a8dc5ae6f28d228647f4
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-file-l2-1-0.dll#sha256=18655793b4d489f7
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-handle-l1-1-0.dll
+  size_bytes: 20928
+  modified_at: '2025-09-26T09:24:39.013492Z'
+  sha256: 7e45a1b997331f4d038f847f205904d6ec703df7a8c5c660435697e318ced8fc
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-handle-l1-1-0.dll#sha256=7e45a1b997331f4d
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-heap-l1-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.013492Z'
+  sha256: dd1e8c77002685629c5cd569ee17f9aa2bcb2e59d41b76ae5bc751cae26d75bf
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-heap-l1-1-0.dll#sha256=dd1e8c7700268562
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-interlocked-l1-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.013492Z'
+  sha256: ea60d03a35ef2c50306dbbd1ad408c714b1548035c615359af5a7ce8c0bd14a8
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-interlocked-l1-1-0.dll#sha256=ea60d03a35ef2c50
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-libraryloader-l1-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.013492Z'
+  sha256: 929298566ba01d1c3e64356a1f8370c1e97f0599f56f823c508cde9ae17f130b
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-libraryloader-l1-1-0.dll#sha256=929298566ba01d1c
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-localization-l1-2-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.013492Z'
+  sha256: dc570708327c4c8419d4cced2a162d7ca112a168301134dd1fb5e2040eee45b6
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-localization-l1-2-0.dll#sha256=dc570708327c4c84
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-memory-l1-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.013492Z'
+  sha256: 8a4b66cea7b474506fbdbe4c45e78923645f5f0a13f7f4e43449649f50ea38b8
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-memory-l1-1-0.dll#sha256=8a4b66cea7b47450
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-namedpipe-l1-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.013492Z'
+  sha256: e8382a73730c2f7f873b40e2fcc5e1cd4847e7cb42fef3c76bea183af5891d65
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-namedpipe-l1-1-0.dll#sha256=e8382a73730c2f7f
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-processenvironment-l1-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.013492Z'
+  sha256: 9c1afc7cd0b0e0d136d09b65dd082ace136fc306f8f116f3d13956211ec146c8
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-processenvironment-l1-1-0.dll#sha256=9c1afc7cd0b0e0d1
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-processthreads-l1-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.014995Z'
+  sha256: 6e5bd110a2f4dc345b68e9a8fb081783586c8c25f46027c58443ade2d3e1bf01
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-processthreads-l1-1-0.dll#sha256=6e5bd110a2f4dc34
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-processthreads-l1-1-1.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.014995Z'
+  sha256: 19b018be16afe143fb107ef1dd5b8e6c6cb45966806eb3d31ec09ff0dc2b70d1
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-processthreads-l1-1-1.dll#sha256=19b018be16afe143
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-profile-l1-1-0.dll
+  size_bytes: 20960
+  modified_at: '2025-09-26T09:24:39.014995Z'
+  sha256: cc3c609193f2e99f80a6a21064d10c5c591101e386338879326775ccdd77dcb6
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-profile-l1-1-0.dll#sha256=cc3c609193f2e99f
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-rtlsupport-l1-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.014995Z'
+  sha256: bcb9a6dd2cc0caaa700d95fa3af5163a8246388c2efefbbc4cf6e1fe2687c72e
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-rtlsupport-l1-1-0.dll#sha256=bcb9a6dd2cc0caaa
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-string-l1-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.014995Z'
+  sha256: 9b071b842445a5dd90148445af148d024674085927d079864f7893807fd1b305
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-string-l1-1-0.dll#sha256=9b071b842445a5dd
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-synch-l1-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.014995Z'
+  sha256: a981a24c9231e0230031bb1cba8f2509565ece1f53ebdb4d0a50efd722ab4330
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-synch-l1-1-0.dll#sha256=a981a24c9231e023
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-synch-l1-2-0.dll
+  size_bytes: 20960
+  modified_at: '2025-09-26T09:24:39.016000Z'
+  sha256: 69dd52caffe1ea6e0900fb9604a57a87618f8468dc68cbb2a9bcefd1265f3f49
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-synch-l1-2-0.dll#sha256=69dd52caffe1ea6e
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-sysinfo-l1-1-0.dll
+  size_bytes: 20928
+  modified_at: '2025-09-26T09:24:39.016000Z'
+  sha256: 3513cffa44c88ec13d6a8c9b63e5d505a131b46746d13ee654144f08a96f20c3
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-sysinfo-l1-1-0.dll#sha256=3513cffa44c88ec1
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-timezone-l1-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.016000Z'
+  sha256: 24f4530debf2161e0d0256f923b836aeccc3278a6ff2c9400e415600276b5a6d
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-timezone-l1-1-0.dll#sha256=24f4530debf2161e
+  reasons:
+  - native binary
+- relative_path: api-ms-win-core-util-l1-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.016000Z'
+  sha256: 2e1cc12f93837a4e1fe95e0c640b147be29793705628f9c6cd91a0b5c0c50262
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-core-util-l1-1-0.dll#sha256=2e1cc12f93837a4e
+  reasons:
+  - native binary
+- relative_path: api-ms-win-crt-conio-l1-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.016000Z'
+  sha256: 1368b9af85f186a2b35e2a744eb2103555234b32fdfbfdb94c0f5e525c588e46
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-crt-conio-l1-1-0.dll#sha256=1368b9af85f186a2
+  reasons:
+  - native binary
+- relative_path: api-ms-win-crt-convert-l1-1-0.dll
+  size_bytes: 25032
+  modified_at: '2025-09-26T09:24:39.016000Z'
+  sha256: 2ccb01b62188ddc051a582c128bf880608111c602534e487ec09a7cf67c22d17
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-crt-convert-l1-1-0.dll#sha256=2ccb01b62188ddc0
+  reasons:
+  - native binary
+- relative_path: api-ms-win-crt-environment-l1-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.016000Z'
+  sha256: 5a2ae5b270c1eaf467878e7f5dbdc689b71914bdf30293d7d46c01d9dd11bdd4
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-crt-environment-l1-1-0.dll#sha256=5a2ae5b270c1eaf4
+  reasons:
+  - native binary
+- relative_path: api-ms-win-crt-filesystem-l1-1-0.dll
+  size_bytes: 20928
+  modified_at: '2025-09-26T09:24:39.016000Z'
+  sha256: 42a99227775e85ca8c197811a86aad0e2af496bd21623e4c9a2dd747571c8990
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-crt-filesystem-l1-1-0.dll#sha256=42a99227775e85ca
+  reasons:
+  - native binary
+- relative_path: api-ms-win-crt-heap-l1-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.017503Z'
+  sha256: 43c80120970be1efed3ea60bf7aa37b46fcce946b94fb11ca6e3ffff2f16bb29
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-crt-heap-l1-1-0.dll#sha256=43c80120970be1ef
+  reasons:
+  - native binary
+- relative_path: api-ms-win-crt-locale-l1-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.017503Z'
+  sha256: 6011ece89f4833dcb4cefb02ea366b828725205eae6f25ab704b76fd9e5d86eb
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-crt-locale-l1-1-0.dll#sha256=6011ece89f4833dc
+  reasons:
+  - native binary
+- relative_path: api-ms-win-crt-math-l1-1-0.dll
+  size_bytes: 29120
+  modified_at: '2025-09-26T09:24:39.017503Z'
+  sha256: 5ba8f9c2842990ccdb447fc6d22023103b03f5387f341d3375809f060b5bb4ef
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-crt-math-l1-1-0.dll#sha256=5ba8f9c2842990cc
+  reasons:
+  - native binary
+- relative_path: api-ms-win-crt-multibyte-l1-1-0.dll
+  size_bytes: 29128
+  modified_at: '2025-09-26T09:24:39.017503Z'
+  sha256: 77328a716589be3c3bcf1f3d3134b4ad050380f504dbc1a3fa076380d77ed0f8
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-crt-multibyte-l1-1-0.dll#sha256=77328a716589be3c
+  reasons:
+  - native binary
+- relative_path: api-ms-win-crt-private-l1-1-0.dll
+  size_bytes: 74184
+  modified_at: '2025-09-26T09:24:39.017503Z'
+  sha256: 0e2751637bbeb7ccc2556194fa774ea4bcb937ea803fc955c7f10be0bf38cc77
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-crt-private-l1-1-0.dll#sha256=0e2751637bbeb7cc
+  reasons:
+  - native binary
+- relative_path: api-ms-win-crt-process-l1-1-0.dll
+  size_bytes: 20936
+  modified_at: '2025-09-26T09:24:39.017503Z'
+  sha256: cfc12dd7c1deabf35c8e0fbe01248171c49555fe2d1bed72c5fdba2102090870
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-crt-process-l1-1-0.dll#sha256=cfc12dd7c1deabf3
+  reasons:
+  - native binary
+- relative_path: api-ms-win-crt-runtime-l1-1-0.dll
+  size_bytes: 25040
+  modified_at: '2025-09-26T09:24:39.018513Z'
+  sha256: 698fa887c5b994375c9271222e21d0d4c74810e73d377ad898927549fb69dcb3
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-crt-runtime-l1-1-0.dll#sha256=698fa887c5b99437
+  reasons:
+  - native binary
+- relative_path: api-ms-win-crt-stdio-l1-1-0.dll
+  size_bytes: 25032
+  modified_at: '2025-09-26T09:24:39.018513Z'
+  sha256: c1541ed4dc6879a136bf532393f7cefd3c48ad371d2ed9965e7cbd44c87a1137
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-crt-stdio-l1-1-0.dll#sha256=c1541ed4dc6879a1
+  reasons:
+  - native binary
+- relative_path: api-ms-win-crt-string-l1-1-0.dll
+  size_bytes: 25032
+  modified_at: '2025-09-26T09:24:39.018513Z'
+  sha256: 4429b8e6707645fb503ebc3bd50ce2a84f559b6a2ed778196835808bdfec2f48
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-crt-string-l1-1-0.dll#sha256=4429b8e6707645fb
+  reasons:
+  - native binary
+- relative_path: api-ms-win-crt-time-l1-1-0.dll
+  size_bytes: 20928
+  modified_at: '2025-09-26T09:24:39.018513Z'
+  sha256: f3e6f692cec86adb3985b929345c731469777aeaeb088e3ce070957df481f924
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-crt-time-l1-1-0.dll#sha256=f3e6f692cec86adb
+  reasons:
+  - native binary
+- relative_path: api-ms-win-crt-utility-l1-1-0.dll
+  size_bytes: 20928
+  modified_at: '2025-09-26T09:24:39.018513Z'
+  sha256: 6c78d4aba91877c5bb33e545b6a69a818f377e07ff62e791b804fa5b4d2bcf02
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 D0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:api-ms-win-crt-utility-l1-1-0.dll#sha256=6c78d4aba91877c5
+  reasons:
+  - native binary
+- relative_path: baselib.dll
+  size_bytes: 430144
+  modified_at: '2026-04-17T07:57:02.438296Z'
+  sha256: 697c1e2c2c2ec7610cde59520dfa094eace8327350664ced033389357e3a645f
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 F8 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:baselib.dll#sha256=697c1e2c2c2ec761
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg.exe
+  size_bytes: 690752
+  modified_at: '2026-04-17T07:57:13.290047Z'
+  sha256: 481c5e0cd18baf2b6ea39616eb600326412bbade64dedd73a8a3765a7e8ae357
+  extension: .exe
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 50 00 00 00
+  head_ascii: MZ......................@...................................P...
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg.exe#sha256=481c5e0cd18baf2b
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/AVProVideo.dll
+  size_bytes: 796160
+  modified_at: '2025-02-08T02:13:04Z'
+  sha256: a491974e64f94688c73d7aa1894a246866b44074500e23a629b3baf3c6ae9a6d
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 18 01 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/AVProVideo.dll#sha256=a491974e64f94688
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/AVProVideoWinRT.dll
+  size_bytes: 330240
+  modified_at: '2025-02-08T02:13:04Z'
+  sha256: 4b4c10d84ac34c57e4a22f84998829757f4eaa0c90c958497e93b8da810d9060
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 20 01 00 00
+  head_ascii: MZ......................@................................... ...
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/AVProVideoWinRT.dll#sha256=4b4c10d84ac34c57
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/AkSoundEngine.dll
+  size_bytes: 2943800
+  modified_at: '2025-01-20T04:48:26Z'
+  sha256: ae9bbd5780b2cc2755ac1dd091c5632fbe1dc5e001de226d95d046fa295276c6
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 10 01 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/AkSoundEngine.dll#sha256=ae9bbd5780b2cc27
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/AkWaapiClient.dll
+  size_bytes: 520704
+  modified_at: '2024-03-28T10:02:24.397094Z'
+  sha256: e08a6a72ed77813d243da6d496484e4380e6be34ec07ab61f6672cf90018be88
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 00 01 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/AkWaapiClient.dll#sha256=e08a6a72ed77813d
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/Audio360.dll
+  size_bytes: 2735616
+  modified_at: '2025-01-20T04:44:50Z'
+  sha256: d650fac4673d8aac3bd7199eba1b171ff76aa59294bbb8d62c0452d672f3a354
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 20 01 00 00
+  head_ascii: MZ......................@................................... ...
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/Audio360.dll#sha256=d650fac4673d8aac
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/cef.pak
+  size_bytes: 2133001
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: f7c12b789cd28ad0879b848cc31cf91afcf4fb6cc27d6f26cb0311a3782cfecc
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 3C 01 03 00 78 00 86 07 00 00 79 00 15 25 00 00
+    AB 00 63 2C 00 00 AE 00 AC 2E 00 00 AF 00 80 31 00 00 B0 00 07 38 00 00 20 01
+    63 3B 00 00 1C 25 FA 41 00 00 1D 25 1A 43
+  head_ascii: '........<...x.....y..%....c,...........1.....8.. .c;...%.A...%.C'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/cef.pak#sha256=f7c12b789cd28ad0
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/cef_100_percent.pak
+  size_bytes: 654037
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 2625e4c9319c4d1fbe08a32aa47f2a280485fb5bf932d5783b24b8e9c2e9837a
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 E4 00 1A 00 18 01 D2 05 00 00 EE 2F 30 07 00 00
+    EF 2F 03 11 00 00 F0 2F 3B 19 00 00 F1 2F C9 5A 00 00 F2 2F A7 65 00 00 F3 2F
+    6F 75 00 00 F4 2F DB 77 00 00 F5 2F B3 7B
+  head_ascii: '.................../0..../...../;..../.Z.../.e.../ou.../.w.../.{'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/cef_100_percent.pak#sha256=2625e4c9319c4d1f
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/cef_200_percent.pak
+  size_bytes: 808292
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: d712aa641e2b72b9f02b05f473aeba45b288c6287b2f515e4be6eeb039eca568
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 E7 00 17 00 18 01 D8 05 00 00 EE 2F 31 08 00 00
+    EF 2F 04 12 00 00 F0 2F 3C 1A 00 00 F1 2F CA 5B 00 00 F2 2F A8 66 00 00 F3 2F
+    70 76 00 00 F4 2F DC 78 00 00 F5 2F B4 7C
+  head_ascii: '.................../1..../...../<..../.[.../.f.../pv.../.x.../.|'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/cef_200_percent.pak#sha256=d712aa641e2b72b9
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/cef_extensions.pak
+  size_bytes: 1772827
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 9c6a3f971aa395bbccfd7e8f62291c5052ac01099f5e4c701743f7e48b649603
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 47 02 01 00 E2 27 C0 0D 00 00 E5 27 FB 2E 00 00
+    E8 27 E3 32 00 00 E9 27 14 34 00 00 EA 27 60 3A 00 00 EB 27 94 5A 00 00 EC 27
+    61 71 00 00 ED 27 26 74 00 00 EE 27 6A 78
+  head_ascii: '........G....''.....''.....''.2...''.4...''`:...''.Z...''aq...''&t...''jx'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/cef_extensions.pak#sha256=9c6a3f971aa395bb
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/chrome_elf.dll
+  size_bytes: 991248
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: adc6d9036348fb5f00c58e356a2e1baf7d8b9b4bec8d1d42946ea489584fa45d
+  extension: .dll
+  head_hex: 4D 5A 78 00 01 00 00 00 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 78 00 00 00
+  head_ascii: MZx.....................@...................................x...
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/chrome_elf.dll#sha256=adc6d9036348fb5f
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/d3dcompiler_47.dll
+  size_bytes: 4368656
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: be8702ac21cba0f5c96f42e487ea82f14a571185a63613b968b7aa96eb05ab57
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 08 01 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/d3dcompiler_47.dll#sha256=be8702ac21cba0f5
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/devtools_resources.pak
+  size_bytes: 7015266
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: d922d6086dfc479097c148df52251577e5539f5a3cb5fbd6d74320db5043110c
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 42 02 0D 00 5C 4E D2 0D 00 00 5D 4E E9 00 01 00
+    5E 4E B2 01 01 00 5F 4E E1 0A 01 00 60 4E DA 1B 01 00 61 4E 0D 1C 01 00 62 4E
+    B8 1D 01 00 63 4E CF 1E 01 00 64 4E D6 41
+  head_ascii: '........B...\N....]N....^N...._N....`N....aN....bN....cN....dN.A'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/devtools_resources.pak#sha256=d922d6086dfc4790
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/icudtl.dat
+  size_bytes: 10505952
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 594637e10b8f5c97157413528f0cbf5bc65b4ab9e79f5fa34fe268092655ec57
+  extension: .dat
+  head_hex: 90 00 DA 27 14 00 00 00 00 00 02 00 43 6D 6E 44 01 00 00 00 03 00 00 00
+    20 43 6F 70 79 72 69 67 68 74 20 28 43 29 20 32 30 31 36 20 61 6E 64 20 6C 61
+    74 65 72 3A 20 55 6E 69 63 6F 64 65 2C 20
+  head_ascii: '...''........CmnD........ Copyright (C) 2016 and later: Unicode, '
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/icudtl.dat#sha256=594637e10b8f5c97
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/libEGL.dll
+  size_bytes: 386064
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: d51da30848520c5226ebdb0dec7557f9329373816c5c47fece4e11f475006ff3
+  extension: .dll
+  head_hex: 4D 5A 78 00 01 00 00 00 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 78 00 00 00
+  head_ascii: MZx.....................@...................................x...
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/libEGL.dll#sha256=d51da30848520c52
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/libGLESv2.dll
+  size_bytes: 7968784
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 304130e7dca473652528723265e51ea0de0c98b9da426b3aed922131376ef481
+  extension: .dll
+  head_hex: 4D 5A 78 00 01 00 00 00 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 78 00 00 00
+  head_ascii: MZx.....................@...................................x...
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/libGLESv2.dll#sha256=304130e7dca47365
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/libcef.dll
+  size_bytes: 118148624
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 183c8db291fc41227b4a2fb91ca982a4e78e46c743874436f4f84d6ab09c3043
+  extension: .dll
+  head_hex: 4D 5A 78 00 01 00 00 00 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 78 00 00 00
+  head_ascii: MZx.....................@...................................x...
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/libcef.dll#sha256=183c8db291fc4122
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/am.pak
+  size_bytes: 352926
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 5bd72584cca4271afd6961b137c256f909c69b8cbaa20ee3cb0f56e0a2df8729
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 38 13 64 03 65 00 F2 80 00 00 66 00 11 81 00 00
+    7A 00 27 81 00 00 7B 00 32 81 00 00 7C 00 3E 81 00 00 7D 00 4D 81 00 00 7E 00
+    58 81 00 00 80 00 60 81 00 00 81 00 65 81
+  head_ascii: '........8.d.e.....f.....z.''...{.2...|.>...}.M...~.X.....`.....e.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/am.pak#sha256=5bd72584cca4271a
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/ar.pak
+  size_bytes: 355088
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: c18e55d8fb846fb9f31c63d81124335698c42e17574609b628cf92bf43571c21
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 18 13 84 03 65 00 B2 80 00 00 66 00 CD 80 00 00
+    7A 00 F5 80 00 00 7B 00 00 81 00 00 7C 00 0C 81 00 00 7D 00 1B 81 00 00 7E 00
+    26 81 00 00 80 00 2E 81 00 00 81 00 33 81
+  head_ascii: '............e.....f.....z.....{.....|.....}.....~.&...........3.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/ar.pak#sha256=c18e55d8fb846fb9
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/bg.pak
+  size_bytes: 401521
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 70dae9b5b2f692ae99f698da6822388996bda6e5b21dbb3626561c514b8d44e6
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 3D 13 5F 03 65 00 FC 80 00 00 66 00 1B 81 00 00
+    7A 00 60 81 00 00 7B 00 68 81 00 00 7C 00 74 81 00 00 7D 00 83 81 00 00 7E 00
+    8E 81 00 00 80 00 96 81 00 00 81 00 9B 81
+  head_ascii: '........=._.e.....f.....z.`...{.h...|.t...}.....~...............'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/bg.pak#sha256=70dae9b5b2f692ae
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/bn.pak
+  size_bytes: 516903
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 73ef727320c98843496f7d3e7bb91a98f180270d7f612b45cd60a089cdd0640f
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 43 13 59 03 65 00 08 81 00 00 66 00 39 81 00 00
+    7A 00 64 81 00 00 7B 00 75 81 00 00 7C 00 81 81 00 00 7D 00 90 81 00 00 7E 00
+    9B 81 00 00 80 00 A3 81 00 00 81 00 A9 81
+  head_ascii: '........C.Y.e.....f.9...z.d...{.u...|.....}.....~...............'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/bn.pak#sha256=73ef727320c98843
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/ca.pak
+  size_bytes: 250093
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: d4ad5cdba6d19d490a208ff80a40aabceb7b3460f5567d4aa881b418213cd060
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 27 13 75 03 65 00 D0 80 00 00 66 00 DD 80 00 00
+    7A 00 F1 80 00 00 7B 00 F9 80 00 00 7C 00 05 81 00 00 7D 00 14 81 00 00 7E 00
+    1F 81 00 00 80 00 27 81 00 00 81 00 2C 81
+  head_ascii: '........''.u.e.....f.....z.....{.....|.....}.....~.......''.....,.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/ca.pak#sha256=d4ad5cdba6d19d49
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/cs.pak
+  size_bytes: 254040
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: f8294c4a1886088af715f6c62e83aad34b09028068f2f406398fbcddbaca0bcb
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 1B 13 81 03 65 00 B8 80 00 00 66 00 C8 80 00 00
+    7A 00 D8 80 00 00 7B 00 E0 80 00 00 7C 00 EC 80 00 00 7D 00 FB 80 00 00 7E 00
+    06 81 00 00 80 00 0E 81 00 00 81 00 13 81
+  head_ascii: '............e.....f.....z.....{.....|.....}.....~...............'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/cs.pak#sha256=f8294c4a1886088a
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/da.pak
+  size_bytes: 228312
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 59134bbea624084d253e7935bca2e66b6e49610ce77d122831d0518bef4335fa
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 37 13 65 03 65 00 F0 80 00 00 66 00 FE 80 00 00
+    7A 00 0C 81 00 00 7B 00 1D 81 00 00 7C 00 29 81 00 00 7D 00 38 81 00 00 7E 00
+    43 81 00 00 80 00 4B 81 00 00 81 00 50 81
+  head_ascii: '........7.e.e.....f.....z.....{.....|.)...}.8...~.C.....K.....P.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/da.pak#sha256=59134bbea624084d
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/de.pak
+  size_bytes: 248889
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: f91d72c69bc74be69193dcf025962125726cc2d46c9f3a145657e68d99e2cdcd
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 07 13 95 03 65 00 90 80 00 00 66 00 9D 80 00 00
+    7A 00 AB 80 00 00 7B 00 BC 80 00 00 7C 00 C8 80 00 00 7D 00 D7 80 00 00 7E 00
+    E2 80 00 00 80 00 EA 80 00 00 81 00 EF 80
+  head_ascii: '............e.....f.....z.....{.....|.....}.....~...............'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/de.pak#sha256=f91d72c69bc74be6
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/el.pak
+  size_bytes: 442205
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: c49c6b55a03e03d69cb1637d275a9eb578765529a99a2f02e876b7edc8b8243b
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 26 13 76 03 65 00 CE 80 00 00 66 00 E9 80 00 00
+    7A 00 10 81 00 00 7B 00 18 81 00 00 7C 00 22 81 00 00 7D 00 31 81 00 00 7E 00
+    3C 81 00 00 80 00 44 81 00 00 81 00 49 81
+  head_ascii: '........&.v.e.....f.....z.....{.....|."...}.1...~.<.....D.....I.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/el.pak#sha256=c49c6b55a03e03d6
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/en-GB.pak
+  size_bytes: 204836
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: bd87027b0e25f4692830309d2af5064bf651727ffefa2645b101ccebdb0e5797
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 5F 13 3D 03 65 00 40 81 00 00 66 00 4A 81 00 00
+    7A 00 59 81 00 00 7B 00 67 81 00 00 7C 00 73 81 00 00 7D 00 82 81 00 00 7E 00
+    8D 81 00 00 80 00 95 81 00 00 81 00 9A 81
+  head_ascii: '........_.=.e.@...f.J...z.Y...{.g...|.s...}.....~...............'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/en-GB.pak#sha256=bd87027b0e25f469
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/en-US.pak
+  size_bytes: 206531
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: a4a1b7c72a6cf829e9f023a8673ceff385931e22fc5c23c361d8f43448b95ebc
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 79 13 23 03 65 00 74 81 00 00 66 00 7E 81 00 00
+    7A 00 8D 81 00 00 7B 00 95 81 00 00 7C 00 A1 81 00 00 7D 00 B0 81 00 00 7E 00
+    BB 81 00 00 80 00 C3 81 00 00 81 00 C8 81
+  head_ascii: '........y.#.e.t...f.~...z.....{.....|.....}.....~...............'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/en-US.pak#sha256=a4a1b7c72a6cf829
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/es-419.pak
+  size_bytes: 245809
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 7394e19a7511d3a73a253d15e4eb007c4f156d346635fa4455b02f1e3c966cc1
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 38 13 64 03 65 00 F2 80 00 00 66 00 00 81 00 00
+    7A 00 15 81 00 00 7B 00 1E 81 00 00 7C 00 2A 81 00 00 7D 00 39 81 00 00 7E 00
+    44 81 00 00 80 00 4C 81 00 00 81 00 51 81
+  head_ascii: '........8.d.e.....f.....z.....{.....|.*...}.9...~.D.....L.....Q.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/es-419.pak#sha256=7394e19a7511d3a7
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/es.pak
+  size_bytes: 249919
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 151cd836683f80e780a5a43bae8a95e2ef4088eaa99c968b114e83a0ddd8edcf
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 2B 13 71 03 65 00 D8 80 00 00 66 00 E6 80 00 00
+    7A 00 FB 80 00 00 7B 00 03 81 00 00 7C 00 0F 81 00 00 7D 00 1E 81 00 00 7E 00
+    29 81 00 00 80 00 31 81 00 00 81 00 36 81
+  head_ascii: '........+.q.e.....f.....z.....{.....|.....}.....~.).....1.....6.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/es.pak#sha256=151cd836683f80e7
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/et.pak
+  size_bytes: 222610
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 9a4c6ee52e37582f0e770a089e0502ee36d4317f71cae4cdcee29c06c53b7946
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 47 13 55 03 65 00 10 81 00 00 66 00 20 81 00 00
+    7A 00 2C 81 00 00 7B 00 3D 81 00 00 7C 00 49 81 00 00 7D 00 58 81 00 00 7E 00
+    63 81 00 00 80 00 6B 81 00 00 81 00 70 81
+  head_ascii: '........G.U.e.....f. ...z.,...{.=...|.I...}.X...~.c.....k.....p.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/et.pak#sha256=9a4c6ee52e37582f
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/fa.pak
+  size_bytes: 353040
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 2dca032314090fe1e8b45c5f19379b50f8bfc1ef250dfe2856d2c32b9a94f210
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 17 13 85 03 65 00 B0 80 00 00 66 00 C1 80 00 00
+    7A 00 DB 80 00 00 7B 00 E6 80 00 00 7C 00 F2 80 00 00 7D 00 01 81 00 00 7E 00
+    0C 81 00 00 80 00 14 81 00 00 81 00 19 81
+  head_ascii: '............e.....f.....z.....{.....|.....}.....~...............'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/fa.pak#sha256=2dca032314090fe1
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/fi.pak
+  size_bytes: 229769
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: c4990656698b0b2d2982e7f263062dcf325ac8485a424c2188d9ca8cc2bcb7c9
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 04 13 98 03 65 00 8A 80 00 00 66 00 A2 80 00 00
+    7A 00 B0 80 00 00 7B 00 C1 80 00 00 7C 00 CD 80 00 00 7D 00 DC 80 00 00 7E 00
+    E7 80 00 00 80 00 EF 80 00 00 81 00 F4 80
+  head_ascii: '............e.....f.....z.....{.....|.....}.....~...............'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/fi.pak#sha256=c4990656698b0b2d
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/fil.pak
+  size_bytes: 252933
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 711dc6748ea64ea1190c7c25032fd124a1edd1819990e0cd0cfbb234fbd15568
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 60 13 3C 03 65 00 42 81 00 00 66 00 4C 81 00 00
+    7A 00 5E 81 00 00 7B 00 74 81 00 00 7C 00 80 81 00 00 7D 00 8F 81 00 00 7E 00
+    9A 81 00 00 80 00 A2 81 00 00 81 00 A7 81
+  head_ascii: '........`.<.e.B...f.L...z.^...{.t...|.....}.....~...............'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/fil.pak#sha256=711dc6748ea64ea1
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/fr.pak
+  size_bytes: 267633
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 9e4541a4c71ddd3b39956407614d3883b96932d1e666c89931e32ddff57ad905
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 26 13 76 03 65 00 CE 80 00 00 66 00 E1 80 00 00
+    7A 00 F3 80 00 00 7B 00 04 81 00 00 7C 00 10 81 00 00 7D 00 1F 81 00 00 7E 00
+    2A 81 00 00 80 00 32 81 00 00 81 00 37 81
+  head_ascii: '........&.v.e.....f.....z.....{.....|.....}.....~.*.....2.....7.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/fr.pak#sha256=9e4541a4c71ddd3b
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/gu.pak
+  size_bytes: 497075
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: f4dec19ba7577897675e34ef6729da814507bd7d10f59b0468fde66253671039
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 3D 13 5F 03 65 00 FC 80 00 00 66 00 2A 81 00 00
+    7A 00 58 81 00 00 7B 00 72 81 00 00 7C 00 7E 81 00 00 7D 00 8D 81 00 00 7E 00
+    98 81 00 00 80 00 A0 81 00 00 81 00 A5 81
+  head_ascii: '........=._.e.....f.*...z.X...{.r...|.~...}.....~...............'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/gu.pak#sha256=f4dec19ba7577897
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/he.pak
+  size_bytes: 301333
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 0a9c01573c099244966f1ccf9e1b6c0b97f9d7928b6fc7edd81928a3e11ca66e
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 2A 13 72 03 65 00 D6 80 00 00 66 00 EB 80 00 00
+    7A 00 0B 81 00 00 7B 00 1C 81 00 00 7C 00 28 81 00 00 7D 00 37 81 00 00 7E 00
+    42 81 00 00 80 00 4A 81 00 00 81 00 4F 81
+  head_ascii: '........*.r.e.....f.....z.....{.....|.(...}.7...~.B.....J.....O.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/he.pak#sha256=0a9c01573c099244
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/hi.pak
+  size_bytes: 510101
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 7fb85ff3934101af4e5a6ed94937088175375f0180a96f6194a776e8319dc53f
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 26 13 76 03 65 00 CE 80 00 00 66 00 F9 80 00 00
+    7A 00 2A 81 00 00 7B 00 3B 81 00 00 7C 00 47 81 00 00 7D 00 56 81 00 00 7E 00
+    61 81 00 00 80 00 69 81 00 00 81 00 6E 81
+  head_ascii: '........&.v.e.....f.....z.*...{.;...|.G...}.V...~.a.....i.....n.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/hi.pak#sha256=7fb85ff3934101af
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/hr.pak
+  size_bytes: 241834
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 532f894c38d05ddb771938b944e8c9b058af57a3fad957072b114d8f7863747c
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 3C 13 60 03 65 00 FA 80 00 00 66 00 07 81 00 00
+    7A 00 14 81 00 00 7B 00 25 81 00 00 7C 00 31 81 00 00 7D 00 40 81 00 00 7E 00
+    4B 81 00 00 80 00 53 81 00 00 81 00 58 81
+  head_ascii: '........<.`.e.....f.....z.....{.%...|.1...}.@...~.K.....S.....X.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/hr.pak#sha256=532f894c38d05ddb
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/hu.pak
+  size_bytes: 263428
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 1fe0100f6f5ff44000673db31a96872820ad30a4b85260c399fc5c97d96659e9
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 12 13 8A 03 65 00 A6 80 00 00 66 00 B9 80 00 00
+    7A 00 D0 80 00 00 7B 00 E1 80 00 00 7C 00 EB 80 00 00 7D 00 FA 80 00 00 7E 00
+    05 81 00 00 80 00 0D 81 00 00 81 00 12 81
+  head_ascii: '............e.....f.....z.....{.....|.....}.....~...............'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/hu.pak#sha256=1fe0100f6f5ff440
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/id.pak
+  size_bytes: 221326
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: b3844d5f9d6330c541cf1dcb41ea79463c3a37661e7a753b9534074b2f82f543
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 2B 13 71 03 65 00 D8 80 00 00 66 00 E8 80 00 00
+    7A 00 F6 80 00 00 7B 00 07 81 00 00 7C 00 13 81 00 00 7D 00 22 81 00 00 7E 00
+    2D 81 00 00 80 00 35 81 00 00 81 00 3A 81
+  head_ascii: '........+.q.e.....f.....z.....{.....|.....}."...~.-.....5.....:.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/id.pak#sha256=b3844d5f9d6330c5
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/it.pak
+  size_bytes: 241201
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 2b8996b55ef50065adc54f1a331d13fc9b282ef06da83b488ae45693b7b7f5d3
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 2B 13 71 03 65 00 D8 80 00 00 66 00 E4 80 00 00
+    7A 00 F7 80 00 00 7B 00 08 81 00 00 7C 00 14 81 00 00 7D 00 23 81 00 00 7E 00
+    2E 81 00 00 80 00 36 81 00 00 81 00 3B 81
+  head_ascii: '........+.q.e.....f.....z.....{.....|.....}.#...~.......6.....;.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/it.pak#sha256=2b8996b55ef50065
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/ja.pak
+  size_bytes: 299857
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 338f63438d6587359a9d798756be97035985964b6128bc5d490c4090eb30096b
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 CF 12 CD 03 65 00 20 80 00 00 66 00 35 80 00 00
+    7A 00 59 80 00 00 7B 00 64 80 00 00 7C 00 6D 80 00 00 7D 00 7E 80 00 00 7E 00
+    87 80 00 00 7F 00 8F 80 00 00 81 00 A4 80
+  head_ascii: '............e. ...f.5...z.Y...{.d...|.m...}.~...~...............'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/ja.pak#sha256=338f63438d658735
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/kn.pak
+  size_bytes: 578424
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: e325df8b2987d6d5b205b2d0e38025d004fca46660c43f11dbd9b833e778704b
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 4B 13 51 03 65 00 18 81 00 00 66 00 3A 81 00 00
+    7A 00 6B 81 00 00 7B 00 7C 81 00 00 7C 00 88 81 00 00 7D 00 97 81 00 00 7E 00
+    A2 81 00 00 80 00 AA 81 00 00 81 00 AF 81
+  head_ascii: '........K.Q.e.....f.:...z.k...{.|...|.....}.....~...............'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/kn.pak#sha256=e325df8b2987d6d5
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/ko.pak
+  size_bytes: 252196
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 3715074338753169a7d0b824aa68a96c01a7a93804a5262ebe52170cc1e33847
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 BF 12 DD 03 65 00 00 80 00 00 66 00 14 80 00 00
+    7A 00 24 80 00 00 7B 00 35 80 00 00 7C 00 40 80 00 00 7D 00 4D 80 00 00 7E 00
+    55 80 00 00 7F 00 5D 80 00 00 81 00 63 80
+  head_ascii: '............e.....f.....z.$...{.5...|.@...}.M...~.U.....].....c.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/ko.pak#sha256=3715074338753169
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/lt.pak
+  size_bytes: 258878
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 1311af18d92edc293ebc0de8e734aafe064a9c88b2503aa18e49101e686e0969
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 3B 13 61 03 65 00 F8 80 00 00 66 00 09 81 00 00
+    7A 00 1D 81 00 00 7B 00 2E 81 00 00 7C 00 3A 81 00 00 7D 00 49 81 00 00 7E 00
+    54 81 00 00 80 00 5C 81 00 00 81 00 61 81
+  head_ascii: '........;.a.e.....f.....z.....{.....|.:...}.I...~.T.....\.....a.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/lt.pak#sha256=1311af18d92edc29
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/lv.pak
+  size_bytes: 257465
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 140b4455ca56d5afdf8dfb3c1f27bf45d3eff10b4831398c388c2f99ad331adc
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 33 13 69 03 65 00 E8 80 00 00 66 00 FA 80 00 00
+    7A 00 0E 81 00 00 7B 00 1F 81 00 00 7C 00 2B 81 00 00 7D 00 3A 81 00 00 7E 00
+    45 81 00 00 80 00 4D 81 00 00 81 00 52 81
+  head_ascii: '........3.i.e.....f.....z.....{.....|.+...}.:...~.E.....M.....R.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/lv.pak#sha256=140b4455ca56d5af
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/ml.pak
+  size_bytes: 617634
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 60c7dc39e9a8db10d1ded18c6bbfc64b324e075b639e2075b3d7f0038b45bdb7
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 49 13 53 03 65 00 14 81 00 00 66 00 3F 81 00 00
+    7A 00 70 81 00 00 7B 00 81 81 00 00 7C 00 8D 81 00 00 7D 00 9C 81 00 00 7E 00
+    A7 81 00 00 80 00 AF 81 00 00 81 00 B4 81
+  head_ascii: '........I.S.e.....f.?...z.p...{.....|.....}.....~...............'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/ml.pak#sha256=60c7dc39e9a8db10
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/mr.pak
+  size_bytes: 492853
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: acd92201a92a8a19dfff2987eed89fd67d6aac29c5be17477e2061dd60bd5232
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 27 13 75 03 65 00 D0 80 00 00 66 00 FB 80 00 00
+    7A 00 29 81 00 00 7B 00 43 81 00 00 7C 00 4F 81 00 00 7D 00 5E 81 00 00 7E 00
+    69 81 00 00 80 00 71 81 00 00 81 00 76 81
+  head_ascii: '........''.u.e.....f.....z.)...{.C...|.O...}.^...~.i.....q.....v.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/mr.pak#sha256=acd92201a92a8a19
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/ms.pak
+  size_bytes: 229260
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: d03a99f763eb97aa84fe00912f6293f1c23b7eb436972b182822e9981990f703
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 44 13 58 03 65 00 0A 81 00 00 66 00 1A 81 00 00
+    7A 00 26 81 00 00 7B 00 2E 81 00 00 7C 00 3A 81 00 00 7D 00 49 81 00 00 7E 00
+    54 81 00 00 80 00 5C 81 00 00 81 00 61 81
+  head_ascii: '........D.X.e.....f.....z.&...{.....|.:...}.I...~.T.....\.....a.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/ms.pak#sha256=d03a99f763eb97aa
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/nb.pak
+  size_bytes: 225090
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 990e7777f4c705ffcacc78ea75eb98301b53e4e82835a65123a01530a070ee08
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 26 13 76 03 65 00 CE 80 00 00 66 00 DC 80 00 00
+    7A 00 EA 80 00 00 7B 00 01 81 00 00 7C 00 0D 81 00 00 7D 00 1C 81 00 00 7E 00
+    27 81 00 00 80 00 2F 81 00 00 81 00 34 81
+  head_ascii: '........&.v.e.....f.....z.....{.....|.....}.....~.''...../.....4.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/nb.pak#sha256=990e7777f4c705ff
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/nl.pak
+  size_bytes: 235024
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 0e232b618a6f4d14fd0170e7958dbf3251b23df331c77a66ef1af7981fb34277
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 24 13 78 03 65 00 CA 80 00 00 66 00 DA 80 00 00
+    7A 00 EA 80 00 00 7B 00 FB 80 00 00 7C 00 07 81 00 00 7D 00 16 81 00 00 7E 00
+    21 81 00 00 80 00 29 81 00 00 81 00 2E 81
+  head_ascii: '........$.x.e.....f.....z.....{.....|.....}.....~.!.....).......'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/nl.pak#sha256=0e232b618a6f4d14
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/pl.pak
+  size_bytes: 251100
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 66f6dafa265d2c84751a8331e61baf0b2d00b30a7fa3a19933865c9f70b9e7b8
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 30 13 6C 03 65 00 E2 80 00 00 66 00 F6 80 00 00
+    7A 00 06 81 00 00 7B 00 17 81 00 00 7C 00 21 81 00 00 7D 00 30 81 00 00 7E 00
+    3B 81 00 00 80 00 43 81 00 00 81 00 48 81
+  head_ascii: '........0.l.e.....f.....z.....{.....|.!...}.0...~.;.....C.....H.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/pl.pak#sha256=66f6dafa265d2c84
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/pt-BR.pak
+  size_bytes: 242019
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: aec14236b11777161e7b6d66ca91a8112b2dc8770a759eaaf94af686754ee65e
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 3E 13 5E 03 65 00 FE 80 00 00 66 00 0F 81 00 00
+    7A 00 1D 81 00 00 7B 00 2E 81 00 00 7C 00 3A 81 00 00 7D 00 49 81 00 00 7E 00
+    54 81 00 00 80 00 5C 81 00 00 81 00 61 81
+  head_ascii: '........>.^.e.....f.....z.....{.....|.:...}.I...~.T.....\.....a.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/pt-BR.pak#sha256=aec14236b1177716
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/pt-PT.pak
+  size_bytes: 245314
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 354c5f58e330996bba13f8aa66fcae4d9118f073b48cf4dd6b04935284f81530
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 3F 13 5D 03 65 00 00 81 00 00 66 00 13 81 00 00
+    7A 00 25 81 00 00 7B 00 36 81 00 00 7C 00 42 81 00 00 7D 00 51 81 00 00 7E 00
+    5C 81 00 00 80 00 64 81 00 00 81 00 69 81
+  head_ascii: '........?.].e.....f.....z.%...{.6...|.B...}.Q...~.\.....d.....i.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/pt-PT.pak#sha256=354c5f58e330996b
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/ro.pak
+  size_bytes: 250362
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: f2916bcc0131219734bfb43581821e29d1bbe05512e9286e9ed25983fe35b859
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 3C 13 60 03 65 00 FA 80 00 00 66 00 0B 81 00 00
+    7A 00 1D 81 00 00 7B 00 2E 81 00 00 7C 00 38 81 00 00 7D 00 47 81 00 00 7E 00
+    52 81 00 00 80 00 5A 81 00 00 81 00 5F 81
+  head_ascii: '........<.`.e.....f.....z.....{.....|.8...}.G...~.R.....Z....._.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/ro.pak#sha256=f2916bcc01312197
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/ru.pak
+  size_bytes: 392556
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: ff38a84652ff0373be225bb85c51b49f770f7010ab143ec3f1cc7e9823350a1c
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 CC 12 D0 03 65 00 1A 80 00 00 66 00 3F 80 00 00
+    7A 00 65 80 00 00 7B 00 76 80 00 00 7C 00 82 80 00 00 7D 00 91 80 00 00 7E 00
+    9C 80 00 00 80 00 A4 80 00 00 81 00 A9 80
+  head_ascii: '............e.....f.?...z.e...{.v...|.....}.....~...............'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/ru.pak#sha256=ff38a84652ff0373
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/sk.pak
+  size_bytes: 257057
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: c95cffccc91aff323596754b4ced2bccab322836ca8ceb820fd58fd3fdf7a6d8
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 34 13 68 03 65 00 EA 80 00 00 66 00 FD 80 00 00
+    7A 00 0F 81 00 00 7B 00 23 81 00 00 7C 00 2F 81 00 00 7D 00 3E 81 00 00 7E 00
+    49 81 00 00 80 00 51 81 00 00 81 00 56 81
+  head_ascii: '........4.h.e.....f.....z.....{.#...|./...}.>...~.I.....Q.....V.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/sk.pak#sha256=c95cffccc91aff32
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/sl.pak
+  size_bytes: 243557
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 206a4f5434e766320fce443ea76ac46f61df2a84bbee93a42de352fa33689ead
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 20 13 7C 03 65 00 C2 80 00 00 66 00 D0 80 00 00
+    7A 00 DF 80 00 00 7B 00 F0 80 00 00 7C 00 FA 80 00 00 7D 00 09 81 00 00 7E 00
+    14 81 00 00 80 00 1C 81 00 00 81 00 21 81
+  head_ascii: '........ .|.e.....f.....z.....{.....|.....}.....~.............!.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/sl.pak#sha256=206a4f5434e76632
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/sr.pak
+  size_bytes: 377367
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 52f4550ee69a83e5ebae7fbe2d5725ebdc4139a486f5858bf72414aaddd156f2
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 3F 13 5D 03 65 00 00 81 00 00 66 00 19 81 00 00
+    7A 00 40 81 00 00 7B 00 51 81 00 00 7C 00 5D 81 00 00 7D 00 6C 81 00 00 7E 00
+    77 81 00 00 80 00 7F 81 00 00 81 00 84 81
+  head_ascii: '........?.].e.....f.....z.@...{.Q...|.]...}.l...~.w.............'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/sr.pak#sha256=52f4550ee69a83e5
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/sv.pak
+  size_bytes: 227131
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: b635e61b53a4634011c79cad0e153750e4068c2e1a99b693634ba5e7330f70ef
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 25 13 77 03 65 00 CC 80 00 00 66 00 DE 80 00 00
+    7A 00 EC 80 00 00 7B 00 FD 80 00 00 7C 00 09 81 00 00 7D 00 18 81 00 00 7E 00
+    23 81 00 00 80 00 2B 81 00 00 81 00 30 81
+  head_ascii: '........%.w.e.....f.....z.....{.....|.....}.....~.#.....+.....0.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/sv.pak#sha256=b635e61b53a46340
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/sw.pak
+  size_bytes: 232318
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: c5291fe71675aa10cf9cc8086fd1c4dcb7beb97556f77767eaec4118973cd290
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 2D 13 6F 03 65 00 DC 80 00 00 66 00 EE 80 00 00
+    7A 00 01 81 00 00 7B 00 0C 81 00 00 7C 00 18 81 00 00 7D 00 27 81 00 00 7E 00
+    32 81 00 00 80 00 3A 81 00 00 81 00 3F 81
+  head_ascii: '........-.o.e.....f.....z.....{.....|.....}.''...~.2.....:.....?.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/sw.pak#sha256=c5291fe71675aa10
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/ta.pak
+  size_bytes: 587585
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: f1b3d8a864bb143d08802ea190a311e6800da353cc4109a53a979eda92766c2e
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 1D 13 7F 03 65 00 BC 80 00 00 66 00 DB 80 00 00
+    7A 00 15 81 00 00 7B 00 26 81 00 00 7C 00 32 81 00 00 7D 00 41 81 00 00 7E 00
+    4C 81 00 00 80 00 54 81 00 00 81 00 59 81
+  head_ascii: '............e.....f.....z.....{.&...|.2...}.A...~.L.....T.....Y.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/ta.pak#sha256=f1b3d8a864bb143d
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/te.pak
+  size_bytes: 555475
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: ff4610e0f4eb562feef2205bbe99686d91149b0315aa1dfaed4adbe00bbbdf98
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 54 13 48 03 65 00 2A 81 00 00 66 00 5B 81 00 00
+    7A 00 8C 81 00 00 7B 00 A6 81 00 00 7C 00 B2 81 00 00 7D 00 C1 81 00 00 7E 00
+    CC 81 00 00 80 00 D4 81 00 00 81 00 D9 81
+  head_ascii: '........T.H.e.*...f.[...z.....{.....|.....}.....~...............'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/te.pak#sha256=ff4610e0f4eb562f
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/th.pak
+  size_bytes: 471760
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 5c3fd0729115da93a2b548bfeedfce1e97bbe63abd83e82ce9139115e628e966
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 DD 12 BF 03 65 00 3C 80 00 00 66 00 57 80 00 00
+    7A 00 84 80 00 00 7B 00 8C 80 00 00 7C 00 97 80 00 00 7D 00 A6 80 00 00 7E 00
+    AC 80 00 00 81 00 B4 80 00 00 82 00 C1 80
+  head_ascii: '............e.<...f.W...z.....{.....|.....}.....~...............'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/th.pak#sha256=5c3fd0729115da93
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/tr.pak
+  size_bytes: 241433
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 2a3ba2386f53c3aace4b04d3e65c41f0be6beaefadb7560e9928a0bf00a6dd91
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 4A 13 52 03 65 00 16 81 00 00 66 00 26 81 00 00
+    7A 00 38 81 00 00 7B 00 49 81 00 00 7C 00 53 81 00 00 7D 00 62 81 00 00 7E 00
+    6D 81 00 00 80 00 75 81 00 00 81 00 7A 81
+  head_ascii: '........J.R.e.....f.&...z.8...{.I...|.S...}.b...~.m.....u.....z.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/tr.pak#sha256=2a3ba2386f53c3aa
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/uk.pak
+  size_bytes: 394688
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 0d640b4678ea0a491cb97250c3c5f31376f117e192406edbcde01812a9053d57
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 0B 13 91 03 65 00 98 80 00 00 66 00 B9 80 00 00
+    7A 00 E1 80 00 00 7B 00 F2 80 00 00 7C 00 FE 80 00 00 7D 00 0D 81 00 00 7E 00
+    18 81 00 00 80 00 20 81 00 00 81 00 25 81
+  head_ascii: '............e.....f.....z.....{.....|.....}.....~....... .....%.'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/uk.pak#sha256=0d640b4678ea0a49
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/vi.pak
+  size_bytes: 279590
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 58349c690036067c5afeb5a1b534ed64bbaabe21726a687d4e4bdffd85e18143
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 FF 12 9D 03 65 00 80 80 00 00 66 00 9B 80 00 00
+    7A 00 B1 80 00 00 7B 00 CB 80 00 00 7C 00 D7 80 00 00 7D 00 E6 80 00 00 7E 00
+    F1 80 00 00 80 00 F9 80 00 00 81 00 FE 80
+  head_ascii: '............e.....f.....z.....{.....|.....}.....~...............'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/vi.pak#sha256=58349c690036067c
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/zh-CN.pak
+  size_bytes: 208989
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 25747d79be46ee8759cd806b4a5b1f6992291867156c055b1d88f5485fc702f4
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 EF 12 AD 03 65 00 60 80 00 00 66 00 6F 80 00 00
+    7A 00 81 80 00 00 7B 00 89 80 00 00 7C 00 8C 80 00 00 7D 00 9B 80 00 00 7E 00
+    A2 80 00 00 7F 00 AA 80 00 00 81 00 B0 80
+  head_ascii: '............e.`...f.o...z.....{.....|.....}.....~...............'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/zh-CN.pak#sha256=25747d79be46ee87
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/zh-TW.pak
+  size_bytes: 209140
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 5dd354ff08d890eef5174956f564adcd8517b0209b504ed9c636f3737df62f0c
+  extension: .pak
+  head_hex: 05 00 00 00 01 00 00 00 E8 12 B4 03 65 00 52 80 00 00 66 00 64 80 00 00
+    7A 00 73 80 00 00 7B 00 84 80 00 00 7C 00 88 80 00 00 7D 00 97 80 00 00 7E 00
+    A2 80 00 00 80 00 AA 80 00 00 81 00 AF 80
+  head_ascii: '............e.R...f.d...z.s...{.....|.....}.....~...............'
+  detected_type: third_party_cef_pack
+  knowledge_value: low_third_party_runtime
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/locales/zh-TW.pak#sha256=5dd354ff08d890ee
+  reasons:
+  - CEF browser language/resource pack
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/snapshot_blob.bin
+  size_bytes: 240472
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 007d065c8b317f2a0c686899b5be75fc68d6c3ba7d1c47a86126a7d6cd257d81
+  extension: .bin
+  head_hex: 01 00 00 00 01 00 00 00 B8 15 B5 DE 38 2E 30 2E 34 32 36 2E 33 30 00 00
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  head_ascii: '............8.0.426.30..........................................'
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/snapshot_blob.bin#sha256=007d065c8b317f2a
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/swiftshader/libEGL.dll
+  size_bytes: 421392
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 3da726f1ad81fe33ec80e12e75e053ca827b63bcafdfbe2d6acb2ecd51fea60e
+  extension: .dll
+  head_hex: 4D 5A 78 00 01 00 00 00 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 78 00 00 00
+  head_ascii: MZx.....................@...................................x...
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/swiftshader/libEGL.dll#sha256=3da726f1ad81fe33
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/swiftshader/libGLESv2.dll
+  size_bytes: 3791888
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 99b74a3c310e22b0855ca36e7c782639edc06ff47fabbd02e89a45f068cf6b9b
+  extension: .dll
+  head_hex: 4D 5A 78 00 01 00 00 00 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 78 00 00 00
+  head_ascii: MZx.....................@...................................x...
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/swiftshader/libGLESv2.dll#sha256=99b74a3c310e22b0
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/v8_context_snapshot.bin
+  size_bytes: 559000
+  modified_at: '2025-01-20T04:48:08Z'
+  sha256: 1e9b99985e53b10ef4ef0f01264117b8d7c3e0e19e65e1670326445562d7ff24
+  extension: .bin
+  head_hex: 03 00 00 00 01 00 00 00 B0 B1 58 67 38 2E 30 2E 34 32 36 2E 33 30 00 00
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  head_ascii: '..........Xg8.0.426.30..........................................'
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/BLWebbrowser/v8_context_snapshot.bin#sha256=1e9b99985e53b10e
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/PCGamePlatform.exe
+  size_bytes: 7682008
+  modified_at: '2026-01-05T03:49:54Z'
+  sha256: dfd9ca8aee24db5a4dfec990e07a129c19e36c7f7d0fe1366a25ff07f73bbf5f
+  extension: .exe
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 58 01 00 00
+  head_ascii: MZ......................@...................................X...
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/PCGamePlatform.exe#sha256=dfd9ca8aee24db5a
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/game_security_protection.exe
+  size_bytes: 5638104
+  modified_at: '2026-01-05T03:49:54Z'
+  sha256: 09ab9c3644ee6ac94d055ac2da286bf7b692717213b00d9175fc5ac3752a2153
+  extension: .exe
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 58 01 00 00
+  head_ascii: MZ......................@...................................X...
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/game_security_protection.exe#sha256=09ab9c3644ee6ac9
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/skin.zip
+  size_bytes: 993575
+  modified_at: '2025-12-06T13:21:19.921005Z'
+  sha256: e047812fe7bc55a380d7c2650f11d74d9faeee722ced428cdcdf12c6a4dd747b
+  extension: .zip
+  head_hex: 50 4B 03 04 14 00 01 00 00 00 C8 52 95 5A B6 ED 77 B6 44 07 00 00 38 07
+    00 00 11 00 00 00 41 63 63 6F 75 6E 74 42 6F 72 64 65 72 2E 70 6E 67 EA C9 9B
+    84 1C 27 C3 A7 81 96 6D 78 2A 4D F6 ED 0F
+  head_ascii: PK.........R.Z..w.D...8.......AccountBorder.png.....'....mx*M...
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/BLPlatform64/skin.zip#sha256=e047812fe7bc55a3
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/DiskUtilsWinAPI.dll
+  size_bytes: 14336
+  modified_at: '2025-01-20T04:48:06Z'
+  sha256: 58e5e926c2be76487f438dc0d20fda45b45ffe25c758b3a39bf53b485f291752
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 F8 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/DiskUtilsWinAPI.dll#sha256=58e5e926c2be7648
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/ONE_SDK.txt
+  size_bytes: 516
+  modified_at: '2025-01-20T04:48:10Z'
+  sha256: b496f3514daad4b104503c0ea866000e721066062f75ccaed690067b76929c12
+  extension: .txt
+  head_hex: 65 77 6F 67 49 43 41 67 49 6C 42 44 49 6A 6F 67 65 77 6F 67 49 43 41 67
+    49 43 41 67 49 43 4A 68 63 48 42 4A 5A 43 49 36 49 43 49 78 4D 54 41 78 4D 43
+    49 73 43 69 41 67 49 43 41 67 49 43 41 67
+  head_ascii: ewogICAgIlBDIjogewogICAgICAgICJhcHBJZCI6ICIxMTAxMCIsCiAgICAgICAg
+  detected_type: text_config
+  knowledge_value: text_config_candidate
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/ONE_SDK.txt#sha256=b496f3514daad4b1
+  reasons:
+  - text/config candidate
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/PCGameSDK.dll
+  size_bytes: 6251992
+  modified_at: '2026-01-09T10:59:36Z'
+  sha256: 95e1b832256af39a66d7c09484d8fbc1a75a067cefbdeea4c602e13647c3d74d
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 50 01 00 00
+  head_ascii: MZ......................@...................................P...
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/PCGameSDK.dll#sha256=95e1b832256af39a
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/PCOneSDK.dll
+  size_bytes: 2783808
+  modified_at: '2026-04-17T07:57:41.592264Z'
+  sha256: 9d5e6735bac8966d1dc811e0ccd536f1a38ba688837e30dead346c126a933599
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 30 01 00 00
+  head_ascii: MZ......................@...................................0...
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/PCOneSDK.dll#sha256=9d5e6735bac8966d
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/lib_burst_generated.dll
+  size_bytes: 66048
+  modified_at: '2026-04-16T17:24:08.679918Z'
+  sha256: bb4af46f62460eb98366be26f84bef49dad71856ac7b800e6a1e54ce393663c4
+  extension: .dll
+  head_hex: 4D 5A 78 00 01 00 00 00 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 78 00 00 00
+  head_ascii: MZx.....................@...................................x...
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/lib_burst_generated.dll#sha256=bb4af46f62460eb9
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/license.txt
+  size_bytes: 12565
+  modified_at: '2024-11-01T10:31:44.817612Z'
+  sha256: f18c7ca97861f444524519b35c0440cfaaf6db227f75750fa49ce66c67f55500
+  extension: .txt
+  head_hex: 4D 49 54 20 4C 69 63 65 6E 73 65 0D 0D 0A 0D 0D 0A 43 6F 70 79 72 69 67
+    68 74 20 28 63 29 20 32 30 31 34 20 54 72 6F 79 0D 0D 0A 0D 0D 0A 50 65 72 6D
+    69 73 73 69 6F 6E 20 69 73 20 68 65 72 65
+  head_ascii: MIT License......Copyright (c) 2014 Troy......Permission is here
+  detected_type: text_config
+  knowledge_value: text_config_candidate
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/license.txt#sha256=f18c7ca97861f444
+  reasons:
+  - text/config candidate
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/sentry.dll
+  size_bytes: 908864
+  modified_at: '2026-04-17T07:57:49.366111Z'
+  sha256: 25500fd605c3d59b3a88dcca177b91e6a59bdc4324d50164626181e3007e1130
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 18 01 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/sentry.dll#sha256=25500fd605c3d59b
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg_Data/Plugins/x86_64/xlua.dll
+  size_bytes: 1643072
+  modified_at: '2026-04-17T07:57:57.010348Z'
+  sha256: dad40e20866bee2165991f264d4146b43570a4b2c98eddd77629b7cb3f23d0eb
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 20 01 00 00
+  head_ascii: MZ......................@................................... ...
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Plugins/x86_64/xlua.dll#sha256=dad40e20866bee21
+  reasons:
+  - native binary
+- relative_path: com.bilibili.nslg_Data/Resources/unity default resources
+  size_bytes: 1564852
+  modified_at: '2025-10-24T00:39:26.808719Z'
+  sha256: 4fcba1590f15027010f39868d34e99f6c278e43647a4e8b05f9eca8faf89e870
+  extension: ''
+  head_hex: 00 00 00 00 00 00 00 00 00 00 00 16 00 00 00 00 00 00 00 00 00 00 08 F5
+    00 00 00 00 00 17 E0 B4 00 00 00 00 00 00 09 30 00 00 00 00 00 00 00 00 32 30
+    32 32 2E 33 2E 36 31 66 32 00 05 00 00 00
+  head_ascii: '.......................................0........2022.3.61f2.....'
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/Resources/unity default resources#sha256=4fcba1590f150270
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/RuntimeInitializeOnLoads.json
+  size_bytes: 2053
+  modified_at: '2026-01-09T10:59:36Z'
+  sha256: 58b6c1a83166bc985322af6ef5484d5a6ac6c1000507202252d72ac525ad3745
+  extension: .json
+  head_hex: 7B 22 72 6F 6F 74 22 3A 5B 7B 22 61 73 73 65 6D 62 6C 79 4E 61 6D 65 22
+    3A 22 41 73 73 65 6D 62 6C 79 2D 43 53 68 61 72 70 22 2C 22 6E 61 6D 65 53 70
+    61 63 65 22 3A 22 4E 53 4C 47 61 6D 65 2E
+  head_ascii: '{"root":[{"assemblyName":"Assembly-CSharp","nameSpace":"NSLGame.'
+  detected_type: unity_runtime_manifest
+  knowledge_value: version_or_schema_anchor
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/RuntimeInitializeOnLoads.json#sha256=58b6c1a83166bc98
+  reasons:
+  - Unity runtime JSON metadata
+- relative_path: com.bilibili.nslg_Data/ScriptingAssemblies.json
+  size_bytes: 4792
+  modified_at: '2026-04-16T17:22:20.676519Z'
+  sha256: 92634ff90e5ae27a8aa377eb2ed036fe8bf4f1198b9ed618d364ceb274f1cefa
+  extension: .json
+  head_hex: 7B 22 6E 61 6D 65 73 22 3A 5B 22 55 6E 69 74 79 45 6E 67 69 6E 65 2E 64
+    6C 6C 22 2C 22 55 6E 69 74 79 45 6E 67 69 6E 65 2E 41 49 4D 6F 64 75 6C 65 2E
+    64 6C 6C 22 2C 22 55 6E 69 74 79 45 6E 67
+  head_ascii: '{"names":["UnityEngine.dll","UnityEngine.AIModule.dll","UnityEng'
+  detected_type: unity_runtime_manifest
+  knowledge_value: version_or_schema_anchor
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/ScriptingAssemblies.json#sha256=92634ff90e5ae27a
+  reasons:
+  - Unity runtime JSON metadata
+- relative_path: com.bilibili.nslg_Data/StreamingAssets/assets/Audio/GeneratedSoundBanks/Windows/Init.bnk
+  size_bytes: 2939
+  modified_at: '2025-01-23T04:14:54Z'
+  sha256: 7b362b2d7775cdfca32208782c4d34472d49ed34f2bbf0d50637f2df564b9c5c
+  extension: .bnk
+  head_hex: 42 4B 48 44 20 00 00 00 87 00 00 00 23 3A C6 50 3E 5D 70 17 10 00 00 00
+    E1 3D 00 00 00 00 00 00 00 00 00 00 00 00 00 00 49 4E 49 54 77 00 00 00 05 00
+    00 00 02 00 65 00 13 00 00 00 41 6B 53 69
+  head_ascii: BKHD .......#:.P>]p......=..............INITw.........e.....AkSi
+  detected_type: wwise_soundbank
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/StreamingAssets/assets/Audio/GeneratedSoundBanks/Windows/Init.bnk#sha256=7b362b2d7775cdfc
+  reasons:
+  - Wwise soundbank
+- relative_path: com.bilibili.nslg_Data/StreamingAssets/assets/manifest.json
+  size_bytes: 448
+  modified_at: '2026-04-16T17:22:20.676519Z'
+  sha256: 22dcf647047a91b6d18a93f6a5df1250cc41bb2641478a258b9cef430a744c39
+  extension: .json
+  head_hex: 7B 22 50 72 6F 6A 65 63 74 49 44 22 3A 22 57 69 6E 64 6F 77 73 2D 52 65
+    6C 65 61 73 65 22 2C 22 56 65 72 73 69 6F 6E 53 65 72 76 65 72 55 72 6C 22 3A
+    22 68 74 74 70 73 3A 2F 2F 6C 31 2D 70 72
+  head_ascii: '{"ProjectID":"Windows-Release","VersionServerUrl":"https://l1-pr'
+  detected_type: nslg_version_manifest
+  knowledge_value: version_or_schema_anchor
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/StreamingAssets/assets/manifest.json#sha256=22dcf647047a91b6
+  reasons:
+  - StreamingAssets version manifest
+- relative_path: com.bilibili.nslg_Data/app.info
+  size_bytes: 27
+  modified_at: '2025-02-13T18:49:56Z'
+  sha256: 249576e481bb56bb098e18f25c671cf0adbf139824d7991843f539be510aa402
+  extension: .info
+  head_hex: 68 75 61 79 75 0A E4 B8 89 E5 9B BD EF BC 9A E8 B0 8B E5 AE 9A E5 A4 A9
+    E4 B8 8B
+  head_ascii: huayu......................
+  detected_type: client_runtime_config
+  knowledge_value: version_or_schema_anchor
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/app.info#sha256=249576e481bb56bb
+  reasons:
+  - client version/config text
+- relative_path: com.bilibili.nslg_Data/boot.config
+  size_bytes: 141
+  modified_at: '2026-04-16T17:29:00.350485Z'
+  sha256: 307b9f8d94b947443ac3afc59f4731fd4b90f3e322bbc1575faf37510025f1ba
+  extension: .config
+  head_hex: 77 61 69 74 2D 66 6F 72 2D 6E 61 74 69 76 65 2D 64 65 62 75 67 67 65 72
+    3D 30 0D 0A 68 64 72 2D 64 69 73 70 6C 61 79 2D 65 6E 61 62 6C 65 64 3D 30 0D
+    0A 67 63 2D 6D 61 78 2D 74 69 6D 65 2D 73
+  head_ascii: wait-for-native-debugger=0..hdr-display-enabled=0..gc-max-time-s
+  detected_type: client_runtime_config
+  knowledge_value: version_or_schema_anchor
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/boot.config#sha256=307b9f8d94b94744
+  reasons:
+  - client version/config text
+- relative_path: com.bilibili.nslg_Data/data.unity3d
+  size_bytes: 19771131
+  modified_at: '2026-04-16T17:22:20.719040Z'
+  sha256: f543f3711e8a46dce28da6be2a5986aae6c738413aca430be56819dfe2dcdffb
+  extension: .unity3d
+  head_hex: 55 6E 69 74 79 46 53 00 00 00 00 08 35 2E 78 2E 78 00 32 30 32 32 2E 33
+    2E 36 31 66 32 00 00 00 00 00 01 2D AE FB 00 00 05 D6 00 00 0C E9 00 00 02 43
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  head_ascii: UnityFS.....5.x.x.2022.3.61f2......-.............C..............
+  detected_type: unity_asset_bundle
+  knowledge_value: asset_bundle_candidate
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/data.unity3d#sha256=f543f3711e8a46dc
+  reasons:
+  - Unity asset bundle magic
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/Metadata/global-metadata.dat
+  size_bytes: 21182776
+  modified_at: '2026-04-16T17:38:56Z'
+  sha256: 34e4dbda23e22bee41eefd6b3bc3ff878ee6f010db40dab2424b68a84a42bb22
+  extension: .dat
+  head_hex: AF 1B B1 FA 38 39 43 01 4E E2 46 38 9C 68 40 1E 6F D0 AD 27 52 90 99 7B
+    52 63 C7 56 D2 C8 37 C4 64 86 C3 F6 5A EC DF 2B 01 F0 8E 2E F4 63 EE D5 5C 69
+    33 45 27 10 0F B3 09 62 5F 2D 3E F4 43 97
+  head_ascii: '....89C.N.F8.h@.o..''R..{Rc.V..7.d...Z..+.....c..\i3E''....b_->.C.'
+  detected_type: il2cpp_global_metadata
+  knowledge_value: version_or_schema_anchor
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Metadata/global-metadata.dat#sha256=34e4dbda23e22bee
+  reasons:
+  - IL2CPP metadata filename
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/Resources/DocumentFormat.OpenXml.Framework.dll-resources.dat
+  size_bytes: 24479
+  modified_at: '2025-03-07T00:57:56.843273Z'
+  sha256: 9f647d6ac0472d8ea84fc82b9def8b5e0aa20b7dba8b74045d35d4098f11c7ec
+  extension: .dat
+  head_hex: 8F 00 00 00 02 00 00 00 94 32 00 00 3C 00 00 00 44 6F 63 75 6D 65 6E 74
+    46 6F 72 6D 61 74 2E 4F 70 65 6E 58 6D 6C 2E 52 65 73 6F 75 72 63 65 73 2E 45
+    78 63 65 70 74 69 6F 6E 4D 65 73 73 61 67
+  head_ascii: '.........2..<...DocumentFormat.OpenXml.Resources.ExceptionMessag'
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/DocumentFormat.OpenXml.Framework.dll-resources.dat#sha256=9f647d6ac0472d8e
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/Resources/Newtonsoft.Json.dll-resources.dat
+  size_bytes: 639
+  modified_at: '2025-02-13T18:48:42Z'
+  sha256: 10543fb9f9c7267c4f315bccabbd6a8d7482ce165b02d7b910fa4b733de61cfd
+  extension: .dat
+  head_hex: 27 00 00 00 01 00 00 00 54 02 00 00 1B 00 00 00 4E 65 77 74 6F 6E 73 6F
+    66 74 2E 4A 73 6F 6E 2E 44 79 6E 61 6D 69 63 2E 73 6E 6B 07 02 00 00 00 24 00
+    00 52 53 41 32 00 04 00 00 01 00 01 00 CB
+  head_ascii: '''.......T.......Newtonsoft.Json.Dynamic.snk.....$..RSA2.........'
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/Newtonsoft.Json.dll-resources.dat#sha256=10543fb9f9c7267c
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/Resources/RemoteInspectorRuntime-resources.dat
+  size_bytes: 298
+  modified_at: '2025-02-13T18:48:42Z'
+  sha256: 355b7a68346e741373d998381e001431a15ca89e4fc669dcab62220056e4b6e2
+  extension: .dat
+  head_hex: 19 00 00 00 01 00 00 00 0D 01 00 00 0D 00 00 00 49 4C 52 65 70 61 63 6B
+    2E 4C 69 73 74 00 01 00 00 00 FF FF FF FF 01 00 00 00 00 00 00 00 11 01 00 00
+    00 03 00 00 00 06 02 00 00 00 4D 52 65 6D
+  head_ascii: '................ILRepack.List...............................MRem'
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/RemoteInspectorRuntime-resources.dat#sha256=355b7a68346e7413
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/Resources/Sentry.System.Buffers.dll-resources.dat
+  size_bytes: 394
+  modified_at: '2025-10-24T00:39:51.023205Z'
+  sha256: 439209737decff0ed26e04cd94c5a7839d9a16438881af6f457b22dabd9b3de9
+  extension: .dat
+  head_hex: 33 00 00 00 01 00 00 00 53 01 00 00 27 00 00 00 46 78 52 65 73 6F 75 72
+    63 65 73 2E 53 79 73 74 65 6D 2E 42 75 66 66 65 72 73 2E 53 52 2E 72 65 73 6F
+    75 72 63 65 73 CE CA EF BE 01 00 00 00 91
+  head_ascii: 3.......S...'...FxResources.System.Buffers.SR.resources.........
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/Sentry.System.Buffers.dll-resources.dat#sha256=439209737decff0e
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/Resources/Sentry.System.Collections.Immutable.dll-resources.dat
+  size_bytes: 2196
+  modified_at: '2025-10-24T00:39:51.014183Z'
+  sha256: 0ea326960e489d77ed69ea2f6cb3f7f8df448d85b7107895f10d917373221bf4
+  extension: .dat
+  head_hex: 61 00 00 00 02 00 00 00 1F 06 00 00 35 00 00 00 46 78 52 65 73 6F 75 72
+    63 65 73 2E 53 79 73 74 65 6D 2E 43 6F 6C 6C 65 63 74 69 6F 6E 73 2E 49 6D 6D
+    75 74 61 62 6C 65 2E 53 52 2E 72 65 73 6F
+  head_ascii: a...........5...FxResources.System.Collections.Immutable.SR.reso
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/Sentry.System.Collections.Immutable.dll-resources.dat#sha256=0ea326960e489d77
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/Resources/Sentry.System.Memory.dll-resources.dat
+  size_bytes: 1811
+  modified_at: '2025-10-24T00:39:51.023205Z'
+  sha256: 7b1e50a9a2f05306435e6994a381a4adffbe78a4fdaf6bf62e8904d0748ed5f1
+  extension: .dat
+  head_hex: 32 00 00 00 01 00 00 00 DD 06 00 00 26 00 00 00 46 78 52 65 73 6F 75 72
+    63 65 73 2E 53 79 73 74 65 6D 2E 4D 65 6D 6F 72 79 2E 53 52 2E 72 65 73 6F 75
+    72 63 65 73 CE CA EF BE 01 00 00 00 91 00
+  head_ascii: 2...........&...FxResources.System.Memory.SR.resources..........
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/Sentry.System.Memory.dll-resources.dat#sha256=7b1e50a9a2f05306
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/Resources/Sentry.System.Numerics.Vectors.dll-resources.dat
+  size_bytes: 856
+  modified_at: '2025-10-24T00:39:51.023205Z'
+  sha256: 612c2191dd0e28faf0c0da0fc0f68258a911037d12b97afe44bf40d62066e381
+  extension: .dat
+  head_hex: 3C 00 00 00 01 00 00 00 18 03 00 00 30 00 00 00 46 78 52 65 73 6F 75 72
+    63 65 73 2E 53 79 73 74 65 6D 2E 4E 75 6D 65 72 69 63 73 2E 56 65 63 74 6F 72
+    73 2E 53 52 2E 72 65 73 6F 75 72 63 65 73
+  head_ascii: <...........0...FxResources.System.Numerics.Vectors.SR.resources
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/Sentry.System.Numerics.Vectors.dll-resources.dat#sha256=612c2191dd0e28fa
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/Resources/Sentry.System.Reflection.Metadata.dll-resources.dat
+  size_bytes: 12602
+  modified_at: '2025-10-24T00:39:51.024207Z'
+  sha256: b1d4250aaef6c0eb5bca6ada41b6caf95b4a70679c566eb98456ad9d7ab5716e
+  extension: .dat
+  head_hex: 5F 00 00 00 02 00 00 00 CB 2E 00 00 33 00 00 00 46 78 52 65 73 6F 75 72
+    63 65 73 2E 53 79 73 74 65 6D 2E 52 65 66 6C 65 63 74 69 6F 6E 2E 4D 65 74 61
+    64 61 74 61 2E 53 52 2E 72 65 73 6F 75 72
+  head_ascii: _...........3...FxResources.System.Reflection.Metadata.SR.resour
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/Sentry.System.Reflection.Metadata.dll-resources.dat#sha256=b1d4250aaef6c0eb
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/Resources/Sentry.System.Text.Encodings.Web.dll-resources.dat
+  size_bytes: 989
+  modified_at: '2025-10-24T00:39:51.023205Z'
+  sha256: 9d9b62c9034606cd14cabc86e8d177f58fdcccb4d3abe5cc03c00d43ce6b60ff
+  extension: .dat
+  head_hex: 5E 00 00 00 02 00 00 00 71 01 00 00 32 00 00 00 46 78 52 65 73 6F 75 72
+    63 65 73 2E 53 79 73 74 65 6D 2E 54 65 78 74 2E 45 6E 63 6F 64 69 6E 67 73 2E
+    57 65 62 2E 53 52 2E 72 65 73 6F 75 72 63
+  head_ascii: ^.......q...2...FxResources.System.Text.Encodings.Web.SR.resourc
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/Sentry.System.Text.Encodings.Web.dll-resources.dat#sha256=9d9b62c9034606cd
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/Resources/Sentry.System.Text.Json.dll-resources.dat
+  size_bytes: 23053
+  modified_at: '2025-10-24T00:39:51.011178Z'
+  sha256: 21895d3ba055335697920d298b657934487b04a29751eacc4a89a077c596a50f
+  extension: .dat
+  head_hex: 55 00 00 00 02 00 00 00 BC 57 00 00 29 00 00 00 46 78 52 65 73 6F 75 72
+    63 65 73 2E 53 79 73 74 65 6D 2E 54 65 78 74 2E 4A 73 6F 6E 2E 53 52 2E 72 65
+    73 6F 75 72 63 65 73 F8 01 00 00 18 00 00
+  head_ascii: U........W..)...FxResources.System.Text.Json.SR.resources.......
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/Sentry.System.Text.Json.dll-resources.dat#sha256=21895d3ba0553356
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/Resources/System.Buffers.dll-resources.dat
+  size_bytes: 394
+  modified_at: '2025-02-13T18:50:06Z'
+  sha256: 439209737decff0ed26e04cd94c5a7839d9a16438881af6f457b22dabd9b3de9
+  extension: .dat
+  head_hex: 33 00 00 00 01 00 00 00 53 01 00 00 27 00 00 00 46 78 52 65 73 6F 75 72
+    63 65 73 2E 53 79 73 74 65 6D 2E 42 75 66 66 65 72 73 2E 53 52 2E 72 65 73 6F
+    75 72 63 65 73 CE CA EF BE 01 00 00 00 91
+  head_ascii: 3.......S...'...FxResources.System.Buffers.SR.resources.........
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/System.Buffers.dll-resources.dat#sha256=439209737decff0e
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/Resources/System.Collections.Immutable.dll-resources.dat
+  size_bytes: 2196
+  modified_at: '2025-02-13T18:50:06Z'
+  sha256: 0ea326960e489d77ed69ea2f6cb3f7f8df448d85b7107895f10d917373221bf4
+  extension: .dat
+  head_hex: 61 00 00 00 02 00 00 00 1F 06 00 00 35 00 00 00 46 78 52 65 73 6F 75 72
+    63 65 73 2E 53 79 73 74 65 6D 2E 43 6F 6C 6C 65 63 74 69 6F 6E 73 2E 49 6D 6D
+    75 74 61 62 6C 65 2E 53 52 2E 72 65 73 6F
+  head_ascii: a...........5...FxResources.System.Collections.Immutable.SR.reso
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/System.Collections.Immutable.dll-resources.dat#sha256=0ea326960e489d77
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/Resources/System.IO.Packaging.dll-resources.dat
+  size_bytes: 13385
+  modified_at: '2025-10-24T00:39:51.011178Z'
+  sha256: 341bfc7e80d0d3b6bbbbddae36816d2bfb445755849bbe726acdf25c5e0a4a9e
+  extension: .dat
+  head_hex: 38 00 00 00 01 00 00 00 0D 34 00 00 2C 00 00 00 46 78 52 65 73 6F 75 72
+    63 65 73 2E 53 79 73 74 65 6D 2E 49 4F 2E 50 61 63 6B 61 67 69 6E 67 2E 53 52
+    2E 72 65 73 6F 75 72 63 65 73 CE CA EF BE
+  head_ascii: 8........4..,...FxResources.System.IO.Packaging.SR.resources....
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/System.IO.Packaging.dll-resources.dat#sha256=341bfc7e80d0d3b6
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/Resources/System.Memory.dll-resources.dat
+  size_bytes: 1811
+  modified_at: '2025-02-13T18:50:06Z'
+  sha256: 7b1e50a9a2f05306435e6994a381a4adffbe78a4fdaf6bf62e8904d0748ed5f1
+  extension: .dat
+  head_hex: 32 00 00 00 01 00 00 00 DD 06 00 00 26 00 00 00 46 78 52 65 73 6F 75 72
+    63 65 73 2E 53 79 73 74 65 6D 2E 4D 65 6D 6F 72 79 2E 53 52 2E 72 65 73 6F 75
+    72 63 65 73 CE CA EF BE 01 00 00 00 91 00
+  head_ascii: 2...........&...FxResources.System.Memory.SR.resources..........
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/System.Memory.dll-resources.dat#sha256=7b1e50a9a2f05306
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/Resources/System.Numerics.Vectors.dll-resources.dat
+  size_bytes: 856
+  modified_at: '2025-02-13T18:50:06Z'
+  sha256: 612c2191dd0e28faf0c0da0fc0f68258a911037d12b97afe44bf40d62066e381
+  extension: .dat
+  head_hex: 3C 00 00 00 01 00 00 00 18 03 00 00 30 00 00 00 46 78 52 65 73 6F 75 72
+    63 65 73 2E 53 79 73 74 65 6D 2E 4E 75 6D 65 72 69 63 73 2E 56 65 63 74 6F 72
+    73 2E 53 52 2E 72 65 73 6F 75 72 63 65 73
+  head_ascii: <...........0...FxResources.System.Numerics.Vectors.SR.resources
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/System.Numerics.Vectors.dll-resources.dat#sha256=612c2191dd0e28fa
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/Resources/System.Reflection.Metadata.dll-resources.dat
+  size_bytes: 12602
+  modified_at: '2025-02-13T18:50:06Z'
+  sha256: b1d4250aaef6c0eb5bca6ada41b6caf95b4a70679c566eb98456ad9d7ab5716e
+  extension: .dat
+  head_hex: 5F 00 00 00 02 00 00 00 CB 2E 00 00 33 00 00 00 46 78 52 65 73 6F 75 72
+    63 65 73 2E 53 79 73 74 65 6D 2E 52 65 66 6C 65 63 74 69 6F 6E 2E 4D 65 74 61
+    64 61 74 61 2E 53 52 2E 72 65 73 6F 75 72
+  head_ascii: _...........3...FxResources.System.Reflection.Metadata.SR.resour
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/System.Reflection.Metadata.dll-resources.dat#sha256=b1d4250aaef6c0eb
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/Resources/System.Text.Encodings.Web.dll-resources.dat
+  size_bytes: 989
+  modified_at: '2025-02-13T18:50:06Z'
+  sha256: 9d9b62c9034606cd14cabc86e8d177f58fdcccb4d3abe5cc03c00d43ce6b60ff
+  extension: .dat
+  head_hex: 5E 00 00 00 02 00 00 00 71 01 00 00 32 00 00 00 46 78 52 65 73 6F 75 72
+    63 65 73 2E 53 79 73 74 65 6D 2E 54 65 78 74 2E 45 6E 63 6F 64 69 6E 67 73 2E
+    57 65 62 2E 53 52 2E 72 65 73 6F 75 72 63
+  head_ascii: ^.......q...2...FxResources.System.Text.Encodings.Web.SR.resourc
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/System.Text.Encodings.Web.dll-resources.dat#sha256=9d9b62c9034606cd
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/Resources/System.Text.Json.dll-resources.dat
+  size_bytes: 23053
+  modified_at: '2025-02-13T18:50:06Z'
+  sha256: 21895d3ba055335697920d298b657934487b04a29751eacc4a89a077c596a50f
+  extension: .dat
+  head_hex: 55 00 00 00 02 00 00 00 BC 57 00 00 29 00 00 00 46 78 52 65 73 6F 75 72
+    63 65 73 2E 53 79 73 74 65 6D 2E 54 65 78 74 2E 4A 73 6F 6E 2E 53 52 2E 72 65
+    73 6F 75 72 63 65 73 F8 01 00 00 18 00 00
+  head_ascii: U........W..)...FxResources.System.Text.Json.SR.resources.......
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/System.Text.Json.dll-resources.dat#sha256=21895d3ba0553356
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/Resources/mscorlib.dll-resources.dat
+  size_bytes: 337563
+  modified_at: '2025-02-13T18:50:06Z'
+  sha256: c5baa176a5b72cd545266340e42102d393a5e43d38c95796bc828918bb95277f
+  extension: .dat
+  head_hex: C9 00 00 00 07 00 00 00 75 D0 01 00 12 00 00 00 63 6F 6C 6C 61 74 69 6F
+    6E 2E 63 6F 72 65 2E 62 69 6E 44 1A 00 00 17 00 00 00 63 6F 6C 6C 61 74 69 6F
+    6E 2E 74 61 69 6C 6F 72 69 6E 67 2E 62 69
+  head_ascii: '........u.......collation.core.binD.......collation.tailoring.bi'
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/Resources/mscorlib.dll-resources.dat#sha256=c5baa176a5b72cd5
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/etc/mono/2.0/Browsers/Compat.browser
+  size_bytes: 1586
+  modified_at: '2025-01-20T04:49:00Z'
+  sha256: 608f6314528124253dcdba16db71967eca61d5d62d9bf3ae3e2f4926c5891bc3
+  extension: .browser
+  head_hex: 3C 21 2D 2D 0A 20 20 20 20 54 68 69 73 20 66 69 6C 65 20 64 65 66 69 6E
+    65 73 20 73 6F 6D 65 20 6F 66 20 74 68 65 20 62 72 6F 77 73 65 72 73 20 74 68
+    61 74 20 4D 69 63 72 6F 73 6F 66 74 27 73
+  head_ascii: <!--.    This file defines some of the browsers that Microsoft's
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/2.0/Browsers/Compat.browser#sha256=608f631452812425
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx
+  size_bytes: 60575
+  modified_at: '2025-01-20T04:49:00Z'
+  sha256: 751861040b69ea63a3827507b7c8da9c7f549dc181c1c8af4b7ca78cc97d710a
+  extension: .aspx
+  head_hex: 3C 25 2D 2D 0A 2F 2F 0A 2F 2F 20 44 65 66 61 75 6C 74 57 73 64 6C 48 65
+    6C 70 47 65 6E 65 72 61 74 6F 72 2E 61 73 70 78 3A 20 0A 2F 2F 0A 2F 2F 20 41
+    75 74 68 6F 72 3A 0A 2F 2F 20 20 20 4C 6C
+  head_ascii: '<%--.//.// DefaultWsdlHelpGenerator.aspx: .//.// Author:.//   Ll'
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx#sha256=751861040b69ea63
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/etc/mono/2.0/machine.config
+  size_bytes: 29116
+  modified_at: '2025-01-20T04:49:00Z'
+  sha256: edc5bcf685d930a607bc097927260a3f9ac7f52dd809db68158298bfd934b7ce
+  extension: .config
+  head_hex: 3C 3F 78 6D 6C 20 76 65 72 73 69 6F 6E 3D 22 31 2E 30 22 20 65 6E 63 6F
+    64 69 6E 67 3D 22 75 74 66 2D 38 22 3F 3E 0A 0A 3C 63 6F 6E 66 69 67 75 72 61
+    74 69 6F 6E 3E 0A 0A 09 3C 63 6F 6E 66 69
+  head_ascii: <?xml version="1.0" encoding="utf-8"?>..<configuration>...<confi
+  detected_type: text_config
+  knowledge_value: text_config_candidate
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/2.0/machine.config#sha256=edc5bcf685d930a6
+  reasons:
+  - text/config candidate
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/etc/mono/2.0/settings.map
+  size_bytes: 2622
+  modified_at: '2025-01-20T04:49:00Z'
+  sha256: 49c6160f9d54af4270a3b4e997fc4a8301f79b9e2070118fa46ddbcbbc44f9a2
+  extension: .map
+  head_hex: 3C 3F 78 6D 6C 20 76 65 72 73 69 6F 6E 3D 22 31 2E 30 22 20 65 6E 63 6F
+    64 69 6E 67 3D 22 75 74 66 2D 38 22 20 3F 3E 0A 3C 73 65 74 74 69 6E 67 73 4D
+    61 70 3E 0A 20 20 3C 6D 61 70 20 73 65 63
+  head_ascii: <?xml version="1.0" encoding="utf-8" ?>.<settingsMap>.  <map sec
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/2.0/settings.map#sha256=49c6160f9d54af42
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/etc/mono/2.0/web.config
+  size_bytes: 11686
+  modified_at: '2025-01-20T04:49:00Z'
+  sha256: 3c1a76a5849074b437d297656a208a3bef6d84b982153542b9c797046c601dfc
+  extension: .config
+  head_hex: 3C 3F 78 6D 6C 20 76 65 72 73 69 6F 6E 3D 22 31 2E 30 22 20 65 6E 63 6F
+    64 69 6E 67 3D 22 75 74 66 2D 38 22 3F 3E 0A 0A 3C 63 6F 6E 66 69 67 75 72 61
+    74 69 6F 6E 3E 0A 0A 09 3C 73 79 73 74 65
+  head_ascii: <?xml version="1.0" encoding="utf-8"?>..<configuration>...<syste
+  detected_type: text_config
+  knowledge_value: text_config_candidate
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/2.0/web.config#sha256=3c1a76a5849074b4
+  reasons:
+  - text/config candidate
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.0/Browsers/Compat.browser
+  size_bytes: 1586
+  modified_at: '2025-01-20T04:49:00Z'
+  sha256: 608f6314528124253dcdba16db71967eca61d5d62d9bf3ae3e2f4926c5891bc3
+  extension: .browser
+  head_hex: 3C 21 2D 2D 0A 20 20 20 20 54 68 69 73 20 66 69 6C 65 20 64 65 66 69 6E
+    65 73 20 73 6F 6D 65 20 6F 66 20 74 68 65 20 62 72 6F 77 73 65 72 73 20 74 68
+    61 74 20 4D 69 63 72 6F 73 6F 66 74 27 73
+  head_ascii: <!--.    This file defines some of the browsers that Microsoft's
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.0/Browsers/Compat.browser#sha256=608f631452812425
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.0/DefaultWsdlHelpGenerator.aspx
+  size_bytes: 60575
+  modified_at: '2025-01-20T04:49:00Z'
+  sha256: 751861040b69ea63a3827507b7c8da9c7f549dc181c1c8af4b7ca78cc97d710a
+  extension: .aspx
+  head_hex: 3C 25 2D 2D 0A 2F 2F 0A 2F 2F 20 44 65 66 61 75 6C 74 57 73 64 6C 48 65
+    6C 70 47 65 6E 65 72 61 74 6F 72 2E 61 73 70 78 3A 20 0A 2F 2F 0A 2F 2F 20 41
+    75 74 68 6F 72 3A 0A 2F 2F 20 20 20 4C 6C
+  head_ascii: '<%--.//.// DefaultWsdlHelpGenerator.aspx: .//.// Author:.//   Ll'
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.0/DefaultWsdlHelpGenerator.aspx#sha256=751861040b69ea63
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.0/machine.config
+  size_bytes: 33648
+  modified_at: '2025-01-20T04:49:00Z'
+  sha256: 6919d5af506aae0d93e91bd83418a81895a5554b9f54cf94aad20d025a4db664
+  extension: .config
+  head_hex: 3C 3F 78 6D 6C 20 76 65 72 73 69 6F 6E 3D 22 31 2E 30 22 20 65 6E 63 6F
+    64 69 6E 67 3D 22 75 74 66 2D 38 22 3F 3E 0A 0A 3C 63 6F 6E 66 69 67 75 72 61
+    74 69 6F 6E 3E 0A 0A 09 3C 63 6F 6E 66 69
+  head_ascii: <?xml version="1.0" encoding="utf-8"?>..<configuration>...<confi
+  detected_type: text_config
+  knowledge_value: text_config_candidate
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.0/machine.config#sha256=6919d5af506aae0d
+  reasons:
+  - text/config candidate
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.0/settings.map
+  size_bytes: 2622
+  modified_at: '2025-01-20T04:49:00Z'
+  sha256: ce1db1ad8a9512073164e3eccdc193f7eda036e1a9733caec4635de21b2865c8
+  extension: .map
+  head_hex: 3C 3F 78 6D 6C 20 76 65 72 73 69 6F 6E 3D 22 31 2E 30 22 20 65 6E 63 6F
+    64 69 6E 67 3D 22 75 74 66 2D 38 22 20 3F 3E 0A 3C 73 65 74 74 69 6E 67 73 4D
+    61 70 3E 0A 20 20 3C 6D 61 70 20 73 65 63
+  head_ascii: <?xml version="1.0" encoding="utf-8" ?>.<settingsMap>.  <map sec
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.0/settings.map#sha256=ce1db1ad8a951207
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.0/web.config
+  size_bytes: 18848
+  modified_at: '2025-01-20T04:49:00Z'
+  sha256: f1a6416eeedd9d040387fd85dcf7d6e074b6644c6829d08be220ff9fc32efb31
+  extension: .config
+  head_hex: 3C 3F 78 6D 6C 20 76 65 72 73 69 6F 6E 3D 22 31 2E 30 22 20 65 6E 63 6F
+    64 69 6E 67 3D 22 75 74 66 2D 38 22 3F 3E 0A 0A 3C 63 6F 6E 66 69 67 75 72 61
+    74 69 6F 6E 3E 0A 0A 20 20 3C 73 79 73 74
+  head_ascii: <?xml version="1.0" encoding="utf-8"?>..<configuration>..  <syst
+  detected_type: text_config
+  knowledge_value: text_config_candidate
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.0/web.config#sha256=f1a6416eeedd9d04
+  reasons:
+  - text/config candidate
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.5/Browsers/Compat.browser
+  size_bytes: 1586
+  modified_at: '2025-01-20T04:49:00Z'
+  sha256: 608f6314528124253dcdba16db71967eca61d5d62d9bf3ae3e2f4926c5891bc3
+  extension: .browser
+  head_hex: 3C 21 2D 2D 0A 20 20 20 20 54 68 69 73 20 66 69 6C 65 20 64 65 66 69 6E
+    65 73 20 73 6F 6D 65 20 6F 66 20 74 68 65 20 62 72 6F 77 73 65 72 73 20 74 68
+    61 74 20 4D 69 63 72 6F 73 6F 66 74 27 73
+  head_ascii: <!--.    This file defines some of the browsers that Microsoft's
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.5/Browsers/Compat.browser#sha256=608f631452812425
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.5/DefaultWsdlHelpGenerator.aspx
+  size_bytes: 60575
+  modified_at: '2025-01-20T04:49:00Z'
+  sha256: 751861040b69ea63a3827507b7c8da9c7f549dc181c1c8af4b7ca78cc97d710a
+  extension: .aspx
+  head_hex: 3C 25 2D 2D 0A 2F 2F 0A 2F 2F 20 44 65 66 61 75 6C 74 57 73 64 6C 48 65
+    6C 70 47 65 6E 65 72 61 74 6F 72 2E 61 73 70 78 3A 20 0A 2F 2F 0A 2F 2F 20 41
+    75 74 68 6F 72 3A 0A 2F 2F 20 20 20 4C 6C
+  head_ascii: '<%--.//.// DefaultWsdlHelpGenerator.aspx: .//.// Author:.//   Ll'
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.5/DefaultWsdlHelpGenerator.aspx#sha256=751861040b69ea63
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.5/machine.config
+  size_bytes: 34106
+  modified_at: '2025-01-20T04:49:00Z'
+  sha256: ef9b9387168fd1dd6c996f96c134d9c44f8eb06f9587004bf997252a520182d6
+  extension: .config
+  head_hex: 3C 3F 78 6D 6C 20 76 65 72 73 69 6F 6E 3D 22 31 2E 30 22 20 65 6E 63 6F
+    64 69 6E 67 3D 22 75 74 66 2D 38 22 3F 3E 0A 0A 3C 63 6F 6E 66 69 67 75 72 61
+    74 69 6F 6E 3E 0A 0A 09 3C 63 6F 6E 66 69
+  head_ascii: <?xml version="1.0" encoding="utf-8"?>..<configuration>...<confi
+  detected_type: text_config
+  knowledge_value: text_config_candidate
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.5/machine.config#sha256=ef9b9387168fd1dd
+  reasons:
+  - text/config candidate
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.5/settings.map
+  size_bytes: 2622
+  modified_at: '2025-01-20T04:49:00Z'
+  sha256: ce1db1ad8a9512073164e3eccdc193f7eda036e1a9733caec4635de21b2865c8
+  extension: .map
+  head_hex: 3C 3F 78 6D 6C 20 76 65 72 73 69 6F 6E 3D 22 31 2E 30 22 20 65 6E 63 6F
+    64 69 6E 67 3D 22 75 74 66 2D 38 22 20 3F 3E 0A 3C 73 65 74 74 69 6E 67 73 4D
+    61 70 3E 0A 20 20 3C 6D 61 70 20 73 65 63
+  head_ascii: <?xml version="1.0" encoding="utf-8" ?>.<settingsMap>.  <map sec
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.5/settings.map#sha256=ce1db1ad8a951207
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.5/web.config
+  size_bytes: 18857
+  modified_at: '2025-01-20T04:49:00Z'
+  sha256: 15a2c7a9242bf54d3ccb3e07fa6d8f84ba8b303d8877243787a1103009941bdb
+  extension: .config
+  head_hex: 3C 3F 78 6D 6C 20 76 65 72 73 69 6F 6E 3D 22 31 2E 30 22 20 65 6E 63 6F
+    64 69 6E 67 3D 22 75 74 66 2D 38 22 3F 3E 0A 0A 3C 63 6F 6E 66 69 67 75 72 61
+    74 69 6F 6E 3E 0A 0A 20 20 3C 73 79 73 74
+  head_ascii: <?xml version="1.0" encoding="utf-8"?>..<configuration>..  <syst
+  detected_type: text_config
+  knowledge_value: text_config_candidate
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/4.5/web.config#sha256=15a2c7a9242bf54d
+  reasons:
+  - text/config candidate
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/etc/mono/browscap.ini
+  size_bytes: 311984
+  modified_at: '2025-01-20T04:49:00Z'
+  sha256: 4ddd50f31fb968f30bedefc253a46dc3f2890192d05cdaa9e0a64a056eee807e
+  extension: .ini
+  head_hex: 3B 3B 3B 20 50 72 6F 76 69 64 65 64 20 63 6F 75 72 74 65 73 79 20 6F 66
+    20 68 74 74 70 3A 2F 2F 62 72 6F 77 73 65 72 73 2E 67 61 72 79 6B 65 69 74 68
+    2E 63 6F 6D 0A 3B 3B 3B 20 43 72 65 61 74
+  head_ascii: ;;; Provided courtesy of http://browsers.garykeith.com.;;; Creat
+  detected_type: text_config
+  knowledge_value: text_config_candidate
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/browscap.ini#sha256=4ddd50f31fb968f3
+  reasons:
+  - text/config candidate
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/etc/mono/config
+  size_bytes: 3276
+  modified_at: '2025-01-20T04:49:00Z'
+  sha256: 60099cf91bb1a5717fc1f2d23cf36a61d3bfb70d9489fbb6f4bae98c560bf3d5
+  extension: ''
+  head_hex: 3C 63 6F 6E 66 69 67 75 72 61 74 69 6F 6E 3E 0A 09 3C 64 6C 6C 6D 61 70
+    20 64 6C 6C 3D 22 69 3A 63 79 67 77 69 6E 31 2E 64 6C 6C 22 20 74 61 72 67 65
+    74 3D 22 6C 69 62 63 2E 64 79 6C 69 62 22
+  head_ascii: <configuration>..<dllmap dll="i:cygwin1.dll" target="libc.dylib"
+  detected_type: unknown_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/config#sha256=60099cf91bb1a571
+  reasons: []
+- relative_path: com.bilibili.nslg_Data/il2cpp_data/etc/mono/mconfig/config.xml
+  size_bytes: 25817
+  modified_at: '2025-01-20T04:49:00Z'
+  sha256: 0c56e34c69124510fa8c19e7b4c2ca6c1c4ff460ae19f798dd0ca035809e396d
+  extension: .xml
+  head_hex: 3C 3F 78 6D 6C 20 76 65 72 73 69 6F 6E 3D 22 31 2E 30 22 20 65 6E 63 6F
+    64 69 6E 67 3D 22 75 74 66 2D 38 22 3F 3E 0A 3C 6D 63 6F 6E 66 69 67 3E 0A 20
+    20 3C 63 6F 6E 66 69 67 75 72 61 74 69 6F
+  head_ascii: <?xml version="1.0" encoding="utf-8"?>.<mconfig>.  <configuratio
+  detected_type: text_config
+  knowledge_value: text_config_candidate
+  source_ref: NSLG_CLIENT:com.bilibili.nslg_Data/il2cpp_data/etc/mono/mconfig/config.xml#sha256=0c56e34c69124510
+  reasons:
+  - text/config candidate
+- relative_path: crashpad_handler.exe
+  size_bytes: 643072
+  modified_at: '2025-12-01T13:56:16Z'
+  sha256: e52e86867c63c68e8b3df2b7a3ecb7098be42adef91f9a7f825a4b668a4bc521
+  extension: .exe
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 00 01 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:crashpad_handler.exe#sha256=e52e86867c63c68e
+  reasons:
+  - native binary
+- relative_path: crashpad_wer.dll
+  size_bytes: 643584
+  modified_at: '2025-12-01T13:56:16Z'
+  sha256: de9276279362e0f996ade9589e6cae963f1712740ab85ac48bd4a327d7af0d23
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 08 01 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:crashpad_wer.dll#sha256=de9276279362e0f9
+  reasons:
+  - native binary
+- relative_path: msvcp140.dll
+  size_bytes: 557648
+  modified_at: '2025-09-26T09:24:39.020548Z'
+  sha256: 8f141b4454fa78db34bc1f28c571b4da0e00cd2c43f7ad0e282f313036826aae
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 F0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:msvcp140.dll#sha256=8f141b4454fa78db
+  reasons:
+  - native binary
+- relative_path: pc_package_info.txt
+  size_bytes: 63
+  modified_at: '2026-04-17T07:56:53.724164Z'
+  sha256: d3223d0780772f01ebfe702ee50e03a3f51dbb474cfe05f10680fdb373ac69c7
+  extension: .txt
+  head_hex: 7B 22 67 61 6D 65 5F 76 65 72 73 69 6F 6E 22 3A 22 31 2E 32 39 2E 30 2E
+    30 22 2C 22 63 72 65 61 74 65 5F 74 69 6D 65 22 3A 22 32 30 32 36 2D 30 34 2D
+    31 37 20 31 35 3A 35 36 3A 35 33 22 7D
+  head_ascii: '{"game_version":"1.29.0.0","create_time":"2026-04-17 15:56:53"}'
+  detected_type: client_runtime_config
+  knowledge_value: version_or_schema_anchor
+  source_ref: NSLG_CLIENT:pc_package_info.txt#sha256=d3223d0780772f01
+  reasons:
+  - client version/config text
+- relative_path: ucrtbase.dll
+  size_bytes: 1118664
+  modified_at: '2025-09-26T09:24:39.025062Z'
+  sha256: d2ebd8719455ae4634d00fd0d0eb0c3ad75054fee4ff545346a1524e5d7e3a66
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 F0 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:ucrtbase.dll#sha256=d2ebd8719455ae46
+  reasons:
+  - native binary
+- relative_path: vcruntime140.dll
+  size_bytes: 124496
+  modified_at: '2025-09-26T09:24:39.026059Z'
+  sha256: 0205071c36c17f1efbd70178c852cb7d49985c484202752b8704b7ac6b184e60
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 F8 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:vcruntime140.dll#sha256=0205071c36c17f1e
+  reasons:
+  - native binary
+- relative_path: vcruntime140_1.dll
+  size_bytes: 49744
+  modified_at: '2025-09-26T09:24:39.026059Z'
+  sha256: 963e45edd064545962e216c12d68071ced94dc8e11862a18f07f14eb2690a57c
+  extension: .dll
+  head_hex: 4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00 B8 00 00 00 00 00 00 00
+    40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00 00 00 F8 00 00 00
+  head_ascii: MZ......................@.......................................
+  detected_type: native_binary
+  knowledge_value: low_or_unknown
+  source_ref: NSLG_CLIENT:vcruntime140_1.dll#sha256=963e45edd0645459
+  reasons:
+  - native binary

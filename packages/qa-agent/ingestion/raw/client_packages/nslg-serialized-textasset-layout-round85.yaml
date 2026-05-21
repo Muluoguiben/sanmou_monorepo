@@ -1,0 +1,2483 @@
+schema_version: nslg.serialized_textasset_layout.v1
+source_id: serialized-textasset-layout-round85
+source_url: local-nslg-client-serialized-textasset-layout-probe
+source_site: nslg_client_serialized_textasset_layout_probe
+generated_at: '2026-05-21T05:20:50.392880Z'
+round: 174
+slice: serialized_textasset_object_layout_probe
+input_artifacts:
+- file_name: luascripts_textasset_extract_round31.json
+  role: Round31 TextAsset path and object match catalog
+  size_bytes: 293845
+  sha256: e5def679cf3671d1309749488b6f3abab151939e7b87024c2f819a74b4b46d8d
+  missing: false
+- file_name: luascripts_payload_variant_corpus_round172.json
+  role: Round172 encrypted LuaScripts payload corpus
+  size_bytes: 100255
+  sha256: 12c75f5c0b7a3a33b5b131364d664fbc19efee08ef09ae1378e8f03c8109eec9
+  missing: false
+- file_name: textasset_payload_owner_trace_round173.json
+  role: Round173 native TextAsset payload owner negative evidence
+  size_bytes: 13015
+  sha256: 94fca3620abfd5ab57a2cce0779c3e8419a26383ede09815fa23aff281022450
+  missing: false
+- file_name: CAB-6f8976987e2c6d3d11c101e0f5ec2aad
+  role: extracted LuaScripts SerializedFile CAB payload
+  size_bytes: 33662068
+  sha256: 565ac2e8586593bb52cf2b44e9b23afcd938a4ed264cc4321b4d2a953722cf08
+  missing: false
+counts:
+  relevant_record_count: 104
+  match_count: 932
+  valid_layout_count: 932
+  invalid_layout_count: 0
+  name_stem_match_count: 932
+  name_stem_mismatch_count: 0
+  payload_offset_formula_match_count: 932
+  script_len_match_count: 932
+  unique_object_offset_count: 52
+  unique_payload_hash_count: 52
+  unique_stem_count: 16
+  duplicate_object_offset_group_count: 40
+  duplicate_object_offset_extra_match_count: 880
+  publishable_knowledge_entries: 0
+path_record_summary:
+  record_count: 104
+  unique_path_count: 104
+  unique_path_id_count: 104
+  preload_size_counts:
+  - preload_size: 1
+    count: 104
+  path_record_offset_min: 17985276
+  path_record_offset_max: 18091584
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+stem_summaries:
+- stem: army_config
+  record_count: 23
+  match_count: 230
+  valid_layout_count: 230
+  name_stem_match_count: 230
+  unique_object_offset_count: 10
+  unique_payload_hash_count: 10
+  repeated_object_offset_group_count: 10
+  script_len_counts:
+  - script_len: 18336
+    count: 23
+  - script_len: 18352
+    count: 23
+  - script_len: 18368
+    count: 184
+  scenario_count: 23
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario103/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario11/army/army_config.bytes
+- stem: battle_record
+  record_count: 1
+  match_count: 1
+  valid_layout_count: 1
+  name_stem_match_count: 1
+  unique_object_offset_count: 1
+  unique_payload_hash_count: 1
+  repeated_object_offset_group_count: 0
+  script_len_counts:
+  - script_len: 2512
+    count: 1
+  scenario_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/battle_record.bytes
+- stem: battle_replay
+  record_count: 1
+  match_count: 1
+  valid_layout_count: 1
+  name_stem_match_count: 1
+  unique_object_offset_count: 1
+  unique_payload_hash_count: 1
+  repeated_object_offset_group_count: 0
+  script_len_counts:
+  - script_len: 4320
+    count: 1
+  scenario_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/battle_replay.bytes
+- stem: battle_reports
+  record_count: 1
+  match_count: 1
+  valid_layout_count: 1
+  name_stem_match_count: 1
+  unique_object_offset_count: 1
+  unique_payload_hash_count: 1
+  repeated_object_offset_group_count: 0
+  script_len_counts:
+  - script_len: 1904
+    count: 1
+  scenario_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/battle_reports.bytes
+- stem: custom_hero
+  record_count: 1
+  match_count: 1
+  valid_layout_count: 1
+  name_stem_match_count: 1
+  unique_object_offset_count: 1
+  unique_payload_hash_count: 1
+  repeated_object_offset_group_count: 0
+  script_len_counts:
+  - script_len: 19392
+    count: 1
+  scenario_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/custom_hero.bytes
+- stem: hero_propose
+  record_count: 23
+  match_count: 230
+  valid_layout_count: 230
+  name_stem_match_count: 230
+  unique_object_offset_count: 10
+  unique_payload_hash_count: 10
+  repeated_object_offset_group_count: 10
+  script_len_counts:
+  - script_len: 1792
+    count: 23
+  - script_len: 1808
+    count: 161
+  - script_len: 2032
+    count: 46
+  scenario_count: 23
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario103/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario11/hero_propose.bytes
+- stem: hero_story
+  record_count: 23
+  match_count: 230
+  valid_layout_count: 230
+  name_stem_match_count: 230
+  unique_object_offset_count: 10
+  unique_payload_hash_count: 10
+  repeated_object_offset_group_count: 10
+  script_len_counts:
+  - script_len: 2336
+    count: 230
+  scenario_count: 23
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario103/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario11/story/hero_story.bytes
+- stem: hero_talent
+  record_count: 1
+  match_count: 1
+  valid_layout_count: 1
+  name_stem_match_count: 1
+  unique_object_offset_count: 1
+  unique_payload_hash_count: 1
+  repeated_object_offset_group_count: 0
+  script_len_counts:
+  - script_len: 2096
+    count: 1
+  scenario_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/hero_talent.bytes
+- stem: heros
+  record_count: 1
+  match_count: 1
+  valid_layout_count: 1
+  name_stem_match_count: 1
+  unique_object_offset_count: 1
+  unique_payload_hash_count: 1
+  repeated_object_offset_group_count: 0
+  script_len_counts:
+  - script_len: 23232
+    count: 1
+  scenario_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/heros.bytes
+- stem: lineup_assistant
+  record_count: 1
+  match_count: 1
+  valid_layout_count: 1
+  name_stem_match_count: 1
+  unique_object_offset_count: 1
+  unique_payload_hash_count: 1
+  repeated_object_offset_group_count: 0
+  script_len_counts:
+  - script_len: 22608
+    count: 1
+  scenario_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/lineup_assistant.bytes
+- stem: sandbox_battle_config
+  record_count: 1
+  match_count: 1
+  valid_layout_count: 1
+  name_stem_match_count: 1
+  unique_object_offset_count: 1
+  unique_payload_hash_count: 1
+  repeated_object_offset_group_count: 0
+  script_len_counts:
+  - script_len: 3568
+    count: 1
+  scenario_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/sandbox_battle_config.bytes
+- stem: scene_building_skill
+  record_count: 1
+  match_count: 1
+  valid_layout_count: 1
+  name_stem_match_count: 1
+  unique_object_offset_count: 1
+  unique_payload_hash_count: 1
+  repeated_object_offset_group_count: 0
+  script_len_counts:
+  - script_len: 1136
+    count: 1
+  scenario_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/skill/scene_building_skill.bytes
+- stem: skills
+  record_count: 1
+  match_count: 1
+  valid_layout_count: 1
+  name_stem_match_count: 1
+  unique_object_offset_count: 1
+  unique_payload_hash_count: 1
+  repeated_object_offset_group_count: 0
+  script_len_counts:
+  - script_len: 51760
+    count: 1
+  scenario_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/skill/skills.bytes
+- stem: super_skill
+  record_count: 23
+  match_count: 230
+  valid_layout_count: 230
+  name_stem_match_count: 230
+  unique_object_offset_count: 10
+  unique_payload_hash_count: 10
+  repeated_object_offset_group_count: 10
+  script_len_counts:
+  - script_len: 208
+    count: 207
+  - script_len: 2320
+    count: 23
+  scenario_count: 23
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario103/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario11/skill/super_skill.bytes
+- stem: warbook
+  record_count: 1
+  match_count: 1
+  valid_layout_count: 1
+  name_stem_match_count: 1
+  unique_object_offset_count: 1
+  unique_payload_hash_count: 1
+  repeated_object_offset_group_count: 0
+  script_len_counts:
+  - script_len: 12144
+    count: 1
+  scenario_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/warbook.bytes
+- stem: water_battle
+  record_count: 1
+  match_count: 1
+  valid_layout_count: 1
+  name_stem_match_count: 1
+  unique_object_offset_count: 1
+  unique_payload_hash_count: 1
+  repeated_object_offset_group_count: 0
+  script_len_counts:
+  - script_len: 1328
+    count: 1
+  scenario_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/water_battle.bytes
+object_layout_groups:
+- object_offset: 1085408
+  object_offset_hex: '0x108fe0'
+  stem: army_config
+  parsed_name: army_config
+  parsed_name_len: 11
+  payload_offset: 1085428
+  payload_offset_hex: '0x108ff4'
+  script_len: 18352
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: f7862ea79567d272d57dd1b16dfe82183ec30386902785ea7ee3bfa145c62799
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/army/army_config.bytes
+  sample_path_ids:
+  - '0x26e91e6951bc67ad'
+  - '0x3110b9198cd785c1'
+  - '0x3138da92d5ec4760'
+  - '0x437dcdf2db5f07b9'
+  - '0x56087ad9e2f41dc0'
+  - '0x593208a12cbe6599'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 7903e687d613663244ba14831a92ab73
+  payload_last16_hex: a063c9c4ad9d76fbcb1a1cf901c7f646
+- object_offset: 4668400
+  object_offset_hex: '0x473bf0'
+  stem: army_config
+  parsed_name: army_config
+  parsed_name_len: 11
+  payload_offset: 4668420
+  payload_offset_hex: '0x473c04'
+  script_len: 18368
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 04a8708afff2c8e82ece441f5df2dc9ca6df646b099900d82862d0c1a8b0a511
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/army/army_config.bytes
+  sample_path_ids:
+  - '0x26e91e6951bc67ad'
+  - '0x3110b9198cd785c1'
+  - '0x3138da92d5ec4760'
+  - '0x437dcdf2db5f07b9'
+  - '0x56087ad9e2f41dc0'
+  - '0x593208a12cbe6599'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 336589227bc2c98633e65e68ca4734d0
+  payload_last16_hex: b604a6e19752b84485658986dbb929b1
+- object_offset: 5161944
+  object_offset_hex: '0x4ec3d8'
+  stem: army_config
+  parsed_name: army_config
+  parsed_name_len: 11
+  payload_offset: 5161964
+  payload_offset_hex: '0x4ec3ec'
+  script_len: 18368
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 1b582ca6ea89534442097f03ccb4b208fac967bff7f1171be8339b5e90a0c23d
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/army/army_config.bytes
+  sample_path_ids:
+  - '0x26e91e6951bc67ad'
+  - '0x3110b9198cd785c1'
+  - '0x3138da92d5ec4760'
+  - '0x437dcdf2db5f07b9'
+  - '0x56087ad9e2f41dc0'
+  - '0x593208a12cbe6599'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 80838da2940928e75df584a926be3b37
+  payload_last16_hex: e9c6e8a371407b3888759546b4e0e284
+- object_offset: 5207856
+  object_offset_hex: '0x4f7730'
+  stem: army_config
+  parsed_name: army_config
+  parsed_name_len: 11
+  payload_offset: 5207876
+  payload_offset_hex: '0x4f7744'
+  script_len: 18368
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 16499a768a049aa41ff1387cb9bfe7c55eaf185799ec790dea3a30adff5968cc
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/army/army_config.bytes
+  sample_path_ids:
+  - '0x26e91e6951bc67ad'
+  - '0x3110b9198cd785c1'
+  - '0x3138da92d5ec4760'
+  - '0x437dcdf2db5f07b9'
+  - '0x56087ad9e2f41dc0'
+  - '0x593208a12cbe6599'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 336589227bc2c98633e65e68ca4734d0
+  payload_last16_hex: 282596f47717dc9fec4d0bc9fb3a38ea
+- object_offset: 6993776
+  object_offset_hex: '0x6ab770'
+  stem: army_config
+  parsed_name: army_config
+  parsed_name_len: 11
+  payload_offset: 6993796
+  payload_offset_hex: '0x6ab784'
+  script_len: 18368
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: b0c0f9534dbfaeb1969c7c5352e3c69997a0b978ebe70019670adf9341f41fbf
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/army/army_config.bytes
+  sample_path_ids:
+  - '0x26e91e6951bc67ad'
+  - '0x3110b9198cd785c1'
+  - '0x3138da92d5ec4760'
+  - '0x437dcdf2db5f07b9'
+  - '0x56087ad9e2f41dc0'
+  - '0x593208a12cbe6599'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 336589227bc2c98633e65e68ca4734d0
+  payload_last16_hex: 2ebcef1c6abfa05ce83c86966a1e21c4
+- object_offset: 7017544
+  object_offset_hex: '0x6b1448'
+  stem: army_config
+  parsed_name: army_config
+  parsed_name_len: 11
+  payload_offset: 7017564
+  payload_offset_hex: '0x6b145c'
+  script_len: 18368
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: e401f9091ec70e6e4569b5a14ab581f85b724a12a2a0e5039fbed7b616e25717
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/army/army_config.bytes
+  sample_path_ids:
+  - '0x26e91e6951bc67ad'
+  - '0x3110b9198cd785c1'
+  - '0x3138da92d5ec4760'
+  - '0x437dcdf2db5f07b9'
+  - '0x56087ad9e2f41dc0'
+  - '0x593208a12cbe6599'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 336589227bc2c98633e65e68ca4734d0
+  payload_last16_hex: fa324352b948756c983dc703339bad3c
+- object_offset: 8425624
+  object_offset_hex: '0x809098'
+  stem: army_config
+  parsed_name: army_config
+  parsed_name_len: 11
+  payload_offset: 8425644
+  payload_offset_hex: '0x8090ac'
+  script_len: 18368
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: dd405597008a913ad37ff884c41f14878dcc0eea1fc6e957ae7ff0668e7a670f
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/army/army_config.bytes
+  sample_path_ids:
+  - '0x26e91e6951bc67ad'
+  - '0x3110b9198cd785c1'
+  - '0x3138da92d5ec4760'
+  - '0x437dcdf2db5f07b9'
+  - '0x56087ad9e2f41dc0'
+  - '0x593208a12cbe6599'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 80838da2940928e75df584a926be3b37
+  payload_last16_hex: 3adf6693bd68e4c33c5a201e4d1e535c
+- object_offset: 9617808
+  object_offset_hex: '0x92c190'
+  stem: army_config
+  parsed_name: army_config
+  parsed_name_len: 11
+  payload_offset: 9617828
+  payload_offset_hex: '0x92c1a4'
+  script_len: 18368
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 6b3682aca17bb1cb51c3483697437d01230d3112fdb08bf28780c12e0a39de29
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/army/army_config.bytes
+  sample_path_ids:
+  - '0x26e91e6951bc67ad'
+  - '0x3110b9198cd785c1'
+  - '0x3138da92d5ec4760'
+  - '0x437dcdf2db5f07b9'
+  - '0x56087ad9e2f41dc0'
+  - '0x593208a12cbe6599'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 336589227bc2c98633e65e68ca4734d0
+  payload_last16_hex: 11e1754c767882536ad98a1c4c58d36f
+- object_offset: 14951136
+  object_offset_hex: '0xe422e0'
+  stem: army_config
+  parsed_name: army_config
+  parsed_name_len: 11
+  payload_offset: 14951156
+  payload_offset_hex: '0xe422f4'
+  script_len: 18336
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 7a2b67b42f1e4fe34f946fd7a7e6e72450c093d2cb0a0636a61ebc855c846455
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/army/army_config.bytes
+  sample_path_ids:
+  - '0x26e91e6951bc67ad'
+  - '0x3110b9198cd785c1'
+  - '0x3138da92d5ec4760'
+  - '0x437dcdf2db5f07b9'
+  - '0x56087ad9e2f41dc0'
+  - '0x593208a12cbe6599'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 7903e687d613663244ba14831a92ab73
+  payload_last16_hex: 58c8adccd7d746b700f23aadcd117745
+- object_offset: 16796672
+  object_offset_hex: '0x1004c00'
+  stem: army_config
+  parsed_name: army_config
+  parsed_name_len: 11
+  payload_offset: 16796692
+  payload_offset_hex: '0x1004c14'
+  script_len: 18368
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: e5610501b531993576a79dd433deda573811e0d1bbe2339dd519f7e4b6cc2816
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/army/army_config.bytes
+  sample_path_ids:
+  - '0x26e91e6951bc67ad'
+  - '0x3110b9198cd785c1'
+  - '0x3138da92d5ec4760'
+  - '0x437dcdf2db5f07b9'
+  - '0x56087ad9e2f41dc0'
+  - '0x593208a12cbe6599'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 336589227bc2c98633e65e68ca4734d0
+  payload_last16_hex: 0956374de8265e66af5fc06b89b530a2
+- object_offset: 28825656
+  object_offset_hex: '0x1b7d838'
+  stem: battle_record
+  parsed_name: battle_record
+  parsed_name_len: 13
+  payload_offset: 28825680
+  payload_offset_hex: '0x1b7d850'
+  script_len: 2512
+  layout_valid: true
+  match_count: 1
+  path_count: 1
+  path_id_count: 1
+  scenario_count: 0
+  payload_sha256: 5108236d751dd84adc8179f052ecf879c31eca5202ec79f6bf3794e99a17b6c8
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/battle_record.bytes
+  sample_path_ids:
+  - '0x5a69023b2efb158d'
+  sample_scenarios: []
+  payload_first16_hex: 998a2b161a7373c000ec40641d6cd568
+  payload_last16_hex: be35345ff45f48d17ea50ee9854d9ef3
+- object_offset: 10131080
+  object_offset_hex: '0x9a9688'
+  stem: battle_replay
+  parsed_name: battle_replay
+  parsed_name_len: 13
+  payload_offset: 10131104
+  payload_offset_hex: '0x9a96a0'
+  script_len: 4320
+  layout_valid: true
+  match_count: 1
+  path_count: 1
+  path_id_count: 1
+  scenario_count: 0
+  payload_sha256: c82898abffa880ef041ebe393168cb76b3bc1b950771cdc3da641ff345da3427
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/battle_replay.bytes
+  sample_path_ids:
+  - '0xcbe6217592435c3e'
+  sample_scenarios: []
+  payload_first16_hex: 912a02ac4e0ae047128397cd38a67603
+  payload_last16_hex: bb994a84eab20db5df6d36cd3faa9fd4
+- object_offset: 8503224
+  object_offset_hex: '0x81bfb8'
+  stem: battle_reports
+  parsed_name: battle_reports
+  parsed_name_len: 14
+  payload_offset: 8503248
+  payload_offset_hex: '0x81bfd0'
+  script_len: 1904
+  layout_valid: true
+  match_count: 1
+  path_count: 1
+  path_id_count: 1
+  scenario_count: 0
+  payload_sha256: 46300e566b851890ac5e8ff8dd03de07da6b9bdf74b1b943a8c73959c60c5ee3
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/battle_reports.bytes
+  sample_path_ids:
+  - '0xc04e79a4be573ba7'
+  sample_scenarios: []
+  payload_first16_hex: 1781a47e9ab2bf1399800849b922a9e7
+  payload_last16_hex: 88be65ed210d659fe7c508e5a6c162b2
+- object_offset: 5912040
+  object_offset_hex: '0x5a35e8'
+  stem: custom_hero
+  parsed_name: custom_hero
+  parsed_name_len: 11
+  payload_offset: 5912060
+  payload_offset_hex: '0x5a35fc'
+  script_len: 19392
+  layout_valid: true
+  match_count: 1
+  path_count: 1
+  path_id_count: 1
+  scenario_count: 0
+  payload_sha256: 1697337f04ed8aea1033408369a4046f744aa9a1b3df981dab987ae9f8272c23
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/custom_hero.bytes
+  sample_path_ids:
+  - '0xb01c10da8b502bf3'
+  sample_scenarios: []
+  payload_first16_hex: 6dbebef0c31ccc1b2e075ce74dabfddf
+  payload_last16_hex: ce1bd0d5c7134468b4729b831292eb78
+- object_offset: 681144
+  object_offset_hex: '0xa64b8'
+  stem: hero_propose
+  parsed_name: hero_propose
+  parsed_name_len: 12
+  payload_offset: 681164
+  payload_offset_hex: '0xa64cc'
+  script_len: 2032
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 38564341017e0ceba2a6a24e3e7f3e64859e6232d05326a5b39eadd4484596e9
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+  sample_path_ids:
+  - '0x1173612878377885'
+  - '0x1257b7f970d539bf'
+  - '0x19b5d05f04f77dbb'
+  - '0x20e76ce3d65c232'
+  - '0x2220e0273b0ad0ef'
+  - '0x3fead4930e1a881a'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 9529c909f222869a8f1d4860074ab8a5
+  payload_last16_hex: a5bf01ad32fb687c1cf14d24d7e19e79
+- object_offset: 1149104
+  object_offset_hex: '0x1188b0'
+  stem: hero_propose
+  parsed_name: hero_propose
+  parsed_name_len: 12
+  payload_offset: 1149124
+  payload_offset_hex: '0x1188c4'
+  script_len: 1808
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 6f013eb32aac66554b62af36d6f715892ebfbf5679629da426c46c090a548303
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+  sample_path_ids:
+  - '0x1173612878377885'
+  - '0x1257b7f970d539bf'
+  - '0x19b5d05f04f77dbb'
+  - '0x20e76ce3d65c232'
+  - '0x2220e0273b0ad0ef'
+  - '0x3fead4930e1a881a'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: eeca3ef59fe212d812df7702d60a2fcb
+  payload_last16_hex: 544cf6125a51b6dbaea7709bd0d81baf
+- object_offset: 4409104
+  object_offset_hex: '0x434710'
+  stem: hero_propose
+  parsed_name: hero_propose
+  parsed_name_len: 12
+  payload_offset: 4409124
+  payload_offset_hex: '0x434724'
+  script_len: 1808
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: d1e97f3004c6f5016203328d8d6ca4f0f74bfa4f8afb7a5079a24bcb1191160b
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+  sample_path_ids:
+  - '0x1173612878377885'
+  - '0x1257b7f970d539bf'
+  - '0x19b5d05f04f77dbb'
+  - '0x20e76ce3d65c232'
+  - '0x2220e0273b0ad0ef'
+  - '0x3fead4930e1a881a'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: eeca3ef59fe212d812df7702d60a2fcb
+  payload_last16_hex: 5e3d8e6c857e51125696c849439f3355
+- object_offset: 11019728
+  object_offset_hex: '0xa825d0'
+  stem: hero_propose
+  parsed_name: hero_propose
+  parsed_name_len: 12
+  payload_offset: 11019748
+  payload_offset_hex: '0xa825e4'
+  script_len: 2032
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 6da1fd6ff47dba4deb5eca066470ec0b7ee986868c9d6b4ae8290ecfaf5a57d0
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+  sample_path_ids:
+  - '0x1173612878377885'
+  - '0x1257b7f970d539bf'
+  - '0x19b5d05f04f77dbb'
+  - '0x20e76ce3d65c232'
+  - '0x2220e0273b0ad0ef'
+  - '0x3fead4930e1a881a'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 9529c909f222869a8f1d4860074ab8a5
+  payload_last16_hex: ebf7f9b6e636561ed6a72b76f9e936fb
+- object_offset: 12779544
+  object_offset_hex: '0xc30018'
+  stem: hero_propose
+  parsed_name: hero_propose
+  parsed_name_len: 12
+  payload_offset: 12779564
+  payload_offset_hex: '0xc3002c'
+  script_len: 1808
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: a49053130953c8762b2758611356f1317495359d635eea9e3914aeb7370596f8
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+  sample_path_ids:
+  - '0x1173612878377885'
+  - '0x1257b7f970d539bf'
+  - '0x19b5d05f04f77dbb'
+  - '0x20e76ce3d65c232'
+  - '0x2220e0273b0ad0ef'
+  - '0x3fead4930e1a881a'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: e5e315ce8bed00a7ca39d8734aa9ada6
+  payload_last16_hex: 63c0ecfd561e67d342d3f4f17b392250
+- object_offset: 15410424
+  object_offset_hex: '0xeb24f8'
+  stem: hero_propose
+  parsed_name: hero_propose
+  parsed_name_len: 12
+  payload_offset: 15410444
+  payload_offset_hex: '0xeb250c'
+  script_len: 1808
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 5b4b3488420dceadb57d7357c0bcba2e35fb552eb80aa4869aa7183d9355c3b4
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+  sample_path_ids:
+  - '0x1173612878377885'
+  - '0x1257b7f970d539bf'
+  - '0x19b5d05f04f77dbb'
+  - '0x20e76ce3d65c232'
+  - '0x2220e0273b0ad0ef'
+  - '0x3fead4930e1a881a'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: e5e315ce8bed00a7ca39d8734aa9ada6
+  payload_last16_hex: fad833a71cae80cf6a0a8f0b333686a5
+- object_offset: 16428048
+  object_offset_hex: '0xfaac10'
+  stem: hero_propose
+  parsed_name: hero_propose
+  parsed_name_len: 12
+  payload_offset: 16428068
+  payload_offset_hex: '0xfaac24'
+  script_len: 1792
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 3640d99c933490a8fee12921d1f2305740bc52678a30c3345e21d2a756a18d23
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+  sample_path_ids:
+  - '0x1173612878377885'
+  - '0x1257b7f970d539bf'
+  - '0x19b5d05f04f77dbb'
+  - '0x20e76ce3d65c232'
+  - '0x2220e0273b0ad0ef'
+  - '0x3fead4930e1a881a'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 134362bd5a10dbbf6c1fbb307eb6c389
+  payload_last16_hex: dfe590b8c881804465faaf13b0848783
+- object_offset: 17774464
+  object_offset_hex: '0x10f3780'
+  stem: hero_propose
+  parsed_name: hero_propose
+  parsed_name_len: 12
+  payload_offset: 17774484
+  payload_offset_hex: '0x10f3794'
+  script_len: 1808
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: d78f2221e049525baa21961cfa622db8bfde9f3129597626b5a5d311a992e534
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+  sample_path_ids:
+  - '0x1173612878377885'
+  - '0x1257b7f970d539bf'
+  - '0x19b5d05f04f77dbb'
+  - '0x20e76ce3d65c232'
+  - '0x2220e0273b0ad0ef'
+  - '0x3fead4930e1a881a'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: e5e315ce8bed00a7ca39d8734aa9ada6
+  payload_last16_hex: 4d93f0e3db8925f4a5ce0c37d7f20bef
+- object_offset: 18746136
+  object_offset_hex: '0x11e0b18'
+  stem: hero_propose
+  parsed_name: hero_propose
+  parsed_name_len: 12
+  payload_offset: 18746156
+  payload_offset_hex: '0x11e0b2c'
+  script_len: 1808
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: f57a9e0d55427106ca976993f40110daa89e89c5321bc9c4e07e42ef5bece5fc
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+  sample_path_ids:
+  - '0x1173612878377885'
+  - '0x1257b7f970d539bf'
+  - '0x19b5d05f04f77dbb'
+  - '0x20e76ce3d65c232'
+  - '0x2220e0273b0ad0ef'
+  - '0x3fead4930e1a881a'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: e5e315ce8bed00a7ca39d8734aa9ada6
+  payload_last16_hex: 00bb8f5ff45536adadc50f120757564c
+- object_offset: 18943304
+  object_offset_hex: '0x1210d48'
+  stem: hero_propose
+  parsed_name: hero_propose
+  parsed_name_len: 12
+  payload_offset: 18943324
+  payload_offset_hex: '0x1210d5c'
+  script_len: 1808
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 56107dd9530eddb9398504b881cd3857d81aa231f883c3c16cb6055bf0e6f0ce
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+  sample_path_ids:
+  - '0x1173612878377885'
+  - '0x1257b7f970d539bf'
+  - '0x19b5d05f04f77dbb'
+  - '0x20e76ce3d65c232'
+  - '0x2220e0273b0ad0ef'
+  - '0x3fead4930e1a881a'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: e5e315ce8bed00a7ca39d8734aa9ada6
+  payload_last16_hex: 660208a069b94b840d91fd8f2dd0deba
+- object_offset: 1166720
+  object_offset_hex: '0x11cd80'
+  stem: hero_story
+  parsed_name: hero_story
+  parsed_name_len: 10
+  payload_offset: 1166740
+  payload_offset_hex: '0x11cd94'
+  script_len: 2336
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 2e33d04cef6460747aed052fb1477e354d75113b2ac52f9a47bedf6a3547ead3
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/story/hero_story.bytes
+  sample_path_ids:
+  - '0x12769ba7f1784843'
+  - '0x168ee217c9e5a49b'
+  - '0x2f2e9df9d4a23c67'
+  - '0x3236dc1ebda5f162'
+  - '0x340cc60559be2c2a'
+  - '0x4e43e14d178215f9'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 63ec91ee7e610aee175720ae1f8c1d53
+  payload_last16_hex: 10b693d8ab8e1fc2994294d4e29ffb82
+- object_offset: 3527624
+  object_offset_hex: '0x35d3c8'
+  stem: hero_story
+  parsed_name: hero_story
+  parsed_name_len: 10
+  payload_offset: 3527644
+  payload_offset_hex: '0x35d3dc'
+  script_len: 2336
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: de83494aa03797342e520bd39a3376cff197ea776d4523c6c3fe121113c38a68
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/story/hero_story.bytes
+  sample_path_ids:
+  - '0x12769ba7f1784843'
+  - '0x168ee217c9e5a49b'
+  - '0x2f2e9df9d4a23c67'
+  - '0x3236dc1ebda5f162'
+  - '0x340cc60559be2c2a'
+  - '0x4e43e14d178215f9'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: c1858b7c40488f324b5782fea17a5969
+  payload_last16_hex: cbbc90fc3c5291ac608b2e74292a5bb4
+- object_offset: 5116280
+  object_offset_hex: '0x4e1178'
+  stem: hero_story
+  parsed_name: hero_story
+  parsed_name_len: 10
+  payload_offset: 5116300
+  payload_offset_hex: '0x4e118c'
+  script_len: 2336
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 25915a01452d5fb5cd4fbd4c04082a0f1321f6e90bb1d5c22c985cd48bfdd12f
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/story/hero_story.bytes
+  sample_path_ids:
+  - '0x12769ba7f1784843'
+  - '0x168ee217c9e5a49b'
+  - '0x2f2e9df9d4a23c67'
+  - '0x3236dc1ebda5f162'
+  - '0x340cc60559be2c2a'
+  - '0x4e43e14d178215f9'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 63ec91ee7e610aee175720ae1f8c1d53
+  payload_last16_hex: f917249912cbde22dd34d79ffca88647
+- object_offset: 5778776
+  object_offset_hex: '0x582d58'
+  stem: hero_story
+  parsed_name: hero_story
+  parsed_name_len: 10
+  payload_offset: 5778796
+  payload_offset_hex: '0x582d6c'
+  script_len: 2336
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 50402504d7947dae2b777d45c44eb3eb785781f6b4dc30d3aad9a6df988aedd2
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/story/hero_story.bytes
+  sample_path_ids:
+  - '0x12769ba7f1784843'
+  - '0x168ee217c9e5a49b'
+  - '0x2f2e9df9d4a23c67'
+  - '0x3236dc1ebda5f162'
+  - '0x340cc60559be2c2a'
+  - '0x4e43e14d178215f9'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 63ec91ee7e610aee175720ae1f8c1d53
+  payload_last16_hex: bec49b75791bc175e3eebe3683dbb656
+- object_offset: 5793640
+  object_offset_hex: '0x586768'
+  stem: hero_story
+  parsed_name: hero_story
+  parsed_name_len: 10
+  payload_offset: 5793660
+  payload_offset_hex: '0x58677c'
+  script_len: 2336
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 263f713e23a9cf93425836c1f863caa2599dd4e90f5e91450a39f6886f5a89dd
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/story/hero_story.bytes
+  sample_path_ids:
+  - '0x12769ba7f1784843'
+  - '0x168ee217c9e5a49b'
+  - '0x2f2e9df9d4a23c67'
+  - '0x3236dc1ebda5f162'
+  - '0x340cc60559be2c2a'
+  - '0x4e43e14d178215f9'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 4fa5d492c2dd59f62397e342ed7e91c8
+  payload_last16_hex: 8c5a2ce258e585e58ace7d457f1db8a5
+- object_offset: 5849976
+  object_offset_hex: '0x594378'
+  stem: hero_story
+  parsed_name: hero_story
+  parsed_name_len: 10
+  payload_offset: 5849996
+  payload_offset_hex: '0x59438c'
+  script_len: 2336
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: c58c0eb11bf6d7c04cb2f43b5dd97c71444af20bdea55b1d57d78479354af7fd
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/story/hero_story.bytes
+  sample_path_ids:
+  - '0x12769ba7f1784843'
+  - '0x168ee217c9e5a49b'
+  - '0x2f2e9df9d4a23c67'
+  - '0x3236dc1ebda5f162'
+  - '0x340cc60559be2c2a'
+  - '0x4e43e14d178215f9'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: c1858b7c40488f324b5782fea17a5969
+  payload_last16_hex: 028fc090b803c06971f00617db9ce608
+- object_offset: 6290264
+  object_offset_hex: '0x5ffb58'
+  stem: hero_story
+  parsed_name: hero_story
+  parsed_name_len: 10
+  payload_offset: 6290284
+  payload_offset_hex: '0x5ffb6c'
+  script_len: 2336
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: e057f012d9818db4b04d6afa8c76199b3e95b5cbbd1db4ec6abf3dfdd014b131
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/story/hero_story.bytes
+  sample_path_ids:
+  - '0x12769ba7f1784843'
+  - '0x168ee217c9e5a49b'
+  - '0x2f2e9df9d4a23c67'
+  - '0x3236dc1ebda5f162'
+  - '0x340cc60559be2c2a'
+  - '0x4e43e14d178215f9'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: b7e62678931b483138d22ce9f9548605
+  payload_last16_hex: 616149c2ea9f6dc129866a734df1af52
+- object_offset: 8160728
+  object_offset_hex: '0x7c85d8'
+  stem: hero_story
+  parsed_name: hero_story
+  parsed_name_len: 10
+  payload_offset: 8160748
+  payload_offset_hex: '0x7c85ec'
+  script_len: 2336
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: f628b0a46cb693997075b914cbffbb1d8eb3aa0b60c4a4f731559f10c396f271
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/story/hero_story.bytes
+  sample_path_ids:
+  - '0x12769ba7f1784843'
+  - '0x168ee217c9e5a49b'
+  - '0x2f2e9df9d4a23c67'
+  - '0x3236dc1ebda5f162'
+  - '0x340cc60559be2c2a'
+  - '0x4e43e14d178215f9'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 4fa5d492c2dd59f62397e342ed7e91c8
+  payload_last16_hex: 77697cdaa25330b146fa0689cb56cce1
+- object_offset: 11417776
+  object_offset_hex: '0xae38b0'
+  stem: hero_story
+  parsed_name: hero_story
+  parsed_name_len: 10
+  payload_offset: 11417796
+  payload_offset_hex: '0xae38c4'
+  script_len: 2336
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 74ba278a85f43bee8424f7a9be018a84f378dbc9f4e30d5cf94aa2516f72576d
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/story/hero_story.bytes
+  sample_path_ids:
+  - '0x12769ba7f1784843'
+  - '0x168ee217c9e5a49b'
+  - '0x2f2e9df9d4a23c67'
+  - '0x3236dc1ebda5f162'
+  - '0x340cc60559be2c2a'
+  - '0x4e43e14d178215f9'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 63ec91ee7e610aee175720ae1f8c1d53
+  payload_last16_hex: 668b0835f6f3f9332c0b9460e00756dd
+- object_offset: 12166592
+  object_offset_hex: '0xb9a5c0'
+  stem: hero_story
+  parsed_name: hero_story
+  parsed_name_len: 10
+  payload_offset: 12166612
+  payload_offset_hex: '0xb9a5d4'
+  script_len: 2336
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 050a35b54d70055687f5e6b6b6423cb06372575771278f6ebb742d97529cb211
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/story/hero_story.bytes
+  sample_path_ids:
+  - '0x12769ba7f1784843'
+  - '0x168ee217c9e5a49b'
+  - '0x2f2e9df9d4a23c67'
+  - '0x3236dc1ebda5f162'
+  - '0x340cc60559be2c2a'
+  - '0x4e43e14d178215f9'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 4fa5d492c2dd59f62397e342ed7e91c8
+  payload_last16_hex: 369016e05757f453d4a63ca9ad05e914
+- object_offset: 31220632
+  object_offset_hex: '0x1dc6398'
+  stem: hero_talent
+  parsed_name: hero_talent
+  parsed_name_len: 11
+  payload_offset: 31220652
+  payload_offset_hex: '0x1dc63ac'
+  script_len: 2096
+  layout_valid: true
+  match_count: 1
+  path_count: 1
+  path_id_count: 1
+  scenario_count: 0
+  payload_sha256: 5963fa82d862589c6e69810f2acebdc45c0165a557a34f8ba0f278129536a1c0
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/hero_talent.bytes
+  sample_path_ids:
+  - '0x70fd56d85f06ca81'
+  sample_scenarios: []
+  payload_first16_hex: 99c1df845aa004f947be9b3eb1036ea4
+  payload_last16_hex: f958f7a95d6ca5dba0efc062063a48c2
+- object_offset: 22579912
+  object_offset_hex: '0x1588ac8'
+  stem: heros
+  parsed_name: heros
+  parsed_name_len: 5
+  payload_offset: 22579928
+  payload_offset_hex: '0x1588ad8'
+  script_len: 23232
+  layout_valid: true
+  match_count: 1
+  path_count: 1
+  path_id_count: 1
+  scenario_count: 0
+  payload_sha256: 2c72e8512e6aacce2d1f1c75dc4fa90e829e091e56b3a3e4ec310d68b3ca497d
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/heros.bytes
+  sample_path_ids:
+  - '0x2152b542dfcaf0df'
+  sample_scenarios: []
+  payload_first16_hex: cc2079fa6839cec730dffd6811d8786b
+  payload_last16_hex: bfb22cee8bb88fb6ef755edf7834db56
+- object_offset: 22969096
+  object_offset_hex: '0x15e7b08'
+  stem: lineup_assistant
+  parsed_name: lineup_assistant
+  parsed_name_len: 16
+  payload_offset: 22969120
+  payload_offset_hex: '0x15e7b20'
+  script_len: 22608
+  layout_valid: true
+  match_count: 1
+  path_count: 1
+  path_id_count: 1
+  scenario_count: 0
+  payload_sha256: a44727097fdfc650f021f46b7342f2243e116a3aa96aec555cc10faa081317ce
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/lineup_assistant.bytes
+  sample_path_ids:
+  - '0x257423ff09641de5'
+  sample_scenarios: []
+  payload_first16_hex: 2e88a95c76348b0aa096d0e33b288f37
+  payload_last16_hex: b2e0ca7cd6d84ab148cb096a7c2fb63a
+- object_offset: 730680
+  object_offset_hex: '0xb2638'
+  stem: sandbox_battle_config
+  parsed_name: sandbox_battle_config
+  parsed_name_len: 21
+  payload_offset: 730712
+  payload_offset_hex: '0xb2658'
+  script_len: 3568
+  layout_valid: true
+  match_count: 1
+  path_count: 1
+  path_id_count: 1
+  scenario_count: 0
+  payload_sha256: 1dc1f2b630421a573a9b35246e190ca69969dc75b7a37916f4c0896fd1c67b84
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/sandbox_battle_config.bytes
+  sample_path_ids:
+  - '0x86cc9bc6dd7483ce'
+  sample_scenarios: []
+  payload_first16_hex: 5ab3669a77c92eda5355d0bfa7941e2d
+  payload_last16_hex: 278967a42ffad0bfc9d06faaf24b2478
+- object_offset: 25425760
+  object_offset_hex: '0x183f760'
+  stem: scene_building_skill
+  parsed_name: scene_building_skill
+  parsed_name_len: 20
+  payload_offset: 25425788
+  payload_offset_hex: '0x183f77c'
+  script_len: 1136
+  layout_valid: true
+  match_count: 1
+  path_count: 1
+  path_id_count: 1
+  scenario_count: 0
+  payload_sha256: 7f524ca94494aef339cd1b3ee349f719ee0640f64426bd45145b4f9d39e1cb92
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/skill/scene_building_skill.bytes
+  sample_path_ids:
+  - '0x3a34845192ffb4d0'
+  sample_scenarios: []
+  payload_first16_hex: 192ee369f2d3c826a346860204fc841f
+  payload_last16_hex: 0abe953c8565190086ee205e5988b5d4
+- object_offset: 9274272
+  object_offset_hex: '0x8d83a0'
+  stem: skills
+  parsed_name: skills
+  parsed_name_len: 6
+  payload_offset: 9274288
+  payload_offset_hex: '0x8d83b0'
+  script_len: 51760
+  layout_valid: true
+  match_count: 1
+  path_count: 1
+  path_id_count: 1
+  scenario_count: 0
+  payload_sha256: 933f587e391893961f5238f39ba92bec0c6d71cd356b12f4618518858d74e41b
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/skill/skills.bytes
+  sample_path_ids:
+  - '0xc5a9e6f261f4d377'
+  sample_scenarios: []
+  payload_first16_hex: 834e80b2fd783944e982765d10524268
+  payload_last16_hex: e179435943f266623585919bcfb47af0
+- object_offset: 527448
+  object_offset_hex: '0x80c58'
+  stem: super_skill
+  parsed_name: super_skill
+  parsed_name_len: 11
+  payload_offset: 527468
+  payload_offset_hex: '0x80c6c'
+  script_len: 2320
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 1a73c1fbb28816759154c8822f5f5939f91606692ac6dcdae7112e65a20cfbaf
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+  sample_path_ids:
+  - '0x2e3a9d969f2899ee'
+  - '0x487dfb220676db73'
+  - '0x49974e83c16e94ee'
+  - '0x4dee599a705003dc'
+  - '0x52da34e0bbf7ba8'
+  - '0x6e08b7320ab564ae'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 74470674c75ea2e360e20889140d6d2b
+  payload_last16_hex: f0a59b52e9700231507d478ab91bbe5d
+- object_offset: 634584
+  object_offset_hex: '0x9aed8'
+  stem: super_skill
+  parsed_name: super_skill
+  parsed_name_len: 11
+  payload_offset: 634604
+  payload_offset_hex: '0x9aeec'
+  script_len: 208
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 4d80d39aae35a440a226ec4f9fecfc2b319f406553f834b29abc3327773be69e
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+  sample_path_ids:
+  - '0x2e3a9d969f2899ee'
+  - '0x487dfb220676db73'
+  - '0x49974e83c16e94ee'
+  - '0x4dee599a705003dc'
+  - '0x52da34e0bbf7ba8'
+  - '0x6e08b7320ab564ae'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 1df2659d30ec64c01734750f63d651ab
+  payload_last16_hex: 110f59868f7d500129f494b1056bba1d
+- object_offset: 3591320
+  object_offset_hex: '0x36cc98'
+  stem: super_skill
+  parsed_name: super_skill
+  parsed_name_len: 11
+  payload_offset: 3591340
+  payload_offset_hex: '0x36ccac'
+  script_len: 208
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: b88b9448fa6fc0a490be2a8b8b1ada08fcb17624c476be8030eecb75df4b1448
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+  sample_path_ids:
+  - '0x2e3a9d969f2899ee'
+  - '0x487dfb220676db73'
+  - '0x49974e83c16e94ee'
+  - '0x4dee599a705003dc'
+  - '0x52da34e0bbf7ba8'
+  - '0x6e08b7320ab564ae'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 5b7abf2ef7fdfb27b21a8c8416baf54d
+  payload_last16_hex: 676fc575377029ff380f4eb564bab970
+- object_offset: 4525944
+  object_offset_hex: '0x450f78'
+  stem: super_skill
+  parsed_name: super_skill
+  parsed_name_len: 11
+  payload_offset: 4525964
+  payload_offset_hex: '0x450f8c'
+  script_len: 208
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 5779192589163fb3e5130adcb08ec384fa30a06067caf6707cf212d5ee319b98
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+  sample_path_ids:
+  - '0x2e3a9d969f2899ee'
+  - '0x487dfb220676db73'
+  - '0x49974e83c16e94ee'
+  - '0x4dee599a705003dc'
+  - '0x52da34e0bbf7ba8'
+  - '0x6e08b7320ab564ae'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 5b7abf2ef7fdfb27b21a8c8416baf54d
+  payload_last16_hex: 9e4c7100f5b90545b690c6c11617d87a
+- object_offset: 4774344
+  object_offset_hex: '0x48d9c8'
+  stem: super_skill
+  parsed_name: super_skill
+  parsed_name_len: 11
+  payload_offset: 4774364
+  payload_offset_hex: '0x48d9dc'
+  script_len: 208
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 7829f3467de86dd4ac0e619872488f567f72047b7a974a1f2208f6aebbf6860f
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+  sample_path_ids:
+  - '0x2e3a9d969f2899ee'
+  - '0x487dfb220676db73'
+  - '0x49974e83c16e94ee'
+  - '0x4dee599a705003dc'
+  - '0x52da34e0bbf7ba8'
+  - '0x6e08b7320ab564ae'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: a8a8daa3d71511a002c41199784d1bce
+  payload_last16_hex: d7778ad1bc271deedb3795d7311fff12
+- object_offset: 8590912
+  object_offset_hex: '0x831640'
+  stem: super_skill
+  parsed_name: super_skill
+  parsed_name_len: 11
+  payload_offset: 8590932
+  payload_offset_hex: '0x831654'
+  script_len: 208
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 00d1da0bc4dc0533258dca380418791735ad10866435ecd30aee5e669713420b
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+  sample_path_ids:
+  - '0x2e3a9d969f2899ee'
+  - '0x487dfb220676db73'
+  - '0x49974e83c16e94ee'
+  - '0x4dee599a705003dc'
+  - '0x52da34e0bbf7ba8'
+  - '0x6e08b7320ab564ae'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 5b7abf2ef7fdfb27b21a8c8416baf54d
+  payload_last16_hex: 77542963d72337ad786aa7c6f1cae173
+- object_offset: 9253480
+  object_offset_hex: '0x8d3268'
+  stem: super_skill
+  parsed_name: super_skill
+  parsed_name_len: 11
+  payload_offset: 9253500
+  payload_offset_hex: '0x8d327c'
+  script_len: 208
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 40fccac2c6b4336309c6e5a3770e8277b396c7ad4691981db02c4738e3b01e03
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+  sample_path_ids:
+  - '0x2e3a9d969f2899ee'
+  - '0x487dfb220676db73'
+  - '0x49974e83c16e94ee'
+  - '0x4dee599a705003dc'
+  - '0x52da34e0bbf7ba8'
+  - '0x6e08b7320ab564ae'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 5b7abf2ef7fdfb27b21a8c8416baf54d
+  payload_last16_hex: 6a8ea0f7606f347d73b8faf4e77f15b5
+- object_offset: 9811984
+  object_offset_hex: '0x95b810'
+  stem: super_skill
+  parsed_name: super_skill
+  parsed_name_len: 11
+  payload_offset: 9812004
+  payload_offset_hex: '0x95b824'
+  script_len: 208
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: bd9da34f2cfdfb93483b17ec339392c608f98a3a4f86931ba317563591a2d935
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+  sample_path_ids:
+  - '0x2e3a9d969f2899ee'
+  - '0x487dfb220676db73'
+  - '0x49974e83c16e94ee'
+  - '0x4dee599a705003dc'
+  - '0x52da34e0bbf7ba8'
+  - '0x6e08b7320ab564ae'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 096cc9f5702ad49a09f19ef9c1941a73
+  payload_last16_hex: c3467a9451ba6f9f6122bb734f3a1095
+- object_offset: 11024680
+  object_offset_hex: '0xa83928'
+  stem: super_skill
+  parsed_name: super_skill
+  parsed_name_len: 11
+  payload_offset: 11024700
+  payload_offset_hex: '0xa8393c'
+  script_len: 208
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: 014af1f1cbcd6706445565911a9d92042e18ce09c664f2f8e0db0318e047e081
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+  sample_path_ids:
+  - '0x2e3a9d969f2899ee'
+  - '0x487dfb220676db73'
+  - '0x49974e83c16e94ee'
+  - '0x4dee599a705003dc'
+  - '0x52da34e0bbf7ba8'
+  - '0x6e08b7320ab564ae'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 5b7abf2ef7fdfb27b21a8c8416baf54d
+  payload_last16_hex: ac71be66537fdb6f5a6dcd20f77a0d52
+- object_offset: 11433784
+  object_offset_hex: '0xae7738'
+  stem: super_skill
+  parsed_name: super_skill
+  parsed_name_len: 11
+  payload_offset: 11433804
+  payload_offset_hex: '0xae774c'
+  script_len: 208
+  layout_valid: true
+  match_count: 23
+  path_count: 23
+  path_id_count: 23
+  scenario_count: 23
+  payload_sha256: c5271337058ce7c6377fc1a41e5e7c9ee1073a6dc516a9576c44bb6576834eea
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+  sample_path_ids:
+  - '0x2e3a9d969f2899ee'
+  - '0x487dfb220676db73'
+  - '0x49974e83c16e94ee'
+  - '0x4dee599a705003dc'
+  - '0x52da34e0bbf7ba8'
+  - '0x6e08b7320ab564ae'
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  - Scenario12
+  - Scenario13
+  - Scenario14
+  - Scenario16
+  payload_first16_hex: 1df2659d30ec64c01734750f63d651ab
+  payload_last16_hex: ea750c593827831a969ddebb06fcfdea
+- object_offset: 21676640
+  object_offset_hex: '0x14ac260'
+  stem: warbook
+  parsed_name: warbook
+  parsed_name_len: 7
+  payload_offset: 21676656
+  payload_offset_hex: '0x14ac270'
+  script_len: 12144
+  layout_valid: true
+  match_count: 1
+  path_count: 1
+  path_id_count: 1
+  scenario_count: 0
+  payload_sha256: 6b3c3d7b7faf406613887c047a27505ba1ba4587ddbaba38ad0a8b202eadba06
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/warbook.bytes
+  sample_path_ids:
+  - '0x1c594c47d614f353'
+  sample_scenarios: []
+  payload_first16_hex: 2717842bac455e84dd4a07b8f0421b2a
+  payload_last16_hex: 2a3be3e8849ca6788b61d4f22ac80127
+- object_offset: 26617032
+  object_offset_hex: '0x19624c8'
+  stem: water_battle
+  parsed_name: water_battle
+  parsed_name_len: 12
+  payload_offset: 26617052
+  payload_offset_hex: '0x19624dc'
+  script_len: 1328
+  layout_valid: true
+  match_count: 1
+  path_count: 1
+  path_id_count: 1
+  scenario_count: 0
+  payload_sha256: 936f3132551d745344bbc3d5c39dc0a5923e084e91306ca02d31d56336085ac4
+  payload_hash_count: 1
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/water_battle.bytes
+  sample_path_ids:
+  - '0x4526f038e796965c'
+  sample_scenarios: []
+  payload_first16_hex: f91d2c9398263b7e84612ba6c98e0fc6
+  payload_last16_hex: 51aaa173f9c5448c29c92ee057096ae2
+prior_route_context:
+  round172_payload_variant_count: 932
+  round172_simple_offset_skip_route_ruled_out: true
+  round173_textasset_payload_owner_proven: false
+  round173_code_ref_count: 0
+route_conclusion:
+  serialized_textasset_object_layout_confirmed: true
+  static_payload_offsets_and_lengths_confirmed: true
+  path_id_to_exact_object_offset_resolved: false
+  native_payload_buffer_owner_proven: false
+  lua_payload_decoder_recovered: false
+  safe_for_publish: false
+  round172_payload_variant_count: 932
+  round173_textasset_payload_owner_proven: false
+  strongest_current_signal: 932 TextAsset object matches validate m_Name -> aligned
+    script_len -> payload bytes layout, giving concrete static payload offsets and
+    lengths.
+  strongest_negative_signal: AssetBundle path records still do not resolve to one
+    exact object_offset per path_id, and no native payload-buffer owner or decoder
+    has been proven.
+  search_policy: Next parse SerializedFile object/preload/container tables to turn
+    object layout constraints into exact path_id -> object_offset edges; do not return
+    to broad native string scans.
+evidence_refs:
+- NSLG_SERIALIZED_TEXTASSET_LAYOUT:serialized-textasset-layout-probe-round174:stem:army_config
+- NSLG_SERIALIZED_TEXTASSET_LAYOUT:serialized-textasset-layout-probe-round174:stem:battle_record
+- NSLG_SERIALIZED_TEXTASSET_LAYOUT:serialized-textasset-layout-probe-round174:stem:battle_replay
+- NSLG_SERIALIZED_TEXTASSET_LAYOUT:serialized-textasset-layout-probe-round174:stem:battle_reports
+- NSLG_SERIALIZED_TEXTASSET_LAYOUT:serialized-textasset-layout-probe-round174:stem:custom_hero
+- NSLG_SERIALIZED_TEXTASSET_LAYOUT:serialized-textasset-layout-probe-round174:stem:hero_propose
+- NSLG_SERIALIZED_TEXTASSET_LAYOUT:serialized-textasset-layout-probe-round174:stem:hero_story
+- NSLG_SERIALIZED_TEXTASSET_LAYOUT:serialized-textasset-layout-probe-round174:stem:hero_talent
+- NSLG_SERIALIZED_TEXTASSET_LAYOUT:serialized-textasset-layout-probe-round174:stem:heros
+- NSLG_SERIALIZED_TEXTASSET_LAYOUT:serialized-textasset-layout-probe-round174:stem:lineup_assistant
+- NSLG_SERIALIZED_TEXTASSET_LAYOUT:serialized-textasset-layout-probe-round174:stem:sandbox_battle_config
+- NSLG_SERIALIZED_TEXTASSET_LAYOUT:serialized-textasset-layout-probe-round174:stem:scene_building_skill
+- NSLG_SERIALIZED_TEXTASSET_LAYOUT:serialized-textasset-layout-probe-round174:stem:skills
+- NSLG_SERIALIZED_TEXTASSET_LAYOUT:serialized-textasset-layout-probe-round174:stem:super_skill
+- NSLG_SERIALIZED_TEXTASSET_LAYOUT:serialized-textasset-layout-probe-round174:stem:warbook
+- NSLG_SERIALIZED_TEXTASSET_LAYOUT:serialized-textasset-layout-probe-round174:stem:water_battle
+next_static_targets:
+- Parse the SerializedFile object/preload/container tables to resolve each AssetBundle
+  path_id to the exact TextAsset object offset.
+- Use confirmed TextAsset object offsets plus payload lengths as the static validation
+  corpus for any future decoder candidate.
+- Do not treat object layout confirmation as a native decoder proof; native payload-buffer
+  ownership is still missing.
+limitations:
+- Offline/static extracted CAB and Round31 catalog probe only; no live Frida, runtime
+  attach, account data, credentials, or online protocol were used.
+- This confirms serialized TextAsset object layout and payload offset/length constraints,
+  not decrypted Lua payloads.
+- Regex/catalog matching still yields multiple same-stem object matches per AssetBundle
+  path; path_id to exact object_offset resolution requires parsing SerializedFile
+  object/preload/container tables.
+- Encrypted payload bytes remain blocked pending decoder recovery and manual semantic
+  review.
+guardrails:
+- offline/static extracted CAB and Round31 catalog probe only; no live instrumentation,
+  account data, or online protocol data is included
+- absolute local paths are not persisted; only sanitized asset paths, path_ids, offsets,
+  lengths, counts, and hashes are stored
+- serialized TextAsset layout confirmation is not a native decoder or payload-buffer
+  owner proof
+- encrypted payload bytes remain blocked until decoder recovery and manual semantic
+  review

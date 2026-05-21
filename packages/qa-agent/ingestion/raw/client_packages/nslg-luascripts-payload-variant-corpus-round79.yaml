@@ -1,0 +1,1873 @@
+schema_version: nslg.luascripts_payload_variant_corpus.v1
+source_id: nslg-luascripts-payload-variant-corpus-round79
+source_url: local-nslg-client-luascripts-payload-variant-corpus
+source_site: nslg_client_luascripts_variant_corpus
+generated_at: '2026-05-21T04:54:36.949363Z'
+round: 172
+slice: luascripts_payload_variant_corpus_probe
+input_artifacts:
+- file_name: luascripts_textasset_extract_round31.json
+  size_bytes: 293845
+  sha256: e5def679cf3671d1309749488b6f3abab151939e7b87024c2f819a74b4b46d8d
+- file_name: luascripts_payload_cipher_profile_round162.json
+  size_bytes: 32661
+  sha256: 3e247f6400a071c1d88ec5eec7d558d6ca3d027e63829384db558e3151cc5535
+- file_name: native_loadbuffer_boundary_trace_round163.json
+  size_bytes: 1439588
+  sha256: 3dedf83b0265150db1fabebeb041d6fe4161fc421c74cf6004ae777301311df2
+- file_name: CAB-6f8976987e2c6d3d11c101e0f5ec2aad
+  size_bytes: 33662068
+  sha256: 565ac2e8586593bb52cf2b44e9b23afcd938a4ed264cc4321b4d2a953722cf08
+corpus_summary:
+  relevant_record_count: 104
+  payload_variant_count: 932
+  stem_count: 16
+  scenario_count: 23
+  payload_bytes_total: 5429008
+  all_sizes_16byte_aligned: true
+  unique_ciphertext_hash_count: 52
+  duplicate_ciphertext_hash_group_count: 40
+  duplicate_ciphertext_variant_count: 880
+  unique_first_block_count: 28
+  duplicate_first_block_count: 904
+  unique_last_block_count: 52
+  duplicate_last_block_count: 880
+  direct_plaintext_term_variant_count: 0
+  pkcs7_padding_candidate_count: 0
+  cross_cipher_shared_16byte_block_count: 55
+  offset_skip_decompression_success_count: 0
+  offset_skip_plaintext_hit_count: 0
+  duplicate_group_sample_count: 40
+stem_summaries:
+- stem: army_config
+  record_count: 23
+  variant_count: 230
+  unique_ciphertext_hash_count: 10
+  duplicate_ciphertext_hash_group_count: 10
+  duplicate_ciphertext_variant_count: 220
+  entropy_avg: 7.9899
+  printable_score_4k_avg: 0.3833
+  direct_plaintext_term_variant_count: 0
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/army/army_config.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/army/army_config.bytes
+- stem: battle_record
+  record_count: 1
+  variant_count: 1
+  unique_ciphertext_hash_count: 1
+  duplicate_ciphertext_hash_group_count: 0
+  duplicate_ciphertext_variant_count: 0
+  entropy_avg: 7.9092
+  printable_score_4k_avg: 0.3901
+  direct_plaintext_term_variant_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/battle_record.bytes
+- stem: battle_replay
+  record_count: 1
+  variant_count: 1
+  unique_ciphertext_hash_count: 1
+  duplicate_ciphertext_hash_group_count: 0
+  duplicate_ciphertext_variant_count: 0
+  entropy_avg: 7.9607
+  printable_score_4k_avg: 0.3887
+  direct_plaintext_term_variant_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/battle_replay.bytes
+- stem: battle_reports
+  record_count: 1
+  variant_count: 1
+  unique_ciphertext_hash_count: 1
+  duplicate_ciphertext_hash_group_count: 0
+  duplicate_ciphertext_variant_count: 0
+  entropy_avg: 7.8915
+  printable_score_4k_avg: 0.3803
+  direct_plaintext_term_variant_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/battle_reports.bytes
+- stem: custom_hero
+  record_count: 1
+  variant_count: 1
+  unique_ciphertext_hash_count: 1
+  duplicate_ciphertext_hash_group_count: 0
+  duplicate_ciphertext_variant_count: 0
+  entropy_avg: 7.9905
+  printable_score_4k_avg: 0.3704
+  direct_plaintext_term_variant_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/custom_hero.bytes
+- stem: hero_propose
+  record_count: 23
+  variant_count: 230
+  unique_ciphertext_hash_count: 10
+  duplicate_ciphertext_hash_group_count: 10
+  duplicate_ciphertext_variant_count: 220
+  entropy_avg: 7.8982
+  printable_score_4k_avg: 0.3766
+  direct_plaintext_term_variant_count: 0
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+- stem: hero_story
+  record_count: 23
+  variant_count: 230
+  unique_ciphertext_hash_count: 10
+  duplicate_ciphertext_hash_group_count: 10
+  duplicate_ciphertext_variant_count: 220
+  entropy_avg: 7.9184
+  printable_score_4k_avg: 0.3822
+  direct_plaintext_term_variant_count: 0
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/story/hero_story.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/story/hero_story.bytes
+- stem: hero_talent
+  record_count: 1
+  variant_count: 1
+  unique_ciphertext_hash_count: 1
+  duplicate_ciphertext_hash_group_count: 0
+  duplicate_ciphertext_variant_count: 0
+  entropy_avg: 7.9131
+  printable_score_4k_avg: 0.3793
+  direct_plaintext_term_variant_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/hero_talent.bytes
+- stem: heros
+  record_count: 1
+  variant_count: 1
+  unique_ciphertext_hash_count: 1
+  duplicate_ciphertext_hash_group_count: 0
+  duplicate_ciphertext_variant_count: 0
+  entropy_avg: 7.9914
+  printable_score_4k_avg: 0.3708
+  direct_plaintext_term_variant_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/heros.bytes
+- stem: lineup_assistant
+  record_count: 1
+  variant_count: 1
+  unique_ciphertext_hash_count: 1
+  duplicate_ciphertext_hash_group_count: 0
+  duplicate_ciphertext_variant_count: 0
+  entropy_avg: 7.9924
+  printable_score_4k_avg: 0.3813
+  direct_plaintext_term_variant_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/lineup_assistant.bytes
+- stem: sandbox_battle_config
+  record_count: 1
+  variant_count: 1
+  unique_ciphertext_hash_count: 1
+  duplicate_ciphertext_hash_group_count: 0
+  duplicate_ciphertext_variant_count: 0
+  entropy_avg: 7.9525
+  printable_score_4k_avg: 0.3957
+  direct_plaintext_term_variant_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/sandbox_battle_config.bytes
+- stem: scene_building_skill
+  record_count: 1
+  variant_count: 1
+  unique_ciphertext_hash_count: 1
+  duplicate_ciphertext_hash_group_count: 0
+  duplicate_ciphertext_variant_count: 0
+  entropy_avg: 7.827
+  printable_score_4k_avg: 0.3768
+  direct_plaintext_term_variant_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/skill/scene_building_skill.bytes
+- stem: skills
+  record_count: 1
+  variant_count: 1
+  unique_ciphertext_hash_count: 1
+  duplicate_ciphertext_hash_group_count: 0
+  duplicate_ciphertext_variant_count: 0
+  entropy_avg: 7.9965
+  printable_score_4k_avg: 0.3911
+  direct_plaintext_term_variant_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/skill/skills.bytes
+- stem: super_skill
+  record_count: 23
+  variant_count: 230
+  unique_ciphertext_hash_count: 10
+  duplicate_ciphertext_hash_group_count: 10
+  duplicate_ciphertext_variant_count: 220
+  entropy_avg: 7.0586
+  printable_score_4k_avg: 0.3896
+  direct_plaintext_term_variant_count: 0
+  sample_scenarios:
+  - Scenario1
+  - Scenario10
+  - Scenario1000
+  - Scenario1001
+  - Scenario1002
+  - Scenario1003
+  - Scenario103
+  - Scenario11
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+  - Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+- stem: warbook
+  record_count: 1
+  variant_count: 1
+  unique_ciphertext_hash_count: 1
+  duplicate_ciphertext_hash_group_count: 0
+  duplicate_ciphertext_variant_count: 0
+  entropy_avg: 7.9858
+  printable_score_4k_avg: 0.396
+  direct_plaintext_term_variant_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/warbook.bytes
+- stem: water_battle
+  record_count: 1
+  variant_count: 1
+  unique_ciphertext_hash_count: 1
+  duplicate_ciphertext_hash_group_count: 0
+  duplicate_ciphertext_variant_count: 0
+  entropy_avg: 7.8759
+  printable_score_4k_avg: 0.3833
+  direct_plaintext_term_variant_count: 0
+  sample_scenarios: []
+  sample_paths:
+  - Assets/Bundles/LuaScripts/Data/water_battle.bytes
+duplicate_ciphertext_groups:
+- sha256: 00d1da0bc4dc0533258dca380418791735ad10866435ecd30aee5e669713420b
+  variant_count: 23
+  stems:
+  - super_skill
+  script_lens:
+  - 208
+  first_block_hex: 5b7abf2ef7fdfb27b21a8c8416baf54d
+  last_block_hex: 77542963d72337ad786aa7c6f1cae173
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+    match_index: 5
+    payload_offset: 8590932
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+    match_index: 5
+    payload_offset: 8590932
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+    match_index: 5
+    payload_offset: 8590932
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+    match_index: 5
+    payload_offset: 8590932
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+    match_index: 5
+    payload_offset: 8590932
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+    match_index: 5
+    payload_offset: 8590932
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/skill/super_skill.bytes
+    match_index: 5
+    payload_offset: 8590932
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/skill/super_skill.bytes
+    match_index: 5
+    payload_offset: 8590932
+    scenario: Scenario11
+- sha256: 014af1f1cbcd6706445565911a9d92042e18ce09c664f2f8e0db0318e047e081
+  variant_count: 23
+  stems:
+  - super_skill
+  script_lens:
+  - 208
+  first_block_hex: 5b7abf2ef7fdfb27b21a8c8416baf54d
+  last_block_hex: ac71be66537fdb6f5a6dcd20f77a0d52
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+    match_index: 8
+    payload_offset: 11024700
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+    match_index: 8
+    payload_offset: 11024700
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+    match_index: 8
+    payload_offset: 11024700
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+    match_index: 8
+    payload_offset: 11024700
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+    match_index: 8
+    payload_offset: 11024700
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+    match_index: 8
+    payload_offset: 11024700
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/skill/super_skill.bytes
+    match_index: 8
+    payload_offset: 11024700
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/skill/super_skill.bytes
+    match_index: 8
+    payload_offset: 11024700
+    scenario: Scenario11
+- sha256: 04a8708afff2c8e82ece441f5df2dc9ca6df646b099900d82862d0c1a8b0a511
+  variant_count: 23
+  stems:
+  - army_config
+  script_lens:
+  - 18368
+  first_block_hex: 336589227bc2c98633e65e68ca4734d0
+  last_block_hex: b604a6e19752b84485658986dbb929b1
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/army/army_config.bytes
+    match_index: 1
+    payload_offset: 4668420
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/army/army_config.bytes
+    match_index: 1
+    payload_offset: 4668420
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/army/army_config.bytes
+    match_index: 1
+    payload_offset: 4668420
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/army/army_config.bytes
+    match_index: 1
+    payload_offset: 4668420
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/army/army_config.bytes
+    match_index: 1
+    payload_offset: 4668420
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/army/army_config.bytes
+    match_index: 1
+    payload_offset: 4668420
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/army/army_config.bytes
+    match_index: 1
+    payload_offset: 4668420
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/army/army_config.bytes
+    match_index: 1
+    payload_offset: 4668420
+    scenario: Scenario11
+- sha256: 050a35b54d70055687f5e6b6b6423cb06372575771278f6ebb742d97529cb211
+  variant_count: 23
+  stems:
+  - hero_story
+  script_lens:
+  - 2336
+  first_block_hex: 4fa5d492c2dd59f62397e342ed7e91c8
+  last_block_hex: 369016e05757f453d4a63ca9ad05e914
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+    match_index: 9
+    payload_offset: 12166612
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+    match_index: 9
+    payload_offset: 12166612
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+    match_index: 9
+    payload_offset: 12166612
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/story/hero_story.bytes
+    match_index: 9
+    payload_offset: 12166612
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/story/hero_story.bytes
+    match_index: 9
+    payload_offset: 12166612
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/story/hero_story.bytes
+    match_index: 9
+    payload_offset: 12166612
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/story/hero_story.bytes
+    match_index: 9
+    payload_offset: 12166612
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/story/hero_story.bytes
+    match_index: 9
+    payload_offset: 12166612
+    scenario: Scenario11
+- sha256: 16499a768a049aa41ff1387cb9bfe7c55eaf185799ec790dea3a30adff5968cc
+  variant_count: 23
+  stems:
+  - army_config
+  script_lens:
+  - 18368
+  first_block_hex: 336589227bc2c98633e65e68ca4734d0
+  last_block_hex: 282596f47717dc9fec4d0bc9fb3a38ea
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/army/army_config.bytes
+    match_index: 3
+    payload_offset: 5207876
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/army/army_config.bytes
+    match_index: 3
+    payload_offset: 5207876
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/army/army_config.bytes
+    match_index: 3
+    payload_offset: 5207876
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/army/army_config.bytes
+    match_index: 3
+    payload_offset: 5207876
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/army/army_config.bytes
+    match_index: 3
+    payload_offset: 5207876
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/army/army_config.bytes
+    match_index: 3
+    payload_offset: 5207876
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/army/army_config.bytes
+    match_index: 3
+    payload_offset: 5207876
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/army/army_config.bytes
+    match_index: 3
+    payload_offset: 5207876
+    scenario: Scenario11
+- sha256: 1a73c1fbb28816759154c8822f5f5939f91606692ac6dcdae7112e65a20cfbaf
+  variant_count: 23
+  stems:
+  - super_skill
+  script_lens:
+  - 2320
+  first_block_hex: 74470674c75ea2e360e20889140d6d2b
+  last_block_hex: f0a59b52e9700231507d478ab91bbe5d
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+    match_index: 0
+    payload_offset: 527468
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+    match_index: 0
+    payload_offset: 527468
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+    match_index: 0
+    payload_offset: 527468
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+    match_index: 0
+    payload_offset: 527468
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+    match_index: 0
+    payload_offset: 527468
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+    match_index: 0
+    payload_offset: 527468
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/skill/super_skill.bytes
+    match_index: 0
+    payload_offset: 527468
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/skill/super_skill.bytes
+    match_index: 0
+    payload_offset: 527468
+    scenario: Scenario11
+- sha256: 1b582ca6ea89534442097f03ccb4b208fac967bff7f1171be8339b5e90a0c23d
+  variant_count: 23
+  stems:
+  - army_config
+  script_lens:
+  - 18368
+  first_block_hex: 80838da2940928e75df584a926be3b37
+  last_block_hex: e9c6e8a371407b3888759546b4e0e284
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/army/army_config.bytes
+    match_index: 2
+    payload_offset: 5161964
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/army/army_config.bytes
+    match_index: 2
+    payload_offset: 5161964
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/army/army_config.bytes
+    match_index: 2
+    payload_offset: 5161964
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/army/army_config.bytes
+    match_index: 2
+    payload_offset: 5161964
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/army/army_config.bytes
+    match_index: 2
+    payload_offset: 5161964
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/army/army_config.bytes
+    match_index: 2
+    payload_offset: 5161964
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/army/army_config.bytes
+    match_index: 2
+    payload_offset: 5161964
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/army/army_config.bytes
+    match_index: 2
+    payload_offset: 5161964
+    scenario: Scenario11
+- sha256: 25915a01452d5fb5cd4fbd4c04082a0f1321f6e90bb1d5c22c985cd48bfdd12f
+  variant_count: 23
+  stems:
+  - hero_story
+  script_lens:
+  - 2336
+  first_block_hex: 63ec91ee7e610aee175720ae1f8c1d53
+  last_block_hex: f917249912cbde22dd34d79ffca88647
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+    match_index: 2
+    payload_offset: 5116300
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+    match_index: 2
+    payload_offset: 5116300
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+    match_index: 2
+    payload_offset: 5116300
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/story/hero_story.bytes
+    match_index: 2
+    payload_offset: 5116300
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/story/hero_story.bytes
+    match_index: 2
+    payload_offset: 5116300
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/story/hero_story.bytes
+    match_index: 2
+    payload_offset: 5116300
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/story/hero_story.bytes
+    match_index: 2
+    payload_offset: 5116300
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/story/hero_story.bytes
+    match_index: 2
+    payload_offset: 5116300
+    scenario: Scenario11
+- sha256: 263f713e23a9cf93425836c1f863caa2599dd4e90f5e91450a39f6886f5a89dd
+  variant_count: 23
+  stems:
+  - hero_story
+  script_lens:
+  - 2336
+  first_block_hex: 4fa5d492c2dd59f62397e342ed7e91c8
+  last_block_hex: 8c5a2ce258e585e58ace7d457f1db8a5
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+    match_index: 4
+    payload_offset: 5793660
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+    match_index: 4
+    payload_offset: 5793660
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+    match_index: 4
+    payload_offset: 5793660
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/story/hero_story.bytes
+    match_index: 4
+    payload_offset: 5793660
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/story/hero_story.bytes
+    match_index: 4
+    payload_offset: 5793660
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/story/hero_story.bytes
+    match_index: 4
+    payload_offset: 5793660
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/story/hero_story.bytes
+    match_index: 4
+    payload_offset: 5793660
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/story/hero_story.bytes
+    match_index: 4
+    payload_offset: 5793660
+    scenario: Scenario11
+- sha256: 2e33d04cef6460747aed052fb1477e354d75113b2ac52f9a47bedf6a3547ead3
+  variant_count: 23
+  stems:
+  - hero_story
+  script_lens:
+  - 2336
+  first_block_hex: 63ec91ee7e610aee175720ae1f8c1d53
+  last_block_hex: 10b693d8ab8e1fc2994294d4e29ffb82
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+    match_index: 0
+    payload_offset: 1166740
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+    match_index: 0
+    payload_offset: 1166740
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+    match_index: 0
+    payload_offset: 1166740
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/story/hero_story.bytes
+    match_index: 0
+    payload_offset: 1166740
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/story/hero_story.bytes
+    match_index: 0
+    payload_offset: 1166740
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/story/hero_story.bytes
+    match_index: 0
+    payload_offset: 1166740
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/story/hero_story.bytes
+    match_index: 0
+    payload_offset: 1166740
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/story/hero_story.bytes
+    match_index: 0
+    payload_offset: 1166740
+    scenario: Scenario11
+- sha256: 3640d99c933490a8fee12921d1f2305740bc52678a30c3345e21d2a756a18d23
+  variant_count: 23
+  stems:
+  - hero_propose
+  script_lens:
+  - 1792
+  first_block_hex: 134362bd5a10dbbf6c1fbb307eb6c389
+  last_block_hex: dfe590b8c881804465faaf13b0848783
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+    match_index: 6
+    payload_offset: 16428068
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+    match_index: 6
+    payload_offset: 16428068
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+    match_index: 6
+    payload_offset: 16428068
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+    match_index: 6
+    payload_offset: 16428068
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+    match_index: 6
+    payload_offset: 16428068
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+    match_index: 6
+    payload_offset: 16428068
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/hero_propose.bytes
+    match_index: 6
+    payload_offset: 16428068
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/hero_propose.bytes
+    match_index: 6
+    payload_offset: 16428068
+    scenario: Scenario11
+- sha256: 38564341017e0ceba2a6a24e3e7f3e64859e6232d05326a5b39eadd4484596e9
+  variant_count: 23
+  stems:
+  - hero_propose
+  script_lens:
+  - 2032
+  first_block_hex: 9529c909f222869a8f1d4860074ab8a5
+  last_block_hex: a5bf01ad32fb687c1cf14d24d7e19e79
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+    match_index: 0
+    payload_offset: 681164
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+    match_index: 0
+    payload_offset: 681164
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+    match_index: 0
+    payload_offset: 681164
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+    match_index: 0
+    payload_offset: 681164
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+    match_index: 0
+    payload_offset: 681164
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+    match_index: 0
+    payload_offset: 681164
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/hero_propose.bytes
+    match_index: 0
+    payload_offset: 681164
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/hero_propose.bytes
+    match_index: 0
+    payload_offset: 681164
+    scenario: Scenario11
+- sha256: 40fccac2c6b4336309c6e5a3770e8277b396c7ad4691981db02c4738e3b01e03
+  variant_count: 23
+  stems:
+  - super_skill
+  script_lens:
+  - 208
+  first_block_hex: 5b7abf2ef7fdfb27b21a8c8416baf54d
+  last_block_hex: 6a8ea0f7606f347d73b8faf4e77f15b5
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+    match_index: 6
+    payload_offset: 9253500
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+    match_index: 6
+    payload_offset: 9253500
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+    match_index: 6
+    payload_offset: 9253500
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+    match_index: 6
+    payload_offset: 9253500
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+    match_index: 6
+    payload_offset: 9253500
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+    match_index: 6
+    payload_offset: 9253500
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/skill/super_skill.bytes
+    match_index: 6
+    payload_offset: 9253500
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/skill/super_skill.bytes
+    match_index: 6
+    payload_offset: 9253500
+    scenario: Scenario11
+- sha256: 4d80d39aae35a440a226ec4f9fecfc2b319f406553f834b29abc3327773be69e
+  variant_count: 23
+  stems:
+  - super_skill
+  script_lens:
+  - 208
+  first_block_hex: 1df2659d30ec64c01734750f63d651ab
+  last_block_hex: 110f59868f7d500129f494b1056bba1d
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+    match_index: 1
+    payload_offset: 634604
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+    match_index: 1
+    payload_offset: 634604
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+    match_index: 1
+    payload_offset: 634604
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+    match_index: 1
+    payload_offset: 634604
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+    match_index: 1
+    payload_offset: 634604
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+    match_index: 1
+    payload_offset: 634604
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/skill/super_skill.bytes
+    match_index: 1
+    payload_offset: 634604
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/skill/super_skill.bytes
+    match_index: 1
+    payload_offset: 634604
+    scenario: Scenario11
+- sha256: 50402504d7947dae2b777d45c44eb3eb785781f6b4dc30d3aad9a6df988aedd2
+  variant_count: 23
+  stems:
+  - hero_story
+  script_lens:
+  - 2336
+  first_block_hex: 63ec91ee7e610aee175720ae1f8c1d53
+  last_block_hex: bec49b75791bc175e3eebe3683dbb656
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+    match_index: 3
+    payload_offset: 5778796
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+    match_index: 3
+    payload_offset: 5778796
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+    match_index: 3
+    payload_offset: 5778796
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/story/hero_story.bytes
+    match_index: 3
+    payload_offset: 5778796
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/story/hero_story.bytes
+    match_index: 3
+    payload_offset: 5778796
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/story/hero_story.bytes
+    match_index: 3
+    payload_offset: 5778796
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/story/hero_story.bytes
+    match_index: 3
+    payload_offset: 5778796
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/story/hero_story.bytes
+    match_index: 3
+    payload_offset: 5778796
+    scenario: Scenario11
+- sha256: 56107dd9530eddb9398504b881cd3857d81aa231f883c3c16cb6055bf0e6f0ce
+  variant_count: 23
+  stems:
+  - hero_propose
+  script_lens:
+  - 1808
+  first_block_hex: e5e315ce8bed00a7ca39d8734aa9ada6
+  last_block_hex: 660208a069b94b840d91fd8f2dd0deba
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+    match_index: 9
+    payload_offset: 18943324
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+    match_index: 9
+    payload_offset: 18943324
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+    match_index: 9
+    payload_offset: 18943324
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+    match_index: 9
+    payload_offset: 18943324
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+    match_index: 9
+    payload_offset: 18943324
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+    match_index: 9
+    payload_offset: 18943324
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/hero_propose.bytes
+    match_index: 9
+    payload_offset: 18943324
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/hero_propose.bytes
+    match_index: 9
+    payload_offset: 18943324
+    scenario: Scenario11
+- sha256: 5779192589163fb3e5130adcb08ec384fa30a06067caf6707cf212d5ee319b98
+  variant_count: 23
+  stems:
+  - super_skill
+  script_lens:
+  - 208
+  first_block_hex: 5b7abf2ef7fdfb27b21a8c8416baf54d
+  last_block_hex: 9e4c7100f5b90545b690c6c11617d87a
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+    match_index: 3
+    payload_offset: 4525964
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+    match_index: 3
+    payload_offset: 4525964
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+    match_index: 3
+    payload_offset: 4525964
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+    match_index: 3
+    payload_offset: 4525964
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+    match_index: 3
+    payload_offset: 4525964
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+    match_index: 3
+    payload_offset: 4525964
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/skill/super_skill.bytes
+    match_index: 3
+    payload_offset: 4525964
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/skill/super_skill.bytes
+    match_index: 3
+    payload_offset: 4525964
+    scenario: Scenario11
+- sha256: 5b4b3488420dceadb57d7357c0bcba2e35fb552eb80aa4869aa7183d9355c3b4
+  variant_count: 23
+  stems:
+  - hero_propose
+  script_lens:
+  - 1808
+  first_block_hex: e5e315ce8bed00a7ca39d8734aa9ada6
+  last_block_hex: fad833a71cae80cf6a0a8f0b333686a5
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+    match_index: 5
+    payload_offset: 15410444
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+    match_index: 5
+    payload_offset: 15410444
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+    match_index: 5
+    payload_offset: 15410444
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+    match_index: 5
+    payload_offset: 15410444
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+    match_index: 5
+    payload_offset: 15410444
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+    match_index: 5
+    payload_offset: 15410444
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/hero_propose.bytes
+    match_index: 5
+    payload_offset: 15410444
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/hero_propose.bytes
+    match_index: 5
+    payload_offset: 15410444
+    scenario: Scenario11
+- sha256: 6b3682aca17bb1cb51c3483697437d01230d3112fdb08bf28780c12e0a39de29
+  variant_count: 23
+  stems:
+  - army_config
+  script_lens:
+  - 18368
+  first_block_hex: 336589227bc2c98633e65e68ca4734d0
+  last_block_hex: 11e1754c767882536ad98a1c4c58d36f
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/army/army_config.bytes
+    match_index: 7
+    payload_offset: 9617828
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/army/army_config.bytes
+    match_index: 7
+    payload_offset: 9617828
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/army/army_config.bytes
+    match_index: 7
+    payload_offset: 9617828
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/army/army_config.bytes
+    match_index: 7
+    payload_offset: 9617828
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/army/army_config.bytes
+    match_index: 7
+    payload_offset: 9617828
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/army/army_config.bytes
+    match_index: 7
+    payload_offset: 9617828
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/army/army_config.bytes
+    match_index: 7
+    payload_offset: 9617828
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/army/army_config.bytes
+    match_index: 7
+    payload_offset: 9617828
+    scenario: Scenario11
+- sha256: 6da1fd6ff47dba4deb5eca066470ec0b7ee986868c9d6b4ae8290ecfaf5a57d0
+  variant_count: 23
+  stems:
+  - hero_propose
+  script_lens:
+  - 2032
+  first_block_hex: 9529c909f222869a8f1d4860074ab8a5
+  last_block_hex: ebf7f9b6e636561ed6a72b76f9e936fb
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+    match_index: 3
+    payload_offset: 11019748
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+    match_index: 3
+    payload_offset: 11019748
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+    match_index: 3
+    payload_offset: 11019748
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+    match_index: 3
+    payload_offset: 11019748
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+    match_index: 3
+    payload_offset: 11019748
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+    match_index: 3
+    payload_offset: 11019748
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/hero_propose.bytes
+    match_index: 3
+    payload_offset: 11019748
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/hero_propose.bytes
+    match_index: 3
+    payload_offset: 11019748
+    scenario: Scenario11
+- sha256: 6f013eb32aac66554b62af36d6f715892ebfbf5679629da426c46c090a548303
+  variant_count: 23
+  stems:
+  - hero_propose
+  script_lens:
+  - 1808
+  first_block_hex: eeca3ef59fe212d812df7702d60a2fcb
+  last_block_hex: 544cf6125a51b6dbaea7709bd0d81baf
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+    match_index: 1
+    payload_offset: 1149124
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+    match_index: 1
+    payload_offset: 1149124
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+    match_index: 1
+    payload_offset: 1149124
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+    match_index: 1
+    payload_offset: 1149124
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+    match_index: 1
+    payload_offset: 1149124
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+    match_index: 1
+    payload_offset: 1149124
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/hero_propose.bytes
+    match_index: 1
+    payload_offset: 1149124
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/hero_propose.bytes
+    match_index: 1
+    payload_offset: 1149124
+    scenario: Scenario11
+- sha256: 74ba278a85f43bee8424f7a9be018a84f378dbc9f4e30d5cf94aa2516f72576d
+  variant_count: 23
+  stems:
+  - hero_story
+  script_lens:
+  - 2336
+  first_block_hex: 63ec91ee7e610aee175720ae1f8c1d53
+  last_block_hex: 668b0835f6f3f9332c0b9460e00756dd
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+    match_index: 8
+    payload_offset: 11417796
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+    match_index: 8
+    payload_offset: 11417796
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+    match_index: 8
+    payload_offset: 11417796
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/story/hero_story.bytes
+    match_index: 8
+    payload_offset: 11417796
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/story/hero_story.bytes
+    match_index: 8
+    payload_offset: 11417796
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/story/hero_story.bytes
+    match_index: 8
+    payload_offset: 11417796
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/story/hero_story.bytes
+    match_index: 8
+    payload_offset: 11417796
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/story/hero_story.bytes
+    match_index: 8
+    payload_offset: 11417796
+    scenario: Scenario11
+- sha256: 7829f3467de86dd4ac0e619872488f567f72047b7a974a1f2208f6aebbf6860f
+  variant_count: 23
+  stems:
+  - super_skill
+  script_lens:
+  - 208
+  first_block_hex: a8a8daa3d71511a002c41199784d1bce
+  last_block_hex: d7778ad1bc271deedb3795d7311fff12
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+    match_index: 4
+    payload_offset: 4774364
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+    match_index: 4
+    payload_offset: 4774364
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+    match_index: 4
+    payload_offset: 4774364
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+    match_index: 4
+    payload_offset: 4774364
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+    match_index: 4
+    payload_offset: 4774364
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+    match_index: 4
+    payload_offset: 4774364
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/skill/super_skill.bytes
+    match_index: 4
+    payload_offset: 4774364
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/skill/super_skill.bytes
+    match_index: 4
+    payload_offset: 4774364
+    scenario: Scenario11
+- sha256: 7a2b67b42f1e4fe34f946fd7a7e6e72450c093d2cb0a0636a61ebc855c846455
+  variant_count: 23
+  stems:
+  - army_config
+  script_lens:
+  - 18336
+  first_block_hex: 7903e687d613663244ba14831a92ab73
+  last_block_hex: 58c8adccd7d746b700f23aadcd117745
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/army/army_config.bytes
+    match_index: 8
+    payload_offset: 14951156
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/army/army_config.bytes
+    match_index: 8
+    payload_offset: 14951156
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/army/army_config.bytes
+    match_index: 8
+    payload_offset: 14951156
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/army/army_config.bytes
+    match_index: 8
+    payload_offset: 14951156
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/army/army_config.bytes
+    match_index: 8
+    payload_offset: 14951156
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/army/army_config.bytes
+    match_index: 8
+    payload_offset: 14951156
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/army/army_config.bytes
+    match_index: 8
+    payload_offset: 14951156
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/army/army_config.bytes
+    match_index: 8
+    payload_offset: 14951156
+    scenario: Scenario11
+- sha256: a49053130953c8762b2758611356f1317495359d635eea9e3914aeb7370596f8
+  variant_count: 23
+  stems:
+  - hero_propose
+  script_lens:
+  - 1808
+  first_block_hex: e5e315ce8bed00a7ca39d8734aa9ada6
+  last_block_hex: 63c0ecfd561e67d342d3f4f17b392250
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+    match_index: 4
+    payload_offset: 12779564
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+    match_index: 4
+    payload_offset: 12779564
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+    match_index: 4
+    payload_offset: 12779564
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+    match_index: 4
+    payload_offset: 12779564
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+    match_index: 4
+    payload_offset: 12779564
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+    match_index: 4
+    payload_offset: 12779564
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/hero_propose.bytes
+    match_index: 4
+    payload_offset: 12779564
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/hero_propose.bytes
+    match_index: 4
+    payload_offset: 12779564
+    scenario: Scenario11
+- sha256: b0c0f9534dbfaeb1969c7c5352e3c69997a0b978ebe70019670adf9341f41fbf
+  variant_count: 23
+  stems:
+  - army_config
+  script_lens:
+  - 18368
+  first_block_hex: 336589227bc2c98633e65e68ca4734d0
+  last_block_hex: 2ebcef1c6abfa05ce83c86966a1e21c4
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/army/army_config.bytes
+    match_index: 4
+    payload_offset: 6993796
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/army/army_config.bytes
+    match_index: 4
+    payload_offset: 6993796
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/army/army_config.bytes
+    match_index: 4
+    payload_offset: 6993796
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/army/army_config.bytes
+    match_index: 4
+    payload_offset: 6993796
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/army/army_config.bytes
+    match_index: 4
+    payload_offset: 6993796
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/army/army_config.bytes
+    match_index: 4
+    payload_offset: 6993796
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/army/army_config.bytes
+    match_index: 4
+    payload_offset: 6993796
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/army/army_config.bytes
+    match_index: 4
+    payload_offset: 6993796
+    scenario: Scenario11
+- sha256: b88b9448fa6fc0a490be2a8b8b1ada08fcb17624c476be8030eecb75df4b1448
+  variant_count: 23
+  stems:
+  - super_skill
+  script_lens:
+  - 208
+  first_block_hex: 5b7abf2ef7fdfb27b21a8c8416baf54d
+  last_block_hex: 676fc575377029ff380f4eb564bab970
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+    match_index: 2
+    payload_offset: 3591340
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+    match_index: 2
+    payload_offset: 3591340
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+    match_index: 2
+    payload_offset: 3591340
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+    match_index: 2
+    payload_offset: 3591340
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+    match_index: 2
+    payload_offset: 3591340
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+    match_index: 2
+    payload_offset: 3591340
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/skill/super_skill.bytes
+    match_index: 2
+    payload_offset: 3591340
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/skill/super_skill.bytes
+    match_index: 2
+    payload_offset: 3591340
+    scenario: Scenario11
+- sha256: bd9da34f2cfdfb93483b17ec339392c608f98a3a4f86931ba317563591a2d935
+  variant_count: 23
+  stems:
+  - super_skill
+  script_lens:
+  - 208
+  first_block_hex: 096cc9f5702ad49a09f19ef9c1941a73
+  last_block_hex: c3467a9451ba6f9f6122bb734f3a1095
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+    match_index: 7
+    payload_offset: 9812004
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+    match_index: 7
+    payload_offset: 9812004
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+    match_index: 7
+    payload_offset: 9812004
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+    match_index: 7
+    payload_offset: 9812004
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+    match_index: 7
+    payload_offset: 9812004
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+    match_index: 7
+    payload_offset: 9812004
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/skill/super_skill.bytes
+    match_index: 7
+    payload_offset: 9812004
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/skill/super_skill.bytes
+    match_index: 7
+    payload_offset: 9812004
+    scenario: Scenario11
+- sha256: c5271337058ce7c6377fc1a41e5e7c9ee1073a6dc516a9576c44bb6576834eea
+  variant_count: 23
+  stems:
+  - super_skill
+  script_lens:
+  - 208
+  first_block_hex: 1df2659d30ec64c01734750f63d651ab
+  last_block_hex: ea750c593827831a969ddebb06fcfdea
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+    match_index: 9
+    payload_offset: 11433804
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+    match_index: 9
+    payload_offset: 11433804
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+    match_index: 9
+    payload_offset: 11433804
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+    match_index: 9
+    payload_offset: 11433804
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+    match_index: 9
+    payload_offset: 11433804
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+    match_index: 9
+    payload_offset: 11433804
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/skill/super_skill.bytes
+    match_index: 9
+    payload_offset: 11433804
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/skill/super_skill.bytes
+    match_index: 9
+    payload_offset: 11433804
+    scenario: Scenario11
+- sha256: c58c0eb11bf6d7c04cb2f43b5dd97c71444af20bdea55b1d57d78479354af7fd
+  variant_count: 23
+  stems:
+  - hero_story
+  script_lens:
+  - 2336
+  first_block_hex: c1858b7c40488f324b5782fea17a5969
+  last_block_hex: 028fc090b803c06971f00617db9ce608
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+    match_index: 5
+    payload_offset: 5849996
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+    match_index: 5
+    payload_offset: 5849996
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+    match_index: 5
+    payload_offset: 5849996
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/story/hero_story.bytes
+    match_index: 5
+    payload_offset: 5849996
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/story/hero_story.bytes
+    match_index: 5
+    payload_offset: 5849996
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/story/hero_story.bytes
+    match_index: 5
+    payload_offset: 5849996
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/story/hero_story.bytes
+    match_index: 5
+    payload_offset: 5849996
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/story/hero_story.bytes
+    match_index: 5
+    payload_offset: 5849996
+    scenario: Scenario11
+- sha256: d1e97f3004c6f5016203328d8d6ca4f0f74bfa4f8afb7a5079a24bcb1191160b
+  variant_count: 23
+  stems:
+  - hero_propose
+  script_lens:
+  - 1808
+  first_block_hex: eeca3ef59fe212d812df7702d60a2fcb
+  last_block_hex: 5e3d8e6c857e51125696c849439f3355
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+    match_index: 2
+    payload_offset: 4409124
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+    match_index: 2
+    payload_offset: 4409124
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+    match_index: 2
+    payload_offset: 4409124
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+    match_index: 2
+    payload_offset: 4409124
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+    match_index: 2
+    payload_offset: 4409124
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+    match_index: 2
+    payload_offset: 4409124
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/hero_propose.bytes
+    match_index: 2
+    payload_offset: 4409124
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/hero_propose.bytes
+    match_index: 2
+    payload_offset: 4409124
+    scenario: Scenario11
+- sha256: d78f2221e049525baa21961cfa622db8bfde9f3129597626b5a5d311a992e534
+  variant_count: 23
+  stems:
+  - hero_propose
+  script_lens:
+  - 1808
+  first_block_hex: e5e315ce8bed00a7ca39d8734aa9ada6
+  last_block_hex: 4d93f0e3db8925f4a5ce0c37d7f20bef
+  sample_refs:
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+    match_index: 7
+    payload_offset: 17774484
+    scenario: Scenario1
+  - path: Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+    match_index: 7
+    payload_offset: 17774484
+    scenario: Scenario10
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+    match_index: 7
+    payload_offset: 17774484
+    scenario: Scenario1000
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+    match_index: 7
+    payload_offset: 17774484
+    scenario: Scenario1001
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+    match_index: 7
+    payload_offset: 17774484
+    scenario: Scenario1002
+  - path: Assets/Bundles/LuaScripts/Data/Scenario1003/hero_propose.bytes
+    match_index: 7
+    payload_offset: 17774484
+    scenario: Scenario1003
+  - path: Assets/Bundles/LuaScripts/Data/Scenario103/hero_propose.bytes
+    match_index: 7
+    payload_offset: 17774484
+    scenario: Scenario103
+  - path: Assets/Bundles/LuaScripts/Data/Scenario11/hero_propose.bytes
+    match_index: 7
+    payload_offset: 17774484
+    scenario: Scenario11
+block_sharing_summary:
+  unique_ciphertext_hash_count: 52
+  total_unique_16byte_blocks: 23361
+  cross_cipher_shared_16byte_block_count: 55
+  shared_block_samples:
+  - block_hex: 02452d608f89c8d44439c2e5d1308b65
+    ciphertext_hash_count: 2
+    sample_stems:
+    - army_config
+  - block_hex: 10a80ce83a4a8cddedcaee9f1569aee2
+    ciphertext_hash_count: 2
+    sample_stems:
+    - hero_propose
+  - block_hex: 10d4860060e681a4f52abfcbdfd72f34
+    ciphertext_hash_count: 2
+    sample_stems:
+    - army_config
+  - block_hex: 126afb90ef8bed72d1a0e5d2d2a76081
+    ciphertext_hash_count: 2
+    sample_stems:
+    - army_config
+  - block_hex: 144d3aef85969b320cd806647ff5660e
+    ciphertext_hash_count: 6
+    sample_stems:
+    - army_config
+  - block_hex: 1df2659d30ec64c01734750f63d651ab
+    ciphertext_hash_count: 2
+    sample_stems:
+    - super_skill
+  - block_hex: 213c131ee9424297d1cb2258f7047818
+    ciphertext_hash_count: 2
+    sample_stems:
+    - hero_propose
+  - block_hex: 2ef2ef2e280443b9ead4019aa8ea0aa7
+    ciphertext_hash_count: 5
+    sample_stems:
+    - hero_propose
+  - block_hex: 336589227bc2c98633e65e68ca4734d0
+    ciphertext_hash_count: 6
+    sample_stems:
+    - army_config
+  - block_hex: 35eb7bcc820beaabbbd29aefc854b5df
+    ciphertext_hash_count: 2
+    sample_stems:
+    - army_config
+  - block_hex: 36520b056b8afffff37e699d22f3df24
+    ciphertext_hash_count: 2
+    sample_stems:
+    - hero_story
+  - block_hex: 3a3b857a6418ab55f78ef1b4b444a1c3
+    ciphertext_hash_count: 5
+    sample_stems:
+    - super_skill
+offset_skip_probe_summary:
+  skips_tested:
+  - 0
+  - 4
+  - 8
+  - 12
+  - 16
+  - 20
+  - 24
+  - 32
+  - 48
+  - 64
+  variant_count: 932
+  decompression_success_count: 0
+  plaintext_hit_count: 0
+  high_printable_candidate_count: 0
+  decompression_successes: []
+  plaintext_hits: []
+  best_printable_samples:
+  - stem: super_skill
+    path: Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+    match_index: 8
+    skip: 64
+    printable_score: 0.5139
+    term_hits: 0
+  - stem: super_skill
+    path: Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+    match_index: 8
+    skip: 64
+    printable_score: 0.5139
+    term_hits: 0
+  - stem: super_skill
+    path: Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+    match_index: 8
+    skip: 64
+    printable_score: 0.5139
+    term_hits: 0
+  - stem: super_skill
+    path: Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+    match_index: 8
+    skip: 64
+    printable_score: 0.5139
+    term_hits: 0
+  - stem: super_skill
+    path: Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+    match_index: 8
+    skip: 64
+    printable_score: 0.5139
+    term_hits: 0
+  - stem: super_skill
+    path: Assets/Bundles/LuaScripts/Data/Scenario1003/skill/super_skill.bytes
+    match_index: 8
+    skip: 64
+    printable_score: 0.5139
+    term_hits: 0
+  - stem: super_skill
+    path: Assets/Bundles/LuaScripts/Data/Scenario103/skill/super_skill.bytes
+    match_index: 8
+    skip: 64
+    printable_score: 0.5139
+    term_hits: 0
+  - stem: super_skill
+    path: Assets/Bundles/LuaScripts/Data/Scenario11/skill/super_skill.bytes
+    match_index: 8
+    skip: 64
+    printable_score: 0.5139
+    term_hits: 0
+  - stem: super_skill
+    path: Assets/Bundles/LuaScripts/Data/Scenario12/skill/super_skill.bytes
+    match_index: 8
+    skip: 64
+    printable_score: 0.5139
+    term_hits: 0
+  - stem: super_skill
+    path: Assets/Bundles/LuaScripts/Data/Scenario13/skill/super_skill.bytes
+    match_index: 8
+    skip: 64
+    printable_score: 0.5139
+    term_hits: 0
+  - stem: super_skill
+    path: Assets/Bundles/LuaScripts/Data/Scenario14/skill/super_skill.bytes
+    match_index: 8
+    skip: 64
+    printable_score: 0.5139
+    term_hits: 0
+  - stem: super_skill
+    path: Assets/Bundles/LuaScripts/Data/Scenario16/skill/super_skill.bytes
+    match_index: 8
+    skip: 64
+    printable_score: 0.5139
+    term_hits: 0
+  - stem: super_skill
+    path: Assets/Bundles/LuaScripts/Data/Scenario2/skill/super_skill.bytes
+    match_index: 8
+    skip: 64
+    printable_score: 0.5139
+    term_hits: 0
+  - stem: super_skill
+    path: Assets/Bundles/LuaScripts/Data/Scenario2001/skill/super_skill.bytes
+    match_index: 8
+    skip: 64
+    printable_score: 0.5139
+    term_hits: 0
+  - stem: super_skill
+    path: Assets/Bundles/LuaScripts/Data/Scenario3/skill/super_skill.bytes
+    match_index: 8
+    skip: 64
+    printable_score: 0.5139
+    term_hits: 0
+  - stem: super_skill
+    path: Assets/Bundles/LuaScripts/Data/Scenario3001/skill/super_skill.bytes
+    match_index: 8
+    skip: 64
+    printable_score: 0.5139
+    term_hits: 0
+same_length_hamming_summary:
+- stem: hero_story
+  script_len: 2336
+  variant_count: 230
+  unique_ciphertext_hash_count: 10
+  pair_count: 45
+  first512_hamming_min: 0.4087
+  first512_hamming_avg: 0.4817
+  first512_hamming_max: 0.5181
+- stem: super_skill
+  script_len: 208
+  variant_count: 207
+  unique_ciphertext_hash_count: 9
+  pair_count: 36
+  first512_hamming_min: 0.2909
+  first512_hamming_avg: 0.4423
+  first512_hamming_max: 0.5168
+- stem: army_config
+  script_len: 18368
+  variant_count: 184
+  unique_ciphertext_hash_count: 8
+  pair_count: 28
+  first512_hamming_min: 0.4067
+  first512_hamming_avg: 0.4585
+  first512_hamming_max: 0.5171
+- stem: hero_propose
+  script_len: 1808
+  variant_count: 161
+  unique_ciphertext_hash_count: 7
+  pair_count: 21
+  first512_hamming_min: 0.4097
+  first512_hamming_avg: 0.4591
+  first512_hamming_max: 0.5115
+- stem: hero_propose
+  script_len: 2032
+  variant_count: 46
+  unique_ciphertext_hash_count: 2
+  pair_count: 1
+  first512_hamming_min: 0.4119
+  first512_hamming_avg: 0.4119
+  first512_hamming_max: 0.4119
+prior_route_context:
+  round162_payload_profile_count: 16
+  round162_lua_payload_decoder_recovered: false
+  round163_textasset_to_loadbuffer_owner_proven: false
+route_conclusion:
+  lua_payload_decoder_recovered: false
+  expanded_variant_corpus_count: 932
+  duplicate_ciphertext_present: true
+  cross_cipher_shared_16byte_block_signal: true
+  offset_skip_plaintext_or_compression_found: false
+  likely_plain_header_or_iv_stripped_layout: false
+  simple_offset_skip_route_ruled_out: true
+  round162_decoder_recovered: false
+  round163_textasset_to_loadbuffer_owner_proven: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: Expanded corpus covers 932 encrypted TextAsset variants
+    across 16 stems and 23 scenarios; duplicate ciphertext groups exist inside repeated
+    asset variants, which makes this corpus useful as decoder test/eval material.
+  strongest_negative_signal: No tested offset skip exposes Lua bytecode/source terms,
+    high-printable plaintext, or standard zlib/gzip/lzma/bz2 payloads; cross-cipher
+    shared 16-byte block count remains too weak to promote an ECB/static-block route.
+  search_policy: Stop trying simple header/IV stripping on the static payload corpus;
+    use the 932-variant corpus as decoder validation data and continue with provenance-backed
+    native buffer-owner tracing.
+next_decoder_targets:
+- Prioritize locating the native owner that receives the TextAsset script buffer;
+  expanded corpus evidence does not reveal a skip-header plaintext layout.
+- Use same-stem same-length variant groups as a future dynamic/eval corpus once a
+  candidate decoder exists.
+- Do not spend more time on offset-skip decompression/plaintext probes unless new
+  payload families appear.
+- Keep NEP2 InitLuaScriptsScan / CGameProtector evidence as route metadata only until
+  payload-buffer ownership is attached.
+limitations:
+- Offline/static CAB payload corpus scan only; no live Frida, runtime attach, account
+  data, credentials, or online protocol were used.
+- The scan expands encrypted TextAsset variants and does not decode LuaScripts payloads.
+- Absence of skip-header plaintext/decompression does not rule out keyed AES, stream
+  ciphers, compressed-then-encrypted payloads, or runtime-derived keys.
+- Duplicate ciphertext groups prove reused encrypted payload bytes, not gameplay semantics.
+evidence_refs:
+- NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:army_config
+- NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:battle_record
+- NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:battle_replay
+- NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:battle_reports
+- NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:custom_hero
+- NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:hero_propose
+- NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:hero_story
+- NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:hero_talent
+- NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:heros
+- NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:lineup_assistant
+- NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:sandbox_battle_config
+- NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:scene_building_skill
+- NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:skills
+- NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:super_skill
+- NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:warbook
+- NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:water_battle
+guardrails:
+- offline/static LuaScripts payload corpus evidence only; no live instrumentation,
+  account data, or online protocol data is included
+- absolute local paths are not persisted; only file names, asset-bundle paths, offsets,
+  counts, and hashes are stored
+- expanded encrypted payload corpus is decoder planning/eval evidence, not reviewed
+  game knowledge
+- no decoded LuaScripts gameplay configuration is promoted from this artifact

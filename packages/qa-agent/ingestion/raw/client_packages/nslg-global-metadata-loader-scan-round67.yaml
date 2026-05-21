@@ -1,0 +1,3022 @@
+schema_version: nslg.global_metadata_loader_scan.v1
+source_id: global-metadata-loader-mutation-scan-round67
+source_url: local-nslg-client-global-metadata-loader-mutation-scan
+source_site: nslg_client_global_metadata_loader_mutation
+generated_at: '2026-05-20T16:27:44.190108Z'
+round: 168
+slice: global_metadata_loader_mutation_static_scan
+input_artifacts:
+- file_name: runtime_init_metadata_route_round164.json
+  sha256: d5e6ca663a4b1f8aa64f4284302e7eeac7a98e05217bc0cf7e2d28a46ddd29b3
+  missing: false
+- file_name: gameassembly_resolver_candidate_trace_round165.json
+  sha256: d2ffc1ee94d7742b8f754a6d139c2474195683cf92d8f950c4f650164add5694
+  missing: false
+- file_name: gameassembly_resolver_caller_payload_trace_round166.json
+  sha256: cdf7eec679db59848294561884e80c58c67ed4e6847b858135494475ce53dc7f
+  missing: false
+- file_name: global_metadata_transform_probe_round167.json
+  sha256: 2f13c2d0a455da2e4569473f0f5048ff6b70c9880fdd2cc1d9e876f9a4812ac8
+  missing: false
+- file_name: nep2_import_owner_graph_round119.json
+  sha256: 756bf49ff5706f397d0b271a5fe6bbc6be20ea96fa3af2797106e055d6b26448
+  missing: false
+- file_name: metadata_magic_use_site_scan_round73.json
+  sha256: 45ffa7ca28d52c0b2a5fdf0b3aff273d60034810ec93f5a5210ed2da5ee31a80
+  missing: false
+metadata_wrapper:
+  magic: '0xfab11baf'
+  file_size: 21182776
+  payload_offset: 8
+  payload_size: 21182768
+  protected_first16: 4e e2 46 38 9c 68 40 1e 6f d0 ad 27 52 90 99 7b
+counts:
+  binary_count: 4
+  candidate_count: 554
+  full_loader_mutation_candidate_count: 0
+  file_16_candidate_count: 2
+  metadata_ref_candidate_count: 0
+  raw_hit_global_metadata_ascii: 2
+  raw_hit_global_metadata_short_ascii: 2
+  publishable_knowledge_entries: 0
+route_conclusion:
+  full_loader_mutation_candidate_found: false
+  file_api_16byte_candidates_found: true
+  metadata_reference_candidates_found: false
+  plaintext_metadata_recovered: false
+  init_lua_env_method_ownership_recovered: false
+  textasset_payload_owner_proven: false
+  lua_payload_decoder_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: Top file+16 route candidate is NEP2.dll 0xd410 with score
+    168 and read/mapping=False.
+  strongest_negative_signal: No inspected function combines file/mapping API provenance,
+    metadata wrapper/string evidence, +8 payload handling, and 16-byte/loop transform
+    evidence in one full loader-mutation gate.
+  search_policy: Deep-slice top NEP2 file+16 candidates and their callers, but require
+    metadata wrapper or payload-buffer provenance before promoting a decryptor route.
+binary_summaries:
+- binary_name: NEP2.dll
+  exists: true
+  sha256: 109b4af46054a534a4e3b815d022a9bd26709d5bd644cbba4c4d456d4b61f382
+  image_base: '0x180000000'
+  pdata_function_count: 42977
+  import_class_counts:
+    crypto_api: 27
+    file_or_mapping: 7
+    file_read_or_mapping: 5
+    memory_protect_alloc: 5
+    other: 351
+  raw_metadata_hit_counts:
+    global_metadata_ascii: 0
+    global_metadata_wide: 0
+    global_metadata_short_ascii: 0
+    magic_fab11baf_le: 0
+    metadata_file_size_le: 0
+    metadata_payload_size_le: 0
+    metadata_header_first16: 0
+    metadata_protected_first16: 0
+    metadata_protected_first32: 0
+  metadata_target_count: 0
+  instruction_totals:
+    instructions: 36997
+    endian_instruction: 3
+  candidate_count: 16
+  full_loader_mutation_candidate_count: 0
+  file_16_candidate_count: 2
+  metadata_ref_candidate_count: 0
+  top_candidates:
+  - binary: NEP2.dll
+    function:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+    score: 678
+    reasons:
+    - payload_or_disp8=1
+    - block16_or_align=2
+    - vector_signal=54/24/6
+    - logic_shift=8
+    classification:
+      has_file_api: false
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: true
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      mem_disp_8: 1
+      memory_write: 32
+      logic_shift_instruction: 8
+      vector_instruction: 54
+      vector_write: 24
+      non_stack_write: 6
+      non_stack_vector_write: 6
+      block_size_16: 2
+    import_refs: []
+    metadata_refs: []
+    constant_refs:
+    - rva: '0x121d7'
+      label: block_size_16
+      text: '000121d7: add      rax, 0x10'
+    - rva: '0x121ff'
+      label: block_size_16
+      text: '000121ff: add      rax, 0x10'
+    caller_samples:
+    - site: '0x3249'
+      caller:
+        begin: '0x2ff0'
+        end: '0x379b'
+        size: '0x7ab'
+      callee:
+        begin: '0x120c0'
+        end: '0x123d8'
+        size: '0x318'
+      target_rva: '0x120c0'
+    - site: '0x32a1'
+      caller:
+        begin: '0x2ff0'
+        end: '0x379b'
+        size: '0x7ab'
+      callee:
+        begin: '0x120c0'
+        end: '0x123d8'
+        size: '0x318'
+      target_rva: '0x120c0'
+    - site: '0x32f9'
+      caller:
+        begin: '0x2ff0'
+        end: '0x379b'
+        size: '0x7ab'
+      callee:
+        begin: '0x120c0'
+        end: '0x123d8'
+        size: '0x318'
+      target_rva: '0x120c0'
+    - site: '0x3401'
+      caller:
+        begin: '0x2ff0'
+        end: '0x379b'
+        size: '0x7ab'
+      callee:
+        begin: '0x120c0'
+        end: '0x123d8'
+        size: '0x318'
+      target_rva: '0x120c0'
+    - site: '0x3509'
+      caller:
+        begin: '0x2ff0'
+        end: '0x379b'
+        size: '0x7ab'
+      callee:
+        begin: '0x120c0'
+        end: '0x123d8'
+        size: '0x318'
+      target_rva: '0x120c0'
+    - site: '0x3561'
+      caller:
+        begin: '0x2ff0'
+        end: '0x379b'
+        size: '0x7ab'
+      callee:
+        begin: '0x120c0'
+        end: '0x123d8'
+        size: '0x318'
+      target_rva: '0x120c0'
+    - site: '0x3611'
+      caller:
+        begin: '0x2ff0'
+        end: '0x379b'
+        size: '0x7ab'
+      callee:
+        begin: '0x120c0'
+        end: '0x123d8'
+        size: '0x318'
+      target_rva: '0x120c0'
+    - site: '0x36c1'
+      caller:
+        begin: '0x2ff0'
+        end: '0x379b'
+        size: '0x7ab'
+      callee:
+        begin: '0x120c0'
+        end: '0x123d8'
+        size: '0x318'
+      target_rva: '0x120c0'
+    - site: '0x3719'
+      caller:
+        begin: '0x2ff0'
+        end: '0x379b'
+        size: '0x7ab'
+      callee:
+        begin: '0x120c0'
+        end: '0x123d8'
+        size: '0x318'
+      target_rva: '0x120c0'
+    - site: '0x7112'
+      caller:
+        begin: '0x6de0'
+        end: '0x7388'
+        size: '0x5a8'
+      callee:
+        begin: '0x120c0'
+        end: '0x123d8'
+        size: '0x318'
+      target_rva: '0x120c0'
+    - site: '0xe317'
+      caller:
+        begin: '0xe2a0'
+        end: '0xe3f2'
+        size: '0x152'
+      callee:
+        begin: '0x120c0'
+        end: '0x123d8'
+        size: '0x318'
+      target_rva: '0x120c0'
+    callee_samples:
+    - site: '0x120e8'
+      caller:
+        begin: '0x120c0'
+        end: '0x123d8'
+        size: '0x318'
+      callee:
+        begin: '0x35640'
+        end: '0x3565b'
+        size: '0x1b'
+      target_rva: '0x35640'
+    - site: '0x120ff'
+      caller:
+        begin: '0x120c0'
+        end: '0x123d8'
+        size: '0x318'
+      callee:
+        begin: '0x35640'
+        end: '0x3565b'
+        size: '0x1b'
+      target_rva: '0x35640'
+    - site: '0x12116'
+      caller:
+        begin: '0x120c0'
+        end: '0x123d8'
+        size: '0x318'
+      callee:
+        begin: '0x35640'
+        end: '0x3565b'
+        size: '0x1b'
+      target_rva: '0x35640'
+    - site: '0x1212d'
+      caller:
+        begin: '0x120c0'
+        end: '0x123d8'
+        size: '0x318'
+      callee:
+        begin: '0x35640'
+        end: '0x3565b'
+        size: '0x1b'
+      target_rva: '0x35640'
+    - site: '0x12144'
+      caller:
+        begin: '0x120c0'
+        end: '0x123d8'
+        size: '0x318'
+      callee:
+        begin: '0x35640'
+        end: '0x3565b'
+        size: '0x1b'
+      target_rva: '0x35640'
+    - site: '0x1215b'
+      caller:
+        begin: '0x120c0'
+        end: '0x123d8'
+        size: '0x318'
+      callee:
+        begin: '0x35640'
+        end: '0x3565b'
+        size: '0x1b'
+      target_rva: '0x35640'
+    - site: '0x123cb'
+      caller:
+        begin: '0x120c0'
+        end: '0x123d8'
+        size: '0x318'
+      callee:
+        begin: '0x48eab0'
+        end: '0x48eace'
+        size: '0x1e'
+      target_rva: '0x48eab0'
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:NEP2.dll:0x120c0
+  - binary: NEP2.dll
+    function:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    score: 464
+    reasons:
+    - payload_or_disp8=1
+    - block16_or_align=2
+    - vector_signal=36/16/4
+    - logic_shift=6
+    classification:
+      has_file_api: false
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: true
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      mem_disp_8: 1
+      memory_write: 22
+      logic_shift_instruction: 6
+      vector_instruction: 36
+      vector_write: 16
+      non_stack_write: 4
+      non_stack_vector_write: 4
+      block_size_16: 2
+    import_refs: []
+    metadata_refs: []
+    constant_refs:
+    - rva: '0x124c9'
+      label: block_size_16
+      text: '000124c9: add      rax, 0x10'
+    - rva: '0x124f1'
+      label: block_size_16
+      text: '000124f1: add      rax, 0x10'
+    caller_samples:
+    - site: '0x16b6'
+      caller:
+        begin: '0x1670'
+        end: '0x16dc'
+        size: '0x6c'
+      callee:
+        begin: '0x123e0'
+        end: '0x125f5'
+        size: '0x215'
+      target_rva: '0x123e0'
+    - site: '0x26aa'
+      caller:
+        begin: '0x25a0'
+        end: '0x2816'
+        size: '0x276'
+      callee:
+        begin: '0x123e0'
+        end: '0x125f5'
+        size: '0x215'
+      target_rva: '0x123e0'
+    - site: '0x2703'
+      caller:
+        begin: '0x25a0'
+        end: '0x2816'
+        size: '0x276'
+      callee:
+        begin: '0x123e0'
+        end: '0x125f5'
+        size: '0x215'
+      target_rva: '0x123e0'
+    - site: '0x275c'
+      caller:
+        begin: '0x25a0'
+        end: '0x2816'
+        size: '0x276'
+      callee:
+        begin: '0x123e0'
+        end: '0x125f5'
+        size: '0x215'
+      target_rva: '0x123e0'
+    - site: '0x295e'
+      caller:
+        begin: '0x2900'
+        end: '0x2a90'
+        size: '0x190'
+      callee:
+        begin: '0x123e0'
+        end: '0x125f5'
+        size: '0x215'
+      target_rva: '0x123e0'
+    - site: '0x29b4'
+      caller:
+        begin: '0x2900'
+        end: '0x2a90'
+        size: '0x190'
+      callee:
+        begin: '0x123e0'
+        end: '0x125f5'
+        size: '0x215'
+      target_rva: '0x123e0'
+    - site: '0x2aee'
+      caller:
+        begin: '0x2a90'
+        end: '0x2d84'
+        size: '0x2f4'
+      callee:
+        begin: '0x123e0'
+        end: '0x125f5'
+        size: '0x215'
+      target_rva: '0x123e0'
+    - site: '0x2b44'
+      caller:
+        begin: '0x2a90'
+        end: '0x2d84'
+        size: '0x2f4'
+      callee:
+        begin: '0x123e0'
+        end: '0x125f5'
+        size: '0x215'
+      target_rva: '0x123e0'
+    - site: '0x2b9d'
+      caller:
+        begin: '0x2a90'
+        end: '0x2d84'
+        size: '0x2f4'
+      callee:
+        begin: '0x123e0'
+        end: '0x125f5'
+        size: '0x215'
+      target_rva: '0x123e0'
+    - site: '0x2c4c'
+      caller:
+        begin: '0x2a90'
+        end: '0x2d84'
+        size: '0x2f4'
+      callee:
+        begin: '0x123e0'
+        end: '0x125f5'
+        size: '0x215'
+      target_rva: '0x123e0'
+    - site: '0x2ca5'
+      caller:
+        begin: '0x2a90'
+        end: '0x2d84'
+        size: '0x2f4'
+      callee:
+        begin: '0x123e0'
+        end: '0x125f5'
+        size: '0x215'
+      target_rva: '0x123e0'
+    - site: '0x2cfe'
+      caller:
+        begin: '0x2a90'
+        end: '0x2d84'
+        size: '0x2f4'
+      callee:
+        begin: '0x123e0'
+        end: '0x125f5'
+        size: '0x215'
+      target_rva: '0x123e0'
+    callee_samples:
+    - site: '0x12408'
+      caller:
+        begin: '0x123e0'
+        end: '0x125f5'
+        size: '0x215'
+      callee:
+        begin: '0x35640'
+        end: '0x3565b'
+        size: '0x1b'
+      target_rva: '0x35640'
+    - site: '0x1241f'
+      caller:
+        begin: '0x123e0'
+        end: '0x125f5'
+        size: '0x215'
+      callee:
+        begin: '0x35640'
+        end: '0x3565b'
+        size: '0x1b'
+      target_rva: '0x35640'
+    - site: '0x12436'
+      caller:
+        begin: '0x123e0'
+        end: '0x125f5'
+        size: '0x215'
+      callee:
+        begin: '0x35640'
+        end: '0x3565b'
+        size: '0x1b'
+      target_rva: '0x35640'
+    - site: '0x1244d'
+      caller:
+        begin: '0x123e0'
+        end: '0x125f5'
+        size: '0x215'
+      callee:
+        begin: '0x35640'
+        end: '0x3565b'
+        size: '0x1b'
+      target_rva: '0x35640'
+    - site: '0x125e8'
+      caller:
+        begin: '0x123e0'
+        end: '0x125f5'
+        size: '0x215'
+      callee:
+        begin: '0x48eab0'
+        end: '0x48eace'
+        size: '0x1e'
+      target_rva: '0x48eab0'
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:NEP2.dll:0x123e0
+  - binary: NEP2.dll
+    function:
+      begin: '0x8310'
+      end: '0x8454'
+      size: '0x144'
+    score: 297
+    reasons:
+    - payload_or_disp8=1
+    - block16_or_align=3
+    - vector_signal=31/10/1
+    - backward_branch=1
+    - logic_shift=2
+    classification:
+      has_file_api: false
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: true
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      mem_disp_16: 4
+      memory_write: 16
+      mem_disp_8: 1
+      vector_instruction: 31
+      vector_write: 10
+      block_size_16: 3
+      logic_shift_instruction: 2
+      non_stack_write: 1
+      non_stack_vector_write: 1
+      backward_branch: 1
+    import_refs: []
+    metadata_refs: []
+    constant_refs:
+    - rva: '0x836e'
+      label: block_size_16
+      text: '0000836e: imul     rax, qword ptr [rsp], 0x10'
+    - rva: '0x83a6'
+      label: block_size_16
+      text: '000083a6: imul     rax, qword ptr [rsp], 0x10'
+    - rva: '0x8438'
+      label: block_size_16
+      text: '00008438: imul     rax, qword ptr [rsp], 0x10'
+    caller_samples: []
+    callee_samples: []
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:NEP2.dll:0x8310
+  - binary: NEP2.dll
+    function:
+      begin: '0x81e0'
+      end: '0x8306'
+      size: '0x126'
+    score: 256
+    reasons:
+    - payload_or_disp8=1
+    - block16_or_align=4
+    - vector_signal=22/8/1
+    - backward_branch=1
+    - logic_shift=1
+    classification:
+      has_file_api: false
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: true
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      memory_write: 16
+      mem_disp_16: 4
+      mem_disp_8: 1
+      block_size_16: 4
+      vector_instruction: 22
+      vector_write: 8
+      logic_shift_instruction: 1
+      non_stack_write: 1
+      non_stack_vector_write: 1
+      backward_branch: 1
+    import_refs: []
+    metadata_refs: []
+    constant_refs:
+    - rva: '0x823d'
+      label: block_size_16
+      text: '0000823d: imul     rax, qword ptr [rsp], 0x10'
+    - rva: '0x8257'
+      label: block_size_16
+      text: '00008257: imul     rax, qword ptr [rsp], 0x10'
+    - rva: '0x82ba'
+      label: block_size_16
+      text: '000082ba: imul     rax, qword ptr [rsp], 0x10'
+    - rva: '0x82ea'
+      label: block_size_16
+      text: '000082ea: imul     rax, qword ptr [rsp], 0x10'
+    caller_samples: []
+    callee_samples: []
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:NEP2.dll:0x81e0
+  - binary: NEP2.dll
+    function:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+    score: 250
+    reasons:
+    - payload_or_disp8=1
+    - block16_or_align=2
+    - vector_signal=18/8/2
+    - logic_shift=4
+    classification:
+      has_file_api: false
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: true
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      mem_disp_8: 1
+      memory_write: 12
+      logic_shift_instruction: 4
+      vector_instruction: 18
+      vector_write: 8
+      non_stack_write: 2
+      non_stack_vector_write: 2
+      block_size_16: 2
+    import_refs: []
+    metadata_refs: []
+    constant_refs:
+    - rva: '0x1072c'
+      label: block_size_16
+      text: '0001072c: add      rax, 0x10'
+    - rva: '0x10754'
+      label: block_size_16
+      text: '00010754: add      rax, 0x10'
+    caller_samples:
+    - site: '0x1956'
+      caller:
+        begin: '0x1910'
+        end: '0x197c'
+        size: '0x6c'
+      callee:
+        begin: '0x10670'
+        end: '0x10782'
+        size: '0x112'
+      target_rva: '0x10670'
+    - site: '0x19c6'
+      caller:
+        begin: '0x1980'
+        end: '0x19ec'
+        size: '0x6c'
+      callee:
+        begin: '0x10670'
+        end: '0x10782'
+        size: '0x112'
+      target_rva: '0x10670'
+    - site: '0x25fb'
+      caller:
+        begin: '0x25a0'
+        end: '0x2816'
+        size: '0x276'
+      callee:
+        begin: '0x10670'
+        end: '0x10782'
+        size: '0x112'
+      target_rva: '0x10670'
+    - site: '0x2651'
+      caller:
+        begin: '0x25a0'
+        end: '0x2816'
+        size: '0x276'
+      callee:
+        begin: '0x10670'
+        end: '0x10782'
+        size: '0x112'
+      target_rva: '0x10670'
+    - site: '0x2a0a'
+      caller:
+        begin: '0x2900'
+        end: '0x2a90'
+        size: '0x190'
+      callee:
+        begin: '0x10670'
+        end: '0x10782'
+        size: '0x112'
+      target_rva: '0x10670'
+    - site: '0x2bf3'
+      caller:
+        begin: '0x2a90'
+        end: '0x2d84'
+        size: '0x2f4'
+      callee:
+        begin: '0x10670'
+        end: '0x10782'
+        size: '0x112'
+      target_rva: '0x10670'
+    - site: '0x2efa'
+      caller:
+        begin: '0x2df0'
+        end: '0x2f80'
+        size: '0x190'
+      callee:
+        begin: '0x10670'
+        end: '0x10782'
+        size: '0x112'
+      target_rva: '0x10670'
+    - site: '0x6e8b'
+      caller:
+        begin: '0x6de0'
+        end: '0x7388'
+        size: '0x5a8'
+      callee:
+        begin: '0x10670'
+        end: '0x10782'
+        size: '0x112'
+      target_rva: '0x10670'
+    - site: '0x6f3d'
+      caller:
+        begin: '0x6de0'
+        end: '0x7388'
+        size: '0x5a8'
+      callee:
+        begin: '0x10670'
+        end: '0x10782'
+        size: '0x112'
+      target_rva: '0x10670'
+    - site: '0x6fef'
+      caller:
+        begin: '0x6de0'
+        end: '0x7388'
+        size: '0x5a8'
+      callee:
+        begin: '0x10670'
+        end: '0x10782'
+        size: '0x112'
+      target_rva: '0x10670'
+    - site: '0x70a4'
+      caller:
+        begin: '0x6de0'
+        end: '0x7388'
+        size: '0x5a8'
+      callee:
+        begin: '0x10670'
+        end: '0x10782'
+        size: '0x112'
+      target_rva: '0x10670'
+    - site: '0x7162'
+      caller:
+        begin: '0x6de0'
+        end: '0x7388'
+        size: '0x5a8'
+      callee:
+        begin: '0x10670'
+        end: '0x10782'
+        size: '0x112'
+      target_rva: '0x10670'
+    callee_samples:
+    - site: '0x10698'
+      caller:
+        begin: '0x10670'
+        end: '0x10782'
+        size: '0x112'
+      callee:
+        begin: '0x35640'
+        end: '0x3565b'
+        size: '0x1b'
+      target_rva: '0x35640'
+    - site: '0x106af'
+      caller:
+        begin: '0x10670'
+        end: '0x10782'
+        size: '0x112'
+      callee:
+        begin: '0x35640'
+        end: '0x3565b'
+        size: '0x1b'
+      target_rva: '0x35640'
+    - site: '0x10775'
+      caller:
+        begin: '0x10670'
+        end: '0x10782'
+        size: '0x112'
+      callee:
+        begin: '0x48eab0'
+        end: '0x48eace'
+        size: '0x1e'
+      target_rva: '0x48eab0'
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:NEP2.dll:0x10670
+  - binary: NEP2.dll
+    function:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    score: 168
+    reasons:
+    - file_api_ref=2
+    - payload_or_disp8=1
+    - block16_or_align=1
+    - backward_branch=3
+    - logic_shift=5
+    classification:
+      has_file_api: true
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: true
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      mem_disp_16: 1
+      memory_write: 16
+      mem_disp_8: 1
+      logic_shift_instruction: 5
+      import_class_file_or_mapping: 2
+      file_api_ref: 2
+      backward_branch: 3
+      block_size_16: 1
+      non_stack_write: 1
+      import_class_other: 1
+    import_refs:
+    - rva: '0xd555'
+      import: KERNEL32.dll!FindFirstFileW
+      class: file_or_mapping
+      text: '0000d555: call     qword ptr [rip + 0x6e5285]'
+    - rva: '0xd6ba'
+      import: KERNEL32.dll!FindNextFileW
+      class: file_or_mapping
+      text: '0000d6ba: call     qword ptr [rip + 0x6e5118]'
+    metadata_refs: []
+    constant_refs:
+    - rva: '0xd611'
+      label: block_size_16
+      text: '0000d611: and      eax, 0x10'
+    caller_samples:
+    - site: '0xd67b'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      target_rva: '0xd410'
+    callee_samples:
+    - site: '0xd43b'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x129b0'
+        end: '0x129e4'
+        size: '0x34'
+      target_rva: '0x129b0'
+    - site: '0xd454'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x36bb0'
+        end: '0x36bd7'
+        size: '0x27'
+      target_rva: '0x36bb0'
+    - site: '0xd47c'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x36600'
+        end: '0x366b5'
+        size: '0xb5'
+      target_rva: '0x36600'
+    - site: '0xd48a'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x36a60'
+        end: '0x36ab3'
+        size: '0x53'
+      target_rva: '0x36a60'
+    - site: '0xd4b1'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x363c0'
+        end: '0x36425'
+        size: '0x65'
+      target_rva: '0x363c0'
+    - site: '0xd4cb'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x36360'
+        end: '0x363b8'
+        size: '0x58'
+      target_rva: '0x36360'
+    - site: '0xd4ec'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x19de0'
+        end: '0x19e6c'
+        size: '0x8c'
+      target_rva: '0x19de0'
+    - site: '0xd4f9'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x12a90'
+        end: '0x12ad3'
+        size: '0x43'
+      target_rva: '0x12a90'
+    - site: '0xd512'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x12ae0'
+        end: '0x12b8f'
+        size: '0xaf'
+      target_rva: '0x12ae0'
+    - site: '0xd527'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x12d10'
+        end: '0x12d61'
+        size: '0x51'
+      target_rva: '0x12d10'
+    - site: '0xd538'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x12ae0'
+        end: '0x12b8f'
+        size: '0xaf'
+      target_rva: '0x12ae0'
+    - site: '0xd545'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x12a70'
+        end: '0x12a8b'
+        size: '0x1b'
+      target_rva: '0x12a70'
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:NEP2.dll:0xd410
+  - binary: NEP2.dll
+    function:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    score: 160
+    reasons:
+    - file_api_ref=2
+    - payload_or_disp8=3
+    - block16_or_align=1
+    - logic_shift=2
+    classification:
+      has_file_api: true
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: true
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      mem_disp_8: 1
+      memory_write: 19
+      logic_shift_instruction: 2
+      payload_offset_8: 2
+      import_class_other: 5
+      import_class_file_or_mapping: 2
+      file_api_ref: 2
+      block_size_16: 1
+    import_refs:
+    - rva: '0xd9b3'
+      import: KERNEL32.dll!CreateFileW
+      class: file_or_mapping
+      text: '0000d9b3: call     qword ptr [rip + 0x6e4def]'
+    - rva: '0xda00'
+      import: KERNEL32.dll!FindFirstFileW
+      class: file_or_mapping
+      text: '0000da00: call     qword ptr [rip + 0x6e4dda]'
+    metadata_refs: []
+    constant_refs:
+    - rva: '0xd89e'
+      label: payload_offset_8
+      text: '0000d89e: mov      edx, 8'
+    - rva: '0xd914'
+      label: payload_offset_8
+      text: '0000d914: mov      edx, 8'
+    - rva: '0xda1d'
+      label: block_size_16
+      text: '0000da1d: mov      dword ptr [rsp + 0x40], 0x10'
+    caller_samples: []
+    callee_samples:
+    - site: '0xd8ab'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0xa540'
+        end: '0xa55b'
+        size: '0x1b'
+      target_rva: '0xa540'
+    - site: '0xd8b8'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0xb0a0'
+        end: '0xb0c6'
+        size: '0x26'
+      target_rva: '0xb0a0'
+    - site: '0xd8ce'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0x13880'
+        end: '0x138a7'
+        size: '0x27'
+      target_rva: '0x13880'
+    - site: '0xd91e'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0xa540'
+        end: '0xa55b'
+        size: '0x1b'
+      target_rva: '0xa540'
+    - site: '0xd928'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0xb0a0'
+        end: '0xb0c6'
+        size: '0x26'
+      target_rva: '0xb0a0'
+    - site: '0xd93b'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0x138b0'
+        end: '0x138d7'
+        size: '0x27'
+      target_rva: '0x138b0'
+    - site: '0xd951'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0x12ff0'
+        end: '0x130d2'
+        size: '0xe2'
+      target_rva: '0x12ff0'
+    - site: '0xd96f'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0x138b0'
+        end: '0x138d7'
+        size: '0x27'
+      target_rva: '0x138b0'
+    - site: '0xd97a'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0xa410'
+        end: '0xa429'
+        size: '0x19'
+      target_rva: '0xa410'
+    - site: '0xda4b'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0xa410'
+        end: '0xa429'
+        size: '0x19'
+      target_rva: '0xa410'
+    - site: '0xda60'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0xa410'
+        end: '0xa429'
+        size: '0x19'
+      target_rva: '0xa410'
+    - site: '0xda74'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0x48eab0'
+        end: '0x48eace'
+        size: '0x1e'
+      target_rva: '0x48eab0'
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:NEP2.dll:0xd870
+  - binary: NEP2.dll
+    function:
+      begin: '0xd720'
+      end: '0xd7c0'
+      size: '0xa0'
+    score: 142
+    reasons:
+    - file_api_ref=1
+    - file_read_or_mapping_ref=1
+    - payload_or_disp8=1
+    - logic_shift=2
+    classification:
+      has_file_api: true
+      has_read_or_mapping_api: true
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: true
+      has_16byte_or_loop_signal: false
+      full_loader_mutation_gate: false
+    counts:
+      mem_disp_8: 1
+      memory_write: 7
+      logic_shift_instruction: 2
+      import_class_file_read_or_mapping: 1
+      file_api_ref: 1
+      file_read_or_mapping_ref: 1
+      import_class_other: 1
+    import_refs:
+    - rva: '0xd798'
+      import: KERNEL32.dll!GetFileSizeEx
+      class: file_read_or_mapping
+      text: '0000d798: call     qword ptr [rip + 0x6e502a]'
+    metadata_refs: []
+    constant_refs: []
+    caller_samples:
+    - site: '0xb512'
+      caller:
+        begin: '0xb4b0'
+        end: '0xb880'
+        size: '0x3d0'
+      callee:
+        begin: '0xd720'
+        end: '0xd7c0'
+        size: '0xa0'
+      target_rva: '0xd720'
+    callee_samples:
+    - site: '0xd77c'
+      caller:
+        begin: '0xd720'
+        end: '0xd7c0'
+        size: '0xa0'
+      callee:
+        begin: '0xda90'
+        end: '0xdbad'
+        size: '0x11d'
+      target_rva: '0xda90'
+    - site: '0xd7b6'
+      caller:
+        begin: '0xd720'
+        end: '0xd7c0'
+        size: '0xa0'
+      callee:
+        begin: '0x48eab0'
+        end: '0x48eace'
+        size: '0x1e'
+      target_rva: '0x48eab0'
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:NEP2.dll:0xd720
+  top_full_loader_mutation_candidates: []
+  top_file_16_candidates:
+  - binary: NEP2.dll
+    function:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    score: 168
+    reasons:
+    - file_api_ref=2
+    - payload_or_disp8=1
+    - block16_or_align=1
+    - backward_branch=3
+    - logic_shift=5
+    classification:
+      has_file_api: true
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: true
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      mem_disp_16: 1
+      memory_write: 16
+      mem_disp_8: 1
+      logic_shift_instruction: 5
+      import_class_file_or_mapping: 2
+      file_api_ref: 2
+      backward_branch: 3
+      block_size_16: 1
+      non_stack_write: 1
+      import_class_other: 1
+    import_refs:
+    - rva: '0xd555'
+      import: KERNEL32.dll!FindFirstFileW
+      class: file_or_mapping
+      text: '0000d555: call     qword ptr [rip + 0x6e5285]'
+    - rva: '0xd6ba'
+      import: KERNEL32.dll!FindNextFileW
+      class: file_or_mapping
+      text: '0000d6ba: call     qword ptr [rip + 0x6e5118]'
+    metadata_refs: []
+    constant_refs:
+    - rva: '0xd611'
+      label: block_size_16
+      text: '0000d611: and      eax, 0x10'
+    caller_samples:
+    - site: '0xd67b'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      target_rva: '0xd410'
+    callee_samples:
+    - site: '0xd43b'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x129b0'
+        end: '0x129e4'
+        size: '0x34'
+      target_rva: '0x129b0'
+    - site: '0xd454'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x36bb0'
+        end: '0x36bd7'
+        size: '0x27'
+      target_rva: '0x36bb0'
+    - site: '0xd47c'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x36600'
+        end: '0x366b5'
+        size: '0xb5'
+      target_rva: '0x36600'
+    - site: '0xd48a'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x36a60'
+        end: '0x36ab3'
+        size: '0x53'
+      target_rva: '0x36a60'
+    - site: '0xd4b1'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x363c0'
+        end: '0x36425'
+        size: '0x65'
+      target_rva: '0x363c0'
+    - site: '0xd4cb'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x36360'
+        end: '0x363b8'
+        size: '0x58'
+      target_rva: '0x36360'
+    - site: '0xd4ec'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x19de0'
+        end: '0x19e6c'
+        size: '0x8c'
+      target_rva: '0x19de0'
+    - site: '0xd4f9'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x12a90'
+        end: '0x12ad3'
+        size: '0x43'
+      target_rva: '0x12a90'
+    - site: '0xd512'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x12ae0'
+        end: '0x12b8f'
+        size: '0xaf'
+      target_rva: '0x12ae0'
+    - site: '0xd527'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x12d10'
+        end: '0x12d61'
+        size: '0x51'
+      target_rva: '0x12d10'
+    - site: '0xd538'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x12ae0'
+        end: '0x12b8f'
+        size: '0xaf'
+      target_rva: '0x12ae0'
+    - site: '0xd545'
+      caller:
+        begin: '0xd410'
+        end: '0xd71e'
+        size: '0x30e'
+      callee:
+        begin: '0x12a70'
+        end: '0x12a8b'
+        size: '0x1b'
+      target_rva: '0x12a70'
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:NEP2.dll:0xd410
+  - binary: NEP2.dll
+    function:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    score: 160
+    reasons:
+    - file_api_ref=2
+    - payload_or_disp8=3
+    - block16_or_align=1
+    - logic_shift=2
+    classification:
+      has_file_api: true
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: true
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      mem_disp_8: 1
+      memory_write: 19
+      logic_shift_instruction: 2
+      payload_offset_8: 2
+      import_class_other: 5
+      import_class_file_or_mapping: 2
+      file_api_ref: 2
+      block_size_16: 1
+    import_refs:
+    - rva: '0xd9b3'
+      import: KERNEL32.dll!CreateFileW
+      class: file_or_mapping
+      text: '0000d9b3: call     qword ptr [rip + 0x6e4def]'
+    - rva: '0xda00'
+      import: KERNEL32.dll!FindFirstFileW
+      class: file_or_mapping
+      text: '0000da00: call     qword ptr [rip + 0x6e4dda]'
+    metadata_refs: []
+    constant_refs:
+    - rva: '0xd89e'
+      label: payload_offset_8
+      text: '0000d89e: mov      edx, 8'
+    - rva: '0xd914'
+      label: payload_offset_8
+      text: '0000d914: mov      edx, 8'
+    - rva: '0xda1d'
+      label: block_size_16
+      text: '0000da1d: mov      dword ptr [rsp + 0x40], 0x10'
+    caller_samples: []
+    callee_samples:
+    - site: '0xd8ab'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0xa540'
+        end: '0xa55b'
+        size: '0x1b'
+      target_rva: '0xa540'
+    - site: '0xd8b8'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0xb0a0'
+        end: '0xb0c6'
+        size: '0x26'
+      target_rva: '0xb0a0'
+    - site: '0xd8ce'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0x13880'
+        end: '0x138a7'
+        size: '0x27'
+      target_rva: '0x13880'
+    - site: '0xd91e'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0xa540'
+        end: '0xa55b'
+        size: '0x1b'
+      target_rva: '0xa540'
+    - site: '0xd928'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0xb0a0'
+        end: '0xb0c6'
+        size: '0x26'
+      target_rva: '0xb0a0'
+    - site: '0xd93b'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0x138b0'
+        end: '0x138d7'
+        size: '0x27'
+      target_rva: '0x138b0'
+    - site: '0xd951'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0x12ff0'
+        end: '0x130d2'
+        size: '0xe2'
+      target_rva: '0x12ff0'
+    - site: '0xd96f'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0x138b0'
+        end: '0x138d7'
+        size: '0x27'
+      target_rva: '0x138b0'
+    - site: '0xd97a'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0xa410'
+        end: '0xa429'
+        size: '0x19'
+      target_rva: '0xa410'
+    - site: '0xda4b'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0xa410'
+        end: '0xa429'
+        size: '0x19'
+      target_rva: '0xa410'
+    - site: '0xda60'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0xa410'
+        end: '0xa429'
+        size: '0x19'
+      target_rva: '0xa410'
+    - site: '0xda74'
+      caller:
+        begin: '0xd870'
+        end: '0xda81'
+        size: '0x211'
+      callee:
+        begin: '0x48eab0'
+        end: '0x48eace'
+        size: '0x1e'
+      target_rva: '0x48eab0'
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:NEP2.dll:0xd870
+  top_metadata_ref_candidates: []
+- binary_name: GameAssembly.dll
+  exists: true
+  sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  image_base: '0x180000000'
+  pdata_function_count: 290472
+  import_class_counts:
+    crypto_api: 3
+    file_or_mapping: 6
+    file_read_or_mapping: 4
+    memory_protect_alloc: 4
+    other: 214
+  raw_metadata_hit_counts:
+    global_metadata_ascii: 2
+    global_metadata_wide: 0
+    global_metadata_short_ascii: 2
+    magic_fab11baf_le: 0
+    metadata_file_size_le: 0
+    metadata_payload_size_le: 0
+    metadata_header_first16: 0
+    metadata_protected_first16: 0
+    metadata_protected_first32: 0
+  metadata_target_count: 2
+  instruction_totals:
+    instructions: 472553
+  candidate_count: 269
+  full_loader_mutation_candidate_count: 0
+  file_16_candidate_count: 0
+  metadata_ref_candidate_count: 0
+  top_candidates:
+  - binary: GameAssembly.dll
+    function:
+      begin: '0x63d210'
+      end: '0x63d394'
+      size: '0x184'
+    score: 424
+    reasons:
+    - payload_or_disp8=2
+    - vector_signal=48/7/6
+    classification:
+      has_file_api: false
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: true
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      vector_instruction: 48
+      mem_disp_16: 2
+      memory_write: 11
+      non_stack_write: 6
+      vector_write: 7
+      non_stack_vector_write: 6
+      mem_disp_8: 2
+    import_refs: []
+    metadata_refs: []
+    constant_refs: []
+    caller_samples: []
+    callee_samples:
+    - site: '0x63d28c'
+      caller:
+        begin: '0x63d210'
+        end: '0x63d394'
+        size: '0x184'
+      callee:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      target_rva: '0x5cbd40'
+    - site: '0x63d303'
+      caller:
+        begin: '0x63d210'
+        end: '0x63d394'
+        size: '0x184'
+      callee:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      target_rva: '0x5cbd40'
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:GameAssembly.dll:0x63d210
+  - binary: GameAssembly.dll
+    function:
+      begin: '0x636b70'
+      end: '0x636fd3'
+      size: '0x463'
+    score: 200
+    reasons:
+    - payload_or_disp8=1
+    - vector_signal=22/3/3
+    classification:
+      has_file_api: false
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: true
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      mem_disp_8: 1
+      memory_write: 16
+      non_stack_write: 14
+      mem_disp_16: 5
+      vector_instruction: 22
+      vector_write: 3
+      non_stack_vector_write: 3
+    import_refs: []
+    metadata_refs: []
+    constant_refs: []
+    caller_samples: []
+    callee_samples:
+    - site: '0x636bb9'
+      caller:
+        begin: '0x636b70'
+        end: '0x636fd3'
+        size: '0x463'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x636bc5'
+      caller:
+        begin: '0x636b70'
+        end: '0x636fd3'
+        size: '0x463'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x636bd1'
+      caller:
+        begin: '0x636b70'
+        end: '0x636fd3'
+        size: '0x463'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x636bdd'
+      caller:
+        begin: '0x636b70'
+        end: '0x636fd3'
+        size: '0x463'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x636be9'
+      caller:
+        begin: '0x636b70'
+        end: '0x636fd3'
+        size: '0x463'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x636bf5'
+      caller:
+        begin: '0x636b70'
+        end: '0x636fd3'
+        size: '0x463'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x636c01'
+      caller:
+        begin: '0x636b70'
+        end: '0x636fd3'
+        size: '0x463'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x636c0d'
+      caller:
+        begin: '0x636b70'
+        end: '0x636fd3'
+        size: '0x463'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x636c19'
+      caller:
+        begin: '0x636b70'
+        end: '0x636fd3'
+        size: '0x463'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x636c25'
+      caller:
+        begin: '0x636b70'
+        end: '0x636fd3'
+        size: '0x463'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x636c31'
+      caller:
+        begin: '0x636b70'
+        end: '0x636fd3'
+        size: '0x463'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x636c3d'
+      caller:
+        begin: '0x636b70'
+        end: '0x636fd3'
+        size: '0x463'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:GameAssembly.dll:0x636b70
+  - binary: GameAssembly.dll
+    function:
+      begin: '0x63d3a0'
+      end: '0x63d4b1'
+      size: '0x111'
+    score: 198
+    reasons:
+    - vector_signal=46/5/0
+    classification:
+      has_file_api: false
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: false
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      vector_instruction: 46
+      mem_disp_16: 2
+      memory_write: 5
+      vector_write: 5
+    import_refs: []
+    metadata_refs: []
+    constant_refs: []
+    caller_samples: []
+    callee_samples:
+    - site: '0x63d411'
+      caller:
+        begin: '0x63d3a0'
+        end: '0x63d4b1'
+        size: '0x111'
+      callee:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      target_rva: '0x5cbd40'
+    - site: '0x63d421'
+      caller:
+        begin: '0x63d3a0'
+        end: '0x63d4b1'
+        size: '0x111'
+      callee:
+        begin: '0x410f4c0'
+        end: '0x410f50b'
+        size: '0x4b'
+      target_rva: '0x410f4c0'
+    - site: '0x63d450'
+      caller:
+        begin: '0x63d3a0'
+        end: '0x63d4b1'
+        size: '0x111'
+      callee:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      target_rva: '0x5cbd40'
+    - site: '0x63d490'
+      caller:
+        begin: '0x63d3a0'
+        end: '0x63d4b1'
+        size: '0x111'
+      callee:
+        begin: '0x410f890'
+        end: '0x410f8d2'
+        size: '0x42'
+      target_rva: '0x410f890'
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:GameAssembly.dll:0x63d3a0
+  - binary: GameAssembly.dll
+    function:
+      begin: '0x63e270'
+      end: '0x63e4d6'
+      size: '0x266'
+    score: 189
+    reasons:
+    - payload_or_disp8=3
+    - vector_signal=39/4/0
+    classification:
+      has_file_api: false
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: true
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      memory_write: 12
+      vector_instruction: 39
+      vector_write: 4
+      non_stack_write: 1
+      mem_disp_8: 3
+    import_refs: []
+    metadata_refs: []
+    constant_refs: []
+    caller_samples: []
+    callee_samples:
+    - site: '0x63e2a9'
+      caller:
+        begin: '0x63e270'
+        end: '0x63e4d6'
+        size: '0x266'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x63e2c2'
+      caller:
+        begin: '0x63e270'
+        end: '0x63e4d6'
+        size: '0x266'
+      callee:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      target_rva: '0x5cbd40'
+    - site: '0x63e2d2'
+      caller:
+        begin: '0x63e270'
+        end: '0x63e4d6'
+        size: '0x266'
+      callee:
+        begin: '0x410bce0'
+        end: '0x410bd2b'
+        size: '0x4b'
+      target_rva: '0x410bce0'
+    - site: '0x63e2df'
+      caller:
+        begin: '0x63e270'
+        end: '0x63e4d6'
+        size: '0x266'
+      callee:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      target_rva: '0x5cbd40'
+    - site: '0x63e2ef'
+      caller:
+        begin: '0x63e270'
+        end: '0x63e4d6'
+        size: '0x266'
+      callee:
+        begin: '0x410bce0'
+        end: '0x410bd2b'
+        size: '0x4b'
+      target_rva: '0x410bce0'
+    - site: '0x63e2fa'
+      caller:
+        begin: '0x63e270'
+        end: '0x63e4d6'
+        size: '0x266'
+      callee:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      target_rva: '0x5cbd40'
+    - site: '0x63e30a'
+      caller:
+        begin: '0x63e270'
+        end: '0x63e4d6'
+        size: '0x266'
+      callee:
+        begin: '0x410bce0'
+        end: '0x410bd2b'
+        size: '0x4b'
+      target_rva: '0x410bce0'
+    - site: '0x63e318'
+      caller:
+        begin: '0x63e270'
+        end: '0x63e4d6'
+        size: '0x266'
+      callee:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      target_rva: '0x5cbd40'
+    - site: '0x63e328'
+      caller:
+        begin: '0x63e270'
+        end: '0x63e4d6'
+        size: '0x266'
+      callee:
+        begin: '0x410bce0'
+        end: '0x410bd2b'
+        size: '0x4b'
+      target_rva: '0x410bce0'
+    - site: '0x63e34d'
+      caller:
+        begin: '0x63e270'
+        end: '0x63e4d6'
+        size: '0x266'
+      callee:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      target_rva: '0x5cbd40'
+    - site: '0x63e35d'
+      caller:
+        begin: '0x63e270'
+        end: '0x63e4d6'
+        size: '0x266'
+      callee:
+        begin: '0x411a880'
+        end: '0x411a8cd'
+        size: '0x4d'
+      target_rva: '0x411a880'
+    - site: '0x63e392'
+      caller:
+        begin: '0x63e270'
+        end: '0x63e4d6'
+        size: '0x266'
+      callee:
+        begin: '0x41b3f00'
+        end: '0x41b3fba'
+        size: '0xba'
+      target_rva: '0x41b3f00'
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:GameAssembly.dll:0x63e270
+  - binary: GameAssembly.dll
+    function:
+      begin: '0x632f30'
+      end: '0x6330f6'
+      size: '0x1c6'
+    score: 184
+    reasons:
+    - payload_or_disp8=2
+    - vector_signal=14/3/3
+    classification:
+      has_file_api: false
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: true
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      mem_disp_8: 1
+      memory_write: 12
+      non_stack_write: 9
+      mem_disp_16: 6
+      vector_instruction: 14
+      vector_write: 3
+      non_stack_vector_write: 3
+      payload_offset_8: 1
+    import_refs: []
+    metadata_refs: []
+    constant_refs:
+    - rva: '0x63309b'
+      label: payload_offset_8
+      text: '0063309b: mov      edx, 8'
+    caller_samples: []
+    callee_samples:
+    - site: '0x632f73'
+      caller:
+        begin: '0x632f30'
+        end: '0x6330f6'
+        size: '0x1c6'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x632f7f'
+      caller:
+        begin: '0x632f30'
+        end: '0x6330f6'
+        size: '0x1c6'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x632f8b'
+      caller:
+        begin: '0x632f30'
+        end: '0x6330f6'
+        size: '0x1c6'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x632f97'
+      caller:
+        begin: '0x632f30'
+        end: '0x6330f6'
+        size: '0x1c6'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x632fa3'
+      caller:
+        begin: '0x632f30'
+        end: '0x6330f6'
+        size: '0x1c6'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x632faf'
+      caller:
+        begin: '0x632f30'
+        end: '0x6330f6'
+        size: '0x1c6'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x632fbb'
+      caller:
+        begin: '0x632f30'
+        end: '0x6330f6'
+        size: '0x1c6'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x632fe3'
+      caller:
+        begin: '0x632f30'
+        end: '0x6330f6'
+        size: '0x1c6'
+      callee:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      target_rva: '0x5cbd40'
+    - site: '0x633017'
+      caller:
+        begin: '0x632f30'
+        end: '0x6330f6'
+        size: '0x1c6'
+      callee:
+        begin: '0x2d9a160'
+        end: '0x2d9a20e'
+        size: '0xae'
+      target_rva: '0x2d9a160'
+    - site: '0x63301f'
+      caller:
+        begin: '0x632f30'
+        end: '0x6330f6'
+        size: '0x1c6'
+      callee:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      target_rva: '0x5cbd40'
+    - site: '0x633047'
+      caller:
+        begin: '0x632f30'
+        end: '0x6330f6'
+        size: '0x1c6'
+      callee:
+        begin: '0x2595770'
+        end: '0x259581f'
+        size: '0xaf'
+      target_rva: '0x2595770'
+    - site: '0x63308f'
+      caller:
+        begin: '0x632f30'
+        end: '0x6330f6'
+        size: '0x1c6'
+      callee:
+        begin: '0x1be4f20'
+        end: '0x1be4fcb'
+        size: '0xab'
+      target_rva: '0x1be4f20'
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:GameAssembly.dll:0x632f30
+  - binary: GameAssembly.dll
+    function:
+      begin: '0xcff1e'
+      end: '0xcffeb'
+      size: '0xcd'
+    score: 182
+    reasons:
+    - payload_or_disp8=1
+    - vector_signal=14/3/3
+    - backward_branch=1
+    classification:
+      has_file_api: false
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: true
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      mem_disp_8: 1
+      memory_write: 13
+      non_stack_write: 6
+      mem_disp_16: 1
+      vector_instruction: 14
+      vector_write: 3
+      non_stack_vector_write: 3
+      backward_branch: 1
+    import_refs: []
+    metadata_refs: []
+    constant_refs: []
+    caller_samples: []
+    callee_samples: []
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:GameAssembly.dll:0xcff1e
+  - binary: GameAssembly.dll
+    function:
+      begin: '0xd7a74'
+      end: '0xd7af7'
+      size: '0x83'
+    score: 177
+    reasons:
+    - vector_signal=15/3/3
+    - backward_branch=1
+    classification:
+      has_file_api: false
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: false
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      vector_instruction: 15
+      memory_write: 7
+      non_stack_write: 3
+      vector_write: 3
+      non_stack_vector_write: 3
+      backward_branch: 1
+    import_refs: []
+    metadata_refs: []
+    constant_refs: []
+    caller_samples: []
+    callee_samples: []
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:GameAssembly.dll:0xd7a74
+  - binary: GameAssembly.dll
+    function:
+      begin: '0x632d60'
+      end: '0x632f26'
+      size: '0x1c6'
+    score: 176
+    reasons:
+    - payload_or_disp8=1
+    - vector_signal=14/3/3
+    classification:
+      has_file_api: false
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: true
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      mem_disp_8: 1
+      memory_write: 12
+      non_stack_write: 9
+      mem_disp_16: 6
+      vector_instruction: 14
+      vector_write: 3
+      non_stack_vector_write: 3
+    import_refs: []
+    metadata_refs: []
+    constant_refs: []
+    caller_samples: []
+    callee_samples:
+    - site: '0x632da3'
+      caller:
+        begin: '0x632d60'
+        end: '0x632f26'
+        size: '0x1c6'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x632daf'
+      caller:
+        begin: '0x632d60'
+        end: '0x632f26'
+        size: '0x1c6'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x632dbb'
+      caller:
+        begin: '0x632d60'
+        end: '0x632f26'
+        size: '0x1c6'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x632dc7'
+      caller:
+        begin: '0x632d60'
+        end: '0x632f26'
+        size: '0x1c6'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x632dd3'
+      caller:
+        begin: '0x632d60'
+        end: '0x632f26'
+        size: '0x1c6'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x632ddf'
+      caller:
+        begin: '0x632d60'
+        end: '0x632f26'
+        size: '0x1c6'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x632deb'
+      caller:
+        begin: '0x632d60'
+        end: '0x632f26'
+        size: '0x1c6'
+      callee:
+        begin: '0x5cc970'
+        end: '0x5cc983'
+        size: '0x13'
+      target_rva: '0x5cc970'
+    - site: '0x632e13'
+      caller:
+        begin: '0x632d60'
+        end: '0x632f26'
+        size: '0x1c6'
+      callee:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      target_rva: '0x5cbd40'
+    - site: '0x632e47'
+      caller:
+        begin: '0x632d60'
+        end: '0x632f26'
+        size: '0x1c6'
+      callee:
+        begin: '0x2d9a160'
+        end: '0x2d9a20e'
+        size: '0xae'
+      target_rva: '0x2d9a160'
+    - site: '0x632e4f'
+      caller:
+        begin: '0x632d60'
+        end: '0x632f26'
+        size: '0x1c6'
+      callee:
+        begin: '0x5cbd40'
+        end: '0x5cbd54'
+        size: '0x14'
+      target_rva: '0x5cbd40'
+    - site: '0x632e77'
+      caller:
+        begin: '0x632d60'
+        end: '0x632f26'
+        size: '0x1c6'
+      callee:
+        begin: '0x2595770'
+        end: '0x259581f'
+        size: '0xaf'
+      target_rva: '0x2595770'
+    - site: '0x632ebf'
+      caller:
+        begin: '0x632d60'
+        end: '0x632f26'
+        size: '0x1c6'
+      callee:
+        begin: '0x1be4f20'
+        end: '0x1be4fcb'
+        size: '0xab'
+      target_rva: '0x1be4f20'
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:GameAssembly.dll:0x632d60
+  top_full_loader_mutation_candidates: []
+  top_file_16_candidates: []
+  top_metadata_ref_candidates: []
+- binary_name: UnityPlayer.dll
+  exists: true
+  sha256: 76e66c9f665ec1ba93473c1b03b68366c25137949124d7f2f8d639e4efff6dcf
+  image_base: '0x180000000'
+  pdata_function_count: 93825
+  import_class_counts:
+    crypto_api: 14
+    file_or_mapping: 7
+    file_read_or_mapping: 3
+    memory_protect_alloc: 5
+    other: 473
+  raw_metadata_hit_counts:
+    global_metadata_ascii: 0
+    global_metadata_wide: 0
+    global_metadata_short_ascii: 0
+    magic_fab11baf_le: 0
+    metadata_file_size_le: 0
+    metadata_payload_size_le: 0
+    metadata_header_first16: 0
+    metadata_protected_first16: 0
+    metadata_protected_first32: 0
+  metadata_target_count: 0
+  instruction_totals:
+    instructions: 10539
+    crypto_instruction: 10
+  candidate_count: 269
+  full_loader_mutation_candidate_count: 0
+  file_16_candidate_count: 0
+  metadata_ref_candidate_count: 0
+  top_candidates:
+  - binary: UnityPlayer.dll
+    function:
+      begin: '0x536e'
+      end: '0x536e'
+      size: synthetic
+      synthetic: true
+    score: 103
+    reasons:
+    - vector_signal=1/0/0
+    - crypto=1/0
+    classification:
+      has_file_api: false
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: false
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      crypto_instruction: 1
+      vector_instruction: 1
+    import_refs: []
+    metadata_refs: []
+    constant_refs: []
+    caller_samples: []
+    callee_samples: []
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:UnityPlayer.dll:0x536e
+  - binary: UnityPlayer.dll
+    function:
+      begin: '0x538c'
+      end: '0x538c'
+      size: synthetic
+      synthetic: true
+    score: 103
+    reasons:
+    - vector_signal=1/0/0
+    - crypto=1/0
+    classification:
+      has_file_api: false
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: false
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      crypto_instruction: 1
+      vector_instruction: 1
+    import_refs: []
+    metadata_refs: []
+    constant_refs: []
+    caller_samples: []
+    callee_samples: []
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:UnityPlayer.dll:0x538c
+  - binary: UnityPlayer.dll
+    function:
+      begin: '0x5391'
+      end: '0x5391'
+      size: synthetic
+      synthetic: true
+    score: 103
+    reasons:
+    - vector_signal=1/0/0
+    - crypto=1/0
+    classification:
+      has_file_api: false
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: false
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      crypto_instruction: 1
+      vector_instruction: 1
+    import_refs: []
+    metadata_refs: []
+    constant_refs: []
+    caller_samples: []
+    callee_samples: []
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:UnityPlayer.dll:0x5391
+  - binary: UnityPlayer.dll
+    function:
+      begin: '0x54c6'
+      end: '0x54c6'
+      size: synthetic
+      synthetic: true
+    score: 103
+    reasons:
+    - vector_signal=1/0/0
+    - crypto=1/0
+    classification:
+      has_file_api: false
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: false
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      crypto_instruction: 1
+      vector_instruction: 1
+    import_refs: []
+    metadata_refs: []
+    constant_refs: []
+    caller_samples: []
+    callee_samples: []
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:UnityPlayer.dll:0x54c6
+  - binary: UnityPlayer.dll
+    function:
+      begin: '0x54cb'
+      end: '0x54cb'
+      size: synthetic
+      synthetic: true
+    score: 103
+    reasons:
+    - vector_signal=1/0/0
+    - crypto=1/0
+    classification:
+      has_file_api: false
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: false
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      crypto_instruction: 1
+      vector_instruction: 1
+    import_refs: []
+    metadata_refs: []
+    constant_refs: []
+    caller_samples: []
+    callee_samples: []
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:UnityPlayer.dll:0x54cb
+  - binary: UnityPlayer.dll
+    function:
+      begin: '0x5510'
+      end: '0x5510'
+      size: synthetic
+      synthetic: true
+    score: 103
+    reasons:
+    - vector_signal=1/0/0
+    - crypto=1/0
+    classification:
+      has_file_api: false
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: false
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      crypto_instruction: 1
+      vector_instruction: 1
+    import_refs: []
+    metadata_refs: []
+    constant_refs: []
+    caller_samples: []
+    callee_samples: []
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:UnityPlayer.dll:0x5510
+  - binary: UnityPlayer.dll
+    function:
+      begin: '0x5515'
+      end: '0x5515'
+      size: synthetic
+      synthetic: true
+    score: 103
+    reasons:
+    - vector_signal=1/0/0
+    - crypto=1/0
+    classification:
+      has_file_api: false
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: false
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      crypto_instruction: 1
+      vector_instruction: 1
+    import_refs: []
+    metadata_refs: []
+    constant_refs: []
+    caller_samples: []
+    callee_samples: []
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:UnityPlayer.dll:0x5515
+  - binary: UnityPlayer.dll
+    function:
+      begin: '0x5966'
+      end: '0x5966'
+      size: synthetic
+      synthetic: true
+    score: 103
+    reasons:
+    - vector_signal=1/0/0
+    - crypto=1/0
+    classification:
+      has_file_api: false
+      has_read_or_mapping_api: false
+      has_metadata_ref_or_wrapper_const: false
+      has_payload_plus8_signal: false
+      has_16byte_or_loop_signal: true
+      full_loader_mutation_gate: false
+    counts:
+      crypto_instruction: 1
+      vector_instruction: 1
+    import_refs: []
+    metadata_refs: []
+    constant_refs: []
+    caller_samples: []
+    callee_samples: []
+    evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:UnityPlayer.dll:0x5966
+  top_full_loader_mutation_candidates: []
+  top_file_16_candidates: []
+  top_metadata_ref_candidates: []
+- binary_name: com.bilibili.nslg.exe
+  exists: true
+  sha256: 481c5e0cd18baf2b6ea39616eb600326412bbade64dedd73a8a3765a7e8ae357
+  image_base: '0x140000000'
+  pdata_function_count: 319
+  import_class_counts:
+    file_or_mapping: 4
+    memory_protect_alloc: 2
+    other: 67
+  raw_metadata_hit_counts:
+    global_metadata_ascii: 0
+    global_metadata_wide: 0
+    global_metadata_short_ascii: 0
+    magic_fab11baf_le: 0
+    metadata_file_size_le: 0
+    metadata_payload_size_le: 0
+    metadata_header_first16: 0
+    metadata_protected_first16: 0
+    metadata_protected_first32: 0
+  metadata_target_count: 0
+  instruction_totals:
+    instructions: 181
+  candidate_count: 0
+  full_loader_mutation_candidate_count: 0
+  file_16_candidate_count: 0
+  metadata_ref_candidate_count: 0
+  top_candidates: []
+  top_full_loader_mutation_candidates: []
+  top_file_16_candidates: []
+  top_metadata_ref_candidates: []
+top_file_16_candidates:
+- binary: NEP2.dll
+  function:
+    begin: '0xd410'
+    end: '0xd71e'
+    size: '0x30e'
+  score: 168
+  reasons:
+  - file_api_ref=2
+  - payload_or_disp8=1
+  - block16_or_align=1
+  - backward_branch=3
+  - logic_shift=5
+  classification:
+    has_file_api: true
+    has_read_or_mapping_api: false
+    has_metadata_ref_or_wrapper_const: false
+    has_payload_plus8_signal: true
+    has_16byte_or_loop_signal: true
+    full_loader_mutation_gate: false
+  counts:
+    mem_disp_16: 1
+    memory_write: 16
+    mem_disp_8: 1
+    logic_shift_instruction: 5
+    import_class_file_or_mapping: 2
+    file_api_ref: 2
+    backward_branch: 3
+    block_size_16: 1
+    non_stack_write: 1
+    import_class_other: 1
+  import_refs:
+  - rva: '0xd555'
+    import: KERNEL32.dll!FindFirstFileW
+    class: file_or_mapping
+    text: '0000d555: call     qword ptr [rip + 0x6e5285]'
+  - rva: '0xd6ba'
+    import: KERNEL32.dll!FindNextFileW
+    class: file_or_mapping
+    text: '0000d6ba: call     qword ptr [rip + 0x6e5118]'
+  metadata_refs: []
+  constant_refs:
+  - rva: '0xd611'
+    label: block_size_16
+    text: '0000d611: and      eax, 0x10'
+  caller_samples:
+  - site: '0xd67b'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    target_rva: '0xd410'
+  callee_samples:
+  - site: '0xd43b'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x129b0'
+      end: '0x129e4'
+      size: '0x34'
+    target_rva: '0x129b0'
+  - site: '0xd454'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+    target_rva: '0x36bb0'
+  - site: '0xd47c'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x36600'
+      end: '0x366b5'
+      size: '0xb5'
+    target_rva: '0x36600'
+  - site: '0xd48a'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x36a60'
+      end: '0x36ab3'
+      size: '0x53'
+    target_rva: '0x36a60'
+  - site: '0xd4b1'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x363c0'
+      end: '0x36425'
+      size: '0x65'
+    target_rva: '0x363c0'
+  - site: '0xd4cb'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x36360'
+      end: '0x363b8'
+      size: '0x58'
+    target_rva: '0x36360'
+  - site: '0xd4ec'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x19de0'
+      end: '0x19e6c'
+      size: '0x8c'
+    target_rva: '0x19de0'
+  - site: '0xd4f9'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x12a90'
+      end: '0x12ad3'
+      size: '0x43'
+    target_rva: '0x12a90'
+  - site: '0xd512'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x12ae0'
+      end: '0x12b8f'
+      size: '0xaf'
+    target_rva: '0x12ae0'
+  - site: '0xd527'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x12d10'
+      end: '0x12d61'
+      size: '0x51'
+    target_rva: '0x12d10'
+  - site: '0xd538'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x12ae0'
+      end: '0x12b8f'
+      size: '0xaf'
+    target_rva: '0x12ae0'
+  - site: '0xd545'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x12a70'
+      end: '0x12a8b'
+      size: '0x1b'
+    target_rva: '0x12a70'
+  evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:NEP2.dll:0xd410
+- binary: NEP2.dll
+  function:
+    begin: '0xd870'
+    end: '0xda81'
+    size: '0x211'
+  score: 160
+  reasons:
+  - file_api_ref=2
+  - payload_or_disp8=3
+  - block16_or_align=1
+  - logic_shift=2
+  classification:
+    has_file_api: true
+    has_read_or_mapping_api: false
+    has_metadata_ref_or_wrapper_const: false
+    has_payload_plus8_signal: true
+    has_16byte_or_loop_signal: true
+    full_loader_mutation_gate: false
+  counts:
+    mem_disp_8: 1
+    memory_write: 19
+    logic_shift_instruction: 2
+    payload_offset_8: 2
+    import_class_other: 5
+    import_class_file_or_mapping: 2
+    file_api_ref: 2
+    block_size_16: 1
+  import_refs:
+  - rva: '0xd9b3'
+    import: KERNEL32.dll!CreateFileW
+    class: file_or_mapping
+    text: '0000d9b3: call     qword ptr [rip + 0x6e4def]'
+  - rva: '0xda00'
+    import: KERNEL32.dll!FindFirstFileW
+    class: file_or_mapping
+    text: '0000da00: call     qword ptr [rip + 0x6e4dda]'
+  metadata_refs: []
+  constant_refs:
+  - rva: '0xd89e'
+    label: payload_offset_8
+    text: '0000d89e: mov      edx, 8'
+  - rva: '0xd914'
+    label: payload_offset_8
+    text: '0000d914: mov      edx, 8'
+  - rva: '0xda1d'
+    label: block_size_16
+    text: '0000da1d: mov      dword ptr [rsp + 0x40], 0x10'
+  caller_samples: []
+  callee_samples:
+  - site: '0xd8ab'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0xa540'
+      end: '0xa55b'
+      size: '0x1b'
+    target_rva: '0xa540'
+  - site: '0xd8b8'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0xb0a0'
+      end: '0xb0c6'
+      size: '0x26'
+    target_rva: '0xb0a0'
+  - site: '0xd8ce'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0x13880'
+      end: '0x138a7'
+      size: '0x27'
+    target_rva: '0x13880'
+  - site: '0xd91e'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0xa540'
+      end: '0xa55b'
+      size: '0x1b'
+    target_rva: '0xa540'
+  - site: '0xd928'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0xb0a0'
+      end: '0xb0c6'
+      size: '0x26'
+    target_rva: '0xb0a0'
+  - site: '0xd93b'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0x138b0'
+      end: '0x138d7'
+      size: '0x27'
+    target_rva: '0x138b0'
+  - site: '0xd951'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0x12ff0'
+      end: '0x130d2'
+      size: '0xe2'
+    target_rva: '0x12ff0'
+  - site: '0xd96f'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0x138b0'
+      end: '0x138d7'
+      size: '0x27'
+    target_rva: '0x138b0'
+  - site: '0xd97a'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0xa410'
+      end: '0xa429'
+      size: '0x19'
+    target_rva: '0xa410'
+  - site: '0xda4b'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0xa410'
+      end: '0xa429'
+      size: '0x19'
+    target_rva: '0xa410'
+  - site: '0xda60'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0xa410'
+      end: '0xa429'
+      size: '0x19'
+    target_rva: '0xa410'
+  - site: '0xda74'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+    target_rva: '0x48eab0'
+  evidence_ref: NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:NEP2.dll:0xd870
+top_metadata_ref_candidates: []
+next_static_targets:
+- Deep-slice NEP2.dll 0xd410 for global-metadata.dat path construction, ReadFile/MapViewOfFile
+  buffer ownership, and +8 payload pointer handoff.
+- Deep-slice NEP2.dll 0xd870 for global-metadata.dat path construction, ReadFile/MapViewOfFile
+  buffer ownership, and +8 payload pointer handoff.
+- Do not promote metadata recovery until standard IL2CPP header pairs and readable
+  Assembly-CSharp/NSLGame strings are recovered.
+limitations:
+- Offline/static scan only; no live Frida, runtime attach, account data, credentials,
+  or online protocol were used.
+- Function-level scoring is routing evidence and can include file helper false positives;
+  it is not decoder proof.
+- No decoded metadata, LuaScripts payload, or publishable gameplay knowledge is produced
+  by this artifact.
+- A candidate must gain metadata wrapper/payload-buffer provenance before it can be
+  treated as the loader mutation body.
+evidence_refs:
+- NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:summary
+- NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:NEP2.dll:0xd410
+- NSLG_GLOBAL_METADATA_LOADER:global-metadata-loader-mutation-scan-round168:NEP2.dll:0xd870
+guardrails:
+- offline/static loader-mutation scan only; no live instrumentation, account data,
+  or online protocol data is included
+- absolute local paths are not persisted; only file names, hashes, counts, and sanitized
+  function summaries are stored
+- function-level loader-mutation scoring is routing evidence and must not be promoted
+  as decoded gameplay knowledge
+- metadata recovery requires standard IL2CPP header pairs plus readable Assembly-CSharp/NSLGame
+  strings

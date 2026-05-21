@@ -1,0 +1,1284 @@
+schema_version: nslg.gameassembly_function_pointer_table_probe.v1
+source_id: gameassembly-function-pointer-table-probe-round115
+source_url: local-nslg-client-gameassembly-function-pointer-table-probe
+source_site: nslg_client_gameassembly_function_pointer_table_probe
+generated_at: '2026-05-21T08:28:12.653714Z'
+round: 184
+slice: gameassembly_function_pointer_table_probe
+input_artifacts:
+- file_name: GameAssembly.dll
+  role: module:GameAssembly.dll
+  size_bytes: 94127168
+  sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  missing: false
+- file_name: gameassembly_codegen_module_probe_round179.json
+  role: round179_codegen_module_probe
+  size_bytes: 23089
+  sha256: ef470e0f5451169568286d47bc69921f8c8aa3a3b9b32c260701e958bde8fc90
+  missing: false
+- file_name: gameassembly_registration_anchor_probe_round180.json
+  role: round180_registration_anchor_probe
+  size_bytes: 43738
+  sha256: 982719544c58de6980cc5998f8b7d324be634fab45d591ec8d2ff2d06423ce22
+  missing: false
+- file_name: gameassembly_registration_layout_probe_round181.json
+  role: round181_registration_layout_probe
+  size_bytes: 150192
+  sha256: cf169267ac4d93527fd1b9f7963976e3e9c350fea82fbb3b1277269c0281a053
+  missing: false
+- file_name: gameassembly_registration_pair_context_probe_round182.json
+  role: round182_registration_pair_context_probe
+  size_bytes: 25264
+  sha256: 978d22c440ee313d1ada0bf88e1ef7285cb2fee132b1e942d39904aad8f10b48
+  missing: false
+- file_name: gameassembly_initializer_dispatch_trace_round183.json
+  role: round183_initializer_dispatch_trace
+  size_bytes: 24802
+  sha256: 563656088d5a6889e9e1d89d234716f18512e4fa05364408b890bb51fb6a41e6
+  missing: false
+gameassembly_summary:
+  file_name: GameAssembly.dll
+  size_bytes: 94127168
+  sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  image_base: '0x180000000'
+  entry_rva: '0x5faa3c'
+  section_count: 6
+  pdata_function_count: 290472
+scan_policy:
+  sections:
+  - .data
+  - .rdata
+  slot_width: 8
+  recognized_encodings:
+  - absolute_va
+  - raw_rva
+  recognized_target: qword value resolves to a .pdata function begin
+  known_method_table_source: round180 module_array_records
+  known_code_registration_field_source: round181 primary_code_registration_layout
+    count/pointer rows
+known_method_pointer_tables:
+  table_count: 96
+  total_declared_method_pointer_count: 190521
+  sample:
+  - module_name: Assembly-CSharp-firstpass.dll
+    module_index: 4
+    start_rva: '0x50b8c70'
+    end_rva: '0x50b9780'
+    method_pointer_count: 354
+    section: .data
+  - module_name: Assembly-CSharp.dll
+    module_index: 5
+    start_rva: '0x50b9840'
+    end_rva: '0x50f4430'
+    method_pointer_count: 30078
+    section: .data
+  - module_name: AVProVideo.Extensions.Timeline.dll
+    module_index: 0
+    start_rva: '0x50f5980'
+    end_rva: '0x50f5990'
+    method_pointer_count: 2
+    section: .data
+  - module_name: AVProVideo.Extensions.UnityUI.dll
+    module_index: 1
+    start_rva: '0x50f5990'
+    end_rva: '0x50f5b40'
+    method_pointer_count: 54
+    section: .data
+  - module_name: AVProVideo.Extensions.VisualEffectGraph.dll
+    module_index: 2
+    start_rva: '0x50f5b40'
+    end_rva: '0x50f5b50'
+    method_pointer_count: 2
+    section: .data
+  - module_name: AVProVideo.Runtime.dll
+    module_index: 3
+    start_rva: '0x50f5b50'
+    end_rva: '0x50f8480'
+    method_pointer_count: 1318
+    section: .data
+  - module_name: Coffee.UIParticle.dll
+    module_index: 6
+    start_rva: '0x50f8550'
+    end_rva: '0x50f8948'
+    method_pointer_count: 127
+    section: .data
+  - module_name: DocumentFormat.OpenXml.Framework.dll
+    module_index: 9
+    start_rva: '0x50f8950'
+    end_rva: '0x50fec80'
+    method_pointer_count: 3174
+    section: .data
+  - module_name: DocumentFormat.OpenXml.dll
+    module_index: 8
+    start_rva: '0x50ff640'
+    end_rva: '0x5182c28'
+    method_pointer_count: 67261
+    section: .data
+  - module_name: DOTween.dll
+    module_index: 7
+    start_rva: '0x519bba0'
+    end_rva: '0x519e018'
+    method_pointer_count: 1167
+    section: .data
+  - module_name: HYGames.DynamicAtlas.Runtime.Integration.dll
+    module_index: 11
+    start_rva: '0x519e1b0'
+    end_rva: '0x519e958'
+    method_pointer_count: 245
+    section: .data
+  - module_name: HYGames.DynamicAtlas.Runtime.dll
+    module_index: 10
+    start_rva: '0x519ea60'
+    end_rva: '0x519fb40'
+    method_pointer_count: 540
+    section: .data
+  - module_name: io.sentry.unity.runtime.dll
+    module_index: 96
+    start_rva: '0x541c8b0'
+    end_rva: '0x541ca40'
+    method_pointer_count: 50
+    section: .data
+  - module_name: LitJson.dll
+    module_index: 12
+    start_rva: '0x541ca40'
+    end_rva: '0x541d668'
+    method_pointer_count: 389
+    section: .data
+  - module_name: Mono.Security.dll
+    module_index: 13
+    start_rva: '0x541d730'
+    end_rva: '0x541e9c0'
+    method_pointer_count: 594
+    section: .data
+  - module_name: mscorlib.dll
+    module_index: 97
+    start_rva: '0x54224d0'
+    end_rva: '0x543df58'
+    method_pointer_count: 14161
+    section: .data
+known_code_registration_field_tables:
+  table_count: 6
+  total_declared_pointer_count: 203656
+  sample:
+  - field_offset: '0x28'
+    count_rva: '0x4332758'
+    pointer_table_rva: '0x43327d0'
+    end_rva: '0x4371af0'
+    declared_count: 32356
+    known_field: ''
+    section: .rdata
+  - field_offset: '0x0'
+    count_rva: '0x4332730'
+    pointer_table_rva: '0x4371af0'
+    end_rva: '0x438a000'
+    declared_count: 12450
+    known_field: ''
+    section: .rdata
+  - field_offset: '0x38'
+    count_rva: '0x4332768'
+    pointer_table_rva: '0x438a000'
+    end_rva: '0x4396f40'
+    declared_count: 6632
+    known_field: ''
+    section: .rdata
+  - field_offset: '0x10'
+    count_rva: '0x4332740'
+    pointer_table_rva: '0x480fd10'
+    end_rva: '0x4935c60'
+    declared_count: 150506
+    known_field: ''
+    section: .rdata
+  - field_offset: '0x78'
+    count_rva: '0x43327a8'
+    pointer_table_rva: '0x50a2840'
+    end_rva: '0x50a2b50'
+    declared_count: 98
+    known_field: CodeGenModules.count
+    section: .data
+  - field_offset: '0x58'
+    count_rva: '0x4332788'
+    pointer_table_rva: '0x50a2b60'
+    end_rva: '0x50a5dd0'
+    declared_count: 1614
+    known_field: ''
+    section: .data
+target_function_summary:
+  target_function_count: 26
+  by_category:
+    global_metadata_string_ref: 2
+    dispatcher_candidate: 24
+  targets:
+  - rva: '0x55f6d0'
+    label: global_metadata_string_ref_function
+    category: global_metadata_string_ref
+    score: null
+  - rva: '0x5736d0'
+    label: global_metadata_string_ref_function
+    category: global_metadata_string_ref
+    score: null
+  - rva: '0xe4c0f0'
+    label: dispatcher_candidate_rank_19
+    category: dispatcher_candidate
+    score: 59
+  - rva: '0xe4ec50'
+    label: dispatcher_candidate_rank_1
+    category: dispatcher_candidate
+    score: 70
+  - rva: '0xe8a9c0'
+    label: dispatcher_candidate_rank_20
+    category: dispatcher_candidate
+    score: 59
+  - rva: '0xebae50'
+    label: dispatcher_candidate_rank_2
+    category: dispatcher_candidate
+    score: 70
+  - rva: '0xebc610'
+    label: dispatcher_candidate_rank_3
+    category: dispatcher_candidate
+    score: 70
+  - rva: '0xec71d0'
+    label: dispatcher_candidate_rank_4
+    category: dispatcher_candidate
+    score: 70
+  - rva: '0xee33d0'
+    label: dispatcher_candidate_rank_10
+    category: dispatcher_candidate
+    score: 64
+  - rva: '0xee4260'
+    label: dispatcher_candidate_rank_8
+    category: dispatcher_candidate
+    score: 66
+  - rva: '0x1064b90'
+    label: dispatcher_candidate_rank_17
+    category: dispatcher_candidate
+    score: 60
+  - rva: '0x10a5d10'
+    label: dispatcher_candidate_rank_13
+    category: dispatcher_candidate
+    score: 63
+  - rva: '0x10c5f40'
+    label: dispatcher_candidate_rank_21
+    category: dispatcher_candidate
+    score: 59
+  - rva: '0x1df36e0'
+    label: dispatcher_candidate_rank_15
+    category: dispatcher_candidate
+    score: 62
+  - rva: '0x2c6ee40'
+    label: dispatcher_candidate_rank_6
+    category: dispatcher_candidate
+    score: 68
+  - rva: '0x33f6d60'
+    label: dispatcher_candidate_rank_24
+    category: dispatcher_candidate
+    score: 57
+  - rva: '0x33fb140'
+    label: dispatcher_candidate_rank_9
+    category: dispatcher_candidate
+    score: 66
+  - rva: '0x340f800'
+    label: dispatcher_candidate_rank_14
+    category: dispatcher_candidate
+    score: 63
+  - rva: '0x3893bd0'
+    label: dispatcher_candidate_rank_16
+    category: dispatcher_candidate
+    score: 61
+  - rva: '0x389f550'
+    label: dispatcher_candidate_rank_11
+    category: dispatcher_candidate
+    score: 64
+  - rva: '0x38f1840'
+    label: dispatcher_candidate_rank_7
+    category: dispatcher_candidate
+    score: 67
+  - rva: '0x39c4aa0'
+    label: dispatcher_candidate_rank_18
+    category: dispatcher_candidate
+    score: 60
+  - rva: '0x39ce610'
+    label: dispatcher_candidate_rank_12
+    category: dispatcher_candidate
+    score: 64
+  - rva: '0x3b12f2f'
+    label: dispatcher_candidate_rank_22
+    category: dispatcher_candidate
+    score: 58
+  - rva: '0x3b464f0'
+    label: dispatcher_candidate_rank_5
+    category: dispatcher_candidate
+    score: 69
+  - rva: '0x3bab320'
+    label: dispatcher_candidate_rank_23
+    category: dispatcher_candidate
+    score: 58
+scan_summary:
+  function_pointer_hit_count: 342009
+  pointer_run_count: 57759
+  relevant_function_pointer_hit_count: 22
+  outside_known_tables_relevant_hit_count: 0
+  outside_known_tables_sampled_run_count: 24
+  section_counts:
+    .rdata: 194867
+    .data: 147142
+  encoding_counts:
+    absolute_va: 341622
+    raw_rva: 387
+  target_category_counts:
+    dispatcher_candidate: 22
+codegen_method_table_stats:
+- module_name: Assembly-CSharp.dll
+  module_index: 5
+  method_pointer_table_rva: '0x50b9840'
+  method_pointer_count: 30078
+  function_pointer_hit_count: 25077
+  relevant_target_hit_count: 8
+  target_category_counts:
+    dispatcher_candidate: 8
+  relevant_hits:
+  - slot_rva: '0x50c6928'
+    slot_section: .data
+    target_rva: '0xe4ec50'
+    target_label: dispatcher_candidate_rank_1
+    target_category: dispatcher_candidate
+    known_method_table_module: Assembly-CSharp.dll
+    known_method_table_index: 6685
+    known_code_registration_field: ''
+    known_code_registration_index: null
+  - slot_rva: '0x50c6950'
+    slot_section: .data
+    target_rva: '0xe4c0f0'
+    target_label: dispatcher_candidate_rank_19
+    target_category: dispatcher_candidate
+    known_method_table_module: Assembly-CSharp.dll
+    known_method_table_index: 6690
+    known_code_registration_field: ''
+    known_code_registration_index: null
+  - slot_rva: '0x50eba88'
+    slot_section: .data
+    target_rva: '0xe8a9c0'
+    target_label: dispatcher_candidate_rank_20
+    target_category: dispatcher_candidate
+    known_method_table_module: Assembly-CSharp.dll
+    known_method_table_index: 25673
+    known_code_registration_field: ''
+    known_code_registration_index: null
+  - slot_rva: '0x50ed5a8'
+    slot_section: .data
+    target_rva: '0xebae50'
+    target_label: dispatcher_candidate_rank_2
+    target_category: dispatcher_candidate
+    known_method_table_module: Assembly-CSharp.dll
+    known_method_table_index: 26541
+    known_code_registration_field: ''
+    known_code_registration_index: null
+  - slot_rva: '0x50ed638'
+    slot_section: .data
+    target_rva: '0xec71d0'
+    target_label: dispatcher_candidate_rank_4
+    target_category: dispatcher_candidate
+    known_method_table_module: Assembly-CSharp.dll
+    known_method_table_index: 26559
+    known_code_registration_field: ''
+    known_code_registration_index: null
+  - slot_rva: '0x50ed860'
+    slot_section: .data
+    target_rva: '0xebc610'
+    target_label: dispatcher_candidate_rank_3
+    target_category: dispatcher_candidate
+    known_method_table_module: Assembly-CSharp.dll
+    known_method_table_index: 26628
+    known_code_registration_field: ''
+    known_code_registration_index: null
+  - slot_rva: '0x50edb78'
+    slot_section: .data
+    target_rva: '0xee33d0'
+    target_label: dispatcher_candidate_rank_10
+    target_category: dispatcher_candidate
+    known_method_table_module: Assembly-CSharp.dll
+    known_method_table_index: 26727
+    known_code_registration_field: ''
+    known_code_registration_index: null
+  - slot_rva: '0x50edfb8'
+    slot_section: .data
+    target_rva: '0xee4260'
+    target_label: dispatcher_candidate_rank_8
+    target_category: dispatcher_candidate
+    known_method_table_module: Assembly-CSharp.dll
+    known_method_table_index: 26863
+    known_code_registration_field: ''
+    known_code_registration_index: null
+- module_name: DocumentFormat.OpenXml.Framework.dll
+  module_index: 9
+  method_pointer_table_rva: '0x50f8950'
+  method_pointer_count: 3174
+  function_pointer_hit_count: 2046
+  relevant_target_hit_count: 3
+  target_category_counts:
+    dispatcher_candidate: 3
+  relevant_hits:
+  - slot_rva: '0x50f9de8'
+    slot_section: .data
+    target_rva: '0x1064b90'
+    target_label: dispatcher_candidate_rank_17
+    target_category: dispatcher_candidate
+    known_method_table_module: DocumentFormat.OpenXml.Framework.dll
+    known_method_table_index: 659
+    known_code_registration_field: ''
+    known_code_registration_index: null
+  - slot_rva: '0x50fc648'
+    slot_section: .data
+    target_rva: '0x10a5d10'
+    target_label: dispatcher_candidate_rank_13
+    target_category: dispatcher_candidate
+    known_method_table_module: DocumentFormat.OpenXml.Framework.dll
+    known_method_table_index: 1951
+    known_code_registration_field: ''
+    known_code_registration_index: null
+  - slot_rva: '0x50fdd68'
+    slot_section: .data
+    target_rva: '0x10c5f40'
+    target_label: dispatcher_candidate_rank_21
+    target_category: dispatcher_candidate
+    known_method_table_module: DocumentFormat.OpenXml.Framework.dll
+    known_method_table_index: 2691
+    known_code_registration_field: ''
+    known_code_registration_index: null
+- module_name: Sentry.dll
+  module_index: 14
+  method_pointer_table_rva: '0x5459cb0'
+  method_pointer_count: 3528
+  function_pointer_hit_count: 1774
+  relevant_target_hit_count: 2
+  target_category_counts:
+    dispatcher_candidate: 2
+  relevant_hits:
+  - slot_rva: '0x545b310'
+    slot_section: .data
+    target_rva: '0x389f550'
+    target_label: dispatcher_candidate_rank_11
+    target_category: dispatcher_candidate
+    known_method_table_module: Sentry.dll
+    known_method_table_index: 716
+    known_code_registration_field: ''
+    known_code_registration_index: null
+  - slot_rva: '0x545ea38'
+    slot_section: .data
+    target_rva: '0x38f1840'
+    target_label: dispatcher_candidate_rank_7
+    target_category: dispatcher_candidate
+    known_method_table_module: Sentry.dll
+    known_method_table_index: 2481
+    known_code_registration_field: ''
+    known_code_registration_index: null
+- module_name: System.Net.Http.dll
+  module_index: 35
+  method_pointer_table_rva: '0x5466e80'
+  method_pointer_count: 568
+  function_pointer_hit_count: 352
+  relevant_target_hit_count: 2
+  target_category_counts:
+    dispatcher_candidate: 2
+  relevant_hits:
+  - slot_rva: '0x5466fb8'
+    slot_section: .data
+    target_rva: '0x39c4aa0'
+    target_label: dispatcher_candidate_rank_18
+    target_category: dispatcher_candidate
+    known_method_table_module: System.Net.Http.dll
+    known_method_table_index: 39
+    known_code_registration_field: ''
+    known_code_registration_index: null
+  - slot_rva: '0x5467010'
+    slot_section: .data
+    target_rva: '0x39ce610'
+    target_label: dispatcher_candidate_rank_12
+    target_category: dispatcher_candidate
+    known_method_table_module: System.Net.Http.dll
+    known_method_table_index: 50
+    known_code_registration_field: ''
+    known_code_registration_index: null
+- module_name: System.dll
+  module_index: 29
+  method_pointer_table_rva: '0x5474760'
+  method_pointer_count: 5736
+  function_pointer_hit_count: 4012
+  relevant_target_hit_count: 1
+  target_category_counts:
+    dispatcher_candidate: 1
+  relevant_hits:
+  - slot_rva: '0x547df70'
+    slot_section: .data
+    target_rva: '0x3bab320'
+    target_label: dispatcher_candidate_rank_23
+    target_category: dispatcher_candidate
+    known_method_table_module: System.dll
+    known_method_table_index: 4866
+    known_code_registration_field: ''
+    known_code_registration_index: null
+- module_name: System.Xml.dll
+  module_index: 39
+  method_pointer_table_rva: '0x5468da0'
+  method_pointer_count: 5646
+  function_pointer_hit_count: 3908
+  relevant_target_hit_count: 1
+  target_category_counts:
+    dispatcher_candidate: 1
+  relevant_hits:
+  - slot_rva: '0x54701a8'
+    slot_section: .data
+    target_rva: '0x3b464f0'
+    target_label: dispatcher_candidate_rank_5
+    target_category: dispatcher_candidate
+    known_method_table_module: System.Xml.dll
+    known_method_table_index: 3713
+    known_code_registration_field: ''
+    known_code_registration_index: null
+- module_name: Mono.Security.dll
+  module_index: 13
+  method_pointer_table_rva: '0x541d730'
+  method_pointer_count: 594
+  function_pointer_hit_count: 456
+  relevant_target_hit_count: 1
+  target_category_counts:
+    dispatcher_candidate: 1
+  relevant_hits:
+  - slot_rva: '0x541d9f8'
+    slot_section: .data
+    target_rva: '0x340f800'
+    target_label: dispatcher_candidate_rank_14
+    target_category: dispatcher_candidate
+    known_method_table_module: Mono.Security.dll
+    known_method_table_index: 89
+    known_code_registration_field: ''
+    known_code_registration_index: null
+- module_name: Sentry.Unity.dll
+  module_index: 25
+  method_pointer_table_rva: '0x5458490'
+  method_pointer_count: 767
+  function_pointer_hit_count: 323
+  relevant_target_hit_count: 1
+  target_category_counts:
+    dispatcher_candidate: 1
+  relevant_hits:
+  - slot_rva: '0x5458598'
+    slot_section: .data
+    target_rva: '0x3893bd0'
+    target_label: dispatcher_candidate_rank_16
+    target_category: dispatcher_candidate
+    known_method_table_module: Sentry.Unity.dll
+    known_method_table_index: 33
+    known_code_registration_field: ''
+    known_code_registration_index: null
+- module_name: LitJson.dll
+  module_index: 12
+  method_pointer_table_rva: '0x541ca40'
+  method_pointer_count: 389
+  function_pointer_hit_count: 227
+  relevant_target_hit_count: 1
+  target_category_counts:
+    dispatcher_candidate: 1
+  relevant_hits:
+  - slot_rva: '0x541cfb0'
+    slot_section: .data
+    target_rva: '0x33fb140'
+    target_label: dispatcher_candidate_rank_9
+    target_category: dispatcher_candidate
+    known_method_table_module: LitJson.dll
+    known_method_table_index: 174
+    known_code_registration_field: ''
+    known_code_registration_index: null
+- module_name: DocumentFormat.OpenXml.dll
+  module_index: 8
+  method_pointer_table_rva: '0x50ff640'
+  method_pointer_count: 67261
+  function_pointer_hit_count: 51545
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: mscorlib.dll
+  module_index: 97
+  method_pointer_table_rva: '0x54224d0'
+  method_pointer_count: 14161
+  function_pointer_hit_count: 9387
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: UnityEngine.CoreModule.dll
+  module_index: 50
+  method_pointer_table_rva: '0x54d2440'
+  method_pointer_count: 7628
+  function_pointer_hit_count: 6139
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: Unity.Mathematics.dll
+  module_index: 87
+  method_pointer_table_rva: '0x549a550'
+  method_pointer_count: 9338
+  function_pointer_hit_count: 3384
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: Unity.Burst.dll
+  module_index: 83
+  method_pointer_table_rva: '0x548a410'
+  method_pointer_count: 3642
+  function_pointer_hit_count: 2899
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: Sentry.System.Reflection.Metadata.dll
+  module_index: 20
+  method_pointer_table_rva: '0x544a930'
+  method_pointer_count: 3432
+  function_pointer_hit_count: 2202
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: UnityEngine.ParticleSystemModule.dll
+  module_index: 59
+  method_pointer_table_rva: '0x54e29a0'
+  method_pointer_count: 1822
+  function_pointer_hit_count: 1688
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: UniTask.dll
+  module_index: 43
+  method_pointer_table_rva: '0x5483060'
+  method_pointer_count: 3346
+  function_pointer_hit_count: 1409
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: Sentry.System.Text.Json.dll
+  module_index: 23
+  method_pointer_table_rva: '0x5452450'
+  method_pointer_count: 2087
+  function_pointer_hit_count: 1408
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: Unity.TextMeshPro.dll
+  module_index: 92
+  method_pointer_table_rva: '0x54c52e0'
+  method_pointer_count: 1811
+  function_pointer_hit_count: 1162
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: UnityEngine.UI.dll
+  module_index: 74
+  method_pointer_table_rva: '0x54ec220'
+  method_pointer_count: 1911
+  function_pointer_hit_count: 1061
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: Unity.RenderPipelines.Core.Runtime.dll
+  module_index: 90
+  method_pointer_table_rva: '0x54be2a0'
+  method_pointer_count: 1681
+  function_pointer_hit_count: 945
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: Unity.Collections.dll
+  module_index: 85
+  method_pointer_table_rva: '0x5491b30'
+  method_pointer_count: 2838
+  function_pointer_hit_count: 929
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: Unity.RenderPipelines.Universal.Runtime.dll
+  module_index: 91
+  method_pointer_table_rva: '0x54c2130'
+  method_pointer_count: 1431
+  function_pointer_hit_count: 873
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: UltraLiteDB.dll
+  module_index: 42
+  method_pointer_table_rva: '0x54803e0'
+  method_pointer_count: 1414
+  function_pointer_hit_count: 871
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: DOTween.dll
+  module_index: 7
+  method_pointer_table_rva: '0x519bba0'
+  method_pointer_count: 1167
+  function_pointer_hit_count: 804
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: AVProVideo.Runtime.dll
+  module_index: 3
+  method_pointer_table_rva: '0x50f5b50'
+  method_pointer_count: 1318
+  function_pointer_hit_count: 651
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: UnityEngine.AnimationModule.dll
+  module_index: 46
+  method_pointer_table_rva: '0x54cb890'
+  method_pointer_count: 775
+  function_pointer_hit_count: 640
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: System.Core.dll
+  module_index: 31
+  method_pointer_table_rva: '0x54627a0'
+  method_pointer_count: 1194
+  function_pointer_hit_count: 585
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: Unity.Timeline.dll
+  module_index: 93
+  method_pointer_table_rva: '0x54c92a0'
+  method_pointer_count: 868
+  function_pointer_hit_count: 542
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: System.IO.Packaging.dll
+  module_index: 34
+  method_pointer_table_rva: '0x5465a20'
+  method_pointer_count: 641
+  function_pointer_hit_count: 527
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: ZString.dll
+  module_index: 94
+  method_pointer_table_rva: '0x54f1be0'
+  method_pointer_count: 1005
+  function_pointer_hit_count: 465
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+- module_name: UnityEngine.IMGUIModule.dll
+  module_index: 53
+  method_pointer_table_rva: '0x54e13f0'
+  method_pointer_count: 430
+  function_pointer_hit_count: 380
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  relevant_hits: []
+code_registration_field_table_stats:
+- field_offset: '0x10'
+  pointer_table_rva: '0x480fd10'
+  declared_count: 150506
+  function_pointer_hit_count: 123600
+  relevant_target_hit_count: 2
+  target_category_counts:
+    dispatcher_candidate: 2
+  known_field: ''
+  relevant_hits:
+  - slot_rva: '0x4814df0'
+    slot_section: .rdata
+    target_rva: '0x2c6ee40'
+    target_label: dispatcher_candidate_rank_6
+    target_category: dispatcher_candidate
+    known_method_table_module: ''
+    known_method_table_index: null
+    known_code_registration_field: '0x10'
+    known_code_registration_index: 2588
+  - slot_rva: '0x492dbf0'
+    slot_section: .rdata
+    target_rva: '0x1df36e0'
+    target_label: dispatcher_candidate_rank_15
+    target_category: dispatcher_candidate
+    known_method_table_module: ''
+    known_method_table_index: null
+    known_code_registration_field: '0x10'
+    known_code_registration_index: 146396
+- field_offset: '0x28'
+  pointer_table_rva: '0x43327d0'
+  declared_count: 32356
+  function_pointer_hit_count: 30696
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  known_field: ''
+  relevant_hits: []
+- field_offset: '0x0'
+  pointer_table_rva: '0x4371af0'
+  declared_count: 12450
+  function_pointer_hit_count: 12450
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  known_field: ''
+  relevant_hits: []
+- field_offset: '0x38'
+  pointer_table_rva: '0x438a000'
+  declared_count: 6632
+  function_pointer_hit_count: 5468
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  known_field: ''
+  relevant_hits: []
+- field_offset: '0x58'
+  pointer_table_rva: '0x50a2b60'
+  declared_count: 1614
+  function_pointer_hit_count: 559
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  known_field: ''
+  relevant_hits: []
+- field_offset: '0x78'
+  pointer_table_rva: '0x50a2840'
+  declared_count: 98
+  function_pointer_hit_count: 0
+  relevant_target_hit_count: 0
+  target_category_counts: {}
+  known_field: CodeGenModules.count
+  relevant_hits: []
+relevant_function_pointer_hits:
+- slot_rva: '0x4814df0'
+  slot_section: .rdata
+  target_rva: '0x2c6ee40'
+  target_label: dispatcher_candidate_rank_6
+  target_category: dispatcher_candidate
+  known_method_table_module: ''
+  known_method_table_index: null
+  known_code_registration_field: '0x10'
+  known_code_registration_index: 2588
+- slot_rva: '0x492dbf0'
+  slot_section: .rdata
+  target_rva: '0x1df36e0'
+  target_label: dispatcher_candidate_rank_15
+  target_category: dispatcher_candidate
+  known_method_table_module: ''
+  known_method_table_index: null
+  known_code_registration_field: '0x10'
+  known_code_registration_index: 146396
+- slot_rva: '0x50c6928'
+  slot_section: .data
+  target_rva: '0xe4ec50'
+  target_label: dispatcher_candidate_rank_1
+  target_category: dispatcher_candidate
+  known_method_table_module: Assembly-CSharp.dll
+  known_method_table_index: 6685
+  known_code_registration_field: ''
+  known_code_registration_index: null
+- slot_rva: '0x50c6950'
+  slot_section: .data
+  target_rva: '0xe4c0f0'
+  target_label: dispatcher_candidate_rank_19
+  target_category: dispatcher_candidate
+  known_method_table_module: Assembly-CSharp.dll
+  known_method_table_index: 6690
+  known_code_registration_field: ''
+  known_code_registration_index: null
+- slot_rva: '0x50eba88'
+  slot_section: .data
+  target_rva: '0xe8a9c0'
+  target_label: dispatcher_candidate_rank_20
+  target_category: dispatcher_candidate
+  known_method_table_module: Assembly-CSharp.dll
+  known_method_table_index: 25673
+  known_code_registration_field: ''
+  known_code_registration_index: null
+- slot_rva: '0x50ed5a8'
+  slot_section: .data
+  target_rva: '0xebae50'
+  target_label: dispatcher_candidate_rank_2
+  target_category: dispatcher_candidate
+  known_method_table_module: Assembly-CSharp.dll
+  known_method_table_index: 26541
+  known_code_registration_field: ''
+  known_code_registration_index: null
+- slot_rva: '0x50ed638'
+  slot_section: .data
+  target_rva: '0xec71d0'
+  target_label: dispatcher_candidate_rank_4
+  target_category: dispatcher_candidate
+  known_method_table_module: Assembly-CSharp.dll
+  known_method_table_index: 26559
+  known_code_registration_field: ''
+  known_code_registration_index: null
+- slot_rva: '0x50ed860'
+  slot_section: .data
+  target_rva: '0xebc610'
+  target_label: dispatcher_candidate_rank_3
+  target_category: dispatcher_candidate
+  known_method_table_module: Assembly-CSharp.dll
+  known_method_table_index: 26628
+  known_code_registration_field: ''
+  known_code_registration_index: null
+- slot_rva: '0x50edb78'
+  slot_section: .data
+  target_rva: '0xee33d0'
+  target_label: dispatcher_candidate_rank_10
+  target_category: dispatcher_candidate
+  known_method_table_module: Assembly-CSharp.dll
+  known_method_table_index: 26727
+  known_code_registration_field: ''
+  known_code_registration_index: null
+- slot_rva: '0x50edfb8'
+  slot_section: .data
+  target_rva: '0xee4260'
+  target_label: dispatcher_candidate_rank_8
+  target_category: dispatcher_candidate
+  known_method_table_module: Assembly-CSharp.dll
+  known_method_table_index: 26863
+  known_code_registration_field: ''
+  known_code_registration_index: null
+- slot_rva: '0x50f9de8'
+  slot_section: .data
+  target_rva: '0x1064b90'
+  target_label: dispatcher_candidate_rank_17
+  target_category: dispatcher_candidate
+  known_method_table_module: DocumentFormat.OpenXml.Framework.dll
+  known_method_table_index: 659
+  known_code_registration_field: ''
+  known_code_registration_index: null
+- slot_rva: '0x50fc648'
+  slot_section: .data
+  target_rva: '0x10a5d10'
+  target_label: dispatcher_candidate_rank_13
+  target_category: dispatcher_candidate
+  known_method_table_module: DocumentFormat.OpenXml.Framework.dll
+  known_method_table_index: 1951
+  known_code_registration_field: ''
+  known_code_registration_index: null
+- slot_rva: '0x50fdd68'
+  slot_section: .data
+  target_rva: '0x10c5f40'
+  target_label: dispatcher_candidate_rank_21
+  target_category: dispatcher_candidate
+  known_method_table_module: DocumentFormat.OpenXml.Framework.dll
+  known_method_table_index: 2691
+  known_code_registration_field: ''
+  known_code_registration_index: null
+- slot_rva: '0x541cfb0'
+  slot_section: .data
+  target_rva: '0x33fb140'
+  target_label: dispatcher_candidate_rank_9
+  target_category: dispatcher_candidate
+  known_method_table_module: LitJson.dll
+  known_method_table_index: 174
+  known_code_registration_field: ''
+  known_code_registration_index: null
+- slot_rva: '0x541d9f8'
+  slot_section: .data
+  target_rva: '0x340f800'
+  target_label: dispatcher_candidate_rank_14
+  target_category: dispatcher_candidate
+  known_method_table_module: Mono.Security.dll
+  known_method_table_index: 89
+  known_code_registration_field: ''
+  known_code_registration_index: null
+- slot_rva: '0x5458598'
+  slot_section: .data
+  target_rva: '0x3893bd0'
+  target_label: dispatcher_candidate_rank_16
+  target_category: dispatcher_candidate
+  known_method_table_module: Sentry.Unity.dll
+  known_method_table_index: 33
+  known_code_registration_field: ''
+  known_code_registration_index: null
+- slot_rva: '0x545b310'
+  slot_section: .data
+  target_rva: '0x389f550'
+  target_label: dispatcher_candidate_rank_11
+  target_category: dispatcher_candidate
+  known_method_table_module: Sentry.dll
+  known_method_table_index: 716
+  known_code_registration_field: ''
+  known_code_registration_index: null
+- slot_rva: '0x545ea38'
+  slot_section: .data
+  target_rva: '0x38f1840'
+  target_label: dispatcher_candidate_rank_7
+  target_category: dispatcher_candidate
+  known_method_table_module: Sentry.dll
+  known_method_table_index: 2481
+  known_code_registration_field: ''
+  known_code_registration_index: null
+- slot_rva: '0x5466fb8'
+  slot_section: .data
+  target_rva: '0x39c4aa0'
+  target_label: dispatcher_candidate_rank_18
+  target_category: dispatcher_candidate
+  known_method_table_module: System.Net.Http.dll
+  known_method_table_index: 39
+  known_code_registration_field: ''
+  known_code_registration_index: null
+- slot_rva: '0x5467010'
+  slot_section: .data
+  target_rva: '0x39ce610'
+  target_label: dispatcher_candidate_rank_12
+  target_category: dispatcher_candidate
+  known_method_table_module: System.Net.Http.dll
+  known_method_table_index: 50
+  known_code_registration_field: ''
+  known_code_registration_index: null
+- slot_rva: '0x54701a8'
+  slot_section: .data
+  target_rva: '0x3b464f0'
+  target_label: dispatcher_candidate_rank_5
+  target_category: dispatcher_candidate
+  known_method_table_module: System.Xml.dll
+  known_method_table_index: 3713
+  known_code_registration_field: ''
+  known_code_registration_index: null
+- slot_rva: '0x547df70'
+  slot_section: .data
+  target_rva: '0x3bab320'
+  target_label: dispatcher_candidate_rank_23
+  target_category: dispatcher_candidate
+  known_method_table_module: System.dll
+  known_method_table_index: 4866
+  known_code_registration_field: ''
+  known_code_registration_index: null
+outside_known_table_runs:
+- section: .rdata
+  start_rva: '0x44f3eb8'
+  end_rva: '0x44f5678'
+  hit_count: 760
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x44fd0b0'
+  end_rva: '0x44fe600'
+  hit_count: 682
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x44f65b8'
+  end_rva: '0x44f78f8'
+  hit_count: 616
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x44ef778'
+  end_rva: '0x44f0678'
+  hit_count: 480
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x44f1ff8'
+  end_rva: '0x44f2d78'
+  hit_count: 432
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x44f0f78'
+  end_rva: '0x44f1a38'
+  hit_count: 344
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x44f34b8'
+  end_rva: '0x44f3e78'
+  hit_count: 312
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x44f8038'
+  end_rva: '0x44f86f8'
+  hit_count: 216
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x44f2db8'
+  end_rva: '0x44f3338'
+  hit_count: 176
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x44f0a78'
+  end_rva: '0x44f0f38'
+  hit_count: 152
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x44f1b78'
+  end_rva: '0x44f1fb8'
+  hit_count: 136
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x43a6048'
+  end_rva: '0x43a6410'
+  hit_count: 121
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x43af1b0'
+  end_rva: '0x43af560'
+  hit_count: 118
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x44f61f8'
+  end_rva: '0x44f6578'
+  hit_count: 112
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x44f7a38'
+  end_rva: '0x44f7db8'
+  hit_count: 112
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x44f5778'
+  end_rva: '0x44f5ab8'
+  hit_count: 104
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x43b0158'
+  end_rva: '0x43b0490'
+  hit_count: 103
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x44f5eb8'
+  end_rva: '0x44f61b8'
+  hit_count: 96
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x4504650'
+  end_rva: '0x4504910'
+  hit_count: 88
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x44f5bf8'
+  end_rva: '0x44f5e38'
+  hit_count: 72
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x43a8770'
+  end_rva: '0x43a89a8'
+  hit_count: 71
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x44d0268'
+  end_rva: '0x44d0478'
+  hit_count: 66
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x44f0878'
+  end_rva: '0x44f0a38'
+  hit_count: 56
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+- section: .rdata
+  start_rva: '0x44f06b8'
+  end_rva: '0x44f0838'
+  hit_count: 48
+  candidate_kind: outside_known_table_pointer_run
+  target_category_counts: {}
+  target_labels: []
+counts:
+  known_method_table_count: 96
+  known_method_table_declared_pointer_count: 190521
+  known_code_registration_field_table_count: 6
+  known_code_registration_field_declared_pointer_count: 203656
+  function_pointer_hit_count: 342009
+  pointer_run_count: 57759
+  known_codegen_method_table_hit_count: 133465
+  known_code_registration_field_hit_count: 172773
+  outside_known_codegen_table_hit_count: 208544
+  outside_known_table_hit_count: 35771
+  relevant_function_pointer_hit_count: 22
+  known_codegen_method_table_relevant_hit_count: 20
+  known_code_registration_field_relevant_hit_count: 2
+  outside_known_table_relevant_hit_count: 0
+  global_metadata_function_pointer_hit_count: 0
+  dispatcher_pointer_hit_count: 22
+  dispatcher_pointer_hits_in_codegen_tables: 20
+  dispatcher_pointer_hits_outside_codegen_tables: 2
+  dispatcher_pointer_hits_in_code_registration_fields: 2
+  dispatcher_pointer_hits_outside_known_tables: 0
+  entrypoint_pointer_hit_count: 0
+  outside_known_table_sampled_run_count: 24
+  initializer_candidate_table_count: 0
+  init_lua_env_method_pointer_recovered: 0
+  protected_metadata_method_ownership_recovered: 0
+  safe_for_publish: 0
+  publishable_knowledge_entries: 0
+route_conclusion:
+  function_pointer_tables_scanned: true
+  dispatcher_pointer_hits_found: true
+  dispatcher_pointer_hits_classified_as_known_il2cpp_tables: true
+  global_metadata_function_pointer_hits_found: false
+  outside_known_table_relevant_pointer_hits_found: false
+  independent_initializer_table_candidate_found: false
+  initializer_table_route_recovered: false
+  init_lua_env_method_pointer_recovered: false
+  protected_metadata_method_ownership_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  interpretation: Relevant dispatcher candidate pointers classify as known IL2CPP
+    tables (CodeGenModule method pointer tables or CodeRegistration field arrays),
+    not as a standalone initializer table; no global-metadata string-ref function
+    pointer or outside-known-table relevant table was found in qword-aligned .rdata/.data
+    slots.
+evidence_refs:
+- NSLG_FUNCTION_POINTER_TABLE:round184:nonexec-function-pointer-scan
+- NSLG_FUNCTION_POINTER_TABLE:round184:codegen-method-table-classification
+- NSLG_FUNCTION_POINTER_TABLE:round184:dispatcher-pointer-hit-classification
+- NSLG_FUNCTION_POINTER_TABLE:round184:global-metadata-function-pointer-check
+next_static_targets:
+- If continuing this branch, inspect only outside known CodeGenModule/CodeRegistration
+  pointer runs that carry a registration, metadata, or global-metadata-function signal.
+- Because dispatcher candidate pointer hits classify as known IL2CPP tables, continue
+  toward protected metadata method-definition ownership before naming managed methods.
+- Use Assembly-CSharp.dll CodeGenModule method pointer table as a registration-side
+  table, not as proof of InitLuaEnv ownership.
+- Do not repeat direct-call dispatcher tracing unless new indirect owner evidence
+  appears.
+limitations:
+- Offline/static qword scan only; no runtime attach, live instrumentation, account
+  data, credentials, or online protocol is used.
+- Only qword-aligned slots in .rdata and .data are scanned; computed/encoded tables
+  and runtime-filled pointers are out of scope.
+- A pointer table hit does not name a method without decoded protected metadata or
+  proven metadata-registration ownership.
+- This artifact is decoder-routing evidence and must not be promoted as gameplay knowledge.
+guardrails:
+- offline/static GameAssembly function pointer table probe only; no live instrumentation,
+  account data, or online protocol data is included
+- known IL2CPP table membership is not method-name ownership
+- InitLuaEnv remains unresolved until decoded metadata or proven metadata-registration
+  ownership exists
+- route evidence is not publishable gameplay knowledge

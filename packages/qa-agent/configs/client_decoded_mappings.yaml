@@ -1,0 +1,125 @@
+heroes:
+  "1000": {canonical_name: 曹操, confidence: 0.95, notes: [codename caocao]}
+  "1002": {canonical_name: 典韦, confidence: 0.9, notes: [codename dianwei_zhanji]}
+  "1003": {canonical_name: 荀攸, confidence: 0.95, notes: [codename xunyou]}
+  "1004": {canonical_name: 贾诩, confidence: 0.95, notes: [codename jiaxu]}
+  "1005": {canonical_name: 郭嘉, confidence: 0.95, notes: [codename guojia]}
+  "1008": {canonical_name: 荀彧, confidence: 0.9, notes: [codename xunyu_xinxiang]}
+  "1009": {canonical_name: 司马懿, confidence: 0.95, notes: [codename simayi]}
+  "1011": {canonical_name: 曹丕, confidence: 0.9, notes: [codename caopi_denglin]}
+  "1012": {canonical_name: 邓艾, confidence: 0.9, notes: [codename dengai]}
+  "1014": {canonical_name: 乐进, confidence: 0.9, notes: [codename yuejin_canglang]}
+  "1017": {canonical_name: 张春华, confidence: 0.95, notes: [codename zhangchunhua]}
+  "1020": {canonical_name: 王异, confidence: 0.95, notes: [codename wangyi]}
+  "1022": {canonical_name: 郝昭, confidence: 0.9, notes: [codename haozhao_xiongguan]}
+  "1023": {canonical_name: 夏侯惇, confidence: 0.9, notes: [codename xiahoudun_yuxue]}
+  "1026": {canonical_name: 甄洛, confidence: 0.9, notes: [codename zhenji, qa-agent uses canonical 甄洛]}
+  "1027": {canonical_name: 卞夫人, confidence: 0.95, notes: [codename bianfuren]}
+  "2000": {canonical_name: 刘备, confidence: 0.95, notes: [codename liubei]}
+  "2001": {canonical_name: 关羽, confidence: 0.95, notes: [codename guanyu]}
+  "2002": {canonical_name: 张飞, confidence: 0.95, notes: [codename zhangfei]}
+  "2003": {canonical_name: 诸葛亮, confidence: 0.9, notes: [codename zhugeliang]}
+  "2005": {canonical_name: 徐庶, confidence: 0.95, notes: [codename xushu]}
+  "2009": {canonical_name: 黄月英, confidence: 0.95, notes: [codename huangyueying]}
+  "2011": {canonical_name: 关银屏, confidence: 0.95, notes: [codename guanyinping]}
+  "2012": {canonical_name: 赵云, confidence: 0.95, notes: [codename zhaoyun]}
+  "2013": {canonical_name: 马云禄, confidence: 0.95, notes: [codename mayunlu]}
+  "2015": {canonical_name: 马超, confidence: 0.95, notes: [codename machao]}
+  "2017": {canonical_name: 魏延, confidence: 0.9, notes: [codename weiyan_nigu]}
+  "2019": {canonical_name: 甘夫人, confidence: 0.95, notes: [codename ganfuren]}
+  "2021": {canonical_name: 姜维, confidence: 0.95, notes: [codename jiangwei]}
+  "2022": {canonical_name: 诸葛亮2, confidence: 0.82, notes: [codename zhugeliang_moyi, disambiguated to qa-agent SP/second Zhuge profile]}
+  "3000": {canonical_name: 孙权, confidence: 0.95, notes: [codename sunquan]}
+  "3001": {canonical_name: 孙策, confidence: 0.95, notes: [codename sunce]}
+  "3002": {canonical_name: 孙尚香, confidence: 0.95, notes: [codename sunshangxiang]}
+  "3003": {canonical_name: 小乔, confidence: 0.95, notes: [codename xiaoqiao]}
+  "3004": {canonical_name: 大乔, confidence: 0.95, notes: [codename daqiao]}
+  "3005": {canonical_name: 鲁肃, confidence: 0.95, notes: [codename lusu]}
+  "3006": {canonical_name: 甘宁, confidence: 0.95, notes: [codename ganning]}
+  "3007": {canonical_name: 周瑜, confidence: 0.95, notes: [codename zhouyu]}
+  "3008": {canonical_name: 陆逊, confidence: 0.95, notes: [codename luxun]}
+  "3010": {canonical_name: 吕蒙, confidence: 0.95, notes: [codename lvmeng]}
+  "3016": {canonical_name: 陆抗, confidence: 0.9, notes: [codename lukang_jueyan]}
+  "4000": {canonical_name: 吕布, confidence: 0.95, notes: [codename lvbu]}
+  "4001": {canonical_name: 张辽, confidence: 0.72, notes: [codename zhangliao_shuangfeng, faction differs from current KB bucket and requires review]}
+  "4002": {canonical_name: 蔡文姬, confidence: 0.95, notes: [codename caiwenji]}
+  "4004": {canonical_name: 袁绍, confidence: 0.85, notes: [codename yuanshao_liangjian]}
+  "4005": {canonical_name: 孟获, confidence: 0.9, notes: [codename menghuo_xunshou]}
+  "4006": {canonical_name: 祝融夫人, confidence: 0.95, notes: [codename zhurongfuren]}
+  "4010": {canonical_name: 李儒, confidence: 0.95, notes: [codename liru]}
+  "4011": {canonical_name: 张角, confidence: 0.95, notes: [codename zhangjiao]}
+  "4012": {canonical_name: 左慈, confidence: 0.95, notes: [codename zuoci]}
+  "4013": {canonical_name: 陈宫, confidence: 0.95, notes: [codename chengong]}
+  "4019": {canonical_name: 华佗, confidence: 0.95, notes: [codename huatuo]}
+  "4023": {canonical_name: 貂蝉, confidence: 0.95, notes: [codename diaochan]}
+  "4024": {canonical_name: 张宁, confidence: 0.95, notes: [codename zhangning]}
+  "4026": {canonical_name: 马腾, confidence: 0.95, notes: [codename mateng]}
+  "4028": {canonical_name: 董卓, confidence: 0.95, notes: [codename dongzhuo]}
+  "4029": {canonical_name: 邹氏, confidence: 0.95, notes: [codename zoushi]}
+  "4032": {canonical_name: 孙坚2, confidence: 0.7, notes: [codename sunjian_huxiao, mapped to qa-agent second Sun Jian profile and requires review]}
+  "5026": {canonical_name: 步练师, confidence: 0.95, notes: [codename bulianshi]}
+  "5034": {canonical_name: 徐盛, confidence: 0.9, notes: [codename xusheng]}
+  "5048": {canonical_name: 张梁, confidence: 0.95, notes: [codename zhangliang]}
+  "5055": {canonical_name: 张宝, confidence: 0.95, notes: [codename zhangbao]}
+skills:
+  "100001": {canonical_name: 乱世奸雄, confidence: 0.9}
+  "100201": {canonical_name: 古之恶来, confidence: 0.85}
+  "100301": {canonical_name: 十二奇策, confidence: 0.9}
+  "100401": {canonical_name: 诡道玄机, confidence: 0.9}
+  "100501": {canonical_name: 算无遗策, confidence: 0.9}
+  "100801": {canonical_name: 建计举人, confidence: 0.85}
+  "100901": {canonical_name: 鹰视狼顾, confidence: 0.9}
+  "101101": {canonical_name: 权御九锡, confidence: 0.85}
+  "101201": {canonical_name: 屯田令, confidence: 0.85}
+  "101401": {canonical_name: 每战先登, confidence: 0.85}
+  "101701": {canonical_name: 荼蘼心计, confidence: 0.9}
+  "102001": {canonical_name: 巧策引锋, confidence: 0.9}
+  "102201": {canonical_name: 千机重城, confidence: 0.85}
+  "102301": {canonical_name: 刚烈, confidence: 0.85}
+  "102601": {canonical_name: 流风回雪, confidence: 0.85}
+  "102701": {canonical_name: 素衣约俭, confidence: 0.9}
+  "200001": {canonical_name: 携民渡江, confidence: 0.9}
+  "200101": {canonical_name: 威震华夏, confidence: 0.9}
+  "200201": {canonical_name: 万人之敌, confidence: 0.9}
+  "200301": {canonical_name: 草船借箭, confidence: 0.85}
+  "200501": {canonical_name: 折节学问, confidence: 0.9}
+  "200901": {canonical_name: 木牛流马, confidence: 0.9}
+  "201101": {canonical_name: 虎啸生威, confidence: 0.9}
+  "201201": {canonical_name: 七进七出, confidence: 0.9}
+  "201301": {canonical_name: 红妆缭乱, confidence: 0.9}
+  "201501": {canonical_name: 纵马横枪, confidence: 0.9}
+  "201901": {canonical_name: 皇思淑仁, confidence: 0.9}
+  "202101": {canonical_name: 九伐中原, confidence: 0.9}
+  "202201": {canonical_name: 星罗棋布, confidence: 0.8}
+  "300001": {canonical_name: 虎踞江东, confidence: 0.9}
+  "300101": {canonical_name: 制霸江东, confidence: 0.9}
+  "300201": {canonical_name: 弓腰姬, confidence: 0.9}
+  "300301": {canonical_name: 天香, confidence: 0.9}
+  "300401": {canonical_name: 国色, confidence: 0.9}
+  "300501": {canonical_name: 划湘分荆, confidence: 0.9}
+  "300601": {canonical_name: 锦帆渠魁, confidence: 0.9}
+  "300701": {canonical_name: 临机制胜, confidence: 0.9}
+  "300801": {canonical_name: 火烧连营, confidence: 0.9}
+  "301001": {canonical_name: 白衣渡江, confidence: 0.9}
+  "301601": {canonical_name: 决堰倾涛, confidence: 0.85}
+  "400001": {canonical_name: 骁勇无前, confidence: 0.9}
+  "400101": {canonical_name: 风袭逍遥, confidence: 0.72}
+  "400201": {canonical_name: 悲愤诗, confidence: 0.9}
+  "400401": {canonical_name: 合聚群雄, confidence: 0.82}
+  "400501": {canonical_name: 雄护南疆, confidence: 0.85}
+  "400601": {canonical_name: 南疆烈刃, confidence: 0.9}
+  "401001": {canonical_name: 鸩饮毒弑, confidence: 0.9}
+  "401101": {canonical_name: 黄天当立, confidence: 0.9}
+  "401201": {canonical_name: 云行雨施, confidence: 0.9}
+  "401301": {canonical_name: 智令从计, confidence: 0.9}
+  "401901": {canonical_name: 麻沸散, confidence: 0.9}
+  "402301": {canonical_name: 闭月, confidence: 0.9}
+  "402401": {canonical_name: 太平余响, confidence: 0.9}
+  "402601": {canonical_name: 雄踞西凉, confidence: 0.9}
+  "402801": {canonical_name: 权倾朝野, confidence: 0.9}
+  "402901": {canonical_name: 顾盼生姿, confidence: 0.9}
+  "403201": {canonical_name: 诛凶殄逆, confidence: 0.7}
+  "502601": {canonical_name: 淑懿之德, confidence: 0.9}
+  "503401": {canonical_name: 百里疑城, confidence: 0.85}
+  "504801": {canonical_name: 妖武, confidence: 0.9}
+  "505501": {canonical_name: 妖风大作, confidence: 0.9}

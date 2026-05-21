@@ -1,0 +1,4634 @@
+schema_version: nslg.client_import_queue.v1
+source_id: nslg-client-import-queue-round120
+generated_at: '2026-05-21T08:53:12.317489Z'
+source_type: nslg_client_import_queue
+client_version:
+  app_version: 1.29.0
+  global_bundle_version: 1.0.0
+  streaming_assets_global_bundle_version: 1.0.0
+  app_git_version: 0de45a91
+  global_bundle_git_version: 7a56faae
+  pc_package_info: {}
+queue_item_count: 100
+queue_type_counts:
+  decoded_hero_review: 63
+  gameassembly_function_pointer_table_probe_target: 1
+  gameassembly_initializer_dispatch_trace_target: 1
+  gameassembly_metadata_registration_candidate_taxonomy_target: 1
+  gameassembly_registration_pair_context_probe_target: 1
+  gameassembly_resolver_caller_trace_target: 1
+  gameassembly_resolver_trace_target: 1
+  gameassembly_static_trace_target: 1
+  global_metadata_transform_probe_target: 1
+  lua_crypto_decoder_target: 4
+  luascripts_decoder_target: 16
+  luascripts_payload_variant_corpus_target: 1
+  native_loadbuffer_boundary_trace_target: 1
+  nep2_init_bridge_trace_target: 1
+  nep2_init_data_owner_scan_target: 1
+  nep2_static_trace_target: 4
+  textasset_xlua_boundary_ledger_target: 1
+readiness_counts:
+  blocked_pending_decoder: 21
+  needs_manual_review: 63
+  static_trace_target: 16
+domain_counts:
+  combat: 6
+  hero: 68
+  lua_scripts: 10
+  metadata: 5
+  protector: 6
+  skill: 4
+  unknown: 1
+publish_readiness:
+  safe_for_publish: false
+  auto_publish_allowed: false
+  publishable_now_count: 0
+  queue_blocker_count: 214
+  upstream_bundle_safe_for_publish: false
+  reason: client import queue is a review and decoder planning artifact; no entry
+    is promoted automatically
+items:
+- queue_id: gameassembly-metadata-registration-candidate-taxonomy-owner-route
+  queue_type: gameassembly_metadata_registration_candidate_taxonomy_target
+  priority: 116
+  readiness: static_trace_target
+  domain: metadata
+  topic: GameAssembly MetadataRegistration candidate taxonomy / protected metadata
+    ownership route
+  source_artifact: ingestion/raw/client_packages/nslg-gameassembly-metadata-registration-candidate-taxonomy-round118.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_METADATA_TAXONOMY:round185:candidate-window-rescan
+  - NSLG_METADATA_TAXONOMY:round185:raw-ref-candidate-classification
+  - NSLG_METADATA_TAXONOMY:round185:high-count-candidate-classification
+  - NSLG_METADATA_TAXONOMY:round185:shifted-window-family-check
+  blockers:
+  - Round182 exact raw refs point to tiny-count MetadataRegistration-like candidate
+    families; these are useful for routing but not ownership proof.
+  - No exact-ref candidate has medium/high count fields; high-count windows are unreferenced
+    and remain weak false-positive-prone scan leads.
+  - Require decoded protected metadata or a proven MetadataRegistration owner/callsite
+    before mapping method names or InitLuaEnv to native method pointers.
+  - GameAssembly MetadataRegistration candidate taxonomy is not publishable game knowledge
+  - Offline/static candidate taxonomy only; no runtime attach, live instrumentation,
+    account data, credentials, or online protocol is used.
+  - The probe classifies count/pointer window shapes and raw references; it does not
+    decode protected global-metadata.dat.
+  - High-count windows without owner references can be false positives from arbitrary
+    .rdata integer/pointer neighborhoods.
+  - This artifact is decoder-routing evidence and must not be promoted as gameplay
+    knowledge.
+  next_actions:
+  - Demote Round181 top raw-ref candidates as tiny-count candidate-family evidence
+    unless a later owner proves otherwise.
+  - Treat high-count unreferenced windows as weak scan leads only; require code owner,
+    callsite pair, or decoded metadata before promotion.
+  - Continue toward protected global-metadata decoding or a proven MetadataRegistration
+    owner rather than naming InitLuaEnv from table shape.
+  - If staying in GameAssembly, inspect only metadata candidate families that gain
+    both non-tiny counts and owner/callsite evidence.
+  counts:
+    metadata_candidate_window_count: 58879
+    exact_ref_candidate_count: 12
+    exact_ref_non_tiny_candidate_count: 0
+    exact_ref_max_count: 15
+    high_count_candidate_count: 182
+    strong_high_count_candidate_count: 169
+    referenced_high_count_candidate_count: 0
+    shifted_window_cluster_count: 6
+    metadata_ref_family_cluster_count: 17
+    metadata_registration_owner_recovered: 0
+    init_lua_env_method_pointer_recovered: 0
+    blocker_count: 8
+  metadata:
+    source_id: gameassembly-metadata-registration-candidate-taxonomy-round118
+    round: 185
+    metadata_candidate_taxonomy_completed: true
+    exact_ref_metadata_candidates_are_tiny_count_family: true
+    high_count_metadata_like_candidates_found: true
+    high_count_candidates_have_exact_refs: false
+    metadata_registration_owner_recovered: false
+    protected_metadata_method_ownership_recovered: false
+    init_lua_env_method_pointer_recovered: false
+    safe_for_publish: false
+- queue_id: gameassembly-function-pointer-table-known-table-route
+  queue_type: gameassembly_function_pointer_table_probe_target
+  priority: 115
+  readiness: static_trace_target
+  domain: metadata
+  topic: GameAssembly function pointer table / indirect initializer route closure
+  source_artifact: ingestion/raw/client_packages/nslg-gameassembly-function-pointer-table-probe-round115.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_FUNCTION_POINTER_TABLE:round184:nonexec-function-pointer-scan
+  - NSLG_FUNCTION_POINTER_TABLE:round184:codegen-method-table-classification
+  - NSLG_FUNCTION_POINTER_TABLE:round184:dispatcher-pointer-hit-classification
+  - NSLG_FUNCTION_POINTER_TABLE:round184:global-metadata-function-pointer-check
+  blockers:
+  - Relevant dispatcher candidate pointers classify as known IL2CPP tables (CodeGenModule
+    method pointer tables or CodeRegistration field arrays), not as a standalone initializer
+    table; no global-metadata string-ref function pointer or outside-known-table relevant
+    table was found in qword-aligned .rdata/.data slots.
+  - dispatcher pointers classify as known IL2CPP tables, not standalone initializer
+    ownership
+  - GameAssembly function pointer table evidence is not publishable game knowledge
+  - Offline/static qword scan only; no runtime attach, live instrumentation, account
+    data, credentials, or online protocol is used.
+  - Only qword-aligned slots in .rdata and .data are scanned; computed/encoded tables
+    and runtime-filled pointers are out of scope.
+  - A pointer table hit does not name a method without decoded protected metadata
+    or proven metadata-registration ownership.
+  - This artifact is decoder-routing evidence and must not be promoted as gameplay
+    knowledge.
+  next_actions:
+  - If continuing this branch, inspect only outside known CodeGenModule/CodeRegistration
+    pointer runs that carry a registration, metadata, or global-metadata-function
+    signal.
+  - Because dispatcher candidate pointer hits classify as known IL2CPP tables, continue
+    toward protected metadata method-definition ownership before naming managed methods.
+  - Use Assembly-CSharp.dll CodeGenModule method pointer table as a registration-side
+    table, not as proof of InitLuaEnv ownership.
+  - Do not repeat direct-call dispatcher tracing unless new indirect owner evidence
+    appears.
+  counts:
+    function_pointer_hit_count: 342009
+    known_method_table_count: 96
+    known_code_registration_field_table_count: 6
+    known_codegen_method_table_hit_count: 133465
+    known_code_registration_field_hit_count: 172773
+    outside_known_table_hit_count: 35771
+    relevant_function_pointer_hit_count: 22
+    outside_known_table_relevant_hit_count: 0
+    global_metadata_function_pointer_hit_count: 0
+    dispatcher_pointer_hit_count: 22
+    dispatcher_pointer_hits_outside_known_tables: 0
+    initializer_candidate_table_count: 0
+    init_lua_env_method_pointer_recovered: 0
+    blocker_count: 7
+  metadata:
+    source_id: gameassembly-function-pointer-table-probe-round115
+    round: 184
+    function_pointer_tables_scanned: true
+    dispatcher_pointer_hits_classified_as_known_il2cpp_tables: true
+    global_metadata_function_pointer_hits_found: false
+    outside_known_table_relevant_pointer_hits_found: false
+    independent_initializer_table_candidate_found: false
+    initializer_table_route_recovered: false
+    init_lua_env_method_pointer_recovered: false
+    protected_metadata_method_ownership_recovered: false
+    safe_for_publish: false
+- queue_id: gameassembly-initializer-dispatch-indirect-owner-route
+  queue_type: gameassembly_initializer_dispatch_trace_target
+  priority: 114
+  readiness: static_trace_target
+  domain: metadata
+  topic: GameAssembly bounded initializer dispatcher route closure
+  source_artifact: ingestion/raw/client_packages/nslg-gameassembly-initializer-dispatch-trace-round112.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_INITIALIZER_DISPATCH_TRACE:round183:entry-and-export-roots
+  - NSLG_INITIALIZER_DISPATCH_TRACE:round183:global-metadata-string-functions
+  - NSLG_INITIALIZER_DISPATCH_TRACE:round183:registration-anchor-code-ref-check
+  - NSLG_INITIALIZER_DISPATCH_TRACE:round183:bounded-callgraph-paths
+  - NSLG_INITIALIZER_DISPATCH_TRACE:round183:nonexec-function-pointer-scan
+  blockers:
+  - Bounded direct-call dispatcher trace did not recover a registration/metadata owner.
+  - no CodeRegistration or MetadataRegistration candidate owner was recovered
+  - GameAssembly initializer dispatch trace evidence is not publishable game knowledge
+  - Offline/static probe only; no runtime attach, live instrumentation, account data,
+    credentials, or online protocol is used.
+  - The call graph records direct calls and import thunks; indirect function-pointer
+    dispatch is only sampled through non-exec pointer hits.
+  - No decoded protected metadata or method-definition table is produced by this artifact.
+  - This artifact is decoder-routing evidence and must not be promoted as gameplay
+    knowledge.
+  next_actions:
+  - Do not repeat exact CodeRegistration/MetadataRegistration pointer-pair xrefs unless
+    a new indirect owner is found.
+  - Recover protected global-metadata method-definition ownership or an indirect init
+    table decoder before mapping InitLuaEnv.
+  - If continuing dispatcher work, inspect indirect initializer tables that are referenced
+    by DllMain/CRT startup helpers rather than only direct call edges.
+  - Keep RuntimeInitializeOnLoads.json as managed-name evidence only; it does not
+    contain native method addresses.
+  counts:
+    function_row_count: 290472
+    instruction_count: 16265170
+    registration_anchor_ref_function_count: 0
+    metadata_candidate_ref_function_count: 0
+    global_metadata_string_ref_function_count: 2
+    entry_to_registration_path_found: 0
+    entry_to_metadata_candidate_path_found: 0
+    entry_to_global_metadata_path_found: 0
+    nonexec_pointer_hit_count: 0
+    dispatcher_candidate_count: 24
+    init_lua_env_method_pointer_recovered: 0
+    blocker_count: 7
+  metadata:
+    source_id: gameassembly-initializer-dispatch-trace-round112
+    round: 183
+    initializer_dispatcher_route_recovered: false
+    registration_ownership_recovered: false
+    metadata_registration_paired_by_dispatch_trace: false
+    init_lua_env_method_pointer_recovered: false
+    protected_metadata_method_ownership_recovered: false
+    safe_for_publish: false
+- queue_id: gameassembly-registration-pair-context-metadata-ownership
+  queue_type: gameassembly_registration_pair_context_probe_target
+  priority: 113
+  readiness: static_trace_target
+  domain: metadata
+  topic: GameAssembly CodeRegistration/MetadataRegistration pair-context route closure
+  source_artifact: ingestion/raw/client_packages/nslg-gameassembly-registration-pair-context-probe-round109.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_REGISTRATION_PAIR_CONTEXT:round182:raw-registration-refs
+  - NSLG_REGISTRATION_PAIR_CONTEXT:round182:raw-metadata-candidate-refs
+  - NSLG_REGISTRATION_PAIR_CONTEXT:round182:pair-neighborhood-scan
+  - NSLG_REGISTRATION_PAIR_CONTEXT:round182:call-argument-window-scan
+  blockers:
+  - Top MetadataRegistration-like candidates have exact raw references clustered in
+    data/rdata, which is useful as a candidate-family map but not as ownership proof.
+  - No exact raw reference to the CodeRegistration start, no static code references
+    to either side, no paired pointer neighborhood, and no call-argument window were
+    recovered.
+  - Treat direct pointer-pair xref recovery as a negative route for now; continue
+    with decoded metadata ownership or a broader IL2CPP initialization dispatcher
+    trace before mapping methods.
+  - GameAssembly registration pair-context evidence is not publishable game knowledge
+  - Offline/static probe only; no runtime attach, live instrumentation, account data,
+    or online protocol is used.
+  - The probe uses exact VA references, local pointer neighborhoods, and static disassembly;
+    it cannot see values constructed dynamically at runtime.
+  - MetadataRegistration-like windows are ranked from local count/pointer shape only
+    and remain unpaired candidates.
+  - This artifact is decoder-routing evidence and must not be promoted as gameplay
+    knowledge.
+  next_actions:
+  - Treat direct CodeRegistration/MetadataRegistration pointer-pair search as negative
+    for this build unless a later broader initializer trace finds an indirect loader.
+  - Pivot from exact pointer-pair xrefs to protected metadata method-definition ownership
+    or a higher-level IL2CPP initialization dispatcher trace.
+  - Keep top MetadataRegistration-like windows as weak data-family candidates only;
+    do not promote them as MetadataRegistration without a proven owner.
+  - Do not map InitLuaEnv or TextAsset methods until decoded metadata or registration
+    ownership proves method-index mapping.
+  counts:
+    registration_target_count: 10
+    metadata_target_count: 12
+    raw_registration_ref_count: 7
+    raw_code_registration_start_ref_count: 0
+    raw_metadata_candidate_ref_count: 25
+    registration_code_ref_count: 0
+    metadata_candidate_code_ref_count: 0
+    paired_neighborhood_count: 0
+    call_argument_pair_window_count: 0
+    metadata_ref_family_cluster_count: 17
+    registration_pair_recovered: 0
+    init_lua_env_method_pointer_recovered: 0
+    blocker_count: 8
+  metadata:
+    source_id: gameassembly-registration-pair-context-probe-round109
+    round: 182
+    registration_pair_recovered: false
+    metadata_registration_paired_by_callsite: false
+    metadata_candidate_family_refs_found: true
+    direct_code_registration_start_ref_found: false
+    call_argument_pair_window_found: false
+    pair_neighborhood_found: false
+    method_index_to_pointer_map_recovered: false
+    init_lua_env_method_pointer_recovered: false
+    protected_metadata_method_ownership_recovered: false
+    lua_payload_decoder_recovered: false
+    safe_for_publish: false
+- queue_id: textasset-xlua-boundary-ledger-method-owner-route
+  queue_type: textasset_xlua_boundary_ledger_target
+  priority: 108
+  readiness: static_trace_target
+  domain: lua_scripts
+  topic: TextAsset/xLua boundary route ledger and method-owner recovery target
+  source_artifact: ingestion/raw/client_packages/nslg-textasset-xlua-boundary-ledger-round94.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_GAMEASSEMBLY_TEXTASSET_LOADBUFFER:round160:summary
+  - NSLG_NATIVE_LOADBUFFER_BOUNDARY:round163:summary
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:round165:summary
+  - NSLG_GAMEASSEMBLY_RESOLVER_CALLER_TRACE:round166:summary
+  - NSLG_RESOLVED_PAYLOAD_NATIVE_ANCHOR:round176:summary
+  - NSLG_TEXTASSET_XLUA_BOUNDARY_LEDGER:round177:summary
+  blockers:
+  - Resolved LuaScripts TextAsset path_id/object_offset/payload offsets are valid,
+    and four static native boundary routes are now closed as negative evidence.
+  - No current route proves a native TextAsset script-buffer owner or LuaScripts decoder;
+    0x5ccc30 direct callers are descriptor-only and exact native payload anchors are
+    absent.
+  - Proceed with protected metadata/method ownership recovery or narrow control-flow
+    around owner candidates; do not run broad string scans or embedded constant scans.
+  - TextAsset/xLua boundary ledger is not publishable game knowledge
+  next_actions:
+  - recover protected metadata/method ownership to map InitLuaEnv and TextAsset script-buffer
+    APIs
+  - trace boundary-focused control-flow only after a function has method or payload-buffer
+    ownership evidence
+  - use resolved object offsets, payload offsets, and payload lengths as validation
+    anchors, not as broad native search constants
+  counts:
+    route_record_count: 6
+    closed_negative_route_count: 4
+    blocked_route_count: 1
+    next_viable_route_count: 1
+    proven_payload_owner_route_count: 0
+    exact_anchor_native_hit_count: 0
+    record_count: 6
+    blocker_count: 4
+  metadata:
+    source_id: textasset-xlua-boundary-ledger-round94
+    round: 177
+    native_payload_buffer_owner_proven: false
+    lua_payload_decoder_recovered: false
+    gameassembly_static_xlua_import_route_closed: true
+    resolver_direct_caller_route_closed: true
+    exact_native_anchor_route_closed: true
+    protected_metadata_method_ownership_recovered: false
+    next_viable_route: protected_metadata_method_ownership_or_boundary_control_flow
+    route_status_counts:
+      closed_negative: 4
+      blocked_pending_metadata: 1
+      next_viable_target: 1
+- queue_id: nep2-init-data-owner-scan-pivot
+  queue_type: nep2_init_data_owner_scan_target
+  priority: 104
+  readiness: static_trace_target
+  domain: protector
+  topic: NEP2 InitLuaScriptsScan / CGameProtector data-reference ownership scan
+  source_artifact: ingestion/raw/client_packages/nslg-nep2-init-data-owner-scan-round76.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:summary
+  - NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x603670
+  - NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x6033f0
+  - NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x2e12b0
+  - NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x4040
+  - NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x442050
+  - NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x115db0
+  - NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x86ab0
+  - NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x86b00
+  - NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x86b50
+  - NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x261220
+  - NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x404000
+  - NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x405a40
+  - NSLG_NEP2_INIT_DATA_OWNER:nep2-init-data-owner-scan-round171:function:0x6bc0
+  blockers:
+  - InitLuaScriptsScan/CGameProtector RTTI and bridge record windows still resolve
+    to metadata/lambda support pointers plus EH/FH4 data references.
+  - No inspected data-record consumer combines payload keywords, file-buffer imports,
+    and 16-byte/loop mutation evidence.
+  - Treat InitLuaScriptsScan/CGameProtector data records as routing evidence only;
+    next static slice should inspect the highest-scoring nontrivial helper and task-object
+    field flows only if payload provenance can be attached.
+  - NEP2 InitLuaScriptsScan/CGameProtector data-owner scan is not publishable game
+    knowledge
+  next_actions:
+  - Deep-slice the highest-scoring nontrivial helper only if a caller/callee or data-field
+    trace attaches LuaScripts/global-metadata/SerializedFile payload provenance.
+  - Trace task-object field stores around bridge code pointers 0x4040 and 0x405a40
+    as metadata/lambda support until buffer ownership is proven.
+  - If data-owner scan remains negative, prioritize recovering TextAsset/LuaScripts
+    payload decoder from file payload shape and xLua boundary evidence instead of
+    CGameProtector RTTI.
+  counts:
+    focus_target_count: 90
+    data_reference_count: 255
+    data_ref_owner_function_count: 0
+    bridge_record_window_count: 4
+    bridge_record_with_code_pointer_count: 2
+    inspected_function_count: 13
+    payload_owner_candidate_count: 0
+    partial_provenance_function_count: 1
+    publishable_knowledge_entries: 0
+    blocker_count: 4
+  metadata:
+    source_id: nslg-nep2-init-data-owner-scan-round76
+    round: 171
+    init_luascripts_bridge_metadata_confirmed: true
+    data_reference_owners_found: false
+    bridge_record_code_pointers_found: true
+    payload_owner_candidate_found: false
+    file_buffer_owner_proven: false
+    lua_payload_decoder_recovered: false
+    global_metadata_loader_proven: false
+    plaintext_metadata_recovered: false
+    safe_for_publish: false
+- queue_id: global-metadata-transform-probe-loader-mutation-route
+  queue_type: global_metadata_transform_probe_target
+  priority: 103
+  readiness: static_trace_target
+  domain: metadata
+  topic: protected global-metadata.dat transform probe / loader mutation route
+  source_artifact: ingestion/raw/client_packages/nslg-global-metadata-transform-probe-round64.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_GLOBAL_METADATA_TRANSFORM:global-metadata-transform-probe-round167:wrapper
+  - NSLG_GLOBAL_METADATA_TRANSFORM:global-metadata-transform-probe-round167:transform-probe
+  - NSLG_GLOBAL_METADATA_TRANSFORM:global-metadata-transform-probe-round167:repeated-block-signal
+  blockers:
+  - global-metadata.dat file-only bounded transforms did not recover plaintext metadata
+  - InitLuaEnv method ownership remains blocked until loader mutation point or protected
+    metadata is recovered
+  - global metadata transform probe is not publishable game knowledge
+  - 'The file remains a protected IL2CPP metadata wrapper: magic is intact, word1
+    is file size, and the protected payload starts at +8.'
+  - The bounded transform probe did not recover a plausible IL2CPP header or known
+    metadata plaintext strings.
+  - Single-byte xor/add/sub, byte rotations, nibble swap, dword byte-swap, simple
+    4-byte repeating xor, and small dword add/sub transforms are not enough to recover
+    the metadata.
+  - The repeated aligned-block pressure still points to a deterministic block-oriented
+    protection layer rather than a plaintext metadata table.
+  - This round does not recover NSLGame.Patcher.GameUpdater.InitLuaEnv method ownership.
+  next_actions:
+  - Pivot from file-only transforms to the loader mutation point that consumes global-metadata.dat
+    +8 payload bytes.
+  - Prioritize NEP2 or GameAssembly functions that combine CreateFile/ReadFile/MapViewOfFile
+    with 16-byte loops and references to metadata wrapper constants.
+  - Use recovered metadata only after a transform yields standard IL2CPP header pairs
+    plus readable Assembly-CSharp/NSLGame strings.
+  - If method ownership is recovered later, re-check InitLuaEnv, TextAsset.get_bytes,
+    and xLua loadbuffer handoff using that address-level evidence.
+  counts:
+    global_metadata_file_size: 21182776
+    protected_size_mod_16: 0
+    transform_candidate_count: 1314
+    needle_hit_candidate_count: 0
+    best_header_valid_pair_count: 0
+    repeated_block_duplicate_kinds_16: 20744
+    repeated_block_extra_instances_16: 143452
+    publishable_knowledge_entries: 0
+    blocker_count: 8
+  metadata:
+    source_id: global-metadata-transform-probe-round64
+    round: 167
+    protected_wrapper_confirmed: true
+    plaintext_metadata_recovered: false
+    init_lua_env_method_ownership_recovered: false
+    safe_for_publish: false
+- queue_id: luascripts-payload-variant-corpus-decoder-route
+  queue_type: luascripts_payload_variant_corpus_target
+  priority: 103
+  readiness: blocked_pending_decoder
+  domain: lua_scripts
+  topic: LuaScripts payload variant corpus / decoder validation route
+  source_artifact: ingestion/raw/client_packages/nslg-luascripts-payload-variant-corpus-round79.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:army_config
+  - NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:battle_record
+  - NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:battle_replay
+  - NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:battle_reports
+  - NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:custom_hero
+  - NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:hero_propose
+  - NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:hero_story
+  - NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:hero_talent
+  - NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:heros
+  - NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:lineup_assistant
+  - NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:sandbox_battle_config
+  - NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:scene_building_skill
+  - NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:skills
+  - NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:super_skill
+  - NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:warbook
+  - NSLG_LUASCRIPT_VARIANT_CORPUS:luascripts-payload-variant-corpus-round172:stem:water_battle
+  blockers:
+  - Expanded corpus covers 932 encrypted TextAsset variants across 16 stems and 23
+    scenarios; duplicate ciphertext groups exist inside repeated asset variants, which
+    makes this corpus useful as decoder test/eval material.
+  - No tested offset skip exposes Lua bytecode/source terms, high-printable plaintext,
+    or standard zlib/gzip/lzma/bz2 payloads; cross-cipher shared 16-byte block count
+    remains too weak to promote an ECB/static-block route.
+  - Stop trying simple header/IV stripping on the static payload corpus; use the 932-variant
+    corpus as decoder validation data and continue with provenance-backed native buffer-owner
+    tracing.
+  - LuaScripts payload variant corpus is not publishable game knowledge
+  next_actions:
+  - Prioritize locating the native owner that receives the TextAsset script buffer;
+    expanded corpus evidence does not reveal a skip-header plaintext layout.
+  - Use same-stem same-length variant groups as a future dynamic/eval corpus once
+    a candidate decoder exists.
+  - Do not spend more time on offset-skip decompression/plaintext probes unless new
+    payload families appear.
+  - Keep NEP2 InitLuaScriptsScan / CGameProtector evidence as route metadata only
+    until payload-buffer ownership is attached.
+  counts:
+    payload_variant_count: 932
+    relevant_record_count: 104
+    stem_count: 16
+    scenario_count: 23
+    unique_ciphertext_hash_count: 52
+    duplicate_ciphertext_hash_group_count: 40
+    cross_cipher_shared_16byte_block_count: 55
+    offset_skip_decompression_success_count: 0
+    offset_skip_plaintext_hit_count: 0
+    high_printable_candidate_count: 0
+    blocker_count: 4
+  metadata:
+    source_id: nslg-luascripts-payload-variant-corpus-round79
+    round: 172
+    lua_payload_decoder_recovered: false
+    duplicate_ciphertext_present: true
+    cross_cipher_shared_16byte_block_signal: true
+    simple_offset_skip_route_ruled_out: true
+    safe_for_publish: false
+    sample_stems:
+    - army_config
+    - battle_record
+    - battle_replay
+    - battle_reports
+    - custom_hero
+    - hero_propose
+    - hero_story
+    - hero_talent
+    - heros
+    - lineup_assistant
+    - sandbox_battle_config
+    - scene_building_skill
+- queue_id: gameassembly-resolver-caller-payload-owner-trace
+  queue_type: gameassembly_resolver_caller_trace_target
+  priority: 102
+  readiness: static_trace_target
+  domain: lua_scripts
+  topic: GameAssembly 0x5ccc30 direct caller payload-owner negative route
+  source_artifact: ingestion/raw/client_packages/nslg-gameassembly-resolver-caller-trace-round61.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_GAMEASSEMBLY_RESOLVER_CALLER_TRACE:gameassembly-resolver-caller-payload-round166:target:0x5ccc30
+  - NSLG_GAMEASSEMBLY_RESOLVER_CALLER_TRACE:gameassembly-resolver-caller-payload-round166:direct_callers:2948
+  - NSLG_GAMEASSEMBLY_RESOLVER_CALLER_TRACE:gameassembly-resolver-caller-payload-round166:payload_owner_candidates:0
+  blockers:
+  - 150 direct callers are xLua/lua descriptor-only shapes; this refines Round165
+    away from payload ownership.
+  - No direct 0x5ccc30 caller combines TextAsset/LuaScripts/data-stem refs with file-buffer,
+    memory/crypto import, or payload-size evidence.
+  - Stop treating GameAssembly 0x5ccc30 resolver callers as payload-owner leads unless
+    a caller gains TextAsset/file-buffer provenance from metadata recovery or a separate
+    owner trace.
+  - GameAssembly resolver caller payload trace is not publishable game knowledge
+  next_actions:
+  - Prioritize protected global-metadata recovery for InitLuaEnv method ownership;
+    the direct resolver caller layer is descriptor-only.
+  - If GameAssembly is revisited, require a caller to reference TextAsset/LuaScripts/data
+    stems and also show buffer-owner provenance before deeper analysis.
+  - Pivot back to NEP2 InitLuaScriptsScan or runtime metadata reconstruction for payload
+    decoder evidence.
+  counts:
+    target_string_hit_count: 237
+    target_string_unique_rva_count: 233
+    target_string_slot_ref_count: 0
+    resolver_candidate_direct_callsite_count: 2948
+    unique_direct_caller_function_count: 2870
+    caller_with_any_keyword_or_slot_ref_count: 150
+    caller_with_xlua_api_ref_count: 150
+    caller_with_textasset_ref_count: 0
+    caller_with_luascripts_or_data_stem_ref_count: 0
+    caller_with_payload_label_count: 0
+    caller_with_owner_signal_count: 0
+    payload_owner_candidate_count: 0
+    xlua_descriptor_only_count: 150
+    blocker_count: 4
+  metadata:
+    source_id: gameassembly-resolver-caller-trace-round61
+    round: 166
+    resolver_candidate_rva: '0x5ccc30'
+    all_direct_resolver_callers_scanned: true
+    resolver_layer_has_payload_owner_candidate: false
+    textasset_payload_owner_proven: false
+    file_buffer_payload_owner_proven: false
+    lua_payload_decoder_recovered: false
+- queue_id: gameassembly-resolver-trace-0x5ccc30
+  queue_type: gameassembly_resolver_trace_target
+  priority: 101
+  readiness: static_trace_target
+  domain: lua_scripts
+  topic: GameAssembly 0x5ccc30 xLua API descriptor resolver / payload owner route
+  source_artifact: ingestion/raw/client_packages/nslg-gameassembly-resolver-trace-round58.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:candidate:0x5ccc30
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:round49:0x5ccc30
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0x6667d0
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0x671110
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc75e0
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc76b0
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7770
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7810
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc78b0
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7950
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7a20
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7b00
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7ba0
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7c80
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7d80
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7e60
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7f10
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc7fb0
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc8050
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc8120
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc8220
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0xc83e0
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0x664860
+  - NSLG_GAMEASSEMBLY_RESOLVER_TRACE:gameassembly-resolver-candidate-round165:caller:0x66f300
+  blockers:
+  - 28 direct caller function(s) combine xLua/TextAsset-related string refs with calls
+    to 0x5ccc30, supporting descriptor/resolver routing.
+  - 0x5ccc30 did not prove InitLuaEnv method ownership, TextAsset payload-buffer ownership,
+    or a LuaScripts decoder path in offline static analysis.
+  - Keep this as GameAssembly resolver/descriptor evidence; continue with protected
+    metadata recovery or caller provenance that proves asset/file-buffer ownership.
+  - GameAssembly resolver candidate trace is not publishable game knowledge
+  next_actions:
+  - Trace the highest-signal callers that reference TextAsset/get_bytes and call 0x5ccc30
+    only if they also expose payload-buffer ownership.
+  - Recover protected global-metadata.dat enough to map NSLGame.Patcher.GameUpdater.InitLuaEnv
+    to an IL2CPP method address.
+  - Treat xLua API string descriptor calls as resolver evidence, not decoder evidence,
+    until a readable LuaScripts payload or buffer owner is proven.
+  - If GameAssembly remains descriptor-only, pivot back to NEP2 InitLuaScriptsScan
+    file-buffer provenance.
+  counts:
+    pdata_function_count: 290472
+    target_string_hit_count: 234
+    target_string_unique_rva_count: 233
+    target_string_slot_ref_count: 0
+    resolver_candidate_direct_callsite_count: 2948
+    resolver_candidate_direct_caller_function_count: 240
+    resolver_candidate_keyword_ref_count: 0
+    resolver_candidate_string_slot_ref_count: 0
+    resolver_candidate_import_call_count: 0
+    resolver_candidate_crypto_op_count: 0
+    caller_keyword_ref_function_count: 28
+    caller_import_call_function_count: 0
+    notable_caller_functions: 28
+    blocker_count: 4
+  metadata:
+    source_id: gameassembly-resolver-trace-round58
+    round: 165
+    resolver_candidate_rva: '0x5ccc30'
+    resolver_candidate_function_found: true
+    descriptor_resolver_pattern_supported: true
+    candidate_has_payload_owner_signal: false
+    method_ownership_recovered: false
+    textasset_payload_owner_proven: false
+    lua_payload_decoder_recovered: false
+- queue_id: native-loadbuffer-boundary-trace-textasset-xlua-owner
+  queue_type: native_loadbuffer_boundary_trace_target
+  priority: 100
+  readiness: static_trace_target
+  domain: lua_scripts
+  topic: Native TextAsset bytes / xLua loadbuffer boundary trace
+  source_artifact: ingestion/raw/client_packages/nslg-native-loadbuffer-boundary-round52.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_NATIVE_BOUNDARY:native-loadbuffer-boundary-round52:module:GameAssembly.dll
+  - NSLG_NATIVE_BOUNDARY:native-loadbuffer-boundary-round52:module:NEP2.dll
+  - NSLG_NATIVE_BOUNDARY:native-loadbuffer-boundary-round52:module:UnityPlayer.dll
+  - NSLG_NATIVE_BOUNDARY:native-loadbuffer-boundary-round52:module:xlua.dll
+  blockers:
+  - xLua loadbuffer exports are present in the plugin, but GameAssembly does not statically
+    import xlua/lua/loadbuffer symbols.
+  - No static import/IAT caller or keyword data-ref path proves TextAsset bytes flow
+    into a decoder and then into xLua loadbuffer.
+  - Treat import/export analysis as negative boundary evidence; continue with provenance-backed
+    buffer-owner tracing or metadata/runtime-init reconstruction, not broad string
+    scans.
+  - native loadbuffer boundary trace is not publishable game knowledge
+  next_actions:
+  - Trace runtime registration tables or managed RuntimeInitializeOnLoad metadata
+    for NSLGame.Patcher.GameUpdater.InitLuaEnv without live attach.
+  - Use deobfuscated/protected global-metadata recovery to get IL2CPP method ownership
+    for TextAsset bytes and Lua env initialization.
+  - If staying in native static analysis, inspect only functions with proven file-buffer
+    or asset-owner provenance before xLua loadbuffer.
+  - Keep NEP2 InitLuaScriptsScan as a routing lead, but require payload buffer ownership
+    before promoting any candidate.
+  counts:
+    module_count: 4
+    loadbuffer_export_signal_count: 3
+    boundary_import_call_count: 224
+    candidate_function_signal_count: 1
+    total_import_calls: 1811
+    total_keyword_data_refs: 9
+    module_records: 4
+    blocker_count: 4
+  metadata:
+    source_id: native-loadbuffer-boundary-round52
+    round: 163
+    module_names:
+    - GameAssembly.dll
+    - NEP2.dll
+    - UnityPlayer.dll
+    - xlua.dll
+    native_loadbuffer_export_present: true
+    gameassembly_static_xlua_import_present: false
+    gameassembly_to_xlua_static_bridge_proven: false
+    textasset_to_loadbuffer_owner_proven: false
+    lua_payload_decoder_recovered: false
+- queue_id: luascripts-decoder-hero-propose
+  queue_type: luascripts_decoder_target
+  priority: 99
+  readiness: blocked_pending_decoder
+  domain: hero
+  topic: hero_propose
+  source_artifact: ingestion/raw/client_packages/nslg-luascripts-textassets-round31-catalog.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x1257b7f970d539bf
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x7241b95bfeb892db
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0xf569ca10d6040cf2
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0xe1f808a7796a0b28
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0xff50ab4ca1805a48
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x79db0c44c70d52c1
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x8aae3d327cfacea2
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x861d40cef7d42081
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x19b5d05f04f77dbb
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x730550c0b77f838e
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0xd2e8f76eefe8f625
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x6b6dfe031f22b3ec
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x783491f36e72b230
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x20e76ce3d65c232
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x1173612878377885
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0xd75d6d0912cd0
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x2220e0273b0ad0ef
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0xf6e1c2debd00789f
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x4aec4bc141f13798
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x66b96943a779d080
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x3fead4930e1a881a
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0x53569516c05f1058
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_propose:0xa225ed69ecfad6da
+  blockers:
+  - TextAsset payloads remain obfuscated_binary_pending_decoder
+  - catalog metadata is not publishable game knowledge by itself
+  next_actions:
+  - recover decoder path for LuaScripts stem `hero_propose`
+  - validate decoded payload semantics before staging any knowledge facts
+  - stage readable records with TextAsset evidence_ref as source_ref
+  counts:
+    record_count: 23
+    scenario_count: 23
+    unique_sha1_count: 1
+    max_script_len: 2032
+    blocker_count: 2
+    status:obfuscated_binary_pending_decoder: 23
+  metadata:
+    source_id: luascripts-textasset-round31
+    stem: hero_propose
+    high_value_stem: true
+    domains:
+    - hero
+    scenarios:
+    - Scenario1
+    - Scenario10
+    - Scenario1000
+    - Scenario1001
+    - Scenario1002
+    - Scenario1003
+    - Scenario103
+    - Scenario11
+    - Scenario12
+    - Scenario13
+    - Scenario14
+    - Scenario16
+    - Scenario2
+    - Scenario2001
+    - Scenario3
+    - Scenario3001
+    sample_asset_paths:
+    - Assets/Bundles/LuaScripts/Data/Scenario1/hero_propose.bytes
+    - Assets/Bundles/LuaScripts/Data/Scenario10/hero_propose.bytes
+    - Assets/Bundles/LuaScripts/Data/Scenario1000/hero_propose.bytes
+    - Assets/Bundles/LuaScripts/Data/Scenario1001/hero_propose.bytes
+    - Assets/Bundles/LuaScripts/Data/Scenario1002/hero_propose.bytes
+    sample_extracted_artifacts:
+    - threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+    - threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+    - threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+    - threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+    - threads/artifacts/round31_luascripts_textassets/hero_propose.bytes.bin
+- queue_id: luascripts-decoder-hero-story
+  queue_type: luascripts_decoder_target
+  priority: 99
+  readiness: blocked_pending_decoder
+  domain: hero
+  topic: hero_story
+  source_artifact: ingestion/raw/client_packages/nslg-luascripts-textassets-round31-catalog.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xe74bfbbff51f5870
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xc5396ebce2b4603
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xdbb2059174ff15ac
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x6902ba4c08b7c02a
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xaf69fb15b51b07cc
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x340cc60559be2c2a
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xb1c06fe424e13acd
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x12769ba7f1784843
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x2f2e9df9d4a23c67
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xaf9feb30e5eddb90
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x168ee217c9e5a49b
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x9ad3d587a79fd10f
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x8ac0ca4cfe048fb1
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xf48db81bfe11a8fb
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x5a33b08827c0b7e2
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xbf932c06f26d5dc3
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xa93c6f06e128dfcc
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x3236dc1ebda5f162
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x5e94ff98797f073b
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x4e43e14d178215f9
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xaf2411ce16748227
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0xd60e6fa314ca59ca
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_story:0x6baaf337adc8e2bf
+  blockers:
+  - TextAsset payloads remain obfuscated_binary_pending_decoder
+  - catalog metadata is not publishable game knowledge by itself
+  next_actions:
+  - recover decoder path for LuaScripts stem `hero_story`
+  - validate decoded payload semantics before staging any knowledge facts
+  - stage readable records with TextAsset evidence_ref as source_ref
+  counts:
+    record_count: 23
+    scenario_count: 23
+    unique_sha1_count: 1
+    max_script_len: 2336
+    blocker_count: 2
+    status:obfuscated_binary_pending_decoder: 23
+  metadata:
+    source_id: luascripts-textasset-round31
+    stem: hero_story
+    high_value_stem: true
+    domains:
+    - hero
+    - story_plot
+    scenarios:
+    - Scenario1
+    - Scenario10
+    - Scenario1000
+    - Scenario1001
+    - Scenario1002
+    - Scenario1003
+    - Scenario103
+    - Scenario11
+    - Scenario12
+    - Scenario13
+    - Scenario14
+    - Scenario16
+    - Scenario2
+    - Scenario2001
+    - Scenario3
+    - Scenario3001
+    sample_asset_paths:
+    - Assets/Bundles/LuaScripts/Data/Scenario1/story/hero_story.bytes
+    - Assets/Bundles/LuaScripts/Data/Scenario10/story/hero_story.bytes
+    - Assets/Bundles/LuaScripts/Data/Scenario1000/story/hero_story.bytes
+    - Assets/Bundles/LuaScripts/Data/Scenario1001/story/hero_story.bytes
+    - Assets/Bundles/LuaScripts/Data/Scenario1002/story/hero_story.bytes
+    sample_extracted_artifacts:
+    - threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+    - threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+    - threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+    - threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+    - threads/artifacts/round31_luascripts_textassets/hero_story.bytes.bin
+- queue_id: nep2-init-bridge-trace-initluascriptsscan
+  queue_type: nep2_init_bridge_trace_target
+  priority: 99
+  readiness: static_trace_target
+  domain: protector
+  topic: NEP2 InitLuaScriptsScan metadata bridge / LuaScripts payload decoder route
+  source_artifact: ingestion/raw/client_packages/nslg-nep2-init-bridge-round46.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:bridge:0x881320
+  - NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:bridge:0x881330
+  - NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:bridge:0x882020
+  - NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:bridge:0x882030
+  - NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:seed:0x115db0
+  - NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:seed:0x261220
+  - NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:seed:0x86ab0
+  - NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:seed:0x86b50
+  - NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x603670
+  - NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x6033f0
+  - NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x442050
+  - NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x2e12b0
+  - NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x4040
+  - NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x86ab0
+  - NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x86b00
+  - NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x86b50
+  - NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x115db0
+  - NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x261220
+  - NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x404000
+  - NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x405a40
+  - NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x6bc0
+  blockers:
+  - InitLuaScriptsScan CGameProtector RTTI/lambda bridge metadata is real and connected
+    to EH/FH4 owner records.
+  - No inspected bridge, seed, or owner candidate combines LuaScripts/CAB/Serialized
+    keyword ownership, file-buffer imports, AES/pshufb-like crypto, and 16-byte payload
+    mutation proof.
+  - use this as decoder routing evidence only; continue with provenance-backed InitLuaScriptsScan
+    or payload-decoder candidates, not broad string chasing
+  - InitLuaScriptsScan RTTI/lambda bridge metadata is not publishable game knowledge
+  next_actions:
+  - Trace InitLuaScriptsScan owner/caller only when a candidate also has file-buffer
+    or asset-owner evidence.
+  - Prioritize runtime-independent TextAsset/LuaScripts payload decoder recovery over
+    broad GameAssembly or NEP2 string chasing.
+  - Treat 0x4040 and 0x405a40 as metadata/lambda support pointers until payload ownership
+    is proven.
+  - Inspect NEP2 0x4a28e9 only if strict caller/callee provenance, keyword/import
+    ownership, or file-buffer evidence exists.
+  counts:
+    init_luascripts_occurrences_round34: 3
+    bridge_record_count: 4
+    bridge_code_pointer_count: 4
+    range_summary_count: 2
+    seed_summary_count: 4
+    candidate_function_count: 13
+    candidate_with_file_import_count: 1
+    candidate_with_keyword_xref_count: 0
+    candidate_crypto_like_count: 0
+    round97_executable_bridge_ref_count: 0
+    round97_nearby_code_ptr_count: 16
+    round98_interesting_signal_function_count: 1
+    round99_interesting_candidate_count: 3
+    bridge_records: 4
+    candidate_functions: 13
+    blocker_count: 4
+  metadata:
+    source_id: nep2-init-bridge-round46
+    binary_name: NEP2.dll
+    round: 161
+    bridge_metadata_confirmed: true
+    decryptor_body_proven: false
+    file_buffer_owner_proven: false
+    lua_payload_decoder_recovered: false
+    bridge_rvas:
+    - '0x881320'
+    - '0x881330'
+    - '0x882020'
+    - '0x882030'
+- queue_id: nep2-static-trace-1-trace-cgameprotector-initluascriptsscan-call-sites-or-data-table-consumers
+  queue_type: nep2_static_trace_target
+  priority: 99
+  readiness: static_trace_target
+  domain: protector
+  topic: trace CGameProtector::InitLuaScriptsScan call sites or data-table consumers
+  source_artifact: ingestion/raw/client_packages/nslg-nep2-luascripts-evidence-round34.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:InitLuaScriptsScan:0x88135e
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:InitLuaScriptsScan:0x88205d
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:InitLuaScriptsScan:0x8820c5
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3f4a
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3f67
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3f91
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3fbb
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3fe5
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x400f
+  blockers:
+  - this report is sanitized static evidence only; it does not prove the decryptor
+    body yet
+  - direct pointer refs to InitLuaScriptsScan were not found in the round34 scan
+  - no live instrumentation or online protocol data is included
+  - static NEP2 evidence does not prove the decryptor body yet
+  next_actions:
+  - trace CGameProtector::InitLuaScriptsScan call sites or data-table consumers
+  counts:
+    init_luascripts_occurrences: 3
+    pointer_refs_to_init_luascripts: 0
+    candidate_string_count: 1417
+    xref_count: 6
+    string_chunk_registrations: 6
+    blocker_count: 4
+  metadata:
+    source_id: nep2-luascripts-round34
+    binary_name: NEP2.dll
+    sha256: 109b4af46054a534a4e3b815d022a9bd26709d5bd644cbba4c4d456d4b61f382
+    selected_candidate_strings:
+    - decryptedPOP
+    - decrypt
+    - unprotectedAttrs
+    - LUABOX
+    - unprotected
+    - protected
+    - LuaJitLuaSrcLuaSrcEncrytedLuacCompiled
+    - O3P1P1_1P2P3WAES
+    - luaL_loadbuffer
+    - CryptDecrypt
+    - VirtualProtect
+    - luaFindFileWithGivenDirByMD5
+    - luaFindFileWithGivenDirByText
+    - luaFindSpecifiedFileByHash0rText
+- queue_id: lua-crypto-decoder-1-gameassembly-xlual-loadbuffer-textasset-get-bytes-call-path
+  queue_type: lua_crypto_decoder_target
+  priority: 98
+  readiness: blocked_pending_decoder
+  domain: lua_scripts
+  topic: GameAssembly xluaL_loadbuffer / TextAsset::get_bytes call path
+  source_artifact: ingestion/raw/client_packages/nslg-luascripts-crypto-evidence-round32.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:GameAssembly.dll
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:xlua.dll
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:global-metadata.dat
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:warbook.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:skills.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:heros.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:lineup_assistant.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:custom_hero.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:hero_talent.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:battle_record.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:battle_reports.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:battle_replay.bytes.bin
+  blockers:
+  - this report is sanitized reverse-engineering evidence, not decoded game knowledge
+  - runtime lua patch samples were counted but not persisted because they are local
+    runtime cache artifacts
+  - no live instrumentation or online protocol data is included
+  - static crypto evidence does not decode LuaScripts payloads
+  next_actions:
+  - GameAssembly xluaL_loadbuffer / TextAsset::get_bytes call path
+  counts:
+    binary_string_hit_summaries: 3
+    payload_block_samples: 9
+    runtime_initialize_lua_entries: 1
+    blocker_count: 4
+    payload_status:high_entropy_16byte_aligned: 9
+  metadata:
+    source_id: luascripts-crypto-round32
+    binary_names:
+    - GameAssembly.dll
+    - xlua.dll
+    - global-metadata.dat
+    sample_payloads:
+    - warbook.bytes.bin
+    - skills.bytes.bin
+    - heros.bytes.bin
+    - lineup_assistant.bytes.bin
+    - custom_hero.bytes.bin
+    - hero_talent.bytes.bin
+    - battle_record.bytes.bin
+    - battle_reports.bytes.bin
+    - battle_replay.bytes.bin
+    sanitized_conclusions:
+    - Target LuaScripts/Data payloads and downloaded lua-patches are high entropy
+      and all sizes checked are divisible by 16, which rules out plain Lua/source
+      and makes simple compression/XOR unlikely.
+    - Direct standard decompression probes from Round 31 failed; this round adds block-size
+      evidence consistent with AES or another 16-byte block transform.
+    - Game runtime uses IL2CPP with NSLGame.Patcher.GameUpdater.InitLuaEnv from RuntimeInitializeOnLoads.json;
+      global-metadata.dat has a valid IL2CPP magic but protected/obfuscated header
+      fields, so normal symbol recovery is blocked without metadata deobfuscation.
+    - GameAssembly exposes xlua exports including xlua_getloaders and xluaL_loadbuffer
+      plus Unity TextAsset APIs, but no clear plaintext loader/decryptor method name
+      or key string was found by raw string search.
+    - 'Next useful slice: recover/deobfuscate IL2CPP metadata or locate xrefs around
+      xluaL_loadbuffer/TextAsset::get_bytes in GameAssembly to find the native call
+      path that decrypts the 16-byte-aligned Lua payloads.'
+    - Il2CppDumper was executed through PowerShell and failed with invalid metadata,
+      confirming the metadata protection blocker rather than a missing tool issue.
+- queue_id: luascripts-decoder-custom-hero
+  queue_type: luascripts_decoder_target
+  priority: 98
+  readiness: blocked_pending_decoder
+  domain: hero
+  topic: custom_hero
+  source_artifact: ingestion/raw/client_packages/nslg-luascripts-textassets-round31-catalog.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:custom_hero:0xb01c10da8b502bf3
+  blockers:
+  - TextAsset payloads remain obfuscated_binary_pending_decoder
+  - catalog metadata is not publishable game knowledge by itself
+  next_actions:
+  - recover decoder path for LuaScripts stem `custom_hero`
+  - validate decoded payload semantics before staging any knowledge facts
+  - stage readable records with TextAsset evidence_ref as source_ref
+  counts:
+    record_count: 1
+    scenario_count: 0
+    unique_sha1_count: 1
+    max_script_len: 19392
+    blocker_count: 2
+    status:obfuscated_binary_pending_decoder: 1
+  metadata:
+    source_id: luascripts-textasset-round31
+    stem: custom_hero
+    high_value_stem: true
+    domains:
+    - hero
+    scenarios: []
+    sample_asset_paths:
+    - Assets/Bundles/LuaScripts/Data/custom_hero.bytes
+    sample_extracted_artifacts:
+    - threads/artifacts/round31_luascripts_textassets/custom_hero.bytes.bin
+- queue_id: luascripts-decoder-heros
+  queue_type: luascripts_decoder_target
+  priority: 98
+  readiness: blocked_pending_decoder
+  domain: hero
+  topic: heros
+  source_artifact: ingestion/raw/client_packages/nslg-luascripts-textassets-round31-catalog.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:heros:0x2152b542dfcaf0df
+  blockers:
+  - TextAsset payloads remain obfuscated_binary_pending_decoder
+  - catalog metadata is not publishable game knowledge by itself
+  next_actions:
+  - recover decoder path for LuaScripts stem `heros`
+  - validate decoded payload semantics before staging any knowledge facts
+  - stage readable records with TextAsset evidence_ref as source_ref
+  counts:
+    record_count: 1
+    scenario_count: 0
+    unique_sha1_count: 1
+    max_script_len: 23232
+    blocker_count: 2
+    status:obfuscated_binary_pending_decoder: 1
+  metadata:
+    source_id: luascripts-textasset-round31
+    stem: heros
+    high_value_stem: true
+    domains:
+    - hero
+    scenarios: []
+    sample_asset_paths:
+    - Assets/Bundles/LuaScripts/Data/heros.bytes
+    sample_extracted_artifacts:
+    - threads/artifacts/round31_luascripts_textassets/heros.bytes.bin
+- queue_id: luascripts-decoder-super-skill
+  queue_type: luascripts_decoder_target
+  priority: 98
+  readiness: blocked_pending_decoder
+  domain: skill
+  topic: super_skill
+  source_artifact: ingestion/raw/client_packages/nslg-luascripts-textassets-round31-catalog.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xe6f42a218b2553
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xdfefdea1c0b0d0b3
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xc79520633d64caab
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x4dee599a705003dc
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x6e08b7320ab564ae
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x2e3a9d969f2899ee
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xd665df60ce6900f8
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xa608ce81b405cd0e
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x49974e83c16e94ee
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x83bc38c9378660ab
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x487dfb220676db73
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x52da34e0bbf7ba8
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xd2fa5cbac750c4e6
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x7acb35a09139350b
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xff8d1bb9219aed8d
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xe08c70a5b8780b92
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xc11151b37ae80b5d
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x9b62636c295c27ae
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xa340610a0d6eaa16
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xf2dc1350f5af003f
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xc538defdc79be1bb
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0xef2d73d9b7f1df30
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:super_skill:0x852b8ee2bcd2924e
+  blockers:
+  - TextAsset payloads remain obfuscated_binary_pending_decoder
+  - catalog metadata is not publishable game knowledge by itself
+  next_actions:
+  - recover decoder path for LuaScripts stem `super_skill`
+  - validate decoded payload semantics before staging any knowledge facts
+  - stage readable records with TextAsset evidence_ref as source_ref
+  counts:
+    record_count: 23
+    scenario_count: 23
+    unique_sha1_count: 1
+    max_script_len: 2320
+    blocker_count: 2
+    status:obfuscated_binary_pending_decoder: 23
+  metadata:
+    source_id: luascripts-textasset-round31
+    stem: super_skill
+    high_value_stem: true
+    domains:
+    - skill
+    scenarios:
+    - Scenario1
+    - Scenario10
+    - Scenario1000
+    - Scenario1001
+    - Scenario1002
+    - Scenario1003
+    - Scenario103
+    - Scenario11
+    - Scenario12
+    - Scenario13
+    - Scenario14
+    - Scenario16
+    - Scenario2
+    - Scenario2001
+    - Scenario3
+    - Scenario3001
+    sample_asset_paths:
+    - Assets/Bundles/LuaScripts/Data/Scenario1/skill/super_skill.bytes
+    - Assets/Bundles/LuaScripts/Data/Scenario10/skill/super_skill.bytes
+    - Assets/Bundles/LuaScripts/Data/Scenario1000/skill/super_skill.bytes
+    - Assets/Bundles/LuaScripts/Data/Scenario1001/skill/super_skill.bytes
+    - Assets/Bundles/LuaScripts/Data/Scenario1002/skill/super_skill.bytes
+    sample_extracted_artifacts:
+    - threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+    - threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+    - threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+    - threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+    - threads/artifacts/round31_luascripts_textassets/super_skill.bytes.bin
+- queue_id: gameassembly-static-trace-textasset-loadbuffer-route
+  queue_type: gameassembly_static_trace_target
+  priority: 97
+  readiness: static_trace_target
+  domain: lua_scripts
+  topic: GameAssembly TextAsset::get_bytes / xluaL_loadbuffer route
+  source_artifact: ingestion/raw/client_packages/nslg-gameassembly-route-trace-round43.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=42:kind=xlua_global_metadata_anchor_trace
+  - NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=71:kind=global_metadata_trace
+  - NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=105:kind=global_metadata_xref_function_triage
+  - NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=123:kind=metadata_assetbundle_xrefs
+  - NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=124:kind=assetbundle_neighborhood
+  - NSLG_GAMEASSEMBLY_TRACE:gameassembly-route-trace-round43:round=160:kind=textasset_loadbuffer_correlation
+  blockers:
+  - static GameAssembly string inventory confirms TextAsset::get_bytes and xluaL_loadbuffer
+    names, but current exact-ref scan does not prove a bridge between them
+  - keep GameAssembly as decoder routing evidence; prioritize NEP2 InitLuaScriptsScan
+    or a runtime-independent TextAsset payload decoder before promoting any knowledge
+  - no static TextAsset/get_bytes -> xluaL_loadbuffer bridge has been proven
+  next_actions:
+  - use GameAssembly route traces as decoder planning evidence only
+  - recover a runtime-independent TextAsset/LuaScripts payload decoder before staging
+    facts
+  - prioritize NEP2 InitLuaScriptsScan if GameAssembly remains wrapper-only
+  counts:
+    artifact_count: 6
+    route_signal_record_count: 0
+    total_target_strings: 270
+    total_code_refs: 15
+    total_function_refs: 31
+    blocker_count: 3
+  metadata:
+    source_id: gameassembly-route-trace-round43
+    binary_name: GameAssembly.dll
+    textasset_loadbuffer_bridge_proven: false
+    artifact_kinds:
+    - assetbundle_neighborhood
+    - global_metadata_trace
+    - global_metadata_xref_function_triage
+    - metadata_assetbundle_xrefs
+    - textasset_loadbuffer_correlation
+    - xlua_global_metadata_anchor_trace
+- queue_id: luascripts-decoder-skills
+  queue_type: luascripts_decoder_target
+  priority: 96
+  readiness: blocked_pending_decoder
+  domain: skill
+  topic: skills
+  source_artifact: ingestion/raw/client_packages/nslg-luascripts-textassets-round31-catalog.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:skills:0xc5a9e6f261f4d377
+  blockers:
+  - TextAsset payloads remain obfuscated_binary_pending_decoder
+  - catalog metadata is not publishable game knowledge by itself
+  next_actions:
+  - recover decoder path for LuaScripts stem `skills`
+  - validate decoded payload semantics before staging any knowledge facts
+  - stage readable records with TextAsset evidence_ref as source_ref
+  counts:
+    record_count: 1
+    scenario_count: 0
+    unique_sha1_count: 1
+    max_script_len: 51760
+    blocker_count: 2
+    status:obfuscated_binary_pending_decoder: 1
+  metadata:
+    source_id: luascripts-textasset-round31
+    stem: skills
+    high_value_stem: true
+    domains:
+    - skill
+    scenarios: []
+    sample_asset_paths:
+    - Assets/Bundles/LuaScripts/Data/skill/skills.bytes
+    sample_extracted_artifacts:
+    - threads/artifacts/round31_luascripts_textassets/skills.bytes.bin
+- queue_id: luascripts-decoder-warbook
+  queue_type: luascripts_decoder_target
+  priority: 96
+  readiness: blocked_pending_decoder
+  domain: skill
+  topic: warbook
+  source_artifact: ingestion/raw/client_packages/nslg-luascripts-textassets-round31-catalog.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:warbook:0x1c594c47d614f353
+  blockers:
+  - TextAsset payloads remain obfuscated_binary_pending_decoder
+  - catalog metadata is not publishable game knowledge by itself
+  next_actions:
+  - recover decoder path for LuaScripts stem `warbook`
+  - validate decoded payload semantics before staging any knowledge facts
+  - stage readable records with TextAsset evidence_ref as source_ref
+  counts:
+    record_count: 1
+    scenario_count: 0
+    unique_sha1_count: 1
+    max_script_len: 12144
+    blocker_count: 2
+    status:obfuscated_binary_pending_decoder: 1
+  metadata:
+    source_id: luascripts-textasset-round31
+    stem: warbook
+    high_value_stem: true
+    domains:
+    - skill
+    scenarios: []
+    sample_asset_paths:
+    - Assets/Bundles/LuaScripts/Data/warbook.bytes
+    sample_extracted_artifacts:
+    - threads/artifacts/round31_luascripts_textassets/warbook.bytes.bin
+- queue_id: nep2-static-trace-2-inspect-xrefs-around-luajitluasrcluasrcencrytedluaccompiled-and-lual-loadbuffer-strings
+  queue_type: nep2_static_trace_target
+  priority: 96
+  readiness: static_trace_target
+  domain: protector
+  topic: inspect xrefs around LuaJitLuaSrcLuaSrcEncrytedLuacCompiled and luaL_loadbuffer
+    strings
+  source_artifact: ingestion/raw/client_packages/nslg-nep2-luascripts-evidence-round34.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:InitLuaScriptsScan:0x88135e
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:InitLuaScriptsScan:0x88205d
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:InitLuaScriptsScan:0x8820c5
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3f4a
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3f67
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3f91
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3fbb
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3fe5
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x400f
+  blockers:
+  - this report is sanitized static evidence only; it does not prove the decryptor
+    body yet
+  - direct pointer refs to InitLuaScriptsScan were not found in the round34 scan
+  - no live instrumentation or online protocol data is included
+  - static NEP2 evidence does not prove the decryptor body yet
+  next_actions:
+  - inspect xrefs around LuaJitLuaSrcLuaSrcEncrytedLuacCompiled and luaL_loadbuffer
+    strings
+  counts:
+    init_luascripts_occurrences: 3
+    pointer_refs_to_init_luascripts: 0
+    candidate_string_count: 1417
+    xref_count: 6
+    string_chunk_registrations: 6
+    blocker_count: 4
+  metadata:
+    source_id: nep2-luascripts-round34
+    binary_name: NEP2.dll
+    sha256: 109b4af46054a534a4e3b815d022a9bd26709d5bd644cbba4c4d456d4b61f382
+    selected_candidate_strings:
+    - decryptedPOP
+    - decrypt
+    - unprotectedAttrs
+    - LUABOX
+    - unprotected
+    - protected
+    - LuaJitLuaSrcLuaSrcEncrytedLuacCompiled
+    - O3P1P1_1P2P3WAES
+    - luaL_loadbuffer
+    - CryptDecrypt
+    - VirtualProtect
+    - luaFindFileWithGivenDirByMD5
+    - luaFindFileWithGivenDirByText
+    - luaFindSpecifiedFileByHash0rText
+- queue_id: lua-crypto-decoder-3-global-metadata-dat-protection-deobfuscation-needed-before-normal-il2cpp-symbol-recovery
+  queue_type: lua_crypto_decoder_target
+  priority: 95
+  readiness: blocked_pending_decoder
+  domain: lua_scripts
+  topic: global-metadata.dat protection/deobfuscation needed before normal IL2CPP
+    symbol recovery
+  source_artifact: ingestion/raw/client_packages/nslg-luascripts-crypto-evidence-round32.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:GameAssembly.dll
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:xlua.dll
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:global-metadata.dat
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:warbook.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:skills.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:heros.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:lineup_assistant.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:custom_hero.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:hero_talent.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:battle_record.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:battle_reports.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:battle_replay.bytes.bin
+  blockers:
+  - this report is sanitized reverse-engineering evidence, not decoded game knowledge
+  - runtime lua patch samples were counted but not persisted because they are local
+    runtime cache artifacts
+  - no live instrumentation or online protocol data is included
+  - static crypto evidence does not decode LuaScripts payloads
+  next_actions:
+  - global-metadata.dat protection/deobfuscation needed before normal IL2CPP symbol
+    recovery
+  counts:
+    binary_string_hit_summaries: 3
+    payload_block_samples: 9
+    runtime_initialize_lua_entries: 1
+    blocker_count: 4
+    payload_status:high_entropy_16byte_aligned: 9
+  metadata:
+    source_id: luascripts-crypto-round32
+    binary_names:
+    - GameAssembly.dll
+    - xlua.dll
+    - global-metadata.dat
+    sample_payloads:
+    - warbook.bytes.bin
+    - skills.bytes.bin
+    - heros.bytes.bin
+    - lineup_assistant.bytes.bin
+    - custom_hero.bytes.bin
+    - hero_talent.bytes.bin
+    - battle_record.bytes.bin
+    - battle_reports.bytes.bin
+    - battle_replay.bytes.bin
+    sanitized_conclusions:
+    - Target LuaScripts/Data payloads and downloaded lua-patches are high entropy
+      and all sizes checked are divisible by 16, which rules out plain Lua/source
+      and makes simple compression/XOR unlikely.
+    - Direct standard decompression probes from Round 31 failed; this round adds block-size
+      evidence consistent with AES or another 16-byte block transform.
+    - Game runtime uses IL2CPP with NSLGame.Patcher.GameUpdater.InitLuaEnv from RuntimeInitializeOnLoads.json;
+      global-metadata.dat has a valid IL2CPP magic but protected/obfuscated header
+      fields, so normal symbol recovery is blocked without metadata deobfuscation.
+    - GameAssembly exposes xlua exports including xlua_getloaders and xluaL_loadbuffer
+      plus Unity TextAsset APIs, but no clear plaintext loader/decryptor method name
+      or key string was found by raw string search.
+    - 'Next useful slice: recover/deobfuscate IL2CPP metadata or locate xrefs around
+      xluaL_loadbuffer/TextAsset::get_bytes in GameAssembly to find the native call
+      path that decrypts the 16-byte-aligned Lua payloads.'
+    - Il2CppDumper was executed through PowerShell and failed with invalid metadata,
+      confirming the metadata protection blocker rather than a missing tool issue.
+- queue_id: luascripts-decoder-army-config
+  queue_type: luascripts_decoder_target
+  priority: 94
+  readiness: blocked_pending_decoder
+  domain: combat
+  topic: army_config
+  source_artifact: ingestion/raw/client_packages/nslg-luascripts-textassets-round31-catalog.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xa488d4186ddd8982
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x7ff8c1303d007579
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x26e91e6951bc67ad
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x7ca4367fd632fd6c
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xbffb1615c640ef38
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x6f6a7a599e13edb5
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xf1e0a616dd0d287b
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x77c395d0858ce290
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x593208a12cbe6599
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x7444b79bf30f1ce9
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x721eaceb04e92240
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x56087ad9e2f41dc0
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x3138da92d5ec4760
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x437dcdf2db5f07b9
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xb6b300f058565619
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xaa18706955efe9c7
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x3110b9198cd785c1
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xc5fdef621c1739aa
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xb6f88a4b72e521d6
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x5cc5a4acc8b746ba
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xaaaae94420d9331d
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0xfaec644eddcec630
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:army_config:0x8a243e59938b58d4
+  blockers:
+  - TextAsset payloads remain obfuscated_binary_pending_decoder
+  - catalog metadata is not publishable game knowledge by itself
+  next_actions:
+  - recover decoder path for LuaScripts stem `army_config`
+  - validate decoded payload semantics before staging any knowledge facts
+  - stage readable records with TextAsset evidence_ref as source_ref
+  counts:
+    record_count: 23
+    scenario_count: 23
+    unique_sha1_count: 1
+    max_script_len: 18352
+    blocker_count: 2
+    status:obfuscated_binary_pending_decoder: 23
+  metadata:
+    source_id: luascripts-textasset-round31
+    stem: army_config
+    high_value_stem: true
+    domains:
+    - combat
+    scenarios:
+    - Scenario1
+    - Scenario10
+    - Scenario1000
+    - Scenario1001
+    - Scenario1002
+    - Scenario1003
+    - Scenario103
+    - Scenario11
+    - Scenario12
+    - Scenario13
+    - Scenario14
+    - Scenario16
+    - Scenario2
+    - Scenario2001
+    - Scenario3
+    - Scenario3001
+    sample_asset_paths:
+    - Assets/Bundles/LuaScripts/Data/Scenario1/army/army_config.bytes
+    - Assets/Bundles/LuaScripts/Data/Scenario10/army/army_config.bytes
+    - Assets/Bundles/LuaScripts/Data/Scenario1000/army/army_config.bytes
+    - Assets/Bundles/LuaScripts/Data/Scenario1001/army/army_config.bytes
+    - Assets/Bundles/LuaScripts/Data/Scenario1002/army/army_config.bytes
+    sample_extracted_artifacts:
+    - threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+    - threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+    - threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+    - threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+    - threads/artifacts/round31_luascripts_textassets/army_config.bytes.bin
+- queue_id: luascripts-decoder-hero-talent
+  queue_type: luascripts_decoder_target
+  priority: 93
+  readiness: blocked_pending_decoder
+  domain: hero
+  topic: hero_talent
+  source_artifact: ingestion/raw/client_packages/nslg-luascripts-textassets-round31-catalog.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:hero_talent:0x70fd56d85f06ca81
+  blockers:
+  - TextAsset payloads remain obfuscated_binary_pending_decoder
+  - catalog metadata is not publishable game knowledge by itself
+  next_actions:
+  - recover decoder path for LuaScripts stem `hero_talent`
+  - validate decoded payload semantics before staging any knowledge facts
+  - stage readable records with TextAsset evidence_ref as source_ref
+  counts:
+    record_count: 1
+    scenario_count: 0
+    unique_sha1_count: 1
+    max_script_len: 2096
+    blocker_count: 2
+    status:obfuscated_binary_pending_decoder: 1
+  metadata:
+    source_id: luascripts-textasset-round31
+    stem: hero_talent
+    high_value_stem: true
+    domains:
+    - hero
+    - skill
+    scenarios: []
+    sample_asset_paths:
+    - Assets/Bundles/LuaScripts/Data/hero_talent.bytes
+    sample_extracted_artifacts:
+    - threads/artifacts/round31_luascripts_textassets/hero_talent.bytes.bin
+- queue_id: lua-crypto-decoder-4-16-byte-aligned-luascripts-payload-block-transform
+  queue_type: lua_crypto_decoder_target
+  priority: 92
+  readiness: blocked_pending_decoder
+  domain: lua_scripts
+  topic: 16-byte-aligned LuaScripts payload block transform
+  source_artifact: ingestion/raw/client_packages/nslg-luascripts-crypto-evidence-round32.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:GameAssembly.dll
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:xlua.dll
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:global-metadata.dat
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:warbook.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:skills.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:heros.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:lineup_assistant.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:custom_hero.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:hero_talent.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:battle_record.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:battle_reports.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:battle_replay.bytes.bin
+  blockers:
+  - this report is sanitized reverse-engineering evidence, not decoded game knowledge
+  - runtime lua patch samples were counted but not persisted because they are local
+    runtime cache artifacts
+  - no live instrumentation or online protocol data is included
+  - static crypto evidence does not decode LuaScripts payloads
+  next_actions:
+  - 16-byte-aligned LuaScripts payload block transform
+  counts:
+    binary_string_hit_summaries: 3
+    payload_block_samples: 9
+    runtime_initialize_lua_entries: 1
+    blocker_count: 4
+    payload_status:high_entropy_16byte_aligned: 9
+  metadata:
+    source_id: luascripts-crypto-round32
+    binary_names:
+    - GameAssembly.dll
+    - xlua.dll
+    - global-metadata.dat
+    sample_payloads:
+    - warbook.bytes.bin
+    - skills.bytes.bin
+    - heros.bytes.bin
+    - lineup_assistant.bytes.bin
+    - custom_hero.bytes.bin
+    - hero_talent.bytes.bin
+    - battle_record.bytes.bin
+    - battle_reports.bytes.bin
+    - battle_replay.bytes.bin
+    sanitized_conclusions:
+    - Target LuaScripts/Data payloads and downloaded lua-patches are high entropy
+      and all sizes checked are divisible by 16, which rules out plain Lua/source
+      and makes simple compression/XOR unlikely.
+    - Direct standard decompression probes from Round 31 failed; this round adds block-size
+      evidence consistent with AES or another 16-byte block transform.
+    - Game runtime uses IL2CPP with NSLGame.Patcher.GameUpdater.InitLuaEnv from RuntimeInitializeOnLoads.json;
+      global-metadata.dat has a valid IL2CPP magic but protected/obfuscated header
+      fields, so normal symbol recovery is blocked without metadata deobfuscation.
+    - GameAssembly exposes xlua exports including xlua_getloaders and xluaL_loadbuffer
+      plus Unity TextAsset APIs, but no clear plaintext loader/decryptor method name
+      or key string was found by raw string search.
+    - 'Next useful slice: recover/deobfuscate IL2CPP metadata or locate xrefs around
+      xluaL_loadbuffer/TextAsset::get_bytes in GameAssembly to find the native call
+      path that decrypts the 16-byte-aligned Lua payloads.'
+    - Il2CppDumper was executed through PowerShell and failed with invalid metadata,
+      confirming the metadata protection blocker rather than a missing tool issue.
+- queue_id: luascripts-decoder-scene-building-skill
+  queue_type: luascripts_decoder_target
+  priority: 91
+  readiness: blocked_pending_decoder
+  domain: skill
+  topic: scene_building_skill
+  source_artifact: ingestion/raw/client_packages/nslg-luascripts-textassets-round31-catalog.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:scene_building_skill:0x3a34845192ffb4d0
+  blockers:
+  - TextAsset payloads remain obfuscated_binary_pending_decoder
+  - catalog metadata is not publishable game knowledge by itself
+  next_actions:
+  - recover decoder path for LuaScripts stem `scene_building_skill`
+  - validate decoded payload semantics before staging any knowledge facts
+  - stage readable records with TextAsset evidence_ref as source_ref
+  counts:
+    record_count: 1
+    scenario_count: 0
+    unique_sha1_count: 1
+    max_script_len: 1136
+    blocker_count: 2
+    status:obfuscated_binary_pending_decoder: 1
+  metadata:
+    source_id: luascripts-textasset-round31
+    stem: scene_building_skill
+    high_value_stem: true
+    domains:
+    - building
+    - skill
+    scenarios: []
+    sample_asset_paths:
+    - Assets/Bundles/LuaScripts/Data/skill/scene_building_skill.bytes
+    sample_extracted_artifacts:
+    - threads/artifacts/round31_luascripts_textassets/scene_building_skill.bytes.bin
+- queue_id: nep2-static-trace-3-follow-nep2-string-decode-helper-at-xref-windows-that-call-0x180021240
+  queue_type: nep2_static_trace_target
+  priority: 90
+  readiness: static_trace_target
+  domain: protector
+  topic: follow NEP2 string-decode helper at xref windows that call 0x180021240
+  source_artifact: ingestion/raw/client_packages/nslg-nep2-luascripts-evidence-round34.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:InitLuaScriptsScan:0x88135e
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:InitLuaScriptsScan:0x88205d
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:InitLuaScriptsScan:0x8820c5
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3f4a
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3f67
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3f91
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3fbb
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3fe5
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x400f
+  blockers:
+  - this report is sanitized static evidence only; it does not prove the decryptor
+    body yet
+  - direct pointer refs to InitLuaScriptsScan were not found in the round34 scan
+  - no live instrumentation or online protocol data is included
+  - static NEP2 evidence does not prove the decryptor body yet
+  next_actions:
+  - follow NEP2 string-decode helper at xref windows that call 0x180021240
+  counts:
+    init_luascripts_occurrences: 3
+    pointer_refs_to_init_luascripts: 0
+    candidate_string_count: 1417
+    xref_count: 6
+    string_chunk_registrations: 6
+    blocker_count: 4
+  metadata:
+    source_id: nep2-luascripts-round34
+    binary_name: NEP2.dll
+    sha256: 109b4af46054a534a4e3b815d022a9bd26709d5bd644cbba4c4d456d4b61f382
+    selected_candidate_strings:
+    - decryptedPOP
+    - decrypt
+    - unprotectedAttrs
+    - LUABOX
+    - unprotected
+    - protected
+    - LuaJitLuaSrcLuaSrcEncrytedLuacCompiled
+    - O3P1P1_1P2P3WAES
+    - luaL_loadbuffer
+    - CryptDecrypt
+    - VirtualProtect
+    - luaFindFileWithGivenDirByMD5
+    - luaFindFileWithGivenDirByText
+    - luaFindSpecifiedFileByHash0rText
+- queue_id: lua-crypto-decoder-2-nslgame-patcher-gameupdater-initluaenv-runtime-initialize-entry
+  queue_type: lua_crypto_decoder_target
+  priority: 88
+  readiness: blocked_pending_decoder
+  domain: lua_scripts
+  topic: NSLGame.Patcher.GameUpdater.InitLuaEnv runtime initialize entry
+  source_artifact: ingestion/raw/client_packages/nslg-luascripts-crypto-evidence-round32.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:GameAssembly.dll
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:xlua.dll
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:global-metadata.dat
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:warbook.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:skills.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:heros.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:lineup_assistant.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:custom_hero.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:hero_talent.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:battle_record.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:battle_reports.bytes.bin
+  - NSLG_LUA_CRYPTO:luascripts-crypto-round32:payload:battle_replay.bytes.bin
+  blockers:
+  - this report is sanitized reverse-engineering evidence, not decoded game knowledge
+  - runtime lua patch samples were counted but not persisted because they are local
+    runtime cache artifacts
+  - no live instrumentation or online protocol data is included
+  - static crypto evidence does not decode LuaScripts payloads
+  next_actions:
+  - NSLGame.Patcher.GameUpdater.InitLuaEnv runtime initialize entry
+  counts:
+    binary_string_hit_summaries: 3
+    payload_block_samples: 9
+    runtime_initialize_lua_entries: 1
+    blocker_count: 4
+    payload_status:high_entropy_16byte_aligned: 9
+  metadata:
+    source_id: luascripts-crypto-round32
+    binary_names:
+    - GameAssembly.dll
+    - xlua.dll
+    - global-metadata.dat
+    sample_payloads:
+    - warbook.bytes.bin
+    - skills.bytes.bin
+    - heros.bytes.bin
+    - lineup_assistant.bytes.bin
+    - custom_hero.bytes.bin
+    - hero_talent.bytes.bin
+    - battle_record.bytes.bin
+    - battle_reports.bytes.bin
+    - battle_replay.bytes.bin
+    sanitized_conclusions:
+    - Target LuaScripts/Data payloads and downloaded lua-patches are high entropy
+      and all sizes checked are divisible by 16, which rules out plain Lua/source
+      and makes simple compression/XOR unlikely.
+    - Direct standard decompression probes from Round 31 failed; this round adds block-size
+      evidence consistent with AES or another 16-byte block transform.
+    - Game runtime uses IL2CPP with NSLGame.Patcher.GameUpdater.InitLuaEnv from RuntimeInitializeOnLoads.json;
+      global-metadata.dat has a valid IL2CPP magic but protected/obfuscated header
+      fields, so normal symbol recovery is blocked without metadata deobfuscation.
+    - GameAssembly exposes xlua exports including xlua_getloaders and xluaL_loadbuffer
+      plus Unity TextAsset APIs, but no clear plaintext loader/decryptor method name
+      or key string was found by raw string search.
+    - 'Next useful slice: recover/deobfuscate IL2CPP metadata or locate xrefs around
+      xluaL_loadbuffer/TextAsset::get_bytes in GameAssembly to find the native call
+      path that decrypts the 16-byte-aligned Lua payloads.'
+    - Il2CppDumper was executed through PowerShell and failed with invalid metadata,
+      confirming the metadata protection blocker rather than a missing tool issue.
+- queue_id: luascripts-decoder-battle-record
+  queue_type: luascripts_decoder_target
+  priority: 87
+  readiness: blocked_pending_decoder
+  domain: combat
+  topic: battle_record
+  source_artifact: ingestion/raw/client_packages/nslg-luascripts-textassets-round31-catalog.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:battle_record:0x5a69023b2efb158d
+  blockers:
+  - TextAsset payloads remain obfuscated_binary_pending_decoder
+  - catalog metadata is not publishable game knowledge by itself
+  next_actions:
+  - recover decoder path for LuaScripts stem `battle_record`
+  - validate decoded payload semantics before staging any knowledge facts
+  - stage readable records with TextAsset evidence_ref as source_ref
+  counts:
+    record_count: 1
+    scenario_count: 0
+    unique_sha1_count: 1
+    max_script_len: 2512
+    blocker_count: 2
+    status:obfuscated_binary_pending_decoder: 1
+  metadata:
+    source_id: luascripts-textasset-round31
+    stem: battle_record
+    high_value_stem: true
+    domains:
+    - combat
+    scenarios: []
+    sample_asset_paths:
+    - Assets/Bundles/LuaScripts/Data/battle_record.bytes
+    sample_extracted_artifacts:
+    - threads/artifacts/round31_luascripts_textassets/battle_record.bytes.bin
+- queue_id: luascripts-decoder-battle-replay
+  queue_type: luascripts_decoder_target
+  priority: 87
+  readiness: blocked_pending_decoder
+  domain: combat
+  topic: battle_replay
+  source_artifact: ingestion/raw/client_packages/nslg-luascripts-textassets-round31-catalog.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:battle_replay:0xcbe6217592435c3e
+  blockers:
+  - TextAsset payloads remain obfuscated_binary_pending_decoder
+  - catalog metadata is not publishable game knowledge by itself
+  next_actions:
+  - recover decoder path for LuaScripts stem `battle_replay`
+  - validate decoded payload semantics before staging any knowledge facts
+  - stage readable records with TextAsset evidence_ref as source_ref
+  counts:
+    record_count: 1
+    scenario_count: 0
+    unique_sha1_count: 1
+    max_script_len: 4320
+    blocker_count: 2
+    status:obfuscated_binary_pending_decoder: 1
+  metadata:
+    source_id: luascripts-textasset-round31
+    stem: battle_replay
+    high_value_stem: true
+    domains:
+    - combat
+    scenarios: []
+    sample_asset_paths:
+    - Assets/Bundles/LuaScripts/Data/battle_replay.bytes
+    sample_extracted_artifacts:
+    - threads/artifacts/round31_luascripts_textassets/battle_replay.bytes.bin
+- queue_id: luascripts-decoder-battle-reports
+  queue_type: luascripts_decoder_target
+  priority: 87
+  readiness: blocked_pending_decoder
+  domain: combat
+  topic: battle_reports
+  source_artifact: ingestion/raw/client_packages/nslg-luascripts-textassets-round31-catalog.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:battle_reports:0xc04e79a4be573ba7
+  blockers:
+  - TextAsset payloads remain obfuscated_binary_pending_decoder
+  - catalog metadata is not publishable game knowledge by itself
+  next_actions:
+  - recover decoder path for LuaScripts stem `battle_reports`
+  - validate decoded payload semantics before staging any knowledge facts
+  - stage readable records with TextAsset evidence_ref as source_ref
+  counts:
+    record_count: 1
+    scenario_count: 0
+    unique_sha1_count: 1
+    max_script_len: 1904
+    blocker_count: 2
+    status:obfuscated_binary_pending_decoder: 1
+  metadata:
+    source_id: luascripts-textasset-round31
+    stem: battle_reports
+    high_value_stem: true
+    domains:
+    - combat
+    scenarios: []
+    sample_asset_paths:
+    - Assets/Bundles/LuaScripts/Data/battle_reports.bytes
+    sample_extracted_artifacts:
+    - threads/artifacts/round31_luascripts_textassets/battle_reports.bytes.bin
+- queue_id: luascripts-decoder-sandbox-battle-config
+  queue_type: luascripts_decoder_target
+  priority: 87
+  readiness: blocked_pending_decoder
+  domain: combat
+  topic: sandbox_battle_config
+  source_artifact: ingestion/raw/client_packages/nslg-luascripts-textassets-round31-catalog.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:sandbox_battle_config:0x86cc9bc6dd7483ce
+  blockers:
+  - TextAsset payloads remain obfuscated_binary_pending_decoder
+  - catalog metadata is not publishable game knowledge by itself
+  next_actions:
+  - recover decoder path for LuaScripts stem `sandbox_battle_config`
+  - validate decoded payload semantics before staging any knowledge facts
+  - stage readable records with TextAsset evidence_ref as source_ref
+  counts:
+    record_count: 1
+    scenario_count: 0
+    unique_sha1_count: 1
+    max_script_len: 3568
+    blocker_count: 2
+    status:obfuscated_binary_pending_decoder: 1
+  metadata:
+    source_id: luascripts-textasset-round31
+    stem: sandbox_battle_config
+    high_value_stem: true
+    domains:
+    - combat
+    scenarios: []
+    sample_asset_paths:
+    - Assets/Bundles/LuaScripts/Data/sandbox_battle_config.bytes
+    sample_extracted_artifacts:
+    - threads/artifacts/round31_luascripts_textassets/sandbox_battle_config.bytes.bin
+- queue_id: luascripts-decoder-water-battle
+  queue_type: luascripts_decoder_target
+  priority: 87
+  readiness: blocked_pending_decoder
+  domain: combat
+  topic: water_battle
+  source_artifact: ingestion/raw/client_packages/nslg-luascripts-textassets-round31-catalog.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:water_battle:0x4526f038e796965c
+  blockers:
+  - TextAsset payloads remain obfuscated_binary_pending_decoder
+  - catalog metadata is not publishable game knowledge by itself
+  next_actions:
+  - recover decoder path for LuaScripts stem `water_battle`
+  - validate decoded payload semantics before staging any knowledge facts
+  - stage readable records with TextAsset evidence_ref as source_ref
+  counts:
+    record_count: 1
+    scenario_count: 0
+    unique_sha1_count: 1
+    max_script_len: 1328
+    blocker_count: 2
+    status:obfuscated_binary_pending_decoder: 1
+  metadata:
+    source_id: luascripts-textasset-round31
+    stem: water_battle
+    high_value_stem: true
+    domains:
+    - combat
+    scenarios: []
+    sample_asset_paths:
+    - Assets/Bundles/LuaScripts/Data/water_battle.bytes
+    sample_extracted_artifacts:
+    - threads/artifacts/round31_luascripts_textassets/water_battle.bytes.bin
+- queue_id: nep2-static-trace-4-check-whether-nep2-hands-decrypted-luascripts-bytes-to-xlua-or-writes-decoded-payloads
+  queue_type: nep2_static_trace_target
+  priority: 86
+  readiness: static_trace_target
+  domain: protector
+  topic: check whether NEP2 hands decrypted LuaScripts bytes to xlua or writes decoded
+    payloads
+  source_artifact: ingestion/raw/client_packages/nslg-nep2-luascripts-evidence-round34.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:InitLuaScriptsScan:0x88135e
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:InitLuaScriptsScan:0x88205d
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:InitLuaScriptsScan:0x8820c5
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3f4a
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3f67
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3f91
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3fbb
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x3fe5
+  - NSLG_NEP2_LUASCRIPTS:nep2-luascripts-round34:xref:O3P1P1_1P2P3WAES:0x400f
+  blockers:
+  - this report is sanitized static evidence only; it does not prove the decryptor
+    body yet
+  - direct pointer refs to InitLuaScriptsScan were not found in the round34 scan
+  - no live instrumentation or online protocol data is included
+  - static NEP2 evidence does not prove the decryptor body yet
+  next_actions:
+  - check whether NEP2 hands decrypted LuaScripts bytes to xlua or writes decoded
+    payloads
+  counts:
+    init_luascripts_occurrences: 3
+    pointer_refs_to_init_luascripts: 0
+    candidate_string_count: 1417
+    xref_count: 6
+    string_chunk_registrations: 6
+    blocker_count: 4
+  metadata:
+    source_id: nep2-luascripts-round34
+    binary_name: NEP2.dll
+    sha256: 109b4af46054a534a4e3b815d022a9bd26709d5bd644cbba4c4d456d4b61f382
+    selected_candidate_strings:
+    - decryptedPOP
+    - decrypt
+    - unprotectedAttrs
+    - LUABOX
+    - unprotected
+    - protected
+    - LuaJitLuaSrcLuaSrcEncrytedLuacCompiled
+    - O3P1P1_1P2P3WAES
+    - luaL_loadbuffer
+    - CryptDecrypt
+    - VirtualProtect
+    - luaFindFileWithGivenDirByMD5
+    - luaFindFileWithGivenDirByText
+    - luaFindSpecifiedFileByHash0rText
+- queue_id: decoded-hero-review-1002
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 典韦
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1002
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1002
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-1002
+    hero_id: 1002
+    review_status: normalized
+    aliases:
+    - dianwei_zhanji
+    related_topics:
+    - 古之恶来
+    skill_ids:
+    - 100201
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-1003
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 荀攸
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1003
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1003
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-1003
+    hero_id: 1003
+    review_status: normalized
+    aliases:
+    - xunyou
+    related_topics:
+    - 十二奇策
+    skill_ids:
+    - 100301
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-1004
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 贾诩
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1004
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1004
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-1004
+    hero_id: 1004
+    review_status: normalized
+    aliases:
+    - jiaxu
+    related_topics:
+    - 诡道玄机
+    skill_ids:
+    - 100401
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-1005
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 郭嘉
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1005
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1005
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-1005
+    hero_id: 1005
+    review_status: normalized
+    aliases:
+    - guojia
+    related_topics:
+    - 算无遗策
+    skill_ids:
+    - 100501
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-1008
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 荀彧
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1008
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1008
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-1008
+    hero_id: 1008
+    review_status: normalized
+    aliases:
+    - xunyu_xinxiang
+    related_topics:
+    - 建计举人
+    skill_ids:
+    - 100801
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-1009
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 司马懿
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1009
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1009
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-1009
+    hero_id: 1009
+    review_status: normalized
+    aliases:
+    - simayi
+    - simayi_qingjin
+    related_topics:
+    - 鹰视狼顾
+    skill_ids:
+    - 100901
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-1011
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 曹丕
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1011
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1011
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 0
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-1011
+    hero_id: 1011
+    review_status: normalized
+    aliases:
+    - caopi_denglin
+    related_topics: []
+    skill_ids: []
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-1012
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 邓艾
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1012
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1012
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-1012
+    hero_id: 1012
+    review_status: normalized
+    aliases:
+    - dengai
+    - dengai_zhiqu
+    related_topics:
+    - 屯田令
+    skill_ids:
+    - 101201
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-1014
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 乐进
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1014
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1014
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-1014
+    hero_id: 1014
+    review_status: normalized
+    aliases:
+    - yuejin_canglang
+    related_topics:
+    - 每战先登
+    skill_ids:
+    - 101401
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-1022
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 郝昭
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1022
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1022
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 0
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-1022
+    hero_id: 1022
+    review_status: normalized
+    aliases:
+    - haozhao_xiongguan
+    related_topics: []
+    skill_ids: []
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-1023
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 夏侯惇
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1023
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1023
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-1023
+    hero_id: 1023
+    review_status: normalized
+    aliases:
+    - xiahoudun_yuxue
+    related_topics:
+    - 刚烈
+    skill_ids:
+    - 102301
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-1026
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 甄洛
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1026
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1026
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-1026
+    hero_id: 1026
+    review_status: normalized
+    aliases:
+    - zhenji
+    - zhenluo_yuehua
+    related_topics:
+    - 流风回雪
+    skill_ids:
+    - 102601
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-1027
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 卞夫人
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1027
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1027
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 0
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-1027
+    hero_id: 1027
+    review_status: normalized
+    aliases:
+    - bianfuren
+    related_topics: []
+    skill_ids: []
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-2001
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 关羽
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2001
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2001
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-2001
+    hero_id: 2001
+    review_status: normalized
+    aliases:
+    - guanyu
+    - guanyu_jinhui
+    related_topics:
+    - 威震华夏
+    skill_ids:
+    - 200101
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-2002
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 张飞
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2002
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2002
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-2002
+    hero_id: 2002
+    review_status: normalized
+    aliases:
+    - zhangfei
+    - zhangfei_yinshe
+    related_topics:
+    - 万人之敌
+    skill_ids:
+    - 200201
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-2003
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 诸葛亮
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2003
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2003
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-2003
+    hero_id: 2003
+    review_status: normalized
+    aliases:
+    - zhugeliang
+    - zhugeliang_qixing
+    related_topics:
+    - 草船借箭
+    skill_ids:
+    - 200301
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-2005
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 徐庶
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2005
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2005
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-2005
+    hero_id: 2005
+    review_status: normalized
+    aliases:
+    - xushu
+    - xushu_jianxiao
+    related_topics:
+    - 折节学问
+    skill_ids:
+    - 200501
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-2009
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 黄月英
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2009
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2009
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-2009
+    hero_id: 2009
+    review_status: normalized
+    aliases:
+    - huangyueying
+    - huangyueying_jiqiao
+    related_topics:
+    - 木牛流马
+    skill_ids:
+    - 200901
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-2011
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 关银屏
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2011
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2011
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-2011
+    hero_id: 2011
+    review_status: normalized
+    aliases:
+    - guanyinping
+    - guanyinping_bailu
+    related_topics:
+    - 虎啸生威
+    skill_ids:
+    - 201101
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-2012
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 赵云
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2012
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2012
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-2012
+    hero_id: 2012
+    review_status: normalized
+    aliases:
+    - zhaoyun
+    - zhaoyun_jinmie
+    related_topics:
+    - 七进七出
+    skill_ids:
+    - 201201
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-2013
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 马云禄
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2013
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2013
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-2013
+    hero_id: 2013
+    review_status: normalized
+    aliases:
+    - mayunlu
+    - mayunlu_yucong
+    related_topics:
+    - 红妆缭乱
+    skill_ids:
+    - 201301
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-2015
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 马超
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2015
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2015
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-2015
+    hero_id: 2015
+    review_status: normalized
+    aliases:
+    - machao
+    - machao_duanyi
+    related_topics:
+    - 纵马横枪
+    skill_ids:
+    - 201501
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-2017
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 魏延
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2017
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2017
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 0
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-2017
+    hero_id: 2017
+    review_status: normalized
+    aliases:
+    - weiyan_nigu
+    related_topics: []
+    skill_ids: []
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-2019
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 甘夫人
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2019
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2019
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-2019
+    hero_id: 2019
+    review_status: normalized
+    aliases:
+    - ganfuren
+    - ganfuren_qingbo
+    related_topics:
+    - 皇思淑仁
+    skill_ids:
+    - 201901
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-3000
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 孙权
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3000
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3000
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-3000
+    hero_id: 3000
+    review_status: normalized
+    aliases:
+    - sunquan
+    - sunquan_chengtian
+    related_topics:
+    - 虎踞江东
+    skill_ids:
+    - 300001
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-3001
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 孙策
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3001
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3001
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-3001
+    hero_id: 3001
+    review_status: normalized
+    aliases:
+    - sunce
+    related_topics:
+    - 制霸江东
+    skill_ids:
+    - 300101
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-3002
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 孙尚香
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3002
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3002
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-3002
+    hero_id: 3002
+    review_status: normalized
+    aliases:
+    - sunshangxiang
+    - sunshangxiang_luohua
+    related_topics:
+    - 弓腰姬
+    skill_ids:
+    - 300201
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-3003
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 小乔
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3003
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3003
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-3003
+    hero_id: 3003
+    review_status: normalized
+    aliases:
+    - xiaoqiao
+    - xiaoqiao_yuxiao
+    - xiaoqiao_zhongqiu
+    related_topics:
+    - 天香
+    skill_ids:
+    - 300301
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-3004
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 大乔
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3004
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3004
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-3004
+    hero_id: 3004
+    review_status: normalized
+    aliases:
+    - daqiao
+    - daqiao_shanhe
+    - daqiao_zhongqiu
+    related_topics:
+    - 国色
+    skill_ids:
+    - 300401
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-3005
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 鲁肃
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3005
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3005
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-3005
+    hero_id: 3005
+    review_status: normalized
+    aliases:
+    - lusu
+    related_topics:
+    - 划湘分荆
+    skill_ids:
+    - 300501
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-3006
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 甘宁
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3006
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3006
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-3006
+    hero_id: 3006
+    review_status: normalized
+    aliases:
+    - ganning
+    related_topics:
+    - 锦帆渠魁
+    skill_ids:
+    - 300601
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-3007
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 周瑜
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3007
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3007
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-3007
+    hero_id: 3007
+    review_status: normalized
+    aliases:
+    - zhouyu
+    - zhouyu_mingxian
+    related_topics:
+    - 临机制胜
+    skill_ids:
+    - 300701
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-3008
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 陆逊
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3008
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3008
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-3008
+    hero_id: 3008
+    review_status: normalized
+    aliases:
+    - luxun
+    - luxun_yinma
+    related_topics:
+    - 火烧连营
+    skill_ids:
+    - 300801
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-3010
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 吕蒙
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3010
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3010
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-3010
+    hero_id: 3010
+    review_status: normalized
+    aliases:
+    - lvmeng
+    related_topics:
+    - 白衣渡江
+    skill_ids:
+    - 301001
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-3016
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 陆抗
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3016
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3016
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-3016
+    hero_id: 3016
+    review_status: normalized
+    aliases:
+    - lukang_jueyan
+    related_topics:
+    - 决堰倾涛
+    skill_ids:
+    - 301601
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-4000
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 吕布
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4000
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4000
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-4000
+    hero_id: 4000
+    review_status: normalized
+    aliases:
+    - lvbu
+    - lvbu_longji
+    related_topics:
+    - 骁勇无前
+    skill_ids:
+    - 400001
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-4010
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 李儒
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4010
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4010
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-4010
+    hero_id: 4010
+    review_status: normalized
+    aliases:
+    - liru
+    related_topics:
+    - 鸩饮毒弑
+    skill_ids:
+    - 401001
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-4011
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 张角
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4011
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4011
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-4011
+    hero_id: 4011
+    review_status: normalized
+    aliases:
+    - zhangjiao
+    - zhangjiao_tianshi
+    related_topics:
+    - 黄天当立
+    skill_ids:
+    - 401101
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-4012
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 左慈
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4012
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4012
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-4012
+    hero_id: 4012
+    review_status: normalized
+    aliases:
+    - zuoci
+    related_topics:
+    - 云行雨施
+    skill_ids:
+    - 401201
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-4013
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 陈宫
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4013
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4013
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-4013
+    hero_id: 4013
+    review_status: normalized
+    aliases:
+    - chengong
+    related_topics:
+    - 智令从计
+    skill_ids:
+    - 401301
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-4023
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 貂蝉
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4023
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4023
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-4023
+    hero_id: 4023
+    review_status: normalized
+    aliases:
+    - diaochan
+    - diaochan_yiwu
+    related_topics:
+    - 闭月
+    skill_ids:
+    - 402301
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-4026
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 马腾
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4026
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4026
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-4026
+    hero_id: 4026
+    review_status: normalized
+    aliases:
+    - mateng
+    related_topics:
+    - 雄踞西凉
+    skill_ids:
+    - 402601
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-4029
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 邹氏
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4029
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4029
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-4029
+    hero_id: 4029
+    review_status: normalized
+    aliases:
+    - zoushi
+    related_topics:
+    - 顾盼生姿
+    skill_ids:
+    - 402901
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-5026
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 步练师
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5026
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5026
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-5026
+    hero_id: 5026
+    review_status: normalized
+    aliases:
+    - bulianshi
+    related_topics:
+    - 淑懿之德
+    skill_ids:
+    - 502601
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-5034
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 徐盛
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5034
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5034
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-5034
+    hero_id: 5034
+    review_status: normalized
+    aliases:
+    - xusheng
+    related_topics:
+    - 百里疑城
+    skill_ids:
+    - 503401
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-5048
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 张梁
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5048
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5048
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-5048
+    hero_id: 5048
+    review_status: normalized
+    aliases:
+    - zhangliang
+    related_topics:
+    - 妖武
+    skill_ids:
+    - 504801
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-5055
+  queue_type: decoded_hero_review
+  priority: 66
+  readiness: needs_manual_review
+  domain: hero
+  topic: 张宝
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5055
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5055
+  blockers:
+  - review_status=normalized; manual review is required
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 1
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-5055
+    hero_id: 5055
+    review_status: normalized
+    aliases:
+    - zhangbao
+    related_topics:
+    - 妖风大作
+    skill_ids:
+    - 505501
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-1000
+  queue_type: decoded_hero_review
+  priority: 63
+  readiness: needs_manual_review
+  domain: hero
+  topic: 曹操
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1000
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1000
+  blockers:
+  - review_status=normalized; manual review is required
+  - 'unmapped decoded skill ids: 20890'
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 2
+    unmapped_skill_id_count: 1
+    blocker_count: 2
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-1000
+    hero_id: 1000
+    review_status: normalized
+    aliases:
+    - caocao
+    - caocao_gch
+    - caocao_jianzhi
+    related_topics:
+    - 乱世奸雄
+    - '20890'
+    skill_ids:
+    - 100001
+    - 20890
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-1017
+  queue_type: decoded_hero_review
+  priority: 63
+  readiness: needs_manual_review
+  domain: hero
+  topic: 张春华
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1017
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1017
+  blockers:
+  - review_status=normalized; manual review is required
+  - 'unmapped decoded skill ids: 20930'
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 2
+    unmapped_skill_id_count: 1
+    blocker_count: 2
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-1017
+    hero_id: 1017
+    review_status: normalized
+    aliases:
+    - zhangchunhua
+    - zhangchunhua_yuying
+    related_topics:
+    - 荼蘼心计
+    - '20930'
+    skill_ids:
+    - 20930
+    - 101701
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-1020
+  queue_type: decoded_hero_review
+  priority: 63
+  readiness: needs_manual_review
+  domain: hero
+  topic: 王异
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1020
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1020
+  blockers:
+  - review_status=normalized; manual review is required
+  - 'unmapped decoded skill ids: 20730'
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 2
+    unmapped_skill_id_count: 1
+    blocker_count: 2
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-1020
+    hero_id: 1020
+    review_status: normalized
+    aliases:
+    - wangyi
+    - wangyi_gucheng
+    related_topics:
+    - 巧策引锋
+    - '20730'
+    skill_ids:
+    - 102001
+    - 20730
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-4002
+  queue_type: decoded_hero_review
+  priority: 63
+  readiness: needs_manual_review
+  domain: hero
+  topic: 蔡文姬
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4002
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4002
+  blockers:
+  - review_status=normalized; manual review is required
+  - 'unmapped decoded skill ids: 20670'
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 2
+    unmapped_skill_id_count: 1
+    blocker_count: 2
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-4002
+    hero_id: 4002
+    review_status: normalized
+    aliases:
+    - caiwenji
+    - caiwenji_qingjian
+    related_topics:
+    - 悲愤诗
+    - '20670'
+    skill_ids:
+    - 400201
+    - 20670
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-4004
+  queue_type: decoded_hero_review
+  priority: 63
+  readiness: needs_manual_review
+  domain: hero
+  topic: 袁绍
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4004
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4004
+  blockers:
+  - review_status=normalized; manual review is required
+  - 'unmapped decoded skill ids: 20130'
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 2
+    unmapped_skill_id_count: 1
+    blocker_count: 2
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-4004
+    hero_id: 4004
+    review_status: normalized
+    aliases:
+    - yuanshao_liangjian
+    related_topics:
+    - 合聚群雄
+    - '20130'
+    skill_ids:
+    - 400401
+    - 20130
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-4005
+  queue_type: decoded_hero_review
+  priority: 63
+  readiness: needs_manual_review
+  domain: hero
+  topic: 孟获
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4005
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4005
+  blockers:
+  - review_status=normalized; manual review is required
+  - 'unmapped decoded skill ids: 20760'
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 2
+    unmapped_skill_id_count: 1
+    blocker_count: 2
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-4005
+    hero_id: 4005
+    review_status: normalized
+    aliases:
+    - menghuo_xunshou
+    related_topics:
+    - '20760'
+    - 雄护南疆
+    skill_ids:
+    - 20760
+    - 400501
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-4006
+  queue_type: decoded_hero_review
+  priority: 63
+  readiness: needs_manual_review
+  domain: hero
+  topic: 祝融夫人
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4006
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4006
+  blockers:
+  - review_status=normalized; manual review is required
+  - 'unmapped decoded skill ids: 20220'
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 2
+    unmapped_skill_id_count: 1
+    blocker_count: 2
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-4006
+    hero_id: 4006
+    review_status: normalized
+    aliases:
+    - zhurongfuren
+    - zhurongfuren_lieyan
+    related_topics:
+    - '20220'
+    - 南疆烈刃
+    skill_ids:
+    - 400601
+    - 20220
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-4019
+  queue_type: decoded_hero_review
+  priority: 63
+  readiness: needs_manual_review
+  domain: hero
+  topic: 华佗
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4019
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4019
+  blockers:
+  - review_status=normalized; manual review is required
+  - 'unmapped decoded skill ids: 70060'
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 2
+    unmapped_skill_id_count: 1
+    blocker_count: 2
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-4019
+    hero_id: 4019
+    review_status: normalized
+    aliases:
+    - huatuo
+    related_topics:
+    - 麻沸散
+    - '70060'
+    skill_ids:
+    - 70060
+    - 401901
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-4028
+  queue_type: decoded_hero_review
+  priority: 63
+  readiness: needs_manual_review
+  domain: hero
+  topic: 董卓
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4028
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4028
+  blockers:
+  - review_status=normalized; manual review is required
+  - 'unmapped decoded skill ids: 20600'
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 2
+    unmapped_skill_id_count: 1
+    blocker_count: 2
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-4028
+    hero_id: 4028
+    review_status: normalized
+    aliases:
+    - dongzhuo
+    - dongzhuo_lijian
+    related_topics:
+    - 权倾朝野
+    - '20600'
+    skill_ids:
+    - 20600
+    - 402801
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-4032
+  queue_type: decoded_hero_review
+  priority: 62
+  readiness: needs_manual_review
+  domain: hero
+  topic: 孙坚2
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4032
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4032
+  blockers:
+  - review_status=normalized; manual review is required
+  - hero_id=4032 mapping confidence 0.7 requires manual confirmation
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 0
+    unmapped_skill_id_count: 0
+    blocker_count: 2
+    confidence_milli: 700
+  metadata:
+    entry_id: client-decoded-hero-4032
+    hero_id: 4032
+    review_status: normalized
+    aliases:
+    - sunjian_huxiao
+    related_topics: []
+    skill_ids: []
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-2000
+  queue_type: decoded_hero_review
+  priority: 60
+  readiness: needs_manual_review
+  domain: hero
+  topic: 刘备
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2000
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2000
+  blockers:
+  - review_status=normalized; manual review is required
+  - 'unmapped decoded skill ids: 20630, 20760'
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 3
+    unmapped_skill_id_count: 2
+    blocker_count: 2
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-2000
+    hero_id: 2000
+    review_status: normalized
+    aliases:
+    - liubei
+    - liubei_chunxi
+    related_topics:
+    - 携民渡江
+    - '20630'
+    - '20760'
+    skill_ids:
+    - 20760
+    - 200001
+    - 20630
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-4024
+  queue_type: decoded_hero_review
+  priority: 60
+  readiness: needs_manual_review
+  domain: hero
+  topic: 张宁
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4024
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4024
+  blockers:
+  - review_status=normalized; manual review is required
+  - 'unmapped decoded skill ids: 20640, 20790'
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 3
+    unmapped_skill_id_count: 2
+    blocker_count: 2
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-4024
+    hero_id: 4024
+    review_status: normalized
+    aliases:
+    - zhangning
+    - zhangning_lingquan
+    related_topics:
+    - 太平余响
+    - '20640'
+    - '20790'
+    skill_ids:
+    - 20640
+    - 402401
+    - 20790
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-4001
+  queue_type: decoded_hero_review
+  priority: 58
+  readiness: needs_manual_review
+  domain: hero
+  topic: 张辽
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4001
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4001
+  blockers:
+  - review_status=normalized; manual review is required
+  - hero_id=4001 mapping confidence 0.72 requires manual confirmation
+  - 'low-confidence decoded skill ids: 400101'
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 0
+    blocker_count: 3
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-4001
+    hero_id: 4001
+    review_status: normalized
+    aliases:
+    - zhangliao_shuangfeng
+    related_topics:
+    - 风袭逍遥
+    skill_ids:
+    - 400101
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-2021
+  queue_type: decoded_hero_review
+  priority: 57
+  readiness: needs_manual_review
+  domain: hero
+  topic: 姜维
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2021
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2021
+  blockers:
+  - review_status=normalized; manual review is required
+  - 'unmapped decoded skill ids: 20600, 20810, 800006'
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 4
+    unmapped_skill_id_count: 3
+    blocker_count: 2
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-2021
+    hero_id: 2021
+    review_status: normalized
+    aliases:
+    - jiangwei
+    - jiangwei_lingyun
+    - jiangwei_xiguang
+    related_topics:
+    - 九伐中原
+    - '800006'
+    - '20810'
+    - '20600'
+    skill_ids:
+    - 20600
+    - 20810
+    - 202101
+    - 800006
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-2022
+  queue_type: decoded_hero_review
+  priority: 57
+  readiness: needs_manual_review
+  domain: hero
+  topic: 诸葛亮2
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2022
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2022
+  blockers:
+  - review_status=normalized; manual review is required
+  - 'unmapped decoded skill ids: 20450, 70060, 800040'
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 4
+    unmapped_skill_id_count: 3
+    blocker_count: 2
+    confidence_milli: 720
+  metadata:
+    entry_id: client-decoded-hero-2022
+    hero_id: 2022
+    review_status: normalized
+    aliases:
+    - zhugeliang
+    - zhugeliang_moyi
+    related_topics:
+    - 星罗棋布
+    - '20450'
+    - '70060'
+    - '800040'
+    skill_ids:
+    - 800040
+    - 202201
+    - 20450
+    - 70060
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: decoded-hero-review-5005
+  queue_type: decoded_hero_review
+  priority: 45
+  readiness: needs_manual_review
+  domain: hero
+  topic: zhongyao
+  source_artifact: ingestion/staging/client_decoded/nslg-hero-readable-export-round29-normalized.yaml
+  source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5005
+  evidence_refs:
+  - NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5005
+  blockers:
+  - review_status=normalized; manual review is required
+  - hero_id=5005 is not mapped to a canonical KB hero name
+  - 'unmapped decoded skill ids: 500501'
+  next_actions:
+  - review unmapped hero ids and decide whether they are missing KB topics, variants,
+    or non-publishable records
+  - map remaining decoded skill ids to canonical skill names with evidence before
+    publish
+  - promote entries from normalized to reviewed only after Chinese names, skill ids,
+    and field semantics are checked
+  - add or confirm formal skill_profile entries for mapped skill names that currently
+    only appear as hero signature skills
+  - manually confirm mappings below confidence 0.8
+  counts:
+    skill_id_count: 1
+    unmapped_skill_id_count: 1
+    blocker_count: 3
+    confidence_milli: 620
+  metadata:
+    entry_id: client-decoded-hero-5005
+    hero_id: 5005
+    review_status: normalized
+    aliases: []
+    related_topics:
+    - '500501'
+    skill_ids:
+    - 500501
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+- queue_id: luascripts-decoder-lineup-assistant
+  queue_type: luascripts_decoder_target
+  priority: 41
+  readiness: blocked_pending_decoder
+  domain: unknown
+  topic: lineup_assistant
+  source_artifact: ingestion/raw/client_packages/nslg-luascripts-textassets-round31-catalog.yaml
+  source_ref: null
+  evidence_refs:
+  - NSLG_LUASCRIPT_TEXTASSET:luascripts-textasset-round31:lineup_assistant:0x257423ff09641de5
+  blockers:
+  - TextAsset payloads remain obfuscated_binary_pending_decoder
+  - catalog metadata is not publishable game knowledge by itself
+  next_actions:
+  - recover decoder path for LuaScripts stem `lineup_assistant`
+  - validate decoded payload semantics before staging any knowledge facts
+  - stage readable records with TextAsset evidence_ref as source_ref
+  counts:
+    record_count: 1
+    scenario_count: 0
+    unique_sha1_count: 1
+    max_script_len: 22608
+    blocker_count: 2
+    status:obfuscated_binary_pending_decoder: 1
+  metadata:
+    source_id: luascripts-textasset-round31
+    stem: lineup_assistant
+    high_value_stem: false
+    domains:
+    - unknown
+    scenarios: []
+    sample_asset_paths:
+    - Assets/Bundles/LuaScripts/Data/lineup_assistant.bytes
+    sample_extracted_artifacts:
+    - threads/artifacts/round31_luascripts_textassets/lineup_assistant.bytes.bin
+guardrails:
+- offline/static evidence only; no account credentials, tokens, online protocol, or
+  live instrumentation data is included
+- the import queue is planning material, not a publish command
+- normalized decoded hero entries require manual review before knowledge_sources promotion
+- LuaScripts, Lua crypto, and NEP2 items remain decoder/static-trace targets until
+  readable payloads are recovered
+- all source_artifact values are repo-relative and sanitized

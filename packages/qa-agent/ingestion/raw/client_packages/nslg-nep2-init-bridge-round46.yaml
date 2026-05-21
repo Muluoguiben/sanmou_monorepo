@@ -1,0 +1,507 @@
+schema_version: nslg.nep2_init_bridge.v1
+source_id: nep2-init-bridge-round46
+source_url: local-nslg-client-nep2-init-bridge
+source_site: nslg_client_nep2_init_bridge
+generated_at: '2026-05-20T14:46:31.080333Z'
+binary_name: NEP2.dll
+round: 161
+slice: nep2_init_luascripts_bridge_summary
+input_artifacts:
+- key: round34_init_scan
+  file_name: nep2_init_luascripts_scan_round34.json
+  sha256: bf044d3f0ffecd6e8f372cddea074001e43a0298cf16b6caedbbaf2343209eec
+- key: round34_candidate_scan
+  file_name: nep2_luascripts_candidate_round34.json
+  sha256: 2bd80369e9d507f457a0e95f08d945a2e924343fe0f3906f0989fb32c847e65c
+- key: round96_owner_probe
+  file_name: nep2_fh4_cgameprotector_owner_probe_round96.json
+  sha256: c6d544a03ed4a29761846ac99d1d66ddebef0b2b66e6501b3bb7a8d39a234885
+- key: round97_bridge_expansion
+  file_name: nep2_threadpool_bridge_expansion_round97.json
+  sha256: 3c7bd7adf71b32d15c5d98e1503f82642755b33c856a14d9f73033cef8a578d2
+- key: round98_task_field_trace
+  file_name: nep2_threadpool_task_object_field_trace_round98.json
+  sha256: 67f2cb9fcfccbb3624ec2ca4e56ecd3e6fa96d006ba9a6c0400936974ad7a489
+- key: round99_enqueue_fanout
+  file_name: nep2_constructor_enqueue_callee_fanout_round99.json
+  sha256: 16eb6cfc580002601372cbd3fab3a6cf58f2824af2d9f947ace3f1d95db14471
+summary:
+- Round34 found 3 InitLuaScriptsScan occurrence records in NEP2 static strings.
+- Round97 confirmed 4 InitLuaScriptsScan RTTI/lambda bridge metadata records.
+- Round98 summarized 2 EH/FH4 handler-data ranges touching CGameProtector binder/enqueue
+  metadata.
+- Round99 inspected 4 constructor/enqueue seeds under direct-call fanout.
+- Candidate function summaries dedupe to 13 functions; file-import candidates=1, keyword
+  candidates=0, crypto-like candidates=0.
+- No evidence in rounds 96-99 proves a LuaScripts payload decoder, file-buffer owner,
+  or CAB/SerializedFile mutating transform.
+counts:
+  init_luascripts_occurrences_round34: 3
+  bridge_record_count: 4
+  bridge_code_pointer_count: 4
+  range_summary_count: 2
+  seed_summary_count: 4
+  candidate_function_count: 13
+  candidate_with_file_import_count: 1
+  candidate_with_keyword_xref_count: 0
+  candidate_crypto_like_count: 0
+  round97_executable_bridge_ref_count: 0
+  round97_nearby_code_ptr_count: 16
+  round98_interesting_signal_function_count: 1
+  round99_interesting_candidate_count: 3
+status_counts:
+  confirmed_rtti_lambda_metadata: 4
+candidate_verdict_counts:
+  metadata/control helper; no current CAB transform proof: 2
+  needs_deep_buffer_trace: 1
+  nontrivial helper but no file/CAB provenance: 1
+  tiny metadata/lambda helper; no CAB transform proof: 9
+bridge_records:
+- evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:bridge:0x881320
+  rva: '0x881320'
+  label: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@
+  type_descriptor_rva: '0x881320'
+  name_rva: '0x881320'
+  code_pointers:
+  - at_rva: '0x881390'
+    value: '0x4040'
+    target_rva: '0x4040'
+    target_function_begin: '0x4040'
+    target_function_size: '0xaa'
+  status: confirmed_rtti_lambda_metadata
+  verdict: metadata bridge only; no payload decoder proven
+- evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:bridge:0x881330
+  rva: '0x881330'
+  label: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@
+  type_descriptor_rva: '0x881330'
+  name_rva: '0x881330'
+  code_pointers:
+  - at_rva: '0x881390'
+    value: '0x4040'
+    target_rva: '0x4040'
+    target_function_begin: '0x4040'
+    target_function_size: '0xaa'
+  status: confirmed_rtti_lambda_metadata
+  verdict: metadata bridge only; no payload decoder proven
+- evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:bridge:0x882020
+  rva: '0x882020'
+  label: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?
+  type_descriptor_rva: '0x882020'
+  name_rva: '0x882020'
+  code_pointers:
+  - at_rva: '0x8820f0'
+    value: '0x405a40'
+    target_rva: '0x405a40'
+    target_function_begin: '0x405a40'
+    target_function_size: '0x18'
+  status: confirmed_rtti_lambda_metadata
+  verdict: metadata bridge only; no payload decoder proven
+- evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:bridge:0x882030
+  rva: '0x882030'
+  label: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?
+  type_descriptor_rva: '0x882030'
+  name_rva: '0x882030'
+  code_pointers:
+  - at_rva: '0x8820f0'
+    value: '0x405a40'
+    target_rva: '0x405a40'
+    target_function_begin: '0x405a40'
+    target_function_size: '0x18'
+  status: confirmed_rtti_lambda_metadata
+  verdict: metadata bridge only; no payload decoder proven
+range_summaries:
+- range: 0x7fa650..0x7fa960
+  label: small binder/enqueue EH handler-data range
+  hit_count: 14
+  important_hit_count: 3
+  owner_functions:
+  - '0x86ab0'
+  - '0x86b00'
+  - '0x86b50'
+  - '0x86ba0'
+  - '0x86c40'
+  - '0x86c90'
+  - '0x86ce0'
+  - '0x86d80'
+  - '0x87020'
+  - '0x870d0'
+  - '0x87180'
+  - '0x87320'
+  match_kind_counts:
+    raw_i32_function_rel: 14
+  top_targets:
+  - target: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitObjectVtableCheck@CGameProtector@@QEAAXXZ@$$V@std@@
+    count: 2
+  - target: .?AV?$_Binder@U_Unforced@std@@V<lambda_2>@?7??onScanStart@CGameProtector@@QEAAXXZ@$$V@std@@
+    count: 2
+  - target: .?AV<lambda_1>@?6???$enqueue@V<lambda_1>@?7??onScanStart@CGameProtector@@QEAAXXZ@$$V@ThreadPool@threadpool@@QEAA?AV?$future@X@std@@$$QEAV0?7??onScanStart@CGameP
+    count: 2
+  - target: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitLuaScriptsScan@CGameProtector@@QEAAXXZ@$$V@std@@
+    count: 1
+  - target: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitKernelMemScan@CGameProtector@@QEAAXXZ@$$V@std@@
+    count: 1
+  - target: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?1??InitConfigsDispatch@CGameProtector@@QEAAXXZ@$$V@std@@
+    count: 1
+  - target: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?7??onScanStart@CGameProtector@@QEAAXXZ@$$V@std@@
+    count: 1
+  - target: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitDriverAlive@CGameProtector@@QEAAXXZ@$$V@std@@
+    count: 1
+- range: 0x848d30..0x848f40
+  label: FH4 handler-data range around 0x695ca0/0x695c24
+  hit_count: 13
+  important_hit_count: 6
+  owner_functions:
+  - '0x603100'
+  - '0x6033f0'
+  - '0x603670'
+  - '0x6055b0'
+  - '0x605970'
+  - '0x605cf0'
+  - '0x608cf0'
+  match_kind_counts:
+    raw_i32_next_rel: 7
+    raw_i32_handler_data_rel: 6
+  top_targets:
+  - target: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitObjectVtableCheck@CGameProtector@@QEAAXXZ@$$V@std@@
+    count: 7
+  - target: .?AV?$_Binder@U_Unforced@std@@V<lambda_1>@?4??InitKernelMemScan@CGameProtector@@QEAAXXZ@$$V@std@@
+    count: 6
+constructor_enqueue_seeds:
+- evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:seed:0x115db0
+  function_rva: '0x115db0'
+  label: threadpool_enqueue_wrapper_0x115db0
+  layer: 0
+  status: seed_or_enqueue_wrapper
+  verdict: direct-call fanout did not prove file-buffer ownership
+- evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:seed:0x261220
+  function_rva: '0x261220'
+  label: threadpool_enqueue_wrapper_0x261220
+  layer: 0
+  status: seed_or_enqueue_wrapper
+  verdict: direct-call fanout did not prove file-buffer ownership
+- evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:seed:0x86ab0
+  function_rva: '0x86ab0'
+  label: threadpool_construct_lambda_0x86ab0
+  layer: 0
+  status: seed_or_enqueue_wrapper
+  verdict: direct-call fanout did not prove file-buffer ownership
+- evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:seed:0x86b50
+  function_rva: '0x86b50'
+  label: threadpool_construct_lambda_0x86b50
+  layer: 0
+  status: seed_or_enqueue_wrapper
+  verdict: direct-call fanout did not prove file-buffer ownership
+candidate_functions:
+- evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x603670
+  function_rva: '0x603670'
+  function_size: '0xfe2'
+  sources:
+  - round97_inspected_candidate
+  - round99_top_candidate
+  verdict: nontrivial helper but no file/CAB provenance
+  score: 570
+  counts:
+    instructions: 991
+    simd_ops: 35
+    imm_16: 15
+    non_stack_writes: 25
+    file_import_calls: 0
+    strong_crypto_ops: 0
+    backward_branches: 10
+  file_import_names: []
+  keyword_xref_count: 0
+  closed_route_neighbor_count: 0
+- evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x6033f0
+  function_rva: '0x6033f0'
+  function_size: '0x27d'
+  sources:
+  - round98_interesting_signal_function
+  verdict: needs_deep_buffer_trace
+  score: 132
+  counts:
+    instructions: 144
+    simd_ops: 0
+    imm_16: 1
+    non_stack_writes: 0
+    file_import_calls: 1
+    strong_crypto_ops: 0
+    backward_branches: 0
+  file_import_names:
+  - CreateFileW
+  keyword_xref_count: 0
+  closed_route_neighbor_count: 0
+- evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x442050
+  function_rva: '0x442050'
+  function_size: '0x1f1'
+  sources:
+  - round97_inspected_candidate
+  - round99_top_candidate
+  verdict: metadata/control helper; no current CAB transform proof
+  score: 68
+  counts:
+    instructions: 98
+    simd_ops: 0
+    imm_16: 5
+    non_stack_writes: 2
+    file_import_calls: 0
+    strong_crypto_ops: 0
+    backward_branches: 0
+  file_import_names: []
+  keyword_xref_count: 0
+  closed_route_neighbor_count: 0
+- evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x2e12b0
+  function_rva: '0x2e12b0'
+  function_size: '0x101'
+  sources:
+  - round97_inspected_candidate
+  - round99_top_candidate
+  verdict: tiny metadata/lambda helper; no CAB transform proof
+  score: 64
+  counts:
+    instructions: 58
+    simd_ops: 0
+    imm_16: 4
+    non_stack_writes: 4
+    file_import_calls: 0
+    strong_crypto_ops: 0
+    backward_branches: 0
+  file_import_names: []
+  keyword_xref_count: 0
+  closed_route_neighbor_count: 0
+- evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x4040
+  function_rva: '0x4040'
+  function_size: '0xaa'
+  sources:
+  - round97_inspected_candidate
+  verdict: tiny metadata/lambda helper; no CAB transform proof
+  score: 16
+  counts:
+    instructions: 29
+    simd_ops: 0
+    imm_16: 0
+    non_stack_writes: 4
+    file_import_calls: 0
+    strong_crypto_ops: 0
+    backward_branches: 0
+  file_import_names: []
+  keyword_xref_count: 0
+  closed_route_neighbor_count: 0
+- evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x86ab0
+  function_rva: '0x86ab0'
+  function_size: '0x4a'
+  sources:
+  - round97_inspected_candidate
+  - round99_top_candidate
+  verdict: tiny metadata/lambda helper; no CAB transform proof
+  score: 4
+  counts:
+    instructions: 18
+    simd_ops: 0
+    imm_16: 0
+    non_stack_writes: 1
+    file_import_calls: 0
+    strong_crypto_ops: 0
+    backward_branches: 0
+  file_import_names: []
+  keyword_xref_count: 0
+  closed_route_neighbor_count: 0
+- evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x86b00
+  function_rva: '0x86b00'
+  function_size: '0x4a'
+  sources:
+  - round97_inspected_candidate
+  - round99_top_candidate
+  verdict: tiny metadata/lambda helper; no CAB transform proof
+  score: 4
+  counts:
+    instructions: 18
+    simd_ops: 0
+    imm_16: 0
+    non_stack_writes: 1
+    file_import_calls: 0
+    strong_crypto_ops: 0
+    backward_branches: 0
+  file_import_names: []
+  keyword_xref_count: 0
+  closed_route_neighbor_count: 0
+- evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x86b50
+  function_rva: '0x86b50'
+  function_size: '0x4a'
+  sources:
+  - round97_inspected_candidate
+  - round99_top_candidate
+  verdict: tiny metadata/lambda helper; no CAB transform proof
+  score: 4
+  counts:
+    instructions: 18
+    simd_ops: 0
+    imm_16: 0
+    non_stack_writes: 1
+    file_import_calls: 0
+    strong_crypto_ops: 0
+    backward_branches: 0
+  file_import_names: []
+  keyword_xref_count: 0
+  closed_route_neighbor_count: 0
+- evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x115db0
+  function_rva: '0x115db0'
+  function_size: '0x2c3'
+  sources:
+  - round97_inspected_candidate
+  - round99_top_candidate
+  verdict: metadata/control helper; no current CAB transform proof
+  score: 0
+  counts:
+    instructions: 125
+    simd_ops: 0
+    imm_16: 0
+    non_stack_writes: 0
+    file_import_calls: 0
+    strong_crypto_ops: 0
+    backward_branches: 0
+  file_import_names: []
+  keyword_xref_count: 0
+  closed_route_neighbor_count: 0
+- evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x261220
+  function_rva: '0x261220'
+  function_size: '0x7b'
+  sources:
+  - round97_inspected_candidate
+  - round99_top_candidate
+  verdict: tiny metadata/lambda helper; no CAB transform proof
+  score: 0
+  counts:
+    instructions: 29
+    simd_ops: 0
+    imm_16: 0
+    non_stack_writes: 0
+    file_import_calls: 0
+    strong_crypto_ops: 0
+    backward_branches: 0
+  file_import_names: []
+  keyword_xref_count: 0
+  closed_route_neighbor_count: 0
+- evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x404000
+  function_rva: '0x404000'
+  function_size: '0x68'
+  sources:
+  - round97_inspected_candidate
+  verdict: tiny metadata/lambda helper; no CAB transform proof
+  score: 0
+  counts:
+    instructions: 25
+    simd_ops: 0
+    imm_16: 0
+    non_stack_writes: 0
+    file_import_calls: 0
+    strong_crypto_ops: 0
+    backward_branches: 0
+  file_import_names: []
+  keyword_xref_count: 0
+  closed_route_neighbor_count: 0
+- evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x405a40
+  function_rva: '0x405a40'
+  function_size: '0x18'
+  sources:
+  - round97_inspected_candidate
+  verdict: tiny metadata/lambda helper; no CAB transform proof
+  score: 0
+  counts:
+    instructions: 6
+    simd_ops: 0
+    imm_16: 0
+    non_stack_writes: 0
+    file_import_calls: 0
+    strong_crypto_ops: 0
+    backward_branches: 0
+  file_import_names: []
+  keyword_xref_count: 0
+  closed_route_neighbor_count: 0
+- evidence_ref: NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x6bc0
+  function_rva: '0x6bc0'
+  function_size: '0x32'
+  sources:
+  - round97_inspected_candidate
+  verdict: tiny metadata/lambda helper; no CAB transform proof
+  score: 0
+  counts:
+    instructions: 10
+    simd_ops: 0
+    imm_16: 0
+    non_stack_writes: 0
+    file_import_calls: 0
+    strong_crypto_ops: 0
+    backward_branches: 0
+  file_import_names: []
+  keyword_xref_count: 0
+  closed_route_neighbor_count: 0
+route_conclusion:
+  bridge_metadata_confirmed: true
+  decryptor_body_proven: false
+  file_buffer_owner_proven: false
+  lua_payload_decoder_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: InitLuaScriptsScan CGameProtector RTTI/lambda bridge metadata
+    is real and connected to EH/FH4 owner records.
+  strongest_negative_signal: No inspected bridge, seed, or owner candidate combines
+    LuaScripts/CAB/Serialized keyword ownership, file-buffer imports, AES/pshufb-like
+    crypto, and 16-byte payload mutation proof.
+  search_policy: use this as decoder routing evidence only; continue with provenance-backed
+    InitLuaScriptsScan or payload-decoder candidates, not broad string chasing
+negative_signals:
+- Round97 found zero executable instruction references to exact bridge RVAs.
+- Round97 inspected bridge candidates but found zero file/keyword/crypto signal candidates.
+- Round98 interpreted the small binder/enqueue and FH4 ranges as EH/FH4 metadata records,
+  not proven runtime ThreadPool task queues.
+- Round98's only file-import signal was CreateFileW plus DeviceIoControl style probing
+  without CAB/LuaScripts/Serialized keyword ownership.
+- Round99's two-hop fanout from constructor/enqueue seeds found no direct file/CAB/Serialized
+  16-byte buffer-ownership proof.
+next_static_targets:
+- Trace InitLuaScriptsScan owner/caller only when a candidate also has file-buffer
+  or asset-owner evidence.
+- Prioritize runtime-independent TextAsset/LuaScripts payload decoder recovery over
+  broad GameAssembly or NEP2 string chasing.
+- Treat 0x4040 and 0x405a40 as metadata/lambda support pointers until payload ownership
+  is proven.
+- Inspect NEP2 0x4a28e9 only if strict caller/callee provenance, keyword/import ownership,
+  or file-buffer evidence exists.
+limitations:
+- Static evidence only; no live Frida, runtime attach, account data, online protocol,
+  or credentials were used.
+- Bridge metadata is not game knowledge and must not be promoted into qa-agent publishable
+  knowledge.
+- The protected LuaScripts or .ns payload decoder remains unrecovered.
+- All paths in this artifact are basename-only to keep the qa-agent import data portable.
+evidence_refs:
+- NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:bridge:0x881320
+- NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:bridge:0x881330
+- NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:bridge:0x882020
+- NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:bridge:0x882030
+- NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:seed:0x115db0
+- NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:seed:0x261220
+- NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:seed:0x86ab0
+- NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:seed:0x86b50
+- NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x603670
+- NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x6033f0
+- NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x442050
+- NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x2e12b0
+- NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x4040
+- NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x86ab0
+- NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x86b00
+- NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x86b50
+- NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x115db0
+- NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x261220
+- NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x404000
+- NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x405a40
+- NSLG_NEP2_INIT_BRIDGE:nep2-init-bridge-round161:candidate:0x6bc0
+guardrails:
+- offline/static NEP2 evidence only; no live instrumentation or online protocol data
+  is included
+- external absolute paths are not persisted; only artifact filenames, hashes, RVAs,
+  and evidence refs are stored
+- InitLuaScriptsScan bridge metadata is decoder planning evidence, not reviewed game
+  knowledge
+- do not promote any fact until readable LuaScripts payloads are decoded and manually
+  reviewed

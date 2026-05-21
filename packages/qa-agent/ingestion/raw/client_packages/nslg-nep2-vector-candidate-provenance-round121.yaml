@@ -1,0 +1,2771 @@
+schema_version: nslg.nep2_vector_candidate_provenance.v1
+source_id: nep2-vector-candidate-provenance-round121
+source_url: local-nslg-client-nep2-vector-candidate-provenance
+source_site: nslg_client_nep2_vector_candidate_provenance
+generated_at: '2026-05-21T09:11:36.407111Z'
+round: 186
+slice: nep2_vector_candidate_provenance_static_trace
+input_artifacts:
+- file_name: global_metadata_loader_mutation_scan_round168.json
+  sha256: 01a9a8f4ee1eb4fa4de0d06fe9c2182e88dba3511f409e1002e2494bf18ab98e
+  missing: false
+- file_name: nep2_read_mapping_owner_scan_round170.json
+  sha256: 415841bf4b11277e46bf1d59a18ac0c090ec54bb4957e8ec52fbc38dd1b5f633
+  missing: false
+- file_name: nep2_init_data_owner_scan_round171.json
+  sha256: 611ab4d4ad47ba2bf925b6e13d7ee5701c147f79f32daaabedd7a5d7b7b74d68
+  missing: false
+nep2_file:
+  file_name: NEP2.dll
+  size_bytes: 40235512
+  sha256: 109b4af46054a534a4e3b815d022a9bd26709d5bd644cbba4c4d456d4b61f382
+  pdata_function_count: 42977
+selection_policy:
+  sources:
+  - Round168 NEP2 top vector/payload+16 candidates
+  - Round170 actual GetFileSize/GetFileSizeEx owners
+  - Round171 partial InitLuaScriptsScan/CGameProtector owner candidates
+  provenance_seed_rvas:
+    '0xd720': round170_read_mapping_owner_GetFileSizeEx
+    '0xd7c0': round170_read_mapping_owner_GetFileSize
+    '0x6033f0': round171_partial_CreateFileW_provenance_no_payload_owner
+  max_direct_call_depth: 4
+counts:
+  target_count: 17
+  vector_candidate_count: 9
+  direct_caller_target_count: 6
+  unproven_helper_target_count: 17
+  read_mapping_import_target_count: 2
+  provenance_linked_target_count: 1
+  provenance_linked_vector_candidate_count: 0
+  keyword_ref_target_count: 0
+  publishable_knowledge_entries: 0
+targets:
+- target_rva: '0x120c0'
+  function:
+    begin: '0x120c0'
+    end: '0x123d8'
+    size: '0x318'
+  verdict: vector_or_block_helper_without_payload_provenance
+  selection:
+    rva: '0x120c0'
+    source: round168_top_candidate
+    round168_score: 678
+    round168_reasons:
+    - payload_or_disp8=1
+    - block16_or_align=2
+    - vector_signal=54/24/6
+    - logic_shift=8
+  counts:
+    instructions: 134
+    logic_transform_instruction: 14
+    vector_instruction: 54
+    non_stack_vector_memory: 17
+    imm:16: 2
+    large_imm64_count_sampled: 6
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x121d7'
+    value: '0x10'
+    label: block_size_16
+    text: '000121d7: add      rax, 0x10'
+  - rva: '0x121ff'
+    value: '0x10'
+    label: block_size_16
+    text: '000121ff: add      rax, 0x10'
+  large_immediates:
+  - rva: '0x120de'
+    value: '0xbcfe5b6dd3aa6fc5'
+    text: '000120de: movabs   rcx, 0xbcfe5b6dd3aa6fc5'
+  - rva: '0x120f5'
+    value: '0x3f00c968293256aa'
+    text: '000120f5: movabs   rcx, 0x3f00c968293256aa'
+  - rva: '0x1210c'
+    value: '0x6769c68fdac97d67'
+    text: '0001210c: movabs   rcx, 0x6769c68fdac97d67'
+  - rva: '0x12123'
+    value: '0xccc3c4ca6779412c'
+    text: '00012123: movabs   rcx, 0xccc3c4ca6779412c'
+  - rva: '0x1213a'
+    value: '0xacd7b8019a120b09'
+    text: '0001213a: movabs   rcx, 0xacd7b8019a120b09'
+  - rva: '0x12151'
+    value: '0x428f3c2cb569160e'
+    text: '00012151: movabs   rcx, 0x428f3c2cb569160e'
+  direct_call_count: 7
+  direct_calls:
+  - rva: '0x120e8'
+    target_rva: '0x35640'
+    target_function:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+  - rva: '0x120ff'
+    target_rva: '0x35640'
+    target_function:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+  - rva: '0x12116'
+    target_rva: '0x35640'
+    target_function:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+  - rva: '0x1212d'
+    target_rva: '0x35640'
+    target_function:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+  - rva: '0x12144'
+    target_rva: '0x35640'
+    target_function:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+  - rva: '0x1215b'
+    target_rva: '0x35640'
+    target_function:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+  - rva: '0x123cb'
+    target_rva: '0x48eab0'
+    target_function:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+  direct_caller_count: 11
+  direct_callee_count: 7
+  direct_callers:
+  - site: '0x3249'
+    caller:
+      begin: '0x2ff0'
+      end: '0x379b'
+      size: '0x7ab'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+    target_rva: '0x120c0'
+  - site: '0x32a1'
+    caller:
+      begin: '0x2ff0'
+      end: '0x379b'
+      size: '0x7ab'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+    target_rva: '0x120c0'
+  - site: '0x32f9'
+    caller:
+      begin: '0x2ff0'
+      end: '0x379b'
+      size: '0x7ab'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+    target_rva: '0x120c0'
+  - site: '0x3401'
+    caller:
+      begin: '0x2ff0'
+      end: '0x379b'
+      size: '0x7ab'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+    target_rva: '0x120c0'
+  - site: '0x3509'
+    caller:
+      begin: '0x2ff0'
+      end: '0x379b'
+      size: '0x7ab'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+    target_rva: '0x120c0'
+  - site: '0x3561'
+    caller:
+      begin: '0x2ff0'
+      end: '0x379b'
+      size: '0x7ab'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+    target_rva: '0x120c0'
+  - site: '0x3611'
+    caller:
+      begin: '0x2ff0'
+      end: '0x379b'
+      size: '0x7ab'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+    target_rva: '0x120c0'
+  - site: '0x36c1'
+    caller:
+      begin: '0x2ff0'
+      end: '0x379b'
+      size: '0x7ab'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+    target_rva: '0x120c0'
+  - site: '0x3719'
+    caller:
+      begin: '0x2ff0'
+      end: '0x379b'
+      size: '0x7ab'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+    target_rva: '0x120c0'
+  - site: '0x7112'
+    caller:
+      begin: '0x6de0'
+      end: '0x7388'
+      size: '0x5a8'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+    target_rva: '0x120c0'
+  - site: '0xe317'
+    caller:
+      begin: '0xe2a0'
+      end: '0xe3f2'
+      size: '0x152'
+    callee:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+    target_rva: '0x120c0'
+  direct_callees:
+  - site: '0x120e8'
+    caller:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+    callee:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+    target_rva: '0x35640'
+  - site: '0x120ff'
+    caller:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+    callee:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+    target_rva: '0x35640'
+  - site: '0x12116'
+    caller:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+    callee:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+    target_rva: '0x35640'
+  - site: '0x1212d'
+    caller:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+    callee:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+    target_rva: '0x35640'
+  - site: '0x12144'
+    caller:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+    callee:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+    target_rva: '0x35640'
+  - site: '0x1215b'
+    caller:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+    callee:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+    target_rva: '0x35640'
+  - site: '0x123cb'
+    caller:
+      begin: '0x120c0'
+      end: '0x123d8'
+      size: '0x318'
+    callee:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+    target_rva: '0x48eab0'
+  provenance_linked: false
+  provenance_paths: []
+  evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x120c0
+- target_rva: '0x123e0'
+  function:
+    begin: '0x123e0'
+    end: '0x125f5'
+    size: '0x215'
+  verdict: vector_or_block_helper_without_payload_provenance
+  selection:
+    rva: '0x123e0'
+    source: round168_top_candidate
+    round168_score: 464
+    round168_reasons:
+    - payload_or_disp8=1
+    - block16_or_align=2
+    - vector_signal=36/16/4
+    - logic_shift=6
+  counts:
+    instructions: 92
+    logic_transform_instruction: 10
+    vector_instruction: 36
+    non_stack_vector_memory: 11
+    imm:16: 2
+    large_imm64_count_sampled: 4
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x124c9'
+    value: '0x10'
+    label: block_size_16
+    text: '000124c9: add      rax, 0x10'
+  - rva: '0x124f1'
+    value: '0x10'
+    label: block_size_16
+    text: '000124f1: add      rax, 0x10'
+  large_immediates:
+  - rva: '0x123fe'
+    value: '0xbcfe5b6dd3aa6fc5'
+    text: '000123fe: movabs   rcx, 0xbcfe5b6dd3aa6fc5'
+  - rva: '0x12415'
+    value: '0x3f00c968293256aa'
+    text: '00012415: movabs   rcx, 0x3f00c968293256aa'
+  - rva: '0x1242c'
+    value: '0x6769c68fdac97d67'
+    text: '0001242c: movabs   rcx, 0x6769c68fdac97d67'
+  - rva: '0x12443'
+    value: '0xccc3c4ca6779412c'
+    text: '00012443: movabs   rcx, 0xccc3c4ca6779412c'
+  direct_call_count: 5
+  direct_calls:
+  - rva: '0x12408'
+    target_rva: '0x35640'
+    target_function:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+  - rva: '0x1241f'
+    target_rva: '0x35640'
+    target_function:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+  - rva: '0x12436'
+    target_rva: '0x35640'
+    target_function:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+  - rva: '0x1244d'
+    target_rva: '0x35640'
+    target_function:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+  - rva: '0x125e8'
+    target_rva: '0x48eab0'
+    target_function:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+  direct_caller_count: 32
+  direct_callee_count: 5
+  direct_callers:
+  - site: '0x16b6'
+    caller:
+      begin: '0x1670'
+      end: '0x16dc'
+      size: '0x6c'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x26aa'
+    caller:
+      begin: '0x25a0'
+      end: '0x2816'
+      size: '0x276'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x2703'
+    caller:
+      begin: '0x25a0'
+      end: '0x2816'
+      size: '0x276'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x275c'
+    caller:
+      begin: '0x25a0'
+      end: '0x2816'
+      size: '0x276'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x295e'
+    caller:
+      begin: '0x2900'
+      end: '0x2a90'
+      size: '0x190'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x29b4'
+    caller:
+      begin: '0x2900'
+      end: '0x2a90'
+      size: '0x190'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x2aee'
+    caller:
+      begin: '0x2a90'
+      end: '0x2d84'
+      size: '0x2f4'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x2b44'
+    caller:
+      begin: '0x2a90'
+      end: '0x2d84'
+      size: '0x2f4'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x2b9d'
+    caller:
+      begin: '0x2a90'
+      end: '0x2d84'
+      size: '0x2f4'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x2c4c'
+    caller:
+      begin: '0x2a90'
+      end: '0x2d84'
+      size: '0x2f4'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x2ca5'
+    caller:
+      begin: '0x2a90'
+      end: '0x2d84'
+      size: '0x2f4'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x2cfe'
+    caller:
+      begin: '0x2a90'
+      end: '0x2d84'
+      size: '0x2f4'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x2e4e'
+    caller:
+      begin: '0x2df0'
+      end: '0x2f80'
+      size: '0x190'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x2ea4'
+    caller:
+      begin: '0x2df0'
+      end: '0x2f80'
+      size: '0x190'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x3039'
+    caller:
+      begin: '0x2ff0'
+      end: '0x379b'
+      size: '0x7ab'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x3091'
+    caller:
+      begin: '0x2ff0'
+      end: '0x379b'
+      size: '0x7ab'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x30e9'
+    caller:
+      begin: '0x2ff0'
+      end: '0x379b'
+      size: '0x7ab'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x3141'
+    caller:
+      begin: '0x2ff0'
+      end: '0x379b'
+      size: '0x7ab'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x3199'
+    caller:
+      begin: '0x2ff0'
+      end: '0x379b'
+      size: '0x7ab'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x31f1'
+    caller:
+      begin: '0x2ff0'
+      end: '0x379b'
+      size: '0x7ab'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x3351'
+    caller:
+      begin: '0x2ff0'
+      end: '0x379b'
+      size: '0x7ab'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x33a9'
+    caller:
+      begin: '0x2ff0'
+      end: '0x379b'
+      size: '0x7ab'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x3459'
+    caller:
+      begin: '0x2ff0'
+      end: '0x379b'
+      size: '0x7ab'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  - site: '0x34b1'
+    caller:
+      begin: '0x2ff0'
+      end: '0x379b'
+      size: '0x7ab'
+    callee:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    target_rva: '0x123e0'
+  direct_callees:
+  - site: '0x12408'
+    caller:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    callee:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+    target_rva: '0x35640'
+  - site: '0x1241f'
+    caller:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    callee:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+    target_rva: '0x35640'
+  - site: '0x12436'
+    caller:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    callee:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+    target_rva: '0x35640'
+  - site: '0x1244d'
+    caller:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    callee:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+    target_rva: '0x35640'
+  - site: '0x125e8'
+    caller:
+      begin: '0x123e0'
+      end: '0x125f5'
+      size: '0x215'
+    callee:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+    target_rva: '0x48eab0'
+  provenance_linked: false
+  provenance_paths: []
+  evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x123e0
+- target_rva: '0x6033f0'
+  function:
+    begin: '0x6033f0'
+    end: '0x60366d'
+    size: '0x27d'
+  verdict: file_helper_without_payload_provenance
+  selection:
+    rva: '0x6033f0'
+    source: round171_partial_or_seed
+    round171_verdict: provenance_partial_no_payload_owner
+    round171_score: 308
+  counts:
+    instructions: 144
+    logic_transform_instruction: 10
+    file_import_call: 2
+    imm:15: 1
+    imm:16: 1
+    imm:4096: 1
+    large_imm64_count_sampled: 2
+  imports:
+  - rva: '0x6034ad'
+    import: KERNEL32.dll!CreateFileW
+    import_name: CreateFileW
+    class: file_or_other
+    text: '006034ad: call     qword ptr [rip + 0xef2f5]'
+  - rva: '0x6034ee'
+    import: KERNEL32.dll!DeviceIoControl
+    import_name: DeviceIoControl
+    class: other
+    text: '006034ee: call     qword ptr [rip + 0xef06c]'
+  - rva: '0x6034f9'
+    import: KERNEL32.dll!CloseHandle
+    import_name: CloseHandle
+    class: file_or_other
+    text: '006034f9: call     qword ptr [rip + 0xef321]'
+  keyword_refs: []
+  constants:
+  - rva: '0x603557'
+    value: '0xf'
+    label: mask_15
+    text: '00603557: mov      qword ptr [rbp + 0x68], 0xf'
+  - rva: '0x6035d4'
+    value: '0x10'
+    label: block_size_16
+    text: '006035d4: cmp      rdx, 0x10'
+  - rva: '0x6035e4'
+    value: '0x1000'
+    label: page_size_or_large_string_threshold
+    text: '006035e4: cmp      rdx, 0x1000'
+  large_immediates:
+  - rva: '0x6034b6'
+    value: '0xffffffffffffffff'
+    text: '006034b6: cmp      rax, -1'
+  - rva: '0x6035f8'
+    value: '0xfffffffffffffff8'
+    text: '006035f8: add      rax, -8'
+  direct_call_count: 9
+  direct_calls:
+  - rva: '0x603530'
+    target_rva: '0x11330'
+    target_function:
+      begin: '0x11330'
+      end: '0x11417'
+      size: '0xe7'
+  - rva: '0x60354d'
+    target_rva: '0x2ee4c0'
+    target_function:
+      begin: '0x2ee4c0'
+      end: '0x2ee701'
+      size: '0x241'
+  - rva: '0x6035be'
+    target_rva: '0x380b0'
+    target_function:
+      begin: '0x380b0'
+      end: '0x3814f'
+      size: '0x9f'
+  - rva: '0x6035cb'
+    target_rva: '0x19640'
+    target_function:
+      begin: '0x19640'
+      end: '0x19691'
+      size: '0x51'
+  - rva: '0x603602'
+    target_rva: '0x48ead0'
+    target_function: null
+  - rva: '0x603627'
+    target_rva: '0x37950'
+    target_function:
+      begin: '0x37950'
+      end: '0x37a37'
+      size: '0xe7'
+  - rva: '0x603632'
+    target_rva: '0x10140'
+    target_function:
+      begin: '0x10140'
+      end: '0x10174'
+      size: '0x34'
+  - rva: '0x60364a'
+    target_rva: '0x48eab0'
+    target_function:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+  - rva: '0x603667'
+    target_rva: '0x66e6a8'
+    target_function:
+      begin: '0x66e6a8'
+      end: '0x66e6d7'
+      size: '0x2f'
+  direct_caller_count: 0
+  direct_callee_count: 0
+  direct_callers: []
+  direct_callees: []
+  provenance_linked: false
+  provenance_paths: []
+  evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x6033f0
+- target_rva: '0x8310'
+  function:
+    begin: '0x8310'
+    end: '0x8454'
+    size: '0x144'
+  verdict: vector_or_block_helper_without_payload_provenance
+  selection:
+    rva: '0x8310'
+    source: round168_top_candidate
+    round168_score: 297
+    round168_reasons:
+    - payload_or_disp8=1
+    - block16_or_align=3
+    - vector_signal=31/10/1
+    - backward_branch=1
+    - logic_shift=2
+  counts:
+    instructions: 56
+    vector_instruction: 31
+    non_stack_vector_memory: 4
+    imm:16: 3
+    logic_transform_instruction: 2
+    backward_branch: 1
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x836e'
+    value: '0x10'
+    label: block_size_16
+    text: '0000836e: imul     rax, qword ptr [rsp], 0x10'
+  - rva: '0x83a6'
+    value: '0x10'
+    label: block_size_16
+    text: '000083a6: imul     rax, qword ptr [rsp], 0x10'
+  - rva: '0x8438'
+    value: '0x10'
+    label: block_size_16
+    text: '00008438: imul     rax, qword ptr [rsp], 0x10'
+  large_immediates: []
+  direct_call_count: 0
+  direct_calls: []
+  direct_caller_count: 0
+  direct_callee_count: 0
+  direct_callers: []
+  direct_callees: []
+  provenance_linked: false
+  provenance_paths: []
+  evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x8310
+- target_rva: '0x81e0'
+  function:
+    begin: '0x81e0'
+    end: '0x8306'
+    size: '0x126'
+  verdict: vector_or_block_helper_without_payload_provenance
+  selection:
+    rva: '0x81e0'
+    source: round168_top_candidate
+    round168_score: 256
+    round168_reasons:
+    - payload_or_disp8=1
+    - block16_or_align=4
+    - vector_signal=22/8/1
+    - backward_branch=1
+    - logic_shift=1
+  counts:
+    instructions: 54
+    imm:16: 4
+    vector_instruction: 22
+    non_stack_vector_memory: 4
+    logic_transform_instruction: 1
+    backward_branch: 1
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x823d'
+    value: '0x10'
+    label: block_size_16
+    text: '0000823d: imul     rax, qword ptr [rsp], 0x10'
+  - rva: '0x8257'
+    value: '0x10'
+    label: block_size_16
+    text: '00008257: imul     rax, qword ptr [rsp], 0x10'
+  - rva: '0x82ba'
+    value: '0x10'
+    label: block_size_16
+    text: '000082ba: imul     rax, qword ptr [rsp], 0x10'
+  - rva: '0x82ea'
+    value: '0x10'
+    label: block_size_16
+    text: '000082ea: imul     rax, qword ptr [rsp], 0x10'
+  large_immediates: []
+  direct_call_count: 0
+  direct_calls: []
+  direct_caller_count: 0
+  direct_callee_count: 0
+  direct_callers: []
+  direct_callees: []
+  provenance_linked: false
+  provenance_paths: []
+  evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x81e0
+- target_rva: '0x10670'
+  function:
+    begin: '0x10670'
+    end: '0x10782'
+    size: '0x112'
+  verdict: vector_or_block_helper_without_payload_provenance
+  selection:
+    rva: '0x10670'
+    source: round168_top_candidate
+    round168_score: 250
+    round168_reasons:
+    - payload_or_disp8=1
+    - block16_or_align=2
+    - vector_signal=18/8/2
+    - logic_shift=4
+  counts:
+    instructions: 50
+    logic_transform_instruction: 6
+    vector_instruction: 18
+    non_stack_vector_memory: 5
+    imm:16: 2
+    large_imm64_count_sampled: 2
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x1072c'
+    value: '0x10'
+    label: block_size_16
+    text: '0001072c: add      rax, 0x10'
+  - rva: '0x10754'
+    value: '0x10'
+    label: block_size_16
+    text: '00010754: add      rax, 0x10'
+  large_immediates:
+  - rva: '0x1068e'
+    value: '0xbcfe5b6dd3aa6fc5'
+    text: '0001068e: movabs   rcx, 0xbcfe5b6dd3aa6fc5'
+  - rva: '0x106a5'
+    value: '0x3f00c968293256aa'
+    text: '000106a5: movabs   rcx, 0x3f00c968293256aa'
+  direct_call_count: 3
+  direct_calls:
+  - rva: '0x10698'
+    target_rva: '0x35640'
+    target_function:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+  - rva: '0x106af'
+    target_rva: '0x35640'
+    target_function:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+  - rva: '0x10775'
+    target_rva: '0x48eab0'
+    target_function:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+  direct_caller_count: 16
+  direct_callee_count: 3
+  direct_callers:
+  - site: '0x1956'
+    caller:
+      begin: '0x1910'
+      end: '0x197c'
+      size: '0x6c'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+    target_rva: '0x10670'
+  - site: '0x19c6'
+    caller:
+      begin: '0x1980'
+      end: '0x19ec'
+      size: '0x6c'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+    target_rva: '0x10670'
+  - site: '0x25fb'
+    caller:
+      begin: '0x25a0'
+      end: '0x2816'
+      size: '0x276'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+    target_rva: '0x10670'
+  - site: '0x2651'
+    caller:
+      begin: '0x25a0'
+      end: '0x2816'
+      size: '0x276'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+    target_rva: '0x10670'
+  - site: '0x2a0a'
+    caller:
+      begin: '0x2900'
+      end: '0x2a90'
+      size: '0x190'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+    target_rva: '0x10670'
+  - site: '0x2bf3'
+    caller:
+      begin: '0x2a90'
+      end: '0x2d84'
+      size: '0x2f4'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+    target_rva: '0x10670'
+  - site: '0x2efa'
+    caller:
+      begin: '0x2df0'
+      end: '0x2f80'
+      size: '0x190'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+    target_rva: '0x10670'
+  - site: '0x6e8b'
+    caller:
+      begin: '0x6de0'
+      end: '0x7388'
+      size: '0x5a8'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+    target_rva: '0x10670'
+  - site: '0x6f3d'
+    caller:
+      begin: '0x6de0'
+      end: '0x7388'
+      size: '0x5a8'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+    target_rva: '0x10670'
+  - site: '0x6fef'
+    caller:
+      begin: '0x6de0'
+      end: '0x7388'
+      size: '0x5a8'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+    target_rva: '0x10670'
+  - site: '0x70a4'
+    caller:
+      begin: '0x6de0'
+      end: '0x7388'
+      size: '0x5a8'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+    target_rva: '0x10670'
+  - site: '0x7162'
+    caller:
+      begin: '0x6de0'
+      end: '0x7388'
+      size: '0x5a8'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+    target_rva: '0x10670'
+  - site: '0x7220'
+    caller:
+      begin: '0x6de0'
+      end: '0x7388'
+      size: '0x5a8'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+    target_rva: '0x10670'
+  - site: '0x72de'
+    caller:
+      begin: '0x6de0'
+      end: '0x7388'
+      size: '0x5a8'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+    target_rva: '0x10670'
+  - site: '0x104bf'
+    caller:
+      begin: '0x10460'
+      end: '0x105b4'
+      size: '0x154'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+    target_rva: '0x10670'
+  - site: '0x1051e'
+    caller:
+      begin: '0x10460'
+      end: '0x105b4'
+      size: '0x154'
+    callee:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+    target_rva: '0x10670'
+  direct_callees:
+  - site: '0x10698'
+    caller:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+    callee:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+    target_rva: '0x35640'
+  - site: '0x106af'
+    caller:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+    callee:
+      begin: '0x35640'
+      end: '0x3565b'
+      size: '0x1b'
+    target_rva: '0x35640'
+  - site: '0x10775'
+    caller:
+      begin: '0x10670'
+      end: '0x10782'
+      size: '0x112'
+    callee:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+    target_rva: '0x48eab0'
+  provenance_linked: false
+  provenance_paths: []
+  evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x10670
+- target_rva: '0xd410'
+  function:
+    begin: '0xd410'
+    end: '0xd71e'
+    size: '0x30e'
+  verdict: file_helper_without_payload_provenance
+  selection:
+    rva: '0xd410'
+    source: round168_top_candidate
+    round168_score: 168
+    round168_reasons:
+    - file_api_ref=2
+    - payload_or_disp8=1
+    - block16_or_align=1
+    - backward_branch=3
+    - logic_shift=5
+  counts:
+    instructions: 159
+    logic_transform_instruction: 7
+    file_import_call: 3
+    backward_branch: 3
+    imm:16: 1
+    large_imm64_count_sampled: 2
+  imports:
+  - rva: '0xd555'
+    import: KERNEL32.dll!FindFirstFileW
+    import_name: FindFirstFileW
+    class: file_or_other
+    text: '0000d555: call     qword ptr [rip + 0x6e5285]'
+  - rva: '0xd6ba'
+    import: KERNEL32.dll!FindNextFileW
+    import_name: FindNextFileW
+    class: file_or_other
+    text: '0000d6ba: call     qword ptr [rip + 0x6e5118]'
+  - rva: '0xd6cd'
+    import: KERNEL32.dll!FindClose
+    import_name: FindClose
+    class: file_or_other
+    text: '0000d6cd: call     qword ptr [rip + 0x6e50fd]'
+  keyword_refs: []
+  constants:
+  - rva: '0xd611'
+    value: '0x10'
+    label: block_size_16
+    text: '0000d611: and      eax, 0x10'
+  large_immediates:
+  - rva: '0xd463'
+    value: '0xffffffffffffffff'
+    text: '0000d463: mov      qword ptr [rsp + 0x28], 0xffffffffffffffff'
+  - rva: '0xd560'
+    value: '0xffffffffffffffff'
+    text: '0000d560: cmp      qword ptr [rsp + 0x28], -1'
+  direct_call_count: 24
+  direct_calls:
+  - rva: '0xd43b'
+    target_rva: '0x129b0'
+    target_function:
+      begin: '0x129b0'
+      end: '0x129e4'
+      size: '0x34'
+  - rva: '0xd454'
+    target_rva: '0x36bb0'
+    target_function:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+  - rva: '0xd47c'
+    target_rva: '0x36600'
+    target_function:
+      begin: '0x36600'
+      end: '0x366b5'
+      size: '0xb5'
+  - rva: '0xd48a'
+    target_rva: '0x36a60'
+    target_function:
+      begin: '0x36a60'
+      end: '0x36ab3'
+      size: '0x53'
+  - rva: '0xd4b1'
+    target_rva: '0x363c0'
+    target_function:
+      begin: '0x363c0'
+      end: '0x36425'
+      size: '0x65'
+  - rva: '0xd4cb'
+    target_rva: '0x36360'
+    target_function:
+      begin: '0x36360'
+      end: '0x363b8'
+      size: '0x58'
+  - rva: '0xd4ec'
+    target_rva: '0x19de0'
+    target_function:
+      begin: '0x19de0'
+      end: '0x19e6c'
+      size: '0x8c'
+  - rva: '0xd4f9'
+    target_rva: '0x12a90'
+    target_function:
+      begin: '0x12a90'
+      end: '0x12ad3'
+      size: '0x43'
+  - rva: '0xd512'
+    target_rva: '0x12ae0'
+    target_function:
+      begin: '0x12ae0'
+      end: '0x12b8f'
+      size: '0xaf'
+  - rva: '0xd527'
+    target_rva: '0x12d10'
+    target_function:
+      begin: '0x12d10'
+      end: '0x12d61'
+      size: '0x51'
+  - rva: '0xd538'
+    target_rva: '0x12ae0'
+    target_function:
+      begin: '0x12ae0'
+      end: '0x12b8f'
+      size: '0xaf'
+  - rva: '0xd545'
+    target_rva: '0x12a70'
+    target_function:
+      begin: '0x12a70'
+      end: '0x12a8b'
+      size: '0x1b'
+  - rva: '0xd575'
+    target_rva: '0x36bb0'
+    target_function:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+  - rva: '0xd583'
+    target_rva: '0x36bb0'
+    target_function:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+  - rva: '0xd591'
+    target_rva: '0x36bb0'
+    target_function:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+  - rva: '0xd628'
+    target_rva: '0x36600'
+    target_function:
+      begin: '0x36600'
+      end: '0x366b5'
+      size: '0xb5'
+  - rva: '0xd63e'
+    target_rva: '0x12c80'
+    target_function:
+      begin: '0x12c80'
+      end: '0x12ca2'
+      size: '0x22'
+  - rva: '0xd65a'
+    target_rva: '0x36600'
+    target_function:
+      begin: '0x36600'
+      end: '0x366b5'
+      size: '0xb5'
+  - rva: '0xd67b'
+    target_rva: '0xd410'
+    target_function:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+  - rva: '0xd689'
+    target_rva: '0x36bb0'
+    target_function:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+  - rva: '0xd6e0'
+    target_rva: '0x36bb0'
+    target_function:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+  - rva: '0xd6ee'
+    target_rva: '0x36bb0'
+    target_function:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+  - rva: '0xd6fc'
+    target_rva: '0x36bb0'
+    target_function:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+  - rva: '0xd711'
+    target_rva: '0x48eab0'
+    target_function:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+  direct_caller_count: 1
+  direct_callee_count: 24
+  direct_callers:
+  - site: '0xd67b'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    target_rva: '0xd410'
+  direct_callees:
+  - site: '0xd43b'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x129b0'
+      end: '0x129e4'
+      size: '0x34'
+    target_rva: '0x129b0'
+  - site: '0xd454'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+    target_rva: '0x36bb0'
+  - site: '0xd47c'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x36600'
+      end: '0x366b5'
+      size: '0xb5'
+    target_rva: '0x36600'
+  - site: '0xd48a'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x36a60'
+      end: '0x36ab3'
+      size: '0x53'
+    target_rva: '0x36a60'
+  - site: '0xd4b1'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x363c0'
+      end: '0x36425'
+      size: '0x65'
+    target_rva: '0x363c0'
+  - site: '0xd4cb'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x36360'
+      end: '0x363b8'
+      size: '0x58'
+    target_rva: '0x36360'
+  - site: '0xd4ec'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x19de0'
+      end: '0x19e6c'
+      size: '0x8c'
+    target_rva: '0x19de0'
+  - site: '0xd4f9'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x12a90'
+      end: '0x12ad3'
+      size: '0x43'
+    target_rva: '0x12a90'
+  - site: '0xd512'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x12ae0'
+      end: '0x12b8f'
+      size: '0xaf'
+    target_rva: '0x12ae0'
+  - site: '0xd527'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x12d10'
+      end: '0x12d61'
+      size: '0x51'
+    target_rva: '0x12d10'
+  - site: '0xd538'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x12ae0'
+      end: '0x12b8f'
+      size: '0xaf'
+    target_rva: '0x12ae0'
+  - site: '0xd545'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x12a70'
+      end: '0x12a8b'
+      size: '0x1b'
+    target_rva: '0x12a70'
+  - site: '0xd575'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+    target_rva: '0x36bb0'
+  - site: '0xd583'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+    target_rva: '0x36bb0'
+  - site: '0xd591'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+    target_rva: '0x36bb0'
+  - site: '0xd628'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x36600'
+      end: '0x366b5'
+      size: '0xb5'
+    target_rva: '0x36600'
+  - site: '0xd63e'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x12c80'
+      end: '0x12ca2'
+      size: '0x22'
+    target_rva: '0x12c80'
+  - site: '0xd65a'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x36600'
+      end: '0x366b5'
+      size: '0xb5'
+    target_rva: '0x36600'
+  - site: '0xd67b'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    target_rva: '0xd410'
+  - site: '0xd689'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+    target_rva: '0x36bb0'
+  - site: '0xd6e0'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+    target_rva: '0x36bb0'
+  - site: '0xd6ee'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+    target_rva: '0x36bb0'
+  - site: '0xd6fc'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x36bb0'
+      end: '0x36bd7'
+      size: '0x27'
+    target_rva: '0x36bb0'
+  - site: '0xd711'
+    caller:
+      begin: '0xd410'
+      end: '0xd71e'
+      size: '0x30e'
+    callee:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+    target_rva: '0x48eab0'
+  provenance_linked: false
+  provenance_paths: []
+  evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0xd410
+- target_rva: '0xd870'
+  function:
+    begin: '0xd870'
+    end: '0xda81'
+    size: '0x211'
+  verdict: file_helper_without_payload_provenance
+  selection:
+    rva: '0xd870'
+    source: round168_top_candidate
+    round168_score: 160
+    round168_reasons:
+    - file_api_ref=2
+    - payload_or_disp8=3
+    - block16_or_align=1
+    - logic_shift=2
+  counts:
+    instructions: 102
+    logic_transform_instruction: 3
+    imm:8: 2
+    file_import_call: 5
+    imm:16: 1
+    large_imm64_count_sampled: 3
+  imports:
+  - rva: '0xd8e3'
+    import: KERNEL32.dll!GetFileAttributesW
+    import_name: GetFileAttributesW
+    class: file_or_other
+    text: '0000d8e3: call     qword ptr [rip + 0x6e4f3f]'
+  - rva: '0xd8f8'
+    import: KERNEL32.dll!GetLastError
+    import_name: GetLastError
+    class: other
+    text: '0000d8f8: call     qword ptr [rip + 0x6e4eb2]'
+  - rva: '0xd9b3'
+    import: KERNEL32.dll!CreateFileW
+    import_name: CreateFileW
+    class: file_or_other
+    text: '0000d9b3: call     qword ptr [rip + 0x6e4def]'
+  - rva: '0xd9c6'
+    import: KERNEL32.dll!GetLastError
+    import_name: GetLastError
+    class: other
+    text: '0000d9c6: call     qword ptr [rip + 0x6e4de4]'
+  - rva: '0xda00'
+    import: KERNEL32.dll!FindFirstFileW
+    import_name: FindFirstFileW
+    class: file_or_other
+    text: '0000da00: call     qword ptr [rip + 0x6e4dda]'
+  - rva: '0xda2a'
+    import: KERNEL32.dll!FindClose
+    import_name: FindClose
+    class: file_or_other
+    text: '0000da2a: call     qword ptr [rip + 0x6e4da0]'
+  - rva: '0xda3f'
+    import: KERNEL32.dll!CloseHandle
+    import_name: CloseHandle
+    class: file_or_other
+    text: '0000da3f: call     qword ptr [rip + 0x6e4ddb]'
+  keyword_refs: []
+  constants:
+  - rva: '0xd89e'
+    value: '0x8'
+    label: payload_offset_or_qword
+    text: '0000d89e: mov      edx, 8'
+  - rva: '0xd914'
+    value: '0x8'
+    label: payload_offset_or_qword
+    text: '0000d914: mov      edx, 8'
+  - rva: '0xda1d'
+    value: '0x10'
+    label: block_size_16
+    text: '0000da1d: mov      dword ptr [rsp + 0x40], 0x10'
+  large_immediates:
+  - rva: '0xd8ed'
+    value: '0xffffffffffffffff'
+    text: '0000d8ed: cmp      dword ptr [rsp + 0x40], -1'
+  - rva: '0xd9be'
+    value: '0xffffffffffffffff'
+    text: '0000d9be: cmp      qword ptr [rsp + 0x58], -1'
+  - rva: '0xda0b'
+    value: '0xffffffffffffffff'
+    text: '0000da0b: cmp      qword ptr [rsp + 0x50], -1'
+  direct_call_count: 15
+  direct_calls:
+  - rva: '0xd8ab'
+    target_rva: '0xa540'
+    target_function:
+      begin: '0xa540'
+      end: '0xa55b'
+      size: '0x1b'
+  - rva: '0xd8b8'
+    target_rva: '0xb0a0'
+    target_function:
+      begin: '0xb0a0'
+      end: '0xb0c6'
+      size: '0x26'
+  - rva: '0xd8ce'
+    target_rva: '0x13880'
+    target_function:
+      begin: '0x13880'
+      end: '0x138a7'
+      size: '0x27'
+  - rva: '0xd8db'
+    target_rva: '0x9e50'
+    target_function: null
+  - rva: '0xd91e'
+    target_rva: '0xa540'
+    target_function:
+      begin: '0xa540'
+      end: '0xa55b'
+      size: '0x1b'
+  - rva: '0xd928'
+    target_rva: '0xb0a0'
+    target_function:
+      begin: '0xb0a0'
+      end: '0xb0c6'
+      size: '0x26'
+  - rva: '0xd93b'
+    target_rva: '0x138b0'
+    target_function:
+      begin: '0x138b0'
+      end: '0x138d7'
+      size: '0x27'
+  - rva: '0xd951'
+    target_rva: '0x12ff0'
+    target_function:
+      begin: '0x12ff0'
+      end: '0x130d2'
+      size: '0xe2'
+  - rva: '0xd96f'
+    target_rva: '0x138b0'
+    target_function:
+      begin: '0x138b0'
+      end: '0x138d7'
+      size: '0x27'
+  - rva: '0xd97a'
+    target_rva: '0xa410'
+    target_function:
+      begin: '0xa410'
+      end: '0xa429'
+      size: '0x19'
+  - rva: '0xd984'
+    target_rva: '0x9e50'
+    target_function: null
+  - rva: '0xd9f0'
+    target_rva: '0x9e50'
+    target_function: null
+  - rva: '0xda4b'
+    target_rva: '0xa410'
+    target_function:
+      begin: '0xa410'
+      end: '0xa429'
+      size: '0x19'
+  - rva: '0xda60'
+    target_rva: '0xa410'
+    target_function:
+      begin: '0xa410'
+      end: '0xa429'
+      size: '0x19'
+  - rva: '0xda74'
+    target_rva: '0x48eab0'
+    target_function:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+  direct_caller_count: 0
+  direct_callee_count: 12
+  direct_callers: []
+  direct_callees:
+  - site: '0xd8ab'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0xa540'
+      end: '0xa55b'
+      size: '0x1b'
+    target_rva: '0xa540'
+  - site: '0xd8b8'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0xb0a0'
+      end: '0xb0c6'
+      size: '0x26'
+    target_rva: '0xb0a0'
+  - site: '0xd8ce'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0x13880'
+      end: '0x138a7'
+      size: '0x27'
+    target_rva: '0x13880'
+  - site: '0xd91e'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0xa540'
+      end: '0xa55b'
+      size: '0x1b'
+    target_rva: '0xa540'
+  - site: '0xd928'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0xb0a0'
+      end: '0xb0c6'
+      size: '0x26'
+    target_rva: '0xb0a0'
+  - site: '0xd93b'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0x138b0'
+      end: '0x138d7'
+      size: '0x27'
+    target_rva: '0x138b0'
+  - site: '0xd951'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0x12ff0'
+      end: '0x130d2'
+      size: '0xe2'
+    target_rva: '0x12ff0'
+  - site: '0xd96f'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0x138b0'
+      end: '0x138d7'
+      size: '0x27'
+    target_rva: '0x138b0'
+  - site: '0xd97a'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0xa410'
+      end: '0xa429'
+      size: '0x19'
+    target_rva: '0xa410'
+  - site: '0xda4b'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0xa410'
+      end: '0xa429'
+      size: '0x19'
+    target_rva: '0xa410'
+  - site: '0xda60'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0xa410'
+      end: '0xa429'
+      size: '0x19'
+    target_rva: '0xa410'
+  - site: '0xda74'
+    caller:
+      begin: '0xd870'
+      end: '0xda81'
+      size: '0x211'
+    callee:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+    target_rva: '0x48eab0'
+  provenance_linked: false
+  provenance_paths: []
+  evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0xd870
+- target_rva: '0xd720'
+  function:
+    begin: '0xd720'
+    end: '0xd7c0'
+    size: '0xa0'
+  verdict: read_mapping_helper_no_payload_keyword
+  selection:
+    rva: '0xd720'
+    source: round168_top_candidate
+    round168_score: 142
+    round168_reasons:
+    - file_api_ref=1
+    - file_read_or_mapping_ref=1
+    - payload_or_disp8=1
+    - logic_shift=2
+  counts:
+    instructions: 32
+    logic_transform_instruction: 3
+    read_mapping_import_call: 1
+    file_import_call: 2
+    large_imm64_count_sampled: 1
+  imports:
+  - rva: '0xd798'
+    import: KERNEL32.dll!GetFileSizeEx
+    import_name: GetFileSizeEx
+    class: read_or_mapping
+    text: '0000d798: call     qword ptr [rip + 0x6e502a]'
+  - rva: '0xd7a3'
+    import: KERNEL32.dll!CloseHandle
+    import_name: CloseHandle
+    class: file_or_other
+    text: '0000d7a3: call     qword ptr [rip + 0x6e5077]'
+  keyword_refs: []
+  constants: []
+  large_immediates:
+  - rva: '0xd786'
+    value: '0xffffffffffffffff'
+    text: '0000d786: cmp      qword ptr [rsp + 0x40], -1'
+  direct_call_count: 2
+  direct_calls:
+  - rva: '0xd77c'
+    target_rva: '0xda90'
+    target_function:
+      begin: '0xda90'
+      end: '0xdbad'
+      size: '0x11d'
+  - rva: '0xd7b6'
+    target_rva: '0x48eab0'
+    target_function:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+  direct_caller_count: 1
+  direct_callee_count: 2
+  direct_callers:
+  - site: '0xb512'
+    caller:
+      begin: '0xb4b0'
+      end: '0xb880'
+      size: '0x3d0'
+    callee:
+      begin: '0xd720'
+      end: '0xd7c0'
+      size: '0xa0'
+    target_rva: '0xd720'
+  direct_callees:
+  - site: '0xd77c'
+    caller:
+      begin: '0xd720'
+      end: '0xd7c0'
+      size: '0xa0'
+    callee:
+      begin: '0xda90'
+      end: '0xdbad'
+      size: '0x11d'
+    target_rva: '0xda90'
+  - site: '0xd7b6'
+    caller:
+      begin: '0xd720'
+      end: '0xd7c0'
+      size: '0xa0'
+    callee:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+    target_rva: '0x48eab0'
+  provenance_linked: false
+  provenance_paths: []
+  evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0xd720
+- target_rva: '0xd7c0'
+  function:
+    begin: '0xd7c0'
+    end: '0xd812'
+    size: '0x52'
+  verdict: read_mapping_helper_no_payload_keyword
+  selection:
+    rva: '0xd7c0'
+    source: round168_top_candidate
+    round168_score: 138
+    round168_reasons:
+    - file_api_ref=1
+    - file_read_or_mapping_ref=1
+    - payload_or_disp8=1
+  counts:
+    instructions: 18
+    read_mapping_import_call: 1
+    file_import_call: 1
+    large_imm64_count_sampled: 2
+  imports:
+  - rva: '0xd7f0'
+    import: KERNEL32.dll!GetFileSize
+    import_name: GetFileSize
+    class: read_or_mapping
+    text: '0000d7f0: call     qword ptr [rip + 0x6e4fca]'
+  keyword_refs: []
+  constants: []
+  large_immediates:
+  - rva: '0xd7de'
+    value: '0xffffffffffffffff'
+    text: '0000d7de: cmp      qword ptr [rsp + 0x40], -1'
+  - rva: '0xd7fa'
+    value: '0xffffffffffffffff'
+    text: '0000d7fa: cmp      dword ptr [rsp + 0x20], -1'
+  direct_call_count: 0
+  direct_calls: []
+  direct_caller_count: 0
+  direct_callee_count: 0
+  direct_callers: []
+  direct_callees: []
+  provenance_linked: false
+  provenance_paths: []
+  evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0xd7c0
+- target_rva: '0x8460'
+  function:
+    begin: '0x8460'
+    end: '0x851e'
+    size: '0xbe'
+  verdict: vector_or_block_helper_without_payload_provenance
+  selection:
+    rva: '0x8460'
+    source: round168_top_candidate
+    round168_score: 114
+    round168_reasons:
+    - payload_or_disp8=1
+    - block16_or_align=1
+    - vector_signal=8/2/1
+    - backward_branch=2
+    - logic_shift=2
+  counts:
+    instructions: 44
+    logic_transform_instruction: 3
+    backward_branch: 2
+    vector_instruction: 8
+    non_stack_vector_memory: 2
+    imm:16: 1
+    large_imm64_count_sampled: 1
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x8503'
+    value: '0x10'
+    label: block_size_16
+    text: '00008503: imul     rax, rax, 0x10'
+  large_immediates:
+  - rva: '0x8477'
+    value: '0xffffffffffffffc0'
+    text: '00008477: and      rbp, 0xffffffffffffffc0'
+  direct_call_count: 0
+  direct_calls: []
+  direct_caller_count: 0
+  direct_callee_count: 0
+  direct_callers: []
+  direct_callees: []
+  provenance_linked: false
+  provenance_paths: []
+  evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x8460
+- target_rva: '0x75c0'
+  function:
+    begin: '0x75c0'
+    end: '0x7645'
+    size: '0x85'
+  verdict: vector_or_block_helper_without_payload_provenance
+  selection:
+    rva: '0x75c0'
+    source: round168_top_candidate
+    round168_score: 96
+    round168_reasons:
+    - vector_signal=4/2/2
+  counts:
+    instructions: 21
+    vector_instruction: 4
+    logic_transform_instruction: 2
+    non_stack_vector_memory: 2
+  imports: []
+  keyword_refs: []
+  constants: []
+  large_immediates: []
+  direct_call_count: 4
+  direct_calls:
+  - rva: '0x75d2'
+    target_rva: '0x117e0'
+    target_function: null
+  - rva: '0x75fb'
+    target_rva: '0x117e0'
+    target_function: null
+  - rva: '0x7624'
+    target_rva: '0x117e0'
+    target_function: null
+  - rva: '0x7630'
+    target_rva: '0x38d50'
+    target_function:
+      begin: '0x38d50'
+      end: '0x38d70'
+      size: '0x20'
+  direct_caller_count: 0
+  direct_callee_count: 1
+  direct_callers: []
+  direct_callees:
+  - site: '0x7630'
+    caller:
+      begin: '0x75c0'
+      end: '0x7645'
+      size: '0x85'
+    callee:
+      begin: '0x38d50'
+      end: '0x38d70'
+      size: '0x20'
+    target_rva: '0x38d50'
+  provenance_linked: false
+  provenance_paths: []
+  evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x75c0
+- target_rva: '0x74e0'
+  function:
+    begin: '0x74e0'
+    end: '0x759f'
+    size: '0xbf'
+  verdict: vector_or_block_helper_without_payload_provenance
+  selection:
+    rva: '0x74e0'
+    source: round168_top_candidate
+    round168_score: 84
+    round168_reasons:
+    - payload_or_disp8=4
+    - vector_signal=2/1/1
+    - logic_shift=2
+  counts:
+    instructions: 42
+    logic_transform_instruction: 3
+    vector_instruction: 2
+    non_stack_vector_memory: 1
+    imm:8: 3
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x7537'
+    value: '0x8'
+    label: payload_offset_or_qword
+    text: '00007537: mov      ecx, 8'
+  - rva: '0x7548'
+    value: '0x8'
+    label: payload_offset_or_qword
+    text: '00007548: mov      ecx, 8'
+  - rva: '0x7559'
+    value: '0x8'
+    label: payload_offset_or_qword
+    text: '00007559: mov      ecx, 8'
+  large_immediates: []
+  direct_call_count: 10
+  direct_calls:
+  - rva: '0x74fa'
+    target_rva: '0xae50'
+    target_function: null
+  - rva: '0x751d'
+    target_rva: '0x11800'
+    target_function: null
+  - rva: '0x7527'
+    target_rva: '0x1e500'
+    target_function:
+      begin: '0x1e500'
+      end: '0x1e53e'
+      size: '0x3e'
+  - rva: '0x752f'
+    target_rva: '0x387e0'
+    target_function:
+      begin: '0x387e0'
+      end: '0x38827'
+      size: '0x47'
+  - rva: '0x753f'
+    target_rva: '0x231c0'
+    target_function: null
+  - rva: '0x7550'
+    target_rva: '0x231c0'
+    target_function: null
+  - rva: '0x7561'
+    target_rva: '0x231c0'
+    target_function: null
+  - rva: '0x757b'
+    target_rva: '0x11ba0'
+    target_function: null
+  - rva: '0x7587'
+    target_rva: '0x48f11c'
+    target_function:
+      begin: '0x48f11c'
+      end: '0x48f133'
+      size: '0x17'
+  - rva: '0x7594'
+    target_rva: '0x48eab0'
+    target_function:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+  direct_caller_count: 0
+  direct_callee_count: 4
+  direct_callers: []
+  direct_callees:
+  - site: '0x7527'
+    caller:
+      begin: '0x74e0'
+      end: '0x759f'
+      size: '0xbf'
+    callee:
+      begin: '0x1e500'
+      end: '0x1e53e'
+      size: '0x3e'
+    target_rva: '0x1e500'
+  - site: '0x752f'
+    caller:
+      begin: '0x74e0'
+      end: '0x759f'
+      size: '0xbf'
+    callee:
+      begin: '0x387e0'
+      end: '0x38827'
+      size: '0x47'
+    target_rva: '0x387e0'
+  - site: '0x7587'
+    caller:
+      begin: '0x74e0'
+      end: '0x759f'
+      size: '0xbf'
+    callee:
+      begin: '0x48f11c'
+      end: '0x48f133'
+      size: '0x17'
+    target_rva: '0x48f11c'
+  - site: '0x7594'
+    caller:
+      begin: '0x74e0'
+      end: '0x759f'
+      size: '0xbf'
+    callee:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+    target_rva: '0x48eab0'
+  provenance_linked: false
+  provenance_paths: []
+  evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x74e0
+- target_rva: '0x7660'
+  function:
+    begin: '0x7660'
+    end: '0x7729'
+    size: '0xc9'
+  verdict: vector_or_block_helper_without_payload_provenance
+  selection:
+    rva: '0x7660'
+    source: round168_top_candidate
+    round168_score: 84
+    round168_reasons:
+    - payload_or_disp8=4
+    - vector_signal=2/1/1
+    - logic_shift=2
+  counts:
+    instructions: 44
+    logic_transform_instruction: 3
+    vector_instruction: 2
+    non_stack_vector_memory: 1
+    imm:8: 3
+  imports: []
+  keyword_refs: []
+  constants:
+  - rva: '0x76c1'
+    value: '0x8'
+    label: payload_offset_or_qword
+    text: '000076c1: mov      ecx, 8'
+  - rva: '0x76d2'
+    value: '0x8'
+    label: payload_offset_or_qword
+    text: '000076d2: mov      ecx, 8'
+  - rva: '0x76e3'
+    value: '0x8'
+    label: payload_offset_or_qword
+    text: '000076e3: mov      ecx, 8'
+  large_immediates: []
+  direct_call_count: 11
+  direct_calls:
+  - rva: '0x767a'
+    target_rva: '0xae50'
+    target_function: null
+  - rva: '0x7684'
+    target_rva: '0xae50'
+    target_function: null
+  - rva: '0x76a7'
+    target_rva: '0x11800'
+    target_function: null
+  - rva: '0x76b1'
+    target_rva: '0x1e4c0'
+    target_function:
+      begin: '0x1e4c0'
+      end: '0x1e4fe'
+      size: '0x3e'
+  - rva: '0x76b9'
+    target_rva: '0x387e0'
+    target_function:
+      begin: '0x387e0'
+      end: '0x38827'
+      size: '0x47'
+  - rva: '0x76c9'
+    target_rva: '0x231c0'
+    target_function: null
+  - rva: '0x76da'
+    target_rva: '0x231c0'
+    target_function: null
+  - rva: '0x76eb'
+    target_rva: '0x231c0'
+    target_function: null
+  - rva: '0x7705'
+    target_rva: '0x11ba0'
+    target_function: null
+  - rva: '0x7711'
+    target_rva: '0x48f11c'
+    target_function:
+      begin: '0x48f11c'
+      end: '0x48f133'
+      size: '0x17'
+  - rva: '0x771e'
+    target_rva: '0x48eab0'
+    target_function:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+  direct_caller_count: 0
+  direct_callee_count: 4
+  direct_callers: []
+  direct_callees:
+  - site: '0x76b1'
+    caller:
+      begin: '0x7660'
+      end: '0x7729'
+      size: '0xc9'
+    callee:
+      begin: '0x1e4c0'
+      end: '0x1e4fe'
+      size: '0x3e'
+    target_rva: '0x1e4c0'
+  - site: '0x76b9'
+    caller:
+      begin: '0x7660'
+      end: '0x7729'
+      size: '0xc9'
+    callee:
+      begin: '0x387e0'
+      end: '0x38827'
+      size: '0x47'
+    target_rva: '0x387e0'
+  - site: '0x7711'
+    caller:
+      begin: '0x7660'
+      end: '0x7729'
+      size: '0xc9'
+    callee:
+      begin: '0x48f11c'
+      end: '0x48f133'
+      size: '0x17'
+    target_rva: '0x48f11c'
+  - site: '0x771e'
+    caller:
+      begin: '0x7660'
+      end: '0x7729'
+      size: '0xc9'
+    callee:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+    target_rva: '0x48eab0'
+  provenance_linked: false
+  provenance_paths: []
+  evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x7660
+- target_rva: '0xda90'
+  function:
+    begin: '0xda90'
+    end: '0xdbad'
+    size: '0x11d'
+  verdict: file_helper_without_payload_provenance
+  selection:
+    rva: '0xda90'
+    source: round168_top_candidate
+    round168_score: 80
+    round168_reasons:
+    - file_api_ref=1
+    - payload_or_disp8=2
+    - logic_shift=2
+  counts:
+    instructions: 55
+    logic_transform_instruction: 2
+    imm:8: 1
+    file_import_call: 1
+    large_imm64_count_sampled: 1
+  imports:
+  - rva: '0xdb74'
+    import: KERNEL32.dll!CreateFileW
+    import_name: CreateFileW
+    class: file_or_other
+    text: '0000db74: call     qword ptr [rip + 0x6e4c2e]'
+  keyword_refs: []
+  constants:
+  - rva: '0xdac2'
+    value: '0x8'
+    label: payload_offset_or_qword
+    text: '0000dac2: mov      edx, 8'
+  large_immediates:
+  - rva: '0xdab9'
+    value: '0xffffffffffffffff'
+    text: '0000dab9: mov      qword ptr [rsp + 0x40], 0xffffffffffffffff'
+  direct_call_count: 9
+  direct_calls:
+  - rva: '0xdacc'
+    target_rva: '0xa540'
+    target_function:
+      begin: '0xa540'
+      end: '0xa55b'
+      size: '0x1b'
+  - rva: '0xdad6'
+    target_rva: '0xb0a0'
+    target_function:
+      begin: '0xb0a0'
+      end: '0xb0c6'
+      size: '0x26'
+  - rva: '0xdae9'
+    target_rva: '0x13880'
+    target_function:
+      begin: '0x13880'
+      end: '0x138a7'
+      size: '0x27'
+  - rva: '0xdaff'
+    target_rva: '0x12ff0'
+    target_function:
+      begin: '0x12ff0'
+      end: '0x130d2'
+      size: '0xe2'
+  - rva: '0xdb1d'
+    target_rva: '0x138b0'
+    target_function:
+      begin: '0x138b0'
+      end: '0x138d7'
+      size: '0x27'
+  - rva: '0xdb28'
+    target_rva: '0xa410'
+    target_function:
+      begin: '0xa410'
+      end: '0xa429'
+      size: '0x19'
+  - rva: '0xdb32'
+    target_rva: '0x9e50'
+    target_function: null
+  - rva: '0xdb8e'
+    target_rva: '0xa410'
+    target_function:
+      begin: '0xa410'
+      end: '0xa429'
+      size: '0x19'
+  - rva: '0xdba0'
+    target_rva: '0x48eab0'
+    target_function:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+  direct_caller_count: 3
+  direct_callee_count: 8
+  direct_callers:
+  - site: '0xd77c'
+    caller:
+      begin: '0xd720'
+      end: '0xd7c0'
+      size: '0xa0'
+    callee:
+      begin: '0xda90'
+      end: '0xdbad'
+      size: '0x11d'
+    target_rva: '0xda90'
+  - site: '0xdff1'
+    caller:
+      begin: '0xdf60'
+      end: '0xe145'
+      size: '0x1e5'
+    callee:
+      begin: '0xda90'
+      end: '0xdbad'
+      size: '0x11d'
+    target_rva: '0xda90'
+  - site: '0x10358'
+    caller:
+      begin: '0x10180'
+      end: '0x1042b'
+      size: '0x2ab'
+    callee:
+      begin: '0xda90'
+      end: '0xdbad'
+      size: '0x11d'
+    target_rva: '0xda90'
+  direct_callees:
+  - site: '0xdacc'
+    caller:
+      begin: '0xda90'
+      end: '0xdbad'
+      size: '0x11d'
+    callee:
+      begin: '0xa540'
+      end: '0xa55b'
+      size: '0x1b'
+    target_rva: '0xa540'
+  - site: '0xdad6'
+    caller:
+      begin: '0xda90'
+      end: '0xdbad'
+      size: '0x11d'
+    callee:
+      begin: '0xb0a0'
+      end: '0xb0c6'
+      size: '0x26'
+    target_rva: '0xb0a0'
+  - site: '0xdae9'
+    caller:
+      begin: '0xda90'
+      end: '0xdbad'
+      size: '0x11d'
+    callee:
+      begin: '0x13880'
+      end: '0x138a7'
+      size: '0x27'
+    target_rva: '0x13880'
+  - site: '0xdaff'
+    caller:
+      begin: '0xda90'
+      end: '0xdbad'
+      size: '0x11d'
+    callee:
+      begin: '0x12ff0'
+      end: '0x130d2'
+      size: '0xe2'
+    target_rva: '0x12ff0'
+  - site: '0xdb1d'
+    caller:
+      begin: '0xda90'
+      end: '0xdbad'
+      size: '0x11d'
+    callee:
+      begin: '0x138b0'
+      end: '0x138d7'
+      size: '0x27'
+    target_rva: '0x138b0'
+  - site: '0xdb28'
+    caller:
+      begin: '0xda90'
+      end: '0xdbad'
+      size: '0x11d'
+    callee:
+      begin: '0xa410'
+      end: '0xa429'
+      size: '0x19'
+    target_rva: '0xa410'
+  - site: '0xdb8e'
+    caller:
+      begin: '0xda90'
+      end: '0xdbad'
+      size: '0x11d'
+    callee:
+      begin: '0xa410'
+      end: '0xa429'
+      size: '0x19'
+    target_rva: '0xa410'
+  - site: '0xdba0'
+    caller:
+      begin: '0xda90'
+      end: '0xdbad'
+      size: '0x11d'
+    callee:
+      begin: '0x48eab0'
+      end: '0x48eace'
+      size: '0x1e'
+    target_rva: '0x48eab0'
+  provenance_linked: true
+  provenance_paths:
+  - seed_rva: '0xd720'
+    seed_label: round170_read_mapping_owner_GetFileSizeEx
+    depth: 1
+    path:
+    - site: '0xd77c'
+      callee:
+        begin: '0xda90'
+        end: '0xdbad'
+        size: '0x11d'
+  evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0xda90
+- target_rva: '0x79d0'
+  function:
+    begin: '0x79d0'
+    end: '0x7a1a'
+    size: '0x4a'
+  verdict: helper_without_payload_provenance
+  selection:
+    rva: '0x79d0'
+    source: round168_top_candidate
+    round168_score: 18
+    round168_reasons:
+    - vector_signal=2/1/0
+  counts:
+    instructions: 13
+    vector_instruction: 2
+  imports: []
+  keyword_refs: []
+  constants: []
+  large_immediates: []
+  direct_call_count: 1
+  direct_calls:
+  - rva: '0x7a05'
+    target_rva: '0x5fc470'
+    target_function:
+      begin: '0x5fc470'
+      end: '0x5fc5a9'
+      size: '0x139'
+  direct_caller_count: 0
+  direct_callee_count: 1
+  direct_callers: []
+  direct_callees:
+  - site: '0x7a05'
+    caller:
+      begin: '0x79d0'
+      end: '0x7a1a'
+      size: '0x4a'
+    callee:
+      begin: '0x5fc470'
+      end: '0x5fc5a9'
+      size: '0x139'
+    target_rva: '0x5fc470'
+  provenance_linked: false
+  provenance_paths: []
+  evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x79d0
+- target_rva: '0x7a30'
+  function:
+    begin: '0x7a30'
+    end: '0x7a7a'
+    size: '0x4a'
+  verdict: helper_without_payload_provenance
+  selection:
+    rva: '0x7a30'
+    source: round168_top_candidate
+    round168_score: 18
+    round168_reasons:
+    - vector_signal=2/1/0
+  counts:
+    instructions: 13
+    vector_instruction: 2
+  imports: []
+  keyword_refs: []
+  constants: []
+  large_immediates: []
+  direct_call_count: 1
+  direct_calls:
+  - rva: '0x7a65'
+    target_rva: '0x5fc470'
+    target_function:
+      begin: '0x5fc470'
+      end: '0x5fc5a9'
+      size: '0x139'
+  direct_caller_count: 0
+  direct_callee_count: 1
+  direct_callers: []
+  direct_callees:
+  - site: '0x7a65'
+    caller:
+      begin: '0x7a30'
+      end: '0x7a7a'
+      size: '0x4a'
+    callee:
+      begin: '0x5fc470'
+      end: '0x5fc5a9'
+      size: '0x139'
+    target_rva: '0x5fc470'
+  provenance_linked: false
+  provenance_paths: []
+  evidence_ref: NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x7a30
+route_conclusion:
+  vector_candidate_provenance_link_found: false
+  read_mapping_to_vector_path_found: false
+  read_mapping_to_file_helper_path_found: true
+  metadata_or_luascripts_keyword_link_found: false
+  protected_metadata_method_ownership_recovered: false
+  plaintext_metadata_recovered: false
+  lua_payload_decoder_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: a read/provenance seed reaches a file helper, but selected
+    vector targets remain unlinked
+  strongest_negative_signal: no target proves global-metadata or LuaScripts buffer
+    ownership, and no plaintext metadata is recovered
+  search_policy: promote only vector helpers reached from a proven read/mapping or
+    payload-owner path; otherwise pivot to payload owner recovery
+evidence_refs:
+- NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:summary
+- NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x120c0
+- NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x123e0
+- NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x6033f0
+- NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x8310
+- NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x81e0
+- NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x10670
+- NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0xd410
+- NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0xd870
+- NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0xd720
+- NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0xd7c0
+- NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x8460
+- NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x75c0
+- NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x74e0
+- NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x7660
+- NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0xda90
+- NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x79d0
+- NSLG_NEP2_VECTOR_PROVENANCE:nep2-vector-candidate-provenance-round186:target:0x7a30
+next_static_targets:
+- If a vector helper is not reachable from read/mapping or payload-owner provenance,
+  keep it demoted as a helper.
+- Prioritize payload-owner recovery around TextAsset/LuaScripts buffers before spending
+  more cycles on isolated vector helpers.
+- Only accept global-metadata recovery after standard IL2CPP header pairs and readable
+  Assembly-CSharp/NSLGame strings are produced.
+limitations:
+- Offline/static NEP2 callgraph and function-feature scan only; no live Frida, runtime
+  attach, account data, credentials, or online protocol were used.
+- Direct-call reachability does not cover indirect calls or runtime-dispatched callbacks.
+- Vector/16-byte/large-immediate features are helper-shape evidence, not decoder proof
+  without payload-buffer provenance.
+- No decoded metadata, LuaScripts payload, or publishable gameplay knowledge is produced
+  by this artifact.
+guardrails:
+- offline/static NEP2 callgraph and function-feature scan only; no live instrumentation,
+  account data, or online protocol data is included
+- absolute local paths are not persisted; only file names, hashes, RVAs, counts, and
+  sanitized summaries are stored
+- vector/16-byte/helper features are route evidence only and require payload-buffer
+  provenance before decoder promotion
+- no decoded global-metadata, LuaScripts payload, or gameplay knowledge is promoted
+  from this artifact

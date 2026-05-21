@@ -1,0 +1,3728 @@
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-1000
+    domain: hero
+    entry_kind: hero_profile
+    topic: 曹操
+    aliases:
+    - caocao
+    - caocao_gch
+    - caocao_jianzhi
+    facts:
+    - 客户端离线解码样本中，heroID 1000 / codename caocao 映射到 KB 武将 曹操。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1000
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 乱世奸雄
+    - '20890'
+    priority: 60
+    structured_data:
+      name: 曹操
+      aliases:
+      - caocao
+      - caocao_gch
+      - caocao_jianzhi
+      faction: 魏
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 乱世奸雄
+      - '20890'
+      notes:
+      - client_hero_id=1000
+      - client_codename=caocao
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename caocao
+      - decoded_skill_slots=skillId=100001,name=乱世奸雄,position=1,orderLevel=4,level=10;
+        skillId=20890,orderLevel=5; skillId=100001,name=乱世奸雄,orderLevel=4
+      - decoded_attr_slots=slot2=100
+      - decoded_warbook_profile_id=208023
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-1002
+    domain: hero
+    entry_kind: hero_profile
+    topic: 典韦
+    aliases:
+    - dianwei_zhanji
+    facts:
+    - 客户端离线解码样本中，heroID 1002 / codename dianwei_zhanji 映射到 KB 武将 典韦。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1002
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 古之恶来
+    priority: 60
+    structured_data:
+      name: 典韦
+      aliases:
+      - dianwei_zhanji
+      faction: 魏
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 古之恶来
+      notes:
+      - client_hero_id=1002
+      - client_codename=dianwei_zhanji
+      - client_name_mapping_confidence=0.9
+      - client_name_mapping_note=codename dianwei_zhanji
+      - decoded_skill_slots=skillId=100201,name=古之恶来,position=1,orderLevel=4,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-1003
+    domain: hero
+    entry_kind: hero_profile
+    topic: 荀攸
+    aliases:
+    - xunyou
+    facts:
+    - 客户端离线解码样本中，heroID 1003 / codename xunyou 映射到 KB 武将 荀攸。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1003
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 十二奇策
+    priority: 60
+    structured_data:
+      name: 荀攸
+      aliases:
+      - xunyou
+      faction: 魏
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 十二奇策
+      notes:
+      - client_hero_id=1003
+      - client_codename=xunyou
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename xunyou
+      - decoded_skill_slots=skillId=100301,name=十二奇策,position=1,orderLevel=5,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-1004
+    domain: hero
+    entry_kind: hero_profile
+    topic: 贾诩
+    aliases:
+    - jiaxu
+    facts:
+    - 客户端离线解码样本中，heroID 1004 / codename jiaxu 映射到 KB 武将 贾诩。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1004
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 诡道玄机
+    priority: 60
+    structured_data:
+      name: 贾诩
+      aliases:
+      - jiaxu
+      faction: 魏
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 诡道玄机
+      notes:
+      - client_hero_id=1004
+      - client_codename=jiaxu
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename jiaxu
+      - decoded_skill_slots=skillId=100401,name=诡道玄机,position=1,orderLevel=5,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-1005
+    domain: hero
+    entry_kind: hero_profile
+    topic: 郭嘉
+    aliases:
+    - guojia
+    facts:
+    - 客户端离线解码样本中，heroID 1005 / codename guojia 映射到 KB 武将 郭嘉。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1005
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 算无遗策
+    priority: 60
+    structured_data:
+      name: 郭嘉
+      aliases:
+      - guojia
+      faction: 魏
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 算无遗策
+      notes:
+      - client_hero_id=1005
+      - client_codename=guojia
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename guojia
+      - decoded_skill_slots=skillId=100501,name=算无遗策,position=1,orderLevel=4,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-1008
+    domain: hero
+    entry_kind: hero_profile
+    topic: 荀彧
+    aliases:
+    - xunyu_xinxiang
+    facts:
+    - 客户端离线解码样本中，heroID 1008 / codename xunyu_xinxiang 映射到 KB 武将 荀彧。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1008
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 建计举人
+    priority: 60
+    structured_data:
+      name: 荀彧
+      aliases:
+      - xunyu_xinxiang
+      faction: 魏
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 建计举人
+      notes:
+      - client_hero_id=1008
+      - client_codename=xunyu_xinxiang
+      - client_name_mapping_confidence=0.9
+      - client_name_mapping_note=codename xunyu_xinxiang
+      - decoded_skill_slots=skillId=100801,name=建计举人,position=1,orderLevel=2,level=10;
+        skillId=100801,name=建计举人,orderLevel=4
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-1009
+    domain: hero
+    entry_kind: hero_profile
+    topic: 司马懿
+    aliases:
+    - simayi
+    - simayi_qingjin
+    facts:
+    - 客户端离线解码样本中，heroID 1009 / codename simayi 映射到 KB 武将 司马懿。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1009
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 鹰视狼顾
+    priority: 60
+    structured_data:
+      name: 司马懿
+      aliases:
+      - simayi
+      - simayi_qingjin
+      faction: 魏
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 鹰视狼顾
+      notes:
+      - client_hero_id=1009
+      - client_codename=simayi
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename simayi
+      - decoded_skill_slots=skillId=100901,name=鹰视狼顾,position=1,orderLevel=5,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-1011
+    domain: hero
+    entry_kind: hero_profile
+    topic: 曹丕
+    aliases:
+    - caopi_denglin
+    facts:
+    - 客户端离线解码样本中，heroID 1011 / codename caopi_denglin 映射到 KB 武将 曹丕。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1011
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics: []
+    priority: 60
+    structured_data:
+      name: 曹丕
+      aliases:
+      - caopi_denglin
+      faction: 魏
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes:
+      - client_hero_id=1011
+      - client_codename=caopi_denglin
+      - client_name_mapping_confidence=0.9
+      - client_name_mapping_note=codename caopi_denglin
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-1012
+    domain: hero
+    entry_kind: hero_profile
+    topic: 邓艾
+    aliases:
+    - dengai
+    - dengai_zhiqu
+    facts:
+    - 客户端离线解码样本中，heroID 1012 / codename dengai 映射到 KB 武将 邓艾。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1012
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 屯田令
+    priority: 60
+    structured_data:
+      name: 邓艾
+      aliases:
+      - dengai
+      - dengai_zhiqu
+      faction: 魏
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 屯田令
+      notes:
+      - client_hero_id=1012
+      - client_codename=dengai
+      - client_name_mapping_confidence=0.9
+      - client_name_mapping_note=codename dengai
+      - decoded_skill_slots=skillId=101201,name=屯田令,position=1,orderLevel=5,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-1014
+    domain: hero
+    entry_kind: hero_profile
+    topic: 乐进
+    aliases:
+    - yuejin_canglang
+    facts:
+    - 客户端离线解码样本中，heroID 1014 / codename yuejin_canglang 映射到 KB 武将 乐进。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1014
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 每战先登
+    priority: 60
+    structured_data:
+      name: 乐进
+      aliases:
+      - yuejin_canglang
+      faction: 魏
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 每战先登
+      notes:
+      - client_hero_id=1014
+      - client_codename=yuejin_canglang
+      - client_name_mapping_confidence=0.9
+      - client_name_mapping_note=codename yuejin_canglang
+      - decoded_skill_slots=skillId=101401,name=每战先登,position=1,orderLevel=3,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-1017
+    domain: hero
+    entry_kind: hero_profile
+    topic: 张春华
+    aliases:
+    - zhangchunhua
+    - zhangchunhua_yuying
+    facts:
+    - 客户端离线解码样本中，heroID 1017 / codename zhangchunhua 映射到 KB 武将 张春华。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1017
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 荼蘼心计
+    - '20930'
+    priority: 60
+    structured_data:
+      name: 张春华
+      aliases:
+      - zhangchunhua
+      - zhangchunhua_yuying
+      faction: 魏
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 荼蘼心计
+      - '20930'
+      notes:
+      - client_hero_id=1017
+      - client_codename=zhangchunhua
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename zhangchunhua
+      - decoded_skill_slots=skillId=101701,name=荼蘼心计,position=1,orderLevel=3,level=10;
+        skillId=20930,orderLevel=5; skillId=101701,name=荼蘼心计,orderLevel=4
+      - decoded_warbook_profile_id=10171
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-1020
+    domain: hero
+    entry_kind: hero_profile
+    topic: 王异
+    aliases:
+    - wangyi
+    - wangyi_gucheng
+    facts:
+    - 客户端离线解码样本中，heroID 1020 / codename wangyi 映射到 KB 武将 王异。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1020
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 巧策引锋
+    - '20730'
+    priority: 60
+    structured_data:
+      name: 王异
+      aliases:
+      - wangyi
+      - wangyi_gucheng
+      faction: 魏
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 巧策引锋
+      - '20730'
+      notes:
+      - client_hero_id=1020
+      - client_codename=wangyi
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename wangyi
+      - decoded_skill_slots=skillId=102001,name=巧策引锋,position=1,orderLevel=5,level=10;
+        skillId=20730,orderLevel=5; skillId=102001,name=巧策引锋,orderLevel=5
+      - decoded_warbook_profile_id=10201
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-1022
+    domain: hero
+    entry_kind: hero_profile
+    topic: 郝昭
+    aliases:
+    - haozhao_xiongguan
+    facts:
+    - 客户端离线解码样本中，heroID 1022 / codename haozhao_xiongguan 映射到 KB 武将 郝昭。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1022
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics: []
+    priority: 60
+    structured_data:
+      name: 郝昭
+      aliases:
+      - haozhao_xiongguan
+      faction: 魏
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes:
+      - client_hero_id=1022
+      - client_codename=haozhao_xiongguan
+      - client_name_mapping_confidence=0.9
+      - client_name_mapping_note=codename haozhao_xiongguan
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-1023
+    domain: hero
+    entry_kind: hero_profile
+    topic: 夏侯惇
+    aliases:
+    - xiahoudun_yuxue
+    facts:
+    - 客户端离线解码样本中，heroID 1023 / codename xiahoudun_yuxue 映射到 KB 武将 夏侯惇。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1023
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 刚烈
+    priority: 60
+    structured_data:
+      name: 夏侯惇
+      aliases:
+      - xiahoudun_yuxue
+      faction: 魏
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 刚烈
+      notes:
+      - client_hero_id=1023
+      - client_codename=xiahoudun_yuxue
+      - client_name_mapping_confidence=0.9
+      - client_name_mapping_note=codename xiahoudun_yuxue
+      - decoded_skill_slots=skillId=102301,name=刚烈,position=1,orderLevel=3,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-1026
+    domain: hero
+    entry_kind: hero_profile
+    topic: 甄洛
+    aliases:
+    - zhenji
+    - zhenluo_yuehua
+    facts:
+    - 客户端离线解码样本中，heroID 1026 / codename zhenji 映射到 KB 武将 甄洛。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1026
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 流风回雪
+    priority: 60
+    structured_data:
+      name: 甄洛
+      aliases:
+      - zhenji
+      - zhenluo_yuehua
+      faction: 魏
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 流风回雪
+      notes:
+      - client_hero_id=1026
+      - client_codename=zhenji
+      - client_name_mapping_confidence=0.9
+      - client_name_mapping_note=codename zhenji
+      - client_name_mapping_note=qa-agent uses canonical 甄洛
+      - decoded_skill_slots=skillId=102601,name=流风回雪,position=1,orderLevel=5,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-1027
+    domain: hero
+    entry_kind: hero_profile
+    topic: 卞夫人
+    aliases:
+    - bianfuren
+    facts:
+    - 客户端离线解码样本中，heroID 1027 / codename bianfuren 映射到 KB 武将 卞夫人。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=1027
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics: []
+    priority: 60
+    structured_data:
+      name: 卞夫人
+      aliases:
+      - bianfuren
+      faction: 魏
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes:
+      - client_hero_id=1027
+      - client_codename=bianfuren
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename bianfuren
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-2000
+    domain: hero
+    entry_kind: hero_profile
+    topic: 刘备
+    aliases:
+    - liubei
+    - liubei_chunxi
+    facts:
+    - 客户端离线解码样本中，heroID 2000 / codename liubei 映射到 KB 武将 刘备。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2000
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 携民渡江
+    - '20630'
+    - '20760'
+    priority: 60
+    structured_data:
+      name: 刘备
+      aliases:
+      - liubei
+      - liubei_chunxi
+      faction: 蜀
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 携民渡江
+      - '20630'
+      - '20760'
+      notes:
+      - client_hero_id=2000
+      - client_codename=liubei
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename liubei
+      - decoded_skill_slots=skillId=200001,name=携民渡江,position=1,orderLevel=3,level=10;
+        skillId=20630,position=2,orderLevel=5,level=10; skillId=20760,position=3,orderLevel=5,level=10
+      - decoded_attr_slots=slot2=100
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-2001
+    domain: hero
+    entry_kind: hero_profile
+    topic: 关羽
+    aliases:
+    - guanyu
+    - guanyu_jinhui
+    facts:
+    - 客户端离线解码样本中，heroID 2001 / codename guanyu 映射到 KB 武将 关羽。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2001
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 威震华夏
+    priority: 60
+    structured_data:
+      name: 关羽
+      aliases:
+      - guanyu
+      - guanyu_jinhui
+      faction: 蜀
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 威震华夏
+      notes:
+      - client_hero_id=2001
+      - client_codename=guanyu
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename guanyu
+      - decoded_skill_slots=skillId=200101,name=威震华夏,position=1,orderLevel=3,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-2002
+    domain: hero
+    entry_kind: hero_profile
+    topic: 张飞
+    aliases:
+    - zhangfei
+    - zhangfei_yinshe
+    facts:
+    - 客户端离线解码样本中，heroID 2002 / codename zhangfei 映射到 KB 武将 张飞。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2002
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 万人之敌
+    priority: 60
+    structured_data:
+      name: 张飞
+      aliases:
+      - zhangfei
+      - zhangfei_yinshe
+      faction: 蜀
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 万人之敌
+      notes:
+      - client_hero_id=2002
+      - client_codename=zhangfei
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename zhangfei
+      - decoded_skill_slots=skillId=200201,name=万人之敌,position=1,orderLevel=4,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-2003
+    domain: hero
+    entry_kind: hero_profile
+    topic: 诸葛亮
+    aliases:
+    - zhugeliang
+    - zhugeliang_qixing
+    facts:
+    - 客户端离线解码样本中，heroID 2003 / codename zhugeliang 映射到 KB 武将 诸葛亮。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2003
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 草船借箭
+    priority: 60
+    structured_data:
+      name: 诸葛亮
+      aliases:
+      - zhugeliang
+      - zhugeliang_qixing
+      faction: 蜀
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 草船借箭
+      notes:
+      - client_hero_id=2003
+      - client_codename=zhugeliang
+      - client_name_mapping_confidence=0.9
+      - client_name_mapping_note=codename zhugeliang
+      - decoded_skill_slots=skillId=200301,name=草船借箭,position=1,orderLevel=4,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-2005
+    domain: hero
+    entry_kind: hero_profile
+    topic: 徐庶
+    aliases:
+    - xushu
+    - xushu_jianxiao
+    facts:
+    - 客户端离线解码样本中，heroID 2005 / codename xushu 映射到 KB 武将 徐庶。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2005
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 折节学问
+    priority: 60
+    structured_data:
+      name: 徐庶
+      aliases:
+      - xushu
+      - xushu_jianxiao
+      faction: 蜀
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 折节学问
+      notes:
+      - client_hero_id=2005
+      - client_codename=xushu
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename xushu
+      - decoded_skill_slots=skillId=200501,name=折节学问,position=1,orderLevel=4,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-2009
+    domain: hero
+    entry_kind: hero_profile
+    topic: 黄月英
+    aliases:
+    - huangyueying
+    - huangyueying_jiqiao
+    facts:
+    - 客户端离线解码样本中，heroID 2009 / codename huangyueying 映射到 KB 武将 黄月英。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2009
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 木牛流马
+    priority: 60
+    structured_data:
+      name: 黄月英
+      aliases:
+      - huangyueying
+      - huangyueying_jiqiao
+      faction: 蜀
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 木牛流马
+      notes:
+      - client_hero_id=2009
+      - client_codename=huangyueying
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename huangyueying
+      - decoded_skill_slots=skillId=200901,name=木牛流马,position=1,orderLevel=5,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-2011
+    domain: hero
+    entry_kind: hero_profile
+    topic: 关银屏
+    aliases:
+    - guanyinping
+    - guanyinping_bailu
+    facts:
+    - 客户端离线解码样本中，heroID 2011 / codename guanyinping 映射到 KB 武将 关银屏。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2011
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 虎啸生威
+    priority: 60
+    structured_data:
+      name: 关银屏
+      aliases:
+      - guanyinping
+      - guanyinping_bailu
+      faction: 蜀
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 虎啸生威
+      notes:
+      - client_hero_id=2011
+      - client_codename=guanyinping
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename guanyinping
+      - decoded_skill_slots=skillId=201101,name=虎啸生威,position=1,orderLevel=5,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-2012
+    domain: hero
+    entry_kind: hero_profile
+    topic: 赵云
+    aliases:
+    - zhaoyun
+    - zhaoyun_jinmie
+    facts:
+    - 客户端离线解码样本中，heroID 2012 / codename zhaoyun 映射到 KB 武将 赵云。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2012
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 七进七出
+    priority: 60
+    structured_data:
+      name: 赵云
+      aliases:
+      - zhaoyun
+      - zhaoyun_jinmie
+      faction: 蜀
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 七进七出
+      notes:
+      - client_hero_id=2012
+      - client_codename=zhaoyun
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename zhaoyun
+      - decoded_skill_slots=skillId=201201,name=七进七出,position=1,orderLevel=2,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-2013
+    domain: hero
+    entry_kind: hero_profile
+    topic: 马云禄
+    aliases:
+    - mayunlu
+    - mayunlu_yucong
+    facts:
+    - 客户端离线解码样本中，heroID 2013 / codename mayunlu 映射到 KB 武将 马云禄。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2013
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 红妆缭乱
+    priority: 60
+    structured_data:
+      name: 马云禄
+      aliases:
+      - mayunlu
+      - mayunlu_yucong
+      faction: 蜀
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 红妆缭乱
+      notes:
+      - client_hero_id=2013
+      - client_codename=mayunlu
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename mayunlu
+      - decoded_skill_slots=skillId=201301,name=红妆缭乱,position=1,orderLevel=4,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-2015
+    domain: hero
+    entry_kind: hero_profile
+    topic: 马超
+    aliases:
+    - machao
+    - machao_duanyi
+    facts:
+    - 客户端离线解码样本中，heroID 2015 / codename machao 映射到 KB 武将 马超。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2015
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 纵马横枪
+    priority: 60
+    structured_data:
+      name: 马超
+      aliases:
+      - machao
+      - machao_duanyi
+      faction: 蜀
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 纵马横枪
+      notes:
+      - client_hero_id=2015
+      - client_codename=machao
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename machao
+      - decoded_skill_slots=skillId=201501,name=纵马横枪,position=1,orderLevel=4,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-2017
+    domain: hero
+    entry_kind: hero_profile
+    topic: 魏延
+    aliases:
+    - weiyan_nigu
+    facts:
+    - 客户端离线解码样本中，heroID 2017 / codename weiyan_nigu 映射到 KB 武将 魏延。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2017
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics: []
+    priority: 60
+    structured_data:
+      name: 魏延
+      aliases:
+      - weiyan_nigu
+      faction: 蜀
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes:
+      - client_hero_id=2017
+      - client_codename=weiyan_nigu
+      - client_name_mapping_confidence=0.9
+      - client_name_mapping_note=codename weiyan_nigu
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-2019
+    domain: hero
+    entry_kind: hero_profile
+    topic: 甘夫人
+    aliases:
+    - ganfuren
+    - ganfuren_qingbo
+    facts:
+    - 客户端离线解码样本中，heroID 2019 / codename ganfuren 映射到 KB 武将 甘夫人。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2019
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 皇思淑仁
+    priority: 60
+    structured_data:
+      name: 甘夫人
+      aliases:
+      - ganfuren
+      - ganfuren_qingbo
+      faction: 蜀
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 皇思淑仁
+      notes:
+      - client_hero_id=2019
+      - client_codename=ganfuren
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename ganfuren
+      - decoded_skill_slots=skillId=201901,name=皇思淑仁,position=1,orderLevel=3,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-2021
+    domain: hero
+    entry_kind: hero_profile
+    topic: 姜维
+    aliases:
+    - jiangwei
+    - jiangwei_lingyun
+    - jiangwei_xiguang
+    facts:
+    - 客户端离线解码样本中，heroID 2021 / codename jiangwei 映射到 KB 武将 姜维。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2021
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 九伐中原
+    - '800006'
+    - '20810'
+    - '20600'
+    priority: 60
+    structured_data:
+      name: 姜维
+      aliases:
+      - jiangwei
+      - jiangwei_lingyun
+      - jiangwei_xiguang
+      faction: 蜀
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 九伐中原
+      - '800006'
+      - '20810'
+      notes:
+      - client_hero_id=2021
+      - client_codename=jiangwei
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename jiangwei
+      - decoded_skill_slots=skillId=202101,name=九伐中原,position=1,orderLevel=3,level=10;
+        skillId=800006,position=2,orderLevel=5,level=10; skillId=20810,position=3,orderLevel=3,level=10;
+        skillId=20600,orderLevel=5; skillId=202101,name=九伐中原,orderLevel=3
+      - decoded_attr_slots=slot2=100
+      - decoded_warbook_profile_id=403013
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-2022
+    domain: hero
+    entry_kind: hero_profile
+    topic: 诸葛亮2
+    aliases:
+    - zhugeliang
+    - zhugeliang_moyi
+    facts:
+    - 客户端离线解码样本中，heroID 2022 / codename zhugeliang 映射到 KB 武将 诸葛亮2。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=2022
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 星罗棋布
+    - '20450'
+    - '70060'
+    - '800040'
+    priority: 60
+    structured_data:
+      name: 诸葛亮2
+      aliases:
+      - zhugeliang
+      - zhugeliang_moyi
+      faction: 蜀
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 星罗棋布
+      - '20450'
+      - '70060'
+      notes:
+      - client_hero_id=2022
+      - client_codename=zhugeliang
+      - client_name_mapping_confidence=0.82
+      - client_name_mapping_note=codename zhugeliang_moyi
+      - client_name_mapping_note=disambiguated to qa-agent SP/second Zhuge profile
+      - decoded_skill_slots=skillId=202201,name=星罗棋布,position=1,orderLevel=2,level=10;
+        skillId=20450,position=2,orderLevel=5,level=10; skillId=70060,position=3,orderLevel=5,level=10;
+        skillId=202201,name=星罗棋布,orderLevel=3; skillId=800040,orderLevel=5
+      - decoded_attr_slots=slot2=100
+      - decoded_warbook_profile_id=20221
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-3000
+    domain: hero
+    entry_kind: hero_profile
+    topic: 孙权
+    aliases:
+    - sunquan
+    - sunquan_chengtian
+    facts:
+    - 客户端离线解码样本中，heroID 3000 / codename sunquan 映射到 KB 武将 孙权。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3000
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 虎踞江东
+    priority: 60
+    structured_data:
+      name: 孙权
+      aliases:
+      - sunquan
+      - sunquan_chengtian
+      faction: 吴
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 虎踞江东
+      notes:
+      - client_hero_id=3000
+      - client_codename=sunquan
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename sunquan
+      - decoded_skill_slots=skillId=300001,name=虎踞江东,position=1,orderLevel=3,level=10;
+        skillId=300001,name=虎踞江东,orderLevel=3
+      - decoded_attr_slots=slot4=100
+      - decoded_warbook_profile_id=30001
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-3001
+    domain: hero
+    entry_kind: hero_profile
+    topic: 孙策
+    aliases:
+    - sunce
+    facts:
+    - 客户端离线解码样本中，heroID 3001 / codename sunce 映射到 KB 武将 孙策。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3001
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 制霸江东
+    priority: 60
+    structured_data:
+      name: 孙策
+      aliases:
+      - sunce
+      faction: 吴
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 制霸江东
+      notes:
+      - client_hero_id=3001
+      - client_codename=sunce
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename sunce
+      - decoded_skill_slots=skillId=300101,name=制霸江东,position=1,orderLevel=5,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-3002
+    domain: hero
+    entry_kind: hero_profile
+    topic: 孙尚香
+    aliases:
+    - sunshangxiang
+    - sunshangxiang_luohua
+    facts:
+    - 客户端离线解码样本中，heroID 3002 / codename sunshangxiang 映射到 KB 武将 孙尚香。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3002
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 弓腰姬
+    priority: 60
+    structured_data:
+      name: 孙尚香
+      aliases:
+      - sunshangxiang
+      - sunshangxiang_luohua
+      faction: 吴
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 弓腰姬
+      notes:
+      - client_hero_id=3002
+      - client_codename=sunshangxiang
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename sunshangxiang
+      - decoded_skill_slots=skillId=300201,name=弓腰姬,position=1,orderLevel=5,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-3003
+    domain: hero
+    entry_kind: hero_profile
+    topic: 小乔
+    aliases:
+    - xiaoqiao
+    - xiaoqiao_yuxiao
+    - xiaoqiao_zhongqiu
+    facts:
+    - 客户端离线解码样本中，heroID 3003 / codename xiaoqiao 映射到 KB 武将 小乔。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3003
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 天香
+    priority: 60
+    structured_data:
+      name: 小乔
+      aliases:
+      - xiaoqiao
+      - xiaoqiao_yuxiao
+      - xiaoqiao_zhongqiu
+      faction: 吴
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 天香
+      notes:
+      - client_hero_id=3003
+      - client_codename=xiaoqiao
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename xiaoqiao
+      - decoded_skill_slots=skillId=300301,name=天香,position=1,orderLevel=5,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-3004
+    domain: hero
+    entry_kind: hero_profile
+    topic: 大乔
+    aliases:
+    - daqiao
+    - daqiao_shanhe
+    - daqiao_zhongqiu
+    facts:
+    - 客户端离线解码样本中，heroID 3004 / codename daqiao 映射到 KB 武将 大乔。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3004
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 国色
+    priority: 60
+    structured_data:
+      name: 大乔
+      aliases:
+      - daqiao
+      - daqiao_shanhe
+      - daqiao_zhongqiu
+      faction: 吴
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 国色
+      notes:
+      - client_hero_id=3004
+      - client_codename=daqiao
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename daqiao
+      - decoded_skill_slots=skillId=300401,name=国色,position=1,orderLevel=5,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-3005
+    domain: hero
+    entry_kind: hero_profile
+    topic: 鲁肃
+    aliases:
+    - lusu
+    facts:
+    - 客户端离线解码样本中，heroID 3005 / codename lusu 映射到 KB 武将 鲁肃。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3005
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 划湘分荆
+    priority: 60
+    structured_data:
+      name: 鲁肃
+      aliases:
+      - lusu
+      faction: 吴
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 划湘分荆
+      notes:
+      - client_hero_id=3005
+      - client_codename=lusu
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename lusu
+      - decoded_skill_slots=skillId=300501,name=划湘分荆,position=1,orderLevel=5,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-3006
+    domain: hero
+    entry_kind: hero_profile
+    topic: 甘宁
+    aliases:
+    - ganning
+    facts:
+    - 客户端离线解码样本中，heroID 3006 / codename ganning 映射到 KB 武将 甘宁。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3006
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 锦帆渠魁
+    priority: 60
+    structured_data:
+      name: 甘宁
+      aliases:
+      - ganning
+      faction: 吴
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 锦帆渠魁
+      notes:
+      - client_hero_id=3006
+      - client_codename=ganning
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename ganning
+      - decoded_skill_slots=skillId=300601,name=锦帆渠魁,position=1,orderLevel=2,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-3007
+    domain: hero
+    entry_kind: hero_profile
+    topic: 周瑜
+    aliases:
+    - zhouyu
+    - zhouyu_mingxian
+    facts:
+    - 客户端离线解码样本中，heroID 3007 / codename zhouyu 映射到 KB 武将 周瑜。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3007
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 临机制胜
+    priority: 60
+    structured_data:
+      name: 周瑜
+      aliases:
+      - zhouyu
+      - zhouyu_mingxian
+      faction: 吴
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 临机制胜
+      notes:
+      - client_hero_id=3007
+      - client_codename=zhouyu
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename zhouyu
+      - decoded_skill_slots=skillId=300701,name=临机制胜,position=1,orderLevel=4,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-3008
+    domain: hero
+    entry_kind: hero_profile
+    topic: 陆逊
+    aliases:
+    - luxun
+    - luxun_yinma
+    facts:
+    - 客户端离线解码样本中，heroID 3008 / codename luxun 映射到 KB 武将 陆逊。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3008
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 火烧连营
+    priority: 60
+    structured_data:
+      name: 陆逊
+      aliases:
+      - luxun
+      - luxun_yinma
+      faction: 吴
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 火烧连营
+      notes:
+      - client_hero_id=3008
+      - client_codename=luxun
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename luxun
+      - decoded_skill_slots=skillId=300801,name=火烧连营,position=1,orderLevel=2,level=10;
+        skillId=300801,name=火烧连营,orderLevel=2
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-3010
+    domain: hero
+    entry_kind: hero_profile
+    topic: 吕蒙
+    aliases:
+    - lvmeng
+    facts:
+    - 客户端离线解码样本中，heroID 3010 / codename lvmeng 映射到 KB 武将 吕蒙。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3010
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 白衣渡江
+    priority: 60
+    structured_data:
+      name: 吕蒙
+      aliases:
+      - lvmeng
+      faction: 吴
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 白衣渡江
+      notes:
+      - client_hero_id=3010
+      - client_codename=lvmeng
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename lvmeng
+      - decoded_skill_slots=skillId=301001,name=白衣渡江,position=1,orderLevel=5,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-3016
+    domain: hero
+    entry_kind: hero_profile
+    topic: 陆抗
+    aliases:
+    - lukang_jueyan
+    facts:
+    - 客户端离线解码样本中，heroID 3016 / codename lukang_jueyan 映射到 KB 武将 陆抗。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=3016
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 决堰倾涛
+    priority: 60
+    structured_data:
+      name: 陆抗
+      aliases:
+      - lukang_jueyan
+      faction: 吴
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 决堰倾涛
+      notes:
+      - client_hero_id=3016
+      - client_codename=lukang_jueyan
+      - client_name_mapping_confidence=0.9
+      - client_name_mapping_note=codename lukang_jueyan
+      - decoded_skill_slots=skillId=301601,name=决堰倾涛,orderLevel=2
+      - decoded_attr_slots=slot2=90
+      - decoded_warbook_profile_id=30161
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-4000
+    domain: hero
+    entry_kind: hero_profile
+    topic: 吕布
+    aliases:
+    - lvbu
+    - lvbu_longji
+    facts:
+    - 客户端离线解码样本中，heroID 4000 / codename lvbu 映射到 KB 武将 吕布。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4000
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 骁勇无前
+    priority: 60
+    structured_data:
+      name: 吕布
+      aliases:
+      - lvbu
+      - lvbu_longji
+      faction: 群
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 骁勇无前
+      notes:
+      - client_hero_id=4000
+      - client_codename=lvbu
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename lvbu
+      - decoded_skill_slots=skillId=400001,name=骁勇无前,position=1,orderLevel=4,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-4001
+    domain: hero
+    entry_kind: hero_profile
+    topic: 张辽
+    aliases:
+    - zhangliao_shuangfeng
+    facts:
+    - 客户端离线解码样本中，heroID 4001 / codename zhangliao_shuangfeng 映射到 KB 武将 张辽。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4001
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 风袭逍遥
+    priority: 60
+    structured_data:
+      name: 张辽
+      aliases:
+      - zhangliao_shuangfeng
+      faction: 群
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 风袭逍遥
+      notes:
+      - client_hero_id=4001
+      - client_codename=zhangliao_shuangfeng
+      - client_name_mapping_confidence=0.72
+      - client_name_mapping_note=codename zhangliao_shuangfeng
+      - client_name_mapping_note=faction differs from current KB bucket and requires
+        review
+      - decoded_skill_slots=skillId=400101,name=风袭逍遥,position=1,orderLevel=2,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-4002
+    domain: hero
+    entry_kind: hero_profile
+    topic: 蔡文姬
+    aliases:
+    - caiwenji
+    - caiwenji_qingjian
+    facts:
+    - 客户端离线解码样本中，heroID 4002 / codename caiwenji 映射到 KB 武将 蔡文姬。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4002
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 悲愤诗
+    - '20670'
+    priority: 60
+    structured_data:
+      name: 蔡文姬
+      aliases:
+      - caiwenji
+      - caiwenji_qingjian
+      faction: 群
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 悲愤诗
+      - '20670'
+      notes:
+      - client_hero_id=4002
+      - client_codename=caiwenji
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename caiwenji
+      - decoded_skill_slots=skillId=400201,name=悲愤诗,position=1,orderLevel=5,level=10;
+        skillId=20670,position=2,orderLevel=5,level=10
+      - decoded_attr_slots=slot2=100
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-4004
+    domain: hero
+    entry_kind: hero_profile
+    topic: 袁绍
+    aliases:
+    - yuanshao_liangjian
+    facts:
+    - 客户端离线解码样本中，heroID 4004 / codename yuanshao_liangjian 映射到 KB 武将 袁绍。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4004
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 合聚群雄
+    - '20130'
+    priority: 60
+    structured_data:
+      name: 袁绍
+      aliases:
+      - yuanshao_liangjian
+      faction: 群
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 合聚群雄
+      - '20130'
+      notes:
+      - client_hero_id=4004
+      - client_codename=yuanshao_liangjian
+      - client_name_mapping_confidence=0.85
+      - client_name_mapping_note=codename yuanshao_liangjian
+      - decoded_skill_slots=skillId=400401,name=合聚群雄,position=1,orderLevel=5,level=10;
+        skillId=20130,position=2,orderLevel=5,level=10
+      - decoded_attr_slots=slot3=50; slot4=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-4005
+    domain: hero
+    entry_kind: hero_profile
+    topic: 孟获
+    aliases:
+    - menghuo_xunshou
+    facts:
+    - 客户端离线解码样本中，heroID 4005 / codename menghuo_xunshou 映射到 KB 武将 孟获。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4005
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - '20760'
+    - 雄护南疆
+    priority: 60
+    structured_data:
+      name: 孟获
+      aliases:
+      - menghuo_xunshou
+      faction: 群
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - '20760'
+      - 雄护南疆
+      notes:
+      - client_hero_id=4005
+      - client_codename=menghuo_xunshou
+      - client_name_mapping_confidence=0.9
+      - client_name_mapping_note=codename menghuo_xunshou
+      - decoded_skill_slots=skillId=20760,orderLevel=5; skillId=400501,name=雄护南疆,orderLevel=2
+      - decoded_warbook_profile_id=40051
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-4006
+    domain: hero
+    entry_kind: hero_profile
+    topic: 祝融夫人
+    aliases:
+    - zhurongfuren
+    - zhurongfuren_lieyan
+    facts:
+    - 客户端离线解码样本中，heroID 4006 / codename zhurongfuren 映射到 KB 武将 祝融夫人。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4006
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - '20220'
+    - 南疆烈刃
+    priority: 60
+    structured_data:
+      name: 祝融夫人
+      aliases:
+      - zhurongfuren
+      - zhurongfuren_lieyan
+      faction: 群
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - '20220'
+      - 南疆烈刃
+      notes:
+      - client_hero_id=4006
+      - client_codename=zhurongfuren
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename zhurongfuren
+      - decoded_skill_slots=skillId=20220,orderLevel=5; skillId=400601,name=南疆烈刃,orderLevel=3
+      - decoded_warbook_profile_id=40061
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-4010
+    domain: hero
+    entry_kind: hero_profile
+    topic: 李儒
+    aliases:
+    - liru
+    facts:
+    - 客户端离线解码样本中，heroID 4010 / codename liru 映射到 KB 武将 李儒。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4010
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 鸩饮毒弑
+    priority: 60
+    structured_data:
+      name: 李儒
+      aliases:
+      - liru
+      faction: 群
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 鸩饮毒弑
+      notes:
+      - client_hero_id=4010
+      - client_codename=liru
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename liru
+      - decoded_skill_slots=skillId=401001,name=鸩饮毒弑,position=1,orderLevel=5,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-4011
+    domain: hero
+    entry_kind: hero_profile
+    topic: 张角
+    aliases:
+    - zhangjiao
+    - zhangjiao_tianshi
+    facts:
+    - 客户端离线解码样本中，heroID 4011 / codename zhangjiao 映射到 KB 武将 张角。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4011
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 黄天当立
+    priority: 60
+    structured_data:
+      name: 张角
+      aliases:
+      - zhangjiao
+      - zhangjiao_tianshi
+      faction: 群
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 黄天当立
+      notes:
+      - client_hero_id=4011
+      - client_codename=zhangjiao
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename zhangjiao
+      - decoded_skill_slots=skillId=401101,name=黄天当立,position=1,orderLevel=5,level=10;
+        skillId=401101,name=黄天当立,orderLevel=5
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-4012
+    domain: hero
+    entry_kind: hero_profile
+    topic: 左慈
+    aliases:
+    - zuoci
+    facts:
+    - 客户端离线解码样本中，heroID 4012 / codename zuoci 映射到 KB 武将 左慈。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4012
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 云行雨施
+    priority: 60
+    structured_data:
+      name: 左慈
+      aliases:
+      - zuoci
+      faction: 群
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 云行雨施
+      notes:
+      - client_hero_id=4012
+      - client_codename=zuoci
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename zuoci
+      - decoded_skill_slots=skillId=401201,name=云行雨施,position=1,orderLevel=3,level=10;
+        skillId=401201,name=云行雨施,orderLevel=3
+      - decoded_attr_slots=slot2=100
+      - decoded_warbook_profile_id=40122
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-4013
+    domain: hero
+    entry_kind: hero_profile
+    topic: 陈宫
+    aliases:
+    - chengong
+    facts:
+    - 客户端离线解码样本中，heroID 4013 / codename chengong 映射到 KB 武将 陈宫。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4013
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 智令从计
+    priority: 60
+    structured_data:
+      name: 陈宫
+      aliases:
+      - chengong
+      faction: 群
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 智令从计
+      notes:
+      - client_hero_id=4013
+      - client_codename=chengong
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename chengong
+      - decoded_skill_slots=skillId=401301,name=智令从计,position=1,orderLevel=5,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-4019
+    domain: hero
+    entry_kind: hero_profile
+    topic: 华佗
+    aliases:
+    - huatuo
+    facts:
+    - 客户端离线解码样本中，heroID 4019 / codename huatuo 映射到 KB 武将 华佗。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4019
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 麻沸散
+    - '70060'
+    priority: 60
+    structured_data:
+      name: 华佗
+      aliases:
+      - huatuo
+      faction: 群
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 麻沸散
+      - '70060'
+      notes:
+      - client_hero_id=4019
+      - client_codename=huatuo
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename huatuo
+      - decoded_skill_slots=skillId=401901,name=麻沸散,position=1,orderLevel=2,level=10;
+        skillId=70060,orderLevel=5; skillId=401901,name=麻沸散,orderLevel=3
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-4023
+    domain: hero
+    entry_kind: hero_profile
+    topic: 貂蝉
+    aliases:
+    - diaochan
+    - diaochan_yiwu
+    facts:
+    - 客户端离线解码样本中，heroID 4023 / codename diaochan 映射到 KB 武将 貂蝉。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4023
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 闭月
+    priority: 60
+    structured_data:
+      name: 貂蝉
+      aliases:
+      - diaochan
+      - diaochan_yiwu
+      faction: 群
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 闭月
+      notes:
+      - client_hero_id=4023
+      - client_codename=diaochan
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename diaochan
+      - decoded_skill_slots=skillId=402301,name=闭月,position=1,orderLevel=4,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-4024
+    domain: hero
+    entry_kind: hero_profile
+    topic: 张宁
+    aliases:
+    - zhangning
+    - zhangning_lingquan
+    facts:
+    - 客户端离线解码样本中，heroID 4024 / codename zhangning 映射到 KB 武将 张宁。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4024
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 太平余响
+    - '20640'
+    - '20790'
+    priority: 60
+    structured_data:
+      name: 张宁
+      aliases:
+      - zhangning
+      - zhangning_lingquan
+      faction: 群
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 太平余响
+      - '20640'
+      - '20790'
+      notes:
+      - client_hero_id=4024
+      - client_codename=zhangning
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename zhangning
+      - decoded_skill_slots=skillId=402401,name=太平余响,position=1,orderLevel=2,level=10;
+        skillId=20640,position=2,orderLevel=5,level=10; skillId=20790,position=3,orderLevel=5,level=10
+      - decoded_attr_slots=slot2=100
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-4026
+    domain: hero
+    entry_kind: hero_profile
+    topic: 马腾
+    aliases:
+    - mateng
+    facts:
+    - 客户端离线解码样本中，heroID 4026 / codename mateng 映射到 KB 武将 马腾。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4026
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 雄踞西凉
+    priority: 60
+    structured_data:
+      name: 马腾
+      aliases:
+      - mateng
+      faction: 群
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 雄踞西凉
+      notes:
+      - client_hero_id=4026
+      - client_codename=mateng
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename mateng
+      - decoded_skill_slots=skillId=402601,name=雄踞西凉,position=1,orderLevel=5,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-4028
+    domain: hero
+    entry_kind: hero_profile
+    topic: 董卓
+    aliases:
+    - dongzhuo
+    - dongzhuo_lijian
+    facts:
+    - 客户端离线解码样本中，heroID 4028 / codename dongzhuo 映射到 KB 武将 董卓。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4028
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 权倾朝野
+    - '20600'
+    priority: 60
+    structured_data:
+      name: 董卓
+      aliases:
+      - dongzhuo
+      - dongzhuo_lijian
+      faction: 群
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 权倾朝野
+      - '20600'
+      notes:
+      - client_hero_id=4028
+      - client_codename=dongzhuo
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename dongzhuo
+      - decoded_skill_slots=skillId=402801,name=权倾朝野,position=1,orderLevel=4,level=10;
+        skillId=20600,position=2,orderLevel=5,level=10
+      - decoded_attr_slots=slot2=89; slot4=11
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-4029
+    domain: hero
+    entry_kind: hero_profile
+    topic: 邹氏
+    aliases:
+    - zoushi
+    facts:
+    - 客户端离线解码样本中，heroID 4029 / codename zoushi 映射到 KB 武将 邹氏。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4029
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 顾盼生姿
+    priority: 60
+    structured_data:
+      name: 邹氏
+      aliases:
+      - zoushi
+      faction: 群
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 顾盼生姿
+      notes:
+      - client_hero_id=4029
+      - client_codename=zoushi
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename zoushi
+      - decoded_skill_slots=skillId=402901,name=顾盼生姿,position=1,orderLevel=5,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-4032
+    domain: hero
+    entry_kind: hero_profile
+    topic: 孙坚2
+    aliases:
+    - sunjian_huxiao
+    facts:
+    - 客户端离线解码样本中，heroID 4032 / codename sunjian_huxiao 映射到 KB 武将 孙坚2。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=4032
+    updated_at: '2026-05-16'
+    confidence: 0.7
+    related_topics: []
+    priority: 60
+    structured_data:
+      name: 孙坚2
+      aliases:
+      - sunjian_huxiao
+      faction: 群
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills: []
+      notes:
+      - client_hero_id=4032
+      - client_codename=sunjian_huxiao
+      - client_name_mapping_confidence=0.7
+      - client_name_mapping_note=codename sunjian_huxiao
+      - client_name_mapping_note=mapped to qa-agent second Sun Jian profile and requires
+        review
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-5005
+    domain: hero
+    entry_kind: hero_profile
+    topic: zhongyao
+    aliases: []
+    facts:
+    - 客户端离线解码样本中，heroID 5005 对应 codename zhongyao。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5005
+    updated_at: '2026-05-16'
+    confidence: 0.62
+    related_topics:
+    - '500501'
+    priority: 60
+    structured_data:
+      name: zhongyao
+      aliases: []
+      faction: 其他
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - '500501'
+      notes:
+      - client_hero_id=5005
+      - client_codename=zhongyao
+      - decoded_skill_slots=skillId=500501,position=1,orderLevel=0,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-5026
+    domain: hero
+    entry_kind: hero_profile
+    topic: 步练师
+    aliases:
+    - bulianshi
+    facts:
+    - 客户端离线解码样本中，heroID 5026 / codename bulianshi 映射到 KB 武将 步练师。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5026
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 淑懿之德
+    priority: 60
+    structured_data:
+      name: 步练师
+      aliases:
+      - bulianshi
+      faction: 其他
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 淑懿之德
+      notes:
+      - client_hero_id=5026
+      - client_codename=bulianshi
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename bulianshi
+      - decoded_skill_slots=skillId=502601,name=淑懿之德,position=1,orderLevel=5,level=10;
+        skillId=502601,name=淑懿之德,orderLevel=5
+      - decoded_attr_slots=slot2=100
+      - decoded_warbook_profile_id=50261
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-5034
+    domain: hero
+    entry_kind: hero_profile
+    topic: 徐盛
+    aliases:
+    - xusheng
+    facts:
+    - 客户端离线解码样本中，heroID 5034 / codename xusheng 映射到 KB 武将 徐盛。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5034
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 百里疑城
+    priority: 60
+    structured_data:
+      name: 徐盛
+      aliases:
+      - xusheng
+      faction: 其他
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 百里疑城
+      notes:
+      - client_hero_id=5034
+      - client_codename=xusheng
+      - client_name_mapping_confidence=0.9
+      - client_name_mapping_note=codename xusheng
+      - decoded_skill_slots=skillId=503401,name=百里疑城,position=1,orderLevel=5,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-5048
+    domain: hero
+    entry_kind: hero_profile
+    topic: 张梁
+    aliases:
+    - zhangliang
+    facts:
+    - 客户端离线解码样本中，heroID 5048 / codename zhangliang 映射到 KB 武将 张梁。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5048
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 妖武
+    priority: 60
+    structured_data:
+      name: 张梁
+      aliases:
+      - zhangliang
+      faction: 其他
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 妖武
+      notes:
+      - client_hero_id=5048
+      - client_codename=zhangliang
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename zhangliang
+      - decoded_skill_slots=skillId=504801,name=妖武,position=1,orderLevel=5,level=10
+- metadata:
+    source_url: local-nslg-client-decoded
+    source_site: nslg_client_decode
+    source_captured_at: '2026-05-16T03:48:51.248696Z'
+    review_status: normalized
+    review_notes:
+    - auto-staged from decoded NSLG local hero export
+    - review required before publish; map codename/ids to canonical Chinese KB names
+      first
+  entry:
+    id: client-decoded-hero-5055
+    domain: hero
+    entry_kind: hero_profile
+    topic: 张宝
+    aliases:
+    - zhangbao
+    facts:
+    - 客户端离线解码样本中，heroID 5055 / codename zhangbao 映射到 KB 武将 张宝。
+    - 该条目来自本地客户端解码证据，仅作为可审阅候选，不应在未映射中文名和未复核前发布为正式攻略知识。
+    constraints:
+    - 已脱敏：未写入账号、服务器、角色唯一标识、兵力、聊天、邮件或本地路径。
+    - 技能 ID、兵书字段和属性槽位仍需映射到正式中文名与业务语义。
+    - 'lineup.skillSlots: customFeatures inline skill records: position, skillId,
+      orderLevel, level, customComp_objId, skillSkinInfo_objId, userList_objId'
+    - 'lineup.attrList: five-slot allocation vector: slot=attr id 1..5, value=cnt'
+    - 'gvg.skillList: battle/preparation skill records with same skillId/orderLevel
+      semantics as lineup primary skill records'
+    - 'gvg.attrList: five-slot allocation vector: slot=field17, value=field18'
+    - 'gvg.warBook.warBookProfileId: field13 candidate; most configured rows match
+      floor(primarySkillId / 10) + 1, with verified exceptions'
+    source_type: manual_rule
+    source_ref: NSLG_CLIENT_DECODED:hero-readable-export-round29:heroID=5055
+    updated_at: '2026-05-16'
+    confidence: 0.72
+    related_topics:
+    - 妖风大作
+    priority: 60
+    structured_data:
+      name: 张宝
+      aliases:
+      - zhangbao
+      faction: 其他
+      rarity: null
+      troop_types: []
+      role_tags:
+      - 客户端解码候选
+      base_attributes: null
+      growth_attributes: null
+      max_attributes: null
+      signature_skills:
+      - 妖风大作
+      notes:
+      - client_hero_id=5055
+      - client_codename=zhangbao
+      - client_name_mapping_confidence=0.95
+      - client_name_mapping_note=codename zhangbao
+      - decoded_skill_slots=skillId=505501,name=妖风大作,position=1,orderLevel=5,level=10

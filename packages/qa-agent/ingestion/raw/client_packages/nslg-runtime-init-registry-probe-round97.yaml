@@ -1,0 +1,474 @@
+schema_version: nslg.runtime_init_registry_probe.v1
+source_id: runtime-init-registry-probe-round97
+source_url: local-nslg-client-runtime-init-registry-probe
+source_site: nslg_client_runtime_init_registry_probe
+generated_at: '2026-05-21T06:23:10.070462Z'
+round: 178
+slice: runtime_init_registry_probe
+input_artifacts:
+- file_name: RuntimeInitializeOnLoads.json
+  role: runtime_initialize_onloads_json
+  size_bytes: 2053
+  sha256: 58b6c1a83166bc985322af6ef5484d5a6ac6c1000507202252d72ac525ad3745
+  missing: false
+- file_name: GameAssembly.dll
+  role: module:GameAssembly.dll
+  size_bytes: 94127168
+  sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  missing: false
+- file_name: UnityPlayer.dll
+  role: module:UnityPlayer.dll
+  size_bytes: 31099968
+  sha256: 76e66c9f665ec1ba93473c1b03b68366c25137949124d7f2f8d639e4efff6dcf
+  missing: false
+- file_name: NEP2.dll
+  role: module:NEP2.dll
+  size_bytes: 40235512
+  sha256: 109b4af46054a534a4e3b815d022a9bd26709d5bd644cbba4c4d456d4b61f382
+  missing: false
+- file_name: xlua.dll
+  role: module:xlua.dll
+  size_bytes: 1643072
+  sha256: dad40e20866bee2165991f264d4146b43570a4b2c98eddd77629b7cb3f23d0eb
+  missing: false
+- file_name: global-metadata.dat
+  role: module:global-metadata.dat
+  size_bytes: 21182776
+  sha256: 34e4dbda23e22bee41eefd6b3bc3ff878ee6f010db40dab2424b68a84a42bb22
+  missing: false
+- file_name: runtime_init_metadata_route_round164.json
+  role: prior runtime-init metadata route summary
+  size_bytes: 15337
+  sha256: d5e6ca663a4b1f8aa64f4284302e7eeac7a98e05217bc0cf7e2d28a46ddd29b3
+  missing: false
+- file_name: textasset_xlua_boundary_ledger_round177.json
+  role: prior TextAsset/xLua boundary ledger
+  size_bytes: 12726
+  sha256: 78f03f1c64bb8bfd0102de1948f4120fbf11cb94e3454cce4c1fd8d98208d57c
+  missing: false
+registry_summary:
+  file_name: RuntimeInitializeOnLoads.json
+  present: true
+  size_bytes: 2053
+  sha256: 58b6c1a83166bc985322af6ef5484d5a6ac6c1000507202252d72ac525ad3745
+  entry_count: 12
+  unity_class_entry_count: 4
+  non_unity_class_entry_count: 8
+  load_type_counts:
+    '0': 3
+    '1': 2
+    '2': 2
+    '3': 3
+    '4': 2
+  entries:
+  - index: 0
+    assembly_name: Assembly-CSharp
+    namespace: NSLGame.Patcher
+    class_name: GameUpdater
+    method_name: InitLuaEnv
+    load_types: 4
+    is_unity_class: false
+  - index: 1
+    assembly_name: Coffee.UIParticle
+    namespace: Coffee.UIExtensions
+    class_name: UIParticleUpdater
+    method_name: InitializeOnLoad
+    load_types: 0
+    is_unity_class: false
+  - index: 2
+    assembly_name: io.sentry.unity.runtime
+    namespace: Sentry.Unity
+    class_name: SentryInitialization
+    method_name: Init
+    load_types: 4
+    is_unity_class: false
+  - index: 3
+    assembly_name: io.sentry.unity.runtime
+    namespace: Sentry.Unity
+    class_name: StartupTracingIntegration
+    method_name: AfterAssembliesLoaded
+    load_types: 2
+    is_unity_class: false
+  - index: 4
+    assembly_name: io.sentry.unity.runtime
+    namespace: Sentry.Unity
+    class_name: StartupTracingIntegration
+    method_name: BeforeSplashScreen
+    load_types: 3
+    is_unity_class: false
+  - index: 5
+    assembly_name: io.sentry.unity.runtime
+    namespace: Sentry.Unity
+    class_name: StartupTracingIntegration
+    method_name: BeforeSceneLoad
+    load_types: 1
+    is_unity_class: false
+  - index: 6
+    assembly_name: io.sentry.unity.runtime
+    namespace: Sentry.Unity
+    class_name: StartupTracingIntegration
+    method_name: AfterSceneLoad
+    load_types: 0
+    is_unity_class: false
+  - index: 7
+    assembly_name: UniTask
+    namespace: Cysharp.Threading.Tasks
+    class_name: PlayerLoopHelper
+    method_name: Init
+    load_types: 1
+    is_unity_class: false
+  - index: 8
+    assembly_name: Unity.Collections
+    namespace: ''
+    class_name: $BurstDirectCallInitializer
+    method_name: Initialize
+    load_types: 2
+    is_unity_class: true
+  - index: 9
+    assembly_name: Unity.MemoryProfiler
+    namespace: Unity.MemoryProfiler
+    class_name: MetadataInjector
+    method_name: PlayerInitMetadata
+    load_types: 3
+    is_unity_class: true
+  - index: 10
+    assembly_name: Unity.RenderPipelines.Core.Runtime
+    namespace: UnityEngine.Rendering
+    class_name: DebugUpdater
+    method_name: RuntimeInit
+    load_types: 0
+    is_unity_class: true
+  - index: 11
+    assembly_name: Unity.RenderPipelines.Universal.Runtime
+    namespace: UnityEngine.Rendering.Universal
+    class_name: XRSystem
+    method_name: XRSystemInit
+    load_types: 3
+    is_unity_class: true
+  init_lua_env_entries:
+  - index: 0
+    assembly_name: Assembly-CSharp
+    namespace: NSLGame.Patcher
+    class_name: GameUpdater
+    method_name: InitLuaEnv
+    load_types: 4
+    is_unity_class: false
+  address_or_token_field_count: 0
+  address_or_token_fields: []
+  schema_fields:
+  - assemblyName
+  - className
+  - isUnityClass
+  - loadTypes
+  - methodName
+  - nameSpace
+module_records:
+- module: GameAssembly.dll
+  present: true
+  size_bytes: 94127168
+  sha256: 7b2db14aa341bc2f9f8e6746d1c6eb4554d6fa8e21ff440cd2c408fdd4160dda
+  string_hits:
+    runtime_init_json:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    init_lua_env:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    game_updater:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    nslgame_patcher:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    assembly_csharp:
+      count_capped: 2
+      sample_file_offsets_hex:
+      - '0x4414518'
+      - '0x4417728'
+    unityengine_textasset:
+      count_capped: 6
+      sample_file_offsets_hex:
+      - '0x43dfe20'
+      - '0x43dfe48'
+      - '0x43dfe80'
+      - '0x43dfeaf'
+      - '0x43dfed8'
+      - '0x43dff00'
+    textasset:
+      count_capped: 6
+      sample_file_offsets_hex:
+      - '0x43dfe2c'
+      - '0x43dfe54'
+      - '0x43dfe8c'
+      - '0x43dfebb'
+      - '0x43dfee4'
+      - '0x43dff0c'
+    get_bytes:
+      count_capped: 2
+      sample_file_offsets_hex:
+      - '0x43afefe'
+      - '0x43dfe37'
+    xlua_loadbuffer:
+      count_capped: 1
+      sample_file_offsets_hex:
+      - '0x4299458'
+    lua_loadbuffer:
+      count_capped: 1
+      sample_file_offsets_hex:
+      - '0x4299459'
+  pe_summary:
+    image_base_hex: '0x180000000'
+    section_count: 6
+    pdata_function_count: 290472
+- module: UnityPlayer.dll
+  present: true
+  size_bytes: 31099968
+  sha256: 76e66c9f665ec1ba93473c1b03b68366c25137949124d7f2f8d639e4efff6dcf
+  string_hits:
+    runtime_init_json:
+      count_capped: 2
+      sample_file_offsets_hex:
+      - '0x1a592f0'
+      - '0x1a5934b'
+    init_lua_env:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    game_updater:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    nslgame_patcher:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    assembly_csharp:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    unityengine_textasset:
+      count_capped: 5
+      sample_file_offsets_hex:
+      - '0x1912640'
+      - '0x1912668'
+      - '0x1912690'
+      - '0x19126c0'
+      - '0x19126e8'
+    textasset:
+      count_capped: 8
+      sample_file_offsets_hex:
+      - '0x191264c'
+      - '0x1912674'
+      - '0x191269c'
+      - '0x19126cc'
+      - '0x19126f4'
+      - '0x1994905'
+      - '0x19949af'
+      - '0x19ae9b0'
+    get_bytes:
+      count_capped: 1
+      sample_file_offsets_hex:
+      - '0x1912657'
+    xlua_loadbuffer:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    lua_loadbuffer:
+      count_capped: 0
+      sample_file_offsets_hex: []
+  pe_summary:
+    image_base_hex: '0x180000000'
+    section_count: 8
+    pdata_function_count: 93825
+- module: NEP2.dll
+  present: true
+  size_bytes: 40235512
+  sha256: 109b4af46054a534a4e3b815d022a9bd26709d5bd644cbba4c4d456d4b61f382
+  string_hits:
+    runtime_init_json:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    init_lua_env:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    game_updater:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    nslgame_patcher:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    assembly_csharp:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    unityengine_textasset:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    textasset:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    get_bytes:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    xlua_loadbuffer:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    lua_loadbuffer:
+      count_capped: 1
+      sample_file_offsets_hex:
+      - '0x7ee7a0'
+  pe_summary:
+    image_base_hex: '0x180000000'
+    section_count: 11
+    pdata_function_count: 42977
+- module: xlua.dll
+  present: true
+  size_bytes: 1643072
+  sha256: dad40e20866bee2165991f264d4146b43570a4b2c98eddd77629b7cb3f23d0eb
+  string_hits:
+    runtime_init_json:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    init_lua_env:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    game_updater:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    nslgame_patcher:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    assembly_csharp:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    unityengine_textasset:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    textasset:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    get_bytes:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    xlua_loadbuffer:
+      count_capped: 1
+      sample_file_offsets_hex:
+      - '0x169701'
+    lua_loadbuffer:
+      count_capped: 3
+      sample_file_offsets_hex:
+      - '0x168d91'
+      - '0x168da1'
+      - '0x169702'
+  pe_summary:
+    image_base_hex: '0x180000000'
+    section_count: 9
+    pdata_function_count: 4963
+- module: global-metadata.dat
+  present: true
+  size_bytes: 21182776
+  sha256: 34e4dbda23e22bee41eefd6b3bc3ff878ee6f010db40dab2424b68a84a42bb22
+  string_hits:
+    runtime_init_json:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    init_lua_env:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    game_updater:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    nslgame_patcher:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    assembly_csharp:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    unityengine_textasset:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    textasset:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    get_bytes:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    xlua_loadbuffer:
+      count_capped: 0
+      sample_file_offsets_hex: []
+    lua_loadbuffer:
+      count_capped: 0
+      sample_file_offsets_hex: []
+  pe_summary: {}
+unityplayer_runtime_json_xrefs:
+  module: UnityPlayer.dll
+  string_hit_count: 2
+  code_ref_count: 1
+  refs:
+  - ref_rva: '0xdfeaa9'
+    target_rva: '0x1a5a2f0'
+    section: .text
+    function_begin: '0xdfea90'
+    function_end: '0xdff1d5'
+counts:
+  runtime_initialize_entry_count: 12
+  runtime_initialize_init_lua_env_entry_count: 1
+  runtime_initialize_unity_class_entry_count: 4
+  runtime_initialize_non_unity_class_entry_count: 8
+  registry_address_or_token_field_count: 0
+  module_count: 5
+  present_module_count: 5
+  modules_with_runtime_init_json_hits: 1
+  modules_with_init_lua_env_hits: 0
+  modules_with_game_updater_hits: 0
+  modules_with_nslgame_patcher_hits: 0
+  modules_with_textasset_hits: 2
+  modules_with_get_bytes_hits: 2
+  modules_with_xlua_loadbuffer_hits: 2
+  unityplayer_runtime_json_code_ref_count: 1
+  publishable_knowledge_entries: 0
+route_conclusion:
+  runtime_initialize_registry_present: true
+  init_lua_env_declared_in_registry: true
+  registry_contains_native_method_address_or_token: false
+  unityplayer_runtime_json_loader_xrefs_found: true
+  init_lua_env_native_method_address_recovered: false
+  protected_metadata_method_ownership_recovered: false
+  textasset_payload_owner_proven: false
+  lua_payload_decoder_recovered: false
+  safe_for_publish: false
+  publishable_knowledge_entries: 0
+  strongest_current_signal: RuntimeInitializeOnLoads.json is present and declares
+    Assembly-CSharp/NSLGame.Patcher.GameUpdater.InitLuaEnv; UnityPlayer has static
+    refs to the registry filename.
+  strongest_negative_signal: The registry contains only managed names/loadTypes and
+    no native address/token fields; InitLuaEnv/GameUpdater/NSLGame strings are absent
+    from GameAssembly, NEP2, xlua, and protected global-metadata.
+  search_policy: Close the direct RuntimeInitializeOnLoads.json-to-native-address
+    route; continue with protected metadata or IL2CPP registration ownership before
+    revisiting TextAsset/xLua payload handoff.
+evidence_refs:
+- NSLG_RUNTIME_INIT_REGISTRY:round178:registry:initluaenv
+- NSLG_RUNTIME_INIT_REGISTRY:round178:module:UnityPlayer.dll
+- NSLG_RUNTIME_INIT_REGISTRY:round178:module:GameAssembly.dll
+- NSLG_RUNTIME_INIT_REGISTRY:round178:global-metadata-wrapper
+next_static_targets:
+- Recover protected metadata/method ownership; RuntimeInitializeOnLoads.json names
+  InitLuaEnv but does not store a native method address.
+- Treat UnityPlayer RuntimeInitializeOnLoads.json xrefs as generic registry-loading
+  evidence, not GameAssembly method ownership.
+- Use protected metadata recovery or IL2CPP registration structures to map NSLGame.Patcher.GameUpdater.InitLuaEnv
+  to a method pointer.
+- After method ownership exists, re-check TextAsset.get_bytes and xLua loadbuffer
+  handoff against resolved LuaScripts payload offsets.
+limitations:
+- Offline/static registry probe only; no live instrumentation, account data, online
+  protocol, or runtime attach is used.
+- RuntimeInitializeOnLoads.json contains managed names and loadTypes, not method tokens,
+  RVAs, or native addresses.
+- global-metadata.dat remains protected and does not expose InitLuaEnv/GameUpdater/NSLGame
+  strings in this static check.
+- This artifact does not decode LuaScripts payloads and must not be promoted as game
+  knowledge.
+guardrails:
+- offline/static runtime-init registry probe only; no live instrumentation, account
+  data, or online protocol data is included
+- registry entries contain managed names and loadTypes only unless address/token fields
+  are explicitly present
+- method ownership must come from protected metadata or IL2CPP registration evidence,
+  not registry names alone
+- route evidence is not publishable gameplay knowledge
