@@ -116,6 +116,7 @@
 - [ ] 多 agent 协作约定：补 `notes/agent-collab.md` 或项目协作说明，约定 @Claude / @Codex 收到任务先 ack、谁 claim 谁负责、长时间无响应时如何转单。
 - [x] Repo-local runbook 收敛（2026-05-17）：新增 `docs/repo-local-runbook.md`，收敛 `AGENTS.md` / `CLAUDE.md` 风格说明，覆盖 knowledge ingestion、Advisor fixture/eval、computer-use safety、model probing、automation execution、发布/回滚与 handoff 规则。
 - [x] Workflow / session boundary（2026-05-17）：`docs/repo-local-runbook.md` 明确 knowledge ingestion、model probing、Advisor fixture/eval、automation execution 四类独立 workflow/session 的输入、输出/日志和禁止跨 session 复用的上下文。
+- [x] Codex workflow operating layer（2026-05-21）：新增 `docs/codex-operating-model.md`、`docs/advisor-browser-smoke.md`、`docs/qa-agent-mcp-connector.md` 与 `shared-memory/` vault；`AGENTS.md` 明确 `$browser` / `@chrome` / `@computer` / MCP / skills / automations / shared-memory 边界，并固化完成可验证工作后默认 commit + push + 回报 URL 的交付规则。
 - [ ] ADB capture adapter：安卓模拟器/真机 live screenshot，不默认启用 input control。
 - [ ] MapGridState 可视化：截图坐标映射到地图逻辑格子，支持土地规划、格子占用、资源分配。
 - [ ] Copilot Mode：仅在 verifier/safety/recovery 完成后开放低风险动作自动执行。

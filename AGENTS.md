@@ -161,8 +161,26 @@ Read these before making architectural changes:
 3. [工程落地方案](docs/sanguo-agent-mvp-engineering-plan.md) — Implementation phases & milestones
 4. [状态快照字段指南](docs/state-snapshot-field-guide.md) — Field catalog & bootstrap guidance
 5. [Pioneer Agent 架构评审与路线图](docs/pioneer-agent-architecture-review-and-roadmap.md) — Runtime maturity, gaps, and roadmap
+6. [Codex Operating Model](docs/codex-operating-model.md) — Codex tool selection, shared memory, MCP, browser/chrome/computer boundaries
 
 ## Workflow Rules
+
+### Codex Tool Boundaries
+
+- `$browser` is the default for local web verification: Vite, localhost, file previews, Desktop Advisor browser smoke, screenshot upload, history, evidence/degraded rendering.
+- `@chrome` is only for remote pages that need the user's real Chrome profile, cookies, extensions, or logged-in sessions, such as Bilibili, Kdocs, GitHub, or Slack. Do not use it for ordinary localhost checks.
+- `@computer` / GUI control is only for local desktop or NSLG/Sanmou client observation and calibrated low-risk workflows. It must obey `docs/repo-local-runbook.md`, `.agent/skills/sanmou-client-control/SKILL.md`, safety guard, verifier, allowlist, trace, and kill switch rules.
+- qa-agent MCP is the preferred structured knowledge surface for Codex: `lookup_topic`, `answer_rule_question`, and `resolve_term`. It may query reviewed KB, not pending staging or unreviewed reverse-engineering outputs.
+- Repo/local skills should capture repeated workflows, especially Advisor golden replay, QA knowledge review/publish, and Sanmou client-control safety. Do not leave durable workflow logic only in chat history.
+- Automations are for low-noise recurring checks such as golden replay summaries, stale todo review, test/build summaries, and commit URL reminders. They must not auto-publish knowledge, auto-click the game, or restart uncapped reverse-engineering loops.
+
+### Shared Memory
+
+- Use `shared-memory/` as the repo-local shared memory vault for cross-session context that should survive a single chat.
+- Read `shared-memory/AGENTS.md` before editing anything under `shared-memory/`.
+- Store decisions, blockers, owners, dates, links, and next steps there when they are durable and useful for future sessions.
+- Do not store passwords, API keys, cookies, tokens, account details, private raw screenshots, large artifacts, or unreviewed model output as fact.
+- If no durable context changed, do not touch shared memory.
 
 ### 多会话并行开发（Worktree 流程）
 
@@ -208,6 +226,7 @@ git branch -d feat/<branch-name>
 
 - 默认分支：`master`
 - **每次合并代码或推送代码后，必须更新项目根目录的 `todo-list.md`**，反映最新的待办状态、已完成项和新增项。
+- 每次完成一组可验证的工作且产生文件变更后，默认执行：验证 → 只 stage 本次相关文件 → commit → push 到 `origin/master` → 在回复中给出 commit hash 和 GitHub commit URL。若用户明确要求不提交、仅分析、验证失败、网络/权限阻塞，或工作树存在未确认的不相关改动，则说明原因并暂缓提交/推送。
 - 每次成功创建 commit 后，回复里必须给出 commit hash 和可打开的 commit URL；GitHub SSH remote 形如 `git@github.com:owner/repo.git` 时，URL 格式为 `https://github.com/owner/repo/commit/<commit-sha>`。
 
 ## LLM Provider

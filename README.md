@@ -67,3 +67,7 @@ npm run dev
 - [工程落地方案](docs/sanguo-agent-mvp-engineering-plan.md)
 - [状态快照字段指南](docs/state-snapshot-field-guide.md)
 - [Pioneer Agent 架构评审与路线图](docs/pioneer-agent-architecture-review-and-roadmap.md)
+- [Codex 操作模型](docs/codex-operating-model.md)
+- [Codex 工作流验证矩阵](docs/codex-workflow-verification.md)
+- [Desktop Advisor Browser Smoke](docs/advisor-browser-smoke.md)
+- [QA Agent MCP Connector](docs/qa-agent-mcp-connector.md)

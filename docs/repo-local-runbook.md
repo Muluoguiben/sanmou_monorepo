@@ -9,6 +9,7 @@ This runbook is the repo-local handoff for future Codex/Claude/agent sessions. K
 - Do not write API keys, cookies, passwords, tokens, or account secrets into docs, logs, fixtures, traces, commits, or final answers.
 - Prefer reviewed YAML knowledge and checked-in fixtures over memory from a previous chat.
 - When a workflow calls an LLM/model, record provider/model/config in the run output, but never record secret values.
+- Use `docs/codex-operating-model.md` for Codex tool boundaries and `shared-memory/` for durable cross-session context.
 
 ## Session Boundaries
 
@@ -89,3 +90,4 @@ Before ending a session, leave:
 - next workflow to start, if any
 
 Do not rely on chat memory as the only handoff.
+If a session creates a durable decision, blocker, owner assignment, or next-step link that future sessions need, update `shared-memory/` according to `shared-memory/AGENTS.md`.
