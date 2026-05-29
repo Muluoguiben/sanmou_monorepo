@@ -1,0 +1,81 @@
+{
+  "global_state": {
+    "server_open_time": "2026-05-29T10:00:00+08:00",
+    "current_time": "2026-05-29T13:16:00+08:00",
+    "phase_tag": "advisor_city_review",
+    "page_type": "city"
+  },
+  "progress": {
+    "current_chapter_id": 17,
+    "chapter_claimable": false,
+    "task_progress": {
+      "main_hall_lv_11": {
+        "current": 10,
+        "target_level": 11,
+        "completed": false
+      }
+    }
+  },
+  "economy": {
+    "resources": {
+      "wood": 1200,
+      "stone": 1100,
+      "iron": 1000,
+      "grain": 1250
+    },
+    "income_per_hour": {
+      "wood": 1800,
+      "stone": 1600,
+      "iron": 1500,
+      "grain": 1700
+    },
+    "reserve_troops": 0
+  },
+  "city": {
+    "upgradeable_buildings": [
+      {
+        "building_id": "main_hall",
+        "building_name": "Main Hall",
+        "target_level": 11,
+        "cost": {
+          "wood": 2400,
+          "stone": 2100,
+          "iron": 1900,
+          "grain": 2400
+        }
+      }
+    ]
+  },
+  "heroes": [],
+  "teams": [],
+  "map_state": {
+    "candidate_lands": []
+  },
+  "swap_window": {
+    "enabled": false
+  },
+  "main_lineup": {},
+  "team_containers": [],
+  "carrier_pool": [],
+  "swap_constraints": {
+    "stamina_regen_per_hour": 12
+  },
+  "timing": {},
+  "field_meta": {
+    "city.upgradeable_buildings": {
+      "value": "main_hall:11",
+      "confidence": 0.88,
+      "source": "fixture.pr5.city_buildings"
+    },
+    "economy.resources": {
+      "value": "shortage_for_main_hall",
+      "confidence": 0.91,
+      "source": "fixture.pr5.resource_bar"
+    },
+    "economy.income_per_hour": {
+      "value": "visible_income_estimate",
+      "confidence": 0.93,
+      "source": "fixture.pr5.resource_bar"
+    }
+  }
+}

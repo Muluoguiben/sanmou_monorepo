@@ -1,0 +1,67 @@
+{
+  "id": "pc_client_pr5_20260529",
+  "captured_at": "2026-05-29T14:40:00+08:00",
+  "device": {
+    "platform": "windows_pc_client",
+    "process": "com.bilibili.nslg",
+    "capture_size": {
+      "width": 2572,
+      "height": 1331
+    },
+    "fixture_max_width": 1286
+  },
+  "privacy": {
+    "raw_captures_committed": false,
+    "fixture_transform": "half-size JPEG; chat/profile regions blurred where present"
+  },
+  "screenshots": [
+    {
+      "id": "home_server_entry",
+      "image": "home_server_entry.jpg",
+      "page": "home",
+      "runtime_fixture": "../../../pr5_home_entry_state.json",
+      "source": "tests/fixtures/screenshots/pc_client/live_20260518/server_page.jpg",
+      "notes": "Real PC client server-entry screenshot reused as the homepage/entry coverage case."
+    },
+    {
+      "id": "city_inside",
+      "image": "city_inside_20260529.jpg",
+      "page": "city",
+      "runtime_fixture": "../../../pr5_city_inside_state.json",
+      "source": "C:/Users/Lan/AppData/Local/Temp/sanmou-pr5-capture-20260529/city_after_reclick_home_20260529.png",
+      "notes": "Real PC client city-inside screenshot captured on 2026-05-29."
+    },
+    {
+      "id": "chapter_main_task",
+      "image": "chapter_main_task_20260529.jpg",
+      "page": "chapter",
+      "runtime_fixture": "../../../pr5_chapter_main_task_state.json",
+      "source": "C:/Users/Lan/AppData/Local/Temp/sanmou-pr5-capture-20260529/left_task_panel_20260529.png",
+      "notes": "Real task/chapter panel; shows Chapter 17 mainline task complete."
+    },
+    {
+      "id": "recruit_guard_camp",
+      "image": "recruit_guard_camp_20260529.jpg",
+      "page": "recruit",
+      "runtime_fixture": "../../../pr5_recruit_guard_camp_state.json",
+      "source": "C:/Users/Lan/AppData/Local/Temp/sanmou-pr5-capture-20260529/recruit_guard_camp_panel_20260529.png",
+      "notes": "Real guard-camp recruit/soldier panel; no recruit confirmation was clicked."
+    },
+    {
+      "id": "building_select",
+      "image": "building_select_20260529.jpg",
+      "page": "building_upgrade",
+      "runtime_fixture": "../../../pr5_building_upgrade_state.json",
+      "source": "C:/Users/Lan/AppData/Local/Temp/sanmou-pr5-capture-20260529/building_list_or_upgrade_20260529.png",
+      "notes": "Real building selection/upgrade-entry screen; no upgrade confirmation was clicked."
+    },
+    {
+      "id": "team_panel",
+      "image": "team_panel_20260529.jpg",
+      "page": "team",
+      "runtime_fixture": "../../../pr5_team_panel_state.json",
+      "source": "C:/Users/Lan/AppData/Local/Temp/sanmou-pr5-capture-20260529/team_panel_20260529.png",
+      "notes": "Real team panel opened by selecting the team avatar, then the icon left of that avatar."
+    }
+  ]
+}

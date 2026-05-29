@@ -1,0 +1,38 @@
+{
+  "global_state": {
+    "server_open_time": "2026-05-29T10:00:00+08:00",
+    "current_time": "2026-05-29T10:50:00+08:00",
+    "phase_tag": "home_entry",
+    "page_type": "home_server_entry"
+  },
+  "progress": {
+    "chapter_claimable": false,
+    "task_progress": {}
+  },
+  "economy": {},
+  "city": {
+    "upgradeable_buildings": []
+  },
+  "heroes": [],
+  "teams": [],
+  "map_state": {
+    "candidate_lands": []
+  },
+  "swap_window": {
+    "enabled": false
+  },
+  "main_lineup": {},
+  "team_containers": [],
+  "carrier_pool": [],
+  "swap_constraints": {
+    "stamina_regen_per_hour": 12
+  },
+  "timing": {},
+  "field_meta": {
+    "global_state.page_type": {
+      "value": "home_server_entry",
+      "confidence": 0.92,
+      "source": "fixture.pr5.home_server_entry"
+    }
+  }
+}

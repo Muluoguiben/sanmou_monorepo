@@ -29,7 +29,17 @@ class AdvisorReplayTools:
 
     def golden_replay_status(self, *, include_fixture_results: bool = True) -> dict[str, Any]:
         fixtures = self._fixture_paths()
-        expectations = self._load_expectations()
+        expectation_payload = self._load_expectation_payload()
+        expectations = self._expectations_from_payload(expectation_payload)
+        required_pages = list(expectation_payload.get("required_pr5_pages") or [])
+        pr5_expectations = {
+            name: item
+            for name, item in expectations.items()
+            if isinstance(item, dict) and item.get("page")
+        }
+        covered_pages = sorted(
+            {str(item["page"]) for item in pr5_expectations.values() if item.get("page")}
+        )
         screenshot_files = sorted(
             path
             for path in (self.fixture_dir / "screenshots").rglob("*")
@@ -41,7 +51,21 @@ class AdvisorReplayTools:
             "fixture_count": len(fixtures),
             "screenshot_fixture_count": len(screenshot_files),
             "expectation_count": len(expectations),
+            "expectation_version": expectation_payload.get("version"),
             "expectations_path": str(self.expectations_path),
+            "pr5_fixture_count": len(pr5_expectations),
+            "pr5_page_coverage": {
+                "required": required_pages,
+                "covered": covered_pages,
+                "missing": sorted(set(required_pages) - set(covered_pages)),
+            },
+            "pr5_locked_fields": {
+                "action": sum("expected_action_type" in item for item in pr5_expectations.values()),
+                "report_evidence": sum(bool(item.get("required_report_evidence")) for item in pr5_expectations.values()),
+                "action_evidence": sum(bool(item.get("required_action_evidence")) for item in pr5_expectations.values()),
+                "report_confidence": sum("expected_report_confidence" in item for item in pr5_expectations.values()),
+                "action_confidence": sum("expected_action_confidence" in item for item in pr5_expectations.values()),
+            },
             "missing_expectations": [
                 path.name for path in fixtures if path.name not in expectations
             ],
@@ -56,21 +80,35 @@ class AdvisorReplayTools:
             comparisons = [self._compare_result(item, expectations) for item in replay_results]
             payload["results"] = comparisons
             payload["failures"] = [item for item in comparisons if not item["matched"]]
-        payload["status"] = "ok" if not payload["missing_expectations"] and not payload["extra_expectations"] and not payload["failures"] else "attention"
+        payload["status"] = (
+            "ok"
+            if not payload["missing_expectations"]
+            and not payload["extra_expectations"]
+            and not payload["failures"]
+            and not payload["pr5_page_coverage"]["missing"]
+            else "attention"
+        )
         return payload
 
     def fixture_eval(self, *, fixture: str, expected_action_type: str | None = None) -> dict[str, Any]:
         fixture_path = self._resolve_fixture_path(fixture)
         expectations = self._load_expectations()
+        expectation = expectations.get(fixture_path.name, {})
         replay_result = self._run_replay([fixture_path])[0]
         if expected_action_type is None and fixture_path.name in expectations:
-            expected_action_type = expectations[fixture_path.name].get("expected_action_type")
+            expected_action_type = expectation.get("expected_action_type")
         comparison = self._compare_result(replay_result, {fixture_path.name: {"expected_action_type": expected_action_type}})
         return {
             "fixture": comparison["fixture"],
             "matched": comparison["matched"],
+            "page": expectation.get("page"),
+            "screenshot": expectation.get("screenshot"),
             "expected_action_type": comparison["expected_action_type"],
             "actual_action_type": comparison["actual_action_type"],
+            "expected_report_confidence": expectation.get("expected_report_confidence"),
+            "expected_action_confidence": expectation.get("expected_action_confidence"),
+            "required_report_evidence": expectation.get("required_report_evidence", []),
+            "required_action_evidence": expectation.get("required_action_evidence", []),
             "selection_mode": comparison["selection_mode"],
             "top_score_gap": comparison["top_score_gap"],
             "ranked_action_count": comparison["ranked_action_count"],
@@ -88,13 +126,19 @@ class AdvisorReplayTools:
             if not path.name.startswith("template_")
         ]
 
-    def _load_expectations(self) -> dict[str, dict[str, Any]]:
+    def _load_expectation_payload(self) -> dict[str, Any]:
         if not self.expectations_path.exists():
-            return {}
-        payload = json.loads(self.expectations_path.read_text(encoding="utf-8"))
+            return {"fixtures": {}}
+        return json.loads(self.expectations_path.read_text(encoding="utf-8"))
+
+    def _load_expectations(self) -> dict[str, dict[str, Any]]:
+        return self._expectations_from_payload(self._load_expectation_payload())
+
+    @staticmethod
+    def _expectations_from_payload(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
         fixtures = payload.get("fixtures", {})
         if not isinstance(fixtures, dict):
-            raise ValueError(f"invalid expectations file: {self.expectations_path}")
+            raise ValueError("invalid expectations file: fixtures must be a mapping")
         return fixtures
 
     def _resolve_fixture_path(self, value: str) -> Path:

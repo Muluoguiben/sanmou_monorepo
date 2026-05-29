@@ -1,6 +1,14 @@
 {
-  "version": 1,
-  "description": "Expected selected action types for committed runtime-state fixtures. This locks the selector replay baseline used by qa-agent MCP advisor tools.",
+  "version": 2,
+  "description": "Expected Advisor replay output for committed runtime-state fixtures. PR-5 fixtures also lock page coverage, real screenshot links, report evidence, and confidence.",
+  "required_pr5_pages": [
+    "home",
+    "city",
+    "chapter",
+    "recruit",
+    "building_upgrade",
+    "team"
+  ],
   "fixtures": {
     "chapter_claimable_state.json": {
       "expected_action_type": "claim_chapter_reward"
@@ -31,6 +39,164 @@
     },
     "wait_stamina_state.json": {
       "expected_action_type": "wait_for_stamina"
+    },
+    "pr5_home_entry_state.json": {
+      "page": "home",
+      "screenshot": "tests/fixtures/screenshots/pc_client/pr5_20260529/home_server_entry.jpg",
+      "vision_page_type": "home",
+      "vision_domains": [
+        "runtime_fixture",
+        "home_entry"
+      ],
+      "expected_action_type": null,
+      "expected_report_confidence": 1.0,
+      "expected_action_confidence": null,
+      "required_report_evidence": [
+        "vision.domain:runtime_fixture",
+        "vision.domain:home_entry",
+        "vision.page_type:home"
+      ],
+      "required_action_evidence": []
+    },
+    "pr5_city_inside_state.json": {
+      "page": "city",
+      "screenshot": "tests/fixtures/screenshots/pc_client/pr5_20260529/city_inside_20260529.jpg",
+      "vision_page_type": "city",
+      "vision_domains": [
+        "runtime_fixture",
+        "resource_bar",
+        "city_buildings"
+      ],
+      "expected_action_type": "wait_for_resource",
+      "expected_report_confidence": 0.88,
+      "expected_action_confidence": 0.88,
+      "required_report_evidence": [
+        "vision.domain:runtime_fixture",
+        "vision.domain:resource_bar",
+        "vision.domain:city_buildings",
+        "vision.page_type:city",
+        "city.upgradeable_buildings",
+        "economy.resources",
+        "economy.income_per_hour"
+      ],
+      "required_action_evidence": [
+        "city.upgradeable_buildings",
+        "economy.resources",
+        "economy.income_per_hour"
+      ]
+    },
+    "pr5_chapter_main_task_state.json": {
+      "page": "chapter",
+      "screenshot": "tests/fixtures/screenshots/pc_client/pr5_20260529/chapter_main_task_20260529.jpg",
+      "vision_page_type": "chapter",
+      "vision_domains": [
+        "runtime_fixture",
+        "resource_bar",
+        "chapter_panel"
+      ],
+      "expected_action_type": "claim_chapter_reward",
+      "expected_report_confidence": 0.94,
+      "expected_action_confidence": 0.94,
+      "required_report_evidence": [
+        "vision.domain:runtime_fixture",
+        "vision.domain:resource_bar",
+        "vision.domain:chapter_panel",
+        "vision.page_type:chapter",
+        "progress.chapter_claimable",
+        "progress.current_chapter_id",
+        "selector.rule:chapter_claimable"
+      ],
+      "required_action_evidence": [
+        "progress.chapter_claimable",
+        "progress.current_chapter_id"
+      ]
+    },
+    "pr5_recruit_guard_camp_state.json": {
+      "page": "recruit",
+      "screenshot": "tests/fixtures/screenshots/pc_client/pr5_20260529/recruit_guard_camp_20260529.jpg",
+      "vision_page_type": "recruit",
+      "vision_domains": [
+        "runtime_fixture",
+        "resource_bar",
+        "recruit_panel"
+      ],
+      "expected_action_type": "recruit_soldiers",
+      "expected_report_confidence": 0.82,
+      "expected_action_confidence": 0.82,
+      "required_report_evidence": [
+        "vision.domain:runtime_fixture",
+        "vision.domain:resource_bar",
+        "vision.domain:recruit_panel",
+        "vision.page_type:recruit",
+        "team_containers",
+        "teams",
+        "economy.reserve_troops"
+      ],
+      "required_action_evidence": [
+        "team_containers",
+        "teams",
+        "economy.reserve_troops"
+      ]
+    },
+    "pr5_building_upgrade_state.json": {
+      "page": "building_upgrade",
+      "screenshot": "tests/fixtures/screenshots/pc_client/pr5_20260529/building_select_20260529.jpg",
+      "vision_page_type": "building_upgrade",
+      "vision_domains": [
+        "runtime_fixture",
+        "resource_bar",
+        "city_buildings",
+        "upgrade_dialog"
+      ],
+      "expected_action_type": "upgrade_building",
+      "expected_report_confidence": 0.86,
+      "expected_action_confidence": 0.86,
+      "required_report_evidence": [
+        "vision.domain:runtime_fixture",
+        "vision.domain:resource_bar",
+        "vision.domain:city_buildings",
+        "vision.domain:upgrade_dialog",
+        "vision.page_type:building_upgrade",
+        "city.upgradeable_buildings",
+        "economy.resources",
+        "economy.income_per_hour",
+        "strategy_snapshot:building-main-city"
+      ],
+      "required_action_evidence": [
+        "city.upgradeable_buildings",
+        "economy.resources",
+        "economy.income_per_hour",
+        "strategy_snapshot:building-main-city"
+      ]
+    },
+    "pr5_team_panel_state.json": {
+      "page": "team",
+      "screenshot": "tests/fixtures/screenshots/pc_client/pr5_20260529/team_panel_20260529.jpg",
+      "vision_page_type": "team",
+      "vision_domains": [
+        "runtime_fixture",
+        "resource_bar",
+        "team_panel"
+      ],
+      "expected_action_type": "inspect_team_readiness",
+      "expected_report_confidence": 0.79,
+      "expected_action_confidence": 0.79,
+      "required_report_evidence": [
+        "vision.domain:runtime_fixture",
+        "vision.domain:resource_bar",
+        "vision.domain:team_panel",
+        "vision.page_type:team",
+        "teams",
+        "team_containers",
+        "main_lineup.team_readiness",
+        "main_lineup.team_snapshot"
+      ],
+      "required_action_evidence": [
+        "teams",
+        "team_containers",
+        "main_lineup.team_readiness",
+        "main_lineup.team_snapshot"
+      ]
     }
   }
 }

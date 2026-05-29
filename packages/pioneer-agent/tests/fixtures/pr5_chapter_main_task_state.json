@@ -1,0 +1,52 @@
+{
+  "global_state": {
+    "server_open_time": "2026-05-29T10:00:00+08:00",
+    "current_time": "2026-05-29T12:55:00+08:00",
+    "phase_tag": "advisor_chapter_review",
+    "page_type": "chapter"
+  },
+  "progress": {
+    "current_chapter_id": 17,
+    "chapter_claimable": true,
+    "task_progress": {
+      "chapter_17_mainline": {
+        "current": 11,
+        "target": 11,
+        "completed": true
+      }
+    }
+  },
+  "economy": {
+    "reserve_troops": 0
+  },
+  "city": {
+    "upgradeable_buildings": []
+  },
+  "heroes": [],
+  "teams": [],
+  "map_state": {
+    "candidate_lands": []
+  },
+  "swap_window": {
+    "enabled": false
+  },
+  "main_lineup": {},
+  "team_containers": [],
+  "carrier_pool": [],
+  "swap_constraints": {
+    "stamina_regen_per_hour": 12
+  },
+  "timing": {},
+  "field_meta": {
+    "progress.chapter_claimable": {
+      "value": true,
+      "confidence": 0.96,
+      "source": "fixture.pr5.chapter_panel"
+    },
+    "progress.current_chapter_id": {
+      "value": 17,
+      "confidence": 0.94,
+      "source": "fixture.pr5.chapter_panel"
+    }
+  }
+}

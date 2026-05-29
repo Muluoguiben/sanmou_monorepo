@@ -48,8 +48,18 @@ class McpToolTests(unittest.TestCase):
         payload = result["structuredContent"]
         self.assertFalse(result["isError"])
         self.assertEqual(payload["status"], "ok")
-        self.assertEqual(payload["fixture_count"], 10)
-        self.assertEqual(payload["expectation_count"], 10)
+        self.assertEqual(payload["fixture_count"], 16)
+        self.assertEqual(payload["expectation_count"], 16)
+        self.assertEqual(payload["expectation_version"], 2)
+        self.assertEqual(payload["pr5_fixture_count"], 6)
+        self.assertEqual(payload["pr5_page_coverage"]["missing"], [])
+        self.assertEqual(
+            set(payload["pr5_page_coverage"]["covered"]),
+            {"home", "city", "chapter", "recruit", "building_upgrade", "team"},
+        )
+        self.assertEqual(payload["pr5_locked_fields"]["action"], 6)
+        self.assertEqual(payload["pr5_locked_fields"]["report_evidence"], 6)
+        self.assertEqual(payload["pr5_locked_fields"]["report_confidence"], 6)
         self.assertEqual(payload["failures"], [])
 
     def test_advisor_fixture_eval_returns_selected_action(self) -> None:
@@ -63,6 +73,20 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(payload["expected_action_type"], "claim_chapter_reward")
         self.assertEqual(payload["actual_action_type"], "claim_chapter_reward")
         self.assertEqual(payload["selected_action"]["action_type"], "claim_chapter_reward")
+
+    def test_advisor_fixture_eval_includes_pr5_metadata(self) -> None:
+        result = self.handler.call_tool(
+            "advisor_fixture_eval",
+            {"fixture": "pr5_team_panel_state.json"},
+        )
+        payload = result["structuredContent"]
+        self.assertFalse(result["isError"])
+        self.assertTrue(payload["matched"])
+        self.assertEqual(payload["page"], "team")
+        self.assertEqual(payload["actual_action_type"], "inspect_team_readiness")
+        self.assertEqual(payload["expected_action_confidence"], 0.79)
+        self.assertIn("team_panel_20260529.jpg", payload["screenshot"])
+        self.assertIn("main_lineup.team_readiness", payload["required_action_evidence"])
 
 
 if __name__ == "__main__":

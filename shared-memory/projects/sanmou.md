@@ -41,3 +41,15 @@
   - `.agent/skills/sanmou-advisor-golden-replay/SKILL.md`
   - `packages/qa-agent/src/qa_agent/mcp_server/advisor_tools.py`
   - `packages/pioneer-agent/tests/golden/advisor_fixture_expectations.json`
+
+## 2026-05-29 - PR-5 golden replay completed
+
+- Decision: Treat PR-5 golden replay expansion as complete for PC-client coverage.
+- Evidence: Added `packages/pioneer-agent/tests/fixtures/screenshots/pc_client/pr5_20260529/` with real screenshot fixtures for home, city, chapter, recruit, building upgrade entry, and team; `advisor_fixture_expectations.json` v2 now locks action, evidence, and confidence for the paired runtime fixtures.
+- Owner: Codex sessions in this repo.
+- Blocker: Cross-device screenshot dataset is still incomplete; PC hero detail and battle-report pages plus Android/emulator/iOS coverage remain future fixture work.
+- Next: Move the architecture iteration focus to PR-6 low-risk verifier specs without reopening high-cost reverse-engineering work.
+- Links:
+  - `packages/pioneer-agent/tests/unit/test_pr5_advisor_golden_replay.py`
+  - `packages/qa-agent/tests/test_mcp_tools.py`
+  - `todo-list.md`

@@ -1,0 +1,77 @@
+{
+  "global_state": {
+    "server_open_time": "2026-05-29T10:00:00+08:00",
+    "current_time": "2026-05-29T14:40:00+08:00",
+    "phase_tag": "advisor_recruit_review",
+    "page_type": "recruit"
+  },
+  "progress": {
+    "chapter_claimable": false,
+    "task_progress": {}
+  },
+  "economy": {
+    "resources": {
+      "grain": 500000
+    },
+    "reserve_troops": 40000
+  },
+  "city": {
+    "upgradeable_buildings": []
+  },
+  "heroes": [],
+  "teams": [
+    {
+      "team_id": "guard-1",
+      "exists": true,
+      "soldiers": 22000,
+      "max_soldiers": 33000,
+      "status": "idle",
+      "can_recruit_now": true
+    }
+  ],
+  "map_state": {
+    "candidate_lands": []
+  },
+  "swap_window": {
+    "enabled": false
+  },
+  "main_lineup": {
+    "current_host_team_id": "guard-1",
+    "primary_constraint": "soldiers"
+  },
+  "team_containers": [
+    {
+      "team_id": "guard-1",
+      "slot_unlocked": true,
+      "exists": true,
+      "container_stamina": 200,
+      "soldiers": 22000,
+      "max_soldiers": 33000,
+      "status": "idle",
+      "can_host_now": true,
+      "can_march_now": true
+    }
+  ],
+  "carrier_pool": [],
+  "swap_constraints": {
+    "stamina_regen_per_hour": 12
+  },
+  "timing": {},
+  "field_meta": {
+    "team_containers": {
+      "value": "guard-1:22000/33000",
+      "confidence": 0.82,
+      "source": "fixture.pr5.recruit_panel"
+    },
+    "teams": {
+      "value": "guard-1:recruitable",
+      "confidence": 0.84,
+      "source": "fixture.pr5.recruit_panel"
+    },
+    "economy.reserve_troops": {
+      "value": 40000,
+      "confidence": 0.93,
+      "source": "fixture.pr5.recruit_panel"
+    }
+  }
+}

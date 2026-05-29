@@ -1,0 +1,93 @@
+{
+  "global_state": {
+    "server_open_time": "2026-05-29T10:00:00+08:00",
+    "current_time": "2026-05-29T12:06:00+08:00",
+    "phase_tag": "advisor_team_review",
+    "page_type": "team"
+  },
+  "progress": {
+    "chapter_claimable": false,
+    "task_progress": {}
+  },
+  "economy": {
+    "reserve_troops": 0
+  },
+  "city": {
+    "upgradeable_buildings": []
+  },
+  "heroes": [],
+  "teams": [
+    {
+      "team_id": "team-1",
+      "page_type": "team_panel",
+      "formation": "Wedge",
+      "formation_active": true,
+      "bond_active": true,
+      "soldiers": 33000,
+      "max_soldiers": 33000,
+      "soldier_deficit": 0,
+      "supply": 100,
+      "supply_max": 100,
+      "heroes": [
+        {"name": "Hero A", "level": 50, "soldiers": 11000, "max_soldiers": 11000},
+        {"name": "Hero B", "level": 50, "soldiers": 11000, "max_soldiers": 11000},
+        {"name": "Hero C", "level": 50, "soldiers": 11000, "max_soldiers": 11000}
+      ],
+      "readiness_notes": ["team panel captured without detail tabs"],
+      "missing_detail_tabs": ["equipment", "mount", "books", "attribute_points", "tactics_level"]
+    }
+  ],
+  "map_state": {
+    "candidate_lands": []
+  },
+  "swap_window": {
+    "enabled": false
+  },
+  "main_lineup": {
+    "current_host_team_id": "team-1",
+    "team_readiness": {
+      "formation_active": true,
+      "bond_active": true,
+      "soldier_deficit": 0,
+      "missing_detail_tabs": ["equipment", "mount", "books", "attribute_points", "tactics_level"],
+      "requires_detail_review": true
+    }
+  },
+  "team_containers": [
+    {
+      "team_id": "team-1",
+      "soldiers": 33000,
+      "max_soldiers": 33000,
+      "soldier_deficit": 0,
+      "container_stamina": 200,
+      "status": "observed"
+    }
+  ],
+  "carrier_pool": [],
+  "swap_constraints": {
+    "stamina_regen_per_hour": 12
+  },
+  "timing": {},
+  "field_meta": {
+    "teams": {
+      "value": "team-1:team_panel",
+      "confidence": 0.81,
+      "source": "fixture.pr5.team_panel"
+    },
+    "team_containers": {
+      "value": "team-1:33000/33000",
+      "confidence": 0.83,
+      "source": "fixture.pr5.team_panel"
+    },
+    "main_lineup.team_readiness": {
+      "value": "requires_detail_review",
+      "confidence": 0.79,
+      "source": "fixture.pr5.team_panel"
+    },
+    "main_lineup.team_snapshot": {
+      "value": "panel_only",
+      "confidence": 0.8,
+      "source": "fixture.pr5.team_panel"
+    }
+  }
+}

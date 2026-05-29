@@ -1,6 +1,6 @@
 # Todo List
 
-> Last updated: 2026-05-21 (NSLG 客户端逆向线按 ROI 收口暂停；保留离线证据链和资源地图，不再作为主线继续烧 token；Architecture Iteration 仍是最高优先级，下一段重点是 Advisor golden replay 与低风险动作 verifier)
+> Last updated: 2026-05-29 (PR-5 Golden replay 扩展已落地：PC 客户端真实截图覆盖首页、城内、章节、征兵、建筑升级、队伍，并锁住 action/evidence/confidence；下一段重点转向 PR-6 低风险动作 verifier)
 
 ## Highest Priority — Architecture Iteration
 
@@ -11,7 +11,7 @@
 - [x] PR-2 Evidence validator（2026-05-19）：推荐引用的 `entry_id` 必须来自 QA 检索结果或 `strategy_snapshot.yaml`，伪造/缺失 evidence 有 regression tests。
 - [x] PR-3 `strategy_snapshot.entry_ids` 贯通（2026-05-19）：建筑升级 scoring 的 priority 与 evidence 同时输出，推荐层可反查 QA knowledge。
 - [x] PR-4 Vision semantic validators（2026-05-19）：当前 vision schema 增加 bbox、visible/enabled、page/domain 一致性校验和失败 fixture。
-- [ ] PR-5 Golden replay 扩展：真实截图 fixture 覆盖首页、城内、章节、征兵、建筑升级、队伍，锁住 action/evidence/confidence。
+- [x] PR-5 Golden replay 扩展（2026-05-29）：`tests/fixtures/screenshots/pc_client/pr5_20260529/` 覆盖首页、城内、章节、征兵、建筑升级、队伍；`advisor_fixture_expectations.json` v2 锁住 action/evidence/confidence，`test_pr5_advisor_golden_replay.py` 与 qa-agent MCP smoke 均可验证。
 - [ ] PR-6 低风险 verifier specs：先补 `claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` expected deltas，不先追求完整自动点击 flow。
 
 ## In Progress
@@ -30,7 +30,7 @@
 - [x] Evidence validator（2026-05-19）：推荐引用的 `entry_id` 必须来自真实检索结果或 `strategy_snapshot.yaml`，伪造、缺失 evidence 已有测试覆盖。
 - [x] `strategy_snapshot.entry_ids` 贯通（2026-05-19）：建筑升级 scoring 注入 priority 的同时，把相关 `entry_ids` 传到推荐和解释层。
 - [x] Vision semantic validators（2026-05-19）：对当前视觉 schema 增加语义校验，包括 bbox 范围、按钮 visible/enabled 与 bbox 一致性、page/domain 一致性。
-- [ ] Advisor golden replay 扩展：把真实截图 fixture 扩展到首页、城内、章节、征兵、建筑升级、队伍，锁住 action/evidence/confidence 输出。
+- [x] Advisor golden replay 扩展（2026-05-29）：PR-5 六类 PC 客户端真实截图与 runtime fixtures 已入库，action/evidence/confidence 由 golden expectation 和单测/MCP 状态同时验证。
 - [ ] ExplainerLLM 边界：只允许 LLM 基于 rule reason + evidence 生成 narrative，不允许修改 action type、关键 params、safety verdict。
 - [ ] LLM-as-Judge 灰度：只在 top2 score 接近且已有 eval baseline 后启用 pairwise rerank；默认关闭。
 - [ ] 停止条件执行：没有 golden replay baseline 前不启用 LLM-as-Judge；低风险 verifier false positive 未覆盖前不开放 semi-auto；地图/战报/队伍 verifier 未完成前不开放高风险全自动。
@@ -64,7 +64,7 @@
 - [x] `event_tournament` / `mode_hub` perception domain（2026-05-17）：新增 `perception.domains.mode_hub` 与 vision schema/sync，识别演武大会、征战入口、远征/军演/养士兴功等页面的入口、积分、排名、倒计时、阶段状态、可进入/可领取/可重置/可报名及按钮 bbox，写入 `global_state.event_tournament/mode_hub`。
 - [ ] TeamSnapshot 全队详情 fixture/eval：补充孟获、诸葛亮2 的详情页截图 fixture，让 `TeamSnapshot` 从“祝融夫人单将详情已覆盖”推进到 3/3 武将详情覆盖，并校验最终可进入 PVP/PVE/远征 ready/needs_review 判断。
 - [x] Desktop Advisor 历史记录（2026-05-17）：`advisor_api` 为 `reports.jsonl + uploads/` 增加 history list/detail/screenshot API；历史条目记录上传截图、`DeviceProfile`、`RuntimeState`/`AdvisorReport` 摘要，桌面端侧栏可浏览最近记录并重新打开保存的截图和报告。
-- [ ] Screenshot fixture dataset：建立 `tests/fixtures/screenshots/{pc_client,android_emulator,android,ios}/`，至少覆盖首页、城内、章节、队伍、武将、地图、战报。PC 客户端首批 live fixture 已落地（2026-05-18）：`tests/fixtures/screenshots/pc_client/live_20260518/` 覆盖公告弹窗、服务器页、主城每周任务面板、地图目标 `(647,905)`，并有 manifest 校验测试；仍缺章节、队伍、武将、战报和安卓模拟器/安卓/iOS。
+- [ ] Screenshot fixture dataset：建立 `tests/fixtures/screenshots/{pc_client,android_emulator,android,ios}/`，至少覆盖首页、城内、章节、队伍、武将、地图、战报。PC 客户端已补 `live_20260518/` 与 `pr5_20260529/`：覆盖公告弹窗、服务器页、城内、章节任务、征兵/亲卫部队、建筑选择/升级入口、队伍面板、地图目标 `(647,905)`；仍缺 PC 武将/战报和安卓模拟器/安卓/iOS。
 - [x] Vision eval baseline（2026-05-17）：新增 `pioneer_agent.perception.vision_eval`，基于 reviewed screenshot fixture replay 输出 page/domain/entity accuracy；`team_snapshot_mobile_20260514.json` 补充 initial_state 与 entity checks，离线 baseline 当前 5 张截图 page/domain/entity accuracy 均为 1.0。
 - [x] Action verifier eval（2026-05-17）：新增 `tests/fixtures/verifier/action_verifier_eval.json` 与 `pioneer_agent.verifier.eval`，覆盖 `claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` 的成功、状态未变化、误识别、超时、弹窗打断；同时让 `VerifierBase` 支持 `teams.0.*` / `city.buildings.0.*` 列表索引路径。
 - [x] qa-agent 接入 Advisor chat（2026-05-17）：`/api/advisor/chat` 对建筑/打地/阵容/战法等知识问题懒加载 `qa-agent QueryService`，结合 `AdvisorReport` 的页面与推荐动作生成回答和 evidence；无 qa-agent 环境或无证据时回退本地 Advisor 模板，不引入 runtime LLM 依赖。
