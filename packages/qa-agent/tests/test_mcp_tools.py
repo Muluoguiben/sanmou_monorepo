@@ -49,6 +49,10 @@ class McpToolTests(unittest.TestCase):
         payload = result["structuredContent"]
         self.assertFalse(result["isError"])
         self.assertEqual(payload["status"], "attention")
+        self.assertEqual(
+            [item["code"] for item in payload["attention_reasons"]],
+            ["low_risk_terminal_dispatch_missing"],
+        )
         self.assertEqual(payload["fixture_count"], 16)
         self.assertEqual(payload["expectation_count"], 16)
         self.assertEqual(payload["expectation_version"], 2)
@@ -89,6 +93,23 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(payload["pr15_terminal_dispatch_gate_coverage"]["required_count"], 3)
         self.assertEqual(payload["pr15_terminal_dispatch_gate_coverage"]["matched_count"], 3)
         self.assertEqual(payload["pr15_terminal_dispatch_gate_coverage"]["failures"], [])
+        readiness = payload["low_risk_verifier_readiness"]
+        self.assertTrue(readiness["checked"])
+        self.assertFalse(readiness["ready"])
+        self.assertEqual(readiness["ready_actions"], [])
+        self.assertEqual(readiness["verifier_spec_missing"], [])
+        self.assertEqual(
+            set(readiness["terminal_dispatch_missing"]),
+            {"claim_chapter_reward", "recruit_soldiers", "upgrade_building"},
+        )
+        self.assertEqual(
+            readiness["blocking_actions"],
+            {
+                "claim_chapter_reward": ["missing_terminal_dispatch"],
+                "recruit_soldiers": ["missing_terminal_dispatch"],
+                "upgrade_building": ["missing_terminal_dispatch"],
+            },
+        )
         terminal = payload["pr5_low_risk_terminal_dispatch_coverage"]
         self.assertTrue(terminal["checked"])
         self.assertEqual(terminal["covered"], [])
@@ -103,6 +124,11 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(upgrade_observation["status"], "ok")
         self.assertEqual(upgrade_observation["flow_step"], "open_upgrade_dialog")
         self.assertFalse(upgrade_observation["terminal_for_verifier"])
+        self.assertEqual(readiness["observed_terminal_dispatch"], terminal["observed"])
+        self.assertEqual(
+            payload["attention_reasons"][0]["blocking_actions"],
+            readiness["blocking_actions"],
+        )
         self.assertEqual(payload["failures"], [])
 
     def test_advisor_fixture_eval_returns_selected_action(self) -> None:

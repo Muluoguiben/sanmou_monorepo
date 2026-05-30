@@ -130,20 +130,12 @@ class AdvisorReplayTools:
                 "missing": [],
                 "observed": [],
             }
-        payload["status"] = (
-            "ok"
-            if not payload["missing_expectations"]
-            and not payload["extra_expectations"]
-            and not payload["failures"]
-            and not payload["pr5_page_coverage"]["missing"]
-            and not payload["pr5_locked_field_coverage"]["missing"]
-            and not payload["pr6_verifier_coverage"]["missing"]
-            and not payload["pr5_dispatch_gate_coverage"]["failures"]
-            and not payload["pr12_runtime_dispatch_coverage"]["failures"]
-            and not payload["pr15_terminal_dispatch_gate_coverage"]["failures"]
-            and not payload["pr5_low_risk_terminal_dispatch_coverage"]["missing"]
-            else "attention"
+        payload["low_risk_verifier_readiness"] = self._low_risk_verifier_readiness(
+            payload["pr6_verifier_coverage"],
+            payload["pr5_low_risk_terminal_dispatch_coverage"],
         )
+        payload["attention_reasons"] = self._attention_reasons(payload)
+        payload["status"] = "attention" if payload["attention_reasons"] else "ok"
         return payload
 
     def fixture_eval(self, *, fixture: str, expected_action_type: str | None = None) -> dict[str, Any]:
@@ -434,6 +426,136 @@ class AdvisorReplayTools:
             "missing": sorted(set(PR6_LOW_RISK_ACTIONS) - set(covered)),
             "observed": sorted(observed, key=lambda item: (item["action_type"], item["fixture"])),
         }
+
+    @staticmethod
+    def _low_risk_verifier_readiness(
+        verifier_coverage: dict[str, Any],
+        terminal_dispatch_coverage: dict[str, Any],
+    ) -> dict[str, Any]:
+        required = list(PR6_LOW_RISK_ACTIONS)
+        checked = bool(verifier_coverage.get("checked")) and bool(terminal_dispatch_coverage.get("checked"))
+        verifier_missing = list(verifier_coverage.get("missing") or [])
+        terminal_missing = list(terminal_dispatch_coverage.get("missing") or [])
+        blocking_actions: dict[str, list[str]] = {}
+        for action_type in required:
+            reasons: list[str] = []
+            if action_type in verifier_missing:
+                reasons.append("missing_verifier_spec")
+            if action_type in terminal_missing:
+                reasons.append("missing_terminal_dispatch")
+            if reasons:
+                blocking_actions[action_type] = reasons
+
+        return {
+            "checked": checked,
+            "ready": checked and not blocking_actions,
+            "required_actions": required,
+            "ready_actions": sorted(set(required) - set(blocking_actions)),
+            "blocking_actions": blocking_actions,
+            "verifier_spec_missing": verifier_missing,
+            "terminal_dispatch_missing": terminal_missing,
+            "observed_terminal_dispatch": terminal_dispatch_coverage.get("observed") or [],
+        }
+
+    @staticmethod
+    def _attention_reasons(payload: dict[str, Any]) -> list[dict[str, Any]]:
+        reasons: list[dict[str, Any]] = []
+        if payload.get("missing_expectations"):
+            reasons.append(
+                {
+                    "code": "missing_expectations",
+                    "count": len(payload["missing_expectations"]),
+                    "fixtures": payload["missing_expectations"],
+                }
+            )
+        if payload.get("extra_expectations"):
+            reasons.append(
+                {
+                    "code": "extra_expectations",
+                    "count": len(payload["extra_expectations"]),
+                    "fixtures": payload["extra_expectations"],
+                }
+            )
+
+        page_missing = (payload.get("pr5_page_coverage") or {}).get("missing") or []
+        if page_missing:
+            reasons.append({"code": "pr5_page_coverage_missing", "pages": page_missing})
+
+        locked_missing = (payload.get("pr5_locked_field_coverage") or {}).get("missing") or []
+        if locked_missing:
+            reasons.append(
+                {
+                    "code": "pr5_locked_fields_missing",
+                    "count": len(locked_missing),
+                    "missing": locked_missing,
+                }
+            )
+
+        failures = payload.get("failures") or []
+        if failures:
+            reasons.append(
+                {
+                    "code": "advisor_replay_failures",
+                    "count": len(failures),
+                    "fixtures": [item.get("fixture") for item in failures],
+                }
+            )
+
+        verifier_coverage = payload.get("pr6_verifier_coverage") or {}
+        verifier_missing = verifier_coverage.get("missing") or []
+        if verifier_coverage.get("checked") and verifier_missing:
+            reasons.append(
+                {
+                    "code": "pr6_verifier_coverage_missing",
+                    "actions": verifier_missing,
+                }
+            )
+
+        dispatch_failures = (payload.get("pr5_dispatch_gate_coverage") or {}).get("failures") or []
+        if dispatch_failures:
+            reasons.append(
+                {
+                    "code": "pr5_dispatch_gate_failures",
+                    "count": len(dispatch_failures),
+                    "failures": dispatch_failures,
+                }
+            )
+
+        runtime_dispatch_failures = (
+            (payload.get("pr12_runtime_dispatch_coverage") or {}).get("failures") or []
+        )
+        if runtime_dispatch_failures:
+            reasons.append(
+                {
+                    "code": "pr12_runtime_dispatch_gate_failures",
+                    "count": len(runtime_dispatch_failures),
+                    "failures": runtime_dispatch_failures,
+                }
+            )
+
+        terminal_gate_failures = (
+            (payload.get("pr15_terminal_dispatch_gate_coverage") or {}).get("failures") or []
+        )
+        if terminal_gate_failures:
+            reasons.append(
+                {
+                    "code": "pr15_terminal_dispatch_gate_failures",
+                    "count": len(terminal_gate_failures),
+                    "failures": terminal_gate_failures,
+                }
+            )
+
+        readiness = payload.get("low_risk_verifier_readiness") or {}
+        terminal_missing = readiness.get("terminal_dispatch_missing") or []
+        if readiness.get("checked") and terminal_missing:
+            reasons.append(
+                {
+                    "code": "low_risk_terminal_dispatch_missing",
+                    "actions": terminal_missing,
+                    "blocking_actions": readiness.get("blocking_actions") or {},
+                }
+            )
+        return reasons
 
 
 def _dispatch_gate_result(result: dict[str, Any], expectation: dict[str, Any]) -> dict[str, Any]:
