@@ -109,7 +109,9 @@
       "required_action_evidence": [
         "progress.chapter_claimable",
         "progress.current_chapter_id"
-      ]
+      ],
+      "expected_dispatch_status": "blocked",
+      "expected_dispatch_blocked_by": "semantic_target_gate"
     },
     "pr5_recruit_guard_camp_state.json": {
       "page": "recruit",
@@ -136,7 +138,9 @@
         "team_containers",
         "teams",
         "economy.reserve_troops"
-      ]
+      ],
+      "expected_dispatch_status": "blocked",
+      "expected_dispatch_blocked_by": "semantic_target_gate"
     },
     "pr5_building_upgrade_state.json": {
       "page": "building_upgrade",
@@ -176,7 +180,9 @@
         "upgrade_button.bbox.y_min",
         "upgrade_button.bbox.x_max",
         "upgrade_button.bbox.y_max"
-      ]
+      ],
+      "expected_dispatch_status": "ok",
+      "expected_dispatch_target_key": "building_upgrade_button"
     },
     "pr5_team_panel_state.json": {
       "page": "team",

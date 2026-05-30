@@ -1,6 +1,6 @@
 # Todo List
 
-> Last updated: 2026-05-30 (低风险闭环继续推进：claim/recruit/upgrade 已有 semantic bbox dispatch；`UIActionRunner` 会在 dispatch 前二次校验低风险动作是否携带 visible+enabled 且 0-1000 合法的 semantic bbox，缺失、禁用或越界时直接 `semantic_target_gate` block，不伪造 PR5 claim/recruit bbox；PR5 golden replay 已断言章节/征兵真实截图选出的 claim/recruit 动作会被 gate 阻断，而建筑升级真实入口 bbox 可派发；`AutonomousLoop` 会在成功点击后重新 observe 并执行 post-action verifier，失败会标记 `failed` + `recovery_required` 并同 tick 触发一次 ESC recovery；claim/recruit 完整多步 UI flow 仍待补)
+> Last updated: 2026-05-30 (低风险闭环继续推进：claim/recruit/upgrade 已有 semantic bbox dispatch；`UIActionRunner` 会在 dispatch 前二次校验低风险动作是否携带 visible+enabled 且 0-1000 合法的 semantic bbox，缺失、禁用或越界时直接 `semantic_target_gate` block，不伪造 PR5 claim/recruit bbox；PR5 golden expectation fixture 已字段化断言章节/征兵真实截图选出的 claim/recruit 动作会被 gate 阻断，而建筑升级真实入口 bbox 可派发；`AutonomousLoop` 会在成功点击后重新 observe 并执行 post-action verifier，失败会标记 `failed` + `recovery_required` 并同 tick 触发一次 ESC recovery；claim/recruit 完整多步 UI flow 仍待补)
 
 ## Highest Priority — Architecture Iteration
 
@@ -16,7 +16,7 @@
 - [x] PR-7 `upgrade_building` 两段式低风险 flow（2026-05-30）：当 selector 给出已验证的 `upgrade_button` bbox 时先点击升级入口，随后强制重新 observe；只有下一次仍选中同一 `action_id` 的 `upgrade_building` 且出现匹配建筑的 `upgrade_dialog.confirm_button` 时才点击确认并进入 post-action verifier，否则直接 failed/recovery，不继续连点。
 - [x] PR-8 `upgrade_button` semantic fixture gate（2026-05-30）：`city_buildings` schema/domain 增加建筑升级入口 bbox validator；`StateDeriver` 会把 `city.buildings[*].upgrade_button` 挂到匹配的 `city.upgradeable_buildings[*]`；PR5 建筑真实截图 fixture/golden replay 断言 action params 与 structured evidence 同时包含该入口。
 - [x] PR-9 low-risk semantic target gate（2026-05-30）：`UIActionRunner` 在 `claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` dispatch 前要求 action params 中已有 visible+enabled 的 semantic bbox；`upgrade_building` 允许入口按钮或确认按钮二选一，claim/recruit 的 PR5 截图未观测到可信按钮 bbox 时保持 blocked。
-- [x] PR-10 PR5 semantic target replay gate（2026-05-30）：`test_pr5_advisor_golden_replay` 现在把 PR5 真实截图选出的低风险动作送入 `UIActionRunner`；章节/征兵 fixture 缺可信 bbox 时必须 `semantic_target_gate` block，建筑升级 fixture 的真实 `upgrade_button` 仍可 dispatch。
+- [x] PR-10 PR5 semantic target replay gate（2026-05-30）：`advisor_fixture_expectations.json` 字段化记录 `expected_dispatch_status` / `expected_dispatch_blocked_by` / `expected_dispatch_target_key`；`test_pr5_advisor_golden_replay` 把 PR5 真实截图选出的低风险动作送入 `UIActionRunner` 并按 fixture 断言章节/征兵缺可信 bbox 必须 block、建筑升级真实 `upgrade_button` 可 dispatch。
 
 ## In Progress
 

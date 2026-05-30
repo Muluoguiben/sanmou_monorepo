@@ -159,6 +159,7 @@ class Pr5AdvisorGoldenReplayTests(unittest.TestCase):
 
     def test_pr5_low_risk_actions_require_real_semantic_targets_before_dispatch(self) -> None:
         project_root = _project_root()
+        expectations = _pr5_expectations(_load_expectation_payload())
         deriver = StateDeriver()
         selector = ActionSelector()
         runner = UIActionRunner(
@@ -166,21 +167,9 @@ class Pr5AdvisorGoldenReplayTests(unittest.TestCase):
             capabilities=CapabilityFlags(input_control=True),
         )
         cases = {
-            "pr5_chapter_main_task_state.json": {
-                "action_type": ActionType.CLAIM_CHAPTER_REWARD,
-                "status": "blocked",
-                "blocked_by": "semantic_target_gate",
-            },
-            "pr5_recruit_guard_camp_state.json": {
-                "action_type": ActionType.RECRUIT_SOLDIERS,
-                "status": "blocked",
-                "blocked_by": "semantic_target_gate",
-            },
-            "pr5_building_upgrade_state.json": {
-                "action_type": ActionType.UPGRADE_BUILDING,
-                "status": "ok",
-                "target_key": "building_upgrade_button",
-            },
+            fixture_name: expected
+            for fixture_name, expected in expectations.items()
+            if "expected_dispatch_status" in expected
         }
 
         for fixture_name, expected in cases.items():
@@ -189,15 +178,15 @@ class Pr5AdvisorGoldenReplayTests(unittest.TestCase):
                 action = selector.select(deriver.derive(state)).selected_action
 
                 self.assertIsNotNone(action)
-                self.assertEqual(action.action_type, expected["action_type"])
+                self.assertEqual(action.action_type, ActionType(expected["expected_action_type"]))
 
                 result = runner.run(action)
 
-                self.assertEqual(result.status, expected["status"])
-                if "blocked_by" in expected:
-                    self.assertEqual(result.summary["blocked_by"], expected["blocked_by"])
-                if "target_key" in expected:
-                    self.assertEqual(result.summary["target_key"], expected["target_key"])
+                self.assertEqual(result.status, expected["expected_dispatch_status"])
+                if "expected_dispatch_blocked_by" in expected:
+                    self.assertEqual(result.summary["blocked_by"], expected["expected_dispatch_blocked_by"])
+                if "expected_dispatch_target_key" in expected:
+                    self.assertEqual(result.summary["target_key"], expected["expected_dispatch_target_key"])
 
 
 def _project_root() -> Path:
