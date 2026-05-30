@@ -54,6 +54,7 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(closure_gate["status"], "attention")
         self.assertNotIn("low_risk_terminal_dispatch_ready", closure_gate["blocking_codes"])
         self.assertIn("low_risk_terminal_real_source_reviewed", closure_gate["blocking_codes"])
+        self.assertIn("desktop_evidence_degraded_display_ready", closure_gate["blocking_codes"])
         self.assertNotIn("golden_replay_checked", closure_gate["blocking_codes"])
         self.assertNotIn("pr6_verifier_specs_complete", closure_gate["blocking_codes"])
         self.assertTrue(all(item["exists"] for item in closure_gate["source_docs"]))
@@ -81,8 +82,27 @@ class McpToolTests(unittest.TestCase):
         )
         self.assertEqual(
             [item["code"] for item in payload["attention_reasons"]],
-            ["low_risk_terminal_source_review_missing"],
+            [
+                "low_risk_terminal_source_review_missing",
+                "desktop_evidence_degraded_display_missing",
+            ],
         )
+        desktop_gate = payload["desktop_evidence_display_gate"]
+        self.assertTrue(desktop_gate["checked"])
+        self.assertFalse(desktop_gate["ready"])
+        self.assertTrue(all(item["exists"] for item in desktop_gate["files"].values()))
+        self.assertIn("structured_evidence_rendered", desktop_gate["missing"])
+        self.assertIn("blocked_action_reason_rendered", desktop_gate["missing"])
+        self.assertIn("no_evidence_degraded_copy", desktop_gate["missing"])
+        self.assertIn("evidence_state_styles", desktop_gate["missing"])
+        self.assertNotIn("structured_evidence_contract_typed", desktop_gate["missing"])
+        desktop_requirement = next(
+            item
+            for item in closure_gate["requirements"]
+            if item["code"] == "desktop_evidence_degraded_display_ready"
+        )
+        self.assertFalse(desktop_requirement["ready"])
+        self.assertEqual(desktop_requirement["evidence"]["missing"], desktop_gate["missing"])
         self.assertEqual(payload["fixture_count"], 19)
         self.assertEqual(payload["expectation_count"], 19)
         self.assertEqual(payload["expectation_version"], 2)
@@ -309,7 +329,7 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(payload["failures"], [])
         self.assertEqual(
             [item["code"] for item in payload["attention_reasons"]],
-            ["fixture_replay_not_run"],
+            ["fixture_replay_not_run", "desktop_evidence_degraded_display_missing"],
         )
         closure_gate = payload["architecture_iteration_closure_gate"]
         self.assertFalse(closure_gate["ready"])
@@ -318,6 +338,7 @@ class McpToolTests(unittest.TestCase):
         self.assertIn("pr6_verifier_specs_complete", closure_gate["blocking_codes"])
         self.assertIn("low_risk_terminal_dispatch_ready", closure_gate["blocking_codes"])
         self.assertIn("low_risk_terminal_real_source_reviewed", closure_gate["blocking_codes"])
+        self.assertIn("desktop_evidence_degraded_display_ready", closure_gate["blocking_codes"])
         self.assertFalse(payload["pr6_verifier_coverage"]["checked"])
         self.assertFalse(payload["pr5_dispatch_gate_coverage"]["checked"])
         self.assertFalse(payload["pr12_runtime_dispatch_coverage"]["checked"])

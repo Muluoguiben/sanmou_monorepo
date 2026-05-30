@@ -84,6 +84,7 @@ class AdvisorReplayTools:
             "failures": [],
             "fixture_replay_checked": include_fixture_results,
         }
+        payload["desktop_evidence_display_gate"] = self._desktop_evidence_display_gate()
         comparisons: list[dict[str, Any]] = []
         if include_fixture_results:
             replay_results = self._run_replay(fixtures)
@@ -687,6 +688,14 @@ class AdvisorReplayTools:
                     "observed": source_review.get("observed") or [],
                 }
             )
+        desktop_gate = payload.get("desktop_evidence_display_gate") or {}
+        if desktop_gate.get("checked") and not desktop_gate.get("ready"):
+            reasons.append(
+                {
+                    "code": "desktop_evidence_degraded_display_missing",
+                    "missing": desktop_gate.get("missing") or [],
+                }
+            )
         return reasons
 
     def _architecture_iteration_closure_gate(self, payload: dict[str, Any]) -> dict[str, Any]:
@@ -778,6 +787,11 @@ class AdvisorReplayTools:
                 bool((payload.get("low_risk_terminal_source_review") or {}).get("ready")),
                 payload.get("low_risk_terminal_source_review") or {},
             ),
+            _closure_requirement(
+                "desktop_evidence_degraded_display_ready",
+                bool((payload.get("desktop_evidence_display_gate") or {}).get("ready")),
+                payload.get("desktop_evidence_display_gate") or {},
+            ),
         ]
         blocking_codes = [item["code"] for item in requirements if not item["ready"]]
         return {
@@ -786,6 +800,66 @@ class AdvisorReplayTools:
             "source_docs": source_docs,
             "blocking_codes": blocking_codes,
             "requirements": requirements,
+        }
+
+    def _desktop_evidence_display_gate(self) -> dict[str, Any]:
+        renderer_root = self.workspace_root / "apps" / "sanmou-advisor-desktop" / "src" / "renderer"
+        source_files = {
+            "app": renderer_root / "App.tsx",
+            "types": renderer_root / "types.ts",
+            "styles": renderer_root / "styles.css",
+        }
+        file_status: dict[str, dict[str, Any]] = {}
+        contents: dict[str, str] = {}
+        for key, path in source_files.items():
+            exists = path.exists()
+            file_status[key] = {
+                "path": str(path.relative_to(self.workspace_root)),
+                "exists": exists,
+            }
+            contents[key] = path.read_text(encoding="utf-8") if exists else ""
+
+        app_source = contents["app"]
+        types_source = contents["types"]
+        styles_source = contents["styles"]
+        checks = [
+            _display_gate_check(
+                "structured_evidence_contract_typed",
+                "structured_evidence" in types_source and "StructuredEvidence" in types_source,
+                "Desktop report types must preserve structured evidence from AdvisorReport and ActionRecommendation.",
+            ),
+            _display_gate_check(
+                "structured_evidence_rendered",
+                "structured_evidence" in app_source,
+                "Desktop summary must render structured evidence, not only legacy string evidence.",
+            ),
+            _display_gate_check(
+                "blocked_action_reason_rendered",
+                "execution_blocked_reason" in app_source,
+                "Desktop recommendation panel must expose blocked/degraded action reasons.",
+            ),
+            _display_gate_check(
+                "no_evidence_degraded_copy",
+                any(token in app_source for token in ("证据不足", "degraded", "evidence-degraded")),
+                "Desktop must label no-evidence recommendations as degraded instead of certain.",
+            ),
+            _display_gate_check(
+                "evidence_state_styles",
+                any(token in styles_source for token in ("evidence-degraded", "evidence-status", "degraded")),
+                "Desktop styles must include a distinct degraded/no-evidence presentation.",
+            ),
+        ]
+        missing = [item["code"] for item in checks if not item["ready"]]
+        missing_files = [
+            status["path"] for status in file_status.values() if not status["exists"]
+        ]
+        return {
+            "checked": True,
+            "ready": not missing and not missing_files,
+            "files": file_status,
+            "checks": checks,
+            "missing": sorted(missing),
+            "missing_files": missing_files,
         }
 
     @staticmethod
@@ -1081,6 +1155,14 @@ def _closure_requirement(code: str, ready: bool, evidence: dict[str, Any]) -> di
         "code": code,
         "ready": bool(ready),
         "evidence": evidence,
+    }
+
+
+def _display_gate_check(code: str, ready: bool, requirement: str) -> dict[str, Any]:
+    return {
+        "code": code,
+        "ready": bool(ready),
+        "requirement": requirement,
     }
 
 
