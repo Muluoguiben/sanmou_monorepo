@@ -82,6 +82,7 @@ class AdvisorReplayTools:
             ),
             "results": [],
             "failures": [],
+            "fixture_replay_checked": include_fixture_results,
         }
         if include_fixture_results:
             replay_results = self._run_replay(fixtures)
@@ -462,6 +463,13 @@ class AdvisorReplayTools:
     @staticmethod
     def _attention_reasons(payload: dict[str, Any]) -> list[dict[str, Any]]:
         reasons: list[dict[str, Any]] = []
+        if not payload.get("fixture_replay_checked"):
+            reasons.append(
+                {
+                    "code": "fixture_replay_not_run",
+                    "message": "include_fixture_results=false skips golden replay comparisons and cannot prove Advisor readiness.",
+                }
+            )
         if payload.get("missing_expectations"):
             reasons.append(
                 {

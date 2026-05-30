@@ -147,6 +147,32 @@ class McpToolTests(unittest.TestCase):
         )
         self.assertEqual(payload["failures"], [])
 
+    def test_advisor_golden_replay_status_without_fixture_results_is_attention(self) -> None:
+        result = self.handler.call_tool(
+            "advisor_golden_replay_status",
+            {"include_fixture_results": False},
+        )
+        payload = result["structuredContent"]
+
+        self.assertFalse(result["isError"])
+        self.assertEqual(payload["status"], "attention")
+        self.assertFalse(payload["fixture_replay_checked"])
+        self.assertEqual(payload["results"], [])
+        self.assertEqual(payload["failures"], [])
+        self.assertEqual(
+            [item["code"] for item in payload["attention_reasons"]],
+            ["fixture_replay_not_run"],
+        )
+        self.assertFalse(payload["pr6_verifier_coverage"]["checked"])
+        self.assertFalse(payload["pr5_dispatch_gate_coverage"]["checked"])
+        self.assertFalse(payload["pr12_runtime_dispatch_coverage"]["checked"])
+        self.assertFalse(payload["pr15_terminal_dispatch_gate_coverage"]["checked"])
+        self.assertFalse(payload["pr5_low_risk_terminal_dispatch_coverage"]["checked"])
+        readiness = payload["low_risk_verifier_readiness"]
+        self.assertFalse(readiness["checked"])
+        self.assertFalse(readiness["ready"])
+        self.assertEqual(readiness["blocking_actions"], {})
+
     def test_advisor_fixture_eval_returns_selected_action(self) -> None:
         result = self.handler.call_tool(
             "advisor_fixture_eval",
