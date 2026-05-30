@@ -136,7 +136,8 @@ class AdvisorReplayTools:
             payload["pr5_low_risk_terminal_dispatch_coverage"],
         )
         payload["low_risk_terminal_source_review"] = self._low_risk_terminal_source_review(
-            payload["pr5_low_risk_terminal_dispatch_coverage"]
+            payload["pr5_low_risk_terminal_dispatch_coverage"],
+            expectations,
         )
         payload["attention_reasons"] = self._attention_reasons(payload)
         payload["status"] = "attention" if payload["attention_reasons"] else "ok"
@@ -177,7 +178,7 @@ class AdvisorReplayTools:
             "runtime_dispatch": replay_result.get("runtime_dispatch"),
             "verifier_gate": replay_result.get("verifier_gate"),
             "verifier_spec": replay_result.get("verifier_spec"),
-            "terminal_source_review": self._fixture_terminal_source_review(comparison),
+            "terminal_source_review": self._fixture_terminal_source_review(comparison, expectation),
             "selected_action": replay_result.get("selected_action"),
             "selection_reason": replay_result.get("selection_reason"),
             "derived_state": replay_result.get("derived_state"),
@@ -436,9 +437,10 @@ class AdvisorReplayTools:
             "observed": sorted(observed, key=lambda item: (item["action_type"], item["fixture"])),
         }
 
-    @staticmethod
     def _low_risk_terminal_source_review(
+        self,
         terminal_dispatch_coverage: dict[str, Any],
+        expectations: dict[str, dict[str, Any]],
     ) -> dict[str, Any]:
         checked = bool(terminal_dispatch_coverage.get("checked"))
         covered_fixtures = terminal_dispatch_coverage.get("covered_fixtures") or {}
@@ -446,16 +448,14 @@ class AdvisorReplayTools:
         accepted_actions: list[str] = []
         for action_type in PR6_LOW_RISK_ACTIONS:
             fixture = covered_fixtures.get(action_type)
-            source_kind = _terminal_fixture_source_kind(fixture)
-            accepted = source_kind in {"pr5_real_screenshot_fixture", "live_trace_fixture"}
-            observed.append(
-                {
-                    "action_type": action_type,
-                    "fixture": fixture,
-                    "source_kind": source_kind,
-                    "accepted_for_closure": accepted,
-                }
+            expectation = expectations.get(str(fixture), {}) if fixture else {}
+            source_review = self._terminal_source_evidence_review(
+                action_type=action_type,
+                fixture=fixture,
+                expectation=expectation,
             )
+            accepted = source_review["accepted_for_closure"]
+            observed.append(source_review)
             if accepted:
                 accepted_actions.append(action_type)
         missing = sorted(set(PR6_LOW_RISK_ACTIONS) - set(accepted_actions))
@@ -779,10 +779,12 @@ class AdvisorReplayTools:
             },
         }
 
-    @staticmethod
-    def _fixture_terminal_source_review(comparison: dict[str, Any]) -> dict[str, Any]:
+    def _fixture_terminal_source_review(
+        self,
+        comparison: dict[str, Any],
+        expectation: dict[str, Any],
+    ) -> dict[str, Any]:
         action_type = comparison.get("actual_action_type")
-        source_kind = _terminal_fixture_source_kind(comparison.get("fixture"))
         runtime_dispatch = comparison.get("runtime_dispatch") or {}
         summary = runtime_dispatch.get("summary") or {}
         terminal_ready = (
@@ -790,16 +792,87 @@ class AdvisorReplayTools:
             and runtime_dispatch.get("status") == "ok"
             and summary.get("terminal_for_verifier") is True
         )
-        accepted = terminal_ready and source_kind in {"pr5_real_screenshot_fixture", "live_trace_fixture"}
-        requirements = _terminal_source_requirements([str(action_type)]) if terminal_ready and not accepted else []
+        source_review = self._terminal_source_evidence_review(
+            action_type=action_type,
+            fixture=comparison.get("fixture"),
+            expectation=expectation,
+        )
+        source_review["checked"] = action_type in PR6_LOW_RISK_ACTIONS
+        source_review["terminal_dispatch_ready"] = terminal_ready
+        source_review["accepted_for_closure"] = (
+            terminal_ready and source_review["source_evidence_valid"]
+        )
+        source_review["next_source_requirements"] = (
+            _terminal_source_requirements([str(action_type)])
+            if source_review["checked"] and not source_review["accepted_for_closure"]
+            else []
+        )
+        return source_review
+
+    def _terminal_source_evidence_review(
+        self,
+        *,
+        action_type: Any,
+        fixture: Any,
+        expectation: dict[str, Any],
+    ) -> dict[str, Any]:
+        evidence = expectation.get("terminal_source_evidence")
+        source_kind = _terminal_fixture_source_kind(fixture)
+        missing: list[str] = []
+        source_evidence_present = isinstance(evidence, dict)
+        if not source_evidence_present:
+            missing.append("terminal_source_evidence")
+            evidence = {}
+
+        declared_kind = evidence.get("source_kind")
+        if declared_kind:
+            source_kind = str(declared_kind)
+        if source_kind not in {"pr5_real_screenshot_fixture", "live_trace_fixture"}:
+            missing.append("accepted_source_kind")
+
+        if evidence.get("review_status") != "reviewed":
+            missing.append("review_status")
+
+        post_action_delta = evidence.get("post_action_delta")
+        if not isinstance(post_action_delta, list) or not post_action_delta:
+            missing.append("post_action_delta")
+
+        screenshot_path = evidence.get("screenshot") or expectation.get("screenshot")
+        if source_kind == "pr5_real_screenshot_fixture":
+            if not screenshot_path or not self._source_path_exists(str(screenshot_path)):
+                missing.append("screenshot")
+            if not (evidence.get("page") or expectation.get("page")):
+                missing.append("page")
+        elif source_kind == "live_trace_fixture":
+            trace_path = evidence.get("trace")
+            if not trace_path or not self._source_path_exists(str(trace_path)):
+                missing.append("trace")
+            if not screenshot_path or not self._source_path_exists(str(screenshot_path)):
+                missing.append("screenshot")
+            if not evidence.get("verification_record"):
+                missing.append("verification_record")
+
+        source_evidence_valid = not missing
         return {
             "checked": action_type in PR6_LOW_RISK_ACTIONS,
             "action_type": action_type,
-            "terminal_dispatch_ready": terminal_ready,
+            "fixture": fixture,
             "source_kind": source_kind,
-            "accepted_for_closure": accepted,
-            "next_source_requirements": requirements,
+            "source_evidence_present": source_evidence_present,
+            "source_evidence_valid": source_evidence_valid,
+            "missing_evidence": sorted(set(missing)),
+            "accepted_for_closure": source_evidence_valid,
+            "terminal_dispatch_ready": False,
+            "next_source_requirements": [],
         }
+
+    def _source_path_exists(self, value: str) -> bool:
+        path = Path(value)
+        candidates = [path] if path.is_absolute() else [
+            self.pioneer_root / path,
+            self.workspace_root / path,
+        ]
+        return any(candidate.exists() for candidate in candidates)
 
 
 def _next_fixture_requirements(blocking_actions: dict[str, list[str]]) -> list[dict[str, Any]]:

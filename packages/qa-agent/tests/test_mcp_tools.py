@@ -212,6 +212,15 @@ class McpToolTests(unittest.TestCase):
             {item["source_kind"] for item in source_review["observed"]},
             {"runtime_state_fixture"},
         )
+        self.assertTrue(
+            all(not item["source_evidence_present"] for item in source_review["observed"])
+        )
+        self.assertTrue(
+            all("terminal_source_evidence" in item["missing_evidence"] for item in source_review["observed"])
+        )
+        self.assertTrue(
+            all("accepted_source_kind" in item["missing_evidence"] for item in source_review["observed"])
+        )
         self.assertEqual(payload["failures"], [])
 
     def test_advisor_golden_replay_status_without_fixture_results_is_attention(self) -> None:
@@ -424,6 +433,9 @@ class McpToolTests(unittest.TestCase):
                     self.assertTrue(source_review["terminal_dispatch_ready"])
                     self.assertEqual(source_review["source_kind"], "runtime_state_fixture")
                     self.assertFalse(source_review["accepted_for_closure"])
+                    self.assertFalse(source_review["source_evidence_present"])
+                    self.assertIn("terminal_source_evidence", source_review["missing_evidence"])
+                    self.assertIn("accepted_source_kind", source_review["missing_evidence"])
                     self.assertEqual(len(source_review["next_source_requirements"]), 1)
                     self.assertEqual(
                         source_review["next_source_requirements"][0]["required_runtime_dispatch"]["target_key"],
