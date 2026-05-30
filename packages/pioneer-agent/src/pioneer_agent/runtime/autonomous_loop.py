@@ -38,6 +38,8 @@ from pioneer_agent.storage.trace_store import (
     TraceStep,
     TraceStore,
 )
+from pioneer_agent.verifier.base import VerificationResult, VerificationStatus
+from pioneer_agent.verifier.registry import VerifierRegistry, VerifierSpec
 
 logger = logging.getLogger(__name__)
 
@@ -80,6 +82,7 @@ class AutonomousLoop:
         kill_switch: KillSwitch | None = None,
         dry_run: bool = False,
         stuck_threshold: int = STUCK_ESC_THRESHOLD,
+        post_action_verify_poll_interval_s: float = 1.0,
     ) -> None:
         self.bridge = bridge
         self.vision_sync = vision_sync
@@ -93,6 +96,7 @@ class AutonomousLoop:
         self.kill_switch = kill_switch
         self.dry_run = dry_run
         self.stuck_threshold = stuck_threshold
+        self.post_action_verify_poll_interval_s = post_action_verify_poll_interval_s
         self._stuck_count = 0
         self.state = RuntimeState()
 
@@ -110,9 +114,10 @@ class AutonomousLoop:
 
         derived = self.deriver.derive(self.state)
         selection = self.selector.select(derived)
-        state_after = self.state.model_dump(mode="json")
+        pre_action_state = self.state.model_dump(mode="json")
 
         execution: ExecutionResult | None = None
+        post_action_verification: dict[str, Any] | None = None
         input_trace: list[dict] = []
         sleep_s = IDLE_SLEEP_S
         if selection.selected_action is not None:
@@ -150,6 +155,11 @@ class AutonomousLoop:
                 _reset_input_trace(self.ui_actions)
                 execution = self.runner.run(selection.selected_action)
                 input_trace = _consume_input_trace(self.ui_actions)
+                execution, post_action_verification = self._verify_after_action(
+                    action=selection.selected_action,
+                    execution=execution,
+                    before_state=pre_action_state,
+                )
                 logger.info(
                     "tick %d: action=%s status=%s",
                     iteration,
@@ -160,6 +170,7 @@ class AutonomousLoop:
         else:
             logger.info("tick %d: no selected action — idle", iteration)
 
+        state_after = self.state.model_dump(mode="json")
         recovery_strategy: str | None = None
         if self._is_stuck(vision_summary, selection, execution):
             self._stuck_count += 1
@@ -208,6 +219,7 @@ class AutonomousLoop:
                     execution=execution,
                     sleep_s=sleep_s,
                     recovery_strategy=recovery_strategy,
+                    post_action_verification=post_action_verification,
                     vision_traces=_consume_remaining_vision_trace_events(self.vision_sync),
                     input_trace=input_trace,
                 )
@@ -233,6 +245,86 @@ class AutonomousLoop:
         if execution is not None and execution.status in ("failed", "pending"):
             return True
         return False
+
+    def _verify_after_action(
+        self,
+        *,
+        action: CandidateAction,
+        execution: ExecutionResult,
+        before_state: dict[str, Any],
+    ) -> tuple[ExecutionResult, dict[str, Any] | None]:
+        spec = _post_action_verifier_spec(self.runner, action.action_type)
+        if spec is None:
+            return execution, None
+        if execution.status != "ok":
+            return execution, None
+        if execution.verification_status not in {"unknown", "unverified"}:
+            return execution, None
+
+        verifier = spec.build()
+        deadline = time.monotonic() + spec.timeout_seconds
+        attempts = 0
+
+        while True:
+            attempts += 1
+            try:
+                png = self.bridge.screenshot()
+                self.state, summary = self.vision_sync.sync(
+                    png,
+                    state=self.state,
+                    captured_at=datetime.now(),
+                )
+                after_state = self.state.model_dump(mode="json")
+                result = verifier.verify(before_state, after_state)
+                payload = _verification_payload(
+                    action=action,
+                    spec=spec,
+                    result=result,
+                    attempts=attempts,
+                    summary=summary,
+                )
+            except Exception as exc:  # noqa: BLE001
+                result = VerificationResult(
+                    status=VerificationStatus.UNKNOWN,
+                    reason=f"post-action observe failed: {exc}",
+                    checked=(),
+                    timeout_seconds=spec.timeout_seconds,
+                )
+                payload = _verification_payload(
+                    action=action,
+                    spec=spec,
+                    result=result,
+                    attempts=attempts,
+                    summary=None,
+                )
+            if result.status == VerificationStatus.VERIFIED:
+                return (
+                    _execution_with_verification(
+                        execution,
+                        result=result,
+                        payload=payload,
+                        status="ok",
+                        recovery_required=execution.recovery_required,
+                    ),
+                    payload,
+                )
+
+            remaining = deadline - time.monotonic()
+            if remaining <= 0 or self.post_action_verify_poll_interval_s <= 0:
+                failure_reason = f"post-action verifier failed: {result.reason}"
+                return (
+                    _execution_with_verification(
+                        execution,
+                        result=result,
+                        payload=payload,
+                        status="failed",
+                        failure_reason=failure_reason,
+                        recovery_required=True,
+                    ),
+                    payload,
+                )
+
+            self.sleeper(min(self.post_action_verify_poll_interval_s, remaining))
 
     def run_forever(self, *, max_iterations: int | None = None) -> None:
         i = 0
@@ -262,6 +354,7 @@ def _build_tick_trace(
     execution: ExecutionResult | None,
     sleep_s: float,
     recovery_strategy: str | None,
+    post_action_verification: dict[str, Any] | None = None,
     vision_traces: list[dict] | None = None,
     input_trace: list[dict] | None = None,
 ) -> TickTrace:
@@ -311,7 +404,7 @@ def _build_tick_trace(
         ),
         verify=TraceStep(
             phase=TracePhase.VERIFY,
-            outputs={"status": execution.verification_status if execution else "not_applicable"},
+            outputs=_verify_step_outputs(execution, post_action_verification),
         ),
         trace=TraceStep(
             phase=TracePhase.TRACE,
@@ -333,12 +426,94 @@ def _build_tick_trace(
         selected_action=action.model_dump(mode="json") if action else None,
         ranked_actions=[item.model_dump(mode="json") for item in selection.ranked_actions],
         execution=execution.model_dump(mode="json") if execution else None,
-        verification={"status": execution.verification_status} if execution else None,
+        verification=_verification_trace_payload(execution, post_action_verification),
         recovery={"strategy": recovery_strategy or "none"},
         failure_reason=execution.failure_reason if execution else None,
         next_recovery_strategy=recovery_strategy or "none",
         metadata={"loop_contract": [phase.value for phase in LOOP_PHASE_ORDER]},
     )
+
+
+def _post_action_verifier_spec(runner: Any, action_type: ActionType) -> VerifierSpec | None:
+    registry = getattr(runner, "verifier_registry", None)
+    if not isinstance(registry, VerifierRegistry):
+        return None
+    return registry.get(action_type)
+
+
+def _execution_with_verification(
+    execution: ExecutionResult,
+    *,
+    result: VerificationResult,
+    payload: dict[str, Any],
+    status: str,
+    failure_reason: str | None = None,
+    recovery_required: bool,
+) -> ExecutionResult:
+    summary = dict(execution.summary)
+    summary["post_action_verifier"] = payload
+    return execution.model_copy(
+        update={
+            "status": status,
+            "verification_status": result.status.value,
+            "failure_reason": failure_reason,
+            "recovery_required": recovery_required,
+            "summary": summary,
+        }
+    )
+
+
+def _verification_payload(
+    *,
+    action: CandidateAction,
+    spec: VerifierSpec,
+    result: VerificationResult,
+    attempts: int,
+    summary: VisionSyncSummary | None,
+) -> dict[str, Any]:
+    return {
+        "action_type": action.action_type.value,
+        "status": result.status.value,
+        "reason": result.reason,
+        "checked": list(result.checked),
+        "timeout_seconds": spec.timeout_seconds,
+        "match_policy": (
+            spec.match_policy.value
+            if hasattr(spec.match_policy, "value")
+            else str(spec.match_policy)
+        ),
+        "attempts": attempts,
+        "post_observe": {
+            "page_type": summary.page_type if summary else None,
+            "domains_run": list(summary.domains_run) if summary else [],
+            "notes": list(summary.notes) if summary else [],
+            "image_traces": list(summary.image_traces) if summary else [],
+        },
+    }
+
+
+def _verify_step_outputs(
+    execution: ExecutionResult | None,
+    post_action_verification: dict[str, Any] | None,
+) -> dict[str, Any]:
+    if execution is None:
+        return {"status": "not_applicable"}
+    outputs = {"status": execution.verification_status}
+    if post_action_verification is not None:
+        outputs["post_action_verifier"] = post_action_verification
+    return outputs
+
+
+def _verification_trace_payload(
+    execution: ExecutionResult | None,
+    post_action_verification: dict[str, Any] | None,
+) -> dict[str, Any] | None:
+    if execution is None:
+        return None
+    payload = {"status": execution.verification_status}
+    if post_action_verification is not None:
+        payload["post_action_verifier"] = post_action_verification
+    return payload
 
 
 def _image_size_from_png(png: bytes) -> ImageSize | None:

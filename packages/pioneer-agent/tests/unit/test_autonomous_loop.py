@@ -5,8 +5,10 @@ import unittest
 from dataclasses import dataclass
 from typing import Any
 
+from pioneer_agent.core.device import CapabilityFlags
 from pioneer_agent.core.enums import ActionType
 from pioneer_agent.core.models import CandidateAction, ExecutionResult, SelectionResult
+from pioneer_agent.executor.ui_runner import UIActionRunner
 from pioneer_agent.runtime.autonomous_loop import (
     DEFAULT_SLEEP_S,
     IDLE_SLEEP_S,
@@ -100,6 +102,38 @@ class _StubRunner:
     def run(self, action):  # noqa: ANN001
         self.actions.append(action)
         return ExecutionResult(action_id=action.action_id, status="ok")
+
+
+def _chapter_resource_payload() -> dict[str, Any]:
+    return {"page_type": "chapter", "resources": {}}
+
+
+def _chapter_panel_payload(*, claimable: bool) -> dict[str, Any]:
+    payload = {
+        "current_chapter_id": 17,
+        "chapter_claimable": claimable,
+        "claim_button_visible": claimable,
+        "claim_button_enabled": claimable,
+        "tasks": [],
+    }
+    if claimable:
+        payload.update(
+            {
+                "claim_x_min": 700,
+                "claim_y_min": 800,
+                "claim_x_max": 900,
+                "claim_y_max": 900,
+            }
+        )
+    return payload
+
+
+def _claim_button_param() -> dict[str, Any]:
+    return {
+        "visible": True,
+        "enabled": True,
+        "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+    }
 
 
 class AutonomousLoopTests(unittest.TestCase):
@@ -273,6 +307,148 @@ class AutonomousLoopTests(unittest.TestCase):
             self.assertEqual(trace.screenshot.coordinates[0].click_point.x, 960)
             self.assertEqual(trace.screenshot.coordinates[0].coordinate_space, "window:relative")
             self.assertEqual(trace.screenshot.metadata["input_events"][0]["target"]["key"], "wu_jiang")
+
+    def test_tick_runs_post_action_verifier_after_low_risk_click(self) -> None:
+        from pioneer_agent.executor.ui_actions import UIActions
+        from pioneer_agent.perception.ui_registry import UIButton, UIRegistry
+        from pioneer_agent.perception.vision_sync import VisionSync
+
+        action = CandidateAction(
+            action_id="claim-17",
+            action_type=ActionType.CLAIM_CHAPTER_REWARD,
+            params={"chapter_id": 17, "claim_button": _claim_button_param()},
+        )
+        bridge = _StubBridge()
+        vision = _ScriptedVision(
+            [
+                _chapter_resource_payload(),
+                _chapter_panel_payload(claimable=True),
+                _chapter_resource_payload(),
+                _chapter_panel_payload(claimable=False),
+            ]
+        )
+        ui = UIActions(  # type: ignore[arg-type]
+            bridge,
+            UIRegistry({"esc_close": UIButton("esc_close", "close", 0.5, 0.5)}),
+            vision=vision,
+        )
+        runner = UIActionRunner(ui, capabilities=CapabilityFlags(input_control=True))
+        loop = AutonomousLoop(
+            bridge=bridge,
+            vision_sync=VisionSync(vision),  # type: ignore[arg-type]
+            ui_actions=ui,
+            selector=_StubSelector(action),
+            deriver=_StubDeriver(),  # type: ignore[arg-type]
+            runner=runner,
+            sleeper=lambda _seconds: None,
+            post_action_verify_poll_interval_s=0,
+        )
+
+        result = loop.tick(0)
+
+        self.assertEqual(result.execution.status, "ok")
+        self.assertEqual(result.execution.verification_status, "verified")
+        verifier = result.execution.summary["post_action_verifier"]
+        self.assertEqual(verifier["status"], "verified")
+        self.assertEqual(verifier["checked"], ["progress.chapter_claimable"])
+        self.assertEqual(verifier["post_observe"]["domains_run"], ["resource_bar", "chapter_panel"])
+        self.assertFalse(loop.state.progress["chapter_claimable"])
+
+    def test_tick_fails_action_when_post_action_verifier_does_not_match(self) -> None:
+        from pioneer_agent.executor.ui_actions import UIActions
+        from pioneer_agent.perception.ui_registry import UIButton, UIRegistry
+        from pioneer_agent.perception.vision_sync import VisionSync
+
+        action = CandidateAction(
+            action_id="claim-17",
+            action_type=ActionType.CLAIM_CHAPTER_REWARD,
+            params={"chapter_id": 17, "claim_button": _claim_button_param()},
+        )
+        bridge = _StubBridge()
+        vision = _ScriptedVision(
+            [
+                _chapter_resource_payload(),
+                _chapter_panel_payload(claimable=True),
+                _chapter_resource_payload(),
+                _chapter_panel_payload(claimable=True),
+            ]
+        )
+        ui = UIActions(  # type: ignore[arg-type]
+            bridge,
+            UIRegistry({"esc_close": UIButton("esc_close", "close", 0.5, 0.5)}),
+            vision=vision,
+        )
+        runner = UIActionRunner(ui, capabilities=CapabilityFlags(input_control=True))
+        loop = AutonomousLoop(
+            bridge=bridge,
+            vision_sync=VisionSync(vision),  # type: ignore[arg-type]
+            ui_actions=ui,
+            selector=_StubSelector(action),
+            deriver=_StubDeriver(),  # type: ignore[arg-type]
+            runner=runner,
+            sleeper=lambda _seconds: None,
+            post_action_verify_poll_interval_s=0,
+        )
+
+        result = loop.tick(0)
+
+        self.assertEqual(result.execution.status, "failed")
+        self.assertEqual(result.execution.verification_status, "failed")
+        self.assertTrue(result.execution.recovery_required)
+        self.assertIn("post-action verifier failed", result.execution.failure_reason or "")
+        self.assertEqual(result.execution.summary["post_action_verifier"]["status"], "failed")
+
+    def test_trace_records_post_action_verifier_payload(self) -> None:
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+
+        from pioneer_agent.executor.ui_actions import UIActions
+        from pioneer_agent.perception.ui_registry import UIButton, UIRegistry
+        from pioneer_agent.perception.vision_sync import VisionSync
+        from pioneer_agent.storage.trace_store import TraceStore
+
+        with TemporaryDirectory() as tmp:
+            action = CandidateAction(
+                action_id="claim-17",
+                action_type=ActionType.CLAIM_CHAPTER_REWARD,
+                params={"chapter_id": 17, "claim_button": _claim_button_param()},
+            )
+            bridge = _StubBridge()
+            vision = _ScriptedVision(
+                [
+                    _chapter_resource_payload(),
+                    _chapter_panel_payload(claimable=True),
+                    _chapter_resource_payload(),
+                    _chapter_panel_payload(claimable=False),
+                ]
+            )
+            ui = UIActions(  # type: ignore[arg-type]
+                bridge,
+                UIRegistry({"esc_close": UIButton("esc_close", "close", 0.5, 0.5)}),
+                vision=vision,
+            )
+            runner = UIActionRunner(ui, capabilities=CapabilityFlags(input_control=True))
+            loop = AutonomousLoop(
+                bridge=bridge,
+                vision_sync=VisionSync(vision),  # type: ignore[arg-type]
+                ui_actions=ui,
+                selector=_StubSelector(action),
+                deriver=_StubDeriver(),  # type: ignore[arg-type]
+                runner=runner,
+                sleeper=lambda _seconds: None,
+                trace_store=TraceStore(Path(tmp) / "trace.jsonl"),
+                post_action_verify_poll_interval_s=0,
+            )
+
+            loop.tick(0)
+
+            trace = loop.trace_store.read()[0]
+            self.assertEqual(trace.verify.outputs["status"], "verified")
+            self.assertEqual(trace.verification["status"], "verified")
+            self.assertEqual(
+                trace.verify.outputs["post_action_verifier"]["checked"],
+                ["progress.chapter_claimable"],
+            )
 
     def test_dry_run_skips_runner_and_marks_execution(self) -> None:
         action = CandidateAction(
