@@ -193,6 +193,31 @@ class Pr5AdvisorGoldenReplayTests(unittest.TestCase):
                         expected["expected_dispatch_terminal_for_verifier"],
                     )
 
+    def test_upgrade_confirm_terminal_fixture_reaches_verifier_ready_dispatch(self) -> None:
+        project_root = _project_root()
+        state = load_runtime_state_record(
+            project_root / "tests" / "fixtures" / "pr20_upgrade_confirm_terminal_state.json"
+        ).state
+        action = ActionSelector().select(StateDeriver().derive(state)).selected_action
+        self.assertIsNotNone(action)
+        self.assertEqual(action.action_type, ActionType.UPGRADE_BUILDING)
+        self.assertNotIn("upgrade_button", action.params)
+        self.assertTrue(action.params["upgrade_dialog"]["confirm_button"]["visible"])
+
+        result = UIActionRunner(
+            _ReplayUI(),  # type: ignore[arg-type]
+            capabilities=CapabilityFlags(input_control=True),
+        ).run(action)
+
+        self.assertEqual(result.status, "ok")
+        self.assertEqual(result.summary["target_key"], "upgrade_confirm_button")
+        self.assertEqual(result.summary["flow_step"], "confirm_upgrade")
+        self.assertTrue(result.summary["terminal_for_verifier"])
+        self.assertEqual(
+            result.summary["semantic_target_gate"]["details"]["target"],
+            "upgrade_dialog.confirm_button",
+        )
+
 
 def _project_root() -> Path:
     return Path(__file__).resolve().parents[2]

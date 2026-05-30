@@ -187,6 +187,12 @@
       "expected_dispatch_target_key": "building_upgrade_button",
       "expected_dispatch_terminal_for_verifier": false
     },
+    "pr20_upgrade_confirm_terminal_state.json": {
+      "expected_action_type": "upgrade_building",
+      "expected_dispatch_status": "ok",
+      "expected_dispatch_target_key": "upgrade_confirm_button",
+      "expected_dispatch_terminal_for_verifier": true
+    },
     "pr5_team_panel_state.json": {
       "page": "team",
       "screenshot": "tests/fixtures/screenshots/pc_client/pr5_20260529/team_panel_20260529.jpg",

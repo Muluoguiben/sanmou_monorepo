@@ -1,0 +1,111 @@
+{
+  "global_state": {
+    "server_open_time": "2026-05-29T10:00:00+08:00",
+    "current_time": "2026-05-29T13:42:00+08:00",
+    "phase_tag": "advisor_building_upgrade_confirm",
+    "page_type": "building_upgrade"
+  },
+  "progress": {
+    "current_chapter_id": 17,
+    "chapter_claimable": false
+  },
+  "economy": {
+    "resources": {
+      "wood": 900000,
+      "stone": 900000,
+      "iron": 900000,
+      "grain": 900000
+    },
+    "income_per_hour": {
+      "wood": 150000,
+      "stone": 149000,
+      "iron": 144000,
+      "grain": 195000
+    },
+    "reserve_troops": 0
+  },
+  "city": {
+    "buildings": [
+      {
+        "name": "Main Hall",
+        "level": 10
+      }
+    ],
+    "upgradeable_buildings": [
+      {
+        "building_id": "main_hall",
+        "building_name": "Main Hall",
+        "target_level": 11,
+        "chapter_relevance": "complete_current_task",
+        "cost": {
+          "wood": 120000,
+          "stone": 110000,
+          "iron": 100000,
+          "grain": 120000
+        }
+      }
+    ],
+    "upgrade_dialog": {
+      "visible": true,
+      "building_name": "Main Hall",
+      "can_upgrade": true,
+      "confirm_button": {
+        "visible": true,
+        "enabled": true,
+        "bbox": {
+          "x_min": 720,
+          "y_min": 818,
+          "x_max": 940,
+          "y_max": 902
+        }
+      },
+      "close_button": {
+        "visible": true,
+        "enabled": true,
+        "bbox": {
+          "x_min": 914,
+          "y_min": 104,
+          "x_max": 962,
+          "y_max": 154
+        }
+      }
+    }
+  },
+  "heroes": [],
+  "teams": [],
+  "map_state": {
+    "candidate_lands": []
+  },
+  "swap_window": {
+    "enabled": false
+  },
+  "main_lineup": {},
+  "team_containers": [],
+  "carrier_pool": [],
+  "swap_constraints": {
+    "stamina_regen_per_hour": 12
+  },
+  "timing": {},
+  "field_meta": {
+    "city.upgrade_dialog": {
+      "value": "Main Hall:confirm",
+      "confidence": 0.9,
+      "source": "fixture.pr20.upgrade_dialog"
+    },
+    "city.upgradeable_buildings": {
+      "value": "main_hall:11",
+      "confidence": 0.86,
+      "source": "fixture.pr20.city_buildings"
+    },
+    "economy.resources": {
+      "value": "upgrade_ready",
+      "confidence": 0.91,
+      "source": "fixture.pr20.resource_bar"
+    },
+    "economy.income_per_hour": {
+      "value": "visible_income",
+      "confidence": 0.9,
+      "source": "fixture.pr20.resource_bar"
+    }
+  }
+}
