@@ -198,5 +198,6 @@ precheck -> click/action -> observe -> verifier -> trace -> recovery/block
 25. [x] Claim/recruit terminal dispatch replay fixtures：新增 `pr21_chapter_claim_terminal_state.json` 与 `pr22_recruit_terminal_state.json`，覆盖已观测领取/征兵按钮时 `claim_chapter_reward` 与 `recruit_soldiers` 可进入 `terminal_for_verifier=true` 的 runtime dispatch；`low_risk_verifier_readiness` 现在三类低风险动作均 terminal-ready，但 `low_risk_terminal_source_review` 仍要求真实截图或 live trace 强度，Architecture closure gate 继续保持 `attention`。
 26. [x] MCP terminal source requirements：`low_risk_terminal_source_review.next_source_requirements` 与 `advisor_fixture_eval.terminal_source_review` 输出每个低风险动作解除 closure blocker 所需的 accepted source kind、真实 page、semantic target、expected runtime dispatch 与 post-action delta，确保后续采样不靠人工猜测。
 27. [x] MCP terminal source evidence contract：closure 不再接受单纯文件名前缀；`terminal_source_evidence` 必须声明 `source_kind`、`review_status=reviewed`、真实 screenshot/trace 引用和 post-action delta，且引用文件必须存在，才能通过 `low_risk_terminal_source_review`。
-28. [ ] 三个低风险动作的完整 UI flow，继续补 claim/recruit 面板打开、数量/确认序列；三类动作仍需真实截图终态样本和 post-action delta 样本补强。
-29. [ ] Desktop evidence/degraded 展示，确保无证据推荐不会被 UI 展示成确定结论。
+28. [x] MCP terminal source semantic evidence validation：`terminal_source_evidence` 必须逐项匹配每个低风险动作要求的 page、semantic target、runtime dispatch 与 post-action delta；合法真实证据才能解除 source review blocker，错页、错按钮、错 dispatch 或错 delta 会继续保持 Architecture closure `attention`。
+29. [ ] 三个低风险动作的完整 UI flow，继续补 claim/recruit 面板打开、数量/确认序列；三类动作仍需真实截图终态样本和 post-action delta 样本补强。
+30. [ ] Desktop evidence/degraded 展示，确保无证据推荐不会被 UI 展示成确定结论。

@@ -816,6 +816,12 @@ class AdvisorReplayTools:
         fixture: Any,
         expectation: dict[str, Any],
     ) -> dict[str, Any]:
+        action_key = str(action_type) if action_type in PR6_LOW_RISK_ACTIONS else None
+        requirement = (
+            LOW_RISK_TERMINAL_SOURCE_REQUIREMENTS.get(action_key)
+            if action_key is not None
+            else None
+        ) or {}
         evidence = expectation.get("terminal_source_evidence")
         source_kind = _terminal_fixture_source_kind(fixture)
         missing: list[str] = []
@@ -827,22 +833,44 @@ class AdvisorReplayTools:
         declared_kind = evidence.get("source_kind")
         if declared_kind:
             source_kind = str(declared_kind)
-        if source_kind not in {"pr5_real_screenshot_fixture", "live_trace_fixture"}:
+        accepted_source_kinds = set(requirement.get("accepted_source_kinds") or [])
+        if source_kind not in accepted_source_kinds:
             missing.append("accepted_source_kind")
 
         if evidence.get("review_status") != "reviewed":
             missing.append("review_status")
 
+        evidence_page = evidence.get("page") or expectation.get("page")
+        required_page = requirement.get("required_page")
+        if required_page and evidence_page != required_page:
+            missing.append("page")
+
+        semantic_target = evidence.get("semantic_target")
+        required_semantic_target = requirement.get("required_semantic_target")
+        if required_semantic_target and semantic_target != required_semantic_target:
+            missing.append("semantic_target")
+
+        runtime_dispatch = evidence.get("runtime_dispatch")
+        required_runtime_dispatch = requirement.get("required_runtime_dispatch") or {}
+        if required_runtime_dispatch and not _runtime_dispatch_matches(
+            runtime_dispatch,
+            required_runtime_dispatch,
+        ):
+            missing.append("runtime_dispatch")
+
         post_action_delta = evidence.get("post_action_delta")
         if not isinstance(post_action_delta, list) or not post_action_delta:
             missing.append("post_action_delta")
+        elif not _post_action_delta_matches(
+            post_action_delta,
+            requirement.get("required_post_action_delta") or [],
+        ):
+            missing.append("post_action_delta")
 
-        screenshot_path = evidence.get("screenshot") or expectation.get("screenshot")
+        screenshot_path = evidence.get("screenshot")
         if source_kind == "pr5_real_screenshot_fixture":
             if not screenshot_path or not self._source_path_exists(str(screenshot_path)):
                 missing.append("screenshot")
-            if not (evidence.get("page") or expectation.get("page")):
-                missing.append("page")
         elif source_kind == "live_trace_fixture":
             trace_path = evidence.get("trace")
             if not trace_path or not self._source_path_exists(str(trace_path)):
@@ -861,6 +889,14 @@ class AdvisorReplayTools:
             "source_evidence_present": source_evidence_present,
             "source_evidence_valid": source_evidence_valid,
             "missing_evidence": sorted(set(missing)),
+            "evidence_page": evidence_page,
+            "required_page": required_page,
+            "semantic_target": semantic_target,
+            "required_semantic_target": required_semantic_target,
+            "runtime_dispatch": runtime_dispatch if isinstance(runtime_dispatch, dict) else None,
+            "required_runtime_dispatch": required_runtime_dispatch,
+            "post_action_delta": post_action_delta if isinstance(post_action_delta, list) else [],
+            "required_post_action_delta": requirement.get("required_post_action_delta") or [],
             "accepted_for_closure": source_evidence_valid,
             "terminal_dispatch_ready": False,
             "next_source_requirements": [],
@@ -916,6 +952,67 @@ def _terminal_fixture_source_kind(fixture: Any) -> str | None:
     if fixture.startswith("live_") or fixture.startswith("trace_"):
         return "live_trace_fixture"
     return "runtime_state_fixture"
+
+
+def _runtime_dispatch_matches(actual: Any, required: dict[str, Any]) -> bool:
+    if not isinstance(actual, dict):
+        return False
+    summary = actual.get("summary") if isinstance(actual.get("summary"), dict) else {}
+    flattened = {
+        "status": actual.get("status"),
+        "target_key": actual.get("target_key") or summary.get("target_key"),
+        "terminal_for_verifier": (
+            actual.get("terminal_for_verifier")
+            if "terminal_for_verifier" in actual
+            else summary.get("terminal_for_verifier")
+        ),
+    }
+    return all(flattened.get(key) == expected for key, expected in required.items())
+
+
+def _post_action_delta_matches(actual: list[Any], required: list[str]) -> bool:
+    if not required:
+        return True
+    actual_values: set[str] = set()
+    for item in actual:
+        actual_values.update(_delta_representations(item))
+    required_values = {_normalize_delta_text(item) for item in required}
+    return bool(actual_values & required_values)
+
+
+def _delta_representations(item: Any) -> set[str]:
+    if isinstance(item, str):
+        return {_normalize_delta_text(item)}
+    if not isinstance(item, dict):
+        return set()
+
+    path = item.get("path")
+    if not path:
+        return set()
+    values: set[str] = set()
+    for key in ("value", "expected", "to", "after"):
+        if key in item:
+            values.add(_normalize_delta_text(f"{path}={_delta_value(item[key])}"))
+    for key in ("op", "operator", "change", "direction"):
+        if item.get(key):
+            values.add(_normalize_delta_text(f"{path} {item[key]}"))
+    if item.get("present") is True:
+        values.add(_normalize_delta_text(f"{path} present"))
+    return values
+
+
+def _delta_value(value: Any) -> str:
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    return str(value)
+
+
+def _normalize_delta_text(value: Any) -> str:
+    text = " ".join(str(value).strip().lower().split())
+    if text.startswith("or "):
+        text = text[3:]
+    text = text.replace(" = ", "=")
+    return text
 
 
 def _dispatch_gate_result(result: dict[str, Any], expectation: dict[str, Any]) -> dict[str, Any]:

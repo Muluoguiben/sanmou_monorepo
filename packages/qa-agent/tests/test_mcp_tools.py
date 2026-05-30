@@ -436,6 +436,8 @@ class McpToolTests(unittest.TestCase):
                     self.assertFalse(source_review["source_evidence_present"])
                     self.assertIn("terminal_source_evidence", source_review["missing_evidence"])
                     self.assertIn("accepted_source_kind", source_review["missing_evidence"])
+                    self.assertIn("runtime_dispatch", source_review["missing_evidence"])
+                    self.assertIn("semantic_target", source_review["missing_evidence"])
                     self.assertEqual(len(source_review["next_source_requirements"]), 1)
                     self.assertEqual(
                         source_review["next_source_requirements"][0]["required_runtime_dispatch"]["target_key"],
@@ -462,6 +464,67 @@ class McpToolTests(unittest.TestCase):
                             "recruit_button_terminal_fixture",
                         },
                     )
+
+    def test_terminal_source_evidence_review_validates_required_semantics(self) -> None:
+        tools = AdvisorReplayTools.from_qa_project_root(Path(__file__).resolve().parents[1])
+        screenshot = "tests/fixtures/screenshots/pc_client/pr5_20260529/chapter_main_task_20260529.jpg"
+        valid_expectation = {
+            "page": "chapter",
+            "terminal_source_evidence": {
+                "source_kind": "pr5_real_screenshot_fixture",
+                "review_status": "reviewed",
+                "screenshot": screenshot,
+                "page": "chapter",
+                "semantic_target": "progress.chapter_claim_button",
+                "runtime_dispatch": {
+                    "status": "ok",
+                    "target_key": "chapter_claim_button",
+                    "terminal_for_verifier": True,
+                },
+                "post_action_delta": [
+                    {"path": "progress.chapter_claimable", "value": False},
+                ],
+            },
+        }
+
+        review = tools._terminal_source_evidence_review(
+            action_type="claim_chapter_reward",
+            fixture="pr5_chapter_claim_terminal_state.json",
+            expectation=valid_expectation,
+        )
+
+        self.assertTrue(review["source_evidence_valid"])
+        self.assertEqual(review["missing_evidence"], [])
+        self.assertEqual(review["required_page"], "chapter")
+        self.assertEqual(review["required_semantic_target"], "progress.chapter_claim_button")
+        self.assertEqual(review["required_runtime_dispatch"]["target_key"], "chapter_claim_button")
+        self.assertEqual(review["required_post_action_delta"], ["progress.chapter_claimable=false"])
+
+        invalid_expectation = {
+            "page": "chapter",
+            "terminal_source_evidence": {
+                **valid_expectation["terminal_source_evidence"],
+                "page": "recruit",
+                "semantic_target": "teams[*].recruit_button",
+                "runtime_dispatch": {
+                    "status": "ok",
+                    "target_key": "recruit_button",
+                    "terminal_for_verifier": True,
+                },
+                "post_action_delta": ["teams.0.soldiers increases"],
+            },
+        }
+        invalid_review = tools._terminal_source_evidence_review(
+            action_type="claim_chapter_reward",
+            fixture="pr5_chapter_claim_terminal_state.json",
+            expectation=invalid_expectation,
+        )
+
+        self.assertFalse(invalid_review["source_evidence_valid"])
+        self.assertEqual(
+            set(invalid_review["missing_evidence"]),
+            {"page", "post_action_delta", "runtime_dispatch", "semantic_target"},
+        )
 
     def test_pr5_locked_field_coverage_reports_missing_fields(self) -> None:
         coverage = AdvisorReplayTools._pr5_locked_field_coverage(
