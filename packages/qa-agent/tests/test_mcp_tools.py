@@ -60,11 +60,15 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(payload["pr5_locked_fields"]["action"], 6)
         self.assertEqual(payload["pr5_locked_fields"]["report_evidence"], 6)
         self.assertEqual(payload["pr5_locked_fields"]["report_confidence"], 6)
+        self.assertEqual(payload["pr5_locked_fields"]["dispatch_gate"], 3)
         self.assertEqual(payload["pr6_verifier_coverage"]["missing"], [])
         self.assertEqual(
             set(payload["pr6_verifier_coverage"]["covered"]),
             {"claim_chapter_reward", "recruit_soldiers", "upgrade_building"},
         )
+        self.assertEqual(payload["pr5_dispatch_gate_coverage"]["required_count"], 3)
+        self.assertEqual(payload["pr5_dispatch_gate_coverage"]["matched_count"], 3)
+        self.assertEqual(payload["pr5_dispatch_gate_coverage"]["failures"], [])
         self.assertEqual(payload["failures"], [])
 
     def test_advisor_fixture_eval_returns_selected_action(self) -> None:
@@ -131,6 +135,37 @@ class McpToolTests(unittest.TestCase):
                     [delta["path"] for delta in spec["expected_deltas"]],
                     delta_paths,
                 )
+
+    def test_advisor_fixture_eval_includes_pr5_dispatch_gate(self) -> None:
+        expected = {
+            "pr5_chapter_main_task_state.json": {
+                "status": "blocked",
+                "blocked_by": "semantic_target_gate",
+                "target_key": None,
+            },
+            "pr5_recruit_guard_camp_state.json": {
+                "status": "blocked",
+                "blocked_by": "semantic_target_gate",
+                "target_key": None,
+            },
+            "pr5_building_upgrade_state.json": {
+                "status": "ok",
+                "blocked_by": None,
+                "target_key": "building_upgrade_button",
+            },
+        }
+
+        for fixture, dispatch_expected in expected.items():
+            with self.subTest(fixture=fixture):
+                result = self.handler.call_tool("advisor_fixture_eval", {"fixture": fixture})
+                payload = result["structuredContent"]
+                dispatch_gate = payload["dispatch_gate"]
+
+                self.assertFalse(result["isError"])
+                self.assertTrue(dispatch_gate["checked"])
+                self.assertTrue(dispatch_gate["matched"])
+                self.assertEqual(dispatch_gate["expected"], dispatch_expected)
+                self.assertEqual(dispatch_gate["actual"], dispatch_expected)
 
 
 if __name__ == "__main__":

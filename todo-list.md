@@ -1,6 +1,6 @@
 # Todo List
 
-> Last updated: 2026-05-30 (低风险闭环继续推进：claim/recruit/upgrade 已有 semantic bbox dispatch；`UIActionRunner` 会在 dispatch 前二次校验低风险动作是否携带 visible+enabled 且 0-1000 合法的 semantic bbox，缺失、禁用或越界时直接 `semantic_target_gate` block，不伪造 PR5 claim/recruit bbox；PR5 golden expectation fixture 已字段化断言章节/征兵真实截图选出的 claim/recruit 动作会被 gate 阻断，而建筑升级真实入口 bbox 可派发；`AutonomousLoop` 会在成功点击后重新 observe 并执行 post-action verifier，失败会标记 `failed` + `recovery_required` 并同 tick 触发一次 ESC recovery；claim/recruit 完整多步 UI flow 仍待补)
+> Last updated: 2026-05-30 (低风险闭环继续推进：claim/recruit/upgrade 已有 semantic bbox dispatch；`UIActionRunner` 会在 dispatch 前二次校验低风险动作是否携带 visible+enabled 且 0-1000 合法的 semantic bbox，缺失、禁用或越界时直接 `semantic_target_gate` block，不伪造 PR5 claim/recruit bbox；PR5 golden expectation fixture 已字段化断言章节/征兵真实截图选出的 claim/recruit 动作会被 gate 阻断，而建筑升级真实入口 bbox 可派发；qa-agent MCP `advisor_fixture_eval` / `advisor_golden_replay_status` 已暴露并断言该 dispatch gate；`AutonomousLoop` 会在成功点击后重新 observe 并执行 post-action verifier，失败会标记 `failed` + `recovery_required` 并同 tick 触发一次 ESC recovery；claim/recruit 完整多步 UI flow 仍待补)
 
 ## Highest Priority — Architecture Iteration
 
@@ -17,6 +17,7 @@
 - [x] PR-8 `upgrade_button` semantic fixture gate（2026-05-30）：`city_buildings` schema/domain 增加建筑升级入口 bbox validator；`StateDeriver` 会把 `city.buildings[*].upgrade_button` 挂到匹配的 `city.upgradeable_buildings[*]`；PR5 建筑真实截图 fixture/golden replay 断言 action params 与 structured evidence 同时包含该入口。
 - [x] PR-9 low-risk semantic target gate（2026-05-30）：`UIActionRunner` 在 `claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` dispatch 前要求 action params 中已有 visible+enabled 的 semantic bbox；`upgrade_building` 允许入口按钮或确认按钮二选一，claim/recruit 的 PR5 截图未观测到可信按钮 bbox 时保持 blocked。
 - [x] PR-10 PR5 semantic target replay gate（2026-05-30）：`advisor_fixture_expectations.json` 字段化记录 `expected_dispatch_status` / `expected_dispatch_blocked_by` / `expected_dispatch_target_key`；`test_pr5_advisor_golden_replay` 把 PR5 真实截图选出的低风险动作送入 `UIActionRunner` 并按 fixture 断言章节/征兵缺可信 bbox 必须 block、建筑升级真实 `upgrade_button` 可 dispatch。
+- [x] PR-11 MCP dispatch gate surface（2026-05-30）：`pioneer_agent.app.replay_fixture` 输出 `semantic_target_gate`；qa-agent MCP `advisor_fixture_eval` 返回 `dispatch_gate` expected/actual/matched，`advisor_golden_replay_status` 汇总 PR5 dispatch gate coverage，MCP tests 覆盖 claim/recruit block 与 upgrade dispatch。
 
 ## In Progress
 
@@ -122,7 +123,7 @@
 - [x] Repo-local runbook 收敛（2026-05-17）：新增 `docs/repo-local-runbook.md`，收敛 `AGENTS.md` / `CLAUDE.md` 风格说明，覆盖 knowledge ingestion、Advisor fixture/eval、computer-use safety、model probing、automation execution、发布/回滚与 handoff 规则。
 - [x] Workflow / session boundary（2026-05-17）：`docs/repo-local-runbook.md` 明确 knowledge ingestion、model probing、Advisor fixture/eval、automation execution 四类独立 workflow/session 的输入、输出/日志和禁止跨 session 复用的上下文。
 - [x] Codex workflow operating layer（2026-05-21）：新增 `docs/codex-operating-model.md`、`docs/advisor-browser-smoke.md`、`docs/qa-agent-mcp-connector.md` 与 `shared-memory/` vault；`AGENTS.md` 明确 `$browser` / `@chrome` / `@computer` / MCP / skills / automations / shared-memory 边界，并固化完成可验证工作后默认 commit + push + 回报 URL 的交付规则。
-- [x] Codex workflow executable slice（2026-05-21）：新增 repo-local skills `sanmou-advisor-golden-replay` / `sanmou-qa-knowledge-review` / `sanmou-computer-use-safety`；qa-agent MCP 增加 `advisor_golden_replay_status` 与 `advisor_fixture_eval`；pioneer-agent 增加 Advisor fixture expectation baseline；Desktop Advisor mock smoke 已验证上传 fixture 后 preview/evidence/risk/confidence/history。
+- [x] Codex workflow executable slice（2026-05-21）：新增 repo-local skills `sanmou-advisor-golden-replay` / `sanmou-qa-knowledge-review` / `sanmou-computer-use-safety`；qa-agent MCP 增加 `advisor_golden_replay_status` 与 `advisor_fixture_eval`，并于 2026-05-30 暴露 PR5 dispatch gate coverage；pioneer-agent 增加 Advisor fixture expectation baseline；Desktop Advisor mock smoke 已验证上传 fixture 后 preview/evidence/risk/confidence/history。
 - [ ] ADB capture adapter：安卓模拟器/真机 live screenshot，不默认启用 input control。
 - [ ] MapGridState 可视化：截图坐标映射到地图逻辑格子，支持土地规划、格子占用、资源分配。
 - [ ] Copilot Mode：仅在 verifier/safety/recovery 完成后开放低风险动作自动执行。

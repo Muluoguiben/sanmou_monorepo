@@ -65,6 +65,7 @@ class AdvisorReplayTools:
                 "action_evidence": sum(bool(item.get("required_action_evidence")) for item in pr5_expectations.values()),
                 "report_confidence": sum("expected_report_confidence" in item for item in pr5_expectations.values()),
                 "action_confidence": sum("expected_action_confidence" in item for item in pr5_expectations.values()),
+                "dispatch_gate": sum("expected_dispatch_status" in item for item in pr5_expectations.values()),
             },
             "missing_expectations": [
                 path.name for path in fixtures if path.name not in expectations
@@ -81,12 +82,19 @@ class AdvisorReplayTools:
             payload["results"] = comparisons
             payload["failures"] = [item for item in comparisons if not item["matched"]]
             payload["pr6_verifier_coverage"] = self._pr6_verifier_coverage(comparisons)
+            payload["pr5_dispatch_gate_coverage"] = self._pr5_dispatch_gate_coverage(comparisons)
         else:
             payload["pr6_verifier_coverage"] = {
                 "checked": False,
                 "required": PR6_LOW_RISK_ACTIONS,
                 "covered": [],
                 "missing": [],
+            }
+            payload["pr5_dispatch_gate_coverage"] = {
+                "checked": False,
+                "required_count": 0,
+                "matched_count": 0,
+                "failures": [],
             }
         payload["status"] = (
             "ok"
@@ -95,6 +103,7 @@ class AdvisorReplayTools:
             and not payload["failures"]
             and not payload["pr5_page_coverage"]["missing"]
             and not payload["pr6_verifier_coverage"]["missing"]
+            and not payload["pr5_dispatch_gate_coverage"]["failures"]
             else "attention"
         )
         return payload
@@ -106,7 +115,9 @@ class AdvisorReplayTools:
         replay_result = self._run_replay([fixture_path])[0]
         if expected_action_type is None and fixture_path.name in expectations:
             expected_action_type = expectation.get("expected_action_type")
-        comparison = self._compare_result(replay_result, {fixture_path.name: {"expected_action_type": expected_action_type}})
+        comparison_expectation = dict(expectation)
+        comparison_expectation["expected_action_type"] = expected_action_type
+        comparison = self._compare_result(replay_result, {fixture_path.name: comparison_expectation})
         return {
             "fixture": comparison["fixture"],
             "matched": comparison["matched"],
@@ -121,6 +132,8 @@ class AdvisorReplayTools:
             "selection_mode": comparison["selection_mode"],
             "top_score_gap": comparison["top_score_gap"],
             "ranked_action_count": comparison["ranked_action_count"],
+            "dispatch_gate": comparison["dispatch_gate"],
+            "semantic_target_gate": replay_result.get("semantic_target_gate"),
             "verifier_gate": replay_result.get("verifier_gate"),
             "verifier_spec": replay_result.get("verifier_spec"),
             "selected_action": replay_result.get("selected_action"),
@@ -204,6 +217,7 @@ class AdvisorReplayTools:
         selected = result.get("selected_action") or {}
         actual = selected.get("action_type")
         selection_reason = result.get("selection_reason") or {}
+        dispatch_gate = _dispatch_gate_result(result, expectations.get(fixture_name, {}))
         return {
             "fixture": fixture_name,
             "matched": expected == actual,
@@ -212,6 +226,8 @@ class AdvisorReplayTools:
             "selection_mode": selection_reason.get("selection_mode"),
             "top_score_gap": selection_reason.get("top_score_gap"),
             "ranked_action_count": len(result.get("ranked_actions") or []),
+            "dispatch_gate": dispatch_gate,
+            "semantic_target_gate": result.get("semantic_target_gate"),
             "verifier_gate": result.get("verifier_gate"),
             "verifier_spec": result.get("verifier_spec"),
         }
@@ -233,6 +249,78 @@ class AdvisorReplayTools:
             "covered": covered,
             "missing": sorted(set(PR6_LOW_RISK_ACTIONS) - set(covered)),
         }
+
+    @staticmethod
+    def _pr5_dispatch_gate_coverage(comparisons: list[dict[str, Any]]) -> dict[str, Any]:
+        checked = [item for item in comparisons if (item.get("dispatch_gate") or {}).get("checked")]
+        failures = [
+            {
+                "fixture": item["fixture"],
+                "expected": item["dispatch_gate"]["expected"],
+                "actual": item["dispatch_gate"]["actual"],
+            }
+            for item in checked
+            if not item["dispatch_gate"]["matched"]
+        ]
+        return {
+            "checked": True,
+            "required_count": len(checked),
+            "matched_count": len(checked) - len(failures),
+            "failures": failures,
+        }
+
+
+def _dispatch_gate_result(result: dict[str, Any], expectation: dict[str, Any]) -> dict[str, Any]:
+    expected_status = expectation.get("expected_dispatch_status")
+    semantic_target_gate = result.get("semantic_target_gate") or {}
+    decision = semantic_target_gate.get("decision")
+    actual: dict[str, Any] = {
+        "status": None,
+        "blocked_by": None,
+        "target_key": _dispatch_target_key(semantic_target_gate),
+    }
+    if decision == "block":
+        actual["status"] = "blocked"
+        actual["blocked_by"] = "semantic_target_gate"
+    elif decision == "allow":
+        actual["status"] = "ok"
+    elif decision == "skip":
+        actual["status"] = "not_applicable"
+
+    expected = {
+        "status": expected_status,
+        "blocked_by": expectation.get("expected_dispatch_blocked_by"),
+        "target_key": expectation.get("expected_dispatch_target_key"),
+    }
+    checked = expected_status is not None
+    matched = True
+    if checked:
+        matched = expected["status"] == actual["status"]
+        if expected["blocked_by"] is not None:
+            matched = matched and expected["blocked_by"] == actual["blocked_by"]
+        if expected["target_key"] is not None:
+            matched = matched and expected["target_key"] == actual["target_key"]
+    return {
+        "checked": checked,
+        "matched": matched,
+        "expected": expected,
+        "actual": actual,
+    }
+
+
+def _dispatch_target_key(semantic_target_gate: dict[str, Any]) -> str | None:
+    details = semantic_target_gate.get("details") or {}
+    action_type = details.get("action_type")
+    target = details.get("target")
+    if action_type == "claim_chapter_reward" and target == "claim_button":
+        return "chapter_claim_button"
+    if action_type == "recruit_soldiers" and target == "recruit_button":
+        return "recruit_button"
+    if action_type == "upgrade_building" and target == "upgrade_button":
+        return "building_upgrade_button"
+    if action_type == "upgrade_building" and target == "upgrade_dialog.confirm_button":
+        return "upgrade_confirm_button"
+    return None
 
 
 def _is_relative_to(path: Path, parent: Path) -> bool:

@@ -5,6 +5,7 @@ from pathlib import Path
 from pioneer_agent.core.models import RuntimeState
 from pioneer_agent.core.runtime_state_io import load_runtime_state_record
 from pioneer_agent.derivation.state_deriver import StateDeriver
+from pioneer_agent.runtime.architecture_gates import validate_low_risk_semantic_target
 from pioneer_agent.selector.action_selector import ActionSelector
 from pioneer_agent.verifier.base import DeltaMatchPolicy
 from pioneer_agent.verifier.registry import VerifierRegistry, serialize_verifier_spec
@@ -21,10 +22,12 @@ class ReplayRuntime:
         result = self.selector.select(derived)
         verifier_gate = None
         verifier_spec = None
+        semantic_target_gate = None
         if result.selected_action is not None:
             action_type = result.selected_action.action_type
             gate = self.verifier_registry.evaluate(action_type)
             spec = self.verifier_registry.get(action_type)
+            semantic_target_gate = validate_low_risk_semantic_target(result.selected_action).to_dict()
             verifier_gate = {
                 "decision": gate.decision.value,
                 "reason": gate.reason,
@@ -43,6 +46,7 @@ class ReplayRuntime:
                 "timing": derived.timing,
             },
             "selected_action": result.selected_action.model_dump(mode="json") if result.selected_action else None,
+            "semantic_target_gate": semantic_target_gate,
             "verifier_gate": verifier_gate,
             "verifier_spec": verifier_spec,
             "ranked_actions": [action.model_dump(mode="json") for action in result.ranked_actions],
