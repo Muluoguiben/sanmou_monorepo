@@ -13,7 +13,7 @@ Wait actions are fully implemented — they are pure replanning signals.
 """
 from __future__ import annotations
 
-from typing import Callable
+from typing import Any, Callable
 
 from pioneer_agent.core.enums import ActionType
 from pioneer_agent.core.models import CandidateAction, ExecutionResult
@@ -46,18 +46,43 @@ def _advisor_only_handler(action: CandidateAction, _ui: UIActions) -> ExecutionR
 
 
 def _claim_chapter_reward(action: CandidateAction, ui: UIActions) -> ExecutionResult:
-    # Typical flow: open chapter panel (fixed) → click reward row (dynamic) → confirm.
-    # Panel button is not yet in registry; flow needs calibration screenshots.
-    return _pending(action, "chapter panel button not yet calibrated")
+    button = _button_param(action.params.get("claim_button"))
+    if button is None:
+        return _pending(action, "chapter claim button bbox not observed")
+    return _click_semantic_button(
+        action,
+        ui,
+        button=button,
+        target_key="chapter_claim_button",
+        label="章节奖励领取",
+    )
 
 
 def _upgrade_building(action: CandidateAction, ui: UIActions) -> ExecutionResult:
-    # Flow: already in city view → click the building (dynamic) → confirm upgrade (dynamic).
-    # Requires: building name in action.params and an upgrade-confirm dialog screenshot.
+    # Safe first slice: when already on the upgrade dialog, click the visible
+    # enabled confirm button from semantic perception. Opening arbitrary building
+    # panels still stays pending until that sequence is calibrated.
     building = action.params.get("building_name") or action.params.get("building")
     if not building:
         return _fail(action, "missing building_name in params")
-    return _pending(action, f"upgrade dialog for {building} not yet calibrated")
+    dialog = action.params.get("upgrade_dialog")
+    if not isinstance(dialog, dict) or not dialog.get("visible"):
+        return _pending(action, f"upgrade dialog for {building} not yet observed")
+    dialog_building = dialog.get("building_name")
+    if dialog_building and str(dialog_building) != str(building):
+        return _fail(action, f"upgrade dialog building mismatch: expected {building}, saw {dialog_building}")
+    if dialog.get("can_upgrade") is False:
+        return _fail(action, f"upgrade dialog for {building} is not upgradeable")
+    button = _button_param(dialog.get("confirm_button"))
+    if button is None:
+        return _pending(action, f"upgrade confirm button for {building} not yet observed")
+    return _click_semantic_button(
+        action,
+        ui,
+        button=button,
+        target_key="upgrade_confirm_button",
+        label=f"升级确认:{building}",
+    )
 
 
 def _transfer_main_lineup(action: CandidateAction, _ui: UIActions) -> ExecutionResult:
@@ -69,7 +94,16 @@ def _attack_land(action: CandidateAction, _ui: UIActions) -> ExecutionResult:
 
 
 def _recruit_soldiers(action: CandidateAction, _ui: UIActions) -> ExecutionResult:
-    return _pending(action, "recruit dialog (征兵所 → 征兵 → 确认) not yet calibrated")
+    button = _button_param(action.params.get("recruit_button"))
+    if button is None:
+        return _pending(action, "recruit button bbox not observed")
+    return _click_semantic_button(
+        action,
+        _ui,
+        button=button,
+        target_key="recruit_button",
+        label=f"征兵:{action.params.get('team_id') or 'visible_team'}",
+    )
 
 
 def _abandon_land(action: CandidateAction, _ui: UIActions) -> ExecutionResult:
@@ -95,6 +129,44 @@ def _fail(action: CandidateAction, reason: str) -> ExecutionResult:
         failure_reason=reason,
         recovery_required=True,
         summary={"action_type": action.action_type.value},
+    )
+
+
+def _button_param(value: Any) -> dict[str, Any] | None:
+    if not isinstance(value, dict):
+        return None
+    return value
+
+
+def _click_semantic_button(
+    action: CandidateAction,
+    ui: UIActions,
+    *,
+    button: dict[str, Any],
+    target_key: str,
+    label: str,
+) -> ExecutionResult:
+    if not button.get("visible"):
+        return _fail(action, f"{target_key} is not visible")
+    if not button.get("enabled"):
+        return _fail(action, f"{target_key} is disabled")
+    bbox = button.get("bbox")
+    if not isinstance(bbox, dict):
+        return _pending(action, f"{target_key} bbox missing")
+    outcome = ui.click_bbox(target_key, bbox, label=label)
+    if not outcome.success:
+        return _fail(action, outcome.reason or f"{target_key} click failed")
+    return ExecutionResult(
+        action_id=action.action_id,
+        status="ok",
+        verification_status="unverified",
+        recovery_required=False,
+        summary={
+            "action_type": action.action_type.value,
+            "target_key": target_key,
+            "click_px": {"x": outcome.px[0], "y": outcome.px[1]},
+            "matched_label": outcome.matched_label,
+        },
     )
 
 

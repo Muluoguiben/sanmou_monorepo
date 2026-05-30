@@ -8,6 +8,7 @@ from typing import Iterable
 class InputKind(str, Enum):
     CLICK_BUTTON = "click_button"
     CLICK_ELEMENT = "click_element"
+    CLICK_SEMANTIC_BBOX = "click_semantic_bbox"
     DRAG = "drag"
     KEY_PRESS = "key_press"
 
@@ -23,6 +24,15 @@ class InputPolicyVerdict:
 class InputPolicy:
     allowed_button_keys: frozenset[str] | None = None
     allowed_element_queries: frozenset[str] = field(default_factory=frozenset)
+    allowed_semantic_targets: frozenset[str] = field(
+        default_factory=lambda: frozenset(
+            {
+                "chapter_claim_button",
+                "recruit_button",
+                "upgrade_confirm_button",
+            }
+        )
+    )
     allowed_keys: frozenset[str] = field(default_factory=lambda: frozenset({"escape"}))
     allow_map_drag: bool = False
 
@@ -61,6 +71,19 @@ class InputPolicy:
             allowed=True,
             reason="dynamic element query is allowlisted",
             kind=InputKind.CLICK_ELEMENT,
+        )
+
+    def evaluate_semantic_target(self, target_key: str) -> InputPolicyVerdict:
+        if target_key not in self.allowed_semantic_targets:
+            return InputPolicyVerdict(
+                allowed=False,
+                reason=f"semantic bbox target is not allowlisted: {target_key}",
+                kind=InputKind.CLICK_SEMANTIC_BBOX,
+            )
+        return InputPolicyVerdict(
+            allowed=True,
+            reason="semantic bbox target is allowlisted",
+            kind=InputKind.CLICK_SEMANTIC_BBOX,
         )
 
     def evaluate_drag(self) -> InputPolicyVerdict:

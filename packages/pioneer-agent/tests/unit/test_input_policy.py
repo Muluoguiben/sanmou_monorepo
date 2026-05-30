@@ -31,6 +31,18 @@ class InputPolicyTests(unittest.TestCase):
 
         self.assertTrue(verdict.allowed)
 
+    def test_semantic_bbox_target_is_allowlisted_by_default(self) -> None:
+        verdict = InputPolicy().evaluate_semantic_target("chapter_claim_button")
+
+        self.assertTrue(verdict.allowed)
+        self.assertEqual(verdict.kind, InputKind.CLICK_SEMANTIC_BBOX)
+
+    def test_unknown_semantic_bbox_target_is_blocked(self) -> None:
+        verdict = InputPolicy().evaluate_semantic_target("unknown_button")
+
+        self.assertFalse(verdict.allowed)
+        self.assertIn("not allowlisted", verdict.reason)
+
     def test_drag_is_opt_in(self) -> None:
         self.assertFalse(InputPolicy().evaluate_drag().allowed)
         self.assertTrue(InputPolicy(allow_map_drag=True).evaluate_drag().allowed)

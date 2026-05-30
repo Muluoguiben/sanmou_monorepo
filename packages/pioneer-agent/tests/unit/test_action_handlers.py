@@ -7,6 +7,7 @@ from pioneer_agent.core.device import CapabilityFlags
 from pioneer_agent.core.enums import ActionType
 from pioneer_agent.core.models import CandidateAction
 from pioneer_agent.executor.action_handlers import dispatch
+from pioneer_agent.executor.ui_actions import ClickOutcome
 from pioneer_agent.executor.ui_runner import UIActionRunner
 from pioneer_agent.runtime.architecture_gates import (
     AutomationMode,
@@ -18,6 +19,21 @@ from pioneer_agent.verifier import ExpectedStateDelta, VerifierRegistry, Verifie
 
 class _NullUI:
     """All handlers take a UIActions, but wait + pending paths never call it."""
+
+
+class _SemanticUI:
+    def __init__(self, *, click_ok: bool = True) -> None:
+        self.click_ok = click_ok
+        self.clicks: list[dict] = []
+
+    def click_bbox(self, target_key, bbox, *, label=None):  # noqa: ANN001
+        self.clicks.append({"target_key": target_key, "bbox": bbox, "label": label})
+        return ClickOutcome(
+            success=self.click_ok,
+            px=(800, 850),
+            reason=None if self.click_ok else "bridge click failed",
+            matched_label=label,
+        )
 
 
 def _mk_action(t: ActionType, **params) -> CandidateAction:
@@ -47,6 +63,94 @@ class DispatchTests(unittest.TestCase):
         )
         self.assertEqual(res.status, "pending")
         self.assertIn("征兵所", (res.failure_reason or ""))
+
+    def test_claim_chapter_reward_clicks_observed_claim_button(self) -> None:
+        ui = _SemanticUI()
+        res = dispatch(
+            _mk_action(
+                ActionType.CLAIM_CHAPTER_REWARD,
+                claim_button={
+                    "visible": True,
+                    "enabled": True,
+                    "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+                },
+            ),
+            ui,  # type: ignore[arg-type]
+        )
+
+        self.assertEqual(res.status, "ok")
+        self.assertEqual(res.verification_status, "unverified")
+        self.assertEqual(ui.clicks[0]["target_key"], "chapter_claim_button")
+        self.assertEqual(res.summary["target_key"], "chapter_claim_button")
+
+    def test_claim_chapter_reward_without_bbox_stays_pending(self) -> None:
+        res = dispatch(_mk_action(ActionType.CLAIM_CHAPTER_REWARD), _NullUI())  # type: ignore[arg-type]
+
+        self.assertEqual(res.status, "pending")
+        self.assertIn("bbox not observed", res.failure_reason or "")
+
+    def test_recruit_soldiers_clicks_observed_recruit_button(self) -> None:
+        ui = _SemanticUI()
+        res = dispatch(
+            _mk_action(
+                ActionType.RECRUIT_SOLDIERS,
+                team_id="team-1",
+                recruit_button={
+                    "visible": True,
+                    "enabled": True,
+                    "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+                },
+            ),
+            ui,  # type: ignore[arg-type]
+        )
+
+        self.assertEqual(res.status, "ok")
+        self.assertEqual(ui.clicks[0]["target_key"], "recruit_button")
+
+    def test_upgrade_building_clicks_observed_confirm_button(self) -> None:
+        ui = _SemanticUI()
+        res = dispatch(
+            _mk_action(
+                ActionType.UPGRADE_BUILDING,
+                building_name="君王殿",
+                upgrade_dialog={
+                    "visible": True,
+                    "building_name": "君王殿",
+                    "can_upgrade": True,
+                    "confirm_button": {
+                        "visible": True,
+                        "enabled": True,
+                        "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+                    },
+                },
+            ),
+            ui,  # type: ignore[arg-type]
+        )
+
+        self.assertEqual(res.status, "ok")
+        self.assertEqual(ui.clicks[0]["target_key"], "upgrade_confirm_button")
+
+    def test_upgrade_building_blocks_disabled_confirm_button(self) -> None:
+        res = dispatch(
+            _mk_action(
+                ActionType.UPGRADE_BUILDING,
+                building_name="君王殿",
+                upgrade_dialog={
+                    "visible": True,
+                    "building_name": "君王殿",
+                    "can_upgrade": True,
+                    "confirm_button": {
+                        "visible": True,
+                        "enabled": False,
+                        "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+                    },
+                },
+            ),
+            _NullUI(),  # type: ignore[arg-type]
+        )
+
+        self.assertEqual(res.status, "failed")
+        self.assertIn("disabled", res.failure_reason or "")
 
     def test_attack_is_pending(self) -> None:
         res = dispatch(_mk_action(ActionType.ATTACK_LAND), _NullUI())  # type: ignore[arg-type]
@@ -112,7 +216,25 @@ class UIActionRunnerTests(unittest.TestCase):
         )
         res = runner.run(_mk_action(ActionType.CLAIM_CHAPTER_REWARD))
         self.assertEqual(res.status, "pending")
-        self.assertIn("chapter panel", res.failure_reason or "")
+        self.assertIn("bbox not observed", res.failure_reason or "")
+
+    def test_runner_dispatches_low_risk_action_when_semantic_bbox_is_present(self) -> None:
+        runner = UIActionRunner(
+            _SemanticUI(),  # type: ignore[arg-type]
+            capabilities=CapabilityFlags(input_control=True),
+        )
+        res = runner.run(
+            _mk_action(
+                ActionType.CLAIM_CHAPTER_REWARD,
+                claim_button={
+                    "visible": True,
+                    "enabled": True,
+                    "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+                },
+            )
+        )
+        self.assertEqual(res.status, "ok")
+        self.assertEqual(res.summary["target_key"], "chapter_claim_button")
 
     def test_runner_blocks_low_risk_action_when_architecture_gate_is_not_ready(self) -> None:
         runner = UIActionRunner(

@@ -134,6 +134,49 @@ class UIActionsTests(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             actions.click_element("anything")
 
+    def test_click_bbox_uses_semantic_target_allowlist(self) -> None:
+        bridge = _StubBridge(_make_png(1000, 1000))
+        actions = UIActions(bridge, self._registry())
+
+        out = actions.click_bbox(
+            "chapter_claim_button",
+            {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+            label="章节奖励领取",
+        )
+
+        self.assertTrue(out.success)
+        self.assertEqual(out.px, (800, 850))
+        self.assertEqual(bridge.clicks, [(800, 850)])
+        self.assertEqual(out.trace["action"], "click_semantic_bbox")
+        self.assertEqual(out.trace["target"]["key"], "chapter_claim_button")
+        self.assertEqual(out.trace["normalized_bbox"]["x"], 0.7)
+
+    def test_click_bbox_blocks_unknown_semantic_target(self) -> None:
+        bridge = _StubBridge(_make_png(1000, 1000))
+        actions = UIActions(bridge, self._registry())
+
+        out = actions.click_bbox(
+            "unknown_button",
+            {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+        )
+
+        self.assertFalse(out.success)
+        self.assertIn("not allowlisted", out.reason or "")
+        self.assertEqual(bridge.clicks, [])
+
+    def test_click_bbox_rejects_invalid_bbox(self) -> None:
+        bridge = _StubBridge(_make_png(1000, 1000))
+        actions = UIActions(bridge, self._registry())
+
+        out = actions.click_bbox(
+            "chapter_claim_button",
+            {"x_min": 900, "y_min": 800, "x_max": 700, "y_max": 900},
+        )
+
+        self.assertFalse(out.success)
+        self.assertIn("invalid bbox", out.reason or "")
+        self.assertEqual(bridge.clicks, [])
+
     def test_pan_map_drags_from_center(self) -> None:
         bridge = _StubBridge(_make_png(2000, 1000))
         actions = UIActions(bridge, self._registry(), input_policy=InputPolicy(allow_map_drag=True))

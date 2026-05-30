@@ -140,7 +140,7 @@ precheck -> click/action -> observe -> verifier -> trace -> recovery/block
 待办：
 
 - [x] 为三个低风险动作补 `VerifierSpec.expected_deltas`。
-- [ ] 打通真实 UI action handler，不再返回 pending。
+- [ ] 打通真实 UI action handler，不再返回 pending。2026-05-30 已完成第一段 semantic bbox dispatch：`claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` 可消费 vision validator 产出的 visible/enabled bbox 并派发一次 allowlisted click；完整多步 flow、post-action observe/verifier 与 recovery 仍未完成。
 - [ ] 弹窗识别接入动作流程，未知弹窗必须 block。
 - [ ] 引入 UI element id 或 SoM grounding，减少裸坐标点击。
 - [x] `SafetyGuard` 配置化，高风险动作默认 block；全自动高风险还需要通过 `AutomationReadinessGate` 的地图、战报、队伍 verifier 前置条件。
@@ -176,4 +176,6 @@ precheck -> click/action -> observe -> verifier -> trace -> recovery/block
 4. [x] vision schema 语义校验和失败 fixture，优先覆盖 bbox、visible/enabled、page/domain。
 5. [x] Advisor golden replay runner 扩展真实截图集，锁住 action/evidence/confidence。
 6. [x] 三个低风险动作的 verifier specs，不先写完整 click flow。
-7. Desktop evidence/degraded 展示，确保无证据推荐不会被 UI 展示成确定结论。
+7. [x] 三个低风险动作的 semantic bbox dispatch first slice：消费 vision validator 产出的按钮 bbox，并通过 input allowlist 派发单次 click。
+8. [ ] 三个低风险动作的完整 UI flow + post-action verifier。
+9. Desktop evidence/degraded 展示，确保无证据推荐不会被 UI 展示成确定结论。

@@ -126,6 +126,62 @@ class UIActions:
             trace=trace,
         )
 
+    def click_bbox(
+        self,
+        target_key: str,
+        bbox: dict[str, Any],
+        *,
+        label: str | None = None,
+    ) -> ClickOutcome:
+        """Click a semantic bbox that was already produced by a vision domain.
+
+        Domain bboxes use the same 0-1000 normalized coordinate space as the
+        generic locator. Unlike `click_element`, this does not call vision again;
+        it only uses a target key allowlist plus bbox validation.
+        """
+        verdict = self.input_policy.evaluate_semantic_target(target_key)
+        if not verdict.allowed:
+            return ClickOutcome(success=False, px=(0, 0), reason=verdict.reason)
+        parsed = _parse_normalized_bbox(bbox)
+        if parsed is None:
+            return ClickOutcome(success=False, px=(0, 0), reason=f"invalid bbox for: {target_key}")
+
+        png = self.bridge.screenshot()
+        w, h = _image_size(png)
+        x_min, y_min, x_max, y_max = parsed
+        px_x = round((x_min + x_max) / 2000 * w)
+        px_y = round((y_min + y_max) / 2000 * h)
+        pixel_bbox = {
+            "x": round(x_min / 1000 * w),
+            "y": round(y_min / 1000 * h),
+            "width": round((x_max - x_min) / 1000 * w),
+            "height": round((y_max - y_min) / 1000 * h),
+        }
+        resp = self.bridge.click(px_x, px_y)
+        ok = resp.get("status") == "ok"
+        trace = _input_trace_event(
+            action="click_semantic_bbox",
+            coordinate_space="window:relative",
+            raw_size=(w, h),
+            click_point=(px_x, px_y),
+            target={"key": target_key, "label": label or target_key},
+            normalized_bbox={
+                "x": x_min / 1000,
+                "y": y_min / 1000,
+                "width": (x_max - x_min) / 1000,
+                "height": (y_max - y_min) / 1000,
+            },
+            pixel_bbox=pixel_bbox,
+        )
+        self._input_trace.append(trace)
+        return ClickOutcome(
+            success=ok,
+            px=(px_x, px_y),
+            matched_label=label,
+            reason=None if ok else str(resp),
+            trace=trace,
+        )
+
     # --- navigation -------------------------------------------------------
 
     def pan_map(self, dx: int, dy: int, duration: float = 0.4) -> ClickOutcome:
@@ -208,6 +264,19 @@ def _normalized_bbox(box: Any) -> dict[str, float]:
         "width": x2 - x1,
         "height": y2 - y1,
     }
+
+
+def _parse_normalized_bbox(payload: dict[str, Any]) -> tuple[int, int, int, int] | None:
+    try:
+        x_min = int(payload["x_min"])
+        y_min = int(payload["y_min"])
+        x_max = int(payload["x_max"])
+        y_max = int(payload["y_max"])
+    except (KeyError, TypeError, ValueError):
+        return None
+    if not (0 <= x_min < x_max <= 1000 and 0 <= y_min < y_max <= 1000):
+        return None
+    return x_min, y_min, x_max, y_max
 
 
 def _point_dict(x: int, y: int) -> dict[str, int]:

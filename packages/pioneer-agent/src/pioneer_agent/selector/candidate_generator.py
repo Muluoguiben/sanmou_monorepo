@@ -25,11 +25,15 @@ class CandidateGenerator:
             return []
 
         chapter_id = state.progress.get("current_chapter_id")
+        params: dict[str, Any] = {"chapter_id": chapter_id}
+        claim_button = self._semantic_button_param(state.progress.get("chapter_claim_button"))
+        if claim_button:
+            params["claim_button"] = claim_button
         return [
             CandidateAction(
                 action_id=self._build_action_id(ActionType.CLAIM_CHAPTER_REWARD, chapter_id or "current"),
                 action_type=ActionType.CLAIM_CHAPTER_REWARD,
-                params={"chapter_id": chapter_id},
+                params=params,
                 preconditions=["chapter_claimable"],
                 expected_gain={"chapter_progress": 1},
                 source_state_refs=["progress.chapter_claimable", "progress.current_chapter_id"],
@@ -44,26 +48,33 @@ class CandidateGenerator:
             target_level = building.get("target_level")
             shortages = self._positive_float_map(building.get("resource_shortages", {}))
             total_shortage = round(sum(shortages.values()), 2)
+            params = {
+                "building_id": building_id,
+                "building_name": building_name,
+                "target_level": target_level,
+                "chapter_relevance": building.get("chapter_relevance", "low_relevance"),
+                "economy_gain": float(building.get("economy_gain", 0)),
+                "battle_support_gain": float(building.get("battle_support_gain", 0)),
+                "resource_cost_penalty": float(building.get("resource_cost_penalty", 0)),
+                "blocked_by": list(building.get("blocked_by", [])),
+                "resource_shortages": shortages,
+                "resource_ready": not shortages,
+                "wait_seconds_for_resources": building.get("wait_seconds_for_resources"),
+                "wait_target_resource": building.get("wait_target_resource"),
+                "cost": building.get("cost", {}),
+            }
+            upgrade_button = self._semantic_button_param(building.get("upgrade_button"))
+            if upgrade_button:
+                params["upgrade_button"] = upgrade_button
+            upgrade_dialog = self._upgrade_dialog_param(state.city.get("upgrade_dialog"))
+            if upgrade_dialog:
+                params["upgrade_dialog"] = upgrade_dialog
 
             actions.append(
                 CandidateAction(
                     action_id=self._build_action_id(ActionType.UPGRADE_BUILDING, building_id or "unknown", target_level or "next"),
                     action_type=ActionType.UPGRADE_BUILDING,
-                    params={
-                        "building_id": building_id,
-                        "building_name": building_name,
-                        "target_level": target_level,
-                        "chapter_relevance": building.get("chapter_relevance", "low_relevance"),
-                        "economy_gain": float(building.get("economy_gain", 0)),
-                        "battle_support_gain": float(building.get("battle_support_gain", 0)),
-                        "resource_cost_penalty": float(building.get("resource_cost_penalty", 0)),
-                        "blocked_by": list(building.get("blocked_by", [])),
-                        "resource_shortages": shortages,
-                        "resource_ready": not shortages,
-                        "wait_seconds_for_resources": building.get("wait_seconds_for_resources"),
-                        "wait_target_resource": building.get("wait_target_resource"),
-                        "cost": building.get("cost", {}),
-                    },
+                    params=params,
                     preconditions=["building_upgradeable", "resources_satisfied", "prerequisites_satisfied"],
                     expected_gain={
                         "chapter_relevance": building.get("chapter_relevance"),
@@ -193,23 +204,27 @@ class CandidateGenerator:
                 continue
 
             recruit_amount = min(deficit, reserve_troops) if reserve_troops > 0 else deficit
+            params = {
+                "team_id": team.get("team_id"),
+                "soldiers": soldiers,
+                "max_soldiers": max_soldiers,
+                "soldier_deficit": round(deficit, 2),
+                "recruit_amount": round(recruit_amount, 2),
+                "reserve_troops_available": reserve_troops,
+                "is_main_host": team.get("team_id") == state.main_lineup.get("current_host_team_id"),
+                "primary_constraint": state.main_lineup.get("primary_constraint"),
+                "status": team.get("status"),
+                "can_recruit_now": team.get("can_recruit_now", True),
+                "recruit_finish_time": team.get("recruit_finish_time"),
+            }
+            recruit_button = self._semantic_button_param(team.get("recruit_button"))
+            if recruit_button:
+                params["recruit_button"] = recruit_button
             actions.append(
                 CandidateAction(
                     action_id=self._build_action_id(ActionType.RECRUIT_SOLDIERS, team.get("team_id", "unknown")),
                     action_type=ActionType.RECRUIT_SOLDIERS,
-                    params={
-                        "team_id": team.get("team_id"),
-                        "soldiers": soldiers,
-                        "max_soldiers": max_soldiers,
-                        "soldier_deficit": round(deficit, 2),
-                        "recruit_amount": round(recruit_amount, 2),
-                        "reserve_troops_available": reserve_troops,
-                        "is_main_host": team.get("team_id") == state.main_lineup.get("current_host_team_id"),
-                        "primary_constraint": state.main_lineup.get("primary_constraint"),
-                        "status": team.get("status"),
-                        "can_recruit_now": team.get("can_recruit_now", True),
-                        "recruit_finish_time": team.get("recruit_finish_time"),
-                    },
+                    params=params,
                     preconditions=["team_exists", "soldier_deficit_positive", "reserve_troops_available"],
                     expected_gain={
                         "soldier_fill_ratio_after": round((soldiers + recruit_amount) / max_soldiers, 4),
@@ -480,6 +495,36 @@ class CandidateGenerator:
         loss_penalty = float(land.get("expected_battle_loss", 0)) / 120
         risk_penalty = (1 - float(land.get("expected_win_rate", 1.0))) * 100
         return round(float(land.get("yield_per_hour", 0)) / 12 + chapter_gain + strategic_gain - loss_penalty - risk_penalty, 2)
+
+    @staticmethod
+    def _semantic_button_param(value: Any) -> dict[str, Any] | None:
+        if not isinstance(value, dict):
+            return None
+        result = {
+            "visible": bool(value.get("visible")),
+            "enabled": bool(value.get("enabled")),
+        }
+        bbox = value.get("bbox")
+        if isinstance(bbox, dict):
+            result["bbox"] = dict(bbox)
+        return result
+
+    @classmethod
+    def _upgrade_dialog_param(cls, value: Any) -> dict[str, Any] | None:
+        if not isinstance(value, dict) or not value.get("visible"):
+            return None
+        result = {
+            "visible": bool(value.get("visible")),
+            "building_name": value.get("building_name"),
+            "can_upgrade": value.get("can_upgrade"),
+        }
+        confirm_button = cls._semantic_button_param(value.get("confirm_button"))
+        if confirm_button:
+            result["confirm_button"] = confirm_button
+        close_button = cls._semantic_button_param(value.get("close_button"))
+        if close_button:
+            result["close_button"] = close_button
+        return result
 
     @staticmethod
     def _team_readiness_review_items(

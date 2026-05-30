@@ -122,6 +122,73 @@ class ActionSelectorStrategySnapshotTests(unittest.TestCase):
         assert selected is not None
         self.assertEqual(selected.params["building_id"], "main_hall")
 
+    def test_selector_carries_semantic_button_targets_into_low_risk_actions(self) -> None:
+        bbox = {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900}
+
+        claim = ActionSelector(load_default_strategy=False).select(
+            RuntimeState(
+                progress={
+                    "chapter_claimable": True,
+                    "current_chapter_id": 17,
+                    "chapter_claim_button": {
+                        "visible": True,
+                        "enabled": True,
+                        "bbox": bbox,
+                    },
+                }
+            )
+        ).selected_action
+        assert claim is not None
+        self.assertEqual(claim.params["claim_button"]["bbox"], bbox)
+
+        recruit = ActionSelector(load_default_strategy=False).select(
+            RuntimeState(
+                economy={"reserve_troops": 10000},
+                teams=[
+                    {
+                        "team_id": "team-1",
+                        "soldiers": 1000,
+                        "max_soldiers": 3000,
+                        "can_recruit_now": True,
+                        "recruit_button": {
+                            "visible": True,
+                            "enabled": True,
+                            "bbox": bbox,
+                        },
+                    }
+                ],
+                main_lineup={"current_host_team_id": "team-1"},
+            )
+        ).selected_action
+        assert recruit is not None
+        self.assertEqual(recruit.params["recruit_button"]["bbox"], bbox)
+
+        upgrade = ActionSelector(load_default_strategy=False).select(
+            RuntimeState(
+                city={
+                    "upgradeable_buildings": [
+                        {
+                            "building_id": "main_hall",
+                            "building_name": "君王殿",
+                            "target_level": 11,
+                        }
+                    ],
+                    "upgrade_dialog": {
+                        "visible": True,
+                        "building_name": "君王殿",
+                        "can_upgrade": True,
+                        "confirm_button": {
+                            "visible": True,
+                            "enabled": True,
+                            "bbox": bbox,
+                        },
+                    },
+                }
+            )
+        ).selected_action
+        assert upgrade is not None
+        self.assertEqual(upgrade.params["upgrade_dialog"]["confirm_button"]["bbox"], bbox)
+
 
 if __name__ == "__main__":
     unittest.main()
