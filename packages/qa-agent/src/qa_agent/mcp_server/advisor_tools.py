@@ -1051,6 +1051,12 @@ class AdvisorReplayTools:
             requirement.get("required_post_action_delta") or [],
         ):
             missing.append("post_action_delta")
+        post_action_delta_evidence_validation = _post_action_delta_evidence_validation(
+            evidence.get("post_action_delta_evidence"),
+            required_post_action_delta=requirement.get("required_post_action_delta") or [],
+        )
+        if not post_action_delta_evidence_validation["valid"]:
+            missing.append("post_action_delta_evidence")
 
         file_integrity_validation = (
             self._file_integrity_validation(evidence, source_kind)
@@ -1116,6 +1122,7 @@ class AdvisorReplayTools:
             "required_runtime_dispatch": required_runtime_dispatch,
             "post_action_delta": post_action_delta if isinstance(post_action_delta, list) else [],
             "required_post_action_delta": requirement.get("required_post_action_delta") or [],
+            "post_action_delta_evidence_validation": post_action_delta_evidence_validation,
             "review_metadata_validation": review_metadata_validation,
             "file_integrity_validation": file_integrity_validation,
             "trace_validation": trace_validation,
@@ -1389,6 +1396,7 @@ def _terminal_source_capture_plan(
                     "semantic_target",
                     "runtime_dispatch",
                     "post_action_delta",
+                    "post_action_delta_evidence",
                 ],
                 "live_trace_extra_fields": [
                     "trace",
@@ -1454,10 +1462,27 @@ def _terminal_source_evidence_template(
         "semantic_target": requirement["required_semantic_target"],
         "runtime_dispatch": dict(requirement["required_runtime_dispatch"]),
         "post_action_delta": list(requirement["required_post_action_delta"]),
+        "post_action_delta_evidence": {
+            "source": "reviewed_before_after_observation",
+            "post_action_delta": list(requirement["required_post_action_delta"]),
+            "supporting_refs": [
+                "terminal_source_evidence.screenshot",
+                "<post-action-observation-ref>",
+            ],
+        },
     }
     if source_kind == "live_trace_fixture":
         evidence["trace"] = f"tests/fixtures/traces/<capture-date>/{action_type}_terminal.jsonl"
         evidence["trace_sha256"] = "<sha256-of-trace>"
+        evidence["post_action_delta_evidence"] = {
+            "source": "verification_record",
+            "post_action_delta": list(requirement["required_post_action_delta"]),
+            "supporting_refs": [
+                "terminal_source_evidence.trace",
+                "terminal_source_evidence.verification_record",
+                "operator_confirmation.trace_id",
+            ],
+        }
         evidence["verification_record"] = {
             "action_type": action_type,
             "status": "verified",
@@ -1588,6 +1613,36 @@ def _verification_record_validation(
         "action_type": action_value,
         "status": status,
         "checked_paths": checked_paths if isinstance(checked_paths, list) else [],
+    }
+
+
+def _post_action_delta_evidence_validation(
+    value: Any,
+    *,
+    required_post_action_delta: list[str],
+) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        return {
+            "valid": False,
+            "issues": ["post_action_delta_evidence_not_object"],
+        }
+    issues: list[str] = []
+    source = value.get("source")
+    if source not in {"verification_record", "reviewed_before_after_observation"}:
+        issues.append("source")
+    delta = value.get("post_action_delta")
+    if not isinstance(delta, list) or not _post_action_delta_matches(delta, required_post_action_delta):
+        issues.append("post_action_delta")
+    supporting_refs = value.get("supporting_refs")
+    if not isinstance(supporting_refs, list) or not all(
+        isinstance(item, str) and item.strip() for item in supporting_refs
+    ):
+        issues.append("supporting_refs")
+    return {
+        "valid": not issues,
+        "issues": sorted(set(issues)),
+        "source": source if isinstance(source, str) else None,
+        "supporting_refs": supporting_refs if isinstance(supporting_refs, list) else [],
     }
 
 

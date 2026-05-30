@@ -331,6 +331,7 @@ class McpToolTests(unittest.TestCase):
         self.assertIn("reviewed_by", capture_plan["actions"][0]["terminal_source_evidence_fields"])
         self.assertIn("reviewed_at", capture_plan["actions"][0]["terminal_source_evidence_fields"])
         self.assertIn("screenshot_sha256", capture_plan["actions"][0]["terminal_source_evidence_fields"])
+        self.assertIn("post_action_delta_evidence", capture_plan["actions"][0]["terminal_source_evidence_fields"])
         self.assertIn("verification_record", capture_plan["actions"][0]["live_trace_extra_fields"])
         self.assertIn("trace_sha256", capture_plan["actions"][0]["live_trace_extra_fields"])
         self.assertIn("operator_confirmation", capture_plan["actions"][0]["live_trace_extra_fields"])
@@ -375,6 +376,10 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(
             expectation_template["terminal_source_evidence"]["trace_sha256"],
             "<sha256-of-trace>",
+        )
+        self.assertEqual(
+            expectation_template["terminal_source_evidence"]["post_action_delta_evidence"]["source"],
+            "verification_record",
         )
         self.assertEqual(
             expectation_template["terminal_source_evidence"]["verification_record"]["checked"],
@@ -667,6 +672,16 @@ class McpToolTests(unittest.TestCase):
                 "post_action_delta": [
                     {"path": "progress.chapter_claimable", "value": False},
                 ],
+                "post_action_delta_evidence": {
+                    "source": "reviewed_before_after_observation",
+                    "post_action_delta": [
+                        {"path": "progress.chapter_claimable", "value": False},
+                    ],
+                    "supporting_refs": [
+                        "tests/fixtures/screenshots/pc_client/pr5_20260529/chapter_main_task_20260529.jpg",
+                        "reviewed-post-action-observation",
+                    ],
+                },
             },
         }
 
@@ -682,8 +697,33 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(review["required_semantic_target"], "progress.chapter_claim_button")
         self.assertEqual(review["required_runtime_dispatch"]["target_key"], "chapter_claim_button")
         self.assertEqual(review["required_post_action_delta"], ["progress.chapter_claimable=false"])
+        self.assertTrue(review["post_action_delta_evidence_validation"]["valid"])
         self.assertTrue(review["review_metadata_validation"]["valid"])
         self.assertTrue(review["file_integrity_validation"]["valid"])
+
+        invalid_delta_evidence_expectation = {
+            "page": "chapter",
+            "terminal_source_evidence": {
+                **valid_expectation["terminal_source_evidence"],
+                "post_action_delta_evidence": {
+                    "source": "reviewed_before_after_observation",
+                    "post_action_delta": ["teams.0.soldiers increases"],
+                    "supporting_refs": ["reviewed-post-action-observation"],
+                },
+            },
+        }
+        invalid_delta_evidence = tools._terminal_source_evidence_review(
+            action_type="claim_chapter_reward",
+            fixture="pr5_chapter_claim_terminal_state.json",
+            expectation=invalid_delta_evidence_expectation,
+        )
+
+        self.assertFalse(invalid_delta_evidence["source_evidence_valid"])
+        self.assertIn("post_action_delta_evidence", invalid_delta_evidence["missing_evidence"])
+        self.assertEqual(
+            invalid_delta_evidence["post_action_delta_evidence_validation"]["issues"],
+            ["post_action_delta"],
+        )
 
         invalid_review_metadata_expectation = {
             "page": "chapter",
@@ -798,6 +838,17 @@ class McpToolTests(unittest.TestCase):
                     "post_action_delta": [
                         {"path": "progress.chapter_claimable", "value": False},
                     ],
+                    "post_action_delta_evidence": {
+                        "source": "verification_record",
+                        "post_action_delta": [
+                            {"path": "progress.chapter_claimable", "value": False},
+                        ],
+                        "supporting_refs": [
+                            "terminal_source_evidence.trace",
+                            "terminal_source_evidence.verification_record",
+                            "operator_confirmation.trace_id",
+                        ],
+                    },
                     "verification_record": {
                         "action_type": "claim_chapter_reward",
                         "status": "verified",
@@ -829,6 +880,7 @@ class McpToolTests(unittest.TestCase):
             self.assertTrue(live_review["source_evidence_valid"])
             self.assertEqual(live_review["missing_evidence"], [])
             self.assertTrue(live_review["trace_validation"]["matched"])
+            self.assertTrue(live_review["post_action_delta_evidence_validation"]["valid"])
             self.assertTrue(live_review["review_metadata_validation"]["valid"])
             self.assertTrue(live_review["file_integrity_validation"]["valid"])
             self.assertEqual(
@@ -1013,6 +1065,17 @@ class McpToolTests(unittest.TestCase):
                 "post_action_delta": [
                     {"path": "progress.chapter_claimable", "value": False},
                 ],
+                "post_action_delta_evidence": {
+                    "source": "verification_record",
+                    "post_action_delta": [
+                        {"path": "progress.chapter_claimable", "value": False},
+                    ],
+                    "supporting_refs": [
+                        "terminal_source_evidence.trace",
+                        "terminal_source_evidence.verification_record",
+                        "operator_confirmation.trace_id",
+                    ],
+                },
                 "verification_record": {
                     "action_type": "claim_chapter_reward",
                     "status": "verified",
