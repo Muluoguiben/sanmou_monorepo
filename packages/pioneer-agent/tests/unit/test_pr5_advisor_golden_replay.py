@@ -19,6 +19,8 @@ from pioneer_agent.core.device import (
 )
 from pioneer_agent.core.runtime_state_io import load_runtime_state_record
 from pioneer_agent.derivation.state_deriver import StateDeriver
+from pioneer_agent.executor.ui_actions import ClickOutcome
+from pioneer_agent.executor.ui_runner import UIActionRunner
 from pioneer_agent.perception.vision_sync import VisionSyncSummary
 from pioneer_agent.runtime.advisor_loop import build_advisor_report
 from pioneer_agent.selector.action_selector import ActionSelector
@@ -155,6 +157,48 @@ class Pr5AdvisorGoldenReplayTests(unittest.TestCase):
                         verifier_expected["delta_paths"],
                     )
 
+    def test_pr5_low_risk_actions_require_real_semantic_targets_before_dispatch(self) -> None:
+        project_root = _project_root()
+        deriver = StateDeriver()
+        selector = ActionSelector()
+        runner = UIActionRunner(
+            _ReplayUI(),  # type: ignore[arg-type]
+            capabilities=CapabilityFlags(input_control=True),
+        )
+        cases = {
+            "pr5_chapter_main_task_state.json": {
+                "action_type": ActionType.CLAIM_CHAPTER_REWARD,
+                "status": "blocked",
+                "blocked_by": "semantic_target_gate",
+            },
+            "pr5_recruit_guard_camp_state.json": {
+                "action_type": ActionType.RECRUIT_SOLDIERS,
+                "status": "blocked",
+                "blocked_by": "semantic_target_gate",
+            },
+            "pr5_building_upgrade_state.json": {
+                "action_type": ActionType.UPGRADE_BUILDING,
+                "status": "ok",
+                "target_key": "building_upgrade_button",
+            },
+        }
+
+        for fixture_name, expected in cases.items():
+            with self.subTest(fixture_name=fixture_name):
+                state = load_runtime_state_record(project_root / "tests" / "fixtures" / fixture_name).state
+                action = selector.select(deriver.derive(state)).selected_action
+
+                self.assertIsNotNone(action)
+                self.assertEqual(action.action_type, expected["action_type"])
+
+                result = runner.run(action)
+
+                self.assertEqual(result.status, expected["status"])
+                if "blocked_by" in expected:
+                    self.assertEqual(result.summary["blocked_by"], expected["blocked_by"])
+                if "target_key" in expected:
+                    self.assertEqual(result.summary["target_key"], expected["target_key"])
+
 
 def _project_root() -> Path:
     return Path(__file__).resolve().parents[2]
@@ -215,6 +259,15 @@ def _frame(payload: bytes) -> CaptureFrame:
         device_session=session,
         source_type=ObservationSourceType.SCREENSHOT_FILE,
     )
+
+
+class _ReplayUI:
+    def click_bbox(self, target_key, bbox, *, label=None):  # noqa: ANN001
+        return ClickOutcome(
+            success=True,
+            px=(800, 850),
+            matched_label=label,
+        )
 
 
 if __name__ == "__main__":
