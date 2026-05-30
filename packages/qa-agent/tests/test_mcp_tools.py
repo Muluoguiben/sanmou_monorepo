@@ -215,6 +215,21 @@ class McpToolTests(unittest.TestCase):
             source_review["next_source_requirements"][0]["accepted_source_kinds"],
             ["pr5_real_screenshot_fixture", "live_trace_fixture"],
         )
+        evidence_templates = source_review["next_source_requirements"][0][
+            "terminal_source_evidence_templates"
+        ]
+        self.assertEqual(
+            evidence_templates["live_trace_fixture"]["semantic_target"],
+            "progress.chapter_claim_button",
+        )
+        self.assertEqual(
+            evidence_templates["live_trace_fixture"]["verification_record"]["status"],
+            "verified",
+        )
+        self.assertEqual(
+            evidence_templates["pr5_real_screenshot_fixture"]["runtime_dispatch"]["target_key"],
+            "chapter_claim_button",
+        )
         self.assertEqual(
             source_review["next_source_requirements"][0]["required_runtime_dispatch"],
             {
@@ -311,6 +326,20 @@ class McpToolTests(unittest.TestCase):
         self.assertIn(
             "verification.post_action_verifier.status=verified",
             capture_plan["actions"][0]["live_trace_semantic_checks"],
+        )
+        expectation_template = capture_plan["actions"][0][
+            "advisor_fixture_expectation_patch_template"
+        ]["<claim_chapter_reward_terminal_fixture>.json"]
+        self.assertEqual(expectation_template["expected_action_type"], "claim_chapter_reward")
+        self.assertEqual(expectation_template["expected_dispatch_target_key"], "chapter_claim_button")
+        self.assertTrue(expectation_template["expected_dispatch_terminal_for_verifier"])
+        self.assertEqual(
+            expectation_template["terminal_source_evidence"]["source_kind"],
+            "live_trace_fixture",
+        )
+        self.assertEqual(
+            expectation_template["terminal_source_evidence"]["verification_record"]["checked"],
+            ["progress.chapter_claimable"],
         )
         self.assertEqual(payload["failures"], [])
 

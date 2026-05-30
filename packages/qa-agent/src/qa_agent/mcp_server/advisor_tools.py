@@ -1170,6 +1170,9 @@ def _terminal_source_requirements(action_types: list[str]) -> list[dict[str, Any
             continue
         requirement = dict(template)
         requirement["action_type"] = action_type
+        requirement["terminal_source_evidence_templates"] = (
+            _terminal_source_evidence_templates(requirement)
+        )
         requirements.append(requirement)
     return requirements
 
@@ -1228,6 +1231,9 @@ def _terminal_source_capture_plan(
                     "execution.summary.terminal_for_verifier=true",
                     "verification.post_action_verifier.status=verified",
                 ],
+                "advisor_fixture_expectation_patch_template": (
+                    _advisor_fixture_expectation_patch_template(requirement)
+                ),
             }
         )
     return {
@@ -1246,6 +1252,63 @@ def _unchecked_terminal_source_capture_plan() -> dict[str, Any]:
         "blocked_until": "golden_replay_checked",
         "requires_operator_confirmation_for_final_action": False,
         "actions": [],
+    }
+
+
+def _terminal_source_evidence_templates(requirement: dict[str, Any]) -> dict[str, Any]:
+    return {
+        source_kind: _terminal_source_evidence_template(requirement, source_kind)
+        for source_kind in requirement.get("accepted_source_kinds") or []
+    }
+
+
+def _terminal_source_evidence_template(
+    requirement: dict[str, Any],
+    source_kind: str,
+) -> dict[str, Any]:
+    action_type = str(requirement["action_type"])
+    evidence: dict[str, Any] = {
+        "source_kind": source_kind,
+        "review_status": "reviewed",
+        "screenshot": f"tests/fixtures/screenshots/pc_client/<capture-date>/{action_type}_terminal.jpg",
+        "page": requirement["required_page"],
+        "semantic_target": requirement["required_semantic_target"],
+        "runtime_dispatch": dict(requirement["required_runtime_dispatch"]),
+        "post_action_delta": list(requirement["required_post_action_delta"]),
+    }
+    if source_kind == "live_trace_fixture":
+        evidence["trace"] = f"tests/fixtures/traces/<capture-date>/{action_type}_terminal.jsonl"
+        evidence["verification_record"] = {
+            "action_type": action_type,
+            "status": "verified",
+            "checked": [
+                _required_delta_path(item)
+                for item in requirement["required_post_action_delta"]
+            ],
+            "post_action_delta": list(requirement["required_post_action_delta"]),
+        }
+    return evidence
+
+
+def _advisor_fixture_expectation_patch_template(requirement: dict[str, Any]) -> dict[str, Any]:
+    action_type = str(requirement["action_type"])
+    runtime_dispatch = requirement["required_runtime_dispatch"]
+    terminal_flag = runtime_dispatch.get("terminal_for_verifier")
+    return {
+        f"<{action_type}_terminal_fixture>.json": {
+            "page": requirement["required_page"],
+            "screenshot": (
+                f"tests/fixtures/screenshots/pc_client/<capture-date>/{action_type}_terminal.jpg"
+            ),
+            "expected_action_type": action_type,
+            "expected_dispatch_status": runtime_dispatch.get("status"),
+            "expected_dispatch_target_key": runtime_dispatch.get("target_key"),
+            "expected_dispatch_terminal_for_verifier": terminal_flag,
+            "terminal_source_evidence": _terminal_source_evidence_template(
+                requirement,
+                "live_trace_fixture",
+            ),
+        }
     }
 
 
