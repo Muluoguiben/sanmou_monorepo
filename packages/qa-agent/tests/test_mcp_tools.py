@@ -221,6 +221,39 @@ class McpToolTests(unittest.TestCase):
         self.assertTrue(
             all("accepted_source_kind" in item["missing_evidence"] for item in source_review["observed"])
         )
+        real_candidates = source_review["real_source_candidates"]
+        self.assertEqual(
+            [item["fixture"] for item in real_candidates],
+            [
+                "pr5_chapter_main_task_state.json",
+                "pr5_recruit_guard_camp_state.json",
+                "pr5_building_upgrade_state.json",
+            ],
+        )
+        self.assertTrue(all(item["screenshot_exists"] for item in real_candidates))
+        self.assertTrue(all(not item["closure_eligible"] for item in real_candidates))
+        self.assertTrue(
+            all("runtime_dispatch_not_terminal" in item["disqualifiers"] for item in real_candidates)
+        )
+        self.assertTrue(
+            all("terminal_source_evidence_invalid" in item["disqualifiers"] for item in real_candidates)
+        )
+        candidate_by_fixture = {item["fixture"]: item for item in real_candidates}
+        self.assertEqual(
+            candidate_by_fixture["pr5_building_upgrade_state.json"]["runtime_dispatch"]["target_key"],
+            "building_upgrade_button",
+        )
+        self.assertFalse(
+            candidate_by_fixture["pr5_building_upgrade_state.json"]["runtime_dispatch"]["terminal_for_verifier"]
+        )
+        self.assertEqual(
+            candidate_by_fixture["pr5_chapter_main_task_state.json"]["runtime_dispatch"]["status"],
+            "blocked",
+        )
+        self.assertEqual(
+            candidate_by_fixture["pr5_recruit_guard_camp_state.json"]["runtime_dispatch"]["status"],
+            "blocked",
+        )
         self.assertEqual(payload["failures"], [])
 
     def test_advisor_golden_replay_status_without_fixture_results_is_attention(self) -> None:
@@ -251,6 +284,7 @@ class McpToolTests(unittest.TestCase):
         self.assertFalse(payload["pr12_runtime_dispatch_coverage"]["checked"])
         self.assertFalse(payload["pr15_terminal_dispatch_gate_coverage"]["checked"])
         self.assertFalse(payload["pr5_low_risk_terminal_dispatch_coverage"]["checked"])
+        self.assertEqual(payload["low_risk_terminal_source_review"]["real_source_candidates"], [])
         readiness = payload["low_risk_verifier_readiness"]
         self.assertFalse(readiness["checked"])
         self.assertFalse(readiness["ready"])

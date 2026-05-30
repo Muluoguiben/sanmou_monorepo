@@ -84,6 +84,7 @@ class AdvisorReplayTools:
             "failures": [],
             "fixture_replay_checked": include_fixture_results,
         }
+        comparisons: list[dict[str, Any]] = []
         if include_fixture_results:
             replay_results = self._run_replay(fixtures)
             comparisons = [self._compare_result(item, expectations) for item in replay_results]
@@ -138,6 +139,7 @@ class AdvisorReplayTools:
         payload["low_risk_terminal_source_review"] = self._low_risk_terminal_source_review(
             payload["pr5_low_risk_terminal_dispatch_coverage"],
             expectations,
+            comparisons,
         )
         payload["attention_reasons"] = self._attention_reasons(payload)
         payload["status"] = "attention" if payload["attention_reasons"] else "ok"
@@ -441,6 +443,7 @@ class AdvisorReplayTools:
         self,
         terminal_dispatch_coverage: dict[str, Any],
         expectations: dict[str, dict[str, Any]],
+        comparisons: list[dict[str, Any]],
     ) -> dict[str, Any]:
         checked = bool(terminal_dispatch_coverage.get("checked"))
         covered_fixtures = terminal_dispatch_coverage.get("covered_fixtures") or {}
@@ -466,8 +469,71 @@ class AdvisorReplayTools:
             "accepted_actions": sorted(accepted_actions),
             "missing_real_terminal_sources": missing,
             "next_source_requirements": _terminal_source_requirements(missing),
+            "real_source_candidates": (
+                self._terminal_real_source_candidates(comparisons, expectations)
+                if checked
+                else []
+            ),
             "observed": observed,
         }
+
+    def _terminal_real_source_candidates(
+        self,
+        comparisons: list[dict[str, Any]],
+        expectations: dict[str, dict[str, Any]],
+    ) -> list[dict[str, Any]]:
+        candidates: list[dict[str, Any]] = []
+        for comparison in comparisons:
+            action_type = comparison.get("actual_action_type")
+            if action_type not in PR6_LOW_RISK_ACTIONS:
+                continue
+            fixture = comparison.get("fixture")
+            if _terminal_fixture_source_kind(fixture) != "pr5_real_screenshot_fixture":
+                continue
+            expectation = expectations.get(str(fixture), {})
+            runtime_dispatch = comparison.get("runtime_dispatch") or {}
+            summary = runtime_dispatch.get("summary") or {}
+            terminal_ready = (
+                runtime_dispatch.get("status") == "ok"
+                and summary.get("terminal_for_verifier") is True
+            )
+            source_review = self._terminal_source_evidence_review(
+                action_type=action_type,
+                fixture=fixture,
+                expectation=expectation,
+            )
+            screenshot = expectation.get("screenshot")
+            screenshot_exists = bool(screenshot) and self._source_path_exists(str(screenshot))
+            disqualifiers: list[str] = []
+            if not terminal_ready:
+                disqualifiers.append("runtime_dispatch_not_terminal")
+            if not source_review["source_evidence_valid"]:
+                disqualifiers.append("terminal_source_evidence_invalid")
+            if not screenshot_exists:
+                disqualifiers.append("screenshot_missing")
+            candidates.append(
+                {
+                    "fixture": fixture,
+                    "action_type": action_type,
+                    "page": expectation.get("page"),
+                    "screenshot": screenshot,
+                    "screenshot_exists": screenshot_exists,
+                    "source_kind": source_review["source_kind"],
+                    "runtime_dispatch": {
+                        "status": runtime_dispatch.get("status"),
+                        "blocked_by": summary.get("blocked_by"),
+                        "target_key": summary.get("target_key"),
+                        "flow_step": summary.get("flow_step"),
+                        "terminal_for_verifier": summary.get("terminal_for_verifier") is True,
+                    },
+                    "terminal_dispatch_ready": terminal_ready,
+                    "source_evidence_valid": source_review["source_evidence_valid"],
+                    "missing_evidence": source_review["missing_evidence"],
+                    "closure_eligible": terminal_ready and source_review["source_evidence_valid"],
+                    "disqualifiers": sorted(set(disqualifiers)),
+                }
+            )
+        return sorted(candidates, key=lambda item: (item["action_type"], item["fixture"]))
 
     @staticmethod
     def _low_risk_verifier_readiness(
