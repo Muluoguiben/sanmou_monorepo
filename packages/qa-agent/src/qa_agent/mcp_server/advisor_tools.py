@@ -1062,6 +1062,7 @@ class AdvisorReplayTools:
                 trace_validation = self._live_trace_evidence_validation(
                     str(trace_path),
                     action_type=action_key,
+                    screenshot_path=str(screenshot_path) if screenshot_path else None,
                     required_runtime_dispatch=required_runtime_dispatch,
                     required_post_action_delta=requirement.get("required_post_action_delta") or [],
                 )
@@ -1128,6 +1129,7 @@ class AdvisorReplayTools:
         trace_path: str,
         *,
         action_type: str | None,
+        screenshot_path: str | None,
         required_runtime_dispatch: dict[str, Any],
         required_post_action_delta: list[str],
     ) -> dict[str, Any]:
@@ -1145,6 +1147,11 @@ class AdvisorReplayTools:
                 action_type=action_type,
                 required_post_action_delta=required_post_action_delta,
             )
+            trace_screenshot_path = _trace_screenshot_path(record)
+            screenshot_matches = self._source_paths_match(
+                trace_screenshot_path,
+                screenshot_path,
+            )
             summary = execution.get("summary") if isinstance(execution.get("summary"), dict) else {}
             record_evaluations.append(
                 {
@@ -1152,6 +1159,8 @@ class AdvisorReplayTools:
                     "action_type": selected_action.get("action_type"),
                     "action_matches": action_matches,
                     "dispatch_matches": dispatch_matches,
+                    "screenshot_matches": screenshot_matches,
+                    "trace_screenshot_path": trace_screenshot_path,
                     "target_key": execution.get("target_key") or summary.get("target_key"),
                     "terminal_for_verifier": (
                         execution.get("terminal_for_verifier")
@@ -1164,11 +1173,12 @@ class AdvisorReplayTools:
                     "verifier_checked_paths": verifier_validation["checked_paths"],
                 }
             )
-            if action_matches and dispatch_matches and verifier_validation["valid"]:
+            if action_matches and dispatch_matches and screenshot_matches and verifier_validation["valid"]:
                 matching_records.append(
                     {
                         "index": index,
                         "action_type": selected_action.get("action_type"),
+                        "trace_screenshot_path": trace_screenshot_path,
                         "target_key": execution.get("target_key") or summary.get("target_key"),
                         "terminal_for_verifier": (
                             execution.get("terminal_for_verifier")
@@ -1188,10 +1198,22 @@ class AdvisorReplayTools:
             "record_evaluations": record_evaluations,
             "load_error": load_error,
             "required_action_type": action_type,
+            "required_screenshot": screenshot_path,
             "required_runtime_dispatch": required_runtime_dispatch,
             "required_post_action_delta": required_post_action_delta,
             "required_verifier_status": "verified",
         }
+
+    def _source_paths_match(self, actual: str | None, expected: str | None) -> bool:
+        if not actual or not expected:
+            return False
+        if actual == expected:
+            return True
+        actual_resolved = self._resolve_source_path(actual)
+        expected_resolved = self._resolve_source_path(expected)
+        if actual_resolved is not None and expected_resolved is not None:
+            return actual_resolved.resolve() == expected_resolved.resolve()
+        return False
 
     def _load_trace_records(self, trace_path: str) -> tuple[list[dict[str, Any]], str | None]:
         path = self._resolve_source_path(trace_path)
@@ -1306,6 +1328,7 @@ def _terminal_source_capture_plan(
                     "execution.status matches required_runtime_dispatch.status",
                     "execution.summary.target_key matches required_runtime_dispatch.target_key",
                     "execution.summary.terminal_for_verifier=true",
+                    "trace.screenshot.path matches terminal_source_evidence.screenshot",
                     "verification.post_action_verifier.status=verified",
                     "verification.post_action_verifier action/delta matches required_post_action_delta",
                     "operator_confirmation.confirmed=true",
@@ -1582,6 +1605,18 @@ def _trace_post_action_verifier(record: dict[str, Any]) -> dict[str, Any]:
     if isinstance(summary, dict) and isinstance(summary.get("post_action_verifier"), dict):
         return summary["post_action_verifier"]
     return {}
+
+
+def _trace_screenshot_path(record: dict[str, Any]) -> str | None:
+    screenshot = record.get("screenshot")
+    if isinstance(screenshot, dict) and screenshot.get("path"):
+        return str(screenshot["path"])
+    observe = record.get("observe")
+    if isinstance(observe, dict):
+        outputs = observe.get("outputs")
+        if isinstance(outputs, dict) and outputs.get("screenshot"):
+            return str(outputs["screenshot"])
+    return None
 
 
 def _delta_representations(item: Any) -> set[str]:

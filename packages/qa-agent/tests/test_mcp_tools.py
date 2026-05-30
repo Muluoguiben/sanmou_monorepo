@@ -330,6 +330,10 @@ class McpToolTests(unittest.TestCase):
             capture_plan["actions"][0]["live_trace_semantic_checks"],
         )
         self.assertIn(
+            "trace.screenshot.path matches terminal_source_evidence.screenshot",
+            capture_plan["actions"][0]["live_trace_semantic_checks"],
+        )
+        self.assertIn(
             "verification.post_action_verifier action/delta matches required_post_action_delta",
             capture_plan["actions"][0]["live_trace_semantic_checks"],
         )
@@ -677,6 +681,7 @@ class McpToolTests(unittest.TestCase):
             screenshot_path.write_bytes(b"placeholder")
             trace_path = temp_root / "claim-live-trace.jsonl"
             trace_record = {
+                "screenshot": {"path": str(screenshot_path)},
                 "selected_action": {"action_type": "claim_chapter_reward"},
                 "execution": {
                     "status": "ok",
@@ -748,8 +753,38 @@ class McpToolTests(unittest.TestCase):
                 live_review["trace_validation"]["matching_records"][0]["verifier_checked_paths"],
                 ["progress.chapter_claimable"],
             )
+            self.assertEqual(
+                live_review["trace_validation"]["matching_records"][0]["trace_screenshot_path"],
+                str(screenshot_path),
+            )
+            self.assertTrue(
+                live_review["trace_validation"]["record_evaluations"][0]["screenshot_matches"]
+            )
             self.assertTrue(live_review["verification_record_validation"]["valid"])
             self.assertTrue(live_review["operator_confirmation_validation"]["valid"])
+
+            wrong_screenshot_path = temp_root / "other-terminal.png"
+            wrong_screenshot_path.write_bytes(b"placeholder")
+            wrong_screenshot_expectation = {
+                "page": "chapter",
+                "terminal_source_evidence": {
+                    **live_expectation["terminal_source_evidence"],
+                    "screenshot": str(wrong_screenshot_path),
+                },
+            }
+            wrong_screenshot_review = tools._terminal_source_evidence_review(
+                action_type="claim_chapter_reward",
+                fixture="live_chapter_claim_terminal_trace.json",
+                expectation=wrong_screenshot_expectation,
+            )
+
+            self.assertFalse(wrong_screenshot_review["source_evidence_valid"])
+            self.assertIn("trace_semantics", wrong_screenshot_review["missing_evidence"])
+            self.assertFalse(
+                wrong_screenshot_review["trace_validation"]["record_evaluations"][0][
+                    "screenshot_matches"
+                ]
+            )
 
             bad_verifier_trace_path = temp_root / "claim-live-trace-wrong-verifier.jsonl"
             bad_verifier_trace_record = {
@@ -844,6 +879,7 @@ class McpToolTests(unittest.TestCase):
             trace_path.write_text(
                 json.dumps(
                     {
+                        "screenshot": {"path": str(screenshot_path)},
                         "selected_action": {"action_type": "claim_chapter_reward"},
                         "execution": {
                             "status": "ok",
