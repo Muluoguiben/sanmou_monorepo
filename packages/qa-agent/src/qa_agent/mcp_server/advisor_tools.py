@@ -137,6 +137,9 @@ class AdvisorReplayTools:
         )
         payload["attention_reasons"] = self._attention_reasons(payload)
         payload["status"] = "attention" if payload["attention_reasons"] else "ok"
+        payload["architecture_iteration_closure_gate"] = (
+            self._architecture_iteration_closure_gate(payload)
+        )
         return payload
 
     def fixture_eval(self, *, fixture: str, expected_action_type: str | None = None) -> dict[str, Any]:
@@ -567,6 +570,100 @@ class AdvisorReplayTools:
             )
         return reasons
 
+    def _architecture_iteration_closure_gate(self, payload: dict[str, Any]) -> dict[str, Any]:
+        source_docs = [
+            {
+                "code": "canonical_architecture_adr",
+                "path": "docs/sanmou-architecture-design.md",
+            },
+            {
+                "code": "derived_iteration_path",
+                "path": "docs/sanmou-monorepo-architecture-iteration-path.md",
+            },
+        ]
+        for item in source_docs:
+            item["exists"] = (self.workspace_root / item["path"]).exists()
+
+        requirements = [
+            _closure_requirement(
+                "architecture_source_docs_present",
+                all(item["exists"] for item in source_docs),
+                {"source_docs": source_docs},
+            ),
+            _closure_requirement(
+                "golden_replay_checked",
+                bool(payload.get("fixture_replay_checked")),
+                {"fixture_replay_checked": payload.get("fixture_replay_checked")},
+            ),
+            _closure_requirement(
+                "golden_replay_matches_expectations",
+                not payload.get("failures")
+                and not payload.get("missing_expectations")
+                and not payload.get("extra_expectations"),
+                {
+                    "failure_count": len(payload.get("failures") or []),
+                    "missing_expectations": payload.get("missing_expectations") or [],
+                    "extra_expectations": payload.get("extra_expectations") or [],
+                },
+            ),
+            _closure_requirement(
+                "pr5_page_coverage_complete",
+                not ((payload.get("pr5_page_coverage") or {}).get("missing") or []),
+                payload.get("pr5_page_coverage") or {},
+            ),
+            _closure_requirement(
+                "pr5_locked_fields_complete",
+                not ((payload.get("pr5_locked_field_coverage") or {}).get("missing") or []),
+                {
+                    "missing": (payload.get("pr5_locked_field_coverage") or {}).get("missing")
+                    or [],
+                },
+            ),
+            _closure_requirement(
+                "pr6_verifier_specs_complete",
+                bool((payload.get("pr6_verifier_coverage") or {}).get("checked"))
+                and not ((payload.get("pr6_verifier_coverage") or {}).get("missing") or []),
+                payload.get("pr6_verifier_coverage") or {},
+            ),
+            _closure_requirement(
+                "pr5_dispatch_gate_matched",
+                bool((payload.get("pr5_dispatch_gate_coverage") or {}).get("checked"))
+                and not ((payload.get("pr5_dispatch_gate_coverage") or {}).get("failures") or []),
+                payload.get("pr5_dispatch_gate_coverage") or {},
+            ),
+            _closure_requirement(
+                "runtime_dispatch_gate_matched",
+                bool((payload.get("pr12_runtime_dispatch_coverage") or {}).get("checked"))
+                and not (
+                    (payload.get("pr12_runtime_dispatch_coverage") or {}).get("failures")
+                    or []
+                ),
+                payload.get("pr12_runtime_dispatch_coverage") or {},
+            ),
+            _closure_requirement(
+                "terminal_dispatch_expectations_matched",
+                bool((payload.get("pr15_terminal_dispatch_gate_coverage") or {}).get("checked"))
+                and not (
+                    (payload.get("pr15_terminal_dispatch_gate_coverage") or {}).get("failures")
+                    or []
+                ),
+                payload.get("pr15_terminal_dispatch_gate_coverage") or {},
+            ),
+            _closure_requirement(
+                "low_risk_terminal_dispatch_ready",
+                bool((payload.get("low_risk_verifier_readiness") or {}).get("ready")),
+                payload.get("low_risk_verifier_readiness") or {},
+            ),
+        ]
+        blocking_codes = [item["code"] for item in requirements if not item["ready"]]
+        return {
+            "status": "ready" if not blocking_codes else "attention",
+            "ready": not blocking_codes,
+            "source_docs": source_docs,
+            "blocking_codes": blocking_codes,
+            "requirements": requirements,
+        }
+
     @staticmethod
     def _fixture_low_risk_readiness(comparison: dict[str, Any]) -> dict[str, Any]:
         action_type = comparison.get("actual_action_type")
@@ -642,6 +739,14 @@ def _next_fixture_requirements(blocking_actions: dict[str, list[str]]) -> list[d
         requirement["blockers"] = list(blocking_actions[action_type])
         requirements.append(requirement)
     return requirements
+
+
+def _closure_requirement(code: str, ready: bool, evidence: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "code": code,
+        "ready": bool(ready),
+        "evidence": evidence,
+    }
 
 
 def _dispatch_gate_result(result: dict[str, Any], expectation: dict[str, Any]) -> dict[str, Any]:

@@ -49,6 +49,33 @@ class McpToolTests(unittest.TestCase):
         payload = result["structuredContent"]
         self.assertFalse(result["isError"])
         self.assertEqual(payload["status"], "attention")
+        closure_gate = payload["architecture_iteration_closure_gate"]
+        self.assertFalse(closure_gate["ready"])
+        self.assertEqual(closure_gate["status"], "attention")
+        self.assertIn("low_risk_terminal_dispatch_ready", closure_gate["blocking_codes"])
+        self.assertNotIn("golden_replay_checked", closure_gate["blocking_codes"])
+        self.assertNotIn("pr6_verifier_specs_complete", closure_gate["blocking_codes"])
+        self.assertTrue(all(item["exists"] for item in closure_gate["source_docs"]))
+        self.assertEqual(
+            [item["path"] for item in closure_gate["source_docs"]],
+            [
+                "docs/sanmou-architecture-design.md",
+                "docs/sanmou-monorepo-architecture-iteration-path.md",
+            ],
+        )
+        low_risk_requirement = next(
+            item
+            for item in closure_gate["requirements"]
+            if item["code"] == "low_risk_terminal_dispatch_ready"
+        )
+        self.assertEqual(
+            low_risk_requirement["evidence"]["blocking_actions"],
+            {
+                "claim_chapter_reward": ["missing_terminal_dispatch"],
+                "recruit_soldiers": ["missing_terminal_dispatch"],
+                "upgrade_building": ["missing_terminal_dispatch"],
+            },
+        )
         self.assertEqual(
             [item["code"] for item in payload["attention_reasons"]],
             ["low_risk_terminal_dispatch_missing"],
@@ -163,6 +190,12 @@ class McpToolTests(unittest.TestCase):
             [item["code"] for item in payload["attention_reasons"]],
             ["fixture_replay_not_run"],
         )
+        closure_gate = payload["architecture_iteration_closure_gate"]
+        self.assertFalse(closure_gate["ready"])
+        self.assertEqual(closure_gate["status"], "attention")
+        self.assertIn("golden_replay_checked", closure_gate["blocking_codes"])
+        self.assertIn("pr6_verifier_specs_complete", closure_gate["blocking_codes"])
+        self.assertIn("low_risk_terminal_dispatch_ready", closure_gate["blocking_codes"])
         self.assertFalse(payload["pr6_verifier_coverage"]["checked"])
         self.assertFalse(payload["pr5_dispatch_gate_coverage"]["checked"])
         self.assertFalse(payload["pr12_runtime_dispatch_coverage"]["checked"])

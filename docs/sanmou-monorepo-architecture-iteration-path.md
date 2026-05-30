@@ -193,5 +193,6 @@ precheck -> click/action -> observe -> verifier -> trace -> recovery/block
 20. [x] MCP fixture-level low-risk readiness：`advisor_fixture_eval.low_risk_readiness` 将单个 fixture 的 verifier、semantic dispatch、runtime dispatch、terminal dispatch 与 blockers 字段化，便于直接定位下一张真实 fixture 该补什么。
 21. [x] MCP next fixture requirements：`low_risk_verifier_readiness.next_fixture_requirements` 和 fixture-level readiness 输出下一张低风险 golden fixture 需要的 page、semantic target、action param paths 与 expected runtime dispatch。
 22. [x] MCP skipped replay status gate：`include_fixture_results=false` 时 `advisor_golden_replay_status` 不能证明 readiness，必须返回 `attention` 与 `fixture_replay_not_run`。
-23. [ ] 三个低风险动作的完整 UI flow，继续补 claim/recruit 面板打开、数量/确认序列，以及 upgrade terminal confirm fixture。
-24. [ ] Desktop evidence/degraded 展示，确保无证据推荐不会被 UI 展示成确定结论。
+23. [x] MCP Architecture Iteration closure gate：`advisor_golden_replay_status.architecture_iteration_closure_gate` 将 canonical ADR/派生路线文档存在性、golden replay 是否实际运行、PR5 page/locked fields、PR6 verifier specs、dispatch/runtime/terminal gate 与低风险 terminal readiness 汇总成单一机器可读收口门槛；当前仍因 `low_risk_terminal_dispatch_ready=false` 保持 `attention`，避免自动化误把局部 replay 通过当成 Architecture Iteration 已收口。
+24. [ ] 三个低风险动作的完整 UI flow，继续补 claim/recruit 面板打开、数量/确认序列，以及 upgrade terminal confirm fixture。
+25. [ ] Desktop evidence/degraded 展示，确保无证据推荐不会被 UI 展示成确定结论。
