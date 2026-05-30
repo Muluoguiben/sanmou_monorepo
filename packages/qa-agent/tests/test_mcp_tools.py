@@ -25,6 +25,7 @@ class McpToolTests(unittest.TestCase):
                 "resolve_term",
                 "advisor_golden_replay_status",
                 "advisor_fixture_eval",
+                "advisor_terminal_source_evidence_eval",
             ],
         )
 
@@ -755,6 +756,100 @@ class McpToolTests(unittest.TestCase):
                 invalid_live_review["verification_record_validation"]["issues"],
                 ["status"],
             )
+
+    def test_advisor_terminal_source_evidence_eval_preflights_live_trace(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir)
+            screenshot_path = temp_root / "claim-terminal.png"
+            screenshot_path.write_bytes(b"placeholder")
+            trace_path = temp_root / "claim-live-trace.jsonl"
+            trace_path.write_text(
+                json.dumps(
+                    {
+                        "selected_action": {"action_type": "claim_chapter_reward"},
+                        "execution": {
+                            "status": "ok",
+                            "summary": {
+                                "target_key": "chapter_claim_button",
+                                "terminal_for_verifier": True,
+                            },
+                        },
+                        "verification": {
+                            "post_action_verifier": {
+                                "action_type": "claim_chapter_reward",
+                                "status": "verified",
+                                "checked": ["progress.chapter_claimable"],
+                            },
+                        },
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            evidence = {
+                "source_kind": "live_trace_fixture",
+                "review_status": "reviewed",
+                "screenshot": str(screenshot_path),
+                "trace": str(trace_path),
+                "page": "chapter",
+                "semantic_target": "progress.chapter_claim_button",
+                "runtime_dispatch": {
+                    "status": "ok",
+                    "target_key": "chapter_claim_button",
+                    "terminal_for_verifier": True,
+                },
+                "post_action_delta": [
+                    {"path": "progress.chapter_claimable", "value": False},
+                ],
+                "verification_record": {
+                    "action_type": "claim_chapter_reward",
+                    "status": "verified",
+                    "checked": ["progress.chapter_claimable"],
+                },
+            }
+
+            result = self.handler.call_tool(
+                "advisor_terminal_source_evidence_eval",
+                {
+                    "action_type": "claim_chapter_reward",
+                    "terminal_source_evidence": evidence,
+                    "fixture": "live_chapter_claim_terminal_trace.json",
+                },
+            )
+            payload = result["structuredContent"]
+
+            self.assertFalse(result["isError"])
+            self.assertTrue(payload["ready"])
+            self.assertTrue(payload["accepted_for_closure"])
+            self.assertEqual(payload["review"]["missing_evidence"], [])
+            self.assertTrue(payload["review"]["trace_validation"]["matched"])
+            self.assertEqual(payload["next_source_requirements"], [])
+            self.assertTrue(payload["capture_plan"]["ready"])
+
+            invalid_evidence = {
+                **evidence,
+                "runtime_dispatch": {
+                    "status": "ok",
+                    "target_key": "recruit_button",
+                    "terminal_for_verifier": True,
+                },
+            }
+            invalid_result = self.handler.call_tool(
+                "advisor_terminal_source_evidence_eval",
+                {
+                    "action_type": "claim_chapter_reward",
+                    "terminal_source_evidence": invalid_evidence,
+                },
+            )
+            invalid_payload = invalid_result["structuredContent"]
+
+            self.assertFalse(invalid_payload["ready"])
+            self.assertIn("runtime_dispatch", invalid_payload["review"]["missing_evidence"])
+            self.assertEqual(
+                invalid_payload["next_source_requirements"][0]["required_runtime_dispatch"]["target_key"],
+                "chapter_claim_button",
+            )
+            self.assertFalse(invalid_payload["capture_plan"]["ready"])
 
     def test_pr5_locked_field_coverage_reports_missing_fields(self) -> None:
         coverage = AdvisorReplayTools._pr5_locked_field_coverage(

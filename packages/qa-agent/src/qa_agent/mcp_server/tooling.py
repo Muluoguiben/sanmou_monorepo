@@ -97,6 +97,33 @@ class KnowledgeToolHandler:
                     "additionalProperties": False,
                 },
             },
+            {
+                "name": "advisor_terminal_source_evidence_eval",
+                "description": "Preflight low-risk terminal source evidence before adding it to golden expectations.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "action_type": {
+                            "type": "string",
+                            "description": "Low-risk action type being evidenced.",
+                        },
+                        "terminal_source_evidence": {
+                            "type": "object",
+                            "description": "Terminal source evidence object to validate.",
+                        },
+                        "fixture": {
+                            "type": ["string", "null"],
+                            "description": "Optional fixture name that will own this evidence.",
+                        },
+                        "page": {
+                            "type": ["string", "null"],
+                            "description": "Optional manifest page override.",
+                        },
+                    },
+                    "required": ["action_type", "terminal_source_evidence"],
+                    "additionalProperties": False,
+                },
+            },
         ]
 
     def call_tool(self, name: str, arguments: dict) -> dict:
@@ -115,6 +142,14 @@ class KnowledgeToolHandler:
             payload = self.advisor_tools.fixture_eval(
                 fixture=arguments["fixture"],
                 expected_action_type=arguments.get("expected_action_type"),
+            )
+            return self._payload_tool_result(payload)
+        elif name == "advisor_terminal_source_evidence_eval":
+            payload = self.advisor_tools.terminal_source_evidence_eval(
+                action_type=arguments["action_type"],
+                terminal_source_evidence=arguments["terminal_source_evidence"],
+                fixture=arguments.get("fixture"),
+                page=arguments.get("page"),
             )
             return self._payload_tool_result(payload)
         else:

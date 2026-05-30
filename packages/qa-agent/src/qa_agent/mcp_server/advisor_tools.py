@@ -187,6 +187,40 @@ class AdvisorReplayTools:
             "derived_state": replay_result.get("derived_state"),
         }
 
+    def terminal_source_evidence_eval(
+        self,
+        *,
+        action_type: str,
+        terminal_source_evidence: dict[str, Any],
+        fixture: str | None = None,
+        page: str | None = None,
+    ) -> dict[str, Any]:
+        expectation = {
+            "page": page or terminal_source_evidence.get("page"),
+            "terminal_source_evidence": terminal_source_evidence,
+        }
+        fixture_name = fixture or f"live_{action_type}_terminal_trace.json"
+        review = self._terminal_source_evidence_review(
+            action_type=action_type,
+            fixture=fixture_name,
+            expectation=expectation,
+        )
+        requirements = _terminal_source_requirements([action_type])
+        capture_plan = _terminal_source_capture_plan(
+            [action_type] if not review["accepted_for_closure"] else [],
+            [],
+        )
+        return {
+            "checked": action_type in PR6_LOW_RISK_ACTIONS,
+            "action_type": action_type,
+            "fixture": fixture_name,
+            "ready": bool(review["accepted_for_closure"]),
+            "accepted_for_closure": bool(review["accepted_for_closure"]),
+            "review": review,
+            "next_source_requirements": requirements if not review["accepted_for_closure"] else [],
+            "capture_plan": capture_plan,
+        }
+
     def _fixture_paths(self) -> list[Path]:
         if not self.fixture_dir.exists():
             raise FileNotFoundError(f"pioneer fixture dir not found: {self.fixture_dir}")
