@@ -219,6 +219,9 @@ class AdvisorReplayTools:
             "ready": bool(review["accepted_for_closure"]),
             "accepted_for_closure": bool(review["accepted_for_closure"]),
             "review": review,
+            "suggested_terminal_source_evidence_patch": (
+                _terminal_source_evidence_patch_from_review(review)
+            ),
             "next_source_requirements": requirements if not review["accepted_for_closure"] else [],
             "capture_plan": capture_plan,
         }
@@ -1503,6 +1506,36 @@ def _terminal_source_evidence_template(
             "runtime_dispatch": dict(requirement["required_runtime_dispatch"]),
         }
     return evidence
+
+
+def _terminal_source_evidence_patch_from_review(review: dict[str, Any]) -> dict[str, Any]:
+    patch: dict[str, Any] = {}
+    integrity = review.get("file_integrity_validation")
+    if isinstance(integrity, dict):
+        for check in integrity.get("checks") or []:
+            if not isinstance(check, dict):
+                continue
+            hash_field = check.get("hash_field")
+            actual_sha256 = check.get("actual_sha256")
+            if isinstance(hash_field, str) and _is_sha256(actual_sha256):
+                patch[hash_field] = actual_sha256
+
+    if (
+        not patch.get("post_action_delta_evidence")
+        and review.get("source_kind") == "live_trace_fixture"
+        and review.get("post_action_delta")
+    ):
+        patch["post_action_delta_evidence"] = {
+            "source": "verification_record",
+            "post_action_delta": list(review.get("post_action_delta") or []),
+            "supporting_refs": [
+                "terminal_source_evidence.trace",
+                "terminal_source_evidence.verification_record",
+                "operator_confirmation.trace_id",
+            ],
+        }
+
+    return patch
 
 
 def _advisor_fixture_expectation_patch_template(requirement: dict[str, Any]) -> dict[str, Any]:

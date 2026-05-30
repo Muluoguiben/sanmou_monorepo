@@ -1114,6 +1114,14 @@ class McpToolTests(unittest.TestCase):
             self.assertTrue(payload["review"]["trace_validation"]["matched"])
             self.assertEqual(payload["next_source_requirements"], [])
             self.assertTrue(payload["capture_plan"]["ready"])
+            self.assertEqual(
+                payload["suggested_terminal_source_evidence_patch"]["screenshot_sha256"],
+                _sha256(screenshot_path),
+            )
+            self.assertEqual(
+                payload["suggested_terminal_source_evidence_patch"]["trace_sha256"],
+                _sha256(trace_path),
+            )
 
             invalid_evidence = {
                 **evidence,
@@ -1159,6 +1167,39 @@ class McpToolTests(unittest.TestCase):
                 "chapter_claim_button",
             )
             self.assertFalse(invalid_payload["capture_plan"]["ready"])
+
+            missing_hash_evidence = {
+                key: value
+                for key, value in evidence.items()
+                if key not in {"screenshot_sha256", "trace_sha256"}
+            }
+            missing_hash_result = self.handler.call_tool(
+                "advisor_terminal_source_evidence_eval",
+                {
+                    "action_type": "claim_chapter_reward",
+                    "terminal_source_evidence": missing_hash_evidence,
+                },
+            )
+            missing_hash_payload = missing_hash_result["structuredContent"]
+
+            self.assertFalse(missing_hash_payload["ready"])
+            self.assertIn("file_integrity", missing_hash_payload["review"]["missing_evidence"])
+            self.assertEqual(
+                missing_hash_payload["suggested_terminal_source_evidence_patch"][
+                    "screenshot_sha256"
+                ],
+                _sha256(screenshot_path),
+            )
+            self.assertEqual(
+                missing_hash_payload["suggested_terminal_source_evidence_patch"]["trace_sha256"],
+                _sha256(trace_path),
+            )
+            self.assertEqual(
+                missing_hash_payload["suggested_terminal_source_evidence_patch"][
+                    "post_action_delta_evidence"
+                ]["source"],
+                "verification_record",
+            )
 
     def test_pr5_locked_field_coverage_reports_missing_fields(self) -> None:
         coverage = AdvisorReplayTools._pr5_locked_field_coverage(

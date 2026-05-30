@@ -214,4 +214,5 @@ precheck -> click/action -> observe -> verifier -> trace -> recovery/block
 41. [x] MCP terminal source review metadata：`terminal_source_evidence` 不再只接受 `review_status=reviewed` 字符串；还必须有可用的 `reviewed_by` 与可解析 ISO `reviewed_at`，否则 source review 继续不通过。
 42. [x] MCP terminal source file integrity：`terminal_source_evidence` 必须用 `screenshot_sha256` 锁定截图文件，`live_trace_fixture` 还必须用 `trace_sha256` 锁定 trace 文件；文件被替换或哈希缺失时不能解除 source blocker。
 43. [x] MCP post-action delta evidence binding：`terminal_source_evidence.post_action_delta` 必须配套 `post_action_delta_evidence`，声明 delta 来源、supporting refs，并与 required delta 匹配；单独手填 delta 文本不能解除 source blocker。
-44. [ ] 三个低风险动作的完整 UI flow，继续补 claim/recruit 面板打开、数量/确认序列；三类动作仍需真实截图终态样本和 post-action delta 样本补强。
+44. [x] MCP terminal source evidence patch hints：`advisor_terminal_source_evidence_eval` 现在输出 `suggested_terminal_source_evidence_patch`，从已引用文件派生 `screenshot_sha256` / `trace_sha256`，并为 live trace 补 delta evidence skeleton，便于真实采样写入 manifest 前修正字段。
+45. [ ] 三个低风险动作的完整 UI flow，继续补 claim/recruit 面板打开、数量/确认序列；三类动作仍需真实截图终态样本和 post-action delta 样本补强。
