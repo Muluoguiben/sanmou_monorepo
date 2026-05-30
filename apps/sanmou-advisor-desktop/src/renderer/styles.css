@@ -550,11 +550,70 @@ select:focus {
   margin-top: 14px;
 }
 
+.evidence-list.evidence-supported,
+.evidence-list.evidence-degraded {
+  display: grid;
+  gap: 8px;
+  border: 1px solid #dfe8f1;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.evidence-list.evidence-supported {
+  background: #f8fbfd;
+}
+
+.evidence-list.evidence-degraded {
+  border-color: #ead9a8;
+  background: #fffaf0;
+}
+
+.evidence-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.evidence-status {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.evidence-status.supported {
+  background: #e8f5ef;
+  color: #16704a;
+}
+
+.evidence-status.degraded {
+  background: #fff1c2;
+  color: #806018;
+}
+
+.evidence-alert {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #806018;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
 .evidence-item {
+  display: flex;
+  align-items: start;
   gap: 6px;
   min-height: 28px;
   color: #334355;
   font-size: 13px;
+}
+
+.structured-evidence {
+  color: #203246;
 }
 
 .state-row {

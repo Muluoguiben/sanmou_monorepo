@@ -29,12 +29,14 @@ import {
 } from "./api";
 import type {
   AnalyzeOptions,
+  ActionRecommendation,
   AdvisorHistoryItem,
   AdvisorReport,
   ChatMessage,
   DevicePlatform,
   KillSwitchStatus,
-  RuntimeConfig
+  RuntimeConfig,
+  StructuredEvidence
 } from "./types";
 
 const platformOptions: Array<{ value: DevicePlatform; label: string }> = [
@@ -529,16 +531,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="evidence-list">
-                  <h3>证据</h3>
-                  {(report?.evidence ?? []).slice(0, 8).map((item) => (
-                    <div className="evidence-item" key={item}>
-                      <ChevronRight size={14} />
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                  {!report?.evidence.length ? <p className="muted">暂无证据</p> : null}
-                </div>
+                <EvidenceQualityPanel report={report} recommended={recommended} />
               </div>
             ) : null}
 
@@ -592,6 +585,55 @@ export default function App() {
         </form>
       </aside>
     </main>
+  );
+}
+
+function EvidenceQualityPanel({
+  report,
+  recommended
+}: {
+  report: AdvisorReport | null;
+  recommended: ActionRecommendation | null;
+}) {
+  const structuredEvidence = collectStructuredEvidence(report, recommended);
+  const legacyEvidence = report?.evidence ?? [];
+  const blockedReason = recommended?.execution_blocked_reason || "";
+  const hasEvidence = structuredEvidence.length > 0 || legacyEvidence.length > 0;
+  const degraded = Boolean(report) && (!structuredEvidence.length || Boolean(blockedReason));
+  const statusText = !report
+    ? "等待报告"
+    : degraded
+      ? "证据不足"
+      : "证据充分";
+
+  return (
+    <div className={`evidence-list ${degraded ? "evidence-degraded" : "evidence-supported"}`}>
+      <div className="evidence-header">
+        <h3>证据</h3>
+        <span className={`evidence-status ${degraded ? "degraded" : "supported"}`}>{statusText}</span>
+      </div>
+      {blockedReason ? (
+        <div className="evidence-alert">
+          <AlertTriangle size={14} />
+          <span>{blockedReason}</span>
+        </div>
+      ) : null}
+      {structuredEvidence.slice(0, 8).map((item) => (
+        <div className="evidence-item structured-evidence" key={evidenceKey(item)}>
+          <ChevronRight size={14} />
+          <span>{formatStructuredEvidence(item)}</span>
+        </div>
+      ))}
+      {!structuredEvidence.length
+        ? legacyEvidence.slice(0, 8).map((item) => (
+            <div className="evidence-item" key={item}>
+              <ChevronRight size={14} />
+              <span>{item}</span>
+            </div>
+          ))
+        : null}
+      {!hasEvidence ? <p className="muted">证据不足，建议保持观察模式</p> : null}
+    </div>
   );
 }
 
@@ -715,6 +757,31 @@ function formatParams(value: Record<string, unknown>): string {
     return "无参数";
   }
   return entries.map(([key, item]) => `${key}: ${formatValue(item)}`).join(" / ");
+}
+
+function collectStructuredEvidence(
+  report: AdvisorReport | null,
+  recommended: ActionRecommendation | null
+): StructuredEvidence[] {
+  const items = [...(recommended?.structured_evidence ?? []), ...(report?.structured_evidence ?? [])];
+  const seen = new Set<string>();
+  return items.filter((item) => {
+    const key = evidenceKey(item);
+    if (seen.has(key)) {
+      return false;
+    }
+    seen.add(key);
+    return true;
+  });
+}
+
+function evidenceKey(item: StructuredEvidence): string {
+  return item.evidence_id || item.entry_id || item.ref || item.summary;
+}
+
+function formatStructuredEvidence(item: StructuredEvidence): string {
+  const source = item.entry_id ?? item.ref ?? item.domain ?? item.source_type;
+  return `${source}: ${item.summary}`;
 }
 
 function formatValue(value: unknown): string {
