@@ -66,6 +66,7 @@ class AdvisorReplayTools:
                 "report_confidence": sum("expected_report_confidence" in item for item in pr5_expectations.values()),
                 "action_confidence": sum("expected_action_confidence" in item for item in pr5_expectations.values()),
                 "dispatch_gate": sum("expected_dispatch_status" in item for item in pr5_expectations.values()),
+                "runtime_dispatch_gate": sum("expected_dispatch_status" in item for item in pr5_expectations.values()),
             },
             "missing_expectations": [
                 path.name for path in fixtures if path.name not in expectations
@@ -83,6 +84,7 @@ class AdvisorReplayTools:
             payload["failures"] = [item for item in comparisons if not item["matched"]]
             payload["pr6_verifier_coverage"] = self._pr6_verifier_coverage(comparisons)
             payload["pr5_dispatch_gate_coverage"] = self._pr5_dispatch_gate_coverage(comparisons)
+            payload["pr12_runtime_dispatch_coverage"] = self._pr12_runtime_dispatch_coverage(comparisons)
         else:
             payload["pr6_verifier_coverage"] = {
                 "checked": False,
@@ -96,6 +98,12 @@ class AdvisorReplayTools:
                 "matched_count": 0,
                 "failures": [],
             }
+            payload["pr12_runtime_dispatch_coverage"] = {
+                "checked": False,
+                "required_count": 0,
+                "matched_count": 0,
+                "failures": [],
+            }
         payload["status"] = (
             "ok"
             if not payload["missing_expectations"]
@@ -104,6 +112,7 @@ class AdvisorReplayTools:
             and not payload["pr5_page_coverage"]["missing"]
             and not payload["pr6_verifier_coverage"]["missing"]
             and not payload["pr5_dispatch_gate_coverage"]["failures"]
+            and not payload["pr12_runtime_dispatch_coverage"]["failures"]
             else "attention"
         )
         return payload
@@ -133,7 +142,9 @@ class AdvisorReplayTools:
             "top_score_gap": comparison["top_score_gap"],
             "ranked_action_count": comparison["ranked_action_count"],
             "dispatch_gate": comparison["dispatch_gate"],
+            "runtime_dispatch_gate": comparison["runtime_dispatch_gate"],
             "semantic_target_gate": replay_result.get("semantic_target_gate"),
+            "runtime_dispatch": replay_result.get("runtime_dispatch"),
             "verifier_gate": replay_result.get("verifier_gate"),
             "verifier_spec": replay_result.get("verifier_spec"),
             "selected_action": replay_result.get("selected_action"),
@@ -218,6 +229,7 @@ class AdvisorReplayTools:
         actual = selected.get("action_type")
         selection_reason = result.get("selection_reason") or {}
         dispatch_gate = _dispatch_gate_result(result, expectations.get(fixture_name, {}))
+        runtime_dispatch_gate = _runtime_dispatch_gate_result(result, expectations.get(fixture_name, {}))
         return {
             "fixture": fixture_name,
             "matched": expected == actual,
@@ -227,7 +239,9 @@ class AdvisorReplayTools:
             "top_score_gap": selection_reason.get("top_score_gap"),
             "ranked_action_count": len(result.get("ranked_actions") or []),
             "dispatch_gate": dispatch_gate,
+            "runtime_dispatch_gate": runtime_dispatch_gate,
             "semantic_target_gate": result.get("semantic_target_gate"),
+            "runtime_dispatch": result.get("runtime_dispatch"),
             "verifier_gate": result.get("verifier_gate"),
             "verifier_spec": result.get("verifier_spec"),
         }
@@ -269,6 +283,25 @@ class AdvisorReplayTools:
             "failures": failures,
         }
 
+    @staticmethod
+    def _pr12_runtime_dispatch_coverage(comparisons: list[dict[str, Any]]) -> dict[str, Any]:
+        checked = [item for item in comparisons if (item.get("runtime_dispatch_gate") or {}).get("checked")]
+        failures = [
+            {
+                "fixture": item["fixture"],
+                "expected": item["runtime_dispatch_gate"]["expected"],
+                "actual": item["runtime_dispatch_gate"]["actual"],
+            }
+            for item in checked
+            if not item["runtime_dispatch_gate"]["matched"]
+        ]
+        return {
+            "checked": True,
+            "required_count": len(checked),
+            "matched_count": len(checked) - len(failures),
+            "failures": failures,
+        }
+
 
 def _dispatch_gate_result(result: dict[str, Any], expectation: dict[str, Any]) -> dict[str, Any]:
     expected_status = expectation.get("expected_dispatch_status")
@@ -296,6 +329,40 @@ def _dispatch_gate_result(result: dict[str, Any], expectation: dict[str, Any]) -
     matched = True
     if checked:
         matched = expected["status"] == actual["status"]
+        if expected["blocked_by"] is not None:
+            matched = matched and expected["blocked_by"] == actual["blocked_by"]
+        if expected["target_key"] is not None:
+            matched = matched and expected["target_key"] == actual["target_key"]
+    return {
+        "checked": checked,
+        "matched": matched,
+        "expected": expected,
+        "actual": actual,
+    }
+
+
+def _runtime_dispatch_gate_result(result: dict[str, Any], expectation: dict[str, Any]) -> dict[str, Any]:
+    expected_status = expectation.get("expected_dispatch_status")
+    runtime_dispatch = result.get("runtime_dispatch") or {}
+    summary = runtime_dispatch.get("summary") or {}
+    runtime_gate = summary.get("semantic_target_gate") or {}
+    expected = {
+        "status": expected_status,
+        "blocked_by": expectation.get("expected_dispatch_blocked_by"),
+        "target_key": expectation.get("expected_dispatch_target_key"),
+        "semantic_gate_decision": (result.get("semantic_target_gate") or {}).get("decision"),
+    }
+    actual = {
+        "status": runtime_dispatch.get("status"),
+        "blocked_by": summary.get("blocked_by"),
+        "target_key": summary.get("target_key"),
+        "semantic_gate_decision": runtime_gate.get("decision"),
+    }
+    checked = expected_status is not None
+    matched = True
+    if checked:
+        matched = expected["status"] == actual["status"]
+        matched = matched and expected["semantic_gate_decision"] == actual["semantic_gate_decision"]
         if expected["blocked_by"] is not None:
             matched = matched and expected["blocked_by"] == actual["blocked_by"]
         if expected["target_key"] is not None:

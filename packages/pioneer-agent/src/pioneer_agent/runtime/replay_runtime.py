@@ -2,10 +2,16 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from pioneer_agent.core.device import CapabilityFlags
 from pioneer_agent.core.models import RuntimeState
 from pioneer_agent.core.runtime_state_io import load_runtime_state_record
 from pioneer_agent.derivation.state_deriver import StateDeriver
-from pioneer_agent.runtime.architecture_gates import validate_low_risk_semantic_target
+from pioneer_agent.executor.ui_actions import ClickOutcome
+from pioneer_agent.executor.ui_runner import UIActionRunner
+from pioneer_agent.runtime.architecture_gates import (
+    LOW_RISK_AUTOMATION_ACTIONS,
+    validate_low_risk_semantic_target,
+)
 from pioneer_agent.selector.action_selector import ActionSelector
 from pioneer_agent.verifier.base import DeltaMatchPolicy
 from pioneer_agent.verifier.registry import VerifierRegistry, serialize_verifier_spec
@@ -16,6 +22,11 @@ class ReplayRuntime:
         self.selector = ActionSelector()
         self.deriver = StateDeriver()
         self.verifier_registry = VerifierRegistry()
+        self.dispatch_runner = UIActionRunner(
+            _ReplayUI(),
+            capabilities=CapabilityFlags(input_control=True),
+            verifier_registry=self.verifier_registry,
+        )
 
     def run_state(self, state: RuntimeState, fixture_label: str = "inline_state") -> dict:
         derived = self.deriver.derive(state)
@@ -23,6 +34,7 @@ class ReplayRuntime:
         verifier_gate = None
         verifier_spec = None
         semantic_target_gate = None
+        runtime_dispatch = None
         if result.selected_action is not None:
             action_type = result.selected_action.action_type
             gate = self.verifier_registry.evaluate(action_type)
@@ -35,6 +47,8 @@ class ReplayRuntime:
                 "match_policy": _match_policy_value(gate.match_policy),
             }
             verifier_spec = serialize_verifier_spec(spec)
+            if action_type in LOW_RISK_AUTOMATION_ACTIONS:
+                runtime_dispatch = self.dispatch_runner.run(result.selected_action).model_dump(mode="json")
         return {
             "fixture": fixture_label,
             "derived_state": {
@@ -47,6 +61,7 @@ class ReplayRuntime:
             },
             "selected_action": result.selected_action.model_dump(mode="json") if result.selected_action else None,
             "semantic_target_gate": semantic_target_gate,
+            "runtime_dispatch": runtime_dispatch,
             "verifier_gate": verifier_gate,
             "verifier_spec": verifier_spec,
             "ranked_actions": [action.model_dump(mode="json") for action in result.ranked_actions],
@@ -65,3 +80,16 @@ def _match_policy_value(value: DeltaMatchPolicy | str | None) -> str | None:
     if isinstance(value, DeltaMatchPolicy):
         return value.value
     return DeltaMatchPolicy(str(value)).value
+
+
+class _ReplayUI:
+    def click_bbox(self, target_key, bbox, *, label=None):  # noqa: ANN001
+        return ClickOutcome(
+            success=True,
+            px=(800, 850),
+            matched_label=label,
+            trace={
+                "target": {"key": target_key, "label": label or target_key},
+                "normalized_bbox": dict(bbox),
+            },
+        )

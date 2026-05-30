@@ -61,6 +61,7 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(payload["pr5_locked_fields"]["report_evidence"], 6)
         self.assertEqual(payload["pr5_locked_fields"]["report_confidence"], 6)
         self.assertEqual(payload["pr5_locked_fields"]["dispatch_gate"], 3)
+        self.assertEqual(payload["pr5_locked_fields"]["runtime_dispatch_gate"], 3)
         self.assertEqual(payload["pr6_verifier_coverage"]["missing"], [])
         self.assertEqual(
             set(payload["pr6_verifier_coverage"]["covered"]),
@@ -69,6 +70,9 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(payload["pr5_dispatch_gate_coverage"]["required_count"], 3)
         self.assertEqual(payload["pr5_dispatch_gate_coverage"]["matched_count"], 3)
         self.assertEqual(payload["pr5_dispatch_gate_coverage"]["failures"], [])
+        self.assertEqual(payload["pr12_runtime_dispatch_coverage"]["required_count"], 3)
+        self.assertEqual(payload["pr12_runtime_dispatch_coverage"]["matched_count"], 3)
+        self.assertEqual(payload["pr12_runtime_dispatch_coverage"]["failures"], [])
         self.assertEqual(payload["failures"], [])
 
     def test_advisor_fixture_eval_returns_selected_action(self) -> None:
@@ -160,12 +164,25 @@ class McpToolTests(unittest.TestCase):
                 result = self.handler.call_tool("advisor_fixture_eval", {"fixture": fixture})
                 payload = result["structuredContent"]
                 dispatch_gate = payload["dispatch_gate"]
+                runtime_dispatch_gate = payload["runtime_dispatch_gate"]
 
                 self.assertFalse(result["isError"])
                 self.assertTrue(dispatch_gate["checked"])
                 self.assertTrue(dispatch_gate["matched"])
                 self.assertEqual(dispatch_gate["expected"], dispatch_expected)
                 self.assertEqual(dispatch_gate["actual"], dispatch_expected)
+                self.assertTrue(runtime_dispatch_gate["checked"])
+                self.assertTrue(runtime_dispatch_gate["matched"])
+                self.assertEqual(runtime_dispatch_gate["expected"]["status"], dispatch_expected["status"])
+                self.assertEqual(runtime_dispatch_gate["expected"]["blocked_by"], dispatch_expected["blocked_by"])
+                self.assertEqual(runtime_dispatch_gate["expected"]["target_key"], dispatch_expected["target_key"])
+                self.assertEqual(runtime_dispatch_gate["actual"]["status"], dispatch_expected["status"])
+                self.assertEqual(runtime_dispatch_gate["actual"]["blocked_by"], dispatch_expected["blocked_by"])
+                self.assertEqual(runtime_dispatch_gate["actual"]["target_key"], dispatch_expected["target_key"])
+                self.assertEqual(
+                    payload["runtime_dispatch"]["summary"]["semantic_target_gate"]["decision"],
+                    runtime_dispatch_gate["expected"]["semantic_gate_decision"],
+                )
 
 
 if __name__ == "__main__":
