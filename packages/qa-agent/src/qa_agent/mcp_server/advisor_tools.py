@@ -1049,6 +1049,7 @@ class AdvisorReplayTools:
 
         trace_validation: dict[str, Any] | None = None
         verification_record_validation: dict[str, Any] | None = None
+        operator_confirmation_validation: dict[str, Any] | None = None
         screenshot_path = evidence.get("screenshot")
         if source_kind == "pr5_real_screenshot_fixture":
             if not screenshot_path or not self._source_path_exists(str(screenshot_path)):
@@ -1074,6 +1075,13 @@ class AdvisorReplayTools:
             )
             if not verification_record_validation["valid"]:
                 missing.append("verification_record")
+            operator_confirmation_validation = _operator_confirmation_validation(
+                evidence.get("operator_confirmation"),
+                action_type=action_key,
+                required_runtime_dispatch=required_runtime_dispatch,
+            )
+            if not operator_confirmation_validation["valid"]:
+                missing.append("operator_confirmation")
 
         source_evidence_valid = not missing
         return {
@@ -1094,6 +1102,7 @@ class AdvisorReplayTools:
             "required_post_action_delta": requirement.get("required_post_action_delta") or [],
             "trace_validation": trace_validation,
             "verification_record_validation": verification_record_validation,
+            "operator_confirmation_validation": operator_confirmation_validation,
             "accepted_for_closure": source_evidence_valid,
             "terminal_dispatch_ready": False,
             "next_source_requirements": [],
@@ -1257,6 +1266,7 @@ def _terminal_source_capture_plan(
                 "live_trace_extra_fields": [
                     "trace",
                     "verification_record",
+                    "operator_confirmation",
                 ],
                 "live_trace_semantic_checks": [
                     "selected_action.action_type matches action_type",
@@ -1264,6 +1274,7 @@ def _terminal_source_capture_plan(
                     "execution.summary.target_key matches required_runtime_dispatch.target_key",
                     "execution.summary.terminal_for_verifier=true",
                     "verification.post_action_verifier.status=verified",
+                    "operator_confirmation.confirmed=true",
                 ],
                 "advisor_fixture_expectation_patch_template": (
                     _advisor_fixture_expectation_patch_template(requirement)
@@ -1320,6 +1331,14 @@ def _terminal_source_evidence_template(
                 for item in requirement["required_post_action_delta"]
             ],
             "post_action_delta": list(requirement["required_post_action_delta"]),
+        }
+        evidence["operator_confirmation"] = {
+            "confirmed": True,
+            "action_type": action_type,
+            "scope": "final_mutating_click",
+            "requires_operator_confirmation": True,
+            "confirmed_at": "<operator-confirmed-iso8601>",
+            "runtime_dispatch": dict(requirement["required_runtime_dispatch"]),
         }
     return evidence
 
@@ -1432,6 +1451,42 @@ def _verification_record_validation(
         "action_type": action_value,
         "status": status,
         "checked_paths": checked_paths if isinstance(checked_paths, list) else [],
+    }
+
+
+def _operator_confirmation_validation(
+    value: Any,
+    *,
+    action_type: str | None,
+    required_runtime_dispatch: dict[str, Any],
+) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        return {
+            "checked": True,
+            "valid": False,
+            "issues": ["operator_confirmation_not_object"],
+        }
+    issues: list[str] = []
+    confirmed = value.get("confirmed") is True or value.get("status") == "confirmed"
+    if not confirmed:
+        issues.append("confirmed")
+    if value.get("requires_operator_confirmation") is not True:
+        issues.append("requires_operator_confirmation")
+    if value.get("action_type") != action_type:
+        issues.append("action_type")
+    if value.get("scope") != "final_mutating_click":
+        issues.append("scope")
+    if not value.get("confirmed_at"):
+        issues.append("confirmed_at")
+    if not _runtime_dispatch_matches(value.get("runtime_dispatch"), required_runtime_dispatch):
+        issues.append("runtime_dispatch")
+    return {
+        "checked": True,
+        "valid": not issues,
+        "issues": sorted(set(issues)),
+        "confirmed": confirmed,
+        "action_type": value.get("action_type"),
+        "scope": value.get("scope"),
     }
 
 

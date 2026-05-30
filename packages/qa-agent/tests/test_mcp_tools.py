@@ -324,8 +324,13 @@ class McpToolTests(unittest.TestCase):
         )
         self.assertIn("post_action_delta", capture_plan["actions"][0]["terminal_source_evidence_fields"])
         self.assertIn("verification_record", capture_plan["actions"][0]["live_trace_extra_fields"])
+        self.assertIn("operator_confirmation", capture_plan["actions"][0]["live_trace_extra_fields"])
         self.assertIn(
             "verification.post_action_verifier.status=verified",
+            capture_plan["actions"][0]["live_trace_semantic_checks"],
+        )
+        self.assertIn(
+            "operator_confirmation.confirmed=true",
             capture_plan["actions"][0]["live_trace_semantic_checks"],
         )
         expectation_template = capture_plan["actions"][0][
@@ -341,6 +346,9 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(
             expectation_template["terminal_source_evidence"]["verification_record"]["checked"],
             ["progress.chapter_claimable"],
+        )
+        self.assertTrue(
+            expectation_template["terminal_source_evidence"]["operator_confirmation"]["confirmed"]
         )
         self.assertEqual(payload["failures"], [])
 
@@ -704,6 +712,18 @@ class McpToolTests(unittest.TestCase):
                         "status": "verified",
                         "checked": ["progress.chapter_claimable"],
                     },
+                    "operator_confirmation": {
+                        "confirmed": True,
+                        "action_type": "claim_chapter_reward",
+                        "scope": "final_mutating_click",
+                        "requires_operator_confirmation": True,
+                        "confirmed_at": "2026-05-30T17:45:00+08:00",
+                        "runtime_dispatch": {
+                            "status": "ok",
+                            "target_key": "chapter_claim_button",
+                            "terminal_for_verifier": True,
+                        },
+                    },
                 },
             }
 
@@ -717,6 +737,7 @@ class McpToolTests(unittest.TestCase):
             self.assertEqual(live_review["missing_evidence"], [])
             self.assertTrue(live_review["trace_validation"]["matched"])
             self.assertTrue(live_review["verification_record_validation"]["valid"])
+            self.assertTrue(live_review["operator_confirmation_validation"]["valid"])
 
             bad_trace_path = temp_root / "claim-live-trace-wrong-target.jsonl"
             bad_trace_record = {
@@ -806,6 +827,18 @@ class McpToolTests(unittest.TestCase):
                     "status": "verified",
                     "checked": ["progress.chapter_claimable"],
                 },
+                "operator_confirmation": {
+                    "confirmed": True,
+                    "action_type": "claim_chapter_reward",
+                    "scope": "final_mutating_click",
+                    "requires_operator_confirmation": True,
+                    "confirmed_at": "2026-05-30T17:45:00+08:00",
+                    "runtime_dispatch": {
+                        "status": "ok",
+                        "target_key": "chapter_claim_button",
+                        "terminal_for_verifier": True,
+                    },
+                },
             }
 
             result = self.handler.call_tool(
@@ -833,6 +866,10 @@ class McpToolTests(unittest.TestCase):
                     "target_key": "recruit_button",
                     "terminal_for_verifier": True,
                 },
+                "operator_confirmation": {
+                    **evidence["operator_confirmation"],
+                    "confirmed": False,
+                },
             }
             invalid_result = self.handler.call_tool(
                 "advisor_terminal_source_evidence_eval",
@@ -845,6 +882,11 @@ class McpToolTests(unittest.TestCase):
 
             self.assertFalse(invalid_payload["ready"])
             self.assertIn("runtime_dispatch", invalid_payload["review"]["missing_evidence"])
+            self.assertIn("operator_confirmation", invalid_payload["review"]["missing_evidence"])
+            self.assertIn(
+                "confirmed",
+                invalid_payload["review"]["operator_confirmation_validation"]["issues"],
+            )
             self.assertEqual(
                 invalid_payload["next_source_requirements"][0]["required_runtime_dispatch"]["target_key"],
                 "chapter_claim_button",
