@@ -57,6 +57,7 @@ class _ScriptedVision:
 class _StubBridge:
     def __init__(self) -> None:
         self.shots = 0
+        self.keys: list[str] = []
 
     def screenshot(self, save_path=None):  # noqa: ANN001
         import io
@@ -76,6 +77,7 @@ class _StubBridge:
         return {"status": "ok"}
 
     def key_press(self, key, modifiers=None):  # noqa: ANN001
+        self.keys.append(key)
         return {"status": "ok"}
 
 
@@ -397,6 +399,59 @@ class AutonomousLoopTests(unittest.TestCase):
         self.assertTrue(result.execution.recovery_required)
         self.assertIn("post-action verifier failed", result.execution.failure_reason or "")
         self.assertEqual(result.execution.summary["post_action_verifier"]["status"], "failed")
+        self.assertEqual(bridge.keys, ["escape"])
+        self.assertEqual(loop._stuck_count, 0)
+
+    def test_tick_trace_records_immediate_recovery_after_verifier_failure(self) -> None:
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+
+        from pioneer_agent.executor.ui_actions import UIActions
+        from pioneer_agent.perception.ui_registry import UIButton, UIRegistry
+        from pioneer_agent.perception.vision_sync import VisionSync
+        from pioneer_agent.storage.trace_store import TraceStore
+
+        with TemporaryDirectory() as tmp:
+            action = CandidateAction(
+                action_id="claim-17",
+                action_type=ActionType.CLAIM_CHAPTER_REWARD,
+                params={"chapter_id": 17, "claim_button": _claim_button_param()},
+            )
+            bridge = _StubBridge()
+            vision = _ScriptedVision(
+                [
+                    _chapter_resource_payload(),
+                    _chapter_panel_payload(claimable=True),
+                    _chapter_resource_payload(),
+                    _chapter_panel_payload(claimable=True),
+                ]
+            )
+            ui = UIActions(  # type: ignore[arg-type]
+                bridge,
+                UIRegistry({"esc_close": UIButton("esc_close", "close", 0.5, 0.5)}),
+                vision=vision,
+            )
+            runner = UIActionRunner(ui, capabilities=CapabilityFlags(input_control=True))
+            loop = AutonomousLoop(
+                bridge=bridge,
+                vision_sync=VisionSync(vision),  # type: ignore[arg-type]
+                ui_actions=ui,
+                selector=_StubSelector(action),
+                deriver=_StubDeriver(),  # type: ignore[arg-type]
+                runner=runner,
+                sleeper=lambda _seconds: None,
+                trace_store=TraceStore(Path(tmp) / "trace.jsonl"),
+                post_action_verify_poll_interval_s=0,
+            )
+
+            loop.tick(0)
+
+            trace = loop.trace_store.read()[0]
+            self.assertEqual(trace.recover.outputs["status"], "attempted")
+            self.assertEqual(trace.recover.recovery_strategy, "esc_after_action_failure")
+            self.assertEqual(trace.next_recovery_strategy, "esc_after_action_failure")
+            self.assertEqual(trace.screenshot.metadata["input_events"][-1]["action"], "key_press")
+            self.assertEqual(trace.screenshot.metadata["input_events"][-1]["key"], "escape")
 
     def test_trace_records_post_action_verifier_payload(self) -> None:
         from pathlib import Path

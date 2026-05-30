@@ -140,7 +140,7 @@ precheck -> click/action -> observe -> verifier -> trace -> recovery/block
 待办：
 
 - [x] 为三个低风险动作补 `VerifierSpec.expected_deltas`。
-- [ ] 打通真实 UI action handler，不再返回 pending。2026-05-30 已完成 semantic bbox dispatch + post-action verifier 第一段闭环：`claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` 可消费 vision validator 产出的 visible/enabled bbox 并派发一次 allowlisted click；`AutonomousLoop` 会在成功点击后重新 observe，并用对应 `VerifierSpec` 校验 expected delta，失败会标记 `failed` + `recovery_required`。完整多步 flow 与具体 recovery 动作仍未完成。
+- [ ] 打通真实 UI action handler，不再返回 pending。2026-05-30 已完成 semantic bbox dispatch + post-action verifier + immediate recovery 第一段闭环：`claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` 可消费 vision validator 产出的 visible/enabled bbox 并派发一次 allowlisted click；`AutonomousLoop` 会在成功点击后重新 observe，并用对应 `VerifierSpec` 校验 expected delta，失败会标记 `failed` + `recovery_required`，同 tick 发送一次 ESC recovery 并写入 trace。完整多步 flow 仍未完成。
 - [ ] 弹窗识别接入动作流程，未知弹窗必须 block。
 - [ ] 引入 UI element id 或 SoM grounding，减少裸坐标点击。
 - [x] `SafetyGuard` 配置化，高风险动作默认 block；全自动高风险还需要通过 `AutomationReadinessGate` 的地图、战报、队伍 verifier 前置条件。
@@ -178,5 +178,6 @@ precheck -> click/action -> observe -> verifier -> trace -> recovery/block
 6. [x] 三个低风险动作的 verifier specs，不先写完整 click flow。
 7. [x] 三个低风险动作的 semantic bbox dispatch first slice：消费 vision validator 产出的按钮 bbox，并通过 input allowlist 派发单次 click。
 8. [x] `AutonomousLoop` post-action observe/verifier：成功点击后按 `VerifierSpec` 重新截图、同步 state、校验 delta，并把结果写入 execution/trace。
-9. [ ] 三个低风险动作的完整 UI flow + recovery。
-10. Desktop evidence/degraded 展示，确保无证据推荐不会被 UI 展示成确定结论。
+9. [x] `AutonomousLoop` immediate recovery：post-action verifier 失败时同 tick 发送一次 ESC，并把 recovery strategy 和 input trace 写入 trace。
+10. [ ] 三个低风险动作的完整 UI flow。
+11. Desktop evidence/degraded 展示，确保无证据推荐不会被 UI 展示成确定结论。

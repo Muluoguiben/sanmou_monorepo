@@ -172,19 +172,26 @@ class AutonomousLoop:
 
         state_after = self.state.model_dump(mode="json")
         recovery_strategy: str | None = None
-        if self._is_stuck(vision_summary, selection, execution):
+        if execution is not None and execution.recovery_required and not self.dry_run:
+            recovery_strategy = self._attempt_esc_recovery(
+                iteration=iteration,
+                strategy="esc_after_action_failure",
+            )
+            input_trace.extend(_consume_input_trace(self.ui_actions))
+            self._stuck_count = 0
+            sleep_s = DEFAULT_SLEEP_S
+        elif self._is_stuck(vision_summary, selection, execution):
             self._stuck_count += 1
             if self._stuck_count >= self.stuck_threshold and not self.dry_run:
                 logger.warning(
                     "tick %d: stuck for %d ticks — sending ESC to recover",
                     iteration, self._stuck_count,
                 )
-                try:
-                    self.ui_actions.close_popup()
-                    recovery_strategy = "esc_close_popup"
-                except Exception:  # noqa: BLE001
-                    logger.exception("ESC recovery failed")
-                    recovery_strategy = "esc_close_popup_failed"
+                recovery_strategy = self._attempt_esc_recovery(
+                    iteration=iteration,
+                    strategy="esc_close_popup",
+                )
+                input_trace.extend(_consume_input_trace(self.ui_actions))
                 self._stuck_count = 0
                 sleep_s = DEFAULT_SLEEP_S
         else:
@@ -245,6 +252,18 @@ class AutonomousLoop:
         if execution is not None and execution.status in ("failed", "pending"):
             return True
         return False
+
+    def _attempt_esc_recovery(self, *, iteration: int, strategy: str) -> str:
+        logger.warning("tick %d: attempting recovery strategy=%s", iteration, strategy)
+        try:
+            outcome = self.ui_actions.close_popup()
+        except Exception:  # noqa: BLE001
+            logger.exception("ESC recovery failed")
+            return f"{strategy}_failed"
+        if not getattr(outcome, "success", True):
+            logger.warning("tick %d: ESC recovery failed: %s", iteration, getattr(outcome, "reason", None))
+            return f"{strategy}_failed"
+        return strategy
 
     def _verify_after_action(
         self,

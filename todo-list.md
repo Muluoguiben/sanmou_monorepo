@@ -1,6 +1,6 @@
 # Todo List
 
-> Last updated: 2026-05-30 (低风险闭环继续推进：claim/recruit/upgrade 已有 semantic bbox dispatch；`AutonomousLoop` 现会在 `UIActionRunner` 成功点击后重新 observe 并执行 post-action verifier，失败会标记 `failed` + `recovery_required`；完整多步 UI flow 仍待补)
+> Last updated: 2026-05-30 (低风险闭环继续推进：claim/recruit/upgrade 已有 semantic bbox dispatch；`AutonomousLoop` 现会在 `UIActionRunner` 成功点击后重新 observe 并执行 post-action verifier，失败会标记 `failed` + `recovery_required`，并同 tick 触发一次 ESC recovery；完整多步 UI flow 仍待补)
 
 ## Highest Priority — Architecture Iteration
 
@@ -35,20 +35,20 @@
 - [x] LLM-as-Judge 灰度（2026-05-30）：`LLMJudgeGate` 默认关闭；只有显式开启、golden replay baseline ready 且 top2 score gap 小于阈值时才允许实验 rerank，`ActionSelector.selection_reason.llm_judge_gate` 暴露 gate 结果。
 - [x] 停止条件执行（2026-05-30）：`AutomationReadinessGate` 接入 `UIActionRunner`；低风险 semi-auto 需要 verifier false positive coverage，高风险 full-auto 需要地图/战报/队伍 verifier 全部 ready，否则 block。
 - [x] 低风险 verifier specs（2026-05-30）：`claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` 的 expected deltas、match policy 与 timeout 已进入默认 `VerifierRegistry`，并由 PR-5 fixtures/MCP smoke 验证。
-- [ ] 低风险 action handlers：三个低风险动作从 `pending` 推进到真实 UI flow，动作失败必须 block/recover，不允许继续连点。2026-05-30 已落地语义 bbox dispatch 与 post-action verifier slice：当 PR-4/PR-5 感知输出 validated button bbox 时，`claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` 可派发一次 allowlisted click；`AutonomousLoop` 会在点击后重新 observe 并验证 expected delta，验证失败会停止为 `failed` 且要求 recovery。打开面板、确认序列与具体 recovery 动作仍待补齐。
+- [ ] 低风险 action handlers：三个低风险动作从 `pending` 推进到真实 UI flow，动作失败必须 block/recover，不允许继续连点。2026-05-30 已落地语义 bbox dispatch、post-action verifier 与 immediate recovery slice：当 PR-4/PR-5 感知输出 validated button bbox 时，`claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` 可派发一次 allowlisted click；`AutonomousLoop` 会在点击后重新 observe 并验证 expected delta，验证失败会停止为 `failed`、同 tick 发送一次 ESC recovery，并把 recovery/input trace 写入 trace。打开面板和确认序列仍待补齐。
 - [x] 高风险自动化边界（2026-05-30）：`attack_land`、`transfer_main_lineup`、`abandon_land` 仍需人工确认；即使有 confirmation token，`full_auto` mode 在地图/战报/队伍 verifier 前置条件未 ready 时也会被 architecture gate 阻断。
 
 ## P0 — Advisor MVP + 低风险真实自动化闭环
 
 - [x] Agent loop contract（2026-05-17）：新增 `runtime.loop_contract`，把 runtime 固化为 `observe -> decide -> act -> verify -> trace -> recover`；`AutonomousLoop` 写 trace 前校验每个 tick 的阶段完整性，并默认在 CLI 产出结构化 `trace.jsonl`。
 - [x] `chapter_panel` perception domain（2026-05-17）：新增章节面板 schema/domain/merge/sync，识别当前章节、任务完成状态、奖励是否可领、领取按钮 bbox；输出 `progress.chapter_claimable/current_chapter_id/chapter_tasks` 与 `field_meta["progress.chapter_panel"]`。
-- [ ] `claim_chapter_reward` flow：打开章节面板 → 定位可领取奖励 → 点击领取/确认 → 返回稳定页面；非 dry-run 执行成功时返回 `ok`。2026-05-30 已支持已观测 `progress.chapter_claim_button` bbox 的单次安全点击，并在点击后验证 `progress.chapter_claimable=false`；缺 bbox 或验证不通过时不会继续连点。
+- [ ] `claim_chapter_reward` flow：打开章节面板 → 定位可领取奖励 → 点击领取/确认 → 返回稳定页面；非 dry-run 执行成功时返回 `ok`。2026-05-30 已支持已观测 `progress.chapter_claim_button` bbox 的单次安全点击，并在点击后验证 `progress.chapter_claimable=false`；缺 bbox 或验证不通过时不会继续连点，验证失败会触发一次 ESC recovery。
 - [x] `claim_chapter_reward` verifier spec（2026-05-30）：动作后重新截图至少验证 `progress.chapter_claimable=false`，timeout 10s；真实点击 flow 仍待接入。
 - [x] `recruit_panel` / team soldier perception domain（2026-05-17）：新增征兵面板 schema/domain/merge/sync，识别预备兵、队伍兵力/上限/缺口、征兵中状态、征兵按钮 enabled/bbox，写入 `economy.reserve_troops` 与 `teams[*]`。
-- [ ] `recruit_soldiers` flow：打开征兵面板 → 选择可征兵队伍/数量 → 确认征兵或安全退出；遇到资源不足、队伍 busy、未知弹窗时不得重复点击。2026-05-30 已支持已观测 `teams[*].recruit_button` bbox 的单次安全点击，并在点击后验证兵力、倒计时或预备兵 delta；完整数量/确认流程仍待补。
+- [ ] `recruit_soldiers` flow：打开征兵面板 → 选择可征兵队伍/数量 → 确认征兵或安全退出；遇到资源不足、队伍 busy、未知弹窗时不得重复点击。2026-05-30 已支持已观测 `teams[*].recruit_button` bbox 的单次安全点击，并在点击后验证兵力、倒计时或预备兵 delta；验证失败会触发一次 ESC recovery，完整数量/确认流程仍待补。
 - [x] `recruit_soldiers` verifier spec（2026-05-30）：动作后重新截图验证兵力增加、征兵倒计时出现或预备兵减少三者之一，timeout 30s；真实征兵 flow 仍待接入。
 - [x] `upgrade_dialog` perception domain（2026-05-17）：新增建筑升级确认框 schema/domain/merge/sync，识别建筑名、等级变化、资源消耗、不可升级原因、确认/关闭按钮 enabled/bbox，写入 `city.upgrade_dialog`。
-- [ ] `upgrade_building` low-risk flow：只对白名单低风险建筑执行升级；真实 UI flow、确认框序列与失败恢复仍待接入。2026-05-30 已支持在已打开且建筑名匹配的 `city.upgrade_dialog.confirm_button` bbox 上派发一次安全确认点击，并在点击后验证建筑等级或木材 delta；打开建筑面板与具体 recovery 仍待补。
+- [ ] `upgrade_building` low-risk flow：只对白名单低风险建筑执行升级；真实 UI flow、确认框序列与失败恢复仍待接入。2026-05-30 已支持在已打开且建筑名匹配的 `city.upgrade_dialog.confirm_button` bbox 上派发一次安全确认点击，并在点击后验证建筑等级或木材 delta；验证失败会触发一次 ESC recovery，打开建筑面板仍待补。
 - [x] `upgrade_building` verifier spec（2026-05-30）：动作后重新截图验证建筑等级增加或木材消耗二者之一，timeout 20s；真实升级 flow 仍待接入。
 - [x] Popup detector（2026-05-17）：新增 `perception.domains.popup`，识别通用弹窗/确认框/奖励/错误/提示、按钮 role/bbox、blocking 与 safe default action；`VisionSync` 在 resource notes 命中弹窗关键词时运行并写入 `global_state.popup`。
 - [x] Verifier framework（2026-05-17）：新增 `VerifierRegistry/VerifierSpec`，所有会派发 GUI 输入的动作必须声明 expected state delta 和 verify timeout；`UIActionRunner` 在 dispatch 前检查 verifier spec，无 verifier 直接 blocked。
@@ -57,7 +57,7 @@
 - [x] Manual kill switch（2026-05-17）：新增文件型 `KillSwitch`，`AutonomousLoop` 在 runner 派发前检查 stop file；Advisor API 暴露触发/清除 endpoint，Desktop Advisor 侧边栏提供停机/清除按钮；触发后 executor 不再派发输入。
 - [x] High-risk confirmation（2026-05-17）：`attack_land` / `abandon_land` / `transfer_main_lineup` 默认返回 `requires_confirmation`；只有 action params 明确带 `confirmation_token` 时，`SafetyGuard` 才允许进入 handler。
 - [x] Bridge health check（2026-05-17）：新增 adapter-agnostic `BridgeHealthChecker`，覆盖 ping、PNG screenshot sanity/freshness、window width/height、input capability method 自检；stub 测试覆盖 healthy、bad screenshot、observe-only/degraded 三类结果。
-- [ ] Click-action calibration：claim_chapter / upgrade_building / recruit_soldiers / attack_land / transfer_main_lineup / abandon_land 仍需用真实页面截图走 `ui_calibrate` + `find_elements` 打通确认对话框序列。PC 客户端 live slice 已沉淀（2026-05-18）：公告关闭、战情摘要确认、服务器进入、每周任务首条领取、地图目标操作入口坐标已写入 `ui_layout.yaml` / `sanmou-client-control/SKILL.md`；2026-05-30 claim/recruit/upgrade 已能消费 semantic bbox 派发一次低风险 click，并由 `AutonomousLoop` 执行 post-action observe/verifier，下一步是补多步 UI flow 和 recovery。
+- [ ] Click-action calibration：claim_chapter / upgrade_building / recruit_soldiers / attack_land / transfer_main_lineup / abandon_land 仍需用真实页面截图走 `ui_calibrate` + `find_elements` 打通确认对话框序列。PC 客户端 live slice 已沉淀（2026-05-18）：公告关闭、战情摘要确认、服务器进入、每周任务首条领取、地图目标操作入口坐标已写入 `ui_layout.yaml` / `sanmou-client-control/SKILL.md`；2026-05-30 claim/recruit/upgrade 已能消费 semantic bbox 派发一次低风险 click，并由 `AutonomousLoop` 执行 post-action observe/verifier 和 verifier-failure ESC recovery，下一步是补多步 UI flow。
 - [x] Screenshot / coordinate trace metadata（2026-05-17）：`VisionClient` 记录每次 vision 的原图/prepared 图尺寸与 resize/token 信息；`UIActions` 自动缓冲 click/drag/key trace，`AutonomousLoop` 写入 `TraceStore.screenshot.metadata/coordinates`，包含 window/display 坐标空间、scale、normalized bbox、pixel bbox、实际点击点。
 - [x] Trace Store schema（2026-05-17）：新增 `pioneer_agent.storage.trace_store`，并把 `AutonomousLoop` 接入可选 `TraceStore`；每个 traced tick 记录 observe/decide/act/verify/trace/recover 阶段、状态快照、vision summary、selected/ranked action、execution、verification、recovery 和截图尺寸。
 - [x] Golden replay tests（2026-05-17）：新增 `GoldenReplayRunner`，校验 `loop.jsonl` 引用的 screenshot 存在，并用 RuntimeState fixture 重放 selector，比较 loop 记录的推荐动作与重放输出；覆盖匹配、mismatch、缺 screenshot 三类测试。
