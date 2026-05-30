@@ -341,6 +341,10 @@ class McpToolTests(unittest.TestCase):
             "operator_confirmation.confirmed=true",
             capture_plan["actions"][0]["live_trace_semantic_checks"],
         )
+        self.assertIn(
+            "operator_confirmation.trace_id/trace_record_index matches trace record",
+            capture_plan["actions"][0]["live_trace_semantic_checks"],
+        )
         expectation_template = capture_plan["actions"][0][
             "advisor_fixture_expectation_patch_template"
         ]["<claim_chapter_reward_terminal_fixture>.json"]
@@ -357,6 +361,12 @@ class McpToolTests(unittest.TestCase):
         )
         self.assertTrue(
             expectation_template["terminal_source_evidence"]["operator_confirmation"]["confirmed"]
+        )
+        self.assertEqual(
+            expectation_template["terminal_source_evidence"]["operator_confirmation"][
+                "trace_id"
+            ],
+            "<trace-id-from-matching-record>",
         )
         self.assertEqual(payload["failures"], [])
 
@@ -681,6 +691,7 @@ class McpToolTests(unittest.TestCase):
             screenshot_path.write_bytes(b"placeholder")
             trace_path = temp_root / "claim-live-trace.jsonl"
             trace_record = {
+                "trace_id": "trace-claim-1",
                 "screenshot": {"path": str(screenshot_path)},
                 "selected_action": {"action_type": "claim_chapter_reward"},
                 "execution": {
@@ -727,6 +738,8 @@ class McpToolTests(unittest.TestCase):
                         "scope": "final_mutating_click",
                         "requires_operator_confirmation": True,
                         "confirmed_at": "2026-05-30T17:45:00+08:00",
+                        "trace_id": "trace-claim-1",
+                        "trace_record_index": 0,
                         "runtime_dispatch": {
                             "status": "ok",
                             "target_key": "chapter_claim_button",
@@ -757,11 +770,18 @@ class McpToolTests(unittest.TestCase):
                 live_review["trace_validation"]["matching_records"][0]["trace_screenshot_path"],
                 str(screenshot_path),
             )
+            self.assertEqual(
+                live_review["trace_validation"]["matching_records"][0]["trace_id"],
+                "trace-claim-1",
+            )
             self.assertTrue(
                 live_review["trace_validation"]["record_evaluations"][0]["screenshot_matches"]
             )
             self.assertTrue(live_review["verification_record_validation"]["valid"])
             self.assertTrue(live_review["operator_confirmation_validation"]["valid"])
+            self.assertTrue(
+                live_review["operator_confirmation_validation"]["trace_binding"]["matched"]
+            )
 
             wrong_screenshot_path = temp_root / "other-terminal.png"
             wrong_screenshot_path.write_bytes(b"placeholder")
@@ -879,6 +899,7 @@ class McpToolTests(unittest.TestCase):
             trace_path.write_text(
                 json.dumps(
                     {
+                        "trace_id": "trace-claim-1",
                         "screenshot": {"path": str(screenshot_path)},
                         "selected_action": {"action_type": "claim_chapter_reward"},
                         "execution": {
@@ -926,6 +947,8 @@ class McpToolTests(unittest.TestCase):
                     "scope": "final_mutating_click",
                     "requires_operator_confirmation": True,
                     "confirmed_at": "2026-05-30T17:45:00+08:00",
+                    "trace_id": "trace-claim-1",
+                    "trace_record_index": 0,
                     "runtime_dispatch": {
                         "status": "ok",
                         "target_key": "chapter_claim_button",
@@ -962,6 +985,7 @@ class McpToolTests(unittest.TestCase):
                 "operator_confirmation": {
                     **evidence["operator_confirmation"],
                     "confirmed": False,
+                    "trace_record_index": 9,
                 },
             }
             invalid_result = self.handler.call_tool(
@@ -979,6 +1003,16 @@ class McpToolTests(unittest.TestCase):
             self.assertIn(
                 "confirmed",
                 invalid_payload["review"]["operator_confirmation_validation"]["issues"],
+            )
+            self.assertIn(
+                "trace_binding",
+                invalid_payload["review"]["operator_confirmation_validation"]["issues"],
+            )
+            self.assertIn(
+                "trace_record_match",
+                invalid_payload["review"]["operator_confirmation_validation"]["trace_binding"][
+                    "issues"
+                ],
             )
             self.assertEqual(
                 invalid_payload["next_source_requirements"][0]["required_runtime_dispatch"]["target_key"],

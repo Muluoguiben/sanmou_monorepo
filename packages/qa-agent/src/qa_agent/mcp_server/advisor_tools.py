@@ -1081,6 +1081,7 @@ class AdvisorReplayTools:
                 evidence.get("operator_confirmation"),
                 action_type=action_key,
                 required_runtime_dispatch=required_runtime_dispatch,
+                trace_validation=trace_validation,
             )
             if not operator_confirmation_validation["valid"]:
                 missing.append("operator_confirmation")
@@ -1140,6 +1141,7 @@ class AdvisorReplayTools:
             selected_action = _trace_selected_action(record)
             execution = _trace_execution(record)
             verifier = _trace_post_action_verifier(record)
+            trace_id = _trace_record_id(record)
             action_matches = selected_action.get("action_type") == action_type
             dispatch_matches = _runtime_dispatch_matches(execution, required_runtime_dispatch)
             verifier_validation = _verification_record_validation(
@@ -1156,6 +1158,7 @@ class AdvisorReplayTools:
             record_evaluations.append(
                 {
                     "index": index,
+                    "trace_id": trace_id,
                     "action_type": selected_action.get("action_type"),
                     "action_matches": action_matches,
                     "dispatch_matches": dispatch_matches,
@@ -1177,6 +1180,7 @@ class AdvisorReplayTools:
                 matching_records.append(
                     {
                         "index": index,
+                        "trace_id": trace_id,
                         "action_type": selected_action.get("action_type"),
                         "trace_screenshot_path": trace_screenshot_path,
                         "target_key": execution.get("target_key") or summary.get("target_key"),
@@ -1332,6 +1336,7 @@ def _terminal_source_capture_plan(
                     "verification.post_action_verifier.status=verified",
                     "verification.post_action_verifier action/delta matches required_post_action_delta",
                     "operator_confirmation.confirmed=true",
+                    "operator_confirmation.trace_id/trace_record_index matches trace record",
                 ],
                 "advisor_fixture_expectation_patch_template": (
                     _advisor_fixture_expectation_patch_template(requirement)
@@ -1395,6 +1400,8 @@ def _terminal_source_evidence_template(
             "scope": "final_mutating_click",
             "requires_operator_confirmation": True,
             "confirmed_at": "<operator-confirmed-iso8601>",
+            "trace_id": "<trace-id-from-matching-record>",
+            "trace_record_index": 0,
             "runtime_dispatch": dict(requirement["required_runtime_dispatch"]),
         }
     return evidence
@@ -1516,6 +1523,7 @@ def _operator_confirmation_validation(
     *,
     action_type: str | None,
     required_runtime_dispatch: dict[str, Any],
+    trace_validation: dict[str, Any] | None,
 ) -> dict[str, Any]:
     if not isinstance(value, dict):
         return {
@@ -1537,6 +1545,9 @@ def _operator_confirmation_validation(
         issues.append("confirmed_at")
     if not _runtime_dispatch_matches(value.get("runtime_dispatch"), required_runtime_dispatch):
         issues.append("runtime_dispatch")
+    trace_binding = _operator_trace_binding_validation(value, trace_validation)
+    if not trace_binding["valid"]:
+        issues.append("trace_binding")
     return {
         "checked": True,
         "valid": not issues,
@@ -1544,6 +1555,47 @@ def _operator_confirmation_validation(
         "confirmed": confirmed,
         "action_type": value.get("action_type"),
         "scope": value.get("scope"),
+        "trace_binding": trace_binding,
+    }
+
+
+def _operator_trace_binding_validation(
+    value: dict[str, Any],
+    trace_validation: dict[str, Any] | None,
+) -> dict[str, Any]:
+    trace_id = value.get("trace_id")
+    trace_record_index = value.get("trace_record_index")
+    issues: list[str] = []
+    if not trace_id:
+        issues.append("trace_id")
+    if not isinstance(trace_record_index, int):
+        issues.append("trace_record_index")
+
+    matching_records = (
+        trace_validation.get("matching_records")
+        if isinstance(trace_validation, dict)
+        else None
+    )
+    if not isinstance(matching_records, list) or not matching_records:
+        issues.append("matching_trace_record")
+        matching_records = []
+
+    matched = False
+    for record in matching_records:
+        if not isinstance(record, dict):
+            continue
+        if record.get("trace_id") == trace_id and record.get("index") == trace_record_index:
+            matched = True
+            break
+    if trace_id and isinstance(trace_record_index, int) and not matched:
+        issues.append("trace_record_match")
+
+    return {
+        "valid": not issues,
+        "issues": sorted(set(issues)),
+        "trace_id": trace_id,
+        "trace_record_index": trace_record_index,
+        "matched": matched,
     }
 
 
@@ -1577,6 +1629,18 @@ def _trace_selected_action(record: dict[str, Any]) -> dict[str, Any]:
         if isinstance(inputs, dict) and isinstance(inputs.get("action"), dict):
             return inputs["action"]
     return {}
+
+
+def _trace_record_id(record: dict[str, Any]) -> str | None:
+    value = record.get("trace_id")
+    if value:
+        return str(value)
+    trace_step = record.get("trace")
+    if isinstance(trace_step, dict):
+        trace_value = trace_step.get("trace_id")
+        if trace_value:
+            return str(trace_value)
+    return None
 
 
 def _trace_execution(record: dict[str, Any]) -> dict[str, Any]:
