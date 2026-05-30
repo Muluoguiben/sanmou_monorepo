@@ -58,6 +58,7 @@ class _StubBridge:
     def __init__(self) -> None:
         self.shots = 0
         self.keys: list[str] = []
+        self.clicks: list[tuple[int, int]] = []
 
     def screenshot(self, save_path=None):  # noqa: ANN001
         import io
@@ -71,6 +72,7 @@ class _StubBridge:
         return buf.getvalue()
 
     def click(self, x, y, button="left"):  # noqa: ANN001
+        self.clicks.append((x, y))
         return {"status": "ok"}
 
     def drag(self, *a, **kw):  # noqa: ANN001
@@ -89,6 +91,21 @@ class _StubSelector:
         return SelectionResult(
             selected_action=self.action,
             ranked_actions=[self.action] if self.action else [],
+        )
+
+
+class _SequenceSelector:
+    def __init__(self, actions: list[CandidateAction | None]) -> None:
+        self.actions = actions
+        self.calls = 0
+
+    def select(self, _state):  # noqa: ANN001
+        index = min(self.calls, len(self.actions) - 1)
+        self.calls += 1
+        action = self.actions[index]
+        return SelectionResult(
+            selected_action=action,
+            ranked_actions=[action] if action else [],
         )
 
 
@@ -135,6 +152,49 @@ def _claim_button_param() -> dict[str, Any]:
         "visible": True,
         "enabled": True,
         "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+    }
+
+
+def _upgrade_button_param() -> dict[str, Any]:
+    return {
+        "visible": True,
+        "enabled": True,
+        "bbox": {"x_min": 100, "y_min": 700, "x_max": 240, "y_max": 900},
+    }
+
+
+def _upgrade_dialog_param() -> dict[str, Any]:
+    return {
+        "visible": True,
+        "building_name": "Main Hall",
+        "can_upgrade": True,
+        "confirm_button": {
+            "visible": True,
+            "enabled": True,
+            "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+        },
+    }
+
+
+def _upgrade_dialog_payload() -> dict[str, Any]:
+    return {
+        "dialog_visible": True,
+        "building_name": "Main Hall",
+        "current_level": 10,
+        "next_level": 11,
+        "can_upgrade": True,
+        "costs": [{"name": "wood", "required": 120, "available": 900, "enough": True}],
+        "confirm_button_visible": True,
+        "confirm_button_enabled": True,
+        "confirm_x_min": 700,
+        "confirm_y_min": 800,
+        "confirm_x_max": 900,
+        "confirm_y_max": 900,
+        "close_button_visible": True,
+        "close_x_min": 900,
+        "close_y_min": 100,
+        "close_x_max": 950,
+        "close_y_max": 150,
     }
 
 
@@ -504,6 +564,129 @@ class AutonomousLoopTests(unittest.TestCase):
                 trace.verify.outputs["post_action_verifier"]["checked"],
                 ["progress.chapter_claimable"],
             )
+
+    def test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies(self) -> None:
+        from pioneer_agent.executor.ui_actions import UIActions
+        from pioneer_agent.perception.ui_registry import UIButton, UIRegistry
+        from pioneer_agent.perception.vision_sync import VisionSync
+
+        first_action = CandidateAction(
+            action_id="upgrade-main-hall",
+            action_type=ActionType.UPGRADE_BUILDING,
+            params={
+                "building_id": "main_hall",
+                "building_name": "Main Hall",
+                "target_level": 11,
+                "upgrade_button": _upgrade_button_param(),
+            },
+        )
+        terminal_action = CandidateAction(
+            action_id="upgrade-main-hall",
+            action_type=ActionType.UPGRADE_BUILDING,
+            params={
+                "building_id": "main_hall",
+                "building_name": "Main Hall",
+                "target_level": 11,
+                "upgrade_dialog": _upgrade_dialog_param(),
+            },
+        )
+        bridge = _StubBridge()
+        vision = _ScriptedVision(
+            [
+                {"page_type": "main_map", "resources": {"wood": 900}},
+                {"page_type": "upgrade_dialog", "resources": {"wood": 900}},
+                _upgrade_dialog_payload(),
+                {"page_type": "main_map", "resources": {"wood": 760}},
+            ]
+        )
+        ui = UIActions(  # type: ignore[arg-type]
+            bridge,
+            UIRegistry({"esc_close": UIButton("esc_close", "close", 0.5, 0.5)}),
+            vision=vision,
+        )
+        runner = UIActionRunner(ui, capabilities=CapabilityFlags(input_control=True))
+        loop = AutonomousLoop(
+            bridge=bridge,
+            vision_sync=VisionSync(vision),  # type: ignore[arg-type]
+            ui_actions=ui,
+            selector=_SequenceSelector([first_action, terminal_action]),  # type: ignore[arg-type]
+            deriver=_StubDeriver(),  # type: ignore[arg-type]
+            runner=runner,
+            sleeper=lambda _seconds: None,
+            post_action_verify_poll_interval_s=0,
+        )
+
+        result = loop.tick(0)
+
+        self.assertEqual(result.execution.status, "ok")
+        self.assertEqual(result.execution.verification_status, "verified")
+        self.assertEqual(bridge.clicks, [(326, 864), (1536, 918)])
+        self.assertEqual(
+            [step["flow_step"] for step in result.execution.summary["flow_steps"]],
+            ["open_upgrade_dialog", "confirm_upgrade"],
+        )
+        self.assertEqual(
+            result.execution.summary["flow_intermediate_observe"]["domains_run"],
+            ["resource_bar", "upgrade_dialog"],
+        )
+        self.assertEqual(result.execution.summary["post_action_verifier"]["checked"], ["city.buildings.0.level", "economy.resources.wood"])
+
+    def test_tick_stops_upgrade_flow_when_terminal_action_id_changes(self) -> None:
+        from pioneer_agent.executor.ui_actions import UIActions
+        from pioneer_agent.perception.ui_registry import UIButton, UIRegistry
+        from pioneer_agent.perception.vision_sync import VisionSync
+
+        first_action = CandidateAction(
+            action_id="upgrade-main-hall",
+            action_type=ActionType.UPGRADE_BUILDING,
+            params={
+                "building_id": "main_hall",
+                "building_name": "Main Hall",
+                "target_level": 11,
+                "upgrade_button": _upgrade_button_param(),
+            },
+        )
+        mismatched_terminal_action = CandidateAction(
+            action_id="upgrade-barracks",
+            action_type=ActionType.UPGRADE_BUILDING,
+            params={
+                "building_id": "barracks",
+                "building_name": "Barracks",
+                "target_level": 8,
+                "upgrade_dialog": _upgrade_dialog_param(),
+            },
+        )
+        bridge = _StubBridge()
+        vision = _ScriptedVision(
+            [
+                {"page_type": "main_map", "resources": {"wood": 900}},
+                {"page_type": "upgrade_dialog", "resources": {"wood": 900}},
+                _upgrade_dialog_payload(),
+            ]
+        )
+        ui = UIActions(  # type: ignore[arg-type]
+            bridge,
+            UIRegistry({"esc_close": UIButton("esc_close", "close", 0.5, 0.5)}),
+            vision=vision,
+        )
+        runner = UIActionRunner(ui, capabilities=CapabilityFlags(input_control=True))
+        loop = AutonomousLoop(
+            bridge=bridge,
+            vision_sync=VisionSync(vision),  # type: ignore[arg-type]
+            ui_actions=ui,
+            selector=_SequenceSelector([first_action, mismatched_terminal_action]),  # type: ignore[arg-type]
+            deriver=_StubDeriver(),  # type: ignore[arg-type]
+            runner=runner,
+            sleeper=lambda _seconds: None,
+        )
+
+        result = loop.tick(0)
+
+        self.assertEqual(result.execution.status, "failed")
+        self.assertTrue(result.execution.recovery_required)
+        self.assertIn("same terminal action", result.execution.failure_reason or "")
+        self.assertEqual(bridge.clicks, [(326, 864)])
+        self.assertEqual(bridge.keys, ["escape"])
 
     def test_dry_run_skips_runner_and_marks_execution(self) -> None:
         action = CandidateAction(

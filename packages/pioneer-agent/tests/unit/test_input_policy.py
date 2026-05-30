@@ -37,6 +37,12 @@ class InputPolicyTests(unittest.TestCase):
         self.assertTrue(verdict.allowed)
         self.assertEqual(verdict.kind, InputKind.CLICK_SEMANTIC_BBOX)
 
+    def test_building_upgrade_button_is_allowlisted_by_default(self) -> None:
+        verdict = InputPolicy().evaluate_semantic_target("building_upgrade_button")
+
+        self.assertTrue(verdict.allowed)
+        self.assertEqual(verdict.kind, InputKind.CLICK_SEMANTIC_BBOX)
+
     def test_unknown_semantic_bbox_target_is_blocked(self) -> None:
         verdict = InputPolicy().evaluate_semantic_target("unknown_button")
 

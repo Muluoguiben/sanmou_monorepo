@@ -129,6 +129,29 @@ class DispatchTests(unittest.TestCase):
 
         self.assertEqual(res.status, "ok")
         self.assertEqual(ui.clicks[0]["target_key"], "upgrade_confirm_button")
+        self.assertTrue(res.summary["terminal_for_verifier"])
+        self.assertEqual(res.summary["flow_step"], "confirm_upgrade")
+
+    def test_upgrade_building_clicks_observed_upgrade_entry_as_intermediate_step(self) -> None:
+        ui = _SemanticUI()
+        res = dispatch(
+            _mk_action(
+                ActionType.UPGRADE_BUILDING,
+                building_name="君王殿",
+                upgrade_button={
+                    "visible": True,
+                    "enabled": True,
+                    "bbox": {"x_min": 100, "y_min": 700, "x_max": 240, "y_max": 900},
+                },
+            ),
+            ui,  # type: ignore[arg-type]
+        )
+
+        self.assertEqual(res.status, "ok")
+        self.assertEqual(res.verification_status, "not_applicable")
+        self.assertFalse(res.summary["terminal_for_verifier"])
+        self.assertEqual(res.summary["flow_step"], "open_upgrade_dialog")
+        self.assertEqual(ui.clicks[0]["target_key"], "building_upgrade_button")
 
     def test_upgrade_building_blocks_disabled_confirm_button(self) -> None:
         res = dispatch(

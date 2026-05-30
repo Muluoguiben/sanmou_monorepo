@@ -28,6 +28,7 @@ class InputPolicy:
         default_factory=lambda: frozenset(
             {
                 "chapter_claim_button",
+                "building_upgrade_button",
                 "recruit_button",
                 "upgrade_confirm_button",
             }

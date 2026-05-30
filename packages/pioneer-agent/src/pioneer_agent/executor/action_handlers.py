@@ -67,7 +67,18 @@ def _upgrade_building(action: CandidateAction, ui: UIActions) -> ExecutionResult
         return _fail(action, "missing building_name in params")
     dialog = action.params.get("upgrade_dialog")
     if not isinstance(dialog, dict) or not dialog.get("visible"):
-        return _pending(action, f"upgrade dialog for {building} not yet observed")
+        button = _button_param(action.params.get("upgrade_button"))
+        if button is None:
+            return _pending(action, f"upgrade dialog for {building} not yet observed")
+        return _click_semantic_button(
+            action,
+            ui,
+            button=button,
+            target_key="building_upgrade_button",
+            label=f"升级入口:{building}",
+            flow_step="open_upgrade_dialog",
+            terminal_for_verifier=False,
+        )
     dialog_building = dialog.get("building_name")
     if dialog_building and str(dialog_building) != str(building):
         return _fail(action, f"upgrade dialog building mismatch: expected {building}, saw {dialog_building}")
@@ -82,6 +93,7 @@ def _upgrade_building(action: CandidateAction, ui: UIActions) -> ExecutionResult
         button=button,
         target_key="upgrade_confirm_button",
         label=f"升级确认:{building}",
+        flow_step="confirm_upgrade",
     )
 
 
@@ -145,6 +157,8 @@ def _click_semantic_button(
     button: dict[str, Any],
     target_key: str,
     label: str,
+    flow_step: str | None = None,
+    terminal_for_verifier: bool = True,
 ) -> ExecutionResult:
     if not button.get("visible"):
         return _fail(action, f"{target_key} is not visible")
@@ -156,16 +170,26 @@ def _click_semantic_button(
     outcome = ui.click_bbox(target_key, bbox, label=label)
     if not outcome.success:
         return _fail(action, outcome.reason or f"{target_key} click failed")
+    step = {
+        "flow_step": flow_step or target_key,
+        "target_key": target_key,
+        "click_px": {"x": outcome.px[0], "y": outcome.px[1]},
+        "matched_label": outcome.matched_label,
+        "terminal_for_verifier": terminal_for_verifier,
+    }
     return ExecutionResult(
         action_id=action.action_id,
         status="ok",
-        verification_status="unverified",
+        verification_status="unverified" if terminal_for_verifier else "not_applicable",
         recovery_required=False,
         summary={
             "action_type": action.action_type.value,
             "target_key": target_key,
             "click_px": {"x": outcome.px[0], "y": outcome.px[1]},
             "matched_label": outcome.matched_label,
+            "flow_step": step["flow_step"],
+            "flow_steps": [step],
+            "terminal_for_verifier": terminal_for_verifier,
         },
     )
 

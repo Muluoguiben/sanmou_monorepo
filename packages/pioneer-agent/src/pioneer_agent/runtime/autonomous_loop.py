@@ -155,11 +155,19 @@ class AutonomousLoop:
                 _reset_input_trace(self.ui_actions)
                 execution = self.runner.run(selection.selected_action)
                 input_trace = _consume_input_trace(self.ui_actions)
-                execution, post_action_verification = self._verify_after_action(
-                    action=selection.selected_action,
-                    execution=execution,
-                    before_state=pre_action_state,
-                )
+                if _requires_flow_continuation(execution):
+                    execution, post_action_verification, extra_input_trace = self._continue_action_flow(
+                        action=selection.selected_action,
+                        execution=execution,
+                        before_state=pre_action_state,
+                    )
+                    input_trace.extend(extra_input_trace)
+                else:
+                    execution, post_action_verification = self._verify_after_action(
+                        action=selection.selected_action,
+                        execution=execution,
+                        before_state=pre_action_state,
+                    )
                 logger.info(
                     "tick %d: action=%s status=%s",
                     iteration,
@@ -265,6 +273,78 @@ class AutonomousLoop:
             return f"{strategy}_failed"
         return strategy
 
+    def _continue_action_flow(
+        self,
+        *,
+        action: CandidateAction,
+        execution: ExecutionResult,
+        before_state: dict[str, Any],
+    ) -> tuple[ExecutionResult, dict[str, Any] | None, list[dict[str, Any]]]:
+        input_trace: list[dict[str, Any]] = []
+        try:
+            png = self.bridge.screenshot()
+            self.state, flow_observe = self.vision_sync.sync(
+                png,
+                state=self.state,
+                captured_at=datetime.now(),
+            )
+        except Exception as exc:  # noqa: BLE001
+            return (
+                _flow_failure_execution(
+                    execution,
+                    reason=f"action flow observe failed: {exc}",
+                    flow_observe=None,
+                    next_action=None,
+                ),
+                None,
+                input_trace,
+            )
+
+        next_selection = self.selector.select(self.deriver.derive(self.state))
+        next_action = next_selection.selected_action
+        if (
+            next_action is None
+            or next_action.action_type != action.action_type
+            or next_action.action_id != action.action_id
+        ):
+            return (
+                _flow_failure_execution(
+                    execution,
+                    reason="action flow did not produce the same terminal action",
+                    flow_observe=flow_observe,
+                    next_action=next_action,
+                ),
+                None,
+                input_trace,
+            )
+
+        _reset_input_trace(self.ui_actions)
+        terminal_execution = self.runner.run(next_action)
+        input_trace.extend(_consume_input_trace(self.ui_actions))
+        terminal_execution = _execution_with_flow_continuation(
+            initial_execution=execution,
+            terminal_execution=terminal_execution,
+            flow_observe=flow_observe,
+            next_action=next_action,
+        )
+        if _requires_flow_continuation(terminal_execution):
+            return (
+                _flow_failure_execution(
+                    terminal_execution,
+                    reason="action flow did not reach a terminal verifier step",
+                    flow_observe=flow_observe,
+                    next_action=next_action,
+                ),
+                None,
+                input_trace,
+            )
+        terminal_execution, verification = self._verify_after_action(
+            action=next_action,
+            execution=terminal_execution,
+            before_state=before_state,
+        )
+        return terminal_execution, verification, input_trace
+
     def _verify_after_action(
         self,
         *,
@@ -276,6 +356,8 @@ class AutonomousLoop:
         if spec is None:
             return execution, None
         if execution.status != "ok":
+            return execution, None
+        if _requires_flow_continuation(execution):
             return execution, None
         if execution.verification_status not in {"unknown", "unverified"}:
             return execution, None
@@ -458,6 +540,64 @@ def _post_action_verifier_spec(runner: Any, action_type: ActionType) -> Verifier
     if not isinstance(registry, VerifierRegistry):
         return None
     return registry.get(action_type)
+
+
+def _requires_flow_continuation(execution: ExecutionResult) -> bool:
+    return execution.status == "ok" and execution.summary.get("terminal_for_verifier") is False
+
+
+def _execution_with_flow_continuation(
+    *,
+    initial_execution: ExecutionResult,
+    terminal_execution: ExecutionResult,
+    flow_observe: VisionSyncSummary,
+    next_action: CandidateAction,
+) -> ExecutionResult:
+    summary = dict(terminal_execution.summary)
+    summary["flow_steps"] = _flow_steps(initial_execution) + _flow_steps(terminal_execution)
+    summary["flow_intermediate_observe"] = _vision_summary_payload(flow_observe)
+    summary["flow_next_action"] = next_action.model_dump(mode="json")
+    return terminal_execution.model_copy(update={"summary": summary})
+
+
+def _flow_failure_execution(
+    execution: ExecutionResult,
+    *,
+    reason: str,
+    flow_observe: VisionSyncSummary | None,
+    next_action: CandidateAction | None,
+) -> ExecutionResult:
+    summary = dict(execution.summary)
+    summary["flow_failure"] = {
+        "reason": reason,
+        "flow_intermediate_observe": _vision_summary_payload(flow_observe) if flow_observe else None,
+        "next_action": next_action.model_dump(mode="json") if next_action else None,
+    }
+    return execution.model_copy(
+        update={
+            "status": "failed",
+            "verification_status": "unknown",
+            "failure_reason": reason,
+            "recovery_required": True,
+            "summary": summary,
+        }
+    )
+
+
+def _flow_steps(execution: ExecutionResult) -> list[dict[str, Any]]:
+    raw_steps = execution.summary.get("flow_steps")
+    if not isinstance(raw_steps, list):
+        return []
+    return [dict(step) for step in raw_steps if isinstance(step, dict)]
+
+
+def _vision_summary_payload(summary: VisionSyncSummary) -> dict[str, Any]:
+    return {
+        "page_type": summary.page_type,
+        "domains_run": list(summary.domains_run),
+        "notes": list(summary.notes),
+        "image_traces": list(summary.image_traces),
+    }
 
 
 def _execution_with_verification(
