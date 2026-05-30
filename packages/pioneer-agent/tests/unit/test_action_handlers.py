@@ -259,6 +259,8 @@ class UIActionRunnerTests(unittest.TestCase):
         )
         self.assertEqual(res.status, "ok")
         self.assertEqual(res.summary["target_key"], "chapter_claim_button")
+        self.assertEqual(res.summary["semantic_target_gate"]["decision"], "allow")
+        self.assertEqual(res.summary["semantic_target_gate"]["details"]["target"], "claim_button")
 
     def test_runner_blocks_low_risk_action_with_disabled_semantic_bbox(self) -> None:
         runner = UIActionRunner(
@@ -301,6 +303,11 @@ class UIActionRunnerTests(unittest.TestCase):
         )
         self.assertEqual(res.status, "ok")
         self.assertEqual(res.summary["target_key"], "upgrade_confirm_button")
+        self.assertEqual(res.summary["semantic_target_gate"]["decision"], "allow")
+        self.assertEqual(
+            res.summary["semantic_target_gate"]["details"]["target"],
+            "upgrade_dialog.confirm_button",
+        )
 
     def test_runner_blocks_low_risk_action_when_architecture_gate_is_not_ready(self) -> None:
         runner = UIActionRunner(

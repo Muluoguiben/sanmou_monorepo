@@ -414,6 +414,7 @@ class AutonomousLoopTests(unittest.TestCase):
         self.assertEqual(verifier["status"], "verified")
         self.assertEqual(verifier["checked"], ["progress.chapter_claimable"])
         self.assertEqual(verifier["post_observe"]["domains_run"], ["resource_bar", "chapter_panel"])
+        self.assertEqual(result.execution.summary["semantic_target_gate"]["decision"], "allow")
         self.assertFalse(loop.state.progress["chapter_claimable"])
 
     def test_tick_fails_action_when_post_action_verifier_does_not_match(self) -> None:
@@ -560,6 +561,7 @@ class AutonomousLoopTests(unittest.TestCase):
             trace = loop.trace_store.read()[0]
             self.assertEqual(trace.verify.outputs["status"], "verified")
             self.assertEqual(trace.verification["status"], "verified")
+            self.assertEqual(trace.act.outputs["summary"]["semantic_target_gate"]["decision"], "allow")
             self.assertEqual(
                 trace.verify.outputs["post_action_verifier"]["checked"],
                 ["progress.chapter_claimable"],

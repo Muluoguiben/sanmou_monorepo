@@ -110,7 +110,12 @@ class UIActionRunner:
                     "semantic_target_gate": semantic_target_verdict.to_dict(),
                 },
             )
-        return dispatch(action, self.ui)
+        result = dispatch(action, self.ui)
+        if semantic_target_verdict.decision != ArchitectureGateDecision.SKIP:
+            summary = dict(result.summary)
+            summary["semantic_target_gate"] = semantic_target_verdict.to_dict()
+            result = result.model_copy(update={"summary": summary})
+        return result
 
 
 def _confirmation_token(action: CandidateAction) -> str | None:
