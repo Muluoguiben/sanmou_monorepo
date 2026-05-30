@@ -22,9 +22,35 @@ from pioneer_agent.derivation.state_deriver import StateDeriver
 from pioneer_agent.perception.vision_sync import VisionSyncSummary
 from pioneer_agent.runtime.advisor_loop import build_advisor_report
 from pioneer_agent.selector.action_selector import ActionSelector
+from pioneer_agent.core.enums import ActionType
+from pioneer_agent.verifier import VerifierGateDecision, VerifierRegistry
 
 
 REQUIRED_PR5_PAGES = {"home", "city", "chapter", "recruit", "building_upgrade", "team"}
+PR6_VERIFIER_EXPECTATIONS = {
+    "claim_chapter_reward": {
+        "timeout_seconds": 10.0,
+        "match_policy": "all",
+        "delta_paths": ["progress.chapter_claimable"],
+    },
+    "recruit_soldiers": {
+        "timeout_seconds": 30.0,
+        "match_policy": "any",
+        "delta_paths": [
+            "teams.0.soldiers",
+            "teams.0.recruit_finish_time",
+            "economy.reserve_troops",
+        ],
+    },
+    "upgrade_building": {
+        "timeout_seconds": 20.0,
+        "match_policy": "any",
+        "delta_paths": [
+            "city.buildings.0.level",
+            "economy.resources.wood",
+        ],
+    },
+}
 
 
 class Pr5AdvisorGoldenReplayTests(unittest.TestCase):
@@ -66,6 +92,7 @@ class Pr5AdvisorGoldenReplayTests(unittest.TestCase):
         expectations = _pr5_expectations(_load_expectation_payload())
         deriver = StateDeriver()
         selector = ActionSelector()
+        verifier_registry = VerifierRegistry()
 
         for fixture_name, expected in sorted(expectations.items()):
             with self.subTest(fixture_name=fixture_name):
@@ -107,6 +134,21 @@ class Pr5AdvisorGoldenReplayTests(unittest.TestCase):
                 self.assertEqual(report.recommended_action.execution_blocked_reason, "advisor_mode")
                 for ref in expected["required_action_evidence"]:
                     self.assertIn(ref, report.recommended_action.evidence)
+
+                if actual_action_type in PR6_VERIFIER_EXPECTATIONS:
+                    verifier_expected = PR6_VERIFIER_EXPECTATIONS[actual_action_type]
+                    action_type = ActionType(actual_action_type)
+                    verdict = verifier_registry.evaluate(action_type)
+                    spec = verifier_registry.get(action_type)
+
+                    self.assertEqual(verdict.decision, VerifierGateDecision.ALLOW)
+                    self.assertIsNotNone(spec)
+                    self.assertEqual(spec.timeout_seconds, verifier_expected["timeout_seconds"])
+                    self.assertEqual(str(spec.match_policy.value), verifier_expected["match_policy"])
+                    self.assertEqual(
+                        [delta.path for delta in spec.expected_deltas],
+                        verifier_expected["delta_paths"],
+                    )
 
 
 def _project_root() -> Path:

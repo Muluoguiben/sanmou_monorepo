@@ -60,6 +60,11 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(payload["pr5_locked_fields"]["action"], 6)
         self.assertEqual(payload["pr5_locked_fields"]["report_evidence"], 6)
         self.assertEqual(payload["pr5_locked_fields"]["report_confidence"], 6)
+        self.assertEqual(payload["pr6_verifier_coverage"]["missing"], [])
+        self.assertEqual(
+            set(payload["pr6_verifier_coverage"]["covered"]),
+            {"claim_chapter_reward", "recruit_soldiers", "upgrade_building"},
+        )
         self.assertEqual(payload["failures"], [])
 
     def test_advisor_fixture_eval_returns_selected_action(self) -> None:
@@ -87,6 +92,45 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(payload["expected_action_confidence"], 0.79)
         self.assertIn("team_panel_20260529.jpg", payload["screenshot"])
         self.assertIn("main_lineup.team_readiness", payload["required_action_evidence"])
+
+    def test_advisor_fixture_eval_includes_pr6_verifier_spec(self) -> None:
+        expected = {
+            "pr5_chapter_main_task_state.json": (
+                "claim_chapter_reward",
+                "all",
+                10.0,
+                ["progress.chapter_claimable"],
+            ),
+            "pr5_recruit_guard_camp_state.json": (
+                "recruit_soldiers",
+                "any",
+                30.0,
+                ["teams.0.soldiers", "teams.0.recruit_finish_time", "economy.reserve_troops"],
+            ),
+            "pr5_building_upgrade_state.json": (
+                "upgrade_building",
+                "any",
+                20.0,
+                ["city.buildings.0.level", "economy.resources.wood"],
+            ),
+        }
+
+        for fixture, (action_type, match_policy, timeout, delta_paths) in expected.items():
+            with self.subTest(fixture=fixture):
+                result = self.handler.call_tool("advisor_fixture_eval", {"fixture": fixture})
+                payload = result["structuredContent"]
+                spec = payload["verifier_spec"]
+
+                self.assertFalse(result["isError"])
+                self.assertTrue(payload["matched"])
+                self.assertEqual(payload["verifier_gate"]["decision"], "allow")
+                self.assertEqual(spec["action_type"], action_type)
+                self.assertEqual(spec["match_policy"], match_policy)
+                self.assertEqual(spec["timeout_seconds"], timeout)
+                self.assertEqual(
+                    [delta["path"] for delta in spec["expected_deltas"]],
+                    delta_paths,
+                )
 
 
 if __name__ == "__main__":

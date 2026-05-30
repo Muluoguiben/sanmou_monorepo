@@ -4,6 +4,7 @@ import unittest
 from pathlib import Path
 
 from pioneer_agent.core.enums import ActionType
+from pioneer_agent.verifier.base import DeltaMatchPolicy, DeltaOperator
 from pioneer_agent.verifier.eval import (
     load_action_verifier_eval,
     run_action_verifier_eval,
@@ -38,6 +39,31 @@ class ActionVerifierEvalTests(unittest.TestCase):
 
         failures = [result.case.case_id for result in results if not result.passed]
         self.assertEqual(failures, [])
+
+    def test_recruit_and_building_cases_use_real_any_delta_gates(self) -> None:
+        cases = load_action_verifier_eval(FIXTURE)
+        by_id = {case.case_id: case for case in cases}
+
+        recruit = by_id["recruit_soldiers_success"]
+        self.assertEqual(recruit.match_policy, DeltaMatchPolicy.ANY)
+        self.assertEqual(
+            [(delta.path, delta.operator) for delta in recruit.expected_deltas],
+            [
+                ("teams.0.soldiers", DeltaOperator.GREATER_THAN_BEFORE),
+                ("teams.0.recruit_finish_time", DeltaOperator.PRESENT),
+                ("economy.reserve_troops", DeltaOperator.LESS_THAN_BEFORE),
+            ],
+        )
+
+        upgrade = by_id["upgrade_building_success"]
+        self.assertEqual(upgrade.match_policy, DeltaMatchPolicy.ANY)
+        self.assertEqual(
+            [(delta.path, delta.operator) for delta in upgrade.expected_deltas],
+            [
+                ("city.buildings.0.level", DeltaOperator.GREATER_THAN_BEFORE),
+                ("economy.resources.wood", DeltaOperator.LESS_THAN_BEFORE),
+            ],
+        )
 
 
 if __name__ == "__main__":

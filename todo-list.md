@@ -1,6 +1,6 @@
 # Todo List
 
-> Last updated: 2026-05-29 (PR-5 Golden replay 扩展已落地：PC 客户端真实截图覆盖首页、城内、章节、征兵、建筑升级、队伍，并锁住 action/evidence/confidence；下一段重点转向 PR-6 低风险动作 verifier)
+> Last updated: 2026-05-30 (PR-6 低风险 verifier specs 已落地：`claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` 默认 registry 均有真实 expected deltas、timeout 与 PR-5 fixture/MCP 断言；下一段重点转向三类 action handler 从 `pending` 接到真实 UI flow)
 
 ## Highest Priority — Architecture Iteration
 
@@ -12,7 +12,7 @@
 - [x] PR-3 `strategy_snapshot.entry_ids` 贯通（2026-05-19）：建筑升级 scoring 的 priority 与 evidence 同时输出，推荐层可反查 QA knowledge。
 - [x] PR-4 Vision semantic validators（2026-05-19）：当前 vision schema 增加 bbox、visible/enabled、page/domain 一致性校验和失败 fixture。
 - [x] PR-5 Golden replay 扩展（2026-05-29）：`tests/fixtures/screenshots/pc_client/pr5_20260529/` 覆盖首页、城内、章节、征兵、建筑升级、队伍；`advisor_fixture_expectations.json` v2 锁住 action/evidence/confidence，`test_pr5_advisor_golden_replay.py` 与 qa-agent MCP smoke 均可验证。
-- [ ] PR-6 低风险 verifier specs：先补 `claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` expected deltas，不先追求完整自动点击 flow。
+- [x] PR-6 低风险 verifier specs（2026-05-30）：`claim_chapter_reward` 验 `chapter_claimable=false`，`recruit_soldiers` 用兵力增加/征兵倒计时/预备兵减少三选一，`upgrade_building` 用建筑等级增加/木材消耗二选一；registry 默认 timeout 与 replay/MCP fixture 断言已覆盖。
 
 ## In Progress
 
@@ -34,7 +34,7 @@
 - [ ] ExplainerLLM 边界：只允许 LLM 基于 rule reason + evidence 生成 narrative，不允许修改 action type、关键 params、safety verdict。
 - [ ] LLM-as-Judge 灰度：只在 top2 score 接近且已有 eval baseline 后启用 pairwise rerank；默认关闭。
 - [ ] 停止条件执行：没有 golden replay baseline 前不启用 LLM-as-Judge；低风险 verifier false positive 未覆盖前不开放 semi-auto；地图/战报/队伍 verifier 未完成前不开放高风险全自动。
-- [ ] 低风险 verifier specs：优先补 `claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` 的 expected deltas 和 timeout。
+- [x] 低风险 verifier specs（2026-05-30）：`claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` 的 expected deltas、match policy 与 timeout 已进入默认 `VerifierRegistry`，并由 PR-5 fixtures/MCP smoke 验证。
 - [ ] 低风险 action handlers：三个低风险动作从 `pending` 推进到真实 UI flow，动作失败必须 block/recover，不允许继续连点。
 - [ ] 高风险自动化边界：`attack_land`、`transfer_main_lineup`、`abandon_land` 在地图识别、战报识别、队伍状态 verifier 完成前保持人工确认或 block。
 
@@ -43,12 +43,13 @@
 - [x] Agent loop contract（2026-05-17）：新增 `runtime.loop_contract`，把 runtime 固化为 `observe -> decide -> act -> verify -> trace -> recover`；`AutonomousLoop` 写 trace 前校验每个 tick 的阶段完整性，并默认在 CLI 产出结构化 `trace.jsonl`。
 - [x] `chapter_panel` perception domain（2026-05-17）：新增章节面板 schema/domain/merge/sync，识别当前章节、任务完成状态、奖励是否可领、领取按钮 bbox；输出 `progress.chapter_claimable/current_chapter_id/chapter_tasks` 与 `field_meta["progress.chapter_panel"]`。
 - [ ] `claim_chapter_reward` flow：打开章节面板 → 定位可领取奖励 → 点击领取/确认 → 返回稳定页面；非 dry-run 执行成功时返回 `ok`。
-- [ ] `claim_chapter_reward` verifier：动作后重新截图，验证 `chapter_claimable=false`、奖励状态变化或章节任务状态变化；无 verifier 不允许自动执行。
+- [x] `claim_chapter_reward` verifier spec（2026-05-30）：动作后重新截图至少验证 `progress.chapter_claimable=false`，timeout 10s；真实点击 flow 仍待接入。
 - [x] `recruit_panel` / team soldier perception domain（2026-05-17）：新增征兵面板 schema/domain/merge/sync，识别预备兵、队伍兵力/上限/缺口、征兵中状态、征兵按钮 enabled/bbox，写入 `economy.reserve_troops` 与 `teams[*]`。
 - [ ] `recruit_soldiers` flow：打开征兵面板 → 选择可征兵队伍/数量 → 确认征兵或安全退出；遇到资源不足、队伍 busy、未知弹窗时不得重复点击。
-- [ ] `recruit_soldiers` verifier：动作后重新截图，验证兵力变化、征兵倒计时出现或预备兵减少三者之一。
+- [x] `recruit_soldiers` verifier spec（2026-05-30）：动作后重新截图验证兵力增加、征兵倒计时出现或预备兵减少三者之一，timeout 30s；真实征兵 flow 仍待接入。
 - [x] `upgrade_dialog` perception domain（2026-05-17）：新增建筑升级确认框 schema/domain/merge/sync，识别建筑名、等级变化、资源消耗、不可升级原因、确认/关闭按钮 enabled/bbox，写入 `city.upgrade_dialog`。
-- [ ] `upgrade_building` low-risk flow + verifier：只对白名单低风险建筑执行升级；动作后验证建筑等级变化、升级倒计时出现或资源消耗符合预期。
+- [ ] `upgrade_building` low-risk flow：只对白名单低风险建筑执行升级；真实 UI flow、确认框序列与失败恢复仍待接入。
+- [x] `upgrade_building` verifier spec（2026-05-30）：动作后重新截图验证建筑等级增加或木材消耗二者之一，timeout 20s；真实升级 flow 仍待接入。
 - [x] Popup detector（2026-05-17）：新增 `perception.domains.popup`，识别通用弹窗/确认框/奖励/错误/提示、按钮 role/bbox、blocking 与 safe default action；`VisionSync` 在 resource notes 命中弹窗关键词时运行并写入 `global_state.popup`。
 - [x] Verifier framework（2026-05-17）：新增 `VerifierRegistry/VerifierSpec`，所有会派发 GUI 输入的动作必须声明 expected state delta 和 verify timeout；`UIActionRunner` 在 dispatch 前检查 verifier spec，无 verifier 直接 blocked。
 - [x] Safety guardrail（2026-05-17）：基于 `CapabilityFlags`、risk schema、action_type、account/session mode 拦截高风险动作；`UIActionRunner` 在派发前统一执行 `SafetyGuard`，advisor/observe-only 阻断输入，敏感/高风险动作返回 `requires_confirmation`。

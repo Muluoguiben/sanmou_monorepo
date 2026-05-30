@@ -3,6 +3,8 @@ from __future__ import annotations
 import unittest
 
 from pioneer_agent.verifier.base import (
+    DeltaMatchPolicy,
+    DeltaOperator,
     ExpectedStateDelta,
     VerificationStatus,
     VerifierBase,
@@ -52,6 +54,64 @@ class VerifierBaseTests(unittest.TestCase):
         result = verifier.verify(
             before_state={"teams": [{"recruiting": False}]},
             after_state={"teams": [{"recruiting": True}]},
+        )
+
+        self.assertEqual(result.status, VerificationStatus.VERIFIED)
+
+    def test_any_policy_accepts_one_matching_delta(self) -> None:
+        verifier = VerifierBase(
+            [
+                ExpectedStateDelta(
+                    path="teams.0.soldiers",
+                    operator=DeltaOperator.GREATER_THAN_BEFORE,
+                ),
+                ExpectedStateDelta(
+                    path="teams.0.recruit_finish_time",
+                    operator=DeltaOperator.PRESENT,
+                ),
+            ],
+            match_policy=DeltaMatchPolicy.ANY,
+        )
+
+        result = verifier.verify(
+            before_state={"teams": [{"soldiers": 22000}]},
+            after_state={"teams": [{"soldiers": 22000, "recruit_finish_time": "00:12:00"}]},
+        )
+
+        self.assertEqual(result.status, VerificationStatus.VERIFIED)
+        self.assertIn("at least one", result.reason)
+
+    def test_any_policy_fails_when_no_delta_matches(self) -> None:
+        verifier = VerifierBase(
+            [
+                ExpectedStateDelta(
+                    path="economy.reserve_troops",
+                    operator=DeltaOperator.LESS_THAN_BEFORE,
+                ),
+                ExpectedStateDelta(
+                    path="teams.0.recruit_finish_time",
+                    operator=DeltaOperator.PRESENT,
+                ),
+            ],
+            match_policy=DeltaMatchPolicy.ANY,
+        )
+
+        result = verifier.verify(
+            before_state={"economy": {"reserve_troops": 40000}, "teams": [{}]},
+            after_state={"economy": {"reserve_troops": 40000}, "teams": [{}]},
+        )
+
+        self.assertEqual(result.status, VerificationStatus.FAILED)
+        self.assertIn("no expected state delta matched", result.reason)
+
+    def test_absent_operator_accepts_removed_path(self) -> None:
+        verifier = VerifierBase(
+            [ExpectedStateDelta(path="city.upgradeable_buildings.0", operator=DeltaOperator.ABSENT)]
+        )
+
+        result = verifier.verify(
+            before_state={"city": {"upgradeable_buildings": [{"building_id": "main_hall"}]}},
+            after_state={"city": {"upgradeable_buildings": []}},
         )
 
         self.assertEqual(result.status, VerificationStatus.VERIFIED)

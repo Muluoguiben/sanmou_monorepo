@@ -80,12 +80,21 @@ class AdvisorReplayTools:
             comparisons = [self._compare_result(item, expectations) for item in replay_results]
             payload["results"] = comparisons
             payload["failures"] = [item for item in comparisons if not item["matched"]]
+            payload["pr6_verifier_coverage"] = self._pr6_verifier_coverage(comparisons)
+        else:
+            payload["pr6_verifier_coverage"] = {
+                "checked": False,
+                "required": PR6_LOW_RISK_ACTIONS,
+                "covered": [],
+                "missing": [],
+            }
         payload["status"] = (
             "ok"
             if not payload["missing_expectations"]
             and not payload["extra_expectations"]
             and not payload["failures"]
             and not payload["pr5_page_coverage"]["missing"]
+            and not payload["pr6_verifier_coverage"]["missing"]
             else "attention"
         )
         return payload
@@ -112,6 +121,8 @@ class AdvisorReplayTools:
             "selection_mode": comparison["selection_mode"],
             "top_score_gap": comparison["top_score_gap"],
             "ranked_action_count": comparison["ranked_action_count"],
+            "verifier_gate": replay_result.get("verifier_gate"),
+            "verifier_spec": replay_result.get("verifier_spec"),
             "selected_action": replay_result.get("selected_action"),
             "selection_reason": replay_result.get("selection_reason"),
             "derived_state": replay_result.get("derived_state"),
@@ -201,6 +212,26 @@ class AdvisorReplayTools:
             "selection_mode": selection_reason.get("selection_mode"),
             "top_score_gap": selection_reason.get("top_score_gap"),
             "ranked_action_count": len(result.get("ranked_actions") or []),
+            "verifier_gate": result.get("verifier_gate"),
+            "verifier_spec": result.get("verifier_spec"),
+        }
+
+    @staticmethod
+    def _pr6_verifier_coverage(comparisons: list[dict[str, Any]]) -> dict[str, Any]:
+        covered = sorted(
+            {
+                item["actual_action_type"]
+                for item in comparisons
+                if item.get("actual_action_type") in PR6_LOW_RISK_ACTIONS
+                and (item.get("verifier_gate") or {}).get("decision") == "allow"
+                and (item.get("verifier_spec") or {}).get("expected_deltas")
+            }
+        )
+        return {
+            "checked": True,
+            "required": PR6_LOW_RISK_ACTIONS,
+            "covered": covered,
+            "missing": sorted(set(PR6_LOW_RISK_ACTIONS) - set(covered)),
         }
 
 
@@ -210,3 +241,10 @@ def _is_relative_to(path: Path, parent: Path) -> bool:
     except ValueError:
         return False
     return True
+
+
+PR6_LOW_RISK_ACTIONS = [
+    "claim_chapter_reward",
+    "recruit_soldiers",
+    "upgrade_building",
+]

@@ -1,4 +1,6 @@
 from pioneer_agent.verifier.base import (
+    DeltaMatchPolicy,
+    DeltaOperator,
     ExpectedStateDelta,
     VerificationResult,
     VerificationStatus,
@@ -15,9 +17,12 @@ from pioneer_agent.verifier.registry import (
     VerifierGateVerdict,
     VerifierRegistry,
     VerifierSpec,
+    serialize_verifier_spec,
 )
 
 __all__ = [
+    "DeltaMatchPolicy",
+    "DeltaOperator",
     "ExpectedStateDelta",
     "ActionVerifierEvalCase",
     "ActionVerifierEvalResult",
@@ -30,4 +35,5 @@ __all__ = [
     "VerifierBase",
     "load_action_verifier_eval",
     "run_action_verifier_eval",
+    "serialize_verifier_spec",
 ]

@@ -7,6 +7,8 @@ from typing import Any
 
 from pioneer_agent.core.enums import ActionType
 from pioneer_agent.verifier.base import (
+    DeltaMatchPolicy,
+    DeltaOperator,
     ExpectedStateDelta,
     VerificationResult,
     VerificationStatus,
@@ -25,6 +27,7 @@ class ActionVerifierEvalCase:
     expected_status: VerificationStatus
     reason_contains: str | None = None
     timeout_seconds: float = 5.0
+    match_policy: DeltaMatchPolicy = DeltaMatchPolicy.ALL
 
 
 @dataclass(frozen=True)
@@ -54,6 +57,7 @@ def run_action_verifier_eval(
         verifier = VerifierBase(
             case.expected_deltas,
             timeout_seconds=case.timeout_seconds,
+            match_policy=case.match_policy,
         )
         results.append(
             ActionVerifierEvalResult(
@@ -75,6 +79,7 @@ def _parse_case(raw: dict[str, Any]) -> ActionVerifierEvalCase:
         expected_status=VerificationStatus(str(raw["expected_status"])),
         reason_contains=raw.get("reason_contains"),
         timeout_seconds=float(raw.get("timeout_seconds", 5.0)),
+        match_policy=DeltaMatchPolicy(str(raw.get("match_policy", DeltaMatchPolicy.ALL.value))),
     )
 
 
@@ -83,4 +88,5 @@ def _parse_delta(raw: dict[str, Any]) -> ExpectedStateDelta:
         path=str(raw["path"]),
         before=raw.get("before"),
         expected_after=raw.get("expected_after"),
+        operator=DeltaOperator(str(raw.get("operator", DeltaOperator.EQUALS.value))),
     )

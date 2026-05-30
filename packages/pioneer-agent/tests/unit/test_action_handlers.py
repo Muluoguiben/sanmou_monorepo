@@ -100,12 +100,26 @@ class UIActionRunnerTests(unittest.TestCase):
         self.assertEqual(res.summary["blocked_by"], "safety_guard")
         self.assertEqual(res.summary["guard_decision"], "require_confirmation")
 
-    def test_runner_blocks_ui_action_without_verifier_spec(self) -> None:
+    def test_runner_reaches_pending_low_risk_action_with_default_verifier_spec(self) -> None:
         runner = UIActionRunner(
             _NullUI(),  # type: ignore[arg-type]
             capabilities=CapabilityFlags(input_control=True),
         )
         res = runner.run(_mk_action(ActionType.CLAIM_CHAPTER_REWARD))
+        self.assertEqual(res.status, "pending")
+        self.assertIn("chapter panel", res.failure_reason or "")
+
+    def test_runner_blocks_confirmed_action_without_verifier_spec(self) -> None:
+        runner = UIActionRunner(
+            _NullUI(),  # type: ignore[arg-type]
+            capabilities=CapabilityFlags(input_control=True),
+        )
+        res = runner.run(
+            _mk_action(
+                ActionType.TRANSFER_MAIN_LINEUP_TO_TEAM,
+                confirmation_token="manual-ok",
+            )
+        )
         self.assertEqual(res.status, "blocked")
         self.assertEqual(res.summary["blocked_by"], "verifier_registry")
         self.assertIn("requires a verifier", res.failure_reason or "")
