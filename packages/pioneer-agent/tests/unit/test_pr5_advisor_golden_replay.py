@@ -134,6 +134,11 @@ class Pr5AdvisorGoldenReplayTests(unittest.TestCase):
                 self.assertEqual(report.recommended_action.execution_blocked_reason, "advisor_mode")
                 for ref in expected["required_action_evidence"]:
                     self.assertIn(ref, report.recommended_action.evidence)
+                for param_path in expected.get("required_action_param_paths", []):
+                    self.assertTrue(
+                        _has_path(report.recommended_action.params, param_path),
+                        f"{fixture_name} missing action param path {param_path}",
+                    )
 
                 if actual_action_type in PR6_VERIFIER_EXPECTATIONS:
                     verifier_expected = PR6_VERIFIER_EXPECTATIONS[actual_action_type]
@@ -167,6 +172,15 @@ def _pr5_expectations(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
         for name, value in fixtures.items()
         if isinstance(value, dict) and value.get("page") in REQUIRED_PR5_PAGES
     }
+
+
+def _has_path(payload: dict[str, Any], dotted_path: str) -> bool:
+    current: Any = payload
+    for part in dotted_path.split("."):
+        if not isinstance(current, dict) or part not in current:
+            return False
+        current = current[part]
+    return True
 
 
 def _load_manifest() -> dict[str, Any]:

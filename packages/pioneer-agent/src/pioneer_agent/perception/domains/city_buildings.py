@@ -101,4 +101,15 @@ def _building_dict(b: Any) -> dict[str, Any]:
         entry["upgrading"] = True
         if b.upgrade_eta:
             entry["upgrade_eta"] = b.upgrade_eta
+    if b.upgrade_button_visible:
+        entry["upgrade_button"] = {
+            "visible": True,
+            "enabled": bool(b.upgrade_button_enabled),
+            "bbox": {
+                "x_min": b.upgrade_button_x_min,
+                "y_min": b.upgrade_button_y_min,
+                "x_max": b.upgrade_button_x_max,
+                "y_max": b.upgrade_button_y_max,
+            },
+        }
     return entry

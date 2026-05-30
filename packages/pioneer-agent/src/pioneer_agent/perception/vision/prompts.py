@@ -646,6 +646,28 @@ class CityBuilding(BaseModel):
     level: int | None = None
     upgrading: bool = False
     upgrade_eta: str | None = None  # "HH:MM:SS" countdown, if visible
+    upgrade_button_visible: bool = False
+    upgrade_button_enabled: bool = False
+    upgrade_button_x_min: int | None = Field(default=None, ge=0, le=1000)
+    upgrade_button_y_min: int | None = Field(default=None, ge=0, le=1000)
+    upgrade_button_x_max: int | None = Field(default=None, ge=0, le=1000)
+    upgrade_button_y_max: int | None = Field(default=None, ge=0, le=1000)
+
+    @model_validator(mode="after")
+    def _validate_upgrade_button(self):
+        _validate_visible_button(
+            self,
+            visible_field="upgrade_button_visible",
+            enabled_field="upgrade_button_enabled",
+            bbox_fields=(
+                "upgrade_button_x_min",
+                "upgrade_button_y_min",
+                "upgrade_button_x_max",
+                "upgrade_button_y_max",
+            ),
+            label="building upgrade button",
+        )
+        return self
 
 
 class CityBuildingsDetection(BaseModel):
@@ -694,6 +716,18 @@ CITY_BUILDINGS_SCHEMA: dict[str, Any] = {
                         "type": "string",
                         "description": "Countdown text as shown, e.g. '17:45:36'. Null if not upgrading.",
                     },
+                    "upgrade_button_visible": {
+                        "type": "boolean",
+                        "description": "True if this building row/card has a visible 升级/Upgrade entry button.",
+                    },
+                    "upgrade_button_enabled": {
+                        "type": "boolean",
+                        "description": "True only when the visible upgrade entry can be clicked now.",
+                    },
+                    "upgrade_button_x_min": {"type": "integer"},
+                    "upgrade_button_y_min": {"type": "integer"},
+                    "upgrade_button_x_max": {"type": "integer"},
+                    "upgrade_button_y_max": {"type": "integer"},
                 },
                 "required": ["name"],
             },
@@ -714,6 +748,9 @@ CITY_BUILDINGS_INSTRUCTION = (
     "Level numbers appear as small digits beside or on the building icon. "
     "An upgrade is in progress when a countdown timer (HH:MM:SS) is shown on the "
     "building — set upgrading=true and copy the timer into upgrade_eta. "
+    "On a building selection or upgrade-entry screen, if a visible 升级/Upgrade "
+    "entry button belongs to a building card/row, report upgrade_button_visible, "
+    "upgrade_button_enabled, and a 0-1000 normalized bbox for that button. "
     "Also capture 繁荣 / 领地 / 道路 from the top-left panel if visible. "
     "Do not invent buildings that are not in the screenshot; omit fields you cannot read."
 )

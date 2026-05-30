@@ -69,6 +69,15 @@ class CandidateGenerator:
             upgrade_dialog = self._upgrade_dialog_param(state.city.get("upgrade_dialog"))
             if upgrade_dialog:
                 params["upgrade_dialog"] = upgrade_dialog
+            source_state_refs = [
+                "city.upgradeable_buildings",
+                "economy.resources",
+                "economy.income_per_hour",
+            ]
+            if upgrade_button:
+                source_state_refs.append("city.buildings")
+            if upgrade_dialog:
+                source_state_refs.append("city.upgrade_dialog")
 
             actions.append(
                 CandidateAction(
@@ -85,11 +94,7 @@ class CandidateGenerator:
                         "cost": building.get("cost", {}),
                         "resource_total_shortage": total_shortage,
                     },
-                    source_state_refs=[
-                        "city.upgradeable_buildings",
-                        "economy.resources",
-                        "economy.income_per_hour",
-                    ],
+                    source_state_refs=source_state_refs,
                 )
             )
         return actions

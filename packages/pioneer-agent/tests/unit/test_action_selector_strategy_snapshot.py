@@ -4,6 +4,7 @@ from pathlib import Path
 import unittest
 
 from pioneer_agent.core.models import RuntimeState
+from pioneer_agent.derivation.state_deriver import StateDeriver
 from pioneer_agent.knowledge.strategy_snapshot import StrategySnapshot, load_strategy_snapshot
 from pioneer_agent.selector.action_selector import ActionSelector
 
@@ -164,8 +165,19 @@ class ActionSelectorStrategySnapshotTests(unittest.TestCase):
         self.assertEqual(recruit.params["recruit_button"]["bbox"], bbox)
 
         upgrade = ActionSelector(load_default_strategy=False).select(
-            RuntimeState(
+            StateDeriver().derive(RuntimeState(
                 city={
+                    "buildings": [
+                        {
+                            "name": "君王殿",
+                            "level": 10,
+                            "upgrade_button": {
+                                "visible": True,
+                                "enabled": True,
+                                "bbox": bbox,
+                            },
+                        }
+                    ],
                     "upgradeable_buildings": [
                         {
                             "building_id": "main_hall",
@@ -173,21 +185,11 @@ class ActionSelectorStrategySnapshotTests(unittest.TestCase):
                             "target_level": 11,
                         }
                     ],
-                    "upgrade_dialog": {
-                        "visible": True,
-                        "building_name": "君王殿",
-                        "can_upgrade": True,
-                        "confirm_button": {
-                            "visible": True,
-                            "enabled": True,
-                            "bbox": bbox,
-                        },
-                    },
                 }
-            )
+            ))
         ).selected_action
         assert upgrade is not None
-        self.assertEqual(upgrade.params["upgrade_dialog"]["confirm_button"]["bbox"], bbox)
+        self.assertEqual(upgrade.params["upgrade_button"]["bbox"], bbox)
 
 
 if __name__ == "__main__":

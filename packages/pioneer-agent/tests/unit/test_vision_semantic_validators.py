@@ -8,6 +8,7 @@ from pioneer_agent.perception.vision.prompts import (
     ChapterPanelDetection,
     ElementBox,
     RecruitTeamDetection,
+    CityBuilding,
     TeamDetailDetection,
     TeamPanelDetection,
     UpgradeDialogDetection,
@@ -78,6 +79,26 @@ class VisionSemanticValidatorTests(unittest.TestCase):
                     "confirm_x_max": 920,
                     "confirm_y_max": 900,
                     "close_button_visible": False,
+                }
+            )
+
+    def test_city_building_upgrade_button_requires_visible_bbox(self) -> None:
+        with self.assertRaisesRegex(ValidationError, "cannot be enabled when not visible"):
+            CityBuilding.model_validate(
+                {
+                    "name": "君王殿",
+                    "upgrade_button_visible": False,
+                    "upgrade_button_enabled": True,
+                }
+            )
+
+        with self.assertRaisesRegex(ValidationError, "bbox must include"):
+            CityBuilding.model_validate(
+                {
+                    "name": "君王殿",
+                    "upgrade_button_visible": True,
+                    "upgrade_button_enabled": True,
+                    "upgrade_button_x_min": 100,
                 }
             )
 

@@ -164,9 +164,18 @@
       ],
       "required_action_evidence": [
         "city.upgradeable_buildings",
+        "city.buildings",
         "economy.resources",
         "economy.income_per_hour",
         "strategy_snapshot:building-main-city"
+      ],
+      "required_action_param_paths": [
+        "upgrade_button.visible",
+        "upgrade_button.enabled",
+        "upgrade_button.bbox.x_min",
+        "upgrade_button.bbox.y_min",
+        "upgrade_button.bbox.x_max",
+        "upgrade_button.bbox.y_max"
       ]
     },
     "pr5_team_panel_state.json": {

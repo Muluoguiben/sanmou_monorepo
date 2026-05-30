@@ -43,7 +43,16 @@ class CityBuildingsExtractionTests(unittest.TestCase):
                 "territory": "60/60",
                 "roads": "6/35",
                 "buildings": [
-                    {"name": "君王殿", "level": 25},
+                    {
+                        "name": "君王殿",
+                        "level": 25,
+                        "upgrade_button_visible": True,
+                        "upgrade_button_enabled": True,
+                        "upgrade_button_x_min": 102,
+                        "upgrade_button_y_min": 642,
+                        "upgrade_button_x_max": 238,
+                        "upgrade_button_y_max": 718,
+                    },
                     {"name": "铁匠铺", "level": 22, "upgrading": True, "upgrade_eta": "17:45:36"},
                     {"name": "木工所", "level": 25},
                 ],
@@ -63,6 +72,14 @@ class CityBuildingsExtractionTests(unittest.TestCase):
         king = next(b for b in fragment.city["buildings"] if b["name"] == "君王殿")
         self.assertNotIn("upgrading", king)
         self.assertNotIn("upgrade_eta", king)
+        self.assertEqual(
+            king["upgrade_button"],
+            {
+                "visible": True,
+                "enabled": True,
+                "bbox": {"x_min": 102, "y_min": 642, "x_max": 238, "y_max": 718},
+            },
+        )
         self.assertEqual(fragment.field_meta["city"].source, "vision.city_buildings")
 
     def test_missing_prosperity_is_omitted(self) -> None:

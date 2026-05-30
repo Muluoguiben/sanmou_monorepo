@@ -9,6 +9,20 @@ from pioneer_agent.derivation.phase import derive_phase_tag
 from pioneer_agent.derivation.readiness import compute_combat_readiness
 from pioneer_agent.derivation.team_snapshot import apply_team_snapshot_judgements
 
+BUILDING_ALIASES: dict[str, set[str]] = {
+    "main_hall": {"main_hall", "main hall", "君王殿"},
+    "recruit_office": {"recruit_office", "recruit office", "recruit", "征兵所"},
+    "barracks": {"barracks", "camp", "军营"},
+    "blacksmith": {"blacksmith", "铁匠铺"},
+    "scout_tower": {"scout_tower", "scout tower", "寻访台"},
+    "iron_smelter": {"iron_smelter", "iron smelter", "治铁场"},
+    "mill": {"mill", "磨坊"},
+    "stone_workshop": {"stone_workshop", "stone workshop", "石工所"},
+    "wood_workshop": {"wood_workshop", "wood workshop", "木工所"},
+    "warehouse": {"warehouse", "仓库"},
+    "residence": {"residence", "民居"},
+}
+
 
 class StateDeriver:
     def derive(self, state: RuntimeState) -> RuntimeState:
@@ -114,7 +128,12 @@ class StateDeriver:
         current_chapter_id = int(state.progress.get("current_chapter_id", 0) or 0)
         resources = state.economy.get("resources", {})
         income_per_hour = state.economy.get("income_per_hour", {})
+        observed_upgrade_buttons = StateDeriver._observed_building_upgrade_buttons(state)
         for building in state.city.get("upgradeable_buildings", []):
+            if "upgrade_button" not in building:
+                observed_button = StateDeriver._match_observed_upgrade_button(building, observed_upgrade_buttons)
+                if observed_button:
+                    building["upgrade_button"] = observed_button
             building_id = building.get("building_id", "")
             if "hall" in building_id:
                 building["chapter_relevance"] = "complete_current_task"
@@ -155,6 +174,54 @@ class StateDeriver:
 
             default_penalty = max(sum(float(amount or 0) for amount in cost.values()) / 4000, 5)
             building.setdefault("resource_cost_penalty", round(default_penalty, 2))
+
+    @staticmethod
+    def _observed_building_upgrade_buttons(state: RuntimeState) -> list[tuple[set[str], dict[str, Any]]]:
+        observed: list[tuple[set[str], dict[str, Any]]] = []
+        for building in state.city.get("buildings", []):
+            if not isinstance(building, dict):
+                continue
+            button = building.get("upgrade_button")
+            if not isinstance(button, dict):
+                continue
+            terms = StateDeriver._building_terms(building)
+            if terms:
+                observed.append((terms, button))
+        return observed
+
+    @staticmethod
+    def _match_observed_upgrade_button(
+        building: dict[str, Any],
+        observed: list[tuple[set[str], dict[str, Any]]],
+    ) -> dict[str, Any] | None:
+        terms = StateDeriver._building_terms(building)
+        if not terms:
+            return None
+        for observed_terms, button in observed:
+            if terms & observed_terms:
+                return dict(button)
+        return None
+
+    @staticmethod
+    def _building_terms(building: dict[str, Any]) -> set[str]:
+        terms: set[str] = set()
+        for key in ("building_id", "building_name", "name"):
+            value = building.get(key)
+            if not value:
+                continue
+            normalized = StateDeriver._normalize_building_term(value)
+            if normalized:
+                terms.add(normalized)
+                terms.update(BUILDING_ALIASES.get(normalized, set()))
+        for alias_key, aliases in BUILDING_ALIASES.items():
+            if terms & aliases:
+                terms.add(alias_key)
+                terms.update(aliases)
+        return terms
+
+    @staticmethod
+    def _normalize_building_term(value: Any) -> str:
+        return str(value).strip().lower().replace("_", " ")
 
     @staticmethod
     def _derive_primary_constraint(state: RuntimeState) -> None:
