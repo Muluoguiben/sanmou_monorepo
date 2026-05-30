@@ -196,5 +196,6 @@ precheck -> click/action -> observe -> verifier -> trace -> recovery/block
 23. [x] MCP Architecture Iteration closure gate：`advisor_golden_replay_status.architecture_iteration_closure_gate` 将 canonical ADR/派生路线文档存在性、golden replay 是否实际运行、PR5 page/locked fields、PR6 verifier specs、dispatch/runtime/terminal gate 与低风险 terminal readiness 汇总成单一机器可读收口门槛；当前仍因 `low_risk_terminal_dispatch_ready=false` 保持 `attention`，避免自动化误把局部 replay 通过当成 Architecture Iteration 已收口。
 24. [x] Upgrade terminal confirm replay fixture：新增 `pr20_upgrade_confirm_terminal_state.json`，覆盖已观测 `city.upgrade_dialog.confirm_button` 时 `upgrade_building` dispatch 到 `upgrade_confirm_button` 且 `terminal_for_verifier=true`；MCP readiness 现在把 `upgrade_building` 计入 `ready_actions`。
 25. [x] Claim/recruit terminal dispatch replay fixtures：新增 `pr21_chapter_claim_terminal_state.json` 与 `pr22_recruit_terminal_state.json`，覆盖已观测领取/征兵按钮时 `claim_chapter_reward` 与 `recruit_soldiers` 可进入 `terminal_for_verifier=true` 的 runtime dispatch；`low_risk_verifier_readiness` 现在三类低风险动作均 terminal-ready，但 `low_risk_terminal_source_review` 仍要求真实截图或 live trace 强度，Architecture closure gate 继续保持 `attention`。
-26. [ ] 三个低风险动作的完整 UI flow，继续补 claim/recruit 面板打开、数量/确认序列；三类动作仍需真实截图终态样本和 post-action delta 样本补强。
-27. [ ] Desktop evidence/degraded 展示，确保无证据推荐不会被 UI 展示成确定结论。
+26. [x] MCP terminal source requirements：`low_risk_terminal_source_review.next_source_requirements` 与 `advisor_fixture_eval.terminal_source_review` 输出每个低风险动作解除 closure blocker 所需的 accepted source kind、真实 page、semantic target、expected runtime dispatch 与 post-action delta，确保后续采样不靠人工猜测。
+27. [ ] 三个低风险动作的完整 UI flow，继续补 claim/recruit 面板打开、数量/确认序列；三类动作仍需真实截图终态样本和 post-action delta 样本补强。
+28. [ ] Desktop evidence/degraded 展示，确保无证据推荐不会被 UI 展示成确定结论。

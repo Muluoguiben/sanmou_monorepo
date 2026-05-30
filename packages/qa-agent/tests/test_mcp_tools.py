@@ -189,6 +189,26 @@ class McpToolTests(unittest.TestCase):
             {"claim_chapter_reward", "recruit_soldiers", "upgrade_building"},
         )
         self.assertEqual(
+            [item["code"] for item in source_review["next_source_requirements"]],
+            [
+                "chapter_claim_terminal_real_source",
+                "recruit_terminal_real_source",
+                "upgrade_confirm_terminal_real_source",
+            ],
+        )
+        self.assertEqual(
+            source_review["next_source_requirements"][0]["accepted_source_kinds"],
+            ["pr5_real_screenshot_fixture", "live_trace_fixture"],
+        )
+        self.assertEqual(
+            source_review["next_source_requirements"][0]["required_runtime_dispatch"],
+            {
+                "status": "ok",
+                "target_key": "chapter_claim_button",
+                "terminal_for_verifier": True,
+            },
+        )
+        self.assertEqual(
             {item["source_kind"] for item in source_review["observed"]},
             {"runtime_state_fixture"},
         )
@@ -336,6 +356,7 @@ class McpToolTests(unittest.TestCase):
                 runtime_dispatch_gate = payload["runtime_dispatch_gate"]
                 terminal_dispatch_gate = payload["terminal_dispatch_gate"]
                 readiness = payload["low_risk_readiness"]
+                source_review = payload["terminal_source_review"]
 
                 self.assertFalse(result["isError"])
                 self.assertTrue(readiness["checked"])
@@ -400,6 +421,14 @@ class McpToolTests(unittest.TestCase):
                     self.assertEqual(readiness["blockers"], [])
                     self.assertEqual(readiness["next_fixture_requirements"], [])
                     self.assertEqual(readiness["observed"]["target_key"], dispatch_expected["target_key"])
+                    self.assertTrue(source_review["terminal_dispatch_ready"])
+                    self.assertEqual(source_review["source_kind"], "runtime_state_fixture")
+                    self.assertFalse(source_review["accepted_for_closure"])
+                    self.assertEqual(len(source_review["next_source_requirements"]), 1)
+                    self.assertEqual(
+                        source_review["next_source_requirements"][0]["required_runtime_dispatch"]["target_key"],
+                        dispatch_expected["target_key"],
+                    )
                 else:
                     self.assertFalse(readiness["ready_for_post_action_verifier"])
                     self.assertEqual(len(readiness["next_fixture_requirements"]), 1)

@@ -177,6 +177,7 @@ class AdvisorReplayTools:
             "runtime_dispatch": replay_result.get("runtime_dispatch"),
             "verifier_gate": replay_result.get("verifier_gate"),
             "verifier_spec": replay_result.get("verifier_spec"),
+            "terminal_source_review": self._fixture_terminal_source_review(comparison),
             "selected_action": replay_result.get("selected_action"),
             "selection_reason": replay_result.get("selection_reason"),
             "derived_state": replay_result.get("derived_state"),
@@ -464,6 +465,7 @@ class AdvisorReplayTools:
             "required_actions": PR6_LOW_RISK_ACTIONS,
             "accepted_actions": sorted(accepted_actions),
             "missing_real_terminal_sources": missing,
+            "next_source_requirements": _terminal_source_requirements(missing),
             "observed": observed,
         }
 
@@ -777,6 +779,28 @@ class AdvisorReplayTools:
             },
         }
 
+    @staticmethod
+    def _fixture_terminal_source_review(comparison: dict[str, Any]) -> dict[str, Any]:
+        action_type = comparison.get("actual_action_type")
+        source_kind = _terminal_fixture_source_kind(comparison.get("fixture"))
+        runtime_dispatch = comparison.get("runtime_dispatch") or {}
+        summary = runtime_dispatch.get("summary") or {}
+        terminal_ready = (
+            action_type in PR6_LOW_RISK_ACTIONS
+            and runtime_dispatch.get("status") == "ok"
+            and summary.get("terminal_for_verifier") is True
+        )
+        accepted = terminal_ready and source_kind in {"pr5_real_screenshot_fixture", "live_trace_fixture"}
+        requirements = _terminal_source_requirements([str(action_type)]) if terminal_ready and not accepted else []
+        return {
+            "checked": action_type in PR6_LOW_RISK_ACTIONS,
+            "action_type": action_type,
+            "terminal_dispatch_ready": terminal_ready,
+            "source_kind": source_kind,
+            "accepted_for_closure": accepted,
+            "next_source_requirements": requirements,
+        }
+
 
 def _next_fixture_requirements(blocking_actions: dict[str, list[str]]) -> list[dict[str, Any]]:
     requirements: list[dict[str, Any]] = []
@@ -787,6 +811,18 @@ def _next_fixture_requirements(blocking_actions: dict[str, list[str]]) -> list[d
         requirement = dict(template)
         requirement["action_type"] = action_type
         requirement["blockers"] = list(blocking_actions[action_type])
+        requirements.append(requirement)
+    return requirements
+
+
+def _terminal_source_requirements(action_types: list[str]) -> list[dict[str, Any]]:
+    requirements: list[dict[str, Any]] = []
+    for action_type in sorted(set(action_types)):
+        template = LOW_RISK_TERMINAL_SOURCE_REQUIREMENTS.get(action_type)
+        if template is None:
+            continue
+        requirement = dict(template)
+        requirement["action_type"] = action_type
         requirements.append(requirement)
     return requirements
 
@@ -998,5 +1034,63 @@ LOW_RISK_NEXT_FIXTURE_REQUIREMENTS: dict[str, dict[str, Any]] = {
             "target_key": "upgrade_confirm_button",
             "terminal_for_verifier": True,
         },
+    },
+}
+
+LOW_RISK_TERMINAL_SOURCE_REQUIREMENTS: dict[str, dict[str, Any]] = {
+    "claim_chapter_reward": {
+        "code": "chapter_claim_terminal_real_source",
+        "accepted_source_kinds": ["pr5_real_screenshot_fixture", "live_trace_fixture"],
+        "required_page": "chapter",
+        "required_semantic_target": "progress.chapter_claim_button",
+        "required_runtime_dispatch": {
+            "status": "ok",
+            "target_key": "chapter_claim_button",
+            "terminal_for_verifier": True,
+        },
+        "required_source_evidence": [
+            "real screenshot fixture with screenshot path and manifest page=chapter",
+            "or live trace with screenshot metadata, act execution summary, and verification record",
+        ],
+        "required_post_action_delta": ["progress.chapter_claimable=false"],
+    },
+    "recruit_soldiers": {
+        "code": "recruit_terminal_real_source",
+        "accepted_source_kinds": ["pr5_real_screenshot_fixture", "live_trace_fixture"],
+        "required_page": "recruit",
+        "required_semantic_target": "teams[*].recruit_button",
+        "required_runtime_dispatch": {
+            "status": "ok",
+            "target_key": "recruit_button",
+            "terminal_for_verifier": True,
+        },
+        "required_source_evidence": [
+            "real screenshot fixture with screenshot path and manifest page=recruit",
+            "or live trace with screenshot metadata, act execution summary, and verification record",
+        ],
+        "required_post_action_delta": [
+            "teams.0.soldiers increases",
+            "or teams.0.recruit_finish_time present",
+            "or economy.reserve_troops decreases",
+        ],
+    },
+    "upgrade_building": {
+        "code": "upgrade_confirm_terminal_real_source",
+        "accepted_source_kinds": ["pr5_real_screenshot_fixture", "live_trace_fixture"],
+        "required_page": "building_upgrade",
+        "required_semantic_target": "city.upgrade_dialog.confirm_button",
+        "required_runtime_dispatch": {
+            "status": "ok",
+            "target_key": "upgrade_confirm_button",
+            "terminal_for_verifier": True,
+        },
+        "required_source_evidence": [
+            "real screenshot fixture with screenshot path and manifest page=building_upgrade",
+            "or live trace with screenshot metadata, act execution summary, and verification record",
+        ],
+        "required_post_action_delta": [
+            "city.buildings.0.level increases",
+            "or economy.resources.wood decreases",
+        ],
     },
 }
