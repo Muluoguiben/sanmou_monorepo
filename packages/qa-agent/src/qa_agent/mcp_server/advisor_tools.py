@@ -1063,6 +1063,7 @@ class AdvisorReplayTools:
                     str(trace_path),
                     action_type=action_key,
                     required_runtime_dispatch=required_runtime_dispatch,
+                    required_post_action_delta=requirement.get("required_post_action_delta") or [],
                 )
                 if not trace_validation["matched"]:
                     missing.append("trace_semantics")
@@ -1128,6 +1129,7 @@ class AdvisorReplayTools:
         *,
         action_type: str | None,
         required_runtime_dispatch: dict[str, Any],
+        required_post_action_delta: list[str],
     ) -> dict[str, Any]:
         records, load_error = self._load_trace_records(trace_path)
         matching_records: list[dict[str, Any]] = []
@@ -1137,15 +1139,20 @@ class AdvisorReplayTools:
             verifier = _trace_post_action_verifier(record)
             action_matches = selected_action.get("action_type") == action_type
             dispatch_matches = _runtime_dispatch_matches(execution, required_runtime_dispatch)
-            verifier_verified = verifier.get("status") == "verified"
-            if action_matches and dispatch_matches and verifier_verified:
+            verifier_validation = _verification_record_validation(
+                verifier,
+                action_type=action_type,
+                required_post_action_delta=required_post_action_delta,
+            )
+            if action_matches and dispatch_matches and verifier_validation["valid"]:
                 matching_records.append(
                     {
                         "index": index,
                         "action_type": selected_action.get("action_type"),
                         "target_key": (execution.get("summary") or {}).get("target_key"),
                         "terminal_for_verifier": (execution.get("summary") or {}).get("terminal_for_verifier"),
-                        "verifier_status": verifier.get("status"),
+                        "verifier_status": verifier_validation["status"],
+                        "verifier_checked_paths": verifier_validation["checked_paths"],
                     }
                 )
         return {
@@ -1157,6 +1164,7 @@ class AdvisorReplayTools:
             "load_error": load_error,
             "required_action_type": action_type,
             "required_runtime_dispatch": required_runtime_dispatch,
+            "required_post_action_delta": required_post_action_delta,
             "required_verifier_status": "verified",
         }
 
@@ -1274,6 +1282,7 @@ def _terminal_source_capture_plan(
                     "execution.summary.target_key matches required_runtime_dispatch.target_key",
                     "execution.summary.terminal_for_verifier=true",
                     "verification.post_action_verifier.status=verified",
+                    "verification.post_action_verifier action/delta matches required_post_action_delta",
                     "operator_confirmation.confirmed=true",
                 ],
                 "advisor_fixture_expectation_patch_template": (

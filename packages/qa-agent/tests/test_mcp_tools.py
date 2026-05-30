@@ -330,6 +330,10 @@ class McpToolTests(unittest.TestCase):
             capture_plan["actions"][0]["live_trace_semantic_checks"],
         )
         self.assertIn(
+            "verification.post_action_verifier action/delta matches required_post_action_delta",
+            capture_plan["actions"][0]["live_trace_semantic_checks"],
+        )
+        self.assertIn(
             "operator_confirmation.confirmed=true",
             capture_plan["actions"][0]["live_trace_semantic_checks"],
         )
@@ -736,8 +740,54 @@ class McpToolTests(unittest.TestCase):
             self.assertTrue(live_review["source_evidence_valid"])
             self.assertEqual(live_review["missing_evidence"], [])
             self.assertTrue(live_review["trace_validation"]["matched"])
+            self.assertEqual(
+                live_review["trace_validation"]["required_post_action_delta"],
+                ["progress.chapter_claimable=false"],
+            )
+            self.assertEqual(
+                live_review["trace_validation"]["matching_records"][0]["verifier_checked_paths"],
+                ["progress.chapter_claimable"],
+            )
             self.assertTrue(live_review["verification_record_validation"]["valid"])
             self.assertTrue(live_review["operator_confirmation_validation"]["valid"])
+
+            bad_verifier_trace_path = temp_root / "claim-live-trace-wrong-verifier.jsonl"
+            bad_verifier_trace_record = {
+                **trace_record,
+                "verification": {
+                    "post_action_verifier": {
+                        "action_type": "recruit_soldiers",
+                        "status": "verified",
+                        "checked": ["teams.0.soldiers"],
+                    },
+                },
+            }
+            bad_verifier_trace_path.write_text(
+                json.dumps(bad_verifier_trace_record, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            invalid_verifier_trace_expectation = {
+                "page": "chapter",
+                "terminal_source_evidence": {
+                    **live_expectation["terminal_source_evidence"],
+                    "trace": str(bad_verifier_trace_path),
+                },
+            }
+            invalid_verifier_trace_review = tools._terminal_source_evidence_review(
+                action_type="claim_chapter_reward",
+                fixture="live_chapter_claim_terminal_trace.json",
+                expectation=invalid_verifier_trace_expectation,
+            )
+
+            self.assertFalse(invalid_verifier_trace_review["source_evidence_valid"])
+            self.assertIn(
+                "trace_semantics",
+                invalid_verifier_trace_review["missing_evidence"],
+            )
+            self.assertTrue(
+                invalid_verifier_trace_review["verification_record_validation"]["valid"]
+            )
+            self.assertFalse(invalid_verifier_trace_review["trace_validation"]["matched"])
 
             bad_trace_path = temp_root / "claim-live-trace-wrong-target.jsonl"
             bad_trace_record = {
