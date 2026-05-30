@@ -208,4 +208,5 @@ precheck -> click/action -> observe -> verifier -> trace -> recovery/block
 35. [x] MCP terminal source evidence preflight tool：新增 `advisor_terminal_source_evidence_eval`，可在写入 golden manifest 前校验单个 `terminal_source_evidence` 的 page、semantic target、runtime dispatch、post-action delta、live trace 和 verification record；合法证据返回 `ready=true`，错误证据返回缺失字段、source requirements 与 capture plan。
 36. [x] MCP live trace operator confirmation gate：`live_trace_fixture` 证据现在必须带 `operator_confirmation`，且确认必须声明 `confirmed=true`、`requires_operator_confirmation=true`、`scope=final_mutating_click`、匹配 action type 与 terminal runtime dispatch；未确认的最终变更点击不能解除 `low_risk_terminal_source_review` blocker。
 37. [x] MCP live trace verifier delta validation：`live_trace_fixture` 的 trace 内容不再只看 `post_action_verifier.status=verified`；MCP 会要求 trace 内 verifier 的 action type 与 required post-action delta 同时匹配，避免用错 action 或错 delta 的 verified trace 解除低风险 source blocker。
-38. [ ] 三个低风险动作的完整 UI flow，继续补 claim/recruit 面板打开、数量/确认序列；三类动作仍需真实截图终态样本和 post-action delta 样本补强。
+38. [x] MCP live trace record evaluation diagnostics：`trace_validation.record_evaluations` 逐条暴露 action/dispatch/verifier 是否匹配、verifier issues 和 checked paths；preflight 失败时可直接定位是错动作、错按钮、错终态还是错 delta。
+39. [ ] 三个低风险动作的完整 UI flow，继续补 claim/recruit 面板打开、数量/确认序列；三类动作仍需真实截图终态样本和 post-action delta 样本补强。

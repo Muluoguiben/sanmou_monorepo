@@ -788,6 +788,13 @@ class McpToolTests(unittest.TestCase):
                 invalid_verifier_trace_review["verification_record_validation"]["valid"]
             )
             self.assertFalse(invalid_verifier_trace_review["trace_validation"]["matched"])
+            trace_evaluation = invalid_verifier_trace_review["trace_validation"][
+                "record_evaluations"
+            ][0]
+            self.assertEqual(trace_evaluation["verifier_issues"], ["action_type", "checked_delta"])
+            self.assertTrue(trace_evaluation["action_matches"])
+            self.assertTrue(trace_evaluation["dispatch_matches"])
+            self.assertFalse(trace_evaluation["verifier_valid"])
 
             bad_trace_path = temp_root / "claim-live-trace-wrong-target.jsonl"
             bad_trace_record = {

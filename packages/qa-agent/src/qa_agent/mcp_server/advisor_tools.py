@@ -1133,6 +1133,7 @@ class AdvisorReplayTools:
     ) -> dict[str, Any]:
         records, load_error = self._load_trace_records(trace_path)
         matching_records: list[dict[str, Any]] = []
+        record_evaluations: list[dict[str, Any]] = []
         for index, record in enumerate(records):
             selected_action = _trace_selected_action(record)
             execution = _trace_execution(record)
@@ -1144,13 +1145,36 @@ class AdvisorReplayTools:
                 action_type=action_type,
                 required_post_action_delta=required_post_action_delta,
             )
+            summary = execution.get("summary") if isinstance(execution.get("summary"), dict) else {}
+            record_evaluations.append(
+                {
+                    "index": index,
+                    "action_type": selected_action.get("action_type"),
+                    "action_matches": action_matches,
+                    "dispatch_matches": dispatch_matches,
+                    "target_key": execution.get("target_key") or summary.get("target_key"),
+                    "terminal_for_verifier": (
+                        execution.get("terminal_for_verifier")
+                        if "terminal_for_verifier" in execution
+                        else summary.get("terminal_for_verifier")
+                    ),
+                    "verifier_valid": verifier_validation["valid"],
+                    "verifier_issues": verifier_validation["issues"],
+                    "verifier_status": verifier_validation["status"],
+                    "verifier_checked_paths": verifier_validation["checked_paths"],
+                }
+            )
             if action_matches and dispatch_matches and verifier_validation["valid"]:
                 matching_records.append(
                     {
                         "index": index,
                         "action_type": selected_action.get("action_type"),
-                        "target_key": (execution.get("summary") or {}).get("target_key"),
-                        "terminal_for_verifier": (execution.get("summary") or {}).get("terminal_for_verifier"),
+                        "target_key": execution.get("target_key") or summary.get("target_key"),
+                        "terminal_for_verifier": (
+                            execution.get("terminal_for_verifier")
+                            if "terminal_for_verifier" in execution
+                            else summary.get("terminal_for_verifier")
+                        ),
                         "verifier_status": verifier_validation["status"],
                         "verifier_checked_paths": verifier_validation["checked_paths"],
                     }
@@ -1161,6 +1185,7 @@ class AdvisorReplayTools:
             "record_count": len(records),
             "matched": bool(matching_records),
             "matching_records": matching_records,
+            "record_evaluations": record_evaluations,
             "load_error": load_error,
             "required_action_type": action_type,
             "required_runtime_dispatch": required_runtime_dispatch,
