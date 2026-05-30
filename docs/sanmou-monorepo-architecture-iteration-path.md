@@ -211,4 +211,5 @@ precheck -> click/action -> observe -> verifier -> trace -> recovery/block
 38. [x] MCP live trace record evaluation diagnostics：`trace_validation.record_evaluations` 逐条暴露 action/dispatch/verifier 是否匹配、verifier issues 和 checked paths；preflight 失败时可直接定位是错动作、错按钮、错终态还是错 delta。
 39. [x] MCP live trace screenshot binding：`live_trace_fixture` matching record 必须带 `screenshot.path`，且路径要与 `terminal_source_evidence.screenshot` 绑定；trace 与截图各自合法但不是同一次终态采样时不能解除 source blocker。
 40. [x] MCP live trace operator binding：`operator_confirmation` 现在必须带 `trace_id` 与 `trace_record_index`，并指向通过 action/dispatch/screenshot/verifier 校验的 matching record；人工确认字段不能脱离实际 trace record 单独解除 source blocker。
-41. [ ] 三个低风险动作的完整 UI flow，继续补 claim/recruit 面板打开、数量/确认序列；三类动作仍需真实截图终态样本和 post-action delta 样本补强。
+41. [x] MCP terminal source review metadata：`terminal_source_evidence` 不再只接受 `review_status=reviewed` 字符串；还必须有可用的 `reviewed_by` 与可解析 ISO `reviewed_at`，否则 source review 继续不通过。
+42. [ ] 三个低风险动作的完整 UI flow，继续补 claim/recruit 面板打开、数量/确认序列；三类动作仍需真实截图终态样本和 post-action delta 样本补强。

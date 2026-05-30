@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+from datetime import datetime
 from pathlib import Path
 import subprocess
 import sys
@@ -1019,6 +1020,9 @@ class AdvisorReplayTools:
 
         if evidence.get("review_status") != "reviewed":
             missing.append("review_status")
+        review_metadata_validation = _review_metadata_validation(evidence)
+        if not review_metadata_validation["valid"]:
+            missing.append("review_metadata")
 
         evidence_page = evidence.get("page") or expectation.get("page")
         required_page = requirement.get("required_page")
@@ -1103,6 +1107,7 @@ class AdvisorReplayTools:
             "required_runtime_dispatch": required_runtime_dispatch,
             "post_action_delta": post_action_delta if isinstance(post_action_delta, list) else [],
             "required_post_action_delta": requirement.get("required_post_action_delta") or [],
+            "review_metadata_validation": review_metadata_validation,
             "trace_validation": trace_validation,
             "verification_record_validation": verification_record_validation,
             "operator_confirmation_validation": operator_confirmation_validation,
@@ -1316,6 +1321,8 @@ def _terminal_source_capture_plan(
                 "terminal_source_evidence_fields": [
                     "source_kind",
                     "review_status=reviewed",
+                    "reviewed_by",
+                    "reviewed_at",
                     "screenshot",
                     "page",
                     "semantic_target",
@@ -1377,6 +1384,8 @@ def _terminal_source_evidence_template(
     evidence: dict[str, Any] = {
         "source_kind": source_kind,
         "review_status": "reviewed",
+        "reviewed_by": "<reviewer-id>",
+        "reviewed_at": "<reviewed-iso8601>",
         "screenshot": f"tests/fixtures/screenshots/pc_client/<capture-date>/{action_type}_terminal.jpg",
         "page": requirement["required_page"],
         "semantic_target": requirement["required_semantic_target"],
@@ -1516,6 +1525,41 @@ def _verification_record_validation(
         "status": status,
         "checked_paths": checked_paths if isinstance(checked_paths, list) else [],
     }
+
+
+def _review_metadata_validation(value: Any) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        return {
+            "valid": False,
+            "issues": ["terminal_source_evidence_not_object"],
+        }
+    issues: list[str] = []
+    reviewed_by = value.get("reviewed_by")
+    reviewed_at = value.get("reviewed_at")
+    if not _usable_review_string(reviewed_by):
+        issues.append("reviewed_by")
+    if not _valid_iso_datetime(reviewed_at):
+        issues.append("reviewed_at")
+    return {
+        "valid": not issues,
+        "issues": sorted(set(issues)),
+        "reviewed_by": reviewed_by if isinstance(reviewed_by, str) else None,
+        "reviewed_at": reviewed_at if isinstance(reviewed_at, str) else None,
+    }
+
+
+def _usable_review_string(value: Any) -> bool:
+    return isinstance(value, str) and bool(value.strip()) and "<" not in value
+
+
+def _valid_iso_datetime(value: Any) -> bool:
+    if not isinstance(value, str) or not value.strip() or "<" in value:
+        return False
+    try:
+        datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return False
+    return True
 
 
 def _operator_confirmation_validation(
