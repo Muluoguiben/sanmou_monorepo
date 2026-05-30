@@ -163,6 +163,66 @@ def validate_explainer_boundary(
     )
 
 
+def validate_low_risk_semantic_target(action: CandidateAction) -> ArchitectureGateVerdict:
+    """Require a calibrated semantic bbox before low-risk UI automation dispatch."""
+
+    if action.action_type not in LOW_RISK_AUTOMATION_ACTIONS:
+        return ArchitectureGateVerdict(
+            ArchitectureGateDecision.SKIP,
+            "action is outside low-risk semantic target gate",
+            {"action_type": action.action_type.value},
+        )
+
+    targets = _low_risk_semantic_targets(action)
+    for target_name, target in targets:
+        if _has_visible_enabled_bbox(target):
+            return ArchitectureGateVerdict(
+                ArchitectureGateDecision.ALLOW,
+                "low-risk action has a visible enabled semantic bbox target",
+                {"action_type": action.action_type.value, "target": target_name},
+            )
+
+    return ArchitectureGateVerdict(
+        ArchitectureGateDecision.BLOCK,
+        "low-risk UI action requires a visible enabled semantic bbox target before dispatch",
+        {
+            "action_type": action.action_type.value,
+            "checked_targets": [name for name, _target in targets],
+        },
+    )
+
+
+def _low_risk_semantic_targets(action: CandidateAction) -> list[tuple[str, Any]]:
+    params = action.params
+    if action.action_type == ActionType.CLAIM_CHAPTER_REWARD:
+        return [("claim_button", params.get("claim_button"))]
+    if action.action_type == ActionType.RECRUIT_SOLDIERS:
+        return [("recruit_button", params.get("recruit_button"))]
+    if action.action_type == ActionType.UPGRADE_BUILDING:
+        dialog = params.get("upgrade_dialog")
+        confirm_button = dialog.get("confirm_button") if isinstance(dialog, Mapping) else None
+        return [
+            ("upgrade_button", params.get("upgrade_button")),
+            ("upgrade_dialog.confirm_button", confirm_button),
+        ]
+    return []
+
+
+def _has_visible_enabled_bbox(value: Any) -> bool:
+    if not isinstance(value, Mapping):
+        return False
+    if value.get("visible") is not True or value.get("enabled") is not True:
+        return False
+    bbox = value.get("bbox")
+    if not isinstance(bbox, Mapping):
+        return False
+    required = ("x_min", "y_min", "x_max", "y_max")
+    if not all(isinstance(bbox.get(key), (int, float)) for key in required):
+        return False
+    x_min, y_min, x_max, y_max = (bbox[key] for key in required)
+    return 0 <= x_min < x_max <= 1000 and 0 <= y_min < y_max <= 1000
+
+
 @dataclass(frozen=True)
 class AutomationReadiness:
     golden_replay_baseline_ready: bool = True

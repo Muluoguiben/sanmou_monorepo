@@ -232,14 +232,15 @@ class UIActionRunnerTests(unittest.TestCase):
         self.assertEqual(res.summary["blocked_by"], "safety_guard")
         self.assertEqual(res.summary["guard_decision"], "require_confirmation")
 
-    def test_runner_reaches_pending_low_risk_action_with_default_verifier_spec(self) -> None:
+    def test_runner_blocks_low_risk_action_without_semantic_bbox(self) -> None:
         runner = UIActionRunner(
             _NullUI(),  # type: ignore[arg-type]
             capabilities=CapabilityFlags(input_control=True),
         )
         res = runner.run(_mk_action(ActionType.CLAIM_CHAPTER_REWARD))
-        self.assertEqual(res.status, "pending")
-        self.assertIn("bbox not observed", res.failure_reason or "")
+        self.assertEqual(res.status, "blocked")
+        self.assertEqual(res.summary["blocked_by"], "semantic_target_gate")
+        self.assertIn("semantic bbox target", res.failure_reason or "")
 
     def test_runner_dispatches_low_risk_action_when_semantic_bbox_is_present(self) -> None:
         runner = UIActionRunner(
@@ -258,6 +259,48 @@ class UIActionRunnerTests(unittest.TestCase):
         )
         self.assertEqual(res.status, "ok")
         self.assertEqual(res.summary["target_key"], "chapter_claim_button")
+
+    def test_runner_blocks_low_risk_action_with_disabled_semantic_bbox(self) -> None:
+        runner = UIActionRunner(
+            _SemanticUI(),  # type: ignore[arg-type]
+            capabilities=CapabilityFlags(input_control=True),
+        )
+        res = runner.run(
+            _mk_action(
+                ActionType.RECRUIT_SOLDIERS,
+                recruit_button={
+                    "visible": True,
+                    "enabled": False,
+                    "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+                },
+            )
+        )
+        self.assertEqual(res.status, "blocked")
+        self.assertEqual(res.summary["blocked_by"], "semantic_target_gate")
+
+    def test_runner_dispatches_upgrade_confirm_when_semantic_bbox_is_present(self) -> None:
+        runner = UIActionRunner(
+            _SemanticUI(),  # type: ignore[arg-type]
+            capabilities=CapabilityFlags(input_control=True),
+        )
+        res = runner.run(
+            _mk_action(
+                ActionType.UPGRADE_BUILDING,
+                building_name="君王殿",
+                upgrade_dialog={
+                    "visible": True,
+                    "building_name": "君王殿",
+                    "can_upgrade": True,
+                    "confirm_button": {
+                        "visible": True,
+                        "enabled": True,
+                        "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+                    },
+                },
+            )
+        )
+        self.assertEqual(res.status, "ok")
+        self.assertEqual(res.summary["target_key"], "upgrade_confirm_button")
 
     def test_runner_blocks_low_risk_action_when_architecture_gate_is_not_ready(self) -> None:
         runner = UIActionRunner(

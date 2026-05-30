@@ -14,6 +14,7 @@ from pioneer_agent.runtime.architecture_gates import (
     ArchitectureGateDecision,
     AutomationMode,
     AutomationReadinessGate,
+    validate_low_risk_semantic_target,
 )
 from pioneer_agent.safety.guard import GuardDecision, SafetyGuard, SessionMode
 from pioneer_agent.verifier.registry import VerifierGateDecision, VerifierRegistry
@@ -93,6 +94,20 @@ class UIActionRunner:
                     "action_type": action.action_type.value,
                     "blocked_by": "architecture_gate",
                     "architecture_gate": automation_verdict.to_dict(),
+                },
+            )
+        semantic_target_verdict = validate_low_risk_semantic_target(action)
+        if semantic_target_verdict.decision == ArchitectureGateDecision.BLOCK:
+            return ExecutionResult(
+                action_id=action.action_id,
+                status="blocked",
+                verification_status="not_applicable",
+                failure_reason=semantic_target_verdict.reason,
+                recovery_required=False,
+                summary={
+                    "action_type": action.action_type.value,
+                    "blocked_by": "semantic_target_gate",
+                    "semantic_target_gate": semantic_target_verdict.to_dict(),
                 },
             )
         return dispatch(action, self.ui)
