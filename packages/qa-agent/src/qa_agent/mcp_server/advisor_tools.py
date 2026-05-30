@@ -165,6 +165,7 @@ class AdvisorReplayTools:
             "dispatch_gate": comparison["dispatch_gate"],
             "runtime_dispatch_gate": comparison["runtime_dispatch_gate"],
             "terminal_dispatch_gate": comparison["terminal_dispatch_gate"],
+            "low_risk_readiness": self._fixture_low_risk_readiness(comparison),
             "semantic_target_gate": replay_result.get("semantic_target_gate"),
             "runtime_dispatch": replay_result.get("runtime_dispatch"),
             "verifier_gate": replay_result.get("verifier_gate"),
@@ -556,6 +557,66 @@ class AdvisorReplayTools:
                 }
             )
         return reasons
+
+    @staticmethod
+    def _fixture_low_risk_readiness(comparison: dict[str, Any]) -> dict[str, Any]:
+        action_type = comparison.get("actual_action_type")
+        low_risk = action_type in PR6_LOW_RISK_ACTIONS
+        if not low_risk:
+            return {
+                "checked": False,
+                "action_type": action_type,
+                "low_risk": False,
+                "ready_for_post_action_verifier": False,
+                "blockers": [],
+            }
+
+        verifier_gate = comparison.get("verifier_gate") or {}
+        verifier_spec = comparison.get("verifier_spec") or {}
+        expected_deltas = verifier_spec.get("expected_deltas") or []
+        verifier_spec_ready = (
+            verifier_gate.get("decision") == "allow"
+            and bool(expected_deltas)
+            and verifier_spec.get("timeout_seconds") is not None
+        )
+
+        semantic_gate = comparison.get("semantic_target_gate") or {}
+        semantic_dispatch_ready = semantic_gate.get("decision") == "allow"
+
+        runtime_dispatch = comparison.get("runtime_dispatch") or {}
+        summary = runtime_dispatch.get("summary") or {}
+        runtime_dispatch_ready = runtime_dispatch.get("status") == "ok"
+        terminal_dispatch_ready = runtime_dispatch_ready and summary.get("terminal_for_verifier") is True
+
+        blockers: list[str] = []
+        if not verifier_spec_ready:
+            blockers.append("missing_verifier_spec")
+        if semantic_gate.get("decision") == "block":
+            blockers.append("semantic_target_gate_blocked")
+        if not runtime_dispatch_ready:
+            blockers.append("dispatch_not_ok")
+        if not terminal_dispatch_ready:
+            blockers.append("missing_terminal_dispatch")
+
+        return {
+            "checked": True,
+            "action_type": action_type,
+            "low_risk": True,
+            "ready_for_post_action_verifier": not blockers,
+            "blockers": blockers,
+            "verifier_spec_ready": verifier_spec_ready,
+            "semantic_dispatch_ready": semantic_dispatch_ready,
+            "runtime_dispatch_ready": runtime_dispatch_ready,
+            "terminal_dispatch_ready": terminal_dispatch_ready,
+            "observed": {
+                "semantic_gate_decision": semantic_gate.get("decision"),
+                "status": runtime_dispatch.get("status"),
+                "blocked_by": summary.get("blocked_by"),
+                "target_key": summary.get("target_key"),
+                "flow_step": summary.get("flow_step"),
+                "terminal_for_verifier": summary.get("terminal_for_verifier") is True,
+            },
+        }
 
 
 def _dispatch_gate_result(result: dict[str, Any], expectation: dict[str, Any]) -> dict[str, Any]:

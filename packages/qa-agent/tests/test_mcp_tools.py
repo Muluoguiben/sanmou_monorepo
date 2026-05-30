@@ -156,6 +156,8 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(payload["expected_action_confidence"], 0.79)
         self.assertIn("team_panel_20260529.jpg", payload["screenshot"])
         self.assertIn("main_lineup.team_readiness", payload["required_action_evidence"])
+        self.assertFalse(payload["low_risk_readiness"]["checked"])
+        self.assertFalse(payload["low_risk_readiness"]["low_risk"])
 
     def test_advisor_fixture_eval_includes_pr6_verifier_spec(self) -> None:
         expected = {
@@ -222,8 +224,13 @@ class McpToolTests(unittest.TestCase):
                 dispatch_gate = payload["dispatch_gate"]
                 runtime_dispatch_gate = payload["runtime_dispatch_gate"]
                 terminal_dispatch_gate = payload["terminal_dispatch_gate"]
+                readiness = payload["low_risk_readiness"]
 
                 self.assertFalse(result["isError"])
+                self.assertTrue(readiness["checked"])
+                self.assertTrue(readiness["low_risk"])
+                self.assertFalse(readiness["ready_for_post_action_verifier"])
+                self.assertTrue(readiness["verifier_spec_ready"])
                 self.assertTrue(dispatch_gate["checked"])
                 self.assertTrue(dispatch_gate["matched"])
                 self.assertEqual(dispatch_gate["expected"], dispatch_expected)
@@ -247,6 +254,25 @@ class McpToolTests(unittest.TestCase):
                     {"terminal_for_verifier": False},
                 )
                 self.assertFalse(terminal_dispatch_gate["actual"]["terminal_for_verifier"])
+                self.assertFalse(readiness["terminal_dispatch_ready"])
+
+                if fixture == "pr5_building_upgrade_state.json":
+                    self.assertTrue(readiness["semantic_dispatch_ready"])
+                    self.assertTrue(readiness["runtime_dispatch_ready"])
+                    self.assertEqual(readiness["blockers"], ["missing_terminal_dispatch"])
+                    self.assertEqual(readiness["observed"]["flow_step"], "open_upgrade_dialog")
+                else:
+                    self.assertFalse(readiness["semantic_dispatch_ready"])
+                    self.assertFalse(readiness["runtime_dispatch_ready"])
+                    self.assertEqual(
+                        readiness["blockers"],
+                        [
+                            "semantic_target_gate_blocked",
+                            "dispatch_not_ok",
+                            "missing_terminal_dispatch",
+                        ],
+                    )
+                    self.assertEqual(readiness["observed"]["blocked_by"], "semantic_target_gate")
 
     def test_pr5_locked_field_coverage_reports_missing_fields(self) -> None:
         coverage = AdvisorReplayTools._pr5_locked_field_coverage(
