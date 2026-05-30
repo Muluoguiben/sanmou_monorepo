@@ -200,5 +200,6 @@ precheck -> click/action -> observe -> verifier -> trace -> recovery/block
 27. [x] MCP terminal source evidence contract：closure 不再接受单纯文件名前缀；`terminal_source_evidence` 必须声明 `source_kind`、`review_status=reviewed`、真实 screenshot/trace 引用和 post-action delta，且引用文件必须存在，才能通过 `low_risk_terminal_source_review`。
 28. [x] MCP terminal source semantic evidence validation：`terminal_source_evidence` 必须逐项匹配每个低风险动作要求的 page、semantic target、runtime dispatch 与 post-action delta；合法真实证据才能解除 source review blocker，错页、错按钮、错 dispatch 或错 delta 会继续保持 Architecture closure `attention`。
 29. [x] MCP real terminal source candidate inventory：`low_risk_terminal_source_review.real_source_candidates` 枚举当前 PR5 真实截图中涉及低风险动作的候选样本，并字段化说明 screenshot 是否存在、runtime dispatch 是否终态、source evidence 是否有效以及为什么不能解除 closure blocker；后续真实采样可以直接对照缺口补样本。
-30. [ ] 三个低风险动作的完整 UI flow，继续补 claim/recruit 面板打开、数量/确认序列；三类动作仍需真实截图终态样本和 post-action delta 样本补强。
-31. [ ] Desktop evidence/degraded 展示，确保无证据推荐不会被 UI 展示成确定结论。
+30. [x] MCP terminal source capture plan：`low_risk_terminal_source_review.capture_plan` 将每个缺失真实 source 的采样页、semantic target、terminal runtime dispatch、post-action delta、证据字段和最终动作确认策略结构化；最终领取/补兵/确认升级会改变账号状态，因此 live trace 必须在 operator confirmation 后采集，不能由 pre-final 截图冒充 closure 证据。
+31. [ ] 三个低风险动作的完整 UI flow，继续补 claim/recruit 面板打开、数量/确认序列；三类动作仍需真实截图终态样本和 post-action delta 样本补强。
+32. [ ] Desktop evidence/degraded 展示，确保无证据推荐不会被 UI 展示成确定结论。

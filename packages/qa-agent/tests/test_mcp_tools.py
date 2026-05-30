@@ -254,6 +254,45 @@ class McpToolTests(unittest.TestCase):
             candidate_by_fixture["pr5_recruit_guard_camp_state.json"]["runtime_dispatch"]["status"],
             "blocked",
         )
+        capture_plan = source_review["capture_plan"]
+        self.assertTrue(capture_plan["checked"])
+        self.assertFalse(capture_plan["ready"])
+        self.assertTrue(capture_plan["requires_operator_confirmation_for_final_action"])
+        self.assertEqual(capture_plan["blocked_until"], "terminal_source_evidence_valid")
+        self.assertEqual(
+            [item["action_type"] for item in capture_plan["actions"]],
+            ["claim_chapter_reward", "recruit_soldiers", "upgrade_building"],
+        )
+        self.assertEqual(
+            capture_plan["actions"][0]["code"],
+            "chapter_claim_terminal_real_source_capture_plan",
+        )
+        self.assertEqual(
+            capture_plan["actions"][0]["required_runtime_dispatch"],
+            {
+                "status": "ok",
+                "target_key": "chapter_claim_button",
+                "terminal_for_verifier": True,
+            },
+        )
+        self.assertEqual(
+            capture_plan["actions"][0]["required_post_action_delta"],
+            ["progress.chapter_claimable=false"],
+        )
+        self.assertIn(
+            "runtime_dispatch_not_terminal",
+            capture_plan["actions"][0]["current_candidate_disqualifiers"],
+        )
+        self.assertTrue(capture_plan["actions"][0]["pre_final_capture"]["required"])
+        self.assertFalse(
+            capture_plan["actions"][0]["pre_final_capture"]["closure_eligible_without_post_action_delta"]
+        )
+        self.assertTrue(capture_plan["actions"][0]["final_action_policy"]["mutates_game_state"])
+        self.assertTrue(
+            capture_plan["actions"][0]["final_action_policy"]["requires_operator_confirmation"]
+        )
+        self.assertIn("post_action_delta", capture_plan["actions"][0]["terminal_source_evidence_fields"])
+        self.assertIn("verification_record", capture_plan["actions"][0]["live_trace_extra_fields"])
         self.assertEqual(payload["failures"], [])
 
     def test_advisor_golden_replay_status_without_fixture_results_is_attention(self) -> None:
@@ -285,6 +324,16 @@ class McpToolTests(unittest.TestCase):
         self.assertFalse(payload["pr15_terminal_dispatch_gate_coverage"]["checked"])
         self.assertFalse(payload["pr5_low_risk_terminal_dispatch_coverage"]["checked"])
         self.assertEqual(payload["low_risk_terminal_source_review"]["real_source_candidates"], [])
+        self.assertEqual(
+            payload["low_risk_terminal_source_review"]["capture_plan"],
+            {
+                "checked": False,
+                "ready": False,
+                "blocked_until": "golden_replay_checked",
+                "requires_operator_confirmation_for_final_action": False,
+                "actions": [],
+            },
+        )
         readiness = payload["low_risk_verifier_readiness"]
         self.assertFalse(readiness["checked"])
         self.assertFalse(readiness["ready"])

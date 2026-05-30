@@ -462,6 +462,11 @@ class AdvisorReplayTools:
             if accepted:
                 accepted_actions.append(action_type)
         missing = sorted(set(PR6_LOW_RISK_ACTIONS) - set(accepted_actions))
+        real_source_candidates = (
+            self._terminal_real_source_candidates(comparisons, expectations)
+            if checked
+            else []
+        )
         return {
             "checked": checked,
             "ready": checked and not missing,
@@ -469,10 +474,11 @@ class AdvisorReplayTools:
             "accepted_actions": sorted(accepted_actions),
             "missing_real_terminal_sources": missing,
             "next_source_requirements": _terminal_source_requirements(missing),
-            "real_source_candidates": (
-                self._terminal_real_source_candidates(comparisons, expectations)
+            "real_source_candidates": real_source_candidates,
+            "capture_plan": (
+                _terminal_source_capture_plan(missing, real_source_candidates)
                 if checked
-                else []
+                else _unchecked_terminal_source_capture_plan()
             ),
             "observed": observed,
         }
@@ -1000,6 +1006,74 @@ def _terminal_source_requirements(action_types: list[str]) -> list[dict[str, Any
         requirement["action_type"] = action_type
         requirements.append(requirement)
     return requirements
+
+
+def _terminal_source_capture_plan(
+    action_types: list[str],
+    candidates: list[dict[str, Any]],
+) -> dict[str, Any]:
+    disqualifiers_by_action: dict[str, set[str]] = {}
+    for candidate in candidates:
+        action_type = str(candidate.get("action_type"))
+        disqualifiers_by_action.setdefault(action_type, set()).update(candidate.get("disqualifiers") or [])
+
+    actions: list[dict[str, Any]] = []
+    for requirement in _terminal_source_requirements(action_types):
+        action_type = requirement["action_type"]
+        actions.append(
+            {
+                "code": f"{requirement['code']}_capture_plan",
+                "action_type": action_type,
+                "required_page": requirement["required_page"],
+                "required_semantic_target": requirement["required_semantic_target"],
+                "required_runtime_dispatch": requirement["required_runtime_dispatch"],
+                "required_post_action_delta": requirement["required_post_action_delta"],
+                "accepted_source_kinds": requirement["accepted_source_kinds"],
+                "current_candidate_disqualifiers": sorted(
+                    disqualifiers_by_action.get(action_type) or {"missing_real_source_candidate"}
+                ),
+                "pre_final_capture": {
+                    "required": True,
+                    "purpose": "capture and review the terminal page before the final mutating click",
+                    "closure_eligible_without_post_action_delta": False,
+                },
+                "final_action_policy": {
+                    "mutates_game_state": True,
+                    "requires_operator_confirmation": True,
+                    "allowed_only_after_terminal_dispatch_ready": True,
+                },
+                "terminal_source_evidence_fields": [
+                    "source_kind",
+                    "review_status=reviewed",
+                    "screenshot",
+                    "page",
+                    "semantic_target",
+                    "runtime_dispatch",
+                    "post_action_delta",
+                ],
+                "live_trace_extra_fields": [
+                    "trace",
+                    "verification_record",
+                ],
+            }
+        )
+    return {
+        "checked": True,
+        "ready": not actions,
+        "blocked_until": "terminal_source_evidence_valid",
+        "requires_operator_confirmation_for_final_action": bool(actions),
+        "actions": actions,
+    }
+
+
+def _unchecked_terminal_source_capture_plan() -> dict[str, Any]:
+    return {
+        "checked": False,
+        "ready": False,
+        "blocked_until": "golden_replay_checked",
+        "requires_operator_confirmation_for_final_action": False,
+        "actions": [],
+    }
 
 
 def _closure_requirement(code: str, ready: bool, evidence: dict[str, Any]) -> dict[str, Any]:
