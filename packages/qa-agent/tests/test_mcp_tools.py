@@ -110,6 +110,22 @@ class McpToolTests(unittest.TestCase):
                 "upgrade_building": ["missing_terminal_dispatch"],
             },
         )
+        self.assertEqual(
+            [item["code"] for item in readiness["next_fixture_requirements"]],
+            [
+                "chapter_claim_button_terminal_fixture",
+                "recruit_button_terminal_fixture",
+                "upgrade_confirm_button_terminal_fixture",
+            ],
+        )
+        self.assertEqual(
+            readiness["next_fixture_requirements"][0]["expected_runtime_dispatch"],
+            {
+                "status": "ok",
+                "target_key": "chapter_claim_button",
+                "terminal_for_verifier": True,
+            },
+        )
         terminal = payload["pr5_low_risk_terminal_dispatch_coverage"]
         self.assertTrue(terminal["checked"])
         self.assertEqual(terminal["covered"], [])
@@ -231,6 +247,7 @@ class McpToolTests(unittest.TestCase):
                 self.assertTrue(readiness["low_risk"])
                 self.assertFalse(readiness["ready_for_post_action_verifier"])
                 self.assertTrue(readiness["verifier_spec_ready"])
+                self.assertEqual(len(readiness["next_fixture_requirements"]), 1)
                 self.assertTrue(dispatch_gate["checked"])
                 self.assertTrue(dispatch_gate["matched"])
                 self.assertEqual(dispatch_gate["expected"], dispatch_expected)
@@ -261,6 +278,14 @@ class McpToolTests(unittest.TestCase):
                     self.assertTrue(readiness["runtime_dispatch_ready"])
                     self.assertEqual(readiness["blockers"], ["missing_terminal_dispatch"])
                     self.assertEqual(readiness["observed"]["flow_step"], "open_upgrade_dialog")
+                    self.assertEqual(
+                        readiness["next_fixture_requirements"][0]["code"],
+                        "upgrade_confirm_button_terminal_fixture",
+                    )
+                    self.assertEqual(
+                        readiness["next_fixture_requirements"][0]["expected_runtime_dispatch"]["target_key"],
+                        "upgrade_confirm_button",
+                    )
                 else:
                     self.assertFalse(readiness["semantic_dispatch_ready"])
                     self.assertFalse(readiness["runtime_dispatch_ready"])
@@ -273,6 +298,13 @@ class McpToolTests(unittest.TestCase):
                         ],
                     )
                     self.assertEqual(readiness["observed"]["blocked_by"], "semantic_target_gate")
+                    self.assertIn(
+                        readiness["next_fixture_requirements"][0]["code"],
+                        {
+                            "chapter_claim_button_terminal_fixture",
+                            "recruit_button_terminal_fixture",
+                        },
+                    )
 
     def test_pr5_locked_field_coverage_reports_missing_fields(self) -> None:
         coverage = AdvisorReplayTools._pr5_locked_field_coverage(

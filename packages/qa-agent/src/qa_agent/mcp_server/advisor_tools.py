@@ -455,6 +455,7 @@ class AdvisorReplayTools:
             "blocking_actions": blocking_actions,
             "verifier_spec_missing": verifier_missing,
             "terminal_dispatch_missing": terminal_missing,
+            "next_fixture_requirements": _next_fixture_requirements(blocking_actions),
             "observed_terminal_dispatch": terminal_dispatch_coverage.get("observed") or [],
         }
 
@@ -604,6 +605,9 @@ class AdvisorReplayTools:
             "low_risk": True,
             "ready_for_post_action_verifier": not blockers,
             "blockers": blockers,
+            "next_fixture_requirements": _next_fixture_requirements(
+                {str(action_type): blockers} if blockers else {}
+            ),
             "verifier_spec_ready": verifier_spec_ready,
             "semantic_dispatch_ready": semantic_dispatch_ready,
             "runtime_dispatch_ready": runtime_dispatch_ready,
@@ -617,6 +621,19 @@ class AdvisorReplayTools:
                 "terminal_for_verifier": summary.get("terminal_for_verifier") is True,
             },
         }
+
+
+def _next_fixture_requirements(blocking_actions: dict[str, list[str]]) -> list[dict[str, Any]]:
+    requirements: list[dict[str, Any]] = []
+    for action_type in sorted(blocking_actions):
+        template = LOW_RISK_NEXT_FIXTURE_REQUIREMENTS.get(action_type)
+        if template is None:
+            continue
+        requirement = dict(template)
+        requirement["action_type"] = action_type
+        requirement["blockers"] = list(blocking_actions[action_type])
+        requirements.append(requirement)
+    return requirements
 
 
 def _dispatch_gate_result(result: dict[str, Any], expectation: dict[str, Any]) -> dict[str, Any]:
@@ -752,3 +769,61 @@ PR6_LOW_RISK_ACTIONS = [
     "recruit_soldiers",
     "upgrade_building",
 ]
+
+LOW_RISK_NEXT_FIXTURE_REQUIREMENTS: dict[str, dict[str, Any]] = {
+    "claim_chapter_reward": {
+        "code": "chapter_claim_button_terminal_fixture",
+        "required_page": "chapter",
+        "required_semantic_target": "progress.chapter_claim_button",
+        "required_action_param_paths": [
+            "claim_button.visible",
+            "claim_button.enabled",
+            "claim_button.bbox.x_min",
+            "claim_button.bbox.y_min",
+            "claim_button.bbox.x_max",
+            "claim_button.bbox.y_max",
+        ],
+        "expected_runtime_dispatch": {
+            "status": "ok",
+            "target_key": "chapter_claim_button",
+            "terminal_for_verifier": True,
+        },
+    },
+    "recruit_soldiers": {
+        "code": "recruit_button_terminal_fixture",
+        "required_page": "recruit",
+        "required_semantic_target": "teams[*].recruit_button",
+        "required_action_param_paths": [
+            "recruit_button.visible",
+            "recruit_button.enabled",
+            "recruit_button.bbox.x_min",
+            "recruit_button.bbox.y_min",
+            "recruit_button.bbox.x_max",
+            "recruit_button.bbox.y_max",
+        ],
+        "expected_runtime_dispatch": {
+            "status": "ok",
+            "target_key": "recruit_button",
+            "terminal_for_verifier": True,
+        },
+    },
+    "upgrade_building": {
+        "code": "upgrade_confirm_button_terminal_fixture",
+        "required_page": "building_upgrade",
+        "required_semantic_target": "city.upgrade_dialog.confirm_button",
+        "required_action_param_paths": [
+            "upgrade_dialog.visible",
+            "upgrade_dialog.confirm_button.visible",
+            "upgrade_dialog.confirm_button.enabled",
+            "upgrade_dialog.confirm_button.bbox.x_min",
+            "upgrade_dialog.confirm_button.bbox.y_min",
+            "upgrade_dialog.confirm_button.bbox.x_max",
+            "upgrade_dialog.confirm_button.bbox.y_max",
+        ],
+        "expected_runtime_dispatch": {
+            "status": "ok",
+            "target_key": "upgrade_confirm_button",
+            "terminal_for_verifier": True,
+        },
+    },
+}
