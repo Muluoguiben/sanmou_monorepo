@@ -1,4 +1,6 @@
+import json
 from pathlib import Path
+import tempfile
 import unittest
 
 from qa_agent.mcp_server.advisor_tools import AdvisorReplayTools
@@ -306,6 +308,10 @@ class McpToolTests(unittest.TestCase):
         )
         self.assertIn("post_action_delta", capture_plan["actions"][0]["terminal_source_evidence_fields"])
         self.assertIn("verification_record", capture_plan["actions"][0]["live_trace_extra_fields"])
+        self.assertIn(
+            "verification.post_action_verifier.status=verified",
+            capture_plan["actions"][0]["live_trace_semantic_checks"],
+        )
         self.assertEqual(payload["failures"], [])
 
     def test_advisor_golden_replay_status_without_fixture_results_is_attention(self) -> None:
@@ -622,6 +628,104 @@ class McpToolTests(unittest.TestCase):
             set(invalid_review["missing_evidence"]),
             {"page", "post_action_delta", "runtime_dispatch", "semantic_target"},
         )
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir)
+            screenshot_path = temp_root / "claim-terminal.png"
+            screenshot_path.write_bytes(b"placeholder")
+            trace_path = temp_root / "claim-live-trace.jsonl"
+            trace_record = {
+                "selected_action": {"action_type": "claim_chapter_reward"},
+                "execution": {
+                    "status": "ok",
+                    "summary": {
+                        "target_key": "chapter_claim_button",
+                        "terminal_for_verifier": True,
+                    },
+                },
+                "verification": {
+                    "post_action_verifier": {
+                        "action_type": "claim_chapter_reward",
+                        "status": "verified",
+                        "checked": ["progress.chapter_claimable"],
+                    },
+                },
+            }
+            trace_path.write_text(json.dumps(trace_record, ensure_ascii=False), encoding="utf-8")
+            live_expectation = {
+                "page": "chapter",
+                "terminal_source_evidence": {
+                    "source_kind": "live_trace_fixture",
+                    "review_status": "reviewed",
+                    "screenshot": str(screenshot_path),
+                    "trace": str(trace_path),
+                    "page": "chapter",
+                    "semantic_target": "progress.chapter_claim_button",
+                    "runtime_dispatch": {
+                        "status": "ok",
+                        "target_key": "chapter_claim_button",
+                        "terminal_for_verifier": True,
+                    },
+                    "post_action_delta": [
+                        {"path": "progress.chapter_claimable", "value": False},
+                    ],
+                    "verification_record": {
+                        "action_type": "claim_chapter_reward",
+                        "status": "verified",
+                        "checked": ["progress.chapter_claimable"],
+                    },
+                },
+            }
+
+            live_review = tools._terminal_source_evidence_review(
+                action_type="claim_chapter_reward",
+                fixture="live_chapter_claim_terminal_trace.json",
+                expectation=live_expectation,
+            )
+
+            self.assertTrue(live_review["source_evidence_valid"])
+            self.assertEqual(live_review["missing_evidence"], [])
+            self.assertTrue(live_review["trace_validation"]["matched"])
+            self.assertTrue(live_review["verification_record_validation"]["valid"])
+
+            bad_trace_path = temp_root / "claim-live-trace-wrong-target.jsonl"
+            bad_trace_record = {
+                **trace_record,
+                "execution": {
+                    "status": "ok",
+                    "summary": {
+                        "target_key": "recruit_button",
+                        "terminal_for_verifier": True,
+                    },
+                },
+            }
+            bad_trace_path.write_text(json.dumps(bad_trace_record, ensure_ascii=False), encoding="utf-8")
+            invalid_live_expectation = {
+                "page": "chapter",
+                "terminal_source_evidence": {
+                    **live_expectation["terminal_source_evidence"],
+                    "trace": str(bad_trace_path),
+                    "verification_record": {
+                        "action_type": "claim_chapter_reward",
+                        "status": "failed",
+                        "checked": ["progress.chapter_claimable"],
+                    },
+                },
+            }
+            invalid_live_review = tools._terminal_source_evidence_review(
+                action_type="claim_chapter_reward",
+                fixture="live_chapter_claim_terminal_trace.json",
+                expectation=invalid_live_expectation,
+            )
+
+            self.assertFalse(invalid_live_review["source_evidence_valid"])
+            self.assertIn("trace_semantics", invalid_live_review["missing_evidence"])
+            self.assertIn("verification_record", invalid_live_review["missing_evidence"])
+            self.assertFalse(invalid_live_review["trace_validation"]["matched"])
+            self.assertEqual(
+                invalid_live_review["verification_record_validation"]["issues"],
+                ["status"],
+            )
 
     def test_pr5_locked_field_coverage_reports_missing_fields(self) -> None:
         coverage = AdvisorReplayTools._pr5_locked_field_coverage(

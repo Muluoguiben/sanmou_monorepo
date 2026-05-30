@@ -1013,6 +1013,8 @@ class AdvisorReplayTools:
         ):
             missing.append("post_action_delta")
 
+        trace_validation: dict[str, Any] | None = None
+        verification_record_validation: dict[str, Any] | None = None
         screenshot_path = evidence.get("screenshot")
         if source_kind == "pr5_real_screenshot_fixture":
             if not screenshot_path or not self._source_path_exists(str(screenshot_path)):
@@ -1021,9 +1023,22 @@ class AdvisorReplayTools:
             trace_path = evidence.get("trace")
             if not trace_path or not self._source_path_exists(str(trace_path)):
                 missing.append("trace")
+            else:
+                trace_validation = self._live_trace_evidence_validation(
+                    str(trace_path),
+                    action_type=action_key,
+                    required_runtime_dispatch=required_runtime_dispatch,
+                )
+                if not trace_validation["matched"]:
+                    missing.append("trace_semantics")
             if not screenshot_path or not self._source_path_exists(str(screenshot_path)):
                 missing.append("screenshot")
-            if not evidence.get("verification_record"):
+            verification_record_validation = _verification_record_validation(
+                evidence.get("verification_record"),
+                action_type=action_key,
+                required_post_action_delta=requirement.get("required_post_action_delta") or [],
+            )
+            if not verification_record_validation["valid"]:
                 missing.append("verification_record")
 
         source_evidence_valid = not missing
@@ -1043,18 +1058,95 @@ class AdvisorReplayTools:
             "required_runtime_dispatch": required_runtime_dispatch,
             "post_action_delta": post_action_delta if isinstance(post_action_delta, list) else [],
             "required_post_action_delta": requirement.get("required_post_action_delta") or [],
+            "trace_validation": trace_validation,
+            "verification_record_validation": verification_record_validation,
             "accepted_for_closure": source_evidence_valid,
             "terminal_dispatch_ready": False,
             "next_source_requirements": [],
         }
 
     def _source_path_exists(self, value: str) -> bool:
+        return self._resolve_source_path(value) is not None
+
+    def _resolve_source_path(self, value: str) -> Path | None:
         path = Path(value)
         candidates = [path] if path.is_absolute() else [
             self.pioneer_root / path,
             self.workspace_root / path,
         ]
-        return any(candidate.exists() for candidate in candidates)
+        for candidate in candidates:
+            if candidate.exists():
+                return candidate
+        return None
+
+    def _live_trace_evidence_validation(
+        self,
+        trace_path: str,
+        *,
+        action_type: str | None,
+        required_runtime_dispatch: dict[str, Any],
+    ) -> dict[str, Any]:
+        records, load_error = self._load_trace_records(trace_path)
+        matching_records: list[dict[str, Any]] = []
+        for index, record in enumerate(records):
+            selected_action = _trace_selected_action(record)
+            execution = _trace_execution(record)
+            verifier = _trace_post_action_verifier(record)
+            action_matches = selected_action.get("action_type") == action_type
+            dispatch_matches = _runtime_dispatch_matches(execution, required_runtime_dispatch)
+            verifier_verified = verifier.get("status") == "verified"
+            if action_matches and dispatch_matches and verifier_verified:
+                matching_records.append(
+                    {
+                        "index": index,
+                        "action_type": selected_action.get("action_type"),
+                        "target_key": (execution.get("summary") or {}).get("target_key"),
+                        "terminal_for_verifier": (execution.get("summary") or {}).get("terminal_for_verifier"),
+                        "verifier_status": verifier.get("status"),
+                    }
+                )
+        return {
+            "checked": True,
+            "trace": trace_path,
+            "record_count": len(records),
+            "matched": bool(matching_records),
+            "matching_records": matching_records,
+            "load_error": load_error,
+            "required_action_type": action_type,
+            "required_runtime_dispatch": required_runtime_dispatch,
+            "required_verifier_status": "verified",
+        }
+
+    def _load_trace_records(self, trace_path: str) -> tuple[list[dict[str, Any]], str | None]:
+        path = self._resolve_source_path(trace_path)
+        if path is None:
+            return [], "trace file does not exist"
+        try:
+            raw = path.read_text(encoding="utf-8").strip()
+        except OSError as exc:
+            return [], str(exc)
+        if not raw:
+            return [], "trace file is empty"
+        try:
+            payload = json.loads(raw)
+        except json.JSONDecodeError:
+            records: list[dict[str, Any]] = []
+            for line_number, line in enumerate(raw.splitlines(), start=1):
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    item = json.loads(line)
+                except json.JSONDecodeError as exc:
+                    return [], f"invalid jsonl at line {line_number}: {exc}"
+                if isinstance(item, dict):
+                    records.append(item)
+            return records, None
+        if isinstance(payload, list):
+            return [item for item in payload if isinstance(item, dict)], None
+        if isinstance(payload, dict):
+            return [payload], None
+        return [], "trace payload must be an object, object list, or jsonl"
 
 
 def _next_fixture_requirements(blocking_actions: dict[str, list[str]]) -> list[dict[str, Any]]:
@@ -1129,6 +1221,13 @@ def _terminal_source_capture_plan(
                     "trace",
                     "verification_record",
                 ],
+                "live_trace_semantic_checks": [
+                    "selected_action.action_type matches action_type",
+                    "execution.status matches required_runtime_dispatch.status",
+                    "execution.summary.target_key matches required_runtime_dispatch.target_key",
+                    "execution.summary.terminal_for_verifier=true",
+                    "verification.post_action_verifier.status=verified",
+                ],
             }
         )
     return {
@@ -1200,6 +1299,103 @@ def _post_action_delta_matches(actual: list[Any], required: list[str]) -> bool:
         actual_values.update(_delta_representations(item))
     required_values = {_normalize_delta_text(item) for item in required}
     return bool(actual_values & required_values)
+
+
+def _verification_record_validation(
+    value: Any,
+    *,
+    action_type: str | None,
+    required_post_action_delta: list[str],
+) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        return {
+            "checked": True,
+            "valid": False,
+            "issues": ["verification_record_not_object"],
+        }
+    verifier = value.get("post_action_verifier") if isinstance(value.get("post_action_verifier"), dict) else value
+    action_value = verifier.get("action_type") or value.get("action_type")
+    status = verifier.get("status") or value.get("status") or value.get("verification_status")
+    checked_paths = verifier.get("checked") or value.get("checked") or []
+    post_action_delta = value.get("post_action_delta")
+    issues: list[str] = []
+    if action_value != action_type:
+        issues.append("action_type")
+    if status != "verified":
+        issues.append("status")
+    if isinstance(post_action_delta, list):
+        if not _post_action_delta_matches(post_action_delta, required_post_action_delta):
+            issues.append("post_action_delta")
+    elif not _checked_paths_cover_required_delta(checked_paths, required_post_action_delta):
+        issues.append("checked_delta")
+    return {
+        "checked": True,
+        "valid": not issues,
+        "issues": sorted(set(issues)),
+        "action_type": action_value,
+        "status": status,
+        "checked_paths": checked_paths if isinstance(checked_paths, list) else [],
+    }
+
+
+def _checked_paths_cover_required_delta(value: Any, required: list[str]) -> bool:
+    if not required:
+        return True
+    if not isinstance(value, list) or not value:
+        return False
+    checked = {str(item) for item in value}
+    required_paths = {_required_delta_path(item) for item in required}
+    return bool(checked & required_paths)
+
+
+def _required_delta_path(value: Any) -> str:
+    text = str(value).strip()
+    if text.startswith("or "):
+        text = text[3:]
+    for separator in ("=", " increases", " decreases", " present"):
+        if separator in text:
+            return text.split(separator, 1)[0].strip()
+    return text.split(" ", 1)[0].strip()
+
+
+def _trace_selected_action(record: dict[str, Any]) -> dict[str, Any]:
+    selected = record.get("selected_action")
+    if isinstance(selected, dict):
+        return selected
+    act = record.get("act")
+    if isinstance(act, dict):
+        inputs = act.get("inputs")
+        if isinstance(inputs, dict) and isinstance(inputs.get("action"), dict):
+            return inputs["action"]
+    return {}
+
+
+def _trace_execution(record: dict[str, Any]) -> dict[str, Any]:
+    execution = record.get("execution")
+    if isinstance(execution, dict):
+        return execution
+    act = record.get("act")
+    if isinstance(act, dict) and isinstance(act.get("outputs"), dict):
+        return act["outputs"]
+    return {}
+
+
+def _trace_post_action_verifier(record: dict[str, Any]) -> dict[str, Any]:
+    verification = record.get("verification")
+    if isinstance(verification, dict):
+        verifier = verification.get("post_action_verifier")
+        if isinstance(verifier, dict):
+            return verifier
+    verify_step = record.get("verify")
+    if isinstance(verify_step, dict):
+        outputs = verify_step.get("outputs")
+        if isinstance(outputs, dict) and isinstance(outputs.get("post_action_verifier"), dict):
+            return outputs["post_action_verifier"]
+    execution = _trace_execution(record)
+    summary = execution.get("summary")
+    if isinstance(summary, dict) and isinstance(summary.get("post_action_verifier"), dict):
+        return summary["post_action_verifier"]
+    return {}
 
 
 def _delta_representations(item: Any) -> set[str]:
