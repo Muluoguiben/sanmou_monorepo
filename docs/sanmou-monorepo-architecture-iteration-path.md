@@ -40,9 +40,9 @@
 停止条件：
 
 - 没有结构化 evidence 和 entry_id validator 前，不接入推荐层 ExplainerLLM。
-- 没有 golden replay baseline 前，不启用 LLM-as-Judge。
-- 低风险动作 verifier false positive 未被 fixture 覆盖前，不开放 semi-auto。
-- 地图识别、战报识别、队伍状态 verifier 未完成前，`attack_land`、`transfer_main_lineup`、`abandon_land` 不开放全自动。
+- 没有 golden replay baseline 前，不启用 LLM-as-Judge；`LLMJudgeGate` 默认关闭，打开后也会先检查 golden baseline 与 top2 分差。
+- 低风险动作 verifier false positive 未被 fixture 覆盖前，不开放 semi-auto；`AutomationReadinessGate` 已接入 `UIActionRunner`。
+- 地图识别、战报识别、队伍状态 verifier 未完成前，`attack_land`、`transfer_main_lineup`、`abandon_land` 不开放全自动；已由 architecture gate 阻断 full-auto。
 
 ## 目标架构
 
@@ -92,7 +92,7 @@ flowchart LR
 - [x] Advisor 推荐中引用的 `entry_id` 必须来自真实检索结果或 `strategy_snapshot.yaml`。
 - [x] 增加 citation/evidence validator，伪造 entry_id 必须失败。
 - [x] 给视觉结构化输出加语义校验：bbox 范围、按钮可见性、页面 domain 一致性。
-- [ ] 建立截图 fixture + golden eval，覆盖首页、城内、章节、征兵、建筑升级、队伍。
+- [x] 建立截图 fixture + golden eval，覆盖首页、城内、章节、征兵、建筑升级、队伍。
 
 验收标准：
 
@@ -111,8 +111,8 @@ flowchart LR
 - [ ] 征兵推荐结合资源、主力体力、队伍兵力缺口和开荒 baseline。
 - [ ] 打地风险先做 Advisor 判断，不做自动执行。
 - [ ] 阵容建议从 QA 知识库读取武将、战法、赛季队伍知识，只输出建议。
-- [ ] `ExplainerLLM` 只负责把 rule reason 和 evidence 讲清楚，不允许修改 action。
-- [ ] `LLM-as-Judge` 只在 top2 分数接近时作为实验开关启用，并且必须有 golden eval 后再接入。
+- [x] `ExplainerLLM` 只负责把 rule reason 和 evidence 讲清楚，不允许修改 action；`validate_explainer_boundary` 会拒绝 action type、params、risk、safety verdict 变更。
+- [x] `LLM-as-Judge` 只在 top2 分数接近时作为实验开关启用，并且必须有 golden eval 后再接入；`ActionSelector.selection_reason.llm_judge_gate` 默认记录 skip。
 
 验收标准：
 
@@ -139,11 +139,11 @@ precheck -> click/action -> observe -> verifier -> trace -> recovery/block
 
 待办：
 
-- [ ] 为三个低风险动作补 `VerifierSpec.expected_deltas`。
+- [x] 为三个低风险动作补 `VerifierSpec.expected_deltas`。
 - [ ] 打通真实 UI action handler，不再返回 pending。
 - [ ] 弹窗识别接入动作流程，未知弹窗必须 block。
 - [ ] 引入 UI element id 或 SoM grounding，减少裸坐标点击。
-- [ ] `SafetyGuard` 配置化，高风险动作默认 block。
+- [x] `SafetyGuard` 配置化，高风险动作默认 block；全自动高风险还需要通过 `AutomationReadinessGate` 的地图、战报、队伍 verifier 前置条件。
 - [ ] trace replay 收集失败样本，进入 offline eval。
 
 验收标准：
@@ -174,6 +174,6 @@ precheck -> click/action -> observe -> verifier -> trace -> recovery/block
 2. [x] evidence validator 和 citation regression tests，伪造 `entry_id` 必须失败。
 3. [x] `strategy_snapshot.entry_ids` 贯通到建筑升级推荐，并能反查 QA knowledge。
 4. [x] vision schema 语义校验和失败 fixture，优先覆盖 bbox、visible/enabled、page/domain。
-5. Advisor golden replay runner 扩展真实截图集，锁住 action/evidence/confidence。
-6. 三个低风险动作的 verifier specs，不先写完整 click flow。
+5. [x] Advisor golden replay runner 扩展真实截图集，锁住 action/evidence/confidence。
+6. [x] 三个低风险动作的 verifier specs，不先写完整 click flow。
 7. Desktop evidence/degraded 展示，确保无证据推荐不会被 UI 展示成确定结论。

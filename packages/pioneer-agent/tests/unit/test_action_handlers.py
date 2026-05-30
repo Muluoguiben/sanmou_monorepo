@@ -8,6 +8,11 @@ from pioneer_agent.core.enums import ActionType
 from pioneer_agent.core.models import CandidateAction
 from pioneer_agent.executor.action_handlers import dispatch
 from pioneer_agent.executor.ui_runner import UIActionRunner
+from pioneer_agent.runtime.architecture_gates import (
+    AutomationMode,
+    AutomationReadiness,
+    AutomationReadinessGate,
+)
 from pioneer_agent.verifier import ExpectedStateDelta, VerifierRegistry, VerifierSpec
 
 
@@ -109,6 +114,19 @@ class UIActionRunnerTests(unittest.TestCase):
         self.assertEqual(res.status, "pending")
         self.assertIn("chapter panel", res.failure_reason or "")
 
+    def test_runner_blocks_low_risk_action_when_architecture_gate_is_not_ready(self) -> None:
+        runner = UIActionRunner(
+            _NullUI(),  # type: ignore[arg-type]
+            capabilities=CapabilityFlags(input_control=True),
+            automation_gate=AutomationReadinessGate(
+                AutomationReadiness(low_risk_verifier_false_positive_covered=False)
+            ),
+        )
+        res = runner.run(_mk_action(ActionType.CLAIM_CHAPTER_REWARD))
+        self.assertEqual(res.status, "blocked")
+        self.assertEqual(res.summary["blocked_by"], "architecture_gate")
+        self.assertIn("false positive coverage", res.failure_reason or "")
+
     def test_runner_blocks_confirmed_action_without_verifier_spec(self) -> None:
         runner = UIActionRunner(
             _NullUI(),  # type: ignore[arg-type]
@@ -147,6 +165,32 @@ class UIActionRunnerTests(unittest.TestCase):
         res = runner.run(_mk_action(ActionType.ATTACK_LAND, confirmation_token="manual-ok"))
         self.assertEqual(res.status, "pending")
         self.assertIn("attack flow", res.failure_reason or "")
+
+    def test_runner_blocks_high_risk_full_auto_even_with_confirmation_token(self) -> None:
+        registry = VerifierRegistry(
+            {
+                ActionType.ATTACK_LAND: VerifierSpec(
+                    action_type=ActionType.ATTACK_LAND,
+                    expected_deltas=(
+                        ExpectedStateDelta(
+                            path="map_state.last_attack_id",
+                            expected_after="attack-1",
+                        ),
+                    ),
+                    timeout_seconds=10.0,
+                )
+            }
+        )
+        runner = UIActionRunner(
+            _NullUI(),  # type: ignore[arg-type]
+            capabilities=CapabilityFlags(input_control=True),
+            verifier_registry=registry,
+            automation_mode=AutomationMode.FULL_AUTO,
+        )
+        res = runner.run(_mk_action(ActionType.ATTACK_LAND, confirmation_token="manual-ok"))
+        self.assertEqual(res.status, "blocked")
+        self.assertEqual(res.summary["blocked_by"], "architecture_gate")
+        self.assertIn("high-risk full-auto", res.failure_reason or "")
 
 
 if __name__ == "__main__":

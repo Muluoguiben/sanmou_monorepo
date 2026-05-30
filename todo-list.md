@@ -1,6 +1,6 @@
 # Todo List
 
-> Last updated: 2026-05-30 (PR-6 低风险 verifier specs 已落地：`claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` 默认 registry 均有真实 expected deltas、timeout 与 PR-5 fixture/MCP 断言；下一段重点转向三类 action handler 从 `pending` 接到真实 UI flow)
+> Last updated: 2026-05-30 (Architecture gate slice：Explainer 只允许叙述、LLM-as-Judge 默认关闭且受 golden/top2 分差约束、semi/full-auto 停止条件接入 `UIActionRunner`；下一段重点仍是三类低风险 action handler 从 `pending` 接到真实 UI flow)
 
 ## Highest Priority — Architecture Iteration
 
@@ -31,12 +31,12 @@
 - [x] `strategy_snapshot.entry_ids` 贯通（2026-05-19）：建筑升级 scoring 注入 priority 的同时，把相关 `entry_ids` 传到推荐和解释层。
 - [x] Vision semantic validators（2026-05-19）：对当前视觉 schema 增加语义校验，包括 bbox 范围、按钮 visible/enabled 与 bbox 一致性、page/domain 一致性。
 - [x] Advisor golden replay 扩展（2026-05-29）：PR-5 六类 PC 客户端真实截图与 runtime fixtures 已入库，action/evidence/confidence 由 golden expectation 和单测/MCP 状态同时验证。
-- [ ] ExplainerLLM 边界：只允许 LLM 基于 rule reason + evidence 生成 narrative，不允许修改 action type、关键 params、safety verdict。
-- [ ] LLM-as-Judge 灰度：只在 top2 score 接近且已有 eval baseline 后启用 pairwise rerank；默认关闭。
-- [ ] 停止条件执行：没有 golden replay baseline 前不启用 LLM-as-Judge；低风险 verifier false positive 未覆盖前不开放 semi-auto；地图/战报/队伍 verifier 未完成前不开放高风险全自动。
+- [x] ExplainerLLM 边界（2026-05-30）：`validate_explainer_boundary` 只允许 LLM 添加 narrative；若 draft 改 action type、params、risk 或 safety verdict 会被 block。
+- [x] LLM-as-Judge 灰度（2026-05-30）：`LLMJudgeGate` 默认关闭；只有显式开启、golden replay baseline ready 且 top2 score gap 小于阈值时才允许实验 rerank，`ActionSelector.selection_reason.llm_judge_gate` 暴露 gate 结果。
+- [x] 停止条件执行（2026-05-30）：`AutomationReadinessGate` 接入 `UIActionRunner`；低风险 semi-auto 需要 verifier false positive coverage，高风险 full-auto 需要地图/战报/队伍 verifier 全部 ready，否则 block。
 - [x] 低风险 verifier specs（2026-05-30）：`claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` 的 expected deltas、match policy 与 timeout 已进入默认 `VerifierRegistry`，并由 PR-5 fixtures/MCP smoke 验证。
 - [ ] 低风险 action handlers：三个低风险动作从 `pending` 推进到真实 UI flow，动作失败必须 block/recover，不允许继续连点。
-- [ ] 高风险自动化边界：`attack_land`、`transfer_main_lineup`、`abandon_land` 在地图识别、战报识别、队伍状态 verifier 完成前保持人工确认或 block。
+- [x] 高风险自动化边界（2026-05-30）：`attack_land`、`transfer_main_lineup`、`abandon_land` 仍需人工确认；即使有 confirmation token，`full_auto` mode 在地图/战报/队伍 verifier 前置条件未 ready 时也会被 architecture gate 阻断。
 
 ## P0 — Advisor MVP + 低风险真实自动化闭环
 

@@ -7,6 +7,7 @@ from typing import Any
 from pioneer_agent.core.enums import ActionType
 from pioneer_agent.core.models import CandidateAction, RuntimeState, SelectionResult
 from pioneer_agent.knowledge.strategy_snapshot import StrategySnapshot, load_default_strategy_snapshot
+from pioneer_agent.runtime.architecture_gates import LLMJudgeGate
 from pioneer_agent.scoring.attack_land import score_attack_land
 from pioneer_agent.scoring.recruit import score_recruit_soldiers
 from pioneer_agent.scoring.transfer import score_transfer
@@ -23,6 +24,7 @@ class ActionSelector:
         *,
         strategy_snapshot: StrategySnapshot | None = None,
         load_default_strategy: bool = True,
+        llm_judge_gate: LLMJudgeGate | None = None,
     ) -> None:
         self.candidate_generator = CandidateGenerator()
         self.candidate_filter = CandidateFilter()
@@ -30,6 +32,7 @@ class ActionSelector:
         self.strategy_snapshot = strategy_snapshot
         if self.strategy_snapshot is None and load_default_strategy:
             self.strategy_snapshot = load_default_strategy_snapshot()
+        self.llm_judge_gate = llm_judge_gate or LLMJudgeGate()
 
     def select(self, state: RuntimeState) -> SelectionResult:
         generated = self.candidate_generator.generate(state)
@@ -41,6 +44,7 @@ class ActionSelector:
         top_score_gap = None
         if len(ranked) >= 2:
             top_score_gap = round(ranked[0].score_total - ranked[1].score_total, 2)
+        llm_judge_gate = self.llm_judge_gate.evaluate(ranked, top_score_gap=top_score_gap)
 
         return SelectionResult(
             selected_action=selected,
@@ -62,6 +66,7 @@ class ActionSelector:
                 },
                 "selected_score": selected.score_total if selected is not None else None,
                 "top_score_gap": top_score_gap,
+                "llm_judge_gate": llm_judge_gate.to_dict(),
                 "primary_constraint": state.main_lineup.get("primary_constraint", "unknown"),
                 "phase_tag": state.global_state.get("phase_tag", "unknown"),
                 "rejected_candidates": rejected[:10],
