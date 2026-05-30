@@ -92,6 +92,10 @@ class McpToolTests(unittest.TestCase):
             [item["code"] for item in payload["attention_reasons"]],
             ["low_risk_terminal_source_review_missing"],
         )
+        self.assertIn(
+            "claim_chapter_reward",
+            payload["attention_reasons"][0]["blocking_actions"],
+        )
         desktop_gate = payload["desktop_evidence_display_gate"]
         self.assertTrue(desktop_gate["checked"])
         self.assertTrue(desktop_gate["ready"])
@@ -208,6 +212,33 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(
             set(source_review["missing_real_terminal_sources"]),
             {"claim_chapter_reward", "recruit_soldiers", "upgrade_building"},
+        )
+        source_blocking = source_review["blocking_actions"]
+        self.assertEqual(
+            set(source_blocking),
+            {"claim_chapter_reward", "recruit_soldiers", "upgrade_building"},
+        )
+        self.assertIn(
+            "missing_real_terminal_source",
+            source_blocking["claim_chapter_reward"]["blockers"],
+        )
+        self.assertIn(
+            "no_terminal_real_candidate",
+            source_blocking["claim_chapter_reward"]["blockers"],
+        )
+        self.assertIn(
+            "no_valid_terminal_source_evidence",
+            source_blocking["claim_chapter_reward"]["blockers"],
+        )
+        self.assertEqual(
+            source_blocking["claim_chapter_reward"]["required_runtime_dispatch"][
+                "target_key"
+            ],
+            "chapter_claim_button",
+        )
+        self.assertEqual(
+            source_blocking["claim_chapter_reward"]["required_post_action_delta"],
+            ["progress.chapter_claimable=false"],
         )
         self.assertEqual(
             [item["code"] for item in source_review["next_source_requirements"]],

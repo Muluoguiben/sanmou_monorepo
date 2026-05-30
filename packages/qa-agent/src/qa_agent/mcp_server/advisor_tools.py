@@ -514,12 +514,18 @@ class AdvisorReplayTools:
             if checked
             else []
         )
+        blocking_actions = _terminal_source_blocking_actions(
+            missing,
+            observed,
+            real_source_candidates,
+        )
         return {
             "checked": checked,
             "ready": checked and not missing,
             "required_actions": PR6_LOW_RISK_ACTIONS,
             "accepted_actions": sorted(accepted_actions),
             "missing_real_terminal_sources": missing,
+            "blocking_actions": blocking_actions,
             "next_source_requirements": _terminal_source_requirements(missing),
             "real_source_candidates": real_source_candidates,
             "capture_plan": (
@@ -731,6 +737,7 @@ class AdvisorReplayTools:
                 {
                     "code": "low_risk_terminal_source_review_missing",
                     "actions": source_missing,
+                    "blocking_actions": source_review.get("blocking_actions") or {},
                     "observed": source_review.get("observed") or [],
                 }
             )
@@ -1437,6 +1444,63 @@ def _terminal_source_capture_plan(
         "requires_operator_confirmation_for_final_action": bool(actions),
         "actions": actions,
     }
+
+
+def _terminal_source_blocking_actions(
+    missing_actions: list[str],
+    observed_reviews: list[dict[str, Any]],
+    candidates: list[dict[str, Any]],
+) -> dict[str, dict[str, Any]]:
+    observed_by_action = {
+        str(item.get("action_type")): item
+        for item in observed_reviews
+        if item.get("action_type") in PR6_LOW_RISK_ACTIONS
+    }
+    candidates_by_action: dict[str, list[dict[str, Any]]] = {}
+    for candidate in candidates:
+        action_type = str(candidate.get("action_type"))
+        candidates_by_action.setdefault(action_type, []).append(candidate)
+
+    requirements_by_action = {
+        item["action_type"]: item
+        for item in _terminal_source_requirements(missing_actions)
+    }
+    blocking: dict[str, dict[str, Any]] = {}
+    for action_type in sorted(set(missing_actions)):
+        observed = observed_by_action.get(action_type, {})
+        action_candidates = candidates_by_action.get(action_type, [])
+        candidate_disqualifiers = sorted(
+            {
+                str(disqualifier)
+                for candidate in action_candidates
+                for disqualifier in candidate.get("disqualifiers") or []
+            }
+        )
+        missing_evidence = sorted(set(observed.get("missing_evidence") or []))
+        blockers = {"missing_real_terminal_source"}
+        if not action_candidates:
+            blockers.add("no_real_source_candidate")
+        elif not any(candidate.get("terminal_dispatch_ready") for candidate in action_candidates):
+            blockers.add("no_terminal_real_candidate")
+        if action_candidates and not any(candidate.get("source_evidence_valid") for candidate in action_candidates):
+            blockers.add("no_valid_terminal_source_evidence")
+
+        requirement = requirements_by_action.get(action_type, {})
+        blocking[action_type] = {
+            "blockers": sorted(blockers),
+            "observed_source_kind": observed.get("source_kind"),
+            "observed_missing_evidence": missing_evidence,
+            "candidate_count": len(action_candidates),
+            "candidate_disqualifiers": (
+                candidate_disqualifiers or ["missing_real_source_candidate"]
+            ),
+            "required_page": requirement.get("required_page"),
+            "required_semantic_target": requirement.get("required_semantic_target"),
+            "required_runtime_dispatch": requirement.get("required_runtime_dispatch"),
+            "required_post_action_delta": requirement.get("required_post_action_delta"),
+            "accepted_source_kinds": requirement.get("accepted_source_kinds") or [],
+        }
+    return blocking
 
 
 def _unchecked_terminal_source_capture_plan() -> dict[str, Any]:

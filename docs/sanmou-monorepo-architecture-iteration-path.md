@@ -216,4 +216,5 @@ precheck -> click/action -> observe -> verifier -> trace -> recovery/block
 43. [x] MCP post-action delta evidence binding：`terminal_source_evidence.post_action_delta` 必须配套 `post_action_delta_evidence`，声明 delta 来源、supporting refs，并与 required delta 匹配；单独手填 delta 文本不能解除 source blocker。
 44. [x] MCP terminal source evidence patch hints：`advisor_terminal_source_evidence_eval` 现在输出 `suggested_terminal_source_evidence_patch`，从已引用文件派生 `screenshot_sha256` / `trace_sha256`，并为 live trace 补 delta evidence skeleton，便于真实采样写入 manifest 前修正字段。
 45. [x] MCP terminal source manifest patch：`advisor_terminal_source_evidence_eval` 现在同时输出 `suggested_advisor_fixture_expectation_patch`，把 action、page、screenshot、terminal dispatch 期望与补齐后的 `terminal_source_evidence` 组装成可写回 golden expectation manifest 的候选条目；即使输出 patch，`ready` 仍只由完整 source review 决定。
-46. [ ] 三个低风险动作的完整 UI flow，继续补 claim/recruit 面板打开、数量/确认序列；三类动作仍需真实截图终态样本和 post-action delta 样本补强。
+46. [x] MCP terminal source per-action blockers：`low_risk_terminal_source_review.blocking_actions` 现在按 `claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` 拆出 `missing_real_terminal_source`、候选样本 disqualifiers、required page/semantic target/runtime dispatch/post-action delta，并同步到 `attention_reasons`，避免只看到总 blocker 时无法直接定位采样缺口。
+47. [ ] 三个低风险动作的完整 UI flow，继续补 claim/recruit 面板打开、数量/确认序列；三类动作仍需真实截图终态样本和 post-action delta 样本补强。
