@@ -386,6 +386,39 @@ class McpToolTests(unittest.TestCase):
             "operator_confirmation.trace_id/trace_record_index matches trace record",
             capture_plan["actions"][0]["live_trace_semantic_checks"],
         )
+        self.assertEqual(
+            capture_plan["actions"][0]["advisor_fixture_manifest_target"],
+            {
+                "expectations_path": (
+                    "packages/pioneer-agent/tests/golden/advisor_fixture_expectations.json"
+                ),
+                "fixture_key": "<claim_chapter_reward_terminal_fixture>.json",
+                "json_path": "fixtures.<claim_chapter_reward_terminal_fixture>.json",
+            },
+        )
+        self.assertEqual(
+            [
+                item["source_kind"]
+                for item in capture_plan["actions"][0]["preflight_tool_calls"]
+            ],
+            ["pr5_real_screenshot_fixture", "live_trace_fixture"],
+        )
+        live_preflight = capture_plan["actions"][0]["preflight_tool_calls"][1]
+        self.assertEqual(live_preflight["tool_name"], "advisor_terminal_source_evidence_eval")
+        self.assertEqual(
+            live_preflight["arguments"]["action_type"],
+            "claim_chapter_reward",
+        )
+        self.assertEqual(
+            live_preflight["arguments"]["terminal_source_evidence"]["trace_sha256"],
+            "<sha256-of-trace>",
+        )
+        self.assertEqual(
+            live_preflight["arguments"]["terminal_source_evidence"][
+                "operator_confirmation"
+            ]["scope"],
+            "final_mutating_click",
+        )
         expectation_template = capture_plan["actions"][0][
             "advisor_fixture_expectation_patch_template"
         ]["<claim_chapter_reward_terminal_fixture>.json"]

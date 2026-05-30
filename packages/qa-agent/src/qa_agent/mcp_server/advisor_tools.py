@@ -1432,6 +1432,10 @@ def _terminal_source_capture_plan(
                     "operator_confirmation.confirmed=true",
                     "operator_confirmation.trace_id/trace_record_index matches trace record",
                 ],
+                "advisor_fixture_manifest_target": (
+                    _advisor_fixture_manifest_target(action_type)
+                ),
+                "preflight_tool_calls": _terminal_source_preflight_tool_calls(requirement),
                 "advisor_fixture_expectation_patch_template": (
                     _advisor_fixture_expectation_patch_template(requirement)
                 ),
@@ -1518,6 +1522,39 @@ def _terminal_source_evidence_templates(requirement: dict[str, Any]) -> dict[str
         source_kind: _terminal_source_evidence_template(requirement, source_kind)
         for source_kind in requirement.get("accepted_source_kinds") or []
     }
+
+
+def _advisor_fixture_manifest_target(action_type: str) -> dict[str, Any]:
+    fixture_key = f"<{action_type}_terminal_fixture>.json"
+    return {
+        "expectations_path": (
+            "packages/pioneer-agent/tests/golden/advisor_fixture_expectations.json"
+        ),
+        "fixture_key": fixture_key,
+        "json_path": f"fixtures.{fixture_key}",
+    }
+
+
+def _terminal_source_preflight_tool_calls(requirement: dict[str, Any]) -> list[dict[str, Any]]:
+    action_type = str(requirement["action_type"])
+    calls: list[dict[str, Any]] = []
+    for source_kind in requirement.get("accepted_source_kinds") or []:
+        calls.append(
+            {
+                "source_kind": source_kind,
+                "tool_name": "advisor_terminal_source_evidence_eval",
+                "arguments": {
+                    "action_type": action_type,
+                    "fixture": f"<{action_type}_terminal_fixture>.json",
+                    "page": requirement["required_page"],
+                    "terminal_source_evidence": _terminal_source_evidence_template(
+                        requirement,
+                        source_kind,
+                    ),
+                },
+            }
+        )
+    return calls
 
 
 def _terminal_source_evidence_template(
