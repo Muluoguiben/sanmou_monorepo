@@ -1074,6 +1074,9 @@ class AdvisorReplayTools:
         )
         if not post_action_delta_evidence_validation["valid"]:
             missing.append("post_action_delta_evidence")
+        privacy_review_validation = _privacy_review_validation(evidence.get("privacy_review"))
+        if not privacy_review_validation["valid"]:
+            missing.append("privacy_review")
 
         file_integrity_validation = (
             self._file_integrity_validation(evidence, source_kind)
@@ -1141,6 +1144,7 @@ class AdvisorReplayTools:
             "required_post_action_delta": requirement.get("required_post_action_delta") or [],
             "post_action_delta_evidence_validation": post_action_delta_evidence_validation,
             "review_metadata_validation": review_metadata_validation,
+            "privacy_review_validation": privacy_review_validation,
             "file_integrity_validation": file_integrity_validation,
             "trace_validation": trace_validation,
             "verification_record_validation": verification_record_validation,
@@ -1409,11 +1413,23 @@ def _terminal_source_capture_plan(
                     "reviewed_at",
                     "screenshot",
                     "screenshot_sha256",
+                    "privacy_review",
                     "page",
                     "semantic_target",
                     "runtime_dispatch",
                     "post_action_delta",
                     "post_action_delta_evidence",
+                ],
+                "privacy_review_fields": [
+                    "status=approved",
+                    "reviewed_by",
+                    "reviewed_at",
+                    "screenshot_scope",
+                    "redaction_applied",
+                    "contains_account_identifier=false",
+                    "contains_chat_or_social_text=false",
+                    "contains_payment_or_secret=false",
+                    "approved_for_repo_storage=true",
                 ],
                 "live_trace_extra_fields": [
                     "trace",
@@ -1572,6 +1588,7 @@ def _terminal_source_evidence_template(
         "page": requirement["required_page"],
         "semantic_target": requirement["required_semantic_target"],
         "runtime_dispatch": dict(requirement["required_runtime_dispatch"]),
+        "privacy_review": _terminal_source_privacy_review_template(),
         "post_action_delta": list(requirement["required_post_action_delta"]),
         "post_action_delta_evidence": {
             "source": "reviewed_before_after_observation",
@@ -1643,7 +1660,25 @@ def _terminal_source_evidence_patch_from_review(review: dict[str, Any]) -> dict[
             ],
         }
 
+    privacy_validation = review.get("privacy_review_validation")
+    if isinstance(privacy_validation, dict) and not privacy_validation.get("valid"):
+        patch["privacy_review"] = _terminal_source_privacy_review_template()
+
     return patch
+
+
+def _terminal_source_privacy_review_template() -> dict[str, Any]:
+    return {
+        "status": "approved",
+        "reviewed_by": "<privacy-reviewer-id>",
+        "reviewed_at": "<privacy-reviewed-iso8601>",
+        "screenshot_scope": "terminal_ui_only",
+        "redaction_applied": False,
+        "contains_account_identifier": False,
+        "contains_chat_or_social_text": False,
+        "contains_payment_or_secret": False,
+        "approved_for_repo_storage": True,
+    }
 
 
 def _advisor_fixture_expectation_patch_from_review(
@@ -1814,6 +1849,54 @@ def _post_action_delta_evidence_validation(
         "issues": sorted(set(issues)),
         "source": source if isinstance(source, str) else None,
         "supporting_refs": supporting_refs if isinstance(supporting_refs, list) else [],
+    }
+
+
+def _privacy_review_validation(value: Any) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        return {
+            "valid": False,
+            "issues": ["privacy_review_not_object"],
+        }
+    issues: list[str] = []
+    if value.get("status") != "approved":
+        issues.append("status")
+
+    metadata_validation = _review_metadata_validation(value)
+    issues.extend(metadata_validation["issues"])
+
+    scope = value.get("screenshot_scope")
+    allowed_scopes = {
+        "terminal_ui_only",
+        "redacted_terminal_ui",
+        "redacted_full_window",
+    }
+    if scope not in allowed_scopes:
+        issues.append("screenshot_scope")
+
+    redaction_applied = value.get("redaction_applied")
+    if not isinstance(redaction_applied, bool):
+        issues.append("redaction_applied")
+    elif scope in {"redacted_terminal_ui", "redacted_full_window"} and not redaction_applied:
+        issues.append("redaction_applied")
+
+    for field in (
+        "contains_account_identifier",
+        "contains_chat_or_social_text",
+        "contains_payment_or_secret",
+    ):
+        if value.get(field) is not False:
+            issues.append(field)
+    if value.get("approved_for_repo_storage") is not True:
+        issues.append("approved_for_repo_storage")
+
+    return {
+        "valid": not issues,
+        "issues": sorted(set(issues)),
+        "status": value.get("status") if isinstance(value.get("status"), str) else None,
+        "screenshot_scope": scope if isinstance(scope, str) else None,
+        "redaction_applied": redaction_applied if isinstance(redaction_applied, bool) else None,
+        "metadata_validation": metadata_validation,
     }
 
 

@@ -13,6 +13,22 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _privacy_review(**overrides: object) -> dict[str, object]:
+    review: dict[str, object] = {
+        "status": "approved",
+        "reviewed_by": "privacy-reviewer",
+        "reviewed_at": "2026-05-30T18:21:00+08:00",
+        "screenshot_scope": "terminal_ui_only",
+        "redaction_applied": False,
+        "contains_account_identifier": False,
+        "contains_chat_or_social_text": False,
+        "contains_payment_or_secret": False,
+        "approved_for_repo_storage": True,
+    }
+    review.update(overrides)
+    return review
+
+
 def _ready_live_evidence(
     root: Path,
     *,
@@ -61,6 +77,7 @@ def _ready_live_evidence(
         "screenshot_sha256": _sha256(screenshot_path),
         "trace": str(trace_path),
         "trace_sha256": _sha256(trace_path),
+        "privacy_review": _privacy_review(),
         "page": page,
         "semantic_target": semantic_target,
         "runtime_dispatch": {
@@ -141,6 +158,7 @@ class AdvisorTerminalSourcePreflightCliTests(unittest.TestCase):
                 "screenshot_sha256": _sha256(screenshot_path),
                 "trace": str(trace_path),
                 "trace_sha256": _sha256(trace_path),
+                "privacy_review": _privacy_review(),
                 "page": "chapter",
                 "semantic_target": "progress.chapter_claim_button",
                 "runtime_dispatch": {

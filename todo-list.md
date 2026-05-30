@@ -53,6 +53,7 @@
 - [x] PR-44 MCP terminal source preflight skeleton（2026-05-30）：`capture_plan.actions` 现在输出 `advisor_fixture_manifest_target` 与每种 accepted source kind 的 `preflight_tool_calls`，真实终态截图/trace 采集后可直接替换 skeleton 字段运行 `advisor_terminal_source_evidence_eval`，再把返回的 manifest patch 写回 golden expectations。
 - [x] PR-45 Terminal source preflight CLI（2026-05-30）：新增 `qa_agent.app.advisor_terminal_source_preflight`，真实采样后可用 `--action-type` + `--evidence-json` 在本地或 CI 复用 MCP source review；ready 返回 0，未 ready 返回 2，并输出 review、patch hints 与 manifest patch。
 - [x] PR-46 Terminal source batch preflight gate（2026-05-30）：`qa_agent.app.advisor_terminal_source_preflight --batch-json` 现在支持一次性校验三类低风险 terminal source evidence，默认要求 claim/recruit/upgrade 全部 ready；漏采或任一证据未 ready 都返回 2。
+- [x] PR-47 Terminal source privacy review gate（2026-05-30）：`terminal_source_evidence` 现在必须带 `privacy_review.status=approved`、privacy reviewer/time、截图 scope、脱敏状态、账号/聊天/支付敏感字段 false 与 `approved_for_repo_storage=true`；缺失或未脱敏的真实截图/live trace 即使 verifier 匹配也不能解除 Architecture closure 的低风险 source blocker。
 
 ## In Progress
 

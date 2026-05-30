@@ -13,6 +13,22 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _privacy_review(**overrides: object) -> dict[str, object]:
+    review: dict[str, object] = {
+        "status": "approved",
+        "reviewed_by": "privacy-reviewer",
+        "reviewed_at": "2026-05-30T18:21:00+08:00",
+        "screenshot_scope": "terminal_ui_only",
+        "redaction_applied": False,
+        "contains_account_identifier": False,
+        "contains_chat_or_social_text": False,
+        "contains_payment_or_secret": False,
+        "approved_for_repo_storage": True,
+    }
+    review.update(overrides)
+    return review
+
+
 class McpToolTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
@@ -362,7 +378,12 @@ class McpToolTests(unittest.TestCase):
         self.assertIn("reviewed_by", capture_plan["actions"][0]["terminal_source_evidence_fields"])
         self.assertIn("reviewed_at", capture_plan["actions"][0]["terminal_source_evidence_fields"])
         self.assertIn("screenshot_sha256", capture_plan["actions"][0]["terminal_source_evidence_fields"])
+        self.assertIn("privacy_review", capture_plan["actions"][0]["terminal_source_evidence_fields"])
         self.assertIn("post_action_delta_evidence", capture_plan["actions"][0]["terminal_source_evidence_fields"])
+        self.assertIn(
+            "approved_for_repo_storage=true",
+            capture_plan["actions"][0]["privacy_review_fields"],
+        )
         self.assertIn("verification_record", capture_plan["actions"][0]["live_trace_extra_fields"])
         self.assertIn("trace_sha256", capture_plan["actions"][0]["live_trace_extra_fields"])
         self.assertIn("operator_confirmation", capture_plan["actions"][0]["live_trace_extra_fields"])
@@ -436,6 +457,15 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(
             expectation_template["terminal_source_evidence"]["screenshot_sha256"],
             "<sha256-of-screenshot>",
+        )
+        self.assertEqual(
+            expectation_template["terminal_source_evidence"]["privacy_review"]["status"],
+            "approved",
+        )
+        self.assertTrue(
+            expectation_template["terminal_source_evidence"]["privacy_review"][
+                "approved_for_repo_storage"
+            ]
         )
         self.assertEqual(
             expectation_template["terminal_source_evidence"]["trace_sha256"],
@@ -726,6 +756,7 @@ class McpToolTests(unittest.TestCase):
                 "reviewed_at": "2026-05-30T18:20:00+08:00",
                 "screenshot": screenshot,
                 "screenshot_sha256": _sha256(Path(__file__).resolve().parents[2] / "pioneer-agent" / screenshot),
+                "privacy_review": _privacy_review(),
                 "page": "chapter",
                 "semantic_target": "progress.chapter_claim_button",
                 "runtime_dispatch": {
@@ -763,6 +794,7 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(review["required_post_action_delta"], ["progress.chapter_claimable=false"])
         self.assertTrue(review["post_action_delta_evidence_validation"]["valid"])
         self.assertTrue(review["review_metadata_validation"]["valid"])
+        self.assertTrue(review["privacy_review_validation"]["valid"])
         self.assertTrue(review["file_integrity_validation"]["valid"])
 
         invalid_delta_evidence_expectation = {
@@ -808,6 +840,29 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(
             invalid_review_metadata["review_metadata_validation"]["issues"],
             ["reviewed_at", "reviewed_by"],
+        )
+
+        invalid_privacy_expectation = {
+            "page": "chapter",
+            "terminal_source_evidence": {
+                **valid_expectation["terminal_source_evidence"],
+                "privacy_review": _privacy_review(
+                    contains_account_identifier=True,
+                    approved_for_repo_storage=False,
+                ),
+            },
+        }
+        invalid_privacy_review = tools._terminal_source_evidence_review(
+            action_type="claim_chapter_reward",
+            fixture="pr5_chapter_claim_terminal_state.json",
+            expectation=invalid_privacy_expectation,
+        )
+
+        self.assertFalse(invalid_privacy_review["source_evidence_valid"])
+        self.assertIn("privacy_review", invalid_privacy_review["missing_evidence"])
+        self.assertEqual(
+            invalid_privacy_review["privacy_review_validation"]["issues"],
+            ["approved_for_repo_storage", "contains_account_identifier"],
         )
 
         invalid_hash_expectation = {
@@ -892,6 +947,7 @@ class McpToolTests(unittest.TestCase):
                     "screenshot_sha256": _sha256(screenshot_path),
                     "trace": str(trace_path),
                     "trace_sha256": _sha256(trace_path),
+                    "privacy_review": _privacy_review(),
                     "page": "chapter",
                     "semantic_target": "progress.chapter_claim_button",
                     "runtime_dispatch": {
@@ -946,6 +1002,7 @@ class McpToolTests(unittest.TestCase):
             self.assertTrue(live_review["trace_validation"]["matched"])
             self.assertTrue(live_review["post_action_delta_evidence_validation"]["valid"])
             self.assertTrue(live_review["review_metadata_validation"]["valid"])
+            self.assertTrue(live_review["privacy_review_validation"]["valid"])
             self.assertTrue(live_review["file_integrity_validation"]["valid"])
             self.assertEqual(
                 live_review["trace_validation"]["required_post_action_delta"],
@@ -1119,6 +1176,7 @@ class McpToolTests(unittest.TestCase):
                 "screenshot_sha256": _sha256(screenshot_path),
                 "trace": str(trace_path),
                 "trace_sha256": _sha256(trace_path),
+                "privacy_review": _privacy_review(),
                 "page": "chapter",
                 "semantic_target": "progress.chapter_claim_button",
                 "runtime_dispatch": {
