@@ -45,6 +45,7 @@ class AdvisorReplayTools:
             for path in (self.fixture_dir / "screenshots").rglob("*")
             if path.is_file() and path.suffix.lower() in {".png", ".jpg", ".jpeg", ".webp"}
         )
+        pr5_locked_field_coverage = self._pr5_locked_field_coverage(pr5_expectations)
         payload: dict[str, Any] = {
             "workspace_root": str(self.workspace_root),
             "pioneer_root": str(self.pioneer_root),
@@ -68,6 +69,7 @@ class AdvisorReplayTools:
                 "dispatch_gate": sum("expected_dispatch_status" in item for item in pr5_expectations.values()),
                 "runtime_dispatch_gate": sum("expected_dispatch_status" in item for item in pr5_expectations.values()),
             },
+            "pr5_locked_field_coverage": pr5_locked_field_coverage,
             "missing_expectations": [
                 path.name for path in fixtures if path.name not in expectations
             ],
@@ -110,6 +112,7 @@ class AdvisorReplayTools:
             and not payload["extra_expectations"]
             and not payload["failures"]
             and not payload["pr5_page_coverage"]["missing"]
+            and not payload["pr5_locked_field_coverage"]["missing"]
             and not payload["pr6_verifier_coverage"]["missing"]
             and not payload["pr5_dispatch_gate_coverage"]["failures"]
             and not payload["pr12_runtime_dispatch_coverage"]["failures"]
@@ -265,6 +268,50 @@ class AdvisorReplayTools:
         }
 
     @staticmethod
+    def _pr5_locked_field_coverage(pr5_expectations: dict[str, dict[str, Any]]) -> dict[str, Any]:
+        required_by_field: dict[str, list[str]] = {
+            "expected_action_type": [],
+            "required_report_evidence": [],
+            "expected_report_confidence": [],
+            "expected_action_confidence": [],
+            "required_action_evidence": [],
+            "expected_dispatch_status": [],
+            "runtime_dispatch_gate": [],
+        }
+        for fixture_name, expectation in sorted(pr5_expectations.items()):
+            required_by_field["expected_action_type"].append(fixture_name)
+            required_by_field["required_report_evidence"].append(fixture_name)
+            required_by_field["expected_report_confidence"].append(fixture_name)
+            required_by_field["expected_action_confidence"].append(fixture_name)
+            action_type = expectation.get("expected_action_type")
+            if action_type is not None:
+                required_by_field["required_action_evidence"].append(fixture_name)
+            if action_type in PR6_LOW_RISK_ACTIONS:
+                required_by_field["expected_dispatch_status"].append(fixture_name)
+                required_by_field["runtime_dispatch_gate"].append(fixture_name)
+
+        missing: list[dict[str, str]] = []
+        coverage: dict[str, dict[str, Any]] = {}
+        for field_name, required_fixtures in required_by_field.items():
+            missing_fixtures = [
+                fixture_name
+                for fixture_name in required_fixtures
+                if not _pr5_field_present(pr5_expectations[fixture_name], field_name)
+            ]
+            for fixture_name in missing_fixtures:
+                missing.append({"fixture": fixture_name, "field": field_name})
+            coverage[field_name] = {
+                "required_count": len(required_fixtures),
+                "covered_count": len(required_fixtures) - len(missing_fixtures),
+                "missing": missing_fixtures,
+            }
+        return {
+            "checked": True,
+            "fields": coverage,
+            "missing": missing,
+        }
+
+    @staticmethod
     def _pr5_dispatch_gate_coverage(comparisons: list[dict[str, Any]]) -> dict[str, Any]:
         checked = [item for item in comparisons if (item.get("dispatch_gate") or {}).get("checked")]
         failures = [
@@ -339,6 +386,14 @@ def _dispatch_gate_result(result: dict[str, Any], expectation: dict[str, Any]) -
         "expected": expected,
         "actual": actual,
     }
+
+
+def _pr5_field_present(expectation: dict[str, Any], field_name: str) -> bool:
+    if field_name in {"required_report_evidence", "required_action_evidence"}:
+        return bool(expectation.get(field_name))
+    if field_name == "runtime_dispatch_gate":
+        return "expected_dispatch_status" in expectation
+    return field_name in expectation
 
 
 def _runtime_dispatch_gate_result(result: dict[str, Any], expectation: dict[str, Any]) -> dict[str, Any]:

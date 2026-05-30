@@ -1,6 +1,6 @@
 # Todo List
 
-> Last updated: 2026-05-30 (低风险闭环继续推进：claim/recruit/upgrade 已有 semantic bbox dispatch；`UIActionRunner` 会在 dispatch 前二次校验低风险动作是否携带 visible+enabled 且 0-1000 合法的 semantic bbox，缺失、禁用或越界时直接 `semantic_target_gate` block，不伪造 PR5 claim/recruit bbox；通过 gate 的真实 dispatch 也会把 `semantic_target_gate` allow verdict 写入 `ExecutionResult.summary` 与 `AutonomousLoop` trace；PR5 replay 现在输出低风险 `runtime_dispatch` dry result，qa-agent MCP `advisor_fixture_eval` / `advisor_golden_replay_status` 同时暴露 `dispatch_gate` 与 `pr12_runtime_dispatch_coverage`；`AutonomousLoop` 会在成功点击后重新 observe 并执行 post-action verifier，失败会标记 `failed` + `recovery_required` 并同 tick 触发一次 ESC recovery；claim/recruit 完整多步 UI flow 仍待补)
+> Last updated: 2026-05-30 (低风险闭环继续推进：claim/recruit/upgrade 已有 semantic bbox dispatch；`UIActionRunner` 会在 dispatch 前二次校验低风险动作是否携带 visible+enabled 且 0-1000 合法的 semantic bbox，缺失、禁用或越界时直接 `semantic_target_gate` block，不伪造 PR5 claim/recruit bbox；通过 gate 的真实 dispatch 也会把 `semantic_target_gate` allow verdict 写入 `ExecutionResult.summary` 与 `AutonomousLoop` trace；PR5 replay 现在输出低风险 `runtime_dispatch` dry result，qa-agent MCP `advisor_fixture_eval` / `advisor_golden_replay_status` 同时暴露 `dispatch_gate` 与 `pr12_runtime_dispatch_coverage`；MCP status 已把 PR5 action/evidence/confidence/dispatch locked fields 缺失纳入 `attention`；`AutonomousLoop` 会在成功点击后重新 observe 并执行 post-action verifier，失败会标记 `failed` + `recovery_required` 并同 tick 触发一次 ESC recovery；claim/recruit 完整多步 UI flow 仍待补)
 
 ## Highest Priority — Architecture Iteration
 
@@ -20,6 +20,7 @@
 - [x] PR-11 MCP dispatch gate surface（2026-05-30）：`pioneer_agent.app.replay_fixture` 输出 `semantic_target_gate`；qa-agent MCP `advisor_fixture_eval` 返回 `dispatch_gate` expected/actual/matched，`advisor_golden_replay_status` 汇总 PR5 dispatch gate coverage，MCP tests 覆盖 claim/recruit block 与 upgrade dispatch。
 - [x] PR-12 runtime semantic gate trace（2026-05-30）：低风险动作通过 `semantic_target_gate` 后，`UIActionRunner` 会把 allow verdict 写回 `ExecutionResult.summary`，因此 `AutonomousLoop` act trace 与 post-action verifier trace 能同时证明 dispatch 前语义目标门槛已满足。
 - [x] PR-13 MCP runtime dispatch replay（2026-05-30）：`pioneer_agent.app.replay_fixture` 对低风险动作额外跑 no-op `UIActionRunner` dry dispatch，输出 `runtime_dispatch.summary.semantic_target_gate`；qa-agent MCP 汇总 `pr12_runtime_dispatch_coverage`，锁住 PR5 claim/recruit block 与 upgrade dispatch 的 runtime summary 证据。
+- [x] PR-14 MCP locked field status gate（2026-05-30）：`advisor_golden_replay_status` 新增 `pr5_locked_field_coverage`，并在 PR5 action/evidence/confidence/dispatch/runtime gate 任一 locked field 缺失时返回 `attention`，避免 golden replay 缺证据字段仍显示健康。
 
 ## In Progress
 

@@ -1,6 +1,7 @@
 from pathlib import Path
 import unittest
 
+from qa_agent.mcp_server.advisor_tools import AdvisorReplayTools
 from qa_agent.mcp_server.tooling import KnowledgeToolHandler
 from qa_agent.service.query_service import QueryService
 
@@ -62,6 +63,16 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(payload["pr5_locked_fields"]["report_confidence"], 6)
         self.assertEqual(payload["pr5_locked_fields"]["dispatch_gate"], 3)
         self.assertEqual(payload["pr5_locked_fields"]["runtime_dispatch_gate"], 3)
+        locked = payload["pr5_locked_field_coverage"]
+        self.assertTrue(locked["checked"])
+        self.assertEqual(locked["missing"], [])
+        self.assertEqual(locked["fields"]["expected_action_type"]["covered_count"], 6)
+        self.assertEqual(locked["fields"]["required_report_evidence"]["covered_count"], 6)
+        self.assertEqual(locked["fields"]["required_action_evidence"]["covered_count"], 5)
+        self.assertEqual(locked["fields"]["expected_report_confidence"]["covered_count"], 6)
+        self.assertEqual(locked["fields"]["expected_action_confidence"]["covered_count"], 6)
+        self.assertEqual(locked["fields"]["expected_dispatch_status"]["covered_count"], 3)
+        self.assertEqual(locked["fields"]["runtime_dispatch_gate"]["covered_count"], 3)
         self.assertEqual(payload["pr6_verifier_coverage"]["missing"], [])
         self.assertEqual(
             set(payload["pr6_verifier_coverage"]["covered"]),
@@ -183,6 +194,36 @@ class McpToolTests(unittest.TestCase):
                     payload["runtime_dispatch"]["summary"]["semantic_target_gate"]["decision"],
                     runtime_dispatch_gate["expected"]["semantic_gate_decision"],
                 )
+
+    def test_pr5_locked_field_coverage_reports_missing_fields(self) -> None:
+        coverage = AdvisorReplayTools._pr5_locked_field_coverage(
+            {
+                "fixture.json": {
+                    "page": "chapter",
+                    "expected_action_type": "claim_chapter_reward",
+                    "expected_report_confidence": 0.91,
+                    "expected_action_confidence": 0.87,
+                    "required_report_evidence": [],
+                }
+            }
+        )
+
+        self.assertIn(
+            {"fixture": "fixture.json", "field": "required_report_evidence"},
+            coverage["missing"],
+        )
+        self.assertIn(
+            {"fixture": "fixture.json", "field": "required_action_evidence"},
+            coverage["missing"],
+        )
+        self.assertIn(
+            {"fixture": "fixture.json", "field": "expected_dispatch_status"},
+            coverage["missing"],
+        )
+        self.assertIn(
+            {"fixture": "fixture.json", "field": "runtime_dispatch_gate"},
+            coverage["missing"],
+        )
 
 
 if __name__ == "__main__":
