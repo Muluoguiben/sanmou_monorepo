@@ -52,7 +52,8 @@ class McpToolTests(unittest.TestCase):
         closure_gate = payload["architecture_iteration_closure_gate"]
         self.assertFalse(closure_gate["ready"])
         self.assertEqual(closure_gate["status"], "attention")
-        self.assertIn("low_risk_terminal_dispatch_ready", closure_gate["blocking_codes"])
+        self.assertNotIn("low_risk_terminal_dispatch_ready", closure_gate["blocking_codes"])
+        self.assertIn("low_risk_terminal_real_source_reviewed", closure_gate["blocking_codes"])
         self.assertNotIn("golden_replay_checked", closure_gate["blocking_codes"])
         self.assertNotIn("pr6_verifier_specs_complete", closure_gate["blocking_codes"])
         self.assertTrue(all(item["exists"] for item in closure_gate["source_docs"]))
@@ -68,19 +69,22 @@ class McpToolTests(unittest.TestCase):
             for item in closure_gate["requirements"]
             if item["code"] == "low_risk_terminal_dispatch_ready"
         )
+        self.assertEqual(low_risk_requirement["evidence"]["blocking_actions"], {})
+        source_requirement = next(
+            item
+            for item in closure_gate["requirements"]
+            if item["code"] == "low_risk_terminal_real_source_reviewed"
+        )
         self.assertEqual(
-            low_risk_requirement["evidence"]["blocking_actions"],
-            {
-                "claim_chapter_reward": ["missing_terminal_dispatch"],
-                "recruit_soldiers": ["missing_terminal_dispatch"],
-            },
+            set(source_requirement["evidence"]["missing_real_terminal_sources"]),
+            {"claim_chapter_reward", "recruit_soldiers", "upgrade_building"},
         )
         self.assertEqual(
             [item["code"] for item in payload["attention_reasons"]],
-            ["low_risk_terminal_dispatch_missing"],
+            ["low_risk_terminal_source_review_missing"],
         )
-        self.assertEqual(payload["fixture_count"], 17)
-        self.assertEqual(payload["expectation_count"], 17)
+        self.assertEqual(payload["fixture_count"], 19)
+        self.assertEqual(payload["expectation_count"], 19)
         self.assertEqual(payload["expectation_version"], 2)
         self.assertEqual(payload["pr5_fixture_count"], 6)
         self.assertEqual(payload["pr5_page_coverage"]["missing"], [])
@@ -110,58 +114,56 @@ class McpToolTests(unittest.TestCase):
             set(payload["pr6_verifier_coverage"]["covered"]),
             {"claim_chapter_reward", "recruit_soldiers", "upgrade_building"},
         )
-        self.assertEqual(payload["pr5_dispatch_gate_coverage"]["required_count"], 4)
-        self.assertEqual(payload["pr5_dispatch_gate_coverage"]["matched_count"], 4)
+        self.assertEqual(payload["pr5_dispatch_gate_coverage"]["required_count"], 6)
+        self.assertEqual(payload["pr5_dispatch_gate_coverage"]["matched_count"], 6)
         self.assertEqual(payload["pr5_dispatch_gate_coverage"]["failures"], [])
-        self.assertEqual(payload["pr12_runtime_dispatch_coverage"]["required_count"], 4)
-        self.assertEqual(payload["pr12_runtime_dispatch_coverage"]["matched_count"], 4)
+        self.assertEqual(payload["pr12_runtime_dispatch_coverage"]["required_count"], 6)
+        self.assertEqual(payload["pr12_runtime_dispatch_coverage"]["matched_count"], 6)
         self.assertEqual(payload["pr12_runtime_dispatch_coverage"]["failures"], [])
-        self.assertEqual(payload["pr15_terminal_dispatch_gate_coverage"]["required_count"], 4)
-        self.assertEqual(payload["pr15_terminal_dispatch_gate_coverage"]["matched_count"], 4)
+        self.assertEqual(payload["pr15_terminal_dispatch_gate_coverage"]["required_count"], 6)
+        self.assertEqual(payload["pr15_terminal_dispatch_gate_coverage"]["matched_count"], 6)
         self.assertEqual(payload["pr15_terminal_dispatch_gate_coverage"]["failures"], [])
         readiness = payload["low_risk_verifier_readiness"]
         self.assertTrue(readiness["checked"])
-        self.assertFalse(readiness["ready"])
-        self.assertEqual(readiness["ready_actions"], ["upgrade_building"])
+        self.assertTrue(readiness["ready"])
+        self.assertEqual(
+            readiness["ready_actions"],
+            ["claim_chapter_reward", "recruit_soldiers", "upgrade_building"],
+        )
         self.assertEqual(readiness["verifier_spec_missing"], [])
-        self.assertEqual(
-            set(readiness["terminal_dispatch_missing"]),
-            {"claim_chapter_reward", "recruit_soldiers"},
-        )
-        self.assertEqual(
-            readiness["blocking_actions"],
-            {
-                "claim_chapter_reward": ["missing_terminal_dispatch"],
-                "recruit_soldiers": ["missing_terminal_dispatch"],
-            },
-        )
-        self.assertEqual(
-            [item["code"] for item in readiness["next_fixture_requirements"]],
-            [
-                "chapter_claim_button_terminal_fixture",
-                "recruit_button_terminal_fixture",
-            ],
-        )
-        self.assertEqual(
-            readiness["next_fixture_requirements"][0]["expected_runtime_dispatch"],
-            {
-                "status": "ok",
-                "target_key": "chapter_claim_button",
-                "terminal_for_verifier": True,
-            },
-        )
+        self.assertEqual(readiness["terminal_dispatch_missing"], [])
+        self.assertEqual(readiness["blocking_actions"], {})
+        self.assertEqual(readiness["next_fixture_requirements"], [])
         terminal = payload["pr5_low_risk_terminal_dispatch_coverage"]
         self.assertTrue(terminal["checked"])
-        self.assertEqual(terminal["covered"], ["upgrade_building"])
+        self.assertEqual(
+            terminal["covered"],
+            ["claim_chapter_reward", "recruit_soldiers", "upgrade_building"],
+        )
         self.assertEqual(
             terminal["covered_fixtures"],
-            {"upgrade_building": "pr20_upgrade_confirm_terminal_state.json"},
+            {
+                "claim_chapter_reward": "pr21_chapter_claim_terminal_state.json",
+                "recruit_soldiers": "pr22_recruit_terminal_state.json",
+                "upgrade_building": "pr20_upgrade_confirm_terminal_state.json",
+            },
         )
-        self.assertEqual(
-            set(terminal["missing"]),
-            {"claim_chapter_reward", "recruit_soldiers"},
+        self.assertEqual(terminal["missing"], [])
+        self.assertEqual(len(terminal["observed"]), 6)
+        terminal_claim = next(
+            item
+            for item in terminal["observed"]
+            if item["fixture"] == "pr21_chapter_claim_terminal_state.json"
         )
-        self.assertEqual(len(terminal["observed"]), 4)
+        self.assertEqual(terminal_claim["target_key"], "chapter_claim_button")
+        self.assertTrue(terminal_claim["terminal_for_verifier"])
+        terminal_recruit = next(
+            item
+            for item in terminal["observed"]
+            if item["fixture"] == "pr22_recruit_terminal_state.json"
+        )
+        self.assertEqual(terminal_recruit["target_key"], "recruit_button")
+        self.assertTrue(terminal_recruit["terminal_for_verifier"])
         upgrade_observation = next(
             item for item in terminal["observed"] if item["fixture"] == "pr5_building_upgrade_state.json"
         )
@@ -178,9 +180,17 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(terminal_upgrade["flow_step"], "confirm_upgrade")
         self.assertTrue(terminal_upgrade["terminal_for_verifier"])
         self.assertEqual(readiness["observed_terminal_dispatch"], terminal["observed"])
+        source_review = payload["low_risk_terminal_source_review"]
+        self.assertTrue(source_review["checked"])
+        self.assertFalse(source_review["ready"])
+        self.assertEqual(source_review["accepted_actions"], [])
         self.assertEqual(
-            payload["attention_reasons"][0]["blocking_actions"],
-            readiness["blocking_actions"],
+            set(source_review["missing_real_terminal_sources"]),
+            {"claim_chapter_reward", "recruit_soldiers", "upgrade_building"},
+        )
+        self.assertEqual(
+            {item["source_kind"] for item in source_review["observed"]},
+            {"runtime_state_fixture"},
         )
         self.assertEqual(payload["failures"], [])
 
@@ -206,6 +216,7 @@ class McpToolTests(unittest.TestCase):
         self.assertIn("golden_replay_checked", closure_gate["blocking_codes"])
         self.assertIn("pr6_verifier_specs_complete", closure_gate["blocking_codes"])
         self.assertIn("low_risk_terminal_dispatch_ready", closure_gate["blocking_codes"])
+        self.assertIn("low_risk_terminal_real_source_reviewed", closure_gate["blocking_codes"])
         self.assertFalse(payload["pr6_verifier_coverage"]["checked"])
         self.assertFalse(payload["pr5_dispatch_gate_coverage"]["checked"])
         self.assertFalse(payload["pr12_runtime_dispatch_coverage"]["checked"])
@@ -305,6 +316,16 @@ class McpToolTests(unittest.TestCase):
                 "blocked_by": None,
                 "target_key": "upgrade_confirm_button",
             },
+            "pr21_chapter_claim_terminal_state.json": {
+                "status": "ok",
+                "blocked_by": None,
+                "target_key": "chapter_claim_button",
+            },
+            "pr22_recruit_terminal_state.json": {
+                "status": "ok",
+                "blocked_by": None,
+                "target_key": "recruit_button",
+            },
         }
 
         for fixture, dispatch_expected in expected.items():
@@ -338,7 +359,11 @@ class McpToolTests(unittest.TestCase):
                 )
                 self.assertTrue(terminal_dispatch_gate["checked"])
                 self.assertTrue(terminal_dispatch_gate["matched"])
-                expected_terminal = fixture == "pr20_upgrade_confirm_terminal_state.json"
+                expected_terminal = fixture in {
+                    "pr20_upgrade_confirm_terminal_state.json",
+                    "pr21_chapter_claim_terminal_state.json",
+                    "pr22_recruit_terminal_state.json",
+                }
                 self.assertEqual(
                     terminal_dispatch_gate["expected"],
                     {"terminal_for_verifier": expected_terminal},
@@ -364,14 +389,17 @@ class McpToolTests(unittest.TestCase):
                         readiness["next_fixture_requirements"][0]["expected_runtime_dispatch"]["target_key"],
                         "upgrade_confirm_button",
                     )
-                elif fixture == "pr20_upgrade_confirm_terminal_state.json":
+                elif fixture in {
+                    "pr20_upgrade_confirm_terminal_state.json",
+                    "pr21_chapter_claim_terminal_state.json",
+                    "pr22_recruit_terminal_state.json",
+                }:
                     self.assertTrue(readiness["semantic_dispatch_ready"])
                     self.assertTrue(readiness["runtime_dispatch_ready"])
                     self.assertTrue(readiness["ready_for_post_action_verifier"])
                     self.assertEqual(readiness["blockers"], [])
                     self.assertEqual(readiness["next_fixture_requirements"], [])
-                    self.assertEqual(readiness["observed"]["target_key"], "upgrade_confirm_button")
-                    self.assertEqual(readiness["observed"]["flow_step"], "confirm_upgrade")
+                    self.assertEqual(readiness["observed"]["target_key"], dispatch_expected["target_key"])
                 else:
                     self.assertFalse(readiness["ready_for_post_action_verifier"])
                     self.assertEqual(len(readiness["next_fixture_requirements"]), 1)

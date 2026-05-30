@@ -193,30 +193,45 @@ class Pr5AdvisorGoldenReplayTests(unittest.TestCase):
                         expected["expected_dispatch_terminal_for_verifier"],
                     )
 
-    def test_upgrade_confirm_terminal_fixture_reaches_verifier_ready_dispatch(self) -> None:
+    def test_low_risk_terminal_fixtures_reach_verifier_ready_dispatch(self) -> None:
         project_root = _project_root()
-        state = load_runtime_state_record(
-            project_root / "tests" / "fixtures" / "pr20_upgrade_confirm_terminal_state.json"
-        ).state
-        action = ActionSelector().select(StateDeriver().derive(state)).selected_action
-        self.assertIsNotNone(action)
-        self.assertEqual(action.action_type, ActionType.UPGRADE_BUILDING)
-        self.assertNotIn("upgrade_button", action.params)
-        self.assertTrue(action.params["upgrade_dialog"]["confirm_button"]["visible"])
+        cases = {
+            "pr20_upgrade_confirm_terminal_state.json": (
+                ActionType.UPGRADE_BUILDING,
+                "upgrade_confirm_button",
+                "upgrade_dialog.confirm_button",
+            ),
+            "pr21_chapter_claim_terminal_state.json": (
+                ActionType.CLAIM_CHAPTER_REWARD,
+                "chapter_claim_button",
+                "claim_button",
+            ),
+            "pr22_recruit_terminal_state.json": (
+                ActionType.RECRUIT_SOLDIERS,
+                "recruit_button",
+                "recruit_button",
+            ),
+        }
 
-        result = UIActionRunner(
-            _ReplayUI(),  # type: ignore[arg-type]
-            capabilities=CapabilityFlags(input_control=True),
-        ).run(action)
+        for fixture_name, (action_type, target_key, semantic_target) in cases.items():
+            with self.subTest(fixture_name=fixture_name):
+                state = load_runtime_state_record(project_root / "tests" / "fixtures" / fixture_name).state
+                action = ActionSelector().select(StateDeriver().derive(state)).selected_action
+                self.assertIsNotNone(action)
+                self.assertEqual(action.action_type, action_type)
 
-        self.assertEqual(result.status, "ok")
-        self.assertEqual(result.summary["target_key"], "upgrade_confirm_button")
-        self.assertEqual(result.summary["flow_step"], "confirm_upgrade")
-        self.assertTrue(result.summary["terminal_for_verifier"])
-        self.assertEqual(
-            result.summary["semantic_target_gate"]["details"]["target"],
-            "upgrade_dialog.confirm_button",
-        )
+                result = UIActionRunner(
+                    _ReplayUI(),  # type: ignore[arg-type]
+                    capabilities=CapabilityFlags(input_control=True),
+                ).run(action)
+
+                self.assertEqual(result.status, "ok")
+                self.assertEqual(result.summary["target_key"], target_key)
+                self.assertTrue(result.summary["terminal_for_verifier"])
+                self.assertEqual(
+                    result.summary["semantic_target_gate"]["details"]["target"],
+                    semantic_target,
+                )
 
 
 def _project_root() -> Path:

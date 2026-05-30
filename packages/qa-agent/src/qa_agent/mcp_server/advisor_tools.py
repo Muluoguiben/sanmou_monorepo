@@ -135,6 +135,9 @@ class AdvisorReplayTools:
             payload["pr6_verifier_coverage"],
             payload["pr5_low_risk_terminal_dispatch_coverage"],
         )
+        payload["low_risk_terminal_source_review"] = self._low_risk_terminal_source_review(
+            payload["pr5_low_risk_terminal_dispatch_coverage"]
+        )
         payload["attention_reasons"] = self._attention_reasons(payload)
         payload["status"] = "attention" if payload["attention_reasons"] else "ok"
         payload["architecture_iteration_closure_gate"] = (
@@ -433,6 +436,38 @@ class AdvisorReplayTools:
         }
 
     @staticmethod
+    def _low_risk_terminal_source_review(
+        terminal_dispatch_coverage: dict[str, Any],
+    ) -> dict[str, Any]:
+        checked = bool(terminal_dispatch_coverage.get("checked"))
+        covered_fixtures = terminal_dispatch_coverage.get("covered_fixtures") or {}
+        observed: list[dict[str, Any]] = []
+        accepted_actions: list[str] = []
+        for action_type in PR6_LOW_RISK_ACTIONS:
+            fixture = covered_fixtures.get(action_type)
+            source_kind = _terminal_fixture_source_kind(fixture)
+            accepted = source_kind in {"pr5_real_screenshot_fixture", "live_trace_fixture"}
+            observed.append(
+                {
+                    "action_type": action_type,
+                    "fixture": fixture,
+                    "source_kind": source_kind,
+                    "accepted_for_closure": accepted,
+                }
+            )
+            if accepted:
+                accepted_actions.append(action_type)
+        missing = sorted(set(PR6_LOW_RISK_ACTIONS) - set(accepted_actions))
+        return {
+            "checked": checked,
+            "ready": checked and not missing,
+            "required_actions": PR6_LOW_RISK_ACTIONS,
+            "accepted_actions": sorted(accepted_actions),
+            "missing_real_terminal_sources": missing,
+            "observed": observed,
+        }
+
+    @staticmethod
     def _low_risk_verifier_readiness(
         verifier_coverage: dict[str, Any],
         terminal_dispatch_coverage: dict[str, Any],
@@ -568,6 +603,16 @@ class AdvisorReplayTools:
                     "blocking_actions": readiness.get("blocking_actions") or {},
                 }
             )
+        source_review = payload.get("low_risk_terminal_source_review") or {}
+        source_missing = source_review.get("missing_real_terminal_sources") or []
+        if source_review.get("checked") and source_missing:
+            reasons.append(
+                {
+                    "code": "low_risk_terminal_source_review_missing",
+                    "actions": source_missing,
+                    "observed": source_review.get("observed") or [],
+                }
+            )
         return reasons
 
     def _architecture_iteration_closure_gate(self, payload: dict[str, Any]) -> dict[str, Any]:
@@ -653,6 +698,11 @@ class AdvisorReplayTools:
                 "low_risk_terminal_dispatch_ready",
                 bool((payload.get("low_risk_verifier_readiness") or {}).get("ready")),
                 payload.get("low_risk_verifier_readiness") or {},
+            ),
+            _closure_requirement(
+                "low_risk_terminal_real_source_reviewed",
+                bool((payload.get("low_risk_terminal_source_review") or {}).get("ready")),
+                payload.get("low_risk_terminal_source_review") or {},
             ),
         ]
         blocking_codes = [item["code"] for item in requirements if not item["ready"]]
@@ -747,6 +797,16 @@ def _closure_requirement(code: str, ready: bool, evidence: dict[str, Any]) -> di
         "ready": bool(ready),
         "evidence": evidence,
     }
+
+
+def _terminal_fixture_source_kind(fixture: Any) -> str | None:
+    if not isinstance(fixture, str) or not fixture:
+        return None
+    if fixture.startswith("pr5_"):
+        return "pr5_real_screenshot_fixture"
+    if fixture.startswith("live_") or fixture.startswith("trace_"):
+        return "live_trace_fixture"
+    return "runtime_state_fixture"
 
 
 def _dispatch_gate_result(result: dict[str, Any], expectation: dict[str, Any]) -> dict[str, Any]:
