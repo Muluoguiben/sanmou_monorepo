@@ -187,6 +187,11 @@ class Pr5AdvisorGoldenReplayTests(unittest.TestCase):
                     self.assertEqual(result.summary["blocked_by"], expected["expected_dispatch_blocked_by"])
                 if "expected_dispatch_target_key" in expected:
                     self.assertEqual(result.summary["target_key"], expected["expected_dispatch_target_key"])
+                if "expected_dispatch_terminal_for_verifier" in expected:
+                    self.assertEqual(
+                        result.summary.get("terminal_for_verifier") is True,
+                        expected["expected_dispatch_terminal_for_verifier"],
+                    )
 
 
 def _project_root() -> Path:

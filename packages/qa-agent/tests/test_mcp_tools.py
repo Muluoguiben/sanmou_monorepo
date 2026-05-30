@@ -48,7 +48,7 @@ class McpToolTests(unittest.TestCase):
         result = self.handler.call_tool("advisor_golden_replay_status", {})
         payload = result["structuredContent"]
         self.assertFalse(result["isError"])
-        self.assertEqual(payload["status"], "ok")
+        self.assertEqual(payload["status"], "attention")
         self.assertEqual(payload["fixture_count"], 16)
         self.assertEqual(payload["expectation_count"], 16)
         self.assertEqual(payload["expectation_version"], 2)
@@ -63,6 +63,7 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(payload["pr5_locked_fields"]["report_confidence"], 6)
         self.assertEqual(payload["pr5_locked_fields"]["dispatch_gate"], 3)
         self.assertEqual(payload["pr5_locked_fields"]["runtime_dispatch_gate"], 3)
+        self.assertEqual(payload["pr5_locked_fields"]["terminal_dispatch_gate"], 3)
         locked = payload["pr5_locked_field_coverage"]
         self.assertTrue(locked["checked"])
         self.assertEqual(locked["missing"], [])
@@ -73,6 +74,7 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(locked["fields"]["expected_action_confidence"]["covered_count"], 6)
         self.assertEqual(locked["fields"]["expected_dispatch_status"]["covered_count"], 3)
         self.assertEqual(locked["fields"]["runtime_dispatch_gate"]["covered_count"], 3)
+        self.assertEqual(locked["fields"]["expected_dispatch_terminal_for_verifier"]["covered_count"], 3)
         self.assertEqual(payload["pr6_verifier_coverage"]["missing"], [])
         self.assertEqual(
             set(payload["pr6_verifier_coverage"]["covered"]),
@@ -84,6 +86,23 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(payload["pr12_runtime_dispatch_coverage"]["required_count"], 3)
         self.assertEqual(payload["pr12_runtime_dispatch_coverage"]["matched_count"], 3)
         self.assertEqual(payload["pr12_runtime_dispatch_coverage"]["failures"], [])
+        self.assertEqual(payload["pr15_terminal_dispatch_gate_coverage"]["required_count"], 3)
+        self.assertEqual(payload["pr15_terminal_dispatch_gate_coverage"]["matched_count"], 3)
+        self.assertEqual(payload["pr15_terminal_dispatch_gate_coverage"]["failures"], [])
+        terminal = payload["pr5_low_risk_terminal_dispatch_coverage"]
+        self.assertTrue(terminal["checked"])
+        self.assertEqual(terminal["covered"], [])
+        self.assertEqual(
+            set(terminal["missing"]),
+            {"claim_chapter_reward", "recruit_soldiers", "upgrade_building"},
+        )
+        self.assertEqual(len(terminal["observed"]), 3)
+        upgrade_observation = next(
+            item for item in terminal["observed"] if item["action_type"] == "upgrade_building"
+        )
+        self.assertEqual(upgrade_observation["status"], "ok")
+        self.assertEqual(upgrade_observation["flow_step"], "open_upgrade_dialog")
+        self.assertFalse(upgrade_observation["terminal_for_verifier"])
         self.assertEqual(payload["failures"], [])
 
     def test_advisor_fixture_eval_returns_selected_action(self) -> None:
@@ -176,6 +195,7 @@ class McpToolTests(unittest.TestCase):
                 payload = result["structuredContent"]
                 dispatch_gate = payload["dispatch_gate"]
                 runtime_dispatch_gate = payload["runtime_dispatch_gate"]
+                terminal_dispatch_gate = payload["terminal_dispatch_gate"]
 
                 self.assertFalse(result["isError"])
                 self.assertTrue(dispatch_gate["checked"])
@@ -194,6 +214,13 @@ class McpToolTests(unittest.TestCase):
                     payload["runtime_dispatch"]["summary"]["semantic_target_gate"]["decision"],
                     runtime_dispatch_gate["expected"]["semantic_gate_decision"],
                 )
+                self.assertTrue(terminal_dispatch_gate["checked"])
+                self.assertTrue(terminal_dispatch_gate["matched"])
+                self.assertEqual(
+                    terminal_dispatch_gate["expected"],
+                    {"terminal_for_verifier": False},
+                )
+                self.assertFalse(terminal_dispatch_gate["actual"]["terminal_for_verifier"])
 
     def test_pr5_locked_field_coverage_reports_missing_fields(self) -> None:
         coverage = AdvisorReplayTools._pr5_locked_field_coverage(
@@ -222,6 +249,10 @@ class McpToolTests(unittest.TestCase):
         )
         self.assertIn(
             {"fixture": "fixture.json", "field": "runtime_dispatch_gate"},
+            coverage["missing"],
+        )
+        self.assertIn(
+            {"fixture": "fixture.json", "field": "expected_dispatch_terminal_for_verifier"},
             coverage["missing"],
         )
 

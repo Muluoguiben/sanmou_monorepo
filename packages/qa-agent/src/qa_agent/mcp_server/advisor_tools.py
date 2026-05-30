@@ -68,6 +68,10 @@ class AdvisorReplayTools:
                 "action_confidence": sum("expected_action_confidence" in item for item in pr5_expectations.values()),
                 "dispatch_gate": sum("expected_dispatch_status" in item for item in pr5_expectations.values()),
                 "runtime_dispatch_gate": sum("expected_dispatch_status" in item for item in pr5_expectations.values()),
+                "terminal_dispatch_gate": sum(
+                    "expected_dispatch_terminal_for_verifier" in item
+                    for item in pr5_expectations.values()
+                ),
             },
             "pr5_locked_field_coverage": pr5_locked_field_coverage,
             "missing_expectations": [
@@ -87,6 +91,12 @@ class AdvisorReplayTools:
             payload["pr6_verifier_coverage"] = self._pr6_verifier_coverage(comparisons)
             payload["pr5_dispatch_gate_coverage"] = self._pr5_dispatch_gate_coverage(comparisons)
             payload["pr12_runtime_dispatch_coverage"] = self._pr12_runtime_dispatch_coverage(comparisons)
+            payload["pr15_terminal_dispatch_gate_coverage"] = (
+                self._pr15_terminal_dispatch_gate_coverage(comparisons)
+            )
+            payload["pr5_low_risk_terminal_dispatch_coverage"] = (
+                self._low_risk_terminal_dispatch_coverage(comparisons)
+            )
         else:
             payload["pr6_verifier_coverage"] = {
                 "checked": False,
@@ -106,6 +116,20 @@ class AdvisorReplayTools:
                 "matched_count": 0,
                 "failures": [],
             }
+            payload["pr15_terminal_dispatch_gate_coverage"] = {
+                "checked": False,
+                "required_count": 0,
+                "matched_count": 0,
+                "failures": [],
+            }
+            payload["pr5_low_risk_terminal_dispatch_coverage"] = {
+                "checked": False,
+                "required": PR6_LOW_RISK_ACTIONS,
+                "covered": [],
+                "covered_fixtures": {},
+                "missing": [],
+                "observed": [],
+            }
         payload["status"] = (
             "ok"
             if not payload["missing_expectations"]
@@ -116,6 +140,8 @@ class AdvisorReplayTools:
             and not payload["pr6_verifier_coverage"]["missing"]
             and not payload["pr5_dispatch_gate_coverage"]["failures"]
             and not payload["pr12_runtime_dispatch_coverage"]["failures"]
+            and not payload["pr15_terminal_dispatch_gate_coverage"]["failures"]
+            and not payload["pr5_low_risk_terminal_dispatch_coverage"]["missing"]
             else "attention"
         )
         return payload
@@ -146,6 +172,7 @@ class AdvisorReplayTools:
             "ranked_action_count": comparison["ranked_action_count"],
             "dispatch_gate": comparison["dispatch_gate"],
             "runtime_dispatch_gate": comparison["runtime_dispatch_gate"],
+            "terminal_dispatch_gate": comparison["terminal_dispatch_gate"],
             "semantic_target_gate": replay_result.get("semantic_target_gate"),
             "runtime_dispatch": replay_result.get("runtime_dispatch"),
             "verifier_gate": replay_result.get("verifier_gate"),
@@ -233,6 +260,7 @@ class AdvisorReplayTools:
         selection_reason = result.get("selection_reason") or {}
         dispatch_gate = _dispatch_gate_result(result, expectations.get(fixture_name, {}))
         runtime_dispatch_gate = _runtime_dispatch_gate_result(result, expectations.get(fixture_name, {}))
+        terminal_dispatch_gate = _terminal_dispatch_gate_result(result, expectations.get(fixture_name, {}))
         return {
             "fixture": fixture_name,
             "matched": expected == actual,
@@ -243,6 +271,7 @@ class AdvisorReplayTools:
             "ranked_action_count": len(result.get("ranked_actions") or []),
             "dispatch_gate": dispatch_gate,
             "runtime_dispatch_gate": runtime_dispatch_gate,
+            "terminal_dispatch_gate": terminal_dispatch_gate,
             "semantic_target_gate": result.get("semantic_target_gate"),
             "runtime_dispatch": result.get("runtime_dispatch"),
             "verifier_gate": result.get("verifier_gate"),
@@ -277,6 +306,7 @@ class AdvisorReplayTools:
             "required_action_evidence": [],
             "expected_dispatch_status": [],
             "runtime_dispatch_gate": [],
+            "expected_dispatch_terminal_for_verifier": [],
         }
         for fixture_name, expectation in sorted(pr5_expectations.items()):
             required_by_field["expected_action_type"].append(fixture_name)
@@ -289,6 +319,7 @@ class AdvisorReplayTools:
             if action_type in PR6_LOW_RISK_ACTIONS:
                 required_by_field["expected_dispatch_status"].append(fixture_name)
                 required_by_field["runtime_dispatch_gate"].append(fixture_name)
+                required_by_field["expected_dispatch_terminal_for_verifier"].append(fixture_name)
 
         missing: list[dict[str, str]] = []
         coverage: dict[str, dict[str, Any]] = {}
@@ -347,6 +378,61 @@ class AdvisorReplayTools:
             "required_count": len(checked),
             "matched_count": len(checked) - len(failures),
             "failures": failures,
+        }
+
+    @staticmethod
+    def _pr15_terminal_dispatch_gate_coverage(comparisons: list[dict[str, Any]]) -> dict[str, Any]:
+        checked = [item for item in comparisons if (item.get("terminal_dispatch_gate") or {}).get("checked")]
+        failures = [
+            {
+                "fixture": item["fixture"],
+                "expected": item["terminal_dispatch_gate"]["expected"],
+                "actual": item["terminal_dispatch_gate"]["actual"],
+            }
+            for item in checked
+            if not item["terminal_dispatch_gate"]["matched"]
+        ]
+        return {
+            "checked": True,
+            "required_count": len(checked),
+            "matched_count": len(checked) - len(failures),
+            "failures": failures,
+        }
+
+    @staticmethod
+    def _low_risk_terminal_dispatch_coverage(comparisons: list[dict[str, Any]]) -> dict[str, Any]:
+        covered_fixtures: dict[str, str] = {}
+        observed: list[dict[str, Any]] = []
+        for item in comparisons:
+            action_type = item.get("actual_action_type")
+            if action_type not in PR6_LOW_RISK_ACTIONS:
+                continue
+            if not (item.get("terminal_dispatch_gate") or {}).get("checked"):
+                continue
+            runtime_dispatch = item.get("runtime_dispatch") or {}
+            summary = runtime_dispatch.get("summary") or {}
+            terminal_for_verifier = summary.get("terminal_for_verifier") is True
+            observation = {
+                "fixture": item["fixture"],
+                "action_type": action_type,
+                "status": runtime_dispatch.get("status"),
+                "blocked_by": summary.get("blocked_by"),
+                "target_key": summary.get("target_key"),
+                "flow_step": summary.get("flow_step"),
+                "terminal_for_verifier": terminal_for_verifier,
+            }
+            observed.append(observation)
+            if runtime_dispatch.get("status") == "ok" and terminal_for_verifier:
+                covered_fixtures.setdefault(str(action_type), item["fixture"])
+
+        covered = sorted(covered_fixtures)
+        return {
+            "checked": True,
+            "required": PR6_LOW_RISK_ACTIONS,
+            "covered": covered,
+            "covered_fixtures": covered_fixtures,
+            "missing": sorted(set(PR6_LOW_RISK_ACTIONS) - set(covered)),
+            "observed": sorted(observed, key=lambda item: (item["action_type"], item["fixture"])),
         }
 
 
@@ -422,6 +508,31 @@ def _runtime_dispatch_gate_result(result: dict[str, Any], expectation: dict[str,
             matched = matched and expected["blocked_by"] == actual["blocked_by"]
         if expected["target_key"] is not None:
             matched = matched and expected["target_key"] == actual["target_key"]
+    return {
+        "checked": checked,
+        "matched": matched,
+        "expected": expected,
+        "actual": actual,
+    }
+
+
+def _terminal_dispatch_gate_result(result: dict[str, Any], expectation: dict[str, Any]) -> dict[str, Any]:
+    expected_terminal = expectation.get("expected_dispatch_terminal_for_verifier")
+    runtime_dispatch = result.get("runtime_dispatch") or {}
+    summary = runtime_dispatch.get("summary") or {}
+    actual = {
+        "status": runtime_dispatch.get("status"),
+        "target_key": summary.get("target_key"),
+        "flow_step": summary.get("flow_step"),
+        "terminal_for_verifier": summary.get("terminal_for_verifier") is True,
+    }
+    expected = {
+        "terminal_for_verifier": expected_terminal,
+    }
+    checked = expected_terminal is not None
+    matched = True
+    if checked:
+        matched = expected_terminal == actual["terminal_for_verifier"]
     return {
         "checked": checked,
         "matched": matched,
