@@ -1122,6 +1122,28 @@ class McpToolTests(unittest.TestCase):
                 payload["suggested_terminal_source_evidence_patch"]["trace_sha256"],
                 _sha256(trace_path),
             )
+            expectation_patch = payload["suggested_advisor_fixture_expectation_patch"][
+                "live_chapter_claim_terminal_trace.json"
+            ]
+            self.assertEqual(expectation_patch["page"], "chapter")
+            self.assertEqual(expectation_patch["screenshot"], str(screenshot_path))
+            self.assertEqual(
+                expectation_patch["expected_action_type"],
+                "claim_chapter_reward",
+            )
+            self.assertEqual(
+                expectation_patch["expected_dispatch_target_key"],
+                "chapter_claim_button",
+            )
+            self.assertTrue(expectation_patch["expected_dispatch_terminal_for_verifier"])
+            self.assertEqual(
+                expectation_patch["terminal_source_evidence"]["screenshot_sha256"],
+                _sha256(screenshot_path),
+            )
+            self.assertEqual(
+                expectation_patch["terminal_source_evidence"]["trace_sha256"],
+                _sha256(trace_path),
+            )
 
             invalid_evidence = {
                 **evidence,
@@ -1199,6 +1221,19 @@ class McpToolTests(unittest.TestCase):
                     "post_action_delta_evidence"
                 ]["source"],
                 "verification_record",
+            )
+            missing_hash_expectation_patch = missing_hash_payload[
+                "suggested_advisor_fixture_expectation_patch"
+            ]["live_claim_chapter_reward_terminal_trace.json"]
+            self.assertEqual(
+                missing_hash_expectation_patch["terminal_source_evidence"][
+                    "screenshot_sha256"
+                ],
+                _sha256(screenshot_path),
+            )
+            self.assertEqual(
+                missing_hash_expectation_patch["terminal_source_evidence"]["trace_sha256"],
+                _sha256(trace_path),
             )
 
     def test_pr5_locked_field_coverage_reports_missing_fields(self) -> None:

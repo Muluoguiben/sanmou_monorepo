@@ -222,6 +222,13 @@ class AdvisorReplayTools:
             "suggested_terminal_source_evidence_patch": (
                 _terminal_source_evidence_patch_from_review(review)
             ),
+            "suggested_advisor_fixture_expectation_patch": (
+                _advisor_fixture_expectation_patch_from_review(
+                    fixture_name,
+                    review,
+                    terminal_source_evidence,
+                )
+            ),
             "next_source_requirements": requirements if not review["accepted_for_closure"] else [],
             "capture_plan": capture_plan,
         }
@@ -1536,6 +1543,36 @@ def _terminal_source_evidence_patch_from_review(review: dict[str, Any]) -> dict[
         }
 
     return patch
+
+
+def _advisor_fixture_expectation_patch_from_review(
+    fixture: str,
+    review: dict[str, Any],
+    evidence: dict[str, Any],
+) -> dict[str, Any]:
+    action_type = str(review.get("action_type") or "")
+    if action_type not in PR6_LOW_RISK_ACTIONS:
+        return {}
+    required_dispatch = review.get("required_runtime_dispatch")
+    if not isinstance(required_dispatch, dict) or not required_dispatch:
+        return {}
+
+    merged_evidence = dict(evidence)
+    merged_evidence.update(_terminal_source_evidence_patch_from_review(review))
+    fixture_key = Path(fixture).name
+    return {
+        fixture_key: {
+            "page": review.get("required_page") or merged_evidence.get("page"),
+            "screenshot": merged_evidence.get("screenshot"),
+            "expected_action_type": action_type,
+            "expected_dispatch_status": required_dispatch.get("status"),
+            "expected_dispatch_target_key": required_dispatch.get("target_key"),
+            "expected_dispatch_terminal_for_verifier": required_dispatch.get(
+                "terminal_for_verifier"
+            ),
+            "terminal_source_evidence": merged_evidence,
+        }
+    }
 
 
 def _advisor_fixture_expectation_patch_template(requirement: dict[str, Any]) -> dict[str, Any]:
