@@ -1,3 +1,4 @@
+import hashlib
 import json
 from pathlib import Path
 import tempfile
@@ -6,6 +7,10 @@ import unittest
 from qa_agent.mcp_server.advisor_tools import AdvisorReplayTools
 from qa_agent.mcp_server.tooling import KnowledgeToolHandler
 from qa_agent.service.query_service import QueryService
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 class McpToolTests(unittest.TestCase):
@@ -325,7 +330,9 @@ class McpToolTests(unittest.TestCase):
         self.assertIn("post_action_delta", capture_plan["actions"][0]["terminal_source_evidence_fields"])
         self.assertIn("reviewed_by", capture_plan["actions"][0]["terminal_source_evidence_fields"])
         self.assertIn("reviewed_at", capture_plan["actions"][0]["terminal_source_evidence_fields"])
+        self.assertIn("screenshot_sha256", capture_plan["actions"][0]["terminal_source_evidence_fields"])
         self.assertIn("verification_record", capture_plan["actions"][0]["live_trace_extra_fields"])
+        self.assertIn("trace_sha256", capture_plan["actions"][0]["live_trace_extra_fields"])
         self.assertIn("operator_confirmation", capture_plan["actions"][0]["live_trace_extra_fields"])
         self.assertIn(
             "verification.post_action_verifier.status=verified",
@@ -360,6 +367,14 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(
             expectation_template["terminal_source_evidence"]["reviewed_by"],
             "<reviewer-id>",
+        )
+        self.assertEqual(
+            expectation_template["terminal_source_evidence"]["screenshot_sha256"],
+            "<sha256-of-screenshot>",
+        )
+        self.assertEqual(
+            expectation_template["terminal_source_evidence"]["trace_sha256"],
+            "<sha256-of-trace>",
         )
         self.assertEqual(
             expectation_template["terminal_source_evidence"]["verification_record"]["checked"],
@@ -641,6 +656,7 @@ class McpToolTests(unittest.TestCase):
                 "reviewed_by": "qa-reviewer",
                 "reviewed_at": "2026-05-30T18:20:00+08:00",
                 "screenshot": screenshot,
+                "screenshot_sha256": _sha256(Path(__file__).resolve().parents[2] / "pioneer-agent" / screenshot),
                 "page": "chapter",
                 "semantic_target": "progress.chapter_claim_button",
                 "runtime_dispatch": {
@@ -667,6 +683,7 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(review["required_runtime_dispatch"]["target_key"], "chapter_claim_button")
         self.assertEqual(review["required_post_action_delta"], ["progress.chapter_claimable=false"])
         self.assertTrue(review["review_metadata_validation"]["valid"])
+        self.assertTrue(review["file_integrity_validation"]["valid"])
 
         invalid_review_metadata_expectation = {
             "page": "chapter",
@@ -687,6 +704,26 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(
             invalid_review_metadata["review_metadata_validation"]["issues"],
             ["reviewed_at", "reviewed_by"],
+        )
+
+        invalid_hash_expectation = {
+            "page": "chapter",
+            "terminal_source_evidence": {
+                **valid_expectation["terminal_source_evidence"],
+                "screenshot_sha256": "0" * 64,
+            },
+        }
+        invalid_hash_review = tools._terminal_source_evidence_review(
+            action_type="claim_chapter_reward",
+            fixture="pr5_chapter_claim_terminal_state.json",
+            expectation=invalid_hash_expectation,
+        )
+
+        self.assertFalse(invalid_hash_review["source_evidence_valid"])
+        self.assertIn("file_integrity", invalid_hash_review["missing_evidence"])
+        self.assertEqual(
+            invalid_hash_review["file_integrity_validation"]["issues"],
+            ["screenshot_sha256_mismatch"],
         )
 
         invalid_expectation = {
@@ -748,7 +785,9 @@ class McpToolTests(unittest.TestCase):
                     "reviewed_by": "qa-reviewer",
                     "reviewed_at": "2026-05-30T18:20:00+08:00",
                     "screenshot": str(screenshot_path),
+                    "screenshot_sha256": _sha256(screenshot_path),
                     "trace": str(trace_path),
+                    "trace_sha256": _sha256(trace_path),
                     "page": "chapter",
                     "semantic_target": "progress.chapter_claim_button",
                     "runtime_dispatch": {
@@ -791,6 +830,7 @@ class McpToolTests(unittest.TestCase):
             self.assertEqual(live_review["missing_evidence"], [])
             self.assertTrue(live_review["trace_validation"]["matched"])
             self.assertTrue(live_review["review_metadata_validation"]["valid"])
+            self.assertTrue(live_review["file_integrity_validation"]["valid"])
             self.assertEqual(
                 live_review["trace_validation"]["required_post_action_delta"],
                 ["progress.chapter_claimable=false"],
@@ -960,7 +1000,9 @@ class McpToolTests(unittest.TestCase):
                 "reviewed_by": "qa-reviewer",
                 "reviewed_at": "2026-05-30T18:20:00+08:00",
                 "screenshot": str(screenshot_path),
+                "screenshot_sha256": _sha256(screenshot_path),
                 "trace": str(trace_path),
+                "trace_sha256": _sha256(trace_path),
                 "page": "chapter",
                 "semantic_target": "progress.chapter_claim_button",
                 "runtime_dispatch": {

@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 from datetime import datetime
+import hashlib
 from pathlib import Path
 import subprocess
 import sys
@@ -1051,6 +1052,14 @@ class AdvisorReplayTools:
         ):
             missing.append("post_action_delta")
 
+        file_integrity_validation = (
+            self._file_integrity_validation(evidence, source_kind)
+            if source_evidence_present and source_kind in accepted_source_kinds
+            else {"checked": False, "valid": False, "issues": []}
+        )
+        if file_integrity_validation["checked"] and not file_integrity_validation["valid"]:
+            missing.append("file_integrity")
+
         trace_validation: dict[str, Any] | None = None
         verification_record_validation: dict[str, Any] | None = None
         operator_confirmation_validation: dict[str, Any] | None = None
@@ -1108,6 +1117,7 @@ class AdvisorReplayTools:
             "post_action_delta": post_action_delta if isinstance(post_action_delta, list) else [],
             "required_post_action_delta": requirement.get("required_post_action_delta") or [],
             "review_metadata_validation": review_metadata_validation,
+            "file_integrity_validation": file_integrity_validation,
             "trace_validation": trace_validation,
             "verification_record_validation": verification_record_validation,
             "operator_confirmation_validation": operator_confirmation_validation,
@@ -1118,6 +1128,56 @@ class AdvisorReplayTools:
 
     def _source_path_exists(self, value: str) -> bool:
         return self._resolve_source_path(value) is not None
+
+    def _file_integrity_validation(
+        self,
+        evidence: dict[str, Any],
+        source_kind: str | None,
+    ) -> dict[str, Any]:
+        required = [("screenshot", "screenshot_sha256")]
+        if source_kind == "live_trace_fixture":
+            required.append(("trace", "trace_sha256"))
+
+        checks: list[dict[str, Any]] = []
+        issues: list[str] = []
+        for path_field, hash_field in required:
+            path_value = evidence.get(path_field)
+            expected_hash = evidence.get(hash_field)
+            check = {
+                "path_field": path_field,
+                "hash_field": hash_field,
+                "path": path_value if isinstance(path_value, str) else None,
+                "expected_sha256": expected_hash if isinstance(expected_hash, str) else None,
+                "actual_sha256": None,
+                "matched": False,
+            }
+            if not isinstance(path_value, str) or not path_value:
+                issues.append(path_field)
+                checks.append(check)
+                continue
+            resolved_path = self._resolve_source_path(path_value)
+            if resolved_path is None:
+                issues.append(path_field)
+                checks.append(check)
+                continue
+            if not _is_sha256(expected_hash):
+                issues.append(hash_field)
+                check["actual_sha256"] = _sha256_file(resolved_path)
+                checks.append(check)
+                continue
+            actual_hash = _sha256_file(resolved_path)
+            check["actual_sha256"] = actual_hash
+            check["matched"] = actual_hash == expected_hash
+            if not check["matched"]:
+                issues.append(f"{hash_field}_mismatch")
+            checks.append(check)
+
+        return {
+            "checked": True,
+            "valid": not issues,
+            "issues": sorted(set(issues)),
+            "checks": checks,
+        }
 
     def _resolve_source_path(self, value: str) -> Path | None:
         path = Path(value)
@@ -1324,6 +1384,7 @@ def _terminal_source_capture_plan(
                     "reviewed_by",
                     "reviewed_at",
                     "screenshot",
+                    "screenshot_sha256",
                     "page",
                     "semantic_target",
                     "runtime_dispatch",
@@ -1331,6 +1392,7 @@ def _terminal_source_capture_plan(
                 ],
                 "live_trace_extra_fields": [
                     "trace",
+                    "trace_sha256",
                     "verification_record",
                     "operator_confirmation",
                 ],
@@ -1387,6 +1449,7 @@ def _terminal_source_evidence_template(
         "reviewed_by": "<reviewer-id>",
         "reviewed_at": "<reviewed-iso8601>",
         "screenshot": f"tests/fixtures/screenshots/pc_client/<capture-date>/{action_type}_terminal.jpg",
+        "screenshot_sha256": "<sha256-of-screenshot>",
         "page": requirement["required_page"],
         "semantic_target": requirement["required_semantic_target"],
         "runtime_dispatch": dict(requirement["required_runtime_dispatch"]),
@@ -1394,6 +1457,7 @@ def _terminal_source_evidence_template(
     }
     if source_kind == "live_trace_fixture":
         evidence["trace"] = f"tests/fixtures/traces/<capture-date>/{action_type}_terminal.jsonl"
+        evidence["trace_sha256"] = "<sha256-of-trace>"
         evidence["verification_record"] = {
             "action_type": action_type,
             "status": "verified",
@@ -1560,6 +1624,21 @@ def _valid_iso_datetime(value: Any) -> bool:
     except ValueError:
         return False
     return True
+
+
+def _is_sha256(value: Any) -> bool:
+    if not isinstance(value, str):
+        return False
+    text = value.strip().lower()
+    return len(text) == 64 and all(char in "0123456789abcdef" for char in text)
+
+
+def _sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def _operator_confirmation_validation(
