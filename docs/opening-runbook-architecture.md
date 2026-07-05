@@ -40,14 +40,14 @@
 核心语义：
 
 - **条件三值逻辑**：`satisfied / not_satisfied / unknown`。指标缺失 ≠ false——perception 没产出的字段会以 `unknown_metrics` escalation 上报，而不是静默阻塞或放行。这是"LLM 怎么知道运行是否正常"的代码化答案之一。
-- **entry_when / exit_when 为 AND 语义，abort_when 为 OR 语义**（任一战损/连败条件命中即触发 `abort_triggered`，路由 `llm_planner`）。
-- **human_gate**：二拖一、10-12 级地/远征等 timing 敏感或高失败代价阶段，进入前必须 `confirm_human_gate()`，否则 hold 并发 `human_gate` escalation（路由 `human`）。与 Safety Rules 的高风险人工确认契约一致。
+- **entry_when / exit_when 为 AND 语义，abort_when 为 OR 语义**（任一战损/连败条件命中即触发 `abort_triggered`，路由 `llm_planner`）。abort 指标缺失（如开战前 `battle_loss_rate` 尚未产生）不阻塞阶段内工作以免死锁，但每次求值都会发 `unknown_metrics` escalation（`checked: abort_when`），**且 exit 满足时禁止 transition**（hold `abort_metrics_unknown`）——不允许带着安全盲区升阶段。
+- **human_gate**：二拖一、10-12 级地/远征等 timing 敏感或高失败代价阶段，进入前必须 `confirm_human_gate()`，否则 hold 并发 `human_gate` escalation（路由 `human`）。gate 在 `evaluate()` 对**当前阶段**校验，`start_phase_id`、planner `override_phase()`、重启恢复都无法绕过；未确认时不下发 `selector_hints`（返回空 dict，fail-safe）。与 Safety Rules 的高风险人工确认契约一致。
 - **引擎纯确定性**：无 I/O、无模型调用，每 tick 可跑；escalation 是数据（Pydantic 模型），由外层决定通知谁。
 - **planner 覆盖入口**：`override_phase()` 供 LLM planner 仲裁后回退/跳转阶段（如战损超标后降级回 4 级地攒兵）。
 
 条件求值支持扁平指标（`main_team_avg_level`）与 RuntimeState 点路径（`progress.opening_rewards_claimed`）；`loader.metrics_from_runtime_state()` 负责合并两者，perception 尚未产出的计数（如各级地占领数）由调用方经 `extra_metrics` 注入。
 
-种子数据：`packages/pioneer-agent/data/opening_runbook_s15.yaml`（S15 赤壁惊涛，来源为墨镜老表攻略长图的人工转录）。八个阶段：收菜 → 杂牌清 1-2 级地 → 正常队清 2-3 级地+首块外城 → 二拖一（human_gate）→ 开 5-6 级（貂蝉蛮夷）→ 开 7 级（左田宁）→ 开 8-9 级 → 10-12 级/远征（human_gate）。**所有数值阈值 `needs_review: true`**，有回归测试强制此约束，人工对照原图复核前不得置信。
+种子数据：`packages/pioneer-agent/src/pioneer_agent/config/opening_runbook_s15.yaml`（S15 赤壁惊涛，来源为墨镜老表攻略长图的人工转录；放在 package data 内随 wheel 分发，非 editable 安装亦可加载，默认路径缺失会记 warning 日志）。八个阶段：收菜 → 杂牌清 1-2 级地 → 正常队清 2-3 级地+首块外城 → 二拖一（human_gate）→ 开 5-6 级（貂蝉蛮夷）→ 开 7 级（左田宁）→ 开 8-9 级 → 10-12 级/远征（human_gate）。**所有数值阈值 `needs_review: true`**，有回归测试强制此约束，人工对照原图复核前不得置信。
 
 ## 三条工作量裁剪判断
 

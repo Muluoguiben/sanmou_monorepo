@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
 from pathlib import Path
 from typing import Any, Mapping
@@ -11,9 +12,13 @@ import yaml
 from pioneer_agent.core.models import RuntimeState
 from pioneer_agent.runbook.models import OpeningRunbook
 
+logger = logging.getLogger(__name__)
+
 DEFAULT_OPENING_RUNBOOK_ENV = "SANMOU_OPENING_RUNBOOK_PATH"
+# Ships as package data (pyproject packages pioneer_agent/config/*.yaml), so the
+# default resolves inside both editable and wheel installs.
 DEFAULT_OPENING_RUNBOOK_PATH = (
-    Path(__file__).resolve().parents[3] / "data" / "opening_runbook_s15.yaml"
+    Path(__file__).resolve().parents[1] / "config" / "opening_runbook_s15.yaml"
 )
 
 
@@ -31,6 +36,11 @@ def load_default_opening_runbook(path: Path | None = None) -> OpeningRunbook | N
         os.environ.get(DEFAULT_OPENING_RUNBOOK_ENV, DEFAULT_OPENING_RUNBOOK_PATH)
     )
     if not runbook_path.exists():
+        logger.warning(
+            "opening runbook not found at %s (set %s to override)",
+            runbook_path,
+            DEFAULT_OPENING_RUNBOOK_ENV,
+        )
         return None
     return load_runbook(runbook_path)
 

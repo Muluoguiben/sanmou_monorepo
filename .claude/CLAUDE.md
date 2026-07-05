@@ -101,7 +101,7 @@ Current execution status: wait actions are implemented; click-class actions rema
 
 Phase system: `opening_sprint` → `growth_window` → `chapter_push` → `settlement_sprint`.
 
-Opening orchestration: `pioneer_agent/runbook/` serializes the season opening guide into an ordered phase machine (`RunbookEngine`) with three-valued condition evaluation (missing metrics escalate as `unknown_metrics` instead of silently failing), AND entry/exit vs OR abort semantics, `human_gate` phases (二拖一 / 远征), and planner `override_phase`. Seed data: `packages/pioneer-agent/data/opening_runbook_s15.yaml` (all thresholds `needs_review` until manually verified against the source guide). See `docs/opening-runbook-architecture.md`.
+Opening orchestration: `pioneer_agent/runbook/` serializes the season opening guide into an ordered phase machine (`RunbookEngine`) with three-valued condition evaluation (missing metrics escalate as `unknown_metrics` instead of silently failing; unknown abort metrics also block phase transitions), AND entry/exit vs OR abort semantics, `human_gate` phases (二拖一 / 远征) enforced on the current phase so `start_phase_id` / `override_phase` / restart cannot bypass them, and planner `override_phase`. Seed data ships as package data: `pioneer_agent/config/opening_runbook_s15.yaml` (all thresholds `needs_review` until manually verified against the source guide). See `docs/opening-runbook-architecture.md`.
 
 Priority rules (hard overrides before score ranking):
 1. Claim chapter if claimable

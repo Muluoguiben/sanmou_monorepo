@@ -62,6 +62,29 @@ class RunbookEngine:
                 selector_hints=dict(phase.selector_hints),
             )
 
+        # The gate also guards start_phase_id / override_phase / restart resume:
+        # an unconfirmed human_gate phase never hands out selector hints.
+        if phase.human_gate and phase.phase_id not in self._confirmed_gates:
+            return RunbookDecision(
+                phase_id=phase.phase_id,
+                previous_phase_id=phase.phase_id,
+                hold_reason="human_gate_pending",
+                human_gate_pending=phase.phase_id,
+                selector_hints={},
+                escalations=[
+                    RunbookEscalation(
+                        kind=EscalationKind.HUMAN_GATE,
+                        route=EscalationRoute.HUMAN,
+                        phase_id=phase.phase_id,
+                        details={
+                            "goal": phase.goal,
+                            "title": phase.title,
+                            "checked": "current_phase",
+                        },
+                    )
+                ],
+            )
+
         escalations: list[RunbookEscalation] = []
 
         abort_result = evaluate_any(phase.abort_when, metrics)
@@ -85,6 +108,19 @@ class RunbookEngine:
                 selector_hints=dict(phase.selector_hints),
                 escalations=escalations,
                 abort_result=abort_result.to_dict(),
+            )
+
+        if abort_result.status == ConditionStatus.UNKNOWN:
+            escalations.append(
+                RunbookEscalation(
+                    kind=EscalationKind.UNKNOWN_METRICS,
+                    route=EscalationRoute.LLM_PLANNER,
+                    phase_id=phase.phase_id,
+                    details={
+                        "missing_metrics": abort_result.missing_metrics,
+                        "checked": "abort_when",
+                    },
+                )
             )
 
         exit_result = evaluate_all(phase.exit_when, metrics)
@@ -112,6 +148,20 @@ class RunbookEngine:
                 phase_id=phase.phase_id,
                 previous_phase_id=phase.phase_id,
                 selector_hints=dict(phase.selector_hints),
+                escalations=escalations,
+                exit_result=exit_result.to_dict(),
+                abort_result=abort_result.to_dict(),
+            )
+
+        # Exit is satisfied, but never advance while safety (abort) metrics are
+        # dark — hold and let the planner/human clear the blind spot first.
+        if abort_result.status == ConditionStatus.UNKNOWN:
+            return RunbookDecision(
+                phase_id=phase.phase_id,
+                previous_phase_id=phase.phase_id,
+                hold_reason="abort_metrics_unknown",
+                selector_hints=dict(phase.selector_hints),
+                escalations=escalations,
                 exit_result=exit_result.to_dict(),
                 abort_result=abort_result.to_dict(),
             )

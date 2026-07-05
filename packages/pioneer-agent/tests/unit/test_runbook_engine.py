@@ -136,6 +136,7 @@ class RunbookEngineTests(unittest.TestCase):
 
     def test_blocked_entry_escalates_with_failed_conditions(self) -> None:
         engine = RunbookEngine(_runbook(), start_phase_id="er_tuo_yi")
+        engine.confirm_human_gate("er_tuo_yi")
         decision = engine.evaluate(
             {
                 "er_tuo_yi_done": True,
@@ -166,10 +167,45 @@ class RunbookEngineTests(unittest.TestCase):
         triggered_metrics = [item["metric"] for item in escalation.details["triggered"]]
         self.assertEqual(triggered_metrics, ["battle_loss_rate"])
 
-    def test_abort_unknown_metrics_do_not_trigger(self) -> None:
+    def test_abort_unknown_metrics_escalate_without_triggering(self) -> None:
         engine = RunbookEngine(_runbook(), start_phase_id="open_lv5")
         decision = engine.evaluate({"highest_land_level_cleared": 4})
-        self.assertNotEqual(decision.hold_reason, "abort_triggered")
+        self.assertIsNone(decision.hold_reason)
+        self.assertFalse(decision.transitioned)
+        escalation = decision.escalations[0]
+        self.assertEqual(escalation.kind, EscalationKind.UNKNOWN_METRICS)
+        self.assertEqual(escalation.details["checked"], "abort_when")
+        self.assertIn("battle_loss_rate", escalation.details["missing_metrics"])
+
+    def test_abort_unknown_metrics_block_transition(self) -> None:
+        engine = RunbookEngine(_runbook(), start_phase_id="open_lv5")
+        decision = engine.evaluate({"highest_land_level_cleared": 5})
+        self.assertFalse(decision.transitioned)
+        self.assertFalse(decision.completed)
+        self.assertEqual(decision.hold_reason, "abort_metrics_unknown")
+        kinds = [escalation.kind for escalation in decision.escalations]
+        self.assertIn(EscalationKind.UNKNOWN_METRICS, kinds)
+
+    def test_start_at_human_gate_phase_holds_until_confirmed(self) -> None:
+        engine = RunbookEngine(_runbook(), start_phase_id="er_tuo_yi")
+        decision = engine.evaluate({"er_tuo_yi_done": False})
+        self.assertEqual(decision.hold_reason, "human_gate_pending")
+        self.assertEqual(decision.human_gate_pending, "er_tuo_yi")
+        self.assertEqual(decision.selector_hints, {})
+        self.assertEqual(decision.escalations[0].kind, EscalationKind.HUMAN_GATE)
+        self.assertEqual(decision.escalations[0].route, EscalationRoute.HUMAN)
+
+        engine.confirm_human_gate("er_tuo_yi")
+        decision = engine.evaluate({"er_tuo_yi_done": False})
+        self.assertIsNone(decision.hold_reason)
+
+    def test_override_to_human_gate_phase_holds_until_confirmed(self) -> None:
+        engine = RunbookEngine(_runbook())
+        engine.override_phase("er_tuo_yi")
+        decision = engine.evaluate({"er_tuo_yi_done": True})
+        self.assertEqual(decision.hold_reason, "human_gate_pending")
+        self.assertFalse(decision.transitioned)
+        self.assertEqual(decision.selector_hints, {})
 
     def test_completes_after_final_phase(self) -> None:
         engine = RunbookEngine(_runbook(), start_phase_id="open_lv5")

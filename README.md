@@ -25,7 +25,7 @@ docs/                   跨项目设计文档
 - `pioneer_agent.core.device`：平台无关设备模型，覆盖 PC 客户端、安卓模拟器、安卓真机、iOS、截图文件、watch folder、Windows capture 等输入源。
 - `pioneer_agent.runtime.advisor_loop`：`capture -> VisionSync -> RuntimeState -> Deriver -> Selector -> AdvisorReport`，只出建议，不执行输入。
 - `pioneer-agent` 自动化 runtime 仍保留，但 click 类 handler 仍处于 `pending-calibration`；真实执行必须等 verifier / safety / recovery 补齐。
-- `pioneer_agent.runbook`：开荒 runbook 阶段机（三值条件求值、abort/human_gate/unknown-metrics escalation、planner override），种子数据 `packages/pioneer-agent/data/opening_runbook_s15.yaml`（S15 赤壁惊涛，数值阈值待人工复核）。
+- `pioneer_agent.runbook`：开荒 runbook 阶段机（三值条件求值、abort/human_gate/unknown-metrics escalation、planner override），种子数据 `packages/pioneer-agent/src/pioneer_agent/config/opening_runbook_s15.yaml`（S15 赤壁惊涛，随包分发，数值阈值待人工复核）。
 - `qa-agent` 已具备知识库、RAG、Bilibili 视频证据链和 MCP server，后续作为 Advisor 的知识底座接入。
 
 ## 快速开始
