@@ -4,6 +4,8 @@
 
 当前商业化 MVP 路线优先做 **全端截图 Advisor**：用户上传或粘贴截图，系统识别游戏状态并给出开荒、配将、地图、资源和风险建议；不在首版承诺自动点击或全自动托管。
 
+与 Advisor 并行的个人自动化路线采用**分层自治**：Python runtime 跑 tick 循环（截图只进无状态 vision API），LLM 只做低频策略仲裁与巡检，Claude Code / Codex 不进 tick 循环。方向决策、runbook 阶段机与 Goal 见 [开荒分层自治：Runbook 架构与 Goal](docs/opening-runbook-architecture.md)。
+
 ## 仓库结构
 
 ```
@@ -23,6 +25,7 @@ docs/                   跨项目设计文档
 - `pioneer_agent.core.device`：平台无关设备模型，覆盖 PC 客户端、安卓模拟器、安卓真机、iOS、截图文件、watch folder、Windows capture 等输入源。
 - `pioneer_agent.runtime.advisor_loop`：`capture -> VisionSync -> RuntimeState -> Deriver -> Selector -> AdvisorReport`，只出建议，不执行输入。
 - `pioneer-agent` 自动化 runtime 仍保留，但 click 类 handler 仍处于 `pending-calibration`；真实执行必须等 verifier / safety / recovery 补齐。
+- `pioneer_agent.runbook`：开荒 runbook 阶段机（三值条件求值、abort/human_gate/unknown-metrics escalation、planner override），种子数据 `packages/pioneer-agent/data/opening_runbook_s15.yaml`（S15 赤壁惊涛，数值阈值待人工复核）。
 - `qa-agent` 已具备知识库、RAG、Bilibili 视频证据链和 MCP server，后续作为 Advisor 的知识底座接入。
 
 ## 快速开始
@@ -48,7 +51,7 @@ python -m pioneer_agent.app.advisor_api --host 127.0.0.1 --port 8765 --mock
 pip install -e packages/qa-agent
 cd packages/qa-agent && PYTHONPATH=src python -m qa_agent.app.chat
 
-# 运行测试（当前 pioneer-agent 78 tests；无 FastAPI 依赖时 advisor_api 测试会 skip）
+# 运行测试（当前 pioneer-agent 259 tests；无 FastAPI 依赖时 advisor_api 测试会 skip，感知测试需要 google-genai）
 cd packages/pioneer-agent && python -m unittest discover -s tests -p "test_*.py" -v
 cd packages/qa-agent && PYTHONPATH=src python -m unittest discover -s tests -p "test_*.py" -v
 
@@ -67,6 +70,7 @@ npm run dev
 - [工程落地方案](docs/sanguo-agent-mvp-engineering-plan.md)
 - [状态快照字段指南](docs/state-snapshot-field-guide.md)
 - [Pioneer Agent 架构评审与路线图](docs/pioneer-agent-architecture-review-and-roadmap.md)
+- [开荒分层自治：Runbook 架构与 Goal](docs/opening-runbook-architecture.md)
 - [Codex 操作模型](docs/codex-operating-model.md)
 - [Codex 工作流验证矩阵](docs/codex-workflow-verification.md)
 - [Desktop Advisor Browser Smoke](docs/advisor-browser-smoke.md)

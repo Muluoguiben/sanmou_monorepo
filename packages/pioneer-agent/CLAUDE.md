@@ -3,7 +3,7 @@
 本会话主要负责 `packages/pioneer-agent/` 内的代码和数据。与桌面 Advisor 相关的联动文件在 `../../apps/sanmou-advisor-desktop/`，只有在明确处理 GUI/API 集成时才修改。
 
 ## 职责范围
-- `src/pioneer_agent/` 下的所有 Python 代码（core, derivation, scoring, selector, executor, runtime, perception, storage, app, config）
+- `src/pioneer_agent/` 下的所有 Python 代码（core, derivation, scoring, selector, executor, runtime, runbook, perception, storage, app, config）
 - `tests/` 测试和 `tests/fixtures/` 状态快照
 - `data/` 运行时数据
 - `app/advisor_api.py` 本地 Advisor API
@@ -25,7 +25,7 @@
 PYTHONPATH=src:../sanmou-common/src python3 -m unittest discover -s tests -p "test_*.py" -v
 ```
 
-当前测试状态：76 tests。若未安装 FastAPI / python-multipart，`test_advisor_api.py` 会 skip；安装 `pioneer-agent` 开发依赖后应完整通过。
+当前测试状态：259 tests。若未安装 FastAPI / python-multipart，`test_advisor_api.py` 会 skip；感知相关测试需要 `google-genai`；安装 `pioneer-agent` 开发依赖后应完整通过。
 
 ## 运行 Agent / Advisor
 ```bash
@@ -83,3 +83,4 @@ python3 -m pioneer_agent.app.vision_probe --vision-provider openai:dense_table -
 - [运行时设计](../../docs/sanguo-agent-runtime-design.md)
 - [工程落地方案](../../docs/sanguo-agent-mvp-engineering-plan.md)
 - [Pioneer Agent 架构评审与路线图](../../docs/pioneer-agent-architecture-review-and-roadmap.md)
+- [开荒分层自治：Runbook 架构与 Goal](../../docs/opening-runbook-architecture.md)

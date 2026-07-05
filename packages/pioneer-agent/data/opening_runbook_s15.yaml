@@ -1,0 +1,143 @@
+# S15 赤壁惊涛 开荒 runbook（阶段机数据，engine 为 pioneer_agent.runbook）
+#
+# 数据来源为 B 站 UP 主「墨镜老表」的 S15 开荒攻略长图（人工阅读转录，未经 OCR 管道）。
+# 密集表格数字有已知 false-positive 教训（见 docs/action-loop-model-routing.md），
+# 因此所有数值阈值默认 needs_review: true，赛季开荒前必须对照原图人工复核后才可信任。
+# 阵容不由 agent 配置：赛季首日人工按攻略预配好游戏内编队（人配队，agent 出征），
+# selector_hints.lineup_preset 只是编队的引用名。
+schema_version: opening_runbook.v1
+season: S15 赤壁惊涛
+generated_at: '2026-07-05'
+sources:
+- kind: guide_image
+  author: 墨镜老表
+  title: S15 开荒攻略（赤壁惊涛）
+  note: 长图人工转录；Part 02 开5-6级/左田宁/披怒貂蝉蛮夷/开8-9级，Part 03 开10-12级与远征。
+phases:
+
+- phase_id: claim_rewards
+  title: 收菜与准备
+  goal: 领取邮件奖励、资源、上赛季装备，完成抽卡；船部件选择为赛季首日人工决策。
+  exit_when:
+    progress.opening_rewards_claimed: '== true'
+  selector_hints:
+    routine: claim_rewards
+    allowed_action_types: [claim_chapter_reward]
+  needs_review: true
+  notes:
+  - exit 指标 progress.opening_rewards_claimed 需 perception 层落地后才可自动判定。
+  - S15 赛季特色（船的部件选择）不自动化，属于人工赛季决策。
+  source_ref: MOJING-S15-KAIHUANG#part1
+
+- phase_id: junk_clear_inner_lv1_2
+  title: 杂牌队清内城 1-2 级地
+  goal: 用杂牌队伍占领内城 4 块 1-2 级基础土地。
+  exit_when:
+    inner_lands_owned_lv1_2: '>= 4'
+  selector_hints:
+    lineup_preset: junk_team
+    target_land_levels: [1, 2]
+    land_scope: inner_city
+  needs_review: true
+  notes:
+  - inner_lands_owned_lv1_2 由调用方经 extra_metrics 提供，perception 落地前不可自动判定。
+  source_ref: MOJING-S15-KAIHUANG#part1-luodisibuzou
+
+- phase_id: normal_clear_inner_lv2_3
+  title: 正常队清内城 2-3 级地与首块外城地
+  goal: 换正常队伍占领内城 4 块 2-3 级地，并占领 1 块外城地。
+  exit_when:
+    inner_lands_owned_lv2_3: '>= 4'
+    outer_lands_owned: '>= 1'
+  selector_hints:
+    lineup_preset: normal_team
+    target_land_levels: [2, 3]
+    land_scope: inner_and_outer
+  needs_review: true
+  source_ref: MOJING-S15-KAIHUANG#part1-luodisibuzou
+
+- phase_id: er_tuo_yi
+  title: 二拖一
+  goal: 两队协同拖住守军恢复窗口、第三队收尾的多队协同打法；timing 敏感，首版人机协作执行。
+  human_gate: true
+  exit_when:
+    progress.er_tuo_yi_done: '== true'
+  selector_hints:
+    routine: er_tuo_yi
+    coordination: multi_team_timed
+  needs_review: true
+  notes:
+  - human_gate：agent 到达此阶段暂停并通知操作者，人工完成后标记 progress.er_tuo_yi_done。
+  source_ref: MOJING-S15-KAIHUANG#part3-ertuoyi
+
+- phase_id: open_lv5_6
+  title: 主力开 5-6 级地（貂蝉蛮夷）
+  goal: 主力换貂蝉蛮夷编队开内城/外城 5-6 级地。
+  entry_when:
+    main_team_avg_level: '>= 37'
+    host_team_soldiers: '>= 17000'
+  exit_when:
+    highest_land_level_cleared: '>= 6'
+  abort_when:
+    battle_loss_rate: '> 0.35'
+    consecutive_defeats: '>= 2'
+  selector_hints:
+    lineup_preset: diaochan_manyi
+    target_land_levels: [5, 6]
+  needs_review: true
+  notes:
+  - 原图为低红/中红/高红三档（低红平均 37-38 级带 17-18 兵；高红平均 45 级 15 兵开）；
+    此处先取低红档，"17-18兵"按千为单位解读为 17000，需对照原图核对。
+  - abort 阈值 0.35/连败 2 次为工程默认值，非攻略原文。
+  source_ref: MOJING-S15-KAIHUANG#part2-kai56
+
+- phase_id: open_lv7
+  title: 主力开 7 级地（左田宁）
+  goal: 换左田宁（左慈/田丰/张宁）省兵编队开 7 级地。
+  entry_when:
+    main_team_avg_level: '>= 40'
+  exit_when:
+    highest_land_level_cleared: '>= 7'
+  abort_when:
+    battle_loss_rate: '> 0.35'
+    consecutive_defeats: '>= 2'
+  selector_hints:
+    lineup_preset: zuo_tian_ning
+    target_land_levels: [7]
+  needs_review: true
+  notes:
+  - 左田宁用于 7 级地与 S14 结论一致（strategy_snapshot kdocs-lineup-chencang-lv7）；
+    S15 原图该表格小字未逐项核对，等级阈值为占位值。
+  source_ref: MOJING-S15-KAIHUANG#part2-zuotianning
+
+- phase_id: open_lv8_9
+  title: 主力开 8-9 级地
+  goal: 按攻略 Part 02 的 8-9 级地阵容与战法配置开高级地。
+  entry_when:
+    main_team_avg_level: '>= 45'
+  exit_when:
+    highest_land_level_cleared: '>= 9'
+  abort_when:
+    battle_loss_rate: '> 0.35'
+    consecutive_defeats: '>= 2'
+  selector_hints:
+    lineup_preset: main_team_lv8_9
+    target_land_levels: [8, 9]
+  needs_review: true
+  notes:
+  - 原图 8-9 级地阵容表密集小字未转录（OCR false-positive 风险），阵容以人工预配编队为准。
+  source_ref: MOJING-S15-KAIHUANG#part2-kai89
+
+- phase_id: open_lv10_12_expedition
+  title: 10-12 级地、二队与远征
+  goal: 攻略 Part 03 的后期段：10-12 级地、二队配置与远征选择；高风险段先人机协作。
+  human_gate: true
+  exit_when:
+    opening_complete: '== true'
+  selector_hints:
+    routine: late_opening
+    target_land_levels: [10, 11, 12]
+  needs_review: true
+  notes:
+  - human_gate：远征与 10 级以上地失败代价高，操作者确认后才进入。
+  source_ref: MOJING-S15-KAIHUANG#part3
