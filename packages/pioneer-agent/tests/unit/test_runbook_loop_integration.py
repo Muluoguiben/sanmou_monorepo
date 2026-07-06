@@ -543,6 +543,56 @@ class RunbookStateStoreTests(unittest.TestCase):
             self.assertTrue(decision.completed)
             self.assertEqual(decision.hold_reason, "runbook_completed")
 
+    def test_state_from_another_season_is_discarded(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            store = RunbookStateStore(Path(tmp) / "runbook_state.json")
+            store.save(
+                current_phase_id="p3",
+                confirmed_gates={"p2"},
+                completed=True,
+                season="S15 旧赛季",
+            )
+            record = store.load(expected_season="S16 新赛季")
+            self.assertIsNone(record.current_phase_id)
+            self.assertFalse(record.completed)
+            self.assertEqual(record.confirmed_gates, set())
+
+            same_season = store.load(expected_season="S15 旧赛季")
+            self.assertEqual(same_season.current_phase_id, "p3")
+            self.assertTrue(same_season.completed)
+
+    def test_confirmations_from_another_season_are_ignored(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            store = RunbookStateStore(Path(tmp) / "runbook_state.json")
+            store.confirm_gate("p2", season="S15 旧赛季")
+            self.assertEqual(store.read_confirmations(expected_season="S16 新赛季"), set())
+            self.assertEqual(store.read_confirmations(expected_season="S15 旧赛季"), {"p2"})
+            self.assertEqual(store.read_confirmations(), {"p2"})
+
+    def test_unstamped_legacy_records_still_accepted(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            store = RunbookStateStore(Path(tmp) / "runbook_state.json")
+            store.save(current_phase_id="p2", confirmed_gates=set())
+            store.confirm_gate("p2")
+            record = store.load(expected_season="S15 测试")
+            self.assertEqual(record.current_phase_id, "p2")
+            self.assertIn("p2", record.confirmed_gates)
+
+    def test_build_engine_ignores_state_from_another_season(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            store = RunbookStateStore(Path(tmp) / "runbook_state.json")
+            store.save(
+                current_phase_id="p3",
+                confirmed_gates={"p2"},
+                completed=True,
+                season="S14 上赛季",
+            )
+            store.confirm_gate("p2", season="S14 上赛季")
+            engine = build_engine_from_store(_runbook(), store)
+            self.assertEqual(engine.current_phase.phase_id, "p1")
+            self.assertFalse(engine.completed)
+            self.assertEqual(engine.confirmed_gates, frozenset())
+
     def test_malformed_confirmation_lines_are_skipped(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             store = RunbookStateStore(Path(tmp) / "runbook_state.json")

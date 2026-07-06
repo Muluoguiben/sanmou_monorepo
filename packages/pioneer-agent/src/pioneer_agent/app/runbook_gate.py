@@ -38,6 +38,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "show":
         print(f"state file:       {args.state}")
         print(f"confirmations:    {store.confirmations_path}")
+        print(f"season:           {record.season or '(unstamped)'}")
         print(f"current phase:    {record.current_phase_id or '(fresh start)'}")
         print(f"completed:        {record.completed}")
         print(f"confirmed gates:  {sorted(record.confirmed_gates) or '(none)'}")
@@ -72,8 +73,14 @@ def main(argv: list[str] | None = None) -> int:
             "matching --state or this confirmation will never be seen"
         )
 
-    record = store.confirm_gate(args.phase_id)
-    print(f"confirmed gate:   {args.phase_id}")
+    season = runbook.season if runbook is not None else None
+    if season is None:
+        print(
+            "warning: no runbook available to stamp the season — this confirmation is "
+            "unstamped and would also apply to a future season's runbook"
+        )
+    record = store.confirm_gate(args.phase_id, season=season)
+    print(f"confirmed gate:   {args.phase_id}" + (f" (season: {season})" if season else ""))
     print(f"appended to:      {store.confirmations_path}")
     print(f"confirmed gates:  {sorted(record.confirmed_gates)}")
     print("the running loop will pick this up on its next tick")

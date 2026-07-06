@@ -325,7 +325,9 @@ class AutonomousLoop:
             # Operator confirmations arrive via the append-only channel; the
             # read is mtime/size-cached, so the steady-state cost is a stat().
             pending = (
-                self.runbook_state_store.read_confirmations()
+                self.runbook_state_store.read_confirmations(
+                    expected_season=self.runbook_engine.runbook.season
+                )
                 - set(self.runbook_engine.confirmed_gates)
             )
             for phase_id in pending:
@@ -365,6 +367,7 @@ class AutonomousLoop:
             current_phase_id=signature[0],
             confirmed_gates=set(signature[1]),
             completed=signature[2],
+            season=self.runbook_engine.runbook.season,
         )
         self._runbook_saved_signature = signature
 
