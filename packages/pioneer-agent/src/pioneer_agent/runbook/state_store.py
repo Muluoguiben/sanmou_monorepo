@@ -1,16 +1,24 @@
 """Persist the runbook cursor and human-gate confirmations across restarts.
 
-A small JSON file next to the loop logs holds `current_phase_id` and
-`confirmed_gates`. The file doubles as the operator confirmation channel:
-`python -m pioneer_agent.app.runbook_gate confirm <phase_id>` (or a careful
-manual edit) records approval, and the running loop picks it up on the next
-tick without restarting.
+Two files with a single-writer rule each, so the loop and the operator CLI
+can never clobber each other:
+
+- ``<state>.json`` — loop-owned: ``current_phase_id``, ``completed``, and the
+  gates the engine has applied. Written atomically (temp file + ``os.replace``)
+  so a crash mid-write cannot leave a torn file.
+- ``<state>.json.confirmations.jsonl`` — operator-owned, append-only: one JSON
+  line per human-gate confirmation from ``pioneer_agent.app.runbook_gate
+  confirm`` (or a careful manual append). The loop only ever reads this file,
+  so a confirmation cannot be lost to a concurrent loop save; the running loop
+  picks it up on its next tick without a restart.
 """
 from __future__ import annotations
 
 import json
 import logging
+import os
 from dataclasses import dataclass, field
+from datetime import datetime
 from pathlib import Path
 
 from pioneer_agent.runbook.engine import RunbookEngine
@@ -23,13 +31,23 @@ logger = logging.getLogger(__name__)
 class RunbookStateRecord:
     current_phase_id: str | None = None
     confirmed_gates: set[str] = field(default_factory=set)
+    completed: bool = False
 
 
 class RunbookStateStore:
     def __init__(self, path: Path) -> None:
         self.path = path
+        self.confirmations_path = path.with_name(path.name + ".confirmations.jsonl")
+        self._confirmations_cache: set[str] = set()
+        self._confirmations_signature: tuple[int, int] | None = None
+        self._confirmations_cached = False
 
     def load(self) -> RunbookStateRecord:
+        record = self._load_state_file()
+        record.confirmed_gates |= self.read_confirmations()
+        return record
+
+    def _load_state_file(self) -> RunbookStateRecord:
         if not self.path.exists():
             return RunbookStateRecord()
         try:
@@ -45,26 +63,78 @@ class RunbookStateStore:
         return RunbookStateRecord(
             current_phase_id=current if isinstance(current, str) else None,
             confirmed_gates={g for g in gates if isinstance(g, str)} if isinstance(gates, list) else set(),
+            completed=payload.get("completed") is True,
         )
 
-    def save(self, *, current_phase_id: str | None, confirmed_gates: set[str]) -> None:
+    def save(
+        self,
+        *,
+        current_phase_id: str | None,
+        confirmed_gates: set[str],
+        completed: bool = False,
+    ) -> None:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         payload = {
             "current_phase_id": current_phase_id,
             "confirmed_gates": sorted(confirmed_gates),
+            "completed": completed,
         }
-        self.path.write_text(
+        tmp_path = self.path.with_name(self.path.name + ".tmp")
+        tmp_path.write_text(
             json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
         )
+        os.replace(tmp_path, self.path)
 
-    def confirm_gate(self, phase_id: str) -> RunbookStateRecord:
-        record = self.load()
-        record.confirmed_gates.add(phase_id)
-        self.save(
-            current_phase_id=record.current_phase_id,
-            confirmed_gates=record.confirmed_gates,
-        )
-        return record
+    def confirm_gate(self, phase_id: str, *, confirmed_by: str | None = None) -> RunbookStateRecord:
+        """Operator channel: append-only, never touches the loop-owned state file."""
+        self.confirmations_path.parent.mkdir(parents=True, exist_ok=True)
+        entry = {
+            "phase_id": phase_id,
+            "confirmed_at": datetime.now().isoformat(timespec="seconds"),
+        }
+        if confirmed_by:
+            entry["confirmed_by"] = confirmed_by
+        with self.confirmations_path.open("a", encoding="utf-8") as handle:
+            handle.write(json.dumps(entry, ensure_ascii=False) + "\n")
+        self._confirmations_cached = False
+        return self.load()
+
+    def read_confirmations(self) -> set[str]:
+        """Confirmed gate ids from the operator channel, mtime/size-cached so the
+        per-tick poll is a stat() in the steady state, not a read+parse."""
+        try:
+            stat = self.confirmations_path.stat()
+        except FileNotFoundError:
+            self._confirmations_cache = set()
+            self._confirmations_signature = None
+            self._confirmations_cached = True
+            return set()
+        signature = (stat.st_mtime_ns, stat.st_size)
+        if self._confirmations_cached and signature == self._confirmations_signature:
+            return set(self._confirmations_cache)
+
+        gates: set[str] = set()
+        try:
+            lines = self.confirmations_path.read_text(encoding="utf-8").splitlines()
+        except OSError:
+            logger.warning("runbook confirmations file unreadable: %s", self.confirmations_path)
+            return set(self._confirmations_cache)
+        for line in lines:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                entry = json.loads(line)
+            except json.JSONDecodeError:
+                logger.warning("skipping malformed confirmation line in %s: %r", self.confirmations_path, line[:80])
+                continue
+            phase_id = entry.get("phase_id") if isinstance(entry, dict) else None
+            if isinstance(phase_id, str):
+                gates.add(phase_id)
+        self._confirmations_cache = gates
+        self._confirmations_signature = signature
+        self._confirmations_cached = True
+        return set(gates)
 
 
 def build_engine_from_store(runbook: OpeningRunbook, store: RunbookStateStore) -> RunbookEngine:
@@ -82,6 +152,7 @@ def build_engine_from_store(runbook: OpeningRunbook, store: RunbookStateStore) -
                 runbook.season,
             )
             start_phase_id = None
+            record.completed = False
     known_gates = {phase.phase_id for phase in runbook.phases}
     stale_gates = record.confirmed_gates - known_gates
     if stale_gates:
@@ -90,4 +161,5 @@ def build_engine_from_store(runbook: OpeningRunbook, store: RunbookStateStore) -
         runbook,
         start_phase_id=start_phase_id,
         confirmed_gates=record.confirmed_gates & known_gates,
+        completed=record.completed,
     )

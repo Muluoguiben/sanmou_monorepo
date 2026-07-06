@@ -10,6 +10,8 @@ import argparse
 import logging
 from pathlib import Path
 
+import yaml
+
 from pioneer_agent.adapters.bridge_client import BridgeClient
 from pioneer_agent.executor.ui_actions import UIActions
 from pioneer_agent.perception.ui_registry import UIRegistry
@@ -63,12 +65,18 @@ def main(argv: list[str] | None = None) -> int:
 
     runbook_engine = None
     runbook_state_store = None
-    if args.runbook or args.runbook_path is not None:
-        runbook = (
-            load_runbook(args.runbook_path)
-            if args.runbook_path is not None
-            else load_default_opening_runbook()
-        )
+    runbook_requested = (
+        args.runbook or args.runbook_path is not None or args.runbook_state is not None
+    )
+    if runbook_requested:
+        try:
+            runbook = (
+                load_runbook(args.runbook_path)
+                if args.runbook_path is not None
+                else load_default_opening_runbook()
+            )
+        except (OSError, yaml.YAMLError, ValueError) as exc:
+            parser.error(f"failed to load runbook: {exc}")
         if runbook is None:
             parser.error("--runbook requested but no runbook YAML was found")
         runbook_state_store = RunbookStateStore(

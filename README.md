@@ -55,7 +55,7 @@ cd packages/qa-agent && PYTHONPATH=src python -m qa_agent.app.chat
 PYTHONPATH=packages/pioneer-agent/src:packages/sanmou-common/src \
 python -m pioneer_agent.app.autonomous --runbook --dry-run
 
-# 运行测试（当前 pioneer-agent 273 tests；无 FastAPI 依赖时 advisor_api 测试会 skip，感知测试需要 google-genai）
+# 运行测试（当前 pioneer-agent 289 tests；无 FastAPI 依赖时 advisor_api 测试会 skip，感知测试需要 google-genai）
 cd packages/pioneer-agent && python -m unittest discover -s tests -p "test_*.py" -v
 cd packages/qa-agent && PYTHONPATH=src python -m unittest discover -s tests -p "test_*.py" -v
 

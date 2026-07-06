@@ -15,6 +15,8 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+import yaml
+
 from pioneer_agent.runbook.loader import load_default_opening_runbook, load_runbook
 from pioneer_agent.runbook.state_store import RunbookStateStore
 
@@ -35,18 +37,23 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "show":
         print(f"state file:       {args.state}")
+        print(f"confirmations:    {store.confirmations_path}")
         print(f"current phase:    {record.current_phase_id or '(fresh start)'}")
+        print(f"completed:        {record.completed}")
         print(f"confirmed gates:  {sorted(record.confirmed_gates) or '(none)'}")
         return 0
 
     if not args.phase_id:
         parser.error("confirm requires a phase_id")
 
-    runbook = (
-        load_runbook(args.runbook_path)
-        if args.runbook_path is not None
-        else load_default_opening_runbook()
-    )
+    try:
+        runbook = (
+            load_runbook(args.runbook_path)
+            if args.runbook_path is not None
+            else load_default_opening_runbook()
+        )
+    except (OSError, yaml.YAMLError, ValueError) as exc:
+        parser.error(f"failed to load runbook: {exc}")
     if runbook is not None:
         try:
             phase = runbook.phase(args.phase_id)
@@ -58,8 +65,16 @@ def main(argv: list[str] | None = None) -> int:
         if not phase.human_gate:
             print(f"note: phase {args.phase_id!r} has no human_gate — confirmation is a no-op for it")
 
+    if not args.state.exists():
+        print(
+            f"warning: state file {args.state} does not exist yet — if the loop runs with a "
+            "custom --log-dir/--runbook-state or a different working directory, pass the "
+            "matching --state or this confirmation will never be seen"
+        )
+
     record = store.confirm_gate(args.phase_id)
     print(f"confirmed gate:   {args.phase_id}")
+    print(f"appended to:      {store.confirmations_path}")
     print(f"confirmed gates:  {sorted(record.confirmed_gates)}")
     print("the running loop will pick this up on its next tick")
     return 0

@@ -4,6 +4,11 @@ from typing import Any
 
 from pioneer_agent.core.enums import ActionType
 from pioneer_agent.core.models import CandidateAction, RuntimeState
+from pioneer_agent.runbook.action_filter import (
+    RUNBOOK_FILTER_REJECT_REASON,
+    action_type_allowed,
+    normalized_allowed_action_types,
+)
 from pioneer_agent.scoring.transfer import is_transfer_candidate_valid
 
 
@@ -34,6 +39,10 @@ class CandidateFilter:
         return viable, rejected
 
     def _reject_reason(self, state: RuntimeState, candidate: CandidateAction) -> str | None:
+        runbook_reason = self._reject_by_runbook(state, candidate)
+        if runbook_reason is not None:
+            return runbook_reason
+
         if candidate.action_type == ActionType.CLAIM_CHAPTER_REWARD:
             return None if state.progress.get("chapter_claimable") else "chapter_not_claimable"
 
@@ -59,6 +68,19 @@ class CandidateFilter:
             return None
 
         return None
+
+    @staticmethod
+    def _reject_by_runbook(state: RuntimeState, candidate: CandidateAction) -> str | None:
+        """Filter candidates by the active runbook phase's allowlist, so the
+        selector picks the best ALLOWED action instead of the loop discarding
+        its top pick post-selection every tick."""
+        runbook = state.global_state.get("runbook")
+        if not isinstance(runbook, dict):
+            return None
+        allowed = normalized_allowed_action_types(runbook.get("selector_hints"))
+        if action_type_allowed(candidate.action_type, allowed):
+            return None
+        return RUNBOOK_FILTER_REJECT_REASON
 
     @staticmethod
     def _reject_upgrade(candidate: CandidateAction) -> str | None:

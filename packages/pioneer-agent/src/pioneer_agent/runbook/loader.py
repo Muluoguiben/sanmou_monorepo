@@ -79,7 +79,7 @@ def metrics_from_runtime_state(
                     computed["host_team_stamina"] = container["container_stamina"]
                 break
 
-    merged: dict[str, Any] = {**payload, **computed}
+    payload.update(computed)
     if extra_metrics:
-        merged.update(extra_metrics)
-    return merged
+        payload.update(extra_metrics)
+    return payload

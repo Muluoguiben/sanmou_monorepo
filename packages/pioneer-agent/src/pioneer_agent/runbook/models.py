@@ -217,6 +217,7 @@ class EscalationKind(str, Enum):
     HUMAN_GATE = "human_gate"
     BLOCKED_TRANSITION = "blocked_transition"
     UNKNOWN_METRICS = "unknown_metrics"
+    ACTION_FILTER_STUCK = "action_filter_stuck"
 
 
 class EscalationRoute(str, Enum):

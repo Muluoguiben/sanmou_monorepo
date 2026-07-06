@@ -33,10 +33,11 @@ class RunbookEngine:
         *,
         start_phase_id: str | None = None,
         confirmed_gates: Iterable[str] | None = None,
+        completed: bool = False,
     ) -> None:
         self.runbook = runbook
         self._index = runbook.phase_index(start_phase_id) if start_phase_id else 0
-        self._completed = False
+        self._completed = bool(completed)
         self._confirmed_gates: set[str] = set()
         for phase_id in confirmed_gates or ():
             self.confirm_human_gate(phase_id)
