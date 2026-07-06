@@ -222,7 +222,7 @@ class AutonomousLoop:
                     )
                     input_trace.extend(extra_input_trace)
                     if flow_decision is not None:
-                        runbook_decision = _merge_flow_decision(runbook_decision, flow_decision)
+                        runbook_decision = _merge_decisions(runbook_decision, flow_decision)
                         self._guard.update_decision(runbook_decision)
                 else:
                     execution, post_action_verification = self._verify_after_action(
@@ -357,7 +357,11 @@ class AutonomousLoop:
         if self.runbook_engine is None:
             return None
 
-        if self.runbook_state_store is not None:
+        # Enforce the emergency-stop freeze at the side-effect site so every
+        # caller of _evaluate_runbook (tick start, flow continuation, post-action
+        # refresh) is covered: no gate confirmations are applied and no state is
+        # persisted while the kill switch is active.
+        if self.runbook_state_store is not None and not self._guard.kill_switch_active:
             # Operator confirmations arrive via the append-only channel; the
             # read is mtime/size-cached, so the steady-state cost is a stat().
             pending = (
@@ -407,7 +411,7 @@ class AutonomousLoop:
         fresh = self._evaluate_runbook(iteration, derived, allow_transition=False)
         if fresh is None:
             return decision
-        merged = _merge_flow_decision(decision, fresh) if decision is not None else fresh
+        merged = _merge_decisions(decision, fresh) if decision is not None else fresh
         self._guard.update_decision(merged)
         return merged
 
@@ -415,7 +419,7 @@ class AutonomousLoop:
         """Loop-owned state file; skipped in dry-run so previews stay side-effect
         free. The saved-signature check keeps idle ticks write-free, but an
         externally deleted file is re-created (a stat per tick, not a read)."""
-        if self.runbook_state_store is None or self.dry_run:
+        if self.runbook_state_store is None or self.dry_run or self._guard.kill_switch_active:
             return
         signature = (
             self.runbook_engine.current_phase.phase_id,
@@ -858,32 +862,53 @@ def _blocked_execution(
     )
 
 
-def _merge_flow_decision(
-    first: RunbookDecision | None, flow: RunbookDecision
+def _merge_decisions(
+    earlier: RunbookDecision | None, later: RunbookDecision
 ) -> RunbookDecision:
-    """The flow decision becomes the tick's decision, but nothing the first
-    evaluation observed may be lost: escalations are unioned and a transition
-    reported by evaluate#1 survives into the recorded payload."""
-    if first is None:
-        return flow
+    """Merge a re-evaluation (flow continuation or post-action refresh) with the
+    tick's earlier decision. `later` is the freshest observation and drives the
+    guard, but nothing the earlier evaluation observed may be lost: escalations
+    are unioned and an earlier transition survives into the recorded payload.
+    The stronger (blocking) hold wins, and a real earlier hold is never
+    relabeled to the synthetic `transition_deferred` that a frozen re-eval
+    emits on an otherwise-productive tick."""
+    if earlier is None:
+        return later
     update: dict[str, Any] = {}
-    if first.transitioned and not flow.transitioned:
+    if earlier.transitioned and not later.transitioned:
         update["transitioned"] = True
-        update["previous_phase_id"] = first.previous_phase_id
-    if first.escalations:
-        seen = {_escalation_signature(e) for e in flow.escalations}
-        update["escalations"] = list(flow.escalations) + [
-            e for e in first.escalations if _escalation_signature(e) not in seen
+        update["previous_phase_id"] = earlier.previous_phase_id
+    if earlier.escalations:
+        seen = {_escalation_signature(e) for e in later.escalations}
+        update["escalations"] = list(later.escalations) + [
+            e for e in earlier.escalations if _escalation_signature(e) not in seen
         ]
-    return flow.model_copy(update=update) if update else flow
+    if later.hold_reason not in RUNBOOK_BLOCKING_HOLDS and earlier.hold_reason != later.hold_reason:
+        update["hold_reason"] = earlier.hold_reason
+        update["human_gate_pending"] = earlier.human_gate_pending
+    return later.model_copy(update=update) if update else later
+
+
+# Full condition-result dumps carry every sibling condition's status, which can
+# flip tick to tick when a non-triggering metric flickers dark; excluding them
+# keeps a persistent escalation's identity stable so edge-triggering holds,
+# while the stable discriminators (checked, missing_metrics, triggered/failed
+# metric identity) still distinguish genuinely different escalations.
+_VOLATILE_ESCALATION_DETAIL_KEYS = frozenset({"abort_result", "exit_result", "entry_result"})
 
 
 def _escalation_signature(escalation: RunbookEscalation) -> str:
     """Identity for edge-triggering: two escalations of the same kind in the
-    same phase are still distinct if their details differ (e.g. unknown_metrics
-    for a missing abort metric vs a missing exit metric), so a changed detail
-    re-fires and reaches the planner instead of being deduped away."""
-    details = json.dumps(escalation.details, sort_keys=True, ensure_ascii=False, default=str)
+    same phase are distinct only if their STABLE details differ (e.g.
+    unknown_metrics for a missing abort metric vs a missing exit metric), so a
+    changed discriminator re-fires to the planner while a persistent condition
+    stays deduped even as volatile sibling-condition statuses churn."""
+    stable = {
+        key: value
+        for key, value in escalation.details.items()
+        if key not in _VOLATILE_ESCALATION_DETAIL_KEYS
+    }
+    details = json.dumps(stable, sort_keys=True, ensure_ascii=False, default=str)
     return f"{escalation.kind.value}|{escalation.phase_id}|{details}"
 
 

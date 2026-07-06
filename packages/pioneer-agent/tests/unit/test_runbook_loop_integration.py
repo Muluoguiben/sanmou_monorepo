@@ -659,6 +659,101 @@ class GuardSeamRegressionTests(unittest.TestCase):
             self.assertIn("unknown_metrics", records[0]["runbook_escalations"])
             self.assertIn("unknown_metrics", records[1]["runbook_escalations"])
 
+    def test_persistent_abort_with_flickering_sibling_not_reflooded(self) -> None:
+        # open_lv-style phase: two abort conditions. One stays triggered (abort
+        # holds); the other's metric flickers dark/readable. The abort must be
+        # reported ONCE, not re-fired each tick the sibling status churns.
+        runbook = OpeningRunbook.model_validate(
+            {
+                "season": "S15 测试",
+                "generated_at": "2026-07-07",
+                "phases": [
+                    {
+                        "phase_id": "open",
+                        "title": "开地",
+                        "exit_when": {"progress.cleared": "== true"},
+                        "abort_when": {
+                            "global_state.loss_rate": "> 0.35",
+                            "global_state.defeats": ">= 2",
+                        },
+                    },
+                    {"phase_id": "next", "title": "下一阶段",
+                     "exit_when": {"progress.done": "== true"}},
+                ],
+            }
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            loop_logger = LoopLogger(Path(tmp), archive_screenshots=False)
+            vision = _SequencedVisionSync(
+                [
+                    {"progress": {}, "global_state": {"loss_rate": 0.5, "defeats": 1}},   # sibling readable
+                    {"progress": {}, "global_state": {"loss_rate": 0.5}},                 # sibling dark
+                    {"progress": {}, "global_state": {"loss_rate": 0.5, "defeats": 1}},   # readable again
+                ]
+            )
+            loop = AutonomousLoop(
+                bridge=_StubBridge(),
+                vision_sync=vision,  # type: ignore[arg-type]
+                ui_actions=_SpyUIActions(),  # type: ignore[arg-type]
+                selector=_RecordingSelector(None),  # type: ignore[arg-type]
+                deriver=_StubDeriver(),  # type: ignore[arg-type]
+                runner=_StubRunner(),  # type: ignore[arg-type]
+                sleeper=lambda _s: None,
+                loop_logger=loop_logger,
+                runbook_engine=RunbookEngine(runbook, start_phase_id="open"),
+            )
+            for i in range(3):
+                loop.tick(i)
+            records = [
+                json.loads(line)
+                for line in (Path(tmp) / "loop.jsonl").read_text().splitlines()
+            ]
+            abort_ticks = [r for r in records if "abort_triggered" in r["runbook_escalations"]]
+            # Reported once (tick 0), not re-fired when the sibling flickers.
+            self.assertEqual(len(abort_ticks), 1)
+            self.assertEqual(records[0]["runbook_escalations"].count("abort_triggered"), 1)
+
+    def test_refresh_frozen_under_kill_switch(self) -> None:
+        # An action dispatches, then the kill switch trips before the post-action
+        # refresh; a gate confirmation is pending. The refresh must not apply the
+        # gate or persist state during the emergency stop.
+        class _KillSwitchTrippingRunner:
+            def __init__(self, switch: KillSwitch, store: RunbookStateStore) -> None:
+                self.switch = switch
+                self.store = store
+
+            def run(self, action):  # noqa: ANN001
+                self.store.confirm_gate("p2", season="S15 测试")
+                self.switch.trigger()
+                return ExecutionResult(
+                    action_id=action.action_id, status="failed",
+                    recovery_required=True, summary={},
+                )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            switch = KillSwitch(Path(tmp) / "STOP")
+            store = RunbookStateStore(Path(tmp) / "runbook_state.json")
+            engine = build_engine_from_store(_runbook(), store)
+            runner = _KillSwitchTrippingRunner(switch, store)
+            loop = AutonomousLoop(
+                bridge=_StubBridge(),
+                vision_sync=_StubVisionSync({"progress": {}}),  # type: ignore[arg-type]
+                ui_actions=_SpyUIActions(),  # type: ignore[arg-type]
+                selector=_RecordingSelector(_action(ActionType.ATTACK_LAND)),  # type: ignore[arg-type]
+                deriver=_StubDeriver(),  # type: ignore[arg-type]
+                runner=runner,  # type: ignore[arg-type]
+                sleeper=lambda _s: None,
+                kill_switch=switch,
+                runbook_engine=engine,
+                runbook_state_store=store,
+            )
+            loop.tick(0)
+            # Gate confirmation was pending, but the kill switch tripped mid-tick
+            # (after the tick-start persist): the post-action refresh must not
+            # apply the gate to the engine, nor persist it into the state file.
+            self.assertNotIn("p2", engine.confirmed_gates)
+            self.assertNotIn("p2", store._load_state_file().confirmed_gates)
+
     def test_deleted_state_file_is_recreated(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             store = RunbookStateStore(Path(tmp) / "runbook_state.json")
@@ -820,6 +915,66 @@ class RunbookFlowContinuationTests(unittest.TestCase):
 
         loop.tick(1)
         self.assertEqual(engine.current_phase.phase_id, "f2")
+
+    def test_productive_tick_not_relabeled_transition_deferred(self) -> None:
+        # The post-action frozen refresh emits hold_reason="transition_deferred"
+        # when exit becomes satisfied but the transition is deferred; that
+        # synthetic label must not leak into the recorded payload of a tick that
+        # actually made forward progress (the tick-start hold is kept instead).
+        runbook = OpeningRunbook.model_validate(
+            {
+                "season": "S15 测试",
+                "generated_at": "2026-07-07",
+                "phases": [
+                    {
+                        "phase_id": "f1",
+                        "title": "阶段",
+                        "exit_when": {"progress.step_done": "== true"},
+                        "abort_when": {"global_state.risk": "> 0.5"},
+                    },
+                    {"phase_id": "f2", "title": "下一阶段",
+                     "exit_when": {"progress.step2_done": "== true"}},
+                ],
+            }
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            loop_logger = LoopLogger(Path(tmp), archive_screenshots=False)
+            # tick-start: exit not satisfied, risk dark -> abort_metrics_unknown
+            # (non-blocking). runner mutates state to exit-satisfied (still no
+            # abort) so the post-action refresh sees a satisfied-but-frozen exit.
+            class _ProgressRunner:
+                def __init__(self) -> None:
+                    self.loop: AutonomousLoop | None = None
+
+                def run(self, action):  # noqa: ANN001
+                    if self.loop is not None:
+                        self.loop.state = RuntimeState.model_validate(
+                            {"progress": {"step_done": True}, "global_state": {"risk": 0.1}}
+                        )
+                    return ExecutionResult(
+                        action_id=action.action_id, status="ok",
+                        verification_status="verified", summary={},
+                    )
+
+            runner = _ProgressRunner()
+            loop = AutonomousLoop(
+                bridge=_StubBridge(),
+                vision_sync=_StubVisionSync({"progress": {"step_done": False}}),  # type: ignore[arg-type]
+                ui_actions=_SpyUIActions(),  # type: ignore[arg-type]
+                selector=_RecordingSelector(_action(ActionType.ATTACK_LAND)),  # type: ignore[arg-type]
+                deriver=_StubDeriver(),  # type: ignore[arg-type]
+                runner=runner,  # type: ignore[arg-type]
+                sleeper=lambda _s: None,
+                loop_logger=loop_logger,
+                runbook_engine=RunbookEngine(runbook),
+            )
+            runner.loop = loop
+            loop.tick(0)
+            record = json.loads((Path(tmp) / "loop.jsonl").read_text().splitlines()[0])
+            # Pre-fix the refresh's frozen re-eval relabeled this to
+            # "transition_deferred"; now the tick-start hold (None here) is kept.
+            self.assertNotEqual(record["runbook_hold_reason"], "transition_deferred")
+            self.assertIsNone(record["runbook_hold_reason"])
 
     def test_evaluate1_escalations_survive_flow_merge(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
