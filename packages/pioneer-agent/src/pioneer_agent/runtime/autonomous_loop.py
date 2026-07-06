@@ -22,11 +22,7 @@ from pioneer_agent.derivation.state_deriver import StateDeriver
 from pioneer_agent.executor.ui_actions import UIActions
 from pioneer_agent.executor.ui_runner import UIActionRunner
 from pioneer_agent.perception.vision_sync import VisionSync, VisionSyncSummary
-from pioneer_agent.runbook.action_filter import (
-    RUNBOOK_FILTER_REJECT_REASON,
-    action_type_allowed,
-    normalized_allowed_action_types,
-)
+from pioneer_agent.runbook.action_filter import RUNBOOK_FILTER_REJECT_REASON
 from pioneer_agent.runbook.engine import RunbookEngine
 from pioneer_agent.runbook.loader import metrics_from_runtime_state
 from pioneer_agent.runbook.models import (
@@ -36,6 +32,11 @@ from pioneer_agent.runbook.models import (
     RunbookEscalation,
 )
 from pioneer_agent.runbook.state_store import RunbookStateStore
+from pioneer_agent.runtime.dispatch_guard import (
+    KILL_SWITCH_REASON,
+    RUNBOOK_BLOCKING_HOLDS,
+    DispatchGuard,
+)
 from pioneer_agent.runtime.loop_contract import LOOP_PHASE_ORDER, ensure_loop_contract
 from pioneer_agent.safety.kill_switch import KillSwitch
 from pioneer_agent.selector.action_selector import ActionSelector
@@ -79,10 +80,6 @@ DEFAULT_SLEEP_S = 5.0                     # after an executed/pending action
 IDLE_SLEEP_S = 30.0                       # nothing to do
 STUCK_ESC_THRESHOLD = 3                   # consecutive unknown/idle ticks before recovery ESC
 
-# Runbook hold reasons that must block action dispatch (safety semantics);
-# other holds only pause phase transitions while in-phase work continues.
-RUNBOOK_BLOCKING_HOLDS = frozenset({"abort_triggered", "human_gate_pending"})
-
 
 class AutonomousLoop:
     def __init__(
@@ -107,13 +104,18 @@ class AutonomousLoop:
         self.bridge = bridge
         self.vision_sync = vision_sync
         self.ui_actions = ui_actions
-        self.selector = selector or ActionSelector()
+        # The default selector honors runbook hints only when a runbook engine
+        # drives this loop, so Advisor/replay chains sharing ActionSelector
+        # stay immune to hints a persisted state may carry.
+        self.selector = selector or ActionSelector(
+            honor_runbook_hints=runbook_engine is not None
+        )
         self.deriver = deriver or StateDeriver()
         self.runner = runner or UIActionRunner(ui_actions)
         self.sleeper = sleeper
         self.loop_logger = loop_logger
         self.trace_store = trace_store
-        self.kill_switch = kill_switch
+        self._guard = DispatchGuard(kill_switch=kill_switch)
         self.runbook_engine = runbook_engine
         self.runbook_state_store = runbook_state_store
         self.dry_run = dry_run
@@ -124,7 +126,18 @@ class AutonomousLoop:
         self._active_runbook_escalations: set[tuple[str, str]] = set()
         self._runbook_filter_block_phase: str | None = None
         self._runbook_filter_block_count = 0
+        self._warned_unknown_gates: set[str] = set()
         self.state = RuntimeState()
+
+    @property
+    def kill_switch(self) -> KillSwitch | None:
+        return self._guard.kill_switch
+
+    @kill_switch.setter
+    def kill_switch(self, value: KillSwitch | None) -> None:
+        # The guard owns the reference so a post-construction swap (tests,
+        # runtime rewiring) is honored by every dispatch verdict.
+        self._guard.kill_switch = value
 
     def tick(self, iteration: int) -> TickResult:
         started_at = datetime.now()
@@ -141,10 +154,11 @@ class AutonomousLoop:
         derived = self.deriver.derive(self.state)
         # Freeze the runbook while the kill switch is tripped: no cursor
         # advancement and no persistence may happen during an emergency stop.
-        kill_switch_active = self.kill_switch is not None and self.kill_switch.is_triggered()
+        kill_switch_active = self._guard.kill_switch_active
         if kill_switch_active and self.runbook_engine is not None:
             logger.info("tick %d: kill switch active — runbook cursor frozen", iteration)
         runbook_decision = None if kill_switch_active else self._evaluate_runbook(iteration, derived)
+        self._guard.update_decision(runbook_decision)
         selection = self.selector.select(derived)
         pre_action_state = self.state.model_dump(mode="json")
 
@@ -153,36 +167,28 @@ class AutonomousLoop:
         input_trace: list[dict] = []
         sleep_s = IDLE_SLEEP_S
         runbook_blocked = False
-        runbook_block_reason: str | None = None
+        dispatch_block_reason: str | None = None
         if selection.selected_action is not None:
-            runbook_block_reason = _runbook_block_reason(runbook_decision, selection.selected_action)
-            if kill_switch_active:
+            verdict = self._guard.action_verdict(selection.selected_action)
+            if not verdict.allowed:
+                dispatch_block_reason = verdict.reason
+                runbook_blocked = verdict.reason != KILL_SWITCH_REASON
                 logger.warning(
-                    "tick %d: kill switch active — blocking action=%s",
+                    "tick %d: dispatch blocked action=%s (%s, phase=%s)",
                     iteration,
                     selection.selected_action.action_type.value,
-                )
-                execution = _blocked_execution(
-                    selection.selected_action,
-                    failure_reason="manual kill switch is active",
-                    blocked_by="kill_switch",
-                )
-            elif runbook_block_reason is not None:
-                runbook_blocked = True
-                logger.warning(
-                    "tick %d: runbook blocks action=%s (%s, phase=%s)",
-                    iteration,
-                    selection.selected_action.action_type.value,
-                    runbook_block_reason,
+                    verdict.reason,
                     runbook_decision.phase_id if runbook_decision else None,
                 )
                 execution = _blocked_execution(
                     selection.selected_action,
-                    failure_reason=runbook_block_reason,
-                    blocked_by=runbook_block_reason,
-                    extra_summary={
-                        "runbook_phase": runbook_decision.phase_id if runbook_decision else None,
-                    },
+                    failure_reason=verdict.failure_reason,
+                    blocked_by=verdict.reason,
+                    extra_summary=(
+                        {"runbook_phase": runbook_decision.phase_id if runbook_decision else None}
+                        if runbook_blocked
+                        else None
+                    ),
                 )
             elif self.dry_run:
                 logger.info(
@@ -215,7 +221,8 @@ class AutonomousLoop:
                     )
                     input_trace.extend(extra_input_trace)
                     if flow_decision is not None:
-                        runbook_decision = flow_decision
+                        runbook_decision = _merge_flow_decision(runbook_decision, flow_decision)
+                        self._guard.update_decision(runbook_decision)
                 else:
                     execution, post_action_verification = self._verify_after_action(
                         action=selection.selected_action,
@@ -237,23 +244,22 @@ class AutonomousLoop:
 
         extra_runbook_escalations = self._track_runbook_filter_blocks(
             runbook_decision,
-            blocked=runbook_blocked and runbook_block_reason == RUNBOOK_FILTER_REJECT_REASON,
+            blocked=dispatch_block_reason == RUNBOOK_FILTER_REJECT_REASON,
             action=selection.selected_action,
+            selection=selection,
         )
 
         state_after = self.state.model_dump(mode="json")
         recovery_strategy: str | None = None
-        runbook_hold_active = (
-            runbook_decision is not None
-            and runbook_decision.hold_reason in RUNBOOK_BLOCKING_HOLDS
-        )
         if execution is not None and execution.recovery_required and not self.dry_run:
-            if runbook_hold_active:
-                # No automated input during a blocking hold — an operator may be
-                # driving the client; a dangling dialog waits for them/the planner.
+            recovery_verdict = self._guard.recovery_verdict()
+            if not recovery_verdict.allowed:
+                # No automated input under a kill switch or a blocking hold —
+                # an operator may be driving the client; a dangling dialog
+                # waits for them/the planner.
                 logger.warning(
-                    "tick %d: recovery required during runbook hold %s — ESC recovery suppressed",
-                    iteration, runbook_decision.hold_reason,
+                    "tick %d: recovery required but input suppressed (%s)",
+                    iteration, recovery_verdict.reason,
                 )
                 self._stuck_count = 0
             else:
@@ -267,12 +273,11 @@ class AutonomousLoop:
         elif self._is_stuck(vision_summary, selection, execution):
             self._stuck_count += 1
             if self._stuck_count >= self.stuck_threshold and not self.dry_run:
-                if runbook_hold_active:
-                    # No automated input while the runbook holds for a human or
-                    # an abort review — the operator may be driving the client.
+                recovery_verdict = self._guard.recovery_verdict()
+                if not recovery_verdict.allowed:
                     logger.warning(
-                        "tick %d: stuck during runbook hold %s — ESC recovery suppressed",
-                        iteration, runbook_decision.hold_reason,
+                        "tick %d: stuck but input suppressed (%s)",
+                        iteration, recovery_verdict.reason,
                     )
                     self._stuck_count = 0
                 else:
@@ -334,7 +339,13 @@ class AutonomousLoop:
         return TickResult(iteration=iteration, summary=vision_summary, selection=selection,
                           execution=execution, sleep_s=sleep_s)
 
-    def _evaluate_runbook(self, iteration: int, derived: RuntimeState) -> RunbookDecision | None:
+    def _evaluate_runbook(
+        self,
+        iteration: int,
+        derived: RuntimeState,
+        *,
+        allow_transition: bool = True,
+    ) -> RunbookDecision | None:
         if self.runbook_engine is None:
             return None
 
@@ -347,13 +358,20 @@ class AutonomousLoop:
                 )
                 - set(self.runbook_engine.confirmed_gates)
             )
-            for phase_id in pending:
-                try:
-                    self.runbook_engine.confirm_human_gate(phase_id)
-                except KeyError:
-                    logger.warning("runbook confirmations contain unknown gate %r — ignored", phase_id)
+            known_gates = {phase.phase_id for phase in self.runbook_engine.runbook.phases}
+            unknown = (pending - known_gates) - self._warned_unknown_gates
+            if unknown:
+                logger.warning(
+                    "runbook confirmations contain unknown gates %s — ignored",
+                    sorted(unknown),
+                )
+                self._warned_unknown_gates |= unknown
+            for phase_id in pending & known_gates:
+                self.runbook_engine.confirm_human_gate(phase_id)
 
-        decision = self.runbook_engine.evaluate(metrics_from_runtime_state(derived))
+        decision = self.runbook_engine.evaluate(
+            metrics_from_runtime_state(derived), allow_transition=allow_transition
+        )
         derived.global_state["runbook"] = {
             "phase_id": decision.phase_id,
             "selector_hints": dict(decision.selector_hints),
@@ -370,7 +388,8 @@ class AutonomousLoop:
 
     def _persist_runbook_state(self) -> None:
         """Loop-owned state file; skipped in dry-run so previews stay side-effect
-        free. The saved-signature check keeps idle ticks write-free."""
+        free. The saved-signature check keeps idle ticks write-free, but an
+        externally deleted file is re-created (a stat per tick, not a read)."""
         if self.runbook_state_store is None or self.dry_run:
             return
         signature = (
@@ -378,7 +397,7 @@ class AutonomousLoop:
             frozenset(self.runbook_engine.confirmed_gates),
             self.runbook_engine.completed,
         )
-        if signature == self._runbook_saved_signature:
+        if signature == self._runbook_saved_signature and self.runbook_state_store.path.exists():
             return
         self.runbook_state_store.save(
             current_phase_id=signature[0],
@@ -394,10 +413,23 @@ class AutonomousLoop:
         *,
         blocked: bool,
         action: CandidateAction | None,
+        selection: SelectionResult,
     ) -> list[RunbookEscalation]:
-        """Backstop for selectors that ignore runbook hints: repeated dispatch
-        blocks escalate to the planner instead of livelocking silently."""
-        if not blocked or decision is None:
+        """Backstop against allowlist no-progress: counts both dispatch blocks
+        (a selector that ignores hints) and selector starvation (the allowlist
+        rejected every candidate, so nothing was selected at all). Either way,
+        persistent no-progress escalates to the planner instead of idling
+        silently."""
+        starved = False
+        if decision is not None and action is None:
+            reason_counts = {}
+            if isinstance(selection.selection_reason, dict):
+                pipeline = selection.selection_reason.get("pipeline")
+                if isinstance(pipeline, dict):
+                    reason_counts = pipeline.get("rejected_by_reason") or {}
+            starved = bool(reason_counts.get(RUNBOOK_FILTER_REJECT_REASON))
+
+        if (not blocked and not starved) or decision is None:
             self._runbook_filter_block_phase = None
             self._runbook_filter_block_count = 0
             return []
@@ -416,6 +448,7 @@ class AutonomousLoop:
                 phase_id=decision.phase_id,
                 details={
                     "consecutive_blocks": count,
+                    "starved": starved,
                     "blocked_action_type": action.action_type.value if action else None,
                     "allowed_action_types": decision.selector_hints.get("allowed_action_types"),
                 },
@@ -493,6 +526,27 @@ class AutonomousLoop:
         before_state: dict[str, Any],
     ) -> tuple[ExecutionResult, dict[str, Any] | None, list[dict[str, Any]], RunbookDecision | None]:
         input_trace: list[dict[str, Any]] = []
+        flow_observe: VisionSyncSummary | None = None
+        flow_decision: RunbookDecision | None = None
+
+        def _fail(
+            reason: str,
+            *,
+            next_action: CandidateAction | None = None,
+            base: ExecutionResult | None = None,
+        ) -> tuple[ExecutionResult, None, list[dict[str, Any]], RunbookDecision | None]:
+            return (
+                _flow_failure_execution(
+                    base if base is not None else execution,
+                    reason=reason,
+                    flow_observe=flow_observe,
+                    next_action=next_action,
+                ),
+                None,
+                input_trace,
+                flow_decision,
+            )
+
         try:
             png = self.bridge.screenshot()
             self.state, flow_observe = self.vision_sync.sync(
@@ -501,36 +555,18 @@ class AutonomousLoop:
                 captured_at=datetime.now(),
             )
         except Exception as exc:  # noqa: BLE001
-            return (
-                _flow_failure_execution(
-                    execution,
-                    reason=f"action flow observe failed: {exc}",
-                    flow_observe=None,
-                    next_action=None,
-                ),
-                None,
-                input_trace,
-                None,
-            )
+            return _fail(f"action flow observe failed: {exc}")
 
         # The intermediate observation can change the world (abort thresholds
-        # crossed, phase transition, tripped kill switch): re-enforce every
-        # dispatch guard before the terminal click, same as a fresh tick.
-        if self.kill_switch is not None and self.kill_switch.is_triggered():
-            return (
-                _flow_failure_execution(
-                    execution,
-                    reason="kill switch tripped during action flow",
-                    flow_observe=flow_observe,
-                    next_action=None,
-                ),
-                None,
-                input_trace,
-                None,
-            )
-
+        # crossed, tripped kill switch): the dispatch guard is re-enforced
+        # before the terminal click. Phase transitions are frozen
+        # (allow_transition=False) so a satisfied exit defers to the next tick
+        # boundary instead of swapping the phase — and persisting the new
+        # cursor — under this in-flight action.
         derived = self.deriver.derive(self.state)
-        flow_decision = self._evaluate_runbook(iteration, derived)
+        flow_decision = self._evaluate_runbook(iteration, derived, allow_transition=False)
+        if flow_decision is not None:
+            self._guard.update_decision(flow_decision)
         next_selection = self.selector.select(derived)
         next_action = next_selection.selected_action
         if (
@@ -538,37 +574,25 @@ class AutonomousLoop:
             or next_action.action_type != action.action_type
             or next_action.action_id != action.action_id
         ):
-            return (
-                _flow_failure_execution(
-                    execution,
-                    reason="action flow did not produce the same terminal action",
-                    flow_observe=flow_observe,
-                    next_action=next_action,
-                ),
-                None,
-                input_trace,
-                flow_decision,
+            return _fail(
+                "action flow did not produce the same terminal action",
+                next_action=next_action,
             )
 
-        flow_block_reason = _runbook_block_reason(flow_decision, next_action)
-        if flow_block_reason is not None:
+        verdict = self._guard.action_verdict(next_action)
+        if not verdict.allowed:
             logger.warning(
-                "tick %d: runbook blocks action flow continuation (%s, phase=%s)",
+                "tick %d: action flow continuation blocked (%s, phase=%s)",
                 iteration,
-                flow_block_reason,
+                verdict.reason,
                 flow_decision.phase_id if flow_decision else None,
             )
-            return (
-                _flow_failure_execution(
-                    execution,
-                    reason=f"runbook blocks action flow continuation: {flow_block_reason}",
-                    flow_observe=flow_observe,
-                    next_action=next_action,
-                ),
-                None,
-                input_trace,
-                flow_decision,
+            reason = (
+                "kill switch tripped during action flow"
+                if verdict.reason == KILL_SWITCH_REASON
+                else f"runbook blocks action flow continuation: {verdict.reason}"
             )
+            return _fail(reason, next_action=next_action)
 
         _reset_input_trace(self.ui_actions)
         terminal_execution = self.runner.run(next_action)
@@ -580,16 +604,10 @@ class AutonomousLoop:
             next_action=next_action,
         )
         if _requires_flow_continuation(terminal_execution):
-            return (
-                _flow_failure_execution(
-                    terminal_execution,
-                    reason="action flow did not reach a terminal verifier step",
-                    flow_observe=flow_observe,
-                    next_action=next_action,
-                ),
-                None,
-                input_trace,
-                flow_decision,
+            return _fail(
+                "action flow did not reach a terminal verifier step",
+                next_action=next_action,
+                base=terminal_execution,
             )
         terminal_execution, verification = self._verify_after_action(
             action=next_action,
@@ -815,15 +833,24 @@ def _blocked_execution(
     )
 
 
-def _runbook_block_reason(decision: RunbookDecision | None, action: CandidateAction) -> str | None:
-    if decision is None:
-        return None
-    if decision.hold_reason in RUNBOOK_BLOCKING_HOLDS:
-        return f"runbook_hold:{decision.hold_reason}"
-    allowed = normalized_allowed_action_types(decision.selector_hints)
-    if not action_type_allowed(action.action_type, allowed):
-        return RUNBOOK_FILTER_REJECT_REASON
-    return None
+def _merge_flow_decision(
+    first: RunbookDecision | None, flow: RunbookDecision
+) -> RunbookDecision:
+    """The flow decision becomes the tick's decision, but nothing the first
+    evaluation observed may be lost: escalations are unioned and a transition
+    reported by evaluate#1 survives into the recorded payload."""
+    if first is None:
+        return flow
+    update: dict[str, Any] = {}
+    if first.transitioned and not flow.transitioned:
+        update["transitioned"] = True
+        update["previous_phase_id"] = first.previous_phase_id
+    if first.escalations:
+        seen = {(e.kind.value, e.phase_id) for e in flow.escalations}
+        update["escalations"] = list(flow.escalations) + [
+            e for e in first.escalations if (e.kind.value, e.phase_id) not in seen
+        ]
+    return flow.model_copy(update=update) if update else flow
 
 
 def _post_action_verifier_spec(runner: Any, action_type: ActionType) -> VerifierSpec | None:

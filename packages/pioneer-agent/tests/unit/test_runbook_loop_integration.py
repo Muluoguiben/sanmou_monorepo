@@ -262,7 +262,7 @@ class RunbookLoopIntegrationTests(unittest.TestCase):
     def test_transition_persists_and_resumes_across_restart(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             store = RunbookStateStore(Path(tmp) / "runbook_state.json")
-            store.confirm_gate("p2")
+            store.confirm_gate("p2", season="S15 测试")
 
             engine = build_engine_from_store(_runbook(), store)
             loop, _selector, _runner = _loop(
@@ -295,7 +295,7 @@ class RunbookLoopIntegrationTests(unittest.TestCase):
             loop.tick(0)
             self.assertEqual(engine.current_phase.phase_id, "p1")
 
-            store.confirm_gate("p2")
+            store.confirm_gate("p2", season="S15 测试")
             loop.tick(1)
             self.assertEqual(engine.current_phase.phase_id, "p2")
 
@@ -368,7 +368,7 @@ class RunbookFixRegressionTests(unittest.TestCase):
             switch = KillSwitch(Path(tmp) / "KILL_SWITCH")
             switch.trigger()
             store = RunbookStateStore(Path(tmp) / "runbook_state.json")
-            store.confirm_gate("p2")
+            store.confirm_gate("p2", season="S15 测试")
             engine = build_engine_from_store(_runbook(), store)
             loop, _selector, _runner = _loop(
                 state_payload={"progress": {"step1_done": True}},
@@ -389,7 +389,7 @@ class RunbookFixRegressionTests(unittest.TestCase):
     def test_dry_run_does_not_persist_runbook_state(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             store = RunbookStateStore(Path(tmp) / "runbook_state.json")
-            store.confirm_gate("p2")
+            store.confirm_gate("p2", season="S15 测试")
             engine = build_engine_from_store(_runbook(), store)
             loop, _selector, _runner = _loop(
                 state_payload={"progress": {"step1_done": True}},
@@ -469,6 +469,120 @@ class RunbookFixRegressionTests(unittest.TestCase):
             self.assertIn(
                 "human_gate", traces[1]["metadata"]["runbook"]["active_escalations"]
             )
+
+
+class _StarvedSelector:
+    """Models a real selector whose candidates were all runbook-rejected."""
+
+    def select(self, state):  # noqa: ANN001
+        return SelectionResult(
+            selected_action=None,
+            ranked_actions=[],
+            selection_reason={
+                "pipeline": {"rejected_by_reason": {"runbook_action_filter": 3}}
+            },
+        )
+
+
+class GuardSeamRegressionTests(unittest.TestCase):
+    """Regressions for the 2026-07-07 review findings."""
+
+    def test_esc_recovery_suppressed_under_kill_switch(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            switch = KillSwitch(Path(tmp) / "STOP")
+            switch.trigger()
+            spy = _SpyUIActions()
+            loop, _selector, _runner = _loop(
+                state_payload={"progress": {}},
+                action=None,
+                engine=RunbookEngine(_runbook()),
+                ui_actions=spy,
+                kill_switch=switch,
+            )
+            for i in range(5):
+                loop.tick(i)
+            self.assertEqual(spy.close_popup_calls, 0)
+
+            switch.clear()
+            for i in range(5, 10):
+                loop.tick(i)
+            self.assertGreater(spy.close_popup_calls, 0)
+
+    def test_completed_runbook_blocks_dispatch_and_escalates(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            loop_logger = LoopLogger(Path(tmp), archive_screenshots=False)
+            loop, _selector, runner = _loop(
+                state_payload={"progress": {}},
+                action=_action(ActionType.ATTACK_LAND),
+                engine=RunbookEngine(_runbook(), start_phase_id="p3", completed=True),
+                loop_logger=loop_logger,
+            )
+            result = loop.tick(0)
+            self.assertEqual(result.execution.status, "blocked")
+            self.assertEqual(
+                result.execution.summary["blocked_by"], "runbook_hold:runbook_completed"
+            )
+            self.assertEqual(runner.actions, [])
+            record = json.loads((Path(tmp) / "loop.jsonl").read_text().splitlines()[0])
+            self.assertIn("runbook_completed", record["runbook_escalations"])
+
+    def test_allowlist_starvation_escalates_to_planner(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            loop_logger = LoopLogger(Path(tmp), archive_screenshots=False)
+            runner = _StubRunner()
+            loop = AutonomousLoop(
+                bridge=_StubBridge(),
+                vision_sync=_StubVisionSync({"progress": {"step1_done": False}}),  # type: ignore[arg-type]
+                ui_actions=object(),  # type: ignore[arg-type]
+                selector=_StarvedSelector(),  # type: ignore[arg-type]
+                deriver=_StubDeriver(),  # type: ignore[arg-type]
+                runner=runner,  # type: ignore[arg-type]
+                sleeper=lambda _s: None,
+                loop_logger=loop_logger,
+                runbook_engine=RunbookEngine(_runbook()),
+            )
+            for i in range(3):
+                loop.tick(i)
+            records = [
+                json.loads(line)
+                for line in (Path(tmp) / "loop.jsonl").read_text().splitlines()
+            ]
+            self.assertIn("action_filter_stuck", records[2]["runbook_escalations"])
+
+    def test_unknown_confirmation_warns_once_not_per_tick(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            store = RunbookStateStore(Path(tmp) / "runbook_state.json")
+            store.confirm_gate("ghost_phase", season="S15 测试")
+            engine = build_engine_from_store(_runbook(), store)
+            loop, _selector, _runner = _loop(
+                state_payload={"progress": {}},
+                action=None,
+                engine=engine,
+                store=store,
+            )
+            with self.assertLogs("pioneer_agent.runtime.autonomous_loop", level="WARNING") as captured:
+                for i in range(4):
+                    loop.tick(i)
+            unknown_warnings = [
+                line for line in captured.output if "unknown gates" in line
+            ]
+            self.assertEqual(len(unknown_warnings), 1)
+
+    def test_deleted_state_file_is_recreated(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            store = RunbookStateStore(Path(tmp) / "runbook_state.json")
+            engine = build_engine_from_store(_runbook(), store)
+            loop, _selector, _runner = _loop(
+                state_payload={"progress": {}},
+                action=None,
+                engine=engine,
+                store=store,
+            )
+            loop.tick(0)
+            self.assertTrue(store.path.exists())
+            store.path.unlink()
+            loop.tick(1)
+            self.assertTrue(store.path.exists())
 
 
 class _SequencedVisionSync:
@@ -561,6 +675,79 @@ class RunbookFlowContinuationTests(unittest.TestCase):
         self.assertEqual(runner.calls, 2)
         self.assertEqual(result.execution.status, "ok")
 
+    def _two_phase_flow_runbook(self, abort_metric: str | None = None) -> OpeningRunbook:
+        f1: dict[str, Any] = {
+            "phase_id": "f1",
+            "title": "流内阶段",
+            "exit_when": {"progress.step_done": "== true"},
+            "selector_hints": {"lineup_preset": "flow_team"},
+        }
+        if abort_metric:
+            f1["abort_when"] = {abort_metric: "> 0.5"}
+        return OpeningRunbook.model_validate(
+            {
+                "season": "S15 测试",
+                "generated_at": "2026-07-07",
+                "phases": [f1, {"phase_id": "f2", "title": "下一阶段",
+                                "exit_when": {"progress.step2_done": "== true"}}],
+            }
+        )
+
+    def _flow_loop_with(
+        self, runbook: OpeningRunbook, payloads: list[dict[str, Any]],
+        loop_logger: LoopLogger | None = None,
+    ) -> tuple[AutonomousLoop, _FlowRunner, RunbookEngine]:
+        runner = _FlowRunner()
+        engine = RunbookEngine(runbook)
+        loop = AutonomousLoop(
+            bridge=_StubBridge(),
+            vision_sync=_SequencedVisionSync(payloads),  # type: ignore[arg-type]
+            ui_actions=_SpyUIActions(),  # type: ignore[arg-type]
+            selector=_RecordingSelector(_action(ActionType.ATTACK_LAND)),  # type: ignore[arg-type]
+            deriver=_StubDeriver(),  # type: ignore[arg-type]
+            runner=runner,  # type: ignore[arg-type]
+            sleeper=lambda _s: None,
+            loop_logger=loop_logger,
+            runbook_engine=engine,
+        )
+        return loop, runner, engine
+
+    def test_mid_flow_transition_deferred_until_next_tick(self) -> None:
+        loop, runner, engine = self._flow_loop_with(
+            self._two_phase_flow_runbook(),
+            [
+                {"progress": {"step_done": False}},
+                {"progress": {"step_done": True}},
+            ],
+        )
+        result = loop.tick(0)
+        # Exit became satisfied mid-flow, but the phase must not swap under
+        # the in-flight action: terminal click dispatches under f1.
+        self.assertEqual(runner.calls, 2)
+        self.assertEqual(result.execution.status, "ok")
+        self.assertEqual(engine.current_phase.phase_id, "f1")
+
+        loop.tick(1)
+        self.assertEqual(engine.current_phase.phase_id, "f2")
+
+    def test_evaluate1_escalations_survive_flow_merge(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            loop_logger = LoopLogger(Path(tmp), archive_screenshots=False)
+            loop, runner, _engine = self._flow_loop_with(
+                self._two_phase_flow_runbook(abort_metric="global_state.risk"),
+                [
+                    {"progress": {"step_done": False}},
+                    {"progress": {"step_done": False}, "global_state": {"risk": 0.1}},
+                ],
+                loop_logger=loop_logger,
+            )
+            loop.tick(0)
+            # evaluate#1 saw the abort metric dark (unknown_metrics); the flow
+            # evaluation resolved it — the escalation must still be recorded.
+            self.assertEqual(runner.calls, 2)
+            record = json.loads((Path(tmp) / "loop.jsonl").read_text().splitlines()[0])
+            self.assertIn("unknown_metrics", record["runbook_escalations"])
+
 
 class RunbookStateStoreTests(unittest.TestCase):
     def test_load_missing_file_returns_empty_record(self) -> None:
@@ -588,7 +775,7 @@ class RunbookStateStoreTests(unittest.TestCase):
     def test_resume_with_unknown_phase_starts_fresh(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             store = RunbookStateStore(Path(tmp) / "runbook_state.json")
-            store.save(current_phase_id="from_last_season", confirmed_gates={"ghost_gate", "p2"})
+            store.save(current_phase_id="from_last_season", confirmed_gates={"ghost_gate", "p2"}, season="S15 测试")
             engine = build_engine_from_store(_runbook(), store)
             self.assertEqual(engine.current_phase.phase_id, "p1")
             self.assertEqual(engine.confirmed_gates, frozenset({"p2"}))
@@ -625,7 +812,7 @@ class RunbookStateStoreTests(unittest.TestCase):
     def test_completed_persists_and_restores_into_engine(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             store = RunbookStateStore(Path(tmp) / "runbook_state.json")
-            store.save(current_phase_id="p3", confirmed_gates=set(), completed=True)
+            store.save(current_phase_id="p3", confirmed_gates=set(), completed=True, season="S15 测试")
             record = store.load()
             self.assertTrue(record.completed)
             engine = build_engine_from_store(_runbook(), store)
@@ -660,14 +847,19 @@ class RunbookStateStoreTests(unittest.TestCase):
             self.assertEqual(store.read_confirmations(expected_season="S15 旧赛季"), {"p2"})
             self.assertEqual(store.read_confirmations(), {"p2"})
 
-    def test_unstamped_legacy_records_still_accepted(self) -> None:
+    def test_unstamped_records_rejected_when_season_expected(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             store = RunbookStateStore(Path(tmp) / "runbook_state.json")
             store.save(current_phase_id="p2", confirmed_gates=set())
             store.confirm_gate("p2")
+
             record = store.load(expected_season="S15 测试")
-            self.assertEqual(record.current_phase_id, "p2")
-            self.assertIn("p2", record.confirmed_gates)
+            self.assertIsNone(record.current_phase_id)
+            self.assertEqual(record.confirmed_gates, set())
+
+            unfiltered = store.load()
+            self.assertEqual(unfiltered.current_phase_id, "p2")
+            self.assertIn("p2", unfiltered.confirmed_gates)
 
     def test_build_engine_ignores_state_from_another_season(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -683,6 +875,20 @@ class RunbookStateStoreTests(unittest.TestCase):
             self.assertEqual(engine.current_phase.phase_id, "p1")
             self.assertFalse(engine.completed)
             self.assertEqual(engine.confirmed_gates, frozenset())
+
+    def test_single_instance_lock_excludes_second_holder(self) -> None:
+        from pioneer_agent.runbook.state_store import acquire_single_instance_lock
+
+        with tempfile.TemporaryDirectory() as tmp:
+            lock_path = Path(tmp) / "runbook_state.json.lock"
+            first = acquire_single_instance_lock(lock_path)
+            self.assertIsNotNone(first)
+            second = acquire_single_instance_lock(lock_path)
+            self.assertIsNone(second)
+            first.close()
+            third = acquire_single_instance_lock(lock_path)
+            self.assertIsNotNone(third)
+            third.close()
 
     def test_malformed_confirmation_lines_are_skipped(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

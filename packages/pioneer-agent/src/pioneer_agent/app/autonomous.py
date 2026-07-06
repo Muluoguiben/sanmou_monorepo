@@ -10,15 +10,18 @@ import argparse
 import logging
 from pathlib import Path
 
-import yaml
-
 from pioneer_agent.adapters.bridge_client import BridgeClient
+from pioneer_agent.app.cli_utils import user_path
 from pioneer_agent.executor.ui_actions import UIActions
 from pioneer_agent.perception.ui_registry import UIRegistry
 from pioneer_agent.perception.vision import build_vision_client
 from pioneer_agent.perception.vision_sync import VisionSync
-from pioneer_agent.runbook.loader import load_default_opening_runbook, load_runbook
-from pioneer_agent.runbook.state_store import RunbookStateStore, build_engine_from_store
+from pioneer_agent.runbook.loader import RUNBOOK_LOAD_ERRORS, load_runbook_or_default
+from pioneer_agent.runbook.state_store import (
+    RunbookStateStore,
+    acquire_single_instance_lock,
+    build_engine_from_store,
+)
 from pioneer_agent.runtime.autonomous_loop import AutonomousLoop
 from pioneer_agent.safety.kill_switch import KillSwitch, default_kill_switch_path
 from pioneer_agent.storage.loop_logger import LoopLogger
@@ -29,9 +32,9 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Run the autonomous pioneer-agent loop.")
     parser.add_argument("--max-iterations", type=int, default=None,
                         help="Stop after N ticks (default: run forever).")
-    parser.add_argument("--log-dir", type=Path, default=Path("data/loop"),
+    parser.add_argument("--log-dir", type=user_path, default=Path("data/loop"),
                         help="Directory for loop.jsonl + archived screenshots.")
-    parser.add_argument("--trace-path", type=Path, default=None,
+    parser.add_argument("--trace-path", type=user_path, default=None,
                         help="Structured trace JSONL path (default: log-dir/trace.jsonl).")
     parser.add_argument("--no-archive", action="store_true",
                         help="Skip archiving screenshot PNGs (JSONL only).")
@@ -42,13 +45,13 @@ def main(argv: list[str] | None = None) -> int:
                         help="Consecutive idle/unknown ticks before ESC recovery (default: 3).")
     parser.add_argument("--vision-provider", choices=("gemini", "openai"), default=None,
                         help="Vision provider override. Defaults to PIONEER_VISION_PROVIDER or gemini.")
-    parser.add_argument("--kill-switch-file", type=Path, default=None,
+    parser.add_argument("--kill-switch-file", type=user_path, default=None,
                         help="Stop dispatching UI actions when this file exists.")
     parser.add_argument("--runbook", action="store_true",
                         help="Drive phases with the default opening runbook (see SANMOU_OPENING_RUNBOOK_PATH).")
-    parser.add_argument("--runbook-path", type=Path, default=None,
+    parser.add_argument("--runbook-path", type=user_path, default=None,
                         help="Explicit runbook YAML path (implies --runbook).")
-    parser.add_argument("--runbook-state", type=Path, default=None,
+    parser.add_argument("--runbook-state", type=user_path, default=None,
                         help="Runbook cursor/gate persistence file (default: log-dir/runbook_state.json).")
     args = parser.parse_args(argv)
     kill_switch_path = args.kill_switch_file or default_kill_switch_path(
@@ -68,20 +71,24 @@ def main(argv: list[str] | None = None) -> int:
     runbook_requested = (
         args.runbook or args.runbook_path is not None or args.runbook_state is not None
     )
+    runbook_lock = None
     if runbook_requested:
         try:
-            runbook = (
-                load_runbook(args.runbook_path)
-                if args.runbook_path is not None
-                else load_default_opening_runbook()
-            )
-        except (OSError, yaml.YAMLError, ValueError) as exc:
+            runbook = load_runbook_or_default(args.runbook_path)
+        except RUNBOOK_LOAD_ERRORS as exc:
             parser.error(f"failed to load runbook: {exc}")
         if runbook is None:
             parser.error("--runbook requested but no runbook YAML was found")
-        runbook_state_store = RunbookStateStore(
-            args.runbook_state or args.log_dir / "runbook_state.json"
+        state_path = args.runbook_state or args.log_dir / "runbook_state.json"
+        runbook_lock = acquire_single_instance_lock(
+            state_path.with_name(state_path.name + ".lock")
         )
+        if runbook_lock is None:
+            parser.error(
+                f"another autonomous loop already holds {state_path} "
+                "(single-writer rule) — stop it or use a different --runbook-state"
+            )
+        runbook_state_store = RunbookStateStore(state_path)
         runbook_engine = build_engine_from_store(runbook, runbook_state_store)
         logging.getLogger(__name__).info(
             "runbook enabled: season=%s start_phase=%s",

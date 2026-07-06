@@ -218,6 +218,7 @@ class EscalationKind(str, Enum):
     BLOCKED_TRANSITION = "blocked_transition"
     UNKNOWN_METRICS = "unknown_metrics"
     ACTION_FILTER_STUCK = "action_filter_stuck"
+    RUNBOOK_COMPLETED = "runbook_completed"
 
 
 class EscalationRoute(str, Enum):

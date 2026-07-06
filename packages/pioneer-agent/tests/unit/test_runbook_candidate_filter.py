@@ -45,7 +45,7 @@ class RunbookCandidateFilterTests(unittest.TestCase):
             _candidate(ActionType.ATTACK_LAND),
             _candidate(ActionType.CLAIM_CHAPTER_REWARD),
         ]
-        viable, rejected = CandidateFilter().filter(state, candidates)
+        viable, rejected = CandidateFilter(honor_runbook_hints=True).filter(state, candidates)
         self.assertEqual([c.action_type for c in viable], [ActionType.CLAIM_CHAPTER_REWARD])
         self.assertEqual(rejected[0]["reason"], "runbook_action_filter")
         self.assertEqual(rejected[0]["action_type"], "attack_land")
@@ -56,12 +56,12 @@ class RunbookCandidateFilterTests(unittest.TestCase):
             _candidate(ActionType.WAIT_FOR_STAMINA),
             _candidate(ActionType.ATTACK_LAND),
         ]
-        viable, rejected = CandidateFilter().filter(state, candidates)
+        viable, rejected = CandidateFilter(honor_runbook_hints=True).filter(state, candidates)
         self.assertEqual([c.action_type for c in viable], [ActionType.WAIT_FOR_STAMINA])
         self.assertEqual(len(rejected), 1)
 
-    def test_no_runbook_context_leaves_filtering_unchanged(self) -> None:
-        state = _state(None)
+    def test_default_filter_ignores_runbook_hints_for_advisor_chains(self) -> None:
+        state = _state({"allowed_action_types": []})
         candidates = [
             _candidate(ActionType.CLAIM_CHAPTER_REWARD),
             _candidate(ActionType.ATTACK_LAND),
@@ -69,10 +69,19 @@ class RunbookCandidateFilterTests(unittest.TestCase):
         viable, _rejected = CandidateFilter().filter(state, candidates)
         self.assertEqual(len(viable), 2)
 
+    def test_no_runbook_context_leaves_filtering_unchanged(self) -> None:
+        state = _state(None)
+        candidates = [
+            _candidate(ActionType.CLAIM_CHAPTER_REWARD),
+            _candidate(ActionType.ATTACK_LAND),
+        ]
+        viable, _rejected = CandidateFilter(honor_runbook_hints=True).filter(state, candidates)
+        self.assertEqual(len(viable), 2)
+
     def test_hints_without_allowlist_do_not_filter(self) -> None:
         state = _state({"lineup_preset": "junk_team"})
         candidates = [_candidate(ActionType.ATTACK_LAND)]
-        viable, _rejected = CandidateFilter().filter(state, candidates)
+        viable, _rejected = CandidateFilter(honor_runbook_hints=True).filter(state, candidates)
         self.assertEqual(len(viable), 1)
 
 

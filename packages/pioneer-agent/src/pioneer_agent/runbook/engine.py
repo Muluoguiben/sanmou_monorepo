@@ -64,7 +64,16 @@ class RunbookEngine:
         self._index = self.runbook.phase_index(phase_id)
         self._completed = False
 
-    def evaluate(self, metrics: Mapping[str, Any]) -> RunbookDecision:
+    def evaluate(
+        self,
+        metrics: Mapping[str, Any],
+        *,
+        allow_transition: bool = True,
+    ) -> RunbookDecision:
+        """allow_transition=False freezes phase advancement (and completion):
+        used for mid-flow re-checks so holds/aborts stay live while a
+        satisfied exit defers to the next tick boundary instead of swapping
+        the phase under an in-flight multi-step action."""
         phase = self.current_phase
         if self._completed:
             return RunbookDecision(
@@ -72,7 +81,8 @@ class RunbookEngine:
                 previous_phase_id=phase.phase_id,
                 completed=True,
                 hold_reason="runbook_completed",
-                selector_hints=dict(phase.selector_hints),
+                selector_hints={},
+                escalations=[_completed_escalation(self.runbook, phase)],
             )
 
         # The gate also guards start_phase_id / override_phase / restart resume:
@@ -179,6 +189,17 @@ class RunbookEngine:
                 abort_result=abort_result.to_dict(),
             )
 
+        if not allow_transition:
+            return RunbookDecision(
+                phase_id=phase.phase_id,
+                previous_phase_id=phase.phase_id,
+                hold_reason="transition_deferred",
+                selector_hints=dict(phase.selector_hints),
+                escalations=escalations,
+                exit_result=exit_result.to_dict(),
+                abort_result=abort_result.to_dict(),
+            )
+
         return self._try_advance(phase, metrics, exit_result.to_dict(), abort_result.to_dict())
 
     def _try_advance(
@@ -196,7 +217,9 @@ class RunbookEngine:
                 phase_id=phase.phase_id,
                 previous_phase_id=phase.phase_id,
                 completed=True,
-                selector_hints=dict(phase.selector_hints),
+                hold_reason="runbook_completed",
+                selector_hints={},
+                escalations=[_completed_escalation(self.runbook, phase)],
                 exit_result=exit_result,
                 abort_result=abort_result,
             )
@@ -275,3 +298,14 @@ class RunbookEngine:
             exit_result=exit_result,
             abort_result=abort_result,
         )
+
+
+def _completed_escalation(runbook: OpeningRunbook, phase: PhaseDefinition) -> RunbookEscalation:
+    """Completion routes to a human: the opening is done, so the loop idles
+    (a blocking hold) instead of grinding the final phase forever."""
+    return RunbookEscalation(
+        kind=EscalationKind.RUNBOOK_COMPLETED,
+        route=EscalationRoute.HUMAN,
+        phase_id=phase.phase_id,
+        details={"season": runbook.season, "final_phase": phase.phase_id},
+    )

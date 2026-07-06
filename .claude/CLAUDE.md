@@ -32,7 +32,7 @@ Desktop app calls the local `pioneer-agent` Advisor API over `127.0.0.1`; it mus
 ## How to Run
 
 ```bash
-# Tests — pioneer-agent (295 tests; advisor_api tests skip if FastAPI deps are absent; perception tests need google-genai)
+# Tests — pioneer-agent (311 tests; advisor_api tests skip if FastAPI deps are absent; perception tests need google-genai)
 cd packages/pioneer-agent && PYTHONPATH=src:../sanmou-common/src python3 -m unittest discover -s tests -p "test_*.py" -v
 
 # Tests — qa-agent
@@ -252,7 +252,7 @@ git branch -d feat/<branch-name>
 ### What's Working
 - **Desktop Advisor**: `apps/sanmou-advisor-desktop` Electron + React + Vite GUI with screenshot upload/preview, device/account metadata, AdvisorReport display, and chat panel; `npm run typecheck` and `npm run build` pass.
 - **Advisor API**: `pioneer_agent.app.advisor_api` FastAPI service with `/api/health`, `/api/advisor/analyze`, `/api/advisor/chat`, screenshot upload, mock mode, local `reports.jsonl` logging, and desktop CORS.
-- **Pioneer agent**: capture/control adapter split, platform-neutral device/session models, `AdvisorLoop`, sync → derive → select pipeline with 8 action types, OpenAI/Gemini vision provider support, `resource_bar` + `city_buildings` domains, bbox locator, UI layout registry, UIActions primitives, autonomous loop with loop_logger, `dry_run`, `stuck_threshold`, opening runbook phase machine (`pioneer_agent/runbook/`) integrated into the autonomous loop with persisted cursor/gate state; 295 tests pass when API deps are installed, advisor API tests skip cleanly without FastAPI.
+- **Pioneer agent**: capture/control adapter split, platform-neutral device/session models, `AdvisorLoop`, sync → derive → select pipeline with 8 action types, OpenAI/Gemini vision provider support, `resource_bar` + `city_buildings` domains, bbox locator, UI layout registry, UIActions primitives, autonomous loop with loop_logger, `dry_run`, `stuck_threshold`, opening runbook phase machine (`pioneer_agent/runbook/`) integrated into the autonomous loop with persisted cursor/gate state; 311 tests pass when API deps are installed, advisor API tests skip cleanly without FastAPI.
 - **QA agent**: 104 heroes + 123 skills + 61 mechanic rules KB; MCP server with 3 tools; ingestion pipeline with `--publish`; conversational RAG via `qa_agent/chat/` with Gemini/MiniMax/OpenAI providers; `qa_agent/vision/` grounded image understanding; bilibili video knowledge workflow closed loop.
 
 ### Current Focus

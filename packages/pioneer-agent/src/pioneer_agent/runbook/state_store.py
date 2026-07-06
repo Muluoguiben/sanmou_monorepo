@@ -45,18 +45,18 @@ class RunbookStateStore:
 
     def load(self, *, expected_season: str | None = None) -> RunbookStateRecord:
         """Cursor, completion, and gate approvals are only valid for the runbook
-        that produced them: a state file stamped with a different season is
-        discarded (phase IDs like `er_tuo_yi` recur every season, so ID
-        existence alone must never authorize a resume). Records without a
-        season stamp are accepted as legacy."""
+        that produced them: when an expected season is given, a record whose
+        stamp differs — INCLUDING an unstamped one — is discarded (phase IDs
+        like `er_tuo_yi` recur every season, so ID existence alone must never
+        authorize a resume or a gate approval)."""
         record = self._load_state_file()
-        if (
-            expected_season is not None
-            and record.season is not None
-            and record.season != expected_season
+        if not _season_matches(expected_season, record.season) and (
+            record.current_phase_id is not None
+            or record.confirmed_gates
+            or record.completed
         ):
             logger.warning(
-                "runbook state file %s belongs to season %r but the active season is %r "
+                "runbook state file %s is stamped %r but the active season is %r "
                 "— ignoring its cursor, completion, and gates",
                 self.path,
                 record.season,
@@ -116,8 +116,8 @@ class RunbookStateStore:
         season: str | None = None,
     ) -> RunbookStateRecord:
         """Operator channel: append-only, never touches the loop-owned state file.
-        Stamp the season whenever it is known — unstamped confirmations are
-        accepted as legacy and would leak into a future season's runbook."""
+        Always stamp the season — a season-expecting reader (the loop) ignores
+        unstamped entries, so an unstamped confirmation is inert."""
         self.confirmations_path.parent.mkdir(parents=True, exist_ok=True)
         entry = {
             "phase_id": phase_id,
@@ -135,15 +135,19 @@ class RunbookStateStore:
     def read_confirmations(self, *, expected_season: str | None = None) -> set[str]:
         """Confirmed gate ids from the operator channel, mtime/size-cached so the
         per-tick poll is a stat() in the steady state, not a read+parse.
-        Entries stamped with a different season are ignored; unstamped entries
-        are accepted as legacy."""
-        entries = self._read_confirmation_entries()
+        When an expected season is given, entries stamped differently — and
+        unstamped entries — are ignored: human-gate approvals never cross
+        seasons (phase IDs recur every season)."""
         gates: set[str] = set()
-        for phase_id, season in entries:
-            if expected_season is not None and season is not None and season != expected_season:
-                continue
-            gates.add(phase_id)
+        for phase_id, season in self._read_confirmation_entries():
+            if _season_matches(expected_season, season):
+                gates.add(phase_id)
         return gates
+
+    def confirmation_entries(self) -> list[tuple[str, str | None]]:
+        """All (phase_id, season) confirmation entries, unfiltered — for
+        operator-facing inspection (`runbook_gate show`)."""
+        return self._read_confirmation_entries()
 
     def _read_confirmation_entries(self) -> list[tuple[str, str | None]]:
         try:
@@ -181,6 +185,36 @@ class RunbookStateStore:
         self._confirmations_signature = signature
         self._confirmations_cached = True
         return list(entries)
+
+
+def _season_matches(expected: str | None, actual: str | None) -> bool:
+    """The single season-compatibility rule: no expectation accepts anything;
+    an expectation requires an exact stamp match (unstamped fails)."""
+    if expected is None:
+        return True
+    return actual == expected
+
+
+def acquire_single_instance_lock(path: Path):
+    """Enforce the store's single-writer rule across processes: an exclusive
+    non-blocking flock on `<state>.lock`, held for the process lifetime.
+    Returns the open handle (keep a reference), or None if another process
+    holds it. On platforms without fcntl the lock degrades to a warning."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    handle = path.open("w", encoding="utf-8")
+    try:
+        import fcntl
+    except ImportError:
+        logger.warning("fcntl unavailable — single-instance lock not enforced: %s", path)
+        return handle
+    try:
+        fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError:
+        handle.close()
+        return None
+    handle.write(f"{os.getpid()}\n")
+    handle.flush()
+    return handle
 
 
 def build_engine_from_store(runbook: OpeningRunbook, store: RunbookStateStore) -> RunbookEngine:

@@ -79,6 +79,33 @@ class RunbookLoaderTests(unittest.TestCase):
         missing = Path("/nonexistent/opening_runbook.yaml")
         self.assertIsNone(load_default_opening_runbook(missing))
 
+    def test_load_warns_on_allowlist_entries_matching_no_action_type(self) -> None:
+        payload = "\n".join(
+            [
+                "season: S15",
+                "generated_at: '2026-07-07'",
+                "phases:",
+                "- phase_id: bad_allowlist",
+                "  title: 拼写错误",
+                "  exit_when:",
+                "    done: '== true'",
+                "  selector_hints:",
+                "    allowed_action_types: [ATTACK_LAND, attack_land]",
+            ]
+        )
+        with tempfile.TemporaryDirectory() as temp_dir:
+            path = Path(temp_dir) / "runbook.yaml"
+            path.write_text(payload, encoding="utf-8")
+            with self.assertLogs("pioneer_agent.runbook.loader", level="WARNING") as captured:
+                load_runbook(path)
+        self.assertTrue(any("ATTACK_LAND" in line for line in captured.output))
+
+    def test_user_path_expands_home(self) -> None:
+        from pioneer_agent.app.cli_utils import user_path
+
+        self.assertEqual(user_path("~/x.json"), Path.home() / "x.json")
+        self.assertEqual(user_path("data/loop/x.json"), Path("data/loop/x.json"))
+
 
 class MetricsFromRuntimeStateTests(unittest.TestCase):
     def test_extracts_flat_metrics_and_keeps_dotted_paths(self) -> None:

@@ -9,10 +9,15 @@ from typing import Any, Mapping
 
 import yaml
 
+from pioneer_agent.core.enums import ActionType
 from pioneer_agent.core.models import RuntimeState
 from pioneer_agent.runbook.models import OpeningRunbook
 
 logger = logging.getLogger(__name__)
+
+# Everything a bad runbook path/file can raise (pydantic ValidationError is a
+# ValueError subclass); CLIs catch this tuple and route to parser.error.
+RUNBOOK_LOAD_ERRORS = (OSError, yaml.YAMLError, ValueError)
 
 DEFAULT_OPENING_RUNBOOK_ENV = "SANMOU_OPENING_RUNBOOK_PATH"
 # Ships as package data (pyproject packages pioneer_agent/config/*.yaml), so the
@@ -28,7 +33,9 @@ def load_runbook(path: Path) -> OpeningRunbook:
         data = json.loads(text)
     else:
         data = yaml.safe_load(text)
-    return OpeningRunbook.model_validate(data)
+    runbook = OpeningRunbook.model_validate(data)
+    _warn_invalid_allowlists(runbook)
+    return runbook
 
 
 def load_default_opening_runbook(path: Path | None = None) -> OpeningRunbook | None:
@@ -43,6 +50,38 @@ def load_default_opening_runbook(path: Path | None = None) -> OpeningRunbook | N
         )
         return None
     return load_runbook(runbook_path)
+
+
+def load_runbook_or_default(path: Path | None) -> OpeningRunbook | None:
+    """Shared CLI entry: an explicit path raises RUNBOOK_LOAD_ERRORS on any
+    problem; no path falls back to the packaged default (None when absent)."""
+    if path is not None:
+        return load_runbook(path)
+    return load_default_opening_runbook()
+
+
+def _warn_invalid_allowlists(runbook: OpeningRunbook) -> None:
+    """An allowlist entry that matches no ActionType value silently behaves as
+    block-all at runtime (fail closed); surface the typo at load time."""
+    valid_values = {member.value for member in ActionType}
+    for phase in runbook.phases:
+        allowed = phase.selector_hints.get("allowed_action_types")
+        if not isinstance(allowed, list):
+            continue
+        unknown = [
+            item for item in allowed
+            if str(getattr(item, "value", item)) not in valid_values
+        ]
+        if unknown:
+            logger.warning(
+                "runbook %r phase %r: allowed_action_types entries match no ActionType "
+                "value and will block everything they were meant to allow: %r "
+                "(valid values: %s)",
+                runbook.season,
+                phase.phase_id,
+                unknown,
+                sorted(valid_values),
+            )
 
 
 def metrics_from_runtime_state(

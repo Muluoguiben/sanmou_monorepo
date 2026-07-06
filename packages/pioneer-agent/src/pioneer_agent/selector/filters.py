@@ -13,6 +13,12 @@ from pioneer_agent.scoring.transfer import is_transfer_candidate_valid
 
 
 class CandidateFilter:
+    def __init__(self, *, honor_runbook_hints: bool = False) -> None:
+        # Off by default so the Advisor/replay chains are immune to runbook
+        # hints that a persisted RuntimeState may carry in global_state; only
+        # a runbook-driven loop opts in explicitly.
+        self.honor_runbook_hints = honor_runbook_hints
+
     def filter(
         self,
         state: RuntimeState,
@@ -69,11 +75,12 @@ class CandidateFilter:
 
         return None
 
-    @staticmethod
-    def _reject_by_runbook(state: RuntimeState, candidate: CandidateAction) -> str | None:
+    def _reject_by_runbook(self, state: RuntimeState, candidate: CandidateAction) -> str | None:
         """Filter candidates by the active runbook phase's allowlist, so the
         selector picks the best ALLOWED action instead of the loop discarding
         its top pick post-selection every tick."""
+        if not self.honor_runbook_hints:
+            return None
         runbook = state.global_state.get("runbook")
         if not isinstance(runbook, dict):
             return None

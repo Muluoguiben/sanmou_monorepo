@@ -25,9 +25,10 @@ class ActionSelector:
         strategy_snapshot: StrategySnapshot | None = None,
         load_default_strategy: bool = True,
         llm_judge_gate: LLMJudgeGate | None = None,
+        honor_runbook_hints: bool = False,
     ) -> None:
         self.candidate_generator = CandidateGenerator()
-        self.candidate_filter = CandidateFilter()
+        self.candidate_filter = CandidateFilter(honor_runbook_hints=honor_runbook_hints)
         self.priority_rules = PriorityRules()
         self.strategy_snapshot = strategy_snapshot
         if self.strategy_snapshot is None and load_default_strategy:
