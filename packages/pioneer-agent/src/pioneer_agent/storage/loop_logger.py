@@ -33,6 +33,10 @@ class TickRecord:
     execution_status: str | None = None
     execution_failure_reason: str | None = None
     sleep_s: float = 0.0
+    runbook_phase: str | None = None
+    runbook_hold_reason: str | None = None
+    runbook_transitioned: bool = False
+    runbook_escalations: list[str] = field(default_factory=list)
 
 
 class LoopLogger:
@@ -63,9 +67,11 @@ class LoopLogger:
         selection: SelectionResult,
         execution: ExecutionResult | None,
         sleep_s: float,
+        runbook: dict[str, Any] | None = None,
     ) -> TickRecord:
         screenshot_path = self.archive_screenshot(png, iteration, started_at)
         action = selection.selected_action
+        runbook = runbook or {}
         record = TickRecord(
             iteration=iteration,
             started_at=started_at.isoformat(),
@@ -81,6 +87,13 @@ class LoopLogger:
             execution_status=execution.status if execution else None,
             execution_failure_reason=execution.failure_reason if execution else None,
             sleep_s=sleep_s,
+            runbook_phase=runbook.get("phase_id"),
+            runbook_hold_reason=runbook.get("hold_reason"),
+            runbook_transitioned=bool(runbook.get("transitioned", False)),
+            runbook_escalations=[
+                str(item.get("kind")) for item in runbook.get("escalations", [])
+                if isinstance(item, dict) and item.get("kind")
+            ],
         )
         with self.jsonl_path.open("a", encoding="utf-8") as h:
             h.write(json.dumps(asdict(record), ensure_ascii=False) + "\n")

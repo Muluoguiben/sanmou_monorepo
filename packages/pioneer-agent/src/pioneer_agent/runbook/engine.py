@@ -9,7 +9,7 @@ The engine performs no I/O and calls no model — it is safe to run every tick.
 from __future__ import annotations
 
 import logging
-from typing import Any, Mapping
+from typing import Any, Iterable, Mapping
 
 from pioneer_agent.runbook.models import (
     ConditionStatus,
@@ -27,11 +27,19 @@ logger = logging.getLogger(__name__)
 
 
 class RunbookEngine:
-    def __init__(self, runbook: OpeningRunbook, *, start_phase_id: str | None = None) -> None:
+    def __init__(
+        self,
+        runbook: OpeningRunbook,
+        *,
+        start_phase_id: str | None = None,
+        confirmed_gates: Iterable[str] | None = None,
+    ) -> None:
         self.runbook = runbook
         self._index = runbook.phase_index(start_phase_id) if start_phase_id else 0
         self._completed = False
         self._confirmed_gates: set[str] = set()
+        for phase_id in confirmed_gates or ():
+            self.confirm_human_gate(phase_id)
 
     @property
     def current_phase(self) -> PhaseDefinition:
@@ -40,6 +48,10 @@ class RunbookEngine:
     @property
     def completed(self) -> bool:
         return self._completed
+
+    @property
+    def confirmed_gates(self) -> frozenset[str]:
+        return frozenset(self._confirmed_gates)
 
     def confirm_human_gate(self, phase_id: str) -> None:
         """Record operator approval for a human_gate phase (e.g. 二拖一)."""

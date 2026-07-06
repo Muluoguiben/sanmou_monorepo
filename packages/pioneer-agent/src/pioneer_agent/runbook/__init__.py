@@ -16,6 +16,11 @@ from pioneer_agent.runbook.models import (
     RunbookDecision,
     RunbookEscalation,
 )
+from pioneer_agent.runbook.state_store import (
+    RunbookStateRecord,
+    RunbookStateStore,
+    build_engine_from_store,
+)
 
 __all__ = [
     "Condition",
@@ -29,6 +34,9 @@ __all__ = [
     "RunbookDecision",
     "RunbookEngine",
     "RunbookEscalation",
+    "RunbookStateRecord",
+    "RunbookStateStore",
+    "build_engine_from_store",
     "load_default_opening_runbook",
     "load_runbook",
     "metrics_from_runtime_state",

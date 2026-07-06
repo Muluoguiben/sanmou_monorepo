@@ -32,7 +32,7 @@ Desktop app calls the local `pioneer-agent` Advisor API over `127.0.0.1`; it mus
 ## How to Run
 
 ```bash
-# Tests — pioneer-agent (262 tests; advisor_api tests skip if FastAPI deps are absent; perception tests need google-genai)
+# Tests — pioneer-agent (273 tests; advisor_api tests skip if FastAPI deps are absent; perception tests need google-genai)
 cd packages/pioneer-agent && PYTHONPATH=src:../sanmou-common/src python3 -m unittest discover -s tests -p "test_*.py" -v
 
 # Tests — qa-agent
@@ -101,7 +101,7 @@ Current execution status: wait actions are implemented; click-class actions rema
 
 Phase system: `opening_sprint` → `growth_window` → `chapter_push` → `settlement_sprint`.
 
-Opening orchestration: `pioneer_agent/runbook/` serializes the season opening guide into an ordered phase machine (`RunbookEngine`) with three-valued condition evaluation (missing metrics escalate as `unknown_metrics` instead of silently failing; unknown abort metrics also block phase transitions), AND entry/exit vs OR abort semantics, `human_gate` phases (二拖一 / 远征) enforced on the current phase so `start_phase_id` / `override_phase` / restart cannot bypass them, and planner `override_phase`. Seed data ships as package data: `pioneer_agent/config/opening_runbook_s15.yaml` (all thresholds `needs_review` until manually verified against the source guide). See `docs/opening-runbook-architecture.md`.
+Opening orchestration: `pioneer_agent/runbook/` serializes the season opening guide into an ordered phase machine (`RunbookEngine`) with three-valued condition evaluation (missing metrics escalate as `unknown_metrics` instead of silently failing; unknown abort metrics also block phase transitions), AND entry/exit vs OR abort semantics, `human_gate` phases (二拖一 / 远征) enforced on the current phase so `start_phase_id` / `override_phase` / restart cannot bypass them, and planner `override_phase`. Seed data ships as package data: `pioneer_agent/config/opening_runbook_s15.yaml` (all thresholds `needs_review` until manually verified against the source guide). The autonomous loop integrates it via `--runbook`: decisions land in `global_state["runbook"]`, blocking holds (`abort_triggered` / `human_gate_pending`) and `allowed_action_types` filters stop dispatch (wait actions exempt), decisions/escalations go to loop.jsonl + TickTrace metadata, and the cursor/gate state persists in `runbook_state.json` (operator CLI: `pioneer_agent.app.runbook_gate confirm <phase_id>`). See `docs/opening-runbook-architecture.md`.
 
 Priority rules (hard overrides before score ranking):
 1. Claim chapter if claimable
@@ -252,11 +252,11 @@ git branch -d feat/<branch-name>
 ### What's Working
 - **Desktop Advisor**: `apps/sanmou-advisor-desktop` Electron + React + Vite GUI with screenshot upload/preview, device/account metadata, AdvisorReport display, and chat panel; `npm run typecheck` and `npm run build` pass.
 - **Advisor API**: `pioneer_agent.app.advisor_api` FastAPI service with `/api/health`, `/api/advisor/analyze`, `/api/advisor/chat`, screenshot upload, mock mode, local `reports.jsonl` logging, and desktop CORS.
-- **Pioneer agent**: capture/control adapter split, platform-neutral device/session models, `AdvisorLoop`, sync → derive → select pipeline with 8 action types, OpenAI/Gemini vision provider support, `resource_bar` + `city_buildings` domains, bbox locator, UI layout registry, UIActions primitives, autonomous loop with loop_logger, `dry_run`, `stuck_threshold`, opening runbook phase machine (`pioneer_agent/runbook/`); 262 tests pass when API deps are installed, advisor API tests skip cleanly without FastAPI.
+- **Pioneer agent**: capture/control adapter split, platform-neutral device/session models, `AdvisorLoop`, sync → derive → select pipeline with 8 action types, OpenAI/Gemini vision provider support, `resource_bar` + `city_buildings` domains, bbox locator, UI layout registry, UIActions primitives, autonomous loop with loop_logger, `dry_run`, `stuck_threshold`, opening runbook phase machine (`pioneer_agent/runbook/`) integrated into the autonomous loop with persisted cursor/gate state; 273 tests pass when API deps are installed, advisor API tests skip cleanly without FastAPI.
 - **QA agent**: 104 heroes + 123 skills + 61 mechanic rules KB; MCP server with 3 tools; ingestion pipeline with `--publish`; conversational RAG via `qa_agent/chat/` with Gemini/MiniMax/OpenAI providers; `qa_agent/vision/` grounded image understanding; bilibili video knowledge workflow closed loop.
 
 ### Current Focus
-- **开荒分层自治 (automation chain)**: Goal G1 = 真实客户端无人值守 4 小时开荒例行，Claude Code/Codex 不在 tick 循环内。Runbook 阶段机已落地（`pioneer_agent/runbook/` + package data `pioneer_agent/config/opening_runbook_s15.yaml`）；接下来 M1a 收菜校准 → M1b 打地闭环 → AutonomousLoop 集成与 planner 事件接入。见 `docs/opening-runbook-architecture.md`。
+- **开荒分层自治 (automation chain)**: Goal G1 = 真实客户端无人值守 4 小时开荒例行，Claude Code/Codex 不在 tick 循环内。Runbook 阶段机 + AutonomousLoop 集成 + 状态落盘已落地（`pioneer_agent/runbook/`、`--runbook` 入口、`runbook_gate` 确认 CLI）；接下来 M1a 收菜校准 → M1b 打地闭环 → planner 事件接入。见 `docs/opening-runbook-architecture.md`。
 - **Advisor MVP hardening**: run the desktop app on real PC/emulator/phone/iOS screenshots, collect screenshot fixtures, add vision eval, and improve GUI history.
 - **qa-agent integration**: replace local template chat in Advisor API with qa-agent `QueryService` / `ChatAgent` using `AdvisorReport` as state context.
 - **Perception domains**: implement `chapter_panel`, `recruit_panel`, `team_panel`, `map_land`, and `battle_result` before prioritizing click automation.

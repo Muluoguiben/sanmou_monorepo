@@ -41,7 +41,7 @@
 
 - **条件三值逻辑**：`satisfied / not_satisfied / unknown`。指标缺失 ≠ false——perception 没产出的字段会以 `unknown_metrics` escalation 上报，而不是静默阻塞或放行。这是"LLM 怎么知道运行是否正常"的代码化答案之一。
 - **entry_when / exit_when 为 AND 语义，abort_when 为 OR 语义**（任一战损/连败条件命中即触发 `abort_triggered`，路由 `llm_planner`）。abort 指标缺失（如开战前 `battle_loss_rate` 尚未产生）不阻塞阶段内工作以免死锁，但每次求值都会发 `unknown_metrics` escalation（`checked: abort_when`），**且 exit 满足时禁止 transition**（hold `abort_metrics_unknown`）——不允许带着安全盲区升阶段。
-- **human_gate**：二拖一、10-12 级地/远征等 timing 敏感或高失败代价阶段，进入前必须 `confirm_human_gate()`，否则 hold 并发 `human_gate` escalation（路由 `human`）。gate 在 `evaluate()` 对**当前阶段**校验，`start_phase_id`、planner `override_phase()`、重启恢复都无法绕过；未确认时不下发 `selector_hints`（返回空 dict，fail-safe）。与 Safety Rules 的高风险人工确认契约一致。注意：`confirm_human_gate()` 的确认状态目前仅存内存，M2 做 AutonomousLoop 集成时需随 RuntimeState 落盘，否则进程重启后已确认的 gate 会重新要求人工确认（误差方向偏安全，但影响无人值守时长）。
+- **human_gate**：二拖一、10-12 级地/远征等 timing 敏感或高失败代价阶段，进入前必须 `confirm_human_gate()`，否则 hold 并发 `human_gate` escalation（路由 `human`）。gate 在 `evaluate()` 对**当前阶段**校验，`start_phase_id`、planner `override_phase()`、重启恢复都无法绕过；未确认时不下发 `selector_hints`（返回空 dict，fail-safe）。与 Safety Rules 的高风险人工确认契约一致。确认状态经 `runbook/state_store.py` 随阶段游标一起落盘（`<log-dir>/runbook_state.json`），重启不丢；操作者用 `python -m pioneer_agent.app.runbook_gate confirm <phase_id>` 确认，运行中的循环下一个 tick 即生效，无需重启。
 - **引擎纯确定性**：无 I/O、无模型调用，每 tick 可跑；escalation 是数据（Pydantic 模型），由外层决定通知谁。
 - **planner 覆盖入口**：`override_phase()` 供 LLM planner 仲裁后回退/跳转阶段（如战损超标后降级回 4 级地攒兵）。
 
@@ -66,7 +66,7 @@
 |---|---|---|
 | M1a | 收菜序列自动化：以 claim 类动作校准 executor + verifier（练兵场） | 待做（依赖真实客户端） |
 | M1b | 打地内循环打穿：选预设编队 → 选地 → 出征 → 战报判定 → 体力等待 | 待做（attack_land 校准 + battle_result 感知域） |
-| M2 | Runbook 阶段机驱动全流程 | **引擎 + S15 种子数据已落地（2026-07-05）**；剩 AutonomousLoop 集成、planner 事件接入 |
+| M2 | Runbook 阶段机驱动全流程 | **引擎 + S15 种子数据（2026-07-05）、AutonomousLoop 集成 + 状态落盘（2026-07-06）已落地**；剩 planner 事件接入 |
 | M3 | 知识管道闭环（每赛季攻略 → staging 审阅 → runbook 刷新）+ 运维化（watchdog / 通知 / 日报） | 待做 |
 
 M1a/M1b 是当前唯一优先级——在打穿一条无人值守垂直切片之前，其余都是提前优化。
@@ -75,7 +75,7 @@ M1a/M1b 是当前唯一优先级——在打穿一条无人值守垂直切片之
 
 | 模块 | 关系 |
 |---|---|
-| `runtime/autonomous_loop.py` | 未来集成点：tick 内 `metrics_from_runtime_state → engine.evaluate`，把 `selector_hints` 注入 selector，escalations 写入 TickTrace 并触发 planner/通知 |
+| `runtime/autonomous_loop.py` | **已集成（2026-07-06）**：tick 内 `metrics_from_runtime_state → engine.evaluate`，决策写入 `derived.global_state["runbook"]` 供 selector 消费；`abort_triggered` / `human_gate_pending` hold 阻断动作派发（`ExecutionResult` blocked），`allowed_action_types` 过滤非白名单动作（wait 类豁免）；决策与 escalation 写入 loop.jsonl 与 TickTrace metadata；阶段游标 + gate 确认经 `runbook_state.json` 落盘，重启续跑。入口 `app.autonomous --runbook`，操作者确认 `app.runbook_gate`，`app.loop_inspect` 输出阶段/escalation 统计 |
 | `selector/` + `scoring/` | runbook 不替代 selector；它只提供阶段级参数（编队、目标地级、阈值），动作级排序仍归 selector |
 | `knowledge/strategy_snapshot.py` | 静态游戏知识（阵容/风险规则）；runbook 是有状态的流程编排，两者互补 |
 | `qa-agent` 知识管道 | runbook 数据的赛季刷新来源（M3），沿用 staging 人工审阅约束 |

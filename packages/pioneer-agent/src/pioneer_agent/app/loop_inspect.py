@@ -36,6 +36,21 @@ def main(argv: list[str] | None = None) -> int:
     print(f"selected_action:    {dict(action_counts)}")
     print(f"execution_status:   {dict(exec_counts)}")
 
+    if any(r.get("runbook_phase") for r in records):
+        phase_counts = Counter(r.get("runbook_phase") or "(none)" for r in records)
+        hold_counts = Counter(
+            r["runbook_hold_reason"] for r in records if r.get("runbook_hold_reason")
+        )
+        escalation_counts = Counter(
+            kind for r in records for kind in r.get("runbook_escalations") or []
+        )
+        current_phase = next(
+            (r["runbook_phase"] for r in reversed(records) if r.get("runbook_phase")), None
+        )
+        print(f"runbook phase:      {dict(phase_counts)} | current={current_phase}")
+        print(f"runbook holds:      {dict(hold_counts) or '(none)'}")
+        print(f"runbook escalation: {dict(escalation_counts) or '(none)'}")
+
     print(f"\nlast {args.tail} ticks:")
     for r in records[-args.tail:]:
         shot = Path(r["screenshot_path"]).name if r.get("screenshot_path") else "-"

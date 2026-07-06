@@ -10,7 +10,7 @@
 - [x] Codex review 修复（2026-07-05，已合 master；后续 f35f43f 修正文档漂移：路径/测试计数/gate 持久化注意事项）：①abort 指标 unknown 不再静默——每次求值发 `unknown_metrics(checked=abort_when)` escalation，且 exit 满足时 hold `abort_metrics_unknown` 禁止带安全盲区 transition；②runbook YAML 移入 package data（`pioneer_agent/config/`，pyproject 已含 `config/*.yaml`），非 editable `pip install --target` 实测可加载，默认路径缺失记 warning；③`human_gate` 改为对当前阶段在 `evaluate()` 校验，`start_phase_id`/`override_phase`/重启恢复不可绕过，未确认时 selector_hints 为空。
 - [ ] M1a 收菜序列自动化：用 claim 类低风险动作在真实客户端校准 executor/verifier——与上方 Architecture Iteration 的 terminal source 采样计划是同一条线，不新开路径。
 - [ ] M1b 打地内循环：attack_land 校准 + `battle_result` 感知域 + 战报判定 + 体力等待循环（选预设编队出征，阵容人工预配，agent 不做配将/配战法 UI）。
-- [ ] M2 集成：`AutonomousLoop` tick 内接 `RunbookEngine`（`metrics_from_runtime_state` → `evaluate` → `selector_hints` 注入 selector；escalation 写入 TickTrace）。
+- [x] M2 集成（2026-07-06，feat/runbook-loop-integration）：`AutonomousLoop` tick 内接 `RunbookEngine`——决策注入 `global_state["runbook"]`；`abort_triggered`/`human_gate_pending` hold 阻断动作派发，`allowed_action_types` 过滤（wait 类豁免）；决策/escalation 写入 loop.jsonl 与 TickTrace metadata；阶段游标 + gate 确认经 `runbook/state_store.py` 落盘（`runbook_state.json`），重启续跑、赛季换 runbook 时旧游标安全降级；入口 `app.autonomous --runbook/--runbook-path/--runbook-state`，操作者确认 CLI `app.runbook_gate confirm <phase_id>`（运行中下一 tick 生效），`app.loop_inspect` 输出阶段分布/hold/escalation 统计；+11 单测，全量 273 tests OK。
 - [ ] M2 planner：escalation 事件驱动的 LLM 仲裁（输入状态 JSON + trace 摘要 + 知识库检索，输出结构化决定；不看截图、无会话累积）。
 - [ ] M3 运维化与知识闭环：watchdog、escalation 通知、日报；每赛季攻略 → qa-agent staging 人工审阅 → runbook 数据刷新。
 

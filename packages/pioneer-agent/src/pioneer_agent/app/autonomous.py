@@ -15,6 +15,8 @@ from pioneer_agent.executor.ui_actions import UIActions
 from pioneer_agent.perception.ui_registry import UIRegistry
 from pioneer_agent.perception.vision import build_vision_client
 from pioneer_agent.perception.vision_sync import VisionSync
+from pioneer_agent.runbook.loader import load_default_opening_runbook, load_runbook
+from pioneer_agent.runbook.state_store import RunbookStateStore, build_engine_from_store
 from pioneer_agent.runtime.autonomous_loop import AutonomousLoop
 from pioneer_agent.safety.kill_switch import KillSwitch, default_kill_switch_path
 from pioneer_agent.storage.loop_logger import LoopLogger
@@ -40,6 +42,12 @@ def main(argv: list[str] | None = None) -> int:
                         help="Vision provider override. Defaults to PIONEER_VISION_PROVIDER or gemini.")
     parser.add_argument("--kill-switch-file", type=Path, default=None,
                         help="Stop dispatching UI actions when this file exists.")
+    parser.add_argument("--runbook", action="store_true",
+                        help="Drive phases with the default opening runbook (see SANMOU_OPENING_RUNBOOK_PATH).")
+    parser.add_argument("--runbook-path", type=Path, default=None,
+                        help="Explicit runbook YAML path (implies --runbook).")
+    parser.add_argument("--runbook-state", type=Path, default=None,
+                        help="Runbook cursor/gate persistence file (default: log-dir/runbook_state.json).")
     args = parser.parse_args(argv)
     kill_switch_path = args.kill_switch_file or default_kill_switch_path(
         Path(__file__).resolve().parents[5]
@@ -53,6 +61,26 @@ def main(argv: list[str] | None = None) -> int:
     loop_logger = LoopLogger(args.log_dir, archive_screenshots=not args.no_archive)
     trace_store = TraceStore(args.trace_path or args.log_dir / "trace.jsonl")
 
+    runbook_engine = None
+    runbook_state_store = None
+    if args.runbook or args.runbook_path is not None:
+        runbook = (
+            load_runbook(args.runbook_path)
+            if args.runbook_path is not None
+            else load_default_opening_runbook()
+        )
+        if runbook is None:
+            parser.error("--runbook requested but no runbook YAML was found")
+        runbook_state_store = RunbookStateStore(
+            args.runbook_state or args.log_dir / "runbook_state.json"
+        )
+        runbook_engine = build_engine_from_store(runbook, runbook_state_store)
+        logging.getLogger(__name__).info(
+            "runbook enabled: season=%s start_phase=%s",
+            runbook.season,
+            runbook_engine.current_phase.phase_id,
+        )
+
     with BridgeClient() as bridge:
         vision = build_vision_client(args.vision_provider)
         registry = UIRegistry.load()
@@ -64,6 +92,8 @@ def main(argv: list[str] | None = None) -> int:
             loop_logger=loop_logger,
             trace_store=trace_store,
             kill_switch=KillSwitch(kill_switch_path),
+            runbook_engine=runbook_engine,
+            runbook_state_store=runbook_state_store,
             dry_run=args.dry_run,
             stuck_threshold=args.stuck_threshold,
         )

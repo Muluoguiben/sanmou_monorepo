@@ -22,6 +22,10 @@ from pioneer_agent.derivation.state_deriver import StateDeriver
 from pioneer_agent.executor.ui_actions import UIActions
 from pioneer_agent.executor.ui_runner import UIActionRunner
 from pioneer_agent.perception.vision_sync import VisionSync, VisionSyncSummary
+from pioneer_agent.runbook.engine import RunbookEngine
+from pioneer_agent.runbook.loader import metrics_from_runtime_state
+from pioneer_agent.runbook.models import RunbookDecision
+from pioneer_agent.runbook.state_store import RunbookStateStore
 from pioneer_agent.runtime.loop_contract import LOOP_PHASE_ORDER, ensure_loop_contract
 from pioneer_agent.safety.kill_switch import KillSwitch
 from pioneer_agent.selector.action_selector import ActionSelector
@@ -65,6 +69,12 @@ DEFAULT_SLEEP_S = 5.0                     # after an executed/pending action
 IDLE_SLEEP_S = 30.0                       # nothing to do
 STUCK_ESC_THRESHOLD = 3                   # consecutive unknown/idle ticks before recovery ESC
 
+# Runbook hold reasons that must block action dispatch (safety semantics);
+# other holds only pause phase transitions while in-phase work continues.
+RUNBOOK_BLOCKING_HOLDS = frozenset({"abort_triggered", "human_gate_pending"})
+# Wait actions are passive and stay allowed regardless of phase action filters.
+RUNBOOK_FILTER_EXEMPT_ACTIONS = frozenset({ActionType.WAIT_FOR_STAMINA, ActionType.WAIT_FOR_RESOURCE})
+
 
 class AutonomousLoop:
     def __init__(
@@ -80,6 +90,8 @@ class AutonomousLoop:
         loop_logger: LoopLogger | None = None,
         trace_store: TraceStore | None = None,
         kill_switch: KillSwitch | None = None,
+        runbook_engine: RunbookEngine | None = None,
+        runbook_state_store: RunbookStateStore | None = None,
         dry_run: bool = False,
         stuck_threshold: int = STUCK_ESC_THRESHOLD,
         post_action_verify_poll_interval_s: float = 1.0,
@@ -94,6 +106,8 @@ class AutonomousLoop:
         self.loop_logger = loop_logger
         self.trace_store = trace_store
         self.kill_switch = kill_switch
+        self.runbook_engine = runbook_engine
+        self.runbook_state_store = runbook_state_store
         self.dry_run = dry_run
         self.stuck_threshold = stuck_threshold
         self.post_action_verify_poll_interval_s = post_action_verify_poll_interval_s
@@ -113,6 +127,7 @@ class AutonomousLoop:
         logger.info("tick %d: page=%s domains=%s", iteration, vision_summary.page_type, vision_summary.domains_run)
 
         derived = self.deriver.derive(self.state)
+        runbook_decision = self._evaluate_runbook(iteration, derived)
         selection = self.selector.select(derived)
         pre_action_state = self.state.model_dump(mode="json")
 
@@ -120,7 +135,9 @@ class AutonomousLoop:
         post_action_verification: dict[str, Any] | None = None
         input_trace: list[dict] = []
         sleep_s = IDLE_SLEEP_S
+        runbook_blocked = False
         if selection.selected_action is not None:
+            runbook_block_reason = _runbook_block_reason(runbook_decision, selection.selected_action)
             if self.kill_switch is not None and self.kill_switch.is_triggered():
                 logger.warning(
                     "tick %d: kill switch active — blocking action=%s",
@@ -136,6 +153,27 @@ class AutonomousLoop:
                     summary={
                         "action_type": selection.selected_action.action_type.value,
                         "blocked_by": "kill_switch",
+                    },
+                )
+            elif runbook_block_reason is not None:
+                runbook_blocked = True
+                logger.warning(
+                    "tick %d: runbook blocks action=%s (%s, phase=%s)",
+                    iteration,
+                    selection.selected_action.action_type.value,
+                    runbook_block_reason,
+                    runbook_decision.phase_id if runbook_decision else None,
+                )
+                execution = ExecutionResult(
+                    action_id=selection.selected_action.action_id,
+                    status="blocked",
+                    verification_status="not_applicable",
+                    failure_reason=runbook_block_reason,
+                    recovery_required=False,
+                    summary={
+                        "action_type": selection.selected_action.action_type.value,
+                        "blocked_by": runbook_block_reason,
+                        "runbook_phase": runbook_decision.phase_id if runbook_decision else None,
                     },
                 )
             elif self.dry_run:
@@ -174,7 +212,10 @@ class AutonomousLoop:
                     selection.selected_action.action_type.value,
                     execution.status,
                 )
-            sleep_s = WAIT_SLEEP_S.get(selection.selected_action.action_type, DEFAULT_SLEEP_S)
+            if runbook_blocked:
+                sleep_s = IDLE_SLEEP_S
+            else:
+                sleep_s = WAIT_SLEEP_S.get(selection.selected_action.action_type, DEFAULT_SLEEP_S)
         else:
             logger.info("tick %d: no selected action — idle", iteration)
 
@@ -205,6 +246,7 @@ class AutonomousLoop:
         else:
             self._stuck_count = 0
 
+        runbook_payload = _runbook_payload(runbook_decision)
         screenshot_path: str | None = None
         if self.loop_logger is not None:
             record = self.loop_logger.log_tick(
@@ -216,6 +258,7 @@ class AutonomousLoop:
                 selection=selection,
                 execution=execution,
                 sleep_s=sleep_s,
+                runbook=runbook_payload,
             )
             screenshot_path = record.screenshot_path
 
@@ -237,12 +280,55 @@ class AutonomousLoop:
                     post_action_verification=post_action_verification,
                     vision_traces=_consume_remaining_vision_trace_events(self.vision_sync),
                     input_trace=input_trace,
+                    runbook=runbook_payload,
                 )
             )
             self.trace_store.append(trace)
 
         return TickResult(iteration=iteration, summary=vision_summary, selection=selection,
                           execution=execution, sleep_s=sleep_s)
+
+    def _evaluate_runbook(self, iteration: int, derived: RuntimeState) -> RunbookDecision | None:
+        if self.runbook_engine is None:
+            return None
+
+        stored = None
+        if self.runbook_state_store is not None:
+            stored = self.runbook_state_store.load()
+            for phase_id in stored.confirmed_gates - set(self.runbook_engine.confirmed_gates):
+                try:
+                    self.runbook_engine.confirm_human_gate(phase_id)
+                except KeyError:
+                    logger.warning("runbook state store confirms unknown gate %r — ignored", phase_id)
+
+        decision = self.runbook_engine.evaluate(metrics_from_runtime_state(derived))
+        derived.global_state["runbook"] = {
+            "phase_id": decision.phase_id,
+            "selector_hints": dict(decision.selector_hints),
+            "hold_reason": decision.hold_reason,
+            "human_gate_pending": decision.human_gate_pending,
+        }
+        if decision.transitioned:
+            logger.info(
+                "tick %d: runbook phase %s -> %s",
+                iteration, decision.previous_phase_id, decision.phase_id,
+            )
+        for escalation in decision.escalations:
+            logger.warning(
+                "tick %d: runbook escalation kind=%s route=%s phase=%s details=%s",
+                iteration,
+                escalation.kind.value,
+                escalation.route.value,
+                escalation.phase_id,
+                escalation.details,
+            )
+
+        if self.runbook_state_store is not None:
+            current = self.runbook_engine.current_phase.phase_id
+            gates = set(self.runbook_engine.confirmed_gates)
+            if stored is None or stored.current_phase_id != current or stored.confirmed_gates != gates:
+                self.runbook_state_store.save(current_phase_id=current, confirmed_gates=gates)
+        return decision
 
     @staticmethod
     def _is_stuck(
@@ -458,6 +544,7 @@ def _build_tick_trace(
     post_action_verification: dict[str, Any] | None = None,
     vision_traces: list[dict] | None = None,
     input_trace: list[dict] | None = None,
+    runbook: dict[str, Any] | None = None,
 ) -> TickTrace:
     action = selection.selected_action
     screenshot_size = _image_size_from_png(png)
@@ -531,8 +618,42 @@ def _build_tick_trace(
         recovery={"strategy": recovery_strategy or "none"},
         failure_reason=execution.failure_reason if execution else None,
         next_recovery_strategy=recovery_strategy or "none",
-        metadata={"loop_contract": [phase.value for phase in LOOP_PHASE_ORDER]},
+        metadata={
+            "loop_contract": [phase.value for phase in LOOP_PHASE_ORDER],
+            **({"runbook": runbook} if runbook is not None else {}),
+        },
     )
+
+
+def _runbook_payload(decision: RunbookDecision | None) -> dict[str, Any] | None:
+    if decision is None:
+        return None
+    return {
+        "phase_id": decision.phase_id,
+        "previous_phase_id": decision.previous_phase_id,
+        "transitioned": decision.transitioned,
+        "completed": decision.completed,
+        "hold_reason": decision.hold_reason,
+        "human_gate_pending": decision.human_gate_pending,
+        "selector_hints": dict(decision.selector_hints),
+        "escalations": [escalation.model_dump(mode="json") for escalation in decision.escalations],
+    }
+
+
+def _runbook_block_reason(decision: RunbookDecision | None, action: CandidateAction) -> str | None:
+    if decision is None:
+        return None
+    if decision.hold_reason in RUNBOOK_BLOCKING_HOLDS:
+        return f"runbook_hold:{decision.hold_reason}"
+    allowed = decision.selector_hints.get("allowed_action_types")
+    if (
+        isinstance(allowed, list)
+        and allowed
+        and action.action_type not in RUNBOOK_FILTER_EXEMPT_ACTIONS
+        and action.action_type.value not in {str(item) for item in allowed}
+    ):
+        return "runbook_action_filter"
+    return None
 
 
 def _post_action_verifier_spec(runner: Any, action_type: ActionType) -> VerifierSpec | None:
