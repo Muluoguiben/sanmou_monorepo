@@ -7,6 +7,7 @@ the wait/sleep cadence between ticks.
 """
 from __future__ import annotations
 
+import json
 import logging
 import time
 from dataclasses import dataclass
@@ -123,7 +124,7 @@ class AutonomousLoop:
         self.post_action_verify_poll_interval_s = post_action_verify_poll_interval_s
         self._stuck_count = 0
         self._runbook_saved_signature: tuple[str, frozenset[str], bool] | None = None
-        self._active_runbook_escalations: set[tuple[str, str]] = set()
+        self._active_runbook_escalations: set[str] = set()
         self._runbook_filter_block_phase: str | None = None
         self._runbook_filter_block_count = 0
         self._warned_unknown_gates: set[str] = set()
@@ -248,6 +249,13 @@ class AutonomousLoop:
             action=selection.selected_action,
             selection=selection,
         )
+
+        # The verifier inside the action/flow block re-observes and mutates
+        # self.state, so a hold/abort may have surfaced since the tick-start
+        # decision. Refresh the guard against post-action state before any
+        # recovery input, so ESC is suppressed when a fresh decision holds.
+        if execution is not None and execution.status in ("ok", "failed", "pending"):
+            runbook_decision = self._refresh_runbook_after_action(iteration, runbook_decision)
 
         state_after = self.state.model_dump(mode="json")
         recovery_strategy: str | None = None
@@ -386,6 +394,23 @@ class AutonomousLoop:
         self._persist_runbook_state()
         return decision
 
+    def _refresh_runbook_after_action(
+        self, iteration: int, decision: RunbookDecision | None
+    ) -> RunbookDecision | None:
+        """Re-evaluate against post-verifier state (transitions frozen — the
+        tick already acted; this is a safety refresh, not a phase commit) and
+        merge so the tick-start decision's escalations/transition survive. The
+        refreshed decision drives the recovery gate and the recorded payload."""
+        if self.runbook_engine is None:
+            return decision
+        derived = self.deriver.derive(self.state)
+        fresh = self._evaluate_runbook(iteration, derived, allow_transition=False)
+        if fresh is None:
+            return decision
+        merged = _merge_flow_decision(decision, fresh) if decision is not None else fresh
+        self._guard.update_decision(merged)
+        return merged
+
     def _persist_runbook_state(self) -> None:
         """Loop-owned state file; skipped in dry-run so previews stay side-effect
         free. The saved-signature check keeps idle ticks write-free, but an
@@ -467,10 +492,10 @@ class AutonomousLoop:
         if decision is None:
             return None
         all_escalations = list(decision.escalations) + list(extra_escalations)
-        signatures = {(e.kind.value, e.phase_id) for e in all_escalations}
+        signatures = {_escalation_signature(e) for e in all_escalations}
         new_escalations = [
             e for e in all_escalations
-            if (e.kind.value, e.phase_id) not in self._active_runbook_escalations
+            if _escalation_signature(e) not in self._active_runbook_escalations
         ]
         for escalation in new_escalations:
             logger.warning(
@@ -485,7 +510,7 @@ class AutonomousLoop:
 
         payload = decision.model_dump(mode="json", exclude={"exit_result", "abort_result"})
         payload["escalations"] = [e.model_dump(mode="json") for e in new_escalations]
-        payload["active_escalations"] = sorted({kind for kind, _phase in signatures})
+        payload["active_escalations"] = sorted({e.kind.value for e in all_escalations})
         return payload
 
     @staticmethod
@@ -846,11 +871,20 @@ def _merge_flow_decision(
         update["transitioned"] = True
         update["previous_phase_id"] = first.previous_phase_id
     if first.escalations:
-        seen = {(e.kind.value, e.phase_id) for e in flow.escalations}
+        seen = {_escalation_signature(e) for e in flow.escalations}
         update["escalations"] = list(flow.escalations) + [
-            e for e in first.escalations if (e.kind.value, e.phase_id) not in seen
+            e for e in first.escalations if _escalation_signature(e) not in seen
         ]
     return flow.model_copy(update=update) if update else flow
+
+
+def _escalation_signature(escalation: RunbookEscalation) -> str:
+    """Identity for edge-triggering: two escalations of the same kind in the
+    same phase are still distinct if their details differ (e.g. unknown_metrics
+    for a missing abort metric vs a missing exit metric), so a changed detail
+    re-fires and reaches the planner instead of being deduped away."""
+    details = json.dumps(escalation.details, sort_keys=True, ensure_ascii=False, default=str)
+    return f"{escalation.kind.value}|{escalation.phase_id}|{details}"
 
 
 def _post_action_verifier_spec(runner: Any, action_type: ActionType) -> VerifierSpec | None:

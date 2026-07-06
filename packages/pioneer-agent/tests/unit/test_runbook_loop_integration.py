@@ -568,6 +568,97 @@ class GuardSeamRegressionTests(unittest.TestCase):
             ]
             self.assertEqual(len(unknown_warnings), 1)
 
+    def test_post_action_abort_suppresses_esc_recovery(self) -> None:
+        # A verifier-style observation after the action surfaces an abort, so
+        # the refreshed decision must block the recovery ESC even though the
+        # tick-start decision allowed the action; a clean post-state still ESCs.
+        class _RecoveryRunner:
+            """Mutates loop.state to `post` (like a verifier re-observe) then
+            fails with recovery_required."""
+
+            def __init__(self, post: dict) -> None:
+                self.loop: AutonomousLoop | None = None
+                self.post = post
+
+            def run(self, action):  # noqa: ANN001
+                if self.loop is not None:
+                    self.loop.state = RuntimeState.model_validate(self.post)
+                return ExecutionResult(
+                    action_id=action.action_id, status="failed",
+                    recovery_required=True, summary={},
+                )
+
+        for post_loss, expect_esc in ((0.5, False), (0.1, True)):
+            spy = _SpyUIActions()
+            runner = _RecoveryRunner(
+                {"progress": {"step3_done": False},
+                 "global_state": {"battle_loss_rate": post_loss}}
+            )
+            loop = AutonomousLoop(
+                bridge=_StubBridge(),
+                vision_sync=_StubVisionSync(
+                    {"progress": {"step3_done": False},
+                     "global_state": {"battle_loss_rate": 0.1}}
+                ),  # type: ignore[arg-type]
+                ui_actions=spy,  # type: ignore[arg-type]
+                selector=_RecordingSelector(_action(ActionType.ATTACK_LAND)),  # type: ignore[arg-type]
+                deriver=_StubDeriver(),  # type: ignore[arg-type]
+                runner=runner,  # type: ignore[arg-type]
+                sleeper=lambda _s: None,
+                runbook_engine=RunbookEngine(_runbook(), start_phase_id="p3"),
+            )
+            runner.loop = loop
+            loop.tick(0)
+            if expect_esc:
+                self.assertGreater(spy.close_popup_calls, 0, f"loss={post_loss}")
+            else:
+                self.assertEqual(spy.close_popup_calls, 0, f"loss={post_loss}")
+
+    def test_distinct_unknown_metrics_in_same_phase_both_reported(self) -> None:
+        runbook = OpeningRunbook.model_validate(
+            {
+                "season": "S15 测试",
+                "generated_at": "2026-07-07",
+                "phases": [
+                    {
+                        "phase_id": "solo",
+                        "title": "唯一阶段",
+                        "exit_when": {"progress.done": "== true"},
+                        "abort_when": {"global_state.risk": "> 0.5"},
+                    }
+                ],
+            }
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            loop_logger = LoopLogger(Path(tmp), archive_screenshots=False)
+            vision = _SequencedVisionSync(
+                [
+                    {"progress": {"done": False}},                          # abort metric dark
+                    {"progress": {}, "global_state": {"risk": 0.1}},        # exit metric dark
+                ]
+            )
+            loop = AutonomousLoop(
+                bridge=_StubBridge(),
+                vision_sync=vision,  # type: ignore[arg-type]
+                ui_actions=object(),  # type: ignore[arg-type]
+                selector=_RecordingSelector(None),  # type: ignore[arg-type]
+                deriver=_StubDeriver(),  # type: ignore[arg-type]
+                runner=_StubRunner(),  # type: ignore[arg-type]
+                sleeper=lambda _s: None,
+                loop_logger=loop_logger,
+                runbook_engine=RunbookEngine(runbook),
+            )
+            loop.tick(0)
+            loop.tick(1)
+            records = [
+                json.loads(line)
+                for line in (Path(tmp) / "loop.jsonl").read_text().splitlines()
+            ]
+            # Same kind (unknown_metrics) same phase but different missing
+            # metric — the second must NOT be deduped away.
+            self.assertIn("unknown_metrics", records[0]["runbook_escalations"])
+            self.assertIn("unknown_metrics", records[1]["runbook_escalations"])
+
     def test_deleted_state_file_is_recreated(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             store = RunbookStateStore(Path(tmp) / "runbook_state.json")
