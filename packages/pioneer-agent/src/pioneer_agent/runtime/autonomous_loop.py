@@ -202,12 +202,20 @@ class AutonomousLoop:
                 execution = self.runner.run(selection.selected_action)
                 input_trace = _consume_input_trace(self.ui_actions)
                 if _requires_flow_continuation(execution):
-                    execution, post_action_verification, extra_input_trace = self._continue_action_flow(
+                    (
+                        execution,
+                        post_action_verification,
+                        extra_input_trace,
+                        flow_decision,
+                    ) = self._continue_action_flow(
+                        iteration=iteration,
                         action=selection.selected_action,
                         execution=execution,
                         before_state=pre_action_state,
                     )
                     input_trace.extend(extra_input_trace)
+                    if flow_decision is not None:
+                        runbook_decision = flow_decision
                 else:
                     execution, post_action_verification = self._verify_after_action(
                         action=selection.selected_action,
@@ -240,13 +248,22 @@ class AutonomousLoop:
             and runbook_decision.hold_reason in RUNBOOK_BLOCKING_HOLDS
         )
         if execution is not None and execution.recovery_required and not self.dry_run:
-            recovery_strategy = self._attempt_esc_recovery(
-                iteration=iteration,
-                strategy="esc_after_action_failure",
-            )
-            input_trace.extend(_consume_input_trace(self.ui_actions))
-            self._stuck_count = 0
-            sleep_s = DEFAULT_SLEEP_S
+            if runbook_hold_active:
+                # No automated input during a blocking hold — an operator may be
+                # driving the client; a dangling dialog waits for them/the planner.
+                logger.warning(
+                    "tick %d: recovery required during runbook hold %s — ESC recovery suppressed",
+                    iteration, runbook_decision.hold_reason,
+                )
+                self._stuck_count = 0
+            else:
+                recovery_strategy = self._attempt_esc_recovery(
+                    iteration=iteration,
+                    strategy="esc_after_action_failure",
+                )
+                input_trace.extend(_consume_input_trace(self.ui_actions))
+                self._stuck_count = 0
+                sleep_s = DEFAULT_SLEEP_S
         elif self._is_stuck(vision_summary, selection, execution):
             self._stuck_count += 1
             if self._stuck_count >= self.stuck_threshold and not self.dry_run:
@@ -470,10 +487,11 @@ class AutonomousLoop:
     def _continue_action_flow(
         self,
         *,
+        iteration: int,
         action: CandidateAction,
         execution: ExecutionResult,
         before_state: dict[str, Any],
-    ) -> tuple[ExecutionResult, dict[str, Any] | None, list[dict[str, Any]]]:
+    ) -> tuple[ExecutionResult, dict[str, Any] | None, list[dict[str, Any]], RunbookDecision | None]:
         input_trace: list[dict[str, Any]] = []
         try:
             png = self.bridge.screenshot()
@@ -492,9 +510,28 @@ class AutonomousLoop:
                 ),
                 None,
                 input_trace,
+                None,
             )
 
-        next_selection = self.selector.select(self.deriver.derive(self.state))
+        # The intermediate observation can change the world (abort thresholds
+        # crossed, phase transition, tripped kill switch): re-enforce every
+        # dispatch guard before the terminal click, same as a fresh tick.
+        if self.kill_switch is not None and self.kill_switch.is_triggered():
+            return (
+                _flow_failure_execution(
+                    execution,
+                    reason="kill switch tripped during action flow",
+                    flow_observe=flow_observe,
+                    next_action=None,
+                ),
+                None,
+                input_trace,
+                None,
+            )
+
+        derived = self.deriver.derive(self.state)
+        flow_decision = self._evaluate_runbook(iteration, derived)
+        next_selection = self.selector.select(derived)
         next_action = next_selection.selected_action
         if (
             next_action is None
@@ -510,6 +547,27 @@ class AutonomousLoop:
                 ),
                 None,
                 input_trace,
+                flow_decision,
+            )
+
+        flow_block_reason = _runbook_block_reason(flow_decision, next_action)
+        if flow_block_reason is not None:
+            logger.warning(
+                "tick %d: runbook blocks action flow continuation (%s, phase=%s)",
+                iteration,
+                flow_block_reason,
+                flow_decision.phase_id if flow_decision else None,
+            )
+            return (
+                _flow_failure_execution(
+                    execution,
+                    reason=f"runbook blocks action flow continuation: {flow_block_reason}",
+                    flow_observe=flow_observe,
+                    next_action=next_action,
+                ),
+                None,
+                input_trace,
+                flow_decision,
             )
 
         _reset_input_trace(self.ui_actions)
@@ -531,13 +589,14 @@ class AutonomousLoop:
                 ),
                 None,
                 input_trace,
+                flow_decision,
             )
         terminal_execution, verification = self._verify_after_action(
             action=next_action,
             execution=terminal_execution,
             before_state=before_state,
         )
-        return terminal_execution, verification, input_trace
+        return terminal_execution, verification, input_trace, flow_decision
 
     def _verify_after_action(
         self,

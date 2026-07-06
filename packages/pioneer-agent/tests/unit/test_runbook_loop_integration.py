@@ -471,6 +471,97 @@ class RunbookFixRegressionTests(unittest.TestCase):
             )
 
 
+class _SequencedVisionSync:
+    """Different RuntimeState per sync call — models the world changing
+    between the first click and the intermediate flow observation."""
+
+    def __init__(self, payloads: list[dict[str, Any]]) -> None:
+        self.payloads = list(payloads)
+        self.calls = 0
+
+    def sync(self, png, *, state, captured_at):  # noqa: ANN001
+        payload = self.payloads[min(self.calls, len(self.payloads) - 1)]
+        self.calls += 1
+        return (
+            RuntimeState.model_validate(payload),
+            VisionSyncSummary(page_type="city", domains_run=[], notes=[]),
+        )
+
+
+class _FlowRunner:
+    """First dispatch is a non-terminal flow step (e.g. opening the upgrade
+    dialog); subsequent dispatches are terminal."""
+
+    def __init__(self) -> None:
+        self.calls = 0
+
+    def run(self, action):  # noqa: ANN001
+        self.calls += 1
+        if self.calls == 1:
+            return ExecutionResult(
+                action_id=action.action_id,
+                status="ok",
+                verification_status="unknown",
+                summary={
+                    "action_type": action.action_type.value,
+                    "terminal_for_verifier": False,
+                },
+            )
+        return ExecutionResult(
+            action_id=action.action_id,
+            status="ok",
+            verification_status="verified",
+            summary={"action_type": action.action_type.value},
+        )
+
+
+class RunbookFlowContinuationTests(unittest.TestCase):
+    def _flow_loop(
+        self, payloads: list[dict[str, Any]]
+    ) -> tuple[AutonomousLoop, _FlowRunner, _SpyUIActions]:
+        runner = _FlowRunner()
+        spy = _SpyUIActions()
+        loop = AutonomousLoop(
+            bridge=_StubBridge(),
+            vision_sync=_SequencedVisionSync(payloads),  # type: ignore[arg-type]
+            ui_actions=spy,  # type: ignore[arg-type]
+            selector=_RecordingSelector(_action(ActionType.ATTACK_LAND)),  # type: ignore[arg-type]
+            deriver=_StubDeriver(),  # type: ignore[arg-type]
+            runner=runner,  # type: ignore[arg-type]
+            sleeper=lambda _s: None,
+            runbook_engine=RunbookEngine(_runbook(), start_phase_id="p3"),
+        )
+        return loop, runner, spy
+
+    def test_abort_mid_flow_blocks_terminal_click(self) -> None:
+        loop, runner, spy = self._flow_loop(
+            [
+                {"progress": {"step3_done": False}, "global_state": {"battle_loss_rate": 0.1}},
+                {"progress": {"step3_done": False}, "global_state": {"battle_loss_rate": 0.5}},
+            ]
+        )
+        result = loop.tick(0)
+        self.assertEqual(runner.calls, 1)
+        self.assertEqual(result.execution.status, "failed")
+        self.assertIn(
+            "runbook blocks action flow continuation: runbook_hold:abort_triggered",
+            result.execution.failure_reason,
+        )
+        # Blocking hold also suppresses the dangling-dialog ESC recovery.
+        self.assertEqual(spy.close_popup_calls, 0)
+
+    def test_flow_continues_when_runbook_still_allows(self) -> None:
+        loop, runner, _spy = self._flow_loop(
+            [
+                {"progress": {"step3_done": False}, "global_state": {"battle_loss_rate": 0.1}},
+                {"progress": {"step3_done": False}, "global_state": {"battle_loss_rate": 0.1}},
+            ]
+        )
+        result = loop.tick(0)
+        self.assertEqual(runner.calls, 2)
+        self.assertEqual(result.execution.status, "ok")
+
+
 class RunbookStateStoreTests(unittest.TestCase):
     def test_load_missing_file_returns_empty_record(self) -> None:
         store = RunbookStateStore(Path("/nonexistent/runbook_state.json"))
