@@ -128,6 +128,13 @@ def evaluate_terminal_source_batch(
             if result.get("accepted_for_closure")
         }
     )
+    staging_actions = sorted(
+        {
+            str(result.get("action_type"))
+            for result in results
+            if result.get("ready_for_staging")
+        }
+    )
     required_actions = list(PR6_LOW_RISK_ACTIONS) if require_all_low_risk_actions else []
     missing_actions = sorted(set(required_actions) - set(accepted_actions))
     failing_results = [
@@ -135,6 +142,9 @@ def evaluate_terminal_source_batch(
             "action_type": result.get("action_type"),
             "fixture": result.get("fixture"),
             "missing_evidence": (result.get("review") or {}).get("missing_evidence") or [],
+            "closure_disqualifiers": (
+                (result.get("review") or {}).get("closure_disqualifiers") or []
+            ),
         }
         for result in results
         if not result.get("accepted_for_closure")
@@ -144,6 +154,7 @@ def evaluate_terminal_source_batch(
         "ready": not failing_results and not missing_actions,
         "required_actions": required_actions,
         "accepted_actions": accepted_actions,
+        "staging_actions": staging_actions,
         "missing_actions": missing_actions,
         "failing_results": failing_results,
         "results": results,

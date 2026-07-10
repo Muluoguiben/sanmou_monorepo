@@ -4,10 +4,19 @@ import json
 import os
 from datetime import datetime
 import hashlib
+from io import BytesIO
+import math
 from pathlib import Path
+import stat
 import subprocess
 import sys
 from typing import Any
+
+
+REVIEWED_LIVE_EVIDENCE_ROOT = Path(
+    "packages/pioneer-agent/tests/fixtures/live-evidence/reviewed"
+)
+GIT_PROVENANCE_TRUST_BOUNDARY = "committed_reviewed_live_evidence"
 
 
 class AdvisorReplayTools:
@@ -217,7 +226,10 @@ class AdvisorReplayTools:
             "action_type": action_type,
             "fixture": fixture_name,
             "ready": bool(review["accepted_for_closure"]),
+            "ready_for_staging": bool(review["ready_for_staging"]),
+            "structural_valid": bool(review["structural_valid"]),
             "accepted_for_closure": bool(review["accepted_for_closure"]),
+            "closure_authority_valid": bool(review["closure_authority_valid"]),
             "review": review,
             "suggested_terminal_source_evidence_patch": (
                 _terminal_source_evidence_patch_from_review(review)
@@ -568,6 +580,8 @@ class AdvisorReplayTools:
                 disqualifiers.append("runtime_dispatch_not_terminal")
             if not source_review["source_evidence_valid"]:
                 disqualifiers.append("terminal_source_evidence_invalid")
+            if not source_review["closure_authority_valid"]:
+                disqualifiers.append("terminal_source_closure_authority_invalid")
             if not screenshot_exists:
                 disqualifiers.append("screenshot_missing")
             candidates.append(
@@ -587,8 +601,11 @@ class AdvisorReplayTools:
                     },
                     "terminal_dispatch_ready": terminal_ready,
                     "source_evidence_valid": source_review["source_evidence_valid"],
+                    "structural_valid": source_review["structural_valid"],
+                    "closure_authority_valid": source_review["closure_authority_valid"],
+                    "closure_disqualifiers": source_review["closure_disqualifiers"],
                     "missing_evidence": source_review["missing_evidence"],
-                    "closure_eligible": terminal_ready and source_review["source_evidence_valid"],
+                    "closure_eligible": terminal_ready and source_review["accepted_for_closure"],
                     "disqualifiers": sorted(set(disqualifiers)),
                 }
             )
@@ -999,7 +1016,9 @@ class AdvisorReplayTools:
         source_review["checked"] = action_type in PR6_LOW_RISK_ACTIONS
         source_review["terminal_dispatch_ready"] = terminal_ready
         source_review["accepted_for_closure"] = (
-            terminal_ready and source_review["source_evidence_valid"]
+            terminal_ready
+            and source_review["structural_valid"]
+            and source_review["closure_authority_valid"]
         )
         source_review["next_source_requirements"] = (
             _terminal_source_requirements([str(action_type)])
@@ -1060,17 +1079,28 @@ class AdvisorReplayTools:
         ):
             missing.append("runtime_dispatch")
 
+        target_identity = evidence.get("target_identity")
+        target_identity_validation = _target_identity_validation(
+            target_identity,
+            requirement=requirement,
+        )
+        if not target_identity_validation["valid"]:
+            missing.append("target_identity")
+
         post_action_delta = evidence.get("post_action_delta")
-        if not isinstance(post_action_delta, list) or not post_action_delta:
-            missing.append("post_action_delta")
-        elif not _post_action_delta_matches(
+        post_action_delta_validation = _post_action_delta_validation(
             post_action_delta,
-            requirement.get("required_post_action_delta") or [],
-        ):
+            requirement=requirement,
+            target_identity=target_identity,
+        )
+        if not post_action_delta_validation["valid"]:
             missing.append("post_action_delta")
         post_action_delta_evidence_validation = _post_action_delta_evidence_validation(
             evidence.get("post_action_delta_evidence"),
-            required_post_action_delta=requirement.get("required_post_action_delta") or [],
+            evidence=evidence,
+            requirement=requirement,
+            target_identity=target_identity,
+            resolve_source_path=self._resolve_source_path,
         )
         if not post_action_delta_evidence_validation["valid"]:
             missing.append("post_action_delta_evidence")
@@ -1078,42 +1108,102 @@ class AdvisorReplayTools:
         if not privacy_review_validation["valid"]:
             missing.append("privacy_review")
 
-        file_integrity_validation = (
-            self._file_integrity_validation(evidence, source_kind)
-            if source_evidence_present and source_kind in accepted_source_kinds
-            else {"checked": False, "valid": False, "issues": []}
-        )
+        source_snapshots: dict[str, dict[str, Any]] = {}
+        if source_evidence_present and source_kind in accepted_source_kinds:
+            file_integrity_validation, source_snapshots = self._file_integrity_validation(
+                evidence,
+                source_kind,
+            )
+        else:
+            file_integrity_validation = {"checked": False, "valid": False, "issues": []}
         if file_integrity_validation["checked"] and not file_integrity_validation["valid"]:
             missing.append("file_integrity")
 
         trace_validation: dict[str, Any] | None = None
         verification_record_validation: dict[str, Any] | None = None
         operator_confirmation_validation: dict[str, Any] | None = None
+        screenshot_decode_validation: dict[str, Any] | None = None
+        strict_trace_validation: dict[str, Any] | None = None
         screenshot_path = evidence.get("screenshot")
         if source_kind == "pr5_real_screenshot_fixture":
             if not screenshot_path or not self._source_path_exists(str(screenshot_path)):
                 missing.append("screenshot")
         elif source_kind == "live_trace_fixture":
+            screenshot_snapshot = source_snapshots.get("screenshot")
+            if not screenshot_path or not self._source_path_exists(str(screenshot_path)):
+                missing.append("screenshot")
+            elif screenshot_snapshot is None:
+                missing.append("screenshot_decode")
+            else:
+                screenshot_decode_validation = _decodable_image_validation(
+                    screenshot_snapshot["bytes"]
+                )
+                if not screenshot_decode_validation["valid"]:
+                    missing.append("screenshot_decode")
+
             trace_path = evidence.get("trace")
             if not trace_path or not self._source_path_exists(str(trace_path)):
                 missing.append("trace")
             else:
+                resolved_trace = self._resolve_source_path(str(trace_path))
+                trace_snapshot = source_snapshots.get("trace")
+                trace_records: list[dict[str, Any]] = []
+                if resolved_trace is not None and trace_snapshot is not None:
+                    strict_trace_validation, trace_records = _strict_trace_file_validation(
+                        trace_snapshot["bytes"],
+                        path=resolved_trace,
+                    )
+                if not strict_trace_validation or not strict_trace_validation["valid"]:
+                    missing.append("strict_trace")
                 trace_validation = self._live_trace_evidence_validation(
                     str(trace_path),
+                    records=trace_records,
                     action_type=action_key,
                     screenshot_path=str(screenshot_path) if screenshot_path else None,
+                    screenshot_bytes=(
+                        screenshot_snapshot.get("bytes")
+                        if screenshot_snapshot is not None
+                        else None
+                    ),
+                    screenshot_sha256=(
+                        screenshot_snapshot.get("sha256")
+                        if screenshot_snapshot is not None
+                        else None
+                    ),
+                    screenshot_size=(
+                        (
+                            screenshot_decode_validation.get("width"),
+                            screenshot_decode_validation.get("height"),
+                        )
+                        if screenshot_decode_validation
+                        and screenshot_decode_validation.get("valid")
+                        else None
+                    ),
                     required_runtime_dispatch=required_runtime_dispatch,
-                    required_post_action_delta=requirement.get("required_post_action_delta") or [],
+                    requirement=requirement,
+                    target_identity=target_identity,
                 )
                 if not trace_validation["matched"]:
                     missing.append("trace_semantics")
-            if not screenshot_path or not self._source_path_exists(str(screenshot_path)):
-                missing.append("screenshot")
             verification_record_validation = _verification_record_validation(
                 evidence.get("verification_record"),
                 action_type=action_key,
-                required_post_action_delta=requirement.get("required_post_action_delta") or [],
+                requirement=requirement,
+                target_identity=target_identity,
             )
+            verification_trace_binding = _verification_record_trace_binding_validation(
+                evidence.get("verification_record"),
+                trace_validation=trace_validation,
+            )
+            verification_record_validation["trace_binding"] = verification_trace_binding
+            verification_record_validation["valid"] = bool(
+                verification_record_validation["valid"]
+                and verification_trace_binding["valid"]
+            )
+            if not verification_trace_binding["valid"]:
+                verification_record_validation["issues"] = sorted(
+                    set(verification_record_validation["issues"] + ["trace_binding"])
+                )
             if not verification_record_validation["valid"]:
                 missing.append("verification_record")
             operator_confirmation_validation = _operator_confirmation_validation(
@@ -1121,18 +1211,33 @@ class AdvisorReplayTools:
                 action_type=action_key,
                 required_runtime_dispatch=required_runtime_dispatch,
                 trace_validation=trace_validation,
+                target_identity=target_identity,
             )
             if not operator_confirmation_validation["valid"]:
                 missing.append("operator_confirmation")
 
-        source_evidence_valid = not missing
+        structural_valid = not missing
+        closure_authority_validation = self._closure_authority_validation(
+            evidence,
+            source_kind=source_kind,
+            source_snapshots=source_snapshots,
+        )
+        closure_authority_valid = bool(closure_authority_validation["valid"])
+        accepted_for_closure = structural_valid and closure_authority_valid
         return {
             "checked": action_type in PR6_LOW_RISK_ACTIONS,
             "action_type": action_type,
             "fixture": fixture,
             "source_kind": source_kind,
             "source_evidence_present": source_evidence_present,
-            "source_evidence_valid": source_evidence_valid,
+            # Backwards-compatible alias. This now means structural validity only;
+            # closure authority is deliberately reported and gated separately.
+            "source_evidence_valid": structural_valid,
+            "structural_valid": structural_valid,
+            "ready_for_staging": structural_valid,
+            "closure_authority_valid": closure_authority_valid,
+            "closure_authority_validation": closure_authority_validation,
+            "closure_disqualifiers": closure_authority_validation["issues"],
             "missing_evidence": sorted(set(missing)),
             "evidence_page": evidence_page,
             "required_page": required_page,
@@ -1140,16 +1245,25 @@ class AdvisorReplayTools:
             "required_semantic_target": required_semantic_target,
             "runtime_dispatch": runtime_dispatch if isinstance(runtime_dispatch, dict) else None,
             "required_runtime_dispatch": required_runtime_dispatch,
+            "target_identity": target_identity if isinstance(target_identity, dict) else None,
+            "required_target_identity": requirement.get("required_target_identity") or {},
+            "target_identity_validation": target_identity_validation,
             "post_action_delta": post_action_delta if isinstance(post_action_delta, list) else [],
             "required_post_action_delta": requirement.get("required_post_action_delta") or [],
+            "required_post_action_delta_contract": (
+                requirement.get("required_post_action_delta_contract") or []
+            ),
+            "post_action_delta_validation": post_action_delta_validation,
             "post_action_delta_evidence_validation": post_action_delta_evidence_validation,
             "review_metadata_validation": review_metadata_validation,
             "privacy_review_validation": privacy_review_validation,
             "file_integrity_validation": file_integrity_validation,
             "trace_validation": trace_validation,
+            "strict_trace_validation": strict_trace_validation,
+            "screenshot_decode_validation": screenshot_decode_validation,
             "verification_record_validation": verification_record_validation,
             "operator_confirmation_validation": operator_confirmation_validation,
-            "accepted_for_closure": source_evidence_valid,
+            "accepted_for_closure": accepted_for_closure,
             "terminal_dispatch_ready": False,
             "next_source_requirements": [],
         }
@@ -1161,12 +1275,13 @@ class AdvisorReplayTools:
         self,
         evidence: dict[str, Any],
         source_kind: str | None,
-    ) -> dict[str, Any]:
+    ) -> tuple[dict[str, Any], dict[str, dict[str, Any]]]:
         required = [("screenshot", "screenshot_sha256")]
         if source_kind == "live_trace_fixture":
             required.append(("trace", "trace_sha256"))
 
         checks: list[dict[str, Any]] = []
+        snapshots: dict[str, dict[str, Any]] = {}
         issues: list[str] = []
         for path_field, hash_field in required:
             path_value = evidence.get(path_field)
@@ -1178,6 +1293,9 @@ class AdvisorReplayTools:
                 "expected_sha256": expected_hash if isinstance(expected_hash, str) else None,
                 "actual_sha256": None,
                 "matched": False,
+                "regular_file": False,
+                "link_count": None,
+                "snapshot_stable": False,
             }
             if not isinstance(path_value, str) or not path_value:
                 issues.append(path_field)
@@ -1188,24 +1306,36 @@ class AdvisorReplayTools:
                 issues.append(path_field)
                 checks.append(check)
                 continue
-            if not _is_sha256(expected_hash):
-                issues.append(hash_field)
-                check["actual_sha256"] = _sha256_file(resolved_path)
+            snapshot, snapshot_issues = _read_regular_file_snapshot(resolved_path)
+            if snapshot is None:
+                issues.extend(f"{path_field}_{item}" for item in snapshot_issues)
                 checks.append(check)
                 continue
-            actual_hash = _sha256_file(resolved_path)
+            snapshots[path_field] = snapshot
+            check["regular_file"] = True
+            check["link_count"] = snapshot["link_count"]
+            check["snapshot_stable"] = True
+            if not _is_sha256(expected_hash):
+                issues.append(hash_field)
+                check["actual_sha256"] = snapshot["sha256"]
+                checks.append(check)
+                continue
+            actual_hash = snapshot["sha256"]
             check["actual_sha256"] = actual_hash
             check["matched"] = actual_hash == expected_hash
             if not check["matched"]:
                 issues.append(f"{hash_field}_mismatch")
             checks.append(check)
 
-        return {
-            "checked": True,
-            "valid": not issues,
-            "issues": sorted(set(issues)),
-            "checks": checks,
-        }
+        return (
+            {
+                "checked": True,
+                "valid": not issues,
+                "issues": sorted(set(issues)),
+                "checks": checks,
+            },
+            snapshots,
+        )
 
     def _resolve_source_path(self, value: str) -> Path | None:
         path = Path(value)
@@ -1218,16 +1348,401 @@ class AdvisorReplayTools:
                 return candidate
         return None
 
+    def _closure_authority_validation(
+        self,
+        evidence: dict[str, Any],
+        *,
+        source_kind: str | None,
+        source_snapshots: dict[str, dict[str, Any]],
+    ) -> dict[str, Any]:
+        """Validate the current closure trust boundary, independently of semantics.
+
+        A self-consistent JSON object is useful for staging, but it is not closure
+        authority. For now authority comes only from regular, non-symlink evidence
+        files under the reviewed fixture root whose exact bytes are regular blobs at
+        one stable, clean current Git HEAD.
+        """
+
+        issues: list[str] = []
+        path_checks: list[dict[str, Any]] = []
+        if source_kind != "live_trace_fixture":
+            issues.append("source_kind_not_live_trace_fixture")
+
+        for field in ("screenshot", "trace"):
+            path_check = self._reviewed_live_evidence_path_validation(
+                field,
+                evidence.get(field),
+            )
+            path_checks.append(path_check)
+            issues.extend(path_check["issues"])
+
+        git_provenance = evidence.get("git_provenance")
+        if not isinstance(git_provenance, dict):
+            git_provenance = {}
+            issues.append("git_provenance")
+
+        declared_boundary = git_provenance.get("trust_boundary")
+        if declared_boundary != GIT_PROVENANCE_TRUST_BOUNDARY:
+            issues.append("git_provenance.trust_boundary")
+        declared_root = git_provenance.get("reviewed_root")
+        if declared_root != REVIEWED_LIVE_EVIDENCE_ROOT.as_posix():
+            issues.append("git_provenance.reviewed_root")
+
+        git_root_result = self._run_git("rev-parse", "--show-toplevel")
+        git_available = git_root_result["ok"]
+        git_root = git_root_result["stdout"] if git_available else None
+        if not git_available:
+            issues.append("git_repository")
+        else:
+            try:
+                if Path(str(git_root)).resolve() != self.workspace_root:
+                    issues.append("git_repository_root")
+            except OSError:
+                issues.append("git_repository_root")
+
+        head_result = self._run_git("rev-parse", "HEAD") if git_available else {
+            "ok": False,
+            "stdout": None,
+            "stderr": None,
+        }
+        head_commit = head_result["stdout"] if head_result["ok"] else None
+        if not head_commit:
+            issues.append("git_head")
+        declared_head = git_provenance.get("head_commit")
+        # An embedded HEAD is optional because a manifest cannot contain the hash
+        # of the same commit that introduces it. If supplied by an external
+        # preflight request, it must still match exactly.
+        if declared_head is not None and (
+            not isinstance(declared_head, str) or declared_head != head_commit
+        ):
+            issues.append("git_provenance.head_commit")
+
+        initial_status_result = self._run_git(
+            "status",
+            "--porcelain=v1",
+            "--untracked-files=all",
+        ) if git_available else {"ok": False, "stdout": None, "stderr": None}
+        initially_clean = bool(
+            initial_status_result["ok"] and not initial_status_result["stdout"]
+        )
+        if not initially_clean:
+            issues.append("git_worktree_not_clean")
+
+        blob_checks: list[dict[str, Any]] = []
+        for path_check in path_checks:
+            field = path_check["field"]
+            repo_path = path_check.get("repo_path")
+            source_snapshot = source_snapshots.get(field)
+            blob_check = {
+                "field": field,
+                "repo_path": repo_path,
+                "committed": False,
+                "git_mode": None,
+                "git_type": None,
+                "head_path": None,
+                "head_blob": None,
+                "declared_blob": git_provenance.get(f"{field}_blob"),
+                "worktree_sha256": (
+                    source_snapshot.get("sha256")
+                    if source_snapshot is not None
+                    else None
+                ),
+                "head_sha256": None,
+                "worktree_matches_head": False,
+                "worktree_stable": False,
+                "matched": False,
+            }
+            head_bytes: bytes | None = None
+            if (
+                path_check["valid"]
+                and git_available
+                and head_commit
+                and isinstance(repo_path, str)
+            ):
+                head_validation, head_bytes = self._head_blob_snapshot(
+                    head_commit,
+                    repo_path,
+                )
+                blob_check.update(head_validation)
+                blob_check["committed"] = bool(head_validation["valid"])
+                if head_bytes is not None:
+                    blob_check["head_sha256"] = _sha256_bytes(head_bytes)
+                if source_snapshot is not None and head_bytes is not None:
+                    blob_check["worktree_matches_head"] = (
+                        source_snapshot["bytes"] == head_bytes
+                    )
+                    if not blob_check["worktree_matches_head"]:
+                        issues.append(f"{field}_worktree_not_head_blob")
+                declared_blob = blob_check["declared_blob"]
+                blob_check["matched"] = bool(
+                    blob_check["committed"]
+                    and isinstance(declared_blob, str)
+                    and declared_blob == blob_check["head_blob"]
+                    and blob_check["worktree_matches_head"]
+                )
+            if not blob_check["committed"]:
+                issues.append(f"{field}_not_committed_regular_blob")
+            if not blob_check["matched"]:
+                issues.append(f"git_provenance.{field}_blob")
+            blob_checks.append(blob_check)
+
+        # Re-open every worktree artifact after all Git reads. All semantic checks
+        # above used the first immutable byte snapshot; this final comparison makes
+        # a replacement or write during preflight fail closed instead of mixing
+        # multiple file versions into one closure decision.
+        for path_check, blob_check in zip(path_checks, blob_checks, strict=True):
+            field = path_check["field"]
+            original = source_snapshots.get(field)
+            resolved_path = path_check.get("resolved_path")
+            if original is None or not isinstance(resolved_path, str):
+                issues.append(f"{field}_worktree_snapshot")
+                continue
+            final_snapshot, final_issues = _read_regular_file_snapshot(Path(resolved_path))
+            if final_snapshot is None:
+                issues.extend(f"{field}_{item}" for item in final_issues)
+                issues.append(f"{field}_worktree_changed_during_validation")
+                continue
+            stable = bool(
+                final_snapshot["bytes"] == original["bytes"]
+                and final_snapshot["identity"] == original["identity"]
+            )
+            blob_check["worktree_stable"] = stable
+            if not stable:
+                issues.append(f"{field}_worktree_changed_during_validation")
+                blob_check["matched"] = False
+
+        final_head_result = self._run_git("rev-parse", "HEAD") if git_available else {
+            "ok": False,
+            "stdout": None,
+            "stderr": None,
+        }
+        head_stable = bool(
+            final_head_result["ok"] and final_head_result["stdout"] == head_commit
+        )
+        if not head_stable:
+            issues.append("git_head_changed_during_validation")
+        final_status_result = self._run_git(
+            "status",
+            "--porcelain=v1",
+            "--untracked-files=all",
+        ) if git_available else {"ok": False, "stdout": None, "stderr": None}
+        finally_clean = bool(
+            final_status_result["ok"] and not final_status_result["stdout"]
+        )
+        repository_clean = initially_clean and finally_clean
+        if not finally_clean:
+            issues.append("git_worktree_not_clean")
+
+        bound_to_clean_head = bool(
+            repository_clean
+            and head_commit
+            and head_stable
+            and blob_checks
+            and all(item["matched"] for item in blob_checks)
+        )
+        return {
+            "checked": True,
+            "valid": not issues,
+            "trust_boundary": GIT_PROVENANCE_TRUST_BOUNDARY,
+            "reviewed_root": REVIEWED_LIVE_EVIDENCE_ROOT.as_posix(),
+            "git_available": git_available,
+            "git_root": git_root,
+            "head_commit": head_commit,
+            "declared_head_commit": declared_head,
+            "repository_clean": repository_clean,
+            "head_stable": head_stable,
+            "bound_to_clean_head": bound_to_clean_head,
+            "path_checks": path_checks,
+            "blob_checks": blob_checks,
+            "issues": sorted(set(issues)),
+        }
+
+    def _reviewed_live_evidence_path_validation(
+        self,
+        field: str,
+        value: Any,
+    ) -> dict[str, Any]:
+        issues: list[str] = []
+        repo_path: str | None = None
+        resolved_path: str | None = None
+        link_count: int | None = None
+        path = Path(value) if isinstance(value, str) and value else None
+        if path is None:
+            issues.append(f"{field}_path")
+        elif path.is_absolute():
+            issues.append(f"{field}_path_not_repo_relative")
+        elif ".." in path.parts:
+            issues.append(f"{field}_path_escape")
+        else:
+            candidate = self.workspace_root / path
+            reviewed_root = self.workspace_root / REVIEWED_LIVE_EVIDENCE_ROOT
+            try:
+                candidate_relative = candidate.relative_to(self.workspace_root)
+                candidate.relative_to(reviewed_root)
+                repo_path = candidate_relative.as_posix()
+                candidate_resolved = candidate.resolve(strict=True)
+                reviewed_root_resolved = reviewed_root.resolve(strict=True)
+                candidate_resolved.relative_to(reviewed_root_resolved)
+                resolved_path = str(candidate_resolved)
+                cursor = self.workspace_root
+                symlink_component = False
+                for part in candidate_relative.parts:
+                    cursor = cursor / part
+                    if cursor.is_symlink():
+                        symlink_component = True
+                        break
+                    is_junction = getattr(cursor, "is_junction", None)
+                    if callable(is_junction) and is_junction():
+                        issues.append(f"{field}_junction")
+                        break
+                if symlink_component:
+                    issues.append(f"{field}_symlink")
+                try:
+                    mode = candidate.lstat().st_mode
+                except OSError:
+                    mode = 0
+                if not stat.S_ISREG(mode):
+                    issues.append(f"{field}_not_regular_file")
+                else:
+                    try:
+                        link_count = candidate.lstat().st_nlink
+                    except OSError:
+                        link_count = None
+                    if link_count != 1:
+                        issues.append(f"{field}_hardlink")
+            except (FileNotFoundError, OSError, ValueError):
+                issues.append(f"{field}_outside_reviewed_root")
+
+        return {
+            "field": field,
+            "value": value if isinstance(value, str) else None,
+            "repo_path": repo_path,
+            "resolved_path": resolved_path,
+            "link_count": link_count,
+            "valid": not issues,
+            "issues": sorted(set(issues)),
+        }
+
+    def _head_blob_snapshot(
+        self,
+        head_commit: str,
+        repo_path: str,
+    ) -> tuple[dict[str, Any], bytes | None]:
+        """Read exactly one literal path from an immutable HEAD tree."""
+
+        issues: list[str] = []
+        mode: str | None = None
+        object_type: str | None = None
+        object_id: str | None = None
+        returned_path: str | None = None
+        result = self._run_git_bytes(
+            "ls-tree",
+            "-z",
+            "--full-tree",
+            head_commit,
+            "--",
+            repo_path,
+            literal_paths=True,
+        )
+        records = [item for item in (result["stdout"] or b"").split(b"\0") if item]
+        if not result["ok"]:
+            issues.append("head_ls_tree")
+        elif len(records) != 1:
+            issues.append("head_entry_count")
+        else:
+            record = records[0]
+            try:
+                metadata, returned_path_bytes = record.split(b"\t", 1)
+                mode_bytes, type_bytes, object_id_bytes = metadata.split(b" ", 2)
+                mode = mode_bytes.decode("ascii")
+                object_type = type_bytes.decode("ascii")
+                object_id = object_id_bytes.decode("ascii")
+                returned_path = returned_path_bytes.decode("utf-8", errors="surrogateescape")
+                expected_path_bytes = repo_path.encode("utf-8", errors="surrogateescape")
+                if returned_path_bytes != expected_path_bytes:
+                    issues.append("head_path_mismatch")
+            except (UnicodeError, ValueError):
+                issues.append("head_entry_parse")
+        if mode not in {"100644", "100755"}:
+            issues.append("head_mode")
+        if object_type != "blob":
+            issues.append("head_type")
+
+        blob_bytes: bytes | None = None
+        if object_id is not None and not issues:
+            blob_result = self._run_git_bytes("cat-file", "blob", object_id)
+            if blob_result["ok"]:
+                blob_bytes = blob_result["stdout"]
+            else:
+                issues.append("head_cat_file")
+        return (
+            {
+                "valid": not issues and blob_bytes is not None,
+                "git_mode": mode,
+                "git_type": object_type,
+                "head_path": returned_path,
+                "head_blob": object_id,
+                "head_lookup_issues": sorted(set(issues)),
+            },
+            blob_bytes,
+        )
+
+    def _run_git(self, *args: str) -> dict[str, Any]:
+        try:
+            completed = subprocess.run(
+                ["git", "-C", str(self.workspace_root), *args],
+                capture_output=True,
+                check=False,
+                text=True,
+                timeout=self.timeout_seconds,
+            )
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            return {"ok": False, "stdout": None, "stderr": str(exc)}
+        return {
+            "ok": completed.returncode == 0,
+            "stdout": completed.stdout.strip() or None,
+            "stderr": completed.stderr.strip() or None,
+        }
+
+    def _run_git_bytes(
+        self,
+        *args: str,
+        literal_paths: bool = False,
+    ) -> dict[str, Any]:
+        env = os.environ.copy()
+        if literal_paths:
+            env["GIT_LITERAL_PATHSPECS"] = "1"
+        try:
+            completed = subprocess.run(
+                ["git", "-C", str(self.workspace_root), *args],
+                capture_output=True,
+                check=False,
+                text=False,
+                timeout=self.timeout_seconds,
+                env=env,
+            )
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            return {"ok": False, "stdout": None, "stderr": str(exc)}
+        return {
+            "ok": completed.returncode == 0,
+            "stdout": completed.stdout,
+            "stderr": completed.stderr.decode("utf-8", errors="replace").strip() or None,
+        }
+
     def _live_trace_evidence_validation(
         self,
         trace_path: str,
         *,
+        records: list[dict[str, Any]],
         action_type: str | None,
         screenshot_path: str | None,
+        screenshot_bytes: bytes | None,
+        screenshot_sha256: str | None,
+        screenshot_size: tuple[Any, Any] | None,
         required_runtime_dispatch: dict[str, Any],
-        required_post_action_delta: list[str],
+        requirement: dict[str, Any],
+        target_identity: Any,
     ) -> dict[str, Any]:
-        records, load_error = self._load_trace_records(trace_path)
         matching_records: list[dict[str, Any]] = []
         record_evaluations: list[dict[str, Any]] = []
         for index, record in enumerate(records):
@@ -1236,16 +1751,45 @@ class AdvisorReplayTools:
             verifier = _trace_post_action_verifier(record)
             trace_id = _trace_record_id(record)
             action_matches = selected_action.get("action_type") == action_type
+            action_target_validation = _selected_action_target_validation(
+                selected_action,
+                target_identity=target_identity,
+                requirement=requirement,
+            )
             dispatch_matches = _runtime_dispatch_matches(execution, required_runtime_dispatch)
+            dispatch_time_validation = _trace_dispatch_time_validation(record, execution)
             verifier_validation = _verification_record_validation(
                 verifier,
                 action_type=action_type,
-                required_post_action_delta=required_post_action_delta,
+                requirement=requirement,
+                target_identity=target_identity,
             )
             trace_screenshot_path = _trace_screenshot_path(record)
             screenshot_matches = self._source_paths_match(
                 trace_screenshot_path,
                 screenshot_path,
+            )
+            terminal_observation_validation = _trace_terminal_observation_validation(
+                record,
+                screenshot_path=trace_screenshot_path,
+                screenshot_sha256=screenshot_sha256,
+                screenshot_size=screenshot_size,
+                source_paths_match=self._source_paths_match,
+            )
+            trace_operator_confirmation = _trace_operator_confirmation(record)
+            trace_operator_confirmation_validation = (
+                _trace_operator_confirmation_validation(
+                    trace_operator_confirmation,
+                    selected_action=selected_action,
+                    execution=execution,
+                    action_type=action_type,
+                    required_runtime_dispatch=required_runtime_dispatch,
+                    target_identity=target_identity,
+                    dispatch_time_validation=dispatch_time_validation,
+                    terminal_observation_validation=terminal_observation_validation,
+                    screenshot_bytes=screenshot_bytes,
+                    screenshot_size=screenshot_size,
+                )
             )
             summary = execution.get("summary") if isinstance(execution.get("summary"), dict) else {}
             record_evaluations.append(
@@ -1254,9 +1798,25 @@ class AdvisorReplayTools:
                     "trace_id": trace_id,
                     "action_type": selected_action.get("action_type"),
                     "action_matches": action_matches,
+                    "action_target_valid": action_target_validation["valid"],
+                    "action_target_issues": action_target_validation["issues"],
                     "dispatch_matches": dispatch_matches,
+                    "dispatch_at": dispatch_time_validation["dispatch_at"],
+                    "dispatch_time_valid": dispatch_time_validation["valid"],
+                    "dispatch_time_issues": dispatch_time_validation["issues"],
                     "screenshot_matches": screenshot_matches,
                     "trace_screenshot_path": trace_screenshot_path,
+                    "terminal_observation_valid": terminal_observation_validation["valid"],
+                    "terminal_observation_issues": terminal_observation_validation["issues"],
+                    "trace_operator_confirmation_valid": trace_operator_confirmation_validation[
+                        "valid"
+                    ],
+                    "trace_operator_confirmation_issues": trace_operator_confirmation_validation[
+                        "issues"
+                    ],
+                    "semantic_frame_guard_validation": trace_operator_confirmation_validation.get(
+                        "semantic_frame_guard_validation"
+                    ),
                     "target_key": execution.get("target_key") or summary.get("target_key"),
                     "terminal_for_verifier": (
                         execution.get("terminal_for_verifier")
@@ -1269,13 +1829,25 @@ class AdvisorReplayTools:
                     "verifier_checked_paths": verifier_validation["checked_paths"],
                 }
             )
-            if action_matches and dispatch_matches and screenshot_matches and verifier_validation["valid"]:
+            if (
+                action_matches
+                and action_target_validation["valid"]
+                and dispatch_matches
+                and dispatch_time_validation["valid"]
+                and screenshot_matches
+                and verifier_validation["valid"]
+                and terminal_observation_validation["valid"]
+                and trace_operator_confirmation_validation["valid"]
+            ):
                 matching_records.append(
                     {
                         "index": index,
                         "trace_id": trace_id,
                         "action_type": selected_action.get("action_type"),
                         "trace_screenshot_path": trace_screenshot_path,
+                        "dispatch_at": dispatch_time_validation["dispatch_at"],
+                        "selected_action": selected_action,
+                        "action_id": selected_action.get("action_id"),
                         "target_key": execution.get("target_key") or summary.get("target_key"),
                         "terminal_for_verifier": (
                             execution.get("terminal_for_verifier")
@@ -1284,6 +1856,12 @@ class AdvisorReplayTools:
                         ),
                         "verifier_status": verifier_validation["status"],
                         "verifier_checked_paths": verifier_validation["checked_paths"],
+                        "verification_record": verifier,
+                        "terminal_observation": terminal_observation_validation[
+                            "observation"
+                        ],
+                        "operator_confirmation": trace_operator_confirmation,
+                        "runtime_dispatch": _runtime_dispatch_projection(execution),
                     }
                 )
         return {
@@ -1293,11 +1871,19 @@ class AdvisorReplayTools:
             "matched": bool(matching_records),
             "matching_records": matching_records,
             "record_evaluations": record_evaluations,
-            "load_error": load_error,
+            "load_error": None,
             "required_action_type": action_type,
             "required_screenshot": screenshot_path,
+            "required_screenshot_sha256": screenshot_sha256,
+            "required_screenshot_size": (
+                list(screenshot_size) if screenshot_size is not None else None
+            ),
             "required_runtime_dispatch": required_runtime_dispatch,
-            "required_post_action_delta": required_post_action_delta,
+            "required_target_identity": requirement.get("required_target_identity") or {},
+            "required_post_action_delta": requirement.get("required_post_action_delta") or [],
+            "required_post_action_delta_contract": (
+                requirement.get("required_post_action_delta_contract") or []
+            ),
             "required_verifier_status": "verified",
         }
 
@@ -1311,38 +1897,6 @@ class AdvisorReplayTools:
         if actual_resolved is not None and expected_resolved is not None:
             return actual_resolved.resolve() == expected_resolved.resolve()
         return False
-
-    def _load_trace_records(self, trace_path: str) -> tuple[list[dict[str, Any]], str | None]:
-        path = self._resolve_source_path(trace_path)
-        if path is None:
-            return [], "trace file does not exist"
-        try:
-            raw = path.read_text(encoding="utf-8").strip()
-        except OSError as exc:
-            return [], str(exc)
-        if not raw:
-            return [], "trace file is empty"
-        try:
-            payload = json.loads(raw)
-        except json.JSONDecodeError:
-            records: list[dict[str, Any]] = []
-            for line_number, line in enumerate(raw.splitlines(), start=1):
-                line = line.strip()
-                if not line:
-                    continue
-                try:
-                    item = json.loads(line)
-                except json.JSONDecodeError as exc:
-                    return [], f"invalid jsonl at line {line_number}: {exc}"
-                if isinstance(item, dict):
-                    records.append(item)
-            return records, None
-        if isinstance(payload, list):
-            return [item for item in payload if isinstance(item, dict)], None
-        if isinstance(payload, dict):
-            return [payload], None
-        return [], "trace payload must be an object, object list, or jsonl"
-
 
 def _next_fixture_requirements(blocking_actions: dict[str, list[str]]) -> list[dict[str, Any]]:
     requirements: list[dict[str, Any]] = []
@@ -1391,7 +1945,11 @@ def _terminal_source_capture_plan(
                 "required_page": requirement["required_page"],
                 "required_semantic_target": requirement["required_semantic_target"],
                 "required_runtime_dispatch": requirement["required_runtime_dispatch"],
+                "required_target_identity": requirement["required_target_identity"],
                 "required_post_action_delta": requirement["required_post_action_delta"],
+                "required_post_action_delta_contract": requirement[
+                    "required_post_action_delta_contract"
+                ],
                 "accepted_source_kinds": requirement["accepted_source_kinds"],
                 "current_candidate_disqualifiers": sorted(
                     disqualifiers_by_action.get(action_type) or {"missing_real_source_candidate"}
@@ -1417,6 +1975,7 @@ def _terminal_source_capture_plan(
                     "page",
                     "semantic_target",
                     "runtime_dispatch",
+                    "target_identity",
                     "post_action_delta",
                     "post_action_delta_evidence",
                 ],
@@ -1442,11 +2001,16 @@ def _terminal_source_capture_plan(
                     "execution.status matches required_runtime_dispatch.status",
                     "execution.summary.target_key matches required_runtime_dispatch.target_key",
                     "execution.summary.terminal_for_verifier=true",
+                    "execution.summary.dispatch_at is aware ISO-8601",
                     "trace.screenshot.path matches terminal_source_evidence.screenshot",
                     "verification.post_action_verifier.status=verified",
-                    "verification.post_action_verifier action/delta matches required_post_action_delta",
-                    "operator_confirmation.confirmed=true",
-                    "operator_confirmation.trace_id/trace_record_index matches trace record",
+                    "selected_action.params and verification target/delta match target_identity",
+                    "execution.summary.operator_confirmation is present and confirmed=true",
+                    "trace terminal_dispatch and primary observations bind the exact HEAD screenshot SHA-256 and decoded frame_size",
+                    "operator confirmation semantic_frame_guard.frame_size binds the same decoded screenshot dimensions",
+                    "trace confirmation binds selected action/action_id, target key/identity, and runtime dispatch",
+                    "trace confirmation_id/request_id are non-empty and all confirmation timestamps are aware and ordered",
+                    "manifest operator_confirmation exactly mirrors the matched trace confirmation plus trace_id/trace_record_index",
                 ],
                 "advisor_fixture_manifest_target": (
                     _advisor_fixture_manifest_target(action_type)
@@ -1504,6 +2068,8 @@ def _terminal_source_blocking_actions(
             blockers.add("no_terminal_real_candidate")
         if action_candidates and not any(candidate.get("source_evidence_valid") for candidate in action_candidates):
             blockers.add("no_valid_terminal_source_evidence")
+        if action_candidates and not any(candidate.get("closure_authority_valid") for candidate in action_candidates):
+            blockers.add("no_trusted_terminal_source_authority")
 
         requirement = requirements_by_action.get(action_type, {})
         blocking[action_type] = {
@@ -1517,7 +2083,11 @@ def _terminal_source_blocking_actions(
             "required_page": requirement.get("required_page"),
             "required_semantic_target": requirement.get("required_semantic_target"),
             "required_runtime_dispatch": requirement.get("required_runtime_dispatch"),
+            "required_target_identity": requirement.get("required_target_identity") or {},
             "required_post_action_delta": requirement.get("required_post_action_delta"),
+            "required_post_action_delta_contract": (
+                requirement.get("required_post_action_delta_contract") or []
+            ),
             "accepted_source_kinds": requirement.get("accepted_source_kinds") or [],
         }
     return blocking
@@ -1578,33 +2148,48 @@ def _terminal_source_evidence_template(
     source_kind: str,
 ) -> dict[str, Any]:
     action_type = str(requirement["action_type"])
+    target_identity = _target_identity_template(requirement)
+    delta_template = _post_action_delta_template(
+        requirement,
+        target_identity=target_identity,
+    )
     evidence: dict[str, Any] = {
         "source_kind": source_kind,
         "review_status": "reviewed",
         "reviewed_by": "<reviewer-id>",
         "reviewed_at": "<reviewed-iso8601>",
-        "screenshot": f"tests/fixtures/screenshots/pc_client/<capture-date>/{action_type}_terminal.jpg",
+        "screenshot": (
+            f"{REVIEWED_LIVE_EVIDENCE_ROOT.as_posix()}/<capture-date>/"
+            f"{action_type}_terminal.jpg"
+        ),
         "screenshot_sha256": "<sha256-of-screenshot>",
         "page": requirement["required_page"],
         "semantic_target": requirement["required_semantic_target"],
         "runtime_dispatch": dict(requirement["required_runtime_dispatch"]),
+        "target_identity": target_identity,
         "privacy_review": _terminal_source_privacy_review_template(),
-        "post_action_delta": list(requirement["required_post_action_delta"]),
+        "post_action_delta": [delta_template],
         "post_action_delta_evidence": {
-            "source": "reviewed_before_after_observation",
-            "post_action_delta": list(requirement["required_post_action_delta"]),
-            "supporting_refs": [
-                "terminal_source_evidence.screenshot",
-                "<post-action-observation-ref>",
-            ],
+            "source": "verification_record",
+            "post_action_delta": [delta_template],
+            "supporting_refs": [],
         },
     }
     if source_kind == "live_trace_fixture":
-        evidence["trace"] = f"tests/fixtures/traces/<capture-date>/{action_type}_terminal.jsonl"
+        evidence["trace"] = (
+            f"{REVIEWED_LIVE_EVIDENCE_ROOT.as_posix()}/<capture-date>/"
+            f"{action_type}_terminal.jsonl"
+        )
         evidence["trace_sha256"] = "<sha256-of-trace>"
+        evidence["git_provenance"] = {
+            "trust_boundary": GIT_PROVENANCE_TRUST_BOUNDARY,
+            "reviewed_root": REVIEWED_LIVE_EVIDENCE_ROOT.as_posix(),
+            "screenshot_blob": "<git-blob-at-head>",
+            "trace_blob": "<git-blob-at-head>",
+        }
         evidence["post_action_delta_evidence"] = {
             "source": "verification_record",
-            "post_action_delta": list(requirement["required_post_action_delta"]),
+            "post_action_delta": [delta_template],
             "supporting_refs": [
                 "terminal_source_evidence.trace",
                 "terminal_source_evidence.verification_record",
@@ -1614,23 +2199,83 @@ def _terminal_source_evidence_template(
         evidence["verification_record"] = {
             "action_type": action_type,
             "status": "verified",
-            "checked": [
-                _required_delta_path(item)
-                for item in requirement["required_post_action_delta"]
-            ],
-            "post_action_delta": list(requirement["required_post_action_delta"]),
+            "target": target_identity,
+            "checked": [_delta_template_checked_path(delta_template)],
+            "post_action_delta": [delta_template],
         }
         evidence["operator_confirmation"] = {
             "confirmed": True,
-            "action_type": action_type,
-            "scope": "final_mutating_click",
             "requires_operator_confirmation": True,
-            "confirmed_at": "<operator-confirmed-iso8601>",
+            "scope": "final_mutating_click",
+            "confirmation_id": "<confirmation-id-from-trace>",
+            "request_id": "<request-id-from-trace>",
+            "action_id": "<selected-action-id-from-trace>",
+            "action_type": action_type,
+            "target_key": requirement["required_runtime_dispatch"]["target_key"],
+            "target_identity": target_identity,
+            "observation_id": "<terminal-observation-id-from-trace>",
+            "frame_sha256": "<terminal-frame-sha256-from-trace>",
+            "semantic_frame_guard": {
+                "frame_size": ["<decoded-width>", "<decoded-height>"],
+            },
+            "observation_captured_at": "<terminal-observation-captured-iso8601>",
+            "confirmed_at": "<operator-confirmed-iso8601-from-trace>",
+            "expires_at": "<confirmation-expires-iso8601-from-trace>",
+            "consumed_at": "<confirmation-consumed-iso8601-from-trace>",
+            "dispatch_at": "<dispatch-iso8601-from-trace>",
             "trace_id": "<trace-id-from-matching-record>",
             "trace_record_index": 0,
             "runtime_dispatch": dict(requirement["required_runtime_dispatch"]),
         }
     return evidence
+
+
+def _target_identity_template(requirement: dict[str, Any]) -> dict[str, Any]:
+    return {
+        field_name: f"<{field_name}>"
+        for field_name in (requirement.get("required_target_identity") or {})
+    }
+
+
+def _post_action_delta_template(
+    requirement: dict[str, Any],
+    *,
+    target_identity: dict[str, Any],
+) -> dict[str, Any]:
+    contracts = requirement.get("required_post_action_delta_contract") or []
+    contract = dict(contracts[0]) if contracts else {}
+    selector = contract.get("selector")
+    if isinstance(selector, dict):
+        identity_param = selector.get("identity_param")
+        contract["selector"] = {
+            "collection_path": selector.get("collection_path"),
+            "identity_field": selector.get("identity_field"),
+            "identity_value": target_identity.get(str(identity_param)),
+        }
+    before = _contract_expected_value(contract, "before", target_identity)
+    after = _contract_expected_value(contract, "after", target_identity)
+    if before is _UNSET:
+        before = f"<{contract.get('path', 'value')}-before>"
+    if after is _UNSET:
+        after = f"<{contract.get('path', 'value')}-after>"
+    contract.pop("before_param", None)
+    contract.pop("after_param", None)
+    contract["before"] = before
+    contract["after"] = after
+    if isinstance(contract.get("selector"), dict):
+        contract["selector"].pop("identity_param", None)
+    return contract
+
+
+def _delta_template_checked_path(delta: dict[str, Any]) -> str:
+    selector = delta.get("selector")
+    if isinstance(selector, dict):
+        return (
+            f"{selector.get('collection_path')}["
+            f"{selector.get('identity_field')}={selector.get('identity_value')!r}]"
+            f".{delta.get('path')}"
+        )
+    return str(delta.get("path") or "")
 
 
 def _terminal_source_evidence_patch_from_review(review: dict[str, Any]) -> dict[str, Any]:
@@ -1644,6 +2289,20 @@ def _terminal_source_evidence_patch_from_review(review: dict[str, Any]) -> dict[
             actual_sha256 = check.get("actual_sha256")
             if isinstance(hash_field, str) and _is_sha256(actual_sha256):
                 patch[hash_field] = actual_sha256
+
+    authority = review.get("closure_authority_validation")
+    if isinstance(authority, dict):
+        blob_values = {
+            f"{check.get('field')}_blob": check.get("head_blob")
+            for check in authority.get("blob_checks") or []
+            if isinstance(check, dict) and isinstance(check.get("head_blob"), str)
+        }
+        if len(blob_values) == 2:
+            patch["git_provenance"] = {
+                "trust_boundary": GIT_PROVENANCE_TRUST_BOUNDARY,
+                "reviewed_root": REVIEWED_LIVE_EVIDENCE_ROOT.as_posix(),
+                **blob_values,
+            }
 
     if (
         not patch.get("post_action_delta_evidence")
@@ -1762,8 +2421,13 @@ def _terminal_fixture_source_kind(fixture: Any) -> str | None:
 def _runtime_dispatch_matches(actual: Any, required: dict[str, Any]) -> bool:
     if not isinstance(actual, dict):
         return False
+    flattened = _runtime_dispatch_projection(actual)
+    return all(flattened.get(key) == expected for key, expected in required.items())
+
+
+def _runtime_dispatch_projection(actual: dict[str, Any]) -> dict[str, Any]:
     summary = actual.get("summary") if isinstance(actual.get("summary"), dict) else {}
-    flattened = {
+    return {
         "status": actual.get("status"),
         "target_key": actual.get("target_key") or summary.get("target_key"),
         "terminal_for_verifier": (
@@ -1772,24 +2436,244 @@ def _runtime_dispatch_matches(actual: Any, required: dict[str, Any]) -> bool:
             else summary.get("terminal_for_verifier")
         ),
     }
-    return all(flattened.get(key) == expected for key, expected in required.items())
 
 
-def _post_action_delta_matches(actual: list[Any], required: list[str]) -> bool:
-    if not required:
+def _target_identity_validation(
+    value: Any,
+    *,
+    requirement: dict[str, Any],
+) -> dict[str, Any]:
+    schema = requirement.get("required_target_identity") or {}
+    issues: list[str] = []
+    if not isinstance(value, dict):
+        return {
+            "valid": False,
+            "issues": ["target_identity_not_object"],
+            "target_identity": None,
+        }
+
+    for field_name, field_spec in schema.items():
+        field_value = value.get(field_name)
+        value_type = field_spec.get("type") if isinstance(field_spec, dict) else None
+        if value_type == "positive_integer":
+            valid = (
+                isinstance(field_value, int)
+                and not isinstance(field_value, bool)
+                and field_value > 0
+            )
+        elif value_type == "nonnegative_integer":
+            valid = (
+                isinstance(field_value, int)
+                and not isinstance(field_value, bool)
+                and field_value >= 0
+            )
+        elif value_type == "nonempty_string":
+            valid = isinstance(field_value, str) and bool(field_value.strip())
+        else:
+            valid = field_name in value and field_value is not None
+        if not valid:
+            issues.append(field_name)
+
+    current_level = value.get("current_level")
+    target_level = value.get("target_level")
+    if "current_level" in schema and "target_level" in schema:
+        if (
+            isinstance(current_level, bool)
+            or not isinstance(current_level, int)
+            or isinstance(target_level, bool)
+            or not isinstance(target_level, int)
+            or target_level != current_level + 1
+        ):
+            issues.append("target_level_relation")
+
+    return {
+        "valid": not issues,
+        "issues": sorted(set(issues)),
+        "target_identity": dict(value),
+    }
+
+
+def _selected_action_target_validation(
+    selected_action: Any,
+    *,
+    target_identity: Any,
+    requirement: dict[str, Any],
+) -> dict[str, Any]:
+    target_validation = _target_identity_validation(
+        target_identity,
+        requirement=requirement,
+    )
+    issues = list(target_validation["issues"])
+    params = selected_action.get("params") if isinstance(selected_action, dict) else None
+    if not isinstance(params, dict):
+        issues.append("selected_action.params")
+        params = {}
+    if isinstance(target_identity, dict):
+        for field_name in (requirement.get("required_target_identity") or {}):
+            if not _strict_value_equal(params.get(field_name), target_identity.get(field_name)):
+                issues.append(f"selected_action.params.{field_name}")
+    return {
+        "valid": not issues,
+        "issues": sorted(set(issues)),
+        "selected_params": params,
+    }
+
+
+def _post_action_delta_validation(
+    value: Any,
+    *,
+    requirement: dict[str, Any],
+    target_identity: Any,
+) -> dict[str, Any]:
+    contracts = requirement.get("required_post_action_delta_contract") or []
+    issues: list[str] = []
+    matches: list[dict[str, Any]] = []
+    if not isinstance(value, list) or not value:
+        return {
+            "valid": False,
+            "issues": ["post_action_delta_not_nonempty_list"],
+            "matches": [],
+        }
+    if not _target_identity_validation(
+        target_identity,
+        requirement=requirement,
+    )["valid"]:
+        issues.append("target_identity")
+
+    for index, delta in enumerate(value):
+        if not isinstance(delta, dict):
+            issues.append(f"delta[{index}].not_object")
+            continue
+        matched_contract = next(
+            (
+                contract
+                for contract in contracts
+                if _delta_matches_contract(
+                    delta,
+                    contract,
+                    target_identity=target_identity,
+                )
+            ),
+            None,
+        )
+        if matched_contract is None:
+            issues.append(f"delta[{index}].target_bound_contract")
+        else:
+            matches.append({"index": index, "contract": matched_contract})
+
+    return {
+        "valid": not issues and len(matches) == len(value),
+        "issues": sorted(set(issues)),
+        "matches": matches,
+    }
+
+
+def _delta_matches_contract(
+    delta: dict[str, Any],
+    contract: dict[str, Any],
+    *,
+    target_identity: Any,
+) -> bool:
+    if delta.get("path") != contract.get("path"):
+        return False
+    if delta.get("operator") != contract.get("operator"):
+        return False
+
+    required_selector = contract.get("selector")
+    actual_selector = delta.get("selector")
+    if isinstance(required_selector, dict):
+        if not isinstance(actual_selector, dict) or not isinstance(target_identity, dict):
+            return False
+        identity_param = required_selector.get("identity_param")
+        expected_identity = target_identity.get(identity_param)
+        if not _strict_value_equal(
+            actual_selector.get("identity_value"),
+            expected_identity,
+        ):
+            return False
+        for field_name in ("collection_path", "identity_field"):
+            if actual_selector.get(field_name) != required_selector.get(field_name):
+                return False
+    elif actual_selector not in (None, {}):
+        return False
+
+    if "before" not in delta or "after" not in delta:
+        return False
+    before = delta.get("before")
+    after = delta.get("after")
+    expected_before = _contract_expected_value(contract, "before", target_identity)
+    expected_after = _contract_expected_value(contract, "after", target_identity)
+    operator = contract.get("operator")
+
+    if expected_before is not _UNSET and not _strict_value_equal(before, expected_before):
+        return False
+    if expected_after is not _UNSET and not _strict_value_equal(after, expected_after):
+        return False
+    if not _contract_value_type_matches(after, contract.get("value_type")):
+        return False
+    if operator == "changes_to":
+        return not _strict_value_equal(before, after)
+    if operator == "greater_than_before":
+        return _is_finite_number(before) and _is_finite_number(after) and after > before
+    if operator == "becomes_present":
+        return before in (None, "", [], {}) and after not in (None, "", [], {})
+    if operator == "increases_to":
+        return (
+            _is_finite_number(before)
+            and _is_finite_number(after)
+            and after > before
+            and expected_after is not _UNSET
+            and _strict_value_equal(after, expected_after)
+        )
+    return False
+
+
+def _contract_value_type_matches(value: Any, value_type: Any) -> bool:
+    if value_type is None:
         return True
-    actual_values: set[str] = set()
-    for item in actual:
-        actual_values.update(_delta_representations(item))
-    required_values = {_normalize_delta_text(item) for item in required}
-    return bool(actual_values & required_values)
+    if value_type != "aware_datetime_or_nonempty_string":
+        return False
+    if isinstance(value, datetime):
+        return value.tzinfo is not None and value.utcoffset() is not None
+    return isinstance(value, str) and bool(value.strip())
+
+
+_UNSET = object()
+
+
+def _contract_expected_value(
+    contract: dict[str, Any],
+    phase: str,
+    target_identity: Any,
+) -> Any:
+    if phase in contract:
+        return contract[phase]
+    param_name = contract.get(f"{phase}_param")
+    if isinstance(param_name, str) and isinstance(target_identity, dict):
+        return target_identity.get(param_name, _UNSET)
+    return _UNSET
+
+
+def _strict_value_equal(left: Any, right: Any) -> bool:
+    if isinstance(left, bool) or isinstance(right, bool):
+        return type(left) is type(right) and left == right
+    return left == right
+
+
+def _is_finite_number(value: Any) -> bool:
+    return (
+        isinstance(value, (int, float))
+        and not isinstance(value, bool)
+        and (not isinstance(value, float) or math.isfinite(value))
+    )
 
 
 def _verification_record_validation(
     value: Any,
     *,
     action_type: str | None,
-    required_post_action_delta: list[str],
+    requirement: dict[str, Any],
+    target_identity: Any,
 ) -> dict[str, Any]:
     if not isinstance(value, dict):
         return {
@@ -1801,17 +2685,32 @@ def _verification_record_validation(
     action_value = verifier.get("action_type") or value.get("action_type")
     status = verifier.get("status") or value.get("status") or value.get("verification_status")
     checked_paths = verifier.get("checked") or value.get("checked") or []
-    post_action_delta = value.get("post_action_delta")
+    verification_target = verifier.get("target") or value.get("target")
+    post_action_delta = verifier.get("post_action_delta") or value.get("post_action_delta")
     issues: list[str] = []
     if action_value != action_type:
         issues.append("action_type")
     if status != "verified":
         issues.append("status")
-    if isinstance(post_action_delta, list):
-        if not _post_action_delta_matches(post_action_delta, required_post_action_delta):
-            issues.append("post_action_delta")
-    elif not _checked_paths_cover_required_delta(checked_paths, required_post_action_delta):
-        issues.append("checked_delta")
+    target_validation = _target_identity_validation(
+        verification_target,
+        requirement=requirement,
+    )
+    if not target_validation["valid"]:
+        issues.append("target_identity")
+    elif not _target_identity_matches(
+        verification_target,
+        target_identity,
+        requirement=requirement,
+    ):
+        issues.append("target_identity")
+    delta_validation = _post_action_delta_validation(
+        post_action_delta,
+        requirement=requirement,
+        target_identity=target_identity,
+    )
+    if not delta_validation["valid"]:
+        issues.append("post_action_delta")
     return {
         "checked": True,
         "valid": not issues,
@@ -1819,13 +2718,19 @@ def _verification_record_validation(
         "action_type": action_value,
         "status": status,
         "checked_paths": checked_paths if isinstance(checked_paths, list) else [],
+        "target_identity": verification_target if isinstance(verification_target, dict) else None,
+        "target_identity_validation": target_validation,
+        "post_action_delta_validation": delta_validation,
     }
 
 
 def _post_action_delta_evidence_validation(
     value: Any,
     *,
-    required_post_action_delta: list[str],
+    evidence: dict[str, Any],
+    requirement: dict[str, Any],
+    target_identity: Any,
+    resolve_source_path: Any,
 ) -> dict[str, Any]:
     if not isinstance(value, dict):
         return {
@@ -1834,21 +2739,158 @@ def _post_action_delta_evidence_validation(
         }
     issues: list[str] = []
     source = value.get("source")
-    if source not in {"verification_record", "reviewed_before_after_observation"}:
+    if source != "verification_record":
         issues.append("source")
     delta = value.get("post_action_delta")
-    if not isinstance(delta, list) or not _post_action_delta_matches(delta, required_post_action_delta):
+    delta_validation = _post_action_delta_validation(
+        delta,
+        requirement=requirement,
+        target_identity=target_identity,
+    )
+    if not delta_validation["valid"]:
         issues.append("post_action_delta")
+    if not _structured_equal(delta, evidence.get("post_action_delta")):
+        issues.append("post_action_delta_binding")
     supporting_refs = value.get("supporting_refs")
+    required_refs = {
+        "terminal_source_evidence.trace",
+        "terminal_source_evidence.verification_record",
+        "operator_confirmation.trace_id",
+    }
+    ref_bindings: list[dict[str, Any]] = []
     if not isinstance(supporting_refs, list) or not all(
         isinstance(item, str) and item.strip() for item in supporting_refs
     ):
         issues.append("supporting_refs")
+        supporting_refs = []
+    else:
+        actual_refs = set(supporting_refs)
+        if actual_refs != required_refs:
+            issues.append("supporting_refs")
+        for ref in supporting_refs:
+            binding = _supporting_ref_binding(
+                ref,
+                evidence=evidence,
+                resolve_source_path=resolve_source_path,
+            )
+            ref_bindings.append(binding)
+            if not binding["valid"]:
+                issues.append("supporting_ref_binding")
     return {
         "valid": not issues,
         "issues": sorted(set(issues)),
         "source": source if isinstance(source, str) else None,
         "supporting_refs": supporting_refs if isinstance(supporting_refs, list) else [],
+        "ref_bindings": ref_bindings,
+        "post_action_delta_validation": delta_validation,
+    }
+
+
+def _supporting_ref_binding(
+    ref: str,
+    *,
+    evidence: dict[str, Any],
+    resolve_source_path: Any,
+) -> dict[str, Any]:
+    if ref == "terminal_source_evidence.trace":
+        trace_path = evidence.get("trace")
+        resolved = (
+            resolve_source_path(str(trace_path))
+            if isinstance(trace_path, str) and trace_path
+            else None
+        )
+        valid = resolved is not None and _is_sha256(evidence.get("trace_sha256"))
+        return {
+            "ref": ref,
+            "valid": valid,
+            "resolved_path": str(resolved) if resolved is not None else None,
+            "hash_field": "trace_sha256",
+        }
+    if ref == "terminal_source_evidence.verification_record":
+        return {
+            "ref": ref,
+            "valid": isinstance(evidence.get("verification_record"), dict),
+            "binding": "trace.verification.post_action_verifier",
+        }
+    if ref == "operator_confirmation.trace_id":
+        confirmation = evidence.get("operator_confirmation")
+        trace_id = confirmation.get("trace_id") if isinstance(confirmation, dict) else None
+        return {
+            "ref": ref,
+            "valid": isinstance(trace_id, str) and bool(trace_id.strip()),
+            "trace_id": trace_id,
+        }
+
+    resolved = resolve_source_path(ref) if isinstance(ref, str) else None
+    return {
+        "ref": ref,
+        "valid": False,
+        "resolved_path": str(resolved) if resolved is not None else None,
+        "issue": "unsupported_supporting_ref",
+    }
+
+
+def _structured_equal(left: Any, right: Any) -> bool:
+    return json.dumps(left, sort_keys=True, ensure_ascii=False, default=str) == json.dumps(
+        right,
+        sort_keys=True,
+        ensure_ascii=False,
+        default=str,
+    )
+
+
+def _target_identity_matches(
+    actual: Any,
+    expected: Any,
+    *,
+    requirement: dict[str, Any],
+) -> bool:
+    if not isinstance(actual, dict) or not isinstance(expected, dict):
+        return False
+    return all(
+        _strict_value_equal(actual.get(field_name), expected.get(field_name))
+        for field_name in (requirement.get("required_target_identity") or {})
+    )
+
+
+def _verification_record_trace_binding_validation(
+    value: Any,
+    *,
+    trace_validation: dict[str, Any] | None,
+) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        return {"valid": False, "issues": ["verification_record_not_object"]}
+    matching_records = (
+        trace_validation.get("matching_records")
+        if isinstance(trace_validation, dict)
+        else None
+    )
+    if not isinstance(matching_records, list) or not matching_records:
+        return {"valid": False, "issues": ["matching_trace_record"]}
+    expected = _verification_record_fingerprint(value)
+    for record in matching_records:
+        if not isinstance(record, dict):
+            continue
+        trace_record = record.get("verification_record")
+        if _structured_equal(expected, _verification_record_fingerprint(trace_record)):
+            return {
+                "valid": True,
+                "issues": [],
+                "trace_id": record.get("trace_id"),
+                "trace_record_index": record.get("index"),
+            }
+    return {"valid": False, "issues": ["verification_record_mismatch"]}
+
+
+def _verification_record_fingerprint(value: Any) -> dict[str, Any] | None:
+    if not isinstance(value, dict):
+        return None
+    verifier = value.get("post_action_verifier") if isinstance(value.get("post_action_verifier"), dict) else value
+    return {
+        "action_type": verifier.get("action_type") or value.get("action_type"),
+        "status": verifier.get("status") or value.get("status") or value.get("verification_status"),
+        "target": verifier.get("target") or value.get("target"),
+        "post_action_delta": verifier.get("post_action_delta") or value.get("post_action_delta"),
     }
 
 
@@ -1935,6 +2977,21 @@ def _valid_iso_datetime(value: Any) -> bool:
     return True
 
 
+def _parse_aware_datetime(value: Any) -> datetime | None:
+    if isinstance(value, datetime):
+        parsed = value
+    elif isinstance(value, str) and value.strip() and "<" not in value:
+        try:
+            parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError:
+            return None
+    else:
+        return None
+    if parsed.tzinfo is None or parsed.utcoffset() is None:
+        return None
+    return parsed
+
+
 def _is_sha256(value: Any) -> bool:
     if not isinstance(value, str):
         return False
@@ -1942,12 +2999,794 @@ def _is_sha256(value: Any) -> bool:
     return len(text) == 64 and all(char in "0123456789abcdef" for char in text)
 
 
-def _sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
+def _sha256_bytes(value: bytes) -> str:
+    return hashlib.sha256(value).hexdigest()
+
+
+def _snapshot_stat_identity(value: os.stat_result) -> tuple[int, ...]:
+    return (
+        int(value.st_dev),
+        int(value.st_ino),
+        int(stat.S_IFMT(value.st_mode)),
+        int(value.st_size),
+        int(getattr(value, "st_mtime_ns", int(value.st_mtime * 1_000_000_000))),
+        int(getattr(value, "st_ctime_ns", int(value.st_ctime * 1_000_000_000))),
+        int(value.st_nlink),
+    )
+
+
+def _read_regular_file_snapshot(
+    path: Path,
+) -> tuple[dict[str, Any] | None, list[str]]:
+    """Read one stable, unique-link regular-file snapshot without following the leaf."""
+
+    issues: list[str] = []
+    try:
+        before = path.lstat()
+    except OSError:
+        return None, ["unreadable"]
+    if path.is_symlink():
+        return None, ["symlink"]
+    if not stat.S_ISREG(before.st_mode):
+        return None, ["not_regular_file"]
+    if before.st_nlink != 1:
+        return None, ["hardlink"]
+
+    flags = os.O_RDONLY
+    flags |= getattr(os, "O_BINARY", 0)
+    flags |= getattr(os, "O_NOFOLLOW", 0)
+    descriptor: int | None = None
+    try:
+        descriptor = os.open(path, flags)
+        opened = os.fstat(descriptor)
+        if not stat.S_ISREG(opened.st_mode):
+            issues.append("not_regular_file")
+        if opened.st_nlink != 1:
+            issues.append("hardlink")
+        if (opened.st_dev, opened.st_ino) != (before.st_dev, before.st_ino):
+            issues.append("replaced_during_read")
+        with os.fdopen(descriptor, "rb", closefd=True) as handle:
+            descriptor = None
+            data = handle.read()
+            after_read = os.fstat(handle.fileno())
+    except OSError:
+        if descriptor is not None:
+            os.close(descriptor)
+        return None, sorted(set(issues + ["unreadable"]))
+
+    try:
+        after_path = path.lstat()
+    except OSError:
+        return None, sorted(set(issues + ["replaced_during_read"]))
+    opened_identity = _snapshot_stat_identity(opened)
+    if _snapshot_stat_identity(after_read) != opened_identity:
+        issues.append("changed_during_read")
+    if _snapshot_stat_identity(after_path) != opened_identity:
+        issues.append("replaced_during_read")
+    if len(data) != after_read.st_size:
+        issues.append("changed_during_read")
+    if issues:
+        return None, sorted(set(issues))
+    return (
+        {
+            "path": path,
+            "bytes": data,
+            "sha256": _sha256_bytes(data),
+            "identity": opened_identity,
+            "link_count": opened.st_nlink,
+        },
+        [],
+    )
+
+
+def _decodable_image_validation(value: bytes) -> dict[str, Any]:
+    """Use a real decoder and fully load pixels; signatures alone are insufficient."""
+
+    try:
+        from PIL import Image, UnidentifiedImageError
+    except ImportError:
+        return {
+            "checked": True,
+            "valid": False,
+            "format": None,
+            "width": None,
+            "height": None,
+            "issues": ["image_decoder_unavailable"],
+        }
+
+    image_format: str | None = None
+    width: int | None = None
+    height: int | None = None
+    try:
+        with Image.open(BytesIO(value)) as image:
+            image_format = image.format
+            width, height = image.size
+            image.verify()
+        with Image.open(BytesIO(value)) as image:
+            image.load()
+    except (UnidentifiedImageError, OSError, ValueError) as exc:
+        return {
+            "checked": True,
+            "valid": False,
+            "format": image_format,
+            "width": width,
+            "height": height,
+            "issues": [f"image_decode:{type(exc).__name__}"],
+        }
+
+    issues: list[str] = []
+    if not isinstance(width, int) or width <= 0:
+        issues.append("image_width")
+    if not isinstance(height, int) or height <= 0:
+        issues.append("image_height")
+    if not image_format:
+        issues.append("image_format")
+    return {
+        "checked": True,
+        "valid": not issues,
+        "format": image_format,
+        "width": width,
+        "height": height,
+        "issues": issues,
+    }
+
+
+def _strict_trace_file_validation(
+    value: bytes,
+    *,
+    path: Path,
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Accept only strict UTF-8 JSONL trace records with the terminal schema."""
+
+    issues: list[str] = []
+    records: list[dict[str, Any]] = []
+    if path.suffix.lower() != ".jsonl":
+        issues.append("trace_extension_jsonl")
+    try:
+        raw = value.decode("utf-8", errors="strict")
+    except UnicodeError as exc:
+        return (
+            {
+                "checked": True,
+                "valid": False,
+                "record_count": 0,
+                "issues": [f"trace_read:{type(exc).__name__}"],
+            },
+            [],
+        )
+    for line_number, line in enumerate(raw.splitlines(), start=1):
+        if not line.strip():
+            continue
+        try:
+            item = json.loads(line)
+        except json.JSONDecodeError:
+            issues.append(f"trace_jsonl_line_{line_number}")
+            continue
+        if not isinstance(item, dict):
+            issues.append(f"trace_object_line_{line_number}")
+            continue
+        records.append(item)
+        if not isinstance(item.get("trace_id"), str) or not item["trace_id"].strip():
+            issues.append(f"trace_id_line_{line_number}")
+        if not isinstance(item.get("screenshot"), dict):
+            issues.append(f"trace_screenshot_line_{line_number}")
+        if not isinstance(item.get("frames"), list) or not item["frames"]:
+            issues.append(f"trace_frames_line_{line_number}")
+        if not isinstance(item.get("selected_action"), dict):
+            issues.append(f"trace_selected_action_line_{line_number}")
+        if not isinstance(item.get("execution"), dict):
+            issues.append(f"trace_execution_line_{line_number}")
+        verification = item.get("verification")
+        if not isinstance(verification, dict) or not isinstance(
+            verification.get("post_action_verifier"),
+            dict,
+        ):
+            issues.append(f"trace_verification_line_{line_number}")
+    if not records:
+        issues.append("trace_records")
+    return (
+        {
+            "checked": True,
+            "valid": not issues,
+            "record_count": len(records),
+            "issues": sorted(set(issues)),
+        },
+        records,
+    )
+
+
+def _trace_dispatch_time_validation(
+    record: dict[str, Any],
+    execution: dict[str, Any],
+) -> dict[str, Any]:
+    summary = execution.get("summary") if isinstance(execution.get("summary"), dict) else {}
+    raw = summary.get("dispatch_at")
+    parsed = _parse_aware_datetime(raw)
+    return {
+        "valid": parsed is not None,
+        "issues": [] if parsed is not None else ["dispatch_at_aware_iso8601"],
+        "dispatch_at": parsed.isoformat() if parsed is not None else raw,
+    }
+
+
+def _trace_terminal_observation_validation(
+    record: dict[str, Any],
+    *,
+    screenshot_path: str | None,
+    screenshot_sha256: str | None,
+    screenshot_size: tuple[Any, Any] | None,
+    source_paths_match: Any,
+) -> dict[str, Any]:
+    issues: list[str] = []
+    required_frame_size = _trace_frame_size(screenshot_size)
+    if not _is_sha256(screenshot_sha256):
+        issues.append("screenshot_sha256")
+    if required_frame_size is None:
+        issues.append("screenshot_frame_size")
+    frames = record.get("frames")
+    if not isinstance(frames, list):
+        frames = []
+        issues.append("frames")
+    terminal_frames = [
+        frame
+        for frame in frames
+        if isinstance(frame, dict)
+        and frame.get("role") == "terminal_dispatch"
+    ]
+    if len(terminal_frames) != 1:
+        issues.append("terminal_dispatch_frame")
+        terminal_frame: dict[str, Any] = {}
+    else:
+        terminal_frame = terminal_frames[0]
+        if not source_paths_match(
+            str(terminal_frame.get("path")) if terminal_frame.get("path") else None,
+            screenshot_path,
+        ):
+            issues.append("terminal_dispatch_frame_path")
+
+    observation = (
+        terminal_frame.get("observation")
+        if isinstance(terminal_frame.get("observation"), dict)
+        else {}
+    )
+    observation_fingerprint = _trace_observation_fingerprint(observation)
+    if observation_fingerprint is None:
+        issues.append("terminal_dispatch_observation")
+
+    frame_sha256 = terminal_frame.get("sha256")
+    if not _is_sha256(frame_sha256):
+        issues.append("terminal_dispatch_frame_sha256")
+    elif (
+        observation_fingerprint is not None
+        and frame_sha256 != observation_fingerprint["frame_sha256"]
+    ):
+        issues.append("terminal_dispatch_frame_sha256_binding")
+    if _is_sha256(screenshot_sha256) and str(frame_sha256).lower() != str(
+        screenshot_sha256
+    ).lower():
+        issues.append("terminal_dispatch_frame_screenshot_sha256_binding")
+    if observation_fingerprint is not None:
+        if (
+            _is_sha256(screenshot_sha256)
+            and observation_fingerprint["frame_sha256"]
+            != str(screenshot_sha256).lower()
+        ):
+            issues.append("terminal_dispatch_observation_screenshot_sha256_binding")
+        if (
+            required_frame_size is not None
+            and observation_fingerprint["frame_size"] != list(required_frame_size)
+        ):
+            issues.append("terminal_dispatch_observation_frame_size_binding")
+
+    screenshot = record.get("screenshot") if isinstance(record.get("screenshot"), dict) else {}
+    metadata = screenshot.get("metadata") if isinstance(screenshot.get("metadata"), dict) else {}
+    primary_observation = metadata.get("observation")
+    primary_fingerprint = _trace_observation_fingerprint(primary_observation)
+    if primary_fingerprint is None:
+        issues.append("screenshot_primary_observation")
+    elif observation_fingerprint is not None and not _structured_equal(
+        primary_observation,
+        observation,
+    ):
+        issues.append("screenshot_primary_observation_binding")
+    if primary_fingerprint is not None:
+        if (
+            _is_sha256(screenshot_sha256)
+            and primary_fingerprint["frame_sha256"] != str(screenshot_sha256).lower()
+        ):
+            issues.append("screenshot_primary_observation_sha256_binding")
+        if (
+            required_frame_size is not None
+            and primary_fingerprint["frame_size"] != list(required_frame_size)
+        ):
+            issues.append("screenshot_primary_observation_frame_size_binding")
+
+    return {
+        "valid": not issues,
+        "issues": sorted(set(issues)),
+        "frame": terminal_frame if terminal_frame else None,
+        "observation": observation if observation else None,
+        "observation_fingerprint": observation_fingerprint,
+        "required_screenshot_sha256": screenshot_sha256,
+        "required_frame_size": (
+            list(required_frame_size) if required_frame_size is not None else None
+        ),
+    }
+
+
+def _trace_observation_fingerprint(value: Any) -> dict[str, Any] | None:
+    if not isinstance(value, dict):
+        return None
+    observation_id = value.get("observation_id")
+    frame_sha256 = value.get("frame_sha256")
+    frame_size = _trace_frame_size(value.get("frame_size"))
+    captured_at = _parse_aware_datetime(value.get("captured_at"))
+    if (
+        not isinstance(observation_id, str)
+        or not observation_id.strip()
+        or not _is_sha256(frame_sha256)
+        or frame_size is None
+        or captured_at is None
+    ):
+        return None
+    return {
+        "observation_id": observation_id,
+        "frame_sha256": str(frame_sha256).lower(),
+        "frame_size": list(frame_size),
+        "captured_at": captured_at.isoformat(),
+    }
+
+
+def _trace_frame_size(value: Any) -> tuple[int, int] | None:
+    if (
+        not isinstance(value, (list, tuple))
+        or len(value) != 2
+        or any(
+            isinstance(item, bool) or not isinstance(item, int) or item <= 0
+            for item in value
+        )
+    ):
+        return None
+    return int(value[0]), int(value[1])
+
+
+_SEMANTIC_FRAME_GUARD_FIELDS = {
+    "schema_version",
+    "algorithm",
+    "semantic_target_key",
+    "frame_size",
+    "normalized_bbox",
+    "roi_bbox",
+    "click_point",
+    "roi_sha256",
+}
+_SEMANTIC_ROI_ALGORITHM = "semantic-roi-rgb24-sha256-v1"
+
+
+def _semantic_frame_guard_validation(
+    value: Any,
+    *,
+    selected_action: dict[str, Any],
+    action_type: str | None,
+    expected_target_key: Any,
+    screenshot_bytes: bytes | None,
+    screenshot_size: tuple[Any, Any] | None,
+) -> dict[str, Any]:
+    """Rebuild the runtime ROI guard from the bound screenshot and action bbox."""
+
+    if not isinstance(value, dict):
+        return {
+            "valid": False,
+            "issues": ["semantic_frame_guard_not_object"],
+        }
+
+    issues: list[str] = []
+    if set(value) != _SEMANTIC_FRAME_GUARD_FIELDS:
+        issues.append("semantic_frame_guard.fields")
+    if value.get("schema_version") != 1:
+        issues.append("semantic_frame_guard.schema_version")
+    if value.get("algorithm") != _SEMANTIC_ROI_ALGORITHM:
+        issues.append("semantic_frame_guard.algorithm")
+
+    binding = _selected_action_semantic_binding(selected_action, action_type=action_type)
+    if not binding["valid"]:
+        issues.extend(binding["issues"])
+    expected_key = binding.get("semantic_target_key")
+    if not isinstance(expected_target_key, str) or expected_key != expected_target_key:
+        issues.append("semantic_frame_guard.runtime_target_binding")
+    if value.get("semantic_target_key") != expected_key:
+        issues.append("semantic_frame_guard.semantic_target_key")
+
+    decoded_size = _trace_frame_size(screenshot_size)
+    guard_size = _trace_frame_size(value.get("frame_size"))
+    if decoded_size is None:
+        issues.append("semantic_frame_guard.screenshot_frame_size")
+    if guard_size is None or guard_size != decoded_size:
+        issues.append("semantic_frame_guard.frame_size")
+
+    guard_bbox = _normalized_semantic_bbox(value.get("normalized_bbox"))
+    expected_bbox = binding.get("normalized_bbox")
+    if guard_bbox is None:
+        issues.append("semantic_frame_guard.normalized_bbox")
+    elif not _structured_equal(guard_bbox, expected_bbox):
+        issues.append("semantic_frame_guard.normalized_bbox_binding")
+
+    expected_roi: dict[str, int] | None = None
+    expected_click: dict[str, int] | None = None
+    if decoded_size is not None and isinstance(expected_bbox, dict):
+        expected_roi, expected_click = _semantic_target_geometry(
+            decoded_size,
+            expected_bbox,
+        )
+        if expected_roi is None or expected_click is None:
+            issues.append("semantic_frame_guard.geometry")
+    guard_roi = _strict_int_mapping(
+        value.get("roi_bbox"),
+        fields=("x", "y", "width", "height"),
+        positive_fields={"width", "height"},
+    )
+    if guard_roi is None or not _structured_equal(guard_roi, expected_roi):
+        issues.append("semantic_frame_guard.roi_bbox")
+    guard_click = _strict_int_mapping(
+        value.get("click_point"),
+        fields=("x", "y"),
+        positive_fields=set(),
+    )
+    if guard_click is None or not _structured_equal(guard_click, expected_click):
+        issues.append("semantic_frame_guard.click_point")
+
+    declared_roi_sha256 = value.get("roi_sha256")
+    if (
+        not isinstance(declared_roi_sha256, str)
+        or declared_roi_sha256 != declared_roi_sha256.lower()
+        or not _is_sha256(declared_roi_sha256)
+    ):
+        issues.append("semantic_frame_guard.roi_sha256")
+
+    computed_roi_sha256: str | None = None
+    if (
+        isinstance(screenshot_bytes, bytes)
+        and decoded_size is not None
+        and expected_roi is not None
+    ):
+        try:
+            from PIL import Image
+        except ImportError:
+            issues.append("semantic_frame_guard.screenshot_decode")
+        else:
+            try:
+                with Image.open(BytesIO(screenshot_bytes)) as image:
+                    rgb = image.convert("RGB")
+                    rgb.load()
+                if rgb.size != decoded_size:
+                    issues.append("semantic_frame_guard.screenshot_frame_size")
+                else:
+                    crop = rgb.crop(
+                        (
+                            expected_roi["x"],
+                            expected_roi["y"],
+                            expected_roi["x"] + expected_roi["width"],
+                            expected_roi["y"] + expected_roi["height"],
+                        )
+                    )
+                    computed_roi_sha256 = _sha256_bytes(crop.tobytes())
+            except (OSError, ValueError):
+                issues.append("semantic_frame_guard.screenshot_decode")
+    else:
+        issues.append("semantic_frame_guard.screenshot_bytes")
+    if computed_roi_sha256 != declared_roi_sha256:
+        issues.append("semantic_frame_guard.roi_sha256_binding")
+
+    return {
+        "valid": not issues,
+        "issues": sorted(set(issues)),
+        "selected_action_binding": binding,
+        "expected_semantic_target_key": expected_key,
+        "expected_frame_size": list(decoded_size) if decoded_size is not None else None,
+        "expected_normalized_bbox": expected_bbox,
+        "expected_roi_bbox": expected_roi,
+        "expected_click_point": expected_click,
+        "computed_roi_sha256": computed_roi_sha256,
+    }
+
+
+def _selected_action_semantic_binding(
+    selected_action: Any,
+    *,
+    action_type: str | None,
+) -> dict[str, Any]:
+    issues: list[str] = []
+    params = selected_action.get("params") if isinstance(selected_action, dict) else None
+    if not isinstance(params, dict):
+        return {
+            "valid": False,
+            "issues": ["semantic_frame_guard.selected_action_params"],
+            "semantic_target_key": None,
+            "normalized_bbox": None,
+        }
+
+    target_key: str | None = None
+    button: Any = None
+    if action_type == "claim_chapter_reward":
+        target_key = "chapter_claim_button"
+        button = params.get("claim_button")
+    elif action_type == "recruit_soldiers":
+        target_key = "recruit_button"
+        button = params.get("recruit_button")
+    elif action_type == "upgrade_building":
+        target_key = "upgrade_confirm_button"
+        dialog = params.get("upgrade_dialog")
+        if not isinstance(dialog, dict) or dialog.get("visible") is not True:
+            issues.append("semantic_frame_guard.upgrade_dialog")
+        else:
+            button = dialog.get("confirm_button")
+    else:
+        issues.append("semantic_frame_guard.action_type")
+
+    if not isinstance(button, dict):
+        issues.append("semantic_frame_guard.selected_action_button")
+        bbox = None
+    else:
+        if button.get("visible") is not True:
+            issues.append("semantic_frame_guard.button_visible")
+        if button.get("enabled") is not True:
+            issues.append("semantic_frame_guard.button_enabled")
+        bbox = _normalized_semantic_bbox(button.get("bbox"))
+        if bbox is None:
+            issues.append("semantic_frame_guard.selected_action_bbox")
+    return {
+        "valid": not issues,
+        "issues": sorted(set(issues)),
+        "semantic_target_key": target_key,
+        "normalized_bbox": bbox,
+    }
+
+
+def _normalized_semantic_bbox(value: Any) -> dict[str, float] | None:
+    fields = ("x_min", "y_min", "x_max", "y_max")
+    if not isinstance(value, dict) or set(value) != set(fields):
+        return None
+    normalized: dict[str, float] = {}
+    for field_name in fields:
+        item = value.get(field_name)
+        if (
+            isinstance(item, bool)
+            or not isinstance(item, (int, float))
+            or not math.isfinite(float(item))
+            or not 0 <= float(item) <= 1000
+        ):
+            return None
+        normalized[field_name] = float(item)
+    if (
+        normalized["x_max"] <= normalized["x_min"]
+        or normalized["y_max"] <= normalized["y_min"]
+    ):
+        return None
+    return normalized
+
+
+def _semantic_target_geometry(
+    frame_size: tuple[int, int],
+    bbox: dict[str, float],
+) -> tuple[dict[str, int] | None, dict[str, int] | None]:
+    width, height = frame_size
+    left = round(bbox["x_min"] / 1000 * width)
+    top = round(bbox["y_min"] / 1000 * height)
+    right = round(bbox["x_max"] / 1000 * width)
+    bottom = round(bbox["y_max"] / 1000 * height)
+    if right <= left or bottom <= top:
+        return None, None
+    roi = {
+        "x": left,
+        "y": top,
+        "width": right - left,
+        "height": bottom - top,
+    }
+    click = {
+        "x": min(
+            max(round((bbox["x_min"] + bbox["x_max"]) / 2000 * width), left),
+            right - 1,
+        ),
+        "y": min(
+            max(round((bbox["y_min"] + bbox["y_max"]) / 2000 * height), top),
+            bottom - 1,
+        ),
+    }
+    return roi, click
+
+
+def _strict_int_mapping(
+    value: Any,
+    *,
+    fields: tuple[str, ...],
+    positive_fields: set[str],
+) -> dict[str, int] | None:
+    if not isinstance(value, dict) or set(value) != set(fields):
+        return None
+    parsed: dict[str, int] = {}
+    for field_name in fields:
+        item = value.get(field_name)
+        if isinstance(item, bool) or not isinstance(item, int):
+            return None
+        if item < 0 or (field_name in positive_fields and item <= 0):
+            return None
+        parsed[field_name] = item
+    return parsed
+
+
+def _trace_operator_confirmation(record: dict[str, Any]) -> dict[str, Any] | None:
+    execution = _trace_execution(record)
+    summary = execution.get("summary") if isinstance(execution.get("summary"), dict) else {}
+    value = summary.get("operator_confirmation")
+    return dict(value) if isinstance(value, dict) else None
+
+
+_OPERATOR_CONFIRMATION_FIELDS = (
+    "confirmed",
+    "requires_operator_confirmation",
+    "scope",
+    "confirmation_id",
+    "request_id",
+    "action_id",
+    "action_type",
+    "target_key",
+    "target_identity",
+    "observation_id",
+    "frame_sha256",
+    "semantic_frame_guard",
+    "observation_captured_at",
+    "confirmed_at",
+    "expires_at",
+    "consumed_at",
+    "dispatch_at",
+    "runtime_dispatch",
+)
+
+_OPERATOR_CONFIRMATION_TIMESTAMP_FIELDS = (
+    "observation_captured_at",
+    "confirmed_at",
+    "expires_at",
+    "consumed_at",
+    "dispatch_at",
+)
+
+
+def _trace_operator_confirmation_validation(
+    value: Any,
+    *,
+    selected_action: dict[str, Any],
+    execution: dict[str, Any],
+    action_type: str | None,
+    required_runtime_dispatch: dict[str, Any],
+    target_identity: Any,
+    dispatch_time_validation: dict[str, Any],
+    terminal_observation_validation: dict[str, Any],
+    screenshot_bytes: bytes | None,
+    screenshot_size: tuple[Any, Any] | None,
+) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        return {
+            "valid": False,
+            "issues": ["trace_operator_confirmation_not_object"],
+            "confirmation": None,
+        }
+
+    issues: list[str] = []
+    for field_name in _OPERATOR_CONFIRMATION_FIELDS:
+        if field_name not in value:
+            issues.append(f"operator_confirmation.{field_name}")
+    if value.get("confirmed") is not True:
+        issues.append("operator_confirmation.confirmed")
+    if value.get("requires_operator_confirmation") is not True:
+        issues.append("operator_confirmation.requires_operator_confirmation")
+    if value.get("scope") != "final_mutating_click":
+        issues.append("operator_confirmation.scope")
+
+    for field_name in ("confirmation_id", "request_id"):
+        field_value = value.get(field_name)
+        if not isinstance(field_value, str) or not field_value.strip():
+            issues.append(f"operator_confirmation.{field_name}")
+
+    selected_action_id = selected_action.get("action_id")
+    if not isinstance(selected_action_id, str) or not selected_action_id.strip():
+        issues.append("selected_action.action_id")
+    if value.get("action_id") != selected_action_id:
+        issues.append("operator_confirmation.action_id")
+    if execution.get("action_id") != selected_action_id:
+        issues.append("execution.action_id")
+    if value.get("action_type") != action_type:
+        issues.append("operator_confirmation.action_type")
+
+    dispatch_projection = _runtime_dispatch_projection(execution)
+    expected_target_key = dispatch_projection.get("target_key")
+    if value.get("target_key") != expected_target_key:
+        issues.append("operator_confirmation.target_key")
+    if not _structured_equal(value.get("target_identity"), target_identity):
+        issues.append("operator_confirmation.target_identity")
+    if not _runtime_dispatch_matches(value.get("runtime_dispatch"), required_runtime_dispatch):
+        issues.append("operator_confirmation.runtime_dispatch")
+    elif not _structured_equal(value.get("runtime_dispatch"), dispatch_projection):
+        issues.append("operator_confirmation.runtime_dispatch_binding")
+
+    semantic_guard_validation: dict[str, Any] = {
+        "valid": False,
+        "issues": ["terminal_dispatch_observation"],
+    }
+    terminal_observation = terminal_observation_validation.get("observation_fingerprint")
+    if not terminal_observation_validation.get("valid") or not isinstance(
+        terminal_observation,
+        dict,
+    ):
+        issues.append("terminal_dispatch_observation")
+    else:
+        if value.get("observation_id") != terminal_observation.get("observation_id"):
+            issues.append("operator_confirmation.observation_id")
+        if str(value.get("frame_sha256") or "").lower() != terminal_observation.get(
+            "frame_sha256"
+        ):
+            issues.append("operator_confirmation.frame_sha256")
+        semantic_guard_validation = _semantic_frame_guard_validation(
+            value.get("semantic_frame_guard"),
+            selected_action=selected_action,
+            action_type=action_type,
+            expected_target_key=expected_target_key,
+            screenshot_bytes=screenshot_bytes,
+            screenshot_size=screenshot_size,
+        )
+        if not semantic_guard_validation["valid"]:
+            issues.extend(
+                f"operator_confirmation.{item}"
+                for item in semantic_guard_validation["issues"]
+            )
+        confirmation_observed_at = _parse_aware_datetime(
+            value.get("observation_captured_at")
+        )
+        terminal_observed_at = _parse_aware_datetime(terminal_observation.get("captured_at"))
+        if (
+            confirmation_observed_at is None
+            or terminal_observed_at is None
+            or confirmation_observed_at != terminal_observed_at
+        ):
+            issues.append("operator_confirmation.observation_captured_at")
+
+    parsed_times: dict[str, datetime | None] = {
+        field_name: _parse_aware_datetime(value.get(field_name))
+        for field_name in _OPERATOR_CONFIRMATION_TIMESTAMP_FIELDS
+    }
+    for field_name, parsed in parsed_times.items():
+        if parsed is None:
+            issues.append(f"operator_confirmation.{field_name}_aware_iso8601")
+    trace_dispatch_at = _parse_aware_datetime(dispatch_time_validation.get("dispatch_at"))
+    if not dispatch_time_validation.get("valid") or trace_dispatch_at is None:
+        issues.append("execution.dispatch_at_aware_iso8601")
+    elif parsed_times["dispatch_at"] != trace_dispatch_at:
+        issues.append("operator_confirmation.dispatch_at_binding")
+
+    observed_at = parsed_times["observation_captured_at"]
+    confirmed_at = parsed_times["confirmed_at"]
+    consumed_at = parsed_times["consumed_at"]
+    dispatch_at = parsed_times["dispatch_at"]
+    expires_at = parsed_times["expires_at"]
+    if (
+        observed_at is not None
+        and confirmed_at is not None
+        and observed_at > confirmed_at
+    ):
+        issues.append("operator_confirmation.confirmation_before_observation")
+    if confirmed_at is not None and consumed_at is not None and confirmed_at >= consumed_at:
+        issues.append("operator_confirmation.confirmation_not_before_consumption")
+    if consumed_at is not None and dispatch_at is not None and consumed_at > dispatch_at:
+        issues.append("operator_confirmation.consumption_after_dispatch")
+    if dispatch_at is not None and expires_at is not None and dispatch_at >= expires_at:
+        issues.append("operator_confirmation.dispatch_not_before_expiry")
+
+    return {
+        "valid": not issues,
+        "issues": sorted(set(issues)),
+        "confirmation": dict(value),
+        "fingerprint": _operator_confirmation_fingerprint(value),
+        "semantic_frame_guard_validation": semantic_guard_validation,
+    }
 
 
 def _operator_confirmation_validation(
@@ -1956,6 +3795,7 @@ def _operator_confirmation_validation(
     action_type: str | None,
     required_runtime_dispatch: dict[str, Any],
     trace_validation: dict[str, Any] | None,
+    target_identity: Any,
 ) -> dict[str, Any]:
     if not isinstance(value, dict):
         return {
@@ -1964,7 +3804,7 @@ def _operator_confirmation_validation(
             "issues": ["operator_confirmation_not_object"],
         }
     issues: list[str] = []
-    confirmed = value.get("confirmed") is True or value.get("status") == "confirmed"
+    confirmed = value.get("confirmed") is True
     if not confirmed:
         issues.append("confirmed")
     if value.get("requires_operator_confirmation") is not True:
@@ -1973,13 +3813,40 @@ def _operator_confirmation_validation(
         issues.append("action_type")
     if value.get("scope") != "final_mutating_click":
         issues.append("scope")
-    if not value.get("confirmed_at"):
-        issues.append("confirmed_at")
+    parsed_times = {
+        field_name: _parse_aware_datetime(value.get(field_name))
+        for field_name in _OPERATOR_CONFIRMATION_TIMESTAMP_FIELDS
+    }
+    for field_name, parsed in parsed_times.items():
+        if parsed is None:
+            issues.append(f"{field_name}_aware_iso8601")
+    confirmed_at = parsed_times["confirmed_at"]
+    dispatch_at = parsed_times["dispatch_at"]
+    if not _structured_equal(value.get("target_identity"), target_identity):
+        issues.append("target_identity")
     if not _runtime_dispatch_matches(value.get("runtime_dispatch"), required_runtime_dispatch):
         issues.append("runtime_dispatch")
     trace_binding = _operator_trace_binding_validation(value, trace_validation)
     if not trace_binding["valid"]:
         issues.append("trace_binding")
+    trace_confirmation = trace_binding.get("operator_confirmation")
+    if trace_binding.get("matched") and isinstance(trace_confirmation, dict):
+        manifest_fingerprint = _operator_confirmation_fingerprint(value)
+        trace_fingerprint = _operator_confirmation_fingerprint(trace_confirmation)
+        for field_name in _OPERATOR_CONFIRMATION_FIELDS:
+            if not _structured_equal(
+                manifest_fingerprint.get(field_name),
+                trace_fingerprint.get(field_name),
+            ):
+                issues.append(f"trace_confirmation_mismatch.{field_name}")
+    elif trace_binding.get("matched"):
+        issues.append("trace_operator_confirmation")
+    if (
+        confirmed_at is not None
+        and dispatch_at is not None
+        and confirmed_at >= dispatch_at
+    ):
+        issues.append("confirmation_not_before_dispatch")
     return {
         "checked": True,
         "valid": not issues,
@@ -1987,8 +3854,24 @@ def _operator_confirmation_validation(
         "confirmed": confirmed,
         "action_type": value.get("action_type"),
         "scope": value.get("scope"),
+        "confirmed_at": confirmed_at.isoformat() if confirmed_at is not None else value.get("confirmed_at"),
+        "dispatch_at": dispatch_at.isoformat() if dispatch_at is not None else value.get("dispatch_at"),
         "trace_binding": trace_binding,
     }
+
+
+def _operator_confirmation_fingerprint(value: Any) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        return {}
+    fingerprint: dict[str, Any] = {}
+    for field_name in _OPERATOR_CONFIRMATION_FIELDS:
+        field_value = value.get(field_name)
+        if field_name in _OPERATOR_CONFIRMATION_TIMESTAMP_FIELDS:
+            parsed = _parse_aware_datetime(field_value)
+            fingerprint[field_name] = parsed.isoformat() if parsed is not None else field_value
+        else:
+            fingerprint[field_name] = field_value
+    return fingerprint
 
 
 def _operator_trace_binding_validation(
@@ -1998,9 +3881,13 @@ def _operator_trace_binding_validation(
     trace_id = value.get("trace_id")
     trace_record_index = value.get("trace_record_index")
     issues: list[str] = []
-    if not trace_id:
+    if not isinstance(trace_id, str) or not trace_id.strip():
         issues.append("trace_id")
-    if not isinstance(trace_record_index, int):
+    if (
+        not isinstance(trace_record_index, int)
+        or isinstance(trace_record_index, bool)
+        or trace_record_index < 0
+    ):
         issues.append("trace_record_index")
 
     matching_records = (
@@ -2013,13 +3900,24 @@ def _operator_trace_binding_validation(
         matching_records = []
 
     matched = False
+    dispatch_at: Any = None
+    operator_confirmation: Any = None
     for record in matching_records:
         if not isinstance(record, dict):
             continue
         if record.get("trace_id") == trace_id and record.get("index") == trace_record_index:
             matched = True
+            dispatch_at = record.get("dispatch_at")
+            operator_confirmation = record.get("operator_confirmation")
             break
-    if trace_id and isinstance(trace_record_index, int) and not matched:
+    if (
+        isinstance(trace_id, str)
+        and trace_id.strip()
+        and isinstance(trace_record_index, int)
+        and not isinstance(trace_record_index, bool)
+        and trace_record_index >= 0
+        and not matched
+    ):
         issues.append("trace_record_match")
 
     return {
@@ -2028,27 +3926,9 @@ def _operator_trace_binding_validation(
         "trace_id": trace_id,
         "trace_record_index": trace_record_index,
         "matched": matched,
+        "dispatch_at": dispatch_at,
+        "operator_confirmation": operator_confirmation,
     }
-
-
-def _checked_paths_cover_required_delta(value: Any, required: list[str]) -> bool:
-    if not required:
-        return True
-    if not isinstance(value, list) or not value:
-        return False
-    checked = {str(item) for item in value}
-    required_paths = {_required_delta_path(item) for item in required}
-    return bool(checked & required_paths)
-
-
-def _required_delta_path(value: Any) -> str:
-    text = str(value).strip()
-    if text.startswith("or "):
-        text = text[3:]
-    for separator in ("=", " increases", " decreases", " present"):
-        if separator in text:
-            return text.split(separator, 1)[0].strip()
-    return text.split(" ", 1)[0].strip()
 
 
 def _trace_selected_action(record: dict[str, Any]) -> dict[str, Any]:
@@ -2113,41 +3993,6 @@ def _trace_screenshot_path(record: dict[str, Any]) -> str | None:
         if isinstance(outputs, dict) and outputs.get("screenshot"):
             return str(outputs["screenshot"])
     return None
-
-
-def _delta_representations(item: Any) -> set[str]:
-    if isinstance(item, str):
-        return {_normalize_delta_text(item)}
-    if not isinstance(item, dict):
-        return set()
-
-    path = item.get("path")
-    if not path:
-        return set()
-    values: set[str] = set()
-    for key in ("value", "expected", "to", "after"):
-        if key in item:
-            values.add(_normalize_delta_text(f"{path}={_delta_value(item[key])}"))
-    for key in ("op", "operator", "change", "direction"):
-        if item.get(key):
-            values.add(_normalize_delta_text(f"{path} {item[key]}"))
-    if item.get("present") is True:
-        values.add(_normalize_delta_text(f"{path} present"))
-    return values
-
-
-def _delta_value(value: Any) -> str:
-    if isinstance(value, bool):
-        return "true" if value else "false"
-    return str(value)
-
-
-def _normalize_delta_text(value: Any) -> str:
-    text = " ".join(str(value).strip().lower().split())
-    if text.startswith("or "):
-        text = text[3:]
-    text = text.replace(" = ", "=")
-    return text
 
 
 def _dispatch_gate_result(result: dict[str, Any], expectation: dict[str, Any]) -> dict[str, Any]:
@@ -2345,7 +4190,7 @@ LOW_RISK_NEXT_FIXTURE_REQUIREMENTS: dict[str, dict[str, Any]] = {
 LOW_RISK_TERMINAL_SOURCE_REQUIREMENTS: dict[str, dict[str, Any]] = {
     "claim_chapter_reward": {
         "code": "chapter_claim_terminal_real_source",
-        "accepted_source_kinds": ["pr5_real_screenshot_fixture", "live_trace_fixture"],
+        "accepted_source_kinds": ["live_trace_fixture"],
         "required_page": "chapter",
         "required_semantic_target": "progress.chapter_claim_button",
         "required_runtime_dispatch": {
@@ -2354,14 +4199,24 @@ LOW_RISK_TERMINAL_SOURCE_REQUIREMENTS: dict[str, dict[str, Any]] = {
             "terminal_for_verifier": True,
         },
         "required_source_evidence": [
-            "real screenshot fixture with screenshot path and manifest page=chapter",
-            "or live trace with screenshot metadata, act execution summary, and verification record",
+            "live trace with terminal screenshot metadata, action-bound dispatch timestamp, operator confirmation, and verification record",
         ],
-        "required_post_action_delta": ["progress.chapter_claimable=false"],
+        "required_target_identity": {
+            "chapter_id": {"type": "positive_integer"},
+        },
+        "required_post_action_delta": ["progress.chapter_claimable true->false"],
+        "required_post_action_delta_contract": [
+            {
+                "path": "progress.chapter_claimable",
+                "operator": "changes_to",
+                "before": True,
+                "after": False,
+            },
+        ],
     },
     "recruit_soldiers": {
         "code": "recruit_terminal_real_source",
-        "accepted_source_kinds": ["pr5_real_screenshot_fixture", "live_trace_fixture"],
+        "accepted_source_kinds": ["live_trace_fixture"],
         "required_page": "recruit",
         "required_semantic_target": "teams[*].recruit_button",
         "required_runtime_dispatch": {
@@ -2370,18 +4225,40 @@ LOW_RISK_TERMINAL_SOURCE_REQUIREMENTS: dict[str, dict[str, Any]] = {
             "terminal_for_verifier": True,
         },
         "required_source_evidence": [
-            "real screenshot fixture with screenshot path and manifest page=recruit",
-            "or live trace with screenshot metadata, act execution summary, and verification record",
+            "live trace with terminal screenshot metadata, team-bound dispatch timestamp, operator confirmation, and verification record",
         ],
+        "required_target_identity": {
+            "team_id": {"type": "nonempty_string"},
+        },
         "required_post_action_delta": [
-            "teams.0.soldiers increases",
-            "or teams.0.recruit_finish_time present",
-            "or economy.reserve_troops decreases",
+            "teams[team_id=<team_id>].soldiers increases",
+            "or teams[team_id=<team_id>].recruit_finish_time becomes present",
+        ],
+        "required_post_action_delta_contract": [
+            {
+                "selector": {
+                    "collection_path": "teams",
+                    "identity_field": "team_id",
+                    "identity_param": "team_id",
+                },
+                "path": "soldiers",
+                "operator": "greater_than_before",
+            },
+            {
+                "selector": {
+                    "collection_path": "teams",
+                    "identity_field": "team_id",
+                    "identity_param": "team_id",
+                },
+                "path": "recruit_finish_time",
+                "operator": "becomes_present",
+                "value_type": "aware_datetime_or_nonempty_string",
+            },
         ],
     },
     "upgrade_building": {
         "code": "upgrade_confirm_terminal_real_source",
-        "accepted_source_kinds": ["pr5_real_screenshot_fixture", "live_trace_fixture"],
+        "accepted_source_kinds": ["live_trace_fixture"],
         "required_page": "building_upgrade",
         "required_semantic_target": "city.upgrade_dialog.confirm_button",
         "required_runtime_dispatch": {
@@ -2390,12 +4267,28 @@ LOW_RISK_TERMINAL_SOURCE_REQUIREMENTS: dict[str, dict[str, Any]] = {
             "terminal_for_verifier": True,
         },
         "required_source_evidence": [
-            "real screenshot fixture with screenshot path and manifest page=building_upgrade",
-            "or live trace with screenshot metadata, act execution summary, and verification record",
+            "live trace with terminal screenshot metadata, building-bound dispatch timestamp, operator confirmation, and verification record",
         ],
+        "required_target_identity": {
+            "building_name": {"type": "nonempty_string"},
+            "current_level": {"type": "nonnegative_integer"},
+            "target_level": {"type": "positive_integer"},
+        },
         "required_post_action_delta": [
-            "city.buildings.0.level increases",
-            "or economy.resources.wood decreases",
+            "city.buildings[name=<building_name>].level current_level->target_level",
+        ],
+        "required_post_action_delta_contract": [
+            {
+                "selector": {
+                    "collection_path": "city.buildings",
+                    "identity_field": "name",
+                    "identity_param": "building_name",
+                },
+                "path": "level",
+                "operator": "increases_to",
+                "before_param": "current_level",
+                "after_param": "target_level",
+            },
         ],
     },
 }

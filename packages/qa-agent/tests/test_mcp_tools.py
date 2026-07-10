@@ -1,12 +1,46 @@
+import copy
+import base64
 import hashlib
 import json
+import os
 from pathlib import Path
+import subprocess
 import tempfile
 import unittest
 
-from qa_agent.mcp_server.advisor_tools import AdvisorReplayTools
+from qa_agent.mcp_server.advisor_tools import (
+    LOW_RISK_TERMINAL_SOURCE_REQUIREMENTS,
+    AdvisorReplayTools,
+    _post_action_delta_validation,
+)
 from qa_agent.mcp_server.tooling import KnowledgeToolHandler
 from qa_agent.service.query_service import QueryService
+
+
+_VALID_PNG = base64.b64decode(
+    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="
+)
+
+_FULL_FRAME_BBOX = {
+    "x_min": 0,
+    "y_min": 0,
+    "x_max": 1000,
+    "y_max": 1000,
+}
+
+
+def _semantic_frame_guard(target_key: str) -> dict:
+    return {
+        "schema_version": 1,
+        "algorithm": "semantic-roi-rgb24-sha256-v1",
+        "semantic_target_key": target_key,
+        "frame_size": [1, 1],
+        "normalized_bbox": {key: float(value) for key, value in _FULL_FRAME_BBOX.items()},
+        "roi_bbox": {"x": 0, "y": 0, "width": 1, "height": 1},
+        "click_point": {"x": 0, "y": 0},
+        # _VALID_PNG decodes to one black RGB pixel.
+        "roi_sha256": hashlib.sha256(b"\x00\x00\x00").hexdigest(),
+    }
 
 
 def _sha256(path: Path) -> str:
@@ -27,6 +61,203 @@ def _privacy_review(**overrides: object) -> dict[str, object]:
     }
     review.update(overrides)
     return review
+
+
+def _claim_target_delta() -> tuple[dict, dict]:
+    return (
+        {"chapter_id": 17},
+        {
+            "path": "progress.chapter_claimable",
+            "operator": "changes_to",
+            "before": True,
+            "after": False,
+        },
+    )
+
+
+def _write_claim_live_evidence(root: Path) -> tuple[dict, Path, Path]:
+    screenshot_path = root / "claim-terminal.png"
+    screenshot_path.write_bytes(_VALID_PNG)
+    trace_path = root / "claim-live-trace.jsonl"
+    target_identity, delta = _claim_target_delta()
+    trace_id = "trace-claim-1"
+    action_id = "action-claim-1"
+    frame_sha256 = _sha256(screenshot_path)
+    observation = {
+        "observation_id": "observation-claim-1",
+        "captured_at": "2026-05-30T17:45:00+08:00",
+        "frame_sha256": frame_sha256,
+        "frame_size": [1, 1],
+    }
+    runtime_dispatch = {
+        "status": "ok",
+        "target_key": "chapter_claim_button",
+        "terminal_for_verifier": True,
+    }
+    claim_button = {
+        "visible": True,
+        "enabled": True,
+        "bbox": dict(_FULL_FRAME_BBOX),
+    }
+    operator_confirmation = {
+        "confirmed": True,
+        "requires_operator_confirmation": True,
+        "scope": "final_mutating_click",
+        "confirmation_id": "confirmation-claim-1",
+        "request_id": "request-claim-1",
+        "action_id": action_id,
+        "action_type": "claim_chapter_reward",
+        "target_key": "chapter_claim_button",
+        "target_identity": target_identity,
+        "observation_id": observation["observation_id"],
+        "frame_sha256": frame_sha256,
+        "semantic_frame_guard": _semantic_frame_guard("chapter_claim_button"),
+        "observation_captured_at": observation["captured_at"],
+        "confirmed_at": "2026-05-30T17:45:05+08:00",
+        "expires_at": "2026-05-30T17:45:15+08:00",
+        "consumed_at": "2026-05-30T17:45:06+08:00",
+        "dispatch_at": "2026-05-30T17:45:06+08:00",
+        "runtime_dispatch": runtime_dispatch,
+    }
+    trace_record = {
+        "trace_id": trace_id,
+        "screenshot": {
+            "path": str(screenshot_path),
+            "metadata": {"observation": observation},
+        },
+        "frames": [
+            {
+                "role": "terminal_dispatch",
+                "path": str(screenshot_path),
+                "sha256": frame_sha256,
+                "observation": observation,
+            }
+        ],
+        "selected_action": {
+            "action_id": action_id,
+            "action_type": "claim_chapter_reward",
+            "params": {**target_identity, "claim_button": claim_button},
+        },
+        "execution": {
+            "action_id": action_id,
+            "status": "ok",
+            "summary": {
+                "target_key": "chapter_claim_button",
+                "terminal_for_verifier": True,
+                "dispatch_at": operator_confirmation["dispatch_at"],
+                "operator_confirmation": operator_confirmation,
+            },
+        },
+        "verification": {
+            "post_action_verifier": {
+                "action_type": "claim_chapter_reward",
+                "status": "verified",
+                "target": target_identity,
+                "checked": ["progress.chapter_claimable"],
+                "post_action_delta": [delta],
+            },
+        },
+    }
+    trace_path.write_text(json.dumps(trace_record, ensure_ascii=False), encoding="utf-8")
+    verification_record = trace_record["verification"]["post_action_verifier"]
+    evidence = {
+        "source_kind": "live_trace_fixture",
+        "review_status": "reviewed",
+        "reviewed_by": "qa-reviewer",
+        "reviewed_at": "2026-05-30T18:20:00+08:00",
+        "screenshot": str(screenshot_path),
+        "screenshot_sha256": frame_sha256,
+        "trace": str(trace_path),
+        "trace_sha256": _sha256(trace_path),
+        "privacy_review": _privacy_review(),
+        "page": "chapter",
+        "semantic_target": "progress.chapter_claim_button",
+        "runtime_dispatch": runtime_dispatch,
+        "target_identity": target_identity,
+        "post_action_delta": [delta],
+        "post_action_delta_evidence": {
+            "source": "verification_record",
+            "post_action_delta": [delta],
+            "supporting_refs": [
+                "terminal_source_evidence.trace",
+                "terminal_source_evidence.verification_record",
+                "operator_confirmation.trace_id",
+            ],
+        },
+        "verification_record": verification_record,
+        "operator_confirmation": {
+            **operator_confirmation,
+            "trace_id": trace_id,
+            "trace_record_index": 0,
+        },
+    }
+    return evidence, trace_path, screenshot_path
+
+
+def _git(root: Path, *args: str) -> str:
+    completed = subprocess.run(
+        ["git", "-C", str(root), *args],
+        capture_output=True,
+        check=True,
+        text=True,
+    )
+    return completed.stdout.strip()
+
+
+def _write_repo_relative_claim_live_evidence(
+    workspace_root: Path,
+    *,
+    commit: bool,
+) -> tuple[dict, Path, Path]:
+    reviewed_root = (
+        workspace_root
+        / "packages"
+        / "pioneer-agent"
+        / "tests"
+        / "fixtures"
+        / "live-evidence"
+        / "reviewed"
+        / "2026-05-30"
+    )
+    reviewed_root.mkdir(parents=True)
+    evidence, trace_path, screenshot_path = _write_claim_live_evidence(reviewed_root)
+    screenshot_rel = screenshot_path.relative_to(workspace_root).as_posix()
+    trace_rel = trace_path.relative_to(workspace_root).as_posix()
+    trace_record = json.loads(trace_path.read_text(encoding="utf-8"))
+    trace_record["screenshot"]["path"] = screenshot_rel
+    trace_record["frames"][0]["path"] = screenshot_rel
+    trace_path.write_text(json.dumps(trace_record, ensure_ascii=False), encoding="utf-8")
+    evidence["screenshot"] = screenshot_rel
+    evidence["trace"] = trace_rel
+    evidence["trace_sha256"] = _sha256(trace_path)
+
+    _git(workspace_root, "init", "-q")
+    _git(workspace_root, "config", "user.email", "qa-tests@example.invalid")
+    _git(workspace_root, "config", "user.name", "QA Tests")
+    if commit:
+        _git(workspace_root, "add", screenshot_rel, trace_rel)
+        _git(workspace_root, "commit", "-q", "-m", "review live evidence")
+    else:
+        marker = workspace_root / "README.md"
+        marker.write_text("test repository\n", encoding="utf-8")
+        _git(workspace_root, "add", "README.md")
+        _git(workspace_root, "commit", "-q", "-m", "initialize")
+
+    evidence["git_provenance"] = {
+        "trust_boundary": "committed_reviewed_live_evidence",
+        "reviewed_root": "packages/pioneer-agent/tests/fixtures/live-evidence/reviewed",
+        "screenshot_blob": (
+            _git(workspace_root, "rev-parse", f"HEAD:{screenshot_rel}")
+            if commit
+            else "0" * 40
+        ),
+        "trace_blob": (
+            _git(workspace_root, "rev-parse", f"HEAD:{trace_rel}")
+            if commit
+            else "0" * 40
+        ),
+    }
+    return evidence, trace_path, screenshot_path
 
 
 class McpToolTests(unittest.TestCase):
@@ -254,7 +485,7 @@ class McpToolTests(unittest.TestCase):
         )
         self.assertEqual(
             source_blocking["claim_chapter_reward"]["required_post_action_delta"],
-            ["progress.chapter_claimable=false"],
+            ["progress.chapter_claimable true->false"],
         )
         self.assertEqual(
             [item["code"] for item in source_review["next_source_requirements"]],
@@ -266,7 +497,7 @@ class McpToolTests(unittest.TestCase):
         )
         self.assertEqual(
             source_review["next_source_requirements"][0]["accepted_source_kinds"],
-            ["pr5_real_screenshot_fixture", "live_trace_fixture"],
+            ["live_trace_fixture"],
         )
         evidence_templates = source_review["next_source_requirements"][0][
             "terminal_source_evidence_templates"
@@ -279,10 +510,7 @@ class McpToolTests(unittest.TestCase):
             evidence_templates["live_trace_fixture"]["verification_record"]["status"],
             "verified",
         )
-        self.assertEqual(
-            evidence_templates["pr5_real_screenshot_fixture"]["runtime_dispatch"]["target_key"],
-            "chapter_claim_button",
-        )
+        self.assertNotIn("pr5_real_screenshot_fixture", evidence_templates)
         self.assertEqual(
             source_review["next_source_requirements"][0]["required_runtime_dispatch"],
             {
@@ -360,7 +588,7 @@ class McpToolTests(unittest.TestCase):
         )
         self.assertEqual(
             capture_plan["actions"][0]["required_post_action_delta"],
-            ["progress.chapter_claimable=false"],
+            ["progress.chapter_claimable true->false"],
         )
         self.assertIn(
             "runtime_dispatch_not_terminal",
@@ -396,15 +624,15 @@ class McpToolTests(unittest.TestCase):
             capture_plan["actions"][0]["live_trace_semantic_checks"],
         )
         self.assertIn(
-            "verification.post_action_verifier action/delta matches required_post_action_delta",
+            "selected_action.params and verification target/delta match target_identity",
             capture_plan["actions"][0]["live_trace_semantic_checks"],
         )
         self.assertIn(
-            "operator_confirmation.confirmed=true",
+            "execution.summary.operator_confirmation is present and confirmed=true",
             capture_plan["actions"][0]["live_trace_semantic_checks"],
         )
         self.assertIn(
-            "operator_confirmation.trace_id/trace_record_index matches trace record",
+            "manifest operator_confirmation exactly mirrors the matched trace confirmation plus trace_id/trace_record_index",
             capture_plan["actions"][0]["live_trace_semantic_checks"],
         )
         self.assertEqual(
@@ -422,9 +650,9 @@ class McpToolTests(unittest.TestCase):
                 item["source_kind"]
                 for item in capture_plan["actions"][0]["preflight_tool_calls"]
             ],
-            ["pr5_real_screenshot_fixture", "live_trace_fixture"],
+            ["live_trace_fixture"],
         )
-        live_preflight = capture_plan["actions"][0]["preflight_tool_calls"][1]
+        live_preflight = capture_plan["actions"][0]["preflight_tool_calls"][0]
         self.assertEqual(live_preflight["tool_name"], "advisor_terminal_source_evidence_eval")
         self.assertEqual(
             live_preflight["arguments"]["action_type"],
@@ -481,6 +709,28 @@ class McpToolTests(unittest.TestCase):
         )
         self.assertTrue(
             expectation_template["terminal_source_evidence"]["operator_confirmation"]["confirmed"]
+        )
+        self.assertTrue(
+            {
+                "confirmation_id",
+                "request_id",
+                "action_id",
+                "action_type",
+                "target_key",
+                "target_identity",
+                "observation_id",
+                "frame_sha256",
+                "observation_captured_at",
+                "confirmed_at",
+                "expires_at",
+                "consumed_at",
+                "dispatch_at",
+                "runtime_dispatch",
+            }.issubset(
+                expectation_template["terminal_source_evidence"][
+                    "operator_confirmation"
+                ]
+            )
         )
         self.assertEqual(
             expectation_template["terminal_source_evidence"]["operator_confirmation"][
@@ -764,17 +1014,29 @@ class McpToolTests(unittest.TestCase):
                     "target_key": "chapter_claim_button",
                     "terminal_for_verifier": True,
                 },
+                "target_identity": {"chapter_id": 17},
                 "post_action_delta": [
-                    {"path": "progress.chapter_claimable", "value": False},
+                    {
+                        "path": "progress.chapter_claimable",
+                        "operator": "changes_to",
+                        "before": True,
+                        "after": False,
+                    },
                 ],
                 "post_action_delta_evidence": {
-                    "source": "reviewed_before_after_observation",
+                    "source": "verification_record",
                     "post_action_delta": [
-                        {"path": "progress.chapter_claimable", "value": False},
+                        {
+                            "path": "progress.chapter_claimable",
+                            "operator": "changes_to",
+                            "before": True,
+                            "after": False,
+                        },
                     ],
                     "supporting_refs": [
-                        "tests/fixtures/screenshots/pc_client/pr5_20260529/chapter_main_task_20260529.jpg",
-                        "reviewed-post-action-observation",
+                        "terminal_source_evidence.trace",
+                        "terminal_source_evidence.verification_record",
+                        "THIS_FILE_DOES_NOT_EXIST.json",
                     ],
                 },
             },
@@ -786,16 +1048,24 @@ class McpToolTests(unittest.TestCase):
             expectation=valid_expectation,
         )
 
-        self.assertTrue(review["source_evidence_valid"])
-        self.assertEqual(review["missing_evidence"], [])
+        self.assertFalse(review["source_evidence_valid"])
+        self.assertIn("accepted_source_kind", review["missing_evidence"])
+        self.assertIn("post_action_delta_evidence", review["missing_evidence"])
         self.assertEqual(review["required_page"], "chapter")
         self.assertEqual(review["required_semantic_target"], "progress.chapter_claim_button")
         self.assertEqual(review["required_runtime_dispatch"]["target_key"], "chapter_claim_button")
-        self.assertEqual(review["required_post_action_delta"], ["progress.chapter_claimable=false"])
-        self.assertTrue(review["post_action_delta_evidence_validation"]["valid"])
+        self.assertEqual(
+            review["required_post_action_delta"],
+            ["progress.chapter_claimable true->false"],
+        )
+        self.assertFalse(review["post_action_delta_evidence_validation"]["valid"])
+        self.assertIn(
+            "supporting_ref_binding",
+            review["post_action_delta_evidence_validation"]["issues"],
+        )
         self.assertTrue(review["review_metadata_validation"]["valid"])
         self.assertTrue(review["privacy_review_validation"]["valid"])
-        self.assertTrue(review["file_integrity_validation"]["valid"])
+        self.assertFalse(review["file_integrity_validation"]["checked"])
 
         invalid_delta_evidence_expectation = {
             "page": "chapter",
@@ -816,9 +1086,9 @@ class McpToolTests(unittest.TestCase):
 
         self.assertFalse(invalid_delta_evidence["source_evidence_valid"])
         self.assertIn("post_action_delta_evidence", invalid_delta_evidence["missing_evidence"])
-        self.assertEqual(
+        self.assertIn(
+            "post_action_delta",
             invalid_delta_evidence["post_action_delta_evidence_validation"]["issues"],
-            ["post_action_delta"],
         )
 
         invalid_review_metadata_expectation = {
@@ -879,11 +1149,7 @@ class McpToolTests(unittest.TestCase):
         )
 
         self.assertFalse(invalid_hash_review["source_evidence_valid"])
-        self.assertIn("file_integrity", invalid_hash_review["missing_evidence"])
-        self.assertEqual(
-            invalid_hash_review["file_integrity_validation"]["issues"],
-            ["screenshot_sha256_mismatch"],
-        )
+        self.assertIn("accepted_source_kind", invalid_hash_review["missing_evidence"])
 
         invalid_expectation = {
             "page": "chapter",
@@ -906,89 +1172,19 @@ class McpToolTests(unittest.TestCase):
         )
 
         self.assertFalse(invalid_review["source_evidence_valid"])
-        self.assertEqual(
-            set(invalid_review["missing_evidence"]),
-            {"page", "post_action_delta", "runtime_dispatch", "semantic_target"},
+        self.assertTrue(
+            {"page", "post_action_delta", "runtime_dispatch", "semantic_target"}.issubset(
+                set(invalid_review["missing_evidence"])
+            )
         )
 
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_root = Path(temp_dir)
-            screenshot_path = temp_root / "claim-terminal.png"
-            screenshot_path.write_bytes(b"placeholder")
-            trace_path = temp_root / "claim-live-trace.jsonl"
-            trace_record = {
-                "trace_id": "trace-claim-1",
-                "screenshot": {"path": str(screenshot_path)},
-                "selected_action": {"action_type": "claim_chapter_reward"},
-                "execution": {
-                    "status": "ok",
-                    "summary": {
-                        "target_key": "chapter_claim_button",
-                        "terminal_for_verifier": True,
-                    },
-                },
-                "verification": {
-                    "post_action_verifier": {
-                        "action_type": "claim_chapter_reward",
-                        "status": "verified",
-                        "checked": ["progress.chapter_claimable"],
-                    },
-                },
-            }
-            trace_path.write_text(json.dumps(trace_record, ensure_ascii=False), encoding="utf-8")
+            evidence, trace_path, screenshot_path = _write_claim_live_evidence(temp_root)
+            trace_record = json.loads(trace_path.read_text(encoding="utf-8"))
             live_expectation = {
                 "page": "chapter",
-                "terminal_source_evidence": {
-                    "source_kind": "live_trace_fixture",
-                    "review_status": "reviewed",
-                    "reviewed_by": "qa-reviewer",
-                    "reviewed_at": "2026-05-30T18:20:00+08:00",
-                    "screenshot": str(screenshot_path),
-                    "screenshot_sha256": _sha256(screenshot_path),
-                    "trace": str(trace_path),
-                    "trace_sha256": _sha256(trace_path),
-                    "privacy_review": _privacy_review(),
-                    "page": "chapter",
-                    "semantic_target": "progress.chapter_claim_button",
-                    "runtime_dispatch": {
-                        "status": "ok",
-                        "target_key": "chapter_claim_button",
-                        "terminal_for_verifier": True,
-                    },
-                    "post_action_delta": [
-                        {"path": "progress.chapter_claimable", "value": False},
-                    ],
-                    "post_action_delta_evidence": {
-                        "source": "verification_record",
-                        "post_action_delta": [
-                            {"path": "progress.chapter_claimable", "value": False},
-                        ],
-                        "supporting_refs": [
-                            "terminal_source_evidence.trace",
-                            "terminal_source_evidence.verification_record",
-                            "operator_confirmation.trace_id",
-                        ],
-                    },
-                    "verification_record": {
-                        "action_type": "claim_chapter_reward",
-                        "status": "verified",
-                        "checked": ["progress.chapter_claimable"],
-                    },
-                    "operator_confirmation": {
-                        "confirmed": True,
-                        "action_type": "claim_chapter_reward",
-                        "scope": "final_mutating_click",
-                        "requires_operator_confirmation": True,
-                        "confirmed_at": "2026-05-30T17:45:00+08:00",
-                        "trace_id": "trace-claim-1",
-                        "trace_record_index": 0,
-                        "runtime_dispatch": {
-                            "status": "ok",
-                            "target_key": "chapter_claim_button",
-                            "terminal_for_verifier": True,
-                        },
-                    },
-                },
+                "terminal_source_evidence": evidence,
             }
 
             live_review = tools._terminal_source_evidence_review(
@@ -998,6 +1194,14 @@ class McpToolTests(unittest.TestCase):
             )
 
             self.assertTrue(live_review["source_evidence_valid"])
+            self.assertTrue(live_review["structural_valid"])
+            self.assertTrue(live_review["ready_for_staging"])
+            self.assertFalse(live_review["accepted_for_closure"])
+            self.assertFalse(live_review["closure_authority_valid"])
+            self.assertIn(
+                "screenshot_path_not_repo_relative",
+                live_review["closure_disqualifiers"],
+            )
             self.assertEqual(live_review["missing_evidence"], [])
             self.assertTrue(live_review["trace_validation"]["matched"])
             self.assertTrue(live_review["post_action_delta_evidence_validation"]["valid"])
@@ -1006,7 +1210,7 @@ class McpToolTests(unittest.TestCase):
             self.assertTrue(live_review["file_integrity_validation"]["valid"])
             self.assertEqual(
                 live_review["trace_validation"]["required_post_action_delta"],
-                ["progress.chapter_claimable=false"],
+                ["progress.chapter_claimable true->false"],
             )
             self.assertEqual(
                 live_review["trace_validation"]["matching_records"][0]["verifier_checked_paths"],
@@ -1085,14 +1289,17 @@ class McpToolTests(unittest.TestCase):
                 "trace_semantics",
                 invalid_verifier_trace_review["missing_evidence"],
             )
-            self.assertTrue(
+            self.assertFalse(
                 invalid_verifier_trace_review["verification_record_validation"]["valid"]
             )
             self.assertFalse(invalid_verifier_trace_review["trace_validation"]["matched"])
             trace_evaluation = invalid_verifier_trace_review["trace_validation"][
                 "record_evaluations"
             ][0]
-            self.assertEqual(trace_evaluation["verifier_issues"], ["action_type", "checked_delta"])
+            self.assertEqual(
+                trace_evaluation["verifier_issues"],
+                ["action_type", "post_action_delta", "target_identity"],
+            )
             self.assertTrue(trace_evaluation["action_matches"])
             self.assertTrue(trace_evaluation["dispatch_matches"])
             self.assertFalse(trace_evaluation["verifier_valid"])
@@ -1131,93 +1338,15 @@ class McpToolTests(unittest.TestCase):
             self.assertIn("trace_semantics", invalid_live_review["missing_evidence"])
             self.assertIn("verification_record", invalid_live_review["missing_evidence"])
             self.assertFalse(invalid_live_review["trace_validation"]["matched"])
-            self.assertEqual(
+            self.assertIn(
+                "status",
                 invalid_live_review["verification_record_validation"]["issues"],
-                ["status"],
             )
 
     def test_advisor_terminal_source_evidence_eval_preflights_live_trace(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_root = Path(temp_dir)
-            screenshot_path = temp_root / "claim-terminal.png"
-            screenshot_path.write_bytes(b"placeholder")
-            trace_path = temp_root / "claim-live-trace.jsonl"
-            trace_path.write_text(
-                json.dumps(
-                    {
-                        "trace_id": "trace-claim-1",
-                        "screenshot": {"path": str(screenshot_path)},
-                        "selected_action": {"action_type": "claim_chapter_reward"},
-                        "execution": {
-                            "status": "ok",
-                            "summary": {
-                                "target_key": "chapter_claim_button",
-                                "terminal_for_verifier": True,
-                            },
-                        },
-                        "verification": {
-                            "post_action_verifier": {
-                                "action_type": "claim_chapter_reward",
-                                "status": "verified",
-                                "checked": ["progress.chapter_claimable"],
-                            },
-                        },
-                    },
-                    ensure_ascii=False,
-                ),
-                encoding="utf-8",
-            )
-            evidence = {
-                "source_kind": "live_trace_fixture",
-                "review_status": "reviewed",
-                "reviewed_by": "qa-reviewer",
-                "reviewed_at": "2026-05-30T18:20:00+08:00",
-                "screenshot": str(screenshot_path),
-                "screenshot_sha256": _sha256(screenshot_path),
-                "trace": str(trace_path),
-                "trace_sha256": _sha256(trace_path),
-                "privacy_review": _privacy_review(),
-                "page": "chapter",
-                "semantic_target": "progress.chapter_claim_button",
-                "runtime_dispatch": {
-                    "status": "ok",
-                    "target_key": "chapter_claim_button",
-                    "terminal_for_verifier": True,
-                },
-                "post_action_delta": [
-                    {"path": "progress.chapter_claimable", "value": False},
-                ],
-                "post_action_delta_evidence": {
-                    "source": "verification_record",
-                    "post_action_delta": [
-                        {"path": "progress.chapter_claimable", "value": False},
-                    ],
-                    "supporting_refs": [
-                        "terminal_source_evidence.trace",
-                        "terminal_source_evidence.verification_record",
-                        "operator_confirmation.trace_id",
-                    ],
-                },
-                "verification_record": {
-                    "action_type": "claim_chapter_reward",
-                    "status": "verified",
-                    "checked": ["progress.chapter_claimable"],
-                },
-                "operator_confirmation": {
-                    "confirmed": True,
-                    "action_type": "claim_chapter_reward",
-                    "scope": "final_mutating_click",
-                    "requires_operator_confirmation": True,
-                    "confirmed_at": "2026-05-30T17:45:00+08:00",
-                    "trace_id": "trace-claim-1",
-                    "trace_record_index": 0,
-                    "runtime_dispatch": {
-                        "status": "ok",
-                        "target_key": "chapter_claim_button",
-                        "terminal_for_verifier": True,
-                    },
-                },
-            }
+            evidence, trace_path, screenshot_path = _write_claim_live_evidence(temp_root)
 
             result = self.handler.call_tool(
                 "advisor_terminal_source_evidence_eval",
@@ -1230,12 +1359,15 @@ class McpToolTests(unittest.TestCase):
             payload = result["structuredContent"]
 
             self.assertFalse(result["isError"])
-            self.assertTrue(payload["ready"])
-            self.assertTrue(payload["accepted_for_closure"])
+            self.assertFalse(payload["ready"])
+            self.assertFalse(payload["accepted_for_closure"])
+            self.assertTrue(payload["ready_for_staging"])
+            self.assertTrue(payload["structural_valid"])
+            self.assertFalse(payload["closure_authority_valid"])
             self.assertEqual(payload["review"]["missing_evidence"], [])
             self.assertTrue(payload["review"]["trace_validation"]["matched"])
-            self.assertEqual(payload["next_source_requirements"], [])
-            self.assertTrue(payload["capture_plan"]["ready"])
+            self.assertTrue(payload["next_source_requirements"])
+            self.assertFalse(payload["capture_plan"]["ready"])
             self.assertEqual(
                 payload["suggested_terminal_source_evidence_patch"]["screenshot_sha256"],
                 _sha256(screenshot_path),
@@ -1357,6 +1489,754 @@ class McpToolTests(unittest.TestCase):
                 missing_hash_expectation_patch["terminal_source_evidence"]["trace_sha256"],
                 _sha256(trace_path),
             )
+
+    def test_terminal_source_closure_requires_committed_reviewed_git_provenance(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            workspace_root = Path(temp_dir)
+            evidence, _trace_path, _screenshot_path = (
+                _write_repo_relative_claim_live_evidence(workspace_root, commit=True)
+            )
+            tools = AdvisorReplayTools(workspace_root=workspace_root)
+
+            review = tools._terminal_source_evidence_review(
+                action_type="claim_chapter_reward",
+                fixture="live_claim_terminal_trace.json",
+                expectation={
+                    "page": "chapter",
+                    "terminal_source_evidence": evidence,
+                },
+            )
+
+            self.assertTrue(review["structural_valid"])
+            self.assertTrue(review["ready_for_staging"])
+            self.assertTrue(review["closure_authority_valid"])
+            self.assertTrue(review["accepted_for_closure"])
+            authority = review["closure_authority_validation"]
+            self.assertTrue(authority["repository_clean"])
+            self.assertTrue(authority["head_commit"])
+            self.assertIsNone(authority["declared_head_commit"])
+            self.assertTrue(authority["bound_to_clean_head"])
+            self.assertTrue(all(item["matched"] for item in authority["blob_checks"]))
+            self.assertTrue(all(item["worktree_matches_head"] for item in authority["blob_checks"]))
+            self.assertTrue(all(item["worktree_stable"] for item in authority["blob_checks"]))
+            self.assertEqual(
+                review["trace_validation"]["required_screenshot_sha256"],
+                evidence["screenshot_sha256"],
+            )
+            self.assertEqual(review["trace_validation"]["required_screenshot_size"], [1, 1])
+
+    def test_terminal_source_rejects_ignored_literal_pathspec_aliases(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            workspace_root = Path(temp_dir)
+            evidence, trace_path, screenshot_path = (
+                _write_repo_relative_claim_live_evidence(workspace_root, commit=True)
+            )
+            alias_screenshot = screenshot_path.with_name("claim-*.png")
+            alias_trace = trace_path.with_name("claim-*.jsonl")
+            alias_screenshot.write_bytes(screenshot_path.read_bytes() + b"ignored-alias")
+            screenshot_rel = alias_screenshot.relative_to(workspace_root).as_posix()
+            trace_rel = alias_trace.relative_to(workspace_root).as_posix()
+            frame_sha256 = _sha256(alias_screenshot)
+            record = json.loads(trace_path.read_text(encoding="utf-8"))
+            record["screenshot"]["path"] = screenshot_rel
+            record["screenshot"]["metadata"]["observation"]["frame_sha256"] = frame_sha256
+            record["frames"][0]["path"] = screenshot_rel
+            record["frames"][0]["sha256"] = frame_sha256
+            record["frames"][0]["observation"]["frame_sha256"] = frame_sha256
+            record["execution"]["summary"]["operator_confirmation"][
+                "frame_sha256"
+            ] = frame_sha256
+            alias_trace.write_text(json.dumps(record, ensure_ascii=False), encoding="utf-8")
+            evidence["screenshot"] = screenshot_rel
+            evidence["screenshot_sha256"] = frame_sha256
+            evidence["trace"] = trace_rel
+            evidence["trace_sha256"] = _sha256(alias_trace)
+            evidence["operator_confirmation"]["frame_sha256"] = frame_sha256
+            exclude = workspace_root / ".git" / "info" / "exclude"
+            literal_patterns = [
+                "/" + screenshot_rel.replace("*", "[*]"),
+                "/" + trace_rel.replace("*", "[*]"),
+            ]
+            exclude.write_text(
+                exclude.read_text(encoding="utf-8")
+                + "\n"
+                + "\n".join(literal_patterns)
+                + "\n",
+                encoding="utf-8",
+            )
+            self.assertEqual(
+                _git(workspace_root, "status", "--porcelain=v1", "--untracked-files=all"),
+                "",
+            )
+
+            review = AdvisorReplayTools(
+                workspace_root=workspace_root
+            )._terminal_source_evidence_review(
+                action_type="claim_chapter_reward",
+                fixture="live_claim_terminal_trace.json",
+                expectation={"page": "chapter", "terminal_source_evidence": evidence},
+            )
+
+            self.assertTrue(review["structural_valid"])
+            self.assertFalse(review["accepted_for_closure"])
+            self.assertIn(
+                "screenshot_not_committed_regular_blob",
+                review["closure_disqualifiers"],
+            )
+            self.assertIn(
+                "trace_not_committed_regular_blob",
+                review["closure_disqualifiers"],
+            )
+            self.assertTrue(
+                all(
+                    "head_entry_count" in item["head_lookup_issues"]
+                    for item in review["closure_authority_validation"]["blob_checks"]
+                )
+            )
+
+    def test_terminal_source_rejects_assume_unchanged_worktree_bytes(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            workspace_root = Path(temp_dir)
+            evidence, trace_path, screenshot_path = (
+                _write_repo_relative_claim_live_evidence(workspace_root, commit=True)
+            )
+            screenshot_rel = screenshot_path.relative_to(workspace_root).as_posix()
+            trace_rel = trace_path.relative_to(workspace_root).as_posix()
+            _git(
+                workspace_root,
+                "update-index",
+                "--assume-unchanged",
+                "--",
+                screenshot_rel,
+                trace_rel,
+            )
+            screenshot_path.write_bytes(screenshot_path.read_bytes() + b"uncommitted-tamper")
+            frame_sha256 = _sha256(screenshot_path)
+            record = json.loads(trace_path.read_text(encoding="utf-8"))
+            record["screenshot"]["metadata"]["observation"]["frame_sha256"] = frame_sha256
+            record["frames"][0]["sha256"] = frame_sha256
+            record["frames"][0]["observation"]["frame_sha256"] = frame_sha256
+            record["execution"]["summary"]["operator_confirmation"][
+                "frame_sha256"
+            ] = frame_sha256
+            trace_path.write_text(json.dumps(record, ensure_ascii=False), encoding="utf-8")
+            evidence["screenshot_sha256"] = frame_sha256
+            evidence["trace_sha256"] = _sha256(trace_path)
+            evidence["operator_confirmation"]["frame_sha256"] = frame_sha256
+            self.assertEqual(
+                _git(workspace_root, "status", "--porcelain=v1", "--untracked-files=all"),
+                "",
+            )
+
+            review = AdvisorReplayTools(
+                workspace_root=workspace_root
+            )._terminal_source_evidence_review(
+                action_type="claim_chapter_reward",
+                fixture="live_claim_terminal_trace.json",
+                expectation={"page": "chapter", "terminal_source_evidence": evidence},
+            )
+
+            self.assertTrue(review["structural_valid"])
+            self.assertFalse(review["accepted_for_closure"])
+            self.assertIn(
+                "screenshot_worktree_not_head_blob",
+                review["closure_disqualifiers"],
+            )
+            self.assertIn(
+                "trace_worktree_not_head_blob",
+                review["closure_disqualifiers"],
+            )
+
+    def test_terminal_source_rejects_hardlink_and_mid_validation_replacement(self) -> None:
+        with self.subTest("hardlink"):
+            with tempfile.TemporaryDirectory() as temp_dir, tempfile.TemporaryDirectory() as external:
+                workspace_root = Path(temp_dir)
+                evidence, _trace_path, screenshot_path = (
+                    _write_repo_relative_claim_live_evidence(workspace_root, commit=True)
+                )
+                os.link(screenshot_path, Path(external) / "external.png")
+                review = AdvisorReplayTools(
+                    workspace_root=workspace_root
+                )._terminal_source_evidence_review(
+                    action_type="claim_chapter_reward",
+                    fixture="live_claim_terminal_trace.json",
+                    expectation={"page": "chapter", "terminal_source_evidence": evidence},
+                )
+                self.assertFalse(review["structural_valid"])
+                self.assertFalse(review["accepted_for_closure"])
+                self.assertIn("screenshot_hardlink", review["closure_disqualifiers"])
+
+        with self.subTest("mid-validation replacement"):
+            with tempfile.TemporaryDirectory() as temp_dir:
+                workspace_root = Path(temp_dir)
+                evidence, _trace_path, screenshot_path = (
+                    _write_repo_relative_claim_live_evidence(workspace_root, commit=True)
+                )
+                screenshot_rel = screenshot_path.relative_to(workspace_root).as_posix()
+                _git(
+                    workspace_root,
+                    "update-index",
+                    "--assume-unchanged",
+                    "--",
+                    screenshot_rel,
+                )
+                tools = AdvisorReplayTools(workspace_root=workspace_root)
+                original_run_git = tools._run_git
+                mutated = False
+
+                def mutate_after_first_status(*args: str) -> dict:
+                    nonlocal mutated
+                    result = original_run_git(*args)
+                    if args and args[0] == "status" and not mutated:
+                        screenshot_path.write_bytes(
+                            screenshot_path.read_bytes() + b"raced-after-snapshot"
+                        )
+                        mutated = True
+                    return result
+
+                tools._run_git = mutate_after_first_status  # type: ignore[method-assign]
+                review = tools._terminal_source_evidence_review(
+                    action_type="claim_chapter_reward",
+                    fixture="live_claim_terminal_trace.json",
+                    expectation={"page": "chapter", "terminal_source_evidence": evidence},
+                )
+                self.assertTrue(mutated)
+                self.assertFalse(review["accepted_for_closure"])
+                self.assertIn(
+                    "screenshot_worktree_changed_during_validation",
+                    review["closure_disqualifiers"],
+                )
+
+    def test_terminal_source_binds_trace_hash_and_dimensions_to_head_screenshot(self) -> None:
+        for mismatch in ("sha256", "frame_size", "primary_observation"):
+            with self.subTest(mismatch=mismatch), tempfile.TemporaryDirectory() as temp_dir:
+                workspace_root = Path(temp_dir)
+                evidence, trace_path, _screenshot_path = (
+                    _write_repo_relative_claim_live_evidence(workspace_root, commit=True)
+                )
+                record = json.loads(trace_path.read_text(encoding="utf-8"))
+                if mismatch == "sha256":
+                    fake_sha256 = "f" * 64
+                    record["screenshot"]["metadata"]["observation"][
+                        "frame_sha256"
+                    ] = fake_sha256
+                    record["frames"][0]["sha256"] = fake_sha256
+                    record["frames"][0]["observation"]["frame_sha256"] = fake_sha256
+                    record["execution"]["summary"]["operator_confirmation"][
+                        "frame_sha256"
+                    ] = fake_sha256
+                    evidence["operator_confirmation"]["frame_sha256"] = fake_sha256
+                    expected_issue = "terminal_dispatch_frame_screenshot_sha256_binding"
+                elif mismatch == "frame_size":
+                    fake_size = [2, 2]
+                    record["screenshot"]["metadata"]["observation"][
+                        "frame_size"
+                    ] = fake_size
+                    record["frames"][0]["observation"]["frame_size"] = fake_size
+                    record["execution"]["summary"]["operator_confirmation"][
+                        "semantic_frame_guard"
+                    ]["frame_size"] = fake_size
+                    evidence["operator_confirmation"]["semantic_frame_guard"][
+                        "frame_size"
+                    ] = fake_size
+                    expected_issue = "terminal_dispatch_observation_frame_size_binding"
+                else:
+                    record["screenshot"]["metadata"]["observation"][
+                        "page_type"
+                    ] = "attacker_mismatched_page"
+                    expected_issue = "screenshot_primary_observation_binding"
+                trace_path.write_text(json.dumps(record, ensure_ascii=False), encoding="utf-8")
+                evidence["trace_sha256"] = _sha256(trace_path)
+                trace_rel = trace_path.relative_to(workspace_root).as_posix()
+                _git(workspace_root, "add", trace_rel)
+                _git(workspace_root, "commit", "-q", "-m", f"mismatch {mismatch}")
+                evidence["git_provenance"]["trace_blob"] = _git(
+                    workspace_root,
+                    "rev-parse",
+                    f"HEAD:{trace_rel}",
+                )
+
+                review = AdvisorReplayTools(
+                    workspace_root=workspace_root
+                )._terminal_source_evidence_review(
+                    action_type="claim_chapter_reward",
+                    fixture="live_claim_terminal_trace.json",
+                    expectation={"page": "chapter", "terminal_source_evidence": evidence},
+                )
+
+                self.assertFalse(review["structural_valid"])
+                self.assertFalse(review["accepted_for_closure"])
+                self.assertIn("trace_semantics", review["missing_evidence"])
+                issues = review["trace_validation"]["record_evaluations"][0][
+                    "terminal_observation_issues"
+                ]
+                self.assertIn(expected_issue, issues)
+
+    def test_terminal_source_rebuilds_complete_semantic_guard_from_screenshot(self) -> None:
+        cases = {
+            "semantic_target_key": (
+                "attacker_chosen_other_button",
+                "operator_confirmation.semantic_frame_guard.semantic_target_key",
+            ),
+            "normalized_bbox": (
+                {"x_min": 0.0, "y_min": 0.0, "x_max": 900.0, "y_max": 1000.0},
+                "operator_confirmation.semantic_frame_guard.normalized_bbox_binding",
+            ),
+            "roi_bbox": (
+                {"x": 1, "y": 0, "width": 1, "height": 1},
+                "operator_confirmation.semantic_frame_guard.roi_bbox",
+            ),
+            "click_point": (
+                {"x": 1, "y": 0},
+                "operator_confirmation.semantic_frame_guard.click_point",
+            ),
+            "roi_sha256": (
+                "0" * 64,
+                "operator_confirmation.semantic_frame_guard.roi_sha256_binding",
+            ),
+        }
+        for field_name, (replacement, expected_issue) in cases.items():
+            with self.subTest(field_name=field_name), tempfile.TemporaryDirectory() as temp_dir:
+                workspace_root = Path(temp_dir)
+                evidence, trace_path, _screenshot_path = (
+                    _write_repo_relative_claim_live_evidence(workspace_root, commit=True)
+                )
+                record = json.loads(trace_path.read_text(encoding="utf-8"))
+                record["execution"]["summary"]["operator_confirmation"][
+                    "semantic_frame_guard"
+                ][field_name] = replacement
+                evidence["operator_confirmation"]["semantic_frame_guard"][
+                    field_name
+                ] = copy.deepcopy(replacement)
+                trace_path.write_text(
+                    json.dumps(record, ensure_ascii=False),
+                    encoding="utf-8",
+                )
+                evidence["trace_sha256"] = _sha256(trace_path)
+                trace_rel = trace_path.relative_to(workspace_root).as_posix()
+                _git(workspace_root, "add", trace_rel)
+                _git(workspace_root, "commit", "-q", "-m", f"forge {field_name}")
+                evidence["git_provenance"]["trace_blob"] = _git(
+                    workspace_root,
+                    "rev-parse",
+                    f"HEAD:{trace_rel}",
+                )
+
+                review = AdvisorReplayTools(
+                    workspace_root=workspace_root
+                )._terminal_source_evidence_review(
+                    action_type="claim_chapter_reward",
+                    fixture="live_claim_terminal_trace.json",
+                    expectation={"page": "chapter", "terminal_source_evidence": evidence},
+                )
+
+                self.assertFalse(review["structural_valid"])
+                self.assertFalse(review["accepted_for_closure"])
+                self.assertIn("trace_semantics", review["missing_evidence"])
+                trace_issues = review["trace_validation"]["record_evaluations"][0][
+                    "trace_operator_confirmation_issues"
+                ]
+                self.assertIn(expected_issue, trace_issues)
+
+    def test_terminal_source_rejects_placeholder_absolute_and_uncommitted_sources(self) -> None:
+        tools = AdvisorReplayTools.from_qa_project_root(Path(__file__).resolve().parents[1])
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir)
+            evidence, _trace_path, screenshot_path = _write_claim_live_evidence(temp_root)
+            screenshot_path.write_bytes(b"terminal screenshot")
+            evidence["screenshot_sha256"] = _sha256(screenshot_path)
+            review = tools._terminal_source_evidence_review(
+                action_type="claim_chapter_reward",
+                fixture="live_claim_terminal_trace.json",
+                expectation={"page": "chapter", "terminal_source_evidence": evidence},
+            )
+
+            self.assertFalse(review["structural_valid"])
+            self.assertFalse(review["ready_for_staging"])
+            self.assertFalse(review["accepted_for_closure"])
+            self.assertIn("screenshot_decode", review["missing_evidence"])
+            self.assertIn(
+                "screenshot_path_not_repo_relative",
+                review["closure_disqualifiers"],
+            )
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir)
+            evidence, trace_path, _screenshot_path = _write_claim_live_evidence(temp_root)
+            trace_record = json.loads(trace_path.read_text(encoding="utf-8"))
+            # The legacy loader accepted a JSON array. Closure evidence must be
+            # strict JSONL, even when the enclosed record is otherwise valid.
+            trace_path.write_text(json.dumps([trace_record]), encoding="utf-8")
+            evidence["trace_sha256"] = _sha256(trace_path)
+            review = tools._terminal_source_evidence_review(
+                action_type="claim_chapter_reward",
+                fixture="live_claim_terminal_trace.json",
+                expectation={"page": "chapter", "terminal_source_evidence": evidence},
+            )
+
+            self.assertFalse(review["structural_valid"])
+            self.assertIn("strict_trace", review["missing_evidence"])
+            self.assertIn(
+                "trace_object_line_1",
+                review["strict_trace_validation"]["issues"],
+            )
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            workspace_root = Path(temp_dir)
+            evidence, _trace_path, _screenshot_path = (
+                _write_repo_relative_claim_live_evidence(workspace_root, commit=False)
+            )
+            review = AdvisorReplayTools(
+                workspace_root=workspace_root
+            )._terminal_source_evidence_review(
+                action_type="claim_chapter_reward",
+                fixture="live_claim_terminal_trace.json",
+                expectation={"page": "chapter", "terminal_source_evidence": evidence},
+            )
+
+            self.assertTrue(review["structural_valid"])
+            self.assertFalse(review["accepted_for_closure"])
+            self.assertIn("git_worktree_not_clean", review["closure_disqualifiers"])
+            self.assertIn(
+                "screenshot_not_committed_regular_blob",
+                review["closure_disqualifiers"],
+            )
+
+    def test_reviewed_live_evidence_paths_reject_escape_and_symlink(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            workspace_root = Path(temp_dir)
+            tools = AdvisorReplayTools(workspace_root=workspace_root)
+            escaped = tools._reviewed_live_evidence_path_validation(
+                "screenshot",
+                "packages/pioneer-agent/tests/fixtures/live-evidence/reviewed/../../escape.png",
+            )
+            self.assertFalse(escaped["valid"])
+            self.assertIn("screenshot_path_escape", escaped["issues"])
+
+            reviewed_root = (
+                workspace_root
+                / "packages/pioneer-agent/tests/fixtures/live-evidence/reviewed"
+            )
+            reviewed_root.mkdir(parents=True)
+            actual = reviewed_root / "actual.png"
+            actual.write_bytes(_VALID_PNG)
+            link = reviewed_root / "linked.png"
+            link.symlink_to(actual.name)
+            symlinked = tools._reviewed_live_evidence_path_validation(
+                "screenshot",
+                link.relative_to(workspace_root).as_posix(),
+            )
+            self.assertFalse(symlinked["valid"])
+            self.assertIn("screenshot_symlink", symlinked["issues"])
+
+    def test_static_screenshot_metadata_cannot_satisfy_executor_closure(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            evidence, _trace_path, _screenshot_path = _write_claim_live_evidence(
+                Path(temp_dir)
+            )
+            evidence["source_kind"] = "pr5_real_screenshot_fixture"
+            evidence["post_action_delta_evidence"] = {
+                **evidence["post_action_delta_evidence"],
+                "supporting_refs": [
+                    "terminal_source_evidence.trace",
+                    "terminal_source_evidence.verification_record",
+                    "THIS_FILE_DOES_NOT_EXIST.json",
+                ],
+            }
+
+            payload = AdvisorReplayTools.from_qa_project_root(
+                Path(__file__).resolve().parents[1]
+            ).terminal_source_evidence_eval(
+                action_type="claim_chapter_reward",
+                fixture="pr5_chapter_claim_terminal_state.json",
+                page="chapter",
+                terminal_source_evidence=evidence,
+            )
+
+            self.assertFalse(payload["ready"])
+            self.assertIn("accepted_source_kind", payload["review"]["missing_evidence"])
+            self.assertIn(
+                "post_action_delta_evidence",
+                payload["review"]["missing_evidence"],
+            )
+            self.assertIn(
+                "supporting_ref_binding",
+                payload["review"]["post_action_delta_evidence_validation"]["issues"],
+            )
+
+    def test_operator_confirmation_must_be_aware_and_precede_dispatch(self) -> None:
+        tools = AdvisorReplayTools.from_qa_project_root(Path(__file__).resolve().parents[1])
+        with tempfile.TemporaryDirectory() as temp_dir:
+            evidence, _trace_path, _screenshot_path = _write_claim_live_evidence(
+                Path(temp_dir)
+            )
+            cases = {
+                "naive": "2026-05-30T17:45:00",
+                "after_dispatch": "2026-05-30T17:47:00+08:00",
+            }
+            for label, confirmed_at in cases.items():
+                with self.subTest(label=label):
+                    invalid = {
+                        **evidence,
+                        "operator_confirmation": {
+                            **evidence["operator_confirmation"],
+                            "confirmed_at": confirmed_at,
+                        },
+                    }
+                    review = tools._terminal_source_evidence_review(
+                        action_type="claim_chapter_reward",
+                        fixture="live_claim_terminal_trace.json",
+                        expectation={
+                            "page": "chapter",
+                            "terminal_source_evidence": invalid,
+                        },
+                    )
+                    self.assertFalse(review["source_evidence_valid"])
+                    self.assertIn("operator_confirmation", review["missing_evidence"])
+                    issue = (
+                        "confirmed_at_aware_iso8601"
+                        if label == "naive"
+                        else "confirmation_not_before_dispatch"
+                    )
+                    self.assertIn(
+                        issue,
+                        review["operator_confirmation_validation"]["issues"],
+                    )
+
+    def test_manifest_confirmation_cannot_replace_missing_trace_confirmation(self) -> None:
+        tools = AdvisorReplayTools.from_qa_project_root(Path(__file__).resolve().parents[1])
+        with tempfile.TemporaryDirectory() as temp_dir:
+            evidence, trace_path, _screenshot_path = _write_claim_live_evidence(
+                Path(temp_dir)
+            )
+            trace_record = json.loads(trace_path.read_text(encoding="utf-8"))
+            del trace_record["execution"]["summary"]["operator_confirmation"]
+            trace_path.write_text(json.dumps(trace_record, ensure_ascii=False), encoding="utf-8")
+            evidence["trace_sha256"] = _sha256(trace_path)
+
+            review = tools._terminal_source_evidence_review(
+                action_type="claim_chapter_reward",
+                fixture="live_claim_terminal_trace.json",
+                expectation={"page": "chapter", "terminal_source_evidence": evidence},
+            )
+
+            self.assertFalse(review["source_evidence_valid"])
+            self.assertIn("trace_semantics", review["missing_evidence"])
+            self.assertIn("operator_confirmation", review["missing_evidence"])
+            evaluation = review["trace_validation"]["record_evaluations"][0]
+            self.assertFalse(evaluation["trace_operator_confirmation_valid"])
+            self.assertIn(
+                "trace_operator_confirmation_not_object",
+                evaluation["trace_operator_confirmation_issues"],
+            )
+
+    def test_manifest_confirmation_must_exactly_mirror_matched_trace(self) -> None:
+        tools = AdvisorReplayTools.from_qa_project_root(Path(__file__).resolve().parents[1])
+        with tempfile.TemporaryDirectory() as temp_dir:
+            evidence, _trace_path, _screenshot_path = _write_claim_live_evidence(
+                Path(temp_dir)
+            )
+            cases = {
+                "confirmation_id": "confirmation-other",
+                "request_id": "request-other",
+                "action_id": "action-other",
+                "action_type": "recruit_soldiers",
+                "target_key": "other_button",
+                "target_identity": {"chapter_id": 18},
+                "observation_id": "observation-other",
+                "frame_sha256": "0" * 64,
+                "observation_captured_at": "2026-05-30T17:45:01+08:00",
+                "confirmed_at": "2026-05-30T17:45:04+08:00",
+                "expires_at": "2026-05-30T17:45:14+08:00",
+                "consumed_at": "2026-05-30T17:45:07+08:00",
+                "dispatch_at": "2026-05-30T17:45:07+08:00",
+                "runtime_dispatch": {
+                    "status": "ok",
+                    "target_key": "other_button",
+                    "terminal_for_verifier": True,
+                },
+            }
+            for field_name, replacement in cases.items():
+                with self.subTest(field_name=field_name):
+                    invalid = copy.deepcopy(evidence)
+                    invalid["operator_confirmation"][field_name] = replacement
+                    review = tools._terminal_source_evidence_review(
+                        action_type="claim_chapter_reward",
+                        fixture="live_claim_terminal_trace.json",
+                        expectation={
+                            "page": "chapter",
+                            "terminal_source_evidence": invalid,
+                        },
+                    )
+                    self.assertFalse(review["source_evidence_valid"])
+                    self.assertIn("operator_confirmation", review["missing_evidence"])
+                    self.assertIn(
+                        f"trace_confirmation_mismatch.{field_name}",
+                        review["operator_confirmation_validation"]["issues"],
+                    )
+
+    def test_trace_confirmation_must_bind_terminal_observation_and_time(self) -> None:
+        tools = AdvisorReplayTools.from_qa_project_root(Path(__file__).resolve().parents[1])
+        cases = {
+            "empty_confirmation_id": ("confirmation_id", ""),
+            "empty_request_id": ("request_id", ""),
+            "action_id": ("action_id", "action-other"),
+            "action_type": ("action_type", "recruit_soldiers"),
+            "target_key": ("target_key", "other_button"),
+            "target_identity": ("target_identity", {"chapter_id": 18}),
+            "observation_id": ("observation_id", "observation-other"),
+            "frame_sha256": ("frame_sha256", "0" * 64),
+            "dispatch_at": ("dispatch_at", "2026-05-30T17:45:07+08:00"),
+            "runtime_dispatch": (
+                "runtime_dispatch",
+                {
+                    "status": "ok",
+                    "target_key": "other_button",
+                    "terminal_for_verifier": True,
+                },
+            ),
+            "confirmation_before_observation": (
+                "confirmed_at",
+                "2026-05-30T17:44:59+08:00",
+            ),
+        }
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir)
+            for label, (field_name, replacement) in cases.items():
+                with self.subTest(label=label):
+                    case_root = temp_root / label
+                    case_root.mkdir()
+                    evidence, trace_path, _screenshot_path = _write_claim_live_evidence(
+                        case_root
+                    )
+                    trace_record = json.loads(trace_path.read_text(encoding="utf-8"))
+                    trace_confirmation = trace_record["execution"]["summary"][
+                        "operator_confirmation"
+                    ]
+                    trace_confirmation[field_name] = replacement
+                    evidence["operator_confirmation"][field_name] = replacement
+                    trace_path.write_text(
+                        json.dumps(trace_record, ensure_ascii=False),
+                        encoding="utf-8",
+                    )
+                    evidence["trace_sha256"] = _sha256(trace_path)
+
+                    review = tools._terminal_source_evidence_review(
+                        action_type="claim_chapter_reward",
+                        fixture="live_claim_terminal_trace.json",
+                        expectation={
+                            "page": "chapter",
+                            "terminal_source_evidence": evidence,
+                        },
+                    )
+
+                    self.assertFalse(review["source_evidence_valid"])
+                    self.assertIn("trace_semantics", review["missing_evidence"])
+                    evaluation = review["trace_validation"]["record_evaluations"][0]
+                    self.assertFalse(evaluation["trace_operator_confirmation_valid"])
+                    self.assertTrue(evaluation["trace_operator_confirmation_issues"])
+
+    def test_trace_selected_action_target_must_match_evidence_identity(self) -> None:
+        tools = AdvisorReplayTools.from_qa_project_root(Path(__file__).resolve().parents[1])
+        with tempfile.TemporaryDirectory() as temp_dir:
+            evidence, trace_path, _screenshot_path = _write_claim_live_evidence(
+                Path(temp_dir)
+            )
+            trace_record = json.loads(trace_path.read_text(encoding="utf-8"))
+            trace_record["selected_action"]["params"]["chapter_id"] = 18
+            trace_path.write_text(json.dumps(trace_record, ensure_ascii=False), encoding="utf-8")
+            evidence["trace_sha256"] = _sha256(trace_path)
+
+            review = tools._terminal_source_evidence_review(
+                action_type="claim_chapter_reward",
+                fixture="live_claim_terminal_trace.json",
+                expectation={
+                    "page": "chapter",
+                    "terminal_source_evidence": evidence,
+                },
+            )
+
+            self.assertFalse(review["source_evidence_valid"])
+            self.assertIn("trace_semantics", review["missing_evidence"])
+            evaluation = review["trace_validation"]["record_evaluations"][0]
+            self.assertFalse(evaluation["action_target_valid"])
+            self.assertIn(
+                "selected_action.params.chapter_id",
+                evaluation["action_target_issues"],
+            )
+
+    def test_weak_global_and_wrong_identity_deltas_are_rejected(self) -> None:
+        cases = [
+            (
+                "recruit_soldiers",
+                {"team_id": "guard-1"},
+                {
+                    "path": "economy.reserve_troops",
+                    "operator": "less_than_before",
+                    "before": 40000,
+                    "after": 39000,
+                },
+            ),
+            (
+                "upgrade_building",
+                {
+                    "building_name": "Main Hall",
+                    "current_level": 10,
+                    "target_level": 11,
+                },
+                {
+                    "path": "economy.resources.wood",
+                    "operator": "less_than_before",
+                    "before": 900000,
+                    "after": 780000,
+                },
+            ),
+            (
+                "recruit_soldiers",
+                {"team_id": "guard-1"},
+                {
+                    "selector": {
+                        "collection_path": "teams",
+                        "identity_field": "team_id",
+                        "identity_value": "guard-2",
+                    },
+                    "path": "soldiers",
+                    "operator": "greater_than_before",
+                    "before": 22000,
+                    "after": 23000,
+                },
+            ),
+            *[
+                (
+                    "recruit_soldiers",
+                    {"team_id": "guard-1"},
+                    {
+                        "selector": {
+                            "collection_path": "teams",
+                            "identity_field": "team_id",
+                            "identity_value": "guard-1",
+                        },
+                        "path": "recruit_finish_time",
+                        "operator": "becomes_present",
+                        "before": None,
+                        "after": invalid_after,
+                    },
+                )
+                for invalid_after in (False, 0, "   ")
+            ],
+        ]
+        for action_type, target_identity, delta in cases:
+            with self.subTest(action_type=action_type, delta=delta):
+                validation = _post_action_delta_validation(
+                    [delta],
+                    requirement=LOW_RISK_TERMINAL_SOURCE_REQUIREMENTS[action_type],
+                    target_identity=target_identity,
+                )
+                self.assertFalse(validation["valid"])
+                self.assertIn(
+                    "delta[0].target_bound_contract",
+                    validation["issues"],
+                )
 
     def test_pr5_locked_field_coverage_reports_missing_fields(self) -> None:
         coverage = AdvisorReplayTools._pr5_locked_field_coverage(
