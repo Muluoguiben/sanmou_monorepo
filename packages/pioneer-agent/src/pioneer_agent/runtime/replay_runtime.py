@@ -2,7 +2,14 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from pioneer_agent.core.device import CapabilityFlags
+from pioneer_agent.core.device import (
+    CapabilityFlags,
+    DevicePlatform,
+    DeviceProfile,
+    DeviceSession,
+    ObservationSource,
+    ObservationSourceType,
+)
 from pioneer_agent.core.models import RuntimeState
 from pioneer_agent.core.runtime_state_io import load_runtime_state_record
 from pioneer_agent.derivation.state_deriver import StateDeriver
@@ -13,6 +20,7 @@ from pioneer_agent.runtime.architecture_gates import (
     validate_low_risk_semantic_target,
 )
 from pioneer_agent.selector.action_selector import ActionSelector
+from pioneer_agent.safety.guard import SessionMode
 from pioneer_agent.verifier.base import DeltaMatchPolicy
 from pioneer_agent.verifier.registry import VerifierRegistry, serialize_verifier_spec
 
@@ -22,9 +30,12 @@ class ReplayRuntime:
         self.selector = ActionSelector()
         self.deriver = StateDeriver()
         self.verifier_registry = VerifierRegistry()
+        device_session = _replay_device_session()
         self.dispatch_runner = UIActionRunner(
             _ReplayUI(),
-            capabilities=CapabilityFlags(input_control=True),
+            device_session=device_session,
+            capabilities=device_session.capabilities,
+            session_mode=SessionMode.AUTOMATION_TEST,
             verifier_registry=self.verifier_registry,
         )
 
@@ -93,3 +104,19 @@ class _ReplayUI:
                 "normalized_bbox": dict(bbox),
             },
         )
+
+
+def _replay_device_session() -> DeviceSession:
+    capabilities = CapabilityFlags(input_control=True)
+    return DeviceSession(
+        profile=DeviceProfile(
+            platform=DevicePlatform.PC_CLIENT,
+            resolution=(1286, 666),
+        ),
+        source=ObservationSource(
+            source_type=ObservationSourceType.WINDOWS_WINDOW_CAPTURE,
+            capabilities=capabilities,
+            display_name="offline replay UI",
+        ),
+        capabilities=capabilities,
+    )

@@ -25,6 +25,7 @@ from pioneer_agent.perception.vision_sync import VisionSyncSummary
 from pioneer_agent.runtime.advisor_loop import build_advisor_report
 from pioneer_agent.selector.action_selector import ActionSelector
 from pioneer_agent.core.enums import ActionType
+from pioneer_agent.safety.guard import SessionMode
 from pioneer_agent.verifier import VerifierGateDecision, VerifierRegistry
 
 
@@ -162,9 +163,12 @@ class Pr5AdvisorGoldenReplayTests(unittest.TestCase):
         expectations = _pr5_expectations(_load_expectation_payload())
         deriver = StateDeriver()
         selector = ActionSelector()
+        device_session = _control_session()
         runner = UIActionRunner(
             _ReplayUI(),  # type: ignore[arg-type]
-            capabilities=CapabilityFlags(input_control=True),
+            device_session=device_session,
+            capabilities=device_session.capabilities,
+            session_mode=SessionMode.AUTOMATION_TEST,
         )
         cases = {
             fixture_name: expected
@@ -220,9 +224,12 @@ class Pr5AdvisorGoldenReplayTests(unittest.TestCase):
                 self.assertIsNotNone(action)
                 self.assertEqual(action.action_type, action_type)
 
+                device_session = _control_session()
                 result = UIActionRunner(
                     _ReplayUI(),  # type: ignore[arg-type]
-                    capabilities=CapabilityFlags(input_control=True),
+                    device_session=device_session,
+                    capabilities=device_session.capabilities,
+                    session_mode=SessionMode.AUTOMATION_TEST,
                 ).run(action)
 
                 self.assertEqual(result.status, "ok")
@@ -292,6 +299,22 @@ def _frame(payload: bytes) -> CaptureFrame:
         captured_at=datetime(2026, 5, 29, 14, 40, 0),
         device_session=session,
         source_type=ObservationSourceType.SCREENSHOT_FILE,
+    )
+
+
+def _control_session() -> DeviceSession:
+    capabilities = CapabilityFlags(input_control=True)
+    source = ObservationSource(
+        source_type=ObservationSourceType.WINDOWS_WINDOW_CAPTURE,
+        capabilities=capabilities,
+    )
+    return DeviceSession(
+        profile=DeviceProfile(
+            platform=DevicePlatform.PC_CLIENT,
+            resolution=(1286, 666),
+        ),
+        source=source,
+        capabilities=capabilities,
     )
 
 

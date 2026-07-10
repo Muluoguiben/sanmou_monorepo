@@ -153,6 +153,9 @@ class _StubRunner:
             summary={"action_type": action.action_type.value},
         )
 
+    def input_authority_failure_reason(self) -> None:
+        return None
+
 
 def _runbook() -> OpeningRunbook:
     return OpeningRunbook.model_validate(
@@ -827,6 +830,9 @@ class GuardSeamRegressionTests(unittest.TestCase):
                     recovery_required=True, summary={},
                 )
 
+            def input_authority_failure_reason(self) -> None:
+                return None
+
         for post_loss, expect_esc in ((0.5, False), (0.1, True)):
             spy = _SpyUIActions()
             runner = _RecoveryRunner(
@@ -968,6 +974,9 @@ class GuardSeamRegressionTests(unittest.TestCase):
                     action_id=action.action_id, status="failed",
                     recovery_required=True, summary={},
                 )
+
+            def input_authority_failure_reason(self) -> None:
+                return None
 
         with tempfile.TemporaryDirectory() as tmp:
             switch = KillSwitch(Path(tmp) / "STOP")

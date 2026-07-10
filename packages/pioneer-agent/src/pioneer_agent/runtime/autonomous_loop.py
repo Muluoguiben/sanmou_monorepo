@@ -281,14 +281,14 @@ class AutonomousLoop:
         state_after = self.state.model_dump(mode="json")
         recovery_strategy: str | None = None
         if execution is not None and execution.recovery_required and not self.dry_run:
-            recovery_verdict = self._guard.recovery_verdict()
-            if not recovery_verdict.allowed:
-                # No automated input under a kill switch or a blocking hold —
-                # an operator may be driving the client; a dangling dialog
-                # waits for them/the planner.
+            recovery_block_reason = self._recovery_input_block_reason()
+            if recovery_block_reason is not None:
+                # No automated input without explicit runner authority, under
+                # a kill switch, or during a blocking hold. A dangling dialog
+                # waits for the operator/planner.
                 logger.warning(
                     "tick %d: recovery required but input suppressed (%s)",
-                    iteration, recovery_verdict.reason,
+                    iteration, recovery_block_reason,
                 )
                 self._stuck_count = 0
             else:
@@ -307,11 +307,11 @@ class AutonomousLoop:
         ):
             self._stuck_count += 1
             if self._stuck_count >= self.stuck_threshold and not self.dry_run:
-                recovery_verdict = self._guard.recovery_verdict()
-                if not recovery_verdict.allowed:
+                recovery_block_reason = self._recovery_input_block_reason()
+                if recovery_block_reason is not None:
                     logger.warning(
                         "tick %d: stuck but input suppressed (%s)",
-                        iteration, recovery_verdict.reason,
+                        iteration, recovery_block_reason,
                     )
                     self._stuck_count = 0
                 else:
@@ -662,7 +662,38 @@ class AutonomousLoop:
             return True
         return False
 
-    def _attempt_esc_recovery(self, *, iteration: int, strategy: str) -> str:
+    def _recovery_input_block_reason(self) -> str | None:
+        authority_check = getattr(
+            self.runner,
+            "input_authority_failure_reason",
+            None,
+        )
+        if not callable(authority_check):
+            return "runner does not expose input authority"
+        try:
+            authority_reason = authority_check()
+        except Exception:  # noqa: BLE001
+            logger.exception("input authority check failed")
+            return "input authority check failed"
+        if authority_reason is not None:
+            return str(authority_reason)
+        recovery_verdict = self._guard.recovery_verdict()
+        return None if recovery_verdict.allowed else recovery_verdict.reason
+
+    def _attempt_esc_recovery(
+        self,
+        *,
+        iteration: int,
+        strategy: str,
+    ) -> str | None:
+        block_reason = self._recovery_input_block_reason()
+        if block_reason is not None:
+            logger.warning(
+                "tick %d: recovery input suppressed (%s)",
+                iteration,
+                block_reason,
+            )
+            return None
         logger.warning("tick %d: attempting recovery strategy=%s", iteration, strategy)
         try:
             outcome = self.ui_actions.close_popup()

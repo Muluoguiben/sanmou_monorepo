@@ -5,7 +5,14 @@ import unittest
 from dataclasses import dataclass
 from typing import Any
 
-from pioneer_agent.core.device import CapabilityFlags
+from pioneer_agent.core.device import (
+    CapabilityFlags,
+    DevicePlatform,
+    DeviceProfile,
+    DeviceSession,
+    ObservationSource,
+    ObservationSourceType,
+)
 from pioneer_agent.core.enums import ActionType
 from pioneer_agent.core.models import CandidateAction, ExecutionResult, SelectionResult
 from pioneer_agent.executor.ui_runner import UIActionRunner
@@ -15,6 +22,32 @@ from pioneer_agent.runtime.autonomous_loop import (
     WAIT_SLEEP_S,
     AutonomousLoop,
 )
+from pioneer_agent.safety.guard import SessionMode
+
+
+def _control_session() -> DeviceSession:
+    capabilities = CapabilityFlags(input_control=True)
+    return DeviceSession(
+        profile=DeviceProfile(
+            platform=DevicePlatform.PC_CLIENT,
+            resolution=(1286, 666),
+        ),
+        source=ObservationSource(
+            source_type=ObservationSourceType.WINDOWS_WINDOW_CAPTURE,
+            capabilities=capabilities,
+        ),
+        capabilities=capabilities,
+    )
+
+
+def _ui_runner(ui: object) -> UIActionRunner:
+    session = _control_session()
+    return UIActionRunner(
+        ui,  # type: ignore[arg-type]
+        device_session=session,
+        capabilities=session.capabilities,
+        session_mode=SessionMode.AUTOMATION_TEST,
+    )
 
 
 @dataclass
@@ -158,6 +191,9 @@ class _StubRunner:
     def run(self, action):  # noqa: ANN001
         self.actions.append(action)
         return ExecutionResult(action_id=action.action_id, status="ok")
+
+    def input_authority_failure_reason(self) -> None:
+        return None
 
 
 def _chapter_resource_payload() -> dict[str, Any]:
@@ -431,7 +467,7 @@ class AutonomousLoopTests(unittest.TestCase):
             UIRegistry({"esc_close": UIButton("esc_close", "close", 0.5, 0.5)}),
             vision=vision,
         )
-        runner = UIActionRunner(ui, capabilities=CapabilityFlags(input_control=True))
+        runner = _ui_runner(ui)
         loop = AutonomousLoop(
             bridge=bridge,
             vision_sync=VisionSync(vision),  # type: ignore[arg-type]
@@ -478,7 +514,7 @@ class AutonomousLoopTests(unittest.TestCase):
             UIRegistry({"esc_close": UIButton("esc_close", "close", 0.5, 0.5)}),
             vision=vision,
         )
-        runner = UIActionRunner(ui, capabilities=CapabilityFlags(input_control=True))
+        runner = _ui_runner(ui)
         loop = AutonomousLoop(
             bridge=bridge,
             vision_sync=VisionSync(vision),  # type: ignore[arg-type]
@@ -529,7 +565,7 @@ class AutonomousLoopTests(unittest.TestCase):
                 UIRegistry({"esc_close": UIButton("esc_close", "close", 0.5, 0.5)}),
                 vision=vision,
             )
-            runner = UIActionRunner(ui, capabilities=CapabilityFlags(input_control=True))
+            runner = _ui_runner(ui)
             loop = AutonomousLoop(
                 bridge=bridge,
                 vision_sync=VisionSync(vision),  # type: ignore[arg-type]
@@ -580,7 +616,7 @@ class AutonomousLoopTests(unittest.TestCase):
                 UIRegistry({"esc_close": UIButton("esc_close", "close", 0.5, 0.5)}),
                 vision=vision,
             )
-            runner = UIActionRunner(ui, capabilities=CapabilityFlags(input_control=True))
+            runner = _ui_runner(ui)
             loop = AutonomousLoop(
                 bridge=bridge,
                 vision_sync=VisionSync(vision),  # type: ignore[arg-type]
@@ -643,7 +679,7 @@ class AutonomousLoopTests(unittest.TestCase):
             UIRegistry({"esc_close": UIButton("esc_close", "close", 0.5, 0.5)}),
             vision=vision,
         )
-        runner = UIActionRunner(ui, capabilities=CapabilityFlags(input_control=True))
+        runner = _ui_runner(ui)
         loop = AutonomousLoop(
             bridge=bridge,
             vision_sync=VisionSync(vision),  # type: ignore[arg-type]
@@ -708,7 +744,7 @@ class AutonomousLoopTests(unittest.TestCase):
             UIRegistry({"esc_close": UIButton("esc_close", "close", 0.5, 0.5)}),
             vision=vision,
         )
-        runner = UIActionRunner(ui, capabilities=CapabilityFlags(input_control=True))
+        runner = _ui_runner(ui)
         loop = AutonomousLoop(
             bridge=bridge,
             vision_sync=VisionSync(vision),  # type: ignore[arg-type]
@@ -825,6 +861,39 @@ class AutonomousLoopTests(unittest.TestCase):
         loop.tick(2)
         self.assertEqual(ui.esc_calls, 1)
         self.assertEqual(loop._stuck_count, 0)
+
+    def test_stuck_recovery_without_runner_authority_sends_no_input(self) -> None:
+        from pioneer_agent.perception.vision_sync import VisionSync
+
+        class _RecordingUI:
+            def __init__(self) -> None:
+                self.esc_calls = 0
+
+            def close_popup(self):
+                self.esc_calls += 1
+                return object()
+
+        ui = _RecordingUI()
+        bridge = _StubBridge()
+        vision = _ScriptedVision(
+            [{"page_type": "unknown", "resources": {}}] * 2
+        )
+        loop = AutonomousLoop(
+            bridge=bridge,
+            vision_sync=VisionSync(vision),  # type: ignore[arg-type]
+            ui_actions=ui,  # type: ignore[arg-type]
+            selector=_StubSelector(None),
+            deriver=_StubDeriver(),  # type: ignore[arg-type]
+            sleeper=lambda _seconds: None,
+            stuck_threshold=2,
+            dry_run=False,
+        )
+
+        loop.tick(0)
+        loop.tick(1)
+
+        self.assertEqual(ui.esc_calls, 0)
+        self.assertEqual(bridge.keys, [])
 
     def test_productive_tick_resets_stuck_counter(self) -> None:
         loop, _bridge, _ = self._loop(

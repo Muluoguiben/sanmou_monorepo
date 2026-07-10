@@ -14,6 +14,7 @@ class SafetyGuardTests(unittest.TestCase):
             ActionType.UPGRADE_BUILDING,
             risk={"level": "low"},
             capabilities=CapabilityFlags(input_control=True),
+            session_mode=SessionMode.AUTOMATION_TEST,
         )
 
         self.assertEqual(verdict.decision, GuardDecision.ALLOW)
@@ -24,6 +25,7 @@ class SafetyGuardTests(unittest.TestCase):
             ActionType.UPGRADE_BUILDING,
             risk=RiskLevel.HIGH,
             capabilities=CapabilityFlags(input_control=True),
+            session_mode=SessionMode.LIVE,
         )
 
         self.assertEqual(verdict.decision, GuardDecision.REQUIRE_CONFIRMATION)
@@ -33,6 +35,7 @@ class SafetyGuardTests(unittest.TestCase):
             ActionType.UPGRADE_BUILDING,
             risk=RiskLevel.HIGH,
             capabilities=CapabilityFlags(input_control=True),
+            session_mode=SessionMode.LIVE,
             confirmation_token="manual-ok",
         )
 
@@ -44,6 +47,7 @@ class SafetyGuardTests(unittest.TestCase):
             ActionType.CLAIM_CHAPTER_REWARD,
             risk="low",
             capabilities=CapabilityFlags(observe_only=True),
+            session_mode=SessionMode.LIVE,
         )
 
         self.assertEqual(verdict.decision, GuardDecision.BLOCK)
@@ -79,6 +83,7 @@ class SafetyGuardTests(unittest.TestCase):
             verdict = SafetyGuard().evaluate(
                 action_type,
                 capabilities=CapabilityFlags(input_control=True),
+                session_mode=SessionMode.LIVE,
             )
             self.assertEqual(verdict.decision, GuardDecision.REQUIRE_CONFIRMATION)
 
@@ -86,6 +91,7 @@ class SafetyGuardTests(unittest.TestCase):
         verdict = SafetyGuard().evaluate(
             ActionType.ATTACK_LAND,
             capabilities=CapabilityFlags(input_control=True),
+            session_mode=SessionMode.LIVE,
             confirmation_token="manual-ok",
         )
 
@@ -95,10 +101,31 @@ class SafetyGuardTests(unittest.TestCase):
         verdict = SafetyGuard(input_allowlist=[]).evaluate(
             ActionType.UPGRADE_BUILDING,
             capabilities=CapabilityFlags(input_control=True),
+            session_mode=SessionMode.LIVE,
         )
 
         self.assertEqual(verdict.decision, GuardDecision.BLOCK)
         self.assertIn("allowlist", verdict.reason)
+
+    def test_missing_capabilities_are_blocked(self) -> None:
+        verdict = SafetyGuard().evaluate(
+            ActionType.CLAIM_CHAPTER_REWARD,
+            session_mode=SessionMode.LIVE,
+        )
+
+        self.assertEqual(verdict.decision, GuardDecision.BLOCK)
+        self.assertIn("capabilities", verdict.reason)
+
+    def test_missing_or_unknown_session_mode_is_blocked(self) -> None:
+        for session_mode in (None, "not-a-session"):
+            with self.subTest(session_mode=session_mode):
+                verdict = SafetyGuard().evaluate(
+                    ActionType.CLAIM_CHAPTER_REWARD,
+                    capabilities=CapabilityFlags(input_control=True),
+                    session_mode=session_mode,
+                )
+                self.assertEqual(verdict.decision, GuardDecision.BLOCK)
+                self.assertIn("session mode", verdict.reason)
 
 
 if __name__ == "__main__":

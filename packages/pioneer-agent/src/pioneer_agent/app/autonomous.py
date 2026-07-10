@@ -12,7 +12,17 @@ from pathlib import Path
 
 from pioneer_agent.adapters.bridge_client import BridgeClient
 from pioneer_agent.app.cli_utils import user_path
+from pioneer_agent.core.device import (
+    CapabilityFlags,
+    DevicePlatform,
+    DeviceProfile,
+    DeviceSession,
+    ObservationSource,
+    ObservationSourceType,
+    Orientation,
+)
 from pioneer_agent.executor.ui_actions import UIActions
+from pioneer_agent.executor.ui_runner import UIActionRunner
 from pioneer_agent.perception.ui_registry import UIRegistry
 from pioneer_agent.perception.vision import build_vision_client
 from pioneer_agent.perception.vision_sync import VisionSync
@@ -28,6 +38,7 @@ from pioneer_agent.runbook.state_store import (
 )
 from pioneer_agent.runtime.autonomous_loop import AutonomousLoop
 from pioneer_agent.safety.kill_switch import KillSwitch, default_kill_switch_path
+from pioneer_agent.safety.guard import SessionMode
 from pioneer_agent.storage.loop_logger import LoopLogger
 from pioneer_agent.storage.trace_store import TraceStore
 
@@ -37,6 +48,76 @@ def _lineup_preset_binding(value: str) -> tuple[str, str]:
         return parse_operator_lineup_binding(value)
     except ValueError as exc:
         raise argparse.ArgumentTypeError(str(exc)) from exc
+
+
+def _add_execution_mode_args(parser: argparse.ArgumentParser) -> None:
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument(
+        "--execute",
+        dest="dry_run",
+        action="store_false",
+        help="Explicitly allow guarded UI dispatch (default is dry-run).",
+    )
+    mode.add_argument(
+        "--dry-run",
+        dest="dry_run",
+        action="store_true",
+        help="Run perception + decision but skip UI action dispatch (default).",
+    )
+    parser.set_defaults(dry_run=True)
+
+
+def _build_live_device_session(bridge: BridgeClient) -> DeviceSession:
+    window = dict(bridge.window_info())
+    width = window.get("width")
+    height = window.get("height")
+    hwnd = window.get("hwnd")
+    pid = window.get("pid")
+    if (
+        not isinstance(width, int)
+        or isinstance(width, bool)
+        or width <= 0
+        or not isinstance(height, int)
+        or isinstance(height, bool)
+        or height <= 0
+        or window.get("usable") is not True
+        or window.get("visible") is not True
+        or window.get("iconic") is not False
+        or window.get("offscreen") is not False
+        or not isinstance(hwnd, int)
+        or isinstance(hwnd, bool)
+        or hwnd <= 0
+        or not isinstance(pid, int)
+        or isinstance(pid, bool)
+        or pid <= 0
+    ):
+        raise RuntimeError("bridge window is not visible and usable")
+    capabilities = CapabilityFlags(
+        live_capture=True,
+        input_control=True,
+        reliable_window_info=True,
+    )
+    source = ObservationSource(
+        source_type=ObservationSourceType.WINDOWS_WINDOW_CAPTURE,
+        capabilities=capabilities,
+        metadata={
+            "bridge_port": bridge.port,
+            "hwnd": hwnd,
+            "pid": pid,
+        },
+    )
+    return DeviceSession(
+        profile=DeviceProfile(
+            platform=DevicePlatform.PC_CLIENT,
+            resolution=(width, height),
+            screenshot_size=(width, height),
+            orientation=(
+                Orientation.LANDSCAPE if width >= height else Orientation.PORTRAIT
+            ),
+        ),
+        source=source,
+        capabilities=capabilities,
+    )
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -50,8 +131,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--no-archive", action="store_true",
                         help="Skip archiving screenshot PNGs (JSONL only).")
     parser.add_argument("--log-level", default="INFO")
-    parser.add_argument("--dry-run", action="store_true",
-                        help="Run perception + decision but skip UI action dispatch.")
+    _add_execution_mode_args(parser)
     parser.add_argument("--stuck-threshold", type=int, default=3,
                         help="Consecutive idle/unknown ticks before ESC recovery (default: 3).")
     parser.add_argument("--vision-provider", choices=("gemini", "openai"), default=None,
@@ -131,10 +211,26 @@ def main(argv: list[str] | None = None) -> int:
         vision = build_vision_client(args.vision_provider)
         registry = UIRegistry.load()
         ui = UIActions(bridge, registry, vision=vision)
+        runner = None
+        if not args.dry_run:
+            logging.getLogger(__name__).warning(
+                "live UI execution explicitly enabled with --execute"
+            )
+            try:
+                device_session = _build_live_device_session(bridge)
+            except (ConnectionError, RuntimeError, TypeError, ValueError) as exc:
+                parser.error(f"cannot authorize --execute: {exc}")
+            runner = UIActionRunner(
+                ui,
+                device_session=device_session,
+                capabilities=device_session.capabilities,
+                session_mode=SessionMode.LIVE,
+            )
         loop = AutonomousLoop(
             bridge=bridge,
             vision_sync=VisionSync(vision),
             ui_actions=ui,
+            runner=runner,
             loop_logger=loop_logger,
             trace_store=trace_store,
             kill_switch=KillSwitch(kill_switch_path),

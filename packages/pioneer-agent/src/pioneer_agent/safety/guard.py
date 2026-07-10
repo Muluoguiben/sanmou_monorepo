@@ -92,21 +92,45 @@ class SafetyGuard:
     ) -> GuardVerdict:
         normalized_action = _normalize_action_type(action_type)
         risk_level = normalize_risk_level(risk)
-        normalized_session_mode = _normalize_session_mode(session_mode)
         confirmed = _has_confirmation_token(confirmation_token)
+
+        if capabilities is None:
+            return GuardVerdict(
+                decision=GuardDecision.BLOCK,
+                reason="explicit input_control capabilities are required for UI execution",
+                action_type=normalized_action,
+                risk_level=risk_level,
+            )
+
+        if not capabilities.can_execute_input:
+            return GuardVerdict(
+                decision=GuardDecision.BLOCK,
+                reason="input_control capability required for UI execution",
+                action_type=normalized_action,
+                risk_level=risk_level,
+            )
+
+        try:
+            normalized_session_mode = _normalize_session_mode(session_mode)
+        except ValueError:
+            return GuardVerdict(
+                decision=GuardDecision.BLOCK,
+                reason=f"unknown session mode {session_mode!r}",
+                action_type=normalized_action,
+                risk_level=risk_level,
+            )
+        if normalized_session_mode is None:
+            return GuardVerdict(
+                decision=GuardDecision.BLOCK,
+                reason="explicit session mode is required for UI execution",
+                action_type=normalized_action,
+                risk_level=risk_level,
+            )
 
         if normalized_session_mode in (SessionMode.OBSERVE_ONLY, SessionMode.ADVISOR):
             return GuardVerdict(
                 decision=GuardDecision.BLOCK,
                 reason=f"session mode {normalized_session_mode.value} does not allow UI execution",
-                action_type=normalized_action,
-                risk_level=risk_level,
-            )
-
-        if capabilities is not None and not capabilities.can_execute_input:
-            return GuardVerdict(
-                decision=GuardDecision.BLOCK,
-                reason="input_control capability required for UI execution",
                 action_type=normalized_action,
                 risk_level=risk_level,
             )

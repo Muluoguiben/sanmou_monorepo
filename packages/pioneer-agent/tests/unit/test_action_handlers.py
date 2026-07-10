@@ -3,7 +3,14 @@ from __future__ import annotations
 
 import unittest
 
-from pioneer_agent.core.device import CapabilityFlags
+from pioneer_agent.core.device import (
+    CapabilityFlags,
+    DevicePlatform,
+    DeviceProfile,
+    DeviceSession,
+    ObservationSource,
+    ObservationSourceType,
+)
 from pioneer_agent.core.enums import ActionType
 from pioneer_agent.core.models import CandidateAction
 from pioneer_agent.executor.action_handlers import dispatch
@@ -14,6 +21,7 @@ from pioneer_agent.runtime.architecture_gates import (
     AutomationReadiness,
     AutomationReadinessGate,
 )
+from pioneer_agent.safety.guard import SessionMode
 from pioneer_agent.verifier import ExpectedStateDelta, VerifierRegistry, VerifierSpec
 
 
@@ -38,6 +46,39 @@ class _SemanticUI:
 
 def _mk_action(t: ActionType, **params) -> CandidateAction:
     return CandidateAction(action_id=f"a-{t.value}", action_type=t, params=params)
+
+
+def _device_session(
+    *,
+    active: bool = True,
+    source_capabilities: CapabilityFlags | None = None,
+    session_capabilities: CapabilityFlags | None = None,
+) -> DeviceSession:
+    source_flags = source_capabilities or CapabilityFlags(input_control=True)
+    session_flags = session_capabilities or source_flags
+    return DeviceSession(
+        profile=DeviceProfile(
+            platform=DevicePlatform.PC_CLIENT,
+            resolution=(1286, 666),
+        ),
+        source=ObservationSource(
+            source_type=ObservationSourceType.WINDOWS_WINDOW_CAPTURE,
+            capabilities=source_flags,
+        ),
+        capabilities=session_flags,
+        active=active,
+    )
+
+
+def _authorized_runner(ui: object, **kwargs: object) -> UIActionRunner:
+    session = _device_session()
+    return UIActionRunner(
+        ui,  # type: ignore[arg-type]
+        device_session=session,
+        capabilities=session.capabilities,
+        session_mode=SessionMode.AUTOMATION_TEST,
+        **kwargs,
+    )
 
 
 class DispatchTests(unittest.TestCase):
@@ -188,14 +229,61 @@ class DispatchTests(unittest.TestCase):
 
 class UIActionRunnerTests(unittest.TestCase):
     def test_runner_delegates_to_dispatch(self) -> None:
-        runner = UIActionRunner(_NullUI())  # type: ignore[arg-type]
+        runner = _authorized_runner(_NullUI())
         res = runner.run(_mk_action(ActionType.WAIT_FOR_STAMINA))
         self.assertEqual(res.status, "ok")
 
+    def test_runner_without_device_session_cannot_click(self) -> None:
+        ui = _SemanticUI()
+        runner = UIActionRunner(
+            ui,  # type: ignore[arg-type]
+            capabilities=CapabilityFlags(input_control=True),
+            session_mode=SessionMode.LIVE,
+        )
+        res = runner.run(
+            _mk_action(
+                ActionType.CLAIM_CHAPTER_REWARD,
+                claim_button={
+                    "visible": True,
+                    "enabled": True,
+                    "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+                },
+            )
+        )
+        self.assertEqual(res.status, "blocked")
+        self.assertEqual(res.summary["blocked_by"], "device_session")
+        self.assertEqual(ui.clicks, [])
+
+    def test_runner_without_explicit_capabilities_cannot_click(self) -> None:
+        ui = _SemanticUI()
+        session = _device_session()
+        runner = UIActionRunner(
+            ui,  # type: ignore[arg-type]
+            device_session=session,
+            session_mode=SessionMode.LIVE,
+        )
+        res = runner.run(
+            _mk_action(
+                ActionType.CLAIM_CHAPTER_REWARD,
+                claim_button={
+                    "visible": True,
+                    "enabled": True,
+                    "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+                },
+            )
+        )
+        self.assertEqual(res.status, "blocked")
+        self.assertIn("explicit capabilities", res.failure_reason or "")
+        self.assertEqual(ui.clicks, [])
+
     def test_runner_blocks_observe_only_sources(self) -> None:
+        capabilities = CapabilityFlags(observe_only=True)
+        session = _device_session(source_capabilities=capabilities)
         runner = UIActionRunner(
             _NullUI(),  # type: ignore[arg-type]
-            capabilities=CapabilityFlags(observe_only=True),
+            device_session=session,
+            capabilities=capabilities,
+            session_mode=SessionMode.AUTOMATION_TEST,
         )
         res = runner.run(_mk_action(ActionType.CLAIM_CHAPTER_REWARD))
         self.assertEqual(res.status, "blocked")
@@ -203,9 +291,11 @@ class UIActionRunnerTests(unittest.TestCase):
         self.assertIn("input_control", res.failure_reason or "")
 
     def test_runner_blocks_advisor_session_mode(self) -> None:
+        session = _device_session()
         runner = UIActionRunner(
             _NullUI(),  # type: ignore[arg-type]
-            capabilities=CapabilityFlags(input_control=True),
+            device_session=session,
+            capabilities=session.capabilities,
             session_mode="advisor",
         )
         res = runner.run(_mk_action(ActionType.CLAIM_CHAPTER_REWARD))
@@ -214,39 +304,53 @@ class UIActionRunnerTests(unittest.TestCase):
         self.assertEqual(res.summary["guard_decision"], "block")
         self.assertIn("session mode advisor", res.failure_reason or "")
 
-    def test_runner_allows_explicit_control_capability(self) -> None:
-        runner = UIActionRunner(
-            _NullUI(),  # type: ignore[arg-type]
-            capabilities=CapabilityFlags(input_control=True),
-        )
+    def test_runner_allows_explicit_control_session(self) -> None:
+        runner = _authorized_runner(_NullUI())
         res = runner.run(_mk_action(ActionType.WAIT_FOR_STAMINA))
         self.assertEqual(res.status, "ok")
 
-    def test_runner_requires_confirmation_for_sensitive_action(self) -> None:
-        runner = UIActionRunner(
-            _NullUI(),  # type: ignore[arg-type]
-            capabilities=CapabilityFlags(input_control=True),
+    def test_runner_blocks_inactive_or_capability_mismatched_session(self) -> None:
+        cases = (
+            (
+                _device_session(active=False),
+                CapabilityFlags(input_control=True),
+            ),
+            (
+                _device_session(
+                    source_capabilities=CapabilityFlags(observe_only=True),
+                    session_capabilities=CapabilityFlags(input_control=True),
+                ),
+                CapabilityFlags(input_control=True),
+            ),
         )
+        for session, capabilities in cases:
+            with self.subTest(session_id=session.session_id):
+                runner = UIActionRunner(
+                    _NullUI(),  # type: ignore[arg-type]
+                    device_session=session,
+                    capabilities=capabilities,
+                    session_mode=SessionMode.LIVE,
+                )
+                res = runner.run(_mk_action(ActionType.WAIT_FOR_STAMINA))
+                self.assertEqual(res.status, "blocked")
+                self.assertEqual(res.summary["blocked_by"], "device_session")
+
+    def test_runner_requires_confirmation_for_sensitive_action(self) -> None:
+        runner = _authorized_runner(_NullUI())
         res = runner.run(_mk_action(ActionType.ATTACK_LAND))
         self.assertEqual(res.status, "requires_confirmation")
         self.assertEqual(res.summary["blocked_by"], "safety_guard")
         self.assertEqual(res.summary["guard_decision"], "require_confirmation")
 
     def test_runner_blocks_low_risk_action_without_semantic_bbox(self) -> None:
-        runner = UIActionRunner(
-            _NullUI(),  # type: ignore[arg-type]
-            capabilities=CapabilityFlags(input_control=True),
-        )
+        runner = _authorized_runner(_NullUI())
         res = runner.run(_mk_action(ActionType.CLAIM_CHAPTER_REWARD))
         self.assertEqual(res.status, "blocked")
         self.assertEqual(res.summary["blocked_by"], "semantic_target_gate")
         self.assertIn("semantic bbox target", res.failure_reason or "")
 
     def test_runner_dispatches_low_risk_action_when_semantic_bbox_is_present(self) -> None:
-        runner = UIActionRunner(
-            _SemanticUI(),  # type: ignore[arg-type]
-            capabilities=CapabilityFlags(input_control=True),
-        )
+        runner = _authorized_runner(_SemanticUI())
         res = runner.run(
             _mk_action(
                 ActionType.CLAIM_CHAPTER_REWARD,
@@ -263,10 +367,7 @@ class UIActionRunnerTests(unittest.TestCase):
         self.assertEqual(res.summary["semantic_target_gate"]["details"]["target"], "claim_button")
 
     def test_runner_blocks_low_risk_action_with_disabled_semantic_bbox(self) -> None:
-        runner = UIActionRunner(
-            _SemanticUI(),  # type: ignore[arg-type]
-            capabilities=CapabilityFlags(input_control=True),
-        )
+        runner = _authorized_runner(_SemanticUI())
         res = runner.run(
             _mk_action(
                 ActionType.RECRUIT_SOLDIERS,
@@ -281,10 +382,7 @@ class UIActionRunnerTests(unittest.TestCase):
         self.assertEqual(res.summary["blocked_by"], "semantic_target_gate")
 
     def test_runner_dispatches_upgrade_confirm_when_semantic_bbox_is_present(self) -> None:
-        runner = UIActionRunner(
-            _SemanticUI(),  # type: ignore[arg-type]
-            capabilities=CapabilityFlags(input_control=True),
-        )
+        runner = _authorized_runner(_SemanticUI())
         res = runner.run(
             _mk_action(
                 ActionType.UPGRADE_BUILDING,
@@ -310,9 +408,8 @@ class UIActionRunnerTests(unittest.TestCase):
         )
 
     def test_runner_blocks_low_risk_action_when_architecture_gate_is_not_ready(self) -> None:
-        runner = UIActionRunner(
-            _NullUI(),  # type: ignore[arg-type]
-            capabilities=CapabilityFlags(input_control=True),
+        runner = _authorized_runner(
+            _NullUI(),
             automation_gate=AutomationReadinessGate(
                 AutomationReadiness(low_risk_verifier_false_positive_covered=False)
             ),
@@ -323,10 +420,7 @@ class UIActionRunnerTests(unittest.TestCase):
         self.assertIn("false positive coverage", res.failure_reason or "")
 
     def test_runner_blocks_confirmed_action_without_verifier_spec(self) -> None:
-        runner = UIActionRunner(
-            _NullUI(),  # type: ignore[arg-type]
-            capabilities=CapabilityFlags(input_control=True),
-        )
+        runner = _authorized_runner(_NullUI())
         res = runner.run(
             _mk_action(
                 ActionType.TRANSFER_MAIN_LINEUP_TO_TEAM,
@@ -352,9 +446,8 @@ class UIActionRunnerTests(unittest.TestCase):
                 )
             }
         )
-        runner = UIActionRunner(
-            _NullUI(),  # type: ignore[arg-type]
-            capabilities=CapabilityFlags(input_control=True),
+        runner = _authorized_runner(
+            _NullUI(),
             verifier_registry=registry,
         )
         res = runner.run(_mk_action(ActionType.ATTACK_LAND, confirmation_token="manual-ok"))
@@ -376,9 +469,8 @@ class UIActionRunnerTests(unittest.TestCase):
                 )
             }
         )
-        runner = UIActionRunner(
-            _NullUI(),  # type: ignore[arg-type]
-            capabilities=CapabilityFlags(input_control=True),
+        runner = _authorized_runner(
+            _NullUI(),
             verifier_registry=registry,
             automation_mode=AutomationMode.FULL_AUTO,
         )

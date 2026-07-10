@@ -51,17 +51,19 @@ python -m pioneer_agent.app.advisor_api --host 127.0.0.1 --port 8765 --mock
 pip install -e packages/qa-agent
 cd packages/qa-agent && PYTHONPATH=src python -m qa_agent.app.chat
 
-# 运行 runbook 驱动的自主循环（阶段游标与 human_gate 确认落盘在 log-dir/runbook_state.json）
+# 运行 runbook 驱动的自主循环（默认 dry-run；阶段游标与 human_gate 确认落盘）
 # 编队绑定只在 team 页面完整看到 3 名武将后锁定英雄 roster；同槽换阵容或超过 4 小时后失效。
 PYTHONPATH=packages/pioneer-agent/src:packages/sanmou-common/src \
-python -m pioneer_agent.app.autonomous --runbook --dry-run \
+python -m pioneer_agent.app.autonomous --runbook \
   --lineup-preset-binding "部队一=main_team"
+# 只有显式 --execute 且 bridge 当前窗口可见、可用时才建立 LIVE DeviceSession；
+# 之后仍需通过 allowlist、semantic target、verifier、architecture gate 与 kill switch。
 
 # 用真实 provider 跑一张截图的完整 page/domain 路由（默认只打印，不写 fixture）
 PYTHONPATH=packages/pioneer-agent/src:packages/sanmou-common/src \
 python -m pioneer_agent.app.vision_probe --image /path/to/game.png --mode full_sync
 
-# 运行测试（当前 pioneer-agent 382 tests；无 FastAPI 依赖时 advisor_api 测试会 skip，感知测试需要 google-genai）
+# 运行测试（当前 pioneer-agent 393 tests；无 FastAPI 依赖时 advisor_api 测试会 skip，感知测试需要 google-genai）
 cd packages/pioneer-agent && python -m unittest discover -s tests -p "test_*.py" -v
 cd packages/qa-agent && PYTHONPATH=src python -m unittest discover -s tests -p "test_*.py" -v
 
