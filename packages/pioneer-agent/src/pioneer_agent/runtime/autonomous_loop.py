@@ -8,17 +8,24 @@ the wait/sleep cadence between ticks.
 from __future__ import annotations
 
 import json
+import inspect
 import logging
+import math
 import time
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import UTC, datetime
 from io import BytesIO
 from typing import Any, Mapping, Protocol
 
 from PIL import Image, UnidentifiedImageError
 
 from pioneer_agent.core.enums import ActionType
-from pioneer_agent.core.models import ExecutionResult, RuntimeState, SelectionResult
+from pioneer_agent.core.models import (
+    ExecutionResult,
+    ObservationSnapshot,
+    RuntimeState,
+    SelectionResult,
+)
 from pioneer_agent.derivation.state_deriver import StateDeriver
 from pioneer_agent.executor.ui_actions import UIActions
 from pioneer_agent.executor.ui_runner import UIActionRunner
@@ -42,8 +49,15 @@ from pioneer_agent.runtime.dispatch_guard import (
     RUNBOOK_BLOCKING_HOLDS,
     DispatchGuard,
 )
+from pioneer_agent.runtime.architecture_gates import LOW_RISK_AUTOMATION_ACTIONS
 from pioneer_agent.runtime.loop_contract import LOOP_PHASE_ORDER, ensure_loop_contract
+from pioneer_agent.runtime.observation_gate import (
+    ObservationGateDecision,
+    validate_dispatch_observation,
+    validate_post_observation,
+)
 from pioneer_agent.safety.kill_switch import KillSwitch
+from pioneer_agent.safety.guard import SessionMode
 from pioneer_agent.selector.action_selector import ActionSelector
 from pioneer_agent.storage.loop_logger import LoopLogger
 from pioneer_agent.storage.trace_store import (
@@ -122,6 +136,10 @@ class AutonomousLoop:
         )
         self.deriver = deriver or StateDeriver()
         self.runner = runner or UIActionRunner(ui_actions)
+        if isinstance(self.runner, UIActionRunner) and self.runner.ui is not ui_actions:
+            raise ValueError(
+                "AutonomousLoop ui_actions must be the same instance used by UIActionRunner"
+            )
         self.sleeper = sleeper
         self.loop_logger = loop_logger
         self.trace_store = trace_store
@@ -153,7 +171,7 @@ class AutonomousLoop:
         self._guard.kill_switch = value
 
     def tick(self, iteration: int) -> TickResult:
-        started_at = datetime.now()
+        started_at = datetime.now(UTC)
         t0 = time.monotonic()
         state_before = self.state.model_dump(mode="json")
         png = self.bridge.screenshot()
@@ -175,6 +193,7 @@ class AutonomousLoop:
         self._guard.update_decision(runbook_decision)
         selection = self.selector.select(derived)
         pre_action_state = self.state.model_dump(mode="json")
+        dispatch_observation = vision_summary.observation
 
         execution: ExecutionResult | None = None
         post_action_verification: dict[str, Any] | None = None
@@ -224,6 +243,7 @@ class AutonomousLoop:
                 verifier_preflight := _post_action_verifier_preflight_failure(
                     self.runner,
                     selection.selected_action,
+                    dispatch_observation,
                     pre_action_state,
                 )
             ) is not None:
@@ -250,7 +270,12 @@ class AutonomousLoop:
                 )
             else:
                 _reset_input_trace(self.ui_actions)
-                execution = self.runner.run(selection.selected_action)
+                execution = _run_action(
+                    self.runner,
+                    selection.selected_action,
+                    dispatch_observation,
+                )
+                dispatch_completed_at = datetime.now(UTC)
                 input_trace = _consume_input_trace(self.ui_actions)
                 if _requires_flow_continuation(execution):
                     (
@@ -262,7 +287,6 @@ class AutonomousLoop:
                         iteration=iteration,
                         action=selection.selected_action,
                         execution=execution,
-                        before_state=pre_action_state,
                     )
                     input_trace.extend(extra_input_trace)
                     if flow_decision is not None:
@@ -272,7 +296,8 @@ class AutonomousLoop:
                     execution, post_action_verification = self._verify_after_action(
                         action=selection.selected_action,
                         execution=execution,
-                        before_state=pre_action_state,
+                        baseline_observation=dispatch_observation,
+                        dispatch_completed_at=dispatch_completed_at,
                     )
                 logger.info(
                     "tick %d: action=%s status=%s",
@@ -695,6 +720,9 @@ class AutonomousLoop:
         return False
 
     def _recovery_input_block_reason(self) -> str | None:
+        runner_mode = getattr(self.runner, "session_mode", None)
+        if runner_mode in {SessionMode.LIVE, SessionMode.LIVE.value}:
+            return "live ESC recovery is disabled until guarded key dispatch is calibrated"
         authority_check = getattr(
             self.runner,
             "input_authority_failure_reason",
@@ -743,7 +771,6 @@ class AutonomousLoop:
         iteration: int,
         action: CandidateAction,
         execution: ExecutionResult,
-        before_state: dict[str, Any],
     ) -> tuple[ExecutionResult, dict[str, Any] | None, list[dict[str, Any]], RunbookDecision | None]:
         input_trace: list[dict[str, Any]] = []
         flow_observe: VisionSyncSummary | None = None
@@ -768,11 +795,12 @@ class AutonomousLoop:
             )
 
         try:
+            flow_captured_at = datetime.now(UTC)
             png = self.bridge.screenshot()
             self.state, flow_observe = self.vision_sync.sync(
                 png,
                 state=self.state,
-                captured_at=datetime.now(),
+                captured_at=flow_captured_at,
             )
         except Exception as exc:  # noqa: BLE001
             return _fail(f"action flow observe failed: {exc}")
@@ -823,6 +851,7 @@ class AutonomousLoop:
         flow_preflight = _post_action_verifier_preflight_failure(
             self.runner,
             next_action,
+            flow_observe.observation,
             self.state.model_dump(mode="json"),
         )
         if flow_preflight is not None:
@@ -833,7 +862,12 @@ class AutonomousLoop:
             )
 
         _reset_input_trace(self.ui_actions)
-        terminal_execution = self.runner.run(next_action)
+        terminal_execution = _run_action(
+            self.runner,
+            next_action,
+            flow_observe.observation,
+        )
+        terminal_dispatch_completed_at = datetime.now(UTC)
         input_trace.extend(_consume_input_trace(self.ui_actions))
         terminal_execution = _execution_with_flow_continuation(
             initial_execution=execution,
@@ -850,7 +884,8 @@ class AutonomousLoop:
         terminal_execution, verification = self._verify_after_action(
             action=next_action,
             execution=terminal_execution,
-            before_state=before_state,
+            baseline_observation=flow_observe.observation,
+            dispatch_completed_at=terminal_dispatch_completed_at,
         )
         return terminal_execution, verification, input_trace, flow_decision
 
@@ -859,7 +894,8 @@ class AutonomousLoop:
         *,
         action: CandidateAction,
         execution: ExecutionResult,
-        before_state: dict[str, Any],
+        baseline_observation: ObservationSnapshot | None,
+        dispatch_completed_at: datetime,
     ) -> tuple[ExecutionResult, dict[str, Any] | None]:
         spec = _post_action_verifier_spec(self.runner, action)
         if spec is None:
@@ -868,24 +904,86 @@ class AutonomousLoop:
             return execution, None
         if _requires_flow_continuation(execution):
             return execution, None
-        if execution.verification_status not in {"unknown", "unverified"}:
+        if (
+            execution.verification_status not in {"unknown", "unverified"}
+            and action.action_type not in LOW_RISK_AUTOMATION_ACTIONS
+        ):
             return execution, None
 
         verifier = spec.build()
+        allow_fixture_source = _runner_allows_fixture_observation(self.runner)
+        baseline_gate = validate_dispatch_observation(
+            action,
+            baseline_observation,
+            now=dispatch_completed_at,
+            max_age_seconds=_runner_observation_max_age(self.runner),
+            allow_fixture_source=allow_fixture_source,
+        )
+        if (
+            baseline_gate.decision == ObservationGateDecision.BLOCK
+            or baseline_gate.verifier_state is None
+            or baseline_observation is None
+        ):
+            result = VerificationResult(
+                status=VerificationStatus.FAILED,
+                reason=f"dispatch observation unavailable: {baseline_gate.reason}",
+                timeout_seconds=spec.timeout_seconds,
+            )
+            payload = _verification_payload(
+                action=action,
+                spec=spec,
+                result=result,
+                attempts=0,
+                summary=None,
+            )
+            return (
+                _execution_with_verification(
+                    execution,
+                    result=result,
+                    payload=payload,
+                    status="failed",
+                    failure_reason=f"post-action verifier failed: {result.reason}",
+                    recovery_required=True,
+                ),
+                payload,
+            )
+
         deadline = time.monotonic() + spec.timeout_seconds
         attempts = 0
 
         while True:
             attempts += 1
             try:
+                post_captured_at = datetime.now(UTC)
                 png = self.bridge.screenshot()
                 self.state, summary = self.vision_sync.sync(
                     png,
                     state=self.state,
-                    captured_at=datetime.now(),
+                    captured_at=post_captured_at,
                 )
-                after_state = self.state.model_dump(mode="json")
-                result = verifier.verify(before_state, after_state)
+                post_gate = validate_post_observation(
+                    action,
+                    baseline_observation,
+                    summary.observation,
+                    dispatch_completed_at=dispatch_completed_at,
+                    now=datetime.now(UTC),
+                    max_age_seconds=_runner_observation_max_age(self.runner),
+                    allow_fixture_source=allow_fixture_source,
+                )
+                if (
+                    post_gate.decision == ObservationGateDecision.BLOCK
+                    or post_gate.verifier_state is None
+                ):
+                    result = VerificationResult(
+                        status=VerificationStatus.UNKNOWN,
+                        reason=post_gate.reason,
+                        timeout_seconds=spec.timeout_seconds,
+                    )
+                else:
+                    result = verifier.verify(
+                        baseline_gate.verifier_state,
+                        post_gate.verifier_state,
+                    )
                 payload = _verification_payload(
                     action=action,
                     spec=spec,
@@ -989,6 +1087,7 @@ def _build_tick_trace(
             metadata={
                 "vision": all_vision_traces,
                 "input_events": input_events,
+                "observation": _observation_payload(vision_summary.observation),
             },
         ),
         observe=TraceStep(
@@ -997,6 +1096,7 @@ def _build_tick_trace(
                 "page_type": vision_summary.page_type,
                 "domains_run": list(vision_summary.domains_run),
                 "notes": list(vision_summary.notes),
+                "observation": _observation_payload(vision_summary.observation),
             },
         ),
         decide=TraceStep(
@@ -1032,6 +1132,7 @@ def _build_tick_trace(
             "domains_run": list(vision_summary.domains_run),
             "notes": list(vision_summary.notes),
             "image_traces": all_vision_traces,
+            "observation": _observation_payload(vision_summary.observation),
         },
         state_after=state_after,
         selected_action=action.model_dump(mode="json") if action else None,
@@ -1137,8 +1238,26 @@ def _post_action_verifier_spec(
 def _post_action_verifier_preflight_failure(
     runner: Any,
     action: CandidateAction,
+    observation: ObservationSnapshot | None,
     before_state: dict[str, Any],
 ) -> VerificationResult | None:
+    if action.action_type in UI_ACTIONS_REQUIRING_VERIFIER:
+        authority_failure = _runner_input_authority_failure(runner)
+        if authority_failure is not None:
+            return VerificationResult(
+                status=VerificationStatus.FAILED,
+                reason=authority_failure,
+                timeout_seconds=None,
+            )
+    if (
+        action.action_type in LOW_RISK_AUTOMATION_ACTIONS
+        and not _runner_supports_observation_dispatch(runner)
+    ):
+        return VerificationResult(
+            status=VerificationStatus.FAILED,
+            reason="runner does not support observation-bound dispatch",
+            timeout_seconds=None,
+        )
     registry = getattr(runner, "verifier_registry", None)
     if not isinstance(registry, VerifierRegistry):
         if action.action_type in UI_ACTIONS_REQUIRING_VERIFIER:
@@ -1155,6 +1274,20 @@ def _post_action_verifier_preflight_failure(
             reason=gate.reason,
             timeout_seconds=gate.timeout_seconds,
         )
+    observation_gate = validate_dispatch_observation(
+        action,
+        observation,
+        max_age_seconds=_runner_observation_max_age(runner),
+        allow_fixture_source=_runner_allows_fixture_observation(runner),
+    )
+    if observation_gate.decision == ObservationGateDecision.BLOCK:
+        return VerificationResult(
+            status=VerificationStatus.FAILED,
+            reason=observation_gate.reason,
+            timeout_seconds=gate.timeout_seconds,
+        )
+    if observation_gate.verifier_state is not None:
+        before_state = observation_gate.verifier_state
     try:
         spec = registry.get_for_action(action)
         if spec is None:
@@ -1167,6 +1300,59 @@ def _post_action_verifier_preflight_failure(
             timeout_seconds=None,
         )
     return None if result.verified else result
+
+
+def _run_action(
+    runner: Any,
+    action: CandidateAction,
+    observation: ObservationSnapshot | None,
+) -> ExecutionResult:
+    if action.action_type in LOW_RISK_AUTOMATION_ACTIONS or isinstance(runner, UIActionRunner):
+        return runner.run(action, observation=observation)
+    return runner.run(action)
+
+
+def _runner_input_authority_failure(runner: Any) -> str | None:
+    check = getattr(runner, "input_authority_failure_reason", None)
+    if not callable(check):
+        return "runner does not expose an input-authority check"
+    try:
+        reason = check()
+    except Exception as exc:  # noqa: BLE001
+        return f"runner input-authority check failed: {exc}"
+    if reason is None:
+        return None
+    if not isinstance(reason, str) or not reason.strip():
+        return "runner input-authority check returned an invalid result"
+    return reason
+
+
+def _runner_supports_observation_dispatch(runner: Any) -> bool:
+    run = getattr(runner, "run", None)
+    if not callable(run):
+        return False
+    try:
+        parameters = inspect.signature(run).parameters.values()
+    except (TypeError, ValueError):
+        return False
+    return any(
+        parameter.name == "observation"
+        or parameter.kind == inspect.Parameter.VAR_KEYWORD
+        for parameter in parameters
+    )
+
+
+def _runner_observation_max_age(runner: Any) -> float:
+    value = getattr(runner, "observation_max_age_seconds", 30.0)
+    try:
+        parsed = float(value)
+    except (TypeError, ValueError):
+        return 30.0
+    return parsed if math.isfinite(parsed) and parsed > 0 else 30.0
+
+
+def _runner_allows_fixture_observation(runner: Any) -> bool:
+    return getattr(runner, "allows_offline_fixture_observations", False) is True
 
 
 def _requires_flow_continuation(execution: ExecutionResult) -> bool:
@@ -1224,6 +1410,7 @@ def _vision_summary_payload(summary: VisionSyncSummary) -> dict[str, Any]:
         "domains_run": list(summary.domains_run),
         "notes": list(summary.notes),
         "image_traces": list(summary.image_traces),
+        "observation": _observation_payload(summary.observation),
     }
 
 
@@ -1275,7 +1462,24 @@ def _verification_payload(
             "domains_run": list(summary.domains_run) if summary else [],
             "notes": list(summary.notes) if summary else [],
             "image_traces": list(summary.image_traces) if summary else [],
+            "observation": _observation_payload(summary.observation) if summary else None,
         },
+    }
+
+
+def _observation_payload(
+    observation: ObservationSnapshot | None,
+) -> dict[str, Any] | None:
+    if observation is None:
+        return None
+    return {
+        "observation_id": observation.observation_id,
+        "captured_at": observation.captured_at.isoformat(),
+        "frame_sha256": observation.frame_sha256,
+        "frame_size": list(observation.frame_size) if observation.frame_size else None,
+        "page_type": observation.page_type,
+        "domains_run": list(observation.domains_run),
+        "source": observation.source,
     }
 
 

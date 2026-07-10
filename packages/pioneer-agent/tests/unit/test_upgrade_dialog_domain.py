@@ -5,6 +5,8 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
+from pydantic import ValidationError
+
 from pioneer_agent.core.models import RuntimeState
 from pioneer_agent.perception.domains import apply_upgrade_dialog, extract_upgrade_dialog
 
@@ -23,6 +25,21 @@ class _StubVision:
 
 
 class UpgradeDialogDomainTests(unittest.TestCase):
+    def test_raw_boolean_cannot_be_coerced_to_upgrade_level(self) -> None:
+        with self.assertRaises(ValidationError):
+            extract_upgrade_dialog(
+                b"png",
+                client=_StubVision(
+                    {
+                        "dialog_visible": True,
+                        "building_name": "仓库",
+                        "current_level": True,
+                        "next_level": 2,
+                        "can_upgrade": False,
+                    }
+                ),
+            )
+
     def test_extract_maps_upgrade_dialog(self) -> None:
         fragment = extract_upgrade_dialog(
             b"png",

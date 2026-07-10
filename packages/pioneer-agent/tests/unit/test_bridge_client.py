@@ -42,6 +42,27 @@ class BridgeClientTests(unittest.TestCase):
         self.assertEqual(client.list_windows("三国"), {"status": "ok", "windows": []})
         self.assertEqual(client.sent, [{"cmd": "list_windows", "title": "三国"}])
 
+    def test_click_forwards_expected_window_guard(self) -> None:
+        client = StubBridgeClient()
+        expected = {"hwnd": 101, "pid": 202, "width": 1286, "height": 666}
+
+        self.assertEqual(
+            client.click(800, 500, expected_window=expected),
+            {"status": "ok"},
+        )
+        self.assertEqual(
+            client.sent,
+            [
+                {
+                    "cmd": "click",
+                    "x": 800,
+                    "y": 500,
+                    "button": "left",
+                    "expected_window": expected,
+                }
+            ],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

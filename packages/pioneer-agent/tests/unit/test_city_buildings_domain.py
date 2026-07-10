@@ -9,6 +9,8 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
+from pydantic import ValidationError
+
 from pioneer_agent.core.models import FieldMeta, RuntimeState
 from pioneer_agent.perception.domains import (
     apply_city_buildings,
@@ -36,6 +38,14 @@ class _StubVisionClient:
 
 
 class CityBuildingsExtractionTests(unittest.TestCase):
+    def test_raw_boolean_cannot_be_coerced_to_building_level(self) -> None:
+        stub = _StubVisionClient(
+            {"buildings": [{"name": "君王殿", "level": True}]}
+        )
+
+        with self.assertRaises(ValidationError):
+            extract_city_buildings(b"fake-bytes", client=stub)
+
     def test_full_payload_maps_to_fragment(self) -> None:
         stub = _StubVisionClient(
             {

@@ -38,7 +38,7 @@ def extract_recruit_panel(
         instruction=RECRUIT_PANEL_INSTRUCTION,
         response_schema=RECRUIT_PANEL_SCHEMA,
     )
-    parsed = RecruitPanelDetection.model_validate(result.data)
+    parsed = RecruitPanelDetection.model_validate(result.data, strict=True)
     return _build_fragment(parsed, captured_at=captured_at)
 
 

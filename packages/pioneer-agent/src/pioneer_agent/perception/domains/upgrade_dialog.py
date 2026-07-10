@@ -37,7 +37,7 @@ def extract_upgrade_dialog(
         instruction=UPGRADE_DIALOG_INSTRUCTION,
         response_schema=UPGRADE_DIALOG_SCHEMA,
     )
-    parsed = UpgradeDialogDetection.model_validate(result.data)
+    parsed = UpgradeDialogDetection.model_validate(result.data, strict=True)
     return _build_fragment(parsed, captured_at=captured_at)
 
 

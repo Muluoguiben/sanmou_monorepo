@@ -265,6 +265,57 @@ class VerifierBaseTests(unittest.TestCase):
         self.assertIn("reach 11", skipped_target.reason)
         self.assertEqual(exact_target.status, VerificationStatus.VERIFIED)
 
+    def test_numeric_operators_reject_boolean_and_non_finite_values(self) -> None:
+        increase = VerifierBase(
+            [
+                ExpectedStateDelta(
+                    path="teams.0.soldiers",
+                    operator=DeltaOperator.GREATER_THAN_BEFORE,
+                )
+            ]
+        )
+        target = VerifierBase(
+            [
+                ExpectedStateDelta(
+                    path="city.level",
+                    before=0,
+                    expected_after=1,
+                    operator=DeltaOperator.INCREASES_TO,
+                )
+            ]
+        )
+
+        bool_increase = increase.verify(
+            {"teams": [{"soldiers": 0}]},
+            {"teams": [{"soldiers": True}]},
+        )
+        infinite_increase = increase.verify(
+            {"teams": [{"soldiers": 0}]},
+            {"teams": [{"soldiers": float("inf")}]},
+        )
+        bool_target = target.verify(
+            {"city": {"level": 0}},
+            {"city": {"level": True}},
+        )
+
+        for result in (bool_increase, infinite_increase, bool_target):
+            self.assertEqual(result.status, VerificationStatus.FAILED)
+            self.assertIn("comparable values", result.reason)
+
+    def test_equals_and_before_binding_do_not_treat_bool_as_int(self) -> None:
+        verifier = VerifierBase(
+            [ExpectedStateDelta(path="progress.chapter", before=1, expected_after=2)]
+        )
+
+        bool_before = verifier.validate_before({"progress": {"chapter": True}})
+        bool_after = verifier.verify(
+            {"progress": {"chapter": 1}},
+            {"progress": {"chapter": True}},
+        )
+
+        self.assertEqual(bool_before.status, VerificationStatus.FAILED)
+        self.assertEqual(bool_after.status, VerificationStatus.FAILED)
+
 
 if __name__ == "__main__":
     unittest.main()

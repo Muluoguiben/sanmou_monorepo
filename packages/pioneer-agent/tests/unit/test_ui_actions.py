@@ -4,10 +4,12 @@ from __future__ import annotations
 import io
 import unittest
 from dataclasses import dataclass
+from datetime import UTC, datetime
 from typing import Any
 
 from PIL import Image
 
+from pioneer_agent.core.models import ObservationSnapshot, RuntimeState
 from pioneer_agent.executor.input_policy import InputPolicy
 from pioneer_agent.executor.ui_actions import UIActions
 from pioneer_agent.perception.ui_registry import UIButton, UIRegistry
@@ -44,8 +46,10 @@ class _StubBridge:
         self.clicks: list[tuple[int, int]] = []
         self.drags: list[tuple[int, int, int, int]] = []
         self.keys: list[str] = []
+        self.screenshots = 0
 
     def screenshot(self, save_path=None):  # noqa: ANN001
+        self.screenshots += 1
         return self._png
 
     def click(self, x, y, button="left"):  # noqa: ANN001
@@ -150,6 +154,31 @@ class UIActionsTests(unittest.TestCase):
         self.assertEqual(out.trace["action"], "click_semantic_bbox")
         self.assertEqual(out.trace["target"]["key"], "chapter_claim_button")
         self.assertEqual(out.trace["normalized_bbox"]["x"], 0.7)
+
+    def test_bound_observation_supplies_frame_size_without_recapture(self) -> None:
+        bridge = _StubBridge(_make_png(640, 360))
+        actions = UIActions(bridge, self._registry())
+        observation = ObservationSnapshot(
+            observation_id="obs-1",
+            captured_at=datetime.now(UTC),
+            frame_sha256="a" * 64,
+            frame_size=(1000, 1000),
+            page_type="chapter",
+            domains_run=["chapter_panel"],
+            observed_state=RuntimeState(),
+            source="vision_sync",
+        )
+        actions.bind_observation(observation)
+
+        out = actions.click_bbox(
+            "chapter_claim_button",
+            {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+        )
+
+        self.assertTrue(out.success)
+        self.assertEqual(out.px, (800, 850))
+        self.assertEqual(bridge.screenshots, 0)
+        self.assertEqual(out.trace["observation"]["observation_id"], "obs-1")
 
     def test_click_bbox_blocks_unknown_semantic_target(self) -> None:
         bridge = _StubBridge(_make_png(1000, 1000))

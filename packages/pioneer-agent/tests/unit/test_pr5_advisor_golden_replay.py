@@ -23,6 +23,7 @@ from pioneer_agent.executor.ui_actions import ClickOutcome
 from pioneer_agent.executor.ui_runner import UIActionRunner
 from pioneer_agent.perception.vision_sync import VisionSyncSummary
 from pioneer_agent.runtime.advisor_loop import build_advisor_report
+from pioneer_agent.runtime.replay_runtime import build_fixture_observation
 from pioneer_agent.selector.action_selector import ActionSelector
 from pioneer_agent.core.enums import ActionType
 from pioneer_agent.safety.guard import SessionMode
@@ -168,6 +169,7 @@ class Pr5AdvisorGoldenReplayTests(unittest.TestCase):
             device_session=device_session,
             capabilities=device_session.capabilities,
             session_mode=SessionMode.AUTOMATION_TEST,
+            allow_offline_fixture_observations=True,
         )
         cases = {
             fixture_name: expected
@@ -178,12 +180,19 @@ class Pr5AdvisorGoldenReplayTests(unittest.TestCase):
         for fixture_name, expected in cases.items():
             with self.subTest(fixture_name=fixture_name):
                 state = load_runtime_state_record(project_root / "tests" / "fixtures" / fixture_name).state
-                action = selector.select(deriver.derive(state)).selected_action
+                derived = deriver.derive(state)
+                action = selector.select(derived).selected_action
 
                 self.assertIsNotNone(action)
                 self.assertEqual(action.action_type, ActionType(expected["expected_action_type"]))
 
-                result = runner.run(action)
+                result = runner.run(
+                    action,
+                    observation=build_fixture_observation(
+                        derived,
+                        action.action_type,
+                    ),
+                )
 
                 self.assertEqual(result.status, expected["expected_dispatch_status"])
                 if "expected_dispatch_blocked_by" in expected:
@@ -219,7 +228,8 @@ class Pr5AdvisorGoldenReplayTests(unittest.TestCase):
         for fixture_name, (action_type, target_key, semantic_target) in cases.items():
             with self.subTest(fixture_name=fixture_name):
                 state = load_runtime_state_record(project_root / "tests" / "fixtures" / fixture_name).state
-                action = ActionSelector().select(StateDeriver().derive(state)).selected_action
+                derived = StateDeriver().derive(state)
+                action = ActionSelector().select(derived).selected_action
                 self.assertIsNotNone(action)
                 self.assertEqual(action.action_type, action_type)
 
@@ -229,7 +239,14 @@ class Pr5AdvisorGoldenReplayTests(unittest.TestCase):
                     device_session=device_session,
                     capabilities=device_session.capabilities,
                     session_mode=SessionMode.AUTOMATION_TEST,
-                ).run(action)
+                    allow_offline_fixture_observations=True,
+                ).run(
+                    action,
+                    observation=build_fixture_observation(
+                        derived,
+                        action.action_type,
+                    ),
+                )
 
                 self.assertEqual(result.status, "ok")
                 self.assertEqual(result.summary["target_key"], target_key)
@@ -304,7 +321,7 @@ def _frame(payload: bytes) -> CaptureFrame:
 def _control_session() -> DeviceSession:
     capabilities = CapabilityFlags(input_control=True)
     source = ObservationSource(
-        source_type=ObservationSourceType.WINDOWS_WINDOW_CAPTURE,
+        source_type=ObservationSourceType.SCREENSHOT_FILE,
         capabilities=capabilities,
     )
     return DeviceSession(

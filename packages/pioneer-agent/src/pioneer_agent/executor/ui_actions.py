@@ -17,6 +17,7 @@ from typing import Any
 
 from PIL import Image
 
+from pioneer_agent.core.models import ObservationSnapshot
 from pioneer_agent.executor.input_policy import InputPolicy
 from pioneer_agent.perception.ui_registry import UIRegistry
 from pioneer_agent.perception.vision import (
@@ -30,7 +31,14 @@ from pioneer_agent.perception.vision import (
 class _BridgeLike:
     """Protocol-ish type — anything with click/drag/screenshot/key_press."""
 
-    def click(self, x: int, y: int, button: str = "left") -> dict[str, Any]: ...
+    def click(
+        self,
+        x: int,
+        y: int,
+        button: str = "left",
+        *,
+        expected_window: dict[str, int] | None = None,
+    ) -> dict[str, Any]: ...
     def drag(self, x1: int, y1: int, x2: int, y2: int, duration: float = 0.4, button: str = "left") -> dict[str, Any]: ...
     def screenshot(self, save_path: Path | str | None = None) -> bytes: ...
     def key_press(self, key: str, modifiers: list[str] | None = None) -> dict[str, Any]: ...
@@ -58,6 +66,19 @@ class UIActions:
         self.vision = vision
         self.input_policy = input_policy or InputPolicy()
         self._input_trace: list[dict[str, Any]] = []
+        self._bound_observation: ObservationSnapshot | None = None
+        self._bound_expected_window: dict[str, int] | None = None
+
+    def bind_observation(
+        self,
+        observation: ObservationSnapshot | None,
+        *,
+        expected_window: dict[str, int] | None = None,
+    ) -> None:
+        self._bound_observation = observation
+        self._bound_expected_window = (
+            dict(expected_window) if expected_window is not None else None
+        )
 
     def reset_input_trace(self) -> None:
         self._input_trace.clear()
@@ -73,11 +94,15 @@ class UIActions:
         verdict = self.input_policy.evaluate_button(key, registered_keys=self.registry.keys())
         if not verdict.allowed:
             return ClickOutcome(success=False, px=(0, 0), reason=verdict.reason)
-        png = self.bridge.screenshot()
-        w, h = _image_size(png)
+        observation = self._bound_observation
+        if observation is not None and observation.frame_size is not None:
+            w, h = observation.frame_size
+        else:
+            png = self.bridge.screenshot()
+            w, h = _image_size(png)
         button = self.registry.get(key)
         x, y = button.resolve(w, h)
-        resp = self.bridge.click(x, y)
+        resp = self._click(x, y)
         ok = resp.get("status") == "ok"
         trace = _input_trace_event(
             action="click_button",
@@ -86,6 +111,15 @@ class UIActions:
             click_point=(x, y),
             target={"key": key, "label": button.label},
         )
+        if observation is not None:
+            trace["observation"] = {
+                "observation_id": observation.observation_id,
+                "captured_at": observation.captured_at.isoformat(),
+                "frame_sha256": observation.frame_sha256,
+                "source": observation.source,
+            }
+        if self._bound_expected_window is not None:
+            trace["expected_window"] = dict(self._bound_expected_window)
         self._input_trace.append(trace)
         return ClickOutcome(success=ok, px=(x, y), reason=None if ok else str(resp), trace=trace)
 
@@ -146,8 +180,12 @@ class UIActions:
         if parsed is None:
             return ClickOutcome(success=False, px=(0, 0), reason=f"invalid bbox for: {target_key}")
 
-        png = self.bridge.screenshot()
-        w, h = _image_size(png)
+        observation = self._bound_observation
+        if observation is not None and observation.frame_size is not None:
+            w, h = observation.frame_size
+        else:
+            png = self.bridge.screenshot()
+            w, h = _image_size(png)
         x_min, y_min, x_max, y_max = parsed
         px_x = round((x_min + x_max) / 2000 * w)
         px_y = round((y_min + y_max) / 2000 * h)
@@ -157,7 +195,7 @@ class UIActions:
             "width": round((x_max - x_min) / 1000 * w),
             "height": round((y_max - y_min) / 1000 * h),
         }
-        resp = self.bridge.click(px_x, px_y)
+        resp = self._click(px_x, px_y)
         ok = resp.get("status") == "ok"
         trace = _input_trace_event(
             action="click_semantic_bbox",
@@ -173,6 +211,15 @@ class UIActions:
             },
             pixel_bbox=pixel_bbox,
         )
+        if observation is not None:
+            trace["observation"] = {
+                "observation_id": observation.observation_id,
+                "captured_at": observation.captured_at.isoformat(),
+                "frame_sha256": observation.frame_sha256,
+                "source": observation.source,
+            }
+        if self._bound_expected_window is not None:
+            trace["expected_window"] = dict(self._bound_expected_window)
         self._input_trace.append(trace)
         return ClickOutcome(
             success=ok,
@@ -181,6 +228,21 @@ class UIActions:
             reason=None if ok else str(resp),
             trace=trace,
         )
+
+    def _click(self, x: int, y: int) -> dict[str, Any]:
+        if self._bound_expected_window is None:
+            return self.bridge.click(x, y)
+        try:
+            return self.bridge.click(
+                x,
+                y,
+                expected_window=dict(self._bound_expected_window),
+            )
+        except TypeError as exc:
+            return {
+                "status": "error",
+                "message": f"bridge does not support guarded click: {exc}",
+            }
 
     # --- navigation -------------------------------------------------------
 

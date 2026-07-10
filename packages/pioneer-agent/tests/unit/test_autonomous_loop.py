@@ -38,7 +38,7 @@ def _control_session() -> DeviceSession:
             resolution=(1286, 666),
         ),
         source=ObservationSource(
-            source_type=ObservationSourceType.WINDOWS_WINDOW_CAPTURE,
+            source_type=ObservationSourceType.SCREENSHOT_FILE,
             capabilities=capabilities,
         ),
         capabilities=capabilities,
@@ -52,6 +52,7 @@ def _ui_runner(ui: object) -> UIActionRunner:
         device_session=session,
         capabilities=session.capabilities,
         session_mode=SessionMode.AUTOMATION_TEST,
+        allow_offline_fixture_observations=True,
     )
 
 
@@ -193,7 +194,7 @@ class _StubRunner:
     def __init__(self) -> None:
         self.actions: list[CandidateAction] = []
 
-    def run(self, action):  # noqa: ANN001
+    def run(self, action, *, observation=None):  # noqa: ANN001
         self.actions.append(action)
         return ExecutionResult(action_id=action.action_id, status="ok")
 
@@ -278,7 +279,90 @@ def _upgrade_dialog_payload() -> dict[str, Any]:
     }
 
 
+def _city_buildings_payload(*, duplicate: bool = False) -> dict[str, Any]:
+    building = {
+        "name": "Main Hall",
+        "level": 10,
+        "upgrading": False,
+        "upgrade_button_visible": True,
+        "upgrade_button_enabled": True,
+        "upgrade_button_x_min": 100,
+        "upgrade_button_y_min": 700,
+        "upgrade_button_x_max": 240,
+        "upgrade_button_y_max": 900,
+    }
+    buildings = [building]
+    if duplicate:
+        buildings.append({**building, "level": 9})
+    return {"buildings": buildings, "visible_notes": []}
+
+
 class AutonomousLoopTests(unittest.TestCase):
+    def test_live_mode_never_emits_automatic_esc_recovery(self) -> None:
+        from pioneer_agent.executor.ui_actions import UIActions
+        from pioneer_agent.perception.ui_registry import UIRegistry
+        from pioneer_agent.perception.vision_sync import VisionSync
+
+        capabilities = CapabilityFlags(
+            live_capture=True,
+            input_control=True,
+            reliable_window_info=True,
+        )
+        session = DeviceSession(
+            profile=DeviceProfile(
+                platform=DevicePlatform.PC_CLIENT,
+                resolution=(64, 64),
+            ),
+            source=ObservationSource(
+                source_type=ObservationSourceType.WINDOWS_WINDOW_CAPTURE,
+                capabilities=capabilities,
+                metadata={"hwnd": 101, "pid": 202},
+            ),
+            capabilities=capabilities,
+        )
+        bridge = _StubBridge()
+        ui = UIActions(bridge, UIRegistry({}))
+        runner = UIActionRunner(
+            ui,
+            device_session=session,
+            capabilities=capabilities,
+            session_mode=SessionMode.LIVE,
+        )
+        loop = AutonomousLoop(
+            bridge=bridge,
+            vision_sync=VisionSync(  # type: ignore[arg-type]
+                _ScriptedVision([{"page_type": "unknown", "resources": {}}])
+            ),
+            ui_actions=ui,
+            selector=_StubSelector(None),
+            deriver=_StubDeriver(),  # type: ignore[arg-type]
+            runner=runner,
+            sleeper=lambda _seconds: None,
+            stuck_threshold=1,
+        )
+
+        result = loop.tick(0)
+
+        self.assertIsNone(result.execution)
+        self.assertEqual(bridge.keys, [])
+
+    def test_ui_action_runner_must_share_the_loop_ui_instance(self) -> None:
+        from pioneer_agent.executor.ui_actions import UIActions
+        from pioneer_agent.executor.ui_runner import UIActionRunner
+        from pioneer_agent.perception.ui_registry import UIRegistry
+
+        bridge = _StubBridge()
+        loop_ui = UIActions(bridge, UIRegistry({}))
+        runner_ui = UIActions(bridge, UIRegistry({}))
+
+        with self.assertRaisesRegex(ValueError, "same instance"):
+            AutonomousLoop(
+                bridge=bridge,
+                vision_sync=object(),  # type: ignore[arg-type]
+                ui_actions=loop_ui,
+                runner=UIActionRunner(runner_ui),
+            )
+
     def _loop(self, *, action: CandidateAction | None, vision_payloads: list[dict[str, Any]],
               dry_run: bool = False, stuck_threshold: int = 3,
               runner: Any = None, ui_actions: Any = None):
@@ -498,7 +582,13 @@ class AutonomousLoopTests(unittest.TestCase):
             ["progress.current_chapter_id", "progress.chapter_claimable"],
         )
         self.assertEqual(verifier["post_observe"]["domains_run"], ["resource_bar", "chapter_panel"])
+        self.assertEqual(bridge.shots, 2)
         self.assertEqual(result.execution.summary["semantic_target_gate"]["decision"], "allow")
+        self.assertEqual(result.execution.summary["observation_gate"]["decision"], "allow")
+        self.assertNotEqual(
+            result.execution.summary["observation_gate"]["details"]["observation_id"],
+            verifier["post_observe"]["observation"]["observation_id"],
+        )
         self.assertFalse(loop.state.progress["chapter_claimable"])
 
     def test_tick_fails_action_when_post_action_verifier_does_not_match(self) -> None:
@@ -546,6 +636,122 @@ class AutonomousLoopTests(unittest.TestCase):
         self.assertEqual(result.execution.summary["post_action_verifier"]["status"], "failed")
         self.assertEqual(bridge.keys, ["escape"])
         self.assertEqual(loop._stuck_count, 0)
+
+    def test_low_risk_custom_runner_without_authority_cannot_click(self) -> None:
+        from pioneer_agent.executor.ui_actions import UIActions
+        from pioneer_agent.perception.ui_registry import UIButton, UIRegistry
+        from pioneer_agent.perception.vision_sync import VisionSync
+        from pioneer_agent.verifier.registry import VerifierRegistry
+
+        class _ForgedVerifiedRunner:
+            def __init__(self, bridge: _StubBridge) -> None:
+                self.bridge = bridge
+                self.verifier_registry = VerifierRegistry()
+
+            def run(self, action, *, observation=None):  # noqa: ANN001
+                self.bridge.click(123, 456)
+                return ExecutionResult(
+                    action_id=action.action_id,
+                    status="ok",
+                    verification_status="verified",
+                )
+
+        action = CandidateAction(
+            action_id="claim-17",
+            action_type=ActionType.CLAIM_CHAPTER_REWARD,
+            params={"chapter_id": 17, "claim_button": _claim_button_param()},
+        )
+        bridge = _StubBridge()
+        vision = _ScriptedVision(
+            [
+                _chapter_resource_payload(),
+                _chapter_panel_payload(claimable=True),
+                _chapter_resource_payload(),
+                _chapter_panel_payload(claimable=True),
+            ]
+        )
+        ui = UIActions(  # type: ignore[arg-type]
+            bridge,
+            UIRegistry({"esc_close": UIButton("esc_close", "close", 0.5, 0.5)}),
+            vision=vision,
+        )
+        loop = AutonomousLoop(
+            bridge=bridge,
+            vision_sync=VisionSync(vision),  # type: ignore[arg-type]
+            ui_actions=ui,
+            selector=_StubSelector(action),
+            deriver=_StubDeriver(),  # type: ignore[arg-type]
+            runner=_ForgedVerifiedRunner(bridge),  # type: ignore[arg-type]
+            sleeper=lambda _seconds: None,
+            post_action_verify_poll_interval_s=0,
+        )
+
+        result = loop.tick(0)
+
+        self.assertEqual(result.execution.status, "blocked")
+        self.assertIn("input-authority", result.execution.failure_reason or "")
+        self.assertEqual(bridge.shots, 1)
+        self.assertEqual(bridge.clicks, [])
+
+    def test_authorized_low_risk_custom_runner_cannot_forge_post_verification(self) -> None:
+        from pioneer_agent.executor.ui_actions import UIActions
+        from pioneer_agent.perception.ui_registry import UIButton, UIRegistry
+        from pioneer_agent.perception.vision_sync import VisionSync
+        from pioneer_agent.verifier.registry import VerifierRegistry
+
+        class _AuthorizedForgedRunner:
+            def __init__(self, bridge: _StubBridge) -> None:
+                self.bridge = bridge
+                self.verifier_registry = VerifierRegistry()
+
+            def run(self, action, *, observation=None):  # noqa: ANN001
+                self.bridge.click(123, 456)
+                return ExecutionResult(
+                    action_id=action.action_id,
+                    status="ok",
+                    verification_status="verified",
+                )
+
+            def input_authority_failure_reason(self) -> None:
+                return None
+
+        action = CandidateAction(
+            action_id="claim-17",
+            action_type=ActionType.CLAIM_CHAPTER_REWARD,
+            params={"chapter_id": 17, "claim_button": _claim_button_param()},
+        )
+        bridge = _StubBridge()
+        vision = _ScriptedVision(
+            [
+                _chapter_resource_payload(),
+                _chapter_panel_payload(claimable=True),
+                _chapter_resource_payload(),
+                _chapter_panel_payload(claimable=True),
+            ]
+        )
+        ui = UIActions(  # type: ignore[arg-type]
+            bridge,
+            UIRegistry({"esc_close": UIButton("esc_close", "close", 0.5, 0.5)}),
+            vision=vision,
+        )
+        loop = AutonomousLoop(
+            bridge=bridge,
+            vision_sync=VisionSync(vision),  # type: ignore[arg-type]
+            ui_actions=ui,
+            selector=_StubSelector(action),
+            deriver=_StubDeriver(),  # type: ignore[arg-type]
+            runner=_AuthorizedForgedRunner(bridge),  # type: ignore[arg-type]
+            sleeper=lambda _seconds: None,
+            post_action_verify_poll_interval_s=0,
+        )
+
+        result = loop.tick(0)
+
+        self.assertEqual(result.execution.status, "failed")
+        self.assertEqual(result.execution.verification_status, "failed")
+        self.assertIn("post-action verifier failed", result.execution.failure_reason or "")
+        self.assertEqual(bridge.shots, 2)
+        self.assertEqual(bridge.clicks, [(123, 456)])
 
     def test_tick_trace_records_immediate_recovery_after_verifier_failure(self) -> None:
         from pathlib import Path
@@ -681,7 +887,8 @@ class AutonomousLoopTests(unittest.TestCase):
         bridge = _StubBridge()
         vision = _ScriptedVision(
             [
-                {"page_type": "main_map", "resources": {"wood": 900}},
+                {"page_type": "city", "resources": {"wood": 900}},
+                _city_buildings_payload(),
                 {"page_type": "upgrade_dialog", "resources": {"wood": 900}},
                 _upgrade_dialog_payload(),
                 {"page_type": "city", "resources": {"wood": 760}},
@@ -716,6 +923,7 @@ class AutonomousLoopTests(unittest.TestCase):
         self.assertEqual(result.execution.status, "ok")
         self.assertEqual(result.execution.verification_status, "verified")
         self.assertEqual(bridge.clicks, [(326, 864), (1536, 918)])
+        self.assertEqual(bridge.shots, 3)
         self.assertEqual(
             [step["flow_step"] for step in result.execution.summary["flow_steps"]],
             ["open_upgrade_dialog", "confirm_upgrade"],
@@ -738,33 +946,10 @@ class AutonomousLoopTests(unittest.TestCase):
             },
         )
 
-    def test_tick_rechecks_verifier_target_before_upgrade_terminal_click(self) -> None:
+    def test_tick_rechecks_current_dialog_before_upgrade_terminal_click(self) -> None:
         from pioneer_agent.executor.ui_actions import UIActions
         from pioneer_agent.perception.ui_registry import UIButton, UIRegistry
-        from pioneer_agent.perception.vision_sync import VisionSyncSummary
-
-        class _FlowSync:
-            def __init__(self) -> None:
-                self.calls = 0
-
-            def sync(self, _image, state=None, *, captured_at=None):  # noqa: ANN001
-                self.calls += 1
-                buildings = (
-                    [{"name": "Main Hall", "level": 10}]
-                    if self.calls == 1
-                    else [
-                        {"name": "Main Hall", "level": 10},
-                        {"name": "Main Hall", "level": 9},
-                    ]
-                )
-                return (
-                    RuntimeState(city={"buildings": buildings}),
-                    VisionSyncSummary(
-                        page_type="main_map" if self.calls == 1 else "city",
-                        domains_run=["resource_bar"],
-                        notes=[],
-                    ),
-                )
+        from pioneer_agent.perception.vision_sync import VisionSync
 
         first_action = CandidateAction(
             action_id="upgrade-main-hall",
@@ -787,13 +972,25 @@ class AutonomousLoopTests(unittest.TestCase):
             },
         )
         bridge = _StubBridge()
+        stale_dialog = _upgrade_dialog_payload()
+        stale_dialog["current_level"] = 9
+        stale_dialog["next_level"] = 10
+        vision = _ScriptedVision(
+            [
+                {"page_type": "city", "resources": {}},
+                _city_buildings_payload(),
+                {"page_type": "upgrade_dialog", "resources": {}},
+                stale_dialog,
+            ]
+        )
         ui = UIActions(  # type: ignore[arg-type]
             bridge,
             UIRegistry({"esc_close": UIButton("esc_close", "close", 0.5, 0.5)}),
+            vision=vision,
         )
         loop = AutonomousLoop(
             bridge=bridge,
-            vision_sync=_FlowSync(),  # type: ignore[arg-type]
+            vision_sync=VisionSync(vision),  # type: ignore[arg-type]
             ui_actions=ui,
             selector=_SequenceSelector([first_action, terminal_action]),  # type: ignore[arg-type]
             deriver=_StubDeriver(),  # type: ignore[arg-type]
@@ -808,7 +1005,7 @@ class AutonomousLoopTests(unittest.TestCase):
 
         self.assertEqual(result.execution.status, "failed")
         self.assertIn("before terminal dispatch", result.execution.failure_reason or "")
-        self.assertIn("got 2", result.execution.failure_reason or "")
+        self.assertIn("baseline does not match", result.execution.failure_reason or "")
         self.assertEqual(bridge.clicks, [(326, 864)])
 
     def test_tick_blocks_duplicate_verifier_target_before_dispatch(self) -> None:
@@ -821,14 +1018,17 @@ class AutonomousLoopTests(unittest.TestCase):
                 "building_name": "Main Hall",
                 "current_level": 10,
                 "target_level": 11,
-                "upgrade_dialog": _upgrade_dialog_param(),
+                "upgrade_button": _upgrade_button_param(),
             },
         )
         runner = _StubRunner()
         runner.verifier_registry = VerifierRegistry()
         loop, bridge, _ = self._loop(
             action=action,
-            vision_payloads=[{"page_type": "main_map", "resources": {}}],
+            vision_payloads=[
+                {"page_type": "city", "resources": {}},
+                _city_buildings_payload(duplicate=True),
+            ],
             runner=runner,
         )
         loop.state = RuntimeState(
@@ -927,7 +1127,8 @@ class AutonomousLoopTests(unittest.TestCase):
         bridge = _StubBridge()
         vision = _ScriptedVision(
             [
-                {"page_type": "main_map", "resources": {"wood": 900}},
+                {"page_type": "city", "resources": {"wood": 900}},
+                _city_buildings_payload(),
                 {"page_type": "upgrade_dialog", "resources": {"wood": 900}},
                 _upgrade_dialog_payload(),
             ]

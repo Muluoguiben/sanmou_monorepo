@@ -5,6 +5,8 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
+from pydantic import ValidationError
+
 from pioneer_agent.core.models import RuntimeState
 from pioneer_agent.perception.domains import apply_chapter_panel, extract_chapter_panel
 
@@ -23,6 +25,21 @@ class _StubVision:
 
 
 class ChapterPanelDomainTests(unittest.TestCase):
+    def test_raw_boolean_cannot_be_coerced_to_chapter_id(self) -> None:
+        with self.assertRaises(ValidationError):
+            extract_chapter_panel(
+                b"png",
+                client=_StubVision(
+                    {
+                        "current_chapter_id": True,
+                        "chapter_claimable": False,
+                        "claim_button_visible": False,
+                        "claim_button_enabled": False,
+                        "tasks": [],
+                    }
+                ),
+            )
+
     def test_extract_maps_claimable_chapter_panel(self) -> None:
         fragment = extract_chapter_panel(
             b"png",

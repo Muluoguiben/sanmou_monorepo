@@ -37,7 +37,7 @@ def extract_chapter_panel(
         instruction=CHAPTER_PANEL_INSTRUCTION,
         response_schema=CHAPTER_PANEL_SCHEMA,
     )
-    parsed = ChapterPanelDetection.model_validate(result.data)
+    parsed = ChapterPanelDetection.model_validate(result.data, strict=True)
     return _build_fragment(parsed, captured_at=captured_at)
 
 

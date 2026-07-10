@@ -21,6 +21,7 @@ from io import BytesIO
 
 try:
     import dxcam
+    import win32con
     import win32gui
     import win32process
     from PIL import Image, ImageStat
@@ -366,18 +367,82 @@ def click_at(x: int, y: int, button: str = "left") -> None:
     _pyautogui().click(x, y, button=button)
 
 
-def click_window_relative(hwnd: int, rx: int, ry: int, button: str = "left") -> None:
+def click_window_relative(
+    hwnd: int,
+    rx: int,
+    ry: int,
+    button: str = "left",
+    *,
+    expected_window: dict[str, Any] | None = None,
+) -> None:
     """Click at coordinates relative to the window's top-left corner."""
-    _ensure_window_onscreen(hwnd)
+    if expected_window is None:
+        _ensure_window_onscreen(hwnd)
+    else:
+        _assert_expected_window(hwnd, expected_window)
+        _assert_guarded_relative_point(rx, ry, expected_window)
+    try:
+        win32gui.SetForegroundWindow(hwnd)
+    except Exception as exc:
+        if expected_window is not None:
+            raise RuntimeError("failed to foreground guarded click target") from exc
+    time.sleep(0.05)
+    if expected_window is not None:
+        _assert_expected_window(hwnd, expected_window)
+        if win32gui.GetForegroundWindow() != hwnd:
+            raise RuntimeError("guarded click target is not the foreground window")
     rect = win32gui.GetWindowRect(hwnd)
     abs_x = rect[0] + rx
     abs_y = rect[1] + ry
-    try:
-        win32gui.SetForegroundWindow(hwnd)
-    except Exception:
-        pass  # foreground-lock may reject; dx capture still works
-    time.sleep(0.05)
+    if expected_window is not None:
+        point_window = win32gui.WindowFromPoint((abs_x, abs_y))
+        point_root = (
+            win32gui.GetAncestor(point_window, win32con.GA_ROOT)
+            if point_window
+            else None
+        )
+        if point_root != hwnd:
+            raise RuntimeError("guarded click point is covered by another window")
     _pyautogui().click(abs_x, abs_y, button=button)
+
+
+def _assert_expected_window(hwnd: int, expected: dict[str, Any]) -> None:
+    required = ("hwnd", "pid", "width", "height")
+    for key in required:
+        value = expected.get(key)
+        if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
+            raise RuntimeError(f"invalid expected window {key}")
+    info = _rect_payload(hwnd)
+    mismatches = [key for key in required if info.get(key) != expected[key]]
+    if mismatches:
+        raise RuntimeError(
+            "window identity/geometry changed before click: " + ", ".join(mismatches)
+        )
+    if (
+        info.get("usable") is not True
+        or info.get("visible") is not True
+        or info.get("iconic") is not False
+        or info.get("offscreen") is not False
+    ):
+        raise RuntimeError("window is no longer visible and usable before click")
+
+
+def _assert_guarded_relative_point(
+    rx: int,
+    ry: int,
+    expected: dict[str, Any],
+) -> None:
+    if (
+        isinstance(rx, bool)
+        or not isinstance(rx, int)
+        or isinstance(ry, bool)
+        or not isinstance(ry, int)
+        or rx < 0
+        or ry < 0
+        or rx >= expected["width"]
+        or ry >= expected["height"]
+    ):
+        raise RuntimeError("guarded click point is outside the observed frame")
 
 
 def move_window_relative(hwnd: int, rx: int, ry: int, duration: float = 0.0) -> None:
@@ -419,6 +484,30 @@ def key_press(key: str, modifiers: list[str] | None = None) -> None:
         ui.hotkey(*mods, key)
     else:
         ui.press(key)
+
+
+def key_press_window_guarded(
+    hwnd: int,
+    key: str,
+    modifiers: list[str] | None = None,
+) -> None:
+    """Focus the resolved window or fail before emitting a global key event."""
+    info = _rect_payload(hwnd)
+    if (
+        info.get("usable") is not True
+        or info.get("visible") is not True
+        or info.get("iconic") is not False
+        or info.get("offscreen") is not False
+    ):
+        raise RuntimeError("key target window is not visible and usable")
+    try:
+        win32gui.SetForegroundWindow(hwnd)
+    except Exception as exc:
+        raise RuntimeError("failed to foreground key target") from exc
+    time.sleep(0.05)
+    if win32gui.GetForegroundWindow() != hwnd:
+        raise RuntimeError("key target is not the foreground window")
+    key_press(key, modifiers=modifiers)
 
 
 def get_window_info(hwnd: int) -> dict[str, Any]:
@@ -489,7 +578,16 @@ def handle_client(conn: socket.socket, window_title: str, capture_backend: str) 
                 hwnd = _resolve_window(window_title, hwnd)
                 rx, ry = int(msg["x"]), int(msg["y"])
                 button = msg.get("button", "left")
-                click_window_relative(hwnd, rx, ry, button)
+                expected_window = msg.get("expected_window")
+                if expected_window is not None and not isinstance(expected_window, dict):
+                    raise RuntimeError("expected_window must be an object")
+                click_window_relative(
+                    hwnd,
+                    rx,
+                    ry,
+                    button,
+                    expected_window=expected_window,
+                )
                 send_json(conn, {"status": "ok"})
 
             elif cmd == "move":
@@ -514,12 +612,11 @@ def handle_client(conn: socket.socket, window_title: str, capture_backend: str) 
 
             elif cmd == "key":
                 hwnd = _resolve_window(window_title, hwnd)
-                try:
-                    win32gui.SetForegroundWindow(hwnd)
-                except Exception:
-                    pass
-                time.sleep(0.05)
-                key_press(msg["key"], modifiers=msg.get("modifiers"))
+                key_press_window_guarded(
+                    hwnd,
+                    msg["key"],
+                    modifiers=msg.get("modifiers"),
+                )
                 send_json(conn, {"status": "ok"})
 
             elif cmd == "window_info":

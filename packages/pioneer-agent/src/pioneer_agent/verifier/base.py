@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Mapping, Sequence
@@ -193,7 +194,7 @@ class VerifierBase:
                     checked=tuple(checked),
                     timeout_seconds=self.timeout_seconds,
                 )
-            if delta.before is not None and value != delta.before:
+            if delta.before is not None and not _strict_equal(value, delta.before):
                 return VerificationResult(
                     status=VerificationStatus.FAILED,
                     reason=(
@@ -228,10 +229,11 @@ class VerifierBase:
                         checked=tuple(checked),
                         timeout_seconds=self.timeout_seconds,
                     )
-                try:
-                    increases = value < delta.expected_after
-                except TypeError:
-                    increases = False
+                increases = (
+                    _is_finite_number(value)
+                    and _is_finite_number(delta.expected_after)
+                    and value < delta.expected_after
+                )
                 if not increases:
                     return VerificationResult(
                         status=VerificationStatus.FAILED,
@@ -295,14 +297,14 @@ def _match_delta(
     if delta.before is not None:
         if not before_scope or not before_found:
             return False, before_reason
-        if before_value != delta.before:
+        if not _strict_equal(before_value, delta.before):
             return (
                 False,
                 f"expected previous {_delta_label(delta)} to be {delta.before!r}, got {before_value!r}",
             )
 
     if operator == DeltaOperator.EQUALS:
-        if after_value != delta.expected_after:
+        if not _strict_equal(after_value, delta.expected_after):
             return (
                 False,
                 f"expected {_delta_label(delta)} to be {delta.expected_after!r}, got {after_value!r}",
@@ -317,21 +319,25 @@ def _match_delta(
     if operator == DeltaOperator.GREATER_THAN_BEFORE:
         if not before_scope or not before_found:
             return False, before_reason
-        try:
-            if after_value > before_value:
-                return True, "matched"
-        except TypeError:
+        if not (
+            _is_finite_number(after_value)
+            and _is_finite_number(before_value)
+        ):
             return False, f"expected comparable values for {_delta_label(delta)}"
+        if after_value > before_value:
+            return True, "matched"
         return False, f"expected {_delta_label(delta)} to increase from {before_value!r}, got {after_value!r}"
 
     if operator == DeltaOperator.LESS_THAN_BEFORE:
         if not before_scope or not before_found:
             return False, before_reason
-        try:
-            if after_value < before_value:
-                return True, "matched"
-        except TypeError:
+        if not (
+            _is_finite_number(after_value)
+            and _is_finite_number(before_value)
+        ):
             return False, f"expected comparable values for {_delta_label(delta)}"
+        if after_value < before_value:
+            return True, "matched"
         return False, f"expected {_delta_label(delta)} to decrease from {before_value!r}, got {after_value!r}"
 
     if operator == DeltaOperator.BECOMES_PRESENT:
@@ -348,17 +354,19 @@ def _match_delta(
             return False, before_reason
         if delta.expected_after is None:
             return False, f"missing target value for {_delta_label(delta)}"
-        try:
-            increased = after_value > before_value
-        except TypeError:
+        if not all(
+            _is_finite_number(value)
+            for value in (before_value, after_value, delta.expected_after)
+        ):
             return False, f"expected comparable values for {_delta_label(delta)}"
+        increased = after_value > before_value
         if not increased:
             return (
                 False,
                 f"expected {_delta_label(delta)} to increase from "
                 f"{before_value!r}, got {after_value!r}",
             )
-        if after_value != delta.expected_after:
+        if not _strict_equal(after_value, delta.expected_after):
             return (
                 False,
                 f"expected {_delta_label(delta)} to reach "
@@ -367,6 +375,19 @@ def _match_delta(
         return True, "matched"
 
     return False, f"unsupported delta operator: {operator.value}"
+
+
+def _strict_equal(left: Any, right: Any) -> bool:
+    """Keep Python's bool/int equivalence from satisfying state deltas."""
+    if isinstance(left, bool) or isinstance(right, bool):
+        return type(left) is type(right) and left == right
+    return left == right
+
+
+def _is_finite_number(value: Any) -> bool:
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        return False
+    return not isinstance(value, float) or math.isfinite(value)
 
 
 def _resolve_delta_value(

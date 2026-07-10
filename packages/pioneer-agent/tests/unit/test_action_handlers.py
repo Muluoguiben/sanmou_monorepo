@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import unittest
+from datetime import UTC, datetime, timedelta
 
 from pioneer_agent.core.device import (
     CapabilityFlags,
@@ -12,10 +13,16 @@ from pioneer_agent.core.device import (
     ObservationSourceType,
 )
 from pioneer_agent.core.enums import ActionType
-from pioneer_agent.core.models import CandidateAction
+from pioneer_agent.core.models import (
+    CandidateAction,
+    FieldMeta,
+    ObservationSnapshot,
+    RuntimeState,
+)
 from pioneer_agent.executor.action_handlers import dispatch
-from pioneer_agent.executor.ui_actions import ClickOutcome
+from pioneer_agent.executor.ui_actions import ClickOutcome, UIActions
 from pioneer_agent.executor.ui_runner import UIActionRunner
+from pioneer_agent.perception.ui_registry import UIRegistry
 from pioneer_agent.runtime.architecture_gates import (
     AutomationMode,
     AutomationReadiness,
@@ -60,6 +67,7 @@ def _device_session(
     active: bool = True,
     source_capabilities: CapabilityFlags | None = None,
     session_capabilities: CapabilityFlags | None = None,
+    source_type: ObservationSourceType = ObservationSourceType.WINDOWS_WINDOW_CAPTURE,
 ) -> DeviceSession:
     source_flags = source_capabilities or CapabilityFlags(input_control=True)
     session_flags = session_capabilities or source_flags
@@ -69,7 +77,7 @@ def _device_session(
             resolution=(1286, 666),
         ),
         source=ObservationSource(
-            source_type=ObservationSourceType.WINDOWS_WINDOW_CAPTURE,
+            source_type=source_type,
             capabilities=source_flags,
         ),
         capabilities=session_flags,
@@ -78,13 +86,82 @@ def _device_session(
 
 
 def _authorized_runner(ui: object, **kwargs: object) -> UIActionRunner:
-    session = _device_session()
+    session = _device_session(source_type=ObservationSourceType.SCREENSHOT_FILE)
     return UIActionRunner(
         ui,  # type: ignore[arg-type]
         device_session=session,
         capabilities=session.capabilities,
         session_mode=SessionMode.AUTOMATION_TEST,
+        allow_offline_fixture_observations=True,
         **kwargs,
+    )
+
+
+def _frame_observation(
+    action: CandidateAction,
+    *,
+    captured_at: datetime | None = None,
+) -> ObservationSnapshot:
+    captured_at = captured_at or datetime.now(UTC)
+    if action.action_type == ActionType.CLAIM_CHAPTER_REWARD:
+        state = RuntimeState(
+            progress={
+                "current_chapter_id": action.params["chapter_id"],
+                "chapter_claimable": True,
+                "chapter_claim_button": action.params["claim_button"],
+            },
+            field_meta={
+                "progress.chapter_panel": FieldMeta(
+                    value="loaded",
+                    source="vision.chapter_panel",
+                    updated_at=captured_at,
+                    observation_id="obs-current",
+                )
+            },
+        )
+        page_type, domains = "chapter", ["resource_bar", "chapter_panel"]
+    elif action.action_type == ActionType.RECRUIT_SOLDIERS:
+        state = RuntimeState(
+            teams=[
+                {
+                    "team_id": action.params["team_id"],
+                    "soldiers": 22000,
+                    "recruit_button": action.params["recruit_button"],
+                }
+            ],
+            field_meta={
+                "teams.recruit_panel": FieldMeta(
+                    value="loaded",
+                    source="vision.recruit_panel",
+                    updated_at=captured_at,
+                    observation_id="obs-current",
+                )
+            },
+        )
+        page_type, domains = "recruit", ["resource_bar", "recruit_panel"]
+    else:
+        dialog = action.params["upgrade_dialog"]
+        state = RuntimeState(
+            city={"upgrade_dialog": dialog},
+            field_meta={
+                "city.upgrade_dialog": FieldMeta(
+                    value="loaded",
+                    source="vision.upgrade_dialog",
+                    updated_at=captured_at,
+                    observation_id="obs-current",
+                )
+            },
+        )
+        page_type, domains = "upgrade_dialog", ["resource_bar", "upgrade_dialog"]
+    return ObservationSnapshot(
+        observation_id="obs-current",
+        captured_at=captured_at,
+        frame_sha256="a" * 64,
+        frame_size=(1920, 1080),
+        page_type=page_type,
+        domains_run=domains,
+        observed_state=state,
+        source="vision_sync",
     )
 
 
@@ -239,6 +316,170 @@ class DispatchTests(unittest.TestCase):
 
 
 class UIActionRunnerTests(unittest.TestCase):
+    def test_live_input_cannot_bypass_guard_with_non_live_capture_capabilities(self) -> None:
+        action = _mk_action(
+            ActionType.CLAIM_CHAPTER_REWARD,
+            claim_button={
+                "visible": True,
+                "enabled": True,
+                "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+            },
+        )
+        cases = (
+            _device_session(),
+            _device_session(source_type=ObservationSourceType.SCREENSHOT_FILE),
+        )
+        for session in cases:
+            with self.subTest(source_type=session.source.source_type.value):
+                ui = _SemanticUI()
+                runner = UIActionRunner(
+                    ui,  # type: ignore[arg-type]
+                    device_session=session,
+                    capabilities=session.capabilities,
+                    session_mode=SessionMode.LIVE,
+                )
+
+                result = runner.run(action, observation=_frame_observation(action))
+
+                self.assertEqual(result.status, "blocked")
+                self.assertEqual(result.summary["blocked_by"], "window_identity_gate")
+                self.assertEqual(ui.clicks, [])
+
+    def test_live_dispatch_forwards_atomic_window_identity_guard(self) -> None:
+        class _GuardedBridge:
+            def __init__(self) -> None:
+                self.clicks: list[dict[str, Any]] = []
+
+            def click(
+                self,
+                x: int,
+                y: int,
+                button: str = "left",
+                *,
+                expected_window: dict[str, int] | None = None,
+            ) -> dict[str, Any]:
+                self.clicks.append(
+                    {
+                        "x": x,
+                        "y": y,
+                        "button": button,
+                        "expected_window": expected_window,
+                    }
+                )
+                return {"status": "ok"}
+
+        action = _mk_action(
+            ActionType.CLAIM_CHAPTER_REWARD,
+            claim_button={
+                "visible": True,
+                "enabled": True,
+                "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+            },
+        )
+        capabilities = CapabilityFlags(
+            live_capture=True,
+            input_control=True,
+            reliable_window_info=True,
+        )
+        session = DeviceSession(
+            profile=DeviceProfile(
+                platform=DevicePlatform.PC_CLIENT,
+                resolution=(1920, 1080),
+            ),
+            source=ObservationSource(
+                source_type=ObservationSourceType.WINDOWS_WINDOW_CAPTURE,
+                capabilities=capabilities,
+                metadata={"hwnd": 101, "pid": 202},
+            ),
+            capabilities=capabilities,
+        )
+        bridge = _GuardedBridge()
+        ui = UIActions(bridge, UIRegistry({}))  # type: ignore[arg-type]
+        runner = UIActionRunner(
+            ui,
+            device_session=session,
+            capabilities=capabilities,
+            session_mode=SessionMode.LIVE,
+        )
+
+        result = runner.run(action, observation=_frame_observation(action))
+
+        self.assertEqual(result.status, "ok")
+        self.assertEqual(len(bridge.clicks), 1)
+        self.assertEqual(
+            bridge.clicks[0]["expected_window"],
+            {"hwnd": 101, "pid": 202, "width": 1920, "height": 1080},
+        )
+
+    def test_live_dispatch_rejects_ui_without_atomic_window_guard(self) -> None:
+        action = _mk_action(
+            ActionType.CLAIM_CHAPTER_REWARD,
+            claim_button={
+                "visible": True,
+                "enabled": True,
+                "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+            },
+        )
+        capabilities = CapabilityFlags(
+            live_capture=True,
+            input_control=True,
+            reliable_window_info=True,
+        )
+        session = DeviceSession(
+            profile=DeviceProfile(
+                platform=DevicePlatform.PC_CLIENT,
+                resolution=(1920, 1080),
+            ),
+            source=ObservationSource(
+                source_type=ObservationSourceType.WINDOWS_WINDOW_CAPTURE,
+                capabilities=capabilities,
+                metadata={"hwnd": 101, "pid": 202},
+            ),
+            capabilities=capabilities,
+        )
+        ui = _SemanticUI()
+        runner = UIActionRunner(
+            ui,  # type: ignore[arg-type]
+            device_session=session,
+            capabilities=capabilities,
+            session_mode=SessionMode.LIVE,
+        )
+
+        result = runner.run(action, observation=_frame_observation(action))
+
+        self.assertEqual(result.status, "blocked")
+        self.assertEqual(result.summary["blocked_by"], "window_identity_gate")
+        self.assertEqual(ui.clicks, [])
+
+    def test_live_window_cannot_enable_offline_fixture_observations(self) -> None:
+        action = _mk_action(
+            ActionType.CLAIM_CHAPTER_REWARD,
+            claim_button={
+                "visible": True,
+                "enabled": True,
+                "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+            },
+        )
+        observation = _frame_observation(action).model_copy(
+            update={"source": "runtime_fixture"}
+        )
+        ui = _SemanticUI()
+        session = _device_session()
+        runner = UIActionRunner(
+            ui,  # type: ignore[arg-type]
+            device_session=session,
+            capabilities=session.capabilities,
+            session_mode=SessionMode.AUTOMATION_TEST,
+            allow_offline_fixture_observations=True,
+        )
+
+        result = runner.run(action, observation=observation)
+
+        self.assertEqual(result.status, "blocked")
+        self.assertEqual(result.summary["blocked_by"], "observation_gate")
+        self.assertIn("vision_sync", result.failure_reason or "")
+        self.assertEqual(ui.clicks, [])
+
     def test_runner_delegates_to_dispatch(self) -> None:
         runner = _authorized_runner(_NullUI())
         res = runner.run(_mk_action(ActionType.WAIT_FOR_STAMINA))
@@ -402,19 +643,19 @@ class UIActionRunnerTests(unittest.TestCase):
 
     def test_runner_dispatches_low_risk_action_when_semantic_bbox_is_present(self) -> None:
         runner = _authorized_runner(_SemanticUI())
-        res = runner.run(
-            _mk_action(
-                ActionType.CLAIM_CHAPTER_REWARD,
-                claim_button={
-                    "visible": True,
-                    "enabled": True,
-                    "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
-                },
-            )
+        action = _mk_action(
+            ActionType.CLAIM_CHAPTER_REWARD,
+            claim_button={
+                "visible": True,
+                "enabled": True,
+                "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+            },
         )
+        res = runner.run(action, observation=_frame_observation(action))
         self.assertEqual(res.status, "ok")
         self.assertEqual(res.summary["target_key"], "chapter_claim_button")
         self.assertEqual(res.summary["semantic_target_gate"]["decision"], "allow")
+        self.assertEqual(res.summary["observation_gate"]["decision"], "allow")
         self.assertEqual(res.summary["semantic_target_gate"]["details"]["target"], "claim_button")
 
     def test_runner_blocks_low_risk_action_with_disabled_semantic_bbox(self) -> None:
@@ -434,24 +675,23 @@ class UIActionRunnerTests(unittest.TestCase):
 
     def test_runner_dispatches_upgrade_confirm_when_semantic_bbox_is_present(self) -> None:
         runner = _authorized_runner(_SemanticUI())
-        res = runner.run(
-            _mk_action(
-                ActionType.UPGRADE_BUILDING,
-                building_name="君王殿",
-                upgrade_dialog={
+        action = _mk_action(
+            ActionType.UPGRADE_BUILDING,
+            building_name="君王殿",
+            upgrade_dialog={
+                "visible": True,
+                "building_name": "君王殿",
+                "current_level": 10,
+                "next_level": 11,
+                "can_upgrade": True,
+                "confirm_button": {
                     "visible": True,
-                    "building_name": "君王殿",
-                    "current_level": 10,
-                    "next_level": 11,
-                    "can_upgrade": True,
-                    "confirm_button": {
-                        "visible": True,
-                        "enabled": True,
-                        "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
-                    },
+                    "enabled": True,
+                    "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
                 },
-            )
+            },
         )
+        res = runner.run(action, observation=_frame_observation(action))
         self.assertEqual(res.status, "ok")
         self.assertEqual(res.summary["target_key"], "upgrade_confirm_button")
         self.assertEqual(res.summary["semantic_target_gate"]["decision"], "allow")
@@ -459,6 +699,57 @@ class UIActionRunnerTests(unittest.TestCase):
             res.summary["semantic_target_gate"]["details"]["target"],
             "upgrade_dialog.confirm_button",
         )
+
+    def test_runner_blocks_missing_stale_or_wrong_target_observation(self) -> None:
+        button = {
+            "visible": True,
+            "enabled": True,
+            "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+        }
+        action = _mk_action(
+            ActionType.CLAIM_CHAPTER_REWARD,
+            claim_button=button,
+        )
+
+        for label, observation in (
+            ("missing", None),
+            (
+                "stale",
+                _frame_observation(
+                    action,
+                    captured_at=datetime.now(UTC) - timedelta(minutes=2),
+                ),
+            ),
+            (
+                "wrong_target",
+                _frame_observation(
+                    action.model_copy(
+                        update={"params": {**action.params, "chapter_id": 18}}
+                    )
+                ),
+            ),
+        ):
+            with self.subTest(label=label):
+                ui = _SemanticUI()
+                result = _authorized_runner(ui).run(action, observation=observation)
+                self.assertEqual(result.status, "blocked")
+                self.assertEqual(result.summary["blocked_by"], "observation_gate")
+                self.assertEqual(ui.clicks, [])
+
+        nan_ui = _SemanticUI()
+        nan_ttl_result = _authorized_runner(
+            nan_ui,
+            observation_max_age_seconds=float("nan"),
+        ).run(
+            action,
+            observation=_frame_observation(
+                action,
+                captured_at=datetime.now(UTC) - timedelta(days=7),
+            ),
+        )
+        self.assertEqual(nan_ttl_result.status, "blocked")
+        self.assertIn("finite and positive", nan_ttl_result.failure_reason or "")
+        self.assertEqual(nan_ui.clicks, [])
 
     def test_runner_blocks_low_risk_action_when_architecture_gate_is_not_ready(self) -> None:
         runner = _authorized_runner(

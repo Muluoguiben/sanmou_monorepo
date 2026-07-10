@@ -569,19 +569,19 @@ class McpToolTests(unittest.TestCase):
                 "claim_chapter_reward",
                 "all",
                 10.0,
-                ["progress.chapter_claimable"],
+                ["progress.current_chapter_id", "progress.chapter_claimable"],
             ),
             "pr5_recruit_guard_camp_state.json": (
                 "recruit_soldiers",
                 "any",
                 30.0,
-                ["teams.0.soldiers", "teams.0.recruit_finish_time", "economy.reserve_troops"],
+                ["soldiers", "recruit_finish_time"],
             ),
             "pr5_building_upgrade_state.json": (
                 "upgrade_building",
-                "any",
+                "all",
                 20.0,
-                ["city.buildings.0.level", "economy.resources.wood"],
+                ["level"],
             ),
         }
 

@@ -1,10 +1,16 @@
 """Tests for VisionSync — page-conditional domain routing."""
 from __future__ import annotations
 
+import hashlib
+import io
 import unittest
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime, timezone
+from pathlib import Path
+from tempfile import TemporaryDirectory
 from typing import Any
+
+from PIL import Image
 
 from pioneer_agent.core.models import FieldMeta, RuntimeState
 from pioneer_agent.perception.vision_sync import VisionSync
@@ -60,6 +66,84 @@ class _ScriptedVisionClient:
 
 
 class VisionSyncTests(unittest.TestCase):
+    def test_path_input_is_read_once_and_all_extractors_receive_same_bytes(self) -> None:
+        original_buffer = io.BytesIO()
+        replacement_buffer = io.BytesIO()
+        Image.new("RGB", (320, 180), (1, 2, 3)).save(original_buffer, format="PNG")
+        Image.new("RGB", (640, 360), (4, 5, 6)).save(replacement_buffer, format="PNG")
+        original = original_buffer.getvalue()
+        replacement = replacement_buffer.getvalue()
+
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "watch.png"
+            path.write_bytes(original)
+
+            class _MutatingClient(_ScriptedVisionClient):
+                def __init__(self) -> None:
+                    super().__init__(
+                        [
+                            {"page_type": "city", "resources": {}, "visible_notes": []},
+                            {"buildings": [], "visible_notes": []},
+                        ]
+                    )
+                    self.frames: list[bytes] = []
+
+                def extract(self, image, instruction, response_schema, **kwargs):  # noqa: ANN001
+                    frame = image.read_bytes() if isinstance(image, Path) else image
+                    self.frames.append(frame)
+                    if len(self.frames) == 1:
+                        path.write_bytes(replacement)
+                    return super().extract(image, instruction, response_schema, **kwargs)
+
+            client = _MutatingClient()
+            _state, summary = VisionSync(client).sync(path, RuntimeState())
+
+        assert summary.observation is not None
+        self.assertEqual(client.frames, [original, original])
+        self.assertEqual(summary.observation.frame_sha256, hashlib.sha256(original).hexdigest())
+        self.assertEqual(summary.observation.frame_size, (320, 180))
+
+    def test_summary_carries_same_frame_observation_without_deduping_entities(self) -> None:
+        client = _ScriptedVisionClient(
+            [
+                {
+                    "page_type": "city",
+                    "resources": {"wood": 100},
+                    "visible_notes": [],
+                },
+                {
+                    "buildings": [
+                        {"name": "Main Hall", "level": 10},
+                        {"name": "Main Hall", "level": 9},
+                    ],
+                    "visible_notes": [],
+                },
+            ]
+        )
+        buffer = io.BytesIO()
+        Image.new("RGB", (320, 180), (0, 0, 0)).save(buffer, format="PNG")
+        frame = buffer.getvalue()
+        captured_at = datetime(2026, 7, 10, 8, 0, tzinfo=UTC)
+
+        _state, summary = VisionSync(client).sync(
+            frame,
+            RuntimeState(),
+            captured_at=captured_at,
+        )
+
+        observation = summary.observation
+        self.assertIsNotNone(observation)
+        assert observation is not None
+        self.assertEqual(observation.frame_sha256, hashlib.sha256(frame).hexdigest())
+        self.assertEqual(observation.frame_size, (320, 180))
+        self.assertEqual(observation.captured_at, captured_at)
+        self.assertEqual(observation.domains_run, ["resource_bar", "city_buildings"])
+        self.assertEqual(len(observation.observed_state.city["buildings"]), 2)
+        for meta_key in ("global_state", "economy", "city"):
+            meta = observation.observed_state.field_meta[meta_key]
+            self.assertEqual(meta.observation_id, observation.observation_id)
+            self.assertEqual(meta.updated_at, captured_at)
+
     def test_main_map_runs_map_land_from_explicit_page_type(self) -> None:
         client = _ScriptedVisionClient(
             [

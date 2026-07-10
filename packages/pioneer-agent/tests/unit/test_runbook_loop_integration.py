@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import io
+import hashlib
 import json
 import tempfile
 import unittest
@@ -15,6 +16,8 @@ from pioneer_agent.core.enums import ActionType
 from pioneer_agent.core.models import (
     CandidateAction,
     ExecutionResult,
+    FieldMeta,
+    ObservationSnapshot,
     RuntimeState,
     SelectionResult,
 )
@@ -63,6 +66,18 @@ def _with_attack_facts(
     lineup_preset: str = "main_team",
 ) -> dict[str, Any]:
     result = dict(payload)
+    progress = dict(result.get("progress") or {})
+    progress.setdefault("current_chapter_id", 1)
+    progress.setdefault("chapter_claimable", True)
+    progress.setdefault(
+        "chapter_claim_button",
+        {
+            "visible": True,
+            "enabled": True,
+            "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+        },
+    )
+    result["progress"] = progress
     result.setdefault(
         "team_containers",
         [{"team_id": "team-1", "lineup_preset": lineup_preset}],
@@ -120,11 +135,41 @@ class _StubVisionSync:
             state_payload,
             lineup_preset=lineup_preset,
         )
+        self.calls = 0
 
     def sync(self, png, *, state, captured_at):  # noqa: ANN001
+        self.calls += 1
+        payload = RuntimeState.model_validate(self.state_payload)
+        if self.calls > 1:
+            payload.progress["chapter_claimable"] = False
+            payload.progress.pop("chapter_claim_button", None)
+        observed = payload
+        observation_id = hashlib.sha256(
+            png + captured_at.isoformat().encode("utf-8")
+        ).hexdigest()
+        observed.field_meta["progress.chapter_panel"] = FieldMeta(
+            value="loaded",
+            source="vision.chapter_panel",
+            updated_at=captured_at,
+            observation_id=observation_id,
+        )
         return (
-            RuntimeState.model_validate(self.state_payload),
-            VisionSyncSummary(page_type="city", domains_run=[], notes=[]),
+            observed,
+            VisionSyncSummary(
+                page_type="chapter",
+                domains_run=["resource_bar", "chapter_panel"],
+                notes=[],
+                observation=ObservationSnapshot(
+                    observation_id=observation_id,
+                    captured_at=captured_at,
+                    frame_sha256=hashlib.sha256(png).hexdigest(),
+                    frame_size=(64, 64),
+                    page_type="chapter",
+                    domains_run=["resource_bar", "chapter_panel"],
+                    observed_state=observed,
+                    source="vision_sync",
+                ),
+            ),
         )
 
 
@@ -151,7 +196,7 @@ class _StubRunner:
         self.actions: list[CandidateAction] = []
         self.verifier_registry = _test_verifier_registry()
 
-    def run(self, action):  # noqa: ANN001
+    def run(self, action, *, observation=None):  # noqa: ANN001
         self.actions.append(action)
         return ExecutionResult(
             action_id=action.action_id,
@@ -200,7 +245,15 @@ def _runbook() -> OpeningRunbook:
 
 def _action(action_type: ActionType, **params: Any) -> CandidateAction:
     if action_type == ActionType.CLAIM_CHAPTER_REWARD:
-        params = {"chapter_id": 1, **params}
+        params = {
+            "chapter_id": 1,
+            "claim_button": {
+                "visible": True,
+                "enabled": True,
+                "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+            },
+            **params,
+        }
     if action_type == ActionType.ATTACK_LAND:
         params = {
             "land_id": "L-6",
@@ -1083,7 +1136,7 @@ class _FlowRunner:
         self.calls = 0
         self.verifier_registry = _test_verifier_registry()
 
-    def run(self, action):  # noqa: ANN001
+    def run(self, action, *, observation=None):  # noqa: ANN001
         self.calls += 1
         if self.calls == 1:
             return ExecutionResult(
@@ -1101,6 +1154,9 @@ class _FlowRunner:
             verification_status="verified",
             summary={"action_type": action.action_type.value},
         )
+
+    def input_authority_failure_reason(self) -> None:
+        return None
 
 
 class RunbookFlowContinuationTests(unittest.TestCase):

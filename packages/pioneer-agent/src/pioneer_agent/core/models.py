@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import BaseModel, Field
 
@@ -13,6 +13,7 @@ class FieldMeta(BaseModel):
     confidence: float = 1.0
     source: str = "unknown"
     updated_at: datetime | None = None
+    observation_id: str | None = None
 
 
 class RuntimeState(BaseModel):
@@ -30,6 +31,17 @@ class RuntimeState(BaseModel):
     swap_constraints: dict[str, Any] = Field(default_factory=dict)
     timing: dict[str, Any] = Field(default_factory=dict)
     field_meta: dict[str, FieldMeta] = Field(default_factory=dict)
+
+
+class ObservationSnapshot(BaseModel):
+    observation_id: str
+    captured_at: datetime
+    frame_sha256: str
+    frame_size: tuple[int, int] | None = None
+    page_type: str | None = None
+    domains_run: list[str] = Field(default_factory=list)
+    observed_state: RuntimeState = Field(default_factory=RuntimeState)
+    source: Literal["vision_sync", "runtime_fixture"]
 
 
 class CandidateAction(BaseModel):
@@ -74,4 +86,3 @@ class RuntimeContext(BaseModel):
     stage: RuntimeStage = RuntimeStage.IDLE
     started_at: datetime = Field(default_factory=datetime.utcnow)
     last_event: AgentEvent | None = None
-

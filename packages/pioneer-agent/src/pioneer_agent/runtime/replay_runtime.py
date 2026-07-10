@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import hashlib
+from datetime import UTC, datetime
 from pathlib import Path
 
 from pioneer_agent.core.device import (
@@ -10,7 +12,8 @@ from pioneer_agent.core.device import (
     ObservationSource,
     ObservationSourceType,
 )
-from pioneer_agent.core.models import RuntimeState
+from pioneer_agent.core.enums import ActionType
+from pioneer_agent.core.models import ObservationSnapshot, RuntimeState
 from pioneer_agent.core.runtime_state_io import load_runtime_state_record
 from pioneer_agent.derivation.state_deriver import StateDeriver
 from pioneer_agent.executor.ui_actions import ClickOutcome
@@ -37,6 +40,7 @@ class ReplayRuntime:
             capabilities=device_session.capabilities,
             session_mode=SessionMode.AUTOMATION_TEST,
             verifier_registry=self.verifier_registry,
+            allow_offline_fixture_observations=True,
         )
 
     def run_state(self, state: RuntimeState, fixture_label: str = "inline_state") -> dict:
@@ -64,7 +68,13 @@ class ReplayRuntime:
             }
             verifier_spec = serialize_verifier_spec(spec)
             if action_type in LOW_RISK_AUTOMATION_ACTIONS:
-                runtime_dispatch = self.dispatch_runner.run(result.selected_action).model_dump(mode="json")
+                runtime_dispatch = self.dispatch_runner.run(
+                    result.selected_action,
+                    observation=build_fixture_observation(
+                        derived,
+                        result.selected_action.action_type,
+                    ),
+                ).model_dump(mode="json")
         return {
             "fixture": fixture_label,
             "derived_state": {
@@ -119,9 +129,38 @@ def _replay_device_session() -> DeviceSession:
             resolution=(1286, 666),
         ),
         source=ObservationSource(
-            source_type=ObservationSourceType.WINDOWS_WINDOW_CAPTURE,
+            source_type=ObservationSourceType.SCREENSHOT_FILE,
             capabilities=capabilities,
             display_name="offline replay UI",
         ),
         capabilities=capabilities,
+    )
+
+
+def build_fixture_observation(
+    state: RuntimeState,
+    action_type: ActionType,
+) -> ObservationSnapshot:
+    captured_at = datetime.now(UTC)
+    payload = state.model_dump_json().encode("utf-8")
+    frame_sha256 = hashlib.sha256(payload).hexdigest()
+    if action_type == ActionType.CLAIM_CHAPTER_REWARD:
+        page_type, domains = "chapter", ["resource_bar", "chapter_panel"]
+    elif action_type == ActionType.RECRUIT_SOLDIERS:
+        page_type, domains = "recruit", ["resource_bar", "recruit_panel"]
+    elif state.city.get("upgrade_dialog", {}).get("visible"):
+        page_type, domains = "upgrade_dialog", ["resource_bar", "upgrade_dialog"]
+    else:
+        page_type, domains = "city", ["resource_bar", "city_buildings"]
+    return ObservationSnapshot(
+        observation_id=hashlib.sha256(
+            payload + captured_at.isoformat().encode("utf-8")
+        ).hexdigest(),
+        captured_at=captured_at,
+        frame_sha256=frame_sha256,
+        frame_size=(1286, 666),
+        page_type=page_type,
+        domains_run=domains,
+        observed_state=state,
+        source="runtime_fixture",
     )

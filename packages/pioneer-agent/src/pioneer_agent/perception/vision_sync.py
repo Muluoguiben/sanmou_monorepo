@@ -6,12 +6,17 @@ extractor on every screenshot (e.g. while on the main map).
 """
 from __future__ import annotations
 
+import hashlib
+from copy import deepcopy
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import UTC, datetime
+from io import BytesIO
 from pathlib import Path
 from typing import Any
 
-from pioneer_agent.core.models import RuntimeState
+from PIL import Image, UnidentifiedImageError
+
+from pioneer_agent.core.models import ObservationSnapshot, RuntimeState
 from pioneer_agent.perception.domains import (
     apply_battle_report,
     apply_chapter_panel,
@@ -46,6 +51,7 @@ class VisionSyncSummary:
     domains_run: list[str]
     notes: list[str]
     image_traces: list[dict[str, Any]] = field(default_factory=list)
+    observation: ObservationSnapshot | None = None
 
 
 class VisionSync:
@@ -62,13 +68,28 @@ class VisionSync:
         captured_at: datetime | None = None,
     ) -> tuple[RuntimeState, VisionSyncSummary]:
         state = state or RuntimeState()
-        captured_at = captured_at or datetime.now()
+        captured_at = captured_at or datetime.now(UTC)
+        frame_bytes = image.read_bytes() if isinstance(image, Path) else image
+        frame_sha256 = hashlib.sha256(frame_bytes).hexdigest()
+        observation_id = hashlib.sha256(
+            frame_bytes + b"\0" + captured_at.isoformat().encode("utf-8")
+        ).hexdigest()
+        frame_size = _frame_size(frame_bytes)
         _reset_vision_trace_events(self.client)
         domains: list[str] = []
         notes: list[str] = []
+        observed_state = RuntimeState()
+
+        def record(fragment: Any) -> Any:
+            nonlocal observed_state
+            _tag_fragment_observation(fragment, observation_id)
+            observed_state = _merge_observed_fragment(observed_state, fragment)
+            return fragment
 
         # Always run resource_bar — it also detects page_type cheaply.
-        res_fragment = extract_resource_bar(image, client=self.client, captured_at=captured_at)
+        res_fragment = record(
+            extract_resource_bar(frame_bytes, client=self.client, captured_at=captured_at)
+        )
         state = apply_resource_bar(state, res_fragment)
         domains.append("resource_bar")
 
@@ -84,8 +105,8 @@ class VisionSync:
             state = expire_map_land_candidates(state, captured_at=captured_at)
 
         if page != "upgrade_dialog" and _should_run_popup_detector(res_fragment.notes):
-            popup_fragment = extract_popup(
-                image, client=self.client, captured_at=captured_at
+            popup_fragment = record(
+                extract_popup(frame_bytes, client=self.client, captured_at=captured_at)
             )
             state = apply_popup(state, popup_fragment)
             domains.append("popup")
@@ -95,11 +116,20 @@ class VisionSync:
                 # A blocking overlay makes prior map targets non-actionable even
                 # when the outer classifier still calls the page main_map.
                 state = expire_map_land_candidates(state, captured_at=captured_at)
-                return state, self._summary(page=page, domains=domains, notes=notes)
+                return state, self._summary(
+                    page=page,
+                    domains=domains,
+                    notes=notes,
+                    observation_id=observation_id,
+                    captured_at=captured_at,
+                    frame_sha256=frame_sha256,
+                    frame_size=frame_size,
+                    observed_state=observed_state,
+                )
 
         if page == "chapter":
-            chapter_fragment = extract_chapter_panel(
-                image, client=self.client, captured_at=captured_at
+            chapter_fragment = record(
+                extract_chapter_panel(frame_bytes, client=self.client, captured_at=captured_at)
             )
             state = apply_chapter_panel(state, chapter_fragment)
             domains.append("chapter_panel")
@@ -107,8 +137,8 @@ class VisionSync:
                 notes.extend(chapter_fragment.notes)
 
         if page == "recruit":
-            recruit_fragment = extract_recruit_panel(
-                image, client=self.client, captured_at=captured_at
+            recruit_fragment = record(
+                extract_recruit_panel(frame_bytes, client=self.client, captured_at=captured_at)
             )
             state = apply_recruit_panel(state, recruit_fragment)
             domains.append("recruit_panel")
@@ -116,8 +146,8 @@ class VisionSync:
                 notes.extend(recruit_fragment.notes)
 
         if page == "main_map":
-            map_fragment = extract_map_land(
-                image, client=self.client, captured_at=captured_at
+            map_fragment = record(
+                extract_map_land(frame_bytes, client=self.client, captured_at=captured_at)
             )
             state = apply_map_land(state, map_fragment)
             domains.append("map_land")
@@ -125,8 +155,8 @@ class VisionSync:
                 notes.extend(map_fragment.notes)
 
         if page == "battle":
-            battle_fragment = extract_battle_report(
-                image, client=self.client, captured_at=captured_at
+            battle_fragment = record(
+                extract_battle_report(frame_bytes, client=self.client, captured_at=captured_at)
             )
             state = apply_battle_report(state, battle_fragment)
             domains.append("battle_report")
@@ -134,8 +164,8 @@ class VisionSync:
                 notes.extend(battle_fragment.notes)
 
         if page in {"building", "upgrade_dialog"}:
-            upgrade_fragment = extract_upgrade_dialog(
-                image, client=self.client, captured_at=captured_at
+            upgrade_fragment = record(
+                extract_upgrade_dialog(frame_bytes, client=self.client, captured_at=captured_at)
             )
             state = apply_upgrade_dialog(state, upgrade_fragment)
             domains.append("upgrade_dialog")
@@ -143,8 +173,8 @@ class VisionSync:
                 notes.extend(upgrade_fragment.notes)
 
         if page in {"event_tournament", "mode_hub"}:
-            mode_fragment = extract_mode_hub(
-                image, client=self.client, captured_at=captured_at
+            mode_fragment = record(
+                extract_mode_hub(frame_bytes, client=self.client, captured_at=captured_at)
             )
             state = apply_mode_hub(state, mode_fragment)
             domains.append("mode_hub")
@@ -152,8 +182,8 @@ class VisionSync:
                 notes.extend(mode_fragment.notes)
 
         if page == "city":
-            city_fragment = extract_city_buildings(
-                image, client=self.client, captured_at=captured_at
+            city_fragment = record(
+                extract_city_buildings(frame_bytes, client=self.client, captured_at=captured_at)
             )
             state = apply_city_buildings(state, city_fragment)
             domains.append("city_buildings")
@@ -161,8 +191,8 @@ class VisionSync:
                 notes.extend(city_fragment.notes)
 
         if page in {"team", "team_panel", "lineup", "lineup_config"}:
-            team_fragment = extract_team_panel(
-                image, client=self.client, captured_at=captured_at
+            team_fragment = record(
+                extract_team_panel(frame_bytes, client=self.client, captured_at=captured_at)
             )
             state = apply_team_panel(state, team_fragment)
             domains.append("team_panel")
@@ -170,15 +200,24 @@ class VisionSync:
                 notes.extend(team_fragment.notes)
 
         if page in {"hero_detail", "tactic_detail", "equipment_mount", "formation_books"}:
-            detail_fragment = extract_team_detail(
-                image, client=self.client, captured_at=captured_at
+            detail_fragment = record(
+                extract_team_detail(frame_bytes, client=self.client, captured_at=captured_at)
             )
             state = apply_team_detail(state, detail_fragment)
             domains.append("team_detail")
             if detail_fragment.notes:
                 notes.extend(detail_fragment.notes)
 
-        return state, self._summary(page=page, domains=domains, notes=notes)
+        return state, self._summary(
+            page=page,
+            domains=domains,
+            notes=notes,
+            observation_id=observation_id,
+            captured_at=captured_at,
+            frame_sha256=frame_sha256,
+            frame_size=frame_size,
+            observed_state=observed_state,
+        )
 
     def _summary(
         self,
@@ -186,12 +225,27 @@ class VisionSync:
         page: str | None,
         domains: list[str],
         notes: list[str],
+        observation_id: str,
+        captured_at: datetime,
+        frame_sha256: str,
+        frame_size: tuple[int, int] | None,
+        observed_state: RuntimeState,
     ) -> VisionSyncSummary:
         return VisionSyncSummary(
             page_type=page,
             domains_run=domains,
             notes=notes,
             image_traces=_consume_vision_trace_events(self.client),
+            observation=ObservationSnapshot(
+                observation_id=observation_id,
+                captured_at=captured_at,
+                frame_sha256=frame_sha256,
+                frame_size=frame_size,
+                page_type=page,
+                domains_run=list(domains),
+                observed_state=observed_state,
+                source="vision_sync",
+            ),
         )
 
 
@@ -216,3 +270,59 @@ def _consume_vision_trace_events(client: Any) -> list[dict[str, Any]]:
         return []
     events = consume()
     return list(events) if events else []
+
+
+def _tag_fragment_observation(fragment: Any, observation_id: str) -> None:
+    field_meta = getattr(fragment, "field_meta", None)
+    if not isinstance(field_meta, dict):
+        return
+    for key, meta in tuple(field_meta.items()):
+        if hasattr(meta, "model_copy"):
+            field_meta[key] = meta.model_copy(
+                update={"observation_id": observation_id}
+            )
+
+
+def _merge_observed_fragment(
+    state: RuntimeState,
+    fragment: Any,
+) -> RuntimeState:
+    payload = state.model_dump(mode="python")
+    for field_name in RuntimeState.model_fields:
+        if field_name == "field_meta" or not hasattr(fragment, field_name):
+            continue
+        value = getattr(fragment, field_name)
+        if isinstance(value, dict):
+            current = payload.get(field_name)
+            payload[field_name] = _deep_merge_dict(
+                current if isinstance(current, dict) else {},
+                value,
+            )
+        elif isinstance(value, list):
+            payload[field_name] = deepcopy(value)
+
+    fragment_meta = getattr(fragment, "field_meta", None)
+    if isinstance(fragment_meta, dict):
+        payload["field_meta"].update(deepcopy(fragment_meta))
+    return RuntimeState.model_validate(payload)
+
+
+def _deep_merge_dict(
+    left: dict[str, Any],
+    right: dict[str, Any],
+) -> dict[str, Any]:
+    merged = deepcopy(left)
+    for key, value in right.items():
+        if isinstance(value, dict) and isinstance(merged.get(key), dict):
+            merged[key] = _deep_merge_dict(merged[key], value)
+        else:
+            merged[key] = deepcopy(value)
+    return merged
+
+
+def _frame_size(frame_bytes: bytes) -> tuple[int, int] | None:
+    try:
+        with Image.open(BytesIO(frame_bytes)) as image:
+            return image.width, image.height
+    except (UnidentifiedImageError, OSError):
+        return None

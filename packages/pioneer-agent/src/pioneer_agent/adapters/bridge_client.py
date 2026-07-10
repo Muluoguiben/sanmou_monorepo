@@ -84,10 +84,25 @@ class BridgeClient:
             path.write_bytes(png_bytes)
         return png_bytes
 
-    def click(self, x: int, y: int, button: str = "left") -> dict[str, Any]:
+    def click(
+        self,
+        x: int,
+        y: int,
+        button: str = "left",
+        *,
+        expected_window: dict[str, int] | None = None,
+    ) -> dict[str, Any]:
         """Send a click at window-relative coordinates."""
         self.connect()
-        self._send({"cmd": "click", "x": x, "y": y, "button": button})
+        payload: dict[str, Any] = {
+            "cmd": "click",
+            "x": x,
+            "y": y,
+            "button": button,
+        }
+        if expected_window is not None:
+            payload["expected_window"] = dict(expected_window)
+        self._send(payload)
         return self._read_line()
 
     def move(self, x: int, y: int, duration: float = 0.0) -> dict[str, Any]:

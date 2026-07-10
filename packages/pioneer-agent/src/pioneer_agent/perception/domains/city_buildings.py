@@ -55,7 +55,7 @@ def extract_city_buildings(
         instruction=CITY_BUILDINGS_INSTRUCTION,
         response_schema=CITY_BUILDINGS_SCHEMA,
     )
-    parsed = CityBuildingsDetection.model_validate(result.data)
+    parsed = CityBuildingsDetection.model_validate(result.data, strict=True)
     return _build_fragment(parsed, captured_at=captured_at)
 
 

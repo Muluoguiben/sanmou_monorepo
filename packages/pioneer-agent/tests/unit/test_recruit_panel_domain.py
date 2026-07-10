@@ -5,6 +5,8 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
+from pydantic import ValidationError
+
 from pioneer_agent.core.models import RuntimeState
 from pioneer_agent.perception.domains import apply_recruit_panel, extract_recruit_panel
 
@@ -23,6 +25,15 @@ class _StubVision:
 
 
 class RecruitPanelDomainTests(unittest.TestCase):
+    def test_raw_boolean_cannot_be_coerced_to_soldier_count(self) -> None:
+        with self.assertRaises(ValidationError):
+            extract_recruit_panel(
+                b"png",
+                client=_StubVision(
+                    {"teams": [{"team_id": "部队一", "soldiers": True}]}
+                ),
+            )
+
     def test_extract_maps_recruit_panel(self) -> None:
         fragment = extract_recruit_panel(
             b"png",
