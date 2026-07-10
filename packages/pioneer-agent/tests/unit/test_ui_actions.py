@@ -1,6 +1,7 @@
 """Tests for UIActions — the primitive layer between decisions and the bridge."""
 from __future__ import annotations
 
+import hashlib
 import io
 import unittest
 from dataclasses import dataclass
@@ -12,6 +13,7 @@ from PIL import Image
 from pioneer_agent.core.models import ObservationSnapshot, RuntimeState
 from pioneer_agent.executor.input_policy import InputPolicy
 from pioneer_agent.executor.ui_actions import UIActions
+from pioneer_agent.executor.semantic_frame_guard import build_semantic_frame_guard
 from pioneer_agent.perception.ui_registry import UIButton, UIRegistry
 
 
@@ -205,6 +207,52 @@ class UIActionsTests(unittest.TestCase):
         self.assertFalse(out.success)
         self.assertIn("invalid bbox", out.reason or "")
         self.assertEqual(bridge.clicks, [])
+
+    def test_guarded_click_rejects_bridge_without_semantic_roi_support(self) -> None:
+        png = _make_png(1000, 1000)
+        bridge = _StubBridge(png)
+        actions = UIActions(bridge, self._registry())
+        bbox = {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900}
+        observation = ObservationSnapshot(
+            observation_id="obs-guarded",
+            captured_at=datetime.now(UTC),
+            frame_sha256=hashlib.sha256(png).hexdigest(),
+            frame_size=(1000, 1000),
+            page_type="chapter",
+            domains_run=["chapter_panel"],
+            observed_state=RuntimeState(),
+            source="vision_sync",
+        )
+        guard = build_semantic_frame_guard(
+            png,
+            frame_size=(1000, 1000),
+            semantic_target_key="chapter_claim_button",
+            bbox=bbox,
+        )
+        confirmation = {
+            "confirmation_id": "confirm-guarded",
+            "frame_sha256": observation.frame_sha256,
+            "confirmed_at": datetime.now(UTC).isoformat(),
+            "expires_at": datetime.now(UTC).isoformat(),
+            "semantic_frame_guard": guard.model_dump(mode="json"),
+        }
+        actions.bind_observation(
+            observation,
+            expected_window={"hwnd": 101, "pid": 202, "width": 1000, "height": 1000},
+            operator_confirmation=confirmation,
+            dispatch_at=datetime.now(UTC).isoformat(),
+            semantic_frame_guard=guard.model_dump(mode="json"),
+            guard_expires_at=confirmation["expires_at"],
+            authorization_scope="operator_confirmed_final_mutating_click",
+            kill_switch_path="/tmp/KILL_SWITCH_TEST",
+        )
+
+        out = actions.click_bbox("chapter_claim_button", bbox)
+
+        self.assertFalse(out.success)
+        self.assertIn("does not support", out.reason or "")
+        self.assertEqual(bridge.clicks, [])
+        self.assertFalse(out.trace["atomic_frame_guard"]["bridge_verified"])
 
     def test_pan_map_drags_from_center(self) -> None:
         bridge = _StubBridge(_make_png(2000, 1000))

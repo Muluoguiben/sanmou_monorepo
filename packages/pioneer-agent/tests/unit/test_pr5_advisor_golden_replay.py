@@ -23,6 +23,11 @@ from pioneer_agent.executor.ui_actions import ClickOutcome
 from pioneer_agent.executor.ui_runner import UIActionRunner
 from pioneer_agent.perception.vision_sync import VisionSyncSummary
 from pioneer_agent.runtime.advisor_loop import build_advisor_report
+from pioneer_agent.runtime.architecture_gates import (
+    LOW_RISK_AUTOMATION_ACTIONS,
+    AutomationReadiness,
+    AutomationReadinessGate,
+)
 from pioneer_agent.runtime.replay_runtime import build_fixture_observation
 from pioneer_agent.selector.action_selector import ActionSelector
 from pioneer_agent.core.enums import ActionType
@@ -170,6 +175,7 @@ class Pr5AdvisorGoldenReplayTests(unittest.TestCase):
             capabilities=device_session.capabilities,
             session_mode=SessionMode.AUTOMATION_TEST,
             allow_offline_fixture_observations=True,
+            automation_gate=_replay_automation_gate(),
         )
         cases = {
             fixture_name: expected
@@ -240,6 +246,7 @@ class Pr5AdvisorGoldenReplayTests(unittest.TestCase):
                     capabilities=device_session.capabilities,
                     session_mode=SessionMode.AUTOMATION_TEST,
                     allow_offline_fixture_observations=True,
+                    automation_gate=_replay_automation_gate(),
                 ).run(
                     action,
                     observation=build_fixture_observation(
@@ -259,6 +266,17 @@ class Pr5AdvisorGoldenReplayTests(unittest.TestCase):
 
 def _project_root() -> Path:
     return Path(__file__).resolve().parents[2]
+
+
+def _replay_automation_gate() -> AutomationReadinessGate:
+    return AutomationReadinessGate(
+        AutomationReadiness(
+            golden_replay_baseline_ready=True,
+            low_risk_verifier_false_positive_covered=True,
+            closure_gate_ready=True,
+            accepted_actions=LOW_RISK_AUTOMATION_ACTIONS,
+        )
+    )
 
 
 def _load_expectation_payload() -> dict[str, Any]:

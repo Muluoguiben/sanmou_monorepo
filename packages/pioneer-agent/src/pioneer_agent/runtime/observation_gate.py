@@ -141,6 +141,11 @@ def validate_post_observation(
         return _blocked(metadata_error, observation=observation)
     if observation.observation_id == baseline.observation_id:
         return _blocked("post-action observation reused the dispatch frame", observation=observation)
+    if observation.frame_sha256 == baseline.frame_sha256:
+        return _blocked(
+            "post-action frame is stale: frame SHA256 matches the dispatch frame",
+            observation=observation,
+        )
     if not _is_aware(dispatch_completed_at):
         return _blocked("dispatch completion timestamp must be timezone-aware")
     if dispatch_completed_at.astimezone(UTC) > now.astimezone(UTC) + _FUTURE_TOLERANCE:

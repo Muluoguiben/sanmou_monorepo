@@ -35,6 +35,7 @@ def _snapshot(
     meta_source: str,
     captured_at: datetime,
     observation_id: str,
+    frame_sha256: str = "a" * 64,
 ) -> ObservationSnapshot:
     state = observed_state.model_copy(deep=True)
     state.field_meta[meta_key] = FieldMeta(
@@ -46,7 +47,7 @@ def _snapshot(
     return ObservationSnapshot(
         observation_id=observation_id,
         captured_at=captured_at,
-        frame_sha256="a" * 64,
+        frame_sha256=frame_sha256,
         frame_size=(1920, 1080),
         page_type=page_type,
         domains_run=domains,
@@ -248,6 +249,7 @@ class ObservationGateTests(unittest.TestCase):
             meta_source="vision.chapter_panel",
             captured_at=post_time,
             observation_id="after",
+            frame_sha256="b" * 64,
         )
 
         allowed = validate_post_observation(
@@ -264,6 +266,13 @@ class ObservationGateTests(unittest.TestCase):
             dispatch_completed_at=dispatch_completed,
             now=post_time,
         )
+        same_frame_with_changed_state = validate_post_observation(
+            action,
+            baseline,
+            post.model_copy(update={"frame_sha256": baseline.frame_sha256}),
+            dispatch_completed_at=dispatch_completed,
+            now=post_time,
+        )
         wrong_domain = validate_post_observation(
             action,
             baseline,
@@ -275,6 +284,12 @@ class ObservationGateTests(unittest.TestCase):
         self.assertEqual(allowed.decision, ObservationGateDecision.ALLOW)
         self.assertEqual(reused.decision, ObservationGateDecision.BLOCK)
         self.assertIn("reused", reused.reason)
+        self.assertEqual(
+            same_frame_with_changed_state.decision,
+            ObservationGateDecision.BLOCK,
+        )
+        self.assertIn("stale", same_frame_with_changed_state.reason)
+        self.assertIn("SHA256", same_frame_with_changed_state.reason)
         self.assertEqual(wrong_domain.decision, ObservationGateDecision.BLOCK)
         self.assertIn("does not match", wrong_domain.reason)
 

@@ -1,11 +1,30 @@
 """Guarded action runner for the canonical AutonomousLoop UI dispatch path."""
 from __future__ import annotations
 
+import hashlib
+from datetime import timedelta
+from pathlib import Path
+
 from pioneer_agent.core.device import CapabilityFlags, DeviceSession, ObservationSourceType
 from pioneer_agent.core.enums import ActionType
 from pioneer_agent.core.models import CandidateAction, ExecutionResult, ObservationSnapshot
-from pioneer_agent.executor.action_handlers import dispatch
+from pioneer_agent.executor.action_handlers import (
+    dispatch,
+    semantic_click_binding,
+)
+from pioneer_agent.executor.operator_confirmation import (
+    OperatorConfirmationError,
+    OperatorConfirmationProvider,
+    OperatorConfirmationReceipt,
+    validate_confirmation_receipt,
+)
 from pioneer_agent.executor.ui_actions import UIActions
+from pioneer_agent.executor.semantic_frame_guard import (
+    FINAL_MUTATING_AUTHORIZATION_SCOPE,
+    INTERMEDIATE_AUTHORIZATION_SCOPE,
+    SemanticFrameGuard,
+    build_semantic_frame_guard,
+)
 from pioneer_agent.runtime.architecture_gates import (
     ArchitectureGateDecision,
     AutomationMode,
@@ -38,6 +57,8 @@ class UIActionRunner:
         automation_gate: AutomationReadinessGate | None = None,
         observation_max_age_seconds: float = 30.0,
         allow_offline_fixture_observations: bool = False,
+        operator_confirmation_provider: OperatorConfirmationProvider | None = None,
+        kill_switch_path: Path | str | None = None,
     ) -> None:
         self.ui = ui
         self.device_session = device_session
@@ -49,12 +70,17 @@ class UIActionRunner:
         self.automation_gate = automation_gate or AutomationReadinessGate()
         self.observation_max_age_seconds = observation_max_age_seconds
         self.allow_offline_fixture_observations = allow_offline_fixture_observations
+        self.operator_confirmation_provider = operator_confirmation_provider
+        self.kill_switch_path = (
+            str(kill_switch_path) if kill_switch_path is not None else None
+        )
 
     def run(
         self,
         action: CandidateAction,
         *,
         observation: ObservationSnapshot | None = None,
+        frame_bytes: bytes | None = None,
     ) -> ExecutionResult:
         session_block = self._validate_device_session(action)
         if session_block is not None:
@@ -209,9 +235,120 @@ class UIActionRunner:
                         },
                     },
                 )
+        confirmation_receipt: OperatorConfirmationReceipt | None = None
+        semantic_frame_guard: SemanticFrameGuard | None = None
+        authorization_scope: str | None = None
+        guard_expires_at: str | None = None
+        click_binding = semantic_click_binding(action)
+        if expected_window is not None and click_binding is not None:
+            target_key, target_bbox, terminal_for_verifier = click_binding
+            if self.kill_switch_path is None:
+                return self._atomic_frame_guard_block(
+                    action,
+                    "live semantic click requires a Windows-checkable kill-switch path",
+                    target_key=target_key,
+                    observation=observation,
+                )
+            if not isinstance(frame_bytes, bytes):
+                return self._atomic_frame_guard_block(
+                    action,
+                    "live semantic click requires its current observation frame bytes",
+                    target_key=target_key,
+                    observation=observation,
+                )
+            assert observation is not None
+            if hashlib.sha256(frame_bytes).hexdigest() != observation.frame_sha256:
+                return self._atomic_frame_guard_block(
+                    action,
+                    "semantic click frame bytes do not match observation frame_sha256",
+                    target_key=target_key,
+                    observation=observation,
+                )
+            if observation.frame_size is None:
+                return self._atomic_frame_guard_block(
+                    action,
+                    "semantic click observation has no frame size for ROI binding",
+                    target_key=target_key,
+                    observation=observation,
+                )
+            try:
+                semantic_frame_guard = build_semantic_frame_guard(
+                    frame_bytes,
+                    frame_size=observation.frame_size,
+                    semantic_target_key=target_key,
+                    bbox=target_bbox,
+                )
+            except ValueError as exc:
+                return self._atomic_frame_guard_block(
+                    action,
+                    f"semantic ROI binding failed: {exc}",
+                    target_key=target_key,
+                    observation=observation,
+                )
+            if terminal_for_verifier:
+                authorization_scope = FINAL_MUTATING_AUTHORIZATION_SCOPE
+                provider = self.operator_confirmation_provider
+                if provider is None:
+                    return self._confirmation_block(
+                        action,
+                        "live final mutating click requires an operator confirmation provider",
+                        target_key=target_key,
+                        observation=observation,
+                    )
+                try:
+                    confirmation_receipt = provider.consume_for_dispatch(
+                        action=action,
+                        observation=observation,
+                        target_key=target_key,
+                        semantic_frame_guard=semantic_frame_guard,
+                    )
+                    validate_confirmation_receipt(
+                        confirmation_receipt,
+                        action=action,
+                        observation=observation,
+                        target_key=target_key,
+                        semantic_frame_guard=semantic_frame_guard,
+                    )
+                except (OperatorConfirmationError, ValueError, OSError) as exc:
+                    return self._confirmation_block(
+                        action,
+                        f"operator confirmation unavailable: {exc}",
+                        target_key=target_key,
+                        observation=observation,
+                    )
+                guard_expires_at = (
+                    confirmation_receipt.confirmation.expires_at.isoformat()
+                )
+            else:
+                authorization_scope = INTERMEDIATE_AUTHORIZATION_SCOPE
+                guard_expires_at = (
+                    observation.captured_at
+                    + timedelta(seconds=self.observation_max_age_seconds)
+                ).isoformat()
+
         binder = getattr(self.ui, "bind_observation", None)
         if callable(binder):
-            binder(observation, expected_window=expected_window)
+            if semantic_frame_guard is None:
+                binder(observation, expected_window=expected_window)
+            else:
+                binder(
+                    observation,
+                    expected_window=expected_window,
+                    operator_confirmation=(
+                        confirmation_receipt.to_summary()
+                        if confirmation_receipt is not None
+                        else None
+                    ),
+                    dispatch_at=(
+                        confirmation_receipt.dispatch_at.isoformat()
+                        if confirmation_receipt is not None
+                        else None
+                    ),
+                    semantic_frame_guard=semantic_frame_guard.model_dump(mode="json"),
+                    guard_expires_at=guard_expires_at,
+                    authorization_scope=authorization_scope,
+                    kill_switch_path=self.kill_switch_path,
+                )
         try:
             result = dispatch(action, self.ui)
         finally:
@@ -221,6 +358,19 @@ class UIActionRunner:
             summary = dict(result.summary)
             summary["semantic_target_gate"] = semantic_target_verdict.to_dict()
             summary["observation_gate"] = observation_verdict.to_dict()
+            result = result.model_copy(update={"summary": summary})
+        if confirmation_receipt is not None:
+            summary = dict(result.summary)
+            confirmation_summary = confirmation_receipt.to_summary()
+            confirmation_summary["runtime_dispatch"] = {
+                "status": result.status,
+                "target_key": result.summary.get("target_key"),
+                "terminal_for_verifier": result.summary.get(
+                    "terminal_for_verifier"
+                ),
+            }
+            summary["dispatch_at"] = confirmation_receipt.dispatch_at.isoformat()
+            summary["operator_confirmation"] = confirmation_summary
             result = result.model_copy(update={"summary": summary})
         return result
 
@@ -243,6 +393,60 @@ class UIActionRunner:
                 "blocked_by": "device_session",
                 "device_session_present": session is not None,
                 "device_session_active": session.active if session is not None else None,
+            },
+        )
+
+    def _confirmation_block(
+        self,
+        action: CandidateAction,
+        reason: str,
+        *,
+        target_key: str,
+        observation: ObservationSnapshot | None,
+    ) -> ExecutionResult:
+        return ExecutionResult(
+            action_id=action.action_id,
+            status="blocked",
+            verification_status="not_applicable",
+            failure_reason=reason,
+            recovery_required=False,
+            summary={
+                "action_type": action.action_type.value,
+                "blocked_by": "operator_confirmation",
+                "target_key": target_key,
+                "observation_id": (
+                    observation.observation_id if observation is not None else None
+                ),
+                "frame_sha256": (
+                    observation.frame_sha256 if observation is not None else None
+                ),
+            },
+        )
+
+    def _atomic_frame_guard_block(
+        self,
+        action: CandidateAction,
+        reason: str,
+        *,
+        target_key: str,
+        observation: ObservationSnapshot | None,
+    ) -> ExecutionResult:
+        return ExecutionResult(
+            action_id=action.action_id,
+            status="blocked",
+            verification_status="not_applicable",
+            failure_reason=reason,
+            recovery_required=False,
+            summary={
+                "action_type": action.action_type.value,
+                "blocked_by": "atomic_frame_guard",
+                "target_key": target_key,
+                "observation_id": (
+                    observation.observation_id if observation is not None else None
+                ),
+                "frame_sha256": (
+                    observation.frame_sha256 if observation is not None else None
+                ),
             },
         )
 

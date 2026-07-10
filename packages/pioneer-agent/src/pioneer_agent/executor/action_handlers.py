@@ -66,7 +66,13 @@ def _upgrade_building(action: CandidateAction, ui: UIActions) -> ExecutionResult
     if not building:
         return _fail(action, "missing building_name in params")
     dialog = action.params.get("upgrade_dialog")
-    if not isinstance(dialog, dict) or not dialog.get("visible"):
+    if (
+        isinstance(dialog, dict)
+        and "visible" in dialog
+        and not isinstance(dialog.get("visible"), bool)
+    ):
+        return _fail(action, "upgrade_dialog.visible must be an observed boolean")
+    if not isinstance(dialog, dict) or dialog.get("visible") is not True:
         button = _button_param(action.params.get("upgrade_button"))
         if button is None:
             return _pending(action, f"upgrade dialog for {building} not yet observed")
@@ -170,6 +176,58 @@ def _button_param(value: Any) -> dict[str, Any] | None:
     if not isinstance(value, dict):
         return None
     return value
+
+
+def terminal_mutating_target(action: CandidateAction) -> str | None:
+    """Return the semantic target for a final M1a mutating click, if any."""
+    binding = terminal_mutating_binding(action)
+    return binding[0] if binding is not None else None
+
+
+def terminal_mutating_binding(
+    action: CandidateAction,
+) -> tuple[str, dict[str, Any]] | None:
+    """Return the exact target key and bbox used by a final M1a click."""
+    binding = semantic_click_binding(action)
+    if binding is None or binding[2] is not True:
+        return None
+    return binding[0], binding[1]
+
+
+def semantic_click_binding(
+    action: CandidateAction,
+) -> tuple[str, dict[str, Any], bool] | None:
+    """Return the exact click target, bbox, and terminal flag used by dispatch."""
+    if action.action_type == ActionType.CLAIM_CHAPTER_REWARD:
+        button = _button_param(action.params.get("claim_button"))
+        if button is not None and isinstance(button.get("bbox"), dict):
+            return "chapter_claim_button", dict(button["bbox"]), True
+        return None
+    if action.action_type == ActionType.RECRUIT_SOLDIERS:
+        button = _button_param(action.params.get("recruit_button"))
+        if button is not None and isinstance(button.get("bbox"), dict):
+            return "recruit_button", dict(button["bbox"]), True
+        return None
+    if action.action_type == ActionType.UPGRADE_BUILDING:
+        dialog = action.params.get("upgrade_dialog")
+        if (
+            isinstance(dialog, dict)
+            and dialog.get("visible") is True  # exact bool; truthy values never bypass
+        ):
+            button = _button_param(dialog.get("confirm_button"))
+            if button is not None and isinstance(button.get("bbox"), dict):
+                return "upgrade_confirm_button", dict(button["bbox"]), True
+            return None
+        if (
+            isinstance(dialog, dict)
+            and "visible" in dialog
+            and not isinstance(dialog.get("visible"), bool)
+        ):
+            return None
+        button = _button_param(action.params.get("upgrade_button"))
+        if button is not None and isinstance(button.get("bbox"), dict):
+            return "building_upgrade_button", dict(button["bbox"]), False
+    return None
 
 
 def _click_semantic_button(

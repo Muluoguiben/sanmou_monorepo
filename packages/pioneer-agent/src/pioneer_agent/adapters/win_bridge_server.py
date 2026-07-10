@@ -10,11 +10,17 @@ Usage (from Windows or WSL):
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import math
+import os
 import socket
+import stat
 import struct
 import sys
 import time
+from datetime import UTC, datetime
+from pathlib import Path
 from typing import Any
 
 from io import BytesIO
@@ -43,6 +49,13 @@ MIN_SCREENSHOT_DIM = 48
 MAX_UNIFORM_PIXEL_RATIO = 0.985
 MIN_SCREENSHOT_MEAN = 1.0
 MIN_SCREENSHOT_STD = 1.0
+ATOMIC_FRAME_CLICK_GUARD_VERSION = 1
+ATOMIC_CLICK_AUTHORIZATION_SCOPES = frozenset(
+    {
+        "operator_confirmed_final_mutating_click",
+        "observation_bound_intermediate_click",
+    }
+)
 
 
 class CaptureSanityError(RuntimeError):
@@ -328,7 +341,11 @@ def _resolve_window(window_title: str, hwnd: int | None) -> int:
     return find_window(window_title)
 
 
-def capture_window(hwnd: int, backend: str = "auto") -> bytes:
+def capture_window_with_backend(
+    hwnd: int,
+    backend: str = "auto",
+) -> tuple[bytes, str]:
+    """Capture and return the concrete backend that produced the PNG."""
     normalized = backend.lower()
     if normalized not in {"auto", "wgc", "dxgi"}:
         raise RuntimeError(f"Unknown capture backend: {backend}")
@@ -336,7 +353,7 @@ def capture_window(hwnd: int, backend: str = "auto") -> bytes:
     errors: list[str] = []
     if normalized in {"auto", "wgc"}:
         try:
-            return capture_window_wgc(hwnd)
+            return capture_window_wgc(hwnd), "wgc"
         except Exception as exc:  # noqa: BLE001
             errors.append(f"wgc: {exc}")
             if normalized == "wgc":
@@ -344,13 +361,18 @@ def capture_window(hwnd: int, backend: str = "auto") -> bytes:
 
     if normalized in {"auto", "dxgi"}:
         try:
-            return capture_window_dxgi(hwnd)
+            return capture_window_dxgi(hwnd), "dxgi"
         except Exception as exc:  # noqa: BLE001
             errors.append(f"dxgi: {exc}")
             if normalized == "dxgi":
                 raise
 
     raise RuntimeError("No capture backend succeeded: " + " | ".join(errors))
+
+
+def capture_window(hwnd: int, backend: str = "auto") -> bytes:
+    png_bytes, _ = capture_window_with_backend(hwnd, backend=backend)
+    return png_bytes
 
 
 def _pyautogui() -> Any:
@@ -374,11 +396,44 @@ def click_window_relative(
     button: str = "left",
     *,
     expected_window: dict[str, Any] | None = None,
-) -> None:
+    expected_frame_sha256: str | None = None,
+    guard_expires_at: str | None = None,
+    authorization_scope: str | None = None,
+    kill_switch_path: str | None = None,
+    semantic_frame_guard: dict[str, Any] | None = None,
+    capture_backend: str = "auto",
+    atomic_frame_click_guard_version: int | None = None,
+) -> dict[str, Any]:
     """Click at coordinates relative to the window's top-left corner."""
+    expiry: datetime | None = None
     if expected_window is None:
+        if (
+            expected_frame_sha256 is not None
+            or guard_expires_at is not None
+            or authorization_scope is not None
+            or kill_switch_path is not None
+            or semantic_frame_guard is not None
+            or atomic_frame_click_guard_version is not None
+        ):
+            raise RuntimeError("atomic frame guard requires expected_window")
         _ensure_window_onscreen(hwnd)
     else:
+        expiry = _validate_atomic_frame_guard(
+            expected_frame_sha256=expected_frame_sha256,
+            guard_expires_at=guard_expires_at,
+            authorization_scope=authorization_scope,
+            kill_switch_path=kill_switch_path,
+            version=atomic_frame_click_guard_version,
+        )
+        if semantic_frame_guard is not None:
+            _validate_semantic_frame_guard_contract(
+                semantic_frame_guard,
+                expected_window=expected_window,
+                click_point=(rx, ry),
+                authorization_scope=authorization_scope,
+            )
+        if datetime.now(UTC) >= expiry:
+            raise RuntimeError("atomic click guard expired before guarded click")
         _assert_expected_window(hwnd, expected_window)
         _assert_guarded_relative_point(rx, ry, expected_window)
     try:
@@ -403,7 +458,344 @@ def click_window_relative(
         )
         if point_root != hwnd:
             raise RuntimeError("guarded click point is covered by another window")
+
+    atomic_guard: dict[str, Any] | None = None
+    kill_switch_checks: list[dict[str, Any]] = []
+    if expected_window is not None:
+        assert expected_frame_sha256 is not None
+        assert guard_expires_at is not None
+        assert authorization_scope is not None
+        assert kill_switch_path is not None
+        assert expiry is not None
+        kill_switch_checks.append(
+            _assert_kill_switch_clear(
+                kill_switch_path,
+                stage="before_capture",
+            )
+        )
+        png_bytes = capture_window(hwnd, backend=capture_backend)
+        _validate_capture_sanity(png_bytes, hwnd=hwnd)
+        kill_switch_checks.append(
+            _assert_kill_switch_clear(
+                kill_switch_path,
+                stage="after_capture",
+            )
+        )
+        captured_frame_sha256 = hashlib.sha256(png_bytes).hexdigest()
+        expected_roi_sha256: str | None = None
+        captured_roi_sha256: str | None = None
+        if semantic_frame_guard is None:
+            if captured_frame_sha256 != expected_frame_sha256:
+                raise RuntimeError("window frame changed after operator confirmation")
+        else:
+            expected_roi_sha256 = str(semantic_frame_guard["roi_sha256"])
+            captured_roi_sha256 = _semantic_roi_sha256(
+                png_bytes,
+                semantic_frame_guard,
+            )
+            if captured_roi_sha256 != expected_roi_sha256:
+                raise RuntimeError(
+                    "terminal semantic ROI changed after operator confirmation"
+                )
+
+        # Capture can take seconds. Recheck every non-pixel precondition after it
+        # and evaluate expiry at the last possible instant before input injection.
+        _assert_expected_window(hwnd, expected_window)
+        if win32gui.GetForegroundWindow() != hwnd:
+            raise RuntimeError("guarded click target lost foreground during frame validation")
+        rect = win32gui.GetWindowRect(hwnd)
+        abs_x = rect[0] + rx
+        abs_y = rect[1] + ry
+        point_window = win32gui.WindowFromPoint((abs_x, abs_y))
+        point_root = (
+            win32gui.GetAncestor(point_window, win32con.GA_ROOT)
+            if point_window
+            else None
+        )
+        if point_root != hwnd:
+            raise RuntimeError("guarded click point became covered during frame validation")
+        if datetime.now(UTC) >= expiry:
+            raise RuntimeError("atomic click guard expired during frame validation")
+        kill_switch_checks.append(
+            _assert_kill_switch_clear(
+                kill_switch_path,
+                stage="before_input_injection",
+            )
+        )
+        # The UNC stop-file check can itself block briefly. Re-evaluate every
+        # window-bound precondition after it so an Alt-Tab or geometry change
+        # during that check cannot redirect the pending absolute-coordinate
+        # click into another window.
+        _assert_expected_window(hwnd, expected_window)
+        if win32gui.GetForegroundWindow() != hwnd:
+            raise RuntimeError(
+                "guarded click target lost foreground during final kill-switch check"
+            )
+        rect = win32gui.GetWindowRect(hwnd)
+        abs_x = rect[0] + rx
+        abs_y = rect[1] + ry
+        point_window = win32gui.WindowFromPoint((abs_x, abs_y))
+        point_root = (
+            win32gui.GetAncestor(point_window, win32con.GA_ROOT)
+            if point_window
+            else None
+        )
+        if point_root != hwnd:
+            raise RuntimeError(
+                "guarded click point became covered during final kill-switch check"
+            )
+        # Re-evaluate the deadline at the last possible instant before input.
+        verified_at = datetime.now(UTC)
+        if verified_at >= expiry:
+            raise RuntimeError("atomic click guard expired before input injection")
     _pyautogui().click(abs_x, abs_y, button=button)
+    if expected_window is not None:
+        atomic_guard = {
+            "verified": True,
+            "version": ATOMIC_FRAME_CLICK_GUARD_VERSION,
+            "mode": (
+                "semantic_roi_rgb24_sha256"
+                if semantic_frame_guard is not None
+                else "full_frame_png_sha256"
+            ),
+            "source_frame_sha256": expected_frame_sha256,
+            "captured_frame_sha256": captured_frame_sha256,
+            "guard_expires_at": guard_expires_at,
+            "authorization_scope": authorization_scope,
+            "verified_at": verified_at.isoformat(),
+            "capture_backend": capture_backend,
+            "kill_switch_guard": {
+                "checked": True,
+                "path": kill_switch_path,
+                "checks": kill_switch_checks,
+            },
+        }
+        if semantic_frame_guard is None:
+            atomic_guard["expected_frame_sha256"] = expected_frame_sha256
+        else:
+            atomic_guard["semantic_frame_guard"] = dict(semantic_frame_guard)
+            atomic_guard["expected_roi_sha256"] = expected_roi_sha256
+            atomic_guard["captured_roi_sha256"] = captured_roi_sha256
+    return {"atomic_frame_guard": atomic_guard} if atomic_guard is not None else {}
+
+
+def _validate_atomic_frame_guard(
+    *,
+    expected_frame_sha256: str | None,
+    guard_expires_at: str | None,
+    authorization_scope: str | None,
+    kill_switch_path: str | None,
+    version: int | None,
+) -> datetime:
+    if (
+        isinstance(version, bool)
+        or not isinstance(version, int)
+        or version != ATOMIC_FRAME_CLICK_GUARD_VERSION
+    ):
+        raise RuntimeError("guarded click requires atomic frame guard v1")
+    if (
+        not isinstance(expected_frame_sha256, str)
+        or len(expected_frame_sha256) != 64
+        or any(char not in "0123456789abcdef" for char in expected_frame_sha256)
+    ):
+        raise RuntimeError("guarded click requires a lowercase SHA256 frame hash")
+    if not isinstance(guard_expires_at, str):
+        raise RuntimeError("guarded click requires an aware guard expiry")
+    try:
+        expiry = datetime.fromisoformat(
+            guard_expires_at.replace("Z", "+00:00")
+        )
+    except ValueError as exc:
+        raise RuntimeError("guarded click expiry is invalid") from exc
+    if expiry.tzinfo is None or expiry.utcoffset() is None:
+        raise RuntimeError("guarded click expiry must be timezone-aware")
+    if authorization_scope not in ATOMIC_CLICK_AUTHORIZATION_SCOPES:
+        raise RuntimeError("guarded click authorization scope is invalid")
+    if not isinstance(kill_switch_path, str) or not kill_switch_path:
+        raise RuntimeError("guarded click requires a kill-switch path")
+    return expiry.astimezone(UTC)
+
+
+def _assert_kill_switch_clear(path_value: str, *, stage: str) -> dict[str, Any]:
+    if not (
+        os.path.isabs(path_value)
+        or path_value.startswith("\\\\")
+    ):
+        raise RuntimeError("kill-switch path must be absolute")
+    stop_path = Path(path_value)
+    parent = stop_path.parent
+    try:
+        parent_stat = os.stat(parent)
+    except OSError as exc:
+        raise RuntimeError(
+            f"kill-switch parent is not accessible at {stage}"
+        ) from exc
+    if not stat.S_ISDIR(parent_stat.st_mode):
+        raise RuntimeError(f"kill-switch parent is not a directory at {stage}")
+    try:
+        os.stat(stop_path)
+    except FileNotFoundError:
+        present = False
+    except OSError as exc:
+        raise RuntimeError(f"kill-switch state is not checkable at {stage}") from exc
+    else:
+        present = True
+    if present:
+        raise RuntimeError(f"kill switch is triggered at {stage}")
+    return {
+        "stage": stage,
+        "checked_at": datetime.now(UTC).isoformat(),
+        "parent_accessible": True,
+        "stop_file_present": False,
+    }
+
+
+def _validate_semantic_frame_guard_contract(
+    guard: dict[str, Any],
+    *,
+    expected_window: dict[str, Any],
+    click_point: tuple[int, int],
+    authorization_scope: str | None,
+) -> None:
+    if guard.get("schema_version") != 1:
+        raise RuntimeError("semantic frame guard schema is unsupported")
+    if guard.get("algorithm") != "semantic-roi-rgb24-sha256-v1":
+        raise RuntimeError("semantic frame guard algorithm is unsupported")
+    if not isinstance(guard.get("semantic_target_key"), str) or not guard[
+        "semantic_target_key"
+    ].strip():
+        raise RuntimeError("semantic frame guard target key is invalid")
+    if _scope_for_semantic_target(guard["semantic_target_key"]) != authorization_scope:
+        raise RuntimeError(
+            "semantic frame guard authorization scope does not match its target"
+        )
+    frame_size = guard.get("frame_size")
+    if (
+        not isinstance(frame_size, (list, tuple))
+        or len(frame_size) != 2
+        or any(
+            isinstance(value, bool)
+            or not isinstance(value, int)
+            or value <= 0
+            for value in frame_size
+        )
+        or tuple(frame_size) != (expected_window["width"], expected_window["height"])
+    ):
+        raise RuntimeError("semantic frame guard size does not match the observed window")
+    normalized = _normalized_guard_bbox(guard.get("normalized_bbox"))
+    expected_roi, expected_click = _semantic_guard_geometry(tuple(frame_size), normalized)
+    if expected_roi["width"] <= 0 or expected_roi["height"] <= 0:
+        raise RuntimeError("semantic frame guard ROI has no decoded pixel area")
+    if (
+        expected_roi["x"] < 0
+        or expected_roi["y"] < 0
+        or expected_roi["x"] + expected_roi["width"] > frame_size[0]
+        or expected_roi["y"] + expected_roi["height"] > frame_size[1]
+    ):
+        raise RuntimeError("semantic frame guard ROI is outside the observed frame")
+    if guard.get("roi_bbox") != expected_roi:
+        raise RuntimeError("semantic frame guard ROI does not match its target bbox")
+    if guard.get("click_point") != expected_click or click_point != (
+        expected_click["x"],
+        expected_click["y"],
+    ):
+        raise RuntimeError("semantic frame guard click point does not match dispatch")
+    if not (
+        expected_roi["x"] <= expected_click["x"]
+        < expected_roi["x"] + expected_roi["width"]
+        and expected_roi["y"] <= expected_click["y"]
+        < expected_roi["y"] + expected_roi["height"]
+    ):
+        raise RuntimeError("semantic frame guard click point is outside its ROI")
+    roi_sha256 = guard.get("roi_sha256")
+    if (
+        not isinstance(roi_sha256, str)
+        or len(roi_sha256) != 64
+        or any(char not in "0123456789abcdef" for char in roi_sha256)
+    ):
+        raise RuntimeError("semantic frame guard ROI hash is invalid")
+
+
+def _normalized_guard_bbox(value: Any) -> dict[str, float]:
+    if not isinstance(value, dict):
+        raise RuntimeError("semantic frame guard normalized bbox is invalid")
+    parsed: dict[str, float] = {}
+    for key in ("x_min", "y_min", "x_max", "y_max"):
+        raw = value.get(key)
+        if (
+            isinstance(raw, bool)
+            or not isinstance(raw, (int, float))
+            or not math.isfinite(float(raw))
+        ):
+            raise RuntimeError("semantic frame guard normalized bbox is invalid")
+        parsed[key] = float(raw)
+    if not (
+        0 <= parsed["x_min"] < parsed["x_max"] <= 1000
+        and 0 <= parsed["y_min"] < parsed["y_max"] <= 1000
+    ):
+        raise RuntimeError("semantic frame guard normalized bbox is out of range")
+    return parsed
+
+
+def _semantic_guard_geometry(
+    frame_size: tuple[int, int],
+    bbox: dict[str, float],
+) -> tuple[dict[str, int], dict[str, int]]:
+    width, height = frame_size
+    left = round(bbox["x_min"] / 1000 * width)
+    top = round(bbox["y_min"] / 1000 * height)
+    right = round(bbox["x_max"] / 1000 * width)
+    bottom = round(bbox["y_max"] / 1000 * height)
+    return (
+        {"x": left, "y": top, "width": right - left, "height": bottom - top},
+        {
+            "x": min(
+                max(
+                    round((bbox["x_min"] + bbox["x_max"]) / 2000 * width),
+                    left,
+                ),
+                right - 1,
+            ),
+            "y": min(
+                max(
+                    round((bbox["y_min"] + bbox["y_max"]) / 2000 * height),
+                    top,
+                ),
+                bottom - 1,
+            ),
+        },
+    )
+
+
+def _semantic_roi_sha256(png_bytes: bytes, guard: dict[str, Any]) -> str:
+    frame_size = tuple(guard["frame_size"])
+    roi = guard["roi_bbox"]
+    with Image.open(BytesIO(png_bytes)) as image:
+        rgb = image.convert("RGB")
+        rgb.load()
+    if rgb.size != frame_size:
+        raise RuntimeError("atomic recapture size changed before click")
+    crop = rgb.crop(
+        (
+            roi["x"],
+            roi["y"],
+            roi["x"] + roi["width"],
+            roi["y"] + roi["height"],
+        )
+    )
+    return hashlib.sha256(crop.tobytes()).hexdigest()
+
+
+def _scope_for_semantic_target(target_key: Any) -> str | None:
+    if target_key in {
+        "chapter_claim_button",
+        "recruit_button",
+        "upgrade_confirm_button",
+    }:
+        return "operator_confirmed_final_mutating_click"
+    if target_key == "building_upgrade_button":
+        return "observation_bound_intermediate_click"
+    return None
 
 
 def _assert_expected_window(hwnd: int, expected: dict[str, Any]) -> None:
@@ -555,6 +947,7 @@ def _recv_exact(conn: socket.socket, n: int) -> bytes:
 
 def handle_client(conn: socket.socket, window_title: str, capture_backend: str) -> None:
     hwnd = None
+    last_screenshot_binding: dict[str, Any] | None = None
 
     while True:
         try:
@@ -568,10 +961,36 @@ def handle_client(conn: socket.socket, window_title: str, capture_backend: str) 
             if cmd == "ping":
                 send_json(conn, {"status": "ok"})
 
+            elif cmd == "capabilities":
+                send_json(
+                    conn,
+                    {
+                        "status": "ok",
+                        "atomic_frame_click_guard_version": (
+                            ATOMIC_FRAME_CLICK_GUARD_VERSION
+                        ),
+                        "atomic_frame_click_guard_modes": [
+                            "semantic_roi_rgb24_sha256",
+                            "full_frame_png_sha256",
+                        ],
+                        "atomic_frame_click_authorization_scopes": sorted(
+                            ATOMIC_CLICK_AUTHORIZATION_SCOPES
+                        ),
+                    },
+                )
+
             elif cmd == "screenshot":
                 hwnd = _resolve_window(window_title, hwnd)
-                png_bytes = capture_window(hwnd, backend=str(msg.get("backend") or capture_backend))
+                png_bytes, concrete_backend = capture_window_with_backend(
+                    hwnd,
+                    backend=str(msg.get("backend") or capture_backend),
+                )
                 _validate_capture_sanity(png_bytes, hwnd=hwnd)
+                last_screenshot_binding = {
+                    "hwnd": hwnd,
+                    "frame_sha256": hashlib.sha256(png_bytes).hexdigest(),
+                    "capture_backend": concrete_backend,
+                }
                 send_binary(conn, png_bytes)
 
             elif cmd == "click":
@@ -579,16 +998,52 @@ def handle_client(conn: socket.socket, window_title: str, capture_backend: str) 
                 rx, ry = int(msg["x"]), int(msg["y"])
                 button = msg.get("button", "left")
                 expected_window = msg.get("expected_window")
+                guarded_capture_backend: str | None = None
                 if expected_window is not None and not isinstance(expected_window, dict):
                     raise RuntimeError("expected_window must be an object")
-                click_window_relative(
+                if expected_window is not None:
+                    if last_screenshot_binding is None:
+                        raise RuntimeError(
+                            "guarded click requires a screenshot from this bridge session"
+                        )
+                    if last_screenshot_binding.get("hwnd") != hwnd:
+                        raise RuntimeError(
+                            "guarded click target differs from the observed screenshot window"
+                        )
+                    if (
+                        last_screenshot_binding.get("frame_sha256")
+                        != msg.get("expected_frame_sha256")
+                    ):
+                        raise RuntimeError(
+                            "guarded click frame is not the last bridge screenshot"
+                        )
+                    guarded_capture_backend = str(
+                        last_screenshot_binding["capture_backend"]
+                    )
+                    # One dispatch attempt consumes the session-local capture
+                    # binding even when a later guard blocks the click.
+                    last_screenshot_binding = None
+                click_result = click_window_relative(
                     hwnd,
                     rx,
                     ry,
                     button,
                     expected_window=expected_window,
+                    expected_frame_sha256=msg.get("expected_frame_sha256"),
+                    guard_expires_at=msg.get("guard_expires_at"),
+                    authorization_scope=msg.get("authorization_scope"),
+                    kill_switch_path=msg.get("kill_switch_path"),
+                    semantic_frame_guard=msg.get("semantic_frame_guard"),
+                    capture_backend=(
+                        guarded_capture_backend
+                        if guarded_capture_backend is not None
+                        else str(msg.get("backend") or capture_backend)
+                    ),
+                    atomic_frame_click_guard_version=msg.get(
+                        "atomic_frame_click_guard_version"
+                    ),
                 )
-                send_json(conn, {"status": "ok"})
+                send_json(conn, {"status": "ok", **click_result})
 
             elif cmd == "move":
                 hwnd = _resolve_window(window_title, hwnd)

@@ -27,6 +27,11 @@ from pioneer_agent.runtime.autonomous_loop import (
     WAIT_SLEEP_S,
     AutonomousLoop,
 )
+from pioneer_agent.runtime.architecture_gates import (
+    LOW_RISK_AUTOMATION_ACTIONS,
+    AutomationReadiness,
+    AutomationReadinessGate,
+)
 from pioneer_agent.safety.guard import SessionMode
 
 
@@ -53,6 +58,14 @@ def _ui_runner(ui: object) -> UIActionRunner:
         capabilities=session.capabilities,
         session_mode=SessionMode.AUTOMATION_TEST,
         allow_offline_fixture_observations=True,
+        automation_gate=AutomationReadinessGate(
+            AutomationReadiness(
+                golden_replay_baseline_ready=True,
+                low_risk_verifier_false_positive_covered=True,
+                closure_gate_ready=True,
+                accepted_actions=LOW_RISK_AUTOMATION_ACTIONS,
+            )
+        ),
     )
 
 
@@ -131,18 +144,24 @@ def _empty_battle_report_payload() -> dict[str, Any]:
 
 
 class _StubBridge:
-    def __init__(self) -> None:
+    def __init__(self, *, frame_colors: list[tuple[int, int, int]] | None = None) -> None:
         self.shots = 0
         self.keys: list[str] = []
         self.clicks: list[tuple[int, int]] = []
+        self.frame_colors = frame_colors
 
     def screenshot(self, save_path=None):  # noqa: ANN001
         import io
 
         from PIL import Image
 
+        frame_index = self.shots
         self.shots += 1
-        img = Image.new("RGB", (1920, 1080), (0, 0, 0))
+        if self.frame_colors:
+            color = self.frame_colors[min(frame_index, len(self.frame_colors) - 1)]
+        else:
+            color = (self.shots % 256, 0, 0)
+        img = Image.new("RGB", (1920, 1080), color)
         buf = io.BytesIO()
         img.save(buf, format="PNG")
         return buf.getvalue()
@@ -591,6 +610,63 @@ class AutonomousLoopTests(unittest.TestCase):
         )
         self.assertFalse(loop.state.progress["chapter_claimable"])
 
+    def test_tick_polls_past_same_frame_model_jitter_before_verifying(self) -> None:
+        from pioneer_agent.executor.ui_actions import UIActions
+        from pioneer_agent.perception.ui_registry import UIButton, UIRegistry
+        from pioneer_agent.perception.vision_sync import VisionSync
+
+        action = CandidateAction(
+            action_id="claim-17",
+            action_type=ActionType.CLAIM_CHAPTER_REWARD,
+            params={"chapter_id": 17, "claim_button": _claim_button_param()},
+        )
+        bridge = _StubBridge(
+            frame_colors=[
+                (0, 0, 0),
+                (0, 0, 0),
+                (1, 0, 0),
+            ]
+        )
+        vision = _ScriptedVision(
+            [
+                _chapter_resource_payload(),
+                _chapter_panel_payload(claimable=True),
+                # The model jitters to the expected state on the unchanged frame.
+                _chapter_resource_payload(),
+                _chapter_panel_payload(claimable=False),
+                # Only this later observation is backed by a new screenshot.
+                _chapter_resource_payload(),
+                _chapter_panel_payload(claimable=False),
+            ]
+        )
+        ui = UIActions(  # type: ignore[arg-type]
+            bridge,
+            UIRegistry({"esc_close": UIButton("esc_close", "close", 0.5, 0.5)}),
+            vision=vision,
+        )
+        loop = AutonomousLoop(
+            bridge=bridge,
+            vision_sync=VisionSync(vision),  # type: ignore[arg-type]
+            ui_actions=ui,
+            selector=_StubSelector(action),
+            deriver=_StubDeriver(),  # type: ignore[arg-type]
+            runner=_ui_runner(ui),
+            sleeper=lambda _seconds: None,
+            post_action_verify_poll_interval_s=0.001,
+        )
+
+        result = loop.tick(0)
+
+        verifier = result.execution.summary["post_action_verifier"]
+        self.assertEqual(result.execution.status, "ok")
+        self.assertEqual(result.execution.verification_status, "verified")
+        self.assertEqual(verifier["attempts"], 2)
+        self.assertEqual(bridge.shots, 3)
+        self.assertNotEqual(
+            result.execution.summary["observation_gate"]["details"]["frame_sha256"],
+            verifier["post_observe"]["observation"]["frame_sha256"],
+        )
+
     def test_tick_fails_action_when_post_action_verifier_does_not_match(self) -> None:
         from pioneer_agent.executor.ui_actions import UIActions
         from pioneer_agent.perception.ui_registry import UIButton, UIRegistry
@@ -856,11 +932,28 @@ class AutonomousLoopTests(unittest.TestCase):
                 trace.verify.outputs["post_action_verifier"]["checked"],
                 ["progress.current_chapter_id", "progress.chapter_claimable"],
             )
+            verifier = trace.verify.outputs["post_action_verifier"]
+            self.assertEqual(verifier["target_identity"], {"chapter_id": 17})
+            self.assertEqual(
+                verifier["post_action_delta"],
+                [
+                    {
+                        "path": "progress.chapter_claimable",
+                        "operator": "changes_to",
+                        "before": True,
+                        "after": False,
+                    }
+                ],
+            )
 
     def test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies(self) -> None:
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+
         from pioneer_agent.executor.ui_actions import UIActions
         from pioneer_agent.perception.ui_registry import UIButton, UIRegistry
         from pioneer_agent.perception.vision_sync import VisionSync
+        from pioneer_agent.storage.trace_store import TraceFrameRole, TraceStore
 
         first_action = CandidateAction(
             action_id="upgrade-main-hall",
@@ -904,6 +997,8 @@ class AutonomousLoopTests(unittest.TestCase):
             vision=vision,
         )
         runner = _ui_runner(ui)
+        tmp = self.enterContext(TemporaryDirectory())
+        trace_store = TraceStore(Path(tmp) / "trace.jsonl")
         loop = AutonomousLoop(
             bridge=bridge,
             vision_sync=VisionSync(vision),  # type: ignore[arg-type]
@@ -912,6 +1007,7 @@ class AutonomousLoopTests(unittest.TestCase):
             deriver=_StubDeriver(),  # type: ignore[arg-type]
             runner=runner,
             sleeper=lambda _seconds: None,
+            trace_store=trace_store,
             post_action_verify_poll_interval_s=0,
         )
         loop.state = RuntimeState(
@@ -939,11 +1035,62 @@ class AutonomousLoopTests(unittest.TestCase):
         self.assertEqual(
             result.execution.summary["post_action_verifier"]["target"],
             {
+                "building_name": "Main Hall",
+                "current_level": 10,
+                "target_level": 11,
+            },
+        )
+        self.assertEqual(
+            result.execution.summary["post_action_verifier"]["target_details"],
+            {
                 "building_id": "main_hall",
                 "building_name": "Main Hall",
                 "current_level": 10,
                 "target_level": 11,
             },
+        )
+        verifier = result.execution.summary["post_action_verifier"]
+        self.assertEqual(
+            verifier["target_identity"],
+            {
+                "building_name": "Main Hall",
+                "current_level": 10,
+                "target_level": 11,
+            },
+        )
+        self.assertEqual(
+            verifier["post_action_delta"],
+            [
+                {
+                    "path": "level",
+                    "operator": "increases_to",
+                    "before": 10,
+                    "after": 11,
+                    "selector": {
+                        "collection_path": "city.buildings",
+                        "identity_field": "name",
+                        "identity_value": "Main Hall",
+                    },
+                }
+            ],
+        )
+        trace = trace_store.read()[0]
+        self.assertEqual(
+            [frame.role for frame in trace.frames],
+            [
+                TraceFrameRole.PRE_ACTION,
+                TraceFrameRole.TERMINAL_DISPATCH,
+                TraceFrameRole.POST_ACTION,
+            ],
+        )
+        for frame in trace.frames:
+            self.assertTrue(Path(frame.path).is_file())
+            self.assertEqual(frame.sha256, frame.observation["frame_sha256"])
+        terminal = trace.frames[1]
+        self.assertEqual(trace.screenshot.path, terminal.path)
+        self.assertEqual(
+            verifier["post_observe"]["frame"]["role"],
+            TraceFrameRole.POST_ACTION.value,
         )
 
     def test_tick_rechecks_current_dialog_before_upgrade_terminal_click(self) -> None:

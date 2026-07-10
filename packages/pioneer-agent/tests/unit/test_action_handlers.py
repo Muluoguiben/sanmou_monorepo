@@ -1,8 +1,14 @@
 """Tests for the ActionType → handler dispatch table."""
 from __future__ import annotations
 
+import hashlib
+import io
 import unittest
 from datetime import UTC, datetime, timedelta
+from pathlib import Path
+from unittest.mock import MagicMock
+
+from PIL import Image
 
 from pioneer_agent.core.device import (
     CapabilityFlags,
@@ -20,10 +26,16 @@ from pioneer_agent.core.models import (
     RuntimeState,
 )
 from pioneer_agent.executor.action_handlers import dispatch
+from pioneer_agent.executor.operator_confirmation import (
+    OperatorConfirmation,
+    OperatorConfirmationReceipt,
+)
 from pioneer_agent.executor.ui_actions import ClickOutcome, UIActions
 from pioneer_agent.executor.ui_runner import UIActionRunner
+from pioneer_agent.executor.semantic_frame_guard import build_semantic_frame_guard
 from pioneer_agent.perception.ui_registry import UIRegistry
 from pioneer_agent.runtime.architecture_gates import (
+    LOW_RISK_AUTOMATION_ACTIONS,
     AutomationMode,
     AutomationReadiness,
     AutomationReadinessGate,
@@ -85,8 +97,27 @@ def _device_session(
     )
 
 
+def _ready_automation_gate(
+    *,
+    accepted_actions: frozenset[ActionType] = LOW_RISK_AUTOMATION_ACTIONS,
+    high_risk_verifiers_ready: bool = False,
+) -> AutomationReadinessGate:
+    return AutomationReadinessGate(
+        AutomationReadiness(
+            golden_replay_baseline_ready=True,
+            low_risk_verifier_false_positive_covered=True,
+            map_land_verifier_ready=high_risk_verifiers_ready,
+            battle_result_verifier_ready=high_risk_verifiers_ready,
+            team_state_verifier_ready=high_risk_verifiers_ready,
+            closure_gate_ready=True,
+            accepted_actions=accepted_actions,
+        )
+    )
+
+
 def _authorized_runner(ui: object, **kwargs: object) -> UIActionRunner:
     session = _device_session(source_type=ObservationSourceType.SCREENSHOT_FILE)
+    kwargs.setdefault("automation_gate", _ready_automation_gate())
     return UIActionRunner(
         ui,  # type: ignore[arg-type]
         device_session=session,
@@ -156,13 +187,20 @@ def _frame_observation(
     return ObservationSnapshot(
         observation_id="obs-current",
         captured_at=captured_at,
-        frame_sha256="a" * 64,
+        frame_sha256=hashlib.sha256(_frame_bytes()).hexdigest(),
         frame_size=(1920, 1080),
         page_type=page_type,
         domains_run=domains,
         observed_state=state,
         source="vision_sync",
     )
+
+
+def _frame_bytes() -> bytes:
+    image = Image.new("RGB", (1920, 1080), (20, 40, 60))
+    buffer = io.BytesIO()
+    image.save(buffer, format="PNG")
+    return buffer.getvalue()
 
 
 class DispatchTests(unittest.TestCase):
@@ -337,6 +375,7 @@ class UIActionRunnerTests(unittest.TestCase):
                     device_session=session,
                     capabilities=session.capabilities,
                     session_mode=SessionMode.LIVE,
+                    automation_gate=_ready_automation_gate(),
                 )
 
                 result = runner.run(action, observation=_frame_observation(action))
@@ -347,6 +386,14 @@ class UIActionRunnerTests(unittest.TestCase):
 
     def test_live_dispatch_forwards_atomic_window_identity_guard(self) -> None:
         class _GuardedBridge:
+            atomic_frame_click_guard_version = 1
+            atomic_frame_click_guard_modes = frozenset(
+                {"semantic_roi_rgb24_sha256"}
+            )
+            atomic_frame_click_authorization_scopes = frozenset(
+                {"operator_confirmed_final_mutating_click"}
+            )
+
             def __init__(self) -> None:
                 self.clicks: list[dict[str, Any]] = []
 
@@ -357,6 +404,11 @@ class UIActionRunnerTests(unittest.TestCase):
                 button: str = "left",
                 *,
                 expected_window: dict[str, int] | None = None,
+                expected_frame_sha256: str | None = None,
+                guard_expires_at: str | None = None,
+                authorization_scope: str | None = None,
+                kill_switch_path: str | None = None,
+                semantic_frame_guard: dict[str, Any] | None = None,
             ) -> dict[str, Any]:
                 self.clicks.append(
                     {
@@ -364,9 +416,44 @@ class UIActionRunnerTests(unittest.TestCase):
                         "y": y,
                         "button": button,
                         "expected_window": expected_window,
+                        "expected_frame_sha256": expected_frame_sha256,
+                        "guard_expires_at": guard_expires_at,
+                        "authorization_scope": authorization_scope,
+                        "kill_switch_path": kill_switch_path,
+                        "semantic_frame_guard": semantic_frame_guard,
                     }
                 )
-                return {"status": "ok"}
+                assert semantic_frame_guard is not None
+                return {
+                    "status": "ok",
+                    "atomic_frame_guard": {
+                        "verified": True,
+                        "version": 1,
+                        "mode": "semantic_roi_rgb24_sha256",
+                        "expected_roi_sha256": semantic_frame_guard["roi_sha256"],
+                        "captured_roi_sha256": semantic_frame_guard["roi_sha256"],
+                        "guard_expires_at": guard_expires_at,
+                        "authorization_scope": authorization_scope,
+                        "semantic_frame_guard": semantic_frame_guard,
+                        "kill_switch_guard": {
+                            "checked": True,
+                            "path": kill_switch_path,
+                            "checks": [
+                                {
+                                    "stage": stage,
+                                    "checked_at": datetime.now(UTC).isoformat(),
+                                    "parent_accessible": True,
+                                    "stop_file_present": False,
+                                }
+                                for stage in (
+                                    "before_capture",
+                                    "after_capture",
+                                    "before_input_injection",
+                                )
+                            ],
+                        },
+                    },
+                }
 
         action = _mk_action(
             ActionType.CLAIM_CHAPTER_REWARD,
@@ -395,20 +482,58 @@ class UIActionRunnerTests(unittest.TestCase):
         )
         bridge = _GuardedBridge()
         ui = UIActions(bridge, UIRegistry({}))  # type: ignore[arg-type]
+        observation = _frame_observation(action)
+        semantic_guard = build_semantic_frame_guard(
+            _frame_bytes(),
+            frame_size=observation.frame_size or (0, 0),
+            semantic_target_key="chapter_claim_button",
+            bbox=action.params["claim_button"]["bbox"],
+        )
+        confirmed_at = observation.captured_at + timedelta(microseconds=1)
+        confirmation_receipt = OperatorConfirmationReceipt(
+            confirmation=OperatorConfirmation(
+                confirmation_id="atomic-window-guard-test",
+                action_id=action.action_id,
+                action_type=action.action_type,
+                target_key="chapter_claim_button",
+                target_identity={"chapter_id": 17},
+                observation_id=observation.observation_id,
+                frame_sha256=observation.frame_sha256,
+                semantic_frame_guard=semantic_guard,
+                observation_captured_at=observation.captured_at,
+                confirmed_at=confirmed_at,
+                expires_at=confirmed_at + timedelta(seconds=10),
+            ),
+            consumed_at=confirmed_at + timedelta(microseconds=1),
+            dispatch_at=confirmed_at + timedelta(microseconds=1),
+        )
+        confirmation_provider = MagicMock()
+        confirmation_provider.consume_for_dispatch.return_value = confirmation_receipt
         runner = UIActionRunner(
             ui,
             device_session=session,
             capabilities=capabilities,
             session_mode=SessionMode.LIVE,
+            automation_gate=_ready_automation_gate(),
+            operator_confirmation_provider=confirmation_provider,
+            kill_switch_path=Path(__file__).resolve().parent / "KILL_SWITCH_TEST",
         )
 
-        result = runner.run(action, observation=_frame_observation(action))
+        result = runner.run(
+            action,
+            observation=observation,
+            frame_bytes=_frame_bytes(),
+        )
 
         self.assertEqual(result.status, "ok")
         self.assertEqual(len(bridge.clicks), 1)
         self.assertEqual(
             bridge.clicks[0]["expected_window"],
             {"hwnd": 101, "pid": 202, "width": 1920, "height": 1080},
+        )
+        self.assertEqual(
+            bridge.clicks[0]["semantic_frame_guard"]["roi_sha256"],
+            semantic_guard.roi_sha256,
         )
 
     def test_live_dispatch_rejects_ui_without_atomic_window_guard(self) -> None:
@@ -443,6 +568,7 @@ class UIActionRunnerTests(unittest.TestCase):
             device_session=session,
             capabilities=capabilities,
             session_mode=SessionMode.LIVE,
+            automation_gate=_ready_automation_gate(),
         )
 
         result = runner.run(action, observation=_frame_observation(action))
@@ -471,6 +597,7 @@ class UIActionRunnerTests(unittest.TestCase):
             capabilities=session.capabilities,
             session_mode=SessionMode.AUTOMATION_TEST,
             allow_offline_fixture_observations=True,
+            automation_gate=_ready_automation_gate(),
         )
 
         result = runner.run(action, observation=observation)
@@ -761,7 +888,7 @@ class UIActionRunnerTests(unittest.TestCase):
         res = runner.run(_mk_action(ActionType.CLAIM_CHAPTER_REWARD))
         self.assertEqual(res.status, "blocked")
         self.assertEqual(res.summary["blocked_by"], "architecture_gate")
-        self.assertIn("false positive coverage", res.failure_reason or "")
+        self.assertIn("committed closure artifact", res.failure_reason or "")
 
     def test_runner_blocks_confirmed_action_without_verifier_spec(self) -> None:
         runner = _authorized_runner(_NullUI())
@@ -793,6 +920,10 @@ class UIActionRunnerTests(unittest.TestCase):
         runner = _authorized_runner(
             _NullUI(),
             verifier_registry=registry,
+            automation_gate=_ready_automation_gate(
+                accepted_actions=frozenset({ActionType.ATTACK_LAND}),
+                high_risk_verifiers_ready=True,
+            ),
         )
         res = runner.run(_mk_action(ActionType.ATTACK_LAND, confirmation_token="manual-ok"))
         self.assertEqual(res.status, "pending")
@@ -817,6 +948,9 @@ class UIActionRunnerTests(unittest.TestCase):
             _NullUI(),
             verifier_registry=registry,
             automation_mode=AutomationMode.FULL_AUTO,
+            automation_gate=_ready_automation_gate(
+                accepted_actions=frozenset({ActionType.ATTACK_LAND}),
+            ),
         )
         res = runner.run(_mk_action(ActionType.ATTACK_LAND, confirmation_token="manual-ok"))
         self.assertEqual(res.status, "blocked")

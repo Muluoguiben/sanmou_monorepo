@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import Enum
+import math
 from typing import Any, Mapping, Sequence
 
 from pioneer_agent.core.enums import ActionType
@@ -35,6 +36,7 @@ class AutomationMode(str, Enum):
     ADVISOR = "advisor"
     SEMI_AUTO = "semi_auto"
     FULL_AUTO = "full_auto"
+    EVIDENCE_CAPTURE = "evidence_capture"
 
 
 @dataclass(frozen=True)
@@ -217,19 +219,29 @@ def _has_visible_enabled_bbox(value: Any) -> bool:
     if not isinstance(bbox, Mapping):
         return False
     required = ("x_min", "y_min", "x_max", "y_max")
-    if not all(isinstance(bbox.get(key), (int, float)) for key in required):
+    if not all(_is_finite_number(bbox.get(key)) for key in required):
         return False
     x_min, y_min, x_max, y_max = (bbox[key] for key in required)
     return 0 <= x_min < x_max <= 1000 and 0 <= y_min < y_max <= 1000
 
 
+def _is_finite_number(value: Any) -> bool:
+    return (
+        not isinstance(value, bool)
+        and isinstance(value, (int, float))
+        and math.isfinite(float(value))
+    )
+
+
 @dataclass(frozen=True)
 class AutomationReadiness:
-    golden_replay_baseline_ready: bool = True
-    low_risk_verifier_false_positive_covered: bool = True
+    golden_replay_baseline_ready: bool = False
+    low_risk_verifier_false_positive_covered: bool = False
     map_land_verifier_ready: bool = False
     battle_result_verifier_ready: bool = False
     team_state_verifier_ready: bool = False
+    closure_gate_ready: bool = False
+    accepted_actions: frozenset[ActionType | str] = field(default_factory=frozenset)
 
     @property
     def high_risk_verifier_ready(self) -> bool:
@@ -239,10 +251,31 @@ class AutomationReadiness:
             and self.team_state_verifier_ready
         )
 
+    @property
+    def accepted_action_values(self) -> frozenset[str]:
+        return frozenset(_normalize_action_type(item) for item in self.accepted_actions)
+
 
 @dataclass(frozen=True)
 class AutomationReadinessGate:
     readiness: AutomationReadiness = field(default_factory=AutomationReadiness)
+    evidence_capture_action: ActionType | str | None = None
+    evidence_capture_confirmed: bool = False
+
+    @classmethod
+    def for_evidence_capture(
+        cls,
+        action_type: ActionType | str,
+        *,
+        human_confirmed: bool,
+    ) -> "AutomationReadinessGate":
+        normalized = _to_action_type(action_type)
+        if normalized not in LOW_RISK_AUTOMATION_ACTIONS:
+            raise ValueError("evidence capture is limited to low-risk actions")
+        return cls(
+            evidence_capture_action=normalized,
+            evidence_capture_confirmed=human_confirmed,
+        )
 
     def evaluate(
         self,
@@ -256,31 +289,69 @@ class AutomationReadinessGate:
 
         if normalized_mode == AutomationMode.ADVISOR:
             return ArchitectureGateVerdict(
-                ArchitectureGateDecision.ALLOW,
-                "advisor mode does not dispatch UI automation",
+                ArchitectureGateDecision.BLOCK,
+                "advisor mode must never authorize UI automation",
                 {"mode": normalized_mode.value, "action_type": normalized_action.value},
             )
 
+        if normalized_mode == AutomationMode.EVIDENCE_CAPTURE:
+            return self._evaluate_evidence_capture(
+                normalized_action,
+                human_confirmed=human_confirmed,
+            )
+
+        input_action = (
+            normalized_action in LOW_RISK_AUTOMATION_ACTIONS
+            or normalized_action in HIGH_RISK_AUTOMATION_ACTIONS
+        )
+        if not input_action:
+            return ArchitectureGateVerdict(
+                ArchitectureGateDecision.ALLOW,
+                "action is outside UI automation readiness gates",
+                {"mode": normalized_mode.value, "action_type": normalized_action.value},
+            )
+
+        if not self.readiness.closure_gate_ready:
+            return ArchitectureGateVerdict(
+                ArchitectureGateDecision.BLOCK,
+                "a ready committed closure artifact is required for UI automation",
+                {"mode": normalized_mode.value, "action_type": normalized_action.value},
+            )
+
+        if normalized_action.value not in self.readiness.accepted_action_values:
+            return ArchitectureGateVerdict(
+                ArchitectureGateDecision.BLOCK,
+                "action is not accepted by the committed closure artifact",
+                {
+                    "mode": normalized_mode.value,
+                    "action_type": normalized_action.value,
+                    "accepted_actions": sorted(self.readiness.accepted_action_values),
+                },
+            )
+
         if normalized_action in LOW_RISK_AUTOMATION_ACTIONS:
+            missing = []
+            if not self.readiness.golden_replay_baseline_ready:
+                missing.append("golden_replay_baseline_ready")
             if not self.readiness.low_risk_verifier_false_positive_covered:
+                missing.append("low_risk_verifier_false_positive_covered")
+            if missing:
                 return ArchitectureGateVerdict(
                     ArchitectureGateDecision.BLOCK,
-                    "low-risk verifier false positive coverage is required before semi-auto",
-                    {"action_type": normalized_action.value, "mode": normalized_mode.value},
+                    "low-risk closure prerequisites are not ready",
+                    {
+                        "action_type": normalized_action.value,
+                        "mode": normalized_mode.value,
+                        "missing": missing,
+                    },
                 )
             return ArchitectureGateVerdict(
                 ArchitectureGateDecision.ALLOW,
-                "low-risk action has verifier false positive coverage",
+                "low-risk action is accepted by a ready committed closure artifact",
                 {"action_type": normalized_action.value, "mode": normalized_mode.value},
             )
 
         if normalized_action in HIGH_RISK_AUTOMATION_ACTIONS:
-            if normalized_mode == AutomationMode.SEMI_AUTO and human_confirmed:
-                return ArchitectureGateVerdict(
-                    ArchitectureGateDecision.ALLOW,
-                    "high-risk action is manually confirmed, not full-auto",
-                    {"action_type": normalized_action.value, "mode": normalized_mode.value},
-                )
             if not self.readiness.high_risk_verifier_ready:
                 return ArchitectureGateVerdict(
                     ArchitectureGateDecision.BLOCK,
@@ -293,16 +364,57 @@ class AutomationReadinessGate:
                         "team_state_verifier_ready": self.readiness.team_state_verifier_ready,
                     },
                 )
+            if normalized_mode == AutomationMode.SEMI_AUTO and not human_confirmed:
+                return ArchitectureGateVerdict(
+                    ArchitectureGateDecision.BLOCK,
+                    "high-risk semi-auto action requires human confirmation",
+                    {"action_type": normalized_action.value, "mode": normalized_mode.value},
+                )
             return ArchitectureGateVerdict(
                 ArchitectureGateDecision.ALLOW,
-                "high-risk full-auto verifier prerequisites are ready",
+                "high-risk action is accepted and all verifier prerequisites are ready",
                 {"action_type": normalized_action.value, "mode": normalized_mode.value},
             )
 
+        raise AssertionError("unreachable automation action branch")
+
+    def _evaluate_evidence_capture(
+        self,
+        action_type: ActionType,
+        *,
+        human_confirmed: bool,
+    ) -> ArchitectureGateVerdict:
+        if action_type not in LOW_RISK_AUTOMATION_ACTIONS:
+            return ArchitectureGateVerdict(
+                ArchitectureGateDecision.BLOCK,
+                "evidence-capture mode is limited to low-risk actions",
+                {"mode": AutomationMode.EVIDENCE_CAPTURE.value, "action_type": action_type.value},
+            )
+        expected = (
+            _to_action_type(self.evidence_capture_action)
+            if self.evidence_capture_action is not None
+            else None
+        )
+        if expected != action_type:
+            return ArchitectureGateVerdict(
+                ArchitectureGateDecision.BLOCK,
+                "action does not match the explicitly confirmed evidence-capture action",
+                {
+                    "mode": AutomationMode.EVIDENCE_CAPTURE.value,
+                    "action_type": action_type.value,
+                    "confirmed_action": expected.value if expected is not None else None,
+                },
+            )
+        if not (self.evidence_capture_confirmed or human_confirmed):
+            return ArchitectureGateVerdict(
+                ArchitectureGateDecision.BLOCK,
+                "evidence-capture action requires explicit human confirmation",
+                {"mode": AutomationMode.EVIDENCE_CAPTURE.value, "action_type": action_type.value},
+            )
         return ArchitectureGateVerdict(
             ArchitectureGateDecision.ALLOW,
-            "action is outside automation stop-condition gates",
-            {"action_type": normalized_action.value, "mode": normalized_mode.value},
+            "single-action low-risk evidence capture was explicitly confirmed",
+            {"mode": AutomationMode.EVIDENCE_CAPTURE.value, "action_type": action_type.value},
         )
 
 

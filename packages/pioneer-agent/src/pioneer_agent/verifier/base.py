@@ -475,3 +475,48 @@ def _coerce_operator(value: DeltaOperator | str) -> DeltaOperator:
 
 def _is_sequence(value: Any) -> bool:
     return isinstance(value, Sequence) and not isinstance(value, (str, bytes, bytearray))
+
+
+def structured_matching_deltas(
+    expected_deltas: Sequence[ExpectedStateDelta],
+    before_state: Mapping[str, Any],
+    after_state: Mapping[str, Any],
+) -> list[dict[str, Any]]:
+    """Serialize only target-bound state changes that actually matched."""
+    payloads: list[dict[str, Any]] = []
+    for delta in expected_deltas:
+        matched, _ = _match_delta(delta, before_state, after_state)
+        if not matched:
+            continue
+        _, before_found, before_value, _ = _resolve_delta_value(
+            before_state,
+            delta,
+            phase="before",
+        )
+        _, after_found, after_value, _ = _resolve_delta_value(
+            after_state,
+            delta,
+            phase="after",
+        )
+        if not after_found:
+            continue
+        if before_found and _strict_equal(before_value, after_value):
+            continue
+        operator = _coerce_operator(delta.operator)
+        operator_value = operator.value
+        if operator == DeltaOperator.EQUALS and delta.before is not None:
+            operator_value = "changes_to"
+        item: dict[str, Any] = {
+            "path": delta.path,
+            "operator": operator_value,
+            "before": before_value if before_found else None,
+            "after": after_value,
+        }
+        if delta.collection_path is not None:
+            item["selector"] = {
+                "collection_path": delta.collection_path,
+                "identity_field": delta.identity_field,
+                "identity_value": delta.identity_value,
+            }
+        payloads.append(item)
+    return payloads

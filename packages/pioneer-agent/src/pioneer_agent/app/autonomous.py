@@ -22,6 +22,10 @@ from pioneer_agent.core.device import (
     Orientation,
 )
 from pioneer_agent.executor.ui_actions import UIActions
+from pioneer_agent.executor.operator_confirmation import (
+    JsonlOperatorConfirmationStore,
+    WaitingOperatorConfirmationProvider,
+)
 from pioneer_agent.executor.ui_runner import UIActionRunner
 from pioneer_agent.perception.ui_registry import UIRegistry
 from pioneer_agent.perception.vision import build_vision_client
@@ -35,6 +39,11 @@ from pioneer_agent.runbook.state_store import (
     RunbookStateStore,
     acquire_single_instance_lock,
     build_engine_from_store,
+)
+from pioneer_agent.runtime.architecture_gates import (
+    LOW_RISK_AUTOMATION_ACTIONS,
+    AutomationMode,
+    AutomationReadinessGate,
 )
 from pioneer_agent.runtime.autonomous_loop import AutonomousLoop
 from pioneer_agent.safety.kill_switch import KillSwitch, default_kill_switch_path
@@ -54,17 +63,63 @@ def _add_execution_mode_args(parser: argparse.ArgumentParser) -> None:
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument(
         "--execute",
-        dest="dry_run",
-        action="store_false",
-        help="Explicitly allow guarded UI dispatch (default is dry-run).",
+        dest="execution_mode",
+        action="store_const",
+        const="execute",
+        help=(
+            "Reserved formal execution mode; currently disabled until a committed "
+            "QA attestation can be recomputed from trusted M1a evidence."
+        ),
     )
     mode.add_argument(
         "--dry-run",
-        dest="dry_run",
-        action="store_true",
+        dest="execution_mode",
+        action="store_const",
+        const="dry_run",
         help="Run perception + decision but skip UI action dispatch (default).",
     )
-    parser.set_defaults(dry_run=True)
+    mode.add_argument(
+        "--evidence-capture",
+        dest="execution_mode",
+        action="store_const",
+        const="evidence_capture",
+        help="Run one explicitly confirmed low-risk action to collect closure evidence.",
+    )
+    parser.set_defaults(execution_mode="dry_run")
+
+
+def _resolve_execution_policy(
+    args: argparse.Namespace,
+    parser: argparse.ArgumentParser,
+) -> tuple[bool, AutomationMode, AutomationReadinessGate]:
+    if args.execution_mode == "dry_run":
+        if args.evidence_action is not None or args.confirm_evidence_capture:
+            parser.error("evidence arguments require --evidence-capture")
+        return True, AutomationMode.SEMI_AUTO, AutomationReadinessGate()
+
+    if args.execution_mode == "execute":
+        parser.error(
+            "--execute is disabled: no trusted M1a closure evidence exists; "
+            "formal execution must wait for a committed QA attestation that can be "
+            "recomputed from bound live traces"
+        )
+
+    if args.execution_mode != "evidence_capture":
+        parser.error(f"unsupported execution mode: {args.execution_mode!r}")
+    if args.max_iterations != 1:
+        parser.error("--evidence-capture requires --max-iterations 1")
+    if args.evidence_action is None:
+        parser.error("--evidence-capture requires --evidence-action")
+    if not args.confirm_evidence_capture:
+        parser.error("--evidence-capture requires --confirm-evidence-capture")
+    try:
+        gate = AutomationReadinessGate.for_evidence_capture(
+            args.evidence_action,
+            human_confirmed=True,
+        )
+    except ValueError as exc:
+        parser.error(str(exc))
+    return False, AutomationMode.EVIDENCE_CAPTURE, gate
 
 
 def _build_live_device_session(bridge: BridgeClient) -> DeviceSession:
@@ -132,6 +187,53 @@ def main(argv: list[str] | None = None) -> int:
                         help="Skip archiving screenshot PNGs (JSONL only).")
     parser.add_argument("--log-level", default="INFO")
     _add_execution_mode_args(parser)
+    parser.add_argument(
+        "--evidence-action",
+        choices=tuple(sorted(item.value for item in LOW_RISK_AUTOMATION_ACTIONS)),
+        default=None,
+        help="Exact low-risk action authorized for --evidence-capture.",
+    )
+    parser.add_argument(
+        "--confirm-evidence-capture",
+        action="store_true",
+        help=(
+            "Explicitly authorize opening a frame-bound confirmation request; "
+            "the final click still requires a separate one-shot grant."
+        ),
+    )
+    parser.add_argument(
+        "--operator-confirmation-store",
+        type=user_path,
+        default=None,
+        help="Append-only grant/consume JSONL (default: log-dir/operator_confirmations.jsonl).",
+    )
+    parser.add_argument(
+        "--operator-confirmation-request",
+        type=user_path,
+        default=None,
+        help=(
+            "Short-lived exact request shown to the operator "
+            "(default: log-dir/operator_confirmation_request.json)."
+        ),
+    )
+    parser.add_argument(
+        "--operator-confirmation-wait-seconds",
+        type=float,
+        default=15.0,
+        help="Maximum terminal-frame confirmation wait (default: 15, hard fail on timeout).",
+    )
+    parser.add_argument(
+        "--operator-confirmation-poll-seconds",
+        type=float,
+        default=0.2,
+        help="Grant-store poll interval while waiting (default: 0.2).",
+    )
+    parser.add_argument(
+        "--operator-confirmation-ttl-seconds",
+        type=float,
+        default=10.0,
+        help="Maximum one-shot grant TTL within the request window (default: 10).",
+    )
     parser.add_argument("--stuck-threshold", type=int, default=3,
                         help="Consecutive idle/unknown ticks before ESC recovery (default: 3).")
     parser.add_argument("--vision-provider", choices=("gemini", "openai"), default=None,
@@ -162,9 +264,20 @@ def main(argv: list[str] | None = None) -> int:
         )
     except ValueError as exc:
         parser.error(str(exc))
-    kill_switch_path = args.kill_switch_file or default_kill_switch_path(
-        Path(__file__).resolve().parents[5]
+    dry_run, automation_mode, automation_gate = _resolve_execution_policy(
+        args,
+        parser,
     )
+    project_root = Path(__file__).resolve().parents[5]
+    kill_switch_path = (
+        args.kill_switch_file or default_kill_switch_path(project_root)
+    ).resolve()
+    if not dry_run:
+        try:
+            kill_switch_path.parent.mkdir(parents=True, exist_ok=True)
+        except OSError as exc:
+            parser.error(f"kill-switch parent is not accessible: {exc}")
+    kill_switch = KillSwitch(kill_switch_path)
 
     logging.basicConfig(
         level=args.log_level.upper(),
@@ -173,6 +286,38 @@ def main(argv: list[str] | None = None) -> int:
 
     loop_logger = LoopLogger(args.log_dir, archive_screenshots=not args.no_archive)
     trace_store = TraceStore(args.trace_path or args.log_dir / "trace.jsonl")
+    operator_confirmation_provider = None
+    if not dry_run:
+        confirmation_store_path = (
+            args.operator_confirmation_store
+            or args.log_dir / "operator_confirmations.jsonl"
+        )
+        confirmation_request_path = (
+            args.operator_confirmation_request
+            or args.log_dir / "operator_confirmation_request.json"
+        )
+        try:
+            confirmation_store = JsonlOperatorConfirmationStore(
+                confirmation_store_path,
+                max_ttl_seconds=30.0,
+            )
+            operator_confirmation_provider = WaitingOperatorConfirmationProvider(
+                confirmation_store,
+                confirmation_request_path,
+                wait_timeout_seconds=args.operator_confirmation_wait_seconds,
+                poll_interval_seconds=args.operator_confirmation_poll_seconds,
+                confirmation_ttl_seconds=args.operator_confirmation_ttl_seconds,
+                abort_if=kill_switch.is_triggered,
+            )
+        except ValueError as exc:
+            parser.error(f"invalid operator confirmation channel: {exc}")
+        logging.getLogger(__name__).warning(
+            "final mutating clicks require a separate frame-bound grant: "
+            "request=%s (review/grant with pioneer_agent.app.operator_confirmation), "
+            "store=%s",
+            confirmation_request_path,
+            confirmation_store_path,
+        )
 
     runbook_engine = None
     runbook_state_store = None
@@ -212,9 +357,10 @@ def main(argv: list[str] | None = None) -> int:
         registry = UIRegistry.load()
         ui = UIActions(bridge, registry, vision=vision)
         runner = None
-        if not args.dry_run:
+        if not dry_run:
             logging.getLogger(__name__).warning(
-                "live UI execution explicitly enabled with --execute"
+                "live UI execution explicitly enabled in %s mode",
+                automation_mode.value,
             )
             try:
                 device_session = _build_live_device_session(bridge)
@@ -225,6 +371,10 @@ def main(argv: list[str] | None = None) -> int:
                 device_session=device_session,
                 capabilities=device_session.capabilities,
                 session_mode=SessionMode.LIVE,
+                automation_mode=automation_mode,
+                automation_gate=automation_gate,
+                operator_confirmation_provider=operator_confirmation_provider,
+                kill_switch_path=kill_switch_path,
             )
         loop = AutonomousLoop(
             bridge=bridge,
@@ -233,11 +383,11 @@ def main(argv: list[str] | None = None) -> int:
             runner=runner,
             loop_logger=loop_logger,
             trace_store=trace_store,
-            kill_switch=KillSwitch(kill_switch_path),
+            kill_switch=kill_switch,
             runbook_engine=runbook_engine,
             runbook_state_store=runbook_state_store,
             lineup_preset_bindings=lineup_preset_bindings,
-            dry_run=args.dry_run,
+            dry_run=dry_run,
             stuck_threshold=args.stuck_threshold,
         )
         loop.run_forever(max_iterations=args.max_iterations)

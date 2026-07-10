@@ -1,7 +1,13 @@
 from pathlib import Path
 import unittest
 
+from pioneer_agent.core.enums import ActionType
+from pioneer_agent.runtime.architecture_gates import (
+    AutomationMode,
+    AutomationReadinessGate,
+)
 from pioneer_agent.runtime.replay_runtime import ReplayRuntime
+from pioneer_agent.safety.guard import SessionMode
 
 
 FIXTURE_EXPECTATIONS = [
@@ -17,6 +23,25 @@ FIXTURE_EXPECTATIONS = [
 
 
 class ActionSelectorReplayTests(unittest.TestCase):
+    def test_replay_runtime_scopes_ready_gate_to_offline_automation_test(self) -> None:
+        runtime = ReplayRuntime()
+
+        self.assertEqual(
+            runtime.dispatch_runner.session_mode,
+            SessionMode.AUTOMATION_TEST,
+        )
+        replay_verdict = runtime.dispatch_runner.automation_gate.evaluate(
+            ActionType.CLAIM_CHAPTER_REWARD,
+            mode=AutomationMode.SEMI_AUTO,
+        )
+        default_verdict = AutomationReadinessGate().evaluate(
+            ActionType.CLAIM_CHAPTER_REWARD,
+            mode=AutomationMode.SEMI_AUTO,
+        )
+
+        self.assertTrue(replay_verdict.allowed)
+        self.assertFalse(default_verdict.allowed)
+
     def test_replay_fixture_selects_expected_action(self) -> None:
         project_root = Path(__file__).resolve().parents[2]
         runtime = ReplayRuntime()

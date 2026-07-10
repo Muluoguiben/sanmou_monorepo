@@ -27,6 +27,7 @@ from pioneer_agent.core.models import (
     SelectionResult,
 )
 from pioneer_agent.derivation.state_deriver import StateDeriver
+from pioneer_agent.executor.action_handlers import terminal_mutating_target
 from pioneer_agent.executor.ui_actions import UIActions
 from pioneer_agent.executor.ui_runner import UIActionRunner
 from pioneer_agent.perception.vision_sync import VisionSync, VisionSyncSummary
@@ -68,11 +69,17 @@ from pioneer_agent.storage.trace_store import (
     PixelPoint,
     ScreenshotTraceMetadata,
     TickTrace,
+    TraceFrameReference,
+    TraceFrameRole,
     TracePhase,
     TraceStep,
     TraceStore,
 )
-from pioneer_agent.verifier.base import VerificationResult, VerificationStatus
+from pioneer_agent.verifier.base import (
+    VerificationResult,
+    VerificationStatus,
+    structured_matching_deltas,
+)
 from pioneer_agent.verifier.registry import (
     UI_ACTIONS_REQUIRING_VERIFIER,
     VerifierRegistry,
@@ -194,6 +201,18 @@ class AutonomousLoop:
         selection = self.selector.select(derived)
         pre_action_state = self.state.model_dump(mode="json")
         dispatch_observation = vision_summary.observation
+        trace_frames: list[TraceFrameReference] = []
+        if (
+            selection.selected_action is not None
+            and selection.selected_action.action_type in LOW_RISK_AUTOMATION_ACTIONS
+        ):
+            self._record_trace_frame(
+                trace_frames,
+                iteration=iteration,
+                role=TraceFrameRole.PRE_ACTION,
+                png=png,
+                observation=dispatch_observation,
+            )
 
         execution: ExecutionResult | None = None
         post_action_verification: dict[str, Any] | None = None
@@ -270,10 +289,19 @@ class AutonomousLoop:
                 )
             else:
                 _reset_input_trace(self.ui_actions)
+                if terminal_mutating_target(selection.selected_action) is not None:
+                    self._record_trace_frame(
+                        trace_frames,
+                        iteration=iteration,
+                        role=TraceFrameRole.TERMINAL_DISPATCH,
+                        png=png,
+                        observation=dispatch_observation,
+                    )
                 execution = _run_action(
                     self.runner,
                     selection.selected_action,
                     dispatch_observation,
+                    frame_bytes=png,
                 )
                 dispatch_completed_at = datetime.now(UTC)
                 input_trace = _consume_input_trace(self.ui_actions)
@@ -287,6 +315,7 @@ class AutonomousLoop:
                         iteration=iteration,
                         action=selection.selected_action,
                         execution=execution,
+                        trace_frames=trace_frames,
                     )
                     input_trace.extend(extra_input_trace)
                     if flow_decision is not None:
@@ -298,6 +327,8 @@ class AutonomousLoop:
                         execution=execution,
                         baseline_observation=dispatch_observation,
                         dispatch_completed_at=dispatch_completed_at,
+                        iteration=iteration,
+                        trace_frames=trace_frames,
                     )
                 logger.info(
                     "tick %d: action=%s status=%s",
@@ -423,6 +454,7 @@ class AutonomousLoop:
                     vision_traces=_consume_remaining_vision_trace_events(self.vision_sync),
                     input_trace=input_trace,
                     runbook=runbook_payload,
+                    frame_evidence=trace_frames,
                 )
             )
             self.trace_store.append(trace)
@@ -765,12 +797,35 @@ class AutonomousLoop:
             return f"{strategy}_failed"
         return strategy
 
+    def _record_trace_frame(
+        self,
+        frames: list[TraceFrameReference],
+        *,
+        iteration: int,
+        role: TraceFrameRole,
+        png: bytes,
+        observation: ObservationSnapshot | None,
+        attempt: int | None = None,
+    ) -> TraceFrameReference | None:
+        if self.trace_store is None or observation is None:
+            return None
+        reference = self.trace_store.save_frame(
+            iteration=iteration,
+            role=role,
+            png=png,
+            observation=observation,
+            attempt=attempt,
+        )
+        frames.append(reference)
+        return reference
+
     def _continue_action_flow(
         self,
         *,
         iteration: int,
         action: CandidateAction,
         execution: ExecutionResult,
+        trace_frames: list[TraceFrameReference],
     ) -> tuple[ExecutionResult, dict[str, Any] | None, list[dict[str, Any]], RunbookDecision | None]:
         input_trace: list[dict[str, Any]] = []
         flow_observe: VisionSyncSummary | None = None
@@ -861,11 +916,20 @@ class AutonomousLoop:
                 next_action=next_action,
             )
 
+        if terminal_mutating_target(next_action) is not None:
+            self._record_trace_frame(
+                trace_frames,
+                iteration=iteration,
+                role=TraceFrameRole.TERMINAL_DISPATCH,
+                png=png,
+                observation=flow_observe.observation,
+            )
         _reset_input_trace(self.ui_actions)
         terminal_execution = _run_action(
             self.runner,
             next_action,
             flow_observe.observation,
+            frame_bytes=png,
         )
         terminal_dispatch_completed_at = datetime.now(UTC)
         input_trace.extend(_consume_input_trace(self.ui_actions))
@@ -886,6 +950,8 @@ class AutonomousLoop:
             execution=terminal_execution,
             baseline_observation=flow_observe.observation,
             dispatch_completed_at=terminal_dispatch_completed_at,
+            iteration=iteration,
+            trace_frames=trace_frames,
         )
         return terminal_execution, verification, input_trace, flow_decision
 
@@ -896,6 +962,8 @@ class AutonomousLoop:
         execution: ExecutionResult,
         baseline_observation: ObservationSnapshot | None,
         dispatch_completed_at: datetime,
+        iteration: int,
+        trace_frames: list[TraceFrameReference],
     ) -> tuple[ExecutionResult, dict[str, Any] | None]:
         spec = _post_action_verifier_spec(self.runner, action)
         if spec is None:
@@ -935,6 +1003,9 @@ class AutonomousLoop:
                 result=result,
                 attempts=0,
                 summary=None,
+                before_state=None,
+                after_state=None,
+                post_frame=None,
             )
             return (
                 _execution_with_verification(
@@ -960,6 +1031,14 @@ class AutonomousLoop:
                     png,
                     state=self.state,
                     captured_at=post_captured_at,
+                )
+                post_frame = self._record_trace_frame(
+                    trace_frames,
+                    iteration=iteration,
+                    role=TraceFrameRole.POST_ACTION,
+                    png=png,
+                    observation=summary.observation,
+                    attempt=attempts,
                 )
                 post_gate = validate_post_observation(
                     action,
@@ -990,6 +1069,9 @@ class AutonomousLoop:
                     result=result,
                     attempts=attempts,
                     summary=summary,
+                    before_state=baseline_gate.verifier_state,
+                    after_state=post_gate.verifier_state,
+                    post_frame=post_frame,
                 )
             except Exception as exc:  # noqa: BLE001
                 result = VerificationResult(
@@ -1004,6 +1086,9 @@ class AutonomousLoop:
                     result=result,
                     attempts=attempts,
                     summary=None,
+                    before_state=None,
+                    after_state=None,
+                    post_frame=None,
                 )
             if result.status == VerificationStatus.VERIFIED:
                 return (
@@ -1066,6 +1151,7 @@ def _build_tick_trace(
     vision_traces: list[dict] | None = None,
     input_trace: list[dict] | None = None,
     runbook: dict[str, Any] | None = None,
+    frame_evidence: list[TraceFrameReference] | None = None,
 ) -> TickTrace:
     action = selection.selected_action
     screenshot_size = _image_size_from_png(png)
@@ -1073,13 +1159,31 @@ def _build_tick_trace(
     if vision_traces:
         all_vision_traces.extend(vision_traces)
     input_events = list(input_trace or [])
+    frames = list(frame_evidence or [])
+    primary_frame = next(
+        (
+            frame
+            for frame in reversed(frames)
+            if frame.role == TraceFrameRole.TERMINAL_DISPATCH
+        ),
+        frames[0] if frames else None,
+    )
+    primary_observation = (
+        dict(primary_frame.observation)
+        if primary_frame is not None
+        else _observation_payload(vision_summary.observation)
+    )
     return TickTrace(
         iteration=iteration,
         created_at=started_at,
         current_phase=TracePhase.TRACE,
         screenshot=ScreenshotTraceMetadata(
-            path=screenshot_path,
-            raw_size=screenshot_size or _image_size_from_trace(all_vision_traces, "raw_size"),
+            path=primary_frame.path if primary_frame is not None else screenshot_path,
+            raw_size=(
+                _image_size_from_frame_reference(primary_frame)
+                or screenshot_size
+                or _image_size_from_trace(all_vision_traces, "raw_size")
+            ),
             prepared_size=_image_size_from_trace(all_vision_traces, "prepared_size"),
             display_coordinate_space=_coordinate_space_from_input(input_events, "display_coordinate_space"),
             window_coordinate_space=_coordinate_space_from_input(input_events, "window_coordinate_space"),
@@ -1087,9 +1191,11 @@ def _build_tick_trace(
             metadata={
                 "vision": all_vision_traces,
                 "input_events": input_events,
-                "observation": _observation_payload(vision_summary.observation),
+                "observation": primary_observation,
+                "frames": [frame.model_dump(mode="json") for frame in frames],
             },
         ),
+        frames=frames,
         observe=TraceStep(
             phase=TracePhase.OBSERVE,
             outputs={
@@ -1306,8 +1412,16 @@ def _run_action(
     runner: Any,
     action: CandidateAction,
     observation: ObservationSnapshot | None,
+    *,
+    frame_bytes: bytes | None = None,
 ) -> ExecutionResult:
-    if action.action_type in LOW_RISK_AUTOMATION_ACTIONS or isinstance(runner, UIActionRunner):
+    if isinstance(runner, UIActionRunner):
+        return runner.run(
+            action,
+            observation=observation,
+            frame_bytes=frame_bytes,
+        )
+    if action.action_type in LOW_RISK_AUTOMATION_ACTIONS:
         return runner.run(action, observation=observation)
     return runner.run(action)
 
@@ -1443,10 +1557,30 @@ def _verification_payload(
     result: VerificationResult,
     attempts: int,
     summary: VisionSyncSummary | None,
+    before_state: Mapping[str, Any] | None,
+    after_state: Mapping[str, Any] | None,
+    post_frame: TraceFrameReference | None,
 ) -> dict[str, Any]:
+    target_identity = _verification_target_identity(action)
+    post_action_delta = (
+        structured_matching_deltas(
+            spec.expected_deltas,
+            before_state,
+            after_state,
+        )
+        if (
+            result.status == VerificationStatus.VERIFIED
+            and before_state is not None
+            and after_state is not None
+        )
+        else []
+    )
     return {
         "action_type": action.action_type.value,
-        "target": _verification_target(action),
+        "target": target_identity,
+        "target_identity": target_identity,
+        "target_details": _verification_target(action),
+        "post_action_delta": post_action_delta,
         "status": result.status.value,
         "reason": result.reason,
         "checked": list(result.checked),
@@ -1463,6 +1597,7 @@ def _verification_payload(
             "notes": list(summary.notes) if summary else [],
             "image_traces": list(summary.image_traces) if summary else [],
             "observation": _observation_payload(summary.observation) if summary else None,
+            "frame": post_frame.model_dump(mode="json") if post_frame else None,
         },
     }
 
@@ -1489,6 +1624,23 @@ def _verification_target(action: CandidateAction) -> dict[str, Any]:
         ActionType.RECRUIT_SOLDIERS: ("team_id",),
         ActionType.UPGRADE_BUILDING: (
             "building_id",
+            "building_name",
+            "current_level",
+            "target_level",
+        ),
+    }.get(action.action_type, ())
+    return {
+        field: action.params[field]
+        for field in target_fields
+        if field in action.params
+    }
+
+
+def _verification_target_identity(action: CandidateAction) -> dict[str, Any]:
+    target_fields = {
+        ActionType.CLAIM_CHAPTER_REWARD: ("chapter_id",),
+        ActionType.RECRUIT_SOLDIERS: ("team_id",),
+        ActionType.UPGRADE_BUILDING: (
             "building_name",
             "current_level",
             "target_level",
@@ -1536,6 +1688,23 @@ def _image_size_from_png(png: bytes) -> ImageSize | None:
     except (UnidentifiedImageError, OSError):
         return None
     return ImageSize(width=width, height=height)
+
+
+def _image_size_from_frame_reference(
+    frame: TraceFrameReference | None,
+) -> ImageSize | None:
+    if frame is None:
+        return None
+    size = frame.observation.get("frame_size")
+    if (
+        not isinstance(size, list)
+        or len(size) != 2
+        or any(isinstance(value, bool) or not isinstance(value, int) for value in size)
+        or size[0] <= 0
+        or size[1] <= 0
+    ):
+        return None
+    return ImageSize(width=size[0], height=size[1])
 
 
 def _reset_input_trace(ui_actions: UIActions) -> None:

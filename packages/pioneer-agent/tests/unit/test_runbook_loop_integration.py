@@ -48,16 +48,20 @@ from pioneer_agent.verifier import (
 )
 
 
-def _png() -> bytes:
-    img = Image.new("RGB", (64, 64), (0, 0, 0))
+def _png(color: tuple[int, int, int] = (0, 0, 0)) -> bytes:
+    img = Image.new("RGB", (64, 64), color)
     buf = io.BytesIO()
     img.save(buf, format="PNG")
     return buf.getvalue()
 
 
 class _StubBridge:
+    def __init__(self) -> None:
+        self.shots = 0
+
     def screenshot(self, save_path=None):  # noqa: ANN001
-        return _png()
+        self.shots += 1
+        return _png((self.shots % 256, 0, 0))
 
 
 def _with_attack_facts(

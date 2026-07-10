@@ -135,34 +135,129 @@ class ArchitectureGateTests(unittest.TestCase):
         self.assertEqual(changed_params.decision, ArchitectureGateDecision.BLOCK)
         self.assertEqual(changed_safety.decision, ArchitectureGateDecision.BLOCK)
 
-    def test_automation_gate_blocks_low_risk_semiauto_without_false_positive_coverage(self) -> None:
+    def test_automation_readiness_defaults_fully_closed(self) -> None:
+        readiness = AutomationReadiness()
+
+        self.assertFalse(readiness.golden_replay_baseline_ready)
+        self.assertFalse(readiness.low_risk_verifier_false_positive_covered)
+        self.assertFalse(readiness.map_land_verifier_ready)
+        self.assertFalse(readiness.battle_result_verifier_ready)
+        self.assertFalse(readiness.team_state_verifier_ready)
+        self.assertFalse(readiness.closure_gate_ready)
+        self.assertEqual(readiness.accepted_action_values, frozenset())
+
+    def test_automation_gate_blocks_advisor_mode(self) -> None:
+        verdict = AutomationReadinessGate().evaluate(
+            ActionType.RECRUIT_SOLDIERS,
+            mode=AutomationMode.ADVISOR,
+        )
+
+        self.assertEqual(verdict.decision, ArchitectureGateDecision.BLOCK)
+        self.assertIn("must never authorize", verdict.reason)
+
+    def test_automation_gate_blocks_low_risk_semiauto_without_closure_artifact(self) -> None:
         gate = AutomationReadinessGate(
-            AutomationReadiness(low_risk_verifier_false_positive_covered=False)
+            AutomationReadiness(
+                golden_replay_baseline_ready=True,
+                low_risk_verifier_false_positive_covered=True,
+                accepted_actions=frozenset({ActionType.RECRUIT_SOLDIERS}),
+            )
         )
 
         verdict = gate.evaluate(ActionType.RECRUIT_SOLDIERS, mode=AutomationMode.SEMI_AUTO)
 
         self.assertEqual(verdict.decision, ArchitectureGateDecision.BLOCK)
-        self.assertIn("false positive coverage", verdict.reason)
+        self.assertIn("committed closure artifact", verdict.reason)
 
-    def test_automation_gate_blocks_high_risk_full_auto_until_all_verifiers_are_ready(self) -> None:
+    def test_automation_gate_allows_only_artifact_accepted_low_risk_action(self) -> None:
+        gate = AutomationReadinessGate(
+            AutomationReadiness(
+                golden_replay_baseline_ready=True,
+                low_risk_verifier_false_positive_covered=True,
+                closure_gate_ready=True,
+                accepted_actions=frozenset({ActionType.CLAIM_CHAPTER_REWARD}),
+            )
+        )
+
+        allowed = gate.evaluate(
+            ActionType.CLAIM_CHAPTER_REWARD,
+            mode=AutomationMode.SEMI_AUTO,
+        )
+        rejected = gate.evaluate(
+            ActionType.RECRUIT_SOLDIERS,
+            mode=AutomationMode.SEMI_AUTO,
+        )
+
+        self.assertEqual(allowed.decision, ArchitectureGateDecision.ALLOW)
+        self.assertEqual(rejected.decision, ArchitectureGateDecision.BLOCK)
+        self.assertIn("not accepted", rejected.reason)
+
+    def test_automation_gate_blocks_high_risk_full_auto_without_closure_artifact(self) -> None:
         verdict = AutomationReadinessGate().evaluate(
             ActionType.ATTACK_LAND,
             mode=AutomationMode.FULL_AUTO,
         )
 
         self.assertEqual(verdict.decision, ArchitectureGateDecision.BLOCK)
-        self.assertIn("high-risk full-auto", verdict.reason)
+        self.assertIn("committed closure artifact", verdict.reason)
 
     def test_automation_gate_allows_manually_confirmed_high_risk_semiauto(self) -> None:
-        verdict = AutomationReadinessGate().evaluate(
+        gate = AutomationReadinessGate(
+            AutomationReadiness(
+                map_land_verifier_ready=True,
+                battle_result_verifier_ready=True,
+                team_state_verifier_ready=True,
+                closure_gate_ready=True,
+                accepted_actions=frozenset({ActionType.ATTACK_LAND}),
+            )
+        )
+        verdict = gate.evaluate(
             ActionType.ATTACK_LAND,
             mode=AutomationMode.SEMI_AUTO,
             human_confirmed=True,
         )
 
         self.assertEqual(verdict.decision, ArchitectureGateDecision.ALLOW)
-        self.assertIn("manually confirmed", verdict.reason)
+        self.assertIn("verifier prerequisites", verdict.reason)
+
+    def test_evidence_capture_requires_bound_low_risk_manual_confirmation(self) -> None:
+        unconfirmed = AutomationReadinessGate.for_evidence_capture(
+            ActionType.CLAIM_CHAPTER_REWARD,
+            human_confirmed=False,
+        )
+        confirmed = AutomationReadinessGate.for_evidence_capture(
+            ActionType.CLAIM_CHAPTER_REWARD,
+            human_confirmed=True,
+        )
+
+        missing_confirmation = unconfirmed.evaluate(
+            ActionType.CLAIM_CHAPTER_REWARD,
+            mode=AutomationMode.EVIDENCE_CAPTURE,
+        )
+        wrong_action = confirmed.evaluate(
+            ActionType.RECRUIT_SOLDIERS,
+            mode=AutomationMode.EVIDENCE_CAPTURE,
+        )
+        high_risk = confirmed.evaluate(
+            ActionType.ATTACK_LAND,
+            mode=AutomationMode.EVIDENCE_CAPTURE,
+            human_confirmed=True,
+        )
+        allowed = confirmed.evaluate(
+            ActionType.CLAIM_CHAPTER_REWARD,
+            mode=AutomationMode.EVIDENCE_CAPTURE,
+        )
+
+        self.assertEqual(missing_confirmation.decision, ArchitectureGateDecision.BLOCK)
+        self.assertEqual(wrong_action.decision, ArchitectureGateDecision.BLOCK)
+        self.assertEqual(high_risk.decision, ArchitectureGateDecision.BLOCK)
+        self.assertEqual(allowed.decision, ArchitectureGateDecision.ALLOW)
+
+        with self.assertRaises(ValueError):
+            AutomationReadinessGate.for_evidence_capture(
+                ActionType.ATTACK_LAND,
+                human_confirmed=True,
+            )
 
     def test_low_risk_semantic_target_gate_requires_visible_enabled_bbox(self) -> None:
         missing = validate_low_risk_semantic_target(_action(ActionType.CLAIM_CHAPTER_REWARD, 100))
@@ -192,6 +287,26 @@ class ArchitectureGateTests(unittest.TestCase):
         self.assertEqual(missing.decision, ArchitectureGateDecision.BLOCK)
         self.assertEqual(disabled.decision, ArchitectureGateDecision.BLOCK)
         self.assertEqual(invalid_bbox.decision, ArchitectureGateDecision.BLOCK)
+
+        for invalid_value in (True, "700", float("nan"), float("inf")):
+            with self.subTest(invalid_value=invalid_value):
+                verdict = validate_low_risk_semantic_target(
+                    _action(
+                        ActionType.RECRUIT_SOLDIERS,
+                        100,
+                        recruit_button={
+                            "visible": True,
+                            "enabled": True,
+                            "bbox": {
+                                "x_min": invalid_value,
+                                "y_min": 800,
+                                "x_max": 900,
+                                "y_max": 900,
+                            },
+                        },
+                    )
+                )
+                self.assertEqual(verdict.decision, ArchitectureGateDecision.BLOCK)
 
     def test_low_risk_semantic_target_gate_allows_upgrade_confirm_bbox(self) -> None:
         verdict = validate_low_risk_semantic_target(

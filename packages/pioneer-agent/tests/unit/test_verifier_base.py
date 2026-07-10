@@ -8,6 +8,7 @@ from pioneer_agent.verifier.base import (
     ExpectedStateDelta,
     VerificationStatus,
     VerifierBase,
+    structured_matching_deltas,
 )
 
 
@@ -315,6 +316,68 @@ class VerifierBaseTests(unittest.TestCase):
 
         self.assertEqual(bool_before.status, VerificationStatus.FAILED)
         self.assertEqual(bool_after.status, VerificationStatus.FAILED)
+
+    def test_structured_matching_deltas_emit_target_bound_before_after_values(self) -> None:
+        deltas = (
+            ExpectedStateDelta(
+                path="soldiers",
+                operator=DeltaOperator.GREATER_THAN_BEFORE,
+                collection_path="teams",
+                identity_field="team_id",
+                identity_value="team-2",
+            ),
+            ExpectedStateDelta(
+                path="recruit_finish_time",
+                operator=DeltaOperator.BECOMES_PRESENT,
+                collection_path="teams",
+                identity_field="team_id",
+                identity_value="team-2",
+            ),
+        )
+
+        payload = structured_matching_deltas(
+            deltas,
+            {"teams": [{"team_id": "team-2", "soldiers": 22000}]},
+            {
+                "teams": [
+                    {
+                        "team_id": "team-2",
+                        "soldiers": 24000,
+                        "recruit_finish_time": "00:12:00",
+                    }
+                ]
+            },
+        )
+
+        self.assertEqual(
+            payload[0],
+            {
+                "path": "soldiers",
+                "operator": "greater_than_before",
+                "before": 22000,
+                "after": 24000,
+                "selector": {
+                    "collection_path": "teams",
+                    "identity_field": "team_id",
+                    "identity_value": "team-2",
+                },
+            },
+        )
+        self.assertEqual(payload[1]["operator"], "becomes_present")
+        self.assertIsNone(payload[1]["before"])
+
+        claim = structured_matching_deltas(
+            (
+                ExpectedStateDelta(
+                    path="progress.chapter_claimable",
+                    before=True,
+                    expected_after=False,
+                ),
+            ),
+            {"progress": {"chapter_claimable": True}},
+            {"progress": {"chapter_claimable": False}},
+        )
+        self.assertEqual(claim[0]["operator"], "changes_to")
 
 
 if __name__ == "__main__":

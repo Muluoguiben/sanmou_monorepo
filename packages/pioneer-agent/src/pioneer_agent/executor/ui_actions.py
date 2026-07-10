@@ -19,6 +19,15 @@ from PIL import Image
 
 from pioneer_agent.core.models import ObservationSnapshot
 from pioneer_agent.executor.input_policy import InputPolicy
+from pioneer_agent.executor.semantic_frame_guard import (
+    ATOMIC_CLICK_AUTHORIZATION_SCOPES,
+    FINAL_MUTATING_AUTHORIZATION_SCOPE,
+    INTERMEDIATE_AUTHORIZATION_SCOPE,
+    SEMANTIC_ROI_ALGORITHM,
+    SemanticFrameGuard,
+    authorization_scope_for_semantic_target,
+    semantic_target_geometry,
+)
 from pioneer_agent.perception.ui_registry import UIRegistry
 from pioneer_agent.perception.vision import (
     PixelBox,
@@ -31,6 +40,10 @@ from pioneer_agent.perception.vision import (
 class _BridgeLike:
     """Protocol-ish type — anything with click/drag/screenshot/key_press."""
 
+    atomic_frame_click_guard_version: int
+    atomic_frame_click_guard_modes: frozenset[str]
+    atomic_frame_click_authorization_scopes: frozenset[str]
+
     def click(
         self,
         x: int,
@@ -38,6 +51,11 @@ class _BridgeLike:
         button: str = "left",
         *,
         expected_window: dict[str, int] | None = None,
+        expected_frame_sha256: str | None = None,
+        guard_expires_at: str | None = None,
+        authorization_scope: str | None = None,
+        kill_switch_path: str | None = None,
+        semantic_frame_guard: dict[str, Any] | None = None,
     ) -> dict[str, Any]: ...
     def drag(self, x1: int, y1: int, x2: int, y2: int, duration: float = 0.4, button: str = "left") -> dict[str, Any]: ...
     def screenshot(self, save_path: Path | str | None = None) -> bytes: ...
@@ -68,17 +86,43 @@ class UIActions:
         self._input_trace: list[dict[str, Any]] = []
         self._bound_observation: ObservationSnapshot | None = None
         self._bound_expected_window: dict[str, int] | None = None
+        self._bound_operator_confirmation: dict[str, Any] | None = None
+        self._bound_dispatch_at: str | None = None
+        self._bound_semantic_frame_guard: SemanticFrameGuard | None = None
+        self._bound_guard_expires_at: str | None = None
+        self._bound_authorization_scope: str | None = None
+        self._bound_kill_switch_path: str | None = None
 
     def bind_observation(
         self,
         observation: ObservationSnapshot | None,
         *,
         expected_window: dict[str, int] | None = None,
+        operator_confirmation: dict[str, Any] | None = None,
+        dispatch_at: str | None = None,
+        semantic_frame_guard: dict[str, Any] | None = None,
+        guard_expires_at: str | None = None,
+        authorization_scope: str | None = None,
+        kill_switch_path: str | None = None,
     ) -> None:
         self._bound_observation = observation
         self._bound_expected_window = (
             dict(expected_window) if expected_window is not None else None
         )
+        self._bound_operator_confirmation = (
+            dict(operator_confirmation)
+            if operator_confirmation is not None
+            else None
+        )
+        self._bound_dispatch_at = dispatch_at
+        self._bound_semantic_frame_guard = (
+            SemanticFrameGuard.model_validate(semantic_frame_guard)
+            if semantic_frame_guard is not None
+            else None
+        )
+        self._bound_guard_expires_at = guard_expires_at
+        self._bound_authorization_scope = authorization_scope
+        self._bound_kill_switch_path = kill_switch_path
 
     def reset_input_trace(self) -> None:
         self._input_trace.clear()
@@ -120,6 +164,8 @@ class UIActions:
             }
         if self._bound_expected_window is not None:
             trace["expected_window"] = dict(self._bound_expected_window)
+        self._add_confirmation_trace(trace)
+        self._add_atomic_frame_guard_trace(trace, resp)
         self._input_trace.append(trace)
         return ClickOutcome(success=ok, px=(x, y), reason=None if ok else str(resp), trace=trace)
 
@@ -140,7 +186,7 @@ class UIActions:
             return ClickOutcome(success=False, px=(0, 0), reason=f"only {len(boxes)} matches for: {query}")
         pix: PixelBox = to_pixel_box(boxes[index], w, h)
         cx, cy = pix.center
-        resp = self.bridge.click(cx, cy)
+        resp = self._click(cx, cy)
         ok = resp.get("status") == "ok"
         trace = _input_trace_event(
             action="click_element",
@@ -151,6 +197,8 @@ class UIActions:
             normalized_bbox=_normalized_bbox(boxes[index]),
             pixel_bbox={"x": pix.x, "y": pix.y, "width": pix.width, "height": pix.height},
         )
+        self._add_confirmation_trace(trace)
+        self._add_atomic_frame_guard_trace(trace, resp)
         self._input_trace.append(trace)
         return ClickOutcome(
             success=ok,
@@ -176,25 +224,38 @@ class UIActions:
         verdict = self.input_policy.evaluate_semantic_target(target_key)
         if not verdict.allowed:
             return ClickOutcome(success=False, px=(0, 0), reason=verdict.reason)
-        parsed = _parse_normalized_bbox(bbox)
-        if parsed is None:
-            return ClickOutcome(success=False, px=(0, 0), reason=f"invalid bbox for: {target_key}")
-
         observation = self._bound_observation
         if observation is not None and observation.frame_size is not None:
             w, h = observation.frame_size
         else:
             png = self.bridge.screenshot()
             w, h = _image_size(png)
-        x_min, y_min, x_max, y_max = parsed
-        px_x = round((x_min + x_max) / 2000 * w)
-        px_y = round((y_min + y_max) / 2000 * h)
+        try:
+            roi_bbox, click_point = semantic_target_geometry((w, h), bbox)
+        except ValueError:
+            return ClickOutcome(success=False, px=(0, 0), reason=f"invalid bbox for: {target_key}")
+        x_min = float(bbox["x_min"])
+        y_min = float(bbox["y_min"])
+        x_max = float(bbox["x_max"])
+        y_max = float(bbox["y_max"])
+        px_x, px_y = click_point.x, click_point.y
         pixel_bbox = {
-            "x": round(x_min / 1000 * w),
-            "y": round(y_min / 1000 * h),
-            "width": round((x_max - x_min) / 1000 * w),
-            "height": round((y_max - y_min) / 1000 * h),
+            "x": roi_bbox.x,
+            "y": roi_bbox.y,
+            "width": roi_bbox.width,
+            "height": roi_bbox.height,
         }
+        bound_guard = self._bound_semantic_frame_guard
+        if bound_guard is not None and (
+            bound_guard.semantic_target_key != target_key
+            or bound_guard.roi_bbox != roi_bbox
+            or bound_guard.click_point != click_point
+        ):
+            return ClickOutcome(
+                success=False,
+                px=(px_x, px_y),
+                reason="terminal semantic bbox does not match the confirmed ROI guard",
+            )
         resp = self._click(px_x, px_y)
         ok = resp.get("status") == "ok"
         trace = _input_trace_event(
@@ -220,6 +281,8 @@ class UIActions:
             }
         if self._bound_expected_window is not None:
             trace["expected_window"] = dict(self._bound_expected_window)
+        self._add_confirmation_trace(trace)
+        self._add_atomic_frame_guard_trace(trace, resp)
         self._input_trace.append(trace)
         return ClickOutcome(
             success=ok,
@@ -232,17 +295,122 @@ class UIActions:
     def _click(self, x: int, y: int) -> dict[str, Any]:
         if self._bound_expected_window is None:
             return self.bridge.click(x, y)
+        observation = self._bound_observation
+        confirmation = self._bound_operator_confirmation
+        guard = self._bound_semantic_frame_guard
+        expiry = self._bound_guard_expires_at
+        scope = self._bound_authorization_scope
+        kill_switch_path = self._bound_kill_switch_path
+        if (
+            observation is None
+            or guard is None
+            or not isinstance(expiry, str)
+            or scope not in ATOMIC_CLICK_AUTHORIZATION_SCOPES
+            or not isinstance(kill_switch_path, str)
+            or not kill_switch_path
+        ):
+            return _atomic_guard_error(
+                "guarded live click is missing its observation, ROI, deadline, scope, or kill switch"
+            )
+        if authorization_scope_for_semantic_target(guard.semantic_target_key) != scope:
+            return _atomic_guard_error(
+                "guarded live click authorization scope does not match its semantic target"
+            )
+        if scope == FINAL_MUTATING_AUTHORIZATION_SCOPE:
+            if (
+                confirmation is None
+                or confirmation.get("frame_sha256") != observation.frame_sha256
+                or confirmation.get("semantic_frame_guard")
+                != guard.model_dump(mode="json")
+                or confirmation.get("expires_at") != expiry
+            ):
+                return _atomic_guard_error(
+                    "final guarded click does not match its operator confirmation"
+                )
+        elif confirmation is not None or scope != INTERMEDIATE_AUTHORIZATION_SCOPE:
+            return _atomic_guard_error(
+                "intermediate guarded click must use observation-only authorization"
+            )
+        if getattr(self.bridge, "atomic_frame_click_guard_version", None) != 1:
+            return _atomic_guard_error(
+                "bridge does not support atomic semantic ROI click guard v1"
+            )
+        modes = getattr(self.bridge, "atomic_frame_click_guard_modes", frozenset())
+        if "semantic_roi_rgb24_sha256" not in modes:
+            return _atomic_guard_error(
+                "bridge does not advertise semantic ROI click validation"
+            )
+        scopes = getattr(
+            self.bridge,
+            "atomic_frame_click_authorization_scopes",
+            frozenset(),
+        )
+        if scope not in scopes:
+            return _atomic_guard_error(
+                f"bridge does not advertise atomic authorization scope {scope}"
+            )
         try:
-            return self.bridge.click(
+            response = self.bridge.click(
                 x,
                 y,
                 expected_window=dict(self._bound_expected_window),
+                expected_frame_sha256=observation.frame_sha256,
+                guard_expires_at=expiry,
+                authorization_scope=scope,
+                kill_switch_path=kill_switch_path,
+                semantic_frame_guard=guard.model_dump(mode="json"),
             )
-        except TypeError as exc:
-            return {
-                "status": "error",
-                "message": f"bridge does not support guarded click: {exc}",
-            }
+        except (TypeError, ValueError, RuntimeError) as exc:
+            return _atomic_guard_error(
+                f"bridge rejected atomic semantic ROI click: {exc}"
+            )
+        if response.get("status") != "ok":
+            return response
+        proof = response.get("atomic_frame_guard")
+        if (
+            not isinstance(proof, dict)
+            or proof.get("verified") is not True
+            or proof.get("mode") != "semantic_roi_rgb24_sha256"
+            or proof.get("expected_roi_sha256") != guard.roi_sha256
+            or proof.get("captured_roi_sha256") != guard.roi_sha256
+            or proof.get("guard_expires_at") != expiry
+            or proof.get("authorization_scope") != scope
+            or not _valid_kill_switch_attestation(proof.get("kill_switch_guard"))
+        ):
+            return _atomic_guard_error(
+                "bridge omitted a valid semantic ROI click attestation"
+            )
+        return response
+
+    def _add_confirmation_trace(self, trace: dict[str, Any]) -> None:
+        confirmation = self._bound_operator_confirmation
+        if confirmation is None or self._bound_dispatch_at is None:
+            return
+        trace["confirmation_id"] = confirmation.get("confirmation_id")
+        trace["confirmed_at"] = confirmation.get("confirmed_at")
+        trace["dispatch_at"] = self._bound_dispatch_at
+        trace["operator_confirmation"] = dict(confirmation)
+
+    def _add_atomic_frame_guard_trace(
+        self,
+        trace: dict[str, Any],
+        response: dict[str, Any],
+    ) -> None:
+        guard = self._bound_semantic_frame_guard
+        if guard is None:
+            return
+        proof = response.get("atomic_frame_guard")
+        trace["atomic_frame_guard"] = {
+            "required": True,
+            "algorithm": SEMANTIC_ROI_ALGORITHM,
+            "authorization_scope": self._bound_authorization_scope,
+            "guard_expires_at": self._bound_guard_expires_at,
+            "binding": guard.model_dump(mode="json"),
+            "bridge_verified": (
+                isinstance(proof, dict) and proof.get("verified") is True
+            ),
+            "bridge_attestation": dict(proof) if isinstance(proof, dict) else None,
+        }
 
     # --- navigation -------------------------------------------------------
 
@@ -285,6 +453,37 @@ class UIActions:
 def _image_size(png_bytes: bytes) -> tuple[int, int]:
     img = Image.open(BytesIO(png_bytes))
     return img.width, img.height
+
+
+def _atomic_guard_error(message: str) -> dict[str, Any]:
+    return {
+        "status": "error",
+        "message": message,
+        "atomic_frame_guard": {"verified": False},
+    }
+
+
+def _valid_kill_switch_attestation(value: Any) -> bool:
+    if not isinstance(value, dict) or value.get("checked") is not True:
+        return False
+    checks = value.get("checks")
+    if not isinstance(checks, list):
+        return False
+    expected_stages = (
+        "before_capture",
+        "after_capture",
+        "before_input_injection",
+    )
+    return tuple(
+        item.get("stage") if isinstance(item, dict) else None
+        for item in checks
+    ) == expected_stages and all(
+        isinstance(item, dict)
+        and item.get("parent_accessible") is True
+        and item.get("stop_file_present") is False
+        and isinstance(item.get("checked_at"), str)
+        for item in checks
+    )
 
 
 def _input_trace_event(

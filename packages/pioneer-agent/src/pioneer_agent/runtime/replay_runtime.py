@@ -20,6 +20,8 @@ from pioneer_agent.executor.ui_actions import ClickOutcome
 from pioneer_agent.executor.ui_runner import UIActionRunner
 from pioneer_agent.runtime.architecture_gates import (
     LOW_RISK_AUTOMATION_ACTIONS,
+    AutomationReadiness,
+    AutomationReadinessGate,
     validate_low_risk_semantic_target,
 )
 from pioneer_agent.selector.action_selector import ActionSelector
@@ -40,6 +42,7 @@ class ReplayRuntime:
             capabilities=device_session.capabilities,
             session_mode=SessionMode.AUTOMATION_TEST,
             verifier_registry=self.verifier_registry,
+            automation_gate=_offline_replay_automation_gate(),
             allow_offline_fixture_observations=True,
         )
 
@@ -134,6 +137,25 @@ def _replay_device_session() -> DeviceSession:
             display_name="offline replay UI",
         ),
         capabilities=capabilities,
+    )
+
+
+def _offline_replay_automation_gate() -> AutomationReadinessGate:
+    """Authorize low-risk clicks only inside the offline replay harness.
+
+    Production runners intentionally keep the fail-closed default.  ReplayRuntime
+    uses synthetic fixture observations under ``AUTOMATION_TEST`` and therefore
+    supplies its own explicit readiness declaration instead of weakening that
+    default globally.
+    """
+
+    return AutomationReadinessGate(
+        AutomationReadiness(
+            golden_replay_baseline_ready=True,
+            low_risk_verifier_false_positive_covered=True,
+            closure_gate_ready=True,
+            accepted_actions=LOW_RISK_AUTOMATION_ACTIONS,
+        )
     )
 
 

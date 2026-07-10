@@ -2,9 +2,15 @@
 from __future__ import annotations
 
 import unittest
+from datetime import UTC, datetime
+from hashlib import sha256
+from io import BytesIO
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
+from PIL import Image
+
+from pioneer_agent.core.models import ObservationSnapshot, RuntimeState
 from pioneer_agent.storage.trace_store import (
     CoordinateTraceMetadata,
     ImageSize,
@@ -13,6 +19,7 @@ from pioneer_agent.storage.trace_store import (
     PixelPoint,
     ScreenshotTraceMetadata,
     TickTrace,
+    TraceFrameRole,
     TracePhase,
     TraceStep,
     TraceStore,
@@ -115,6 +122,46 @@ class TraceStoreTests(unittest.TestCase):
             store = TraceStore(Path(tmp) / "missing.jsonl")
 
             self.assertEqual(store.read(), [])
+
+    def test_saves_sha_bound_frame_reference_and_round_trips_it(self) -> None:
+        with TemporaryDirectory() as tmp:
+            store = TraceStore(Path(tmp) / "trace.jsonl")
+            buffer = BytesIO()
+            Image.new("RGB", (16, 9), (1, 2, 3)).save(buffer, format="PNG")
+            png = buffer.getvalue()
+            digest = sha256(png).hexdigest()
+            observation = ObservationSnapshot(
+                observation_id="obs-terminal",
+                captured_at=datetime(2026, 7, 10, 12, 0, tzinfo=UTC),
+                frame_sha256=digest,
+                frame_size=(16, 9),
+                page_type="upgrade_dialog",
+                domains_run=["resource_bar", "upgrade_dialog"],
+                observed_state=RuntimeState(),
+                source="vision_sync",
+            )
+
+            frame = store.save_frame(
+                iteration=3,
+                role=TraceFrameRole.TERMINAL_DISPATCH,
+                png=png,
+                observation=observation,
+            )
+            store.append(TickTrace(iteration=3, frames=[frame]))
+
+            self.assertTrue(Path(frame.path).is_file())
+            self.assertEqual(frame.sha256, digest)
+            loaded = store.read()[0].frames[0]
+            self.assertEqual(loaded.role, TraceFrameRole.TERMINAL_DISPATCH)
+            self.assertEqual(loaded.observation["observation_id"], "obs-terminal")
+
+            with self.assertRaises(ValueError):
+                store.save_frame(
+                    iteration=3,
+                    role=TraceFrameRole.POST_ACTION,
+                    png=b"different",
+                    observation=observation,
+                )
 
 
 if __name__ == "__main__":
