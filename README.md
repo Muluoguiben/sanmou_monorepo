@@ -37,15 +37,16 @@ pip install -e packages/sanmou-common
 # 安装 pioneer-agent（含 Advisor API 依赖）
 pip install -e packages/pioneer-agent
 
-# 运行传统开荒 agent scaffold
-python -m pioneer_agent.app.main
-
 # 运行顾问模式（只看建议不执行）
 python -m pioneer_agent.app.advisor_fixture
 
 # 启动本地 Advisor API（mock 模式不调用视觉模型）
 PYTHONPATH=packages/pioneer-agent/src:packages/sanmou-common/src \
 python -m pioneer_agent.app.advisor_api --host 127.0.0.1 --port 8765 --mock
+
+# 独立本地运维进程才显式开放 runtime-admin；Desktop 嵌入式 API 不传该参数
+PYTHONPATH=packages/pioneer-agent/src:packages/sanmou-common/src \
+python -m pioneer_agent.app.advisor_api --host 127.0.0.1 --port 8766 --enable-runtime-admin
 
 # QA agent — 安装并启动对话（需要 LLM 密钥，见 packages/qa-agent/.env.example）
 pip install -e packages/qa-agent
@@ -63,7 +64,7 @@ python -m pioneer_agent.app.autonomous --runbook \
 PYTHONPATH=packages/pioneer-agent/src:packages/sanmou-common/src \
 python -m pioneer_agent.app.vision_probe --image /path/to/game.png --mode full_sync
 
-# 运行测试（当前 pioneer-agent 435 tests；无 FastAPI 依赖时 advisor_api 测试会 skip，感知测试需要 google-genai）
+# 运行测试（当前 pioneer-agent 436 tests；无 FastAPI 依赖时 advisor_api 测试会 skip，感知测试需要 google-genai）
 cd packages/pioneer-agent && python -m unittest discover -s tests -p "test_*.py" -v
 cd packages/qa-agent && PYTHONPATH=src python -m unittest discover -s tests -p "test_*.py" -v
 

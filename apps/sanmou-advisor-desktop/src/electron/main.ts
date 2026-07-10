@@ -172,6 +172,7 @@ function startAdvisorApi(): void {
     return;
   }
 
+  // Embedded Desktop mode intentionally omits --enable-runtime-admin.
   apiProcess = spawn(
     selectedPython.candidate.command,
     [

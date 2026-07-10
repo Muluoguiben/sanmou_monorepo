@@ -1,5 +1,7 @@
 # Sanmou Monorepo 架构与迭代路径
 
+> 2026-07-10 safety update: LIVE 自动 ESC recovery 已禁用，直到 guarded key dispatch 完成实机校准；旧文中的 immediate ESC 描述只代表历史实现，不是当前授权能力。
+
 更新时间：2026-05-30
 
 ## 输入文档结论

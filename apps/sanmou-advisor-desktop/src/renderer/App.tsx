@@ -7,8 +7,6 @@ import {
   Loader2,
   MessageSquareText,
   Monitor,
-  OctagonX,
-  RotateCcw,
   Send,
   Server,
   ShieldCheck,
@@ -19,13 +17,11 @@ import { ChangeEvent, DragEvent, FormEvent, useEffect, useMemo, useRef, useState
 import {
   analyzeScreenshot,
   advisorHistoryScreenshotUrl,
-  clearKillSwitch,
   getAdvisorHistory,
   getRuntimeConfig,
   healthCheck,
   listAdvisorHistory,
-  sendAdvisorMessage,
-  triggerKillSwitch
+  sendAdvisorMessage
 } from "./api";
 import type {
   AnalyzeOptions,
@@ -34,7 +30,6 @@ import type {
   AdvisorReport,
   ChatMessage,
   DevicePlatform,
-  KillSwitchStatus,
   RuntimeConfig,
   StructuredEvidence
 } from "./types";
@@ -61,8 +56,6 @@ export default function App() {
   const [apiStatus, setApiStatus] = useState<"checking" | "ok" | "down">("checking");
   const [runtimeConfig, setRuntimeConfig] = useState<RuntimeConfig | null>(null);
   const [dataDir, setDataDir] = useState("");
-  const [killSwitch, setKillSwitch] = useState<KillSwitchStatus | null>(null);
-  const [killSwitchBusy, setKillSwitchBusy] = useState(false);
   const [historyItems, setHistoryItems] = useState<AdvisorHistoryItem[]>([]);
   const [historyBusy, setHistoryBusy] = useState(false);
   const [options, setOptions] = useState<AnalyzeOptions>(initialOptions);
@@ -100,7 +93,6 @@ export default function App() {
         }
         setApiStatus(payload.status === "ok" ? "ok" : "down");
         setDataDir(payload.data_dir);
-        setKillSwitch(payload.kill_switch);
         listAdvisorHistory()
           .then((items) => {
             if (!cancelled) {
@@ -242,30 +234,6 @@ export default function App() {
     }
   }
 
-  async function onTriggerKillSwitch() {
-    setKillSwitchBusy(true);
-    setError("");
-    try {
-      setKillSwitch(await triggerKillSwitch());
-    } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
-    } finally {
-      setKillSwitchBusy(false);
-    }
-  }
-
-  async function onClearKillSwitch() {
-    setKillSwitchBusy(true);
-    setError("");
-    try {
-      setKillSwitch(await clearKillSwitch());
-    } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
-    } finally {
-      setKillSwitchBusy(false);
-    }
-  }
-
   async function refreshHistory() {
     try {
       setHistoryItems(await listAdvisorHistory());
@@ -396,20 +364,12 @@ export default function App() {
           <p title={runtimeConfig?.apiLaunch?.detail || dataDir}>
             {apiStatus === "ok" ? dataDir || "data/advisor" : apiLaunchLabel(runtimeConfig)}
           </p>
-          <div className={`kill-status ${killSwitch?.triggered ? "active" : ""}`}>
+          <div className="advisor-only-status">
+            <ShieldCheck size={16} />
             <div>
-              <strong>停机开关</strong>
-              <span title={killSwitch?.path}>{killSwitch?.triggered ? "已触发" : "未触发"}</span>
+              <strong>只读顾问</strong>
+              <span>本桌面端不授权或发送游戏输入</span>
             </div>
-            {killSwitch?.triggered ? (
-              <button className="icon-button" onClick={onClearKillSwitch} disabled={killSwitchBusy || apiStatus !== "ok"}>
-                {killSwitchBusy ? <Loader2 size={16} className="spin" /> : <RotateCcw size={16} />}
-              </button>
-            ) : (
-              <button className="icon-button danger-button" onClick={onTriggerKillSwitch} disabled={killSwitchBusy || apiStatus !== "ok"}>
-                {killSwitchBusy ? <Loader2 size={16} className="spin" /> : <OctagonX size={16} />}
-              </button>
-            )}
           </div>
         </section>
 

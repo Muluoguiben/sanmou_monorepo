@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "pioneer-agent"
 version = "0.1.0"
-description = "Opening leaderboard automation agent for Sanmou."
+description = "Screenshot Advisor and guarded automation runtime for Sanmou."
 requires-python = ">=3.11"
 dependencies = [
   "sanmou-common",

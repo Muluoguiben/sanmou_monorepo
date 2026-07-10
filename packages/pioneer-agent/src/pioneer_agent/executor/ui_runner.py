@@ -1,9 +1,4 @@
-"""Drop-in replacement for `ActionRunner` that dispatches via UIActions.
-
-Keeps the existing ActionRunner (non-implemented stub) untouched so
-existing unit tests continue to pass. Consumers opt in by injecting
-`UIActionRunner` into `AgentRuntime` instead.
-"""
+"""Guarded action runner for the canonical AutonomousLoop UI dispatch path."""
 from __future__ import annotations
 
 from pioneer_agent.core.device import CapabilityFlags, DeviceSession, ObservationSourceType

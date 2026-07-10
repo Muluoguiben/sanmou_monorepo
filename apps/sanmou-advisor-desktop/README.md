@@ -71,6 +71,11 @@ npm run build
 
 ## Product Boundary
 
-This app is Advisor-only. It must not send UI input to the game client. Future
-Copilot/Autopilot controls should be added only after verifier, safety guard,
-recovery, and manual kill switch are implemented in `pioneer-agent`.
+This app is Advisor-only. It does not expose execution authorization, resume,
+kill-switch mutation, or any UI input path to the game client. Runtime safety
+controls remain outside the desktop Advisor surface; future execution controls
+require a separate reviewed product boundary and real-client evidence.
+
+The embedded Python process starts in advisor-only mode, so runtime-admin routes
+are not registered. An external API may opt into those routes only through the
+explicit `--enable-runtime-admin` operator flag; this renderer never calls them.

@@ -25,13 +25,10 @@
 PYTHONPATH=src:../sanmou-common/src python3 -m unittest discover -s tests -p "test_*.py" -v
 ```
 
-当前测试状态：316 tests。若未安装 FastAPI / python-multipart，`test_advisor_api.py` 会 skip；感知相关测试需要 `google-genai`；安装 `pioneer-agent` 开发依赖后应完整通过。
+当前测试状态：436 tests。若未安装 FastAPI / python-multipart，`test_advisor_api.py` 会 skip；感知相关测试需要 `google-genai`；安装 `pioneer-agent` 开发依赖后应完整通过。
 
 ## 运行 Agent / Advisor
 ```bash
-# legacy sync-plan-execute scaffold
-PYTHONPATH=src python3 -m pioneer_agent.app.main
-
 # one-shot screenshot Advisor CLI
 PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.advisor_observe \
   --screenshot /path/to/screenshot.png --platform ios

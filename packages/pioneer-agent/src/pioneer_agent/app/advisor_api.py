@@ -430,7 +430,11 @@ class AdvisorApiService:
         return records
 
 
-def create_app(service: AdvisorApiService | None = None) -> FastAPI:
+def create_app(
+    service: AdvisorApiService | None = None,
+    *,
+    runtime_admin_enabled: bool = False,
+) -> FastAPI:
     service = service or AdvisorApiService()
     app = FastAPI(title="Sanmou Advisor API", version="0.1.0")
     app.add_middleware(
@@ -441,15 +445,19 @@ def create_app(service: AdvisorApiService | None = None) -> FastAPI:
         allow_headers=["*"],
     )
     app.state.service = service
+    app.state.runtime_admin_enabled = runtime_admin_enabled
 
     @app.get("/api/health")
     def health() -> dict[str, Any]:
-        return {
+        payload: dict[str, Any] = {
             "status": "ok",
             "data_dir": str(service.data_dir),
             "mock_default": service.default_mock_mode,
-            "kill_switch": service.kill_switch_status().model_dump(mode="json"),
+            "runtime_admin_enabled": runtime_admin_enabled,
         }
+        if runtime_admin_enabled:
+            payload["kill_switch"] = service.kill_switch_status().model_dump(mode="json")
+        return payload
 
     @app.get("/api/advisor/platforms")
     def platforms() -> dict[str, list[str]]:
@@ -467,17 +475,18 @@ def create_app(service: AdvisorApiService | None = None) -> FastAPI:
     def advisor_history_screenshot(history_id: str) -> FileResponse:
         return FileResponse(service.history_screenshot_path(history_id))
 
-    @app.get("/api/runtime/kill-switch")
-    def get_kill_switch() -> KillSwitchStatus:
-        return service.kill_switch_status()
+    if runtime_admin_enabled:
+        @app.get("/api/runtime/kill-switch")
+        def get_kill_switch() -> KillSwitchStatus:
+            return service.kill_switch_status()
 
-    @app.post("/api/runtime/kill-switch")
-    def trigger_kill_switch() -> KillSwitchStatus:
-        return service.trigger_kill_switch()
+        @app.post("/api/runtime/kill-switch")
+        def trigger_kill_switch() -> KillSwitchStatus:
+            return service.trigger_kill_switch()
 
-    @app.delete("/api/runtime/kill-switch")
-    def clear_kill_switch() -> KillSwitchStatus:
-        return service.clear_kill_switch()
+        @app.delete("/api/runtime/kill-switch")
+        def clear_kill_switch() -> KillSwitchStatus:
+            return service.clear_kill_switch()
 
     @app.post("/api/advisor/analyze")
     def analyze(
@@ -619,10 +628,18 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--port", type=int, default=int(os.environ.get("SANMOU_ADVISOR_PORT", "8765")))
     parser.add_argument("--data-dir", type=Path, default=None)
     parser.add_argument("--mock", action="store_true", help="Default analyze calls to mock mode.")
+    parser.add_argument(
+        "--enable-runtime-admin",
+        action="store_true",
+        help="Explicitly expose local runtime kill-switch administration routes.",
+    )
     args = parser.parse_args(argv)
 
     global app
-    app = create_app(AdvisorApiService(data_dir=args.data_dir, default_mock_mode=args.mock))
+    app = create_app(
+        AdvisorApiService(data_dir=args.data_dir, default_mock_mode=args.mock),
+        runtime_admin_enabled=args.enable_runtime_admin,
+    )
 
     import uvicorn
 

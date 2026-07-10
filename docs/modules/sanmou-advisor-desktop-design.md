@@ -1,6 +1,6 @@
 # sanmou-advisor-desktop 模块设计
 
-更新时间：2026-05-19
+更新时间：2026-07-10
 
 ## 上位文档
 
@@ -13,7 +13,7 @@
 
 ## 模块定位
 
-`apps/sanmou-advisor-desktop` 是用户面对的 Electron + React 桌面 Advisor。它负责截图上传、报告展示、历史浏览、对话入口和运行时控制，不负责策略决策本身。
+`apps/sanmou-advisor-desktop` 是用户面对的 Electron + React 桌面 Advisor。它负责截图上传、报告展示、历史浏览和对话入口，不负责策略决策或运行时执行控制。
 
 桌面端应该是 Advisor 的可视化壳层，而不是另一个业务决策引擎。
 
@@ -38,7 +38,7 @@ apps/sanmou-advisor-desktop/
 - 展示截图解读、推荐动作、风险、证据和置信度。
 - 提供 chat 入口，调用 `/api/advisor/chat`。
 - 展示历史报告和截图。
-- 暴露 kill switch 控制入口。
+- 明确展示“只读顾问”边界，不暴露执行授权、恢复执行或 kill switch mutation。
 
 ## 边界规则
 
@@ -54,12 +54,13 @@ apps/sanmou-advisor-desktop/
 - 在前端决定是否执行高风险动作。
 - 在前端生成或篡改 evidence。
 - 绕过 Python API 直接控制游戏窗口。
+- 把 Advisor 页面用作自动化授权、恢复执行或安全运维入口。
 
 ## 架构审查修正
 
 - 桌面端必须把无 evidence、validator 失败、低置信、degraded report 展示成不确定状态，不能渲染成确定建议。
 - history 保存策略需要显式说明截图、账号标签、服务器、角色名的 retention；默认不把这些字段用于任何远程同步。
-- 所有未来 semi-auto 按钮都必须展示 safety/verifier 状态和 kill switch，不允许只给一个“执行”按钮。
+- 当前 Advisor 桌面端不承载 semi-auto 按钮。未来执行能力必须进入独立、经审查的产品边界，并在那里完整展示 safety/verifier 状态、人工确认和 kill switch；不能借 Advisor 页面隐式开放输入权限。
 - 前端 evidence 组件只展示后端结构化字段，不自行拼接或推断 `entry_id`。
 
 ## 数据契约
@@ -70,7 +71,6 @@ apps/sanmou-advisor-desktop/
 - `/api/advisor/analyze`
 - `/api/advisor/chat`
 - `/api/advisor/history`
-- `/api/runtime/kill-switch`
 
 下一阶段 UI 应适配结构化 evidence：
 
@@ -98,7 +98,7 @@ confidence
 2. 在推荐详情中展示 selection reason、score breakdown、top score gap。
 3. 对 degraded report 给出明确状态，不把低置信结果展示成确定建议。
 4. 历史详情支持筛选低置信/无证据/blocked action，方便回放修复。
-5. 低风险自动化开放前，UI 必须明确展示 verifier/safety 状态。
+5. 持续显示只读边界；低风险自动化若开放，应另建独立执行界面并完成 verifier/safety/人工确认/kill switch 审查。
 
 暂缓：
 
@@ -110,5 +110,5 @@ confidence
 
 - 前端只展示后端报告，不重算策略。
 - evidence 缺失或 validator 失败时，UI 有明确 degraded/blocked 状态。
-- kill switch 在所有自动化入口上可见且可用。
+- Desktop Advisor 不出现执行授权、恢复执行或 kill switch mutation 控件；独立自动化入口若存在，必须提供可用的 kill switch。
 - history 能帮助定位截图、报告、推荐和失败原因。

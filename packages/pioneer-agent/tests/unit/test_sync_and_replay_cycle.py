@@ -1,9 +1,6 @@
 from pathlib import Path
-import tempfile
 import unittest
 
-from pioneer_agent.app.bootstrap import build_runtime
-from pioneer_agent.core.runtime_state_io import load_runtime_state_record
 from pioneer_agent.perception.sync_service import StateSyncService
 from pioneer_agent.runtime.replay_runtime import ReplayRuntime
 
@@ -20,20 +17,15 @@ class SyncAndReplayCycleTests(unittest.TestCase):
         self.assertEqual(state.main_lineup.get("current_host_team_id"), 1)
         self.assertIn("global_state", state.field_meta)
 
-    def test_runtime_log_can_be_replayed_back_into_selector(self) -> None:
+    def test_seed_state_can_be_replayed_into_canonical_runtime(self) -> None:
         project_root = Path(__file__).resolve().parents[2]
         sync_input = project_root / "data" / "perception" / "latest_state.json"
 
-        with tempfile.TemporaryDirectory() as temp_dir:
-            log_dir = Path(temp_dir)
-            runtime = build_runtime(project_root, sync_input=sync_input, log_dir=log_dir)
-            runtime.run_once()
+        state, _summary = StateSyncService(sync_input).full_sync()
+        result = ReplayRuntime().run_state(state, "seed_state")
 
-            record = load_runtime_state_record(log_dir / "state.jsonl")
-            result = ReplayRuntime().run_state(record.state, "temp_log_record")
-
-            self.assertIsNotNone(result["selected_action"])
-            self.assertEqual(result["selected_action"]["action_type"], "attack_land")
+        self.assertIsNotNone(result["selected_action"])
+        self.assertEqual(result["selected_action"]["action_type"], "attack_land")
 
 
 if __name__ == "__main__":

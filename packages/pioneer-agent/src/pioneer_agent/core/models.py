@@ -5,7 +5,7 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, Field
 
-from .enums import ActionType, EventType, RuntimeStage
+from .enums import ActionType
 
 
 class FieldMeta(BaseModel):
@@ -59,12 +59,6 @@ class CandidateAction(BaseModel):
     score_breakdown: dict[str, float] = Field(default_factory=dict)
 
 
-class AgentEvent(BaseModel):
-    event_type: EventType
-    event_time: datetime
-    payload: dict[str, Any] = Field(default_factory=dict)
-
-
 class SelectionResult(BaseModel):
     selected_action: CandidateAction | None = None
     ranked_actions: list[CandidateAction] = Field(default_factory=list)
@@ -79,10 +73,3 @@ class ExecutionResult(BaseModel):
     failure_reason: str | None = None
     recovery_required: bool = False
     summary: dict[str, Any] = Field(default_factory=dict)
-
-
-class RuntimeContext(BaseModel):
-    session_id: str
-    stage: RuntimeStage = RuntimeStage.IDLE
-    started_at: datetime = Field(default_factory=datetime.utcnow)
-    last_event: AgentEvent | None = None

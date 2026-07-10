@@ -2,6 +2,8 @@
 
 > Updated: 2026-05-17. 本次更新将低风险真实自动化闭环、动作后 verifier、safety/recovery、fixture/eval/replay、qa-agent strategy snapshot 明确前置为 P0。
 
+> 2026-07-10 follow-up: 旧 `AgentRuntime.run_once` / `ActionRunner(not_implemented)` / `pioneer_agent.app.main` scaffold 已删除；当前运行入口只保留 Advisor、Replay 与显式 guarded `AutonomousLoop`。下文对旧 scaffold 的描述仅作为当时审计记录。
+
 ## 1. Executive Summary
 
 - 当前仓库已经具备清晰的 monorepo 分层：`sanmou-common` 放共享配置，`pioneer-agent` 放开荒 Agent runtime/决策/GUI 自动化，`qa-agent` 放知识问答、RAG、视频证据链和 MCP。

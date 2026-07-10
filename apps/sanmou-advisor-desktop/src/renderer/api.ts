@@ -5,7 +5,6 @@ import type {
   AdvisorReport,
   ChatResponse,
   HealthStatus,
-  KillSwitchStatus,
   RuntimeConfig
 } from "./types";
 
@@ -29,33 +28,6 @@ export async function healthCheck(): Promise<HealthStatus> {
   const response = await fetch(`${config.apiBaseUrl}/api/health`);
   if (!response.ok) {
     throw new Error(`API health check failed: ${response.status}`);
-  }
-  return response.json();
-}
-
-export async function getKillSwitchStatus(): Promise<KillSwitchStatus> {
-  const config = await getRuntimeConfig();
-  const response = await fetch(`${config.apiBaseUrl}/api/runtime/kill-switch`);
-  if (!response.ok) {
-    throw new Error(`Kill switch status failed: ${response.status}`);
-  }
-  return response.json();
-}
-
-export async function triggerKillSwitch(): Promise<KillSwitchStatus> {
-  const config = await getRuntimeConfig();
-  const response = await fetch(`${config.apiBaseUrl}/api/runtime/kill-switch`, { method: "POST" });
-  if (!response.ok) {
-    throw new Error(`Kill switch trigger failed: ${response.status}`);
-  }
-  return response.json();
-}
-
-export async function clearKillSwitch(): Promise<KillSwitchStatus> {
-  const config = await getRuntimeConfig();
-  const response = await fetch(`${config.apiBaseUrl}/api/runtime/kill-switch`, { method: "DELETE" });
-  if (!response.ok) {
-    throw new Error(`Kill switch clear failed: ${response.status}`);
   }
   return response.json();
 }

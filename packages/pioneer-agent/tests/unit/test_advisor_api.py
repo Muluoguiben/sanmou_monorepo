@@ -172,7 +172,7 @@ class AdvisorApiTests(unittest.TestCase):
         self.assertIn("building-priority-recruit", response.evidence[0])
         self.assertEqual(qa.calls, [("建筑升级优先级是什么", "building")])
 
-    def test_kill_switch_api_can_trigger_and_clear_stop_file(self) -> None:
+    def test_runtime_admin_routes_are_absent_by_default(self) -> None:
         (
             _UploadFile,
             AdvisorApiService,
@@ -190,6 +190,38 @@ class AdvisorApiTests(unittest.TestCase):
                 kill_switch=KillSwitch(root / "STOP"),
             )
             client = TestClient(create_app(service))
+
+            health = client.get("/api/health")
+            self.assertEqual(health.status_code, 200)
+            self.assertFalse(health.json()["runtime_admin_enabled"])
+            self.assertNotIn("kill_switch", health.json())
+            for method in ("GET", "POST", "DELETE"):
+                response = client.request(method, "/api/runtime/kill-switch")
+                self.assertEqual(response.status_code, 404)
+            self.assertFalse((root / "STOP").exists())
+
+    def test_explicit_runtime_admin_can_trigger_and_clear_stop_file(self) -> None:
+        (
+            _UploadFile,
+            AdvisorApiService,
+            _AdvisorChatRequest,
+            TestClient,
+            create_app,
+        ) = _require_api_deps()
+        from pioneer_agent.safety.kill_switch import KillSwitch
+
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            service = AdvisorApiService(
+                data_dir=root / "advisor",
+                default_mock_mode=True,
+                kill_switch=KillSwitch(root / "STOP"),
+            )
+            client = TestClient(create_app(service, runtime_admin_enabled=True))
+
+            health = client.get("/api/health")
+            self.assertTrue(health.json()["runtime_admin_enabled"])
+            self.assertIn("kill_switch", health.json())
 
             initial = client.get("/api/runtime/kill-switch")
             self.assertEqual(initial.status_code, 200)

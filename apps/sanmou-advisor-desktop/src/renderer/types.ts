@@ -22,16 +22,11 @@ export type ApiLaunchStatus = {
   attemptedPython?: string[];
 };
 
-export type KillSwitchStatus = {
-  triggered: boolean;
-  path: string;
-};
-
 export type HealthStatus = {
   status: string;
   data_dir: string;
   mock_default: boolean;
-  kill_switch: KillSwitchStatus;
+  runtime_admin_enabled: boolean;
 };
 
 export type AdvisorReport = {

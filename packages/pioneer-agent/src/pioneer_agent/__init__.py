@@ -1,1 +1,1 @@
-"""Pioneer agent — opening leaderboard automation."""
+"""Sanmou screenshot Advisor and guarded automation runtime."""
