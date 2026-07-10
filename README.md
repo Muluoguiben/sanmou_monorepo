@@ -57,7 +57,11 @@ PYTHONPATH=packages/pioneer-agent/src:packages/sanmou-common/src \
 python -m pioneer_agent.app.autonomous --runbook --dry-run \
   --lineup-preset-binding "部队一=main_team"
 
-# 运行测试（当前 pioneer-agent 379 tests；无 FastAPI 依赖时 advisor_api 测试会 skip，感知测试需要 google-genai）
+# 用真实 provider 跑一张截图的完整 page/domain 路由（默认只打印，不写 fixture）
+PYTHONPATH=packages/pioneer-agent/src:packages/sanmou-common/src \
+python -m pioneer_agent.app.vision_probe --image /path/to/game.png --mode full_sync
+
+# 运行测试（当前 pioneer-agent 382 tests；无 FastAPI 依赖时 advisor_api 测试会 skip，感知测试需要 google-genai）
 cd packages/pioneer-agent && python -m unittest discover -s tests -p "test_*.py" -v
 cd packages/qa-agent && PYTHONPATH=src python -m unittest discover -s tests -p "test_*.py" -v
 

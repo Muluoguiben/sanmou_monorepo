@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-07-10T15:29:35+08:00",
+  "policy": {
+    "eligible_status": "reviewed_and_privacy_approved",
+    "review_registry": "real_screenshot_review_registry.json",
+    "required_artifact_fields": [
+      "sha256",
+      "width",
+      "height",
+      "privacy_review"
+    ],
+    "note": "Fixture payload replay is allowed only after the screenshot SHA is centrally approved. The payload itself is not asserted to be reviewed, and a denied SHA always wins."
+  },
+  "eligible_fixtures": [
+    {
+      "fixture": "team_snapshot_mobile_20260514.json",
+      "domain": "team_snapshot",
+      "artifact_count": 5,
+      "status": "reviewed_and_privacy_approved"
+    }
+  ],
+  "domain_gaps": {
+    "map_land": {
+      "status": "blocked_privacy_review",
+      "candidate": {
+        "image": "screenshots/pc_client/live_20260518/map_target_647_905.jpg",
+        "sha256": "7d1f8c81d548ca9326d0df456a1985cb29f117ff69ac0c5f48a13528e89bdcad",
+        "width": 1286,
+        "height": 666,
+        "useful_case": "negative occupied level-1 dock; expected candidate_land_count=0"
+      },
+      "privacy_review": {
+        "status": "rejected_for_eval",
+        "account_identifiers_visible": true,
+        "chat_visible": true,
+        "player_or_alliance_names_visible": true,
+        "precise_coordinates_visible": true,
+        "approved_for_eval_fixture": false
+      },
+      "storage_remediation": {
+        "decision": "retain_as_legacy_capture_evidence_pending_owner_review",
+        "eval_policy": "hard_denied_by_sha_registry",
+        "reason": "Deleting only the current tracked file would not purge Git history; redaction, removal, or history remediation must cover the legacy capture corpus as an explicit repository-owner decision."
+      },
+      "required_capture": [
+        "one privacy-approved full-frame main_map negative sample",
+        "one privacy-approved full-frame selectable land positive sample",
+        "sha256 and dimensions",
+        "reviewed resource_bar and map_land payloads"
+      ]
+    },
+    "battle_report": {
+      "status": "missing_real_screenshot",
+      "candidate": null,
+      "required_capture": [
+        "one privacy-approved full-frame battle result/report sample",
+        "one partial or contradictory report sample for fail-closed coverage",
+        "sha256 and dimensions",
+        "reviewed resource_bar and battle_report payloads"
+      ]
+    }
+  }
+}

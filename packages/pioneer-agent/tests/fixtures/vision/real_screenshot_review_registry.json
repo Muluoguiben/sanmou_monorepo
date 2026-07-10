@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "policy": "deny_wins",
+  "updated_at": "2026-07-10T15:29:35+08:00",
+  "approved": {
+    "6f99d5056999d87b8422452ae13d6f72b57e6c1af8c26c07902b3373ab350ea4": {
+      "width": 1080,
+      "height": 2400,
+      "privacy_review": {
+        "status": "approved",
+        "reviewed_by": "codex-local-visual-review",
+        "reviewed_at": "2026-07-10T15:29:35+08:00",
+        "account_identifiers_visible": false,
+        "chat_visible": false,
+        "player_or_alliance_names_visible": false,
+        "payment_data_visible": false,
+        "precise_coordinates_visible": false,
+        "approved_for_repo_storage": true
+      }
+    },
+    "8d8da2d5ff422cc78026eb62310b700eb84161cc3fea556d03c485e59ee1c34f": {
+      "width": 1080,
+      "height": 2400,
+      "privacy_review": {
+        "status": "approved",
+        "reviewed_by": "codex-local-visual-review",
+        "reviewed_at": "2026-07-10T15:29:35+08:00",
+        "account_identifiers_visible": false,
+        "chat_visible": false,
+        "player_or_alliance_names_visible": false,
+        "payment_data_visible": false,
+        "precise_coordinates_visible": false,
+        "approved_for_repo_storage": true
+      }
+    },
+    "aac2d07d643681a2d97cc6f4fd1301ae01d615d678a7d75c4111e62b12196ed2": {
+      "width": 1080,
+      "height": 2400,
+      "privacy_review": {
+        "status": "approved",
+        "reviewed_by": "codex-local-visual-review",
+        "reviewed_at": "2026-07-10T15:29:35+08:00",
+        "account_identifiers_visible": false,
+        "chat_visible": false,
+        "player_or_alliance_names_visible": false,
+        "payment_data_visible": false,
+        "precise_coordinates_visible": false,
+        "approved_for_repo_storage": true
+      }
+    },
+    "d98ddb50068388c535ad36540efd8a3a4e44fbfccc17de18fa3b6e1a3e505547": {
+      "width": 1080,
+      "height": 2400,
+      "privacy_review": {
+        "status": "approved",
+        "reviewed_by": "codex-local-visual-review",
+        "reviewed_at": "2026-07-10T15:29:35+08:00",
+        "account_identifiers_visible": false,
+        "chat_visible": false,
+        "player_or_alliance_names_visible": false,
+        "payment_data_visible": false,
+        "precise_coordinates_visible": false,
+        "approved_for_repo_storage": true
+      }
+    },
+    "f84a5d92abff14e47c66071bd1c0b60ed34f61ef5caa62785d29aac8ca21774a": {
+      "width": 1080,
+      "height": 2400,
+      "privacy_review": {
+        "status": "approved",
+        "reviewed_by": "codex-local-visual-review",
+        "reviewed_at": "2026-07-10T15:29:35+08:00",
+        "account_identifiers_visible": false,
+        "chat_visible": false,
+        "player_or_alliance_names_visible": false,
+        "payment_data_visible": false,
+        "precise_coordinates_visible": false,
+        "approved_for_repo_storage": true
+      }
+    }
+  },
+  "denied": {
+    "7d1f8c81d548ca9326d0df456a1985cb29f117ff69ac0c5f48a13528e89bdcad": {
+      "known_path": "screenshots/pc_client/live_20260518/map_target_647_905.jpg",
+      "reviewed_by": "codex-local-visual-review",
+      "reviewed_at": "2026-07-10T15:29:35+08:00",
+      "reasons": [
+        "account_identifier_visible",
+        "chat_visible",
+        "player_or_alliance_names_visible",
+        "precise_coordinates_visible"
+      ],
+      "allowed_for_eval": false
+    }
+  }
+}

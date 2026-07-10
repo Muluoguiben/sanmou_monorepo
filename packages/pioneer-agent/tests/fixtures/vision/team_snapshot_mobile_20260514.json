@@ -1,6 +1,7 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "source": {
+    "kind": "real_screenshot_set",
     "captured_at": "2026-05-14",
     "platform": "android",
     "description": "Real mobile screenshots supplied in #sanmou-knowledge on 2026-05-14: team panel plus Zhu Rong detail tabs.",
@@ -31,6 +32,25 @@
       "id": "team_panel",
       "image": "screenshots/android/team_snapshot/20260514-team-panel.png",
       "captured_at": "2026-05-14T15:46:47+08:00",
+      "artifact": {
+        "review_status": "reviewed",
+        "sha256": "6f99d5056999d87b8422452ae13d6f72b57e6c1af8c26c07902b3373ab350ea4",
+        "width": 1080,
+        "height": 2400,
+        "privacy_review": {
+          "status": "approved",
+          "reviewed_by": "codex-local-visual-review",
+          "reviewed_at": "2026-07-10T15:29:35+08:00",
+          "review_method": "full-frame visual inspection",
+          "redaction_applied": false,
+          "account_identifiers_visible": false,
+          "chat_visible": false,
+          "player_or_alliance_names_visible": false,
+          "payment_data_visible": false,
+          "precise_coordinates_visible": false,
+          "approved_for_repo_storage": true
+        }
+      },
       "expected_domains": [
         "resource_bar",
         "team_panel"
@@ -130,6 +150,25 @@
       "id": "zhurong_books",
       "image": "screenshots/android/team_snapshot/20260514-zhurong-books.png",
       "captured_at": "2026-05-14T17:23:19+08:00",
+      "artifact": {
+        "review_status": "reviewed",
+        "sha256": "8d8da2d5ff422cc78026eb62310b700eb84161cc3fea556d03c485e59ee1c34f",
+        "width": 1080,
+        "height": 2400,
+        "privacy_review": {
+          "status": "approved",
+          "reviewed_by": "codex-local-visual-review",
+          "reviewed_at": "2026-07-10T15:29:35+08:00",
+          "review_method": "full-frame visual inspection",
+          "redaction_applied": false,
+          "account_identifiers_visible": false,
+          "chat_visible": false,
+          "player_or_alliance_names_visible": false,
+          "payment_data_visible": false,
+          "precise_coordinates_visible": false,
+          "approved_for_repo_storage": true
+        }
+      },
       "expected_domains": [
         "resource_bar",
         "team_detail"
@@ -204,6 +243,25 @@
       "id": "zhurong_tactics",
       "image": "screenshots/android/team_snapshot/20260514-zhurong-tactics.png",
       "captured_at": "2026-05-14T17:23:20+08:00",
+      "artifact": {
+        "review_status": "reviewed",
+        "sha256": "aac2d07d643681a2d97cc6f4fd1301ae01d615d678a7d75c4111e62b12196ed2",
+        "width": 1080,
+        "height": 2400,
+        "privacy_review": {
+          "status": "approved",
+          "reviewed_by": "codex-local-visual-review",
+          "reviewed_at": "2026-07-10T15:29:35+08:00",
+          "review_method": "full-frame visual inspection",
+          "redaction_applied": false,
+          "account_identifiers_visible": false,
+          "chat_visible": false,
+          "player_or_alliance_names_visible": false,
+          "payment_data_visible": false,
+          "precise_coordinates_visible": false,
+          "approved_for_repo_storage": true
+        }
+      },
       "expected_domains": [
         "resource_bar",
         "team_detail"
@@ -280,6 +338,25 @@
       "id": "zhurong_attribute_points",
       "image": "screenshots/android/team_snapshot/20260514-zhurong-attribute-points.png",
       "captured_at": "2026-05-14T17:23:21+08:00",
+      "artifact": {
+        "review_status": "reviewed",
+        "sha256": "d98ddb50068388c535ad36540efd8a3a4e44fbfccc17de18fa3b6e1a3e505547",
+        "width": 1080,
+        "height": 2400,
+        "privacy_review": {
+          "status": "approved",
+          "reviewed_by": "codex-local-visual-review",
+          "reviewed_at": "2026-07-10T15:29:35+08:00",
+          "review_method": "full-frame visual inspection",
+          "redaction_applied": false,
+          "account_identifiers_visible": false,
+          "chat_visible": false,
+          "player_or_alliance_names_visible": false,
+          "payment_data_visible": false,
+          "precise_coordinates_visible": false,
+          "approved_for_repo_storage": true
+        }
+      },
       "expected_domains": [
         "resource_bar",
         "team_detail"
@@ -338,6 +415,25 @@
       "id": "zhurong_equipment_mount",
       "image": "screenshots/android/team_snapshot/20260514-zhurong-equipment-mount.png",
       "captured_at": "2026-05-14T17:23:22+08:00",
+      "artifact": {
+        "review_status": "reviewed",
+        "sha256": "f84a5d92abff14e47c66071bd1c0b60ed34f61ef5caa62785d29aac8ca21774a",
+        "width": 1080,
+        "height": 2400,
+        "privacy_review": {
+          "status": "approved",
+          "reviewed_by": "codex-local-visual-review",
+          "reviewed_at": "2026-07-10T15:29:35+08:00",
+          "review_method": "full-frame visual inspection",
+          "redaction_applied": false,
+          "account_identifiers_visible": false,
+          "chat_visible": false,
+          "player_or_alliance_names_visible": false,
+          "payment_data_visible": false,
+          "precise_coordinates_visible": false,
+          "approved_for_repo_storage": true
+        }
+      },
       "expected_domains": [
         "resource_bar",
         "team_detail"
