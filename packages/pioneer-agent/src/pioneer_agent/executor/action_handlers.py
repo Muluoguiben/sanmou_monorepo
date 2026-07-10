@@ -84,6 +84,28 @@ def _upgrade_building(action: CandidateAction, ui: UIActions) -> ExecutionResult
         return _fail(action, f"upgrade dialog building mismatch: expected {building}, saw {dialog_building}")
     if dialog.get("can_upgrade") is False:
         return _fail(action, f"upgrade dialog for {building} is not upgradeable")
+    current_level = action.params.get("current_level")
+    target_level = action.params.get("target_level")
+    dialog_current = dialog.get("current_level")
+    dialog_next = dialog.get("next_level")
+    for field_name, value in (
+        ("current_level", current_level),
+        ("target_level", target_level),
+        ("upgrade_dialog.current_level", dialog_current),
+        ("upgrade_dialog.next_level", dialog_next),
+    ):
+        if isinstance(value, bool) or not isinstance(value, int):
+            return _fail(action, f"{field_name} must be an observed integer")
+    if dialog_current != current_level:
+        return _fail(
+            action,
+            f"upgrade dialog baseline mismatch: expected {current_level}, saw {dialog_current}",
+        )
+    if dialog_next != target_level or target_level != current_level + 1:
+        return _fail(
+            action,
+            f"upgrade dialog target mismatch: expected {target_level}, saw {dialog_next}",
+        )
     button = _button_param(dialog.get("confirm_button"))
     if button is None:
         return _pending(action, f"upgrade confirm button for {building} not yet observed")

@@ -48,8 +48,13 @@ class ReplayRuntime:
         runtime_dispatch = None
         if result.selected_action is not None:
             action_type = result.selected_action.action_type
-            gate = self.verifier_registry.evaluate(action_type)
-            spec = self.verifier_registry.get(action_type)
+            gate = self.verifier_registry.evaluate_action(result.selected_action)
+            spec = None
+            if gate.allowed:
+                try:
+                    spec = self.verifier_registry.get_for_action(result.selected_action)
+                except ValueError:
+                    spec = None
             semantic_target_gate = validate_low_risk_semantic_target(result.selected_action).to_dict()
             verifier_gate = {
                 "decision": gate.decision.value,

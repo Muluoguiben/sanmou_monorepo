@@ -65,7 +65,7 @@
 
 | 里程碑 | 内容 | 状态 |
 |---|---|---|
-| M1a | 收菜序列自动化：以 claim 类动作校准 executor + verifier（练兵场） | 待做（依赖真实客户端） |
+| M1a | 收菜序列自动化：以 claim 类动作校准 executor + verifier（练兵场） | 进行中：执行权限与 target-bound verifier 已完成；仍缺同帧新鲜度和真实客户端证据 |
 | M1b | 打地内循环打穿：选预设编队 → 选地 → 出征 → 战报判定 → 体力等待 | 待做（attack_land 校准 + battle_result 感知域） |
 | M2 | Runbook 阶段机驱动全流程 | **引擎 + S15 种子数据（2026-07-05）、AutonomousLoop 集成 + 状态落盘（2026-07-06）已落地**；剩 planner 事件接入 |
 | M3 | 知识管道闭环（每赛季攻略 → staging 审阅 → runbook 刷新）+ 运维化（watchdog / 通知 / 日报） | 待做 |

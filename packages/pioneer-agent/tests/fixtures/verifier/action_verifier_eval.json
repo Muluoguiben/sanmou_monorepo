@@ -5,54 +5,41 @@
       "action_type": "claim_chapter_reward",
       "case_type": "success",
       "expected_deltas": [
-        {
-          "path": "progress.chapter_claimable",
-          "before": true,
-          "expected_after": false
-        }
+        {"path": "progress.current_chapter_id", "before": 17, "expected_after": 17},
+        {"path": "progress.chapter_claimable", "before": true, "expected_after": false}
       ],
-      "before_state": {
-        "progress": {
-          "chapter_claimable": true
-        }
-      },
-      "after_state": {
-        "progress": {
-          "chapter_claimable": false
-        }
-      },
-      "expected_status": "verified",
-      "reason_contains": "all expected state deltas matched"
+      "before_state": {"progress": {"current_chapter_id": 17, "chapter_claimable": true}},
+      "after_state": {"progress": {"current_chapter_id": 17, "chapter_claimable": false}},
+      "expected_status": "verified"
     },
     {
       "id": "claim_chapter_reward_popup_interrupt",
       "action_type": "claim_chapter_reward",
       "case_type": "popup_interrupt",
       "expected_deltas": [
-        {
-          "path": "progress.chapter_claimable",
-          "before": true,
-          "expected_after": false
-        }
+        {"path": "progress.current_chapter_id", "before": 17, "expected_after": 17},
+        {"path": "progress.chapter_claimable", "before": true, "expected_after": false}
       ],
-      "before_state": {
-        "progress": {
-          "chapter_claimable": true
-        }
-      },
+      "before_state": {"progress": {"current_chapter_id": 17, "chapter_claimable": true}},
       "after_state": {
-        "global_state": {
-          "popup": {
-            "visible": true,
-            "blocking": true
-          }
-        },
-        "progress": {
-          "chapter_claimable": true
-        }
+        "global_state": {"popup": {"visible": true, "blocking": true}},
+        "progress": {"current_chapter_id": 17, "chapter_claimable": true}
       },
       "expected_status": "failed",
-      "reason_contains": "expected progress.chapter_claimable"
+      "reason_contains": "progress.chapter_claimable"
+    },
+    {
+      "id": "claim_chapter_reward_wrong_chapter",
+      "action_type": "claim_chapter_reward",
+      "case_type": "misrecognition",
+      "expected_deltas": [
+        {"path": "progress.current_chapter_id", "before": 17, "expected_after": 17},
+        {"path": "progress.chapter_claimable", "before": true, "expected_after": false}
+      ],
+      "before_state": {"progress": {"current_chapter_id": 17, "chapter_claimable": true}},
+      "after_state": {"progress": {"current_chapter_id": 18, "chapter_claimable": false}},
+      "expected_status": "failed",
+      "reason_contains": "current_chapter_id"
     },
     {
       "id": "recruit_soldiers_success",
@@ -61,214 +48,225 @@
       "match_policy": "any",
       "expected_deltas": [
         {
-          "path": "teams.0.soldiers",
-          "operator": "greater_than_before"
+          "path": "soldiers",
+          "operator": "greater_than_before",
+          "collection_path": "teams",
+          "identity_field": "team_id",
+          "identity_value": "team-2"
         },
         {
-          "path": "teams.0.recruit_finish_time",
-          "operator": "present"
-        },
-        {
-          "path": "economy.reserve_troops",
-          "operator": "less_than_before"
+          "path": "recruit_finish_time",
+          "operator": "becomes_present",
+          "collection_path": "teams",
+          "identity_field": "team_id",
+          "identity_value": "team-2"
         }
       ],
-      "before_state": {
-        "economy": {
-          "reserve_troops": 40000
-        },
-        "teams": [
-          {
-            "team_id": "team-1",
-            "soldiers": 22000
-          }
-        ]
-      },
-      "after_state": {
-        "economy": {
-          "reserve_troops": 40000
-        },
-        "teams": [
-          {
-            "team_id": "team-1",
-            "soldiers": 22000,
-            "recruit_finish_time": "00:12:00"
-          }
-        ]
-      },
+      "before_state": {"teams": [{"team_id": "team-1", "soldiers": 30000}, {"team_id": "team-2", "soldiers": 22000}]},
+      "after_state": {"teams": [{"team_id": "team-2", "soldiers": 22000, "recruit_finish_time": "00:12:00"}, {"team_id": "team-1", "soldiers": 30000}]},
       "expected_status": "verified"
     },
     {
-      "id": "recruit_soldiers_no_change",
+      "id": "recruit_soldiers_reordered_success",
+      "action_type": "recruit_soldiers",
+      "case_type": "success",
+      "match_policy": "any",
+      "expected_deltas": [
+        {
+          "path": "soldiers",
+          "operator": "greater_than_before",
+          "collection_path": "teams",
+          "identity_field": "team_id",
+          "identity_value": "team-2"
+        },
+        {
+          "path": "recruit_finish_time",
+          "operator": "becomes_present",
+          "collection_path": "teams",
+          "identity_field": "team_id",
+          "identity_value": "team-2"
+        }
+      ],
+      "before_state": {"teams": [{"team_id": "team-1", "soldiers": 30000}, {"team_id": "team-2", "soldiers": 22000}]},
+      "after_state": {"teams": [{"team_id": "team-2", "soldiers": 24000}, {"team_id": "team-1", "soldiers": 30000}]},
+      "expected_status": "verified"
+    },
+    {
+      "id": "recruit_soldiers_wrong_team_change",
+      "action_type": "recruit_soldiers",
+      "case_type": "misrecognition",
+      "match_policy": "any",
+      "expected_deltas": [
+        {
+          "path": "soldiers",
+          "operator": "greater_than_before",
+          "collection_path": "teams",
+          "identity_field": "team_id",
+          "identity_value": "team-2"
+        },
+        {
+          "path": "recruit_finish_time",
+          "operator": "becomes_present",
+          "collection_path": "teams",
+          "identity_field": "team_id",
+          "identity_value": "team-2"
+        }
+      ],
+      "before_state": {"economy": {"reserve_troops": 40000}, "teams": [{"team_id": "team-1", "soldiers": 30000}, {"team_id": "team-2", "soldiers": 22000}]},
+      "after_state": {"economy": {"reserve_troops": 38000}, "teams": [{"team_id": "team-1", "soldiers": 32000}, {"team_id": "team-2", "soldiers": 22000}]},
+      "expected_status": "failed",
+      "reason_contains": "no expected state delta matched"
+    },
+    {
+      "id": "recruit_soldiers_stale_countdown",
       "action_type": "recruit_soldiers",
       "case_type": "no_change",
       "match_policy": "any",
       "expected_deltas": [
         {
-          "path": "teams.0.soldiers",
-          "operator": "greater_than_before"
+          "path": "soldiers",
+          "operator": "greater_than_before",
+          "collection_path": "teams",
+          "identity_field": "team_id",
+          "identity_value": "team-2"
         },
         {
-          "path": "teams.0.recruit_finish_time",
-          "operator": "present"
-        },
-        {
-          "path": "economy.reserve_troops",
-          "operator": "less_than_before"
+          "path": "recruit_finish_time",
+          "operator": "becomes_present",
+          "collection_path": "teams",
+          "identity_field": "team_id",
+          "identity_value": "team-2"
         }
       ],
-      "before_state": {
-        "economy": {
-          "reserve_troops": 40000
-        },
-        "teams": [
-          {
-            "team_id": "team-1",
-            "soldiers": 22000
-          }
-        ]
-      },
-      "after_state": {
-        "economy": {
-          "reserve_troops": 40000
-        },
-        "teams": [
-          {
-            "team_id": "team-1",
-            "soldiers": 22000
-          }
-        ]
-      },
+      "before_state": {"teams": [{"team_id": "team-2", "soldiers": 22000, "recruit_finish_time": "00:12:00"}]},
+      "after_state": {"teams": [{"team_id": "team-2", "soldiers": 24000, "recruit_finish_time": "00:11:59"}]},
       "expected_status": "failed",
-      "reason_contains": "no expected state delta matched"
+      "reason_contains": "absent or empty"
+    },
+    {
+      "id": "recruit_soldiers_duplicate_target",
+      "action_type": "recruit_soldiers",
+      "case_type": "misrecognition",
+      "match_policy": "any",
+      "expected_deltas": [
+        {
+          "path": "soldiers",
+          "operator": "greater_than_before",
+          "collection_path": "teams",
+          "identity_field": "team_id",
+          "identity_value": "team-2"
+        },
+        {
+          "path": "recruit_finish_time",
+          "operator": "becomes_present",
+          "collection_path": "teams",
+          "identity_field": "team_id",
+          "identity_value": "team-2"
+        }
+      ],
+      "before_state": {"teams": [{"team_id": "team-2", "soldiers": 22000}, {"team_id": "team-2", "soldiers": 10000}]},
+      "after_state": {"teams": [{"team_id": "team-2", "soldiers": 24000}]},
+      "expected_status": "failed",
+      "reason_contains": "got 2"
     },
     {
       "id": "recruit_soldiers_timeout",
       "action_type": "recruit_soldiers",
       "case_type": "timeout",
       "match_policy": "any",
+      "timeout_seconds": 30,
       "expected_deltas": [
         {
-          "path": "teams.0.soldiers",
-          "operator": "greater_than_before"
-        },
-        {
-          "path": "teams.0.recruit_finish_time",
-          "operator": "present"
-        },
-        {
-          "path": "economy.reserve_troops",
-          "operator": "less_than_before"
+          "path": "soldiers",
+          "operator": "greater_than_before",
+          "collection_path": "teams",
+          "identity_field": "team_id",
+          "identity_value": "team-2"
         }
       ],
-      "before_state": {
-        "economy": {
-          "reserve_troops": 40000
-        },
-        "teams": [
-          {
-            "team_id": "team-1",
-            "soldiers": 22000
-          }
-        ]
-      },
+      "before_state": {"teams": [{"team_id": "team-2", "soldiers": 22000}]},
       "after_state": null,
       "expected_status": "unknown",
-      "reason_contains": "no post-action state was provided",
-      "timeout_seconds": 30
+      "reason_contains": "no post-action state"
     },
     {
-      "id": "upgrade_building_success",
+      "id": "upgrade_building_reordered_success",
       "action_type": "upgrade_building",
       "case_type": "success",
-      "match_policy": "any",
+      "match_policy": "all",
       "expected_deltas": [
         {
-          "path": "city.buildings.0.level",
-          "operator": "greater_than_before"
-        },
-        {
-          "path": "economy.resources.wood",
-          "operator": "less_than_before"
+          "path": "level",
+          "operator": "increases_to",
+          "expected_after": 10,
+          "collection_path": "city.buildings",
+          "identity_field": "name",
+          "identity_value": "仓库"
         }
       ],
-      "before_state": {
-        "economy": {
-          "resources": {
-            "wood": 100000
-          }
-        },
-        "city": {
-          "buildings": [
-            {
-              "name": "barracks",
-              "level": 9
-            }
-          ]
-        }
-      },
-      "after_state": {
-        "economy": {
-          "resources": {
-            "wood": 100000
-          }
-        },
-        "city": {
-          "buildings": [
-            {
-              "name": "barracks",
-              "level": 10
-            }
-          ]
-        }
-      },
+      "before_state": {"city": {"buildings": [{"name": "军营", "level": 8}, {"name": "仓库", "level": 9}]}},
+      "after_state": {"city": {"buildings": [{"name": "仓库", "level": 10}, {"name": "军营", "level": 8}]}},
       "expected_status": "verified"
     },
     {
-      "id": "upgrade_building_misrecognition",
+      "id": "upgrade_building_other_target_and_wood_change",
       "action_type": "upgrade_building",
       "case_type": "misrecognition",
-      "match_policy": "any",
+      "match_policy": "all",
       "expected_deltas": [
         {
-          "path": "city.buildings.0.level",
-          "operator": "greater_than_before"
-        },
-        {
-          "path": "economy.resources.wood",
-          "operator": "less_than_before"
+          "path": "level",
+          "operator": "increases_to",
+          "expected_after": 10,
+          "collection_path": "city.buildings",
+          "identity_field": "name",
+          "identity_value": "仓库"
         }
       ],
-      "before_state": {
-        "economy": {
-          "resources": {
-            "wood": 100000
-          }
-        },
-        "city": {
-          "buildings": [
-            {
-              "name": "barracks",
-              "level": 9
-            }
-          ]
-        }
-      },
-      "after_state": {
-        "economy": {
-          "resources": {
-            "wood": 100000
-          }
-        },
-        "city": {
-          "upgrade_dialog": {
-            "visible": true,
-            "building_name": "warehouse"
-          }
-        }
-      },
+      "before_state": {"economy": {"resources": {"wood": 100000}}, "city": {"buildings": [{"name": "军营", "level": 8}, {"name": "仓库", "level": 9}]}},
+      "after_state": {"economy": {"resources": {"wood": 90000}}, "city": {"buildings": [{"name": "军营", "level": 9}, {"name": "仓库", "level": 9}]}},
       "expected_status": "failed",
-      "reason_contains": "no expected state delta matched"
+      "reason_contains": "仓库"
+    },
+    {
+      "id": "upgrade_building_target_missing",
+      "action_type": "upgrade_building",
+      "case_type": "misrecognition",
+      "match_policy": "all",
+      "expected_deltas": [
+        {
+          "path": "level",
+          "operator": "increases_to",
+          "expected_after": 10,
+          "collection_path": "city.buildings",
+          "identity_field": "name",
+          "identity_value": "仓库"
+        }
+      ],
+      "before_state": {"city": {"buildings": [{"name": "仓库", "level": 9}]}},
+      "after_state": {"city": {"buildings": [{"name": "军营", "level": 10}]}},
+      "expected_status": "failed",
+      "reason_contains": "got 0"
+    },
+    {
+      "id": "upgrade_building_duplicate_target",
+      "action_type": "upgrade_building",
+      "case_type": "misrecognition",
+      "match_policy": "all",
+      "expected_deltas": [
+        {
+          "path": "level",
+          "operator": "increases_to",
+          "expected_after": 10,
+          "collection_path": "city.buildings",
+          "identity_field": "name",
+          "identity_value": "仓库"
+        }
+      ],
+      "before_state": {"city": {"buildings": [{"name": "仓库", "level": 9}, {"name": "仓库", "level": 8}]}},
+      "after_state": {"city": {"buildings": [{"name": "仓库", "level": 10}]}},
+      "expected_status": "failed",
+      "reason_contains": "got 2"
     }
   ]
 }

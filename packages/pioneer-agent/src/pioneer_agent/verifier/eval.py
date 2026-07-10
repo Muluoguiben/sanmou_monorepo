@@ -89,4 +89,10 @@ def _parse_delta(raw: dict[str, Any]) -> ExpectedStateDelta:
         before=raw.get("before"),
         expected_after=raw.get("expected_after"),
         operator=DeltaOperator(str(raw.get("operator", DeltaOperator.EQUALS.value))),
+        collection_path=raw.get("collection_path"),
+        identity_field=raw.get("identity_field"),
+        identity_value=raw.get("identity_value"),
+        identity_param=raw.get("identity_param"),
+        before_param=raw.get("before_param"),
+        expected_after_param=raw.get("expected_after_param"),
     )

@@ -37,6 +37,12 @@ from pioneer_agent.runtime.autonomous_loop import (
 from pioneer_agent.safety.kill_switch import KillSwitch
 from pioneer_agent.storage.loop_logger import LoopLogger
 from pioneer_agent.storage.trace_store import TraceStore
+from pioneer_agent.verifier import (
+    DeltaOperator,
+    ExpectedStateDelta,
+    VerifierRegistry,
+    VerifierSpec,
+)
 
 
 def _png() -> bytes:
@@ -143,6 +149,7 @@ class _StubDeriver:
 class _StubRunner:
     def __init__(self) -> None:
         self.actions: list[CandidateAction] = []
+        self.verifier_registry = _test_verifier_registry()
 
     def run(self, action):  # noqa: ANN001
         self.actions.append(action)
@@ -192,6 +199,8 @@ def _runbook() -> OpeningRunbook:
 
 
 def _action(action_type: ActionType, **params: Any) -> CandidateAction:
+    if action_type == ActionType.CLAIM_CHAPTER_REWARD:
+        params = {"chapter_id": 1, **params}
     if action_type == ActionType.ATTACK_LAND:
         params = {
             "land_id": "L-6",
@@ -206,6 +215,26 @@ def _action(action_type: ActionType, **params: Any) -> CandidateAction:
         action_type=action_type,
         params=params,
     )
+
+
+def _test_verifier_registry() -> VerifierRegistry:
+    specs = {
+        action_type: VerifierSpec(
+            action_type=action_type,
+            expected_deltas=(
+                ExpectedStateDelta(
+                    path="progress",
+                    operator=DeltaOperator.PRESENT,
+                ),
+            ),
+            timeout_seconds=1.0,
+        )
+        for action_type in (
+            ActionType.CLAIM_CHAPTER_REWARD,
+            ActionType.ATTACK_LAND,
+        )
+    }
+    return VerifierRegistry(specs=specs)
 
 
 class _SpyUIActions:
@@ -821,6 +850,7 @@ class GuardSeamRegressionTests(unittest.TestCase):
             def __init__(self, post: dict) -> None:
                 self.loop: AutonomousLoop | None = None
                 self.post = post
+                self.verifier_registry = _test_verifier_registry()
 
             def run(self, action):  # noqa: ANN001
                 if self.loop is not None:
@@ -966,6 +996,7 @@ class GuardSeamRegressionTests(unittest.TestCase):
             def __init__(self, switch: KillSwitch, store: RunbookStateStore) -> None:
                 self.switch = switch
                 self.store = store
+                self.verifier_registry = _test_verifier_registry()
 
             def run(self, action):  # noqa: ANN001
                 self.store.confirm_gate("p2", season="S15 测试")
@@ -1050,6 +1081,7 @@ class _FlowRunner:
 
     def __init__(self) -> None:
         self.calls = 0
+        self.verifier_registry = _test_verifier_registry()
 
     def run(self, action):  # noqa: ANN001
         self.calls += 1
@@ -1227,6 +1259,7 @@ class RunbookFlowContinuationTests(unittest.TestCase):
             class _ProgressRunner:
                 def __init__(self) -> None:
                     self.loop: AutonomousLoop | None = None
+                    self.verifier_registry = _test_verifier_registry()
 
                 def run(self, action):  # noqa: ANN001
                     if self.loop is not None:

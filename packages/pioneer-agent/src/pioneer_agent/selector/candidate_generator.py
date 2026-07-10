@@ -46,12 +46,19 @@ class CandidateGenerator:
         for building in state.city.get("upgradeable_buildings", []):
             building_id = building.get("building_id")
             building_name = building.get("building_name") or building.get("name")
+            current_level = self._building_current_level(
+                state.city,
+                building=building,
+                building_id=building_id,
+                building_name=building_name,
+            )
             target_level = building.get("target_level")
             shortages = self._positive_float_map(building.get("resource_shortages", {}))
             total_shortage = round(sum(shortages.values()), 2)
             params = {
                 "building_id": building_id,
                 "building_name": building_name,
+                "current_level": current_level,
                 "target_level": target_level,
                 "chapter_relevance": building.get("chapter_relevance", "low_relevance"),
                 "economy_gain": float(building.get("economy_gain", 0)),
@@ -545,6 +552,8 @@ class CandidateGenerator:
         result = {
             "visible": bool(value.get("visible")),
             "building_name": value.get("building_name"),
+            "current_level": value.get("current_level"),
+            "next_level": value.get("next_level"),
             "can_upgrade": value.get("can_upgrade"),
         }
         confirm_button = cls._semantic_button_param(value.get("confirm_button"))
@@ -554,6 +563,35 @@ class CandidateGenerator:
         if close_button:
             result["close_button"] = close_button
         return result
+
+    @staticmethod
+    def _building_current_level(
+        city: dict[str, Any],
+        *,
+        building: dict[str, Any],
+        building_id: Any,
+        building_name: Any,
+    ) -> int | None:
+        direct = building.get("current_level", building.get("level"))
+        if isinstance(direct, int) and not isinstance(direct, bool) and direct >= 0:
+            return direct
+
+        matches: list[dict[str, Any]] = []
+        for item in city.get("buildings", []):
+            if not isinstance(item, dict):
+                continue
+            if building_id is not None and item.get("building_id") == building_id:
+                matches.append(item)
+                continue
+            item_name = item.get("building_name") or item.get("name")
+            if building_name is not None and item_name == building_name:
+                matches.append(item)
+        if len(matches) != 1:
+            return None
+        level = matches[0].get("current_level", matches[0].get("level"))
+        if isinstance(level, bool) or not isinstance(level, int) or level < 0:
+            return None
+        return level
 
     @staticmethod
     def _team_readiness_review_items(

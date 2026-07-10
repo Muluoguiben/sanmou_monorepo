@@ -14,7 +14,12 @@ from pioneer_agent.core.device import (
     ObservationSourceType,
 )
 from pioneer_agent.core.enums import ActionType
-from pioneer_agent.core.models import CandidateAction, ExecutionResult, SelectionResult
+from pioneer_agent.core.models import (
+    CandidateAction,
+    ExecutionResult,
+    RuntimeState,
+    SelectionResult,
+)
 from pioneer_agent.executor.ui_runner import UIActionRunner
 from pioneer_agent.runtime.autonomous_loop import (
     DEFAULT_SLEEP_S,
@@ -240,6 +245,8 @@ def _upgrade_dialog_param() -> dict[str, Any]:
     return {
         "visible": True,
         "building_name": "Main Hall",
+        "current_level": 10,
+        "next_level": 11,
         "can_upgrade": True,
         "confirm_button": {
             "visible": True,
@@ -320,7 +327,7 @@ class AutonomousLoopTests(unittest.TestCase):
         self.assertEqual(result.execution.status, "ok")
         self.assertEqual(result.sleep_s, WAIT_SLEEP_S[ActionType.WAIT_FOR_STAMINA])
 
-    def test_tick_default_sleep_for_other_actions(self) -> None:
+    def test_tick_blocked_action_uses_default_sleep(self) -> None:
         action = CandidateAction(
             action_id="u1", action_type=ActionType.UPGRADE_BUILDING,
             params={"building_name": "征兵所"},
@@ -330,6 +337,7 @@ class AutonomousLoopTests(unittest.TestCase):
             vision_payloads=[{"page_type": "main_map", "resources": {}}],
         )
         result = loop.tick(0)
+        self.assertEqual(result.execution.status, "blocked")
         self.assertEqual(result.sleep_s, DEFAULT_SLEEP_S)
 
     def test_run_forever_respects_max_iterations(self) -> None:
@@ -417,9 +425,8 @@ class AutonomousLoopTests(unittest.TestCase):
 
         with TemporaryDirectory() as tmp:
             action = CandidateAction(
-                action_id="u1",
-                action_type=ActionType.UPGRADE_BUILDING,
-                params={"building_name": "征兵所"},
+                action_id="w1",
+                action_type=ActionType.WAIT_FOR_RESOURCE,
             )
             bridge = _StubBridge()
             vision = _ScriptedVision([{"page_type": "main_map", "resources": {}}])
@@ -485,7 +492,11 @@ class AutonomousLoopTests(unittest.TestCase):
         self.assertEqual(result.execution.verification_status, "verified")
         verifier = result.execution.summary["post_action_verifier"]
         self.assertEqual(verifier["status"], "verified")
-        self.assertEqual(verifier["checked"], ["progress.chapter_claimable"])
+        self.assertEqual(verifier["target"], {"chapter_id": 17})
+        self.assertEqual(
+            verifier["checked"],
+            ["progress.current_chapter_id", "progress.chapter_claimable"],
+        )
         self.assertEqual(verifier["post_observe"]["domains_run"], ["resource_bar", "chapter_panel"])
         self.assertEqual(result.execution.summary["semantic_target_gate"]["decision"], "allow")
         self.assertFalse(loop.state.progress["chapter_claimable"])
@@ -637,7 +648,7 @@ class AutonomousLoopTests(unittest.TestCase):
             self.assertEqual(trace.act.outputs["summary"]["semantic_target_gate"]["decision"], "allow")
             self.assertEqual(
                 trace.verify.outputs["post_action_verifier"]["checked"],
-                ["progress.chapter_claimable"],
+                ["progress.current_chapter_id", "progress.chapter_claimable"],
             )
 
     def test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies(self) -> None:
@@ -651,6 +662,7 @@ class AutonomousLoopTests(unittest.TestCase):
             params={
                 "building_id": "main_hall",
                 "building_name": "Main Hall",
+                "current_level": 10,
                 "target_level": 11,
                 "upgrade_button": _upgrade_button_param(),
             },
@@ -661,6 +673,7 @@ class AutonomousLoopTests(unittest.TestCase):
             params={
                 "building_id": "main_hall",
                 "building_name": "Main Hall",
+                "current_level": 10,
                 "target_level": 11,
                 "upgrade_dialog": _upgrade_dialog_param(),
             },
@@ -671,7 +684,11 @@ class AutonomousLoopTests(unittest.TestCase):
                 {"page_type": "main_map", "resources": {"wood": 900}},
                 {"page_type": "upgrade_dialog", "resources": {"wood": 900}},
                 _upgrade_dialog_payload(),
-                {"page_type": "main_map", "resources": {"wood": 760}},
+                {"page_type": "city", "resources": {"wood": 760}},
+                {
+                    "buildings": [{"name": "Main Hall", "level": 11}],
+                    "visible_notes": [],
+                },
             ]
         )
         ui = UIActions(  # type: ignore[arg-type]
@@ -690,6 +707,9 @@ class AutonomousLoopTests(unittest.TestCase):
             sleeper=lambda _seconds: None,
             post_action_verify_poll_interval_s=0,
         )
+        loop.state = RuntimeState(
+            city={"buildings": [{"name": "Main Hall", "level": 10}]}
+        )
 
         result = loop.tick(0)
 
@@ -704,9 +724,180 @@ class AutonomousLoopTests(unittest.TestCase):
             result.execution.summary["flow_intermediate_observe"]["domains_run"],
             ["resource_bar", "upgrade_dialog"],
         )
-        self.assertEqual(result.execution.summary["post_action_verifier"]["checked"], ["city.buildings.0.level", "economy.resources.wood"])
+        self.assertEqual(
+            result.execution.summary["post_action_verifier"]["checked"],
+            ["city.buildings[name='Main Hall'].level"],
+        )
+        self.assertEqual(
+            result.execution.summary["post_action_verifier"]["target"],
+            {
+                "building_id": "main_hall",
+                "building_name": "Main Hall",
+                "current_level": 10,
+                "target_level": 11,
+            },
+        )
 
-    def test_tick_stops_upgrade_flow_when_terminal_action_id_changes(self) -> None:
+    def test_tick_rechecks_verifier_target_before_upgrade_terminal_click(self) -> None:
+        from pioneer_agent.executor.ui_actions import UIActions
+        from pioneer_agent.perception.ui_registry import UIButton, UIRegistry
+        from pioneer_agent.perception.vision_sync import VisionSyncSummary
+
+        class _FlowSync:
+            def __init__(self) -> None:
+                self.calls = 0
+
+            def sync(self, _image, state=None, *, captured_at=None):  # noqa: ANN001
+                self.calls += 1
+                buildings = (
+                    [{"name": "Main Hall", "level": 10}]
+                    if self.calls == 1
+                    else [
+                        {"name": "Main Hall", "level": 10},
+                        {"name": "Main Hall", "level": 9},
+                    ]
+                )
+                return (
+                    RuntimeState(city={"buildings": buildings}),
+                    VisionSyncSummary(
+                        page_type="main_map" if self.calls == 1 else "city",
+                        domains_run=["resource_bar"],
+                        notes=[],
+                    ),
+                )
+
+        first_action = CandidateAction(
+            action_id="upgrade-main-hall",
+            action_type=ActionType.UPGRADE_BUILDING,
+            params={
+                "building_name": "Main Hall",
+                "current_level": 10,
+                "target_level": 11,
+                "upgrade_button": _upgrade_button_param(),
+            },
+        )
+        terminal_action = CandidateAction(
+            action_id="upgrade-main-hall",
+            action_type=ActionType.UPGRADE_BUILDING,
+            params={
+                "building_name": "Main Hall",
+                "current_level": 10,
+                "target_level": 11,
+                "upgrade_dialog": _upgrade_dialog_param(),
+            },
+        )
+        bridge = _StubBridge()
+        ui = UIActions(  # type: ignore[arg-type]
+            bridge,
+            UIRegistry({"esc_close": UIButton("esc_close", "close", 0.5, 0.5)}),
+        )
+        loop = AutonomousLoop(
+            bridge=bridge,
+            vision_sync=_FlowSync(),  # type: ignore[arg-type]
+            ui_actions=ui,
+            selector=_SequenceSelector([first_action, terminal_action]),  # type: ignore[arg-type]
+            deriver=_StubDeriver(),  # type: ignore[arg-type]
+            runner=_ui_runner(ui),
+            sleeper=lambda _seconds: None,
+        )
+        loop.state = RuntimeState(
+            city={"buildings": [{"name": "Main Hall", "level": 10}]}
+        )
+
+        result = loop.tick(0)
+
+        self.assertEqual(result.execution.status, "failed")
+        self.assertIn("before terminal dispatch", result.execution.failure_reason or "")
+        self.assertIn("got 2", result.execution.failure_reason or "")
+        self.assertEqual(bridge.clicks, [(326, 864)])
+
+    def test_tick_blocks_duplicate_verifier_target_before_dispatch(self) -> None:
+        from pioneer_agent.verifier.registry import VerifierRegistry
+
+        action = CandidateAction(
+            action_id="upgrade-main-hall",
+            action_type=ActionType.UPGRADE_BUILDING,
+            params={
+                "building_name": "Main Hall",
+                "current_level": 10,
+                "target_level": 11,
+                "upgrade_dialog": _upgrade_dialog_param(),
+            },
+        )
+        runner = _StubRunner()
+        runner.verifier_registry = VerifierRegistry()
+        loop, bridge, _ = self._loop(
+            action=action,
+            vision_payloads=[{"page_type": "main_map", "resources": {}}],
+            runner=runner,
+        )
+        loop.state = RuntimeState(
+            city={
+                "buildings": [
+                    {"name": "Main Hall", "level": 10},
+                    {"name": "Main Hall", "level": 9},
+                ]
+            }
+        )
+
+        result = loop.tick(0)
+
+        self.assertEqual(result.execution.status, "blocked")
+        self.assertEqual(result.execution.summary["blocked_by"], "verifier_preflight")
+        self.assertIn("got 2", result.execution.failure_reason or "")
+        self.assertEqual(runner.actions, [])
+        self.assertEqual(bridge.clicks, [])
+
+    def test_tick_blocks_required_action_when_loop_runner_has_no_verifier_registry(self) -> None:
+        action = CandidateAction(
+            action_id="claim-17",
+            action_type=ActionType.CLAIM_CHAPTER_REWARD,
+            params={"chapter_id": 17, "claim_button": _claim_button_param()},
+        )
+        runner = _StubRunner()
+        loop, _bridge, _ = self._loop(
+            action=action,
+            vision_payloads=[{"page_type": "main_map", "resources": {}}],
+            runner=runner,
+        )
+        loop.state = RuntimeState(
+            progress={"current_chapter_id": 17, "chapter_claimable": True}
+        )
+
+        result = loop.tick(0)
+
+        self.assertEqual(result.execution.status, "blocked")
+        self.assertEqual(result.execution.summary["blocked_by"], "verifier_preflight")
+        self.assertIn("does not expose", result.execution.failure_reason or "")
+        self.assertEqual(runner.actions, [])
+
+    def test_tick_blocks_required_action_when_loop_runner_has_no_verifier_spec(self) -> None:
+        from pioneer_agent.verifier.registry import VerifierRegistry
+
+        action = CandidateAction(
+            action_id="claim-17",
+            action_type=ActionType.CLAIM_CHAPTER_REWARD,
+            params={"chapter_id": 17, "claim_button": _claim_button_param()},
+        )
+        runner = _StubRunner()
+        runner.verifier_registry = VerifierRegistry(specs={})
+        loop, _bridge, _ = self._loop(
+            action=action,
+            vision_payloads=[{"page_type": "main_map", "resources": {}}],
+            runner=runner,
+        )
+        loop.state = RuntimeState(
+            progress={"current_chapter_id": 17, "chapter_claimable": True}
+        )
+
+        result = loop.tick(0)
+
+        self.assertEqual(result.execution.status, "blocked")
+        self.assertEqual(result.execution.summary["blocked_by"], "verifier_preflight")
+        self.assertIn("requires a verifier", result.execution.failure_reason or "")
+        self.assertEqual(runner.actions, [])
+
+    def test_tick_stops_upgrade_flow_when_same_action_id_changes_target(self) -> None:
         from pioneer_agent.executor.ui_actions import UIActions
         from pioneer_agent.perception.ui_registry import UIButton, UIRegistry
         from pioneer_agent.perception.vision_sync import VisionSync
@@ -717,16 +908,18 @@ class AutonomousLoopTests(unittest.TestCase):
             params={
                 "building_id": "main_hall",
                 "building_name": "Main Hall",
+                "current_level": 10,
                 "target_level": 11,
                 "upgrade_button": _upgrade_button_param(),
             },
         )
         mismatched_terminal_action = CandidateAction(
-            action_id="upgrade-barracks",
+            action_id="upgrade-main-hall",
             action_type=ActionType.UPGRADE_BUILDING,
             params={
                 "building_id": "barracks",
                 "building_name": "Barracks",
+                "current_level": 7,
                 "target_level": 8,
                 "upgrade_dialog": _upgrade_dialog_param(),
             },
@@ -754,12 +947,15 @@ class AutonomousLoopTests(unittest.TestCase):
             runner=runner,
             sleeper=lambda _seconds: None,
         )
+        loop.state = RuntimeState(
+            city={"buildings": [{"name": "Main Hall", "level": 10}]}
+        )
 
         result = loop.tick(0)
 
         self.assertEqual(result.execution.status, "failed")
         self.assertTrue(result.execution.recovery_required)
-        self.assertIn("same terminal action", result.execution.failure_reason or "")
+        self.assertIn("changed the verifier target", result.execution.failure_reason or "")
         self.assertEqual(bridge.clicks, [(326, 864)])
         self.assertEqual(bridge.keys, ["escape"])
 

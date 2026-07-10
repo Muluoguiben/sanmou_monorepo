@@ -34,24 +34,23 @@ PR6_VERIFIER_EXPECTATIONS = {
     "claim_chapter_reward": {
         "timeout_seconds": 10.0,
         "match_policy": "all",
-        "delta_paths": ["progress.chapter_claimable"],
+        "delta_paths": [
+            "progress.current_chapter_id",
+            "progress.chapter_claimable",
+        ],
     },
     "recruit_soldiers": {
         "timeout_seconds": 30.0,
         "match_policy": "any",
         "delta_paths": [
-            "teams.0.soldiers",
-            "teams.0.recruit_finish_time",
-            "economy.reserve_troops",
+            "soldiers",
+            "recruit_finish_time",
         ],
     },
     "upgrade_building": {
         "timeout_seconds": 20.0,
-        "match_policy": "any",
-        "delta_paths": [
-            "city.buildings.0.level",
-            "economy.resources.wood",
-        ],
+        "match_policy": "all",
+        "delta_paths": ["level"],
     },
 }
 

@@ -3,6 +3,7 @@ from __future__ import annotations
 import unittest
 
 from pioneer_agent.core.enums import ActionType
+from pioneer_agent.core.models import CandidateAction
 from pioneer_agent.verifier import (
     DeltaMatchPolicy,
     DeltaOperator,
@@ -32,23 +33,64 @@ class VerifierRegistryTests(unittest.TestCase):
             ActionType.CLAIM_CHAPTER_REWARD: (
                 10.0,
                 DeltaMatchPolicy.ALL,
-                [("progress.chapter_claimable", DeltaOperator.EQUALS)],
+                [
+                    (
+                        "progress.current_chapter_id",
+                        DeltaOperator.EQUALS,
+                        None,
+                        None,
+                        None,
+                        "chapter_id",
+                        "chapter_id",
+                    ),
+                    (
+                        "progress.chapter_claimable",
+                        DeltaOperator.EQUALS,
+                        None,
+                        None,
+                        None,
+                        None,
+                        None,
+                    ),
+                ],
             ),
             ActionType.RECRUIT_SOLDIERS: (
                 30.0,
                 DeltaMatchPolicy.ANY,
                 [
-                    ("teams.0.soldiers", DeltaOperator.GREATER_THAN_BEFORE),
-                    ("teams.0.recruit_finish_time", DeltaOperator.PRESENT),
-                    ("economy.reserve_troops", DeltaOperator.LESS_THAN_BEFORE),
+                    (
+                        "soldiers",
+                        DeltaOperator.GREATER_THAN_BEFORE,
+                        "teams",
+                        "team_id",
+                        "team_id",
+                        None,
+                        None,
+                    ),
+                    (
+                        "recruit_finish_time",
+                        DeltaOperator.BECOMES_PRESENT,
+                        "teams",
+                        "team_id",
+                        "team_id",
+                        None,
+                        None,
+                    ),
                 ],
             ),
             ActionType.UPGRADE_BUILDING: (
                 20.0,
-                DeltaMatchPolicy.ANY,
+                DeltaMatchPolicy.ALL,
                 [
-                    ("city.buildings.0.level", DeltaOperator.GREATER_THAN_BEFORE),
-                    ("economy.resources.wood", DeltaOperator.LESS_THAN_BEFORE),
+                    (
+                        "level",
+                        DeltaOperator.INCREASES_TO,
+                        "city.buildings",
+                        "name",
+                        "building_name",
+                        "current_level",
+                        "target_level",
+                    ),
                 ],
             ),
         }
@@ -63,9 +105,83 @@ class VerifierRegistryTests(unittest.TestCase):
                 self.assertEqual(spec.timeout_seconds if spec else None, timeout)
                 self.assertEqual(spec.match_policy if spec else None, match_policy)
                 self.assertEqual(
-                    [(delta.path, delta.operator) for delta in spec.expected_deltas],
+                    [
+                        (
+                            delta.path,
+                            delta.operator,
+                            delta.collection_path,
+                            delta.identity_field,
+                            delta.identity_param,
+                            delta.before_param,
+                            delta.expected_after_param,
+                        )
+                        for delta in spec.expected_deltas
+                    ],
                     deltas,
                 )
+
+    def test_action_binding_resolves_target_identity_and_required_params(self) -> None:
+        registry = VerifierRegistry()
+        action = CandidateAction(
+            action_id="recruit-team-2",
+            action_type=ActionType.RECRUIT_SOLDIERS,
+            params={"team_id": "team-2"},
+        )
+
+        verdict = registry.evaluate_action(action)
+        bound = registry.get_for_action(action)
+
+        self.assertEqual(verdict.decision, VerifierGateDecision.ALLOW)
+        self.assertIsNotNone(bound)
+        self.assertEqual(
+            [delta.identity_value for delta in bound.expected_deltas],
+            ["team-2", "team-2"],
+        )
+        self.assertTrue(all(delta.identity_param is None for delta in bound.expected_deltas))
+
+        for action_type, params in (
+            (ActionType.CLAIM_CHAPTER_REWARD, {}),
+            (ActionType.RECRUIT_SOLDIERS, {}),
+            (ActionType.UPGRADE_BUILDING, {"building_name": "仓库"}),
+        ):
+            with self.subTest(action_type=action_type.value):
+                missing = CandidateAction(
+                    action_id=f"missing-{action_type.value}",
+                    action_type=action_type,
+                    params=params,
+                )
+                blocked = registry.evaluate_action(missing)
+                self.assertEqual(blocked.decision, VerifierGateDecision.BLOCK)
+                self.assertIn("missing required action param", blocked.reason)
+
+    def test_action_binding_rejects_bool_and_invalid_upgrade_levels(self) -> None:
+        registry = VerifierRegistry()
+        cases = (
+            CandidateAction(
+                action_id="claim-bool",
+                action_type=ActionType.CLAIM_CHAPTER_REWARD,
+                params={"chapter_id": True},
+            ),
+            CandidateAction(
+                action_id="recruit-numeric",
+                action_type=ActionType.RECRUIT_SOLDIERS,
+                params={"team_id": 1},
+            ),
+            CandidateAction(
+                action_id="upgrade-equal",
+                action_type=ActionType.UPGRADE_BUILDING,
+                params={
+                    "building_name": "仓库",
+                    "current_level": 11,
+                    "target_level": 11,
+                },
+            ),
+        )
+
+        for action in cases:
+            with self.subTest(action_id=action.action_id):
+                verdict = registry.evaluate_action(action)
+                self.assertEqual(verdict.decision, VerifierGateDecision.BLOCK)
 
     def test_spec_must_declare_expected_delta(self) -> None:
         registry = VerifierRegistry(

@@ -59,7 +59,11 @@ from pioneer_agent.storage.trace_store import (
     TraceStore,
 )
 from pioneer_agent.verifier.base import VerificationResult, VerificationStatus
-from pioneer_agent.verifier.registry import VerifierRegistry, VerifierSpec
+from pioneer_agent.verifier.registry import (
+    UI_ACTIONS_REQUIRING_VERIFIER,
+    VerifierRegistry,
+    VerifierSpec,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -215,6 +219,34 @@ class AutonomousLoop:
                     verification_status="not_applicable",
                     summary={"action_type": selection.selected_action.action_type.value,
                              "note": "dry_run — no UI action dispatched"},
+                )
+            elif (
+                verifier_preflight := _post_action_verifier_preflight_failure(
+                    self.runner,
+                    selection.selected_action,
+                    pre_action_state,
+                )
+            ) is not None:
+                logger.warning(
+                    "tick %d: verifier preflight blocked action=%s (%s)",
+                    iteration,
+                    selection.selected_action.action_type.value,
+                    verifier_preflight.reason,
+                )
+                execution = _blocked_execution(
+                    selection.selected_action,
+                    failure_reason=(
+                        f"post-action verifier preflight failed: "
+                        f"{verifier_preflight.reason}"
+                    ),
+                    blocked_by="verifier_preflight",
+                    extra_summary={
+                        "verifier_preflight": {
+                            "status": verifier_preflight.status.value,
+                            "reason": verifier_preflight.reason,
+                            "checked": list(verifier_preflight.checked),
+                        }
+                    },
                 )
             else:
                 _reset_input_trace(self.ui_actions)
@@ -767,6 +799,11 @@ class AutonomousLoop:
                 "action flow did not produce the same terminal action",
                 next_action=next_action,
             )
+        if _action_target_fingerprint(next_action) != _action_target_fingerprint(action):
+            return _fail(
+                "action flow changed the verifier target",
+                next_action=next_action,
+            )
 
         verdict = self._guard.action_verdict(next_action, state=derived)
         if not verdict.allowed:
@@ -782,6 +819,18 @@ class AutonomousLoop:
                 else f"runbook blocks action flow continuation: {verdict.reason}"
             )
             return _fail(reason, next_action=next_action)
+
+        flow_preflight = _post_action_verifier_preflight_failure(
+            self.runner,
+            next_action,
+            self.state.model_dump(mode="json"),
+        )
+        if flow_preflight is not None:
+            return _fail(
+                "post-action verifier preflight failed before terminal dispatch: "
+                f"{flow_preflight.reason}",
+                next_action=next_action,
+            )
 
         _reset_input_trace(self.ui_actions)
         terminal_execution = self.runner.run(next_action)
@@ -812,7 +861,7 @@ class AutonomousLoop:
         execution: ExecutionResult,
         before_state: dict[str, Any],
     ) -> tuple[ExecutionResult, dict[str, Any] | None]:
-        spec = _post_action_verifier_spec(self.runner, action.action_type)
+        spec = _post_action_verifier_spec(self.runner, action)
         if spec is None:
             return execution, None
         if execution.status != "ok":
@@ -1072,11 +1121,52 @@ def _escalation_signature(escalation: RunbookEscalation) -> str:
     return f"{escalation.kind.value}|{escalation.phase_id}|{details}"
 
 
-def _post_action_verifier_spec(runner: Any, action_type: ActionType) -> VerifierSpec | None:
+def _post_action_verifier_spec(
+    runner: Any,
+    action: CandidateAction,
+) -> VerifierSpec | None:
     registry = getattr(runner, "verifier_registry", None)
     if not isinstance(registry, VerifierRegistry):
         return None
-    return registry.get(action_type)
+    try:
+        return registry.get_for_action(action)
+    except ValueError:
+        return None
+
+
+def _post_action_verifier_preflight_failure(
+    runner: Any,
+    action: CandidateAction,
+    before_state: dict[str, Any],
+) -> VerificationResult | None:
+    registry = getattr(runner, "verifier_registry", None)
+    if not isinstance(registry, VerifierRegistry):
+        if action.action_type in UI_ACTIONS_REQUIRING_VERIFIER:
+            return VerificationResult(
+                status=VerificationStatus.FAILED,
+                reason="runner does not expose a verifier registry",
+                timeout_seconds=None,
+            )
+        return None
+    gate = registry.evaluate_action(action)
+    if not gate.allowed:
+        return VerificationResult(
+            status=VerificationStatus.FAILED,
+            reason=gate.reason,
+            timeout_seconds=gate.timeout_seconds,
+        )
+    try:
+        spec = registry.get_for_action(action)
+        if spec is None:
+            return None
+        result = spec.build().validate_before(before_state)
+    except ValueError as exc:
+        return VerificationResult(
+            status=VerificationStatus.FAILED,
+            reason=f"verifier could not be built: {exc}",
+            timeout_seconds=None,
+        )
+    return None if result.verified else result
 
 
 def _requires_flow_continuation(execution: ExecutionResult) -> bool:
@@ -1169,6 +1259,7 @@ def _verification_payload(
 ) -> dict[str, Any]:
     return {
         "action_type": action.action_type.value,
+        "target": _verification_target(action),
         "status": result.status.value,
         "reason": result.reason,
         "checked": list(result.checked),
@@ -1186,6 +1277,28 @@ def _verification_payload(
             "image_traces": list(summary.image_traces) if summary else [],
         },
     }
+
+
+def _verification_target(action: CandidateAction) -> dict[str, Any]:
+    target_fields = {
+        ActionType.CLAIM_CHAPTER_REWARD: ("chapter_id",),
+        ActionType.RECRUIT_SOLDIERS: ("team_id",),
+        ActionType.UPGRADE_BUILDING: (
+            "building_id",
+            "building_name",
+            "current_level",
+            "target_level",
+        ),
+    }.get(action.action_type, ())
+    return {
+        field: action.params[field]
+        for field in target_fields
+        if field in action.params
+    }
+
+
+def _action_target_fingerprint(action: CandidateAction) -> tuple[tuple[str, Any], ...]:
+    return tuple(sorted(_verification_target(action).items()))
 
 
 def _verify_step_outputs(

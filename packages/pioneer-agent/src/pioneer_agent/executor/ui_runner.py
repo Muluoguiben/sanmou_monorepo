@@ -79,7 +79,7 @@ class UIActionRunner:
                     ),
                 },
             )
-        verifier_verdict = self.verifier_registry.evaluate(action.action_type)
+        verifier_verdict = self.verifier_registry.evaluate_action(action)
         if verifier_verdict.decision != VerifierGateDecision.ALLOW:
             return ExecutionResult(
                 action_id=action.action_id,

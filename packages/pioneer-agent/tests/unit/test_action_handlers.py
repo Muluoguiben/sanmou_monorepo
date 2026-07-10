@@ -45,6 +45,13 @@ class _SemanticUI:
 
 
 def _mk_action(t: ActionType, **params) -> CandidateAction:
+    if t == ActionType.CLAIM_CHAPTER_REWARD:
+        params.setdefault("chapter_id", 17)
+    elif t == ActionType.RECRUIT_SOLDIERS:
+        params.setdefault("team_id", "team-1")
+    elif t == ActionType.UPGRADE_BUILDING:
+        params.setdefault("current_level", 10)
+        params.setdefault("target_level", 11)
     return CandidateAction(action_id=f"a-{t.value}", action_type=t, params=params)
 
 
@@ -157,6 +164,8 @@ class DispatchTests(unittest.TestCase):
                 upgrade_dialog={
                     "visible": True,
                     "building_name": "君王殿",
+                    "current_level": 10,
+                    "next_level": 11,
                     "can_upgrade": True,
                     "confirm_button": {
                         "visible": True,
@@ -202,6 +211,8 @@ class DispatchTests(unittest.TestCase):
                 upgrade_dialog={
                     "visible": True,
                     "building_name": "君王殿",
+                    "current_level": 10,
+                    "next_level": 11,
                     "can_upgrade": True,
                     "confirm_button": {
                         "visible": True,
@@ -275,6 +286,46 @@ class UIActionRunnerTests(unittest.TestCase):
         self.assertEqual(res.status, "blocked")
         self.assertIn("explicit capabilities", res.failure_reason or "")
         self.assertEqual(ui.clicks, [])
+
+    def test_runner_blocks_missing_action_bound_verifier_identity_before_click(self) -> None:
+        button = {
+            "visible": True,
+            "enabled": True,
+            "bbox": {"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
+        }
+        cases = (
+            CandidateAction(
+                action_id="claim-missing-chapter",
+                action_type=ActionType.CLAIM_CHAPTER_REWARD,
+                params={"claim_button": button},
+            ),
+            CandidateAction(
+                action_id="recruit-missing-team",
+                action_type=ActionType.RECRUIT_SOLDIERS,
+                params={"recruit_button": button},
+            ),
+            CandidateAction(
+                action_id="upgrade-missing-level",
+                action_type=ActionType.UPGRADE_BUILDING,
+                params={
+                    "building_name": "仓库",
+                    "upgrade_dialog": {
+                        "visible": True,
+                        "building_name": "仓库",
+                        "can_upgrade": True,
+                        "confirm_button": button,
+                    },
+                },
+            ),
+        )
+        for action in cases:
+            with self.subTest(action_type=action.action_type.value):
+                ui = _SemanticUI()
+                result = _authorized_runner(ui).run(action)
+                self.assertEqual(result.status, "blocked")
+                self.assertEqual(result.summary["blocked_by"], "verifier_registry")
+                self.assertIn("missing required action param", result.failure_reason or "")
+                self.assertEqual(ui.clicks, [])
 
     def test_runner_blocks_observe_only_sources(self) -> None:
         capabilities = CapabilityFlags(observe_only=True)
@@ -390,6 +441,8 @@ class UIActionRunnerTests(unittest.TestCase):
                 upgrade_dialog={
                     "visible": True,
                     "building_name": "君王殿",
+                    "current_level": 10,
+                    "next_level": 11,
                     "can_upgrade": True,
                     "confirm_button": {
                         "visible": True,
