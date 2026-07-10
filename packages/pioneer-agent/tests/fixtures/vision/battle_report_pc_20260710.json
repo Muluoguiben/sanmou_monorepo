@@ -1,0 +1,160 @@
+{
+  "schema_version": 2,
+  "source": {
+    "kind": "real_screenshot_set",
+    "captured_at": "2026-07-10T22:56:28+08:00",
+    "platform": "pc_client",
+    "description": "Privacy-redacted and compressed real PvP battle-result screenshot from the Sanmou Windows client.",
+    "note": "The payload is a literal local visual transcription used to replay the domain merge path offline. It is not an image-model accuracy claim."
+  },
+  "initial_state": {
+    "global_state": {
+      "server_open_time": "2026-07-10T00:00:00+08:00",
+      "current_time": "2026-07-10T22:56:28+08:00",
+      "phase_tag": "advisor_battle_review"
+    },
+    "progress": {
+      "chapter_claimable": false,
+      "task_progress": {}
+    },
+    "economy": {
+      "reserve_troops": 0
+    },
+    "city": {
+      "upgradeable_buildings": []
+    },
+    "map_state": {
+      "candidate_lands": []
+    }
+  },
+  "screenshots": [
+    {
+      "id": "battle_report_partial_pvp",
+      "image": "screenshots/pc_client/live_20260710/battle_report_partial_redacted.webp",
+      "captured_at": "2026-07-10T22:56:28+08:00",
+      "artifact": {
+        "review_status": "reviewed",
+        "sha256": "d66af6979bf6a416cc623a76ffc7b85f2b446194c61a43eda1dd20f872de8619",
+        "width": 1280,
+        "height": 662,
+        "privacy_review": {
+          "status": "approved",
+          "reviewed_by": "codex-local-visual-review",
+          "reviewed_at": "2026-07-10T23:51:23+08:00",
+          "review_method": "full-frame visual inspection after deterministic top-identity-band redaction and 1280px WebP compression",
+          "redaction_applied": true,
+          "account_identifiers_visible": false,
+          "chat_visible": false,
+          "player_or_alliance_names_visible": false,
+          "payment_data_visible": false,
+          "precise_coordinates_visible": false,
+          "approved_for_repo_storage": true
+        }
+      },
+      "expected_domains": [
+        "resource_bar",
+        "battle_report"
+      ],
+      "payloads": [
+        {
+          "domain": "resource_bar",
+          "data": {
+            "page_type": "battle",
+            "resources": {},
+            "visible_notes": [
+              "战报",
+              "战果"
+            ]
+          }
+        },
+        {
+          "domain": "battle_report",
+          "data": {
+            "page_type": "battle",
+            "result": "loss",
+            "occupation_result": "unknown",
+            "attacker_initial_soldiers": 17577,
+            "attacker_remaining_soldiers": 0,
+            "attacker_losses": 8888,
+            "defender_initial_soldiers": 20687,
+            "defender_remaining_soldiers": 19056,
+            "defender_losses": 1070,
+            "honor_gained": 312,
+            "attacker_heroes": [
+              {
+                "name": "司马懿",
+                "level": 50,
+                "initial_soldiers": 7020,
+                "remaining_soldiers": 0
+              },
+              {
+                "name": "郝昭",
+                "level": 50,
+                "initial_soldiers": 7105,
+                "remaining_soldiers": 0
+              },
+              {
+                "name": "皇甫嵩",
+                "level": 50,
+                "initial_soldiers": 3452,
+                "remaining_soldiers": 0
+              }
+            ],
+            "defender_heroes": [
+              {
+                "name": "司马懿",
+                "level": 50,
+                "initial_soldiers": 9361,
+                "remaining_soldiers": 9089
+              },
+              {
+                "name": "郝昭",
+                "level": 50,
+                "initial_soldiers": 5705,
+                "remaining_soldiers": 5014
+              },
+              {
+                "name": "皇甫嵩",
+                "level": 50,
+                "initial_soldiers": 5621,
+                "remaining_soldiers": 4953
+              }
+            ],
+            "key_events": [],
+            "visible_sections": [
+              "battle_result",
+              "battle_summary",
+              "hero_details"
+            ],
+            "visible_notes": [
+              "战报战果页",
+              "战损字段与总兵力差值语义不一致，必须 fail-closed"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "expected_state_checks": [
+    {
+      "path": "map_state.latest_battle_report.result",
+      "expected": "loss"
+    },
+    {
+      "path": "map_state.latest_battle_report.verification.parse_status",
+      "expected": "partial"
+    },
+    {
+      "path": "map_state.latest_battle_report.verification.action_verification_ready",
+      "expected": false
+    },
+    {
+      "path": "map_state.latest_battle_report.measurement_issues.0",
+      "expected": "attacker_total_inconsistent"
+    },
+    {
+      "path": "map_state.latest_battle_report.measurement_issues.1",
+      "expected": "defender_total_inconsistent"
+    }
+  ]
+}

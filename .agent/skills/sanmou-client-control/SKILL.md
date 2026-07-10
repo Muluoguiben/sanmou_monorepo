@@ -15,6 +15,35 @@ description: Open, foreground-control, screenshot, and visually interpret the Sa
 - Use ad-hoc self-elevation only as a fallback when the controller task has not been installed.
 - When the user is switching windows, prefer the Python Windows bridge capture path with `--capture-backend auto` or `wgc`. `SanmouController capture-window` is still screen-rectangle based and must reject minimized/offscreen/bad-size windows instead of returning misleading screenshots.
 
+## Context-Efficient Screenshot Workflow
+
+Large full-window captures can make a Codex task progressively slower when the
+same pixels are injected into conversation context more than once. Treat the
+raw capture as a short-lived local artifact, not as the working state.
+
+1. Capture one fresh full-window image to `%TEMP%` and record only its SHA256,
+   dimensions, window identity, capture time, and inferred page type.
+2. For the first visual orientation, use a resized/high-detail preview. Do not
+   request original-resolution model context unless a specific target remains
+   unreadable at preview resolution.
+   - For repo fixtures and repeat inspection, prefer WebP with the long edge at
+     most 1280 px and quality 55-65; target roughly 40-60 KB when UI text stays
+     readable. Keep the lossless/raw frame only in `%TEMP%` until review ends.
+   - Do not use AVIF as a Codex vision fixture: the current local image-reading
+     path cannot decode it. AVIF may be kept only as a non-vision archive when a
+     separate consumer has been proven to support it.
+3. Never load the same frame into model context twice. Reuse the structured
+   facts and frame SHA instead.
+4. After the page is known, inspect only the smallest relevant target area or
+   consume structured `vision_probe` JSON. Do not keep full pre/terminal/post
+   frames simultaneously in conversation context.
+5. Keep execution evidence on disk as SHA-bound trace files. Summarize it in
+   chat as page/domain/target/delta fields rather than embedding every image.
+6. Delete temporary raw captures immediately after inspection unless they are
+   explicitly privacy-approved for the fixture staging workflow. Never promote
+   a login, chat, player-name, alliance-name, or precise-coordinate frame into
+   the repository merely because it was useful for live orientation.
+
 ## Paths
 
 Common local install paths:

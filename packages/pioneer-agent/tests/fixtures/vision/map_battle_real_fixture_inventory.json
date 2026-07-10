@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-07-10T15:29:35+08:00",
+  "updated_at": "2026-07-10T23:51:23+08:00",
   "policy": {
     "eligible_status": "reviewed_and_privacy_approved",
     "review_registry": "real_screenshot_review_registry.json",
@@ -17,6 +17,13 @@
       "fixture": "team_snapshot_mobile_20260514.json",
       "domain": "team_snapshot",
       "artifact_count": 5,
+      "status": "reviewed_and_privacy_approved"
+    },
+    {
+      "fixture": "battle_report_pc_20260710.json",
+      "domain": "battle_report",
+      "artifact_count": 1,
+      "coverage": "partial_and_contradictory_fail_closed",
       "status": "reviewed_and_privacy_approved"
     }
   ],
@@ -51,13 +58,28 @@
       ]
     },
     "battle_report": {
-      "status": "missing_real_screenshot",
-      "candidate": null,
+      "status": "partial_privacy_approved",
+      "candidate": {
+        "image": "screenshots/pc_client/live_20260710/battle_report_partial_redacted.webp",
+        "fixture": "battle_report_pc_20260710.json",
+        "sha256": "d66af6979bf6a416cc623a76ffc7b85f2b446194c61a43eda1dd20f872de8619",
+        "width": 1280,
+        "height": 662,
+        "bytes": 50670,
+        "useful_case": "partial PvP battle report with a known result and displayed losses but no occupation or land context; contradictory loss totals must parse as partial"
+      },
+      "privacy_review": {
+        "status": "approved",
+        "redaction_applied": true,
+        "account_identifiers_visible": false,
+        "chat_visible": false,
+        "player_or_alliance_names_visible": false,
+        "precise_coordinates_visible": false,
+        "approved_for_eval_fixture": true
+      },
       "required_capture": [
-        "one privacy-approved full-frame battle result/report sample",
-        "one partial or contradictory report sample for fail-closed coverage",
-        "sha256 and dimensions",
-        "reviewed resource_bar and battle_report payloads"
+        "one privacy-approved land-occupation report showing occupation result plus target coordinate or land level",
+        "reviewed resource_bar and battle_report payloads for that complete case"
       ]
     }
   }

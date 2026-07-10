@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "policy": "deny_wins",
-  "updated_at": "2026-07-10T15:29:35+08:00",
+  "updated_at": "2026-07-10T23:51:23+08:00",
   "approved": {
     "6f99d5056999d87b8422452ae13d6f72b57e6c1af8c26c07902b3373ab350ea4": {
       "width": 1080,
@@ -70,6 +70,46 @@
         "status": "approved",
         "reviewed_by": "codex-local-visual-review",
         "reviewed_at": "2026-07-10T15:29:35+08:00",
+        "account_identifiers_visible": false,
+        "chat_visible": false,
+        "player_or_alliance_names_visible": false,
+        "payment_data_visible": false,
+        "precise_coordinates_visible": false,
+        "approved_for_repo_storage": true
+      }
+    },
+    "d66af6979bf6a416cc623a76ffc7b85f2b446194c61a43eda1dd20f872de8619": {
+      "width": 1280,
+      "height": 662,
+      "source_capture_sha256": "01519948b2a8ee6072e728120ef5a0544f1e831a121a18d2d1fd166ef538cfbe",
+      "transform": {
+        "format": "webp",
+        "quality": 60,
+        "resized_from": [
+          2582,
+          1336
+        ],
+        "final_redaction_rects": [
+          [
+            80,
+            65,
+            540,
+            122
+          ],
+          [
+            733,
+            65,
+            1220,
+            122
+          ]
+        ]
+      },
+      "privacy_review": {
+        "status": "approved",
+        "reviewed_by": "codex-local-visual-review",
+        "reviewed_at": "2026-07-10T23:51:23+08:00",
+        "review_method": "full-frame visual inspection after deterministic top-identity-band redaction and 1280px WebP compression",
+        "redaction_applied": true,
         "account_identifiers_visible": false,
         "chat_visible": false,
         "player_or_alliance_names_visible": false,
