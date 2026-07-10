@@ -161,6 +161,8 @@ PAGE_DETECTION_INSTRUCTION = (
     "(Sanguo: Strategy Under Heaven). Identify the page type and extract all numeric "
     "resource values from the top bar. "
     "Convert shorthand like '570万' to 5700000, '1.2K' to 1200, '5.22M' to 5220000. "
+    "Use page_type=main_map when the world map and land tiles are the primary content. "
+    "Use page_type=battle when a battle result or detailed battle report is primary. "
     "Omit any field you cannot clearly see — do not guess."
 )
 
@@ -1129,6 +1131,473 @@ TEAM_DETAIL_INSTRUCTION = (
     "兵书, 属性加点, 战法等级, and 兵种适性. Use `detail_tabs_observed` for each category that is "
     "actually visible. Do not infer hidden heroes or hidden equipment. If a category is needed but "
     "not visible, put it in `missing_detail_tabs`. Preserve Chinese names and labels exactly."
+)
+
+
+# ---------------------------------------------------------------------------
+# Battle report / battle result
+# ---------------------------------------------------------------------------
+
+class BattleReportHeroDetection(BaseModel):
+    name: str
+    level: int | None = None
+    initial_soldiers: int | None = None
+    remaining_soldiers: int | None = None
+    losses: int | None = None
+    tactics: list[str] = Field(default_factory=list)
+    visible_notes: list[str] = Field(default_factory=list)
+
+
+class BattleReportDetection(BaseModel):
+    page_type: Literal["battle", "unknown"]
+    report_id: str | None = None
+    report_time: str | None = None
+    result: Literal["win", "draw", "loss", "unknown"] = "unknown"
+    occupation_result: Literal[
+        "occupied",
+        "not_occupied",
+        "already_owned",
+        "failed",
+        "unknown",
+    ] = "unknown"
+    target_x: int | None = None
+    target_y: int | None = None
+    land_level: int | None = None
+    resource_type: Literal["wood", "stone", "iron", "grain", "unknown"] = "unknown"
+    attacker_team_id: str | None = None
+    attacker_name: str | None = None
+    defender_name: str | None = None
+    attacker_initial_soldiers: int | None = None
+    attacker_remaining_soldiers: int | None = None
+    attacker_losses: int | None = None
+    defender_initial_soldiers: int | None = None
+    defender_remaining_soldiers: int | None = None
+    defender_losses: int | None = None
+    rounds: int | None = None
+    experience_gained: int | None = None
+    honor_gained: int | None = None
+    attacker_heroes: list[BattleReportHeroDetection] = Field(default_factory=list)
+    defender_heroes: list[BattleReportHeroDetection] = Field(default_factory=list)
+    key_events: list[str] = Field(default_factory=list)
+    visible_sections: list[str] = Field(default_factory=list)
+    visible_notes: list[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def _validate_page_domain(self):
+        if self.page_type == "unknown" and any(
+            (
+                self.report_id,
+                self.report_time,
+                self.result != "unknown",
+                self.occupation_result != "unknown",
+                self.target_x is not None,
+                self.target_y is not None,
+                self.land_level is not None,
+                self.attacker_heroes,
+                self.defender_heroes,
+            )
+        ):
+            raise ValueError("unknown battle page_type cannot include report payload")
+        return self
+
+
+BATTLE_REPORT_SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "properties": {
+        "page_type": {
+            "type": "string",
+            "enum": ["battle", "unknown"],
+            "description": "Use battle only when a battle result or report is clearly visible.",
+        },
+        "report_id": {"type": "string"},
+        "report_time": {"type": "string"},
+        "result": {
+            "type": "string",
+            "enum": ["win", "draw", "loss", "unknown"],
+        },
+        "occupation_result": {
+            "type": "string",
+            "enum": ["occupied", "not_occupied", "already_owned", "failed", "unknown"],
+        },
+        "target_x": {"type": "integer"},
+        "target_y": {"type": "integer"},
+        "land_level": {"type": "integer"},
+        "resource_type": {
+            "type": "string",
+            "enum": ["wood", "stone", "iron", "grain", "unknown"],
+        },
+        "attacker_team_id": {"type": "string"},
+        "attacker_name": {"type": "string"},
+        "defender_name": {"type": "string"},
+        "attacker_initial_soldiers": {"type": "integer"},
+        "attacker_remaining_soldiers": {"type": "integer"},
+        "attacker_losses": {"type": "integer"},
+        "defender_initial_soldiers": {"type": "integer"},
+        "defender_remaining_soldiers": {"type": "integer"},
+        "defender_losses": {"type": "integer"},
+        "rounds": {"type": "integer"},
+        "experience_gained": {"type": "integer"},
+        "honor_gained": {"type": "integer"},
+        "attacker_heroes": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string"},
+                    "level": {"type": "integer"},
+                    "initial_soldiers": {"type": "integer"},
+                    "remaining_soldiers": {"type": "integer"},
+                    "losses": {"type": "integer"},
+                    "tactics": {"type": "array", "items": {"type": "string"}},
+                    "visible_notes": {"type": "array", "items": {"type": "string"}},
+                },
+                "required": ["name"],
+            },
+        },
+        "defender_heroes": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string"},
+                    "level": {"type": "integer"},
+                    "initial_soldiers": {"type": "integer"},
+                    "remaining_soldiers": {"type": "integer"},
+                    "losses": {"type": "integer"},
+                    "tactics": {"type": "array", "items": {"type": "string"}},
+                    "visible_notes": {"type": "array", "items": {"type": "string"}},
+                },
+                "required": ["name"],
+            },
+        },
+        "key_events": {"type": "array", "items": {"type": "string"}},
+        "visible_sections": {"type": "array", "items": {"type": "string"}},
+        "visible_notes": {"type": "array", "items": {"type": "string"}},
+    },
+    "required": [
+        "page_type",
+        "result",
+        "occupation_result",
+        "attacker_heroes",
+        "defender_heroes",
+        "key_events",
+        "visible_sections",
+        "visible_notes",
+    ],
+}
+
+
+BATTLE_REPORT_INSTRUCTION = (
+    "This screenshot was explicitly classified as the battle page in 三国·谋定天下. Extract only "
+    "visible battle-result or report facts: win/draw/loss, occupation result, target "
+    "coordinate/level/resource, both sides, troop counts, losses, rounds, experience, "
+    "honor, visible sections, and key events. Use unknown or omit optional fields when "
+    "the evidence is not explicit. Preserve visible troop values even if they conflict; "
+    "the parser will mark inconsistent measurements partial instead of guessing. Parsing "
+    "a report does not verify a dispatched action."
+)
+
+
+# ---------------------------------------------------------------------------
+# Main-map land snapshot
+# ---------------------------------------------------------------------------
+
+class MapLandCandidateDetection(BaseModel):
+    land_id: str | None = None
+    coordinate_x: int | None = None
+    coordinate_y: int | None = None
+    level: int | None = Field(default=None, ge=1, le=12)
+    resource_type: Literal["wood", "stone", "iron", "grain", "unknown"] = "unknown"
+    occupied: bool | None = None
+    owner: str | None = None
+    reachable: bool | None = None
+    can_attack: bool | None = None
+    protected: bool | None = None
+    selected: bool = False
+    recommended_marker: bool = False
+    yield_per_hour: int | None = None
+    distance: int | None = None
+    march_seconds: int | None = None
+    expected_win_rate: float | None = Field(default=None, ge=0.0, le=1.0)
+    expected_battle_loss: int | None = None
+    risk_label: Literal["safe", "edge", "danger", "unknown"] = "unknown"
+    center_x: int | None = Field(default=None, ge=0, le=1000)
+    center_y: int | None = Field(default=None, ge=0, le=1000)
+    x_min: int | None = Field(default=None, ge=0, le=1000)
+    y_min: int | None = Field(default=None, ge=0, le=1000)
+    x_max: int | None = Field(default=None, ge=0, le=1000)
+    y_max: int | None = Field(default=None, ge=0, le=1000)
+    visible_notes: list[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def _validate_land_bbox(self):
+        _validate_bbox(self, ("x_min", "y_min", "x_max", "y_max"), "map land")
+        return self
+
+
+class MapLandFilterToggleDetection(BaseModel):
+    resource_type: Literal["wood", "stone", "iron", "grain"]
+    selected: bool = False
+    visible: bool = False
+    enabled: bool = False
+    x_min: int | None = Field(default=None, ge=0, le=1000)
+    y_min: int | None = Field(default=None, ge=0, le=1000)
+    x_max: int | None = Field(default=None, ge=0, le=1000)
+    y_max: int | None = Field(default=None, ge=0, le=1000)
+
+    @model_validator(mode="after")
+    def _validate_toggle_bbox(self):
+        _validate_visible_button(
+            self,
+            visible_field="visible",
+            enabled_field="enabled",
+            bbox_fields=("x_min", "y_min", "x_max", "y_max"),
+            label="map land resource toggle",
+        )
+        return self
+
+
+class MapLandLevelToggleDetection(BaseModel):
+    level: int = Field(ge=1, le=12)
+    selected: bool = False
+    visible: bool = False
+    enabled: bool = False
+    x_min: int | None = Field(default=None, ge=0, le=1000)
+    y_min: int | None = Field(default=None, ge=0, le=1000)
+    x_max: int | None = Field(default=None, ge=0, le=1000)
+    y_max: int | None = Field(default=None, ge=0, le=1000)
+
+    @model_validator(mode="after")
+    def _validate_level_toggle_bbox(self):
+        _validate_visible_button(
+            self,
+            visible_field="visible",
+            enabled_field="enabled",
+            bbox_fields=("x_min", "y_min", "x_max", "y_max"),
+            label="map land level toggle",
+        )
+        return self
+
+
+class MapLandDetection(BaseModel):
+    page_type: Literal["main_map", "unknown"]
+    filter_panel_visible: bool = False
+    resource_filter_enabled: bool = False
+    selected_resource_types: list[Literal["wood", "stone", "iron", "grain"]] = Field(default_factory=list)
+    selected_levels: list[int] = Field(default_factory=list)
+    level_min: int | None = None
+    level_max: int | None = None
+    filter_button_visible: bool = False
+    filter_button_enabled: bool = False
+    filter_button_x_min: int | None = Field(default=None, ge=0, le=1000)
+    filter_button_y_min: int | None = Field(default=None, ge=0, le=1000)
+    filter_button_x_max: int | None = Field(default=None, ge=0, le=1000)
+    filter_button_y_max: int | None = Field(default=None, ge=0, le=1000)
+    apply_button_visible: bool = False
+    apply_button_enabled: bool = False
+    apply_button_x_min: int | None = Field(default=None, ge=0, le=1000)
+    apply_button_y_min: int | None = Field(default=None, ge=0, le=1000)
+    apply_button_x_max: int | None = Field(default=None, ge=0, le=1000)
+    apply_button_y_max: int | None = Field(default=None, ge=0, le=1000)
+    resource_toggles: list[MapLandFilterToggleDetection] = Field(default_factory=list)
+    level_toggles: list[MapLandLevelToggleDetection] = Field(default_factory=list)
+    map_center_x: int | None = None
+    map_center_y: int | None = None
+    lands: list[MapLandCandidateDetection] = Field(default_factory=list)
+    visible_notes: list[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def _validate_filter_buttons(self):
+        _validate_visible_button(
+            self,
+            visible_field="filter_button_visible",
+            enabled_field="filter_button_enabled",
+            bbox_fields=(
+                "filter_button_x_min",
+                "filter_button_y_min",
+                "filter_button_x_max",
+                "filter_button_y_max",
+            ),
+            label="map land filter button",
+        )
+        _validate_visible_button(
+            self,
+            visible_field="apply_button_visible",
+            enabled_field="apply_button_enabled",
+            bbox_fields=(
+                "apply_button_x_min",
+                "apply_button_y_min",
+                "apply_button_x_max",
+                "apply_button_y_max",
+            ),
+            label="map land filter apply button",
+        )
+        return self
+
+    @model_validator(mode="after")
+    def _validate_page_domain(self):
+        if self.page_type == "unknown" and any(
+            (
+                self.filter_panel_visible,
+                self.resource_filter_enabled,
+                self.selected_resource_types,
+                self.selected_levels,
+                self.filter_button_visible,
+                self.apply_button_visible,
+                self.resource_toggles,
+                self.level_toggles,
+                self.lands,
+            )
+        ):
+            raise ValueError("unknown main-map page_type cannot include land payload")
+        return self
+
+
+MAP_LAND_SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "properties": {
+        "page_type": {
+            "type": "string",
+            "enum": ["main_map", "unknown"],
+        },
+        "filter_panel_visible": {"type": "boolean"},
+        "resource_filter_enabled": {"type": "boolean"},
+        "selected_resource_types": {
+            "type": "array",
+            "items": {"type": "string", "enum": ["wood", "stone", "iron", "grain"]},
+        },
+        "selected_levels": {"type": "array", "items": {"type": "integer"}},
+        "level_min": {"type": "integer"},
+        "level_max": {"type": "integer"},
+        "filter_button_visible": {"type": "boolean"},
+        "filter_button_enabled": {"type": "boolean"},
+        "filter_button_x_min": {"type": "integer"},
+        "filter_button_y_min": {"type": "integer"},
+        "filter_button_x_max": {"type": "integer"},
+        "filter_button_y_max": {"type": "integer"},
+        "apply_button_visible": {"type": "boolean"},
+        "apply_button_enabled": {"type": "boolean"},
+        "apply_button_x_min": {"type": "integer"},
+        "apply_button_y_min": {"type": "integer"},
+        "apply_button_x_max": {"type": "integer"},
+        "apply_button_y_max": {"type": "integer"},
+        "resource_toggles": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "resource_type": {
+                        "type": "string",
+                        "enum": ["wood", "stone", "iron", "grain"],
+                    },
+                    "selected": {"type": "boolean"},
+                    "visible": {"type": "boolean"},
+                    "enabled": {"type": "boolean"},
+                    "x_min": {"type": "integer"},
+                    "y_min": {"type": "integer"},
+                    "x_max": {"type": "integer"},
+                    "y_max": {"type": "integer"},
+                },
+                "required": ["resource_type", "selected", "visible", "enabled"],
+            },
+        },
+        "level_toggles": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "level": {"type": "integer", "minimum": 1, "maximum": 12},
+                    "selected": {"type": "boolean"},
+                    "visible": {"type": "boolean"},
+                    "enabled": {"type": "boolean"},
+                    "x_min": {"type": "integer"},
+                    "y_min": {"type": "integer"},
+                    "x_max": {"type": "integer"},
+                    "y_max": {"type": "integer"},
+                },
+                "required": ["level", "selected", "visible", "enabled"],
+            },
+        },
+        "map_center_x": {"type": "integer"},
+        "map_center_y": {"type": "integer"},
+        "lands": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "land_id": {"type": "string"},
+                    "coordinate_x": {"type": "integer"},
+                    "coordinate_y": {"type": "integer"},
+                    "level": {"type": "integer", "minimum": 1, "maximum": 12},
+                    "resource_type": {
+                        "type": "string",
+                        "enum": ["wood", "stone", "iron", "grain", "unknown"],
+                    },
+                    "occupied": {
+                        "type": "boolean",
+                        "description": "Omit unless ownership is explicitly visible.",
+                    },
+                    "owner": {"type": "string"},
+                    "reachable": {
+                        "type": "boolean",
+                        "description": "Omit unless reachability is explicitly visible.",
+                    },
+                    "can_attack": {
+                        "type": "boolean",
+                        "description": "Omit unless an enabled attack control is explicitly visible.",
+                    },
+                    "protected": {
+                        "type": "boolean",
+                        "description": "Omit unless protection status is explicitly visible.",
+                    },
+                    "selected": {"type": "boolean"},
+                    "recommended_marker": {"type": "boolean"},
+                    "yield_per_hour": {"type": "integer"},
+                    "distance": {"type": "integer"},
+                    "march_seconds": {"type": "integer"},
+                    "expected_win_rate": {"type": "number"},
+                    "expected_battle_loss": {"type": "integer"},
+                    "risk_label": {
+                        "type": "string",
+                        "enum": ["safe", "edge", "danger", "unknown"],
+                    },
+                    "center_x": {"type": "integer"},
+                    "center_y": {"type": "integer"},
+                    "x_min": {"type": "integer"},
+                    "y_min": {"type": "integer"},
+                    "x_max": {"type": "integer"},
+                    "y_max": {"type": "integer"},
+                    "visible_notes": {"type": "array", "items": {"type": "string"}},
+                },
+            },
+        },
+        "visible_notes": {"type": "array", "items": {"type": "string"}},
+    },
+    "required": [
+        "page_type",
+        "filter_panel_visible",
+        "resource_filter_enabled",
+        "selected_resource_types",
+        "selected_levels",
+        "filter_button_visible",
+        "filter_button_enabled",
+        "apply_button_visible",
+        "apply_button_enabled",
+        "resource_toggles",
+        "level_toggles",
+        "lands",
+        "visible_notes",
+    ],
+}
+
+
+MAP_LAND_INSTRUCTION = (
+    "This screenshot was explicitly classified as the main_map page in 三国·谋定天下. "
+    "Extract the current land/filter snapshot and only visible facts. occupied, "
+    "protected, reachable, and can_attack are independent safety facts: omit each one "
+    "unless the screenshot explicitly proves it. Extract level, resource type, and "
+    "0-1000 normalized target bbox only when visible. Never infer hidden ownership, "
+    "reachability, protection, attackability, coordinates, or battle strength."
 )
 
 

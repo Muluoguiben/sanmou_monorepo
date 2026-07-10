@@ -12,13 +12,16 @@ field_meta entries always override: fresher timestamps win.
 """
 from __future__ import annotations
 
+from datetime import datetime
 from difflib import SequenceMatcher
 from typing import Any
 
 from pioneer_agent.core.models import FieldMeta, RuntimeState
 
+from .battle_report import BattleReportFragment
 from .chapter_panel import ChapterPanelFragment
 from .city_buildings import CityBuildingsFragment
+from .map_land import MapLandFragment
 from .mode_hub import ModeHubFragment
 from .popup import PopupFragment
 from .recruit_panel import RecruitPanelFragment
@@ -45,6 +48,48 @@ _LIST_DOMAINS = {
     "team_containers",
     "carrier_pool",
 }
+
+_MAP_CANDIDATES_META_KEY = "map_state.candidate_lands"
+_LATEST_BATTLE_META_KEY = "map_state.latest_battle_report"
+_MAP_SNAPSHOT_KEYS = frozenset(
+    {
+        "map_land_filter",
+        "visible_lands",
+        "candidate_lands",
+        "visible_land_count",
+        "candidate_land_count",
+        "map_center_coordinate",
+    }
+)
+
+
+def expire_map_land_candidates(
+    state: RuntimeState,
+    *,
+    captured_at: datetime,
+) -> RuntimeState:
+    """Clear actionable map candidates when the current screenshot is not a map snapshot."""
+    expiry_meta = FieldMeta(
+        value=0,
+        confidence=1.0,
+        source="vision.page_route",
+        updated_at=captured_at,
+    )
+    if not _snapshot_is_current(
+        state.field_meta.get(_MAP_CANDIDATES_META_KEY),
+        expiry_meta,
+        incomparable_is_current=True,
+    ):
+        return state
+
+    merged_map = dict(state.map_state)
+    merged_map["candidate_lands"] = []
+    merged_map["candidate_land_count"] = 0
+    merged_meta = dict(state.field_meta)
+    merged_meta[_MAP_CANDIDATES_META_KEY] = expiry_meta
+    return state.model_copy(
+        update={"map_state": merged_map, "field_meta": merged_meta}
+    )
 
 
 def apply_resource_bar(state: RuntimeState, fragment: ResourceBarFragment) -> RuntimeState:
@@ -94,6 +139,56 @@ def apply_mode_hub(state: RuntimeState, fragment: ModeHubFragment) -> RuntimeSta
     updates["field_meta"] = merged_meta
 
     return state.model_copy(update=updates)
+
+
+def apply_map_land(state: RuntimeState, fragment: MapLandFragment) -> RuntimeState:
+    """Replace the map snapshot, rejecting observations older than current state."""
+    incoming_meta = fragment.field_meta.get(_MAP_CANDIDATES_META_KEY)
+    existing_meta = state.field_meta.get(_MAP_CANDIDATES_META_KEY)
+    if not _snapshot_is_current(existing_meta, incoming_meta):
+        return state
+
+    merged_map = dict(state.map_state)
+    # These values describe one screenshot. They must not accumulate across
+    # observations; durable history belongs in a separate domain.
+    for key in _MAP_SNAPSHOT_KEYS:
+        merged_map.pop(key, None)
+    merged_map.update(fragment.map_state)
+    merged_meta = dict(state.field_meta)
+    merged_meta.update(fragment.field_meta)
+    return state.model_copy(
+        update={"map_state": merged_map, "field_meta": merged_meta}
+    )
+
+
+def apply_battle_report(
+    state: RuntimeState,
+    fragment: BattleReportFragment,
+) -> RuntimeState:
+    """Merge report history while only promoting a non-stale report to latest."""
+    if not fragment.map_state:
+        return state
+
+    merged_map = dict(state.map_state)
+    incoming_reports = fragment.map_state.get("battle_reports") or []
+    merged_map["battle_reports"] = _merge_battle_reports(
+        state.map_state.get("battle_reports") or [],
+        incoming_reports,
+    )
+
+    incoming_meta = fragment.field_meta.get(_LATEST_BATTLE_META_KEY)
+    existing_meta = state.field_meta.get(_LATEST_BATTLE_META_KEY)
+    promote_latest = _snapshot_is_current(existing_meta, incoming_meta)
+    merged_meta = dict(state.field_meta)
+    if promote_latest:
+        for key in ("latest_battle_report", "battle_report_verification"):
+            if key in fragment.map_state:
+                merged_map[key] = fragment.map_state[key]
+        merged_meta.update(fragment.field_meta)
+
+    return state.model_copy(
+        update={"map_state": merged_map, "field_meta": merged_meta}
+    )
 
 
 def apply_chapter_panel(state: RuntimeState, fragment: ChapterPanelFragment) -> RuntimeState:
@@ -290,6 +385,82 @@ def _merge_list_by_key(
         else:
             by_key[key_value] = dict(entry)
     return [*passthrough, *by_key.values()]
+
+
+def _snapshot_is_current(
+    existing: FieldMeta | None,
+    incoming: FieldMeta | None,
+    *,
+    incomparable_is_current: bool = False,
+) -> bool:
+    if existing is None or existing.updated_at is None:
+        return True
+    if incoming is None or incoming.updated_at is None:
+        return False
+    try:
+        return incoming.updated_at >= existing.updated_at
+    except TypeError:
+        # Legacy callers may mix timezone-aware UTC with naive local time. The
+        # ordering is unknowable without guessing a timezone, so callers choose
+        # the safe direction: candidate application rejects; expiry clears.
+        return incomparable_is_current
+
+
+def _merge_battle_reports(
+    existing: list[dict[str, Any]],
+    incoming: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    by_id = {
+        str(report["report_id"]): dict(report)
+        for report in existing
+        if report.get("report_id") is not None
+    }
+    passthrough = [
+        dict(report)
+        for report in existing
+        if report.get("report_id") is None
+    ]
+    for report in incoming:
+        report_id = report.get("report_id")
+        if report_id is None:
+            passthrough.append(dict(report))
+            continue
+        key = str(report_id)
+        current = by_id.get(key)
+        if current is not None and _report_is_older(report, current):
+            continue
+        if current is None:
+            by_id[key] = dict(report)
+        else:
+            current.update(report)
+            by_id[key] = current
+    return [*passthrough, *by_id.values()]
+
+
+def _report_is_older(
+    incoming: dict[str, Any],
+    existing: dict[str, Any],
+) -> bool:
+    incoming_at = _parse_datetime(incoming.get("captured_at"))
+    existing_at = _parse_datetime(existing.get("captured_at"))
+    if existing_at is None:
+        return False
+    if incoming_at is None:
+        return True
+    try:
+        return incoming_at < existing_at
+    except TypeError:
+        # Never let an ambiguously ordered observation overwrite a keyed report.
+        return True
+
+
+def _parse_datetime(value: Any) -> datetime | None:
+    if not isinstance(value, str) or not value:
+        return None
+    try:
+        return datetime.fromisoformat(value)
+    except ValueError:
+        return None
 
 
 def _resolve_team_ids(state: RuntimeState, teams: list[dict[str, Any]]) -> list[dict[str, Any]]:

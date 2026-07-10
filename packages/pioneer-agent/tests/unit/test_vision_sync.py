@@ -3,9 +3,10 @@ from __future__ import annotations
 
 import unittest
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from typing import Any
 
-from pioneer_agent.core.models import RuntimeState
+from pioneer_agent.core.models import FieldMeta, RuntimeState
 from pioneer_agent.perception.vision_sync import VisionSync
 
 
@@ -26,6 +27,13 @@ class _ScriptedVisionClient:
         self.calls: list[str] = []
 
     def extract(self, image, instruction, response_schema, **kwargs):  # noqa: ANN001
+        instruction_lower = instruction.lower()
+        if "explicitly classified as the main_map page" in instruction_lower:
+            self.calls.append("map_land")
+            return _StubResult(data=self._payloads[len(self.calls) - 1])
+        if "explicitly classified as the battle page" in instruction_lower:
+            self.calls.append("battle_report")
+            return _StubResult(data=self._payloads[len(self.calls) - 1])
         # Differentiate by instruction prefix — cheap and accurate enough for tests.
         if "mode hub" in instruction.lower() or "演武大会" in instruction or "征战入口" in instruction:
             kind = "mode_hub"
@@ -52,23 +60,92 @@ class _ScriptedVisionClient:
 
 
 class VisionSyncTests(unittest.TestCase):
-    def test_main_map_runs_only_resource_bar(self) -> None:
+    def test_main_map_runs_map_land_from_explicit_page_type(self) -> None:
         client = _ScriptedVisionClient(
             [
                 {
                     "page_type": "main_map",
                     "resources": {"copper": 100},
                     "visible_notes": ["banner"],
-                }
+                },
+                {
+                    "page_type": "main_map",
+                    "filter_panel_visible": False,
+                    "resource_filter_enabled": False,
+                    "selected_resource_types": [],
+                    "selected_levels": [],
+                    "filter_button_visible": False,
+                    "filter_button_enabled": False,
+                    "apply_button_visible": False,
+                    "apply_button_enabled": False,
+                    "resource_toggles": [],
+                    "level_toggles": [],
+                    "lands": [],
+                    "visible_notes": [],
+                },
             ]
         )
         sync = VisionSync(client)
         state, summary = sync.sync(b"png", state=RuntimeState())
         self.assertEqual(summary.page_type, "main_map")
-        self.assertEqual(summary.domains_run, ["resource_bar"])
-        self.assertEqual(client.calls, ["resource_bar"])
+        self.assertEqual(summary.domains_run, ["resource_bar", "map_land"])
+        self.assertEqual(client.calls, ["resource_bar", "map_land"])
         self.assertEqual(state.global_state.get("page_type"), "main_map")
         self.assertIn("banner", summary.notes)
+
+    def test_battle_page_runs_report_parser_but_does_not_verify_action(self) -> None:
+        client = _ScriptedVisionClient(
+            [
+                {"page_type": "battle", "resources": {}, "visible_notes": []},
+                {
+                    "page_type": "battle",
+                    "result": "win",
+                    "occupation_result": "unknown",
+                    "attacker_heroes": [],
+                    "defender_heroes": [],
+                    "key_events": [],
+                    "visible_sections": [],
+                    "visible_notes": [],
+                },
+            ]
+        )
+        state, summary = VisionSync(client).sync(b"png")
+
+        self.assertEqual(summary.domains_run, ["resource_bar", "battle_report"])
+        self.assertEqual(client.calls, ["resource_bar", "battle_report"])
+        verification = state.map_state["battle_report_verification"]
+        self.assertFalse(verification["action_verification_ready"])
+        self.assertEqual(verification["verifier_status"], "unverified")
+
+    def test_battle_route_with_unknown_secondary_parse_preserves_prior_report(self) -> None:
+        client = _ScriptedVisionClient(
+            [
+                {"page_type": "battle", "resources": {}, "visible_notes": []},
+                {
+                    "page_type": "unknown",
+                    "result": "unknown",
+                    "occupation_result": "unknown",
+                    "attacker_heroes": [],
+                    "defender_heroes": [],
+                    "key_events": [],
+                    "visible_sections": [],
+                    "visible_notes": [],
+                },
+            ]
+        )
+        previous = RuntimeState(
+            map_state={
+                "latest_battle_report": {"report_id": "prior"},
+                "battle_reports": [{"report_id": "prior"}],
+            }
+        )
+
+        state, summary = VisionSync(client).sync(b"png", state=previous)
+
+        self.assertEqual(summary.domains_run, ["resource_bar", "battle_report"])
+        self.assertEqual(client.calls, ["resource_bar", "battle_report"])
+        self.assertEqual(state.map_state["latest_battle_report"]["report_id"], "prior")
+        self.assertEqual(state.map_state["battle_reports"], [{"report_id": "prior"}])
 
     def test_city_page_also_runs_city_buildings(self) -> None:
         client = _ScriptedVisionClient(
@@ -91,11 +168,119 @@ class VisionSyncTests(unittest.TestCase):
 
     def test_unknown_page_stops_after_resource_bar(self) -> None:
         client = _ScriptedVisionClient(
-            [{"page_type": "unknown", "resources": {}}]
+            [
+                {
+                    "page_type": "unknown",
+                    "resources": {},
+                    "visible_notes": ["land-like words must not trigger routing"],
+                }
+            ]
         )
         sync = VisionSync(client)
         _state, summary = sync.sync(b"png")
         self.assertEqual(summary.domains_run, ["resource_bar"])
+        self.assertEqual(client.calls, ["resource_bar"])
+
+    def test_non_map_snapshot_clears_ephemeral_candidate_lands(self) -> None:
+        client = _ScriptedVisionClient(
+            [{"page_type": "unknown", "resources": {}, "visible_notes": []}]
+        )
+        previous = RuntimeState(
+            map_state={
+                "candidate_lands": [{"land_id": "stale"}],
+                "candidate_land_count": 1,
+                "visible_lands": [{"land_id": "historical"}],
+            }
+        )
+
+        state, _summary = VisionSync(client).sync(b"png", state=previous)
+
+        self.assertEqual(state.map_state["candidate_lands"], [])
+        self.assertEqual(state.map_state["candidate_land_count"], 0)
+        self.assertEqual(state.map_state["visible_lands"], [{"land_id": "historical"}])
+
+    def test_older_non_map_snapshot_does_not_expire_newer_candidates(self) -> None:
+        client = _ScriptedVisionClient(
+            [{"page_type": "unknown", "resources": {}, "visible_notes": []}]
+        )
+        previous = RuntimeState(
+            map_state={
+                "candidate_lands": [{"land_id": "newer"}],
+                "candidate_land_count": 1,
+            },
+            field_meta={
+                "map_state.candidate_lands": FieldMeta(
+                    value=1,
+                    source="vision.map_land",
+                    updated_at=datetime(2026, 7, 10, 12, 0, 1),
+                )
+            },
+        )
+
+        state, _summary = VisionSync(client).sync(
+            b"png",
+            state=previous,
+            captured_at=datetime(2026, 7, 10, 12, 0, 0),
+        )
+
+        self.assertEqual(state.map_state["candidate_lands"], [{"land_id": "newer"}])
+
+    def test_mixed_timezone_main_map_cannot_replace_prior_candidate_watermark(self) -> None:
+        client = _ScriptedVisionClient(
+            [
+                {"page_type": "main_map", "resources": {}, "visible_notes": []},
+                {
+                    "page_type": "main_map",
+                    "filter_panel_visible": False,
+                    "resource_filter_enabled": False,
+                    "selected_resource_types": [],
+                    "selected_levels": [],
+                    "filter_button_visible": False,
+                    "filter_button_enabled": False,
+                    "apply_button_visible": False,
+                    "apply_button_enabled": False,
+                    "resource_toggles": [],
+                    "level_toggles": [],
+                    "lands": [
+                        {
+                            "land_id": "ambiguous",
+                            "level": 6,
+                            "resource_type": "stone",
+                            "occupied": False,
+                            "protected": False,
+                            "reachable": True,
+                            "can_attack": True,
+                            "x_min": 400,
+                            "y_min": 420,
+                            "x_max": 500,
+                            "y_max": 520,
+                        }
+                    ],
+                    "visible_notes": [],
+                },
+            ]
+        )
+        previous = RuntimeState(
+            map_state={
+                "candidate_lands": [{"land_id": "aware-prior"}],
+                "candidate_land_count": 1,
+            },
+            field_meta={
+                "map_state.candidate_lands": FieldMeta(
+                    value=1,
+                    source="vision.map_land",
+                    updated_at=datetime(2026, 7, 10, 4, 0, tzinfo=timezone.utc),
+                )
+            },
+        )
+
+        state, _summary = VisionSync(client).sync(
+            b"png",
+            state=previous,
+            captured_at=datetime(2026, 7, 10, 13, 0),
+        )
+
+        self.assertEqual(state.map_state["candidate_lands"], [{"land_id": "aware-prior"}])
 
     def test_popup_note_runs_popup_detector(self) -> None:
         client = _ScriptedVisionClient(

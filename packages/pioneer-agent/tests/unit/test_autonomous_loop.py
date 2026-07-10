@@ -41,8 +41,14 @@ class _ScriptedVision:
         return events
 
     def extract(self, image, instruction, response_schema, **kwargs):  # noqa: ANN001
-        p = self._payloads[self.calls]
-        self.calls += 1
+        instruction_lower = instruction.lower()
+        if "explicitly classified as the main_map page" in instruction_lower:
+            p = _empty_map_land_payload()
+        elif "explicitly classified as the battle page" in instruction_lower:
+            p = _empty_battle_report_payload()
+        else:
+            p = self._payloads[self.calls]
+            self.calls += 1
         self._trace_events.append(
             {
                 "model": "stub",
@@ -52,6 +58,37 @@ class _ScriptedVision:
             }
         )
         return _StubResult(data=p)
+
+
+def _empty_map_land_payload() -> dict[str, Any]:
+    return {
+        "page_type": "main_map",
+        "filter_panel_visible": False,
+        "resource_filter_enabled": False,
+        "selected_resource_types": [],
+        "selected_levels": [],
+        "filter_button_visible": False,
+        "filter_button_enabled": False,
+        "apply_button_visible": False,
+        "apply_button_enabled": False,
+        "resource_toggles": [],
+        "level_toggles": [],
+        "lands": [],
+        "visible_notes": [],
+    }
+
+
+def _empty_battle_report_payload() -> dict[str, Any]:
+    return {
+        "page_type": "battle",
+        "result": "unknown",
+        "occupation_result": "unknown",
+        "attacker_heroes": [],
+        "defender_heroes": [],
+        "key_events": [],
+        "visible_sections": [],
+        "visible_notes": [],
+    }
 
 
 class _StubBridge:
