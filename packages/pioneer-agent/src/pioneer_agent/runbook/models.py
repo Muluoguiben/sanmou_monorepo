@@ -180,6 +180,45 @@ class PhaseDefinition(BaseModel):
                 ]
         return data
 
+    @field_validator("selector_hints")
+    @classmethod
+    def _validate_selector_hints(cls, hints: dict[str, Any]) -> dict[str, Any]:
+        if "allowed_action_types" in hints and not isinstance(
+            hints["allowed_action_types"], list
+        ):
+            raise ValueError("selector_hints.allowed_action_types must be a list")
+
+        if "target_land_levels" in hints:
+            levels = hints["target_land_levels"]
+            if not isinstance(levels, list) or not levels:
+                raise ValueError("selector_hints.target_land_levels must be a non-empty list")
+            if any(
+                isinstance(level, bool)
+                or not isinstance(level, int)
+                or not 1 <= level <= 12
+                for level in levels
+            ):
+                raise ValueError(
+                    "selector_hints.target_land_levels entries must be integers from 1 to 12"
+                )
+
+        if "land_scope" in hints and hints["land_scope"] not in {
+            "inner_city",
+            "outer_city",
+            "inner_and_outer",
+        }:
+            raise ValueError(
+                "selector_hints.land_scope must be inner_city, outer_city, or inner_and_outer"
+            )
+
+        if "lineup_preset" in hints:
+            preset = hints["lineup_preset"]
+            if not isinstance(preset, str) or not preset.strip():
+                raise ValueError("selector_hints.lineup_preset must be a non-empty string")
+            hints = dict(hints)
+            hints["lineup_preset"] = preset.strip()
+        return hints
+
 
 class OpeningRunbook(BaseModel):
     schema_version: str = "opening_runbook.v1"

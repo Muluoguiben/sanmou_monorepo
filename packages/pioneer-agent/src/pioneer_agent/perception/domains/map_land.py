@@ -137,6 +137,7 @@ def _land_dict(
         "land_id": land.land_id or _synthetic_land_id(land),
         "source": SOURCE_LABEL,
         "resource_type": land.resource_type,
+        "land_scope": land.land_scope,
         "occupied": land.occupied,
         "protected": land.protected,
         "reachable": land.reachable,

@@ -5,9 +5,9 @@ from typing import Any
 from pioneer_agent.core.enums import ActionType
 from pioneer_agent.core.models import CandidateAction, RuntimeState
 from pioneer_agent.runbook.action_filter import (
-    RUNBOOK_FILTER_REJECT_REASON,
-    action_type_allowed,
-    normalized_allowed_action_types,
+    RUNBOOK_CONTEXT_MISSING_REASON,
+    resolve_runbook_action_facts,
+    runbook_action_reject_reason,
 )
 from pioneer_agent.scoring.transfer import is_transfer_candidate_valid
 
@@ -83,11 +83,12 @@ class CandidateFilter:
             return None
         runbook = state.global_state.get("runbook")
         if not isinstance(runbook, dict):
-            return None
-        allowed = normalized_allowed_action_types(runbook.get("selector_hints"))
-        if action_type_allowed(candidate.action_type, allowed):
-            return None
-        return RUNBOOK_FILTER_REJECT_REASON
+            return RUNBOOK_CONTEXT_MISSING_REASON
+        return runbook_action_reject_reason(
+            candidate,
+            runbook.get("selector_hints"),
+            actual_facts=resolve_runbook_action_facts(state, candidate),
+        )
 
     @staticmethod
     def _reject_upgrade(candidate: CandidateAction) -> str | None:

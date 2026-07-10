@@ -13,7 +13,7 @@ import time
 from dataclasses import dataclass
 from datetime import datetime
 from io import BytesIO
-from typing import Any, Protocol
+from typing import Any, Mapping, Protocol
 
 from PIL import Image, UnidentifiedImageError
 
@@ -23,9 +23,13 @@ from pioneer_agent.derivation.state_deriver import StateDeriver
 from pioneer_agent.executor.ui_actions import UIActions
 from pioneer_agent.executor.ui_runner import UIActionRunner
 from pioneer_agent.perception.vision_sync import VisionSync, VisionSyncSummary
-from pioneer_agent.runbook.action_filter import RUNBOOK_FILTER_REJECT_REASON
+from pioneer_agent.runbook.action_filter import (
+    RUNBOOK_ACTION_CONSTRAINT_REASONS,
+    resolve_runbook_action_facts,
+)
 from pioneer_agent.runbook.engine import RunbookEngine
 from pioneer_agent.runbook.loader import metrics_from_runtime_state
+from pioneer_agent.runbook.lineup_binding import apply_operator_lineup_bindings
 from pioneer_agent.runbook.models import (
     EscalationKind,
     EscalationRoute,
@@ -98,6 +102,7 @@ class AutonomousLoop:
         kill_switch: KillSwitch | None = None,
         runbook_engine: RunbookEngine | None = None,
         runbook_state_store: RunbookStateStore | None = None,
+        lineup_preset_bindings: Mapping[str, str] | None = None,
         dry_run: bool = False,
         stuck_threshold: int = STUCK_ESC_THRESHOLD,
         post_action_verify_poll_interval_s: float = 1.0,
@@ -119,6 +124,9 @@ class AutonomousLoop:
         self._guard = DispatchGuard(kill_switch=kill_switch)
         self.runbook_engine = runbook_engine
         self.runbook_state_store = runbook_state_store
+        self.lineup_preset_bindings = dict(lineup_preset_bindings or {})
+        self._lineup_bindings_bound_at = datetime.now().astimezone()
+        self._lineup_binding_roster_fingerprints: dict[str, str] = {}
         self.dry_run = dry_run
         self.stuck_threshold = stuck_threshold
         self.post_action_verify_poll_interval_s = post_action_verify_poll_interval_s
@@ -153,6 +161,7 @@ class AutonomousLoop:
         logger.info("tick %d: page=%s domains=%s", iteration, vision_summary.page_type, vision_summary.domains_run)
 
         derived = self.deriver.derive(self.state)
+        self._apply_lineup_preset_bindings(derived)
         # Freeze the runbook while the kill switch is tripped: no cursor
         # advancement and no persistence may happen during an emergency stop.
         kill_switch_active = self._guard.kill_switch_active
@@ -170,7 +179,10 @@ class AutonomousLoop:
         runbook_blocked = False
         dispatch_block_reason: str | None = None
         if selection.selected_action is not None:
-            verdict = self._guard.action_verdict(selection.selected_action)
+            verdict = self._guard.action_verdict(
+                selection.selected_action,
+                state=derived,
+            )
             if not verdict.allowed:
                 dispatch_block_reason = verdict.reason
                 runbook_blocked = verdict.reason != KILL_SWITCH_REASON
@@ -245,9 +257,18 @@ class AutonomousLoop:
 
         extra_runbook_escalations = self._track_runbook_filter_blocks(
             runbook_decision,
-            blocked=dispatch_block_reason == RUNBOOK_FILTER_REJECT_REASON,
+            blocked_reason=(
+                dispatch_block_reason
+                if dispatch_block_reason in RUNBOOK_ACTION_CONSTRAINT_REASONS
+                else None
+            ),
             action=selection.selected_action,
             selection=selection,
+            state=derived,
+        )
+        policy_starved = self._is_runbook_policy_starved(
+            runbook_decision,
+            selection,
         )
 
         # The verifier inside the action/flow block re-observes and mutates
@@ -278,7 +299,12 @@ class AutonomousLoop:
                 input_trace.extend(_consume_input_trace(self.ui_actions))
                 self._stuck_count = 0
                 sleep_s = DEFAULT_SLEEP_S
-        elif self._is_stuck(vision_summary, selection, execution):
+        elif self._is_stuck(
+            vision_summary,
+            selection,
+            execution,
+            policy_starved=policy_starved,
+        ):
             self._stuck_count += 1
             if self._stuck_count >= self.stuck_threshold and not self.dry_run:
                 recovery_verdict = self._guard.recovery_verdict()
@@ -408,6 +434,7 @@ class AutonomousLoop:
         if self.runbook_engine is None:
             return decision
         derived = self.deriver.derive(self.state)
+        self._apply_lineup_preset_bindings(derived)
         fresh = self._evaluate_runbook(iteration, derived, allow_transition=False)
         if fresh is None:
             return decision
@@ -436,29 +463,37 @@ class AutonomousLoop:
         )
         self._runbook_saved_signature = signature
 
+    def _apply_lineup_preset_bindings(self, state: RuntimeState) -> None:
+        if not self.lineup_preset_bindings:
+            return
+        apply_operator_lineup_bindings(
+            state,
+            self.lineup_preset_bindings,
+            bound_at=self._lineup_bindings_bound_at,
+            roster_fingerprints=self._lineup_binding_roster_fingerprints,
+        )
+
     def _track_runbook_filter_blocks(
         self,
         decision: RunbookDecision | None,
         *,
-        blocked: bool,
+        blocked_reason: str | None,
         action: CandidateAction | None,
         selection: SelectionResult,
+        state: RuntimeState,
     ) -> list[RunbookEscalation]:
         """Backstop against allowlist no-progress: counts both dispatch blocks
         (a selector that ignores hints) and selector starvation (the allowlist
         rejected every candidate, so nothing was selected at all). Either way,
         persistent no-progress escalates to the planner instead of idling
         silently."""
-        starved = False
-        if decision is not None and action is None:
-            reason_counts = {}
-            if isinstance(selection.selection_reason, dict):
-                pipeline = selection.selection_reason.get("pipeline")
-                if isinstance(pipeline, dict):
-                    reason_counts = pipeline.get("rejected_by_reason") or {}
-            starved = bool(reason_counts.get(RUNBOOK_FILTER_REJECT_REASON))
+        reason_counts = self._runbook_policy_rejection_counts(decision, selection)
+        starved = action is None and any(
+            bool(reason_counts.get(reason))
+            for reason in RUNBOOK_ACTION_CONSTRAINT_REASONS
+        )
 
-        if (not blocked and not starved) or decision is None:
+        if (blocked_reason is None and not starved) or decision is None:
             self._runbook_filter_block_phase = None
             self._runbook_filter_block_count = 0
             return []
@@ -470,6 +505,32 @@ class AutonomousLoop:
             return []
         count = self._runbook_filter_block_count
         self._runbook_filter_block_count = 0
+        policy_hints = {
+            key: decision.selector_hints.get(key)
+            for key in (
+                "allowed_action_types",
+                "target_land_levels",
+                "land_scope",
+                "lineup_preset",
+            )
+            if key in decision.selector_hints
+        }
+        observed_facts: dict[str, Any] | None = None
+        if action is not None:
+            resolved_facts = resolve_runbook_action_facts(state, action)
+            observed_facts = {
+                "source": "current_runtime_state",
+                "action_type": action.action_type.value,
+                "land_id": action.params.get("land_id"),
+                "team_id": action.params.get("team_id"),
+                "facts": {
+                    key: value
+                    for key, value in resolved_facts.items()
+                    if not key.startswith("_")
+                },
+            }
+        elif starved:
+            observed_facts = self._rejected_candidate_policy_facts(selection)
         return [
             RunbookEscalation(
                 kind=EscalationKind.ACTION_FILTER_STUCK,
@@ -478,11 +539,76 @@ class AutonomousLoop:
                 details={
                     "consecutive_blocks": count,
                     "starved": starved,
+                    "blocked_reason": blocked_reason,
+                    "rejected_by_reason": reason_counts,
                     "blocked_action_type": action.action_type.value if action else None,
                     "allowed_action_types": decision.selector_hints.get("allowed_action_types"),
+                    "active_selector_hints": policy_hints,
+                    "observed_action_facts": observed_facts,
                 },
             )
         ]
+
+    @staticmethod
+    def _runbook_policy_rejection_counts(
+        decision: RunbookDecision | None,
+        selection: SelectionResult,
+    ) -> dict[str, Any]:
+        if decision is None or selection.selected_action is not None:
+            return {}
+        if not isinstance(selection.selection_reason, dict):
+            return {}
+        pipeline = selection.selection_reason.get("pipeline")
+        if not isinstance(pipeline, dict):
+            return {}
+        reason_counts = pipeline.get("rejected_by_reason")
+        return reason_counts if isinstance(reason_counts, dict) else {}
+
+    @classmethod
+    def _is_runbook_policy_starved(
+        cls,
+        decision: RunbookDecision | None,
+        selection: SelectionResult,
+    ) -> bool:
+        counts = cls._runbook_policy_rejection_counts(decision, selection)
+        return any(
+            bool(counts.get(reason)) for reason in RUNBOOK_ACTION_CONSTRAINT_REASONS
+        )
+
+    @staticmethod
+    def _rejected_candidate_policy_facts(
+        selection: SelectionResult,
+    ) -> dict[str, Any] | None:
+        raw_candidates = selection.selection_reason.get("rejected_candidates")
+        if not isinstance(raw_candidates, list):
+            return None
+        candidates: list[dict[str, Any]] = []
+        fact_keys = (
+            "land_id",
+            "team_id",
+            "level",
+            "land_scope",
+            "lineup_preset",
+            "unlock_land_level",
+            "unlock_land_scope",
+            "unlock_lineup_preset",
+        )
+        for item in raw_candidates:
+            if not isinstance(item, dict) or item.get("reason") not in RUNBOOK_ACTION_CONSTRAINT_REASONS:
+                continue
+            params = item.get("params")
+            if not isinstance(params, dict):
+                params = {}
+            candidates.append(
+                {
+                    "action_type": item.get("action_type"),
+                    "reason": item.get("reason"),
+                    "facts": {key: params.get(key) for key in fact_keys if key in params},
+                }
+            )
+        if not candidates:
+            return None
+        return {"source": "rejected_candidates", "candidates": candidates[:10]}
 
     def _build_runbook_payload(
         self,
@@ -522,6 +648,8 @@ class AutonomousLoop:
         summary: VisionSyncSummary,
         selection: SelectionResult,
         execution: ExecutionResult | None,
+        *,
+        policy_starved: bool = False,
     ) -> bool:
         """A tick is 'stuck' when vision cannot classify the page or no useful
         progress was made: unknown page, no selected action, or a pending/failed
@@ -529,7 +657,7 @@ class AutonomousLoop:
         if summary.page_type in (None, "unknown"):
             return True
         if selection.selected_action is None:
-            return True
+            return not policy_starved
         if execution is not None and execution.status in ("failed", "pending"):
             return True
         return False
@@ -593,6 +721,7 @@ class AutonomousLoop:
         # boundary instead of swapping the phase — and persisting the new
         # cursor — under this in-flight action.
         derived = self.deriver.derive(self.state)
+        self._apply_lineup_preset_bindings(derived)
         flow_decision = self._evaluate_runbook(iteration, derived, allow_transition=False)
         if flow_decision is not None:
             self._guard.update_decision(flow_decision)
@@ -608,7 +737,7 @@ class AutonomousLoop:
                 next_action=next_action,
             )
 
-        verdict = self._guard.action_verdict(next_action)
+        verdict = self._guard.action_verdict(next_action, state=derived)
         if not verdict.allowed:
             logger.warning(
                 "tick %d: action flow continuation blocked (%s, phase=%s)",

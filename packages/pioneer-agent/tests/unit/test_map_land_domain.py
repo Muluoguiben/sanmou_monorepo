@@ -49,6 +49,7 @@ def _safe_land(**updates: Any) -> dict[str, Any]:
         "land_id": "L-1",
         "level": 6,
         "resource_type": "stone",
+        "land_scope": "inner_city",
         "occupied": False,
         "protected": False,
         "reachable": True,
@@ -75,6 +76,7 @@ class MapLandDomainTests(unittest.TestCase):
         self.assertEqual(fragment.map_state["candidate_land_count"], 1)
         candidate = fragment.map_state["candidate_lands"][0]
         self.assertEqual(candidate["land_id"], "L-1")
+        self.assertEqual(candidate["land_scope"], "inner_city")
         self.assertEqual(candidate["observed_at"], captured_at.isoformat())
         self.assertEqual(
             candidate["bbox"],

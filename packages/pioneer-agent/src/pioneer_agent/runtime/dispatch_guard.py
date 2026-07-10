@@ -10,11 +10,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from pioneer_agent.core.models import CandidateAction
+from pioneer_agent.core.models import CandidateAction, RuntimeState
 from pioneer_agent.runbook.action_filter import (
-    RUNBOOK_FILTER_REJECT_REASON,
-    action_type_allowed,
-    normalized_allowed_action_types,
+    resolve_runbook_action_facts,
+    runbook_action_reject_reason,
 )
 from pioneer_agent.runbook.models import RunbookDecision
 from pioneer_agent.safety.kill_switch import KillSwitch
@@ -61,18 +60,27 @@ class DispatchGuard:
             and self._decision.hold_reason in RUNBOOK_BLOCKING_HOLDS
         )
 
-    def action_verdict(self, action: CandidateAction) -> DispatchVerdict:
+    def action_verdict(
+        self,
+        action: CandidateAction,
+        *,
+        state: RuntimeState | None = None,
+    ) -> DispatchVerdict:
         """May this selected action be dispatched right now?"""
         base = self._input_verdict()
         if not base.allowed:
             return base
         if self._decision is not None:
-            allowed = normalized_allowed_action_types(self._decision.selector_hints)
-            if not action_type_allowed(action.action_type, allowed):
+            reason = runbook_action_reject_reason(
+                action,
+                self._decision.selector_hints,
+                actual_facts=resolve_runbook_action_facts(state, action),
+            )
+            if reason is not None:
                 return DispatchVerdict(
                     allowed=False,
-                    reason=RUNBOOK_FILTER_REJECT_REASON,
-                    failure_reason=RUNBOOK_FILTER_REJECT_REASON,
+                    reason=reason,
+                    failure_reason=reason,
                 )
         return _ALLOW
 

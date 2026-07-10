@@ -5,6 +5,7 @@ from typing import Any
 
 from pioneer_agent.core.enums import ActionType
 from pioneer_agent.core.models import CandidateAction, RuntimeState
+from pioneer_agent.runbook.lineup_binding import trusted_lineup_preset
 
 
 class CandidateGenerator:
@@ -155,9 +156,13 @@ class CandidateGenerator:
             return []
 
         team_id = state.main_lineup.get("current_host_team_id")
+        lineup_preset = trusted_lineup_preset(state, current_host)
         actions: list[CandidateAction] = []
         for land in state.map_state.get("candidate_lands", []):
             required_stamina = int(land.get("required_stamina", land.get("stamina_cost", 15)) or 15)
+            level = land.get("level")
+            if isinstance(level, bool) or not isinstance(level, int):
+                level = None
             actions.append(
                 CandidateAction(
                     action_id=self._build_action_id(ActionType.ATTACK_LAND, team_id or "unknown", land.get("land_id", "unknown")),
@@ -165,9 +170,14 @@ class CandidateGenerator:
                     params={
                         "team_id": team_id,
                         "land_id": land.get("land_id"),
-                        "level": int(land.get("level", 0) or 0),
+                        "level": level,
+                        "land_scope": land.get("land_scope"),
+                        "lineup_preset": lineup_preset,
                         "reachable": land.get("reachable", True),
                         "occupied": land.get("occupied", False),
+                        "protected": land.get("protected"),
+                        "can_attack": land.get("can_attack"),
+                        "observed_at": land.get("observed_at"),
                         "yield_per_hour": float(land.get("yield_per_hour", 0)),
                         "chapter_relevance": land.get("chapter_relevance", "none"),
                         "strategic_tags": list(land.get("strategic_tags", [])),
@@ -189,7 +199,11 @@ class CandidateGenerator:
                         "march_seconds": land.get("march_seconds", 0),
                     },
                     risk={"expected_win_rate": land.get("expected_win_rate", 0)},
-                    source_state_refs=["map_state.candidate_lands", "main_lineup.current_host_team_id", "team_containers"],
+                    source_state_refs=[
+                        "map_state.candidate_lands",
+                        "main_lineup.current_host_team_id",
+                        "team_containers.lineup_preset",
+                    ],
                 )
             )
         return actions
@@ -299,6 +313,7 @@ class CandidateGenerator:
             return []
 
         current_time = self._get_current_time(state)
+        lineup_preset = trusted_lineup_preset(state, current_host)
         actions: list[CandidateAction] = []
         for land in state.map_state.get("candidate_lands", []):
             if land.get("occupied") or land.get("reachable") is False:
@@ -307,6 +322,9 @@ class CandidateGenerator:
                 continue
 
             required_stamina = int(land.get("required_stamina", land.get("stamina_cost", 15)) or 15)
+            land_level = land.get("level")
+            if isinstance(land_level, bool) or not isinstance(land_level, int):
+                land_level = None
             stamina_gap = max(required_stamina - current_stamina, 0)
             if stamina_gap <= 0:
                 continue
@@ -328,7 +346,9 @@ class CandidateGenerator:
                         "team_id": current_host.get("team_id"),
                         "land_id": land.get("land_id"),
                         "unlock_action_type": ActionType.ATTACK_LAND.value,
-                        "unlock_land_level": int(land.get("level", 0) or 0),
+                        "unlock_land_level": land_level,
+                        "unlock_land_scope": land.get("land_scope"),
+                        "unlock_lineup_preset": lineup_preset,
                         "unlock_chapter_relevance": land.get("chapter_relevance", "none"),
                         "wait_seconds": wait_seconds,
                         "target_time": target_time,
@@ -342,7 +362,11 @@ class CandidateGenerator:
                     expected_cost={"idle_seconds": wait_seconds},
                     timing={"target_time": target_time},
                     interruptibility={"interruptible": True},
-                    source_state_refs=["team_containers", "map_state.candidate_lands", "swap_constraints.stamina_regen_per_hour"],
+                    source_state_refs=[
+                        "team_containers.lineup_preset",
+                        "map_state.candidate_lands",
+                        "swap_constraints.stamina_regen_per_hour",
+                    ],
                 )
             )
         return actions

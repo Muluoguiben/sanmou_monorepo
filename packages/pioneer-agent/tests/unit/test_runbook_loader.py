@@ -2,7 +2,9 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from pioneer_agent.core.models import RuntimeState
+from pioneer_agent.core.enums import ActionType
+from pioneer_agent.core.models import CandidateAction, RuntimeState
+from pioneer_agent.runbook.action_filter import runbook_action_reject_reason
 from pioneer_agent.runbook.loader import (
     DEFAULT_OPENING_RUNBOOK_PATH,
     load_default_opening_runbook,
@@ -99,6 +101,109 @@ class RunbookLoaderTests(unittest.TestCase):
             with self.assertLogs("pioneer_agent.runbook.loader", level="WARNING") as captured:
                 load_runbook(path)
         self.assertTrue(any("ATTACK_LAND" in line for line in captured.output))
+
+    def test_selector_hint_contract_rejects_malformed_policy_values(self) -> None:
+        invalid_hints = [
+            {"allowed_action_types": "attack_land"},
+            {"target_land_levels": []},
+            {"target_land_levels": [True]},
+            {"target_land_levels": [0]},
+            {"target_land_levels": [13]},
+            {"land_scope": "nearby"},
+            {"lineup_preset": "   "},
+            {"lineup_preset": 7},
+        ]
+        for hints in invalid_hints:
+            with self.subTest(hints=hints), self.assertRaises(ValueError):
+                OpeningRunbook.model_validate(
+                    {
+                        "season": "S15",
+                        "generated_at": "2026-07-10",
+                        "phases": [
+                            {
+                                "phase_id": "p1",
+                                "title": "invalid hints",
+                                "selector_hints": hints,
+                            }
+                        ],
+                    }
+                )
+
+    def test_selector_hint_contract_preserves_valid_and_extension_values(self) -> None:
+        runbook = OpeningRunbook.model_validate(
+            {
+                "season": "S15",
+                "generated_at": "2026-07-10",
+                "phases": [
+                    {
+                        "phase_id": "p1",
+                        "title": "valid hints",
+                        "selector_hints": {
+                            "allowed_action_types": ["attack_land"],
+                            "target_land_levels": [5, 6],
+                            "land_scope": "inner_and_outer",
+                            "lineup_preset": " main_team ",
+                            "coordination": "manual",
+                        },
+                    }
+                ],
+            }
+        )
+        hints = runbook.phases[0].selector_hints
+        self.assertEqual(hints["lineup_preset"], "main_team")
+        self.assertEqual(hints["coordination"], "manual")
+
+    def test_seed_s15_target_hints_enforce_actual_attack_facts(self) -> None:
+        runbook = load_default_opening_runbook()
+        cases = [
+            ("junk_clear_inner_lv1_2", 2, "inner_city", "junk_team"),
+            ("normal_clear_inner_lv2_3", 3, "outer_city", "normal_team"),
+            ("open_lv5_6", 6, "outer_city", "diaochan_manyi"),
+            ("open_lv7", 7, "inner_city", "zuo_tian_ning"),
+            ("open_lv8_9", 9, "outer_city", "main_team_lv8_9"),
+        ]
+        for phase_id, level, scope, preset in cases:
+            with self.subTest(phase_id=phase_id):
+                action = CandidateAction(
+                    action_id=phase_id,
+                    action_type=ActionType.ATTACK_LAND,
+                    params={
+                        "level": level,
+                        "land_scope": scope,
+                        "lineup_preset": preset,
+                    },
+                )
+                self.assertIsNone(
+                    runbook_action_reject_reason(
+                        action,
+                        runbook.phase(phase_id).selector_hints,
+                        actual_facts={
+                            **action.params,
+                            "_current_host_team_match": True,
+                        },
+                    )
+                )
+
+        mismatch = CandidateAction(
+            action_id="wrong-level",
+            action_type=ActionType.ATTACK_LAND,
+            params={
+                "level": 4,
+                "land_scope": "inner_city",
+                "lineup_preset": "junk_team",
+            },
+        )
+        self.assertEqual(
+            runbook_action_reject_reason(
+                mismatch,
+                runbook.phase("junk_clear_inner_lv1_2").selector_hints,
+                actual_facts={
+                    **mismatch.params,
+                    "_current_host_team_match": True,
+                },
+            ),
+            "runbook_target_land_level_mismatch",
+        )
 
     def test_user_path_expands_home(self) -> None:
         from pioneer_agent.app.cli_utils import user_path

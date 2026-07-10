@@ -1308,6 +1308,7 @@ class MapLandCandidateDetection(BaseModel):
     coordinate_y: int | None = None
     level: int | None = Field(default=None, ge=1, le=12)
     resource_type: Literal["wood", "stone", "iron", "grain", "unknown"] = "unknown"
+    land_scope: Literal["inner_city", "outer_city"] | None = None
     occupied: bool | None = None
     owner: str | None = None
     reachable: bool | None = None
@@ -1533,6 +1534,11 @@ MAP_LAND_SCHEMA: dict[str, Any] = {
                         "type": "string",
                         "enum": ["wood", "stone", "iron", "grain", "unknown"],
                     },
+                    "land_scope": {
+                        "type": "string",
+                        "enum": ["inner_city", "outer_city"],
+                        "description": "Omit unless inner/outer city context is explicit.",
+                    },
                     "occupied": {
                         "type": "boolean",
                         "description": "Omit unless ownership is explicitly visible.",
@@ -1596,8 +1602,9 @@ MAP_LAND_INSTRUCTION = (
     "Extract the current land/filter snapshot and only visible facts. occupied, "
     "protected, reachable, and can_attack are independent safety facts: omit each one "
     "unless the screenshot explicitly proves it. Extract level, resource type, and "
-    "0-1000 normalized target bbox only when visible. Never infer hidden ownership, "
-    "reachability, protection, attackability, coordinates, or battle strength."
+    "0-1000 normalized target bbox only when visible. Emit land_scope only when the UI "
+    "explicitly establishes inner_city or outer_city. Never infer hidden ownership, "
+    "reachability, protection, attackability, scope, coordinates, or battle strength."
 )
 
 

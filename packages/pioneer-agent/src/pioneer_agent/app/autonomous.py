@@ -17,6 +17,10 @@ from pioneer_agent.perception.ui_registry import UIRegistry
 from pioneer_agent.perception.vision import build_vision_client
 from pioneer_agent.perception.vision_sync import VisionSync
 from pioneer_agent.runbook.loader import RUNBOOK_LOAD_ERRORS, load_runbook_or_default
+from pioneer_agent.runbook.lineup_binding import (
+    operator_lineup_binding_map,
+    parse_operator_lineup_binding,
+)
 from pioneer_agent.runbook.state_store import (
     RunbookStateStore,
     acquire_single_instance_lock,
@@ -26,6 +30,13 @@ from pioneer_agent.runtime.autonomous_loop import AutonomousLoop
 from pioneer_agent.safety.kill_switch import KillSwitch, default_kill_switch_path
 from pioneer_agent.storage.loop_logger import LoopLogger
 from pioneer_agent.storage.trace_store import TraceStore
+
+
+def _lineup_preset_binding(value: str) -> tuple[str, str]:
+    try:
+        return parse_operator_lineup_binding(value)
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError(str(exc)) from exc
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -53,7 +64,24 @@ def main(argv: list[str] | None = None) -> int:
                         help="Explicit runbook YAML path (implies --runbook).")
     parser.add_argument("--runbook-state", type=user_path, default=None,
                         help="Runbook cursor/gate persistence file (default: log-dir/runbook_state.json).")
+    parser.add_argument(
+        "--lineup-preset-binding",
+        type=_lineup_preset_binding,
+        action="append",
+        default=[],
+        metavar="TEAM_ID=PRESET",
+        help=(
+            "Explicit operator binding for a currently observed team; may be repeated, "
+            "expires after 4h, and implies --runbook."
+        ),
+    )
     args = parser.parse_args(argv)
+    try:
+        lineup_preset_bindings = operator_lineup_binding_map(
+            args.lineup_preset_binding
+        )
+    except ValueError as exc:
+        parser.error(str(exc))
     kill_switch_path = args.kill_switch_file or default_kill_switch_path(
         Path(__file__).resolve().parents[5]
     )
@@ -69,7 +97,10 @@ def main(argv: list[str] | None = None) -> int:
     runbook_engine = None
     runbook_state_store = None
     runbook_requested = (
-        args.runbook or args.runbook_path is not None or args.runbook_state is not None
+        args.runbook
+        or args.runbook_path is not None
+        or args.runbook_state is not None
+        or bool(lineup_preset_bindings)
     )
     runbook_lock = None
     if runbook_requested:
@@ -109,6 +140,7 @@ def main(argv: list[str] | None = None) -> int:
             kill_switch=KillSwitch(kill_switch_path),
             runbook_engine=runbook_engine,
             runbook_state_store=runbook_state_store,
+            lineup_preset_bindings=lineup_preset_bindings,
             dry_run=args.dry_run,
             stuck_threshold=args.stuck_threshold,
         )

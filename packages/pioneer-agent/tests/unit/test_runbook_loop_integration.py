@@ -20,6 +20,10 @@ from pioneer_agent.core.models import (
 )
 from pioneer_agent.perception.vision_sync import VisionSyncSummary
 from pioneer_agent.runbook.engine import RunbookEngine
+from pioneer_agent.runbook.lineup_binding import (
+    OPERATOR_LINEUP_BINDING_SOURCE,
+    apply_operator_lineup_bindings,
+)
 from pioneer_agent.runbook.models import OpeningRunbook
 from pioneer_agent.runbook.state_store import (
     RunbookStateStore,
@@ -47,11 +51,69 @@ class _StubBridge:
         return _png()
 
 
+def _with_attack_facts(
+    payload: dict[str, Any],
+    *,
+    lineup_preset: str = "main_team",
+) -> dict[str, Any]:
+    result = dict(payload)
+    result.setdefault(
+        "team_containers",
+        [{"team_id": "team-1", "lineup_preset": lineup_preset}],
+    )
+    result.setdefault("main_lineup", {"current_host_team_id": "team-1"})
+    result.setdefault(
+        "teams",
+        [
+            {
+                "team_id": team.get("team_id"),
+                "page_type": "team_panel",
+                "heroes": [
+                    {
+                        "hero_id": f"hero-{team.get('team_id')}-{slot}",
+                        "position": slot,
+                    }
+                    for slot in (1, 2, 3)
+                ],
+            }
+            for team in result["team_containers"]
+            if isinstance(team, dict) and team.get("team_id") is not None
+        ],
+    )
+    map_state = dict(result.get("map_state") or {})
+    map_state.setdefault(
+        "candidate_lands",
+        [{"land_id": "L-6", "level": 6, "land_scope": "inner_city"}],
+    )
+    result["map_state"] = map_state
+    state = RuntimeState.model_validate(result)
+    bindings = {
+        str(team.get("team_id")): team["lineup_preset"]
+        for team in state.team_containers
+        if isinstance(team.get("lineup_preset"), str)
+        and team.get("lineup_preset")
+    }
+    apply_operator_lineup_bindings(
+        state,
+        bindings,
+        bound_at=datetime.now().astimezone(),
+    )
+    return state.model_dump(mode="python")
+
+
 class _StubVisionSync:
     """Returns a fixed RuntimeState so runbook metrics are test-controlled."""
 
-    def __init__(self, state_payload: dict[str, Any]) -> None:
-        self.state_payload = state_payload
+    def __init__(
+        self,
+        state_payload: dict[str, Any],
+        *,
+        lineup_preset: str = "main_team",
+    ) -> None:
+        self.state_payload = _with_attack_facts(
+            state_payload,
+            lineup_preset=lineup_preset,
+        )
 
     def sync(self, png, *, state, captured_at):  # noqa: ANN001
         return (
@@ -126,8 +188,21 @@ def _runbook() -> OpeningRunbook:
     )
 
 
-def _action(action_type: ActionType) -> CandidateAction:
-    return CandidateAction(action_id=f"a-{action_type.value}", action_type=action_type)
+def _action(action_type: ActionType, **params: Any) -> CandidateAction:
+    if action_type == ActionType.ATTACK_LAND:
+        params = {
+            "land_id": "L-6",
+            "team_id": "team-1",
+            "level": 6,
+            "land_scope": "inner_city",
+            "lineup_preset": "main_team",
+            **params,
+        }
+    return CandidateAction(
+        action_id=f"a-{action_type.value}",
+        action_type=action_type,
+        params=params,
+    )
 
 
 class _SpyUIActions:
@@ -149,6 +224,7 @@ def _loop(
     trace_store: TraceStore | None = None,
     ui_actions: Any = None,
     kill_switch: KillSwitch | None = None,
+    lineup_preset_bindings: dict[str, str] | None = None,
     dry_run: bool = False,
 ) -> tuple[AutonomousLoop, _RecordingSelector, _StubRunner]:
     selector = _RecordingSelector(action)
@@ -166,6 +242,7 @@ def _loop(
         kill_switch=kill_switch,
         runbook_engine=engine,
         runbook_state_store=store,
+        lineup_preset_bindings=lineup_preset_bindings,
         dry_run=dry_run,
     )
     return loop, selector, runner
@@ -209,7 +286,66 @@ class RunbookLoopIntegrationTests(unittest.TestCase):
         self.assertEqual(result.execution.status, "blocked")
         self.assertEqual(result.execution.summary["blocked_by"], "runbook_action_filter")
         self.assertEqual(runner.actions, [])
+
+    def test_target_mismatch_dispatch_backstop_blocks_custom_selector(self) -> None:
+        loop, _selector, runner = _loop(
+            state_payload={
+                "progress": {"step3_done": False},
+                "global_state": {"battle_loss_rate": 0.1},
+                "team_containers": [
+                    {"team_id": "team-1", "lineup_preset": "wrong_team"}
+                ],
+            },
+            # The selector forges params that match policy; the final guard
+            # must bind the identity to current state and still block it.
+            action=_action(ActionType.ATTACK_LAND, lineup_preset="main_team"),
+            engine=RunbookEngine(_runbook(), start_phase_id="p3"),
+        )
+
+        result = loop.tick(0)
+
+        self.assertEqual(result.execution.status, "blocked")
+        self.assertEqual(
+            result.execution.summary["blocked_by"],
+            "runbook_lineup_preset_mismatch",
+        )
+        self.assertEqual(runner.actions, [])
         self.assertEqual(result.sleep_s, IDLE_SLEEP_S)
+
+    def test_operator_binding_produces_trusted_current_lineup_fact(self) -> None:
+        loop, selector, runner = _loop(
+            state_payload={
+                "progress": {"step3_done": False},
+                "global_state": {"battle_loss_rate": 0.1},
+                "main_lineup": {"current_host_team_id": "team-1"},
+                "team_containers": [
+                    {"team_id": "team-1", "container_stamina": 20}
+                ],
+                "teams": [
+                    {
+                        "team_id": "team-1",
+                        "page_type": "team_panel",
+                        "heroes": [
+                            {"hero_id": "hero-1"},
+                            {"hero_id": "hero-2"},
+                            {"hero_id": "hero-3"},
+                        ],
+                    }
+                ],
+            },
+            action=_action(ActionType.ATTACK_LAND),
+            engine=RunbookEngine(_runbook(), start_phase_id="p3"),
+            lineup_preset_bindings={"team-1": "main_team"},
+        )
+        result = loop.tick(0)
+        bound_team = selector.seen_states[0].team_containers[0]
+        self.assertEqual(bound_team["lineup_preset"], "main_team")
+        self.assertEqual(
+            bound_team["lineup_preset_source"],
+            OPERATOR_LINEUP_BINDING_SOURCE,
+        )
+        self.assertEqual(result.execution.status, "ok")
+        self.assertEqual(len(runner.actions), 1)
 
     def test_wait_actions_exempt_from_action_filter(self) -> None:
         loop, _selector, runner = _loop(
@@ -522,12 +658,28 @@ class RunbookFixRegressionTests(unittest.TestCase):
 class _StarvedSelector:
     """Models a real selector whose candidates were all runbook-rejected."""
 
+    def __init__(self, reason: str = "runbook_action_filter") -> None:
+        self.reason = reason
+
     def select(self, state):  # noqa: ANN001
         return SelectionResult(
             selected_action=None,
             ranked_actions=[],
             selection_reason={
-                "pipeline": {"rejected_by_reason": {"runbook_action_filter": 3}}
+                "pipeline": {"rejected_by_reason": {self.reason: 3}},
+                "rejected_candidates": [
+                    {
+                        "action_type": "attack_land",
+                        "reason": self.reason,
+                        "params": {
+                            "land_id": "L-6",
+                            "team_id": "team-1",
+                            "level": 6,
+                            "land_scope": "inner_city",
+                            "lineup_preset": None,
+                        },
+                    }
+                ],
             },
         )
 
@@ -578,10 +730,11 @@ class GuardSeamRegressionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             loop_logger = LoopLogger(Path(tmp), archive_screenshots=False)
             runner = _StubRunner()
+            spy = _SpyUIActions()
             loop = AutonomousLoop(
                 bridge=_StubBridge(),
                 vision_sync=_StubVisionSync({"progress": {"step1_done": False}}),  # type: ignore[arg-type]
-                ui_actions=object(),  # type: ignore[arg-type]
+                ui_actions=spy,  # type: ignore[arg-type]
                 selector=_StarvedSelector(),  # type: ignore[arg-type]
                 deriver=_StubDeriver(),  # type: ignore[arg-type]
                 runner=runner,  # type: ignore[arg-type]
@@ -596,6 +749,44 @@ class GuardSeamRegressionTests(unittest.TestCase):
                 for line in (Path(tmp) / "loop.jsonl").read_text().splitlines()
             ]
             self.assertIn("action_filter_stuck", records[2]["runbook_escalations"])
+            self.assertEqual(spy.close_popup_calls, 0)
+
+    def test_target_fact_starvation_escalates_with_specific_reason(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            loop_logger = LoopLogger(Path(tmp), archive_screenshots=False)
+            trace_store = TraceStore(Path(tmp) / "trace.jsonl")
+            spy = _SpyUIActions()
+            loop = AutonomousLoop(
+                bridge=_StubBridge(),
+                vision_sync=_StubVisionSync(
+                    {
+                        "progress": {"step3_done": False},
+                        "global_state": {"battle_loss_rate": 0.1},
+                    }
+                ),  # type: ignore[arg-type]
+                ui_actions=spy,  # type: ignore[arg-type]
+                selector=_StarvedSelector("runbook_lineup_preset_unknown"),  # type: ignore[arg-type]
+                deriver=_StubDeriver(),  # type: ignore[arg-type]
+                runner=_StubRunner(),  # type: ignore[arg-type]
+                sleeper=lambda _s: None,
+                loop_logger=loop_logger,
+                trace_store=trace_store,
+                runbook_engine=RunbookEngine(_runbook(), start_phase_id="p3"),
+            )
+            for i in range(3):
+                loop.tick(i)
+            record = json.loads(
+                (Path(tmp) / "loop.jsonl").read_text().splitlines()[2]
+            )
+            self.assertIn("action_filter_stuck", record["runbook_escalations"])
+            self.assertEqual(spy.close_popup_calls, 0)
+            trace = json.loads(
+                (Path(tmp) / "trace.jsonl").read_text().splitlines()[2]
+            )
+            escalation = trace["metadata"]["runbook"]["escalations"][0]
+            observed = escalation["details"]["observed_action_facts"]
+            self.assertEqual(observed["source"], "rejected_candidates")
+            self.assertEqual(observed["candidates"][0]["facts"]["land_id"], "L-6")
 
     def test_unknown_confirmation_warns_once_not_per_tick(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -823,8 +1014,16 @@ class _SequencedVisionSync:
     """Different RuntimeState per sync call — models the world changing
     between the first click and the intermediate flow observation."""
 
-    def __init__(self, payloads: list[dict[str, Any]]) -> None:
-        self.payloads = list(payloads)
+    def __init__(
+        self,
+        payloads: list[dict[str, Any]],
+        *,
+        lineup_preset: str = "main_team",
+    ) -> None:
+        self.payloads = [
+            _with_attack_facts(payload, lineup_preset=lineup_preset)
+            for payload in payloads
+        ]
         self.calls = 0
 
     def sync(self, png, *, state, captured_at):  # noqa: ANN001
@@ -909,6 +1108,27 @@ class RunbookFlowContinuationTests(unittest.TestCase):
         self.assertEqual(runner.calls, 2)
         self.assertEqual(result.execution.status, "ok")
 
+    def test_current_state_target_change_blocks_terminal_click(self) -> None:
+        loop, runner, _spy = self._flow_loop(
+            [
+                {
+                    "progress": {"step3_done": False},
+                    "global_state": {"battle_loss_rate": 0.1},
+                },
+                {
+                    "progress": {"step3_done": False},
+                    "global_state": {"battle_loss_rate": 0.1},
+                    "team_containers": [
+                        {"team_id": "team-1", "lineup_preset": "wrong_team"}
+                    ],
+                },
+            ]
+        )
+        result = loop.tick(0)
+        self.assertEqual(runner.calls, 1)
+        self.assertEqual(result.execution.status, "failed")
+        self.assertIn("runbook_lineup_preset_mismatch", result.execution.failure_reason)
+
     def _two_phase_flow_runbook(self, abort_metric: str | None = None) -> OpeningRunbook:
         f1: dict[str, Any] = {
             "phase_id": "f1",
@@ -935,9 +1155,14 @@ class RunbookFlowContinuationTests(unittest.TestCase):
         engine = RunbookEngine(runbook)
         loop = AutonomousLoop(
             bridge=_StubBridge(),
-            vision_sync=_SequencedVisionSync(payloads),  # type: ignore[arg-type]
+            vision_sync=_SequencedVisionSync(
+                payloads,
+                lineup_preset="flow_team",
+            ),  # type: ignore[arg-type]
             ui_actions=_SpyUIActions(),  # type: ignore[arg-type]
-            selector=_RecordingSelector(_action(ActionType.ATTACK_LAND)),  # type: ignore[arg-type]
+            selector=_RecordingSelector(
+                _action(ActionType.ATTACK_LAND, lineup_preset="flow_team")
+            ),  # type: ignore[arg-type]
             deriver=_StubDeriver(),  # type: ignore[arg-type]
             runner=runner,  # type: ignore[arg-type]
             sleeper=lambda _s: None,
@@ -1009,7 +1234,9 @@ class RunbookFlowContinuationTests(unittest.TestCase):
                 bridge=_StubBridge(),
                 vision_sync=_StubVisionSync({"progress": {"step_done": False}}),  # type: ignore[arg-type]
                 ui_actions=_SpyUIActions(),  # type: ignore[arg-type]
-                selector=_RecordingSelector(_action(ActionType.ATTACK_LAND)),  # type: ignore[arg-type]
+                selector=_RecordingSelector(
+                    _action(ActionType.ATTACK_LAND, lineup_preset="flow_team")
+                ),  # type: ignore[arg-type]
                 deriver=_StubDeriver(),  # type: ignore[arg-type]
                 runner=runner,  # type: ignore[arg-type]
                 sleeper=lambda _s: None,
