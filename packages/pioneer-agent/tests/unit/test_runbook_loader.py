@@ -132,6 +132,95 @@ class MetricsFromRuntimeStateTests(unittest.TestCase):
         self.assertNotIn("main_team_avg_level", metrics)
         self.assertNotIn("host_team_soldiers", metrics)
 
+    def test_extracts_attack_ledger_metrics(self) -> None:
+        report = {
+            "report_id": "br-7",
+            "report_id_source": "explicit",
+            "report_identity_confidence": "high",
+            "captured_at": "2026-07-10T12:00:00",
+            "result": "win",
+            "occupation_result": "occupied",
+            "attacker_loss_ratio": 0.18,
+            "land_level": 7,
+            "verification": {
+                "parse_status": "complete",
+                "checks": {"loss_consistency": "not_conflicted"},
+                "action_verification_ready": True,
+                "verifier_status": "verified",
+            },
+        }
+        metrics = metrics_from_runtime_state(
+            RuntimeState(map_state={"battle_reports": [report]})
+        )
+
+        self.assertEqual(metrics["battle_loss_rate"], 0.18)
+        self.assertEqual(metrics["consecutive_defeats"], 0)
+        self.assertEqual(metrics["highest_land_level_cleared"], 7)
+
+    def test_extra_metrics_cannot_override_reserved_attack_metrics(self) -> None:
+        report = {
+            "report_id": "br-loss",
+            "report_id_source": "explicit",
+            "report_identity_confidence": "high",
+            "captured_at": "2026-07-10T12:00:00",
+            "result": "loss",
+            "occupation_result": "failed",
+            "attacker_loss_ratio": 0.4,
+            "verification": {
+                "parse_status": "complete",
+                "checks": {"loss_consistency": "not_conflicted"},
+                "action_verification_ready": False,
+                "verifier_status": "unverified",
+            },
+        }
+        metrics = metrics_from_runtime_state(
+            RuntimeState(
+                main_lineup={"avg_level": 38},
+                map_state={"battle_reports": [report]},
+            ),
+            extra_metrics={
+                "battle_loss_rate": 0.1,
+                "consecutive_defeats": 9,
+                "highest_land_level_cleared": 12,
+                "main_team_avg_level": 99,
+            },
+        )
+
+        self.assertEqual(metrics["battle_loss_rate"], 0.4)
+        self.assertEqual(metrics["consecutive_defeats"], 1)
+        self.assertNotIn("highest_land_level_cleared", metrics)
+        self.assertEqual(metrics["main_team_avg_level"], 99)
+
+    def test_production_style_visual_report_cannot_claim_land_progress(self) -> None:
+        report = {
+            "report_id": "br-visual",
+            "report_id_source": "explicit",
+            "report_identity_confidence": "high",
+            "source": "vision.battle_report",
+            "page_type": "battle",
+            "captured_at": "2026-07-10T12:00:00",
+            "result": "win",
+            "occupation_result": "occupied",
+            "attacker_loss_ratio": 0.12,
+            "land_level": 8,
+            "verification": {
+                "parse_status": "complete",
+                "checks": {
+                    "loss_consistency": "not_conflicted",
+                    "occupation": "known",
+                },
+                "action_verification_ready": False,
+                "verifier_status": "unverified",
+            },
+        }
+
+        metrics = metrics_from_runtime_state(
+            RuntimeState(map_state={"battle_reports": [report]})
+        )
+
+        self.assertEqual(metrics["battle_loss_rate"], 0.12)
+        self.assertNotIn("highest_land_level_cleared", metrics)
+
 
 if __name__ == "__main__":
     unittest.main()

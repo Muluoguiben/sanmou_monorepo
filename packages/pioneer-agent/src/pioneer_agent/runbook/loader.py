@@ -11,6 +11,10 @@ import yaml
 
 from pioneer_agent.core.enums import ActionType
 from pioneer_agent.core.models import RuntimeState
+from pioneer_agent.runbook.attack_ledger import (
+    ATTACK_LEDGER_METRIC_KEYS,
+    attack_metrics_from_runtime_state,
+)
 from pioneer_agent.runbook.models import OpeningRunbook
 
 logger = logging.getLogger(__name__)
@@ -118,7 +122,15 @@ def metrics_from_runtime_state(
                     computed["host_team_stamina"] = container["container_stamina"]
                 break
 
+    computed.update(attack_metrics_from_runtime_state(state))
+
     payload.update(computed)
     if extra_metrics:
-        payload.update(extra_metrics)
+        payload.update(
+            {
+                key: value
+                for key, value in extra_metrics.items()
+                if key not in ATTACK_LEDGER_METRIC_KEYS
+            }
+        )
     return payload

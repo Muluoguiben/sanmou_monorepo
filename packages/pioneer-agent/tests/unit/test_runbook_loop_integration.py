@@ -259,6 +259,54 @@ class RunbookLoopIntegrationTests(unittest.TestCase):
             record = json.loads((Path(tmp) / "loop.jsonl").read_text().splitlines()[0])
             self.assertIn("abort_triggered", record["runbook_escalations"])
 
+    def test_attack_report_loss_metric_triggers_abort_without_global_injection(self) -> None:
+        runbook = OpeningRunbook.model_validate(
+            {
+                "season": "S15 ledger integration",
+                "generated_at": "2026-07-10",
+                "phases": [
+                    {
+                        "phase_id": "attack_phase",
+                        "title": "Attack phase",
+                        "exit_when": {"progress.done": "== true"},
+                        "abort_when": {"battle_loss_rate": "> 0.35"},
+                    }
+                ],
+            }
+        )
+        report = {
+            "report_id": "br-loss-50",
+            "report_id_source": "explicit",
+            "report_identity_confidence": "high",
+            "captured_at": "2026-07-10T12:00:00",
+            "result": "loss",
+            "occupation_result": "failed",
+            "attacker_loss_ratio": 0.5,
+            "verification": {
+                "parse_status": "complete",
+                "checks": {"loss_consistency": "not_conflicted"},
+                "action_verification_ready": False,
+                "verifier_status": "unverified",
+            },
+        }
+        loop, selector, runner = _loop(
+            state_payload={
+                "progress": {"done": False},
+                "map_state": {"battle_reports": [report]},
+            },
+            action=_action(ActionType.ATTACK_LAND),
+            engine=RunbookEngine(runbook),
+        )
+
+        result = loop.tick(0)
+
+        self.assertNotIn("battle_loss_rate", selector.seen_states[0].global_state)
+        self.assertEqual(result.execution.status, "blocked")
+        self.assertEqual(
+            result.execution.summary["blocked_by"], "runbook_hold:abort_triggered"
+        )
+        self.assertEqual(runner.actions, [])
+
     def test_transition_persists_and_resumes_across_restart(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             store = RunbookStateStore(Path(tmp) / "runbook_state.json")
