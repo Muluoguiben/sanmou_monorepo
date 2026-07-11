@@ -1,6 +1,6 @@
 # Todo List
 
-> Current update: 2026-07-11 — Windows capture geometry 已把 outer HWND/PID/rect 与真实 WGC/DXGI capture rect/origin 分离，实机只读 smoke 证明 `2582×1336` 外窗对应 `2564×1327` DWM frame；guarded click 只按 capture origin 换算并原子复核 backend/geometry。`--evidence-action` 现在只选择指定类型且通过当前帧门禁的候选，单 tick 只有在 action id/type/target、execution、结构化 verifier、post delta 和新帧全部绑定时才 exit 0，正式 `--execute` 继续硬禁。新增一张真实 5 级地胜利战报和四张小体积占领前后 ROI，证明 `02:35→消失`、领地 `54/60→55/60`，但仍不把 win 推断为 occupied，也不把 ROI 冒充 full-frame/provider eval。QA raw trace 只允许进入 pending review，路径/TOCTOU/no-clobber 均 fail-closed；三类 live terminal source 仍为 0/3。统一回归：Pioneer 520 tests OK（6 skip），QA 303 tests OK，Desktop typecheck/build OK。下方旧 `Last updated` 长段保留为 Architecture Iteration 历史上下文。
+> Current update: 2026-07-11 — Windows Record & Replay M0 已落地：独立普通权限 recorder 只绑定唯一 Sanmou Unity 窗口，以 physical-pixel WGC/DXGI + Raw Input 记录 WebP 关键帧和过滤后的人工输入；200ms 内存 ring 提供输入前帧，窗口/geometry/DPI/64-bit handle/队列/时限/容量任一异常均 fail-closed。raw session 具备 schema、SHA、图像、时序、窗口身份和 symlink/path confinement 严格校验；compiler 只生成 `pending_review` action candidate、offline plan 和 `execution_authority=none` skill draft，`replay --execute` 硬拒绝。默认 raw-only，隐私 review 后才显式 compile；人工演示不冒充 M1a runtime dispatch/terminal source。Pioneer 575 tests OK（6 skip），repo skill 校验和 fresh-agent forward test 通过，Windows Raw Input 注册/停止 smoke 通过；真实端到端录制因当前 Unity 窗口最小化/离屏而正确返回 `expected_one_usable_sanmou_window:found=0`，程序未自动恢复客户端。下方旧 `Last updated` 长段保留为 Architecture Iteration 历史上下文。
 
 - [x] Runtime / Desktop 产品边界收敛（2026-07-10）：删除旧 `AgentRuntime.run_once`、`ActionRunner(not_implemented)`、`AgentLogger`、`app.main/bootstrap` 重复 scaffold 及其遗留 stage/event 模型；fixture state 读取继续由 `StateSyncService` 提供，执行主链只保留 Advisor、Replay 与显式 guarded `AutonomousLoop`。Desktop Advisor 删除 kill-switch trigger/clear 控件和 renderer mutation API，改为明确“只读顾问，不授权或发送游戏输入”；嵌入式 API 默认不注册 runtime-admin 路由，只有独立运维进程显式传 `--enable-runtime-admin` 才开放，底层 kill switch 继续保留。
 
@@ -13,6 +13,18 @@
 - [x] 真实 5 级地占领配对证据（2026-07-11）：战报压为 42,630-byte privacy-redacted WebP，严格保留 `win + occupation_result=unknown` 与 defender 战损冲突 `partial`；四张 2.4–15KB ROI 记录同一 5 级目标 `02:35→倒计时不显示`、领地 `54/60→55/60`。用户确认普通占领约 180 秒、新手期约 60 秒，已作为 time-bounded 玩家实测进入 QA KB；ROI 标记 `action_correlated=false` / `image_model_exercised=false`，full-frame map canonical gap 仍开放。
 
 - [x] QA live terminal source pending staging（2026-07-11）：新增 raw live trace → `pending_review` CLI，只有严格 action/target/operator confirmation/terminal PNG/new-frame post-delta/geometry 全绑定才复制原始 bytes；产物强制 pending、privacy 未审、closure=false。raw input、output、pending、existing bundle 全程 pinned `dir_fd + O_NOFOLLOW`，发布用 `renameat2(RENAME_NOREPLACE)`；symlink/hardlink/path escape/parent swap/existing swap/并发空目标/能力缺失均 fail-closed，绝不自动写入 reviewed root 或授予 clean-HEAD authority。
+
+- [x] Windows Record & Replay M0（2026-07-11）：新增 `pioneer_agent.record_replay` schema/store/compiler/offline replayer、standalone Windows recorder、CLI、repo skill 和设计文档；默认 WebP 1280/q60，忽略可打印文本/剪贴板/窗口外输入，严格绑定 HWND/PID/进程创建时间/capture geometry；raw 默认不编译，live replay 无实现且 `--execute` 明确失败。人工 demo 固定 `privacy_reviewed=false`、`action_correlated_runtime_trace=false`、`closure_eligible=false`，所有派生物保持 pending/no-authority。
+
+- [ ] Record & Replay M1 多样本与 reviewed annotation：增加 segmenter、独立 privacy/reviewer manifest、generation/eval session registry、semantic target/precondition/expected-delta 标注，不修改 raw trace；先覆盖只读导航，再处理 claim/recruit/upgrade candidate。
+
+- [ ] Record & Replay M2 独立 eval：建立 parser/integrity、cross-resolution grounding、success/no-change/timeout/popup verifier、零 dispatch safety 和 fresh-agent holdout 套件；generation 与 holdout session ID 必须完全不重叠。
+
+- [ ] Record & Replay M3 reviewed semantic action：只允许通过多样本与 holdout 的 action 接入 semantic UIActions、同帧 observation、唯一 ROI、新帧 verifier、confirmation、kill switch 和 recovery；M0 坐标/延时永不直接成为执行接口。
+
+- [x] Windows read-only capture 模块隔离（2026-07-11）：WGC/DXGI、capture geometry 与图像质量校验已抽到无 socket、无 input-dispatch、无窗口控制符号的 `win_capture.py`；recorder 只加载该模块，bridge 复用同一实现并保留旧恢复包装，边界 AST 测试与 Windows loader smoke 通过。
+
+- [ ] Windows control 独立 hardening：另行收紧 SanmouController 可写命令/脚本边界与 WinBridge 监听地址、认证和遗留非 guarded input，不借 R&R 扩大协议。
 
 - [ ] 原主树 WIP 收口：本轮继续使用隔离 worktree；原主树保持 dirty 且未触碰。2026-07-11 只读复核 `git ls-files --others --exclude-standard` 为 14 个 Pioneer WIP 文件，均不是 decoded 产物；已迁移 map/battle/安全 attack ledger，已淘汰 OpeningSprintLoop/AuthorizationCard。清理前仍需处理 verified battle-ledger 跨重启持久化、map-filter/land-tile 参数传播测试和 map filter 正向感知回归三个保留点。
 

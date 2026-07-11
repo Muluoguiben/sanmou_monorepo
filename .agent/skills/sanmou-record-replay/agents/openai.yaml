@@ -1,0 +1,7 @@
+interface:
+  display_name: "Sanmou Record & Replay"
+  short_description: "Record Windows Sanmou workflows into safe trace and skill drafts"
+  default_prompt: "Use $sanmou-record-replay to record a focused Sanmou Windows workflow and compile a review-only trace and skill draft."
+
+policy:
+  allow_implicit_invocation: false
