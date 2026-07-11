@@ -103,15 +103,15 @@ class CityBuildingsExtractionTests(unittest.TestCase):
         self.assertNotIn("territory", fragment.city)
         self.assertEqual(fragment.city["buildings"], [{"name": "军营", "level": 20}])
 
-    def test_empty_buildings_yields_no_city(self) -> None:
+    def test_empty_buildings_emits_current_empty_snapshot(self) -> None:
         stub = _StubVisionClient({"buildings": []})
         fragment = extract_city_buildings(b"fake-bytes", client=stub)
-        self.assertEqual(fragment.city, {})
-        self.assertNotIn("city", fragment.field_meta)
+        self.assertEqual(fragment.city, {"buildings": []})
+        self.assertEqual(fragment.field_meta["city"].source, "vision.city_buildings")
 
 
 class ApplyCityBuildingsTests(unittest.TestCase):
-    def test_merge_buildings_by_name_updates_and_adds(self) -> None:
+    def test_current_frame_buildings_replace_prior_snapshot(self) -> None:
         from pioneer_agent.perception.domains import CityBuildingsFragment
 
         state = RuntimeState(
@@ -137,9 +137,23 @@ class ApplyCityBuildingsTests(unittest.TestCase):
 
         by_name = {b["name"]: b for b in new_state.city["buildings"]}
         self.assertEqual(by_name["君王殿"]["level"], 25)
-        self.assertEqual(by_name["民居"]["level"], 15)
+        self.assertNotIn("民居", by_name)
         self.assertTrue(by_name["铁匠铺"]["upgrading"])
         self.assertEqual(new_state.city["prosperity"], 165883)
+
+    def test_empty_current_frame_clears_prior_buildings(self) -> None:
+        from pioneer_agent.perception.domains import CityBuildingsFragment
+
+        state = RuntimeState(
+            city={"buildings": [{"name": "Main Hall", "level": 3}]}
+        )
+
+        new_state = apply_city_buildings(
+            state,
+            CityBuildingsFragment(city={"buildings": []}),
+        )
+
+        self.assertEqual(new_state.city["buildings"], [])
 
     def test_merge_preserves_unrelated_top_level_city_fields(self) -> None:
         from pioneer_agent.perception.domains import CityBuildingsFragment

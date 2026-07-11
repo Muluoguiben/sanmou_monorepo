@@ -441,6 +441,11 @@ def _observation_details(observation: ObservationSnapshot) -> dict[str, Any]:
         "captured_at": observation.captured_at.isoformat(),
         "frame_sha256": observation.frame_sha256,
         "frame_size": list(observation.frame_size) if observation.frame_size else None,
+        "capture_geometry": (
+            observation.capture_geometry.model_dump(mode="json")
+            if observation.capture_geometry is not None
+            else None
+        ),
         "page_type": observation.page_type,
         "domains_run": list(observation.domains_run),
         "source": observation.source,

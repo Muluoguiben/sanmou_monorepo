@@ -1,9 +1,19 @@
 from __future__ import annotations
 
 import base64
+import hashlib
+import io
 import unittest
+from pathlib import Path
+from unittest.mock import patch
 
-from pioneer_agent.adapters.bridge_client import BridgeClient
+from PIL import Image
+
+from pioneer_agent.adapters.bridge_client import BridgeClient, BridgeScreenshot
+from tests.unit.capture_geometry_fixtures import (
+    capture_geometry,
+    capture_geometry_payload,
+)
 
 
 class StubBridgeClient(BridgeClient):
@@ -27,13 +37,56 @@ class StubBridgeClient(BridgeClient):
 class BridgeClientTests(unittest.TestCase):
     def test_screenshot_sends_capture_backend_when_configured(self) -> None:
         client = StubBridgeClient(capture_backend="wgc")
+        png = _make_png()
+        geometry = capture_geometry_payload((1286, 666))
         client.responses.append({
             "status": "ok",
-            "data_b64": base64.b64encode(b"png-bytes").decode("ascii"),
+            "data_b64": base64.b64encode(png).decode("ascii"),
+            "size": len(png),
+            "frame_sha256": hashlib.sha256(png).hexdigest(),
+            "capture_geometry": geometry,
         })
 
-        self.assertEqual(client.screenshot(), b"png-bytes")
+        self.assertEqual(client.screenshot(), png)
+        self.assertEqual(
+            client.last_screenshot.capture_geometry.model_dump(mode="json"),
+            geometry,
+        )
         self.assertEqual(client.sent, [{"cmd": "screenshot", "backend": "wgc"}])
+
+    def test_screenshot_from_old_server_without_geometry_fails_closed(self) -> None:
+        client = StubBridgeClient()
+        png = _make_png()
+        client.responses.append(
+            {
+                "status": "ok",
+                "data_b64": base64.b64encode(png).decode("ascii"),
+                "size": len(png),
+                "frame_sha256": hashlib.sha256(png).hexdigest(),
+            }
+        )
+
+        with self.assertRaisesRegex(RuntimeError, "update and restart"):
+            client.screenshot()
+
+    def test_failed_archive_write_does_not_retain_click_binding(self) -> None:
+        client = StubBridgeClient(capture_backend="wgc")
+        png = _make_png()
+        client.responses.append(
+            {
+                "status": "ok",
+                "data_b64": base64.b64encode(png).decode("ascii"),
+                "size": len(png),
+                "frame_sha256": hashlib.sha256(png).hexdigest(),
+                "capture_geometry": capture_geometry_payload((1286, 666)),
+            }
+        )
+
+        with patch.object(Path, "write_bytes", side_effect=OSError("disk full")):
+            with self.assertRaisesRegex(OSError, "disk full"):
+                client.screenshot_capture("capture.png")
+
+        self.assertIsNone(client.last_screenshot)
 
     def test_list_windows_accepts_optional_title_filter(self) -> None:
         client = StubBridgeClient()
@@ -42,14 +95,77 @@ class BridgeClientTests(unittest.TestCase):
         self.assertEqual(client.list_windows("三国"), {"status": "ok", "windows": []})
         self.assertEqual(client.sent, [{"cmd": "list_windows", "title": "三国"}])
 
+    def test_old_atomic_server_without_geometry_capability_fails_closed(self) -> None:
+        client = StubBridgeClient()
+        png = _make_png()
+        digest = hashlib.sha256(png).hexdigest()
+        geometry_model = capture_geometry((1286, 666))
+        geometry = geometry_model.model_dump(mode="json")
+        client._last_screenshot = BridgeScreenshot(
+            png=png,
+            frame_sha256=digest,
+            capture_geometry=geometry_model,
+        )
+        client.responses.append(
+            {
+                "status": "ok",
+                "atomic_frame_click_guard_version": 1,
+                "atomic_frame_click_guard_modes": ["full_frame_png_sha256"],
+                "atomic_frame_click_authorization_scopes": [
+                    "operator_confirmed_final_mutating_click"
+                ],
+            }
+        )
+
+        with self.assertRaisesRegex(RuntimeError, "update and restart"):
+            client.click(
+                800,
+                500,
+                expected_window=geometry["outer_window"],
+                expected_capture_geometry=geometry,
+                expected_frame_sha256=digest,
+                guard_expires_at="2099-01-01T00:00:00+00:00",
+                authorization_scope="operator_confirmed_final_mutating_click",
+                kill_switch_path="/tmp/KILL_SWITCH_TEST",
+            )
+
+        self.assertEqual(client.sent, [{"cmd": "capabilities"}])
+
+    def test_guarded_click_without_last_client_screenshot_sends_nothing(self) -> None:
+        client = StubBridgeClient()
+        geometry = capture_geometry_payload((1286, 666))
+
+        with self.assertRaisesRegex(RuntimeError, "last BridgeClient screenshot"):
+            client.click(
+                800,
+                500,
+                expected_window=geometry["outer_window"],
+                expected_capture_geometry=geometry,
+                expected_frame_sha256="a" * 64,
+                guard_expires_at="2099-01-01T00:00:00+00:00",
+                authorization_scope="operator_confirmed_final_mutating_click",
+                kill_switch_path="/tmp/KILL_SWITCH_TEST",
+            )
+
+        self.assertEqual(client.sent, [])
+
     def test_click_forwards_expected_window_guard(self) -> None:
         client = StubBridgeClient()
-        expected = {"hwnd": 101, "pid": 202, "width": 1286, "height": 666}
+        geometry = capture_geometry_payload((1286, 666))
+        expected = geometry["outer_window"]
+        png = _make_png()
+        digest = hashlib.sha256(png).hexdigest()
+        client._last_screenshot = BridgeScreenshot(
+            png=png,
+            frame_sha256=digest,
+            capture_geometry=capture_geometry((1286, 666)),
+        )
         semantic_guard = {
             "schema_version": 1,
             "algorithm": "semantic-roi-rgb24-sha256-v1",
             "semantic_target_key": "chapter_claim_button",
             "frame_size": [1286, 666],
+            "capture_geometry": geometry,
             "normalized_bbox": {"x_min": 600, "y_min": 700, "x_max": 644, "y_max": 802},
             "roi_bbox": {"x": 772, "y": 466, "width": 56, "height": 68},
             "click_point": {"x": 800, "y": 500},
@@ -61,6 +177,7 @@ class BridgeClientTests(unittest.TestCase):
                 {
                     "status": "ok",
                     "atomic_frame_click_guard_version": 1,
+                    "capture_geometry_version": 1,
                     "atomic_frame_click_guard_modes": [
                         "semantic_roi_rgb24_sha256",
                         "full_frame_png_sha256",
@@ -82,6 +199,9 @@ class BridgeClientTests(unittest.TestCase):
                         "guard_expires_at": expiry,
                         "authorization_scope": "operator_confirmed_final_mutating_click",
                         "capture_backend": "wgc",
+                        "source_capture_geometry": geometry,
+                        "recapture_geometry": geometry,
+                        "absolute_click_point": {"x": 800, "y": 500},
                         "kill_switch_guard": {
                             "checked": True,
                             "path": "\\\\wsl$\\Ubuntu\\tmp\\KILL_SWITCH_TEST",
@@ -109,7 +229,8 @@ class BridgeClientTests(unittest.TestCase):
                 800,
                 500,
                 expected_window=expected,
-                expected_frame_sha256="a" * 64,
+                expected_capture_geometry=geometry,
+                expected_frame_sha256=digest,
                 guard_expires_at=expiry,
                 authorization_scope="operator_confirmed_final_mutating_click",
                 kill_switch_path="/tmp/KILL_SWITCH_TEST",
@@ -127,8 +248,9 @@ class BridgeClientTests(unittest.TestCase):
                     "y": 500,
                     "button": "left",
                     "expected_window": expected,
+                    "expected_capture_geometry": geometry,
                     "atomic_frame_click_guard_version": 1,
-                    "expected_frame_sha256": "a" * 64,
+                    "expected_frame_sha256": digest,
                     "guard_expires_at": expiry,
                     "authorization_scope": "operator_confirmed_final_mutating_click",
                     "kill_switch_path": "\\\\wsl$\\Ubuntu\\tmp\\KILL_SWITCH_TEST",
@@ -139,23 +261,27 @@ class BridgeClientTests(unittest.TestCase):
 
     def test_guarded_click_without_frame_binding_sends_nothing(self) -> None:
         client = StubBridgeClient()
+        geometry = capture_geometry_payload((3, 4), hwnd=1, pid=2)
 
         with self.assertRaisesRegex(ValueError, "SHA256"):
             client.click(
                 10,
                 10,
-                expected_window={"hwnd": 1, "pid": 2, "width": 3, "height": 4},
+                expected_window=geometry["outer_window"],
+                expected_capture_geometry=geometry,
             )
 
         self.assertEqual(client.sent, [])
 
     def test_guarded_click_rejects_zero_area_semantic_roi_before_sending(self) -> None:
         client = StubBridgeClient()
+        geometry = capture_geometry_payload((1286, 666))
         guard = {
             "schema_version": 1,
             "algorithm": "semantic-roi-rgb24-sha256-v1",
             "semantic_target_key": "chapter_claim_button",
             "frame_size": [1286, 666],
+            "capture_geometry": geometry,
             "normalized_bbox": {
                 "x_min": 0.0,
                 "y_min": 0.0,
@@ -171,7 +297,8 @@ class BridgeClientTests(unittest.TestCase):
             client.click(
                 0,
                 0,
-                expected_window={"hwnd": 101, "pid": 202, "width": 1286, "height": 666},
+                expected_window=geometry["outer_window"],
+                expected_capture_geometry=geometry,
                 expected_frame_sha256="a" * 64,
                 guard_expires_at="2099-01-01T00:00:00+00:00",
                 authorization_scope="operator_confirmed_final_mutating_click",
@@ -183,11 +310,13 @@ class BridgeClientTests(unittest.TestCase):
 
     def test_guarded_click_rejects_dispatch_outside_semantic_roi_before_sending(self) -> None:
         client = StubBridgeClient()
+        geometry = capture_geometry_payload((1286, 666))
         guard = {
             "schema_version": 1,
             "algorithm": "semantic-roi-rgb24-sha256-v1",
             "semantic_target_key": "chapter_claim_button",
             "frame_size": [1286, 666],
+            "capture_geometry": geometry,
             "normalized_bbox": {"x_min": 600, "y_min": 700, "x_max": 644, "y_max": 802},
             "roi_bbox": {"x": 772, "y": 466, "width": 56, "height": 68},
             "click_point": {"x": 800, "y": 500},
@@ -198,7 +327,8 @@ class BridgeClientTests(unittest.TestCase):
             client.click(
                 801,
                 500,
-                expected_window={"hwnd": 101, "pid": 202, "width": 1286, "height": 666},
+                expected_window=geometry["outer_window"],
+                expected_capture_geometry=geometry,
                 expected_frame_sha256="a" * 64,
                 guard_expires_at="2099-01-01T00:00:00+00:00",
                 authorization_scope="operator_confirmed_final_mutating_click",
@@ -210,11 +340,13 @@ class BridgeClientTests(unittest.TestCase):
 
     def test_final_target_cannot_downgrade_to_intermediate_scope(self) -> None:
         client = StubBridgeClient()
+        geometry = capture_geometry_payload((1286, 666))
         guard = {
             "schema_version": 1,
             "algorithm": "semantic-roi-rgb24-sha256-v1",
             "semantic_target_key": "chapter_claim_button",
             "frame_size": [1286, 666],
+            "capture_geometry": geometry,
             "normalized_bbox": {"x_min": 600, "y_min": 700, "x_max": 644, "y_max": 802},
             "roi_bbox": {"x": 772, "y": 466, "width": 56, "height": 68},
             "click_point": {"x": 800, "y": 500},
@@ -225,7 +357,8 @@ class BridgeClientTests(unittest.TestCase):
             client.click(
                 800,
                 500,
-                expected_window={"hwnd": 101, "pid": 202, "width": 1286, "height": 666},
+                expected_window=geometry["outer_window"],
+                expected_capture_geometry=geometry,
                 expected_frame_sha256="a" * 64,
                 guard_expires_at="2099-01-01T00:00:00+00:00",
                 authorization_scope="observation_bound_intermediate_click",
@@ -234,6 +367,13 @@ class BridgeClientTests(unittest.TestCase):
             )
 
         self.assertEqual(client.sent, [])
+
+
+def _make_png() -> bytes:
+    image = Image.new("RGB", (1286, 666), (20, 40, 60))
+    buffer = io.BytesIO()
+    image.save(buffer, format="PNG")
+    return buffer.getvalue()
 
 
 if __name__ == "__main__":

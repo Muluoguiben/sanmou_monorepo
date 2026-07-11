@@ -16,7 +16,7 @@ from typing import Any
 
 from PIL import Image, UnidentifiedImageError
 
-from pioneer_agent.core.models import ObservationSnapshot, RuntimeState
+from pioneer_agent.core.models import CaptureGeometry, ObservationSnapshot, RuntimeState
 from pioneer_agent.perception.domains import (
     apply_battle_report,
     apply_chapter_panel,
@@ -66,6 +66,7 @@ class VisionSync:
         state: RuntimeState | None = None,
         *,
         captured_at: datetime | None = None,
+        capture_geometry: CaptureGeometry | None = None,
     ) -> tuple[RuntimeState, VisionSyncSummary]:
         state = state or RuntimeState()
         captured_at = captured_at or datetime.now(UTC)
@@ -124,6 +125,7 @@ class VisionSync:
                     captured_at=captured_at,
                     frame_sha256=frame_sha256,
                     frame_size=frame_size,
+                    capture_geometry=capture_geometry,
                     observed_state=observed_state,
                 )
 
@@ -216,6 +218,7 @@ class VisionSync:
             captured_at=captured_at,
             frame_sha256=frame_sha256,
             frame_size=frame_size,
+            capture_geometry=capture_geometry,
             observed_state=observed_state,
         )
 
@@ -229,6 +232,7 @@ class VisionSync:
         captured_at: datetime,
         frame_sha256: str,
         frame_size: tuple[int, int] | None,
+        capture_geometry: CaptureGeometry | None,
         observed_state: RuntimeState,
     ) -> VisionSyncSummary:
         return VisionSyncSummary(
@@ -241,6 +245,7 @@ class VisionSync:
                 captured_at=captured_at,
                 frame_sha256=frame_sha256,
                 frame_size=frame_size,
+                capture_geometry=capture_geometry,
                 page_type=page,
                 domains_run=list(domains),
                 observed_state=observed_state,

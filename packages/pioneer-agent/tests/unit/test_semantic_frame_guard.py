@@ -6,6 +6,7 @@ import unittest
 
 from PIL import Image, ImageDraw
 
+from pioneer_agent.core.models import CaptureGeometry
 from pioneer_agent.executor.semantic_frame_guard import (
     build_semantic_frame_guard,
     semantic_target_geometry,
@@ -24,12 +25,14 @@ class SemanticFrameGuardTests(unittest.TestCase):
         first_guard = build_semantic_frame_guard(
             first,
             frame_size=(100, 100),
+            capture_geometry=_capture_geometry((100, 100)),
             semantic_target_key="chapter_claim_button",
             bbox=self.bbox,
         )
         second_guard = build_semantic_frame_guard(
             second,
             frame_size=(100, 100),
+            capture_geometry=_capture_geometry((100, 100)),
             semantic_target_key="chapter_claim_button",
             bbox=self.bbox,
         )
@@ -46,6 +49,7 @@ class SemanticFrameGuardTests(unittest.TestCase):
             build_semantic_frame_guard(
                 _encode(image),
                 frame_size=(100, 100),
+                capture_geometry=_capture_geometry((100, 100)),
                 semantic_target_key="chapter_claim_button",
                 bbox=self.bbox,
             )
@@ -85,6 +89,36 @@ def _encode(image: Image.Image, *, compress_level: int = 6) -> bytes:
     buffer = io.BytesIO()
     image.save(buffer, format="PNG", compress_level=compress_level)
     return buffer.getvalue()
+
+
+def _capture_geometry(size: tuple[int, int]) -> CaptureGeometry:
+    width, height = size
+    return CaptureGeometry.model_validate(
+        {
+            "schema_version": 1,
+            "capture_backend": "wgc",
+            "outer_window": {
+                "hwnd": 101,
+                "pid": 202,
+                "left": 0,
+                "top": 0,
+                "right": width,
+                "bottom": height,
+                "width": width,
+                "height": height,
+            },
+            "capture_rect": {
+                "left": 0,
+                "top": 0,
+                "right": width,
+                "bottom": height,
+                "width": width,
+                "height": height,
+            },
+            "capture_origin": {"x": 0, "y": 0},
+            "frame_size": [width, height],
+        }
+    )
 
 
 if __name__ == "__main__":

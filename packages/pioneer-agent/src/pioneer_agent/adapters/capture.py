@@ -191,7 +191,8 @@ class WindowsBridgeCaptureAdapter:
         return self._device_session.capabilities
 
     def capture(self) -> CaptureFrame:
-        png = self.bridge.screenshot()
+        shot = self.bridge.screenshot_capture()
+        png = shot.png
         captured_at = datetime.now(UTC)
         profile = _profile_from_image_bytes(
             png,
@@ -201,7 +202,10 @@ class WindowsBridgeCaptureAdapter:
         self._device_session = self._device_session.model_copy(
             update={"profile": profile, "last_observed_at": captured_at}
         )
-        metadata: dict[str, Any] = {}
+        metadata: dict[str, Any] = {
+            "frame_sha256": shot.frame_sha256,
+            "capture_geometry": shot.capture_geometry.model_dump(mode="json"),
+        }
         try:
             metadata["window_info"] = self.bridge.window_info()
         except Exception as exc:  # noqa: BLE001

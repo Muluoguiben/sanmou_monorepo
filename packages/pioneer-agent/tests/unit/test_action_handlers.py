@@ -42,6 +42,7 @@ from pioneer_agent.runtime.architecture_gates import (
 )
 from pioneer_agent.safety.guard import SessionMode
 from pioneer_agent.verifier import ExpectedStateDelta, VerifierRegistry, VerifierSpec
+from tests.unit.capture_geometry_fixtures import capture_geometry
 
 
 class _NullUI:
@@ -189,6 +190,7 @@ def _frame_observation(
         captured_at=captured_at,
         frame_sha256=hashlib.sha256(_frame_bytes()).hexdigest(),
         frame_size=(1920, 1080),
+        capture_geometry=capture_geometry((1920, 1080)),
         page_type=page_type,
         domains_run=domains,
         observed_state=state,
@@ -387,6 +389,7 @@ class UIActionRunnerTests(unittest.TestCase):
     def test_live_dispatch_forwards_atomic_window_identity_guard(self) -> None:
         class _GuardedBridge:
             atomic_frame_click_guard_version = 1
+            capture_geometry_version = 1
             atomic_frame_click_guard_modes = frozenset(
                 {"semantic_roi_rgb24_sha256"}
             )
@@ -404,6 +407,7 @@ class UIActionRunnerTests(unittest.TestCase):
                 button: str = "left",
                 *,
                 expected_window: dict[str, int] | None = None,
+                expected_capture_geometry: dict[str, Any] | None = None,
                 expected_frame_sha256: str | None = None,
                 guard_expires_at: str | None = None,
                 authorization_scope: str | None = None,
@@ -416,11 +420,19 @@ class UIActionRunnerTests(unittest.TestCase):
                         "y": y,
                         "button": button,
                         "expected_window": expected_window,
+                        "expected_capture_geometry": expected_capture_geometry,
                         "expected_frame_sha256": expected_frame_sha256,
                         "guard_expires_at": guard_expires_at,
                         "authorization_scope": authorization_scope,
                         "kill_switch_path": kill_switch_path,
                         "semantic_frame_guard": semantic_frame_guard,
+                        "capture_backend": expected_capture_geometry["capture_backend"],
+                        "source_capture_geometry": expected_capture_geometry,
+                        "recapture_geometry": expected_capture_geometry,
+                        "absolute_click_point": {
+                            "x": expected_capture_geometry["capture_origin"]["x"] + x,
+                            "y": expected_capture_geometry["capture_origin"]["y"] + y,
+                        },
                     }
                 )
                 assert semantic_frame_guard is not None
@@ -435,6 +447,13 @@ class UIActionRunnerTests(unittest.TestCase):
                         "guard_expires_at": guard_expires_at,
                         "authorization_scope": authorization_scope,
                         "semantic_frame_guard": semantic_frame_guard,
+                        "capture_backend": expected_capture_geometry["capture_backend"],
+                        "source_capture_geometry": expected_capture_geometry,
+                        "recapture_geometry": expected_capture_geometry,
+                        "absolute_click_point": {
+                            "x": expected_capture_geometry["capture_origin"]["x"] + x,
+                            "y": expected_capture_geometry["capture_origin"]["y"] + y,
+                        },
                         "kill_switch_guard": {
                             "checked": True,
                             "path": kill_switch_path,
@@ -486,6 +505,7 @@ class UIActionRunnerTests(unittest.TestCase):
         semantic_guard = build_semantic_frame_guard(
             _frame_bytes(),
             frame_size=observation.frame_size or (0, 0),
+            capture_geometry=observation.capture_geometry,
             semantic_target_key="chapter_claim_button",
             bbox=action.params["claim_button"]["bbox"],
         )
@@ -529,7 +549,7 @@ class UIActionRunnerTests(unittest.TestCase):
         self.assertEqual(len(bridge.clicks), 1)
         self.assertEqual(
             bridge.clicks[0]["expected_window"],
-            {"hwnd": 101, "pid": 202, "width": 1920, "height": 1080},
+            observation.capture_geometry.outer_window.model_dump(mode="json"),
         )
         self.assertEqual(
             bridge.clicks[0]["semantic_frame_guard"]["roi_sha256"],

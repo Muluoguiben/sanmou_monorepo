@@ -204,6 +204,22 @@ class _SequenceSelector:
         )
 
 
+class _RankedSelector:
+    def __init__(
+        self,
+        selected: CandidateAction | None,
+        ranked: list[CandidateAction],
+    ) -> None:
+        self.selected = selected
+        self.ranked = ranked
+
+    def select(self, _state):  # noqa: ANN001
+        return SelectionResult(
+            selected_action=self.selected,
+            ranked_actions=list(self.ranked),
+        )
+
+
 class _StubDeriver:
     def derive(self, state):  # noqa: ANN001
         return state
@@ -219,6 +235,10 @@ class _StubRunner:
 
     def input_authority_failure_reason(self) -> None:
         return None
+
+
+class _LiveRecordingRunner(_StubRunner):
+    session_mode = SessionMode.LIVE
 
 
 def _chapter_resource_payload() -> dict[str, Any]:
@@ -317,6 +337,89 @@ def _city_buildings_payload(*, duplicate: bool = False) -> dict[str, Any]:
 
 
 class AutonomousLoopTests(unittest.TestCase):
+    def test_evidence_tick_replaces_wrong_top_with_current_exact_action(self) -> None:
+        from pioneer_agent.executor.ui_actions import UIActions
+        from pioneer_agent.perception.ui_registry import UIRegistry
+        from pioneer_agent.perception.vision_sync import VisionSync
+
+        wrong_top = CandidateAction(
+            action_id="wait-top",
+            action_type=ActionType.WAIT_FOR_RESOURCE,
+            score_total=100,
+        )
+        claim = CandidateAction(
+            action_id="claim-17",
+            action_type=ActionType.CLAIM_CHAPTER_REWARD,
+            params={"chapter_id": 17, "claim_button": _claim_button_param()},
+            score_total=90,
+        )
+        bridge = _StubBridge()
+        vision = _ScriptedVision(
+            [_chapter_resource_payload(), _chapter_panel_payload(claimable=True)]
+        )
+        ui = UIActions(bridge, UIRegistry({}), vision=vision)
+        runner = _LiveRecordingRunner()
+        loop = AutonomousLoop(
+            bridge=bridge,
+            vision_sync=VisionSync(vision),  # type: ignore[arg-type]
+            ui_actions=ui,
+            selector=_RankedSelector(wrong_top, [wrong_top, claim]),
+            deriver=_StubDeriver(),  # type: ignore[arg-type]
+            runner=runner,  # type: ignore[arg-type]
+            evidence_action_type=ActionType.CLAIM_CHAPTER_REWARD,
+            sleeper=lambda _seconds: None,
+            stuck_threshold=1,
+        )
+
+        result = loop.tick(0)
+
+        self.assertEqual(result.selection.selected_action, claim)
+        self.assertEqual(
+            result.selection.selection_reason["evidence_action_constraint"]["decision"],
+            "selected",
+        )
+        # The lightweight test runner has no verifier registry, so preflight
+        # must stop before run(); this still exercises the complete tick path.
+        self.assertEqual(result.execution.status, "blocked")
+        self.assertEqual(runner.actions, [])
+        self.assertEqual(bridge.keys, [])
+
+    def test_evidence_tick_stale_exact_candidate_dispatches_no_input_or_recovery(self) -> None:
+        from pioneer_agent.executor.ui_actions import UIActions
+        from pioneer_agent.perception.ui_registry import UIRegistry
+        from pioneer_agent.perception.vision_sync import VisionSync
+
+        stale_claim = CandidateAction(
+            action_id="claim-18-stale",
+            action_type=ActionType.CLAIM_CHAPTER_REWARD,
+            params={"chapter_id": 18, "claim_button": _claim_button_param()},
+        )
+        bridge = _StubBridge()
+        vision = _ScriptedVision(
+            [_chapter_resource_payload(), _chapter_panel_payload(claimable=True)]
+        )
+        ui = UIActions(bridge, UIRegistry({}), vision=vision)
+        runner = _LiveRecordingRunner()
+        loop = AutonomousLoop(
+            bridge=bridge,
+            vision_sync=VisionSync(vision),  # type: ignore[arg-type]
+            ui_actions=ui,
+            selector=_StubSelector(stale_claim),
+            deriver=_StubDeriver(),  # type: ignore[arg-type]
+            runner=runner,  # type: ignore[arg-type]
+            evidence_action_type=ActionType.CLAIM_CHAPTER_REWARD,
+            sleeper=lambda _seconds: None,
+            stuck_threshold=1,
+        )
+
+        result = loop.tick(0)
+
+        self.assertIsNone(result.selection.selected_action)
+        self.assertIsNone(result.execution)
+        self.assertEqual(runner.actions, [])
+        self.assertEqual(bridge.clicks, [])
+        self.assertEqual(bridge.keys, [])
+
     def test_live_mode_never_emits_automatic_esc_recovery(self) -> None:
         from pioneer_agent.executor.ui_actions import UIActions
         from pioneer_agent.perception.ui_registry import UIRegistry
@@ -1008,6 +1111,7 @@ class AutonomousLoopTests(unittest.TestCase):
             runner=runner,
             sleeper=lambda _seconds: None,
             trace_store=trace_store,
+            evidence_action_type=ActionType.UPGRADE_BUILDING,
             post_action_verify_poll_interval_s=0,
         )
         loop.state = RuntimeState(

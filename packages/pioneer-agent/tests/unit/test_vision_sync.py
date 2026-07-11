@@ -14,6 +14,7 @@ from PIL import Image
 
 from pioneer_agent.core.models import FieldMeta, RuntimeState
 from pioneer_agent.perception.vision_sync import VisionSync
+from tests.unit.capture_geometry_fixtures import capture_geometry
 
 
 @dataclass
@@ -66,6 +67,29 @@ class _ScriptedVisionClient:
 
 
 class VisionSyncTests(unittest.TestCase):
+    def test_observation_preserves_same_screenshot_capture_geometry(self) -> None:
+        client = _ScriptedVisionClient(
+            [{"page_type": "city", "resources": {}, "visible_notes": []},
+             {"buildings": [], "visible_notes": []}]
+        )
+        buffer = io.BytesIO()
+        Image.new("RGB", (320, 180), (1, 2, 3)).save(buffer, format="PNG")
+        geometry = capture_geometry(
+            (320, 180),
+            capture_origin=(9, 0),
+            outer_rect=(0, 0, 338, 189),
+        )
+
+        _state, summary = VisionSync(client).sync(
+            buffer.getvalue(),
+            RuntimeState(),
+            capture_geometry=geometry,
+        )
+
+        assert summary.observation is not None
+        self.assertEqual(summary.observation.capture_geometry, geometry)
+        self.assertEqual(summary.observation.frame_size, geometry.frame_size)
+
     def test_path_input_is_read_once_and_all_extractors_receive_same_bytes(self) -> None:
         original_buffer = io.BytesIO()
         replacement_buffer = io.BytesIO()

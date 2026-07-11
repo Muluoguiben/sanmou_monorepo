@@ -24,6 +24,7 @@ from pioneer_agent.executor.operator_confirmation import (
     load_operator_confirmation_request,
 )
 from pioneer_agent.executor.semantic_frame_guard import build_semantic_frame_guard
+from tests.unit.capture_geometry_fixtures import capture_geometry
 
 
 class OperatorConfirmationWaitTests(unittest.TestCase):
@@ -234,6 +235,7 @@ def _action_and_observation() -> tuple[CandidateAction, ObservationSnapshot]:
         captured_at=datetime(2026, 7, 10, 12, 0, 0, tzinfo=UTC),
         frame_sha256=hashlib.sha256(_frame_bytes()).hexdigest(),
         frame_size=(1920, 1080),
+        capture_geometry=capture_geometry((1920, 1080)),
         page_type="chapter",
         domains_run=["resource_bar", "chapter_panel"],
         observed_state=RuntimeState(),
@@ -252,6 +254,7 @@ def _semantic_guard(observation: ObservationSnapshot):  # noqa: ANN201
     return build_semantic_frame_guard(
         _frame_bytes(),
         frame_size=observation.frame_size or (0, 0),
+        capture_geometry=observation.capture_geometry,
         semantic_target_key="chapter_claim_button",
         bbox={"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
     )

@@ -7,17 +7,26 @@ bypassing WSL2 network routing issues (e.g. WireGuard, NAT).
 from __future__ import annotations
 
 import base64
+import hashlib
 import json
 import math
 import re
 import subprocess
+from dataclasses import dataclass
 from datetime import datetime
+from io import BytesIO
 from pathlib import Path
 from typing import Any
+
+from PIL import Image, UnidentifiedImageError
+from pydantic import ValidationError
+
+from pioneer_agent.core.models import CaptureGeometry
 
 
 _PROXY_SCRIPT = Path(__file__).with_name("bridge_proxy.py")
 _ATOMIC_FRAME_CLICK_GUARD_VERSION = 1
+_CAPTURE_GEOMETRY_VERSION = 1
 _SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 _ATOMIC_AUTHORIZATION_SCOPES = frozenset(
     {
@@ -25,6 +34,13 @@ _ATOMIC_AUTHORIZATION_SCOPES = frozenset(
         "observation_bound_intermediate_click",
     }
 )
+
+
+@dataclass(frozen=True)
+class BridgeScreenshot:
+    png: bytes
+    frame_sha256: str
+    capture_geometry: CaptureGeometry
 
 
 def _to_windows_path(linux_path: Path) -> str:
@@ -46,6 +62,7 @@ class BridgeClient:
     """Client that talks to the Windows bridge server via python.exe proxy."""
 
     atomic_frame_click_guard_version = _ATOMIC_FRAME_CLICK_GUARD_VERSION
+    capture_geometry_version = _CAPTURE_GEOMETRY_VERSION
     atomic_frame_click_guard_modes = frozenset(
         {"semantic_roi_rgb24_sha256", "full_frame_png_sha256"}
     )
@@ -55,11 +72,13 @@ class BridgeClient:
         self.port = port
         self.capture_backend = capture_backend
         self._proc: subprocess.Popen[str] | None = None
+        self._last_screenshot: BridgeScreenshot | None = None
 
     def connect(self) -> None:
         """Start the proxy subprocess and wait for it to be ready."""
         if self._proc is not None and self._proc.poll() is None:
             return
+        self._last_screenshot = None
         win_script = _to_windows_path(_PROXY_SCRIPT)
         self._proc = subprocess.Popen(
             ["python.exe", win_script, str(self.port)],
@@ -83,6 +102,7 @@ class BridgeClient:
             self._proc.terminate()
             self._proc.wait(timeout=5)
         self._proc = None
+        self._last_screenshot = None
 
     def ping(self) -> bool:
         """Check if the bridge server is reachable."""
@@ -96,7 +116,15 @@ class BridgeClient:
 
     def screenshot(self, save_path: Path | str | None = None) -> bytes:
         """Capture a screenshot of the game window. Returns PNG bytes."""
+        return self.screenshot_capture(save_path=save_path).png
+
+    def screenshot_capture(
+        self,
+        save_path: Path | str | None = None,
+    ) -> BridgeScreenshot:
+        """Capture pixels plus their server-attested physical geometry."""
         self.connect()
+        self._last_screenshot = None
         payload = {"cmd": "screenshot"}
         if self.capture_backend:
             payload["backend"] = self.capture_backend
@@ -104,12 +132,52 @@ class BridgeClient:
         resp = self._read_line()
         if resp.get("status") != "ok" or "data_b64" not in resp:
             raise RuntimeError(resp.get("message") or f"Screenshot failed: {resp}")
-        png_bytes = base64.b64decode(resp["data_b64"])
+        try:
+            png_bytes = base64.b64decode(resp["data_b64"], validate=True)
+        except (TypeError, ValueError) as exc:
+            raise RuntimeError("bridge returned invalid screenshot bytes") from exc
+        if (
+            isinstance(resp.get("size"), bool)
+            or not isinstance(resp.get("size"), int)
+            or resp.get("size") != len(png_bytes)
+        ):
+            raise RuntimeError("bridge screenshot byte-length binding is invalid")
+        digest = hashlib.sha256(png_bytes).hexdigest()
+        if resp.get("frame_sha256") != digest:
+            raise RuntimeError("bridge screenshot hash binding is invalid")
+        try:
+            geometry = CaptureGeometry.model_validate(resp.get("capture_geometry"))
+        except (ValidationError, TypeError, ValueError) as exc:
+            raise RuntimeError(
+                "bridge screenshot lacks valid capture geometry v1; update and restart the Windows bridge server"
+            ) from exc
+        try:
+            with Image.open(BytesIO(png_bytes)) as image:
+                image.load()
+                decoded_size = image.size
+        except (UnidentifiedImageError, OSError, ValueError) as exc:
+            raise RuntimeError("bridge screenshot is not a decodable image") from exc
+        if decoded_size != geometry.frame_size:
+            raise RuntimeError(
+                "bridge screenshot pixels do not match its capture geometry"
+            )
+        screenshot = BridgeScreenshot(
+            png=png_bytes,
+            frame_sha256=digest,
+            capture_geometry=geometry,
+        )
         if save_path is not None:
             path = Path(save_path)
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(png_bytes)
-        return png_bytes
+        # Do not retain a dispatch-capable binding if the requested archive
+        # write failed: callers did not receive a completed capture result.
+        self._last_screenshot = screenshot
+        return screenshot
+
+    @property
+    def last_screenshot(self) -> BridgeScreenshot | None:
+        return self._last_screenshot
 
     def click(
         self,
@@ -118,16 +186,23 @@ class BridgeClient:
         button: str = "left",
         *,
         expected_window: dict[str, int] | None = None,
+        expected_capture_geometry: dict[str, Any] | CaptureGeometry | None = None,
         expected_frame_sha256: str | None = None,
         guard_expires_at: str | None = None,
         authorization_scope: str | None = None,
         kill_switch_path: Path | str | None = None,
         semantic_frame_guard: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
-        """Send a click at window-relative coordinates."""
+        """Send a click at screenshot-relative coordinates when guarded."""
         atomic_guard = expected_window is not None
+        capture_geometry_payload: dict[str, Any] | None = None
         if atomic_guard:
+            capture_geometry_payload = _capture_geometry_payload(
+                expected_capture_geometry
+            )
             _validate_atomic_click_request(
+                expected_window=expected_window,
+                expected_capture_geometry=capture_geometry_payload,
                 expected_frame_sha256=expected_frame_sha256,
                 guard_expires_at=guard_expires_at,
                 authorization_scope=authorization_scope,
@@ -135,14 +210,30 @@ class BridgeClient:
                 semantic_frame_guard=semantic_frame_guard,
                 click_point=(x, y),
             )
+            last = self._last_screenshot
+            if (
+                last is None
+                or hashlib.sha256(last.png).hexdigest() != expected_frame_sha256
+                or last.frame_sha256 != expected_frame_sha256
+                or last.capture_geometry.model_dump(mode="json")
+                != capture_geometry_payload
+            ):
+                raise RuntimeError(
+                    "guarded click is not bound to the last BridgeClient screenshot"
+                )
+            # A dispatch attempt is one-shot locally as well as on the server.
+            self._last_screenshot = None
         elif (
             expected_frame_sha256 is not None
             or guard_expires_at is not None
             or authorization_scope is not None
             or kill_switch_path is not None
             or semantic_frame_guard is not None
+            or expected_capture_geometry is not None
         ):
             raise ValueError("atomic frame guard requires expected_window")
+        else:
+            self._last_screenshot = None
 
         self.connect()
         if atomic_guard:
@@ -155,6 +246,13 @@ class BridgeClient:
             ):
                 raise RuntimeError(
                     "bridge does not advertise atomic frame click guard v1"
+                )
+            if (
+                capabilities.get("capture_geometry_version")
+                != _CAPTURE_GEOMETRY_VERSION
+            ):
+                raise RuntimeError(
+                    "bridge does not advertise capture geometry v1; update and restart the Windows bridge server"
                 )
             supported_modes = capabilities.get("atomic_frame_click_guard_modes")
             required_mode = (
@@ -184,6 +282,8 @@ class BridgeClient:
         }
         if expected_window is not None:
             payload["expected_window"] = dict(expected_window)
+            assert capture_geometry_payload is not None
+            payload["expected_capture_geometry"] = capture_geometry_payload
             payload["atomic_frame_click_guard_version"] = (
                 _ATOMIC_FRAME_CLICK_GUARD_VERSION
             )
@@ -209,11 +309,13 @@ class BridgeClient:
                 kill_switch_path=_to_windows_kill_switch_path(kill_switch_path),
                 capture_backend=self.capture_backend,
                 semantic_frame_guard=semantic_frame_guard,
+                expected_capture_geometry=capture_geometry_payload,
             )
         return response
 
     def move(self, x: int, y: int, duration: float = 0.0) -> dict[str, Any]:
         """Move the cursor to window-relative coordinates (hover)."""
+        self._last_screenshot = None
         self.connect()
         self._send({"cmd": "move", "x": x, "y": y, "duration": duration})
         return self._read_line()
@@ -228,6 +330,7 @@ class BridgeClient:
         button: str = "left",
     ) -> dict[str, Any]:
         """Drag from (x1,y1) to (x2,y2) in window coords. Used to pan the map."""
+        self._last_screenshot = None
         self.connect()
         self._send({
             "cmd": "drag",
@@ -238,6 +341,7 @@ class BridgeClient:
 
     def key_press(self, key: str, modifiers: list[str] | None = None) -> dict[str, Any]:
         """Press a keyboard key — e.g. 'escape', 'enter', 'tab'."""
+        self._last_screenshot = None
         self.connect()
         payload: dict[str, Any] = {"cmd": "key", "key": key}
         if modifiers:
@@ -284,6 +388,8 @@ class BridgeClient:
 
 def _validate_atomic_click_request(
     *,
+    expected_window: dict[str, int],
+    expected_capture_geometry: dict[str, Any],
     expected_frame_sha256: str | None,
     guard_expires_at: str | None,
     authorization_scope: str | None,
@@ -291,6 +397,11 @@ def _validate_atomic_click_request(
     semantic_frame_guard: dict[str, Any] | None,
     click_point: tuple[int, int],
 ) -> None:
+    geometry = CaptureGeometry.model_validate(expected_capture_geometry)
+    if geometry.outer_window.model_dump(mode="json") != expected_window:
+        raise ValueError(
+            "guarded click window identity does not match capture geometry"
+        )
     if not isinstance(expected_frame_sha256, str) or not _SHA256_RE.fullmatch(
         expected_frame_sha256
     ):
@@ -319,6 +430,10 @@ def _validate_atomic_click_request(
             )
         ):
             raise ValueError("guarded click semantic ROI binding is invalid")
+        if semantic_frame_guard.get("capture_geometry") != expected_capture_geometry:
+            raise ValueError(
+                "guarded click semantic ROI does not bind the capture geometry"
+            )
         _validate_semantic_guard_geometry(
             semantic_frame_guard,
             click_point=click_point,
@@ -338,6 +453,7 @@ def _validate_atomic_click_response(
     kill_switch_path: str,
     capture_backend: str | None,
     semantic_frame_guard: dict[str, Any] | None,
+    expected_capture_geometry: dict[str, Any] | None,
 ) -> None:
     proof = response.get("atomic_frame_guard")
     if not isinstance(proof, dict):
@@ -371,6 +487,27 @@ def _validate_atomic_click_response(
         raise RuntimeError("bridge used a different backend for atomic frame validation")
     if proof.get("capture_backend") not in {"wgc", "dxgi"}:
         raise RuntimeError("bridge did not attest a concrete atomic capture backend")
+    if (
+        expected_capture_geometry is None
+        or proof.get("source_capture_geometry") != expected_capture_geometry
+        or proof.get("recapture_geometry") != expected_capture_geometry
+        or proof.get("capture_backend")
+        != expected_capture_geometry.get("capture_backend")
+    ):
+        raise RuntimeError("bridge returned an invalid capture geometry attestation")
+    expected_click = (
+        semantic_frame_guard.get("click_point")
+        if isinstance(semantic_frame_guard, dict)
+        else None
+    )
+    if isinstance(expected_click, dict):
+        origin = expected_capture_geometry["capture_origin"]
+        absolute = {
+            "x": origin["x"] + expected_click["x"],
+            "y": origin["y"] + expected_click["y"],
+        }
+        if proof.get("absolute_click_point") != absolute:
+            raise RuntimeError("bridge returned an invalid absolute click attestation")
     _validate_kill_switch_attestation(
         proof.get("kill_switch_guard"),
         expected_path=kill_switch_path,
@@ -441,6 +578,20 @@ def _validate_semantic_guard_geometry(
         and bottom <= height
     ):
         raise ValueError("semantic guard click must be inside its half-open ROI")
+
+
+def _capture_geometry_payload(
+    value: dict[str, Any] | CaptureGeometry | None,
+) -> dict[str, Any]:
+    try:
+        geometry = (
+            value
+            if isinstance(value, CaptureGeometry)
+            else CaptureGeometry.model_validate(value)
+        )
+    except (ValidationError, TypeError, ValueError) as exc:
+        raise ValueError("guarded click requires valid capture geometry v1") from exc
+    return geometry.model_dump(mode="json")
 
 
 def _validate_kill_switch_attestation(value: Any, *, expected_path: str) -> None:

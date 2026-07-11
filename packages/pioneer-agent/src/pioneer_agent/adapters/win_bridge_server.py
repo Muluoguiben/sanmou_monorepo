@@ -10,6 +10,9 @@ Usage (from Windows or WSL):
 from __future__ import annotations
 
 import argparse
+import base64
+import ctypes
+from ctypes import wintypes
 import hashlib
 import json
 import math
@@ -50,6 +53,7 @@ MAX_UNIFORM_PIXEL_RATIO = 0.985
 MIN_SCREENSHOT_MEAN = 1.0
 MIN_SCREENSHOT_STD = 1.0
 ATOMIC_FRAME_CLICK_GUARD_VERSION = 1
+CAPTURE_GEOMETRY_VERSION = 1
 ATOMIC_CLICK_AUTHORIZATION_SCOPES = frozenset(
     {
         "operator_confirmed_final_mutating_click",
@@ -108,6 +112,255 @@ def _rect_payload(hwnd: int) -> dict[str, Any]:
         "usable": usable_reason == "ok",
         "usable_reason": usable_reason,
     }
+
+
+def _window_geometry_identity(hwnd: int) -> dict[str, int]:
+    """Return the exact outer physical-pixel window identity used by guards."""
+    info = _rect_payload(hwnd)
+    if (
+        info.get("usable") is not True
+        or info.get("visible") is not True
+        or info.get("iconic") is not False
+        or info.get("offscreen") is not False
+    ):
+        raise RuntimeError("capture target window is not visible and usable")
+    value = {
+        "hwnd": hwnd,
+        "pid": info["pid"],
+        **{
+            key: info[key]
+            for key in ("left", "top", "right", "bottom", "width", "height")
+        },
+    }
+    _validate_outer_window_identity(value)
+    return value
+
+
+def _screen_rect_payload(rect: tuple[int, int, int, int]) -> dict[str, int]:
+    left, top, right, bottom = rect
+    return {
+        "left": left,
+        "top": top,
+        "right": right,
+        "bottom": bottom,
+        "width": right - left,
+        "height": bottom - top,
+    }
+
+
+def _dwm_extended_frame_bounds(hwnd: int) -> tuple[int, int, int, int]:
+    """Read non-client extended frame bounds in physical desktop pixels."""
+
+    class RECT(ctypes.Structure):
+        _fields_ = [
+            ("left", wintypes.LONG),
+            ("top", wintypes.LONG),
+            ("right", wintypes.LONG),
+            ("bottom", wintypes.LONG),
+        ]
+
+    rect = RECT()
+    try:
+        dwmapi = ctypes.WinDLL("dwmapi")
+    except (AttributeError, OSError) as exc:
+        raise RuntimeError("DWM extended frame bounds are unavailable") from exc
+    get_attribute = dwmapi.DwmGetWindowAttribute
+    get_attribute.argtypes = [
+        wintypes.HWND,
+        wintypes.DWORD,
+        ctypes.c_void_p,
+        wintypes.DWORD,
+    ]
+    get_attribute.restype = ctypes.c_long
+    result = get_attribute(
+        wintypes.HWND(hwnd),
+        wintypes.DWORD(9),  # DWMWA_EXTENDED_FRAME_BOUNDS
+        ctypes.byref(rect),
+        ctypes.sizeof(rect),
+    )
+    if result != 0:
+        raise RuntimeError(
+            f"DwmGetWindowAttribute(DWMWA_EXTENDED_FRAME_BOUNDS) failed: 0x{result & 0xFFFFFFFF:08x}"
+        )
+    value = (int(rect.left), int(rect.top), int(rect.right), int(rect.bottom))
+    _validate_screen_rect(_screen_rect_payload(value), name="DWM extended frame bounds")
+    return value
+
+
+def _build_capture_geometry(
+    *,
+    backend: str,
+    outer_window: dict[str, int],
+    capture_rect: tuple[int, int, int, int],
+    frame_size: tuple[int, int],
+) -> dict[str, Any]:
+    geometry = {
+        "schema_version": CAPTURE_GEOMETRY_VERSION,
+        "capture_backend": backend,
+        "outer_window": dict(outer_window),
+        "capture_rect": _screen_rect_payload(capture_rect),
+        "capture_origin": {"x": capture_rect[0], "y": capture_rect[1]},
+        "frame_size": [frame_size[0], frame_size[1]],
+    }
+    _validate_capture_geometry(geometry)
+    return geometry
+
+
+def _wgc_capture_geometry(
+    *,
+    outer_window: dict[str, int],
+    dwm_bounds: tuple[int, int, int, int],
+    frame_size: tuple[int, int],
+) -> dict[str, Any]:
+    """Bind WGC pixels only when they exactly match the DWM frame bounds."""
+    dwm = _screen_rect_payload(dwm_bounds)
+    if frame_size != (dwm["width"], dwm["height"]):
+        raise RuntimeError(
+            "WGC frame size cannot be uniquely bound to DWM extended frame bounds: "
+            f"frame={frame_size} dwm={(dwm['width'], dwm['height'])}"
+        )
+    return _build_capture_geometry(
+        backend="wgc",
+        outer_window=outer_window,
+        capture_rect=dwm_bounds,
+        frame_size=frame_size,
+    )
+
+
+def _dxgi_clamped_capture_rect(
+    outer_window: dict[str, int],
+    *,
+    output_width: int,
+    output_height: int,
+) -> tuple[int, int, int, int]:
+    if not _plain_positive_int(output_width) or not _plain_positive_int(
+        output_height
+    ):
+        raise RuntimeError("DXGI output geometry is invalid")
+    left = max(0, outer_window["left"])
+    top = max(0, outer_window["top"])
+    right = min(output_width, outer_window["right"])
+    bottom = min(output_height, outer_window["bottom"])
+    if right <= left or bottom <= top:
+        raise RuntimeError(
+            f"Invalid clamped DXGI region: ({left},{top},{right},{bottom})"
+        )
+    return left, top, right, bottom
+
+
+def _validate_capture_geometry(value: Any) -> dict[str, Any]:
+    if not isinstance(value, dict) or set(value) != {
+        "schema_version",
+        "capture_backend",
+        "outer_window",
+        "capture_rect",
+        "capture_origin",
+        "frame_size",
+    }:
+        raise RuntimeError("capture geometry is missing required fields")
+    if value.get("schema_version") != CAPTURE_GEOMETRY_VERSION:
+        raise RuntimeError("capture geometry schema is unsupported")
+    if value.get("capture_backend") not in {"wgc", "dxgi"}:
+        raise RuntimeError("capture geometry backend is not concrete")
+    outer = value.get("outer_window")
+    _validate_outer_window_identity(outer)
+    rect = value.get("capture_rect")
+    _validate_screen_rect(rect, name="capture rectangle")
+    origin = value.get("capture_origin")
+    if (
+        not isinstance(origin, dict)
+        or set(origin) != {"x", "y"}
+        or any(not _plain_int(origin.get(key)) for key in ("x", "y"))
+        or origin != {"x": rect["left"], "y": rect["top"]}
+    ):
+        raise RuntimeError("capture geometry origin is invalid")
+    frame_size = value.get("frame_size")
+    if (
+        not isinstance(frame_size, (list, tuple))
+        or len(frame_size) != 2
+        or any(not _plain_positive_int(item) for item in frame_size)
+        or tuple(frame_size) != (rect["width"], rect["height"])
+    ):
+        raise RuntimeError("capture geometry frame size is invalid")
+    if not (
+        outer["left"] <= rect["left"] < rect["right"] <= outer["right"]
+        and outer["top"] <= rect["top"] < rect["bottom"] <= outer["bottom"]
+    ):
+        raise RuntimeError("capture rectangle is outside the outer window")
+    return value
+
+
+def _validate_outer_window_identity(value: Any) -> None:
+    if not isinstance(value, dict) or set(value) != {
+        "hwnd",
+        "pid",
+        "left",
+        "top",
+        "right",
+        "bottom",
+        "width",
+        "height",
+    }:
+        raise RuntimeError("outer window identity is invalid")
+    if not _plain_positive_int(value.get("hwnd")) or not _plain_positive_int(
+        value.get("pid")
+    ):
+        raise RuntimeError("outer window identity is invalid")
+    _validate_screen_rect(value, name="outer window rectangle")
+
+
+def _validate_screen_rect(value: Any, *, name: str) -> None:
+    if not isinstance(value, dict):
+        raise RuntimeError(f"{name} is invalid")
+    required = {"left", "top", "right", "bottom", "width", "height"}
+    if not required.issubset(value) or any(
+        not _plain_int(value.get(key)) for key in required
+    ):
+        raise RuntimeError(f"{name} is invalid")
+    if (
+        value["right"] <= value["left"]
+        or value["bottom"] <= value["top"]
+        or value["right"] - value["left"] != value["width"]
+        or value["bottom"] - value["top"] != value["height"]
+    ):
+        raise RuntimeError(f"{name} is invalid")
+
+
+def _plain_int(value: Any) -> bool:
+    return isinstance(value, int) and not isinstance(value, bool)
+
+
+def _plain_positive_int(value: Any) -> bool:
+    return _plain_int(value) and value > 0
+
+
+def _enable_physical_pixel_coordinates() -> None:
+    """Make all Win32 rectangles/cursor coordinates use physical pixels."""
+    try:
+        user32 = ctypes.WinDLL("user32", use_last_error=True)
+    except (AttributeError, OSError) as exc:
+        raise RuntimeError("Win32 DPI-awareness APIs are unavailable") from exc
+    setter = getattr(user32, "SetProcessDpiAwarenessContext", None)
+    if setter is None:
+        raise RuntimeError("per-monitor DPI awareness v2 is unavailable")
+    # DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 is the pseudo-handle -4.
+    setter.argtypes = [ctypes.c_void_p]
+    setter.restype = wintypes.BOOL
+    if not setter(ctypes.c_void_p(-4)):
+        # ERROR_ACCESS_DENIED means a host already fixed the process awareness;
+        # verify that it is at least per-monitor aware instead of guessing.
+        error = ctypes.get_last_error()
+        getter = getattr(user32, "GetThreadDpiAwarenessContext", None)
+        awareness = getattr(user32, "GetAwarenessFromDpiAwarenessContext", None)
+        if getter is not None:
+            getter.restype = ctypes.c_void_p
+        if awareness is not None:
+            awareness.argtypes = [ctypes.c_void_p]
+            awareness.restype = ctypes.c_int
+        if error != 5 or getter is None or awareness is None or awareness(getter()) != 2:
+            raise RuntimeError(
+                "bridge could not establish physical-pixel DPI awareness"
+            )
 
 
 def _usable_rect(rect: tuple[int, int, int, int], hwnd: int | None = None) -> bool:
@@ -213,24 +466,22 @@ def _ensure_window_onscreen(hwnd: int) -> None:
     raise RuntimeError(f"Window is not capturable: hwnd={hwnd} rect={rect} iconic={win32gui.IsIconic(hwnd)}")
 
 
-def capture_window_dxgi(hwnd: int) -> bytes:
+def capture_window_dxgi(hwnd: int) -> tuple[bytes, dict[str, Any]]:
     """Capture a screenshot of the game window using DXGI Desktop Duplication (dxcam).
 
     This works for DirectX/hardware-accelerated windows where GDI-based
     capture (mss, BitBlt, PrintWindow) returns black frames.
     """
     _ensure_window_onscreen(hwnd)
-    rect = win32gui.GetWindowRect(hwnd)
+    outer_before = _window_geometry_identity(hwnd)
     cam = dxcam.create()
 
-    # Clamp to screen bounds
-    left = max(0, rect[0])
-    top = max(0, rect[1])
-    right = min(cam.width, rect[2])
-    bottom = min(cam.height, rect[3])
-    if right <= left or bottom <= top:
-        del cam
-        raise RuntimeError(f"Invalid clamped region: ({left},{top},{right},{bottom}) from rect {rect}")
+    # Clamp to the exact duplicated output and retain that physical origin.
+    left, top, right, bottom = _dxgi_clamped_capture_rect(
+        outer_before,
+        output_width=cam.width,
+        output_height=cam.height,
+    )
 
     # Grab with retries — first grab may be stale/None
     frame = None
@@ -244,12 +495,28 @@ def capture_window_dxgi(hwnd: int) -> bytes:
         raise RuntimeError("dxcam.grab() returned None after retries")
 
     img = Image.fromarray(frame)
+    expected_size = (right - left, bottom - top)
+    if img.size != expected_size:
+        raise RuntimeError(
+            f"DXGI frame size {img.size} does not match clamped region {expected_size}"
+        )
+    outer_after = _window_geometry_identity(hwnd)
+    if outer_after != outer_before:
+        raise RuntimeError("outer window geometry changed during DXGI capture")
     buf = BytesIO()
     img.save(buf, format="PNG")
-    return buf.getvalue()
+    return buf.getvalue(), _build_capture_geometry(
+        backend="dxgi",
+        outer_window=outer_before,
+        capture_rect=(left, top, right, bottom),
+        frame_size=img.size,
+    )
 
 
-def capture_window_wgc(hwnd: int, timeout_seconds: float = 5.0) -> bytes:
+def capture_window_wgc(
+    hwnd: int,
+    timeout_seconds: float = 5.0,
+) -> tuple[bytes, dict[str, Any]]:
     """Capture a target window through Windows Graphics Capture.
 
     WGC is the preferred backend when the user is actively switching windows:
@@ -259,8 +526,11 @@ def capture_window_wgc(hwnd: int, timeout_seconds: float = 5.0) -> bytes:
     if WindowsCapture is None:
         raise RuntimeError("windows-capture is not installed; run: python -m pip install windows-capture")
     _ensure_window_onscreen(hwnd)
+    outer_before = _window_geometry_identity(hwnd)
+    dwm_before = _dwm_extended_frame_bounds(hwnd)
 
     frame_bytes: list[bytes] = []
+    frame_sizes: list[tuple[int, int]] = []
     capture = WindowsCapture(cursor_capture=False, draw_border=False, window_hwnd=hwnd)
 
     @capture.event
@@ -274,6 +544,7 @@ def capture_window_wgc(hwnd: int, timeout_seconds: float = 5.0) -> bytes:
             buf = BytesIO()
             image.save(buf, format="PNG")
             frame_bytes.append(buf.getvalue())
+            frame_sizes.append(image.size)
         control.stop()
 
     @capture.event
@@ -287,7 +558,18 @@ def capture_window_wgc(hwnd: int, timeout_seconds: float = 5.0) -> bytes:
     control.stop()
     if not frame_bytes:
         raise RuntimeError(f"WGC capture timed out or closed without a usable frame after {timeout_seconds}s")
-    return frame_bytes[0]
+    outer_after = _window_geometry_identity(hwnd)
+    dwm_after = _dwm_extended_frame_bounds(hwnd)
+    if outer_after != outer_before:
+        raise RuntimeError("outer window geometry changed during WGC capture")
+    if dwm_after != dwm_before:
+        raise RuntimeError("DWM extended frame bounds changed during WGC capture")
+    frame_size = frame_sizes[0]
+    return frame_bytes[0], _wgc_capture_geometry(
+        outer_window=outer_before,
+        dwm_bounds=dwm_before,
+        frame_size=frame_size,
+    )
 
 
 def _validate_capture_sanity(png_bytes: bytes, *, hwnd: int) -> None:
@@ -344,8 +626,8 @@ def _resolve_window(window_title: str, hwnd: int | None) -> int:
 def capture_window_with_backend(
     hwnd: int,
     backend: str = "auto",
-) -> tuple[bytes, str]:
-    """Capture and return the concrete backend that produced the PNG."""
+) -> tuple[bytes, dict[str, Any]]:
+    """Capture and return the exact concrete capture geometry."""
     normalized = backend.lower()
     if normalized not in {"auto", "wgc", "dxgi"}:
         raise RuntimeError(f"Unknown capture backend: {backend}")
@@ -353,7 +635,7 @@ def capture_window_with_backend(
     errors: list[str] = []
     if normalized in {"auto", "wgc"}:
         try:
-            return capture_window_wgc(hwnd), "wgc"
+            return capture_window_wgc(hwnd)
         except Exception as exc:  # noqa: BLE001
             errors.append(f"wgc: {exc}")
             if normalized == "wgc":
@@ -361,7 +643,7 @@ def capture_window_with_backend(
 
     if normalized in {"auto", "dxgi"}:
         try:
-            return capture_window_dxgi(hwnd), "dxgi"
+            return capture_window_dxgi(hwnd)
         except Exception as exc:  # noqa: BLE001
             errors.append(f"dxgi: {exc}")
             if normalized == "dxgi":
@@ -396,6 +678,7 @@ def click_window_relative(
     button: str = "left",
     *,
     expected_window: dict[str, Any] | None = None,
+    expected_capture_geometry: dict[str, Any] | None = None,
     expected_frame_sha256: str | None = None,
     guard_expires_at: str | None = None,
     authorization_scope: str | None = None,
@@ -404,7 +687,11 @@ def click_window_relative(
     capture_backend: str = "auto",
     atomic_frame_click_guard_version: int | None = None,
 ) -> dict[str, Any]:
-    """Click at coordinates relative to the window's top-left corner."""
+    """Click at screenshot-relative coordinates.
+
+    Guarded absolute coordinates are resolved from the attested capture origin,
+    never from the outer window rectangle.
+    """
     expiry: datetime | None = None
     if expected_window is None:
         if (
@@ -413,6 +700,7 @@ def click_window_relative(
             or authorization_scope is not None
             or kill_switch_path is not None
             or semantic_frame_guard is not None
+            or expected_capture_geometry is not None
             or atomic_frame_click_guard_version is not None
         ):
             raise RuntimeError("atomic frame guard requires expected_window")
@@ -425,17 +713,28 @@ def click_window_relative(
             kill_switch_path=kill_switch_path,
             version=atomic_frame_click_guard_version,
         )
+        expected_capture_geometry = _validate_capture_geometry(
+            expected_capture_geometry
+        )
+        if capture_backend != expected_capture_geometry["capture_backend"]:
+            raise RuntimeError(
+                "atomic recapture backend does not match the observed screenshot"
+            )
+        if expected_capture_geometry["outer_window"] != expected_window:
+            raise RuntimeError(
+                "capture geometry outer window does not match guarded identity"
+            )
         if semantic_frame_guard is not None:
             _validate_semantic_frame_guard_contract(
                 semantic_frame_guard,
-                expected_window=expected_window,
+                expected_capture_geometry=expected_capture_geometry,
                 click_point=(rx, ry),
                 authorization_scope=authorization_scope,
             )
         if datetime.now(UTC) >= expiry:
             raise RuntimeError("atomic click guard expired before guarded click")
         _assert_expected_window(hwnd, expected_window)
-        _assert_guarded_relative_point(rx, ry, expected_window)
+        _assert_guarded_relative_point(rx, ry, expected_capture_geometry)
     try:
         win32gui.SetForegroundWindow(hwnd)
     except Exception as exc:
@@ -446,9 +745,14 @@ def click_window_relative(
         _assert_expected_window(hwnd, expected_window)
         if win32gui.GetForegroundWindow() != hwnd:
             raise RuntimeError("guarded click target is not the foreground window")
-    rect = win32gui.GetWindowRect(hwnd)
-    abs_x = rect[0] + rx
-    abs_y = rect[1] + ry
+    if expected_capture_geometry is None:
+        rect = win32gui.GetWindowRect(hwnd)
+        abs_x = rect[0] + rx
+        abs_y = rect[1] + ry
+    else:
+        origin = expected_capture_geometry["capture_origin"]
+        abs_x = origin["x"] + rx
+        abs_y = origin["y"] + ry
     if expected_window is not None:
         point_window = win32gui.WindowFromPoint((abs_x, abs_y))
         point_root = (
@@ -473,7 +777,10 @@ def click_window_relative(
                 stage="before_capture",
             )
         )
-        png_bytes = capture_window(hwnd, backend=capture_backend)
+        png_bytes, recapture_geometry = capture_window_with_backend(
+            hwnd,
+            backend=capture_backend,
+        )
         _validate_capture_sanity(png_bytes, hwnd=hwnd)
         kill_switch_checks.append(
             _assert_kill_switch_clear(
@@ -482,6 +789,10 @@ def click_window_relative(
             )
         )
         captured_frame_sha256 = hashlib.sha256(png_bytes).hexdigest()
+        if recapture_geometry != expected_capture_geometry:
+            raise RuntimeError(
+                "atomic recapture backend or capture geometry changed before click"
+            )
         expected_roi_sha256: str | None = None
         captured_roi_sha256: str | None = None
         if semantic_frame_guard is None:
@@ -503,9 +814,9 @@ def click_window_relative(
         _assert_expected_window(hwnd, expected_window)
         if win32gui.GetForegroundWindow() != hwnd:
             raise RuntimeError("guarded click target lost foreground during frame validation")
-        rect = win32gui.GetWindowRect(hwnd)
-        abs_x = rect[0] + rx
-        abs_y = rect[1] + ry
+        origin = expected_capture_geometry["capture_origin"]
+        abs_x = origin["x"] + rx
+        abs_y = origin["y"] + ry
         point_window = win32gui.WindowFromPoint((abs_x, abs_y))
         point_root = (
             win32gui.GetAncestor(point_window, win32con.GA_ROOT)
@@ -531,9 +842,9 @@ def click_window_relative(
             raise RuntimeError(
                 "guarded click target lost foreground during final kill-switch check"
             )
-        rect = win32gui.GetWindowRect(hwnd)
-        abs_x = rect[0] + rx
-        abs_y = rect[1] + ry
+        origin = expected_capture_geometry["capture_origin"]
+        abs_x = origin["x"] + rx
+        abs_y = origin["y"] + ry
         point_window = win32gui.WindowFromPoint((abs_x, abs_y))
         point_root = (
             win32gui.GetAncestor(point_window, win32con.GA_ROOT)
@@ -564,6 +875,9 @@ def click_window_relative(
             "authorization_scope": authorization_scope,
             "verified_at": verified_at.isoformat(),
             "capture_backend": capture_backend,
+            "source_capture_geometry": dict(expected_capture_geometry),
+            "recapture_geometry": dict(recapture_geometry),
+            "absolute_click_point": {"x": abs_x, "y": abs_y},
             "kill_switch_guard": {
                 "checked": True,
                 "path": kill_switch_path,
@@ -653,7 +967,7 @@ def _assert_kill_switch_clear(path_value: str, *, stage: str) -> dict[str, Any]:
 def _validate_semantic_frame_guard_contract(
     guard: dict[str, Any],
     *,
-    expected_window: dict[str, Any],
+    expected_capture_geometry: dict[str, Any],
     click_point: tuple[int, int],
     authorization_scope: str | None,
 ) -> None:
@@ -669,6 +983,13 @@ def _validate_semantic_frame_guard_contract(
         raise RuntimeError(
             "semantic frame guard authorization scope does not match its target"
         )
+    guard_capture_geometry = _validate_capture_geometry(
+        guard.get("capture_geometry")
+    )
+    if guard_capture_geometry != expected_capture_geometry:
+        raise RuntimeError(
+            "semantic frame guard capture geometry does not match its screenshot"
+        )
     frame_size = guard.get("frame_size")
     if (
         not isinstance(frame_size, (list, tuple))
@@ -679,9 +1000,9 @@ def _validate_semantic_frame_guard_contract(
             or value <= 0
             for value in frame_size
         )
-        or tuple(frame_size) != (expected_window["width"], expected_window["height"])
+        or tuple(frame_size) != tuple(expected_capture_geometry["frame_size"])
     ):
-        raise RuntimeError("semantic frame guard size does not match the observed window")
+        raise RuntimeError("semantic frame guard size does not match the captured frame")
     normalized = _normalized_guard_bbox(guard.get("normalized_bbox"))
     expected_roi, expected_click = _semantic_guard_geometry(tuple(frame_size), normalized)
     if expected_roi["width"] <= 0 or expected_roi["height"] <= 0:
@@ -799,11 +1120,17 @@ def _scope_for_semantic_target(target_key: Any) -> str | None:
 
 
 def _assert_expected_window(hwnd: int, expected: dict[str, Any]) -> None:
-    required = ("hwnd", "pid", "width", "height")
-    for key in required:
-        value = expected.get(key)
-        if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
-            raise RuntimeError(f"invalid expected window {key}")
+    required = (
+        "hwnd",
+        "pid",
+        "left",
+        "top",
+        "right",
+        "bottom",
+        "width",
+        "height",
+    )
+    _validate_outer_window_identity(expected)
     info = _rect_payload(hwnd)
     mismatches = [key for key in required if info.get(key) != expected[key]]
     if mismatches:
@@ -822,8 +1149,9 @@ def _assert_expected_window(hwnd: int, expected: dict[str, Any]) -> None:
 def _assert_guarded_relative_point(
     rx: int,
     ry: int,
-    expected: dict[str, Any],
+    capture_geometry: dict[str, Any],
 ) -> None:
+    frame_size = capture_geometry["frame_size"]
     if (
         isinstance(rx, bool)
         or not isinstance(rx, int)
@@ -831,8 +1159,8 @@ def _assert_guarded_relative_point(
         or not isinstance(ry, int)
         or rx < 0
         or ry < 0
-        or rx >= expected["width"]
-        or ry >= expected["height"]
+        or rx >= frame_size[0]
+        or ry >= frame_size[1]
     ):
         raise RuntimeError("guarded click point is outside the observed frame")
 
@@ -969,6 +1297,7 @@ def handle_client(conn: socket.socket, window_title: str, capture_backend: str) 
                         "atomic_frame_click_guard_version": (
                             ATOMIC_FRAME_CLICK_GUARD_VERSION
                         ),
+                        "capture_geometry_version": CAPTURE_GEOMETRY_VERSION,
                         "atomic_frame_click_guard_modes": [
                             "semantic_roi_rgb24_sha256",
                             "full_frame_png_sha256",
@@ -980,24 +1309,37 @@ def handle_client(conn: socket.socket, window_title: str, capture_backend: str) 
                 )
 
             elif cmd == "screenshot":
+                # A failed replacement capture must not leave a stale frame
+                # authorized for a later guarded dispatch.
+                last_screenshot_binding = None
                 hwnd = _resolve_window(window_title, hwnd)
-                png_bytes, concrete_backend = capture_window_with_backend(
+                png_bytes, capture_geometry = capture_window_with_backend(
                     hwnd,
                     backend=str(msg.get("backend") or capture_backend),
                 )
                 _validate_capture_sanity(png_bytes, hwnd=hwnd)
+                frame_sha256 = hashlib.sha256(png_bytes).hexdigest()
                 last_screenshot_binding = {
                     "hwnd": hwnd,
-                    "frame_sha256": hashlib.sha256(png_bytes).hexdigest(),
-                    "capture_backend": concrete_backend,
+                    "frame_sha256": frame_sha256,
+                    "capture_geometry": capture_geometry,
                 }
-                send_binary(conn, png_bytes)
+                send_json(
+                    conn,
+                    {
+                        "status": "ok",
+                        "data_b64": base64.b64encode(png_bytes).decode("ascii"),
+                        "size": len(png_bytes),
+                        "frame_sha256": frame_sha256,
+                        "capture_geometry": capture_geometry,
+                    },
+                )
 
             elif cmd == "click":
                 hwnd = _resolve_window(window_title, hwnd)
-                rx, ry = int(msg["x"]), int(msg["y"])
                 button = msg.get("button", "left")
                 expected_window = msg.get("expected_window")
+                expected_capture_geometry = msg.get("expected_capture_geometry")
                 guarded_capture_backend: str | None = None
                 if expected_window is not None and not isinstance(expected_window, dict):
                     raise RuntimeError("expected_window must be an object")
@@ -1006,29 +1348,47 @@ def handle_client(conn: socket.socket, window_title: str, capture_backend: str) 
                         raise RuntimeError(
                             "guarded click requires a screenshot from this bridge session"
                         )
-                    if last_screenshot_binding.get("hwnd") != hwnd:
+                    screenshot_binding = last_screenshot_binding
+                    # Every guarded dispatch attempt consumes the session-local
+                    # screenshot binding, including malformed/mismatched ones.
+                    last_screenshot_binding = None
+                    if not _plain_int(msg.get("x")) or not _plain_int(msg.get("y")):
+                        raise RuntimeError("guarded click coordinates must be integers")
+                    rx, ry = msg["x"], msg["y"]
+                    expected_capture_geometry = _validate_capture_geometry(
+                        expected_capture_geometry
+                    )
+                    if screenshot_binding.get("hwnd") != hwnd:
                         raise RuntimeError(
                             "guarded click target differs from the observed screenshot window"
                         )
                     if (
-                        last_screenshot_binding.get("frame_sha256")
+                        screenshot_binding.get("frame_sha256")
                         != msg.get("expected_frame_sha256")
                     ):
                         raise RuntimeError(
                             "guarded click frame is not the last bridge screenshot"
                         )
+                    if (
+                        screenshot_binding.get("capture_geometry")
+                        != expected_capture_geometry
+                    ):
+                        raise RuntimeError(
+                            "guarded click capture geometry is not the last bridge screenshot"
+                        )
                     guarded_capture_backend = str(
-                        last_screenshot_binding["capture_backend"]
+                        expected_capture_geometry["capture_backend"]
                     )
-                    # One dispatch attempt consumes the session-local capture
-                    # binding even when a later guard blocks the click.
+                else:
                     last_screenshot_binding = None
+                    rx, ry = int(msg["x"]), int(msg["y"])
                 click_result = click_window_relative(
                     hwnd,
                     rx,
                     ry,
                     button,
                     expected_window=expected_window,
+                    expected_capture_geometry=expected_capture_geometry,
                     expected_frame_sha256=msg.get("expected_frame_sha256"),
                     guard_expires_at=msg.get("guard_expires_at"),
                     authorization_scope=msg.get("authorization_scope"),
@@ -1046,6 +1406,7 @@ def handle_client(conn: socket.socket, window_title: str, capture_backend: str) 
                 send_json(conn, {"status": "ok", **click_result})
 
             elif cmd == "move":
+                last_screenshot_binding = None
                 hwnd = _resolve_window(window_title, hwnd)
                 rx, ry = int(msg["x"]), int(msg["y"])
                 duration = float(msg.get("duration", 0.0))
@@ -1053,6 +1414,7 @@ def handle_client(conn: socket.socket, window_title: str, capture_backend: str) 
                 send_json(conn, {"status": "ok"})
 
             elif cmd == "drag":
+                last_screenshot_binding = None
                 hwnd = _resolve_window(window_title, hwnd)
                 drag_window_relative(
                     hwnd,
@@ -1066,6 +1428,7 @@ def handle_client(conn: socket.socket, window_title: str, capture_backend: str) 
                 send_json(conn, {"status": "ok"})
 
             elif cmd == "key":
+                last_screenshot_binding = None
                 hwnd = _resolve_window(window_title, hwnd)
                 key_press_window_guarded(
                     hwnd,
@@ -1102,6 +1465,7 @@ def handle_client(conn: socket.socket, window_title: str, capture_backend: str) 
 
 
 def main() -> None:
+    _enable_physical_pixel_coordinates()
     parser = argparse.ArgumentParser(description="Windows bridge server for game automation.")
     parser.add_argument("--port", type=int, default=9877, help="TCP port to listen on.")
     parser.add_argument("--window", default="三国：谋定天下", help="Game window title substring.")

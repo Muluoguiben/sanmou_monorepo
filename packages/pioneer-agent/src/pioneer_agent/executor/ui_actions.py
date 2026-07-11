@@ -41,6 +41,7 @@ class _BridgeLike:
     """Protocol-ish type — anything with click/drag/screenshot/key_press."""
 
     atomic_frame_click_guard_version: int
+    capture_geometry_version: int
     atomic_frame_click_guard_modes: frozenset[str]
     atomic_frame_click_authorization_scopes: frozenset[str]
 
@@ -51,6 +52,7 @@ class _BridgeLike:
         button: str = "left",
         *,
         expected_window: dict[str, int] | None = None,
+        expected_capture_geometry: dict[str, Any] | None = None,
         expected_frame_sha256: str | None = None,
         guard_expires_at: str | None = None,
         authorization_scope: str | None = None,
@@ -120,6 +122,18 @@ class UIActions:
             if semantic_frame_guard is not None
             else None
         )
+        if self._bound_semantic_frame_guard is not None:
+            if observation is None or observation.capture_geometry is None:
+                raise ValueError(
+                    "semantic frame guard requires observation capture geometry"
+                )
+            if (
+                self._bound_semantic_frame_guard.capture_geometry
+                != observation.capture_geometry
+            ):
+                raise ValueError(
+                    "semantic frame guard capture geometry does not match observation"
+                )
         self._bound_guard_expires_at = guard_expires_at
         self._bound_authorization_scope = authorization_scope
         self._bound_kill_switch_path = kill_switch_path
@@ -260,7 +274,12 @@ class UIActions:
         ok = resp.get("status") == "ok"
         trace = _input_trace_event(
             action="click_semantic_bbox",
-            coordinate_space="window:relative",
+            coordinate_space=(
+                "capture:relative"
+                if observation is not None
+                and observation.capture_geometry is not None
+                else "window:relative"
+            ),
             raw_size=(w, h),
             click_point=(px_x, px_y),
             target={"key": target_key, "label": label or target_key},
@@ -277,6 +296,11 @@ class UIActions:
                 "observation_id": observation.observation_id,
                 "captured_at": observation.captured_at.isoformat(),
                 "frame_sha256": observation.frame_sha256,
+                "capture_geometry": (
+                    observation.capture_geometry.model_dump(mode="json")
+                    if observation.capture_geometry is not None
+                    else None
+                ),
                 "source": observation.source,
             }
         if self._bound_expected_window is not None:
@@ -304,6 +328,7 @@ class UIActions:
         if (
             observation is None
             or guard is None
+            or observation.capture_geometry is None
             or not isinstance(expiry, str)
             or scope not in ATOMIC_CLICK_AUTHORIZATION_SCOPES
             or not isinstance(kill_switch_path, str)
@@ -311,6 +336,20 @@ class UIActions:
         ):
             return _atomic_guard_error(
                 "guarded live click is missing its observation, ROI, deadline, scope, or kill switch"
+            )
+        if guard.capture_geometry != observation.capture_geometry:
+            return _atomic_guard_error(
+                "guarded live click capture geometry does not match its observation"
+            )
+        expected_capture_geometry = observation.capture_geometry.model_dump(
+            mode="json"
+        )
+        if (
+            self._bound_expected_window
+            != observation.capture_geometry.outer_window.model_dump(mode="json")
+        ):
+            return _atomic_guard_error(
+                "guarded live click outer window does not match capture geometry"
             )
         if authorization_scope_for_semantic_target(guard.semantic_target_key) != scope:
             return _atomic_guard_error(
@@ -335,6 +374,10 @@ class UIActions:
             return _atomic_guard_error(
                 "bridge does not support atomic semantic ROI click guard v1"
             )
+        if getattr(self.bridge, "capture_geometry_version", None) != 1:
+            return _atomic_guard_error(
+                "bridge does not support capture geometry v1"
+            )
         modes = getattr(self.bridge, "atomic_frame_click_guard_modes", frozenset())
         if "semantic_roi_rgb24_sha256" not in modes:
             return _atomic_guard_error(
@@ -354,6 +397,7 @@ class UIActions:
                 x,
                 y,
                 expected_window=dict(self._bound_expected_window),
+                expected_capture_geometry=expected_capture_geometry,
                 expected_frame_sha256=observation.frame_sha256,
                 guard_expires_at=expiry,
                 authorization_scope=scope,
@@ -375,6 +419,15 @@ class UIActions:
             or proof.get("captured_roi_sha256") != guard.roi_sha256
             or proof.get("guard_expires_at") != expiry
             or proof.get("authorization_scope") != scope
+            or proof.get("source_capture_geometry") != expected_capture_geometry
+            or proof.get("recapture_geometry") != expected_capture_geometry
+            or proof.get("capture_backend")
+            != expected_capture_geometry["capture_backend"]
+            or proof.get("absolute_click_point")
+            != {
+                "x": expected_capture_geometry["capture_origin"]["x"] + x,
+                "y": expected_capture_geometry["capture_origin"]["y"] + y,
+            }
             or not _valid_kill_switch_attestation(proof.get("kill_switch_guard"))
         ):
             return _atomic_guard_error(

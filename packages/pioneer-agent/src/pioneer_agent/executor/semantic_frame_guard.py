@@ -15,6 +15,8 @@ from typing import Any, Literal
 from PIL import Image, UnidentifiedImageError
 from pydantic import BaseModel, Field, field_validator, model_validator
 
+from pioneer_agent.core.models import CaptureGeometry
+
 
 SEMANTIC_ROI_ALGORITHM = "semantic-roi-rgb24-sha256-v1"
 FINAL_MUTATING_AUTHORIZATION_SCOPE = "operator_confirmed_final_mutating_click"
@@ -72,6 +74,7 @@ class SemanticFrameGuard(BaseModel):
     algorithm: Literal["semantic-roi-rgb24-sha256-v1"] = SEMANTIC_ROI_ALGORITHM
     semantic_target_key: str = Field(min_length=1)
     frame_size: tuple[int, int]
+    capture_geometry: CaptureGeometry
     normalized_bbox: NormalizedRect
     roi_bbox: PixelRect
     click_point: PixelPoint
@@ -82,6 +85,10 @@ class SemanticFrameGuard(BaseModel):
         width, height = self.frame_size
         if width <= 0 or height <= 0:
             raise ValueError("semantic frame guard requires a positive frame size")
+        if self.capture_geometry.frame_size != self.frame_size:
+            raise ValueError(
+                "semantic frame guard capture geometry does not match frame size"
+            )
         expected_roi, expected_click = semantic_target_geometry(
             self.frame_size,
             self.normalized_bbox.model_dump(mode="python"),
@@ -146,6 +153,7 @@ def build_semantic_frame_guard(
     frame_bytes: bytes,
     *,
     frame_size: tuple[int, int],
+    capture_geometry: CaptureGeometry,
     semantic_target_key: str,
     bbox: dict[str, Any],
 ) -> SemanticFrameGuard:
@@ -160,6 +168,10 @@ def build_semantic_frame_guard(
         raise ValueError(
             f"terminal observation frame size mismatch: {rgb.size} != {frame_size}"
         )
+    if capture_geometry.frame_size != frame_size:
+        raise ValueError(
+            "terminal observation capture geometry does not match frame size"
+        )
     roi_bbox, click_point = semantic_target_geometry(frame_size, bbox)
     crop = rgb.crop(
         (
@@ -173,6 +185,7 @@ def build_semantic_frame_guard(
     return SemanticFrameGuard(
         semantic_target_key=semantic_target_key,
         frame_size=frame_size,
+        capture_geometry=capture_geometry,
         normalized_bbox=NormalizedRect.model_validate(bbox),
         roi_bbox=roi_bbox,
         click_point=click_point,

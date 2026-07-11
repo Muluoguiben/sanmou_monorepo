@@ -128,12 +128,13 @@ class StateDeriver:
         current_chapter_id = int(state.progress.get("current_chapter_id", 0) or 0)
         resources = state.economy.get("resources", {})
         income_per_hour = state.economy.get("income_per_hour", {})
-        observed_upgrade_buttons = StateDeriver._observed_building_upgrade_buttons(state)
+        state.city["upgradeable_buildings"] = (
+            StateDeriver._merge_upgradeable_buildings(
+                state.city,
+                current_page=state.global_state.get("page_type"),
+            )
+        )
         for building in state.city.get("upgradeable_buildings", []):
-            if "upgrade_button" not in building:
-                observed_button = StateDeriver._match_observed_upgrade_button(building, observed_upgrade_buttons)
-                if observed_button:
-                    building["upgrade_button"] = observed_button
             building_id = building.get("building_id", "")
             if "hall" in building_id:
                 building["chapter_relevance"] = "complete_current_task"
@@ -175,53 +176,315 @@ class StateDeriver:
             default_penalty = max(sum(float(amount or 0) for amount in cost.values()) / 4000, 5)
             building.setdefault("resource_cost_penalty", round(default_penalty, 2))
 
-    @staticmethod
-    def _observed_building_upgrade_buttons(state: RuntimeState) -> list[tuple[set[str], dict[str, Any]]]:
-        observed: list[tuple[set[str], dict[str, Any]]] = []
-        for building in state.city.get("buildings", []):
-            if not isinstance(building, dict):
-                continue
-            button = building.get("upgrade_button")
-            if not isinstance(button, dict):
-                continue
-            terms = StateDeriver._building_terms(building)
-            if terms:
-                observed.append((terms, button))
-        return observed
+    @classmethod
+    def _merge_upgradeable_buildings(
+        cls,
+        city: dict[str, Any],
+        *,
+        current_page: Any = None,
+    ) -> list[dict[str, Any]]:
+        """Merge explicit planning data with strict, current visual targets.
 
-    @staticmethod
-    def _match_observed_upgrade_button(
-        building: dict[str, Any],
-        observed: list[tuple[set[str], dict[str, Any]]],
+        A named visual target is authoritative for its current level and click
+        bbox. Duplicate, malformed, or level-conflicting targets disappear
+        entirely instead of falling back to stale explicit metadata.
+        """
+        observed_groups: dict[str, list[dict[str, Any]]] = {}
+        raw_observed = city.get("buildings")
+        if isinstance(raw_observed, list):
+            for building in raw_observed:
+                if not isinstance(building, dict):
+                    continue
+                name = cls._strict_building_name(building.get("name"))
+                if name is None:
+                    continue
+                key = cls._canonical_building_target(name)
+                observed_groups.setdefault(key, []).append(building)
+
+        observed_candidates: dict[str, dict[str, Any]] = {}
+        observed_identities: dict[str, dict[str, Any]] = {}
+        ambiguous_targets: set[str] = set()
+        blocked_targets: set[str] = set()
+        for key, buildings in observed_groups.items():
+            if len(buildings) != 1:
+                ambiguous_targets.add(key)
+                continue
+            identity = cls._observed_building_identity(buildings[0])
+            if identity is not None:
+                observed_identities[key] = identity
+            candidate = cls._observed_upgrade_candidate(buildings[0])
+            if candidate is None:
+                blocked_targets.add(key)
+                continue
+            observed_candidates[key] = candidate
+
+        explicit_groups: dict[str, list[dict[str, Any]]] = {}
+        explicit_conflicts: set[str] = set()
+        raw_explicit = city.get("upgradeable_buildings")
+        if isinstance(raw_explicit, list):
+            for building in raw_explicit:
+                if not isinstance(building, dict):
+                    continue
+                targets = cls._explicit_building_targets(building)
+                if not targets:
+                    continue
+                if len(targets) != 1:
+                    explicit_conflicts.update(targets)
+                    continue
+                key = next(iter(targets))
+                explicit_groups.setdefault(key, []).append(building)
+
+        dialog_candidate = cls._current_upgrade_dialog_candidate(
+            city.get("upgrade_dialog"),
+            current_page=current_page,
+        )
+        dialog_key = (
+            cls._canonical_building_target(dialog_candidate["building_name"])
+            if dialog_candidate is not None
+            else None
+        )
+
+        current_snapshot_present = isinstance(raw_observed, list)
+        if current_snapshot_present:
+            # Once a current city frame exists, planning-only candidates are
+            # not live semantic targets. Keep an explicit candidate only when
+            # the current frame independently proves the same unique target;
+            # its button is always overwritten by the current observation.
+            ordered_keys = [
+                key
+                for key in explicit_groups
+                if key in observed_candidates or key == dialog_key
+            ]
+            ordered_keys.extend(
+                key for key in observed_candidates if key not in explicit_groups
+            )
+        else:
+            ordered_keys = list(explicit_groups)
+        merged: list[dict[str, Any]] = []
+        for key in ordered_keys:
+            if key in ambiguous_targets or key in explicit_conflicts:
+                continue
+            if key in blocked_targets and key != dialog_key:
+                continue
+            explicit_group = explicit_groups.get(key, [])
+            explicit: dict[str, Any] | None = None
+            if explicit_group:
+                first = explicit_group[0]
+                if any(item != first for item in explicit_group[1:]):
+                    continue
+                explicit = dict(first)
+            observed = observed_candidates.get(key)
+            if observed is None and key == dialog_key:
+                observed = dialog_candidate
+                current_identity = observed_identities.get(key)
+                if (
+                    current_identity is not None
+                    and not cls._explicit_levels_match_observation(
+                        current_identity,
+                        observed,
+                    )
+                ):
+                    continue
+            if explicit is None and observed is None:
+                continue
+            if explicit is None:
+                merged.append(dict(observed or {}))
+                continue
+            if observed is None:
+                merged.append(explicit)
+                continue
+            if not cls._explicit_levels_match_observation(explicit, observed):
+                continue
+            combined = dict(explicit)
+            combined.update(
+                {
+                    "building_name": observed["building_name"],
+                    "current_level": observed["current_level"],
+                    "target_level": observed["target_level"],
+                }
+            )
+            observed_button = observed.get("upgrade_button")
+            if isinstance(observed_button, dict):
+                combined["upgrade_button"] = dict(observed_button)
+            else:
+                # A current terminal dialog can bind the final confirm target,
+                # but it must never revive an explicit/stale entry button.
+                combined.pop("upgrade_button", None)
+            building_id = combined.get("building_id")
+            if not isinstance(building_id, str) or not building_id.strip():
+                combined["building_id"] = observed["building_id"]
+            merged.append(combined)
+        return merged
+
+    @classmethod
+    def _current_upgrade_dialog_candidate(
+        cls,
+        value: Any,
+        *,
+        current_page: Any,
     ) -> dict[str, Any] | None:
-        terms = StateDeriver._building_terms(building)
-        if not terms:
+        if current_page not in {"building", "building_upgrade", "upgrade_dialog"}:
             return None
-        for observed_terms, button in observed:
-            if terms & observed_terms:
-                return dict(button)
-        return None
+        if (
+            not isinstance(value, dict)
+            or value.get("visible") is not True
+            or value.get("can_upgrade") is not True
+        ):
+            return None
+        name = cls._strict_building_name(value.get("building_name"))
+        current = value.get("current_level")
+        target = value.get("next_level")
+        if (
+            name is None
+            or isinstance(current, bool)
+            or not isinstance(current, int)
+            or current <= 0
+            or isinstance(target, bool)
+            or not isinstance(target, int)
+            or target != current + 1
+            or cls._strict_upgrade_button(value.get("confirm_button")) is None
+        ):
+            return None
+        return {
+            "building_id": name,
+            "building_name": name,
+            "current_level": current,
+            "target_level": target,
+        }
+
+    @classmethod
+    def _observed_upgrade_candidate(
+        cls,
+        building: dict[str, Any],
+    ) -> dict[str, Any] | None:
+        identity = cls._observed_building_identity(building)
+        if identity is None:
+            return None
+        button = cls._strict_upgrade_button(building.get("upgrade_button"))
+        if button is None:
+            return None
+        return {
+            **identity,
+            "upgrade_button": button,
+        }
+
+    @classmethod
+    def _observed_building_identity(
+        cls,
+        building: dict[str, Any],
+    ) -> dict[str, Any] | None:
+        name = cls._strict_building_name(building.get("name"))
+        level = building.get("level")
+        if (
+            name is None
+            or isinstance(level, bool)
+            or not isinstance(level, int)
+            or level <= 0
+        ):
+            return None
+        building_id = building.get("building_id")
+        if not isinstance(building_id, str) or not building_id.strip():
+            building_id = name
+        return {
+            "building_id": building_id.strip(),
+            "building_name": name,
+            "current_level": level,
+            "target_level": level + 1,
+        }
 
     @staticmethod
-    def _building_terms(building: dict[str, Any]) -> set[str]:
-        terms: set[str] = set()
-        for key in ("building_id", "building_name", "name"):
-            value = building.get(key)
-            if not value:
+    def _strict_upgrade_button(value: Any) -> dict[str, Any] | None:
+        if (
+            not isinstance(value, dict)
+            or value.get("visible") is not True
+            or value.get("enabled") is not True
+        ):
+            return None
+        bbox = value.get("bbox")
+        if not isinstance(bbox, dict):
+            return None
+        coordinates: dict[str, int] = {}
+        for field in ("x_min", "y_min", "x_max", "y_max"):
+            coordinate = bbox.get(field)
+            if isinstance(coordinate, bool) or not isinstance(coordinate, int):
+                return None
+            coordinates[field] = coordinate
+        if not (
+            0 <= coordinates["x_min"] < coordinates["x_max"] <= 1000
+            and 0 <= coordinates["y_min"] < coordinates["y_max"] <= 1000
+        ):
+            return None
+        return {"visible": True, "enabled": True, "bbox": coordinates}
+
+    @classmethod
+    def _explicit_building_targets(
+        cls,
+        building: dict[str, Any],
+    ) -> set[str]:
+        targets: set[str] = set()
+        for field in ("building_name", "name"):
+            name = cls._strict_building_name(building.get(field))
+            if name is not None:
+                targets.add(cls._canonical_building_target(name))
+        building_id = cls._strict_building_name(building.get("building_id"))
+        if building_id is not None:
+            id_target = cls._canonical_building_target(building_id)
+            # Known canonical IDs participate in conflict detection. Unknown
+            # IDs may be opaque storage keys, so use them only when no name is
+            # available.
+            if id_target in BUILDING_ALIASES or not targets:
+                targets.add(id_target)
+        return targets
+
+    @staticmethod
+    def _explicit_levels_match_observation(
+        explicit: dict[str, Any],
+        observed: dict[str, Any],
+    ) -> bool:
+        expected_current = observed["current_level"]
+        expected_target = observed["target_level"]
+        for field in ("current_level", "level"):
+            if field not in explicit:
                 continue
-            normalized = StateDeriver._normalize_building_term(value)
-            if normalized:
-                terms.add(normalized)
-                terms.update(BUILDING_ALIASES.get(normalized, set()))
+            value = explicit.get(field)
+            if (
+                isinstance(value, bool)
+                or not isinstance(value, int)
+                or value != expected_current
+            ):
+                return False
+        if "target_level" in explicit:
+            target = explicit.get("target_level")
+            if (
+                isinstance(target, bool)
+                or not isinstance(target, int)
+                or target != expected_target
+            ):
+                return False
+        return True
+
+    @staticmethod
+    def _strict_building_name(value: Any) -> str | None:
+        if not isinstance(value, str):
+            return None
+        stripped = value.strip()
+        return stripped or None
+
+    @classmethod
+    def _canonical_building_target(cls, value: str) -> str:
+        normalized = cls._normalize_building_term(value)
         for alias_key, aliases in BUILDING_ALIASES.items():
-            if terms & aliases:
-                terms.add(alias_key)
-                terms.update(aliases)
-        return terms
+            normalized_aliases = {
+                cls._normalize_building_term(alias_key),
+                *(cls._normalize_building_term(alias) for alias in aliases),
+            }
+            if normalized in normalized_aliases:
+                return alias_key
+        return normalized
 
     @staticmethod
     def _normalize_building_term(value: Any) -> str:
-        return str(value).strip().lower().replace("_", " ")
+        return " ".join(str(value).strip().lower().replace("_", " ").split())
 
     @staticmethod
     def _derive_primary_constraint(state: RuntimeState) -> None:

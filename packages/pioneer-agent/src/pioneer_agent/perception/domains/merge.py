@@ -334,29 +334,15 @@ def _merge_city(base: dict[str, Any], overlay: dict[str, Any]) -> dict[str, Any]
     merged = dict(base)
     for key, new_value in overlay.items():
         if key == "buildings":
-            merged["buildings"] = _merge_building_list(
-                base.get("buildings") or [],
-                new_value,
-            )
+            # The city domain reports the complete set visible in the current
+            # frame. Wholesale replacement prevents a prior-frame upgrade
+            # button from surviving into the live selector.
+            merged["buildings"] = [
+                dict(item) for item in new_value if isinstance(item, dict)
+            ]
         else:
             merged[key] = new_value
     return merged
-
-
-def _merge_building_list(
-    existing: list[dict[str, Any]],
-    incoming: list[dict[str, Any]],
-) -> list[dict[str, Any]]:
-    by_name: dict[str, dict[str, Any]] = {b["name"]: dict(b) for b in existing if "name" in b}
-    for entry in incoming:
-        name = entry.get("name")
-        if not name:
-            continue
-        if name in by_name:
-            by_name[name].update(entry)
-        else:
-            by_name[name] = dict(entry)
-    return list(by_name.values())
 
 
 def _merge_list_by_key(

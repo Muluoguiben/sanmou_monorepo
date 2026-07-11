@@ -5,11 +5,18 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
+from pydantic import ValidationError
+
 from pioneer_agent.core.models import RuntimeState
 from pioneer_agent.perception.domains import (
     apply_map_land,
     expire_map_land_candidates,
     extract_map_land,
+)
+from pioneer_agent.perception.vision.prompts import (
+    BATTLE_REPORT_INSTRUCTION,
+    MAP_LAND_INSTRUCTION,
+    MAP_LAND_SCHEMA,
 )
 
 
@@ -64,6 +71,17 @@ def _safe_land(**updates: Any) -> dict[str, Any]:
 
 
 class MapLandDomainTests(unittest.TestCase):
+    def test_occupation_fields_and_no_victory_inference_are_in_vision_contract(self) -> None:
+        lands = MAP_LAND_SCHEMA["properties"]["lands"]["items"]["properties"]
+
+        self.assertEqual(lands["occupation_pending"]["type"], "boolean")
+        self.assertEqual(lands["occupation_countdown"]["type"], "string")
+        self.assertIn("must not cause occupied=true", MAP_LAND_INSTRUCTION)
+        self.assertIn(
+            "keep occupation_result unknown",
+            BATTLE_REPORT_INSTRUCTION,
+        )
+
     def test_only_explicit_current_targetable_land_becomes_candidate(self) -> None:
         captured_at = datetime(2026, 7, 10, 12, 0, 0)
         fragment = extract_map_land(
@@ -82,6 +100,63 @@ class MapLandDomainTests(unittest.TestCase):
             candidate["bbox"],
             {"x_min": 400, "y_min": 420, "x_max": 500, "y_max": 520},
         )
+
+    def test_pending_occupation_countdown_is_retained_and_blocks_candidate(self) -> None:
+        fragment = extract_map_land(
+            b"png",
+            client=_StubVision(
+                _payload(
+                    _safe_land(
+                        occupation_pending=True,
+                        occupation_countdown="02:35",
+                    )
+                )
+            ),
+            captured_at=datetime(2026, 7, 11, 12, 0, 0),
+        )
+
+        self.assertEqual(fragment.map_state["visible_land_count"], 1)
+        self.assertEqual(fragment.map_state["candidate_land_count"], 0)
+        visible = fragment.map_state["visible_lands"][0]
+        self.assertIs(visible["occupation_pending"], True)
+        self.assertEqual(visible["occupation_countdown"], "02:35")
+        self.assertIn("occupation_pending", visible["strategic_tags"])
+
+    def test_unknown_or_false_occupation_pending_keeps_existing_contract(self) -> None:
+        for name, updates in {
+            "unknown": {},
+            "explicit_false": {"occupation_pending": False},
+        }.items():
+            with self.subTest(name=name):
+                fragment = extract_map_land(
+                    b"png",
+                    client=_StubVision(_payload(_safe_land(**updates))),
+                    captured_at=datetime(2026, 7, 11, 12, 0, 0),
+                )
+                self.assertEqual(fragment.map_state["candidate_land_count"], 1)
+
+    def test_occupation_fields_reject_non_json_types_and_orphan_countdown(self) -> None:
+        invalid_updates = {
+            "pending_integer": {"occupation_pending": 1},
+            "pending_string": {"occupation_pending": "true"},
+            "countdown_integer": {
+                "occupation_pending": True,
+                "occupation_countdown": 155,
+            },
+            "countdown_without_pending": {"occupation_countdown": "02:35"},
+            "blank_countdown": {
+                "occupation_pending": True,
+                "occupation_countdown": "   ",
+            },
+        }
+        for name, updates in invalid_updates.items():
+            with self.subTest(name=name):
+                with self.assertRaises(ValidationError):
+                    extract_map_land(
+                        b"png",
+                        client=_StubVision(_payload(_safe_land(**updates))),
+                        captured_at=datetime(2026, 7, 11, 12, 0, 0),
+                    )
 
     def test_four_safety_fields_are_tri_state_and_fail_closed(self) -> None:
         cases = {

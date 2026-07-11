@@ -15,6 +15,7 @@ from pioneer_agent.executor.input_policy import InputPolicy
 from pioneer_agent.executor.ui_actions import UIActions
 from pioneer_agent.executor.semantic_frame_guard import build_semantic_frame_guard
 from pioneer_agent.perception.ui_registry import UIButton, UIRegistry
+from tests.unit.capture_geometry_fixtures import capture_geometry
 
 
 def _make_png(w: int = 1920, h: int = 1080) -> bytes:
@@ -165,6 +166,7 @@ class UIActionsTests(unittest.TestCase):
             captured_at=datetime.now(UTC),
             frame_sha256="a" * 64,
             frame_size=(1000, 1000),
+            capture_geometry=capture_geometry((1000, 1000)),
             page_type="chapter",
             domains_run=["chapter_panel"],
             observed_state=RuntimeState(),
@@ -218,6 +220,7 @@ class UIActionsTests(unittest.TestCase):
             captured_at=datetime.now(UTC),
             frame_sha256=hashlib.sha256(png).hexdigest(),
             frame_size=(1000, 1000),
+            capture_geometry=capture_geometry((1000, 1000)),
             page_type="chapter",
             domains_run=["chapter_panel"],
             observed_state=RuntimeState(),
@@ -226,6 +229,7 @@ class UIActionsTests(unittest.TestCase):
         guard = build_semantic_frame_guard(
             png,
             frame_size=(1000, 1000),
+            capture_geometry=observation.capture_geometry,
             semantic_target_key="chapter_claim_button",
             bbox=bbox,
         )
@@ -238,7 +242,7 @@ class UIActionsTests(unittest.TestCase):
         }
         actions.bind_observation(
             observation,
-            expected_window={"hwnd": 101, "pid": 202, "width": 1000, "height": 1000},
+            expected_window=observation.capture_geometry.outer_window.model_dump(mode="json"),
             operator_confirmation=confirmation,
             dispatch_at=datetime.now(UTC).isoformat(),
             semantic_frame_guard=guard.model_dump(mode="json"),

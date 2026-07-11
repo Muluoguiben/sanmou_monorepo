@@ -79,8 +79,11 @@ class BattleReportDomainTests(unittest.TestCase):
             ),
             captured_at=datetime(2026, 7, 10, 12, 0, 0),
         )
+        report = fragment.map_state["latest_battle_report"]
         verification = fragment.map_state["battle_report_verification"]
 
+        self.assertEqual(report["result"], "win")
+        self.assertEqual(report["occupation_result"], "unknown")
         self.assertEqual(verification["parse_status"], "partial")
         self.assertFalse(verification["action_verification_ready"])
         self.assertEqual(verification["verifier_status"], "unverified")

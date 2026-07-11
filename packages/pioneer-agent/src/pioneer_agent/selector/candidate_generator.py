@@ -74,7 +74,12 @@ class CandidateGenerator:
             upgrade_button = self._semantic_button_param(building.get("upgrade_button"))
             if upgrade_button:
                 params["upgrade_button"] = upgrade_button
-            upgrade_dialog = self._upgrade_dialog_param(state.city.get("upgrade_dialog"))
+            upgrade_dialog = self._matching_upgrade_dialog_param(
+                state.city.get("upgrade_dialog"),
+                building_name=building_name,
+                current_level=current_level,
+                target_level=target_level,
+            )
             if upgrade_dialog:
                 params["upgrade_dialog"] = upgrade_dialog
             source_state_refs = [
@@ -563,6 +568,74 @@ class CandidateGenerator:
         if close_button:
             result["close_button"] = close_button
         return result
+
+    @classmethod
+    def _matching_upgrade_dialog_param(
+        cls,
+        value: Any,
+        *,
+        building_name: Any,
+        current_level: Any,
+        target_level: Any,
+    ) -> dict[str, Any] | None:
+        if not isinstance(value, dict) or value.get("visible") is not True:
+            return None
+        dialog_name = value.get("building_name")
+        if (
+            not isinstance(building_name, str)
+            or not building_name.strip()
+            or not isinstance(dialog_name, str)
+            or dialog_name.strip() != building_name.strip()
+        ):
+            return None
+        dialog_current = value.get("current_level")
+        dialog_next = value.get("next_level")
+        if any(
+            isinstance(item, bool) or not isinstance(item, int)
+            for item in (current_level, target_level, dialog_current, dialog_next)
+        ):
+            return None
+        if (
+            dialog_current != current_level
+            or dialog_next != target_level
+            or target_level != current_level + 1
+            or value.get("can_upgrade") is not True
+        ):
+            return None
+        confirm_button = cls._strict_semantic_button_param(
+            value.get("confirm_button")
+        )
+        if confirm_button is None:
+            return None
+        result = cls._upgrade_dialog_param(value)
+        if result is None:
+            return None
+        result["confirm_button"] = confirm_button
+        return result
+
+    @staticmethod
+    def _strict_semantic_button_param(value: Any) -> dict[str, Any] | None:
+        if (
+            not isinstance(value, dict)
+            or value.get("visible") is not True
+            or value.get("enabled") is not True
+        ):
+            return None
+        bbox = value.get("bbox")
+        if not isinstance(bbox, dict):
+            return None
+        coordinates: dict[str, int] = {}
+        for field in ("x_min", "y_min", "x_max", "y_max"):
+            coordinate = bbox.get(field)
+            if isinstance(coordinate, bool) or not isinstance(coordinate, int):
+                return None
+            coordinates[field] = coordinate
+        if not (
+            0 <= coordinates["x_min"] < coordinates["x_max"] <= 1000
+            and 0 <= coordinates["y_min"] < coordinates["y_max"] <= 1000
+        ):
+            return None
+        return {"visible": True, "enabled": True, "bbox": coordinates}
 
     @staticmethod
     def _building_current_level(

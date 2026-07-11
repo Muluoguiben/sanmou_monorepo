@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from typing import Any, Literal
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field, StrictBool, StrictStr, model_validator
 
 PageType = Literal[
     "main_map",
@@ -1292,7 +1292,9 @@ BATTLE_REPORT_INSTRUCTION = (
     "visible battle-result or report facts: win/draw/loss, occupation result, target "
     "coordinate/level/resource, both sides, troop counts, losses, rounds, experience, "
     "honor, visible sections, and key events. Use unknown or omit optional fields when "
-    "the evidence is not explicit. Preserve visible troop values even if they conflict; "
+    "the evidence is not explicit. A visible win or victory marker does not prove that "
+    "occupation completed; keep occupation_result unknown unless an occupation outcome "
+    "is explicitly visible. Preserve visible troop values even if they conflict; "
     "the parser will mark inconsistent measurements partial instead of guessing. Parsing "
     "a report does not verify a dispatched action."
 )
@@ -1310,6 +1312,8 @@ class MapLandCandidateDetection(BaseModel):
     resource_type: Literal["wood", "stone", "iron", "grain", "unknown"] = "unknown"
     land_scope: Literal["inner_city", "outer_city"] | None = None
     occupied: bool | None = None
+    occupation_pending: StrictBool | None = None
+    occupation_countdown: StrictStr | None = None
     owner: str | None = None
     reachable: bool | None = None
     can_attack: bool | None = None
@@ -1333,6 +1337,13 @@ class MapLandCandidateDetection(BaseModel):
     @model_validator(mode="after")
     def _validate_land_bbox(self):
         _validate_bbox(self, ("x_min", "y_min", "x_max", "y_max"), "map land")
+        if self.occupation_countdown is not None:
+            if not self.occupation_countdown.strip():
+                raise ValueError("occupation countdown must be non-empty when visible")
+            if self.occupation_pending is not True:
+                raise ValueError(
+                    "occupation countdown requires occupation_pending=true"
+                )
         return self
 
 
@@ -1543,6 +1554,20 @@ MAP_LAND_SCHEMA: dict[str, Any] = {
                         "type": "boolean",
                         "description": "Omit unless ownership is explicitly visible.",
                     },
+                    "occupation_pending": {
+                        "type": "boolean",
+                        "description": (
+                            "True only when a visible occupation-progress state or timer "
+                            "explicitly shows that occupation has not completed; omit when unknown."
+                        ),
+                    },
+                    "occupation_countdown": {
+                        "type": "string",
+                        "description": (
+                            "Exact visible occupation countdown such as 02:35. Omit when "
+                            "not visible and emit only with occupation_pending=true."
+                        ),
+                    },
                     "owner": {"type": "string"},
                     "reachable": {
                         "type": "boolean",
@@ -1600,8 +1625,11 @@ MAP_LAND_SCHEMA: dict[str, Any] = {
 MAP_LAND_INSTRUCTION = (
     "This screenshot was explicitly classified as the main_map page in 三国·谋定天下. "
     "Extract the current land/filter snapshot and only visible facts. occupied, "
-    "protected, reachable, and can_attack are independent safety facts: omit each one "
-    "unless the screenshot explicitly proves it. Extract level, resource type, and "
+    "occupation_pending, protected, reachable, and can_attack are independent safety "
+    "facts: omit each one unless the screenshot explicitly proves it. Copy an occupation "
+    "countdown only when it is visible and pair it with occupation_pending=true. A battle "
+    "win or victory marker never proves completed occupation and must not cause "
+    "occupied=true. Extract level, resource type, and "
     "0-1000 normalized target bbox only when visible. Emit land_scope only when the UI "
     "explicitly establishes inner_city or outer_city. Never infer hidden ownership, "
     "reachability, protection, attackability, scope, coordinates, or battle strength."

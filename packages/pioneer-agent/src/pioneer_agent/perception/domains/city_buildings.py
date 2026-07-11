@@ -13,8 +13,9 @@ fragment:
       ],
     }
 
-Fields missing from the screenshot are omitted rather than null-filled so
-the merge layer can distinguish "not observed" from "observed as 0".
+Scalar fields missing from the screenshot are omitted rather than null-filled.
+The building list is always emitted because it is a complete current-frame
+snapshot; an empty list explicitly clears prior semantic targets.
 """
 from __future__ import annotations
 
@@ -71,10 +72,12 @@ def _build_fragment(
         city["territory"] = parsed.territory
     if parsed.roads:
         city["roads"] = parsed.roads
-    if parsed.buildings:
-        city["buildings"] = [
-            _building_dict(b) for b in parsed.buildings
-        ]
+    # `buildings` is the complete set visible in this city frame, not a
+    # partial historical overlay. Preserve an explicit empty list so stale
+    # semantic buttons disappear on the next observation.
+    city["buildings"] = [
+        _building_dict(b) for b in parsed.buildings
+    ]
 
     field_meta: dict[str, FieldMeta] = {}
     if city:

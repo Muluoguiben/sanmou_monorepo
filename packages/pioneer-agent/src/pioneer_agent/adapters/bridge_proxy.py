@@ -4,9 +4,10 @@ Connects to the bridge server via localhost and relays commands from
 stdin/stdout, allowing WSL2 to bypass network routing issues (e.g. WireGuard).
 
 Protocol: one JSON line per request on stdin, one JSON line per response on stdout.
-Screenshot binary data is base64-encoded in the response — unless the server
-returned a JSON error (no PNG magic), in which case the error is parsed and
-forwarded unchanged so the caller sees a proper error response.
+Current servers return screenshots as a JSON envelope containing base64 pixels,
+frame SHA-256, and capture geometry; the proxy forwards that envelope unchanged.
+Legacy raw-PNG responses are still translated to base64 so BridgeClient can emit
+an explicit upgrade-required error instead of silently losing geometry.
 
 Window un-minimization is done server-side via SendMessage(WM_SYSCOMMAND,
 SC_RESTORE), which has no foreground-lock restriction. The proxy does not

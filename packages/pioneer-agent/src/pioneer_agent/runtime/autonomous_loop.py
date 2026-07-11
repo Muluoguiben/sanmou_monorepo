@@ -8,6 +8,7 @@ the wait/sleep cadence between ticks.
 from __future__ import annotations
 
 import json
+import hashlib
 import inspect
 import logging
 import math
@@ -21,6 +22,8 @@ from PIL import Image, UnidentifiedImageError
 
 from pioneer_agent.core.enums import ActionType
 from pioneer_agent.core.models import (
+    CandidateAction,
+    CaptureGeometry,
     ExecutionResult,
     ObservationSnapshot,
     RuntimeState,
@@ -93,6 +96,12 @@ class _Screenshotter(Protocol):
     def screenshot(self, save_path=None) -> bytes: ...  # noqa: ANN001
 
 
+@dataclass(frozen=True)
+class _CapturedFrame:
+    png: bytes
+    capture_geometry: CaptureGeometry | None
+
+
 @dataclass
 class TickResult:
     iteration: int
@@ -128,6 +137,7 @@ class AutonomousLoop:
         runbook_engine: RunbookEngine | None = None,
         runbook_state_store: RunbookStateStore | None = None,
         lineup_preset_bindings: Mapping[str, str] | None = None,
+        evidence_action_type: ActionType | None = None,
         dry_run: bool = False,
         stuck_threshold: int = STUCK_ESC_THRESHOLD,
         post_action_verify_poll_interval_s: float = 1.0,
@@ -154,6 +164,12 @@ class AutonomousLoop:
         self.runbook_engine = runbook_engine
         self.runbook_state_store = runbook_state_store
         self.lineup_preset_bindings = dict(lineup_preset_bindings or {})
+        if (
+            evidence_action_type is not None
+            and evidence_action_type not in LOW_RISK_AUTOMATION_ACTIONS
+        ):
+            raise ValueError("evidence action must be a calibrated low-risk action")
+        self.evidence_action_type = evidence_action_type
         self._lineup_bindings_bound_at = datetime.now().astimezone()
         self._lineup_binding_roster_fingerprints: dict[str, str] = {}
         self.dry_run = dry_run
@@ -181,12 +197,23 @@ class AutonomousLoop:
         started_at = datetime.now(UTC)
         t0 = time.monotonic()
         state_before = self.state.model_dump(mode="json")
-        png = self.bridge.screenshot()
+        captured = _capture_bridge_frame(self.bridge)
+        png = captured.png
         logger.info("tick %d: captured %d bytes", iteration, len(png))
 
-        self.state, vision_summary = self.vision_sync.sync(
-            png, state=self.state, captured_at=started_at
-        )
+        if captured.capture_geometry is None:
+            self.state, vision_summary = self.vision_sync.sync(
+                png,
+                state=self.state,
+                captured_at=started_at,
+            )
+        else:
+            self.state, vision_summary = self.vision_sync.sync(
+                png,
+                state=self.state,
+                captured_at=started_at,
+                capture_geometry=captured.capture_geometry,
+            )
         logger.info("tick %d: page=%s domains=%s", iteration, vision_summary.page_type, vision_summary.domains_run)
 
         derived = self.deriver.derive(self.state)
@@ -198,9 +225,18 @@ class AutonomousLoop:
             logger.info("tick %d: kill switch active — runbook cursor frozen", iteration)
         runbook_decision = None if kill_switch_active else self._evaluate_runbook(iteration, derived)
         self._guard.update_decision(runbook_decision)
-        selection = self.selector.select(derived)
-        pre_action_state = self.state.model_dump(mode="json")
         dispatch_observation = vision_summary.observation
+        selection = self.selector.select(derived)
+        if self.evidence_action_type is not None:
+            selection = _constrain_evidence_selection(
+                selection,
+                required_action_type=self.evidence_action_type,
+                observation=dispatch_observation,
+                now=started_at,
+                max_age_seconds=_runner_observation_max_age(self.runner),
+                allow_fixture_source=_runner_allows_fixture_observation(self.runner),
+            )
+        pre_action_state = self.state.model_dump(mode="json")
         trace_frames: list[TraceFrameReference] = []
         if (
             selection.selected_action is not None
@@ -851,12 +887,21 @@ class AutonomousLoop:
 
         try:
             flow_captured_at = datetime.now(UTC)
-            png = self.bridge.screenshot()
-            self.state, flow_observe = self.vision_sync.sync(
-                png,
-                state=self.state,
-                captured_at=flow_captured_at,
-            )
+            captured = _capture_bridge_frame(self.bridge)
+            png = captured.png
+            if captured.capture_geometry is None:
+                self.state, flow_observe = self.vision_sync.sync(
+                    png,
+                    state=self.state,
+                    captured_at=flow_captured_at,
+                )
+            else:
+                self.state, flow_observe = self.vision_sync.sync(
+                    png,
+                    state=self.state,
+                    captured_at=flow_captured_at,
+                    capture_geometry=captured.capture_geometry,
+                )
         except Exception as exc:  # noqa: BLE001
             return _fail(f"action flow observe failed: {exc}")
 
@@ -1026,12 +1071,21 @@ class AutonomousLoop:
             attempts += 1
             try:
                 post_captured_at = datetime.now(UTC)
-                png = self.bridge.screenshot()
-                self.state, summary = self.vision_sync.sync(
-                    png,
-                    state=self.state,
-                    captured_at=post_captured_at,
-                )
+                captured = _capture_bridge_frame(self.bridge)
+                png = captured.png
+                if captured.capture_geometry is None:
+                    self.state, summary = self.vision_sync.sync(
+                        png,
+                        state=self.state,
+                        captured_at=post_captured_at,
+                    )
+                else:
+                    self.state, summary = self.vision_sync.sync(
+                        png,
+                        state=self.state,
+                        captured_at=post_captured_at,
+                        capture_geometry=captured.capture_geometry,
+                    )
                 post_frame = self._record_trace_frame(
                     trace_frames,
                     iteration=iteration,
@@ -1131,6 +1185,75 @@ class AutonomousLoop:
                 continue
             self.sleeper(result.sleep_s)
             i += 1
+
+
+def _constrain_evidence_selection(
+    selection: SelectionResult,
+    *,
+    required_action_type: ActionType,
+    observation: ObservationSnapshot | None,
+    now: datetime,
+    max_age_seconds: float,
+    allow_fixture_source: bool,
+) -> SelectionResult:
+    """Select only a current-frame-bound candidate for an evidence run.
+
+    The ordinary selector may rank another action first, and derived state can
+    contain stale candidates that are absent from the current observation. An
+    evidence run is authorized for one exact action type, so scan its ranked
+    candidates in order and retain the first one that independently passes the
+    dispatch-observation gate. If none passes, select nothing and dispatch no
+    input.
+    """
+
+    if required_action_type not in LOW_RISK_AUTOMATION_ACTIONS:
+        raise ValueError("evidence action must be a calibrated low-risk action")
+
+    evaluated: list[dict[str, Any]] = []
+    selected: CandidateAction | None = None
+    for candidate in selection.ranked_actions:
+        if candidate.action_type != required_action_type:
+            continue
+        verdict = validate_dispatch_observation(
+            candidate,
+            observation,
+            now=now,
+            max_age_seconds=max_age_seconds,
+            allow_fixture_source=allow_fixture_source,
+        )
+        evaluated.append(
+            {
+                "action_id": candidate.action_id,
+                "decision": verdict.decision.value,
+                "reason": verdict.reason,
+            }
+        )
+        if verdict.decision == ObservationGateDecision.ALLOW:
+            selected = candidate
+            break
+
+    reason = dict(selection.selection_reason)
+    reason["evidence_action_constraint"] = {
+        "required_action_type": required_action_type.value,
+        "decision": "selected" if selected is not None else "no_current_frame_candidate",
+        "evaluated_candidates": evaluated,
+    }
+    reason["selected_score"] = selected.score_total if selected is not None else None
+    reason["summary"] = (
+        f"Evidence capture selected current-frame-bound {required_action_type.value}."
+        if selected is not None
+        else (
+            "Evidence capture dispatched no input: no current-frame-bound "
+            f"{required_action_type.value} candidate passed validation."
+        )
+    )
+    return selection.model_copy(
+        update={
+            "selected_action": selected,
+            "selection_reason": reason,
+            "next_replan_time": None,
+        }
+    )
 
 
 def _build_tick_trace(
@@ -1612,10 +1735,37 @@ def _observation_payload(
         "captured_at": observation.captured_at.isoformat(),
         "frame_sha256": observation.frame_sha256,
         "frame_size": list(observation.frame_size) if observation.frame_size else None,
+        "capture_geometry": (
+            observation.capture_geometry.model_dump(mode="json")
+            if observation.capture_geometry is not None
+            else None
+        ),
         "page_type": observation.page_type,
         "domains_run": list(observation.domains_run),
         "source": observation.source,
     }
+
+
+def _capture_bridge_frame(bridge: _Screenshotter) -> _CapturedFrame:
+    capture = getattr(bridge, "screenshot_capture", None)
+    if callable(capture):
+        shot = capture()
+        png = getattr(shot, "png", None)
+        frame_sha256 = getattr(shot, "frame_sha256", None)
+        geometry = getattr(shot, "capture_geometry", None)
+        if not isinstance(png, bytes) or not isinstance(geometry, CaptureGeometry):
+            raise RuntimeError("bridge screenshot capture binding is invalid")
+        if hashlib.sha256(png).hexdigest() != frame_sha256:
+            raise RuntimeError("bridge screenshot capture hash binding is invalid")
+        return _CapturedFrame(png=png, capture_geometry=geometry)
+    if getattr(bridge, "capture_geometry_version", None) is not None:
+        raise RuntimeError(
+            "capture-geometry bridge lacks screenshot_capture; update the bridge client"
+        )
+    png = bridge.screenshot()
+    if not isinstance(png, bytes):
+        raise RuntimeError("screenshot bridge returned non-bytes payload")
+    return _CapturedFrame(png=png, capture_geometry=None)
 
 
 def _verification_target(action: CandidateAction) -> dict[str, Any]:

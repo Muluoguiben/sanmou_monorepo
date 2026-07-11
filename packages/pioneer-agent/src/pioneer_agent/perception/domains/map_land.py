@@ -139,6 +139,7 @@ def _land_dict(
         "resource_type": land.resource_type,
         "land_scope": land.land_scope,
         "occupied": land.occupied,
+        "occupation_pending": land.occupation_pending,
         "protected": land.protected,
         "reachable": land.reachable,
         "can_attack": land.can_attack,
@@ -160,6 +161,11 @@ def _land_dict(
         payload["bbox"] = bbox
     _set_if_not_none(payload, "level", land.level)
     _set_if_not_none(payload, "owner", land.owner)
+    _set_if_not_none(
+        payload,
+        "occupation_countdown",
+        land.occupation_countdown,
+    )
     _set_if_not_none(payload, "yield_per_hour", land.yield_per_hour)
     _set_if_not_none(payload, "distance", land.distance)
     _set_if_not_none(payload, "march_seconds", land.march_seconds)
@@ -174,6 +180,7 @@ def _is_candidate_land(land: dict[str, Any]) -> bool:
     """Only explicit, current, targetable observations become candidates."""
     return (
         land.get("occupied") is False
+        and land.get("occupation_pending") is not True
         and land.get("protected") is False
         and land.get("reachable") is True
         and land.get("can_attack") is True
@@ -193,6 +200,8 @@ def _strategic_tags(
     selected_levels = filter_state.get("selected_levels") or []
     if land.recommended_marker:
         tags.append("visible_recommended")
+    if land.occupation_pending is True:
+        tags.append("occupation_pending")
     if land.resource_type in selected_resources:
         tags.append("resource_filter_match")
     if land.level in selected_levels:

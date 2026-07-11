@@ -7,6 +7,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import json
 import logging
 from pathlib import Path
 
@@ -21,6 +22,7 @@ from pioneer_agent.core.device import (
     ObservationSourceType,
     Orientation,
 )
+from pioneer_agent.core.enums import ActionType
 from pioneer_agent.executor.ui_actions import UIActions
 from pioneer_agent.executor.operator_confirmation import (
     JsonlOperatorConfirmationStore,
@@ -45,7 +47,7 @@ from pioneer_agent.runtime.architecture_gates import (
     AutomationMode,
     AutomationReadinessGate,
 )
-from pioneer_agent.runtime.autonomous_loop import AutonomousLoop
+from pioneer_agent.runtime.autonomous_loop import AutonomousLoop, TickResult
 from pioneer_agent.safety.kill_switch import KillSwitch, default_kill_switch_path
 from pioneer_agent.safety.guard import SessionMode
 from pioneer_agent.storage.loop_logger import LoopLogger
@@ -234,8 +236,15 @@ def main(argv: list[str] | None = None) -> int:
         default=10.0,
         help="Maximum one-shot grant TTL within the request window (default: 10).",
     )
-    parser.add_argument("--stuck-threshold", type=int, default=3,
-                        help="Consecutive idle/unknown ticks before ESC recovery (default: 3).")
+    parser.add_argument(
+        "--stuck-threshold",
+        type=int,
+        default=3,
+        help=(
+            "Consecutive idle/unknown ticks before recovery evaluation (default: 3); "
+            "automatic ESC input remains disabled for live sessions."
+        ),
+    )
     parser.add_argument("--vision-provider", choices=("gemini", "openai"), default=None,
                         help="Vision provider override. Defaults to PIONEER_VISION_PROVIDER or gemini.")
     parser.add_argument("--kill-switch-file", type=user_path, default=None,
@@ -365,7 +374,7 @@ def main(argv: list[str] | None = None) -> int:
             try:
                 device_session = _build_live_device_session(bridge)
             except (ConnectionError, RuntimeError, TypeError, ValueError) as exc:
-                parser.error(f"cannot authorize --execute: {exc}")
+                parser.error(f"cannot start live evidence capture: {exc}")
             runner = UIActionRunner(
                 ui,
                 device_session=device_session,
@@ -387,11 +396,155 @@ def main(argv: list[str] | None = None) -> int:
             runbook_engine=runbook_engine,
             runbook_state_store=runbook_state_store,
             lineup_preset_bindings=lineup_preset_bindings,
+            evidence_action_type=(
+                ActionType(args.evidence_action)
+                if automation_mode == AutomationMode.EVIDENCE_CAPTURE
+                else None
+            ),
             dry_run=dry_run,
             stuck_threshold=args.stuck_threshold,
         )
+        if automation_mode == AutomationMode.EVIDENCE_CAPTURE:
+            expected_action = ActionType(args.evidence_action)
+            try:
+                result = loop.tick(0)
+            except Exception as exc:  # noqa: BLE001
+                # Provider/bridge exceptions can contain paths or response
+                # payloads. Keep stdout machine-stable and log only the type.
+                logging.getLogger(__name__).error(
+                    "evidence capture tick failed (exception_type=%s)",
+                    type(exc).__name__,
+                )
+                print(
+                    json.dumps(
+                        {
+                            "mode": "evidence_capture",
+                            "expected_action": expected_action.value,
+                            "success": False,
+                            "error_code": "evidence_tick_failed",
+                            "exception_type": type(exc).__name__,
+                        },
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                )
+                return 2
+            summary = _evidence_capture_summary(result, expected_action=expected_action)
+            print(json.dumps(summary, ensure_ascii=False, sort_keys=True))
+            return 0 if summary["success"] else 3
         loop.run_forever(max_iterations=args.max_iterations)
     return 0
+
+
+def _evidence_capture_summary(
+    result: TickResult,
+    *,
+    expected_action: ActionType,
+) -> dict[str, object]:
+    selected = result.selection.selected_action
+    execution = result.execution
+    selected_action = selected.action_type if selected is not None else None
+    validation_issues = _evidence_capture_validation_issues(
+        result,
+        expected_action=expected_action,
+    )
+    constraint = result.selection.selection_reason.get(
+        "evidence_action_constraint"
+    )
+    return {
+        "mode": "evidence_capture",
+        "expected_action": expected_action.value,
+        "selected_action": selected_action.value if selected_action is not None else None,
+        "selected_action_id": selected.action_id if selected is not None else None,
+        "execution_status": execution.status if execution is not None else None,
+        "verification_status": (
+            execution.verification_status if execution is not None else None
+        ),
+        "execution_reported_failure": (
+            execution.failure_reason is not None if execution is not None else False
+        ),
+        "recovery_required": (
+            execution.recovery_required if execution is not None else False
+        ),
+        "selection_constraint": constraint if isinstance(constraint, dict) else None,
+        "validation_issues": validation_issues,
+        "success": not validation_issues,
+    }
+
+
+def _evidence_capture_validation_issues(
+    result: TickResult,
+    *,
+    expected_action: ActionType,
+) -> list[str]:
+    issues: list[str] = []
+    selected = result.selection.selected_action
+    execution = result.execution
+    if selected is None:
+        return ["no_current_frame_candidate"]
+    if selected.action_type != expected_action:
+        issues.append("selected_action_type_mismatch")
+    if not isinstance(selected.action_id, str) or not selected.action_id.strip():
+        issues.append("selected_action_id_invalid")
+    if execution is None:
+        issues.append("execution_missing")
+        return issues
+    if execution.action_id != selected.action_id:
+        issues.append("execution_action_id_mismatch")
+    if execution.status != "ok":
+        issues.append("execution_not_ok")
+    if execution.verification_status != "verified":
+        issues.append("execution_not_verified")
+    if execution.failure_reason is not None:
+        issues.append("execution_has_failure_reason")
+    if execution.recovery_required is not False:
+        issues.append("execution_requires_recovery")
+
+    verifier = execution.summary.get("post_action_verifier")
+    if not isinstance(verifier, dict):
+        issues.append("post_action_verifier_missing")
+        return issues
+    if verifier.get("action_type") != selected.action_type.value:
+        issues.append("post_action_verifier_action_mismatch")
+    if verifier.get("status") != "verified":
+        issues.append("post_action_verifier_not_verified")
+
+    target_fields = {
+        ActionType.CLAIM_CHAPTER_REWARD: ("chapter_id",),
+        ActionType.RECRUIT_SOLDIERS: ("team_id",),
+        ActionType.UPGRADE_BUILDING: (
+            "building_name",
+            "current_level",
+            "target_level",
+        ),
+    }.get(selected.action_type, ())
+    if not target_fields or any(field not in selected.params for field in target_fields):
+        issues.append("selected_action_target_identity_incomplete")
+    else:
+        expected_target = {field: selected.params[field] for field in target_fields}
+        if verifier.get("target_identity") != expected_target:
+            issues.append("post_action_verifier_target_mismatch")
+
+    checked = verifier.get("checked")
+    if not isinstance(checked, list) or not checked:
+        issues.append("post_action_verifier_checks_missing")
+    deltas = verifier.get("post_action_delta")
+    if (
+        not isinstance(deltas, list)
+        or not deltas
+        or any(not isinstance(delta, dict) for delta in deltas)
+    ):
+        issues.append("post_action_delta_missing")
+    post_observe = verifier.get("post_observe")
+    if not isinstance(post_observe, dict):
+        issues.append("post_action_observation_missing")
+    else:
+        if not isinstance(post_observe.get("observation"), dict):
+            issues.append("post_action_observation_missing")
+        frame = post_observe.get("frame")
+        if not isinstance(frame, dict) or frame.get("role") != "post_action":
+            issues.append("post_action_frame_missing")
+    return sorted(set(issues))
 
 
 if __name__ == "__main__":

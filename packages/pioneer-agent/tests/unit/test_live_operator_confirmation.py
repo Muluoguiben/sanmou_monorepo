@@ -37,11 +37,13 @@ from pioneer_agent.runtime.architecture_gates import (
     AutomationReadiness,
     AutomationReadinessGate,
 )
+from tests.unit.capture_geometry_fixtures import capture_geometry
 from pioneer_agent.safety.guard import SessionMode
 
 
 class _Bridge:
     atomic_frame_click_guard_version = 1
+    capture_geometry_version = 1
     atomic_frame_click_guard_modes = frozenset({"semantic_roi_rgb24_sha256"})
     atomic_frame_click_authorization_scopes = frozenset(
         {
@@ -60,6 +62,7 @@ class _Bridge:
         button="left",
         *,
         expected_window=None,
+        expected_capture_geometry=None,
         expected_frame_sha256=None,
         guard_expires_at=None,
         authorization_scope=None,
@@ -72,11 +75,19 @@ class _Bridge:
                 "y": y,
                 "button": button,
                 "expected_window": expected_window,
+                "expected_capture_geometry": expected_capture_geometry,
                 "expected_frame_sha256": expected_frame_sha256,
                 "guard_expires_at": guard_expires_at,
                 "authorization_scope": authorization_scope,
                 "kill_switch_path": kill_switch_path,
                 "semantic_frame_guard": semantic_frame_guard,
+                "capture_backend": expected_capture_geometry["capture_backend"],
+                "source_capture_geometry": expected_capture_geometry,
+                "recapture_geometry": expected_capture_geometry,
+                "absolute_click_point": {
+                    "x": expected_capture_geometry["capture_origin"]["x"] + x,
+                    "y": expected_capture_geometry["capture_origin"]["y"] + y,
+                },
             }
         )
         return {
@@ -90,6 +101,13 @@ class _Bridge:
                 "guard_expires_at": guard_expires_at,
                 "authorization_scope": authorization_scope,
                 "semantic_frame_guard": semantic_frame_guard,
+                "capture_backend": expected_capture_geometry["capture_backend"],
+                "source_capture_geometry": expected_capture_geometry,
+                "recapture_geometry": expected_capture_geometry,
+                "absolute_click_point": {
+                    "x": expected_capture_geometry["capture_origin"]["x"] + x,
+                    "y": expected_capture_geometry["capture_origin"]["y"] + y,
+                },
                 "kill_switch_guard": _kill_switch_attestation(kill_switch_path),
             },
         }
@@ -340,6 +358,7 @@ def _action_and_observation() -> tuple[CandidateAction, ObservationSnapshot]:
         captured_at=captured_at,
         frame_sha256=hashlib.sha256(_frame_bytes()).hexdigest(),
         frame_size=(1920, 1080),
+        capture_geometry=capture_geometry((1920, 1080)),
         page_type="chapter",
         domains_run=["resource_bar", "chapter_panel"],
         observed_state=state,
@@ -358,6 +377,7 @@ def _semantic_guard(observation: ObservationSnapshot):  # noqa: ANN201
     return build_semantic_frame_guard(
         _frame_bytes(),
         frame_size=observation.frame_size or (0, 0),
+        capture_geometry=observation.capture_geometry,
         semantic_target_key="chapter_claim_button",
         bbox={"x_min": 700, "y_min": 800, "x_max": 900, "y_max": 900},
     )
@@ -416,6 +436,7 @@ def _upgrade_action_and_observation(
         captured_at=captured_at,
         frame_sha256="b" * 64,
         frame_size=(1920, 1080),
+        capture_geometry=capture_geometry((1920, 1080)),
         page_type="upgrade_dialog",
         domains_run=["resource_bar", "city_buildings", "upgrade_dialog"],
         observed_state=state,
@@ -460,6 +481,7 @@ def _upgrade_entry_action_and_observation() -> tuple[CandidateAction, Observatio
         captured_at=captured_at,
         frame_sha256=hashlib.sha256(_frame_bytes()).hexdigest(),
         frame_size=(1920, 1080),
+        capture_geometry=capture_geometry((1920, 1080)),
         page_type="city",
         domains_run=["resource_bar", "city_buildings"],
         observed_state=state,

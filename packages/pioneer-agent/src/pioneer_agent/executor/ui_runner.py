@@ -271,10 +271,18 @@ class UIActionRunner:
                     target_key=target_key,
                     observation=observation,
                 )
+            if observation.capture_geometry is None:
+                return self._atomic_frame_guard_block(
+                    action,
+                    "semantic click observation has no capture geometry binding",
+                    target_key=target_key,
+                    observation=observation,
+                )
             try:
                 semantic_frame_guard = build_semantic_frame_guard(
                     frame_bytes,
                     frame_size=observation.frame_size,
+                    capture_geometry=observation.capture_geometry,
                     semantic_target_key=target_key,
                     bbox=target_bbox,
                 )
@@ -508,19 +516,20 @@ class UIActionRunner:
             return None, "live dispatch requires reliable window identity"
         if observation is None or observation.frame_size is None:
             return None, "live dispatch requires an observed frame size"
+        if observation.capture_geometry is None:
+            return None, "live dispatch requires server-bound capture geometry"
         metadata = session.source.metadata
         hwnd = metadata.get("hwnd")
         pid = metadata.get("pid")
-        width, height = observation.frame_size
-        values = (hwnd, pid, width, height)
+        values = (hwnd, pid)
         if any(isinstance(value, bool) or not isinstance(value, int) or value <= 0 for value in values):
             return None, "live dispatch window identity is incomplete"
-        return {
-            "hwnd": hwnd,
-            "pid": pid,
-            "width": width,
-            "height": height,
-        }, None
+        geometry = observation.capture_geometry
+        if geometry.outer_window.hwnd != hwnd or geometry.outer_window.pid != pid:
+            return None, "capture geometry does not match the active window identity"
+        if geometry.frame_size != observation.frame_size:
+            return None, "capture geometry does not match the observed frame size"
+        return geometry.outer_window.model_dump(mode="json"), None
 
 
 def _confirmation_token(action: CandidateAction) -> str | None:

@@ -186,6 +186,11 @@ class TraceStore:
                     if observation.frame_size is not None
                     else None
                 ),
+                "capture_geometry": (
+                    observation.capture_geometry.model_dump(mode="json")
+                    if observation.capture_geometry is not None
+                    else None
+                ),
                 "page_type": observation.page_type,
                 "domains_run": list(observation.domains_run),
                 "source": observation.source,
