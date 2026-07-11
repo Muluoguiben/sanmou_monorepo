@@ -43,8 +43,9 @@ Printable keys, text content, clipboard contents, audio, cursor-motion noise, an
 
 Run strict validation before trusting derived files:
 
-```bash
-PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay validate <session-dir>
+```powershell
+$SessionDir = "C:\Users\<you>\AppData\Local\SanmouRecordReplay\sessions\<session-uuid>"
+& $Python -m pioneer_agent.app.record_replay validate $SessionDir
 ```
 
 Any hash, decode, ordering, geometry, window-identity, count, status, or path failure invalidates the whole session. Do not repair raw evidence in place; record a new session or create a separately reviewed derivative.

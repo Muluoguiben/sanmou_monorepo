@@ -8,7 +8,7 @@ description: Apply Sanmou desktop GUI and NSLG client safety checks before @comp
 ## Preconditions
 
 - Read `.agent/skills/sanmou-client-control/SKILL.md` before touching the NSLG client.
-- Prefer observe-only screenshot capture. Do not dispatch input for Advisor MVP work.
+- Prefer observe-only screenshot capture. An `observe_only` / Advisor-only source must never dispatch or synthesize executable input.
 - Require explicit user approval before real clicks unless the action is already allowlisted, low risk, dry-run verified, and has a verifier.
 - Never store account passwords, tokens, cookies, or private account screenshots in repo files, logs, or shared memory.
 

@@ -4,6 +4,8 @@
 
 > sanmou_monorepo 内部架构 ADR · v1.0 · 2026-05-18
 
+> **状态：历史架构输入，不是当前仓库事实源。** 第 2 节的 ports、qa-agent 集成、perception、executor、verifier 与测试成熟度只代表 2026-05-18 快照；当前产品目标、实现校正和 PR review 规则以 `README.md`、`AGENTS.md`、`docs/opening-runbook-architecture.md` 和 `docs/sanmou-monorepo-architecture-iteration-path.md` 为准。发生冲突时以后者和当前代码为准。
+
 ## 目录
 
 1. [执行摘要](#1-执行摘要)

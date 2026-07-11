@@ -1,8 +1,8 @@
 # Sanmou Advisor Desktop
 
-Electron desktop client for the screenshot-first Sanmou Advisor.
+Optional Electron observation, debugging, and human-takeover surface for the Windows-first Sanmou automation runtime.
 
-The desktop app is a thin GUI over `pioneer-agent`. It does not implement game
+The desktop app remains a screenshot Advisor and thin GUI over `pioneer-agent`. It does not implement game
 logic in TypeScript; it uploads screenshots to the local Python Advisor API and
 renders the returned `AdvisorReport`.
 

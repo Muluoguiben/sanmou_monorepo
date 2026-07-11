@@ -1,4 +1,4 @@
-"""Consolidate & clean up the 19-video staging batch before publishing.
+"""Consolidate & clean up a video staging batch before review and publishing.
 
 Rules (from user review 2026-04-15):
 - Drop candidates with no resolvable heroes, pseudo-hero lineup names
@@ -8,7 +8,7 @@ Rules (from user review 2026-04-15):
   drop the candidate — it's either ASR error or wrong game.
 - Skills: strip "Hero-Skill" compounds → Skill; drop the placeholder
   "输出技能"; drop parenthetical descriptive blobs; apply skill aliases.
-- Write one consolidated staging YAML ready for publish_staging.
+- Write one consolidated staging YAML for explicit review before publish_staging.
 """
 from __future__ import annotations
 
@@ -104,7 +104,11 @@ def _clean_entry(entry: dict, hero_canonical: dict, hero_valid: set, skill_canon
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--batch-dir", required=True, help="Dir containing BV*/video-staging-reviewed.yaml")
+    parser.add_argument(
+        "--batch-dir",
+        required=True,
+        help="Dir containing BV*/video-staging-normalized.yaml (legacy reviewed filenames are also read)",
+    )
     parser.add_argument("--output", required=True, help="Consolidated publish-ready staging YAML")
     parser.add_argument("--knowledge-dir", default="knowledge_sources")
     parser.add_argument("--configs-dir", default="configs")
@@ -131,7 +135,11 @@ def main() -> None:
     consolidated: list[dict] = []
     kept = 0
     dropped = 0
-    for staging_file in sorted(batch_dir.glob("BV*/video-staging-reviewed.yaml")):
+    staging_files = {
+        *batch_dir.glob("BV*/video-staging-normalized.yaml"),
+        *batch_dir.glob("BV*/video-staging-reviewed.yaml"),
+    }
+    for staging_file in sorted(staging_files):
         raw = yaml.safe_load(staging_file.read_text(encoding="utf-8")) or []
         for item in raw:
             entry = item.get("entry")

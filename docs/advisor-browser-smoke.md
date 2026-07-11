@@ -23,7 +23,7 @@
 git status --short --branch
 
 PYTHONPATH=packages/pioneer-agent/src:packages/sanmou-common/src \
-python3 -m pioneer_agent.app.advisor_api --host 127.0.0.1 --port 8765 --mock
+python -m pioneer_agent.app.advisor_api --host 127.0.0.1 --port 8765 --mock
 
 cd apps/sanmou-advisor-desktop
 npm install
@@ -79,7 +79,7 @@ npm run dev
 
 ```bash
 cd apps/sanmou-advisor-desktop && npm run typecheck && npm run build
-cd packages/pioneer-agent && PYTHONPATH=src:../sanmou-common/src python3 -m unittest discover -s tests -p "test_*.py" -v
+cd packages/pioneer-agent && PYTHONPATH=src:../sanmou-common/src python -m unittest discover -s tests -p "test_*.py" -v
 ```
 
 只改文档或 shared-memory 时，可用 markdown/link 检查和 `git diff --check`。

@@ -2,12 +2,38 @@
 
 ## Current Direction
 
-- Product focus:全端截图 Advisor.
-- Main loop: screenshot/capture -> perception -> RuntimeState -> derivation -> selector -> AdvisorReport -> Desktop GUI / chat.
-- Automation is not the MVP default. Click-class actions require safety, verifier, trace, recovery, and kill switch.
+- Product focus: Windows-first 通用游戏 Agent / 自动化代练 runtime；开荒是第一条垂直闭环。
+- Main loop: Windows capture -> perception -> RuntimeState -> runbook/selector -> DispatchGuard -> executor -> verifier -> trace/recovery.
+- Advisor Desktop is an observation, debugging, and human-takeover surface. Click-class actions still require current observation, allowlist, safety, verifier, trace, recovery, and kill switch.
 - NSLG client reverse-engineering is paused as a mainline effort unless the user explicitly approves a small capped research phase.
 
+## 2026-07-12 - Record & Replay M0 retained; Bridge hardened
+
+- Decision: Preserve upstream Windows Record & Replay M0 as a read-only human-demonstration path while rebasing PR #2. It remains raw-first, `pending_review`, offline-only, and `execution_authority=none`; M1-M3 require multi-sample annotation, disjoint eval, semantic actions, verifier, confirmation, kill switch, and recovery.
+- Evidence: `3f864a6` adds the recorder and isolates read-only WGC/DXGI capture in `win_capture.py`. PR #2 rebases on that commit and aligns README, todo, skills, and architecture docs.
+- Security: WinBridge now requires an auth-first per-user token, exclusive `127.0.0.1` bind, non-elevated server, bounded protocol messages, authentication timeout, and foreground fail-closed behavior for every input path. The token cannot protect against malicious processes already running as the same Windows user.
+- Blocker: SanmouController command/script ACL and legacy non-atomic input still need independent hardening. Bridge lifecycle snippets need a real Windows PowerShell 5.1/7 smoke; formal runtime `--execute` remains disabled.
+- Next: Complete R&R M1 reviewed multi-sample annotation and M2 holdout eval before any M3 semantic-action proposal; do not use M0 coordinates or timing as execution authority.
+- Links:
+  - `docs/windows-record-replay.md`
+  - `docs/bridge-architecture.md`
+  - `todo-list.md`
+
+## 2026-07-11 - Product North Star corrected
+
+- Decision: Treat the repository as a general Sanmou game Agent / automated leveling runtime, with Windows client + WSL2 as the primary validated topology. Screenshot Advisor and qa-agent are supporting surfaces, not the product end-state.
+- Evidence: `docs/opening-runbook-architecture.md` defines G1 as a real Windows-client unattended four-hour opening run; README and AGENTS now lead with this goal.
+- Owner: Repository agent sessions.
+- Blocker: Formal `--execute` remains hard-disabled; claim/recruit/upgrade live closure and the attack loop are incomplete.
+- Next: Finish M1a low-risk flows, then M1b land-selection/battle/occupation verification before broadening platforms or UI surfaces.
+- Links:
+  - `README.md`
+  - `docs/opening-runbook-architecture.md`
+  - `docs/bridge-architecture.md`
+
 ## 2026-05-21 - Codex workflow landing
+
+> Historical decision. Its Advisor-first priority statement was superseded by the 2026-07-11 Windows automation North Star above.
 
 - Decision: Land Codex as a workflow operating layer around Sanmou rather than as more game automation.
 - Evidence: Current highest priority remains Advisor golden replay expansion and low-risk verifier specs in `todo-list.md`.

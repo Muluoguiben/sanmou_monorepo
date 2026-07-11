@@ -6,6 +6,8 @@
 
 > 2026-07-11 status override: 下文 2026-05-17 的模块成熟度与“只有 resource_bar/city_buildings、缺 verifier/safety/replay”等判断已是历史快照。当前已实现 map/battle 感知、attack ledger、Runbook 目标约束、低风险同帧 observation + target-bound verifier + one-shot confirmation，以及 outer-window / capture-rect 分离的 Windows 原子 geometry guard。正式 `--execute` 仍硬禁；claim/recruit/upgrade 尚无 privacy-approved action-correlated live terminal source（0/3），full-frame map 正/负样本和 provider-exercised vision eval 仍缺，因此仍不能宣称真实账号托管就绪。
 
+> 2026-07-11 product override: 当前主线是 Windows-first 通用游戏 Agent / 自动化代练，开荒是第一条垂直闭环；Desktop Advisor 只作为观察、调试和人工接管界面。下文把 Advisor 视为商业主线的描述仅为历史审计上下文。
+
 ## 1. Executive Summary
 
 - 当前仓库已经具备清晰的 monorepo 分层：`sanmou-common` 放共享配置，`pioneer-agent` 放开荒 Agent runtime/决策/GUI 自动化，`qa-agent` 放知识问答、RAG、视频证据链和 MCP。
@@ -308,7 +310,7 @@ flowchart TD
 | verifier framework | 无动作后验证就不能托管 | 每个可执行动作声明 expected state delta、verify timeout；无 verifier 不自动执行 | `pioneer_agent/verifier/` |
 | safety guardrail | 防真实 GUI 误操作 | 所有动作执行前经过 risk policy；高风险默认 blocked/confirmation | `pioneer_agent/safety/`, `config/safety.yaml` |
 | manual kill switch | 长跑必须可接管 | 每 tick 检查 kill file/hotkey/flag，触发后停止输入并写 log | `runtime/autonomous_loop.py`, `app/autonomous.py` |
-| high-risk confirmation | 防不可逆/中高风险误操作 | `attack_land/abandon_land/transfer_main_lineup` 默认 require confirmation | `pioneer_agent/safety/`, `executor/ui_runner.py` |
+| high-risk confirmation | 防不可逆/中高风险误操作 | `attack_land/abandon_land/transfer_main_lineup_to_team` 默认 require confirmation | `pioneer_agent/safety/`, `executor/ui_runner.py` |
 | bridge health check | bridge 不稳定会误操作 | 周期检查 ping、window_info、截图非黑屏；失败进入 recovery | `adapters/bridge_client.py`, `runtime/health.py` |
 | click-action calibration | 当前点击类 action 仍为 pending | claim/recruit/upgrade/attack/transfer/abandon 用真实截图完成 `ui_calibrate` + `find_elements` 序列 | `app/ui_calibrate.py`, `executor/action_handlers.py` |
 | screenshot fixture dataset | 无实拍 fixture 无法安全重构 | 覆盖 city/chapter/recruit/popup，每张有 expected JSON | `tests/fixtures/screenshots/` |
@@ -529,7 +531,7 @@ packages/pioneer-agent/src/pioneer_agent/
 
 目标：自动观察状态、自动给出下一步建议、高风险动作人工确认、低风险动作自动执行、qa-agent 知识进入 selector/scoring。
 
-验收标准：能基于当前阵容、资源、章节、建筑和 qa 知识输出可解释建议；`attack_land/abandon_land/transfer_main_lineup` 默认 require confirmation；建议引用知识来源或策略快照版本。
+验收标准：能基于当前阵容、资源、章节、建筑和 qa 知识输出可解释建议；`attack_land/abandon_land/transfer_main_lineup_to_team` 默认 require confirmation；建议引用知识来源或策略快照版本。
 
 ### Milestone 3：自动打地闭环
 

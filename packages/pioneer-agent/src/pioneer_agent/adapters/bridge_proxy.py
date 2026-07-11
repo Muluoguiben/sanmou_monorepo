@@ -16,12 +16,17 @@ manipulate windows.
 
 import base64
 import json
+import os
 import socket
 import struct
 import sys
+from pathlib import Path
 
 
 _PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
+_MAX_PROTOCOL_REQUEST_BYTES = 1_048_576
+_MAX_PROTOCOL_RESPONSE_BYTES = 67_108_864
+_AUTH_TOKEN_HEX_LENGTH = 64
 
 
 def recv_exact(sock, n):
@@ -36,13 +41,39 @@ def recv_exact(sock, n):
 
 def send_cmd(sock, payload):
     body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+    if len(body) < 2 or len(body) > _MAX_PROTOCOL_REQUEST_BYTES:
+        raise ValueError("invalid bridge protocol request length")
     sock.sendall(struct.pack(">I", len(body)) + body)
 
 
 def recv_frame(sock):
     raw_len = recv_exact(sock, 4)
     msg_len = struct.unpack(">I", raw_len)[0]
+    if msg_len < 2 or msg_len > _MAX_PROTOCOL_RESPONSE_BYTES:
+        raise ConnectionError("invalid bridge protocol response length")
     return recv_exact(sock, msg_len)
+
+
+def _auth_token_path() -> Path:
+    if len(sys.argv) > 2:
+        return Path(sys.argv[2])
+    local_app_data = os.environ.get("LOCALAPPDATA")
+    if not local_app_data:
+        raise RuntimeError("LOCALAPPDATA is required to locate the bridge auth token")
+    return Path(local_app_data) / "SanmouBridge" / "bridge.token"
+
+
+def _load_auth_token() -> str:
+    path = _auth_token_path()
+    try:
+        token = path.read_text(encoding="utf-8-sig").strip().lower()
+    except OSError as exc:
+        raise RuntimeError(f"unable to read bridge auth token: {path}") from exc
+    if len(token) != _AUTH_TOKEN_HEX_LENGTH or any(
+        char not in "0123456789abcdef" for char in token
+    ):
+        raise RuntimeError("bridge auth token must be exactly 32 random bytes encoded as hex")
+    return token
 
 
 def main():
@@ -56,12 +87,27 @@ def main():
         pass
 
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 9877
+    try:
+        auth_token = _load_auth_token()
+    except Exception as exc:
+        print(json.dumps({"status": "error", "message": str(exc)}), flush=True)
+        sys.exit(1)
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.settimeout(10)
     try:
         sock.connect(("127.0.0.1", port))
     except Exception as exc:
         print(json.dumps({"status": "error", "message": str(exc)}), flush=True)
+        sys.exit(1)
+
+    try:
+        send_cmd(sock, {"cmd": "authenticate", "token": auth_token})
+        auth_response = json.loads(recv_frame(sock).decode("utf-8"))
+        if auth_response.get("status") != "ok" or auth_response.get("authenticated") is not True:
+            raise PermissionError(auth_response.get("message") or "bridge authentication failed")
+    except Exception as exc:
+        print(json.dumps({"status": "error", "message": str(exc)}), flush=True)
+        sock.close()
         sys.exit(1)
 
     print(json.dumps({"status": "proxy_ready"}), flush=True)

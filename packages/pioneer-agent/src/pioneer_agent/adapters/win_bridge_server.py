@@ -1,17 +1,22 @@
 """Windows-side bridge server for game screenshot capture and input injection.
 
-This script runs on the Windows host and exposes a TCP interface for the
-WSL2-side agent to capture screenshots and send clicks to the game window.
+This script runs on the Windows host and exposes a localhost-only TCP interface
+for the WSL2-side agent to capture screenshots and send clicks to the game
+window. The server requires a per-user token handshake, binds an exclusive
+loopback listener, and refuses to run elevated. It is not a remote-control API.
 
 Usage (from Windows or WSL):
     python win_bridge_server.py [--port 9877] [--window "三国：谋定天下"]
+        [--auth-token-file "%LOCALAPPDATA%\\SanmouBridge\\bridge.token"]
 """
 
 from __future__ import annotations
 
 import argparse
 import base64
+import ctypes
 import hashlib
+import hmac
 import importlib.util
 import json
 import math
@@ -66,6 +71,10 @@ MIN_SCREENSHOT_MEAN = _capture.MIN_SCREENSHOT_MEAN
 MIN_SCREENSHOT_STD = _capture.MIN_SCREENSHOT_STD
 ATOMIC_FRAME_CLICK_GUARD_VERSION = 1
 CAPTURE_GEOMETRY_VERSION = _capture.CAPTURE_GEOMETRY_VERSION
+BRIDGE_LISTEN_HOST = "127.0.0.1"
+MAX_PROTOCOL_MESSAGE_BYTES = 1_048_576
+AUTH_TOKEN_HEX_LENGTH = 64
+AUTHENTICATION_TIMEOUT_SECONDS = 10.0
 ATOMIC_CLICK_AUTHORIZATION_SCOPES = frozenset(
     {
         "operator_confirmed_final_mutating_click",
@@ -270,6 +279,18 @@ def click_at(x: int, y: int, button: str = "left") -> None:
     _pyautogui().click(x, y, button=button)
 
 
+def _require_foreground_window(hwnd: int, *, action: str) -> None:
+    """Focus the target or fail before emitting any global input."""
+    _ensure_window_onscreen(hwnd)
+    try:
+        win32gui.SetForegroundWindow(hwnd)
+    except Exception as exc:
+        raise RuntimeError(f"failed to foreground {action} target") from exc
+    time.sleep(0.05)
+    if win32gui.GetForegroundWindow() != hwnd:
+        raise RuntimeError(f"{action} target is not the foreground window")
+
+
 def click_window_relative(
     hwnd: int,
     rx: int,
@@ -334,16 +355,9 @@ def click_window_relative(
             raise RuntimeError("atomic click guard expired before guarded click")
         _assert_expected_window(hwnd, expected_window)
         _assert_guarded_relative_point(rx, ry, expected_capture_geometry)
-    try:
-        win32gui.SetForegroundWindow(hwnd)
-    except Exception as exc:
-        if expected_window is not None:
-            raise RuntimeError("failed to foreground guarded click target") from exc
-    time.sleep(0.05)
+    _require_foreground_window(hwnd, action="click")
     if expected_window is not None:
         _assert_expected_window(hwnd, expected_window)
-        if win32gui.GetForegroundWindow() != hwnd:
-            raise RuntimeError("guarded click target is not the foreground window")
     if expected_capture_geometry is None:
         rect = win32gui.GetWindowRect(hwnd)
         abs_x = rect[0] + rx
@@ -766,7 +780,7 @@ def _assert_guarded_relative_point(
 
 def move_window_relative(hwnd: int, rx: int, ry: int, duration: float = 0.0) -> None:
     """Move mouse to window-relative coords. Useful for hover."""
-    _ensure_window_onscreen(hwnd)
+    _require_foreground_window(hwnd, action="move")
     rect = win32gui.GetWindowRect(hwnd)
     _pyautogui().moveTo(rect[0] + rx, rect[1] + ry, duration=duration)
 
@@ -781,15 +795,10 @@ def drag_window_relative(
     button: str = "left",
 ) -> None:
     """Drag from (x1,y1) to (x2,y2) in window coordinates — for map panning."""
-    _ensure_window_onscreen(hwnd)
+    _require_foreground_window(hwnd, action="drag")
     rect = win32gui.GetWindowRect(hwnd)
     start = (rect[0] + x1, rect[1] + y1)
     end = (rect[0] + x2, rect[1] + y2)
-    try:
-        win32gui.SetForegroundWindow(hwnd)
-    except Exception:
-        pass
-    time.sleep(0.05)
     ui = _pyautogui()
     ui.moveTo(start[0], start[1], duration=0.0)
     ui.dragTo(end[0], end[1], duration=duration, button=button)
@@ -819,13 +828,7 @@ def key_press_window_guarded(
         or info.get("offscreen") is not False
     ):
         raise RuntimeError("key target window is not visible and usable")
-    try:
-        win32gui.SetForegroundWindow(hwnd)
-    except Exception as exc:
-        raise RuntimeError("failed to foreground key target") from exc
-    time.sleep(0.05)
-    if win32gui.GetForegroundWindow() != hwnd:
-        raise RuntimeError("key target is not the foreground window")
+    _require_foreground_window(hwnd, action="key")
     key_press(key, modifiers=modifiers)
 
 
@@ -845,8 +848,15 @@ def recv_msg(conn: socket.socket) -> dict[str, Any]:
     if not raw_len:
         raise ConnectionError("Client disconnected")
     msg_len = struct.unpack(">I", raw_len)[0]
+    if msg_len < 2 or msg_len > MAX_PROTOCOL_MESSAGE_BYTES:
+        raise ConnectionError("invalid bridge protocol message length")
     data = _recv_exact(conn, msg_len)
-    return json.loads(data)
+    if len(data) != msg_len:
+        raise ConnectionError("client disconnected during bridge protocol message")
+    payload = json.loads(data)
+    if not isinstance(payload, dict):
+        raise ValueError("bridge protocol message must be a JSON object")
+    return payload
 
 
 def send_json(conn: socket.socket, payload: dict[str, Any]) -> None:
@@ -872,7 +882,55 @@ def _recv_exact(conn: socket.socket, n: int) -> bytes:
 
 # --- Main server ---
 
-def handle_client(conn: socket.socket, window_title: str, capture_backend: str) -> None:
+
+def _load_auth_token(path: Path) -> str:
+    try:
+        token = path.read_text(encoding="utf-8-sig").strip().lower()
+    except OSError as exc:
+        raise RuntimeError(f"unable to read bridge auth token: {path}") from exc
+    if len(token) != AUTH_TOKEN_HEX_LENGTH or any(
+        char not in "0123456789abcdef" for char in token
+    ):
+        raise RuntimeError("bridge auth token must be exactly 32 random bytes encoded as hex")
+    return token
+
+
+def _authenticate_client(conn: socket.socket, auth_token: str) -> bool:
+    try:
+        message = recv_msg(conn)
+    except (ConnectionError, ValueError, json.JSONDecodeError):
+        return False
+    supplied = message.get("token")
+    authenticated = (
+        message.get("cmd") == "authenticate"
+        and isinstance(supplied, str)
+        and hmac.compare_digest(supplied.lower(), auth_token)
+    )
+    send_json(
+        conn,
+        {"status": "ok", "authenticated": True}
+        if authenticated
+        else {"status": "error", "message": "bridge authentication failed"},
+    )
+    return authenticated
+
+
+def handle_client(
+    conn: socket.socket,
+    window_title: str,
+    capture_backend: str,
+    *,
+    auth_token: str,
+) -> None:
+    conn.settimeout(AUTHENTICATION_TIMEOUT_SECONDS)
+    try:
+        authenticated = _authenticate_client(conn, auth_token)
+    except (TimeoutError, socket.timeout):
+        return
+    finally:
+        conn.settimeout(None)
+    if not authenticated:
+        return
     hwnd = None
     last_screenshot_binding: dict[str, Any] | None = None
 
@@ -1063,6 +1121,29 @@ def handle_client(conn: socket.socket, window_title: str, capture_backend: str) 
             send_json(conn, payload)
 
 
+def _default_auth_token_path() -> Path:
+    local_app_data = os.environ.get("LOCALAPPDATA")
+    if not local_app_data:
+        raise RuntimeError("LOCALAPPDATA is required to locate the bridge auth token")
+    return Path(local_app_data) / "SanmouBridge" / "bridge.token"
+
+
+def _create_listen_socket(port: int) -> socket.socket:
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    exclusive = getattr(socket, "SO_EXCLUSIVEADDRUSE", None)
+    if exclusive is None:
+        server_socket.close()
+        raise RuntimeError("Windows SO_EXCLUSIVEADDRUSE is required for the bridge listener")
+    try:
+        server_socket.setsockopt(socket.SOL_SOCKET, exclusive, 1)
+        server_socket.bind((BRIDGE_LISTEN_HOST, port))
+        server_socket.listen(1)
+    except BaseException:
+        server_socket.close()
+        raise
+    return server_socket
+
+
 def main() -> None:
     _enable_physical_pixel_coordinates()
     parser = argparse.ArgumentParser(description="Windows bridge server for game automation.")
@@ -1074,14 +1155,25 @@ def main() -> None:
         default="auto",
         help="Window capture backend. auto tries WGC first, then DXGI desktop duplication.",
     )
+    parser.add_argument(
+        "--auth-token-file",
+        help="Path to a 32-byte hex token file. Defaults to %LOCALAPPDATA%\\SanmouBridge\\bridge.token.",
+    )
     args = parser.parse_args()
 
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    sock.bind(("0.0.0.0", args.port))
-    sock.listen(1)
+    if bool(ctypes.windll.shell32.IsUserAnAdmin()):
+        parser.error(
+            "the Python bridge must run without elevation; use the allowlisted controller for high-integrity input"
+        )
+    token_path = (
+        Path(args.auth_token_file).expanduser().resolve()
+        if args.auth_token_file
+        else _default_auth_token_path()
+    )
+    auth_token = _load_auth_token(token_path)
+    sock = _create_listen_socket(args.port)
 
-    print(f"Bridge server listening on 0.0.0.0:{args.port}")
+    print(f"Bridge server listening on {BRIDGE_LISTEN_HOST}:{args.port}")
     print(f"Target window: {args.window}")
     print(f"Capture backend: {args.capture_backend}")
 
@@ -1091,7 +1183,12 @@ def main() -> None:
             conn, addr = sock.accept()
             print(f"Agent connected from {addr}")
             try:
-                handle_client(conn, args.window, args.capture_backend)
+                handle_client(
+                    conn,
+                    args.window,
+                    args.capture_backend,
+                    auth_token=auth_token,
+                )
             except Exception as exc:
                 print(f"Session error: {exc}", file=sys.stderr)
             finally:

@@ -2,6 +2,8 @@
 
 更新时间：2026-05-19
 
+> 2026-07-11 override: 产品主线已明确为 Windows-first 通用游戏 Agent / 自动化代练，Advisor 只是观察与人工接管界面。下文“证据化推荐”和“近期迭代”中 structured evidence、semantic validators、golden replay 与低风险 verifier 已经落地的条目是历史计划，不应重复立项；当前状态以 `README.md`、`AGENTS.md` 和 `docs/opening-runbook-architecture.md` 为准。
+
 ## 上位文档
 
 本模块设计参考并服从：
@@ -15,7 +17,7 @@
 
 `packages/pioneer-agent` 是截图感知、状态同步、决策推荐、低风险执行和验证闭环模块。它是 Sanmou Agent 的运行时核心。
 
-当前阶段的产品形态是 Advisor-first：先输出可信推荐，不默认执行 UI 输入。自动化只能从低风险动作开始，并受 safety、verifier、trace 和 kill switch 约束。
+当前阶段的产品形态是 automation-first、execution-gated：主线是打通 Windows 代练闭环，但正式 `--execute` 在真实验证完成前继续硬禁。Advisor 用于观察、调试和人工接管；自动化从低风险动作开始，并受 safety、verifier、trace 和 kill switch 约束。
 
 ## 当前结构
 
@@ -115,7 +117,7 @@ selection_reason
 高风险动作保持人工确认或 block：
 
 - `attack_land`
-- `transfer_main_lineup`
+- `transfer_main_lineup_to_team`
 - `abandon_land`
 
 ## 近期迭代

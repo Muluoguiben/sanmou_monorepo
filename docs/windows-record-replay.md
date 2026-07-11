@@ -33,29 +33,41 @@ Sanmou Unity 窗口 ──WGC/DXGI──┘     │
 - 目标窗口不在前台、发生窗口替换、几何异常、队列溢出、捕获或落盘失败时 fail-closed；
 - 默认 WebP，长边 1280、质量 60，避免把原始全分辨率录屏带入模型上下文。
 
-现有高权限 SanmouController 与 WinBridge 不属于本切片。Controller 的可写脚本/命令面、WinBridge 的网络监听与未认证控制能力需要独立 hardening，不能为了录制而扩展或复用。
+现有高权限 SanmouController 与 WinBridge 不属于本切片。Bridge 现已固定 exclusive loopback、增加 token handshake 并拒绝 elevated 启动；Controller 的可写脚本/命令面、同用户 token 读取边界和 legacy 非 atomic input 仍需独立 hardening，不能为了录制而扩展或复用。
 
 ## 使用
 
 先由玩家手动恢复并前置游戏窗口。录制器不会自动 restore、resize 或 foreground。
 
-```bash
-cd packages/pioneer-agent
+```powershell
+$Repo = "C:\src\sanmou_monorepo"  # 改成 Windows checkout 的实际路径
+$VenvPython = Join-Path $Repo ".venv\Scripts\python.exe"
+if (-not (Test-Path -LiteralPath $VenvPython -PathType Leaf)) {
+  py -3 -c "import sys; assert sys.version_info >= (3, 11)"
+  if ($LASTEXITCODE -ne 0) { throw "需要 Windows Python 3.11+" }
+  py -3 -m venv (Join-Path $Repo ".venv")
+  if ($LASTEXITCODE -ne 0) { throw "创建 Windows venv 失败" }
+}
+$Python = (Resolve-Path (Join-Path $Repo ".venv\Scripts\python.exe")).Path
+& $Python -m pip install -e "$Repo\packages\sanmou-common" -e "$Repo\packages\pioneer-agent[windows-bridge]"
+Set-Location (Join-Path $Repo "packages\pioneer-agent")
 
 # 录 60 秒窄工作流；默认只保存 raw session
-PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay record \
-  --workflow-name open-battle-report-details \
+& $Python -m pioneer_agent.app.record_replay record `
+  --workflow-name open-battle-report-details `
   --duration-seconds 60
 
+$SessionDir = "C:\Users\<you>\AppData\Local\SanmouRecordReplay\sessions\<session-uuid>"
+
 # 查看摘要和完整性
-PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay inspect <session-dir>
-PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay validate <session-dir>
+& $Python -m pioneer_agent.app.record_replay inspect $SessionDir
+& $Python -m pioneer_agent.app.record_replay validate $SessionDir
 
 # 严格校验和人工隐私复核后，再从未篡改的 session 生成候选
-PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay compile <session-dir>
+& $Python -m pioneer_agent.app.record_replay compile $SessionDir
 
 # 仅生成/显示离线计划，不触碰客户端
-PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay replay <session-dir>
+& $Python -m pioneer_agent.app.record_replay replay $SessionDir
 ```
 
 录制可由 `Ctrl+Shift+F12`、`Ctrl+C`、时长上限或 session 目录中的 `STOP` 文件结束。原始目录固定为：

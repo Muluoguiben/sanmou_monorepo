@@ -5,7 +5,7 @@ description: Use when an agent needs to turn a Bilibili Sanmou strategy video in
 
 # Bilibili Video Knowledge Workflow
 
-Use this skill when the task is to extract knowledge from a Bilibili video and publish it into the local Sanmou QA workflow.
+Use this skill when the task is to extract knowledge from a Bilibili video into the local Sanmou QA candidate/workspace flow. It is not a safe unattended repo publisher.
 
 ## Trigger Phrases
 
@@ -29,16 +29,18 @@ scripts/bilibili_video_knowledge_workflow.sh "<url-or-bvid>" "<workspace>" heuri
 - `bilibili-bundle.yaml`
 - `video-evidence.yaml`
 - `video-knowledge.yaml`
-- `video-staging-reviewed.yaml`
-- `knowledge_sources/...`
+- `video-staging-normalized.yaml`
+- `candidate_knowledge_sources/...`
+
+Both outputs are candidates. They do not prove human review or the complete M3 publish gate. Before any repo update, follow `sanmou-qa-knowledge-review` for agent-run source/schema/confidence/season/conflict/diff checks; only a proven no-overwrite entry may be controlled-published.
 
 4. Query the generated knowledge:
 
 ```bash
-PYTHONPATH=packages/qa-agent/src python3 -m qa_agent.app.query \
+PYTHONPATH=packages/qa-agent/src python -m qa_agent.app.query \
   lookup_topic "<topic>" \
   --domain solution \
-  --sources-dir "<workspace>/knowledge_sources"
+  --sources-dir "<workspace>/candidate_knowledge_sources"
 ```
 
 5. When reporting to the user:
@@ -63,7 +65,7 @@ Reject wrong-track subtitles even if they are syntactically valid.
 Always run:
 
 ```bash
-PYTHONPATH=packages/qa-agent/src python3 -m unittest discover -s packages/qa-agent/tests -p 'test_*.py' -v
+PYTHONPATH=packages/qa-agent/src python -m unittest discover -s packages/qa-agent/tests -p 'test_*.py' -v
 ```
 
 If the task is about a specific video, also run the workflow on that real URL or BVID and confirm the generated knowledge is queryable.

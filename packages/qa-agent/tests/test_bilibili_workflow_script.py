@@ -23,7 +23,7 @@ class BilibiliWorkflowScriptTests(unittest.TestCase):
             mock_bin = Path(temp_dir) / "bin"
             mock_bin.mkdir()
             log_path = Path(temp_dir) / "calls.log"
-            python_path = mock_bin / "python3"
+            python_path = mock_bin / "python"
             python_path.write_text(
                 "#!/usr/bin/env bash\n"
                 f"echo \"$@\" >> {log_path}\n"
@@ -34,6 +34,7 @@ class BilibiliWorkflowScriptTests(unittest.TestCase):
 
             env = os.environ.copy()
             env["PATH"] = f"{mock_bin}:{env['PATH']}"
+            env["PYTHON_BIN"] = str(python_path)
             workspace = Path(temp_dir) / "workspace"
             result = subprocess.run(
                 [str(script), "BV1TEST123", str(workspace), "heuristic"],
