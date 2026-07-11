@@ -29,12 +29,40 @@ _FULL_FRAME_BBOX = {
 }
 
 
+def _capture_geometry() -> dict:
+    return {
+        "schema_version": 1,
+        "capture_backend": "wgc",
+        "outer_window": {
+            "hwnd": 100,
+            "pid": 200,
+            "left": 0,
+            "top": 0,
+            "right": 1,
+            "bottom": 1,
+            "width": 1,
+            "height": 1,
+        },
+        "capture_rect": {
+            "left": 0,
+            "top": 0,
+            "right": 1,
+            "bottom": 1,
+            "width": 1,
+            "height": 1,
+        },
+        "capture_origin": {"x": 0, "y": 0},
+        "frame_size": [1, 1],
+    }
+
+
 def _semantic_frame_guard(target_key: str) -> dict:
     return {
         "schema_version": 1,
         "algorithm": "semantic-roi-rgb24-sha256-v1",
         "semantic_target_key": target_key,
         "frame_size": [1, 1],
+        "capture_geometry": _capture_geometry(),
         "normalized_bbox": {key: float(value) for key, value in _FULL_FRAME_BBOX.items()},
         "roi_bbox": {"x": 0, "y": 0, "width": 1, "height": 1},
         "click_point": {"x": 0, "y": 0},
@@ -88,6 +116,10 @@ def _write_claim_live_evidence(root: Path) -> tuple[dict, Path, Path]:
         "captured_at": "2026-05-30T17:45:00+08:00",
         "frame_sha256": frame_sha256,
         "frame_size": [1, 1],
+        "capture_geometry": _capture_geometry(),
+        "page_type": "chapter",
+        "domains_run": ["resource_bar", "chapter_panel"],
+        "source": "vision_sync",
     }
     runtime_dispatch = {
         "status": "ok",
@@ -510,6 +542,12 @@ class McpToolTests(unittest.TestCase):
             evidence_templates["live_trace_fixture"]["verification_record"]["status"],
             "verified",
         )
+        guard_template = evidence_templates["live_trace_fixture"][
+            "operator_confirmation"
+        ]["semantic_frame_guard"]
+        self.assertIn("capture_geometry", guard_template)
+        self.assertIn("outer_window", guard_template["capture_geometry"])
+        self.assertIn("capture_rect", guard_template["capture_geometry"])
         self.assertNotIn("pr5_real_screenshot_fixture", evidence_templates)
         self.assertEqual(
             source_review["next_source_requirements"][0]["required_runtime_dispatch"],
@@ -1838,6 +1876,98 @@ class McpToolTests(unittest.TestCase):
                 ]
                 self.assertIn(expected_issue, trace_issues)
 
+    def test_terminal_source_rejects_missing_or_forged_capture_geometry(self) -> None:
+        translated = _capture_geometry()
+        translated["outer_window"].update(
+            {"left": 10, "top": 20, "right": 11, "bottom": 21}
+        )
+        translated["capture_rect"].update(
+            {"left": 10, "top": 20, "right": 11, "bottom": 21}
+        )
+        translated["capture_origin"] = {"x": 10, "y": 20}
+        backend_changed = _capture_geometry()
+        backend_changed["capture_backend"] = "dxgi"
+        window_changed = _capture_geometry()
+        window_changed["outer_window"]["hwnd"] = 101
+        origin_invalid = _capture_geometry()
+        origin_invalid["capture_origin"] = {"x": 1, "y": 0}
+        frame_size_changed = _capture_geometry()
+        frame_size_changed["outer_window"].update(
+            {"right": 2, "bottom": 2, "width": 2, "height": 2}
+        )
+        frame_size_changed["capture_rect"].update(
+            {"right": 2, "bottom": 2, "width": 2, "height": 2}
+        )
+        frame_size_changed["frame_size"] = [2, 2]
+        cases = {
+            "missing": (
+                None,
+                "operator_confirmation.semantic_frame_guard.fields",
+            ),
+            "backend": (
+                backend_changed,
+                "operator_confirmation.semantic_frame_guard.capture_geometry_binding",
+            ),
+            "outer_window": (
+                window_changed,
+                "operator_confirmation.semantic_frame_guard.capture_geometry_binding",
+            ),
+            "capture_rect_and_origin": (
+                translated,
+                "operator_confirmation.semantic_frame_guard.capture_geometry_binding",
+            ),
+            "origin_invalid": (
+                origin_invalid,
+                "operator_confirmation.semantic_frame_guard.capture_geometry.capture_origin_binding",
+            ),
+            "frame_size": (
+                frame_size_changed,
+                "operator_confirmation.semantic_frame_guard.capture_geometry.frame_size",
+            ),
+        }
+        for label, (replacement, expected_issue) in cases.items():
+            with self.subTest(label=label), tempfile.TemporaryDirectory() as temp_dir:
+                workspace_root = Path(temp_dir)
+                evidence, trace_path, _screenshot_path = (
+                    _write_repo_relative_claim_live_evidence(workspace_root, commit=True)
+                )
+                record = json.loads(trace_path.read_text(encoding="utf-8"))
+                trace_guard = record["execution"]["summary"]["operator_confirmation"][
+                    "semantic_frame_guard"
+                ]
+                manifest_guard = evidence["operator_confirmation"]["semantic_frame_guard"]
+                if replacement is None:
+                    del trace_guard["capture_geometry"]
+                    del manifest_guard["capture_geometry"]
+                else:
+                    trace_guard["capture_geometry"] = copy.deepcopy(replacement)
+                    manifest_guard["capture_geometry"] = copy.deepcopy(replacement)
+                trace_path.write_text(json.dumps(record), encoding="utf-8")
+                evidence["trace_sha256"] = _sha256(trace_path)
+                trace_rel = trace_path.relative_to(workspace_root).as_posix()
+                _git(workspace_root, "add", trace_rel)
+                _git(workspace_root, "commit", "-q", "-m", f"forge geometry {label}")
+                evidence["git_provenance"]["trace_blob"] = _git(
+                    workspace_root,
+                    "rev-parse",
+                    f"HEAD:{trace_rel}",
+                )
+
+                review = AdvisorReplayTools(
+                    workspace_root=workspace_root
+                )._terminal_source_evidence_review(
+                    action_type="claim_chapter_reward",
+                    fixture="live_claim_terminal_trace.json",
+                    expectation={"page": "chapter", "terminal_source_evidence": evidence},
+                )
+
+                self.assertFalse(review["structural_valid"])
+                self.assertFalse(review["accepted_for_closure"])
+                trace_issues = review["trace_validation"]["record_evaluations"][0][
+                    "trace_operator_confirmation_issues"
+                ]
+                self.assertIn(expected_issue, trace_issues)
+
     def test_terminal_source_rejects_placeholder_absolute_and_uncommitted_sources(self) -> None:
         tools = AdvisorReplayTools.from_qa_project_root(Path(__file__).resolve().parents[1])
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -2056,6 +2186,11 @@ class McpToolTests(unittest.TestCase):
                     "terminal_for_verifier": True,
                 },
             }
+            manifest_only_guard = copy.deepcopy(
+                evidence["operator_confirmation"]["semantic_frame_guard"]
+            )
+            manifest_only_guard["capture_geometry"]["outer_window"]["hwnd"] = 999
+            cases["semantic_frame_guard"] = manifest_only_guard
             for field_name, replacement in cases.items():
                 with self.subTest(field_name=field_name):
                     invalid = copy.deepcopy(evidence)

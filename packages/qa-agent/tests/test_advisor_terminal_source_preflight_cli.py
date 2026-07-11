@@ -22,12 +22,40 @@ _FULL_FRAME_BBOX = {
 }
 
 
+def _capture_geometry() -> dict:
+    return {
+        "schema_version": 1,
+        "capture_backend": "wgc",
+        "outer_window": {
+            "hwnd": 100,
+            "pid": 200,
+            "left": 0,
+            "top": 0,
+            "right": 1,
+            "bottom": 1,
+            "width": 1,
+            "height": 1,
+        },
+        "capture_rect": {
+            "left": 0,
+            "top": 0,
+            "right": 1,
+            "bottom": 1,
+            "width": 1,
+            "height": 1,
+        },
+        "capture_origin": {"x": 0, "y": 0},
+        "frame_size": [1, 1],
+    }
+
+
 def _semantic_frame_guard(target_key: str) -> dict:
     return {
         "schema_version": 1,
         "algorithm": "semantic-roi-rgb24-sha256-v1",
         "semantic_target_key": target_key,
         "frame_size": [1, 1],
+        "capture_geometry": _capture_geometry(),
         "normalized_bbox": {key: float(value) for key, value in _FULL_FRAME_BBOX.items()},
         "roi_bbox": {"x": 0, "y": 0, "width": 1, "height": 1},
         "click_point": {"x": 0, "y": 0},
@@ -146,6 +174,10 @@ def _ready_live_evidence(
         "captured_at": "2026-05-30T17:45:00+08:00",
         "frame_sha256": frame_sha256,
         "frame_size": [1, 1],
+        "capture_geometry": _capture_geometry(),
+        "page_type": page,
+        "domains_run": ["resource_bar"],
+        "source": "vision_sync",
     }
     runtime_dispatch = {
         "status": "ok",

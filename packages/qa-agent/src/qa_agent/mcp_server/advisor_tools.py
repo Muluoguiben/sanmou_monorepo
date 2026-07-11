@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import errno
 import json
 import os
+from dataclasses import dataclass
 from datetime import datetime
 import hashlib
 from io import BytesIO
@@ -17,6 +19,87 @@ REVIEWED_LIVE_EVIDENCE_ROOT = Path(
     "packages/pioneer-agent/tests/fixtures/live-evidence/reviewed"
 )
 GIT_PROVENANCE_TRUST_BOUNDARY = "committed_reviewed_live_evidence"
+
+
+class RawTerminalSourceTraceError(ValueError):
+    def __init__(
+        self,
+        code: str,
+        message: str,
+        *,
+        details: dict[str, Any] | None = None,
+    ) -> None:
+        super().__init__(message)
+        self.code = code
+        self.details = details or {}
+
+
+@dataclass(frozen=True)
+class RawTerminalSourceCandidate:
+    report: dict[str, Any]
+    input_root: Path
+    input_root_identity: tuple[int, int, int]
+    trace_path: Path
+    trace_relative_path: Path
+    screenshot_path: Path
+    screenshot_relative_path: Path
+    trace_bytes: bytes
+    screenshot_bytes: bytes
+    trace_identity: tuple[int, ...]
+    screenshot_identity: tuple[int, ...]
+
+    def assert_sources_unchanged(self) -> None:
+        try:
+            _root, root_descriptor, root_identity = _open_raw_input_root(
+                self.input_root
+            )
+        except RawTerminalSourceTraceError as exc:
+            raise RawTerminalSourceTraceError(
+                "source_drift",
+                "raw input root became unreadable or unsafe during validation",
+                details={"cause": exc.code},
+            ) from exc
+        try:
+            if root_identity != self.input_root_identity:
+                raise RawTerminalSourceTraceError(
+                    "source_drift",
+                    "raw input root changed during validation",
+                )
+            for field, relative_path, expected_bytes, expected_identity in (
+                (
+                    "trace",
+                    self.trace_relative_path,
+                    self.trace_bytes,
+                    self.trace_identity,
+                ),
+                (
+                    "screenshot",
+                    self.screenshot_relative_path,
+                    self.screenshot_bytes,
+                    self.screenshot_identity,
+                ),
+            ):
+                snapshot, issues = _read_regular_file_snapshot_at(
+                    root_descriptor,
+                    relative_path,
+                )
+                if snapshot is None or issues:
+                    raise RawTerminalSourceTraceError(
+                        "source_drift",
+                        f"{field} source became unreadable or unsafe during validation",
+                        details={"field": field, "issues": issues},
+                    )
+                if (
+                    snapshot["bytes"] != expected_bytes
+                    or snapshot["identity"] != expected_identity
+                ):
+                    raise RawTerminalSourceTraceError(
+                        "source_drift",
+                        f"{field} source changed during validation",
+                        details={"field": field},
+                    )
+        finally:
+            os.close(root_descriptor)
 
 
 class AdvisorReplayTools:
@@ -244,6 +327,164 @@ class AdvisorReplayTools:
             "next_source_requirements": requirements if not review["accepted_for_closure"] else [],
             "capture_plan": capture_plan,
         }
+
+    def prepare_raw_terminal_source_candidate(
+        self,
+        *,
+        action_type: str,
+        trace_path: Path,
+        input_root: Path | None = None,
+    ) -> RawTerminalSourceCandidate:
+        """Validate one raw live trace without granting review or closure authority."""
+
+        requirement = LOW_RISK_TERMINAL_SOURCE_REQUIREMENTS.get(action_type)
+        if requirement is None:
+            raise RawTerminalSourceTraceError(
+                "unsupported_action",
+                f"unsupported low-risk action_type: {action_type}",
+            )
+
+        raw_source = _load_raw_terminal_source(
+            trace_path=Path(trace_path),
+            input_root=Path(input_root) if input_root is not None else None,
+        )
+        root = raw_source["input_root"]
+        root_identity = raw_source["input_root_identity"]
+        resolved_trace = raw_source["trace_path"]
+        resolved_screenshot = raw_source["screenshot_path"]
+        trace_snapshot = raw_source["trace_snapshot"]
+        screenshot_snapshot = raw_source["screenshot_snapshot"]
+        records = raw_source["records"]
+        record = raw_source["record"]
+        trace_screenshot_path = raw_source["trace_screenshot_path"]
+        image_validation = raw_source["image_validation"]
+
+        selected_action = _trace_selected_action(record)
+        params = (
+            selected_action.get("params")
+            if isinstance(selected_action.get("params"), dict)
+            else {}
+        )
+        target_identity = {
+            field_name: params.get(field_name)
+            for field_name in requirement.get("required_target_identity") or {}
+        }
+        target_validation = _target_identity_validation(
+            target_identity,
+            requirement=requirement,
+        )
+        if not target_validation["valid"]:
+            raise RawTerminalSourceTraceError(
+                "target_identity",
+                "selected action does not contain a valid target identity",
+                details={"validation": target_validation},
+            )
+
+        screenshot_size = (
+            image_validation.get("width"),
+            image_validation.get("height"),
+        )
+        trace_semantics = self._live_trace_evidence_validation(
+            str(resolved_trace),
+            records=records,
+            action_type=action_type,
+            screenshot_path=trace_screenshot_path,
+            screenshot_bytes=screenshot_snapshot["bytes"],
+            screenshot_sha256=screenshot_snapshot["sha256"],
+            screenshot_size=screenshot_size,
+            required_runtime_dispatch=requirement.get("required_runtime_dispatch") or {},
+            requirement=requirement,
+            target_identity=target_identity,
+        )
+        matching_records = trace_semantics.get("matching_records") or []
+        if not trace_semantics.get("matched") or len(matching_records) != 1:
+            raise RawTerminalSourceTraceError(
+                "trace_semantics",
+                "raw trace failed the existing terminal-source binding contract",
+                details={"validation": trace_semantics},
+            )
+        matched = matching_records[0]
+        terminal_observation = matched.get("terminal_observation")
+        required_page = requirement.get("required_page")
+        if (
+            not isinstance(terminal_observation, dict)
+            or terminal_observation.get("page_type") != required_page
+        ):
+            raise RawTerminalSourceTraceError(
+                "terminal_page",
+                "terminal observation page_type does not match the action contract",
+                details={
+                    "required_page": required_page,
+                    "actual_page": (
+                        terminal_observation.get("page_type")
+                        if isinstance(terminal_observation, dict)
+                        else None
+                    ),
+                },
+            )
+
+        verification_record = matched["verification_record"]
+        post_action_delta = verification_record.get("post_action_delta") or []
+        operator_confirmation = dict(matched["operator_confirmation"])
+        operator_confirmation["trace_id"] = matched.get("trace_id")
+        operator_confirmation["trace_record_index"] = matched.get("index")
+        source_paths = {
+            "trace": resolved_trace.relative_to(root).as_posix(),
+            "screenshot": resolved_screenshot.relative_to(root).as_posix(),
+        }
+        report = {
+            "schema_version": 1,
+            "status": "validated_for_pending_review_staging",
+            "raw_binding_valid": True,
+            "review_status": "pending_review",
+            "privacy_review_status": "pending",
+            "accepted_for_closure": False,
+            "action_type": action_type,
+            "source_paths": source_paths,
+            "artifacts": {
+                "trace": {
+                    "sha256": trace_snapshot["sha256"],
+                    "bytes": len(trace_snapshot["bytes"]),
+                    "record_count": 1,
+                },
+                "screenshot": {
+                    "sha256": screenshot_snapshot["sha256"],
+                    "bytes": len(screenshot_snapshot["bytes"]),
+                    "width": image_validation["width"],
+                    "height": image_validation["height"],
+                    "format": image_validation["format"],
+                },
+            },
+            "evidence_fields": {
+                "page": required_page,
+                "semantic_target": requirement.get("required_semantic_target"),
+                "runtime_dispatch": matched["runtime_dispatch"],
+                "target_identity": target_identity,
+                "post_action_delta": post_action_delta,
+                "verification_record": verification_record,
+                "operator_confirmation": operator_confirmation,
+            },
+            "trace_validation": {
+                "record_count": trace_semantics["record_count"],
+                "matching_record_index": matched.get("index"),
+                "trace_id": matched.get("trace_id"),
+            },
+        }
+        candidate = RawTerminalSourceCandidate(
+            report=report,
+            input_root=root,
+            input_root_identity=root_identity,
+            trace_path=resolved_trace,
+            trace_relative_path=resolved_trace.relative_to(root),
+            screenshot_path=resolved_screenshot,
+            screenshot_relative_path=resolved_screenshot.relative_to(root),
+            trace_bytes=trace_snapshot["bytes"],
+            screenshot_bytes=screenshot_snapshot["bytes"],
+            trace_identity=trace_snapshot["identity"],
+            screenshot_identity=screenshot_snapshot["identity"],
+        )
+        candidate.assert_sources_unchanged()
+        return candidate
 
     def _fixture_paths(self) -> list[Path]:
         if not self.fixture_dir.exists():
@@ -2007,7 +2248,8 @@ def _terminal_source_capture_plan(
                     "selected_action.params and verification target/delta match target_identity",
                     "execution.summary.operator_confirmation is present and confirmed=true",
                     "trace terminal_dispatch and primary observations bind the exact HEAD screenshot SHA-256 and decoded frame_size",
-                    "operator confirmation semantic_frame_guard.frame_size binds the same decoded screenshot dimensions",
+                    "operator confirmation semantic_frame_guard fully binds target ROI and decoded screenshot dimensions",
+                    "semantic_frame_guard.capture_geometry exactly mirrors the terminal observation backend, outer window, capture rect/origin, and frame_size",
                     "trace confirmation binds selected action/action_id, target key/identity, and runtime dispatch",
                     "trace confirmation_id/request_id are non-empty and all confirmation timestamps are aware and ordered",
                     "manifest operator_confirmation exactly mirrors the matched trace confirmation plus trace_id/trace_record_index",
@@ -2216,7 +2458,53 @@ def _terminal_source_evidence_template(
             "observation_id": "<terminal-observation-id-from-trace>",
             "frame_sha256": "<terminal-frame-sha256-from-trace>",
             "semantic_frame_guard": {
+                "schema_version": 1,
+                "algorithm": _SEMANTIC_ROI_ALGORITHM,
+                "semantic_target_key": requirement["required_runtime_dispatch"][
+                    "target_key"
+                ],
                 "frame_size": ["<decoded-width>", "<decoded-height>"],
+                "capture_geometry": {
+                    "schema_version": 1,
+                    "capture_backend": "<wgc-or-dxgi>",
+                    "outer_window": {
+                        "hwnd": "<hwnd>",
+                        "pid": "<pid>",
+                        "left": "<outer-left>",
+                        "top": "<outer-top>",
+                        "right": "<outer-right>",
+                        "bottom": "<outer-bottom>",
+                        "width": "<outer-width>",
+                        "height": "<outer-height>",
+                    },
+                    "capture_rect": {
+                        "left": "<capture-left>",
+                        "top": "<capture-top>",
+                        "right": "<capture-right>",
+                        "bottom": "<capture-bottom>",
+                        "width": "<decoded-width>",
+                        "height": "<decoded-height>",
+                    },
+                    "capture_origin": {
+                        "x": "<capture-left>",
+                        "y": "<capture-top>",
+                    },
+                    "frame_size": ["<decoded-width>", "<decoded-height>"],
+                },
+                "normalized_bbox": {
+                    "x_min": "<target-x-min>",
+                    "y_min": "<target-y-min>",
+                    "x_max": "<target-x-max>",
+                    "y_max": "<target-y-max>",
+                },
+                "roi_bbox": {
+                    "x": "<roi-x>",
+                    "y": "<roi-y>",
+                    "width": "<roi-width>",
+                    "height": "<roi-height>",
+                },
+                "click_point": {"x": "<click-x>", "y": "<click-y>"},
+                "roi_sha256": "<roi-sha256-from-terminal-frame>",
             },
             "observation_captured_at": "<terminal-observation-captured-iso8601>",
             "confirmed_at": "<operator-confirmed-iso8601-from-trace>",
@@ -3015,6 +3303,348 @@ def _snapshot_stat_identity(value: os.stat_result) -> tuple[int, ...]:
     )
 
 
+def _secure_dirfd_capable() -> bool:
+    return bool(
+        os.name == "posix"
+        and getattr(os, "O_DIRECTORY", 0)
+        and getattr(os, "O_NOFOLLOW", 0)
+        and os.open in os.supports_dir_fd
+        and os.stat in os.supports_dir_fd
+        and os.stat in os.supports_follow_symlinks
+    )
+
+
+def _normalized_absolute_path(path: Path) -> Path:
+    return Path(os.path.abspath(os.fspath(path)))
+
+
+def _directory_identity(value: os.stat_result) -> tuple[int, int, int]:
+    return (
+        int(value.st_dev),
+        int(value.st_ino),
+        int(stat.S_IFMT(value.st_mode)),
+    )
+
+
+def _open_directory_no_symlinks(path: Path) -> tuple[Path, int, tuple[int, int, int]]:
+    """Open one absolute directory path component-by-component without reparse hops."""
+
+    if not _secure_dirfd_capable():
+        raise OSError(errno.ENOTSUP, "secure POSIX dir_fd operations are unavailable")
+    lexical = _normalized_absolute_path(path)
+    flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
+    descriptor = os.open(lexical.anchor, flags)
+    try:
+        for part in lexical.parts[1:]:
+            if part in {"", "."}:
+                continue
+            if part == "..":
+                raise OSError(errno.EPERM, "parent traversal is not allowed")
+            next_descriptor = os.open(part, flags, dir_fd=descriptor)
+            os.close(descriptor)
+            descriptor = next_descriptor
+        opened = os.fstat(descriptor)
+        if not stat.S_ISDIR(opened.st_mode):
+            raise OSError(errno.ENOTDIR, "path is not a directory")
+        return lexical, descriptor, _directory_identity(opened)
+    except Exception:
+        os.close(descriptor)
+        raise
+
+
+def _open_raw_input_root(path: Path) -> tuple[Path, int, tuple[int, int, int]]:
+    try:
+        return _open_directory_no_symlinks(path)
+    except OSError as exc:
+        if exc.errno == errno.ENOTSUP:
+            raise RawTerminalSourceTraceError(
+                "unsupported_platform",
+                "raw staging requires secure POSIX dir_fd support",
+            ) from exc
+        code = (
+            "input_root_symlink"
+            if exc.errno in {errno.ELOOP, errno.ENOTDIR}
+            else "input_root"
+        )
+        raise RawTerminalSourceTraceError(
+            code,
+            "raw input root does not exist, is unreadable, or contains a symlink",
+        ) from exc
+
+
+def _load_raw_terminal_source(
+    *,
+    trace_path: Path,
+    input_root: Path | None,
+) -> dict[str, Any]:
+    raw_root = Path(input_root) if input_root is not None else trace_path.parent
+    root, root_descriptor, root_identity = _open_raw_input_root(raw_root)
+    try:
+        resolved_trace = _resolve_raw_source_path(
+            trace_path,
+            input_root=root,
+            base_dir=Path.cwd(),
+            field="trace",
+        )
+        trace_snapshot = _required_raw_snapshot(
+            resolved_trace,
+            field="trace",
+            input_root=root,
+            input_root_descriptor=root_descriptor,
+        )
+        strict_trace, records = _strict_trace_file_validation(
+            trace_snapshot["bytes"],
+            path=resolved_trace,
+        )
+        if not strict_trace["valid"]:
+            raise RawTerminalSourceTraceError(
+                "invalid_trace_jsonl",
+                "raw trace failed strict JSONL validation",
+                details={"validation": strict_trace},
+            )
+        if len(records) != 1:
+            raise RawTerminalSourceTraceError(
+                "trace_record_count",
+                "raw staging accepts exactly one trace record",
+                details={"record_count": len(records)},
+            )
+
+        record = records[0]
+        frames = record.get("frames") if isinstance(record.get("frames"), list) else []
+        terminal_frames = [
+            frame
+            for frame in frames
+            if isinstance(frame, dict) and frame.get("role") == "terminal_dispatch"
+        ]
+        if len(terminal_frames) != 1:
+            raise RawTerminalSourceTraceError(
+                "terminal_frame_count",
+                "trace must contain exactly one terminal_dispatch frame",
+                details={"terminal_frame_count": len(terminal_frames)},
+            )
+        terminal_frame_path = terminal_frames[0].get("path")
+        trace_screenshot = record.get("screenshot")
+        trace_screenshot_path = (
+            trace_screenshot.get("path")
+            if isinstance(trace_screenshot, dict)
+            else None
+        )
+        if (
+            not isinstance(terminal_frame_path, str)
+            or not terminal_frame_path.strip()
+            or not isinstance(trace_screenshot_path, str)
+            or not trace_screenshot_path.strip()
+        ):
+            raise RawTerminalSourceTraceError(
+                "terminal_frame_path",
+                "trace screenshot and terminal frame require non-empty paths",
+            )
+        if terminal_frame_path != trace_screenshot_path:
+            raise RawTerminalSourceTraceError(
+                "terminal_frame_path_binding",
+                "trace screenshot path must exactly match terminal frame path",
+            )
+        resolved_screenshot = _resolve_raw_source_path(
+            Path(terminal_frame_path),
+            input_root=root,
+            base_dir=resolved_trace.parent,
+            field="screenshot",
+        )
+        if resolved_screenshot.suffix.lower() != ".png":
+            raise RawTerminalSourceTraceError(
+                "terminal_frame_format",
+                "terminal frame must be an original PNG",
+            )
+        screenshot_snapshot = _required_raw_snapshot(
+            resolved_screenshot,
+            field="screenshot",
+            input_root=root,
+            input_root_descriptor=root_descriptor,
+        )
+        image_validation = _decodable_image_validation(screenshot_snapshot["bytes"])
+        if not image_validation["valid"] or image_validation.get("format") != "PNG":
+            raise RawTerminalSourceTraceError(
+                "terminal_frame_decode",
+                "terminal frame is not a fully decodable PNG",
+                details={"validation": image_validation},
+            )
+        return {
+            "input_root": root,
+            "input_root_identity": root_identity,
+            "trace_path": resolved_trace,
+            "screenshot_path": resolved_screenshot,
+            "trace_snapshot": trace_snapshot,
+            "screenshot_snapshot": screenshot_snapshot,
+            "records": records,
+            "record": record,
+            "trace_screenshot_path": trace_screenshot_path,
+            "image_validation": image_validation,
+        }
+    finally:
+        os.close(root_descriptor)
+
+
+def _resolve_raw_source_path(
+    value: Path,
+    *,
+    input_root: Path,
+    base_dir: Path,
+    field: str,
+) -> Path:
+    if ".." in value.parts:
+        raise RawTerminalSourceTraceError(
+            "path_escape",
+            f"{field} path must not contain parent traversal",
+            details={"field": field},
+        )
+    candidate = value if value.is_absolute() else base_dir / value
+    lexical = _normalized_absolute_path(candidate)
+    try:
+        lexical.relative_to(input_root)
+    except ValueError as exc:
+        raise RawTerminalSourceTraceError(
+            "path_escape",
+            f"{field} path escapes the raw input root",
+            details={"field": field},
+        ) from exc
+    return lexical
+
+
+def _required_raw_snapshot(
+    path: Path,
+    *,
+    field: str,
+    input_root: Path,
+    input_root_descriptor: int,
+) -> dict[str, Any]:
+    try:
+        relative_path = path.relative_to(input_root)
+    except ValueError as exc:
+        raise RawTerminalSourceTraceError(
+            "path_escape",
+            f"{field} path escapes the raw input root",
+            details={"field": field},
+        ) from exc
+    snapshot, issues = _read_regular_file_snapshot_at(
+        input_root_descriptor,
+        relative_path,
+    )
+    if snapshot is None or issues:
+        if "symlink" in issues:
+            raise RawTerminalSourceTraceError(
+                "source_symlink",
+                f"{field} path contains a symlink",
+                details={"field": field, "issues": issues},
+            )
+        raise RawTerminalSourceTraceError(
+            "unsafe_source_file",
+            f"{field} must be a unique-link regular file",
+            details={"field": field, "issues": issues},
+        )
+    return snapshot
+
+
+def _read_regular_file_snapshot_at(
+    root_descriptor: int,
+    relative_path: Path,
+) -> tuple[dict[str, Any] | None, list[str]]:
+    """Read a stable file below one already-pinned directory descriptor."""
+
+    if not _secure_dirfd_capable():
+        return None, ["unsupported_platform"]
+    if relative_path.is_absolute() or ".." in relative_path.parts:
+        return None, ["path_escape"]
+    parts = [part for part in relative_path.parts if part not in {"", "."}]
+    if not parts:
+        return None, ["not_regular_file"]
+
+    directory_flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
+    parent_descriptor = os.dup(root_descriptor)
+    try:
+        for part in parts[:-1]:
+            try:
+                next_descriptor = os.open(
+                    part,
+                    directory_flags,
+                    dir_fd=parent_descriptor,
+                )
+            except OSError as exc:
+                issue = (
+                    "symlink"
+                    if exc.errno in {errno.ELOOP, errno.ENOTDIR}
+                    else "unreadable"
+                )
+                return None, [issue]
+            os.close(parent_descriptor)
+            parent_descriptor = next_descriptor
+
+        leaf = parts[-1]
+        try:
+            before = os.stat(
+                leaf,
+                dir_fd=parent_descriptor,
+                follow_symlinks=False,
+            )
+        except OSError:
+            return None, ["unreadable"]
+        if stat.S_ISLNK(before.st_mode):
+            return None, ["symlink"]
+        if not stat.S_ISREG(before.st_mode):
+            return None, ["not_regular_file"]
+        if before.st_nlink != 1:
+            return None, ["hardlink"]
+
+        flags = os.O_RDONLY | os.O_NOFOLLOW | getattr(os, "O_BINARY", 0)
+        descriptor: int | None = None
+        issues: list[str] = []
+        try:
+            descriptor = os.open(leaf, flags, dir_fd=parent_descriptor)
+            opened = os.fstat(descriptor)
+            if not stat.S_ISREG(opened.st_mode):
+                issues.append("not_regular_file")
+            if opened.st_nlink != 1:
+                issues.append("hardlink")
+            if (opened.st_dev, opened.st_ino) != (before.st_dev, before.st_ino):
+                issues.append("replaced_during_read")
+            with os.fdopen(descriptor, "rb", closefd=True) as handle:
+                descriptor = None
+                data = handle.read()
+                after_read = os.fstat(handle.fileno())
+        except OSError:
+            if descriptor is not None:
+                os.close(descriptor)
+            return None, sorted(set(issues + ["unreadable"]))
+
+        try:
+            after_path = os.stat(
+                leaf,
+                dir_fd=parent_descriptor,
+                follow_symlinks=False,
+            )
+        except OSError:
+            return None, sorted(set(issues + ["replaced_during_read"]))
+        opened_identity = _snapshot_stat_identity(opened)
+        if _snapshot_stat_identity(after_read) != opened_identity:
+            issues.append("changed_during_read")
+        if _snapshot_stat_identity(after_path) != opened_identity:
+            issues.append("replaced_during_read")
+        if len(data) != after_read.st_size:
+            issues.append("changed_during_read")
+        if issues:
+            return None, sorted(set(issues))
+        return (
+            {
+                "bytes": data,
+                "sha256": _sha256_bytes(data),
+                "identity": opened_identity,
+                "link_count": opened.st_nlink,
+            },
+            [],
+        )
+    finally:
+        os.close(parent_descriptor)
+
+
 def _read_regular_file_snapshot(
     path: Path,
 ) -> tuple[dict[str, Any] | None, list[str]]:
@@ -3355,6 +3985,7 @@ _SEMANTIC_FRAME_GUARD_FIELDS = {
     "algorithm",
     "semantic_target_key",
     "frame_size",
+    "capture_geometry",
     "normalized_bbox",
     "roi_bbox",
     "click_point",
@@ -3371,6 +4002,7 @@ def _semantic_frame_guard_validation(
     expected_target_key: Any,
     screenshot_bytes: bytes | None,
     screenshot_size: tuple[Any, Any] | None,
+    expected_capture_geometry: Any,
 ) -> dict[str, Any]:
     """Rebuild the runtime ROI guard from the bound screenshot and action bbox."""
 
@@ -3403,6 +4035,32 @@ def _semantic_frame_guard_validation(
         issues.append("semantic_frame_guard.screenshot_frame_size")
     if guard_size is None or guard_size != decoded_size:
         issues.append("semantic_frame_guard.frame_size")
+
+    observation_capture_validation = _capture_geometry_validation(
+        expected_capture_geometry,
+        screenshot_size=decoded_size,
+    )
+    guard_capture_validation = _capture_geometry_validation(
+        value.get("capture_geometry"),
+        screenshot_size=decoded_size,
+    )
+    if not observation_capture_validation["valid"]:
+        issues.extend(
+            "semantic_frame_guard.observation_"
+            + item.removeprefix("semantic_frame_guard.")
+            for item in observation_capture_validation["issues"]
+        )
+    if not guard_capture_validation["valid"]:
+        issues.extend(guard_capture_validation["issues"])
+    if (
+        observation_capture_validation["valid"]
+        and guard_capture_validation["valid"]
+        and not _structured_equal(
+            guard_capture_validation["capture_geometry"],
+            observation_capture_validation["capture_geometry"],
+        )
+    ):
+        issues.append("semantic_frame_guard.capture_geometry_binding")
 
     guard_bbox = _normalized_semantic_bbox(value.get("normalized_bbox"))
     expected_bbox = binding.get("normalized_bbox")
@@ -3483,11 +4141,123 @@ def _semantic_frame_guard_validation(
         "selected_action_binding": binding,
         "expected_semantic_target_key": expected_key,
         "expected_frame_size": list(decoded_size) if decoded_size is not None else None,
+        "expected_capture_geometry": observation_capture_validation.get(
+            "capture_geometry"
+        ),
+        "capture_geometry_validation": guard_capture_validation,
         "expected_normalized_bbox": expected_bbox,
         "expected_roi_bbox": expected_roi,
         "expected_click_point": expected_click,
         "computed_roi_sha256": computed_roi_sha256,
     }
+
+
+_CAPTURE_GEOMETRY_FIELDS = {
+    "schema_version",
+    "capture_backend",
+    "outer_window",
+    "capture_rect",
+    "capture_origin",
+    "frame_size",
+}
+_CAPTURE_RECT_FIELDS = {"left", "top", "right", "bottom", "width", "height"}
+_CAPTURE_WINDOW_FIELDS = _CAPTURE_RECT_FIELDS | {"hwnd", "pid"}
+
+
+def _capture_geometry_validation(
+    value: Any,
+    *,
+    screenshot_size: tuple[int, int] | None,
+) -> dict[str, Any]:
+    issues: list[str] = []
+    if not isinstance(value, dict):
+        return {
+            "valid": False,
+            "issues": ["semantic_frame_guard.capture_geometry_not_object"],
+            "capture_geometry": None,
+        }
+    if set(value) != _CAPTURE_GEOMETRY_FIELDS:
+        issues.append("semantic_frame_guard.capture_geometry.fields")
+    if value.get("schema_version") != 1:
+        issues.append("semantic_frame_guard.capture_geometry.schema_version")
+    backend = value.get("capture_backend")
+    if backend not in {"wgc", "dxgi"}:
+        issues.append("semantic_frame_guard.capture_geometry.capture_backend")
+
+    outer = _strict_capture_rect(value.get("outer_window"), window_identity=True)
+    rect = _strict_capture_rect(value.get("capture_rect"), window_identity=False)
+    origin = _strict_capture_origin(value.get("capture_origin"))
+    frame_size = _trace_frame_size(value.get("frame_size"))
+    if outer is None:
+        issues.append("semantic_frame_guard.capture_geometry.outer_window")
+    if rect is None:
+        issues.append("semantic_frame_guard.capture_geometry.capture_rect")
+    if origin is None:
+        issues.append("semantic_frame_guard.capture_geometry.capture_origin")
+    if frame_size is None or frame_size != screenshot_size:
+        issues.append("semantic_frame_guard.capture_geometry.frame_size")
+    if rect is not None and frame_size is not None and (
+        rect["width"], rect["height"]
+    ) != frame_size:
+        issues.append("semantic_frame_guard.capture_geometry.capture_rect_frame_size")
+    if rect is not None and origin is not None and (
+        origin["x"] != rect["left"] or origin["y"] != rect["top"]
+    ):
+        issues.append("semantic_frame_guard.capture_geometry.capture_origin_binding")
+    if outer is not None and rect is not None and not (
+        outer["left"] <= rect["left"] < rect["right"] <= outer["right"]
+        and outer["top"] <= rect["top"] < rect["bottom"] <= outer["bottom"]
+    ):
+        issues.append("semantic_frame_guard.capture_geometry.outer_window_binding")
+
+    canonical = None
+    if outer is not None and rect is not None and origin is not None and frame_size is not None:
+        canonical = {
+            "schema_version": value.get("schema_version"),
+            "capture_backend": backend,
+            "outer_window": outer,
+            "capture_rect": rect,
+            "capture_origin": origin,
+            "frame_size": list(frame_size),
+        }
+    return {
+        "valid": not issues,
+        "issues": sorted(set(issues)),
+        "capture_geometry": canonical,
+    }
+
+
+def _strict_capture_rect(value: Any, *, window_identity: bool) -> dict[str, int] | None:
+    expected_fields = _CAPTURE_WINDOW_FIELDS if window_identity else _CAPTURE_RECT_FIELDS
+    if not isinstance(value, dict) or set(value) != expected_fields:
+        return None
+    parsed: dict[str, int] = {}
+    for field_name in expected_fields:
+        item = value.get(field_name)
+        if isinstance(item, bool) or not isinstance(item, int):
+            return None
+        if field_name in {"width", "height", "hwnd", "pid"} and item <= 0:
+            return None
+        parsed[field_name] = item
+    if (
+        parsed["right"] <= parsed["left"]
+        or parsed["bottom"] <= parsed["top"]
+        or parsed["right"] - parsed["left"] != parsed["width"]
+        or parsed["bottom"] - parsed["top"] != parsed["height"]
+    ):
+        return None
+    return parsed
+
+
+def _strict_capture_origin(value: Any) -> dict[str, int] | None:
+    if not isinstance(value, dict) or set(value) != {"x", "y"}:
+        return None
+    if any(
+        isinstance(value.get(field), bool) or not isinstance(value.get(field), int)
+        for field in ("x", "y")
+    ):
+        return None
+    return {"x": value["x"], "y": value["y"]}
 
 
 def _selected_action_semantic_binding(
@@ -3732,6 +4502,9 @@ def _trace_operator_confirmation_validation(
             expected_target_key=expected_target_key,
             screenshot_bytes=screenshot_bytes,
             screenshot_size=screenshot_size,
+            expected_capture_geometry=(
+                terminal_observation_validation.get("observation") or {}
+            ).get("capture_geometry"),
         )
         if not semantic_guard_validation["valid"]:
             issues.extend(
