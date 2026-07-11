@@ -2,6 +2,8 @@
 
 > 2026-07-10 safety update: LIVE 自动 ESC recovery 已禁用，直到 guarded key dispatch 完成实机校准；旧文中的 immediate ESC 描述只代表历史实现，不是当前授权能力。
 
+> 2026-07-11 evidence update: Windows guarded click 已绑定真实 capture rect/origin（不再用 outer window origin），`--evidence-action` 会在当前帧内约束 selector，且只有 action/target/verifier/post-delta/new-frame 全绑定才 exit 0。新增 5 级地胜利战报与占领前后 ROI 只补充离线证据，不解除 full-frame map/provider eval 或 claim/recruit/upgrade live closure（仍 0/3）。
+
 更新时间：2026-05-30
 
 ## 输入文档结论

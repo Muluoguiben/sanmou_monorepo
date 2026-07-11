@@ -19,6 +19,9 @@ from pioneer_agent.perception.vision_eval import (
 
 FIXTURE = Path(__file__).resolve().parents[1] / "fixtures" / "vision" / "team_snapshot_mobile_20260514.json"
 BATTLE_FIXTURE = FIXTURE.with_name("battle_report_pc_20260710.json")
+LEVEL5_BATTLE_FIXTURE = FIXTURE.with_name(
+    "battle_report_level5_pending_20260711.json"
+)
 INVENTORY = FIXTURE.with_name("map_battle_real_fixture_inventory.json")
 REVIEW_REGISTRY = FIXTURE.with_name("real_screenshot_review_registry.json")
 
@@ -58,6 +61,23 @@ class VisionEvalTests(unittest.TestCase):
         self.assertEqual(report["failed_screenshots"], [])
         self.assertEqual(report["failed_entities"], [])
 
+    def test_level5_pending_battle_fixture_is_fail_closed_offline_replay(self) -> None:
+        summary = run_vision_eval_fixture(LEVEL5_BATTLE_FIXTURE)
+
+        report = summary.to_report()
+        self.assertEqual(report["evaluation_mode"], "fixture_payload_replay")
+        self.assertFalse(report["image_model_exercised"])
+        self.assertEqual(report["payload_review_status"], "not_verified")
+        self.assertEqual(report["artifact_review_status"], "registry_approved")
+        self.assertEqual(report["screenshot_count"], 1)
+        self.assertEqual(report["entity_check_count"], 12)
+        self.assertEqual(report["verified_artifact_count"], 1)
+        self.assertEqual(report["page_accuracy"], 1.0)
+        self.assertEqual(report["domain_accuracy"], 1.0)
+        self.assertEqual(report["entity_accuracy"], 1.0)
+        self.assertEqual(report["failed_screenshots"], [])
+        self.assertEqual(report["failed_entities"], [])
+
     def test_v2_real_fixture_rejects_unapproved_tampered_or_escaping_artifacts(self) -> None:
         cases = (
             ("legacy_schema", {"schema_version": 1}),
@@ -79,21 +99,34 @@ class VisionEvalTests(unittest.TestCase):
                 ), self.assertRaises(VisionEvalFixtureError):
                     run_vision_eval_fixture(fixture_path)
 
-    def test_map_remains_blocked_while_partial_battle_fixture_is_approved(self) -> None:
+    def test_roi_evidence_does_not_close_full_frame_map_gap(self) -> None:
         inventory = json.loads(INVENTORY.read_text(encoding="utf-8"))
         map_gap = inventory["domain_gaps"]["map_land"]
-        self.assertEqual(map_gap["status"], "blocked_privacy_review")
-        self.assertFalse(
-            map_gap["privacy_review"]["approved_for_eval_fixture"]
+        self.assertEqual(
+            map_gap["status"],
+            "supplemental_roi_evidence_approved_full_frame_canonical_gap",
         )
-        candidate_path = FIXTURE.parent.parent / map_gap["candidate"]["image"]
+        self.assertEqual(
+            map_gap["canonical_full_frame_gap"]["status"],
+            "still_open",
+        )
+        self.assertFalse(
+            inventory["supplemental_evidence"][0][
+                "eligible_as_full_frame_map_fixture"
+            ]
+        )
+        self.assertFalse(
+            inventory["supplemental_evidence"][0]["image_model_exercised"]
+        )
+        legacy = map_gap["legacy_denied_candidate"]
+        candidate_path = FIXTURE.parent.parent / legacy["image"]
         self.assertEqual(
             hashlib.sha256(candidate_path.read_bytes()).hexdigest(),
-            map_gap["candidate"]["sha256"],
+            legacy["sha256"],
         )
         registry = json.loads(REVIEW_REGISTRY.read_text(encoding="utf-8"))
-        self.assertIn(map_gap["candidate"]["sha256"], registry["denied"])
-        self.assertNotIn(map_gap["candidate"]["sha256"], registry["approved"])
+        self.assertIn(legacy["sha256"], registry["denied"])
+        self.assertNotIn(legacy["sha256"], registry["approved"])
         with tempfile.TemporaryDirectory() as tmp:
             rogue_fixture = _write_minimal_v2_fixture(
                 Path(tmp), source_image=candidate_path
@@ -103,7 +136,10 @@ class VisionEvalTests(unittest.TestCase):
             ):
                 run_vision_eval_fixture(rogue_fixture)
         battle_gap = inventory["domain_gaps"]["battle_report"]
-        self.assertEqual(battle_gap["status"], "partial_privacy_approved")
+        self.assertEqual(
+            battle_gap["status"],
+            "level5_pending_occupation_privacy_approved",
+        )
         battle_candidate = battle_gap["candidate"]
         battle_path = FIXTURE.parent.parent / battle_candidate["image"]
         self.assertEqual(
@@ -116,6 +152,10 @@ class VisionEvalTests(unittest.TestCase):
         self.assertIn(
             battle_candidate["fixture"],
             {item["fixture"] for item in inventory["eligible_fixtures"]},
+        )
+        self.assertIn(
+            "occupation_result remains unknown",
+            battle_gap["limitations"][0],
         )
 
 

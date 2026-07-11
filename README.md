@@ -24,9 +24,9 @@ docs/                   跨项目设计文档
 - `pioneer-agent.app.advisor_api`：本地 FastAPI 服务，提供截图分析、`screenshot_interpretation` 和本地 Advisor chat API。
 - `pioneer_agent.core.device`：平台无关设备模型，覆盖 PC 客户端、安卓模拟器、安卓真机、iOS、截图文件、watch folder、Windows capture 等输入源。
 - `pioneer_agent.runtime.advisor_loop`：`capture -> VisionSync -> RuntimeState -> Deriver -> Selector -> AdvisorReport`，只出建议，不执行输入。
-- `pioneer-agent` 自动化 runtime 仍保留；claim/recruit/upgrade 已有 semantic target、target-bound verifier、输入权限门禁，以及绑定同一截图 bytes、时间戳、SHA、尺寸、页面、domain、目标和 post 新帧的 observation gate；LIVE 点击还会在 bridge 内原子复核窗口身份、尺寸、前台状态和点击点归属。自动 ESC recovery 暂停到 guarded key dispatch 完成校准；当前仍缺 privacy-approved 真实客户端闭环证据。attack/transfer/abandon 继续保持未校准、不可执行。
+- `pioneer-agent` 自动化 runtime 仍保留；claim/recruit/upgrade 已有 semantic target、target-bound verifier、输入权限门禁，以及绑定同一截图 bytes、时间戳、SHA、尺寸、页面、domain、目标和 post 新帧的 observation gate。Windows bridge 同时绑定外窗身份与真实 capture rect/origin，点击坐标只从截图原点换算，并在输入前原子复核 backend、geometry、前台、ROI、expiry 和 kill switch。正式 `--execute` 仍硬禁；唯一 LIVE evidence 模式只运行一个指定低风险动作，且 action/target/new-frame verifier 全部一致时才返回 0。自动 ESC recovery 暂停到 guarded key dispatch 完成校准；三类动作仍缺 privacy-approved action-correlated live trace。attack/transfer/abandon 继续保持未校准、不可执行。
 - `pioneer_agent.runbook`：开荒 runbook 阶段机（三值条件求值、abort/human_gate/unknown-metrics escalation、planner override），种子数据 `packages/pioneer-agent/src/pioneer_agent/config/opening_runbook_s15.yaml`（S15 赤壁惊涛，随包分发，数值阈值待人工复核）。
-- `qa-agent` 已具备知识库、RAG、Bilibili 视频证据链和 MCP server，后续作为 Advisor 的知识底座接入。
+- `qa-agent` 已具备知识库、RAG、Bilibili 视频证据链和 MCP server；raw terminal trace 只能进入 `pending_review` staging，不能自动获得隐私批准或 closure authority。土地占领时长已记录为 2026-07-11 玩家当前版本实测（正常约 3 分钟、新手期约 1 分钟），并明确与战斗胜利、最终土地归属分开。
 
 ## 快速开始
 
@@ -57,14 +57,14 @@ cd packages/qa-agent && PYTHONPATH=src python -m qa_agent.app.chat
 PYTHONPATH=packages/pioneer-agent/src:packages/sanmou-common/src \
 python -m pioneer_agent.app.autonomous --runbook \
   --lineup-preset-binding "部队一=main_team"
-# 只有显式 --execute 且 bridge 当前窗口可见、可用时才建立 LIVE DeviceSession；
-# 之后仍需通过 allowlist、semantic target、verifier、architecture gate 与 kill switch。
+# 正式 --execute 当前会无条件拒绝。LIVE 只允许一次性的 --evidence-capture；
+# 它还需要指定 exact action、单轮、两阶段人工确认及完整 verifier，不能作为常规托管入口。
 
 # 用真实 provider 跑一张截图的完整 page/domain 路由（默认只打印，不写 fixture）
 PYTHONPATH=packages/pioneer-agent/src:packages/sanmou-common/src \
 python -m pioneer_agent.app.vision_probe --image /path/to/game.png --mode full_sync
 
-# 运行测试（当前 pioneer-agent 436 tests；无 FastAPI 依赖时 advisor_api 测试会 skip，感知测试需要 google-genai）
+# 运行测试（当前 pioneer-agent 520 tests / 6 skipped；qa-agent 303 tests）
 cd packages/pioneer-agent && python -m unittest discover -s tests -p "test_*.py" -v
 cd packages/qa-agent && PYTHONPATH=src python -m unittest discover -s tests -p "test_*.py" -v
 

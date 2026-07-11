@@ -36,6 +36,8 @@ Run these workflows in separate sessions or with a fresh context handoff. Do not
 - Golden replay should use `loop.jsonl + screenshots` or runtime-state fixtures and assert stable recommendations, evidence, and advisor-only execution blocking.
 - Update expected outputs only after checking whether the product behavior should actually change.
 - Minimum verification for fixture/eval work: pioneer-agent unittest suite for affected domains; desktop typecheck/build only when API or UI contract changes.
+- Raw low-risk terminal traces must first run through `python -m qa_agent.app.stage_advisor_terminal_source --trace ... --action-type ... --output-dir ...`. This copies exact original PNG/JSONL bytes only into `pending_review`; it never redacts in place, grants privacy approval, writes the reviewed root, or counts toward closure.
+- Context previews may use cropped/compressed WebP, but closure keeps the SHA-bound original PNG because changing pixels invalidates the trace and semantic ROI guard. After full-frame human privacy review, commit the reviewed evidence under the designated reviewed root and rerun terminal-source preflight against clean HEAD; do not hand-edit pending metadata into an approval.
 
 ## Computer-use Safety
 

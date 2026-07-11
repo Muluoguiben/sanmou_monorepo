@@ -4,6 +4,8 @@
 
 > 2026-07-10 follow-up: 旧 `AgentRuntime.run_once` / `ActionRunner(not_implemented)` / `pioneer_agent.app.main` scaffold 已删除；当前运行入口只保留 Advisor、Replay 与显式 guarded `AutonomousLoop`。下文对旧 scaffold 的描述仅作为当时审计记录。
 
+> 2026-07-11 status override: 下文 2026-05-17 的模块成熟度与“只有 resource_bar/city_buildings、缺 verifier/safety/replay”等判断已是历史快照。当前已实现 map/battle 感知、attack ledger、Runbook 目标约束、低风险同帧 observation + target-bound verifier + one-shot confirmation，以及 outer-window / capture-rect 分离的 Windows 原子 geometry guard。正式 `--execute` 仍硬禁；claim/recruit/upgrade 尚无 privacy-approved action-correlated live terminal source（0/3），full-frame map 正/负样本和 provider-exercised vision eval 仍缺，因此仍不能宣称真实账号托管就绪。
+
 ## 1. Executive Summary
 
 - 当前仓库已经具备清晰的 monorepo 分层：`sanmou-common` 放共享配置，`pioneer-agent` 放开荒 Agent runtime/决策/GUI 自动化，`qa-agent` 放知识问答、RAG、视频证据链和 MCP。

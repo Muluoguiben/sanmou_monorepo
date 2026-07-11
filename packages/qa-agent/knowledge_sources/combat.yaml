@@ -19,6 +19,33 @@
   - 队伍
   - 征兵
   priority: 96
+- id: mech-land-occupation-countdown-player-test
+  domain: combat
+  entry_kind: generic_rule
+  topic: 土地占领倒计时
+  aliases:
+  - 占领时间
+  - 土地占领时间
+  - 占领土地要多久
+  - 新手期占领要多久
+  - 打地多久占领
+  facts:
+  - 玩家于 2026-07-11 在当时客户端版本实机确认：土地的占领倒计时在非新手期通常约 3 分钟，新手期通常约 1 分钟。
+  - 这里的时间只指战斗胜利后显示的占领倒计时，不是战斗过程或行军耗时；战斗胜利、倒计时开始、最终占领完成是三个不同状态。
+  - 只有倒计时结束且客户端显示土地归属己方时，才能确认最终占领；本条是玩家当前版本实测，不是官方永久规则。
+  constraints:
+  - 后续版本或不同玩法场景可能变化；若当前界面倒计时不同，以当前客户端显示为准。
+  - 自动化或人工验收不得只凭战斗胜利或固定等待时长判定占领成功。
+  source_type: manual_rule
+  source_ref: user_live_test:2026-07-11#land-occupation-countdown
+  updated_at: '2026-07-11'
+  confidence: 0.8
+  related_topics:
+  - 攻占地块
+  - 行军时间
+  - 新手保护
+  priority: 94
+  structured_data: null
 - id: combat-battle-loss
   domain: combat
   topic: 战损

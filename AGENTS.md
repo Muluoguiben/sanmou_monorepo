@@ -32,10 +32,10 @@ Desktop app calls the local `pioneer-agent` Advisor API over `127.0.0.1`; it mus
 ## How to Run
 
 ```bash
-# Tests — pioneer-agent (480 tests; 6 advisor_api tests skip if FastAPI deps are absent)
+# Tests — pioneer-agent (520 tests; 6 advisor_api tests skip if FastAPI deps are absent)
 cd packages/pioneer-agent && PYTHONPATH=src:../sanmou-common/src python3 -m unittest discover -s tests -p "test_*.py" -v
 
-# Tests — qa-agent
+# Tests — qa-agent (303 tests)
 cd packages/qa-agent && PYTHONPATH=src python3 -m unittest discover -s tests -p "test_*.py" -v
 
 # Local Advisor API, mock mode does not call a vision model
@@ -99,7 +99,7 @@ Perception (sync) → RuntimeState → Derivation (enrich) → CandidateGenerato
 
 8 action types: `claim_chapter_reward`, `upgrade_building`, `transfer_main_lineup_to_team`, `attack_land`, `recruit_soldiers`, `wait_for_resource`, `wait_for_stamina`, `abandon_land`.
 
-Current execution status: waits are implemented; claim/recruit/upgrade have guarded semantic dispatch and verifier scaffolding but still require privacy-approved real-client evidence. Attack/transfer/abandon remain `pending-calibration`. `UIActionRunner` blocks any input without explicit capabilities, fresh observation binding, and LIVE window identity checks.
+Current execution status: waits are implemented; claim/recruit/upgrade have guarded semantic dispatch and target-bound post verifiers but still require privacy-approved action-correlated live evidence. `--execute` is hard-disabled. Evidence capture runs one exact low-risk action and returns success only when action id/type/target, execution, structured verifier payload, post delta, and new post frame all bind. Attack/transfer/abandon remain `pending-calibration`. `UIActionRunner` blocks input without explicit capabilities, a fresh observation, exact capture geometry, and LIVE window identity checks.
 
 Phase system: `opening_sprint` → `growth_window` → `chapter_push` → `settlement_sprint`.
 
@@ -118,7 +118,7 @@ Priority rules (hard overrides before score ranking):
 2. **Conversational RAG** (`qa_agent.chat` + `qa_agent.retrieval`): ChatAgent composes query-rewrite → retrieve → LLM answer with strict citation prompts. Retrieval uses whole-query normalized match + Chinese n-gram fallback for natural phrasing. LLM is swappable via `LLMClient` Protocol (Gemini / MiniMax / OpenAI-compatible sub2api); default `gpt-5.4-mini`. Never fabricates — empty-evidence queries return a fixed "未收录" response. CLI: `qa_agent.app.chat`.
 
 **Knowledge storage** — YAML under `qa-agent/knowledge_sources/`:
-- Domain rules: building, chapter, combat, resource/team, terms, hero/skill schema, mechanic rules (stamina/land/bonds/troop/profession/recruit/season)
+- Domain rules: building, chapter, combat, resource/team, terms, hero/skill schema, mechanic rules (stamina/land/bonds/troop/profession/recruit/season), including a time-bounded player-observed land-occupation countdown rule
 - Profiles: heroes (by faction), skills (by trigger type), statuses (buffs/debuffs)
 - Solutions: lineups (by season)
 
@@ -272,13 +272,13 @@ git branch -d feat/<branch-name>
 - **Desktop Advisor**: `apps/sanmou-advisor-desktop` Electron + React + Vite GUI with screenshot upload/preview, device/account metadata, AdvisorReport display, and chat panel; `npm run typecheck` and `npm run build` pass.
 - **Advisor API**: `pioneer_agent.app.advisor_api` FastAPI service with `/api/health`, `/api/advisor/analyze`, `/api/advisor/chat`, screenshot upload, mock mode, local `reports.jsonl` logging, and desktop CORS.
 - **Pioneer agent**: capture/control adapter split, platform-neutral device/session models, `AdvisorLoop`, sync → derive → select pipeline with 8 action types, OpenAI/Gemini vision provider support, fail-closed perception domains, bbox locator, UI layout registry, guarded UI primitives, runbook-driven autonomous loop, observation/verifier/window/semantic-ROI gates, one-shot operator confirmation, loop logger, default dry-run, and kill switch; 480 tests pass (6 advisor API skips when FastAPI deps are absent).
-- **QA agent**: 104 heroes + 123 skills + 61 mechanic rules KB; MCP server with 6 tools (`lookup_topic`, `answer_rule_question`, `resolve_term`, `advisor_golden_replay_status`, `advisor_fixture_eval`, `advisor_terminal_source_evidence_eval`); ingestion pipeline with `--publish`; conversational RAG via `qa_agent/chat/` with Gemini/MiniMax/OpenAI providers; `qa_agent/vision/` grounded image understanding; bilibili video knowledge workflow closed loop.
+- **QA agent**: 104 heroes + 123 skills + 62 mechanic rules KB; MCP server with 6 tools (`lookup_topic`, `answer_rule_question`, `resolve_term`, `advisor_golden_replay_status`, `advisor_fixture_eval`, `advisor_terminal_source_evidence_eval`); raw live traces have a pending-only staging CLI with pinned `dir_fd` / no-symlink / no-clobber writes and never auto-grant review; ingestion pipeline with `--publish`; conversational RAG via `qa_agent/chat/` with Gemini/MiniMax/OpenAI providers; `qa_agent/vision/` grounded image understanding; bilibili video knowledge workflow closed loop.
 
 ### Current Focus
-- **Advisor MVP hardening**: collect privacy-approved real screenshots for `map_land` and `battle_report`, add provider-exercised vision eval, and keep Desktop history/report rendering aligned with the Python Advisor API.
+- **Advisor MVP hardening**: the reviewed set now includes two fail-closed battle reports plus a four-ROI level-5 occupation transition (`02:35→hidden`, territory `54/60→55/60`). Still collect privacy-approved full-frame `map_land` positive/negative samples and provider-exercised vision eval; keep Desktop history/report rendering aligned with the Python Advisor API.
 - **M1a low-risk closure**: claim/recruit/upgrade have semantic targets, target-bound verifiers, same-frame observation gates, action/target/frame/ROI/timestamp-bound one-shot operator confirmation, guarded LIVE window dispatch, and new-frame post-action verification. Formal `--execute` remains hard-disabled; each action still needs a privacy-approved live terminal trace proving the exact target, confirmation, dispatch, and post-action delta before the closure gate may turn green.
 - **M1b attack preparation**: fail-closed map/battle perception, attack ledger metrics, and Runbook target constraints are implemented. Keep `attack_land` execution disabled until real map/battle fixtures, action-correlated verifiers, calibration, and recovery are complete.
-- **QA evidence integration**: Advisor chat already consumes qa-agent evidence. Current work is hardening `advisor_terminal_source_evidence_eval` and the batch preflight so runtime fixtures or unbound metadata cannot be mistaken for real-client closure.
+- **QA evidence integration**: Advisor chat already consumes qa-agent evidence. `advisor_terminal_source_evidence_eval`, batch preflight, and pending-only raw-trace staging now fail closed on unbound metadata, missing capture geometry, path escape/symlink/hardlink/TOCTOU, uncommitted sources, or absent human privacy approval.
 
 ## Codex Workflows
 
@@ -291,7 +291,7 @@ git branch -d feat/<branch-name>
 - For live screenshot work, follow the **Context-Efficient Screenshot Workflow** in `.agent/skills/sanmou-client-control/SKILL.md`: capture one fresh full frame to `%TEMP%`, inspect one resized preview, reuse its SHA-bound structured facts instead of loading the frame again, narrow later inspection to the relevant crop or `vision_probe` JSON, preserve evidence as on-disk traces, and delete raw captures unless they pass the explicit privacy-review fixture workflow.
 
 ### Other Gaps
-- **Perception evidence coverage**: `resource_bar`, `city_buildings`, `chapter_panel`, `recruit_panel`, `team_panel`, `team_detail`, `popup`, `mode_hub`, `map_land`, and `battle_report` are implemented. One privacy-approved partial/conflicting PvP battle-report fixture exists. Remaining gaps are `hero_list`, redacted map positive/negative fixtures, a complete land-occupation report, and provider-exercised accuracy evidence.
+- **Perception evidence coverage**: `resource_bar`, `city_buildings`, `chapter_panel`, `recruit_panel`, `team_panel`, `team_detail`, `popup`, `mode_hub`, `map_land`, and `battle_report` are implemented. Two privacy-approved partial/conflicting battle-report fixtures and one supplemental four-ROI level-5 occupation transition exist. Remaining gaps are `hero_list`, privacy-approved full-frame map positive/negative fixtures, an explicit visible occupation-outcome report, and provider-exercised accuracy evidence. ROI evidence must not be counted as a canonical full-frame fixture.
 - **Click-action execution**: claim/recruit/upgrade have guarded semantic dispatch but are not yet proven as real-client closed loops; claim/recruit still need their complete navigation/quantity/confirmation sequences. Attack/transfer/abandon remain `pending-calibration` and non-executable by default.
 - **Verifier/recovery/safety**: verifier registry, safety guard, high-risk confirmation, bridge health checks, manual kill switch, observation freshness, one-shot action-bound confirmation, semantic ROI guard, and LIVE window identity guards exist. Remaining gaps are real confirmation/dispatch evidence, mature high-risk verifiers, a bridge health monitor, calibrated guarded key dispatch, and LIVE recovery; automatic LIVE ESC remains disabled until then.
 - **Scoring config**: only `opening_sprint` phase weights are defined in `config/scoring.yaml`; other phases TBD

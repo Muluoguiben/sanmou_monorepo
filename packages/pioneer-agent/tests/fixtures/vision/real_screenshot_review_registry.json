@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "policy": "deny_wins",
-  "updated_at": "2026-07-10T23:51:23+08:00",
+  "updated_at": "2026-07-11T11:21:21+08:00",
   "approved": {
     "6f99d5056999d87b8422452ae13d6f72b57e6c1af8c26c07902b3373ab350ea4": {
       "width": 1080,
@@ -110,6 +110,138 @@
         "reviewed_at": "2026-07-10T23:51:23+08:00",
         "review_method": "full-frame visual inspection after deterministic top-identity-band redaction and 1280px WebP compression",
         "redaction_applied": true,
+        "account_identifiers_visible": false,
+        "chat_visible": false,
+        "player_or_alliance_names_visible": false,
+        "payment_data_visible": false,
+        "precise_coordinates_visible": false,
+        "approved_for_repo_storage": true
+      }
+    },
+    "01a2818d472ac6ba372c6c8d3ad4688fee99da66f5c3f15680257084cf55d27c": {
+      "known_path": "screenshots/pc_client/live_20260711/battle_report_level5_pending_redacted.webp",
+      "width": 1280,
+      "height": 663,
+      "bytes": 42630,
+      "source_capture_sha256": "ccd97c670220805be589cf4127a0f20296779136384dc04ddc6164e7841b052f",
+      "transform": {
+        "format": "webp",
+        "quality": 45,
+        "source_dimensions": [2560, 1326],
+        "source_crop_rect": [0, 0, 2560, 1326],
+        "source_redaction_rects": [[115, 105, 365, 255]],
+        "resized_to": [1280, 663]
+      },
+      "privacy_review": {
+        "status": "approved",
+        "reviewed_by": "codex-local-visual-review",
+        "reviewed_at": "2026-07-11T11:21:21+08:00",
+        "review_method": "Full final-WebP visual inspection after opaque raw-coordinate identity-panel redaction, resize to 1280x663, and WebP q45 compression.",
+        "redaction_applied": true,
+        "account_identifiers_visible": false,
+        "chat_visible": false,
+        "player_or_alliance_names_visible": false,
+        "payment_data_visible": false,
+        "precise_coordinates_visible": false,
+        "approved_for_repo_storage": true
+      }
+    },
+    "d3a91d69ab7eb12cc8adf11a5ac516cd9ff3d75fc34cc691d036c2cbb0ceed6a": {
+      "known_path": "screenshots/pc_client/live_20260711/occupation_level5_target_before.webp",
+      "width": 260,
+      "height": 405,
+      "bytes": 15010,
+      "source_capture_sha256": "ccd97c670220805be589cf4127a0f20296779136384dc04ddc6164e7841b052f",
+      "transform": {
+        "format": "webp",
+        "quality": 50,
+        "source_crop_rect": [1135, 475, 1395, 880],
+        "final_redaction_rects": [[185, 275, 260, 405]]
+      },
+      "privacy_review": {
+        "status": "approved",
+        "reviewed_by": "codex-local-visual-review",
+        "reviewed_at": "2026-07-11T11:21:21+08:00",
+        "review_method": "Final 260x405 semantic ROI visual inspection after bottom-right in-ROI redaction and WebP q50 compression.",
+        "redaction_applied": true,
+        "account_identifiers_visible": false,
+        "chat_visible": false,
+        "player_or_alliance_names_visible": false,
+        "payment_data_visible": false,
+        "precise_coordinates_visible": false,
+        "approved_for_repo_storage": true
+      }
+    },
+    "5e1aed86f9659d2e219d711d13fddec2bf615a7cc412812124c0cd3b2ac80efc": {
+      "known_path": "screenshots/pc_client/live_20260711/occupation_level5_target_after.webp",
+      "width": 260,
+      "height": 405,
+      "bytes": 14974,
+      "source_capture_sha256": "52e6982017b83e6c1311fcd32e0f05aaec9fb9a45d99e3d5064de28bd0857b61",
+      "transform": {
+        "format": "webp",
+        "quality": 50,
+        "source_crop_rect": [1135, 475, 1395, 880],
+        "final_redaction_rects": [[185, 275, 260, 405]]
+      },
+      "privacy_review": {
+        "status": "approved",
+        "reviewed_by": "codex-local-visual-review",
+        "reviewed_at": "2026-07-11T11:21:21+08:00",
+        "review_method": "Final 260x405 semantic ROI visual inspection after bottom-right in-ROI redaction and WebP q50 compression.",
+        "redaction_applied": true,
+        "account_identifiers_visible": false,
+        "chat_visible": false,
+        "player_or_alliance_names_visible": false,
+        "payment_data_visible": false,
+        "precise_coordinates_visible": false,
+        "approved_for_repo_storage": true
+      }
+    },
+    "04900874c7e97e52a9a9440fd6d2c9a30eb11b35d1b806e48435fef8221b9d48": {
+      "known_path": "screenshots/pc_client/live_20260711/occupation_level5_territory_before.webp",
+      "width": 240,
+      "height": 105,
+      "bytes": 2410,
+      "source_capture_sha256": "ccd97c670220805be589cf4127a0f20296779136384dc04ddc6164e7841b052f",
+      "transform": {
+        "format": "webp",
+        "quality": 50,
+        "source_crop_rect": [445, 20, 685, 125],
+        "final_redaction_rects": []
+      },
+      "privacy_review": {
+        "status": "approved",
+        "reviewed_by": "codex-local-visual-review",
+        "reviewed_at": "2026-07-11T11:21:21+08:00",
+        "review_method": "Final 240x105 territory-counter ROI visual inspection with no additional redaction and WebP q50 compression.",
+        "redaction_applied": false,
+        "account_identifiers_visible": false,
+        "chat_visible": false,
+        "player_or_alliance_names_visible": false,
+        "payment_data_visible": false,
+        "precise_coordinates_visible": false,
+        "approved_for_repo_storage": true
+      }
+    },
+    "600a4620073db16a551a7450d918a65a678127a9b2d44fcc5644600e3f6d39ef": {
+      "known_path": "screenshots/pc_client/live_20260711/occupation_level5_territory_after.webp",
+      "width": 240,
+      "height": 105,
+      "bytes": 2420,
+      "source_capture_sha256": "52e6982017b83e6c1311fcd32e0f05aaec9fb9a45d99e3d5064de28bd0857b61",
+      "transform": {
+        "format": "webp",
+        "quality": 50,
+        "source_crop_rect": [445, 20, 685, 125],
+        "final_redaction_rects": []
+      },
+      "privacy_review": {
+        "status": "approved",
+        "reviewed_by": "codex-local-visual-review",
+        "reviewed_at": "2026-07-11T11:21:21+08:00",
+        "review_method": "Final 240x105 territory-counter ROI visual inspection with no additional redaction and WebP q50 compression.",
+        "redaction_applied": false,
         "account_identifiers_visible": false,
         "chat_visible": false,
         "player_or_alliance_names_visible": false,

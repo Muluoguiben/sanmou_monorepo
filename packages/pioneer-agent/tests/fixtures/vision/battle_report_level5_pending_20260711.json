@@ -1,0 +1,184 @@
+{
+  "schema_version": 2,
+  "source": {
+    "kind": "real_screenshot_set",
+    "captured_at": "2026-07-11T11:08:25+08:00",
+    "platform": "pc_client",
+    "description": "Privacy-redacted and compressed real level-5 battle-result screenshot from the Sanmou Windows client.",
+    "evidence_classification": {
+      "action_correlated_live_trace": false,
+      "image_model_exercised": false
+    },
+    "note": "The payload is a conservative local visual transcription replayed offline. It is not an image-model evaluation or an action-correlated live trace, and a visible victory is not promoted to completed occupation. The timestamp uses local fixture-production time because the original capture timestamp was not retained."
+  },
+  "initial_state": {
+    "global_state": {
+      "current_time": "2026-07-11T11:08:25+08:00",
+      "phase_tag": "advisor_battle_review"
+    },
+    "progress": {
+      "chapter_claimable": false,
+      "task_progress": {}
+    },
+    "economy": {
+      "reserve_troops": 0
+    },
+    "city": {
+      "upgradeable_buildings": []
+    },
+    "map_state": {
+      "candidate_lands": []
+    }
+  },
+  "screenshots": [
+    {
+      "id": "battle_report_level5_pending",
+      "image": "screenshots/pc_client/live_20260711/battle_report_level5_pending_redacted.webp",
+      "captured_at": "2026-07-11T11:08:25+08:00",
+      "artifact": {
+        "review_status": "reviewed",
+        "sha256": "01a2818d472ac6ba372c6c8d3ad4688fee99da66f5c3f15680257084cf55d27c",
+        "width": 1280,
+        "height": 663,
+        "bytes": 42630,
+        "transform": {
+          "format": "webp",
+          "quality": 45,
+          "source_capture_sha256": "ccd97c670220805be589cf4127a0f20296779136384dc04ddc6164e7841b052f",
+          "source_dimensions": [
+            2560,
+            1326
+          ],
+          "source_crop_rect": [
+            0,
+            0,
+            2560,
+            1326
+          ],
+          "source_redaction_rects": [
+            [
+              115,
+              105,
+              365,
+              255
+            ]
+          ],
+          "resized_to": [
+            1280,
+            663
+          ]
+        },
+        "privacy_review": {
+          "status": "approved",
+          "reviewed_by": "codex-local-visual-review",
+          "reviewed_at": "2026-07-11T11:21:21+08:00",
+          "review_method": "Full final-WebP visual inspection after opaque raw-coordinate identity-panel redaction, resize to 1280x663, and WebP q45 compression.",
+          "redaction_applied": true,
+          "account_identifiers_visible": false,
+          "chat_visible": false,
+          "player_or_alliance_names_visible": false,
+          "payment_data_visible": false,
+          "precise_coordinates_visible": false,
+          "approved_for_repo_storage": true
+        }
+      },
+      "expected_domains": [
+        "resource_bar",
+        "battle_report"
+      ],
+      "payloads": [
+        {
+          "domain": "resource_bar",
+          "data": {
+            "page_type": "battle",
+            "resources": {},
+            "visible_notes": [
+              "战报",
+              "战果"
+            ]
+          }
+        },
+        {
+          "domain": "battle_report",
+          "data": {
+            "page_type": "battle",
+            "result": "win",
+            "occupation_result": "unknown",
+            "land_level": 5,
+            "resource_type": "unknown",
+            "attacker_initial_soldiers": 33000,
+            "attacker_remaining_soldiers": 32992,
+            "attacker_losses": 8,
+            "defender_initial_soldiers": 10500,
+            "defender_remaining_soldiers": 0,
+            "defender_losses": 3828,
+            "attacker_heroes": [],
+            "defender_heroes": [],
+            "key_events": [],
+            "visible_sections": [
+              "battle_result",
+              "battle_summary",
+              "hero_details"
+            ],
+            "visible_notes": [
+              "胜利",
+              "5级地守军",
+              "防守方显示战损与总兵力差值冲突，必须 fail-closed",
+              "画面没有明确显示占领完成结果"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "expected_state_checks": [
+    {
+      "path": "map_state.latest_battle_report.result",
+      "expected": "win"
+    },
+    {
+      "path": "map_state.latest_battle_report.occupation_result",
+      "expected": "unknown"
+    },
+    {
+      "path": "map_state.latest_battle_report.land_level",
+      "expected": 5
+    },
+    {
+      "path": "map_state.latest_battle_report.resource_type",
+      "expected": "unknown"
+    },
+    {
+      "path": "map_state.latest_battle_report.attacker_initial_soldiers",
+      "expected": 33000
+    },
+    {
+      "path": "map_state.latest_battle_report.attacker_remaining_soldiers",
+      "expected": 32992
+    },
+    {
+      "path": "map_state.latest_battle_report.attacker_losses",
+      "expected": 8
+    },
+    {
+      "path": "map_state.latest_battle_report.defender_initial_soldiers",
+      "expected": 10500
+    },
+    {
+      "path": "map_state.latest_battle_report.defender_remaining_soldiers",
+      "expected": 0
+    },
+    {
+      "path": "map_state.latest_battle_report.measurement_issues.0",
+      "expected": "defender_total_inconsistent"
+    },
+    {
+      "path": "map_state.latest_battle_report.verification.parse_status",
+      "expected": "partial"
+    },
+    {
+      "path": "map_state.latest_battle_report.verification.action_verification_ready",
+      "expected": false
+    }
+  ]
+}

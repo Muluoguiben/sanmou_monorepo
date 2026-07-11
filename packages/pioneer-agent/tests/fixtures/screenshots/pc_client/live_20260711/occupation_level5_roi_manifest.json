@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "id": "pc_client_level5_occupation_roi_pair_20260711",
+  "source": {
+    "kind": "real_screenshot_roi_pair",
+    "platform": "pc_client",
+    "capture_date": "2026-07-11",
+    "original_captures_committed": false,
+    "original_capture_timestamps_retained": false,
+    "source_capture_hashes_retained": true,
+    "original_crop_rects_retained": true
+  },
+  "evidence_classification": {
+    "privacy_reviewed": true,
+    "artifact_kind": "paired_real_screenshot_roi_evidence",
+    "action_correlated_live_trace": false,
+    "image_model_exercised": false,
+    "eligible_as_full_frame_map_fixture": false,
+    "note": "The ROIs preserve visible before/after facts but cannot exercise full-frame page classification, map-land localization, or dispatched-action correlation."
+  },
+  "pairs": [
+    {
+      "id": "level5_target_state",
+      "before": {
+        "image": "occupation_level5_target_before.webp",
+        "sha256": "d3a91d69ab7eb12cc8adf11a5ac516cd9ff3d75fc34cc691d036c2cbb0ceed6a",
+        "width": 260,
+        "height": 405,
+        "bytes": 15010,
+        "source_capture_sha256": "ccd97c670220805be589cf4127a0f20296779136384dc04ddc6164e7841b052f",
+        "crop": {
+          "applied": true,
+          "kind": "semantic_roi",
+          "label": "selected level-5 land and occupation countdown",
+          "source_rect": [
+            1135,
+            475,
+            1395,
+            880
+          ]
+        },
+        "redaction": {
+          "applied": true,
+          "final_rects": [
+            [
+              185,
+              275,
+              260,
+              405
+            ]
+          ]
+        },
+        "encoding": {
+          "format": "webp",
+          "quality": 50
+        }
+      },
+      "after": {
+        "image": "occupation_level5_target_after.webp",
+        "sha256": "5e1aed86f9659d2e219d711d13fddec2bf615a7cc412812124c0cd3b2ac80efc",
+        "width": 260,
+        "height": 405,
+        "bytes": 14974,
+        "source_capture_sha256": "52e6982017b83e6c1311fcd32e0f05aaec9fb9a45d99e3d5064de28bd0857b61",
+        "crop": {
+          "applied": true,
+          "kind": "semantic_roi",
+          "label": "same selected level-5 land after countdown disappears",
+          "source_rect": [
+            1135,
+            475,
+            1395,
+            880
+          ]
+        },
+        "redaction": {
+          "applied": true,
+          "final_rects": [
+            [
+              185,
+              275,
+              260,
+              405
+            ]
+          ]
+        },
+        "encoding": {
+          "format": "webp",
+          "quality": 50
+        }
+      },
+      "visible_transition": {
+        "land_level": {
+          "before": 5,
+          "after": 5
+        },
+        "occupation_countdown": {
+          "before": "02:35",
+          "after": null
+        },
+        "occupation_pending": {
+          "before": true,
+          "after": "not_visible"
+        }
+      }
+    },
+    {
+      "id": "territory_owned_count",
+      "before": {
+        "image": "occupation_level5_territory_before.webp",
+        "sha256": "04900874c7e97e52a9a9440fd6d2c9a30eb11b35d1b806e48435fef8221b9d48",
+        "width": 240,
+        "height": 105,
+        "bytes": 2410,
+        "source_capture_sha256": "ccd97c670220805be589cf4127a0f20296779136384dc04ddc6164e7841b052f",
+        "crop": {
+          "applied": true,
+          "kind": "semantic_roi",
+          "label": "territory counter before occupation completion",
+          "source_rect": [
+            445,
+            20,
+            685,
+            125
+          ]
+        },
+        "redaction": {
+          "applied": false
+        },
+        "encoding": {
+          "format": "webp",
+          "quality": 50
+        }
+      },
+      "after": {
+        "image": "occupation_level5_territory_after.webp",
+        "sha256": "600a4620073db16a551a7450d918a65a678127a9b2d44fcc5644600e3f6d39ef",
+        "width": 240,
+        "height": 105,
+        "bytes": 2420,
+        "source_capture_sha256": "52e6982017b83e6c1311fcd32e0f05aaec9fb9a45d99e3d5064de28bd0857b61",
+        "crop": {
+          "applied": true,
+          "kind": "semantic_roi",
+          "label": "territory counter after occupation completion",
+          "source_rect": [
+            445,
+            20,
+            685,
+            125
+          ]
+        },
+        "redaction": {
+          "applied": false
+        },
+        "encoding": {
+          "format": "webp",
+          "quality": 50
+        }
+      },
+      "visible_transition": {
+        "territory_owned": {
+          "before": 54,
+          "after": 55,
+          "capacity": 60
+        }
+      }
+    }
+  ],
+  "combined_visible_facts": {
+    "same_land_level": 5,
+    "occupation_countdown_before": "02:35",
+    "occupation_countdown_after": null,
+    "territory_owned_before": 54,
+    "territory_owned_after": 55,
+    "territory_capacity": 60
+  },
+  "user_confirmed_annotations": {
+    "status": "user_confirmed_not_visually_derived",
+    "occupation_completed": true,
+    "normal_period_seconds": 180,
+    "beginner_period_seconds": 60,
+    "period_lengths_approximate": true,
+    "provenance": "user statement in the 2026-07-11 live review session",
+    "note": "Completion and standard period lengths are annotations, not an image-only claim. The visible 02:35 value is a point-in-time countdown and does not establish the configured full duration."
+  }
+}

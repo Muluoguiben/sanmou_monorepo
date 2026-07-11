@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-07-10T23:51:23+08:00",
+  "updated_at": "2026-07-11T11:21:21+08:00",
   "policy": {
     "eligible_status": "reviewed_and_privacy_approved",
     "review_registry": "real_screenshot_review_registry.json",
@@ -10,7 +10,7 @@
       "height",
       "privacy_review"
     ],
-    "note": "Fixture payload replay is allowed only after the screenshot SHA is centrally approved. The payload itself is not asserted to be reviewed, and a denied SHA always wins."
+    "note": "Fixture payload replay is allowed only after the screenshot SHA is centrally approved. Payload replay is not image-model evaluation, supplemental ROI evidence is not a canonical full-frame map fixture, and a denied SHA always wins."
   },
   "eligible_fixtures": [
     {
@@ -25,48 +25,86 @@
       "artifact_count": 1,
       "coverage": "partial_and_contradictory_fail_closed",
       "status": "reviewed_and_privacy_approved"
+    },
+    {
+      "fixture": "battle_report_level5_pending_20260711.json",
+      "domain": "battle_report",
+      "artifact_count": 1,
+      "coverage": "level5_win_with_unknown_occupation_and_contradictory_defender_loss_fail_closed",
+      "status": "reviewed_and_privacy_approved"
+    }
+  ],
+  "supplemental_evidence": [
+    {
+      "manifest": "screenshots/pc_client/live_20260711/occupation_level5_roi_manifest.json",
+      "domain": "map_land_occupation_transition",
+      "artifact_count": 4,
+      "coverage": "paired level-5 target and territory-count ROIs",
+      "status": "reviewed_and_privacy_approved",
+      "action_correlated_live_trace": false,
+      "image_model_exercised": false,
+      "eligible_as_full_frame_map_fixture": false
     }
   ],
   "domain_gaps": {
     "map_land": {
-      "status": "blocked_privacy_review",
-      "candidate": {
+      "status": "supplemental_roi_evidence_approved_full_frame_canonical_gap",
+      "roi_evidence": {
+        "manifest": "screenshots/pc_client/live_20260711/occupation_level5_roi_manifest.json",
+        "artifact_count": 4,
+        "visible_facts": [
+          "same level-5 target before and after",
+          "occupation countdown 02:35 then not visible",
+          "territory owned count 54/60 then 55/60"
+        ],
+        "annotation": "User confirmed occupation completion and normal/new-player durations of 180s/60s.",
+        "limitations": [
+          "not an action-correlated live trace",
+          "image model not exercised",
+          "ROIs cannot exercise full-frame page classification or target localization"
+        ]
+      },
+      "canonical_full_frame_gap": {
+        "status": "still_open",
+        "reason": "Privacy-approved ROIs do not replace canonical full-frame main_map negative and selectable-land fixtures.",
+        "required_capture": [
+          "one privacy-approved full-frame main_map negative sample",
+          "one privacy-approved full-frame selectable land positive sample",
+          "sha256 and dimensions",
+          "reviewed resource_bar and map_land payloads"
+        ]
+      },
+      "legacy_denied_candidate": {
         "image": "screenshots/pc_client/live_20260518/map_target_647_905.jpg",
         "sha256": "7d1f8c81d548ca9326d0df456a1985cb29f117ff69ac0c5f48a13528e89bdcad",
         "width": 1286,
         "height": 666,
-        "useful_case": "negative occupied level-1 dock; expected candidate_land_count=0"
-      },
-      "privacy_review": {
-        "status": "rejected_for_eval",
-        "account_identifiers_visible": true,
-        "chat_visible": true,
-        "player_or_alliance_names_visible": true,
-        "precise_coordinates_visible": true,
-        "approved_for_eval_fixture": false
-      },
-      "storage_remediation": {
-        "decision": "retain_as_legacy_capture_evidence_pending_owner_review",
-        "eval_policy": "hard_denied_by_sha_registry",
-        "reason": "Deleting only the current tracked file would not purge Git history; redaction, removal, or history remediation must cover the legacy capture corpus as an explicit repository-owner decision."
-      },
-      "required_capture": [
-        "one privacy-approved full-frame main_map negative sample",
-        "one privacy-approved full-frame selectable land positive sample",
-        "sha256 and dimensions",
-        "reviewed resource_bar and map_land payloads"
-      ]
+        "useful_case": "negative occupied level-1 dock; expected candidate_land_count=0",
+        "privacy_review": {
+          "status": "rejected_for_eval",
+          "account_identifiers_visible": true,
+          "chat_visible": true,
+          "player_or_alliance_names_visible": true,
+          "precise_coordinates_visible": true,
+          "approved_for_eval_fixture": false
+        },
+        "storage_remediation": {
+          "decision": "retain_as_legacy_capture_evidence_pending_owner_review",
+          "eval_policy": "hard_denied_by_sha_registry",
+          "reason": "Deleting only the current tracked file would not purge Git history; redaction, removal, or history remediation must cover the legacy capture corpus as an explicit repository-owner decision."
+        }
+      }
     },
     "battle_report": {
-      "status": "partial_privacy_approved",
+      "status": "level5_pending_occupation_privacy_approved",
       "candidate": {
-        "image": "screenshots/pc_client/live_20260710/battle_report_partial_redacted.webp",
-        "fixture": "battle_report_pc_20260710.json",
-        "sha256": "d66af6979bf6a416cc623a76ffc7b85f2b446194c61a43eda1dd20f872de8619",
+        "image": "screenshots/pc_client/live_20260711/battle_report_level5_pending_redacted.webp",
+        "fixture": "battle_report_level5_pending_20260711.json",
+        "sha256": "01a2818d472ac6ba372c6c8d3ad4688fee99da66f5c3f15680257084cf55d27c",
         "width": 1280,
-        "height": 662,
-        "bytes": 50670,
-        "useful_case": "partial PvP battle report with a known result and displayed losses but no occupation or land context; contradictory loss totals must parse as partial"
+        "height": 663,
+        "bytes": 42630,
+        "useful_case": "level-5 victory with occupation_result unknown and contradictory displayed defender loss; parser must remain partial and unverified"
       },
       "privacy_review": {
         "status": "approved",
@@ -77,9 +115,19 @@
         "precise_coordinates_visible": false,
         "approved_for_eval_fixture": true
       },
+      "prior_partial_fixture": {
+        "image": "screenshots/pc_client/live_20260710/battle_report_partial_redacted.webp",
+        "fixture": "battle_report_pc_20260710.json",
+        "sha256": "d66af6979bf6a416cc623a76ffc7b85f2b446194c61a43eda1dd20f872de8619"
+      },
+      "limitations": [
+        "occupation_result remains unknown because victory does not prove completed occupation",
+        "fixture is offline payload replay, not image-model evaluation",
+        "fixture is not correlated to a dispatched action or live post-state trace"
+      ],
       "required_capture": [
-        "one privacy-approved land-occupation report showing occupation result plus target coordinate or land level",
-        "reviewed resource_bar and battle_report payloads for that complete case"
+        "one privacy-approved report with an explicit visible occupation outcome",
+        "an action-correlated live trace only if terminal verifier closure is being claimed"
       ]
     }
   }

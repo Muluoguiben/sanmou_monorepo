@@ -1,6 +1,6 @@
 # 开荒分层自治：Runbook 架构与 Goal
 
-> Updated: 2026-07-05. Scope: pioneer-agent 全自动开荒路线（automation chain）。Advisor MVP 链路不受影响。
+> Updated: 2026-07-05; safety status refreshed 2026-07-11. Scope: pioneer-agent 全自动开荒路线（automation chain）。Advisor MVP 链路不受影响。
 
 ## 背景与问题
 
@@ -44,7 +44,8 @@
 - **human_gate**：二拖一、10-12 级地/远征等 timing 敏感或高失败代价阶段，进入前必须 `confirm_human_gate()`，否则 hold 并发 `human_gate` escalation（路由 `human`）。gate 在 `evaluate()` 对**当前阶段**校验，`start_phase_id`、planner `override_phase()`、重启恢复都无法绕过；未确认时不下发 `selector_hints`（返回空 dict，fail-safe）。与 Safety Rules 的高风险人工确认契约一致。持久化采用**单写者双文件**（`runbook/state_store.py`）：`runbook_state.json` 由循环独占、原子写（temp+rename），存阶段游标、`completed` 标志与已应用 gate；`*.confirmations.jsonl` 由操作者独占、只追加——`python -m pioneer_agent.app.runbook_gate confirm <phase_id>` 写入这里，运行中的循环下一个 tick 拾取（mtime 缓存，稳态成本一次 stat），确认永远不会被循环的保存覆盖。状态与确认都带 **season 身份戳且严格匹配**：期望赛季给定时，异赛季**和无戳**的游标/completed/gate 记录一律弃用并告警——阶段 ID（`er_tuo_yi` 等）每季都会复用，仅凭 ID 存在性不足以授权 resume 或放行 gate；gate CLI 无法加载 runbook 时直接拒绝写入（无戳确认对循环是惰性的）；同赛季内编辑 YAML（复核阈值等）不影响已有状态，但**不要改 season 字符串本身**（它就是身份键）。注意 gate CLI 的 `--state` 必须与循环的 `--log-dir`/`--runbook-state` 指向同一路径（CLI 在状态文件不存在时会警告，路径参数支持 `~`）。
 - **引擎纯确定性**：无 I/O、无模型调用，每 tick 可跑；escalation 是数据（Pydantic 模型），由外层决定通知谁。
 - **planner 覆盖入口**：`override_phase()` 供 LLM planner 仲裁后回退/跳转阶段（如战损超标后降级回 4 级地攒兵）。
-- **目标约束 fail-closed**：`target_land_levels`、`land_scope`、`lineup_preset` 同时在候选过滤与最终派发复查；复查按 `land_id` / `team_id` 从当前 `RuntimeState` 唯一解析事实，不相信 action 自报参数，且 attack / attack-unlock wait 的 team 必须等于 `main_lineup.current_host_team_id`。地块或队伍事实缺失、重复、过期、与策略不符时均拒绝。`lineup_preset` 不是视觉字段，也绝不从 policy hint 反填；运行时必须通过可重复的 `--lineup-preset-binding TEAM_ID=PRESET` 显式绑定，记录 operator provenance，且只在 team 页面完整识别 3 个不同武将后锁定英雄身份 roster fingerprint；它不声称验证隐藏战法、装备或阵型。同队伍槽换武将或超过 4 小时后自动失效。已知页面上的 policy starvation 只 idle 并升级给 planner，不会误发 ESC；未知页面仍保留 UI 恢复逻辑。
+- **目标约束 fail-closed**：`target_land_levels`、`land_scope`、`lineup_preset` 同时在候选过滤与最终派发复查；复查按 `land_id` / `team_id` 从当前 `RuntimeState` 唯一解析事实，不相信 action 自报参数，且 attack / attack-unlock wait 的 team 必须等于 `main_lineup.current_host_team_id`。地块或队伍事实缺失、重复、过期、与策略不符时均拒绝。`lineup_preset` 不是视觉字段，也绝不从 policy hint 反填；运行时必须通过可重复的 `--lineup-preset-binding TEAM_ID=PRESET` 显式绑定，记录 operator provenance，且只在 team 页面完整识别 3 个不同武将后锁定英雄身份 roster fingerprint；它不声称验证隐藏战法、装备或阵型。同队伍槽换武将或超过 4 小时后自动失效。已知页面上的 policy starvation 只 idle 并升级给 planner，不会误发 ESC；LIVE 自动 ESC 同样保持禁用，直到 guarded key dispatch 完成实机校准。
+- **截图几何与 evidence 单动作约束（2026-07-11）**：Windows bridge 为每帧绑定 concrete backend、外窗 HWND/PID/rect、真实 capture rect/origin、frame size 与 SHA；截图坐标只用 capture origin 转成桌面坐标，外窗只用于身份/漂移复核。WGC 实机只读 smoke 证明 DWM frame `2564×1327` 与 outer window `2582×1336` 不同，旧的 outer-origin 换算会产生偏移。`--evidence-action` 现在会从 ranked candidates 中只选择指定类型且通过当前帧 observation gate 的第一个候选；没有候选就零输入。CLI 只在 action id/type/target、execution、结构化 post verifier、delta 和新帧全部一致时返回 0；正式 `--execute` 继续硬禁。
 
 条件求值支持扁平指标（`main_team_avg_level`）与 RuntimeState 点路径（`progress.opening_rewards_claimed`）；`loader.metrics_from_runtime_state()` 负责合并两者，perception 尚未产出的计数（如各级地占领数）由调用方经 `extra_metrics` 注入。
 
@@ -65,8 +66,8 @@
 
 | 里程碑 | 内容 | 状态 |
 |---|---|---|
-| M1a | 收菜序列自动化：以 claim 类动作校准 executor + verifier（练兵场） | 进行中：执行权限与 target-bound verifier 已完成；仍缺同帧新鲜度和真实客户端证据 |
-| M1b | 打地内循环打穿：选预设编队 → 选地 → 出征 → 战报判定 → 体力等待 | 待做（attack_land 校准 + battle_result 感知域） |
+| M1a | 收菜序列自动化：以 claim 类动作校准 executor + verifier（练兵场） | 进行中：同帧 observation、capture geometry、人工确认、target-bound verifier 与严格 evidence exit 已完成；claim/recruit/upgrade 的 privacy-approved action-correlated live terminal source 仍为 0/3 |
+| M1b | 打地内循环打穿：选预设编队 → 选地 → 出征 → 战报判定 → 体力等待 | 感知/ledger/Runbook 约束已落地；已有真实 5 级战报与占领前后 ROI，但仍缺 full-frame map fixtures、provider eval、attack 校准和 action-correlated verifier |
 | M2 | Runbook 阶段机驱动全流程 | **引擎 + S15 种子数据（2026-07-05）、AutonomousLoop 集成 + 状态落盘（2026-07-06）已落地**；剩 planner 事件接入 |
 | M3 | 知识管道闭环（每赛季攻略 → staging 审阅 → runbook 刷新）+ 运维化（watchdog / 通知 / 日报） | 待做 |
 
