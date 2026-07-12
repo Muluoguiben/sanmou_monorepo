@@ -1,79 +1,57 @@
 # QA Agent — Package Scope
 
-本会话只负责 `packages/qa-agent/` 内的代码和数据。
+本会话主要负责 `packages/qa-agent/`。项目总规则见 [`../../AGENTS.md`](../../AGENTS.md)。qa-agent 是 Windows 自动化代练 runtime 的知识与证据支撑层，不直接决定或执行游戏动作。
 
 ## 职责范围
-- `src/qa_agent/` 下的所有 Python 代码
-- `knowledge_sources/` 知识条目维护
-- `ingestion/` 采集管道
-- `configs/` 别名和枚举配置
-- `tests/` 测试
-- 为 `pioneer-agent` / Desktop Advisor 提供可引用的知识服务：阵容、战法、开荒节奏、建筑优先级、打地风险、赛季机制。
 
-## 不要触碰
-- `packages/pioneer-agent/` — 另一个会话负责
-- `packages/sanmou-common/` — 需要改动时先说明，避免和另一个会话冲突
+- `src/qa_agent/`：knowledge/query、adapters、chat/RAG、ingestion、video/vision 与 MCP。
+- `knowledge_sources/`：validated/published 游戏知识。
+- `ingestion/`：raw、workspace、staging 和待验证候选。
+- `configs/`、`tests/`。
+- `packages/pioneer-agent/` 与 `packages/sanmou-common/` 的跨包改动要先确认契约和并行工作树状态。
 
-## Git 规范
-- 默认分支：`master`
-- 通过 worktree 隔离开发（见项目级 `.claude/CLAUDE.md` 的 Worktree 流程）
-- 本会话可自行在当前 feature 分支上 commit/push
+## Commands
 
-## 运行测试
+使用 Python 3.11+ 虚拟环境里的 `python`：
+
 ```bash
-PYTHONPATH=src python3 -m unittest discover -s tests -p "test_*.py" -v
+PYTHONPATH=src python -m unittest discover -s tests -p "test_*.py" -v
+PYTHONPATH=src python -m qa_agent.app.query lookup_topic "建筑升级"
+PYTHONPATH=src python -m qa_agent.mcp_server.stdio_server
 ```
 
-## 运行查询
-```bash
-PYTHONPATH=src python3 -m qa_agent.app.query lookup_topic "建筑升级"
-```
+secure terminal-source staging 依赖 POSIX `dir_fd` 和 Linux `renameat2`，主验证环境是 WSL2/Linux；原生 Windows 和 macOS 会 fail closed。不要把平台能力失败误判为知识逻辑回归。
 
-## NSLG Client Resource Evidence
+## Runtime Integration
 
-当前离线客户端资源链路已按 ROI 收口暂停。它只允许静态证据进入 qa-agent，不发布为玩法知识，也不作为默认后续主线继续探索。
+- `QaKnowledgeProvider` 已实现 common `KnowledgeProvider` 契约。
+- Advisor chat 已可消费 `QueryService` evidence。
+- `strategy_snapshot.yaml` 是 runtime 的离线知识投影，必须保留可反查 `entry_id`。
+- MCP 当前提供知识查询、golden replay 和 terminal-source preflight；它不是游戏执行器或知识发布器。
+- pending/staging、客户端逆向候选和没有 validation provenance 的模型输出不得进入 runtime 决策事实。
 
-- `ingestion/raw/client_packages/nslg-client-resource-surface-gap-scan-round133.yaml`：安装目录资源面扫描，确认 369 个安全 `.ns` bundle。
-- `ingestion/raw/client_packages/nslg-ns-bundle-format-index-round136.yaml`：Round191 `.ns` UnityFS / CAB format index，369 个 bundle 均可解析外层 envelope、block-info、first block 和 SerializedFile header，但 metadata 仍为 protected。
-- `ingestion/raw/client_packages/nslg-client-evidence-bundle-round137.yaml`：当前 evidence bundle，`artifact_count=38`。
-- `ingestion/raw/client_packages/nslg-client-import-queue-round138.yaml`：当前 import queue，`queue_item_count=106`，包含 `ns_bundle_format_index_target`。
+## Knowledge Publishing Boundary
 
-未达成项：LuaScripts 明文未恢复，protected SerializedFile metadata transform 未恢复，decoded hero staging 仍不可 publish。除非用户明确批准一个小预算封顶专项，只能继续追 `protected metadata transform` 且必须有明确失败条件；否则默认转向 screenshot Advisor、golden replay、低风险 verifier 和公开/人工 review 知识沉淀。
+- 用户不负责逐条审普通知识。agent 负责来源、schema、canonical、置信度、赛季/时效、冲突、diff、测试和 query smoke。
+- 目标 M3 模型是普通条目自动 gate、异常 quarantine；冲突/覆盖、低置信、隐私、runbook 安全阈值和执行权限变化才需要强化复核。
+- 当前没有统一事务化 auto-publish/quarantine/rollback 命令。`normalize_ingestion --publish` 会走 legacy 写入，`publish_staging --include-unreviewed` 可绕过状态；一键视频 pipeline 现在只生成 `normalized` staging 和 workspace-only `candidate_knowledge_sources`，但仍未执行完整 M3 gate。这些入口都不是门禁证明。
+- M3 收口前，只允许 agent 在隔离工作树证明目标 topic 不存在、不会冲突后受控发布新条目。异常保留 staging，不阻塞主线，也不要求用户立即处理。
+- Published knowledge 只是 advisory evidence，不能扩张 action allowlist、绕过 DispatchGuard/verifier 或授予点击权限。
 
-重建命令：
-```bash
-PYTHONPATH=src python3 -m qa_agent.app.summarize_ns_bundle_format_index --input "/mnt/c/Users/Lan/Documents/New project/threads/artifacts/ns_bundle_format_index_round191.json" --output ingestion/raw/client_packages/nslg-ns-bundle-format-index-round136.yaml --source-id ns-bundle-format-index-round136
-PYTHONPATH=src python3 -m qa_agent.app.build_client_evidence_bundle --repo-root . --output ingestion/raw/client_packages/nslg-client-evidence-bundle-round137.yaml --source-id nslg-client-offline-bundle
-PYTHONPATH=src python3 -m qa_agent.app.build_client_import_queue --repo-root . --output ingestion/raw/client_packages/nslg-client-import-queue-round138.yaml --source-id nslg-client-import-queue
-```
+## Bilibili and Client Evidence
 
-## Advisor Integration Direction
+- 现行视频说明见 [`../../docs/bilibili-video-knowledge-workflow.md`](../../docs/bilibili-video-knowledge-workflow.md)。一键脚本生成 candidate/workspace 产物，不等于安全写入 repo KB。
+- `process_bilibili_discovery_batch` 只有部分 evidence-quality gate；仍需 agent 补 contradiction/freshness/diff/tests/rollback 检查。
+- NSLG 离线客户端资源逆向已按 ROI 暂停；未恢复的 protected metadata、decoded staging 和 import queue 不得发布为玩法知识。是否重开以根目录 `todo-list.md` 的封顶条件为准，不恢复无预算长循环。
 
-Desktop Advisor 的首版 chat 目前在 `pioneer-agent` API 内是本地模板回答。下一步应由 qa-agent 提供知识底座：
+## Model Use
 
-- 离线：导出 `strategy_snapshot.yaml`，供 pioneer-agent scoring / selector 稳定消费。
-- 在线：`QueryService` 或 `ChatAgent` 接收 `AdvisorReport` 里的状态摘要和用户问题，返回带证据的建议。
-- MCP：保留给外部工具或 Agent Runtime 调用，不作为 Electron GUI 首选链路。
+provider/model 通过环境配置和现有 client 选择；不要在文档、日志或提交中写 API key、cookie 或内部凭据。离线模型可慢、可降级，但引用不存在时宁可 `not_found`，不得生成假 evidence。
 
-适合进入决策的知识：开荒阵容、建筑优先级、战法替换、打地等级风险、职业/赛季机制。不要把未 review 的 `ingestion/video_batch/` 产物直接作为决策依据。
+## Canonical Docs
 
-## LLM Provider
-
-默认 `LLM_PROVIDER=openai` → `qa_agent/chat/openai_client.py` → sub2api 网关 (`http://45.76.98.138/v1`)。
-
-网关约束：
-- 请求必须带 `reasoning_effort`（`low/medium/high/xhigh`），否则 503
-- 请求必须带 `store: false`
-- vision 走 OpenAI 原生 `image_url` content block（`client.generate(..., images=[url])`）
-
-模型选型（跨任务 benchmark 结论）：
-
-| 任务 | 推荐模型 | 备注 |
-|---|---|---|
-| ChatAgent 对话（默认） | `gpt-5.4-mini` | 速度 4–10s，有 RAG 约束 |
-| 字幕/长文 JSON 抽取 | `gpt-5.4` | 1.05M context，JSON 合规性最稳；bilibili `OpenAIVideoKnowledgeExtractor` 默认用它 |
-| 截图理解 / vision | `gpt-5.4` | ~6s，输出简洁 |
-
-避免：`gpt-5.4-nano`（网关 400）、`gpt-5.2`（JSON 有时返回 array 或 fenced）。
-
-切其他 provider：`LLM_PROVIDER=minimax|gemini`。MiniMax-M2.7 纯文本不支持 vision；Gemini 免费档 20 req/day 仅用于兜底。
+- [QA 模块设计](../../docs/modules/qa-agent-design.md)
+- [Bilibili 知识工作流](../../docs/bilibili-video-knowledge-workflow.md)
+- [Repo-local Runbook](../../docs/repo-local-runbook.md)
+- [QA MCP Connector](../../docs/qa-agent-mcp-connector.md)
+- [Codex/Agent 操作模型](../../docs/codex-operating-model.md)

@@ -1,6 +1,6 @@
 # 开荒分层自治：Runbook 架构与 Goal
 
-> Updated: 2026-07-05; safety status refreshed 2026-07-11. Scope: pioneer-agent 全自动开荒路线（automation chain）。Advisor MVP 链路不受影响。
+> Updated: 2026-07-05; product direction and safety status refreshed 2026-07-11. Scope: Windows-first 通用游戏 Agent 的第一条主产品垂直切片。Advisor Desktop 是观察、调试和人工接管界面。
 
 ## 背景与问题
 
@@ -27,7 +27,7 @@
 
 | 位置 | 时机 | 输入 | 输出 | 上下文成本 |
 |---|---|---|---|---|
-| 赛季前：攻略消化 | 每赛季一次，离线 | 攻略图/视频（qa-agent 知识管道 + `dense_table` profile） | runbook YAML 候选，**必须过 staging 人工审阅**（密集表格 OCR 有武将名 false-positive 教训） | 离线，不占运行时 |
+| 赛季前：攻略消化 | 每赛季一次，离线 | 攻略图/视频（qa-agent 知识管道 + `dense_table` profile） | runbook YAML 候选；先过自动 source/schema/confidence/交叉证据 gate，只有冲突、低置信及会改变高风险阈值的异常才进入人工复核 | 离线，不占运行时 |
 | 阶段仲裁 / planner | 事件驱动（abort、blocked、unknown metrics） | RuntimeState JSON + 最近 N tick trace 摘要 + 阶段定义 + 知识库检索 | 结构化决定：切阶段 / 改参数 / 暂停找人 | 单次数百 token，无会话累积 |
 | 巡检员 | 每 15-30 分钟或事件触发 | `loop_inspect` 式文本摘要（tick 数、page_type/action/execution 分布、尾部记录） | 正常 / 异常 + 建议 | 单次 1-2k token |
 
@@ -49,7 +49,7 @@
 
 条件求值支持扁平指标（`main_team_avg_level`）与 RuntimeState 点路径（`progress.opening_rewards_claimed`）；`loader.metrics_from_runtime_state()` 负责合并两者，perception 尚未产出的计数（如各级地占领数）由调用方经 `extra_metrics` 注入。
 
-种子数据：`packages/pioneer-agent/src/pioneer_agent/config/opening_runbook_s15.yaml`（S15 赤壁惊涛，来源为墨镜老表攻略长图的人工转录；放在 package data 内随 wheel 分发，非 editable 安装亦可加载，默认路径缺失会记 warning 日志）。八个阶段：收菜 → 杂牌清 1-2 级地 → 正常队清 2-3 级地+首块外城 → 二拖一（human_gate）→ 开 5-6 级（貂蝉蛮夷）→ 开 7 级（左田宁）→ 开 8-9 级 → 10-12 级/远征（human_gate）。**所有数值阈值 `needs_review: true`**，有回归测试强制此约束，人工对照原图复核前不得置信。
+种子数据：`packages/pioneer-agent/src/pioneer_agent/config/opening_runbook_s15.yaml`（S15 赤壁惊涛，来源为墨镜老表攻略长图的人工转录；放在 package data 内随 wheel 分发，非 editable 安装亦可加载，默认路径缺失会记 warning 日志）。八个阶段：收菜 → 杂牌清 1-2 级地 → 正常队清 2-3 级地+首块外城 → 二拖一（human_gate）→ 开 5-6 级（貂蝉蛮夷）→ 开 7 级（左田宁）→ 开 8-9 级 → 10-12 级/远征（human_gate）。**所有数值阈值当前仍是 `needs_review: true`**，有回归测试强制此约束；这些阈值会直接改变代练行为，属于高影响异常路径。在自动多源交叉验证和版本绑定落地前不得直接置信，这不意味着普通知识条目都需要逐条人工 review。
 
 ## 三条工作量裁剪判断
 
@@ -69,7 +69,7 @@
 | M1a | 收菜序列自动化：以 claim 类动作校准 executor + verifier（练兵场） | 进行中：同帧 observation、capture geometry、人工确认、target-bound verifier 与严格 evidence exit 已完成；claim/recruit/upgrade 的 privacy-approved action-correlated live terminal source 仍为 0/3 |
 | M1b | 打地内循环打穿：选预设编队 → 选地 → 出征 → 战报判定 → 体力等待 | 感知/ledger/Runbook 约束已落地；已有真实 5 级战报与占领前后 ROI，但仍缺 full-frame map fixtures、provider eval、attack 校准和 action-correlated verifier |
 | M2 | Runbook 阶段机驱动全流程 | **引擎 + S15 种子数据（2026-07-05）、AutonomousLoop 集成 + 状态落盘（2026-07-06）已落地**；剩 planner 事件接入 |
-| M3 | 知识管道闭环（每赛季攻略 → staging 审阅 → runbook 刷新）+ 运维化（watchdog / 通知 / 日报） | 待做 |
+| M3 | 知识管道闭环（每赛季攻略 → 自动 gate → 异常 quarantine → runbook 刷新）+ 运维化（watchdog / 通知 / 日报） | 待做 |
 
 M1a/M1b 是当前唯一优先级——在打穿一条无人值守垂直切片之前，其余都是提前优化。
 
@@ -80,6 +80,6 @@ M1a/M1b 是当前唯一优先级——在打穿一条无人值守垂直切片之
 | `runtime/autonomous_loop.py` + `runtime/dispatch_guard.py` + `selector/filters.py` | **已集成（2026-07-10，独立 review 修复后）**：所有输入派发（动作 `runner.run`、流内终点点击、ESC 恢复）统一经 **`DispatchGuard` 单一 seam** 判定（kill switch + blocking hold + runbook 约束）；`allowed_action_types`、目标地等级/范围、operator 绑定的编队预设在 selector 与 dispatch 两层共用同一 evaluator，最终派发只认当前 state 按 identity 唯一解析的事实；Advisor/replay 链默认不启用 runbook hints。selector policy 饥饿达阈值发 `action_filter_stuck`，附 rejected candidate 事实，但已知页面不触发 ESC。runbook 完成、流内阶段冻结、verifier 后守卫刷新、kill switch 冻结、dry-run 不落盘、escalation edge-triggered、状态原子保存与 season-stamped human gate 契约保持不变。入口 `app.autonomous --runbook`（持单实例 flock，双开直接报错）；编队事实用 `--lineup-preset-binding TEAM_ID=PRESET` 显式提供（operator provenance，4h 过期）；操作者确认用 `app.runbook_gate`。 |
 | `selector/` + `scoring/` | runbook 不替代 selector；它只提供阶段级参数（编队、目标地级、阈值），动作级排序仍归 selector |
 | `knowledge/strategy_snapshot.py` | 静态游戏知识（阵容/风险规则）；runbook 是有状态的流程编排，两者互补 |
-| `qa-agent` 知识管道 | runbook 数据的赛季刷新来源（M3），沿用 staging 人工审阅约束 |
+| `qa-agent` 知识管道 | runbook 数据的赛季刷新来源（M3）；普通事实自动验证发布，冲突/低置信/隐私及执行权限相关事实进入异常复核 |
 | `verifier/` + `safety/` + architecture gates | 契约不变：runbook 不绕过 allowlist、semantic target gate、verifier 或人工确认；human_gate 是既有安全规则的阶段级表达 |
-| Advisor MVP（desktop / advisor_api） | 不受影响；个人自动化路线（本文件）与商业 Advisor 路线并行，automation chain 默认仍非 MVP |
+| Advisor Desktop（desktop / advisor_api） | 读取同一状态和报告，作为观察、调试和人工接管界面；不与 automation runtime 竞争产品主线，也不复制游戏逻辑 |

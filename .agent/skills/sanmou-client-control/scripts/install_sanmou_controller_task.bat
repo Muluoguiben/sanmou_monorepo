@@ -1,7 +1,7 @@
 @echo off
 setlocal
 
-set "SCRIPT=\\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\.agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1"
+set "SCRIPT=%~dp0sanmou_client_control.ps1"
 set "CONTROL_DIR=%LOCALAPPDATA%\SanmouClientControl"
 set "LOCAL_SCRIPT=%CONTROL_DIR%\sanmou_client_control.ps1"
 set "STATUS=%TEMP%\sanmou_install_controller_task_status.json"

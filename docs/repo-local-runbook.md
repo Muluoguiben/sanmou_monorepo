@@ -5,9 +5,10 @@ This runbook is the repo-local handoff for future Codex/Claude/agent sessions. K
 ## Default Rules
 
 - Work in the assigned scope only. Do not revert changes from other sessions.
+- Keep the product North Star on the Windows-first general game Agent / automated leveling runtime. Advisor Desktop is an observation, debugging, and takeover surface.
 - Keep Desktop Advisor as a thin UI over Python services; do not move game logic into Electron.
 - Do not write API keys, cookies, passwords, tokens, or account secrets into docs, logs, fixtures, traces, commits, or final answers.
-- Prefer reviewed YAML knowledge and checked-in fixtures over memory from a previous chat.
+- Prefer validated, published YAML knowledge and checked-in fixtures over memory from a previous chat.
 - When a workflow calls an LLM/model, record provider/model/config in the run output, but never record secret values.
 - Use `docs/codex-operating-model.md` for Codex tool boundaries and `shared-memory/` for durable cross-session context.
 
@@ -17,7 +18,7 @@ Run these workflows in separate sessions or with a fresh context handoff. Do not
 
 | Workflow | Inputs | Outputs / Logs | Boundary rule |
 |---|---|---|---|
-| Knowledge ingestion | Source URL/BVID/Kdocs/raw YAML, optional cookie in env only | Workspace artifacts (`video-evidence.yaml`, `video-knowledge.yaml`, reviewed staging), published `knowledge_sources`, query smoke result | Publish only reviewed entries. Keep raw extraction uncertainty in staging; do not feed pending video batch output directly into Advisor decisions. |
+| Knowledge ingestion | Source URL/BVID/Kdocs/raw YAML, optional cookie in env only | Workspace artifacts, validation report, staging exceptions, optional controlled update to `knowledge_sources`, query smoke result | No unified approved auto-publisher exists yet. The agent performs routine checks and may controlled-publish only proven no-overwrite entries; never feed pending output directly into runtime decisions. |
 | Model probing | Small fixed prompt/image set, provider/model/env config | Probe JSON/notes under a temp workspace or explicit eval artifact | Treat results as model diagnostics, not product behavior. Do not silently change runtime defaults from a probe. |
 | Advisor fixture/eval | Checked-in screenshot/runtime fixtures and expected outputs | Test/eval report, updated fixtures only when intentionally reviewed | Fixtures must be deterministic and offline where possible. Do not mix live account state into golden expectations. |
 | Automation execution | Live device/session, calibrated allowlist, dry-run trace, verifier plan | `loop.jsonl`, screenshots, trace metadata, verifier result, recovery notes | Execution is its own session. Never carry over bbox guesses or UI state from ingestion/probing/eval sessions. |
@@ -27,8 +28,11 @@ Run these workflows in separate sessions or with a fresh context handoff. Do not
 - Use `docs/bilibili-video-knowledge-workflow.md` as the canonical workflow.
 - Preferred evidence order: Bilibili conclusion/subtitles, subtitle body, ASR fallback, metadata-only fallback.
 - For subtitle-sparse gameplay, use frame enrichment only when the task needs it and runtime dependencies are available.
-- Every published item needs enough evidence to query later: topic, source, timestamp/row reference when available, and reviewed status.
-- Verification: run the relevant `qa-agent` tests, then query the generated knowledge with `qa_agent.app.query`.
+- Every published item needs enough evidence to query later: topic, source, timestamp/row reference when available, confidence, and validation provenance.
+- The agent handles routine validation. Human attention is reserved for conflicts/overwrites, low-confidence or season-ambiguous facts, privacy-bearing screenshots, and facts that would expand execution authority or change high-risk safety thresholds.
+- The desired M3 publisher will auto-publish only when schema/source/confidence/season/conflict gates pass and the entry does not replace an existing topic. Until it exists, the agent performs these checks and any publish as a controlled operation; otherwise retain staging and continue without blocking unrelated ingestion.
+- Verification: inspect the generated diff, run the relevant `qa-agent` tests, then query the generated knowledge with `qa_agent.app.query`.
+- Published knowledge remains advisory evidence. It cannot bypass live observation, allowlists, DispatchGuard, verifier, operator confirmation, trace, or kill switch.
 
 ## Advisor Fixture / Eval
 
@@ -45,7 +49,7 @@ All GUI/control work must satisfy these rules before dispatching input:
 
 - dry-run first: run observe/decide/trace without mouse/keyboard input before any live action.
 - allowlist: only registered commands, calibrated buttons/bboxes, and known low-risk flows may send click/drag/key input.
-- high-risk confirmation: `attack_land`, `abandon_land`, `transfer_main_lineup`, account/login/payment/server/destructive actions, and unknown dialogs require explicit human confirmation.
+- high-risk confirmation: `attack_land`, `abandon_land`, `transfer_main_lineup_to_team`, account/login/payment/server/destructive actions, and unknown dialogs require explicit human confirmation.
 - kill switch: the runtime and any controller must have a local stop path; once triggered, no further input may be dispatched.
 - trace required: record screenshot path, screenshot dimensions, prepared image dimensions, window/display coordinate space, DPR/scale, normalized bbox, pixel bbox, click point, action reason, verifier result, and recovery decision.
 
@@ -61,7 +65,7 @@ Unknown UI state means stop or recover with a known safe close/navigation action
 ## Action-loop Model Routing
 
 - Use `docs/action-loop-model-routing.md` as the canonical routing policy for screenshot -> recognition -> action -> verifier work.
-- Default live Advisor perception should use the low-cost `realtime` profile; do not silently promote every tick to a high-reasoning model.
+- Default live runtime perception should use the low-cost `realtime` profile; do not silently promote every tick to a high-reasoning model.
 - Use `dense_table` only after deterministic local crop/zoom has isolated the relevant table, column, or row.
 - Treat dense vision output as evidence until it is checked against canonical game terms or reviewed ground truth. A model reading plausible names is not enough for `knowledge_sources`.
 - False positives are worse than missing data for knowledge ingestion and action planning. Prefer `pending`/refusal over unverified backfill.
@@ -77,8 +81,11 @@ Unknown UI state means stop or recover with a known safe close/navigation action
 
 ## Publish / Rollback
 
-- Publish knowledge only from reviewed staging into `knowledge_sources`; keep the staging file and query smoke result as rollback evidence.
-- Roll back by reverting the specific knowledge entries or commit that introduced them. Do not patch around bad knowledge with conflicting duplicate topics.
+- There is currently no repo-wide transaction-safe publish command. Legacy publish paths can overwrite a topic or label generated output `reviewed`; never treat those flags/statuses as gate proof.
+- The agent should produce a validation summary, changed buckets, before/after state, tests, and query smoke. A routine no-overwrite entry may be controlled-published without asking the user to inspect it item by item; unattended automation waits for M3.
+- Never auto-overwrite an existing topic or publish a conflict, low-confidence extraction, ambiguous season/freshness claim, privacy-bearing artifact, or execution-authority change. Quarantine it for exception review.
+- Keep source/staging artifacts, the validation result, the knowledge diff, and query smoke as rollback evidence.
+- Roll back by reverting the specific knowledge entries or commit that introduced them. Automatic transactional rollback is not implemented yet; do not patch around bad knowledge with conflicting duplicate topics.
 - For code/config releases, rollback means reverting the smallest relevant commit or config change after recording the failing test, fixture, or trace.
 - Never roll back another session's unrelated work while recovering your own publish.
 

@@ -6,7 +6,6 @@ from pathlib import Path
 
 import yaml
 
-from qa_agent.ingestion.models import ReviewStatus, StagingEntry
 from qa_agent.ingestion.publish import publish_entries
 from qa_agent.knowledge.loader import load_entries
 from qa_agent.retrieval.retriever import Retriever
@@ -175,28 +174,21 @@ def main() -> None:
         )
 
     staged_entries, direct_entries = stage_all_video_entries(enriched, project_root)
-    staged_entries = [
-        StagingEntry(
-            metadata=staged.metadata.model_copy(update={"review_status": ReviewStatus.REVIEWED}),
-            entry=staged.entry,
-        )
-        for staged in staged_entries
-    ]
 
-    staging_path = workspace / "video-staging-reviewed.yaml"
+    staging_path = workspace / "video-staging-normalized.yaml"
     staging_path.write_text(
         yaml.dump([item.model_dump(mode="json") for item in staged_entries], allow_unicode=True, default_flow_style=False, sort_keys=False),
         encoding="utf-8",
     )
 
-    knowledge_root = workspace / "knowledge_sources"
-    published_entries = [entry.to_reviewed_entry() for entry in staged_entries]
-    published_entries.extend(direct_entries)
-    bucket_stats = publish_entries(published_entries, knowledge_root) if published_entries else {}
+    candidate_knowledge_root = workspace / "candidate_knowledge_sources"
+    candidate_entries = [item.entry for item in staged_entries]
+    candidate_entries.extend(direct_entries)
+    bucket_stats = publish_entries(candidate_entries, candidate_knowledge_root) if candidate_entries else {}
 
     query_results = {}
-    if published_entries:
-        source_paths = discover_source_paths(knowledge_root)
+    if candidate_entries:
+        source_paths = discover_source_paths(candidate_knowledge_root)
         service = QueryService(load_entries(source_paths))
         if enriched.lineup_candidates:
             query_results["lineup"] = service.lookup_topic(enriched.lineup_candidates[0].topic, domain="solution").model_dump(mode="json")
@@ -219,7 +211,8 @@ def main() -> None:
                 "evidence_path": str(evidence_path),
                 "enriched_path": str(enriched_path),
                 "staging_path": str(staging_path),
-                "knowledge_root": str(knowledge_root),
+                "candidate_knowledge_root": str(candidate_knowledge_root),
+                "publish_status": "candidate_workspace_only",
                 "bucket_stats": bucket_stats,
                 "query_results": query_results,
                 "vision_stats": (

@@ -572,14 +572,18 @@
     </nav>
 
     <main>
+      <div style="margin:0 0 18px;padding:14px 18px;border:1px solid #b97712;border-radius:10px;background:#fff7e6;color:#6b3f00">
+        <strong>历史 HTML 快照：</strong>页面主体未随 2026-07-10/11 的 Markdown override 自动更新。当前产品目标与架构规则请以
+        <a href="sanmou-monorepo-architecture-iteration-path.md">对应 Markdown</a>、README 和 opening runbook 为准。
+      </div>
       <header class="hero" id="summary">
         <div class="hero-inner">
-          <p class="eyebrow">Read from repo: /Users/bytedance/Documents/sanmou 2</p>
-          <h2>截图 Advisor 已经形成端到端产品骨架，真实自动化仍处在受控封锁状态。</h2>
+          <p class="eyebrow">Historical architecture snapshot · current direction updated 2026-07-11</p>
+          <h2>当前主线是 Windows-first 通用游戏 Agent / 自动化代练；Advisor 是辅助观察界面。</h2>
           <p class="hero-summary">
-            当前 monorepo 的主线是“桌面截图顾问 + Python Advisor API + 视觉感知/决策 + QA 知识底座”。
-            代码已经补上多个感知域、QA 查询接入、kill switch、safety guard、verifier gate 和 trace store。
-            但低风险点击动作仍未完成校准，默认 verifier registry 为空，所以自动输入链路不会放行真实 GUI 动作。
+            开荒是第一条垂直闭环，当前目标是在真实 Windows 客户端完成连续 4 小时无人值守运行。
+            代码已有多个感知域、runbook、QA 查询接入、kill switch、safety guard、verifier gate 和 trace store；
+            但正式 execute 仍硬禁，低风险 live closure 和打地完整 UI flow 尚未完成。
           </p>
           <div class="hero-grid">
             <div class="hero-stat">

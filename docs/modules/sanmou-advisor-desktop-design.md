@@ -2,6 +2,8 @@
 
 更新时间：2026-07-10
 
+> 2026-07-11 product override: Desktop Advisor 是自动化 runtime 的可选观察、调试和人工接管界面，不是独立商业主线。下文“下一阶段/近期迭代”中的 structured evidence 与 degraded UI 已落地，相关条目保留为历史计划。
+
 ## 上位文档
 
 本模块设计参考并服从：
@@ -13,9 +15,9 @@
 
 ## 模块定位
 
-`apps/sanmou-advisor-desktop` 是用户面对的 Electron + React 桌面 Advisor。它负责截图上传、报告展示、历史浏览和对话入口，不负责策略决策或运行时执行控制。
+`apps/sanmou-advisor-desktop` 是 Electron + React 的可选观察与人工接管界面。它负责截图上传、报告展示、历史浏览和对话入口，不负责策略决策或运行时执行控制。
 
-桌面端应该是 Advisor 的可视化壳层，而不是另一个业务决策引擎。
+桌面端应该是自动化 runtime / Advisor report 的可视化壳层，而不是另一个业务决策引擎或产品主线。
 
 ## 当前结构
 

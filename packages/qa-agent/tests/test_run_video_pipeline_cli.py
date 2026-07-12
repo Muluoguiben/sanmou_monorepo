@@ -8,6 +8,8 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+import yaml
+
 from qa_agent.app.run_video_pipeline import main
 
 
@@ -40,6 +42,18 @@ class RunVideoPipelineCliTests(unittest.TestCase):
             self.assertIn("season-s13.yaml", summary["bucket_stats"])
             self.assertEqual(summary["query_results"]["lineup"]["coverage"], "exact")
             self.assertEqual(summary["query_results"]["lineup"]["evidence"][0]["source_ref"], "BILIBILI:BV1TEST4x7yz#18-64")
+            self.assertEqual(summary["publish_status"], "candidate_workspace_only")
+
+            staging_path = Path(summary["staging_path"])
+            self.assertEqual(staging_path.name, "video-staging-normalized.yaml")
+            staged = yaml.safe_load(staging_path.read_text(encoding="utf-8"))
+            self.assertTrue(staged)
+            self.assertEqual({item["metadata"]["review_status"] for item in staged}, {"normalized"})
+
+            candidate_root = Path(summary["candidate_knowledge_root"])
+            self.assertEqual(candidate_root.name, "candidate_knowledge_sources")
+            self.assertTrue(candidate_root.is_dir())
+            self.assertFalse((Path(temp_dir) / "knowledge_sources").exists())
 
 
 if __name__ == "__main__":

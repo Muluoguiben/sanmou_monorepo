@@ -5,10 +5,11 @@ import hashlib
 import io
 import unittest
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import ANY, MagicMock, patch
 
 from PIL import Image
 
+from pioneer_agent.adapters import bridge_client
 from pioneer_agent.adapters.bridge_client import BridgeClient, BridgeScreenshot
 from tests.unit.capture_geometry_fixtures import (
     capture_geometry,
@@ -35,6 +36,60 @@ class StubBridgeClient(BridgeClient):
 
 
 class BridgeClientTests(unittest.TestCase):
+    def test_wsl_distro_can_be_overridden_without_path_injection(self) -> None:
+        with patch.dict(
+            bridge_client.os.environ,
+            {"SANMOU_WSL_DISTRO": "Ubuntu-24.04"},
+        ):
+            self.assertEqual(
+                bridge_client._to_windows_kill_switch_path("/tmp/KILL_SWITCH"),
+                "\\\\wsl$\\Ubuntu-24.04\\tmp\\KILL_SWITCH",
+            )
+
+        with patch.dict(
+            bridge_client.os.environ,
+            {"SANMOU_WSL_DISTRO": "Ubuntu\\..\\C$"},
+        ):
+            with self.assertRaisesRegex(ValueError, "unsupported"):
+                bridge_client._to_windows_path(Path("/tmp/proxy.py"))
+
+    def test_wsl_standard_distro_environment_is_used(self) -> None:
+        with patch.dict(
+            bridge_client.os.environ,
+            {"WSL_DISTRO_NAME": "Debian"},
+            clear=True,
+        ):
+            self.assertEqual(
+                bridge_client._to_windows_path(Path("/tmp/proxy.py")),
+                "\\\\wsl$\\Debian\\tmp\\proxy.py",
+            )
+
+    def test_connect_forwards_custom_windows_token_path_to_proxy(self) -> None:
+        client = BridgeClient(auth_token_file=r"D:\secrets\bridge.token")
+        process = MagicMock()
+        process.poll.return_value = None
+        process.stdout.readline.return_value = '{"status":"proxy_ready"}\n'
+
+        with (
+            patch.dict(
+                bridge_client.os.environ,
+                {"WSL_DISTRO_NAME": "Debian"},
+                clear=True,
+            ),
+            patch.object(bridge_client.subprocess, "Popen", return_value=process) as popen,
+        ):
+            client.connect()
+
+        self.assertEqual(
+            popen.call_args.args[0],
+            [
+                "python.exe",
+                ANY,
+                "9877",
+                r"D:\secrets\bridge.token",
+            ],
+        )
+
     def test_screenshot_sends_capture_backend_when_configured(self) -> None:
         client = StubBridgeClient(capture_backend="wgc")
         png = _make_png()

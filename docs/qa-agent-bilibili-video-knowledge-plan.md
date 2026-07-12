@@ -1,5 +1,7 @@
 # QA Agent B 站视频知识提取方案
 
+> Historical V1 plan（2026-05）。本文保留早期“逐条人工审阅”设计背景，不是当前发布规范。现行目标与实现边界以 `docs/bilibili-video-knowledge-workflow.md`、`docs/repo-local-runbook.md` 和 M3 unified publisher 待办为准：用户不逐条审普通知识，但统一自动 gate/quarantine/rollback 仍未实现。
+
 ## 目标
 
 为 `qa-agent` 增加一条面向 B 站视频的知识提取链路，把视频内容转化为可审阅、可发布、可检索的结构化游戏知识。
@@ -126,14 +128,14 @@ packages/qa-agent/
 - 限制条件
 - 证据摘要
 
-### 5. 审阅层
+### 5. 审阅层（历史 V1 方案）
 
 视频内容天然带有作者偏见和版本漂移，因此视频抽取结果必须先进入 `staging`：
 
 - `normalized`：模型已标准化，但未确认
 - `reviewed`：人工确认后才能发布
 
-首版不要跳过人工审阅。
+这是 2026-05 的保守首版规则，已被当前“agent 预检、异常隔离、用户不逐条审”方向取代；在统一门禁落地前也不能把 legacy 自动 `reviewed` 状态当成安全发布证明。
 
 ### 6. 发布层
 
@@ -227,6 +229,8 @@ packages/qa-agent/
 - 增加片段质量和知识置信度评估
 
 ## 决策结论
+
+以下是历史 V1 决策，不是当前规范：
 
 当前路线应明确为：
 

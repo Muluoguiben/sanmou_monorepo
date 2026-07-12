@@ -16,6 +16,7 @@ fi
 INPUT_REF="$1"
 WORKSPACE="$2"
 EXTRACTOR="${3:-heuristic}"
+PYTHON_BIN="${PYTHON_BIN:-python}"
 WITH_FRAMES="${WITH_FRAMES:-0}"
 FRAME_INTERVAL="${FRAME_INTERVAL:-30}"
 FRAME_MAX_COUNT="${FRAME_MAX_COUNT:-10}"
@@ -24,6 +25,11 @@ FRAMES_PER_SEGMENT="${FRAMES_PER_SEGMENT:-3}"
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 export PYTHONPATH="$ROOT_DIR/packages/qa-agent/src${PYTHONPATH:+:$PYTHONPATH}"
+
+if ! "$PYTHON_BIN" -c 'import sys; raise SystemExit(0 if sys.version_info >= (3, 11) else 1)'; then
+  echo "Error: PYTHON_BIN must point to an available Python >= 3.11 virtual environment (got: $PYTHON_BIN)." >&2
+  exit 2
+fi
 
 FETCH_ARGS=()
 if [[ "$INPUT_REF" =~ ^https?:// ]]; then
@@ -56,12 +62,12 @@ if [[ "$ENRICH_FRAMES" == "1" ]]; then
   PIPELINE_EXTRA+=(--enrich-frames --frames-per-segment "$FRAMES_PER_SEGMENT")
 fi
 
-fetch_cmd=(python3 -m qa_agent.app.fetch_bilibili_bundle "${FETCH_ARGS[@]}" --output "$BUNDLE_PATH" --asr-fallback)
+fetch_cmd=("$PYTHON_BIN" -m qa_agent.app.fetch_bilibili_bundle "${FETCH_ARGS[@]}" --output "$BUNDLE_PATH" --asr-fallback)
 if [[ ${#FETCH_EXTRA[@]} -gt 0 ]]; then
   fetch_cmd+=("${FETCH_EXTRA[@]}")
 fi
 
-pipeline_cmd=(python3 -m qa_agent.app.run_video_pipeline --input "$BUNDLE_PATH" --workspace "$WORKSPACE" --extractor "$EXTRACTOR")
+pipeline_cmd=("$PYTHON_BIN" -m qa_agent.app.run_video_pipeline --input "$BUNDLE_PATH" --workspace "$WORKSPACE" --extractor "$EXTRACTOR")
 if [[ ${#PIPELINE_EXTRA[@]} -gt 0 ]]; then
   pipeline_cmd+=("${PIPELINE_EXTRA[@]}")
 fi

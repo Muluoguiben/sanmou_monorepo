@@ -2,6 +2,8 @@
 
 更新时间：2026-05-19
 
+> 2026-07-11 publish direction: 目标是普通知识自动 gate + 异常 quarantine，用户不逐条审；统一事务化 publisher 尚未实现，当前由 agent 做预检与受控发布。发布知识只提供 advisory evidence，不能单独授权 runtime 输入。
+
 ## 上位文档
 
 本模块设计参考并服从：
@@ -41,7 +43,7 @@ packages/qa-agent/
 
 ## 核心职责
 
-- 加载 `knowledge_sources/` 下的 reviewed knowledge。
+- 加载 `knowledge_sources/` 下的 validated/published knowledge。
 - 提供 `QueryService`，支持 topic lookup、term resolve、rule question。
 - 输出带 `entry_id` 的 evidence。
 - 通过 `QaKnowledgeProvider` 实现 `sanmou_common.ports.KnowledgeProvider`。
@@ -67,12 +69,12 @@ answer = provider.answer_rule_question("建筑升级优先级是什么", domain=
 - `entry_id` 来自正式 `knowledge_sources/`。
 - `topic/domain/summary/source_ref` 可追溯。
 - `coverage=not_found` 时不得返回伪证据。
-- 视频自动抽取内容进入正式库前必须 reviewed 或经过明确 gate。
+- 视频自动抽取内容进入正式库前必须由 agent 完成明确验证，或通过未来统一 gate；legacy `reviewed` 状态名本身不是验证证明。
 
 ## 架构审查修正
 
 - `qa-agent` 只做 knowledge/evidence provider，不生成 action，不重排 `pioneer-agent` 的候选动作。
-- 离线 knowledge ingestion vision 和实时 Advisor perception 不合并。离线流程可以慢、贵、人工 review；实时流程必须快、可降级、可回放。
+- 离线 knowledge ingestion vision 和实时 runtime perception 不合并。离线流程可以慢、贵，并由 agent 执行完整预检；只有冲突、隐私与执行权限等异常需要强化复核。实时流程必须快、可降级、可回放。
 - `strategy_snapshot.yaml` 应被视为 QA knowledge 的离线投影，后续必须保留可反查的 `entry_id`。
 - citation regression 的优先级高于生成更长 narrative；引用不存在时宁可降级回答，也不要输出看似权威的假证据。
 
@@ -89,11 +91,11 @@ answer = provider.answer_rule_question("建筑升级优先级是什么", domain=
 
 - 为所有知识问答接入实时 LLM rerank。
 - 让 QA 直接生成 action。
-- 将 staging 自动发布到正式 knowledge。
+- 在没有统一 no-overwrite、contradiction/freshness、transaction、post-smoke 和 rollback 门禁前启用无人值守 staging publish。
 
 ## 验收标准
 
 - `QueryService` 不命中时不会编造答案。
 - `QaKnowledgeProvider` 满足 `KnowledgeProvider` Protocol。
 - `entry_id` 能被 Advisor 侧 validator 确认来源。
-- 新增知识采集流程默认 staging-first，正式发布必须可审计。
+- 新增知识采集流程默认 staging-first，正式发布必须可审计；用户无需逐条审普通、无冲突条目。

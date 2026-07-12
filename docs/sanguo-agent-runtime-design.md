@@ -44,6 +44,8 @@ MVP 动作集合如下：
 7. `wait_for_stamina`
 8. `abandon_land`
 
+当前实现另包含第 9 个 observation/action-inspection 类型 `inspect_team_readiness`，用于在队伍事实不足时请求补齐队伍详情；它不代表已授权的游戏状态变更动作。
+
 ### 1. `claim_chapter_reward`
 
 说明：

@@ -1,5 +1,7 @@
 # B 站视频知识 Agent
 
+> Historical V1 implementation note. 当前项目主线是 Windows 自动化代练；B 站链路只是 qa-agent 的知识支撑。现行视频流程与发布边界以 `docs/bilibili-video-knowledge-workflow.md`、`docs/repo-local-runbook.md` 和 M3 unified publisher 待办为准。本文里的“人工审阅后发布”和自动 `reviewed` 命名保留历史上下文，不是当前低触目标，也不是门禁已实现的证明。
+
 ## 目标
 
 在 `qa-agent` 内新增一条面向 B 站视频的知识提取链路，把视频内容沉淀为可审阅、可发布、可检索的《三国：谋定天下》知识。
@@ -225,14 +227,14 @@ scripts/bilibili_video_knowledge_workflow.sh \
   heuristic
 ```
 
-该 workflow 会自动完成：
+该 workflow 会生成以下 workspace 候选产物；它不会证明 repo KB 已通过统一安全发布门禁：
 
 - Bilibili metadata fetch
 - `view/conclusion/get` AI 字幕/摘要优先抓取
 - subtitle segmentation
 - lineup / hero / skill / combat candidates extraction
-- reviewed staging generation
-- publish to temporary `knowledge_sources`
+- legacy-named staging generation（`reviewed` 不是人工或完整 gate 证明）
+- candidate output to temporary `knowledge_sources`
 - query smoke result
 
 ## 真实视频 Smoke

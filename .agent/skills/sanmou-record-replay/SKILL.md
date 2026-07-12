@@ -17,11 +17,17 @@ Capture a short human demonstration without dispatching input. Treat every gener
 
 ## Record a Demonstration
 
-From `packages/pioneer-agent`, run:
+From a normal-permission Windows PowerShell, use the Windows checkout and its venv:
 
-```bash
-PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay record \
-  --workflow-name open-recruit-panel \
+If `.venv\Scripts\python.exe` does not exist, create and install it with the bootstrap block in `docs/windows-record-replay.md`. Do not fall back to an unrelated system interpreter.
+
+```powershell
+$Repo = "C:\src\sanmou_monorepo"  # replace with the actual Windows checkout
+$Python = (Resolve-Path (Join-Path $Repo ".venv\Scripts\python.exe")).Path
+Set-Location (Join-Path $Repo "packages\pioneer-agent")
+
+& $Python -m pioneer_agent.app.record_replay record `
+  --workflow-name open-recruit-panel `
   --duration-seconds 60
 ```
 
@@ -35,9 +41,10 @@ Recording always returns a raw session. Use only the separate `compile <session-
 
 Run these commands without opening all frames in model context:
 
-```bash
-PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay inspect <session-dir>
-PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay validate <session-dir>
+```powershell
+$SessionDir = "C:\Users\<you>\AppData\Local\SanmouRecordReplay\sessions\<session-uuid>"
+& $Python -m pioneer_agent.app.record_replay inspect $SessionDir
+& $Python -m pioneer_agent.app.record_replay validate $SessionDir
 ```
 
 Inspect the manifest, event counts, hashes, ignored inputs, capture errors, target identity, geometry, and privacy status first. Open only the smallest relevant keyframe or ROI if visual review is necessary.
@@ -48,8 +55,8 @@ Read [recording-schema.md](references/recording-schema.md) when validating field
 
 Compile only after strict validation and manual privacy review succeed:
 
-```bash
-PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay compile <session-dir>
+```powershell
+& $Python -m pioneer_agent.app.record_replay compile $SessionDir
 ```
 
 Compilation may write:
@@ -67,8 +74,8 @@ Read [draft-skill-template.md](references/draft-skill-template.md) before editin
 
 Generate or inspect the deterministic offline plan with:
 
-```bash
-PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay replay <session-dir>
+```powershell
+& $Python -m pioneer_agent.app.record_replay replay $SessionDir
 ```
 
 Never add or use `--execute`. M0 has no live replay implementation. Coordinates are demonstration evidence, not execution authority.

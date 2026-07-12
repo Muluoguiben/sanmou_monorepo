@@ -12,14 +12,14 @@ description: Run Sanmou Advisor fixture replay, golden expectation checks, and l
 
 ```bash
 cd packages/qa-agent
-PYTHONPATH=src python3 -m unittest tests.test_mcp_tools.McpToolTests.test_advisor_golden_replay_status_reports_expectation_failures -v
+PYTHONPATH=src python -m unittest tests.test_mcp_tools.McpToolTests.test_advisor_golden_replay_status_reports_expectation_failures -v
 ```
 
 3. For a single fixture, use the MCP tool `advisor_fixture_eval` or the pioneer CLI:
 
 ```bash
 cd packages/pioneer-agent
-PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.replay_fixture \
+PYTHONPATH=src:../sanmou-common/src python -m pioneer_agent.app.replay_fixture \
   --fixture tests/fixtures/chapter_claimable_state.json
 ```
 
@@ -27,7 +27,7 @@ PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.replay_fixture 
 
 ```bash
 PYTHONPATH=packages/pioneer-agent/src:packages/sanmou-common/src \
-python3 -m pioneer_agent.app.advisor_api --host 127.0.0.1 --port 8765 --mock
+python -m pioneer_agent.app.advisor_api --host 127.0.0.1 --port 8765 --mock
 
 cd apps/sanmou-advisor-desktop
 npm run dev:vite

@@ -10,6 +10,7 @@ import base64
 import hashlib
 import json
 import math
+import os
 import re
 import subprocess
 from dataclasses import dataclass
@@ -28,6 +29,7 @@ _PROXY_SCRIPT = Path(__file__).with_name("bridge_proxy.py")
 _ATOMIC_FRAME_CLICK_GUARD_VERSION = 1
 _CAPTURE_GEOMETRY_VERSION = 1
 _SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+_WSL_DISTRO_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$")
 _ATOMIC_AUTHORIZATION_SCOPES = frozenset(
     {
         "operator_confirmed_final_mutating_click",
@@ -43,19 +45,36 @@ class BridgeScreenshot:
     capture_geometry: CaptureGeometry
 
 
+def _wsl_distro() -> str:
+    distro = (
+        os.environ.get("SANMOU_WSL_DISTRO")
+        or os.environ.get("WSL_DISTRO_NAME")
+        or "Ubuntu"
+    ).strip()
+    if ".." in distro or _WSL_DISTRO_RE.fullmatch(distro) is None:
+        raise ValueError("SANMOU_WSL_DISTRO contains unsupported characters")
+    return distro
+
+
 def _to_windows_path(linux_path: Path) -> str:
     """Convert a WSL Linux path to a \\\\wsl$\\ UNC path for python.exe."""
-    return f"\\\\wsl$\\Ubuntu{linux_path}"
+    windows_path = str(linux_path).replace("/", "\\")
+    return f"\\\\wsl$\\{_wsl_distro()}{windows_path}"
 
 
 def _to_windows_kill_switch_path(value: Path | str) -> str:
     """Convert an absolute WSL path to the Windows UNC seen by the server."""
+    return _to_windows_accessible_path(value, label="kill-switch")
+
+
+def _to_windows_accessible_path(value: Path | str, *, label: str) -> str:
+    """Normalize a WSL, drive-letter, or UNC path for a Windows subprocess."""
     raw = str(value)
     if raw.startswith("/"):
-        return "\\\\wsl$\\Ubuntu" + raw.replace("/", "\\")
+        return f"\\\\wsl$\\{_wsl_distro()}" + raw.replace("/", "\\")
     if raw.startswith("\\\\") or re.match(r"^[A-Za-z]:[\\/]", raw):
         return raw.replace("/", "\\")
-    raise ValueError("kill-switch path must be absolute and Windows-accessible")
+    raise ValueError(f"{label} path must be absolute and Windows-accessible")
 
 
 class BridgeClient:
@@ -68,9 +87,18 @@ class BridgeClient:
     )
     atomic_frame_click_authorization_scopes = _ATOMIC_AUTHORIZATION_SCOPES
 
-    def __init__(self, port: int = 9877, *, capture_backend: str | None = None) -> None:
+    def __init__(
+        self,
+        port: int = 9877,
+        *,
+        capture_backend: str | None = None,
+        auth_token_file: Path | str | None = None,
+    ) -> None:
         self.port = port
         self.capture_backend = capture_backend
+        self.auth_token_file = auth_token_file or os.environ.get(
+            "SANMOU_BRIDGE_AUTH_TOKEN_FILE"
+        )
         self._proc: subprocess.Popen[str] | None = None
         self._last_screenshot: BridgeScreenshot | None = None
 
@@ -80,8 +108,16 @@ class BridgeClient:
             return
         self._last_screenshot = None
         win_script = _to_windows_path(_PROXY_SCRIPT)
+        proxy_args = ["python.exe", win_script, str(self.port)]
+        if self.auth_token_file:
+            proxy_args.append(
+                _to_windows_accessible_path(
+                    self.auth_token_file,
+                    label="bridge auth token",
+                )
+            )
         self._proc = subprocess.Popen(
-            ["python.exe", win_script, str(self.port)],
+            proxy_args,
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,

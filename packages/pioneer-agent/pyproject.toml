@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "pioneer-agent"
 version = "0.1.0"
-description = "Screenshot Advisor and guarded automation runtime for Sanmou."
+description = "Windows-first general game automation and leveling runtime for Sanmou."
 requires-python = ">=3.11"
 dependencies = [
   "sanmou-common",

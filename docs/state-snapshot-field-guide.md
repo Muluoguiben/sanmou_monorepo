@@ -25,7 +25,7 @@
 
 ## 2. 顶层字段总览
 
-当前 `RuntimeState` 的顶层字段定义在 [models.py](D:/codex_playground/sanguo/src/sanguo_agent/core/models.py)：
+当前 `RuntimeState` 的顶层字段定义在 [models.py](../packages/pioneer-agent/src/pioneer_agent/core/models.py)：
 
 - `global_state`
 - `progress`
@@ -380,11 +380,11 @@
 
 可以直接参考这些真实可回放样本：
 
-- [sample_state.json](D:/codex_playground/sanguo/tests/fixtures/sample_state.json)
-- [chapter_claimable_state.json](D:/codex_playground/sanguo/tests/fixtures/chapter_claimable_state.json)
-- [transfer_priority_state.json](D:/codex_playground/sanguo/tests/fixtures/transfer_priority_state.json)
-- [wait_resource_state.json](D:/codex_playground/sanguo/tests/fixtures/wait_resource_state.json)
-- [wait_stamina_state.json](D:/codex_playground/sanguo/tests/fixtures/wait_stamina_state.json)
+- [sample_state.json](../packages/pioneer-agent/tests/fixtures/sample_state.json)
+- [chapter_claimable_state.json](../packages/pioneer-agent/tests/fixtures/chapter_claimable_state.json)
+- [transfer_priority_state.json](../packages/pioneer-agent/tests/fixtures/transfer_priority_state.json)
+- [wait_resource_state.json](../packages/pioneer-agent/tests/fixtures/wait_resource_state.json)
+- [wait_stamina_state.json](../packages/pioneer-agent/tests/fixtures/wait_stamina_state.json)
 
 ---
 
@@ -401,8 +401,13 @@
    - 可升级建筑
 3. 运行：
 
+先按 README 的 Windows Record & Replay bootstrap 建立同一 checkout 的 Windows Python 3.11+ venv；不要复用 WSL `.venv` 或系统 Python。
+
 ```powershell
-.\.venv\Scripts\python.exe -m sanguo_agent.app.advisor_fixture
+$Repo = "C:\src\sanmou_monorepo"  # 改成 Windows checkout 的实际路径
+$Python = (Resolve-Path (Join-Path $Repo ".venv\Scripts\python.exe")).Path
+Set-Location (Join-Path $Repo "packages\pioneer-agent")
+& $Python -m pioneer_agent.app.advisor_fixture --fixture tests/fixtures/sample_state.json
 ```
 
 4. 观察顾问输出的：

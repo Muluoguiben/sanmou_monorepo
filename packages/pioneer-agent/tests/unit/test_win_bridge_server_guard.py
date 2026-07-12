@@ -3,13 +3,15 @@ from __future__ import annotations
 import importlib.util
 import hashlib
 import io
+import socket
+import struct
 import sys
 import types
 import unittest
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from unittest.mock import patch
+from unittest.mock import MagicMock, call, patch
 
 from PIL import Image
 from tests.unit.capture_geometry_fixtures import capture_geometry_payload
@@ -19,6 +21,8 @@ class _FakePyAutoGui:
     def __init__(self) -> None:
         self.clicks: list[tuple[int, int, str]] = []
         self.presses: list[str] = []
+        self.moves: list[tuple[int, int, float]] = []
+        self.drags: list[tuple[int, int, float, str]] = []
 
     def click(self, x: int, y: int, *, button: str) -> None:
         self.clicks.append((x, y, button))
@@ -29,19 +33,34 @@ class _FakePyAutoGui:
     def hotkey(self, *keys: str) -> None:
         self.presses.append("+".join(keys))
 
+    def moveTo(self, x: int, y: int, *, duration: float) -> None:  # noqa: N802
+        self.moves.append((x, y, duration))
+
+    def dragTo(  # noqa: N802
+        self,
+        x: int,
+        y: int,
+        *,
+        duration: float,
+        button: str,
+    ) -> None:
+        self.drags.append((x, y, duration, button))
+
 
 def _load_server(
     *,
     foreground_error: bool = False,
+    foreground_hwnd: int = 101,
     point_root: int = 101,
     window_rect: tuple[int, int, int, int] = (0, 0, 1286, 666),
 ):
     gui = types.ModuleType("win32gui")
     gui.GetWindowRect = lambda _hwnd: window_rect
+    gui.IsWindow = lambda _hwnd: True
     gui.IsWindowVisible = lambda _hwnd: True
     gui.IsIconic = lambda _hwnd: False
     gui.GetWindowText = lambda _hwnd: "三国：谋定天下"
-    gui.GetForegroundWindow = lambda: 101
+    gui.GetForegroundWindow = lambda: foreground_hwnd
     gui.WindowFromPoint = lambda _point: 303
     gui.GetAncestor = lambda _hwnd, _flag: point_root
 
@@ -118,6 +137,23 @@ class GuardedWindowClickTests(unittest.TestCase):
             )
 
         self.assertEqual(server.pyautogui.clicks, [])
+
+    def test_legacy_click_foreground_failure_sends_no_click(self) -> None:
+        server = _load_server(foreground_error=True)
+
+        with self.assertRaisesRegex(RuntimeError, "foreground"):
+            server.click_window_relative(101, 100, 100)
+
+        self.assertEqual(server.pyautogui.clicks, [])
+
+    def test_legacy_drag_wrong_foreground_sends_no_input(self) -> None:
+        server = _load_server(foreground_hwnd=999)
+
+        with self.assertRaisesRegex(RuntimeError, "foreground"):
+            server.drag_window_relative(101, 10, 10, 20, 20)
+
+        self.assertEqual(server.pyautogui.moves, [])
+        self.assertEqual(server.pyautogui.drags, [])
 
     def test_covered_point_sends_no_click(self) -> None:
         server = _load_server(point_root=999)
@@ -570,6 +606,7 @@ class GuardedWindowClickTests(unittest.TestCase):
         digest = hashlib.sha256(png).hexdigest()
         messages = iter(
             [
+                {"cmd": "authenticate", "token": "a" * 64},
                 {"cmd": "screenshot", "backend": "auto"},
                 {
                     "cmd": "click",
@@ -605,10 +642,124 @@ class GuardedWindowClickTests(unittest.TestCase):
 
         server.click_window_relative = record_click
 
-        server.handle_client(object(), "game", "auto")
+        conn = MagicMock()
+        server.handle_client(conn, "game", "auto", auth_token="a" * 64)
 
         self.assertEqual(len(clicks), 1)
         self.assertEqual(clicks[0]["capture_backend"], "wgc")
+        self.assertEqual(
+            conn.settimeout.call_args_list,
+            [call(server.AUTHENTICATION_TIMEOUT_SECONDS), call(None)],
+        )
+
+
+class BridgeTransportSecurityTests(unittest.TestCase):
+    def test_server_rejects_oversized_request_before_reading_body(self) -> None:
+        server = _load_server()
+        conn = MagicMock()
+        conn.recv.return_value = struct.pack(">I", server.MAX_PROTOCOL_MESSAGE_BYTES + 1)
+
+        with self.assertRaisesRegex(ConnectionError, "message length"):
+            server.recv_msg(conn)
+
+        conn.recv.assert_called_once_with(4)
+
+    def test_authentication_timeout_releases_serial_server_slot(self) -> None:
+        server = _load_server()
+        conn = MagicMock()
+
+        with patch.object(
+            server,
+            "_authenticate_client",
+            side_effect=socket.timeout("timed out"),
+        ):
+            server.handle_client(conn, "game", "auto", auth_token="a" * 64)
+
+        self.assertEqual(
+            conn.settimeout.call_args_list,
+            [call(server.AUTHENTICATION_TIMEOUT_SECONDS), call(None)],
+        )
+
+    def test_listener_is_loopback_and_exclusive(self) -> None:
+        server = _load_server()
+        listener = MagicMock()
+
+        with (
+            patch.object(server.socket, "socket", return_value=listener),
+            patch.object(
+                server.socket,
+                "SO_EXCLUSIVEADDRUSE",
+                0x4,
+                create=True,
+            ),
+        ):
+            result = server._create_listen_socket(9877)
+
+        self.assertIs(result, listener)
+        listener.setsockopt.assert_called_once_with(server.socket.SOL_SOCKET, 0x4, 1)
+        listener.bind.assert_called_once_with(("127.0.0.1", 9877))
+        listener.listen.assert_called_once_with(1)
+
+    def test_listener_fails_closed_without_windows_exclusive_option(self) -> None:
+        server = _load_server()
+        listener = MagicMock()
+
+        with (
+            patch.object(server.socket, "socket", return_value=listener),
+            patch.object(
+                server.socket,
+                "SO_EXCLUSIVEADDRUSE",
+                None,
+                create=True,
+            ),
+        ):
+            with self.assertRaisesRegex(RuntimeError, "SO_EXCLUSIVEADDRUSE"):
+                server._create_listen_socket(9877)
+
+        listener.close.assert_called_once_with()
+        listener.bind.assert_not_called()
+
+    def test_authentication_rejects_wrong_token(self) -> None:
+        server = _load_server()
+        responses: list[dict[str, object]] = []
+
+        with (
+            patch.object(
+                server,
+                "recv_msg",
+                return_value={"cmd": "authenticate", "token": "b" * 64},
+            ),
+            patch.object(
+                server,
+                "send_json",
+                side_effect=lambda _conn, payload: responses.append(payload),
+            ),
+        ):
+            authenticated = server._authenticate_client(object(), "a" * 64)
+
+        self.assertFalse(authenticated)
+        self.assertEqual(responses, [{"status": "error", "message": "bridge authentication failed"}])
+
+    def test_authentication_accepts_matching_token(self) -> None:
+        server = _load_server()
+        responses: list[dict[str, object]] = []
+
+        with (
+            patch.object(
+                server,
+                "recv_msg",
+                return_value={"cmd": "authenticate", "token": "A" * 64},
+            ),
+            patch.object(
+                server,
+                "send_json",
+                side_effect=lambda _conn, payload: responses.append(payload),
+            ),
+        ):
+            authenticated = server._authenticate_client(object(), "a" * 64)
+
+        self.assertTrue(authenticated)
+        self.assertEqual(responses, [{"status": "ok", "authenticated": True}])
 
 
 def _make_png(color: tuple[int, int, int]) -> bytes:

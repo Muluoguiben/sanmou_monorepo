@@ -64,6 +64,16 @@ UnityCrashHandler64
 
 ## Standard Workflow
 
+Set the actual WSL distribution/user once for the PowerShell session instead of assuming a machine-specific distro name:
+
+```powershell
+$WslDistro = "Ubuntu"  # choose from: wsl.exe -l -q
+$WslUser = "lan"
+$WslRepo = "/home/$WslUser/projects/sanmou_monorepo"
+$RepoUnc = "\\wsl.localhost\$WslDistro\home\$WslUser\projects\sanmou_monorepo"
+$ControlScript = Join-Path $RepoUnc ".agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1"
+```
+
 1. Check whether the game is already running:
 
 ```powershell
@@ -76,7 +86,7 @@ Get-Process | Where-Object { $_.ProcessName -like '*nslg*' -or $_.ProcessName -l
    Run once while someone can approve UAC:
 
    ```powershell
-   powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\.agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1" install-controller-task
+   powershell -ExecutionPolicy Bypass -File $ControlScript install-controller-task
    ```
 
    This registers `SanmouController` as an on-demand scheduled task with run level `Highest`, logon type `Interactive`, and no trigger. After this, ordinary Claude/Codex processes communicate with it using `send`.
@@ -88,13 +98,13 @@ Get-Process | Where-Object { $_.ProcessName -like '*nslg*' -or $_.ProcessName -l
 3. Start the game through the controller:
 
    ```powershell
-   powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\.agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1" send -Command start-game
+   powershell -ExecutionPolicy Bypass -File $ControlScript send -Command start-game
    ```
 
    Fallback when no controller task is installed and someone can approve UAC:
 
    ```powershell
-   powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\.agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1" start-game
+   powershell -ExecutionPolicy Bypass -File $ControlScript start-game
    ```
 
 4. If the launcher appears instead, capture it and use controller click for the "open game" button. Do not rely on `PostMessage`; the launcher/game may ignore it.
@@ -102,47 +112,37 @@ Get-Process | Where-Object { $_.ProcessName -like '*nslg*' -or $_.ProcessName -l
 5. Once the game window appears, check process integrity:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\.agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1" send -Command integrity -ProcessName com.bilibili.nslg
+powershell -ExecutionPolicy Bypass -File $ControlScript send -Command integrity -ProcessName com.bilibili.nslg
 ```
 
 6. Capture the current game screen:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\.agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1" send -Command capture-window -ProcessName com.bilibili.nslg -Out "$env:TEMP\sanmou_current.png"
+powershell -ExecutionPolicy Bypass -File $ControlScript send -Command capture-window -ProcessName com.bilibili.nslg -Out "$env:TEMP\sanmou_current.png"
 ```
 
-For foreground-independent capture, start the Windows bridge server with WGC/DXGI auto mode and use the repository bridge client:
-
-```powershell
-python \\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\packages\pioneer-agent\src\pioneer_agent\adapters\win_bridge_server.py --capture-backend auto --window "三国：谋定天下"
-```
-
-The WGC backend requires the optional Windows package:
-
-```powershell
-python -m pip install windows-capture
-```
+For foreground-independent capture, follow the canonical token, venv, non-elevated launch, lifecycle, and health instructions in `docs/bridge-architecture.md`. Do not start the bare server script without its authentication setup.
 
 7. If a popup blocks progress, click by normalized window coordinates:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\.agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1" send -Command click-relative -ProcessName com.bilibili.nslg -Rx 0.875 -Ry 0.173
+powershell -ExecutionPolicy Bypass -File $ControlScript send -Command click-relative -ProcessName com.bilibili.nslg -Rx 0.875 -Ry 0.173
 ```
 
 8. Use drag and safe key commands for routine navigation when needed:
 
 ```powershell
 # Swipe/drag from one normalized point to another.
-powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\.agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1" send -Command drag-relative -ProcessName com.bilibili.nslg -Rx 0.500 -Ry 0.750 -Rx2 0.500 -Ry2 0.350 -Duration 0.4
+powershell -ExecutionPolicy Bypass -File $ControlScript send -Command drag-relative -ProcessName com.bilibili.nslg -Rx 0.500 -Ry 0.750 -Rx2 0.500 -Ry2 0.350 -Duration 0.4
 
 # Safe navigation keys only: ESC, ENTER, TAB, SPACE, BACKSPACE, DELETE, arrows, HOME/END/PAGEUP/PAGEDOWN.
-powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\.agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1" send -Command key-press -ProcessName com.bilibili.nslg -Key ESC
+powershell -ExecutionPolicy Bypass -File $ControlScript send -Command key-press -ProcessName com.bilibili.nslg -Key ESC
 ```
 
 9. If the server selection page is visible, click the main enter button:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\.agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1" send -Command click-relative -ProcessName com.bilibili.nslg -Rx 0.500 -Ry 0.800
+powershell -ExecutionPolicy Bypass -File $ControlScript send -Command click-relative -ProcessName com.bilibili.nslg -Rx 0.500 -Ry 0.800
 ```
 
 10. Interpret the screenshot with the repository vision flow when `/home/lan/projects/sanmou_monorepo` is available:
@@ -156,7 +156,7 @@ p = Path('/mnt/c/Users/Lan/AppData/Local/Temp/sanmou_current.png')
 report = interpret_screenshot(p, client=build_vision_client('openai'))
 print(report.model_dump_json(indent=2))
 '@
-$script | wsl -d Ubuntu --cd /home/lan/projects/sanmou_monorepo -- bash -lc 'PYTHONPATH=/home/lan/.cache/sanmou-api-deps:packages/pioneer-agent/src:packages/sanmou-common/src python3 -'
+$script | wsl -d $WslDistro --cd $WslRepo -- bash -lc 'PYTHONPATH=packages/pioneer-agent/src:packages/sanmou-common/src .venv/bin/python -'
 ```
 
 ## Login Handling
@@ -196,7 +196,7 @@ Always verify by capturing again after a click.
 Use `scripts/sanmou_client_control.ps1` for deterministic Win32 work:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\lan\projects\sanmou_monorepo\.agent\skills\sanmou-client-control\scripts\sanmou_client_control.ps1" <action> [options]
+powershell -ExecutionPolicy Bypass -File $ControlScript <action> [options]
 ```
 
 Supported actions:

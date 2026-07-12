@@ -1,6 +1,24 @@
 # Todo List
 
-> Current update: 2026-07-11 — Windows Record & Replay M0 已落地：独立普通权限 recorder 只绑定唯一 Sanmou Unity 窗口，以 physical-pixel WGC/DXGI + Raw Input 记录 WebP 关键帧和过滤后的人工输入；200ms 内存 ring 提供输入前帧，窗口/geometry/DPI/64-bit handle/队列/时限/容量任一异常均 fail-closed。raw session 具备 schema、SHA、图像、时序、窗口身份和 symlink/path confinement 严格校验；compiler 只生成 `pending_review` action candidate、offline plan 和 `execution_authority=none` skill draft，`replay --execute` 硬拒绝。默认 raw-only，隐私 review 后才显式 compile；人工演示不冒充 M1a runtime dispatch/terminal source。Pioneer 575 tests OK（6 skip），repo skill 校验和 fresh-agent forward test 通过，Windows Raw Input 注册/停止 smoke 通过；真实端到端录制因当前 Unity 窗口最小化/离屏而正确返回 `expected_one_usable_sanmou_window:found=0`，程序未自动恢复客户端。下方旧 `Last updated` 长段保留为 Architecture Iteration 历史上下文。
+> Current update: 2026-07-12 — 产品 North Star 已校正为 Windows-first 通用游戏 Agent / 自动化代练，开荒是第一条垂直闭环；Desktop Advisor 改为观察、调试和人工接管界面。Windows capture geometry 已把 outer HWND/PID/rect 与真实 WGC/DXGI capture rect/origin 分离，guarded click 只按 capture origin 换算并原子复核 backend/geometry。正式 `--execute` 继续硬禁。Windows Record & Replay M0 已合入：普通权限 recorder 只读记录玩家演示，raw session 经完整性/隐私边界后只生成 `pending_review` candidate、离线 plan 和 `execution_authority=none` skill 草稿，不提供 live replay。当前记录基线为 Pioneer 590 tests OK、QA 303 discovered（本次改动定向 8 tests OK；原生 macOS 全量仅 secure-staging 的 9 failure / 11 error，按设计需 WSL2/Linux）、Desktop typecheck/build OK。下方旧 `Last updated` 长段保留为 Architecture Iteration 历史上下文。
+
+- [x] 产品定位与权威文档收敛（2026-07-11）：README、AGENTS、opening runbook、Codex operating model、repo-local runbook、Claude/package 指令和 shared memory 统一以 Windows 自动化代练为主线；截图 Advisor/QA 降为支撑面。知识发布的目标政策统一为自动 gate + 异常 quarantine，知识本身不能授予游戏输入权限；代码门禁仍由下方 M3 待办跟踪，不把文档政策冒充已实现能力。
+
+- [ ] M3 统一低触知识发布门禁：实现单一 preflight/publish 入口，覆盖 source/schema/confidence/season/freshness/contradiction/duplicate，默认禁止覆盖，失败进入 quarantine；发布使用原子事务，记录 before/after SHA、changed buckets 和 transaction id，自动跑 tests/query smoke，失败可回滚。收口前禁用无人值守 publish；agent 可代做预检和受控发布，用户无需逐条审普通条目。
+
+- [x] Windows Record & Replay M0（2026-07-11，来自 `3f864a6`）：唯一可用 Sanmou Unity 窗口上的 physical-pixel WGC/DXGI + Raw Input 只读录制、WebP 关键帧、完整性校验、`pending_review` candidate、离线 replay plan 和无执行权限 skill 草稿已落地；`replay --execute` 硬拒绝，人工演示不冒充 M1a runtime dispatch 或 terminal source。
+
+- [ ] Record & Replay M1 多样本与 reviewed annotation：增加 segmenter、独立 privacy/reviewer manifest、generation/eval session registry、semantic target/precondition/expected-delta 标注，不修改 raw trace；先覆盖只读导航，再处理 claim/recruit/upgrade candidate。
+
+- [ ] Record & Replay M2 独立 eval：建立 parser/integrity、cross-resolution grounding、success/no-change/timeout/popup verifier、零 dispatch safety 和 fresh-agent holdout 套件；generation 与 holdout session ID 必须完全不重叠。
+
+- [ ] Record & Replay M3 reviewed semantic action：只允许通过多样本与 holdout 的 action 接入 semantic UIActions、同帧 observation、唯一 ROI、新帧 verifier、confirmation、kill switch 和 recovery；M0 坐标/延时永不直接成为执行接口。
+
+- [x] Windows read-only capture 模块隔离（2026-07-11，来自 `3f864a6`）：WGC/DXGI、capture geometry 与图像质量校验已抽到无 socket、无 input-dispatch、无窗口控制符号的 `win_capture.py`；recorder 只加载该模块，bridge 复用同一实现并保留旧恢复包装，边界 AST 测试与 Windows loader smoke 通过。
+
+- [ ] Windows control 独立 hardening：WinBridge 已固定 exclusive `127.0.0.1`、增加 auth-first token handshake、拒绝 elevated 启动，并让 legacy/guarded input 在前台校验失败时统一零输入；仍需收紧 SanmouController 可写命令/脚本 ACL、降低同用户 token 可读威胁，并继续消除 legacy 非原子 input。Record & Replay 不复用或扩大控制协议。
+
+- [x] PR #2 rebase / Claude review 收口（2026-07-12）：保留 `3f864a6` 的 Record & Replay M0 与 `win_capture.py`，修复 Bridge 生命周期示例、exclusive loopback/token/非提权/foreground fail-closed、WSL Python bootstrap、MCP 6-tool 与 shared-memory 漂移，并把自动视频流水线产物恢复为 normalized candidate 语义；Windows PowerShell lifecycle 仍需在真实 Windows 5.1/7 做最终 smoke。
 
 - [x] Runtime / Desktop 产品边界收敛（2026-07-10）：删除旧 `AgentRuntime.run_once`、`ActionRunner(not_implemented)`、`AgentLogger`、`app.main/bootstrap` 重复 scaffold 及其遗留 stage/event 模型；fixture state 读取继续由 `StateSyncService` 提供，执行主链只保留 Advisor、Replay 与显式 guarded `AutonomousLoop`。Desktop Advisor 删除 kill-switch trigger/clear 控件和 renderer mutation API，改为明确“只读顾问，不授权或发送游戏输入”；嵌入式 API 默认不注册 runtime-admin 路由，只有独立运维进程显式传 `--enable-runtime-admin` 才开放，底层 kill switch 继续保留。
 
@@ -13,18 +31,6 @@
 - [x] 真实 5 级地占领配对证据（2026-07-11）：战报压为 42,630-byte privacy-redacted WebP，严格保留 `win + occupation_result=unknown` 与 defender 战损冲突 `partial`；四张 2.4–15KB ROI 记录同一 5 级目标 `02:35→倒计时不显示`、领地 `54/60→55/60`。用户确认普通占领约 180 秒、新手期约 60 秒，已作为 time-bounded 玩家实测进入 QA KB；ROI 标记 `action_correlated=false` / `image_model_exercised=false`，full-frame map canonical gap 仍开放。
 
 - [x] QA live terminal source pending staging（2026-07-11）：新增 raw live trace → `pending_review` CLI，只有严格 action/target/operator confirmation/terminal PNG/new-frame post-delta/geometry 全绑定才复制原始 bytes；产物强制 pending、privacy 未审、closure=false。raw input、output、pending、existing bundle 全程 pinned `dir_fd + O_NOFOLLOW`，发布用 `renameat2(RENAME_NOREPLACE)`；symlink/hardlink/path escape/parent swap/existing swap/并发空目标/能力缺失均 fail-closed，绝不自动写入 reviewed root 或授予 clean-HEAD authority。
-
-- [x] Windows Record & Replay M0（2026-07-11）：新增 `pioneer_agent.record_replay` schema/store/compiler/offline replayer、standalone Windows recorder、CLI、repo skill 和设计文档；默认 WebP 1280/q60，忽略可打印文本/剪贴板/窗口外输入，严格绑定 HWND/PID/进程创建时间/capture geometry；raw 默认不编译，live replay 无实现且 `--execute` 明确失败。人工 demo 固定 `privacy_reviewed=false`、`action_correlated_runtime_trace=false`、`closure_eligible=false`，所有派生物保持 pending/no-authority。
-
-- [ ] Record & Replay M1 多样本与 reviewed annotation：增加 segmenter、独立 privacy/reviewer manifest、generation/eval session registry、semantic target/precondition/expected-delta 标注，不修改 raw trace；先覆盖只读导航，再处理 claim/recruit/upgrade candidate。
-
-- [ ] Record & Replay M2 独立 eval：建立 parser/integrity、cross-resolution grounding、success/no-change/timeout/popup verifier、零 dispatch safety 和 fresh-agent holdout 套件；generation 与 holdout session ID 必须完全不重叠。
-
-- [ ] Record & Replay M3 reviewed semantic action：只允许通过多样本与 holdout 的 action 接入 semantic UIActions、同帧 observation、唯一 ROI、新帧 verifier、confirmation、kill switch 和 recovery；M0 坐标/延时永不直接成为执行接口。
-
-- [x] Windows read-only capture 模块隔离（2026-07-11）：WGC/DXGI、capture geometry 与图像质量校验已抽到无 socket、无 input-dispatch、无窗口控制符号的 `win_capture.py`；recorder 只加载该模块，bridge 复用同一实现并保留旧恢复包装，边界 AST 测试与 Windows loader smoke 通过。
-
-- [ ] Windows control 独立 hardening：另行收紧 SanmouController 可写命令/脚本边界与 WinBridge 监听地址、认证和遗留非 guarded input，不借 R&R 扩大协议。
 
 - [ ] 原主树 WIP 收口：本轮继续使用隔离 worktree；原主树保持 dirty 且未触碰。2026-07-11 只读复核 `git ls-files --others --exclude-standard` 为 14 个 Pioneer WIP 文件，均不是 decoded 产物；已迁移 map/battle/安全 attack ledger，已淘汰 OpeningSprintLoop/AuthorizationCard。清理前仍需处理 verified battle-ledger 跨重启持久化、map-filter/land-tile 参数传播测试和 map filter 正向感知回归三个保留点。
 
@@ -40,7 +46,7 @@
 - [x] Codex review 修复（2026-07-05，已合 master；后续 f35f43f 修正文档漂移：路径/测试计数/gate 持久化注意事项）：①abort 指标 unknown 不再静默——每次求值发 `unknown_metrics(checked=abort_when)` escalation，且 exit 满足时 hold `abort_metrics_unknown` 禁止带安全盲区 transition；②runbook YAML 移入 package data（`pioneer_agent/config/`，pyproject 已含 `config/*.yaml`），非 editable `pip install --target` 实测可加载，默认路径缺失记 warning；③`human_gate` 改为对当前阶段在 `evaluate()` 校验，`start_phase_id`/`override_phase`/重启恢复不可绕过，未确认时 selector_hints 为空。
 - [ ] M1a 收菜序列自动化：用 claim 类低风险动作在真实客户端校准 executor/verifier——与上方 Architecture Iteration 的 terminal source 采样计划是同一条线，不新开路径。
 - [x] 第三轮 xhigh review 修复（2026-07-07，已合 master）：15 findings（13 confirmed）中 13 条修复、2 条转 M1b——①新增 `runtime/dispatch_guard.py` **守卫单一 seam**：动作派发/流内终点/ESC 恢复全部过同一 verdict（kill switch + blocking hold + allowlist），ESC 绕过 kill switch 的第三派发路径关闭；②runbook 完成 = blocking hold + 一次性 `runbook_completed` escalation，循环不再空转最终阶段；③流内求值 `allow_transition=False`，阶段切换/落盘推迟到 tick 边界（不再在动作飞行中换阶段并提前落盘），两次求值 escalation/transition 合并记录；④`CandidateFilter` 改显式 `honor_runbook_hints`（Advisor/replay 链免疫 runbook hints 污染）；⑤backstop 覆盖 selector 饥饿（候选全拒→`action_filter_stuck`）；⑥season 匹配严格化（无戳记录不再跨赛季放行 gate），gate CLI 拒写无戳确认、show 按赛季标注 IGNORED；⑦单实例 flock（双开报错）、外部删除状态文件自动重建、unknown gate 告警一次、CLI 路径 `expanduser`、allowlist 加载期校验告警。+15 单测（含 test_dispatch_guard.py），全量 311 tests OK。
-- [ ] M1b 打地内循环：attack_land 校准 + `battle_result` 感知域 + 战报判定 + 体力等待循环（选预设编队出征，阵容人工预配，agent 不做配将/配战法 UI）。**并入两条 review 遗留**：感知新鲜度——vision merge 会让未刷新的指标"看似存在实则过期"（流内/tick 求值均受影响，`field_meta.updated_at` 已有字段未接），高危阶段（有 abort_when 无 allowlist）在 abort 指标全黑时无守卫，需 per-phase `block_on_unknown_abort` 或指标时效元数据。
+- [ ] M1b 打地内循环：`attack_land` 校准 + 已有 `battle_report` 感知域的真实 provider 校准/action-correlated verifier + 战报判定 + 体力等待循环（选预设编队出征，阵容人工预配，agent 不做配将/配战法 UI）。**并入两条 review 遗留**：感知新鲜度——vision merge 会让未刷新的指标"看似存在实则过期"（流内/tick 求值均受影响，`field_meta.updated_at` 已有字段未接），高危阶段（有 abort_when 无 allowlist）在 abort 指标全黑时无守卫，需 per-phase `block_on_unknown_abort` 或指标时效元数据。
 - [x] M1b Phase 1 感知基座（2026-07-10）：新增 fail-closed `map_land` / `battle_report` 域并接入 canonical `main_map` / `battle` 路由；地块仅在占领、保护、可达、可攻击四项均明确安全且 level/resource/bbox/captured_at 齐全时进入候选，地图 snapshot replace、非地图 freshness 水位会清除并阻止乱序旧候选复活；战报完整解析仍固定 `action_verification_ready=false`，unknown 二级识别不写 history/latest，矛盾兵力数据降级 partial。Pioneer 全量 337 tests OK（5 skip）。下一步接 battle history → Runbook metrics，不开放攻击执行。
 - [x] M1b Phase 2 战报安全指标（2026-07-10）：新增只读 `AttackLedger`，battle history 去重后向 Runbook 提供 `battle_loss_rate` / `consecutive_defeats`，时间戳歧义时取保守风险上界，低置信 fingerprint 不计精确次数/通关，reserved safety metrics 不允许外部覆盖；端到端回归证明 0.5 战损会触发 abort 并阻断 runner。`highest_land_level_cleared` 仍要求 action/target/team/window verifier 的明确关联，当前视觉报告不会产生该进度。Pioneer 全量 355 tests OK（5 skip）。
 - [ ] M1b Phase 2b verified ledger persistence：当前安全版 `AttackLedger` 只从进程内 battle history 聚合；旧 WIP 的 `OpeningLedgerStore` 虽有按账号跨重启保存意图，但会持久化模糊 pending lifecycle，不能原样迁移。后续只持久化 action/target/team/window verifier 已关联的终态战报，按 account/session 隔离，并补 crash/restart、重复 trace、乱序/时区和 schema migration 回归。
@@ -57,11 +63,13 @@
 - [x] Codex review 第二轮 P2×2 修复（2026-07-07，已合 master）：①recovery 前刷新守卫——verifier 观察后 state 可能变化，`_refresh_runbook_after_action`（allow_transition=False）在 recovery 分支前重新求值并更新 DispatchGuard，post-action 浮现的 abort/hold 会抑制 ESC；②escalation 去重键从 `(kind, phase_id)` 改为含 `details` 的完整签名，同阶段不同盲区（缺 abort 指标 vs 缺 exit 指标）不再被吞。+2 单测，全量 313 tests OK。
 - [x] 第四轮 xhigh review 修复（2026-07-07，已合 master）：上一轮 P2-2（escalation 签名含完整 details）过度修正导致回归——①签名改取稳定判别子集（排除 `abort_result`/`exit_result`/`entry_result` 全量 status dump），持续 abort 期间双条件 runbook 的非触发指标闪断不再泛洪 planner，同时保留"不同盲区不去重"；②refresh 的 `_evaluate_runbook` 补 kill-switch 冻结（confirm-apply + persist 下沉到副作用点判定），急停期间不再应用 gate 或落盘；③merge 保留更强 hold、productive tick 不再被重标 `transition_deferred`；顺带 `_merge_flow_decision`→`_merge_decisions` 改名、清死导入。+3 单测，全量 316 tests OK。其余 review 项（decision 双真相源、gating 字符串集合、consecutive_blocks 计数、双 json.dumps）为 cleanup/latent，暂记不阻塞合并。
 - [ ] M2 planner：escalation 事件驱动的 LLM 仲裁（输入状态 JSON + trace 摘要 + 知识库检索，输出结构化决定；不看截图、无会话累积）。
-- [ ] M3 运维化与知识闭环：watchdog、escalation 通知、日报；每赛季攻略 → qa-agent staging 人工审阅 → runbook 数据刷新。
+- [ ] M3 运维化与知识闭环：watchdog、escalation 通知、日报；每赛季攻略 → 统一自动 gate → 异常 quarantine → runbook 数据刷新。会改变执行阈值/权限的高影响事实保留强化验证，但不要求用户逐条审普通知识。
 
-## Highest Priority — Architecture Iteration
+## Historical — Architecture Iteration（已不再是最高优先级）
 
-- [ ] Architecture Iteration 收口（最高优先级）：以原始 ADR `docs/sanmou-architecture-design.md` 为架构源文档，按派生执行路线 `docs/sanmou-monorepo-architecture-iteration-path.md` 推进 Advisor 可信闭环；所有新功能/自动化任务默认让位于结构化 evidence、entry_id 校验、vision semantic validators、golden replay 扩展和低风险 verifier。
+> 本节保留 2026-05 的工作记录。当前优先级以顶部 G1、README、AGENTS、opening runbook 和现行 iteration-path override 为准；历史 ADR 不再覆盖 Windows 自动化代练主线。
+
+- [x] 历史 Architecture Iteration 基线：结构化 evidence、entry_id 校验、vision semantic validators、golden replay 和低风险 verifier 已形成基础；原“Advisor 可信闭环优先于所有自动化”的路线已由 2026-07-11 产品方向取代。
 - [x] 模块设计文档入库：新增 `docs/modules/sanmou-common-design.md`、`docs/modules/qa-agent-design.md`、`docs/modules/pioneer-agent-design.md`、`docs/modules/sanmou-advisor-desktop-design.md`，后续模块级改动先对齐对应设计文档。
 - [x] 架构审查修正入库：`docs/sanmou-monorepo-architecture-iteration-path.md` 明确 ports 已完成、LLM-as-Judge 仅实验、ActionDSL 暂不进 common、离线 vision 与实时 perception 不合并、TOS/隐私/停止条件前置。
 - [x] PR-1 结构化 evidence（2026-05-19）：`AdvisorReport/ActionRecommendation` 新增 `structured_evidence`，保留旧 `evidence: list[str]` 兼容 UI/API。
@@ -114,13 +122,13 @@
 
 ## In Progress
 
-- [ ] Desktop Advisor 真机试用：用 PC 客户端、安卓模拟器、安卓真机、iOS 各 3-5 张真实截图跑 `apps/sanmou-advisor-desktop`，记录识别失败样例与 UI 卡点。
+- [x] Desktop Advisor 多端商业化截图试用（历史路线，2026-07-11 已取消）：不再把 PC/安卓/iOS 各端截图体验作为主线验收；Desktop 只保留 Windows 自动化 runtime 的观察、调试和人工接管职责，真实样本采集按当前 perception / verifier 缺口推进。
 - [x] macOS 可独立完成 P0 收口（2026-05-17）：已完成并推送 `strategy_snapshot.yaml` 默认接入 selector/scoring、Electron API 启动/依赖探测、Advisor history list/detail/screenshot；剩余 P0 均需要真实游戏截图、可控设备/模拟器、Windows 客户端或人工采集样本。
 - [x] macOS 知识采集高优收口（2026-05-17）：Bilibili 字幕规范化与阵容图结构化抽取主体已由历史 commit 落地；新增 `qa_agent.app.discover_bilibili` 自动发现候选视频，完成 100 条“三谋开荒”视频的本地截图+vision 门禁沉淀，字幕/结论文本只作为辅助证据，并补充 `opening_baseline` 基础玩法知识/配置入口。
 
 ## Architecture Iteration Path — 2026-05-19
 
-- [x] 原始架构 ADR 入库：从 `/Users/bytedance/Downloads/sanmou-architecture-design.md` 原样复制为 `docs/sanmou-architecture-design.md`，作为仓库内 canonical 架构 Markdown。
+- [x] 原始架构 ADR 入库：历史外部输入已保存为 `docs/sanmou-architecture-design.md`。该文件现在只作为 2026-05 架构快照，不是当前事实源；现行方向以 README、AGENTS、opening runbook 和 iteration path 为准。
 - [x] 派生执行路线入库：新增 `docs/sanmou-monorepo-architecture-iteration-path.md`，在原始 ADR 基础上补充当前代码校正结论、P0-P3 路线和下一批 PR 建议。
 - [x] 跨包最小契约：新增 `sanmou_common.ports`，定义 `Evidence`、`KnowledgeAnswer`、`KnowledgeProvider`、`ModelAdapter`，避免 `pioneer-agent` 长期直接绑定 `qa-agent` 内部模型。
 - [x] QA 知识适配器：新增 `qa_agent.adapters.QaKnowledgeProvider`，把现有 `QueryService` 输出转换为 common 契约；Advisor API 懒加载改为使用该 adapter。
@@ -134,9 +142,9 @@
 - [x] 停止条件执行（2026-05-30）：`AutomationReadinessGate` 接入 `UIActionRunner`；低风险 semi-auto 需要 verifier false positive coverage，高风险 full-auto 需要地图/战报/队伍 verifier 全部 ready，否则 block。
 - [x] 低风险 verifier specs（2026-05-30）：`claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` 的 expected deltas、match policy 与 timeout 已进入默认 `VerifierRegistry`，并由 PR-5 fixtures/MCP smoke 验证。
 - [ ] 低风险 action handlers：三个低风险动作从 `pending` 推进到真实 UI flow，动作失败必须 block，不允许继续连点。2026-05-30 已落地语义 bbox dispatch、dispatch 前 semantic-target gate 与 post-action verifier；2026-07-10 又补齐 observation/frame/target/ROI/timestamp 全绑定的一次性人工确认和 Windows 注入点原子复核。任何缺失、disabled、非法/退化 bbox、旧帧或目标错配都必须零输入；验证失败停止为 `failed`，LIVE 自动 ESC recovery 保持禁用。`upgrade_building` 是入口观察帧 A → dialog 新帧 B → 最终确认 → post 新帧 C 的保守两段式 flow；中间入口只允许 observation-bound ROI guard，最终变更点击必须另有 one-shot grant。PR-21/PR-22 仍只是 runtime-state replay，不足以完成 Architecture closure。claim/recruit 的打开面板、数量/确认序列仍待补齐，三类动作仍需 privacy-approved live trace 与真实 target-bound post-action delta。
-- [x] 高风险自动化边界（2026-05-30）：`attack_land`、`transfer_main_lineup`、`abandon_land` 仍需人工确认；即使有 confirmation token，`full_auto` mode 在地图/战报/队伍 verifier 前置条件未 ready 时也会被 architecture gate 阻断。
+- [x] 高风险自动化边界（2026-05-30）：`attack_land`、`transfer_main_lineup_to_team`、`abandon_land` 仍需人工确认；即使有 confirmation token，`full_auto` mode 在地图/战报/队伍 verifier 前置条件未 ready 时也会被 architecture gate 阻断。
 
-## P0 — Advisor MVP + 低风险真实自动化闭环
+## P0 — Windows 自动化代练垂直闭环
 
 - [x] Agent loop contract（2026-05-17）：新增 `runtime.loop_contract`，把 runtime 固化为 `observe -> decide -> act -> verify -> trace -> recover`；`AutonomousLoop` 写 trace 前校验每个 tick 的阶段完整性，并默认在 CLI 产出结构化 `trace.jsonl`。
 - [x] `chapter_panel` perception domain（2026-05-17）：新增章节面板 schema/domain/merge/sync，识别当前章节、任务完成状态、奖励是否可领、领取按钮 bbox；输出 `progress.chapter_claimable/current_chapter_id/chapter_tasks` 与 `field_meta["progress.chapter_panel"]`。
@@ -153,9 +161,9 @@
 - [x] Safety guardrail（2026-05-17）：基于 `CapabilityFlags`、risk schema、action_type、account/session mode 拦截高风险动作；`UIActionRunner` 在派发前统一执行 `SafetyGuard`，advisor/observe-only 阻断输入，敏感/高风险动作返回 `requires_confirmation`。
 - [x] Computer-use input sandbox / allowlist（2026-05-17）：新增 `InputPolicy` 并接入 `UIActions` primitive 层；固定按钮必须来自 `UIRegistry`，动态元素 query 必须显式 allowlist，地图拖拽默认关闭，按键默认只允许 ESC。
 - [x] Manual kill switch（历史落地：2026-05-17；产品边界更新：2026-07-10）：文件型 `KillSwitch` 仍由 `AutonomousLoop` 在统一 dispatch seam 检查，触发后 executor 不再派发输入。2026-05-17 版本曾在 Desktop 侧边栏提供停机/清除按钮；当前 Desktop 已删除这些授权式 mutation 控件并保持只读，嵌入式 Advisor API 默认也不注册 kill-switch 管理路由。只有独立本地运维进程显式传 `--enable-runtime-admin` 时才暴露触发/清除 endpoint，底层 stop file 能力继续保留。
-- [x] High-risk confirmation（2026-05-17）：`attack_land` / `abandon_land` / `transfer_main_lineup` 默认返回 `requires_confirmation`；只有 action params 明确带 `confirmation_token` 时，`SafetyGuard` 才允许进入 handler。
+- [x] High-risk confirmation（2026-05-17）：`attack_land` / `abandon_land` / `transfer_main_lineup_to_team` 默认返回 `requires_confirmation`；只有 action params 明确带 `confirmation_token` 时，`SafetyGuard` 才允许进入 handler。
 - [x] Bridge health check（2026-05-17）：新增 adapter-agnostic `BridgeHealthChecker`，覆盖 ping、PNG screenshot sanity/freshness、window width/height、input capability method 自检；stub 测试覆盖 healthy、bad screenshot、observe-only/degraded 三类结果。
-- [ ] Click-action calibration：claim_chapter / upgrade_building / recruit_soldiers / attack_land / transfer_main_lineup / abandon_land 仍需用真实页面截图走 `ui_calibrate` + `find_elements` 打通确认对话框序列。PC 客户端 live slice 已沉淀（2026-05-18）；claim/recruit/upgrade 已能消费 semantic bbox，但只允许在同帧目标、target-bound verifier、one-shot confirmation（最终变更点击）和 Windows 注入点 ROI 原子复核全部通过时派发。post verifier 失败后停止，LIVE 自动 ESC recovery 禁用。下一步是补 claim/recruit 真实可领/可征兵 bbox、多步 flow 与三类 live trace/post-delta。
+- [ ] Click-action calibration：claim_chapter / upgrade_building / recruit_soldiers / attack_land / transfer_main_lineup_to_team / abandon_land 仍需用真实页面截图走 `ui_calibrate` + `find_elements` 打通确认对话框序列。PC 客户端 live slice 已沉淀（2026-05-18）；claim/recruit/upgrade 已能消费 semantic bbox，但只允许在同帧目标、target-bound verifier、one-shot confirmation（最终变更点击）和 Windows 注入点 ROI 原子复核全部通过时派发。post verifier 失败后停止，LIVE 自动 ESC recovery 禁用。下一步是补 claim/recruit 真实可领/可征兵 bbox、多步 flow 与三类 live trace/post-delta。
 - [x] Screenshot / coordinate trace metadata（2026-05-17）：`VisionClient` 记录每次 vision 的原图/prepared 图尺寸与 resize/token 信息；`UIActions` 自动缓冲 click/drag/key trace，`AutonomousLoop` 写入 `TraceStore.screenshot.metadata/coordinates`，包含 window/display 坐标空间、scale、normalized bbox、pixel bbox、实际点击点。
 - [x] Trace Store schema（2026-05-17）：新增 `pioneer_agent.storage.trace_store`，并把 `AutonomousLoop` 接入可选 `TraceStore`；每个 traced tick 记录 observe/decide/act/verify/trace/recover 阶段、状态快照、vision summary、selected/ranked action、execution、verification、recovery 和截图尺寸。
 - [x] Golden replay tests（2026-05-17）：新增 `GoldenReplayRunner`，校验 `loop.jsonl` 引用的 screenshot 存在，并用 RuntimeState fixture 重放 selector，比较 loop 记录的推荐动作与重放输出；覆盖匹配、mismatch、缺 screenshot 三类测试。
@@ -167,7 +175,7 @@
 - [x] Vision eval baseline（2026-05-17）：新增 `pioneer_agent.perception.vision_eval`，基于 reviewed screenshot fixture replay 输出 page/domain/entity accuracy；`team_snapshot_mobile_20260514.json` 补充 initial_state 与 entity checks，离线 baseline 当前 5 张截图 page/domain/entity accuracy 均为 1.0。
 - [x] Action verifier eval（2026-05-17）：新增 `tests/fixtures/verifier/action_verifier_eval.json` 与 `pioneer_agent.verifier.eval`，覆盖 `claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` 的成功、状态未变化、误识别、超时、弹窗打断；同时让 `VerifierBase` 支持 `teams.0.*` / `city.buildings.0.*` 列表索引路径。
 - [x] qa-agent 接入 Advisor chat（2026-05-17）：`/api/advisor/chat` 对建筑/打地/阵容/战法等知识问题懒加载 `qa-agent QueryService`，结合 `AdvisorReport` 的页面与推荐动作生成回答和 evidence；无 qa-agent 环境或无证据时回退本地 Advisor 模板，不引入 runtime LLM 依赖。
-- [x] 开荒阵容策略 snapshot（2026-05-17）：从 qa-agent reviewed knowledge 导出 `packages/pioneer-agent/data/strategy_snapshot.yaml`；`pioneer_agent.knowledge.strategy_snapshot` 支持默认加载，`ActionSelector` 默认读取离线 snapshot，并把建筑优先级注入 `upgrade_building` scoring，避免 runtime 每 tick 依赖 LLM。
+- [x] 开荒阵容策略 snapshot（2026-05-17）：从 qa-agent 当时的 reviewed/published knowledge 导出 `packages/pioneer-agent/data/strategy_snapshot.yaml`；`pioneer_agent.knowledge.strategy_snapshot` 支持默认加载，`ActionSelector` 默认读取离线 snapshot，并把建筑优先级注入 `upgrade_building` scoring，避免 runtime 每 tick 依赖 LLM。
 - [x] Desktop API packaging（2026-05-17）：Electron 启动 Python API 时按 `PYTHON`、repo `.venv`、package `.venv`、系统 Python 自动探测可用解释器；启动前 probe `pioneer_agent.app.advisor_api` / FastAPI / Uvicorn / multipart 依赖，失败时把明确错误和已尝试 Python 写入 runtime config 与前端状态；继续支持外部 `SANMOU_ADVISOR_API_URL` 跳过本地启动。
 
 ## P1 — 真实自动化环境适配
@@ -179,16 +187,16 @@
 ## P2 — 策略、知识采集与数据质量
 
 - [x] Bilibili 字幕中文规范化 → 落库正字（2026-05-17 状态纠偏）：主体已落地于 `qa_agent.video.subtitle_normalizer`，结合 `config/subtitle_homophones.yaml`、KB 武将/战法 alias 与保守 fuzzy match，在 LLM extractor 之前规范化字幕并记录替换日志；相关历史 commit 包括 `094d1c1`、`82c8924`、`6bc4685`、`fe53666`、`c1c9758`。剩余工作不再作为“未实现”任务，而是归入陈仓 staging review/eval 验收。
-- [ ] 陈仓之围 Bilibili staging 重新 review：commit `e26b351` 新增的 `packages/qa-agent/ingestion/staging/videos/bilibili-chencang-2026-05-14.yaml` 仍是 `review_status: pending`，且由 GPT-5.4-mini 基于 B 站 AI ASR 自动抽取，存在同音字、阵容别名、缺失 hero_names/core_skills、评级/时间窗口误归因风险。后续在字幕规范化和阵容图抽取完善后，需要逐条复核、必要时 rerun pipeline，对比视频证据后再 publish。
+- [ ] 陈仓之围 Bilibili staging 自动重跑与异常收口：commit `e26b351` 新增的 `packages/qa-agent/ingestion/staging/videos/bilibili-chencang-2026-05-14.yaml` 仍是 `review_status: pending`，且由 GPT-5.4-mini 基于 B 站 AI ASR 自动抽取，存在同音字、阵容别名、缺失 hero_names/core_skills、评级/时间窗口误归因风险。后续用字幕规范化、阵容图抽取、canonical/confidence/duplicate gate 自动重跑；通过项直接发布，只有冲突和低置信例外进入人工处理。
 - [x] Bilibili 阵容图结构化抽取（2026-05-17 状态纠偏）：主体已落地于 `qa_agent.video.lineup_frame_extractor` 与 `qa_agent.app.backfill_chencang_lineups`，支持关键帧分类、阵容/武将页识别、列裁剪、dense-table vision 参数、KB canonical 对齐和保守 backfill；相关历史 commit 包括 `1108a87`、`d1434db`、`a3f75c4`、`da43cd5`。剩余工作归入真实视频 eval/review/publish 验收。
 - [x] Bilibili 视频自动发现 CLI（2026-05-17）：新增 `qa_agent.app.discover_bilibili`，按 keyword/时间范围搜索候选视频，扫描本地 `knowledge_sources/` 与 `ingestion/` 排除已收录 BVID，输出可直接接入 `fetch_bilibili_bundle` / `run_video_pipeline` 的候选清单；测试覆盖已收录排除、HTML title 清洗、duration 解析、发布时间过滤。
 - [x] Bilibili metadata-only run 清理（2026-05-17）：已删除无字幕、无截图/帧、无 ASR 的 `video_discovery` 与 `raw/videos/discovery-*` 产物；这类 title-only 结果没有知识沉淀价值，不进入仓库，不进入正式 `knowledge_sources/`。
 - [x] Bilibili 有证据视频二次沉淀（2026-05-17）：配置 `BILIBILI_COOKIE` 后，对 100 条“三谋开荒”候选视频按 20 个 batch 并行抓取；严格禁止字幕-only，候选条目必须同时绑定本地视频截图帧并经过 vision enrichment。最终沉淀 86 个 raw bundle、151 张本地截图、414 条 staging entry，并从 103 个正式候选中去重发布 90 条 lineup/combat 条目到 `knowledge_sources/`；hero/skill 自动抽取仅保留 staging，待人工复核后再覆盖正式静态资料。
 - [x] 三谋基础玩法 baseline（2026-05-17）：新增 `knowledge_sources/opening_baseline.yaml` 与 `sanmou_common.config/opening_baseline.yaml`，沉淀开荒基础优先级、观察清单、打地风险基线、低风险自动动作顺序与 stop conditions，供 Advisor/fixture/eval 先消费；后续仍需补齐真实数值表。
-- [x] NSLG 客户端资源逆向收口暂停（2026-05-21；2026-07-10 ROI gate 覆盖）：已形成离线证据链、资源面扫描、`.ns` bundle format index、38 个 client evidence artifact、1071 个 evidence ref、106 个 import queue item；但 LuaScripts 明文、protected SerializedFile metadata transform、可发布玩法配置均未恢复，`publishable_knowledge_entries=0`。是否重开不再只凭人工批准：还必须出现同版本新 Android/官方包或可复现 parser，并满足顶部 decoded ROI 的 2 小时检查点与最终新增事实门槛；否则不再投入。知识库优先走公开攻略、人工 review、视频证据链和截图 Advisor 闭环。
+- [x] NSLG 客户端资源逆向收口暂停（2026-05-21；2026-07-10 ROI gate 覆盖）：已形成离线证据链、资源面扫描、`.ns` bundle format index、38 个 client evidence artifact、1071 个 evidence ref、106 个 import queue item；但 LuaScripts 明文、protected SerializedFile metadata transform、可发布玩法配置均未恢复，`publishable_knowledge_entries=0`。是否重开不再只凭人工批准：还必须出现同版本新 Android/官方包或可复现 parser，并满足顶部 decoded ROI 的 2 小时检查点与最终新增事实门槛；否则不再投入。知识库优先走公开攻略、现有证据预检与 staging；统一自动 gate/quarantine 由 M3 待办实现。
 - [ ] 赛季阶段规则结构化：把“首日 16:00-22:00 红利期 / 第二天 22:00 阵容洗牌”等视频里反复出现的时间窗口抽象成 `season_phase` 规则，供 Advisor 根据当前服务器时间选择阵容档位。
 - [ ] 赛季末武勋卷排行机制：补抓并入库陈仓之围赛末武勋卷排行玩法（候选视频：BV1Gz5J6EEPq），沉淀为 S14 generic_rule。
-- [ ] Kdocs 小仔哥陈仓之围 5-12 级地 publish 校对：确认 `ingestion/staging/kdocs/xiaozai-chencangzhiwei-2026-04-14.yaml` row5-row12 是否全部发布到 `knowledge_sources/solutions/lineups/season-s14.yaml`，尤其 row7-row12 的守军表。
+- [x] Kdocs 小仔哥陈仓之围 5-12 级地 publish 校对：row5-row12 共 8 条均已发布到 `knowledge_sources/solutions/lineups/season-s14.yaml`，并保留对应 `source_ref`。
 - [ ] Scoring 配置补全：`config/scoring.yaml` 只有 `opening_sprint` 阶段权重，需补齐 growth/chapter/settlement 等阶段。
 - [ ] Sanmou-common 数据补全：`config/*.yaml` 目前是模板，需填入真实建筑、章节、土地、阵容、资源消耗数据。
 - [ ] 征兵所数值：每小时征兵数、预备兵上限随建筑等级变化表。
@@ -212,7 +220,7 @@
 
 - [ ] CI/CD：配置 Python unittest、desktop typecheck/build、lint 检查。
 - [ ] Electron 打包发布：Windows/macOS/Linux 构建、签名、升级通道、崩溃日志。
-- [ ] 多 agent 协作约定：补 `notes/agent-collab.md` 或项目协作说明，约定 @Claude / @Codex 收到任务先 ack、谁 claim 谁负责、长时间无响应时如何转单。
+- [x] 多 agent 协作约定：`notes/agent-collab.md` 已约定 ack、claim、30 分钟代 claim/转单和 handoff 模板。
 - [x] Repo-local runbook 收敛（2026-05-17）：新增 `docs/repo-local-runbook.md`，收敛 `AGENTS.md` / `CLAUDE.md` 风格说明，覆盖 knowledge ingestion、Advisor fixture/eval、computer-use safety、model probing、automation execution、发布/回滚与 handoff 规则。
 - [x] Workflow / session boundary（2026-05-17）：`docs/repo-local-runbook.md` 明确 knowledge ingestion、model probing、Advisor fixture/eval、automation execution 四类独立 workflow/session 的输入、输出/日志和禁止跨 session 复用的上下文。
 - [x] Codex workflow operating layer（2026-05-21）：新增 `docs/codex-operating-model.md`、`docs/advisor-browser-smoke.md`、`docs/qa-agent-mcp-connector.md` 与 `shared-memory/` vault；`AGENTS.md` 明确 `$browser` / `@chrome` / `@computer` / MCP / skills / automations / shared-memory 边界，并固化完成可验证工作后默认 commit + push + 回报 URL 的交付规则。
@@ -241,7 +249,7 @@
 - [x] Monorepo 初始化：三包结构（sanmou-common / pioneer-agent / qa-agent）
 - [x] Pioneer agent 核心决策链：sync → derive → select pipeline，7 种 action，scoring + priority rules
 - [x] QA agent 迁移：sanguo-kb 代码迁入 monorepo 作为 qa-agent（包名 sanguo_kb → qa_agent）
-- [x] QA agent ingestion pipeline：raw → normalize → publish 直接入库，跳过人工 review
+- [x] QA agent ingestion pipeline（历史初版）：raw → normalize → publish 直接入库。2026-07-11 已确定自动 gate + 异常 quarantine 的目标政策，但统一代码门禁尚未完成；legacy direct publish 只能由 agent 在隔离工作树完成无覆盖/冲突预检后受控使用，不能进入无人值守 automation。
 - [x] MCP server：qa-agent stdio JSON-RPC 服务，暴露 3 个知识工具
 - [x] 测试覆盖：pioneer-agent 5 tests + qa-agent 38 tests 全部通过
 - [x] `.claude/CLAUDE.md` 项目级文档 + 包级 `CLAUDE.md`（qa-agent / pioneer-agent 会话隔离）

@@ -2,19 +2,21 @@
 
 ## Project Overview
 
-《三国：谋定天下》Agent 大仓。包含截图 Advisor 桌面端、开荒决策 Agent、游戏知识问答 Agent 和共享游戏领域包。
+《三国：谋定天下》通用游戏 Agent / 自动化代练大仓。
 
-当前商业化 MVP 方向是 **全端截图 Advisor**：先通过截图上传/观察、状态识别、知识问答和策略建议服务玩家；全自动托管只作为后续在测试账号和可验证 adapter 上逐步开放的能力。
+North Star 是在 Windows 游戏客户端上形成 `observe -> decide -> act -> verify -> trace -> recover` 的可托管 runtime。当前第一条垂直闭环是开荒代练，目标是在真实 Windows 客户端连续无人值守运行 4 小时；之后复用同一套 adapter、domain、runbook、action 和 verifier 扩展到其他赛季与日常玩法。
+
+当前主验证拓扑是 Windows 游戏客户端 + WSL2 Ubuntu Python runtime。Desktop Advisor 是观察、调试和人工接管界面，qa-agent 是知识与证据层；两者服务于自动化 Agent，不是最终产品主线。正式 `--execute` 仍硬禁，文档不得把目标态写成已交付能力。
 
 ## Repository Layout
 
 ```
 packages/
+  pioneer-agent/      Windows-first 自动化 runtime — perception、state、runbook、selector、executor、verifier
   sanmou-common/      共享游戏领域模型与静态配置（buildings/chapters/lands/lineups YAML）
-  pioneer-agent/      开荒 Agent runtime — 多设备 Advisor、perception、selector、executor、API
   qa-agent/           知识问答 Agent — 游戏知识检索、MCP 工具服务、数据采集管道
 apps/
-  sanmou-advisor-desktop/  Electron + React 截图 Advisor 桌面端
+  sanmou-advisor-desktop/  Electron + React 观察、调试和人工接管界面
 docs/                 跨项目设计文档（状态模型、运行时设计、工程方案、字段指南）
 ```
 
@@ -25,26 +27,31 @@ pioneer-agent  ──depends-on──>  sanmou-common
 qa-agent       ──depends-on──>  sanmou-common
 ```
 
-Both Python packages depend on: `pydantic>=2.6,<3`, `PyYAML>=6.0,<7`, Python `>=3.11`.
+All Python commands must run in a Python `>=3.11` virtual environment. On the primary Windows + WSL2 setup, use the venv's `python`; do not assume the system `python3` points to a compatible interpreter.
 
 Desktop app calls the local `pioneer-agent` Advisor API over `127.0.0.1`; it must not reimplement perception, selector, qa-agent, or execution logic in TypeScript.
 
 ## How to Run
 
 ```bash
-# Tests — pioneer-agent (520 tests; 6 advisor_api tests skip if FastAPI deps are absent)
-cd packages/pioneer-agent && PYTHONPATH=src:../sanmou-common/src python3 -m unittest discover -s tests -p "test_*.py" -v
+# Tests — pioneer-agent
+cd packages/pioneer-agent && PYTHONPATH=src:../sanmou-common/src python -m unittest discover -s tests -p "test_*.py" -v
 
-# Tests — qa-agent (303 tests)
-cd packages/qa-agent && PYTHONPATH=src python3 -m unittest discover -s tests -p "test_*.py" -v
+# Tests — qa-agent; secure-staging cases require WSL2/Linux POSIX primitives
+cd packages/qa-agent && PYTHONPATH=src python -m unittest discover -s tests -p "test_*.py" -v
+
+# Main runtime — Windows bridge must already be running; dry-run is the default
+PYTHONPATH=packages/pioneer-agent/src:packages/sanmou-common/src \
+python -m pioneer_agent.app.autonomous --runbook --dry-run \
+  --lineup-preset-binding "部队一=main_team"
 
 # Local Advisor API, mock mode does not call a vision model
 PYTHONPATH=packages/pioneer-agent/src:packages/sanmou-common/src \
-python3 -m pioneer_agent.app.advisor_api --host 127.0.0.1 --port 8765 --mock
+python -m pioneer_agent.app.advisor_api --host 127.0.0.1 --port 8765 --mock
 
 # Separate local ops surface only; Desktop never passes this opt-in flag
 PYTHONPATH=packages/pioneer-agent/src:packages/sanmou-common/src \
-python3 -m pioneer_agent.app.advisor_api --host 127.0.0.1 --port 8766 --enable-runtime-admin
+python -m pioneer_agent.app.advisor_api --host 127.0.0.1 --port 8766 --enable-runtime-admin
 
 # Desktop Advisor
 cd apps/sanmou-advisor-desktop
@@ -57,28 +64,29 @@ npm run typecheck
 npm run build
 
 # Local knowledge query
-cd packages/qa-agent && PYTHONPATH=src python3 -m qa_agent.app.query lookup_topic "建筑升级"
-cd packages/qa-agent && PYTHONPATH=src python3 -m qa_agent.app.query resolve_term "补兵"
-cd packages/qa-agent && PYTHONPATH=src python3 -m qa_agent.app.query answer_rule_question "体力不足时怎么办？" --domain team
+cd packages/qa-agent && PYTHONPATH=src python -m qa_agent.app.query lookup_topic "建筑升级"
+cd packages/qa-agent && PYTHONPATH=src python -m qa_agent.app.query resolve_term "补兵"
+cd packages/qa-agent && PYTHONPATH=src python -m qa_agent.app.query answer_rule_question "体力不足时怎么办？" --domain team
 
-# Ingestion: normalize raw batch and publish directly to knowledge_sources
-cd packages/qa-agent && PYTHONPATH=src python3 -m qa_agent.app.normalize_ingestion \
-  --input ingestion/raw/heroes/sgmdtx-golden-sample.yaml --publish
+# Ingestion preflight: normalize first; publish only through the tiered policy below
+cd packages/qa-agent && PYTHONPATH=src python -m qa_agent.app.normalize_ingestion \
+  --input ingestion/raw/heroes/sgmdtx-golden-sample.yaml
 
 # MCP stdio server
-cd packages/qa-agent && PYTHONPATH=src python3 -m qa_agent.mcp_server.stdio_server
+cd packages/qa-agent && PYTHONPATH=src python -m qa_agent.mcp_server.stdio_server
 
 ```
 
 ## Architecture Notes
 
-### Pioneer Agent — Advisor Runtime + Decision Loop
+### Pioneer Agent — Automation Runtime
 
-**Advisor-only chain (commercial MVP):**
+**Primary automation chain:**
 
 ```
-CaptureAdapter → DeviceProfile / DeviceSession → VisionSync → RuntimeState
-→ StateDeriver → ActionSelector / Scoring → AdvisorReport → Desktop GUI / Chat
+Windows Bridge → VisionSync / Perception → RuntimeState → RunbookEngine
+→ Derivation → ActionSelector / Scoring → DispatchGuard → UIActionRunner
+→ Post-frame Verifier → Trace / Recovery
 ```
 
 Key modules:
@@ -86,22 +94,23 @@ Key modules:
 - `core/device.py`: `DeviceProfile`, `ObservationSource`, `DeviceSession`, `AccountSession`, `CapabilityFlags`, `MapGridState`, `GridCell`.
 - `adapters/capture.py`: screenshot file, watch folder, Windows bridge capture.
 - `adapters/control.py`: explicit control adapters; unsupported control returns blocked for observe-only sources.
-- `runtime/advisor_loop.py`: builds `AdvisorReport` with recommended action, available actions, risk, evidence, confidence.
-- `app/advisor_api.py`: FastAPI upload/chat API consumed by the Electron desktop app.
-- `apps/sanmou-advisor-desktop`: Electron + React shell for screenshot upload, report display, and chat.
+- `runbook/`: deterministic staged progression, human gates, escalation, and persisted cursor.
+- `runtime/autonomous_loop.py`: observe/decide/act/verify/trace/recover loop; defaults to dry-run.
+- `runtime/dispatch_guard.py`: single input-authorization seam for runbook, kill-switch, freshness, and target constraints.
+- `verifier/`: pre/post action assertions and expected deltas.
 
-**Automation chain (not MVP default):**
+**Observation and takeover surface:**
 
 ```
-Perception (sync) → RuntimeState → Derivation (enrich) → CandidateGenerator
-→ CandidateFilter → Scoring → PriorityRules → UIActionRunner → JSONL Logging
+CaptureAdapter → VisionSync → RuntimeState → StateDeriver → ActionSelector
+→ AdvisorReport → Desktop GUI / Chat
 ```
 
-8 action types: `claim_chapter_reward`, `upgrade_building`, `transfer_main_lineup_to_team`, `attack_land`, `recruit_soldiers`, `wait_for_resource`, `wait_for_stamina`, `abandon_land`.
+9 action types: `claim_chapter_reward`, `upgrade_building`, `transfer_main_lineup_to_team`, `attack_land`, `recruit_soldiers`, `wait_for_resource`, `wait_for_stamina`, `abandon_land`, `inspect_team_readiness`.
 
 Current execution status: waits are implemented; claim/recruit/upgrade have guarded semantic dispatch and target-bound post verifiers but still require privacy-approved action-correlated live evidence. `--execute` is hard-disabled. Evidence capture runs one exact low-risk action and returns success only when action id/type/target, execution, structured verifier payload, post delta, and new post frame all bind. Attack/transfer/abandon remain `pending-calibration`. `UIActionRunner` blocks input without explicit capabilities, a fresh observation, exact capture geometry, and LIVE window identity checks.
 
-Phase system: `opening_sprint` → `growth_window` → `chapter_push` → `settlement_sprint`.
+Runtime state keeps the broad phase tags `opening_sprint` → `growth_window` → `chapter_push` → `settlement_sprint`; the current S15 opening runbook further divides execution into eight operational stages.
 
 Priority rules (hard overrides before score ranking):
 1. Claim chapter if claimable
@@ -114,7 +123,7 @@ Priority rules (hard overrides before score ranking):
 
 **Two surfaces over the same KB:**
 
-1. **Structured MCP tools** (`qa_agent.mcp_server`): `lookup_topic`, `answer_rule_question`, `resolve_term` — deterministic lookup for programmatic callers (e.g. pioneer-agent).
+1. **KB-query MCP subset** (`qa_agent.mcp_server`): `lookup_topic`, `answer_rule_question`, `resolve_term` — deterministic knowledge lookup for programmatic callers (e.g. pioneer-agent). Replay/eval/preflight tools are listed under Codex Tool Boundaries below.
 2. **Conversational RAG** (`qa_agent.chat` + `qa_agent.retrieval`): ChatAgent composes query-rewrite → retrieve → LLM answer with strict citation prompts. Retrieval uses whole-query normalized match + Chinese n-gram fallback for natural phrasing. LLM is swappable via `LLMClient` Protocol (Gemini / MiniMax / OpenAI-compatible sub2api); default `gpt-5.4-mini`. Never fabricates — empty-evidence queries return a fixed "未收录" response. CLI: `qa_agent.app.chat`.
 
 **Knowledge storage** — YAML under `qa-agent/knowledge_sources/`:
@@ -131,7 +140,7 @@ Priority rules (hard overrides before score ranking):
 Static game configurations (buildings, chapters, lands, lineups) loaded via `ConfigLoader`.
 Used by both agents for game knowledge that doesn't change between sessions.
 
-### Desktop Advisor — Product Surface
+### Desktop Advisor — Optional Observation Surface
 
 The desktop app is a thin GUI over Python services:
 
@@ -139,14 +148,16 @@ The desktop app is a thin GUI over Python services:
 Electron main → launches local Advisor API
 React renderer → uploads screenshot / asks chat
 Advisor API → pioneer-agent AdvisorLoop
-Future chat grounding → qa-agent QueryService / ChatAgent
+Advisor API → qa-agent QueryService / ChatAgent
 ```
 
 Do not move game logic into Electron. TypeScript should stay limited to UI state, API calls, and rendering.
 
 ## Core Design Assumptions
 
-- V1 commercial MVP is Advisor-only: observe screenshots, explain state, recommend next steps, and keep execution disabled by default.
+- Product goal is a Windows-first general game Agent / automated leveling runtime; the first acceptance target is the 4-hour opening run in `docs/opening-runbook-architecture.md`.
+- Advisor remains available for observation, debugging and human takeover; it must not become a separate source of game logic.
+- All live input remains fail-closed behind current observation, allowlist, DispatchGuard, verifier, trace and kill-switch requirements. Product direction does not bypass execution safety.
 - iOS support means screenshot / mirror-capture Advisor only; no jailbreak, private API, or automatic clicking.
 - Android emulator is the preferred future automation platform if/when ADB capture/control is added.
 - Building upgrades are instantaneous (no queue wait).
@@ -158,12 +169,17 @@ Do not move game logic into Electron. TypeScript should stay limited to UI state
 ## Canonical Design Docs
 
 Read these before making architectural changes:
-1. [MVP 状态模型](docs/sanguo-agent-mvp-model.md) — RuntimeState field design
-2. [运行时设计](docs/sanguo-agent-runtime-design.md) — Action evaluation & execution loop
-3. [工程落地方案](docs/sanguo-agent-mvp-engineering-plan.md) — Implementation phases & milestones
-4. [状态快照字段指南](docs/state-snapshot-field-guide.md) — Field catalog & bootstrap guidance
-5. [Pioneer Agent 架构评审与路线图](docs/pioneer-agent-architecture-review-and-roadmap.md) — Runtime maturity, gaps, and roadmap
-6. [Codex Operating Model](docs/codex-operating-model.md) — Codex tool selection, shared memory, MCP, browser/chrome/computer boundaries
+1. [开荒分层自治](docs/opening-runbook-architecture.md) — current product goal and autonomous runbook
+2. [Monorepo 当前架构与迭代路径](docs/sanmou-monorepo-architecture-iteration-path.md) — current architecture overrides and review rules
+3. [Windows Bridge](docs/bridge-architecture.md) — primary device topology and safe lifecycle
+4. [MVP 状态模型](docs/sanguo-agent-mvp-model.md) — RuntimeState field design
+5. [运行时设计](docs/sanguo-agent-runtime-design.md) — Action evaluation & execution loop
+6. [工程落地方案](docs/sanguo-agent-mvp-engineering-plan.md) — Implementation phases & milestones
+7. [状态快照字段指南](docs/state-snapshot-field-guide.md) — Field catalog & bootstrap guidance
+8. [Pioneer Agent 架构评审与路线图](docs/pioneer-agent-architecture-review-and-roadmap.md) — historical audit with current status overrides
+9. [Codex Operating Model](docs/codex-operating-model.md) — Codex tool selection, shared memory, MCP, browser/chrome/computer boundaries
+
+`docs/sanmou-architecture-design.md` is the imported 2026-05 historical ADR. Its current-state audit is not authoritative when it conflicts with the iteration path or current code.
 
 ## Workflow Rules
 
@@ -172,9 +188,9 @@ Read these before making architectural changes:
 - `$browser` is the default for local web verification: Vite, localhost, file previews, Desktop Advisor browser smoke, screenshot upload, history, evidence/degraded rendering.
 - `@chrome` is only for remote pages that need the user's real Chrome profile, cookies, extensions, or logged-in sessions, such as Bilibili, Kdocs, GitHub, or Slack. Do not use it for ordinary localhost checks.
 - `@computer` / GUI control is only for local desktop or NSLG/Sanmou client observation and calibrated low-risk workflows. It must obey `docs/repo-local-runbook.md`, `.agent/skills/sanmou-client-control/SKILL.md`, safety guard, verifier, allowlist, trace, and kill switch rules.
-- qa-agent MCP is the preferred structured knowledge surface for Codex: `lookup_topic`, `answer_rule_question`, `resolve_term`, `advisor_golden_replay_status`, and `advisor_fixture_eval`. It may query reviewed KB and committed Advisor replay baselines, not pending staging or unreviewed reverse-engineering outputs.
-- Repo/local skills should capture repeated workflows, especially `.agent/skills/sanmou-advisor-golden-replay`, `.agent/skills/sanmou-qa-knowledge-review`, `.agent/skills/sanmou-computer-use-safety`, and Sanmou client-control safety. Do not leave durable workflow logic only in chat history.
-- Automations are for low-noise recurring checks such as golden replay summaries, stale todo review, test/build summaries, and commit URL reminders. They must not auto-publish knowledge, auto-click the game, or restart uncapped reverse-engineering loops.
+- qa-agent MCP is the preferred structured knowledge surface for Codex: `lookup_topic`, `answer_rule_question`, `resolve_term`, `advisor_golden_replay_status`, `advisor_fixture_eval`, and `advisor_terminal_source_evidence_eval`. It may query published KB and committed Advisor replay baselines or preflight explicit terminal-source evidence; it must not treat pending staging or unvalidated reverse-engineering outputs as facts.
+- Repo/local skills should capture repeated workflows: Advisor golden replay, QA knowledge review, computer-use safety, Sanmou client control, Bilibili video candidates, and Windows Record & Replay. Do not leave durable workflow logic only in chat history.
+- Automations are for low-noise recurring checks such as golden replay summaries, stale todo review, test/build summaries, and commit URL reminders. A future knowledge automation may publish only through an approved deterministic gate with no overwrite/conflict, post-publish smoke, and rollback evidence. No repo-wide gate currently satisfies that contract, so unattended knowledge publishing remains disabled; automations must not auto-click the game or restart uncapped reverse-engineering loops.
 
 ### Shared Memory
 
@@ -250,9 +266,19 @@ git branch -d feat/<branch-name>
 - YAML for knowledge and config; JSON/JSONL for runtime state and logs.
 - Package structure: `src/<package_name>/` with `PYTHONPATH=src` for running.
 - Tests use `unittest`; fixtures are JSON files in `tests/fixtures/`.
-- Knowledge entries follow strict schema — see `docs/batch-ingestion-guide.md` under qa-agent.
+- Knowledge entries follow strict schema and the tiered publish policy in `docs/repo-local-runbook.md`; Bilibili-specific rules live in `docs/bilibili-video-knowledge-workflow.md`.
 - No embeddings or vector DB — qa-agent uses deterministic alias/substring matching + priority scoring.
 - Chinese names are canonical; aliases map to canonical names via `configs/hero_aliases.yaml` and `configs/skill_aliases.yaml`.
+
+## Knowledge Publishing Policy
+
+- This is the target operating policy. The repository does not yet have one transaction-safe command that enforces every gate, quarantine, post-smoke, and rollback requirement. Until M3 lands it, the agent must orchestrate and record the checks below; legacy direct-publish flags are not evidence that the policy was enforced.
+- The agent, not the user, performs routine schema/source/confidence checks, tests, query smoke, and diff inspection.
+- Auto-publish ordinary game knowledge only when the source is traceable, schema validation passes, confidence meets the workflow threshold, and no existing topic is overwritten or contradicted.
+- Route low-confidence, season/freshness ambiguity, model/OCR disagreement, and all overwrite/conflict cases to staging/quarantine. Human attention is exception-based, not required for every entry.
+- Privacy-bearing screenshots and facts that would expand an action allowlist, change a verifier/runbook safety threshold, or authorize a high-risk action require stronger review.
+- Published knowledge is advisory evidence. It never grants input authority without current observation, allowlist, DispatchGuard, verifier, operator confirmation where required, trace, and kill switch.
+- QA terminal-source secure staging currently runs in WSL2/Linux because it requires POSIX `dir_fd` and `renameat2`; native Windows and macOS are not supported for that workflow.
 
 ## Safety Rules
 
@@ -269,16 +295,15 @@ git branch -d feat/<branch-name>
 ## Current Status & Next Steps
 
 ### What's Working
-- **Desktop Advisor**: `apps/sanmou-advisor-desktop` Electron + React + Vite GUI with screenshot upload/preview, device/account metadata, AdvisorReport display, and chat panel; `npm run typecheck` and `npm run build` pass.
-- **Advisor API**: `pioneer_agent.app.advisor_api` FastAPI service with `/api/health`, `/api/advisor/analyze`, `/api/advisor/chat`, screenshot upload, mock mode, local `reports.jsonl` logging, and desktop CORS.
-- **Pioneer agent**: capture/control adapter split, platform-neutral device/session models, `AdvisorLoop`, sync → derive → select pipeline with 8 action types, OpenAI/Gemini vision provider support, fail-closed perception domains, bbox locator, UI layout registry, guarded UI primitives, runbook-driven autonomous loop, observation/verifier/window/semantic-ROI gates, one-shot operator confirmation, loop logger, default dry-run, and kill switch; 480 tests pass (6 advisor API skips when FastAPI deps are absent).
-- **QA agent**: 104 heroes + 123 skills + 62 mechanic rules KB; MCP server with 6 tools (`lookup_topic`, `answer_rule_question`, `resolve_term`, `advisor_golden_replay_status`, `advisor_fixture_eval`, `advisor_terminal_source_evidence_eval`); raw live traces have a pending-only staging CLI with pinned `dir_fd` / no-symlink / no-clobber writes and never auto-grant review; ingestion pipeline with `--publish`; conversational RAG via `qa_agent/chat/` with Gemini/MiniMax/OpenAI providers; `qa_agent/vision/` grounded image understanding; bilibili video knowledge workflow closed loop.
+- **Pioneer agent**: Windows bridge, capture/control split, platform-neutral state/session models, 9 action types, OpenAI/Gemini vision, fail-closed perception domains, S15 runbook, guarded UI primitives, observation/verifier/window/semantic-ROI gates, one-shot operator confirmation, loop trace, default dry-run, and kill switch. Run the package suite for the current count; skip count depends on installed optional/runtime dependencies.
+- **QA agent**: 104 heroes + 123 skills + 62 mechanic rules KB; MCP server with 6 tools (`lookup_topic`, `answer_rule_question`, `resolve_term`, `advisor_golden_replay_status`, `advisor_fixture_eval`, `advisor_terminal_source_evidence_eval`); raw live traces have a pending-only staging CLI with pinned `dir_fd` / no-symlink / no-clobber writes and never auto-grant review; ingestion candidate pipelines plus legacy publish entry points; conversational RAG via `qa_agent/chat/` with Gemini/MiniMax/OpenAI providers; `qa_agent/vision/` grounded image understanding; Bilibili evidence/candidate workflow. The unified M3 publisher is not implemented.
+- **Observation tools**: Advisor API and Desktop provide screenshot upload, report/evidence display and qa-agent-grounded chat without moving game logic into Electron.
 
 ### Current Focus
-- **Advisor MVP hardening**: the reviewed set now includes two fail-closed battle reports plus a four-ROI level-5 occupation transition (`02:35→hidden`, territory `54/60→55/60`). Still collect privacy-approved full-frame `map_land` positive/negative samples and provider-exercised vision eval; keep Desktop history/report rendering aligned with the Python Advisor API.
+- **Windows unattended vertical slice**: M1a low-risk collection and M1b attack loop are the only product priorities until the real client can run the opening runbook for 4 hours without a human in the tick loop.
 - **M1a low-risk closure**: claim/recruit/upgrade have semantic targets, target-bound verifiers, same-frame observation gates, action/target/frame/ROI/timestamp-bound one-shot operator confirmation, guarded LIVE window dispatch, and new-frame post-action verification. Formal `--execute` remains hard-disabled; each action still needs a privacy-approved live terminal trace proving the exact target, confirmation, dispatch, and post-action delta before the closure gate may turn green.
 - **M1b attack preparation**: fail-closed map/battle perception, attack ledger metrics, and Runbook target constraints are implemented. Keep `attack_land` execution disabled until real map/battle fixtures, action-correlated verifiers, calibration, and recovery are complete.
-- **QA evidence integration**: Advisor chat already consumes qa-agent evidence. `advisor_terminal_source_evidence_eval`, batch preflight, and pending-only raw-trace staging now fail closed on unbound metadata, missing capture geometry, path escape/symlink/hardlink/TOCTOU, uncommitted sources, or absent human privacy approval.
+- **QA evidence integration**: Advisor chat already consumes qa-agent evidence. The desired M3 path is automatic validation plus exception quarantine, but the unified publisher is still pending. Until then the agent performs preflight and controlled publish without asking the user to inspect routine entries; privacy-bearing terminal evidence remains pending-only and fail-closed on unbound metadata, missing capture geometry, path escape/symlink/hardlink/TOCTOU, uncommitted sources, or absent privacy approval.
 
 ## Codex Workflows
 
@@ -288,6 +313,7 @@ git branch -d feat/<branch-name>
 - For Advisor replay and browser smoke, use `.agent/skills/sanmou-advisor-golden-replay/SKILL.md`.
 - For QA staging review/publish, use `.agent/skills/sanmou-qa-knowledge-review/SKILL.md`.
 - For Sanmou GUI/client safety checks, use `.agent/skills/sanmou-computer-use-safety/SKILL.md` and `.agent/skills/sanmou-client-control/SKILL.md`.
+- For read-only Windows human demonstrations, use `.agent/skills/sanmou-record-replay/SKILL.md`; its output is pending/offline/no-authority and cannot replace runtime terminal evidence.
 - For live screenshot work, follow the **Context-Efficient Screenshot Workflow** in `.agent/skills/sanmou-client-control/SKILL.md`: capture one fresh full frame to `%TEMP%`, inspect one resized preview, reuse its SHA-bound structured facts instead of loading the frame again, narrow later inspection to the relevant crop or `vision_probe` JSON, preserve evidence as on-disk traces, and delete raw captures unless they pass the explicit privacy-review fixture workflow.
 
 ### Other Gaps

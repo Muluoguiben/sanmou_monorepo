@@ -4,18 +4,20 @@
 
 > 2026-07-11 evidence update: Windows guarded click 已绑定真实 capture rect/origin（不再用 outer window origin），`--evidence-action` 会在当前帧内约束 selector，且只有 action/target/verifier/post-delta/new-frame 全绑定才 exit 0。新增 5 级地胜利战报与占领前后 ROI 只补充离线证据，不解除 full-frame map/provider eval 或 claim/recruit/upgrade live closure（仍 0/3）。
 
+> 2026-07-11 product direction: 当前 North Star 是 Windows-first 通用游戏 Agent / 自动化代练 runtime；开荒是第一条垂直闭环。Advisor Desktop 是观察、调试与人工接管界面，不是独立商业主线。
+
 更新时间：2026-05-30
 
 ## 输入文档结论
 
-本文件基于两份外部 Markdown：
+本文件最初基于两份外部 Markdown：
 
-- `docs/sanmou-architecture-design.md`，由 `/Users/bytedance/Downloads/sanmou-architecture-design.md` 原样入库，是 canonical 架构 ADR。
-- `/Users/bytedance/Downloads/compass_artifact_wf-e8a7f969-37b2-454b-a591-4cc7dff32f73_text_markdown.md`
+- `docs/sanmou-architecture-design.md`，由外部文档原样入库，是 2026-05-18 的 historical ADR input；本文件的“当前仓库校正”和后续 dated override 是现行规则。
+- 一份未入库的历史 HTML 化外部输入；原机器绝对路径不可复现，因此不再作为当前证据链接。
 
 第二份基本是第一份的 HTML 化版本，核心设计结论一致：
 
-1. 当前方向正确：先做截图驱动 Advisor，再逐步走向半自动/托管 Agent。
+1. 分层方向正确：以截图/窗口捕获建立可观测性，再逐步打通受保护输入与可托管闭环；当前产品目标已明确为自动化代练 Agent，Advisor 是辅助界面。
 2. 最大短板不是“没有模型”，而是推荐、证据、执行、验证之间缺闭环。
 3. `pioneer-agent` 与 `qa-agent` 需要通过稳定 ports 对接，不能靠临时导入和字符串 evidence 长期维持。
 4. LLM 应该用于解释、补充判断和少量 rerank，不应该直接创造高风险动作。
@@ -47,7 +49,7 @@
 - 没有 golden replay baseline 前，不启用 LLM-as-Judge；`LLMJudgeGate` 默认关闭，打开后也会先检查 golden baseline 与 top2 分差。
 - 低风险动作 verifier false positive 未被 fixture 覆盖前，不开放 semi-auto；`AutomationReadinessGate` 已接入 `UIActionRunner`。
 - 低风险动作缺少 visible+enabled 且 0-1000 合法的 semantic bbox 时，不进入 dispatch；`claim_chapter_reward`、`recruit_soldiers`、`upgrade_building` 已由 `semantic_target_gate` 阻断。
-- 地图识别、战报识别、队伍状态 verifier 未完成前，`attack_land`、`transfer_main_lineup`、`abandon_land` 不开放全自动；已由 architecture gate 阻断 full-auto。
+- 地图识别、战报识别、队伍状态 verifier 未完成前，`attack_land`、`transfer_main_lineup_to_team`、`abandon_land` 不开放全自动；已由 architecture gate 阻断 full-auto。
 
 ## 目标架构
 
@@ -60,12 +62,16 @@ flowchart LR
     QA["qa-agent KnowledgeProvider"] --> Selector
     Selector --> Evidence["结构化 Evidence"]
     Evidence --> Explainer["ExplainerLLM，只解释不造动作"]
-    Selector --> Advisor["AdvisorReport"]
-    Advisor --> Human["人工确认"]
-    Human --> Executor["低风险 Executor"]
+    Selector --> DispatchGuard["DispatchGuard / Safety Gates"]
+    DispatchGuard -->|"低风险且全部门禁通过"| Executor["Executor"]
+    DispatchGuard -->|"human_gate / 高风险 / 未知状态"| Human["人工确认或接管"]
+    Human --> Executor
     Executor --> Verifier["Verifier"]
-    Verifier --> Trace["Trace / Golden Replay"]
+    Verifier --> Trace["Trace / 下一轮状态"]
+    Trace --> Deriver
     Trace --> Eval["离线 Eval"]
+    Selector --> Advisor["AdvisorReport（可选观察界面）"]
+    Explainer --> Advisor
 ```
 
 关键原则：
@@ -75,6 +81,8 @@ flowchart LR
 - `pioneer-agent` 只依赖 common Protocol，不直接绑定 QA 内部模型。
 - 推荐结果必须带结构化 evidence，且 evidence 必须可校验。
 - 执行动作必须先满足 safety gate 与 verifier gate。
+- 低风险动作在全部门禁通过后可以自动执行；只有 `human_gate`、高风险动作、未知状态和权限扩张需要人工确认。
+- Advisor Desktop 读取状态与报告用于观察、调试和接管，不位于自动化 runtime 的必经路径。
 
 ## 模块设计文档
 
@@ -83,7 +91,7 @@ flowchart LR
 - `pioneer-agent`：`docs/modules/pioneer-agent-design.md`
 - `sanmou-advisor-desktop`：`docs/modules/sanmou-advisor-desktop-design.md`
 
-## P0：Advisor 可信闭环
+## 已完成基础：Advisor 可信闭环
 
 周期：2-3 周。
 
@@ -104,7 +112,7 @@ flowchart LR
 - 同一批截图 replay 时，推荐 action、score、evidence、confidence 稳定。
 - 无证据或伪造证据的推荐不会进入最终 AdvisorReport。
 
-## P1：证据进入决策
+## 策略支撑：证据进入决策
 
 周期：3-5 周。
 
@@ -124,7 +132,7 @@ flowchart LR
 - 推荐能展示 rule reason、retrieved evidence、final narrative。
 - LLM 改写不会改变 action type、关键参数和 safety 结论。
 
-## P2：低风险半自动
+## 当前主线：低风险自动化闭环
 
 周期：4-8 周。
 
@@ -156,22 +164,22 @@ precheck -> click/action -> observe -> verifier -> trace -> recovery/block
 - 低风险动作可执行、可阻断、可恢复。
 - 动作失败后不会继续连点或进入高风险流程。
 
-## P3：半自动到托管
+## 后续：从低风险闭环到托管
 
 周期：3-6 个月。
 
-目标：从 Advisor 到可托管 Agent，但每一步都能灰度回退。
+目标：从受控低风险自动化走向可托管 Agent，但每一步都能灰度回退。
 
 阶段：
 
-1. Advisor 稳定推荐。
-2. 低风险动作半自动。
-3. 人确认的打地辅助。
+1. 观察、状态、决策与 trace 基线稳定。
+2. 低风险动作自动闭环。
+3. 人工确认的打地辅助。
 4. 低级地自动打地闭环。
 5. 队伍调度、征兵、补体力联动。
 6. 长时托管。
 
-高风险动作如 `attack_land`、`transfer_main_lineup`、`abandon_land`，在没有地图识别、战报识别、队伍状态 verifier 前，不开放全自动。
+高风险动作如 `attack_land`、`transfer_main_lineup_to_team`、`abandon_land`，在没有地图识别、战报识别、队伍状态 verifier 前，不开放全自动。
 
 ## 下一批 PR 建议
 
