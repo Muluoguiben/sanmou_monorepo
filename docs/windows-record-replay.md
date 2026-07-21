@@ -80,6 +80,15 @@ PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay \
   --reviews-root <review-root> \
   --artifacts-root <closed-development-artifact-root>
 
+# 开发侧只检查无标签 prediction submission；普通 CLI 没有 oracle 参数
+PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay \
+  inspect-holdout-submission <submission.json>
+
+# 外部 evaluator 返回签名聚合后，开发侧只验公钥/哈希/聚合，不读取标签
+PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay \
+  verify-holdout-attestation <submission.json> <attestation.json> \
+  --trust-policy <public-trust-policy.json>
+
 # 严格校验和人工隐私复核后，再从未篡改的 session 生成候选
 PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay compile <session-dir>
 
@@ -101,7 +110,9 @@ Annotation 还必须绑定 `manifest.json` 精确字节 SHA、完整 input event
 
 单个 Dataset audit 仍只证明 registry 内的精确身份/哈希去重与临时样本下限。新增 `audit-corpus` 要求 registry 与 development artifact 分别占用一个 `closed_root_all_regular_files` 专用根：它绑定每个文件哈希、拒绝未声明文件，并跨 registry 去重 session/event/capture-group/annotation/encoded-frame/source-PNG 身份；开发产物的 direct source 必须与 registry 声明一致、只能来自 generation，依赖必须组成无环且内容寻址的闭包。因此 corpus report 可在明确的 `configured_closed_artifacts_root` 范围内报告 catalog 与 lineage 已验证。
 
-这个范围不能发现根目录外的开发产物，也没有 evaluator-only holdout oracle、视觉近重复、结构化 start-state、human-capture provenance、父目录句柄级并发替换 hardening 或真实 image-model eval；`independent_eval_ready` 因而始终为 false，`coverage_ready=true` 也不能写成“独立 eval 已通过”。
+这个范围不能发现根目录外的开发产物。新增 external holdout 协议把无标签 submission 与 oracle 分离：普通 CLI 没有 oracle 参数；独立 evaluator 才能读取 sealed oracle、approved annotations 与 Ed25519 私钥，并且只发布绑定 exact submission/trust-policy hash 的签名聚合。oracle 必须覆盖全部 countable holdout 且与 annotation 一致；持久化 ledger 对同一 evaluator key/catalog 只允许一次聚合发布，降低小样本反复查询反推出标签的风险。签名验证报告可以在该外部信任范围内写 `holdout_oracle_verified=true`，但 corpus-only report 不变。
+
+代码无法从同一 Python 进程证明 evaluator 主机/账号/ACL 确实隔离，Windows 私钥 ACL 也尚无机器证明；视觉近重复、结构化 start-state、human-capture provenance、父目录句柄级并发替换 hardening 和真实 image-model execution receipt 仍缺失。因此所有现有报告继续保持 `independent_eval_ready=false`，`coverage_ready=true` 或 oracle attestation 均不能单独写成“独立 eval 已通过”。oracle、私钥和 ledger 禁止进入 development artifact root、git 或模型上下文。
 
 Vision secondary parser 返回 unknown 时不会写入可信空筛选或候选；`unknown_domains` 会随 observation、Advisor report、loop log 和 trace 持久化，供后续 eval 区分“未运行”和“运行但不确定”。
 
@@ -135,7 +146,7 @@ Vision secondary parser 返回 unknown 时不会写入可信空筛选或候选�
 - safety：打印文本、窗口外输入、高风险或未知 target 始终零 dispatch；
 - compiler：人工演示永远不能被提升为 runtime success；
 - skill：由未参与实现的 fresh agent 在 holdout session 上 forward-test。
-- 数据治理：已完成专用封闭根内的内容寻址开发产物来源闭包；继续补 evaluator-only oracle、视觉近重复、结构化 start-state、human provenance 和平台句柄级 TOCTOU hardening。
+- 数据治理：已完成专用封闭根内的内容寻址开发产物来源闭包，并落地无标签 submission → external sealed oracle scorer → Ed25519 aggregate attestation → 普通侧验签的协议与单次发布 ledger；真实 evaluator key/ACL/oracle 尚未建立。继续补视觉近重复、结构化 start-state、human provenance、image-model execution receipt 和平台句柄级 TOCTOU hardening。
 
 ### M3：Reviewed Semantic Replay
 

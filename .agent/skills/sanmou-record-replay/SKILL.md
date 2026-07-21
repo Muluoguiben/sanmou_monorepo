@@ -102,6 +102,16 @@ image-model gates unverified, so `independent_eval_ready` remains false. Read
 [corpus-catalog-schema.md](references/corpus-catalog-schema.md) before creating a
 catalog or interpreting this scoped proof.
 
+For a frozen coverage-ready corpus, keep predictions and labels in separate
+trust domains. The ordinary CLI may inspect an unlabeled submission and verify
+an aggregate Ed25519 attestation, but it must never receive an oracle path. Run
+the scorer only through the dedicated external evaluator entrypoint with a
+sealed oracle, approved reviews, private key, and persistent one-submission
+ledger. Never place oracle labels or the private key in git, development
+artifacts, chat/model context, or the predictor process. Read
+[holdout-eval-protocol.md](references/holdout-eval-protocol.md) before preparing,
+scoring, or interpreting a holdout submission.
+
 ## Compile Review-Only Candidates
 
 Compile only after strict validation and manual privacy review succeed:

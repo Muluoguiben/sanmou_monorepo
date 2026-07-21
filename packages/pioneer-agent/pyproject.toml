@@ -13,6 +13,7 @@ dependencies = [
   "PyYAML>=6.0,<7",
   "google-genai>=1.0",
   "Pillow>=10.0",
+  "cryptography>=42,<47",
   "requests>=2.31,<3",
   "fastapi>=0.110,<1",
   "uvicorn[standard]>=0.27,<1",

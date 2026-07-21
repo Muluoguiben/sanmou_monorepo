@@ -22,6 +22,10 @@ from pioneer_agent.record_replay.annotations import (
 from pioneer_agent.record_replay.compiler import compile_recording
 from pioneer_agent.record_replay.corpus_catalog import audit_corpus_catalog
 from pioneer_agent.record_replay.dataset_registry import audit_dataset_registry
+from pioneer_agent.record_replay.holdout_eval import (
+    summarize_holdout_submission,
+    verify_holdout_attestation,
+)
 from pioneer_agent.record_replay.replayer import build_replay_plan
 from pioneer_agent.record_replay.session_store import load_recording
 from pioneer_agent.record_replay.validation import validate_workflow_name
@@ -91,6 +95,22 @@ def build_parser() -> argparse.ArgumentParser:
     audit_corpus_parser.add_argument("--reviews-root", type=user_path, required=True)
     audit_corpus_parser.add_argument("--artifacts-root", type=user_path, required=True)
 
+    inspect_submission_parser = subparsers.add_parser(
+        "inspect-holdout-submission",
+        help="Inspect an unlabeled external-evaluator submission without an oracle.",
+    )
+    inspect_submission_parser.add_argument("submission", type=user_path)
+
+    verify_attestation_parser = subparsers.add_parser(
+        "verify-holdout-attestation",
+        help="Verify a signed aggregate holdout result without opening oracle labels.",
+    )
+    verify_attestation_parser.add_argument("submission", type=user_path)
+    verify_attestation_parser.add_argument("attestation", type=user_path)
+    verify_attestation_parser.add_argument(
+        "--trust-policy", type=user_path, required=True
+    )
+
     replay_parser = subparsers.add_parser("replay", help="Build an offline dry-run replay plan.")
     replay_parser.add_argument("session", type=user_path)
     replay_parser.add_argument(
@@ -154,6 +174,18 @@ def main(argv: list[str] | None = None) -> int:
                 sessions_root=args.sessions_root,
                 reviews_root=args.reviews_root,
                 artifacts_root=args.artifacts_root,
+            )
+            _print_json(report.model_dump(mode="json"))
+            return 0
+        if args.command == "inspect-holdout-submission":
+            summary = summarize_holdout_submission(args.submission)
+            _print_json(summary.model_dump(mode="json"))
+            return 0
+        if args.command == "verify-holdout-attestation":
+            report = verify_holdout_attestation(
+                submission_path=args.submission,
+                attestation_path=args.attestation,
+                trust_policy_path=args.trust_policy,
             )
             _print_json(report.model_dump(mode="json"))
             return 0

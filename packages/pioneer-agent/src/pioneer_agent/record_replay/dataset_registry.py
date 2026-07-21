@@ -9,6 +9,7 @@ may be considered.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime
 import hashlib
 import json
 import os
@@ -31,6 +32,7 @@ from pioneer_agent.record_replay.annotations import (
     RecordingAnnotationManifest,
     RiskClass,
     SampleLabel,
+    TransitionOutcome,
     expected_transition_outcome,
     load_recording_annotation,
     read_regular_file,
@@ -274,6 +276,8 @@ class DatasetSessionIdentity:
     annotation_sha256: str
     encoded_frame_sha256s: tuple[str, ...]
     source_png_sha256s: tuple[str, ...]
+    expected_transition_outcome: TransitionOutcome | None
+    annotation_reviewed_at: datetime
 
 
 @dataclass(frozen=True)
@@ -477,6 +481,12 @@ def audit_dataset_registry_bundle(
             )
 
         split_by_session[entry.session_id] = entry.split
+        review_times = (
+            annotation.semantic_review.reviewed_at,
+            annotation.privacy_review.reviewed_at,
+        )
+        if any(value is None for value in review_times):
+            raise ValueError("approved annotation is missing a review timestamp")
         session_identities.append(
             DatasetSessionIdentity(
                 session_id=entry.session_id,
@@ -490,6 +500,12 @@ def audit_dataset_registry_bundle(
                 ),
                 source_png_sha256s=tuple(
                     sorted({frame.source_png_sha256 for frame in recording.frames})
+                ),
+                expected_transition_outcome=expected_transition_outcome(
+                    annotation.sample_label
+                ),
+                annotation_reviewed_at=max(
+                    value for value in review_times if value is not None
                 ),
             )
         )

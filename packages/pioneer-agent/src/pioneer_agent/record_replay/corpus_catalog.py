@@ -279,6 +279,15 @@ class LoadedCorpusCatalog:
 
 
 @dataclass(frozen=True)
+class AuditedCorpusCatalog:
+    """A fully audited corpus plus evaluator-internal registry evidence."""
+
+    loaded_catalog: LoadedCorpusCatalog
+    report: CorpusCatalogAuditReport
+    audited_registries: tuple[AuditedDatasetRegistry, ...]
+
+
+@dataclass(frozen=True)
 class _InventoryIdentity:
     device: int
     inode: int
@@ -312,6 +321,25 @@ def audit_corpus_catalog(
     reviews_root: Path,
     artifacts_root: Path,
 ) -> CorpusCatalogAuditReport:
+    """Audit a corpus and return its no-authority aggregate report."""
+
+    return audit_corpus_catalog_bundle(
+        catalog_path,
+        registries_root=registries_root,
+        sessions_root=sessions_root,
+        reviews_root=reviews_root,
+        artifacts_root=artifacts_root,
+    ).report
+
+
+def audit_corpus_catalog_bundle(
+    catalog_path: Path,
+    *,
+    registries_root: Path,
+    sessions_root: Path,
+    reviews_root: Path,
+    artifacts_root: Path,
+) -> AuditedCorpusCatalog:
     """Audit a closed registry inventory and a closed development-artifact DAG."""
 
     loaded = load_corpus_catalog(catalog_path)
@@ -520,7 +548,7 @@ def audit_corpus_catalog(
         catalog=catalog,
         audited_registries=audited_registries,
     )
-    return CorpusCatalogAuditReport(
+    report = CorpusCatalogAuditReport(
         catalog_sha256=loaded.sha256,
         corpus_id=catalog.corpus_id,
         catalog_id=catalog.catalog_id,
@@ -533,6 +561,11 @@ def audit_corpus_catalog(
             dataset_summaries, key=lambda summary: summary.dataset_id
         ),
         blockers=blockers,
+    )
+    return AuditedCorpusCatalog(
+        loaded_catalog=loaded,
+        report=report,
+        audited_registries=tuple(audited_registries),
     )
 
 

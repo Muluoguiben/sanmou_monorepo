@@ -54,6 +54,10 @@ Exact hash separation is necessary but not sufficient for visual independence.
 `coverage_ready=true` remains only the provisional policy floor across frozen
 registries, not an independent-eval result.
 
+The separate external protocol in `holdout-eval-protocol.md` can verify a
+signed aggregate oracle attestation for a frozen coverage-ready catalog. That
+does not change this catalog-only report and does not expose oracle labels here.
+
 ## Catalog identity and roots
 
 The catalog contains one `corpus_id`, `catalog_id`, status, registry references,
