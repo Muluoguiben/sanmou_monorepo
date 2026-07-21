@@ -263,6 +263,31 @@ class LoadedDatasetRegistry:
 
 
 @dataclass(frozen=True)
+class DatasetSessionIdentity:
+    """Exact identities needed for a corpus-wide leakage audit."""
+
+    session_id: str
+    split: DatasetSplit
+    source_events_sha256: str
+    capture_group_id: str
+    annotation_id: str
+    annotation_sha256: str
+    encoded_frame_sha256s: tuple[str, ...]
+    source_png_sha256s: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class AuditedDatasetRegistry:
+    """One strictly audited registry plus its non-sensitive identity inventory."""
+
+    loaded_registry: LoadedDatasetRegistry
+    report: DatasetAuditReport
+    session_identities: tuple[DatasetSessionIdentity, ...]
+    events_bytes: int
+    frame_bytes: int
+
+
+@dataclass(frozen=True)
 class _AuditedSample:
     session_id: str
     split: DatasetSplit
@@ -321,6 +346,23 @@ def audit_dataset_registry(
     sessions_root: Path,
     reviews_root: Path,
 ) -> DatasetAuditReport:
+    """Audit one registry and return its no-authority coverage report."""
+
+    return audit_dataset_registry_bundle(
+        registry_path,
+        sessions_root=sessions_root,
+        reviews_root=reviews_root,
+    ).report
+
+
+def audit_dataset_registry_bundle(
+    registry_path: Path,
+    *,
+    sessions_root: Path,
+    reviews_root: Path,
+    max_corpus_events_bytes: int = MAX_CORPUS_EVENTS_BYTES,
+    max_corpus_frame_bytes: int = MAX_CORPUS_FRAME_BYTES,
+) -> AuditedDatasetRegistry:
     """Audit immutable inputs and report provisional dataset coverage.
 
     Integrity, binding, privacy, or leakage failures raise ``ValueError``.
@@ -329,6 +371,10 @@ def audit_dataset_registry(
 
     loaded_registry = load_dataset_registry(registry_path)
     registry = loaded_registry.registry
+    if max_corpus_events_bytes < 0 or max_corpus_frame_bytes < 0:
+        raise ValueError("dataset audit byte limits cannot be negative")
+    events_limit = min(max_corpus_events_bytes, MAX_CORPUS_EVENTS_BYTES)
+    frame_limit = min(max_corpus_frame_bytes, MAX_CORPUS_FRAME_BYTES)
     sessions_root = _resolve_directory_root(sessions_root, label="sessions root")
     reviews_root = _resolve_directory_root(reviews_root, label="reviews root")
 
@@ -339,6 +385,7 @@ def audit_dataset_registry(
     seen_source_frames: dict[str, str] = {}
     seen_capture_groups: dict[str, str] = {}
     samples: list[_AuditedSample] = []
+    session_identities: list[DatasetSessionIdentity] = []
     split_by_session: dict[str, DatasetSplit] = {}
     corpus_events_bytes = 0
     corpus_frame_bytes = 0
@@ -349,10 +396,10 @@ def audit_dataset_registry(
         recording, event_bytes, frame_bytes = _load_hardened_recording(
             session_root,
             remaining_corpus_events_bytes=(
-                MAX_CORPUS_EVENTS_BYTES - corpus_events_bytes
+                events_limit - corpus_events_bytes
             ),
             remaining_corpus_frame_bytes=(
-                MAX_CORPUS_FRAME_BYTES - corpus_frame_bytes
+                frame_limit - corpus_frame_bytes
             ),
         )
         corpus_events_bytes += event_bytes
@@ -430,6 +477,22 @@ def audit_dataset_registry(
             )
 
         split_by_session[entry.session_id] = entry.split
+        session_identities.append(
+            DatasetSessionIdentity(
+                session_id=entry.session_id,
+                split=entry.split,
+                source_events_sha256=entry.source_events_sha256,
+                capture_group_id=entry.capture_group_id,
+                annotation_id=annotation.annotation_id,
+                annotation_sha256=loaded_annotation.sha256,
+                encoded_frame_sha256s=tuple(
+                    sorted({frame.sha256 for frame in recording.frames})
+                ),
+                source_png_sha256s=tuple(
+                    sorted({frame.source_png_sha256 for frame in recording.frames})
+                ),
+            )
+        )
         samples.append(
             _AuditedSample(
                 session_id=entry.session_id,
@@ -461,7 +524,7 @@ def audit_dataset_registry(
         generation_samples=generation_samples,
         holdout_samples=holdout_samples,
     )
-    return DatasetAuditReport(
+    report = DatasetAuditReport(
         registry_sha256=loaded_registry.sha256,
         corpus_id=registry.corpus_id,
         dataset_id=registry.dataset_id,
@@ -472,6 +535,13 @@ def audit_dataset_registry(
         generation=generation,
         holdout=holdout,
         blockers=blockers,
+    )
+    return AuditedDatasetRegistry(
+        loaded_registry=loaded_registry,
+        report=report,
+        session_identities=tuple(session_identities),
+        events_bytes=corpus_events_bytes,
+        frame_bytes=corpus_frame_bytes,
     )
 
 

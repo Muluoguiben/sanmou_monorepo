@@ -23,6 +23,7 @@ from pioneer_agent.record_replay.annotations import (
     SampleLabel,
     build_annotation_template,
 )
+from pioneer_agent.record_replay.corpus_catalog import audit_corpus_catalog
 from pioneer_agent.record_replay.dataset_registry import (
     DatasetRegistry,
     audit_dataset_registry,
@@ -459,6 +460,57 @@ def _registry(
 
 def _write_registry(root: Path, data: dict[str, object]) -> Path:
     path = root / "registry.json"
+    path.write_text(
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    return path
+
+
+def _write_named_registry(
+    root: Path, name: str, data: dict[str, object]
+) -> Path:
+    path = root / name
+    path.write_text(
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    return path
+
+
+def _file_sha256(path: Path) -> str:
+    return sha256(path.read_bytes()).hexdigest()
+
+
+def _write_catalog(
+    base: Path,
+    *,
+    registry_paths: list[Path],
+    artifacts: list[dict[str, object]] | None = None,
+    catalog_status: str = "collecting",
+) -> Path:
+    data = {
+        "schema_version": 1,
+        "artifact_type": "record_replay_corpus_catalog",
+        "corpus_id": "sanmou-human-recordings-v1",
+        "catalog_id": "sanmou-record-replay-corpus-v1",
+        "catalog_status": catalog_status,
+        "registry_inventory_policy": "closed_root_all_regular_files",
+        "development_artifact_inventory_policy": "closed_root_all_regular_files",
+        "registries": [
+            {
+                "dataset_id": json.loads(path.read_text(encoding="utf-8"))[
+                    "dataset_id"
+                ],
+                "path": path.name,
+                "sha256": _file_sha256(path),
+            }
+            for path in registry_paths
+        ],
+        "development_artifacts": artifacts or [],
+        "execution_authority": "none",
+        "live_dispatch_allowed": False,
+        "knowledge_publication_allowed": False,
+    }
+    path = base / "catalog.json"
     path.write_text(
         json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
@@ -1245,6 +1297,300 @@ class RecordReplayDatasetRegistryTests(unittest.TestCase):
 
             self.assertFalse(report.coverage_ready)
             self.assertIn("dataset_is_retired", report.blockers)
+
+
+class RecordReplayCorpusCatalogTests(unittest.TestCase):
+    def test_closed_catalog_verifies_cross_registry_and_declared_lineage_only(self) -> None:
+        with TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            sessions_root, reviews_root = _roots(base)
+            registries_root = base / "registries"
+            artifacts_root = base / "artifacts"
+            registries_root.mkdir()
+            artifacts_root.mkdir()
+            first = _add_sample(
+                sessions_root,
+                reviews_root,
+                seed=1,
+                split="generation",
+                label=SampleLabel.POSITIVE,
+            )
+            second = _add_sample(
+                sessions_root,
+                reviews_root,
+                seed=2,
+                split="generation",
+                label=SampleLabel.NO_CHANGE,
+            )
+            first_registry_data = _registry(
+                [first],
+                development_artifacts=[
+                    {
+                        "artifact_id": "map-filter-features-v1",
+                        "source_session_ids": [first.session_id],
+                    }
+                ],
+            )
+            second_registry_data = _registry([second])
+            second_registry_data["dataset_id"] = "map-filter-apply-negatives-v1"
+            first_registry = _write_named_registry(
+                registries_root, "positive.json", first_registry_data
+            )
+            second_registry = _write_named_registry(
+                registries_root, "negative.json", second_registry_data
+            )
+            feature_path = artifacts_root / "features.json"
+            feature_path.write_text('{"kind":"features"}\n', encoding="utf-8")
+            plan_path = artifacts_root / "plan.json"
+            plan_path.write_text('{"kind":"offline-plan"}\n', encoding="utf-8")
+            catalog_path = _write_catalog(
+                base,
+                registry_paths=[first_registry, second_registry],
+                artifacts=[
+                    {
+                        "artifact_id": "map-filter-features-v1",
+                        "path": feature_path.name,
+                        "sha256": _file_sha256(feature_path),
+                        "source_session_ids": [first.session_id],
+                        "dependency_artifact_ids": [],
+                    },
+                    {
+                        "artifact_id": "map-filter-offline-plan-v1",
+                        "path": plan_path.name,
+                        "sha256": _file_sha256(plan_path),
+                        "source_session_ids": [],
+                        "dependency_artifact_ids": ["map-filter-features-v1"],
+                    },
+                ],
+            )
+
+            report = audit_corpus_catalog(
+                catalog_path,
+                registries_root=registries_root,
+                sessions_root=sessions_root,
+                reviews_root=reviews_root,
+                artifacts_root=artifacts_root,
+            )
+
+            self.assertTrue(report.integrity_valid)
+            self.assertTrue(report.registry_internal_leak_free)
+            self.assertTrue(report.cross_registry_exact_leak_free)
+            self.assertTrue(report.corpus_catalog_verified)
+            self.assertTrue(report.registry_inventory_closed)
+            self.assertTrue(report.development_artifact_inventory_closed)
+            self.assertTrue(report.development_lineage_verified)
+            self.assertEqual(
+                report.development_lineage_scope,
+                "configured_closed_artifacts_root",
+            )
+            self.assertFalse(report.filesystem_race_hardened)
+            self.assertFalse(report.holdout_oracle_verified)
+            self.assertFalse(report.image_model_exercised)
+            self.assertFalse(report.independent_eval_ready)
+            self.assertFalse(report.coverage_ready)
+            self.assertEqual(report.registry_count, 2)
+            self.assertEqual(report.session_count, 2)
+            self.assertEqual(report.development_artifact_count, 2)
+            self.assertEqual(report.execution_authority, "none")
+            self.assertFalse(report.live_dispatch_allowed)
+            serialized = report.model_dump_json()
+            self.assertNotIn(str(base), serialized)
+            self.assertIn("holdout_oracle_unverified", report.blockers)
+
+    def test_cli_audits_corpus_without_exposing_local_paths(self) -> None:
+        with TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            sessions_root, reviews_root = _roots(base)
+            registries_root = base / "registries"
+            artifacts_root = base / "artifacts"
+            registries_root.mkdir()
+            artifacts_root.mkdir()
+            sample = _add_sample(
+                sessions_root,
+                reviews_root,
+                seed=1,
+                split="generation",
+                label=SampleLabel.POSITIVE,
+            )
+            registry_path = _write_named_registry(
+                registries_root, "dataset.json", _registry([sample])
+            )
+            catalog_path = _write_catalog(
+                base, registry_paths=[registry_path]
+            )
+            stdout = StringIO()
+
+            with redirect_stdout(stdout):
+                result = main(
+                    [
+                        "audit-corpus",
+                        str(catalog_path),
+                        "--registries-root",
+                        str(registries_root),
+                        "--sessions-root",
+                        str(sessions_root),
+                        "--reviews-root",
+                        str(reviews_root),
+                        "--artifacts-root",
+                        str(artifacts_root),
+                    ]
+                )
+
+            self.assertEqual(result, 0)
+            report = json.loads(stdout.getvalue())
+            self.assertTrue(report["corpus_catalog_verified"])
+            self.assertTrue(report["development_lineage_verified"])
+            self.assertFalse(report["independent_eval_ready"])
+            self.assertEqual(report["execution_authority"], "none")
+            self.assertNotIn(str(base), stdout.getvalue())
+
+    def test_cross_registry_exact_frame_clone_is_rejected(self) -> None:
+        with TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            sessions_root, reviews_root = _roots(base)
+            registries_root = base / "registries"
+            artifacts_root = base / "artifacts"
+            registries_root.mkdir()
+            artifacts_root.mkdir()
+            first = _add_sample(
+                sessions_root,
+                reviews_root,
+                seed=1,
+                split="generation",
+                label=SampleLabel.POSITIVE,
+                encoded_seed=99,
+                source_namespace="first-source",
+            )
+            second = _add_sample(
+                sessions_root,
+                reviews_root,
+                seed=2,
+                split="holdout",
+                label=SampleLabel.POSITIVE,
+                encoded_seed=99,
+                source_namespace="second-source",
+            )
+            first_registry = _write_named_registry(
+                registries_root, "generation.json", _registry([first])
+            )
+            second_registry_data = _registry([second])
+            second_registry_data["dataset_id"] = "map-filter-holdout-v1"
+            second_registry = _write_named_registry(
+                registries_root, "holdout.json", second_registry_data
+            )
+            catalog_path = _write_catalog(
+                base, registry_paths=[first_registry, second_registry]
+            )
+
+            with self.assertRaisesRegex(
+                ValueError, "duplicate encoded frame SHA256 across corpus entries"
+            ):
+                audit_corpus_catalog(
+                    catalog_path,
+                    registries_root=registries_root,
+                    sessions_root=sessions_root,
+                    reviews_root=reviews_root,
+                    artifacts_root=artifacts_root,
+                )
+
+    def test_closed_roots_reject_undeclared_files(self) -> None:
+        with TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            sessions_root, reviews_root = _roots(base)
+            registries_root = base / "registries"
+            artifacts_root = base / "artifacts"
+            registries_root.mkdir()
+            artifacts_root.mkdir()
+            sample = _add_sample(
+                sessions_root,
+                reviews_root,
+                seed=1,
+                split="generation",
+                label=SampleLabel.POSITIVE,
+            )
+            registry_path = _write_named_registry(
+                registries_root, "dataset.json", _registry([sample])
+            )
+            catalog_path = _write_catalog(
+                base, registry_paths=[registry_path]
+            )
+            (artifacts_root / "undeclared.json").write_text(
+                "{}\n", encoding="utf-8"
+            )
+
+            with self.assertRaisesRegex(
+                ValueError,
+                "development artifact inventory does not exactly match",
+            ):
+                audit_corpus_catalog(
+                    catalog_path,
+                    registries_root=registries_root,
+                    sessions_root=sessions_root,
+                    reviews_root=reviews_root,
+                    artifacts_root=artifacts_root,
+                )
+
+    def test_development_lineage_cycle_is_rejected(self) -> None:
+        with TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            sessions_root, reviews_root = _roots(base)
+            registries_root = base / "registries"
+            artifacts_root = base / "artifacts"
+            registries_root.mkdir()
+            artifacts_root.mkdir()
+            sample = _add_sample(
+                sessions_root,
+                reviews_root,
+                seed=1,
+                split="generation",
+                label=SampleLabel.POSITIVE,
+            )
+            registry_path = _write_named_registry(
+                registries_root,
+                "dataset.json",
+                _registry(
+                    [sample],
+                    development_artifacts=[
+                        {
+                            "artifact_id": "artifact-a",
+                            "source_session_ids": [sample.session_id],
+                        }
+                    ],
+                ),
+            )
+            artifact_a = artifacts_root / "a.json"
+            artifact_b = artifacts_root / "b.json"
+            artifact_a.write_text('{"artifact":"a"}\n', encoding="utf-8")
+            artifact_b.write_text('{"artifact":"b"}\n', encoding="utf-8")
+            catalog_path = _write_catalog(
+                base,
+                registry_paths=[registry_path],
+                artifacts=[
+                    {
+                        "artifact_id": "artifact-a",
+                        "path": artifact_a.name,
+                        "sha256": _file_sha256(artifact_a),
+                        "source_session_ids": [sample.session_id],
+                        "dependency_artifact_ids": ["artifact-b"],
+                    },
+                    {
+                        "artifact_id": "artifact-b",
+                        "path": artifact_b.name,
+                        "sha256": _file_sha256(artifact_b),
+                        "source_session_ids": [],
+                        "dependency_artifact_ids": ["artifact-a"],
+                    },
+                ],
+            )
+
+            with self.assertRaisesRegex(ValueError, "lineage contains a cycle"):
+                audit_corpus_catalog(
+                    catalog_path,
+                    registries_root=registries_root,
+                    sessions_root=sessions_root,
+                    reviews_root=reviews_root,
+                    artifacts_root=artifacts_root,
+                )
 
 
 if __name__ == "__main__":

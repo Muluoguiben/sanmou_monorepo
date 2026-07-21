@@ -20,6 +20,7 @@ from pioneer_agent.record_replay.annotations import (
     load_recording_annotation,
 )
 from pioneer_agent.record_replay.compiler import compile_recording
+from pioneer_agent.record_replay.corpus_catalog import audit_corpus_catalog
 from pioneer_agent.record_replay.dataset_registry import audit_dataset_registry
 from pioneer_agent.record_replay.replayer import build_replay_plan
 from pioneer_agent.record_replay.session_store import load_recording
@@ -78,6 +79,18 @@ def build_parser() -> argparse.ArgumentParser:
     audit_dataset_parser.add_argument("--sessions-root", type=user_path, required=True)
     audit_dataset_parser.add_argument("--reviews-root", type=user_path, required=True)
 
+    audit_corpus_parser = subparsers.add_parser(
+        "audit-corpus",
+        help="Audit a closed multi-registry corpus and development-artifact lineage.",
+    )
+    audit_corpus_parser.add_argument("catalog", type=user_path)
+    audit_corpus_parser.add_argument(
+        "--registries-root", type=user_path, required=True
+    )
+    audit_corpus_parser.add_argument("--sessions-root", type=user_path, required=True)
+    audit_corpus_parser.add_argument("--reviews-root", type=user_path, required=True)
+    audit_corpus_parser.add_argument("--artifacts-root", type=user_path, required=True)
+
     replay_parser = subparsers.add_parser("replay", help="Build an offline dry-run replay plan.")
     replay_parser.add_argument("session", type=user_path)
     replay_parser.add_argument(
@@ -131,6 +144,16 @@ def main(argv: list[str] | None = None) -> int:
                 args.registry,
                 sessions_root=args.sessions_root,
                 reviews_root=args.reviews_root,
+            )
+            _print_json(report.model_dump(mode="json"))
+            return 0
+        if args.command == "audit-corpus":
+            report = audit_corpus_catalog(
+                args.catalog,
+                registries_root=args.registries_root,
+                sessions_root=args.sessions_root,
+                reviews_root=args.reviews_root,
+                artifacts_root=args.artifacts_root,
             )
             _print_json(report.model_dump(mode="json"))
             return 0

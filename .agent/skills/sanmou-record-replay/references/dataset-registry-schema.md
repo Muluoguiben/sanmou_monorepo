@@ -31,6 +31,11 @@ evaluator-only oracle, structured start-state fingerprint, visual-near-duplicate
 check, and platform-specific parent-directory-handle-pinned corpus walk exist,
 never describe this audit as a leakage-proof independent eval.
 
+`audit-corpus` can now close the first two gaps inside explicitly configured,
+closed registry/artifact roots. That scoped result is documented in
+`corpus-catalog-schema.md`; it does not change the false fields in this
+single-registry report and still does not make the corpus independent-eval ready.
+
 ## Registry identity and split unit
 
 The registry names one `corpus_id`, `dataset_id`, canonical `workflow_id`, risk

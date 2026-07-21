@@ -83,6 +83,25 @@ model gates as unverified. Read
 [dataset-registry-schema.md](references/dataset-registry-schema.md) before using
 or interpreting the report.
 
+After every registry and development artifact has been placed in its own
+dedicated closed root, audit the canonical corpus separately:
+
+```bash
+PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay \
+  audit-corpus <catalog.json> \
+  --registries-root <closed-registry-root> \
+  --sessions-root <raw-sessions-root> \
+  --reviews-root <review-root> \
+  --artifacts-root <closed-development-artifact-root>
+```
+
+This closes exact cross-registry identity leakage and content-addressed lineage
+only inside the configured roots. It still leaves oracle, visual-near-duplicate,
+structured start-state, human-provenance, handle-pinned filesystem, and real
+image-model gates unverified, so `independent_eval_ready` remains false. Read
+[corpus-catalog-schema.md](references/corpus-catalog-schema.md) before creating a
+catalog or interpreting this scoped proof.
+
 ## Compile Review-Only Candidates
 
 Compile only after strict validation and manual privacy review succeed:
