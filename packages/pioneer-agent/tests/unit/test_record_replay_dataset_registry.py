@@ -27,6 +27,7 @@ from pioneer_agent.record_replay.corpus_catalog import audit_corpus_catalog
 from pioneer_agent.record_replay.dataset_registry import (
     DatasetRegistry,
     audit_dataset_registry,
+    audit_dataset_registry_bundle,
     load_dataset_registry,
 )
 from pioneer_agent.record_replay.models import (
@@ -88,10 +89,12 @@ def _geometry(width: int) -> CaptureGeometry:
     )
 
 
-def _png_bytes(seed: int) -> bytes:
+def _png_bytes(seed: int, *, compress_level: int = 6) -> bytes:
     buffer = BytesIO()
     color = ((seed * 17) % 256, (seed * 37) % 256, (seed * 67) % 256)
-    Image.new("RGB", (10, 10), color).save(buffer, format="PNG")
+    Image.new("RGB", (10, 10), color).save(
+        buffer, format="PNG", compress_level=compress_level
+    )
     return buffer.getvalue()
 
 
@@ -132,6 +135,7 @@ def _create_recording(
     width: int = 100,
     encoded_seed: int | None = None,
     source_namespace: str | None = None,
+    png_compress_level: int = 6,
 ) -> tuple[Path, LoadedRecording]:
     session_id = str(uuid4())
     root = sessions_root / session_id
@@ -140,9 +144,9 @@ def _create_recording(
     geometry = _geometry(width)
     payload_seed = seed if encoded_seed is None else encoded_seed
     payloads = [
-        _png_bytes(payload_seed * 10 + 1),
-        _png_bytes(payload_seed * 10 + 2),
-        _png_bytes(payload_seed * 10 + 3),
+        _png_bytes(payload_seed * 10 + 1, compress_level=png_compress_level),
+        _png_bytes(payload_seed * 10 + 2, compress_level=png_compress_level),
+        _png_bytes(payload_seed * 10 + 3, compress_level=png_compress_level),
     ]
     relatives = [
         "frames/000000-start.png",
@@ -387,6 +391,7 @@ def _add_sample(
     encoded_seed: int | None = None,
     source_namespace: str | None = None,
     annotation_id: str | None = None,
+    png_compress_level: int = 6,
 ) -> _Sample:
     session_root, recording = _create_recording(
         sessions_root,
@@ -394,6 +399,7 @@ def _add_sample(
         width=width,
         encoded_seed=encoded_seed,
         source_namespace=source_namespace,
+        png_compress_level=png_compress_level,
     )
     session_id = recording.manifest.session_id
     capture_group_id = capture_group_id or f"capture-{session_id}"
@@ -1166,6 +1172,27 @@ class RecordReplayDatasetRegistryTests(unittest.TestCase):
                     reviews_root=reviews_root,
                 )
 
+    def test_decoded_pixel_budget_is_checked_before_visual_normalization(self) -> None:
+        with TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            sessions_root, reviews_root = _roots(base)
+            sample = _add_sample(
+                sessions_root,
+                reviews_root,
+                seed=1,
+                split="generation",
+                label=SampleLabel.POSITIVE,
+            )
+            registry_path = _write_registry(base, _registry([sample]))
+
+            with self.assertRaisesRegex(ValueError, "decoded pixel limit"):
+                audit_dataset_registry_bundle(
+                    registry_path,
+                    sessions_root=sessions_root,
+                    reviews_root=reviews_root,
+                    max_corpus_decoded_pixels=1,
+                )
+
     def test_review_path_escape_and_unsafe_registry_values_are_rejected(self) -> None:
         with TemporaryDirectory() as tmp:
             base = Path(tmp)
@@ -1379,6 +1406,12 @@ class RecordReplayCorpusCatalogTests(unittest.TestCase):
             self.assertTrue(report.registry_inventory_closed)
             self.assertTrue(report.development_artifact_inventory_closed)
             self.assertTrue(report.development_lineage_verified)
+            self.assertTrue(report.visual_near_duplicate_checked)
+            self.assertEqual(
+                report.visual_near_duplicate_algorithm,
+                "sanmou-multisignal-v1",
+            )
+            self.assertEqual(report.visual_frame_count, 6)
             self.assertEqual(
                 report.development_lineage_scope,
                 "configured_closed_artifacts_root",
@@ -1396,6 +1429,7 @@ class RecordReplayCorpusCatalogTests(unittest.TestCase):
             serialized = report.model_dump_json()
             self.assertNotIn(str(base), serialized)
             self.assertIn("holdout_oracle_unverified", report.blockers)
+            self.assertNotIn("visual_near_duplicate_unchecked", report.blockers)
 
     def test_cli_audits_corpus_without_exposing_local_paths(self) -> None:
         with TemporaryDirectory() as tmp:
@@ -1485,6 +1519,55 @@ class RecordReplayCorpusCatalogTests(unittest.TestCase):
             with self.assertRaisesRegex(
                 ValueError, "duplicate encoded frame SHA256 across corpus entries"
             ):
+                audit_corpus_catalog(
+                    catalog_path,
+                    registries_root=registries_root,
+                    sessions_root=sessions_root,
+                    reviews_root=reviews_root,
+                    artifacts_root=artifacts_root,
+                )
+
+    def test_cross_registry_reencoded_visual_clone_is_rejected(self) -> None:
+        with TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            sessions_root, reviews_root = _roots(base)
+            registries_root = base / "registries"
+            artifacts_root = base / "artifacts"
+            registries_root.mkdir()
+            artifacts_root.mkdir()
+            first = _add_sample(
+                sessions_root,
+                reviews_root,
+                seed=1,
+                split="generation",
+                label=SampleLabel.POSITIVE,
+                encoded_seed=77,
+                source_namespace="first-source",
+                png_compress_level=1,
+            )
+            second = _add_sample(
+                sessions_root,
+                reviews_root,
+                seed=2,
+                split="holdout",
+                label=SampleLabel.POSITIVE,
+                encoded_seed=77,
+                source_namespace="second-source",
+                png_compress_level=9,
+            )
+            first_registry = _write_named_registry(
+                registries_root, "generation.json", _registry([first])
+            )
+            second_registry_data = _registry([second])
+            second_registry_data["dataset_id"] = "map-filter-holdout-v1"
+            second_registry = _write_named_registry(
+                registries_root, "holdout.json", second_registry_data
+            )
+            catalog_path = _write_catalog(
+                base, registry_paths=[first_registry, second_registry]
+            )
+
+            with self.assertRaisesRegex(ValueError, "visual near-duplicate"):
                 audit_corpus_catalog(
                     catalog_path,
                     registries_root=registries_root,

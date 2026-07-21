@@ -95,10 +95,12 @@ PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay \
   --artifacts-root <closed-development-artifact-root>
 ```
 
-This closes exact cross-registry identity leakage and content-addressed lineage
-only inside the configured roots. It still leaves oracle, visual-near-duplicate,
-structured start-state, human-provenance, handle-pinned filesystem, and real
-image-model gates unverified, so `independent_eval_ready` remains false. Read
+This closes exact cross-registry identity leakage, bounded decoded-pixel visual
+near-duplicate checks, and content-addressed lineage only inside the configured
+roots. The visual gate runs locally and must not serialize fingerprints or send
+frames into model context. It still leaves oracle, structured start-state,
+human-provenance, handle-pinned filesystem, and real image-model gates
+unverified, so `independent_eval_ready` remains false. Read
 [corpus-catalog-schema.md](references/corpus-catalog-schema.md) before creating a
 catalog or interpreting this scoped proof.
 

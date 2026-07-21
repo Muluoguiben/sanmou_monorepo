@@ -44,6 +44,10 @@ from pioneer_agent.record_replay.validation import (
     validate_identifier,
     validate_unique_strings,
 )
+from pioneer_agent.record_replay.visual_fingerprint import (
+    VisualFrameFingerprint,
+    fingerprint_frame,
+)
 
 
 DATASET_REGISTRY_SCHEMA_VERSION = 1
@@ -54,6 +58,7 @@ MAX_FRAME_BYTES = 16_777_216
 MAX_SESSION_FRAME_BYTES = 67_108_864
 MAX_CORPUS_EVENTS_BYTES = 134_217_728
 MAX_CORPUS_FRAME_BYTES = 536_870_912
+MAX_CORPUS_DECODED_PIXELS = 268_435_456
 SHA256_PATTERN = r"^[0-9a-f]{64}$"
 
 DatasetSplit = Literal["generation", "holdout"]
@@ -266,7 +271,7 @@ class LoadedDatasetRegistry:
 
 @dataclass(frozen=True)
 class DatasetSessionIdentity:
-    """Exact identities needed for a corpus-wide leakage audit."""
+    """In-memory identities needed for a corpus-wide leakage audit."""
 
     session_id: str
     split: DatasetSplit
@@ -276,6 +281,7 @@ class DatasetSessionIdentity:
     annotation_sha256: str
     encoded_frame_sha256s: tuple[str, ...]
     source_png_sha256s: tuple[str, ...]
+    visual_fingerprints: tuple[VisualFrameFingerprint, ...]
     expected_transition_outcome: TransitionOutcome | None
     annotation_reviewed_at: datetime
 
@@ -289,6 +295,7 @@ class AuditedDatasetRegistry:
     session_identities: tuple[DatasetSessionIdentity, ...]
     events_bytes: int
     frame_bytes: int
+    decoded_pixels: int
 
 
 @dataclass(frozen=True)
@@ -366,6 +373,7 @@ def audit_dataset_registry_bundle(
     reviews_root: Path,
     max_corpus_events_bytes: int = MAX_CORPUS_EVENTS_BYTES,
     max_corpus_frame_bytes: int = MAX_CORPUS_FRAME_BYTES,
+    max_corpus_decoded_pixels: int = MAX_CORPUS_DECODED_PIXELS,
 ) -> AuditedDatasetRegistry:
     """Audit immutable inputs and report provisional dataset coverage.
 
@@ -375,10 +383,17 @@ def audit_dataset_registry_bundle(
 
     loaded_registry = load_dataset_registry(registry_path)
     registry = loaded_registry.registry
-    if max_corpus_events_bytes < 0 or max_corpus_frame_bytes < 0:
-        raise ValueError("dataset audit byte limits cannot be negative")
+    if (
+        max_corpus_events_bytes < 0
+        or max_corpus_frame_bytes < 0
+        or max_corpus_decoded_pixels < 0
+    ):
+        raise ValueError("dataset audit resource limits cannot be negative")
     events_limit = min(max_corpus_events_bytes, MAX_CORPUS_EVENTS_BYTES)
     frame_limit = min(max_corpus_frame_bytes, MAX_CORPUS_FRAME_BYTES)
+    decoded_pixel_limit = min(
+        max_corpus_decoded_pixels, MAX_CORPUS_DECODED_PIXELS
+    )
     sessions_root = _resolve_directory_root(sessions_root, label="sessions root")
     reviews_root = _resolve_directory_root(reviews_root, label="reviews root")
 
@@ -393,11 +408,18 @@ def audit_dataset_registry_bundle(
     split_by_session: dict[str, DatasetSplit] = {}
     corpus_events_bytes = 0
     corpus_frame_bytes = 0
+    corpus_decoded_pixels = 0
 
     expected_annotation_risk = _ANNOTATION_RISK_BY_DATASET[registry.risk_class]
     for entry in registry.sessions:
         session_root = _safe_session_root(sessions_root, entry.session_id)
-        recording, event_bytes, frame_bytes = _load_hardened_recording(
+        (
+            recording,
+            event_bytes,
+            frame_bytes,
+            visual_fingerprints,
+            decoded_pixels,
+        ) = _load_hardened_recording(
             session_root,
             remaining_corpus_events_bytes=(
                 events_limit - corpus_events_bytes
@@ -405,9 +427,13 @@ def audit_dataset_registry_bundle(
             remaining_corpus_frame_bytes=(
                 frame_limit - corpus_frame_bytes
             ),
+            remaining_corpus_decoded_pixels=(
+                decoded_pixel_limit - corpus_decoded_pixels
+            ),
         )
         corpus_events_bytes += event_bytes
         corpus_frame_bytes += frame_bytes
+        corpus_decoded_pixels += decoded_pixels
         if recording.manifest.session_id != entry.session_id:
             raise ValueError("registry session id does not match the raw recording")
         if recording.manifest.events_sha256 != entry.source_events_sha256:
@@ -501,6 +527,7 @@ def audit_dataset_registry_bundle(
                 source_png_sha256s=tuple(
                     sorted({frame.source_png_sha256 for frame in recording.frames})
                 ),
+                visual_fingerprints=visual_fingerprints,
                 expected_transition_outcome=expected_transition_outcome(
                     annotation.sample_label
                 ),
@@ -558,6 +585,7 @@ def audit_dataset_registry_bundle(
         session_identities=tuple(session_identities),
         events_bytes=corpus_events_bytes,
         frame_bytes=corpus_frame_bytes,
+        decoded_pixels=corpus_decoded_pixels,
     )
 
 
@@ -765,8 +793,19 @@ def _load_hardened_recording(
     *,
     remaining_corpus_events_bytes: int,
     remaining_corpus_frame_bytes: int,
-) -> tuple[LoadedRecording, int, int]:
-    if remaining_corpus_events_bytes < 0 or remaining_corpus_frame_bytes < 0:
+    remaining_corpus_decoded_pixels: int,
+) -> tuple[
+    LoadedRecording,
+    int,
+    int,
+    tuple[VisualFrameFingerprint, ...],
+    int,
+]:
+    if (
+        remaining_corpus_events_bytes < 0
+        or remaining_corpus_frame_bytes < 0
+        or remaining_corpus_decoded_pixels < 0
+    ):
         raise ValueError("recording corpus exceeds the fixed audit size limits")
     manifest_path = _safe_existing_child(session_root, "manifest.json")
     events_path = _safe_existing_child(session_root, "events.jsonl")
@@ -795,13 +834,27 @@ def _load_hardened_recording(
         (frame.path, frame.sha256, frame.byte_size) for frame in preflight_frames
     }:
         raise ValueError("raw frame inventory changed while the dataset was audited")
+    visual_fingerprints: list[VisualFrameFingerprint] = []
+    decoded_pixels = 0
     for frame in recording.frames:
+        declared_pixels = frame.image_size[0] * frame.image_size[1]
+        if decoded_pixels + declared_pixels > remaining_corpus_decoded_pixels:
+            raise ValueError(
+                "recording corpus exceeds the fixed decoded pixel limit"
+            )
         frame_path = _safe_existing_child(session_root, frame.path)
         payload = read_regular_file(frame_path, max_bytes=MAX_FRAME_BYTES)
         if len(payload) != frame.byte_size or hashlib.sha256(payload).hexdigest() != frame.sha256:
             raise ValueError("raw frame changed while the dataset was audited")
-    return recording, len(events_payload), sum(
-        frame.byte_size for frame in preflight_frames
+        fingerprint = fingerprint_frame(frame, payload)
+        decoded_pixels += fingerprint.decoded_pixels
+        visual_fingerprints.append(fingerprint)
+    return (
+        recording,
+        len(events_payload),
+        sum(frame.byte_size for frame in preflight_frames),
+        tuple(visual_fingerprints),
+        decoded_pixels,
     )
 
 

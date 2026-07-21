@@ -311,6 +311,16 @@ class RecordReplayHoldoutEvalTests(unittest.TestCase):
             self.assertTrue(report.passed_policy)
             self.assertTrue(report.signature_valid)
             self.assertTrue(report.holdout_oracle_verified)
+            self.assertEqual(attestation.payload.schema_version, 2)
+            self.assertTrue(report.visual_near_duplicate_checked)
+            self.assertEqual(
+                report.visual_near_duplicate_algorithm,
+                "sanmou-multisignal-v1",
+            )
+            self.assertGreater(report.visual_frame_count, 0)
+            self.assertNotIn(
+                "visual_near_duplicate_unchecked", report.remaining_blockers
+            )
             self.assertFalse(report.oracle_labels_disclosed)
             self.assertFalse(report.evaluator_host_isolation_verified)
             self.assertFalse(report.image_model_execution_verified)

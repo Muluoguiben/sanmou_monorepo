@@ -52,6 +52,7 @@ from pioneer_agent.record_replay.validation import (
 
 
 HOLDOUT_EVAL_SCHEMA_VERSION = 1
+HOLDOUT_AGGREGATE_SCHEMA_VERSION = 2
 MAX_EVAL_ARTIFACT_BYTES = 4_194_304
 MAX_PRIVATE_KEY_BYTES = 65_536
 MAX_HOLDOUT_PREDICTIONS = 4_096
@@ -375,7 +376,7 @@ class EvaluatorTrustPolicy(BaseModel):
 class HoldoutEvalAggregate(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
 
-    schema_version: Literal[1] = HOLDOUT_EVAL_SCHEMA_VERSION
+    schema_version: Literal[2] = HOLDOUT_AGGREGATE_SCHEMA_VERSION
     artifact_type: Literal["record_replay_holdout_eval_aggregate"] = (
         "record_replay_holdout_eval_aggregate"
     )
@@ -396,6 +397,10 @@ class HoldoutEvalAggregate(BaseModel):
     oracle_matches_approved_annotations: Literal[True] = True
     holdout_set_complete: Literal[True] = True
     single_submission_budget_enforced: Literal[True] = True
+    visual_near_duplicate_checked: Literal[True]
+    visual_near_duplicate_algorithm: Literal["sanmou-multisignal-v1"]
+    visual_frame_count: int = Field(ge=1)
+    visual_candidate_comparison_count: int = Field(ge=0)
     per_sample_results_included: Literal[False] = False
     oracle_labels_disclosed: Literal[False] = False
     evaluator_isolation_attested: Literal[True] = True
@@ -429,6 +434,8 @@ class HoldoutEvalAggregate(BaseModel):
         "exact_match_count",
         "unknown_prediction_count",
         "accuracy_ppm",
+        "visual_frame_count",
+        "visual_candidate_comparison_count",
         mode="before",
     )
     @classmethod
@@ -517,6 +524,10 @@ class HoldoutAttestationVerificationReport(BaseModel):
     holdout_oracle_integrity_verified: Literal[True] = True
     holdout_oracle_verified: Literal[True] = True
     single_submission_budget_enforced: Literal[True] = True
+    visual_near_duplicate_checked: Literal[True]
+    visual_near_duplicate_algorithm: Literal["sanmou-multisignal-v1"]
+    visual_frame_count: int = Field(ge=1)
+    visual_candidate_comparison_count: int = Field(ge=0)
     oracle_labels_disclosed: Literal[False] = False
     evaluator_host_isolation_verified: Literal[False] = False
     image_model_execution_verified: Literal[False] = False
@@ -693,6 +704,16 @@ def score_holdout_submission_external(
         unknown_prediction_count=unknown_predictions,
         accuracy_ppm=accuracy_ppm,
         passed_policy=passed_policy,
+        visual_near_duplicate_checked=(
+            audited_corpus.report.visual_near_duplicate_checked
+        ),
+        visual_near_duplicate_algorithm=(
+            audited_corpus.report.visual_near_duplicate_algorithm
+        ),
+        visual_frame_count=audited_corpus.report.visual_frame_count,
+        visual_candidate_comparison_count=(
+            audited_corpus.report.visual_candidate_comparison_count
+        ),
     )
     signature = private_key.sign(_canonical_model_bytes(aggregate))
     return SignedHoldoutEvalAttestation(
@@ -779,12 +800,17 @@ def verify_holdout_attestation(
         unknown_prediction_count=payload.unknown_prediction_count,
         accuracy_ppm=payload.accuracy_ppm,
         passed_policy=payload.passed_policy,
+        visual_near_duplicate_checked=payload.visual_near_duplicate_checked,
+        visual_near_duplicate_algorithm=payload.visual_near_duplicate_algorithm,
+        visual_frame_count=payload.visual_frame_count,
+        visual_candidate_comparison_count=(
+            payload.visual_candidate_comparison_count
+        ),
         remaining_blockers=(
             ([] if payload.passed_policy else ["holdout_accuracy_policy_not_met"])
             + [
                 "evaluator_host_isolation_not_machine_verified",
                 "human_capture_provenance_unverified",
-                "visual_near_duplicate_unchecked",
                 "structured_start_state_unverified",
                 "filesystem_parent_walk_not_handle_pinned",
                 "image_model_execution_unverified",

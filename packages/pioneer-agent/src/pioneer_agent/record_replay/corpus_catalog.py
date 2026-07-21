@@ -1,9 +1,9 @@
 """Canonical, read-only corpus audit for Record & Replay datasets.
 
-The catalog closes two narrowly scoped gaps left by a single dataset audit:
-exact identity leakage across registries and content-addressed lineage inside one
-configured development-artifact root.  It still does not expose holdout oracle
-labels, prove human capture provenance, run an image model, or grant authority.
+The catalog closes exact and perceptual identity leakage across registries plus
+content-addressed lineage inside one configured development-artifact root. It
+still does not expose holdout oracle labels, prove human capture provenance,
+run an image model, or grant authority.
 """
 from __future__ import annotations
 
@@ -37,6 +37,12 @@ from pioneer_agent.record_replay.validation import (
     validate_canonical_uuid,
     validate_identifier,
     validate_unique_strings,
+)
+from pioneer_agent.record_replay.visual_fingerprint import (
+    MAX_TOTAL_DECODED_PIXELS,
+    VISUAL_FINGERPRINT_ALGORITHM,
+    VisualFrameFingerprint,
+    audit_visual_near_duplicates,
 )
 
 
@@ -251,7 +257,12 @@ class CorpusCatalogAuditReport(BaseModel):
     holdout_contamination_detected: Literal[False] = False
     holdout_oracle_verified: Literal[False] = False
     human_capture_provenance_verified: Literal[False] = False
-    visual_near_duplicate_checked: Literal[False] = False
+    visual_near_duplicate_checked: Literal[True] = True
+    visual_near_duplicate_algorithm: Literal["sanmou-multisignal-v1"] = (
+        VISUAL_FINGERPRINT_ALGORITHM
+    )
+    visual_frame_count: int = Field(ge=0)
+    visual_candidate_comparison_count: int = Field(ge=0)
     structured_start_state_verified: Literal[False] = False
     filesystem_race_hardened: Literal[False] = False
     image_model_exercised: Literal[False] = False
@@ -374,6 +385,8 @@ def audit_corpus_catalog_bundle(
     workflow_contracts: dict[str, tuple[str, str]] = {}
     total_session_events_bytes = 0
     total_session_frame_bytes = 0
+    total_decoded_pixels = 0
+    visual_fingerprints: list[VisualFrameFingerprint] = []
     exact_identities: dict[str, dict[str, str]] = {
         "session id": {},
         "events SHA256": {},
@@ -396,9 +409,13 @@ def audit_corpus_catalog_bundle(
             max_corpus_frame_bytes=(
                 MAX_CATALOG_RAW_FRAME_BYTES - total_session_frame_bytes
             ),
+            max_corpus_decoded_pixels=(
+                MAX_TOTAL_DECODED_PIXELS - total_decoded_pixels
+            ),
         )
         total_session_events_bytes += audited.events_bytes
         total_session_frame_bytes += audited.frame_bytes
+        total_decoded_pixels += audited.decoded_pixels
         if audited.loaded_registry.sha256 != reference.sha256:
             raise ValueError("catalog registry SHA256 does not match the registry")
         registry = audited.loaded_registry.registry
@@ -463,6 +480,7 @@ def audit_corpus_catalog_bundle(
                     label="source PNG SHA256",
                 )
             session_splits[identity.session_id] = identity.split
+            visual_fingerprints.extend(identity.visual_fingerprints)
             if len(session_splits) > MAX_CATALOG_SESSIONS:
                 raise ValueError("corpus catalog exceeds its session-count limit")
 
@@ -481,6 +499,8 @@ def audit_corpus_catalog_bundle(
                 coverage_ready=audited.report.coverage_ready,
             )
         )
+
+    visual_audit = audit_visual_near_duplicates(visual_fingerprints)
 
     artifacts_by_id = {
         artifact.artifact_id: artifact for artifact in catalog.development_artifacts
@@ -556,6 +576,11 @@ def audit_corpus_catalog_bundle(
         registry_count=len(audited_registries),
         session_count=len(session_splits),
         development_artifact_count=len(catalog.development_artifacts),
+        visual_near_duplicate_algorithm=visual_audit.algorithm,
+        visual_frame_count=visual_audit.frame_count,
+        visual_candidate_comparison_count=(
+            visual_audit.candidate_comparison_count
+        ),
         coverage_ready=coverage_ready,
         dataset_summaries=sorted(
             dataset_summaries, key=lambda summary: summary.dataset_id
@@ -588,7 +613,6 @@ def _catalog_blockers(
         [
             "holdout_oracle_unverified",
             "human_capture_provenance_unverified",
-            "visual_near_duplicate_unchecked",
             "structured_start_state_unverified",
             "filesystem_parent_walk_not_handle_pinned",
             "image_model_not_exercised",

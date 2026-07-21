@@ -14,6 +14,10 @@ A valid `audit-corpus` report proves, within the two configured roots:
   within-registry integrity checks;
 - session UUID, events hash, capture group, annotation ID/hash, encoded frame
   hash, and source-PNG hash are unique across all cataloged registries;
+- every declared frame is decoded locally under fixed format, dimension,
+  single-image, per-frame, total-pixel, frame-count, and comparison-count
+  limits, then checked across distinct sessions by the versioned
+  `sanmou-multisignal-v1` visual near-duplicate gate;
 - every regular development-artifact file is explicitly cataloged and SHA-256
   bound;
 - direct source sessions match the union of declarations in the dataset
@@ -24,7 +28,9 @@ A valid `audit-corpus` report proves, within the two configured roots:
 
 Accordingly the report may set `corpus_catalog_verified=true`,
 `cross_registry_exact_leak_free=true`, and
-`development_lineage_verified=true`. The last field is explicitly scoped by:
+`visual_near_duplicate_checked=true`, and
+`development_lineage_verified=true`. Visual fingerprints remain evaluator-local
+and are not serialized. The lineage field is explicitly scoped by:
 
 ```text
 development_lineage_scope=configured_closed_artifacts_root
@@ -35,28 +41,37 @@ and must never be described as a machine-wide provenance proof.
 
 ## What remains unverified
 
-The catalog does not open an evaluator-only oracle, compare visual near
-duplicates, derive a structured start-state fingerprint, attest that captures
-came from a human, pin every parent-directory handle against concurrent swaps,
-or exercise an image model. Reports therefore retain:
+The catalog does not open an evaluator-only oracle, derive a structured
+start-state fingerprint, attest that captures came from a human, pin every
+parent-directory handle against concurrent swaps, or exercise an image model.
+Reports therefore retain:
 
 ```text
 holdout_oracle_verified=false
 human_capture_provenance_verified=false
-visual_near_duplicate_checked=false
 structured_start_state_verified=false
 filesystem_race_hardened=false
 image_model_exercised=false
 independent_eval_ready=false
 ```
 
-Exact hash separation is necessary but not sufficient for visual independence.
+The visual proof is an intentionally conservative engineering gate, not proof
+that two real captures were independently produced. It combines multiple
+center-crop variants of block-mean hash, difference hash, normalized grayscale
+MAE, RGB mean, histogram, and aspect ratio. Hash bands only produce bounded
+candidates; grayscale and color agreement must also pass before rejection.
+Its public evidence is limited to algorithm version plus frame/comparison
+counts. Threshold changes require an algorithm-version change and regression
+tests for re-encode, resize, crop, distinct scenes, corrupt inputs, and resource
+limits.
+
 `coverage_ready=true` remains only the provisional policy floor across frozen
 registries, not an independent-eval result.
 
 The separate external protocol in `holdout-eval-protocol.md` can verify a
-signed aggregate oracle attestation for a frozen coverage-ready catalog. That
-does not change this catalog-only report and does not expose oracle labels here.
+signed aggregate oracle attestation for a frozen coverage-ready catalog. Its
+signed aggregate also binds the catalog auditor's visual algorithm and counts.
+That does not expose fingerprints or oracle labels.
 
 ## Catalog identity and roots
 

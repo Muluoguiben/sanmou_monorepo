@@ -1,8 +1,9 @@
 # External Holdout Eval Protocol
 
-Schema version 1 separates unlabeled predictions from evaluator-only labels.
-The implementation in `pioneer_agent.record_replay.holdout_eval` is
-authoritative.
+Protocol schema version 1 separates unlabeled predictions from evaluator-only
+labels. Signed aggregate schema version 2 adds the bound visual-audit proof; v1
+aggregates are not accepted as evidence for that gate. The implementation in
+`pioneer_agent.record_replay.holdout_eval` is authoritative.
 
 ## Trust boundary
 
@@ -85,9 +86,11 @@ private key through the ordinary CLI.
 ## Aggregate verification
 
 The signed attestation contains only total count, exact-match count, unknown
-count, scaled accuracy, and pass/fail. It binds the exact submission and trust
-policy hashes and contains no session IDs, expected outcomes, confusion matrix,
-or oracle hash. Verify it on the development side with:
+count, scaled accuracy, pass/fail, and the corpus visual-audit algorithm plus
+frame/candidate-comparison counts. It binds the exact submission and trust
+policy hashes and contains no visual fingerprints, session IDs, expected
+outcomes, confusion matrix, or oracle hash. Verify it on the development side
+with:
 
 ```bash
 PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay \
@@ -97,6 +100,6 @@ PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay \
 
 A valid report may set `holdout_oracle_verified=true` only for the signed
 external attestation. It still keeps `independent_eval_ready=false` while host
-isolation, human-capture provenance, visual-near-duplicate detection, structured
-start-state, parent-handle filesystem hardening, or image-model execution proof
-remain missing. It grants no promotion or execution authority.
+isolation, human-capture provenance, structured start-state, parent-handle
+filesystem hardening, or image-model execution proof remain missing. It grants
+no promotion or execution authority.

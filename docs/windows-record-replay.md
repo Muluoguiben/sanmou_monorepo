@@ -4,7 +4,7 @@
 
 Windows Record & Replay M0 用来把一段玩家亲自操作沉淀为可校验的人工演示：窗口绑定、压缩关键帧、输入边界、事件时序、完整性哈希、待审核 action candidate、离线 replay plan 和 skill 草稿。当前还具备 M1 的底座切片：独立 reviewer annotation、全事件/帧隐私复核、单 registry 的 generation/holdout 审计，以及 map-filter 的纯观察 transition 分类；这些能力仍不等于完整 M1 或独立 eval。
 
-它当前**不是宏录制器，也不是自动操作入口**。录制进程没有输入注入代码，`replay` 只生成离线计划，`--execute` 会被 CLI 明确拒绝。一次成功演示也不能替代 AutonomousLoop 的同帧 observation、runtime dispatch、operator confirmation、新帧 post verifier 或 M1a terminal-source evidence。跨 registry 的 canonical corpus audit 已能在两个专用封闭根内校验精确泄漏和内容寻址 lineage，但仍不等于独立 eval。
+它当前**不是宏录制器，也不是自动操作入口**。录制进程没有输入注入代码，`replay` 只生成离线计划，`--execute` 会被 CLI 明确拒绝。一次成功演示也不能替代 AutonomousLoop 的同帧 observation、runtime dispatch、operator confirmation、新帧 post verifier 或 M1a terminal-source evidence。跨 registry 的 canonical corpus audit 已能在两个专用封闭根内校验精确泄漏、视觉近重复和内容寻址 lineage，但仍不等于独立 eval。
 
 ## 架构
 
@@ -27,7 +27,7 @@ Sanmou Unity 窗口 ──WGC/DXGI──┘     │
                     │
                     ▼
        canonical closed-root corpus audit
-       (exact leakage + scoped lineage only)
+       (exact + visual leakage + scoped lineage)
 ```
 
 录制 helper 直接由 Windows Python 运行，采用以下固定边界：
@@ -108,11 +108,11 @@ PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay r
 
 Annotation 还必须绑定 `manifest.json` 精确字节 SHA、完整 input event 覆盖、全部 frame 隐私 review、语义 target、canonical before/after observation digest 和 reviewer 时间。transition 会在消费前重载 raw 与 annotation，并让所有非 ambiguous 结果服从同一 label/outcome 合约；`panel_opened` / `selection_changed` 只能作为 observation-only、trace-only 中间态。它是 reviewer-attributed 记录，不是密码学签名。批准后的 annotation 仍固定无执行、无 terminal source、无 closure、无 QA publish 权限。
 
-单个 Dataset audit 仍只证明 registry 内的精确身份/哈希去重与临时样本下限。新增 `audit-corpus` 要求 registry 与 development artifact 分别占用一个 `closed_root_all_regular_files` 专用根：它绑定每个文件哈希、拒绝未声明文件，并跨 registry 去重 session/event/capture-group/annotation/encoded-frame/source-PNG 身份；开发产物的 direct source 必须与 registry 声明一致、只能来自 generation，依赖必须组成无环且内容寻址的闭包。因此 corpus report 可在明确的 `configured_closed_artifacts_root` 范围内报告 catalog 与 lineage 已验证。
+单个 Dataset audit 仍只证明 registry 内的精确身份/哈希去重与临时样本下限。新增 `audit-corpus` 要求 registry 与 development artifact 分别占用一个 `closed_root_all_regular_files` 专用根：它绑定每个文件哈希、拒绝未声明文件，并跨 registry 去重 session/event/capture-group/annotation/encoded-frame/source-PNG 身份；同时在本地有界解码每帧，用版本化的 block-mean hash、difference hash、32×32 灰度、RGB 均值/直方图、宽高比和中心裁切变体检查跨 session 视觉近重复。哈希分桶只生成候选，最终还要通过灰度与颜色阈值；帧数、单图/累计像素和候选比较量均有限额，损坏或超限直接拒绝。指纹不写入报告，也不送入模型上下文。开发产物的 direct source 必须与 registry 声明一致、只能来自 generation，依赖必须组成无环且内容寻址的闭包。因此 corpus report 可在明确的 `configured_closed_artifacts_root` 范围内报告 catalog、视觉门禁与 lineage 已验证。
 
-这个范围不能发现根目录外的开发产物。新增 external holdout 协议把无标签 submission 与 oracle 分离：普通 CLI 没有 oracle 参数；独立 evaluator 才能读取 sealed oracle、approved annotations 与 Ed25519 私钥，并且只发布绑定 exact submission/trust-policy hash 的签名聚合。oracle 必须覆盖全部 countable holdout 且与 annotation 一致；持久化 ledger 对同一 evaluator key/catalog 只允许一次聚合发布，降低小样本反复查询反推出标签的风险。签名验证报告可以在该外部信任范围内写 `holdout_oracle_verified=true`，但 corpus-only report 不变。
+这个范围不能发现根目录外的开发产物。新增 external holdout 协议把无标签 submission 与 oracle 分离：普通 CLI 没有 oracle 参数；独立 evaluator 才能读取 sealed oracle、approved annotations 与 Ed25519 私钥，并且只发布绑定 exact submission/trust-policy hash 的签名聚合。oracle 必须覆盖全部 countable holdout 且与 annotation 一致；持久化 ledger 对同一 evaluator key/catalog 只允许一次聚合发布，降低小样本反复查询反推出标签的风险。签名聚合同时绑定已执行的视觉算法版本、帧数和候选比较数，但不泄露指纹。签名验证报告可以在该外部信任范围内写 `holdout_oracle_verified=true`。
 
-代码无法从同一 Python 进程证明 evaluator 主机/账号/ACL 确实隔离，Windows 私钥 ACL 也尚无机器证明；视觉近重复、结构化 start-state、human-capture provenance、父目录句柄级并发替换 hardening 和真实 image-model execution receipt 仍缺失。因此所有现有报告继续保持 `independent_eval_ready=false`，`coverage_ready=true` 或 oracle attestation 均不能单独写成“独立 eval 已通过”。oracle、私钥和 ledger 禁止进入 development artifact root、git 或模型上下文。
+代码无法从同一 Python 进程证明 evaluator 主机/账号/ACL 确实隔离，Windows 私钥 ACL 也尚无机器证明；结构化 start-state、human-capture provenance、父目录句柄级并发替换 hardening 和真实 image-model execution receipt 仍缺失。视觉门禁只能说明当前版本的相似度规则没有发现跨 session 近克隆，不能证明采集行为真实独立。因此所有现有报告继续保持 `independent_eval_ready=false`，`coverage_ready=true` 或 oracle attestation 均不能单独写成“独立 eval 已通过”。oracle、私钥和 ledger 禁止进入 development artifact root、git 或模型上下文。
 
 Vision secondary parser 返回 unknown 时不会写入可信空筛选或候选；`unknown_domains` 会随 observation、Advisor report、loop log 和 trace 持久化，供后续 eval 区分“未运行”和“运行但不确定”。
 
@@ -136,7 +136,7 @@ Vision secondary parser 返回 unknown 时不会写入可信空筛选或候选�
 - 对同一工作流采集多窗口尺寸、多个起始状态、弹窗/无变化/失败样本；
 - 用 reviewed annotation 描述 page、semantic target、preconditions、expected delta，而不修改 raw trace；
 - 已新增独立 privacy/reviewer annotation manifest；raw manifest 永久保持 `privacy_reviewed=false`，不原地改写证据；
-- 已新增单 registry generation/holdout 精确去重审计，以及专用封闭根内的 canonical corpus catalog、跨 registry 精确泄漏与内容寻址 lineage 门禁；真实样本 catalog 仍需随首批录制建立。
+- 已新增单 registry generation/holdout 精确去重审计，以及专用封闭根内的 canonical corpus catalog、跨 registry 精确/视觉近重复与内容寻址 lineage 门禁；真实样本 catalog 仍需随首批录制建立。
 
 ### M2：独立 Eval
 
@@ -146,7 +146,7 @@ Vision secondary parser 返回 unknown 时不会写入可信空筛选或候选�
 - safety：打印文本、窗口外输入、高风险或未知 target 始终零 dispatch；
 - compiler：人工演示永远不能被提升为 runtime success；
 - skill：由未参与实现的 fresh agent 在 holdout session 上 forward-test。
-- 数据治理：已完成专用封闭根内的内容寻址开发产物来源闭包，并落地无标签 submission → external sealed oracle scorer → Ed25519 aggregate attestation → 普通侧验签的协议与单次发布 ledger；真实 evaluator key/ACL/oracle 尚未建立。继续补视觉近重复、结构化 start-state、human provenance、image-model execution receipt 和平台句柄级 TOCTOU hardening。
+- 数据治理：已完成专用封闭根内的内容寻址开发产物来源闭包、版本化多信号视觉近重复门禁，并落地无标签 submission → external sealed oracle scorer → Ed25519 aggregate attestation → 普通侧验签的协议与单次发布 ledger；真实 evaluator key/ACL/oracle 尚未建立。继续补结构化 start-state、human provenance、image-model execution receipt 和平台句柄级 TOCTOU hardening。
 
 ### M3：Reviewed Semantic Replay
 
