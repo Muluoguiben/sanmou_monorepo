@@ -48,12 +48,20 @@ def state_evidence(ref: str, *, confidence: float | None = None, source: str | N
     )
 
 
-def vision_evidence(ref: str, *, summary: str = "") -> AdvisorEvidence:
+def vision_evidence(
+    ref: str,
+    *,
+    summary: str = "",
+    confidence: float | None = None,
+    metadata: dict[str, Any] | None = None,
+) -> AdvisorEvidence:
     return AdvisorEvidence(
         evidence_id=ref,
         source_type="vision",
         ref=ref,
         summary=summary,
+        confidence=confidence,
+        metadata=dict(metadata or {}),
     )
 
 

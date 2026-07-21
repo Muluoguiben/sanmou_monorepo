@@ -1324,6 +1324,7 @@ def _build_tick_trace(
             outputs={
                 "page_type": vision_summary.page_type,
                 "domains_run": list(vision_summary.domains_run),
+                "unknown_domains": list(vision_summary.unknown_domains),
                 "notes": list(vision_summary.notes),
                 "observation": _observation_payload(vision_summary.observation),
             },
@@ -1359,6 +1360,7 @@ def _build_tick_trace(
         vision={
             "page_type": vision_summary.page_type,
             "domains_run": list(vision_summary.domains_run),
+            "unknown_domains": list(vision_summary.unknown_domains),
             "notes": list(vision_summary.notes),
             "image_traces": all_vision_traces,
             "observation": _observation_payload(vision_summary.observation),
@@ -1645,6 +1647,7 @@ def _vision_summary_payload(summary: VisionSyncSummary) -> dict[str, Any]:
     return {
         "page_type": summary.page_type,
         "domains_run": list(summary.domains_run),
+        "unknown_domains": list(summary.unknown_domains),
         "notes": list(summary.notes),
         "image_traces": list(summary.image_traces),
         "observation": _observation_payload(summary.observation),
@@ -1717,6 +1720,7 @@ def _verification_payload(
         "post_observe": {
             "page_type": summary.page_type if summary else None,
             "domains_run": list(summary.domains_run) if summary else [],
+            "unknown_domains": list(summary.unknown_domains) if summary else [],
             "notes": list(summary.notes) if summary else [],
             "image_traces": list(summary.image_traces) if summary else [],
             "observation": _observation_payload(summary.observation) if summary else None,
@@ -1742,6 +1746,7 @@ def _observation_payload(
         ),
         "page_type": observation.page_type,
         "domains_run": list(observation.domains_run),
+        "unknown_domains": list(observation.unknown_domains),
         "source": observation.source,
     }
 

@@ -191,6 +191,50 @@ class AdvisorLoopTests(unittest.TestCase):
         self.assertIn("vision.domain:resource_bar", [item.ref for item in report.structured_evidence])
         self.assertIn("selector.rule:resource_gate", [item.ref for item in report.structured_evidence])
 
+    def test_build_report_serializes_unknown_domain_as_untrusted_evidence(self) -> None:
+        frame = CaptureFrame(
+            png=b"not-used",
+            captured_at=datetime(2026, 7, 21, 12, 0, 0),
+            device_session=_session(
+                DevicePlatform.PC_CLIENT,
+                ObservationSourceType.SCREENSHOT_FILE,
+                (1920, 1080),
+            ),
+            source_type=ObservationSourceType.SCREENSHOT_FILE,
+        )
+        report = build_advisor_report(
+            frame=frame,
+            state=RuntimeState(),
+            selection=SelectionResult(),
+            vision_summary=VisionSyncSummary(
+                page_type="main_map",
+                domains_run=["resource_bar"],
+                unknown_domains=["map_land"],
+                notes=["secondary map parser was uncertain"],
+            ),
+        )
+
+        serialized = report.model_dump(mode="json")
+        self.assertEqual(serialized["vision_summary"]["unknown_domains"], ["map_land"])
+        refs = [item.ref for item in report.structured_evidence]
+        self.assertIn("vision.domain_unknown:map_land", refs)
+        self.assertNotIn("vision.domain:map_land", refs)
+        unknown = next(
+            item
+            for item in report.structured_evidence
+            if item.ref == "vision.domain_unknown:map_land"
+        )
+        self.assertEqual(unknown.confidence, 0.0)
+        self.assertEqual(report.confidence, 0.0)
+        self.assertEqual(
+            unknown.metadata,
+            {
+                "domain": "map_land",
+                "status": "unknown",
+                "trusted_for_state": False,
+            },
+        )
+
     def test_build_report_includes_strategy_snapshot_structured_evidence(self) -> None:
         action = CandidateAction(
             action_id="upgrade-main-hall",

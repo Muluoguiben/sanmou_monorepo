@@ -6,7 +6,7 @@ import json
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 from pioneer_agent.core.models import FieldMeta
 
@@ -25,6 +25,7 @@ SOURCE_LABEL = "vision.map_land"
 
 @dataclass
 class MapLandFragment:
+    parse_status: Literal["observed", "unknown"] = "unknown"
     map_state: dict[str, Any] = field(default_factory=dict)
     field_meta: dict[str, FieldMeta] = field(default_factory=dict)
     notes: list[str] = field(default_factory=list)
@@ -52,6 +53,13 @@ def _build_fragment(
     *,
     captured_at: datetime | None,
 ) -> MapLandFragment:
+    if parsed.page_type != "main_map":
+        return MapLandFragment(
+            parse_status="unknown",
+            notes=list(parsed.visible_notes),
+            raw=parsed,
+        )
+
     filter_state = _filter_state(parsed)
     visible_lands = [
         _land_dict(land, filter_state=filter_state, captured_at=captured_at)
@@ -72,6 +80,7 @@ def _build_fragment(
         )
 
     return MapLandFragment(
+        parse_status="observed",
         map_state=map_state,
         field_meta={
             "map_state.map_land_filter": FieldMeta(

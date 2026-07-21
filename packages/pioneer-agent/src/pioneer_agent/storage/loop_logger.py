@@ -26,6 +26,7 @@ class TickRecord:
     screenshot_path: str | None
     page_type: str | None
     domains_run: list[str]
+    unknown_domains: list[str]
     notes: list[str]
     selected_action_type: str | None
     selected_action_id: str | None
@@ -80,6 +81,7 @@ class LoopLogger:
             screenshot_path=str(screenshot_path) if screenshot_path else None,
             page_type=vision_summary.page_type,
             domains_run=list(vision_summary.domains_run),
+            unknown_domains=list(vision_summary.unknown_domains),
             notes=list(vision_summary.notes)[:10],
             selected_action_type=action.action_type.value if action else None,
             selected_action_id=action.action_id if action else None,

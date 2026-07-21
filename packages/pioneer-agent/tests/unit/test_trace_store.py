@@ -137,6 +137,7 @@ class TraceStoreTests(unittest.TestCase):
                 frame_size=(16, 9),
                 page_type="upgrade_dialog",
                 domains_run=["resource_bar", "upgrade_dialog"],
+                unknown_domains=["map_land"],
                 observed_state=RuntimeState(),
                 source="vision_sync",
             )
@@ -154,6 +155,7 @@ class TraceStoreTests(unittest.TestCase):
             loaded = store.read()[0].frames[0]
             self.assertEqual(loaded.role, TraceFrameRole.TERMINAL_DISPATCH)
             self.assertEqual(loaded.observation["observation_id"], "obs-terminal")
+            self.assertEqual(loaded.observation["unknown_domains"], ["map_land"])
 
             with self.assertRaises(ValueError):
                 store.save_frame(

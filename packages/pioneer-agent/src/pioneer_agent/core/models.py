@@ -150,11 +150,18 @@ class ObservationSnapshot(BaseModel):
     capture_geometry: CaptureGeometry | None = None
     page_type: str | None = None
     domains_run: list[str] = Field(default_factory=list)
+    unknown_domains: list[str] = Field(default_factory=list)
     observed_state: RuntimeState = Field(default_factory=RuntimeState)
     source: Literal["vision_sync", "runtime_fixture"]
 
     @model_validator(mode="after")
-    def _capture_geometry_matches_frame(self) -> ObservationSnapshot:
+    def _validate_domain_status_and_geometry(self) -> ObservationSnapshot:
+        overlap = set(self.domains_run).intersection(self.unknown_domains)
+        if overlap:
+            raise ValueError(
+                "observation domains cannot be both completed and unknown: "
+                + ", ".join(sorted(overlap))
+            )
         if self.capture_geometry is None:
             return self
         if self.frame_size is None:

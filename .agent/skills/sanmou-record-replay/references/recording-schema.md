@@ -13,7 +13,7 @@ Use this reference to review a schema-version-1 Windows demonstration session. T
   STOP                      # optional operator stop signal
 ```
 
-The fixed runtime root is `%LOCALAPPDATA%\SanmouRecordReplay\sessions`. Reject absolute paths, `..`, symlinks, path escape, duplicate or non-contiguous sequence numbers, mismatched session IDs, and any file whose recorded hash or byte size differs.
+The fixed runtime root is `%LOCALAPPDATA%\SanmouRecordReplay\sessions`. Reject absolute paths, `..`, symlinks/reparse points, hardlinked raw files, path escape, duplicate or non-contiguous sequence numbers, mismatched session IDs, and any file whose recorded hash or byte size differs. Manifest and JSONL event values use strict JSON: duplicate object keys and `NaN`/`Infinity` are invalid.
 
 ## Manifest Invariants
 
@@ -48,5 +48,24 @@ PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay v
 ```
 
 Any hash, decode, ordering, geometry, window-identity, count, status, or path failure invalidates the whole session. Do not repair raw evidence in place; record a new session or create a separately reviewed derivative.
+
+Raw reads are capped before allocation at 1 MiB for the manifest, 64 MiB for
+events, 16 MiB per frame, and 256 MiB of declared frames per session. Each raw
+file is opened once through a pinned descriptor; regular-file/link checks and
+`device/inode/size/mtime_ns/ctime_ns` are compared before and after on that same
+descriptor, and the exact bytes are SHA-256 bound. The final path lookup is
+bound back to the descriptor with stable identity, size, and modification-time
+fields. Native Windows may report a slightly different `ctime_ns` between
+`fstat(handle)` and `stat(path)` for an unchanged file, so only that cross-API
+comparison omits `ctime_ns`; the same-descriptor mutation check and retained
+identity still include it. A `LoadedRecording` retains those identities, and
+annotation validation reopens the raw session and compares it with the retained
+view before binding approval.
+
+This is not an atomic, platform-specific walk that pins every parent directory
+handle for the lifetime of a whole session audit. Component checks are repeated
+and ordinary leaf replacement or in-place rewrite is rejected, but
+`filesystem_race_hardened` must remain `false` until that stronger Windows and
+POSIX implementation is independently verified.
 
 Every derived action candidate, replay plan, compilation report, and draft skill must carry the exact raw `events_sha256` as `source_events_sha256`. A matching session UUID without a matching source digest is stale or foreign and must be rejected.

@@ -7,9 +7,18 @@ Each domain pairs:
 """
 from __future__ import annotations
 
-from typing import Any, Literal
+from typing import Annotated, Any, Literal
 
-from pydantic import BaseModel, Field, StrictBool, StrictStr, model_validator
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    StrictBool,
+    StrictFloat,
+    StrictInt,
+    StrictStr,
+    model_validator,
+)
 
 PageType = Literal[
     "main_map",
@@ -34,6 +43,7 @@ PageType = Literal[
 ]
 
 BBoxFields = tuple[str, str, str, str]
+CoordinateFields = tuple[str, str]
 
 
 def _bbox_values(model: BaseModel, fields: BBoxFields) -> list[int | None]:
@@ -83,6 +93,16 @@ def _validate_visible_bbox(
     if not visible and _bbox_has_any(model, bbox_fields):
         raise ValueError(f"{label} bbox cannot be present when not visible")
     _validate_bbox(model, bbox_fields, label, required=visible)
+
+
+def _validate_coordinate_pair(
+    model: BaseModel,
+    fields: CoordinateFields,
+    label: str,
+) -> None:
+    first, second = (getattr(model, field) for field in fields)
+    if (first is None) != (second is None):
+        raise ValueError(f"{label} must include both coordinates or neither")
 
 
 class ResourceBar(BaseModel):
@@ -1304,39 +1324,60 @@ BATTLE_REPORT_INSTRUCTION = (
 # Main-map land snapshot
 # ---------------------------------------------------------------------------
 
+MapLandLevel = Annotated[StrictInt, Field(ge=1, le=12)]
+MapLandNormalizedCoordinate = Annotated[StrictInt, Field(ge=0, le=1000)]
+MapLandNonNegativeInt = Annotated[StrictInt, Field(ge=0)]
+MapLandExpectedWinRate = Annotated[
+    StrictFloat,
+    Field(ge=0.0, le=1.0, allow_inf_nan=False),
+]
+
+
 class MapLandCandidateDetection(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     land_id: str | None = None
-    coordinate_x: int | None = None
-    coordinate_y: int | None = None
-    level: int | None = Field(default=None, ge=1, le=12)
+    coordinate_x: StrictInt | None = None
+    coordinate_y: StrictInt | None = None
+    level: MapLandLevel | None = None
     resource_type: Literal["wood", "stone", "iron", "grain", "unknown"] = "unknown"
     land_scope: Literal["inner_city", "outer_city"] | None = None
-    occupied: bool | None = None
+    occupied: StrictBool | None = None
     occupation_pending: StrictBool | None = None
     occupation_countdown: StrictStr | None = None
     owner: str | None = None
-    reachable: bool | None = None
-    can_attack: bool | None = None
-    protected: bool | None = None
-    selected: bool = False
-    recommended_marker: bool = False
-    yield_per_hour: int | None = None
-    distance: int | None = None
-    march_seconds: int | None = None
-    expected_win_rate: float | None = Field(default=None, ge=0.0, le=1.0)
-    expected_battle_loss: int | None = None
+    reachable: StrictBool | None = None
+    can_attack: StrictBool | None = None
+    protected: StrictBool | None = None
+    selected: StrictBool = False
+    recommended_marker: StrictBool = False
+    yield_per_hour: MapLandNonNegativeInt | None = None
+    distance: MapLandNonNegativeInt | None = None
+    march_seconds: MapLandNonNegativeInt | None = None
+    expected_win_rate: MapLandExpectedWinRate | None = None
+    expected_battle_loss: MapLandNonNegativeInt | None = None
     risk_label: Literal["safe", "edge", "danger", "unknown"] = "unknown"
-    center_x: int | None = Field(default=None, ge=0, le=1000)
-    center_y: int | None = Field(default=None, ge=0, le=1000)
-    x_min: int | None = Field(default=None, ge=0, le=1000)
-    y_min: int | None = Field(default=None, ge=0, le=1000)
-    x_max: int | None = Field(default=None, ge=0, le=1000)
-    y_max: int | None = Field(default=None, ge=0, le=1000)
+    center_x: MapLandNormalizedCoordinate | None = None
+    center_y: MapLandNormalizedCoordinate | None = None
+    x_min: MapLandNormalizedCoordinate | None = None
+    y_min: MapLandNormalizedCoordinate | None = None
+    x_max: MapLandNormalizedCoordinate | None = None
+    y_max: MapLandNormalizedCoordinate | None = None
     visible_notes: list[str] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def _validate_land_bbox(self):
         _validate_bbox(self, ("x_min", "y_min", "x_max", "y_max"), "map land")
+        _validate_coordinate_pair(
+            self,
+            ("coordinate_x", "coordinate_y"),
+            "map land coordinate",
+        )
+        _validate_coordinate_pair(
+            self,
+            ("center_x", "center_y"),
+            "map land normalized center",
+        )
         if self.occupation_countdown is not None:
             if not self.occupation_countdown.strip():
                 raise ValueError("occupation countdown must be non-empty when visible")
@@ -1348,14 +1389,16 @@ class MapLandCandidateDetection(BaseModel):
 
 
 class MapLandFilterToggleDetection(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     resource_type: Literal["wood", "stone", "iron", "grain"]
-    selected: bool = False
-    visible: bool = False
-    enabled: bool = False
-    x_min: int | None = Field(default=None, ge=0, le=1000)
-    y_min: int | None = Field(default=None, ge=0, le=1000)
-    x_max: int | None = Field(default=None, ge=0, le=1000)
-    y_max: int | None = Field(default=None, ge=0, le=1000)
+    selected: StrictBool = False
+    visible: StrictBool = False
+    enabled: StrictBool = False
+    x_min: MapLandNormalizedCoordinate | None = None
+    y_min: MapLandNormalizedCoordinate | None = None
+    x_max: MapLandNormalizedCoordinate | None = None
+    y_max: MapLandNormalizedCoordinate | None = None
 
     @model_validator(mode="after")
     def _validate_toggle_bbox(self):
@@ -1366,18 +1409,24 @@ class MapLandFilterToggleDetection(BaseModel):
             bbox_fields=("x_min", "y_min", "x_max", "y_max"),
             label="map land resource toggle",
         )
+        if self.selected and not self.visible:
+            raise ValueError(
+                "map land resource toggle cannot be selected when not visible"
+            )
         return self
 
 
 class MapLandLevelToggleDetection(BaseModel):
-    level: int = Field(ge=1, le=12)
-    selected: bool = False
-    visible: bool = False
-    enabled: bool = False
-    x_min: int | None = Field(default=None, ge=0, le=1000)
-    y_min: int | None = Field(default=None, ge=0, le=1000)
-    x_max: int | None = Field(default=None, ge=0, le=1000)
-    y_max: int | None = Field(default=None, ge=0, le=1000)
+    model_config = ConfigDict(extra="forbid")
+
+    level: MapLandLevel
+    selected: StrictBool = False
+    visible: StrictBool = False
+    enabled: StrictBool = False
+    x_min: MapLandNormalizedCoordinate | None = None
+    y_min: MapLandNormalizedCoordinate | None = None
+    x_max: MapLandNormalizedCoordinate | None = None
+    y_max: MapLandNormalizedCoordinate | None = None
 
     @model_validator(mode="after")
     def _validate_level_toggle_bbox(self):
@@ -1388,33 +1437,41 @@ class MapLandLevelToggleDetection(BaseModel):
             bbox_fields=("x_min", "y_min", "x_max", "y_max"),
             label="map land level toggle",
         )
+        if self.selected and not self.visible:
+            raise ValueError(
+                "map land level toggle cannot be selected when not visible"
+            )
         return self
 
 
 class MapLandDetection(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     page_type: Literal["main_map", "unknown"]
-    filter_panel_visible: bool = False
-    resource_filter_enabled: bool = False
-    selected_resource_types: list[Literal["wood", "stone", "iron", "grain"]] = Field(default_factory=list)
-    selected_levels: list[int] = Field(default_factory=list)
-    level_min: int | None = None
-    level_max: int | None = None
-    filter_button_visible: bool = False
-    filter_button_enabled: bool = False
-    filter_button_x_min: int | None = Field(default=None, ge=0, le=1000)
-    filter_button_y_min: int | None = Field(default=None, ge=0, le=1000)
-    filter_button_x_max: int | None = Field(default=None, ge=0, le=1000)
-    filter_button_y_max: int | None = Field(default=None, ge=0, le=1000)
-    apply_button_visible: bool = False
-    apply_button_enabled: bool = False
-    apply_button_x_min: int | None = Field(default=None, ge=0, le=1000)
-    apply_button_y_min: int | None = Field(default=None, ge=0, le=1000)
-    apply_button_x_max: int | None = Field(default=None, ge=0, le=1000)
-    apply_button_y_max: int | None = Field(default=None, ge=0, le=1000)
+    filter_panel_visible: StrictBool = False
+    resource_filter_enabled: StrictBool = False
+    selected_resource_types: list[
+        Literal["wood", "stone", "iron", "grain"]
+    ] = Field(default_factory=list)
+    selected_levels: list[MapLandLevel] = Field(default_factory=list)
+    level_min: MapLandLevel | None = None
+    level_max: MapLandLevel | None = None
+    filter_button_visible: StrictBool = False
+    filter_button_enabled: StrictBool = False
+    filter_button_x_min: MapLandNormalizedCoordinate | None = None
+    filter_button_y_min: MapLandNormalizedCoordinate | None = None
+    filter_button_x_max: MapLandNormalizedCoordinate | None = None
+    filter_button_y_max: MapLandNormalizedCoordinate | None = None
+    apply_button_visible: StrictBool = False
+    apply_button_enabled: StrictBool = False
+    apply_button_x_min: MapLandNormalizedCoordinate | None = None
+    apply_button_y_min: MapLandNormalizedCoordinate | None = None
+    apply_button_x_max: MapLandNormalizedCoordinate | None = None
+    apply_button_y_max: MapLandNormalizedCoordinate | None = None
     resource_toggles: list[MapLandFilterToggleDetection] = Field(default_factory=list)
     level_toggles: list[MapLandLevelToggleDetection] = Field(default_factory=list)
-    map_center_x: int | None = None
-    map_center_y: int | None = None
+    map_center_x: StrictInt | None = None
+    map_center_y: StrictInt | None = None
     lands: list[MapLandCandidateDetection] = Field(default_factory=list)
     visible_notes: list[str] = Field(default_factory=list)
 
@@ -1444,24 +1501,99 @@ class MapLandDetection(BaseModel):
             ),
             label="map land filter apply button",
         )
+        _validate_coordinate_pair(
+            self,
+            ("map_center_x", "map_center_y"),
+            "map center coordinate",
+        )
         return self
 
     @model_validator(mode="after")
     def _validate_page_domain(self):
-        if self.page_type == "unknown" and any(
-            (
-                self.filter_panel_visible,
-                self.resource_filter_enabled,
-                self.selected_resource_types,
-                self.selected_levels,
-                self.filter_button_visible,
-                self.apply_button_visible,
-                self.resource_toggles,
-                self.level_toggles,
-                self.lands,
+        if self.page_type == "unknown":
+            has_snapshot_data = any(
+                (
+                    self.filter_panel_visible,
+                    self.resource_filter_enabled,
+                    self.selected_resource_types,
+                    self.selected_levels,
+                    self.level_min is not None,
+                    self.level_max is not None,
+                    self.filter_button_visible,
+                    self.filter_button_enabled,
+                    self.apply_button_visible,
+                    self.apply_button_enabled,
+                    any(
+                        value is not None
+                        for value in (
+                            self.filter_button_x_min,
+                            self.filter_button_y_min,
+                            self.filter_button_x_max,
+                            self.filter_button_y_max,
+                            self.apply_button_x_min,
+                            self.apply_button_y_min,
+                            self.apply_button_x_max,
+                            self.apply_button_y_max,
+                            self.map_center_x,
+                            self.map_center_y,
+                        )
+                    ),
+                    self.resource_toggles,
+                    self.level_toggles,
+                    self.lands,
+                )
             )
+            if has_snapshot_data:
+                raise ValueError("unknown map page must contain an empty snapshot")
+            return self
+
+        if self.level_min is not None and self.level_max is not None:
+            if self.level_min > self.level_max:
+                raise ValueError("map land level_min must be <= level_max")
+        if self.level_min is not None and any(
+            level < self.level_min for level in self.selected_levels
         ):
-            raise ValueError("unknown main-map page_type cannot include land payload")
+            raise ValueError("selected map land level cannot be below level_min")
+        if self.level_max is not None and any(
+            level > self.level_max for level in self.selected_levels
+        ):
+            raise ValueError("selected map land level cannot exceed level_max")
+
+        if len(self.selected_resource_types) != len(set(self.selected_resource_types)):
+            raise ValueError("selected_resource_types cannot contain duplicates")
+        if len(self.selected_levels) != len(set(self.selected_levels)):
+            raise ValueError("selected_levels cannot contain duplicates")
+
+        resource_toggle_types = [
+            toggle.resource_type for toggle in self.resource_toggles
+        ]
+        if len(resource_toggle_types) != len(set(resource_toggle_types)):
+            raise ValueError("resource_toggles cannot contain duplicate resource types")
+        level_toggle_levels = [toggle.level for toggle in self.level_toggles]
+        if len(level_toggle_levels) != len(set(level_toggle_levels)):
+            raise ValueError("level_toggles cannot contain duplicate levels")
+
+        selected_resources = set(self.selected_resource_types)
+        for toggle in self.resource_toggles:
+            if toggle.selected != (toggle.resource_type in selected_resources):
+                raise ValueError(
+                    "selected_resource_types conflicts with resource_toggles"
+                )
+        selected_levels = set(self.selected_levels)
+        for toggle in self.level_toggles:
+            if toggle.selected != (toggle.level in selected_levels):
+                raise ValueError("selected_levels conflicts with level_toggles")
+
+        if self.selected_resource_types and not self.resource_filter_enabled:
+            raise ValueError(
+                "selected_resource_types requires resource_filter_enabled=true"
+            )
+        if not self.filter_panel_visible and (
+            self.apply_button_visible or self.resource_toggles or self.level_toggles
+        ):
+            raise ValueError(
+                "hidden map land filter panel cannot expose panel-only controls"
+            )
         return self
 
 
@@ -1478,9 +1610,12 @@ MAP_LAND_SCHEMA: dict[str, Any] = {
             "type": "array",
             "items": {"type": "string", "enum": ["wood", "stone", "iron", "grain"]},
         },
-        "selected_levels": {"type": "array", "items": {"type": "integer"}},
-        "level_min": {"type": "integer"},
-        "level_max": {"type": "integer"},
+        "selected_levels": {
+            "type": "array",
+            "items": {"type": "integer", "minimum": 1, "maximum": 12},
+        },
+        "level_min": {"type": "integer", "minimum": 1, "maximum": 12},
+        "level_max": {"type": "integer", "minimum": 1, "maximum": 12},
         "filter_button_visible": {"type": "boolean"},
         "filter_button_enabled": {"type": "boolean"},
         "filter_button_x_min": {"type": "integer"},
@@ -1583,11 +1718,15 @@ MAP_LAND_SCHEMA: dict[str, Any] = {
                     },
                     "selected": {"type": "boolean"},
                     "recommended_marker": {"type": "boolean"},
-                    "yield_per_hour": {"type": "integer"},
-                    "distance": {"type": "integer"},
-                    "march_seconds": {"type": "integer"},
-                    "expected_win_rate": {"type": "number"},
-                    "expected_battle_loss": {"type": "integer"},
+                    "yield_per_hour": {"type": "integer", "minimum": 0},
+                    "distance": {"type": "integer", "minimum": 0},
+                    "march_seconds": {"type": "integer", "minimum": 0},
+                    "expected_win_rate": {
+                        "type": "number",
+                        "minimum": 0.0,
+                        "maximum": 1.0,
+                    },
+                    "expected_battle_loss": {"type": "integer", "minimum": 0},
                     "risk_label": {
                         "type": "string",
                         "enum": ["safe", "edge", "danger", "unknown"],
@@ -1630,9 +1769,18 @@ MAP_LAND_INSTRUCTION = (
     "countdown only when it is visible and pair it with occupation_pending=true. A battle "
     "win or victory marker never proves completed occupation and must not cause "
     "occupied=true. Extract level, resource type, and "
-    "0-1000 normalized target bbox only when visible. Emit land_scope only when the UI "
+    "0-1000 normalized target bbox only when visible. Map and land coordinates must "
+    "always include both x and y; omit both when either value is unclear. The land-filter "
+    "entry may use a magnifying-glass icon: report filter_button only when it is clearly "
+    "the control associated with land resource/level filtering. Do not confuse it with "
+    "an adjacent eye/view control, location pin, navigation control, or a generic search; "
+    "when ambiguous set filter_button_visible=false and omit its bbox. Apply controls and "
+    "resource/level toggles belong to a visible filter panel, and selected summaries must "
+    "agree with any emitted toggle states. Emit land_scope only when the UI "
     "explicitly establishes inner_city or outer_city. Never infer hidden ownership, "
-    "reachability, protection, attackability, scope, coordinates, or battle strength."
+    "reachability, protection, attackability, scope, coordinates, or battle strength. "
+    "If this is not clearly the main map, use page_type=unknown and emit an empty filter "
+    "and land snapshot so downstream state is invalidated without inventing map facts."
 )
 
 

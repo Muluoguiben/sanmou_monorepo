@@ -44,6 +44,45 @@ Inspect the manifest, event counts, hashes, ignored inputs, capture errors, targ
 
 Read [recording-schema.md](references/recording-schema.md) when validating fields or diagnosing integrity failures.
 
+## Annotate Without Rewriting Raw Evidence
+
+Generate a reviewer-attributed draft on stdout, copy it to a separate review
+location, and validate the exact file explicitly:
+
+```bash
+PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay \
+  annotation-template <session-dir> --workflow-id map-filter-apply
+PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay \
+  annotation-validate <session-dir> <annotation.json> --require-approved
+```
+
+The annotation binds exact manifest and events hashes, full event/frame review,
+semantic targets, preconditions, claimed/observed deltas, negative labels,
+canonical before/after observation digests, and review attribution. Every
+non-ambiguous transition must agree with the annotation's single canonical
+label/outcome contract; intermediate panel/selection observations stay
+observation-only and trace-only. It is not a cryptographic signature, runtime
+verifier, or authority grant. Read
+[annotation-schema.md](references/annotation-schema.md) before creating or
+approving one.
+
+Audit a frozen generation/holdout registry separately:
+
+```bash
+PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay \
+  audit-dataset <registry.json> \
+  --sessions-root <raw-sessions-root> \
+  --reviews-root <review-root>
+```
+
+The current audit proves only integrity, declared review binding, exact
+within-registry deduplication, and provisional sample-count coverage. It
+deliberately reports corpus catalog, development lineage, oracle, visual-near-
+duplicate, structured start-state, filesystem-race, independent-eval, and image
+model gates as unverified. Read
+[dataset-registry-schema.md](references/dataset-registry-schema.md) before using
+or interpreting the report.
+
 ## Compile Review-Only Candidates
 
 Compile only after strict validation and manual privacy review succeed:
@@ -77,7 +116,7 @@ Never add or use `--execute`. M0 has no live replay implementation. Coordinates 
 
 Read [promotion-policy.md](references/promotion-policy.md) before moving any artifact into an action implementation, repo skill, fixture, eval, or QA knowledge source.
 
-Use multiple reviewed demonstrations, a semantic target independent of coordinates, explicit preconditions, negative examples, a separate verifier, disjoint holdout sessions, recovery behavior, safety review, and the existing runtime confirmation/kill-switch gates to establish eligibility for a future M1/M3 implementation. M0 itself has no promotion or execution path.
+Use multiple reviewed demonstrations, a semantic target independent of coordinates, explicit preconditions, negative examples, a separate verifier, corpus-wide disjoint holdout sessions, recovery behavior, safety review, and the existing runtime confirmation/kill-switch gates to establish eligibility for a future M1/M3 implementation. A green provisional registry count is not an independent eval or promotion. M0 itself has no promotion or execution path.
 
 Keep human-demonstration traces separate from runtime-dispatch terminal evidence. A demonstration cannot satisfy `live_trace_fixture`, operator-confirmation, same-frame dispatch, or post-action verifier requirements.
 

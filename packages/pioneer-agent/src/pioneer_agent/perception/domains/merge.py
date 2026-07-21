@@ -143,6 +143,8 @@ def apply_mode_hub(state: RuntimeState, fragment: ModeHubFragment) -> RuntimeSta
 
 def apply_map_land(state: RuntimeState, fragment: MapLandFragment) -> RuntimeState:
     """Replace the map snapshot, rejecting observations older than current state."""
+    if fragment.parse_status != "observed":
+        return state
     incoming_meta = fragment.field_meta.get(_MAP_CANDIDATES_META_KEY)
     existing_meta = state.field_meta.get(_MAP_CANDIDATES_META_KEY)
     if not _snapshot_is_current(existing_meta, incoming_meta):

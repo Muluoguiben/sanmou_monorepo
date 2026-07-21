@@ -193,6 +193,7 @@ class TraceStore:
                 ),
                 "page_type": observation.page_type,
                 "domains_run": list(observation.domains_run),
+                "unknown_domains": list(observation.unknown_domains),
                 "source": observation.source,
             },
             attempt=attempt,

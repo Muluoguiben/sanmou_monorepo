@@ -12,7 +12,7 @@ from typing import Any
 
 from PIL import Image
 
-from pioneer_agent.core.models import FieldMeta, RuntimeState
+from pioneer_agent.core.models import FieldMeta, ObservationSnapshot, RuntimeState
 from pioneer_agent.perception.vision_sync import VisionSync
 from tests.unit.capture_geometry_fixtures import capture_geometry
 
@@ -197,9 +197,70 @@ class VisionSyncTests(unittest.TestCase):
         state, summary = sync.sync(b"png", state=RuntimeState())
         self.assertEqual(summary.page_type, "main_map")
         self.assertEqual(summary.domains_run, ["resource_bar", "map_land"])
+        self.assertEqual(summary.unknown_domains, [])
         self.assertEqual(client.calls, ["resource_bar", "map_land"])
         self.assertEqual(state.global_state.get("page_type"), "main_map")
         self.assertIn("banner", summary.notes)
+
+    def test_unknown_secondary_map_parse_invalidates_prior_candidates_without_raising(self) -> None:
+        client = _ScriptedVisionClient(
+            [
+                {"page_type": "main_map", "resources": {}, "visible_notes": []},
+                {
+                    "page_type": "unknown",
+                    "filter_panel_visible": False,
+                    "resource_filter_enabled": False,
+                    "selected_resource_types": [],
+                    "selected_levels": [],
+                    "filter_button_visible": False,
+                    "filter_button_enabled": False,
+                    "apply_button_visible": False,
+                    "apply_button_enabled": False,
+                    "resource_toggles": [],
+                    "level_toggles": [],
+                    "lands": [],
+                    "visible_notes": ["secondary map parser was uncertain"],
+                },
+            ]
+        )
+        previous = RuntimeState(
+            map_state={
+                "candidate_lands": [{"land_id": "stale"}],
+                "candidate_land_count": 1,
+                "visible_lands": [{"land_id": "stale"}],
+                "visible_land_count": 1,
+            }
+        )
+
+        state, summary = VisionSync(client).sync(
+            b"png",
+            state=previous,
+            captured_at=datetime(2026, 7, 21, 12, 0, tzinfo=UTC),
+        )
+
+        self.assertEqual(summary.page_type, "main_map")
+        self.assertEqual(summary.domains_run, ["resource_bar"])
+        self.assertEqual(summary.unknown_domains, ["map_land"])
+        self.assertEqual(state.map_state["candidate_lands"], [])
+        self.assertEqual(state.map_state["candidate_land_count"], 0)
+        self.assertEqual(state.map_state["visible_lands"], [{"land_id": "stale"}])
+        self.assertNotIn("map_land_filter", state.map_state)
+        self.assertNotIn("map_state.map_land_filter", state.field_meta)
+        assert summary.observation is not None
+        self.assertEqual(summary.observation.domains_run, ["resource_bar"])
+        self.assertEqual(summary.observation.unknown_domains, ["map_land"])
+        self.assertEqual(summary.observation.observed_state.map_state, {})
+        self.assertNotIn(
+            "map_state.candidate_lands",
+            summary.observation.observed_state.field_meta,
+        )
+        serialized = summary.observation.model_dump(mode="json")
+        self.assertEqual(serialized["unknown_domains"], ["map_land"])
+        self.assertEqual(
+            ObservationSnapshot.model_validate(serialized).unknown_domains,
+            ["map_land"],
+        )
+        self.assertIn("secondary map parser was uncertain", summary.notes)
 
     def test_battle_page_runs_report_parser_but_does_not_verify_action(self) -> None:
         client = _ScriptedVisionClient(

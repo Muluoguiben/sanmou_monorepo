@@ -1,7 +1,6 @@
 """Fail-closed loading and integrity validation for demonstration sessions."""
 from __future__ import annotations
 
-import hashlib
 import json
 import os
 from dataclasses import dataclass
@@ -23,17 +22,29 @@ from pioneer_agent.record_replay.models import (
     SESSION_RECORD_ADAPTER,
     SessionRecord,
 )
+from pioneer_agent.record_replay.validation import (
+    RegularFileIdentity,
+    load_strict_json_bytes,
+    read_bounded_regular_file,
+    reject_linked_path_components,
+)
 
 
 TIMELINE_TOLERANCE_MS = 100
 MAX_PRE_INPUT_AGE_MS = 1_000
+MAX_MANIFEST_BYTES = 1_048_576
+MAX_EVENTS_BYTES = 67_108_864
+MAX_FRAME_BYTES = 16_777_216
+MAX_SESSION_FRAME_BYTES = 268_435_456
 
 
 @dataclass(frozen=True)
 class LoadedRecording:
     root: Path
     manifest: RecordingManifest
+    manifest_sha256: str
     records: tuple[SessionRecord, ...]
+    raw_file_identities: tuple[tuple[str, RegularFileIdentity], ...]
 
     @property
     def frames(self) -> tuple[FrameRecord, ...]:
@@ -55,42 +66,98 @@ def load_recording(
     root = _require_directory(root)
     manifest_path = _safe_child(root, "manifest.json")
     events_path = _safe_child(root, "events.jsonl")
-    _reject_symlink(manifest_path)
-    _reject_symlink(events_path)
 
     try:
-        manifest = RecordingManifest.model_validate_json(
-            manifest_path.read_text(encoding="utf-8")
+        manifest_read = read_bounded_regular_file(
+            manifest_path,
+            max_bytes=MAX_MANIFEST_BYTES,
+            label="recording manifest",
         )
-    except (OSError, ValidationError, ValueError) as exc:
-        raise ValueError("recording manifest is invalid") from exc
+        manifest_value = load_strict_json_bytes(manifest_read.payload)
+        manifest = RecordingManifest.model_validate(manifest_value)
+    except (UnicodeDecodeError, json.JSONDecodeError, ValidationError, ValueError) as exc:
+        raise ValueError(f"recording manifest is invalid: {exc}") from exc
+    manifest_sha256 = manifest_read.identity.sha256
     if require_complete and manifest.status != RecordingStatus.COMPLETED:
         raise ValueError(f"recording is not complete: {manifest.status.value}")
 
     try:
-        raw_events = events_path.read_bytes()
-    except OSError as exc:
-        raise ValueError("recording events file is unreadable") from exc
-    digest = hashlib.sha256(raw_events).hexdigest()
+        events_read = read_bounded_regular_file(
+            events_path,
+            max_bytes=MAX_EVENTS_BYTES,
+            label="recording events file",
+        )
+    except ValueError as exc:
+        raise ValueError(f"recording events file is invalid: {exc}") from exc
+
     if manifest.events_sha256 is None:
         if require_complete:
             raise ValueError("active recording has no finalized events SHA256")
-        return LoadedRecording(root=root, manifest=manifest, records=())
-    if manifest.events_sha256 != digest:
+        _parse_records(events_read.payload)
+        return LoadedRecording(
+            root=root,
+            manifest=manifest,
+            manifest_sha256=manifest_sha256,
+            records=(),
+            raw_file_identities=(
+                ("manifest.json", manifest_read.identity),
+                ("events.jsonl", events_read.identity),
+            ),
+        )
+    if manifest.events_sha256 != events_read.identity.sha256:
         raise ValueError("recording events SHA256 does not match the manifest")
 
+    records = _parse_records(events_read.payload)
+    frame_identities = _validate_records(
+        root, manifest, records, verify_images=verify_images
+    )
+    return LoadedRecording(
+        root=root,
+        manifest=manifest,
+        manifest_sha256=manifest_sha256,
+        records=tuple(records),
+        raw_file_identities=(
+            ("manifest.json", manifest_read.identity),
+            ("events.jsonl", events_read.identity),
+            *frame_identities,
+        ),
+    )
+
+
+def _parse_records(payload: bytes) -> list[SessionRecord]:
     records: list[SessionRecord] = []
-    for line_number, raw_line in enumerate(raw_events.splitlines(), start=1):
+    for line_number, raw_line in enumerate(BytesIO(payload), start=1):
         if not raw_line.strip():
             continue
         try:
-            value = json.loads(raw_line)
+            value = load_strict_json_bytes(raw_line)
             record = SESSION_RECORD_ADAPTER.validate_python(value)
-        except (json.JSONDecodeError, ValidationError, ValueError) as exc:
+        except (
+            UnicodeDecodeError,
+            json.JSONDecodeError,
+            ValidationError,
+            ValueError,
+        ) as exc:
             raise ValueError(f"invalid recording event at line {line_number}") from exc
         records.append(record)
-    _validate_records(root, manifest, records, verify_images=verify_images)
-    return LoadedRecording(root=root, manifest=manifest, records=tuple(records))
+    return records
+
+
+def revalidate_loaded_recording(recording: LoadedRecording) -> LoadedRecording:
+    """Re-open every raw artifact and reject a stale in-memory recording view."""
+
+    current = load_recording(
+        recording.root,
+        require_complete=True,
+        verify_images=True,
+    )
+    if (
+        current.manifest_sha256 != recording.manifest_sha256
+        or current.manifest.events_sha256 != recording.manifest.events_sha256
+        or current.raw_file_identities != recording.raw_file_identities
+    ):
+        raise ValueError("recording raw evidence changed after it was loaded")
+    return current
 
 
 def _validate_records(
@@ -99,7 +166,7 @@ def _validate_records(
     records: list[SessionRecord],
     *,
     verify_images: bool,
-) -> None:
+) -> tuple[tuple[str, RegularFileIdentity], ...]:
     if len(records) != manifest.record_count:
         raise ValueError("record count does not match the manifest")
     sequences = [record.sequence for record in records]
@@ -125,6 +192,10 @@ def _validate_records(
         raise ValueError("input event count exceeds the recording limit")
     if manifest.total_frame_bytes > manifest.capture.max_bytes:
         raise ValueError("frame byte count exceeds the recording limit")
+    if manifest.total_frame_bytes > MAX_SESSION_FRAME_BYTES:
+        raise ValueError("frame byte count exceeds the fixed session size limit")
+    if any(frame.byte_size > MAX_FRAME_BYTES for frame in frames):
+        raise ValueError("frame exceeds the fixed per-frame size limit")
 
     if manifest.status == RecordingStatus.COMPLETED:
         start_frames = [frame for frame in frames if frame.role == FrameRole.START]
@@ -141,6 +212,7 @@ def _validate_records(
             raise ValueError("start frame geometry does not match the manifest")
 
     frame_ids: dict[str, FrameRecord] = {}
+    frame_identities: list[tuple[str, RegularFileIdentity]] = []
     previous_frame: FrameRecord | None = None
     for frame in frames:
         if frame.frame_id in frame_ids:
@@ -164,15 +236,20 @@ def _validate_records(
         previous_frame = frame
         frame_ids[frame.frame_id] = frame
         frame_path = _safe_child(root, frame.path)
-        _reject_symlink(frame_path)
         try:
-            payload = frame_path.read_bytes()
-        except OSError as exc:
-            raise ValueError(f"frame is unreadable: {frame.frame_id}") from exc
+            frame_read = read_bounded_regular_file(
+                frame_path,
+                max_bytes=MAX_FRAME_BYTES,
+                label=f"frame {frame.frame_id}",
+            )
+        except ValueError as exc:
+            raise ValueError(f"frame is unreadable: {frame.frame_id}: {exc}") from exc
+        payload = frame_read.payload
         if len(payload) != frame.byte_size:
             raise ValueError(f"frame size mismatch: {frame.frame_id}")
-        if hashlib.sha256(payload).hexdigest() != frame.sha256:
+        if frame_read.identity.sha256 != frame.sha256:
             raise ValueError(f"frame SHA256 mismatch: {frame.frame_id}")
+        frame_identities.append((frame.path, frame_read.identity))
         if verify_images:
             try:
                 with warnings.catch_warnings():
@@ -286,6 +363,7 @@ def _validate_records(
             elapsed_ms=error.elapsed_ms,
             label=f"capture error {error.code}",
         )
+    return tuple(frame_identities)
 
 
 def _validate_manifest_time(
@@ -322,8 +400,7 @@ def atomic_write_json(path: Path, value: object) -> None:
 
 
 def _require_directory(path: Path) -> Path:
-    if path.is_symlink():
-        raise ValueError("recording root cannot be a symlink")
+    reject_linked_path_components(path, label="recording root")
     try:
         resolved = path.resolve(strict=True)
     except OSError as exc:
@@ -342,8 +419,3 @@ def _safe_child(root: Path, relative: str) -> Path:
     if resolved_parent != root and root not in resolved_parent.parents:
         raise ValueError("recording artifact escapes the session root")
     return candidate
-
-
-def _reject_symlink(path: Path) -> None:
-    if path.is_symlink():
-        raise ValueError("recording artifacts cannot be symlinks")

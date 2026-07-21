@@ -8,8 +8,16 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Callable
 import unittest
+from unittest.mock import patch
 
-from pioneer_agent.record_replay.session_store import load_recording
+from pioneer_agent.record_replay import validation as record_replay_validation
+from pioneer_agent.record_replay.session_store import (
+    MAX_EVENTS_BYTES,
+    MAX_FRAME_BYTES,
+    MAX_MANIFEST_BYTES,
+    load_recording,
+    revalidate_loaded_recording,
+)
 from tests.unit.record_replay_fixtures import NOW, create_completed_session
 
 
@@ -79,6 +87,165 @@ class RecordReplaySessionTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "frame size mismatch"):
                 load_recording(root)
 
+    def test_manifest_strict_json_rejects_duplicate_keys_and_non_finite_values(
+        self,
+    ) -> None:
+        for case in ("duplicate", "non-finite"):
+            with self.subTest(case=case), TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                create_completed_session(root)
+                raw = (root / "manifest.json").read_text(encoding="utf-8")
+                if case == "duplicate":
+                    needle = '"schema_version": 1,'
+                    replacement = f'{needle}\n  {needle}'
+                else:
+                    needle = '"record_count": 4,'
+                    replacement = '"record_count": NaN,'
+                self.assertIn(needle, raw)
+                (root / "manifest.json").write_text(
+                    raw.replace(needle, replacement, 1),
+                    encoding="utf-8",
+                )
+
+                with self.assertRaisesRegex(ValueError, "manifest is invalid"):
+                    load_recording(root)
+
+    def test_events_strict_json_rejects_duplicate_keys_and_non_finite_values(
+        self,
+    ) -> None:
+        for case in ("duplicate", "non-finite"):
+            with self.subTest(case=case), TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                create_completed_session(root)
+                lines = (root / "events.jsonl").read_text(
+                    encoding="utf-8"
+                ).splitlines()
+                if case == "duplicate":
+                    needle = '"sequence":0,'
+                    replacement = '"sequence":0,"sequence":0,'
+                else:
+                    needle = '"sequence":0,'
+                    replacement = '"sequence":NaN,'
+                self.assertIn(needle, lines[0])
+                lines[0] = lines[0].replace(needle, replacement, 1)
+                payload = ("\n".join(lines) + "\n").encode("utf-8")
+                (root / "events.jsonl").write_bytes(payload)
+                manifest = json.loads(
+                    (root / "manifest.json").read_text(encoding="utf-8")
+                )
+                manifest["events_sha256"] = hashlib.sha256(payload).hexdigest()
+                (root / "manifest.json").write_text(
+                    json.dumps(manifest, ensure_ascii=False),
+                    encoding="utf-8",
+                )
+
+                with self.assertRaisesRegex(ValueError, "invalid recording event"):
+                    load_recording(root)
+
+    def test_fixed_read_limits_reject_raw_artifacts_before_unbounded_reads(self) -> None:
+        cases = (
+            ("manifest.json", MAX_MANIFEST_BYTES + 1, "fixed size limit"),
+            ("events.jsonl", MAX_EVENTS_BYTES + 1, "fixed size limit"),
+            ("frames/000002-post.png", MAX_FRAME_BYTES + 1, "fixed size limit"),
+        )
+        for relative, size, message in cases:
+            with self.subTest(relative=relative), TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                create_completed_session(root)
+                with (root / relative).open("r+b") as handle:
+                    handle.truncate(size)
+
+                with self.assertRaisesRegex(ValueError, message):
+                    load_recording(root)
+
+    def test_raw_artifacts_must_not_be_hardlinked(self) -> None:
+        for relative in (
+            "manifest.json",
+            "events.jsonl",
+            "frames/000002-post.png",
+        ):
+            with self.subTest(relative=relative), TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                create_completed_session(root)
+                source = root / relative
+                alias = root / f"alias-{source.name}"
+                try:
+                    os.link(source, alias)
+                except (NotImplementedError, OSError) as exc:
+                    self.skipTest(f"hardlinks unavailable: {exc}")
+
+                with self.assertRaisesRegex(ValueError, "hard-linked"):
+                    load_recording(root)
+
+    def test_same_inode_rewrite_during_read_is_rejected(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            create_completed_session(root)
+            manifest_path = root / "manifest.json"
+            original_payload = manifest_path.read_bytes()
+            original_stat = manifest_path.stat()
+            original_read = record_replay_validation.os.read
+            mutated = False
+
+            def mutate_after_first_read(descriptor: int, size: int) -> bytes:
+                nonlocal mutated
+                chunk = original_read(descriptor, size)
+                if not mutated:
+                    mutated = True
+                    replacement = original_payload[:-1] + (
+                        b" " if original_payload[-1:] != b" " else b"\n"
+                    )
+                    manifest_path.write_bytes(replacement)
+                    os.utime(
+                        manifest_path,
+                        ns=(
+                            original_stat.st_atime_ns,
+                            original_stat.st_mtime_ns + 1_000_000_000,
+                        ),
+                    )
+                return chunk
+
+            with patch.object(
+                record_replay_validation.os,
+                "read",
+                side_effect=mutate_after_first_read,
+            ):
+                with self.assertRaisesRegex(ValueError, "changed while it was read"):
+                    load_recording(root)
+
+    def test_repeated_fresh_file_reads_do_not_false_positive(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            for index in range(100):
+                path = root / f"fresh-{index:03d}.json"
+                payload = f'{{"index":{index}}}'.encode("ascii")
+                path.write_bytes(payload)
+
+                loaded = record_replay_validation.read_bounded_regular_file(
+                    path,
+                    max_bytes=1_024,
+                    label="fresh probe",
+                )
+                self.assertEqual(loaded.payload, payload)
+
+    def test_revalidating_loaded_recording_rejects_in_place_raw_rewrite(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            create_completed_session(root)
+            recording = load_recording(root)
+            manifest_path = root / "manifest.json"
+            inode = manifest_path.stat().st_ino
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            manifest["target"]["title"] = "rewritten after load"
+            manifest_path.write_text(
+                json.dumps(manifest, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            self.assertEqual(manifest_path.stat().st_ino, inode)
+
+            with self.assertRaisesRegex(ValueError, "changed after it was loaded"):
+                revalidate_loaded_recording(recording)
+
     @unittest.skipIf(os.name == "nt", "symlink semantics are covered on the WSL test host")
     def test_rejects_symlinked_frame(self) -> None:
         with TemporaryDirectory() as tmp:
@@ -92,6 +259,21 @@ class RecordReplaySessionTests(unittest.TestCase):
 
             with self.assertRaisesRegex(ValueError, "symlink"):
                 load_recording(root)
+
+    @unittest.skipIf(os.name == "nt", "symlink semantics are covered on the WSL test host")
+    def test_rejects_symlinked_manifest_and_events(self) -> None:
+        for name in ("manifest.json", "events.jsonl"):
+            with self.subTest(name=name), TemporaryDirectory() as tmp:
+                root = Path(tmp) / "session"
+                create_completed_session(root)
+                source = root / name
+                target = Path(tmp) / f"outside-{name}"
+                target.write_bytes(source.read_bytes())
+                source.unlink()
+                source.symlink_to(target)
+
+                with self.assertRaisesRegex(ValueError, "symlink"):
+                    load_recording(root)
 
     def test_rejects_path_escape_even_when_manifest_hash_is_updated(self) -> None:
         with TemporaryDirectory() as tmp:

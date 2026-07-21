@@ -2,7 +2,7 @@
 
 ## 目标与当前边界
 
-Windows Record & Replay M0 用来把一段玩家亲自操作沉淀为可校验的人工演示：窗口绑定、压缩关键帧、输入边界、事件时序、完整性哈希、待审核 action candidate、离线 replay plan 和 skill 草稿。
+Windows Record & Replay M0 用来把一段玩家亲自操作沉淀为可校验的人工演示：窗口绑定、压缩关键帧、输入边界、事件时序、完整性哈希、待审核 action candidate、离线 replay plan 和 skill 草稿。当前还具备 M1 的底座切片：独立 reviewer annotation、全事件/帧隐私复核、单 registry 的 generation/holdout 审计，以及 map-filter 的纯观察 transition 分类；这些能力仍不等于完整 M1 或独立 eval。
 
 它当前**不是宏录制器，也不是自动操作入口**。录制进程没有输入注入代码，`replay` 只生成离线计划，`--execute` 会被 CLI 明确拒绝。一次成功演示也不能替代 AutonomousLoop 的同帧 observation、runtime dispatch、operator confirmation、新帧 post verifier 或 M1a terminal-source evidence。
 
@@ -16,9 +16,14 @@ Sanmou Unity 窗口 ──WGC/DXGI──┘     │
                          manifest.json + events.jsonl
                                 + WebP keyframes
                                     │ strict validate
-                                    ▼
-                pending action candidates + offline replay plan
-                                    + review-only skill draft
+                    ┌───────────────┴────────────────┐
+                    ▼                                ▼
+          reviewer annotation              M0 pending candidates
+                    │                       + offline replay plan
+                    │                       + review-only skill draft
+                    ▼
+       generation/holdout registry audit
+       (provisional coverage only)
 ```
 
 录制 helper 直接由 Windows Python 运行，采用以下固定边界：
@@ -51,6 +56,18 @@ PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay r
 PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay inspect <session-dir>
 PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay validate <session-dir>
 
+# 生成独立标注草稿并验证显式 review 文件；命令不修改 raw
+PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay \
+  annotation-template <session-dir> --workflow-id map-filter-apply
+PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay \
+  annotation-validate <session-dir> <annotation.json> --require-approved
+
+# 审计一个显式 generation/holdout registry；只检查 provisional coverage
+PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay \
+  audit-dataset <registry.json> \
+  --sessions-root <raw-sessions-root> \
+  --reviews-root <review-root>
+
 # 严格校验和人工隐私复核后，再从未篡改的 session 生成候选
 PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay compile <session-dir>
 
@@ -68,6 +85,12 @@ PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay r
 
 所有 candidate、offline plan、compilation report 和 draft skill 都必须携带与 raw manifest 完全一致的 `source_events_sha256`；只有 session UUID 相同但 digest 不同的派生物视为 stale/foreign。
 
+Annotation 还必须绑定 `manifest.json` 精确字节 SHA、完整 input event 覆盖、全部 frame 隐私 review、语义 target、canonical before/after observation digest 和 reviewer 时间。transition 会在消费前重载 raw 与 annotation，并让所有非 ambiguous 结果服从同一 label/outcome 合约；`panel_opened` / `selection_changed` 只能作为 observation-only、trace-only 中间态。它是 reviewer-attributed 记录，不是密码学签名。批准后的 annotation 仍固定无执行、无 terminal source、无 closure、无 QA publish 权限。
+
+Dataset audit 当前只证明单个 registry 内的精确身份/哈希去重与临时样本下限。跨 registry corpus catalog、开发产物传递依赖、evaluator-only holdout oracle、视觉近重复、结构化 start-state、并发目录替换 hardening 和真实 image-model eval 均明确保持未验证；因此 `coverage_ready=true` 也不能写成“独立 eval 已通过”。
+
+Vision secondary parser 返回 unknown 时不会写入可信空筛选或候选；`unknown_domains` 会随 observation、Advisor report、loop log 和 trace 持久化，供后续 eval 区分“未运行”和“运行但不确定”。
+
 ## 可以沉淀什么
 
 | 录制对象 | 单样本可产出 | 还需什么才能晋级 |
@@ -84,11 +107,11 @@ PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay r
 
 ### M1：多样本与语义标注
 
-- 建立 action segmenter，把 burst、click/drag/wheel 与页面转移切成可审核片段；
+- 已落地基础 segment template 和严格 reviewer annotation；继续补自动/人工 segment 审核体验；
 - 对同一工作流采集多窗口尺寸、多个起始状态、弹窗/无变化/失败样本；
 - 用 reviewed annotation 描述 page、semantic target、preconditions、expected delta，而不修改 raw trace；
-- 新增独立的 privacy/reviewer annotation manifest；raw manifest 永久保持 `privacy_reviewed=false`，不原地改写证据；
-- 建立 generation/eval session registry，禁止样本泄漏。
+- 已新增独立 privacy/reviewer annotation manifest；raw manifest 永久保持 `privacy_reviewed=false`，不原地改写证据；
+- 已新增单 registry generation/holdout 精确去重审计；仍需 canonical corpus catalog 与跨 registry 泄漏防线。
 
 ### M2：独立 Eval
 
@@ -98,6 +121,7 @@ PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay r
 - safety：打印文本、窗口外输入、高风险或未知 target 始终零 dispatch；
 - compiler：人工演示永远不能被提升为 runtime success；
 - skill：由未参与实现的 fresh agent 在 holdout session 上 forward-test。
+- 数据治理：补 evaluator-only oracle、内容寻址的开发产物来源闭包、视觉近重复、结构化 start-state 和平台句柄级 TOCTOU hardening。
 
 ### M3：Reviewed Semantic Replay
 

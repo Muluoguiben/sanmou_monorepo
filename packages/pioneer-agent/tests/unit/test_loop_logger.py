@@ -48,6 +48,7 @@ class LoopLoggerTests(unittest.TestCase):
             self.assertEqual(payload["iteration"], 3)
             self.assertEqual(payload["page_type"], "city")
             self.assertEqual(payload["domains_run"], ["resource_bar", "city_buildings"])
+            self.assertEqual(payload["unknown_domains"], [])
             self.assertEqual(payload["selected_action_type"], "upgrade_building")
             self.assertEqual(payload["selected_action_params"], {"building_name": "征兵所"})
             self.assertEqual(payload["execution_status"], "pending")

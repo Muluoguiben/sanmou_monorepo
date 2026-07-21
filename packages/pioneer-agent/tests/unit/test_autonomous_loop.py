@@ -79,8 +79,14 @@ class _StubResult:
 
 
 class _ScriptedVision:
-    def __init__(self, payloads: list[dict[str, Any]]) -> None:
+    def __init__(
+        self,
+        payloads: list[dict[str, Any]],
+        *,
+        map_land_payload: dict[str, Any] | None = None,
+    ) -> None:
         self._payloads = payloads
+        self._map_land_payload = map_land_payload
         self.calls = 0
         self._trace_events: list[dict[str, Any]] = []
 
@@ -95,7 +101,7 @@ class _ScriptedVision:
     def extract(self, image, instruction, response_schema, **kwargs):  # noqa: ANN001
         instruction_lower = instruction.lower()
         if "explicitly classified as the main_map page" in instruction_lower:
-            p = _empty_map_land_payload()
+            p = self._map_land_payload or _empty_map_land_payload()
         elif "explicitly classified as the battle page" in instruction_lower:
             p = _empty_battle_report_payload()
         else:
@@ -127,6 +133,14 @@ def _empty_map_land_payload() -> dict[str, Any]:
         "level_toggles": [],
         "lands": [],
         "visible_notes": [],
+    }
+
+
+def _unknown_map_land_payload() -> dict[str, Any]:
+    return {
+        **_empty_map_land_payload(),
+        "page_type": "unknown",
+        "visible_notes": ["secondary map parser was uncertain"],
     }
 
 
@@ -487,13 +501,17 @@ class AutonomousLoopTests(unittest.TestCase):
 
     def _loop(self, *, action: CandidateAction | None, vision_payloads: list[dict[str, Any]],
               dry_run: bool = False, stuck_threshold: int = 3,
-              runner: Any = None, ui_actions: Any = None):
+              runner: Any = None, ui_actions: Any = None,
+              map_land_payload: dict[str, Any] | None = None):
         from pioneer_agent.executor.ui_actions import UIActions
         from pioneer_agent.perception.ui_registry import UIButton, UIRegistry
         from pioneer_agent.perception.vision_sync import VisionSync
 
         bridge = _StubBridge()
-        vision = _ScriptedVision(vision_payloads)
+        vision = _ScriptedVision(
+            vision_payloads,
+            map_land_payload=map_land_payload,
+        )
         registry = UIRegistry({"esc_close": UIButton("esc_close", "关闭", 0.5, 0.5)})
         ui = ui_actions if ui_actions is not None else UIActions(bridge, registry, vision=vision)  # type: ignore[arg-type]
         sleeper_calls: list[float] = []
@@ -606,6 +624,50 @@ class AutonomousLoopTests(unittest.TestCase):
             self.assertEqual(
                 trace.metadata["loop_contract"],
                 ["observe", "decide", "act", "verify", "trace", "recover"],
+            )
+
+    def test_unknown_map_domain_survives_loop_and_trace_serialization(self) -> None:
+        import json
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+
+        from pioneer_agent.storage.loop_logger import LoopLogger
+        from pioneer_agent.storage.trace_store import TraceStore
+
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            loop, _bridge, _ = self._loop(
+                action=None,
+                vision_payloads=[{"page_type": "main_map", "resources": {}}],
+                map_land_payload=_unknown_map_land_payload(),
+            )
+            loop.loop_logger = LoopLogger(root / "loop", archive_screenshots=False)
+            loop.trace_store = TraceStore(root / "trace.jsonl")
+
+            result = loop.tick(9)
+
+            self.assertEqual(result.summary.domains_run, ["resource_bar"])
+            self.assertEqual(result.summary.unknown_domains, ["map_land"])
+            assert result.summary.observation is not None
+            self.assertEqual(
+                result.summary.observation.unknown_domains,
+                ["map_land"],
+            )
+
+            loop_payload = json.loads(
+                (root / "loop" / "loop.jsonl").read_text(encoding="utf-8")
+            )
+            self.assertEqual(loop_payload["domains_run"], ["resource_bar"])
+            self.assertEqual(loop_payload["unknown_domains"], ["map_land"])
+
+            trace = loop.trace_store.read()[0]
+            self.assertEqual(trace.vision["domains_run"], ["resource_bar"])
+            self.assertEqual(trace.vision["unknown_domains"], ["map_land"])
+            assert trace.observe is not None
+            self.assertEqual(trace.observe.outputs["unknown_domains"], ["map_land"])
+            self.assertEqual(
+                trace.observe.outputs["observation"]["unknown_domains"],
+                ["map_land"],
             )
 
     def test_tick_trace_includes_ui_input_coordinates(self) -> None:

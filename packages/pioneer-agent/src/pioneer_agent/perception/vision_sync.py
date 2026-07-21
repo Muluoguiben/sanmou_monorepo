@@ -50,8 +50,17 @@ class VisionSyncSummary:
     page_type: str | None
     domains_run: list[str]
     notes: list[str]
+    unknown_domains: list[str] = field(default_factory=list)
     image_traces: list[dict[str, Any]] = field(default_factory=list)
     observation: ObservationSnapshot | None = None
+
+    def __post_init__(self) -> None:
+        overlap = set(self.domains_run).intersection(self.unknown_domains)
+        if overlap:
+            raise ValueError(
+                "vision domains cannot be both completed and unknown: "
+                + ", ".join(sorted(overlap))
+            )
 
 
 class VisionSync:
@@ -78,6 +87,7 @@ class VisionSync:
         frame_size = _frame_size(frame_bytes)
         _reset_vision_trace_events(self.client)
         domains: list[str] = []
+        unknown_domains: list[str] = []
         notes: list[str] = []
         observed_state = RuntimeState()
 
@@ -120,6 +130,7 @@ class VisionSync:
                 return state, self._summary(
                     page=page,
                     domains=domains,
+                    unknown_domains=unknown_domains,
                     notes=notes,
                     observation_id=observation_id,
                     captured_at=captured_at,
@@ -148,11 +159,21 @@ class VisionSync:
                 notes.extend(recruit_fragment.notes)
 
         if page == "main_map":
-            map_fragment = record(
-                extract_map_land(frame_bytes, client=self.client, captured_at=captured_at)
+            map_fragment = extract_map_land(
+                frame_bytes,
+                client=self.client,
+                captured_at=captured_at,
             )
-            state = apply_map_land(state, map_fragment)
-            domains.append("map_land")
+            if map_fragment.parse_status == "observed":
+                map_fragment = record(map_fragment)
+                state = apply_map_land(state, map_fragment)
+                domains.append("map_land")
+            else:
+                # The route classifier saw the main map, but the secondary
+                # parser did not. Fail-close actionable candidates without
+                # publishing a trusted empty map/filter observation.
+                state = expire_map_land_candidates(state, captured_at=captured_at)
+                unknown_domains.append("map_land")
             if map_fragment.notes:
                 notes.extend(map_fragment.notes)
 
@@ -213,6 +234,7 @@ class VisionSync:
         return state, self._summary(
             page=page,
             domains=domains,
+            unknown_domains=unknown_domains,
             notes=notes,
             observation_id=observation_id,
             captured_at=captured_at,
@@ -227,6 +249,7 @@ class VisionSync:
         *,
         page: str | None,
         domains: list[str],
+        unknown_domains: list[str],
         notes: list[str],
         observation_id: str,
         captured_at: datetime,
@@ -239,6 +262,7 @@ class VisionSync:
             page_type=page,
             domains_run=domains,
             notes=notes,
+            unknown_domains=unknown_domains,
             image_traces=_consume_vision_trace_events(self.client),
             observation=ObservationSnapshot(
                 observation_id=observation_id,
@@ -248,6 +272,7 @@ class VisionSync:
                 capture_geometry=capture_geometry,
                 page_type=page,
                 domains_run=list(domains),
+                unknown_domains=list(unknown_domains),
                 observed_state=observed_state,
                 source="vision_sync",
             ),

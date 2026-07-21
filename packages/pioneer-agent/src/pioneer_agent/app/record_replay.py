@@ -14,7 +14,13 @@ import subprocess
 from uuid import uuid4
 
 from pioneer_agent.app.cli_utils import user_path
+from pioneer_agent.record_replay.annotations import (
+    annotation_summary,
+    build_annotation_template,
+    load_recording_annotation,
+)
 from pioneer_agent.record_replay.compiler import compile_recording
+from pioneer_agent.record_replay.dataset_registry import audit_dataset_registry
 from pioneer_agent.record_replay.replayer import build_replay_plan
 from pioneer_agent.record_replay.session_store import load_recording
 from pioneer_agent.record_replay.validation import validate_workflow_name
@@ -46,6 +52,32 @@ def build_parser() -> argparse.ArgumentParser:
     compile_parser = subparsers.add_parser("compile", help="Compile review-only candidates and skill draft.")
     compile_parser.add_argument("session", type=user_path)
 
+    annotation_template_parser = subparsers.add_parser(
+        "annotation-template",
+        help="Print a draft reviewer-annotation template without modifying raw evidence.",
+    )
+    annotation_template_parser.add_argument("session", type=user_path)
+    annotation_template_parser.add_argument("--workflow-id", required=True)
+    annotation_template_parser.add_argument(
+        "--annotated-by", default="unreviewed-template"
+    )
+
+    annotation_validate_parser = subparsers.add_parser(
+        "annotation-validate",
+        help="Validate an explicit annotation against immutable raw evidence.",
+    )
+    annotation_validate_parser.add_argument("session", type=user_path)
+    annotation_validate_parser.add_argument("annotation", type=user_path)
+    annotation_validate_parser.add_argument("--require-approved", action="store_true")
+
+    audit_dataset_parser = subparsers.add_parser(
+        "audit-dataset",
+        help="Audit one explicit reviewed generation/holdout registry without compiling it.",
+    )
+    audit_dataset_parser.add_argument("registry", type=user_path)
+    audit_dataset_parser.add_argument("--sessions-root", type=user_path, required=True)
+    audit_dataset_parser.add_argument("--reviews-root", type=user_path, required=True)
+
     replay_parser = subparsers.add_parser("replay", help="Build an offline dry-run replay plan.")
     replay_parser.add_argument("session", type=user_path)
     replay_parser.add_argument(
@@ -70,6 +102,36 @@ def main(argv: list[str] | None = None) -> int:
             return 0
         if args.command == "compile":
             report = compile_recording(args.session)
+            _print_json(report.model_dump(mode="json"))
+            return 0
+        if args.command == "annotation-template":
+            recording = load_recording(
+                args.session, require_complete=True, verify_images=True
+            )
+            template = build_annotation_template(
+                recording,
+                workflow_id=args.workflow_id,
+                annotated_by=args.annotated_by,
+            )
+            _print_json(template.model_dump(mode="json"))
+            return 0
+        if args.command == "annotation-validate":
+            recording = load_recording(
+                args.session, require_complete=True, verify_images=True
+            )
+            annotation = load_recording_annotation(
+                recording,
+                args.annotation,
+                require_approved=args.require_approved,
+            )
+            _print_json(annotation_summary(recording, annotation))
+            return 0
+        if args.command == "audit-dataset":
+            report = audit_dataset_registry(
+                args.registry,
+                sessions_root=args.sessions_root,
+                reviews_root=args.reviews_root,
+            )
             _print_json(report.model_dump(mode="json"))
             return 0
         if args.command == "replay":

@@ -123,6 +123,8 @@ def build_advisor_report(
     confidence_values = [item.confidence for item in available]
     if screenshot_interpretation is not None:
         confidence_values.append(screenshot_interpretation.confidence)
+    if vision_summary.unknown_domains:
+        confidence_values.append(0.0)
     confidence = min(confidence_values, default=1.0)
     return AdvisorReport(
         captured_at=frame.captured_at,
@@ -140,6 +142,7 @@ def build_advisor_report(
         vision_summary={
             "page_type": vision_summary.page_type,
             "domains_run": list(vision_summary.domains_run),
+            "unknown_domains": list(vision_summary.unknown_domains),
             "notes": list(vision_summary.notes),
             "interpretation": screenshot_interpretation.model_dump(mode="json")
             if screenshot_interpretation is not None
@@ -234,6 +237,19 @@ def _collect_structured_evidence(
             summary="vision extraction domain completed",
         )
         for domain in vision_summary.domains_run
+    )
+    evidence.extend(
+        vision_evidence(
+            f"vision.domain_unknown:{domain}",
+            summary="vision extraction was attempted but returned no trusted observation",
+            confidence=0.0,
+            metadata={
+                "domain": domain,
+                "status": "unknown",
+                "trusted_for_state": False,
+            },
+        )
+        for domain in vision_summary.unknown_domains
     )
     if vision_summary.page_type:
         evidence.append(
