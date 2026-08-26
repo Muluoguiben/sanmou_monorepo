@@ -98,10 +98,10 @@
 
 #### Session D — QA MCP modernization
 
-- [ ] 分支：`feat/qa-mcp-fastmcp`；worktree：`~/projects/sanmou-qa-mcp-dev`。
-- [ ] 范围：`packages/qa-agent/src/qa_agent/mcp_server/` 与 qa MCP tests/docs。
-- [ ] 交付：从手写 JSON-RPC 迁移/封装到官方 SDK，保留现有 6 个工具兼容性，补 read-only annotations、strict schemas、stdio parity tests。
-- [ ] 禁止：知识自动 publish、引入 pioneer live control、改变 reviewed KB 事实。
+- [x] 分支：`feat/qa-mcp-fastmcp`；worktree：`~/projects/sanmou-qa-mcp-dev`。
+- [x] 范围：`packages/qa-agent/src/qa_agent/mcp_server/` 与 qa MCP tests/docs。
+- [x] 交付（2026-08-26）：手写 JSON-RPC/stdin framing 已迁移到官方 Python SDK v2 `MCPServer`（原 FastMCP 高层 API）；保留现有 6 个工具及 `content` / `structuredContent` / `isError` 契约；全部工具声明 read-only/closed-world annotations，顶层 Pydantic strict schema 拒绝未知字段、错误 enum 和 primitive coercion；官方 client in-memory + subprocess stdio parity 覆盖全部 6 工具。qa-agent 306 tests 全绿，3 个 query smoke 均 exact。
+- [x] 禁止项已守住：未自动 publish 知识、未引入或调用 pioneer live control、未改变 reviewed KB 事实。
 
 #### Session E — Trusted broker security design
 
