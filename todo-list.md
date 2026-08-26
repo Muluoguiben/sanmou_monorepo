@@ -4,6 +4,120 @@
 
 - [x] Record & Replay minimum-input floor（2026-08-26）：新增 `--min-input-events` 与 manifest `capture.min_input_events`，action workflow 可要求至少一个已接受 Raw Input；结束时不足门槛会写 `minimum_input_events_not_met` 并保留 failed/INCOMPLETE，strict loader 同时拒绝伪造为 completed 的低计数 session。旧 schema-v1 session 缺字段时只按 0 兼容，不自动获得 action-trace 资格；Pioneer 全量 711 tests OK（6 skip）。
 
+## Highest Priority — MCP-first Game Agent（2026-08-26）
+
+目标：参考 `lmwilki/civ6-mcp` 的协议层、领域状态层、持久日志和 benchmark 分离方式，先把现有三谋 Advisor/runtime 收敛为稳定、只读、可观测、可独立评估的 MCP 环境，再开发外部游戏策略 Agent；MCP 只是协议面，不能替代 perception、SafetyGuard、semantic target、fresh-frame verifier、operator confirmation 或 Windows control hardening。
+
+### 架构决定
+
+- [x] 保持两个 MCP trust domain：`sanmou-qa` 只负责 reviewed knowledge、来源和离线 eval；新增 `sanmou-game` 只负责游戏会话、观察、Advisor、候选动作和 trace。知识 MCP 不获得游戏控制权限，游戏 MCP 不获得知识发布权限。
+- [x] `sanmou-game` 必须是现有 `AdvisorLoop`、`RuntimeState`、`ReplayRuntime`、`TraceStore` 等 application service 的薄 adapter；禁止在 MCP handler 中复制 perception、selector、verifier 或 action policy。
+- [x] 第一阶段只暴露 read-only tools，不新增 `click(x,y)`、`press_key`、任意 bbox、任意脚本或 control-adapter passthrough。
+- [x] 第二阶段先构建独立 Agent harness 与 journal；Agent 只能提出 action proposal，不能自行把 proposal 升级为执行授权。
+- [x] 真实执行只允许未来的 `prepare_action` → 外部人工确认 receipt → `execute_prepared_action` 两段式协议；confirmation receipt 必须由独立人机界面产生并绑定 request/action/observation/target/TTL，Agent 不能传任意字符串冒充确认。
+- [x] 官方客户端 high integrity 与普通进程 UIPI 阻隔不能由 MCP 绕过。可信高权限 observer/control broker 必须是安装在普通用户不可写目录、由管理员 ACL 固定的独立组件；用户可写 Python、repo helper、计划任务脚本或 `%LOCALAPPDATA%` 代码不能作为 UAC 信任根。
+
+### M0 — `sanmou-game` read-only MCP contract
+
+- [ ] 新增 ADR `docs/sanmou-game-mcp-architecture.md`，冻结 server/service/trust-boundary、tool schema、错误模型、session lifecycle、缓存/刷新语义、原始截图资源边界和版本策略。
+- [ ] 新增 `packages/pioneer-agent/src/pioneer_agent/mcp_server/`，优先采用官方 Python MCP SDK / FastMCP；stdio 为首个 transport，不开放 HTTP/TCP listener。
+- [ ] 定义并实现首批 7 个只读工具：
+  - `session_status`：只读报告会话、device/window/capture health、最新 observation/report 时间；不触发截图。
+  - `observe_game`：显式执行一次新截图与 perception，返回新 observation；不发送输入。
+  - `get_runtime_state`：读取最近一次缓存状态；不隐式刷新、不调用 vision。
+  - `get_advisor_report`：读取最近一次 Advisor report；没有 observation 时明确 `not_observed`。
+  - `list_action_candidates`：返回 ranked proposal、risk、evidence、confidence 和 blockers；全部 `executable=false`。
+  - `get_last_trace`：返回有界 trace 摘要和 frame SHA/resource references，不把整批原图塞入模型上下文。
+  - `evaluate_fixture`：只允许 fixture-root 内的离线 replay，拒绝任意路径和 live source。
+- [ ] 所有 live-observation 响应统一携带 `session_id`、`observation_id`、`frame_sha256`、aware `captured_at`、window identity、capture geometry、`domains_run`、`unknown_domains`、structured evidence、confidence、`execution_authority=none`。
+- [ ] 为 read-only tools 设置 MCP annotations，但 annotations 只用于客户端 UX；真正边界由 server 代码和 AST/import tests 保证。
+- [ ] 增加 contract tests：tool list/schema、strict input、unknown/empty session、cached-vs-refresh、bounded trace、fixture path escape、no control imports、service/MCP 输出一致性、stdio initialize/list/call smoke。
+- [ ] Codex/Claude MCP smoke：两个客户端读取同一 fixture/observation，关键 structured fields 一致；不得触发游戏输入或写入 QA knowledge。
+
+### M1 — Strategy Agent harness + journal
+
+- [ ] 新增外部 Agent harness，不放进 MCP server handler；以 MCP client 接口消费 `sanmou-game` 与 `sanmou-qa`。
+- [ ] 固定 decision-window loop：`get_journal → session_status → observe_game → focused state/QA queries → proposals → choose recommendation → write journal`；本阶段到 recommendation 为止。
+- [ ] 新增结构化 journal：`tactical`、`strategic`、`tooling`、`planning`、`hypothesis`、`evidence_refs`、`last_verified_action`、`pending_timers`。
+- [ ] journal 严格区分 observed facts 与 agent inference；不得回写 `RuntimeState`，不得把历史 hypothesis 当作新 observation。
+- [ ] 增加 polling cadence/checkpoint policy，补偿截图 Agent 的 sensorium gap：资源/章节/队伍/土地/战报/计时器均有显式检查频率和 stale policy。
+- [ ] 记录每次 MCP tool call 的名称、参数摘要、结果摘要、duration、success、observation/trace refs、model/session ID；不得记录 secrets、完整原图或可打印输入。
+- [ ] Agent 终止条件：unknown/stale observation、窗口身份变化、连续 tool failure、关键 domain unknown、候选全 blocked、需要人工确认时停止并上报，而不是继续猜测。
+
+### M2 — MCP-native eval and observability
+
+- [ ] 建立固定离线 scenario battery：主页观察、章节可领奖/不可领奖、征兵可用/不可用、建筑升级入口/确认、map-filter positive/no-change/interrupted/ambiguous、战报 partial/conflict。
+- [ ] 复用现有 golden fixture、Record & Replay registry/corpus/holdout；generation 与 holdout 继续按 session/capture-group 全局隔离。
+- [ ] 评分至少覆盖：state field accuracy、unknown calibration、tool-call coverage、proposal grounding、blocked-action correctness、verifier readiness、no-change recognition、recovery/stop correctness、latency、vision/tool cost、journal plan adherence。
+- [ ] 增加 sensorium 指标：Agent 实际查询了哪些 domain、多久未刷新、失败前是否遗漏关键风险，不只统计最终推荐是否正确。
+- [ ] eval runner 与 scorer 不得调用 live control；外部 holdout oracle/private key/ledger 继续与 development trust domain 隔离。
+- [ ] 输出版本化 run manifest：repo SHA、tool schema version、fixture/catalog digest、model/provider、prompt/playbook version、random seed、start state、end state、tool log digest。
+
+### M3 — Controlled execution（当前 blocked）
+
+- [ ] 前置条件：claim/recruit/upgrade 各自达到真实 terminal source、privacy review、同帧 semantic target、operator confirmation、fresh post frame 和 target-bound verifier 要求；当前不满足时不得添加 mutating MCP tool。
+- [ ] `prepare_action` 只生成短期 one-shot request：冻结 action id/type、semantic target、current observation/frame SHA、window identity、risk、preconditions、verifier spec、TTL 和 required confirmation scope。
+- [ ] `execute_prepared_action` 不接受坐标；重新检查 request 未使用/未过期、kill switch、窗口/geometry、same-frame ROI、最新 runbook hold、外部 confirmation receipt 后最多派发一次。
+- [ ] mutating tool 禁止自动 retry；超时或不确定时返回 unknown/blocked，通过新 observation 判断，不得重复点击。
+- [ ] action 后强制获取新帧、运行 target-bound verifier、写完整 TickTrace；失败进入 guarded recovery 或人工接管，不能由 MCP client 自行宣称成功。
+- [ ] 只有独立 holdout、fresh-agent forward test、真实测试账号长跑与安全 review 全部通过后，才讨论扩展到 attack/transfer/abandon；purchase/login/payment 永不进入默认工具集。
+
+### Windows trusted broker（独立安全项目）
+
+- [ ] 写 `docs/windows-trusted-observer-broker.md` threat model，覆盖代码来源、安装 ACL、更新签名、UAC、Job Object child lifetime、Known Folder/output root、reparse/hardlink、named pipe ACL、audit log、卸载和故障恢复。
+- [ ] broker 必须是冻结/签名的最小二进制，安装在普通用户不可写目录；不得提升 user-writable Python、WSL UNC helper、repo 文件、`sitecustomize` 或用户虚拟环境。
+- [ ] broker 创建 `JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE`，外层取消/崩溃时不能遗留无限运行的高权限 observer。
+- [ ] 高权限侧不信任继承 `LOCALAPPDATA`；通过 Known Folder API 获取路径，拒绝 reparse/hardlink，或只采集并把落盘交给普通权限侧。
+- [ ] broker 第一版只能观察并输出经过 schema 校验的 Raw Input boundary/capture metadata；不包含 `SendInput`、窗口控制、任意命令或网络监听。
+- [ ] 在安全设计、安装/卸载验证和独立 review 完成前，继续保持普通 recorder 与 high-integrity client 的 mismatch fail-closed，不恢复已隔离的 UAC Python 原型。
+
+### 并行 Session 工作包
+
+所有 session 从 `75bc8be` 或更新的 `origin/master` 创建独立 worktree。每个 session 只修改自己的目录与本小节对应 checkbox；不要在多个 worktree 同时编辑同一实现文件。feature session 完成后先 commit/push 自己的分支，由一个 coordinator session 依次 merge 到 `master`、更新总状态和删除 worktree。
+
+#### Session A — Game MCP contract/server
+
+- [ ] 分支：`feat/game-mcp-readonly`；worktree：`~/projects/sanmou-game-mcp-dev`。
+- [ ] 范围：`docs/sanmou-game-mcp-architecture.md`、`pioneer_agent/mcp_server/`、对应 MCP contract tests。
+- [ ] 交付：ADR、FastMCP stdio skeleton、7 个 read-only tools、service parity/no-control tests、客户端 smoke 配置。
+- [ ] 禁止：修改 executor/control bridge、添加 mutating tools、HTTP listener、复制 runtime 业务逻辑。
+
+#### Session B — Agent harness/journal
+
+- [ ] 分支：`feat/game-agent-harness`；worktree：`~/projects/sanmou-agent-harness-dev`。
+- [ ] 范围：新增独立 agent/journal/tool-log 模块及 fake MCP client fixtures；不修改 MCP server handler。
+- [ ] 交付：recommendation-only decision loop、observed/inferred 分离 journal、stop policy、单元测试。
+- [ ] 依赖：使用本 TODO 冻结的 M0 tool names/fields；Session A 合并后再做薄适配，不提前发明第二套 contract。
+
+#### Session C — MCP eval/observability
+
+- [ ] 分支：`feat/game-mcp-eval`；worktree：`~/projects/sanmou-mcp-eval-dev`。
+- [ ] 范围：独立 eval runner/scorer、scenario manifests、tool-log/sensorium metrics；不修改 live executor。
+- [ ] 交付：离线 scenario battery、版本化 run manifest、指标报告、generation/holdout 防泄漏测试。
+- [ ] 依赖：先用 static tool-call fixtures；Session A contract 稳定后接真实 read-only MCP smoke。
+
+#### Session D — QA MCP modernization
+
+- [ ] 分支：`feat/qa-mcp-fastmcp`；worktree：`~/projects/sanmou-qa-mcp-dev`。
+- [ ] 范围：`packages/qa-agent/src/qa_agent/mcp_server/` 与 qa MCP tests/docs。
+- [ ] 交付：从手写 JSON-RPC 迁移/封装到官方 SDK，保留现有 6 个工具兼容性，补 read-only annotations、strict schemas、stdio parity tests。
+- [ ] 禁止：知识自动 publish、引入 pioneer live control、改变 reviewed KB 事实。
+
+#### Session E — Trusted broker security design
+
+- [ ] 分支：`feat/windows-observer-broker-design`；worktree：`~/projects/sanmou-broker-design-dev`。
+- [ ] 范围：threat model、安装/ACL/签名/IPC/lifecycle 设计、可测试接口；默认只写 docs/tests/prototype interface。
+- [ ] 交付：安全 ADR、攻击树、broker/normal-process contract、安装与取消测试计划、go/no-go checklist。
+- [ ] 禁止：运行或恢复 user-writable UAC Python 原型、注册高权限计划任务、发送游戏输入。
+
+### 本地隔离 WIP 后续处置
+
+- [ ] `stash@{0}` 安全否决的 UAC Python recorder：只用于 broker threat-model 反例；Session E 提取教训后删除，不得 apply 到产品分支。
+- [ ] `stash@{1}` Bilibili overview 抽取：由 QA session 单独 review evidence quality；通过则拆成最小提交，不通过则删除。
+- [ ] `stash@{2}` legacy foreground-click：已被 guarded input architecture 取代，确认无独特测试后删除，不得恢复未守卫 input path。
+- [ ] `stash@{3}` pre-runbook OpeningSprint WIP：仅评估 verified ledger persistence 与 map-filter 只读回归价值；不得恢复旧 AuthorizationCard/连续开荒 UI 或 `SET_MAP_LAND_FILTER` live action。
+- [x] Round 9–452 decoded/static 原始轮次已冷归档到 `C:\Users\Lan\Documents\SanmouArchives\nslg-decoded-static-research-rounds-9-452_20260416-20260625.tar.gz`，展开目录和 393 个 `.pyc` 已删除；归档不得提交 GitHub。
+
 - [x] Runtime / Desktop 产品边界收敛（2026-07-10）：删除旧 `AgentRuntime.run_once`、`ActionRunner(not_implemented)`、`AgentLogger`、`app.main/bootstrap` 重复 scaffold 及其遗留 stage/event 模型；fixture state 读取继续由 `StateSyncService` 提供，执行主链只保留 Advisor、Replay 与显式 guarded `AutonomousLoop`。Desktop Advisor 删除 kill-switch trigger/clear 控件和 renderer mutation API，改为明确“只读顾问，不授权或发送游戏输入”；嵌入式 API 默认不注册 runtime-admin 路由，只有独立运维进程显式传 `--enable-runtime-admin` 才开放，底层 kill switch 继续保留。
 
 - [x] Context-efficient 真实截图 workflow（2026-07-10）：`.agent/skills/sanmou-client-control/SKILL.md` 规定一次只采集一张 `%TEMP%` 全窗口原图，首轮仅查看缩放预览，后续复用 SHA256/尺寸/窗口身份/页面/domain/target 等结构化事实，不把同一帧重复送入会话；需要细节时只看最小 crop 或消费 `vision_probe` JSON，执行证据保留为 SHA 绑定的磁盘 trace，未通过隐私审核的临时原图在检查后立即删除且不得进入 fixture。
