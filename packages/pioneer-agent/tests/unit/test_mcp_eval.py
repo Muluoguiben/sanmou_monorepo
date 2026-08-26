@@ -8,7 +8,9 @@ from io import StringIO
 import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from types import SimpleNamespace
 import unittest
+from unittest.mock import patch
 
 from pydantic import ValidationError
 
@@ -16,6 +18,7 @@ from pioneer_agent.app import mcp_eval as mcp_eval_app
 from pioneer_agent.mcp_eval import models as models_module
 from pioneer_agent.mcp_eval import runner as runner_module
 from pioneer_agent.mcp_eval import scoring as scoring_module
+from pioneer_agent.mcp_eval import source_bindings as source_bindings_module
 from pioneer_agent.mcp_eval.models import (
     BatteryManifest,
     ScenarioManifest,
@@ -23,10 +26,15 @@ from pioneer_agent.mcp_eval.models import (
 )
 from pioneer_agent.mcp_eval.runner import load_battery, run_battery, write_run_artifacts
 from pioneer_agent.mcp_eval.scoring import score_scenario
+from pioneer_agent.mcp_eval.source_bindings import (
+    RecordReplayCorpusPaths,
+    build_source_bindings,
+)
 from pioneer_agent.mcp_server import (
     CONTRACT_VERSION,
     GAME_TOOL_ALLOWLIST,
     GAME_TOOL_ARGUMENTS,
+    GAME_TOOL_REQUIRED_ARGUMENTS,
 )
 
 
@@ -74,10 +82,11 @@ class McpEvalTests(unittest.TestCase):
             for call in transcript.calls:
                 with self.subTest(scenario=transcript.scenario_id, call=call.call_id):
                     self.assertIn(call.tool_name, GAME_TOOL_ALLOWLIST)
-                    self.assertEqual(
-                        frozenset(call.arguments_summary),
-                        GAME_TOOL_ARGUMENTS[call.tool_name],
+                    actual = frozenset(call.arguments_summary)
+                    self.assertTrue(
+                        GAME_TOOL_REQUIRED_ARGUMENTS[call.tool_name].issubset(actual)
                     )
+                    self.assertTrue(actual.issubset(GAME_TOOL_ARGUMENTS[call.tool_name]))
         self.assertTrue(
             all(
                 scenario.execution_authority == "none"
@@ -127,6 +136,84 @@ class McpEvalTests(unittest.TestCase):
         self.assertEqual(manifest.end_state["completed_scenarios"], 14)
         self.assertEqual(manifest.execution_authority, "none")
         self.assertFalse(manifest.live_control_used)
+
+    def test_checked_in_golden_manifest_is_evaluated_and_digest_bound(self) -> None:
+        pioneer_root = _battery_path().parents[3]
+        result = run_battery(
+            _battery_path(),
+            repo_sha=REPO_SHA,
+            golden_expectations=(
+                pioneer_root / "tests" / "golden" / "advisor_fixture_expectations.json"
+            ),
+            golden_fixture_root=pioneer_root / "tests" / "fixtures",
+        )
+        bindings = result.run_manifest.source_bindings
+
+        self.assertTrue(bindings.golden_bound)
+        self.assertGreater(bindings.golden_fixture_count, 0)
+        self.assertEqual(bindings.golden_match_count, bindings.golden_fixture_count)
+        self.assertTrue(bindings.golden_all_matched)
+        self.assertRegex(bindings.golden_expectations_sha256 or "", r"^[0-9a-f]{64}$")
+        self.assertFalse(bindings.record_replay_bound)
+
+    def test_record_replay_binding_audits_and_exposes_only_aggregate(self) -> None:
+        report_payload = {
+            "status": "valid",
+            "catalog_sha256": "a" * 64,
+            "coverage_ready": False,
+            "blockers": ["holdout_oracle_unverified"],
+            "execution_authority": "none",
+            "holdout_contamination_detected": False,
+        }
+
+        class _Report:
+            coverage_ready = False
+            blockers = ["holdout_oracle_unverified"]
+
+            @staticmethod
+            def model_dump(*, mode: str) -> dict:
+                assert mode == "json"
+                return dict(report_payload)
+
+        audited = SimpleNamespace(
+            loaded_catalog=SimpleNamespace(sha256="a" * 64),
+            report=_Report(),
+            audited_registries=(
+                SimpleNamespace(
+                    loaded_registry=SimpleNamespace(
+                        registry=SimpleNamespace(
+                            sessions=[
+                                SimpleNamespace(session_id="private-generation", split="generation"),
+                                SimpleNamespace(session_id="private-holdout", split="holdout"),
+                            ]
+                        )
+                    )
+                ),
+            ),
+        )
+        paths = RecordReplayCorpusPaths(
+            catalog=Path("catalog.json"),
+            registries_root=Path("registries"),
+            sessions_root=Path("sessions"),
+            reviews_root=Path("reviews"),
+            artifacts_root=Path("artifacts"),
+        )
+        with patch.object(
+            source_bindings_module,
+            "audit_corpus_catalog_bundle",
+            return_value=audited,
+        ):
+            bindings = build_source_bindings(record_replay=paths)
+
+        self.assertTrue(bindings.record_replay_bound)
+        self.assertEqual(bindings.record_replay_session_count, 2)
+        self.assertEqual(bindings.record_replay_generation_count, 1)
+        self.assertEqual(bindings.record_replay_holdout_count, 1)
+        self.assertFalse(bindings.record_replay_coverage_ready)
+        serialized = bindings.model_dump_json()
+        self.assertNotIn("private-generation", serialized)
+        self.assertNotIn("private-holdout", serialized)
+        self.assertNotIn("sessions", serialized)
 
     def test_artifacts_are_write_once_and_holdout_report_has_no_labels(self) -> None:
         result = run_battery(_battery_path(), repo_sha=REPO_SHA)
@@ -215,6 +302,10 @@ class McpEvalTests(unittest.TestCase):
             ("evaluate_fixture", {"fixture": ".json"}),
             ("evaluate_fixture", {"fixture": "../private.json"}),
             ("evaluate_fixture", {"fixture": 1}),
+            (
+                "evaluate_fixture",
+                {"fixture": "chapter_claimable_state.json", "include_details": "false"},
+            ),
         )
         for tool_name, arguments in cases:
             with self.subTest(tool_name=tool_name), self.assertRaises(ValidationError):
@@ -300,7 +391,13 @@ class McpEvalTests(unittest.TestCase):
             "send",
             "sendall",
         }
-        for module in (models_module, runner_module, scoring_module, mcp_eval_app):
+        for module in (
+            models_module,
+            runner_module,
+            scoring_module,
+            source_bindings_module,
+            mcp_eval_app,
+        ):
             source = Path(module.__file__).read_text(encoding="utf-8")
             tree = ast.parse(source)
             imports = {

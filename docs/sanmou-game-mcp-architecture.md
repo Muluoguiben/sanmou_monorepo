@@ -1,6 +1,6 @@
 # Sanmou Game MCP read-only architecture
 
-Status: accepted for M0
+Status: accepted for M0/M1 read-only composition
 
 Contract version: `sanmou-game/v1`
 
@@ -28,11 +28,14 @@ publish/reject strict inputs; it does not mutate FastMCP private registries or
 generated argument models. A v1 minor upgrade or v2 migration is a separate
 compatibility change with SDK contract tests.
 
-The default stdio composition is intentionally a contract skeleton: fixture
+The default stdio composition remains intentionally a contract skeleton: fixture
 and optional trace reads work, while `observe_game` returns
 `observation_not_configured`. A live host must explicitly call
-`build_live_service(observation_provider=...)`. No production provider is wired
-in M0, so the TODO must not describe live observation as complete.
+`build_live_service(observation_provider=...)`. The explicit production entry
+point `pioneer_agent.app.game_mcp` composes `AdvisorLoopObservationProvider`
+over the existing `CaptureAdapter -> VisionSync -> AdvisorLoop` chain. It
+requires a source flag and never constructs an executor or control adapter;
+the default MCP module does not acquire a live source.
 
 ## Trust boundaries
 
@@ -69,7 +72,7 @@ Exactly seven M0 tools are registered:
 | `get_advisor_report` | No | Cached `AdvisorReport`; `not_observed` before the first successful observation |
 | `list_action_candidates` | No | Cached ranked proposals with risk/evidence/confidence/blockers |
 | `get_last_trace` | No | Latest bounded trace projection, at most 10 actions and 8 frame references |
-| `evaluate_fixture` | No live access | Existing replay evaluation for one JSON file below the configured fixture root |
+| `evaluate_fixture` | No live access | Existing replay evaluation for one JSON file below the configured fixture root; optional `include_details=false` returns a bounded summary |
 
 All tool input objects reject undeclared fields. All tools have
 `readOnlyHint=true`, `destructiveHint=false`, and `openWorldHint=false`.
@@ -126,7 +129,8 @@ fixture id, never a reopenable path, and never opens a live capture source.
 Offline output is projected into an advisory result. No dispatch or verifier
 path exists in this evaluator. Selected/ranked actions are marked
 `executable=false`, `execution_blocked_reason="offline_fixture"`, and
-`execution_authority="none"`.
+`execution_authority="none"`. The lightweight form omits ranked actions and
+full derived state, retaining only `state_summary` plus the selected action.
 
 ## Screenshot and trace resource boundary
 
@@ -166,6 +170,21 @@ SANMOU_GAME_FIXTURE_ROOT=packages/pioneer-agent/tests/fixtures \
 python3 -m pioneer_agent.mcp_server
 ```
 
+Explicit live/read-only composition uses a separate entry point:
+
+```bash
+PYTHONPATH=packages/pioneer-agent/src:packages/sanmou-common/src \
+python3 -m pioneer_agent.app.game_mcp \
+  --windows-bridge \
+  --vision-provider openai \
+  --fixture-root packages/pioneer-agent/tests/fixtures
+```
+
+For one recommendation-only strategy window over both real stdio trust
+domains, use `pioneer_agent.app.game_agent`. It starts `sanmou-game` and
+`sanguo-kb`, validates server identity and read-only annotations, logs bounded
+tool summaries, and exposes no execution client.
+
 The checked-in Windows-host/WSL Claude-compatible config is
 `packages/pioneer-agent/src/pioneer_agent/mcp_server/client-smoke.example.json`.
 It targets the post-merge main worktree at
@@ -202,3 +221,8 @@ Smoke sequence for either client:
 
 The automated stdio test performs the same initialize/list/call exchange through
 the official SDK client.
+
+Repeatable Codex/Claude configs, a shared structured-output schema, and the
+two-tool comparison prompt live under
+`packages/pioneer-agent/evaluation/client-smoke/`. They intentionally point at
+the skeleton fixture surface, not the live game source.

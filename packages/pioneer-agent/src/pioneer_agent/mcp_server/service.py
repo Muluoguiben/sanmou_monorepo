@@ -111,7 +111,7 @@ class OfflineFixtureEvaluator:
         result = self._selector.select(derived)
         return {
             "fixture": fixture_id,
-            "derived_state": project_runtime_state(derived),
+            "state_summary": _offline_state_summary(derived),
             "selected_action": _offline_action(result.selected_action),
             "ranked_actions": [
                 _offline_action(action) for action in result.ranked_actions
@@ -170,7 +170,11 @@ class GameMCPService:
             observation = self._live_observation(cycle) if cycle is not None else None
             return SessionStatusResponse(
                 status="ok",
-                session=_session_summary(session, cycle),
+                session=_session_summary(
+                    session,
+                    cycle,
+                    provider_configured=self._observation_provider is not None,
+                ),
                 latest_observation=observation,
             )
 
@@ -306,7 +310,12 @@ class GameMCPService:
             )
         return LastTraceResponse(status="ok", trace=_trace_summary(traces[-1]))
 
-    def evaluate_fixture(self, fixture: str) -> FixtureEvaluationResponse:
+    def evaluate_fixture(
+        self,
+        fixture: str,
+        *,
+        include_details: bool = True,
+    ) -> FixtureEvaluationResponse:
         if self._fixture_root is None:
             return FixtureEvaluationResponse(
                 status="not_configured",
@@ -327,6 +336,8 @@ class GameMCPService:
                 fixture_bytes,
                 fixture_id=fixture_id,
             )
+            if not include_details:
+                evaluation = _offline_evaluation_summary(evaluation)
         except (OSError, UnicodeError, ValueError, json.JSONDecodeError):
             return FixtureEvaluationResponse(
                 status="invalid_request",
@@ -481,13 +492,15 @@ def _validate_cycle(cycle: ObservedAdvisorCycle) -> None:
 def _session_summary(
     session: DeviceSession | None,
     cycle: ObservedAdvisorCycle | None,
+    *,
+    provider_configured: bool,
 ) -> SessionSummary | None:
     if session is None:
         return None
     geometry = cycle.observation.capture_geometry if cycle is not None else None
     if cycle is not None:
         health = "ready" if not cycle.observation.unknown_domains else "degraded"
-    elif session.capabilities.live_capture:
+    elif provider_configured:
         health = "unknown"
     else:
         health = "not_configured"
@@ -586,6 +599,35 @@ def _offline_action(action) -> dict | None:  # noqa: ANN001 - CandidateAction is
         **project_candidate_action(action),
         "executable": False,
         "execution_blocked_reason": "offline_fixture",
+        "execution_authority": "none",
+    }
+
+
+def _offline_state_summary(state) -> dict:  # noqa: ANN001 - RuntimeState is flexible by design
+    projected = project_runtime_state(state)
+    global_state = projected.get("global_state", {})
+    progress = projected.get("progress", {})
+    main_lineup = projected.get("main_lineup", {})
+    return {
+        "phase_tag": global_state.get("phase_tag"),
+        "current_chapter_id": progress.get("current_chapter_id"),
+        "chapter_claimable": progress.get("chapter_claimable"),
+        "primary_constraint": main_lineup.get("primary_constraint"),
+        "team_count": len(projected.get("teams", [])),
+        "candidate_land_count": len(
+            projected.get("map_state", {}).get("candidate_lands", [])
+        ),
+        "upgradeable_building_count": len(
+            projected.get("city", {}).get("upgradeable_buildings", [])
+        ),
+    }
+
+
+def _offline_evaluation_summary(evaluation: dict) -> dict:
+    return {
+        "fixture": evaluation.get("fixture"),
+        "state_summary": evaluation.get("state_summary", {}),
+        "selected_action": evaluation.get("selected_action"),
         "execution_authority": "none",
     }
 

@@ -1,0 +1,17 @@
+[mcp_servers.sanmou-game]
+command = "wsl.exe"
+args = ["-d", "Ubuntu", "--cd", "/home/lan/projects/sanmou_monorepo/packages/pioneer-agent", "env", "PYTHONPATH=src:../sanmou-common/src", "SANMOU_GAME_FIXTURE_ROOT=tests/fixtures", "python3", "-m", "pioneer_agent.mcp_server"]
+enabled_tools = ["session_status", "observe_game", "get_runtime_state", "get_advisor_report", "list_action_candidates", "get_last_trace", "evaluate_fixture"]
+default_tools_approval_mode = "auto"
+startup_timeout_sec = 20
+tool_timeout_sec = 120
+required = true
+
+[mcp_servers.sanmou-qa]
+command = "wsl.exe"
+args = ["-d", "Ubuntu", "--cd", "/home/lan/projects/sanmou_monorepo/packages/qa-agent", "env", "PYTHONPATH=src:../pioneer-agent/src:../sanmou-common/src", "python3", "-m", "qa_agent.mcp_server.stdio_server"]
+enabled_tools = ["lookup_topic", "answer_rule_question", "resolve_term", "advisor_golden_replay_status", "advisor_fixture_eval", "advisor_terminal_source_evidence_eval"]
+default_tools_approval_mode = "auto"
+startup_timeout_sec = 20
+tool_timeout_sec = 120
+required = true

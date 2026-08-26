@@ -236,10 +236,21 @@ GAME_TOOL_ARGUMENTS: Mapping[str, frozenset[str]] = MappingProxyType(
         GET_ADVISOR_REPORT_TOOL: frozenset(),
         LIST_ACTION_CANDIDATES_TOOL: frozenset(),
         GET_LAST_TRACE_TOOL: frozenset(),
-        EVALUATE_FIXTURE_TOOL: frozenset({"fixture"}),
+        EVALUATE_FIXTURE_TOOL: frozenset({"fixture", "include_details"}),
     }
 )
 GAME_TOOL_ALLOWLIST = frozenset(GAME_TOOL_ARGUMENTS)
+GAME_TOOL_REQUIRED_ARGUMENTS: Mapping[str, frozenset[str]] = MappingProxyType(
+    {
+        SESSION_STATUS_TOOL: frozenset(),
+        OBSERVE_GAME_TOOL: frozenset(),
+        GET_RUNTIME_STATE_TOOL: frozenset(),
+        GET_ADVISOR_REPORT_TOOL: frozenset(),
+        LIST_ACTION_CANDIDATES_TOOL: frozenset(),
+        GET_LAST_TRACE_TOOL: frozenset(),
+        EVALUATE_FIXTURE_TOOL: frozenset({"fixture"}),
+    }
+)
 GAME_TOOL_RESPONSE_MODELS: Mapping[str, type[ContractResponse]] = MappingProxyType(
     {
         SESSION_STATUS_TOOL: SessionStatusResponse,

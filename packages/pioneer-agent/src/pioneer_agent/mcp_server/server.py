@@ -118,10 +118,20 @@ def create_server(service: GameMCPService | None = None) -> FastMCP:
                 description="JSON path relative to the configured offline fixture root",
             ),
         ],
+        include_details: Annotated[
+            bool,
+            Field(
+                strict=True,
+                description="Return ranked actions and selection diagnostics; false returns a bounded summary",
+            ),
+        ] = True,
     ) -> FixtureEvaluationResponse:
         """Evaluate one closed-root offline fixture; never reads a live source."""
 
-        return game_service.evaluate_fixture(fixture)
+        return game_service.evaluate_fixture(
+            fixture,
+            include_details=include_details,
+        )
 
     return server
 

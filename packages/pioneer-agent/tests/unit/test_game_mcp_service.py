@@ -444,6 +444,8 @@ class GameMCPServiceTests(unittest.TestCase):
         self.assertEqual(response.status, "ok")
         assert response.evaluation is not None
         self.assertEqual(response.evaluation["execution_authority"], "none")
+        self.assertIn("state_summary", response.evaluation)
+        self.assertNotIn("derived_state", response.evaluation)
         self.assertNotIn("runtime_dispatch", response.evaluation)
         self.assertNotIn("semantic_target_gate", response.evaluation)
         self.assertNotIn("verifier_gate", response.evaluation)
@@ -452,6 +454,20 @@ class GameMCPServiceTests(unittest.TestCase):
             response.evaluation["selected_action"]["execution_blocked_reason"],
             "offline_fixture",
         )
+        self.assertLess(len(response.model_dump_json()), 20_000)
+
+        summary = service.evaluate_fixture(
+            "chapter_claimable_state.json",
+            include_details=False,
+        )
+        assert summary.evaluation is not None
+        self.assertNotIn("ranked_actions", summary.evaluation)
+        self.assertNotIn("selection_reason", summary.evaluation)
+        self.assertEqual(
+            summary.evaluation["selected_action"]["action_type"],
+            "claim_chapter_reward",
+        )
+        self.assertLess(len(summary.model_dump_json()), 2_500)
 
     def test_fixture_evaluator_never_imports_or_calls_runner_modules(self) -> None:
         project_root = Path(__file__).resolve().parents[2]

@@ -18,6 +18,7 @@ from pioneer_agent.core.device import (
     ObservationSourceType,
     Orientation,
 )
+from pioneer_agent.core.models import CaptureGeometry
 
 
 class CaptureAdapter(Protocol):
@@ -38,6 +39,7 @@ class CaptureFrame:
     captured_at: datetime
     device_session: DeviceSession
     source_type: ObservationSourceType
+    capture_geometry: CaptureGeometry | None = None
     metadata: dict[str, Any] = field(default_factory=dict)
 
 
@@ -215,6 +217,7 @@ class WindowsBridgeCaptureAdapter:
             captured_at=captured_at,
             device_session=self._device_session,
             source_type=ObservationSourceType.WINDOWS_WINDOW_CAPTURE,
+            capture_geometry=shot.capture_geometry,
             metadata=metadata,
         )
 

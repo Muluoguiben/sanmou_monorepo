@@ -63,7 +63,14 @@ class _Capture:
 
 
 class _FixedVisionSync:
-    def sync(self, image, state=None, *, captured_at=None):  # noqa: ANN001
+    def sync(
+        self,
+        image,
+        state=None,
+        *,
+        captured_at=None,
+        capture_geometry=None,
+    ):  # noqa: ANN001
         runtime_state = RuntimeState(
             progress={"chapter_claimable": True, "current_chapter_id": 3},
             economy={"resources": {"wood": 1000}},

@@ -17,6 +17,7 @@ from pioneer_agent.mcp_server.contracts import (
     CONTRACT_VERSION,
     GAME_TOOL_ALLOWLIST,
     GAME_TOOL_ARGUMENTS,
+    GAME_TOOL_REQUIRED_ARGUMENTS,
 )
 from pioneer_agent.record_replay.validation import validate_identifier, validate_unique_strings
 
@@ -231,16 +232,23 @@ class ToolCallRecord(BaseModel):
     def _queried_domains_bind_observations(self) -> ToolCallRecord:
         expected_arguments = GAME_TOOL_ARGUMENTS[self.tool_name]
         actual_arguments = frozenset(self.arguments_summary)
-        if actual_arguments != expected_arguments:
+        required_arguments = GAME_TOOL_REQUIRED_ARGUMENTS[self.tool_name]
+        if (
+            not required_arguments.issubset(actual_arguments)
+            or not actual_arguments.issubset(expected_arguments)
+        ):
             raise ValueError(
-                f"arguments_summary must match {self.tool_name} GAME_TOOL_ARGUMENTS: "
-                f"{sorted(expected_arguments)}"
+                f"arguments_summary must satisfy {self.tool_name} argument contract: "
+                f"required={sorted(required_arguments)}, allowed={sorted(expected_arguments)}"
             )
         if self.tool_name == "evaluate_fixture":
             fixture = self.arguments_summary.get("fixture")
             if not isinstance(fixture, str):
                 raise ValueError("evaluate_fixture fixture must be a string")
             _relative_json_path(fixture, "arguments_summary.fixture")
+            include_details = self.arguments_summary.get("include_details")
+            if include_details is not None and type(include_details) is not bool:
+                raise ValueError("evaluate_fixture include_details must be a boolean")
         if not set(self.domain_observed_at).issubset(self.domains_queried):
             raise ValueError("domain_observed_at must only reference queried domains")
         return self
@@ -564,6 +572,51 @@ class AggregateMetrics(BaseModel):
     live_control_used: Literal[False] = False
 
 
+class EvalSourceBindings(BaseModel):
+    """Digest-only bindings to canonical golden and R&R evidence sources."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    golden_bound: StrictBool = False
+    golden_expectations_sha256: str | None = Field(default=None, pattern=SHA256_PATTERN)
+    golden_fixture_count: int = Field(default=0, ge=0)
+    golden_match_count: int = Field(default=0, ge=0)
+    golden_all_matched: StrictBool = False
+    record_replay_bound: StrictBool = False
+    record_replay_catalog_sha256: str | None = Field(default=None, pattern=SHA256_PATTERN)
+    record_replay_audit_digest: str | None = Field(default=None, pattern=SHA256_PATTERN)
+    record_replay_session_count: int = Field(default=0, ge=0)
+    record_replay_generation_count: int = Field(default=0, ge=0)
+    record_replay_holdout_count: int = Field(default=0, ge=0)
+    record_replay_coverage_ready: StrictBool = False
+    record_replay_blockers: list[str] = Field(default_factory=list, max_length=64)
+    execution_authority: Literal["none"] = "none"
+    live_control_used: Literal[False] = False
+    holdout_oracle_accessed: Literal[False] = False
+
+    @model_validator(mode="after")
+    def _bindings_are_consistent(self) -> EvalSourceBindings:
+        if self.golden_match_count > self.golden_fixture_count:
+            raise ValueError("golden match count exceeds fixture count")
+        if self.golden_bound != (self.golden_expectations_sha256 is not None):
+            raise ValueError("golden binding flag and digest disagree")
+        if self.golden_all_matched != (
+            self.golden_bound
+            and self.golden_fixture_count > 0
+            and self.golden_match_count == self.golden_fixture_count
+        ):
+            raise ValueError("golden all-matched flag is inconsistent")
+        rr_digests_present = (
+            self.record_replay_catalog_sha256 is not None
+            and self.record_replay_audit_digest is not None
+        )
+        if self.record_replay_bound != rr_digests_present:
+            raise ValueError("R&R binding flag and digests disagree")
+        if self.record_replay_generation_count + self.record_replay_holdout_count != self.record_replay_session_count:
+            raise ValueError("R&R split counts do not equal session count")
+        return self
+
+
 class RunManifest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -584,6 +637,7 @@ class RunManifest(BaseModel):
     start_state: dict[str, Any]
     end_state: dict[str, Any]
     tool_log_digest: str = Field(pattern=SHA256_PATTERN)
+    source_bindings: EvalSourceBindings = Field(default_factory=EvalSourceBindings)
     execution_authority: Literal["none"] = "none"
     live_control_used: Literal[False] = False
     holdout_oracle_accessed: Literal[False] = False

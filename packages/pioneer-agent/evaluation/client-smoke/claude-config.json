@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "sanmou-game": {
+      "type": "stdio",
+      "command": "python3",
+      "args": ["-m", "pioneer_agent.mcp_server"],
+      "env": {
+        "PYTHONPATH": "/home/lan/projects/sanmou_monorepo/packages/pioneer-agent/src:/home/lan/projects/sanmou_monorepo/packages/sanmou-common/src",
+        "SANMOU_GAME_FIXTURE_ROOT": "/home/lan/projects/sanmou_monorepo/packages/pioneer-agent/tests/fixtures"
+      }
+    },
+    "sanmou-qa": {
+      "type": "stdio",
+      "command": "python3",
+      "args": ["-m", "qa_agent.mcp_server.stdio_server"],
+      "env": {
+        "PYTHONPATH": "/home/lan/projects/sanmou_monorepo/packages/qa-agent/src:/home/lan/projects/sanmou_monorepo/packages/pioneer-agent/src:/home/lan/projects/sanmou_monorepo/packages/sanmou-common/src"
+      }
+    }
+  }
+}

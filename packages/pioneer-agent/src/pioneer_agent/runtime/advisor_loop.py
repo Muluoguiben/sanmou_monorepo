@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 from datetime import datetime
 from functools import lru_cache
 from typing import Any
@@ -9,7 +10,12 @@ from pydantic import BaseModel, Field
 from pioneer_agent.adapters.capture import CaptureAdapter, CaptureFrame
 from pioneer_agent.core.device import AccountSession, DeviceSession
 from pioneer_agent.core.enums import ActionType
-from pioneer_agent.core.models import CandidateAction, RuntimeState, SelectionResult
+from pioneer_agent.core.models import (
+    CandidateAction,
+    ObservationSnapshot,
+    RuntimeState,
+    SelectionResult,
+)
 from pioneer_agent.derivation.state_deriver import StateDeriver
 from pioneer_agent.knowledge.strategy_snapshot import load_default_strategy_snapshot
 from pioneer_agent.perception.screenshot_interpreter import ScreenshotInterpretation
@@ -57,6 +63,14 @@ class AdvisorReport(BaseModel):
     selection_reason: dict[str, Any] = Field(default_factory=dict)
 
 
+@dataclass(frozen=True)
+class AdvisorObservationCycle:
+    """One atomic observe/perceive/derive/select Advisor result."""
+
+    observation: ObservationSnapshot
+    report: AdvisorReport
+
+
 class AdvisorLoop:
     """Observe -> perceive -> derive -> select -> recommend, with no UI input path."""
 
@@ -77,21 +91,35 @@ class AdvisorLoop:
         self.state = RuntimeState()
 
     def tick(self) -> AdvisorReport:
+        report, _summary = self._run_tick()
+        return report
+
+    def observe(self) -> AdvisorObservationCycle:
+        """Run one fresh Advisor cycle and retain its observation binding."""
+
+        report, summary = self._run_tick()
+        if summary.observation is None:
+            raise ValueError("VisionSync did not return an ObservationSnapshot")
+        return AdvisorObservationCycle(observation=summary.observation, report=report)
+
+    def _run_tick(self) -> tuple[AdvisorReport, VisionSyncSummary]:
         frame = self.capture.capture()
         self.state, vision_summary = self.vision_sync.sync(
             frame.png,
             state=self.state,
             captured_at=frame.captured_at,
+            capture_geometry=frame.capture_geometry,
         )
         derived = self.deriver.derive(self.state)
         selection = self.selector.select(derived)
-        return build_advisor_report(
+        report = build_advisor_report(
             frame=frame,
             state=derived,
             selection=selection,
             vision_summary=vision_summary,
             account_session=self.account_session,
         )
+        return report, vision_summary
 
 
 def build_advisor_report(

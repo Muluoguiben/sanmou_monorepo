@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "fixture",
+    "game_contract_version",
+    "game_action_type",
+    "qa_action_type",
+    "game_execution_authority",
+    "game_executable",
+    "fields_match"
+  ],
+  "properties": {
+    "fixture": {"type": "string", "const": "chapter_claimable_state.json"},
+    "game_contract_version": {"type": "string", "const": "sanmou-game/v1"},
+    "game_action_type": {"type": "string"},
+    "qa_action_type": {"type": "string"},
+    "game_execution_authority": {"type": "string", "const": "none"},
+    "game_executable": {"type": "boolean", "const": false},
+    "fields_match": {"type": "boolean", "const": true}
+  }
+}

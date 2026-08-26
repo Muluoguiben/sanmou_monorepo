@@ -77,6 +77,18 @@ class GameMCPServerTests(unittest.TestCase):
         with self.assertRaisesRegex(ToolError, "Extra inputs are not permitted"):
             asyncio.run(call())
 
+        async def invalid_bool():
+            return await server.call_tool(
+                "evaluate_fixture",
+                {
+                    "fixture": "chapter_claimable_state.json",
+                    "include_details": "false",
+                },
+            )
+
+        with self.assertRaises(ToolError):
+            asyncio.run(invalid_bool())
+
     def test_mcp_server_has_no_direct_control_import_or_mutating_tool(self) -> None:
         package_root = Path(__file__).resolve().parents[2] / "src" / "pioneer_agent" / "mcp_server"
         forbidden_imports = (

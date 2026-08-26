@@ -243,7 +243,13 @@ class AdvisorReplayTools:
         )
         return payload
 
-    def fixture_eval(self, *, fixture: str, expected_action_type: str | None = None) -> dict[str, Any]:
+    def fixture_eval(
+        self,
+        *,
+        fixture: str,
+        expected_action_type: str | None = None,
+        include_details: bool = True,
+    ) -> dict[str, Any]:
         fixture_path = self._resolve_fixture_path(fixture)
         expectations = self._load_expectations()
         expectation = expectations.get(fixture_path.name, {})
@@ -253,13 +259,19 @@ class AdvisorReplayTools:
         comparison_expectation = dict(expectation)
         comparison_expectation["expected_action_type"] = expected_action_type
         comparison = self._compare_result(replay_result, {fixture_path.name: comparison_expectation})
-        return {
+        summary = {
             "fixture": comparison["fixture"],
             "matched": comparison["matched"],
             "page": expectation.get("page"),
-            "screenshot": expectation.get("screenshot"),
             "expected_action_type": comparison["expected_action_type"],
             "actual_action_type": comparison["actual_action_type"],
+            "execution_authority": "none",
+        }
+        if not include_details:
+            return summary
+        return {
+            **summary,
+            "screenshot": expectation.get("screenshot"),
             "expected_report_confidence": expectation.get("expected_report_confidence"),
             "expected_action_confidence": expectation.get("expected_action_confidence"),
             "required_report_evidence": expectation.get("required_report_evidence", []),

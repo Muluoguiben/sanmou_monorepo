@@ -125,11 +125,16 @@ def create_mcp_server(handler: KnowledgeToolHandler) -> StrictSchemaFastMCP:
     def advisor_fixture_eval(
         fixture: str,
         expected_action_type: str | None = None,
+        include_details: bool = True,
     ) -> CallToolResult:
         return _sdk_result(
             handler.call_tool(
                 "advisor_fixture_eval",
-                {"fixture": fixture, "expected_action_type": expected_action_type},
+                {
+                    "fixture": fixture,
+                    "expected_action_type": expected_action_type,
+                    "include_details": include_details,
+                },
             )
         )
 

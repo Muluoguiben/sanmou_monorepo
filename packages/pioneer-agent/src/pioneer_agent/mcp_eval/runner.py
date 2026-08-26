@@ -13,11 +13,13 @@ from pydantic import ValidationError
 
 from pioneer_agent.mcp_eval.models import (
     BatteryManifest,
+    EvalSourceBindings,
     McpEvalRun,
     RunManifest,
     StaticScenarioTranscript,
     StaticTranscriptBundle,
 )
+from pioneer_agent.mcp_eval.source_bindings import RecordReplayCorpusPaths, build_source_bindings
 from pioneer_agent.mcp_eval.scoring import aggregate_reports, score_scenario
 from pioneer_agent.record_replay.validation import load_strict_json_bytes, read_bounded_regular_file
 
@@ -115,8 +117,16 @@ def run_battery(
     model_id: str = "static-tool-calls-v1",
     random_seed: int = 0,
     now: datetime | None = None,
+    golden_expectations: Path | None = None,
+    golden_fixture_root: Path | None = None,
+    record_replay: RecordReplayCorpusPaths | None = None,
 ) -> McpEvalRun:
     loaded = load_battery(battery_path)
+    source_bindings = build_source_bindings(
+        golden_expectations=golden_expectations,
+        golden_fixture_root=golden_fixture_root,
+        record_replay=record_replay,
+    )
     started_at = now or datetime.now(timezone.utc)
     reports = [
         score_scenario(scenario, loaded.transcripts[scenario.scenario_id])
@@ -128,6 +138,7 @@ def run_battery(
         {
             "battery_sha256": loaded.battery_sha256,
             "fixture_sha256s": sorted(set(loaded.fixture_sha256s)),
+            "source_bindings": source_bindings.model_dump(mode="json"),
         }
     )
     tool_log_digest = _canonical_digest(
@@ -165,6 +176,7 @@ def run_battery(
             "split_isolation_verified": True,
         },
         tool_log_digest=tool_log_digest,
+        source_bindings=source_bindings,
     )
     return McpEvalRun(
         run_manifest=run_manifest,

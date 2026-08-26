@@ -8,6 +8,7 @@ from pioneer_agent.agent_harness.loop import (
     RecommendationHarness,
 )
 from pioneer_agent.agent_harness.policy import StopPolicy, StopReason
+from pioneer_agent.agent_harness.stdio_client import StdioMcpClient
 from pioneer_agent.agent_harness.tool_log import JsonlToolLog, ToolCallRecord
 
 __all__ = [
@@ -21,5 +22,6 @@ __all__ = [
     "RecommendationHarness",
     "StopPolicy",
     "StopReason",
+    "StdioMcpClient",
     "ToolCallRecord",
 ]

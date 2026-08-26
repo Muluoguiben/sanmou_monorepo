@@ -49,6 +49,10 @@ class AdvisorFixtureEvalInput(StrictToolInput):
         default=None,
         description="Optional expected selected action type; defaults to the golden manifest value.",
     )
+    include_details: StrictBool = Field(
+        default=True,
+        description="Return full verifier diagnostics; false returns a bounded comparison summary.",
+    )
 
 
 class AdvisorTerminalSourceEvidenceEvalInput(StrictToolInput):
@@ -160,6 +164,7 @@ class KnowledgeToolHandler:
             payload = self.advisor_tools.fixture_eval(
                 fixture=arguments["fixture"],
                 expected_action_type=arguments.get("expected_action_type"),
+                include_details=arguments.get("include_details", True),
             )
             return self._payload_tool_result(payload)
         elif name == "advisor_terminal_source_evidence_eval":

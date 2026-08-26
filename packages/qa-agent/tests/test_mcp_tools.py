@@ -835,6 +835,29 @@ class McpToolTests(unittest.TestCase):
         self.assertEqual(payload["actual_action_type"], "claim_chapter_reward")
         self.assertEqual(payload["selected_action"]["action_type"], "claim_chapter_reward")
 
+    def test_advisor_fixture_eval_summary_omits_large_diagnostics(self) -> None:
+        result = self.handler.call_tool(
+            "advisor_fixture_eval",
+            {
+                "fixture": "chapter_claimable_state.json",
+                "include_details": False,
+            },
+        )
+        payload = result["structuredContent"]
+
+        self.assertEqual(
+            payload,
+            {
+                "fixture": "chapter_claimable_state.json",
+                "matched": True,
+                "page": None,
+                "expected_action_type": "claim_chapter_reward",
+                "actual_action_type": "claim_chapter_reward",
+                "execution_authority": "none",
+            },
+        )
+        self.assertLess(len(result["content"][0]["text"]), 500)
+
     def test_advisor_fixture_eval_includes_pr5_metadata(self) -> None:
         result = self.handler.call_tool(
             "advisor_fixture_eval",

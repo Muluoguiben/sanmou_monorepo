@@ -3,6 +3,7 @@
 > Current update: 2026-08-26 — Windows Record & Replay 在 M0 只读录制之上完成 M1 数据基础与 M2 数据治理底座：raw loader、独立 reviewer annotation、单 registry generation/holdout 审计与 canonical corpus catalog 均为 fail-closed；registry/artifact 专用封闭根可跨 registry 去重 session/event/capture-group/annotation/encoded-frame/source-PNG，并验证 generation-only、内容寻址的无环 development lineage。corpus audit 新增 `sanmou-multisignal-v1` 视觉近重复门禁：本地有界解码后用多裁切 block/difference hash、灰度 MAE、RGB 均值/直方图和宽高比拒绝跨 session 的重编码、缩放或轻裁切近克隆；指纹不序列化、不进入模型上下文，签名 holdout aggregate v2 只绑定算法与帧/候选比较计数。external holdout 协议继续要求开发侧只能提交/检查无标签 prediction，独立 evaluator 才读取 sealed oracle、approved annotation 与 Ed25519 私钥；持久 ledger 对同一 evaluator key/catalog 只允许一次发布，普通 CLI 没有 oracle 参数。所有产物仍固定 `execution_authority=none`、无 terminal/closure/QA publish 权限；动作演示新增 minimum-input floor，0-input session 不再能以画面变化冒充有效 action trace。官方客户端 high integrity 与普通 recorder medium integrity 的 UIPI 阻隔已由真实探针确认，但用户可写 Python/工作树 UAC 原型经安全审查存在 P1，已隔离且不提交；可信 broker 必须是安装在普通用户不可写目录、由管理员 ACL 固定的独立组件。当前仍未采集本轮真实 map-filter session。真实 external evaluator 账号/ACL/key/oracle、结构化 start-state、human provenance、平台级父目录 race hardening 和 image-model execution receipt 均未完成，因此任何 coverage、视觉门禁或 oracle attestation 均不能单独表述为独立 eval。
 
 - [x] Record & Replay minimum-input floor（2026-08-26）：新增 `--min-input-events` 与 manifest `capture.min_input_events`，action workflow 可要求至少一个已接受 Raw Input；结束时不足门槛会写 `minimum_input_events_not_met` 并保留 failed/INCOMPLETE，strict loader 同时拒绝伪造为 completed 的低计数 session。旧 schema-v1 session 缺字段时只按 0 兼容，不自动获得 action-trace 资格；Pioneer 全量 711 tests OK（6 skip）。
+- [x] MCP-first read-only production slice（2026-08-27）：生产 `ObservationProvider`、真实 game+QA stdio harness、golden 19/19 digest binding、R&R aggregate-only audit binding、Codex structured smoke 和 bounded fixture summaries 已落地；没有 mutating MCP、control/executor import 或 QA publish。Pioneer 775 tests OK（6 skip）、QA 307、sanmou-common 2。
 
 ## Highest Priority — MCP-first Game Agent（2026-08-26）
 
@@ -29,11 +30,11 @@
   - `list_action_candidates`：返回 ranked proposal、risk、evidence、confidence 和 blockers；全部 `executable=false`。
   - `get_last_trace`：返回有界 trace 摘要和 frame SHA/resource references，不把整批原图塞入模型上下文。
   - `evaluate_fixture`：只允许 fixture-root 内的离线 replay，拒绝任意路径和 live source。
-- [ ] Live composition：上述 live-observation response contract 与显式 `build_live_service(observation_provider=...)` factory 已完成，但默认 stdio 仍是 contract skeleton，尚未接入生产 `ObservationProvider`；接入前 `observe_game` 正确返回 `observation_not_configured`。
+- [x] Live composition（2026-08-27）：新增 `AdvisorLoopObservationProvider` 与显式 `pioneer_agent.app.game_mcp` stdio 入口，复用 `CaptureAdapter -> VisionSync -> AdvisorLoop`，要求明确 screenshot/watch/windows-bridge source；默认 `pioneer_agent.mcp_server` 仍是 contract skeleton。官方 `ClientSession` + reviewed PC fixture + OpenAI vision 实测 7 tools、`observe/state/candidates=ok`、`execution_authority=none`，无 executor/control import。
 - [x] 为 read-only tools 设置 MCP annotations，但 annotations 只用于客户端 UX；真正边界由 server 代码和 AST/import tests 保证。
 - [x] 增加 contract tests：tool list/schema、strict input、unknown/empty session、cached-vs-refresh、bounded trace、fixture path escape、no control imports、service/MCP 输出一致性、stdio initialize/list/call smoke；Pioneer 全量 736 tests OK（6 skip）。
 - [x] Session A merge-blocker review 修复（2026-08-26）：`RuntimeState` / `AdvisorReport` / trace 全部改为显式 allowlist privacy projection，拒绝 source URI、任意 metadata、路径/data URI/base64/超长字符串透传；fixture evaluator 改为纯 derive/select，MCP 路径不导入/实例化/call `ReplayRuntime` / `UIActionRunner` / control/executor/verifier；fixture root 与文件使用 pinned `dir_fd` + `O_NOFOLLOW` + 1 MiB 上限并拒绝 symlink/hardlink/race；response 增加 status/payload 联合校验；observe single-flight；FastMCP 只覆盖 public methods 且 pin `mcp>=1.29,<1.30`；默认 server 明确为未接 production provider 的 contract skeleton。指定 puredeps MCP tests 25/25、Pioneer 全量 736 tests OK（6 skip）。
-- [ ] Codex/Claude MCP smoke：官方 SDK stdio initialize/list/call 与通用 Claude JSON、Codex TOML 配置已完成；仍需两个真实客户端读取同一 fixture/observation 并互验关键 structured fields，且确认未触发游戏输入或写入 QA knowledge。
+- [ ] Codex/Claude MCP smoke：共享 prompt/schema 与 Codex WSL/Windows、Claude 显式配置已入 `evaluation/client-smoke/`。Codex Desktop CLI 0.150 已真实调用 game/QA 两工具并验证 `claim_chapter_reward`、`sanmou-game/v1`、authority none、executable false 全匹配；fixture summary 将本次输入约 59.8k 降到 48.0k。Claude Code 2.1.207 能解析两台 MCP，但推理网关两次不可用（一次明确 503 no available accounts，第二次 60s 有界中止），尚无 Claude tool-call 证据，因此保持未完成。
 
 ### M1 — Strategy Agent harness + journal
 
@@ -44,11 +45,12 @@
 - [x] 增加 polling cadence/checkpoint policy，补偿截图 Agent 的 sensorium gap：资源/章节/队伍/土地/战报/计时器均有显式检查频率和 stale policy。
 - [x] 记录每次 MCP tool call 的名称、参数摘要、结果摘要、duration、success、observation/trace refs、model/session ID；不得记录 secrets、完整原图或可打印输入；nested canonical observation refs 已纳入摘要。
 - [x] Agent 终止条件：unknown/stale observation、窗口身份变化、连续 tool failure、关键 domain unknown、候选全 blocked、需要人工确认时停止并上报，而不是继续猜测；in-process fake `ObservationProvider` 已通过 `build_live_service` + `create_server` 验证 stop policy。
+- [x] 真实双 MCP harness（2026-08-27）：新增官方 SDK `StdioMcpClient` 与 `pioneer_agent.app.game_agent`；实测同一 decision window 依次调用 game `session_status/observe/state/candidates` 和 QA `answer_rule_question`，5 次工具调用全成功，reviewed `team-stamina` 证据写入 journal，原始问题未进入 tool log；无候选时 fail-closed `no_candidates`，无执行 client。
 
 ### M2 — MCP-native eval and observability
 
 - [x] 建立固定离线 scenario battery：主页观察、章节可领奖/不可领奖、征兵可用/不可用、建筑升级入口/确认、map-filter positive/no-change/interrupted/ambiguous、战报 partial/conflict。
-- [ ] 复用现有 golden fixture、Record & Replay registry/corpus/holdout；generation 与 holdout 继续按 session/capture-group 全局隔离。
+- [ ] 复用现有 golden fixture、Record & Replay registry/corpus/holdout：golden 已经由 MCP evaluator 真实重放并绑定 digest，当前 19/19 matched；R&R catalog 接口会先跑 closed-root corpus audit，只输出 digest/aggregate split/blockers 并隐藏 holdout ids/labels。当前仓库、WSL `/tmp` 和 Windows Temp 均无可绑定的真实 corpus catalog，因此 run manifest 正确记录 `record_replay_bound=false`，此项仍未完成。
 - [x] 评分覆盖：state field accuracy、unknown calibration、tool-call coverage、proposal grounding、blocked-action correctness、verifier readiness、no-change recognition、recovery/stop correctness、latency、vision/tool cost、journal plan adherence。
 - [x] 增加 sensorium 指标：Agent 实际查询了哪些 domain、多久未刷新、失败前是否遗漏关键风险，不只统计最终推荐是否正确。
 - [x] eval runner 与 scorer 不调用 live control；外部 holdout oracle/private key/ledger 继续与 development trust domain 隔离。
