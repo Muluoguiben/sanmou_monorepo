@@ -16,6 +16,7 @@ from .contracts import (
     ActionCandidatesResponse,
     AdvisorReportResponse,
     FixtureEvaluationResponse,
+    GAME_TOOL_ARGUMENTS,
     LastTraceResponse,
     ObserveGameResponse,
     RuntimeStateResponse,
@@ -37,17 +38,6 @@ READ_ONLY_REFRESH_ANNOTATIONS = ToolAnnotations(
     idempotentHint=False,
     openWorldHint=False,
 )
-TOOL_ARGUMENTS = {
-    "session_status": frozenset(),
-    "observe_game": frozenset(),
-    "get_runtime_state": frozenset(),
-    "get_advisor_report": frozenset(),
-    "list_action_candidates": frozenset(),
-    "get_last_trace": frozenset(),
-    "evaluate_fixture": frozenset({"fixture"}),
-}
-
-
 class StrictFastMCP(FastMCP):
     """FastMCP v1 adapter using only public SDK extension methods."""
 
@@ -61,7 +51,7 @@ class StrictFastMCP(FastMCP):
         return strict_tools
 
     async def call_tool(self, name: str, arguments: dict[str, Any]):  # noqa: ANN201
-        allowed = TOOL_ARGUMENTS.get(name)
+        allowed = GAME_TOOL_ARGUMENTS.get(name)
         if allowed is not None:
             extra = sorted(set(arguments).difference(allowed))
             if extra:

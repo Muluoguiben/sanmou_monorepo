@@ -1,6 +1,6 @@
 """Recommendation-only MCP strategy harness."""
 
-from pioneer_agent.agent_harness.contracts import McpClient
+from pioneer_agent.agent_harness.contracts import InProcessMcpClient, McpClient
 from pioneer_agent.agent_harness.journal import DecisionJournal, JsonJournalStore
 from pioneer_agent.agent_harness.loop import (
     DecisionWindowResult,
@@ -16,6 +16,7 @@ __all__ = [
     "DecisionWindowStatus",
     "JsonJournalStore",
     "JsonlToolLog",
+    "InProcessMcpClient",
     "McpClient",
     "RecommendationHarness",
     "StopPolicy",

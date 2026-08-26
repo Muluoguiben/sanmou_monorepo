@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
 from datetime import datetime
+from types import MappingProxyType
 from typing import Any, ClassVar, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
@@ -10,6 +12,13 @@ from pioneer_agent.core.models import CaptureGeometry, CaptureWindowIdentity
 
 CONTRACT_VERSION = "sanmou-game/v1"
 EXECUTION_AUTHORITY = "none"
+SESSION_STATUS_TOOL = "session_status"
+OBSERVE_GAME_TOOL = "observe_game"
+GET_RUNTIME_STATE_TOOL = "get_runtime_state"
+GET_ADVISOR_REPORT_TOOL = "get_advisor_report"
+LIST_ACTION_CANDIDATES_TOOL = "list_action_candidates"
+GET_LAST_TRACE_TOOL = "get_last_trace"
+EVALUATE_FIXTURE_TOOL = "evaluate_fixture"
 
 ResponseStatus = Literal[
     "ok",
@@ -214,6 +223,32 @@ class FixtureEvaluationResponse(ContractResponse):
     source: Literal["offline_fixture"] = "offline_fixture"
     live_source_used: Literal[False] = False
     evaluation: dict[str, Any] | None = None
+
+
+# Single versioned tool catalog. Both the FastMCP transport and clients consume
+# this mapping, so sanmou-game/v1 has no parallel tool schema.
+GAME_TOOL_ARGUMENTS: Mapping[str, frozenset[str]] = MappingProxyType(
+    {
+        SESSION_STATUS_TOOL: frozenset(),
+        OBSERVE_GAME_TOOL: frozenset(),
+        GET_RUNTIME_STATE_TOOL: frozenset(),
+        GET_ADVISOR_REPORT_TOOL: frozenset(),
+        LIST_ACTION_CANDIDATES_TOOL: frozenset(),
+        GET_LAST_TRACE_TOOL: frozenset(),
+        EVALUATE_FIXTURE_TOOL: frozenset({"fixture"}),
+    }
+)
+GAME_TOOL_RESPONSE_MODELS: Mapping[str, type[ContractResponse]] = MappingProxyType(
+    {
+        SESSION_STATUS_TOOL: SessionStatusResponse,
+        OBSERVE_GAME_TOOL: ObserveGameResponse,
+        GET_RUNTIME_STATE_TOOL: RuntimeStateResponse,
+        GET_ADVISOR_REPORT_TOOL: AdvisorReportResponse,
+        LIST_ACTION_CANDIDATES_TOOL: ActionCandidatesResponse,
+        GET_LAST_TRACE_TOOL: LastTraceResponse,
+        EVALUATE_FIXTURE_TOOL: FixtureEvaluationResponse,
+    }
+)
 
 
 def _payload_present(value: Any) -> bool:

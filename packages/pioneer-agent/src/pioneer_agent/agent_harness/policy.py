@@ -150,13 +150,20 @@ class StopPolicy:
     def candidates_stop(candidates: list[Any]) -> StopDecision:
         if not candidates:
             return StopDecision(should_stop=True, reason=StopReason.NO_CANDIDATES)
-        if all(candidate.blockers for candidate in candidates):
+        decision_blockers = [StopPolicy.recommendation_blockers(candidate) for candidate in candidates]
+        if all(decision_blockers):
             return StopDecision(
                 should_stop=True,
                 reason=StopReason.ALL_CANDIDATES_BLOCKED,
-                details=sorted({str(item) for candidate in candidates for item in candidate.blockers}),
+                details=sorted({str(item) for blockers in decision_blockers for item in blockers}),
             )
         return StopDecision()
+
+    @staticmethod
+    def recommendation_blockers(candidate: Any) -> list[str]:
+        """Ignore only the canonical Advisor execution barrier when ranking advice."""
+
+        return [str(item) for item in candidate.blockers if str(item) != "advisor_mode"]
 
     @staticmethod
     def confirmation_stop(candidate: Any) -> StopDecision:

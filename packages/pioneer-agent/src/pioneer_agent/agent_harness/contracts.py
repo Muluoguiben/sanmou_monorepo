@@ -1,30 +1,16 @@
-"""Frozen read-only MCP names consumed by the recommendation harness."""
+"""Thin client adapters for canonical MCP contracts."""
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 from typing import Any, Protocol
 
-
-SESSION_STATUS = "session_status"
-OBSERVE_GAME = "observe_game"
-GET_RUNTIME_STATE = "get_runtime_state"
-GET_ADVISOR_REPORT = "get_advisor_report"
-LIST_ACTION_CANDIDATES = "list_action_candidates"
-GET_LAST_TRACE = "get_last_trace"
-EVALUATE_FIXTURE = "evaluate_fixture"
-
-GAME_READ_ONLY_TOOLS = frozenset(
-    {
-        SESSION_STATUS,
-        OBSERVE_GAME,
-        GET_RUNTIME_STATE,
-        GET_ADVISOR_REPORT,
-        LIST_ACTION_CANDIDATES,
-        GET_LAST_TRACE,
-        EVALUATE_FIXTURE,
-    }
+from pioneer_agent.mcp_server.contracts import (
+    ContractResponse,
+    GAME_TOOL_ARGUMENTS,
+    GAME_TOOL_RESPONSE_MODELS,
 )
+
 
 LOOKUP_TOPIC = "lookup_topic"
 ANSWER_RULE_QUESTION = "answer_rule_question"
@@ -33,11 +19,7 @@ QA_READ_ONLY_TOOLS = frozenset({LOOKUP_TOPIC, ANSWER_RULE_QUESTION, RESOLVE_TERM
 
 
 class McpClient(Protocol):
-    """Transport-neutral MCP client boundary.
-
-    A future SDK adapter only needs to implement this method. The harness does
-    not import MCP server handlers or any control/executor component.
-    """
+    """Transport-neutral MCP client boundary."""
 
     async def call_tool(
         self,
@@ -46,12 +28,34 @@ class McpClient(Protocol):
     ) -> Mapping[str, Any]: ...
 
 
+class InProcessMcpClient:
+    """Adapt FastMCP's in-process call result to the transport-neutral shape."""
+
+    def __init__(self, server: Any) -> None:
+        self.server = server
+        self.calls: list[tuple[str, dict[str, Any]]] = []
+
+    async def call_tool(
+        self,
+        name: str,
+        arguments: Mapping[str, Any],
+    ) -> Mapping[str, Any]:
+        self.calls.append((name, dict(arguments)))
+        result = await self.server.call_tool(name, dict(arguments))
+        if not isinstance(result, tuple) or len(result) != 2:
+            raise McpToolError("unexpected in-process MCP result")
+        _, structured = result
+        if not isinstance(structured, Mapping):
+            raise McpToolError("in-process MCP result has no structured object payload")
+        return {"isError": False, "structuredContent": dict(structured)}
+
+
 class McpToolError(RuntimeError):
     pass
 
 
 def structured_content(result: Mapping[str, Any]) -> dict[str, Any]:
-    """Unwrap an MCP tool result without depending on one SDK implementation."""
+    """Unwrap an MCP tool result without depending on one SDK transport."""
 
     if result.get("isError") is True:
         raise McpToolError("MCP tool returned isError=true")
@@ -59,3 +63,12 @@ def structured_content(result: Mapping[str, Any]) -> dict[str, Any]:
     if not isinstance(payload, Mapping):
         raise McpToolError("MCP tool result has no structured object payload")
     return dict(payload)
+
+
+def validate_game_response(name: str, payload: Mapping[str, Any]) -> ContractResponse:
+    """Validate with the canonical sanmou-game/v1 response model."""
+
+    response_model = GAME_TOOL_RESPONSE_MODELS.get(name)
+    if response_model is None or name not in GAME_TOOL_ARGUMENTS:
+        raise McpToolError(f"game tool is outside canonical read-only contract: {name}")
+    return response_model.model_validate(payload)

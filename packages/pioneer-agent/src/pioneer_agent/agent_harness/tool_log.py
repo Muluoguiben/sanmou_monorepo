@@ -110,14 +110,28 @@ def summarize_result(payload: Mapping[str, Any]) -> dict[str, Any]:
         value = payload.get(key)
         if isinstance(value, list):
             summary[f"{key}_count"] = len(value)
+    observation = _observation_payload(payload)
+    if observation is not None:
+        for key in ("session_id", "observation_id", "frame_sha256", "confidence"):
+            value = observation.get(key)
+            if isinstance(value, (str, int, float, bool)):
+                summary[key] = value
+        for key in ("domains_run", "unknown_domains"):
+            value = observation.get(key)
+            if isinstance(value, list):
+                summary[key] = [str(item)[:80] for item in value[:20]]
+    candidates = payload.get("candidates")
+    if isinstance(candidates, list):
+        summary["candidates_count"] = len(candidates)
     return summary
 
 
 def extract_refs(payload: Mapping[str, Any]) -> tuple[list[str], list[str]]:
     observation_refs: list[str] = []
     trace_refs: list[str] = []
+    observation = _observation_payload(payload) or payload
     for key in ("observation_id", "frame_sha256"):
-        value = payload.get(key)
+        value = observation.get(key)
         if isinstance(value, str) and value:
             observation_refs.append(f"{key}:{value}")
     for key in ("trace_id", "trace_ref"):
@@ -125,6 +139,14 @@ def extract_refs(payload: Mapping[str, Any]) -> tuple[list[str], list[str]]:
         if isinstance(value, str) and value:
             trace_refs.append(f"{key}:{value}")
     return observation_refs, trace_refs
+
+
+def _observation_payload(payload: Mapping[str, Any]) -> Mapping[str, Any] | None:
+    for key in ("observation", "latest_observation"):
+        value = payload.get(key)
+        if isinstance(value, Mapping):
+            return value
+    return None
 
 
 def _safe_value(key: str, value: Any) -> Any:

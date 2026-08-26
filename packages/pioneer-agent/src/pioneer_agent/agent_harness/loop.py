@@ -6,20 +6,16 @@ import time
 from collections.abc import Callable, Mapping, Sequence
 from datetime import UTC, datetime
 from enum import Enum
-from typing import Any, Literal
+from typing import Any
 
-from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
+from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from pioneer_agent.agent_harness.contracts import (
     ANSWER_RULE_QUESTION,
-    GAME_READ_ONLY_TOOLS,
-    GET_RUNTIME_STATE,
-    LIST_ACTION_CANDIDATES,
-    OBSERVE_GAME,
     QA_READ_ONLY_TOOLS,
-    SESSION_STATUS,
     McpClient,
     structured_content,
+    validate_game_response,
 )
 from pioneer_agent.agent_harness.journal import (
     AgentInference,
@@ -37,52 +33,19 @@ from pioneer_agent.agent_harness.tool_log import (
     summarize_arguments,
     summarize_result,
 )
-
-
-class LiveObservation(BaseModel):
-    """Only fields frozen in todo-list.md M0; extra service fields pass through."""
-
-    model_config = ConfigDict(extra="allow")
-
-    session_id: str
-    observation_id: str
-    frame_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
-    captured_at: datetime
-    window_identity: dict[str, Any]
-    capture_geometry: dict[str, Any]
-    domains_run: list[str]
-    unknown_domains: list[str]
-    structured_evidence: list[dict[str, Any]]
-    confidence: float = Field(ge=0.0, le=1.0)
-    execution_authority: Literal["none"]
-
-    @field_validator("captured_at")
-    @classmethod
-    def _aware_timestamp(cls, value: datetime) -> datetime:
-        if value.tzinfo is None or value.utcoffset() is None:
-            raise ValueError("captured_at must be timezone-aware")
-        return value
-
-
-class SessionStatus(BaseModel):
-    model_config = ConfigDict(extra="allow")
-
-    session_id: str
-    window_identity: dict[str, Any]
-    capture_health: dict[str, Any]
-    execution_authority: Literal["none"]
-
-
-class CandidateProposal(BaseModel):
-    model_config = ConfigDict(extra="allow")
-
-    action_id: str
-    action_type: str
-    risk: dict[str, Any]
-    evidence: list[Any]
-    confidence: float = Field(ge=0.0, le=1.0)
-    blockers: list[str]
-    executable: Literal[False]
+from pioneer_agent.mcp_server.contracts import (
+    GET_RUNTIME_STATE_TOOL,
+    LIST_ACTION_CANDIDATES_TOOL,
+    OBSERVE_GAME_TOOL,
+    SESSION_STATUS_TOOL,
+    ActionCandidatesResponse,
+    ActionProposal,
+    ContractResponse,
+    LiveObservation,
+    ObserveGameResponse,
+    RuntimeStateResponse,
+    SessionStatusResponse,
+)
 
 
 class DecisionWindowStatus(str, Enum):
@@ -94,7 +57,7 @@ class DecisionWindowResult(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     status: DecisionWindowStatus
-    recommendation: CandidateProposal | None = None
+    recommendation: ActionProposal | None = None
     stop: StopDecision = Field(default_factory=StopDecision)
     observation_id: str | None = None
     journal: DecisionJournal
@@ -134,33 +97,47 @@ class RecommendationHarness:
     ) -> DecisionWindowResult:
         journal = self.journal_store.load(self.agent_session_id)
         try:
-            status_payload = await self._call_game(SESSION_STATUS, {})
-        except Exception:
-            return self._stop(journal, StopReason.TOOL_FAILURE, [SESSION_STATUS])
-        try:
-            status = SessionStatus.model_validate(status_payload)
+            status = await self._call_game(SESSION_STATUS_TOOL, {})
         except ValidationError as exc:
-            reason = (
-                StopReason.EXECUTION_AUTHORITY_VIOLATION
-                if "execution_authority" in str(exc)
-                else StopReason.CONTRACT_VIOLATION
+            return self._stop(
+                journal,
+                _validation_stop_reason(exc),
+                ["invalid session_status contract"],
             )
-            return self._stop(journal, reason, ["invalid session_status contract"])
-        if _capture_unhealthy(status.capture_health):
+        except Exception:
+            return self._stop(journal, StopReason.TOOL_FAILURE, [SESSION_STATUS_TOOL])
+        if not isinstance(status, SessionStatusResponse):
+            return self._stop(journal, StopReason.CONTRACT_VIOLATION, [SESSION_STATUS_TOOL])
+        response_stop = _response_stop(status, SESSION_STATUS_TOOL)
+        if response_stop.should_stop:
+            return self._stop(journal, response_stop.reason, response_stop.details)
+        if status.session is None:
+            return self._stop(journal, StopReason.CAPTURE_UNHEALTHY, ["session is not configured"])
+        if _capture_unhealthy(status.session.capture_health):
             return self._stop(journal, StopReason.CAPTURE_UNHEALTHY, ["session capture health is not healthy"])
 
-        window_identity = status.window_identity
+        window_identity = _model_payload(status.session.window_identity)
         window_stop = self.stop_policy.window_stop(journal, window_identity)
         if window_stop.should_stop:
             return self._stop(journal, window_stop.reason, window_stop.details)
 
         try:
-            observation_payload = await self._call_game(OBSERVE_GAME, {})
-            observation = LiveObservation.model_validate(observation_payload)
-        except Exception as exc:
-            return self._stop(journal, StopReason.CONTRACT_VIOLATION, [type(exc).__name__])
+            observed = await self._call_game(OBSERVE_GAME_TOOL, {})
+        except ValidationError as exc:
+            return self._stop(journal, _validation_stop_reason(exc), ["invalid observe_game contract"])
+        except Exception:
+            return self._stop(journal, StopReason.TOOL_FAILURE, [OBSERVE_GAME_TOOL])
+        if not isinstance(observed, ObserveGameResponse):
+            return self._stop(journal, StopReason.CONTRACT_VIOLATION, [OBSERVE_GAME_TOOL])
+        response_stop = _response_stop(observed, OBSERVE_GAME_TOOL)
+        if response_stop.should_stop:
+            return self._stop(journal, response_stop.reason, response_stop.details)
+        observation = observed.observation
+        if observation is None:
+            return self._stop(journal, StopReason.CONTRACT_VIOLATION, ["missing observation"])
 
-        if window_identity != observation.window_identity:
+        observed_identity = _model_payload(observation.window_identity)
+        if window_identity is not None and window_identity != observed_identity:
             return self._stop(
                 journal,
                 StopReason.WINDOW_IDENTITY_CHANGED,
@@ -191,21 +168,30 @@ class RecommendationHarness:
         journal = self._record_due_checkpoints(journal, observation)
 
         try:
-            runtime_state = await self._call_game(GET_RUNTIME_STATE, {})
+            state_response = await self._call_game(GET_RUNTIME_STATE_TOOL, {})
+        except ValidationError as exc:
+            return self._stop(
+                journal,
+                _validation_stop_reason(exc),
+                ["invalid get_runtime_state contract"],
+                observation_id=observation.observation_id,
+            )
         except Exception:
             return self._stop(
                 journal,
                 StopReason.TOOL_FAILURE,
-                [GET_RUNTIME_STATE],
+                [GET_RUNTIME_STATE_TOOL],
                 observation_id=observation.observation_id,
             )
-        authority_stop = _authority_stop(runtime_state, required=True)
-        if authority_stop.should_stop:
-            return self._stop(journal, authority_stop.reason, authority_stop.details, observation.observation_id)
-        binding_stop = _binding_stop(runtime_state, observation)
+        if not isinstance(state_response, RuntimeStateResponse):
+            return self._stop(journal, StopReason.CONTRACT_VIOLATION, [GET_RUNTIME_STATE_TOOL])
+        response_stop = _response_stop(state_response, GET_RUNTIME_STATE_TOOL)
+        if response_stop.should_stop:
+            return self._stop(journal, response_stop.reason, response_stop.details, observation.observation_id)
+        binding_stop = _binding_stop(state_response.observation, observation)
         if binding_stop.should_stop:
             return self._stop(journal, binding_stop.reason, binding_stop.details, observation.observation_id)
-        journal = self._record_timers(journal, runtime_state, observation)
+        journal = self._record_timers(journal, state_response.runtime_state or {}, observation)
 
         if self.qa_client is not None:
             for question in qa_questions:
@@ -222,14 +208,28 @@ class RecommendationHarness:
                         )
 
         try:
-            proposal_payload = await self._call_game(LIST_ACTION_CANDIDATES, {})
-            authority_stop = _authority_stop(proposal_payload, required=True)
-            if authority_stop.should_stop:
-                return self._stop(journal, authority_stop.reason, authority_stop.details, observation.observation_id)
-            binding_stop = _binding_stop(proposal_payload, observation)
+            proposal_response = await self._call_game(LIST_ACTION_CANDIDATES_TOOL, {})
+            if not isinstance(proposal_response, ActionCandidatesResponse):
+                raise TypeError("wrong list_action_candidates response model")
+            response_stop = _response_stop(proposal_response, LIST_ACTION_CANDIDATES_TOOL)
+            if response_stop.should_stop:
+                return self._stop(
+                    journal,
+                    response_stop.reason,
+                    response_stop.details,
+                    observation.observation_id,
+                )
+            binding_stop = _binding_stop(proposal_response.observation, observation)
             if binding_stop.should_stop:
                 return self._stop(journal, binding_stop.reason, binding_stop.details, observation.observation_id)
-            candidates = [CandidateProposal.model_validate(item) for item in _candidate_items(proposal_payload)]
+            candidates = proposal_response.candidates
+        except ValidationError as exc:
+            return self._stop(
+                journal,
+                _validation_stop_reason(exc),
+                ["invalid list_action_candidates contract"],
+                observation.observation_id,
+            )
         except Exception as exc:
             return self._stop(
                 journal,
@@ -246,7 +246,9 @@ class RecommendationHarness:
                 candidates_stop.details,
                 observation.observation_id,
             )
-        recommendation = next(candidate for candidate in candidates if not candidate.blockers)
+        recommendation = next(
+            candidate for candidate in candidates if not self.stop_policy.recommendation_blockers(candidate)
+        )
         journal = self._record_recommendation(journal, recommendation, observation)
         confirmation_stop = self.stop_policy.confirmation_stop(recommendation)
         if confirmation_stop.should_stop:
@@ -267,10 +269,9 @@ class RecommendationHarness:
             journal=journal,
         )
 
-    async def _call_game(self, name: str, arguments: Mapping[str, Any]) -> dict[str, Any]:
-        if name not in GAME_READ_ONLY_TOOLS:
-            raise ValueError(f"game tool is outside frozen read-only contract: {name}")
-        return await self._call(self.game_client, name, arguments)
+    async def _call_game(self, name: str, arguments: Mapping[str, Any]) -> ContractResponse:
+        payload = await self._call(self.game_client, name, arguments)
+        return validate_game_response(name, payload)
 
     async def _call_qa(self, name: str, arguments: Mapping[str, Any]) -> dict[str, Any]:
         if self.qa_client is None:
@@ -319,7 +320,7 @@ class RecommendationHarness:
                 trace_refs=trace_refs,
                 model_id=self.model_id,
                 agent_session_id=self.agent_session_id,
-                game_session_id=_optional_string(payload.get("session_id")),
+                game_session_id=_game_session_id(payload),
             )
         )
         return payload
@@ -346,7 +347,7 @@ class RecommendationHarness:
                 observed_at=observation.captured_at,
                 observation_id=observation.observation_id,
                 evidence_refs=[obs_ref, frame_ref],
-                metadata={"window_identity": observation.window_identity},
+                metadata={"window_identity": _model_payload(observation.window_identity)},
             )
         )
         for checkpoint in self.stop_policy.checkpoints:
@@ -446,7 +447,7 @@ class RecommendationHarness:
     def _record_recommendation(
         self,
         journal: DecisionJournal,
-        recommendation: CandidateProposal,
+        recommendation: ActionProposal,
         observation: LiveObservation,
     ) -> DecisionJournal:
         refs = _candidate_evidence_refs(recommendation)
@@ -475,7 +476,7 @@ class RecommendationHarness:
         reason: StopReason | None,
         details: list[str],
         observation_id: str | None = None,
-        recommendation: CandidateProposal | None = None,
+        recommendation: ActionProposal | None = None,
     ) -> DecisionWindowResult:
         resolved_reason = reason or StopReason.CONTRACT_VIOLATION
         refs = journal.evidence_refs[-10:] or [f"stop:{resolved_reason.value}"]
@@ -498,33 +499,29 @@ class RecommendationHarness:
         )
 
 
-def _authority_stop(payload: Mapping[str, Any], *, required: bool = False) -> StopDecision:
-    authority = payload.get("execution_authority")
-    if authority is None and not required:
-        return StopDecision()
-    if authority != "none":
+def _capture_unhealthy(health: str) -> bool:
+    return health == "not_configured"
+
+
+def _binding_stop(
+    bound_observation: LiveObservation | None,
+    observation: LiveObservation,
+) -> StopDecision:
+    if bound_observation is None:
         return StopDecision(
             should_stop=True,
-            reason=StopReason.EXECUTION_AUTHORITY_VIOLATION,
-            details=[f"execution_authority={authority!r}"],
+            reason=StopReason.CONTRACT_VIOLATION,
+            details=["response is missing its bound observation"],
         )
-    return StopDecision()
-
-
-def _capture_unhealthy(health: Mapping[str, Any]) -> bool:
-    return str(health.get("status", "unknown")).lower() not in {"healthy", "ok"}
-
-
-def _binding_stop(payload: Mapping[str, Any], observation: LiveObservation) -> StopDecision:
     expected = {
         "session_id": observation.session_id,
         "observation_id": observation.observation_id,
         "frame_sha256": observation.frame_sha256,
     }
     mismatches = [
-        f"{key}={payload.get(key)!r} expected {value!r}"
+        f"{key}={getattr(bound_observation, key)!r} expected {value!r}"
         for key, value in expected.items()
-        if payload.get(key) != value
+        if getattr(bound_observation, key) != value
     ]
     if mismatches:
         return StopDecision(
@@ -535,14 +532,7 @@ def _binding_stop(payload: Mapping[str, Any], observation: LiveObservation) -> S
     return StopDecision()
 
 
-def _candidate_items(payload: Mapping[str, Any]) -> list[Any]:
-    value = payload.get("candidates")
-    if isinstance(value, list):
-        return value
-    raise ValueError("list_action_candidates returned no candidate list")
-
-
-def _candidate_evidence_refs(candidate: CandidateProposal) -> list[str]:
+def _candidate_evidence_refs(candidate: ActionProposal) -> list[str]:
     refs: list[str] = []
     for item in candidate.evidence:
         if isinstance(item, str) and item:
@@ -578,3 +568,39 @@ def _merge_unique(existing: list[str], incoming: list[str]) -> list[str]:
 
 def _optional_string(value: Any) -> str | None:
     return value if isinstance(value, str) and value else None
+
+
+def _response_stop(response: ContractResponse, tool_name: str) -> StopDecision:
+    if response.status == "ok":
+        return StopDecision()
+    code = response.error.code if response.error is not None else response.status
+    return StopDecision(
+        should_stop=True,
+        reason=StopReason.TOOL_FAILURE,
+        details=[f"{tool_name}:{code}"],
+    )
+
+
+def _validation_stop_reason(exc: ValidationError) -> StopReason:
+    if "execution_authority" in str(exc):
+        return StopReason.EXECUTION_AUTHORITY_VIOLATION
+    return StopReason.CONTRACT_VIOLATION
+
+
+def _model_payload(value: BaseModel | None) -> dict[str, Any] | None:
+    return value.model_dump(mode="json") if value is not None else None
+
+
+def _game_session_id(payload: Mapping[str, Any]) -> str | None:
+    session = payload.get("session")
+    if isinstance(session, Mapping):
+        value = _optional_string(session.get("session_id"))
+        if value is not None:
+            return value
+    for key in ("observation", "latest_observation"):
+        observation = payload.get(key)
+        if isinstance(observation, Mapping):
+            value = _optional_string(observation.get("session_id"))
+            if value is not None:
+                return value
+    return None

@@ -37,13 +37,13 @@
 
 ### M1 — Strategy Agent harness + journal
 
-- [ ] 新增外部 Agent harness，不放进 MCP server handler；以 MCP client 接口消费 `sanmou-game` 与 `sanmou-qa`。
-- [ ] 固定 decision-window loop：`get_journal → session_status → observe_game → focused state/QA queries → proposals → choose recommendation → write journal`；本阶段到 recommendation 为止。
-- [ ] 新增结构化 journal：`tactical`、`strategic`、`tooling`、`planning`、`hypothesis`、`evidence_refs`、`last_verified_action`、`pending_timers`。
-- [ ] journal 严格区分 observed facts 与 agent inference；不得回写 `RuntimeState`，不得把历史 hypothesis 当作新 observation。
-- [ ] 增加 polling cadence/checkpoint policy，补偿截图 Agent 的 sensorium gap：资源/章节/队伍/土地/战报/计时器均有显式检查频率和 stale policy。
-- [ ] 记录每次 MCP tool call 的名称、参数摘要、结果摘要、duration、success、observation/trace refs、model/session ID；不得记录 secrets、完整原图或可打印输入。
-- [ ] Agent 终止条件：unknown/stale observation、窗口身份变化、连续 tool failure、关键 domain unknown、候选全 blocked、需要人工确认时停止并上报，而不是继续猜测。
+- [x] 新增外部 Agent harness，不放进 MCP server handler；以 MCP client 接口消费 `sanmou-game` 与 `sanmou-qa`。Game 侧直接使用 `pioneer_agent.mcp_server.contracts` 的唯一 `sanmou-game/v1` tool catalog/response models，不维护第二套 schema。
+- [x] 固定 decision-window loop：`get_journal → session_status → observe_game → focused state/QA queries → proposals → choose recommendation → write journal`；本阶段到 recommendation 为止。
+- [x] 新增结构化 journal：`tactical`、`strategic`、`tooling`、`planning`、`hypothesis`、`evidence_refs`、`last_verified_action`、`pending_timers`。
+- [x] journal 严格区分 observed facts 与 agent inference；不得回写 `RuntimeState`，不得把历史 hypothesis 当作新 observation。
+- [x] 增加 polling cadence/checkpoint policy，补偿截图 Agent 的 sensorium gap：资源/章节/队伍/土地/战报/计时器均有显式检查频率和 stale policy。
+- [x] 记录每次 MCP tool call 的名称、参数摘要、结果摘要、duration、success、observation/trace refs、model/session ID；不得记录 secrets、完整原图或可打印输入；nested canonical observation refs 已纳入摘要。
+- [x] Agent 终止条件：unknown/stale observation、窗口身份变化、连续 tool failure、关键 domain unknown、候选全 blocked、需要人工确认时停止并上报，而不是继续猜测；in-process fake `ObservationProvider` 已通过 `build_live_service` + `create_server` 验证 stop policy。
 
 ### M2 — MCP-native eval and observability
 
@@ -88,7 +88,7 @@
 - [x] 分支：`feat/game-agent-harness`；worktree：`~/projects/sanmou-agent-harness-dev`。
 - [x] 范围：新增独立 agent/journal/tool-log 模块及 fake MCP client fixtures；不修改 MCP server handler。
 - [x] 交付：recommendation-only decision loop、observed/inferred 分离 journal、stop policy、单元测试。
-- [ ] 依赖：使用本 TODO 冻结的 M0 tool names/fields；Session A 合并后再做薄适配，不提前发明第二套 contract。
+- [x] 依赖（2026-08-27）：已在 `8144cc3` 合入后完成薄适配；固定 tool order、privacy projection、`execution_authority=none`、unknown/stale/blocked fail-closed 与无 mutating tool/control import 均由 in-process integration 覆盖，仍为 recommendation-only。Harness + Game MCP focused 42/42、Pioneer 全量 753 tests OK（6 skip）。
 
 #### Session C — MCP eval/observability
 

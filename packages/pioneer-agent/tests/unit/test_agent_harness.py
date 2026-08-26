@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import ast
 import json
 from collections.abc import Mapping
 from datetime import datetime, timedelta
@@ -10,7 +11,6 @@ import unittest
 
 from pydantic import ValidationError
 
-from pioneer_agent.agent_harness.contracts import GAME_READ_ONLY_TOOLS
 from pioneer_agent.agent_harness.journal import (
     AgentInference,
     DecisionJournal,
@@ -21,6 +21,7 @@ from pioneer_agent.agent_harness.journal import (
 from pioneer_agent.agent_harness.loop import DecisionWindowStatus, RecommendationHarness
 from pioneer_agent.agent_harness.policy import StopPolicy, StopReason
 from pioneer_agent.agent_harness.tool_log import InMemoryToolLog, JsonlToolLog, summarize_arguments
+from pioneer_agent.mcp_server.contracts import GAME_TOOL_ARGUMENTS
 
 
 FIXTURE_ROOT = Path(__file__).resolve().parents[1] / "fixtures" / "agent_harness"
@@ -119,12 +120,34 @@ class ToolLogTests(unittest.TestCase):
 
 
 class RecommendationHarnessTests(unittest.TestCase):
-    def test_harness_package_has_no_server_handler_or_control_import(self) -> None:
+    def test_harness_consumes_canonical_contract_and_has_no_control_import(self) -> None:
         package_root = Path(__file__).resolve().parents[2] / "src" / "pioneer_agent" / "agent_harness"
-        source = "\n".join(path.read_text(encoding="utf-8") for path in package_root.glob("*.py"))
-        self.assertNotIn("pioneer_agent.mcp_server", source)
-        self.assertNotIn("pioneer_agent.executor", source)
-        self.assertNotIn("pioneer_agent.adapters.control", source)
+        imported: set[str] = set()
+        class_names: set[str] = set()
+        for path in package_root.glob("*.py"):
+            tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+            for node in ast.walk(tree):
+                if isinstance(node, ast.Import):
+                    imported.update(alias.name for alias in node.names)
+                elif isinstance(node, ast.ImportFrom) and node.module:
+                    imported.add(node.module)
+                elif isinstance(node, ast.ClassDef):
+                    class_names.add(node.name)
+        self.assertIn("pioneer_agent.mcp_server.contracts", imported)
+        self.assertFalse(
+            {
+                name
+                for name in imported
+                if name.startswith("pioneer_agent.executor")
+                or name.startswith("pioneer_agent.adapters.control")
+            }
+        )
+        self.assertTrue({"LiveObservation", "ActionProposal", "SessionStatusResponse"}.isdisjoint(class_names))
+        self.assertFalse(
+            set(GAME_TOOL_ARGUMENTS).intersection(
+                {"click", "press_key", "prepare_action", "execute_prepared_action"}
+            )
+        )
 
     def test_ready_fixture_runs_fixed_read_only_order_and_recommends(self) -> None:
         fixture = load_fixture("recommendation_ready.json")
@@ -154,14 +177,16 @@ class RecommendationHarnessTests(unittest.TestCase):
             ["session_status", "observe_game", "get_runtime_state", "list_action_candidates"],
         )
         self.assertEqual([name for name, _ in qa.calls], ["answer_rule_question"])
-        self.assertTrue(all(name in GAME_READ_ONLY_TOOLS for name, _ in game.calls))
+        self.assertTrue(all(name in GAME_TOOL_ARGUMENTS for name, _ in game.calls))
         self.assertTrue(result.journal.tactical.observed)
         self.assertTrue(result.journal.planning.inferred)
         self.assertTrue(result.journal.strategic.observed)
 
     def test_unknown_critical_domain_stops_before_state_or_proposals(self) -> None:
         fixture = load_fixture("recommendation_ready.json")
-        fixture["game"]["observe_game"]["structuredContent"]["unknown_domains"] = ["map_land"]
+        observation = fixture["game"]["observe_game"]["structuredContent"]["observation"]
+        observation["domains_run"].remove("map_land")
+        observation["unknown_domains"] = ["map_land"]
         game = ScriptedMcpClient(fixture["game"])
         harness = _harness(game)
 
@@ -173,7 +198,7 @@ class RecommendationHarnessTests(unittest.TestCase):
 
     def test_stale_observation_stops(self) -> None:
         fixture = load_fixture("recommendation_ready.json")
-        fixture["game"]["observe_game"]["structuredContent"]["captured_at"] = "2026-08-26T09:00:00+08:00"
+        fixture["game"]["observe_game"]["structuredContent"]["observation"]["captured_at"] = "2026-08-26T09:00:00+08:00"
         result = _run(_harness(ScriptedMcpClient(fixture["game"])).run_decision_window())
         self.assertEqual(result.stop.reason, StopReason.OBSERVATION_STALE)
 
@@ -189,11 +214,16 @@ class RecommendationHarnessTests(unittest.TestCase):
         candidates[0] = {
             "action_id": "attack-land-5-1",
             "action_type": "attack_land",
+            "params": {},
+            "score": 100.0,
             "risk": {"level": "high", "confirmation_required": True},
             "evidence": ["state.map.candidate_lands.5-1"],
+            "structured_evidence": [],
             "confidence": 0.91,
-            "blockers": [],
+            "blockers": ["advisor_mode"],
             "executable": False,
+            "execution_blocked_reason": "advisor_mode",
+            "execution_authority": "none",
         }
         result = _run(_harness(ScriptedMcpClient(fixture["game"])).run_decision_window())
         self.assertEqual(result.stop.reason, StopReason.HUMAN_CONFIRMATION_REQUIRED)
@@ -229,7 +259,7 @@ class RecommendationHarnessTests(unittest.TestCase):
 
     def test_checkpoint_staleness_stops_when_fresh_observation_misses_domain(self) -> None:
         fixture = load_fixture("recommendation_ready.json")
-        fixture["game"]["observe_game"]["structuredContent"]["domains_run"].remove("resource_bar")
+        fixture["game"]["observe_game"]["structuredContent"]["observation"]["domains_run"].remove("resource_bar")
         store = InMemoryJournalStore()
         journal = store.load("agent-stale")
         journal.tooling.observed.append(

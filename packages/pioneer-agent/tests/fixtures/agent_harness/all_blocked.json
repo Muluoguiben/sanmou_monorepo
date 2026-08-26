@@ -3,69 +3,111 @@
     "session_status": {
       "isError": false,
       "structuredContent": {
-        "session_id": "game-session-blocked",
-        "status": "active",
-        "capture_health": {"status": "healthy"},
-        "window_identity": {"hwnd": 303, "pid": 404, "title": "Sanmou"},
-        "execution_authority": "none"
+        "contract_version": "sanmou-game/v1",
+        "status": "ok",
+        "execution_authority": "none",
+        "session": {
+          "session_id": "game-session-blocked",
+          "active": true,
+          "started_at": "2026-08-26T09:55:00+08:00",
+          "source_id": "source-blocked",
+          "source_type": "windows_window_capture",
+          "platform": "pc_client",
+          "resolution": [1920, 1080],
+          "observe_only": true,
+          "live_capture": true,
+          "reliable_window_info": false,
+          "capture_health": "ready"
+        }
       }
     },
     "observe_game": {
       "isError": false,
       "structuredContent": {
-        "session_id": "game-session-blocked",
-        "observation_id": "observation-blocked",
-        "frame_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-        "captured_at": "2026-08-26T10:00:00+08:00",
-        "window_identity": {"hwnd": 303, "pid": 404, "title": "Sanmou"},
-        "capture_geometry": {
-          "capture_rect": {"left": 0, "top": 0, "right": 1920, "bottom": 1080},
-          "frame_size": [1920, 1080]
-        },
-        "domains_run": ["resource_bar", "chapter_panel", "team_panel", "map_land", "battle_report", "timing"],
-        "unknown_domains": [],
-        "structured_evidence": [],
-        "confidence": 0.90,
-        "execution_authority": "none"
+        "contract_version": "sanmou-game/v1",
+        "status": "ok",
+        "execution_authority": "none",
+        "observation": {
+          "session_id": "game-session-blocked",
+          "observation_id": "observation-blocked",
+          "frame_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "captured_at": "2026-08-26T10:00:00+08:00",
+          "domains_run": ["resource_bar", "chapter_panel", "team_panel", "map_land", "battle_report", "timing"],
+          "unknown_domains": [],
+          "structured_evidence": [],
+          "confidence": 0.90,
+          "execution_authority": "none"
+        }
       }
     },
     "get_runtime_state": {
       "isError": false,
       "structuredContent": {
-        "session_id": "game-session-blocked",
-        "observation_id": "observation-blocked",
-        "frame_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "contract_version": "sanmou-game/v1",
+        "status": "ok",
         "execution_authority": "none",
-        "state": {"timing": {}}
+        "observation": {
+          "session_id": "game-session-blocked",
+          "observation_id": "observation-blocked",
+          "frame_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "captured_at": "2026-08-26T10:00:00+08:00",
+          "domains_run": ["resource_bar", "chapter_panel", "team_panel", "map_land", "battle_report", "timing"],
+          "unknown_domains": [],
+          "structured_evidence": [],
+          "confidence": 0.90,
+          "execution_authority": "none"
+        },
+        "runtime_state": {"timing": {}}
       }
     },
     "list_action_candidates": {
       "isError": false,
       "structuredContent": {
-        "session_id": "game-session-blocked",
-        "observation_id": "observation-blocked",
-        "frame_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "contract_version": "sanmou-game/v1",
+        "status": "ok",
         "execution_authority": "none",
+        "observation": {
+          "session_id": "game-session-blocked",
+          "observation_id": "observation-blocked",
+          "frame_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "captured_at": "2026-08-26T10:00:00+08:00",
+          "domains_run": ["resource_bar", "chapter_panel", "team_panel", "map_land", "battle_report", "timing"],
+          "unknown_domains": [],
+          "structured_evidence": [],
+          "confidence": 0.90,
+          "execution_authority": "none"
+        },
         "candidates": [
           {
             "action_id": "wait-resource",
             "action_type": "wait_for_resource",
+            "params": {},
+            "score": 10.0,
             "risk": {"level": "low"},
             "evidence": ["state.economy.resources"],
+            "structured_evidence": [],
             "confidence": 0.82,
             "blockers": ["resource_threshold_unknown"],
-            "executable": false
+            "executable": false,
+            "execution_blocked_reason": "resource_threshold_unknown",
+            "execution_authority": "none"
           },
           {
             "action_id": "attack-land-ambiguous",
             "action_type": "attack_land",
+            "params": {},
+            "score": 5.0,
             "risk": {"level": "high"},
             "evidence": ["state.map.candidate_lands"],
+            "structured_evidence": [],
             "confidence": 0.40,
             "blockers": ["map_target_unknown", "human_confirmation_required"],
-            "executable": false
+            "executable": false,
+            "execution_blocked_reason": "map_target_unknown",
+            "execution_authority": "none"
           }
-        ]
+        ],
+        "selection_reason": {}
       }
     }
   },
