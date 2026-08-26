@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "artifact_type": "sanmou_mcp_static_transcripts",
+  "split": "holdout",
+  "transcripts": [
+    {
+      "scenario_id": "holdout-map-filter",
+      "session_id": "session-holdout-map-filter",
+      "capture_group_id": "capture-holdout-map-filter",
+      "calls": [
+        {
+          "call_id": "holdout-status", "ordinal": 0, "tool_name": "session_status", "arguments_summary": {}, "result_summary": {},
+          "started_at": "2026-08-26T11:00:00+08:00", "duration_ms": 2.0, "success": true,
+          "domains_queried": [], "domain_observed_at": {}, "observation_refs": [], "trace_refs": [], "model_id": null,
+          "session_id": "session-holdout-map-filter", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        },
+        {
+          "call_id": "holdout-eval", "ordinal": 1, "tool_name": "evaluate_fixture", "arguments_summary": {"fixture_id": "sealed-case-1"},
+          "result_summary": {"state_fields": {"page": "main_map", "map_filter.outcome": "positive"}, "unknown_domains": [], "no_change_recognized": false},
+          "started_at": "2026-08-26T11:00:00.010000+08:00", "duration_ms": 15.0, "success": true,
+          "domains_queried": ["map_land"], "domain_observed_at": {"map_land": "2026-08-26T11:00:00.020000+08:00"},
+          "observation_refs": ["prediction:holdout-map-filter:1"], "trace_refs": ["trace:holdout-map-filter:1"], "model_id": null,
+          "session_id": "session-holdout-map-filter", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        },
+        {
+          "call_id": "holdout-trace", "ordinal": 2, "tool_name": "get_last_trace", "arguments_summary": {"limit": 1},
+          "result_summary": {"terminal_outcome": "recommendation", "journal_steps": ["session_status", "evaluate_fixture", "get_last_trace"]},
+          "started_at": "2026-08-26T11:00:00.040000+08:00", "duration_ms": 2.0, "success": true,
+          "domains_queried": [], "domain_observed_at": {}, "observation_refs": ["prediction:holdout-map-filter:1"], "trace_refs": ["trace:holdout-map-filter:1"], "model_id": null,
+          "session_id": "session-holdout-map-filter", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        }
+      ]
+    }
+  ],
+  "execution_authority": "none",
+  "live_control_used": false,
+  "oracle_labels_included": false
+}

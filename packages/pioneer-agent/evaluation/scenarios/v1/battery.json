@@ -1,0 +1,249 @@
+{
+  "schema_version": 1,
+  "artifact_type": "sanmou_mcp_eval_battery",
+  "battery_id": "sanmou-mcp-offline-v1",
+  "tool_schema_version": "sanmou-game-readonly-static-v1",
+  "prompt_version": "recommendation-only-v1",
+  "playbook_version": "decision-window-v1",
+  "scenarios": [
+    {
+      "schema_version": 1,
+      "scenario_id": "home-observation",
+      "title": "主页观察",
+      "split": "generation",
+      "session_id": "session-home",
+      "capture_group_id": "capture-home",
+      "fixture_path": "static-tool-calls.generation.json",
+      "fixture_sha256": "9375f57218affb9349462ae66cff961a4642b9e9b3a386ac018f09acafb2a87a",
+      "sensorium": {"critical_domains": ["resource_bar", "mode_hub"], "stale_after_seconds": {"resource_bar": 30.0, "mode_hub": 30.0}, "required_before_failure": []},
+      "expectations": {
+        "state_fields": {"page": "home", "economy.wood": 120000, "mode": "advisor"},
+        "unknown_domains": [], "required_tool_calls": ["session_status", "observe_game", "list_action_candidates"],
+        "grounded_proposals": ["wait_for_resource"], "blocked_actions": {}, "verifier_readiness": {"wait_for_resource": true},
+        "terminal_outcome": "recommendation", "journal_plan": ["session_status", "observe_game", "list_action_candidates"]
+      }
+    },
+    {
+      "schema_version": 1,
+      "scenario_id": "chapter-claimable",
+      "title": "章节可领奖",
+      "split": "generation",
+      "session_id": "session-chapter-claimable",
+      "capture_group_id": "capture-chapter-claimable",
+      "fixture_path": "static-tool-calls.generation.json",
+      "fixture_sha256": "9375f57218affb9349462ae66cff961a4642b9e9b3a386ac018f09acafb2a87a",
+      "sensorium": {"critical_domains": ["chapter_panel"], "stale_after_seconds": {"chapter_panel": 30.0}, "required_before_failure": []},
+      "expectations": {
+        "state_fields": {"page": "chapter", "chapter.reward_claimable": true},
+        "unknown_domains": [], "required_tool_calls": ["session_status", "observe_game", "list_action_candidates"],
+        "grounded_proposals": ["claim_chapter_reward"], "blocked_actions": {}, "verifier_readiness": {"claim_chapter_reward": true},
+        "terminal_outcome": "recommendation", "journal_plan": ["session_status", "observe_game", "list_action_candidates"]
+      }
+    },
+    {
+      "schema_version": 1,
+      "scenario_id": "chapter-not-claimable",
+      "title": "章节不可领奖",
+      "split": "generation",
+      "session_id": "session-chapter-blocked",
+      "capture_group_id": "capture-chapter-blocked",
+      "fixture_path": "static-tool-calls.generation.json",
+      "fixture_sha256": "9375f57218affb9349462ae66cff961a4642b9e9b3a386ac018f09acafb2a87a",
+      "sensorium": {"critical_domains": ["chapter_panel"], "stale_after_seconds": {"chapter_panel": 30.0}, "required_before_failure": []},
+      "expectations": {
+        "state_fields": {"page": "chapter", "chapter.reward_claimable": false},
+        "unknown_domains": [], "required_tool_calls": ["session_status", "observe_game", "list_action_candidates"],
+        "grounded_proposals": ["claim_chapter_reward"], "blocked_actions": {"claim_chapter_reward": ["reward_not_claimable"]},
+        "verifier_readiness": {"claim_chapter_reward": false}, "terminal_outcome": "recommendation",
+        "journal_plan": ["session_status", "observe_game", "list_action_candidates"]
+      }
+    },
+    {
+      "schema_version": 1,
+      "scenario_id": "recruit-available",
+      "title": "征兵可用",
+      "split": "generation",
+      "session_id": "session-recruit-available",
+      "capture_group_id": "capture-recruit-available",
+      "fixture_path": "static-tool-calls.generation.json",
+      "fixture_sha256": "9375f57218affb9349462ae66cff961a4642b9e9b3a386ac018f09acafb2a87a",
+      "sensorium": {"critical_domains": ["recruit_panel", "team_panel"], "stale_after_seconds": {"recruit_panel": 30.0, "team_panel": 30.0}, "required_before_failure": []},
+      "expectations": {
+        "state_fields": {"page": "recruit", "team.can_recruit_now": true, "team.soldiers": 2400},
+        "unknown_domains": [], "required_tool_calls": ["session_status", "observe_game", "list_action_candidates"],
+        "grounded_proposals": ["recruit_soldiers"], "blocked_actions": {}, "verifier_readiness": {"recruit_soldiers": true},
+        "terminal_outcome": "recommendation", "journal_plan": ["session_status", "observe_game", "list_action_candidates"]
+      }
+    },
+    {
+      "schema_version": 1,
+      "scenario_id": "recruit-unavailable",
+      "title": "征兵不可用",
+      "split": "generation",
+      "session_id": "session-recruit-blocked",
+      "capture_group_id": "capture-recruit-blocked",
+      "fixture_path": "static-tool-calls.generation.json",
+      "fixture_sha256": "9375f57218affb9349462ae66cff961a4642b9e9b3a386ac018f09acafb2a87a",
+      "sensorium": {"critical_domains": ["recruit_panel", "team_panel"], "stale_after_seconds": {"recruit_panel": 30.0, "team_panel": 30.0}, "required_before_failure": []},
+      "expectations": {
+        "state_fields": {"page": "recruit", "team.can_recruit_now": false, "team.soldiers": 5000},
+        "unknown_domains": [], "required_tool_calls": ["session_status", "observe_game", "list_action_candidates"],
+        "grounded_proposals": ["recruit_soldiers"], "blocked_actions": {"recruit_soldiers": ["team_full"]},
+        "verifier_readiness": {"recruit_soldiers": false}, "terminal_outcome": "recommendation",
+        "journal_plan": ["session_status", "observe_game", "list_action_candidates"]
+      }
+    },
+    {
+      "schema_version": 1,
+      "scenario_id": "building-upgrade-entry",
+      "title": "建筑升级入口",
+      "split": "generation",
+      "session_id": "session-building-entry",
+      "capture_group_id": "capture-building-entry",
+      "fixture_path": "static-tool-calls.generation.json",
+      "fixture_sha256": "9375f57218affb9349462ae66cff961a4642b9e9b3a386ac018f09acafb2a87a",
+      "sensorium": {"critical_domains": ["city_buildings"], "stale_after_seconds": {"city_buildings": 30.0}, "required_before_failure": []},
+      "expectations": {
+        "state_fields": {"page": "city", "city.upgrade_entry_visible": true, "city.building": "main_hall"},
+        "unknown_domains": [], "required_tool_calls": ["session_status", "observe_game", "list_action_candidates"],
+        "grounded_proposals": ["upgrade_building"], "blocked_actions": {}, "verifier_readiness": {"upgrade_building": false},
+        "terminal_outcome": "recommendation", "journal_plan": ["session_status", "observe_game", "list_action_candidates"]
+      }
+    },
+    {
+      "schema_version": 1,
+      "scenario_id": "building-upgrade-confirm",
+      "title": "建筑升级确认",
+      "split": "generation",
+      "session_id": "session-building-confirm",
+      "capture_group_id": "capture-building-confirm",
+      "fixture_path": "static-tool-calls.generation.json",
+      "fixture_sha256": "9375f57218affb9349462ae66cff961a4642b9e9b3a386ac018f09acafb2a87a",
+      "sensorium": {"critical_domains": ["city_buildings", "upgrade_dialog"], "stale_after_seconds": {"city_buildings": 30.0, "upgrade_dialog": 30.0}, "required_before_failure": []},
+      "expectations": {
+        "state_fields": {"page": "city", "city.upgrade_confirm_visible": true, "city.resource_ready": true},
+        "unknown_domains": [], "required_tool_calls": ["session_status", "observe_game", "list_action_candidates"],
+        "grounded_proposals": ["upgrade_building"], "blocked_actions": {}, "verifier_readiness": {"upgrade_building": true},
+        "terminal_outcome": "recommendation", "journal_plan": ["session_status", "observe_game", "list_action_candidates"]
+      }
+    },
+    {
+      "schema_version": 1,
+      "scenario_id": "map-filter-positive",
+      "title": "地图筛选 positive",
+      "split": "generation",
+      "session_id": "session-map-positive",
+      "capture_group_id": "capture-map-positive",
+      "fixture_path": "static-tool-calls.generation.json",
+      "fixture_sha256": "9375f57218affb9349462ae66cff961a4642b9e9b3a386ac018f09acafb2a87a",
+      "sensorium": {"critical_domains": ["map_land"], "stale_after_seconds": {"map_land": 30.0}, "required_before_failure": []},
+      "expectations": {
+        "state_fields": {"page": "main_map", "map_filter.outcome": "positive"},
+        "unknown_domains": [], "required_tool_calls": ["session_status", "evaluate_fixture", "get_last_trace"],
+        "grounded_proposals": [], "blocked_actions": {}, "verifier_readiness": {}, "no_change_recognized": false,
+        "terminal_outcome": "recommendation", "journal_plan": ["session_status", "evaluate_fixture", "get_last_trace"]
+      }
+    },
+    {
+      "schema_version": 1,
+      "scenario_id": "map-filter-no-change",
+      "title": "地图筛选 no-change",
+      "split": "generation",
+      "session_id": "session-map-no-change",
+      "capture_group_id": "capture-map-no-change",
+      "fixture_path": "static-tool-calls.generation.json",
+      "fixture_sha256": "9375f57218affb9349462ae66cff961a4642b9e9b3a386ac018f09acafb2a87a",
+      "sensorium": {"critical_domains": ["map_land"], "stale_after_seconds": {"map_land": 30.0}, "required_before_failure": []},
+      "expectations": {
+        "state_fields": {"page": "main_map", "map_filter.outcome": "no_change"},
+        "unknown_domains": [], "required_tool_calls": ["session_status", "evaluate_fixture", "get_last_trace"],
+        "grounded_proposals": [], "blocked_actions": {}, "verifier_readiness": {}, "no_change_recognized": true,
+        "terminal_outcome": "stop", "stop_reason": "no_change", "journal_plan": ["session_status", "evaluate_fixture", "get_last_trace"]
+      }
+    },
+    {
+      "schema_version": 1,
+      "scenario_id": "map-filter-interrupted",
+      "title": "地图筛选 interrupted",
+      "split": "generation",
+      "session_id": "session-map-interrupted",
+      "capture_group_id": "capture-map-interrupted",
+      "fixture_path": "static-tool-calls.generation.json",
+      "fixture_sha256": "9375f57218affb9349462ae66cff961a4642b9e9b3a386ac018f09acafb2a87a",
+      "sensorium": {"critical_domains": ["map_land", "popup"], "stale_after_seconds": {"map_land": 30.0, "popup": 30.0}, "required_before_failure": ["map_land", "popup"]},
+      "expectations": {
+        "state_fields": {"page": "popup", "map_filter.outcome": "interrupted"},
+        "unknown_domains": ["map_land"], "required_tool_calls": ["session_status", "evaluate_fixture", "get_last_trace"],
+        "grounded_proposals": [], "blocked_actions": {}, "verifier_readiness": {}, "no_change_recognized": false,
+        "terminal_outcome": "recover", "stop_reason": "popup_interruption", "journal_plan": ["session_status", "evaluate_fixture", "get_last_trace"]
+      }
+    },
+    {
+      "schema_version": 1,
+      "scenario_id": "map-filter-ambiguous",
+      "title": "地图筛选 ambiguous",
+      "split": "generation",
+      "session_id": "session-map-ambiguous",
+      "capture_group_id": "capture-map-ambiguous",
+      "fixture_path": "static-tool-calls.generation.json",
+      "fixture_sha256": "9375f57218affb9349462ae66cff961a4642b9e9b3a386ac018f09acafb2a87a",
+      "sensorium": {"critical_domains": ["map_land", "popup"], "stale_after_seconds": {"map_land": 30.0, "popup": 30.0}, "required_before_failure": ["map_land", "popup"]},
+      "expectations": {
+        "state_fields": {"page": "main_map", "map_filter.outcome": "ambiguous"},
+        "unknown_domains": ["map_land"], "required_tool_calls": ["session_status", "evaluate_fixture", "get_last_trace"],
+        "grounded_proposals": [], "blocked_actions": {}, "verifier_readiness": {}, "no_change_recognized": false,
+        "terminal_outcome": "stop", "stop_reason": "ambiguous_target", "journal_plan": ["session_status", "evaluate_fixture", "get_last_trace"]
+      }
+    },
+    {
+      "schema_version": 1,
+      "scenario_id": "battle-report-partial",
+      "title": "战报 partial",
+      "split": "generation",
+      "session_id": "session-battle-partial",
+      "capture_group_id": "capture-battle-partial",
+      "fixture_path": "static-tool-calls.generation.json",
+      "fixture_sha256": "9375f57218affb9349462ae66cff961a4642b9e9b3a386ac018f09acafb2a87a",
+      "sensorium": {"critical_domains": ["battle_report"], "stale_after_seconds": {"battle_report": 30.0}, "required_before_failure": ["battle_report"]},
+      "expectations": {
+        "state_fields": {"page": "battle_report", "battle.result": "partial"},
+        "unknown_domains": ["battle_report"], "required_tool_calls": ["session_status", "evaluate_fixture", "list_action_candidates"],
+        "grounded_proposals": ["attack_land"], "blocked_actions": {"attack_land": ["battle_report_partial"]},
+        "verifier_readiness": {"attack_land": false}, "terminal_outcome": "stop", "stop_reason": "critical_domain_unknown",
+        "journal_plan": ["session_status", "evaluate_fixture", "list_action_candidates"]
+      }
+    },
+    {
+      "schema_version": 1,
+      "scenario_id": "battle-report-conflict",
+      "title": "战报 conflict",
+      "split": "generation",
+      "session_id": "session-battle-conflict",
+      "capture_group_id": "capture-battle-conflict",
+      "fixture_path": "static-tool-calls.generation.json",
+      "fixture_sha256": "9375f57218affb9349462ae66cff961a4642b9e9b3a386ac018f09acafb2a87a",
+      "sensorium": {"critical_domains": ["battle_report"], "stale_after_seconds": {"battle_report": 30.0}, "required_before_failure": ["battle_report"]},
+      "expectations": {
+        "state_fields": {"page": "battle_report", "battle.result": "conflict"},
+        "unknown_domains": ["battle_report"], "required_tool_calls": ["session_status", "evaluate_fixture", "list_action_candidates"],
+        "grounded_proposals": ["attack_land"], "blocked_actions": {"attack_land": ["battle_report_conflict"]},
+        "verifier_readiness": {"attack_land": false}, "terminal_outcome": "stop", "stop_reason": "conflicting_evidence",
+        "journal_plan": ["session_status", "evaluate_fixture", "list_action_candidates"]
+      }
+    },
+    {
+      "schema_version": 1,
+      "scenario_id": "holdout-map-filter",
+      "title": "Holdout prediction only",
+      "split": "holdout",
+      "session_id": "session-holdout-map-filter",
+      "capture_group_id": "capture-holdout-map-filter",
+      "fixture_path": "static-tool-calls.holdout.json",
+      "fixture_sha256": "e804f950fee7fe0d292fb50dceadbd93073dc423c789187aca55e16f0bbe2f1b",
+      "sensorium": {"critical_domains": ["map_land"], "stale_after_seconds": {"map_land": 30.0}, "required_before_failure": []}
+    }
+  ],
+  "execution_authority": "none",
+  "live_control_allowed": false,
+  "holdout_oracle_access_allowed": false
+}
