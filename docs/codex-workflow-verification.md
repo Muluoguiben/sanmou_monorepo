@@ -1,6 +1,6 @@
 # Codex Workflow Verification Matrix
 
-更新时间：2026-05-21
+更新时间：2026-08-26
 
 本文把 Codex 工作流落地拆成可验证任务。后续 review 或交接时，不接受“看起来写了文档”作为完成标准；每项必须能通过文件存在性、内容检查或命令验证。
 
@@ -11,7 +11,7 @@
 | Codex 操作模型 | `docs/codex-operating-model.md` | 文件存在；包含工具选择矩阵、标准会话启动、Advisor/golden replay、QA/MCP、low-risk UI calibration、automation 边界 |
 | AGENTS 工具边界 | `AGENTS.md` | 包含 `Codex Tool Boundaries` 和 `Shared Memory` 小节；明确 `$browser`、`@chrome`、`@computer`、MCP、skills、automations、shared-memory 的使用边界 |
 | Desktop Advisor browser smoke | `docs/advisor-browser-smoke.md` | 文件存在；包含启动命令、browser checklist、通过标准、失败记录格式、推荐验证组合；2026-05-21 已用 mock API + Vite + Playwright fallback 上传 fixture 验证 preview/evidence/risk/confidence/history |
-| qa-agent MCP connector | `docs/qa-agent-mcp-connector.md` | 文件存在；包含 stdio 启动命令、5 个工具、connector 配置草案、MCP client 验证标准；`advisor_golden_replay_status` / `advisor_fixture_eval` 有 unittest 覆盖 |
+| qa-agent MCP connector | `docs/qa-agent-mcp-connector.md` | 文件存在；官方 Python MCP SDK v1 `FastMCP`（`mcp>=1.28,<2`）承载 stdio；包含 6 个 read-only 工具、strict schemas、connector 配置和 client 验证标准；`ClientSession` in-memory / subprocess stdio parity 覆盖全部工具与错误响应 |
 | Shared memory vault | `shared-memory/` | 存在 `AGENTS.md`、`README.md`、`TODO.md`、`projects/sanmou.md`、`agent/codex-workflows.md`；`shared-memory/AGENTS.md` 明确更新规则和禁止存储内容 |
 | Repo-local skills | `.agent/skills/` | 存在 `sanmou-advisor-golden-replay`、`sanmou-qa-knowledge-review`、`sanmou-computer-use-safety`，且通过 skill validator |
 | Runbook handoff | `docs/repo-local-runbook.md` | Default Rules 提到 `docs/codex-operating-model.md` 和 `shared-memory/`；Workflow Handoff 要求 durable context 更新 shared memory |
