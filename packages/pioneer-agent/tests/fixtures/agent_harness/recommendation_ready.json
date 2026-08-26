@@ -1,0 +1,249 @@
+{
+  "game": {
+    "session_status": {
+      "isError": false,
+      "structuredContent": {
+        "contract_version": "sanmou-game/v1",
+        "status": "ok",
+        "execution_authority": "none",
+        "session": {
+          "session_id": "game-session-1",
+          "active": true,
+          "started_at": "2026-08-26T09:55:00+08:00",
+          "source_id": "source-1",
+          "source_type": "windows_window_capture",
+          "platform": "pc_client",
+          "resolution": [1920, 1080],
+          "observe_only": true,
+          "live_capture": true,
+          "reliable_window_info": true,
+          "capture_health": "ready",
+          "window_identity": {
+            "left": 0,
+            "top": 0,
+            "right": 1920,
+            "bottom": 1080,
+            "width": 1920,
+            "height": 1080,
+            "hwnd": 101,
+            "pid": 202
+          }
+        }
+      }
+    },
+    "observe_game": {
+      "isError": false,
+      "structuredContent": {
+        "contract_version": "sanmou-game/v1",
+        "status": "ok",
+        "execution_authority": "none",
+        "observation": {
+          "session_id": "game-session-1",
+          "observation_id": "observation-1",
+          "frame_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "captured_at": "2026-08-26T10:00:00+08:00",
+          "window_identity": {
+            "left": 0,
+            "top": 0,
+            "right": 1920,
+            "bottom": 1080,
+            "width": 1920,
+            "height": 1080,
+            "hwnd": 101,
+            "pid": 202
+          },
+          "capture_geometry": {
+            "schema_version": 1,
+            "capture_backend": "wgc",
+            "outer_window": {
+              "left": 0,
+              "top": 0,
+              "right": 1920,
+              "bottom": 1080,
+              "width": 1920,
+              "height": 1080,
+              "hwnd": 101,
+              "pid": 202
+            },
+            "capture_rect": {
+              "left": 0,
+              "top": 0,
+              "right": 1920,
+              "bottom": 1080,
+              "width": 1920,
+              "height": 1080
+            },
+            "capture_origin": {"x": 0, "y": 0},
+            "frame_size": [1920, 1080]
+          },
+          "domains_run": [
+            "resource_bar",
+            "chapter_panel",
+            "team_panel",
+            "map_land",
+            "battle_report",
+            "timing"
+          ],
+          "unknown_domains": [],
+          "structured_evidence": [
+            {"evidence_id": "vision.chapter_panel", "confidence": 0.97}
+          ],
+          "confidence": 0.95,
+          "execution_authority": "none"
+        }
+      }
+    },
+    "get_runtime_state": {
+      "isError": false,
+      "structuredContent": {
+        "contract_version": "sanmou-game/v1",
+        "status": "ok",
+        "execution_authority": "none",
+        "observation": {
+          "session_id": "game-session-1",
+          "observation_id": "observation-1",
+          "frame_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "captured_at": "2026-08-26T10:00:00+08:00",
+          "window_identity": {
+            "left": 0,
+            "top": 0,
+            "right": 1920,
+            "bottom": 1080,
+            "width": 1920,
+            "height": 1080,
+            "hwnd": 101,
+            "pid": 202
+          },
+          "capture_geometry": {
+            "schema_version": 1,
+            "capture_backend": "wgc",
+            "outer_window": {
+              "left": 0,
+              "top": 0,
+              "right": 1920,
+              "bottom": 1080,
+              "width": 1920,
+              "height": 1080,
+              "hwnd": 101,
+              "pid": 202
+            },
+            "capture_rect": {
+              "left": 0,
+              "top": 0,
+              "right": 1920,
+              "bottom": 1080,
+              "width": 1920,
+              "height": 1080
+            },
+            "capture_origin": {"x": 0, "y": 0},
+            "frame_size": [1920, 1080]
+          },
+          "domains_run": ["resource_bar", "chapter_panel", "team_panel", "map_land", "battle_report", "timing"],
+          "unknown_domains": [],
+          "structured_evidence": [{"evidence_id": "vision.chapter_panel", "confidence": 0.97}],
+          "confidence": 0.95,
+          "execution_authority": "none"
+        },
+        "runtime_state": {
+          "progress": {"chapter_claimable": true, "current_chapter_id": 8},
+          "timing": {"next_action_ready_time": "2026-08-26T10:05:00+08:00"}
+        }
+      }
+    },
+    "list_action_candidates": {
+      "isError": false,
+      "structuredContent": {
+        "contract_version": "sanmou-game/v1",
+        "status": "ok",
+        "execution_authority": "none",
+        "observation": {
+          "session_id": "game-session-1",
+          "observation_id": "observation-1",
+          "frame_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "captured_at": "2026-08-26T10:00:00+08:00",
+          "window_identity": {
+            "left": 0,
+            "top": 0,
+            "right": 1920,
+            "bottom": 1080,
+            "width": 1920,
+            "height": 1080,
+            "hwnd": 101,
+            "pid": 202
+          },
+          "capture_geometry": {
+            "schema_version": 1,
+            "capture_backend": "wgc",
+            "outer_window": {
+              "left": 0,
+              "top": 0,
+              "right": 1920,
+              "bottom": 1080,
+              "width": 1920,
+              "height": 1080,
+              "hwnd": 101,
+              "pid": 202
+            },
+            "capture_rect": {
+              "left": 0,
+              "top": 0,
+              "right": 1920,
+              "bottom": 1080,
+              "width": 1920,
+              "height": 1080
+            },
+            "capture_origin": {"x": 0, "y": 0},
+            "frame_size": [1920, 1080]
+          },
+          "domains_run": ["resource_bar", "chapter_panel", "team_panel", "map_land", "battle_report", "timing"],
+          "unknown_domains": [],
+          "structured_evidence": [{"evidence_id": "vision.chapter_panel", "confidence": 0.97}],
+          "confidence": 0.95,
+          "execution_authority": "none"
+        },
+        "candidates": [
+          {
+            "action_id": "claim-chapter-8",
+            "action_type": "claim_chapter_reward",
+            "params": {},
+            "score": 100.0,
+            "risk": {"level": "low", "confirmation_required": false},
+            "evidence": ["vision.chapter_panel", "state.progress.chapter_claimable"],
+            "structured_evidence": [],
+            "confidence": 0.94,
+            "blockers": ["advisor_mode"],
+            "executable": false,
+            "execution_blocked_reason": "advisor_mode",
+            "execution_authority": "none"
+          },
+          {
+            "action_id": "attack-land-5-1",
+            "action_type": "attack_land",
+            "params": {},
+            "score": 90.0,
+            "risk": {"level": "high", "confirmation_required": true},
+            "evidence": ["state.map.candidate_lands.5-1"],
+            "structured_evidence": [],
+            "confidence": 0.91,
+            "blockers": ["human_confirmation_required"],
+            "executable": false,
+            "execution_blocked_reason": "human_confirmation_required",
+            "execution_authority": "none"
+          }
+        ],
+        "selection_reason": {"triggered_rules": ["chapter_reward_first"]}
+      }
+    }
+  },
+  "qa": {
+    "answer_rule_question": {
+      "isError": false,
+      "structuredContent": {
+        "status": "ok",
+        "items": [
+          {"entry_id": "chapter-rule-claim-first", "source_ref": "knowledge_sources/chapter.yaml"}
+        ]
+      }
+    }
+  }
+}

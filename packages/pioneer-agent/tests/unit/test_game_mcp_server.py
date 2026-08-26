@@ -19,18 +19,11 @@ from pioneer_agent.mcp_server.server import (
     build_live_service,
     create_server,
 )
+from pioneer_agent.mcp_server.contracts import GAME_TOOL_ARGUMENTS
 from pioneer_agent.mcp_server.service import GameMCPService
 
 
-TOOL_NAMES = {
-    "session_status",
-    "observe_game",
-    "get_runtime_state",
-    "get_advisor_report",
-    "list_action_candidates",
-    "get_last_trace",
-    "evaluate_fixture",
-}
+TOOL_NAMES = set(GAME_TOOL_ARGUMENTS)
 
 
 class GameMCPServerTests(unittest.TestCase):
