@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any, Literal
+from typing import Any, ClassVar, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
@@ -26,23 +26,46 @@ class StrictContractModel(BaseModel):
 
 
 class ContractError(StrictContractModel):
-    code: str = Field(min_length=1)
-    message: str = Field(min_length=1)
+    code: str = Field(min_length=1, max_length=100)
+    message: str = Field(min_length=1, max_length=500)
     retryable: bool = False
 
 
 class ContractResponse(StrictContractModel):
+    payload_fields: ClassVar[tuple[str, ...]] = ()
+    required_ok_payload_fields: ClassVar[tuple[str, ...]] = ()
+
     contract_version: Literal["sanmou-game/v1"] = CONTRACT_VERSION
     status: ResponseStatus
     execution_authority: Literal["none"] = EXECUTION_AUTHORITY
     error: ContractError | None = None
 
     @model_validator(mode="after")
-    def _error_matches_status(self) -> ContractResponse:
+    def _status_error_and_payload_match(self) -> ContractResponse:
         if self.status == "ok" and self.error is not None:
             raise ValueError("successful responses cannot include an error")
         if self.status != "ok" and self.error is None:
             raise ValueError("non-success responses require an error")
+        if self.status == "ok":
+            missing = [
+                field_name
+                for field_name in self.required_ok_payload_fields
+                if getattr(self, field_name, None) is None
+            ]
+            if missing:
+                raise ValueError(
+                    "successful response is missing payload: " + ", ".join(missing)
+                )
+        else:
+            present = [
+                field_name
+                for field_name in self.payload_fields
+                if _payload_present(getattr(self, field_name, None))
+            ]
+            if present:
+                raise ValueError(
+                    "non-success response cannot include payload: " + ", ".join(present)
+                )
         return self
 
 
@@ -101,20 +124,31 @@ class SessionSummary(StrictContractModel):
 
 
 class SessionStatusResponse(ContractResponse):
+    payload_fields = ("session", "latest_observation")
+
     session: SessionSummary | None = None
     latest_observation: LiveObservation | None = None
 
 
 class ObserveGameResponse(ContractResponse):
+    payload_fields = ("observation",)
+    required_ok_payload_fields = ("observation",)
+
     observation: LiveObservation | None = None
 
 
 class RuntimeStateResponse(ContractResponse):
+    payload_fields = ("observation", "runtime_state")
+    required_ok_payload_fields = ("observation", "runtime_state")
+
     observation: LiveObservation | None = None
     runtime_state: dict[str, Any] | None = None
 
 
 class AdvisorReportResponse(ContractResponse):
+    payload_fields = ("observation", "advisor_report")
+    required_ok_payload_fields = ("observation", "advisor_report")
+
     observation: LiveObservation | None = None
     advisor_report: dict[str, Any] | None = None
 
@@ -135,6 +169,9 @@ class ActionProposal(StrictContractModel):
 
 
 class ActionCandidatesResponse(ContractResponse):
+    payload_fields = ("observation", "candidates", "selection_reason")
+    required_ok_payload_fields = ("observation",)
+
     observation: LiveObservation | None = None
     candidates: list[ActionProposal] = Field(default_factory=list)
     selection_reason: dict[str, Any] = Field(default_factory=dict)
@@ -163,11 +200,25 @@ class TraceSummary(StrictContractModel):
 
 
 class LastTraceResponse(ContractResponse):
+    payload_fields = ("trace",)
+    required_ok_payload_fields = ("trace",)
+
     trace: TraceSummary | None = None
 
 
 class FixtureEvaluationResponse(ContractResponse):
+    payload_fields = ("fixture_id", "evaluation")
+    required_ok_payload_fields = ("fixture_id", "evaluation")
+
     fixture_id: str | None = None
     source: Literal["offline_fixture"] = "offline_fixture"
     live_source_used: Literal[False] = False
     evaluation: dict[str, Any] | None = None
+
+
+def _payload_present(value: Any) -> bool:
+    if value is None:
+        return False
+    if isinstance(value, (list, tuple, dict, set)):
+        return bool(value)
+    return True

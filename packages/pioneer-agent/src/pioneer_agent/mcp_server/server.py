@@ -2,12 +2,14 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Any
 
 from mcp.server.fastmcp import FastMCP
+from mcp.server.fastmcp.exceptions import ToolError
 from mcp.types import ToolAnnotations
 from pydantic import Field
 
+from pioneer_agent.core.device import DeviceSession
 from pioneer_agent.storage.trace_store import TraceStore
 
 from .contracts import (
@@ -19,7 +21,7 @@ from .contracts import (
     RuntimeStateResponse,
     SessionStatusResponse,
 )
-from .service import GameMCPService
+from .service import GameMCPService, ObservationProvider
 
 
 SERVER_NAME = "sanmou-game"
@@ -35,11 +37,41 @@ READ_ONLY_REFRESH_ANNOTATIONS = ToolAnnotations(
     idempotentHint=False,
     openWorldHint=False,
 )
+TOOL_ARGUMENTS = {
+    "session_status": frozenset(),
+    "observe_game": frozenset(),
+    "get_runtime_state": frozenset(),
+    "get_advisor_report": frozenset(),
+    "list_action_candidates": frozenset(),
+    "get_last_trace": frozenset(),
+    "evaluate_fixture": frozenset({"fixture"}),
+}
+
+
+class StrictFastMCP(FastMCP):
+    """FastMCP v1 adapter using only public SDK extension methods."""
+
+    async def list_tools(self):  # noqa: ANN201 - SDK return type varies within v1
+        tools = await super().list_tools()
+        strict_tools = []
+        for tool in tools:
+            schema = dict(tool.inputSchema)
+            schema["additionalProperties"] = False
+            strict_tools.append(tool.model_copy(update={"inputSchema": schema}))
+        return strict_tools
+
+    async def call_tool(self, name: str, arguments: dict[str, Any]):  # noqa: ANN201
+        allowed = TOOL_ARGUMENTS.get(name)
+        if allowed is not None:
+            extra = sorted(set(arguments).difference(allowed))
+            if extra:
+                raise ToolError("Extra inputs are not permitted: " + ", ".join(extra))
+        return await super().call_tool(name, arguments)
 
 
 def create_server(service: GameMCPService | None = None) -> FastMCP:
     game_service = service or build_default_service()
-    server = FastMCP(
+    server = StrictFastMCP(
         SERVER_NAME,
         instructions=(
             "Read-only Sanmou game observation and Advisor contract. "
@@ -99,14 +131,32 @@ def create_server(service: GameMCPService | None = None) -> FastMCP:
 
         return game_service.evaluate_fixture(fixture)
 
-    _enforce_strict_tool_inputs(server)
     return server
 
 
 def build_default_service() -> GameMCPService:
+    """Build the M0 contract skeleton; live observation remains unconfigured."""
+
     fixture_root = _configured_fixture_root()
     trace_store = _configured_trace_store()
     return GameMCPService(fixture_root=fixture_root, trace_store=trace_store)
+
+
+def build_live_service(
+    *,
+    observation_provider: ObservationProvider,
+    device_session: DeviceSession | None = None,
+    trace_store: TraceStore | None = None,
+    fixture_root: Path | None = None,
+) -> GameMCPService:
+    """Explicit live composition seam for a separately built observe/advisor provider."""
+
+    return GameMCPService(
+        observation_provider=observation_provider,
+        device_session=device_session,
+        trace_store=trace_store,
+        fixture_root=fixture_root,
+    )
 
 
 def _configured_fixture_root() -> Path | None:
@@ -128,20 +178,6 @@ def _configured_trace_store() -> TraceStore | None:
     if not path.is_file():
         return None
     return TraceStore(path)
-
-
-def _enforce_strict_tool_inputs(server: FastMCP) -> None:
-    """Make FastMCP v1 reject undeclared arguments on every tool.
-
-    FastMCP v1.28/1.29 derives an argument model with ``extra=ignore`` even
-    when every public contract model is strict. The server owns this one
-    compatibility shim until migration to the v2 SDK is a separate decision.
-    """
-
-    for tool in server._tool_manager._tools.values():  # noqa: SLF001 - SDK v1 compatibility boundary
-        tool.parameters["additionalProperties"] = False
-        tool.fn_metadata.arg_model.model_config["extra"] = "forbid"
-        tool.fn_metadata.arg_model.model_rebuild(force=True)
 
 
 mcp = create_server()

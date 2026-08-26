@@ -11,7 +11,7 @@
 ### 架构决定
 
 - [x] 保持两个 MCP trust domain：`sanmou-qa` 只负责 reviewed knowledge、来源和离线 eval；新增 `sanmou-game` 只负责游戏会话、观察、Advisor、候选动作和 trace。知识 MCP 不获得游戏控制权限，游戏 MCP 不获得知识发布权限。
-- [x] `sanmou-game` 必须是现有 `AdvisorLoop`、`RuntimeState`、`ReplayRuntime`、`TraceStore` 等 application service 的薄 adapter；禁止在 MCP handler 中复制 perception、selector、verifier 或 action policy。
+- [x] `sanmou-game` 必须是现有 Advisor/runtime application service 的薄 adapter；live provider 复用 observation/advisor cycle，fixture 只复用纯 `StateDeriver` + `ActionSelector`，MCP 路径禁止导入/实例化/call `ReplayRuntime`、`UIActionRunner`、control/executor/verifier，也禁止在 handler 中复制 perception 或 action policy。
 - [x] 第一阶段只暴露 read-only tools，不新增 `click(x,y)`、`press_key`、任意 bbox、任意脚本或 control-adapter passthrough。
 - [x] 第二阶段先构建独立 Agent harness 与 journal；Agent 只能提出 action proposal，不能自行把 proposal 升级为执行授权。
 - [x] 真实执行只允许未来的 `prepare_action` → 外部人工确认 receipt → `execute_prepared_action` 两段式协议；confirmation receipt 必须由独立人机界面产生并绑定 request/action/observation/target/TTL，Agent 不能传任意字符串冒充确认。
@@ -20,7 +20,7 @@
 ### M0 — `sanmou-game` read-only MCP contract
 
 - [x] 新增 ADR `docs/sanmou-game-mcp-architecture.md`，冻结 server/service/trust-boundary、tool schema、错误模型、session lifecycle、缓存/刷新语义、原始截图资源边界和版本策略。
-- [x] 新增 `packages/pioneer-agent/src/pioneer_agent/mcp_server/`，采用官方 Python MCP SDK v1 FastMCP（`mcp>=1.28,<2`）；stdio 为唯一 transport，不开放 HTTP/TCP listener。
+- [x] 新增 `packages/pioneer-agent/src/pioneer_agent/mcp_server/`，采用已验证的官方 Python MCP SDK v1 FastMCP（`mcp>=1.29,<1.30`）；stdio 为唯一 transport，不开放 HTTP/TCP listener，不访问 SDK 私有 registry/model 字段。
 - [x] 定义并实现首批 7 个只读工具：
   - `session_status`：只读报告会话、device/window/capture health、最新 observation/report 时间；不触发截图。
   - `observe_game`：显式执行一次新截图与 perception，返回新 observation；不发送输入。
@@ -29,9 +29,10 @@
   - `list_action_candidates`：返回 ranked proposal、risk、evidence、confidence 和 blockers；全部 `executable=false`。
   - `get_last_trace`：返回有界 trace 摘要和 frame SHA/resource references，不把整批原图塞入模型上下文。
   - `evaluate_fixture`：只允许 fixture-root 内的离线 replay，拒绝任意路径和 live source。
-- [x] 所有 live-observation 响应统一携带 `session_id`、`observation_id`、`frame_sha256`、aware `captured_at`、window identity、capture geometry、`domains_run`、`unknown_domains`、structured evidence、confidence、`execution_authority=none`。
+- [ ] Live composition：上述 live-observation response contract 与显式 `build_live_service(observation_provider=...)` factory 已完成，但默认 stdio 仍是 contract skeleton，尚未接入生产 `ObservationProvider`；接入前 `observe_game` 正确返回 `observation_not_configured`。
 - [x] 为 read-only tools 设置 MCP annotations，但 annotations 只用于客户端 UX；真正边界由 server 代码和 AST/import tests 保证。
-- [x] 增加 contract tests：tool list/schema、strict input、unknown/empty session、cached-vs-refresh、bounded trace、fixture path escape、no control imports、service/MCP 输出一致性、stdio initialize/list/call smoke；Pioneer 全量 728 tests OK（6 skip）。
+- [x] 增加 contract tests：tool list/schema、strict input、unknown/empty session、cached-vs-refresh、bounded trace、fixture path escape、no control imports、service/MCP 输出一致性、stdio initialize/list/call smoke；Pioneer 全量 736 tests OK（6 skip）。
+- [x] Session A merge-blocker review 修复（2026-08-26）：`RuntimeState` / `AdvisorReport` / trace 全部改为显式 allowlist privacy projection，拒绝 source URI、任意 metadata、路径/data URI/base64/超长字符串透传；fixture evaluator 改为纯 derive/select，MCP 路径不导入/实例化/call `ReplayRuntime` / `UIActionRunner` / control/executor/verifier；fixture root 与文件使用 pinned `dir_fd` + `O_NOFOLLOW` + 1 MiB 上限并拒绝 symlink/hardlink/race；response 增加 status/payload 联合校验；observe single-flight；FastMCP 只覆盖 public methods 且 pin `mcp>=1.29,<1.30`；默认 server 明确为未接 production provider 的 contract skeleton。指定 puredeps MCP tests 25/25、Pioneer 全量 736 tests OK（6 skip）。
 - [ ] Codex/Claude MCP smoke：官方 SDK stdio initialize/list/call 与通用 Claude JSON、Codex TOML 配置已完成；仍需两个真实客户端读取同一 fixture/observation 并互验关键 structured fields，且确认未触发游戏输入或写入 QA knowledge。
 
 ### M1 — Strategy Agent harness + journal
@@ -79,7 +80,7 @@
 
 - [x] 分支：`feat/game-mcp-readonly`；worktree：`~/projects/sanmou-game-mcp-dev`。
 - [x] 范围：`docs/sanmou-game-mcp-architecture.md`、`pioneer_agent/mcp_server/`、对应 MCP contract tests。
-- [x] 交付：ADR、FastMCP stdio skeleton、7 个 read-only tools、service parity/no-control tests、客户端 smoke 配置。
+- [x] 交付：ADR、FastMCP stdio contract skeleton、7 个 read-only tools、service parity/no-control tests、客户端 smoke 配置；生产 live provider 明确不在本次已完成声明内。
 - [x] 禁止：未修改 executor/control bridge，未添加 mutating tools 或 HTTP listener，未在 MCP handler 复制 runtime 业务逻辑。
 
 #### Session B — Agent harness/journal

@@ -7,6 +7,18 @@
 - Automation is not the MVP default. Click-class actions require safety, verifier, trace, recovery, and kill switch.
 - NSLG client reverse-engineering is paused as a mainline effort unless the user explicitly approves a small capped research phase.
 
+## 2026-08-26 - Game MCP read-only contract hardened
+
+- Decision: Keep `sanmou-game/v1` read-only and make fixture evaluation a pure `RuntimeState -> StateDeriver -> ActionSelector` path with no replay runner, executor, control, or verifier imports.
+- Evidence: Feature branch `feat/game-mcp-readonly` now uses explicit response privacy allowlists, single-flight observation, pinned bounded no-follow fixture reads, status/payload response validation, public FastMCP extension methods, and `mcp>=1.29,<1.30`; puredeps MCP tests 25/25 and Pioneer full suite 736 tests passed with 6 skips.
+- Owner: Session A / Game MCP contract worktree.
+- Blocker: Default stdio composition remains a contract skeleton until a production `ObservationProvider` is explicitly connected; feature branch is not merged to `master` yet.
+- Next: Review and merge the feature branch, then run real Codex/Claude client parity smoke without granting input or QA write authority.
+- Links:
+  - `docs/sanmou-game-mcp-architecture.md`
+  - `packages/pioneer-agent/src/pioneer_agent/mcp_server/`
+  - `todo-list.md`
+
 ## 2026-05-21 - Codex workflow landing
 
 - Decision: Land Codex as a workflow operating layer around Sanmou rather than as more game automation.

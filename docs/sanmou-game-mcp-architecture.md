@@ -17,13 +17,22 @@ The MCP layer does not implement perception, derivation, selection, verifier,
 recovery, or control policy. Live composition supplies an
 `ObservationProvider` that returns the `ObservationSnapshot` and
 `AdvisorReport` produced by one existing observe/perceive/advisor cycle.
-Offline evaluation delegates to `ReplayRuntime`. MCP handlers only validate
-arguments and serialize `GameMCPService` results.
+Offline evaluation is a pure `RuntimeState -> StateDeriver -> ActionSelector`
+path. It does not import or instantiate `ReplayRuntime`, `UIActionRunner`, a
+control adapter, verifier, or executor. MCP handlers only validate arguments
+and serialize `GameMCPService` results.
 
-The official Python MCP SDK v1 FastMCP line is pinned as `mcp>=1.28,<2`. The
-official SDK made v2 a breaking API line, while this M0 work package explicitly
-freezes a FastMCP contract. Migration to v2 `MCPServer` is a separate contract
-change, not an unbounded dependency upgrade.
+The verified official Python MCP SDK window is pinned as `mcp>=1.29,<1.30`.
+The adapter overrides only the public `list_tools` and `call_tool` methods to
+publish/reject strict inputs; it does not mutate FastMCP private registries or
+generated argument models. A v1 minor upgrade or v2 migration is a separate
+compatibility change with SDK contract tests.
+
+The default stdio composition is intentionally a contract skeleton: fixture
+and optional trace reads work, while `observe_game` returns
+`observation_not_configured`. A live host must explicitly call
+`build_live_service(observation_provider=...)`. No production provider is wired
+in M0, so the TODO must not describe live observation as complete.
 
 ## Trust boundaries
 
@@ -36,7 +45,7 @@ FastMCP handlers (schema + read-only annotations)
 GameMCPService (cache, closed-root validation, bounded projection)
    ├── ObservationProvider ──> existing Advisor observation chain
    ├── TraceStore.read()
-   └── ReplayRuntime.run_fixture() ──> approved offline fixture root only
+   └── StateDeriver + ActionSelector ──> pinned bytes from fixture root only
 ```
 
 The server has `execution_authority=none`. It imports no control bridge or live
@@ -90,8 +99,10 @@ Advisor action is rejected before it enters the cache.
 ## Session and cache semantics
 
 The process owns at most one in-memory latest observation cycle. A successful
-`observe_game` atomically replaces that cache. A failed observation leaves the
-prior cache unchanged and returns `observation_failed`.
+`observe_game` atomically replaces that cache. Observation is single-flight:
+an overlapping request returns retryable `observation_in_progress` and never
+starts a second capture/perception cycle. A failed observation leaves the prior
+cache unchanged and returns `observation_failed`.
 
 `session_status`, `get_runtime_state`, `get_advisor_report`, and
 `list_action_candidates` never invoke capture or vision. Clients decide when to
@@ -105,12 +116,15 @@ An unconfigured server remains useful for fixture and trace inspection:
 ## Fixture boundary
 
 `evaluate_fixture` accepts only a relative `.json` path. Absolute paths,
-Windows absolute paths, `..`, missing files, non-JSON files, and symlink targets
-that resolve outside the configured root are rejected. The resolved file is
-passed only to `ReplayRuntime`; the tool never opens a live capture source.
+Windows absolute paths, `..`, missing files, non-JSON files, symlinks, hard
+links, non-regular files, and files larger than 1 MiB are rejected. The service
+pins the fixture root and walks with `dir_fd` + `O_NOFOLLOW`; it reads from one
+open file descriptor, bounds bytes before JSON parsing, and rejects concurrent
+content mutation. The evaluator receives immutable bytes plus a relative
+fixture id, never a reopenable path, and never opens a live capture source.
 
-Replay output is projected into an advisory result. Synthetic replay dispatch
-details are not exposed. Selected/ranked actions are marked
+Offline output is projected into an advisory result. No dispatch or verifier
+path exists in this evaluator. Selected/ranked actions are marked
 `executable=false`, `execution_blocked_reason="offline_fixture"`, and
 `execution_authority="none"`.
 
@@ -122,6 +136,13 @@ in tool results. `get_last_trace` removes frame paths and emits only a bounded
 resource is registered in M0. A future resource design must add authorization,
 size limits, privacy review, and explicit client opt-in before raw pixels can
 cross this boundary.
+
+`RuntimeState`, `AdvisorReport`, action evidence, and trace data cross the MCP
+boundary only through explicit field allowlists. Device/account objects,
+source URI, arbitrary metadata, path-like strings, URI/data-URI values, base64
+payloads, unknown nested keys, and strings beyond the public length bound are
+dropped or bounded before response-model validation. A model `model_dump` is
+never used as the public privacy policy.
 
 ## Versioning and compatibility
 

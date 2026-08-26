@@ -18,7 +18,7 @@ dependencies = [
   "fastapi>=0.110,<1",
   "uvicorn[standard]>=0.27,<1",
   "python-multipart>=0.0.9,<1",
-  "mcp>=1.28,<2",
+  "mcp>=1.29,<1.30",
 ]
 
 [project.optional-dependencies]

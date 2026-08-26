@@ -5,14 +5,20 @@ import asyncio
 import json
 import os
 import sys
+import tomllib
 import unittest
+from importlib.metadata import version
 from pathlib import Path
 
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 from mcp.server.fastmcp.exceptions import ToolError
 
-from pioneer_agent.mcp_server.server import create_server
+from pioneer_agent.mcp_server.server import (
+    build_default_service,
+    build_live_service,
+    create_server,
+)
 from pioneer_agent.mcp_server.service import GameMCPService
 
 
@@ -76,6 +82,8 @@ class GameMCPServerTests(unittest.TestCase):
             "pioneer_agent.adapters.control",
             "pioneer_agent.adapters.bridge_client",
             "pioneer_agent.adapters.win_bridge_server",
+            "pioneer_agent.runtime.replay_runtime",
+            "pioneer_agent.verifier",
         )
         imported: set[str] = set()
         for path in package_root.glob("*.py"):
@@ -97,6 +105,35 @@ class GameMCPServerTests(unittest.TestCase):
                 {"click", "press_key", "prepare_action", "execute_prepared_action"}
             )
         )
+        server_source = (package_root / "server.py").read_text(encoding="utf-8")
+        self.assertNotIn("._tool_manager", server_source)
+        self.assertNotIn(".fn_metadata", server_source)
+
+    def test_mcp_sdk_compatibility_window_is_the_verified_v1_minor(self) -> None:
+        project_root = Path(__file__).resolve().parents[2]
+        pyproject = tomllib.loads((project_root / "pyproject.toml").read_text(encoding="utf-8"))
+        dependencies = pyproject["project"]["dependencies"]
+
+        self.assertIn("mcp>=1.29,<1.30", dependencies)
+        major, minor, _patch = (int(part) for part in version("mcp").split(".")[:3])
+        self.assertEqual((major, minor), (1, 29))
+
+    def test_default_is_contract_skeleton_and_live_factory_requires_provider(self) -> None:
+        self.assertEqual(build_default_service().observe_game().status, "not_configured")
+
+        class _FailingProvider:
+            calls = 0
+
+            def observe(self):
+                self.calls += 1
+                raise RuntimeError("private provider detail")
+
+        provider = _FailingProvider()
+        response = build_live_service(observation_provider=provider).observe_game()
+
+        self.assertEqual(provider.calls, 1)
+        self.assertEqual(response.status, "error")
+        self.assertNotIn("private provider detail", response.error.message)  # type: ignore[union-attr]
 
     def test_generic_client_smoke_config_matches_module_entrypoint(self) -> None:
         package_root = Path(__file__).resolve().parents[2] / "src" / "pioneer_agent" / "mcp_server"

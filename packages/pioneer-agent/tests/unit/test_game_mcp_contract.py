@@ -7,9 +7,11 @@ from pydantic import ValidationError
 
 from pioneer_agent.mcp_server.contracts import (
     ActionProposal,
+    AdvisorReportResponse,
     ContractError,
     LiveObservation,
     ObserveGameResponse,
+    RuntimeStateResponse,
 )
 
 
@@ -56,6 +58,37 @@ class GameMCPContractTests(unittest.TestCase):
                 executable=True,
                 execution_blocked_reason="advisor_mode",
             )
+
+    def test_status_and_payload_form_a_discriminated_response(self) -> None:
+        observation = LiveObservation(
+            session_id="session-1",
+            observation_id="observation-1",
+            frame_sha256="a" * 64,
+            captured_at=datetime(2026, 8, 26, 12, 0, 0, tzinfo=UTC),
+            confidence=1.0,
+        )
+
+        with self.assertRaisesRegex(ValidationError, "missing payload"):
+            RuntimeStateResponse(status="ok")
+        with self.assertRaisesRegex(ValidationError, "cannot include payload"):
+            RuntimeStateResponse(
+                status="not_observed",
+                error=ContractError(code="not_observed", message="not observed"),
+                runtime_state={"progress": {}},
+            )
+        with self.assertRaisesRegex(ValidationError, "cannot include payload"):
+            AdvisorReportResponse(
+                status="error",
+                error=ContractError(code="failed", message="failed"),
+                observation=observation,
+            )
+
+        response = RuntimeStateResponse(
+            status="ok",
+            observation=observation,
+            runtime_state={},
+        )
+        self.assertIsNone(response.error)
 
 
 if __name__ == "__main__":
