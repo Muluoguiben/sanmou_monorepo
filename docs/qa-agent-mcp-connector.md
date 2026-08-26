@@ -4,7 +4,7 @@
 
 `qa-agent` 已提供一个 stdio MCP server，用于让 Codex 或其他 MCP client 查询 Sanmou reviewed knowledge。该 connector 的定位是知识查询与证据核验，不是知识发布器，也不是 runtime LLM 代理。
 
-服务基于官方 Python SDK v2（`mcp>=2,<3`）的 `MCPServer`。`MCPServer` 是 v2 对原 `FastMCP` 高层 API 的正式命名；stdio framing、协议协商、能力声明和错误响应均由 SDK 负责，不再维护手写 JSON-RPC transport。
+服务基于官方 Python MCP SDK v1 的 `FastMCP`，依赖固定为 `mcp>=1.28,<2`，与同仓 Session A 的 SDK 主版本一致。stdio framing、协议协商、能力声明和错误响应均由 SDK 负责，不再维护手写 JSON-RPC transport。
 
 ## 当前服务
 
@@ -40,7 +40,7 @@ PYTHONPATH=src python3 -m qa_agent.mcp_server.stdio_server --sources-dir knowled
 
 Domain enum 来自 `qa_agent.knowledge.models.Domain`。
 
-全部 6 个工具声明 `readOnlyHint=true`、`openWorldHint=false`。顶层 input schema 使用 Pydantic strict models：`additionalProperties=false`，拒绝未知字段、错误 enum 和字符串到 boolean 等隐式类型转换。annotations 是 client hint，不替代服务端权限边界。
+全部 6 个工具声明 `readOnlyHint=true`、`destructiveHint=false`、`idempotentHint=true`、`openWorldHint=false`。顶层 input schema 使用 Pydantic strict models：`additionalProperties=false`，服务端在 FastMCP 的 JSON 预解析前拒绝未知字段、错误 enum、字符串到 boolean/object 等隐式类型转换。annotations 是 client hint，不替代服务端权限边界。
 
 ## Advisor Replay Tools
 
@@ -52,10 +52,11 @@ Domain enum 来自 `qa_agent.knowledge.models.Domain`。
 
 ```bash
 cd packages/qa-agent
-PYTHONPATH=src python3 -m unittest tests.test_mcp_tools tests.test_mcp_sdk -v
+PYTHONPATH=/tmp/sanmou-mcp-puredeps:src python3 -m unittest tests.test_mcp_sdk -v
+PYTHONPATH=src python3 -m unittest tests.test_mcp_tools -v
 ```
 
-`tests.test_mcp_sdk` 使用官方 SDK client 同时验证 in-memory server 与真实 subprocess stdio。parity battery 会列出并调用全部 6 个工具，比较 `content`、`structuredContent` 和 `isError`。
+`tests.test_mcp_sdk` 使用官方 `create_connected_server_and_client_session` 与 `ClientSession + stdio_client`，分别验证 in-memory server 和真实 subprocess stdio。parity battery 会列出并调用全部 6 个工具，比较 `content`、`structuredContent`、`isError`，并确认 extra/enum/type 错误在两个 transport 上完全一致。`/tmp/sanmou-mcp-puredeps` 是隔离的官方 1.29.1 依赖目录；`test_mcp_tools` 仍在原 WSL 环境运行，避免 Windows 路径语义污染文件边界测试。
 
 ## Connector 配置草案
 

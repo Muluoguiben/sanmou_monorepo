@@ -98,6 +98,8 @@ TOOL_INPUT_MODELS: dict[str, type[StrictToolInput]] = {
 
 READ_ONLY_ANNOTATIONS = {
     "readOnlyHint": True,
+    "destructiveHint": False,
+    "idempotentHint": True,
     "openWorldHint": False,
 }
 

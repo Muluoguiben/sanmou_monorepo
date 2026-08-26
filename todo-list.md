@@ -100,7 +100,7 @@
 
 - [x] 分支：`feat/qa-mcp-fastmcp`；worktree：`~/projects/sanmou-qa-mcp-dev`。
 - [x] 范围：`packages/qa-agent/src/qa_agent/mcp_server/` 与 qa MCP tests/docs。
-- [x] 交付（2026-08-26）：手写 JSON-RPC/stdin framing 已迁移到官方 Python SDK v2 `MCPServer`（原 FastMCP 高层 API）；保留现有 6 个工具及 `content` / `structuredContent` / `isError` 契约；全部工具声明 read-only/closed-world annotations，顶层 Pydantic strict schema 拒绝未知字段、错误 enum 和 primitive coercion；官方 client in-memory + subprocess stdio parity 覆盖全部 6 工具。qa-agent 306 tests 全绿，3 个 query smoke 均 exact。
+- [x] 交付（2026-08-26）：手写 JSON-RPC/stdin framing 已迁移到官方 Python MCP SDK v1 `FastMCP`（`mcp>=1.28,<2`）；保留现有 6 个工具及 `content` / `structuredContent` / `isError` 契约；全部工具声明 read-only/non-destructive/idempotent/closed-world annotations，顶层 Pydantic strict schema 在 FastMCP 预解析前拒绝未知字段、错误 enum 和 primitive coercion；官方 `ClientSession` in-memory + subprocess stdio parity 覆盖全部 6 工具及错误响应。SDK 1.29.1 隔离测试 3/3、原 WSL `test_mcp_tools` 29/29、qa-agent 全量 306/306 通过。
 - [x] 禁止项已守住：未自动 publish 知识、未引入或调用 pioneer live control、未改变 reviewed KB 事实。
 
 #### Session E — Trusted broker security design

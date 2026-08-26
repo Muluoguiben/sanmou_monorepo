@@ -1,11 +1,11 @@
 from __future__ import annotations
 
+from collections.abc import Sequence
 from typing import Any
 
-from mcp.server import MCPServer
-from mcp.server.mcpserver import Context
-from mcp.server.mcpserver.exceptions import ToolError
-from mcp.types import CallToolResult, InputRequiredResult, TextContent, ToolAnnotations
+from mcp.server.fastmcp import FastMCP
+from mcp.server.fastmcp.exceptions import ToolError
+from mcp.types import CallToolResult, ContentBlock, TextContent, Tool, ToolAnnotations
 
 from qa_agent.mcp_server.tooling import (
     READ_ONLY_ANNOTATIONS,
@@ -20,19 +20,27 @@ SERVER_NAME = "sanguo-kb"
 SERVER_VERSION = "0.1.0"
 
 READ_ONLY_TOOL_ANNOTATIONS = ToolAnnotations(
-    read_only_hint=READ_ONLY_ANNOTATIONS["readOnlyHint"],
-    open_world_hint=READ_ONLY_ANNOTATIONS["openWorldHint"],
+    readOnlyHint=READ_ONLY_ANNOTATIONS["readOnlyHint"],
+    destructiveHint=READ_ONLY_ANNOTATIONS["destructiveHint"],
+    idempotentHint=READ_ONLY_ANNOTATIONS["idempotentHint"],
+    openWorldHint=READ_ONLY_ANNOTATIONS["openWorldHint"],
 )
 
 
-class StrictSchemaMCPServer(MCPServer):
-    """MCPServer with fail-closed top-level schemas for every registered tool."""
+class StrictSchemaFastMCP(FastMCP):
+    """FastMCP v1 with fail-closed top-level schemas and raw input validation."""
 
-    async def list_tools(self):
+    def __init__(self, *args: Any, version: str, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        # FastMCP v1 does not expose a version constructor argument, while its
+        # low-level official Server does. Preserve the existing connector identity.
+        self._mcp_server.version = version  # noqa: SLF001 - SDK v1 compatibility boundary
+
+    async def list_tools(self) -> list[Tool]:
         tools = await super().list_tools()
         return [
             tool.model_copy(
-                update={"input_schema": TOOL_INPUT_MODELS[tool.name].model_json_schema()}
+                update={"inputSchema": TOOL_INPUT_MODELS[tool.name].model_json_schema()}
             )
             for tool in tools
         ]
@@ -41,13 +49,12 @@ class StrictSchemaMCPServer(MCPServer):
         self,
         name: str,
         arguments: dict[str, Any],
-        context: Context | None = None,
-    ) -> CallToolResult | InputRequiredResult:
+    ) -> Sequence[ContentBlock] | dict[str, Any]:
         try:
             validated = validate_tool_arguments(name, arguments)
         except ValueError as exc:
             raise ToolError(str(exc)) from exc
-        return await super().call_tool(name, validated, context)
+        return await super().call_tool(name, validated)
 
 
 def _sdk_result(result: dict[str, Any]) -> CallToolResult:
@@ -58,16 +65,17 @@ def _sdk_result(result: dict[str, Any]) -> CallToolResult:
     ]
     return CallToolResult(
         content=content,
-        structured_content=result.get("structuredContent"),
-        is_error=bool(result.get("isError", False)),
+        structuredContent=result.get("structuredContent"),
+        isError=bool(result.get("isError", False)),
     )
 
 
-def create_mcp_server(handler: KnowledgeToolHandler) -> StrictSchemaMCPServer:
-    server = StrictSchemaMCPServer(
+def create_mcp_server(handler: KnowledgeToolHandler) -> StrictSchemaFastMCP:
+    server = StrictSchemaFastMCP(
         SERVER_NAME,
         version=SERVER_VERSION,
-        description="Read-only Sanmou reviewed knowledge and offline Advisor evidence tools.",
+        instructions="Read-only Sanmou reviewed knowledge and offline Advisor evidence tools.",
+        json_response=True,
     )
 
     @server.tool(
