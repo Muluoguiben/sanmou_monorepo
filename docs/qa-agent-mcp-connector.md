@@ -1,8 +1,10 @@
 # QA Agent MCP Connector
 
-更新时间：2026-05-21
+更新时间：2026-08-26
 
 `qa-agent` 已提供一个 stdio MCP server，用于让 Codex 或其他 MCP client 查询 Sanmou reviewed knowledge。该 connector 的定位是知识查询与证据核验，不是知识发布器，也不是 runtime LLM 代理。
+
+服务基于官方 Python MCP SDK v1 的 `FastMCP`，依赖固定为 `mcp>=1.28,<2`，与同仓 Session A 的 SDK 主版本一致。stdio framing、协议协商、能力声明和错误响应均由 SDK 负责，不再维护手写 JSON-RPC transport。
 
 ## 当前服务
 
@@ -34,8 +36,11 @@ PYTHONPATH=src python3 -m qa_agent.mcp_server.stdio_server --sources-dir knowled
 | `resolve_term` | `term`, optional `domain` | 将别名或术语解析到 canonical topic |
 | `advisor_golden_replay_status` | optional `include_fixture_results` | 汇总 pioneer-agent runtime fixture 覆盖、golden expectation drift 和失败场景 |
 | `advisor_fixture_eval` | `fixture`, optional `expected_action_type` | 对指定 runtime-state fixture 运行离线 Advisor selector replay，并返回 selected action / reason / derived state |
+| `advisor_terminal_source_evidence_eval` | `action_type`, `terminal_source_evidence`, optional `fixture`, optional `page` | 写入 golden expectation 前只读预检低风险 terminal source evidence |
 
 Domain enum 来自 `qa_agent.knowledge.models.Domain`。
+
+全部 6 个工具声明 `readOnlyHint=true`、`destructiveHint=false`、`idempotentHint=true`、`openWorldHint=false`。顶层 input schema 使用 Pydantic strict models：`additionalProperties=false`，服务端在 FastMCP 的 JSON 预解析前拒绝未知字段、错误 enum、字符串到 boolean/object 等隐式类型转换。annotations 是 client hint，不替代服务端权限边界。
 
 ## Advisor Replay Tools
 
@@ -47,8 +52,11 @@ Domain enum 来自 `qa_agent.knowledge.models.Domain`。
 
 ```bash
 cd packages/qa-agent
+PYTHONPATH=/tmp/sanmou-mcp-puredeps:src python3 -m unittest tests.test_mcp_sdk -v
 PYTHONPATH=src python3 -m unittest tests.test_mcp_tools -v
 ```
+
+`tests.test_mcp_sdk` 使用官方 `create_connected_server_and_client_session` 与 `ClientSession + stdio_client`，分别验证 in-memory server 和真实 subprocess stdio。parity battery 会列出并调用全部 6 个工具，比较 `content`、`structuredContent`、`isError`，并确认 extra/enum/type 错误在两个 transport 上完全一致。`/tmp/sanmou-mcp-puredeps` 是隔离的官方 1.29.1 依赖目录；`test_mcp_tools` 仍在原 WSL 环境运行，避免 Windows 路径语义污染文件边界测试。
 
 ## Connector 配置草案
 
@@ -86,15 +94,18 @@ PYTHONPATH=src python3 -m qa_agent.app.query answer_rule_question "体力不足�
 
 MCP client 验证：
 
-1. `tools/list` 应返回 5 个工具。
+1. `tools/list` 应返回 6 个工具，且全部带 read-only annotations 和 `additionalProperties=false`。
 2. `lookup_topic` 对已存在 topic 返回 `isError=false` 和 `structuredContent`。
-3. 未收录问题应返回 not-found 风格结果，不得编造答案。
+3. 未知参数、错误 enum 或错误 primitive type 应返回 `isError=true`，不得静默丢弃或隐式转换。
+4. 未收录问题应返回 not-found 风格结果，不得编造答案。
 
 ## 在 Advisor 中的使用边界
 
 - 推荐层只能消费 reviewed KB 或 `strategy_snapshot.yaml` 中可追溯 entry_id。
 - MCP 查询结果可以作为 Codex 会话中的辅助核验，也可以支撑后续 connector 化。
 - 不允许用 MCP 直接 publish staging。
+- 不允许自动 publish reviewed knowledge 或修改 reviewed KB 事实。
+- 不允许暴露或调用 pioneer live control；Advisor 工具只读 committed fixtures、golden manifest 和 evidence references。
 - 不允许把 pending 视频抽取、未 review hero/skill staging 或客户端逆向 staging 作为正式知识。
 
 ## 后续工具建议

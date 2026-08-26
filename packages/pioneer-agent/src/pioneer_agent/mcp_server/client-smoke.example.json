@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "sanmou-game": {
+      "command": "wsl.exe",
+      "args": [
+        "-d",
+        "Ubuntu",
+        "--cd",
+        "/home/lan/projects/sanmou_monorepo",
+        "env",
+        "PYTHONPATH=packages/pioneer-agent/src:packages/sanmou-common/src",
+        "SANMOU_GAME_FIXTURE_ROOT=packages/pioneer-agent/tests/fixtures",
+        "python3",
+        "-m",
+        "pioneer_agent.mcp_server"
+      ]
+    }
+  }
+}

@@ -1,11 +1,122 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any, Literal, TypeAlias
+
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, ValidationError
 
 from qa_agent.knowledge.source_paths import discover_source_paths
 from qa_agent.knowledge.models import Domain, QueryResponse
 from qa_agent.mcp_server.advisor_tools import AdvisorReplayTools
 from qa_agent.service.query_service import QueryService
+
+
+DomainName: TypeAlias = Literal[*tuple(domain.value for domain in Domain)]
+
+
+class StrictToolInput(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+
+
+class LookupTopicInput(StrictToolInput):
+    topic: StrictStr = Field(min_length=1, description="Knowledge topic to look up.")
+    domain: DomainName | None = Field(default=None, description="Optional knowledge domain filter.")
+
+
+class AnswerRuleQuestionInput(StrictToolInput):
+    question: StrictStr = Field(min_length=1, description="Narrow game-rule question to answer.")
+    domain: DomainName | None = Field(default=None, description="Optional knowledge domain filter.")
+
+
+class ResolveTermInput(StrictToolInput):
+    term: StrictStr = Field(min_length=1, description="Alias or game term to resolve.")
+    domain: DomainName | None = Field(default=None, description="Optional knowledge domain filter.")
+
+
+class AdvisorGoldenReplayStatusInput(StrictToolInput):
+    include_fixture_results: StrictBool = Field(
+        default=True,
+        description="Run fixture replay and compare it with the golden expectation manifest.",
+    )
+
+
+class AdvisorFixtureEvalInput(StrictToolInput):
+    fixture: StrictStr = Field(
+        min_length=1,
+        description="Fixture filename or repo-relative path under pioneer-agent tests/fixtures.",
+    )
+    expected_action_type: StrictStr | None = Field(
+        default=None,
+        description="Optional expected selected action type; defaults to the golden manifest value.",
+    )
+
+
+class AdvisorTerminalSourceEvidenceEvalInput(StrictToolInput):
+    action_type: StrictStr = Field(min_length=1, description="Low-risk action type being evidenced.")
+    terminal_source_evidence: dict[str, Any] = Field(
+        description="Terminal source evidence object to validate.",
+    )
+    fixture: StrictStr | None = Field(
+        default=None,
+        description="Optional fixture name that will own this evidence.",
+    )
+    page: StrictStr | None = Field(default=None, description="Optional manifest page override.")
+
+
+TOOL_NAMES = (
+    "lookup_topic",
+    "answer_rule_question",
+    "resolve_term",
+    "advisor_golden_replay_status",
+    "advisor_fixture_eval",
+    "advisor_terminal_source_evidence_eval",
+)
+
+TOOL_DESCRIPTIONS = {
+    "lookup_topic": "Look up a standard knowledge topic and return structured evidence.",
+    "answer_rule_question": "Answer a narrow game-rule question using curated knowledge entries only.",
+    "resolve_term": "Resolve an alias or term to the canonical topic in the knowledge base.",
+    "advisor_golden_replay_status": (
+        "Summarize Sanmou Advisor fixture coverage and golden replay expectation failures."
+    ),
+    "advisor_fixture_eval": (
+        "Run offline Sanmou Advisor replay for one runtime-state fixture and return the selected action."
+    ),
+    "advisor_terminal_source_evidence_eval": (
+        "Preflight low-risk terminal source evidence before adding it to golden expectations."
+    ),
+}
+
+TOOL_INPUT_MODELS: dict[str, type[StrictToolInput]] = {
+    "lookup_topic": LookupTopicInput,
+    "answer_rule_question": AnswerRuleQuestionInput,
+    "resolve_term": ResolveTermInput,
+    "advisor_golden_replay_status": AdvisorGoldenReplayStatusInput,
+    "advisor_fixture_eval": AdvisorFixtureEvalInput,
+    "advisor_terminal_source_evidence_eval": AdvisorTerminalSourceEvidenceEvalInput,
+}
+
+READ_ONLY_ANNOTATIONS = {
+    "readOnlyHint": True,
+    "destructiveHint": False,
+    "idempotentHint": True,
+    "openWorldHint": False,
+}
+
+
+def validate_tool_arguments(name: str, arguments: dict[str, Any]) -> dict[str, Any]:
+    model = TOOL_INPUT_MODELS.get(name)
+    if model is None:
+        raise ValueError(f"Unknown tool: {name}")
+    try:
+        validated = model.model_validate(arguments)
+    except ValidationError as exc:
+        issues = ", ".join(
+            f"{'.'.join(str(part) for part in error['loc'])}:{error['type']}"
+            for error in exc.errors()
+        )
+        raise ValueError(f"Invalid arguments for {name}: {issues}") from exc
+    return validated.model_dump(mode="json", exclude_unset=True)
 
 
 class KnowledgeToolHandler:
@@ -22,111 +133,18 @@ class KnowledgeToolHandler:
         )
 
     def tool_definitions(self) -> list[dict]:
-        domain_enum = [domain.value for domain in Domain]
         return [
             {
-                "name": "lookup_topic",
-                "description": "Look up a standard knowledge topic and return structured evidence.",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {
-                        "topic": {"type": "string"},
-                        "domain": {"type": "string", "enum": domain_enum},
-                    },
-                    "required": ["topic"],
-                    "additionalProperties": False,
-                },
-            },
-            {
-                "name": "answer_rule_question",
-                "description": "Answer a narrow game-rule question using curated knowledge entries only.",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {
-                        "question": {"type": "string"},
-                        "domain": {"type": "string", "enum": domain_enum},
-                    },
-                    "required": ["question"],
-                    "additionalProperties": False,
-                },
-            },
-            {
-                "name": "resolve_term",
-                "description": "Resolve an alias or term to the canonical topic in the knowledge base.",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {
-                        "term": {"type": "string"},
-                        "domain": {"type": "string", "enum": domain_enum},
-                    },
-                    "required": ["term"],
-                    "additionalProperties": False,
-                },
-            },
-            {
-                "name": "advisor_golden_replay_status",
-                "description": "Summarize Sanmou Advisor fixture coverage and golden replay expectation failures.",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {
-                        "include_fixture_results": {
-                            "type": "boolean",
-                            "default": True,
-                            "description": "When true, run fixture replay and compare against the golden expectation manifest.",
-                        }
-                    },
-                    "additionalProperties": False,
-                },
-            },
-            {
-                "name": "advisor_fixture_eval",
-                "description": "Run offline Sanmou Advisor replay for one runtime-state fixture and return the selected action.",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {
-                        "fixture": {
-                            "type": "string",
-                            "description": "Fixture filename under pioneer-agent tests/fixtures, or a repo-relative fixture path.",
-                        },
-                        "expected_action_type": {
-                            "type": ["string", "null"],
-                            "description": "Optional expected selected action type. Defaults to the golden manifest value when present.",
-                        },
-                    },
-                    "required": ["fixture"],
-                    "additionalProperties": False,
-                },
-            },
-            {
-                "name": "advisor_terminal_source_evidence_eval",
-                "description": "Preflight low-risk terminal source evidence before adding it to golden expectations.",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {
-                        "action_type": {
-                            "type": "string",
-                            "description": "Low-risk action type being evidenced.",
-                        },
-                        "terminal_source_evidence": {
-                            "type": "object",
-                            "description": "Terminal source evidence object to validate.",
-                        },
-                        "fixture": {
-                            "type": ["string", "null"],
-                            "description": "Optional fixture name that will own this evidence.",
-                        },
-                        "page": {
-                            "type": ["string", "null"],
-                            "description": "Optional manifest page override.",
-                        },
-                    },
-                    "required": ["action_type", "terminal_source_evidence"],
-                    "additionalProperties": False,
-                },
-            },
+                "name": name,
+                "description": TOOL_DESCRIPTIONS[name],
+                "inputSchema": TOOL_INPUT_MODELS[name].model_json_schema(),
+                "annotations": dict(READ_ONLY_ANNOTATIONS),
+            }
+            for name in TOOL_NAMES
         ]
 
     def call_tool(self, name: str, arguments: dict) -> dict:
+        arguments = validate_tool_arguments(name, arguments)
         if name == "lookup_topic":
             response = self.service.lookup_topic(arguments["topic"], arguments.get("domain"))
         elif name == "answer_rule_question":
