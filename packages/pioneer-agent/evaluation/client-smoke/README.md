@@ -15,6 +15,9 @@ Configs:
 - `codex-windows-config.toml`: Windows Codex launching both servers through WSL.
 - `claude-config.json`: WSL Claude Code with `--mcp-config` and
   `--strict-mcp-config`.
+- `claude-first-party-settings.json`: one-run override that bypasses a locally
+  configured third-party gateway and lets Claude use its existing first-party
+  OAuth login; it contains no credential.
 
 The paths target this repository's standard local checkout. Copy a config to a
 temporary client home or adjust the checkout path; do not install it globally
@@ -25,6 +28,9 @@ Verified 2026-08-27:
 - Codex Desktop bundled CLI `0.150.0-alpha.8`: passed both tool calls and the
   shared output schema. Final input fell from roughly 59.8k to 48.0k tokens
   after enabling bounded fixture summaries.
-- Claude Code `2.1.207`: parsed both MCP servers, but the inference gateway
-  returned `503 No available accounts` before any model token or MCP tool call.
-  The Claude half therefore remains unverified, not failed-over to a mock.
+- Claude Code `2.1.207`: parsed both MCP servers, but the configured inference
+  gateway returned `503 No available accounts` before any model token or MCP
+  tool call. A first-party WSL probe sent `/v1/messages` but received no first
+  byte within 30 seconds; native Windows first-party returned 401 because the
+  saved bearer is gateway-specific. The Claude half therefore remains
+  unverified, not failed-over to a mock.

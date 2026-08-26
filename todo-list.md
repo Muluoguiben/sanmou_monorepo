@@ -34,7 +34,7 @@
 - [x] 为 read-only tools 设置 MCP annotations，但 annotations 只用于客户端 UX；真正边界由 server 代码和 AST/import tests 保证。
 - [x] 增加 contract tests：tool list/schema、strict input、unknown/empty session、cached-vs-refresh、bounded trace、fixture path escape、no control imports、service/MCP 输出一致性、stdio initialize/list/call smoke；Pioneer 全量 736 tests OK（6 skip）。
 - [x] Session A merge-blocker review 修复（2026-08-26）：`RuntimeState` / `AdvisorReport` / trace 全部改为显式 allowlist privacy projection，拒绝 source URI、任意 metadata、路径/data URI/base64/超长字符串透传；fixture evaluator 改为纯 derive/select，MCP 路径不导入/实例化/call `ReplayRuntime` / `UIActionRunner` / control/executor/verifier；fixture root 与文件使用 pinned `dir_fd` + `O_NOFOLLOW` + 1 MiB 上限并拒绝 symlink/hardlink/race；response 增加 status/payload 联合校验；observe single-flight；FastMCP 只覆盖 public methods 且 pin `mcp>=1.29,<1.30`；默认 server 明确为未接 production provider 的 contract skeleton。指定 puredeps MCP tests 25/25、Pioneer 全量 736 tests OK（6 skip）。
-- [ ] Codex/Claude MCP smoke：共享 prompt/schema 与 Codex WSL/Windows、Claude 显式配置已入 `evaluation/client-smoke/`。Codex Desktop CLI 0.150 已真实调用 game/QA 两工具并验证 `claim_chapter_reward`、`sanmou-game/v1`、authority none、executable false 全匹配；fixture summary 将本次输入约 59.8k 降到 48.0k。Claude Code 2.1.207 能解析两台 MCP，但推理网关两次不可用（一次明确 503 no available accounts，第二次 60s 有界中止），尚无 Claude tool-call 证据，因此保持未完成。
+- [ ] Codex/Claude MCP smoke：共享 prompt/schema 与 Codex WSL/Windows、Claude 显式配置已入 `evaluation/client-smoke/`。Codex Desktop CLI 0.150 已真实调用 game/QA 两工具并验证 `claim_chapter_reward`、`sanmou-game/v1`、authority none、executable false 全匹配；fixture summary 将本次输入约 59.8k 降到 48.0k。Claude Code 2.1.207 能解析两台 MCP，但自建推理网关返回 503 no available accounts；改走 first-party 时 WSL `/v1/messages` 30s 无首字节，Windows 原生客户端因现有 bearer 仅适用于 gateway 而返回 401。尚无 Claude tool-call 证据，因此保持未完成。
 
 ### M1 — Strategy Agent harness + journal
 
@@ -50,7 +50,7 @@
 ### M2 — MCP-native eval and observability
 
 - [x] 建立固定离线 scenario battery：主页观察、章节可领奖/不可领奖、征兵可用/不可用、建筑升级入口/确认、map-filter positive/no-change/interrupted/ambiguous、战报 partial/conflict。
-- [ ] 复用现有 golden fixture、Record & Replay registry/corpus/holdout：golden 已经由 MCP evaluator 真实重放并绑定 digest，当前 19/19 matched；R&R catalog 接口会先跑 closed-root corpus audit，只输出 digest/aggregate split/blockers 并隐藏 holdout ids/labels。当前仓库、WSL `/tmp` 和 Windows Temp 均无可绑定的真实 corpus catalog，因此 run manifest 正确记录 `record_replay_bound=false`，此项仍未完成。
+- [ ] 复用现有 golden fixture、Record & Replay registry/corpus/holdout：golden 已经由 MCP evaluator 真实重放并绑定 digest，当前 19/19 matched；R&R catalog 接口会先跑 closed-root corpus audit，只输出 digest/aggregate split/blockers 并隐藏 holdout ids/labels。已从 `%LOCALAPPDATA%/SanmouRecordReplay/sessions` 恢复 3 份真实 raw session：1 份 failed/1 frame，2 份 integrity-valid completed/2 frames，但三份均 `input_event_count=0`、`privacy_reviewed=false`，不能登记为 action generation/holdout，也没有 review/registry/catalog。run manifest 继续正确记录 `record_replay_bound=false`，此项仍未完成。
 - [x] 评分覆盖：state field accuracy、unknown calibration、tool-call coverage、proposal grounding、blocked-action correctness、verifier readiness、no-change recognition、recovery/stop correctness、latency、vision/tool cost、journal plan adherence。
 - [x] 增加 sensorium 指标：Agent 实际查询了哪些 domain、多久未刷新、失败前是否遗漏关键风险，不只统计最终推荐是否正确。
 - [x] eval runner 与 scorer 不调用 live control；外部 holdout oracle/private key/ledger 继续与 development trust domain 隔离。
