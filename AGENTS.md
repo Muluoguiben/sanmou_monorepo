@@ -32,7 +32,7 @@ Desktop app calls the local `pioneer-agent` Advisor API over `127.0.0.1`; it mus
 ## How to Run
 
 ```bash
-# Tests — pioneer-agent (520 tests; 6 advisor_api tests skip if FastAPI deps are absent)
+# Tests — pioneer-agent (736 tests; 6 advisor_api tests skip if FastAPI deps are absent)
 cd packages/pioneer-agent && PYTHONPATH=src:../sanmou-common/src python3 -m unittest discover -s tests -p "test_*.py" -v
 
 # Tests — qa-agent (303 tests)
@@ -271,7 +271,7 @@ git branch -d feat/<branch-name>
 ### What's Working
 - **Desktop Advisor**: `apps/sanmou-advisor-desktop` Electron + React + Vite GUI with screenshot upload/preview, device/account metadata, AdvisorReport display, and chat panel; `npm run typecheck` and `npm run build` pass.
 - **Advisor API**: `pioneer_agent.app.advisor_api` FastAPI service with `/api/health`, `/api/advisor/analyze`, `/api/advisor/chat`, screenshot upload, mock mode, local `reports.jsonl` logging, and desktop CORS.
-- **Pioneer agent**: capture/control adapter split, platform-neutral device/session models, `AdvisorLoop`, sync → derive → select pipeline with 8 action types, OpenAI/Gemini vision provider support, fail-closed perception domains, bbox locator, UI layout registry, guarded UI primitives, runbook-driven autonomous loop, observation/verifier/window/semantic-ROI gates, one-shot operator confirmation, loop logger, default dry-run, and kill switch; 480 tests pass (6 advisor API skips when FastAPI deps are absent).
+- **Pioneer agent**: capture/control adapter split, platform-neutral device/session models, `AdvisorLoop`, sync → derive → select pipeline with 8 action types, OpenAI/Gemini vision provider support, fail-closed perception domains, bbox locator, UI layout registry, guarded UI primitives, runbook-driven autonomous loop, observation/verifier/window/semantic-ROI gates, one-shot operator confirmation, loop logger, default dry-run, and kill switch; 736 tests pass (6 advisor API skips when FastAPI deps are absent).
 - **QA agent**: 104 heroes + 123 skills + 62 mechanic rules KB; MCP server with 6 tools (`lookup_topic`, `answer_rule_question`, `resolve_term`, `advisor_golden_replay_status`, `advisor_fixture_eval`, `advisor_terminal_source_evidence_eval`); raw live traces have a pending-only staging CLI with pinned `dir_fd` / no-symlink / no-clobber writes and never auto-grant review; ingestion pipeline with `--publish`; conversational RAG via `qa_agent/chat/` with Gemini/MiniMax/OpenAI providers; `qa_agent/vision/` grounded image understanding; bilibili video knowledge workflow closed loop.
 
 ### Current Focus
