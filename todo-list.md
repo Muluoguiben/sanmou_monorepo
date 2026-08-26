@@ -64,7 +64,7 @@
 
 ### Windows trusted broker（独立安全项目）
 
-- [ ] 写 `docs/windows-trusted-observer-broker.md` threat model，覆盖代码来源、安装 ACL、更新签名、UAC、Job Object child lifetime、Known Folder/output root、reparse/hardlink、named pipe ACL、audit log、卸载和故障恢复。
+- [x] Trusted observer broker 安全设计（2026-08-26）：`docs/windows-trusted-observer-broker.md` 已冻结代码来源、安装 ACL/SDDL、更新签名、UAC、Job Object child lifetime、Known Folder/output root、reparse/hardlink、named pipe peer identity/ACL、audit、卸载和故障恢复；`docs/windows-trusted-observer-broker-test-plan.md` 给出全 P0 安装/取消/ACL/签名/IPC/lifecycle/卸载矩阵与 go/no-go。当前仍为 design-only No-Go，未实现或运行 broker。
 - [ ] broker 必须是冻结/签名的最小二进制，安装在普通用户不可写目录；不得提升 user-writable Python、WSL UNC helper、repo 文件、`sitecustomize` 或用户虚拟环境。
 - [ ] broker 创建 `JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE`，外层取消/崩溃时不能遗留无限运行的高权限 observer。
 - [ ] 高权限侧不信任继承 `LOCALAPPDATA`；通过 Known Folder API 获取路径，拒绝 reparse/hardlink，或只采集并把落盘交给普通权限侧。
@@ -105,9 +105,9 @@
 
 #### Session E — Trusted broker security design
 
-- [ ] 分支：`feat/windows-observer-broker-design`；worktree：`~/projects/sanmou-broker-design-dev`。
-- [ ] 范围：threat model、安装/ACL/签名/IPC/lifecycle 设计、可测试接口；默认只写 docs/tests/prototype interface。
-- [ ] 交付：安全 ADR、攻击树、broker/normal-process contract、安装与取消测试计划、go/no-go checklist。
+- [x] 分支：`feat/windows-observer-broker-design`；worktree：`~/projects/sanmou-broker-design-dev`。
+- [x] 范围：threat model、安装/ACL/签名/IPC/lifecycle 设计、可测试接口；本 Session 仅修改 docs/todo，未恢复或运行 UAC Python prototype。
+- [x] 交付：安全 ADR、攻击树、broker/normal-process contract、安装与取消测试计划、go/no-go checklist；实现与 production enablement 保持 No-Go。
 - [ ] 禁止：运行或恢复 user-writable UAC Python 原型、注册高权限计划任务、发送游戏输入。
 
 ### 本地隔离 WIP 后续处置
