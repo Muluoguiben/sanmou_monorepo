@@ -56,6 +56,12 @@ PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay r
   --workflow-name open-battle-report-details \
   --duration-seconds 60
 
+# 必须包含物理操作边界的工作流；0 input 会把 session 标记为 failed
+PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay record \
+  --workflow-name map-filter-apply \
+  --duration-seconds 60 \
+  --min-input-events 1
+
 # 查看摘要和完整性
 PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay inspect <session-dir>
 PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay validate <session-dir>

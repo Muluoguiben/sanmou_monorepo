@@ -46,6 +46,7 @@ def build_parser() -> argparse.ArgumentParser:
     record_parser.add_argument("--image-format", choices=("webp", "png"), default="webp")
     record_parser.add_argument("--webp-quality", type=int, default=60)
     record_parser.add_argument("--max-events", type=int, default=500)
+    record_parser.add_argument("--min-input-events", type=int, default=0)
     record_parser.add_argument("--max-bytes", type=int, default=268_435_456)
 
     inspect_parser = subparsers.add_parser("inspect", help="Inspect manifest and integrity state.")
@@ -233,6 +234,8 @@ def _record(args: argparse.Namespace) -> int:
         str(args.webp_quality),
         "--max-events",
         str(args.max_events),
+        "--min-input-events",
+        str(args.min_input_events),
         "--max-bytes",
         str(args.max_bytes),
     ]
@@ -279,6 +282,7 @@ def _record(args: argparse.Namespace) -> int:
         "record_count": recording.manifest.record_count,
         "frame_count": recording.manifest.frame_count,
         "input_event_count": recording.manifest.input_event_count,
+        "min_input_events": recording.manifest.capture.min_input_events,
         "ignored_event_count": recording.manifest.ignored_event_count,
     }
     _print_json(payload)
@@ -305,6 +309,7 @@ def _summary(recording: object, *, integrity: str) -> dict[str, object]:
         "events_sha256": manifest.events_sha256,
         "frame_count": manifest.frame_count,
         "input_event_count": manifest.input_event_count,
+        "min_input_events": manifest.capture.min_input_events,
         "ignored_event_count": manifest.ignored_event_count,
         "capture_error_count": manifest.capture_error_count,
         "total_frame_bytes": manifest.total_frame_bytes,
@@ -332,6 +337,8 @@ def _validate_record_args(args: argparse.Namespace) -> None:
         raise ValueError("webp-quality must be between 20 and 90")
     if not 1 <= args.max_events <= 10_000:
         raise ValueError("max-events must be between 1 and 10000")
+    if not 0 <= args.min_input_events <= args.max_events:
+        raise ValueError("min-input-events must be between 0 and max-events")
     if args.max_bytes < 1_048_576:
         raise ValueError("max-bytes must be at least 1 MiB")
 

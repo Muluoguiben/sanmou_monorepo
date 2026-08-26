@@ -103,7 +103,14 @@ class CaptureSettings(BaseModel):
     image_format: ImageFormat = ImageFormat.WEBP
     webp_quality: int = Field(default=60, ge=20, le=90)
     max_events: int = Field(default=500, ge=1, le=10_000)
+    min_input_events: int = Field(default=0, ge=0, le=10_000)
     max_bytes: int = Field(default=268_435_456, ge=1_048_576)
+
+    @model_validator(mode="after")
+    def _input_event_bounds_are_consistent(self) -> CaptureSettings:
+        if self.min_input_events > self.max_events:
+            raise ValueError("min_input_events cannot exceed max_events")
+        return self
 
 
 class TargetWindow(BaseModel):

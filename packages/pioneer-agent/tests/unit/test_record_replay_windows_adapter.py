@@ -75,6 +75,7 @@ class RecordReplayWindowsAdapterTests(unittest.TestCase):
             image_format="webp",
             webp_quality=60,
             max_events=10,
+            min_input_events=1,
             max_bytes=1_048_576,
         )
         capture_module = Mock()
@@ -121,6 +122,84 @@ class RecordReplayWindowsAdapterTests(unittest.TestCase):
         self.assertEqual(len(recording.input_events), 1)
         self.assertEqual(recording.frames[0].role.value, "start")
         self.assertEqual(recording.frames[-1].role.value, "end")
+
+    def test_helper_fails_when_required_input_floor_is_not_met(self) -> None:
+        class StopImmediately:
+            def is_set(self) -> bool:
+                return True
+
+        class EmptyCollector:
+            def __init__(self, *_: object, **__: object) -> None:
+                self.events: queue.Queue[dict[str, object]] = queue.Queue()
+                self.stop_requested = StopImmediately()
+                self.pointer_gesture_active = threading.Event()
+                self.fatal_error = None
+                self.ignored_event_count = 0
+
+            def start(self) -> None:
+                return None
+
+            def stop(self) -> None:
+                return None
+
+        args = argparse.Namespace(
+            session_id=str(uuid4()),
+            workflow_name="map-filter-apply",
+            duration_seconds=0.0,
+            backend="auto",
+            settle_ms=100,
+            long_edge=1280,
+            image_format="webp",
+            webp_quality=60,
+            max_events=10,
+            min_input_events=1,
+            max_bytes=1_048_576,
+        )
+        capture_module = Mock()
+        capture_payload = png_bytes((1, 2, 3))
+        capture_geometry = geometry().model_dump(mode="json")
+
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp) / args.session_id
+            with (
+                patch(
+                    "pioneer_agent.adapters.win_record_replay._require_windows_runtime"
+                ),
+                patch(
+                    "pioneer_agent.adapters.win_record_replay._load_capture_module",
+                    return_value=capture_module,
+                ),
+                patch(
+                    "pioneer_agent.adapters.win_record_replay._resolve_target_window",
+                    return_value=(123, 456, "Sanmou", NOW.isoformat()),
+                ),
+                patch(
+                    "pioneer_agent.adapters.win_record_replay._capture",
+                    return_value=(capture_payload, capture_geometry),
+                ),
+                patch(
+                    "pioneer_agent.adapters.win_record_replay._assert_same_target"
+                ),
+                patch(
+                    "pioneer_agent.adapters.win_record_replay._session_root",
+                    return_value=root,
+                ),
+                patch(
+                    "pioneer_agent.adapters.win_record_replay.RawInputCollector",
+                    EmptyCollector,
+                ),
+            ):
+                failed_root = record(args)
+
+            recording = load_recording(
+                failed_root, require_complete=False, verify_images=True
+            )
+            self.assertEqual(recording.manifest.status.value, "failed")
+            self.assertEqual(
+                recording.manifest.failure_code,
+                "minimum_input_events_not_met",
+            )
+            self.assertTrue((root / "INCOMPLETE").is_file())
 
     def test_helper_manifest_obeys_non_executable_schema(self) -> None:
         value = _manifest(
@@ -277,6 +356,7 @@ class RecordReplayWindowsAdapterTests(unittest.TestCase):
             long_edge=1280,
             webp_quality=60,
             max_events=500,
+            min_input_events=0,
             max_bytes=1_048_576,
         )
         _validate_record_args(args)

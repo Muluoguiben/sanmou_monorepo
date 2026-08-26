@@ -23,6 +23,7 @@ The fixed runtime root is `%LOCALAPPDATA%\SanmouRecordReplay\sessions`. Reject a
 - the target process is `com.bilibili.nslg` and the window class is `UnityWndClass`.
 - `events_sha256` covers the exact finalized `events.jsonl` bytes.
 - record, frame, input, and capture-error counts match the persisted session; `ignored_event_count` is a recorder declaration because filtered inputs are deliberately not persisted.
+- completed sessions meet `capture.min_input_events`; schema-v1 sessions that predate the field default to zero, while action workflows should record with a positive floor.
 - completed sessions have an end timestamp and valid SHA; recording, aborted, and failed sessions are not replayable.
 - `observe_only=true`, `input_dispatch=false`, `clipboard_recorded=false`, and `printable_text_recorded=false` are immutable safety facts.
 - `execution_authority=none`, `safe_for_live_replay=false`, `privacy_reviewed=false`, `recording_model_exercised=false`, `action_correlated_runtime_trace=false`, and `closure_eligible=false` remain false for raw M0 recordings.

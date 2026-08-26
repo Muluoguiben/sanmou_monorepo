@@ -190,6 +190,11 @@ def _validate_records(
         raise ValueError("frame byte count does not match the manifest")
     if manifest.input_event_count > manifest.capture.max_events:
         raise ValueError("input event count exceeds the recording limit")
+    if (
+        manifest.status == RecordingStatus.COMPLETED
+        and manifest.input_event_count < manifest.capture.min_input_events
+    ):
+        raise ValueError("completed recording does not meet its minimum input event floor")
     if manifest.total_frame_bytes > manifest.capture.max_bytes:
         raise ValueError("frame byte count exceeds the recording limit")
     if manifest.total_frame_bytes > MAX_SESSION_FRAME_BYTES:

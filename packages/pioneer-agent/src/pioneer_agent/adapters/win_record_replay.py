@@ -623,6 +623,7 @@ def record(args: argparse.Namespace) -> Path:
         "image_format": args.image_format,
         "webp_quality": args.webp_quality,
         "max_events": args.max_events,
+        "min_input_events": args.min_input_events,
         "max_bytes": args.max_bytes,
     }
     target = {
@@ -870,6 +871,18 @@ def record(args: argparse.Namespace) -> Path:
             final_status = "failed"
             failure_code = "final_capture_failed"
             failure_reason = f"{type(exc).__name__}: {exc}"[:500]
+
+    if (
+        final_status == "completed"
+        and writer.input_event_count < args.min_input_events
+    ):
+        final_status = "failed"
+        failure_code = "minimum_input_events_not_met"
+        failure_reason = (
+            "recording observed "
+            f"{writer.input_event_count} input events; required at least "
+            f"{args.min_input_events}"
+        )
 
     events_sha = writer.close()
     manifest.update(
@@ -1314,6 +1327,8 @@ def _validate_record_args(args: argparse.Namespace) -> None:
         raise ValueError("webp-quality must be between 20 and 90")
     if not 1 <= args.max_events <= 10_000:
         raise ValueError("max-events must be between 1 and 10000")
+    if not 0 <= args.min_input_events <= args.max_events:
+        raise ValueError("min-input-events must be between 0 and max-events")
     if args.max_bytes < 1_048_576:
         raise ValueError("max-bytes must be at least 1 MiB")
 
@@ -1334,6 +1349,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--image-format", choices=("webp", "png"), default="webp")
     parser.add_argument("--webp-quality", type=int, default=60)
     parser.add_argument("--max-events", type=int, default=500)
+    parser.add_argument("--min-input-events", type=int, default=0)
     parser.add_argument("--max-bytes", type=int, default=268_435_456)
     return parser
 

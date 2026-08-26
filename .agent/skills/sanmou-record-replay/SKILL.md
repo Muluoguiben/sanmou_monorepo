@@ -23,6 +23,13 @@ From `packages/pioneer-agent`, run:
 PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay record \
   --workflow-name open-recruit-panel \
   --duration-seconds 60
+
+# A workflow that must contain a physical action boundary fails if Raw Input
+# observes no accepted event.
+PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay record \
+  --workflow-name map-filter-apply \
+  --duration-seconds 60 \
+  --min-input-events 1
 ```
 
 The command launches the standalone Windows recorder. It binds only to one visible `com.bilibili.nslg` `UnityWndClass`, captures compressed WebP keyframes, and observes Raw Input. It does not call a control adapter, start a socket listener, elevate, read the clipboard, or persist printable text.
@@ -30,6 +37,8 @@ The command launches the standalone Windows recorder. It binds only to one visib
 Stop with `Ctrl+Shift+F12`, `Ctrl+C`, the duration limit, or an empty `STOP` file in the session directory. Treat a minimized, hidden, replaced, or geometrically invalid game window as a hard failure.
 
 Recording always returns a raw session. Use only the separate `compile <session-dir>` command after strict validation and privacy review. Use PNG only for a separately approved evidence capture; keep routine demonstrations on the default WebP settings.
+For action demonstrations, set a positive `--min-input-events`; a zero-input
+session must fail instead of treating a changed end frame as an action trace.
 
 ## Inspect and Validate
 

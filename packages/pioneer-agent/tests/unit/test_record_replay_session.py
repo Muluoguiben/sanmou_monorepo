@@ -68,6 +68,35 @@ class RecordReplaySessionTests(unittest.TestCase):
             self.assertEqual(len(recording.frames), 3)
             self.assertEqual(len(recording.input_events), 1)
 
+    def test_completed_session_must_meet_declared_input_floor(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            create_completed_session(root)
+            _rewrite_manifest(
+                root,
+                lambda manifest: manifest["capture"].update(
+                    {"min_input_events": 2}
+                ),
+            )
+
+            with self.assertRaisesRegex(ValueError, "minimum input event floor"):
+                load_recording(root)
+
+    def test_legacy_schema_one_session_defaults_input_floor_to_zero(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            create_completed_session(root)
+
+            def remove_input_floor(manifest: dict[str, object]) -> None:
+                capture = manifest["capture"]
+                assert isinstance(capture, dict)
+                capture.pop("min_input_events", None)
+
+            _rewrite_manifest(root, remove_input_floor)
+            recording = load_recording(root)
+
+            self.assertEqual(recording.manifest.capture.min_input_events, 0)
+
     def test_rejects_tampered_events(self) -> None:
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
