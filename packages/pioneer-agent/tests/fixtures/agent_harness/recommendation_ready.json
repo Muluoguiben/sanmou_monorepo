@@ -1,0 +1,96 @@
+{
+  "game": {
+    "session_status": {
+      "isError": false,
+      "structuredContent": {
+        "session_id": "game-session-1",
+        "status": "active",
+        "capture_health": {"status": "healthy"},
+        "window_identity": {"hwnd": 101, "pid": 202, "title": "Sanmou"},
+        "latest_observation_at": "2026-08-26T10:00:00+08:00",
+        "execution_authority": "none"
+      }
+    },
+    "observe_game": {
+      "isError": false,
+      "structuredContent": {
+        "session_id": "game-session-1",
+        "observation_id": "observation-1",
+        "frame_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "captured_at": "2026-08-26T10:00:00+08:00",
+        "window_identity": {"hwnd": 101, "pid": 202, "title": "Sanmou"},
+        "capture_geometry": {
+          "capture_rect": {"left": 0, "top": 0, "right": 1920, "bottom": 1080},
+          "frame_size": [1920, 1080]
+        },
+        "domains_run": [
+          "resource_bar",
+          "chapter_panel",
+          "team_panel",
+          "map_land",
+          "battle_report",
+          "timing"
+        ],
+        "unknown_domains": [],
+        "structured_evidence": [
+          {"evidence_id": "vision.chapter_panel", "confidence": 0.97}
+        ],
+        "confidence": 0.95,
+        "execution_authority": "none"
+      }
+    },
+    "get_runtime_state": {
+      "isError": false,
+      "structuredContent": {
+        "session_id": "game-session-1",
+        "observation_id": "observation-1",
+        "frame_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "execution_authority": "none",
+        "state": {
+          "progress": {"chapter_claimable": true, "current_chapter_id": 8},
+          "timing": {"next_action_ready_time": "2026-08-26T10:05:00+08:00"}
+        }
+      }
+    },
+    "list_action_candidates": {
+      "isError": false,
+      "structuredContent": {
+        "session_id": "game-session-1",
+        "observation_id": "observation-1",
+        "frame_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "execution_authority": "none",
+        "candidates": [
+          {
+            "action_id": "claim-chapter-8",
+            "action_type": "claim_chapter_reward",
+            "risk": {"level": "low", "confirmation_required": false},
+            "evidence": ["vision.chapter_panel", "state.progress.chapter_claimable"],
+            "confidence": 0.94,
+            "blockers": [],
+            "executable": false
+          },
+          {
+            "action_id": "attack-land-5-1",
+            "action_type": "attack_land",
+            "risk": {"level": "high", "confirmation_required": true},
+            "evidence": ["state.map.candidate_lands.5-1"],
+            "confidence": 0.91,
+            "blockers": ["human_confirmation_required"],
+            "executable": false
+          }
+        ]
+      }
+    }
+  },
+  "qa": {
+    "answer_rule_question": {
+      "isError": false,
+      "structuredContent": {
+        "status": "ok",
+        "items": [
+          {"entry_id": "chapter-rule-claim-first", "source_ref": "knowledge_sources/chapter.yaml"}
+        ]
+      }
+    }
+  }
+}

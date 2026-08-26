@@ -84,9 +84,9 @@
 
 #### Session B — Agent harness/journal
 
-- [ ] 分支：`feat/game-agent-harness`；worktree：`~/projects/sanmou-agent-harness-dev`。
-- [ ] 范围：新增独立 agent/journal/tool-log 模块及 fake MCP client fixtures；不修改 MCP server handler。
-- [ ] 交付：recommendation-only decision loop、observed/inferred 分离 journal、stop policy、单元测试。
+- [x] 分支：`feat/game-agent-harness`；worktree：`~/projects/sanmou-agent-harness-dev`。
+- [x] 范围：新增独立 agent/journal/tool-log 模块及 fake MCP client fixtures；不修改 MCP server handler。
+- [x] 交付：recommendation-only decision loop、observed/inferred 分离 journal、stop policy、单元测试。
 - [ ] 依赖：使用本 TODO 冻结的 M0 tool names/fields；Session A 合并后再做薄适配，不提前发明第二套 contract。
 
 #### Session C — MCP eval/observability
