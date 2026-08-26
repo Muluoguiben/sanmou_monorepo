@@ -47,12 +47,12 @@
 
 ### M2 — MCP-native eval and observability
 
-- [ ] 建立固定离线 scenario battery：主页观察、章节可领奖/不可领奖、征兵可用/不可用、建筑升级入口/确认、map-filter positive/no-change/interrupted/ambiguous、战报 partial/conflict。
+- [x] 建立固定离线 scenario battery：主页观察、章节可领奖/不可领奖、征兵可用/不可用、建筑升级入口/确认、map-filter positive/no-change/interrupted/ambiguous、战报 partial/conflict。
 - [ ] 复用现有 golden fixture、Record & Replay registry/corpus/holdout；generation 与 holdout 继续按 session/capture-group 全局隔离。
-- [ ] 评分至少覆盖：state field accuracy、unknown calibration、tool-call coverage、proposal grounding、blocked-action correctness、verifier readiness、no-change recognition、recovery/stop correctness、latency、vision/tool cost、journal plan adherence。
-- [ ] 增加 sensorium 指标：Agent 实际查询了哪些 domain、多久未刷新、失败前是否遗漏关键风险，不只统计最终推荐是否正确。
-- [ ] eval runner 与 scorer 不得调用 live control；外部 holdout oracle/private key/ledger 继续与 development trust domain 隔离。
-- [ ] 输出版本化 run manifest：repo SHA、tool schema version、fixture/catalog digest、model/provider、prompt/playbook version、random seed、start state、end state、tool log digest。
+- [x] 评分覆盖：state field accuracy、unknown calibration、tool-call coverage、proposal grounding、blocked-action correctness、verifier readiness、no-change recognition、recovery/stop correctness、latency、vision/tool cost、journal plan adherence。
+- [x] 增加 sensorium 指标：Agent 实际查询了哪些 domain、多久未刷新、失败前是否遗漏关键风险，不只统计最终推荐是否正确。
+- [x] eval runner 与 scorer 不调用 live control；外部 holdout oracle/private key/ledger 继续与 development trust domain 隔离。
+- [x] 输出版本化 run manifest：repo SHA、tool contract version、fixture/catalog digest、model/provider、prompt/playbook version、random seed、start state、end state、tool log digest。
 
 ### M3 — Controlled execution（当前 blocked）
 
@@ -92,10 +92,11 @@
 
 #### Session C — MCP eval/observability
 
-- [ ] 分支：`feat/game-mcp-eval`；worktree：`~/projects/sanmou-mcp-eval-dev`。
-- [ ] 范围：独立 eval runner/scorer、scenario manifests、tool-log/sensorium metrics；不修改 live executor。
-- [ ] 交付：离线 scenario battery、版本化 run manifest、指标报告、generation/holdout 防泄漏测试。
-- [ ] 依赖：先用 static tool-call fixtures；Session A contract 稳定后接真实 read-only MCP smoke。
+- [x] 分支：`feat/game-mcp-eval`；worktree：`~/projects/sanmou-mcp-eval-dev`。
+- [x] 范围：独立 eval runner/scorer、scenario manifests、tool-log/sensorium metrics；未修改 live executor。
+- [x] 交付：离线 scenario battery、版本化 run manifest、指标报告、generation/holdout 防泄漏测试。
+- [x] 契约收口：eval 与最终 `pioneer_agent.mcp_server` 共用 `GAME_TOOL_ALLOWLIST`、`GAME_TOOL_ARGUMENTS` 和 `sanmou-game/v1`；scenario manifest 与 static transcript 参数均 fail closed，避免复制漂移。
+- [x] 真实 smoke：官方 `ClientSession` 经 stdio 完成 `list_tools`、contract-skeleton `get_runtime_state` 的 `not_observed` 错误和 closed-root `evaluate_fixture`；断言 7 个工具全只读、fixture 不写 live cache、无 live control。Review 另补 `evaluate_fixture` 参数值校验，拒绝 `.json`、路径穿越和非字符串伪成功记录；合并后 focused 56/56、Pioneer 767 tests OK（6 skip）、QA 306 tests OK。
 
 #### Session D — QA MCP modernization
 

@@ -12,6 +12,7 @@ from pioneer_agent.core.models import CaptureGeometry, CaptureWindowIdentity
 
 CONTRACT_VERSION = "sanmou-game/v1"
 EXECUTION_AUTHORITY = "none"
+SERVER_NAME = "sanmou-game"
 SESSION_STATUS_TOOL = "session_status"
 OBSERVE_GAME_TOOL = "observe_game"
 GET_RUNTIME_STATE_TOOL = "get_runtime_state"
@@ -238,6 +239,7 @@ GAME_TOOL_ARGUMENTS: Mapping[str, frozenset[str]] = MappingProxyType(
         EVALUATE_FIXTURE_TOOL: frozenset({"fixture"}),
     }
 )
+GAME_TOOL_ALLOWLIST = frozenset(GAME_TOOL_ARGUMENTS)
 GAME_TOOL_RESPONSE_MODELS: Mapping[str, type[ContractResponse]] = MappingProxyType(
     {
         SESSION_STATUS_TOOL: SessionStatusResponse,

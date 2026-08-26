@@ -20,12 +20,12 @@ from .contracts import (
     LastTraceResponse,
     ObserveGameResponse,
     RuntimeStateResponse,
+    SERVER_NAME,
     SessionStatusResponse,
 )
 from .service import GameMCPService, ObservationProvider
 
 
-SERVER_NAME = "sanmou-game"
 READ_ONLY_ANNOTATIONS = ToolAnnotations(
     readOnlyHint=True,
     destructiveHint=False,
@@ -38,6 +38,8 @@ READ_ONLY_REFRESH_ANNOTATIONS = ToolAnnotations(
     idempotentHint=False,
     openWorldHint=False,
 )
+
+
 class StrictFastMCP(FastMCP):
     """FastMCP v1 adapter using only public SDK extension methods."""
 

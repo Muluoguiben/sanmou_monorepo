@@ -1,0 +1,327 @@
+{
+  "schema_version": 1,
+  "artifact_type": "sanmou_mcp_static_transcripts",
+  "split": "generation",
+  "transcripts": [
+    {
+      "scenario_id": "home-observation",
+      "session_id": "session-home",
+      "capture_group_id": "capture-home",
+      "calls": [
+        {
+          "call_id": "home-status", "ordinal": 0, "tool_name": "session_status",
+          "arguments_summary": {}, "result_summary": {},
+          "started_at": "2026-08-26T10:00:00+08:00", "duration_ms": 2.0, "success": true,
+          "domains_queried": [], "domain_observed_at": {}, "observation_refs": [], "trace_refs": ["trace:home:status"],
+          "model_id": null, "session_id": "session-home", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        },
+        {
+          "call_id": "home-observe", "ordinal": 1, "tool_name": "observe_game",
+          "arguments_summary": {},
+          "result_summary": {"state_fields": {"page": "home", "economy.wood": 120000, "mode": "advisor"}, "unknown_domains": []},
+          "started_at": "2026-08-26T10:00:00.010000+08:00", "duration_ms": 18.0, "success": true,
+          "domains_queried": ["resource_bar", "mode_hub"],
+          "domain_observed_at": {"resource_bar": "2026-08-26T10:00:00.020000+08:00", "mode_hub": "2026-08-26T10:00:00.020000+08:00"},
+          "observation_refs": ["observation:home:1"], "trace_refs": ["trace:home:observe"],
+          "model_id": "static-vision-v1", "session_id": "session-home", "tool_cost_units": 1.0, "vision_cost_units": 2.0
+        },
+        {
+          "call_id": "home-candidates", "ordinal": 2, "tool_name": "list_action_candidates",
+          "arguments_summary": {},
+          "result_summary": {
+            "candidates": [{"action_type": "wait_for_resource", "evidence_refs": ["observation:home:1#resource_bar"], "blocked": false, "blockers": [], "verifier_ready": true, "executable": false}],
+            "terminal_outcome": "recommendation", "journal_steps": ["session_status", "observe_game", "list_action_candidates"]
+          },
+          "started_at": "2026-08-26T10:00:00.040000+08:00", "duration_ms": 3.0, "success": true,
+          "domains_queried": [], "domain_observed_at": {}, "observation_refs": ["observation:home:1"], "trace_refs": ["trace:home:candidates"],
+          "model_id": null, "session_id": "session-home", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        }
+      ]
+    },
+    {
+      "scenario_id": "chapter-claimable",
+      "session_id": "session-chapter-claimable",
+      "capture_group_id": "capture-chapter-claimable",
+      "calls": [
+        {
+          "call_id": "chapter-yes-status", "ordinal": 0, "tool_name": "session_status", "arguments_summary": {}, "result_summary": {},
+          "started_at": "2026-08-26T10:01:00+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {},
+          "observation_refs": [], "trace_refs": [], "model_id": null, "session_id": "session-chapter-claimable", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        },
+        {
+          "call_id": "chapter-yes-observe", "ordinal": 1, "tool_name": "observe_game", "arguments_summary": {},
+          "result_summary": {"state_fields": {"page": "chapter", "chapter.reward_claimable": true}, "unknown_domains": []},
+          "started_at": "2026-08-26T10:01:00.010000+08:00", "duration_ms": 21.0, "success": true,
+          "domains_queried": ["chapter_panel"], "domain_observed_at": {"chapter_panel": "2026-08-26T10:01:00.020000+08:00"},
+          "observation_refs": ["observation:chapter:claimable"], "trace_refs": [], "model_id": "static-vision-v1", "session_id": "session-chapter-claimable", "tool_cost_units": 1.0, "vision_cost_units": 2.0
+        },
+        {
+          "call_id": "chapter-yes-candidates", "ordinal": 2, "tool_name": "list_action_candidates", "arguments_summary": {},
+          "result_summary": {"candidates": [{"action_type": "claim_chapter_reward", "evidence_refs": ["observation:chapter:claimable#claim_button"], "blocked": false, "blockers": [], "verifier_ready": true, "executable": false}], "terminal_outcome": "recommendation", "journal_steps": ["session_status", "observe_game", "list_action_candidates"]},
+          "started_at": "2026-08-26T10:01:00.040000+08:00", "duration_ms": 3.0, "success": true, "domains_queried": [], "domain_observed_at": {},
+          "observation_refs": ["observation:chapter:claimable"], "trace_refs": ["trace:chapter:claimable"], "model_id": null, "session_id": "session-chapter-claimable", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        }
+      ]
+    },
+    {
+      "scenario_id": "chapter-not-claimable",
+      "session_id": "session-chapter-blocked",
+      "capture_group_id": "capture-chapter-blocked",
+      "calls": [
+        {
+          "call_id": "chapter-no-status", "ordinal": 0, "tool_name": "session_status", "arguments_summary": {}, "result_summary": {},
+          "started_at": "2026-08-26T10:02:00+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": [], "trace_refs": [], "model_id": null, "session_id": "session-chapter-blocked", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        },
+        {
+          "call_id": "chapter-no-observe", "ordinal": 1, "tool_name": "observe_game", "arguments_summary": {},
+          "result_summary": {"state_fields": {"page": "chapter", "chapter.reward_claimable": false}, "unknown_domains": []},
+          "started_at": "2026-08-26T10:02:00.010000+08:00", "duration_ms": 20.0, "success": true,
+          "domains_queried": ["chapter_panel"], "domain_observed_at": {"chapter_panel": "2026-08-26T10:02:00.020000+08:00"},
+          "observation_refs": ["observation:chapter:blocked"], "trace_refs": [], "model_id": "static-vision-v1", "session_id": "session-chapter-blocked", "tool_cost_units": 1.0, "vision_cost_units": 2.0
+        },
+        {
+          "call_id": "chapter-no-candidates", "ordinal": 2, "tool_name": "list_action_candidates", "arguments_summary": {},
+          "result_summary": {"candidates": [{"action_type": "claim_chapter_reward", "evidence_refs": ["observation:chapter:blocked#claim_button"], "blocked": true, "blockers": ["reward_not_claimable"], "verifier_ready": false, "executable": false}], "terminal_outcome": "recommendation", "journal_steps": ["session_status", "observe_game", "list_action_candidates"]},
+          "started_at": "2026-08-26T10:02:00.040000+08:00", "duration_ms": 3.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": ["observation:chapter:blocked"], "trace_refs": ["trace:chapter:blocked"], "model_id": null, "session_id": "session-chapter-blocked", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        }
+      ]
+    },
+    {
+      "scenario_id": "recruit-available",
+      "session_id": "session-recruit-available",
+      "capture_group_id": "capture-recruit-available",
+      "calls": [
+        {
+          "call_id": "recruit-yes-status", "ordinal": 0, "tool_name": "session_status", "arguments_summary": {}, "result_summary": {},
+          "started_at": "2026-08-26T10:03:00+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": [], "trace_refs": [], "model_id": null, "session_id": "session-recruit-available", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        },
+        {
+          "call_id": "recruit-yes-observe", "ordinal": 1, "tool_name": "observe_game", "arguments_summary": {},
+          "result_summary": {"state_fields": {"page": "recruit", "team.can_recruit_now": true, "team.soldiers": 2400}, "unknown_domains": []},
+          "started_at": "2026-08-26T10:03:00.010000+08:00", "duration_ms": 24.0, "success": true,
+          "domains_queried": ["recruit_panel", "team_panel"], "domain_observed_at": {"recruit_panel": "2026-08-26T10:03:00.020000+08:00", "team_panel": "2026-08-26T10:03:00.020000+08:00"},
+          "observation_refs": ["observation:recruit:available"], "trace_refs": [], "model_id": "static-vision-v1", "session_id": "session-recruit-available", "tool_cost_units": 1.0, "vision_cost_units": 2.0
+        },
+        {
+          "call_id": "recruit-yes-candidates", "ordinal": 2, "tool_name": "list_action_candidates", "arguments_summary": {},
+          "result_summary": {"candidates": [{"action_type": "recruit_soldiers", "evidence_refs": ["observation:recruit:available#recruit_button", "observation:recruit:available#team"], "blocked": false, "blockers": [], "verifier_ready": true, "executable": false}], "terminal_outcome": "recommendation", "journal_steps": ["session_status", "observe_game", "list_action_candidates"]},
+          "started_at": "2026-08-26T10:03:00.040000+08:00", "duration_ms": 3.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": ["observation:recruit:available"], "trace_refs": ["trace:recruit:available"], "model_id": null, "session_id": "session-recruit-available", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        }
+      ]
+    },
+    {
+      "scenario_id": "recruit-unavailable",
+      "session_id": "session-recruit-blocked",
+      "capture_group_id": "capture-recruit-blocked",
+      "calls": [
+        {
+          "call_id": "recruit-no-status", "ordinal": 0, "tool_name": "session_status", "arguments_summary": {}, "result_summary": {},
+          "started_at": "2026-08-26T10:04:00+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": [], "trace_refs": [], "model_id": null, "session_id": "session-recruit-blocked", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        },
+        {
+          "call_id": "recruit-no-observe", "ordinal": 1, "tool_name": "observe_game", "arguments_summary": {},
+          "result_summary": {"state_fields": {"page": "recruit", "team.can_recruit_now": false, "team.soldiers": 5000}, "unknown_domains": []},
+          "started_at": "2026-08-26T10:04:00.010000+08:00", "duration_ms": 23.0, "success": true,
+          "domains_queried": ["recruit_panel", "team_panel"], "domain_observed_at": {"recruit_panel": "2026-08-26T10:04:00.020000+08:00", "team_panel": "2026-08-26T10:04:00.020000+08:00"},
+          "observation_refs": ["observation:recruit:blocked"], "trace_refs": [], "model_id": "static-vision-v1", "session_id": "session-recruit-blocked", "tool_cost_units": 1.0, "vision_cost_units": 2.0
+        },
+        {
+          "call_id": "recruit-no-candidates", "ordinal": 2, "tool_name": "list_action_candidates", "arguments_summary": {},
+          "result_summary": {"candidates": [{"action_type": "recruit_soldiers", "evidence_refs": ["observation:recruit:blocked#team"], "blocked": true, "blockers": ["team_full"], "verifier_ready": false, "executable": false}], "terminal_outcome": "recommendation", "journal_steps": ["session_status", "observe_game", "list_action_candidates"]},
+          "started_at": "2026-08-26T10:04:00.040000+08:00", "duration_ms": 3.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": ["observation:recruit:blocked"], "trace_refs": ["trace:recruit:blocked"], "model_id": null, "session_id": "session-recruit-blocked", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        }
+      ]
+    },
+    {
+      "scenario_id": "building-upgrade-entry",
+      "session_id": "session-building-entry",
+      "capture_group_id": "capture-building-entry",
+      "calls": [
+        {
+          "call_id": "building-entry-status", "ordinal": 0, "tool_name": "session_status", "arguments_summary": {}, "result_summary": {},
+          "started_at": "2026-08-26T10:05:00+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": [], "trace_refs": [], "model_id": null, "session_id": "session-building-entry", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        },
+        {
+          "call_id": "building-entry-observe", "ordinal": 1, "tool_name": "observe_game", "arguments_summary": {},
+          "result_summary": {"state_fields": {"page": "city", "city.upgrade_entry_visible": true, "city.building": "main_hall"}, "unknown_domains": []},
+          "started_at": "2026-08-26T10:05:00.010000+08:00", "duration_ms": 22.0, "success": true,
+          "domains_queried": ["city_buildings"], "domain_observed_at": {"city_buildings": "2026-08-26T10:05:00.020000+08:00"},
+          "observation_refs": ["observation:building:entry"], "trace_refs": [], "model_id": "static-vision-v1", "session_id": "session-building-entry", "tool_cost_units": 1.0, "vision_cost_units": 2.0
+        },
+        {
+          "call_id": "building-entry-candidates", "ordinal": 2, "tool_name": "list_action_candidates", "arguments_summary": {},
+          "result_summary": {"candidates": [{"action_type": "upgrade_building", "evidence_refs": ["observation:building:entry#main_hall"], "blocked": false, "blockers": [], "verifier_ready": false, "executable": false}], "terminal_outcome": "recommendation", "journal_steps": ["session_status", "observe_game", "list_action_candidates"]},
+          "started_at": "2026-08-26T10:05:00.040000+08:00", "duration_ms": 3.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": ["observation:building:entry"], "trace_refs": ["trace:building:entry"], "model_id": null, "session_id": "session-building-entry", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        }
+      ]
+    },
+    {
+      "scenario_id": "building-upgrade-confirm",
+      "session_id": "session-building-confirm",
+      "capture_group_id": "capture-building-confirm",
+      "calls": [
+        {
+          "call_id": "building-confirm-status", "ordinal": 0, "tool_name": "session_status", "arguments_summary": {}, "result_summary": {},
+          "started_at": "2026-08-26T10:06:00+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": [], "trace_refs": [], "model_id": null, "session_id": "session-building-confirm", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        },
+        {
+          "call_id": "building-confirm-observe", "ordinal": 1, "tool_name": "observe_game", "arguments_summary": {},
+          "result_summary": {"state_fields": {"page": "city", "city.upgrade_confirm_visible": true, "city.resource_ready": true}, "unknown_domains": []},
+          "started_at": "2026-08-26T10:06:00.010000+08:00", "duration_ms": 25.0, "success": true,
+          "domains_queried": ["city_buildings", "upgrade_dialog"], "domain_observed_at": {"city_buildings": "2026-08-26T10:06:00.020000+08:00", "upgrade_dialog": "2026-08-26T10:06:00.020000+08:00"},
+          "observation_refs": ["observation:building:confirm"], "trace_refs": [], "model_id": "static-vision-v1", "session_id": "session-building-confirm", "tool_cost_units": 1.0, "vision_cost_units": 2.0
+        },
+        {
+          "call_id": "building-confirm-candidates", "ordinal": 2, "tool_name": "list_action_candidates", "arguments_summary": {},
+          "result_summary": {"candidates": [{"action_type": "upgrade_building", "evidence_refs": ["observation:building:confirm#confirm_button"], "blocked": false, "blockers": [], "verifier_ready": true, "executable": false}], "terminal_outcome": "recommendation", "journal_steps": ["session_status", "observe_game", "list_action_candidates"]},
+          "started_at": "2026-08-26T10:06:00.040000+08:00", "duration_ms": 3.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": ["observation:building:confirm"], "trace_refs": ["trace:building:confirm"], "model_id": null, "session_id": "session-building-confirm", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        }
+      ]
+    },
+    {
+      "scenario_id": "map-filter-positive",
+      "session_id": "session-map-positive",
+      "capture_group_id": "capture-map-positive",
+      "calls": [
+        {
+          "call_id": "map-positive-status", "ordinal": 0, "tool_name": "session_status", "arguments_summary": {}, "result_summary": {},
+          "started_at": "2026-08-26T10:07:00+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": [], "trace_refs": [], "model_id": null, "session_id": "session-map-positive", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        },
+        {
+          "call_id": "map-positive-eval", "ordinal": 1, "tool_name": "evaluate_fixture", "arguments_summary": {"fixture": "map-filter-positive.json"},
+          "result_summary": {"state_fields": {"page": "main_map", "map_filter.outcome": "positive"}, "unknown_domains": [], "no_change_recognized": false},
+          "started_at": "2026-08-26T10:07:00.010000+08:00", "duration_ms": 15.0, "success": true,
+          "domains_queried": ["map_land"], "domain_observed_at": {"map_land": "2026-08-26T10:07:00.020000+08:00"},
+          "observation_refs": ["observation:map:positive"], "trace_refs": ["trace:map:positive"], "model_id": null, "session_id": "session-map-positive", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        },
+        {
+          "call_id": "map-positive-trace", "ordinal": 2, "tool_name": "get_last_trace", "arguments_summary": {},
+          "result_summary": {"terminal_outcome": "recommendation", "journal_steps": ["session_status", "evaluate_fixture", "get_last_trace"]},
+          "started_at": "2026-08-26T10:07:00.040000+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": ["observation:map:positive"], "trace_refs": ["trace:map:positive"], "model_id": null, "session_id": "session-map-positive", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        }
+      ]
+    },
+    {
+      "scenario_id": "map-filter-no-change",
+      "session_id": "session-map-no-change",
+      "capture_group_id": "capture-map-no-change",
+      "calls": [
+        {
+          "call_id": "map-no-change-status", "ordinal": 0, "tool_name": "session_status", "arguments_summary": {}, "result_summary": {},
+          "started_at": "2026-08-26T10:08:00+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": [], "trace_refs": [], "model_id": null, "session_id": "session-map-no-change", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        },
+        {
+          "call_id": "map-no-change-eval", "ordinal": 1, "tool_name": "evaluate_fixture", "arguments_summary": {"fixture": "map-filter-no-change.json"},
+          "result_summary": {"state_fields": {"page": "main_map", "map_filter.outcome": "no_change"}, "unknown_domains": [], "no_change_recognized": true},
+          "started_at": "2026-08-26T10:08:00.010000+08:00", "duration_ms": 16.0, "success": true,
+          "domains_queried": ["map_land"], "domain_observed_at": {"map_land": "2026-08-26T10:08:00.020000+08:00"},
+          "observation_refs": ["observation:map:no-change"], "trace_refs": ["trace:map:no-change"], "model_id": null, "session_id": "session-map-no-change", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        },
+        {
+          "call_id": "map-no-change-trace", "ordinal": 2, "tool_name": "get_last_trace", "arguments_summary": {},
+          "result_summary": {"terminal_outcome": "stop", "stop_reason": "no_change", "journal_steps": ["session_status", "evaluate_fixture", "get_last_trace"]},
+          "started_at": "2026-08-26T10:08:00.040000+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": ["observation:map:no-change"], "trace_refs": ["trace:map:no-change"], "model_id": null, "session_id": "session-map-no-change", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        }
+      ]
+    },
+    {
+      "scenario_id": "map-filter-interrupted",
+      "session_id": "session-map-interrupted",
+      "capture_group_id": "capture-map-interrupted",
+      "failure_at": "2026-08-26T10:09:00.030000+08:00",
+      "calls": [
+        {
+          "call_id": "map-interrupted-status", "ordinal": 0, "tool_name": "session_status", "arguments_summary": {}, "result_summary": {},
+          "started_at": "2026-08-26T10:09:00+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": [], "trace_refs": [], "model_id": null, "session_id": "session-map-interrupted", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        },
+        {
+          "call_id": "map-interrupted-eval", "ordinal": 1, "tool_name": "evaluate_fixture", "arguments_summary": {"fixture": "map-filter-interrupted.json"},
+          "result_summary": {"state_fields": {"page": "popup", "map_filter.outcome": "interrupted"}, "unknown_domains": ["map_land"], "no_change_recognized": false},
+          "started_at": "2026-08-26T10:09:00.010000+08:00", "duration_ms": 17.0, "success": true,
+          "domains_queried": ["map_land", "popup"], "domain_observed_at": {"map_land": "2026-08-26T10:09:00.020000+08:00", "popup": "2026-08-26T10:09:00.020000+08:00"},
+          "observation_refs": ["observation:map:interrupted"], "trace_refs": ["trace:map:interrupted"], "model_id": null, "session_id": "session-map-interrupted", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        },
+        {
+          "call_id": "map-interrupted-trace", "ordinal": 2, "tool_name": "get_last_trace", "arguments_summary": {},
+          "result_summary": {"terminal_outcome": "recover", "stop_reason": "popup_interruption", "journal_steps": ["session_status", "evaluate_fixture", "get_last_trace"]},
+          "started_at": "2026-08-26T10:09:00.040000+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": ["observation:map:interrupted"], "trace_refs": ["trace:map:interrupted"], "model_id": null, "session_id": "session-map-interrupted", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        }
+      ]
+    },
+    {
+      "scenario_id": "map-filter-ambiguous",
+      "session_id": "session-map-ambiguous",
+      "capture_group_id": "capture-map-ambiguous",
+      "failure_at": "2026-08-26T10:10:00.030000+08:00",
+      "calls": [
+        {
+          "call_id": "map-ambiguous-status", "ordinal": 0, "tool_name": "session_status", "arguments_summary": {}, "result_summary": {},
+          "started_at": "2026-08-26T10:10:00+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": [], "trace_refs": [], "model_id": null, "session_id": "session-map-ambiguous", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        },
+        {
+          "call_id": "map-ambiguous-eval", "ordinal": 1, "tool_name": "evaluate_fixture", "arguments_summary": {"fixture": "map-filter-ambiguous.json"},
+          "result_summary": {"state_fields": {"page": "main_map", "map_filter.outcome": "ambiguous"}, "unknown_domains": ["map_land"], "no_change_recognized": false},
+          "started_at": "2026-08-26T10:10:00.010000+08:00", "duration_ms": 18.0, "success": true,
+          "domains_queried": ["map_land", "popup"], "domain_observed_at": {"map_land": "2026-08-26T10:10:00.020000+08:00", "popup": "2026-08-26T10:10:00.020000+08:00"},
+          "observation_refs": ["observation:map:ambiguous"], "trace_refs": ["trace:map:ambiguous"], "model_id": null, "session_id": "session-map-ambiguous", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        },
+        {
+          "call_id": "map-ambiguous-trace", "ordinal": 2, "tool_name": "get_last_trace", "arguments_summary": {},
+          "result_summary": {"terminal_outcome": "stop", "stop_reason": "ambiguous_target", "journal_steps": ["session_status", "evaluate_fixture", "get_last_trace"]},
+          "started_at": "2026-08-26T10:10:00.040000+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": ["observation:map:ambiguous"], "trace_refs": ["trace:map:ambiguous"], "model_id": null, "session_id": "session-map-ambiguous", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        }
+      ]
+    },
+    {
+      "scenario_id": "battle-report-partial",
+      "session_id": "session-battle-partial",
+      "capture_group_id": "capture-battle-partial",
+      "failure_at": "2026-08-26T10:11:00.030000+08:00",
+      "calls": [
+        {
+          "call_id": "battle-partial-status", "ordinal": 0, "tool_name": "session_status", "arguments_summary": {}, "result_summary": {},
+          "started_at": "2026-08-26T10:11:00+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": [], "trace_refs": [], "model_id": null, "session_id": "session-battle-partial", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        },
+        {
+          "call_id": "battle-partial-eval", "ordinal": 1, "tool_name": "evaluate_fixture", "arguments_summary": {"fixture": "battle-report-partial.json"},
+          "result_summary": {"state_fields": {"page": "battle_report", "battle.result": "partial"}, "unknown_domains": ["battle_report"]},
+          "started_at": "2026-08-26T10:11:00.010000+08:00", "duration_ms": 19.0, "success": true,
+          "domains_queried": ["battle_report"], "domain_observed_at": {"battle_report": "2026-08-26T10:11:00.020000+08:00"},
+          "observation_refs": ["observation:battle:partial"], "trace_refs": ["trace:battle:partial"], "model_id": null, "session_id": "session-battle-partial", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        },
+        {
+          "call_id": "battle-partial-candidates", "ordinal": 2, "tool_name": "list_action_candidates", "arguments_summary": {},
+          "result_summary": {"candidates": [{"action_type": "attack_land", "evidence_refs": ["observation:battle:partial#report"], "blocked": true, "blockers": ["battle_report_partial"], "verifier_ready": false, "executable": false}], "terminal_outcome": "stop", "stop_reason": "critical_domain_unknown", "journal_steps": ["session_status", "evaluate_fixture", "list_action_candidates"]},
+          "started_at": "2026-08-26T10:11:00.040000+08:00", "duration_ms": 3.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": ["observation:battle:partial"], "trace_refs": ["trace:battle:partial"], "model_id": null, "session_id": "session-battle-partial", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        }
+      ]
+    },
+    {
+      "scenario_id": "battle-report-conflict",
+      "session_id": "session-battle-conflict",
+      "capture_group_id": "capture-battle-conflict",
+      "failure_at": "2026-08-26T10:12:00.030000+08:00",
+      "calls": [
+        {
+          "call_id": "battle-conflict-status", "ordinal": 0, "tool_name": "session_status", "arguments_summary": {}, "result_summary": {},
+          "started_at": "2026-08-26T10:12:00+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": [], "trace_refs": [], "model_id": null, "session_id": "session-battle-conflict", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        },
+        {
+          "call_id": "battle-conflict-eval", "ordinal": 1, "tool_name": "evaluate_fixture", "arguments_summary": {"fixture": "battle-report-conflict.json"},
+          "result_summary": {"state_fields": {"page": "battle_report", "battle.result": "conflict"}, "unknown_domains": ["battle_report"]},
+          "started_at": "2026-08-26T10:12:00.010000+08:00", "duration_ms": 20.0, "success": true,
+          "domains_queried": ["battle_report"], "domain_observed_at": {"battle_report": "2026-08-26T10:12:00.020000+08:00"},
+          "observation_refs": ["observation:battle:conflict"], "trace_refs": ["trace:battle:conflict"], "model_id": null, "session_id": "session-battle-conflict", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        },
+        {
+          "call_id": "battle-conflict-candidates", "ordinal": 2, "tool_name": "list_action_candidates", "arguments_summary": {},
+          "result_summary": {"candidates": [{"action_type": "attack_land", "evidence_refs": ["observation:battle:conflict#report"], "blocked": true, "blockers": ["battle_report_conflict"], "verifier_ready": false, "executable": false}], "terminal_outcome": "stop", "stop_reason": "conflicting_evidence", "journal_steps": ["session_status", "evaluate_fixture", "list_action_candidates"]},
+          "started_at": "2026-08-26T10:12:00.040000+08:00", "duration_ms": 3.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": ["observation:battle:conflict"], "trace_refs": ["trace:battle:conflict"], "model_id": null, "session_id": "session-battle-conflict", "tool_cost_units": 1.0, "vision_cost_units": 0.0
+        }
+      ]
+    }
+  ],
+  "execution_authority": "none",
+  "live_control_used": false,
+  "oracle_labels_included": false
+}
