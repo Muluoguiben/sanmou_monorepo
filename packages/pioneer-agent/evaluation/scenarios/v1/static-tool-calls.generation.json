@@ -188,7 +188,7 @@
           "started_at": "2026-08-26T10:07:00+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": [], "trace_refs": [], "model_id": null, "session_id": "session-map-positive", "tool_cost_units": 1.0, "vision_cost_units": 0.0
         },
         {
-          "call_id": "map-positive-eval", "ordinal": 1, "tool_name": "evaluate_fixture", "arguments_summary": {"fixture": ".json"},
+          "call_id": "map-positive-eval", "ordinal": 1, "tool_name": "evaluate_fixture", "arguments_summary": {"fixture": "map-filter-positive.json"},
           "result_summary": {"state_fields": {"page": "main_map", "map_filter.outcome": "positive"}, "unknown_domains": [], "no_change_recognized": false},
           "started_at": "2026-08-26T10:07:00.010000+08:00", "duration_ms": 15.0, "success": true,
           "domains_queried": ["map_land"], "domain_observed_at": {"map_land": "2026-08-26T10:07:00.020000+08:00"},
@@ -211,7 +211,7 @@
           "started_at": "2026-08-26T10:08:00+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": [], "trace_refs": [], "model_id": null, "session_id": "session-map-no-change", "tool_cost_units": 1.0, "vision_cost_units": 0.0
         },
         {
-          "call_id": "map-no-change-eval", "ordinal": 1, "tool_name": "evaluate_fixture", "arguments_summary": {"fixture": ".json"},
+          "call_id": "map-no-change-eval", "ordinal": 1, "tool_name": "evaluate_fixture", "arguments_summary": {"fixture": "map-filter-no-change.json"},
           "result_summary": {"state_fields": {"page": "main_map", "map_filter.outcome": "no_change"}, "unknown_domains": [], "no_change_recognized": true},
           "started_at": "2026-08-26T10:08:00.010000+08:00", "duration_ms": 16.0, "success": true,
           "domains_queried": ["map_land"], "domain_observed_at": {"map_land": "2026-08-26T10:08:00.020000+08:00"},
@@ -235,7 +235,7 @@
           "started_at": "2026-08-26T10:09:00+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": [], "trace_refs": [], "model_id": null, "session_id": "session-map-interrupted", "tool_cost_units": 1.0, "vision_cost_units": 0.0
         },
         {
-          "call_id": "map-interrupted-eval", "ordinal": 1, "tool_name": "evaluate_fixture", "arguments_summary": {"fixture": ".json"},
+          "call_id": "map-interrupted-eval", "ordinal": 1, "tool_name": "evaluate_fixture", "arguments_summary": {"fixture": "map-filter-interrupted.json"},
           "result_summary": {"state_fields": {"page": "popup", "map_filter.outcome": "interrupted"}, "unknown_domains": ["map_land"], "no_change_recognized": false},
           "started_at": "2026-08-26T10:09:00.010000+08:00", "duration_ms": 17.0, "success": true,
           "domains_queried": ["map_land", "popup"], "domain_observed_at": {"map_land": "2026-08-26T10:09:00.020000+08:00", "popup": "2026-08-26T10:09:00.020000+08:00"},
@@ -259,7 +259,7 @@
           "started_at": "2026-08-26T10:10:00+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": [], "trace_refs": [], "model_id": null, "session_id": "session-map-ambiguous", "tool_cost_units": 1.0, "vision_cost_units": 0.0
         },
         {
-          "call_id": "map-ambiguous-eval", "ordinal": 1, "tool_name": "evaluate_fixture", "arguments_summary": {"fixture": ".json"},
+          "call_id": "map-ambiguous-eval", "ordinal": 1, "tool_name": "evaluate_fixture", "arguments_summary": {"fixture": "map-filter-ambiguous.json"},
           "result_summary": {"state_fields": {"page": "main_map", "map_filter.outcome": "ambiguous"}, "unknown_domains": ["map_land"], "no_change_recognized": false},
           "started_at": "2026-08-26T10:10:00.010000+08:00", "duration_ms": 18.0, "success": true,
           "domains_queried": ["map_land", "popup"], "domain_observed_at": {"map_land": "2026-08-26T10:10:00.020000+08:00", "popup": "2026-08-26T10:10:00.020000+08:00"},
@@ -283,7 +283,7 @@
           "started_at": "2026-08-26T10:11:00+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": [], "trace_refs": [], "model_id": null, "session_id": "session-battle-partial", "tool_cost_units": 1.0, "vision_cost_units": 0.0
         },
         {
-          "call_id": "battle-partial-eval", "ordinal": 1, "tool_name": "evaluate_fixture", "arguments_summary": {"fixture": ".json"},
+          "call_id": "battle-partial-eval", "ordinal": 1, "tool_name": "evaluate_fixture", "arguments_summary": {"fixture": "battle-report-partial.json"},
           "result_summary": {"state_fields": {"page": "battle_report", "battle.result": "partial"}, "unknown_domains": ["battle_report"]},
           "started_at": "2026-08-26T10:11:00.010000+08:00", "duration_ms": 19.0, "success": true,
           "domains_queried": ["battle_report"], "domain_observed_at": {"battle_report": "2026-08-26T10:11:00.020000+08:00"},
@@ -307,7 +307,7 @@
           "started_at": "2026-08-26T10:12:00+08:00", "duration_ms": 2.0, "success": true, "domains_queried": [], "domain_observed_at": {}, "observation_refs": [], "trace_refs": [], "model_id": null, "session_id": "session-battle-conflict", "tool_cost_units": 1.0, "vision_cost_units": 0.0
         },
         {
-          "call_id": "battle-conflict-eval", "ordinal": 1, "tool_name": "evaluate_fixture", "arguments_summary": {"fixture": ".json"},
+          "call_id": "battle-conflict-eval", "ordinal": 1, "tool_name": "evaluate_fixture", "arguments_summary": {"fixture": "battle-report-conflict.json"},
           "result_summary": {"state_fields": {"page": "battle_report", "battle.result": "conflict"}, "unknown_domains": ["battle_report"]},
           "started_at": "2026-08-26T10:12:00.010000+08:00", "duration_ms": 20.0, "success": true,
           "domains_queried": ["battle_report"], "domain_observed_at": {"battle_report": "2026-08-26T10:12:00.020000+08:00"},

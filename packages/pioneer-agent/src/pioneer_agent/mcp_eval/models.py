@@ -236,6 +236,11 @@ class ToolCallRecord(BaseModel):
                 f"arguments_summary must match {self.tool_name} TOOL_ARGUMENTS: "
                 f"{sorted(expected_arguments)}"
             )
+        if self.tool_name == "evaluate_fixture":
+            fixture = self.arguments_summary.get("fixture")
+            if not isinstance(fixture, str):
+                raise ValueError("evaluate_fixture fixture must be a string")
+            _relative_json_path(fixture, "arguments_summary.fixture")
         if not set(self.domain_observed_at).issubset(self.domains_queried):
             raise ValueError("domain_observed_at must only reference queried domains")
         return self

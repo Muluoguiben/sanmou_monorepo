@@ -15,7 +15,7 @@
       "session_id": "session-home",
       "capture_group_id": "capture-home",
       "fixture_path": "static-tool-calls.generation.json",
-      "fixture_sha256": "98cdf9e6f4c326e88976655222f562cd85d7dd07ea9029593c14c553724e062d",
+      "fixture_sha256": "329c8441c264afef8b38d78e6ba956bdebd0b8fc980acb239bde533d0341229f",
       "sensorium": {"critical_domains": ["resource_bar", "mode_hub"], "stale_after_seconds": {"resource_bar": 30.0, "mode_hub": 30.0}, "required_before_failure": []},
       "expectations": {
         "state_fields": {"page": "home", "economy.wood": 120000, "mode": "advisor"},
@@ -33,7 +33,7 @@
       "session_id": "session-chapter-claimable",
       "capture_group_id": "capture-chapter-claimable",
       "fixture_path": "static-tool-calls.generation.json",
-      "fixture_sha256": "98cdf9e6f4c326e88976655222f562cd85d7dd07ea9029593c14c553724e062d",
+      "fixture_sha256": "329c8441c264afef8b38d78e6ba956bdebd0b8fc980acb239bde533d0341229f",
       "sensorium": {"critical_domains": ["chapter_panel"], "stale_after_seconds": {"chapter_panel": 30.0}, "required_before_failure": []},
       "expectations": {
         "state_fields": {"page": "chapter", "chapter.reward_claimable": true},
@@ -51,7 +51,7 @@
       "session_id": "session-chapter-blocked",
       "capture_group_id": "capture-chapter-blocked",
       "fixture_path": "static-tool-calls.generation.json",
-      "fixture_sha256": "98cdf9e6f4c326e88976655222f562cd85d7dd07ea9029593c14c553724e062d",
+      "fixture_sha256": "329c8441c264afef8b38d78e6ba956bdebd0b8fc980acb239bde533d0341229f",
       "sensorium": {"critical_domains": ["chapter_panel"], "stale_after_seconds": {"chapter_panel": 30.0}, "required_before_failure": []},
       "expectations": {
         "state_fields": {"page": "chapter", "chapter.reward_claimable": false},
@@ -70,7 +70,7 @@
       "session_id": "session-recruit-available",
       "capture_group_id": "capture-recruit-available",
       "fixture_path": "static-tool-calls.generation.json",
-      "fixture_sha256": "98cdf9e6f4c326e88976655222f562cd85d7dd07ea9029593c14c553724e062d",
+      "fixture_sha256": "329c8441c264afef8b38d78e6ba956bdebd0b8fc980acb239bde533d0341229f",
       "sensorium": {"critical_domains": ["recruit_panel", "team_panel"], "stale_after_seconds": {"recruit_panel": 30.0, "team_panel": 30.0}, "required_before_failure": []},
       "expectations": {
         "state_fields": {"page": "recruit", "team.can_recruit_now": true, "team.soldiers": 2400},
@@ -88,7 +88,7 @@
       "session_id": "session-recruit-blocked",
       "capture_group_id": "capture-recruit-blocked",
       "fixture_path": "static-tool-calls.generation.json",
-      "fixture_sha256": "98cdf9e6f4c326e88976655222f562cd85d7dd07ea9029593c14c553724e062d",
+      "fixture_sha256": "329c8441c264afef8b38d78e6ba956bdebd0b8fc980acb239bde533d0341229f",
       "sensorium": {"critical_domains": ["recruit_panel", "team_panel"], "stale_after_seconds": {"recruit_panel": 30.0, "team_panel": 30.0}, "required_before_failure": []},
       "expectations": {
         "state_fields": {"page": "recruit", "team.can_recruit_now": false, "team.soldiers": 5000},
@@ -107,7 +107,7 @@
       "session_id": "session-building-entry",
       "capture_group_id": "capture-building-entry",
       "fixture_path": "static-tool-calls.generation.json",
-      "fixture_sha256": "98cdf9e6f4c326e88976655222f562cd85d7dd07ea9029593c14c553724e062d",
+      "fixture_sha256": "329c8441c264afef8b38d78e6ba956bdebd0b8fc980acb239bde533d0341229f",
       "sensorium": {"critical_domains": ["city_buildings"], "stale_after_seconds": {"city_buildings": 30.0}, "required_before_failure": []},
       "expectations": {
         "state_fields": {"page": "city", "city.upgrade_entry_visible": true, "city.building": "main_hall"},
@@ -125,7 +125,7 @@
       "session_id": "session-building-confirm",
       "capture_group_id": "capture-building-confirm",
       "fixture_path": "static-tool-calls.generation.json",
-      "fixture_sha256": "98cdf9e6f4c326e88976655222f562cd85d7dd07ea9029593c14c553724e062d",
+      "fixture_sha256": "329c8441c264afef8b38d78e6ba956bdebd0b8fc980acb239bde533d0341229f",
       "sensorium": {"critical_domains": ["city_buildings", "upgrade_dialog"], "stale_after_seconds": {"city_buildings": 30.0, "upgrade_dialog": 30.0}, "required_before_failure": []},
       "expectations": {
         "state_fields": {"page": "city", "city.upgrade_confirm_visible": true, "city.resource_ready": true},
@@ -143,7 +143,7 @@
       "session_id": "session-map-positive",
       "capture_group_id": "capture-map-positive",
       "fixture_path": "static-tool-calls.generation.json",
-      "fixture_sha256": "98cdf9e6f4c326e88976655222f562cd85d7dd07ea9029593c14c553724e062d",
+      "fixture_sha256": "329c8441c264afef8b38d78e6ba956bdebd0b8fc980acb239bde533d0341229f",
       "sensorium": {"critical_domains": ["map_land"], "stale_after_seconds": {"map_land": 30.0}, "required_before_failure": []},
       "expectations": {
         "state_fields": {"page": "main_map", "map_filter.outcome": "positive"},
@@ -161,7 +161,7 @@
       "session_id": "session-map-no-change",
       "capture_group_id": "capture-map-no-change",
       "fixture_path": "static-tool-calls.generation.json",
-      "fixture_sha256": "98cdf9e6f4c326e88976655222f562cd85d7dd07ea9029593c14c553724e062d",
+      "fixture_sha256": "329c8441c264afef8b38d78e6ba956bdebd0b8fc980acb239bde533d0341229f",
       "sensorium": {"critical_domains": ["map_land"], "stale_after_seconds": {"map_land": 30.0}, "required_before_failure": []},
       "expectations": {
         "state_fields": {"page": "main_map", "map_filter.outcome": "no_change"},
@@ -179,7 +179,7 @@
       "session_id": "session-map-interrupted",
       "capture_group_id": "capture-map-interrupted",
       "fixture_path": "static-tool-calls.generation.json",
-      "fixture_sha256": "98cdf9e6f4c326e88976655222f562cd85d7dd07ea9029593c14c553724e062d",
+      "fixture_sha256": "329c8441c264afef8b38d78e6ba956bdebd0b8fc980acb239bde533d0341229f",
       "sensorium": {"critical_domains": ["map_land", "popup"], "stale_after_seconds": {"map_land": 30.0, "popup": 30.0}, "required_before_failure": ["map_land", "popup"]},
       "expectations": {
         "state_fields": {"page": "popup", "map_filter.outcome": "interrupted"},
@@ -197,7 +197,7 @@
       "session_id": "session-map-ambiguous",
       "capture_group_id": "capture-map-ambiguous",
       "fixture_path": "static-tool-calls.generation.json",
-      "fixture_sha256": "98cdf9e6f4c326e88976655222f562cd85d7dd07ea9029593c14c553724e062d",
+      "fixture_sha256": "329c8441c264afef8b38d78e6ba956bdebd0b8fc980acb239bde533d0341229f",
       "sensorium": {"critical_domains": ["map_land", "popup"], "stale_after_seconds": {"map_land": 30.0, "popup": 30.0}, "required_before_failure": ["map_land", "popup"]},
       "expectations": {
         "state_fields": {"page": "main_map", "map_filter.outcome": "ambiguous"},
@@ -215,7 +215,7 @@
       "session_id": "session-battle-partial",
       "capture_group_id": "capture-battle-partial",
       "fixture_path": "static-tool-calls.generation.json",
-      "fixture_sha256": "98cdf9e6f4c326e88976655222f562cd85d7dd07ea9029593c14c553724e062d",
+      "fixture_sha256": "329c8441c264afef8b38d78e6ba956bdebd0b8fc980acb239bde533d0341229f",
       "sensorium": {"critical_domains": ["battle_report"], "stale_after_seconds": {"battle_report": 30.0}, "required_before_failure": ["battle_report"]},
       "expectations": {
         "state_fields": {"page": "battle_report", "battle.result": "partial"},
@@ -234,7 +234,7 @@
       "session_id": "session-battle-conflict",
       "capture_group_id": "capture-battle-conflict",
       "fixture_path": "static-tool-calls.generation.json",
-      "fixture_sha256": "98cdf9e6f4c326e88976655222f562cd85d7dd07ea9029593c14c553724e062d",
+      "fixture_sha256": "329c8441c264afef8b38d78e6ba956bdebd0b8fc980acb239bde533d0341229f",
       "sensorium": {"critical_domains": ["battle_report"], "stale_after_seconds": {"battle_report": 30.0}, "required_before_failure": ["battle_report"]},
       "expectations": {
         "state_fields": {"page": "battle_report", "battle.result": "conflict"},
@@ -253,7 +253,7 @@
       "session_id": "session-holdout-map-filter",
       "capture_group_id": "capture-holdout-map-filter",
       "fixture_path": "static-tool-calls.holdout.json",
-      "fixture_sha256": "e1c377cf5dadf0598a198dafdc71a815fbd23c1fe2505b060d9263602e562075",
+      "fixture_sha256": "8cf263c1ae98d73dcbec4ea4428cbb4228bc4b31c7416181e24a7042c970c2b1",
       "sensorium": {"critical_domains": ["map_land"], "stale_after_seconds": {"map_land": 30.0}, "required_before_failure": []}
     }
   ],

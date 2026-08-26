@@ -15,7 +15,7 @@
           "session_id": "session-holdout-map-filter", "tool_cost_units": 1.0, "vision_cost_units": 0.0
         },
         {
-          "call_id": "holdout-eval", "ordinal": 1, "tool_name": "evaluate_fixture", "arguments_summary": {"fixture": ".json"},
+          "call_id": "holdout-eval", "ordinal": 1, "tool_name": "evaluate_fixture", "arguments_summary": {"fixture": "holdout-map-filter.json"},
           "result_summary": {"state_fields": {"page": "main_map", "map_filter.outcome": "positive"}, "unknown_domains": [], "no_change_recognized": false},
           "started_at": "2026-08-26T11:00:00.010000+08:00", "duration_ms": 15.0, "success": true,
           "domains_queried": ["map_land"], "domain_observed_at": {"map_land": "2026-08-26T11:00:00.020000+08:00"},

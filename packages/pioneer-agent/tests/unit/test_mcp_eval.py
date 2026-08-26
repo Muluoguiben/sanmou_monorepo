@@ -208,6 +208,9 @@ class McpEvalTests(unittest.TestCase):
             ("get_last_trace", {"limit": 1}),
             ("evaluate_fixture", {"fixture_id": "sample"}),
             ("evaluate_fixture", {}),
+            ("evaluate_fixture", {"fixture": ".json"}),
+            ("evaluate_fixture", {"fixture": "../private.json"}),
+            ("evaluate_fixture", {"fixture": 1}),
         )
         for tool_name, arguments in cases:
             with self.subTest(tool_name=tool_name), self.assertRaises(ValidationError):
