@@ -13,28 +13,20 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, field_validator, model_validator
 
+from pioneer_agent.mcp_server.contracts import (
+    CONTRACT_VERSION,
+    TOOL_ALLOWLIST,
+    TOOL_ARGUMENTS,
+)
 from pioneer_agent.record_replay.validation import validate_identifier, validate_unique_strings
 
 
 SCENARIO_SCHEMA_VERSION = 1
 TRANSCRIPT_SCHEMA_VERSION = 1
 RUN_SCHEMA_VERSION = 1
-STATIC_TOOL_SCHEMA_VERSION = "sanmou-game-readonly-static-v1"
 SHA256_PATTERN = r"^[0-9a-f]{64}$"
 GIT_SHA_PATTERN = r"^[0-9a-f]{40,64}$"
 MAX_SUMMARY_BYTES = 65_536
-
-READ_ONLY_TOOL_NAMES = frozenset(
-    {
-        "session_status",
-        "observe_game",
-        "get_runtime_state",
-        "get_advisor_report",
-        "list_action_candidates",
-        "get_last_trace",
-        "evaluate_fixture",
-    }
-)
 
 DomainName = Literal[
     "resource_bar",
@@ -207,7 +199,7 @@ class ToolCallRecord(BaseModel):
     @field_validator("tool_name")
     @classmethod
     def _read_only_tool(cls, value: str) -> str:
-        if value not in READ_ONLY_TOOL_NAMES:
+        if value not in TOOL_ALLOWLIST:
             raise ValueError(f"tool is not in the read-only MCP allowlist: {value}")
         return value
 
@@ -237,6 +229,13 @@ class ToolCallRecord(BaseModel):
 
     @model_validator(mode="after")
     def _queried_domains_bind_observations(self) -> ToolCallRecord:
+        expected_arguments = TOOL_ARGUMENTS[self.tool_name]
+        actual_arguments = frozenset(self.arguments_summary)
+        if actual_arguments != expected_arguments:
+            raise ValueError(
+                f"arguments_summary must match {self.tool_name} TOOL_ARGUMENTS: "
+                f"{sorted(expected_arguments)}"
+            )
         if not set(self.domain_observed_at).issubset(self.domains_queried):
             raise ValueError("domain_observed_at must only reference queried domains")
         return self
@@ -356,7 +355,7 @@ class ScenarioExpectations(BaseModel):
     @field_validator("required_tool_calls")
     @classmethod
     def _required_calls_are_read_only(cls, values: list[str]) -> list[str]:
-        invalid = sorted(set(values) - READ_ONLY_TOOL_NAMES)
+        invalid = sorted(set(values) - TOOL_ALLOWLIST)
         if invalid:
             raise ValueError(f"required tools are not read-only: {invalid}")
         return values
@@ -385,7 +384,7 @@ class ScenarioManifest(BaseModel):
     capture_group_id: str
     fixture_path: str
     fixture_sha256: str = Field(pattern=SHA256_PATTERN)
-    tool_schema_version: Literal[STATIC_TOOL_SCHEMA_VERSION] = STATIC_TOOL_SCHEMA_VERSION
+    contract_version: str
     sensorium: SensoriumPolicy
     expectations: ScenarioExpectations | None = None
     execution_authority: Literal["none"] = "none"
@@ -402,6 +401,13 @@ class ScenarioManifest(BaseModel):
     @classmethod
     def _fixture_path(cls, value: str) -> str:
         return _relative_json_path(value, "fixture_path")
+
+    @field_validator("contract_version")
+    @classmethod
+    def _contract_version(cls, value: str) -> str:
+        if value != CONTRACT_VERSION:
+            raise ValueError(f"contract_version must be {CONTRACT_VERSION}")
+        return value
 
     @model_validator(mode="after")
     def _split_boundary(self) -> ScenarioManifest:
@@ -422,7 +428,7 @@ class BatteryManifest(BaseModel):
     schema_version: Literal[1] = SCENARIO_SCHEMA_VERSION
     artifact_type: Literal["sanmou_mcp_eval_battery"] = "sanmou_mcp_eval_battery"
     battery_id: str
-    tool_schema_version: Literal[STATIC_TOOL_SCHEMA_VERSION] = STATIC_TOOL_SCHEMA_VERSION
+    contract_version: str
     prompt_version: str
     playbook_version: str
     scenarios: list[ScenarioManifest] = Field(min_length=1, max_length=256)
@@ -434,6 +440,13 @@ class BatteryManifest(BaseModel):
     @classmethod
     def _ids(cls, value: str, info: Any) -> str:
         return _identifier(value, info.field_name)
+
+    @field_validator("contract_version")
+    @classmethod
+    def _contract_version(cls, value: str) -> str:
+        if value != CONTRACT_VERSION:
+            raise ValueError(f"contract_version must be {CONTRACT_VERSION}")
+        return value
 
     @model_validator(mode="after")
     def _global_split_isolation(self) -> BatteryManifest:
@@ -451,6 +464,11 @@ class BatteryManifest(BaseModel):
                 previous = seen.setdefault(value, scenario.split)
                 if previous != scenario.split:
                     raise ValueError(f"{label} crosses generation/holdout split: {value}")
+        if any(
+            scenario.contract_version != self.contract_version
+            for scenario in self.scenarios
+        ):
+            raise ValueError("scenario contract_version must match the battery contract")
         return self
 
 
@@ -549,7 +567,7 @@ class RunManifest(BaseModel):
     run_id: str
     battery_id: str
     repo_sha: str = Field(pattern=GIT_SHA_PATTERN)
-    tool_schema_version: str
+    contract_version: str
     fixture_catalog_digest: str = Field(pattern=SHA256_PATTERN)
     model_provider: str
     model_id: str
@@ -569,6 +587,13 @@ class RunManifest(BaseModel):
     @classmethod
     def _ids(cls, value: str, info: Any) -> str:
         return _identifier(value, info.field_name)
+
+    @field_validator("contract_version")
+    @classmethod
+    def _contract_version(cls, value: str) -> str:
+        if value != CONTRACT_VERSION:
+            raise ValueError(f"contract_version must be {CONTRACT_VERSION}")
+        return value
 
     @field_validator("started_at", "ended_at")
     @classmethod

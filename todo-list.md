@@ -92,10 +92,11 @@
 
 #### Session C — MCP eval/observability
 
-- [ ] 分支：`feat/game-mcp-eval`；worktree：`~/projects/sanmou-mcp-eval-dev`。
-- [ ] 范围：独立 eval runner/scorer、scenario manifests、tool-log/sensorium metrics；不修改 live executor。
-- [ ] 交付：离线 scenario battery、版本化 run manifest、指标报告、generation/holdout 防泄漏测试。
-- [ ] 依赖：先用 static tool-call fixtures；Session A contract 稳定后接真实 read-only MCP smoke。
+- [x] 分支：`feat/game-mcp-eval`；worktree：`~/projects/sanmou-mcp-eval-dev`。
+- [x] 范围：独立 eval runner/scorer、scenario manifests、tool-log/sensorium metrics；未修改 live executor。
+- [x] 交付：离线 scenario battery、版本化 run manifest、指标报告、generation/holdout 防泄漏测试。
+- [x] 契约收口：eval 与最终 `pioneer_agent.mcp_server` 共用 `TOOL_ALLOWLIST`、`TOOL_ARGUMENTS` 和 `sanmou-game/v1`；scenario manifest 与 static transcript 参数均 fail closed，避免复制漂移。
+- [x] 真实 smoke：官方 `ClientSession` 经 stdio 完成 `list_tools`、contract-skeleton `get_runtime_state` 的 `not_observed` 错误和 closed-root `evaluate_fixture`；断言 7 个工具全只读、fixture 不写 live cache、无 live control。
 
 #### Session D — QA MCP modernization
 

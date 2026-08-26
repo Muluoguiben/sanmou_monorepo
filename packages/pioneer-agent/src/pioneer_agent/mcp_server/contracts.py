@@ -10,6 +10,17 @@ from pioneer_agent.core.models import CaptureGeometry, CaptureWindowIdentity
 
 CONTRACT_VERSION = "sanmou-game/v1"
 EXECUTION_AUTHORITY = "none"
+SERVER_NAME = "sanmou-game"
+TOOL_ARGUMENTS = {
+    "session_status": frozenset(),
+    "observe_game": frozenset(),
+    "get_runtime_state": frozenset(),
+    "get_advisor_report": frozenset(),
+    "list_action_candidates": frozenset(),
+    "get_last_trace": frozenset(),
+    "evaluate_fixture": frozenset({"fixture"}),
+}
+TOOL_ALLOWLIST = frozenset(TOOL_ARGUMENTS)
 
 ResponseStatus = Literal[
     "ok",

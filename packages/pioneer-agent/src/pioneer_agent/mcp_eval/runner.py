@@ -140,7 +140,7 @@ def run_battery(
         run_id=f"run-{uuid4().hex}",
         battery_id=loaded.manifest.battery_id,
         repo_sha=repo_sha,
-        tool_schema_version=loaded.manifest.tool_schema_version,
+        contract_version=loaded.manifest.contract_version,
         fixture_catalog_digest=catalog_digest,
         model_provider=model_provider,
         model_id=model_id,

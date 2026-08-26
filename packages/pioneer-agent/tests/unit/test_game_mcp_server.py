@@ -19,6 +19,7 @@ from pioneer_agent.mcp_server.server import (
     build_live_service,
     create_server,
 )
+from pioneer_agent.mcp_server import CONTRACT_VERSION, TOOL_ALLOWLIST, TOOL_ARGUMENTS
 from pioneer_agent.mcp_server.service import GameMCPService
 
 
@@ -40,12 +41,17 @@ class GameMCPServerTests(unittest.TestCase):
 
         tools = asyncio.run(inspect_tools())
         self.assertEqual({tool.name for tool in tools}, TOOL_NAMES)
+        self.assertEqual(TOOL_NAMES, TOOL_ALLOWLIST)
         for tool in tools:
             with self.subTest(tool=tool.name):
                 self.assertTrue(tool.annotations.readOnlyHint)
                 self.assertFalse(tool.annotations.destructiveHint)
                 self.assertFalse(tool.annotations.openWorldHint)
                 self.assertEqual(tool.inputSchema["additionalProperties"], False)
+                self.assertEqual(
+                    frozenset(tool.inputSchema.get("properties", {})),
+                    TOOL_ARGUMENTS[tool.name],
+                )
                 self.assertIn("outputSchema", tool.model_dump(by_alias=True, exclude_none=True))
         observe = next(tool for tool in tools if tool.name == "observe_game")
         self.assertFalse(observe.annotations.idempotentHint)
@@ -177,18 +183,45 @@ class GameMCPServerTests(unittest.TestCase):
                     initialized = await session.initialize()
                     self.assertEqual(initialized.serverInfo.name, "sanmou-game")
                     listed = await session.list_tools()
-                    self.assertEqual({tool.name for tool in listed.tools}, TOOL_NAMES)
+                    self.assertEqual({tool.name for tool in listed.tools}, TOOL_ALLOWLIST)
+                    self.assertTrue(
+                        all(tool.annotations.readOnlyHint for tool in listed.tools)
+                    )
+                    self.assertTrue(
+                        {tool.name for tool in listed.tools}.isdisjoint(
+                            {"click", "press_key", "prepare_action", "execute_prepared_action"}
+                        )
+                    )
                     status = await session.call_tool("session_status", {})
                     self.assertFalse(status.isError)
+                    self.assertEqual(
+                        status.structuredContent["contract_version"], CONTRACT_VERSION
+                    )
                     self.assertEqual(status.structuredContent["execution_authority"], "none")
+                    self.assertIsNone(status.structuredContent["session"])
+                    state = await session.call_tool("get_runtime_state", {})
+                    self.assertFalse(state.isError)
+                    self.assertEqual(state.structuredContent["status"], "not_observed")
+                    self.assertEqual(
+                        state.structuredContent["error"]["code"], "not_observed"
+                    )
+                    self.assertEqual(state.structuredContent["execution_authority"], "none")
                     fixture = await session.call_tool(
                         "evaluate_fixture",
                         {"fixture": "chapter_claimable_state.json"},
                     )
                     self.assertFalse(fixture.isError)
+                    self.assertEqual(fixture.structuredContent["status"], "ok")
+                    self.assertEqual(
+                        fixture.structuredContent["contract_version"], CONTRACT_VERSION
+                    )
                     self.assertFalse(fixture.structuredContent["live_source_used"])
                     self.assertFalse(
                         fixture.structuredContent["evaluation"]["selected_action"]["executable"]
+                    )
+                    state_after_fixture = await session.call_tool("get_runtime_state", {})
+                    self.assertEqual(
+                        state_after_fixture.structuredContent["status"], "not_observed"
                     )
 
         asyncio.run(smoke())

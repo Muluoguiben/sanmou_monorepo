@@ -23,6 +23,7 @@ from pioneer_agent.mcp_eval.models import (
 )
 from pioneer_agent.mcp_eval.runner import load_battery, run_battery, write_run_artifacts
 from pioneer_agent.mcp_eval.scoring import score_scenario
+from pioneer_agent.mcp_server import CONTRACT_VERSION, TOOL_ALLOWLIST, TOOL_ARGUMENTS
 
 
 REPO_SHA = "94bbe7d887bb7bb0425ef773efdc68d41043286f"
@@ -60,6 +61,19 @@ class McpEvalTests(unittest.TestCase):
         self.assertEqual(generation, EXPECTED_GENERATION_SCENARIOS)
         self.assertEqual(holdout, {"holdout-map-filter"})
         self.assertEqual(len(loaded.transcripts), 14)
+        self.assertEqual(loaded.manifest.contract_version, CONTRACT_VERSION)
+        self.assertEqual(
+            {scenario.contract_version for scenario in loaded.manifest.scenarios},
+            {CONTRACT_VERSION},
+        )
+        for transcript in loaded.transcripts.values():
+            for call in transcript.calls:
+                with self.subTest(scenario=transcript.scenario_id, call=call.call_id):
+                    self.assertIn(call.tool_name, TOOL_ALLOWLIST)
+                    self.assertEqual(
+                        frozenset(call.arguments_summary),
+                        TOOL_ARGUMENTS[call.tool_name],
+                    )
         self.assertTrue(
             all(
                 scenario.execution_authority == "none"
@@ -99,7 +113,7 @@ class McpEvalTests(unittest.TestCase):
 
         self.assertEqual(manifest.schema_version, 1)
         self.assertEqual(manifest.repo_sha, REPO_SHA)
-        self.assertEqual(manifest.tool_schema_version, "sanmou-game-readonly-static-v1")
+        self.assertEqual(manifest.contract_version, CONTRACT_VERSION)
         self.assertEqual(manifest.prompt_version, "recommendation-only-v1")
         self.assertEqual(manifest.playbook_version, "decision-window-v1")
         self.assertEqual(manifest.random_seed, 19)
@@ -186,6 +200,35 @@ class McpEvalTests(unittest.TestCase):
         for tool_name in ("click", "execute_prepared_action", "press_key"):
             with self.subTest(tool_name=tool_name), self.assertRaises(ValidationError):
                 ToolCallRecord.model_validate({**data, "tool_name": tool_name})
+
+    def test_tool_arguments_must_match_server_contract(self) -> None:
+        cases = (
+            ("session_status", {"refresh": True}),
+            ("observe_game", {"source": "static_fixture"}),
+            ("get_last_trace", {"limit": 1}),
+            ("evaluate_fixture", {"fixture_id": "sample"}),
+            ("evaluate_fixture", {}),
+        )
+        for tool_name, arguments in cases:
+            with self.subTest(tool_name=tool_name), self.assertRaises(ValidationError):
+                ToolCallRecord.model_validate(
+                    {
+                        **_minimal_tool_call(),
+                        "tool_name": tool_name,
+                        "arguments_summary": arguments,
+                    }
+                )
+
+    def test_battery_and_scenarios_reject_contract_version_drift(self) -> None:
+        raw = _battery_json()
+        raw["contract_version"] = "sanmou-game/v2"
+        with self.assertRaises(ValidationError):
+            BatteryManifest.model_validate(raw)
+
+        raw = _battery_json()
+        raw["scenarios"][0]["contract_version"] = "sanmou-game/v2"
+        with self.assertRaises(ValidationError):
+            BatteryManifest.model_validate(raw)
 
     def test_sensitive_or_raw_payload_is_rejected_from_tool_log(self) -> None:
         for arguments in (
