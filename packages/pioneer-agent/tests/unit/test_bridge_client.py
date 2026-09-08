@@ -4,6 +4,7 @@ import base64
 import hashlib
 import io
 import unittest
+from datetime import UTC, datetime
 from pathlib import Path
 from unittest.mock import patch
 
@@ -31,7 +32,15 @@ class StubBridgeClient(BridgeClient):
     def _read_line(self) -> dict[str, object]:
         if not self.responses:
             return {"status": "ok"}
-        return self.responses.pop(0)
+        response = self.responses.pop(0)
+        if self.sent and "request_id" in self.sent[-1]:
+            response = {
+                "protocol_version": 2,
+                "request_id": self.sent[-1]["request_id"],
+                "captured_at": datetime.now(UTC).isoformat(),
+                **response,
+            }
+        return response
 
 
 class BridgeClientTests(unittest.TestCase):
@@ -52,7 +61,10 @@ class BridgeClientTests(unittest.TestCase):
             client.last_screenshot.capture_geometry.model_dump(mode="json"),
             geometry,
         )
-        self.assertEqual(client.sent, [{"cmd": "screenshot", "backend": "wgc"}])
+        self.assertEqual(client.sent[0]["cmd"], "screenshot")
+        self.assertEqual(client.sent[0]["backend"], "wgc")
+        self.assertEqual(client.sent[0]["protocol_version"], 2)
+        self.assertEqual(client.sent[0]["request_id"], client.last_screenshot.request_id)
 
     def test_screenshot_from_old_server_without_geometry_fails_closed(self) -> None:
         client = StubBridgeClient()
@@ -92,8 +104,11 @@ class BridgeClientTests(unittest.TestCase):
         client = StubBridgeClient()
         client.responses.append({"status": "ok", "windows": []})
 
-        self.assertEqual(client.list_windows("三国"), {"status": "ok", "windows": []})
-        self.assertEqual(client.sent, [{"cmd": "list_windows", "title": "三国"}])
+        response = client.list_windows("三国")
+        self.assertEqual(response["windows"], [])
+        self.assertEqual(response["request_id"], client.sent[0]["request_id"])
+        self.assertEqual(client.sent[0]["cmd"], "list_windows")
+        self.assertEqual(client.sent[0]["title"], "三国")
 
     def test_old_atomic_server_without_geometry_capability_fails_closed(self) -> None:
         client = StubBridgeClient()

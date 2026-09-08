@@ -1,54 +1,59 @@
----
-name: Bridge Screenshot Architecture
-description: WSL↔Windows 游戏截图桥接架构——dxcam + proxy 前台切换方案，解决 DX 游戏捕获难题
-type: reference
----
+# Windows capture bridge
 
-## 架构
+The Windows server binds only `127.0.0.1` and implements capture protocol v2.
+It serves `ping`, `capabilities`, `screenshot`, `window_info`, `list_windows`
+and connection-local `quit`. Every input command, including fully guarded
+clicks, is rejected before any window lookup or dispatch. No control flag exists.
+Legacy guarded primitives remain for offline tests; they are not reachable
+through the server. Canonical Game MCP seven-tool and QA six-tool catalogs are
+unchanged; execution authority remains none.
 
-```
-WSL Python (BridgeClient)
-  → python.exe bridge_proxy.py (stdin/stdout JSON, 短命进程)
-    → TCP localhost:9877
-      → python.exe win_bridge_server.py (长驻后台)
-        → dxcam (DXGI Desktop Duplication) → 游戏 PNG
-```
+## Authentication and launch
 
-## 关键文件
+An operator must provision the same cryptographically random bearer token
+(at least 32 ASCII characters) as `SANMOU_CAPTURE_TOKEN` in the server and
+client/proxy environments. No default credential, CLI token argument, credential
+file or secret logging exists. Missing credentials fail before listening.
+For WSL, explicitly arrange Windows proxy environment propagation; do not put
+the token into command lines, reports or repository `.env` files.
 
-- `pioneer-agent/src/pioneer_agent/adapters/bridge_client.py` — WSL 侧客户端
-- `pioneer-agent/src/pioneer_agent/adapters/bridge_proxy.py` — Windows python.exe 中转代理
-- `pioneer-agent/src/pioneer_agent/adapters/win_bridge_server.py` — Windows 侧截图/点击服务
-- `D:\win_bridge_server.py` — server 的 Windows 运行副本
+Run the server from the current source tree in an ordinary Windows process:
 
-## 踩过的坑
-
-1. **mss/BitBlt 对 DirectX 窗口返回全黑** — 必须用 dxcam (DXGI Desktop Duplication)
-2. **PrintWindow(PW_RENDERFULLCONTENT=2) 对游戏也无效** — 返回空白 PNG
-3. **长驻 bridge server 无法 SetForegroundWindow** — Windows 限制后台进程切前台；解决方案：在 proxy（短命 python.exe 进程）里做前台切换
-4. **多个旧 bridge server 堆积** — 重启前必须 `taskkill /F /IM python.exe` 杀干净
-5. **游戏最小化时 GetWindowRect 返回 (-32000, -32000)** — 需要 `SendMessage(WM_SYSCOMMAND, SC_RESTORE)` 恢复
-
-## 启动方式
-
-```bash
-# 杀旧进程 + 启动 server
-cmd.exe /C "taskkill /F /IM python.exe >nul 2>&1"
-sleep 2
-cd /mnt/c && python.exe D:\\win_bridge_server.py &
-
-# 测试
-cd packages/pioneer-agent && PYTHONPATH=src python3 -c "
-from pioneer_agent.adapters.bridge_client import BridgeClient
-c = BridgeClient(); c.connect()
-data = c.screenshot()
-print(f'{len(data)} bytes')
-c.close()
-"
+```powershell
+python packages/pioneer-agent/src/pioneer_agent/adapters/win_bridge_server.py --capture-backend wgc
 ```
 
-## Windows 侧依赖
+Do not run this user-writable Python as a privileged broker. High-integrity
+capture that is blocked from an ordinary process remains a live blocker.
+Loopback bearer authentication excludes unauthorized peers but is not an
+isolation boundary against a compromised process of the same OS user.
 
-```
-pip install dxcam opencv-python-headless pyautogui pywin32 Pillow
-```
+## Observation chain
+
+`WindowsBridgeCaptureAdapter -> CaptureBridgeClient -> bridge_proxy.py ->
+loopback server -> win_capture.py`. The observation import graph excludes the
+legacy `BridgeClient`, control adapters and executor. Capture requires an
+already-visible, non-minimized window. It never restores or foregrounds it.
+On WSL, proxy paths are converted by `wslpath -w -a`, respecting the current
+distro and mount configuration. Windows-backed paths become drive paths;
+Linux filesystem paths use the actual distro UNC. Missing, failed, timed-out
+or invalid conversion stops before proxy launch. No shell interpolation or
+hardcoded distro/mount root is used. This path conversion does not configure
+authentication environment propagation across the WSL/Windows boundary.
+Prefer WGC for window-scoped pixels; DXGI captures the visible desktop rectangle
+and can contain occluding windows, so its visual provenance needs separate QA.
+
+Protocol v2 binds responses to a unique request ID. Screenshot responses carry
+SHA256, byte length, exact capture geometry and an aware server acquisition-start
+time. The client rejects timestamps outside its request interval (including
+clock disagreement), mismatched IDs, obsolete peers and malformed frames.
+Acquisition-start time is conservative; processing and network delays never
+make a frame newer. Failure closes the TCP stream and proxy and invalidates
+cached screenshot bindings; retrying requires a fresh connection. No replay of
+late frames or automatic control retries is allowed.
+
+The retired Highest controller installer and script are tombstones. Existing
+external installed copies and services are not modified by this repository
+change. Their removal, any broker deployment and real game input require
+separate operator coordination. Do not mass-kill Python processes or restart
+the user's game to switch versions.

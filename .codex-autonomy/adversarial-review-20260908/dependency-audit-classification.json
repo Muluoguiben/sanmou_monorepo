@@ -1,0 +1,110 @@
+[
+  {
+    "name": "@babel/core",
+    "severity": "low",
+    "baseline": "7.29.0",
+    "combined": "7.29.0",
+    "nodes": [
+      "node_modules/@babel/core"
+    ]
+  },
+  {
+    "name": "axios",
+    "severity": "high",
+    "baseline": "1.16.0",
+    "combined": "1.16.0",
+    "nodes": [
+      "node_modules/axios"
+    ]
+  },
+  {
+    "name": "browserslist",
+    "severity": "high",
+    "baseline": "4.28.2",
+    "combined": "4.28.2",
+    "nodes": [
+      "node_modules/browserslist"
+    ]
+  },
+  {
+    "name": "electron",
+    "severity": "high",
+    "baseline": "29.4.6",
+    "combined": "29.4.6",
+    "nodes": [
+      "node_modules/electron"
+    ]
+  },
+  {
+    "name": "esbuild",
+    "severity": "moderate",
+    "baseline": "0.21.5",
+    "combined": "0.21.5",
+    "nodes": [
+      "node_modules/esbuild"
+    ]
+  },
+  {
+    "name": "extract-zip",
+    "severity": "high",
+    "baseline": "2.0.1",
+    "combined": "2.0.1",
+    "nodes": [
+      "node_modules/extract-zip"
+    ]
+  },
+  {
+    "name": "form-data",
+    "severity": "high",
+    "baseline": "4.0.5",
+    "combined": "4.0.5",
+    "nodes": [
+      "node_modules/form-data"
+    ]
+  },
+  {
+    "name": "joi",
+    "severity": "moderate",
+    "baseline": "17.13.3",
+    "combined": "17.13.3",
+    "nodes": [
+      "node_modules/joi"
+    ]
+  },
+  {
+    "name": "nanoid",
+    "severity": "high",
+    "baseline": "3.3.12",
+    "combined": "3.3.12",
+    "nodes": [
+      "node_modules/nanoid"
+    ]
+  },
+  {
+    "name": "postcss",
+    "severity": "high",
+    "baseline": "8.5.14",
+    "combined": "8.5.14",
+    "nodes": [
+      "node_modules/postcss"
+    ]
+  },
+  {
+    "name": "shell-quote",
+    "severity": "critical",
+    "baseline": "1.8.3",
+    "combined": "1.8.3",
+    "nodes": [
+      "node_modules/shell-quote"
+    ]
+  },
+  {
+    "name": "vite",
+    "severity": "high",
+    "baseline": "5.4.21",
+    "combined": "5.4.21",
+    "nodes": [
+      "node_modules/vite"
+    ]
+  }
+]

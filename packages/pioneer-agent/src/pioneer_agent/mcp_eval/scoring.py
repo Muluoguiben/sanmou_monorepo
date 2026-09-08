@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from collections import Counter
-from datetime import timedelta
+from datetime import datetime, timedelta
 import math
 from typing import Iterable
 
@@ -22,6 +22,8 @@ from pioneer_agent.mcp_eval.models import (
 def fold_observed(transcript: StaticScenarioTranscript) -> ObservedScenario:
     observed = ObservedScenario()
     for call in transcript.calls:
+        if not call.success:
+            continue
         result = call.result_summary
         updates: dict[str, object] = {}
         if result.state_fields is not None:
@@ -64,7 +66,7 @@ def score_scenario(
             unknown_calibration=_set_accuracy(expected.unknown_domains, observed.unknown_domains),
             tool_call_coverage=_set_recall(
                 expected.required_tool_calls,
-                [call.tool_name for call in transcript.calls],
+                [call.tool_name for call in transcript.calls if call.success],
             ),
             proposal_grounding=_proposal_grounding(expected.grounded_proposals, candidates),
             blocked_action_correctness=_blocked_correctness(expected.blocked_actions, candidates),
@@ -85,6 +87,8 @@ def score_scenario(
                 expected.journal_plan, observed.journal_steps
             ),
         )
+        if not any(call.success for call in transcript.calls):
+            scores = MetricScores(**{name: 0.0 for name in MetricScores.model_fields})
         scored = True
     return ScenarioScoreReport(
         scenario_id=manifest.scenario_id,
@@ -102,15 +106,33 @@ def sensorium_metrics(
     transcript: StaticScenarioTranscript,
 ) -> SensoriumMetrics:
     critical = manifest.sensorium.critical_domains
-    queried = sorted({domain for call in transcript.calls for domain in call.domains_queried})
-    last_refresh = {}
+    queried = sorted({
+        domain for call in transcript.calls if call.success for domain in call.domains_queried
+    })
+    # A refresh becomes evidence only when its successful call has completed.
+    # Keep history so recovery cannot rewrite what was known at failure time.
+    refreshes: list[tuple[str, datetime, datetime]] = []
     for call in transcript.calls:
+        completed_at = call.started_at + timedelta(milliseconds=call.duration_ms)
         for domain, observed_at in call.domain_observed_at.items():
-            previous = last_refresh.get(domain)
-            if previous is None or observed_at > previous:
-                last_refresh[domain] = observed_at
-    final_call = transcript.calls[-1]
-    end_at = final_call.started_at + timedelta(milliseconds=final_call.duration_ms)
+            if observed_at > completed_at:
+                raise ValueError("domain observation cannot postdate its call completion")
+            if call.success:
+                refreshes.append((domain, observed_at, completed_at))
+    end_at = max(
+        call.started_at + timedelta(milliseconds=call.duration_ms)
+        for call in transcript.calls
+    )
+
+    def latest_at(cutoff: datetime) -> dict[str, datetime]:
+        latest: dict[str, datetime] = {}
+        for domain, observed_at, completed_at in refreshes:
+            if completed_at <= cutoff and observed_at <= cutoff:
+                if domain not in latest or observed_at > latest[domain]:
+                    latest[domain] = observed_at
+        return latest
+
+    last_refresh = latest_at(end_at)
     ages: dict[str, float | None] = {}
     stale: list[str] = []
     never: list[str] = []
@@ -120,15 +142,16 @@ def sensorium_metrics(
             ages[domain] = None
             never.append(domain)
             continue
-        age = max(0.0, (end_at - refreshed_at).total_seconds())
+        age = (end_at - refreshed_at).total_seconds()
         ages[domain] = round(age, 6)
         if age > manifest.sensorium.stale_after_seconds[domain]:
             stale.append(domain)
 
     missed_before_failure: list[str] = []
     if transcript.failure_at is not None:
+        before_failure = latest_at(transcript.failure_at)
         for domain in manifest.sensorium.required_before_failure:
-            refreshed_at = last_refresh.get(domain)
+            refreshed_at = before_failure.get(domain)
             threshold = manifest.sensorium.stale_after_seconds[domain]
             if (
                 refreshed_at is None
@@ -203,7 +226,7 @@ def aggregate_reports(
 def _mapping_accuracy(expected: dict[str, object], actual: dict[str, object]) -> float:
     if not expected:
         return 1.0
-    return sum(actual.get(key) == value for key, value in expected.items()) / len(expected)
+    return sum(key in actual and actual[key] == value for key, value in expected.items()) / len(expected)
 
 
 def _set_accuracy(expected: Iterable[str], actual: Iterable[str]) -> float:

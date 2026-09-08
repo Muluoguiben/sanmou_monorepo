@@ -1,0 +1,2801 @@
+{
+  "baseline_sha": "d377ef8bbaa69e6b25928255eac0cb62714e82f8",
+  "branch": "feat/desktop-api-r03-r21-r24-20260908",
+  "tested_source_sha256": {
+    "apps/sanmou-advisor-desktop/.gitignore": "28b5192eeeb3c6c071f8478a7a163e4c0fb283f98d02fc9335c32c338aa0ea77",
+    "apps/sanmou-advisor-desktop/README.md": "9c6cf498ffc8b1eec9a6ff44906c266a5a5471f5abdc07a22c87060c6e94094e",
+    "apps/sanmou-advisor-desktop/electron-builder.json": "ba4b2a9d34bd9190c152c0c761ac542c851ab6569f0b4af6b1c5f0fac7738419",
+    "apps/sanmou-advisor-desktop/package-lock.json": "f4453cd85135ce22e4bdf2137533c219e740e44c2ea11d22d25572fb9d3a41e9",
+    "apps/sanmou-advisor-desktop/package.json": "9ccbce774f83918d15ecd186077d934c1af35d60622d46c908b769a9a5f721dc",
+    "apps/sanmou-advisor-desktop/playwright.config.ts": "589d4b031f45a75f0744951e08dec85b80c4fc5862c0292e2f5f7e0cb372db90",
+    "apps/sanmou-advisor-desktop/src/electron/main.ts": "f84a3b9ab1fbc1e425aae37cc4d4f4afe65a7c1f854a5daad3c20eef980ca6b8",
+    "apps/sanmou-advisor-desktop/src/electron/preload.cts": "a19ee49d4f74147f9dd2ad269168b42e86290b4f467fd60352aa4bdf9e93a283",
+    "apps/sanmou-advisor-desktop/src/electron/python.ts": "5adac19d66cbbd906ab4221a28651da7a8ebef59ca28baaadf2f3446e4c5b14c",
+    "apps/sanmou-advisor-desktop/src/renderer/App.tsx": "36f9cf2467b69a57c798e847f4c600433f0dae2f5269fd36fc30ffce39be8573",
+    "apps/sanmou-advisor-desktop/src/renderer/api.ts": "a05e6bc803514c67b63e8de67c74d81d51c25b9074d811497b245fd87a72ccf9",
+    "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts": "271e99b5a41f47b0d5a60d185b5894dc235fcf995f6183c1891f968142ba08a0",
+    "apps/sanmou-advisor-desktop/tests/install-smoke.mjs": "a3ec7bc6953f3a7e4412f3973a7088a2f9de6e537c21446aae078973c4be514c",
+    "apps/sanmou-advisor-desktop/tests/python.test.mjs": "7e2243311bcb5de60aee9e158cf892bd146e992b303f73d40133dbff791fc0dd",
+    "apps/sanmou-advisor-desktop/vite.config.ts": "c43e8aff1aa538e6b12a4e36d674c5824fb2f3d736be9c91f874e8010c57342d",
+    "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py": "20a2d22aa36e73fd1668d94b242f8aa12cbf3cd417174b59985ea0c27c31ccc5",
+    "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py": "ce8b5043bbef16583c654b377ab897b2eb63a8fe1281b927a585a602d10447b2",
+    "apps/sanmou-advisor-desktop/tests/advisor-readiness.mjs": "44ed721cd9565dea6676e0e2fb5deac4672524c42b96e7485517f20fd37c9b44",
+    "apps/sanmou-advisor-desktop/tests/advisor-readiness.test.mjs": "682ffabc110514f01ceb65bada6af67bd99f120707fc42c560699d25a600f5b8",
+    "apps/sanmou-advisor-desktop/tests/safe-ports.test.mjs": "8eff478ad1770a7bdef79b6ac16b74a6e023b4f9135c6386ca725e7a25944e69",
+    "apps/sanmou-advisor-desktop/tests/safe-ports.mjs": "a91272f147604412873de9b87db91ca94ced3f49dd70fcd290875faa2b8ce905"
+  },
+  "windows": {
+    "baseline": {
+      "log_name": "sanmou-e-pioneer-baseline.log",
+      "log_sha256": "7118b4a1fd8190995b659bae258ef92a71d5cb7507f689e6f4edbad5a4661329",
+      "summary": [
+        "Ran 764 tests in 59.796s\r",
+        "FAILED (failures=6, errors=29, skipped=9)\r"
+      ],
+      "failed_tests": [
+        "unit.test_agent_harness_game_mcp_integration (unittest.loader._FailedTest.unit.test_agent_harness_game_mcp_integration)\r",
+        "test_official_stdio_clients_bind_real_game_and_qa_servers (unit.test_agent_harness_stdio_client.AgentHarnessStdioClientTests.test_official_stdio_clients_bind_real_game_and_qa_servers)\r",
+        "unit.test_game_mcp_live_provider (unittest.loader._FailedTest.unit.test_game_mcp_live_provider)\r",
+        "unit.test_game_mcp_server (unittest.loader._FailedTest.unit.test_game_mcp_server)\r",
+        "test_fixture_evaluation_is_closed_root_and_never_uses_live_provider (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluation_is_closed_root_and_never_uses_live_provider)\r",
+        "test_fixture_evaluator_never_imports_or_calls_runner_modules (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_never_imports_or_calls_runner_modules)\r",
+        "test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path)\r",
+        "test_fixture_read_is_bounded_no_follow_and_hardlink_safe (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_read_is_bounded_no_follow_and_hardlink_safe)\r",
+        "test_real_fixture_evaluator_returns_advisory_projection (unit.test_game_mcp_service.GameMCPServiceTests.test_real_fixture_evaluator_returns_advisory_projection)\r",
+        "test_link_replacement_of_annotation_after_load_fails_closed (unit.test_map_filter_transition.MapFilterTransitionTests.test_link_replacement_of_annotation_after_load_fails_closed)\r",
+        "test_artifacts_are_write_once_and_holdout_report_has_no_labels (unit.test_mcp_eval.McpEvalTests.test_artifacts_are_write_once_and_holdout_report_has_no_labels)\r",
+        "test_checked_in_battery_covers_session_c_scenarios (unit.test_mcp_eval.McpEvalTests.test_checked_in_battery_covers_session_c_scenarios)\r",
+        "test_checked_in_golden_manifest_is_evaluated_and_digest_bound (unit.test_mcp_eval.McpEvalTests.test_checked_in_golden_manifest_is_evaluated_and_digest_bound)\r",
+        "test_cli_emits_paths_and_safety_boundary (unit.test_mcp_eval.McpEvalTests.test_cli_emits_paths_and_safety_boundary)\r",
+        "test_run_manifest_is_versioned_and_binds_inputs_and_tool_log (unit.test_mcp_eval.McpEvalTests.test_run_manifest_is_versioned_and_binds_inputs_and_tool_log)\r",
+        "test_sensorium_reports_stale_and_missed_risk_domains (unit.test_mcp_eval.McpEvalTests.test_sensorium_reports_stale_and_missed_risk_domains)\r",
+        "test_static_runner_scores_generation_and_never_scores_holdout (unit.test_mcp_eval.McpEvalTests.test_static_runner_scores_generation_and_never_scores_holdout)\r",
+        "test_closed_catalog_verifies_cross_registry_and_declared_lineage_only (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_catalog_verifies_cross_registry_and_declared_lineage_only)\r",
+        "test_attestation_binds_the_exact_trust_policy (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_binds_the_exact_trust_policy)\r",
+        "test_attestation_output_is_create_once (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_output_is_create_once)\r",
+        "test_external_evaluator_allows_only_one_signed_submission_per_catalog (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_evaluator_allows_only_one_signed_submission_per_catalog)\r",
+        "test_external_scorer_signs_aggregate_without_releasing_labels (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_scorer_signs_aggregate_without_releasing_labels)\r",
+        "test_oracle_must_match_approved_holdout_annotations (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_oracle_must_match_approved_holdout_annotations)\r",
+        "test_ordinary_cli_inspects_submission_without_oracle_surface (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_ordinary_cli_inspects_submission_without_oracle_surface)\r",
+        "test_submission_must_cover_exact_holdout_set_and_inputs (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_submission_must_cover_exact_holdout_set_and_inputs)\r",
+        "test_tampered_signed_aggregate_is_rejected (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_tampered_signed_aggregate_is_rejected)\r",
+        "test_valid_but_inaccurate_submission_remains_blocked (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_valid_but_inaccurate_submission_remains_blocked)\r",
+        "test_escalations_are_edge_triggered_not_per_tick (unit.test_runbook_loop_integration.RunbookFixRegressionTests.test_escalations_are_edge_triggered_not_per_tick)\r",
+        "test_single_instance_lock_excludes_second_holder (unit.test_runbook_loop_integration.RunbookStateStoreTests.test_single_instance_lock_excludes_second_holder)\r",
+        "test_qa_subprocess_does_not_inherit_secret_environment (unit.test_game_agent_cli.GameAgentCliTests.test_qa_subprocess_does_not_inherit_secret_environment)\r",
+        "test_cli_audits_corpus_without_exposing_local_paths (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cli_audits_corpus_without_exposing_local_paths)\r",
+        "test_closed_roots_reject_undeclared_files (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_roots_reject_undeclared_files)\r",
+        "test_cross_registry_exact_frame_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_exact_frame_clone_is_rejected)\r",
+        "test_cross_registry_reencoded_visual_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_reencoded_visual_clone_is_rejected)\r",
+        "test_development_lineage_cycle_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_development_lineage_cycle_is_rejected)\r"
+      ],
+      "skips": [
+        "test_rejects_symlinked_annotation (unit.test_record_replay_annotations.RecordReplayAnnotationTests.test_rejects_symlinked_annotation) ... skipped 'symlink creation is not reliable on Windows CI'",
+        "test_rejects_symlinked_compiled_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_compiled_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_rejects_symlinked_draft_skill_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_draft_skill_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_hardlinked_raw_artifact_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_hardlinked_raw_artifact_is_rejected) ... skipped 'hardlink semantics are exercised on the WSL host'",
+        "test_symlinked_or_hardlinked_review_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_symlinked_or_hardlinked_review_is_rejected) ... skipped 'link semantics are exercised on the WSL host'",
+        "test_attestation_write_rejects_concurrent_hardlink (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_write_rejects_concurrent_hardlink) ... skipped 'hardlink race probe is POSIX-specific'",
+        "test_external_private_key_must_not_be_group_or_world_readable (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_private_key_must_not_be_group_or_world_readable) ... skipped 'POSIX permission bits are not Windows ACLs'",
+        "test_rejects_symlinked_frame (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_frame) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_rejects_symlinked_manifest_and_events (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_manifest_and_events) ... skipped 'symlink semantics are covered on the WSL test host'"
+      ]
+    },
+    "fixed": {
+      "log_name": "sanmou-e-pioneer-final.log",
+      "log_sha256": "b51806bf5a3ee651db9c4bc133a2347f5d57507f7fa29da93726f84c3027e8b6",
+      "summary": [
+        "Ran 768 tests in 56.305s\r",
+        "FAILED (failures=6, errors=29, skipped=9)\r"
+      ],
+      "failed_tests": [
+        "unit.test_agent_harness_game_mcp_integration (unittest.loader._FailedTest.unit.test_agent_harness_game_mcp_integration)\r",
+        "test_official_stdio_clients_bind_real_game_and_qa_servers (unit.test_agent_harness_stdio_client.AgentHarnessStdioClientTests.test_official_stdio_clients_bind_real_game_and_qa_servers)\r",
+        "unit.test_game_mcp_live_provider (unittest.loader._FailedTest.unit.test_game_mcp_live_provider)\r",
+        "unit.test_game_mcp_server (unittest.loader._FailedTest.unit.test_game_mcp_server)\r",
+        "test_fixture_evaluation_is_closed_root_and_never_uses_live_provider (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluation_is_closed_root_and_never_uses_live_provider)\r",
+        "test_fixture_evaluator_never_imports_or_calls_runner_modules (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_never_imports_or_calls_runner_modules)\r",
+        "test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path)\r",
+        "test_fixture_read_is_bounded_no_follow_and_hardlink_safe (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_read_is_bounded_no_follow_and_hardlink_safe)\r",
+        "test_real_fixture_evaluator_returns_advisory_projection (unit.test_game_mcp_service.GameMCPServiceTests.test_real_fixture_evaluator_returns_advisory_projection)\r",
+        "test_link_replacement_of_annotation_after_load_fails_closed (unit.test_map_filter_transition.MapFilterTransitionTests.test_link_replacement_of_annotation_after_load_fails_closed)\r",
+        "test_artifacts_are_write_once_and_holdout_report_has_no_labels (unit.test_mcp_eval.McpEvalTests.test_artifacts_are_write_once_and_holdout_report_has_no_labels)\r",
+        "test_checked_in_battery_covers_session_c_scenarios (unit.test_mcp_eval.McpEvalTests.test_checked_in_battery_covers_session_c_scenarios)\r",
+        "test_checked_in_golden_manifest_is_evaluated_and_digest_bound (unit.test_mcp_eval.McpEvalTests.test_checked_in_golden_manifest_is_evaluated_and_digest_bound)\r",
+        "test_cli_emits_paths_and_safety_boundary (unit.test_mcp_eval.McpEvalTests.test_cli_emits_paths_and_safety_boundary)\r",
+        "test_run_manifest_is_versioned_and_binds_inputs_and_tool_log (unit.test_mcp_eval.McpEvalTests.test_run_manifest_is_versioned_and_binds_inputs_and_tool_log)\r",
+        "test_sensorium_reports_stale_and_missed_risk_domains (unit.test_mcp_eval.McpEvalTests.test_sensorium_reports_stale_and_missed_risk_domains)\r",
+        "test_static_runner_scores_generation_and_never_scores_holdout (unit.test_mcp_eval.McpEvalTests.test_static_runner_scores_generation_and_never_scores_holdout)\r",
+        "test_closed_catalog_verifies_cross_registry_and_declared_lineage_only (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_catalog_verifies_cross_registry_and_declared_lineage_only)\r",
+        "test_attestation_binds_the_exact_trust_policy (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_binds_the_exact_trust_policy)\r",
+        "test_attestation_output_is_create_once (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_output_is_create_once)\r",
+        "test_external_evaluator_allows_only_one_signed_submission_per_catalog (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_evaluator_allows_only_one_signed_submission_per_catalog)\r",
+        "test_external_scorer_signs_aggregate_without_releasing_labels (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_scorer_signs_aggregate_without_releasing_labels)\r",
+        "test_oracle_must_match_approved_holdout_annotations (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_oracle_must_match_approved_holdout_annotations)\r",
+        "test_ordinary_cli_inspects_submission_without_oracle_surface (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_ordinary_cli_inspects_submission_without_oracle_surface)\r",
+        "test_submission_must_cover_exact_holdout_set_and_inputs (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_submission_must_cover_exact_holdout_set_and_inputs)\r",
+        "test_tampered_signed_aggregate_is_rejected (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_tampered_signed_aggregate_is_rejected)\r",
+        "test_valid_but_inaccurate_submission_remains_blocked (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_valid_but_inaccurate_submission_remains_blocked)\r",
+        "test_escalations_are_edge_triggered_not_per_tick (unit.test_runbook_loop_integration.RunbookFixRegressionTests.test_escalations_are_edge_triggered_not_per_tick)\r",
+        "test_single_instance_lock_excludes_second_holder (unit.test_runbook_loop_integration.RunbookStateStoreTests.test_single_instance_lock_excludes_second_holder)\r",
+        "test_qa_subprocess_does_not_inherit_secret_environment (unit.test_game_agent_cli.GameAgentCliTests.test_qa_subprocess_does_not_inherit_secret_environment)\r",
+        "test_cli_audits_corpus_without_exposing_local_paths (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cli_audits_corpus_without_exposing_local_paths)\r",
+        "test_closed_roots_reject_undeclared_files (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_roots_reject_undeclared_files)\r",
+        "test_cross_registry_exact_frame_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_exact_frame_clone_is_rejected)\r",
+        "test_cross_registry_reencoded_visual_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_reencoded_visual_clone_is_rejected)\r",
+        "test_development_lineage_cycle_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_development_lineage_cycle_is_rejected)\r"
+      ],
+      "skips": [
+        "test_rejects_symlinked_annotation (unit.test_record_replay_annotations.RecordReplayAnnotationTests.test_rejects_symlinked_annotation) ... skipped 'symlink creation is not reliable on Windows CI'",
+        "test_rejects_symlinked_compiled_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_compiled_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_rejects_symlinked_draft_skill_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_draft_skill_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_hardlinked_raw_artifact_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_hardlinked_raw_artifact_is_rejected) ... skipped 'hardlink semantics are exercised on the WSL host'",
+        "test_symlinked_or_hardlinked_review_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_symlinked_or_hardlinked_review_is_rejected) ... skipped 'link semantics are exercised on the WSL host'",
+        "test_attestation_write_rejects_concurrent_hardlink (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_write_rejects_concurrent_hardlink) ... skipped 'hardlink race probe is POSIX-specific'",
+        "test_external_private_key_must_not_be_group_or_world_readable (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_private_key_must_not_be_group_or_world_readable) ... skipped 'POSIX permission bits are not Windows ACLs'",
+        "test_rejects_symlinked_frame (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_frame) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_rejects_symlinked_manifest_and_events (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_manifest_and_events) ... skipped 'symlink semantics are covered on the WSL test host'"
+      ]
+    },
+    "only_fixed": [],
+    "only_baseline": [],
+    "identical_skips": true
+  },
+  "wsl": {
+    "baseline": {
+      "log_name": "sanmou-e-pioneer-baseline.log",
+      "log_sha256": "820ef7a0ed6c51b8acd7e2036dc99b83e9e09b4021427c524232a159cc70d3b5",
+      "summary": [
+        "Ran 775 tests in 31.517s",
+        "FAILED (errors=7)"
+      ],
+      "failed_tests": [
+        "test_artifacts_are_write_once_and_holdout_report_has_no_labels (unit.test_mcp_eval.McpEvalTests.test_artifacts_are_write_once_and_holdout_report_has_no_labels)",
+        "test_checked_in_battery_covers_session_c_scenarios (unit.test_mcp_eval.McpEvalTests.test_checked_in_battery_covers_session_c_scenarios)",
+        "test_checked_in_golden_manifest_is_evaluated_and_digest_bound (unit.test_mcp_eval.McpEvalTests.test_checked_in_golden_manifest_is_evaluated_and_digest_bound)",
+        "test_cli_emits_paths_and_safety_boundary (unit.test_mcp_eval.McpEvalTests.test_cli_emits_paths_and_safety_boundary)",
+        "test_run_manifest_is_versioned_and_binds_inputs_and_tool_log (unit.test_mcp_eval.McpEvalTests.test_run_manifest_is_versioned_and_binds_inputs_and_tool_log)",
+        "test_sensorium_reports_stale_and_missed_risk_domains (unit.test_mcp_eval.McpEvalTests.test_sensorium_reports_stale_and_missed_risk_domains)",
+        "test_static_runner_scores_generation_and_never_scores_holdout (unit.test_mcp_eval.McpEvalTests.test_static_runner_scores_generation_and_never_scores_holdout)"
+      ],
+      "skips": []
+    },
+    "fixed": {
+      "log_name": "sanmou-e-pioneer-final.log",
+      "log_sha256": "34a4cdf7d56d51ae5d402005116d5e83b003059c07297c40944167da3bb29714",
+      "summary": [
+        "Ran 779 tests in 32.988s",
+        "FAILED (errors=7)"
+      ],
+      "failed_tests": [
+        "test_artifacts_are_write_once_and_holdout_report_has_no_labels (unit.test_mcp_eval.McpEvalTests.test_artifacts_are_write_once_and_holdout_report_has_no_labels)",
+        "test_checked_in_battery_covers_session_c_scenarios (unit.test_mcp_eval.McpEvalTests.test_checked_in_battery_covers_session_c_scenarios)",
+        "test_checked_in_golden_manifest_is_evaluated_and_digest_bound (unit.test_mcp_eval.McpEvalTests.test_checked_in_golden_manifest_is_evaluated_and_digest_bound)",
+        "test_cli_emits_paths_and_safety_boundary (unit.test_mcp_eval.McpEvalTests.test_cli_emits_paths_and_safety_boundary)",
+        "test_run_manifest_is_versioned_and_binds_inputs_and_tool_log (unit.test_mcp_eval.McpEvalTests.test_run_manifest_is_versioned_and_binds_inputs_and_tool_log)",
+        "test_sensorium_reports_stale_and_missed_risk_domains (unit.test_mcp_eval.McpEvalTests.test_sensorium_reports_stale_and_missed_risk_domains)",
+        "test_static_runner_scores_generation_and_never_scores_holdout (unit.test_mcp_eval.McpEvalTests.test_static_runner_scores_generation_and_never_scores_holdout)"
+      ],
+      "skips": []
+    },
+    "only_fixed": [],
+    "only_baseline": []
+  },
+  "focused": {
+    "api": {
+      "name": "sanmou-e-cr06-api.log",
+      "sha256": "354ea04dc2d81be85e6468a8821a120c714740918ee3ff9564e73925b4901685",
+      "summary": [
+        "Ran 11 tests in 0.405s\r"
+      ],
+      "failed_tests": [],
+      "skips": [],
+      "exit_code": 0
+    },
+    "upload_on_baseline": {
+      "log_name": "sanmou-e-upload-baseline-final.log",
+      "log_sha256": "d9737e48cb2b1ec950634a102ee186fe53cdc9242a861dbdb2daad0af97b4a3a",
+      "summary": [
+        "Ran 4 tests in 0.423s\r",
+        "FAILED (failures=1, errors=2)\r"
+      ],
+      "failed_tests": [
+        "test_corrupt_png_checksum_returns_400_and_removes_upload (test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_corrupt_png_checksum_returns_400_and_removes_upload)\r",
+        "test_oversized_http_upload_returns_413_and_leaves_no_file (test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_oversized_http_upload_returns_413_and_leaves_no_file)\r",
+        "test_interrupted_read_closes_writer_and_removes_partial_file (test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_interrupted_read_closes_writer_and_removes_partial_file)\r"
+      ],
+      "skips": []
+    },
+    "electron": {
+      "name": "sanmou-e-cr07-node24-desktop.log",
+      "sha256": "17e4a21694d4137c37bdb0171a0775479d9963b4f3dfc9d7d8eaf85e5fcf2d5e",
+      "exit_code": 0,
+      "summary": [
+        "  15 passed (20.8s)\r"
+      ],
+      "ebadengine_count": 0
+    },
+    "install": {
+      "name": "sanmou-e-cr07-node24-install-2.log",
+      "sha256": "0c410760ac2fd0cec0c89a7f1bb130238a96592a9c4ced1834272a6fc639df69",
+      "exit_code": 0,
+      "summary": [],
+      "ebadengine_count": 0,
+      "result": {
+        "status": "passed",
+        "apiPort": 62917,
+        "portAllocationAttempts": 1,
+        "readiness": "awaited-http-and-profile-identity",
+        "readinessAttempts": 12,
+        "unsigned": true,
+        "packaged": true,
+        "preload": true,
+        "bundledBackend": true,
+        "bundledApiSha256": "20a2d22aa36e73fd1668d94b242f8aa12cbf3cd417174b59985ea0c27c31ccc5",
+        "pixelLimitRejected": true,
+        "mockUpload": true,
+        "runtimeAdmin": false,
+        "gameInput": false
+      }
+    },
+    "readiness": {
+      "name": "sanmou-e-cr02-readiness.log",
+      "sha256": "454ae8ab5cd031b03a68160a5d5456a12d7521d2da521a0b1d43897e3d82b0fa",
+      "summary": [],
+      "exit_code": 0
+    }
+  },
+  "npm_audit": {
+    "auditReportVersion": 2,
+    "vulnerabilities": {
+      "@babel/core": {
+        "name": "@babel/core",
+        "severity": "low",
+        "isDirect": false,
+        "via": [
+          {
+            "source": 1123528,
+            "name": "@babel/core",
+            "dependency": "@babel/core",
+            "title": "@babel/core: Arbitrary File Read via sourceMappingURL Comment",
+            "url": "https://github.com/advisories/GHSA-4x5r-pxfx-6jf8",
+            "severity": "low",
+            "cwe": [
+              "CWE-22",
+              "CWE-200"
+            ],
+            "cvss": {
+              "score": 3.2,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:C/C:L/I:N/A:N"
+            },
+            "range": "<=7.29.0"
+          }
+        ],
+        "effects": [],
+        "range": "<=7.29.0",
+        "nodes": [
+          "node_modules/@babel/core"
+        ],
+        "fixAvailable": true
+      },
+      "axios": {
+        "name": "axios",
+        "severity": "high",
+        "isDirect": false,
+        "via": [
+          {
+            "source": 1123969,
+            "name": "axios",
+            "dependency": "axios",
+            "title": "Axios form serializer maxDepth bypass via {} metatoken",
+            "url": "https://github.com/advisories/GHSA-hcpx-6fm6-wx23",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-674"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": ">=1.15.1 <1.18.0"
+          },
+          {
+            "source": 1138749,
+            "name": "axios",
+            "dependency": "axios",
+            "title": "Axios: Prototype pollution auth subfields can inject Basic auth",
+            "url": "https://github.com/advisories/GHSA-xj6q-8x83-jv6g",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-1321"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": ">=1.15.2 <1.18.0"
+          },
+          {
+            "source": 1147949,
+            "name": "axios",
+            "dependency": "axios",
+            "title": "Axios: Prototype pollution gadgets can alter axios request construction",
+            "url": "https://github.com/advisories/GHSA-mmx7-hfxf-jppx",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-1321"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": ">=1.0.0 <1.18.0"
+          },
+          {
+            "source": 1147950,
+            "name": "axios",
+            "dependency": "axios",
+            "title": "Axios: Deep formToJSON Key Recursion Can Cause Denial of Service",
+            "url": "https://github.com/advisories/GHSA-pmv8-rq9r-6j72",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-400",
+              "CWE-770"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": ">=1.0.0 <1.18.0"
+          },
+          {
+            "source": 1153175,
+            "name": "axios",
+            "dependency": "axios",
+            "title": "Axios: HTTP/2 streamed uploads bypass `maxBodyLength`",
+            "url": "https://github.com/advisories/GHSA-mwf2-3pr3-8698",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-400"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": ">=1.13.0 <1.18.0"
+          },
+          {
+            "source": 1153178,
+            "name": "axios",
+            "dependency": "axios",
+            "title": "Axios Node HTTP adapter can use an inherited proxy after interceptor config cloning",
+            "url": "https://github.com/advisories/GHSA-gcfj-64vw-6mp9",
+            "severity": "high",
+            "cwe": [
+              "CWE-200",
+              "CWE-1321"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": ">=1.15.2 <1.18.0"
+          },
+          {
+            "source": 1153180,
+            "name": "axios",
+            "dependency": "axios",
+            "title": "Axios: Nested axios option objects can consume polluted prototype values",
+            "url": "https://github.com/advisories/GHSA-7q8q-rj6j-mhjq",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-1321"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": ">=1.0.0 <1.18.0"
+          },
+          {
+            "source": 1153182,
+            "name": "axios",
+            "dependency": "axios",
+            "title": "Axios: Fetch adapter `ReadableStream` uploads bypass `maxBodyLength`",
+            "url": "https://github.com/advisories/GHSA-jqh4-m9w3-8hp9",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-770"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": ">=1.7.0 <1.18.0"
+          },
+          {
+            "source": 1153184,
+            "name": "axios",
+            "dependency": "axios",
+            "title": "Axios: NO_PROXY bypass for 0.0.0.0 local addresses in axios",
+            "url": "https://github.com/advisories/GHSA-f4gw-2p7v-4548",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-183",
+              "CWE-918"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": ">=1.15.0 <1.18.0"
+          },
+          {
+            "source": 1153185,
+            "name": "axios",
+            "dependency": "axios",
+            "title": "Axios: Excessive recursion in formDataToJSON can cause denial of service",
+            "url": "https://github.com/advisories/GHSA-42h9-826w-cgv3",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-400",
+              "CWE-674"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": ">=1.0.0 <1.18.0"
+          }
+        ],
+        "effects": [],
+        "range": "1.0.0 - 1.17.0",
+        "nodes": [
+          "node_modules/axios"
+        ],
+        "fixAvailable": true
+      },
+      "browserslist": {
+        "name": "browserslist",
+        "severity": "high",
+        "isDirect": false,
+        "via": [
+          {
+            "source": 1153171,
+            "name": "browserslist",
+            "dependency": "browserslist",
+            "title": "Browserslist: Unbounded memory growth (no cache eviction) via distinct query results, leading to eventual OOM",
+            "url": "https://github.com/advisories/GHSA-c83g-rgw3-j3cx",
+            "severity": "high",
+            "cwe": [
+              "CWE-770"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+            },
+            "range": "<=4.28.6"
+          },
+          {
+            "source": 1153172,
+            "name": "browserslist",
+            "dependency": "browserslist",
+            "title": "Browserslist: Uncaught crash / prototype write via untrusted browserslist-stats.json custom stats (normalizeStats)",
+            "url": "https://github.com/advisories/GHSA-73wf-gq98-2v4g",
+            "severity": "high",
+            "cwe": [
+              "CWE-248",
+              "CWE-1321"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+            },
+            "range": "<=4.28.6"
+          }
+        ],
+        "effects": [],
+        "range": "<=4.28.6",
+        "nodes": [
+          "node_modules/browserslist"
+        ],
+        "fixAvailable": true
+      },
+      "electron": {
+        "name": "electron",
+        "severity": "high",
+        "isDirect": true,
+        "via": [
+          {
+            "source": 1107272,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron has ASAR Integrity Bypass via resource modification",
+            "url": "https://github.com/advisories/GHSA-vmqv-hx8q-j7mg",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-94",
+              "CWE-829"
+            ],
+            "cvss": {
+              "score": 6.1,
+              "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:L/I:H/A:L"
+            },
+            "range": "<35.7.5"
+          },
+          {
+            "source": 1116041,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: AppleScript injection in app.moveToApplicationsFolder on macOS",
+            "url": "https://github.com/advisories/GHSA-5rqw-r77c-jp79",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-78"
+            ],
+            "cvss": {
+              "score": 6.5,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:L"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116045,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Service worker can spoof executeJavaScript IPC replies",
+            "url": "https://github.com/advisories/GHSA-xj5x-m3f3-5x3h",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-290",
+              "CWE-345"
+            ],
+            "cvss": {
+              "score": 5.9,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:H/A:N"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116049,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Incorrect origin passed to permission request handler for iframe requests",
+            "url": "https://github.com/advisories/GHSA-r5p7-gp4j-qhrx",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-346"
+            ],
+            "cvss": {
+              "score": 5.4,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116053,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Out-of-bounds read in second-instance IPC on macOS and Linux",
+            "url": "https://github.com/advisories/GHSA-3c8v-cfp5-9885",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-125"
+            ],
+            "cvss": {
+              "score": 5.3,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:N/A:L"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116057,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: nodeIntegrationInWorker not correctly scoped in shared renderer processes",
+            "url": "https://github.com/advisories/GHSA-xwr5-m59h-vwqr",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-653"
+            ],
+            "cvss": {
+              "score": 6.8,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:N"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116060,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Use-after-free in offscreen child window paint callback",
+            "url": "https://github.com/advisories/GHSA-532v-xpq5-8h95",
+            "severity": "high",
+            "cwe": [
+              "CWE-416"
+            ],
+            "cvss": {
+              "score": 8.1,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+            },
+            "range": "<39.8.1"
+          },
+          {
+            "source": 1116064,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Registry key path injection in app.setAsDefaultProtocolClient on Windows",
+            "url": "https://github.com/advisories/GHSA-mwmh-mq4g-g6gr",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-20",
+              "CWE-74"
+            ],
+            "cvss": {
+              "score": 4.7,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:H/A:N"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116068,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Use-after-free in download save dialog callback",
+            "url": "https://github.com/advisories/GHSA-9w97-2464-8783",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-416"
+            ],
+            "cvss": {
+              "score": 5.8,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:H/I:L/A:L"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116072,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Use-after-free in WebContents fullscreen, pointer-lock, and keyboard-lock permission callbacks",
+            "url": "https://github.com/advisories/GHSA-8337-3p73-46f4",
+            "severity": "high",
+            "cwe": [
+              "CWE-416"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116076,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Use-after-free in PowerMonitor on Windows and macOS",
+            "url": "https://github.com/advisories/GHSA-jjp3-mq3x-295m",
+            "severity": "high",
+            "cwe": [
+              "CWE-416"
+            ],
+            "cvss": {
+              "score": 7,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116084,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Unquoted executable path in app.setLoginItemSettings on Windows",
+            "url": "https://github.com/advisories/GHSA-jfqx-fxh3-c62j",
+            "severity": "low",
+            "cwe": [
+              "CWE-428"
+            ],
+            "cvss": {
+              "score": 3.9,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:U/C:L/I:L/A:L"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116088,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: HTTP Response Header Injection in custom protocol handlers and webRequest",
+            "url": "https://github.com/advisories/GHSA-4p4r-m79c-wq3v",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-74",
+              "CWE-113"
+            ],
+            "cvss": {
+              "score": 5.9,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:H/A:N"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116092,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: USB device selection not validated against filtered device list",
+            "url": "https://github.com/advisories/GHSA-9899-m83m-qhpj",
+            "severity": "low",
+            "cwe": [
+              "CWE-862"
+            ],
+            "cvss": {
+              "score": 3.3,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:N"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116259,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Crash in clipboard.readImage() on malformed clipboard image data",
+            "url": "https://github.com/advisories/GHSA-f37v-82c4-4x64",
+            "severity": "low",
+            "cwe": [
+              "CWE-476"
+            ],
+            "cvss": {
+              "score": 2.8,
+              "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:N/I:N/A:L"
+            },
+            "range": "<39.8.5"
+          },
+          {
+            "source": 1116320,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Named window.open targets not scoped to the opener's browsing context",
+            "url": "https://github.com/advisories/GHSA-f3pv-wv63-48x8",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-668"
+            ],
+            "cvss": {
+              "score": 6,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:C/C:L/I:L/A:L"
+            },
+            "range": "<39.8.5"
+          },
+          {
+            "source": 1117459,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Renderer command-line switch injection via undocumented commandLineSwitches webPreference",
+            "url": "https://github.com/advisories/GHSA-9wfr-w7mm-pc7f",
+            "severity": "high",
+            "cwe": [
+              "CWE-88",
+              "CWE-912"
+            ],
+            "cvss": {
+              "score": 7.7,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:C/C:H/I:H/A:H"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1136551,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Parent process code-sign check is spoofable",
+            "url": "https://github.com/advisories/GHSA-jm7p-cc5g-qwxx",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-367"
+            ],
+            "cvss": {
+              "score": 6.3,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:N"
+            },
+            "range": "<39.8.8"
+          },
+          {
+            "source": 1136552,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Custom protocol with supportFetchAPI but not corsEnabled allows cross-origin reads",
+            "url": "https://github.com/advisories/GHSA-v3j7-r9gq-3gjw",
+            "severity": "high",
+            "cwe": [
+              "CWE-942"
+            ],
+            "cvss": {
+              "score": 7.4,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:N/A:N"
+            },
+            "range": "<39.8.10"
+          },
+          {
+            "source": 1136559,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Extension tab APIs operate across session boundaries",
+            "url": "https://github.com/advisories/GHSA-m55f-7gqj-fr98",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-284"
+            ],
+            "cvss": {
+              "score": 6.6,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:C/C:H/I:L/A:N"
+            },
+            "range": "<39.8.8"
+          },
+          {
+            "source": 1136560,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: shell.openPath path validation bypass via embedded null byte",
+            "url": "https://github.com/advisories/GHSA-5c9j-mhmv-5xgx",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-20",
+              "CWE-158"
+            ],
+            "cvss": {
+              "score": 6,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:H/I:H/A:N"
+            },
+            "range": "<39.8.6"
+          },
+          {
+            "source": 1136567,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Context isolation bypass via Function.prototype.bind hijack",
+            "url": "https://github.com/advisories/GHSA-h7rp-cf8h-j98x",
+            "severity": "high",
+            "cwe": [
+              "CWE-693"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:L/A:N"
+            },
+            "range": "<39.8.9"
+          },
+          {
+            "source": 1136571,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Cross-origin iframe can position native autofill popup",
+            "url": "https://github.com/advisories/GHSA-x8rc-wpg4-grpf",
+            "severity": "low",
+            "cwe": [
+              "CWE-1021"
+            ],
+            "cvss": {
+              "score": 3.1,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:N/I:L/A:N"
+            },
+            "range": "<39.8.8"
+          },
+          {
+            "source": 1136575,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Permission Check Handler Receives Main Frame Origin Instead of Requesting Iframe Origin",
+            "url": "https://github.com/advisories/GHSA-9pf5-hg6p-4pwp",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-346"
+            ],
+            "cvss": {
+              "score": 5.9,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+            },
+            "range": "<39.8.7"
+          },
+          {
+            "source": 1136579,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Off-screen rendering trusts GPU-supplied geometry over shared-memory size",
+            "url": "https://github.com/advisories/GHSA-pfmc-3mgc-p6fp",
+            "severity": "low",
+            "cwe": [
+              "CWE-125"
+            ],
+            "cvss": {
+              "score": 3.9,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:C/C:L/I:N/A:L"
+            },
+            "range": "<39.8.10"
+          },
+          {
+            "source": 1136590,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: HTTP redirect followed into local file loader",
+            "url": "https://github.com/advisories/GHSA-v64r-4m7r-3mvq",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-918"
+            ],
+            "cvss": {
+              "score": 5.9,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+            },
+            "range": "<39.8.8"
+          },
+          {
+            "source": 1136597,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: window.open features string controls some window options considered privileged",
+            "url": "https://github.com/advisories/GHSA-v93f-fgjr-hjrj",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-20"
+            ],
+            "cvss": {
+              "score": 5.3,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+            },
+            "range": "<39.8.8"
+          },
+          {
+            "source": 1136607,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Sandboxed iframe can bypass the allow-popups restriction via the OpenURL navigation path",
+            "url": "https://github.com/advisories/GHSA-9f4c-93c8-jc8g",
+            "severity": "high",
+            "cwe": [
+              "CWE-693",
+              "CWE-1021"
+            ],
+            "cvss": {
+              "score": 7.2,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:N"
+            },
+            "range": "<39.8.10"
+          },
+          {
+            "source": 1136634,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Sandboxed iframes can launch external protocol handlers",
+            "url": "https://github.com/advisories/GHSA-p2rr-rvmm-c5fp",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-284"
+            ],
+            "cvss": {
+              "score": 5.4,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:L/I:L/A:N"
+            },
+            "range": "<39.8.8"
+          },
+          {
+            "source": 1136647,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: DevTools embedder handler executes arbitrary files via shell open",
+            "url": "https://github.com/advisories/GHSA-f2r8-jv7c-xqmp",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-78"
+            ],
+            "cvss": {
+              "score": 6.9,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:C/C:H/I:H/A:N"
+            },
+            "range": "<39.8.9"
+          },
+          {
+            "source": 1136651,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: contextBridge object copy honors prototype setters",
+            "url": "https://github.com/advisories/GHSA-ff2p-hmqr-hxm4",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-1321"
+            ],
+            "cvss": {
+              "score": 5.4,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:L/I:L/A:N"
+            },
+            "range": "<39.8.9"
+          },
+          {
+            "source": 1136659,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: DevTools JavaScript Injection via Unsanitized Dock State Parameter",
+            "url": "https://github.com/advisories/GHSA-4f78-qhmw-8j8m",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-94",
+              "CWE-116"
+            ],
+            "cvss": {
+              "score": 5.7,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:H/UI:R/S:U/C:H/I:H/A:N"
+            },
+            "range": "<39.8.7"
+          },
+          "extract-zip"
+        ],
+        "effects": [],
+        "range": "<=40.10.2 || 41.0.0-alpha.1 - 41.7.1 || 42.0.0-alpha.1 - 42.3.3 || 43.0.0-alpha.1 - 43.0.0-beta.8",
+        "nodes": [
+          "node_modules/electron"
+        ],
+        "fixAvailable": {
+          "name": "electron",
+          "version": "44.2.0",
+          "isSemVerMajor": true
+        }
+      },
+      "esbuild": {
+        "name": "esbuild",
+        "severity": "moderate",
+        "isDirect": false,
+        "via": [
+          {
+            "source": 1102341,
+            "name": "esbuild",
+            "dependency": "esbuild",
+            "title": "esbuild enables any website to send any requests to the development server and read the response",
+            "url": "https://github.com/advisories/GHSA-67mh-4wv8-2f99",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-346"
+            ],
+            "cvss": {
+              "score": 5.3,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N"
+            },
+            "range": "<=0.24.2"
+          }
+        ],
+        "effects": [
+          "vite"
+        ],
+        "range": "<=0.24.2",
+        "nodes": [
+          "node_modules/esbuild"
+        ],
+        "fixAvailable": {
+          "name": "vite",
+          "version": "8.2.2",
+          "isSemVerMajor": true
+        }
+      },
+      "extract-zip": {
+        "name": "extract-zip",
+        "severity": "high",
+        "isDirect": false,
+        "via": [
+          {
+            "source": 1139346,
+            "name": "extract-zip",
+            "dependency": "extract-zip",
+            "title": "extract-zip unvalidated symlink path traversal",
+            "url": "https://github.com/advisories/GHSA-jmr9-qjv8-65gv",
+            "severity": "high",
+            "cwe": [
+              "CWE-22"
+            ],
+            "cvss": {
+              "score": 8.1,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N"
+            },
+            "range": "<=2.0.1"
+          }
+        ],
+        "effects": [
+          "electron"
+        ],
+        "range": "*",
+        "nodes": [
+          "node_modules/extract-zip"
+        ],
+        "fixAvailable": {
+          "name": "electron",
+          "version": "44.2.0",
+          "isSemVerMajor": true
+        }
+      },
+      "form-data": {
+        "name": "form-data",
+        "severity": "high",
+        "isDirect": false,
+        "via": [
+          {
+            "source": 1120743,
+            "name": "form-data",
+            "dependency": "form-data",
+            "title": "form-data: CRLF injection in form-data via unescaped multipart field names and filenames",
+            "url": "https://github.com/advisories/GHSA-hmw2-7cc7-3qxx",
+            "severity": "high",
+            "cwe": [
+              "CWE-93"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N"
+            },
+            "range": ">=4.0.0 <4.0.6"
+          }
+        ],
+        "effects": [],
+        "range": "4.0.0 - 4.0.5",
+        "nodes": [
+          "node_modules/form-data"
+        ],
+        "fixAvailable": true
+      },
+      "joi": {
+        "name": "joi",
+        "severity": "moderate",
+        "isDirect": false,
+        "via": [
+          {
+            "source": 1120656,
+            "name": "joi",
+            "dependency": "joi",
+            "title": "joi has an uncaught RangeError on deeply nested input through recursive `link()` schemas",
+            "url": "https://github.com/advisories/GHSA-q7cg-457f-vx79",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-248",
+              "CWE-400"
+            ],
+            "cvss": {
+              "score": 5.3,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+            },
+            "range": "<17.13.4"
+          }
+        ],
+        "effects": [],
+        "range": "<17.13.4",
+        "nodes": [
+          "node_modules/joi"
+        ],
+        "fixAvailable": true
+      },
+      "nanoid": {
+        "name": "nanoid",
+        "severity": "high",
+        "isDirect": false,
+        "via": [
+          {
+            "source": 1138811,
+            "name": "nanoid",
+            "dependency": "nanoid",
+            "title": "nanoid: non-secure generators can loop indefinitely with negative size",
+            "url": "https://github.com/advisories/GHSA-28wg-ghj8-5hjv",
+            "severity": "high",
+            "cwe": [
+              "CWE-835"
+            ],
+            "cvss": {
+              "score": 5.9,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+            },
+            "range": "<3.3.16"
+          },
+          {
+            "source": 1139427,
+            "name": "nanoid",
+            "dependency": "nanoid",
+            "title": "nanoid: custom generators can loop indefinitely when size is zero",
+            "url": "https://github.com/advisories/GHSA-2v37-7h3g-55p8",
+            "severity": "high",
+            "cwe": [
+              "CWE-835"
+            ],
+            "cvss": {
+              "score": 5.9,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+            },
+            "range": "<3.3.18"
+          }
+        ],
+        "effects": [],
+        "range": "<=3.3.17",
+        "nodes": [
+          "node_modules/nanoid"
+        ],
+        "fixAvailable": true
+      },
+      "postcss": {
+        "name": "postcss",
+        "severity": "high",
+        "isDirect": false,
+        "via": [
+          {
+            "source": 1130709,
+            "name": "postcss",
+            "dependency": "postcss",
+            "title": "PostCSS: incomplete fix of GHSA-6g55-p6wh-862q — attacker-controlled sourceMappingURL reads arbitrary .map files when `from` is unset",
+            "url": "https://github.com/advisories/GHSA-fxqj-rqcc-2cmp",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-22",
+              "CWE-200"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": "<=8.5.22"
+          },
+          {
+            "source": 1139510,
+            "name": "postcss",
+            "dependency": "postcss",
+            "title": "PostCSS: Path Traversal in Previous Source Map Auto-Loading (sourceMappingURL) leads to Arbitrary .map File Disclosure",
+            "url": "https://github.com/advisories/GHSA-r28c-9q8g-f849",
+            "severity": "high",
+            "cwe": [
+              "CWE-22"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+            },
+            "range": "<=8.5.17"
+          }
+        ],
+        "effects": [],
+        "range": "<=8.5.22",
+        "nodes": [
+          "node_modules/postcss"
+        ],
+        "fixAvailable": true
+      },
+      "shell-quote": {
+        "name": "shell-quote",
+        "severity": "critical",
+        "isDirect": false,
+        "via": [
+          {
+            "source": 1120422,
+            "name": "shell-quote",
+            "dependency": "shell-quote",
+            "title": "shell-quote quote() does not escape newlines in object .op values",
+            "url": "https://github.com/advisories/GHSA-w7jw-789q-3m8p",
+            "severity": "critical",
+            "cwe": [
+              "CWE-77",
+              "CWE-78"
+            ],
+            "cvss": {
+              "score": 8.1,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+            },
+            "range": ">=1.1.0 <=1.8.3"
+          },
+          {
+            "source": 1123944,
+            "name": "shell-quote",
+            "dependency": "shell-quote",
+            "title": "shell-quote: Quadratic-complexity Denial of Service in `parse()` (CWE-407)",
+            "url": "https://github.com/advisories/GHSA-395f-4hp3-45gv",
+            "severity": "high",
+            "cwe": [
+              "CWE-407"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+            },
+            "range": "<=1.8.4"
+          }
+        ],
+        "effects": [],
+        "range": "<=1.8.4",
+        "nodes": [
+          "node_modules/shell-quote"
+        ],
+        "fixAvailable": true
+      },
+      "vite": {
+        "name": "vite",
+        "severity": "high",
+        "isDirect": true,
+        "via": [
+          {
+            "source": 1116229,
+            "name": "vite",
+            "dependency": "vite",
+            "title": "Vite Vulnerable to Path Traversal in Optimized Deps `.map` Handling",
+            "url": "https://github.com/advisories/GHSA-4w7w-66w2-5vf9",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-22",
+              "CWE-200"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": "<=6.4.1"
+          },
+          {
+            "source": 1120784,
+            "name": "vite",
+            "dependency": "vite",
+            "title": "launch-editor: NTLMv2 hash disclosure via UNC path handling on Windows",
+            "url": "https://github.com/advisories/GHSA-v6wh-96g9-6wx3",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-73",
+              "CWE-522"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": "<=6.4.2"
+          },
+          {
+            "source": 1123525,
+            "name": "vite",
+            "dependency": "vite",
+            "title": "vite: `server.fs.deny` bypass on Windows alternate paths",
+            "url": "https://github.com/advisories/GHSA-fx2h-pf6j-xcff",
+            "severity": "high",
+            "cwe": [
+              "CWE-22",
+              "CWE-200"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+            },
+            "range": "<=6.4.2"
+          },
+          "esbuild"
+        ],
+        "effects": [],
+        "range": "<=6.4.2",
+        "nodes": [
+          "node_modules/vite"
+        ],
+        "fixAvailable": {
+          "name": "vite",
+          "version": "8.2.2",
+          "isSemVerMajor": true
+        }
+      }
+    },
+    "metadata": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 1,
+        "moderate": 2,
+        "high": 8,
+        "critical": 1,
+        "total": 12
+      },
+      "dependencies": {
+        "prod": 7,
+        "dev": 445,
+        "optional": 76,
+        "peer": 13,
+        "peerOptional": 0,
+        "total": 451
+      }
+    }
+  },
+  "artifact": {
+    "name": "Sanmou-Advisor-0.1.0-unsigned-x64.exe",
+    "sha256": "a4aabfd1b813803948bde9bff4bde4f71b333f736496e14b8977f1dbd3255cc0",
+    "signature": "NotSigned",
+    "api_source_sha256": "20a2d22aa36e73fd1668d94b242f8aa12cbf3cd417174b59985ea0c27c31ccc5"
+  },
+  "final_pipeline": {
+    "revision_parent": "b865808d021ca4fd81c1bb087735187f485b51a2",
+    "finding": "CR07",
+    "node_runtime": "24.14.0",
+    "source_changes": [],
+    "lockfile_changes": false,
+    "targeted_checks_exit_code": 0,
+    "desktop_tests": "15 Node + 15 real Electron, zero fail/skip",
+    "strict_engine_install_exit_code": 0,
+    "ebadengine_count": 0,
+    "installer_runs": 2,
+    "new_artifact_built_on_chosen_runtime": true,
+    "installer_api_source_hash_verified": true,
+    "pixel_guard_and_valid_upload_verified": true,
+    "older_full_package_results_retained_not_reclassified": true
+  },
+  "pre_cr02_snapshot": {
+    "tested_source_sha256": {
+      "apps/sanmou-advisor-desktop/.gitignore": "28b5192eeeb3c6c071f8478a7a163e4c0fb283f98d02fc9335c32c338aa0ea77",
+      "apps/sanmou-advisor-desktop/README.md": "ee1d230d850bc5562b873de9395c5737bb48b4017f57e0f8d5ffda3258c309c6",
+      "apps/sanmou-advisor-desktop/electron-builder.json": "ba4b2a9d34bd9190c152c0c761ac542c851ab6569f0b4af6b1c5f0fac7738419",
+      "apps/sanmou-advisor-desktop/package-lock.json": "f4453cd85135ce22e4bdf2137533c219e740e44c2ea11d22d25572fb9d3a41e9",
+      "apps/sanmou-advisor-desktop/package.json": "47e66989e41c221d0897c6a62716c5603b3ea89c931b68644c9b2f46eee5f82c",
+      "apps/sanmou-advisor-desktop/playwright.config.ts": "589d4b031f45a75f0744951e08dec85b80c4fc5862c0292e2f5f7e0cb372db90",
+      "apps/sanmou-advisor-desktop/src/electron/main.ts": "f84a3b9ab1fbc1e425aae37cc4d4f4afe65a7c1f854a5daad3c20eef980ca6b8",
+      "apps/sanmou-advisor-desktop/src/electron/preload.cts": "a19ee49d4f74147f9dd2ad269168b42e86290b4f467fd60352aa4bdf9e93a283",
+      "apps/sanmou-advisor-desktop/src/electron/python.ts": "5adac19d66cbbd906ab4221a28651da7a8ebef59ca28baaadf2f3446e4c5b14c",
+      "apps/sanmou-advisor-desktop/src/renderer/App.tsx": "36f9cf2467b69a57c798e847f4c600433f0dae2f5269fd36fc30ffce39be8573",
+      "apps/sanmou-advisor-desktop/src/renderer/api.ts": "a05e6bc803514c67b63e8de67c74d81d51c25b9074d811497b245fd87a72ccf9",
+      "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts": "5676bae37cf8967b716549c27756a97fb27c87b448ece3ffa4e2280d4318bee9",
+      "apps/sanmou-advisor-desktop/tests/install-smoke.mjs": "0923006efef68f2cd188db93f12ca5fc912e7a957bdda27b76a609ee03576e86",
+      "apps/sanmou-advisor-desktop/tests/python.test.mjs": "7e2243311bcb5de60aee9e158cf892bd146e992b303f73d40133dbff791fc0dd",
+      "apps/sanmou-advisor-desktop/vite.config.ts": "c43e8aff1aa538e6b12a4e36d674c5824fb2f3d736be9c91f874e8010c57342d",
+      "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py": "8bb7ba8b2ad360a281a4bd7d8037b57a31104171e13b4264182ce6dda7737602",
+      "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py": "2d61d77c60832be6e9c234cac5c8db41f27480275134131987077f8cb025ae45"
+    },
+    "artifact": {
+      "name": "Sanmou-Advisor-0.1.0-unsigned-x64.exe",
+      "sha256": "af5b3e5a756ad15d721ac1c9be3afc1da8b6793b6ad1fab3d5a9a0b92b00f7af",
+      "signature": "NotSigned"
+    },
+    "focused": {
+      "api": {
+        "log_name": "sanmou-e-api-final.log",
+        "log_sha256": "b827fc1f48ac1afcf2f09737d52b3b6d766d2d6f5a80fcec666273838e99358a",
+        "summary": [
+          "Ran 10 tests in 0.517s\r"
+        ],
+        "failed_tests": [],
+        "skips": []
+      },
+      "upload_on_baseline": {
+        "log_name": "sanmou-e-upload-baseline-final.log",
+        "log_sha256": "d9737e48cb2b1ec950634a102ee186fe53cdc9242a861dbdb2daad0af97b4a3a",
+        "summary": [
+          "Ran 4 tests in 0.423s\r",
+          "FAILED (failures=1, errors=2)\r"
+        ],
+        "failed_tests": [
+          "test_corrupt_png_checksum_returns_400_and_removes_upload (test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_corrupt_png_checksum_returns_400_and_removes_upload)\r",
+          "test_oversized_http_upload_returns_413_and_leaves_no_file (test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_oversized_http_upload_returns_413_and_leaves_no_file)\r",
+          "test_interrupted_read_closes_writer_and_removes_partial_file (test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_interrupted_read_closes_writer_and_removes_partial_file)\r"
+        ],
+        "skips": []
+      },
+      "electron": {
+        "log_name": "sanmou-e-desktop-final.log",
+        "log_sha256": "f81b66259ad7a359fee05db719ff8ef2351f292e13ad51410d6b810f87fb36d6",
+        "summary": [
+          "  14 passed (30.2s)\r"
+        ],
+        "failed_tests": [],
+        "skips": []
+      },
+      "install": "> sanmou-advisor-desktop@0.1.0 test:install:win\n> node tests/install-smoke.mjs\n\n{\"status\":\"passed\",\"unsigned\":true,\"packaged\":true,\"preload\":true,\"bundledBackend\":true,\"mockUpload\":true,\"runtimeAdmin\":false,\"gameInput\":false}"
+    },
+    "final_pipeline": {
+      "exit_code": 0,
+      "checks": [
+        "npm ci",
+        "npm run typecheck",
+        "npm run build (via dist:win)",
+        "npm test: 2 Node + 14 Electron pass",
+        "npm run dist:win",
+        "npm run test:install:win"
+      ],
+      "log_sha256": {
+        "sanmou-e-ci.log": "19861ebb12cebdf4791fe965f1db6f0957c0ca4947c95e1fc011024807c4e601",
+        "sanmou-e-typecheck.log": "207a8fc4bc101cb9b1bac40a5b742abb72f05afb990354b85339d2cc7d64368c",
+        "sanmou-e-package-final.log": "25f8309e498cc8e0af5f1d5e057126a868a997fbc803e12854b333f471e39e86",
+        "sanmou-e-desktop-final.log": "f81b66259ad7a359fee05db719ff8ef2351f292e13ad51410d6b810f87fb36d6",
+        "sanmou-e-install-final.log": "37b97e1d3c701f6a35e7cb7cbba3bc6ece72d2a5e9aa5afa83fd6410c62c2733"
+      },
+      "whitespace_cleanup": "Removed trailing blank source line after validation; rebuilt main and verified compiled python.js bytes unchanged."
+    }
+  },
+  "cr02": {
+    "parent_sha": "8729d18f5cab45b3616c15b9fc5eef36746b690e",
+    "review_inputs": [
+      {
+        "name": "sanmou-cr-install-smoke.log",
+        "sha256": "ed8b54cedc9e15919bfc4fe3513e591c2d069e2d8faa7100905f437a9f10b358",
+        "summary": [],
+        "observed_failure": "ECONNREFUSED 127.0.0.1:10483 after unsound page-health wait"
+      },
+      {
+        "name": "sanmou-cr-install-smoke-diagnostic.log",
+        "sha256": "4daac6a6a7989e50cdda57059218928899a6155359699ae14e3990b6d71c5673",
+        "summary": [],
+        "observed_failure": "ECONNREFUSED 127.0.0.1:9184 after unsound page-health wait; runtime still running"
+      },
+      {
+        "name": "sanmou-cr-async-readiness-proof.log",
+        "sha256": "76631003fded46efa7afaed2686bc7ce0264d6c51b457edf82bbe0c30d44dd2e",
+        "summary": [],
+        "proof": {
+          "async_false_returned": false,
+          "elapsed_ms": 188,
+          "expected_timeout_ms": 800,
+          "wait_did_not_retry": true
+        }
+      }
+    ],
+    "initial_local_test_failure": {
+      "name": "sanmou-e-cr02-readiness-initial.log",
+      "sha256": "8dd398f2db30b7cda7f450e1e02f23daf8c9e1cdd21c9b204720a98d577b452e",
+      "summary": [],
+      "exit_code": 1,
+      "pass": 5,
+      "fail": 2,
+      "reasons": [
+        "final timeout masked prior identity failure",
+        "30ms/150ms stalled-body fixture did not allow two observed server requests on Windows; assertions retained with 100ms/1000ms budgets"
+      ]
+    },
+    "tested_git_blobs": {
+      "apps/sanmou-advisor-desktop/.gitignore": "4c3cc430656c5cc136af709050710fa752d72b6e",
+      "apps/sanmou-advisor-desktop/README.md": "06b6484baab7d6359e5afb740b9cb120191b3e3a",
+      "apps/sanmou-advisor-desktop/electron-builder.json": "039ac5c5d1f247037982cfde4e3a72429a539e38",
+      "apps/sanmou-advisor-desktop/package-lock.json": "3e193614d95e4f07563d919b4b958fac5d05680c",
+      "apps/sanmou-advisor-desktop/package.json": "bc5f6429752d4ffa74be2b675895565de062c95f",
+      "apps/sanmou-advisor-desktop/playwright.config.ts": "04232a46c688cdb49288777fd2817fa1887d6868",
+      "apps/sanmou-advisor-desktop/src/electron/main.ts": "82b6573f05bfb9543636b2b7700197270875491e",
+      "apps/sanmou-advisor-desktop/src/electron/preload.cts": "1bb016831441ec06ae57dbba97996b5749da26dc",
+      "apps/sanmou-advisor-desktop/src/electron/python.ts": "e244f5c62f433230f20848fd10b60065ee6d0aa7",
+      "apps/sanmou-advisor-desktop/src/renderer/App.tsx": "5405accc405d481a99a4a83c35f6c794670bc874",
+      "apps/sanmou-advisor-desktop/src/renderer/api.ts": "4c56c8ac95c3031688593eb50408d4c11c03f4bc",
+      "apps/sanmou-advisor-desktop/tests/advisor-readiness.mjs": "be6f6b8adc7fd3bac580050a573a4823478efb97",
+      "apps/sanmou-advisor-desktop/tests/advisor-readiness.test.mjs": "0bf3c012b18a6cb23e96b2e611095a0a0f51cd87",
+      "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts": "62e8c744052593dfb36e7ac6c539a4c3a6f52d0f",
+      "apps/sanmou-advisor-desktop/tests/install-smoke.mjs": "21776c44cbe9eaea9f8236b83a3c758ab0261a40",
+      "apps/sanmou-advisor-desktop/tests/python.test.mjs": "635404c70e23d83fc70c8ad3ddec1f737ca44cf5",
+      "apps/sanmou-advisor-desktop/vite.config.ts": "904bddb31326c79d056d2b7f4e8b0df712d2382b",
+      "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py": "0f2086e59d4a457fdfe896cf802342e7f06e4956",
+      "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py": "cc10894086add8273349819467a92ffbe1007087"
+    },
+    "tested_source_sha256": {
+      "apps/sanmou-advisor-desktop/.gitignore": "28b5192eeeb3c6c071f8478a7a163e4c0fb283f98d02fc9335c32c338aa0ea77",
+      "apps/sanmou-advisor-desktop/README.md": "a09e4867f5850cda2fc802cf292dfe3b553b717f7a48c5f7dcf1b119d90dcf69",
+      "apps/sanmou-advisor-desktop/electron-builder.json": "ba4b2a9d34bd9190c152c0c761ac542c851ab6569f0b4af6b1c5f0fac7738419",
+      "apps/sanmou-advisor-desktop/package-lock.json": "f4453cd85135ce22e4bdf2137533c219e740e44c2ea11d22d25572fb9d3a41e9",
+      "apps/sanmou-advisor-desktop/package.json": "bff8e586a18f8fa718ce3db7d81dff454ea70b69f7cdfdabf752eaecd6652608",
+      "apps/sanmou-advisor-desktop/playwright.config.ts": "589d4b031f45a75f0744951e08dec85b80c4fc5862c0292e2f5f7e0cb372db90",
+      "apps/sanmou-advisor-desktop/src/electron/main.ts": "f84a3b9ab1fbc1e425aae37cc4d4f4afe65a7c1f854a5daad3c20eef980ca6b8",
+      "apps/sanmou-advisor-desktop/src/electron/preload.cts": "a19ee49d4f74147f9dd2ad269168b42e86290b4f467fd60352aa4bdf9e93a283",
+      "apps/sanmou-advisor-desktop/src/electron/python.ts": "5adac19d66cbbd906ab4221a28651da7a8ebef59ca28baaadf2f3446e4c5b14c",
+      "apps/sanmou-advisor-desktop/src/renderer/App.tsx": "36f9cf2467b69a57c798e847f4c600433f0dae2f5269fd36fc30ffce39be8573",
+      "apps/sanmou-advisor-desktop/src/renderer/api.ts": "a05e6bc803514c67b63e8de67c74d81d51c25b9074d811497b245fd87a72ccf9",
+      "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts": "5676bae37cf8967b716549c27756a97fb27c87b448ece3ffa4e2280d4318bee9",
+      "apps/sanmou-advisor-desktop/tests/install-smoke.mjs": "4a69ed7fe4b4d7b947c99580e2e69c837059dd5e17b9531a6baaeed875525a1d",
+      "apps/sanmou-advisor-desktop/tests/python.test.mjs": "7e2243311bcb5de60aee9e158cf892bd146e992b303f73d40133dbff791fc0dd",
+      "apps/sanmou-advisor-desktop/vite.config.ts": "c43e8aff1aa538e6b12a4e36d674c5824fb2f3d736be9c91f874e8010c57342d",
+      "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py": "8bb7ba8b2ad360a281a4bd7d8037b57a31104171e13b4264182ce6dda7737602",
+      "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py": "2d61d77c60832be6e9c234cac5c8db41f27480275134131987077f8cb025ae45",
+      "apps/sanmou-advisor-desktop/tests/advisor-readiness.mjs": "44ed721cd9565dea6676e0e2fb5deac4672524c42b96e7485517f20fd37c9b44",
+      "apps/sanmou-advisor-desktop/tests/advisor-readiness.test.mjs": "ea381971a8ff396b536501e52a4e1b9cf721e660c2cf51df878f4848ce0d7c9e"
+    },
+    "runs": {
+      "focused_readiness": {
+        "name": "sanmou-e-cr02-readiness.log",
+        "sha256": "454ae8ab5cd031b03a68160a5d5456a12d7521d2da521a0b1d43897e3d82b0fa",
+        "summary": [],
+        "exit_code": 0
+      },
+      "full_desktop": {
+        "name": "sanmou-e-cr02-desktop.log",
+        "sha256": "64cc74f0e35497e30a5210b83dc57ae1081ef9a7f480983f0dcf56ac8391b7c3",
+        "summary": [
+          "  14 passed (23.1s)\r"
+        ],
+        "exit_code": 0
+      },
+      "api": {
+        "name": "sanmou-e-cr02-api.log",
+        "sha256": "7c54f3cd1a5414d8abd49ba0b377cabe2a7b0a36653dca4f38df05d0b68f5582",
+        "summary": [
+          "Ran 10 tests in 0.589s\r"
+        ],
+        "exit_code": 0
+      },
+      "typecheck": {
+        "name": "sanmou-e-cr02-typecheck.log",
+        "sha256": "207a8fc4bc101cb9b1bac40a5b742abb72f05afb990354b85339d2cc7d64368c",
+        "summary": [],
+        "exit_code": 0
+      },
+      "package": {
+        "name": "sanmou-e-cr02-package.log",
+        "sha256": "7dda601cbee0c0297110c8726c30b3bdd889c566a900850a43515d45b4a3a6e1",
+        "summary": [],
+        "exit_code": 0
+      },
+      "install_1": {
+        "name": "sanmou-e-cr02-install-1.log",
+        "sha256": "0e95b977bd18ec443f910e637bf8bb8779642f663a56ba48941e0c497bdbc780",
+        "summary": [],
+        "result": {
+          "status": "passed",
+          "readiness": "awaited-http-and-profile-identity",
+          "readinessAttempts": 16,
+          "unsigned": true,
+          "packaged": true,
+          "preload": true,
+          "bundledBackend": true,
+          "mockUpload": true,
+          "runtimeAdmin": false,
+          "gameInput": false
+        },
+        "exit_code": 0
+      },
+      "install_2": {
+        "name": "sanmou-e-cr02-install-2.log",
+        "sha256": "9f5f832bc47e1b4a0ad6176c9899486016e28f35345b3798f09766119fd4b60b",
+        "summary": [],
+        "result": {
+          "status": "passed",
+          "readiness": "awaited-http-and-profile-identity",
+          "readinessAttempts": 18,
+          "unsigned": true,
+          "packaged": true,
+          "preload": true,
+          "bundledBackend": true,
+          "mockUpload": true,
+          "runtimeAdmin": false,
+          "gameInput": false
+        },
+        "exit_code": 0
+      }
+    },
+    "artifact": {
+      "name": "Sanmou-Advisor-0.1.0-unsigned-x64.exe",
+      "sha256": "aa9f91762d969e3fd7daa5a86877f8f5db38eb2b408d562a1668b2ca72e10659",
+      "signature": "NotSigned"
+    },
+    "bounds": {
+      "overall_ms": 30000,
+      "request_ms": 1000,
+      "retry_interval_ms": 100
+    },
+    "checks": [
+      "await fetch and complete JSON body",
+      "status ok",
+      "data_dir equals fresh test profile/advisor",
+      "runtime_admin_enabled false",
+      "post-readiness process status still running and config matches expected URL/backend root"
+    ],
+    "cleanup_verified": {
+      "remaining_test_api_processes": 0,
+      "remaining_advisor_uninstall_entries": 0
+    },
+    "distinct_prior_python_exited_case": "not explained by CR02; cause remains unestablished"
+  },
+  "pre_cr03_snapshot": {
+    "tested_source_sha256": {
+      "apps/sanmou-advisor-desktop/.gitignore": "28b5192eeeb3c6c071f8478a7a163e4c0fb283f98d02fc9335c32c338aa0ea77",
+      "apps/sanmou-advisor-desktop/README.md": "a09e4867f5850cda2fc802cf292dfe3b553b717f7a48c5f7dcf1b119d90dcf69",
+      "apps/sanmou-advisor-desktop/electron-builder.json": "ba4b2a9d34bd9190c152c0c761ac542c851ab6569f0b4af6b1c5f0fac7738419",
+      "apps/sanmou-advisor-desktop/package-lock.json": "f4453cd85135ce22e4bdf2137533c219e740e44c2ea11d22d25572fb9d3a41e9",
+      "apps/sanmou-advisor-desktop/package.json": "bff8e586a18f8fa718ce3db7d81dff454ea70b69f7cdfdabf752eaecd6652608",
+      "apps/sanmou-advisor-desktop/playwright.config.ts": "589d4b031f45a75f0744951e08dec85b80c4fc5862c0292e2f5f7e0cb372db90",
+      "apps/sanmou-advisor-desktop/src/electron/main.ts": "f84a3b9ab1fbc1e425aae37cc4d4f4afe65a7c1f854a5daad3c20eef980ca6b8",
+      "apps/sanmou-advisor-desktop/src/electron/preload.cts": "a19ee49d4f74147f9dd2ad269168b42e86290b4f467fd60352aa4bdf9e93a283",
+      "apps/sanmou-advisor-desktop/src/electron/python.ts": "5adac19d66cbbd906ab4221a28651da7a8ebef59ca28baaadf2f3446e4c5b14c",
+      "apps/sanmou-advisor-desktop/src/renderer/App.tsx": "36f9cf2467b69a57c798e847f4c600433f0dae2f5269fd36fc30ffce39be8573",
+      "apps/sanmou-advisor-desktop/src/renderer/api.ts": "a05e6bc803514c67b63e8de67c74d81d51c25b9074d811497b245fd87a72ccf9",
+      "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts": "5676bae37cf8967b716549c27756a97fb27c87b448ece3ffa4e2280d4318bee9",
+      "apps/sanmou-advisor-desktop/tests/install-smoke.mjs": "4a69ed7fe4b4d7b947c99580e2e69c837059dd5e17b9531a6baaeed875525a1d",
+      "apps/sanmou-advisor-desktop/tests/python.test.mjs": "7e2243311bcb5de60aee9e158cf892bd146e992b303f73d40133dbff791fc0dd",
+      "apps/sanmou-advisor-desktop/vite.config.ts": "c43e8aff1aa538e6b12a4e36d674c5824fb2f3d736be9c91f874e8010c57342d",
+      "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py": "8bb7ba8b2ad360a281a4bd7d8037b57a31104171e13b4264182ce6dda7737602",
+      "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py": "2d61d77c60832be6e9c234cac5c8db41f27480275134131987077f8cb025ae45",
+      "apps/sanmou-advisor-desktop/tests/advisor-readiness.mjs": "44ed721cd9565dea6676e0e2fb5deac4672524c42b96e7485517f20fd37c9b44",
+      "apps/sanmou-advisor-desktop/tests/advisor-readiness.test.mjs": "ea381971a8ff396b536501e52a4e1b9cf721e660c2cf51df878f4848ce0d7c9e"
+    },
+    "artifact": {
+      "name": "Sanmou-Advisor-0.1.0-unsigned-x64.exe",
+      "sha256": "aa9f91762d969e3fd7daa5a86877f8f5db38eb2b408d562a1668b2ca72e10659",
+      "signature": "NotSigned"
+    },
+    "focused": {
+      "api": {
+        "name": "sanmou-e-cr02-api.log",
+        "sha256": "7c54f3cd1a5414d8abd49ba0b377cabe2a7b0a36653dca4f38df05d0b68f5582",
+        "summary": [
+          "Ran 10 tests in 0.589s\r"
+        ],
+        "exit_code": 0
+      },
+      "upload_on_baseline": {
+        "log_name": "sanmou-e-upload-baseline-final.log",
+        "log_sha256": "d9737e48cb2b1ec950634a102ee186fe53cdc9242a861dbdb2daad0af97b4a3a",
+        "summary": [
+          "Ran 4 tests in 0.423s\r",
+          "FAILED (failures=1, errors=2)\r"
+        ],
+        "failed_tests": [
+          "test_corrupt_png_checksum_returns_400_and_removes_upload (test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_corrupt_png_checksum_returns_400_and_removes_upload)\r",
+          "test_oversized_http_upload_returns_413_and_leaves_no_file (test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_oversized_http_upload_returns_413_and_leaves_no_file)\r",
+          "test_interrupted_read_closes_writer_and_removes_partial_file (test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_interrupted_read_closes_writer_and_removes_partial_file)\r"
+        ],
+        "skips": []
+      },
+      "electron": {
+        "name": "sanmou-e-cr02-desktop.log",
+        "sha256": "64cc74f0e35497e30a5210b83dc57ae1081ef9a7f480983f0dcf56ac8391b7c3",
+        "summary": [
+          "  14 passed (23.1s)\r"
+        ],
+        "exit_code": 0
+      },
+      "install": {
+        "name": "sanmou-e-cr02-install-2.log",
+        "sha256": "9f5f832bc47e1b4a0ad6176c9899486016e28f35345b3798f09766119fd4b60b",
+        "summary": [],
+        "result": {
+          "status": "passed",
+          "readiness": "awaited-http-and-profile-identity",
+          "readinessAttempts": 18,
+          "unsigned": true,
+          "packaged": true,
+          "preload": true,
+          "bundledBackend": true,
+          "mockUpload": true,
+          "runtimeAdmin": false,
+          "gameInput": false
+        },
+        "exit_code": 0
+      },
+      "readiness": {
+        "name": "sanmou-e-cr02-readiness.log",
+        "sha256": "454ae8ab5cd031b03a68160a5d5456a12d7521d2da521a0b1d43897e3d82b0fa",
+        "summary": [],
+        "exit_code": 0
+      }
+    },
+    "final_pipeline": {
+      "revision_parent": "8729d18f5cab45b3616c15b9fc5eef36746b690e",
+      "exit_code": 0,
+      "checks": [
+        "npm run typecheck",
+        "npm test: 9 Node + 14 Electron pass",
+        "npm run dist:win (includes full build)",
+        "complete API: 10 pass",
+        "npm run test:install:win, two independent runs"
+      ],
+      "production_sources_unchanged": true,
+      "full_python_package_comparison": "retained from parent; not rerun or reclassified in this test-only revision"
+    }
+  },
+  "cr03": {
+    "parent_sha": "5afaec4bb46c91c4c1fd153e0c79670276c1d197",
+    "review_inputs": [
+      {
+        "name": "sanmou-cr-node20-test.log",
+        "sha256": "d155767b964df7d7e34da0c81cad86e626ca85263673f136ae2de3e5ee2f0a7b",
+        "summary": [
+          "  13 passed (33.4s)\r"
+        ],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 1
+      },
+      {
+        "name": "sanmou-cr-browser-port-proof.log",
+        "sha256": "cfe16d05fd4a5d7edc241411155840334d575f1dec494415aebd259a52f4f2d6",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "proof": {
+          "port": 5061,
+          "nativeStatus": 200,
+          "browser": {
+            "ok": false,
+            "error": "TypeError: Failed to fetch"
+          },
+          "failures": [
+            "net::ERR_UNSAFE_PORT"
+          ]
+        }
+      },
+      {
+        "name": "CR03-port-5061-context.md",
+        "sha256": "31dc1b652374a942ea6deff643d837181e0a5c334fa881084a703681832f1d96",
+        "summary": [],
+        "failed_tests": [],
+        "skips": []
+      }
+    ],
+    "initial_local_failure": {
+      "name": "sanmou-e-cr03-ports-initial.log",
+      "sha256": "f7d71247e785e8a0fb733b8cad22c1276036eeb255625da386fd7a01a495a079",
+      "summary": [],
+      "failed_tests": [],
+      "skips": [],
+      "exit_code": 1,
+      "explanation": "New test expected zero listening handlers; Node already has setupConnectionsTracking. Fixed by asserting exact pre/post listener counts; allocation code unchanged."
+    },
+    "runtime": {
+      "node_version": "20.20.2",
+      "node_path": "C:\\Users\\Lan\\AppData\\Local\\npm-cache\\_npx\\ebaba8b9e55fd0a9\\node_modules\\node\\bin\\node.exe",
+      "node_sha256": "56c1520ee33b801e8bdb92fb321cf2e98529735b6d12bd4a2a6dec0ac0bab937",
+      "python_version": "3.12.14",
+      "python_base_path": "C:\\Users\\Lan\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "python_base_sha256": "b7a12c3af0b4db44191eec14ea095eba731b7328917f570806183093d19ddca2",
+      "isolated_venv": "C:\\Users\\Lan\\.codex\\worktrees\\3fd9\\sanmou_monorepo\\.venv",
+      "old_venv_archive": "C:\\Users\\Lan\\.codex\\worktrees\\3fd9\\sanmou_monorepo\\build\\cr03\\venv-py314",
+      "npm_version": "11.9.0",
+      "electron_version": "29.4.6",
+      "playwright_version": "1.58.2"
+    },
+    "port_policy": {
+      "host": "127.0.0.1",
+      "minimum": 49152,
+      "maximum": 65535,
+      "default_max_attempts": 32,
+      "hard_max_attempts": 128,
+      "retry_errors": [
+        "EADDRINUSE",
+        "EACCES"
+      ],
+      "unsafe_candidates_rejected_before_bind": true,
+      "installer_reservation_held_until_launch": true
+    },
+    "runs": {
+      "focused_node20": {
+        "name": "sanmou-e-cr03-node20-focused.log",
+        "sha256": "154cf600077aae54f6373f56c808db556ee4bb563417175429a70ad74b7c6fd8",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "npm_ci": {
+        "name": "sanmou-e-cr03-node20-ci.log",
+        "sha256": "48ec8527c4e3c3b7cbaec8d43d72e21764397ecbbcec1bc96a9473a19db42314",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "typecheck": {
+        "name": "sanmou-e-cr03-node20-typecheck.log",
+        "sha256": "207a8fc4bc101cb9b1bac40a5b742abb72f05afb990354b85339d2cc7d64368c",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "build": {
+        "name": "sanmou-e-cr03-node20-build.log",
+        "sha256": "015106149d24e91040ee36ce542a159083caa8340eb1f52de6c106f6b772368f",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "desktop": {
+        "name": "sanmou-e-cr03-node20-desktop.log",
+        "sha256": "143dcc8a18e98de1e8082f6e1b51fcbd2cda0841e1a7bc7b559413e26cd45aa4",
+        "summary": [
+          "  15 passed (27.5s)\r"
+        ],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "package": {
+        "name": "sanmou-e-cr03-node20-package.log",
+        "sha256": "76a53854cb931084ca1a134d7fd52d78e7c97f214e0125c752bb5644e92c516f",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "api_before_cr06": {
+        "name": "sanmou-e-cr03-py312-api.log",
+        "sha256": "d5de1fb4070dcccb81e7191e92015aca61f891e5bb92a1590a520055392da82d",
+        "summary": [
+          "Ran 10 tests in 0.611s\r"
+        ],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "install_before_cr06_1": {
+        "name": "sanmou-e-cr03-node20-install-1.log",
+        "sha256": "c1c4b1537fe8425fae90fd4a402401e1bc540b3f028a328b5265fdd0b21c749e",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0,
+        "result": {
+          "status": "passed",
+          "apiPort": 50678,
+          "portAllocationAttempts": 1,
+          "readiness": "awaited-http-and-profile-identity",
+          "readinessAttempts": 12,
+          "unsigned": true,
+          "packaged": true,
+          "preload": true,
+          "bundledBackend": true,
+          "mockUpload": true,
+          "runtimeAdmin": false,
+          "gameInput": false
+        }
+      },
+      "install_before_cr06_2": {
+        "name": "sanmou-e-cr03-node20-install-2.log",
+        "sha256": "947914b67dce678a03f9158b2b710e37d74002aea4e2923f43cec35bab0e6e29",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0,
+        "result": {
+          "status": "passed",
+          "apiPort": 56767,
+          "portAllocationAttempts": 1,
+          "readiness": "awaited-http-and-profile-identity",
+          "readinessAttempts": 12,
+          "unsigned": true,
+          "packaged": true,
+          "preload": true,
+          "bundledBackend": true,
+          "mockUpload": true,
+          "runtimeAdmin": false,
+          "gameInput": false
+        }
+      }
+    },
+    "tested_git_blobs": {
+      "apps/sanmou-advisor-desktop/.gitignore": "4c3cc430656c5cc136af709050710fa752d72b6e",
+      "apps/sanmou-advisor-desktop/README.md": "898c237c6f8ba0ba9e1374040a57fe44808d6e28",
+      "apps/sanmou-advisor-desktop/electron-builder.json": "039ac5c5d1f247037982cfde4e3a72429a539e38",
+      "apps/sanmou-advisor-desktop/package-lock.json": "3e193614d95e4f07563d919b4b958fac5d05680c",
+      "apps/sanmou-advisor-desktop/package.json": "54f0e76fe876c18e8431b4a9c937b831838cd50a",
+      "apps/sanmou-advisor-desktop/playwright.config.ts": "04232a46c688cdb49288777fd2817fa1887d6868",
+      "apps/sanmou-advisor-desktop/src/electron/main.ts": "82b6573f05bfb9543636b2b7700197270875491e",
+      "apps/sanmou-advisor-desktop/src/electron/preload.cts": "1bb016831441ec06ae57dbba97996b5749da26dc",
+      "apps/sanmou-advisor-desktop/src/electron/python.ts": "e244f5c62f433230f20848fd10b60065ee6d0aa7",
+      "apps/sanmou-advisor-desktop/src/renderer/App.tsx": "5405accc405d481a99a4a83c35f6c794670bc874",
+      "apps/sanmou-advisor-desktop/src/renderer/api.ts": "4c56c8ac95c3031688593eb50408d4c11c03f4bc",
+      "apps/sanmou-advisor-desktop/tests/advisor-readiness.mjs": "be6f6b8adc7fd3bac580050a573a4823478efb97",
+      "apps/sanmou-advisor-desktop/tests/advisor-readiness.test.mjs": "080e9babfaf1d0e5ff22f6a8130c18ac998c6c55",
+      "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts": "61b503e8e7831133d9f7025297da928df97acae4",
+      "apps/sanmou-advisor-desktop/tests/install-smoke.mjs": "3b129aff14e8a69dc3fa596bb2b0f8ed0efe33a3",
+      "apps/sanmou-advisor-desktop/tests/python.test.mjs": "635404c70e23d83fc70c8ad3ddec1f737ca44cf5",
+      "apps/sanmou-advisor-desktop/tests/safe-ports.mjs": "c0bff318d9a5b5344f360862d78ab50d42c1ea49",
+      "apps/sanmou-advisor-desktop/tests/safe-ports.test.mjs": "cd66fc342dd697e34f8086282a0b18bdbf675910",
+      "apps/sanmou-advisor-desktop/vite.config.ts": "904bddb31326c79d056d2b7f4e8b0df712d2382b",
+      "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py": "ab8480674e99777d43293d020bf13ed91ef75d4b",
+      "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py": "51e2e4732519ce91691ed11ccfce86dce058946c"
+    },
+    "final_combined_artifact": {
+      "name": "Sanmou-Advisor-0.1.0-unsigned-x64.exe",
+      "sha256": "550b87c81fbfb9d90635c025b4badf71d27e5387789aaa193e63e8de88e621be",
+      "signature": "NotSigned",
+      "api_source_sha256": "20a2d22aa36e73fd1668d94b242f8aa12cbf3cd417174b59985ea0c27c31ccc5"
+    },
+    "engine_warnings": [
+      {
+        "package": "@electron/rebuild",
+        "version": "4.2.0",
+        "declared_node": ">=22.12.0"
+      },
+      {
+        "package": "node-abi",
+        "version": "4.35.0",
+        "declared_node": ">=22.12.0"
+      }
+    ],
+    "f_ci_and_chromium_security_unchanged": true
+  },
+  "cr06": {
+    "parent_sha": "5afaec4bb46c91c4c1fd153e0c79670276c1d197",
+    "review_red": {
+      "name": "sanmou-cr-pixel-guard-cleanup-red.log",
+      "sha256": "bbbe2d41a8f894e1d56b688f8e7a5241702221ab510dce5bc891698208a9f989",
+      "summary": [],
+      "failed_tests": [],
+      "skips": [],
+      "exit_code": 1,
+      "proof": {
+        "input_bytes": 69,
+        "pillow_guard": "DecompressionBombError before pixel decoding",
+        "http_status": 500,
+        "remaining_upload_count": 1,
+        "remaining_bytes": 69,
+        "report_written": false
+      }
+    },
+    "runs": {
+      "local_red": {
+        "name": "sanmou-e-cr06-pixel-red.log",
+        "sha256": "2b5d1232beaf6d9488214b6ce7726cbec075d21b66dbaa251ffb14dc2137fa27",
+        "summary": [
+          "Ran 1 test in 0.053s\r",
+          "FAILED (failures=1)\r"
+        ],
+        "failed_tests": [
+          "test_pixel_limit_rejection_returns_413_and_cleans_without_decoding (tests.unit.test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_pixel_limit_rejection_returns_413_and_cleans_without_decoding)\r"
+        ],
+        "skips": [],
+        "exit_code": 1
+      },
+      "api": {
+        "name": "sanmou-e-cr06-api.log",
+        "sha256": "354ea04dc2d81be85e6468a8821a120c714740918ee3ff9564e73925b4901685",
+        "summary": [
+          "Ran 11 tests in 0.405s\r"
+        ],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "desktop_final_source": {
+        "name": "sanmou-e-cr06-node20-desktop.log",
+        "sha256": "f893b0a6ada8488e75b6f08395d948f2a94653b47267b1e29161aff52240176d",
+        "summary": [
+          "  15 passed (20.7s)\r"
+        ],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "package": {
+        "name": "sanmou-e-cr06-node20-package.log",
+        "sha256": "61ff9a7d13e15e1b2a78d6ce06009c9c7e5df6f41b094a70d678ebff144fbf25",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "autonomous_focused_fixed": {
+        "name": "sanmou-e-cr06-autonomous-focused.log",
+        "sha256": "7f9eff713efb135b6a311c52f98cb961e331ef298a75a3f4fd5dcbfdf3d5b7e5",
+        "summary": [
+          "Ran 2 tests in 0.098s\r",
+          "FAILED (failures=2)\r"
+        ],
+        "failed_tests": [
+          "test_authorized_low_risk_custom_runner_cannot_forge_post_verification (tests.unit.test_autonomous_loop.AutonomousLoopTests.test_authorized_low_risk_custom_runner_cannot_forge_post_verification)\r",
+          "test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies (tests.unit.test_autonomous_loop.AutonomousLoopTests.test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies)\r"
+        ],
+        "skips": [],
+        "exit_code": 1
+      },
+      "autonomous_focused_baseline": {
+        "name": "sanmou-e-cr06-autonomous-baseline.log",
+        "sha256": "d9c9cad2a201183edf030f2037da7e0bdee396387135c1a0d8cb3fd3ce878e0e",
+        "summary": [
+          "Ran 2 tests in 0.102s\r",
+          "FAILED (failures=1)\r"
+        ],
+        "failed_tests": [
+          "test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies (tests.unit.test_autonomous_loop.AutonomousLoopTests.test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies)\r"
+        ],
+        "skips": [],
+        "exit_code": 1
+      },
+      "autonomous_diagnostic_fixed": {
+        "name": "sanmou-e-cr06-autonomous-diagnostic-fixed.log",
+        "sha256": "55d55495aaa3c831bb5e74f186a68d67bd5ef9888fa2503e90e4b187711c6309",
+        "summary": [
+          "Ran 2 tests in 0.108s\r",
+          "FAILED (failures=1)\r"
+        ],
+        "failed_tests": [
+          "test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies (tests.unit.test_autonomous_loop.AutonomousLoopTests.test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies)\r"
+        ],
+        "skips": [],
+        "exit_code": 1,
+        "tick_results": [
+          {
+            "execution_status": "failed",
+            "verification_status": "failed",
+            "failure_reason": "post-action verifier failed: expected progress.chapter_claimable to be False, got True"
+          },
+          {
+            "execution_status": "failed",
+            "verification_status": "unknown",
+            "failure_reason": "post-action verifier failed: post-action observation was not captured after dispatch"
+          }
+        ]
+      },
+      "autonomous_diagnostic_baseline": {
+        "name": "sanmou-e-cr06-autonomous-diagnostic-base.log",
+        "sha256": "6d2ea717232ea25a42989e089c78980e0d576a84eacca1fd743d30e65cf7a949",
+        "summary": [
+          "Ran 2 tests in 0.105s\r",
+          "FAILED (failures=2)\r"
+        ],
+        "failed_tests": [
+          "test_authorized_low_risk_custom_runner_cannot_forge_post_verification (tests.unit.test_autonomous_loop.AutonomousLoopTests.test_authorized_low_risk_custom_runner_cannot_forge_post_verification)\r",
+          "test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies (tests.unit.test_autonomous_loop.AutonomousLoopTests.test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies)\r"
+        ],
+        "skips": [],
+        "exit_code": 1,
+        "tick_results": [
+          {
+            "execution_status": "failed",
+            "verification_status": "unknown",
+            "failure_reason": "post-action verifier failed: post-action observation was not captured after dispatch"
+          },
+          {
+            "execution_status": "failed",
+            "verification_status": "unknown",
+            "failure_reason": "post-action verifier failed: post-action observation was not captured after dispatch"
+          }
+        ]
+      },
+      "install_1": {
+        "name": "sanmou-e-cr06-node20-install-1.log",
+        "sha256": "e726965c4bf6b480189b8041ca4c21c18cad27aa5db1cf8de2e515104ddbd38a",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0,
+        "result": {
+          "status": "passed",
+          "apiPort": 63715,
+          "portAllocationAttempts": 1,
+          "readiness": "awaited-http-and-profile-identity",
+          "readinessAttempts": 13,
+          "unsigned": true,
+          "packaged": true,
+          "preload": true,
+          "bundledBackend": true,
+          "bundledApiSha256": "20a2d22aa36e73fd1668d94b242f8aa12cbf3cd417174b59985ea0c27c31ccc5",
+          "pixelLimitRejected": true,
+          "mockUpload": true,
+          "runtimeAdmin": false,
+          "gameInput": false
+        }
+      },
+      "install_2": {
+        "name": "sanmou-e-cr06-node20-install-2.log",
+        "sha256": "d45f18cf3d4d70fa4a040eec87f065b7767e2a1e7f279c09d7b58eff1e38ac4f",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0,
+        "result": {
+          "status": "passed",
+          "apiPort": 59920,
+          "portAllocationAttempts": 1,
+          "readiness": "awaited-http-and-profile-identity",
+          "readinessAttempts": 12,
+          "unsigned": true,
+          "packaged": true,
+          "preload": true,
+          "bundledBackend": true,
+          "bundledApiSha256": "20a2d22aa36e73fd1668d94b242f8aa12cbf3cd417174b59985ea0c27c31ccc5",
+          "pixelLimitRejected": true,
+          "mockUpload": true,
+          "runtimeAdmin": false,
+          "gameInput": false
+        }
+      }
+    },
+    "pixel_guard": {
+      "max_image_pixels": 89478485,
+      "input_bytes": 69,
+      "advertised_size": [
+        20000,
+        20000
+      ],
+      "pixel_decode_calls": 0,
+      "limit_unchanged": true,
+      "http_status": 413,
+      "remaining_uploads": 0,
+      "remaining_bytes": 0,
+      "report_created_for_rejection": false
+    },
+    "api_before_git_blob": "0f2086e59d4a457fdfe896cf802342e7f06e4956",
+    "api_after_git_blob": "ab8480674e99777d43293d020bf13ed91ef75d4b",
+    "unchanged_red_green_test_git_blob": "51e2e4732519ce91691ed11ccfce86dce058946c",
+    "package_comparison": {
+      "baseline": {
+        "name": "sanmou-e-cr06-py312-baseline.log",
+        "sha256": "e456a2eacd310491dda643897d45086dfd1034b4c40e3fbd22af65d7fb51d239",
+        "summary": [
+          "Ran 764 tests in 49.932s\r",
+          "FAILED (failures=10, errors=29, skipped=9)\r"
+        ],
+        "failed_tests": [
+          "unit.test_agent_harness_game_mcp_integration (unittest.loader._FailedTest.unit.test_agent_harness_game_mcp_integration)\r",
+          "test_official_stdio_clients_bind_real_game_and_qa_servers (unit.test_agent_harness_stdio_client.AgentHarnessStdioClientTests.test_official_stdio_clients_bind_real_game_and_qa_servers)\r",
+          "unit.test_game_mcp_live_provider (unittest.loader._FailedTest.unit.test_game_mcp_live_provider)\r",
+          "unit.test_game_mcp_server (unittest.loader._FailedTest.unit.test_game_mcp_server)\r",
+          "test_fixture_evaluation_is_closed_root_and_never_uses_live_provider (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluation_is_closed_root_and_never_uses_live_provider)\r",
+          "test_fixture_evaluator_never_imports_or_calls_runner_modules (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_never_imports_or_calls_runner_modules)\r",
+          "test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path)\r",
+          "test_fixture_read_is_bounded_no_follow_and_hardlink_safe (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_read_is_bounded_no_follow_and_hardlink_safe)\r",
+          "test_real_fixture_evaluator_returns_advisory_projection (unit.test_game_mcp_service.GameMCPServiceTests.test_real_fixture_evaluator_returns_advisory_projection)\r",
+          "test_link_replacement_of_annotation_after_load_fails_closed (unit.test_map_filter_transition.MapFilterTransitionTests.test_link_replacement_of_annotation_after_load_fails_closed)\r",
+          "test_artifacts_are_write_once_and_holdout_report_has_no_labels (unit.test_mcp_eval.McpEvalTests.test_artifacts_are_write_once_and_holdout_report_has_no_labels)\r",
+          "test_checked_in_battery_covers_session_c_scenarios (unit.test_mcp_eval.McpEvalTests.test_checked_in_battery_covers_session_c_scenarios)\r",
+          "test_checked_in_golden_manifest_is_evaluated_and_digest_bound (unit.test_mcp_eval.McpEvalTests.test_checked_in_golden_manifest_is_evaluated_and_digest_bound)\r",
+          "test_cli_emits_paths_and_safety_boundary (unit.test_mcp_eval.McpEvalTests.test_cli_emits_paths_and_safety_boundary)\r",
+          "test_run_manifest_is_versioned_and_binds_inputs_and_tool_log (unit.test_mcp_eval.McpEvalTests.test_run_manifest_is_versioned_and_binds_inputs_and_tool_log)\r",
+          "test_sensorium_reports_stale_and_missed_risk_domains (unit.test_mcp_eval.McpEvalTests.test_sensorium_reports_stale_and_missed_risk_domains)\r",
+          "test_static_runner_scores_generation_and_never_scores_holdout (unit.test_mcp_eval.McpEvalTests.test_static_runner_scores_generation_and_never_scores_holdout)\r",
+          "test_closed_catalog_verifies_cross_registry_and_declared_lineage_only (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_catalog_verifies_cross_registry_and_declared_lineage_only)\r",
+          "test_attestation_binds_the_exact_trust_policy (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_binds_the_exact_trust_policy)\r",
+          "test_attestation_output_is_create_once (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_output_is_create_once)\r",
+          "test_external_evaluator_allows_only_one_signed_submission_per_catalog (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_evaluator_allows_only_one_signed_submission_per_catalog)\r",
+          "test_external_scorer_signs_aggregate_without_releasing_labels (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_scorer_signs_aggregate_without_releasing_labels)\r",
+          "test_oracle_must_match_approved_holdout_annotations (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_oracle_must_match_approved_holdout_annotations)\r",
+          "test_ordinary_cli_inspects_submission_without_oracle_surface (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_ordinary_cli_inspects_submission_without_oracle_surface)\r",
+          "test_submission_must_cover_exact_holdout_set_and_inputs (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_submission_must_cover_exact_holdout_set_and_inputs)\r",
+          "test_tampered_signed_aggregate_is_rejected (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_tampered_signed_aggregate_is_rejected)\r",
+          "test_valid_but_inaccurate_submission_remains_blocked (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_valid_but_inaccurate_submission_remains_blocked)\r",
+          "test_escalations_are_edge_triggered_not_per_tick (unit.test_runbook_loop_integration.RunbookFixRegressionTests.test_escalations_are_edge_triggered_not_per_tick)\r",
+          "test_single_instance_lock_excludes_second_holder (unit.test_runbook_loop_integration.RunbookStateStoreTests.test_single_instance_lock_excludes_second_holder)\r",
+          "test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies)\r",
+          "test_tick_fails_action_when_post_action_verifier_does_not_match (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_fails_action_when_post_action_verifier_does_not_match)\r",
+          "test_tick_runs_post_action_verifier_after_low_risk_click (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_runs_post_action_verifier_after_low_risk_click)\r",
+          "test_trace_records_post_action_verifier_payload (unit.test_autonomous_loop.AutonomousLoopTests.test_trace_records_post_action_verifier_payload)\r",
+          "test_qa_subprocess_does_not_inherit_secret_environment (unit.test_game_agent_cli.GameAgentCliTests.test_qa_subprocess_does_not_inherit_secret_environment)\r",
+          "test_cli_audits_corpus_without_exposing_local_paths (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cli_audits_corpus_without_exposing_local_paths)\r",
+          "test_closed_roots_reject_undeclared_files (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_roots_reject_undeclared_files)\r",
+          "test_cross_registry_exact_frame_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_exact_frame_clone_is_rejected)\r",
+          "test_cross_registry_reencoded_visual_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_reencoded_visual_clone_is_rejected)\r",
+          "test_development_lineage_cycle_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_development_lineage_cycle_is_rejected)\r"
+        ],
+        "skips": [
+          "test_rejects_symlinked_annotation (unit.test_record_replay_annotations.RecordReplayAnnotationTests.test_rejects_symlinked_annotation) ... skipped 'symlink creation is not reliable on Windows CI'",
+          "test_rejects_symlinked_compiled_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_compiled_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+          "test_rejects_symlinked_draft_skill_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_draft_skill_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+          "test_hardlinked_raw_artifact_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_hardlinked_raw_artifact_is_rejected) ... skipped 'hardlink semantics are exercised on the WSL host'",
+          "test_symlinked_or_hardlinked_review_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_symlinked_or_hardlinked_review_is_rejected) ... skipped 'link semantics are exercised on the WSL host'",
+          "test_attestation_write_rejects_concurrent_hardlink (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_write_rejects_concurrent_hardlink) ... skipped 'hardlink race probe is POSIX-specific'",
+          "test_external_private_key_must_not_be_group_or_world_readable (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_private_key_must_not_be_group_or_world_readable) ... skipped 'POSIX permission bits are not Windows ACLs'",
+          "test_rejects_symlinked_frame (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_frame) ... skipped 'symlink semantics are covered on the WSL test host'",
+          "test_rejects_symlinked_manifest_and_events (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_manifest_and_events) ... skipped 'symlink semantics are covered on the WSL test host'"
+        ],
+        "exit_code": 1
+      },
+      "fixed": {
+        "name": "sanmou-e-cr06-py312-full.log",
+        "sha256": "abc51c6f1e813b6224cd19bf1f256cb64a303185d480d5ece10e45761bdcdd3b",
+        "summary": [
+          "Ran 769 tests in 46.475s\r",
+          "FAILED (failures=10, errors=29, skipped=9)\r"
+        ],
+        "failed_tests": [
+          "unit.test_agent_harness_game_mcp_integration (unittest.loader._FailedTest.unit.test_agent_harness_game_mcp_integration)\r",
+          "test_official_stdio_clients_bind_real_game_and_qa_servers (unit.test_agent_harness_stdio_client.AgentHarnessStdioClientTests.test_official_stdio_clients_bind_real_game_and_qa_servers)\r",
+          "unit.test_game_mcp_live_provider (unittest.loader._FailedTest.unit.test_game_mcp_live_provider)\r",
+          "unit.test_game_mcp_server (unittest.loader._FailedTest.unit.test_game_mcp_server)\r",
+          "test_fixture_evaluation_is_closed_root_and_never_uses_live_provider (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluation_is_closed_root_and_never_uses_live_provider)\r",
+          "test_fixture_evaluator_never_imports_or_calls_runner_modules (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_never_imports_or_calls_runner_modules)\r",
+          "test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path)\r",
+          "test_fixture_read_is_bounded_no_follow_and_hardlink_safe (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_read_is_bounded_no_follow_and_hardlink_safe)\r",
+          "test_real_fixture_evaluator_returns_advisory_projection (unit.test_game_mcp_service.GameMCPServiceTests.test_real_fixture_evaluator_returns_advisory_projection)\r",
+          "test_link_replacement_of_annotation_after_load_fails_closed (unit.test_map_filter_transition.MapFilterTransitionTests.test_link_replacement_of_annotation_after_load_fails_closed)\r",
+          "test_artifacts_are_write_once_and_holdout_report_has_no_labels (unit.test_mcp_eval.McpEvalTests.test_artifacts_are_write_once_and_holdout_report_has_no_labels)\r",
+          "test_checked_in_battery_covers_session_c_scenarios (unit.test_mcp_eval.McpEvalTests.test_checked_in_battery_covers_session_c_scenarios)\r",
+          "test_checked_in_golden_manifest_is_evaluated_and_digest_bound (unit.test_mcp_eval.McpEvalTests.test_checked_in_golden_manifest_is_evaluated_and_digest_bound)\r",
+          "test_cli_emits_paths_and_safety_boundary (unit.test_mcp_eval.McpEvalTests.test_cli_emits_paths_and_safety_boundary)\r",
+          "test_run_manifest_is_versioned_and_binds_inputs_and_tool_log (unit.test_mcp_eval.McpEvalTests.test_run_manifest_is_versioned_and_binds_inputs_and_tool_log)\r",
+          "test_sensorium_reports_stale_and_missed_risk_domains (unit.test_mcp_eval.McpEvalTests.test_sensorium_reports_stale_and_missed_risk_domains)\r",
+          "test_static_runner_scores_generation_and_never_scores_holdout (unit.test_mcp_eval.McpEvalTests.test_static_runner_scores_generation_and_never_scores_holdout)\r",
+          "test_closed_catalog_verifies_cross_registry_and_declared_lineage_only (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_catalog_verifies_cross_registry_and_declared_lineage_only)\r",
+          "test_attestation_binds_the_exact_trust_policy (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_binds_the_exact_trust_policy)\r",
+          "test_attestation_output_is_create_once (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_output_is_create_once)\r",
+          "test_external_evaluator_allows_only_one_signed_submission_per_catalog (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_evaluator_allows_only_one_signed_submission_per_catalog)\r",
+          "test_external_scorer_signs_aggregate_without_releasing_labels (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_scorer_signs_aggregate_without_releasing_labels)\r",
+          "test_oracle_must_match_approved_holdout_annotations (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_oracle_must_match_approved_holdout_annotations)\r",
+          "test_ordinary_cli_inspects_submission_without_oracle_surface (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_ordinary_cli_inspects_submission_without_oracle_surface)\r",
+          "test_submission_must_cover_exact_holdout_set_and_inputs (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_submission_must_cover_exact_holdout_set_and_inputs)\r",
+          "test_tampered_signed_aggregate_is_rejected (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_tampered_signed_aggregate_is_rejected)\r",
+          "test_valid_but_inaccurate_submission_remains_blocked (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_valid_but_inaccurate_submission_remains_blocked)\r",
+          "test_escalations_are_edge_triggered_not_per_tick (unit.test_runbook_loop_integration.RunbookFixRegressionTests.test_escalations_are_edge_triggered_not_per_tick)\r",
+          "test_single_instance_lock_excludes_second_holder (unit.test_runbook_loop_integration.RunbookStateStoreTests.test_single_instance_lock_excludes_second_holder)\r",
+          "test_authorized_low_risk_custom_runner_cannot_forge_post_verification (unit.test_autonomous_loop.AutonomousLoopTests.test_authorized_low_risk_custom_runner_cannot_forge_post_verification)\r",
+          "test_tick_fails_action_when_post_action_verifier_does_not_match (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_fails_action_when_post_action_verifier_does_not_match)\r",
+          "test_tick_runs_post_action_verifier_after_low_risk_click (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_runs_post_action_verifier_after_low_risk_click)\r",
+          "test_trace_records_post_action_verifier_payload (unit.test_autonomous_loop.AutonomousLoopTests.test_trace_records_post_action_verifier_payload)\r",
+          "test_qa_subprocess_does_not_inherit_secret_environment (unit.test_game_agent_cli.GameAgentCliTests.test_qa_subprocess_does_not_inherit_secret_environment)\r",
+          "test_cli_audits_corpus_without_exposing_local_paths (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cli_audits_corpus_without_exposing_local_paths)\r",
+          "test_closed_roots_reject_undeclared_files (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_roots_reject_undeclared_files)\r",
+          "test_cross_registry_exact_frame_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_exact_frame_clone_is_rejected)\r",
+          "test_cross_registry_reencoded_visual_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_reencoded_visual_clone_is_rejected)\r",
+          "test_development_lineage_cycle_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_development_lineage_cycle_is_rejected)\r"
+        ],
+        "skips": [
+          "test_rejects_symlinked_annotation (unit.test_record_replay_annotations.RecordReplayAnnotationTests.test_rejects_symlinked_annotation) ... skipped 'symlink creation is not reliable on Windows CI'",
+          "test_rejects_symlinked_compiled_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_compiled_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+          "test_rejects_symlinked_draft_skill_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_draft_skill_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+          "test_hardlinked_raw_artifact_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_hardlinked_raw_artifact_is_rejected) ... skipped 'hardlink semantics are exercised on the WSL host'",
+          "test_symlinked_or_hardlinked_review_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_symlinked_or_hardlinked_review_is_rejected) ... skipped 'link semantics are exercised on the WSL host'",
+          "test_attestation_write_rejects_concurrent_hardlink (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_write_rejects_concurrent_hardlink) ... skipped 'hardlink race probe is POSIX-specific'",
+          "test_external_private_key_must_not_be_group_or_world_readable (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_private_key_must_not_be_group_or_world_readable) ... skipped 'POSIX permission bits are not Windows ACLs'",
+          "test_rejects_symlinked_frame (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_frame) ... skipped 'symlink semantics are covered on the WSL test host'",
+          "test_rejects_symlinked_manifest_and_events (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_manifest_and_events) ... skipped 'symlink semantics are covered on the WSL test host'"
+        ],
+        "exit_code": 1
+      },
+      "only_fixed": [
+        "test_authorized_low_risk_custom_runner_cannot_forge_post_verification (unit.test_autonomous_loop.AutonomousLoopTests.test_authorized_low_risk_custom_runner_cannot_forge_post_verification)\r"
+      ],
+      "only_baseline": [
+        "test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies)\r"
+      ],
+      "shared_failure_count": 38,
+      "identical_skips": true,
+      "interpretation": "Not a full pass and primary failure sets differ. Both timestamp cases fail on baseline/current in focused diagnostic runs; preserve all results."
+    },
+    "diagnostic_script": {
+      "name": "sanmou-e-cr06-autonomous-diagnostic.py",
+      "sha256": "82e5c8595e8c783f08645bd3048da2b29f006f41218234eeba9a92cd7ad14d40",
+      "summary": [],
+      "failed_tests": [],
+      "skips": []
+    },
+    "diagnostic_note": "Only prints original tick result after return; keeps original assertions, clocks and native stderr. Distinct earlier Python-exited installer observation remains unexplained.",
+    "final_artifact": {
+      "name": "Sanmou-Advisor-0.1.0-unsigned-x64.exe",
+      "sha256": "550b87c81fbfb9d90635c025b4badf71d27e5387789aaa193e63e8de88e621be",
+      "signature": "NotSigned",
+      "api_source_sha256": "20a2d22aa36e73fd1668d94b242f8aa12cbf3cd417174b59985ea0c27c31ccc5"
+    }
+  },
+  "final_tested_git_blobs": {
+    "apps/sanmou-advisor-desktop/.gitignore": "4c3cc430656c5cc136af709050710fa752d72b6e",
+    "apps/sanmou-advisor-desktop/README.md": "898c237c6f8ba0ba9e1374040a57fe44808d6e28",
+    "apps/sanmou-advisor-desktop/electron-builder.json": "039ac5c5d1f247037982cfde4e3a72429a539e38",
+    "apps/sanmou-advisor-desktop/package-lock.json": "3e193614d95e4f07563d919b4b958fac5d05680c",
+    "apps/sanmou-advisor-desktop/package.json": "54f0e76fe876c18e8431b4a9c937b831838cd50a",
+    "apps/sanmou-advisor-desktop/playwright.config.ts": "04232a46c688cdb49288777fd2817fa1887d6868",
+    "apps/sanmou-advisor-desktop/src/electron/main.ts": "82b6573f05bfb9543636b2b7700197270875491e",
+    "apps/sanmou-advisor-desktop/src/electron/preload.cts": "1bb016831441ec06ae57dbba97996b5749da26dc",
+    "apps/sanmou-advisor-desktop/src/electron/python.ts": "e244f5c62f433230f20848fd10b60065ee6d0aa7",
+    "apps/sanmou-advisor-desktop/src/renderer/App.tsx": "5405accc405d481a99a4a83c35f6c794670bc874",
+    "apps/sanmou-advisor-desktop/src/renderer/api.ts": "4c56c8ac95c3031688593eb50408d4c11c03f4bc",
+    "apps/sanmou-advisor-desktop/tests/advisor-readiness.mjs": "be6f6b8adc7fd3bac580050a573a4823478efb97",
+    "apps/sanmou-advisor-desktop/tests/advisor-readiness.test.mjs": "080e9babfaf1d0e5ff22f6a8130c18ac998c6c55",
+    "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts": "61b503e8e7831133d9f7025297da928df97acae4",
+    "apps/sanmou-advisor-desktop/tests/install-smoke.mjs": "3b129aff14e8a69dc3fa596bb2b0f8ed0efe33a3",
+    "apps/sanmou-advisor-desktop/tests/python.test.mjs": "635404c70e23d83fc70c8ad3ddec1f737ca44cf5",
+    "apps/sanmou-advisor-desktop/tests/safe-ports.mjs": "c0bff318d9a5b5344f360862d78ab50d42c1ea49",
+    "apps/sanmou-advisor-desktop/tests/safe-ports.test.mjs": "cd66fc342dd697e34f8086282a0b18bdbf675910",
+    "apps/sanmou-advisor-desktop/vite.config.ts": "904bddb31326c79d056d2b7f4e8b0df712d2382b",
+    "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py": "ab8480674e99777d43293d020bf13ed91ef75d4b",
+    "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py": "51e2e4732519ce91691ed11ccfce86dce058946c"
+  },
+  "windows_python312": {
+    "baseline": {
+      "name": "sanmou-e-cr06-py312-baseline.log",
+      "sha256": "e456a2eacd310491dda643897d45086dfd1034b4c40e3fbd22af65d7fb51d239",
+      "summary": [
+        "Ran 764 tests in 49.932s\r",
+        "FAILED (failures=10, errors=29, skipped=9)\r"
+      ],
+      "failed_tests": [
+        "unit.test_agent_harness_game_mcp_integration (unittest.loader._FailedTest.unit.test_agent_harness_game_mcp_integration)\r",
+        "test_official_stdio_clients_bind_real_game_and_qa_servers (unit.test_agent_harness_stdio_client.AgentHarnessStdioClientTests.test_official_stdio_clients_bind_real_game_and_qa_servers)\r",
+        "unit.test_game_mcp_live_provider (unittest.loader._FailedTest.unit.test_game_mcp_live_provider)\r",
+        "unit.test_game_mcp_server (unittest.loader._FailedTest.unit.test_game_mcp_server)\r",
+        "test_fixture_evaluation_is_closed_root_and_never_uses_live_provider (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluation_is_closed_root_and_never_uses_live_provider)\r",
+        "test_fixture_evaluator_never_imports_or_calls_runner_modules (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_never_imports_or_calls_runner_modules)\r",
+        "test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path)\r",
+        "test_fixture_read_is_bounded_no_follow_and_hardlink_safe (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_read_is_bounded_no_follow_and_hardlink_safe)\r",
+        "test_real_fixture_evaluator_returns_advisory_projection (unit.test_game_mcp_service.GameMCPServiceTests.test_real_fixture_evaluator_returns_advisory_projection)\r",
+        "test_link_replacement_of_annotation_after_load_fails_closed (unit.test_map_filter_transition.MapFilterTransitionTests.test_link_replacement_of_annotation_after_load_fails_closed)\r",
+        "test_artifacts_are_write_once_and_holdout_report_has_no_labels (unit.test_mcp_eval.McpEvalTests.test_artifacts_are_write_once_and_holdout_report_has_no_labels)\r",
+        "test_checked_in_battery_covers_session_c_scenarios (unit.test_mcp_eval.McpEvalTests.test_checked_in_battery_covers_session_c_scenarios)\r",
+        "test_checked_in_golden_manifest_is_evaluated_and_digest_bound (unit.test_mcp_eval.McpEvalTests.test_checked_in_golden_manifest_is_evaluated_and_digest_bound)\r",
+        "test_cli_emits_paths_and_safety_boundary (unit.test_mcp_eval.McpEvalTests.test_cli_emits_paths_and_safety_boundary)\r",
+        "test_run_manifest_is_versioned_and_binds_inputs_and_tool_log (unit.test_mcp_eval.McpEvalTests.test_run_manifest_is_versioned_and_binds_inputs_and_tool_log)\r",
+        "test_sensorium_reports_stale_and_missed_risk_domains (unit.test_mcp_eval.McpEvalTests.test_sensorium_reports_stale_and_missed_risk_domains)\r",
+        "test_static_runner_scores_generation_and_never_scores_holdout (unit.test_mcp_eval.McpEvalTests.test_static_runner_scores_generation_and_never_scores_holdout)\r",
+        "test_closed_catalog_verifies_cross_registry_and_declared_lineage_only (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_catalog_verifies_cross_registry_and_declared_lineage_only)\r",
+        "test_attestation_binds_the_exact_trust_policy (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_binds_the_exact_trust_policy)\r",
+        "test_attestation_output_is_create_once (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_output_is_create_once)\r",
+        "test_external_evaluator_allows_only_one_signed_submission_per_catalog (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_evaluator_allows_only_one_signed_submission_per_catalog)\r",
+        "test_external_scorer_signs_aggregate_without_releasing_labels (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_scorer_signs_aggregate_without_releasing_labels)\r",
+        "test_oracle_must_match_approved_holdout_annotations (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_oracle_must_match_approved_holdout_annotations)\r",
+        "test_ordinary_cli_inspects_submission_without_oracle_surface (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_ordinary_cli_inspects_submission_without_oracle_surface)\r",
+        "test_submission_must_cover_exact_holdout_set_and_inputs (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_submission_must_cover_exact_holdout_set_and_inputs)\r",
+        "test_tampered_signed_aggregate_is_rejected (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_tampered_signed_aggregate_is_rejected)\r",
+        "test_valid_but_inaccurate_submission_remains_blocked (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_valid_but_inaccurate_submission_remains_blocked)\r",
+        "test_escalations_are_edge_triggered_not_per_tick (unit.test_runbook_loop_integration.RunbookFixRegressionTests.test_escalations_are_edge_triggered_not_per_tick)\r",
+        "test_single_instance_lock_excludes_second_holder (unit.test_runbook_loop_integration.RunbookStateStoreTests.test_single_instance_lock_excludes_second_holder)\r",
+        "test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies)\r",
+        "test_tick_fails_action_when_post_action_verifier_does_not_match (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_fails_action_when_post_action_verifier_does_not_match)\r",
+        "test_tick_runs_post_action_verifier_after_low_risk_click (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_runs_post_action_verifier_after_low_risk_click)\r",
+        "test_trace_records_post_action_verifier_payload (unit.test_autonomous_loop.AutonomousLoopTests.test_trace_records_post_action_verifier_payload)\r",
+        "test_qa_subprocess_does_not_inherit_secret_environment (unit.test_game_agent_cli.GameAgentCliTests.test_qa_subprocess_does_not_inherit_secret_environment)\r",
+        "test_cli_audits_corpus_without_exposing_local_paths (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cli_audits_corpus_without_exposing_local_paths)\r",
+        "test_closed_roots_reject_undeclared_files (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_roots_reject_undeclared_files)\r",
+        "test_cross_registry_exact_frame_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_exact_frame_clone_is_rejected)\r",
+        "test_cross_registry_reencoded_visual_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_reencoded_visual_clone_is_rejected)\r",
+        "test_development_lineage_cycle_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_development_lineage_cycle_is_rejected)\r"
+      ],
+      "skips": [
+        "test_rejects_symlinked_annotation (unit.test_record_replay_annotations.RecordReplayAnnotationTests.test_rejects_symlinked_annotation) ... skipped 'symlink creation is not reliable on Windows CI'",
+        "test_rejects_symlinked_compiled_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_compiled_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_rejects_symlinked_draft_skill_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_draft_skill_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_hardlinked_raw_artifact_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_hardlinked_raw_artifact_is_rejected) ... skipped 'hardlink semantics are exercised on the WSL host'",
+        "test_symlinked_or_hardlinked_review_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_symlinked_or_hardlinked_review_is_rejected) ... skipped 'link semantics are exercised on the WSL host'",
+        "test_attestation_write_rejects_concurrent_hardlink (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_write_rejects_concurrent_hardlink) ... skipped 'hardlink race probe is POSIX-specific'",
+        "test_external_private_key_must_not_be_group_or_world_readable (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_private_key_must_not_be_group_or_world_readable) ... skipped 'POSIX permission bits are not Windows ACLs'",
+        "test_rejects_symlinked_frame (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_frame) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_rejects_symlinked_manifest_and_events (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_manifest_and_events) ... skipped 'symlink semantics are covered on the WSL test host'"
+      ],
+      "exit_code": 1
+    },
+    "fixed": {
+      "name": "sanmou-e-cr06-py312-full.log",
+      "sha256": "abc51c6f1e813b6224cd19bf1f256cb64a303185d480d5ece10e45761bdcdd3b",
+      "summary": [
+        "Ran 769 tests in 46.475s\r",
+        "FAILED (failures=10, errors=29, skipped=9)\r"
+      ],
+      "failed_tests": [
+        "unit.test_agent_harness_game_mcp_integration (unittest.loader._FailedTest.unit.test_agent_harness_game_mcp_integration)\r",
+        "test_official_stdio_clients_bind_real_game_and_qa_servers (unit.test_agent_harness_stdio_client.AgentHarnessStdioClientTests.test_official_stdio_clients_bind_real_game_and_qa_servers)\r",
+        "unit.test_game_mcp_live_provider (unittest.loader._FailedTest.unit.test_game_mcp_live_provider)\r",
+        "unit.test_game_mcp_server (unittest.loader._FailedTest.unit.test_game_mcp_server)\r",
+        "test_fixture_evaluation_is_closed_root_and_never_uses_live_provider (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluation_is_closed_root_and_never_uses_live_provider)\r",
+        "test_fixture_evaluator_never_imports_or_calls_runner_modules (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_never_imports_or_calls_runner_modules)\r",
+        "test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path)\r",
+        "test_fixture_read_is_bounded_no_follow_and_hardlink_safe (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_read_is_bounded_no_follow_and_hardlink_safe)\r",
+        "test_real_fixture_evaluator_returns_advisory_projection (unit.test_game_mcp_service.GameMCPServiceTests.test_real_fixture_evaluator_returns_advisory_projection)\r",
+        "test_link_replacement_of_annotation_after_load_fails_closed (unit.test_map_filter_transition.MapFilterTransitionTests.test_link_replacement_of_annotation_after_load_fails_closed)\r",
+        "test_artifacts_are_write_once_and_holdout_report_has_no_labels (unit.test_mcp_eval.McpEvalTests.test_artifacts_are_write_once_and_holdout_report_has_no_labels)\r",
+        "test_checked_in_battery_covers_session_c_scenarios (unit.test_mcp_eval.McpEvalTests.test_checked_in_battery_covers_session_c_scenarios)\r",
+        "test_checked_in_golden_manifest_is_evaluated_and_digest_bound (unit.test_mcp_eval.McpEvalTests.test_checked_in_golden_manifest_is_evaluated_and_digest_bound)\r",
+        "test_cli_emits_paths_and_safety_boundary (unit.test_mcp_eval.McpEvalTests.test_cli_emits_paths_and_safety_boundary)\r",
+        "test_run_manifest_is_versioned_and_binds_inputs_and_tool_log (unit.test_mcp_eval.McpEvalTests.test_run_manifest_is_versioned_and_binds_inputs_and_tool_log)\r",
+        "test_sensorium_reports_stale_and_missed_risk_domains (unit.test_mcp_eval.McpEvalTests.test_sensorium_reports_stale_and_missed_risk_domains)\r",
+        "test_static_runner_scores_generation_and_never_scores_holdout (unit.test_mcp_eval.McpEvalTests.test_static_runner_scores_generation_and_never_scores_holdout)\r",
+        "test_closed_catalog_verifies_cross_registry_and_declared_lineage_only (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_catalog_verifies_cross_registry_and_declared_lineage_only)\r",
+        "test_attestation_binds_the_exact_trust_policy (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_binds_the_exact_trust_policy)\r",
+        "test_attestation_output_is_create_once (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_output_is_create_once)\r",
+        "test_external_evaluator_allows_only_one_signed_submission_per_catalog (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_evaluator_allows_only_one_signed_submission_per_catalog)\r",
+        "test_external_scorer_signs_aggregate_without_releasing_labels (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_scorer_signs_aggregate_without_releasing_labels)\r",
+        "test_oracle_must_match_approved_holdout_annotations (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_oracle_must_match_approved_holdout_annotations)\r",
+        "test_ordinary_cli_inspects_submission_without_oracle_surface (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_ordinary_cli_inspects_submission_without_oracle_surface)\r",
+        "test_submission_must_cover_exact_holdout_set_and_inputs (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_submission_must_cover_exact_holdout_set_and_inputs)\r",
+        "test_tampered_signed_aggregate_is_rejected (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_tampered_signed_aggregate_is_rejected)\r",
+        "test_valid_but_inaccurate_submission_remains_blocked (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_valid_but_inaccurate_submission_remains_blocked)\r",
+        "test_escalations_are_edge_triggered_not_per_tick (unit.test_runbook_loop_integration.RunbookFixRegressionTests.test_escalations_are_edge_triggered_not_per_tick)\r",
+        "test_single_instance_lock_excludes_second_holder (unit.test_runbook_loop_integration.RunbookStateStoreTests.test_single_instance_lock_excludes_second_holder)\r",
+        "test_authorized_low_risk_custom_runner_cannot_forge_post_verification (unit.test_autonomous_loop.AutonomousLoopTests.test_authorized_low_risk_custom_runner_cannot_forge_post_verification)\r",
+        "test_tick_fails_action_when_post_action_verifier_does_not_match (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_fails_action_when_post_action_verifier_does_not_match)\r",
+        "test_tick_runs_post_action_verifier_after_low_risk_click (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_runs_post_action_verifier_after_low_risk_click)\r",
+        "test_trace_records_post_action_verifier_payload (unit.test_autonomous_loop.AutonomousLoopTests.test_trace_records_post_action_verifier_payload)\r",
+        "test_qa_subprocess_does_not_inherit_secret_environment (unit.test_game_agent_cli.GameAgentCliTests.test_qa_subprocess_does_not_inherit_secret_environment)\r",
+        "test_cli_audits_corpus_without_exposing_local_paths (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cli_audits_corpus_without_exposing_local_paths)\r",
+        "test_closed_roots_reject_undeclared_files (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_roots_reject_undeclared_files)\r",
+        "test_cross_registry_exact_frame_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_exact_frame_clone_is_rejected)\r",
+        "test_cross_registry_reencoded_visual_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_reencoded_visual_clone_is_rejected)\r",
+        "test_development_lineage_cycle_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_development_lineage_cycle_is_rejected)\r"
+      ],
+      "skips": [
+        "test_rejects_symlinked_annotation (unit.test_record_replay_annotations.RecordReplayAnnotationTests.test_rejects_symlinked_annotation) ... skipped 'symlink creation is not reliable on Windows CI'",
+        "test_rejects_symlinked_compiled_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_compiled_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_rejects_symlinked_draft_skill_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_draft_skill_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_hardlinked_raw_artifact_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_hardlinked_raw_artifact_is_rejected) ... skipped 'hardlink semantics are exercised on the WSL host'",
+        "test_symlinked_or_hardlinked_review_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_symlinked_or_hardlinked_review_is_rejected) ... skipped 'link semantics are exercised on the WSL host'",
+        "test_attestation_write_rejects_concurrent_hardlink (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_write_rejects_concurrent_hardlink) ... skipped 'hardlink race probe is POSIX-specific'",
+        "test_external_private_key_must_not_be_group_or_world_readable (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_private_key_must_not_be_group_or_world_readable) ... skipped 'POSIX permission bits are not Windows ACLs'",
+        "test_rejects_symlinked_frame (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_frame) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_rejects_symlinked_manifest_and_events (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_manifest_and_events) ... skipped 'symlink semantics are covered on the WSL test host'"
+      ],
+      "exit_code": 1
+    },
+    "only_fixed": [
+      "test_authorized_low_risk_custom_runner_cannot_forge_post_verification (unit.test_autonomous_loop.AutonomousLoopTests.test_authorized_low_risk_custom_runner_cannot_forge_post_verification)\r"
+    ],
+    "only_baseline": [
+      "test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies)\r"
+    ],
+    "shared_failure_count": 38,
+    "identical_skips": true,
+    "interpretation": "Not a full pass and primary failure sets differ. Both timestamp cases fail on baseline/current in focused diagnostic runs; preserve all results."
+  },
+  "pre_cr07_snapshot": {
+    "artifact": {
+      "name": "Sanmou-Advisor-0.1.0-unsigned-x64.exe",
+      "sha256": "550b87c81fbfb9d90635c025b4badf71d27e5387789aaa193e63e8de88e621be",
+      "signature": "NotSigned",
+      "api_source_sha256": "20a2d22aa36e73fd1668d94b242f8aa12cbf3cd417174b59985ea0c27c31ccc5"
+    },
+    "final_pipeline": {
+      "revision_parent": "5afaec4bb46c91c4c1fd153e0c79670276c1d197",
+      "owned_findings": [
+        "CR03",
+        "CR06"
+      ],
+      "targeted_checks_exit_code": 0,
+      "desktop_tests": "15 Node + 15 real Electron, zero fail/skip",
+      "api_tests": "11 Windows Python 3.12, zero fail/skip",
+      "installer_runs": 2,
+      "installer_api_source_hash_verified": true,
+      "pillow_pixel_guard_verified_without_decode": true,
+      "full_package_exit_code": 1,
+      "production_changes": [
+        "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py"
+      ],
+      "remaining_test_electron_processes": 0,
+      "remaining_test_install_api_processes": 0,
+      "remaining_advisor_uninstall_entries": 0
+    },
+    "focused": {
+      "api": {
+        "name": "sanmou-e-cr06-api.log",
+        "sha256": "354ea04dc2d81be85e6468a8821a120c714740918ee3ff9564e73925b4901685",
+        "summary": [
+          "Ran 11 tests in 0.405s\r"
+        ],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "upload_on_baseline": {
+        "log_name": "sanmou-e-upload-baseline-final.log",
+        "log_sha256": "d9737e48cb2b1ec950634a102ee186fe53cdc9242a861dbdb2daad0af97b4a3a",
+        "summary": [
+          "Ran 4 tests in 0.423s\r",
+          "FAILED (failures=1, errors=2)\r"
+        ],
+        "failed_tests": [
+          "test_corrupt_png_checksum_returns_400_and_removes_upload (test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_corrupt_png_checksum_returns_400_and_removes_upload)\r",
+          "test_oversized_http_upload_returns_413_and_leaves_no_file (test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_oversized_http_upload_returns_413_and_leaves_no_file)\r",
+          "test_interrupted_read_closes_writer_and_removes_partial_file (test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_interrupted_read_closes_writer_and_removes_partial_file)\r"
+        ],
+        "skips": []
+      },
+      "electron": {
+        "name": "sanmou-e-cr06-node20-desktop.log",
+        "sha256": "f893b0a6ada8488e75b6f08395d948f2a94653b47267b1e29161aff52240176d",
+        "summary": [
+          "  15 passed (20.7s)\r"
+        ],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "install": {
+        "name": "sanmou-e-cr06-node20-install-2.log",
+        "sha256": "d45f18cf3d4d70fa4a040eec87f065b7767e2a1e7f279c09d7b58eff1e38ac4f",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0,
+        "result": {
+          "status": "passed",
+          "apiPort": 59920,
+          "portAllocationAttempts": 1,
+          "readiness": "awaited-http-and-profile-identity",
+          "readinessAttempts": 12,
+          "unsigned": true,
+          "packaged": true,
+          "preload": true,
+          "bundledBackend": true,
+          "bundledApiSha256": "20a2d22aa36e73fd1668d94b242f8aa12cbf3cd417174b59985ea0c27c31ccc5",
+          "pixelLimitRejected": true,
+          "mockUpload": true,
+          "runtimeAdmin": false,
+          "gameInput": false
+        }
+      },
+      "readiness": {
+        "name": "sanmou-e-cr02-readiness.log",
+        "sha256": "454ae8ab5cd031b03a68160a5d5456a12d7521d2da521a0b1d43897e3d82b0fa",
+        "summary": [],
+        "exit_code": 0
+      }
+    },
+    "final_tested_git_blobs": {
+      "apps/sanmou-advisor-desktop/.gitignore": "4c3cc430656c5cc136af709050710fa752d72b6e",
+      "apps/sanmou-advisor-desktop/README.md": "898c237c6f8ba0ba9e1374040a57fe44808d6e28",
+      "apps/sanmou-advisor-desktop/electron-builder.json": "039ac5c5d1f247037982cfde4e3a72429a539e38",
+      "apps/sanmou-advisor-desktop/package-lock.json": "3e193614d95e4f07563d919b4b958fac5d05680c",
+      "apps/sanmou-advisor-desktop/package.json": "54f0e76fe876c18e8431b4a9c937b831838cd50a",
+      "apps/sanmou-advisor-desktop/playwright.config.ts": "04232a46c688cdb49288777fd2817fa1887d6868",
+      "apps/sanmou-advisor-desktop/src/electron/main.ts": "82b6573f05bfb9543636b2b7700197270875491e",
+      "apps/sanmou-advisor-desktop/src/electron/preload.cts": "1bb016831441ec06ae57dbba97996b5749da26dc",
+      "apps/sanmou-advisor-desktop/src/electron/python.ts": "e244f5c62f433230f20848fd10b60065ee6d0aa7",
+      "apps/sanmou-advisor-desktop/src/renderer/App.tsx": "5405accc405d481a99a4a83c35f6c794670bc874",
+      "apps/sanmou-advisor-desktop/src/renderer/api.ts": "4c56c8ac95c3031688593eb50408d4c11c03f4bc",
+      "apps/sanmou-advisor-desktop/tests/advisor-readiness.mjs": "be6f6b8adc7fd3bac580050a573a4823478efb97",
+      "apps/sanmou-advisor-desktop/tests/advisor-readiness.test.mjs": "080e9babfaf1d0e5ff22f6a8130c18ac998c6c55",
+      "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts": "61b503e8e7831133d9f7025297da928df97acae4",
+      "apps/sanmou-advisor-desktop/tests/install-smoke.mjs": "3b129aff14e8a69dc3fa596bb2b0f8ed0efe33a3",
+      "apps/sanmou-advisor-desktop/tests/python.test.mjs": "635404c70e23d83fc70c8ad3ddec1f737ca44cf5",
+      "apps/sanmou-advisor-desktop/tests/safe-ports.mjs": "c0bff318d9a5b5344f360862d78ab50d42c1ea49",
+      "apps/sanmou-advisor-desktop/tests/safe-ports.test.mjs": "cd66fc342dd697e34f8086282a0b18bdbf675910",
+      "apps/sanmou-advisor-desktop/vite.config.ts": "904bddb31326c79d056d2b7f4e8b0df712d2382b",
+      "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py": "ab8480674e99777d43293d020bf13ed91ef75d4b",
+      "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py": "51e2e4732519ce91691ed11ccfce86dce058946c"
+    }
+  },
+  "cr07": {
+    "validation_source_sha": "b865808d021ca4fd81c1bb087735187f485b51a2",
+    "production_test_and_lock_sources_unchanged": true,
+    "runtime": {
+      "node": "24.14.0",
+      "node_executable": "D:/nodejs/node.exe",
+      "node_executable_sha256": "63c259c81e5d472b5f11c8d506070130cb04a1ecf84b80377a34ed6ec9048088",
+      "npm": "11.9.0",
+      "npm_cli": "D:/nodejs/node_modules/npm/bin/npm-cli.js",
+      "python": "3.12.14",
+      "python_environment": "C:\\Users\\Lan\\.codex\\worktrees\\3fd9\\sanmou_monorepo\\.venv"
+    },
+    "companion_f_inspected_sha": "6bff970d8ed6d6eff6153e783b715273847847b7",
+    "f_owned_ci_pin": "24.14.0",
+    "f_workflow_not_merged_into_e": true,
+    "engine_checks": {
+      "node": "v24.14.0",
+      "checks": [
+        {
+          "package": "@electron/rebuild",
+          "version": "4.2.0",
+          "range": ">=22.12.0",
+          "supported": true,
+          "oldNode20Supported": false
+        },
+        {
+          "package": "node-abi",
+          "version": "4.35.0",
+          "range": ">=22.12.0",
+          "supported": true,
+          "oldNode20Supported": false
+        }
+      ]
+    },
+    "engine_check_log": {
+      "name": "sanmou-e-cr07-engine-check.json",
+      "sha256": "d4306bf0d50cacd4d2e1e3fabdc31ddd0a28e61ce543319d190069c2c0f8b8b7",
+      "exit_code": 0,
+      "summary": [],
+      "ebadengine_count": 0
+    },
+    "runs": {
+      "pure_node": {
+        "name": "sanmou-e-cr07-node24-pure.log",
+        "sha256": "a25e5e061784234cbb1cff6a9173911e9706610a714636753e48c4f02c75ff0a",
+        "exit_code": 0,
+        "summary": [],
+        "ebadengine_count": 0
+      },
+      "npm_ci": {
+        "name": "sanmou-e-cr07-node24-ci.log",
+        "sha256": "e25edb0643f5238df438c1828be86456c051100ed28b38a09bcdadad433ad31d",
+        "exit_code": 0,
+        "summary": [],
+        "ebadengine_count": 0
+      },
+      "npm_ci_engine_strict": {
+        "name": "sanmou-e-cr07-node24-engine-strict.log",
+        "sha256": "41c3a8d952889176b4f99fa15b0e505ffc95e3b6f793e432410bf2c124bdcdeb",
+        "exit_code": 0,
+        "summary": [],
+        "ebadengine_count": 0
+      },
+      "typecheck": {
+        "name": "sanmou-e-cr07-node24-typecheck.log",
+        "sha256": "207a8fc4bc101cb9b1bac40a5b742abb72f05afb990354b85339d2cc7d64368c",
+        "exit_code": 0,
+        "summary": [],
+        "ebadengine_count": 0
+      },
+      "build": {
+        "name": "sanmou-e-cr07-node24-build.log",
+        "sha256": "7e6f1dcda914fdb7f90eede59a99c8d7f58e15fa2d07f20ac9d4bf2315a03770",
+        "exit_code": 0,
+        "summary": [],
+        "ebadengine_count": 0
+      },
+      "desktop": {
+        "name": "sanmou-e-cr07-node24-desktop.log",
+        "sha256": "17e4a21694d4137c37bdb0171a0775479d9963b4f3dfc9d7d8eaf85e5fcf2d5e",
+        "exit_code": 0,
+        "summary": [
+          "  15 passed (20.8s)\r"
+        ],
+        "ebadengine_count": 0
+      },
+      "package": {
+        "name": "sanmou-e-cr07-node24-package.log",
+        "sha256": "be5565f0ec75ca203917a007bf60700dc0eca65fd3144519e9b4b2e309e0fb2b",
+        "exit_code": 0,
+        "summary": [],
+        "ebadengine_count": 0
+      },
+      "install_1": {
+        "name": "sanmou-e-cr07-node24-install-1.log",
+        "sha256": "6f15d596cd87b3ff621d13b6e8b4404cbb3e293cabbf3f781a6477ed3fac3761",
+        "exit_code": 0,
+        "summary": [],
+        "ebadengine_count": 0,
+        "result": {
+          "status": "passed",
+          "apiPort": 58638,
+          "portAllocationAttempts": 1,
+          "readiness": "awaited-http-and-profile-identity",
+          "readinessAttempts": 12,
+          "unsigned": true,
+          "packaged": true,
+          "preload": true,
+          "bundledBackend": true,
+          "bundledApiSha256": "20a2d22aa36e73fd1668d94b242f8aa12cbf3cd417174b59985ea0c27c31ccc5",
+          "pixelLimitRejected": true,
+          "mockUpload": true,
+          "runtimeAdmin": false,
+          "gameInput": false
+        }
+      },
+      "install_2": {
+        "name": "sanmou-e-cr07-node24-install-2.log",
+        "sha256": "0c410760ac2fd0cec0c89a7f1bb130238a96592a9c4ced1834272a6fc639df69",
+        "exit_code": 0,
+        "summary": [],
+        "ebadengine_count": 0,
+        "result": {
+          "status": "passed",
+          "apiPort": 62917,
+          "portAllocationAttempts": 1,
+          "readiness": "awaited-http-and-profile-identity",
+          "readinessAttempts": 12,
+          "unsigned": true,
+          "packaged": true,
+          "preload": true,
+          "bundledBackend": true,
+          "bundledApiSha256": "20a2d22aa36e73fd1668d94b242f8aa12cbf3cd417174b59985ea0c27c31ccc5",
+          "pixelLimitRejected": true,
+          "mockUpload": true,
+          "runtimeAdmin": false,
+          "gameInput": false
+        }
+      }
+    },
+    "newly_built_artifact": {
+      "name": "Sanmou-Advisor-0.1.0-unsigned-x64.exe",
+      "sha256": "a4aabfd1b813803948bde9bff4bde4f71b333f736496e14b8977f1dbd3255cc0",
+      "signature": "NotSigned",
+      "api_source_sha256": "20a2d22aa36e73fd1668d94b242f8aa12cbf3cd417174b59985ea0c27c31ccc5"
+    },
+    "final_tested_git_blobs": {
+      "apps/sanmou-advisor-desktop/.gitignore": "4c3cc430656c5cc136af709050710fa752d72b6e",
+      "apps/sanmou-advisor-desktop/README.md": "898c237c6f8ba0ba9e1374040a57fe44808d6e28",
+      "apps/sanmou-advisor-desktop/electron-builder.json": "039ac5c5d1f247037982cfde4e3a72429a539e38",
+      "apps/sanmou-advisor-desktop/package-lock.json": "3e193614d95e4f07563d919b4b958fac5d05680c",
+      "apps/sanmou-advisor-desktop/package.json": "54f0e76fe876c18e8431b4a9c937b831838cd50a",
+      "apps/sanmou-advisor-desktop/playwright.config.ts": "04232a46c688cdb49288777fd2817fa1887d6868",
+      "apps/sanmou-advisor-desktop/src/electron/main.ts": "82b6573f05bfb9543636b2b7700197270875491e",
+      "apps/sanmou-advisor-desktop/src/electron/preload.cts": "1bb016831441ec06ae57dbba97996b5749da26dc",
+      "apps/sanmou-advisor-desktop/src/electron/python.ts": "e244f5c62f433230f20848fd10b60065ee6d0aa7",
+      "apps/sanmou-advisor-desktop/src/renderer/App.tsx": "5405accc405d481a99a4a83c35f6c794670bc874",
+      "apps/sanmou-advisor-desktop/src/renderer/api.ts": "4c56c8ac95c3031688593eb50408d4c11c03f4bc",
+      "apps/sanmou-advisor-desktop/tests/advisor-readiness.mjs": "be6f6b8adc7fd3bac580050a573a4823478efb97",
+      "apps/sanmou-advisor-desktop/tests/advisor-readiness.test.mjs": "080e9babfaf1d0e5ff22f6a8130c18ac998c6c55",
+      "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts": "61b503e8e7831133d9f7025297da928df97acae4",
+      "apps/sanmou-advisor-desktop/tests/install-smoke.mjs": "3b129aff14e8a69dc3fa596bb2b0f8ed0efe33a3",
+      "apps/sanmou-advisor-desktop/tests/python.test.mjs": "635404c70e23d83fc70c8ad3ddec1f737ca44cf5",
+      "apps/sanmou-advisor-desktop/tests/safe-ports.mjs": "c0bff318d9a5b5344f360862d78ab50d42c1ea49",
+      "apps/sanmou-advisor-desktop/tests/safe-ports.test.mjs": "cd66fc342dd697e34f8086282a0b18bdbf675910",
+      "apps/sanmou-advisor-desktop/vite.config.ts": "904bddb31326c79d056d2b7f4e8b0df712d2382b",
+      "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py": "ab8480674e99777d43293d020bf13ed91ef75d4b",
+      "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py": "51e2e4732519ce91691ed11ccfce86dce058946c"
+    },
+    "cleanup": {
+      "owned_electron_processes": 0,
+      "owned_install_api_processes": 0,
+      "advisor_uninstall_entries": 0
+    },
+    "historical_node20_support": false,
+    "historical_node20_logs_retained": true,
+    "npm_advisories_remaining": 12,
+    "full_python_package_tests_not_rerun": true,
+    "hosted_ci_and_combined_review_not_claimed": true,
+    "release_reference": "https://nodejs.org/en/about/previous-releases"
+  }
+}

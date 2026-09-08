@@ -1,7 +1,7 @@
-"""Windows-side bridge server for game screenshot capture and input injection.
+"""Windows-side authenticated, loopback-only screenshot server.
 
 This script runs on the Windows host and exposes a TCP interface for the
-WSL2-side agent to capture screenshots and send clicks to the game window.
+WSL2-side observer to capture screenshots. Network input is always rejected.
 
 Usage (from Windows or WSL):
     python win_bridge_server.py [--port 9877] [--window "三国：谋定天下"]
@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import base64
 import hashlib
+import hmac
 import importlib.util
 import json
 import math
@@ -149,11 +150,6 @@ def find_window(title_substring: str) -> int:
     if hwnd is not None:
         return hwnd
 
-    for item in result:
-        _restore_window(int(item["hwnd"]))
-    time.sleep(0.5)
-    result = list_windows(title_substring)
-    hwnd = _best_window(result)
     if hwnd is None:
         compact = [
             {key: item[key] for key in ("hwnd", "title", "left", "top", "width", "height", "iconic", "offscreen")}
@@ -197,8 +193,7 @@ def _ensure_window_onscreen(hwnd: int) -> None:
 
 
 def capture_window_dxgi(hwnd: int) -> tuple[bytes, dict[str, Any]]:
-    """Preserve bridge restore behavior, then delegate read-only capture."""
-    _ensure_window_onscreen(hwnd)
+    """Capture without restoring, foregrounding or moving a window."""
     return _capture.capture_window_dxgi(hwnd)
 
 
@@ -206,8 +201,7 @@ def capture_window_wgc(
     hwnd: int,
     timeout_seconds: float = 5.0,
 ) -> tuple[bytes, dict[str, Any]]:
-    """Preserve bridge restore behavior, then delegate read-only capture."""
-    _ensure_window_onscreen(hwnd)
+    """Capture without restoring, foregrounding or moving a window."""
     return _capture.capture_window_wgc(hwnd, timeout_seconds=timeout_seconds)
 
 
@@ -841,11 +835,14 @@ def get_window_info(hwnd: int) -> dict[str, Any]:
 
 def recv_msg(conn: socket.socket) -> dict[str, Any]:
     """Receive a length-prefixed JSON message."""
-    raw_len = _recv_exact(conn, 4)
+    deadline = time.monotonic() + 10
+    raw_len = _recv_exact(conn, 4, deadline=deadline)
     if not raw_len:
         raise ConnectionError("Client disconnected")
     msg_len = struct.unpack(">I", raw_len)[0]
-    data = _recv_exact(conn, msg_len)
+    if not 0 < msg_len <= 65536:
+        raise ValueError("invalid bridge request length")
+    data = _recv_exact(conn, msg_len, deadline=deadline)
     return json.loads(data)
 
 
@@ -860,212 +857,111 @@ def send_binary(conn: socket.socket, data: bytes) -> None:
     conn.sendall(struct.pack(">I", len(data)) + data)
 
 
-def _recv_exact(conn: socket.socket, n: int) -> bytes:
+def _recv_exact(conn: socket.socket, n: int, *, deadline: float | None = None) -> bytes:
     buf = bytearray()
     while len(buf) < n:
+        if deadline is not None:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise TimeoutError("capture request deadline exceeded")
+            conn.settimeout(remaining)
         chunk = conn.recv(n - len(buf))
         if not chunk:
-            return bytes(buf) if buf else b""
+            raise ConnectionError("Client disconnected during frame")
         buf.extend(chunk)
     return bytes(buf)
 
 
 # --- Main server ---
 
-def handle_client(conn: socket.socket, window_title: str, capture_backend: str) -> None:
-    hwnd = None
-    last_screenshot_binding: dict[str, Any] | None = None
+PROTOCOL_VERSION = 2
+READ_ONLY_COMMANDS = frozenset({"ping", "capabilities", "screenshot", "window_info", "list_windows", "quit"})
 
+
+def _valid_token(value: Any) -> bool:
+    return isinstance(value, str) and 32 <= len(value) <= 256 and value.isascii() and not any(c.isspace() for c in value)
+
+
+def handle_client(
+    conn: socket.socket, window_title: str, capture_backend: str,
+    *, auth_token: str | None = None,
+) -> None:
+    """Serve only authenticated observations. Input has no network dispatch."""
+    if not _valid_token(auth_token):
+        raise RuntimeError("capture bridge authentication is not configured")
+    hwnd = None
+    seen_requests: set[str] = set()
     while True:
         try:
             msg = recv_msg(conn)
-        except ConnectionError:
-            break
-
-        cmd = msg.get("cmd", "")
-
-        try:
+            if not isinstance(msg, dict):
+                return
+            request_id = msg.get("request_id")
+            if (
+                msg.get("protocol_version") != PROTOCOL_VERSION
+                or not isinstance(request_id, str)
+                or len(request_id) != 32
+                or any(c not in "0123456789abcdef" for c in request_id)
+                or request_id in seen_requests
+            ):
+                send_json(conn, {"status": "error", "message": "capture protocol v2 required"})
+                return
+            supplied_token = msg.get("auth_token")
+            if not _valid_token(supplied_token) or not hmac.compare_digest(supplied_token, auth_token):
+                send_json(conn, {"status": "error", "message": "unauthorized"})
+                return
+            seen_requests.add(request_id)
+            # Bound session state and force a fresh connection after 4096 requests.
+            if len(seen_requests) > 4096:
+                return
+            binding = {"protocol_version": PROTOCOL_VERSION, "request_id": request_id}
+            cmd = msg.get("cmd")
+            if not isinstance(cmd, str) or cmd not in READ_ONLY_COMMANDS:
+                send_json(conn, {**binding, "status": "error", "message": "capture_only: input commands are disabled"})
+                return
+            if cmd == "quit":
+                send_json(conn, {**binding, "status": "bye"})
+                return
             if cmd == "ping":
-                send_json(conn, {"status": "ok"})
-
+                payload = {"status": "ok"}
             elif cmd == "capabilities":
-                send_json(
-                    conn,
-                    {
-                        "status": "ok",
-                        "atomic_frame_click_guard_version": (
-                            ATOMIC_FRAME_CLICK_GUARD_VERSION
-                        ),
-                        "capture_geometry_version": CAPTURE_GEOMETRY_VERSION,
-                        "atomic_frame_click_guard_modes": [
-                            "semantic_roi_rgb24_sha256",
-                            "full_frame_png_sha256",
-                        ],
-                        "atomic_frame_click_authorization_scopes": sorted(
-                            ATOMIC_CLICK_AUTHORIZATION_SCOPES
-                        ),
-                    },
-                )
-
+                payload = {
+                    "status": "ok", "capture_geometry_version": CAPTURE_GEOMETRY_VERSION,
+                    "capture_only": True, "execution_authority": "none",
+                    "input_control": False,
+                }
             elif cmd == "screenshot":
-                # A failed replacement capture must not leave a stale frame
-                # authorized for a later guarded dispatch.
-                last_screenshot_binding = None
                 hwnd = _resolve_window(window_title, hwnd)
-                png_bytes, capture_geometry = capture_window_with_backend(
-                    hwnd,
-                    backend=str(msg.get("backend") or capture_backend),
+                # Timestamp at acquisition start is conservative: processing and
+                # network latency must never make the frame appear newer.
+                captured_at = datetime.now(UTC).isoformat()
+                png_bytes, geometry = capture_window_with_backend(
+                    hwnd, backend=str(msg.get("backend") or capture_backend),
                 )
                 _validate_capture_sanity(png_bytes, hwnd=hwnd)
-                frame_sha256 = hashlib.sha256(png_bytes).hexdigest()
-                last_screenshot_binding = {
-                    "hwnd": hwnd,
-                    "frame_sha256": frame_sha256,
-                    "capture_geometry": capture_geometry,
+                payload = {
+                    "status": "ok", "data_b64": base64.b64encode(png_bytes).decode("ascii"),
+                    "size": len(png_bytes), "frame_sha256": hashlib.sha256(png_bytes).hexdigest(),
+                    "capture_geometry": geometry, "captured_at": captured_at,
                 }
-                send_json(
-                    conn,
-                    {
-                        "status": "ok",
-                        "data_b64": base64.b64encode(png_bytes).decode("ascii"),
-                        "size": len(png_bytes),
-                        "frame_sha256": frame_sha256,
-                        "capture_geometry": capture_geometry,
-                    },
-                )
-
-            elif cmd == "click":
-                hwnd = _resolve_window(window_title, hwnd)
-                button = msg.get("button", "left")
-                expected_window = msg.get("expected_window")
-                expected_capture_geometry = msg.get("expected_capture_geometry")
-                guarded_capture_backend: str | None = None
-                if expected_window is not None and not isinstance(expected_window, dict):
-                    raise RuntimeError("expected_window must be an object")
-                if expected_window is not None:
-                    if last_screenshot_binding is None:
-                        raise RuntimeError(
-                            "guarded click requires a screenshot from this bridge session"
-                        )
-                    screenshot_binding = last_screenshot_binding
-                    # Every guarded dispatch attempt consumes the session-local
-                    # screenshot binding, including malformed/mismatched ones.
-                    last_screenshot_binding = None
-                    if not _plain_int(msg.get("x")) or not _plain_int(msg.get("y")):
-                        raise RuntimeError("guarded click coordinates must be integers")
-                    rx, ry = msg["x"], msg["y"]
-                    expected_capture_geometry = _validate_capture_geometry(
-                        expected_capture_geometry
-                    )
-                    if screenshot_binding.get("hwnd") != hwnd:
-                        raise RuntimeError(
-                            "guarded click target differs from the observed screenshot window"
-                        )
-                    if (
-                        screenshot_binding.get("frame_sha256")
-                        != msg.get("expected_frame_sha256")
-                    ):
-                        raise RuntimeError(
-                            "guarded click frame is not the last bridge screenshot"
-                        )
-                    if (
-                        screenshot_binding.get("capture_geometry")
-                        != expected_capture_geometry
-                    ):
-                        raise RuntimeError(
-                            "guarded click capture geometry is not the last bridge screenshot"
-                        )
-                    guarded_capture_backend = str(
-                        expected_capture_geometry["capture_backend"]
-                    )
-                else:
-                    last_screenshot_binding = None
-                    rx, ry = int(msg["x"]), int(msg["y"])
-                click_result = click_window_relative(
-                    hwnd,
-                    rx,
-                    ry,
-                    button,
-                    expected_window=expected_window,
-                    expected_capture_geometry=expected_capture_geometry,
-                    expected_frame_sha256=msg.get("expected_frame_sha256"),
-                    guard_expires_at=msg.get("guard_expires_at"),
-                    authorization_scope=msg.get("authorization_scope"),
-                    kill_switch_path=msg.get("kill_switch_path"),
-                    semantic_frame_guard=msg.get("semantic_frame_guard"),
-                    capture_backend=(
-                        guarded_capture_backend
-                        if guarded_capture_backend is not None
-                        else str(msg.get("backend") or capture_backend)
-                    ),
-                    atomic_frame_click_guard_version=msg.get(
-                        "atomic_frame_click_guard_version"
-                    ),
-                )
-                send_json(conn, {"status": "ok", **click_result})
-
-            elif cmd == "move":
-                last_screenshot_binding = None
-                hwnd = _resolve_window(window_title, hwnd)
-                rx, ry = int(msg["x"]), int(msg["y"])
-                duration = float(msg.get("duration", 0.0))
-                move_window_relative(hwnd, rx, ry, duration=duration)
-                send_json(conn, {"status": "ok"})
-
-            elif cmd == "drag":
-                last_screenshot_binding = None
-                hwnd = _resolve_window(window_title, hwnd)
-                drag_window_relative(
-                    hwnd,
-                    int(msg["x1"]),
-                    int(msg["y1"]),
-                    int(msg["x2"]),
-                    int(msg["y2"]),
-                    duration=float(msg.get("duration", 0.4)),
-                    button=msg.get("button", "left"),
-                )
-                send_json(conn, {"status": "ok"})
-
-            elif cmd == "key":
-                last_screenshot_binding = None
-                hwnd = _resolve_window(window_title, hwnd)
-                key_press_window_guarded(
-                    hwnd,
-                    msg["key"],
-                    modifiers=msg.get("modifiers"),
-                )
-                send_json(conn, {"status": "ok"})
-
             elif cmd == "window_info":
                 hwnd = _resolve_window(window_title, hwnd)
-                send_json(conn, get_window_info(hwnd))
-
-            elif cmd == "list_windows":
-                title_filter = msg.get("title") if isinstance(msg.get("title"), str) else window_title
-                send_json(conn, {"status": "ok", "windows": list_windows(title_filter, include_offscreen=True)})
-
-            elif cmd == "quit":
-                send_json(conn, {"status": "bye"})
-                break
-
+                payload = {**get_window_info(hwnd), "status": "ok"}
             else:
-                send_json(conn, {"status": "error", "message": f"Unknown command: {cmd}"})
-
-        except Exception as exc:
-            payload = {"status": "error", "message": str(exc)}
-            if isinstance(exc, CaptureSanityError):
-                payload["sanity_reason"] = exc.reason
-                payload["mean"] = exc.mean
-                payload["std"] = exc.std
-                if exc.density is not None:
-                    payload["density"] = exc.density
-                payload["hwnd"] = hwnd
-            send_json(conn, payload)
+                # The client cannot retarget enumeration outside the configured window.
+                payload = {"status": "ok", "windows": list_windows(window_title, include_offscreen=True)}
+            send_json(conn, {**payload, **binding})
+        except (ConnectionError, OSError, ValueError, TypeError):
+            return
+        except Exception:
+            # Do not reflect arbitrary exception strings (which can contain
+            # paths or credentials) and never reuse the stream after failure.
+            send_json(conn, {"status": "error", "message": "capture failed"})
+            return
 
 
 def main() -> None:
-    _enable_physical_pixel_coordinates()
-    parser = argparse.ArgumentParser(description="Windows bridge server for game automation.")
+    parser = argparse.ArgumentParser(description="Authenticated loopback capture-only bridge.")
     parser.add_argument("--port", type=int, default=9877, help="TCP port to listen on.")
     parser.add_argument("--window", default="三国：谋定天下", help="Game window title substring.")
     parser.add_argument(
@@ -1075,13 +971,17 @@ def main() -> None:
         help="Window capture backend. auto tries WGC first, then DXGI desktop duplication.",
     )
     args = parser.parse_args()
+    auth_token = os.environ.get("SANMOU_CAPTURE_TOKEN", "")
+    if not _valid_token(auth_token):
+        parser.error("set a random SANMOU_CAPTURE_TOKEN of at least 32 ASCII characters")
+    _enable_physical_pixel_coordinates()
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    sock.bind(("0.0.0.0", args.port))
+    sock.bind(("127.0.0.1", args.port))
     sock.listen(1)
 
-    print(f"Bridge server listening on 0.0.0.0:{args.port}")
+    print(f"Capture-only bridge listening on 127.0.0.1:{args.port}")
     print(f"Target window: {args.window}")
     print(f"Capture backend: {args.capture_backend}")
 
@@ -1091,7 +991,8 @@ def main() -> None:
             conn, addr = sock.accept()
             print(f"Agent connected from {addr}")
             try:
-                handle_client(conn, args.window, args.capture_backend)
+                conn.settimeout(10)
+                handle_client(conn, args.window, args.capture_backend, auth_token=auth_token)
             except Exception as exc:
                 print(f"Session error: {exc}", file=sys.stderr)
             finally:

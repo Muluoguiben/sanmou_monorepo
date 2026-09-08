@@ -55,6 +55,7 @@ API and skip local Python startup.
 ```bash
 npm run typecheck
 npm run build
+npm test
 ```
 
 ## Modes
@@ -68,6 +69,60 @@ npm run build
 - `SANMOU_ADVISOR_PORT`: local API port, default `8765`.
 - `SANMOU_REPO_ROOT`: explicit repo root for Electron main process.
 - `PYTHON`: first Python executable Electron probes when starting the API.
+- `SANMOU_DESKTOP_BUILT=1`: load the built renderer for local Electron verification.
+
+## Unsigned Windows packaging foundation
+
+From the repository root, create a task-local environment before testing:
+
+```powershell
+python -m venv .venv
+.venv/Scripts/python.exe -m pip install -e packages/sanmou-common -e packages/pioneer-agent httpx
+$env:PYTHONPATH='packages/pioneer-agent/src;packages/sanmou-common/src;packages/qa-agent/src'
+.venv/Scripts/python.exe -m unittest discover -s packages/pioneer-agent/tests/unit -p 'test_advisor_api*.py' -v
+cd apps/sanmou-advisor-desktop
+npm ci
+npm run typecheck
+npm run build
+npm test
+npm run dist:win
+# Opt-in: installs into a new temporary directory, runs mock upload, uninstalls.
+npm run test:install:win
+```
+
+`npm test` uses the installed Electron executable with Playwright and a synthetic
+HTTP API; it needs no Chrome installation or game client. It verifies the actual
+CommonJS preload, custom API configuration, visible Python launch failures,
+selection races across picker/drop/paste/history/chat, and evidence presentation.
+All late-response assertions wait for network completion before checking UI state.
+The Node suite also tests delayed/never-ready HTTP services, stalled response
+bodies, wrong profile identity and network retries. The installation check uses
+an awaited HTTP loop with a 30-second overall deadline and 1-second request
+deadlines; HTTP 200 alone is insufficient without the expected data directory,
+`status=ok`, and runtime administration disabled. It refuses to overwrite an
+existing Advisor installation and only cleans its own temporary install/profile.
+All browser/fetch test listeners use the shared `tests/safe-ports.mjs` allocator:
+loopback ports 49152–65535, at most 32 candidates by default, and bounded retries
+for occupied or OS-reserved ports. The installation reservation remains held
+through installation and is released immediately before Electron/Python starts.
+Tests inject unsafe/colliding ports and verify Chromium still blocks port 5061;
+no port-security override is used.
+
+`release/Sanmou-Advisor-0.1.0-unsigned-x64.exe` is a per-user NSIS installer.
+It contains the built UI and allowlisted Python source/config/reviewed KB files.
+It does **not** bundle Python or dependencies: install the Python requirements
+above and set `PYTHON` to that environment, or set `SANMOU_ADVISOR_API_URL` to
+an already running API. Packaged mode resolves backend source under
+`resources/backend`; uploads and reports use Electron's user-data directory.
+Development mode keeps its existing `data/advisor` history under the repository.
+Missing dependencies produce a visible startup error. No .env, runtime data,
+screenshots, research artifacts, or credentials are included by the resource list.
+
+The installer and application are unsigned. This foundation is not a production
+release, a clean-machine certification, or an update/rollback implementation.
+The installation test uses this machine's isolated Python dependencies and
+synthetic images; it makes no provider or game-input calls. Existing Electron/Vite
+dependency advisories require a separate reviewed upgrade before production.
 
 ## Product Boundary
 

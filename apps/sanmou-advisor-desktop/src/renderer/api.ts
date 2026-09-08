@@ -10,17 +10,19 @@ import type {
 
 const DEFAULT_API_BASE_URL = "http://127.0.0.1:8765";
 
-let runtimeConfigPromise: Promise<RuntimeConfig> | null = null;
-
 export async function getRuntimeConfig(): Promise<RuntimeConfig> {
-  if (!runtimeConfigPromise) {
-    runtimeConfigPromise = window.sanmou?.getRuntimeConfig?.() ?? Promise.resolve({
-      apiBaseUrl: import.meta.env.VITE_SANMOU_ADVISOR_API_URL || DEFAULT_API_BASE_URL,
-      repoRoot: "",
-      externalApi: false
-    });
+  if (window.sanmou?.getRuntimeConfig) {
+    // Read live process status; an API may exit after the renderer mounts.
+    return window.sanmou.getRuntimeConfig();
   }
-  return runtimeConfigPromise;
+  if (window.location.protocol === "file:" || navigator.userAgent.includes("Electron/")) {
+    throw new Error("桌面运行桥未加载，无法读取 API 配置。请重新安装或检查 preload。");
+  }
+  return {
+    apiBaseUrl: import.meta.env.VITE_SANMOU_ADVISOR_API_URL || DEFAULT_API_BASE_URL,
+    repoRoot: "",
+    externalApi: false
+  };
 }
 
 export async function healthCheck(): Promise<HealthStatus> {

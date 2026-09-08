@@ -6,11 +6,7 @@ from pathlib import Path
 
 import yaml
 
-from qa_agent.ingestion.models import ReviewStatus, StagingEntry
-from qa_agent.ingestion.publish import publish_entries
-from qa_agent.knowledge.loader import load_entries
 from qa_agent.retrieval.retriever import Retriever
-from qa_agent.service.query_service import QueryService
 from qa_agent.video import VideoEvidenceBundle, build_video_knowledge_document, dump_video_knowledge_document, stage_all_video_entries
 from qa_agent.video.subtitle_normalizer import (
     build_dictionary_from_profiles,
@@ -21,7 +17,6 @@ from qa_agent.video.subtitle_normalizer import (
 )
 from qa_agent.video.vision_enrichment import enrich_document_with_vision
 from qa_agent.vision.extractor import ImageExtractor
-from qa_agent.knowledge.source_paths import discover_source_paths
 
 from .video_extract import _resolve_enriched_document
 
@@ -175,37 +170,15 @@ def main() -> None:
         )
 
     staged_entries, direct_entries = stage_all_video_entries(enriched, project_root)
-    staged_entries = [
-        StagingEntry(
-            metadata=staged.metadata.model_copy(update={"review_status": ReviewStatus.REVIEWED}),
-            entry=staged.entry,
-        )
-        for staged in staged_entries
-    ]
-
-    staging_path = workspace / "video-staging-reviewed.yaml"
+    # Machine extraction never grants human review or creates a queryable KB.
+    staging_path = workspace / "video-staging-pending.yaml"
     staging_path.write_text(
-        yaml.dump([item.model_dump(mode="json") for item in staged_entries], allow_unicode=True, default_flow_style=False, sort_keys=False),
+        yaml.safe_dump([item.model_dump(mode="json") for item in staged_entries], allow_unicode=True, sort_keys=False),
         encoding="utf-8",
     )
-
-    knowledge_root = workspace / "knowledge_sources"
-    published_entries = [entry.to_reviewed_entry() for entry in staged_entries]
-    published_entries.extend(direct_entries)
-    bucket_stats = publish_entries(published_entries, knowledge_root) if published_entries else {}
-
-    query_results = {}
-    if published_entries:
-        source_paths = discover_source_paths(knowledge_root)
-        service = QueryService(load_entries(source_paths))
-        if enriched.lineup_candidates:
-            query_results["lineup"] = service.lookup_topic(enriched.lineup_candidates[0].topic, domain="solution").model_dump(mode="json")
-        if enriched.hero_candidates:
-            query_results["hero"] = service.lookup_topic(enriched.hero_candidates[0].hero_name, domain="hero").model_dump(mode="json")
-        if enriched.skill_candidates:
-            query_results["skill"] = service.lookup_topic(enriched.skill_candidates[0].skill_name, domain="skill").model_dump(mode="json")
-        if enriched.combat_candidates:
-            query_results["combat"] = service.lookup_topic(enriched.combat_candidates[0].topic, domain="combat").model_dump(mode="json")
+    # Combat candidates do not use StagingEntry yet. Keep their raw extraction
+    # in video-knowledge.yaml, not in a file accepted by a knowledge loader.
+    pending_combat_count = len(direct_entries)
 
     print(
         json.dumps(
@@ -219,9 +192,11 @@ def main() -> None:
                 "evidence_path": str(evidence_path),
                 "enriched_path": str(enriched_path),
                 "staging_path": str(staging_path),
-                "knowledge_root": str(knowledge_root),
-                "bucket_stats": bucket_stats,
-                "query_results": query_results,
+                "knowledge_root": None,
+                "review_required": True,
+                "pending_combat_entries": pending_combat_count,
+                "bucket_stats": {},
+                "query_results": {},
                 "vision_stats": (
                     {
                         "segments_processed": vision_stats.segments_processed,

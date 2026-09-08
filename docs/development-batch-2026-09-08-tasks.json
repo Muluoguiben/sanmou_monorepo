@@ -4,30 +4,114 @@
   "code_review_baseline": "d377ef8bbaa69e6b25928255eac0cb62714e82f8",
   "charter_commit": "dd76d601f6f40d3e4fceaf10cdd360d78af88cb2",
   "model": "gpt-6-astra",
-  "status": "CR08_replacement_delivered_waiting_independent_review",
+  "status": "integrated_after_unified_review",
   "delivery_snapshot": {
-    "A": {"sha":"3d68e5dc87ffab718e436c8df3aff3935c360b2b","previous_sha":"4a2e4b8d1d58cac2a6a564a4e9a1cf8540eb26c3","status":"CR01_independently_reverified_batch_review_pending"},
-    "B": {"sha":"aa7ef1b0c3ac0a7d24a8b31e258cb6efc2d224fb","status":"pushed_pending_cr"},
-    "C": {"sha":"6bdb0276fd24c3eec7f72d838902085d59dd7c32","previous_sha":"eb4ecd90ccd1c7b5ec4982a14e5c34de5acc8669","status":"CR08_replacement_pushed_pending_independent_revalidation"},
-    "D": {"sha":"587f8abaa20a195da7a4486504ec6e8138d158bf","previous_sha":"2cfda735887e2a7cf237adeafea8d6c7feb2c837","status":"CR04_CR05_independently_reverified_batch_review_pending"},
-    "E": {"sha":"1eeffb76b514ec4bc58332c93cd419feb26ffaef","previous_sha":"b865808d021ca4fd81c1bb087735187f485b51a2","status":"Node24_14_0_validation_report_delivered_pending_re_review"},
-    "F": {"sha":"6bff970d8ed6d6eff6153e783b715273847847b7","previous_sha":"42f0f5013e820de066ac53776512686588c3af7a","status":"CR07_CI_runtime_replacement_delivered_pending_re_review"},
-    "CR": {"status":"REQUEST_CHANGES_pending_CR08_replacement_revalidation","previous_approval_commit":"470d92cdc6831f6c9bec4ce99050ccf6056b033c","reopened_evidence_commit":"42357d777bc45dde70191e2df711aefea0966383"}
+    "A": {
+      "sha": "3d68e5dc87ffab718e436c8df3aff3935c360b2b",
+      "previous_sha": "4a2e4b8d1d58cac2a6a564a4e9a1cf8540eb26c3",
+      "status": "approved_patch_integrated"
+    },
+    "B": {
+      "sha": "aa7ef1b0c3ac0a7d24a8b31e258cb6efc2d224fb",
+      "status": "approved_patch_integrated"
+    },
+    "C": {
+      "sha": "6bdb0276fd24c3eec7f72d838902085d59dd7c32",
+      "previous_sha": "eb4ecd90ccd1c7b5ec4982a14e5c34de5acc8669",
+      "status": "approved_patch_integrated"
+    },
+    "D": {
+      "sha": "587f8abaa20a195da7a4486504ec6e8138d158bf",
+      "previous_sha": "2cfda735887e2a7cf237adeafea8d6c7feb2c837",
+      "status": "approved_patch_integrated"
+    },
+    "E": {
+      "sha": "1eeffb76b514ec4bc58332c93cd419feb26ffaef",
+      "previous_sha": "b865808d021ca4fd81c1bb087735187f485b51a2",
+      "status": "approved_patch_integrated"
+    },
+    "F": {
+      "sha": "6bff970d8ed6d6eff6153e783b715273847847b7",
+      "previous_sha": "42f0f5013e820de066ac53776512686588c3af7a",
+      "status": "approved_patch_integrated"
+    },
+    "CR": {
+      "status": "APPROVE_patch_only",
+      "previous_approval_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+      "reopened_evidence_commit": "42357d777bc45dde70191e2df711aefea0966383"
+    }
   },
   "authorization_updates": {
-    "capture_token": "User explicitly approved forwarding only the local capture token to Game MCP child environment in windows-bridge mode; no disk/log/CLI/QA/external disclosure. C replacement is delivered. WSL-to-Windows-proxy next-hop propagation remains an explicit integration blocker.",
+    "capture_token": "Limited Game MCP child environment forwarding was user-authorized. Explicit WSLENV configuration is tested only with synthetic credentials; automatic propagation and real-client use are not claimed.",
     "a_feature_push": "User explicitly approved source/tests/reports push to Muluoguiben/sanmou_monorepo feat/a-capture-bridge-hardening-20260908. Coordinator pushed and verified A SHA; master was not changed by that push."
   },
   "tasks": [
-    {"id":"A","thread_id":"01a07f09-c64c-7852-a533-7db7730a048c","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/ecc7/sanmou_monorepo","role":"observer_security","report":"docs/test-reports/2026-09-08/A.md"},
-    {"id":"B","thread_id":"01a07f0b-149e-7160-a896-551165a702a0","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/dccc/sanmou_monorepo","role":"state_mcp","report":"docs/test-reports/2026-09-08/B.md"},
-    {"id":"C","thread_id":"01a07f0b-3787-7f82-ab0c-400a65b4b1a2","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/c31a/sanmou_monorepo","role":"recommendation_lifecycle","report":"docs/test-reports/2026-09-08/C.md"},
-    {"id":"D","thread_id":"01a07f0b-53b8-74a3-9e61-71dd461bdff8","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/0788/sanmou_monorepo","role":"qa_integrity","report":"docs/test-reports/2026-09-08/D.md"},
-    {"id":"E","thread_id":"01a07f0b-6d25-75c3-bcb1-acd4ca26cd1d","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/3fd9/sanmou_monorepo","role":"desktop_api","report":"docs/test-reports/2026-09-08/E.md"},
-    {"id":"F","thread_id":"01a07f0b-85e8-7880-bb8f-3845dc01fef2","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/0f15/sanmou_monorepo","role":"eval_ci","report":"docs/test-reports/2026-09-08/F.md"},
-    {"id":"CR","thread_id":"01a07f0d-b543-70f2-9055-cca7d4323f7d","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/6737/sanmou_monorepo","role":"unified_adversarial_review","report":"docs/reviews/2026-09-08-adversarial-review.md"}
+    {
+      "id": "A",
+      "thread_id": "01a07f09-c64c-7852-a533-7db7730a048c",
+      "host_id": "local",
+      "worktree": "C:/Users/Lan/.codex/worktrees/ecc7/sanmou_monorepo",
+      "role": "observer_security",
+      "report": "docs/test-reports/2026-09-08/A.md"
+    },
+    {
+      "id": "B",
+      "thread_id": "01a07f0b-149e-7160-a896-551165a702a0",
+      "host_id": "local",
+      "worktree": "C:/Users/Lan/.codex/worktrees/dccc/sanmou_monorepo",
+      "role": "state_mcp",
+      "report": "docs/test-reports/2026-09-08/B.md"
+    },
+    {
+      "id": "C",
+      "thread_id": "01a07f0b-3787-7f82-ab0c-400a65b4b1a2",
+      "host_id": "local",
+      "worktree": "C:/Users/Lan/.codex/worktrees/c31a/sanmou_monorepo",
+      "role": "recommendation_lifecycle",
+      "report": "docs/test-reports/2026-09-08/C.md"
+    },
+    {
+      "id": "D",
+      "thread_id": "01a07f0b-53b8-74a3-9e61-71dd461bdff8",
+      "host_id": "local",
+      "worktree": "C:/Users/Lan/.codex/worktrees/0788/sanmou_monorepo",
+      "role": "qa_integrity",
+      "report": "docs/test-reports/2026-09-08/D.md"
+    },
+    {
+      "id": "E",
+      "thread_id": "01a07f0b-6d25-75c3-bcb1-acd4ca26cd1d",
+      "host_id": "local",
+      "worktree": "C:/Users/Lan/.codex/worktrees/3fd9/sanmou_monorepo",
+      "role": "desktop_api",
+      "report": "docs/test-reports/2026-09-08/E.md"
+    },
+    {
+      "id": "F",
+      "thread_id": "01a07f0b-85e8-7880-bb8f-3845dc01fef2",
+      "host_id": "local",
+      "worktree": "C:/Users/Lan/.codex/worktrees/0f15/sanmou_monorepo",
+      "role": "eval_ci",
+      "report": "docs/test-reports/2026-09-08/F.md"
+    },
+    {
+      "id": "CR",
+      "thread_id": "01a07f0d-b543-70f2-9055-cca7d4323f7d",
+      "host_id": "local",
+      "worktree": "C:/Users/Lan/.codex/worktrees/6737/sanmou_monorepo",
+      "role": "unified_adversarial_review",
+      "report": "docs/reviews/2026-09-08-adversarial-review.md"
+    }
   ],
-  "formal_review_requires": ["six_final_component_shas", "six_committed_self_test_reports", "independent_combined_tree_validation"],
-  "master_integration": "coordinator_only_after_review",
-  "routine_game_execution": "disabled"
+  "formal_review_requires": [
+    "six_final_component_shas",
+    "six_committed_self_test_reports",
+    "independent_combined_tree_validation"
+  ],
+  "master_integration": "coordinator verified approved source; game execution remains disabled",
+  "routine_game_execution": "disabled",
+  "review_commit": "36defd9afbfcc0766d0f852192f02b7c989e98df",
+  "reviewed_code_commit": "d4982eeb14e381812a66b3d5ef9db3db59c30170",
+  "integration_report": "docs/test-reports/2026-09-08/integration.md",
+  "production_ready": false
 }

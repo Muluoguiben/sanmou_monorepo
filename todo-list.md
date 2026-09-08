@@ -1,83 +1,112 @@
 # Todo List
 
-## Active hardening batch — 2026-09-08
+## Completed hardening batch — 2026-09-08
 
-Integration recheck: unified CR approved 470d92c for the patch batch, but the
-coordinator's identical-source main-worktree run found two stdio cleanup errors
-(846 tests, 2 errors/2 Windows-only skips; both focused tests fail in 3/3 fresh
-processes). The uncommitted merge was aborted safely; no development source was
-pushed to master. C and unified CR are investigating before renewed approval.
-See [exact integration evidence](docs/reviews/2026-09-08-integration-recheck.md).
+Six GPT-6 Astra worktree tasks completed self-tests and committed reports.
+Unified adversarial CR approved the final patch in 36defd9; R01–R26 and CR01–CR08
+are closed. [Final review](docs/reviews/2026-09-08-adversarial-review.md),
+[task/SHA manifest](docs/development-batch-2026-09-08-tasks.json),
+[coordinator integration tests](docs/test-reports/2026-09-08/integration.md).
 
-C delivered CR08 replacement 6bdb027 with separate connection/request budgets,
-shutdown stream ownership/drain and ready-Future race handling. Author tests and
-the original reviewer probes pass on its candidate; unified independent review
-must approve the replacement before another main-worktree integration attempt.
+- [x] A: observer security R01/R02/R06/R07 — 3d68e5d; report A.md.
+- [x] B: state/MCP R05/R08 — aa7ef1b0; report B.md.
+- [x] C: harness R17/R18/R19/R20 and CR08 — 6bdb027; report C.md.
+- [x] D: QA R04/R09/R10/R11/R12/R25/R26 — 587f8ab; report D.md.
+- [x] E: Desktop/API R03/R21/R22/R23/R24 — 1eeffb7; report E.md plus evidence JSON.
+- [x] F: eval/R&R/CI R13/R14/R15/R16 — 6bff970; report F.md.
+- [x] Unified independent review, author rework and re-review of all eight added findings.
+- [x] Coordinator main ext4 recheck: original CR08 pair passes 3 fresh runs;
+  Pioneer857 (855 pass/2 previously native-covered Windows-only skips), QA327,
+  common2 all pass; 71 review-log hashes match; source equals approved code.
+- [x] Integrate the reviewed source without enabling game execution or live replay.
 
-Review of d377ef8 found 4 P1 and 22 P2 issues; previous production-slice checkmarks
-describe wiring/testing, not production acceptance. See [ownership and gates](docs/development-batch-2026-09-08.md).
+The first integration was aborted after reproducible stdio errors. That evidence
+and the reopened review remain in [integration recheck history](docs/reviews/2026-09-08-integration-recheck.md);
+the new C fix and independent/main-tree reruns establish the current result.
 
-Dispatch: all six development tasks have acknowledged isolated worktrees; unified
-CR has started preparation. [Task IDs and report paths](docs/development-batch-2026-09-08-tasks.json).
-Charter and original review pushed in dd76d60; this is not completion of any fix.
+### Remaining production gates (not waived by patch approval)
 
-Delivery update: A 3d68e5d, B aa7ef1b0, C 6bdb027, D 587f8ab, E 1eeffb7 and
-F 6bff970 are delivered with self-test reports, pending unified adversarial CR.
-The reviewer must verify E intake, combine exact component SHAs, rerun regression
-and adversarial checks, and route findings to their owners before approval.
-A+C cross-WSL proxy-token propagation, platform failures, npm advisories and
-unsigned/live/clean-machine evidence gaps remain explicit; no production approval
-or source-code merge into master has occurred.
+- [ ] Resolve the 12 existing dependency-audit package entries, including critical/high runtime risk.
+- [ ] Complete native Windows MCP/file/time semantics and investigate startup/time-sensitive failures.
+- [ ] Signed distribution, clean-machine installation, update/rollback, privacy and retention verification.
+- [ ] Real approved WGC/DXGI screenshots, representative provider-vision accuracy and independent holdout/human R&R evidence.
+- [ ] Trusted broker and any installed legacy high-privilege components require separate security work.
+- [ ] Real action-specific confirmation/dispatch/post-delta/recovery evidence before considering execution.
 
-Formal CR reproduced a P2 WSL-to-Windows proxy path-conversion defect. A's
-replacement 3d68e5d was self-tested, pushed to its already-authorized feature
-branch and remotely verified; independent reviewer revalidation is pending.
-The separate token-next-hop and live-evidence blockers are not closed by this fix.
+Explicit WSLENV capture-token propagation works with synthetic credentials in
+reviewed tests; default automatic propagation and real-client validation are not
+claimed. Production readiness remains unestablished. Historical task notes below
+are not current approval or live-capability declarations.
 
-CR02 independently reproduced an asynchronous-readiness false positive in the
-installation test. E delivered 5afaec4 with bounded awaited HTTP/JSON readiness,
-negative/delayed tests and two author-run temporary install cycles. The reviewer
-now owns the released installation test window for independent revalidation;
-neither those author results nor unsigned packaging constitute production approval.
+## Historical developer handoffs
 
-CR03 reproduced browser-unsafe random test ports; E is reworking its test-only
-port allocator and reservation, with independent installer tests serialized.
-CR04 found a dangling deleted-entry note attached to an unrelated hero; CR05
-found root-alias exclusion bypass. D delivered 587f8ab with corrected data/scanner,
-new regressions and report; original reviewer probes must pass independently
-before either finding closes. Native Windows reparse certification is not claimed.
+These owner notes preserve as-delivered claims and blockers. Current integration
+status above and the final unified CR report supersede those historical snapshots.
 
-Independent CR has now closed CR01, CR04 and CR05, including real Windows
-junction root/ancestor cases; concurrent Windows reparse-race certification is
-still not claimed. E delivered b865808 for CR03 and CR06 with browser-safe ports,
-pixel-guard rejection cleanup and a newly source-bound unsigned installer. The
-reviewer owns the released installation window and must rerun CR02/03/06.
-Reported Node20 dependency-engine warnings, native full-suite failures/flakiness,
-existing advisories and production evidence gaps remain explicit review inputs.
+## Task A — capture/bridge security (2026-09-08)
 
-CR07 requires the CI host to satisfy locked build-dependency engine constraints.
-F delivered 6bff970, pinning Node24.14.0 without changing dependency locks,
-Python matrix or engine checks. E must complete and report the same-runtime
-desktop/installation chain before reviewer independent combined validation.
+- [x] CR R07/P2 path follow-up: replace hardcoded Ubuntu UNC and `/mnt/c` cwd with bounded `wslpath` conversion; eight new regression tests. Windows focused 55/55; WSL Pioneer 796 total, 794 pass/2 Windows-only skips. Actual Windows file-existence checks pass for converted Windows-backed and Linux-temp paths. No credential-next-hop or live capture changes.
+- [x] R01/R02/R06/R07: retire repo Highest controller entry points; authenticated loopback capture-only dispatch; no restore/control import in observation; request/time-bound screenshots with failure teardown.
+- [x] Offline self-tests: Windows focused 47/47; WSL Pioneer 788 total, 786 pass and 2 Windows-only skips (both pass on Windows). Report: `docs/test-reports/2026-09-08/A.md`.
+- [ ] Unified adversarial review of `feat/a-capture-bridge-hardening-20260908`; no master merge/push by Task A.
+- [ ] Feature push blocked by automatic approval review (GitHub destination authorization); local commit/report supplied to coordinator and CR, no upload workaround attempted.
+- [ ] Game-MCP-only token environment integration remains blocked: C's second auto-review did not accept coordinator-relayed approval as direct user authorization; C reported no forwarding patch. Native Windows full package portability and signed broker remain blocked. Live preflight stopped on missing task-local dxcam/windows_capture; no helper/token/screenshot/input, game still running.
 
-E delivered 1eeffb7, a report-only update binding unchanged source/lock blobs to
-Node24.14.0, strict engine checks and a new source-bound unsigned installer.
-Its temporary installation window is released; CR must independently validate
-the latest E/F pair and full combined tree before issuing a batch verdict.
+## Task B — R05/R08 public payload and roster (2026-09-08)
 
-- [ ] A: observer security R01/R02/R06/R07; committed self-test report required.
-- [ ] B: state/MCP R05/R08; committed self-test report required.
-- [ ] C: harness R17/R18/R19/R20; committed self-test report required.
-- [ ] D: QA R04/R09/R10/R11/R12/R25/R26; committed self-test report required.
-- [ ] E: Desktop/API R03/R21/R22/R23/R24; committed self-test report required.
-- [ ] F: eval/R&R/CI R13/R14/R15/R16; committed self-test report required.
-- [ ] Unified adversarial CR of all final SHAs/reports and combined tree.
-- [ ] Coordinator integration only after CR passes; execution remains disabled.
+- Owner: task 01a07f0b-149e-7160-a896-551165a702a0; branch feat/review-b-public-payload-roster.
+- [x] R05: domain-aware public state, nested risk/readiness and consumer compatibility; preserve privacy and canonical seven-tool inputs.
+- [x] R08: complete roster replacement, retained-member detail patches, stale/removed-member rejection and dependent evidence invalidation.
+- [x] Self-test: 50 focused + 787 Pioneer package tests passed, zero failures/skips in isolated WSL Python 3.12.3.
+- Report: docs/test-reports/2026-09-08/B.md. Verified implementation pushed as 5d635e45f768d10528a172533d4ace74306df8a1; report filename aligned with the coordinator manifest.
+- [ ] Unified adversarial CR and coordinator integration. No live capture/model/game input in this task; no master merge/push.
+
+## Task C — R17–R20 harness hardening (2026-09-08)
+
+- [x] Bind timer checkpoints to real map/recruit perception sources; preserve restart identity checks and recheck freshness before advice.
+- [x] Bound MCP connect/initialize/call, cancel and clean clients, journal/log failures without execution.
+- [x] Windows focused 30/30, WSL focused 36/36 and Pioneer package 791/791; zero skips in final runs. See `docs/test-reports/2026-09-08/C.md`.
+- [x] User-authorized capture-token forwarding only to bridge-mode Game MCP; real synthetic stdio isolation and failure redaction. Latest Windows 34/34, WSL focused 40/40, Pioneer 795/795; zero skips.
+- [x] CR08: preserve late stdio messages during bounded shutdown, separate initialization/call budgets, retrieve cancelled ready errors; 11 deterministic/real-child regressions. Final Windows 45/45, ext4 focused 51/51, C package 806/806; frozen combination 855 passed + 2 native-Windows skips. Independent CR probes pass; renewed CR approval pending.
+- [ ] A owns the remaining WSL Game MCP -> Windows proxy credential propagation; C parent -> Game MCP tests do not prove that hop or live capture.
+- [ ] Unified adversarial CR on `feat/review-c-harness-r17-r20`; coordinator owns integration. Real game/model/broker evidence remains unverified.
+
+## Task-local D — QA integrity review fixes (2026-09-08)
+
+- [x] R04/R09/R10/R11/R12/R25/R26 implemented on `feat/qa-review-d-20260908`: machine extraction stays pending, zero-generation refusal on retrieval miss, current-evidence citation IDs, canonical bucket migration/duplicate rejection, unknown attributes, nonblank facts, safe scanner reads and separator-neutral basenames.
+- [x] CR04/CR05 rework: removed the leaked trailing 皇甫嵩 note from 韩当, verified all nine retained minor records and unchanged qun against d377ef8, and rejected scanner root/ancestor aliases before normalization. Runtime opt-in cannot bypass link safety.
+- [x] Replacement focused 49/49 and full QA package 327/327 passed on isolated WSL Python 3.12.3, MCP 1.29.1; 0 skips. Report: `docs/test-reports/2026-09-08/D.md` retains the original 322-test blind spot and new red/green evidence. No production publish or game/model input.
+- [ ] Unified adversarial CR of the feature commit; coordinator owns any later master integration. Native Windows reparse-race certification and provider/live evidence remain unverified.
+
+## Task-local E — 2026-09-08 desktop/API hardening
+
+- [x] CR07 E validation: unchanged b865 source/lock rebuilt on exact Node24.14.0; npm ci and --engine-strict both0/EBADENGINE0, typecheck/build, 15Node+15Electron and two new source-bound install/pixel413/upload/uninstall runs passed. F owns CI pin; E only report/evidence. Historical Node20 warnings, package failures and audit/production blockers retained.
+
+- [x] CR06 follow-up: unchanged Pillow pixel guard rejects 69-byte huge-dimension PNG as413 after reader closure/cleanup; API11/11 and final source-bound installed rejection + valid upload passed. Python3.12 full baseline/current both10fail/29error/9skip with two unstable timestamp-test names explicitly preserved; no full-pass claim or freshness-gate change.
+
+- [x] CR03 follow-up: shared bounded high-port allocator/reservation replaces OS `listen(0)` across E tests. Exact Node20.20.2/Python3.12.14 checks: 15 Node + 15 Electron, API10 and two planned unsigned install/start/upload/uninstall runs passed; Chromium still blocks5061. Prior failure and engine warnings retained; awaits renewed unified CR, no F CI or production source change.
+
+- [x] CR02 follow-up: replaced Promise-valued browser readiness with bounded awaited HTTP/profile verification; 7 new readiness regressions, full desktop 9 Node + 14 Electron, API 10, and two temporary install/start/mock upload/uninstall runs passed. Original CR failures remain in E report/evidence; current feature revision awaits renewed unified CR.
+
+- [x] R03/R21/R22/R23/R24: Python fallback/startup errors, sandboxed CommonJS preload, screenshot/history/chat response binding, evidence/permission separation, Windows upload cleanup (including corrupt PNG).
+- [x] Windows targeted validation: API 10/10, Electron 14/14, Python probe 2/2; unsigned temporary install/start/upload/uninstall passed. Report: `docs/test-reports/2026-09-08/E.md`.
+- [x] Full package baseline comparison: Windows same 35 failures/errors and 9 skips; WSL same 7 CRLF fixture digest errors. No added failures; neither package result is a full pass.
+- [ ] Unified CR approval and combined-tree validation with F's LF attributes; existing dependency advisories, signed clean-machine/update/rollback remain production blockers.
+- [x] Feature delivery prepared on `feat/desktop-api-r03-r21-r24-20260908`: implementation and self-test report are committed together, and this section accompanies the feature push. Final SHA/URL are supplied in the handoff; master integration remains coordinator-owned.
 
 > Current update: 2026-08-26 — Windows Record & Replay 在 M0 只读录制之上完成 M1 数据基础与 M2 数据治理底座：raw loader、独立 reviewer annotation、单 registry generation/holdout 审计与 canonical corpus catalog 均为 fail-closed；registry/artifact 专用封闭根可跨 registry 去重 session/event/capture-group/annotation/encoded-frame/source-PNG，并验证 generation-only、内容寻址的无环 development lineage。corpus audit 新增 `sanmou-multisignal-v1` 视觉近重复门禁：本地有界解码后用多裁切 block/difference hash、灰度 MAE、RGB 均值/直方图和宽高比拒绝跨 session 的重编码、缩放或轻裁切近克隆；指纹不序列化、不进入模型上下文，签名 holdout aggregate v2 只绑定算法与帧/候选比较计数。external holdout 协议继续要求开发侧只能提交/检查无标签 prediction，独立 evaluator 才读取 sealed oracle、approved annotation 与 Ed25519 私钥；持久 ledger 对同一 evaluator key/catalog 只允许一次发布，普通 CLI 没有 oracle 参数。所有产物仍固定 `execution_authority=none`、无 terminal/closure/QA publish 权限；动作演示新增 minimum-input floor，0-input session 不再能以画面变化冒充有效 action trace。官方客户端 high integrity 与普通 recorder medium integrity 的 UIPI 阻隔已由真实探针确认，但用户可写 Python/工作树 UAC 原型经安全审查存在 P1，已隔离且不提交；可信 broker 必须是安装在普通用户不可写目录、由管理员 ACL 固定的独立组件。当前仍未采集本轮真实 map-filter session。真实 external evaluator 账号/ACL/key/oracle、结构化 start-state、human provenance、平台级父目录 race hardening 和 image-model execution receipt 均未完成，因此任何 coverage、视觉门禁或 oracle attestation 均不能单独表述为独立 eval。
 
 - [x] Record & Replay minimum-input floor（2026-08-26）：新增 `--min-input-events` 与 manifest `capture.min_input_events`，action workflow 可要求至少一个已接受 Raw Input；结束时不足门槛会写 `minimum_input_events_not_met` 并保留 failed/INCOMPLETE，strict loader 同时拒绝伪造为 completed 的低计数 session。旧 schema-v1 session 缺字段时只按 0 兼容，不自动获得 action-trace 资格；Pioneer 全量 711 tests OK（6 skip）。
 - [x] MCP-first read-only production slice（2026-08-27）：生产 `ObservationProvider`、真实 game+QA stdio harness、golden 19/19 digest binding、R&R aggregate-only audit binding、Codex structured smoke 和 bounded fixture summaries 已落地；没有 mutating MCP、control/executor import 或 QA publish。Pioneer 775 tests OK（6 skip）、QA 307、sanmou-common 2。
+
+## F — Eval/R&R and CI hardening (2026-09-08)
+
+- [x] R13/R14/R15/R16: complete ambiguous-burst annotation groups, actual evaluator-byte golden hashes, failed-call evidence exclusion, and cutoff-correct freshness/future-time rejection.
+- [x] Final offline verification: focused 75, Pioneer 788, QA 307, common 2 and native Windows API 6 pass; all zero skips. Desktop typecheck/build pass. Static eval retains one unscored holdout; golden 19/19 remains action-type-only evidence.
+- [x] Configure Ubuntu three-package and Windows API/desktop CI; fix hash-bound eval JSON checkout line endings without changing expected hashes.
+- [x] CR07: pin Node 24.14.0 for Windows desktop CI to satisfy the E lockfile's Node >=22.12.0 build dependencies and match the tested patch; retain engine checks and existing package versions. E/CR validate the final combined desktop and installer source separately.
+- [ ] Unified CR of `feat/review-f-eval-ci-20260908` and combined tree, including E-owned Electron tests and unsigned packaging scripts; hosted workflow/E commands are not verified by F alone. See [F self-test report](docs/test-reports/2026-09-08/F.md).
+- [ ] Provider-vision accuracy, independent holdout, trusted live entry and action-bound execution evidence remain separate blockers; this batch grants no execution or publication authority.
 
 ## Highest Priority — MCP-first Game Agent（2026-08-26）
 
@@ -472,3 +501,13 @@ the latest E/F pair and full combined tree before issuing a batch verdict.
 - [x] **Plan 2 Step-1/2 帧采样基建**（2026-04-17）：新增 `qa_agent/video/frame_sampler.py`（ffmpeg wrapper，env→imageio-ffmpeg→PATH 三级回退，支持 mock runner 注入）+ `qa_agent/video/video_download.py`（bilibili DASH 最低画质流 + max_bytes 截断）+ `fetch_bilibili_bundle.py` 的 `--with-frames/--frame-interval/--frame-max-count/--frame-max-bytes/--frame-output-dir` 五参数；frame_refs 按时间戳分配到对应 VideoEvidenceSegment.frame_paths；qa-agent 101 tests（+11 新增 frame_sampler 单测 + 1 CLI 多模态集成测试）；pip install imageio-ffmpeg 0.6.0；BV1KGdbBPEfx gameplay 视频验证：6 帧 vision pass 在纯字幕抽 0 武将的情况下抽到 14 hero hits（孙坚/邓艾/于禁 守军 + 诸葛亮/祝融夫人 主力 + 兵力 30000 等关键 UI 文本）
 - [x] **Plan 2 Step-3 vision→LLM extractor 融合**（2026-04-17）：新增 `qa_agent/video/vision_enrichment.py`（enrich_document_with_vision：每 segment 跑 ImageExtractor，把 hero/skill/text_snippets 注入 ocr_lines + visual_summary，保持 JSON schema 不变）+ `run_video_pipeline.py` 的 `--enrich-frames/--frames-per-segment` 参数；qa-agent 107 tests（+6 新增 vision_enrichment 单测）；端到端验证：BV1KGdbBPEfx（0 字幕）从"无输出"→自动产出 lineup "陈仓之围一带二队伍 [祝融夫人, 诸葛亮, 孟获] confidence 0.76" 并直入 season-misc.yaml；BV142QnBAE8a 产出 "S5-S14 通用开荒董南蛮队 [董卓, 孟获, 祝融夫人] confidence 0.92"（与人工复核一致）。字幕空洞的视频不再需要人工复核
 - [x] Pioneer-agent perception 接入 GPT-5.4 vision provider（2026-05-08）：新增 OpenAI/sub2api 兼容 `OpenAIVisionClient`，与原 Gemini `VisionClient.extract(...)` 同签名，强制 `reasoning_effort` + `store:false`，支持 data URI 图片与 JSON schema prompt；`build_vision_client` 支持 `PIONEER_VISION_PROVIDER=openai` / CLI `--vision-provider openai`，覆盖 `autonomous` / `vision_probe` / `ui_calibrate`；pioneer-agent 62 tests 全绿
+
+### CR — 2026-09-08 adversarial review
+- [x] 六个最终组件SHA/报告/被测身份核验完成，79个变更文件与组合一致。
+- [x] R01–R26独立审查及原始反例完成；新增CR01–CR07均由原owner修复并独立关闭。
+- [x] 受测组合7f59f00778594accc49fd02a828a08097832c27c，tree b812fb28f174af7daef353b50a766eaeb8f442c6；无源码手工冲突决议，无master操作。
+- [x] Pioneer846（844pass/2Windows-only skip）、QA327、common2、nativeAPI11、官方MCP7/6及Game import边界通过。
+- [x] Node24.14.0严格engine检查/typecheck/build/15Node+15Electron、新包两轮临时安装/pixel413/正常上传/卸载通过，cleanup为0。
+- [x] 历史470d92c报告给出patch-only APPROVE；现已因CR08暂停，原失败、12依赖审计、平台/时间限制及生产未验边界全部保留。
+- [x] CR08 / R20：C6bdb0276在新组合d4982ee独立复验关闭；Windows45、WSL51、两处Pioneer857=855pass+2既有skip、QA327/common2及真实持续输出有界退出通过；恢复patch-only APPROVE，旧安装器仍只绑定7f59历史源码。
+- [ ] Production readiness未建立；签名/clean-machine/update/rollback、真实vision/holdout/R&R/broker/live closure及既有依赖/平台问题留待后续明确工作。

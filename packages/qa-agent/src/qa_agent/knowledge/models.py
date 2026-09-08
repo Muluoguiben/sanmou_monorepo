@@ -237,6 +237,13 @@ class KnowledgeEntry(BaseModel):
     def _strip_values(cls, values: list[str]) -> list[str]:
         return [value.strip() for value in values if value.strip()]
 
+    @field_validator("facts")
+    @classmethod
+    def _require_nonblank_facts(cls, values: list[str]) -> list[str]:
+        if not values:
+            raise ValueError("facts must contain at least one nonblank fact")
+        return values
+
     @field_validator("topic")
     @classmethod
     def _strip_topic(cls, value: str) -> str:

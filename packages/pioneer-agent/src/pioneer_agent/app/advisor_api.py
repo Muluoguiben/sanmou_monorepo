@@ -273,21 +273,31 @@ class AdvisorApiService:
         path = self.upload_dir / f"{stamp}-{uuid4().hex[:8]}-{safe_name}{suffix}"
 
         total = 0
-        with path.open("wb") as handle:
-            while True:
-                chunk = upload.file.read(1024 * 1024)
-                if not chunk:
-                    break
-                total += len(chunk)
-                if total > MAX_UPLOAD_BYTES:
-                    path.unlink(missing_ok=True)
-                    raise HTTPException(status_code=413, detail="screenshot is larger than 10MB")
-                handle.write(chunk)
+        try:
+            with path.open("wb") as handle:
+                while True:
+                    chunk = upload.file.read(1024 * 1024)
+                    if not chunk:
+                        break
+                    total += len(chunk)
+                    if total > MAX_UPLOAD_BYTES:
+                        raise HTTPException(status_code=413, detail="screenshot is larger than 10MB")
+                    handle.write(chunk)
+        except BaseException:
+            # Unwind the writer before unlinking: Windows rejects open-file deletion.
+            path.unlink(missing_ok=True)
+            raise
 
         try:
-            with Image.open(path) as image:
-                image.verify()
-        except (UnidentifiedImageError, OSError) as exc:
+            # Own the reader even when Pillow rejects the header before an
+            # image context can be entered (including its pixel-count guard).
+            with path.open("rb") as reader:
+                with Image.open(reader) as image:
+                    image.verify()
+        except Image.DecompressionBombError as exc:
+            path.unlink(missing_ok=True)
+            raise HTTPException(status_code=413, detail="screenshot exceeds the image pixel limit") from exc
+        except (UnidentifiedImageError, OSError, SyntaxError) as exc:
             path.unlink(missing_ok=True)
             raise HTTPException(status_code=400, detail="uploaded file is not a valid image") from exc
         return path

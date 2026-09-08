@@ -1,0 +1,80 @@
+name: Offline regression gates
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: regression-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python:
+    name: Python / ${{ matrix.package }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        package: [sanmou-common, pioneer-agent, qa-agent]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install package, API and official MCP SDK dependencies
+        run: python -m pip install -e packages/sanmou-common -e packages/pioneer-agent -e packages/qa-agent httpx
+      - name: Require API and SDK dependencies
+        run: python -c "import fastapi, httpx, multipart; from mcp import ClientSession; from mcp.client.stdio import stdio_client"
+      - name: Package tests (offline)
+        working-directory: packages/${{ matrix.package }}
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+
+  windows:
+    name: Windows API and Electron
+    runs-on: windows-latest
+    timeout-minutes: 30
+    env:
+      # Keep SHA-bound fixture bytes identical on Linux and Windows checkouts.
+      GIT_CONFIG_COUNT: '1'
+      GIT_CONFIG_KEY_0: core.autocrlf
+      GIT_CONFIG_VALUE_0: 'false'
+      CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          # Desktop build dependencies require Node >=22.12.0.
+          node-version: '24.14.0'
+          cache: npm
+          cache-dependency-path: apps/sanmou-advisor-desktop/package-lock.json
+      - name: Install API and official MCP SDK dependencies
+        run: python -m pip install -e packages/sanmou-common -e packages/pioneer-agent -e packages/qa-agent httpx
+      - name: Require API and SDK dependencies
+        run: python -c "import fastapi, httpx, multipart; from mcp import ClientSession"
+      - name: Windows API regressions
+        working-directory: packages/pioneer-agent
+        run: python -m unittest discover -s tests/unit -p 'test_advisor_api*.py' -v
+      - name: Desktop dependencies
+        working-directory: apps/sanmou-advisor-desktop
+        run: npm ci
+      - name: Desktop typecheck
+        working-directory: apps/sanmou-advisor-desktop
+        run: npm run typecheck
+      - name: Desktop build
+        working-directory: apps/sanmou-advisor-desktop
+        run: npm run build
+      # Supplied by task E; run real Electron on the Windows runner.
+      - name: Desktop regression tests
+        working-directory: apps/sanmou-advisor-desktop
+        run: npm test
+      - name: Unsigned Windows package (no release)
+        working-directory: apps/sanmou-advisor-desktop
+        run: npm run dist:win

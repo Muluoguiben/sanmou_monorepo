@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import time
 from collections.abc import Callable, Mapping, Sequence
 from datetime import UTC, datetime
@@ -117,7 +118,12 @@ class RecommendationHarness:
             return self._stop(journal, StopReason.CAPTURE_UNHEALTHY, ["session capture health is not healthy"])
 
         window_identity = _model_payload(status.session.window_identity)
-        window_stop = self.stop_policy.window_stop(journal, window_identity)
+        # A restarted server may not have observed a window yet. Compare its
+        # first fresh observation against the journal before accepting a baseline.
+        window_stop = (
+            self.stop_policy.window_stop(journal, window_identity)
+            if window_identity is not None else StopDecision()
+        )
         if window_stop.should_stop:
             return self._stop(journal, window_stop.reason, window_stop.details)
 
@@ -137,6 +143,17 @@ class RecommendationHarness:
             return self._stop(journal, StopReason.CONTRACT_VIOLATION, ["missing observation"])
 
         observed_identity = _model_payload(observation.window_identity)
+        if observation.session_id != status.session.session_id:
+            return self._stop(journal, StopReason.CONTRACT_VIOLATION, ["observation session mismatch"])
+        previous_identity = journal.latest_tooling_fact("window_identity")
+        if observed_identity is None and (
+            status.session.reliable_window_info
+            or (previous_identity is not None and previous_identity.metadata.get("window_identity") is not None)
+        ):
+            return self._stop(journal, StopReason.CAPTURE_UNHEALTHY, ["window identity is unobserved"])
+        window_stop = self.stop_policy.window_stop(journal, observed_identity)
+        if window_stop.should_stop:
+            return self._stop(journal, window_stop.reason, window_stop.details, observation.observation_id)
         if window_identity is not None and window_identity != observed_identity:
             return self._stop(
                 journal,
@@ -144,7 +161,6 @@ class RecommendationHarness:
                 ["window identity changed inside the decision window"],
                 observation_id=observation.observation_id,
             )
-        journal = self._record_observation(journal, observation)
         observation_stop = self.stop_policy.observation_stop(
             captured_at=observation.captured_at,
             now=self.clock(),
@@ -157,6 +173,7 @@ class RecommendationHarness:
                 observation_stop.details,
                 observation_id=observation.observation_id,
             )
+        journal = self._record_observation(journal, observation)
         checkpoint_stop = self.stop_policy.checkpoint_stop(journal, self.clock())
         if checkpoint_stop.should_stop:
             return self._stop(
@@ -233,10 +250,23 @@ class RecommendationHarness:
         except Exception as exc:
             return self._stop(
                 journal,
-                StopReason.CONTRACT_VIOLATION,
+                StopReason.TOOL_FAILURE,
                 [type(exc).__name__],
                 observation.observation_id,
             )
+
+        # Slow QA and candidate calls may outlive the frame. Check again before
+        # recording or returning any recommendation (including confirmation stops).
+        for final_stop in (
+            self.stop_policy.observation_stop(
+                captured_at=observation.captured_at,
+                now=self.clock(),
+                unknown_domains=observation.unknown_domains,
+            ),
+            self.stop_policy.checkpoint_stop(journal, self.clock()),
+        ):
+            if final_stop.should_stop:
+                return self._stop(journal, final_stop.reason, final_stop.details, observation.observation_id)
 
         candidates_stop = self.stop_policy.candidates_stop(candidates)
         if candidates_stop.should_stop:
@@ -291,7 +321,7 @@ class RecommendationHarness:
         try:
             raw_result = await client.call_tool(name, arguments)
             payload = structured_content(raw_result)
-        except Exception as exc:
+        except (Exception, asyncio.CancelledError) as exc:
             self._consecutive_tool_failures += 1
             self.tool_log.append(
                 ToolCallRecord(
@@ -305,6 +335,8 @@ class RecommendationHarness:
                     agent_session_id=self.agent_session_id,
                 )
             )
+            if isinstance(exc, asyncio.CancelledError):
+                self._stop(self.journal_store.load(self.agent_session_id), StopReason.TOOL_FAILURE, [name, "cancelled"])
             raise
         self._consecutive_tool_failures = 0
         observation_refs, trace_refs = extract_refs(payload)
@@ -351,7 +383,8 @@ class RecommendationHarness:
             )
         )
         for checkpoint in self.stop_policy.checkpoints:
-            if any(domain in observation.domains_run for domain in checkpoint.domains):
+            if any(domain in observation.domains_run and domain not in observation.unknown_domains
+                   for domain in checkpoint.domains):
                 journal.tooling.observed.append(
                     ObservedFact(
                         fact=f"checkpoint:{checkpoint.name}",
@@ -517,6 +550,11 @@ def _binding_stop(
         "session_id": observation.session_id,
         "observation_id": observation.observation_id,
         "frame_sha256": observation.frame_sha256,
+        "captured_at": observation.captured_at,
+        "window_identity": observation.window_identity,
+        "capture_geometry": observation.capture_geometry,
+        "domains_run": observation.domains_run,
+        "unknown_domains": observation.unknown_domains,
     }
     mismatches = [
         f"{key}={getattr(bound_observation, key)!r} expected {value!r}"

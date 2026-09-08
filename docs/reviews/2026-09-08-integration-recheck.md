@@ -1,8 +1,10 @@
 # Coordinator integration recheck — 2026-09-08
 
-Status: integration paused; additional stdio failure sent to owner C and the
-same unified adversarial reviewer. No development source was merged/pushed to
-master. Earlier APPROVE is historical, not a waiver of this reproducible failure.
+Status: original failed attempt preserved below. C6bdb0276 and unified review
+36defd9 closed CR08; the coordinator then reran the original pair three times
+and all three main-worktree Python packages successfully. See
+[final integration verification](../test-reports/2026-09-08/integration.md).
+The earlier APPROVE was not used to waive the reproducible failure.
 
 ## Source and environment
 

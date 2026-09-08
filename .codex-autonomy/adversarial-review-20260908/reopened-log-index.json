@@ -1,0 +1,428 @@
+{
+  "sanmou-cr-stdio-controlled-before.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-stdio-controlled-before.log",
+    "sha256": "dd64b94c4b5421b095790bfa09a671e147bca80a6bb3493a016e899b6aebccd8",
+    "bytes": 749,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "expected_red_reproduction"
+  },
+  "sanmou-cr-stdio-controlled-before-corrected.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-stdio-controlled-before-corrected.log",
+    "sha256": "ba51302202207841cd13c55d59fa3c4af469a211bba4eb1ff587f8212b427b94",
+    "bytes": 913,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "expected_red_reproduction"
+  },
+  "sanmou-cr-stdio-real-late-before.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-stdio-real-late-before.log",
+    "sha256": "f780ac963fcc025117a6ade3b38bf8457feffcd7fa8312817318a78872f6f515",
+    "bytes": 634,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "expected_red_reproduction"
+  },
+  "sanmou-cr-stdio-real-persistent-before.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-stdio-real-persistent-before.log",
+    "sha256": "c2d66e0f29f69ac2672c55a1ab47a6bb3338f7bd033f3c76b96db79ed68349a8",
+    "bytes": 818,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "expected_red_reproduction"
+  },
+  "sanmou-cr-cr08-ext4-common.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-cr08-ext4-common.log",
+    "sha256": "24a72dbed97296145c4b96926b74fe8a8e46ea3730d02262b10e04c991690e0e",
+    "bytes": 342,
+    "source_commit": "d4982eeb14e381812a66b3d5ef9db3db59c30170",
+    "disposition": "independently_passed",
+    "exit": 0,
+    "summary": [
+      "Ran 2 tests in 0.004s",
+      "OK"
+    ],
+    "unhandled_async_diagnostics": 0
+  },
+  "sanmou-cr-cr08-ext4-controlled.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-cr08-ext4-controlled.log",
+    "sha256": "ca1868f709e83f5edf5be270f210815c2406e5f3509a21b0a506a3a1048dac5a",
+    "bytes": 855,
+    "source_commit": "d4982eeb14e381812a66b3d5ef9db3db59c30170",
+    "disposition": "independently_passed",
+    "exit": 0,
+    "summary": [],
+    "unhandled_async_diagnostics": 0
+  },
+  "sanmou-cr-cr08-ext4-identity.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-cr08-ext4-identity.log",
+    "sha256": "ebeedfd6f7e29c071af7651355b0b55ffdbba178eef509679a3c5faf1d1f2d2e",
+    "bytes": 545,
+    "source_commit": "d4982eeb14e381812a66b3d5ef9db3db59c30170",
+    "disposition": "independently_passed",
+    "exit": 0,
+    "summary": [],
+    "unhandled_async_diagnostics": 0
+  },
+  "sanmou-cr-cr08-ext4-pioneer.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-cr08-ext4-pioneer.log",
+    "sha256": "160b8f33b6b3bec8bf130f8efc8553774c630aaa5dcf03431867422f0d08aaf8",
+    "bytes": 183362,
+    "source_commit": "d4982eeb14e381812a66b3d5ef9db3db59c30170",
+    "disposition": "independently_passed",
+    "exit": 0,
+    "summary": [
+      "Ran 857 tests in 32.780s",
+      "OK (skipped=2)"
+    ],
+    "unhandled_async_diagnostics": 0
+  },
+  "sanmou-cr-cr08-ext4-qa.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-cr08-ext4-qa.log",
+    "sha256": "8d72b1d8840eb44f92af227cd85f32ff05bbd2841542b609fc6f60ca8698781e",
+    "bytes": 51466,
+    "source_commit": "d4982eeb14e381812a66b3d5ef9db3db59c30170",
+    "disposition": "independently_passed",
+    "exit": 0,
+    "summary": [
+      "Ran 327 tests in 59.286s",
+      "OK"
+    ],
+    "unhandled_async_diagnostics": 0
+  },
+  "sanmou-cr-cr08-ext4-real-late.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-cr08-ext4-real-late.log",
+    "sha256": "6be75a51126ad7556be82058327acccf80543e5e064e708ca9f9ab3cff8ea80d",
+    "bytes": 680,
+    "source_commit": "d4982eeb14e381812a66b3d5ef9db3db59c30170",
+    "disposition": "independently_passed",
+    "exit": 0,
+    "summary": [],
+    "unhandled_async_diagnostics": 0
+  },
+  "sanmou-cr-cr08-ext4-real-persistent.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-cr08-ext4-real-persistent.log",
+    "sha256": "b0aba19b54517b5433a96bbfaf71b6a4c5e5972d8411e6798fdebcc775ad34d3",
+    "bytes": 677,
+    "source_commit": "d4982eeb14e381812a66b3d5ef9db3db59c30170",
+    "disposition": "independently_passed",
+    "exit": 0,
+    "summary": [],
+    "unhandled_async_diagnostics": 0
+  },
+  "sanmou-cr-cr08-mntc-focused.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-cr08-mntc-focused.log",
+    "sha256": "a4d07bfd4c3311c373f7e50cd9367f280e03c30ebb9c81fa710d5893f8ef3c28",
+    "bytes": 20317,
+    "source_commit": "d4982eeb14e381812a66b3d5ef9db3db59c30170",
+    "disposition": "independently_passed",
+    "exit": 0,
+    "summary": [
+      "Ran 51 tests in 18.726s",
+      "OK"
+    ],
+    "unhandled_async_diagnostics": 0
+  },
+  "sanmou-cr-cr08-mntc-identity.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-cr08-mntc-identity.log",
+    "sha256": "c0ceee09ed669c30146bbca4f73e3ab78c0abc2b2a24601cffa82445e54a9e3c",
+    "bytes": 572,
+    "source_commit": "d4982eeb14e381812a66b3d5ef9db3db59c30170",
+    "disposition": "independently_passed",
+    "exit": 0,
+    "summary": [],
+    "unhandled_async_diagnostics": 0
+  },
+  "sanmou-cr-cr08-mntc-pioneer.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-cr08-mntc-pioneer.log",
+    "sha256": "bda2369835a157ae74c3c156c5e3e1ddca671a8cd6da77266e01e1d3a15a07c6",
+    "bytes": 186551,
+    "source_commit": "d4982eeb14e381812a66b3d5ef9db3db59c30170",
+    "disposition": "independently_passed",
+    "exit": 0,
+    "summary": [
+      "Ran 857 tests in 43.242s",
+      "OK (skipped=2)"
+    ],
+    "unhandled_async_diagnostics": 0
+  },
+  "sanmou-cr-cr08-official-stdio.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-cr08-official-stdio.log",
+    "sha256": "d7fe0d3084ad2d98b399b0a9d02ac4db128516d2e0ce82c6e8e67e37417f0f28",
+    "bytes": 1100,
+    "source_commit": "d4982eeb14e381812a66b3d5ef9db3db59c30170",
+    "disposition": "independently_passed",
+    "exit": 0,
+    "summary": [],
+    "unhandled_async_diagnostics": 0
+  },
+  "sanmou-cr-cr08-windows312-controlled.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-cr08-windows312-controlled.log",
+    "sha256": "ca1868f709e83f5edf5be270f210815c2406e5f3509a21b0a506a3a1048dac5a",
+    "bytes": 855,
+    "source_commit": "d4982eeb14e381812a66b3d5ef9db3db59c30170",
+    "disposition": "independently_passed",
+    "exit": 0,
+    "summary": [],
+    "unhandled_async_diagnostics": 0
+  },
+  "sanmou-cr-cr08-windows312-focused.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-cr08-windows312-focused.log",
+    "sha256": "7dbd9a79d0b06e0aad4d292fd04d9b1c2f64951e0d50eec7f99a9f3e52c4645a",
+    "bytes": 8061,
+    "source_commit": "d4982eeb14e381812a66b3d5ef9db3db59c30170",
+    "disposition": "independently_passed",
+    "exit": 0,
+    "summary": [
+      "Ran 45 tests in 11.703s",
+      "OK"
+    ],
+    "unhandled_async_diagnostics": 0
+  },
+  "sanmou-cr-cr08-windows312-identity.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-cr08-windows312-identity.log",
+    "sha256": "e3d40e67be8d9f7c038cec82a12dab30926e167343e2f00fa2525831e89f1d06",
+    "bytes": 633,
+    "source_commit": "d4982eeb14e381812a66b3d5ef9db3db59c30170",
+    "disposition": "independently_passed",
+    "exit": 0,
+    "summary": [],
+    "unhandled_async_diagnostics": 0
+  },
+  "sanmou-cr-cr08-windows312-real-late.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-cr08-windows312-real-late.log",
+    "sha256": "f970feda74004a3aa07e6b9a9cb6089a916560dba897991046c97cb2cc8d954e",
+    "bytes": 680,
+    "source_commit": "d4982eeb14e381812a66b3d5ef9db3db59c30170",
+    "disposition": "independently_passed",
+    "exit": 0,
+    "summary": [],
+    "unhandled_async_diagnostics": 0
+  },
+  "sanmou-cr-cr08-windows312-real-persistent.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-cr08-windows312-real-persistent.log",
+    "sha256": "15690f77a559ac0385a8c1f9b6dd66c64269e66a152d70f7815eaa32ff631d1f",
+    "bytes": 676,
+    "source_commit": "d4982eeb14e381812a66b3d5ef9db3db59c30170",
+    "disposition": "independently_passed",
+    "exit": 0,
+    "summary": [],
+    "unhandled_async_diagnostics": 0
+  },
+  "historical_ext4_original_repeat_1": {
+    "path": "\\\\wsl$\\Ubuntu\\tmp\\sanmou-cr-reopen-470d92c-MaNesZ\\stdio-runs\\run-1.log",
+    "sha256": "388b45e631866162454d7edde530ac27fa0d8b8311bf095f9cc772738b74e15b",
+    "bytes": 452,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "historical_2_original_tests_passed_not_a_race_disproof",
+    "summary": [
+      "Ran 2 tests in 0.632s",
+      "OK"
+    ]
+  },
+  "historical_ext4_original_repeat_2": {
+    "path": "\\\\wsl$\\Ubuntu\\tmp\\sanmou-cr-reopen-470d92c-MaNesZ\\stdio-runs\\run-2.log",
+    "sha256": "7fa7314066d632f21063ddac1e69f5f517343b7d4ccfa289edd6ebeed8214b28",
+    "bytes": 452,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "historical_2_original_tests_passed_not_a_race_disproof",
+    "summary": [
+      "Ran 2 tests in 0.608s",
+      "OK"
+    ]
+  },
+  "historical_ext4_original_repeat_3": {
+    "path": "\\\\wsl$\\Ubuntu\\tmp\\sanmou-cr-reopen-470d92c-MaNesZ\\stdio-runs\\run-3.log",
+    "sha256": "6befdfd47a4409b267547a589c3faaf0aae432c898af9dc6ae96750a09725097",
+    "bytes": 452,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "historical_2_original_tests_passed_not_a_race_disproof",
+    "summary": [
+      "Ran 2 tests in 0.603s",
+      "OK"
+    ]
+  },
+  "historical_ext4_original_repeat_4": {
+    "path": "\\\\wsl$\\Ubuntu\\tmp\\sanmou-cr-reopen-470d92c-MaNesZ\\stdio-runs\\run-4.log",
+    "sha256": "57a07d551cccb4874e96b179f96281546bf6fd6e4d14ed75002b34533e9424f6",
+    "bytes": 452,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "historical_2_original_tests_passed_not_a_race_disproof",
+    "summary": [
+      "Ran 2 tests in 0.615s",
+      "OK"
+    ]
+  },
+  "historical_ext4_original_repeat_5": {
+    "path": "\\\\wsl$\\Ubuntu\\tmp\\sanmou-cr-reopen-470d92c-MaNesZ\\stdio-runs\\run-5.log",
+    "sha256": "83bba60fde80f110df0dc6b1fc0ff3924a69af9405f6f940d2bf46f177c13e01",
+    "bytes": 452,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "historical_2_original_tests_passed_not_a_race_disproof",
+    "summary": [
+      "Ran 2 tests in 0.630s",
+      "OK"
+    ]
+  },
+  "historical_ext4_original_repeat_6": {
+    "path": "\\\\wsl$\\Ubuntu\\tmp\\sanmou-cr-reopen-470d92c-MaNesZ\\stdio-runs\\run-6.log",
+    "sha256": "e1f18fcd1ae63ab0ad9c6c8cd208939d4ee8104bf49fe2f49e8aedbc6c37d245",
+    "bytes": 452,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "historical_2_original_tests_passed_not_a_race_disproof",
+    "summary": [
+      "Ran 2 tests in 0.635s",
+      "OK"
+    ]
+  },
+  "historical_ext4_original_repeat_7": {
+    "path": "\\\\wsl$\\Ubuntu\\tmp\\sanmou-cr-reopen-470d92c-MaNesZ\\stdio-runs\\run-7.log",
+    "sha256": "431325cda1e4b60fd7fa997570ae7075772feab49346a9f7cbfe51862faa5bc8",
+    "bytes": 452,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "historical_2_original_tests_passed_not_a_race_disproof",
+    "summary": [
+      "Ran 2 tests in 0.705s",
+      "OK"
+    ]
+  },
+  "historical_ext4_original_repeat_8": {
+    "path": "\\\\wsl$\\Ubuntu\\tmp\\sanmou-cr-reopen-470d92c-MaNesZ\\stdio-runs\\run-8.log",
+    "sha256": "78343fa02f08cefd61d6a05038726c7a6da4c7e35e4bec0226e8ad0424d97cb5",
+    "bytes": 452,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "historical_2_original_tests_passed_not_a_race_disproof",
+    "summary": [
+      "Ran 2 tests in 0.614s",
+      "OK"
+    ]
+  },
+  "historical_ext4_original_repeat_9": {
+    "path": "\\\\wsl$\\Ubuntu\\tmp\\sanmou-cr-reopen-470d92c-MaNesZ\\stdio-runs\\run-9.log",
+    "sha256": "523966fb6cd1e6d7389d483d222d4c429c54b48dda36d464565dbc99bb5f468f",
+    "bytes": 452,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "historical_2_original_tests_passed_not_a_race_disproof",
+    "summary": [
+      "Ran 2 tests in 0.604s",
+      "OK"
+    ]
+  },
+  "historical_ext4_original_repeat_10": {
+    "path": "\\\\wsl$\\Ubuntu\\tmp\\sanmou-cr-reopen-470d92c-MaNesZ\\stdio-runs\\run-10.log",
+    "sha256": "52cb52c413fd18abbf8296eaf3f9f3e9444f8af91a0f285c35372904cd123a56",
+    "bytes": 452,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "historical_2_original_tests_passed_not_a_race_disproof",
+    "summary": [
+      "Ran 2 tests in 0.612s",
+      "OK"
+    ]
+  },
+  "historical_ext4_original_repeat_11": {
+    "path": "\\\\wsl$\\Ubuntu\\tmp\\sanmou-cr-reopen-470d92c-MaNesZ\\stdio-runs\\run-11.log",
+    "sha256": "475ffce6f4955f0771e158f1d0ed44363562a662773aa4075afd32a731ccc04f",
+    "bytes": 452,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "historical_2_original_tests_passed_not_a_race_disproof",
+    "summary": [
+      "Ran 2 tests in 0.577s",
+      "OK"
+    ]
+  },
+  "historical_ext4_original_repeat_12": {
+    "path": "\\\\wsl$\\Ubuntu\\tmp\\sanmou-cr-reopen-470d92c-MaNesZ\\stdio-runs\\run-12.log",
+    "sha256": "7c3b7726a1eb104876bdcd9c5fdab8d8a7f37e5256fa1b583c7453239e6aa288",
+    "bytes": 452,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "historical_2_original_tests_passed_not_a_race_disproof",
+    "summary": [
+      "Ran 2 tests in 0.610s",
+      "OK"
+    ]
+  },
+  "historical_ext4_original_repeat_13": {
+    "path": "\\\\wsl$\\Ubuntu\\tmp\\sanmou-cr-reopen-470d92c-MaNesZ\\stdio-runs\\run-13.log",
+    "sha256": "9b97d937526551de1a4051af4eb83a0e9e8792cba1b97dd886123ebd98cb061a",
+    "bytes": 452,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "historical_2_original_tests_passed_not_a_race_disproof",
+    "summary": [
+      "Ran 2 tests in 0.651s",
+      "OK"
+    ]
+  },
+  "historical_ext4_original_repeat_14": {
+    "path": "\\\\wsl$\\Ubuntu\\tmp\\sanmou-cr-reopen-470d92c-MaNesZ\\stdio-runs\\run-14.log",
+    "sha256": "0fc73d652fd7f259f83fc4abbf8c6a461c8b377f2a2f8cb7c9234bc077b1b5a3",
+    "bytes": 452,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "historical_2_original_tests_passed_not_a_race_disproof",
+    "summary": [
+      "Ran 2 tests in 0.620s",
+      "OK"
+    ]
+  },
+  "historical_ext4_original_repeat_15": {
+    "path": "\\\\wsl$\\Ubuntu\\tmp\\sanmou-cr-reopen-470d92c-MaNesZ\\stdio-runs\\run-15.log",
+    "sha256": "1e94721221a2686dfee609f03a9a99e76a08379cb326d349d49b586699e7dfd5",
+    "bytes": 452,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "historical_2_original_tests_passed_not_a_race_disproof",
+    "summary": [
+      "Ran 2 tests in 0.668s",
+      "OK"
+    ]
+  },
+  "historical_ext4_original_repeat_16": {
+    "path": "\\\\wsl$\\Ubuntu\\tmp\\sanmou-cr-reopen-470d92c-MaNesZ\\stdio-runs\\run-16.log",
+    "sha256": "70b6c7c9ace2c9eb3ce9168fcae79c68775ddc83fb8ff00a6f4c2a6d23d5b139",
+    "bytes": 452,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "historical_2_original_tests_passed_not_a_race_disproof",
+    "summary": [
+      "Ran 2 tests in 0.619s",
+      "OK"
+    ]
+  },
+  "historical_ext4_original_repeat_17": {
+    "path": "\\\\wsl$\\Ubuntu\\tmp\\sanmou-cr-reopen-470d92c-MaNesZ\\stdio-runs\\run-17.log",
+    "sha256": "1339ac246bef5f6d89fd2d673f4010d2bea8788e8bb6935d52e913083e3b6fdb",
+    "bytes": 452,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "historical_2_original_tests_passed_not_a_race_disproof",
+    "summary": [
+      "Ran 2 tests in 0.662s",
+      "OK"
+    ]
+  },
+  "historical_ext4_original_repeat_18": {
+    "path": "\\\\wsl$\\Ubuntu\\tmp\\sanmou-cr-reopen-470d92c-MaNesZ\\stdio-runs\\run-18.log",
+    "sha256": "7dd71bf10da85d1ccd05453813f65239d9e66a2f71a21738ae7412c5246c580e",
+    "bytes": 452,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "historical_2_original_tests_passed_not_a_race_disproof",
+    "summary": [
+      "Ran 2 tests in 0.658s",
+      "OK"
+    ]
+  },
+  "historical_ext4_original_repeat_19": {
+    "path": "\\\\wsl$\\Ubuntu\\tmp\\sanmou-cr-reopen-470d92c-MaNesZ\\stdio-runs\\run-19.log",
+    "sha256": "8f1d7ed8f7a399ba2e023ca618a614298d6e61b7cb62c9f9b6607c90535c9835",
+    "bytes": 452,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "historical_2_original_tests_passed_not_a_race_disproof",
+    "summary": [
+      "Ran 2 tests in 0.598s",
+      "OK"
+    ]
+  },
+  "historical_ext4_original_repeat_20": {
+    "path": "\\\\wsl$\\Ubuntu\\tmp\\sanmou-cr-reopen-470d92c-MaNesZ\\stdio-runs\\run-20.log",
+    "sha256": "9db497198773019229be0ed935cef2e4279b5cbfaa8d38902e4b72a56486e504",
+    "bytes": 452,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "historical_2_original_tests_passed_not_a_race_disproof",
+    "summary": [
+      "Ran 2 tests in 0.607s",
+      "OK"
+    ]
+  }
+}

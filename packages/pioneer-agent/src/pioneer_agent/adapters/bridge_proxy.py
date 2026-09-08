@@ -1,32 +1,28 @@
-"""Proxy script that runs on Windows python.exe.
+"""Windows stdin/stdout relay for authenticated capture protocol v2.
 
-Connects to the bridge server via localhost and relays commands from
-stdin/stdout, allowing WSL2 to bypass network routing issues (e.g. WireGuard).
-
-Protocol: one JSON line per request on stdin, one JSON line per response on stdout.
-Current servers return screenshots as a JSON envelope containing base64 pixels,
-frame SHA-256, and capture geometry; the proxy forwards that envelope unchanged.
-Legacy raw-PNG responses are still translated to base64 so BridgeClient can emit
-an explicit upgrade-required error instead of silently losing geometry.
-
-Window un-minimization is done server-side via SendMessage(WM_SYSCOMMAND,
-SC_RESTORE), which has no foreground-lock restriction. The proxy does not
-manipulate windows.
+Any timeout, partial frame, mismatch or server error closes the socket and
+ends this proxy. A caller must create a new proxy for the next observation.
 """
-
-import base64
 import json
+import os
 import socket
 import struct
 import sys
+import time
+
+PROTOCOL_VERSION = 2
+MAX_RESPONSE_BYTES = 48 * 1024 * 1024
+READ_ONLY_COMMANDS = frozenset({"ping", "capabilities", "screenshot", "window_info", "list_windows", "quit"})
 
 
-_PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
-
-
-def recv_exact(sock, n):
+def recv_exact(sock, n, *, deadline=None):
     buf = bytearray()
     while len(buf) < n:
+        if deadline is not None:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise TimeoutError("capture response deadline exceeded")
+            sock.settimeout(remaining)
         chunk = sock.recv(min(n - len(buf), 65536))
         if not chunk:
             raise ConnectionError("Bridge server disconnected")
@@ -36,68 +32,83 @@ def recv_exact(sock, n):
 
 def send_cmd(sock, payload):
     body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+    if len(body) > 65536:
+        raise ValueError("capture request too large")
     sock.sendall(struct.pack(">I", len(body)) + body)
 
 
 def recv_frame(sock):
-    raw_len = recv_exact(sock, 4)
+    deadline = time.monotonic() + 10
+    raw_len = recv_exact(sock, 4, deadline=deadline)
     msg_len = struct.unpack(">I", raw_len)[0]
-    return recv_exact(sock, msg_len)
+    if not 0 < msg_len <= MAX_RESPONSE_BYTES:
+        raise ValueError("invalid capture response length")
+    return recv_exact(sock, msg_len, deadline=deadline)
+
+
+def exchange(sock, request, auth_token):
+    """One request, one bound JSON response; invalid streams are never reused."""
+    try:
+        if (
+            not isinstance(request, dict)
+            or request.get("cmd") not in READ_ONLY_COMMANDS
+            or request.get("protocol_version") != PROTOCOL_VERSION
+            or not isinstance(request.get("request_id"), str)
+            or len(request["request_id"]) != 32
+            or any(c not in "0123456789abcdef" for c in request["request_id"])
+        ):
+            raise ValueError("invalid capture-only request")
+        sock.settimeout(10)
+        send_cmd(sock, {**request, "auth_token": auth_token})
+        response = json.loads(recv_frame(sock))
+        if (
+            not isinstance(response, dict)
+            or response.get("protocol_version") != PROTOCOL_VERSION
+            or response.get("request_id") != request["request_id"]
+            or response.get("status") not in {"ok", "bye"}
+        ):
+            raise ValueError("invalid capture response binding")
+        return response
+    except Exception:
+        sock.close()
+        raise
 
 
 def main():
-    # Force UTF-8 on stdio. Windows python.exe otherwise uses the system
-    # ANSI codepage (cp936 on zh-CN installs), which garbles Chinese window
-    # titles and other non-ASCII JSON fields when piped to WSL.
     try:
         sys.stdout.reconfigure(encoding="utf-8", newline="\n")
         sys.stdin.reconfigure(encoding="utf-8")
     except Exception:
         pass
-
+    token = os.environ.get("SANMOU_CAPTURE_TOKEN", "")
+    if not (32 <= len(token) <= 256 and token.isascii() and not any(c.isspace() for c in token)):
+        print(json.dumps({"status": "error", "message": "capture authentication is not configured"}), flush=True)
+        return 1
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 9877
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.settimeout(10)
     try:
         sock.connect(("127.0.0.1", port))
-    except Exception as exc:
-        print(json.dumps({"status": "error", "message": str(exc)}), flush=True)
-        sys.exit(1)
-
-    print(json.dumps({"status": "proxy_ready"}), flush=True)
-
-    for line in sys.stdin:
-        line = line.strip()
-        if not line:
-            continue
-        try:
-            req = json.loads(line)
-        except json.JSONDecodeError as exc:
-            print(json.dumps({"status": "error", "message": f"Bad JSON: {exc}"}), flush=True)
-            continue
-
-        cmd = req.get("cmd", "")
-        try:
-            send_cmd(sock, req)
-            data = recv_frame(sock)
-            if cmd == "screenshot" and data.startswith(_PNG_MAGIC):
-                print(json.dumps({
-                    "status": "ok",
-                    "data_b64": base64.b64encode(data).decode("ascii"),
-                    "size": len(data),
-                }), flush=True)
-            else:
-                # Either a JSON control response, or a server-side error
-                # returned in place of PNG bytes.
-                print(data.decode("utf-8"), flush=True)
-        except Exception as exc:
-            print(json.dumps({"status": "error", "message": str(exc)}), flush=True)
-
-        if cmd == "quit":
-            break
-
-    sock.close()
+        print(json.dumps({"status": "proxy_ready", "protocol_version": PROTOCOL_VERSION}), flush=True)
+        for line in sys.stdin:
+            if not line.strip():
+                continue
+            try:
+                request = json.loads(line)
+                response = exchange(sock, request, token)
+                print(json.dumps(response, ensure_ascii=False), flush=True)
+                if request["cmd"] == "quit":
+                    break
+            except Exception:
+                print(json.dumps({"status": "error", "message": "capture transport invalidated"}), flush=True)
+                return 1
+    except Exception:
+        print(json.dumps({"status": "error", "message": "capture connection failed"}), flush=True)
+        return 1
+    finally:
+        sock.close()
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

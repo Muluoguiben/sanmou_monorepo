@@ -564,7 +564,7 @@ class GuardedWindowClickTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "capture rectangle is invalid"):
             server._validate_capture_geometry(geometry)
 
-    def test_protocol_reuses_concrete_backend_from_observed_screenshot(self) -> None:
+    def test_protocol_rejects_even_fully_guarded_click_after_screenshot(self) -> None:
         server = _load_server()
         png = _make_png((20, 40, 60))
         digest = hashlib.sha256(png).hexdigest()
@@ -589,8 +589,13 @@ class GuardedWindowClickTests(unittest.TestCase):
             ]
         )
         clicks: list[dict[str, object]] = []
-        server.recv_msg = lambda _conn: next(messages)
-        server.send_json = lambda _conn, _payload: None
+        from uuid import uuid4
+        server.recv_msg = lambda _conn: {
+            **next(messages), "protocol_version": 2, "request_id": uuid4().hex,
+            "auth_token": "synthetic-test-token-" * 3,
+        }
+        responses = []
+        server.send_json = lambda _conn, payload: responses.append(payload)
         server.send_binary = lambda _conn, _payload: None
         server._resolve_window = lambda _title, _hwnd: 101
         server.capture_window_with_backend = lambda _hwnd, backend: (
@@ -605,10 +610,13 @@ class GuardedWindowClickTests(unittest.TestCase):
 
         server.click_window_relative = record_click
 
-        server.handle_client(object(), "game", "auto")
+        server.handle_client(object(), "game", "auto", auth_token="synthetic-test-token-" * 3)
 
-        self.assertEqual(len(clicks), 1)
-        self.assertEqual(clicks[0]["capture_backend"], "wgc")
+        self.assertEqual(clicks, [])
+        self.assertEqual(responses[0]["status"], "ok")
+        self.assertEqual(responses[0]["capture_geometry"]["capture_backend"], "wgc")
+        self.assertEqual(responses[1]["status"], "error")
+        self.assertIn("capture_only", responses[1]["message"])
 
 
 def _make_png(color: tuple[int, int, int]) -> bytes:
