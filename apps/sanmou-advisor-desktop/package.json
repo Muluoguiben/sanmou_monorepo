@@ -7,6 +7,9 @@
   "type": "module",
   "scripts": {
     "build": "npm run build:main && npm run build:renderer",
+    "test": "node --test tests/python.test.mjs && playwright test",
+    "dist:win": "npm run build && electron-builder --win --publish never",
+    "test:install:win": "node tests/install-smoke.mjs",
     "build:main": "tsc -p tsconfig.node.json",
     "build:renderer": "tsc -p tsconfig.json && vite build",
     "dev": "npm run build:main && concurrently -k \"npm:dev:vite\" \"npm:watch:main\" \"npm:dev:electron\"",
@@ -22,12 +25,14 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@types/node": "^20.11.30",
     "@types/react": "^18.2.67",
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.2.1",
     "concurrently": "^8.2.2",
     "electron": "^29.1.4",
+    "electron-builder": "^26.15.3",
     "typescript": "^5.4.3",
     "vite": "^5.1.6",
     "wait-on": "^7.2.0"

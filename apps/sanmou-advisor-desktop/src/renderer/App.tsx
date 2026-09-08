@@ -75,6 +75,8 @@ export default function App() {
       text: "上传截图后，我会基于 Advisor 报告回答下一步、风险和证据。"
     }
   ]);
+  const selectionVersion = useRef(0);
+  const chatVersion = useRef(0);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -86,6 +88,9 @@ export default function App() {
         return;
       }
       setRuntimeConfig(config);
+      if (config?.apiLaunch?.status === "failed" || config?.apiLaunch?.status === "exited") {
+        setError(formatApiLaunchError(config));
+      }
       try {
         const payload = await waitForHealth();
         if (cancelled) {
@@ -100,20 +105,34 @@ export default function App() {
             }
           })
           .catch(() => undefined);
-      } catch {
+      } catch (err) {
         if (cancelled) {
           return;
         }
         setApiStatus("down");
-        if (config?.apiLaunch?.status === "failed" || config?.apiLaunch?.status === "exited") {
-          setError(formatApiLaunchError(config));
-        }
+        const latest = await getRuntimeConfig().catch(() => null);
+        if (cancelled) return;
+        setRuntimeConfig(latest);
+        setError(latest ? formatApiLaunchError(latest) : String(err));
       }
     }
 
     refreshHealth();
+    // A different listener can answer health while our embedded Python exits
+    // (for example a port collision). Keep its actual launch status visible.
+    const launchTimer = window.setInterval(async () => {
+      const latest = await getRuntimeConfig().catch(() => null);
+      if (cancelled || !latest?.apiLaunch) return;
+      setRuntimeConfig(latest);
+      if (latest.apiLaunch.mode === "embedded" &&
+          (latest.apiLaunch.status === "failed" || latest.apiLaunch.status === "exited")) {
+        setApiStatus("down");
+        setError(formatApiLaunchError(latest));
+      }
+    }, 1000);
     return () => {
       cancelled = true;
+      window.clearInterval(launchTimer);
     };
   }, []);
 
@@ -147,13 +166,22 @@ export default function App() {
     return Object.entries(report.current_state_summary).filter(([, value]) => value !== null && value !== undefined);
   }, [report]);
 
-  function setSelectedFile(nextFile: File) {
+  function beginSelection(): number {
+    const version = ++selectionVersion.current;
+    ++chatVersion.current;
+    setBusy(false);
+    setHistoryBusy(false);
+    setChatBusy(false);
+    setChatInput("");
+    setMessages([]);
     setError("");
     setReport(null);
+    return version;
+  }
+
+  function setSelectedFile(nextFile: File) {
+    beginSelection();
     setFile(nextFile);
-    if (previewUrl) {
-      revokePreviewUrl(previewUrl);
-    }
     setPreviewUrl(URL.createObjectURL(nextFile));
   }
 
@@ -178,10 +206,11 @@ export default function App() {
       setError("请选择截图");
       return;
     }
+    const version = beginSelection();
     setBusy(true);
-    setError("");
     try {
       const nextReport = await analyzeScreenshot(file, options);
+      if (version !== selectionVersion.current) return;
       setReport(nextReport);
       setActiveReportTab("summary");
       setMessages((items) => [
@@ -194,23 +223,27 @@ export default function App() {
       ]);
       refreshHistory();
     } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
+      if (version === selectionVersion.current) setError(err instanceof Error ? err.message : String(err));
     } finally {
-      setBusy(false);
+      if (version === selectionVersion.current) setBusy(false);
     }
   }
 
   async function onChatSubmit(event: FormEvent) {
     event.preventDefault();
     const text = chatInput.trim();
-    if (!text) {
+    if (!text || busy || historyBusy || chatBusy) {
       return;
     }
+    const version = selectionVersion.current;
+    const request = ++chatVersion.current;
+    const isCurrent = () => version === selectionVersion.current && request === chatVersion.current;
     setChatInput("");
     setMessages((items) => [...items, { id: crypto.randomUUID(), role: "user", text }]);
     setChatBusy(true);
     try {
       const response = await sendAdvisorMessage(text, report);
+      if (!isCurrent()) return;
       setMessages((items) => [
         ...items,
         {
@@ -221,6 +254,7 @@ export default function App() {
         }
       ]);
     } catch (err) {
+      if (!isCurrent()) return;
       setMessages((items) => [
         ...items,
         {
@@ -230,7 +264,7 @@ export default function App() {
         }
       ]);
     } finally {
-      setChatBusy(false);
+      if (isCurrent()) setChatBusy(false);
     }
   }
 
@@ -243,29 +277,26 @@ export default function App() {
   }
 
   async function onOpenHistory(item: AdvisorHistoryItem) {
+    const version = beginSelection();
+    setFile(null);
+    setPreviewUrl(null);
     setHistoryBusy(true);
-    setError("");
     try {
       const detail = await getAdvisorHistory(item.history_id);
+      const url = await advisorHistoryScreenshotUrl(detail.item);
+      if (version !== selectionVersion.current) return;
       setReport(detail.report);
+      setPreviewUrl(url);
       setActiveReportTab("summary");
-      setFile(null);
-      if (previewUrl) {
-        revokePreviewUrl(previewUrl);
-      }
-      setPreviewUrl(await advisorHistoryScreenshotUrl(detail.item));
-      setMessages((messages) => [
-        ...messages,
-        {
-          id: crypto.randomUUID(),
-          role: "assistant",
-          text: buildReportMessage(detail.report)
-        }
-      ]);
+      setMessages([{
+        id: crypto.randomUUID(),
+        role: "assistant",
+        text: buildReportMessage(detail.report)
+      }]);
     } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
+      if (version === selectionVersion.current) setError(err instanceof Error ? err.message : String(err));
     } finally {
-      setHistoryBusy(false);
+      if (version === selectionVersion.current) setHistoryBusy(false);
     }
   }
 
@@ -384,7 +415,8 @@ export default function App() {
                 key={item.history_id}
                 className="history-item"
                 onClick={() => onOpenHistory(item)}
-                disabled={historyBusy || apiStatus !== "ok"}
+                disabled={apiStatus !== "ok"}
+                aria-busy={historyBusy}
               >
                 <strong>{item.page_type || "unknown"}</strong>
                 <span>{formatHistoryMeta(item)}</span>
@@ -539,7 +571,7 @@ export default function App() {
             onChange={(event) => setChatInput(event.target.value)}
             placeholder="问下一步、风险、证据"
           />
-          <button className="icon-button send-button" disabled={chatBusy || !chatInput.trim()}>
+          <button className="icon-button send-button" disabled={busy || historyBusy || chatBusy || !chatInput.trim()}>
             {chatBusy ? <Loader2 size={18} className="spin" /> : <Send size={18} />}
           </button>
         </form>
@@ -548,7 +580,7 @@ export default function App() {
   );
 }
 
-function EvidenceQualityPanel({
+export function EvidenceQualityPanel({
   report,
   recommended
 }: {
@@ -559,7 +591,16 @@ function EvidenceQualityPanel({
   const legacyEvidence = report?.evidence ?? [];
   const blockedReason = recommended?.execution_blocked_reason || "";
   const hasEvidence = structuredEvidence.length > 0 || legacyEvidence.length > 0;
-  const degraded = Boolean(report) && (!structuredEvidence.length || Boolean(blockedReason));
+  // Execution permission is independent of the quality of observed evidence.
+  const degraded = Boolean(report) && (
+    !structuredEvidence.length || !Number.isFinite(report!.confidence) || report!.confidence < 0.8 ||
+    (recommended !== null && (!Number.isFinite(recommended.confidence) || recommended.confidence < 0.8)) ||
+    structuredEvidence.some((item) =>
+      item.metadata?.status === "unknown" || item.metadata?.trusted_for_state === false ||
+      item.ref?.includes("unknown") ||
+      (item.confidence != null && (!Number.isFinite(item.confidence) || item.confidence < 0.8))
+    )
+  );
   const statusText = !report
     ? "等待报告"
     : degraded
@@ -572,10 +613,10 @@ function EvidenceQualityPanel({
         <h3>证据</h3>
         <span className={`evidence-status ${degraded ? "degraded" : "supported"}`}>{statusText}</span>
       </div>
-      {blockedReason ? (
-        <div className="evidence-alert">
-          <AlertTriangle size={14} />
-          <span>{blockedReason}</span>
+      {report ? (
+        <div className="execution-permission">
+          <ShieldCheck size={14} />
+          <span>执行权限：仅建议，不执行{blockedReason ? `（${blockedReason}）` : ""}</span>
         </div>
       ) : null}
       {structuredEvidence.slice(0, 8).map((item) => (

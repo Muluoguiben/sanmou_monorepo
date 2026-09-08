@@ -1,0 +1,16 @@
+{
+  "appId": "local.sanmou.advisor",
+  "productName": "Sanmou Advisor",
+  "directories": { "output": "release" },
+  "files": ["dist/**", "dist-electron/**", "package.json"],
+  "extraResources": [
+    { "from": "../../packages/pioneer-agent/src", "to": "backend/packages/pioneer-agent/src", "filter": ["**/*.py", "**/*.yaml", "**/*.json"] },
+    { "from": "../../packages/sanmou-common/src", "to": "backend/packages/sanmou-common/src", "filter": ["**/*.py", "**/*.yaml", "**/*.json"] },
+    { "from": "../../packages/qa-agent/src", "to": "backend/packages/qa-agent/src", "filter": ["**/*.py", "**/*.yaml", "**/*.json"] },
+    { "from": "../../packages/qa-agent/knowledge_sources", "to": "backend/packages/qa-agent/knowledge_sources", "filter": ["**/*.yaml"] },
+    { "from": "../../packages/qa-agent/configs", "to": "backend/packages/qa-agent/configs", "filter": ["**/*.yaml"] }
+  ],
+  "win": { "target": [{ "target": "nsis", "arch": ["x64"] }], "signAndEditExecutable": false },
+  "nsis": { "oneClick": false, "perMachine": false, "allowToChangeInstallationDirectory": true, "runAfterFinish": false, "createDesktopShortcut": false, "createStartMenuShortcut": false },
+  "artifactName": "Sanmou-Advisor-${version}-unsigned-${arch}.${ext}"
+}
