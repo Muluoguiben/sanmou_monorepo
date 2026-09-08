@@ -1,0 +1,187 @@
+{
+  "sanmou-cr-final-pioneer.log": {
+    "sha256": "fc2258400138fc91229c3132e9ed3b6b6d3b74e492dc1d7d67c51383703e08b9",
+    "bytes": 182860,
+    "summary": [
+      "Ran 846 tests in 47.318s",
+      "OK (skipped=2)"
+    ]
+  },
+  "sanmou-cr-final-qa.log": {
+    "sha256": "e1a1cf9bb70f96eb50926356085160b5f47f1446355d9682b687e73dcf3d7ea0",
+    "bytes": 51547,
+    "summary": [
+      "Ran 327 tests in 95.589s",
+      "OK"
+    ]
+  },
+  "sanmou-cr-final-common.log": {
+    "sha256": "2585f1862d74c76a4f7b921b1102a4d834c8272e88520fb48a428b80ea48225d",
+    "bytes": 342,
+    "summary": [
+      "Ran 2 tests in 0.072s",
+      "OK"
+    ]
+  },
+  "sanmou-cr-final-npm-ci-strict.log": {
+    "sha256": "8764a96961d63ec45cbe1fb3dd385f7eb109c56fa17f4ca4985f43e911befb0d",
+    "bytes": 766,
+    "summary": [],
+    "EBADENGINE_count": 0
+  },
+  "sanmou-cr-final-typecheck.log": {
+    "sha256": "207a8fc4bc101cb9b1bac40a5b742abb72f05afb990354b85339d2cc7d64368c",
+    "bytes": 99,
+    "summary": []
+  },
+  "sanmou-cr-final-build.log": {
+    "sha256": "8769cf2da51336bdeac2aac127aded723a70398727663b6c30d8de8da8b0e537",
+    "bytes": 595,
+    "summary": []
+  },
+  "sanmou-cr-final-test.log": {
+    "sha256": "e4c27edc82eb0c565ec0c833419ea758c08853117667be0affad836855488c1c",
+    "bytes": 3192,
+    "summary": [
+      "ℹ tests 15",
+      "ℹ pass 14",
+      "ℹ fail 1",
+      "ℹ skipped 0"
+    ]
+  },
+  "sanmou-cr-final-test-serial.log": {
+    "sha256": "0cedd596d5598eb2312ddc5ddc595632c44a2fffddd2286a8db73684283b101f",
+    "bytes": 3955,
+    "summary": [
+      "ℹ tests 15",
+      "ℹ pass 15",
+      "ℹ fail 0",
+      "ℹ skipped 0",
+      "15 passed (26.0s)"
+    ]
+  },
+  "sanmou-cr-final-dist-win.log": {
+    "sha256": "82c90b306410e465ed2884bc6b1a4593674c6fe088c717158f5a09fc3df11202",
+    "bytes": 2740,
+    "summary": []
+  },
+  "sanmou-cr-final-install-1.log": {
+    "sha256": "c54e25c21ea39a04a28693a4f456d117e953b4da2ec65fd26aa4730a340e2154",
+    "bytes": 373,
+    "summary": []
+  },
+  "sanmou-cr-final-install-2.log": {
+    "sha256": "f8192dde9f0f9b41e02dba8a7c528d3882d87f50e4993a1ad77f87ce70c5ab6b",
+    "bytes": 373,
+    "summary": []
+  },
+  "sanmou-cr-final-official-stdio.log": {
+    "sha256": "d7fe0d3084ad2d98b399b0a9d02ac4db128516d2e0ce82c6e8e67e37417f0f28",
+    "bytes": 1100,
+    "summary": []
+  },
+  "sanmou-cr-final-eval.log": {
+    "sha256": "51e259ba164b1300fbda16d90b349bc6f9fb0d1d863f632991b414cf2434b868",
+    "bytes": 3054,
+    "summary": []
+  },
+  "sanmou-cr-pixel-guard-cleanup-fixed.log": {
+    "sha256": "90fbeb8de7839ce2b9c427843d991a02c52ae15c4ebfe17e6c117cfe3a1328d7",
+    "bytes": 469,
+    "summary": []
+  },
+  "sanmou-cr-native-junction-final.log": {
+    "sha256": "efd926a22d00920b8c80abb041516104b17d58b48d74eb45b86b60deade6ddc3",
+    "bytes": 359,
+    "summary": []
+  },
+  "sanmou-cr-safety-baseline-counterexamples-final.log": {
+    "sha256": "646c7c67805d75060c4b134b8c2d221e7b739d9aaa4f7ef97fe22d32c3a64e89",
+    "bytes": 1780,
+    "summary": []
+  },
+  "sanmou-cr-desktop-baseline-counterexamples.log": {
+    "sha256": "d3b94955a802f314852c0fe6ab57fe10c0d7ed80c4a39990b748ecf75f75019a",
+    "bytes": 812,
+    "summary": []
+  },
+  "sanmou-cr-pioneer-counterexamples-baseline.log": {
+    "sha256": "5f3376ba4218847ba22064e77a27316e91474634e67db9e4e69936a636b5f956",
+    "bytes": 927,
+    "summary": []
+  },
+  "sanmou-cr-pioneer-counterexamples-combined.log": {
+    "sha256": "e985e53480be0096cc546d8e2c1e770c24ed878bc4fdddd696440c932007bbfa",
+    "bytes": 1006,
+    "summary": []
+  },
+  "sanmou-cr-qa-original-red.log": {
+    "sha256": "c9ffe0755077a8757da6c149aba326b1b234aca792260dda1d6537f36cf9a773",
+    "bytes": 13461,
+    "summary": [
+      "Ran 7 tests in 3.483s",
+      "FAILED (failures=10)"
+    ]
+  },
+  "sanmou-cr-eval-original-red.log": {
+    "sha256": "05b2a6583098812c636393cee94a8a06b9194c569ff13bee2c9f9dacaa3c73bc",
+    "bytes": 7046,
+    "summary": [
+      "Ran 5 tests in 0.943s",
+      "FAILED (failures=7)"
+    ]
+  },
+  "sanmou-cr-api-original-red.log": {
+    "sha256": "5c6db4cd7038d38976cd34344dc4f2367866c55614fe718f0f14ca34403165d3",
+    "bytes": 22024,
+    "summary": [
+      "Ran 4 tests in 0.586s",
+      "FAILED (failures=1, errors=2)"
+    ]
+  },
+  "sanmou-cr-preload-module-counterexample.log": {
+    "sha256": "9599545bfb677b7b49f2d4ee875378339b96988ba801f231149ded474f8e877d",
+    "bytes": 250,
+    "summary": []
+  },
+  "sanmou-cr-install-smoke.log": {
+    "sha256": "ed8b54cedc9e15919bfc4fe3513e591c2d069e2d8faa7100905f437a9f10b358",
+    "bytes": 379,
+    "summary": []
+  },
+  "sanmou-cr-install-smoke-diagnostic.log": {
+    "sha256": "4daac6a6a7989e50cdda57059218928899a6155359699ae14e3990b6d71c5673",
+    "bytes": 1311,
+    "summary": []
+  },
+  "sanmou-cr-async-readiness-proof.log": {
+    "sha256": "76631003fded46efa7afaed2686bc7ce0264d6c51b457edf82bbe0c30d44dd2e",
+    "bytes": 101,
+    "summary": []
+  },
+  "sanmou-cr-browser-port-proof.log": {
+    "sha256": "cfe16d05fd4a5d7edc241411155840334d575f1dec494415aebd259a52f4f2d6",
+    "bytes": 130,
+    "summary": []
+  },
+  "sanmou-cr-kb-duplicate-preservation-red.log": {
+    "sha256": "e4372a4f0d48b8fd55e804389413e955abbadcceffe6126d2f6e8abeea8208ba",
+    "bytes": 510,
+    "summary": []
+  },
+  "sanmou-cr-root-alias-red.log": {
+    "sha256": "1f596b9fd59c43d15543eaee6d3f73b7b2ca4db84c50c5ff68daab9d0c22744a",
+    "bytes": 540,
+    "summary": []
+  },
+  "sanmou-cr-pixel-guard-cleanup-red.log": {
+    "sha256": "bbbe2d41a8f894e1d56b688f8e7a5241702221ab510dce5bc891698208a9f989",
+    "bytes": 899,
+    "summary": []
+  },
+  "sanmou-cr-wsl-capture-hop-final.log": {
+    "sha256": "8dce94212eabb513e36e870c5768cde4623796eb38b910a6909b16403ce99996",
+    "bytes": 753,
+    "summary": []
+  }
+}

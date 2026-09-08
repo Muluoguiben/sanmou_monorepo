@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "phase": "formal_review_rework_pending",
+  "phase": "complete",
   "coordinator_thread_id": "019f4a66-e105-7103-ab9d-aef47aa6f8a0",
   "review_branch": "feat/adversarial-review-20260908",
   "baseline_commit": "d377ef8bbaa69e6b25928255eac0cb62714e82f8",
   "baseline_tree": "5a7239bcc64689789d7cd7a6b148937ea3184760",
-  "combined_commit": "1c924e6360698e0b124621e696aed3cdaaae0692",
-  "combined_tree": "6f11bbff69389a080aa77b30fbcd26779d60a142",
-  "formal_verdict": null,
+  "combined_commit": "7f59f00778594accc49fd02a828a08097832c27c",
+  "combined_tree": "b812fb28f174af7daef353b50a766eaeb8f442c6",
+  "formal_verdict": "APPROVE",
   "production_readiness": "not_established",
   "components": {
     "A": {
@@ -134,7 +134,7 @@
     "E": {
       "thread_id": "01a07f0b-6d25-75c3-bcb1-acd4ca26cd1d",
       "host_id": "local",
-      "final_sha": "b865808d021ca4fd81c1bb087735187f485b51a2",
+      "final_sha": "1eeffb76b514ec4bc58332c93cd419feb26ffaef",
       "report": "docs/test-reports/2026-09-08/E.md",
       "cursor": "5a4f0765-023f-4651-a021-19552055b225:12",
       "progress_only": {
@@ -153,7 +153,7 @@
       "tree": "b28b62393808ce170c2a64e7a7b66b87171b91d5",
       "report_blob": "1c40e3b6b70d96895740844ff929b22c6ad30132",
       "evidence_blob": "1d4b7078bf9fd67f4083ba6fa9ae4de1b1514c48",
-      "intake_status": "21_final_blobs_verified_waiting_Node24_report_and_independent_install",
+      "intake_status": "all_E_findings_independently_closed",
       "intake_verified": [
         "d377 ancestor; final branch remote matches",
         "E.md and E-test-evidence.json present",
@@ -161,8 +161,8 @@
         "seven raw hashes required mixed LF/CRLF comparison; no source drift found"
       ],
       "independent_test_status": "formal_review_starting",
-      "previous_final_sha": "5afaec4bb46c91c4c1fd153e0c79670276c1d197",
-      "replacement_required": true
+      "previous_final_sha": "b865808d021ca4fd81c1bb087735187f485b51a2",
+      "replacement_required": false
     },
     "F": {
       "thread_id": "01a07f0b-85e8-7880-bb8f-3845dc01fef2",
@@ -174,7 +174,7 @@
       "tree": "a6ffb9d5d52d3915e4a1012ee0e5308b3f6e3c9b",
       "tested_implementation_tree": "cce0c039d5f37fec9c20cec3a4e705791ef2490d",
       "report_blob": "379145382909dede815a9735527f758aa4369f88",
-      "intake_status": "Node24_14_0_pin_verified_pending_supported_pipeline",
+      "intake_status": "supported_runtime_independently_verified",
       "intake_verified": [
         "commit available; d377ef8 ancestor; 12 changed paths",
         "tested tree exists and final differs only report/TODO",
@@ -195,7 +195,7 @@
   },
   "coordinator_cursor": "f3384e36-4a82-4534-8681-978aa3e6ec37:1",
   "heartbeat_id": "sanmou",
-  "next_action": "Await E's Node24.14.0 final documentation/SHA and cleanup handoff, then inspect any delta and merge exact SHA. Run final supported npm ci --engine-strict/typecheck/build/test/dist and exact-artifact install; final three Python packages/current official stdio. Finish final report, push reviewer branch and pause heartbeat. Interim report REQUEST CHANGES, no approval yet.",
+  "next_action": "Publish verified review branch, verify remote SHA, notify coordinator with scoped APPROVE and production limits, pause heartbeat. Never merge master or operate game.",
   "intake_notes": {
     "D": "Coordinator reports first full suite 309 with 4 failures/1 error. Fixture assumptions, cwd and Windows .sh CRLF under correction. Audit first-run failures and basis for expectation changes; not final evidence.",
     "E": "Coordinator reports focused Windows Electron 13/13, Node 2/2, API 9/9 zero skip, typecheck/build; Windows full suite 767 with 6 failures/29 errors/9 skips. Require same OS/runtime/deps d377ef8 comparison and concrete npm audit evidence; not final evidence.",
@@ -462,6 +462,92 @@
       "exit": 0,
       "node": "24.14.0",
       "log": "sanmou-cr-node24-helper-tests.log"
+    },
+    "final": {
+      "source_commit": "7f59f00778594accc49fd02a828a08097832c27c",
+      "source_tree": "b812fb28f174af7daef353b50a766eaeb8f442c6",
+      "component_files_checked": 79,
+      "source_blob_mismatches": 0,
+      "pioneer": {
+        "total": 846,
+        "passed": 844,
+        "skipped": 2,
+        "exit": 0
+      },
+      "qa": {
+        "total": 327,
+        "passed": 327,
+        "skipped": 0,
+        "exit": 0
+      },
+      "common": {
+        "total": 2,
+        "passed": 2,
+        "exit": 0
+      },
+      "windows_api": {
+        "total": 11,
+        "passed": 11,
+        "skipped": 0,
+        "python": "3.12.14",
+        "exit": 0
+      },
+      "desktop": {
+        "node": "24.14.0",
+        "npm": "11.9.0",
+        "engine_strict_ci_exit": 0,
+        "EBADENGINE": 0,
+        "typecheck_exit": 0,
+        "build_exit": 0,
+        "node_tests_passed": 15,
+        "electron_tests_passed": 15,
+        "serial_test_exit": 0,
+        "dist_exit": 0
+      },
+      "installation": {
+        "runs": 2,
+        "exits": [
+          0,
+          0
+        ],
+        "ports": [
+          62329,
+          65023
+        ],
+        "readiness_attempts": [
+          22,
+          22
+        ],
+        "python": "3.12.14",
+        "artifact_sha256": "c7a7eeef563b284352d7ebfc5751c313ad7c31310864fbad9036ef5360ecaf15",
+        "signature": "NotSigned",
+        "installed_api_sha256": "e1befda4abe021f5ec5fda0728dc434ba15fc17aba8d9335d03c9e55983acba2",
+        "pixel_limit_rejected": true,
+        "source_bound": true,
+        "cleanup_owned_helpers": 0,
+        "cleanup_uninstall_entries": 0,
+        "cleanup_temp_drivers": 0,
+        "driver_configuration": "temporary copy of committed driver; only Python path uses reviewer .venv/ci312 and extra cleanup containment assertion; original source unmodified, copy removed"
+      },
+      "official_stdio": {
+        "game_tools": 7,
+        "qa_tools": 6,
+        "strict_types": true,
+        "strict_extra": true,
+        "live_cache_unchanged": true,
+        "authority": "none",
+        "exit": 0
+      },
+      "eval": {
+        "run_id": "run-38b0f8242ae9427eb5906c2b58909fc3",
+        "catalog_digest": "aac50c8154feb825e8ff0b668f93f30fea3758c28807951fd721674123bdcf2e",
+        "generation": 13,
+        "holdout_unscored": 1,
+        "golden_fixtures": 19,
+        "provider_vision": false,
+        "live_action": false,
+        "exit": 0
+      }
     }
   },
   "findings": [
@@ -496,8 +582,8 @@
       "file": "apps/sanmou-advisor-desktop/tests/install-smoke.mjs",
       "line": 44,
       "reviewed_sha": "8729d18f5cab45b3616c15b9fc5eef36746b690e",
-      "status": "fix_reviewed_node_deadlines_pass_final_install_blocked_by_CR03",
-      "replacement_final_sha": "5afaec4bb46c91c4c1fd153e0c79670276c1d197",
+      "status": "closed_verified",
+      "replacement_final_sha": "1eeffb76b514ec4bc58332c93cd419feb26ffaef",
       "evidence": "Two independent installs ECONNREFUSED; actual Electron waitForFunction(async()=>false) returned false188ms vs800ms timeout. New Node helper bounded HTTP/body/profile/admin checks; seven cases pass underNode20.",
       "logs": [
         "sanmou-cr-install-smoke.log",
@@ -512,13 +598,14 @@
       "file": "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts",
       "line": 61,
       "reviewed_sha": "5afaec4bb46c91c4c1fd153e0c79670276c1d197",
-      "status": "open_owner_reworking_exclusive_Electron_install_window",
+      "status": "closed_verified",
       "evidence": "Node20 suite Node9pass/Electron13pass1setupfail; random5061 yields ERR_UNSAFE_PORT. Real native HTTP200 vs Electronfetchblocked. Same listen0 in readiness.test13/install-smoke48.",
       "logs": [
         "sanmou-cr-node20-test.log",
         "sanmou-cr-browser-port-proof.log"
       ],
-      "saved_context": ".codex-autonomy/adversarial-review-20260908/evidence/CR03-port-5061-context.md"
+      "saved_context": ".codex-autonomy/adversarial-review-20260908/evidence/CR03-port-5061-context.md",
+      "replacement_final_sha": "1eeffb76b514ec4bc58332c93cd419feb26ffaef"
     },
     {
       "id": "CR04",
@@ -562,10 +649,11 @@
       "file": "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py",
       "line": 294,
       "reviewed_sha": "5afaec4bb46c91c4c1fd153e0c79670276c1d197",
-      "status": "open_owner_reworking_with_CR03",
+      "status": "closed_verified",
       "evidence": "69-byte PNG header20000x20000 triggers Pillow DecompressionBombError before decoding; native ASGI returns500 and leaves69-byte upload. Keep pixel guard, map to4xx and close/delete.",
       "probe": ".codex-autonomy/adversarial-review-20260908/probes/upload_pixel_guard_cleanup.py",
-      "log": "sanmou-cr-pixel-guard-cleanup-red.log"
+      "log": "sanmou-cr-pixel-guard-cleanup-red.log",
+      "replacement_final_sha": "1eeffb76b514ec4bc58332c93cd419feb26ffaef"
     },
     {
       "id": "CR07",
@@ -574,17 +662,26 @@
       "file": ".github/workflows/regression.yml",
       "line": 54,
       "reviewed_sha": "42f0f5013e820de066ac53776512686588c3af7a",
-      "status": "CI_fixed_pending_supported_full_pipeline",
+      "status": "closed_verified",
       "replacement_final_sha": "6bff970d8ed6d6eff6153e783b715273847847b7",
       "evidence": "@electron/rebuild4.2.0/node-abi4.35.0 require>=22.12; actual semver20.20.2false24.14true. F pins24.14.0; no engine/dependency bypass."
     }
   ],
   "install_window": {
-    "owner": "E",
-    "reviewer_all_helpers_closed": true,
-    "reviewer_owned_count": 0,
+    "owner": null,
+    "all_reviewer_helpers_closed": true,
+    "owned_processes": 0,
     "uninstall_entries": 0,
-    "explicit_release_sent": true,
-    "no_new_Electron_until_owner_returns": true
-  }
+    "temporary_drivers": 0
+  },
+  "remaining_risks": [
+    "12 unchanged-version npm advisory packages; Electron shipped runtime remains affected",
+    "Native Windows broad-suite/POSIX fixture limitations and timestamp-sensitive tests are not fully passing",
+    "Original5000ms Python probe timed out under concurrent all-suite load; unchanged serial CI order passed; both logs retained",
+    "Earlier distinct Python-exited/other-listener event root cause remains unproven",
+    "One earlier synthetic WSL timestamp refusal retained; no freshness gate relaxation",
+    "Unsigned artifact; no clean-machine signing/update/rollback proof",
+    "No real image/provider accuracy, external holdout/human R&R, trusted broker or live action closure",
+    "Existing external Highest controller copies not retired by reviewer"
+  ]
 }

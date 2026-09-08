@@ -1,17 +1,19 @@
 # 2026-09-08 统一对抗性审查
 
-**阶段性结论：REQUEST CHANGES。** 原始 R01–R26 已逐项审查和复现；额外发现 CR01–CR07。CR01、CR04、CR05 已独立关闭；E 的最终安装/端口/像素限制及支持运行时组合复验尚未完成。此结论仅针对本轮 patch，**不代表 production readiness**。
+**最终结论：APPROVE（仅本轮 patch）。** R01–R26 已逐项完成代码审查、原始反例与修复验证；独立新增 CR01–CR07 均由原 owner 返工并完成复审。最终六组件及组合源码身份已核验，所列支持环境的门禁通过。
+
+**Production readiness：未建立，不批准上线或真实游戏执行。** 原生 Windows 全量/时间敏感失败、既有依赖审计、未签名/clean-machine/update/rollback、真实 vision/holdout/broker/live closure 等边界保留。Reviewer 没有合并 master。
 
 ## 冻结输入与隔离
 
 - 基线 commit：`d377ef8bbaa69e6b25928255eac0cb62714e82f8`；tree：`5a7239bcc64689789d7cd7a6b148937ea3184760`。
 - Reviewer worktree：`C:/Users/Lan/.codex/worktrees/6737/sanmou_monorepo`；分支：`feat/adversarial-review-20260908`。
-- 当前组合 commit：`1c924e6360698e0b124621e696aed3cdaaae0692`；tree：`6f11bbff69389a080aa77b30fbcd26779d60a142`。
+- 最终受测组合 commit：`7f59f00778594accc49fd02a828a08097832c27c`；tree：`b812fb28f174af7daef353b50a766eaeb8f442c6`。
 - 冻结原审查 SHA256：`aefac34f2a7811406e33c3ffae60c80a2a3878094c1c7c4f0cc0be862ec628cf`。协调副本 SHA256 `daa1f4d97f77fd38d1c9c5c43741256b436c3fff9f28f1312589996cea25a249`；独立 diff 只差最后空行。
 - 章程从协调树只读读取，SHA256：`d5725ef65ecdcd97b6430b41a0b474be233cd8aa84d462cb07a9dba7cd92a6e8`。
 - 只组合明确 final SHA；没有修改作者生产源码，没有创建其他 reviewer，没有合并/推送 master，没有操作游戏。
 - B/C/D/E 初次组合仅在 TODO 独立追加块冲突。协调者明确授权按 A–F 保留双方原文；没有修改 checkbox、历史声明或源码。后续 replacement 均自动合并。
-- 沙箱初始化故障后使用受审批的 scoped exec；两次孤立 index.lock 均在确认精确本 worktree 路径、零字节、长期未变、Windows/WSL 无 Git 进程后处理，未丢弃 WIP。
+- 沙箱初始化故障后使用受审批的 scoped exec；出现的孤立 index.lock 均在确认精确本 worktree 路径、零字节、长期未变、Windows/WSL 无 Git 进程后处理，未丢弃 WIP。
 
 ## 当前组件
 
@@ -21,7 +23,7 @@
 | B | `aa7ef1b0c3ac0a7d24a8b31e258cb6efc2d224fb` | [B.md](../test-reports/2026-09-08/B.md) |
 | C | `eb4ecd90ccd1c7b5ec4982a14e5c34de5acc8669` | [C.md](../test-reports/2026-09-08/C.md) |
 | D | `587f8abaa20a195da7a4486504ec6e8138d158bf` | [D.md](../test-reports/2026-09-08/D.md) |
-| E | `b865808d021ca4fd81c1bb087735187f485b51a2` | [E.md](../test-reports/2026-09-08/E.md)、[E evidence](../test-reports/2026-09-08/E-test-evidence.json) |
+| E | `1eeffb76b514ec4bc58332c93cd419feb26ffaef` | [E.md](../test-reports/2026-09-08/E.md)、[E evidence](../test-reports/2026-09-08/E-test-evidence.json) |
 | F | `6bff970d8ed6d6eff6153e783b715273847847b7` | [F.md](../test-reports/2026-09-08/F.md) |
 
 逐份核验了 Git 对象、祖先关系、被测 tree/blob、报告所在 commit 和远端引用。B 原报告误用任务 ID 文件名，已要求作者迁到 B.md 并核验源码零差异。E 原始 17 份 raw SHA256 全部匹配作者工作树；其中 7 份混合 LF/CRLF，规范化后均等于提交 blob，未误判成源码漂移；replacement 的 19/21 个当前 Git blob 也逐项核验。历史快照不冒充最新测试。
@@ -34,7 +36,7 @@
 |---|---|---|
 | R01 | P1 / A | 已修复仓库入口。基线 PowerShell AST 含 2 个任务注册、5 个进程启动；tombstone 均为 0。原生禁用入口测试通过；未执行旧脚本，外部已安装副本未处理。 |
 | R02 | P1 / A | 已修复。真实基线函数配全假 OS 边界接受无前置 click；新函数拒绝且无输入。原生 authenticated capture-only/恶意请求回归通过。 |
-| R03 | P1 / E | ENOENT 原反例 TypeError 已复现；新函数返回失败诊断并可 fallback。真实 Electron 启动失败可见；安装验收另见 CR02/03/07。 |
+| R03 | P1 / E | ENOENT 原反例 TypeError 已复现；新函数返回失败诊断并可 fallback。真实 Electron 启动失败可见；安装验收及支持环境已独立闭环，见 CR02/03/07。 |
 | R04 | P1 / D | 已修复。独立对基线运行实际 heuristic pipeline 反例失败于自动发布；新 pipeline 仅 pending，默认发布器拒绝。全部发布测试使用临时 KB。 |
 | R05 | P2 / B | 已修复。原 runtime filter/battle/timing/chapter 字段及 high/confirmation 风险丢失已复现；组合保留。生产 domain builders/服务/consumer 和隐私负向测试通过。 |
 | R06 | P2 / A | 已修复 Game 观察路径。基线实际 capture wrapper 会调用假 restore；新 wrapper 保持零恢复并拒绝最小化。基线 import 带 control/legacy bridge，当前 Game 入口+fixture graph 无 control/executor/verifier。见下方 QA 模拟子树限定。 |
@@ -55,7 +57,7 @@
 | R21 | P2 / E | 已修复。实际 TypeScript/NodeNext 在内存发射基线 ESM preload.js、新 CJS preload.cjs，编译 0 错误；真实 Electron sandbox/preload/custom URL 测试通过。[Electron 规则](https://www.electronjs.org/docs/latest/tutorial/esm#esm-preload-scripts-must-have-the-mjs-extension)。 |
 | R22 | P2 / E | 已修复。执行原处理函数重现 B preview/A report；新代码丢弃迟到结果。真实 picker/drop/paste/history/chat 竞争回归通过。 |
 | R23 | P2 / E | 已修复。原 React SSR 将 good 标不足、unknown 标充分；组合均正确。CR03 是测试端口 setup 失败，未进入此业务断言。 |
-| R24 | P2 / E | 原 Windows 写句柄问题修复，独立基线 4 反例为 1 pass/1 fail/2 error，新 API 原生通过。额外 CR06 已修复到 69-byte header→413/零文件，最终安装包复验待完成。 |
+| R24 | P2 / E | 原 Windows 写句柄问题修复，独立基线 4 反例为 1 pass/1 fail/2 error，新 API 原生通过。额外 CR06 已修复到 69-byte header→413/零文件，最终重新构建的安装包两轮复验通过。 |
 | R25 | P2 / D | 文件链接原反例已修复；额外根 alias CR05 已修复。真实 Windows root/ancestor junction 在 runtime 两种模式均拒绝；普通根成功、真实 runtime 根须 opt-in。不是并发 reparse race 认证。 |
 | R26 | P2 / D | 已修复。基线 Windows/UNC 名称泄露原反例失败，新路径只给 basename；Linux/Windows 分隔符负向通过。 |
 
@@ -64,12 +66,12 @@
 | ID | 优先级 | 位置（发现时 SHA） | 失败证据 | 当前状态 |
 |---|---|---|---|---|
 | CR01 | P2 | capture_bridge_client.py:48–51，A 4a2e4b8 | /mnt/c 被拼成不存在的 UNC；两组真实 proxy 均未启动，正确 C: 路径存在 | 已关闭：A 3d68e5d；真实 mapper、Linux 文件存在性、原黑盒、55 native/845 Linux 测试复验 |
-| CR02 | P2 | tests/install-smoke.mjs:44–48，E 8729d18f | 两次 ECONNREFUSED；Playwright async false 在 188ms 返回 false 而非 800ms timeout | helper 修复/13 个纯 Node 边界已通过；最终安装链仍待闭环 |
-| CR03 | P2 | tests/electron/regressions.spec.ts:61，E 5afaec4 | listen(0) 得到 5061，native HTTP 200 / Electron ERR_UNSAFE_PORT；beforeEach 失败 | E b865808 已提交；支持 runtime 整条 pipeline/安装待复验 |
+| CR02 | P2 | tests/install-smoke.mjs:44–48，E 8729d18f | 两次 ECONNREFUSED；Playwright async false 在 188ms 返回 false 而非 800ms timeout | 已关闭：等待完整 HTTP/JSON/正确 profile；13 个 helper tests 及最终两轮安装通过 |
+| CR03 | P2 | tests/electron/regressions.spec.ts:61，E 5afaec4 | listen(0) 得到 5061，native HTTP 200 / Electron ERR_UNSAFE_PORT；beforeEach 失败 | 已关闭：E b865808 代码/1eeffb76 报告；15 Node+15 Electron、两轮高端口安装通过 |
 | CR04 | P2 | minor.yaml:451，D 2cfda735 | 删除漏掉尾注，YAML 将皇甫嵩数值挂到韩当；schema/322 tests 未发现 | 已关闭：D 587f8aba；独立全对象比较、邻接记录/顺序、QA327 通过 |
 | CR05 | P2 | client_package.py:77，D 2cfda735 | root.resolve 擦除 root alias，runtime=false 仍输出合成 private marker | 已关闭：D 587f8aba；原 probe、真实 Win junction、普通根/opt-in 和 QA327 通过 |
-| CR06 | P2 | advisor_api.py:294，E 5afaec4 | 69-byte PNG 头触发 DecompressionBombError→500、残留 69 bytes | E b865808 原 probe→413/零残留、native API11 通过；精确安装包待验 |
-| CR07 | P2 | regression.yml:54，F 42f0f50 | Node20 不满足 rebuild4.2.0/node-abi4.35.0 的 >=22.12 声明 | F 6bff970 精确 pin24.14.0；支持 runtime 全链待验 |
+| CR06 | P2 | advisor_api.py:294，E 5afaec4 | 69-byte PNG 头触发 DecompressionBombError→500、残留 69 bytes | 已关闭：原 probe→413/零残留、native API11、两轮随包 API 像素拒绝/正常上传通过 |
+| CR07 | P2 | regression.yml:54，F 42f0f50 | Node20 不满足 rebuild4.2.0/node-abi4.35.0 的 >=22.12 声明 | 已关闭：F 6bff970 精确 pin24.14.0；独立 strict engines/编译/30 tests/打包/安装通过 |
 
 CR03 依据标准的 [bad-port 规则](https://fetch.spec.whatwg.org/#port-blocking)，没有禁用浏览器保护。CR06 没有调高像素阈值，没有解码或分配巨图。
 
@@ -81,9 +83,9 @@ CR03 依据标准的 [bad-port 规则](https://fetch.spec.whatwg.org/#port-block
 
 | 执行 | 结果 | provenance |
 |---|---|---|
-| Linux Python3.12.3 Pioneer | 845 total = 843 pass + 2 Windows-only skips，exit0 | 543890f 阶段；后续最终组合全量待刷新 |
-| Linux QA | 327/327，0 skip，exit0 | D587f8aba 组合28db7a1 |
-| Common | 2/2，exit0 | 初次六包组合 |
+| Linux Python3.12.3 Pioneer | 846 total = 844 pass + 2 Windows-only skips，exit0 | 最终组合 7f59f007；47.318s |
+| Linux QA | 327/327，0 skip，exit0 | 最终组合 7f59f007；95.589s |
+| Common | 2/2，exit0 | 最终组合 7f59f007 |
 | Native Windows capture/path | 55/55，0 skip，exit0 | A3d68e5d 组合 |
 | Native API Python3.14.3 | 原 10/10，exit0 | CR06 前 API 版本；历史结果 |
 | Native API Python3.12.14 | 当前 11/11，0 skip，exit0 | E b865808 |
@@ -93,14 +95,52 @@ CR03 依据标准的 [bad-port 规则](https://fetch.spec.whatwg.org/#port-block
 | Desktop Node24 早期 | npm ci/typecheck/build、Node2/Electron14、dist通过 | 初次 E 版本，仅历史 |
 | CI Node20 实测 | typecheck/build、Node9 pass；Electron13 pass/1 setup failure | CR03 5061；不报 R23 业务失败 |
 | Node24.14.0 helper tests | 13/13、0 skip，exit0 | 最新等待/端口纯 Node 测试 |
-| 安装 | 两次独立旧 driver 失败，已形成 CR02 | 不以作者后续重试覆盖 |
+| 最终 Node24.14.0 | npm ci --engine-strict/typecheck/build/test/dist:win 均 exit0；15 Node+15 Electron | 最终组合；EBADENGINE=0；按 CI 串行测试 |
+| 最终安装 | 两轮 exit0；profile 身份、源 hash、pixel413/零残留、正常 mock PNG、卸载通过 | Reviewer Python3.12.14，ports62329/65023；各22次 readiness |
+| 历史安装失败 | 两次旧 driver ECONNREFUSED，已形成 CR02 | 原日志保留，不以作者或后续重试覆盖 |
 | npm audit | 12 affected package entries，exit1 | 与基线逐项版本对照均相同 |
 
 Windows 全量另行真实运行：基线 764 项，6 failures/28 errors/9 skips；早期组合 823 项，6 failures/24 errors/9 skips。均显式使用同一 Python3.14.3/venv/`-X utf8`，不是完整通过。两个组合新增错误来自新增测试触及既有 POSIX-only fixture gate（public-payload module、golden byte-binding）；保留完整名称差集于独立 log index。不能据此声称原生 Windows Game MCP 可运行。
 
 最初 Git checkout-index 没有改掉已有 CRLF，导致 18 个 Linux eval errors 和 2 个 QA shell failures。等所有读者结束后，先证明只差 CRLF，再写回精确 Git bytes；未改 hash/expected/语义。最终三份 scenario JSON 与 shell script 字节已核验。Git 状态可能报告换行/stat 噪声，生产 diff 始终检查为 0。
 
-原始日志在 `C:/Users/Lan/AppData/Local/Temp/sanmou-cr-*.log`；可复现 probe、名称集合与 hash 索引在 [review state](../../.codex-autonomy/adversarial-review-20260908/)。原始命令和阶段记录见 WORKLOG/state，各组件报告保留作者首轮失败及依赖差异。最终收口会补齐当前组合的精确 ledger。
+原始日志在 `C:/Users/Lan/AppData/Local/Temp/sanmou-cr-*.log`；可复现 probe、名称集合与 hash 索引在 [review state](../../.codex-autonomy/adversarial-review-20260908/)。原始命令和阶段记录见 WORKLOG/state，各组件报告保留作者首轮失败及依赖差异。最终 ledger 和 31 份原始日志的 SHA256 已保存在 `final-log-index.json`。
+
+
+## 最终安装与命令 provenance
+
+- 实测源码组合：`7f59f00778594accc49fd02a828a08097832c27c` / tree `b812fb28f174af7daef353b50a766eaeb8f442c6`。最终报告/状态提交只补文档与 reviewer 证据，不能自称自己的 SHA 已被先验测试。
+- 六组件变更文件共 79 项（排除独立合并的 TODO），逐项与组合 Git blob 对照为 0 mismatch；包含删除文件检查。最终生产源码 diff 为 0。
+- Runtime：`D:/nodejs/node.exe` **24.14.0**，npm **11.9.0**；Windows 独立 Python **3.12.14**，WSL 独立 Python **3.12.3**。MCP **1.29.1**、FastAPI **0.141.1**、Pydantic **2.13.5**、Pillow **12.3.0**、google-genai **1.75.0**；联合依赖检查通过。
+- 最终 reviewer 安装器 SHA256：`c7a7eeef563b284352d7ebfc5751c313ad7c31310864fbad9036ef5360ecaf15`；签名状态 **NotSigned**。
+- 两轮安装后的 API bytes SHA256 均为 `e1befda4abe021f5ec5fda0728dc434ba15fc17aba8d9335d03c9e55983acba2`，与 reviewer 实际被测工作树文件相同。该值不是作者 artifact/hash 的复用；源 blob 身份另有验证。
+- 安装 driver 使用提交中的测试逻辑、imports、断言、端口/截止时间及源绑定，仅在临时副本中将 Python 路径改为 reviewer 的 `.venv/ci312` 并增加清理路径断言；原文件未改，临时 driver 已删除。这是测试环境配置，不是生产修复。
+- 安装后 fresh 核验：owned Electron/安装 API=0、Advisor 卸载项=0、临时 driver=0。每轮先检查用户既有安装；仅清理新建临时路径，没有触及游戏或用户安装。
+- 官方独立 stdio：Game7/QA6、strict type/extra rejection、offline fixture `claim_chapter_reward`、`execution_authority=none`、`executable=false`、live cache 不变。
+- 最终 eval run：`run-38b0f8242ae9427eb5906c2b58909fc3`，catalog digest `aac50c8154feb825e8ff0b668f93f30fea3758c28807951fd721674123bdcf2e`；13 generation / 1 unscored holdout、19 个实际 runtime fixture bytes 绑定。`record_replay_bound=false`、`provider_vision_executed=false`、`live_action_executed=false`。
+
+最终主要命令（源码/工作目录固定为上述 reviewer worktree）：
+
+```text
+WSL packages/pioneer-agent:
+PYTHONNOUSERSITE=1 PYTHONPATH=src:../sanmou-common/src:../qa-agent/src /tmp/sanmou-cr-20260908-venv/bin/python -m unittest discover -s tests -p 'test_*.py' -v
+WSL packages/qa-agent:
+PYTHONNOUSERSITE=1 PYTHONPATH=src:../sanmou-common/src /tmp/sanmou-cr-20260908-venv/bin/python -m unittest discover -s tests -p 'test_*.py' -v
+WSL packages/sanmou-common:
+PYTHONNOUSERSITE=1 /tmp/sanmou-cr-20260908-venv/bin/python -m unittest discover -s tests -p 'test_*.py' -v
+Windows repo root:
+.venv/ci312/Scripts/python.exe -m unittest discover -s packages/pioneer-agent/tests/unit -p 'test_advisor_api*.py' -v
+Windows apps/sanmou-advisor-desktop (D:/nodejs first in process PATH):
+D:/nodejs/node.exe D:/nodejs/node_modules/npm/bin/npm-cli.js ci --engine-strict --no-audit --no-fund
+D:/nodejs/node.exe D:/nodejs/node_modules/npm/bin/npm-cli.js run typecheck
+D:/nodejs/node.exe D:/nodejs/node_modules/npm/bin/npm-cli.js run build
+D:/nodejs/node.exe D:/nodejs/node_modules/npm/bin/npm-cli.js run test
+D:/nodejs/node.exe D:/nodejs/node_modules/npm/bin/npm-cli.js run dist:win
+```
+
+复现 probe 的精确调用与 stdout 路径在 WORKLOG/state；默认和带参的旧反例结果均保留。完整原始日志未重写，hash 索引可检测后续漂移。
+
+一次将 Python 全量与桌面流水线并发执行时，Node fallback 测试中可用 `.venv` 打印了 executable 但仍触发原有 5000ms `spawnSync` 超时。该截止时间/探测脚本与基线相同，未放宽。Python 全量结束后按 CI 的串行顺序执行同一未改测试，15 Node+15 Electron 通过。保留 `sanmou-cr-final-test.log` 与 `-serial.log`，不宣称任意负载下启动必成功，也不把此记录与先前另一个 Python-exited/other-listener 事件混同。Hosted GitHub Actions 尚未作为本结论的通过证据。
 
 ## 只读和证据边界
 
@@ -116,3 +156,30 @@ Windows 全量另行真实运行：基线 764 项，6 failures/28 errors/9 skips
 独立 npm audit 仍有 1 critical / 8 high / 2 moderate / 1 low，共 12 个包；它们的 resolved versions 与 d377 基线完全相同。Electron29.4.6 是实际分发 runtime；其余 Babel/browserslist/axios/form-data/joi/nanoid/postcss/shell-quote/esbuild/Vite/extract-zip 属构建、开发、下载或未启用发布路径。没有把 devDependency 标签误当“绝不进入可执行工件”。需单独完成运行时/兼容升级及相应安全验证；本轮不擅自升级 Electron/Vite，也不关闭 audit。
 
 另保留：完整原生 Windows MCP/文件语义与时间测试失败；未确定原因的早期 Python-exited/other-listener 事件；未签名安装包、无 clean-machine/update/rollback 验证；缺真实 WGC/DXGI 观察、broker/ACL/签名证据、隐私审批/留存制度、代表性 provider vision 和真实 human R&R/独立 holdout/live closure。已安装在仓库之外的旧 Highest controller 未检查或退役。
+
+## 审查分支提交链
+
+以下均为本review分支父提交；最终报告提交的SHA/URL见任务交付消息。它们不表示master集成或生产发布。
+
+| Commit | 内容 |
+|---|---|
+| [5394c062](https://github.com/Muluoguiben/sanmou_monorepo/commit/5394c062ec2c96f00a148756e56acdd3692d4d67) | docs(review): prepare adversarial intake gates |
+| [e6a45891](https://github.com/Muluoguiben/sanmou_monorepo/commit/e6a458913c74043b681df698b197896ce3133146) | docs(review): persist completion wait state |
+| [005d0461](https://github.com/Muluoguiben/sanmou_monorepo/commit/005d046105c77c1e15ab962462914644ee68b8fe) | docs(review): track baseline audit requirements |
+| [8ebc95a2](https://github.com/Muluoguiben/sanmou_monorepo/commit/8ebc95a20d0f8d55ed9d6144959f5eb4310af718) | docs(review): record C and D immutable intake |
+| [d3d86693](https://github.com/Muluoguiben/sanmou_monorepo/commit/d3d86693b3920d5b9862bfa57db73e6f52f28c93) | docs(review): track intake revisions and blockers |
+| [8e3b2112](https://github.com/Muluoguiben/sanmou_monorepo/commit/8e3b211262480090413d5f2d5a28398ec4f3e229) | docs(review): verify A and revised C deliveries |
+| [00108878](https://github.com/Muluoguiben/sanmou_monorepo/commit/00108878e8a925fa30e2ffb938b765079b916457) | merge(review): integrate capture hardening |
+| [e14a3673](https://github.com/Muluoguiben/sanmou_monorepo/commit/e14a36739f72985f8b8574c22a3316d2bd4dc20b) | merge(review): integrate component B |
+| [3be3751b](https://github.com/Muluoguiben/sanmou_monorepo/commit/3be3751b2696ca360473051dc7a7e8ed4395ad3d) | merge(review): integrate component C |
+| [f29bee1e](https://github.com/Muluoguiben/sanmou_monorepo/commit/f29bee1e49d78b34345d7d7bfd6771d42acab1e7) | merge(review): integrate component D |
+| [21bfce5c](https://github.com/Muluoguiben/sanmou_monorepo/commit/21bfce5c910550ec5c70e1b063490ba744c3ead9) | merge(review): integrate component E |
+| [a8babdb4](https://github.com/Muluoguiben/sanmou_monorepo/commit/a8babdb4e897b64bef41b1f3dc4169e66d6120b1) | merge(review): integrate component F |
+| [543890f2](https://github.com/Muluoguiben/sanmou_monorepo/commit/543890f289378a001506a9395bcd79a5b9bb897b) | merge(review): integrate CR01 path fix |
+| [682f9947](https://github.com/Muluoguiben/sanmou_monorepo/commit/682f99478264774bdee7eea4c5fdbdb9c941436e) | merge(review): integrate CR02 readiness fix |
+| [28db7a1a](https://github.com/Muluoguiben/sanmou_monorepo/commit/28db7a1a167bd44e88ebe00404406859ac2c02f3) | merge(review): integrate CR04 and CR05 fixes |
+| [aa6b5981](https://github.com/Muluoguiben/sanmou_monorepo/commit/aa6b598179b9d741d1a3bd69bd6eac0f0cf57055) | docs(review): retain independent adversarial evidence |
+| [0c43f488](https://github.com/Muluoguiben/sanmou_monorepo/commit/0c43f488d11682fd54e5b4c4de39c28322a26697) | merge(review): integrate CR03 and CR06 fixes |
+| [1c924e63](https://github.com/Muluoguiben/sanmou_monorepo/commit/1c924e6360698e0b124621e696aed3cdaaae0692) | merge(review): align supported CI runtime |
+| [05dee091](https://github.com/Muluoguiben/sanmou_monorepo/commit/05dee091d2c7e4001a4bf7236c90abd45f8050cc) | docs(review): record findings and verified repairs |
+| [7f59f007](https://github.com/Muluoguiben/sanmou_monorepo/commit/7f59f00778594accc49fd02a828a08097832c27c) | merge(review): bind E supported-runtime report |

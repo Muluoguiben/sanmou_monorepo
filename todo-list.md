@@ -459,9 +459,10 @@
 - [x] Pioneer-agent perception 接入 GPT-5.4 vision provider（2026-05-08）：新增 OpenAI/sub2api 兼容 `OpenAIVisionClient`，与原 Gemini `VisionClient.extract(...)` 同签名，强制 `reasoning_effort` + `store:false`，支持 data URI 图片与 JSON schema prompt；`build_vision_client` 支持 `PIONEER_VISION_PROVIDER=openai` / CLI `--vision-provider openai`，覆盖 `autonomous` / `vision_probe` / `ui_calibrate`；pioneer-agent 62 tests 全绿
 
 ### CR — 2026-09-08 adversarial review
-- [x] Freeze baseline d377ef8 and original R01–R26 report provenance; create isolated review branch and preparation checklist.
-- [x] Register A–F task IDs and completion cursors in .codex-autonomy/adversarial-review-20260908/state.json; preparation pushed as 5394c06 and five-minute current-task heartbeat sanmou enabled.
-- [ ] Receive six explicit final SHAs with committed self-test reports and audit tested-tree identity. Current intake: A4a2e4b8, Baa7ef1b0, Ceb4ecd90, D2cfda735 and F42f0f50 metadata/remote verified; E final pending. WSL-to-Windows proxy auth hop remains pending independent verification. Reviewer Windows/Linux dependencies ready. Independent execution/formal review pending.
-- [ ] Independently reproduce R01–R26 and new negative cases; inspect all component diffs and combine exact final SHAs without touching master.
-- [ ] Run combined native Python, official MCP stdio, Desktop and Windows/Linux regressions; audit same-environment baseline failures, changed test expectations, scenarios .gitattributes and E test execution in Windows CI; send findings to existing owners and verify replacements.
-- [ ] Publish final APPROVE or REQUEST CHANGES with exact component/combined tree evidence; production readiness remains separate.
+- [x] 六个最终组件SHA/报告/被测身份核验完成，79个变更文件与组合一致。
+- [x] R01–R26独立审查及原始反例完成；新增CR01–CR07均由原owner修复并独立关闭。
+- [x] 受测组合7f59f00778594accc49fd02a828a08097832c27c，tree b812fb28f174af7daef353b50a766eaeb8f442c6；无源码手工冲突决议，无master操作。
+- [x] Pioneer846（844pass/2Windows-only skip）、QA327、common2、nativeAPI11、官方MCP7/6及Game import边界通过。
+- [x] Node24.14.0严格engine检查/typecheck/build/15Node+15Electron、新包两轮临时安装/pixel413/正常上传/卸载通过，cleanup为0。
+- [x] docs/reviews/2026-09-08-adversarial-review.md 给出APPROVE，仅本轮patch；原失败、12依赖审计、平台/时间限制及生产未验边界全部保留。
+- [ ] Production readiness未建立；签名/clean-machine/update/rollback、真实vision/holdout/R&R/broker/live closure及既有依赖/平台问题留待后续明确工作。
