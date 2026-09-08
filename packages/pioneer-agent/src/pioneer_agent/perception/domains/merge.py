@@ -262,22 +262,51 @@ def apply_upgrade_dialog(state: RuntimeState, fragment: UpgradeDialogFragment) -
 
 def apply_team_panel(state: RuntimeState, fragment: TeamPanelFragment) -> RuntimeState:
     """Return a new RuntimeState with a structured team panel observation merged in."""
+    if not _snapshot_is_current(
+        state.field_meta.get("teams"), fragment.field_meta.get("teams"),
+    ):
+        return state
     updates: dict[str, Any] = {}
 
     if fragment.teams:
-        updates["teams"] = _merge_team_detail_list(state.teams, fragment.teams)
+        updates["teams"] = _merge_team_panel_list(state.teams, fragment.teams)
     if fragment.team_containers:
-        updates["team_containers"] = _merge_list_by_key(
-            state.team_containers,
-            fragment.team_containers,
-            "team_id",
-        )
+        # A new roster cannot inherit a removed hero's stamina/readiness.
+        incoming_ids = {item.get("team_id") for item in fragment.team_containers}
+        updates["team_containers"] = [
+            dict(item) for item in state.team_containers
+            if item.get("team_id") not in incoming_ids
+        ] + [dict(item) for item in fragment.team_containers]
     if fragment.main_lineup:
         merged_lineup = dict(state.main_lineup)
+        merged_lineup.pop("team_snapshot", None)
         merged_lineup.update(fragment.main_lineup)
+        current = _find_by_key(
+            updates.get("teams", state.teams),
+            "team_id", merged_lineup.get("current_host_team_id"),
+        )
+        if current and isinstance(current.get("team_snapshot"), dict):
+            merged_lineup["team_snapshot"] = dict(current["team_snapshot"])
+            readiness = dict(merged_lineup.get("team_readiness") or {})
+            readiness.update(
+                missing_detail_tabs=list(current["missing_detail_tabs"]),
+                requires_detail_review=bool(current["missing_detail_tabs"]),
+                detail_completion=dict(current["team_snapshot"]["detail_completion"]),
+                pvp_pve_basis_ready=current["team_snapshot"]["pvp_pve_basis_ready"],
+            )
+            merged_lineup["team_readiness"] = readiness
         updates["main_lineup"] = merged_lineup
 
     merged_meta: dict[str, FieldMeta] = dict(state.field_meta)
+    if any(
+        not _same_roster(
+            (_find_by_key(state.teams, "team_id", team.get("team_id")) or {}).get("heroes", []),
+            team.get("heroes", []),
+        )
+        for team in fragment.teams
+    ):
+        merged_meta.pop("teams.team_detail", None)
+        merged_meta.pop("main_lineup.team_snapshot", None)
     merged_meta.update(fragment.field_meta)
     updates["field_meta"] = merged_meta
 
@@ -293,6 +322,15 @@ def apply_team_detail(state: RuntimeState, fragment: TeamDetailFragment) -> Runt
     """
     updates: dict[str, Any] = {}
     incoming_teams = _resolve_team_ids(state, fragment.teams)
+    # Detail pages are patches, never evidence that a hero joined a known roster.
+    # Reject the whole patch (including team-level readiness) on an identity or
+    # timestamp mismatch, so a delayed removed hero cannot reappear.
+    incoming_teams = [
+        team for team in incoming_teams
+        if _detail_matches_roster(state, team, fragment)
+    ]
+    if len(incoming_teams) != len(fragment.teams):
+        return state
 
     if incoming_teams:
         merged_teams = _merge_team_detail_list(state.teams, incoming_teams)
@@ -463,6 +501,88 @@ def _resolve_team_ids(state: RuntimeState, teams: list[dict[str, Any]]) -> list[
             payload["team_id"] = fallback_team_id
         resolved.append(payload)
     return resolved
+
+
+def _matching_hero(
+    heroes: list[dict[str, Any]], name: Any,
+) -> dict[str, Any] | None:
+    if not isinstance(name, str) or not name:
+        return None
+    key = _hero_key(name)
+    exact = [hero for hero in heroes if _hero_key(str(hero.get("name", ""))) == key]
+    if len(exact) == 1:
+        return exact[0]
+    if exact:
+        return None
+    matches = []
+    for hero in heroes:
+        other = _hero_key(str(hero.get("name", "")))
+        # Never collapse distinct faction-qualified heroes into one identity.
+        if (
+            _strip_faction_prefix(other) == _strip_faction_prefix(key)
+            and (other == _strip_faction_prefix(other) or key == _strip_faction_prefix(key))
+        ):
+            matches.append(hero)
+    return matches[0] if len(matches) == 1 else None
+
+
+def _same_roster(existing: list[dict[str, Any]], incoming: list[dict[str, Any]]) -> bool:
+    matches = [_matching_hero(existing, hero.get("name")) for hero in incoming]
+    return (
+        len(existing) == len(incoming)
+        and all(hero is not None for hero in matches)
+        and len({id(hero) for hero in matches}) == len(existing)
+    )
+
+
+def _merge_team_panel_list(
+    existing: list[dict[str, Any]], incoming: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    result = [dict(team) for team in existing]
+    for entry in incoming:
+        base = _find_by_key(result, "team_id", entry.get("team_id")) or {}
+        old_heroes = base.get("heroes") or []
+        new_heroes = entry.get("heroes") or []
+        same_roster = _same_roster(old_heroes, new_heroes)
+        merged = dict(base)
+        if not same_roster:
+            for key in (
+                "detail_status", "team_snapshot", "team_effects", "readiness_judgement",
+                "soldiers", "max_soldiers", "soldier_deficit", "supply", "supply_max",
+                "supply_ratio", "formation", "formation_active", "bond_active",
+            ):
+                merged.pop(key, None)
+        merged.update(entry)
+        merged["roster_observed"] = True
+        merged["heroes"] = [
+            _merge_hero_detail(match, hero) if (match := _matching_hero(old_heroes, hero.get("name"))) else dict(hero)
+            for hero in new_heroes
+        ]
+        if same_roster:
+            for key in ("detail_status", "team_snapshot", "team_effects"):
+                if key in base:
+                    merged[key] = base[key]
+        else:
+            merged["detail_status"] = {tab: "missing" for tab in DEFAULT_MISSING_DETAIL_TABS}
+        merged = _finalize_team_detail(merged)
+        if base:
+            result = [merged if team.get("team_id") == entry.get("team_id") else team for team in result]
+        else:
+            result.append(merged)
+    return result
+
+
+def _detail_matches_roster(
+    state: RuntimeState, team: dict[str, Any], fragment: TeamDetailFragment,
+) -> bool:
+    base = _find_by_key(state.teams, "team_id", team.get("team_id"))
+    if base is None or not (base.get("roster_observed") or base.get("page_type") == "team_panel"):
+        return True
+    if not _snapshot_is_current(
+        state.field_meta.get("teams"), fragment.field_meta.get("teams.team_detail"),
+    ):
+        return False
+    return all(_matching_hero(base.get("heroes", []), hero.get("name")) is not None for hero in team.get("heroes", []))
 
 
 def _merge_team_detail_list(
