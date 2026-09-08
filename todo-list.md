@@ -17,6 +17,15 @@
 - Report: docs/test-reports/2026-09-08/B.md. Verified implementation pushed as 5d635e45f768d10528a172533d4ace74306df8a1; report filename aligned with the coordinator manifest.
 - [ ] Unified adversarial CR and coordinator integration. No live capture/model/game input in this task; no master merge/push.
 
+## Task C — R17–R20 harness hardening (2026-09-08)
+
+- [x] Bind timer checkpoints to real map/recruit perception sources; preserve restart identity checks and recheck freshness before advice.
+- [x] Bound MCP connect/initialize/call, cancel and clean clients, journal/log failures without execution.
+- [x] Windows focused 30/30, WSL focused 36/36 and Pioneer package 791/791; zero skips in final runs. See `docs/test-reports/2026-09-08/C.md`.
+- [x] User-authorized capture-token forwarding only to bridge-mode Game MCP; real synthetic stdio isolation and failure redaction. Latest Windows 34/34, WSL focused 40/40, Pioneer 795/795; zero skips.
+- [ ] A owns the remaining WSL Game MCP -> Windows proxy credential propagation; C parent -> Game MCP tests do not prove that hop or live capture.
+- [ ] Unified adversarial CR on `feat/review-c-harness-r17-r20`; coordinator owns integration. Real game/model/broker evidence remains unverified.
+
 > Current update: 2026-08-26 — Windows Record & Replay 在 M0 只读录制之上完成 M1 数据基础与 M2 数据治理底座：raw loader、独立 reviewer annotation、单 registry generation/holdout 审计与 canonical corpus catalog 均为 fail-closed；registry/artifact 专用封闭根可跨 registry 去重 session/event/capture-group/annotation/encoded-frame/source-PNG，并验证 generation-only、内容寻址的无环 development lineage。corpus audit 新增 `sanmou-multisignal-v1` 视觉近重复门禁：本地有界解码后用多裁切 block/difference hash、灰度 MAE、RGB 均值/直方图和宽高比拒绝跨 session 的重编码、缩放或轻裁切近克隆；指纹不序列化、不进入模型上下文，签名 holdout aggregate v2 只绑定算法与帧/候选比较计数。external holdout 协议继续要求开发侧只能提交/检查无标签 prediction，独立 evaluator 才读取 sealed oracle、approved annotation 与 Ed25519 私钥；持久 ledger 对同一 evaluator key/catalog 只允许一次发布，普通 CLI 没有 oracle 参数。所有产物仍固定 `execution_authority=none`、无 terminal/closure/QA publish 权限；动作演示新增 minimum-input floor，0-input session 不再能以画面变化冒充有效 action trace。官方客户端 high integrity 与普通 recorder medium integrity 的 UIPI 阻隔已由真实探针确认，但用户可写 Python/工作树 UAC 原型经安全审查存在 P1，已隔离且不提交；可信 broker 必须是安装在普通用户不可写目录、由管理员 ACL 固定的独立组件。当前仍未采集本轮真实 map-filter session。真实 external evaluator 账号/ACL/key/oracle、结构化 start-state、human provenance、平台级父目录 race hardening 和 image-model execution receipt 均未完成，因此任何 coverage、视觉门禁或 oracle attestation 均不能单独表述为独立 eval。
 
 - [x] Record & Replay minimum-input floor（2026-08-26）：新增 `--min-input-events` 与 manifest `capture.min_input_events`，action workflow 可要求至少一个已接受 Raw Input；结束时不足门槛会写 `minimum_input_events_not_met` 并保留 failed/INCOMPLETE，strict loader 同时拒绝伪造为 completed 的低计数 session。旧 schema-v1 session 缺字段时只按 0 兼容，不自动获得 action-trace 资格；Pioneer 全量 711 tests OK（6 skip）。

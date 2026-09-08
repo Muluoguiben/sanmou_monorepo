@@ -42,6 +42,7 @@ class DomainCheckpoint(BaseModel):
     refresh_every_s: float = Field(gt=0)
     stale_after_s: float = Field(gt=0)
     critical: bool = True
+    activate_on_observation: bool = False
 
 
 DEFAULT_CHECKPOINTS = (
@@ -50,7 +51,11 @@ DEFAULT_CHECKPOINTS = (
     DomainCheckpoint(name="teams", domains=("team_panel", "team_detail"), refresh_every_s=120, stale_after_s=360),
     DomainCheckpoint(name="lands", domains=("map_land",), refresh_every_s=60, stale_after_s=180),
     DomainCheckpoint(name="battle_reports", domains=("battle_report",), refresh_every_s=30, stale_after_s=120),
-    DomainCheckpoint(name="timers", domains=("timing",), refresh_every_s=30, stale_after_s=120),
+    # Timers originate in real perception pages; track each source separately.
+    DomainCheckpoint(name="map_timers", domains=("map_land",), refresh_every_s=30,
+                     stale_after_s=120, activate_on_observation=True),
+    DomainCheckpoint(name="recruit_timers", domains=("recruit_panel",), refresh_every_s=30,
+                     stale_after_s=120, activate_on_observation=True),
 )
 
 
@@ -130,6 +135,8 @@ class StopPolicy:
         due: list[str] = []
         for checkpoint in self.checkpoints:
             latest = journal.latest_tooling_fact(f"checkpoint:{checkpoint.name}")
+            if latest is None and checkpoint.activate_on_observation:
+                continue
             if latest is None or (now - latest.observed_at).total_seconds() > checkpoint.refresh_every_s:
                 due.append(checkpoint.name)
         return due
