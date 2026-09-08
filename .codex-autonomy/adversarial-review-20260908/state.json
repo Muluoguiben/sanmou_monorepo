@@ -15,45 +15,45 @@
       "host_id": "local",
       "final_sha": null,
       "report": "docs/test-reports/2026-09-08/A.md",
-      "cursor": "3096437e-5f04-4347-aaaa-1330ace18224:2"
+      "cursor": "3096437e-5f04-4347-aaaa-1330ace18224:3"
     },
     "B": {
       "thread_id": "01a07f0b-149e-7160-a896-551165a702a0",
       "host_id": "local",
       "final_sha": null,
       "report": "docs/test-reports/2026-09-08/B.md",
-      "cursor": "2e9ce490-efda-488e-9387-ebb01dc9e80a:2"
+      "cursor": "2e9ce490-efda-488e-9387-ebb01dc9e80a:4"
     },
     "C": {
       "thread_id": "01a07f0b-3787-7f82-ab0c-400a65b4b1a2",
       "host_id": "local",
       "final_sha": null,
       "report": "docs/test-reports/2026-09-08/C.md",
-      "cursor": "08c7db4c-5fe0-4145-80e9-8f6317848621:2"
+      "cursor": "08c7db4c-5fe0-4145-80e9-8f6317848621:4"
     },
     "D": {
       "thread_id": "01a07f0b-53b8-74a3-9e61-71dd461bdff8",
       "host_id": "local",
       "final_sha": null,
       "report": "docs/test-reports/2026-09-08/D.md",
-      "cursor": "d37471aa-6e79-4f07-aa64-c4907cb2cf1b:2"
+      "cursor": "d37471aa-6e79-4f07-aa64-c4907cb2cf1b:5"
     },
     "E": {
       "thread_id": "01a07f0b-6d25-75c3-bcb1-acd4ca26cd1d",
       "host_id": "local",
       "final_sha": null,
       "report": "docs/test-reports/2026-09-08/E.md",
-      "cursor": "5a4f0765-023f-4651-a021-19552055b225:2"
+      "cursor": "5a4f0765-023f-4651-a021-19552055b225:4"
     },
     "F": {
       "thread_id": "01a07f0b-85e8-7880-bb8f-3845dc01fef2",
       "host_id": "local",
       "final_sha": null,
       "report": "docs/test-reports/2026-09-08/F.md",
-      "cursor": "40b7b923-361f-4338-a396-2f94a0cae220:2"
+      "cursor": "40b7b923-361f-4338-a396-2f94a0cae220:4"
     }
   },
   "coordinator_cursor": "f3384e36-4a82-4534-8681-978aa3e6ec37:1",
-  "heartbeat_id": null,
-  "next_action": "Wait for six explicit final SHAs and committed reports using saved cursors, maximum 60 seconds per wait. All six were active at initial snapshot; no final delivered."
+  "heartbeat_id": "sanmou",
+  "next_action": "Heartbeat continues completion-event intake every five minutes. Six tasks were active at last snapshot. Require all six final SHAs and committed reports before formal review."
 }

@@ -401,7 +401,7 @@
 
 ### CR — 2026-09-08 adversarial review
 - [x] Freeze baseline d377ef8 and original R01–R26 report provenance; create isolated review branch and preparation checklist.
-- [x] Register A–F task IDs and completion cursors in .codex-autonomy/adversarial-review-20260908/state.json.
+- [x] Register A–F task IDs and completion cursors in .codex-autonomy/adversarial-review-20260908/state.json; preparation pushed as 5394c06 and five-minute current-task heartbeat sanmou enabled.
 - [ ] Receive six explicit final SHAs with committed self-test reports and audit tested-tree identity.
 - [ ] Independently reproduce R01–R26 and new negative cases; inspect all component diffs and combine exact final SHAs without touching master.
 - [ ] Run combined native Python, official MCP stdio, Desktop and Windows/Linux regressions; send findings to existing owners and verify replacements.
