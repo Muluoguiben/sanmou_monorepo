@@ -47,6 +47,10 @@ def main(argv: list[str] | None = None) -> int:
         json.dumps(
             {
                 "status": "completed",
+                "evaluation_mode": result.run_manifest.evaluation_mode,
+                "runtime_fixture_executed": result.run_manifest.runtime_fixture_executed,
+                "provider_vision_executed": False,
+                "live_action_executed": False,
                 "run_id": result.run_manifest.run_id,
                 "scenario_count": result.aggregate.scenario_count,
                 "scored_generation_count": result.aggregate.scored_generation_count,

@@ -6,8 +6,9 @@ it cannot dispatch input, access a holdout oracle, or publish QA knowledge.
 """
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
+import re
 from pathlib import PurePosixPath
 from typing import Any, Literal
 
@@ -251,6 +252,9 @@ class ToolCallRecord(BaseModel):
                 raise ValueError("evaluate_fixture include_details must be a boolean")
         if not set(self.domain_observed_at).issubset(self.domains_queried):
             raise ValueError("domain_observed_at must only reference queried domains")
+        completed_at = self.started_at + timedelta(milliseconds=self.duration_ms)
+        if any(value > completed_at for value in self.domain_observed_at.values()):
+            raise ValueError("domain observation cannot postdate its call completion")
         return self
 
 
@@ -288,6 +292,9 @@ class StaticScenarioTranscript(BaseModel):
             raise ValueError("tool calls must be ordered by started_at")
         if self.failure_at is not None and self.failure_at < timestamps[0]:
             raise ValueError("failure_at cannot predate the transcript")
+        end_at = max(call.started_at + timedelta(milliseconds=call.duration_ms) for call in self.calls)
+        if self.failure_at is not None and self.failure_at > end_at:
+            raise ValueError("failure_at cannot postdate the transcript")
         return self
 
 
@@ -579,6 +586,7 @@ class EvalSourceBindings(BaseModel):
 
     golden_bound: StrictBool = False
     golden_expectations_sha256: str | None = Field(default=None, pattern=SHA256_PATTERN)
+    golden_fixture_sha256s: dict[str, str] = Field(default_factory=dict, max_length=512)
     golden_fixture_count: int = Field(default=0, ge=0)
     golden_match_count: int = Field(default=0, ge=0)
     golden_all_matched: StrictBool = False
@@ -596,6 +604,14 @@ class EvalSourceBindings(BaseModel):
 
     @model_validator(mode="after")
     def _bindings_are_consistent(self) -> EvalSourceBindings:
+        if len(self.golden_fixture_sha256s) != self.golden_fixture_count:
+            raise ValueError("golden fixture count must bind every evaluated input")
+        for name, digest in self.golden_fixture_sha256s.items():
+            _relative_json_path(name, "golden fixture name")
+            if re.fullmatch(SHA256_PATTERN, digest) is None:
+                raise ValueError("invalid golden fixture SHA256")
+        if self.golden_bound != bool(self.golden_fixture_sha256s):
+            raise ValueError("golden binding requires evaluated fixture digests")
         if self.golden_match_count > self.golden_fixture_count:
             raise ValueError("golden match count exceeds fixture count")
         if self.golden_bound != (self.golden_expectations_sha256 is not None):
@@ -627,8 +643,12 @@ class RunManifest(BaseModel):
     repo_sha: str = Field(pattern=GIT_SHA_PATTERN)
     contract_version: str
     fixture_catalog_digest: str = Field(pattern=SHA256_PATTERN)
-    model_provider: str
-    model_id: str
+    model_provider: Literal["static-fixture"]
+    model_id: Literal["static-tool-calls-v1"]
+    evaluation_mode: Literal["static_transcript"] = "static_transcript"
+    runtime_fixture_executed: StrictBool = False
+    provider_vision_executed: Literal[False] = False
+    live_action_executed: Literal[False] = False
     prompt_version: str
     playbook_version: str
     random_seed: int = Field(ge=0)
@@ -661,6 +681,8 @@ class RunManifest(BaseModel):
 
     @model_validator(mode="after")
     def _time_order(self) -> RunManifest:
+        if self.runtime_fixture_executed != self.source_bindings.golden_bound:
+            raise ValueError("runtime fixture execution must bind evaluated golden inputs")
         if self.ended_at < self.started_at:
             raise ValueError("run ended before it started")
         return self

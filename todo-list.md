@@ -45,6 +45,14 @@
 - [x] Record & Replay minimum-input floor（2026-08-26）：新增 `--min-input-events` 与 manifest `capture.min_input_events`，action workflow 可要求至少一个已接受 Raw Input；结束时不足门槛会写 `minimum_input_events_not_met` 并保留 failed/INCOMPLETE，strict loader 同时拒绝伪造为 completed 的低计数 session。旧 schema-v1 session 缺字段时只按 0 兼容，不自动获得 action-trace 资格；Pioneer 全量 711 tests OK（6 skip）。
 - [x] MCP-first read-only production slice（2026-08-27）：生产 `ObservationProvider`、真实 game+QA stdio harness、golden 19/19 digest binding、R&R aggregate-only audit binding、Codex structured smoke 和 bounded fixture summaries 已落地；没有 mutating MCP、control/executor import 或 QA publish。Pioneer 775 tests OK（6 skip）、QA 307、sanmou-common 2。
 
+## F — Eval/R&R and CI hardening (2026-09-08)
+
+- [x] R13/R14/R15/R16: complete ambiguous-burst annotation groups, actual evaluator-byte golden hashes, failed-call evidence exclusion, and cutoff-correct freshness/future-time rejection.
+- [x] Final offline verification: focused 75, Pioneer 788, QA 307, common 2 and native Windows API 6 pass; all zero skips. Desktop typecheck/build pass. Static eval retains one unscored holdout; golden 19/19 remains action-type-only evidence.
+- [x] Configure Ubuntu three-package and Windows API/desktop CI; fix hash-bound eval JSON checkout line endings without changing expected hashes.
+- [ ] Unified CR of `feat/review-f-eval-ci-20260908` and combined tree, including E-owned Electron tests and unsigned packaging scripts; hosted workflow/E commands are not verified by F alone. See [F self-test report](docs/test-reports/2026-09-08/F.md).
+- [ ] Provider-vision accuracy, independent holdout, trusted live entry and action-bound execution evidence remain separate blockers; this batch grants no execution or publication authority.
+
 ## Highest Priority — MCP-first Game Agent（2026-08-26）
 
 目标：参考 `lmwilki/civ6-mcp` 的协议层、领域状态层、持久日志和 benchmark 分离方式，先把现有三谋 Advisor/runtime 收敛为稳定、只读、可观测、可独立评估的 MCP 环境，再开发外部游戏策略 Agent；MCP 只是协议面，不能替代 perception、SafetyGuard、semantic target、fresh-frame verifier、operator confirmation 或 Windows control hardening。

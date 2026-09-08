@@ -9,7 +9,7 @@ from pathlib import Path, PurePosixPath
 from typing import Any
 
 from pioneer_agent.mcp_eval.models import EvalSourceBindings
-from pioneer_agent.mcp_server.service import GameMCPService
+from pioneer_agent.mcp_server.service import GameMCPService, OfflineFixtureEvaluator
 from pioneer_agent.record_replay.corpus_catalog import audit_corpus_catalog_bundle
 from pioneer_agent.record_replay.validation import (
     load_strict_json_bytes,
@@ -59,7 +59,8 @@ def _bind_golden(expectations_path: Path, fixture_root: Path) -> dict[str, Any]:
     if not isinstance(fixtures, dict) or not fixtures or len(fixtures) > MAX_GOLDEN_FIXTURES:
         raise ValueError("Advisor golden expectations require a bounded fixture map")
 
-    service = GameMCPService(fixture_root=fixture_root)
+    evaluator = _DigestBoundFixtureEvaluator()
+    service = GameMCPService(fixture_root=fixture_root, fixture_evaluator=evaluator)
     matched = 0
     try:
         for fixture, expectation in fixtures.items():
@@ -83,10 +84,26 @@ def _bind_golden(expectations_path: Path, fixture_root: Path) -> dict[str, Any]:
     return {
         "golden_bound": True,
         "golden_expectations_sha256": read.identity.sha256,
+        "golden_fixture_sha256s": dict(sorted(evaluator.fixture_sha256s.items())),
         "golden_fixture_count": fixture_count,
         "golden_match_count": matched,
         "golden_all_matched": matched == fixture_count,
     }
+
+
+class _DigestBoundFixtureEvaluator:
+    """Hash the exact bytes passed to the canonical evaluator, without rereading."""
+
+    def __init__(self) -> None:
+        self.fixture_sha256s: dict[str, str] = {}
+        self.evaluator = OfflineFixtureEvaluator()
+
+    def evaluate(self, fixture_bytes: bytes, *, fixture_id: str) -> dict:
+        if fixture_id in self.fixture_sha256s:
+            raise ValueError("golden fixture must be evaluated exactly once")
+        result = self.evaluator.evaluate(fixture_bytes, fixture_id=fixture_id)
+        self.fixture_sha256s[fixture_id] = hashlib.sha256(fixture_bytes).hexdigest()
+        return result
 
 
 def _bind_record_replay(paths: RecordReplayCorpusPaths) -> dict[str, Any]:

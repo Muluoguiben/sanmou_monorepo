@@ -602,6 +602,85 @@ class RecordReplayAnnotationTests(unittest.TestCase):
                 "cannot be split into per-event exclusions",
             )
 
+    def test_later_burst_cannot_hide_inside_a_countable_negative_segment(self) -> None:
+        for ambiguous_flag in (True,):
+            with self.subTest(ambiguous_flag=ambiguous_flag), TemporaryDirectory() as tmp:
+                base = Path(tmp)
+                root = base / "session"
+                create_completed_session(root, workflow_name="apply map filter")
+                self._append_later_burst(root, ambiguous_flag=ambiguous_flag)
+                recording = load_recording(root)
+                payload = self._approved_payload(recording)
+                payload["sample_label"] = "no_change"
+                segment = payload["segments"][0]
+                segment.update(
+                    sample_label="no_change", outcome="no_change", evidence_use="negative",
+                    source_event_ids=[event.event_id for event in recording.input_events],
+                    after_frame_id=recording.input_events[-1].after_frame_id,
+                )
+                payload["segments"] = [segment]
+                path = base / "mixed-negative.json"
+                self._write_json(path, payload)
+                # The semantic/privacy review is synthetic, but fully schema-valid.
+                RecordingAnnotationManifest.model_validate(payload)
+                with self.assertRaisesRegex(ValueError, "burst must stay in one annotation segment"):
+                    load_recording_annotation(recording, path, require_approved=True)
+
+    def test_later_burst_must_stay_complete_and_separate_even_when_trace_only(self) -> None:
+        with TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            root = base / "session"
+            create_completed_session(root, workflow_name="apply map filter")
+            self._append_later_burst(root, ambiguous_flag=True)
+            recording = load_recording(root)
+            payload = self._draft_payload(recording)
+            self.assertEqual(len(payload["segments"]), 2)
+            path = base / "separate.json"
+            self._write_json(path, payload)
+            loaded = load_recording_annotation(recording, path)
+            self.assertEqual(loaded.annotation.segments[1].evidence_use.value, "trace_only")
+            for evidence_use in ("trace_only", "excluded"):
+                separate = deepcopy(payload)
+                separate["segments"][1]["evidence_use"] = evidence_use
+                self._write_json(path, separate)
+                load_recording_annotation(recording, path)
+            mixed = deepcopy(payload)
+            first, burst = mixed["segments"]
+            first.update(
+                source_event_ids=first["source_event_ids"] + burst["source_event_ids"],
+                after_frame_id=burst["after_frame_id"],
+                sample_label="ambiguous_target", outcome="ambiguous", evidence_use="trace_only",
+            )
+            mixed["segments"] = [first]
+            self._assert_payload_rejected(recording, path, mixed, "burst must stay in one annotation segment")
+            split = deepcopy(payload)
+            first, burst = split["segments"]
+            first["source_event_ids"].append(burst["source_event_ids"].pop(0))
+            first["after_frame_id"] = burst["after_frame_id"]
+            self._assert_payload_rejected(recording, path, split, "burst must stay in one annotation segment")
+
+    @classmethod
+    def _append_later_burst(cls, root: Path, *, ambiguous_flag: bool) -> None:
+        records = cls._read_records(root)
+        post = deepcopy(records[2])
+        post.update(
+            frame_id="frame-burst-after", path="frames/burst-after.png",
+            captured_at=(NOW + timedelta(milliseconds=900)).isoformat(), elapsed_ms=900,
+        )
+        (root / post["path"]).write_bytes((root / records[2]["path"]).read_bytes())
+        burst = []
+        for index, elapsed in enumerate((600, 700)):
+            event = deepcopy(records[1])
+            event.update(
+                event_id=f"burst-{index}", before_frame_id=records[2]["frame_id"],
+                after_frame_id=post["frame_id"], ambiguous_burst=ambiguous_flag,
+                occurred_at=(NOW + timedelta(milliseconds=elapsed)).isoformat(),
+                ended_at=(NOW + timedelta(milliseconds=elapsed + 20)).isoformat(),
+                elapsed_ms=elapsed,
+            )
+            burst.append(event)
+        cls._rewrite_records(root, [*records[:3], *burst, post, records[3]])
+
     def test_geometry_change_and_capture_error_cannot_be_positive_evidence(self) -> None:
         with TemporaryDirectory() as tmp:
             base = Path(tmp)
