@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "phase": "complete",
+  "phase": "reopened_stdio_shutdown_audit",
   "coordinator_thread_id": "019f4a66-e105-7103-ab9d-aef47aa6f8a0",
   "review_branch": "feat/adversarial-review-20260908",
   "baseline_commit": "d377ef8bbaa69e6b25928255eac0cb62714e82f8",
   "baseline_tree": "5a7239bcc64689789d7cd7a6b148937ea3184760",
   "combined_commit": "7f59f00778594accc49fd02a828a08097832c27c",
   "combined_tree": "b812fb28f174af7daef353b50a766eaeb8f442c6",
-  "formal_verdict": "APPROVE",
+  "formal_verdict": "REQUEST CHANGES",
   "production_readiness": "not_established",
   "components": {
     "A": {
@@ -87,7 +87,7 @@
         "temporary LF fixtures restored in final checkout; depends on F attributes"
       ],
       "previous_final_sha": "edd3c3d57f92eb16b75f011c9a37d10005cf4256",
-      "replacement_required": false,
+      "replacement_required": true,
       "last_task_status": "active",
       "last_turn_status": "inProgress",
       "reported_final_tests": "Windows focused34, WSL focused40, Pioneer795 zero fail/skip; unverified until independent review"
@@ -195,7 +195,7 @@
   },
   "coordinator_cursor": "f3384e36-4a82-4534-8681-978aa3e6ec37:1",
   "heartbeat_id": "sanmou",
-  "next_action": "Publish verified review branch, verify remote SHA, notify coordinator with scoped APPROVE and production limits, pause heartbeat. Never merge master or operate game.",
+  "next_action": "Previous approval470d92c is suspended. Independently reproduce root ext4 stdio shutdown errors, classify implementation versus test deadline defect, obtain reviewed C replacement/report if needed, rerun exact combined and filesystem variants before new approval.",
   "intake_notes": {
     "D": "Coordinator reports first full suite 309 with 4 failures/1 error. Fixture assumptions, cwd and Windows .sh CRLF under correction. Audit first-run failures and basis for expectation changes; not final evidence.",
     "E": "Coordinator reports focused Windows Electron 13/13, Node 2/2, API 9/9 zero skip, typecheck/build; Windows full suite 767 with 6 failures/29 errors/9 skips. Require same OS/runtime/deps d377ef8 comparison and concrete npm audit evidence; not final evidence.",
@@ -683,5 +683,12 @@
     "Unsigned artifact; no clean-machine signing/update/rollback proof",
     "No real image/provider accuracy, external holdout/human R&R, trusted broker or live action closure",
     "Existing external Highest controller copies not retired by reviewer"
-  ]
+  ],
+  "reopened": {
+    "reported_result": "846 tests,2 errors,2 native-only skips",
+    "root_log": "/tmp/sanmou-root-integration-pioneer-20260908.log",
+    "prior_review_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "independently_reproduced": false,
+    "issue": "AnyIO BrokenResourceError during stdio cleanup masks connection failure"
+  }
 }

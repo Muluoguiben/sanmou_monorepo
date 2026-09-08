@@ -1,6 +1,7 @@
 # 2026-09-08 统一对抗性审查
+> 审查重开：**REQUEST CHANGES**。原报告提交470d92c的APPROVE已暂停，不再是当前可合入结论。协调者在相同源码的ext4组合回归中报告2项stdio关闭错误（AnyIO BrokenResourceError经ExceptionGroup逸出）；原日志已保留，reviewer正在独立复现和分类。下文原批准及通过结果仅作为历史证据，待替代C与重新组合验证后更新。
 
-**最终结论：APPROVE（仅本轮 patch）。** R01–R26 已逐项完成代码审查、原始反例与修复验证；独立新增 CR01–CR07 均由原 owner 返工并完成复审。最终六组件及组合源码身份已核验，所列支持环境的门禁通过。
+**470d92c 历史结论（现已暂停）：APPROVE（仅本轮 patch）。** R01–R26 已逐项完成代码审查、原始反例与修复验证；独立新增 CR01–CR07 均由原 owner 返工并完成复审。最终六组件及组合源码身份已核验，所列支持环境的门禁通过。
 
 **Production readiness：未建立，不批准上线或真实游戏执行。** 原生 Windows 全量/时间敏感失败、既有依赖审计、未签名/clean-machine/update/rollback、真实 vision/holdout/broker/live closure 等边界保留。Reviewer 没有合并 master。
 
