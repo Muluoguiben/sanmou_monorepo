@@ -57,3 +57,15 @@ or broad exception suppression.
 
 No game/model/real credential/holdout operation occurred. Production readiness
 remains unestablished independently of this patch-batch gate.
+
+## Candidate follow-up (not coordinator acceptance)
+
+Unified CR reproduced CR08 with controlled real-SDK streams and real child
+processes; its 20 rounds of the old native pair passed, so ext4 alone is not a
+proven cause. Those results and the root failures are both preserved.
+
+C delivered 6bdb0276fd24c3eec7f72d838902085d59dd7c32, replacing eb4ecd90. Its report
+binds the new stdio implementation and 11 regressions to exact blobs, with
+author-run 857-test combined evidence and the original reviewer probes. This
+is author evidence; root has not repeated integration on the candidate and
+unified review remains reopened until independently revalidated.

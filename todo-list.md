@@ -9,6 +9,11 @@ processes). The uncommitted merge was aborted safely; no development source was
 pushed to master. C and unified CR are investigating before renewed approval.
 See [exact integration evidence](docs/reviews/2026-09-08-integration-recheck.md).
 
+C delivered CR08 replacement 6bdb027 with separate connection/request budgets,
+shutdown stream ownership/drain and ready-Future race handling. Author tests and
+the original reviewer probes pass on its candidate; unified independent review
+must approve the replacement before another main-worktree integration attempt.
+
 Review of d377ef8 found 4 P1 and 22 P2 issues; previous production-slice checkmarks
 describe wiring/testing, not production acceptance. See [ownership and gates](docs/development-batch-2026-09-08.md).
 
@@ -16,7 +21,7 @@ Dispatch: all six development tasks have acknowledged isolated worktrees; unifie
 CR has started preparation. [Task IDs and report paths](docs/development-batch-2026-09-08-tasks.json).
 Charter and original review pushed in dd76d60; this is not completion of any fix.
 
-Delivery update: A 3d68e5d, B aa7ef1b0, C eb4ecd90, D 587f8ab, E 1eeffb7 and
+Delivery update: A 3d68e5d, B aa7ef1b0, C 6bdb027, D 587f8ab, E 1eeffb7 and
 F 6bff970 are delivered with self-test reports, pending unified adversarial CR.
 The reviewer must verify E intake, combine exact component SHAs, rerun regression
 and adversarial checks, and route findings to their owners before approval.
