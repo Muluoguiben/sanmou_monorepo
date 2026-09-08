@@ -5,8 +5,8 @@
   "review_branch": "feat/adversarial-review-20260908",
   "baseline_commit": "d377ef8bbaa69e6b25928255eac0cb62714e82f8",
   "baseline_tree": "5a7239bcc64689789d7cd7a6b148937ea3184760",
-  "combined_commit": "28db7a1a167bd44e88ebe00404406859ac2c02f3",
-  "combined_tree": "28561ff65ed9afa4a4e7ce284e07d510c81d31eb",
+  "combined_commit": "1c924e6360698e0b124621e696aed3cdaaae0692",
+  "combined_tree": "6f11bbff69389a080aa77b30fbcd26779d60a142",
   "formal_verdict": null,
   "production_readiness": "not_established",
   "components": {
@@ -134,7 +134,7 @@
     "E": {
       "thread_id": "01a07f0b-6d25-75c3-bcb1-acd4ca26cd1d",
       "host_id": "local",
-      "final_sha": "5afaec4bb46c91c4c1fd153e0c79670276c1d197",
+      "final_sha": "b865808d021ca4fd81c1bb087735187f485b51a2",
       "report": "docs/test-reports/2026-09-08/E.md",
       "cursor": "5a4f0765-023f-4651-a021-19552055b225:12",
       "progress_only": {
@@ -153,7 +153,7 @@
       "tree": "b28b62393808ce170c2a64e7a7b66b87171b91d5",
       "report_blob": "1c40e3b6b70d96895740844ff929b22c6ad30132",
       "evidence_blob": "1d4b7078bf9fd67f4083ba6fa9ae4de1b1514c48",
-      "intake_status": "CR02_replacement_verified_CR03_pending_new_final",
+      "intake_status": "21_final_blobs_verified_waiting_Node24_report_and_independent_install",
       "intake_verified": [
         "d377 ancestor; final branch remote matches",
         "E.md and E-test-evidence.json present",
@@ -161,20 +161,20 @@
         "seven raw hashes required mixed LF/CRLF comparison; no source drift found"
       ],
       "independent_test_status": "formal_review_starting",
-      "previous_final_sha": "8729d18f5cab45b3616c15b9fc5eef36746b690e",
+      "previous_final_sha": "5afaec4bb46c91c4c1fd153e0c79670276c1d197",
       "replacement_required": true
     },
     "F": {
       "thread_id": "01a07f0b-85e8-7880-bb8f-3845dc01fef2",
       "host_id": "local",
-      "final_sha": "42f0f5013e820de066ac53776512686588c3af7a",
+      "final_sha": "6bff970d8ed6d6eff6153e783b715273847847b7",
       "report": "docs/test-reports/2026-09-08/F.md",
       "cursor": "40b7b923-361f-4338-a396-2f94a0cae220:13",
       "branch": "feat/review-f-eval-ci-20260908",
       "tree": "a6ffb9d5d52d3915e4a1012ee0e5308b3f6e3c9b",
       "tested_implementation_tree": "cce0c039d5f37fec9c20cec3a4e705791ef2490d",
       "report_blob": "379145382909dede815a9735527f758aa4369f88",
-      "intake_status": "received_metadata_verified_pending_formal_review",
+      "intake_status": "Node24_14_0_pin_verified_pending_supported_pipeline",
       "intake_verified": [
         "commit available; d377ef8 ancestor; 12 changed paths",
         "tested tree exists and final differs only report/TODO",
@@ -189,12 +189,13 @@
         "CI actually executes E npm test and dist:win scripts in combined tree",
         "CI Python3.12/Node20 vs local Windows3.14/Node24 mismatch",
         "exact commit eval artifacts if inspected after intake"
-      ]
+      ],
+      "previous_final_sha": "42f0f5013e820de066ac53776512686588c3af7a"
     }
   },
   "coordinator_cursor": "f3384e36-4a82-4534-8681-978aa3e6ec37:1",
   "heartbeat_id": "sanmou",
-  "next_action": "E owns exclusive Electron/install rework for CR03+CR06. Await explicit final SHA/report and cleanup release, independently verify source/test blobs, merge replacement then run Node20/Python3.12 CI pipeline, exact rebuilt installer and original pixel cleanup probe. Finish final combined suites and report; A/CR01 D/CR04/05 are closed; CR02 final install still pending. No game or real token use.",
+  "next_action": "Await E's Node24.14.0 final documentation/SHA and cleanup handoff, then inspect any delta and merge exact SHA. Run final supported npm ci --engine-strict/typecheck/build/test/dist and exact-artifact install; final three Python packages/current official stdio. Finish final report, push reviewer branch and pause heartbeat. Interim report REQUEST CHANGES, no approval yet.",
   "intake_notes": {
     "D": "Coordinator reports first full suite 309 with 4 failures/1 error. Fixture assumptions, cwd and Windows .sh CRLF under correction. Audit first-run failures and basis for expectation changes; not final evidence.",
     "E": "Coordinator reports focused Windows Electron 13/13, Node 2/2, API 9/9 zero skip, typecheck/build; Windows full suite 767 with 6 failures/29 errors/9 skips. Require same OS/runtime/deps d377ef8 comparison and concrete npm audit evidence; not final evidence.",
@@ -387,18 +388,13 @@
       "log": "sanmou-cr-native-capture-final.log"
     },
     "native_api": {
-      "total": 10,
-      "passed": 10,
+      "total": 11,
+      "passed": 11,
       "skips": 0,
       "exit": 0,
-      "python_versions": [
-        "3.14.3",
-        "3.12.14"
-      ],
-      "logs": [
-        "sanmou-cr-native-api-final.log",
-        "sanmou-cr-ci312-api.log"
-      ]
+      "python": "3.12.14",
+      "code_sha": "b865808d021ca4fd81c1bb087735187f485b51a2",
+      "log": "sanmou-cr-api-b865-fixed.log"
     },
     "official_stdio": {
       "exit": 0,
@@ -451,7 +447,22 @@
         "expected_errors": 2
       }
     },
-    "qa_eval_import_boundary": "Game MCP observation/fixture graph is free of control/executor/verifier. QA advisory replay tool subprocess intentionally retains existing ReplayRuntime + UIActionRunner + VerifierRegistry with fixed _ReplayUI synthetic backend/AUTOMATION_TEST. Inspect separately; do not claim global zero executor imports for QA subtree or live success."
+    "qa_eval_import_boundary": "Game MCP observation/fixture graph is free of control/executor/verifier. QA advisory replay tool subprocess intentionally retains existing ReplayRuntime + UIActionRunner + VerifierRegistry with fixed _ReplayUI synthetic backend/AUTOMATION_TEST. Inspect separately; do not claim global zero executor imports for QA subtree or live success.",
+    "pixel_guard": {
+      "exit": 0,
+      "input_bytes": 69,
+      "status": 413,
+      "remaining_files": 0,
+      "decoded_pixels": false,
+      "log": "sanmou-cr-pixel-guard-cleanup-fixed.log"
+    },
+    "node_helpers": {
+      "total": 13,
+      "passed": 13,
+      "exit": 0,
+      "node": "24.14.0",
+      "log": "sanmou-cr-node24-helper-tests.log"
+    }
   },
   "findings": [
     {
@@ -555,6 +566,25 @@
       "evidence": "69-byte PNG header20000x20000 triggers Pillow DecompressionBombError before decoding; native ASGI returns500 and leaves69-byte upload. Keep pixel guard, map to4xx and close/delete.",
       "probe": ".codex-autonomy/adversarial-review-20260908/probes/upload_pixel_guard_cleanup.py",
       "log": "sanmou-cr-pixel-guard-cleanup-red.log"
+    },
+    {
+      "id": "CR07",
+      "priority": "P2",
+      "owner": "F",
+      "file": ".github/workflows/regression.yml",
+      "line": 54,
+      "reviewed_sha": "42f0f5013e820de066ac53776512686588c3af7a",
+      "status": "CI_fixed_pending_supported_full_pipeline",
+      "replacement_final_sha": "6bff970d8ed6d6eff6153e783b715273847847b7",
+      "evidence": "@electron/rebuild4.2.0/node-abi4.35.0 require>=22.12; actual semver20.20.2false24.14true. F pins24.14.0; no engine/dependency bypass."
     }
-  ]
+  ],
+  "install_window": {
+    "owner": "E",
+    "reviewer_all_helpers_closed": true,
+    "reviewer_owned_count": 0,
+    "uninstall_entries": 0,
+    "explicit_release_sent": true,
+    "no_new_Electron_until_owner_returns": true
+  }
 }

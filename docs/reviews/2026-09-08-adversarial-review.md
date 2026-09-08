@@ -1,121 +1,118 @@
-# Unified adversarial review — 2026-09-08
+# 2026-09-08 统一对抗性审查
 
-Status: **WAITING FOR COMPONENT DELIVERIES**. No formal verdict yet. This preparation checklist is not an approval or a completed review. The final patch verdict must be APPROVE or REQUEST CHANGES after all six immutable final SHAs and committed self-test reports are received and independently checked.
+**阶段性结论：REQUEST CHANGES。** 原始 R01–R26 已逐项审查和复现；额外发现 CR01–CR07。CR01、CR04、CR05 已独立关闭；E 的最终安装/端口/像素限制及支持运行时组合复验尚未完成。此结论仅针对本轮 patch，**不代表 production readiness**。
 
-## Scope and immutable inputs
+## 冻结输入与隔离
 
-- Reviewer worktree: `C:/Users/Lan/.codex/worktrees/6737/sanmou_monorepo`.
-- Review branch: `feat/adversarial-review-20260908`; initially clean detached HEAD, then branch created at the frozen baseline.
-- Frozen baseline commit: `d377ef8bbaa69e6b25928255eac0cb62714e82f8`.
-- Frozen baseline Git tree: `5a7239bcc64689789d7cd7a6b148937ea3184760`.
-- Remote: `git@github.com:Muluoguiben/sanmou_monorepo.git`.
-- Coordinator task: `019f4a66-e105-7103-ab9d-aef47aa6f8a0`.
-- Frozen report: `C:/Users/Lan/.codex/visualizations/2026/07/10/019f4a66-e105-7103-ab9d-aef47aa6f8a0/sanmou-review-20260908.md`, SHA256 `aefac34f2a7811406e33c3ffae60c80a2a3878094c1c7c4f0cc0be862ec628cf`.
-- Coordinator report copy: `docs/reviews/sanmou-review-20260908.md`, SHA256 `daa1f4d97f77fd38d1c9c5c43741256b436c3fff9f28f1312589996cea25a249`. Independently diffed: only its final blank line differs from the frozen original.
-- Coordinator charter: `docs/development-batch-2026-09-08.md`, SHA256 `d5725ef65ecdcd97b6430b41a0b474be233cd8aa84d462cb07a9dba7cd92a6e8`, read from the coordinator worktree without mutation.
-- Observed coordinator `master` / `origin/master`: `dd76d601f6f40d3e4fceaf10cdd360d78af88cb2`; this is not the patch baseline. Reviewer must not merge or push master.
-- Combined commit/tree: pending. Only explicitly delivered final component SHAs may be combined; never infer a final SHA from a moving branch head.
+- 基线 commit：`d377ef8bbaa69e6b25928255eac0cb62714e82f8`；tree：`5a7239bcc64689789d7cd7a6b148937ea3184760`。
+- Reviewer worktree：`C:/Users/Lan/.codex/worktrees/6737/sanmou_monorepo`；分支：`feat/adversarial-review-20260908`。
+- 当前组合 commit：`1c924e6360698e0b124621e696aed3cdaaae0692`；tree：`6f11bbff69389a080aa77b30fbcd26779d60a142`。
+- 冻结原审查 SHA256：`aefac34f2a7811406e33c3ffae60c80a2a3878094c1c7c4f0cc0be862ec628cf`。协调副本 SHA256 `daa1f4d97f77fd38d1c9c5c43741256b436c3fff9f28f1312589996cea25a249`；独立 diff 只差最后空行。
+- 章程从协调树只读读取，SHA256：`d5725ef65ecdcd97b6430b41a0b474be233cd8aa84d462cb07a9dba7cd92a6e8`。
+- 只组合明确 final SHA；没有修改作者生产源码，没有创建其他 reviewer，没有合并/推送 master，没有操作游戏。
+- B/C/D/E 初次组合仅在 TODO 独立追加块冲突。协调者明确授权按 A–F 保留双方原文；没有修改 checkbox、历史声明或源码。后续 replacement 均自动合并。
+- 沙箱初始化故障后使用受审批的 scoped exec；两次孤立 index.lock 均在确认精确本 worktree 路径、零字节、长期未变、Windows/WSL 无 Git 进程后处理，未丢弃 WIP。
 
-## Intake gate
+## 当前组件
 
-| Owner | Task ID | Final component SHA | Committed test report | Intake status |
-|---|---|---|---|---|
-| A | 01a07f09-c64c-7852-a533-7db7730a048c | 4a2e4b8d1d58cac2a6a564a4e9a1cf8540eb26c3 | `docs/test-reports/2026-09-08/A.md` | remote and metadata verified; formal review pending |
-| B | 01a07f0b-149e-7160-a896-551165a702a0 | aa7ef1b0c3ac0a7d24a8b31e258cb6efc2d224fb | `docs/test-reports/2026-09-08/B.md` | corrected path/unchanged code verified; formal review pending |
-| C | 01a07f0b-3787-7f82-ab0c-400a65b4b1a2 | eb4ecd90ccd1c7b5ec4982a14e5c34de5acc8669 | `docs/test-reports/2026-09-08/C.md` | replacement metadata verified; next-hop integration pending |
-| D | 01a07f0b-53b8-74a3-9e61-71dd461bdff8 | 2cfda735887e2a7cf237adeafea8d6c7feb2c837 | `docs/test-reports/2026-09-08/D.md` | metadata verified; formal review pending |
-| E | 01a07f0b-6d25-75c3-bcb1-acd4ca26cd1d | pending | `docs/test-reports/2026-09-08/E.md` | waiting |
-| F | 01a07f0b-85e8-7880-bb8f-3845dc01fef2 | 42f0f5013e820de066ac53776512686588c3af7a | `docs/test-reports/2026-09-08/F.md` | metadata verified; formal review pending |
-
-For each delivery independently verify: SHA exists and is immutable; ancestry and owned diff are correct; report exists in that commit; tested code/tree is identified without a self-referential report SHA; exact commands, runtime/dependency versions, exit codes, counts and skips match reproducible output; no deleted regression, weakened assertion or expectation changes conceal the original failure. Author statements are inputs to audit, not proof. Replacement SHAs invalidate the affected review results.
-
-C intake: independently verified commit ancestry from d377ef8, exactly eight owned changed paths, all six source/test blob identifiers listed in the committed report, report blob 12c0547cd5838c839494de9d40c5c1211305c993, component tree f32f8679419256796f0e055709611e5f13777150 and matching remote branch SHA. Reported Windows focused 30, WSL focused 36 and Pioneer 791 results remain author evidence pending independent execution. Audit owner-task cancellation/cleanup, identity baseline retention, downstream bindings and final LF/CRLF behavior with F. A/B/C/D/F have complete metadata intake. C replacement eb4ecd90 is now delivered; no integration or patch approval yet.
-
-D intake: independently verified d377ef8 ancestry, 14-path QA scope, component tree d4c6e47bdae930202fb13b08d2b8aa83c8c49778 and report blob 4c14e088cc6f245549ed738ee590522a0c1364eb. Reported tested tree 8acb0b599b20a25630993f35d07df0e78bd964cd exists and differs from final only by the report and TODO; remote branch matches. Shell scripts and original vision test are absent from the commit diff. Focused44/QA322 zero-skip results remain author evidence, not independently executed. Audit first-run failures, baseline exploit vs API-error distinction, citation limits, bucket partial writes, stale hero duplicate source and Windows filesystem boundaries.
-
-Cross-component intake blocker (author report, not yet reproduced): C reports automatic approval rejected the planned SANMOU_CAPTURE_TOKEN forwarding for game_agent --windows-bridge as credential forwarding beyond its scope; patch was not applied. C final remains edd3c3d. Coordinator notified to resolve explicit authorization/ownership and obtain a replacement SHA/report if needed. Reviewer does not bypass approval or implement the production fix. Existing C tests do not establish A+C new-protocol compatibility.
-
-F intake: independently verified d377ef8 ancestry, 12-path scope, component tree a6ffb9d5d52d3915e4a1012ee0e5308b3f6e3c9b and report blob 379145382909dede815a9735527f758aa4369f88. Tested tree cce0c039d5f37fec9c20cec3a4e705791ef2490d differs from final only by report/TODO and remote matches. The scenario/fixture path diff only adds scenarios/v1/.gitattributes (*.json text eol=lf). Reported tests and exact-final CLI remain unverified author evidence. F CI deliberately depends on E npm test/dist:win; final combined Windows execution, hosted workflow status and Python3.12/Node20 parity remain pending.
-
-Latest coordinator update: user explicitly authorized only the local capture authentication token environment allowlist for --windows-bridge to the Game MCP child. C must implement and submit a replacement final SHA/report with synthetic isolation/leak tests; authorization does not close the integration blocker. Never pass token to QA, external network, CLI, logs or disk. Live observation remains deferred.
-
-B intake defect: git ls-tree on submitted 5d635e45 proves only docs/test-reports/2026-09-08/01a07f0b-149e-7160-a896-551165a702a0.md exists (blob 1cd6b1f4a294f65cae6e3484928f2d0aea34f2f8), while required B.md is absent. Requested existing owner to correct the report path and send a new final SHA with unchanged tested code identities. B corrected this intake defect in aa7ef1b0: independently verified B.md blob dbe73d0d6472e7efb914cc779ab8baf7b39c2ec8 and five unchanged tested source/test blobs; remote matches. E final report is pending. These are intake states, not source-code verdicts.
-
-A local intake: 4a2e4b8d1d58cac2a6a564a4e9a1cf8540eb26c3, tree 001e2ae63e00c3816febcbe30467e33be7c51713, report blob 399392caa6fde2af8b72b1d6f63a0cec484402de; verified ancestry and tested tree 998cac7a0e5eed674900f62f5f60ef0c19eaebfa differs only report/TODO. Source push was initially rejected. Coordinator subsequently obtained direct user authorization and pushed the exact4a2e4b8; reviewer independently verified remote equality. Historical refusal is preserved; current push blocker is resolved. Reviewer did not proxy-push A. Native full-suite failures, two WSL native-only skips and missing capture dependencies remain explicit.
-
-C authorization update: automatic approval rejected the same scoped patch a second time because relayed coordinator approval was not accepted as direct trusted user authorization. No C production change occurred. Coordinator proposes using its own directly authorized, normally reviewed context for the exact minimal patch, then C tests/new report/SHA; reviewer neither implements nor circumvents. Blocker remains pending implementation and independent combination checks.
-
-Reviewer environments are ready: Linux /tmp/sanmou-cr-20260908-venv (Python3.12.3), Windows current-worktree .venv (Python3.14.3). Both independently installed all three pyprojects plus HTTPX; pip check exit0. Both have MCP1.29.1, FastAPI0.141.1, Pydantic2.13.5, google-genai1.75.0. This verifies dependencies only, not source tests.
-
-C latest intake: eb4ecd90ccd1c7b5ec4982a14e5c34de5acc8669 (tree f4c7622263639b5aa71530ddb486430411278609, report blob 9f66c9e2eaf69dc4f1fd89d494edfa3c1ed5ea78) supersedes edd3c3d. Verified ancestry, remote equality and all six final tested source/test blobs: changed game_agent=c4059cd15105ee70e12ed2242a64bed841178d89, timeouts=6de43c9061f1b0c9db4100aafa78f1d7874769c4; the other four unchanged. Latest 34/40/795 results remain author evidence. Only parent-to-GameMCP forwarding is submitted; WSL-to-Windows proxy configuration/forwarding remains a separate reported integration issue needing independent reproduction and precise scope.
-
-## R01–R26 adversarial checklist
-
-Every row starts **PENDING**; reproduction descriptions below are planned checks, not claims of execution.
-
-| ID | Priority / owner | Original trigger and independent negative checks | Required corrected behavior | Disposition |
-|---|---|---|---|---|
-| R01 | P1 / A | Trace controller install/Highest task and user-writable command paths; inspect every documented entry. Never install or execute the old controller. | Old unsafe installation/control entry fails closed and is no longer recommended; no substitute user-writable elevated trust root. | PENDING |
-| R02 | P1 / A | Fake server requests without authentication/window/confirmation; inspect defaults and all click/key input routes. | Loopback default, identity validation, read-only mode rejects all input, no reachable legacy bypass. | PENDING |
-| R03 | P1 / E | Missing `py`, invalid `PYTHON`, later valid candidate, all candidates failing. | ENOENT/null output handled; fallback works and startup failure remains visible in a created window. | PENDING |
-| R04 | P1 / D | Synthetic/heuristic video extraction through staging and default publisher; forged or absent review provenance. | Machine-generated content remains pending; no automatic human-review claim or publishable artifact. | PENDING |
-| R05 | P2 / B | Actual RuntimeState/perception map, battle, timer, progress, risk, unknown/trust payloads; inject nested paths, metadata and oversized content. | Explicit public domain structure preserves necessary facts/risk/unknowns and strips private data; end-to-end MCP parity. | PENDING |
-| R06 | P2 / A | Fresh-process import graph for game MCP/fixture/live observation; minimized-window fake capture. | No restore/focus/input side effects, no transitive control/executor/verifier loading through read-only paths. | PENDING |
-| R07 | P2 / A | Timeout before header, mid-header/body, delayed previous response, mismatched request ID and capture time. | Broken stream discarded; responses bind request and server capture time; old bytes cannot become fresh frames. | PENDING |
-| R08 | P2 / B | Full team A/B/C then A/B/D, empty/full/partial panel and detail updates; inspect dependent readiness evidence. | Complete roster replaces removed heroes; retain detail only for remaining members and invalidate dependent stale facts. | PENDING |
-| R09 | P2 / D | Empty retrieval with hallucinating fake LLM; fabricated/missing/mixed citations on nonempty retrieval. | Fixed empty-evidence answer without generation; returned citations constrained to current evidence. | PENDING |
-| R10 | P2 / D | Move same canonical ID across faction/skill bucket, stale duplicate load, partial-write failure; inspect existing duplicate. | Whole-library unique ID migration; no stale result or silent overwrite; duplicate loader failure is explicit. | PENDING |
-| R11 | P2 / D | Partial/missing base/growth, explicit zero, disjoint known attributes. | Compute each attribute only when both inputs are known; unknown remains None. | PENDING |
-| R12 | P2 / D | Whitespace-only/empty/mixed facts and query first answer. | Normalize before nonempty validation; invalid entries rejected without query crash. | PENDING |
-| R13 | P2 / F | Normal click followed by later ambiguous burst; partial/split/interleaved segment coverage. | Every pair checked; ambiguous burst complete and separate, trace-only/excluded and never counted as negative. | PENDING |
-| R14 | P2 / F | Change evaluator-consumed fixture bytes while preserving expected action; swapped second read and ordering. | Run digest binds exact executed input bytes by name/hash; no reread race or action-only identity claim. | PENDING |
-| R15 | P2 / F | Mark all transcript calls failed with plausible payload, mixed successes, successful transport with rejected semantics. | Failed calls supply no trusted observation/candidates/refresh or unjustified perfect scores. | PENDING |
-| R16 | P2 / F | Valid pre-failure refresh, append later recovery, future/misaligned timestamps. | Failure and final checkpoints use their own valid history; later recovery does not erase prior checks, future facts rejected. | PENDING |
-| R17 | P2 / C | Two real-domain observations 121 seconds apart, no invented `timing` domain; irrelevant page/missing timing. | Timer checkpoints follow actual trusted evidence and applicability; normal fresh loop continues, unsupported evidence cannot refresh. | PENDING |
-| R18 | P2 / C | Persist journal then restart empty MCP cache; actual different window, first observation absent/failing. | Unknown identity distinguished from changed identity; verify fresh observation against journal before recommendation. | PENDING |
-| R19 | P2 / C | Advance controlled clock 300 seconds during QA or candidates; identity/frame/domain binding changes. | Final recommendation revalidates freshness and identity; stale or mismatched facts stop and request refresh. | PENDING |
-| R20 | P2 / C | Bounded fake stdio process hangs in initialization/call; disconnect/cancellation and cleanup. | Finite deadlines, structured failed tool record and stop, process/session cleanup, no infinite wait. | PENDING |
-| R21 | P2 / E | Inspect built preload then launch real Electron on isolated mock API/custom port; error bridge availability. | Runtime preload loads, `window.sanmou` works, URL/port/errors preserved. Build alone is insufficient. | PENDING |
-| R22 | P2 / E | Analyze A, select B/history, resolve/reject A late; overlap multiple requests and chat. | Stale request cannot overwrite current report/error/busy/chat identity. | PENDING |
-| R23 | P2 / E | Full trusted confidence=1 with advisor_mode; unknown/untrusted/zero-confidence evidence with/without recommendation. | Execution permission and evidence quality displayed independently; unknown cannot appear sufficient. | PENDING |
-| R24 | P2 / E | Native Windows >10MB upload and interrupted/error paths with realistic file locking. | Handle closes before removal; returns 413, no file residue; API tests run with FastAPI installed. | PENDING |
-| R25 | P2 / D | Public alias to excluded cache, file/parent links, hardlink, replacement race and path escape using synthetic markers. | No private bytes emitted; actual opened file identity/root/exclusion validated, unsafe paths fail closed. | PENDING |
-| R26 | P2 / D | Windows, UNC, mixed/Posix separators on Windows and Linux through all sanitized exports. | Only safe basename emitted; no machine/private path leakage. | PENDING |
-
-## Dependency and combination review
-
-| Producer / consumer | Contract boundary | Combination checks |
+| 任务 | 审查中的明确 SHA | 报告 |
 |---|---|---|
-| A → B/C | Request/frame/capture timestamp, geometry, identity, no-side-effect capture | Stale/unbound observations never become fresh public state or valid harness recommendations. |
-| B → C/F | Canonical seven-tool payload schema and privacy projection | Domain/trust/risk/timer fields survive while private inputs stay hidden; consumers do not copy a second schema. |
-| B merge → C | Full versus partial roster and freshness | Removed heroes and stale readiness do not survive into recommendations. |
-| D → C/E | Six QA tools, citation and knowledge review boundary | Empty/unreviewed knowledge cannot ground a harness or desktop recommendation. |
-| E → F | API/Windows/desktop regression commands and dependencies | CI installs FastAPI, executes meaningful Windows regressions and actual desktop bridge checks where required. |
-| F → all | CI, transcript trust, fixture digest, R&R boundaries | Independent runner uses identical tested tree; synthetic/replay/static proof is not promoted to live/vision accuracy. |
+| A | `3d68e5dc87ffab718e436c8df3aff3935c360b2b` | [A.md](../test-reports/2026-09-08/A.md) |
+| B | `aa7ef1b0c3ac0a7d24a8b31e258cb6efc2d224fb` | [B.md](../test-reports/2026-09-08/B.md) |
+| C | `eb4ecd90ccd1c7b5ec4982a14e5c34de5acc8669` | [C.md](../test-reports/2026-09-08/C.md) |
+| D | `587f8abaa20a195da7a4486504ec6e8138d158bf` | [D.md](../test-reports/2026-09-08/D.md) |
+| E | `b865808d021ca4fd81c1bb087735187f485b51a2` | [E.md](../test-reports/2026-09-08/E.md)、[E evidence](../test-reports/2026-09-08/E-test-evidence.json) |
+| F | `6bff970d8ed6d6eff6153e783b715273847847b7` | [F.md](../test-reports/2026-09-08/F.md) |
 
-Order components only after intake; inspect ancestry first to avoid double-applying prerequisite commits. Use explicit final SHAs on this isolated branch. Mechanical or semantic conflicts are returned to owners; reviewer must not invent a production conflict resolution. Record ordered component SHAs and the combined commit/tree before running final regressions.
+逐份核验了 Git 对象、祖先关系、被测 tree/blob、报告所在 commit 和远端引用。B 原报告误用任务 ID 文件名，已要求作者迁到 B.md 并核验源码零差异。E 原始 17 份 raw SHA256 全部匹配作者工作树；其中 7 份混合 LF/CRLF，规范化后均等于提交 blob，未误判成源码漂移；replacement 的 19/21 个当前 Git blob 也逐项核验。历史快照不冒充最新测试。
 
-## Independent validation ledger
+## 原始问题 disposition
 
-| Check | Command / evidence | Result |
+“已修复”只表示本轮代码条件及所述离线/合成验证成立。
+
+| ID | 原优先级 / owner | 独立证据与当前 disposition |
 |---|---|---|
-| Worktree/base | `Get-Location`, `git status --short --branch`, `git rev-parse HEAD` | Initial clean detached baseline verified. |
-| Baseline tree | `git rev-parse 'HEAD^{tree}'` | `5a7239bcc64689789d7cd7a6b148937ea3184760`. Unquoted PowerShell brace syntax first failed; quoted command is authoritative. |
-| Report provenance | `Get-FileHash -Algorithm SHA256`; `git diff --no-index` original/copy | Hashes above; only trailing blank line differs. |
-| Local isolation | `git switch -c feat/adversarial-review-20260908` | Exit 0, created at frozen baseline; no other checkout changed. |
-| Required skills/rules | Root AGENTS, coordinator charter, code-review/security-review/caveman-review | Read; explicit single-reviewer instruction overrides skill delegation. |
-| Full Python regressions | Native unittest commands, real output files and exit codes on combined tree | NOT RUN; historical 775/307/2 counts are not current evidence. |
-| Official MCP transport | Official `ClientSession` + `stdio_client`, game seven tools and QA six tools, strict invalid arguments, fixture/error parity | NOT RUN; direct handlers do not substitute for stdio. |
-| Desktop | Typecheck, build, native Electron preload/custom-port smoke, concurrency/evidence regressions | NOT RUN. |
-| Windows API/upload/capture | Native Windows synthetic tests, FastAPI installed; no game operation | NOT RUN. |
-| Read-only boundary | Fresh-process transitive imports plus offline side-effect instrumentation | NOT RUN. |
+| R01 | P1 / A | 已修复仓库入口。基线 PowerShell AST 含 2 个任务注册、5 个进程启动；tombstone 均为 0。原生禁用入口测试通过；未执行旧脚本，外部已安装副本未处理。 |
+| R02 | P1 / A | 已修复。真实基线函数配全假 OS 边界接受无前置 click；新函数拒绝且无输入。原生 authenticated capture-only/恶意请求回归通过。 |
+| R03 | P1 / E | ENOENT 原反例 TypeError 已复现；新函数返回失败诊断并可 fallback。真实 Electron 启动失败可见；安装验收另见 CR02/03/07。 |
+| R04 | P1 / D | 已修复。独立对基线运行实际 heuristic pipeline 反例失败于自动发布；新 pipeline 仅 pending，默认发布器拒绝。全部发布测试使用临时 KB。 |
+| R05 | P2 / B | 已修复。原 runtime filter/battle/timing/chapter 字段及 high/confirmation 风险丢失已复现；组合保留。生产 domain builders/服务/consumer 和隐私负向测试通过。 |
+| R06 | P2 / A | 已修复 Game 观察路径。基线实际 capture wrapper 会调用假 restore；新 wrapper 保持零恢复并拒绝最小化。基线 import 带 control/legacy bridge，当前 Game 入口+fixture graph 无 control/executor/verifier。见下方 QA 模拟子树限定。 |
+| R07 | P2 / A | 原超时流复用已修复：基线第二次读到 OLD_FIRST_RESPONSE，新路径关闭流。request ID/server time/hash/geometry 回归通过。额外路径缺陷 CR01 已修复并黑盒复验。 |
+| R08 | P2 / B | 已修复。实际 panel builder A/B/C→A/B/D，基线四将，组合三将。保留成员详情、移除成员、时间倒序、歧义和派生证据失效回归通过。 |
+| R09 | P2 / D | 已修复空证据生成。独立基线反例调用模型，新路径固定拒绝且不调用 answer/rewrite；引用 ID 约束通过，不证明语义蕴含或真实模型准确率。 |
+| R10 | P2 / D | 跨 bucket canonical ID 迁移/重复拒绝通过。数据删除曾引入 CR04，已修复；独立证明其余 9 个 parsed 记录和顺序不变、qun bytes 不变。 |
+| R11 | P2 / D | 已修复。基线缺失属性变 0 的反例失败；新逻辑只计算两个分量都已知的属性，显式 0 与未知 None 分开。 |
+| R12 | P2 / D | 已修复。基线空白列表通过 schema 的反例失败；新 schema 在规范化后拒绝空 facts。 |
+| R13 | P2 / F | 已修复。独立基线后段 burst 反例失败；新逻辑检查全部 pair，完整且独立的 ambiguous/trace-only 规则通过。 |
+| R14 | P2 / F | 已修复。同 action type 下修改实际 reader bytes，基线 digest 不变、新 digest 改变；一次读取及消费字节绑定回归通过。19/19 仍只比较 action type。 |
+| R15 | P2 / F | 已修复。独立 all-failed payload 反例在基线取得错误信用；新 fold/coverage/refresh/scoring 不信任失败输出。 |
+| R16 | P2 / F | 已修复。独立 recovery/future-time 反例在基线失败；新失败截点与结束截点分别折叠有效历史。 |
+| R17 | P2 / C | 已修复。无虚构 timing domain 的 121 秒循环，基线 checkpoint_stale，组合持续推荐；map/recruit 源独立刷新。 |
+| R18 | P2 / C | 已修复。持久 journal+新 server 空 identity，基线只调 status 即停；组合先 observe 再核身份。changed/missing 身份保留旧基线负向通过。 |
+| R19 | P2 / C | 已修复。QA 推进时钟 300 秒，基线仍推荐，组合 observation_stale；输出前同帧/身份/时间/域绑定回归通过。 |
+| R20 | P2 / C | 已修复。基线源码未设置 deadline，已核验 SDK 默认 None；未启动无限等待。新代码真实 silent-child、初始化、调用、取消和清理测试通过。 |
+| R21 | P2 / E | 已修复。实际 TypeScript/NodeNext 在内存发射基线 ESM preload.js、新 CJS preload.cjs，编译 0 错误；真实 Electron sandbox/preload/custom URL 测试通过。[Electron 规则](https://www.electronjs.org/docs/latest/tutorial/esm#esm-preload-scripts-must-have-the-mjs-extension)。 |
+| R22 | P2 / E | 已修复。执行原处理函数重现 B preview/A report；新代码丢弃迟到结果。真实 picker/drop/paste/history/chat 竞争回归通过。 |
+| R23 | P2 / E | 已修复。原 React SSR 将 good 标不足、unknown 标充分；组合均正确。CR03 是测试端口 setup 失败，未进入此业务断言。 |
+| R24 | P2 / E | 原 Windows 写句柄问题修复，独立基线 4 反例为 1 pass/1 fail/2 error，新 API 原生通过。额外 CR06 已修复到 69-byte header→413/零文件，最终安装包复验待完成。 |
+| R25 | P2 / D | 文件链接原反例已修复；额外根 alias CR05 已修复。真实 Windows root/ancestor junction 在 runtime 两种模式均拒绝；普通根成功、真实 runtime 根须 opt-in。不是并发 reparse race 认证。 |
+| R26 | P2 / D | 已修复。基线 Windows/UNC 名称泄露原反例失败，新路径只给 basename；Linux/Windows 分隔符负向通过。 |
 
-Tool environment: ordinary shell and Node sandbox initialization failed with `helper_unknown_error: setup refresh had errors`. Automatically approved scoped `require_escalated` shell commands worked. This is an execution-environment limitation, not a passing or failing source-code result.
+## 新发现和返工
 
-## Evidence limits and final decision
+| ID | 优先级 | 位置（发现时 SHA） | 失败证据 | 当前状态 |
+|---|---|---|---|---|
+| CR01 | P2 | capture_bridge_client.py:48–51，A 4a2e4b8 | /mnt/c 被拼成不存在的 UNC；两组真实 proxy 均未启动，正确 C: 路径存在 | 已关闭：A 3d68e5d；真实 mapper、Linux 文件存在性、原黑盒、55 native/845 Linux 测试复验 |
+| CR02 | P2 | tests/install-smoke.mjs:44–48，E 8729d18f | 两次 ECONNREFUSED；Playwright async false 在 188ms 返回 false 而非 800ms timeout | helper 修复/13 个纯 Node 边界已通过；最终安装链仍待闭环 |
+| CR03 | P2 | tests/electron/regressions.spec.ts:61，E 5afaec4 | listen(0) 得到 5061，native HTTP 200 / Electron ERR_UNSAFE_PORT；beforeEach 失败 | E b865808 已提交；支持 runtime 整条 pipeline/安装待复验 |
+| CR04 | P2 | minor.yaml:451，D 2cfda735 | 删除漏掉尾注，YAML 将皇甫嵩数值挂到韩当；schema/322 tests 未发现 | 已关闭：D 587f8aba；独立全对象比较、邻接记录/顺序、QA327 通过 |
+| CR05 | P2 | client_package.py:77，D 2cfda735 | root.resolve 擦除 root alias，runtime=false 仍输出合成 private marker | 已关闭：D 587f8aba；原 probe、真实 Win junction、普通根/opt-in 和 QA327 通过 |
+| CR06 | P2 | advisor_api.py:294，E 5afaec4 | 69-byte PNG 头触发 DecompressionBombError→500、残留 69 bytes | E b865808 原 probe→413/零残留、native API11 通过；精确安装包待验 |
+| CR07 | P2 | regression.yml:54，F 42f0f50 | Node20 不满足 rebuild4.2.0/node-abi4.35.0 的 >=22.12 声明 | F 6bff970 精确 pin24.14.0；支持 runtime 全链待验 |
 
-Patch verdict: **PENDING — no APPROVE issued**. Production readiness: **NOT ESTABLISHED** independently of any future patch approval.
+CR03 依据标准的 [bad-port 规则](https://fetch.spec.whatwg.org/#port-blocking)，没有禁用浏览器保护。CR06 没有调高像素阈值，没有解码或分配巨图。
 
-No game input, old Highest controller execution, unauthenticated bridge dispatch, privileged task installation, raw private screenshot collection/publication, external holdout oracle access, global auth edits or master mutation is permitted in this review. Live validation belongs to the coordinator's explicitly scheduled safe window.
+所有源码修复由原 owner 完成。Reviewer 只写独立 probe/证据/报告；没有把临时路径替身的通过当真实生产代码通过。CR01 最终 probe 已去掉替身。CR04、CR05、CR06 的红灯文件均保留。
 
-Missing representative provider-exercised image accuracy/refusal/latency/cost evidence, independent holdout operation, signed clean-machine install/update/rollback, operational privacy/retention, reviewed human R&R provenance and action-specific live closure remain separate production gates. Do not turn missing evidence into success or a new code finding without a reproducible defect.
+## 独立执行 ledger
+
+原生 stdout/stderr 写入实际日志；没有用 StringIO 替换整个测试运行器。局部 CLI unit test 自带 stdout mock 不等于伪造整包执行。
+
+| 执行 | 结果 | provenance |
+|---|---|---|
+| Linux Python3.12.3 Pioneer | 845 total = 843 pass + 2 Windows-only skips，exit0 | 543890f 阶段；后续最终组合全量待刷新 |
+| Linux QA | 327/327，0 skip，exit0 | D587f8aba 组合28db7a1 |
+| Common | 2/2，exit0 | 初次六包组合 |
+| Native Windows capture/path | 55/55，0 skip，exit0 | A3d68e5d 组合 |
+| Native API Python3.14.3 | 原 10/10，exit0 | CR06 前 API 版本；历史结果 |
+| Native API Python3.12.14 | 当前 11/11，0 skip，exit0 | E b865808 |
+| 官方 ClientSession + stdio_client | Game7 / QA6、fixture claim、authority none、executable false、cache unchanged、strict negatives，通过 | 独立脚本，真实子进程 |
+| Game 观察/fixture import graph | control/executor/verifier=0；基线 control/legacy bridge=True | 独立干净进程 |
+| 原始基线反例 | QA 7 methods/10 assertion failures；eval 5 methods/7 assertion failures；API 4 methods/1 failure+2 errors | 预期红灯，非当前代码失败 |
+| Desktop Node24 早期 | npm ci/typecheck/build、Node2/Electron14、dist通过 | 初次 E 版本，仅历史 |
+| CI Node20 实测 | typecheck/build、Node9 pass；Electron13 pass/1 setup failure | CR03 5061；不报 R23 业务失败 |
+| Node24.14.0 helper tests | 13/13、0 skip，exit0 | 最新等待/端口纯 Node 测试 |
+| 安装 | 两次独立旧 driver 失败，已形成 CR02 | 不以作者后续重试覆盖 |
+| npm audit | 12 affected package entries，exit1 | 与基线逐项版本对照均相同 |
+
+Windows 全量另行真实运行：基线 764 项，6 failures/28 errors/9 skips；早期组合 823 项，6 failures/24 errors/9 skips。均显式使用同一 Python3.14.3/venv/`-X utf8`，不是完整通过。两个组合新增错误来自新增测试触及既有 POSIX-only fixture gate（public-payload module、golden byte-binding）；保留完整名称差集于独立 log index。不能据此声称原生 Windows Game MCP 可运行。
+
+最初 Git checkout-index 没有改掉已有 CRLF，导致 18 个 Linux eval errors 和 2 个 QA shell failures。等所有读者结束后，先证明只差 CRLF，再写回精确 Git bytes；未改 hash/expected/语义。最终三份 scenario JSON 与 shell script 字节已核验。Git 状态可能报告换行/stat 噪声，生产 diff 始终检查为 0。
+
+原始日志在 `C:/Users/Lan/AppData/Local/Temp/sanmou-cr-*.log`；可复现 probe、名称集合与 hash 索引在 [review state](../../.codex-autonomy/adversarial-review-20260908/)。原始命令和阶段记录见 WORKLOG/state，各组件报告保留作者首轮失败及依赖差异。最终收口会补齐当前组合的精确 ledger。
+
+## 只读和证据边界
+
+- Game MCP 使用唯一七工具 catalog；QA 六工具不变。普通执行/live replay 未启用，没有真实游戏输入、账户操作、真实 token 或外部 oracle 读取。
+- Windows-backed 和 Linux 路径转换均独立验证。使用明确的 `WSLENV=SANMOU_CAPTURE_TOKEN/w` 配置可让**虚构 token** 经真实 Windows proxy 到本地假服务；默认不自动传播且拒绝。实际 token 从未读取/设置/转发，不等于 live 观察。规则参见 [Microsoft WSLENV](https://learn.microsoft.com/en-us/windows/wsl/filesystems#share-environment-variables-between-windows-and-wsl-with-wslenv)。
+- 一次早期带 probe 路径替身的合成请求被严格时间窗口拒绝，之后诊断和真实修复代码通过；保留该日志，不降低 freshness 标准，不凭重试证明根因或真实跨时钟可靠性。
+- QA 的既有 Advisor fixture/replay 工具会在独立子进程使用 ReplayRuntime、UIActionRunner、VerifierRegistry 和固定 `_ReplayUI`/`AUTOMATION_TEST` 做**离线模拟**。已检查其固定 fake UI；它不等于真实输入，且不是“QA 所有派生进程零 executor import”的证明。Game MCP 的纯 fixture 路径是另一个明确检查过的边界。
+- 19 个 golden runtime fixtures 绑定实际消费字节，但 19/19 仅比 action type。静态 transcript 分数不是 provider vision、真实动作或独立 holdout 准确率。
+- 图像均为小型合成输入或仓库已有离线 fixtures；没有采集新游戏截图、调用真实模型或把未审数据当事实。
+
+## Production readiness：未建立
+
+独立 npm audit 仍有 1 critical / 8 high / 2 moderate / 1 low，共 12 个包；它们的 resolved versions 与 d377 基线完全相同。Electron29.4.6 是实际分发 runtime；其余 Babel/browserslist/axios/form-data/joi/nanoid/postcss/shell-quote/esbuild/Vite/extract-zip 属构建、开发、下载或未启用发布路径。没有把 devDependency 标签误当“绝不进入可执行工件”。需单独完成运行时/兼容升级及相应安全验证；本轮不擅自升级 Electron/Vite，也不关闭 audit。
+
+另保留：完整原生 Windows MCP/文件语义与时间测试失败；未确定原因的早期 Python-exited/other-listener 事件；未签名安装包、无 clean-machine/update/rollback 验证；缺真实 WGC/DXGI 观察、broker/ACL/签名证据、隐私审批/留存制度、代表性 provider vision 和真实 human R&R/独立 holdout/live closure。已安装在仓库之外的旧 Highest controller 未检查或退役。
