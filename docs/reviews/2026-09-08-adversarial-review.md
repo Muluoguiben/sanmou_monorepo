@@ -1,15 +1,14 @@
 # 2026-09-08 统一对抗性审查
-> 审查重开：**REQUEST CHANGES**。原报告提交470d92c的APPROVE已暂停，不再是当前可合入结论。协调者在相同源码的ext4组合回归中报告2项stdio关闭错误（AnyIO BrokenResourceError经ExceptionGroup逸出）；原日志已保留，reviewer已独立复现CR08，等待C替代提交及独立复测。下文原批准及通过结果仅作为历史证据，待替代C与重新组合验证后更新。
 
-**470d92c 历史结论（现已暂停）：APPROVE（仅本轮 patch）。** R01–R26 已逐项完成代码审查、原始反例与修复验证；独立新增 CR01–CR07 均由原 owner 返工并完成复审。最终六组件及组合源码身份已核验，所列支持环境的门禁通过。
+**当前结论：APPROVE（仅本轮 patch）。** C 的 CR08 修复6bdb0276已在新组合d4982ee独立复验；R01–R26及新增CR01–CR08均关闭。原470d92c批准曾因CR08暂停，本次结论由下列新执行证据重新建立，不撤销或覆盖历史失败。
 
-**Production readiness：未建立，不批准上线或真实游戏执行。** 原生 Windows 全量/时间敏感失败、既有依赖审计、未签名/clean-machine/update/rollback、真实 vision/holdout/broker/live closure 等边界保留。Reviewer 没有合并 master。
+**Production readiness：未建立，不批准上线或真实游戏执行。** 原生Windows全量/时间敏感失败、12项既有依赖审计、未签名及clean-machine/update/rollback、真实vision/holdout/broker/live closure边界保留。Reviewer没有合并master。
 
 ## 冻结输入与隔离
 
 - 基线 commit：`d377ef8bbaa69e6b25928255eac0cb62714e82f8`；tree：`5a7239bcc64689789d7cd7a6b148937ea3184760`。
 - Reviewer worktree：`C:/Users/Lan/.codex/worktrees/6737/sanmou_monorepo`；分支：`feat/adversarial-review-20260908`。
-- 最终受测组合 commit：`7f59f00778594accc49fd02a828a08097832c27c`；tree：`b812fb28f174af7daef353b50a766eaeb8f442c6`。
+- 当前受测组合 commit：`d4982eeb14e381812a66b3d5ef9db3db59c30170`；tree：`233b55f3ee62f763bce1c2b8fd4ee9fefe77c8aa`。原470d92c阶段受测源码为7f59f007。
 - 冻结原审查 SHA256：`aefac34f2a7811406e33c3ffae60c80a2a3878094c1c7c4f0cc0be862ec628cf`。协调副本 SHA256 `daa1f4d97f77fd38d1c9c5c43741256b436c3fff9f28f1312589996cea25a249`；独立 diff 只差最后空行。
 - 章程从协调树只读读取，SHA256：`d5725ef65ecdcd97b6430b41a0b474be233cd8aa84d462cb07a9dba7cd92a6e8`。
 - 只组合明确 final SHA；没有修改作者生产源码，没有创建其他 reviewer，没有合并/推送 master，没有操作游戏。
@@ -22,7 +21,7 @@
 |---|---|---|
 | A | `3d68e5dc87ffab718e436c8df3aff3935c360b2b` | [A.md](../test-reports/2026-09-08/A.md) |
 | B | `aa7ef1b0c3ac0a7d24a8b31e258cb6efc2d224fb` | [B.md](../test-reports/2026-09-08/B.md) |
-| C | `eb4ecd90ccd1c7b5ec4982a14e5c34de5acc8669` | [C.md](../test-reports/2026-09-08/C.md) |
+| C | `6bdb0276fd24c3eec7f72d838902085d59dd7c32` | [C.md](../test-reports/2026-09-08/C.md) |
 | D | `587f8abaa20a195da7a4486504ec6e8138d158bf` | [D.md](../test-reports/2026-09-08/D.md) |
 | E | `1eeffb76b514ec4bc58332c93cd419feb26ffaef` | [E.md](../test-reports/2026-09-08/E.md)、[E evidence](../test-reports/2026-09-08/E-test-evidence.json) |
 | F | `6bff970d8ed6d6eff6153e783b715273847847b7` | [F.md](../test-reports/2026-09-08/F.md) |
@@ -54,7 +53,7 @@
 | R17 | P2 / C | 已修复。无虚构 timing domain 的 121 秒循环，基线 checkpoint_stale，组合持续推荐；map/recruit 源独立刷新。 |
 | R18 | P2 / C | 已修复。持久 journal+新 server 空 identity，基线只调 status 即停；组合先 observe 再核身份。changed/missing 身份保留旧基线负向通过。 |
 | R19 | P2 / C | 已修复。QA 推进时钟 300 秒，基线仍推荐，组合 observation_stale；输出前同帧/身份/时间/域绑定回归通过。 |
-| R20 | P2 / C | **重开：CR08 / REQUEST CHANGES。** 原 deadline 修复存在 stdio 关闭竞态，可使 BrokenResourceError group 覆盖正常退出或原超时；见下方独立复现。 |
+| R20 | P2 / C | 已修复并重审：C6bdb0276关闭CR08；连接/调用/关闭期限保持有界，late stdout有接收端，primary错误保留、mixed错误可见。原竞态、跨平台和真实子进程复验见下方。 |
 | R21 | P2 / E | 已修复。实际 TypeScript/NodeNext 在内存发射基线 ESM preload.js、新 CJS preload.cjs，编译 0 错误；真实 Electron sandbox/preload/custom URL 测试通过。[Electron 规则](https://www.electronjs.org/docs/latest/tutorial/esm#esm-preload-scripts-must-have-the-mjs-extension)。 |
 | R22 | P2 / E | 已修复。执行原处理函数重现 B preview/A report；新代码丢弃迟到结果。真实 picker/drop/paste/history/chat 竞争回归通过。 |
 | R23 | P2 / E | 已修复。原 React SSR 将 good 标不足、unknown 标充分；组合均正确。CR03 是测试端口 setup 失败，未进入此业务断言。 |
@@ -73,15 +72,16 @@
 | CR05 | P2 | client_package.py:77，D 2cfda735 | root.resolve 擦除 root alias，runtime=false 仍输出合成 private marker | 已关闭：D 587f8aba；原 probe、真实 Win junction、普通根/opt-in 和 QA327 通过 |
 | CR06 | P2 | advisor_api.py:294，E 5afaec4 | 69-byte PNG 头触发 DecompressionBombError→500、残留 69 bytes | 已关闭：原 probe→413/零残留、native API11、两轮随包 API 像素拒绝/正常上传通过 |
 | CR07 | P2 | regression.yml:54，F 42f0f50 | Node20 不满足 rebuild4.2.0/node-abi4.35.0 的 >=22.12 声明 | 已关闭：F 6bff970 精确 pin24.14.0；独立 strict engines/编译/30 tests/打包/安装通过 |
+| CR08 | P2 | stdio_client.py:133/143，C eb4ecd90 | late stdout在Session关闭后向0receiver发送；正常退出或primary timeout被BrokenResourceError group覆盖 | 已关闭：C6bdb0276；独立Windows45/WSL51、两处Pioneer857、SDK受控及真实持续输出子进程通过 |
 
 CR03 依据标准的 [bad-port 规则](https://fetch.spec.whatwg.org/#port-blocking)，没有禁用浏览器保护。CR06 没有调高像素阈值，没有解码或分配巨图。
 
 所有源码修复由原 owner 完成。Reviewer 只写独立 probe/证据/报告；没有把临时路径替身的通过当真实生产代码通过。CR01 最终 probe 已去掉替身。CR04、CR05、CR06 的红灯文件均保留。
 
 
-## CR08：R20 关闭竞态重开
+## CR08：R20 关闭竞态复现与关闭
 
-**当前 REQUEST CHANGES，C replacement 尚未完成独立验证。** 协调者在相同生产源码的 ext4 组合上得到 846 tests / 2 errors / 2 skips；失败发生在两个 silent-tool 测试的客户端进入/关闭阶段，`stdout_reader` 向已关闭的 receive stream 发送消息，经 `ExceptionGroup` 逸出，并可能覆盖原始超时。
+**已关闭：C6bdb0276及新组合d4982ee完成独立验证。** 协调者在相同生产源码的 ext4 组合上得到 846 tests / 2 errors / 2 skips；失败发生在两个 silent-tool 测试的客户端进入/关闭阶段，`stdout_reader` 向已关闭的 receive stream 发送消息，经 `ExceptionGroup` 逸出，并可能覆盖原始超时。
 
 - 协调者完整日志：`/tmp/sanmou-root-integration-pioneer-20260908.log`；原两个测试另重跑 3 轮，每轮均 2 errors。C 在独立归档中也复现 12 tests / 2 errors。
 - Reviewer 在自己的 ext4 clone `/tmp/sanmou-cr-reopen-470d92c-MaNesZ` 对原两个测试跑 20 轮，全过。全部日志保留；**文件系统不是已证根因**，重跑通过也不撤销已观察到的错误。
@@ -89,11 +89,40 @@ CR03 依据标准的 [bad-port 规则](https://fetch.spec.whatwg.org/#port-block
 - 独立真实子进程探针使用官方 stdio：正常调用后，子进程在 stdin EOF 后继续发 4 条通知，旧源码 3/3 退出抛相同 group。另让子进程计划持续输出 30 秒，旧源码同样 3/3 复现。两类均确认 child reaped、worker 清空；持续流探针还确认无新增 pending task。所有数据均为合成 JSON。
 - 探针校正：最初 `final_open_receivers` 在 transport 自己的 finally 内采样，早于调用者关闭 reserve clone。C 指出后 reviewer 独立确认；现保留该中间计数，并把最终计数移到整个 client context 返回后。不能把合法关闭作用域内的一个临时 clone 判成最终泄漏。校正后旧源码仍稳定复现原异常。
 - 关闭要求：不抢走正常响应；连接与请求预算分别生效；primary timeout/cancel 保留；未知或混合 cleanup 错误仍可见；未调度/取消路径也关闭 clone/drain；真实持续输出子进程有界退出。禁止扩大原有时间常数或吞掉整个 ExceptionGroup 来制造通过。
-- 历史 Windows/Electron/安装器证据只对应 `7f59f007` 中当时未变的源码。旧安装器 hash 不绑定未来 C 修复组合；新报告须逐项区分复用证据与本次重新执行。
+- 历史 Windows/Electron/安装器证据只对应 `7f59f007` 中当时未变的源码。旧安装器 hash 不绑定新 C 修复组合；下面逐项区分复用证据与本次重新执行。
 
 原始日志：`sanmou-cr-stdio-controlled-before.log`、`sanmou-cr-stdio-controlled-before-corrected.log`、`sanmou-cr-stdio-real-late-before.log`、`sanmou-cr-stdio-real-persistent-before.log`，均位于 Windows Temp。独立 probe 已保存于 review state 的 `probes/`。
 
-## 独立执行 ledger
+
+## CR08 后本次重新执行的验证
+
+受测源码组合为 `d4982eeb14e381812a66b3d5ef9db3db59c30170`，tree `233b55f3ee62f763bce1c2b8fd4ee9fefe77c8aa`。C 为 `6bdb0276fd24c3eec7f72d838902085d59dd7c32`，其余五个组件未变。C 的新生产/test blob 与报告逐项一致；全部六组件 79 项文件检查（含删除、不含独立合并 TODO）为 0 mismatch。没有 reviewer 生产源码修改。
+
+| 本次独立执行 | 结果 |
+|---|---|
+| Windows Python3.12.14 harness focused | 45/45，0 skip，11.703s，exit0 |
+| WSL /mnt/c Python3.12.3 focused（含真实 Game/QA 客户端） | 51/51，0 skip，18.726s，exit0 |
+| WSL /mnt/c Pioneer 全量 | 857 total = 855 pass + 2 原 Windows-only skips，43.242s，exit0 |
+| 独立 ext4 Pioneer 全量 | 857 total = 855 pass + 同 2 skips，32.780s，exit0 |
+| 独立 ext4 QA / common 全量 | QA327/327（59.286s）、common2/2（0.004s），均 exit0、0 skip |
+| 独立真实 SDK/AnyIO stream probe，Windows + ext4 | 各正常/超时两场景通过；正常 10 个回复完整；原 TimeoutError 保留；late send 完成；最终 sender/receiver 都为 0 |
+| 官方 stdio 真实子进程有限晚到输出，Windows + ext4 | 各 3/3 正常退出，child reaped、worker 清空、新增 pending task=0 |
+| 官方 stdio 真实子进程计划持续输出 30s，Windows + ext4 | 各 3/3，Windows2.125–2.140s / ext4 2.202–2.213s 完成；未触及 12s 外层 watchdog；child reaped、task=0 |
+| 原始 primary/cancel/unknown/mixed/零调度/ready Future 竞态回归 | 新增 11 methods 全部独立执行；初始化、catalog、call 保留原 TimeoutError 对象；mixed group 保留原对象，不吞未知异常；取消、零调度和资源清理通过 |
+| 官方独立 ClientSession smoke | Game7 / QA6；严格 type/extra 拒绝；fixture claim；authority none、executable false、live cache 不变 |
+| 受测导入路径与实际 bytes | Windows 与 /mnt/c 加载 reviewer 路径，ext4 加载独立 clone；三处规范化 Git blob 均为 `fe742211fb9a14614b977c0551c431d1cf3cf9db` |
+
+两个 skips 仍是 A 的 `test_native_client_proxy_server_end_to_end_with_synthetic_capture` 和 `test_retired_entry_points_exit_without_writing_requested_paths`。本次原生 focused 不能冒充原生 Windows 全量通过。所有新日志均无 unretrieved-Future/Task 或 destroyed-pending-task 诊断。
+
+运行环境沿用独立 venv；MCP1.29.1 / AnyIO4.15.1 / Pydantic2.13.5 / FastAPI0.141.1。所有 Python 执行都带 `PYTHONNOUSERSITE=1`、`PYTHONDONTWRITEBYTECODE=1`、`-B`，并显式绑定受测树的三个包 src。ext4 clone 为 `/tmp/sanmou-cr-cr08-d4982ee`，从确切组合 detached checkout，不修改协调树。
+
+Windows 与 /mnt/c 的 stdio_client 实际 SHA256 为 `15b97c12800b227390178406c5b69b9ac5a31f6bedffb6dcd26e9a9daf521b7b`，ext4 LF bytes 为 `485edb6bc371469629ac64f1ae5e1b7fafa5bc8077a19479d132f59ac91b3379`；仅换行形式不同，规范化 Git blob 相同。没有调整 fixture digest 或生产/既有测试期限。
+
+新日志为 Windows Temp 中的 `sanmou-cr-cr08-*.log`；SHA256、退出状态、原生摘要及警告检查保存于 `reopened-log-index.json`。完整文件身份见 `cr08-source-provenance.json`。受控/真实子进程 probe 使用审查提交 42357d7 中的实际代码，真实子进程额外运行 `--persistent`；C 报告里较早版本的 probe hash 不冒充本次版本。
+
+**未重新执行的历史证据：** 原生 capture55/API11、Desktop strict-install/typecheck/build/15 Node+15 Electron、两轮安装和 npm audit 仍对应 7f59f007 阶段的未变 A/E/F 源码及历史安装包。本次没有 rebuild/install，旧安装器 `c7a7eeef…` 不包含新 C 修复，也不绑定 d4982ee。生产部署、完整原生 Windows、签名和真实游戏能力仍未建立。以下历史 ledger 保留原始成功与失败，不作为本次重新运行记录。
+
+## 470d92c 阶段独立执行 ledger（历史）
 
 原生 stdout/stderr 写入实际日志；没有用 StringIO 替换整个测试运行器。局部 CLI unit test 自带 stdout mock 不等于伪造整包执行。
 
@@ -123,7 +152,7 @@ Windows 全量另行真实运行：基线 764 项，6 failures/28 errors/9 skips
 原始日志在 `C:/Users/Lan/AppData/Local/Temp/sanmou-cr-*.log`；可复现 probe、名称集合与 hash 索引在 [review state](../../.codex-autonomy/adversarial-review-20260908/)。原始命令和阶段记录见 WORKLOG/state，各组件报告保留作者首轮失败及依赖差异。最终 ledger 和 31 份原始日志的 SHA256 已保存在 `final-log-index.json`。
 
 
-## 最终安装与命令 provenance
+## 470d92c 阶段安装与命令 provenance（历史）
 
 - 实测源码组合：`7f59f00778594accc49fd02a828a08097832c27c` / tree `b812fb28f174af7daef353b50a766eaeb8f442c6`。最终报告/状态提交只补文档与 reviewer 证据，不能自称自己的 SHA 已被先验测试。
 - 六组件变更文件共 79 项（排除独立合并的 TODO），逐项与组合 Git blob 对照为 0 mismatch；包含删除文件检查。最终生产源码 diff 为 0。
@@ -199,3 +228,7 @@ D:/nodejs/node.exe D:/nodejs/node_modules/npm/bin/npm-cli.js run dist:win
 | [1c924e63](https://github.com/Muluoguiben/sanmou_monorepo/commit/1c924e6360698e0b124621e696aed3cdaaae0692) | merge(review): align supported CI runtime |
 | [05dee091](https://github.com/Muluoguiben/sanmou_monorepo/commit/05dee091d2c7e4001a4bf7236c90abd45f8050cc) | docs(review): record findings and verified repairs |
 | [7f59f007](https://github.com/Muluoguiben/sanmou_monorepo/commit/7f59f00778594accc49fd02a828a08097832c27c) | merge(review): bind E supported-runtime report |
+| [470d92cd](https://github.com/Muluoguiben/sanmou_monorepo/commit/470d92cdc6831f6c9bec4ce99050ccf6056b033c) | docs(review): historical patch approval, later suspended for CR08 |
+| [a6786122](https://github.com/Muluoguiben/sanmou_monorepo/commit/a6786122bea399dcbcd3b2ee3cb49e6aefe902bd) | docs(review): reopen stdio shutdown audit |
+| [42357d77](https://github.com/Muluoguiben/sanmou_monorepo/commit/42357d777bc45dde70191e2df711aefea0966383) | docs(review): preserve CR08 shutdown evidence |
+| [d4982eeb](https://github.com/Muluoguiben/sanmou_monorepo/commit/d4982eeb14e381812a66b3d5ef9db3db59c30170) | merge(review): integrate CR08 shutdown fix |

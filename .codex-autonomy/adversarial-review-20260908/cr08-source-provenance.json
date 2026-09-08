@@ -1,0 +1,526 @@
+{
+  "combined_commit": "d4982eeb14e381812a66b3d5ef9db3db59c30170",
+  "combined_tree": "233b55f3ee62f763bce1c2b8fd4ee9fefe77c8aa",
+  "components": {
+    "A": {
+      "final_sha": "3d68e5dc87ffab718e436c8df3aff3935c360b2b",
+      "tree": "54f5d34fb9a6ab8d902dc62f85d98804b820ae97",
+      "report": "docs/test-reports/2026-09-08/A.md",
+      "report_blob": "887fbd6a98380c07ecdc999a5302dfb6911cbf9c",
+      "files_checked": 16
+    },
+    "B": {
+      "final_sha": "aa7ef1b0c3ac0a7d24a8b31e258cb6efc2d224fb",
+      "tree": "925ba0ced5c394097df32f6018de65e49cd861d8",
+      "report": "docs/test-reports/2026-09-08/B.md",
+      "report_blob": "dbe73d0d6472e7efb914cc779ab8baf7b39c2ec8",
+      "files_checked": 6
+    },
+    "C": {
+      "final_sha": "6bdb0276fd24c3eec7f72d838902085d59dd7c32",
+      "tree": "2feb73ef36a0582fc04edfd8de18357a403c4254",
+      "report": "docs/test-reports/2026-09-08/C.md",
+      "report_blob": "2fa4fa4615d3b3edf8e4ea65ea47c0b9fa6c107d",
+      "files_checked": 8
+    },
+    "D": {
+      "final_sha": "587f8abaa20a195da7a4486504ec6e8138d158bf",
+      "tree": "35a0b9f7b9633b3699dd22d6f070ff60a421513b",
+      "report": "docs/test-reports/2026-09-08/D.md",
+      "report_blob": "c4b577b5516bf816ab159fc8e3d4e8dcb634cbd0",
+      "files_checked": 15
+    },
+    "E": {
+      "final_sha": "1eeffb76b514ec4bc58332c93cd419feb26ffaef",
+      "tree": "a9fb57aabc332a7000b740de8f866842f5f9545d",
+      "report": "docs/test-reports/2026-09-08/E.md",
+      "report_blob": "4ea828b9c1ba7b7337fa1c6f48bb0e0fe66ec108",
+      "files_checked": 23
+    },
+    "F": {
+      "final_sha": "6bff970d8ed6d6eff6153e783b715273847847b7",
+      "tree": "f4bb8e11ce025be06fcbff7c9c8ad0e89f2a33ea",
+      "report": "docs/test-reports/2026-09-08/F.md",
+      "report_blob": "edffe3477748e7d59fbb351b8e582b6cab0612c2",
+      "files_checked": 11
+    }
+  },
+  "changed_files": [
+    {
+      "component": "A",
+      "path": ".agent/skills/sanmou-client-control/SKILL.md",
+      "expected_blob": "4af0f64f487c8b91a0f8563995881eb3e6ef82e1",
+      "combined_blob": "4af0f64f487c8b91a0f8563995881eb3e6ef82e1"
+    },
+    {
+      "component": "A",
+      "path": ".agent/skills/sanmou-client-control/scripts/install_sanmou_controller_task.bat",
+      "expected_blob": "8446d20106c4db90798bd71fc3cd13c5396c5b58",
+      "combined_blob": "8446d20106c4db90798bd71fc3cd13c5396c5b58"
+    },
+    {
+      "component": "A",
+      "path": ".agent/skills/sanmou-client-control/scripts/sanmou_client_control.ps1",
+      "expected_blob": "02cbec105ff45c06f23076532de93b62c6235f7e",
+      "combined_blob": "02cbec105ff45c06f23076532de93b62c6235f7e"
+    },
+    {
+      "component": "A",
+      "path": "docs/bridge-architecture.md",
+      "expected_blob": "91d68851ecf14d490b551d93e00c5ccf4fc2aed5",
+      "combined_blob": "91d68851ecf14d490b551d93e00c5ccf4fc2aed5"
+    },
+    {
+      "component": "A",
+      "path": "docs/test-reports/2026-09-08/A.md",
+      "expected_blob": "887fbd6a98380c07ecdc999a5302dfb6911cbf9c",
+      "combined_blob": "887fbd6a98380c07ecdc999a5302dfb6911cbf9c"
+    },
+    {
+      "component": "A",
+      "path": "packages/pioneer-agent/src/pioneer_agent/adapters/__init__.py",
+      "expected_blob": "83a19923d8c5881a3e64328a1eae50e809b4a1f1",
+      "combined_blob": "83a19923d8c5881a3e64328a1eae50e809b4a1f1"
+    },
+    {
+      "component": "A",
+      "path": "packages/pioneer-agent/src/pioneer_agent/adapters/bridge_client.py",
+      "expected_blob": "c736f8cfe90ec9a6e55657e92c2f5289a08f364d",
+      "combined_blob": "c736f8cfe90ec9a6e55657e92c2f5289a08f364d"
+    },
+    {
+      "component": "A",
+      "path": "packages/pioneer-agent/src/pioneer_agent/adapters/bridge_proxy.py",
+      "expected_blob": "ccff7aa20bb816f578626511cad0872ccd4872d2",
+      "combined_blob": "ccff7aa20bb816f578626511cad0872ccd4872d2"
+    },
+    {
+      "component": "A",
+      "path": "packages/pioneer-agent/src/pioneer_agent/adapters/capture.py",
+      "expected_blob": "f01f3e843f1cc61ac514bb4eba2c60ea3f638558",
+      "combined_blob": "f01f3e843f1cc61ac514bb4eba2c60ea3f638558"
+    },
+    {
+      "component": "A",
+      "path": "packages/pioneer-agent/src/pioneer_agent/adapters/capture_bridge_client.py",
+      "expected_blob": "6811e3a451b6a29a6432cf9b345ecbc3ef4e8673",
+      "combined_blob": "6811e3a451b6a29a6432cf9b345ecbc3ef4e8673"
+    },
+    {
+      "component": "A",
+      "path": "packages/pioneer-agent/src/pioneer_agent/adapters/win_bridge_server.py",
+      "expected_blob": "5d5c439309159c8c1a20137c9ba5633b3b478740",
+      "combined_blob": "5d5c439309159c8c1a20137c9ba5633b3b478740"
+    },
+    {
+      "component": "A",
+      "path": "packages/pioneer-agent/tests/unit/test_bridge_client.py",
+      "expected_blob": "ec7e3f149f4d530a2edd0ad7aa37905483cf1fd0",
+      "combined_blob": "ec7e3f149f4d530a2edd0ad7aa37905483cf1fd0"
+    },
+    {
+      "component": "A",
+      "path": "packages/pioneer-agent/tests/unit/test_capture_bridge_paths.py",
+      "expected_blob": "bc83bcb5a2c88484c6ead85427db4baf4fcb82dd",
+      "combined_blob": "bc83bcb5a2c88484c6ead85427db4baf4fcb82dd"
+    },
+    {
+      "component": "A",
+      "path": "packages/pioneer-agent/tests/unit/test_capture_bridge_security.py",
+      "expected_blob": "6c83ab3427fdd3f3af7b13b89af5d4389f1f47e9",
+      "combined_blob": "6c83ab3427fdd3f3af7b13b89af5d4389f1f47e9"
+    },
+    {
+      "component": "A",
+      "path": "packages/pioneer-agent/tests/unit/test_win_bridge_server_guard.py",
+      "expected_blob": "dfc8a62b4b2484ed4340e1e32d8b42e7db913bdb",
+      "combined_blob": "dfc8a62b4b2484ed4340e1e32d8b42e7db913bdb"
+    },
+    {
+      "component": "A",
+      "path": "packages/pioneer-agent/tests/unit/test_win_capture_boundary.py",
+      "expected_blob": "a45eb792f376738931a400b6627d749ea60e87ac",
+      "combined_blob": "a45eb792f376738931a400b6627d749ea60e87ac"
+    },
+    {
+      "component": "B",
+      "path": "docs/test-reports/2026-09-08/B.md",
+      "expected_blob": "dbe73d0d6472e7efb914cc779ab8baf7b39c2ec8",
+      "combined_blob": "dbe73d0d6472e7efb914cc779ab8baf7b39c2ec8"
+    },
+    {
+      "component": "B",
+      "path": "packages/pioneer-agent/src/pioneer_agent/mcp_server/privacy.py",
+      "expected_blob": "1e9a55f10c61c8e64fdf56b0fab7ce1808e7d6db",
+      "combined_blob": "1e9a55f10c61c8e64fdf56b0fab7ce1808e7d6db"
+    },
+    {
+      "component": "B",
+      "path": "packages/pioneer-agent/src/pioneer_agent/mcp_server/service.py",
+      "expected_blob": "ae69a0cef9165b0a4408affa8a0e874e16404a0a",
+      "combined_blob": "ae69a0cef9165b0a4408affa8a0e874e16404a0a"
+    },
+    {
+      "component": "B",
+      "path": "packages/pioneer-agent/src/pioneer_agent/perception/domains/merge.py",
+      "expected_blob": "fddaf7273cd9855eebb9ca99bfde56c7fc83e5ad",
+      "combined_blob": "fddaf7273cd9855eebb9ca99bfde56c7fc83e5ad"
+    },
+    {
+      "component": "B",
+      "path": "packages/pioneer-agent/tests/unit/test_game_mcp_public_payload.py",
+      "expected_blob": "4ef40626415415eb1e1864da84e6fd5fb8a8f077",
+      "combined_blob": "4ef40626415415eb1e1864da84e6fd5fb8a8f077"
+    },
+    {
+      "component": "B",
+      "path": "packages/pioneer-agent/tests/unit/test_team_roster_merge.py",
+      "expected_blob": "00424c95b5fa9ce323dadd4817beee8ac50b2a4f",
+      "combined_blob": "00424c95b5fa9ce323dadd4817beee8ac50b2a4f"
+    },
+    {
+      "component": "C",
+      "path": "docs/test-reports/2026-09-08/C.md",
+      "expected_blob": "2fa4fa4615d3b3edf8e4ea65ea47c0b9fa6c107d",
+      "combined_blob": "2fa4fa4615d3b3edf8e4ea65ea47c0b9fa6c107d"
+    },
+    {
+      "component": "C",
+      "path": "packages/pioneer-agent/src/pioneer_agent/agent_harness/loop.py",
+      "expected_blob": "5473a9631922c5cf3fe978f11e50e95662544d95",
+      "combined_blob": "5473a9631922c5cf3fe978f11e50e95662544d95"
+    },
+    {
+      "component": "C",
+      "path": "packages/pioneer-agent/src/pioneer_agent/agent_harness/policy.py",
+      "expected_blob": "ad06b8d9c834b31537fa9411d8d6af087c08b754",
+      "combined_blob": "ad06b8d9c834b31537fa9411d8d6af087c08b754"
+    },
+    {
+      "component": "C",
+      "path": "packages/pioneer-agent/src/pioneer_agent/agent_harness/stdio_client.py",
+      "expected_blob": "fe742211fb9a14614b977c0551c431d1cf3cf9db",
+      "combined_blob": "fe742211fb9a14614b977c0551c431d1cf3cf9db"
+    },
+    {
+      "component": "C",
+      "path": "packages/pioneer-agent/src/pioneer_agent/app/game_agent.py",
+      "expected_blob": "c4059cd15105ee70e12ed2242a64bed841178d89",
+      "combined_blob": "c4059cd15105ee70e12ed2242a64bed841178d89"
+    },
+    {
+      "component": "C",
+      "path": "packages/pioneer-agent/tests/unit/test_agent_harness_lifecycle.py",
+      "expected_blob": "30897cfe0a671edf0596ed5b725ba11622ac674e",
+      "combined_blob": "30897cfe0a671edf0596ed5b725ba11622ac674e"
+    },
+    {
+      "component": "C",
+      "path": "packages/pioneer-agent/tests/unit/test_agent_harness_shutdown.py",
+      "expected_blob": "e3930fe446b145ade0900a424c2439be707d50e4",
+      "combined_blob": "e3930fe446b145ade0900a424c2439be707d50e4"
+    },
+    {
+      "component": "C",
+      "path": "packages/pioneer-agent/tests/unit/test_agent_harness_timeouts.py",
+      "expected_blob": "6de43c9061f1b0c9db4100aafa78f1d7874769c4",
+      "combined_blob": "6de43c9061f1b0c9db4100aafa78f1d7874769c4"
+    },
+    {
+      "component": "D",
+      "path": "docs/test-reports/2026-09-08/D.md",
+      "expected_blob": "c4b577b5516bf816ab159fc8e3d4e8dcb634cbd0",
+      "combined_blob": "c4b577b5516bf816ab159fc8e3d4e8dcb634cbd0"
+    },
+    {
+      "component": "D",
+      "path": "packages/qa-agent/knowledge_sources/profiles/heroes/minor.yaml",
+      "expected_blob": "7df7ff6cdd506f36e761e65f7a645badf5e96026",
+      "combined_blob": "7df7ff6cdd506f36e761e65f7a645badf5e96026"
+    },
+    {
+      "component": "D",
+      "path": "packages/qa-agent/src/qa_agent/app/run_video_pipeline.py",
+      "expected_blob": "92ea20f7fdb7e8cbd1e18337c003234991230edf",
+      "combined_blob": "92ea20f7fdb7e8cbd1e18337c003234991230edf"
+    },
+    {
+      "component": "D",
+      "path": "packages/qa-agent/src/qa_agent/chat/agent.py",
+      "expected_blob": "f2ec068d3a8fe54c51c80c2c421b0507b4b12ba9",
+      "combined_blob": "f2ec068d3a8fe54c51c80c2c421b0507b4b12ba9"
+    },
+    {
+      "component": "D",
+      "path": "packages/qa-agent/src/qa_agent/index/search_index.py",
+      "expected_blob": "3a6e53f948d859ce2a5b9c069c17c2ccd0d0a5ff",
+      "combined_blob": "3a6e53f948d859ce2a5b9c069c17c2ccd0d0a5ff"
+    },
+    {
+      "component": "D",
+      "path": "packages/qa-agent/src/qa_agent/ingestion/client_lua_crypto.py",
+      "expected_blob": "30e5e0f047fc0dd6df41e399410e4377c0b9e345",
+      "combined_blob": "30e5e0f047fc0dd6df41e399410e4377c0b9e345"
+    },
+    {
+      "component": "D",
+      "path": "packages/qa-agent/src/qa_agent/ingestion/client_package.py",
+      "expected_blob": "3a5553253ddc2c4448ae46f56931d368fc1d1bb5",
+      "combined_blob": "3a5553253ddc2c4448ae46f56931d368fc1d1bb5"
+    },
+    {
+      "component": "D",
+      "path": "packages/qa-agent/src/qa_agent/ingestion/normalize.py",
+      "expected_blob": "cec67d115fb63f25b6228e10cb918359485e1204",
+      "combined_blob": "cec67d115fb63f25b6228e10cb918359485e1204"
+    },
+    {
+      "component": "D",
+      "path": "packages/qa-agent/src/qa_agent/ingestion/publish.py",
+      "expected_blob": "361beeb2c9c770528b048242170475066e3543a6",
+      "combined_blob": "361beeb2c9c770528b048242170475066e3543a6"
+    },
+    {
+      "component": "D",
+      "path": "packages/qa-agent/src/qa_agent/knowledge/loader.py",
+      "expected_blob": "f0a5c954b675d7560810803ca1764c3826d9a8b0",
+      "combined_blob": "f0a5c954b675d7560810803ca1764c3826d9a8b0"
+    },
+    {
+      "component": "D",
+      "path": "packages/qa-agent/src/qa_agent/knowledge/models.py",
+      "expected_blob": "64a8289c068529eef8a5d9163cf310c4494fb7ba",
+      "combined_blob": "64a8289c068529eef8a5d9163cf310c4494fb7ba"
+    },
+    {
+      "component": "D",
+      "path": "packages/qa-agent/tests/fixtures/qa_minor_dedup_baseline.json",
+      "expected_blob": "bac6b5537c3900032a1664675d1f12bd8edf7daf",
+      "combined_blob": "bac6b5537c3900032a1664675d1f12bd8edf7daf"
+    },
+    {
+      "component": "D",
+      "path": "packages/qa-agent/tests/test_kb_dedup_preservation.py",
+      "expected_blob": "496a4116d03ddc9803c2c9cefa4bee5ed2a108fe",
+      "combined_blob": "496a4116d03ddc9803c2c9cefa4bee5ed2a108fe"
+    },
+    {
+      "component": "D",
+      "path": "packages/qa-agent/tests/test_review_d_regressions.py",
+      "expected_blob": "c39e0216fbb65e848bcb38534fca91ec13223252",
+      "combined_blob": "c39e0216fbb65e848bcb38534fca91ec13223252"
+    },
+    {
+      "component": "D",
+      "path": "packages/qa-agent/tests/test_run_video_pipeline_cli.py",
+      "expected_blob": "ba76d01aea15ac900f711b49416c834740d84800",
+      "combined_blob": "ba76d01aea15ac900f711b49416c834740d84800"
+    },
+    {
+      "component": "E",
+      "path": "apps/sanmou-advisor-desktop/.gitignore",
+      "expected_blob": "4c3cc430656c5cc136af709050710fa752d72b6e",
+      "combined_blob": "4c3cc430656c5cc136af709050710fa752d72b6e"
+    },
+    {
+      "component": "E",
+      "path": "apps/sanmou-advisor-desktop/README.md",
+      "expected_blob": "898c237c6f8ba0ba9e1374040a57fe44808d6e28",
+      "combined_blob": "898c237c6f8ba0ba9e1374040a57fe44808d6e28"
+    },
+    {
+      "component": "E",
+      "path": "apps/sanmou-advisor-desktop/electron-builder.json",
+      "expected_blob": "039ac5c5d1f247037982cfde4e3a72429a539e38",
+      "combined_blob": "039ac5c5d1f247037982cfde4e3a72429a539e38"
+    },
+    {
+      "component": "E",
+      "path": "apps/sanmou-advisor-desktop/package-lock.json",
+      "expected_blob": "3e193614d95e4f07563d919b4b958fac5d05680c",
+      "combined_blob": "3e193614d95e4f07563d919b4b958fac5d05680c"
+    },
+    {
+      "component": "E",
+      "path": "apps/sanmou-advisor-desktop/package.json",
+      "expected_blob": "54f0e76fe876c18e8431b4a9c937b831838cd50a",
+      "combined_blob": "54f0e76fe876c18e8431b4a9c937b831838cd50a"
+    },
+    {
+      "component": "E",
+      "path": "apps/sanmou-advisor-desktop/playwright.config.ts",
+      "expected_blob": "04232a46c688cdb49288777fd2817fa1887d6868",
+      "combined_blob": "04232a46c688cdb49288777fd2817fa1887d6868"
+    },
+    {
+      "component": "E",
+      "path": "apps/sanmou-advisor-desktop/src/electron/main.ts",
+      "expected_blob": "82b6573f05bfb9543636b2b7700197270875491e",
+      "combined_blob": "82b6573f05bfb9543636b2b7700197270875491e"
+    },
+    {
+      "component": "E",
+      "path": "apps/sanmou-advisor-desktop/src/electron/preload.cts",
+      "expected_blob": "1bb016831441ec06ae57dbba97996b5749da26dc",
+      "combined_blob": "1bb016831441ec06ae57dbba97996b5749da26dc"
+    },
+    {
+      "component": "E",
+      "path": "apps/sanmou-advisor-desktop/src/electron/python.ts",
+      "expected_blob": "e244f5c62f433230f20848fd10b60065ee6d0aa7",
+      "combined_blob": "e244f5c62f433230f20848fd10b60065ee6d0aa7"
+    },
+    {
+      "component": "E",
+      "path": "apps/sanmou-advisor-desktop/src/renderer/App.tsx",
+      "expected_blob": "5405accc405d481a99a4a83c35f6c794670bc874",
+      "combined_blob": "5405accc405d481a99a4a83c35f6c794670bc874"
+    },
+    {
+      "component": "E",
+      "path": "apps/sanmou-advisor-desktop/src/renderer/api.ts",
+      "expected_blob": "4c56c8ac95c3031688593eb50408d4c11c03f4bc",
+      "combined_blob": "4c56c8ac95c3031688593eb50408d4c11c03f4bc"
+    },
+    {
+      "component": "E",
+      "path": "apps/sanmou-advisor-desktop/tests/advisor-readiness.mjs",
+      "expected_blob": "be6f6b8adc7fd3bac580050a573a4823478efb97",
+      "combined_blob": "be6f6b8adc7fd3bac580050a573a4823478efb97"
+    },
+    {
+      "component": "E",
+      "path": "apps/sanmou-advisor-desktop/tests/advisor-readiness.test.mjs",
+      "expected_blob": "080e9babfaf1d0e5ff22f6a8130c18ac998c6c55",
+      "combined_blob": "080e9babfaf1d0e5ff22f6a8130c18ac998c6c55"
+    },
+    {
+      "component": "E",
+      "path": "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts",
+      "expected_blob": "61b503e8e7831133d9f7025297da928df97acae4",
+      "combined_blob": "61b503e8e7831133d9f7025297da928df97acae4"
+    },
+    {
+      "component": "E",
+      "path": "apps/sanmou-advisor-desktop/tests/install-smoke.mjs",
+      "expected_blob": "3b129aff14e8a69dc3fa596bb2b0f8ed0efe33a3",
+      "combined_blob": "3b129aff14e8a69dc3fa596bb2b0f8ed0efe33a3"
+    },
+    {
+      "component": "E",
+      "path": "apps/sanmou-advisor-desktop/tests/python.test.mjs",
+      "expected_blob": "635404c70e23d83fc70c8ad3ddec1f737ca44cf5",
+      "combined_blob": "635404c70e23d83fc70c8ad3ddec1f737ca44cf5"
+    },
+    {
+      "component": "E",
+      "path": "apps/sanmou-advisor-desktop/tests/safe-ports.mjs",
+      "expected_blob": "c0bff318d9a5b5344f360862d78ab50d42c1ea49",
+      "combined_blob": "c0bff318d9a5b5344f360862d78ab50d42c1ea49"
+    },
+    {
+      "component": "E",
+      "path": "apps/sanmou-advisor-desktop/tests/safe-ports.test.mjs",
+      "expected_blob": "cd66fc342dd697e34f8086282a0b18bdbf675910",
+      "combined_blob": "cd66fc342dd697e34f8086282a0b18bdbf675910"
+    },
+    {
+      "component": "E",
+      "path": "apps/sanmou-advisor-desktop/vite.config.ts",
+      "expected_blob": "904bddb31326c79d056d2b7f4e8b0df712d2382b",
+      "combined_blob": "904bddb31326c79d056d2b7f4e8b0df712d2382b"
+    },
+    {
+      "component": "E",
+      "path": "docs/test-reports/2026-09-08/E-test-evidence.json",
+      "expected_blob": "e6ee8dc5f0a6a70583dd2e57853d3b178cffb289",
+      "combined_blob": "e6ee8dc5f0a6a70583dd2e57853d3b178cffb289"
+    },
+    {
+      "component": "E",
+      "path": "docs/test-reports/2026-09-08/E.md",
+      "expected_blob": "4ea828b9c1ba7b7337fa1c6f48bb0e0fe66ec108",
+      "combined_blob": "4ea828b9c1ba7b7337fa1c6f48bb0e0fe66ec108"
+    },
+    {
+      "component": "E",
+      "path": "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py",
+      "expected_blob": "ab8480674e99777d43293d020bf13ed91ef75d4b",
+      "combined_blob": "ab8480674e99777d43293d020bf13ed91ef75d4b"
+    },
+    {
+      "component": "E",
+      "path": "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py",
+      "expected_blob": "51e2e4732519ce91691ed11ccfce86dce058946c",
+      "combined_blob": "51e2e4732519ce91691ed11ccfce86dce058946c"
+    },
+    {
+      "component": "F",
+      "path": ".github/workflows/regression.yml",
+      "expected_blob": "05ac1c5bb2a5deca3c560bd99ba0f0fff75489dd",
+      "combined_blob": "05ac1c5bb2a5deca3c560bd99ba0f0fff75489dd"
+    },
+    {
+      "component": "F",
+      "path": "docs/test-reports/2026-09-08/F.md",
+      "expected_blob": "edffe3477748e7d59fbb351b8e582b6cab0612c2",
+      "combined_blob": "edffe3477748e7d59fbb351b8e582b6cab0612c2"
+    },
+    {
+      "component": "F",
+      "path": "packages/pioneer-agent/evaluation/scenarios/v1/.gitattributes",
+      "expected_blob": "2e6b41088ff8eb9241aa501f7681e6335cbf8370",
+      "combined_blob": "2e6b41088ff8eb9241aa501f7681e6335cbf8370"
+    },
+    {
+      "component": "F",
+      "path": "packages/pioneer-agent/src/pioneer_agent/app/mcp_eval.py",
+      "expected_blob": "7f2f85b975fa4e1b2625754f8314bb49c774a25b",
+      "combined_blob": "7f2f85b975fa4e1b2625754f8314bb49c774a25b"
+    },
+    {
+      "component": "F",
+      "path": "packages/pioneer-agent/src/pioneer_agent/mcp_eval/models.py",
+      "expected_blob": "81bdffa71a7d636f5d8269a2b232773e5662a8e6",
+      "combined_blob": "81bdffa71a7d636f5d8269a2b232773e5662a8e6"
+    },
+    {
+      "component": "F",
+      "path": "packages/pioneer-agent/src/pioneer_agent/mcp_eval/runner.py",
+      "expected_blob": "7a9ef4eacd2c80fac8f6de69d95d991ca80aacc0",
+      "combined_blob": "7a9ef4eacd2c80fac8f6de69d95d991ca80aacc0"
+    },
+    {
+      "component": "F",
+      "path": "packages/pioneer-agent/src/pioneer_agent/mcp_eval/scoring.py",
+      "expected_blob": "3c2bba5e6bf97a9bd6d1d2df5bee0f37806b63ca",
+      "combined_blob": "3c2bba5e6bf97a9bd6d1d2df5bee0f37806b63ca"
+    },
+    {
+      "component": "F",
+      "path": "packages/pioneer-agent/src/pioneer_agent/mcp_eval/source_bindings.py",
+      "expected_blob": "906024ff8f41ecfef98e35ed8d0aff4cccdbb73d",
+      "combined_blob": "906024ff8f41ecfef98e35ed8d0aff4cccdbb73d"
+    },
+    {
+      "component": "F",
+      "path": "packages/pioneer-agent/src/pioneer_agent/record_replay/annotations.py",
+      "expected_blob": "1541e09e297cb274006d1cef99ac5bbe88cfc008",
+      "combined_blob": "1541e09e297cb274006d1cef99ac5bbe88cfc008"
+    },
+    {
+      "component": "F",
+      "path": "packages/pioneer-agent/tests/unit/test_mcp_eval_regressions.py",
+      "expected_blob": "9c00a3b082b52890563f0df21e83994ce90afd15",
+      "combined_blob": "9c00a3b082b52890563f0df21e83994ce90afd15"
+    },
+    {
+      "component": "F",
+      "path": "packages/pioneer-agent/tests/unit/test_record_replay_annotations.py",
+      "expected_blob": "55510a235f9c572ade6f9cafb9d4b74cdbe9b709",
+      "combined_blob": "55510a235f9c572ade6f9cafb9d4b74cdbe9b709"
+    }
+  ],
+  "mismatches": [],
+  "total_checks": 79
+}

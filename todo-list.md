@@ -466,5 +466,5 @@
 - [x] Pioneer846（844pass/2Windows-only skip）、QA327、common2、nativeAPI11、官方MCP7/6及Game import边界通过。
 - [x] Node24.14.0严格engine检查/typecheck/build/15Node+15Electron、新包两轮临时安装/pixel413/正常上传/卸载通过，cleanup为0。
 - [x] 历史470d92c报告给出patch-only APPROVE；现已因CR08暂停，原失败、12依赖审计、平台/时间限制及生产未验边界全部保留。
-- [ ] CR08 / R20：stdio关闭竞态已独立复现，当前REQUEST CHANGES；等待C替代SHA后复验primary错误、资源清理和真实子进程有界退出。
+- [x] CR08 / R20：C6bdb0276在新组合d4982ee独立复验关闭；Windows45、WSL51、两处Pioneer857=855pass+2既有skip、QA327/common2及真实持续输出有界退出通过；恢复patch-only APPROVE，旧安装器仍只绑定7f59历史源码。
 - [ ] Production readiness未建立；签名/clean-machine/update/rollback、真实vision/holdout/R&R/broker/live closure及既有依赖/平台问题留待后续明确工作。
