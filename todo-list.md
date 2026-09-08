@@ -2,6 +2,8 @@
 
 ## Task-local E — 2026-09-08 desktop/API hardening
 
+- [x] CR02 follow-up: replaced Promise-valued browser readiness with bounded awaited HTTP/profile verification; 7 new readiness regressions, full desktop 9 Node + 14 Electron, API 10, and two temporary install/start/mock upload/uninstall runs passed. Original CR failures remain in E report/evidence; current feature revision awaits renewed unified CR.
+
 - [x] R03/R21/R22/R23/R24: Python fallback/startup errors, sandboxed CommonJS preload, screenshot/history/chat response binding, evidence/permission separation, Windows upload cleanup (including corrupt PNG).
 - [x] Windows targeted validation: API 10/10, Electron 14/14, Python probe 2/2; unsigned temporary install/start/upload/uninstall passed. Report: `docs/test-reports/2026-09-08/E.md`.
 - [x] Full package baseline comparison: Windows same 35 failures/errors and 9 skips; WSL same 7 CRLF fixture digest errors. No added failures; neither package result is a full pass.
