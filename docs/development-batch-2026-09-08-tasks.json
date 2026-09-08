@@ -10,9 +10,9 @@
     "B": {"sha":"aa7ef1b0c3ac0a7d24a8b31e258cb6efc2d224fb","status":"pushed_pending_cr"},
     "C": {"sha":"eb4ecd90ccd1c7b5ec4982a14e5c34de5acc8669","previous_sha":"edd3c3d57f92eb16b75f011c9a37d10005cf4256","status":"pushed_pending_cr"},
     "D": {"sha":"587f8abaa20a195da7a4486504ec6e8138d158bf","previous_sha":"2cfda735887e2a7cf237adeafea8d6c7feb2c837","status":"CR04_CR05_independently_reverified_batch_review_pending"},
-    "E": {"sha":"b865808d021ca4fd81c1bb087735187f485b51a2","previous_sha":"5afaec4bb46c91c4c1fd153e0c79670276c1d197","status":"awaiting_Node24_14_0_validation_for_CR07"},
+    "E": {"sha":"1eeffb76b514ec4bc58332c93cd419feb26ffaef","previous_sha":"b865808d021ca4fd81c1bb087735187f485b51a2","status":"Node24_14_0_validation_report_delivered_pending_re_review"},
     "F": {"sha":"6bff970d8ed6d6eff6153e783b715273847847b7","previous_sha":"42f0f5013e820de066ac53776512686588c3af7a","status":"CR07_CI_runtime_replacement_delivered_pending_re_review"},
-    "CR": {"status":"formal_review_waiting_E_supported_runtime_validation_no_approval"}
+    "CR": {"status":"final_supported_runtime_combined_revalidation_no_approval"}
   },
   "authorization_updates": {
     "capture_token": "User explicitly approved forwarding only the local capture token to Game MCP child environment in windows-bridge mode; no disk/log/CLI/QA/external disclosure. C replacement is delivered. WSL-to-Windows-proxy next-hop propagation remains an explicit integration blocker.",

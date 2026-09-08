@@ -9,7 +9,7 @@ Dispatch: all six development tasks have acknowledged isolated worktrees; unifie
 CR has started preparation. [Task IDs and report paths](docs/development-batch-2026-09-08-tasks.json).
 Charter and original review pushed in dd76d60; this is not completion of any fix.
 
-Delivery update: A 3d68e5d, B aa7ef1b0, C eb4ecd90, D 587f8ab, E b865808 and
+Delivery update: A 3d68e5d, B aa7ef1b0, C eb4ecd90, D 587f8ab, E 1eeffb7 and
 F 6bff970 are delivered with self-test reports, pending unified adversarial CR.
 The reviewer must verify E intake, combine exact component SHAs, rerun regression
 and adversarial checks, and route findings to their owners before approval.
@@ -47,6 +47,11 @@ CR07 requires the CI host to satisfy locked build-dependency engine constraints.
 F delivered 6bff970, pinning Node24.14.0 without changing dependency locks,
 Python matrix or engine checks. E must complete and report the same-runtime
 desktop/installation chain before reviewer independent combined validation.
+
+E delivered 1eeffb7, a report-only update binding unchanged source/lock blobs to
+Node24.14.0, strict engine checks and a new source-bound unsigned installer.
+Its temporary installation window is released; CR must independently validate
+the latest E/F pair and full combined tree before issuing a batch verdict.
 
 - [ ] A: observer security R01/R02/R06/R07; committed self-test report required.
 - [ ] B: state/MCP R05/R08; committed self-test report required.
