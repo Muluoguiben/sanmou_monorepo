@@ -15,25 +15,61 @@
       "host_id": "local",
       "final_sha": null,
       "report": "docs/test-reports/2026-09-08/A.md",
-      "cursor": "3096437e-5f04-4347-aaaa-1330ace18224:10"
+      "cursor": "3096437e-5f04-4347-aaaa-1330ace18224:11",
+      "progress_only": {
+        "submitted_nonfinal_sha": "d1e891b7ff5d17ad48c8e51d929dcfc22f4bb9c5",
+        "branch": "feat/a-capture-bridge-hardening-20260908",
+        "worktree": "C:/Users/Lan/.codex/worktrees/ecc7/sanmou_monorepo",
+        "status": "push_auto_review_rejected_final_local_sha_pending",
+        "reason": "Author reports GitHub destination not explicitly authorized; no reviewer workaround/proxy push.",
+        "reported_tests": "Windows focused47; WSL788=786pass+2native skips; native777=740pass/6fail/22error/9skip. Unverified.",
+        "live": "Coordinator paused."
+      },
+      "local_final_sha": "4a2e4b8d1d58cac2a6a564a4e9a1cf8540eb26c3",
+      "tree": "001e2ae63e00c3816febcbe30467e33be7c51713",
+      "tested_implementation_tree": "998cac7a0e5eed674900f62f5f60ef0c19eaebfa",
+      "report_blob": "399392caa6fde2af8b72b1d6f63a0cec484402de",
+      "intake_status": "local_metadata_verified_pending_push_authorization",
+      "intake_verified": [
+        "local SHA/report exist; d377ef8 ancestor",
+        "tested tree exists and local final differs only report/TODO"
+      ],
+      "independent_test_status": "not_run_waiting_for_final_deliveries",
+      "delivery_blocker": "Automatic approval rejected source push destination; coordinator seeking direct user authorization, reviewer must not proxy-push.",
+      "last_task_status": "idle",
+      "last_turn_status": "completed"
     },
     "B": {
       "thread_id": "01a07f0b-149e-7160-a896-551165a702a0",
       "host_id": "local",
-      "final_sha": null,
+      "final_sha": "aa7ef1b0c3ac0a7d24a8b31e258cb6efc2d224fb",
       "report": "docs/test-reports/2026-09-08/B.md",
-      "cursor": "2e9ce490-efda-488e-9387-ebb01dc9e80a:9"
+      "cursor": "2e9ce490-efda-488e-9387-ebb01dc9e80a:9",
+      "submitted_sha": "5d635e45f768d10528a172533d4ace74306df8a1",
+      "branch": "feat/review-b-public-payload-roster",
+      "tree": "925ba0ced5c394097df32f6018de65e49cd861d8",
+      "received_report_path": "docs/test-reports/2026-09-08/B.md",
+      "report_blob": "dbe73d0d6472e7efb914cc779ab8baf7b39c2ec8",
+      "intake_status": "received_metadata_verified_pending_formal_review",
+      "replacement_required": false,
+      "independent_test_status": "not_run_waiting_for_all_six",
+      "previous_submitted_sha": "5d635e45f768d10528a172533d4ace74306df8a1",
+      "intake_verified": [
+        "canonical B.md exists and remote equals replacement SHA",
+        "five tested source/test blobs equal report identities",
+        "diff from prior submitted SHA touches only report rename/content notes and TODO; packages/pioneer-agent diff empty"
+      ]
     },
     "C": {
       "thread_id": "01a07f0b-3787-7f82-ab0c-400a65b4b1a2",
       "host_id": "local",
-      "final_sha": "edd3c3d57f92eb16b75f011c9a37d10005cf4256",
+      "final_sha": null,
       "report": "docs/test-reports/2026-09-08/C.md",
       "cursor": "08c7db4c-5fe0-4145-80e9-8f6317848621:12",
       "branch": "feat/review-c-harness-r17-r20",
       "tree": "f32f8679419256796f0e055709611e5f13777150",
       "report_blob": "12c0547cd5838c839494de9d40c5c1211305c993",
-      "intake_status": "received_metadata_verified_pending_formal_review",
+      "intake_status": "replacement_required_authorized_capture_token_compatibility",
       "intake_verified": [
         "commit available in shared Git object store",
         "d377ef8 is ancestor, eight owned paths",
@@ -46,7 +82,9 @@
         "journal identity baseline retention",
         "late freshness and provenance recheck",
         "temporary LF fixtures restored in final checkout; depends on F attributes"
-      ]
+      ],
+      "previous_final_sha": "edd3c3d57f92eb16b75f011c9a37d10005cf4256",
+      "replacement_required": true
     },
     "D": {
       "thread_id": "01a07f0b-53b8-74a3-9e61-71dd461bdff8",
@@ -98,20 +136,41 @@
         "reported_patch": "767 tests, same 6 failures/29 errors/9 skips, same 35 FAIL/ERROR test names; 3 upload tests added",
         "required_audit": "Exact command and same-environment reproduction, 35-name sets, 9 skip reasons; never count as Windows full pass.",
         "dependency_progress": "Newly added electron-builder upgraded to 26.15.3; author reports removal of new high-severity chain, 12 existing npm findings remain. Independently inspect lockfile/audit output/package validation, no automatic waiver.",
-        "final_delivery": false
+        "final_delivery": false,
+        "latest": "Pre-delivery: author Windows Electron13/Node2/API10, unsigned temporary install/start/random port/preload/synthetic PNG/uninstall; same Windows baseline764 vs fix768 35 failures+9skips, WSL baseline775 vs fix779 same7CRLF errors. Final report and E-test-evidence.json pending. All unverified."
       }
     },
     "F": {
       "thread_id": "01a07f0b-85e8-7880-bb8f-3845dc01fef2",
       "host_id": "local",
-      "final_sha": null,
+      "final_sha": "42f0f5013e820de066ac53776512686588c3af7a",
       "report": "docs/test-reports/2026-09-08/F.md",
-      "cursor": "40b7b923-361f-4338-a396-2f94a0cae220:13"
+      "cursor": "40b7b923-361f-4338-a396-2f94a0cae220:13",
+      "branch": "feat/review-f-eval-ci-20260908",
+      "tree": "a6ffb9d5d52d3915e4a1012ee0e5308b3f6e3c9b",
+      "tested_implementation_tree": "cce0c039d5f37fec9c20cec3a4e705791ef2490d",
+      "report_blob": "379145382909dede815a9735527f758aa4369f88",
+      "intake_status": "received_metadata_verified_pending_formal_review",
+      "intake_verified": [
+        "commit available; d377ef8 ancestor; 12 changed paths",
+        "tested tree exists and final differs only report/TODO",
+        "remote branch equals explicit final SHA",
+        "scenario/fixture path diff only adds scoped .gitattributes"
+      ],
+      "independent_test_status": "not_run_waiting_for_all_six",
+      "review_focus": [
+        "all segment frame pairs and failed-call credibility",
+        "actual evaluator consumed bytes hash seam",
+        "failure vs end cutoff timestamps",
+        "CI actually executes E npm test and dist:win scripts in combined tree",
+        "CI Python3.12/Node20 vs local Windows3.14/Node24 mismatch",
+        "exact commit eval artifacts if inspected after intake"
+      ]
     }
   },
   "coordinator_cursor": "f3384e36-4a82-4534-8681-978aa3e6ec37:1",
   "heartbeat_id": "sanmou",
-  "next_action": "C and D final identities/reports verified, 2/6 received. Wait for A/B/E/F; reported A+C token integration blocker referred to coordinator. No formal verdict/integration yet.",
+  "next_action": "B/D/F complete metadata intake. A final local4a2e4b8 verified pending push permission; C compatibility code/newSHA pending; E final pending. Reviewer Windows/Linux isolated deps ready. Continue saved-cursor intake; no formal approval/integration yet.",
   "intake_notes": {
     "D": "Coordinator reports first full suite 309 with 4 failures/1 error. Fixture assumptions, cwd and Windows .sh CRLF under correction. Audit first-run failures and basis for expectation changes; not final evidence.",
     "E": "Coordinator reports focused Windows Electron 13/13, Node 2/2, API 9/9 zero skip, typecheck/build; Windows full suite 767 with 6 failures/29 errors/9 skips. Require same OS/runtime/deps d377ef8 comparison and concrete npm audit evidence; not final evidence.",
@@ -126,12 +185,41 @@
   "cross_component_blockers": [
     {
       "id": "A-C-capture-token-forwarding",
-      "status": "author_reported_approval_rejected",
+      "status": "C_auto_review_rejected_relayed_authorization_second_time",
       "source_thread": "01a07f0b-3787-7f82-ab0c-400a65b4b1a2",
       "description": "C reports A capture-only protocol requires SANMOU_CAPTURE_TOKEN in game_agent windows-bridge child. Proposed scoped env forwarding rejected by automatic approval as out-of-scope credential forwarding. Patch not applied. C final stays edd3c3d; no workaround or reviewer production fix.",
       "coordinator_notified": true,
       "independently_reproduced": false,
-      "next_action": "Coordinator resolves authorization/owner scope; require explicit new final SHA/report after any implemented compatibility fix. Continue unaffected intake."
+      "next_action": "Coordinator has direct user permission and proposes own normally reviewed minimal patch, then C selftests/report/new SHA; if coordinator approval rejects, stop. Reviewer does not implement or bypass. Record exact author/patch identity in replacement report."
     }
-  ]
+  ],
+  "environments": {
+    "linux": {
+      "path": "/tmp/sanmou-cr-20260908-venv",
+      "install_exit": 0,
+      "scope": "all three pyprojects + httpx installed editable to reviewer worktree",
+      "log": "C:/Users/Lan/AppData/Local/Temp/sanmou-cr-linux-env-setup.log",
+      "pip_check_exit": 0,
+      "python": "3.12.3"
+    },
+    "windows": {
+      "path": "C:/Users/Lan/.codex/worktrees/6737/sanmou_monorepo/.venv",
+      "install_status": "complete",
+      "session_id": null,
+      "log": "C:/Users/Lan/AppData/Local/Temp/sanmou-cr-windows-env-setup.log",
+      "install_exit": 0,
+      "pip_check_exit": 0,
+      "python": "3.14.3"
+    },
+    "shared_verified_versions": {
+      "pydantic": "2.13.5",
+      "PyYAML": "6.0.3",
+      "mcp": "1.29.1",
+      "fastapi": "0.141.1",
+      "httpx": "0.28.1",
+      "Pillow": "12.3.0",
+      "cryptography": "46.0.7",
+      "google-genai": "1.75.0"
+    }
+  }
 }
