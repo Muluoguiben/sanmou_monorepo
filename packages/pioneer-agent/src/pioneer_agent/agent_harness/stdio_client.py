@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 
+import asyncio
+import math
+from datetime import timedelta
+
 from collections.abc import Collection, Mapping
 from contextlib import AsyncExitStack
 from typing import Any
@@ -22,20 +26,51 @@ class StdioMcpClient:
         expected_server_name: str,
         required_tools: Collection[str],
         exact_tools: bool = False,
+        connect_timeout_s: float = 30.0,
+        request_timeout_s: float = 60.0,
     ) -> None:
+        for value in (connect_timeout_s, request_timeout_s):
+            if not math.isfinite(value) or value <= 0:
+                raise ValueError("MCP timeouts must be finite and positive")
+        self._connect_timeout_s = connect_timeout_s
+        self._request_timeout_s = request_timeout_s
         self._parameters = parameters
         self._expected_server_name = expected_server_name
         self._required_tools = frozenset(required_tools)
         self._exact_tools = exact_tools
-        self._stack: AsyncExitStack | None = None
+        self._worker: asyncio.Task | None = None
+        self._ready: asyncio.Future | None = None
+        self._requests: asyncio.Queue = asyncio.Queue()
+        self._closing = False
         self._session: ClientSession | None = None
         self._available_tools: frozenset[str] = frozenset()
 
     async def __aenter__(self) -> StdioMcpClient:
+        if self._worker is not None:
+            raise McpToolError("stdio MCP client is already connected")
+        self._ready = asyncio.get_running_loop().create_future()
+        self._requests = asyncio.Queue()
+        self._closing = False
+        self._worker = asyncio.create_task(self._serve())
+        try:
+            async with asyncio.timeout(self._connect_timeout_s):
+                await asyncio.shield(self._ready)
+        except BaseException:
+            await self._close()
+            raise
+        return self
+
+    async def _serve(self) -> None:
+        # SDK contexts own AnyIO cancel scopes. Enter, call and close them in a
+        # single task, even when game and QA clients are nested or cancelled.
         stack = AsyncExitStack()
+        response = None
         try:
             read, write = await stack.enter_async_context(stdio_client(self._parameters))
-            session = await stack.enter_async_context(ClientSession(read, write))
+            session = await stack.enter_async_context(ClientSession(
+                read, write,
+                read_timeout_seconds=timedelta(seconds=self._request_timeout_s),
+            ))
             initialized = await session.initialize()
             if initialized.serverInfo.name != self._expected_server_name:
                 raise McpToolError(
@@ -61,21 +96,56 @@ class StdioMcpClient:
                     raise McpToolError(
                         f"MCP tool is not closed-world read-only: {tool.name}"
                     )
-        except Exception:
-            await stack.aclose()
-            raise
-        self._stack = stack
-        self._session = session
-        self._available_tools = names
-        return self
+            self._session = session
+            self._available_tools = names
+            self._ready.set_result(None)
+            while True:
+                name, arguments, response = await self._requests.get()
+                try:
+                    result = await session.call_tool(
+                        name, arguments,
+                        read_timeout_seconds=timedelta(seconds=self._request_timeout_s),
+                    )
+                    if not response.done():
+                        response.set_result({
+                            "isError": bool(result.isError),
+                            "structuredContent": result.structuredContent,
+                        })
+                except Exception as exc:
+                    if not response.done():
+                        response.set_exception(exc)
+                    return
+        except BaseException as exc:
+            if not self._ready.done():
+                if isinstance(exc, asyncio.CancelledError):
+                    self._ready.cancel()
+                else:
+                    self._ready.set_exception(exc)
+            elif response is not None and not response.done():
+                response.set_exception(McpToolError("MCP transport stopped"))
+        finally:
+            self._closing = True
+            self._session = None
+            self._available_tools = frozenset()
+            # SDK stdio shutdown terminates its child on EOF/timeout. Bound the
+            # complete cleanup too; keep it in this owner task for AnyIO safety.
+            async with asyncio.timeout(10.0):
+                await stack.aclose()
+
+    async def _close(self) -> None:
+        worker, self._worker = self._worker, None
+        self._session = None
+        self._available_tools = frozenset()
+        if worker is not None:
+            if not worker.done() and not self._closing:
+                worker.cancel()
+            try:
+                await worker
+            except asyncio.CancelledError:
+                pass
 
     async def __aexit__(self, exc_type, exc, traceback) -> None:  # noqa: ANN001
-        stack = self._stack
-        self._session = None
-        self._stack = None
-        self._available_tools = frozenset()
-        if stack is not None:
-            await stack.aclose()
+        await self._close()
 
     async def call_tool(
         self,
@@ -86,8 +156,11 @@ class StdioMcpClient:
             raise McpToolError("stdio MCP client is not connected")
         if name not in self._available_tools:
             raise McpToolError(f"tool is outside the initialized MCP surface: {name}")
-        result = await self._session.call_tool(name, dict(arguments))
-        return {
-            "isError": bool(result.isError),
-            "structuredContent": result.structuredContent,
-        }
+        response = asyncio.get_running_loop().create_future()
+        try:
+            async with asyncio.timeout(self._request_timeout_s):
+                await self._requests.put((name, dict(arguments), response))
+                return await response
+        except BaseException:
+            await self._close()
+            raise

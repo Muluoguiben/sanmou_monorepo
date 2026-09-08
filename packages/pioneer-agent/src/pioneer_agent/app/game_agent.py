@@ -5,7 +5,10 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import math
 import os
+import time
+from datetime import UTC, datetime
 from pathlib import Path
 import sys
 from uuid import uuid4
@@ -19,6 +22,8 @@ from pioneer_agent.agent_harness import (
     StdioMcpClient,
 )
 from pioneer_agent.agent_harness.contracts import QA_READ_ONLY_TOOLS
+from pioneer_agent.agent_harness.policy import StopReason
+from pioneer_agent.agent_harness.tool_log import ToolCallRecord
 from pioneer_agent.core.device import DevicePlatform
 from pioneer_agent.mcp_server.contracts import GAME_TOOL_ALLOWLIST, SERVER_NAME
 
@@ -48,31 +53,67 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--tool-log-path", type=Path, required=True)
     parser.add_argument("--agent-session-id", default=None)
     parser.add_argument("--model-id", default="recommendation-harness-v1")
+    parser.add_argument("--mcp-connect-timeout", type=_positive_timeout, default=30.0)
+    parser.add_argument("--mcp-request-timeout", type=_positive_timeout, default=60.0)
     return parser
+
+
+def _positive_timeout(value: str) -> float:
+    number = float(value)
+    if not math.isfinite(number) or number <= 0:
+        raise argparse.ArgumentTypeError("timeout must be finite and positive")
+    return number
 
 
 async def run(args: argparse.Namespace) -> dict:
     agent_session_id = args.agent_session_id or f"agent-{uuid4().hex}"
     game_parameters = _game_parameters(args)
     qa_parameters = _qa_parameters(args)
-    async with StdioMcpClient(
+    game_client = StdioMcpClient(
         game_parameters,
         expected_server_name=SERVER_NAME,
         required_tools=GAME_TOOL_ALLOWLIST,
         exact_tools=True,
-    ) as game_client, StdioMcpClient(
+        connect_timeout_s=args.mcp_connect_timeout,
+        request_timeout_s=args.mcp_request_timeout,
+    )
+    qa_client = StdioMcpClient(
         qa_parameters,
         expected_server_name=QA_SERVER_NAME,
         required_tools=QA_READ_ONLY_TOOLS,
-    ) as qa_client:
-        result = await RecommendationHarness(
-            game_client=game_client,
-            qa_client=qa_client,
-            journal_store=JsonJournalStore(args.journal_path),
-            tool_log=JsonlToolLog(args.tool_log_path),
-            agent_session_id=agent_session_id,
-            model_id=args.model_id,
-        ).run_decision_window(qa_questions=args.qa_question)
+        connect_timeout_s=args.mcp_connect_timeout,
+        request_timeout_s=args.mcp_request_timeout,
+    )
+    harness = RecommendationHarness(
+        game_client=game_client,
+        qa_client=qa_client,
+        journal_store=JsonJournalStore(args.journal_path),
+        tool_log=JsonlToolLog(args.tool_log_path),
+        agent_session_id=agent_session_id,
+        model_id=args.model_id,
+    )
+    phase = "mcp_connect:game"
+    started_at, started = datetime.now(UTC), time.monotonic()
+    try:
+        async with game_client:
+            phase = "mcp_connect:qa"
+            started_at, started = datetime.now(UTC), time.monotonic()
+            async with qa_client:
+                phase = "mcp_lifecycle"
+                result = await harness.run_decision_window(qa_questions=args.qa_question)
+    except (Exception, asyncio.CancelledError) as exc:
+        harness.tool_log.append(ToolCallRecord(
+            started_at=started_at, tool_name=phase, arguments_summary={},
+            duration_ms=max(0.0, (time.monotonic() - started) * 1000),
+            success=False, error_type=type(exc).__name__,
+            model_id=args.model_id, agent_session_id=agent_session_id,
+        ))
+        result = harness._stop(
+            harness.journal_store.load(agent_session_id), StopReason.TOOL_FAILURE,
+            [phase, type(exc).__name__],
+        )
+        if isinstance(exc, asyncio.CancelledError):
+            raise
     return result.model_dump(mode="json")
 
 
