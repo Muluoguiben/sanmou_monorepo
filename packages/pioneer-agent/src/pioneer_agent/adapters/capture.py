@@ -8,7 +8,7 @@ from typing import Any, Protocol
 
 from PIL import Image
 
-from pioneer_agent.adapters.bridge_client import BridgeClient
+from pioneer_agent.adapters.capture_bridge_client import CaptureBridgeClient
 from pioneer_agent.core.device import (
     CapabilityFlags,
     DevicePlatform,
@@ -157,16 +157,16 @@ class WatchFolderCaptureAdapter:
 
 
 class WindowsBridgeCaptureAdapter:
-    """Capture-only view over the existing Windows bridge client."""
+    """Observe through the capture-only protocol without control dependencies."""
 
     def __init__(
         self,
-        bridge: BridgeClient | None = None,
+        bridge: CaptureBridgeClient | None = None,
         *,
         profile: DeviceProfile | None = None,
         display_name: str = "Sanmou PC client",
     ) -> None:
-        self.bridge = bridge or BridgeClient()
+        self.bridge = bridge or CaptureBridgeClient()
         if profile is None:
             profile = DeviceProfile(
                 platform=DevicePlatform.PC_CLIENT,
@@ -195,7 +195,10 @@ class WindowsBridgeCaptureAdapter:
     def capture(self) -> CaptureFrame:
         shot = self.bridge.screenshot_capture()
         png = shot.png
-        captured_at = datetime.now(UTC)
+        captured_at = shot.captured_at
+        if captured_at is None or captured_at.tzinfo is None or not shot.request_id:
+            self.bridge.close()
+            raise RuntimeError("capture is missing request-bound server time")
         profile = _profile_from_image_bytes(
             png,
             self._device_session.profile.platform,
@@ -208,10 +211,6 @@ class WindowsBridgeCaptureAdapter:
             "frame_sha256": shot.frame_sha256,
             "capture_geometry": shot.capture_geometry.model_dump(mode="json"),
         }
-        try:
-            metadata["window_info"] = self.bridge.window_info()
-        except Exception as exc:  # noqa: BLE001
-            metadata["window_info_error"] = str(exc)
         return CaptureFrame(
             png=png,
             captured_at=captured_at,

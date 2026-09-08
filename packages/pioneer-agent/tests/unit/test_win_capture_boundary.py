@@ -66,7 +66,7 @@ class WindowsCaptureBoundaryTests(unittest.TestCase):
         self.assertIn('with_name("win_capture.py")', source)
         self.assertNotIn('with_name("win_bridge_server.py")', source)
 
-    def test_bridge_delegates_capture_but_retains_legacy_restore_wrapper(self) -> None:
+    def test_bridge_delegates_capture_without_legacy_restore_wrapper(self) -> None:
         source = (ADAPTERS / "win_bridge_server.py").read_text(encoding="utf-8")
         tree = ast.parse(source)
         functions = {
@@ -77,8 +77,9 @@ class WindowsCaptureBoundaryTests(unittest.TestCase):
 
         self.assertIn("_capture.capture_window_dxgi", functions["capture_window_dxgi"])
         self.assertIn("_capture.capture_window_wgc", functions["capture_window_wgc"])
-        self.assertIn("_ensure_window_onscreen", functions["capture_window_dxgi"])
-        self.assertIn("_ensure_window_onscreen", functions["capture_window_wgc"])
+        self.assertNotIn("_ensure_window_onscreen", functions["capture_window_dxgi"])
+        self.assertNotIn("_ensure_window_onscreen", functions["capture_window_wgc"])
+        self.assertNotIn("_restore_window", functions["find_window"])
 
 
 if __name__ == "__main__":
