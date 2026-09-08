@@ -115,7 +115,7 @@ def _binary_hit_summary(raw: dict[str, Any]) -> BinaryStringHitSummary:
 
 def _payload_sample(raw: dict[str, Any]) -> PayloadBlockSample:
     return PayloadBlockSample(
-        file_name=Path(str(raw.get("file") or "")).name,
+        file_name=_binary_name(raw.get("file")),
         size_bytes=int(raw.get("size") or 0),
         size_mod_16=int(raw.get("size_mod_16") or 0),
         entropy=float(raw.get("entropy") or 0.0),

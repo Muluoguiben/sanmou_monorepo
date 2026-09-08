@@ -111,32 +111,44 @@ def publish_entries(
             continue
         buckets.setdefault(bucket_path, []).append(entry)
 
+    # Plan against the whole KB before writing any bucket. An entry keeps its
+    # canonical ID even when its faction/trigger/season changes the destination.
+    existing_buckets = {
+        path: _load_bucket(path) for path in sorted(knowledge_root.rglob("*.yaml"))
+    }
     stats: dict[str, int] = {}
+    changed: set[Path] = set()
     for bucket_path, new_entries in buckets.items():
-        existing = _load_bucket(bucket_path)
-        existing_topics = {
-            item["topic"] for item in existing if isinstance(item, dict) and "topic" in item
-        }
-
+        existing_buckets.setdefault(bucket_path, [])
         added = 0
         for entry in new_entries:
             dumped = entry.model_dump(mode="json")
-            if entry.topic in existing_topics:
-                # Update the first matching entry in-place, preserving the original id
-                updated = []
-                for item in existing:
-                    if isinstance(item, dict) and item.get("topic") == entry.topic:
-                        dumped["id"] = item.get("id", dumped["id"])
-                        updated.append(dumped)
-                    else:
-                        updated.append(item)
-                existing = updated
-            else:
-                existing.append(dumped)
-                existing_topics.add(entry.topic)
+            matches = [
+                item for items in existing_buckets.values() for item in items
+                if isinstance(item, dict) and (
+                    item.get("id") == entry.id or (
+                        item.get("topic") == entry.topic
+                        and item.get("domain") == entry.domain.value
+                        and item.get("entry_kind", "generic_rule") == entry.entry_kind.value
+                    )
+                )
+            ]
+            ids = {item["id"] for item in matches}
+            if len(ids) > 1:
+                raise ValueError(f"Conflicting canonical IDs for topic: {entry.topic}")
+            canonical_id = next(iter(ids), entry.id)
+            dumped["id"] = canonical_id
+            for path, items in existing_buckets.items():
+                kept = [item for item in items if not isinstance(item, dict) or item.get("id") != canonical_id]
+                if len(kept) != len(items):
+                    existing_buckets[path] = kept
+                    changed.add(path)
+            existing_buckets[bucket_path].append(dumped)
+            changed.add(bucket_path)
+            if not matches:
                 added += 1
-
-        _save_bucket(bucket_path, existing)
         stats[bucket_path.name] = added
 
+    for path in sorted(changed):
+        _save_bucket(path, existing_buckets[path])
     return stats

@@ -2,6 +2,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import stat
+from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -89,7 +92,10 @@ def scan_client_package(
         if _should_skip(path, root, excluded_dirs, excluded_suffixes):
             skipped_files += 1
             continue
-        files.append(_scan_file(path, rel))
+        try:
+            files.append(_scan_file(path, rel, root))
+        except (OSError, ValueError):
+            skipped_files += 1
 
     version_info = _read_version_info(root)
     root_path = str(root) if include_absolute_paths else None
@@ -122,20 +128,58 @@ def write_client_package_manifest(manifest: ClientPackageManifest, output_path: 
 
 def _should_skip(path: Path, root: Path, excluded_dirs: set[str], excluded_suffixes: set[str]) -> bool:
     rel_parts = path.relative_to(root).parts
-    if any(part in excluded_dirs for part in rel_parts[:-1]):
+    if any(part.casefold() in {name.casefold() for name in excluded_dirs} for part in rel_parts[:-1]):
         return True
     return path.suffix.lower() in excluded_suffixes
 
 
-def _scan_file(path: Path, rel: str) -> ClientPackageFile:
-    head = _read_head(path)
-    sha256 = _sha256(path)
+def _checked_stat(path: Path, root: Path) -> os.stat_result:
+    relative = path.relative_to(root)
+    current = root
+    for part in (None, *relative.parts):
+        if part is not None:
+            current = current / part
+        info = current.lstat()
+        if stat.S_ISLNK(info.st_mode) or getattr(info, "st_file_attributes", 0) & 0x400:
+            raise ValueError("Client scan refuses links and reparse points")
+    if not stat.S_ISREG(info.st_mode) or info.st_nlink != 1:
+        raise ValueError("Client scan requires a single-link regular file")
+    path.resolve(strict=True).relative_to(root)
+    return info
+
+
+def _identity(info: os.stat_result) -> tuple[int, int, int, int, int]:
+    return info.st_dev, info.st_ino, info.st_size, info.st_mtime_ns, info.st_nlink
+
+
+@contextmanager
+def _safe_open(path: Path, root: Path):
+    before = _checked_stat(path, root)
+    flags = os.O_RDONLY | getattr(os, "O_BINARY", 0) | getattr(os, "O_NOFOLLOW", 0) | getattr(os, "O_NONBLOCK", 0)
+    fd = os.open(path, flags)
+    with os.fdopen(fd, "rb") as stream:
+        opened = os.fstat(stream.fileno())
+        if _identity(before) != _identity(opened) or _identity(before) != _identity(_checked_stat(path, root)):
+            raise ValueError("Client file identity changed before read")
+        yield stream, opened
+        if _identity(opened) != _identity(os.fstat(stream.fileno())) or _identity(opened) != _identity(_checked_stat(path, root)):
+            raise ValueError("Client file identity changed during read")
+
+
+def _scan_file(path: Path, rel: str, root: Path) -> ClientPackageFile:
+    digest = hashlib.sha256()
+    with _safe_open(path, root) as (stream, info):
+        head = stream.read(64)
+        digest.update(head)
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    sha256 = digest.hexdigest()
     detected_type, reasons = _classify_file(path, rel, head)
     knowledge_value = _knowledge_value(path, rel, detected_type, reasons)
     return ClientPackageFile(
         relative_path=rel,
-        size_bytes=path.stat().st_size,
-        modified_at=datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc),
+        size_bytes=info.st_size,
+        modified_at=datetime.fromtimestamp(info.st_mtime, tz=timezone.utc),
         sha256=sha256,
         extension=path.suffix.lower(),
         head_hex=" ".join(f"{b:02X}" for b in head),
@@ -145,19 +189,6 @@ def _scan_file(path: Path, rel: str) -> ClientPackageFile:
         source_ref=f"NSLG_CLIENT:{rel}#sha256={sha256[:16]}",
         reasons=reasons,
     )
-
-
-def _read_head(path: Path, limit: int = 64) -> bytes:
-    with path.open("rb") as fh:
-        return fh.read(limit)
-
-
-def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as fh:
-        for chunk in iter(lambda: fh.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 def _classify_file(path: Path, rel: str, head: bytes) -> tuple[str, list[str]]:
@@ -224,7 +255,9 @@ def _read_version_info(root: Path) -> dict[str, Any]:
         manifest_path = root / "StreamingAssets" / "assets" / "manifest.json"
     if manifest_path.exists():
         try:
-            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            with _safe_open(manifest_path, root) as (stream, _):
+                manifest_text = stream.read().decode("utf-8")
+            manifest = json.loads(manifest_text)
             version_info["manifest"] = {
                 key: manifest.get(key)
                 for key in [
@@ -240,14 +273,16 @@ def _read_version_info(root: Path) -> dict[str, Any]:
                 ]
                 if key in manifest
             }
-        except (UnicodeDecodeError, json.JSONDecodeError) as exc:
-            version_info["manifest_error"] = str(exc)
+        except (OSError, ValueError):
+            version_info["manifest_error"] = "unreadable_or_unsafe_version_file"
 
     for rel in ["pc_package_info.txt", "com.bilibili.nslg_Data/app.info"]:
         path = root / rel
         if path.exists():
             try:
-                version_info[rel] = path.read_text(encoding="utf-8", errors="replace").strip()
-            except OSError as exc:
-                version_info[f"{rel}_error"] = str(exc)
+                with _safe_open(path, root) as (stream, _):
+                    text = stream.read().decode("utf-8", errors="replace").strip()
+                version_info[rel] = text
+            except (OSError, ValueError):
+                version_info[f"{rel}_error"] = "unreadable_or_unsafe_version_file"
     return version_info

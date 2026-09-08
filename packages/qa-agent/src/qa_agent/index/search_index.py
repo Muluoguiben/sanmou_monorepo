@@ -16,6 +16,8 @@ class SearchIndex:
     def __init__(self, entries: list[KnowledgeEntry]) -> None:
         self.entries = entries
         self.by_id = {entry.id: entry for entry in entries}
+        if len(self.by_id) != len(entries):
+            raise ValueError("Duplicate knowledge entry id in index")
         self.term_to_ids: dict[str, list[str]] = defaultdict(list)
         for entry in entries:
             for term in entry.searchable_terms():
