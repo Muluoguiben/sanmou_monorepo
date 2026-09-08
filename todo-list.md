@@ -402,7 +402,7 @@
 ### CR — 2026-09-08 adversarial review
 - [x] Freeze baseline d377ef8 and original R01–R26 report provenance; create isolated review branch and preparation checklist.
 - [x] Register A–F task IDs and completion cursors in .codex-autonomy/adversarial-review-20260908/state.json; preparation pushed as 5394c06 and five-minute current-task heartbeat sanmou enabled.
-- [ ] Receive six explicit final SHAs with committed self-test reports and audit tested-tree identity. Current intake: B aa7ef1b0, D 2cfda735 and F 42f0f50 metadata verified; A local4a2e4b8 pending push, C compatibility revision requires replacement SHA, E final pending. Reviewer Windows/Linux dependencies ready. Independent execution/formal review pending.
+- [ ] Receive six explicit final SHAs with committed self-test reports and audit tested-tree identity. Current intake: A4a2e4b8, Baa7ef1b0, Ceb4ecd90, D2cfda735 and F42f0f50 metadata/remote verified; E final pending. WSL-to-Windows proxy auth hop remains pending independent verification. Reviewer Windows/Linux dependencies ready. Independent execution/formal review pending.
 - [ ] Independently reproduce R01–R26 and new negative cases; inspect all component diffs and combine exact final SHAs without touching master.
 - [ ] Run combined native Python, official MCP stdio, Desktop and Windows/Linux regressions; audit same-environment baseline failures, changed test expectations, scenarios .gitattributes and E test execution in Windows CI; send findings to existing owners and verify replacements.
 - [ ] Publish final APPROVE or REQUEST CHANGES with exact component/combined tree evidence; production readiness remains separate.

@@ -13,9 +13,9 @@
     "A": {
       "thread_id": "01a07f09-c64c-7852-a533-7db7730a048c",
       "host_id": "local",
-      "final_sha": null,
+      "final_sha": "4a2e4b8d1d58cac2a6a564a4e9a1cf8540eb26c3",
       "report": "docs/test-reports/2026-09-08/A.md",
-      "cursor": "3096437e-5f04-4347-aaaa-1330ace18224:11",
+      "cursor": "3096437e-5f04-4347-aaaa-1330ace18224:13",
       "progress_only": {
         "submitted_nonfinal_sha": "d1e891b7ff5d17ad48c8e51d929dcfc22f4bb9c5",
         "branch": "feat/a-capture-bridge-hardening-20260908",
@@ -29,15 +29,17 @@
       "tree": "001e2ae63e00c3816febcbe30467e33be7c51713",
       "tested_implementation_tree": "998cac7a0e5eed674900f62f5f60ef0c19eaebfa",
       "report_blob": "399392caa6fde2af8b72b1d6f63a0cec484402de",
-      "intake_status": "local_metadata_verified_pending_push_authorization",
+      "intake_status": "received_metadata_verified_pending_formal_review",
       "intake_verified": [
         "local SHA/report exist; d377ef8 ancestor",
-        "tested tree exists and local final differs only report/TODO"
+        "tested tree exists and local final differs only report/TODO",
+        "remote branch independently verified4a2e4b8 after coordinator authorized push"
       ],
       "independent_test_status": "not_run_waiting_for_final_deliveries",
-      "delivery_blocker": "Automatic approval rejected source push destination; coordinator seeking direct user authorization, reviewer must not proxy-push.",
+      "delivery_blocker": null,
       "last_task_status": "idle",
-      "last_turn_status": "completed"
+      "last_turn_status": "completed",
+      "historical_push_rejection": "Resolved by coordinator successful authorized push; historical refusal in report remains accurate history."
     },
     "B": {
       "thread_id": "01a07f0b-149e-7160-a896-551165a702a0",
@@ -63,18 +65,18 @@
     "C": {
       "thread_id": "01a07f0b-3787-7f82-ab0c-400a65b4b1a2",
       "host_id": "local",
-      "final_sha": null,
+      "final_sha": "eb4ecd90ccd1c7b5ec4982a14e5c34de5acc8669",
       "report": "docs/test-reports/2026-09-08/C.md",
-      "cursor": "08c7db4c-5fe0-4145-80e9-8f6317848621:12",
+      "cursor": "08c7db4c-5fe0-4145-80e9-8f6317848621:17",
       "branch": "feat/review-c-harness-r17-r20",
-      "tree": "f32f8679419256796f0e055709611e5f13777150",
-      "report_blob": "12c0547cd5838c839494de9d40c5c1211305c993",
-      "intake_status": "replacement_required_authorized_capture_token_compatibility",
+      "tree": "f4c7622263639b5aa71530ddb486430411278609",
+      "report_blob": "9f66c9e2eaf69dc4f1fd89d494edfa3c1ed5ea78",
+      "intake_status": "received_metadata_verified_pending_formal_review",
       "intake_verified": [
-        "commit available in shared Git object store",
-        "d377ef8 is ancestor, eight owned paths",
-        "six source/test blobs equal identifiers in committed report",
-        "remote branch equals explicitly delivered final SHA"
+        "replacement descends from original edd3c3d",
+        "report latest two source/test blob IDs plus original unchanged four IDs all match final SHA",
+        "remote branch independently matches eb4ecd90",
+        "latest report retains synthetic-only evidence and next-hop integration limit"
       ],
       "independent_test_status": "not_run_waiting_for_all_six",
       "review_focus": [
@@ -84,7 +86,10 @@
         "temporary LF fixtures restored in final checkout; depends on F attributes"
       ],
       "previous_final_sha": "edd3c3d57f92eb16b75f011c9a37d10005cf4256",
-      "replacement_required": true
+      "replacement_required": false,
+      "last_task_status": "active",
+      "last_turn_status": "inProgress",
+      "reported_final_tests": "Windows focused34, WSL focused40, Pioneer795 zero fail/skip; unverified until independent review"
     },
     "D": {
       "thread_id": "01a07f0b-53b8-74a3-9e61-71dd461bdff8",
@@ -128,7 +133,7 @@
       "host_id": "local",
       "final_sha": null,
       "report": "docs/test-reports/2026-09-08/E.md",
-      "cursor": "5a4f0765-023f-4651-a021-19552055b225:8",
+      "cursor": "5a4f0765-023f-4651-a021-19552055b225:12",
       "progress_only": {
         "source_thread_id": "019f4a66-e105-7103-ab9d-aef47aa6f8a0",
         "reported_environment": "Windows Python 3.14.3, same venv/layout/native unittest",
@@ -138,7 +143,9 @@
         "dependency_progress": "Newly added electron-builder upgraded to 26.15.3; author reports removal of new high-severity chain, 12 existing npm findings remain. Independently inspect lockfile/audit output/package validation, no automatic waiver.",
         "final_delivery": false,
         "latest": "Pre-delivery: author Windows Electron13/Node2/API10, unsigned temporary install/start/random port/preload/synthetic PNG/uninstall; same Windows baseline764 vs fix768 35 failures+9skips, WSL baseline775 vs fix779 same7CRLF errors. Final report and E-test-evidence.json pending. All unverified."
-      }
+      },
+      "last_task_status": "active",
+      "last_turn_status": "inProgress"
     },
     "F": {
       "thread_id": "01a07f0b-85e8-7880-bb8f-3845dc01fef2",
@@ -170,7 +177,7 @@
   },
   "coordinator_cursor": "f3384e36-4a82-4534-8681-978aa3e6ec37:1",
   "heartbeat_id": "sanmou",
-  "next_action": "B/D/F complete metadata intake. A final local4a2e4b8 verified pending push permission; C compatibility code/newSHA pending; E final pending. Reviewer Windows/Linux isolated deps ready. Continue saved-cursor intake; no formal approval/integration yet.",
+  "next_action": "A/B/C/D/F final metadata complete, wait for E final SHA/report. Then combine exact confirmed SHAs; independently evaluate next-hop token issue and all R01-R26; no formal approval yet.",
   "intake_notes": {
     "D": "Coordinator reports first full suite 309 with 4 failures/1 error. Fixture assumptions, cwd and Windows .sh CRLF under correction. Audit first-run failures and basis for expectation changes; not final evidence.",
     "E": "Coordinator reports focused Windows Electron 13/13, Node 2/2, API 9/9 zero skip, typecheck/build; Windows full suite 767 with 6 failures/29 errors/9 skips. Require same OS/runtime/deps d377ef8 comparison and concrete npm audit evidence; not final evidence.",
@@ -185,12 +192,19 @@
   "cross_component_blockers": [
     {
       "id": "A-C-capture-token-forwarding",
-      "status": "C_auto_review_rejected_relayed_authorization_second_time",
+      "status": "C_scoped_forwarding_submitted_pending_independent_reverification",
       "source_thread": "01a07f0b-3787-7f82-ab0c-400a65b4b1a2",
       "description": "C reports A capture-only protocol requires SANMOU_CAPTURE_TOKEN in game_agent windows-bridge child. Proposed scoped env forwarding rejected by automatic approval as out-of-scope credential forwarding. Patch not applied. C final stays edd3c3d; no workaround or reviewer production fix.",
       "coordinator_notified": true,
       "independently_reproduced": false,
-      "next_action": "Coordinator has direct user permission and proposes own normally reviewed minimal patch, then C selftests/report/new SHA; if coordinator approval rejects, stop. Reviewer does not implement or bypass. Record exact author/patch identity in replacement report."
+      "next_action": "Review exact eb4ecd90 delta and synthetic positive/negative environment tests. Parent-to-GameMCP evidence does not close separate WSL-to-Windows proxy hop."
+    },
+    {
+      "id": "WSL-game-MCP-to-Windows-proxy-token-hop",
+      "status": "author_reported_pending_independent_verification",
+      "source_thread": "01a07f09-c64c-7852-a533-7db7730a048c",
+      "description": "A frozen CaptureBridgeClient.connect reportedly has no env/WSLENV forwarding. C patch covers parent to Game MCP only; WSL Game MCP to Windows python proxy second hop unproven. A says docs require operator configuration; need independently determine whether canonical game_agent environment preserves usable configuration and reproduce synthetic end-to-end path.",
+      "next_action": "Review A final connect/proxy and C replacement environment together; synthetic no-real-secret cross-WSL integration test before closing compatibility. C must not edit A files; coordinator informed by A."
     }
   ],
   "environments": {
