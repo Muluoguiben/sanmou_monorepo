@@ -2,6 +2,7 @@
 
 ## Task A — capture/bridge security (2026-09-08)
 
+- [x] CR R07/P2 path follow-up: replace hardcoded Ubuntu UNC and `/mnt/c` cwd with bounded `wslpath` conversion; eight new regression tests. Windows focused 55/55; WSL Pioneer 796 total, 794 pass/2 Windows-only skips. Actual Windows file-existence checks pass for converted Windows-backed and Linux-temp paths. No credential-next-hop or live capture changes.
 - [x] R01/R02/R06/R07: retire repo Highest controller entry points; authenticated loopback capture-only dispatch; no restore/control import in observation; request/time-bound screenshots with failure teardown.
 - [x] Offline self-tests: Windows focused 47/47; WSL Pioneer 788 total, 786 pass and 2 Windows-only skips (both pass on Windows). Report: `docs/test-reports/2026-09-08/A.md`.
 - [ ] Unified adversarial review of `feat/a-capture-bridge-hardening-20260908`; no master merge/push by Task A.

@@ -1,9 +1,11 @@
 # A — capture/bridge hardening self-test
 
 Task: `01a07f09-c64c-7852-a533-7db7730a048c` (R01/R02/R06/R07).
-Date: 2026-09-08. Status: offline implementation committed locally for unified
-CR; feature push was rejected by automatic approval review. Native Windows
-package portability and live integration remain blocked below.
+Date: 2026-09-08. Initial delivery `4a2e4b8` was pushed by the coordinator after
+direct user destination approval. The original push-refusal history is retained
+below. Current CR path-conversion follow-up and its new tested identity/results
+are in the final section. Native Windows package portability and live
+authentication integration remain blocked.
 
 ## Worktree and tested tree
 
@@ -14,7 +16,7 @@ package portability and live integration remain blocked below.
   baseline ancestry check returned 0 before this branch was created.
 - Frozen charter/report read from coordinator documents at `dd76d601`;
   that documentation commit was not merged into this feature.
-- Tested implementation Git tree: `998cac7a0e5eed674900f62f5f60ef0c19eaebfa`.
+- Initial delivery's tested implementation Git tree: `998cac7a0e5eed674900f62f5f60ef0c19eaebfa`.
   Obtained with `git write-tree` after staging the 14 implementation, test and
   operating-document files. This report and the task-local TODO were added
   afterwards; no implementation or test changes followed those final tests.
@@ -184,3 +186,78 @@ Final logs under `C:/Users/Lan/AppData/Local/Temp/`:
   consumption occurred. Repository synthetic holdout tests are not independent
   external holdout evidence. Actual WGC/DXGI accuracy, occlusion handling and
   production signing/installation remain separate gates.
+
+## CR follow-up — WSL proxy path conversion (R07/P2)
+
+CR independently found that `_to_windows_path` prefixed every Linux path with
+the hardcoded Ubuntu UNC, so a Windows-backed `/mnt/c/...` worktree pointed at
+an inaccessible `\\wsl$\Ubuntu\mnt\c\...` path. The original native proxy test
+did not cover this WSL path. CR's synthetic blackbox recorded no fake-server
+connections even when its synthetic environment was explicitly propagated;
+this was a path blocker separate from authentication.
+
+Starting follow-up HEAD: `4a2e4b8d1d58cac2a6a564a4e9a1cf8540eb26c3`, same A
+feature/worktree. No other developer branch was merged. New tested implementation
+tree: `03b2013d1820819e7be2539763429e426a85a6ed`, recorded with `git write-tree`
+after staging only the path implementation, new path tests and architecture
+paragraph, before this report/TODO update. Implementation/tests were unchanged
+after final verification. Final immutable commit SHA is in the delivery message.
+
+The regression was written before the fix. This command exited 1 and showed
+the incorrect Ubuntu UNC versus the expected `C:\Users\Synthetic User\...`:
+
+```powershell
+# Worktree root; current focused import paths.
+$env:PYTHONPATH='packages/pioneer-agent/src;packages/sanmou-common/src;packages/pioneer-agent'
+./.venv-a/Scripts/python.exe -X utf8 -m unittest tests.unit.test_capture_bridge_paths.CaptureBridgePathTests.test_windows_backed_worktree_uses_drive_path -v
+```
+
+Fix: use `subprocess.run(["wslpath", "-w", "-a", str(path)], check=True,
+capture_output=True, text=True, encoding="utf-8", timeout=5)`. Reject empty,
+relative, drive-relative, multiline or NUL-containing results. Converter errors
+raise a clear path-conversion failure before proxy creation, invalidating any
+cached frame. Native Windows paths pass through unchanged. Remove the caller's
+hardcoded `/mnt/c` working directory as well. No shell execution, credential
+forwarding, control capability or protocol change was added.
+
+Eight new tests cover Windows-backed paths with spaces, a non-Ubuntu distro UNC,
+custom mount layout, native Windows passthrough, bounded argv-only invocation
+with metacharacters, invalid outputs, missing/failing/timed-out converter, and
+no proxy launch/cached frame after conversion failure.
+
+Final follow-up commands (same isolated dependencies as above):
+
+```powershell
+# Worktree root: eight path tests, exit 0, 8/8 pass.
+./.venv-a/Scripts/python.exe -X utf8 -m unittest tests.unit.test_capture_bridge_paths -v
+# packages/pioneer-agent: Windows focused, exit 0, 55/55 pass, no skips.
+$env:PYTHONPATH='src;../sanmou-common/src'
+../../.venv-a/Scripts/python.exe -X utf8 -m unittest tests.unit.test_bridge_client tests.unit.test_win_bridge_server_guard tests.unit.test_capture_adapters tests.unit.test_win_capture_boundary tests.unit.test_capture_bridge_security tests.unit.test_capture_bridge_paths -v
+# Worktree root: WSL package, exit 0, 796 total = 794 pass, 2 Windows-only skips.
+wsl -d Ubuntu --cd /mnt/c/Users/Lan/.codex/worktrees/ecc7/sanmou_monorepo/packages/pioneer-agent -- env PYTHONPATH=src:../sanmou-common/src /tmp/sanmou-a-01a07f09-venv/bin/python -B -m unittest discover -s tests -p 'test_*.py' -v
+```
+
+Logs: `C:/Users/Lan/AppData/Local/Temp/sanmou-a-pathfix-native-focused.log`
+and `C:/Users/Lan/AppData/Local/Temp/sanmou-a-pathfix-wsl-package.log`.
+The two WSL skips remain the Windows-native proxy/tombstone tests, both passed
+in the 55-test Windows focused run. The native Windows full-suite result earlier
+in this report is historical; it was not rerun for this path-only follow-up.
+
+Actual path-only interoperability probe, exit 0:
+
+```powershell
+wsl -d Ubuntu --cd /mnt/c/Users/Lan/.codex/worktrees/ecc7/sanmou_monorepo/packages/pioneer-agent -- env PYTHONPATH=src:../sanmou-common/src /tmp/sanmou-a-01a07f09-venv/bin/python -B -c 'import json,subprocess,tempfile; from pathlib import Path; from pioneer_agent.adapters.capture_bridge_client import _to_windows_path,_PROXY_SCRIPT; directory=tempfile.TemporaryDirectory(prefix="sanmou-a-pathfix-"); linux_file=Path(directory.name)/"synthetic proxy.py"; linux_file.write_text("synthetic path evidence",encoding="utf-8"); converted=[_to_windows_path(_PROXY_SCRIPT),_to_windows_path(linux_file)]; result=subprocess.run(["python.exe","-c","import json,os,sys; print(json.dumps([os.path.isfile(p) for p in sys.argv[1:]]))",*converted],capture_output=True,text=True,timeout=15,check=True); exists=json.loads(result.stdout); print(json.dumps({"windows_worktree_path":converted[0],"linux_fixture_path":converted[1],"windows_is_file":exists,"proxy_started":False,"credential_forwarding":False})); directory.cleanup(); assert exists==[True,True], exists'
+```
+
+Windows `isfile` returned `[true, true]`: the checked-in proxy mapped to its
+actual `C:\Users\Lan\.codex\worktrees\ecc7\...` path; the synthetic Linux file
+mapped to `\\wsl.localhost\Ubuntu\tmp\sanmou-a-pathfix-...\synthetic proxy.py`.
+The temporary directory was cleaned. The non-Ubuntu/custom-mount cases are
+synthetic unit tests, not additional installed-distro execution.
+
+This probe started only a Windows Python file-existence check. It did not start
+the proxy or capture server, send/forward any token, capture images or touch the
+game. The automatic WSL Game MCP-to-Windows-proxy token propagation gap remains
+open for separately authorized integration; neither these tests nor C's upstream
+environment tests establish an end-to-end authenticated WSL capture. No reviewed
+KB, schema, fixture hash, external oracle or execution gate changed.
