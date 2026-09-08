@@ -1,0 +1,30 @@
+{
+  "sanmou-cr-stdio-controlled-before.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-stdio-controlled-before.log",
+    "sha256": "dd64b94c4b5421b095790bfa09a671e147bca80a6bb3493a016e899b6aebccd8",
+    "bytes": 749,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "expected_red_reproduction"
+  },
+  "sanmou-cr-stdio-controlled-before-corrected.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-stdio-controlled-before-corrected.log",
+    "sha256": "ba51302202207841cd13c55d59fa3c4af469a211bba4eb1ff587f8212b427b94",
+    "bytes": 913,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "expected_red_reproduction"
+  },
+  "sanmou-cr-stdio-real-late-before.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-stdio-real-late-before.log",
+    "sha256": "f780ac963fcc025117a6ade3b38bf8457feffcd7fa8312817318a78872f6f515",
+    "bytes": 634,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "expected_red_reproduction"
+  },
+  "sanmou-cr-stdio-real-persistent-before.log": {
+    "path": "C:\\Users\\Lan\\AppData\\Local\\Temp\\sanmou-cr-stdio-real-persistent-before.log",
+    "sha256": "c2d66e0f29f69ac2672c55a1ab47a6bb3338f7bd033f3c76b96db79ed68349a8",
+    "bytes": 818,
+    "source_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
+    "disposition": "expected_red_reproduction"
+  }
+}

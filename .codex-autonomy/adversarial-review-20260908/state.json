@@ -68,7 +68,7 @@
       "host_id": "local",
       "final_sha": "eb4ecd90ccd1c7b5ec4982a14e5c34de5acc8669",
       "report": "docs/test-reports/2026-09-08/C.md",
-      "cursor": "08c7db4c-5fe0-4145-80e9-8f6317848621:17",
+      "cursor": "08c7db4c-5fe0-4145-80e9-8f6317848621:18",
       "branch": "feat/review-c-harness-r17-r20",
       "tree": "f4c7622263639b5aa71530ddb486430411278609",
       "report_blob": "9f66c9e2eaf69dc4f1fd89d494edfa3c1ed5ea78",
@@ -665,6 +665,22 @@
       "status": "closed_verified",
       "replacement_final_sha": "6bff970d8ed6d6eff6153e783b715273847847b7",
       "evidence": "@electron/rebuild4.2.0/node-abi4.35.0 require>=22.12; actual semver20.20.2false24.14true. F pins24.14.0; no engine/dependency bypass."
+    },
+    {
+      "id": "CR08",
+      "priority": "P2",
+      "owner": "C",
+      "r_ids": [
+        "R20"
+      ],
+      "file": "packages/pioneer-agent/src/pioneer_agent/agent_harness/stdio_client.py",
+      "lines": [
+        133,
+        143
+      ],
+      "status": "open_independently_reproduced",
+      "reviewed_sha": "eb4ecd90ccd1c7b5ec4982a14e5c34de5acc8669",
+      "evidence": "Real SDK+AnyIO deterministic late-send: normal close raisesBrokenResource group, primary connectTimeout masked;10 normal replies correct. Nativeext4 20x2 passed, so not filesystem-only diagnosis."
     }
   ],
   "install_window": {
@@ -688,7 +704,15 @@
     "reported_result": "846 tests,2 errors,2 native-only skips",
     "root_log": "/tmp/sanmou-root-integration-pioneer-20260908.log",
     "prior_review_commit": "470d92cdc6831f6c9bec4ce99050ccf6056b033c",
-    "independently_reproduced": false,
-    "issue": "AnyIO BrokenResourceError during stdio cleanup masks connection failure"
+    "independently_reproduced": true,
+    "issue": "AnyIO BrokenResourceError during stdio cleanup masks connection failure",
+    "controlled_log": "C:/Users/Lan/AppData/Local/Temp/sanmou-cr-stdio-controlled-before.log",
+    "ext4_native_repeats": "20 iterations x 2 original tests;0 failures; /tmp/sanmou-cr-reopen-470d92c-MaNesZ/stdio-runs",
+    "real_subprocess_logs": [
+      "C:/Users/Lan/AppData/Local/Temp/sanmou-cr-stdio-real-late-before.log",
+      "C:/Users/Lan/AppData/Local/Temp/sanmou-cr-stdio-real-persistent-before.log"
+    ],
+    "corrected_controlled_log": "C:/Users/Lan/AppData/Local/Temp/sanmou-cr-stdio-controlled-before-corrected.log",
+    "probe_sampling_correction": "Final stream counts now read after entire client context; transport-finally intermediate count retained and is not evidence of leakage."
   }
 }

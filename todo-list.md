@@ -464,5 +464,6 @@
 - [x] 受测组合7f59f00778594accc49fd02a828a08097832c27c，tree b812fb28f174af7daef353b50a766eaeb8f442c6；无源码手工冲突决议，无master操作。
 - [x] Pioneer846（844pass/2Windows-only skip）、QA327、common2、nativeAPI11、官方MCP7/6及Game import边界通过。
 - [x] Node24.14.0严格engine检查/typecheck/build/15Node+15Electron、新包两轮临时安装/pixel413/正常上传/卸载通过，cleanup为0。
-- [x] docs/reviews/2026-09-08-adversarial-review.md 给出APPROVE，仅本轮patch；原失败、12依赖审计、平台/时间限制及生产未验边界全部保留。
+- [x] 历史470d92c报告给出patch-only APPROVE；现已因CR08暂停，原失败、12依赖审计、平台/时间限制及生产未验边界全部保留。
+- [ ] CR08 / R20：stdio关闭竞态已独立复现，当前REQUEST CHANGES；等待C替代SHA后复验primary错误、资源清理和真实子进程有界退出。
 - [ ] Production readiness未建立；签名/clean-machine/update/rollback、真实vision/holdout/R&R/broker/live closure及既有依赖/平台问题留待后续明确工作。

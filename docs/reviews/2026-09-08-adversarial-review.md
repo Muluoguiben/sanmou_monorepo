@@ -1,5 +1,5 @@
 # 2026-09-08 统一对抗性审查
-> 审查重开：**REQUEST CHANGES**。原报告提交470d92c的APPROVE已暂停，不再是当前可合入结论。协调者在相同源码的ext4组合回归中报告2项stdio关闭错误（AnyIO BrokenResourceError经ExceptionGroup逸出）；原日志已保留，reviewer正在独立复现和分类。下文原批准及通过结果仅作为历史证据，待替代C与重新组合验证后更新。
+> 审查重开：**REQUEST CHANGES**。原报告提交470d92c的APPROVE已暂停，不再是当前可合入结论。协调者在相同源码的ext4组合回归中报告2项stdio关闭错误（AnyIO BrokenResourceError经ExceptionGroup逸出）；原日志已保留，reviewer已独立复现CR08，等待C替代提交及独立复测。下文原批准及通过结果仅作为历史证据，待替代C与重新组合验证后更新。
 
 **470d92c 历史结论（现已暂停）：APPROVE（仅本轮 patch）。** R01–R26 已逐项完成代码审查、原始反例与修复验证；独立新增 CR01–CR07 均由原 owner 返工并完成复审。最终六组件及组合源码身份已核验，所列支持环境的门禁通过。
 
@@ -54,7 +54,7 @@
 | R17 | P2 / C | 已修复。无虚构 timing domain 的 121 秒循环，基线 checkpoint_stale，组合持续推荐；map/recruit 源独立刷新。 |
 | R18 | P2 / C | 已修复。持久 journal+新 server 空 identity，基线只调 status 即停；组合先 observe 再核身份。changed/missing 身份保留旧基线负向通过。 |
 | R19 | P2 / C | 已修复。QA 推进时钟 300 秒，基线仍推荐，组合 observation_stale；输出前同帧/身份/时间/域绑定回归通过。 |
-| R20 | P2 / C | 已修复。基线源码未设置 deadline，已核验 SDK 默认 None；未启动无限等待。新代码真实 silent-child、初始化、调用、取消和清理测试通过。 |
+| R20 | P2 / C | **重开：CR08 / REQUEST CHANGES。** 原 deadline 修复存在 stdio 关闭竞态，可使 BrokenResourceError group 覆盖正常退出或原超时；见下方独立复现。 |
 | R21 | P2 / E | 已修复。实际 TypeScript/NodeNext 在内存发射基线 ESM preload.js、新 CJS preload.cjs，编译 0 错误；真实 Electron sandbox/preload/custom URL 测试通过。[Electron 规则](https://www.electronjs.org/docs/latest/tutorial/esm#esm-preload-scripts-must-have-the-mjs-extension)。 |
 | R22 | P2 / E | 已修复。执行原处理函数重现 B preview/A report；新代码丢弃迟到结果。真实 picker/drop/paste/history/chat 竞争回归通过。 |
 | R23 | P2 / E | 已修复。原 React SSR 将 good 标不足、unknown 标充分；组合均正确。CR03 是测试端口 setup 失败，未进入此业务断言。 |
@@ -77,6 +77,21 @@
 CR03 依据标准的 [bad-port 规则](https://fetch.spec.whatwg.org/#port-blocking)，没有禁用浏览器保护。CR06 没有调高像素阈值，没有解码或分配巨图。
 
 所有源码修复由原 owner 完成。Reviewer 只写独立 probe/证据/报告；没有把临时路径替身的通过当真实生产代码通过。CR01 最终 probe 已去掉替身。CR04、CR05、CR06 的红灯文件均保留。
+
+
+## CR08：R20 关闭竞态重开
+
+**当前 REQUEST CHANGES，C replacement 尚未完成独立验证。** 协调者在相同生产源码的 ext4 组合上得到 846 tests / 2 errors / 2 skips；失败发生在两个 silent-tool 测试的客户端进入/关闭阶段，`stdout_reader` 向已关闭的 receive stream 发送消息，经 `ExceptionGroup` 逸出，并可能覆盖原始超时。
+
+- 协调者完整日志：`/tmp/sanmou-root-integration-pioneer-20260908.log`；原两个测试另重跑 3 轮，每轮均 2 errors。C 在独立归档中也复现 12 tests / 2 errors。
+- Reviewer 在自己的 ext4 clone `/tmp/sanmou-cr-reopen-470d92c-MaNesZ` 对原两个测试跑 20 轮，全过。全部日志保留；**文件系统不是已证根因**，重跑通过也不撤销已观察到的错误。
+- 独立确定性探针使用真实 SDK `ClientSession` 和公共 AnyIO stream，仅替换合成 transport。10 次正常响应全部正确；transport 退出时补发一条合法通知，正常关闭和有意 connect timeout 均得到 `BrokenResourceError` group，后者掩盖 primary `TimeoutError`。
+- 独立真实子进程探针使用官方 stdio：正常调用后，子进程在 stdin EOF 后继续发 4 条通知，旧源码 3/3 退出抛相同 group。另让子进程计划持续输出 30 秒，旧源码同样 3/3 复现。两类均确认 child reaped、worker 清空；持续流探针还确认无新增 pending task。所有数据均为合成 JSON。
+- 探针校正：最初 `final_open_receivers` 在 transport 自己的 finally 内采样，早于调用者关闭 reserve clone。C 指出后 reviewer 独立确认；现保留该中间计数，并把最终计数移到整个 client context 返回后。不能把合法关闭作用域内的一个临时 clone 判成最终泄漏。校正后旧源码仍稳定复现原异常。
+- 关闭要求：不抢走正常响应；连接与请求预算分别生效；primary timeout/cancel 保留；未知或混合 cleanup 错误仍可见；未调度/取消路径也关闭 clone/drain；真实持续输出子进程有界退出。禁止扩大原有时间常数或吞掉整个 ExceptionGroup 来制造通过。
+- 历史 Windows/Electron/安装器证据只对应 `7f59f007` 中当时未变的源码。旧安装器 hash 不绑定未来 C 修复组合；新报告须逐项区分复用证据与本次重新执行。
+
+原始日志：`sanmou-cr-stdio-controlled-before.log`、`sanmou-cr-stdio-controlled-before-corrected.log`、`sanmou-cr-stdio-real-late-before.log`、`sanmou-cr-stdio-real-persistent-before.log`，均位于 Windows Temp。独立 probe 已保存于 review state 的 `probes/`。
 
 ## 独立执行 ledger
 
