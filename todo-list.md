@@ -9,7 +9,7 @@ Dispatch: all six development tasks have acknowledged isolated worktrees; unifie
 CR has started preparation. [Task IDs and report paths](docs/development-batch-2026-09-08-tasks.json).
 Charter and original review pushed in dd76d60; this is not completion of any fix.
 
-Delivery update: A 3d68e5d, B aa7ef1b0, C eb4ecd90, D 2cfda735, E 5afaec4 and
+Delivery update: A 3d68e5d, B aa7ef1b0, C eb4ecd90, D 587f8ab, E 5afaec4 and
 F 42f0f50 are delivered with self-test reports, pending unified adversarial CR.
 The reviewer must verify E intake, combine exact component SHAs, rerun regression
 and adversarial checks, and route findings to their owners before approval.
@@ -27,6 +27,13 @@ installation test. E delivered 5afaec4 with bounded awaited HTTP/JSON readiness,
 negative/delayed tests and two author-run temporary install cycles. The reviewer
 now owns the released installation test window for independent revalidation;
 neither those author results nor unsigned packaging constitute production approval.
+
+CR03 reproduced browser-unsafe random test ports; E is reworking its test-only
+port allocator and reservation, with independent installer tests serialized.
+CR04 found a dangling deleted-entry note attached to an unrelated hero; CR05
+found root-alias exclusion bypass. D delivered 587f8ab with corrected data/scanner,
+new regressions and report; original reviewer probes must pass independently
+before either finding closes. Native Windows reparse certification is not claimed.
 
 - [ ] A: observer security R01/R02/R06/R07; committed self-test report required.
 - [ ] B: state/MCP R05/R08; committed self-test report required.
