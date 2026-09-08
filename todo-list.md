@@ -36,6 +36,8 @@
 
 ## Task-local E — 2026-09-08 desktop/API hardening
 
+- [x] CR07 E validation: unchanged b865 source/lock rebuilt on exact Node24.14.0; npm ci and --engine-strict both0/EBADENGINE0, typecheck/build, 15Node+15Electron and two new source-bound install/pixel413/upload/uninstall runs passed. F owns CI pin; E only report/evidence. Historical Node20 warnings, package failures and audit/production blockers retained.
+
 - [x] CR06 follow-up: unchanged Pillow pixel guard rejects 69-byte huge-dimension PNG as413 after reader closure/cleanup; API11/11 and final source-bound installed rejection + valid upload passed. Python3.12 full baseline/current both10fail/29error/9skip with two unstable timestamp-test names explicitly preserved; no full-pass claim or freshness-gate change.
 
 - [x] CR03 follow-up: shared bounded high-port allocator/reservation replaces OS `listen(0)` across E tests. Exact Node20.20.2/Python3.12.14 checks: 15 Node + 15 Electron, API10 and two planned unsigned install/start/upload/uninstall runs passed; Chromium still blocks5061. Prior failure and engine warnings retained; awaits renewed unified CR, no F CI or production source change.

@@ -14,6 +14,10 @@ The same follow-up also addresses **CR06**: Pillow pixel-limit rejection now
 returns 413 after cleanup. Its final API, package baseline and newly rebuilt
 installer evidence are documented separately below.
 
+**CR07** aligns current validation with supported Node 24.14.0. This final
+documentation-only revision reruns the unchanged `b865808d` source/lock on that
+exact runtime and preserves all older unsupported Node 20 observations.
+
 ## Identity and scope
 
 - Worktree: `C:/Users/Lan/.codex/worktrees/3fd9/sanmou_monorepo`.
@@ -566,3 +570,90 @@ recorded in JSON. No autonomous-loop source, tests or freshness gates were edite
 The prior Windows 3.14 counts remain historical evidence, not comparable by
 count alone to this 3.12 run. Existing dependency/engine warnings, unsigned status,
 clean-machine/update/rollback limits and live/provider blockers are unchanged.
+
+## CR07 revision — supported CI host runtime
+
+Validation source: `b865808d021ca4fd81c1bb087735187f485b51a2`. E made no changes
+to production code, test scripts, desktop dependencies, engines declarations or
+the lockfile in this revision. This commit updates only E's report/evidence and
+task-local TODO. F owns the workflow change; its inspected commit
+`6bff970d8ed6d6eff6153e783b715273847847b7` pins `node-version: '24.14.0'`.
+E read that workflow through `git show`; it did not merge or edit F's tree.
+
+The retained lock resolves `@electron/rebuild@4.2.0` and `node-abi@4.35.0`, both
+declaring Node `>=22.12.0`. A direct semver check returns false for 20.20.2 and
+true for 24.14.0 for both packages. Prior Node 20 runs with EBADENGINE remain
+unsupported observations even though this project's no-native-addon build
+happened to pass. They are not retroactively promoted to supported execution.
+The [official release table](https://nodejs.org/en/about/previous-releases)
+lists Node 24 as LTS and Node 20 as EOL when checked on 2026-09-08. The exact
+local/CI patch frozen for this check is 24.14.0, not a claim to test the latest
+upstream patch.
+
+### Exact environment and commands
+
+- Host Node: `D:/nodejs/node.exe`, verified `v24.14.0`; not the bundled 24.19 runtime.
+- npm CLI: `D:/nodejs/node_modules/npm/bin/npm-cli.js`, npm 11.9.0.
+- Python: E's existing isolated `.venv`, Python 3.12.14; dependency versions unchanged.
+- Production/test/lock source bytes and Git blobs are identical to the preceding
+  `b865808d` evidence manifest. The final report commit supplies a new immutable
+  report identity, not a new implementation claim.
+- CR explicitly confirmed zero owned processes/uninstall entries and released
+  the window before E began Electron/install runs. E did not infer release from
+  elapsed time. PATH was modified only in each command process.
+
+From `apps/sanmou-advisor-desktop`, with real logs under `%TEMP%`:
+
+```powershell
+$node24='D:/nodejs/node.exe'
+$npmCli='D:/nodejs/node_modules/npm/bin/npm-cli.js'
+$env:PATH='D:\nodejs;'+$env:PATH
+$env:PYTHONDONTWRITEBYTECODE='1'
+& $node24 $npmCli ci
+& $node24 $npmCli run typecheck
+& $node24 $npmCli run build
+# Additional explicit engine enforcement, followed by the full sequence:
+& $node24 $npmCli ci --engine-strict
+& $node24 $npmCli run typecheck
+& $node24 $npmCli run build
+& $node24 $npmCli test
+& $node24 $npmCli run dist:win
+& $node24 $npmCli run test:install:win # planned run 1
+& $node24 $npmCli run test:install:win # planned run 2
+```
+
+The extra strict check enforces rather than ignores the declared engines. No
+ignore-engines, force, engine declaration override, dependency major migration,
+Chromium safety override or readiness-timeout increase was used.
+
+### Results for this runtime
+
+| Check | Result | Exit |
+|---|---|---|
+| Exact dependency-engine semver checks | 24.14.0 satisfies both; 20.20.2 satisfies neither | 0 |
+| Pure Node port/readiness tests | 13 pass, 0 fail/skip | 0 |
+| Default npm ci | pass; EBADENGINE count 0 | 0 |
+| npm ci --engine-strict | pass; EBADENGINE count 0 | 0 |
+| Typecheck / build on 24.14.0 | pass | 0 |
+| Full desktop command | 15 Node + 15 real Electron pass, 0 fail/skip | 0 |
+| Newly rebuilt unsigned NSIS package | pass | 0 |
+| New package install 1 / pixel 413 / valid upload / uninstall | pass; port 58638, 12 readiness probes | 0 |
+| New package install 2 / pixel 413 / valid upload / uninstall | pass; port 62917, 12 readiness probes | 0 |
+| Final owned Electron / install API / uninstall entries | 0 / 0 / 0 | 0 |
+
+This is a new build made by Node 24.14.0, not reuse of a Node 20 installer.
+Installer SHA-256 is
+`a4aabfd1b813803948bde9bff4bde4f71b333f736496e14b8977f1dbd3255cc0`;
+Authenticode still reports `NotSigned`. Both installed API source hashes match
+the frozen source (`20a2d22aa36e73fd1668d94b242f8aa12cbf3cd417174b59985ea0c27c31ccc5`).
+Each run preserved the existing-installation check and private temporary path
+constraints, verified 69-byte pixel-limit rejection with no residual file/report,
+then a normal mock PNG upload, app closure and uninstall.
+
+The 12 npm advisory entries remain. The prior full Python package failures,
+timestamp-test instability, Node 20 EBADENGINE logs and earlier unexplained
+Python-exited observation are retained unchanged; they are not resolved by
+selecting Node 24. Python full-package tests were not rerun for this host-only
+validation. These are local matching-runtime results, not a hosted GitHub Actions
+or combined-tree approval. Signed clean-machine, update/rollback, live/model and
+other production evidence gates remain with unified CR and their owners.
