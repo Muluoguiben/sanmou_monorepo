@@ -9,7 +9,7 @@ Dispatch: all six development tasks have acknowledged isolated worktrees; unifie
 CR has started preparation. [Task IDs and report paths](docs/development-batch-2026-09-08-tasks.json).
 Charter and original review pushed in dd76d60; this is not completion of any fix.
 
-Delivery update: A 3d68e5d, B aa7ef1b0, C eb4ecd90, D 2cfda735, E 8729d18f and
+Delivery update: A 3d68e5d, B aa7ef1b0, C eb4ecd90, D 2cfda735, E 5afaec4 and
 F 42f0f50 are delivered with self-test reports, pending unified adversarial CR.
 The reviewer must verify E intake, combine exact component SHAs, rerun regression
 and adversarial checks, and route findings to their owners before approval.
@@ -21,6 +21,12 @@ Formal CR reproduced a P2 WSL-to-Windows proxy path-conversion defect. A's
 replacement 3d68e5d was self-tested, pushed to its already-authorized feature
 branch and remotely verified; independent reviewer revalidation is pending.
 The separate token-next-hop and live-evidence blockers are not closed by this fix.
+
+CR02 independently reproduced an asynchronous-readiness false positive in the
+installation test. E delivered 5afaec4 with bounded awaited HTTP/JSON readiness,
+negative/delayed tests and two author-run temporary install cycles. The reviewer
+now owns the released installation test window for independent revalidation;
+neither those author results nor unsigned packaging constitute production approval.
 
 - [ ] A: observer security R01/R02/R06/R07; committed self-test report required.
 - [ ] B: state/MCP R05/R08; committed self-test report required.
