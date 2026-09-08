@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
-  "phase": "waiting_for_component_deliveries",
+  "phase": "formal_review_rework_pending",
   "coordinator_thread_id": "019f4a66-e105-7103-ab9d-aef47aa6f8a0",
   "review_branch": "feat/adversarial-review-20260908",
   "baseline_commit": "d377ef8bbaa69e6b25928255eac0cb62714e82f8",
   "baseline_tree": "5a7239bcc64689789d7cd7a6b148937ea3184760",
-  "combined_commit": null,
-  "combined_tree": null,
+  "combined_commit": "28db7a1a167bd44e88ebe00404406859ac2c02f3",
+  "combined_tree": "28561ff65ed9afa4a4e7ce284e07d510c81d31eb",
   "formal_verdict": null,
   "production_readiness": "not_established",
   "components": {
     "A": {
       "thread_id": "01a07f09-c64c-7852-a533-7db7730a048c",
       "host_id": "local",
-      "final_sha": "4a2e4b8d1d58cac2a6a564a4e9a1cf8540eb26c3",
+      "final_sha": "3d68e5dc87ffab718e436c8df3aff3935c360b2b",
       "report": "docs/test-reports/2026-09-08/A.md",
       "cursor": "3096437e-5f04-4347-aaaa-1330ace18224:13",
       "progress_only": {
@@ -26,20 +26,21 @@
         "live": "Coordinator paused."
       },
       "local_final_sha": "4a2e4b8d1d58cac2a6a564a4e9a1cf8540eb26c3",
-      "tree": "001e2ae63e00c3816febcbe30467e33be7c51713",
-      "tested_implementation_tree": "998cac7a0e5eed674900f62f5f60ef0c19eaebfa",
-      "report_blob": "399392caa6fde2af8b72b1d6f63a0cec484402de",
-      "intake_status": "received_metadata_verified_pending_formal_review",
+      "tree": "54f5d34fb9a6ab8d902dc62f85d98804b820ae97",
+      "tested_implementation_tree": "03b2013d1820819e7be2539763429e426a85a6ed",
+      "report_blob": "887fbd6a98380c07ecdc999a5302dfb6911cbf9c",
+      "intake_status": "CR01_replacement_independently_verified",
       "intake_verified": [
         "local SHA/report exist; d377ef8 ancestor",
         "tested tree exists and local final differs only report/TODO",
         "remote branch independently verified4a2e4b8 after coordinator authorized push"
       ],
-      "independent_test_status": "not_run_waiting_for_final_deliveries",
+      "independent_test_status": "native55_pass_linux845_run_pass_skip2_blackbox_hop_pass_with_explicit_wslenv",
       "delivery_blocker": null,
       "last_task_status": "idle",
       "last_turn_status": "completed",
-      "historical_push_rejection": "Resolved by coordinator successful authorized push; historical refusal in report remains accurate history."
+      "historical_push_rejection": "Resolved by coordinator successful authorized push; historical refusal in report remains accurate history.",
+      "previous_final_sha": "4a2e4b8d1d58cac2a6a564a4e9a1cf8540eb26c3"
     },
     "B": {
       "thread_id": "01a07f0b-149e-7160-a896-551165a702a0",
@@ -94,7 +95,7 @@
     "D": {
       "thread_id": "01a07f0b-53b8-74a3-9e61-71dd461bdff8",
       "host_id": "local",
-      "final_sha": "2cfda735887e2a7cf237adeafea8d6c7feb2c837",
+      "final_sha": "587f8abaa20a195da7a4486504ec6e8138d158bf",
       "report": "docs/test-reports/2026-09-08/D.md",
       "cursor": "d37471aa-6e79-4f07-aa64-c4907cb2cf1b:10",
       "progress_only": {
@@ -109,9 +110,9 @@
       },
       "branch": "feat/qa-review-d-20260908",
       "tree": "d4c6e47bdae930202fb13b08d2b8aa83c8c49778",
-      "tested_implementation_tree": "8acb0b599b20a25630993f35d07df0e78bd964cd",
+      "tested_implementation_tree": "67293499bb9b5d94406721fc86a18fd8d3b23459",
       "report_blob": "4c14e088cc6f245549ed738ee590522a0c1364eb",
-      "intake_status": "received_metadata_verified_pending_formal_review",
+      "intake_status": "CR04_CR05_replacement_independently_verified",
       "intake_verified": [
         "commit available; d377ef8 ancestor",
         "14 changed paths consistent with declared QA scope",
@@ -119,19 +120,21 @@
         "remote branch equals explicitly delivered final SHA",
         "shell scripts and original vision test absent from diff"
       ],
-      "independent_test_status": "not_run_waiting_for_all_six",
+      "independent_test_status": "semantic_equality_root_alias_real_windows_junction_QA327_pass",
       "review_focus": [
         "pending pipeline and retrieval/citation boundaries",
         "global ID migration and partial-write fail-closed behavior",
         "Windows reparse/race guarantees vs POSIX evidence",
         "baseline red tests vs old-API fixture errors",
         "same-source hero duplicate removal evidence"
-      ]
+      ],
+      "replacement_required": false,
+      "previous_final_sha": "2cfda735887e2a7cf237adeafea8d6c7feb2c837"
     },
     "E": {
       "thread_id": "01a07f0b-6d25-75c3-bcb1-acd4ca26cd1d",
       "host_id": "local",
-      "final_sha": null,
+      "final_sha": "5afaec4bb46c91c4c1fd153e0c79670276c1d197",
       "report": "docs/test-reports/2026-09-08/E.md",
       "cursor": "5a4f0765-023f-4651-a021-19552055b225:12",
       "progress_only": {
@@ -145,7 +148,21 @@
         "latest": "Pre-delivery: author Windows Electron13/Node2/API10, unsigned temporary install/start/random port/preload/synthetic PNG/uninstall; same Windows baseline764 vs fix768 35 failures+9skips, WSL baseline775 vs fix779 same7CRLF errors. Final report and E-test-evidence.json pending. All unverified."
       },
       "last_task_status": "active",
-      "last_turn_status": "inProgress"
+      "last_turn_status": "inProgress",
+      "branch": "feat/desktop-api-r03-r21-r24-20260908",
+      "tree": "b28b62393808ce170c2a64e7a7b66b87171b91d5",
+      "report_blob": "1c40e3b6b70d96895740844ff929b22c6ad30132",
+      "evidence_blob": "1d4b7078bf9fd67f4083ba6fa9ae4de1b1514c48",
+      "intake_status": "CR02_replacement_verified_CR03_pending_new_final",
+      "intake_verified": [
+        "d377 ancestor; final branch remote matches",
+        "E.md and E-test-evidence.json present",
+        "17 raw author-source SHA256 match evidence; all CRLF-normalized author bytes equal final Git bytes",
+        "seven raw hashes required mixed LF/CRLF comparison; no source drift found"
+      ],
+      "independent_test_status": "formal_review_starting",
+      "previous_final_sha": "8729d18f5cab45b3616c15b9fc5eef36746b690e",
+      "replacement_required": true
     },
     "F": {
       "thread_id": "01a07f0b-85e8-7880-bb8f-3845dc01fef2",
@@ -177,7 +194,7 @@
   },
   "coordinator_cursor": "f3384e36-4a82-4534-8681-978aa3e6ec37:1",
   "heartbeat_id": "sanmou",
-  "next_action": "A/B/C/D/F final metadata complete, wait for E final SHA/report. Then combine exact confirmed SHAs; independently evaluate next-hop token issue and all R01-R26; no formal approval yet.",
+  "next_action": "E owns exclusive Electron/install rework for CR03+CR06. Await explicit final SHA/report and cleanup release, independently verify source/test blobs, merge replacement then run Node20/Python3.12 CI pipeline, exact rebuilt installer and original pixel cleanup probe. Finish final combined suites and report; A/CR01 D/CR04/05 are closed; CR02 final install still pending. No game or real token use.",
   "intake_notes": {
     "D": "Coordinator reports first full suite 309 with 4 failures/1 error. Fixture assumptions, cwd and Windows .sh CRLF under correction. Audit first-run failures and basis for expectation changes; not final evidence.",
     "E": "Coordinator reports focused Windows Electron 13/13, Node 2/2, API 9/9 zero skip, typecheck/build; Windows full suite 767 with 6 failures/29 errors/9 skips. Require same OS/runtime/deps d377ef8 comparison and concrete npm audit evidence; not final evidence.",
@@ -204,7 +221,8 @@
       "status": "author_reported_pending_independent_verification",
       "source_thread": "01a07f09-c64c-7852-a533-7db7730a048c",
       "description": "A frozen CaptureBridgeClient.connect reportedly has no env/WSLENV forwarding. C patch covers parent to Game MCP only; WSL Game MCP to Windows python proxy second hop unproven. A says docs require operator configuration; need independently determine whether canonical game_agent environment preserves usable configuration and reproduce synthetic end-to-end path.",
-      "next_action": "Review A final connect/proxy and C replacement environment together; synthetic no-real-secret cross-WSL integration test before closing compatibility. C must not edit A files; coordinator informed by A."
+      "next_action": "Review A final connect/proxy and C replacement environment together; synthetic no-real-secret cross-WSL integration test before closing compatibility. C must not edit A files; coordinator informed by A.",
+      "independent_status": "With probe-only path mapper, explicit synthetic WSLENV=SANMOU_CAPTURE_TOKEN/w authenticates real Windows proxy to fake loopback and returns valid synthetic PNG; default without WSLENV fails. Production path still CR01. Earlier one mapped run rejected timestamp outside interval; later diagnostic passed; retain both, no freshness relaxation."
     }
   ],
   "environments": {
@@ -234,6 +252,309 @@
       "Pillow": "12.3.0",
       "cryptography": "46.0.7",
       "google-genai": "1.75.0"
+    },
+    "ci_windows": {
+      "python_base": "C:/Users/Lan/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "venv": "C:/Users/Lan/.codex/worktrees/6737/sanmou_monorepo/.venv/ci312",
+      "python": "3.12.14",
+      "pip_check_exit": 0,
+      "node": "20.20.2",
+      "node_path": "C:/Users/Lan/AppData/Local/npm-cache/_npx/ebaba8b9e55fd0a9/node_modules/node/bin/node.exe"
     }
-  }
+  },
+  "integration": {
+    "merged": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "merge_in_progress": null,
+    "conflict_files": [],
+    "document_only_resolutions": [
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "resolution_authority": "Coordinator explicitly authorized preserve-both independent Task blocks A-F, no checkbox/history changes; no source conflicts.",
+    "all_final_shas": {
+      "A": "4a2e4b8d1d58cac2a6a564a4e9a1cf8540eb26c3",
+      "B": "aa7ef1b0c3ac0a7d24a8b31e258cb6efc2d224fb",
+      "C": "eb4ecd90ccd1c7b5ec4982a14e5c34de5acc8669",
+      "D": "2cfda735887e2a7cf237adeafea8d6c7feb2c837",
+      "E": "8729d18f5cab45b3616c15b9fc5eef36746b690e",
+      "F": "42f0f5013e820de066ac53776512686588c3af7a"
+    }
+  },
+  "independent_results": {
+    "linux_pioneer": {
+      "total": 845,
+      "passed": 843,
+      "skips": 2,
+      "exit": 0,
+      "code_commit": "543890f289378a001506a9395bcd79a5b9bb897b",
+      "log": "C:/Users/Lan/AppData/Local/Temp/sanmou-cr-combined-543890f-linux-pioneer.log"
+    },
+    "qa": {
+      "total": 327,
+      "passed": 327,
+      "skips": 0,
+      "exit": 0,
+      "code_commit": "28db7a1a167bd44e88ebe00404406859ac2c02f3",
+      "log": "C:/Users/Lan/AppData/Local/Temp/sanmou-cr-qa-587f8aba-final.log"
+    },
+    "common": {
+      "total": 2,
+      "passed": 2,
+      "skips": 0,
+      "exit": 0,
+      "log": "C:/Users/Lan/AppData/Local/Temp/sanmou-cr-combined-common.log"
+    },
+    "windows_baseline": {
+      "total": 764,
+      "failures": 6,
+      "errors": 28,
+      "skips": 9,
+      "exit": 1,
+      "log": "C:/Users/Lan/AppData/Local/Temp/sanmou-cr-baseline-windows-pioneer.log"
+    },
+    "windows_combined": {
+      "total": 823,
+      "failures": 6,
+      "errors": 24,
+      "skips": 9,
+      "exit": 1,
+      "log": "C:/Users/Lan/AppData/Local/Temp/sanmou-cr-combined-windows-pioneer-exact.log"
+    },
+    "desktop": {
+      "npm_ci_exit": 0,
+      "typecheck_exit": 0,
+      "build_exit": 0,
+      "node_tests": 2,
+      "electron_tests": 14,
+      "test_exit": 0,
+      "dist_win_exit": 0,
+      "signature": "NotSigned",
+      "install_smoke": {
+        "status": "paused_for_E_CR03_exclusive_window",
+        "prior_independent_failures": 2,
+        "root_cause": "CR02 async Promise readiness predicate; preserve separate earlier author Python-exited unknown event"
+      },
+      "logs": [
+        "sanmou-cr-npm-ci.log",
+        "sanmou-cr-typecheck.log",
+        "sanmou-cr-build.log",
+        "sanmou-cr-desktop-test.log",
+        "sanmou-cr-dist-win.log",
+        "sanmou-cr-install-smoke.log"
+      ],
+      "ci_node20": {
+        "version": "20.20.2",
+        "typecheck_exit": 0,
+        "build_exit": 0,
+        "node_passed": 9,
+        "electron_passed": 13,
+        "electron_failed": 1,
+        "reason": "CR03 setup on port5061; R23 body not reached",
+        "dist_not_run_due_prior_failure": true
+      }
+    },
+    "npm_audit": {
+      "exit": 1,
+      "affected_packages": 12,
+      "unfixed_existing": true,
+      "path": "C:/Users/Lan/AppData/Local/Temp/sanmou-cr-npm-audit.json"
+    },
+    "input_preparation": {
+      "first_pioneer_linux_errors": 18,
+      "first_qa_failures": 2,
+      "cause": "Existing CRLF checkout bytes; adding F eol attributes/checkout-index did not rewrite existing files. After runs ended, verified normalization equals Git and wrote exact Git bytes. No semantic fixture/hash/expected changes.",
+      "restored_exact_paths": [
+        "packages/pioneer-agent/evaluation/scenarios/v1/battery.json",
+        "packages/pioneer-agent/evaluation/scenarios/v1/static-tool-calls.generation.json",
+        "packages/pioneer-agent/evaluation/scenarios/v1/static-tool-calls.holdout.json",
+        "scripts/bilibili_video_knowledge_workflow.sh"
+      ]
+    },
+    "native_capture": {
+      "total": 55,
+      "passed": 55,
+      "skips": 0,
+      "exit": 0,
+      "log": "sanmou-cr-native-capture-final.log"
+    },
+    "native_api": {
+      "total": 10,
+      "passed": 10,
+      "skips": 0,
+      "exit": 0,
+      "python_versions": [
+        "3.14.3",
+        "3.12.14"
+      ],
+      "logs": [
+        "sanmou-cr-native-api-final.log",
+        "sanmou-cr-ci312-api.log"
+      ]
+    },
+    "official_stdio": {
+      "exit": 0,
+      "game_tools": 7,
+      "qa_tools": 6,
+      "fixture": "chapter_claimable_state.json",
+      "action": "claim_chapter_reward",
+      "authority": "none",
+      "cache_unchanged": true,
+      "strict_rejections": true,
+      "log": "sanmou-cr-official-stdio-final.log"
+    },
+    "import_graph": {
+      "forbidden_modules": [],
+      "baseline_control_and_bridge_imported": true
+    },
+    "native_junction": {
+      "python": "3.12.14",
+      "exit": 0,
+      "root_and_parent_junction_rejected_with_and_without_runtime_opt_in": true,
+      "ordinary_root_success": true,
+      "runtime_root_requires_opt_in": true,
+      "concurrent_race_certified": false,
+      "log": "sanmou-cr-native-junction-final.log"
+    },
+    "original_counterexamples": {
+      "safety": "sanmou-cr-safety-baseline-counterexamples-final.log",
+      "pioneer": [
+        "sanmou-cr-pioneer-counterexamples-baseline.log",
+        "sanmou-cr-pioneer-counterexamples-combined.log"
+      ],
+      "desktop": "sanmou-cr-desktop-baseline-counterexamples.log",
+      "preload": "sanmou-cr-preload-module-counterexample.log",
+      "qa": {
+        "log": "sanmou-cr-qa-original-red.log",
+        "tests": 7,
+        "expected_failures": 10,
+        "errors": 0
+      },
+      "eval": {
+        "log": "sanmou-cr-eval-original-red.log",
+        "tests": 5,
+        "expected_failures": 7,
+        "errors": 0
+      },
+      "api": {
+        "log": "sanmou-cr-api-original-red.log",
+        "tests": 4,
+        "expected_failures": 1,
+        "expected_errors": 2
+      }
+    },
+    "qa_eval_import_boundary": "Game MCP observation/fixture graph is free of control/executor/verifier. QA advisory replay tool subprocess intentionally retains existing ReplayRuntime + UIActionRunner + VerifierRegistry with fixed _ReplayUI synthetic backend/AUTOMATION_TEST. Inspect separately; do not claim global zero executor imports for QA subtree or live success."
+  },
+  "findings": [
+    {
+      "id": "CR01",
+      "priority": "P2",
+      "owner": "A",
+      "r_ids": [
+        "R07"
+      ],
+      "file": "packages/pioneer-agent/src/pioneer_agent/adapters/capture_bridge_client.py",
+      "lines": [
+        48,
+        51
+      ],
+      "status": "closed_verified",
+      "reviewed_component_sha": "4a2e4b8d1d58cac2a6a564a4e9a1cf8540eb26c3",
+      "reviewed_combined_sha": "a8babdb4e897b64bef41b1f3dc4169e66d6120b1",
+      "trigger": "Windows-backed /mnt/c worktree in WSL; unconditional UNC conversion resolves nonexistent proxy file.",
+      "evidence": "Native isfile(C path)=true, isfile(constructed UNC)=false; synthetic default/manual fail before connecting fake server. wslpath returns valid C path.",
+      "probe": ".codex-autonomy/adversarial-review-20260908/probes/wsl_capture_hop.py",
+      "replacement_local_sha": "3d68e5dc87ffab718e436c8df3aff3935c360b2b",
+      "owner_notified": true,
+      "coordinator_notified": true,
+      "replacement_final_sha": "3d68e5dc87ffab718e436c8df3aff3935c360b2b",
+      "verification": "Native capture/path55 pass; Linux845 pass(skip2); real A code without probe mapper default auth refuses, explicit synthetic WSLENV/w yields valid77-byte PNG and request/time binding."
+    },
+    {
+      "id": "CR02",
+      "priority": "P2",
+      "owner": "E",
+      "file": "apps/sanmou-advisor-desktop/tests/install-smoke.mjs",
+      "line": 44,
+      "reviewed_sha": "8729d18f5cab45b3616c15b9fc5eef36746b690e",
+      "status": "fix_reviewed_node_deadlines_pass_final_install_blocked_by_CR03",
+      "replacement_final_sha": "5afaec4bb46c91c4c1fd153e0c79670276c1d197",
+      "evidence": "Two independent installs ECONNREFUSED; actual Electron waitForFunction(async()=>false) returned false188ms vs800ms timeout. New Node helper bounded HTTP/body/profile/admin checks; seven cases pass underNode20.",
+      "logs": [
+        "sanmou-cr-install-smoke.log",
+        "sanmou-cr-install-smoke-diagnostic.log",
+        "sanmou-cr-async-readiness-proof.log"
+      ]
+    },
+    {
+      "id": "CR03",
+      "priority": "P2",
+      "owner": "E",
+      "file": "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts",
+      "line": 61,
+      "reviewed_sha": "5afaec4bb46c91c4c1fd153e0c79670276c1d197",
+      "status": "open_owner_reworking_exclusive_Electron_install_window",
+      "evidence": "Node20 suite Node9pass/Electron13pass1setupfail; random5061 yields ERR_UNSAFE_PORT. Real native HTTP200 vs Electronfetchblocked. Same listen0 in readiness.test13/install-smoke48.",
+      "logs": [
+        "sanmou-cr-node20-test.log",
+        "sanmou-cr-browser-port-proof.log"
+      ],
+      "saved_context": ".codex-autonomy/adversarial-review-20260908/evidence/CR03-port-5061-context.md"
+    },
+    {
+      "id": "CR04",
+      "priority": "P2",
+      "owner": "D",
+      "r_ids": [
+        "R10"
+      ],
+      "file": "packages/qa-agent/knowledge_sources/profiles/heroes/minor.yaml",
+      "line": 451,
+      "reviewed_sha": "2cfda735887e2a7cf237adeafea8d6c7feb2c837",
+      "status": "closed_verified",
+      "evidence": "Duplicate deletion left final Huangfusong note under Handang. Parsed baseline minus only target ID differs on unrelated hero-Handang; qun bytes unchanged.",
+      "probe": ".codex-autonomy/adversarial-review-20260908/probes/kb_duplicate_preservation.py",
+      "log": "sanmou-cr-kb-duplicate-preservation-red.log",
+      "replacement_final_sha": "587f8abaa20a195da7a4486504ec6e8138d158bf"
+    },
+    {
+      "id": "CR05",
+      "priority": "P2",
+      "owner": "D",
+      "r_ids": [
+        "R25"
+      ],
+      "file": "packages/qa-agent/src/qa_agent/ingestion/client_package.py",
+      "line": 77,
+      "reviewed_sha": "2cfda735887e2a7cf237adeafea8d6c7feb2c837",
+      "status": "closed_verified",
+      "evidence": "root.resolve erases symlink root; synthetic alias to LocalPersistentData with include_runtime_files=false emits private marker. Root itself omitted by relative exclusion.",
+      "probe": ".codex-autonomy/adversarial-review-20260908/probes/scan_root_alias.py",
+      "log": "sanmou-cr-root-alias-red.log",
+      "replacement_final_sha": "587f8abaa20a195da7a4486504ec6e8138d158bf"
+    },
+    {
+      "id": "CR06",
+      "priority": "P2",
+      "owner": "E",
+      "r_ids": [
+        "R24"
+      ],
+      "file": "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py",
+      "line": 294,
+      "reviewed_sha": "5afaec4bb46c91c4c1fd153e0c79670276c1d197",
+      "status": "open_owner_reworking_with_CR03",
+      "evidence": "69-byte PNG header20000x20000 triggers Pillow DecompressionBombError before decoding; native ASGI returns500 and leaves69-byte upload. Keep pixel guard, map to4xx and close/delete.",
+      "probe": ".codex-autonomy/adversarial-review-20260908/probes/upload_pixel_guard_cleanup.py",
+      "log": "sanmou-cr-pixel-guard-cleanup-red.log"
+    }
+  ]
 }

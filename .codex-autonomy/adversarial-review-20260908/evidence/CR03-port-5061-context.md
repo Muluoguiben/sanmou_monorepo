@@ -1,0 +1,127 @@
+# Page snapshot
+
+```yaml
+- main [ref=e3]:
+  - complementary [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]: 谋
+      - generic [ref=e7]:
+        - heading "Sanmou Advisor" [level=1] [ref=e8]
+        - paragraph [ref=e9]: 截图顾问台
+    - generic [ref=e10]:
+      - generic [ref=e11]:
+        - img [ref=e12]
+        - generic [ref=e14]: 设备
+      - generic [ref=e15]:
+        - text: 平台
+        - combobox "平台" [ref=e16]:
+          - option "自动" [selected]
+          - option "PC 客户端"
+          - option "安卓模拟器"
+          - option "安卓真机"
+          - option "iOS"
+      - generic [ref=e17]:
+        - checkbox "模拟模式" [checked] [ref=e18]
+        - generic [ref=e19]: 模拟模式
+      - generic [ref=e20]:
+        - text: 视觉模型
+        - combobox "视觉模型" [disabled] [ref=e21]:
+          - option "默认" [selected]
+          - option "OpenAI"
+          - option "Gemini"
+    - generic [ref=e22]:
+      - generic [ref=e23]:
+        - img [ref=e24]
+        - generic [ref=e27]: 账号
+      - textbox "账号标签" [ref=e28]
+      - generic [ref=e29]:
+        - textbox "服务器" [ref=e30]
+        - textbox "赛季" [ref=e31]
+      - textbox "角色名" [ref=e32]
+    - generic [ref=e33]:
+      - generic [ref=e34]:
+        - img [ref=e35]
+        - generic [ref=e37]: API 检查中
+      - paragraph [ref=e38]: 外部 API：http://127.0.0.1:5061
+      - generic [ref=e39]:
+        - img [ref=e40]
+        - generic [ref=e43]:
+          - strong [ref=e44]: 只读顾问
+          - generic [ref=e45]: 本桌面端不授权或发送游戏输入
+    - generic [ref=e46]:
+      - generic [ref=e47]:
+        - img [ref=e48]
+        - generic [ref=e52]: 历史
+      - paragraph [ref=e54]: 暂无历史
+  - generic [ref=e55]:
+    - generic [ref=e56]:
+      - generic [ref=e57]:
+        - heading "截图分析" [level=2] [ref=e58]
+        - paragraph [ref=e59]: 未选择截图
+      - button "分析截图" [disabled] [ref=e60]:
+        - img [ref=e61]
+        - generic [ref=e64]: 分析截图
+    - generic [ref=e65]:
+      - generic [ref=e66]:
+        - generic [ref=e67]:
+          - button "选择截图" [ref=e68] [cursor=pointer]:
+            - img [ref=e69]
+            - generic [ref=e73]: 选择截图
+          - generic [ref=e74]: Mock
+        - generic [ref=e76]:
+          - img [ref=e77]
+          - generic [ref=e80]: 截图
+      - generic [ref=e81]:
+        - generic [ref=e82]:
+          - generic [ref=e83]:
+            - heading "Advisor 报告" [level=2] [ref=e84]
+            - paragraph [ref=e85]: 等待分析
+          - generic [ref=e86]:
+            - button "摘要" [ref=e87] [cursor=pointer]
+            - button "状态" [ref=e88] [cursor=pointer]
+            - button "JSON" [ref=e89] [cursor=pointer]
+        - generic [ref=e90]:
+          - generic [ref=e91]:
+            - generic [ref=e92]:
+              - text: 页面
+              - strong [ref=e93]: unknown
+            - generic [ref=e94]:
+              - text: 置信度
+              - strong [ref=e95]: "--"
+            - generic [ref=e96]:
+              - text: 动作数
+              - strong [ref=e97]: "0"
+          - generic [ref=e98]:
+            - text: 截图解读
+            - heading "上传截图后生成画面解读" [level=3] [ref=e99]
+            - generic [ref=e100]:
+              - generic [ref=e101]:
+                - strong [ref=e102]: 关键信息
+                - generic [ref=e103]: 暂无
+              - generic [ref=e104]:
+                - strong [ref=e105]: 下一步
+                - generic [ref=e106]: 暂无
+              - generic [ref=e107]:
+                - strong [ref=e108]: 风险
+                - generic [ref=e109]: 暂无
+          - generic [ref=e110]:
+            - img [ref=e112]
+            - generic [ref=e115]:
+              - text: 推荐动作
+              - heading "暂无" [level=3] [ref=e116]
+              - paragraph [ref=e117]: 上传截图后生成建议
+          - generic [ref=e118]:
+            - generic [ref=e119]:
+              - heading "证据" [level=3] [ref=e120]
+              - generic [ref=e121]: 等待报告
+            - paragraph [ref=e122]: 证据不足，建议保持观察模式
+  - complementary [ref=e123]:
+    - generic [ref=e124]:
+      - img [ref=e125]
+      - heading "对话" [level=2] [ref=e127]
+    - paragraph [ref=e130]: 上传截图后，我会基于 Advisor 报告回答下一步、风险和证据。
+    - generic [ref=e131]:
+      - textbox "问下一步、风险、证据" [ref=e132]
+      - button [disabled] [ref=e133]:
+        - img [ref=e134]
+```

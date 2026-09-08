@@ -1,0 +1,149 @@
+{
+  "sanmou-cr-baseline-windows-pioneer.log": {
+    "run": [
+      "Ran 764 tests in 58.049s\r"
+    ],
+    "result": [
+      "FAILED (failures=6, errors=28, skipped=9)\r"
+    ],
+    "issues": [
+      "unit.test_agent_harness_game_mcp_integration (unittest.loader._FailedTest.unit.test_agent_harness_game_mcp_integration)\r",
+      "test_official_stdio_clients_bind_real_game_and_qa_servers (unit.test_agent_harness_stdio_client.AgentHarnessStdioClientTests.test_official_stdio_clients_bind_real_game_and_qa_servers)\r",
+      "unit.test_game_mcp_live_provider (unittest.loader._FailedTest.unit.test_game_mcp_live_provider)\r",
+      "unit.test_game_mcp_server (unittest.loader._FailedTest.unit.test_game_mcp_server)\r",
+      "test_fixture_evaluation_is_closed_root_and_never_uses_live_provider (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluation_is_closed_root_and_never_uses_live_provider)\r",
+      "test_fixture_evaluator_never_imports_or_calls_runner_modules (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_never_imports_or_calls_runner_modules)\r",
+      "test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path)\r",
+      "test_fixture_read_is_bounded_no_follow_and_hardlink_safe (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_read_is_bounded_no_follow_and_hardlink_safe)\r",
+      "test_real_fixture_evaluator_returns_advisory_projection (unit.test_game_mcp_service.GameMCPServiceTests.test_real_fixture_evaluator_returns_advisory_projection)\r",
+      "test_link_replacement_of_annotation_after_load_fails_closed (unit.test_map_filter_transition.MapFilterTransitionTests.test_link_replacement_of_annotation_after_load_fails_closed)\r",
+      "test_artifacts_are_write_once_and_holdout_report_has_no_labels (unit.test_mcp_eval.McpEvalTests.test_artifacts_are_write_once_and_holdout_report_has_no_labels)\r",
+      "test_checked_in_battery_covers_session_c_scenarios (unit.test_mcp_eval.McpEvalTests.test_checked_in_battery_covers_session_c_scenarios)\r",
+      "test_checked_in_golden_manifest_is_evaluated_and_digest_bound (unit.test_mcp_eval.McpEvalTests.test_checked_in_golden_manifest_is_evaluated_and_digest_bound)\r",
+      "test_cli_emits_paths_and_safety_boundary (unit.test_mcp_eval.McpEvalTests.test_cli_emits_paths_and_safety_boundary)\r",
+      "test_run_manifest_is_versioned_and_binds_inputs_and_tool_log (unit.test_mcp_eval.McpEvalTests.test_run_manifest_is_versioned_and_binds_inputs_and_tool_log)\r",
+      "test_sensorium_reports_stale_and_missed_risk_domains (unit.test_mcp_eval.McpEvalTests.test_sensorium_reports_stale_and_missed_risk_domains)\r",
+      "test_static_runner_scores_generation_and_never_scores_holdout (unit.test_mcp_eval.McpEvalTests.test_static_runner_scores_generation_and_never_scores_holdout)\r",
+      "test_closed_catalog_verifies_cross_registry_and_declared_lineage_only (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_catalog_verifies_cross_registry_and_declared_lineage_only)\r",
+      "test_attestation_binds_the_exact_trust_policy (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_binds_the_exact_trust_policy)\r",
+      "test_attestation_output_is_create_once (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_output_is_create_once)\r",
+      "test_external_evaluator_allows_only_one_signed_submission_per_catalog (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_evaluator_allows_only_one_signed_submission_per_catalog)\r",
+      "test_external_scorer_signs_aggregate_without_releasing_labels (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_scorer_signs_aggregate_without_releasing_labels)\r",
+      "test_oracle_must_match_approved_holdout_annotations (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_oracle_must_match_approved_holdout_annotations)\r",
+      "test_ordinary_cli_inspects_submission_without_oracle_surface (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_ordinary_cli_inspects_submission_without_oracle_surface)\r",
+      "test_submission_must_cover_exact_holdout_set_and_inputs (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_submission_must_cover_exact_holdout_set_and_inputs)\r",
+      "test_tampered_signed_aggregate_is_rejected (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_tampered_signed_aggregate_is_rejected)\r",
+      "test_valid_but_inaccurate_submission_remains_blocked (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_valid_but_inaccurate_submission_remains_blocked)\r",
+      "test_single_instance_lock_excludes_second_holder (unit.test_runbook_loop_integration.RunbookStateStoreTests.test_single_instance_lock_excludes_second_holder)\r",
+      "test_qa_subprocess_does_not_inherit_secret_environment (unit.test_game_agent_cli.GameAgentCliTests.test_qa_subprocess_does_not_inherit_secret_environment)\r",
+      "test_cli_audits_corpus_without_exposing_local_paths (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cli_audits_corpus_without_exposing_local_paths)\r",
+      "test_closed_roots_reject_undeclared_files (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_roots_reject_undeclared_files)\r",
+      "test_cross_registry_exact_frame_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_exact_frame_clone_is_rejected)\r",
+      "test_cross_registry_reencoded_visual_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_reencoded_visual_clone_is_rejected)\r",
+      "test_development_lineage_cycle_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_development_lineage_cycle_is_rejected)\r"
+    ],
+    "skips": [
+      "test_rejects_symlinked_annotation (unit.test_record_replay_annotations.RecordReplayAnnotationTests.test_rejects_symlinked_annotation) ... skipped 'symlink creation is not reliable on Windows CI'\r",
+      "test_rejects_symlinked_compiled_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_compiled_directory) ... skipped 'symlink semantics are covered on the WSL test host'\r",
+      "test_rejects_symlinked_draft_skill_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_draft_skill_directory) ... skipped 'symlink semantics are covered on the WSL test host'\r",
+      "test_hardlinked_raw_artifact_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_hardlinked_raw_artifact_is_rejected) ... skipped 'hardlink semantics are exercised on the WSL host'\r",
+      "test_symlinked_or_hardlinked_review_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_symlinked_or_hardlinked_review_is_rejected) ... skipped 'link semantics are exercised on the WSL host'\r",
+      "test_attestation_write_rejects_concurrent_hardlink (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_write_rejects_concurrent_hardlink) ... skipped 'hardlink race probe is POSIX-specific'\r",
+      "test_external_private_key_must_not_be_group_or_world_readable (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_private_key_must_not_be_group_or_world_readable) ... skipped 'POSIX permission bits are not Windows ACLs'\r",
+      "test_rejects_symlinked_frame (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_frame) ... skipped 'symlink semantics are covered on the WSL test host'\r",
+      "test_rejects_symlinked_manifest_and_events (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_manifest_and_events) ... skipped 'symlink semantics are covered on the WSL test host'\r"
+    ],
+    "sha256": "ae8b5101c89763985d3a70753c92a4509aa1d41a92227a4987f3c8342d8cc2b6"
+  },
+  "sanmou-cr-combined-windows-pioneer-exact.log": {
+    "run": [
+      "Ran 823 tests in 78.389s\r"
+    ],
+    "result": [
+      "FAILED (failures=6, errors=24, skipped=9)\r"
+    ],
+    "issues": [
+      "unit.test_agent_harness_game_mcp_integration (unittest.loader._FailedTest.unit.test_agent_harness_game_mcp_integration)\r",
+      "test_official_stdio_clients_bind_real_game_and_qa_servers (unit.test_agent_harness_stdio_client.AgentHarnessStdioClientTests.test_official_stdio_clients_bind_real_game_and_qa_servers)\r",
+      "unit.test_game_mcp_live_provider (unittest.loader._FailedTest.unit.test_game_mcp_live_provider)\r",
+      "unit.test_game_mcp_public_payload (unittest.loader._FailedTest.unit.test_game_mcp_public_payload)\r",
+      "unit.test_game_mcp_server (unittest.loader._FailedTest.unit.test_game_mcp_server)\r",
+      "test_fixture_evaluation_is_closed_root_and_never_uses_live_provider (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluation_is_closed_root_and_never_uses_live_provider)\r",
+      "test_fixture_evaluator_never_imports_or_calls_runner_modules (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_never_imports_or_calls_runner_modules)\r",
+      "test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path)\r",
+      "test_fixture_read_is_bounded_no_follow_and_hardlink_safe (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_read_is_bounded_no_follow_and_hardlink_safe)\r",
+      "test_real_fixture_evaluator_returns_advisory_projection (unit.test_game_mcp_service.GameMCPServiceTests.test_real_fixture_evaluator_returns_advisory_projection)\r",
+      "test_link_replacement_of_annotation_after_load_fails_closed (unit.test_map_filter_transition.MapFilterTransitionTests.test_link_replacement_of_annotation_after_load_fails_closed)\r",
+      "test_checked_in_golden_manifest_is_evaluated_and_digest_bound (unit.test_mcp_eval.McpEvalTests.test_checked_in_golden_manifest_is_evaluated_and_digest_bound)\r",
+      "test_golden_binds_exact_evaluator_bytes_without_second_read (unit.test_mcp_eval_regressions.EvalRegressionTests.test_golden_binds_exact_evaluator_bytes_without_second_read)\r",
+      "test_closed_catalog_verifies_cross_registry_and_declared_lineage_only (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_catalog_verifies_cross_registry_and_declared_lineage_only)\r",
+      "test_attestation_binds_the_exact_trust_policy (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_binds_the_exact_trust_policy)\r",
+      "test_attestation_output_is_create_once (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_output_is_create_once)\r",
+      "test_external_evaluator_allows_only_one_signed_submission_per_catalog (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_evaluator_allows_only_one_signed_submission_per_catalog)\r",
+      "test_external_scorer_signs_aggregate_without_releasing_labels (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_scorer_signs_aggregate_without_releasing_labels)\r",
+      "test_oracle_must_match_approved_holdout_annotations (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_oracle_must_match_approved_holdout_annotations)\r",
+      "test_ordinary_cli_inspects_submission_without_oracle_surface (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_ordinary_cli_inspects_submission_without_oracle_surface)\r",
+      "test_submission_must_cover_exact_holdout_set_and_inputs (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_submission_must_cover_exact_holdout_set_and_inputs)\r",
+      "test_tampered_signed_aggregate_is_rejected (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_tampered_signed_aggregate_is_rejected)\r",
+      "test_valid_but_inaccurate_submission_remains_blocked (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_valid_but_inaccurate_submission_remains_blocked)\r",
+      "test_single_instance_lock_excludes_second_holder (unit.test_runbook_loop_integration.RunbookStateStoreTests.test_single_instance_lock_excludes_second_holder)\r",
+      "test_qa_subprocess_does_not_inherit_secret_environment (unit.test_game_agent_cli.GameAgentCliTests.test_qa_subprocess_does_not_inherit_secret_environment)\r",
+      "test_cli_audits_corpus_without_exposing_local_paths (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cli_audits_corpus_without_exposing_local_paths)\r",
+      "test_closed_roots_reject_undeclared_files (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_roots_reject_undeclared_files)\r",
+      "test_cross_registry_exact_frame_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_exact_frame_clone_is_rejected)\r",
+      "test_cross_registry_reencoded_visual_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_reencoded_visual_clone_is_rejected)\r",
+      "test_development_lineage_cycle_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_development_lineage_cycle_is_rejected)\r"
+    ],
+    "skips": [
+      "test_rejects_symlinked_annotation (unit.test_record_replay_annotations.RecordReplayAnnotationTests.test_rejects_symlinked_annotation) ... skipped 'symlink creation is not reliable on Windows CI'\r",
+      "test_rejects_symlinked_compiled_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_compiled_directory) ... skipped 'symlink semantics are covered on the WSL test host'\r",
+      "test_rejects_symlinked_draft_skill_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_draft_skill_directory) ... skipped 'symlink semantics are covered on the WSL test host'\r",
+      "test_hardlinked_raw_artifact_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_hardlinked_raw_artifact_is_rejected) ... skipped 'hardlink semantics are exercised on the WSL host'\r",
+      "test_symlinked_or_hardlinked_review_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_symlinked_or_hardlinked_review_is_rejected) ... skipped 'link semantics are exercised on the WSL host'\r",
+      "test_attestation_write_rejects_concurrent_hardlink (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_write_rejects_concurrent_hardlink) ... skipped 'hardlink race probe is POSIX-specific'\r",
+      "test_external_private_key_must_not_be_group_or_world_readable (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_private_key_must_not_be_group_or_world_readable) ... skipped 'POSIX permission bits are not Windows ACLs'\r",
+      "test_rejects_symlinked_frame (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_frame) ... skipped 'symlink semantics are covered on the WSL test host'\r",
+      "test_rejects_symlinked_manifest_and_events (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_manifest_and_events) ... skipped 'symlink semantics are covered on the WSL test host'\r"
+    ],
+    "sha256": "841a870f33d2c94b6c200ff9108f0d542ed64a760ddd7f00c74fae78f0815b46"
+  },
+  "sanmou-cr-combined-linux-pioneer-exact.log": {
+    "run": [
+      "Ran 837 tests in 49.521s\r"
+    ],
+    "result": [
+      "OK (skipped=2)\r"
+    ],
+    "issues": [],
+    "skips": [
+      "test_native_client_proxy_server_end_to_end_with_synthetic_capture (unit.test_capture_bridge_security.CaptureSecurityTests.test_native_client_proxy_server_end_to_end_with_synthetic_capture) ... skipped 'native Windows proxy launch integration'\r",
+      "test_retired_entry_points_exit_without_writing_requested_paths (unit.test_capture_bridge_security.RetiredControllerTests.test_retired_entry_points_exit_without_writing_requested_paths) ... skipped 'Windows tombstone execution requires PowerShell/cmd'\r"
+    ],
+    "sha256": "ce70871185c6896105812a19f6eb5fd00013f20d74bd9d86627a43b368f33f0a"
+  },
+  "sanmou-cr-combined-qa.log": {
+    "run": [
+      "Ran 322 tests in 102.935s\r"
+    ],
+    "result": [
+      "FAILED (failures=2)\r"
+    ],
+    "issues": [
+      "test_script_runs_with_mocked_python_entrypoints (test_bilibili_workflow_script.BilibiliWorkflowScriptTests.test_script_runs_with_mocked_python_entrypoints)\r",
+      "test_script_shows_usage_without_args (test_bilibili_workflow_script.BilibiliWorkflowScriptTests.test_script_shows_usage_without_args)\r"
+    ],
+    "skips": [],
+    "sha256": "7c12ebcd9ef8392d2d7baaa42b513f23c711dc42fbb668c15ca263a1b6893121"
+  },
+  "sanmou-cr-combined-common.log": {
+    "run": [
+      "Ran 2 tests in 0.051s\r"
+    ],
+    "result": [
+      "OK\r"
+    ],
+    "issues": [],
+    "skips": [],
+    "sha256": "c99e9232a095124e20ed7ac35c83992827dd2a6b302bb6307b13465164c89f99"
+  }
+}
