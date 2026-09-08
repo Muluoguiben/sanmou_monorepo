@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import TYPE_CHECKING
@@ -18,6 +19,9 @@ if TYPE_CHECKING:
     from qa_agent.vision.extractor import ImageExtractor, VisionExtraction
 
 logger = logging.getLogger(__name__)
+
+NO_EVIDENCE_ANSWER = "知识库暂未收录此问题。"
+INVALID_CITATION_ANSWER = "回答引用未能与本轮知识库证据核对，请重新提问。"
 
 
 @dataclass
@@ -81,7 +85,9 @@ class ChatAgent:
                 vision = self._get_image_extractor().extract(prepared, question=question)
                 identified, unresolved = self._resolve_vision_entities(vision)
 
-        queries = self._rewrite_queries(question)
+        # Establish evidence before invoking even the query-rewrite model.
+        # A retrieval miss must remain a deterministic, zero-generation refusal.
+        queries = [question]
         # Inject resolved vision entities as extra retrieval queries so their
         # KB entries land in evidence. Unresolved candidates are dropped —
         # the answering LLM never learns of fabrication-prone names.
@@ -94,35 +100,50 @@ class ChatAgent:
             top_k_per_query=self.top_k_per_query,
             total_cap=self.total_evidence_cap,
         )
-        user_message = self._compose_user_message(
-            question, chunks, identified=identified, unresolved=unresolved
-        )
-
-        gemini_history = [
-            {"role": turn.role, "content": turn.content} for turn in self.history
-        ]
-        resp = self.client.generate(
-            system_prompt=SYSTEM_PROMPT,
-            history=gemini_history,
-            user_message=user_message,
-        )
+        if chunks and self.history:
+            queries = list(dict.fromkeys([*self._rewrite_queries(question), *identified]))
+            chunks = self.retriever.retrieve_multi(
+                queries,
+                top_k_per_query=self.top_k_per_query,
+                total_cap=self.total_evidence_cap,
+            )
+        answer = NO_EVIDENCE_ANSWER
+        prompt_tokens = output_tokens = 0
+        elapsed_s = 0.0
+        if chunks:
+            user_message = self._compose_user_message(
+                question, chunks, identified=identified, unresolved=unresolved
+            )
+            resp = self.client.generate(
+                system_prompt=SYSTEM_PROMPT,
+                history=[{"role": turn.role, "content": turn.content} for turn in self.history],
+                user_message=user_message,
+            )
+            answer = resp.text.strip()
+            citations = re.findall(r"\[([^\[\]\n]+)\]", answer)
+            allowed_ids = {c.entry.id for c in chunks}
+            if not citations or any(citation not in allowed_ids for citation in citations):
+                answer = INVALID_CITATION_ANSWER
+            prompt_tokens = resp.prompt_tokens
+            output_tokens = resp.output_tokens
+            elapsed_s = resp.elapsed_s
 
         self.history.append(ChatTurn(role="user", content=question))
         self.history.append(
             ChatTurn(
                 role="assistant",
-                content=resp.text,
+                content=answer,
                 evidence_ids=[c.entry.id for c in chunks],
             )
         )
 
         return ChatReply(
-            answer=resp.text.strip(),
+            answer=answer,
             evidence=chunks,
             queries=queries,
-            prompt_tokens=resp.prompt_tokens,
-            output_tokens=resp.output_tokens,
-            elapsed_s=resp.elapsed_s,
+            prompt_tokens=prompt_tokens,
+            output_tokens=output_tokens,
+            elapsed_s=elapsed_s,
             identified_entities=identified,
             unresolved_entities=unresolved,
             vision_raw_text=vision.raw_text if vision else "",

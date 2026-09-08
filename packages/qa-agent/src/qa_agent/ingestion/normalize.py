@@ -63,12 +63,12 @@ def normalize_hero_record(record: HeroRawRecord, aliases: AliasConfig, enums: En
         )
     if base_attrs and growth_attrs:
         # Heroes start at Lv5, max Lv50 → 45 levels of growth
-        max_attrs = AttributeSet(
-            military=round((base_attrs.military or 0) + (growth_attrs.military or 0) * 45),
-            intelligence=round((base_attrs.intelligence or 0) + (growth_attrs.intelligence or 0) * 45),
-            command=round((base_attrs.command or 0) + (growth_attrs.command or 0) * 45),
-            initiative=round((base_attrs.initiative or 0) + (growth_attrs.initiative or 0) * 45),
-        )
+        max_attrs = AttributeSet(**{
+            name: round(base + growth * 45)
+            for name in AttributeSet.model_fields
+            if (base := getattr(base_attrs, name)) is not None
+            and (growth := getattr(growth_attrs, name)) is not None
+        })
 
     profile = HeroStaticProfile(
         name=canonical_name,

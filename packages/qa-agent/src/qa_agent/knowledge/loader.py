@@ -16,7 +16,12 @@ def load_entries_from_file(path: Path) -> list[KnowledgeEntry]:
 
 def load_entries(paths: list[Path]) -> list[KnowledgeEntry]:
     entries: list[KnowledgeEntry] = []
+    seen: set[str] = set()
     for path in sorted(paths):
-        entries.extend(load_entries_from_file(path))
+        for entry in load_entries_from_file(path):
+            if entry.id in seen:
+                raise ValueError(f"Duplicate knowledge entry id: {entry.id}")
+            seen.add(entry.id)
+            entries.append(entry)
     return entries
 
