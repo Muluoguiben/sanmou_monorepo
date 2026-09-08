@@ -24,6 +24,7 @@
 - [x] Bound MCP connect/initialize/call, cancel and clean clients, journal/log failures without execution.
 - [x] Windows focused 30/30, WSL focused 36/36 and Pioneer package 791/791; zero skips in final runs. See `docs/test-reports/2026-09-08/C.md`.
 - [x] User-authorized capture-token forwarding only to bridge-mode Game MCP; real synthetic stdio isolation and failure redaction. Latest Windows 34/34, WSL focused 40/40, Pioneer 795/795; zero skips.
+- [x] CR08: preserve late stdio messages during bounded shutdown, separate initialization/call budgets, retrieve cancelled ready errors; 11 deterministic/real-child regressions. Final Windows 45/45, ext4 focused 51/51, C package 806/806; frozen combination 855 passed + 2 native-Windows skips. Independent CR probes pass; renewed CR approval pending.
 - [ ] A owns the remaining WSL Game MCP -> Windows proxy credential propagation; C parent -> Game MCP tests do not prove that hop or live capture.
 - [ ] Unified adversarial CR on `feat/review-c-harness-r17-r20`; coordinator owns integration. Real game/model/broker evidence remains unverified.
 
