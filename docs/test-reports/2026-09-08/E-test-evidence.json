@@ -1,0 +1,1388 @@
+{
+  "baseline_sha": "d377ef8bbaa69e6b25928255eac0cb62714e82f8",
+  "branch": "feat/desktop-api-r03-r21-r24-20260908",
+  "tested_source_sha256": {
+    "apps/sanmou-advisor-desktop/.gitignore": "28b5192eeeb3c6c071f8478a7a163e4c0fb283f98d02fc9335c32c338aa0ea77",
+    "apps/sanmou-advisor-desktop/README.md": "ee1d230d850bc5562b873de9395c5737bb48b4017f57e0f8d5ffda3258c309c6",
+    "apps/sanmou-advisor-desktop/electron-builder.json": "ba4b2a9d34bd9190c152c0c761ac542c851ab6569f0b4af6b1c5f0fac7738419",
+    "apps/sanmou-advisor-desktop/package-lock.json": "f4453cd85135ce22e4bdf2137533c219e740e44c2ea11d22d25572fb9d3a41e9",
+    "apps/sanmou-advisor-desktop/package.json": "47e66989e41c221d0897c6a62716c5603b3ea89c931b68644c9b2f46eee5f82c",
+    "apps/sanmou-advisor-desktop/playwright.config.ts": "589d4b031f45a75f0744951e08dec85b80c4fc5862c0292e2f5f7e0cb372db90",
+    "apps/sanmou-advisor-desktop/src/electron/main.ts": "f84a3b9ab1fbc1e425aae37cc4d4f4afe65a7c1f854a5daad3c20eef980ca6b8",
+    "apps/sanmou-advisor-desktop/src/electron/preload.cts": "a19ee49d4f74147f9dd2ad269168b42e86290b4f467fd60352aa4bdf9e93a283",
+    "apps/sanmou-advisor-desktop/src/electron/python.ts": "5adac19d66cbbd906ab4221a28651da7a8ebef59ca28baaadf2f3446e4c5b14c",
+    "apps/sanmou-advisor-desktop/src/renderer/App.tsx": "36f9cf2467b69a57c798e847f4c600433f0dae2f5269fd36fc30ffce39be8573",
+    "apps/sanmou-advisor-desktop/src/renderer/api.ts": "a05e6bc803514c67b63e8de67c74d81d51c25b9074d811497b245fd87a72ccf9",
+    "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts": "5676bae37cf8967b716549c27756a97fb27c87b448ece3ffa4e2280d4318bee9",
+    "apps/sanmou-advisor-desktop/tests/install-smoke.mjs": "0923006efef68f2cd188db93f12ca5fc912e7a957bdda27b76a609ee03576e86",
+    "apps/sanmou-advisor-desktop/tests/python.test.mjs": "7e2243311bcb5de60aee9e158cf892bd146e992b303f73d40133dbff791fc0dd",
+    "apps/sanmou-advisor-desktop/vite.config.ts": "c43e8aff1aa538e6b12a4e36d674c5824fb2f3d736be9c91f874e8010c57342d",
+    "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py": "8bb7ba8b2ad360a281a4bd7d8037b57a31104171e13b4264182ce6dda7737602",
+    "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py": "2d61d77c60832be6e9c234cac5c8db41f27480275134131987077f8cb025ae45"
+  },
+  "windows": {
+    "baseline": {
+      "log_name": "sanmou-e-pioneer-baseline.log",
+      "log_sha256": "7118b4a1fd8190995b659bae258ef92a71d5cb7507f689e6f4edbad5a4661329",
+      "summary": [
+        "Ran 764 tests in 59.796s\r",
+        "FAILED (failures=6, errors=29, skipped=9)\r"
+      ],
+      "failed_tests": [
+        "unit.test_agent_harness_game_mcp_integration (unittest.loader._FailedTest.unit.test_agent_harness_game_mcp_integration)\r",
+        "test_official_stdio_clients_bind_real_game_and_qa_servers (unit.test_agent_harness_stdio_client.AgentHarnessStdioClientTests.test_official_stdio_clients_bind_real_game_and_qa_servers)\r",
+        "unit.test_game_mcp_live_provider (unittest.loader._FailedTest.unit.test_game_mcp_live_provider)\r",
+        "unit.test_game_mcp_server (unittest.loader._FailedTest.unit.test_game_mcp_server)\r",
+        "test_fixture_evaluation_is_closed_root_and_never_uses_live_provider (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluation_is_closed_root_and_never_uses_live_provider)\r",
+        "test_fixture_evaluator_never_imports_or_calls_runner_modules (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_never_imports_or_calls_runner_modules)\r",
+        "test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path)\r",
+        "test_fixture_read_is_bounded_no_follow_and_hardlink_safe (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_read_is_bounded_no_follow_and_hardlink_safe)\r",
+        "test_real_fixture_evaluator_returns_advisory_projection (unit.test_game_mcp_service.GameMCPServiceTests.test_real_fixture_evaluator_returns_advisory_projection)\r",
+        "test_link_replacement_of_annotation_after_load_fails_closed (unit.test_map_filter_transition.MapFilterTransitionTests.test_link_replacement_of_annotation_after_load_fails_closed)\r",
+        "test_artifacts_are_write_once_and_holdout_report_has_no_labels (unit.test_mcp_eval.McpEvalTests.test_artifacts_are_write_once_and_holdout_report_has_no_labels)\r",
+        "test_checked_in_battery_covers_session_c_scenarios (unit.test_mcp_eval.McpEvalTests.test_checked_in_battery_covers_session_c_scenarios)\r",
+        "test_checked_in_golden_manifest_is_evaluated_and_digest_bound (unit.test_mcp_eval.McpEvalTests.test_checked_in_golden_manifest_is_evaluated_and_digest_bound)\r",
+        "test_cli_emits_paths_and_safety_boundary (unit.test_mcp_eval.McpEvalTests.test_cli_emits_paths_and_safety_boundary)\r",
+        "test_run_manifest_is_versioned_and_binds_inputs_and_tool_log (unit.test_mcp_eval.McpEvalTests.test_run_manifest_is_versioned_and_binds_inputs_and_tool_log)\r",
+        "test_sensorium_reports_stale_and_missed_risk_domains (unit.test_mcp_eval.McpEvalTests.test_sensorium_reports_stale_and_missed_risk_domains)\r",
+        "test_static_runner_scores_generation_and_never_scores_holdout (unit.test_mcp_eval.McpEvalTests.test_static_runner_scores_generation_and_never_scores_holdout)\r",
+        "test_closed_catalog_verifies_cross_registry_and_declared_lineage_only (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_catalog_verifies_cross_registry_and_declared_lineage_only)\r",
+        "test_attestation_binds_the_exact_trust_policy (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_binds_the_exact_trust_policy)\r",
+        "test_attestation_output_is_create_once (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_output_is_create_once)\r",
+        "test_external_evaluator_allows_only_one_signed_submission_per_catalog (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_evaluator_allows_only_one_signed_submission_per_catalog)\r",
+        "test_external_scorer_signs_aggregate_without_releasing_labels (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_scorer_signs_aggregate_without_releasing_labels)\r",
+        "test_oracle_must_match_approved_holdout_annotations (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_oracle_must_match_approved_holdout_annotations)\r",
+        "test_ordinary_cli_inspects_submission_without_oracle_surface (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_ordinary_cli_inspects_submission_without_oracle_surface)\r",
+        "test_submission_must_cover_exact_holdout_set_and_inputs (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_submission_must_cover_exact_holdout_set_and_inputs)\r",
+        "test_tampered_signed_aggregate_is_rejected (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_tampered_signed_aggregate_is_rejected)\r",
+        "test_valid_but_inaccurate_submission_remains_blocked (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_valid_but_inaccurate_submission_remains_blocked)\r",
+        "test_escalations_are_edge_triggered_not_per_tick (unit.test_runbook_loop_integration.RunbookFixRegressionTests.test_escalations_are_edge_triggered_not_per_tick)\r",
+        "test_single_instance_lock_excludes_second_holder (unit.test_runbook_loop_integration.RunbookStateStoreTests.test_single_instance_lock_excludes_second_holder)\r",
+        "test_qa_subprocess_does_not_inherit_secret_environment (unit.test_game_agent_cli.GameAgentCliTests.test_qa_subprocess_does_not_inherit_secret_environment)\r",
+        "test_cli_audits_corpus_without_exposing_local_paths (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cli_audits_corpus_without_exposing_local_paths)\r",
+        "test_closed_roots_reject_undeclared_files (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_roots_reject_undeclared_files)\r",
+        "test_cross_registry_exact_frame_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_exact_frame_clone_is_rejected)\r",
+        "test_cross_registry_reencoded_visual_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_reencoded_visual_clone_is_rejected)\r",
+        "test_development_lineage_cycle_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_development_lineage_cycle_is_rejected)\r"
+      ],
+      "skips": [
+        "test_rejects_symlinked_annotation (unit.test_record_replay_annotations.RecordReplayAnnotationTests.test_rejects_symlinked_annotation) ... skipped 'symlink creation is not reliable on Windows CI'",
+        "test_rejects_symlinked_compiled_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_compiled_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_rejects_symlinked_draft_skill_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_draft_skill_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_hardlinked_raw_artifact_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_hardlinked_raw_artifact_is_rejected) ... skipped 'hardlink semantics are exercised on the WSL host'",
+        "test_symlinked_or_hardlinked_review_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_symlinked_or_hardlinked_review_is_rejected) ... skipped 'link semantics are exercised on the WSL host'",
+        "test_attestation_write_rejects_concurrent_hardlink (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_write_rejects_concurrent_hardlink) ... skipped 'hardlink race probe is POSIX-specific'",
+        "test_external_private_key_must_not_be_group_or_world_readable (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_private_key_must_not_be_group_or_world_readable) ... skipped 'POSIX permission bits are not Windows ACLs'",
+        "test_rejects_symlinked_frame (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_frame) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_rejects_symlinked_manifest_and_events (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_manifest_and_events) ... skipped 'symlink semantics are covered on the WSL test host'"
+      ]
+    },
+    "fixed": {
+      "log_name": "sanmou-e-pioneer-final.log",
+      "log_sha256": "b51806bf5a3ee651db9c4bc133a2347f5d57507f7fa29da93726f84c3027e8b6",
+      "summary": [
+        "Ran 768 tests in 56.305s\r",
+        "FAILED (failures=6, errors=29, skipped=9)\r"
+      ],
+      "failed_tests": [
+        "unit.test_agent_harness_game_mcp_integration (unittest.loader._FailedTest.unit.test_agent_harness_game_mcp_integration)\r",
+        "test_official_stdio_clients_bind_real_game_and_qa_servers (unit.test_agent_harness_stdio_client.AgentHarnessStdioClientTests.test_official_stdio_clients_bind_real_game_and_qa_servers)\r",
+        "unit.test_game_mcp_live_provider (unittest.loader._FailedTest.unit.test_game_mcp_live_provider)\r",
+        "unit.test_game_mcp_server (unittest.loader._FailedTest.unit.test_game_mcp_server)\r",
+        "test_fixture_evaluation_is_closed_root_and_never_uses_live_provider (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluation_is_closed_root_and_never_uses_live_provider)\r",
+        "test_fixture_evaluator_never_imports_or_calls_runner_modules (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_never_imports_or_calls_runner_modules)\r",
+        "test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path)\r",
+        "test_fixture_read_is_bounded_no_follow_and_hardlink_safe (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_read_is_bounded_no_follow_and_hardlink_safe)\r",
+        "test_real_fixture_evaluator_returns_advisory_projection (unit.test_game_mcp_service.GameMCPServiceTests.test_real_fixture_evaluator_returns_advisory_projection)\r",
+        "test_link_replacement_of_annotation_after_load_fails_closed (unit.test_map_filter_transition.MapFilterTransitionTests.test_link_replacement_of_annotation_after_load_fails_closed)\r",
+        "test_artifacts_are_write_once_and_holdout_report_has_no_labels (unit.test_mcp_eval.McpEvalTests.test_artifacts_are_write_once_and_holdout_report_has_no_labels)\r",
+        "test_checked_in_battery_covers_session_c_scenarios (unit.test_mcp_eval.McpEvalTests.test_checked_in_battery_covers_session_c_scenarios)\r",
+        "test_checked_in_golden_manifest_is_evaluated_and_digest_bound (unit.test_mcp_eval.McpEvalTests.test_checked_in_golden_manifest_is_evaluated_and_digest_bound)\r",
+        "test_cli_emits_paths_and_safety_boundary (unit.test_mcp_eval.McpEvalTests.test_cli_emits_paths_and_safety_boundary)\r",
+        "test_run_manifest_is_versioned_and_binds_inputs_and_tool_log (unit.test_mcp_eval.McpEvalTests.test_run_manifest_is_versioned_and_binds_inputs_and_tool_log)\r",
+        "test_sensorium_reports_stale_and_missed_risk_domains (unit.test_mcp_eval.McpEvalTests.test_sensorium_reports_stale_and_missed_risk_domains)\r",
+        "test_static_runner_scores_generation_and_never_scores_holdout (unit.test_mcp_eval.McpEvalTests.test_static_runner_scores_generation_and_never_scores_holdout)\r",
+        "test_closed_catalog_verifies_cross_registry_and_declared_lineage_only (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_catalog_verifies_cross_registry_and_declared_lineage_only)\r",
+        "test_attestation_binds_the_exact_trust_policy (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_binds_the_exact_trust_policy)\r",
+        "test_attestation_output_is_create_once (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_output_is_create_once)\r",
+        "test_external_evaluator_allows_only_one_signed_submission_per_catalog (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_evaluator_allows_only_one_signed_submission_per_catalog)\r",
+        "test_external_scorer_signs_aggregate_without_releasing_labels (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_scorer_signs_aggregate_without_releasing_labels)\r",
+        "test_oracle_must_match_approved_holdout_annotations (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_oracle_must_match_approved_holdout_annotations)\r",
+        "test_ordinary_cli_inspects_submission_without_oracle_surface (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_ordinary_cli_inspects_submission_without_oracle_surface)\r",
+        "test_submission_must_cover_exact_holdout_set_and_inputs (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_submission_must_cover_exact_holdout_set_and_inputs)\r",
+        "test_tampered_signed_aggregate_is_rejected (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_tampered_signed_aggregate_is_rejected)\r",
+        "test_valid_but_inaccurate_submission_remains_blocked (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_valid_but_inaccurate_submission_remains_blocked)\r",
+        "test_escalations_are_edge_triggered_not_per_tick (unit.test_runbook_loop_integration.RunbookFixRegressionTests.test_escalations_are_edge_triggered_not_per_tick)\r",
+        "test_single_instance_lock_excludes_second_holder (unit.test_runbook_loop_integration.RunbookStateStoreTests.test_single_instance_lock_excludes_second_holder)\r",
+        "test_qa_subprocess_does_not_inherit_secret_environment (unit.test_game_agent_cli.GameAgentCliTests.test_qa_subprocess_does_not_inherit_secret_environment)\r",
+        "test_cli_audits_corpus_without_exposing_local_paths (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cli_audits_corpus_without_exposing_local_paths)\r",
+        "test_closed_roots_reject_undeclared_files (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_roots_reject_undeclared_files)\r",
+        "test_cross_registry_exact_frame_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_exact_frame_clone_is_rejected)\r",
+        "test_cross_registry_reencoded_visual_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_reencoded_visual_clone_is_rejected)\r",
+        "test_development_lineage_cycle_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_development_lineage_cycle_is_rejected)\r"
+      ],
+      "skips": [
+        "test_rejects_symlinked_annotation (unit.test_record_replay_annotations.RecordReplayAnnotationTests.test_rejects_symlinked_annotation) ... skipped 'symlink creation is not reliable on Windows CI'",
+        "test_rejects_symlinked_compiled_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_compiled_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_rejects_symlinked_draft_skill_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_draft_skill_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_hardlinked_raw_artifact_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_hardlinked_raw_artifact_is_rejected) ... skipped 'hardlink semantics are exercised on the WSL host'",
+        "test_symlinked_or_hardlinked_review_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_symlinked_or_hardlinked_review_is_rejected) ... skipped 'link semantics are exercised on the WSL host'",
+        "test_attestation_write_rejects_concurrent_hardlink (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_write_rejects_concurrent_hardlink) ... skipped 'hardlink race probe is POSIX-specific'",
+        "test_external_private_key_must_not_be_group_or_world_readable (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_private_key_must_not_be_group_or_world_readable) ... skipped 'POSIX permission bits are not Windows ACLs'",
+        "test_rejects_symlinked_frame (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_frame) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_rejects_symlinked_manifest_and_events (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_manifest_and_events) ... skipped 'symlink semantics are covered on the WSL test host'"
+      ]
+    },
+    "only_fixed": [],
+    "only_baseline": [],
+    "identical_skips": true
+  },
+  "wsl": {
+    "baseline": {
+      "log_name": "sanmou-e-pioneer-baseline.log",
+      "log_sha256": "820ef7a0ed6c51b8acd7e2036dc99b83e9e09b4021427c524232a159cc70d3b5",
+      "summary": [
+        "Ran 775 tests in 31.517s",
+        "FAILED (errors=7)"
+      ],
+      "failed_tests": [
+        "test_artifacts_are_write_once_and_holdout_report_has_no_labels (unit.test_mcp_eval.McpEvalTests.test_artifacts_are_write_once_and_holdout_report_has_no_labels)",
+        "test_checked_in_battery_covers_session_c_scenarios (unit.test_mcp_eval.McpEvalTests.test_checked_in_battery_covers_session_c_scenarios)",
+        "test_checked_in_golden_manifest_is_evaluated_and_digest_bound (unit.test_mcp_eval.McpEvalTests.test_checked_in_golden_manifest_is_evaluated_and_digest_bound)",
+        "test_cli_emits_paths_and_safety_boundary (unit.test_mcp_eval.McpEvalTests.test_cli_emits_paths_and_safety_boundary)",
+        "test_run_manifest_is_versioned_and_binds_inputs_and_tool_log (unit.test_mcp_eval.McpEvalTests.test_run_manifest_is_versioned_and_binds_inputs_and_tool_log)",
+        "test_sensorium_reports_stale_and_missed_risk_domains (unit.test_mcp_eval.McpEvalTests.test_sensorium_reports_stale_and_missed_risk_domains)",
+        "test_static_runner_scores_generation_and_never_scores_holdout (unit.test_mcp_eval.McpEvalTests.test_static_runner_scores_generation_and_never_scores_holdout)"
+      ],
+      "skips": []
+    },
+    "fixed": {
+      "log_name": "sanmou-e-pioneer-final.log",
+      "log_sha256": "34a4cdf7d56d51ae5d402005116d5e83b003059c07297c40944167da3bb29714",
+      "summary": [
+        "Ran 779 tests in 32.988s",
+        "FAILED (errors=7)"
+      ],
+      "failed_tests": [
+        "test_artifacts_are_write_once_and_holdout_report_has_no_labels (unit.test_mcp_eval.McpEvalTests.test_artifacts_are_write_once_and_holdout_report_has_no_labels)",
+        "test_checked_in_battery_covers_session_c_scenarios (unit.test_mcp_eval.McpEvalTests.test_checked_in_battery_covers_session_c_scenarios)",
+        "test_checked_in_golden_manifest_is_evaluated_and_digest_bound (unit.test_mcp_eval.McpEvalTests.test_checked_in_golden_manifest_is_evaluated_and_digest_bound)",
+        "test_cli_emits_paths_and_safety_boundary (unit.test_mcp_eval.McpEvalTests.test_cli_emits_paths_and_safety_boundary)",
+        "test_run_manifest_is_versioned_and_binds_inputs_and_tool_log (unit.test_mcp_eval.McpEvalTests.test_run_manifest_is_versioned_and_binds_inputs_and_tool_log)",
+        "test_sensorium_reports_stale_and_missed_risk_domains (unit.test_mcp_eval.McpEvalTests.test_sensorium_reports_stale_and_missed_risk_domains)",
+        "test_static_runner_scores_generation_and_never_scores_holdout (unit.test_mcp_eval.McpEvalTests.test_static_runner_scores_generation_and_never_scores_holdout)"
+      ],
+      "skips": []
+    },
+    "only_fixed": [],
+    "only_baseline": []
+  },
+  "focused": {
+    "api": {
+      "log_name": "sanmou-e-api-final.log",
+      "log_sha256": "b827fc1f48ac1afcf2f09737d52b3b6d766d2d6f5a80fcec666273838e99358a",
+      "summary": [
+        "Ran 10 tests in 0.517s\r"
+      ],
+      "failed_tests": [],
+      "skips": []
+    },
+    "upload_on_baseline": {
+      "log_name": "sanmou-e-upload-baseline-final.log",
+      "log_sha256": "d9737e48cb2b1ec950634a102ee186fe53cdc9242a861dbdb2daad0af97b4a3a",
+      "summary": [
+        "Ran 4 tests in 0.423s\r",
+        "FAILED (failures=1, errors=2)\r"
+      ],
+      "failed_tests": [
+        "test_corrupt_png_checksum_returns_400_and_removes_upload (test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_corrupt_png_checksum_returns_400_and_removes_upload)\r",
+        "test_oversized_http_upload_returns_413_and_leaves_no_file (test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_oversized_http_upload_returns_413_and_leaves_no_file)\r",
+        "test_interrupted_read_closes_writer_and_removes_partial_file (test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_interrupted_read_closes_writer_and_removes_partial_file)\r"
+      ],
+      "skips": []
+    },
+    "electron": {
+      "log_name": "sanmou-e-desktop-final.log",
+      "log_sha256": "f81b66259ad7a359fee05db719ff8ef2351f292e13ad51410d6b810f87fb36d6",
+      "summary": [
+        "  14 passed (30.2s)\r"
+      ],
+      "failed_tests": [],
+      "skips": []
+    },
+    "install": "> sanmou-advisor-desktop@0.1.0 test:install:win\n> node tests/install-smoke.mjs\n\n{\"status\":\"passed\",\"unsigned\":true,\"packaged\":true,\"preload\":true,\"bundledBackend\":true,\"mockUpload\":true,\"runtimeAdmin\":false,\"gameInput\":false}"
+  },
+  "npm_audit": {
+    "auditReportVersion": 2,
+    "vulnerabilities": {
+      "@babel/core": {
+        "name": "@babel/core",
+        "severity": "low",
+        "isDirect": false,
+        "via": [
+          {
+            "source": 1123528,
+            "name": "@babel/core",
+            "dependency": "@babel/core",
+            "title": "@babel/core: Arbitrary File Read via sourceMappingURL Comment",
+            "url": "https://github.com/advisories/GHSA-4x5r-pxfx-6jf8",
+            "severity": "low",
+            "cwe": [
+              "CWE-22",
+              "CWE-200"
+            ],
+            "cvss": {
+              "score": 3.2,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:C/C:L/I:N/A:N"
+            },
+            "range": "<=7.29.0"
+          }
+        ],
+        "effects": [],
+        "range": "<=7.29.0",
+        "nodes": [
+          "node_modules/@babel/core"
+        ],
+        "fixAvailable": true
+      },
+      "axios": {
+        "name": "axios",
+        "severity": "high",
+        "isDirect": false,
+        "via": [
+          {
+            "source": 1123969,
+            "name": "axios",
+            "dependency": "axios",
+            "title": "Axios form serializer maxDepth bypass via {} metatoken",
+            "url": "https://github.com/advisories/GHSA-hcpx-6fm6-wx23",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-674"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": ">=1.15.1 <1.18.0"
+          },
+          {
+            "source": 1138749,
+            "name": "axios",
+            "dependency": "axios",
+            "title": "Axios: Prototype pollution auth subfields can inject Basic auth",
+            "url": "https://github.com/advisories/GHSA-xj6q-8x83-jv6g",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-1321"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": ">=1.15.2 <1.18.0"
+          },
+          {
+            "source": 1147949,
+            "name": "axios",
+            "dependency": "axios",
+            "title": "Axios: Prototype pollution gadgets can alter axios request construction",
+            "url": "https://github.com/advisories/GHSA-mmx7-hfxf-jppx",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-1321"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": ">=1.0.0 <1.18.0"
+          },
+          {
+            "source": 1147950,
+            "name": "axios",
+            "dependency": "axios",
+            "title": "Axios: Deep formToJSON Key Recursion Can Cause Denial of Service",
+            "url": "https://github.com/advisories/GHSA-pmv8-rq9r-6j72",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-400",
+              "CWE-770"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": ">=1.0.0 <1.18.0"
+          },
+          {
+            "source": 1153175,
+            "name": "axios",
+            "dependency": "axios",
+            "title": "Axios: HTTP/2 streamed uploads bypass `maxBodyLength`",
+            "url": "https://github.com/advisories/GHSA-mwf2-3pr3-8698",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-400"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": ">=1.13.0 <1.18.0"
+          },
+          {
+            "source": 1153178,
+            "name": "axios",
+            "dependency": "axios",
+            "title": "Axios Node HTTP adapter can use an inherited proxy after interceptor config cloning",
+            "url": "https://github.com/advisories/GHSA-gcfj-64vw-6mp9",
+            "severity": "high",
+            "cwe": [
+              "CWE-200",
+              "CWE-1321"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": ">=1.15.2 <1.18.0"
+          },
+          {
+            "source": 1153180,
+            "name": "axios",
+            "dependency": "axios",
+            "title": "Axios: Nested axios option objects can consume polluted prototype values",
+            "url": "https://github.com/advisories/GHSA-7q8q-rj6j-mhjq",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-1321"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": ">=1.0.0 <1.18.0"
+          },
+          {
+            "source": 1153182,
+            "name": "axios",
+            "dependency": "axios",
+            "title": "Axios: Fetch adapter `ReadableStream` uploads bypass `maxBodyLength`",
+            "url": "https://github.com/advisories/GHSA-jqh4-m9w3-8hp9",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-770"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": ">=1.7.0 <1.18.0"
+          },
+          {
+            "source": 1153184,
+            "name": "axios",
+            "dependency": "axios",
+            "title": "Axios: NO_PROXY bypass for 0.0.0.0 local addresses in axios",
+            "url": "https://github.com/advisories/GHSA-f4gw-2p7v-4548",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-183",
+              "CWE-918"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": ">=1.15.0 <1.18.0"
+          },
+          {
+            "source": 1153185,
+            "name": "axios",
+            "dependency": "axios",
+            "title": "Axios: Excessive recursion in formDataToJSON can cause denial of service",
+            "url": "https://github.com/advisories/GHSA-42h9-826w-cgv3",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-400",
+              "CWE-674"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": ">=1.0.0 <1.18.0"
+          }
+        ],
+        "effects": [],
+        "range": "1.0.0 - 1.17.0",
+        "nodes": [
+          "node_modules/axios"
+        ],
+        "fixAvailable": true
+      },
+      "browserslist": {
+        "name": "browserslist",
+        "severity": "high",
+        "isDirect": false,
+        "via": [
+          {
+            "source": 1153171,
+            "name": "browserslist",
+            "dependency": "browserslist",
+            "title": "Browserslist: Unbounded memory growth (no cache eviction) via distinct query results, leading to eventual OOM",
+            "url": "https://github.com/advisories/GHSA-c83g-rgw3-j3cx",
+            "severity": "high",
+            "cwe": [
+              "CWE-770"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+            },
+            "range": "<=4.28.6"
+          },
+          {
+            "source": 1153172,
+            "name": "browserslist",
+            "dependency": "browserslist",
+            "title": "Browserslist: Uncaught crash / prototype write via untrusted browserslist-stats.json custom stats (normalizeStats)",
+            "url": "https://github.com/advisories/GHSA-73wf-gq98-2v4g",
+            "severity": "high",
+            "cwe": [
+              "CWE-248",
+              "CWE-1321"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+            },
+            "range": "<=4.28.6"
+          }
+        ],
+        "effects": [],
+        "range": "<=4.28.6",
+        "nodes": [
+          "node_modules/browserslist"
+        ],
+        "fixAvailable": true
+      },
+      "electron": {
+        "name": "electron",
+        "severity": "high",
+        "isDirect": true,
+        "via": [
+          {
+            "source": 1107272,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron has ASAR Integrity Bypass via resource modification",
+            "url": "https://github.com/advisories/GHSA-vmqv-hx8q-j7mg",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-94",
+              "CWE-829"
+            ],
+            "cvss": {
+              "score": 6.1,
+              "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:L/I:H/A:L"
+            },
+            "range": "<35.7.5"
+          },
+          {
+            "source": 1116041,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: AppleScript injection in app.moveToApplicationsFolder on macOS",
+            "url": "https://github.com/advisories/GHSA-5rqw-r77c-jp79",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-78"
+            ],
+            "cvss": {
+              "score": 6.5,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:L"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116045,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Service worker can spoof executeJavaScript IPC replies",
+            "url": "https://github.com/advisories/GHSA-xj5x-m3f3-5x3h",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-290",
+              "CWE-345"
+            ],
+            "cvss": {
+              "score": 5.9,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:H/A:N"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116049,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Incorrect origin passed to permission request handler for iframe requests",
+            "url": "https://github.com/advisories/GHSA-r5p7-gp4j-qhrx",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-346"
+            ],
+            "cvss": {
+              "score": 5.4,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116053,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Out-of-bounds read in second-instance IPC on macOS and Linux",
+            "url": "https://github.com/advisories/GHSA-3c8v-cfp5-9885",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-125"
+            ],
+            "cvss": {
+              "score": 5.3,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:N/A:L"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116057,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: nodeIntegrationInWorker not correctly scoped in shared renderer processes",
+            "url": "https://github.com/advisories/GHSA-xwr5-m59h-vwqr",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-653"
+            ],
+            "cvss": {
+              "score": 6.8,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:N"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116060,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Use-after-free in offscreen child window paint callback",
+            "url": "https://github.com/advisories/GHSA-532v-xpq5-8h95",
+            "severity": "high",
+            "cwe": [
+              "CWE-416"
+            ],
+            "cvss": {
+              "score": 8.1,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+            },
+            "range": "<39.8.1"
+          },
+          {
+            "source": 1116064,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Registry key path injection in app.setAsDefaultProtocolClient on Windows",
+            "url": "https://github.com/advisories/GHSA-mwmh-mq4g-g6gr",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-20",
+              "CWE-74"
+            ],
+            "cvss": {
+              "score": 4.7,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:H/A:N"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116068,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Use-after-free in download save dialog callback",
+            "url": "https://github.com/advisories/GHSA-9w97-2464-8783",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-416"
+            ],
+            "cvss": {
+              "score": 5.8,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:H/I:L/A:L"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116072,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Use-after-free in WebContents fullscreen, pointer-lock, and keyboard-lock permission callbacks",
+            "url": "https://github.com/advisories/GHSA-8337-3p73-46f4",
+            "severity": "high",
+            "cwe": [
+              "CWE-416"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116076,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Use-after-free in PowerMonitor on Windows and macOS",
+            "url": "https://github.com/advisories/GHSA-jjp3-mq3x-295m",
+            "severity": "high",
+            "cwe": [
+              "CWE-416"
+            ],
+            "cvss": {
+              "score": 7,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116084,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Unquoted executable path in app.setLoginItemSettings on Windows",
+            "url": "https://github.com/advisories/GHSA-jfqx-fxh3-c62j",
+            "severity": "low",
+            "cwe": [
+              "CWE-428"
+            ],
+            "cvss": {
+              "score": 3.9,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:U/C:L/I:L/A:L"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116088,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: HTTP Response Header Injection in custom protocol handlers and webRequest",
+            "url": "https://github.com/advisories/GHSA-4p4r-m79c-wq3v",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-74",
+              "CWE-113"
+            ],
+            "cvss": {
+              "score": 5.9,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:H/A:N"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116092,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: USB device selection not validated against filtered device list",
+            "url": "https://github.com/advisories/GHSA-9899-m83m-qhpj",
+            "severity": "low",
+            "cwe": [
+              "CWE-862"
+            ],
+            "cvss": {
+              "score": 3.3,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:N"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1116259,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Crash in clipboard.readImage() on malformed clipboard image data",
+            "url": "https://github.com/advisories/GHSA-f37v-82c4-4x64",
+            "severity": "low",
+            "cwe": [
+              "CWE-476"
+            ],
+            "cvss": {
+              "score": 2.8,
+              "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:N/I:N/A:L"
+            },
+            "range": "<39.8.5"
+          },
+          {
+            "source": 1116320,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Named window.open targets not scoped to the opener's browsing context",
+            "url": "https://github.com/advisories/GHSA-f3pv-wv63-48x8",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-668"
+            ],
+            "cvss": {
+              "score": 6,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:C/C:L/I:L/A:L"
+            },
+            "range": "<39.8.5"
+          },
+          {
+            "source": 1117459,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Renderer command-line switch injection via undocumented commandLineSwitches webPreference",
+            "url": "https://github.com/advisories/GHSA-9wfr-w7mm-pc7f",
+            "severity": "high",
+            "cwe": [
+              "CWE-88",
+              "CWE-912"
+            ],
+            "cvss": {
+              "score": 7.7,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:C/C:H/I:H/A:H"
+            },
+            "range": "<38.8.6"
+          },
+          {
+            "source": 1136551,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Parent process code-sign check is spoofable",
+            "url": "https://github.com/advisories/GHSA-jm7p-cc5g-qwxx",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-367"
+            ],
+            "cvss": {
+              "score": 6.3,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:N"
+            },
+            "range": "<39.8.8"
+          },
+          {
+            "source": 1136552,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Custom protocol with supportFetchAPI but not corsEnabled allows cross-origin reads",
+            "url": "https://github.com/advisories/GHSA-v3j7-r9gq-3gjw",
+            "severity": "high",
+            "cwe": [
+              "CWE-942"
+            ],
+            "cvss": {
+              "score": 7.4,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:N/A:N"
+            },
+            "range": "<39.8.10"
+          },
+          {
+            "source": 1136559,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Extension tab APIs operate across session boundaries",
+            "url": "https://github.com/advisories/GHSA-m55f-7gqj-fr98",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-284"
+            ],
+            "cvss": {
+              "score": 6.6,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:C/C:H/I:L/A:N"
+            },
+            "range": "<39.8.8"
+          },
+          {
+            "source": 1136560,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: shell.openPath path validation bypass via embedded null byte",
+            "url": "https://github.com/advisories/GHSA-5c9j-mhmv-5xgx",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-20",
+              "CWE-158"
+            ],
+            "cvss": {
+              "score": 6,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:H/I:H/A:N"
+            },
+            "range": "<39.8.6"
+          },
+          {
+            "source": 1136567,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Context isolation bypass via Function.prototype.bind hijack",
+            "url": "https://github.com/advisories/GHSA-h7rp-cf8h-j98x",
+            "severity": "high",
+            "cwe": [
+              "CWE-693"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:L/A:N"
+            },
+            "range": "<39.8.9"
+          },
+          {
+            "source": 1136571,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Cross-origin iframe can position native autofill popup",
+            "url": "https://github.com/advisories/GHSA-x8rc-wpg4-grpf",
+            "severity": "low",
+            "cwe": [
+              "CWE-1021"
+            ],
+            "cvss": {
+              "score": 3.1,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:N/I:L/A:N"
+            },
+            "range": "<39.8.8"
+          },
+          {
+            "source": 1136575,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Permission Check Handler Receives Main Frame Origin Instead of Requesting Iframe Origin",
+            "url": "https://github.com/advisories/GHSA-9pf5-hg6p-4pwp",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-346"
+            ],
+            "cvss": {
+              "score": 5.9,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+            },
+            "range": "<39.8.7"
+          },
+          {
+            "source": 1136579,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Off-screen rendering trusts GPU-supplied geometry over shared-memory size",
+            "url": "https://github.com/advisories/GHSA-pfmc-3mgc-p6fp",
+            "severity": "low",
+            "cwe": [
+              "CWE-125"
+            ],
+            "cvss": {
+              "score": 3.9,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:C/C:L/I:N/A:L"
+            },
+            "range": "<39.8.10"
+          },
+          {
+            "source": 1136590,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: HTTP redirect followed into local file loader",
+            "url": "https://github.com/advisories/GHSA-v64r-4m7r-3mvq",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-918"
+            ],
+            "cvss": {
+              "score": 5.9,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+            },
+            "range": "<39.8.8"
+          },
+          {
+            "source": 1136597,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: window.open features string controls some window options considered privileged",
+            "url": "https://github.com/advisories/GHSA-v93f-fgjr-hjrj",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-20"
+            ],
+            "cvss": {
+              "score": 5.3,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+            },
+            "range": "<39.8.8"
+          },
+          {
+            "source": 1136607,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Sandboxed iframe can bypass the allow-popups restriction via the OpenURL navigation path",
+            "url": "https://github.com/advisories/GHSA-9f4c-93c8-jc8g",
+            "severity": "high",
+            "cwe": [
+              "CWE-693",
+              "CWE-1021"
+            ],
+            "cvss": {
+              "score": 7.2,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:N"
+            },
+            "range": "<39.8.10"
+          },
+          {
+            "source": 1136634,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: Sandboxed iframes can launch external protocol handlers",
+            "url": "https://github.com/advisories/GHSA-p2rr-rvmm-c5fp",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-284"
+            ],
+            "cvss": {
+              "score": 5.4,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:L/I:L/A:N"
+            },
+            "range": "<39.8.8"
+          },
+          {
+            "source": 1136647,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: DevTools embedder handler executes arbitrary files via shell open",
+            "url": "https://github.com/advisories/GHSA-f2r8-jv7c-xqmp",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-78"
+            ],
+            "cvss": {
+              "score": 6.9,
+              "vectorString": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:C/C:H/I:H/A:N"
+            },
+            "range": "<39.8.9"
+          },
+          {
+            "source": 1136651,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: contextBridge object copy honors prototype setters",
+            "url": "https://github.com/advisories/GHSA-ff2p-hmqr-hxm4",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-1321"
+            ],
+            "cvss": {
+              "score": 5.4,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:L/I:L/A:N"
+            },
+            "range": "<39.8.9"
+          },
+          {
+            "source": 1136659,
+            "name": "electron",
+            "dependency": "electron",
+            "title": "Electron: DevTools JavaScript Injection via Unsanitized Dock State Parameter",
+            "url": "https://github.com/advisories/GHSA-4f78-qhmw-8j8m",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-94",
+              "CWE-116"
+            ],
+            "cvss": {
+              "score": 5.7,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:H/UI:R/S:U/C:H/I:H/A:N"
+            },
+            "range": "<39.8.7"
+          },
+          "extract-zip"
+        ],
+        "effects": [],
+        "range": "<=40.10.2 || 41.0.0-alpha.1 - 41.7.1 || 42.0.0-alpha.1 - 42.3.3 || 43.0.0-alpha.1 - 43.0.0-beta.8",
+        "nodes": [
+          "node_modules/electron"
+        ],
+        "fixAvailable": {
+          "name": "electron",
+          "version": "44.2.0",
+          "isSemVerMajor": true
+        }
+      },
+      "esbuild": {
+        "name": "esbuild",
+        "severity": "moderate",
+        "isDirect": false,
+        "via": [
+          {
+            "source": 1102341,
+            "name": "esbuild",
+            "dependency": "esbuild",
+            "title": "esbuild enables any website to send any requests to the development server and read the response",
+            "url": "https://github.com/advisories/GHSA-67mh-4wv8-2f99",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-346"
+            ],
+            "cvss": {
+              "score": 5.3,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N"
+            },
+            "range": "<=0.24.2"
+          }
+        ],
+        "effects": [
+          "vite"
+        ],
+        "range": "<=0.24.2",
+        "nodes": [
+          "node_modules/esbuild"
+        ],
+        "fixAvailable": {
+          "name": "vite",
+          "version": "8.2.2",
+          "isSemVerMajor": true
+        }
+      },
+      "extract-zip": {
+        "name": "extract-zip",
+        "severity": "high",
+        "isDirect": false,
+        "via": [
+          {
+            "source": 1139346,
+            "name": "extract-zip",
+            "dependency": "extract-zip",
+            "title": "extract-zip unvalidated symlink path traversal",
+            "url": "https://github.com/advisories/GHSA-jmr9-qjv8-65gv",
+            "severity": "high",
+            "cwe": [
+              "CWE-22"
+            ],
+            "cvss": {
+              "score": 8.1,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N"
+            },
+            "range": "<=2.0.1"
+          }
+        ],
+        "effects": [
+          "electron"
+        ],
+        "range": "*",
+        "nodes": [
+          "node_modules/extract-zip"
+        ],
+        "fixAvailable": {
+          "name": "electron",
+          "version": "44.2.0",
+          "isSemVerMajor": true
+        }
+      },
+      "form-data": {
+        "name": "form-data",
+        "severity": "high",
+        "isDirect": false,
+        "via": [
+          {
+            "source": 1120743,
+            "name": "form-data",
+            "dependency": "form-data",
+            "title": "form-data: CRLF injection in form-data via unescaped multipart field names and filenames",
+            "url": "https://github.com/advisories/GHSA-hmw2-7cc7-3qxx",
+            "severity": "high",
+            "cwe": [
+              "CWE-93"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N"
+            },
+            "range": ">=4.0.0 <4.0.6"
+          }
+        ],
+        "effects": [],
+        "range": "4.0.0 - 4.0.5",
+        "nodes": [
+          "node_modules/form-data"
+        ],
+        "fixAvailable": true
+      },
+      "joi": {
+        "name": "joi",
+        "severity": "moderate",
+        "isDirect": false,
+        "via": [
+          {
+            "source": 1120656,
+            "name": "joi",
+            "dependency": "joi",
+            "title": "joi has an uncaught RangeError on deeply nested input through recursive `link()` schemas",
+            "url": "https://github.com/advisories/GHSA-q7cg-457f-vx79",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-248",
+              "CWE-400"
+            ],
+            "cvss": {
+              "score": 5.3,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+            },
+            "range": "<17.13.4"
+          }
+        ],
+        "effects": [],
+        "range": "<17.13.4",
+        "nodes": [
+          "node_modules/joi"
+        ],
+        "fixAvailable": true
+      },
+      "nanoid": {
+        "name": "nanoid",
+        "severity": "high",
+        "isDirect": false,
+        "via": [
+          {
+            "source": 1138811,
+            "name": "nanoid",
+            "dependency": "nanoid",
+            "title": "nanoid: non-secure generators can loop indefinitely with negative size",
+            "url": "https://github.com/advisories/GHSA-28wg-ghj8-5hjv",
+            "severity": "high",
+            "cwe": [
+              "CWE-835"
+            ],
+            "cvss": {
+              "score": 5.9,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+            },
+            "range": "<3.3.16"
+          },
+          {
+            "source": 1139427,
+            "name": "nanoid",
+            "dependency": "nanoid",
+            "title": "nanoid: custom generators can loop indefinitely when size is zero",
+            "url": "https://github.com/advisories/GHSA-2v37-7h3g-55p8",
+            "severity": "high",
+            "cwe": [
+              "CWE-835"
+            ],
+            "cvss": {
+              "score": 5.9,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+            },
+            "range": "<3.3.18"
+          }
+        ],
+        "effects": [],
+        "range": "<=3.3.17",
+        "nodes": [
+          "node_modules/nanoid"
+        ],
+        "fixAvailable": true
+      },
+      "postcss": {
+        "name": "postcss",
+        "severity": "high",
+        "isDirect": false,
+        "via": [
+          {
+            "source": 1130709,
+            "name": "postcss",
+            "dependency": "postcss",
+            "title": "PostCSS: incomplete fix of GHSA-6g55-p6wh-862q — attacker-controlled sourceMappingURL reads arbitrary .map files when `from` is unset",
+            "url": "https://github.com/advisories/GHSA-fxqj-rqcc-2cmp",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-22",
+              "CWE-200"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": "<=8.5.22"
+          },
+          {
+            "source": 1139510,
+            "name": "postcss",
+            "dependency": "postcss",
+            "title": "PostCSS: Path Traversal in Previous Source Map Auto-Loading (sourceMappingURL) leads to Arbitrary .map File Disclosure",
+            "url": "https://github.com/advisories/GHSA-r28c-9q8g-f849",
+            "severity": "high",
+            "cwe": [
+              "CWE-22"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+            },
+            "range": "<=8.5.17"
+          }
+        ],
+        "effects": [],
+        "range": "<=8.5.22",
+        "nodes": [
+          "node_modules/postcss"
+        ],
+        "fixAvailable": true
+      },
+      "shell-quote": {
+        "name": "shell-quote",
+        "severity": "critical",
+        "isDirect": false,
+        "via": [
+          {
+            "source": 1120422,
+            "name": "shell-quote",
+            "dependency": "shell-quote",
+            "title": "shell-quote quote() does not escape newlines in object .op values",
+            "url": "https://github.com/advisories/GHSA-w7jw-789q-3m8p",
+            "severity": "critical",
+            "cwe": [
+              "CWE-77",
+              "CWE-78"
+            ],
+            "cvss": {
+              "score": 8.1,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+            },
+            "range": ">=1.1.0 <=1.8.3"
+          },
+          {
+            "source": 1123944,
+            "name": "shell-quote",
+            "dependency": "shell-quote",
+            "title": "shell-quote: Quadratic-complexity Denial of Service in `parse()` (CWE-407)",
+            "url": "https://github.com/advisories/GHSA-395f-4hp3-45gv",
+            "severity": "high",
+            "cwe": [
+              "CWE-407"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+            },
+            "range": "<=1.8.4"
+          }
+        ],
+        "effects": [],
+        "range": "<=1.8.4",
+        "nodes": [
+          "node_modules/shell-quote"
+        ],
+        "fixAvailable": true
+      },
+      "vite": {
+        "name": "vite",
+        "severity": "high",
+        "isDirect": true,
+        "via": [
+          {
+            "source": 1116229,
+            "name": "vite",
+            "dependency": "vite",
+            "title": "Vite Vulnerable to Path Traversal in Optimized Deps `.map` Handling",
+            "url": "https://github.com/advisories/GHSA-4w7w-66w2-5vf9",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-22",
+              "CWE-200"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": "<=6.4.1"
+          },
+          {
+            "source": 1120784,
+            "name": "vite",
+            "dependency": "vite",
+            "title": "launch-editor: NTLMv2 hash disclosure via UNC path handling on Windows",
+            "url": "https://github.com/advisories/GHSA-v6wh-96g9-6wx3",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-73",
+              "CWE-522"
+            ],
+            "cvss": {
+              "score": 0,
+              "vectorString": null
+            },
+            "range": "<=6.4.2"
+          },
+          {
+            "source": 1123525,
+            "name": "vite",
+            "dependency": "vite",
+            "title": "vite: `server.fs.deny` bypass on Windows alternate paths",
+            "url": "https://github.com/advisories/GHSA-fx2h-pf6j-xcff",
+            "severity": "high",
+            "cwe": [
+              "CWE-22",
+              "CWE-200"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+            },
+            "range": "<=6.4.2"
+          },
+          "esbuild"
+        ],
+        "effects": [],
+        "range": "<=6.4.2",
+        "nodes": [
+          "node_modules/vite"
+        ],
+        "fixAvailable": {
+          "name": "vite",
+          "version": "8.2.2",
+          "isSemVerMajor": true
+        }
+      }
+    },
+    "metadata": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 1,
+        "moderate": 2,
+        "high": 8,
+        "critical": 1,
+        "total": 12
+      },
+      "dependencies": {
+        "prod": 7,
+        "dev": 445,
+        "optional": 76,
+        "peer": 13,
+        "peerOptional": 0,
+        "total": 451
+      }
+    }
+  },
+  "artifact": {
+    "name": "Sanmou-Advisor-0.1.0-unsigned-x64.exe",
+    "sha256": "af5b3e5a756ad15d721ac1c9be3afc1da8b6793b6ad1fab3d5a9a0b92b00f7af",
+    "signature": "NotSigned"
+  },
+  "final_pipeline": {
+    "exit_code": 0,
+    "checks": [
+      "npm ci",
+      "npm run typecheck",
+      "npm run build (via dist:win)",
+      "npm test: 2 Node + 14 Electron pass",
+      "npm run dist:win",
+      "npm run test:install:win"
+    ],
+    "log_sha256": {
+      "sanmou-e-ci.log": "19861ebb12cebdf4791fe965f1db6f0957c0ca4947c95e1fc011024807c4e601",
+      "sanmou-e-typecheck.log": "207a8fc4bc101cb9b1bac40a5b742abb72f05afb990354b85339d2cc7d64368c",
+      "sanmou-e-package-final.log": "25f8309e498cc8e0af5f1d5e057126a868a997fbc803e12854b333f471e39e86",
+      "sanmou-e-desktop-final.log": "f81b66259ad7a359fee05db719ff8ef2351f292e13ad51410d6b810f87fb36d6",
+      "sanmou-e-install-final.log": "37b97e1d3c701f6a35e7cb7cbba3bc6ece72d2a5e9aa5afa83fd6410c62c2733"
+    },
+    "whitespace_cleanup": "Removed trailing blank source line after validation; rebuilt main and verified compiled python.js bytes unchanged."
+  }
+}
