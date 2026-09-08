@@ -4,18 +4,19 @@ import { test } from "node:test";
 import { setImmediate as nextTurn } from "node:timers/promises";
 import path from "node:path";
 import { waitForAdvisorHealth } from "./advisor-readiness.mjs";
+import { listenOnSafePort } from "./safe-ports.mjs";
 
 const expectedDataDir = path.resolve("synthetic-readiness-profile/advisor");
 const healthy = { status: "ok", data_dir: expectedDataDir, runtime_admin_enabled: false };
 const shortDeadline = { timeoutMs: 150, pollIntervalMs: 5, requestTimeoutMs: 30 };
 async function serve(t, handler) {
   const server = createServer(handler);
-  await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
+  const { port } = await listenOnSafePort(server);
   t.after(async () => {
     server.closeAllConnections();
     await new Promise(resolve => server.close(resolve));
   });
-  return `http://127.0.0.1:${server.address().port}`;
+  return `http://127.0.0.1:${port}`;
 }
 function respond(response, payload, status = 200) {
   response.writeHead(status, { "Content-Type": "application/json" });

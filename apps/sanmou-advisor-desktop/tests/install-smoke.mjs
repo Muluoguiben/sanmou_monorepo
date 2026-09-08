@@ -3,11 +3,12 @@
 import assert from "node:assert/strict";
 import { _electron as electron } from "playwright";
 import { spawn, execFileSync } from "node:child_process";
-import { mkdtemp, readdir, access, rm } from "node:fs/promises";
-import { createServer } from "node:net";
+import { createHash } from "node:crypto";
+import { mkdtemp, readdir, readFile, access, rm } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { waitForAdvisorHealth } from "./advisor-readiness.mjs";
+import { reserveSafePort } from "./safe-ports.mjs";
 
 assert.equal(process.platform, "win32", "This is a Windows installation check");
 const repo = path.resolve("../..");
@@ -44,20 +45,26 @@ function run(executable, args) {
     child.once("exit", code => { clearTimeout(timer); code === 0 ? resolve() : reject(new Error(`installer exit ${code}`)); });
   });
 }
-const portServer = createServer();
-await new Promise(resolve => portServer.listen(0, "127.0.0.1", resolve));
-const port = portServer.address().port;
+let reservation;
 let app;
 let installed = false;
 try {
+  // Include allocation in cleanup scope so exhausted candidates also remove
+  // the already-created, task-owned temporary directory.
+  reservation = await reserveSafePort();
+  const port = reservation.port;
   await run(installer, ["/S", `/D=${destination}`]);
   installed = true;
   const executablePath = path.join(destination, "Sanmou Advisor.exe");
   await access(executablePath);
+  const apiRelativePath = "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py";
+  const sourceApiHash = createHash("sha256").update(await readFile(path.join(repo, apiRelativePath))).digest("hex");
+  const bundledApiHash = createHash("sha256").update(await readFile(path.join(destination, "resources/backend", apiRelativePath))).digest("hex");
+  assert.equal(bundledApiHash, sourceApiHash, "installer must contain the exact API source under test");
   const env = { ...process.env, PYTHON: path.join(repo, ".venv", "Scripts", "python.exe"), SANMOU_ADVISOR_PORT: String(port) };
   for (const key of ["ELECTRON_RUN_AS_NODE", "SANMOU_ADVISOR_API_URL", "SANMOU_REPO_ROOT", "ELECTRON_RENDERER_URL", "PYTHONPATH"]) delete env[key];
   // Reserve through installation; release only immediately before Python binds.
-  await new Promise(resolve => portServer.close(resolve));
+  await reservation.release();
   app = await electron.launch({ executablePath, args: [`--user-data-dir=${profile}`], env, timeout: 45000 });
   const diagnostics = [];
   app.process().stderr?.on("data", chunk => diagnostics.push(chunk.toString()));
@@ -76,6 +83,21 @@ try {
   assert.equal(await app.evaluate(({ app }) => app.isPackaged), true);
   assert.equal(path.resolve(health.data_dir), path.join(profile, "advisor"));
   assert.equal(health.runtime_admin_enabled, false);
+  // Header-only limit rejection: no giant bitmap is created or sent. The
+  // default Pillow guard was verified by the native API regression before this run.
+  const pixelHeader = Buffer.from("iVBORw0KGgoAAAANSUhEUgAATiAAAE4gCAIAAABsEtFuAAAADElEQVR4nGNgYGAAAAAEAAH2FzhVAAAAAElFTkSuQmCC", "base64");
+  assert.equal(pixelHeader.length, 69);
+  const pixelForm = new FormData();
+  pixelForm.append("screenshot", new Blob([pixelHeader], { type: "image/png" }), "synthetic-pixel-limit.png");
+  pixelForm.append("mock_mode", "true");
+  const rejected = await fetch(`${expectedApiBaseUrl}/api/advisor/analyze`, {
+    method: "POST", body: pixelForm, signal: AbortSignal.timeout(10000)
+  });
+  assert.equal(rejected.status, 413, await rejected.text().then(text => {
+    assert.match(text, /pixel/); return text;
+  }));
+  assert.deepEqual(await readdir(path.join(profile, "advisor", "uploads")), []);
+  await assert.rejects(access(path.join(profile, "advisor", "reports.jsonl")), { code: "ENOENT" });
   const png = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGOQ0zACAADgAHmmsONFAAAAAElFTkSuQmCC", "base64");
   await page.locator('input[type="file"]').setInputFiles({ name: "synthetic-install.png", mimeType: "image/png", buffer: png });
   const analyzed = page.waitForResponse(response => response.url().endsWith("/api/advisor/analyze"));
@@ -87,9 +109,9 @@ try {
   assert.equal(report.recommended_action.executable, false);
   await page.locator(".execution-permission").waitFor();
   assert.equal(await page.locator(".preview-frame img").evaluate(image => image.naturalWidth), 1);
-  console.log(JSON.stringify({ status: "passed", readiness: "awaited-http-and-profile-identity", readinessAttempts: attempts, unsigned: true, packaged: true, preload: true, bundledBackend: true, mockUpload: true, runtimeAdmin: false, gameInput: false }));
+  console.log(JSON.stringify({ status: "passed", apiPort: port, portAllocationAttempts: reservation.attempts, readiness: "awaited-http-and-profile-identity", readinessAttempts: attempts, unsigned: true, packaged: true, preload: true, bundledBackend: true, bundledApiSha256: bundledApiHash, pixelLimitRejected: true, mockUpload: true, runtimeAdmin: false, gameInput: false }));
 } finally {
-  if (portServer.listening) await new Promise(resolve => portServer.close(resolve));
+  await reservation?.release();
   if (app) await app.close();
   if (installed) {
     await run(path.join(destination, "Uninstall Sanmou Advisor.exe"), ["/S"]);

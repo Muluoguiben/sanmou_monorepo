@@ -3,6 +3,7 @@ import { createServer, type Server, type ServerResponse } from "node:http";
 import { mkdtemp, rm } from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
+import { listenOnSafePort, reserveSafePort, isSafeTestPort } from "../safe-ports.mjs";
 
 const png = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGOQ0zACAADgAHmmsONFAAAAAElFTkSuQmCC", "base64");
 const repo = path.resolve("../..");
@@ -58,8 +59,8 @@ test.beforeEach(async () => {
     else if (request.url?.startsWith("/image/")) { response.writeHead(200, { "Content-Type": "image/png" }); response.end(png); }
     else json(response, { detail: "not found" }, 404);
   });
-  await new Promise<void>(resolve => server.listen(0, "127.0.0.1", resolve));
-  url = `http://127.0.0.1:${(server.address() as { port: number }).port}`;
+  const { port } = await listenOnSafePort(server);
+  url = `http://127.0.0.1:${port}`;
   profile = await mkdtemp(path.join(os.tmpdir(), "sanmou-electron-e-"));
   app = await electron.launch({ args: [".", `--user-data-dir=${profile}`], env: electronEnv({ SANMOU_DESKTOP_BUILT: "1", SANMOU_ADVISOR_API_URL: url, ELECTRON_RENDERER_URL: "" }) });
   page = await app.firstWindow();
@@ -100,6 +101,29 @@ test("R21 real Electron preload exposes custom API URL with isolated sandbox", a
   expect(config.apiLaunch.mode).toBe("external");
   expect(await page.evaluate(() => typeof (window as any).require)).toBe("undefined");
   expect(await app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].webContents.getLastWebPreferences().sandbox)).toBe(true);
+});
+
+test("CR03 forced unsafe/colliding candidates yield a browser-safe listener without disabling port security", async () => {
+  const held = await reserveSafePort();
+  const candidate = createServer((_request, response) => {
+    response.writeHead(200, { "Access-Control-Allow-Origin": "*" }); response.end("safe-port-browser-ok");
+  });
+  try {
+    const result = await listenOnSafePort(candidate, { candidatePorts: [5061, held.port] });
+    expect(result.attempts).toBeGreaterThanOrEqual(3);
+    expect(isSafeTestPort(result.port)).toBe(true);
+    expect(await page.evaluate(async target => (await fetch(target)).text(), `http://127.0.0.1:${result.port}`)).toBe("safe-port-browser-ok");
+    const blocked = page.waitForEvent("requestfailed", request => new URL(request.url()).port === "5061");
+    expect(await page.evaluate(async () => {
+      try { await fetch("http://127.0.0.1:5061"); return "unexpected success"; }
+      catch { return "blocked"; }
+    })).toBe("blocked");
+    expect((await blocked).failure()?.errorText).toBe("net::ERR_UNSAFE_PORT");
+  } finally {
+    candidate.closeAllConnections();
+    if (candidate.listening) await new Promise<void>(resolve => candidate.close(() => resolve()));
+    await held.release();
+  }
 });
 
 for (const method of ["picker", "drop", "paste"]) {

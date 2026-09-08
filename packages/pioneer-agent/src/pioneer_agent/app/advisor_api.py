@@ -289,8 +289,14 @@ class AdvisorApiService:
             raise
 
         try:
-            with Image.open(path) as image:
-                image.verify()
+            # Own the reader even when Pillow rejects the header before an
+            # image context can be entered (including its pixel-count guard).
+            with path.open("rb") as reader:
+                with Image.open(reader) as image:
+                    image.verify()
+        except Image.DecompressionBombError as exc:
+            path.unlink(missing_ok=True)
+            raise HTTPException(status_code=413, detail="screenshot exceeds the image pixel limit") from exc
         except (UnidentifiedImageError, OSError, SyntaxError) as exc:
             path.unlink(missing_ok=True)
             raise HTTPException(status_code=400, detail="uploaded file is not a valid image") from exc
