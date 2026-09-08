@@ -5,6 +5,10 @@
 Review of d377ef8 found 4 P1 and 22 P2 issues; previous production-slice checkmarks
 describe wiring/testing, not production acceptance. See [ownership and gates](docs/development-batch-2026-09-08.md).
 
+Dispatch: all six development tasks have acknowledged isolated worktrees; unified
+CR has started preparation. [Task IDs and report paths](docs/development-batch-2026-09-08-tasks.json).
+Charter and original review pushed in dd76d60; this is not completion of any fix.
+
 - [ ] A: observer security R01/R02/R06/R07; committed self-test report required.
 - [ ] B: state/MCP R05/R08; committed self-test report required.
 - [ ] C: harness R17/R18/R19/R20; committed self-test report required.

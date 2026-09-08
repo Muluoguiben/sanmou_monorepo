@@ -1,0 +1,20 @@
+{
+  "batch": "sanmou-hardening-2026-09-08",
+  "coordinator_thread_id": "019f4a66-e105-7103-ab9d-aef47aa6f8a0",
+  "code_review_baseline": "d377ef8bbaa69e6b25928255eac0cb62714e82f8",
+  "charter_commit": "dd76d601f6f40d3e4fceaf10cdd360d78af88cb2",
+  "model": "gpt-6-astra",
+  "status": "development_in_progress",
+  "tasks": [
+    {"id":"A","thread_id":"01a07f09-c64c-7852-a533-7db7730a048c","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/ecc7/sanmou_monorepo","role":"observer_security","report":"docs/test-reports/2026-09-08/A.md"},
+    {"id":"B","thread_id":"01a07f0b-149e-7160-a896-551165a702a0","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/dccc/sanmou_monorepo","role":"state_mcp","report":"docs/test-reports/2026-09-08/B.md"},
+    {"id":"C","thread_id":"01a07f0b-3787-7f82-ab0c-400a65b4b1a2","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/c31a/sanmou_monorepo","role":"recommendation_lifecycle","report":"docs/test-reports/2026-09-08/C.md"},
+    {"id":"D","thread_id":"01a07f0b-53b8-74a3-9e61-71dd461bdff8","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/0788/sanmou_monorepo","role":"qa_integrity","report":"docs/test-reports/2026-09-08/D.md"},
+    {"id":"E","thread_id":"01a07f0b-6d25-75c3-bcb1-acd4ca26cd1d","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/3fd9/sanmou_monorepo","role":"desktop_api","report":"docs/test-reports/2026-09-08/E.md"},
+    {"id":"F","thread_id":"01a07f0b-85e8-7880-bb8f-3845dc01fef2","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/0f15/sanmou_monorepo","role":"eval_ci","report":"docs/test-reports/2026-09-08/F.md"},
+    {"id":"CR","thread_id":"01a07f0d-b543-70f2-9055-cca7d4323f7d","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/6737/sanmou_monorepo","role":"unified_adversarial_review","report":"docs/reviews/2026-09-08-adversarial-review.md"}
+  ],
+  "formal_review_requires": ["six_final_component_shas", "six_committed_self_test_reports", "independent_combined_tree_validation"],
+  "master_integration": "coordinator_only_after_review",
+  "routine_game_execution": "disabled"
+}
