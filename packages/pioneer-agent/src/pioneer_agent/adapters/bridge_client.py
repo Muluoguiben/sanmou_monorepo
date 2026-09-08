@@ -6,25 +6,18 @@ bypassing WSL2 network routing issues (e.g. WireGuard, NAT).
 
 from __future__ import annotations
 
-import base64
 import hashlib
-import json
 import math
 import re
-import subprocess
-from dataclasses import dataclass
 from datetime import datetime
-from io import BytesIO
 from pathlib import Path
 from typing import Any
 
-from PIL import Image, UnidentifiedImageError
 from pydantic import ValidationError
 
 from pioneer_agent.core.models import CaptureGeometry
 
 
-_PROXY_SCRIPT = Path(__file__).with_name("bridge_proxy.py")
 _ATOMIC_FRAME_CLICK_GUARD_VERSION = 1
 _CAPTURE_GEOMETRY_VERSION = 1
 _SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
@@ -36,16 +29,9 @@ _ATOMIC_AUTHORIZATION_SCOPES = frozenset(
 )
 
 
-@dataclass(frozen=True)
-class BridgeScreenshot:
-    png: bytes
-    frame_sha256: str
-    capture_geometry: CaptureGeometry
-
-
-def _to_windows_path(linux_path: Path) -> str:
-    """Convert a WSL Linux path to a \\\\wsl$\\ UNC path for python.exe."""
-    return f"\\\\wsl$\\Ubuntu{linux_path}"
+from pioneer_agent.adapters.capture_bridge_client import (
+    CaptureBridgeClient, BridgeScreenshot, _to_windows_path,
+)
 
 
 def _to_windows_kill_switch_path(value: Path | str) -> str:
@@ -58,8 +44,8 @@ def _to_windows_kill_switch_path(value: Path | str) -> str:
     raise ValueError("kill-switch path must be absolute and Windows-accessible")
 
 
-class BridgeClient:
-    """Client that talks to the Windows bridge server via python.exe proxy."""
+class BridgeClient(CaptureBridgeClient):
+    """Legacy guarded control API; capture transport never authorizes input."""
 
     atomic_frame_click_guard_version = _ATOMIC_FRAME_CLICK_GUARD_VERSION
     capture_geometry_version = _CAPTURE_GEOMETRY_VERSION
@@ -67,117 +53,6 @@ class BridgeClient:
         {"semantic_roi_rgb24_sha256", "full_frame_png_sha256"}
     )
     atomic_frame_click_authorization_scopes = _ATOMIC_AUTHORIZATION_SCOPES
-
-    def __init__(self, port: int = 9877, *, capture_backend: str | None = None) -> None:
-        self.port = port
-        self.capture_backend = capture_backend
-        self._proc: subprocess.Popen[str] | None = None
-        self._last_screenshot: BridgeScreenshot | None = None
-
-    def connect(self) -> None:
-        """Start the proxy subprocess and wait for it to be ready."""
-        if self._proc is not None and self._proc.poll() is None:
-            return
-        self._last_screenshot = None
-        win_script = _to_windows_path(_PROXY_SCRIPT)
-        self._proc = subprocess.Popen(
-            ["python.exe", win_script, str(self.port)],
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            cwd="/mnt/c",
-        )
-        ready = self._read_line()
-        if ready.get("status") != "proxy_ready":
-            raise ConnectionError(f"Proxy failed to start: {ready}")
-
-    def close(self) -> None:
-        if self._proc is not None and self._proc.poll() is None:
-            try:
-                self._send({"cmd": "quit"})
-                self._read_line()
-            except Exception:
-                pass
-            self._proc.terminate()
-            self._proc.wait(timeout=5)
-        self._proc = None
-        self._last_screenshot = None
-
-    def ping(self) -> bool:
-        """Check if the bridge server is reachable."""
-        try:
-            self.connect()
-            self._send({"cmd": "ping"})
-            resp = self._read_line()
-            return resp.get("status") == "ok"
-        except Exception:
-            return False
-
-    def screenshot(self, save_path: Path | str | None = None) -> bytes:
-        """Capture a screenshot of the game window. Returns PNG bytes."""
-        return self.screenshot_capture(save_path=save_path).png
-
-    def screenshot_capture(
-        self,
-        save_path: Path | str | None = None,
-    ) -> BridgeScreenshot:
-        """Capture pixels plus their server-attested physical geometry."""
-        self.connect()
-        self._last_screenshot = None
-        payload = {"cmd": "screenshot"}
-        if self.capture_backend:
-            payload["backend"] = self.capture_backend
-        self._send(payload)
-        resp = self._read_line()
-        if resp.get("status") != "ok" or "data_b64" not in resp:
-            raise RuntimeError(resp.get("message") or f"Screenshot failed: {resp}")
-        try:
-            png_bytes = base64.b64decode(resp["data_b64"], validate=True)
-        except (TypeError, ValueError) as exc:
-            raise RuntimeError("bridge returned invalid screenshot bytes") from exc
-        if (
-            isinstance(resp.get("size"), bool)
-            or not isinstance(resp.get("size"), int)
-            or resp.get("size") != len(png_bytes)
-        ):
-            raise RuntimeError("bridge screenshot byte-length binding is invalid")
-        digest = hashlib.sha256(png_bytes).hexdigest()
-        if resp.get("frame_sha256") != digest:
-            raise RuntimeError("bridge screenshot hash binding is invalid")
-        try:
-            geometry = CaptureGeometry.model_validate(resp.get("capture_geometry"))
-        except (ValidationError, TypeError, ValueError) as exc:
-            raise RuntimeError(
-                "bridge screenshot lacks valid capture geometry v1; update and restart the Windows bridge server"
-            ) from exc
-        try:
-            with Image.open(BytesIO(png_bytes)) as image:
-                image.load()
-                decoded_size = image.size
-        except (UnidentifiedImageError, OSError, ValueError) as exc:
-            raise RuntimeError("bridge screenshot is not a decodable image") from exc
-        if decoded_size != geometry.frame_size:
-            raise RuntimeError(
-                "bridge screenshot pixels do not match its capture geometry"
-            )
-        screenshot = BridgeScreenshot(
-            png=png_bytes,
-            frame_sha256=digest,
-            capture_geometry=geometry,
-        )
-        if save_path is not None:
-            path = Path(save_path)
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_bytes(png_bytes)
-        # Do not retain a dispatch-capable binding if the requested archive
-        # write failed: callers did not receive a completed capture result.
-        self._last_screenshot = screenshot
-        return screenshot
-
-    @property
-    def last_screenshot(self) -> BridgeScreenshot | None:
-        return self._last_screenshot
 
     def click(
         self,
@@ -349,41 +224,6 @@ class BridgeClient:
         self._send(payload)
         return self._read_line()
 
-    def window_info(self) -> dict[str, Any]:
-        """Get game window geometry info."""
-        self.connect()
-        self._send({"cmd": "window_info"})
-        return self._read_line()
-
-    def list_windows(self, title_substring: str | None = None) -> dict[str, Any]:
-        """List candidate target windows known to the bridge."""
-        self.connect()
-        payload = {"cmd": "list_windows"}
-        if title_substring is not None:
-            payload["title"] = title_substring
-        self._send(payload)
-        return self._read_line()
-
-    def __enter__(self) -> BridgeClient:
-        self.connect()
-        return self
-
-    def __exit__(self, *exc: object) -> None:
-        self.close()
-
-    # --- Internal ---
-
-    def _send(self, payload: dict[str, Any]) -> None:
-        assert self._proc is not None and self._proc.stdin is not None
-        self._proc.stdin.write(json.dumps(payload, ensure_ascii=False) + "\n")
-        self._proc.stdin.flush()
-
-    def _read_line(self) -> dict[str, Any]:
-        assert self._proc is not None and self._proc.stdout is not None
-        line = self._proc.stdout.readline()
-        if not line:
-            raise ConnectionError("Proxy process exited unexpectedly")
-        return json.loads(line)
 
 
 def _validate_atomic_click_request(
