@@ -2,6 +2,13 @@
 
 ## Active hardening batch — 2026-09-08
 
+Integration recheck: unified CR approved 470d92c for the patch batch, but the
+coordinator's identical-source main-worktree run found two stdio cleanup errors
+(846 tests, 2 errors/2 Windows-only skips; both focused tests fail in 3/3 fresh
+processes). The uncommitted merge was aborted safely; no development source was
+pushed to master. C and unified CR are investigating before renewed approval.
+See [exact integration evidence](docs/reviews/2026-09-08-integration-recheck.md).
+
 Review of d377ef8 found 4 P1 and 22 P2 issues; previous production-slice checkmarks
 describe wiring/testing, not production acceptance. See [ownership and gates](docs/development-batch-2026-09-08.md).
 

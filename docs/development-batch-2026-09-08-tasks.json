@@ -4,15 +4,15 @@
   "code_review_baseline": "d377ef8bbaa69e6b25928255eac0cb62714e82f8",
   "charter_commit": "dd76d601f6f40d3e4fceaf10cdd360d78af88cb2",
   "model": "gpt-6-astra",
-  "status": "formal_review_retesting_replacements",
+  "status": "integration_paused_for_reproducible_stdio_failure",
   "delivery_snapshot": {
     "A": {"sha":"3d68e5dc87ffab718e436c8df3aff3935c360b2b","previous_sha":"4a2e4b8d1d58cac2a6a564a4e9a1cf8540eb26c3","status":"CR01_independently_reverified_batch_review_pending"},
     "B": {"sha":"aa7ef1b0c3ac0a7d24a8b31e258cb6efc2d224fb","status":"pushed_pending_cr"},
-    "C": {"sha":"eb4ecd90ccd1c7b5ec4982a14e5c34de5acc8669","previous_sha":"edd3c3d57f92eb16b75f011c9a37d10005cf4256","status":"pushed_pending_cr"},
+    "C": {"sha":"eb4ecd90ccd1c7b5ec4982a14e5c34de5acc8669","previous_sha":"edd3c3d57f92eb16b75f011c9a37d10005cf4256","status":"reopened_for_stdio_integration_failure"},
     "D": {"sha":"587f8abaa20a195da7a4486504ec6e8138d158bf","previous_sha":"2cfda735887e2a7cf237adeafea8d6c7feb2c837","status":"CR04_CR05_independently_reverified_batch_review_pending"},
     "E": {"sha":"1eeffb76b514ec4bc58332c93cd419feb26ffaef","previous_sha":"b865808d021ca4fd81c1bb087735187f485b51a2","status":"Node24_14_0_validation_report_delivered_pending_re_review"},
     "F": {"sha":"6bff970d8ed6d6eff6153e783b715273847847b7","previous_sha":"42f0f5013e820de066ac53776512686588c3af7a","status":"CR07_CI_runtime_replacement_delivered_pending_re_review"},
-    "CR": {"status":"final_supported_runtime_combined_revalidation_no_approval"}
+    "CR": {"status":"reopened_after_coordinator_integration_failure","previous_approval_commit":"470d92cdc6831f6c9bec4ce99050ccf6056b033c"}
   },
   "authorization_updates": {
     "capture_token": "User explicitly approved forwarding only the local capture token to Game MCP child environment in windows-bridge mode; no disk/log/CLI/QA/external disclosure. C replacement is delivered. WSL-to-Windows-proxy next-hop propagation remains an explicit integration blocker.",
