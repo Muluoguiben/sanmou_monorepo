@@ -33,7 +33,6 @@ from .contracts import (
 )
 from .privacy import (
     ACTION_PARAM_KEYS,
-    RISK_KEYS,
     public_required_text,
     public_text,
     project_advisor_report,
@@ -41,6 +40,7 @@ from .privacy import (
     project_evidence,
     project_mapping,
     project_recommendation,
+    project_risk,
     project_runtime_state,
     project_selection_reason,
     project_text_list,
@@ -582,7 +582,7 @@ def _bounded_action(action: dict | None) -> dict | None:
         if key == "params":
             projected[key] = project_mapping(value, allowed_keys=ACTION_PARAM_KEYS)
         elif key == "risk":
-            projected[key] = project_mapping(value, allowed_keys=RISK_KEYS)
+            projected[key] = project_risk(value)
         elif key in {"preconditions", "source_state_refs"}:
             projected[key] = project_text_list(value or [])
         elif key in {"action_id", "action_type"}:
