@@ -36,7 +36,17 @@
       "host_id": "local",
       "final_sha": null,
       "report": "docs/test-reports/2026-09-08/D.md",
-      "cursor": "d37471aa-6e79-4f07-aa64-c4907cb2cf1b:5"
+      "cursor": "d37471aa-6e79-4f07-aa64-c4907cb2cf1b:5",
+      "progress_only": {
+        "source_thread_id": "01a07f0b-53b8-74a3-9e61-71dd461bdff8",
+        "worktree": "C:/Users/Lan/.codex/worktrees/0788/sanmou_monorepo",
+        "branch": "feat/qa-review-d-20260908",
+        "baseline": "d377ef8",
+        "author_reported_focused": "43 tests PASS",
+        "author_reported_baseline_red": "15 tests failed, 15 subfailures/2 errors",
+        "baseline_log": "/tmp/sanmou-qa-d-baseline-red.log",
+        "caveats": "Final SHA/report not delivered; full suite rerun pending. Baseline archive /tmp/sanmou-qa-d-baseline. First full 309 (4fail/1error) must be retained; fixture/cwd/CRLF corrections independently audited."
+      }
     },
     "E": {
       "thread_id": "01a07f0b-6d25-75c3-bcb1-acd4ca26cd1d",
@@ -55,5 +65,16 @@
   },
   "coordinator_cursor": "f3384e36-4a82-4534-8681-978aa3e6ec37:1",
   "heartbeat_id": "sanmou",
-  "next_action": "Heartbeat continues completion-event intake every five minutes. Six tasks were active at last snapshot. Require all six final SHAs and committed reports before formal review."
+  "next_action": "Heartbeat continues completion-event intake every five minutes. Six tasks were active at last snapshot. Require all six final SHAs and committed reports before formal review.",
+  "intake_notes": {
+    "D": "Coordinator reports first full suite 309 with 4 failures/1 error. Fixture assumptions, cwd and Windows .sh CRLF under correction. Audit first-run failures and basis for expectation changes; not final evidence.",
+    "E": "Coordinator reports focused Windows Electron 13/13, Node 2/2, API 9/9 zero skip, typecheck/build; Windows full suite 767 with 6 failures/29 errors/9 skips. Require same OS/runtime/deps d377ef8 comparison and concrete npm audit evidence; not final evidence.",
+    "A": "Coordinator reports WSL /usr/bin/python3 has mcp 1.29.1, pydantic 2.12.5, httpx 0.28.1, cryptography 46.0.7 and lacks FastAPI; proxy 127.0.0.1:7897 to PyPI works. Treat as environment lead, independently verify and use isolated dependencies.",
+    "F": "Coordinator reports baseline reproduction, focused50/Pioneer788 zero skip/common2, no final SHA/report. Audit scenarios-only .gitattributes scope, preserved expectations and executed-byte hashes; combined Windows CI must actually run E new regressions. All author claims unverified."
+  },
+  "stop_conditions": [
+    "review_and_rework_complete",
+    "genuine_user_decision_required",
+    "explicit_stop"
+  ]
 }
