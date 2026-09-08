@@ -30,7 +30,8 @@
 ## Task-local D — QA integrity review fixes (2026-09-08)
 
 - [x] R04/R09/R10/R11/R12/R25/R26 implemented on `feat/qa-review-d-20260908`: machine extraction stays pending, zero-generation refusal on retrieval miss, current-evidence citation IDs, canonical bucket migration/duplicate rejection, unknown attributes, nonblank facts, safe scanner reads and separator-neutral basenames.
-- [x] Focused 44/44 and full QA package 322/322 passed on isolated WSL Python 3.12.3, MCP 1.29.1; 0 skips. Report: `docs/test-reports/2026-09-08/D.md`. Only the stale same-source 皇甫嵩 minor-bucket duplicate was removed; no production publish or game/model input.
+- [x] CR04/CR05 rework: removed the leaked trailing 皇甫嵩 note from 韩当, verified all nine retained minor records and unchanged qun against d377ef8, and rejected scanner root/ancestor aliases before normalization. Runtime opt-in cannot bypass link safety.
+- [x] Replacement focused 49/49 and full QA package 327/327 passed on isolated WSL Python 3.12.3, MCP 1.29.1; 0 skips. Report: `docs/test-reports/2026-09-08/D.md` retains the original 322-test blind spot and new red/green evidence. No production publish or game/model input.
 - [ ] Unified adversarial CR of the feature commit; coordinator owns any later master integration. Native Windows reparse-race certification and provider/live evidence remain unverified.
 
 ## Task-local E — 2026-09-08 desktop/API hardening
