@@ -154,18 +154,31 @@ Final logs under `C:/Users/Lan/AppData/Local/Temp/`:
 - The new direct Windows capture chain requires a separately provisioned
   `SANMOU_CAPTURE_TOKEN` in server/client environments. The existing
   `game_agent --windows-bridge` environment allowlist does not forward it.
-  C's proposed narrowly scoped forwarding was rejected by automatic approval
-  review as outside C's ownership/credential authorization. No workaround or
-  credential forwarding was performed here. Coordinator must resolve this
-  integration blocker; current behavior is a closed authentication failure.
+  C's proposed narrowly scoped forwarding was initially rejected by automatic
+  approval review. The coordinator later relayed explicit user approval for
+  Game MCP only, under `--windows-bridge`, never QA/CLI/logs/files/network.
+  C owns that follow-up; A confirmed protocol/variable compatibility without
+  editing C's code. This A-only tree still fails authentication through the
+  old game-agent allowlist until C's separately reviewed change is integrated.
+  C then reported a second automatic-review refusal: coordinator-relayed
+  approval was not accepted as direct user authorization. C remained at
+  `edd3c3d57f92eb16b75f011c9a37d10005cf4256` with no forwarding patch;
+  the combined authentication integration remains blocked, not implemented.
 - General same-user loopback bearer authentication is not a protected broker
   or defense against a compromised same-user process. Existing elevated external
   controller copies/tasks were not examined, stopped, replaced or uninstalled.
 - A single ordinary-permission WGC observation window was requested from the
-  coordinator after offline safety tests. Coordinator explicitly deferred it
-  pending scoped authorization for the authentication integration. No real
-  observation was performed; high-integrity access remains unverified. No elevation of
-  user-writable Python, no broker installation, no input or game restart.
+  coordinator after offline safety tests, initially deferred, then permitted
+  after the scoped authorization above. Preflight in `.venv-a` returned
+  `dxcam=False`, `windows_capture=False`, `win32gui=True`, `win32process=True`,
+  `PIL=True` using `importlib.util.find_spec`; command exit 0. The coordinator's
+  instruction was to stop immediately on missing permissions/dependencies.
+  Accordingly no install, helper, listener, real token, screenshot, elevation,
+  retry or game input was attempted. A read-only `Get-Process -Name
+  com.bilibili.nslg` check reported `game_running=true`, `process_count=1`.
+  Actual WGC access/high-integrity capture remain unverified. This is a concrete
+  dependency blocker, not a live test pass. The follow-up changed this report
+  and Task A's TODO only; the tested implementation tree remains unchanged.
 - All images in new tests are generated synthetic PNGs. No private/real image,
   external oracle, model call, login, account mutation, game input or resource
   consumption occurred. Repository synthetic holdout tests are not independent
