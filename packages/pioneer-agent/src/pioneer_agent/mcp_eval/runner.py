@@ -121,6 +121,8 @@ def run_battery(
     golden_fixture_root: Path | None = None,
     record_replay: RecordReplayCorpusPaths | None = None,
 ) -> McpEvalRun:
+    if model_provider != "static-fixture" or model_id != "static-tool-calls-v1":
+        raise ValueError("static transcript runner cannot claim provider/model execution")
     loaded = load_battery(battery_path)
     source_bindings = build_source_bindings(
         golden_expectations=golden_expectations,
@@ -177,6 +179,7 @@ def run_battery(
         },
         tool_log_digest=tool_log_digest,
         source_bindings=source_bindings,
+        runtime_fixture_executed=source_bindings.golden_bound,
     )
     return McpEvalRun(
         run_manifest=run_manifest,
@@ -195,6 +198,10 @@ def write_run_artifacts(output_dir: Path, result: McpEvalRun) -> tuple[Path, Pat
         "schema_version": 1,
         "artifact_type": "sanmou_mcp_eval_metrics_report",
         "run_id": result.run_manifest.run_id,
+        "evaluation_mode": result.run_manifest.evaluation_mode,
+        "runtime_fixture_executed": result.run_manifest.runtime_fixture_executed,
+        "provider_vision_executed": False,
+        "live_action_executed": False,
         "aggregate": result.aggregate.model_dump(mode="json"),
         "scenario_reports": [
             report.model_dump(mode="json") for report in result.scenario_reports

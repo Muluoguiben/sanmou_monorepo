@@ -848,6 +848,11 @@ def _bind_annotation(
     raw_events = list(recording.input_events)
     event_by_id = {event.event_id: event for event in raw_events}
     event_index = {event.event_id: index for index, event in enumerate(raw_events)}
+    events_by_frame_pair: dict[tuple[str, str], list[InputEventRecord]] = {}
+    for event in raw_events:
+        events_by_frame_pair.setdefault(
+            (event.before_frame_id, event.after_frame_id), []
+        ).append(event)
     covered: list[str] = []
     previous_end = -1
     for segment in annotation.segments:
@@ -865,23 +870,20 @@ def _bind_annotation(
             raise ValueError("annotation segment before frame does not match the recording")
         if segment.after_frame_id != events[-1].after_frame_id:
             raise ValueError("annotation segment after frame does not match the recording")
-        pair = (events[0].before_frame_id, events[0].after_frame_id)
-        burst = [
-            event
-            for event in raw_events
-            if (event.before_frame_id, event.after_frame_id) == pair
-        ]
-        if len(burst) > 1 or any(event.ambiguous_burst for event in burst):
-            if [event.event_id for event in events] != [event.event_id for event in burst]:
-                raise ValueError(
-                    "shared-frame or ambiguous input burst must stay in one annotation segment"
-                )
-            if (
-                segment.sample_label != SampleLabel.AMBIGUOUS_TARGET
-                or segment.outcome != TransitionOutcome.AMBIGUOUS
-                or segment.evidence_use not in {EvidenceUse.TRACE_ONLY, EvidenceUse.EXCLUDED}
-            ):
-                raise ValueError("ambiguous input burst cannot be positive evidence")
+        pairs = {(event.before_frame_id, event.after_frame_id) for event in events}
+        for pair in pairs:
+            burst = events_by_frame_pair[pair]
+            if len(burst) > 1 or any(event.ambiguous_burst for event in burst):
+                if [event.event_id for event in events] != [event.event_id for event in burst]:
+                    raise ValueError(
+                        "shared-frame or ambiguous input burst must stay in one annotation segment"
+                    )
+                if (
+                    segment.sample_label != SampleLabel.AMBIGUOUS_TARGET
+                    or segment.outcome != TransitionOutcome.AMBIGUOUS
+                    or segment.evidence_use not in {EvidenceUse.TRACE_ONLY, EvidenceUse.EXCLUDED}
+                ):
+                    raise ValueError("ambiguous input burst cannot be positive evidence")
         if (
             any(event.geometry_changed for event in events)
             and segment.evidence_use == EvidenceUse.POSITIVE
@@ -894,11 +896,6 @@ def _bind_annotation(
     if unknown_excluded:
         raise ValueError("annotation excludes an unknown input event")
     excluded_id_set = set(excluded_ids)
-    events_by_frame_pair: dict[tuple[str, str], list[InputEventRecord]] = {}
-    for event in raw_events:
-        events_by_frame_pair.setdefault(
-            (event.before_frame_id, event.after_frame_id), []
-        ).append(event)
     if any(
         excluded_id_set.intersection(event.event_id for event in burst)
         for burst in events_by_frame_pair.values()
