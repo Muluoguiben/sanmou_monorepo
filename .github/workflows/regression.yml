@@ -51,7 +51,8 @@ jobs:
           python-version: '3.12'
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          # Desktop build dependencies require Node >=22.12.0.
+          node-version: '24.14.0'
           cache: npm
           cache-dependency-path: apps/sanmou-advisor-desktop/package-lock.json
       - name: Install API and official MCP SDK dependencies

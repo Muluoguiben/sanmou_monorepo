@@ -8,7 +8,7 @@
 - Initial HEAD: `d377ef8bbaa69e6b25928255eac0cb62714e82f8`, detached and clean.
   The requested baseline is present. No other developer branch was merged.
 - Frozen charter/report: read from the coordinator's checkout at `dd76d601f6f40d3e4fceaf10cdd360d78af88cb2`.
-- Tested implementation/index tree: `cce0c039d5f37fec9c20cec3a4e705791ef2490d`.
+- Initial R13-R16 tested implementation/index tree: `cce0c039d5f37fec9c20cec3a4e705791ef2490d`.
   This tree includes implementation, tests, workflow and directory attributes,
   before adding this report and the F-only TODO section. It is a **tree object**,
   not an invented final commit. Final delivery supplies the commit SHA separately.
@@ -166,7 +166,7 @@ and intentionally have not been copied/cherry-picked. The Windows workflow will
 fail at those missing scripts until the combined tree includes E. F has not run
 E's Electron tests, unsigned installer build, or the hosted GitHub workflow.
 Unified CR must run those commands on the combined SHA. CI uses Python 3.12 /
-Node 20; local Windows checks used Python 3.14 / Node 24, so exact hosted-version
+Node 24.14.0 after CR07; local Windows checks used Python 3.14 / Node 24.14.0, so exact hosted Python-version
 coverage is also pending. No tests were skipped/removed to hide this prerequisite.
 
 New regressions use synthetic JSON and generated solid-color PNGs only. Existing
@@ -178,3 +178,52 @@ flags, disabled `--execute`/live replay, and six/seven-tool compatibility remain
 Representative approved provider-vision accuracy, independent holdout operation,
 privacy-reviewed human R&R provenance, trusted broker, live action closure and
 signed clean-machine installation remain outside this offline result.
+
+## CR07 follow-up — supported desktop CI host runtime
+
+Base for this follow-up: `42f0f5013e820de066ac53776512686588c3af7a`, clean on
+the same isolated F worktree and feature branch. The change is limited to the
+Windows job's setup-node version (`20` -> `24.14.0`), this report and the F TODO line.
+No Python runtime matrix, application source, lockfile, dependency versions,
+engine checks, test expectations or execution authority changed.
+
+Read-only input: `git show b865808d021ca4fd81c1bb087735187f485b51a2:apps/sanmou-advisor-desktop/package-lock.json`.
+The E source was not merged or copied into this worktree. Its resolved
+`@electron/rebuild@4.2.0` and `node-abi@4.35.0` both declare Node `>=22.12.0`.
+Independent semver checks on those exact lockfile entries returned false for
+`20.20.2` and true for `24.14.0`. Thus the old Node 20 job was outside dependency
+support even though prior builds happened to finish; the previous EBADENGINE
+observations are retained as failures of runtime alignment, not waived.
+
+Chosen CI declaration: `actions/setup-node@v4` with `node-version: '24.14.0'`.
+Exact local host: `D:/nodejs/node.exe` 24.14.0 / npm 11.9.0. F and E explicitly
+agreed on that same tested patch. The exact CI pin prevents a later patch from
+silently changing the runtime covered by this validation.
+
+F validation on Windows, cwd `apps/sanmou-advisor-desktop`, using unchanged F
+application source from `42f0f50`:
+
+| Command/check | Exit | Result |
+|---|---:|---|
+| `node --version` / `npm.cmd --version` | 0 | 24.14.0 / 11.9.0 |
+| `npm.cmd ci --no-audit --no-fund` | 0 | Lockfile installation passed |
+| `npm.cmd run typecheck` | 0 | Passed |
+| `npm.cmd run build` | 0 | Passed |
+| Parse workflow with `yaml.BaseLoader` | 0 | Node 24.14.0; all five E pipeline commands retained |
+| `semver.satisfies(version, engines.node)` for each E lock entry | 0 | Node 20 false / Node 24 true |
+| `git diff --check` | 0 | Passed |
+
+Logs: Windows temp `sanmou-f-cr07-npm-ci.log`, `sanmou-f-cr07-typecheck.log`, and
+`sanmou-f-cr07-build.log`. No `ignore-engines`, `engine-strict=false`, engine
+override, dependency pin alteration or Python-matrix workaround was introduced.
+The actual CI command list remains `npm ci`, `npm run typecheck`, `npm run build`,
+`npm test`, `npm run dist:win`.
+
+E owns the final desktop source, full Node/Electron regressions, package and
+actual install/upload/413/uninstall evidence on Node 24.14.0. E is validating
+those in its own task and will supply its report/final SHA to unified CR; the F
+checks above do not substitute for that work. The combined hosted pipeline must
+still be independently rerun by CR. The earlier Python package results remain
+applicable to unchanged Python source; this CI-only follow-up did not rerun or
+relabel them. No model, screenshot, live game, holdout oracle or publishing action
+was performed for CR07.
