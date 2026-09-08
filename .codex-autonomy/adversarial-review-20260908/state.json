@@ -15,28 +15,45 @@
       "host_id": "local",
       "final_sha": null,
       "report": "docs/test-reports/2026-09-08/A.md",
-      "cursor": "3096437e-5f04-4347-aaaa-1330ace18224:3"
+      "cursor": "3096437e-5f04-4347-aaaa-1330ace18224:10"
     },
     "B": {
       "thread_id": "01a07f0b-149e-7160-a896-551165a702a0",
       "host_id": "local",
       "final_sha": null,
       "report": "docs/test-reports/2026-09-08/B.md",
-      "cursor": "2e9ce490-efda-488e-9387-ebb01dc9e80a:4"
+      "cursor": "2e9ce490-efda-488e-9387-ebb01dc9e80a:9"
     },
     "C": {
       "thread_id": "01a07f0b-3787-7f82-ab0c-400a65b4b1a2",
       "host_id": "local",
-      "final_sha": null,
+      "final_sha": "edd3c3d57f92eb16b75f011c9a37d10005cf4256",
       "report": "docs/test-reports/2026-09-08/C.md",
-      "cursor": "08c7db4c-5fe0-4145-80e9-8f6317848621:4"
+      "cursor": "08c7db4c-5fe0-4145-80e9-8f6317848621:12",
+      "branch": "feat/review-c-harness-r17-r20",
+      "tree": "f32f8679419256796f0e055709611e5f13777150",
+      "report_blob": "12c0547cd5838c839494de9d40c5c1211305c993",
+      "intake_status": "received_metadata_verified_pending_formal_review",
+      "intake_verified": [
+        "commit available in shared Git object store",
+        "d377ef8 is ancestor, eight owned paths",
+        "six source/test blobs equal identifiers in committed report",
+        "remote branch equals explicitly delivered final SHA"
+      ],
+      "independent_test_status": "not_run_waiting_for_all_six",
+      "review_focus": [
+        "SDK owner-task deadline/cancel/cleanup",
+        "journal identity baseline retention",
+        "late freshness and provenance recheck",
+        "temporary LF fixtures restored in final checkout; depends on F attributes"
+      ]
     },
     "D": {
       "thread_id": "01a07f0b-53b8-74a3-9e61-71dd461bdff8",
       "host_id": "local",
-      "final_sha": null,
+      "final_sha": "2cfda735887e2a7cf237adeafea8d6c7feb2c837",
       "report": "docs/test-reports/2026-09-08/D.md",
-      "cursor": "d37471aa-6e79-4f07-aa64-c4907cb2cf1b:5",
+      "cursor": "d37471aa-6e79-4f07-aa64-c4907cb2cf1b:10",
       "progress_only": {
         "source_thread_id": "01a07f0b-53b8-74a3-9e61-71dd461bdff8",
         "worktree": "C:/Users/Lan/.codex/worktrees/0788/sanmou_monorepo",
@@ -46,26 +63,55 @@
         "author_reported_baseline_red": "15 tests failed, 15 subfailures/2 errors",
         "baseline_log": "/tmp/sanmou-qa-d-baseline-red.log",
         "caveats": "Final SHA/report not delivered; full suite rerun pending. Baseline archive /tmp/sanmou-qa-d-baseline. First full 309 (4fail/1error) must be retained; fixture/cwd/CRLF corrections independently audited."
-      }
+      },
+      "branch": "feat/qa-review-d-20260908",
+      "tree": "d4c6e47bdae930202fb13b08d2b8aa83c8c49778",
+      "tested_implementation_tree": "8acb0b599b20a25630993f35d07df0e78bd964cd",
+      "report_blob": "4c14e088cc6f245549ed738ee590522a0c1364eb",
+      "intake_status": "received_metadata_verified_pending_formal_review",
+      "intake_verified": [
+        "commit available; d377ef8 ancestor",
+        "14 changed paths consistent with declared QA scope",
+        "tested tree exists and final differs only report/TODO",
+        "remote branch equals explicitly delivered final SHA",
+        "shell scripts and original vision test absent from diff"
+      ],
+      "independent_test_status": "not_run_waiting_for_all_six",
+      "review_focus": [
+        "pending pipeline and retrieval/citation boundaries",
+        "global ID migration and partial-write fail-closed behavior",
+        "Windows reparse/race guarantees vs POSIX evidence",
+        "baseline red tests vs old-API fixture errors",
+        "same-source hero duplicate removal evidence"
+      ]
     },
     "E": {
       "thread_id": "01a07f0b-6d25-75c3-bcb1-acd4ca26cd1d",
       "host_id": "local",
       "final_sha": null,
       "report": "docs/test-reports/2026-09-08/E.md",
-      "cursor": "5a4f0765-023f-4651-a021-19552055b225:4"
+      "cursor": "5a4f0765-023f-4651-a021-19552055b225:8",
+      "progress_only": {
+        "source_thread_id": "019f4a66-e105-7103-ab9d-aef47aa6f8a0",
+        "reported_environment": "Windows Python 3.14.3, same venv/layout/native unittest",
+        "reported_baseline": "exact d377ef8: 764 tests, 6 failures, 29 errors, 9 skips",
+        "reported_patch": "767 tests, same 6 failures/29 errors/9 skips, same 35 FAIL/ERROR test names; 3 upload tests added",
+        "required_audit": "Exact command and same-environment reproduction, 35-name sets, 9 skip reasons; never count as Windows full pass.",
+        "dependency_progress": "Newly added electron-builder upgraded to 26.15.3; author reports removal of new high-severity chain, 12 existing npm findings remain. Independently inspect lockfile/audit output/package validation, no automatic waiver.",
+        "final_delivery": false
+      }
     },
     "F": {
       "thread_id": "01a07f0b-85e8-7880-bb8f-3845dc01fef2",
       "host_id": "local",
       "final_sha": null,
       "report": "docs/test-reports/2026-09-08/F.md",
-      "cursor": "40b7b923-361f-4338-a396-2f94a0cae220:4"
+      "cursor": "40b7b923-361f-4338-a396-2f94a0cae220:13"
     }
   },
   "coordinator_cursor": "f3384e36-4a82-4534-8681-978aa3e6ec37:1",
   "heartbeat_id": "sanmou",
-  "next_action": "Heartbeat continues completion-event intake every five minutes. Six tasks were active at last snapshot. Require all six final SHAs and committed reports before formal review.",
+  "next_action": "C and D final identities/reports verified, 2/6 received. Wait for A/B/E/F; reported A+C token integration blocker referred to coordinator. No formal verdict/integration yet.",
   "intake_notes": {
     "D": "Coordinator reports first full suite 309 with 4 failures/1 error. Fixture assumptions, cwd and Windows .sh CRLF under correction. Audit first-run failures and basis for expectation changes; not final evidence.",
     "E": "Coordinator reports focused Windows Electron 13/13, Node 2/2, API 9/9 zero skip, typecheck/build; Windows full suite 767 with 6 failures/29 errors/9 skips. Require same OS/runtime/deps d377ef8 comparison and concrete npm audit evidence; not final evidence.",
@@ -76,5 +122,16 @@
     "review_and_rework_complete",
     "genuine_user_decision_required",
     "explicit_stop"
+  ],
+  "cross_component_blockers": [
+    {
+      "id": "A-C-capture-token-forwarding",
+      "status": "author_reported_approval_rejected",
+      "source_thread": "01a07f0b-3787-7f82-ab0c-400a65b4b1a2",
+      "description": "C reports A capture-only protocol requires SANMOU_CAPTURE_TOKEN in game_agent windows-bridge child. Proposed scoped env forwarding rejected by automatic approval as out-of-scope credential forwarding. Patch not applied. C final stays edd3c3d; no workaround or reviewer production fix.",
+      "coordinator_notified": true,
+      "independently_reproduced": false,
+      "next_action": "Coordinator resolves authorization/owner scope; require explicit new final SHA/report after any implemented compatibility fix. Continue unaffected intake."
+    }
   ]
 }

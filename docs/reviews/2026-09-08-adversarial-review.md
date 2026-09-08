@@ -22,12 +22,18 @@ Status: **WAITING FOR COMPONENT DELIVERIES**. No formal verdict yet. This prepar
 |---|---|---|---|---|
 | A | 01a07f09-c64c-7852-a533-7db7730a048c | pending | `docs/test-reports/2026-09-08/A.md` | waiting |
 | B | 01a07f0b-149e-7160-a896-551165a702a0 | pending | `docs/test-reports/2026-09-08/B.md` | waiting |
-| C | 01a07f0b-3787-7f82-ab0c-400a65b4b1a2 | pending | `docs/test-reports/2026-09-08/C.md` | waiting |
-| D | 01a07f0b-53b8-74a3-9e61-71dd461bdff8 | pending | `docs/test-reports/2026-09-08/D.md` | waiting |
+| C | 01a07f0b-3787-7f82-ab0c-400a65b4b1a2 | edd3c3d57f92eb16b75f011c9a37d10005cf4256 | `docs/test-reports/2026-09-08/C.md` | metadata verified; formal review pending |
+| D | 01a07f0b-53b8-74a3-9e61-71dd461bdff8 | 2cfda735887e2a7cf237adeafea8d6c7feb2c837 | `docs/test-reports/2026-09-08/D.md` | metadata verified; formal review pending |
 | E | 01a07f0b-6d25-75c3-bcb1-acd4ca26cd1d | pending | `docs/test-reports/2026-09-08/E.md` | waiting |
 | F | 01a07f0b-85e8-7880-bb8f-3845dc01fef2 | pending | `docs/test-reports/2026-09-08/F.md` | waiting |
 
 For each delivery independently verify: SHA exists and is immutable; ancestry and owned diff are correct; report exists in that commit; tested code/tree is identified without a self-referential report SHA; exact commands, runtime/dependency versions, exit codes, counts and skips match reproducible output; no deleted regression, weakened assertion or expectation changes conceal the original failure. Author statements are inputs to audit, not proof. Replacement SHAs invalidate the affected review results.
+
+C intake: independently verified commit ancestry from d377ef8, exactly eight owned changed paths, all six source/test blob identifiers listed in the committed report, report blob 12c0547cd5838c839494de9d40c5c1211305c993, component tree f32f8679419256796f0e055709611e5f13777150 and matching remote branch SHA. Reported Windows focused 30, WSL focused 36 and Pioneer 791 results remain author evidence pending independent execution. Audit owner-task cancellation/cleanup, identity baseline retention, downstream bindings and final LF/CRLF behavior with F. C and D have delivered; no integration or patch approval yet.
+
+D intake: independently verified d377ef8 ancestry, 14-path QA scope, component tree d4c6e47bdae930202fb13b08d2b8aa83c8c49778 and report blob 4c14e088cc6f245549ed738ee590522a0c1364eb. Reported tested tree 8acb0b599b20a25630993f35d07df0e78bd964cd exists and differs from final only by the report and TODO; remote branch matches. Shell scripts and original vision test are absent from the commit diff. Focused44/QA322 zero-skip results remain author evidence, not independently executed. Audit first-run failures, baseline exploit vs API-error distinction, citation limits, bucket partial writes, stale hero duplicate source and Windows filesystem boundaries.
+
+Cross-component intake blocker (author report, not yet reproduced): C reports automatic approval rejected the planned SANMOU_CAPTURE_TOKEN forwarding for game_agent --windows-bridge as credential forwarding beyond its scope; patch was not applied. C final remains edd3c3d. Coordinator notified to resolve explicit authorization/ownership and obtain a replacement SHA/report if needed. Reviewer does not bypass approval or implement the production fix. Existing C tests do not establish A+C new-protocol compatibility.
 
 ## R01–R26 adversarial checklist
 
