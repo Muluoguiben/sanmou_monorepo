@@ -3,10 +3,10 @@
   "branch": "feat/desktop-api-r03-r21-r24-20260908",
   "tested_source_sha256": {
     "apps/sanmou-advisor-desktop/.gitignore": "28b5192eeeb3c6c071f8478a7a163e4c0fb283f98d02fc9335c32c338aa0ea77",
-    "apps/sanmou-advisor-desktop/README.md": "ee1d230d850bc5562b873de9395c5737bb48b4017f57e0f8d5ffda3258c309c6",
+    "apps/sanmou-advisor-desktop/README.md": "a09e4867f5850cda2fc802cf292dfe3b553b717f7a48c5f7dcf1b119d90dcf69",
     "apps/sanmou-advisor-desktop/electron-builder.json": "ba4b2a9d34bd9190c152c0c761ac542c851ab6569f0b4af6b1c5f0fac7738419",
     "apps/sanmou-advisor-desktop/package-lock.json": "f4453cd85135ce22e4bdf2137533c219e740e44c2ea11d22d25572fb9d3a41e9",
-    "apps/sanmou-advisor-desktop/package.json": "47e66989e41c221d0897c6a62716c5603b3ea89c931b68644c9b2f46eee5f82c",
+    "apps/sanmou-advisor-desktop/package.json": "bff8e586a18f8fa718ce3db7d81dff454ea70b69f7cdfdabf752eaecd6652608",
     "apps/sanmou-advisor-desktop/playwright.config.ts": "589d4b031f45a75f0744951e08dec85b80c4fc5862c0292e2f5f7e0cb372db90",
     "apps/sanmou-advisor-desktop/src/electron/main.ts": "f84a3b9ab1fbc1e425aae37cc4d4f4afe65a7c1f854a5daad3c20eef980ca6b8",
     "apps/sanmou-advisor-desktop/src/electron/preload.cts": "a19ee49d4f74147f9dd2ad269168b42e86290b4f467fd60352aa4bdf9e93a283",
@@ -14,11 +14,13 @@
     "apps/sanmou-advisor-desktop/src/renderer/App.tsx": "36f9cf2467b69a57c798e847f4c600433f0dae2f5269fd36fc30ffce39be8573",
     "apps/sanmou-advisor-desktop/src/renderer/api.ts": "a05e6bc803514c67b63e8de67c74d81d51c25b9074d811497b245fd87a72ccf9",
     "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts": "5676bae37cf8967b716549c27756a97fb27c87b448ece3ffa4e2280d4318bee9",
-    "apps/sanmou-advisor-desktop/tests/install-smoke.mjs": "0923006efef68f2cd188db93f12ca5fc912e7a957bdda27b76a609ee03576e86",
+    "apps/sanmou-advisor-desktop/tests/install-smoke.mjs": "4a69ed7fe4b4d7b947c99580e2e69c837059dd5e17b9531a6baaeed875525a1d",
     "apps/sanmou-advisor-desktop/tests/python.test.mjs": "7e2243311bcb5de60aee9e158cf892bd146e992b303f73d40133dbff791fc0dd",
     "apps/sanmou-advisor-desktop/vite.config.ts": "c43e8aff1aa538e6b12a4e36d674c5824fb2f3d736be9c91f874e8010c57342d",
     "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py": "8bb7ba8b2ad360a281a4bd7d8037b57a31104171e13b4264182ce6dda7737602",
-    "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py": "2d61d77c60832be6e9c234cac5c8db41f27480275134131987077f8cb025ae45"
+    "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py": "2d61d77c60832be6e9c234cac5c8db41f27480275134131987077f8cb025ae45",
+    "apps/sanmou-advisor-desktop/tests/advisor-readiness.mjs": "44ed721cd9565dea6676e0e2fb5deac4672524c42b96e7485517f20fd37c9b44",
+    "apps/sanmou-advisor-desktop/tests/advisor-readiness.test.mjs": "ea381971a8ff396b536501e52a4e1b9cf721e660c2cf51df878f4848ce0d7c9e"
   },
   "windows": {
     "baseline": {
@@ -179,13 +181,12 @@
   },
   "focused": {
     "api": {
-      "log_name": "sanmou-e-api-final.log",
-      "log_sha256": "b827fc1f48ac1afcf2f09737d52b3b6d766d2d6f5a80fcec666273838e99358a",
+      "name": "sanmou-e-cr02-api.log",
+      "sha256": "7c54f3cd1a5414d8abd49ba0b377cabe2a7b0a36653dca4f38df05d0b68f5582",
       "summary": [
-        "Ran 10 tests in 0.517s\r"
+        "Ran 10 tests in 0.589s\r"
       ],
-      "failed_tests": [],
-      "skips": []
+      "exit_code": 0
     },
     "upload_on_baseline": {
       "log_name": "sanmou-e-upload-baseline-final.log",
@@ -202,15 +203,37 @@
       "skips": []
     },
     "electron": {
-      "log_name": "sanmou-e-desktop-final.log",
-      "log_sha256": "f81b66259ad7a359fee05db719ff8ef2351f292e13ad51410d6b810f87fb36d6",
+      "name": "sanmou-e-cr02-desktop.log",
+      "sha256": "64cc74f0e35497e30a5210b83dc57ae1081ef9a7f480983f0dcf56ac8391b7c3",
       "summary": [
-        "  14 passed (30.2s)\r"
+        "  14 passed (23.1s)\r"
       ],
-      "failed_tests": [],
-      "skips": []
+      "exit_code": 0
     },
-    "install": "> sanmou-advisor-desktop@0.1.0 test:install:win\n> node tests/install-smoke.mjs\n\n{\"status\":\"passed\",\"unsigned\":true,\"packaged\":true,\"preload\":true,\"bundledBackend\":true,\"mockUpload\":true,\"runtimeAdmin\":false,\"gameInput\":false}"
+    "install": {
+      "name": "sanmou-e-cr02-install-2.log",
+      "sha256": "9f5f832bc47e1b4a0ad6176c9899486016e28f35345b3798f09766119fd4b60b",
+      "summary": [],
+      "result": {
+        "status": "passed",
+        "readiness": "awaited-http-and-profile-identity",
+        "readinessAttempts": 18,
+        "unsigned": true,
+        "packaged": true,
+        "preload": true,
+        "bundledBackend": true,
+        "mockUpload": true,
+        "runtimeAdmin": false,
+        "gameInput": false
+      },
+      "exit_code": 0
+    },
+    "readiness": {
+      "name": "sanmou-e-cr02-readiness.log",
+      "sha256": "454ae8ab5cd031b03a68160a5d5456a12d7521d2da521a0b1d43897e3d82b0fa",
+      "summary": [],
+      "exit_code": 0
+    }
   },
   "npm_audit": {
     "auditReportVersion": 2,
@@ -1363,26 +1386,276 @@
   },
   "artifact": {
     "name": "Sanmou-Advisor-0.1.0-unsigned-x64.exe",
-    "sha256": "af5b3e5a756ad15d721ac1c9be3afc1da8b6793b6ad1fab3d5a9a0b92b00f7af",
+    "sha256": "aa9f91762d969e3fd7daa5a86877f8f5db38eb2b408d562a1668b2ca72e10659",
     "signature": "NotSigned"
   },
   "final_pipeline": {
+    "revision_parent": "8729d18f5cab45b3616c15b9fc5eef36746b690e",
     "exit_code": 0,
     "checks": [
-      "npm ci",
       "npm run typecheck",
-      "npm run build (via dist:win)",
-      "npm test: 2 Node + 14 Electron pass",
-      "npm run dist:win",
-      "npm run test:install:win"
+      "npm test: 9 Node + 14 Electron pass",
+      "npm run dist:win (includes full build)",
+      "complete API: 10 pass",
+      "npm run test:install:win, two independent runs"
     ],
-    "log_sha256": {
-      "sanmou-e-ci.log": "19861ebb12cebdf4791fe965f1db6f0957c0ca4947c95e1fc011024807c4e601",
-      "sanmou-e-typecheck.log": "207a8fc4bc101cb9b1bac40a5b742abb72f05afb990354b85339d2cc7d64368c",
-      "sanmou-e-package-final.log": "25f8309e498cc8e0af5f1d5e057126a868a997fbc803e12854b333f471e39e86",
-      "sanmou-e-desktop-final.log": "f81b66259ad7a359fee05db719ff8ef2351f292e13ad51410d6b810f87fb36d6",
-      "sanmou-e-install-final.log": "37b97e1d3c701f6a35e7cb7cbba3bc6ece72d2a5e9aa5afa83fd6410c62c2733"
+    "production_sources_unchanged": true,
+    "full_python_package_comparison": "retained from parent; not rerun or reclassified in this test-only revision"
+  },
+  "pre_cr02_snapshot": {
+    "tested_source_sha256": {
+      "apps/sanmou-advisor-desktop/.gitignore": "28b5192eeeb3c6c071f8478a7a163e4c0fb283f98d02fc9335c32c338aa0ea77",
+      "apps/sanmou-advisor-desktop/README.md": "ee1d230d850bc5562b873de9395c5737bb48b4017f57e0f8d5ffda3258c309c6",
+      "apps/sanmou-advisor-desktop/electron-builder.json": "ba4b2a9d34bd9190c152c0c761ac542c851ab6569f0b4af6b1c5f0fac7738419",
+      "apps/sanmou-advisor-desktop/package-lock.json": "f4453cd85135ce22e4bdf2137533c219e740e44c2ea11d22d25572fb9d3a41e9",
+      "apps/sanmou-advisor-desktop/package.json": "47e66989e41c221d0897c6a62716c5603b3ea89c931b68644c9b2f46eee5f82c",
+      "apps/sanmou-advisor-desktop/playwright.config.ts": "589d4b031f45a75f0744951e08dec85b80c4fc5862c0292e2f5f7e0cb372db90",
+      "apps/sanmou-advisor-desktop/src/electron/main.ts": "f84a3b9ab1fbc1e425aae37cc4d4f4afe65a7c1f854a5daad3c20eef980ca6b8",
+      "apps/sanmou-advisor-desktop/src/electron/preload.cts": "a19ee49d4f74147f9dd2ad269168b42e86290b4f467fd60352aa4bdf9e93a283",
+      "apps/sanmou-advisor-desktop/src/electron/python.ts": "5adac19d66cbbd906ab4221a28651da7a8ebef59ca28baaadf2f3446e4c5b14c",
+      "apps/sanmou-advisor-desktop/src/renderer/App.tsx": "36f9cf2467b69a57c798e847f4c600433f0dae2f5269fd36fc30ffce39be8573",
+      "apps/sanmou-advisor-desktop/src/renderer/api.ts": "a05e6bc803514c67b63e8de67c74d81d51c25b9074d811497b245fd87a72ccf9",
+      "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts": "5676bae37cf8967b716549c27756a97fb27c87b448ece3ffa4e2280d4318bee9",
+      "apps/sanmou-advisor-desktop/tests/install-smoke.mjs": "0923006efef68f2cd188db93f12ca5fc912e7a957bdda27b76a609ee03576e86",
+      "apps/sanmou-advisor-desktop/tests/python.test.mjs": "7e2243311bcb5de60aee9e158cf892bd146e992b303f73d40133dbff791fc0dd",
+      "apps/sanmou-advisor-desktop/vite.config.ts": "c43e8aff1aa538e6b12a4e36d674c5824fb2f3d736be9c91f874e8010c57342d",
+      "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py": "8bb7ba8b2ad360a281a4bd7d8037b57a31104171e13b4264182ce6dda7737602",
+      "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py": "2d61d77c60832be6e9c234cac5c8db41f27480275134131987077f8cb025ae45"
     },
-    "whitespace_cleanup": "Removed trailing blank source line after validation; rebuilt main and verified compiled python.js bytes unchanged."
+    "artifact": {
+      "name": "Sanmou-Advisor-0.1.0-unsigned-x64.exe",
+      "sha256": "af5b3e5a756ad15d721ac1c9be3afc1da8b6793b6ad1fab3d5a9a0b92b00f7af",
+      "signature": "NotSigned"
+    },
+    "focused": {
+      "api": {
+        "log_name": "sanmou-e-api-final.log",
+        "log_sha256": "b827fc1f48ac1afcf2f09737d52b3b6d766d2d6f5a80fcec666273838e99358a",
+        "summary": [
+          "Ran 10 tests in 0.517s\r"
+        ],
+        "failed_tests": [],
+        "skips": []
+      },
+      "upload_on_baseline": {
+        "log_name": "sanmou-e-upload-baseline-final.log",
+        "log_sha256": "d9737e48cb2b1ec950634a102ee186fe53cdc9242a861dbdb2daad0af97b4a3a",
+        "summary": [
+          "Ran 4 tests in 0.423s\r",
+          "FAILED (failures=1, errors=2)\r"
+        ],
+        "failed_tests": [
+          "test_corrupt_png_checksum_returns_400_and_removes_upload (test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_corrupt_png_checksum_returns_400_and_removes_upload)\r",
+          "test_oversized_http_upload_returns_413_and_leaves_no_file (test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_oversized_http_upload_returns_413_and_leaves_no_file)\r",
+          "test_interrupted_read_closes_writer_and_removes_partial_file (test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_interrupted_read_closes_writer_and_removes_partial_file)\r"
+        ],
+        "skips": []
+      },
+      "electron": {
+        "log_name": "sanmou-e-desktop-final.log",
+        "log_sha256": "f81b66259ad7a359fee05db719ff8ef2351f292e13ad51410d6b810f87fb36d6",
+        "summary": [
+          "  14 passed (30.2s)\r"
+        ],
+        "failed_tests": [],
+        "skips": []
+      },
+      "install": "> sanmou-advisor-desktop@0.1.0 test:install:win\n> node tests/install-smoke.mjs\n\n{\"status\":\"passed\",\"unsigned\":true,\"packaged\":true,\"preload\":true,\"bundledBackend\":true,\"mockUpload\":true,\"runtimeAdmin\":false,\"gameInput\":false}"
+    },
+    "final_pipeline": {
+      "exit_code": 0,
+      "checks": [
+        "npm ci",
+        "npm run typecheck",
+        "npm run build (via dist:win)",
+        "npm test: 2 Node + 14 Electron pass",
+        "npm run dist:win",
+        "npm run test:install:win"
+      ],
+      "log_sha256": {
+        "sanmou-e-ci.log": "19861ebb12cebdf4791fe965f1db6f0957c0ca4947c95e1fc011024807c4e601",
+        "sanmou-e-typecheck.log": "207a8fc4bc101cb9b1bac40a5b742abb72f05afb990354b85339d2cc7d64368c",
+        "sanmou-e-package-final.log": "25f8309e498cc8e0af5f1d5e057126a868a997fbc803e12854b333f471e39e86",
+        "sanmou-e-desktop-final.log": "f81b66259ad7a359fee05db719ff8ef2351f292e13ad51410d6b810f87fb36d6",
+        "sanmou-e-install-final.log": "37b97e1d3c701f6a35e7cb7cbba3bc6ece72d2a5e9aa5afa83fd6410c62c2733"
+      },
+      "whitespace_cleanup": "Removed trailing blank source line after validation; rebuilt main and verified compiled python.js bytes unchanged."
+    }
+  },
+  "cr02": {
+    "parent_sha": "8729d18f5cab45b3616c15b9fc5eef36746b690e",
+    "review_inputs": [
+      {
+        "name": "sanmou-cr-install-smoke.log",
+        "sha256": "ed8b54cedc9e15919bfc4fe3513e591c2d069e2d8faa7100905f437a9f10b358",
+        "summary": [],
+        "observed_failure": "ECONNREFUSED 127.0.0.1:10483 after unsound page-health wait"
+      },
+      {
+        "name": "sanmou-cr-install-smoke-diagnostic.log",
+        "sha256": "4daac6a6a7989e50cdda57059218928899a6155359699ae14e3990b6d71c5673",
+        "summary": [],
+        "observed_failure": "ECONNREFUSED 127.0.0.1:9184 after unsound page-health wait; runtime still running"
+      },
+      {
+        "name": "sanmou-cr-async-readiness-proof.log",
+        "sha256": "76631003fded46efa7afaed2686bc7ce0264d6c51b457edf82bbe0c30d44dd2e",
+        "summary": [],
+        "proof": {
+          "async_false_returned": false,
+          "elapsed_ms": 188,
+          "expected_timeout_ms": 800,
+          "wait_did_not_retry": true
+        }
+      }
+    ],
+    "initial_local_test_failure": {
+      "name": "sanmou-e-cr02-readiness-initial.log",
+      "sha256": "8dd398f2db30b7cda7f450e1e02f23daf8c9e1cdd21c9b204720a98d577b452e",
+      "summary": [],
+      "exit_code": 1,
+      "pass": 5,
+      "fail": 2,
+      "reasons": [
+        "final timeout masked prior identity failure",
+        "30ms/150ms stalled-body fixture did not allow two observed server requests on Windows; assertions retained with 100ms/1000ms budgets"
+      ]
+    },
+    "tested_git_blobs": {
+      "apps/sanmou-advisor-desktop/.gitignore": "4c3cc430656c5cc136af709050710fa752d72b6e",
+      "apps/sanmou-advisor-desktop/README.md": "06b6484baab7d6359e5afb740b9cb120191b3e3a",
+      "apps/sanmou-advisor-desktop/electron-builder.json": "039ac5c5d1f247037982cfde4e3a72429a539e38",
+      "apps/sanmou-advisor-desktop/package-lock.json": "3e193614d95e4f07563d919b4b958fac5d05680c",
+      "apps/sanmou-advisor-desktop/package.json": "bc5f6429752d4ffa74be2b675895565de062c95f",
+      "apps/sanmou-advisor-desktop/playwright.config.ts": "04232a46c688cdb49288777fd2817fa1887d6868",
+      "apps/sanmou-advisor-desktop/src/electron/main.ts": "82b6573f05bfb9543636b2b7700197270875491e",
+      "apps/sanmou-advisor-desktop/src/electron/preload.cts": "1bb016831441ec06ae57dbba97996b5749da26dc",
+      "apps/sanmou-advisor-desktop/src/electron/python.ts": "e244f5c62f433230f20848fd10b60065ee6d0aa7",
+      "apps/sanmou-advisor-desktop/src/renderer/App.tsx": "5405accc405d481a99a4a83c35f6c794670bc874",
+      "apps/sanmou-advisor-desktop/src/renderer/api.ts": "4c56c8ac95c3031688593eb50408d4c11c03f4bc",
+      "apps/sanmou-advisor-desktop/tests/advisor-readiness.mjs": "be6f6b8adc7fd3bac580050a573a4823478efb97",
+      "apps/sanmou-advisor-desktop/tests/advisor-readiness.test.mjs": "0bf3c012b18a6cb23e96b2e611095a0a0f51cd87",
+      "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts": "62e8c744052593dfb36e7ac6c539a4c3a6f52d0f",
+      "apps/sanmou-advisor-desktop/tests/install-smoke.mjs": "21776c44cbe9eaea9f8236b83a3c758ab0261a40",
+      "apps/sanmou-advisor-desktop/tests/python.test.mjs": "635404c70e23d83fc70c8ad3ddec1f737ca44cf5",
+      "apps/sanmou-advisor-desktop/vite.config.ts": "904bddb31326c79d056d2b7f4e8b0df712d2382b",
+      "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py": "0f2086e59d4a457fdfe896cf802342e7f06e4956",
+      "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py": "cc10894086add8273349819467a92ffbe1007087"
+    },
+    "tested_source_sha256": {
+      "apps/sanmou-advisor-desktop/.gitignore": "28b5192eeeb3c6c071f8478a7a163e4c0fb283f98d02fc9335c32c338aa0ea77",
+      "apps/sanmou-advisor-desktop/README.md": "a09e4867f5850cda2fc802cf292dfe3b553b717f7a48c5f7dcf1b119d90dcf69",
+      "apps/sanmou-advisor-desktop/electron-builder.json": "ba4b2a9d34bd9190c152c0c761ac542c851ab6569f0b4af6b1c5f0fac7738419",
+      "apps/sanmou-advisor-desktop/package-lock.json": "f4453cd85135ce22e4bdf2137533c219e740e44c2ea11d22d25572fb9d3a41e9",
+      "apps/sanmou-advisor-desktop/package.json": "bff8e586a18f8fa718ce3db7d81dff454ea70b69f7cdfdabf752eaecd6652608",
+      "apps/sanmou-advisor-desktop/playwright.config.ts": "589d4b031f45a75f0744951e08dec85b80c4fc5862c0292e2f5f7e0cb372db90",
+      "apps/sanmou-advisor-desktop/src/electron/main.ts": "f84a3b9ab1fbc1e425aae37cc4d4f4afe65a7c1f854a5daad3c20eef980ca6b8",
+      "apps/sanmou-advisor-desktop/src/electron/preload.cts": "a19ee49d4f74147f9dd2ad269168b42e86290b4f467fd60352aa4bdf9e93a283",
+      "apps/sanmou-advisor-desktop/src/electron/python.ts": "5adac19d66cbbd906ab4221a28651da7a8ebef59ca28baaadf2f3446e4c5b14c",
+      "apps/sanmou-advisor-desktop/src/renderer/App.tsx": "36f9cf2467b69a57c798e847f4c600433f0dae2f5269fd36fc30ffce39be8573",
+      "apps/sanmou-advisor-desktop/src/renderer/api.ts": "a05e6bc803514c67b63e8de67c74d81d51c25b9074d811497b245fd87a72ccf9",
+      "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts": "5676bae37cf8967b716549c27756a97fb27c87b448ece3ffa4e2280d4318bee9",
+      "apps/sanmou-advisor-desktop/tests/install-smoke.mjs": "4a69ed7fe4b4d7b947c99580e2e69c837059dd5e17b9531a6baaeed875525a1d",
+      "apps/sanmou-advisor-desktop/tests/python.test.mjs": "7e2243311bcb5de60aee9e158cf892bd146e992b303f73d40133dbff791fc0dd",
+      "apps/sanmou-advisor-desktop/vite.config.ts": "c43e8aff1aa538e6b12a4e36d674c5824fb2f3d736be9c91f874e8010c57342d",
+      "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py": "8bb7ba8b2ad360a281a4bd7d8037b57a31104171e13b4264182ce6dda7737602",
+      "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py": "2d61d77c60832be6e9c234cac5c8db41f27480275134131987077f8cb025ae45",
+      "apps/sanmou-advisor-desktop/tests/advisor-readiness.mjs": "44ed721cd9565dea6676e0e2fb5deac4672524c42b96e7485517f20fd37c9b44",
+      "apps/sanmou-advisor-desktop/tests/advisor-readiness.test.mjs": "ea381971a8ff396b536501e52a4e1b9cf721e660c2cf51df878f4848ce0d7c9e"
+    },
+    "runs": {
+      "focused_readiness": {
+        "name": "sanmou-e-cr02-readiness.log",
+        "sha256": "454ae8ab5cd031b03a68160a5d5456a12d7521d2da521a0b1d43897e3d82b0fa",
+        "summary": [],
+        "exit_code": 0
+      },
+      "full_desktop": {
+        "name": "sanmou-e-cr02-desktop.log",
+        "sha256": "64cc74f0e35497e30a5210b83dc57ae1081ef9a7f480983f0dcf56ac8391b7c3",
+        "summary": [
+          "  14 passed (23.1s)\r"
+        ],
+        "exit_code": 0
+      },
+      "api": {
+        "name": "sanmou-e-cr02-api.log",
+        "sha256": "7c54f3cd1a5414d8abd49ba0b377cabe2a7b0a36653dca4f38df05d0b68f5582",
+        "summary": [
+          "Ran 10 tests in 0.589s\r"
+        ],
+        "exit_code": 0
+      },
+      "typecheck": {
+        "name": "sanmou-e-cr02-typecheck.log",
+        "sha256": "207a8fc4bc101cb9b1bac40a5b742abb72f05afb990354b85339d2cc7d64368c",
+        "summary": [],
+        "exit_code": 0
+      },
+      "package": {
+        "name": "sanmou-e-cr02-package.log",
+        "sha256": "7dda601cbee0c0297110c8726c30b3bdd889c566a900850a43515d45b4a3a6e1",
+        "summary": [],
+        "exit_code": 0
+      },
+      "install_1": {
+        "name": "sanmou-e-cr02-install-1.log",
+        "sha256": "0e95b977bd18ec443f910e637bf8bb8779642f663a56ba48941e0c497bdbc780",
+        "summary": [],
+        "result": {
+          "status": "passed",
+          "readiness": "awaited-http-and-profile-identity",
+          "readinessAttempts": 16,
+          "unsigned": true,
+          "packaged": true,
+          "preload": true,
+          "bundledBackend": true,
+          "mockUpload": true,
+          "runtimeAdmin": false,
+          "gameInput": false
+        },
+        "exit_code": 0
+      },
+      "install_2": {
+        "name": "sanmou-e-cr02-install-2.log",
+        "sha256": "9f5f832bc47e1b4a0ad6176c9899486016e28f35345b3798f09766119fd4b60b",
+        "summary": [],
+        "result": {
+          "status": "passed",
+          "readiness": "awaited-http-and-profile-identity",
+          "readinessAttempts": 18,
+          "unsigned": true,
+          "packaged": true,
+          "preload": true,
+          "bundledBackend": true,
+          "mockUpload": true,
+          "runtimeAdmin": false,
+          "gameInput": false
+        },
+        "exit_code": 0
+      }
+    },
+    "artifact": {
+      "name": "Sanmou-Advisor-0.1.0-unsigned-x64.exe",
+      "sha256": "aa9f91762d969e3fd7daa5a86877f8f5db38eb2b408d562a1668b2ca72e10659",
+      "signature": "NotSigned"
+    },
+    "bounds": {
+      "overall_ms": 30000,
+      "request_ms": 1000,
+      "retry_interval_ms": 100
+    },
+    "checks": [
+      "await fetch and complete JSON body",
+      "status ok",
+      "data_dir equals fresh test profile/advisor",
+      "runtime_admin_enabled false",
+      "post-readiness process status still running and config matches expected URL/backend root"
+    ],
+    "cleanup_verified": {
+      "remaining_test_api_processes": 0,
+      "remaining_advisor_uninstall_entries": 0
+    },
+    "distinct_prior_python_exited_case": "not explained by CR02; cause remains unestablished"
   }
 }

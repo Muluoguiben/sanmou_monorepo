@@ -2,6 +2,11 @@
 
 Task: `01a07f0b-6d25-75c3-bcb1-acd4ca26cd1d`, 2026-09-08.
 
+CR02 follow-up: the original installation readiness check at `8729d18f` was
+unsound and is superseded by the awaited HTTP verification documented below.
+Historical passes/failures remain recorded; see **CR02 revision** for current
+source identity, deterministic regressions and two actual installation reruns.
+
 ## Identity and scope
 
 - Worktree: `C:/Users/Lan/.codex/worktrees/3fd9/sanmou_monorepo`.
@@ -126,7 +131,7 @@ stderr stream or modified test expectations were used.
 | Frozen lockfile `npm ci` | pass | 0 |
 | Typecheck / build | pass | 0 |
 | Unsigned NSIS packaging | pass | 0 |
-| Actual temporary install/start/mock upload/uninstall | pass | 0 |
+| Original temporary install/start/mock upload/uninstall | observed pass; readiness acceptance superseded by CR02 | 0 |
 | Authenticode | `NotSigned`, as intended | 0 |
 | Golden status regression in WSL | 1 pass, 0 skip | 0 |
 | Windows exact baseline package | 764 reported, 6 failures, 29 errors, 9 skips | 1 |
@@ -203,3 +208,109 @@ this task does not perform unrelated Electron/Vite major migrations.
   The renderer polls the actual process status instead of trusting health alone.
 - CI commands were sent directly to F. Final immutable SHA/branch/report are
   delivered to the coordinator and unified CR; no merge/push to master occurs.
+
+## CR02 revision — awaited installation readiness
+
+Revision parent: `8729d18f5cab45b3616c15b9fc5eef36746b690e`, same worktree and
+feature branch. This follow-up changes test support, the npm test entry and
+documentation only; production Python, Electron main/preload and renderer
+source are byte-for-byte unchanged from that commit. The evidence JSON preserves
+the prior artifact/source manifest and adds current tested file SHA-256 and Git
+blob IDs. The containing final commit supplies the full tree identity without a
+self-referential SHA in this report.
+
+### Retained review failures
+
+CR tested E `8729d18f` in combined `a8babdb` and supplied:
+
+- `sanmou-cr-async-readiness-proof.log`: actual Electron
+  `page.waitForFunction(async () => false, undefined, {timeout: 800})` returned
+  `JSHandle(false)` after 188 ms instead of polling until timeout. The
+  Playwright 1.58.2 poller treated the Promise itself as truthy.
+- `sanmou-cr-install-smoke.log`: the subsequent host fetch failed with
+  `ECONNREFUSED 127.0.0.1:10483`.
+- `sanmou-cr-install-smoke-diagnostic.log`: another install failed with
+  `ECONNREFUSED 127.0.0.1:9184` while runtime config still said `running`.
+
+These original logs are under `C:/Users/Lan/AppData/Local/Temp/`; hashes and
+non-sensitive failure summaries are retained in `E-test-evidence.json.cr02`.
+The old check discarded the returned false handle, so prior successful installs
+did not prove readiness waiting was correct. This is separate from the earlier
+Python-`exited`/other-listener observation, whose cause remains unestablished.
+
+### Fix and deterministic regression
+
+`tests/advisor-readiness.mjs` polls the host HTTP endpoint, awaiting both fetch
+and JSON body completion. Default limits are 30,000 ms overall, 1,000 ms per
+request (including the body), and 100 ms between failed probes. Acceptance
+requires all of `status=ok`, the exact expected per-test data directory, and
+`runtime_admin_enabled=false`. Aborts, non-200 responses, malformed/incorrect
+health and transport errors retry only within the deadline. Distinct failure
+reasons are retained rather than hidden by the final request timeout. This is
+condition-based polling, not a fixed startup sleep.
+
+`install-smoke.mjs` no longer uses `page.waitForFunction` or an unguarded follow-on
+host fetch. It consumes the verified health result, then verifies current
+embedded-process status, exact configured URL, packaged backend root and mock
+upload. Before each install it checks user/machine uninstall registries, fails
+on inspection errors or an existing Advisor installation, and constrains the
+temporary install/profile to absolute children of its allocated temporary root.
+Cleanup closes only the Electron instance it launched and uninstalls only its
+temporary installation; it never searches for or kills all Python/Electron.
+
+Seven new HTTP tests are part of `npm test`:
+
+1. Two 503 responses, then 200 headers with a manually held JSON body: the wait
+   stays pending until the body is released and succeeds on the third attempt.
+2. An always-503 API rejects within its overall deadline.
+3. HTTP 200 for another data directory is rejected.
+4. HTTP 200 with runtime administration enabled is rejected.
+5. HTTP 200 with non-ready status is rejected.
+6. A permanently stalled response body is aborted, retried and bounded.
+7. An actual socket/network failure is retried before healthy success.
+
+The first local run was 5/7: a last-millisecond timeout masked the earlier
+identity failure; the stalled-body fixture's 30/150 ms request/overall budget
+did not yield two server requests on Windows. Failure reasons are now preserved.
+The stalled fixture uses 100/1,000 ms budgets while retaining both original
+assertions (at least two requests and completion under 1,500 ms); no acceptance
+assertion was removed. The other short negative fixtures retain 150 ms deadlines.
+The initial failure log and final passing logs are retained by name/hash.
+
+### Current commands and results
+
+From the repository root:
+
+```powershell
+node --test apps/sanmou-advisor-desktop/tests/advisor-readiness.test.mjs
+$env:PYTHONPATH='packages/pioneer-agent/src;packages/sanmou-common/src;packages/qa-agent/src'
+.venv/Scripts/python.exe -m unittest discover -s packages/pioneer-agent/tests/unit -p 'test_advisor_api*.py' -v
+```
+
+From `apps/sanmou-advisor-desktop`, run serially:
+
+```powershell
+npm run typecheck
+npm test
+npm run dist:win
+npm run test:install:win  # run 1, log sanmou-e-cr02-install-1.log
+npm run test:install:win  # run 2, log sanmou-e-cr02-install-2.log
+Get-AuthenticodeSignature release/Sanmou-Advisor-0.1.0-unsigned-x64.exe
+```
+
+| CR02 check | Result | Exit |
+|---|---|---|
+| Focused readiness tests | 7 pass, 0 fail/skip | 0 |
+| Full desktop test command | 9 Node + 14 real Electron pass, 0 fail/skip | 0 |
+| Complete Advisor API tests | 10 pass, 0 fail/skip | 0 |
+| Typecheck and build/unsigned packaging | pass | 0 |
+| Actual install 1: startup / mock PNG / uninstall | pass; 16 awaited readiness attempts | 0 |
+| Actual install 2: startup / mock PNG / uninstall | pass; 18 awaited readiness attempts | 0 |
+| Installer signature | `NotSigned` | 0 |
+
+Runtime and dependencies are the same versions listed earlier; no dependency or
+lockfile changed. Current commands/log hashes, actual installer SHA-256 and
+tested Git blobs are in `E-test-evidence.json.cr02`. The previous full Windows
+and WSL baseline comparison is retained, not rerun or reclassified as passing in
+this test-only revision. The 12 dependency advisories, unsigned/non-clean-machine
+status, missing update/rollback and provider/live evidence boundaries remain.

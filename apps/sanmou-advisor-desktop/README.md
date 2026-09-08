@@ -95,6 +95,12 @@ HTTP API; it needs no Chrome installation or game client. It verifies the actual
 CommonJS preload, custom API configuration, visible Python launch failures,
 selection races across picker/drop/paste/history/chat, and evidence presentation.
 All late-response assertions wait for network completion before checking UI state.
+The Node suite also tests delayed/never-ready HTTP services, stalled response
+bodies, wrong profile identity and network retries. The installation check uses
+an awaited HTTP loop with a 30-second overall deadline and 1-second request
+deadlines; HTTP 200 alone is insufficient without the expected data directory,
+`status=ok`, and runtime administration disabled. It refuses to overwrite an
+existing Advisor installation and only cleans its own temporary install/profile.
 
 `release/Sanmou-Advisor-0.1.0-unsigned-x64.exe` is a per-user NSIS installer.
 It contains the built UI and allowlisted Python source/config/reviewed KB files.
