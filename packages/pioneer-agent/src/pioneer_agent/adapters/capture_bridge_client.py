@@ -13,7 +13,7 @@ import uuid
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from io import BytesIO
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 from typing import Any
 
 from PIL import Image, UnidentifiedImageError
@@ -48,7 +48,23 @@ def parse_capture_time(value: Any) -> datetime:
 def _to_windows_path(path: Path) -> str:
     if os.name == "nt":
         return str(path)
-    return "\\\\wsl$\\Ubuntu" + str(path).replace("/", "\\")
+    # WSL owns the mount layout and distro name. A /mnt/c worktree must
+    # become a drive path, while a Linux path needs the actual distro UNC.
+    try:
+        result = subprocess.run(
+            ["wslpath", "-w", "-a", str(path)],
+            check=True, capture_output=True, text=True, encoding="utf-8", timeout=5,
+        )
+    except (OSError, subprocess.SubprocessError) as exc:
+        raise RuntimeError("WSL proxy path conversion failed; working wslpath is required") from exc
+    converted = result.stdout.rstrip("\r\n")
+    if (
+        not converted
+        or any(character in converted for character in "\r\n\x00")
+        or not PureWindowsPath(converted).is_absolute()
+    ):
+        raise RuntimeError("WSL proxy path conversion returned an invalid Windows path")
+    return converted
 
 
 class CaptureBridgeClient:
@@ -70,7 +86,7 @@ class CaptureBridgeClient:
                 [sys.executable if os.name == "nt" else "python.exe",
                  _to_windows_path(_PROXY_SCRIPT), str(self.port)],
                 stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
-                text=True, encoding="utf-8", cwd=None if os.name == "nt" else "/mnt/c",
+                text=True, encoding="utf-8",
             )
             ready = self._read_line()
             if ready.get("status") != "proxy_ready" or ready.get("protocol_version") != PROTOCOL_VERSION:

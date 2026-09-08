@@ -34,6 +34,12 @@ isolation boundary against a compromised process of the same OS user.
 loopback server -> win_capture.py`. The observation import graph excludes the
 legacy `BridgeClient`, control adapters and executor. Capture requires an
 already-visible, non-minimized window. It never restores or foregrounds it.
+On WSL, proxy paths are converted by `wslpath -w -a`, respecting the current
+distro and mount configuration. Windows-backed paths become drive paths;
+Linux filesystem paths use the actual distro UNC. Missing, failed, timed-out
+or invalid conversion stops before proxy launch. No shell interpolation or
+hardcoded distro/mount root is used. This path conversion does not configure
+authentication environment propagation across the WSL/Windows boundary.
 Prefer WGC for window-scoped pixels; DXGI captures the visible desktop rectangle
 and can contain occluding windows, so its visual provenance needs separate QA.
 
