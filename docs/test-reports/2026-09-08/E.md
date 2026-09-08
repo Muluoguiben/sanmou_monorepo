@@ -7,6 +7,13 @@ unsound and is superseded by the awaited HTTP verification documented below.
 Historical passes/failures remain recorded; see **CR02 revision** for current
 source identity, deterministic regressions and two actual installation reruns.
 
+CR03 follow-up supersedes OS-assigned test ports. See **CR03 revision** for the
+Node 20.20.2 / Python 3.12.14 reruns and bounded high-port allocation evidence.
+
+The same follow-up also addresses **CR06**: Pillow pixel-limit rejection now
+returns 413 after cleanup. Its final API, package baseline and newly rebuilt
+installer evidence are documented separately below.
+
 ## Identity and scope
 
 - Worktree: `C:/Users/Lan/.codex/worktrees/3fd9/sanmou_monorepo`.
@@ -314,3 +321,248 @@ tested Git blobs are in `E-test-evidence.json.cr02`. The previous full Windows
 and WSL baseline comparison is retained, not rerun or reclassified as passing in
 this test-only revision. The 12 dependency advisories, unsigned/non-clean-machine
 status, missing update/rollback and provider/live evidence boundaries remain.
+
+## CR03 revision — browser-safe test ports on the CI runtime
+
+Revision parent: `5afaec4bb46c91c4c1fd153e0c79670276c1d197`, same feature branch
+and worktree. CR03 itself changes only E test infrastructure, its npm test entry
+and documentation. The final follow-up also contains the CR06 API fix below;
+other production source, F's CI policy and the dependency lockfile are unchanged.
+Tested source SHA-256 / Git blob IDs and the new installer hash are
+in `E-test-evidence.json.cr03`; the containing commit supplies full tree identity.
+
+### Retained independent failure
+
+On E `5afaec4` / combined `682f994`, CR's Node 20.20.2 + Python 3.12.14 run had
+9 Node passes and 13 Electron passes / 1 failure. `listen(0)` selected port 5061
+in the R23-good test's setup: history never appeared and the API stayed checking.
+The R23 assertion itself was never reached. CR's native `http.get` received 200
+on 5061, but real Electron fetch failed with `net::ERR_UNSAFE_PORT`.
+
+The [Fetch port-blocking table](https://fetch.spec.whatwg.org/#port-blocking)
+includes 5061; the table inspected on 2026-09-08 has no ports in 49152–65535.
+An OS-allocated ephemeral port therefore did not establish browser usability.
+This is separate from R23 evidence semantics and CR02's async readiness defect.
+
+Original evidence is retained by filename/hash and summarized in the JSON:
+
+- `C:/Users/Lan/AppData/Local/Temp/sanmou-cr-node20-test.log`.
+- `C:/Users/Lan/AppData/Local/Temp/sanmou-cr-browser-port-proof.log`.
+- CR worktree `.codex-autonomy/adversarial-review-20260908/evidence/CR03-port-5061-context.md`.
+
+### Allocation, reservation and regressions
+
+`tests/safe-ports.mjs` is shared by Electron mocks, readiness HTTP fixtures and
+the installer. Each candidate must be an integer in 49152–65535 before `listen`
+is called. It binds only `127.0.0.1`, tries at most 32 candidates by default
+(configuration hard-capped at 128), retries only `EADDRINUSE`/`EACCES`, and
+immediately propagates unrelated bind errors. Injected candidate prefixes are
+subject to the same range check. Exhaustion fails without an OS-port-zero fallback.
+
+HTTP tests retain their bound server. Installation uses a private TCP reservation
+held through the installer; its idempotent release runs immediately before
+Electron launches Python, and again during final cleanup. The existing awaited
+HTTP/profile-identity gate remains unchanged. Readiness timeouts were not
+lengthened, and Chromium port security was not disabled.
+Allocation itself is inside the installation cleanup scope, so exhausted
+candidates also trigger cleanup of the already-created temporary directory.
+
+Six new pure Node tests cover:
+
+1. Forced 5061 / 0 / 10080 / 65536 never reach the actual bind call.
+2. An occupied reservation forces retry while its owner stays bound.
+3. Three forced collisions exhaust exactly three attempts, leaving no extra
+   error/listening handlers and no listener.
+4. Unsafe-only exhaustion makes zero bind calls and never falls back to port 0.
+5. Reservation remains exclusive until explicit release; release is idempotent
+   and the same port can then be rebound.
+6. Permission collisions retry; an unrelated interface error fails immediately.
+
+A new real Electron case injects 5061 and a held safe port, fetches successfully
+from the resulting high-port listener, and separately confirms a browser fetch
+to 5061 still emits `net::ERR_UNSAFE_PORT`. All original R23 assertions stay intact.
+
+The initial system-Node 24 pure allocation test run was 5/6: a new test incorrectly
+expected zero HTTP `listening` handlers, but Node already installs
+`setupConnectionsTracking`. The assertion now compares exact pre/post listener
+counts, preserving the framework handler while proving no leak. That initial
+failure log is retained. The first full Node 20 pipeline after the fix passed;
+the suite was not retried unchanged to obtain green.
+
+### Exact runtime, commands and results
+
+CR explicitly confirmed its Electron/install processes and uninstall entry count
+were zero and released the window before E's actual runs. Each E installation
+still independently checked for an existing Advisor installation and constrained
+cleanup to its own absolute temporary directory and launched processes.
+
+- Node executable (read-only reuse):
+  `C:/Users/Lan/AppData/Local/npm-cache/_npx/ebaba8b9e55fd0a9/node_modules/node/bin/node.exe`,
+  verified `v20.20.2`.
+- Base Python (read-only reuse):
+  `C:/Users/Lan/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe`,
+  verified `3.12.14`. E created its own `.venv`; CR's editable environment was not used.
+- E's earlier Python 3.14 venv was safely moved inside this worktree to
+  `build/cr03/venv-py314` after checking ownership, absolute paths and no running
+  users of it. No global Python/auth settings changed.
+- The Python dependency versions remain FastAPI 0.141.1, Starlette 1.6.0,
+  Pydantic 2.13.5, Pillow 12.3.0, MCP 1.29.1, httpx 0.28.1, uvicorn 0.52.4 and
+  python-multipart 0.0.32. Electron remains 29.4.6 and Playwright 1.58.2.
+
+Environment preparation from the repository root, after archiving the old venv:
+
+```powershell
+$env:PYTHONDONTWRITEBYTECODE='1'
+& C:/Users/Lan/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -B -m venv --without-pip .venv
+& C:/Users/Lan/AppData/Local/Programs/Python/Python314/python.exe -m pip --python .venv/Scripts/python.exe install -e packages/sanmou-common -e packages/pioneer-agent httpx
+$env:PYTHONPATH='packages/pioneer-agent/src;packages/sanmou-common/src;packages/qa-agent/src'
+.venv/Scripts/python.exe -B -m unittest discover -s packages/pioneer-agent/tests/unit -p 'test_advisor_api*.py' -v
+```
+
+Exact Node 20 invocation (do not substitute `npm.cmd`, which can pick Node 24):
+
+```powershell
+$node20='C:/Users/Lan/AppData/Local/npm-cache/_npx/ebaba8b9e55fd0a9/node_modules/node/bin/node.exe'
+$npmCli='D:/nodejs/node_modules/npm/bin/npm-cli.js'
+$env:PATH=(Split-Path -Parent $node20)+';'+$env:PATH
+$env:PYTHONDONTWRITEBYTECODE='1'
+# From repository root:
+& $node20 --test apps/sanmou-advisor-desktop/tests/safe-ports.test.mjs apps/sanmou-advisor-desktop/tests/advisor-readiness.test.mjs
+# Then from apps/sanmou-advisor-desktop, serially:
+& $node20 $npmCli ci
+& $node20 $npmCli run typecheck
+& $node20 $npmCli run build
+& $node20 $npmCli test
+& $node20 $npmCli run dist:win
+& $node20 $npmCli run test:install:win # planned run 1
+& $node20 $npmCli run test:install:win # planned run 2
+```
+
+| CR03 check | Result | Exit |
+|---|---|---|
+| Node 20 focused port + readiness tests | 13 pass, 0 fail/skip | 0 |
+| Node 20 npm ci / typecheck / build | pass, with engine warnings below | 0 |
+| Node 20 full desktop command | 15 Node + 15 real Electron pass, 0 fail/skip | 0 |
+| Independent Python 3.12 complete API tests | 10 pass, 0 fail/skip | 0 |
+| Node 20 unsigned NSIS build | pass | 0 |
+| Node 20 / Python 3.12 final install 1: startup / mock PNG / uninstall | pass; port 50678, 12 readiness attempts | 0 |
+| Node 20 / Python 3.12 final install 2: startup / mock PNG / uninstall | pass; port 56767, 12 readiness attempts | 0 |
+
+The earlier two planned installs also passed (57134/52587). Their logs are
+retained with `-pre-cleanup` suffixes; the table above uses two reruns of the
+exact final script after placing allocation within the cleanup scope. No
+production/build input changed in that final test-script adjustment.
+
+The npm install reported `EBADENGINE` for existing `@electron/rebuild@4.2.0` and
+`node-abi@4.35.0` (both declare Node >=22.12.0). No engine override or CI policy
+change was made. The concrete current build with no native Node addon to rebuild
+passed on Node 20; this does not certify those packages' general Node 20 support.
+The warning is retained for CR alongside the existing 12 dependency advisories.
+
+Only synthetic input and local test services were used. No game input, model
+call, private screenshot, external oracle or publication occurred. Historical
+Windows 3.14/WSL results and the unresolved earlier Python-exited case remain;
+CR06 adds a new Windows 3.12 full-package comparison below. Unsigned,
+clean-machine, update/rollback and production gates remain.
+
+## CR06 revision — preserve Pillow pixel rejection and clean the upload
+
+CR independently supplied a 69-byte synthetic PNG advertising 20000×20000 in
+IHDR, with tiny IDAT data. The default Pillow guard raises
+`Image.DecompressionBombError` while opening the header, before pixel decoding.
+The old validation handler did not catch it: Windows HTTP returned 500 and left
+one 69-byte upload, with no report. Review proof is
+`sanmou-cr-pixel-guard-cleanup-red.log` and
+`probes/upload_pixel_guard_cleanup.py` in the review evidence directory.
+
+The new regression was first run against the still-unmodified API here and
+reproduced `(HTTP 500, one upload, 69 remaining bytes, no report)` with exit 1.
+The same test, without changed expectations, passes after the fix. Both red logs
+and the actual test/API Git blob identities are retained in the evidence JSON.
+
+The API now owns an explicit binary reader around `Image.open`, so it closes
+even when Pillow rejects the header before an image context is entered. After
+that closure, `DecompressionBombError` removes the upload and returns 413 with
+an image-pixel-limit explanation. Pillow's `MAX_IMAGE_PIXELS=89478485` remains
+unchanged; no warning/limit override was introduced. The original >10 MiB 413,
+invalid-checksum 400 and interrupted-upload cleanup regressions still pass.
+
+The new test checks the real header guard before HTTP, asserts the limit remains
+enabled/unchanged, and installs a fail-fast sentinel on PNG pixel loading to
+assert it is never called. It creates only 69 bytes, never a giant bitmap. The
+native Windows TestClient uses `raise_server_exceptions=False`, verifies HTTP
+413, zero remaining upload files/bytes and no report.
+
+The installer was rebuilt after the API changed. The final installation script
+compares the installed `advisor_api.py` SHA-256 with the current source, so an
+older artifact cannot satisfy the check. It then sends the same tiny header to
+the actual installed API, verifies 413/zero files/no report, and performs the
+normal valid 1×1 PNG upload before closing/uninstalling. The installed API hash
+was `20a2d22aa36e73fd1668d94b242f8aa12cbf3cd417174b59985ea0c27c31ccc5`
+in both final runs.
+
+### Current validation
+
+The Node 20/Python 3.12 environment and invocation rules above were retained.
+Exact commands (root unless a working directory is specified):
+
+```powershell
+$env:PYTHONDONTWRITEBYTECODE='1'
+$env:PYTHONPATH='packages/pioneer-agent/src;packages/sanmou-common/src;packages/qa-agent/src'
+.venv/Scripts/python.exe -B -m unittest discover -s packages/pioneer-agent/tests/unit -p 'test_advisor_api*.py' -v
+# Cwd packages/pioneer-agent; also run from build/e-baseline/packages/pioneer-agent
+# using the absolute same .venv/Scripts/python.exe and the same PYTHONPATH:
+$env:PYTHONPATH='src;../sanmou-common/src;../qa-agent/src'
+../../.venv/Scripts/python.exe -B -m unittest discover -s tests -p 'test_*.py' -v
+# Desktop cwd, using $node20 / $npmCli / PATH defined in CR03:
+& $node20 $npmCli run dist:win
+& $node20 $npmCli run test:install:win # final source-bound run 1
+& $node20 $npmCli run test:install:win # final source-bound run 2
+& $node20 $npmCli test
+```
+
+| CR06/final check | Result | Exit |
+|---|---|---|
+| Local new header test before API edit | 500 + 1 file / 69 bytes, expected red | 1 |
+| Complete Windows Python 3.12 API tests | 11 pass, 0 fail/skip | 0 |
+| Final Node 20 desktop command | 15 Node + 15 Electron pass, 0 fail/skip | 0 |
+| Rebuilt Node 20 unsigned installer | pass; contains current API bytes | 0 |
+| Final installed header rejection / normal upload / uninstall, run 1 | pass; port 63715, 13 readiness probes | 0 |
+| Final installed header rejection / normal upload / uninstall, run 2 | pass; port 59920, 12 readiness probes | 0 |
+| Windows Python 3.12 full package, d377 baseline | 764 tests, 10 failures, 29 errors, 9 skips | 1 |
+| Windows Python 3.12 full package, final E | 769 tests, 10 failures, 29 errors, 9 skips | 1 |
+
+The whole-package result is **not a pass** and equality of counts is not treated
+as equality of failures. The primary runs share 38 failure/error names and differ
+on two unchanged autonomous-loop tests: the current-only failure was
+`test_authorized_low_risk_custom_runner_cannot_forge_post_verification`; the
+baseline-only failure was
+`test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies`.
+
+Those two tests were rerun with their original assertions and fixed ordering
+on both trees. An additional temporary diagnostic wrapper only printed each
+original `tick` result after it returned; it did not replace stderr, clocks,
+assertions, dispatch or verification. Both trees produced
+`post-action observation was not captured after dispatch`, and the first test's
+pass/fail switched between the trees across these runs. This records existing
+timestamp-gate instability, not an API-cleanup failure or a reason to weaken
+the gate. All primary/focused/diagnostic failures and names are preserved.
+No blanket "no new failures" claim is made from the primary comparison alone.
+
+The exact focused cases were:
+
+```powershell
+$cases=@(
+ 'tests.unit.test_autonomous_loop.AutonomousLoopTests.test_authorized_low_risk_custom_runner_cannot_forge_post_verification',
+ 'tests.unit.test_autonomous_loop.AutonomousLoopTests.test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies'
+)
+# Run in each tree's packages/pioneer-agent with the same Python/PYTHONPATH:
+& C:/Users/Lan/.codex/worktrees/3fd9/sanmou_monorepo/.venv/Scripts/python.exe -B -m unittest @cases -v
+```
+
+The explicit interpreter was this worktree's absolute `.venv/Scripts/python.exe`,
+not a system `python` chosen by PATH. The diagnostic script and log hashes are
+recorded in JSON. No autonomous-loop source, tests or freshness gates were edited.
+The prior Windows 3.14 counts remain historical evidence, not comparable by
+count alone to this 3.12 run. Existing dependency/engine warnings, unsigned status,
+clean-machine/update/rollback limits and live/provider blockers are unchanged.

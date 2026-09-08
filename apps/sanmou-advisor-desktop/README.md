@@ -101,6 +101,12 @@ an awaited HTTP loop with a 30-second overall deadline and 1-second request
 deadlines; HTTP 200 alone is insufficient without the expected data directory,
 `status=ok`, and runtime administration disabled. It refuses to overwrite an
 existing Advisor installation and only cleans its own temporary install/profile.
+All browser/fetch test listeners use the shared `tests/safe-ports.mjs` allocator:
+loopback ports 49152–65535, at most 32 candidates by default, and bounded retries
+for occupied or OS-reserved ports. The installation reservation remains held
+through installation and is released immediately before Electron/Python starts.
+Tests inject unsafe/colliding ports and verify Chromium still blocks port 5061;
+no port-security override is used.
 
 `release/Sanmou-Advisor-0.1.0-unsigned-x64.exe` is a per-user NSIS installer.
 It contains the built UI and allowlisted Python source/config/reviewed KB files.

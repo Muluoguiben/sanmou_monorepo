@@ -2,6 +2,10 @@
 
 ## Task-local E — 2026-09-08 desktop/API hardening
 
+- [x] CR06 follow-up: unchanged Pillow pixel guard rejects 69-byte huge-dimension PNG as413 after reader closure/cleanup; API11/11 and final source-bound installed rejection + valid upload passed. Python3.12 full baseline/current both10fail/29error/9skip with two unstable timestamp-test names explicitly preserved; no full-pass claim or freshness-gate change.
+
+- [x] CR03 follow-up: shared bounded high-port allocator/reservation replaces OS `listen(0)` across E tests. Exact Node20.20.2/Python3.12.14 checks: 15 Node + 15 Electron, API10 and two planned unsigned install/start/upload/uninstall runs passed; Chromium still blocks5061. Prior failure and engine warnings retained; awaits renewed unified CR, no F CI or production source change.
+
 - [x] CR02 follow-up: replaced Promise-valued browser readiness with bounded awaited HTTP/profile verification; 7 new readiness regressions, full desktop 9 Node + 14 Electron, API 10, and two temporary install/start/mock upload/uninstall runs passed. Original CR failures remain in E report/evidence; current feature revision awaits renewed unified CR.
 
 - [x] R03/R21/R22/R23/R24: Python fallback/startup errors, sandboxed CommonJS preload, screenshot/history/chat response binding, evidence/permission separation, Windows upload cleanup (including corrupt PNG).

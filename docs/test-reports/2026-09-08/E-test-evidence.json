@@ -3,24 +3,26 @@
   "branch": "feat/desktop-api-r03-r21-r24-20260908",
   "tested_source_sha256": {
     "apps/sanmou-advisor-desktop/.gitignore": "28b5192eeeb3c6c071f8478a7a163e4c0fb283f98d02fc9335c32c338aa0ea77",
-    "apps/sanmou-advisor-desktop/README.md": "a09e4867f5850cda2fc802cf292dfe3b553b717f7a48c5f7dcf1b119d90dcf69",
+    "apps/sanmou-advisor-desktop/README.md": "9c6cf498ffc8b1eec9a6ff44906c266a5a5471f5abdc07a22c87060c6e94094e",
     "apps/sanmou-advisor-desktop/electron-builder.json": "ba4b2a9d34bd9190c152c0c761ac542c851ab6569f0b4af6b1c5f0fac7738419",
     "apps/sanmou-advisor-desktop/package-lock.json": "f4453cd85135ce22e4bdf2137533c219e740e44c2ea11d22d25572fb9d3a41e9",
-    "apps/sanmou-advisor-desktop/package.json": "bff8e586a18f8fa718ce3db7d81dff454ea70b69f7cdfdabf752eaecd6652608",
+    "apps/sanmou-advisor-desktop/package.json": "9ccbce774f83918d15ecd186077d934c1af35d60622d46c908b769a9a5f721dc",
     "apps/sanmou-advisor-desktop/playwright.config.ts": "589d4b031f45a75f0744951e08dec85b80c4fc5862c0292e2f5f7e0cb372db90",
     "apps/sanmou-advisor-desktop/src/electron/main.ts": "f84a3b9ab1fbc1e425aae37cc4d4f4afe65a7c1f854a5daad3c20eef980ca6b8",
     "apps/sanmou-advisor-desktop/src/electron/preload.cts": "a19ee49d4f74147f9dd2ad269168b42e86290b4f467fd60352aa4bdf9e93a283",
     "apps/sanmou-advisor-desktop/src/electron/python.ts": "5adac19d66cbbd906ab4221a28651da7a8ebef59ca28baaadf2f3446e4c5b14c",
     "apps/sanmou-advisor-desktop/src/renderer/App.tsx": "36f9cf2467b69a57c798e847f4c600433f0dae2f5269fd36fc30ffce39be8573",
     "apps/sanmou-advisor-desktop/src/renderer/api.ts": "a05e6bc803514c67b63e8de67c74d81d51c25b9074d811497b245fd87a72ccf9",
-    "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts": "5676bae37cf8967b716549c27756a97fb27c87b448ece3ffa4e2280d4318bee9",
-    "apps/sanmou-advisor-desktop/tests/install-smoke.mjs": "4a69ed7fe4b4d7b947c99580e2e69c837059dd5e17b9531a6baaeed875525a1d",
+    "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts": "271e99b5a41f47b0d5a60d185b5894dc235fcf995f6183c1891f968142ba08a0",
+    "apps/sanmou-advisor-desktop/tests/install-smoke.mjs": "a3ec7bc6953f3a7e4412f3973a7088a2f9de6e537c21446aae078973c4be514c",
     "apps/sanmou-advisor-desktop/tests/python.test.mjs": "7e2243311bcb5de60aee9e158cf892bd146e992b303f73d40133dbff791fc0dd",
     "apps/sanmou-advisor-desktop/vite.config.ts": "c43e8aff1aa538e6b12a4e36d674c5824fb2f3d736be9c91f874e8010c57342d",
-    "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py": "8bb7ba8b2ad360a281a4bd7d8037b57a31104171e13b4264182ce6dda7737602",
-    "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py": "2d61d77c60832be6e9c234cac5c8db41f27480275134131987077f8cb025ae45",
+    "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py": "20a2d22aa36e73fd1668d94b242f8aa12cbf3cd417174b59985ea0c27c31ccc5",
+    "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py": "ce8b5043bbef16583c654b377ab897b2eb63a8fe1281b927a585a602d10447b2",
     "apps/sanmou-advisor-desktop/tests/advisor-readiness.mjs": "44ed721cd9565dea6676e0e2fb5deac4672524c42b96e7485517f20fd37c9b44",
-    "apps/sanmou-advisor-desktop/tests/advisor-readiness.test.mjs": "ea381971a8ff396b536501e52a4e1b9cf721e660c2cf51df878f4848ce0d7c9e"
+    "apps/sanmou-advisor-desktop/tests/advisor-readiness.test.mjs": "682ffabc110514f01ceb65bada6af67bd99f120707fc42c560699d25a600f5b8",
+    "apps/sanmou-advisor-desktop/tests/safe-ports.test.mjs": "8eff478ad1770a7bdef79b6ac16b74a6e023b4f9135c6386ca725e7a25944e69",
+    "apps/sanmou-advisor-desktop/tests/safe-ports.mjs": "a91272f147604412873de9b87db91ca94ced3f49dd70fcd290875faa2b8ce905"
   },
   "windows": {
     "baseline": {
@@ -181,11 +183,13 @@
   },
   "focused": {
     "api": {
-      "name": "sanmou-e-cr02-api.log",
-      "sha256": "7c54f3cd1a5414d8abd49ba0b377cabe2a7b0a36653dca4f38df05d0b68f5582",
+      "name": "sanmou-e-cr06-api.log",
+      "sha256": "354ea04dc2d81be85e6468a8821a120c714740918ee3ff9564e73925b4901685",
       "summary": [
-        "Ran 10 tests in 0.589s\r"
+        "Ran 11 tests in 0.405s\r"
       ],
+      "failed_tests": [],
+      "skips": [],
       "exit_code": 0
     },
     "upload_on_baseline": {
@@ -203,30 +207,38 @@
       "skips": []
     },
     "electron": {
-      "name": "sanmou-e-cr02-desktop.log",
-      "sha256": "64cc74f0e35497e30a5210b83dc57ae1081ef9a7f480983f0dcf56ac8391b7c3",
+      "name": "sanmou-e-cr06-node20-desktop.log",
+      "sha256": "f893b0a6ada8488e75b6f08395d948f2a94653b47267b1e29161aff52240176d",
       "summary": [
-        "  14 passed (23.1s)\r"
+        "  15 passed (20.7s)\r"
       ],
+      "failed_tests": [],
+      "skips": [],
       "exit_code": 0
     },
     "install": {
-      "name": "sanmou-e-cr02-install-2.log",
-      "sha256": "9f5f832bc47e1b4a0ad6176c9899486016e28f35345b3798f09766119fd4b60b",
+      "name": "sanmou-e-cr06-node20-install-2.log",
+      "sha256": "d45f18cf3d4d70fa4a040eec87f065b7767e2a1e7f279c09d7b58eff1e38ac4f",
       "summary": [],
+      "failed_tests": [],
+      "skips": [],
+      "exit_code": 0,
       "result": {
         "status": "passed",
+        "apiPort": 59920,
+        "portAllocationAttempts": 1,
         "readiness": "awaited-http-and-profile-identity",
-        "readinessAttempts": 18,
+        "readinessAttempts": 12,
         "unsigned": true,
         "packaged": true,
         "preload": true,
         "bundledBackend": true,
+        "bundledApiSha256": "20a2d22aa36e73fd1668d94b242f8aa12cbf3cd417174b59985ea0c27c31ccc5",
+        "pixelLimitRejected": true,
         "mockUpload": true,
         "runtimeAdmin": false,
         "gameInput": false
-      },
-      "exit_code": 0
+      }
     },
     "readiness": {
       "name": "sanmou-e-cr02-readiness.log",
@@ -1386,21 +1398,29 @@
   },
   "artifact": {
     "name": "Sanmou-Advisor-0.1.0-unsigned-x64.exe",
-    "sha256": "aa9f91762d969e3fd7daa5a86877f8f5db38eb2b408d562a1668b2ca72e10659",
-    "signature": "NotSigned"
+    "sha256": "550b87c81fbfb9d90635c025b4badf71d27e5387789aaa193e63e8de88e621be",
+    "signature": "NotSigned",
+    "api_source_sha256": "20a2d22aa36e73fd1668d94b242f8aa12cbf3cd417174b59985ea0c27c31ccc5"
   },
   "final_pipeline": {
-    "revision_parent": "8729d18f5cab45b3616c15b9fc5eef36746b690e",
-    "exit_code": 0,
-    "checks": [
-      "npm run typecheck",
-      "npm test: 9 Node + 14 Electron pass",
-      "npm run dist:win (includes full build)",
-      "complete API: 10 pass",
-      "npm run test:install:win, two independent runs"
+    "revision_parent": "5afaec4bb46c91c4c1fd153e0c79670276c1d197",
+    "owned_findings": [
+      "CR03",
+      "CR06"
     ],
-    "production_sources_unchanged": true,
-    "full_python_package_comparison": "retained from parent; not rerun or reclassified in this test-only revision"
+    "targeted_checks_exit_code": 0,
+    "desktop_tests": "15 Node + 15 real Electron, zero fail/skip",
+    "api_tests": "11 Windows Python 3.12, zero fail/skip",
+    "installer_runs": 2,
+    "installer_api_source_hash_verified": true,
+    "pillow_pixel_guard_verified_without_decode": true,
+    "full_package_exit_code": 1,
+    "production_changes": [
+      "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py"
+    ],
+    "remaining_test_electron_processes": 0,
+    "remaining_test_install_api_processes": 0,
+    "remaining_advisor_uninstall_entries": 0
   },
   "pre_cr02_snapshot": {
     "tested_source_sha256": {
@@ -1657,5 +1677,833 @@
       "remaining_advisor_uninstall_entries": 0
     },
     "distinct_prior_python_exited_case": "not explained by CR02; cause remains unestablished"
+  },
+  "pre_cr03_snapshot": {
+    "tested_source_sha256": {
+      "apps/sanmou-advisor-desktop/.gitignore": "28b5192eeeb3c6c071f8478a7a163e4c0fb283f98d02fc9335c32c338aa0ea77",
+      "apps/sanmou-advisor-desktop/README.md": "a09e4867f5850cda2fc802cf292dfe3b553b717f7a48c5f7dcf1b119d90dcf69",
+      "apps/sanmou-advisor-desktop/electron-builder.json": "ba4b2a9d34bd9190c152c0c761ac542c851ab6569f0b4af6b1c5f0fac7738419",
+      "apps/sanmou-advisor-desktop/package-lock.json": "f4453cd85135ce22e4bdf2137533c219e740e44c2ea11d22d25572fb9d3a41e9",
+      "apps/sanmou-advisor-desktop/package.json": "bff8e586a18f8fa718ce3db7d81dff454ea70b69f7cdfdabf752eaecd6652608",
+      "apps/sanmou-advisor-desktop/playwright.config.ts": "589d4b031f45a75f0744951e08dec85b80c4fc5862c0292e2f5f7e0cb372db90",
+      "apps/sanmou-advisor-desktop/src/electron/main.ts": "f84a3b9ab1fbc1e425aae37cc4d4f4afe65a7c1f854a5daad3c20eef980ca6b8",
+      "apps/sanmou-advisor-desktop/src/electron/preload.cts": "a19ee49d4f74147f9dd2ad269168b42e86290b4f467fd60352aa4bdf9e93a283",
+      "apps/sanmou-advisor-desktop/src/electron/python.ts": "5adac19d66cbbd906ab4221a28651da7a8ebef59ca28baaadf2f3446e4c5b14c",
+      "apps/sanmou-advisor-desktop/src/renderer/App.tsx": "36f9cf2467b69a57c798e847f4c600433f0dae2f5269fd36fc30ffce39be8573",
+      "apps/sanmou-advisor-desktop/src/renderer/api.ts": "a05e6bc803514c67b63e8de67c74d81d51c25b9074d811497b245fd87a72ccf9",
+      "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts": "5676bae37cf8967b716549c27756a97fb27c87b448ece3ffa4e2280d4318bee9",
+      "apps/sanmou-advisor-desktop/tests/install-smoke.mjs": "4a69ed7fe4b4d7b947c99580e2e69c837059dd5e17b9531a6baaeed875525a1d",
+      "apps/sanmou-advisor-desktop/tests/python.test.mjs": "7e2243311bcb5de60aee9e158cf892bd146e992b303f73d40133dbff791fc0dd",
+      "apps/sanmou-advisor-desktop/vite.config.ts": "c43e8aff1aa538e6b12a4e36d674c5824fb2f3d736be9c91f874e8010c57342d",
+      "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py": "8bb7ba8b2ad360a281a4bd7d8037b57a31104171e13b4264182ce6dda7737602",
+      "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py": "2d61d77c60832be6e9c234cac5c8db41f27480275134131987077f8cb025ae45",
+      "apps/sanmou-advisor-desktop/tests/advisor-readiness.mjs": "44ed721cd9565dea6676e0e2fb5deac4672524c42b96e7485517f20fd37c9b44",
+      "apps/sanmou-advisor-desktop/tests/advisor-readiness.test.mjs": "ea381971a8ff396b536501e52a4e1b9cf721e660c2cf51df878f4848ce0d7c9e"
+    },
+    "artifact": {
+      "name": "Sanmou-Advisor-0.1.0-unsigned-x64.exe",
+      "sha256": "aa9f91762d969e3fd7daa5a86877f8f5db38eb2b408d562a1668b2ca72e10659",
+      "signature": "NotSigned"
+    },
+    "focused": {
+      "api": {
+        "name": "sanmou-e-cr02-api.log",
+        "sha256": "7c54f3cd1a5414d8abd49ba0b377cabe2a7b0a36653dca4f38df05d0b68f5582",
+        "summary": [
+          "Ran 10 tests in 0.589s\r"
+        ],
+        "exit_code": 0
+      },
+      "upload_on_baseline": {
+        "log_name": "sanmou-e-upload-baseline-final.log",
+        "log_sha256": "d9737e48cb2b1ec950634a102ee186fe53cdc9242a861dbdb2daad0af97b4a3a",
+        "summary": [
+          "Ran 4 tests in 0.423s\r",
+          "FAILED (failures=1, errors=2)\r"
+        ],
+        "failed_tests": [
+          "test_corrupt_png_checksum_returns_400_and_removes_upload (test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_corrupt_png_checksum_returns_400_and_removes_upload)\r",
+          "test_oversized_http_upload_returns_413_and_leaves_no_file (test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_oversized_http_upload_returns_413_and_leaves_no_file)\r",
+          "test_interrupted_read_closes_writer_and_removes_partial_file (test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_interrupted_read_closes_writer_and_removes_partial_file)\r"
+        ],
+        "skips": []
+      },
+      "electron": {
+        "name": "sanmou-e-cr02-desktop.log",
+        "sha256": "64cc74f0e35497e30a5210b83dc57ae1081ef9a7f480983f0dcf56ac8391b7c3",
+        "summary": [
+          "  14 passed (23.1s)\r"
+        ],
+        "exit_code": 0
+      },
+      "install": {
+        "name": "sanmou-e-cr02-install-2.log",
+        "sha256": "9f5f832bc47e1b4a0ad6176c9899486016e28f35345b3798f09766119fd4b60b",
+        "summary": [],
+        "result": {
+          "status": "passed",
+          "readiness": "awaited-http-and-profile-identity",
+          "readinessAttempts": 18,
+          "unsigned": true,
+          "packaged": true,
+          "preload": true,
+          "bundledBackend": true,
+          "mockUpload": true,
+          "runtimeAdmin": false,
+          "gameInput": false
+        },
+        "exit_code": 0
+      },
+      "readiness": {
+        "name": "sanmou-e-cr02-readiness.log",
+        "sha256": "454ae8ab5cd031b03a68160a5d5456a12d7521d2da521a0b1d43897e3d82b0fa",
+        "summary": [],
+        "exit_code": 0
+      }
+    },
+    "final_pipeline": {
+      "revision_parent": "8729d18f5cab45b3616c15b9fc5eef36746b690e",
+      "exit_code": 0,
+      "checks": [
+        "npm run typecheck",
+        "npm test: 9 Node + 14 Electron pass",
+        "npm run dist:win (includes full build)",
+        "complete API: 10 pass",
+        "npm run test:install:win, two independent runs"
+      ],
+      "production_sources_unchanged": true,
+      "full_python_package_comparison": "retained from parent; not rerun or reclassified in this test-only revision"
+    }
+  },
+  "cr03": {
+    "parent_sha": "5afaec4bb46c91c4c1fd153e0c79670276c1d197",
+    "review_inputs": [
+      {
+        "name": "sanmou-cr-node20-test.log",
+        "sha256": "d155767b964df7d7e34da0c81cad86e626ca85263673f136ae2de3e5ee2f0a7b",
+        "summary": [
+          "  13 passed (33.4s)\r"
+        ],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 1
+      },
+      {
+        "name": "sanmou-cr-browser-port-proof.log",
+        "sha256": "cfe16d05fd4a5d7edc241411155840334d575f1dec494415aebd259a52f4f2d6",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "proof": {
+          "port": 5061,
+          "nativeStatus": 200,
+          "browser": {
+            "ok": false,
+            "error": "TypeError: Failed to fetch"
+          },
+          "failures": [
+            "net::ERR_UNSAFE_PORT"
+          ]
+        }
+      },
+      {
+        "name": "CR03-port-5061-context.md",
+        "sha256": "31dc1b652374a942ea6deff643d837181e0a5c334fa881084a703681832f1d96",
+        "summary": [],
+        "failed_tests": [],
+        "skips": []
+      }
+    ],
+    "initial_local_failure": {
+      "name": "sanmou-e-cr03-ports-initial.log",
+      "sha256": "f7d71247e785e8a0fb733b8cad22c1276036eeb255625da386fd7a01a495a079",
+      "summary": [],
+      "failed_tests": [],
+      "skips": [],
+      "exit_code": 1,
+      "explanation": "New test expected zero listening handlers; Node already has setupConnectionsTracking. Fixed by asserting exact pre/post listener counts; allocation code unchanged."
+    },
+    "runtime": {
+      "node_version": "20.20.2",
+      "node_path": "C:\\Users\\Lan\\AppData\\Local\\npm-cache\\_npx\\ebaba8b9e55fd0a9\\node_modules\\node\\bin\\node.exe",
+      "node_sha256": "56c1520ee33b801e8bdb92fb321cf2e98529735b6d12bd4a2a6dec0ac0bab937",
+      "python_version": "3.12.14",
+      "python_base_path": "C:\\Users\\Lan\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "python_base_sha256": "b7a12c3af0b4db44191eec14ea095eba731b7328917f570806183093d19ddca2",
+      "isolated_venv": "C:\\Users\\Lan\\.codex\\worktrees\\3fd9\\sanmou_monorepo\\.venv",
+      "old_venv_archive": "C:\\Users\\Lan\\.codex\\worktrees\\3fd9\\sanmou_monorepo\\build\\cr03\\venv-py314",
+      "npm_version": "11.9.0",
+      "electron_version": "29.4.6",
+      "playwright_version": "1.58.2"
+    },
+    "port_policy": {
+      "host": "127.0.0.1",
+      "minimum": 49152,
+      "maximum": 65535,
+      "default_max_attempts": 32,
+      "hard_max_attempts": 128,
+      "retry_errors": [
+        "EADDRINUSE",
+        "EACCES"
+      ],
+      "unsafe_candidates_rejected_before_bind": true,
+      "installer_reservation_held_until_launch": true
+    },
+    "runs": {
+      "focused_node20": {
+        "name": "sanmou-e-cr03-node20-focused.log",
+        "sha256": "154cf600077aae54f6373f56c808db556ee4bb563417175429a70ad74b7c6fd8",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "npm_ci": {
+        "name": "sanmou-e-cr03-node20-ci.log",
+        "sha256": "48ec8527c4e3c3b7cbaec8d43d72e21764397ecbbcec1bc96a9473a19db42314",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "typecheck": {
+        "name": "sanmou-e-cr03-node20-typecheck.log",
+        "sha256": "207a8fc4bc101cb9b1bac40a5b742abb72f05afb990354b85339d2cc7d64368c",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "build": {
+        "name": "sanmou-e-cr03-node20-build.log",
+        "sha256": "015106149d24e91040ee36ce542a159083caa8340eb1f52de6c106f6b772368f",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "desktop": {
+        "name": "sanmou-e-cr03-node20-desktop.log",
+        "sha256": "143dcc8a18e98de1e8082f6e1b51fcbd2cda0841e1a7bc7b559413e26cd45aa4",
+        "summary": [
+          "  15 passed (27.5s)\r"
+        ],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "package": {
+        "name": "sanmou-e-cr03-node20-package.log",
+        "sha256": "76a53854cb931084ca1a134d7fd52d78e7c97f214e0125c752bb5644e92c516f",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "api_before_cr06": {
+        "name": "sanmou-e-cr03-py312-api.log",
+        "sha256": "d5de1fb4070dcccb81e7191e92015aca61f891e5bb92a1590a520055392da82d",
+        "summary": [
+          "Ran 10 tests in 0.611s\r"
+        ],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "install_before_cr06_1": {
+        "name": "sanmou-e-cr03-node20-install-1.log",
+        "sha256": "c1c4b1537fe8425fae90fd4a402401e1bc540b3f028a328b5265fdd0b21c749e",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0,
+        "result": {
+          "status": "passed",
+          "apiPort": 50678,
+          "portAllocationAttempts": 1,
+          "readiness": "awaited-http-and-profile-identity",
+          "readinessAttempts": 12,
+          "unsigned": true,
+          "packaged": true,
+          "preload": true,
+          "bundledBackend": true,
+          "mockUpload": true,
+          "runtimeAdmin": false,
+          "gameInput": false
+        }
+      },
+      "install_before_cr06_2": {
+        "name": "sanmou-e-cr03-node20-install-2.log",
+        "sha256": "947914b67dce678a03f9158b2b710e37d74002aea4e2923f43cec35bab0e6e29",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0,
+        "result": {
+          "status": "passed",
+          "apiPort": 56767,
+          "portAllocationAttempts": 1,
+          "readiness": "awaited-http-and-profile-identity",
+          "readinessAttempts": 12,
+          "unsigned": true,
+          "packaged": true,
+          "preload": true,
+          "bundledBackend": true,
+          "mockUpload": true,
+          "runtimeAdmin": false,
+          "gameInput": false
+        }
+      }
+    },
+    "tested_git_blobs": {
+      "apps/sanmou-advisor-desktop/.gitignore": "4c3cc430656c5cc136af709050710fa752d72b6e",
+      "apps/sanmou-advisor-desktop/README.md": "898c237c6f8ba0ba9e1374040a57fe44808d6e28",
+      "apps/sanmou-advisor-desktop/electron-builder.json": "039ac5c5d1f247037982cfde4e3a72429a539e38",
+      "apps/sanmou-advisor-desktop/package-lock.json": "3e193614d95e4f07563d919b4b958fac5d05680c",
+      "apps/sanmou-advisor-desktop/package.json": "54f0e76fe876c18e8431b4a9c937b831838cd50a",
+      "apps/sanmou-advisor-desktop/playwright.config.ts": "04232a46c688cdb49288777fd2817fa1887d6868",
+      "apps/sanmou-advisor-desktop/src/electron/main.ts": "82b6573f05bfb9543636b2b7700197270875491e",
+      "apps/sanmou-advisor-desktop/src/electron/preload.cts": "1bb016831441ec06ae57dbba97996b5749da26dc",
+      "apps/sanmou-advisor-desktop/src/electron/python.ts": "e244f5c62f433230f20848fd10b60065ee6d0aa7",
+      "apps/sanmou-advisor-desktop/src/renderer/App.tsx": "5405accc405d481a99a4a83c35f6c794670bc874",
+      "apps/sanmou-advisor-desktop/src/renderer/api.ts": "4c56c8ac95c3031688593eb50408d4c11c03f4bc",
+      "apps/sanmou-advisor-desktop/tests/advisor-readiness.mjs": "be6f6b8adc7fd3bac580050a573a4823478efb97",
+      "apps/sanmou-advisor-desktop/tests/advisor-readiness.test.mjs": "080e9babfaf1d0e5ff22f6a8130c18ac998c6c55",
+      "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts": "61b503e8e7831133d9f7025297da928df97acae4",
+      "apps/sanmou-advisor-desktop/tests/install-smoke.mjs": "3b129aff14e8a69dc3fa596bb2b0f8ed0efe33a3",
+      "apps/sanmou-advisor-desktop/tests/python.test.mjs": "635404c70e23d83fc70c8ad3ddec1f737ca44cf5",
+      "apps/sanmou-advisor-desktop/tests/safe-ports.mjs": "c0bff318d9a5b5344f360862d78ab50d42c1ea49",
+      "apps/sanmou-advisor-desktop/tests/safe-ports.test.mjs": "cd66fc342dd697e34f8086282a0b18bdbf675910",
+      "apps/sanmou-advisor-desktop/vite.config.ts": "904bddb31326c79d056d2b7f4e8b0df712d2382b",
+      "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py": "ab8480674e99777d43293d020bf13ed91ef75d4b",
+      "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py": "51e2e4732519ce91691ed11ccfce86dce058946c"
+    },
+    "final_combined_artifact": {
+      "name": "Sanmou-Advisor-0.1.0-unsigned-x64.exe",
+      "sha256": "550b87c81fbfb9d90635c025b4badf71d27e5387789aaa193e63e8de88e621be",
+      "signature": "NotSigned",
+      "api_source_sha256": "20a2d22aa36e73fd1668d94b242f8aa12cbf3cd417174b59985ea0c27c31ccc5"
+    },
+    "engine_warnings": [
+      {
+        "package": "@electron/rebuild",
+        "version": "4.2.0",
+        "declared_node": ">=22.12.0"
+      },
+      {
+        "package": "node-abi",
+        "version": "4.35.0",
+        "declared_node": ">=22.12.0"
+      }
+    ],
+    "f_ci_and_chromium_security_unchanged": true
+  },
+  "cr06": {
+    "parent_sha": "5afaec4bb46c91c4c1fd153e0c79670276c1d197",
+    "review_red": {
+      "name": "sanmou-cr-pixel-guard-cleanup-red.log",
+      "sha256": "bbbe2d41a8f894e1d56b688f8e7a5241702221ab510dce5bc891698208a9f989",
+      "summary": [],
+      "failed_tests": [],
+      "skips": [],
+      "exit_code": 1,
+      "proof": {
+        "input_bytes": 69,
+        "pillow_guard": "DecompressionBombError before pixel decoding",
+        "http_status": 500,
+        "remaining_upload_count": 1,
+        "remaining_bytes": 69,
+        "report_written": false
+      }
+    },
+    "runs": {
+      "local_red": {
+        "name": "sanmou-e-cr06-pixel-red.log",
+        "sha256": "2b5d1232beaf6d9488214b6ce7726cbec075d21b66dbaa251ffb14dc2137fa27",
+        "summary": [
+          "Ran 1 test in 0.053s\r",
+          "FAILED (failures=1)\r"
+        ],
+        "failed_tests": [
+          "test_pixel_limit_rejection_returns_413_and_cleans_without_decoding (tests.unit.test_advisor_api_upload_cleanup.AdvisorUploadCleanupTests.test_pixel_limit_rejection_returns_413_and_cleans_without_decoding)\r"
+        ],
+        "skips": [],
+        "exit_code": 1
+      },
+      "api": {
+        "name": "sanmou-e-cr06-api.log",
+        "sha256": "354ea04dc2d81be85e6468a8821a120c714740918ee3ff9564e73925b4901685",
+        "summary": [
+          "Ran 11 tests in 0.405s\r"
+        ],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "desktop_final_source": {
+        "name": "sanmou-e-cr06-node20-desktop.log",
+        "sha256": "f893b0a6ada8488e75b6f08395d948f2a94653b47267b1e29161aff52240176d",
+        "summary": [
+          "  15 passed (20.7s)\r"
+        ],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "package": {
+        "name": "sanmou-e-cr06-node20-package.log",
+        "sha256": "61ff9a7d13e15e1b2a78d6ce06009c9c7e5df6f41b094a70d678ebff144fbf25",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0
+      },
+      "autonomous_focused_fixed": {
+        "name": "sanmou-e-cr06-autonomous-focused.log",
+        "sha256": "7f9eff713efb135b6a311c52f98cb961e331ef298a75a3f4fd5dcbfdf3d5b7e5",
+        "summary": [
+          "Ran 2 tests in 0.098s\r",
+          "FAILED (failures=2)\r"
+        ],
+        "failed_tests": [
+          "test_authorized_low_risk_custom_runner_cannot_forge_post_verification (tests.unit.test_autonomous_loop.AutonomousLoopTests.test_authorized_low_risk_custom_runner_cannot_forge_post_verification)\r",
+          "test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies (tests.unit.test_autonomous_loop.AutonomousLoopTests.test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies)\r"
+        ],
+        "skips": [],
+        "exit_code": 1
+      },
+      "autonomous_focused_baseline": {
+        "name": "sanmou-e-cr06-autonomous-baseline.log",
+        "sha256": "d9c9cad2a201183edf030f2037da7e0bdee396387135c1a0d8cb3fd3ce878e0e",
+        "summary": [
+          "Ran 2 tests in 0.102s\r",
+          "FAILED (failures=1)\r"
+        ],
+        "failed_tests": [
+          "test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies (tests.unit.test_autonomous_loop.AutonomousLoopTests.test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies)\r"
+        ],
+        "skips": [],
+        "exit_code": 1
+      },
+      "autonomous_diagnostic_fixed": {
+        "name": "sanmou-e-cr06-autonomous-diagnostic-fixed.log",
+        "sha256": "55d55495aaa3c831bb5e74f186a68d67bd5ef9888fa2503e90e4b187711c6309",
+        "summary": [
+          "Ran 2 tests in 0.108s\r",
+          "FAILED (failures=1)\r"
+        ],
+        "failed_tests": [
+          "test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies (tests.unit.test_autonomous_loop.AutonomousLoopTests.test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies)\r"
+        ],
+        "skips": [],
+        "exit_code": 1,
+        "tick_results": [
+          {
+            "execution_status": "failed",
+            "verification_status": "failed",
+            "failure_reason": "post-action verifier failed: expected progress.chapter_claimable to be False, got True"
+          },
+          {
+            "execution_status": "failed",
+            "verification_status": "unknown",
+            "failure_reason": "post-action verifier failed: post-action observation was not captured after dispatch"
+          }
+        ]
+      },
+      "autonomous_diagnostic_baseline": {
+        "name": "sanmou-e-cr06-autonomous-diagnostic-base.log",
+        "sha256": "6d2ea717232ea25a42989e089c78980e0d576a84eacca1fd743d30e65cf7a949",
+        "summary": [
+          "Ran 2 tests in 0.105s\r",
+          "FAILED (failures=2)\r"
+        ],
+        "failed_tests": [
+          "test_authorized_low_risk_custom_runner_cannot_forge_post_verification (tests.unit.test_autonomous_loop.AutonomousLoopTests.test_authorized_low_risk_custom_runner_cannot_forge_post_verification)\r",
+          "test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies (tests.unit.test_autonomous_loop.AutonomousLoopTests.test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies)\r"
+        ],
+        "skips": [],
+        "exit_code": 1,
+        "tick_results": [
+          {
+            "execution_status": "failed",
+            "verification_status": "unknown",
+            "failure_reason": "post-action verifier failed: post-action observation was not captured after dispatch"
+          },
+          {
+            "execution_status": "failed",
+            "verification_status": "unknown",
+            "failure_reason": "post-action verifier failed: post-action observation was not captured after dispatch"
+          }
+        ]
+      },
+      "install_1": {
+        "name": "sanmou-e-cr06-node20-install-1.log",
+        "sha256": "e726965c4bf6b480189b8041ca4c21c18cad27aa5db1cf8de2e515104ddbd38a",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0,
+        "result": {
+          "status": "passed",
+          "apiPort": 63715,
+          "portAllocationAttempts": 1,
+          "readiness": "awaited-http-and-profile-identity",
+          "readinessAttempts": 13,
+          "unsigned": true,
+          "packaged": true,
+          "preload": true,
+          "bundledBackend": true,
+          "bundledApiSha256": "20a2d22aa36e73fd1668d94b242f8aa12cbf3cd417174b59985ea0c27c31ccc5",
+          "pixelLimitRejected": true,
+          "mockUpload": true,
+          "runtimeAdmin": false,
+          "gameInput": false
+        }
+      },
+      "install_2": {
+        "name": "sanmou-e-cr06-node20-install-2.log",
+        "sha256": "d45f18cf3d4d70fa4a040eec87f065b7767e2a1e7f279c09d7b58eff1e38ac4f",
+        "summary": [],
+        "failed_tests": [],
+        "skips": [],
+        "exit_code": 0,
+        "result": {
+          "status": "passed",
+          "apiPort": 59920,
+          "portAllocationAttempts": 1,
+          "readiness": "awaited-http-and-profile-identity",
+          "readinessAttempts": 12,
+          "unsigned": true,
+          "packaged": true,
+          "preload": true,
+          "bundledBackend": true,
+          "bundledApiSha256": "20a2d22aa36e73fd1668d94b242f8aa12cbf3cd417174b59985ea0c27c31ccc5",
+          "pixelLimitRejected": true,
+          "mockUpload": true,
+          "runtimeAdmin": false,
+          "gameInput": false
+        }
+      }
+    },
+    "pixel_guard": {
+      "max_image_pixels": 89478485,
+      "input_bytes": 69,
+      "advertised_size": [
+        20000,
+        20000
+      ],
+      "pixel_decode_calls": 0,
+      "limit_unchanged": true,
+      "http_status": 413,
+      "remaining_uploads": 0,
+      "remaining_bytes": 0,
+      "report_created_for_rejection": false
+    },
+    "api_before_git_blob": "0f2086e59d4a457fdfe896cf802342e7f06e4956",
+    "api_after_git_blob": "ab8480674e99777d43293d020bf13ed91ef75d4b",
+    "unchanged_red_green_test_git_blob": "51e2e4732519ce91691ed11ccfce86dce058946c",
+    "package_comparison": {
+      "baseline": {
+        "name": "sanmou-e-cr06-py312-baseline.log",
+        "sha256": "e456a2eacd310491dda643897d45086dfd1034b4c40e3fbd22af65d7fb51d239",
+        "summary": [
+          "Ran 764 tests in 49.932s\r",
+          "FAILED (failures=10, errors=29, skipped=9)\r"
+        ],
+        "failed_tests": [
+          "unit.test_agent_harness_game_mcp_integration (unittest.loader._FailedTest.unit.test_agent_harness_game_mcp_integration)\r",
+          "test_official_stdio_clients_bind_real_game_and_qa_servers (unit.test_agent_harness_stdio_client.AgentHarnessStdioClientTests.test_official_stdio_clients_bind_real_game_and_qa_servers)\r",
+          "unit.test_game_mcp_live_provider (unittest.loader._FailedTest.unit.test_game_mcp_live_provider)\r",
+          "unit.test_game_mcp_server (unittest.loader._FailedTest.unit.test_game_mcp_server)\r",
+          "test_fixture_evaluation_is_closed_root_and_never_uses_live_provider (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluation_is_closed_root_and_never_uses_live_provider)\r",
+          "test_fixture_evaluator_never_imports_or_calls_runner_modules (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_never_imports_or_calls_runner_modules)\r",
+          "test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path)\r",
+          "test_fixture_read_is_bounded_no_follow_and_hardlink_safe (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_read_is_bounded_no_follow_and_hardlink_safe)\r",
+          "test_real_fixture_evaluator_returns_advisory_projection (unit.test_game_mcp_service.GameMCPServiceTests.test_real_fixture_evaluator_returns_advisory_projection)\r",
+          "test_link_replacement_of_annotation_after_load_fails_closed (unit.test_map_filter_transition.MapFilterTransitionTests.test_link_replacement_of_annotation_after_load_fails_closed)\r",
+          "test_artifacts_are_write_once_and_holdout_report_has_no_labels (unit.test_mcp_eval.McpEvalTests.test_artifacts_are_write_once_and_holdout_report_has_no_labels)\r",
+          "test_checked_in_battery_covers_session_c_scenarios (unit.test_mcp_eval.McpEvalTests.test_checked_in_battery_covers_session_c_scenarios)\r",
+          "test_checked_in_golden_manifest_is_evaluated_and_digest_bound (unit.test_mcp_eval.McpEvalTests.test_checked_in_golden_manifest_is_evaluated_and_digest_bound)\r",
+          "test_cli_emits_paths_and_safety_boundary (unit.test_mcp_eval.McpEvalTests.test_cli_emits_paths_and_safety_boundary)\r",
+          "test_run_manifest_is_versioned_and_binds_inputs_and_tool_log (unit.test_mcp_eval.McpEvalTests.test_run_manifest_is_versioned_and_binds_inputs_and_tool_log)\r",
+          "test_sensorium_reports_stale_and_missed_risk_domains (unit.test_mcp_eval.McpEvalTests.test_sensorium_reports_stale_and_missed_risk_domains)\r",
+          "test_static_runner_scores_generation_and_never_scores_holdout (unit.test_mcp_eval.McpEvalTests.test_static_runner_scores_generation_and_never_scores_holdout)\r",
+          "test_closed_catalog_verifies_cross_registry_and_declared_lineage_only (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_catalog_verifies_cross_registry_and_declared_lineage_only)\r",
+          "test_attestation_binds_the_exact_trust_policy (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_binds_the_exact_trust_policy)\r",
+          "test_attestation_output_is_create_once (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_output_is_create_once)\r",
+          "test_external_evaluator_allows_only_one_signed_submission_per_catalog (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_evaluator_allows_only_one_signed_submission_per_catalog)\r",
+          "test_external_scorer_signs_aggregate_without_releasing_labels (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_scorer_signs_aggregate_without_releasing_labels)\r",
+          "test_oracle_must_match_approved_holdout_annotations (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_oracle_must_match_approved_holdout_annotations)\r",
+          "test_ordinary_cli_inspects_submission_without_oracle_surface (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_ordinary_cli_inspects_submission_without_oracle_surface)\r",
+          "test_submission_must_cover_exact_holdout_set_and_inputs (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_submission_must_cover_exact_holdout_set_and_inputs)\r",
+          "test_tampered_signed_aggregate_is_rejected (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_tampered_signed_aggregate_is_rejected)\r",
+          "test_valid_but_inaccurate_submission_remains_blocked (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_valid_but_inaccurate_submission_remains_blocked)\r",
+          "test_escalations_are_edge_triggered_not_per_tick (unit.test_runbook_loop_integration.RunbookFixRegressionTests.test_escalations_are_edge_triggered_not_per_tick)\r",
+          "test_single_instance_lock_excludes_second_holder (unit.test_runbook_loop_integration.RunbookStateStoreTests.test_single_instance_lock_excludes_second_holder)\r",
+          "test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies)\r",
+          "test_tick_fails_action_when_post_action_verifier_does_not_match (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_fails_action_when_post_action_verifier_does_not_match)\r",
+          "test_tick_runs_post_action_verifier_after_low_risk_click (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_runs_post_action_verifier_after_low_risk_click)\r",
+          "test_trace_records_post_action_verifier_payload (unit.test_autonomous_loop.AutonomousLoopTests.test_trace_records_post_action_verifier_payload)\r",
+          "test_qa_subprocess_does_not_inherit_secret_environment (unit.test_game_agent_cli.GameAgentCliTests.test_qa_subprocess_does_not_inherit_secret_environment)\r",
+          "test_cli_audits_corpus_without_exposing_local_paths (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cli_audits_corpus_without_exposing_local_paths)\r",
+          "test_closed_roots_reject_undeclared_files (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_roots_reject_undeclared_files)\r",
+          "test_cross_registry_exact_frame_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_exact_frame_clone_is_rejected)\r",
+          "test_cross_registry_reencoded_visual_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_reencoded_visual_clone_is_rejected)\r",
+          "test_development_lineage_cycle_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_development_lineage_cycle_is_rejected)\r"
+        ],
+        "skips": [
+          "test_rejects_symlinked_annotation (unit.test_record_replay_annotations.RecordReplayAnnotationTests.test_rejects_symlinked_annotation) ... skipped 'symlink creation is not reliable on Windows CI'",
+          "test_rejects_symlinked_compiled_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_compiled_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+          "test_rejects_symlinked_draft_skill_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_draft_skill_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+          "test_hardlinked_raw_artifact_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_hardlinked_raw_artifact_is_rejected) ... skipped 'hardlink semantics are exercised on the WSL host'",
+          "test_symlinked_or_hardlinked_review_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_symlinked_or_hardlinked_review_is_rejected) ... skipped 'link semantics are exercised on the WSL host'",
+          "test_attestation_write_rejects_concurrent_hardlink (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_write_rejects_concurrent_hardlink) ... skipped 'hardlink race probe is POSIX-specific'",
+          "test_external_private_key_must_not_be_group_or_world_readable (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_private_key_must_not_be_group_or_world_readable) ... skipped 'POSIX permission bits are not Windows ACLs'",
+          "test_rejects_symlinked_frame (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_frame) ... skipped 'symlink semantics are covered on the WSL test host'",
+          "test_rejects_symlinked_manifest_and_events (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_manifest_and_events) ... skipped 'symlink semantics are covered on the WSL test host'"
+        ],
+        "exit_code": 1
+      },
+      "fixed": {
+        "name": "sanmou-e-cr06-py312-full.log",
+        "sha256": "abc51c6f1e813b6224cd19bf1f256cb64a303185d480d5ece10e45761bdcdd3b",
+        "summary": [
+          "Ran 769 tests in 46.475s\r",
+          "FAILED (failures=10, errors=29, skipped=9)\r"
+        ],
+        "failed_tests": [
+          "unit.test_agent_harness_game_mcp_integration (unittest.loader._FailedTest.unit.test_agent_harness_game_mcp_integration)\r",
+          "test_official_stdio_clients_bind_real_game_and_qa_servers (unit.test_agent_harness_stdio_client.AgentHarnessStdioClientTests.test_official_stdio_clients_bind_real_game_and_qa_servers)\r",
+          "unit.test_game_mcp_live_provider (unittest.loader._FailedTest.unit.test_game_mcp_live_provider)\r",
+          "unit.test_game_mcp_server (unittest.loader._FailedTest.unit.test_game_mcp_server)\r",
+          "test_fixture_evaluation_is_closed_root_and_never_uses_live_provider (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluation_is_closed_root_and_never_uses_live_provider)\r",
+          "test_fixture_evaluator_never_imports_or_calls_runner_modules (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_never_imports_or_calls_runner_modules)\r",
+          "test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path)\r",
+          "test_fixture_read_is_bounded_no_follow_and_hardlink_safe (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_read_is_bounded_no_follow_and_hardlink_safe)\r",
+          "test_real_fixture_evaluator_returns_advisory_projection (unit.test_game_mcp_service.GameMCPServiceTests.test_real_fixture_evaluator_returns_advisory_projection)\r",
+          "test_link_replacement_of_annotation_after_load_fails_closed (unit.test_map_filter_transition.MapFilterTransitionTests.test_link_replacement_of_annotation_after_load_fails_closed)\r",
+          "test_artifacts_are_write_once_and_holdout_report_has_no_labels (unit.test_mcp_eval.McpEvalTests.test_artifacts_are_write_once_and_holdout_report_has_no_labels)\r",
+          "test_checked_in_battery_covers_session_c_scenarios (unit.test_mcp_eval.McpEvalTests.test_checked_in_battery_covers_session_c_scenarios)\r",
+          "test_checked_in_golden_manifest_is_evaluated_and_digest_bound (unit.test_mcp_eval.McpEvalTests.test_checked_in_golden_manifest_is_evaluated_and_digest_bound)\r",
+          "test_cli_emits_paths_and_safety_boundary (unit.test_mcp_eval.McpEvalTests.test_cli_emits_paths_and_safety_boundary)\r",
+          "test_run_manifest_is_versioned_and_binds_inputs_and_tool_log (unit.test_mcp_eval.McpEvalTests.test_run_manifest_is_versioned_and_binds_inputs_and_tool_log)\r",
+          "test_sensorium_reports_stale_and_missed_risk_domains (unit.test_mcp_eval.McpEvalTests.test_sensorium_reports_stale_and_missed_risk_domains)\r",
+          "test_static_runner_scores_generation_and_never_scores_holdout (unit.test_mcp_eval.McpEvalTests.test_static_runner_scores_generation_and_never_scores_holdout)\r",
+          "test_closed_catalog_verifies_cross_registry_and_declared_lineage_only (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_catalog_verifies_cross_registry_and_declared_lineage_only)\r",
+          "test_attestation_binds_the_exact_trust_policy (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_binds_the_exact_trust_policy)\r",
+          "test_attestation_output_is_create_once (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_output_is_create_once)\r",
+          "test_external_evaluator_allows_only_one_signed_submission_per_catalog (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_evaluator_allows_only_one_signed_submission_per_catalog)\r",
+          "test_external_scorer_signs_aggregate_without_releasing_labels (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_scorer_signs_aggregate_without_releasing_labels)\r",
+          "test_oracle_must_match_approved_holdout_annotations (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_oracle_must_match_approved_holdout_annotations)\r",
+          "test_ordinary_cli_inspects_submission_without_oracle_surface (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_ordinary_cli_inspects_submission_without_oracle_surface)\r",
+          "test_submission_must_cover_exact_holdout_set_and_inputs (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_submission_must_cover_exact_holdout_set_and_inputs)\r",
+          "test_tampered_signed_aggregate_is_rejected (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_tampered_signed_aggregate_is_rejected)\r",
+          "test_valid_but_inaccurate_submission_remains_blocked (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_valid_but_inaccurate_submission_remains_blocked)\r",
+          "test_escalations_are_edge_triggered_not_per_tick (unit.test_runbook_loop_integration.RunbookFixRegressionTests.test_escalations_are_edge_triggered_not_per_tick)\r",
+          "test_single_instance_lock_excludes_second_holder (unit.test_runbook_loop_integration.RunbookStateStoreTests.test_single_instance_lock_excludes_second_holder)\r",
+          "test_authorized_low_risk_custom_runner_cannot_forge_post_verification (unit.test_autonomous_loop.AutonomousLoopTests.test_authorized_low_risk_custom_runner_cannot_forge_post_verification)\r",
+          "test_tick_fails_action_when_post_action_verifier_does_not_match (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_fails_action_when_post_action_verifier_does_not_match)\r",
+          "test_tick_runs_post_action_verifier_after_low_risk_click (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_runs_post_action_verifier_after_low_risk_click)\r",
+          "test_trace_records_post_action_verifier_payload (unit.test_autonomous_loop.AutonomousLoopTests.test_trace_records_post_action_verifier_payload)\r",
+          "test_qa_subprocess_does_not_inherit_secret_environment (unit.test_game_agent_cli.GameAgentCliTests.test_qa_subprocess_does_not_inherit_secret_environment)\r",
+          "test_cli_audits_corpus_without_exposing_local_paths (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cli_audits_corpus_without_exposing_local_paths)\r",
+          "test_closed_roots_reject_undeclared_files (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_roots_reject_undeclared_files)\r",
+          "test_cross_registry_exact_frame_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_exact_frame_clone_is_rejected)\r",
+          "test_cross_registry_reencoded_visual_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_reencoded_visual_clone_is_rejected)\r",
+          "test_development_lineage_cycle_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_development_lineage_cycle_is_rejected)\r"
+        ],
+        "skips": [
+          "test_rejects_symlinked_annotation (unit.test_record_replay_annotations.RecordReplayAnnotationTests.test_rejects_symlinked_annotation) ... skipped 'symlink creation is not reliable on Windows CI'",
+          "test_rejects_symlinked_compiled_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_compiled_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+          "test_rejects_symlinked_draft_skill_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_draft_skill_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+          "test_hardlinked_raw_artifact_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_hardlinked_raw_artifact_is_rejected) ... skipped 'hardlink semantics are exercised on the WSL host'",
+          "test_symlinked_or_hardlinked_review_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_symlinked_or_hardlinked_review_is_rejected) ... skipped 'link semantics are exercised on the WSL host'",
+          "test_attestation_write_rejects_concurrent_hardlink (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_write_rejects_concurrent_hardlink) ... skipped 'hardlink race probe is POSIX-specific'",
+          "test_external_private_key_must_not_be_group_or_world_readable (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_private_key_must_not_be_group_or_world_readable) ... skipped 'POSIX permission bits are not Windows ACLs'",
+          "test_rejects_symlinked_frame (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_frame) ... skipped 'symlink semantics are covered on the WSL test host'",
+          "test_rejects_symlinked_manifest_and_events (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_manifest_and_events) ... skipped 'symlink semantics are covered on the WSL test host'"
+        ],
+        "exit_code": 1
+      },
+      "only_fixed": [
+        "test_authorized_low_risk_custom_runner_cannot_forge_post_verification (unit.test_autonomous_loop.AutonomousLoopTests.test_authorized_low_risk_custom_runner_cannot_forge_post_verification)\r"
+      ],
+      "only_baseline": [
+        "test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies)\r"
+      ],
+      "shared_failure_count": 38,
+      "identical_skips": true,
+      "interpretation": "Not a full pass and primary failure sets differ. Both timestamp cases fail on baseline/current in focused diagnostic runs; preserve all results."
+    },
+    "diagnostic_script": {
+      "name": "sanmou-e-cr06-autonomous-diagnostic.py",
+      "sha256": "82e5c8595e8c783f08645bd3048da2b29f006f41218234eeba9a92cd7ad14d40",
+      "summary": [],
+      "failed_tests": [],
+      "skips": []
+    },
+    "diagnostic_note": "Only prints original tick result after return; keeps original assertions, clocks and native stderr. Distinct earlier Python-exited installer observation remains unexplained.",
+    "final_artifact": {
+      "name": "Sanmou-Advisor-0.1.0-unsigned-x64.exe",
+      "sha256": "550b87c81fbfb9d90635c025b4badf71d27e5387789aaa193e63e8de88e621be",
+      "signature": "NotSigned",
+      "api_source_sha256": "20a2d22aa36e73fd1668d94b242f8aa12cbf3cd417174b59985ea0c27c31ccc5"
+    }
+  },
+  "final_tested_git_blobs": {
+    "apps/sanmou-advisor-desktop/.gitignore": "4c3cc430656c5cc136af709050710fa752d72b6e",
+    "apps/sanmou-advisor-desktop/README.md": "898c237c6f8ba0ba9e1374040a57fe44808d6e28",
+    "apps/sanmou-advisor-desktop/electron-builder.json": "039ac5c5d1f247037982cfde4e3a72429a539e38",
+    "apps/sanmou-advisor-desktop/package-lock.json": "3e193614d95e4f07563d919b4b958fac5d05680c",
+    "apps/sanmou-advisor-desktop/package.json": "54f0e76fe876c18e8431b4a9c937b831838cd50a",
+    "apps/sanmou-advisor-desktop/playwright.config.ts": "04232a46c688cdb49288777fd2817fa1887d6868",
+    "apps/sanmou-advisor-desktop/src/electron/main.ts": "82b6573f05bfb9543636b2b7700197270875491e",
+    "apps/sanmou-advisor-desktop/src/electron/preload.cts": "1bb016831441ec06ae57dbba97996b5749da26dc",
+    "apps/sanmou-advisor-desktop/src/electron/python.ts": "e244f5c62f433230f20848fd10b60065ee6d0aa7",
+    "apps/sanmou-advisor-desktop/src/renderer/App.tsx": "5405accc405d481a99a4a83c35f6c794670bc874",
+    "apps/sanmou-advisor-desktop/src/renderer/api.ts": "4c56c8ac95c3031688593eb50408d4c11c03f4bc",
+    "apps/sanmou-advisor-desktop/tests/advisor-readiness.mjs": "be6f6b8adc7fd3bac580050a573a4823478efb97",
+    "apps/sanmou-advisor-desktop/tests/advisor-readiness.test.mjs": "080e9babfaf1d0e5ff22f6a8130c18ac998c6c55",
+    "apps/sanmou-advisor-desktop/tests/electron/regressions.spec.ts": "61b503e8e7831133d9f7025297da928df97acae4",
+    "apps/sanmou-advisor-desktop/tests/install-smoke.mjs": "3b129aff14e8a69dc3fa596bb2b0f8ed0efe33a3",
+    "apps/sanmou-advisor-desktop/tests/python.test.mjs": "635404c70e23d83fc70c8ad3ddec1f737ca44cf5",
+    "apps/sanmou-advisor-desktop/tests/safe-ports.mjs": "c0bff318d9a5b5344f360862d78ab50d42c1ea49",
+    "apps/sanmou-advisor-desktop/tests/safe-ports.test.mjs": "cd66fc342dd697e34f8086282a0b18bdbf675910",
+    "apps/sanmou-advisor-desktop/vite.config.ts": "904bddb31326c79d056d2b7f4e8b0df712d2382b",
+    "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py": "ab8480674e99777d43293d020bf13ed91ef75d4b",
+    "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py": "51e2e4732519ce91691ed11ccfce86dce058946c"
+  },
+  "windows_python312": {
+    "baseline": {
+      "name": "sanmou-e-cr06-py312-baseline.log",
+      "sha256": "e456a2eacd310491dda643897d45086dfd1034b4c40e3fbd22af65d7fb51d239",
+      "summary": [
+        "Ran 764 tests in 49.932s\r",
+        "FAILED (failures=10, errors=29, skipped=9)\r"
+      ],
+      "failed_tests": [
+        "unit.test_agent_harness_game_mcp_integration (unittest.loader._FailedTest.unit.test_agent_harness_game_mcp_integration)\r",
+        "test_official_stdio_clients_bind_real_game_and_qa_servers (unit.test_agent_harness_stdio_client.AgentHarnessStdioClientTests.test_official_stdio_clients_bind_real_game_and_qa_servers)\r",
+        "unit.test_game_mcp_live_provider (unittest.loader._FailedTest.unit.test_game_mcp_live_provider)\r",
+        "unit.test_game_mcp_server (unittest.loader._FailedTest.unit.test_game_mcp_server)\r",
+        "test_fixture_evaluation_is_closed_root_and_never_uses_live_provider (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluation_is_closed_root_and_never_uses_live_provider)\r",
+        "test_fixture_evaluator_never_imports_or_calls_runner_modules (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_never_imports_or_calls_runner_modules)\r",
+        "test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path)\r",
+        "test_fixture_read_is_bounded_no_follow_and_hardlink_safe (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_read_is_bounded_no_follow_and_hardlink_safe)\r",
+        "test_real_fixture_evaluator_returns_advisory_projection (unit.test_game_mcp_service.GameMCPServiceTests.test_real_fixture_evaluator_returns_advisory_projection)\r",
+        "test_link_replacement_of_annotation_after_load_fails_closed (unit.test_map_filter_transition.MapFilterTransitionTests.test_link_replacement_of_annotation_after_load_fails_closed)\r",
+        "test_artifacts_are_write_once_and_holdout_report_has_no_labels (unit.test_mcp_eval.McpEvalTests.test_artifacts_are_write_once_and_holdout_report_has_no_labels)\r",
+        "test_checked_in_battery_covers_session_c_scenarios (unit.test_mcp_eval.McpEvalTests.test_checked_in_battery_covers_session_c_scenarios)\r",
+        "test_checked_in_golden_manifest_is_evaluated_and_digest_bound (unit.test_mcp_eval.McpEvalTests.test_checked_in_golden_manifest_is_evaluated_and_digest_bound)\r",
+        "test_cli_emits_paths_and_safety_boundary (unit.test_mcp_eval.McpEvalTests.test_cli_emits_paths_and_safety_boundary)\r",
+        "test_run_manifest_is_versioned_and_binds_inputs_and_tool_log (unit.test_mcp_eval.McpEvalTests.test_run_manifest_is_versioned_and_binds_inputs_and_tool_log)\r",
+        "test_sensorium_reports_stale_and_missed_risk_domains (unit.test_mcp_eval.McpEvalTests.test_sensorium_reports_stale_and_missed_risk_domains)\r",
+        "test_static_runner_scores_generation_and_never_scores_holdout (unit.test_mcp_eval.McpEvalTests.test_static_runner_scores_generation_and_never_scores_holdout)\r",
+        "test_closed_catalog_verifies_cross_registry_and_declared_lineage_only (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_catalog_verifies_cross_registry_and_declared_lineage_only)\r",
+        "test_attestation_binds_the_exact_trust_policy (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_binds_the_exact_trust_policy)\r",
+        "test_attestation_output_is_create_once (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_output_is_create_once)\r",
+        "test_external_evaluator_allows_only_one_signed_submission_per_catalog (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_evaluator_allows_only_one_signed_submission_per_catalog)\r",
+        "test_external_scorer_signs_aggregate_without_releasing_labels (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_scorer_signs_aggregate_without_releasing_labels)\r",
+        "test_oracle_must_match_approved_holdout_annotations (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_oracle_must_match_approved_holdout_annotations)\r",
+        "test_ordinary_cli_inspects_submission_without_oracle_surface (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_ordinary_cli_inspects_submission_without_oracle_surface)\r",
+        "test_submission_must_cover_exact_holdout_set_and_inputs (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_submission_must_cover_exact_holdout_set_and_inputs)\r",
+        "test_tampered_signed_aggregate_is_rejected (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_tampered_signed_aggregate_is_rejected)\r",
+        "test_valid_but_inaccurate_submission_remains_blocked (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_valid_but_inaccurate_submission_remains_blocked)\r",
+        "test_escalations_are_edge_triggered_not_per_tick (unit.test_runbook_loop_integration.RunbookFixRegressionTests.test_escalations_are_edge_triggered_not_per_tick)\r",
+        "test_single_instance_lock_excludes_second_holder (unit.test_runbook_loop_integration.RunbookStateStoreTests.test_single_instance_lock_excludes_second_holder)\r",
+        "test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies)\r",
+        "test_tick_fails_action_when_post_action_verifier_does_not_match (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_fails_action_when_post_action_verifier_does_not_match)\r",
+        "test_tick_runs_post_action_verifier_after_low_risk_click (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_runs_post_action_verifier_after_low_risk_click)\r",
+        "test_trace_records_post_action_verifier_payload (unit.test_autonomous_loop.AutonomousLoopTests.test_trace_records_post_action_verifier_payload)\r",
+        "test_qa_subprocess_does_not_inherit_secret_environment (unit.test_game_agent_cli.GameAgentCliTests.test_qa_subprocess_does_not_inherit_secret_environment)\r",
+        "test_cli_audits_corpus_without_exposing_local_paths (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cli_audits_corpus_without_exposing_local_paths)\r",
+        "test_closed_roots_reject_undeclared_files (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_roots_reject_undeclared_files)\r",
+        "test_cross_registry_exact_frame_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_exact_frame_clone_is_rejected)\r",
+        "test_cross_registry_reencoded_visual_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_reencoded_visual_clone_is_rejected)\r",
+        "test_development_lineage_cycle_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_development_lineage_cycle_is_rejected)\r"
+      ],
+      "skips": [
+        "test_rejects_symlinked_annotation (unit.test_record_replay_annotations.RecordReplayAnnotationTests.test_rejects_symlinked_annotation) ... skipped 'symlink creation is not reliable on Windows CI'",
+        "test_rejects_symlinked_compiled_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_compiled_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_rejects_symlinked_draft_skill_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_draft_skill_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_hardlinked_raw_artifact_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_hardlinked_raw_artifact_is_rejected) ... skipped 'hardlink semantics are exercised on the WSL host'",
+        "test_symlinked_or_hardlinked_review_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_symlinked_or_hardlinked_review_is_rejected) ... skipped 'link semantics are exercised on the WSL host'",
+        "test_attestation_write_rejects_concurrent_hardlink (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_write_rejects_concurrent_hardlink) ... skipped 'hardlink race probe is POSIX-specific'",
+        "test_external_private_key_must_not_be_group_or_world_readable (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_private_key_must_not_be_group_or_world_readable) ... skipped 'POSIX permission bits are not Windows ACLs'",
+        "test_rejects_symlinked_frame (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_frame) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_rejects_symlinked_manifest_and_events (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_manifest_and_events) ... skipped 'symlink semantics are covered on the WSL test host'"
+      ],
+      "exit_code": 1
+    },
+    "fixed": {
+      "name": "sanmou-e-cr06-py312-full.log",
+      "sha256": "abc51c6f1e813b6224cd19bf1f256cb64a303185d480d5ece10e45761bdcdd3b",
+      "summary": [
+        "Ran 769 tests in 46.475s\r",
+        "FAILED (failures=10, errors=29, skipped=9)\r"
+      ],
+      "failed_tests": [
+        "unit.test_agent_harness_game_mcp_integration (unittest.loader._FailedTest.unit.test_agent_harness_game_mcp_integration)\r",
+        "test_official_stdio_clients_bind_real_game_and_qa_servers (unit.test_agent_harness_stdio_client.AgentHarnessStdioClientTests.test_official_stdio_clients_bind_real_game_and_qa_servers)\r",
+        "unit.test_game_mcp_live_provider (unittest.loader._FailedTest.unit.test_game_mcp_live_provider)\r",
+        "unit.test_game_mcp_server (unittest.loader._FailedTest.unit.test_game_mcp_server)\r",
+        "test_fixture_evaluation_is_closed_root_and_never_uses_live_provider (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluation_is_closed_root_and_never_uses_live_provider)\r",
+        "test_fixture_evaluator_never_imports_or_calls_runner_modules (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_never_imports_or_calls_runner_modules)\r",
+        "test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path)\r",
+        "test_fixture_read_is_bounded_no_follow_and_hardlink_safe (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_read_is_bounded_no_follow_and_hardlink_safe)\r",
+        "test_real_fixture_evaluator_returns_advisory_projection (unit.test_game_mcp_service.GameMCPServiceTests.test_real_fixture_evaluator_returns_advisory_projection)\r",
+        "test_link_replacement_of_annotation_after_load_fails_closed (unit.test_map_filter_transition.MapFilterTransitionTests.test_link_replacement_of_annotation_after_load_fails_closed)\r",
+        "test_artifacts_are_write_once_and_holdout_report_has_no_labels (unit.test_mcp_eval.McpEvalTests.test_artifacts_are_write_once_and_holdout_report_has_no_labels)\r",
+        "test_checked_in_battery_covers_session_c_scenarios (unit.test_mcp_eval.McpEvalTests.test_checked_in_battery_covers_session_c_scenarios)\r",
+        "test_checked_in_golden_manifest_is_evaluated_and_digest_bound (unit.test_mcp_eval.McpEvalTests.test_checked_in_golden_manifest_is_evaluated_and_digest_bound)\r",
+        "test_cli_emits_paths_and_safety_boundary (unit.test_mcp_eval.McpEvalTests.test_cli_emits_paths_and_safety_boundary)\r",
+        "test_run_manifest_is_versioned_and_binds_inputs_and_tool_log (unit.test_mcp_eval.McpEvalTests.test_run_manifest_is_versioned_and_binds_inputs_and_tool_log)\r",
+        "test_sensorium_reports_stale_and_missed_risk_domains (unit.test_mcp_eval.McpEvalTests.test_sensorium_reports_stale_and_missed_risk_domains)\r",
+        "test_static_runner_scores_generation_and_never_scores_holdout (unit.test_mcp_eval.McpEvalTests.test_static_runner_scores_generation_and_never_scores_holdout)\r",
+        "test_closed_catalog_verifies_cross_registry_and_declared_lineage_only (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_catalog_verifies_cross_registry_and_declared_lineage_only)\r",
+        "test_attestation_binds_the_exact_trust_policy (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_binds_the_exact_trust_policy)\r",
+        "test_attestation_output_is_create_once (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_output_is_create_once)\r",
+        "test_external_evaluator_allows_only_one_signed_submission_per_catalog (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_evaluator_allows_only_one_signed_submission_per_catalog)\r",
+        "test_external_scorer_signs_aggregate_without_releasing_labels (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_scorer_signs_aggregate_without_releasing_labels)\r",
+        "test_oracle_must_match_approved_holdout_annotations (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_oracle_must_match_approved_holdout_annotations)\r",
+        "test_ordinary_cli_inspects_submission_without_oracle_surface (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_ordinary_cli_inspects_submission_without_oracle_surface)\r",
+        "test_submission_must_cover_exact_holdout_set_and_inputs (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_submission_must_cover_exact_holdout_set_and_inputs)\r",
+        "test_tampered_signed_aggregate_is_rejected (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_tampered_signed_aggregate_is_rejected)\r",
+        "test_valid_but_inaccurate_submission_remains_blocked (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_valid_but_inaccurate_submission_remains_blocked)\r",
+        "test_escalations_are_edge_triggered_not_per_tick (unit.test_runbook_loop_integration.RunbookFixRegressionTests.test_escalations_are_edge_triggered_not_per_tick)\r",
+        "test_single_instance_lock_excludes_second_holder (unit.test_runbook_loop_integration.RunbookStateStoreTests.test_single_instance_lock_excludes_second_holder)\r",
+        "test_authorized_low_risk_custom_runner_cannot_forge_post_verification (unit.test_autonomous_loop.AutonomousLoopTests.test_authorized_low_risk_custom_runner_cannot_forge_post_verification)\r",
+        "test_tick_fails_action_when_post_action_verifier_does_not_match (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_fails_action_when_post_action_verifier_does_not_match)\r",
+        "test_tick_runs_post_action_verifier_after_low_risk_click (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_runs_post_action_verifier_after_low_risk_click)\r",
+        "test_trace_records_post_action_verifier_payload (unit.test_autonomous_loop.AutonomousLoopTests.test_trace_records_post_action_verifier_payload)\r",
+        "test_qa_subprocess_does_not_inherit_secret_environment (unit.test_game_agent_cli.GameAgentCliTests.test_qa_subprocess_does_not_inherit_secret_environment)\r",
+        "test_cli_audits_corpus_without_exposing_local_paths (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cli_audits_corpus_without_exposing_local_paths)\r",
+        "test_closed_roots_reject_undeclared_files (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_closed_roots_reject_undeclared_files)\r",
+        "test_cross_registry_exact_frame_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_exact_frame_clone_is_rejected)\r",
+        "test_cross_registry_reencoded_visual_clone_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_cross_registry_reencoded_visual_clone_is_rejected)\r",
+        "test_development_lineage_cycle_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayCorpusCatalogTests.test_development_lineage_cycle_is_rejected)\r"
+      ],
+      "skips": [
+        "test_rejects_symlinked_annotation (unit.test_record_replay_annotations.RecordReplayAnnotationTests.test_rejects_symlinked_annotation) ... skipped 'symlink creation is not reliable on Windows CI'",
+        "test_rejects_symlinked_compiled_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_compiled_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_rejects_symlinked_draft_skill_directory (unit.test_record_replay_compiler.RecordReplayCompilerTests.test_rejects_symlinked_draft_skill_directory) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_hardlinked_raw_artifact_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_hardlinked_raw_artifact_is_rejected) ... skipped 'hardlink semantics are exercised on the WSL host'",
+        "test_symlinked_or_hardlinked_review_is_rejected (unit.test_record_replay_dataset_registry.RecordReplayDatasetRegistryTests.test_symlinked_or_hardlinked_review_is_rejected) ... skipped 'link semantics are exercised on the WSL host'",
+        "test_attestation_write_rejects_concurrent_hardlink (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_attestation_write_rejects_concurrent_hardlink) ... skipped 'hardlink race probe is POSIX-specific'",
+        "test_external_private_key_must_not_be_group_or_world_readable (unit.test_record_replay_holdout_eval.RecordReplayHoldoutEvalTests.test_external_private_key_must_not_be_group_or_world_readable) ... skipped 'POSIX permission bits are not Windows ACLs'",
+        "test_rejects_symlinked_frame (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_frame) ... skipped 'symlink semantics are covered on the WSL test host'",
+        "test_rejects_symlinked_manifest_and_events (unit.test_record_replay_session.RecordReplaySessionTests.test_rejects_symlinked_manifest_and_events) ... skipped 'symlink semantics are covered on the WSL test host'"
+      ],
+      "exit_code": 1
+    },
+    "only_fixed": [
+      "test_authorized_low_risk_custom_runner_cannot_forge_post_verification (unit.test_autonomous_loop.AutonomousLoopTests.test_authorized_low_risk_custom_runner_cannot_forge_post_verification)\r"
+    ],
+    "only_baseline": [
+      "test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies (unit.test_autonomous_loop.AutonomousLoopTests.test_tick_continues_upgrade_flow_from_entry_to_confirm_then_verifies)\r"
+    ],
+    "shared_failure_count": 38,
+    "identical_skips": true,
+    "interpretation": "Not a full pass and primary failure sets differ. Both timestamp cases fail on baseline/current in focused diagnostic runs; preserve all results."
   }
 }
