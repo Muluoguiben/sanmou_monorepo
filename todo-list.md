@@ -9,11 +9,13 @@ Dispatch: all six development tasks have acknowledged isolated worktrees; unifie
 CR has started preparation. [Task IDs and report paths](docs/development-batch-2026-09-08-tasks.json).
 Charter and original review pushed in dd76d60; this is not completion of any fix.
 
-Delivery update: A 4a2e4b8, B aa7ef1b0, D 2cfda735 and F 42f0f50 are pushed and
-pending unified CR. C is retesting its explicitly authorized local capture-token
-integration; E final delivery remains pending. A's destination push authorization
-was explicitly granted and its remote SHA verified. No formal CR approval or
-production acceptance exists; real capture dependency gaps remain unverified.
+Delivery update: A 4a2e4b8, B aa7ef1b0, C eb4ecd90, D 2cfda735, E 8729d18f and
+F 42f0f50 are delivered with self-test reports, pending unified adversarial CR.
+The reviewer must verify E intake, combine exact component SHAs, rerun regression
+and adversarial checks, and route findings to their owners before approval.
+A+C cross-WSL proxy-token propagation, platform failures, npm advisories and
+unsigned/live/clean-machine evidence gaps remain explicit; no production approval
+or source-code merge into master has occurred.
 
 - [ ] A: observer security R01/R02/R06/R07; committed self-test report required.
 - [ ] B: state/MCP R05/R08; committed self-test report required.
