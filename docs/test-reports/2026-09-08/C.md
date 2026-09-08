@@ -3,6 +3,162 @@
 Status: implementation and self-tests complete; pending unified adversarial CR.
 No live verification or production-readiness claim.
 
+## CR08 — Shutdown stream race (latest replacement delivery)
+
+This revision replaces C delivery `eb4ecd90ccd1c7b5ec4982a14e5c34de5acc8669`
+for CR08/P2. It does not merge any development branch into C. The starting C
+worktree was clean at that SHA. Only `agent_harness/stdio_client.py`, the new
+`tests/unit/test_agent_harness_shutdown.py`, this report and the C TODO section
+change in this revision. Parent/root worktree was never modified.
+
+### Reproduction and cause
+
+- Coordinator's exact `470d92cdc6831f6c9bec4ce99050ccf6056b033c` integration
+  ran 846 tests with two shutdown errors and two platform skips. Its two focused
+  tests failed in three independent processes. Original root logs remain under
+  `/tmp/sanmou-root-integration-pioneer-20260908.log` and
+  `/tmp/sanmou-root-integration-stdio-focused-{1,2,3}.log`.
+- C exported that exact commit into independent ext4
+  `/tmp/sanmou-c-r20-470d92c`. The first original focused run reproduced the
+  same two `ExceptionGroup(BrokenResourceError)` errors (12 tests, 2 errors).
+- CR independently saw 20 successful runs of those original tests in its clean
+  ext4 clone. **ext4 is a reproduction environment, not an established cause.**
+  CR's deterministic real-SDK/public-AnyIO probe reproduced the actual defect:
+  Session closes its receiver before stdio's producer stops; a late notification
+  then raises BrokenResourceError and can mask the original deadline exception.
+- The client also incorrectly applied a configured short tool-request budget to
+  initialize/catalog, despite a separately configured connection budget.
+
+C's pre-fix deterministic tests forced the late-send ordering rather than relying
+on scheduler luck (initial four test methods: 1 failure, 5 subcase errors). These
+red results are preserved, not retried into a passing baseline.
+
+### Final implementation and lifecycle
+
+The existing 30-second connect, 60-second call and 10-second shutdown defaults
+are unchanged. Session initialization/catalog now use the connection budget;
+individual tool calls retain the explicitly configured request budget and outer
+deadline. No retry or longer production timeout was added.
+
+The public AnyIO `MemoryObjectReceiveStream.clone()` creates one dormant receiver
+after transport entry. It never reads during active calls, so it cannot steal
+normal responses. The same owner task still enters and exits SDK contexts in
+order. On any stop/error/cancel, it first invalidates session/tool availability,
+then starts the drain only during shutdown. Thus SDK Session can close its own
+receiver while late producer messages still have a receiver until stdio exits.
+The original 10-second cleanup deadline bounds this sequence. Finally, the drain
+is cancelled/awaited and the clone explicitly closed, including when cleanup had
+no scheduling point and the drain coroutine never started.
+
+No BrokenResourceError/ExceptionGroup filter or blanket suppression was added.
+Unrelated and mixed cleanup exceptions remain visible. The ready Future's error
+is retrieved when cancellation wins just before initialization publishes an
+exception, preventing an unhandled-Future diagnostic without changing the caller's
+original timeout/cancel result.
+
+Eleven new regression methods cover exact primary timeout identity across init,
+catalog and call failure; cancellation; the ready-Future race; normal response
+delivery; immediate cleanup; nested real clients/repeated close; zero remaining
+receivers/tasks; unchanged shutdown-budget enforcement under continuous late
+traffic; unrelated and mixed exception groups; and a real Python MCP child which
+continues emitting notifications after EOF for up to 30 seconds. That child is
+terminated within the client's bound and its PID is confirmed exited on Windows
+and Linux. Only the deliberately silent test client gets a short test deadline;
+the healthy nested peer uses the original production default.
+
+Final tested Git blobs:
+
+| Path under `packages/pioneer-agent/` | Git blob |
+|---|---|
+| `src/pioneer_agent/agent_harness/stdio_client.py` | `fe742211fb9a14614b977c0551c431d1cf3cf9db` |
+| `tests/unit/test_agent_harness_shutdown.py` | `e3930fe446b145ade0900a424c2439be707d50e4` |
+
+All other implementation/test blobs are inherited unchanged from C's previous
+commit. This report and TODO were added after testing, not used as source evidence.
+The immutable containing commit is supplied in the delivery message.
+
+### Independent CR gates
+
+C ran both reviewer scripts unmodified from
+`C:/Users/Lan/.codex/worktrees/6737/sanmou_monorepo/.codex-autonomy/adversarial-review-20260908/probes/`:
+
+- `stdio_shutdown_stream_race.py --expect fixed`, SHA256
+  `7147d59615989667b57b15c016629e9e79204c2e3358afa0c1875b5ef7f5b9ec`:
+  exit 0; all ten active responses preserved; normal exit has no exception;
+  deliberate connect expiry is TimeoutError; late sends complete; worker cleared;
+  final sender/receiver counts both zero; no unretrieved-Future warning.
+- `stdio_late_exit_subprocess.py --expect fixed`, SHA256
+  `269fea68b01ede9e5a1b308d755d5800b48360990bb59fdd06e3225974b22d9a`:
+  exit 0; all three real child trials have successful calls, clean exits and
+  child_reaped=true (0.265/0.248/0.277 seconds).
+
+An earlier run of the controlled probe failed its premature resource sample:
+it counted the reserved receiver inside transport finally, before the caller's
+clone cleanup. CR independently confirmed and moved its final count after the
+client context returns, retaining the intermediate count. C did not edit the
+probe. That earlier run also exposed the real ready-Future warning, now fixed.
+
+### Exact environments, commands and results
+
+WSL interpreter: `/tmp/sanmou-cr-20260908-venv/bin/python`, used read-only with
+Python 3.12.3 / MCP 1.29.1 / AnyIO 4.15.1 / Pydantic 2.13.5. No installs or
+authentication edits were made to the reviewer environment.
+Windows uses C's existing isolated Python 3.14.3 venv (versions above).
+
+Exports use native Windows Git; use `git -c core.autocrlf=false archive` for exact
+repository bytes. The C export starts at `eb4ecd90ccd1c7b5ec4982a14e5c34de5acc8669`
+in `/tmp/sanmou-c-r20-feature`; the combination starts at full `470d92c...`
+in `/tmp/sanmou-c-r20-470d92c`. Overlay only the two blobs listed above.
+From each export's `packages/pioneer-agent`:
+
+```bash
+PYTHONNOUSERSITE=1 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:../sanmou-common/src:../qa-agent/src /tmp/sanmou-cr-20260908-venv/bin/python -B -m unittest discover -s tests -p 'test_*.py' -v
+```
+
+Combination focused command uses the same environment:
+
+```bash
+PYTHONNOUSERSITE=1 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:../sanmou-common/src:../qa-agent/src /tmp/sanmou-cr-20260908-venv/bin/python -B -m unittest tests.unit.test_agent_harness tests.unit.test_agent_harness_lifecycle tests.unit.test_agent_harness_timeouts tests.unit.test_agent_harness_shutdown tests.unit.test_agent_harness_game_mcp_integration tests.unit.test_agent_harness_stdio_client tests.unit.test_game_agent_cli -v
+```
+
+Windows command from C worktree root:
+
+```powershell
+$env:PYTHONPATH='packages/pioneer-agent/src;packages/sanmou-common/src;packages/qa-agent/src;packages/pioneer-agent/tests/unit'
+& $env:TEMP/sanmou-c-r17-r20-venv/Scripts/python.exe -m unittest test_agent_harness test_agent_harness_lifecycle test_agent_harness_timeouts test_agent_harness_shutdown -v
+```
+
+| Final verification | Total | Pass | Fail/error | Skip | Exit |
+|---|---:|---:|---:|---:|---:|
+| Windows focused (17.965s) | 45 | 45 | 0 | 0 | 0 |
+| Combination ext4 focused (14.475s) | 51 | 51 | 0 | 0 | 0 |
+| C feature ext4 package (31.625s) | 806 | 806 | 0 | 0 | 0 |
+| 470d + candidate ext4 package (34.423s) | 857 | 855 | 0 | 2 | 0 |
+
+Combination skips are existing A tests requiring native Windows:
+`test_native_client_proxy_server_end_to_end_with_synthetic_capture` and
+`test_retired_entry_points_exit_without_writing_requested_paths`.
+They are not counted as passed or live evidence.
+
+Evidence logs under `C:/Users/Lan/AppData/Local/Temp/`:
+`sanmou-c-r20-ext4-baseline.log`, `sanmou-c-r20-race-red.log`,
+`sanmou-c-cr08-controlled-verified.log`, `sanmou-c-cr08-real-child-verified.log`,
+`sanmou-c-cr08-windows.log`, `sanmou-c-cr08-focused.log`,
+`sanmou-c-cr08-feature-package.log`, `sanmou-c-cr08-combined-package.log`.
+Shell redirection preserved real stdout/stderr; no StringIO substitution.
+
+Intermediate failures remain recorded: a new nested healthy-peer test
+unintentionally imposed a 30ms response latency bound on Windows (one timeout);
+the test now applies that short budget only to its deliberately silent peer.
+An initial C archive inherited CRLF and caused seven frozen-fixture hash failures;
+re-export with `core.autocrlf=false` restored exact Git bytes, not new expected
+digests. No existing test or production budget was relaxed.
+
+No private image, model inference, live game action, control API, new catalog,
+knowledge publication, external oracle or credential behavior changed. These are
+synthetic lifecycle and real local IPC checks, not production/live closure.
+The old CR approval is suspended; final immutable SHA requires independent CR.
+
 ## Authorized capture-credential follow-up (latest delivery)
 
 This follow-up supersedes delivery `edd3c3d57f92eb16b75f011c9a37d10005cf4256`.

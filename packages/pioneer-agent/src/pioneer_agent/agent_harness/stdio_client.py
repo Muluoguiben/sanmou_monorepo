@@ -10,6 +10,7 @@ from collections.abc import Collection, Mapping
 from contextlib import AsyncExitStack
 from typing import Any
 
+from anyio.streams.memory import MemoryObjectReceiveStream
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
@@ -65,11 +66,15 @@ class StdioMcpClient:
         # single task, even when game and QA clients are nested or cancelled.
         stack = AsyncExitStack()
         response = None
+        shutdown_read = None
         try:
             read, write = await stack.enter_async_context(stdio_client(self._parameters))
+            # ClientSession closes its receive endpoint before stdio's reader
+            # task stops. Keep a dormant endpoint alive for that shutdown gap.
+            shutdown_read = read.clone()
             session = await stack.enter_async_context(ClientSession(
                 read, write,
-                read_timeout_seconds=timedelta(seconds=self._request_timeout_s),
+                read_timeout_seconds=timedelta(seconds=self._connect_timeout_s),
             ))
             initialized = await session.initialize()
             if initialized.serverInfo.name != self._expected_server_name:
@@ -127,10 +132,25 @@ class StdioMcpClient:
             self._closing = True
             self._session = None
             self._available_tools = frozenset()
-            # SDK stdio shutdown terminates its child on EOF/timeout. Bound the
-            # complete cleanup too; keep it in this owner task for AnyIO safety.
-            async with asyncio.timeout(10.0):
-                await stack.aclose()
+            # Only after advice/calls have stopped may a drain consume late
+            # responses. During normal operation the clone never reads data.
+            drain = asyncio.create_task(_drain_shutdown(shutdown_read)) if shutdown_read is not None else None
+            try:
+                # SDK shutdown closes stdin and terminates the child on timeout.
+                # Preserve owner-task scope ordering; do not suppress cleanup errors.
+                async with asyncio.timeout(10.0):
+                    await stack.aclose()
+            finally:
+                if drain is not None:
+                    drain.cancel()
+                    try:
+                        await drain
+                    except asyncio.CancelledError:
+                        pass
+                    finally:
+                        # aclose can complete without scheduling the new task;
+                        # then cancellation happens before its async-with starts.
+                        await shutdown_read.aclose()
 
     async def _close(self) -> None:
         worker, self._worker = self._worker, None
@@ -143,6 +163,11 @@ class StdioMcpClient:
                 await worker
             except asyncio.CancelledError:
                 pass
+            finally:
+                # Cancellation can win just before the owner publishes its
+                # initialization error, leaving no waiter on the ready future.
+                if self._ready is not None and self._ready.done() and not self._ready.cancelled():
+                    self._ready.exception()
 
     async def __aexit__(self, exc_type, exc, traceback) -> None:  # noqa: ANN001
         await self._close()
@@ -164,3 +189,9 @@ class StdioMcpClient:
         except BaseException:
             await self._close()
             raise
+
+
+async def _drain_shutdown(read: MemoryObjectReceiveStream) -> None:
+    async with read:
+        async for _ in read:
+            pass
