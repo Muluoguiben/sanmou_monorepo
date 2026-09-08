@@ -10,6 +10,7 @@
 - [x] R13/R14/R15/R16: complete ambiguous-burst annotation groups, actual evaluator-byte golden hashes, failed-call evidence exclusion, and cutoff-correct freshness/future-time rejection.
 - [x] Final offline verification: focused 75, Pioneer 788, QA 307, common 2 and native Windows API 6 pass; all zero skips. Desktop typecheck/build pass. Static eval retains one unscored holdout; golden 19/19 remains action-type-only evidence.
 - [x] Configure Ubuntu three-package and Windows API/desktop CI; fix hash-bound eval JSON checkout line endings without changing expected hashes.
+- [x] CR07: pin Node 24.14.0 for Windows desktop CI to satisfy the E lockfile's Node >=22.12.0 build dependencies and match the tested patch; retain engine checks and existing package versions. E/CR validate the final combined desktop and installer source separately.
 - [ ] Unified CR of `feat/review-f-eval-ci-20260908` and combined tree, including E-owned Electron tests and unsigned packaging scripts; hosted workflow/E commands are not verified by F alone. See [F self-test report](docs/test-reports/2026-09-08/F.md).
 - [ ] Provider-vision accuracy, independent holdout, trusted live entry and action-bound execution evidence remain separate blockers; this batch grants no execution or publication authority.
 
