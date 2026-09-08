@@ -10,7 +10,7 @@ CR has started preparation. [Task IDs and report paths](docs/development-batch-2
 Charter and original review pushed in dd76d60; this is not completion of any fix.
 
 Delivery update: A 3d68e5d, B aa7ef1b0, C eb4ecd90, D 587f8ab, E b865808 and
-F 42f0f50 are delivered with self-test reports, pending unified adversarial CR.
+F 6bff970 are delivered with self-test reports, pending unified adversarial CR.
 The reviewer must verify E intake, combine exact component SHAs, rerun regression
 and adversarial checks, and route findings to their owners before approval.
 A+C cross-WSL proxy-token propagation, platform failures, npm advisories and
@@ -42,6 +42,11 @@ pixel-guard rejection cleanup and a newly source-bound unsigned installer. The
 reviewer owns the released installation window and must rerun CR02/03/06.
 Reported Node20 dependency-engine warnings, native full-suite failures/flakiness,
 existing advisories and production evidence gaps remain explicit review inputs.
+
+CR07 requires the CI host to satisfy locked build-dependency engine constraints.
+F delivered 6bff970, pinning Node24.14.0 without changing dependency locks,
+Python matrix or engine checks. E must complete and report the same-runtime
+desktop/installation chain before reviewer independent combined validation.
 
 - [ ] A: observer security R01/R02/R06/R07; committed self-test report required.
 - [ ] B: state/MCP R05/R08; committed self-test report required.
