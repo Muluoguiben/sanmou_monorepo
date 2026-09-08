@@ -2,6 +2,8 @@
 
 Status: implementation verified offline; unified adversarial CR pending.
 
+Implementation commit: 5d635e45f768d10528a172533d4ace74306df8a1. This follow-up only aligns the report filename with the coordinator's manifest and updates the Task B TODO link; the tested code/test blobs below are unchanged.
+
 ## Scope and tested tree
 
 - Task: 01a07f0b-149e-7160-a896-551165a702a0.
@@ -103,6 +105,7 @@ sys.exit(not unittest.TextTestRunner(verbosity=2).run(suite).wasSuccessful())
 - Initial focused runs exposed strict synthetic map-input requirements and unrelated-field compatibility; fixed without changing existing tests. A new deep regression exposed slash-containing generated readiness prose; fixed game labels survive, appended paths still fail.
 - Initial package: 783 tests, 8 errors, 6 skips. One error was the new test discovery import; fixed. Seven were existing eval digest errors because Windows checkout changed two hash-bound JSON files from LF to CRLF. Six were missing FastAPI in the initial system-site venv.
 - Before final tests, those two scenario transcripts were verified clean and byte-equal to HEAD after CRLF normalization, then restored to exact Git blob bytes. No manifest/hash expectations or semantic fixture content changed. F owns the permanent scoped LF rule; B does not commit that change.
+- After testing, both transcript files were restored to their original Windows CRLF working-copy bytes. Neither appears in the implementation diff; canonical committed fixture bytes remain LF.
 - API dependencies installed in a pure task venv eliminated all six skips. Direct PyPI download initially timed out; the proxy install succeeded.
 - No deleted tests, weakened validation, changed preexisting expectations, shared auth/.env edits, new screenshots, external model calls, game capture or input. New perception evidence is synthetic and exercises production builders, not visual accuracy.
 - Full-package tests include existing synthetic/offline replay and fixture-based image tests. They do not prove live-client correctness. No new real image was captured/imported and no external holdout oracle was read.
