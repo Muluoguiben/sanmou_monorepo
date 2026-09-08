@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import asyncio
+import hashlib
 from contextlib import asynccontextmanager
 import json
+import os
 from pathlib import Path
 import sys
 from tempfile import TemporaryDirectory
@@ -165,3 +167,87 @@ class StdioDeadlineTests(unittest.IsolatedAsyncioTestCase):
             with self.subTest(value=value), self.assertRaises(ValueError):
                 StdioMcpClient(StdioServerParameters(command=sys.executable),
                     expected_server_name="test", required_tools=set(), request_timeout_s=value)
+
+    def test_capture_credential_only_reaches_explicit_bridge_child(self):
+        token = "synthetic-capture-token-for-test-only"
+        for source in (["--windows-bridge"], ["--screenshot", "synthetic.png"], ["--watch-folder", "."]):
+            with self.subTest(source=source), patch.dict(os.environ, {
+                "SANMOU_CAPTURE_TOKEN": token, "UNRELATED_TOKEN": "synthetic-unrelated",
+            }):
+                args = game_agent.build_parser().parse_args([
+                    *source, "--journal-path", str(self.root / "journal.json"),
+                    "--tool-log-path", str(self.root / "tools.jsonl"),
+                ])
+                game = game_agent._game_parameters(args)
+                qa = game_agent._qa_parameters(args)
+                self.assertEqual("SANMOU_CAPTURE_TOKEN" in game.env, source == ["--windows-bridge"])
+                if source == ["--windows-bridge"]:
+                    self.assertEqual(game.env["SANMOU_CAPTURE_TOKEN"], token)
+                self.assertNotIn("SANMOU_CAPTURE_TOKEN", qa.env)
+                self.assertNotIn("UNRELATED_TOKEN", game.env)
+                self.assertNotIn("UNRELATED_TOKEN", qa.env)
+                self.assertNotIn(token, " ".join(game.args + qa.args))
+
+    def test_bridge_without_capture_credential_does_not_invent_one(self):
+        with patch.dict(os.environ, {}, clear=True):
+            env = game_agent._child_env(include_vision_credentials=True, include_capture_credentials=True)
+        self.assertNotIn("SANMOU_CAPTURE_TOKEN", env)
+
+    async def test_official_stdio_child_receives_only_selected_capture_environment(self):
+        token = "synthetic-capture-token-for-stdio-only"
+        digest = hashlib.sha256(token.encode()).hexdigest()
+        # The child emits booleans only. The token never appears in its argv,
+        # stdout, MCP result, or marker file; expected digest is not a credential.
+        server = SERVER.replace("import json, sys", "import hashlib, json, os, sys")
+        server = server.replace("phase, marker = sys.argv[1:]", "phase, marker = sys.argv[1:3]")
+        server = server.replace(
+            '"structuredContent":{}',
+            '"structuredContent":{"present":"SANMOU_CAPTURE_TOKEN" in os.environ,'
+            '"matches":hashlib.sha256(os.environ.get("SANMOU_CAPTURE_TOKEN", "").encode()).hexdigest()==sys.argv[3]}',
+        )
+        for source in (["--windows-bridge"], ["--screenshot", "synthetic.png"], ["--watch-folder", "."]):
+            with patch.dict(os.environ, {"SANMOU_CAPTURE_TOKEN": token}):
+                args = game_agent.build_parser().parse_args([
+                    *source, "--journal-path", str(self.root / "journal.json"),
+                    "--tool-log-path", str(self.root / "tools.jsonl"),
+                ])
+                environments = [(game_agent._game_parameters(args).env, source == ["--windows-bridge"]),
+                                (game_agent._qa_parameters(args).env, False)]
+            for index, (env, expected) in enumerate(environments):
+                with self.subTest(source=source, child=index):
+                    marker = self.root / (source[0] + str(index) + ".closed")
+                    parameters = StdioServerParameters(
+                        command=sys.executable, args=["-u", "-c", server, "never", str(marker), digest], env=env,
+                    )
+                    self.assertNotIn(token, " ".join(parameters.args))
+                    async with StdioMcpClient(
+                        parameters, expected_server_name="silent-test", required_tools={"session_status"},
+                        connect_timeout_s=3, request_timeout_s=1,
+                    ) as client:
+                        response = await client.call_tool("session_status", {})
+                    self.assertEqual(response["structuredContent"], {"present": expected, "matches": expected})
+                    self.assertEqual(marker.read_text(), "closed")
+                    self.assertNotIn(token, json.dumps(response))
+
+    async def test_capture_credential_is_absent_from_failure_journal_log_and_result(self):
+        token = "synthetic-capture-token-in-error-for-test"
+
+        class FailingClient:
+            async def __aenter__(self):
+                raise RuntimeError(token)
+
+            async def __aexit__(self, *args):
+                pass
+
+        args = game_agent.build_parser().parse_args([
+            "--windows-bridge", "--journal-path", str(self.root / "journal.json"),
+            "--tool-log-path", str(self.root / "tools.jsonl"),
+        ])
+        with patch.dict(os.environ, {"SANMOU_CAPTURE_TOKEN": token}), patch.object(
+            game_agent, "StdioMcpClient", return_value=FailingClient(),
+        ):
+            result = await game_agent.run(args)
+        self.assertEqual(result["stop"]["reason"], "tool_failure")
+        self.assertNotIn(token, json.dumps(result))
+        for name in ("journal.json", "tools.jsonl"):
+            self.assertNotIn(token, (self.root / name).read_text())

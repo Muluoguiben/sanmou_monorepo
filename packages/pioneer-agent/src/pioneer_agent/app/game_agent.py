@@ -143,7 +143,10 @@ def _game_parameters(args: argparse.Namespace) -> StdioServerParameters:
         command=sys.executable,
         args=arguments,
         cwd=_pioneer_root(),
-        env=_child_env(include_vision_credentials=True),
+        env=_child_env(
+            include_vision_credentials=True,
+            include_capture_credentials=args.windows_bridge,
+        ),
     )
 
 
@@ -161,7 +164,9 @@ def _qa_parameters(args: argparse.Namespace) -> StdioServerParameters:
     )
 
 
-def _child_env(*, include_vision_credentials: bool) -> dict[str, str]:
+def _child_env(
+    *, include_vision_credentials: bool, include_capture_credentials: bool = False,
+) -> dict[str, str]:
     source = dict(os.environ)
     secret_parts = (
         "KEY",
@@ -182,6 +187,8 @@ def _child_env(*, include_vision_credentials: bool) -> dict[str, str]:
         for key in ("OPENAI_API_KEY", "GEMINI_API_KEY", "GOOGLE_API_KEY"):
             if key in source:
                 env[key] = source[key]
+    if include_capture_credentials and "SANMOU_CAPTURE_TOKEN" in source:
+        env["SANMOU_CAPTURE_TOKEN"] = source["SANMOU_CAPTURE_TOKEN"]
     python_paths = [
         _pioneer_root() / "src",
         _repo_root() / "packages" / "sanmou-common" / "src",

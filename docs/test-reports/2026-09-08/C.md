@@ -3,6 +3,60 @@
 Status: implementation and self-tests complete; pending unified adversarial CR.
 No live verification or production-readiness claim.
 
+## Authorized capture-credential follow-up (latest delivery)
+
+This follow-up supersedes delivery `edd3c3d57f92eb16b75f011c9a37d10005cf4256`.
+After the user directly replied `允许` in task C, the reviewed patch was approved.
+Earlier attempts based on coordinator-transmitted permission were rejected; no
+patch was applied or alternative route used before the direct authorization.
+
+Only `--windows-bridge` passes the process's existing `SANMOU_CAPTURE_TOKEN` to
+the Game MCP child's environment. Screenshot/watch-folder and QA child environments
+omit it. No default token, credential file lookup, CLI token option, logging,
+account/API credential expansion or external transmission was added. Missing
+credentials remain missing; protocol validation and refusal belong to A's adapter.
+
+A's committed protocol was inspected at
+`19808992e03423cf32540b901ddd360d8b5ae346`: `PROTOCOL_VERSION = 2`, environment
+name `SANMOU_CAPTURE_TOKEN`, missing authentication rejects the proxy connection.
+A confirms ASCII/no-whitespace length 32–256. No A code was merged into this tree.
+
+Four new tests extend `test_agent_harness_timeouts.py`:
+
+- Parameter/env checks cover bridge, screenshot, watch-folder and QA isolation,
+  unrelated tokens, and absence of the sentinel token from argv.
+- Missing-token test proves the CLI does not invent a credential.
+- An exception containing a synthetic token produces a stopped result whose
+  JSON, tool log and journal contain no token value.
+- Official `StdioMcpClient` launches six real synthetic JSON-RPC children under
+  Windows and WSL, using the generated game/QA environments. Each returns only
+  presence/match booleans and is closed cleanly. Only the bridge-mode game child
+  receives the sentinel. Neither argv, MCP output nor marker files carry it.
+
+Latest tested blobs (all other source/test blobs below remain unchanged):
+
+| Path under `packages/pioneer-agent/` | Git blob |
+|---|---|
+| `src/pioneer_agent/app/game_agent.py` | `c4059cd15105ee70e12ed2242a64bed841178d89` |
+| `tests/unit/test_agent_harness_timeouts.py` | `6de43c9061f1b0c9db4100aafa78f1d7874769c4` |
+
+The exact Windows/WSL focused and package commands in this report were rerun in
+the same isolated environments. Final results: Windows focused **34/34** (9.151s),
+WSL focused **40/40** (13.700s, including actual canonical Game/QA stdio), Pioneer
+package **795/795** (39.990s); all exit **0**, **0 failures**, **0 skips**.
+Logs: `C:/Users/Lan/AppData/Local/Temp/sanmou-c-capture-windows.log`,
+`sanmou-c-capture-focused-wsl.log`, `sanmou-c-capture-package-wsl.log`.
+The same canonical-LF fixture preparation described below was necessary; fixture
+content/digests were not changed or committed. `git diff --check` passed.
+
+Remaining integration blocker: A confirmed its later `4a2e4b8` only updates docs;
+`CaptureBridgeClient.connect` still lacks automatic WSL-to-Windows proxy environment
+propagation. This C change proves **parent -> Game MCP** environment forwarding,
+not the next **WSL Game MCP -> Windows proxy** hop. A/CR/coordinator were notified.
+That hop and complete A+C end-to-end capture require separate validation in the
+combined tree. No actual token, real screenshot, model inference or game input was
+used for this follow-up. Execution stays disabled. Unified CR remains pending.
+
 ## Scope and tested tree
 
 - Task: `01a07f0b-3787-7f82-ab0c-400a65b4b1a2`.
@@ -11,7 +65,7 @@ No live verification or production-readiness claim.
 - Branch: `feat/review-c-harness-r17-r20`.
 - Start: clean detached `d377ef8bbaa69e6b25928255eac0cb62714e82f8`.
 - Frozen charter: coordinator commit `dd76d601f6f40d3e4fceaf10cdd360d78af88cb2`, read only; not merged.
-- Source/test blobs below identify the tested implementation before adding this
+- Source/test blobs below identify the original R17–R20 implementation before adding this
   report and the C-only TODO section. The containing commit is supplied on handoff;
   this report does not invent a self-referential final SHA.
 
