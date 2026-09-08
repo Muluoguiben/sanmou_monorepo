@@ -5,6 +5,19 @@
   "charter_commit": "dd76d601f6f40d3e4fceaf10cdd360d78af88cb2",
   "model": "gpt-6-astra",
   "status": "development_in_progress",
+  "delivery_snapshot": {
+    "A": {"sha":"4a2e4b8d1d58cac2a6a564a4e9a1cf8540eb26c3","status":"pushed_pending_cr"},
+    "B": {"sha":"aa7ef1b0c3ac0a7d24a8b31e258cb6efc2d224fb","status":"pushed_pending_cr"},
+    "C": {"previous_sha":"edd3c3d57f92eb16b75f011c9a37d10005cf4256","status":"retesting_authorized_capture_token_integration"},
+    "D": {"sha":"2cfda735887e2a7cf237adeafea8d6c7feb2c837","status":"pushed_pending_cr"},
+    "E": {"status":"awaiting_final_delivery"},
+    "F": {"sha":"42f0f5013e820de066ac53776512686588c3af7a","status":"pushed_pending_cr"},
+    "CR": {"status":"awaiting_all_final_components_no_approval"}
+  },
+  "authorization_updates": {
+    "capture_token": "User explicitly approved forwarding only the local capture token to Game MCP child environment in windows-bridge mode; no disk/log/CLI/QA/external disclosure. C implementation is under retest.",
+    "a_feature_push": "User explicitly approved source/tests/reports push to Muluoguiben/sanmou_monorepo feat/a-capture-bridge-hardening-20260908. Coordinator pushed and verified A SHA; master was not changed by that push."
+  },
   "tasks": [
     {"id":"A","thread_id":"01a07f09-c64c-7852-a533-7db7730a048c","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/ecc7/sanmou_monorepo","role":"observer_security","report":"docs/test-reports/2026-09-08/A.md"},
     {"id":"B","thread_id":"01a07f0b-149e-7160-a896-551165a702a0","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/dccc/sanmou_monorepo","role":"state_mcp","report":"docs/test-reports/2026-09-08/B.md"},
