@@ -74,14 +74,19 @@ def scan_client_package(
     include_absolute_paths: bool = False,
     include_runtime_files: bool = False,
 ) -> ClientPackageManifest:
-    root = root.expanduser().resolve()
-    if not root.exists():
-        raise FileNotFoundError(root)
-    if not root.is_dir():
+    # Preserve the lexical root: resolve() would erase root/ancestor aliases
+    # before their link and runtime-directory policy could be checked.
+    root = root.expanduser().absolute()
+    if ".." in root.parts:
+        raise ValueError("Client scan refuses parent traversal in its root")
+    root_info = _reject_path_links(root)
+    if not stat.S_ISDIR(root_info.st_mode):
         raise NotADirectoryError(root)
 
     excluded_dirs = set() if include_runtime_files else set(DEFAULT_EXCLUDED_DIRS)
     excluded_suffixes = set() if include_runtime_files else set(DEFAULT_EXCLUDED_SUFFIXES)
+    if any(part.casefold() in {name.casefold() for name in excluded_dirs} for part in root.parts):
+        raise ValueError("Client scan runtime root requires explicit opt-in")
     files: list[ClientPackageFile] = []
     total_files_seen = 0
     skipped_files = 0
@@ -133,15 +138,19 @@ def _should_skip(path: Path, root: Path, excluded_dirs: set[str], excluded_suffi
     return path.suffix.lower() in excluded_suffixes
 
 
-def _checked_stat(path: Path, root: Path) -> os.stat_result:
-    relative = path.relative_to(root)
-    current = root
-    for part in (None, *relative.parts):
-        if part is not None:
-            current = current / part
+def _reject_path_links(path: Path) -> os.stat_result:
+    # Include ancestors above the selected root on every check, including
+    # Windows junction/reparse attributes. lstat failures propagate closed.
+    for current in (*reversed(path.parents), path):
         info = current.lstat()
         if stat.S_ISLNK(info.st_mode) or getattr(info, "st_file_attributes", 0) & 0x400:
             raise ValueError("Client scan refuses links and reparse points")
+    return info
+
+
+def _checked_stat(path: Path, root: Path) -> os.stat_result:
+    path.relative_to(root)
+    info = _reject_path_links(path)
     if not stat.S_ISREG(info.st_mode) or info.st_nlink != 1:
         raise ValueError("Client scan requires a single-link regular file")
     path.resolve(strict=True).relative_to(root)

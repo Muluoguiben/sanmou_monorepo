@@ -139,6 +139,46 @@ class KnowledgeIntegrityRegressionTests(unittest.TestCase):
 
 
 class ClientScanRegressionTests(unittest.TestCase):
+    def test_root_symlink_and_ancestor_alias_are_rejected_before_read(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "game-install"
+            private = root / "LocalPersistentData"
+            private.mkdir(parents=True)
+            (private / "account-cache.txt").write_text("SYNTHETIC_PRIVATE_ROOT_MARKER", encoding="utf-8")
+            alias = root / "public-root"
+            ancestor_alias = Path(tmp) / "game-alias"
+            alias.symlink_to(private, target_is_directory=True)
+            ancestor_alias.symlink_to(root, target_is_directory=True)
+            for scan_root in (alias, ancestor_alias / "LocalPersistentData"):
+                for include_runtime_files in (False, True):
+                    with self.subTest(scan_root=scan_root, opt_in=include_runtime_files), self.assertRaises(ValueError):
+                        scan_client_package(scan_root, include_runtime_files=include_runtime_files)
+
+    def test_runtime_root_requires_explicit_opt_in(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "localpersistentdata"
+            root.mkdir()
+            (root / "cache.txt").write_text("SYNTHETIC_RUNTIME_OPT_IN", encoding="utf-8")
+            with self.assertRaises(ValueError):
+                scan_client_package(root)
+            self.assertEqual(scan_client_package(root, include_runtime_files=True).included_files, 1)
+
+    def test_windows_reparse_bit_on_root_or_ancestor_is_rejected(self):
+        from types import SimpleNamespace
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "parent" / "client"
+            root.mkdir(parents=True)
+            original_lstat = Path.lstat
+            for unsafe in (root, root.parent):
+                def fake_lstat(path, *args, **kwargs):
+                    info = original_lstat(path, *args, **kwargs)
+                    if path == unsafe:
+                        return SimpleNamespace(st_mode=info.st_mode, st_file_attributes=0x400)
+                    return info
+                with self.subTest(unsafe=unsafe), patch.object(Path, "lstat", fake_lstat):
+                    with self.assertRaises(ValueError):
+                        scan_client_package(root)
+
     def test_symlinks_hardlinks_external_targets_and_version_links_are_not_read(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp) / "client"
