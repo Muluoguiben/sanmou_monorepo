@@ -62,3 +62,25 @@ master mutation is authorized here.
 
 Findings will include severity, exact source location, reproducer, impact, owner
 handoff and repair acceptance. None are asserted before implementation delivery.
+
+## A0 checkpoint (coordination refresh)
+
+Manifest commit `5e6f575398e5a940b983b2ab30b62eb93f2a5d70` now provides valid
+A/B/C thread IDs. The earlier null-ID condition is resolved. A0 fixed source is
+`5269a1a5d09bddcf268d180a3f016f323c27cb95`; it is a contract milestone, not final A.
+Read-only contract review identifies these integration probes, not proven findings:
+
+- `DecisionPolicy.decide` returns no Usage envelope. This batch excludes real model
+  adapters; verify unknown usage is conservatively accounted, never fabricated zero.
+- TaskSpec contains mutable nested lists. Assignment validation alone cannot establish
+  detached authority/state: verify runner copies/revalidates and policy gets only a
+  detached context; clearing success conditions must not yield vacuous success.
+- Budget snapshot is opaque at the port: verify B validates restored identity,
+  deadline, counters, pending reservations and cancellation without renewing quotas.
+- Explicit empty safety_rules is accepted by the request type. Verify builder/runner
+  always retain canonical authority and evidence-is-data rules or refuse the context.
+- RunState model permits status assignment: terminal absorption, fresh resume and
+  increasing timestamps must be enforced by the runner/store, not assumed from types.
+
+An internal read-only reviewer independently checked these ports. No A0 approval
+or implementation failure is claimed; the final wiring and negative tests decide.

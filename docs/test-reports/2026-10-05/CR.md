@@ -27,3 +27,20 @@ Status: **PENDING_DELIVERIES**, not APPROVE and not a completed integration test
 See the review document for the freeze protocol and fault-injection matrix.
 The next action is to obtain populated current-batch IDs and immutable deliveries,
 verify author source-bound reports, compose the DAG, then execute the matrix.
+
+## Coordination and environment refresh
+
+- Manifest `5e6f575398e5a940b983b2ab30b62eb93f2a5d70` resolves the null-ID blocker.
+  A `01a10c00-3644-74b2-814b-b063f3444d42`,
+  B `01a10c00-c914-73f0-ac5d-28d952d54ff9`,
+  C `01a10c00-ef29-78a0-8894-ac2585839654` (local).
+- Fixed A0 `5269a1a5d09bddcf268d180a3f016f323c27cb95` source/docs/tests read;
+  author 5/5 is author evidence only, not a reviewer rerun or final delivery.
+- Native Python 3.14 dependency probe: exit 1, pydantic missing. The launcher lists
+  a Python 3.11 on D: but that executable does not exist (probe exit 1).
+- WSL Python 3.12.3: pydantic 2.12.5, PyYAML 6.0.1, mcp 1.29.1,
+  anyio 4.13.0 (dependency probe exit 0). No global dependencies installed.
+- Verified WSL path: `/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo`.
+  The first backslash-form wslpath argument failed; forward-slash form succeeded.
+- These are environment probes, not test-suite results. Native Windows coverage
+  remains unestablished. Final combination and full regressions remain pending.
