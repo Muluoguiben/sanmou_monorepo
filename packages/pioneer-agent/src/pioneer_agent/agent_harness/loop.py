@@ -321,6 +321,10 @@ class RecommendationHarness:
         try:
             raw_result = await client.call_tool(name, arguments)
             payload = structured_content(raw_result)
+            # Transport success is insufficient: record Game schema failures as
+            # failed calls instead of appending a misleading success first.
+            if client is self.game_client:
+                validate_game_response(name, payload)
         except (Exception, asyncio.CancelledError) as exc:
             self._consecutive_tool_failures += 1
             self.tool_log.append(
