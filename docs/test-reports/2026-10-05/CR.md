@@ -44,3 +44,21 @@ verify author source-bound reports, compose the DAG, then execute the matrix.
   The first backslash-form wslpath argument failed; forward-slash form succeeded.
 - These are environment probes, not test-suite results. Native Windows coverage
   remains unestablished. Final combination and full regressions remain pending.
+
+## C immutable delivery and first independent rerun
+
+C code: `621cf8baf324902b9e77d056b3b03f288f07baf6`.
+C report: `bd062f3548026b74798dd8f7178cbb615fe7e9cf`.
+Local CR+C merge: `c0af471aaf9230b5c9c0374fe395aff84e3a9212`,
+tree `5dcafc922138b29edbf2bd274834a8d209df2837`.
+This is not the final A/B/C combination. No source conflict occurred.
+
+Independent focused run: 20/20 pass, no skips, exit 0 on WSL Python 3.12.3.
+Command and timing: [c-focused.json](CR-artifacts/c-focused.json).
+Raw evidence: [c-focused.log](CR-artifacts/c-focused.log).
+The helper [run_checks.py](CR-artifacts/run_checks.py) captures subprocess exit codes
+and creates logs exclusively. Author results were not substituted for this rerun.
+
+C's immutable report explicitly documents an automatic-review rejection of its
+remote push. CR therefore only merged C locally and has not pushed the inherited
+C source/log payload. Local review can proceed; publication remains separate.

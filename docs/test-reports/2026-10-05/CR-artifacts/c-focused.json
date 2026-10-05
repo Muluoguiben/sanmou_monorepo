@@ -1,0 +1,17 @@
+{
+  "source": "c0af471aaf9230b5c9c0374fe395aff84e3a9212",
+  "tree": "5dcafc922138b29edbf2bd274834a8d209df2837",
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "-m",
+    "unittest",
+    "test_quality_eval",
+    "test_review_d_regressions.ChatGroundingRegressionTests",
+    "-v"
+  ],
+  "cwd": "/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/packages/qa-agent",
+  "exit_code": 0,
+  "seconds": 6.457199573516846,
+  "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]"
+}
