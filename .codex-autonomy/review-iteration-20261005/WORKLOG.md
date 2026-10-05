@@ -59,3 +59,11 @@
 
 - Preserve the batch's 2026-10-05 source/report identities; subsequent coordinator integration records use the current Asia/Shanghai date.
 - New code remains frozen and independent CR artifacts are local/immutable. No further source edit is authorized by approval of the old tree.
+
+## Round 1 — coordinator integration verified
+
+- Integrated author/coordination `38d964f` and independent report `146433f` without conflicts as `4b158253ab12a0eb9e0600df6d0e95c33b69a603`; packages tree exactly equals approved source `575745075210e7e27c13fb3c18d7d31cb62d11a2`.
+- Clean detached ext4 rerun: QA367, Pioneer932 pass/2 Windows-only skips, common2, focused44, exact independent17 and new8 all pass. Source worktree stayed clean. Original 32-execution selector duplicated 15 imported cases; both green records retained, only exact17 is counted.
+- V2 result hash remains `66b7b504951f69c0bcc19de7d699d8cc00a506cddc74c3ce4894ee14740ae425`; old v1/report paths untouched. Source-bound records, raw logs and integrity manifest saved under `docs/test-reports/2026-10-06/Q03a-integration-artifacts/`.
+- Standing user publication authority already verified; next fast-forward/push the exact integration and evidence, inspect final-SHA CI, then continue. Read-only next-slice planning runs in parallel; no new implementation started before this batch clears CI.
+- The first staged whitespace check stopped before commit on raw Rich stdout padding. Preserved all log bytes/hashes and scoped the source/document whitespace check to non-log paths; this is report formatting, not a failed test or source repair.

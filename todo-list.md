@@ -6,7 +6,8 @@
 - [x] Q03a bounded hero scalar assessment + actual ChatAgent gate + explicit v2 development baseline implemented; historical v1 and previous evidence unchanged.
 - [x] Three new Q03a P2 findings repaired and independently closed: mixed imported source/digest, invalid v2 shapes, incomparable notes scope. Approved code `3b2b137679bd6b72a5681874bf9ab6ea0ac8f0c9`, review `146433ffef1d087bdbf72148a21d7d8746e90d3e`.
 - [x] Independent QA367/original17/focused44/new8/cross6 pass; 1336 snapshot blobs and 30 coordinator-rechecked CR artifact hashes match. This is bounded offline evidence, not general Q03/provider/human-gold certification.
-- [ ] Integrate and coordinator-recheck exact Q03a source, push origin/master under verified standing authorization, then check CI for that exact final SHA.
+- [x] Integrated exact approved packages as `4b158253ab12a0eb9e0600df6d0e95c33b69a603`; coordinator QA367, Pioneer932+2 Windows-only skips, common2, focused44, exact independent17 and new8 pass. V2 output hash unchanged. [Integration report](docs/test-reports/2026-10-06/Q03a-integration.md).
+- [ ] Push verified integration/evidence to origin/master under standing authorization, then check CI for the exact final SHA.
 - [ ] Continue the next incomplete Review slice after Q03a closes; likely Q02 safe referent resolution or remaining Q03/Q05 evidence scope, not six-model integration or CUA live control as prerequisites.
 
 The user has authorized same-repository Review implementation/testing/independent CR/approved integration/push/CI without repeated publication confirmation. Secrets/private real data, other repositories, deployment, account/security/persistent-access changes, paid services/models and unauthorized game operations remain outside scope. Progress stays in this original coordinator; no new main chat or automation.

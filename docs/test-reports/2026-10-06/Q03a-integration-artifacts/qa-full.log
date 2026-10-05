@@ -1,0 +1,457 @@
+test_batch_keeps_structural_temp_evidence_out_of_closure (test_advisor_terminal_source_preflight_cli.AdvisorTerminalSourcePreflightCliTests.test_batch_keeps_structural_temp_evidence_out_of_closure) ... ok
+test_batch_requires_all_low_risk_actions_by_default (test_advisor_terminal_source_preflight_cli.AdvisorTerminalSourcePreflightCliTests.test_batch_requires_all_low_risk_actions_by_default) ... ok
+test_cli_outputs_staging_payload_without_granting_temp_closure (test_advisor_terminal_source_preflight_cli.AdvisorTerminalSourcePreflightCliTests.test_cli_outputs_staging_payload_without_granting_temp_closure) ... ok
+test_cli_returns_nonzero_when_evidence_is_not_ready (test_advisor_terminal_source_preflight_cli.AdvisorTerminalSourcePreflightCliTests.test_cli_returns_nonzero_when_evidence_is_not_ready) ... ok
+test_script_runs_with_mocked_python_entrypoints (test_bilibili_workflow_script.BilibiliWorkflowScriptTests.test_script_runs_with_mocked_python_entrypoints) ... ok
+test_script_shows_usage_without_args (test_bilibili_workflow_script.BilibiliWorkflowScriptTests.test_script_shows_usage_without_args) ... ok
+test_build_video_evidence_cli_writes_normalized_document (test_build_video_evidence_cli.BuildVideoEvidenceCliTests.test_build_video_evidence_cli_writes_normalized_document) ... ok
+test_build_report_keeps_codegen_probe_non_publishable (test_client_codegen_module_probe.CodeGenModuleProbeTests.test_build_report_keeps_codegen_probe_non_publishable) ... ok
+test_cli_writes_yaml_report (test_client_codegen_module_probe.CodeGenModuleProbeTests.test_cli_writes_yaml_report) ... ok
+test_audit_cli_writes_yaml_report (test_client_decoded.ClientDecodedHeroTests.test_audit_cli_writes_yaml_report) ... ok
+test_audit_report_tracks_mapping_review_and_sanitization (test_client_decoded.ClientDecodedHeroTests.test_audit_report_tracks_mapping_review_and_sanitization) ... ok
+test_cli_accepts_mapping_file (test_client_decoded.ClientDecodedHeroTests.test_cli_accepts_mapping_file) ... ok
+test_cli_writes_loadable_normalized_staging (test_client_decoded.ClientDecodedHeroTests.test_cli_writes_loadable_normalized_staging) ... ok
+test_stage_decoded_heroes_applies_optional_mappings (test_client_decoded.ClientDecodedHeroTests.test_stage_decoded_heroes_applies_optional_mappings) ... ok
+test_stage_decoded_heroes_sanitizes_account_state (test_client_decoded.ClientDecodedHeroTests.test_stage_decoded_heroes_sanitizes_account_state) ... ok
+test_bundle_summarizes_evidence_without_publish_promotion (test_client_evidence_bundle.ClientEvidenceBundleTests.test_bundle_summarizes_evidence_without_publish_promotion) ... ok
+test_cli_writes_yaml_bundle (test_client_evidence_bundle.ClientEvidenceBundleTests.test_cli_writes_yaml_bundle) ... ok
+test_build_function_pointer_table_probe_report_sanitizes_counts (test_client_function_pointer_table_probe.ClientFunctionPointerTableProbeTests.test_build_function_pointer_table_probe_report_sanitizes_counts) ... ok
+test_cli_writes_yaml (test_client_function_pointer_table_probe.ClientFunctionPointerTableProbeTests.test_cli_writes_yaml) ... ok
+test_cli_writes_yaml_report (test_client_gameassembly_global_metadata_owner_probe.GameAssemblyGlobalMetadataOwnerProbeTests.test_cli_writes_yaml_report) ... ok
+test_report_keeps_string_ref_route_non_publishable (test_client_gameassembly_global_metadata_owner_probe.GameAssemblyGlobalMetadataOwnerProbeTests.test_report_keeps_string_ref_route_non_publishable) ... ok
+test_cli_writes_yaml_report (test_client_gameassembly_resolver_caller_trace.GameAssemblyResolverCallerTraceTests.test_cli_writes_yaml_report) ... ok
+test_report_keeps_resolver_caller_trace_blocked (test_client_gameassembly_resolver_caller_trace.GameAssemblyResolverCallerTraceTests.test_report_keeps_resolver_caller_trace_blocked) ... ok
+test_cli_writes_yaml_report (test_client_gameassembly_resolver_trace.GameAssemblyResolverTraceTests.test_cli_writes_yaml_report) ... ok
+test_report_keeps_resolver_trace_blocked (test_client_gameassembly_resolver_trace.GameAssemblyResolverTraceTests.test_report_keeps_resolver_trace_blocked) ... ok
+test_batch_summarizes_gameassembly_routes_without_paths (test_client_gameassembly_trace.GameAssemblyRouteTraceTests.test_batch_summarizes_gameassembly_routes_without_paths) ... ok
+test_cli_writes_yaml (test_client_gameassembly_trace.GameAssemblyRouteTraceTests.test_cli_writes_yaml) ... ok
+test_cli_writes_yaml_report (test_client_global_metadata_loader_scan.GlobalMetadataLoaderScanTests.test_cli_writes_yaml_report) ... ok
+test_report_keeps_loader_scan_as_static_trace_seed (test_client_global_metadata_loader_scan.GlobalMetadataLoaderScanTests.test_report_keeps_loader_scan_as_static_trace_seed) ... ok
+test_cli_writes_yaml_report (test_client_global_metadata_transform_probe.GlobalMetadataTransformProbeTests.test_cli_writes_yaml_report) ... ok
+test_report_keeps_global_metadata_probe_blocked (test_client_global_metadata_transform_probe.GlobalMetadataTransformProbeTests.test_report_keeps_global_metadata_probe_blocked) ... ok
+test_cli_writes_yaml_queue (test_client_import_queue.ClientImportQueueTests.test_cli_writes_yaml_queue) ... ok
+test_queue_sorts_review_and_decoder_work_without_publish_promotion (test_client_import_queue.ClientImportQueueTests.test_queue_sorts_review_and_decoder_work_without_publish_promotion) ... ok
+test_build_initializer_dispatch_trace_report_sanitizes_counts (test_client_initializer_dispatch_trace.ClientInitializerDispatchTraceTests.test_build_initializer_dispatch_trace_report_sanitizes_counts) ... ok
+test_cli_writes_yaml (test_client_initializer_dispatch_trace.ClientInitializerDispatchTraceTests.test_cli_writes_yaml) ... ok
+test_report_sanitizes_local_paths_and_counts_block_shape (test_client_lua_crypto.LuaCryptoEvidenceTests.test_report_sanitizes_local_paths_and_counts_block_shape) ... ok
+test_summary_cli_writes_yaml (test_client_lua_crypto.LuaCryptoEvidenceTests.test_summary_cli_writes_yaml) ... ok
+test_catalog_classifies_assets_and_sanitizes_paths (test_client_luascripts.LuaScriptsTextAssetCatalogTests.test_catalog_classifies_assets_and_sanitizes_paths) ... ok
+test_catalog_cli_writes_yaml (test_client_luascripts.LuaScriptsTextAssetCatalogTests.test_catalog_cli_writes_yaml) ... ok
+test_build_report_keeps_variant_corpus_non_publishable (test_client_luascripts_variant_corpus.LuaScriptsVariantCorpusTests.test_build_report_keeps_variant_corpus_non_publishable) ... ok
+test_cli_writes_yaml_report (test_client_luascripts_variant_corpus.LuaScriptsVariantCorpusTests.test_cli_writes_yaml_report) ... ok
+test_build_report_sanitizes_candidate_taxonomy (test_client_metadata_registration_candidate_taxonomy.ClientMetadataRegistrationCandidateTaxonomyTests.test_build_report_sanitizes_candidate_taxonomy) ... ok
+test_cli_writes_yaml (test_client_metadata_registration_candidate_taxonomy.ClientMetadataRegistrationCandidateTaxonomyTests.test_cli_writes_yaml) ... ok
+test_cli_writes_yaml_report (test_client_native_boundary_trace.NativeLoadbufferBoundaryTraceTests.test_cli_writes_yaml_report) ... ok
+test_report_sanitizes_modules_and_keeps_decoder_blocked (test_client_native_boundary_trace.NativeLoadbufferBoundaryTraceTests.test_report_sanitizes_modules_and_keeps_decoder_blocked) ... ok
+test_build_report_keeps_bridge_as_static_trace (test_client_nep2_bridge.ClientNep2BridgeTests.test_build_report_keeps_bridge_as_static_trace) ... ok
+test_cli_writes_yaml_report (test_client_nep2_bridge.ClientNep2BridgeTests.test_cli_writes_yaml_report) ... ok
+test_cli_writes_yaml_report (test_client_nep2_file_helper_caller_provenance.Nep2FileHelperCallerProvenanceTests.test_cli_writes_yaml_report) ... ok
+test_report_keeps_file_helper_route_non_publishable (test_client_nep2_file_helper_caller_provenance.Nep2FileHelperCallerProvenanceTests.test_report_keeps_file_helper_route_non_publishable) ... ok
+test_cli_writes_yaml_report (test_client_nep2_init_data_owner_scan.Nep2InitDataOwnerScanTests.test_cli_writes_yaml_report) ... ok
+test_report_keeps_init_data_owner_scan_non_publishable (test_client_nep2_init_data_owner_scan.Nep2InitDataOwnerScanTests.test_report_keeps_init_data_owner_scan_non_publishable) ... ok
+test_report_selects_targets_and_sanitizes_paths (test_client_nep2_luascripts.Nep2LuaScriptsEvidenceTests.test_report_selects_targets_and_sanitizes_paths) ... ok
+test_summary_cli_writes_yaml (test_client_nep2_luascripts.Nep2LuaScriptsEvidenceTests.test_summary_cli_writes_yaml) ... ok
+test_cli_writes_yaml_report (test_client_nep2_metadata_loader_deep_slice.Nep2MetadataLoaderDeepSliceTests.test_cli_writes_yaml_report) ... ok
+test_report_closes_nep2_helpers_without_publish_promotion (test_client_nep2_metadata_loader_deep_slice.Nep2MetadataLoaderDeepSliceTests.test_report_closes_nep2_helpers_without_publish_promotion) ... ok
+test_batch_summarizes_closed_rvas_and_next_target_without_paths (test_client_nep2_provenance.Nep2ProvenanceClosureTests.test_batch_summarizes_closed_rvas_and_next_target_without_paths) ... ok
+test_cli_writes_yaml (test_client_nep2_provenance.Nep2ProvenanceClosureTests.test_cli_writes_yaml) ... ok
+test_strong_provenance_record_stays_needs_review (test_client_nep2_provenance.Nep2ProvenanceClosureTests.test_strong_provenance_record_stays_needs_review) ... ok
+test_cli_writes_yaml_report (test_client_nep2_read_mapping_owner_scan.Nep2ReadMappingOwnerScanTests.test_cli_writes_yaml_report) ... ok
+test_report_keeps_read_mapping_owner_scan_non_publishable (test_client_nep2_read_mapping_owner_scan.Nep2ReadMappingOwnerScanTests.test_report_keeps_read_mapping_owner_scan_non_publishable) ... ok
+test_cli_writes_yaml_report (test_client_nep2_vector_candidate_provenance.Nep2VectorCandidateProvenanceTests.test_cli_writes_yaml_report) ... ok
+test_report_keeps_vector_provenance_non_publishable (test_client_nep2_vector_candidate_provenance.Nep2VectorCandidateProvenanceTests.test_report_keeps_vector_provenance_non_publishable) ... ok
+test_cli_writes_yaml_report (test_client_nep2_vector_wrapper_owner_probe.Nep2VectorWrapperOwnerProbeTests.test_cli_writes_yaml_report) ... ok
+test_report_keeps_vector_wrappers_non_publishable (test_client_nep2_vector_wrapper_owner_probe.Nep2VectorWrapperOwnerProbeTests.test_report_keeps_vector_wrappers_non_publishable) ... ok
+test_cli_writes_yaml_report (test_client_ns_bundle_format_index.ClientNsBundleFormatIndexTests.test_cli_writes_yaml_report) ... ok
+test_report_keeps_bundle_index_as_non_publishable_decoder_target (test_client_ns_bundle_format_index.ClientNsBundleFormatIndexTests.test_report_keeps_bundle_index_as_non_publishable_decoder_target) ... ok
+test_cli_writes_yaml_manifest (test_client_package_scan.ClientPackageScanTests.test_cli_writes_yaml_manifest) ... ok
+test_scan_skips_runtime_files_and_classifies_assets (test_client_package_scan.ClientPackageScanTests.test_scan_skips_runtime_files_and_classifies_assets) ... ok
+test_build_report_keeps_payload_profile_not_publishable (test_client_payload_cipher_profile.ClientPayloadCipherProfileTests.test_build_report_keeps_payload_profile_not_publishable) ... ok
+test_cli_writes_yaml_report (test_client_payload_cipher_profile.ClientPayloadCipherProfileTests.test_cli_writes_yaml_report) ... ok
+test_build_report_keeps_registration_anchor_non_publishable (test_client_registration_anchor_probe.RegistrationAnchorProbeTests.test_build_report_keeps_registration_anchor_non_publishable) ... ok
+test_cli_writes_yaml_report (test_client_registration_anchor_probe.RegistrationAnchorProbeTests.test_cli_writes_yaml_report) ... ok
+test_build_registration_layout_report_sanitizes_and_caps (test_client_registration_layout_probe.ClientRegistrationLayoutProbeTests.test_build_registration_layout_report_sanitizes_and_caps) ... ok
+test_cli_writes_yaml (test_client_registration_layout_probe.ClientRegistrationLayoutProbeTests.test_cli_writes_yaml) ... ok
+test_build_registration_pair_context_report_sanitizes_and_preserves_counts (test_client_registration_pair_context_probe.ClientRegistrationPairContextProbeTests.test_build_registration_pair_context_report_sanitizes_and_preserves_counts) ... ok
+test_cli_writes_yaml (test_client_registration_pair_context_probe.ClientRegistrationPairContextProbeTests.test_cli_writes_yaml) ... ok
+test_build_report_keeps_native_anchor_scan_non_publishable (test_client_resolved_payload_native_anchor_scan.ResolvedPayloadNativeAnchorScanTests.test_build_report_keeps_native_anchor_scan_non_publishable) ... ok
+test_cli_writes_yaml_report (test_client_resolved_payload_native_anchor_scan.ResolvedPayloadNativeAnchorScanTests.test_cli_writes_yaml_report) ... ok
+test_cli_writes_yaml_report (test_client_resource_surface_gap_scan.ClientResourceSurfaceGapScanTests.test_cli_writes_yaml_report) ... ok
+test_report_keeps_resource_surface_as_non_publishable_inventory (test_client_resource_surface_gap_scan.ClientResourceSurfaceGapScanTests.test_report_keeps_resource_surface_as_non_publishable_inventory) ... ok
+test_build_report_keeps_registry_probe_non_publishable (test_client_runtime_init_registry_probe.RuntimeInitRegistryProbeTests.test_build_report_keeps_registry_probe_non_publishable) ... ok
+test_cli_writes_yaml_report (test_client_runtime_init_registry_probe.RuntimeInitRegistryProbeTests.test_cli_writes_yaml_report) ... ok
+test_cli_writes_yaml_report (test_client_runtime_init_route.RuntimeInitMetadataRouteTests.test_cli_writes_yaml_report) ... ok
+test_report_keeps_runtime_route_blocked (test_client_runtime_init_route.RuntimeInitMetadataRouteTests.test_report_keeps_runtime_route_blocked) ... ok
+test_build_report_keeps_layout_non_publishable (test_client_serialized_textasset_layout.SerializedTextAssetLayoutTests.test_build_report_keeps_layout_non_publishable) ... ok
+test_cli_writes_yaml_report (test_client_serialized_textasset_layout.SerializedTextAssetLayoutTests.test_cli_writes_yaml_report) ... ok
+test_build_report_keeps_resolution_non_publishable (test_client_serialized_textasset_resolution.SerializedTextAssetResolutionTests.test_build_report_keeps_resolution_non_publishable) ... ok
+test_cli_writes_yaml_report (test_client_serialized_textasset_resolution.SerializedTextAssetResolutionTests.test_cli_writes_yaml_report) ... ok
+test_build_report_keeps_owner_trace_non_publishable (test_client_textasset_payload_owner_trace.TextAssetPayloadOwnerTraceTests.test_build_report_keeps_owner_trace_non_publishable) ... ok
+test_cli_writes_yaml_report (test_client_textasset_payload_owner_trace.TextAssetPayloadOwnerTraceTests.test_cli_writes_yaml_report) ... ok
+test_build_report_keeps_boundary_ledger_non_publishable (test_client_textasset_xlua_boundary_ledger.TextAssetXluaBoundaryLedgerTests.test_build_report_keeps_boundary_ledger_non_publishable) ... ok
+test_cli_writes_yaml_report (test_client_textasset_xlua_boundary_ledger.TextAssetXluaBoundaryLedgerTests.test_cli_writes_yaml_report) ... ok
+test_discover_bilibili_cli_filters_by_published_after (test_discover_bilibili_cli.DiscoverBilibiliCliTests.test_discover_bilibili_cli_filters_by_published_after) ... ok
+test_discover_bilibili_cli_writes_candidates_and_excludes_known (test_discover_bilibili_cli.DiscoverBilibiliCliTests.test_discover_bilibili_cli_writes_candidates_and_excludes_known) ... ok
+test_search_type_412_falls_back_to_all_search_video_group (test_discover_bilibili_cli.DiscoverBilibiliCliTests.test_search_type_412_falls_back_to_all_search_video_group) ... ok
+test_all_disagreeing_sources_disclosed_without_rank_selection (test_evidence_assessment.EvidenceAssessmentTests.test_all_disagreeing_sources_disclosed_without_rank_selection) ... ok
+test_all_notes_preserved_when_slot_missing (test_evidence_assessment.EvidenceAssessmentTests.test_all_notes_preserved_when_slot_missing) ... ok
+test_ambiguous_alias_never_selects_one_entity (test_evidence_assessment.EvidenceAssessmentTests.test_ambiguous_alias_never_selects_one_entity) ... ok
+test_complex_scope_and_free_text_unassessed (test_evidence_assessment.EvidenceAssessmentTests.test_complex_scope_and_free_text_unassessed) ... ok
+test_constraints_are_not_assumed_comparable (test_evidence_assessment.EvidenceAssessmentTests.test_constraints_are_not_assumed_comparable) ... ok
+test_empty (test_evidence_assessment.EvidenceAssessmentTests.test_empty) ... ok
+test_final_retrieval_not_initial_is_assessed (test_evidence_assessment.EvidenceAssessmentTests.test_final_retrieval_not_initial_is_assessed) ... ok
+test_growth_and_all_four_dimensions (test_evidence_assessment.EvidenceAssessmentTests.test_growth_and_all_four_dimensions) ... ok
+test_history_rewrite_cannot_change_assessed_subject (test_evidence_assessment.EvidenceAssessmentTests.test_history_rewrite_cannot_change_assessed_subject) ... ok
+test_lineup_member_is_not_identity (test_evidence_assessment.EvidenceAssessmentTests.test_lineup_member_is_not_identity) ... ok
+test_missing_keeps_body_generation_and_prompt_has_checked_value (test_evidence_assessment.EvidenceAssessmentTests.test_missing_keeps_body_generation_and_prompt_has_checked_value) ... ok
+test_other_entity_and_other_stage_do_not_conflict (test_evidence_assessment.EvidenceAssessmentTests.test_other_entity_and_other_stage_do_not_conflict) ... ok
+test_prose_scope_is_not_certified_by_empty_constraints (test_evidence_assessment.EvidenceAssessmentTests.test_prose_scope_is_not_certified_by_empty_constraints) ... ok
+test_unassessed_relevance_does_not_block_generation (test_evidence_assessment.EvidenceAssessmentTests.test_unassessed_relevance_does_not_block_generation) ... ok
+test_uninterpreted_notes_are_conservatively_unassessed (test_evidence_assessment.EvidenceAssessmentTests.test_uninterpreted_notes_are_conservatively_unassessed) ... ok
+test_wrong_entity_is_not_supported (test_evidence_assessment.EvidenceAssessmentTests.test_wrong_entity_is_not_supported) ... ok
+test_zero_conflict_stops_real_agent (test_evidence_assessment.EvidenceAssessmentTests.test_zero_conflict_stops_real_agent) ... ok
+test_zero_equal_and_none_are_distinct (test_evidence_assessment.EvidenceAssessmentTests.test_zero_equal_and_none_are_distinct) ... ok
+test_build_strategy_snapshot_contains_required_sections (test_export_strategy_snapshot.ExportStrategySnapshotTests.test_build_strategy_snapshot_contains_required_sections) ... ok
+test_write_strategy_snapshot_is_deterministic_yaml (test_export_strategy_snapshot.ExportStrategySnapshotTests.test_write_strategy_snapshot_is_deterministic_yaml) ... ok
+test_fetch_bilibili_bundle_cli_applies_video_text_corrections (test_fetch_bilibili_bundle_cli.FetchBilibiliBundleCliTests.test_fetch_bilibili_bundle_cli_applies_video_text_corrections) ... ok
+test_fetch_bilibili_bundle_cli_prefers_conclusion_subtitles (test_fetch_bilibili_bundle_cli.FetchBilibiliBundleCliTests.test_fetch_bilibili_bundle_cli_prefers_conclusion_subtitles) ... ok
+test_fetch_bilibili_bundle_cli_uses_asr_fallback (test_fetch_bilibili_bundle_cli.FetchBilibiliBundleCliTests.test_fetch_bilibili_bundle_cli_uses_asr_fallback) ... ok
+test_fetch_bilibili_bundle_cli_with_frames (test_fetch_bilibili_bundle_cli.FetchBilibiliBundleCliTests.test_fetch_bilibili_bundle_cli_with_frames) ... ok
+test_fetch_bilibili_bundle_cli_writes_bundle (test_fetch_bilibili_bundle_cli.FetchBilibiliBundleCliTests.test_fetch_bilibili_bundle_cli_writes_bundle) ... ok
+test_frames_land_in_matching_segment (test_frame_sampler.AttachFramesToSegmentsTests.test_frames_land_in_matching_segment) ... ok
+test_pre_first_segment_frame_is_dropped (test_frame_sampler.AttachFramesToSegmentsTests.test_pre_first_segment_frame_is_dropped) ... ok
+test_trailing_frame_is_attached_to_last_segment (test_frame_sampler.AttachFramesToSegmentsTests.test_trailing_frame_is_attached_to_last_segment) ... ok
+test_empty_when_duration_non_positive (test_frame_sampler.PlanSampleTimestampsTests.test_empty_when_duration_non_positive) ... ok
+test_evidence_plan_prefers_keyword_segments_and_skips_intro (test_frame_sampler.PlanSampleTimestampsTests.test_evidence_plan_prefers_keyword_segments_and_skips_intro) ... ok
+test_interval_must_be_positive (test_frame_sampler.PlanSampleTimestampsTests.test_interval_must_be_positive) ... ok
+test_max_frames_caps_output (test_frame_sampler.PlanSampleTimestampsTests.test_max_frames_caps_output) ... ok
+test_regular_interval (test_frame_sampler.PlanSampleTimestampsTests.test_regular_interval) ... ok
+test_respects_start_and_end (test_frame_sampler.PlanSampleTimestampsTests.test_respects_start_and_end) ... ok
+test_empty_timestamps_short_circuits (test_frame_sampler.SampleFramesTests.test_empty_timestamps_short_circuits) ... ok
+test_missing_output_file_is_skipped (test_frame_sampler.SampleFramesTests.test_missing_output_file_is_skipped) ... ok
+test_runner_receives_expected_args_and_refs_produced (test_frame_sampler.SampleFramesTests.test_runner_receives_expected_args_and_refs_produced) ... ok
+test_sample_remote_frames_uses_headers_and_timeout (test_frame_sampler.SampleFramesTests.test_sample_remote_frames_uses_headers_and_timeout) ... ok
+test_normalize_cli_accepts_project_relative_input (test_ingestion.IngestionTests.test_normalize_cli_accepts_project_relative_input) ... ok
+test_normalize_hero_record_into_staging_entry (test_ingestion.IngestionTests.test_normalize_hero_record_into_staging_entry) ... ok
+test_normalize_skill_record_into_staging_entry (test_ingestion.IngestionTests.test_normalize_skill_record_into_staging_entry) ... ok
+test_staging_metadata_does_not_appear_in_query_contract (test_ingestion.IngestionTests.test_staging_metadata_does_not_appear_in_query_contract) ... ok
+test_minor_removes_only_duplicate_and_preserves_all_neighbors (test_kb_dedup_preservation.KbDedupPreservationTests.test_minor_removes_only_duplicate_and_preserves_all_neighbors) ... ok
+test_retained_qun_bucket_is_semantically_unchanged (test_kb_dedup_preservation.KbDedupPreservationTests.test_retained_qun_bucket_is_semantically_unchanged) ... ok
+test_answer_rule_question_returns_common_evidence (test_knowledge_provider_adapter.QaKnowledgeProviderTests.test_answer_rule_question_returns_common_evidence) ... ok
+test_provider_matches_common_protocol (test_knowledge_provider_adapter.QaKnowledgeProviderTests.test_provider_matches_common_protocol) ... ok
+test_player_observed_countdown_is_queryable_and_time_bounded (test_land_occupation_knowledge.LandOccupationKnowledgeTests.test_player_observed_countdown_is_queryable_and_time_bounded) ... ok
+test_default_is_pending_not_canonical (test_lineup_frame_extractor.BackfillTests.test_default_is_pending_not_canonical) ... ok
+test_fills_only_empty_and_canonicalizes (test_lineup_frame_extractor.BackfillTests.test_fills_only_empty_and_canonicalizes) ... ok
+test_image_prep_failure_is_fail_open (test_lineup_frame_extractor.BackfillTests.test_image_prep_failure_is_fail_open) ... lineup_frame_extractor: image prep failed BV1x#40.0-60.0: frame not on disk
+ok
+test_missing_bundle_skips (test_lineup_frame_extractor.BackfillTests.test_missing_bundle_skips) ... ok
+test_vision_failure_is_fail_open (test_lineup_frame_extractor.BackfillTests.test_vision_failure_is_fail_open) ... lineup_frame_extractor: vision failed BV1x#40.0-60.0: simulated vision outage
+ok
+test_counter_graph (test_lineup_frame_extractor.ClassifyFrameKindTests.test_counter_graph) ... ok
+test_other (test_lineup_frame_extractor.ClassifyFrameKindTests.test_other) ... ok
+test_route_table_is_summary (test_lineup_frame_extractor.ClassifyFrameKindTests.test_route_table_is_summary) ... ok
+test_scheme_table (test_lineup_frame_extractor.ClassifyFrameKindTests.test_scheme_table) ... ok
+test_scheme_wins_over_route_when_both_present (test_lineup_frame_extractor.ClassifyFrameKindTests.test_scheme_wins_over_route_when_both_present) ... ok
+test_summary_precedence_over_counter (test_lineup_frame_extractor.ClassifyFrameKindTests.test_summary_precedence_over_counter) ... ok
+test_summary_table (test_lineup_frame_extractor.ClassifyFrameKindTests.test_summary_table) ... ok
+test_skips_story_urls_keeps_local_sorted (test_lineup_frame_extractor.CollectFramesTests.test_skips_story_urls_keeps_local_sorted) ... ok
+test_agreement_on_full_team_emits_pending_candidate (test_lineup_frame_extractor.ConsensusExtractorTests.test_agreement_on_full_team_emits_pending_candidate) ... ok
+test_disagreement_drops_heroes (test_lineup_frame_extractor.ConsensusExtractorTests.test_disagreement_drops_heroes) ... ok
+test_non_table_frame_skipped_entirely (test_lineup_frame_extractor.ConsensusExtractorTests.test_non_table_frame_skipped_entirely) ... ok
+test_partial_team_dropped (test_lineup_frame_extractor.ConsensusExtractorTests.test_partial_team_dropped) ... ok
+test_skill_intersection_only (test_lineup_frame_extractor.ConsensusExtractorTests.test_skill_intersection_only) ... ok
+test_invalid_n_cols (test_lineup_frame_extractor.CropIntoColumnsTests.test_invalid_n_cols) ... ok
+test_splits_and_upscales (test_lineup_frame_extractor.CropIntoColumnsTests.test_splits_and_upscales) ... /tmp/sanmou-q03a-integration-4b158253/packages/qa-agent/tests/test_lineup_frame_extractor.py:172: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/tmpg3c8ay2o/cols/BVx-frame-001-0s-col1of3.png'>
+  w, h = Image.open(p).size
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/sanmou-q03a-integration-4b158253/packages/qa-agent/tests/test_lineup_frame_extractor.py:172: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/tmpg3c8ay2o/cols/BVx-frame-001-0s-col2of3.png'>
+  w, h = Image.open(p).size
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/sanmou-q03a-integration-4b158253/packages/qa-agent/tests/test_lineup_frame_extractor.py:172: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/tmpg3c8ay2o/cols/BVx-frame-001-0s-col3of3.png'>
+  w, h = Image.open(p).size
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_subsamples_when_over_cap (test_lineup_frame_extractor.FramesInWindowTests.test_subsamples_when_over_cap) ... ok
+test_window_with_margin (test_lineup_frame_extractor.FramesInWindowTests.test_window_with_margin) ... ok
+test_negative (test_lineup_frame_extractor.LooksLikeLineupTests.test_negative) ... ok
+test_positive (test_lineup_frame_extractor.LooksLikeLineupTests.test_positive) ... ok
+test_float_seconds (test_lineup_frame_extractor.ParseFrameTimestampTests.test_float_seconds) ... ok
+test_non_frame_url_returns_none (test_lineup_frame_extractor.ParseFrameTimestampTests.test_non_frame_url_returns_none) ... ok
+test_standard_name (test_lineup_frame_extractor.ParseFrameTimestampTests.test_standard_name) ... ok
+test_hero_profile_requires_hero_structured_payload (test_loader.LoaderTests.test_hero_profile_requires_hero_structured_payload) ... ok
+test_invalid_yaml_root_is_rejected (test_loader.LoaderTests.test_invalid_yaml_root_is_rejected) ... ok
+test_load_entries_from_file (test_loader.LoaderTests.test_load_entries_from_file) ... ok
+test_raw_hero_batch_loads (test_loader.LoaderTests.test_raw_hero_batch_loads) ... ok
+test_raw_skill_batch_loads (test_loader.LoaderTests.test_raw_skill_batch_loads) ... ok
+test_recursive_source_discovery_includes_profile_buckets (test_loader.LoaderTests.test_recursive_source_discovery_includes_profile_buckets) ... ok
+test_schema_validation_rejects_missing_required_field (test_loader.LoaderTests.test_schema_validation_rejects_missing_required_field) ... ok
+test_structured_hero_template_loads (test_loader.LoaderTests.test_structured_hero_template_loads) ... ok
+test_structured_lineup_template_loads (test_loader.LoaderTests.test_structured_lineup_template_loads) ... ok
+test_structured_skill_template_loads (test_loader.LoaderTests.test_structured_skill_template_loads) ... ok
+test_structured_status_template_loads (test_loader.LoaderTests.test_structured_status_template_loads) ... ok
+test_in_memory_official_client_contract_and_parity (test_mcp_sdk.McpSdkTests.test_in_memory_official_client_contract_and_parity) ... [10/06/26 00:12:01] INFO     Processing request of type            server.py:733
+                             ListToolsRequest                                   
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+[10/06/26 00:12:02] INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+[10/06/26 00:12:03] INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+ok
+test_in_memory_official_client_rejects_extra_enum_and_types (test_mcp_sdk.McpSdkTests.test_in_memory_official_client_rejects_extra_enum_and_types) ...                     INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+ok
+test_stdio_matches_in_memory_for_successes_and_errors (test_mcp_sdk.McpSdkTests.test_stdio_matches_in_memory_for_successes_and_errors) ...                     INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+[10/06/26 00:12:04] INFO     Processing request of type            server.py:733
+                             ListToolsRequest                                   
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+[10/06/26 00:12:06] INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+[10/06/26 00:12:07] INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+ok
+test_advisor_fixture_eval_includes_pr5_dispatch_gate (test_mcp_tools.McpToolTests.test_advisor_fixture_eval_includes_pr5_dispatch_gate) ... ok
+test_advisor_fixture_eval_includes_pr5_metadata (test_mcp_tools.McpToolTests.test_advisor_fixture_eval_includes_pr5_metadata) ... ok
+test_advisor_fixture_eval_includes_pr6_verifier_spec (test_mcp_tools.McpToolTests.test_advisor_fixture_eval_includes_pr6_verifier_spec) ... ok
+test_advisor_fixture_eval_returns_selected_action (test_mcp_tools.McpToolTests.test_advisor_fixture_eval_returns_selected_action) ... ok
+test_advisor_fixture_eval_summary_omits_large_diagnostics (test_mcp_tools.McpToolTests.test_advisor_fixture_eval_summary_omits_large_diagnostics) ... ok
+test_advisor_golden_replay_status_reports_expectation_failures (test_mcp_tools.McpToolTests.test_advisor_golden_replay_status_reports_expectation_failures) ... ok
+test_advisor_golden_replay_status_without_fixture_results_is_attention (test_mcp_tools.McpToolTests.test_advisor_golden_replay_status_without_fixture_results_is_attention) ... ok
+test_advisor_terminal_source_evidence_eval_preflights_live_trace (test_mcp_tools.McpToolTests.test_advisor_terminal_source_evidence_eval_preflights_live_trace) ... ok
+test_answer_rule_question_tool_reports_not_found (test_mcp_tools.McpToolTests.test_answer_rule_question_tool_reports_not_found) ... ok
+test_lookup_topic_tool_returns_structured_content (test_mcp_tools.McpToolTests.test_lookup_topic_tool_returns_structured_content) ... ok
+test_manifest_confirmation_cannot_replace_missing_trace_confirmation (test_mcp_tools.McpToolTests.test_manifest_confirmation_cannot_replace_missing_trace_confirmation) ... ok
+test_manifest_confirmation_must_exactly_mirror_matched_trace (test_mcp_tools.McpToolTests.test_manifest_confirmation_must_exactly_mirror_matched_trace) ... ok
+test_operator_confirmation_must_be_aware_and_precede_dispatch (test_mcp_tools.McpToolTests.test_operator_confirmation_must_be_aware_and_precede_dispatch) ... ok
+test_pr5_locked_field_coverage_reports_missing_fields (test_mcp_tools.McpToolTests.test_pr5_locked_field_coverage_reports_missing_fields) ... ok
+test_resolve_term_tool_returns_alias_mapping (test_mcp_tools.McpToolTests.test_resolve_term_tool_returns_alias_mapping) ... ok
+test_reviewed_live_evidence_paths_reject_escape_and_symlink (test_mcp_tools.McpToolTests.test_reviewed_live_evidence_paths_reject_escape_and_symlink) ... ok
+test_static_screenshot_metadata_cannot_satisfy_executor_closure (test_mcp_tools.McpToolTests.test_static_screenshot_metadata_cannot_satisfy_executor_closure) ... ok
+test_terminal_source_binds_trace_hash_and_dimensions_to_head_screenshot (test_mcp_tools.McpToolTests.test_terminal_source_binds_trace_hash_and_dimensions_to_head_screenshot) ... ok
+test_terminal_source_closure_requires_committed_reviewed_git_provenance (test_mcp_tools.McpToolTests.test_terminal_source_closure_requires_committed_reviewed_git_provenance) ... ok
+test_terminal_source_evidence_review_validates_required_semantics (test_mcp_tools.McpToolTests.test_terminal_source_evidence_review_validates_required_semantics) ... ok
+test_terminal_source_rebuilds_complete_semantic_guard_from_screenshot (test_mcp_tools.McpToolTests.test_terminal_source_rebuilds_complete_semantic_guard_from_screenshot) ... ok
+test_terminal_source_rejects_assume_unchanged_worktree_bytes (test_mcp_tools.McpToolTests.test_terminal_source_rejects_assume_unchanged_worktree_bytes) ... ok
+test_terminal_source_rejects_hardlink_and_mid_validation_replacement (test_mcp_tools.McpToolTests.test_terminal_source_rejects_hardlink_and_mid_validation_replacement) ... ok
+test_terminal_source_rejects_ignored_literal_pathspec_aliases (test_mcp_tools.McpToolTests.test_terminal_source_rejects_ignored_literal_pathspec_aliases) ... ok
+test_terminal_source_rejects_missing_or_forged_capture_geometry (test_mcp_tools.McpToolTests.test_terminal_source_rejects_missing_or_forged_capture_geometry) ... ok
+test_terminal_source_rejects_placeholder_absolute_and_uncommitted_sources (test_mcp_tools.McpToolTests.test_terminal_source_rejects_placeholder_absolute_and_uncommitted_sources) ... ok
+test_tool_definitions_are_stable (test_mcp_tools.McpToolTests.test_tool_definitions_are_stable) ... ok
+test_trace_confirmation_must_bind_terminal_observation_and_time (test_mcp_tools.McpToolTests.test_trace_confirmation_must_bind_terminal_observation_and_time) ... ok
+test_trace_selected_action_target_must_match_evidence_identity (test_mcp_tools.McpToolTests.test_trace_selected_action_target_must_match_evidence_identity) ... ok
+test_weak_global_and_wrong_identity_deltas_are_rejected (test_mcp_tools.McpToolTests.test_weak_global_and_wrong_identity_deltas_are_rejected) ... ok
+test_publish_staging_cli_publishes_reviewed_video_lineup (test_publish_staging_cli.PublishStagingCliTests.test_publish_staging_cli_publishes_reviewed_video_lineup) ... ok
+test_publish_staging_cli_skips_unreviewed_by_default (test_publish_staging_cli.PublishStagingCliTests.test_publish_staging_cli_skips_unreviewed_by_default) ... ok
+test_answer_and_evidence_binding (test_quality_eval.QualityEvaluationTests.test_answer_and_evidence_binding) ... ok
+test_candidate_evidence_does_not_count_as_citation (test_quality_eval.QualityEvaluationTests.test_candidate_evidence_does_not_count_as_citation) ... ok
+test_context_binding (test_quality_eval.QualityEvaluationTests.test_context_binding) ... ok
+test_correct_id_does_not_establish_fact_or_context_support (test_quality_eval.QualityEvaluationTests.test_correct_id_does_not_establish_fact_or_context_support) ... ok
+test_empty_evidence_invalidates_id (test_quality_eval.QualityEvaluationTests.test_empty_evidence_invalidates_id) ... ok
+test_frozen_retrieval_baseline_runs_without_model_or_network (test_quality_eval.QualityEvaluationTests.test_frozen_retrieval_baseline_runs_without_model_or_network) ... ok
+test_invalid_version_and_loaded_source_rejected (test_quality_eval.QualityEvaluationTests.test_invalid_version_and_loaded_source_rejected) ... ok
+test_lazy_assessment_module_from_another_tree_is_rejected (test_quality_eval.QualityEvaluationTests.test_lazy_assessment_module_from_another_tree_is_rejected) ... ok
+test_manifest_metadata_rejects_version_split_and_duplicate_ids (test_quality_eval.QualityEvaluationTests.test_manifest_metadata_rejects_version_split_and_duplicate_ids) ... ok
+test_mixed_claim_missing_citation_not_hidden_by_first_claim (test_quality_eval.QualityEvaluationTests.test_mixed_claim_missing_citation_not_hidden_by_first_claim) ... ok
+test_portable_snapshot_binds_paths_and_content (test_quality_eval.QualityEvaluationTests.test_portable_snapshot_binds_paths_and_content) ... ok
+test_production_or_fixture_drift_is_rejected (test_quality_eval.QualityEvaluationTests.test_production_or_fixture_drift_is_rejected) ... ok
+test_real_file_add_delete_and_change_rejected (test_quality_eval.QualityEvaluationTests.test_real_file_add_delete_and_change_rejected) ... ok
+test_refusal_precision_recall_distinct (test_quality_eval.QualityEvaluationTests.test_refusal_precision_recall_distinct) ... ok
+test_retrieval_denominators_and_duplicates (test_quality_eval.QualityEvaluationTests.test_retrieval_denominators_and_duplicates) ... ok
+test_strict_schema_is_separate_from_hash_binding (test_quality_eval.QualityEvaluationTests.test_strict_schema_is_separate_from_hash_binding) ... ok
+test_supported_label_requires_bound_evidence (test_quality_eval.QualityEvaluationTests.test_supported_label_requires_bound_evidence) ... ok
+test_supported_synthetic_control (test_quality_eval.QualityEvaluationTests.test_supported_synthetic_control) ... ok
+test_true_but_off_topic_is_context_failure_not_false_fact (test_quality_eval.QualityEvaluationTests.test_true_but_off_topic_is_context_failure_not_false_fact) ... ok
+test_unannotated_gaps_and_overlap_rejected (test_quality_eval.QualityEvaluationTests.test_unannotated_gaps_and_overlap_rejected) ... ok
+test_unknown_and_unreviewed_are_not_semantic_passes (test_quality_eval.QualityEvaluationTests.test_unknown_and_unreviewed_are_not_semantic_passes) ... ok
+test_v1_remains_frozen_and_rejects_new_production (test_quality_eval.QualityEvaluationTests.test_v1_remains_frozen_and_rejects_new_production) ... ok
+test_answer_rule_question_returns_evidence (test_query_service.QueryServiceTests.test_answer_rule_question_returns_evidence) ... ok
+test_disambiguation_with_domain_avoids_cross_domain_hits (test_query_service.QueryServiceTests.test_disambiguation_with_domain_avoids_cross_domain_hits) ... ok
+test_hero_alias_resolution_hits_canonical_topic (test_query_service.QueryServiceTests.test_hero_alias_resolution_hits_canonical_topic) ... ok
+test_hero_schema_topic_is_queryable (test_query_service.QueryServiceTests.test_hero_schema_topic_is_queryable) ... ok
+test_lineup_rating_taxonomy_is_queryable (test_query_service.QueryServiceTests.test_lineup_rating_taxonomy_is_queryable) ... ok
+test_lineup_registry_is_queryable (test_query_service.QueryServiceTests.test_lineup_registry_is_queryable) ... ok
+test_lookup_topic_prefers_domain_filtered_result (test_query_service.QueryServiceTests.test_lookup_topic_prefers_domain_filtered_result) ... ok
+test_new_building_prerequisite_topic_is_queryable (test_query_service.QueryServiceTests.test_new_building_prerequisite_topic_is_queryable) ... ok
+test_new_combat_land_level_question_hits_land_level (test_query_service.QueryServiceTests.test_new_combat_land_level_question_hits_land_level) ... ok
+test_not_found_question_does_not_fabricate (test_query_service.QueryServiceTests.test_not_found_question_does_not_fabricate) ... ok
+test_opening_baseline_priority_is_queryable (test_query_service.QueryServiceTests.test_opening_baseline_priority_is_queryable) ... ok
+test_opening_land_risk_baseline_is_queryable (test_query_service.QueryServiceTests.test_opening_land_risk_baseline_is_queryable) ... ok
+test_partial_match_returns_related_followups (test_query_service.QueryServiceTests.test_partial_match_returns_related_followups) ... ok
+test_resolve_term_maps_alias_to_canonical_topic (test_query_service.QueryServiceTests.test_resolve_term_maps_alias_to_canonical_topic) ... ok
+test_skill_alias_resolution_hits_canonical_topic (test_query_service.QueryServiceTests.test_skill_alias_resolution_hits_canonical_topic) ... ok
+test_skill_schema_topic_is_queryable (test_query_service.QueryServiceTests.test_skill_schema_topic_is_queryable) ... ok
+test_specific_hero_is_queryable (test_query_service.QueryServiceTests.test_specific_hero_is_queryable) ... ok
+test_specific_skill_is_queryable (test_query_service.QueryServiceTests.test_specific_skill_is_queryable) ... ok
+test_status_group_question_hits_control_group (test_query_service.QueryServiceTests.test_status_group_question_hits_control_group) ... ok
+test_status_profile_is_queryable (test_query_service.QueryServiceTests.test_status_profile_is_queryable) ... ok
+test_status_registry_is_queryable (test_query_service.QueryServiceTests.test_status_registry_is_queryable) ... ok
+test_ngram_finds_bond_faction_for_problem_question (test_retriever.RetrieverTests.test_ngram_finds_bond_faction_for_problem_question) ... ok
+test_ngram_finds_hero_level_cap (test_retriever.RetrieverTests.test_ngram_finds_hero_level_cap) ... ok
+test_ngram_finds_same_troop_bonus (test_retriever.RetrieverTests.test_ngram_finds_same_troop_bonus) ... ok
+test_ngram_finds_skill_slot_unlock (test_retriever.RetrieverTests.test_ngram_finds_skill_slot_unlock) ... ok
+test_prompt_block_format (test_retriever.RetrieverTests.test_prompt_block_format) ... ok
+test_retrieve_empty_for_totally_unknown (test_retriever.RetrieverTests.test_retrieve_empty_for_totally_unknown) ... ok
+test_retrieve_exact_alias_maps_to_canonical (test_retriever.RetrieverTests.test_retrieve_exact_alias_maps_to_canonical) ... ok
+test_retrieve_multi_dedups_and_caps (test_retriever.RetrieverTests.test_retrieve_multi_dedups_and_caps) ... ok
+test_retrieve_rule_question_returns_evidence (test_retriever.RetrieverTests.test_retrieve_rule_question_returns_evidence) ... ok
+test_current_citation_accepted (test_review_d_regressions.ChatGroundingRegressionTests.test_current_citation_accepted) ... ok
+test_empty_evidence_never_calls_answer_model (test_review_d_regressions.ChatGroundingRegressionTests.test_empty_evidence_never_calls_answer_model) ... ok
+test_unknown_missing_and_previous_turn_citations_rejected (test_review_d_regressions.ChatGroundingRegressionTests.test_unknown_missing_and_previous_turn_citations_rejected) ... ok
+test_unrelated_kb_and_prior_history_cannot_trigger_generation_on_miss (test_review_d_regressions.ChatGroundingRegressionTests.test_unrelated_kb_and_prior_history_cannot_trigger_generation_on_miss) ... ok
+test_root_symlink_and_ancestor_alias_are_rejected_before_read (test_review_d_regressions.ClientScanRegressionTests.test_root_symlink_and_ancestor_alias_are_rejected_before_read) ... ok
+test_runtime_root_requires_explicit_opt_in (test_review_d_regressions.ClientScanRegressionTests.test_runtime_root_requires_explicit_opt_in) ... ok
+test_safe_file_head_and_hash_bind_same_bytes (test_review_d_regressions.ClientScanRegressionTests.test_safe_file_head_and_hash_bind_same_bytes) ... ok
+test_swap_between_check_and_open_is_rejected_before_read (test_review_d_regressions.ClientScanRegressionTests.test_swap_between_check_and_open_is_rejected_before_read) ... ok
+test_symlinks_hardlinks_external_targets_and_version_links_are_not_read (test_review_d_regressions.ClientScanRegressionTests.test_symlinks_hardlinks_external_targets_and_version_links_are_not_read) ... ok
+test_windows_and_posix_payload_paths_only_expose_basename (test_review_d_regressions.ClientScanRegressionTests.test_windows_and_posix_payload_paths_only_expose_basename) ... ok
+test_windows_reparse_bit_on_root_or_ancestor_is_rejected (test_review_d_regressions.ClientScanRegressionTests.test_windows_reparse_bit_on_root_or_ancestor_is_rejected) ... ok
+test_blank_facts_rejected_before_query (test_review_d_regressions.KnowledgeIntegrityRegressionTests.test_blank_facts_rejected_before_query) ... ok
+test_conflicting_topic_ids_abort_without_writes (test_review_d_regressions.KnowledgeIntegrityRegressionTests.test_conflicting_topic_ids_abort_without_writes) ... ok
+test_cross_bucket_migration_preserves_canonical_id_and_new_source (test_review_d_regressions.KnowledgeIntegrityRegressionTests.test_cross_bucket_migration_preserves_canonical_id_and_new_source) ... ok
+test_duplicate_loader_and_direct_index_fail_closed (test_review_d_regressions.KnowledgeIntegrityRegressionTests.test_duplicate_loader_and_direct_index_fail_closed) ... ok
+test_missing_attribute_components_remain_unknown_and_zero_is_known (test_review_d_regressions.KnowledgeIntegrityRegressionTests.test_missing_attribute_components_remain_unknown_and_zero_is_known) ... ok
+test_mixed_facts_normalized_and_queryable (test_review_d_regressions.KnowledgeIntegrityRegressionTests.test_mixed_facts_normalized_and_queryable) ... ok
+test_combat_extraction_is_retained_without_publishable_output (test_run_video_pipeline_cli.RunVideoPipelineCliTests.test_combat_extraction_is_retained_without_publishable_output) ... ok
+test_machine_pipeline_stops_at_pending_and_default_publisher_refuses (test_run_video_pipeline_cli.RunVideoPipelineCliTests.test_machine_pipeline_stops_at_pending_and_default_publisher_refuses) ... ok
+test_accepts_all_three_existing_low_risk_trace_contracts (test_stage_advisor_terminal_source_cli.StageAdvisorTerminalSourceTests.test_accepts_all_three_existing_low_risk_trace_contracts) ... ok
+test_atomic_write_failure_leaves_no_bundle_or_temporary_directory (test_stage_advisor_terminal_source_cli.StageAdvisorTerminalSourceTests.test_atomic_write_failure_leaves_no_bundle_or_temporary_directory) ... ok
+test_cli_emits_machine_readable_success_and_rejection (test_stage_advisor_terminal_source_cli.StageAdvisorTerminalSourceTests.test_cli_emits_machine_readable_success_and_rejection) ... ok
+test_concurrent_empty_destination_is_not_overwritten (test_stage_advisor_terminal_source_cli.StageAdvisorTerminalSourceTests.test_concurrent_empty_destination_is_not_overwritten) ... ok
+test_existing_bundle_replacement_cannot_claim_idempotent_success (test_stage_advisor_terminal_source_cli.StageAdvisorTerminalSourceTests.test_existing_bundle_replacement_cannot_claim_idempotent_success) ... ok
+test_input_root_replacement_is_detected_before_staging (test_stage_advisor_terminal_source_cli.StageAdvisorTerminalSourceTests.test_input_root_replacement_is_detected_before_staging) ... ok
+test_missing_secure_dirfd_capability_fails_closed (test_stage_advisor_terminal_source_cli.StageAdvisorTerminalSourceTests.test_missing_secure_dirfd_capability_fails_closed) ... ok
+test_pending_root_replacement_cannot_redirect_new_bundle (test_stage_advisor_terminal_source_cli.StageAdvisorTerminalSourceTests.test_pending_root_replacement_cannot_redirect_new_bundle) ... ok
+test_rejects_multiple_records_wrong_action_unverified_and_unconfirmed (test_stage_advisor_terminal_source_cli.StageAdvisorTerminalSourceTests.test_rejects_multiple_records_wrong_action_unverified_and_unconfirmed) ... ok
+test_rejects_path_escape_symlink_hardlink_and_nonregular_sources (test_stage_advisor_terminal_source_cli.StageAdvisorTerminalSourceTests.test_rejects_path_escape_symlink_hardlink_and_nonregular_sources) ... ok
+test_rejects_source_drift_reviewed_root_and_tampered_collision (test_stage_advisor_terminal_source_cli.StageAdvisorTerminalSourceTests.test_rejects_source_drift_reviewed_root_and_tampered_collision) ... ok
+test_stages_exact_bytes_as_pending_only_and_is_idempotent (test_stage_advisor_terminal_source_cli.StageAdvisorTerminalSourceTests.test_stages_exact_bytes_as_pending_only_and_is_idempotent) ... ok
+test_real_kb_loads_with_homophones (test_subtitle_normalizer.BuildDictionaryFromProfilesTests.test_real_kb_loads_with_homophones) ... ok
+test_compound_guard_skips_百战_inside_百战不殆 (test_subtitle_normalizer.GreedyExactReplaceTests.test_compound_guard_skips_百战_inside_百战不殆)
+`百战 → 百战不殆` must NOT double-expand the already-correct ... ok
+test_compound_guard_skips_金汤_inside_固若金汤 (test_subtitle_normalizer.GreedyExactReplaceTests.test_compound_guard_skips_金汤_inside_固若金汤)
+`金汤 → 金城汤池` must NOT fire inside the canonical `固若金汤`. ... ok
+test_compound_guard_still_replaces_bare_source (test_subtitle_normalizer.GreedyExactReplaceTests.test_compound_guard_still_replaces_bare_source)
+Bare `金汤` (not inside a longer canonical) is still rewritten. ... ok
+test_longer_source_rule_wins_over_bare (test_subtitle_normalizer.GreedyExactReplaceTests.test_longer_source_rule_wins_over_bare)
+`乌若金汤 → 固若金汤` (4-char) must fire before bare `金汤 → 金城汤池` ... ok
+test_longest_match_wins (test_subtitle_normalizer.GreedyExactReplaceTests.test_longest_match_wins) ... ok
+test_multi_occurrence_each_logged (test_subtitle_normalizer.GreedyExactReplaceTests.test_multi_occurrence_each_logged) ... ok
+test_deletion_one_char (test_subtitle_normalizer.LevenshteinTests.test_deletion_one_char) ... ok
+test_equal (test_subtitle_normalizer.LevenshteinTests.test_equal) ... ok
+test_insertion_one_char (test_subtitle_normalizer.LevenshteinTests.test_insertion_one_char) ... ok
+test_length_diff_greater_than_one (test_subtitle_normalizer.LevenshteinTests.test_length_diff_greater_than_one) ... ok
+test_substitution_one_char (test_subtitle_normalizer.LevenshteinTests.test_substitution_one_char) ... ok
+test_two_substitutions (test_subtitle_normalizer.LevenshteinTests.test_two_substitutions) ... ok
+test_no_other_canonical_allows_fuzzy (test_subtitle_normalizer.NeighborhoodGuardTests.test_no_other_canonical_allows_fuzzy) ... ok
+test_other_canonical_in_window_blocks_fuzzy (test_subtitle_normalizer.NeighborhoodGuardTests.test_other_canonical_in_window_blocks_fuzzy) ... ok
+test_protected_prefix_in_window_blocks_fuzzy (test_subtitle_normalizer.NeighborhoodGuardTests.test_protected_prefix_in_window_blocks_fuzzy)
+Speaker prefix (SP诸葛 / 神诸葛) must suppress fuzzy that would chop ... ok
+test_protected_substring_in_window_blocks_fuzzy (test_subtitle_normalizer.NeighborhoodGuardTests.test_protected_substring_in_window_blocks_fuzzy)
+When a player-coined team name overlaps the fuzzy window, suppress ... ok
+test_candidate_topic_facts_heroes_skills_normalized (test_subtitle_normalizer.NormalizeCandidateFieldsTests.test_candidate_topic_facts_heroes_skills_normalized) ... ok
+test_segments_rewritten_and_logged (test_subtitle_normalizer.NormalizeDocumentTests.test_segments_rewritten_and_logged) ... ok
+test_ambiguous_pattern_emits_candidate_no_rewrite (test_subtitle_normalizer.NormalizeTextTests.test_ambiguous_pattern_emits_candidate_no_rewrite) ... ok
+test_canonical_already_present_untouched (test_subtitle_normalizer.NormalizeTextTests.test_canonical_already_present_untouched) ... ok
+test_exact_homophone_logged_as_homophone (test_subtitle_normalizer.NormalizeTextTests.test_exact_homophone_logged_as_homophone) ... ok
+test_fuzzy_disabled_when_enable_fuzzy_false (test_subtitle_normalizer.NormalizeTextTests.test_fuzzy_disabled_when_enable_fuzzy_false) ... ok
+test_fuzzy_edit_distance_logs_as_fuzzy (test_subtitle_normalizer.NormalizeTextTests.test_fuzzy_edit_distance_logs_as_fuzzy) ... ok
+test_neighborhood_blocks_false_fuzzy (test_subtitle_normalizer.NormalizeTextTests.test_neighborhood_blocks_false_fuzzy) ... ok
+test_two_char_canonical_not_fuzzy_matched (test_subtitle_normalizer.NormalizeTextTests.test_two_char_canonical_not_fuzzy_matched) ... ok
+test_build_video_knowledge_document_from_bundle (test_video_builder.VideoBuilderTests.test_build_video_knowledge_document_from_bundle) ... ok
+test_video_extract_cli_gemini_mode_requires_key (test_video_cli.VideoCliTests.test_video_extract_cli_gemini_mode_requires_key) ... ok
+test_video_extract_cli_heuristic_fallback_without_llm (test_video_cli.VideoCliTests.test_video_extract_cli_heuristic_fallback_without_llm) ... ok
+test_video_extract_cli_uses_existing_candidates_and_writes_outputs (test_video_cli.VideoCliTests.test_video_extract_cli_uses_existing_candidates_and_writes_outputs) ... ok
+test_fetch_bilibili_video_urls_returns_base_and_backups_low_quality_first (test_video_download.BilibiliVideoDownloadTests.test_fetch_bilibili_video_urls_returns_base_and_backups_low_quality_first) ... ok
+test_accepts_lineup_with_visual_and_subtitle_support (test_video_evidence_quality.EvidenceQualityTests.test_accepts_lineup_with_visual_and_subtitle_support) ... ok
+test_rejects_ocr_menu_words_as_lineup (test_video_evidence_quality.EvidenceQualityTests.test_rejects_ocr_menu_words_as_lineup) ... ok
+test_extractor_parses_openai_json (test_video_extractor.OpenAIVideoExtractorTests.test_extractor_parses_openai_json) ... ok
+test_extractor_parses_structured_candidates (test_video_extractor.VideoExtractorTests.test_extractor_parses_structured_candidates) ... ok
+test_prompt_contains_segment_ids (test_video_extractor.VideoExtractorTests.test_prompt_contains_segment_ids) ... ok
+test_heuristic_extractor_generates_hero_and_skill_candidates (test_video_heuristic.VideoHeuristicTests.test_heuristic_extractor_generates_hero_and_skill_candidates) ... ok
+test_heuristic_extractor_generates_lineup_candidate (test_video_heuristic.VideoHeuristicTests.test_heuristic_extractor_generates_lineup_candidate) ... ok
+test_stage_all_video_entries_maps_multiple_candidate_types (test_video_mapper.VideoMapperTests.test_stage_all_video_entries_maps_multiple_candidate_types) ... ok
+test_stage_lineup_candidate_produces_solution_entry (test_video_mapper.VideoMapperTests.test_stage_lineup_candidate_produces_solution_entry) ... ok
+test_candidate_must_reference_known_segment (test_video_models.VideoModelTests.test_candidate_must_reference_known_segment) ... ok
+test_dump_and_reload_round_trip (test_video_models.VideoModelTests.test_dump_and_reload_round_trip) ... ok
+test_load_video_knowledge_document (test_video_models.VideoModelTests.test_load_video_knowledge_document) ... ok
+test_publish_video_lineup_entry_writes_season_bucket (test_video_publish.VideoPublishTests.test_publish_video_lineup_entry_writes_season_bucket) ... ok
+test_published_video_lineup_is_queryable (test_video_publish.VideoPublishTests.test_published_video_lineup_is_queryable) ... ok
+test_no_images_skips_vision (test_vision.ChatAgentVisionTests.test_no_images_skips_vision) ... ok
+test_resolved_hero_injected_as_query_and_identified (test_vision.ChatAgentVisionTests.test_resolved_hero_injected_as_query_and_identified) ... ok
+test_unresolved_name_not_injected_as_query (test_vision.ChatAgentVisionTests.test_unresolved_name_not_injected_as_query) ... ok
+test_drops_entities_without_name (test_vision.ImageExtractorTests.test_drops_entities_without_name) ... ok
+test_empty_image_list_short_circuits (test_vision.ImageExtractorTests.test_empty_image_list_short_circuits) ... ok
+test_malformed_json_yields_empty (test_vision.ImageExtractorTests.test_malformed_json_yields_empty) ... [10/06/26 00:12:33] WARNING  vision JSON parse failed:          extractor.py:201
+                             Expecting value: line 1 column 1                   
+                             (char 0); raw='not json at all'                    
+ok
+test_parses_well_formed_json (test_vision.ImageExtractorTests.test_parses_well_formed_json) ... ok
+test_strips_json_fence (test_vision.ImageExtractorTests.test_strips_json_fence) ... ok
+test_explicit_name_lists_override_retriever (test_vision.ImageExtractorWhitelistTests.test_explicit_name_lists_override_retriever) ... ok
+test_no_retriever_no_whitelist (test_vision.ImageExtractorWhitelistTests.test_no_retriever_no_whitelist) ... ok
+test_retriever_injects_hero_and_skill_names (test_vision.ImageExtractorWhitelistTests.test_retriever_injects_hero_and_skill_names) ... ok
+test_data_uri_passthrough (test_vision.ImageLoaderTests.test_data_uri_passthrough) ... ok
+test_empty_strings_skipped (test_vision.ImageLoaderTests.test_empty_strings_skipped) ... ok
+test_http_url_passthrough (test_vision.ImageLoaderTests.test_http_url_passthrough) ... ok
+test_local_path_encoded (test_vision.ImageLoaderTests.test_local_path_encoded) ... ok
+test_missing_local_path_raises (test_vision.ImageLoaderTests.test_missing_local_path_raises) ... ok
+test_duplicate_vision_names_are_deduped (test_vision_enrichment.EnrichDocumentWithVisionTests.test_duplicate_vision_names_are_deduped) ... ok
+test_extractor_error_leaves_segment_untouched (test_vision_enrichment.EnrichDocumentWithVisionTests.test_extractor_error_leaves_segment_untouched) ...                     WARNING  vision extract failed for   vision_enrichment.py:78
+                             segment seg-d: simulated                           
+                             vision outage                                      
+ok
+test_hero_and_snippet_fold_into_ocr_lines_and_summary (test_vision_enrichment.EnrichDocumentWithVisionTests.test_hero_and_snippet_fold_into_ocr_lines_and_summary) ... ok
+test_max_frames_per_segment_caps_input (test_vision_enrichment.EnrichDocumentWithVisionTests.test_max_frames_per_segment_caps_input) ... ok
+test_missing_frame_path_degrades_to_error_path (test_vision_enrichment.EnrichDocumentWithVisionTests.test_missing_frame_path_degrades_to_error_path) ...                     WARNING  skipping segment seg-f:     vision_enrichment.py:70
+                             image loader error: image                          
+                             path not found:                                    
+                             /nonexistent/path.jpg                              
+ok
+test_mojibake_entity_names_are_repaired (test_vision_enrichment.EnrichDocumentWithVisionTests.test_mojibake_entity_names_are_repaired) ... ok
+test_mojibake_text_snippet_is_repaired (test_vision_enrichment.EnrichDocumentWithVisionTests.test_mojibake_text_snippet_is_repaired) ... ok
+test_segment_without_frames_passes_through (test_vision_enrichment.EnrichDocumentWithVisionTests.test_segment_without_frames_passes_through) ... ok
+
+----------------------------------------------------------------------
+Ran 367 tests in 40.145s
+
+OK

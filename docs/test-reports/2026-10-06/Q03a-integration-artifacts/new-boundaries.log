@@ -1,0 +1,13 @@
+test_benign_notes_downgrade_but_do_not_refuse (test_repair_boundaries.RepairBoundaryTests.test_benign_notes_downgrade_but_do_not_refuse) ... ok
+test_clean_same_scope_conflict_still_stops_answer (test_repair_boundaries.RepairBoundaryTests.test_clean_same_scope_conflict_still_stops_answer) ... ok
+test_correct_file_but_foreign_spec_origin_is_rejected (test_repair_boundaries.RepairBoundaryTests.test_correct_file_but_foreign_spec_origin_is_rejected) ... ok
+test_disjoint_fact_scopes_are_preserved_in_actual_prompt (test_repair_boundaries.RepairBoundaryTests.test_disjoint_fact_scopes_are_preserved_in_actual_prompt) ... ok
+test_extra_package_search_root_is_rejected (test_repair_boundaries.RepairBoundaryTests.test_extra_package_search_root_is_rejected) ... ok
+test_foreign_lazy_dependency_is_rejected_before_call (test_repair_boundaries.RepairBoundaryTests.test_foreign_lazy_dependency_is_rejected_before_call) ... ok
+test_late_foreign_module_is_rejected_before_result (test_repair_boundaries.RepairBoundaryTests.test_late_foreign_module_is_rejected_before_result) ... ok
+test_missing_scalar_notes_keep_body_and_missing_reason (test_repair_boundaries.RepairBoundaryTests.test_missing_scalar_notes_keep_body_and_missing_reason) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.699s
+
+OK

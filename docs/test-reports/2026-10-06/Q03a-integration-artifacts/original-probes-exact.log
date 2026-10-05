@@ -1,0 +1,22 @@
+test_algorithm_and_evidence_source_mismatch_rejected (test_independent_q03a.EvaluationIndependentTests.test_algorithm_and_evidence_source_mismatch_rejected) ... ok
+test_duplicate_and_wrong_split_rejected (test_independent_q03a.EvaluationIndependentTests.test_duplicate_and_wrong_split_rejected) ... ok
+test_missing_required_assessment_cases_rejected (test_independent_q03a.EvaluationIndependentTests.test_missing_required_assessment_cases_rejected) ... ok
+test_noninteger_version_rejected (test_independent_q03a.EvaluationIndependentTests.test_noninteger_version_rejected) ... ok
+test_nonpositive_or_boolean_top_k_rejected (test_independent_q03a.EvaluationIndependentTests.test_nonpositive_or_boolean_top_k_rejected) ... ok
+test_real_v2_and_expected_v1_drift (test_independent_q03a.EvaluationIndependentTests.test_real_v2_and_expected_v1_drift) ... ok
+test_alias_collision_lineup_and_general_text_unassessed (test_independent_q03a.GateIndependentTests.test_alias_collision_lineup_and_general_text_unassessed) ... ok
+test_all_twelve_scalar_paths_and_actual_prompt (test_independent_q03a.GateIndependentTests.test_all_twelve_scalar_paths_and_actual_prompt) ... ok
+test_empty_no_model_even_with_history (test_independent_q03a.GateIndependentTests.test_empty_no_model_even_with_history) ... ok
+test_missing_slot_preserves_later_prose_and_does_not_refuse (test_independent_q03a.GateIndependentTests.test_missing_slot_preserves_later_prose_and_does_not_refuse) ... ok
+test_original_citation_gate_still_rejects_invented_id (test_independent_q03a.GateIndependentTests.test_original_citation_gate_still_rejects_invented_id) ... ok
+test_stages_entities_and_constraints_are_not_false_conflicts (test_independent_q03a.GateIndependentTests.test_stages_entities_and_constraints_are_not_false_conflicts) ... ok
+test_three_sources_conflict_complete_and_deterministic (test_independent_q03a.GateIndependentTests.test_three_sources_conflict_complete_and_deterministic) ... ok
+test_wrong_entity_and_rewrite_subject_drift_never_supported (test_independent_q03a.GateIndependentTests.test_wrong_entity_and_rewrite_subject_drift_never_supported) ... ok
+test_zero_missing_equal_and_conflicting (test_independent_q03a.GateIndependentTests.test_zero_missing_equal_and_conflicting) ... ok
+test_explicit_disjoint_applicability_in_notes_is_not_hard_conflict (test_q03a_extra.ApplicabilityBoundaryTests.test_explicit_disjoint_applicability_in_notes_is_not_hard_conflict) ... ok
+test_historical_commit_label_is_not_verified_by_runner (test_q03a_extra.ApplicabilityBoundaryTests.test_historical_commit_label_is_not_verified_by_runner) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 1.817s
+
+OK
