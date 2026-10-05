@@ -1,0 +1,433 @@
+{
+  "version": 1,
+  "split": "development",
+  "top_k": 5,
+  "independent_holdout": false,
+  "quality_threshold": null,
+  "queries": [
+    {
+      "id": "q01",
+      "query": "君王殿",
+      "category": "canonical",
+      "history": [],
+      "split": "development",
+      "review_status": "developer-authored",
+      "source": "repository KB mapping; not independent gold",
+      "evidence_labels": [
+        {
+          "id": "building-main-city",
+          "source_ref": "KB-RULE-BUILDING-001",
+          "facts_sha256": "eb78cf66a630fae0047d5af346d2c701439647eb79d2ee56540a66a93f0c40af"
+        }
+      ]
+    },
+    {
+      "id": "q02",
+      "query": "建筑升级",
+      "category": "canonical",
+      "history": [],
+      "split": "development",
+      "review_status": "developer-authored",
+      "source": "repository KB mapping; not independent gold",
+      "evidence_labels": [
+        {
+          "id": "building-upgrade",
+          "source_ref": "KB-RULE-BUILDING-002",
+          "facts_sha256": "82e68b215d3dbf0bd21b6c1848ea200b6b06bf9b6b4ce3739b043c7a7d82a499"
+        }
+      ]
+    },
+    {
+      "id": "q03",
+      "query": "补兵",
+      "category": "alias",
+      "history": [],
+      "split": "development",
+      "review_status": "developer-authored",
+      "source": "repository KB mapping; not independent gold",
+      "evidence_labels": [
+        {
+          "id": "team-recruit",
+          "source_ref": "KB-RULE-TEAM-003",
+          "facts_sha256": "8f9541438a8c01fab471af8d98db27e28363acd0d224faabb519834914fde595"
+        }
+      ]
+    },
+    {
+      "id": "q04",
+      "query": "队伍体力",
+      "category": "alias",
+      "history": [],
+      "split": "development",
+      "review_status": "developer-authored",
+      "source": "repository KB mapping; not independent gold",
+      "evidence_labels": [
+        {
+          "id": "team-stamina",
+          "source_ref": "KB-RULE-TEAM-001",
+          "facts_sha256": "e8f919d840ccd65071ba3606b62d00ea6b0d1a7e8086399192476243d235a4a0"
+        }
+      ]
+    },
+    {
+      "id": "q05",
+      "query": "当体力不足时应该怎么办？",
+      "category": "natural",
+      "history": [],
+      "split": "development",
+      "review_status": "developer-authored",
+      "source": "repository KB mapping; not independent gold",
+      "evidence_labels": [
+        {
+          "id": "team-stamina",
+          "source_ref": "KB-RULE-TEAM-001",
+          "facts_sha256": "e8f919d840ccd65071ba3606b62d00ea6b0d1a7e8086399192476243d235a4a0"
+        }
+      ]
+    },
+    {
+      "id": "q06",
+      "query": "兵力不足会影响打地吗？",
+      "category": "natural",
+      "history": [],
+      "split": "development",
+      "review_status": "developer-authored",
+      "source": "repository KB mapping; not independent gold",
+      "evidence_labels": [
+        {
+          "id": "team-troops",
+          "source_ref": "KB-RULE-TEAM-002",
+          "facts_sha256": "c3e0d2f83f2bfca3cf0bab7c0462c9eb58021807038db4b78ca3610fe7f46389"
+        }
+      ]
+    },
+    {
+      "id": "q07",
+      "query": "资源",
+      "category": "canonical",
+      "history": [],
+      "split": "development",
+      "review_status": "developer-authored",
+      "source": "repository KB mapping; not independent gold",
+      "evidence_labels": [
+        {
+          "id": "resource-basics",
+          "source_ref": "KB-RULE-RESOURCE-001",
+          "facts_sha256": "c27514f11c1adafec164b111f6755cb4e1600bdde4d7260b812952e341052f42"
+        }
+      ]
+    },
+    {
+      "id": "q08",
+      "query": "红度",
+      "category": "canonical",
+      "history": [],
+      "split": "development",
+      "review_status": "developer-authored",
+      "source": "repository KB mapping; not independent gold",
+      "evidence_labels": [
+        {
+          "id": "term-hongdu",
+          "source_ref": "user_clarification:2026-04-16",
+          "facts_sha256": "8e6f04aaf02e034fcdcf38e740924cfc33810ed42164d49cd3e0a555903bc742"
+        }
+      ]
+    },
+    {
+      "id": "q09",
+      "query": "S 码与 W 码的区别",
+      "category": "season",
+      "history": [],
+      "split": "development",
+      "review_status": "developer-authored",
+      "source": "repository KB mapping; not independent gold",
+      "evidence_labels": [
+        {
+          "id": "term-season-code-vs-wcode",
+          "source_ref": "community_synthesis:2026-04-16",
+          "facts_sha256": "01ea2ce485f793c076a19aaec85abf091bafc76d4bb10d0c68465f381a8eeb0c"
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "query": "zzzz_unrecorded_9842",
+      "category": "no_answer",
+      "history": [],
+      "split": "development",
+      "review_status": "developer-authored",
+      "source": "repository KB mapping; not independent gold",
+      "evidence_labels": []
+    },
+    {
+      "id": "q11",
+      "query": "再详细说说它",
+      "category": "coreference",
+      "history": [
+        "君王殿"
+      ],
+      "split": "development",
+      "review_status": "developer-authored",
+      "source": "repository KB mapping; not independent gold",
+      "evidence_labels": [
+        {
+          "id": "building-main-city",
+          "source_ref": "KB-RULE-BUILDING-001",
+          "facts_sha256": "eb78cf66a630fae0047d5af346d2c701439647eb79d2ee56540a66a93f0c40af"
+        }
+      ]
+    },
+    {
+      "id": "q12",
+      "query": "补兵",
+      "category": "topic_switch",
+      "history": [
+        "君王殿"
+      ],
+      "split": "development",
+      "review_status": "developer-authored",
+      "source": "repository KB mapping; not independent gold",
+      "evidence_labels": [
+        {
+          "id": "team-recruit",
+          "source_ref": "KB-RULE-TEAM-003",
+          "facts_sha256": "8f9541438a8c01fab471af8d98db27e28363acd0d224faabb519834914fde595"
+        }
+      ]
+    }
+  ],
+  "scoring_cases": [
+    {
+      "id": "supported",
+      "answer": "甲的上限为20。[synthetic-a]",
+      "evidence": {
+        "synthetic-a": "甲的上限为20。",
+        "synthetic-b": "乙的上限为30。"
+      },
+      "annotation": {
+        "answer_sha256": "7d1dc76a87e629b24795832b6ab816dbfe0f85a20063d16e7b1b0909bc88b212",
+        "evidence_sha256": {
+          "synthetic-a": "8787678088f1caee266eab7d1ebc604f5220f81c8f99c73405852aa6373d8ec5",
+          "synthetic-b": "253e3dc3d26ffceb814eaea020ca5228c57565ee9861585a8ab3e3fa8c1bf83d"
+        },
+        "review_status": "developer-authored",
+        "source": "synthetic scoring adversary, not a game rule or model output",
+        "reviewer": "C developer",
+        "segments": [
+          {
+            "start": 0,
+            "end": 21,
+            "verdict": "supported",
+            "support_ids": [
+              "synthetic-a"
+            ]
+          }
+        ],
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "context_verdict": "unknown"
+      },
+      "context": ""
+    },
+    {
+      "id": "wrong_number",
+      "answer": "甲的上限为30。[synthetic-a]",
+      "evidence": {
+        "synthetic-a": "甲的上限为20。",
+        "synthetic-b": "乙的上限为30。"
+      },
+      "annotation": {
+        "answer_sha256": "47db24df31c0c5167d95bb191442df286425928e05cb7dd966aad8f447b2fbfa",
+        "evidence_sha256": {
+          "synthetic-a": "8787678088f1caee266eab7d1ebc604f5220f81c8f99c73405852aa6373d8ec5",
+          "synthetic-b": "253e3dc3d26ffceb814eaea020ca5228c57565ee9861585a8ab3e3fa8c1bf83d"
+        },
+        "review_status": "developer-authored",
+        "source": "synthetic scoring adversary, not a game rule or model output",
+        "reviewer": "C developer",
+        "segments": [
+          {
+            "start": 0,
+            "end": 21,
+            "verdict": "unsupported",
+            "support_ids": []
+          }
+        ],
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "context_verdict": "unknown"
+      },
+      "context": ""
+    },
+    {
+      "id": "wrong_entity",
+      "answer": "乙的上限为20。[synthetic-a]",
+      "evidence": {
+        "synthetic-a": "甲的上限为20。",
+        "synthetic-b": "乙的上限为30。"
+      },
+      "annotation": {
+        "answer_sha256": "4034638f6077d0f754188bf1807293eba0afa261098a9ead5ba197be204bbd0d",
+        "evidence_sha256": {
+          "synthetic-a": "8787678088f1caee266eab7d1ebc604f5220f81c8f99c73405852aa6373d8ec5",
+          "synthetic-b": "253e3dc3d26ffceb814eaea020ca5228c57565ee9861585a8ab3e3fa8c1bf83d"
+        },
+        "review_status": "developer-authored",
+        "source": "synthetic scoring adversary, not a game rule or model output",
+        "reviewer": "C developer",
+        "segments": [
+          {
+            "start": 0,
+            "end": 21,
+            "verdict": "unsupported",
+            "support_ids": []
+          }
+        ],
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "context_verdict": "unknown"
+      },
+      "context": ""
+    },
+    {
+      "id": "missing_citation",
+      "answer": "甲的上限为20。",
+      "evidence": {
+        "synthetic-a": "甲的上限为20。",
+        "synthetic-b": "乙的上限为30。"
+      },
+      "annotation": {
+        "answer_sha256": "8787678088f1caee266eab7d1ebc604f5220f81c8f99c73405852aa6373d8ec5",
+        "evidence_sha256": {
+          "synthetic-a": "8787678088f1caee266eab7d1ebc604f5220f81c8f99c73405852aa6373d8ec5",
+          "synthetic-b": "253e3dc3d26ffceb814eaea020ca5228c57565ee9861585a8ab3e3fa8c1bf83d"
+        },
+        "review_status": "developer-authored",
+        "source": "synthetic scoring adversary, not a game rule or model output",
+        "reviewer": "C developer",
+        "segments": [
+          {
+            "start": 0,
+            "end": 8,
+            "verdict": "supported",
+            "support_ids": [
+              "synthetic-a"
+            ]
+          }
+        ],
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "context_verdict": "unknown"
+      },
+      "context": ""
+    },
+    {
+      "id": "no_evidence",
+      "answer": "甲的上限为20。[synthetic-a]",
+      "evidence": {},
+      "annotation": {
+        "answer_sha256": "7d1dc76a87e629b24795832b6ab816dbfe0f85a20063d16e7b1b0909bc88b212",
+        "evidence_sha256": {},
+        "review_status": "developer-authored",
+        "source": "synthetic scoring adversary, not a game rule or model output",
+        "reviewer": "C developer",
+        "segments": [
+          {
+            "start": 0,
+            "end": 21,
+            "verdict": "unsupported",
+            "support_ids": []
+          }
+        ],
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "context_verdict": "unknown"
+      },
+      "context": ""
+    },
+    {
+      "id": "stale_coreference",
+      "answer": "乙的上限为20。[synthetic-a]",
+      "evidence": {
+        "synthetic-a": "甲的上限为20。",
+        "synthetic-b": "乙的上限为30。"
+      },
+      "annotation": {
+        "answer_sha256": "4034638f6077d0f754188bf1807293eba0afa261098a9ead5ba197be204bbd0d",
+        "evidence_sha256": {
+          "synthetic-a": "8787678088f1caee266eab7d1ebc604f5220f81c8f99c73405852aa6373d8ec5",
+          "synthetic-b": "253e3dc3d26ffceb814eaea020ca5228c57565ee9861585a8ab3e3fa8c1bf83d"
+        },
+        "review_status": "developer-authored",
+        "source": "synthetic scoring adversary, not a game rule or model output",
+        "reviewer": "C developer",
+        "segments": [
+          {
+            "start": 0,
+            "end": 21,
+            "verdict": "unsupported",
+            "support_ids": []
+          }
+        ],
+        "context_sha256": "37c6db649bdd9c692ad1cfa1fa6131f592162474ffd9de3acf191c907a7a133f",
+        "context_verdict": "incorrect"
+      },
+      "context": "先前问乙。现在问：它的上限是多少？"
+    },
+    {
+      "id": "topic_switch_old_answer",
+      "answer": "甲的上限为20。[synthetic-a]",
+      "evidence": {
+        "synthetic-a": "甲的上限为20。",
+        "synthetic-b": "乙的上限为30。"
+      },
+      "annotation": {
+        "answer_sha256": "7d1dc76a87e629b24795832b6ab816dbfe0f85a20063d16e7b1b0909bc88b212",
+        "evidence_sha256": {
+          "synthetic-a": "8787678088f1caee266eab7d1ebc604f5220f81c8f99c73405852aa6373d8ec5",
+          "synthetic-b": "253e3dc3d26ffceb814eaea020ca5228c57565ee9861585a8ab3e3fa8c1bf83d"
+        },
+        "review_status": "developer-authored",
+        "source": "synthetic scoring adversary, not a game rule or model output",
+        "reviewer": "C developer",
+        "segments": [
+          {
+            "start": 0,
+            "end": 21,
+            "verdict": "supported",
+            "support_ids": [
+              "synthetic-a"
+            ]
+          }
+        ],
+        "context_sha256": "bdf170255920a7caec7e28af7c1dbe858d4ca385b6fb66d298089c2dd5bded77",
+        "context_verdict": "incorrect"
+      },
+      "context": "先前问甲。现在切换话题：乙的上限是多少？"
+    },
+    {
+      "id": "unknown",
+      "answer": "甲也许有额外增益。[synthetic-a]",
+      "evidence": {
+        "synthetic-a": "甲的上限为20。",
+        "synthetic-b": "乙的上限为30。"
+      },
+      "annotation": {
+        "answer_sha256": "ea13a8dee22cce6cb77644833f2fcbe0cd1d6356c6558ebf20002e1d82c42adc",
+        "evidence_sha256": {
+          "synthetic-a": "8787678088f1caee266eab7d1ebc604f5220f81c8f99c73405852aa6373d8ec5",
+          "synthetic-b": "253e3dc3d26ffceb814eaea020ca5228c57565ee9861585a8ab3e3fa8c1bf83d"
+        },
+        "review_status": "developer-authored",
+        "source": "synthetic scoring adversary, not a game rule or model output",
+        "reviewer": "C developer",
+        "segments": [
+          {
+            "start": 0,
+            "end": 22,
+            "verdict": "unknown",
+            "support_ids": []
+          }
+        ],
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "context_verdict": "unknown"
+      },
+      "context": ""
+    }
+  ]
+}

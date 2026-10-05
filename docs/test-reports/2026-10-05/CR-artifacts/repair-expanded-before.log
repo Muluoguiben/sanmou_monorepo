@@ -1,0 +1,240 @@
+test_checkpoint_interrupts_tool_and_policy_preserve_accounting (__main__.RepairAcceptance.test_checkpoint_interrupts_tool_and_policy_preserve_accounting) ... 
+  test_checkpoint_interrupts_tool_and_policy_preserve_accounting (__main__.RepairAcceptance.test_checkpoint_interrupts_tool_and_policy_preserve_accounting) (phase='tool', action='cancel') ... FAIL
+  test_checkpoint_interrupts_tool_and_policy_preserve_accounting (__main__.RepairAcceptance.test_checkpoint_interrupts_tool_and_policy_preserve_accounting) (phase='tool', action='pause') ... FAIL
+  test_checkpoint_interrupts_tool_and_policy_preserve_accounting (__main__.RepairAcceptance.test_checkpoint_interrupts_tool_and_policy_preserve_accounting) (phase='policy', action='cancel') ... FAIL
+  test_checkpoint_interrupts_tool_and_policy_preserve_accounting (__main__.RepairAcceptance.test_checkpoint_interrupts_tool_and_policy_preserve_accounting) (phase='policy', action='pause') ... FAIL
+test_model_transport_contract_business_layers_and_unknown_usage (__main__.RepairAcceptance.test_model_transport_contract_business_layers_and_unknown_usage) ... 
+  test_model_transport_contract_business_layers_and_unknown_usage (__main__.RepairAcceptance.test_model_transport_contract_business_layers_and_unknown_usage) (label='connection') ... FAIL
+  test_model_transport_contract_business_layers_and_unknown_usage (__main__.RepairAcceptance.test_model_transport_contract_business_layers_and_unknown_usage) (label='timeout') ... FAIL
+  test_model_transport_contract_business_layers_and_unknown_usage (__main__.RepairAcceptance.test_model_transport_contract_business_layers_and_unknown_usage) (label='cancel') ... FAIL
+  test_model_transport_contract_business_layers_and_unknown_usage (__main__.RepairAcceptance.test_model_transport_contract_business_layers_and_unknown_usage) (label='malformed') ... FAIL
+Executing <Task finished name='Task-9' coro=<RepairAcceptance.test_model_transport_contract_business_layers_and_unknown_usage() done, defined at /mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/docs/test-reports/2026-10-05/CR-artifacts/adversarial_recheck.py:70> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.182 seconds
+test_tool_schema_failure_is_not_transport_failure (__main__.RepairAcceptance.test_tool_schema_failure_is_not_transport_failure) ... ok
+test_cancel_during_checkpoint_before_client_dispatch (adversarial.ReviewNegatives.test_cancel_during_checkpoint_before_client_dispatch) ... FAIL
+test_invalid_policy_response_has_successful_transport (adversarial.ReviewNegatives.test_invalid_policy_response_has_successful_transport) ... FAIL
+test_pause_during_checkpoint_before_client_dispatch (adversarial.ReviewNegatives.test_pause_during_checkpoint_before_client_dispatch) ... FAIL
+test_policy_transport_failure_does_not_claim_schema_check (adversarial.ReviewNegatives.test_policy_transport_failure_does_not_claim_schema_check) ... FAIL
+
+======================================================================
+FAIL: test_checkpoint_interrupts_tool_and_policy_preserve_accounting (__main__.RepairAcceptance.test_checkpoint_interrupts_tool_and_policy_preserve_accounting) (phase='tool', action='cancel')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/docs/test-reports/2026-10-05/CR-artifacts/adversarial_recheck.py", line 47, in test_checkpoint_interrupts_tool_and_policy_preserve_accounting
+    self.assertEqual(result.status, 'cancelled' if action == 'cancel' else 'paused')
+AssertionError: 'failed' != 'cancelled'
+- failed
++ cancelled
+
+
+======================================================================
+FAIL: test_checkpoint_interrupts_tool_and_policy_preserve_accounting (__main__.RepairAcceptance.test_checkpoint_interrupts_tool_and_policy_preserve_accounting) (phase='tool', action='pause')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/docs/test-reports/2026-10-05/CR-artifacts/adversarial_recheck.py", line 50, in test_checkpoint_interrupts_tool_and_policy_preserve_accounting
+    self.assertEqual(client.calls, [])
+AssertionError: Lists differ: ['session_status'] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+'session_status'
+
+- ['session_status']
++ []
+
+======================================================================
+FAIL: test_checkpoint_interrupts_tool_and_policy_preserve_accounting (__main__.RepairAcceptance.test_checkpoint_interrupts_tool_and_policy_preserve_accounting) (phase='policy', action='cancel')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/docs/test-reports/2026-10-05/CR-artifacts/adversarial_recheck.py", line 47, in test_checkpoint_interrupts_tool_and_policy_preserve_accounting
+    self.assertEqual(result.status, 'cancelled' if action == 'cancel' else 'paused')
+AssertionError: 'failed' != 'cancelled'
+- failed
++ cancelled
+
+
+======================================================================
+FAIL: test_checkpoint_interrupts_tool_and_policy_preserve_accounting (__main__.RepairAcceptance.test_checkpoint_interrupts_tool_and_policy_preserve_accounting) (phase='policy', action='pause')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/docs/test-reports/2026-10-05/CR-artifacts/adversarial_recheck.py", line 48, in test_checkpoint_interrupts_tool_and_policy_preserve_accounting
+    self.assertEqual(policy.calls, 0)
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_model_transport_contract_business_layers_and_unknown_usage (__main__.RepairAcceptance.test_model_transport_contract_business_layers_and_unknown_usage) (label='connection')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/docs/test-reports/2026-10-05/CR-artifacts/adversarial_recheck.py", line 89, in test_model_transport_contract_business_layers_and_unknown_usage
+    self.assertEqual((event.transport, event.contract), (transport, contract))
+AssertionError: Tuples differ: ('error', 'error') != ('error', 'not_checked')
+
+First differing element 1:
+'error'
+'not_checked'
+
+- ('error', 'error')
++ ('error', 'not_checked')
+
+======================================================================
+FAIL: test_model_transport_contract_business_layers_and_unknown_usage (__main__.RepairAcceptance.test_model_transport_contract_business_layers_and_unknown_usage) (label='timeout')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/docs/test-reports/2026-10-05/CR-artifacts/adversarial_recheck.py", line 89, in test_model_transport_contract_business_layers_and_unknown_usage
+    self.assertEqual((event.transport, event.contract), (transport, contract))
+AssertionError: Tuples differ: ('error', 'error') != ('error', 'not_checked')
+
+First differing element 1:
+'error'
+'not_checked'
+
+- ('error', 'error')
++ ('error', 'not_checked')
+
+======================================================================
+FAIL: test_model_transport_contract_business_layers_and_unknown_usage (__main__.RepairAcceptance.test_model_transport_contract_business_layers_and_unknown_usage) (label='cancel')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/docs/test-reports/2026-10-05/CR-artifacts/adversarial_recheck.py", line 89, in test_model_transport_contract_business_layers_and_unknown_usage
+    self.assertEqual((event.transport, event.contract), (transport, contract))
+AssertionError: Tuples differ: ('cancelled', 'error') != ('cancelled', 'not_checked')
+
+First differing element 1:
+'error'
+'not_checked'
+
+- ('cancelled', 'error')
++ ('cancelled', 'not_checked')
+
+======================================================================
+FAIL: test_model_transport_contract_business_layers_and_unknown_usage (__main__.RepairAcceptance.test_model_transport_contract_business_layers_and_unknown_usage) (label='malformed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/docs/test-reports/2026-10-05/CR-artifacts/adversarial_recheck.py", line 89, in test_model_transport_contract_business_layers_and_unknown_usage
+    self.assertEqual((event.transport, event.contract), (transport, contract))
+AssertionError: Tuples differ: ('error', 'error') != ('ok', 'error')
+
+First differing element 0:
+'error'
+'ok'
+
+- ('error', 'error')
+?   --- ^
+
++ ('ok', 'error')
+?    ^
+
+
+======================================================================
+FAIL: test_cancel_during_checkpoint_before_client_dispatch (adversarial.ReviewNegatives.test_cancel_during_checkpoint_before_client_dispatch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/unittest/async_case.py", line 90, in _callTestMethod
+    if self._callMaybeAsync(method) is not None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/async_case.py", line 112, in _callMaybeAsync
+    return self._asyncioRunner.run(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/docs/test-reports/2026-10-05/CR-artifacts/adversarial.py", line 30, in test_cancel_during_checkpoint_before_client_dispatch
+    self.assertEqual(result.status, 'cancelled')
+AssertionError: 'failed' != 'cancelled'
+- failed
++ cancelled
+
+
+======================================================================
+FAIL: test_invalid_policy_response_has_successful_transport (adversarial.ReviewNegatives.test_invalid_policy_response_has_successful_transport)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/unittest/async_case.py", line 90, in _callTestMethod
+    if self._callMaybeAsync(method) is not None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/async_case.py", line 112, in _callMaybeAsync
+    return self._asyncioRunner.run(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/docs/test-reports/2026-10-05/CR-artifacts/adversarial.py", line 53, in test_invalid_policy_response_has_successful_transport
+    self.assertEqual((event.transport, event.contract), ('ok', 'error'))
+AssertionError: Tuples differ: ('error', 'error') != ('ok', 'error')
+
+First differing element 0:
+'error'
+'ok'
+
+- ('error', 'error')
+?   --- ^
+
++ ('ok', 'error')
+?    ^
+
+
+======================================================================
+FAIL: test_pause_during_checkpoint_before_client_dispatch (adversarial.ReviewNegatives.test_pause_during_checkpoint_before_client_dispatch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/unittest/async_case.py", line 90, in _callTestMethod
+    if self._callMaybeAsync(method) is not None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/async_case.py", line 112, in _callMaybeAsync
+    return self._asyncioRunner.run(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/docs/test-reports/2026-10-05/CR-artifacts/adversarial.py", line 42, in test_pause_during_checkpoint_before_client_dispatch
+    self.assertEqual(client.calls, [], 'client dispatched after explicit pause')
+AssertionError: Lists differ: ['session_status'] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+'session_status'
+
+- ['session_status']
++ [] : client dispatched after explicit pause
+
+======================================================================
+FAIL: test_policy_transport_failure_does_not_claim_schema_check (adversarial.ReviewNegatives.test_policy_transport_failure_does_not_claim_schema_check)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/unittest/async_case.py", line 90, in _callTestMethod
+    if self._callMaybeAsync(method) is not None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/async_case.py", line 112, in _callMaybeAsync
+    return self._asyncioRunner.run(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/docs/test-reports/2026-10-05/CR-artifacts/adversarial.py", line 64, in test_policy_transport_failure_does_not_claim_schema_check
+    self.assertEqual((event.transport, event.contract), ('error', 'not_checked'))
+AssertionError: Tuples differ: ('error', 'error') != ('error', 'not_checked')
+
+First differing element 1:
+'error'
+'not_checked'
+
+- ('error', 'error')
++ ('error', 'not_checked')
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.482s
+
+FAILED (failures=12)
+INTERRUPT cancel failed run_deadline []
+INTERRUPT pause paused pause_requested ['session_status']

@@ -1,0 +1,16 @@
+{
+  "source": "547d9e3c0feb6659f773650dc5c23326de23d350",
+  "tree": "df7cf732aad75ed453b5099e1134bd21a46a5c57",
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/docs/test-reports/2026-10-05/CR-artifacts/adversarial_recheck.py"
+  ],
+  "cwd": "/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/packages/pioneer-agent",
+  "pythonpath": "/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/packages/pioneer-agent/src:/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/packages/qa-agent/src:/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/packages/sanmou-common/src:/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/packages/pioneer-agent/tests:/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/packages/pioneer-agent/tests/unit:/mnt/c/Users/Lan/.codex/worktrees/6155/sanmou_monorepo/packages/qa-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+  "exit_code": 1,
+  "seconds": 4.851339817047119,
+  "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+  "original_tree_argument": "c49f53a86172c8edaf105a972c135e43459ad4e3",
+  "metadata_correction": "Original argument used earlier business-combination tree; corrected to exact source commit tree. Production sources unchanged; no test result altered."
+}
