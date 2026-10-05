@@ -1,0 +1,30 @@
+{
+  "cr_commit": "eb895ae4e149a38d65789c19c7e4aebdee0c3c1a",
+  "modifications": "none; display-copy whitespace corrected to exact Git bytes before final replay",
+  "files": [
+    {
+      "file": "guarded_run.py",
+      "cr_git_blob": "0fa46b738500da1ee9db10e891591f1a4ebbbc1d",
+      "copied_git_blob": "0fa46b738500da1ee9db10e891591f1a4ebbbc1d",
+      "sha256": "e261a9430250af377521aae52e3405ab1535958b42a5ce3ea2dbe1bc65423fee"
+    },
+    {
+      "file": "test_q02a_adversarial.py",
+      "cr_git_blob": "0080ca54d3175fd9172e87a81adc5d23e989e412",
+      "copied_git_blob": "0080ca54d3175fd9172e87a81adc5d23e989e412",
+      "sha256": "9591d87a1e46112f247e5e6c23ceb6ec42c06bb214f1e3a60c3e07a67bad9597"
+    },
+    {
+      "file": "test_q02a_contract.py",
+      "cr_git_blob": "690bf1aebade9c064127bf2061624eae6125aced",
+      "copied_git_blob": "690bf1aebade9c064127bf2061624eae6125aced",
+      "sha256": "b56e0b0bc3b6498ae4dc880c5965f9600366973e1e47d2baf66e91d1464c9f66"
+    },
+    {
+      "file": "grammar.json",
+      "cr_git_blob": "73b092ab0119b3a0c54f385aa7f809411c4ddf62",
+      "copied_git_blob": "73b092ab0119b3a0c54f385aa7f809411c4ddf62",
+      "sha256": "132c4a48e561098ef17915e1f5213c145ed674c40f6212ba1935a0dda3c0d700"
+    }
+  ]
+}
