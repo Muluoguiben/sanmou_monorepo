@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/Q02a-CR-recheck-artifacts/recheck.py", line 78, in <module>
+    main()
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/Q02a-CR-recheck-artifacts/recheck.py", line 45, in main
+    m.main()
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/Q02a-CR-artifacts/verify_frozen.py", line 86, in main
+    verify_blobs(root, names)
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/Q02a-CR-artifacts/verify_frozen.py", line 49, in verify_blobs
+    raise RuntimeError("source byte mismatch: " + name)
+RuntimeError: source byte mismatch: .codex-autonomy/review-iteration-20261005/WORKLOG.md
