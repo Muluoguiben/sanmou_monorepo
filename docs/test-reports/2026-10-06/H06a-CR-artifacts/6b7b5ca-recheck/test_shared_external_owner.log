@@ -1,0 +1,8 @@
+{'runners': 1, 'actual_calls': 4, 'charged_calls': 4, 'results': ['paused']}
+test_shared_owner_does_not_lose_duplicate_dispatch_accounting (__main__.SharedExternalOwner.test_shared_owner_does_not_lose_duplicate_dispatch_accounting) ... Executing <Task finished name='Task-3' coro=<TaskRunner.run() done, defined at /tmp/h06a-cr-6b7b5ca/source/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_runner.py:215> result=RunState(vers...cutable=False) created at /usr/lib/python3.12/asyncio/tasks.py:695> took 0.148 seconds
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.207s
+
+OK

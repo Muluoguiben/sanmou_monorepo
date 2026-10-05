@@ -1,0 +1,10 @@
+{'status': 'succeeded', 'reason': 'goal_verified', 'new_physical_calls': ['session_status', 'observe_game', 'get_runtime_state', 'list_action_candidates', 'session_status', 'observe_game', 'get_runtime_state', 'list_action_candidates'], 'before_reservations': 5, 'after_reservations': 15}
+test_fresh_harness_control_succeeds (__main__.SequentialHarnessReuse.test_fresh_harness_control_succeeds) ... Executing <Task finished name='Task-2' coro=<SequentialHarnessReuse.test_fresh_harness_control_succeeds() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_sequential_harness_reuse.py:46> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.606 seconds
+ok
+test_fresh_runner_same_harness_can_resume_or_reject_without_damage (__main__.SequentialHarnessReuse.test_fresh_runner_same_harness_can_resume_or_reject_without_damage) ... Executing <Task finished name='Task-7' coro=<SequentialHarnessReuse.test_fresh_runner_same_harness_can_resume_or_reject_without_damage() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_sequential_harness_reuse.py:17> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.465 seconds
+ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 1.142s
+
+OK
