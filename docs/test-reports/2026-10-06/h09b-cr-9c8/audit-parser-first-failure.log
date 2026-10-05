@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "C:\Users\Lan\.codex\worktrees\qa-q03a-review-20261005\sanmou_monorepo\docs\test-reports\2026-10-06\h09b-handoff-audit.py", line 44, in <module>
+    assert re.search(rf"Ran {count} tests in ", text) and re.search(r"^OK(?: \(skipped=2\))?$", text, re.M)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

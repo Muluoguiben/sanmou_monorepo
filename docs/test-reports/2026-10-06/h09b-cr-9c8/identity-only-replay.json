@@ -1,0 +1,9 @@
+{
+  "original_probe_sha256": "45f05c46376778add2e56b220c2ea711625881f9ad0e52cb73d6567df01e06da",
+  "replacement": {
+    "old_expected_sha": "f961c1594018651d584bbe622547a79e5648c5a7",
+    "new_expected_sha": "9c8db2605d64c08736830585b20c542138d66678"
+  },
+  "only_change": "one source-identity constant in memory; assertions unchanged",
+  "adjusted_probe_sha256": "df3499b800214ba0d33713c741f75d4aafdc43c6c4e13eea1a3ffbf09abdb278"
+}

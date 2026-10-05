@@ -1,0 +1,72 @@
+{
+  "handoff_commit": "1abcaac29697420de6de0663f2bc8e244f456336",
+  "reviewed_source": "9c8db2605d64c08736830585b20c542138d66678",
+  "source_tree": "a7d1114304936416cb86d6d8428ccef68a1be0d8",
+  "raw_files": [
+    {
+      "name": "common-9c8db26.log",
+      "bytes": 335,
+      "sha256": "7e9438edca6c90738e3f3983beb89cc2e47795af9815f716b6f41a24af9285f3",
+      "matched": true
+    },
+    {
+      "name": "linux-cli-9c8db26.log",
+      "bytes": 235,
+      "sha256": "2beccf1957a68bbd23493f05896a2e7e380887f7ba403f30c2af38b58456050c",
+      "matched": true
+    },
+    {
+      "name": "linux-diagnostic-9c8db26-report.json",
+      "bytes": 275393,
+      "sha256": "3a971203196b9cad531175ec4cfd9c90aea4053335971183cd746b5a387fad22",
+      "matched": true
+    },
+    {
+      "name": "native-stdlib-9c8db26.log",
+      "bytes": 2816,
+      "sha256": "d300ad588e41397c2641e778c32b21e44e4d4866284f264de445b6f483075379",
+      "matched": true
+    },
+    {
+      "name": "pioneer-9c8db26.log",
+      "bytes": 325628,
+      "sha256": "b3cc75418386b6214a273651ab9addb083b094ae6ebb6c5096828f7b19988a32",
+      "matched": true
+    },
+    {
+      "name": "qa-9c8db26.log",
+      "bytes": 65597,
+      "sha256": "baf7daffb37065635746aa634c8e6bf3511a2bdb4e9da8ad6eb871e3cdbd0810",
+      "matched": true
+    },
+    {
+      "name": "original-probes/empty-report-original.log",
+      "bytes": 868,
+      "sha256": "26ef3397ab78de16adb4bc79aefed5bafb3948f0c79df617bee400af77e8638f",
+      "matched": true
+    },
+    {
+      "name": "original-probes/probe-results.json",
+      "bytes": 3550,
+      "sha256": "49d3f677c584b1811adc087995a714371a2e0a3f228c67dde8f69a462fc7d5b6",
+      "matched": true
+    }
+  ],
+  "author_test_counts_verified": {
+    "pioneer-9c8db26.log": 1018,
+    "qa-9c8db26.log": 394,
+    "common-9c8db26.log": 2,
+    "native-stdlib-9c8db26.log": 20
+  },
+  "linux_report_only": true,
+  "author_replay": "20/20",
+  "independent_empty_frame_negative_probes": [
+    "negative_length",
+    "empty_payload_chunk",
+    "empty_wrong_digest",
+    "empty_missing_end",
+    "empty_duplicate_end"
+  ],
+  "unknown_author_scripts_executed": false,
+  "hosted_windows_acceptance": "pending"
+}

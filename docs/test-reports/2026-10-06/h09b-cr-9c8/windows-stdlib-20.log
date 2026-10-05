@@ -1,0 +1,25 @@
+test_artifact_bytes_and_manifest_coverage (test_windows_task_eval_ci.WindowsTaskEvalCITests.test_artifact_bytes_and_manifest_coverage) ... ok
+test_contract_mutations_fail_closed (test_windows_task_eval_ci.WindowsTaskEvalCITests.test_contract_mutations_fail_closed) ... ok
+test_empty_report_evidence_roundtrip (test_windows_task_eval_ci.WindowsTaskEvalCITests.test_empty_report_evidence_roundtrip) ... ok
+test_exact_type_and_report_limit (test_windows_task_eval_ci.WindowsTaskEvalCITests.test_exact_type_and_report_limit) ... ok
+test_existing_output_never_launched_or_overwritten (test_windows_task_eval_ci.WindowsTaskEvalCITests.test_existing_output_never_launched_or_overwritten) ... ok
+test_exit_zero_empty_report_retained_but_gate_red (test_windows_task_eval_ci.WindowsTaskEvalCITests.test_exit_zero_empty_report_retained_but_gate_red) ... ok
+test_exit_zero_without_report_is_red (test_windows_task_eval_ci.WindowsTaskEvalCITests.test_exit_zero_without_report_is_red) ... ok
+test_links_and_relative_paths (test_windows_task_eval_ci.WindowsTaskEvalCITests.test_links_and_relative_paths) ... ok
+test_log_corruption_missing_duplicate_order_limits (test_windows_task_eval_ci.WindowsTaskEvalCITests.test_log_corruption_missing_duplicate_order_limits) ... ok
+test_log_roundtrip_and_timestamp_prefix (test_windows_task_eval_ci.WindowsTaskEvalCITests.test_log_roundtrip_and_timestamp_prefix) ... ok
+test_missing_and_duplicate_cases (test_windows_task_eval_ci.WindowsTaskEvalCITests.test_missing_and_duplicate_cases) ... ok
+test_mocked_cli_positive (test_windows_task_eval_ci.WindowsTaskEvalCITests.test_mocked_cli_positive) ... ok
+test_non_native_main_rejected (test_windows_task_eval_ci.WindowsTaskEvalCITests.test_non_native_main_rejected) ... ok
+test_nonlocal_paths_rejected_before_io (test_windows_task_eval_ci.WindowsTaskEvalCITests.test_nonlocal_paths_rejected_before_io) ... ok
+test_nonzero_child_preserves_report_before_red (test_windows_task_eval_ci.WindowsTaskEvalCITests.test_nonzero_child_preserves_report_before_red) ... ok
+test_physical_reparse_rejected (test_windows_task_eval_ci.WindowsTaskEvalCITests.test_physical_reparse_rejected) ... ok
+test_source_byte_and_input_digest_mismatch (test_windows_task_eval_ci.WindowsTaskEvalCITests.test_source_byte_and_input_digest_mismatch) ... ok
+test_strict_json (test_windows_task_eval_ci.WindowsTaskEvalCITests.test_strict_json) ... ok
+test_synthetic_positive_and_expected_safety_failures (test_windows_task_eval_ci.WindowsTaskEvalCITests.test_synthetic_positive_and_expected_safety_failures) ... ok
+test_timeout_preserves_report_before_red (test_windows_task_eval_ci.WindowsTaskEvalCITests.test_timeout_preserves_report_before_red) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 2.347s
+
+OK
