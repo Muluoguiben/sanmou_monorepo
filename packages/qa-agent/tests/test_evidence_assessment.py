@@ -5,7 +5,7 @@ from unittest.mock import MagicMock
 from qa_agent.chat.agent import ChatAgent, ChatTurn
 from qa_agent.chat.llm_client import LLMResult
 from qa_agent.chat.evidence_assessment import assess_evidence
-from qa_agent.knowledge.models import KnowledgeEntry, HeroStaticProfile, AttributeSet, LineupSolutionProfile
+from qa_agent.knowledge.models import KnowledgeEntry, HeroStaticProfile, AttributeSet, AttributeGrowth, LineupSolutionProfile
 from qa_agent.retrieval.retriever import RetrievedChunk, Retriever
 
 
@@ -108,3 +108,40 @@ class EvidenceAssessmentTests(unittest.TestCase):
         item.structured_data.notes=['背景','初始武力为0']
         prompt=ChatAgent._compose_user_message('甲将初始武力是多少',chunks(item))
         self.assertIn('[hero-a] notes: 初始武力为0',prompt)
+
+    def test_growth_and_all_four_dimensions(self):
+        item=hero()
+        item.structured_data.growth_attributes=AttributeGrowth(military=0,intelligence=1.2,command=2,initiative=3)
+        for name,value in (('武力',0),('智力',1.2),('统率',2),('先攻',3)):
+            result=assess_evidence(f'甲将成长{name}是多少',chunks(item))
+            self.assertEqual(result.status,'supported')
+            self.assertEqual(result.fields[0].value,value)
+
+    def test_all_disagreeing_sources_disclosed_without_rank_selection(self):
+        result=assess_evidence('甲将初始武力是多少',chunks(hero(),hero('hero-b',1),hero('hero-c',1)))
+        for identifier in ('hero-a','hero-b','hero-c'):
+            self.assertIn(f'[{identifier}]',result.conflict_answer())
+            self.assertIn(identifier+'-source',result.conflict_answer())
+
+    def test_history_rewrite_cannot_change_assessed_subject(self):
+        original=hero()
+        other=hero('hero-b',1)
+        other.structured_data.name='乙将'
+        other.topic='乙将'
+        retriever=Retriever([original,other])
+        retriever.retrieve_multi=MagicMock(side_effect=[chunks(original),chunks(other)])
+        client=MagicMock()
+        client.generate_json.return_value=['乙将']
+        client.generate.return_value=LLMResult('证据不适用 [hero-b]','fake',0,0,0)
+        agent=ChatAgent(retriever,client)
+        agent.history=[ChatTurn('user','先前乙将')]
+        result=agent.ask('甲将初始武力是多少')
+        self.assertIn('entity_not_in_evidence',result.assessment.reasons)
+        self.assertNotEqual(result.assessment.status,'supported')
+
+    def test_ambiguous_alias_never_selects_one_entity(self):
+        a=hero()
+        b=hero('hero-b',1)
+        b.structured_data.name='乙将'
+        result=assess_evidence('甲公初始武力是多少',chunks(a,b))
+        self.assertEqual(result.check_scope,'unassessed')
