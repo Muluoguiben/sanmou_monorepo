@@ -1,0 +1,15 @@
+{
+  "second_setup_exit": 1,
+  "test_suite_ran": false,
+  "git_blob_mode": "100644",
+  "git_blob_oid": "0e06325e13d3afa2a00fcf4f0d17fe8fb4f2fc4f",
+  "git_blob_size": 3755,
+  "archive_extracted_size": 3838,
+  "archive_cr_count": 83,
+  "archive_lf_count": 83,
+  "root_cause": "Per-command archive inherited Windows line-ending conversion",
+  "repair": "Pass core.autocrlf=false and core.eol=lf only to git archive, then retain complete byte-for-byte blob verification",
+  "global_git_config_changed": false,
+  "author_checkout_changed": false,
+  "raw_stderr": "Tool-returned stderr transcribed unchanged in archive-second-error.log"
+}

@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-05/Q03a-CR-artifacts/guarded_tests.py",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_*.py",
+    "-v"
+  ],
+  "cwd": "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/packages/qa-agent",
+  "code_sha": "3f81519d34063d438af918a3750bcc38a535b6b7",
+  "tree": "d165dda6ff9ba8c2fd39a604406b5cfee84449c5",
+  "exit_code": 1,
+  "elapsed_s": 86.3323895479989,
+  "log_sha256": "466f734b3e5396eb499f25523761f24875d760b2847b2e6bd3016dfee79ddfe4",
+  "after_code_sha": "3f81519d34063d438af918a3750bcc38a535b6b7"
+}

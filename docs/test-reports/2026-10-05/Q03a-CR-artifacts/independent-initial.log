@@ -1,0 +1,63 @@
+test_algorithm_and_evidence_source_mismatch_rejected (test_independent_q03a.EvaluationIndependentTests.test_algorithm_and_evidence_source_mismatch_rejected) ... ok
+test_duplicate_and_wrong_split_rejected (test_independent_q03a.EvaluationIndependentTests.test_duplicate_and_wrong_split_rejected) ... ok
+test_missing_required_assessment_cases_rejected (test_independent_q03a.EvaluationIndependentTests.test_missing_required_assessment_cases_rejected) ... FAIL
+test_noninteger_version_rejected (test_independent_q03a.EvaluationIndependentTests.test_noninteger_version_rejected) ... FAIL
+test_nonpositive_or_boolean_top_k_rejected (test_independent_q03a.EvaluationIndependentTests.test_nonpositive_or_boolean_top_k_rejected) ... 
+  test_nonpositive_or_boolean_top_k_rejected (test_independent_q03a.EvaluationIndependentTests.test_nonpositive_or_boolean_top_k_rejected) (top_k=0) ... FAIL
+  test_nonpositive_or_boolean_top_k_rejected (test_independent_q03a.EvaluationIndependentTests.test_nonpositive_or_boolean_top_k_rejected) (top_k=-1) ... FAIL
+  test_nonpositive_or_boolean_top_k_rejected (test_independent_q03a.EvaluationIndependentTests.test_nonpositive_or_boolean_top_k_rejected) (top_k=True) ... FAIL
+test_real_v2_and_expected_v1_drift (test_independent_q03a.EvaluationIndependentTests.test_real_v2_and_expected_v1_drift) ... ok
+test_alias_collision_lineup_and_general_text_unassessed (test_independent_q03a.GateIndependentTests.test_alias_collision_lineup_and_general_text_unassessed) ... ok
+test_all_twelve_scalar_paths_and_actual_prompt (test_independent_q03a.GateIndependentTests.test_all_twelve_scalar_paths_and_actual_prompt) ... ok
+test_empty_no_model_even_with_history (test_independent_q03a.GateIndependentTests.test_empty_no_model_even_with_history) ... ok
+test_missing_slot_preserves_later_prose_and_does_not_refuse (test_independent_q03a.GateIndependentTests.test_missing_slot_preserves_later_prose_and_does_not_refuse) ... ok
+test_original_citation_gate_still_rejects_invented_id (test_independent_q03a.GateIndependentTests.test_original_citation_gate_still_rejects_invented_id) ... ok
+test_stages_entities_and_constraints_are_not_false_conflicts (test_independent_q03a.GateIndependentTests.test_stages_entities_and_constraints_are_not_false_conflicts) ... ok
+test_three_sources_conflict_complete_and_deterministic (test_independent_q03a.GateIndependentTests.test_three_sources_conflict_complete_and_deterministic) ... ok
+test_wrong_entity_and_rewrite_subject_drift_never_supported (test_independent_q03a.GateIndependentTests.test_wrong_entity_and_rewrite_subject_drift_never_supported) ... ok
+test_zero_missing_equal_and_conflicting (test_independent_q03a.GateIndependentTests.test_zero_missing_equal_and_conflicting) ... ok
+
+======================================================================
+FAIL: test_missing_required_assessment_cases_rejected (test_independent_q03a.EvaluationIndependentTests.test_missing_required_assessment_cases_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-05/Q03a-CR-artifacts/test_independent_q03a.py", line 188, in test_missing_required_assessment_cases_rejected
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_noninteger_version_rejected (test_independent_q03a.EvaluationIndependentTests.test_noninteger_version_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-05/Q03a-CR-artifacts/test_independent_q03a.py", line 192, in test_noninteger_version_rejected
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_nonpositive_or_boolean_top_k_rejected (test_independent_q03a.EvaluationIndependentTests.test_nonpositive_or_boolean_top_k_rejected) (top_k=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-05/Q03a-CR-artifacts/test_independent_q03a.py", line 184, in test_nonpositive_or_boolean_top_k_rejected
+    with self.subTest(top_k=value), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_nonpositive_or_boolean_top_k_rejected (test_independent_q03a.EvaluationIndependentTests.test_nonpositive_or_boolean_top_k_rejected) (top_k=-1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-05/Q03a-CR-artifacts/test_independent_q03a.py", line 184, in test_nonpositive_or_boolean_top_k_rejected
+    with self.subTest(top_k=value), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_nonpositive_or_boolean_top_k_rejected (test_independent_q03a.EvaluationIndependentTests.test_nonpositive_or_boolean_top_k_rejected) (top_k=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-05/Q03a-CR-artifacts/test_independent_q03a.py", line 184, in test_nonpositive_or_boolean_top_k_rejected
+    with self.subTest(top_k=value), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 15 tests in 15.713s
+
+FAILED (failures=5)

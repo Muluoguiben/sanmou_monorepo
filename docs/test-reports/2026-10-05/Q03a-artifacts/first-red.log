@@ -1,0 +1,19 @@
+test_evidence_assessment (unittest.loader._FailedTest.test_evidence_assessment) ... ERROR
+
+======================================================================
+ERROR: test_evidence_assessment (unittest.loader._FailedTest.test_evidence_assessment)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_evidence_assessment
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/qa-agent/tests/test_evidence_assessment.py", line 7, in <module>
+    from qa_agent.chat.evidence_assessment import assess_evidence
+ModuleNotFoundError: No module named 'qa_agent.chat.evidence_assessment'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

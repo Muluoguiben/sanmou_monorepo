@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "<string>", line 11, in <module>
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/qa-agent/src/qa_agent/quality_eval/runner.py", line 116, in run
+    _validate_execution_roots(package)
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/qa-agent/src/qa_agent/quality_eval/runner.py", line 90, in _validate_execution_roots
+    raise ValueError(f'QA execution source mismatch: {name}')
+ValueError: QA execution source mismatch: qa_agent.knowledge

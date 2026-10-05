@@ -1,0 +1,9 @@
+{
+  "phase": "full snapshot setup before unittest",
+  "command": ["wsl", "-d", "Ubuntu", "--", "python3", "-B", "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-05/Q03a-CR-recheck-artifacts/recheck.py", "full"],
+  "exit_code": 1,
+  "origin": "reviewer archive validator, not production",
+  "initial_incorrect_hypothesis": "The first hypothesis was symlink-following; subsequent inspection proved CLAUDE.md is a regular 100644 blob",
+  "confirmed_cause": "Native Windows git archive inherited core.autocrlf and emitted 3838 bytes with 83 CRLF pairs, whereas the Git blob is 3755 LF bytes",
+  "preservation": "Tool-returned stderr transcribed unchanged into archive-first-error.log; no test suite ran in this attempt"
+}

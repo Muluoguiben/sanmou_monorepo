@@ -3,11 +3,13 @@ from __future__ import annotations
 import copy
 import json
 import tempfile
+import shutil
 import unittest
 from pathlib import Path
 from unittest.mock import patch
 
 from qa_agent.quality_eval.runner import run
+from qa_agent.quality_eval.runner import _validate_corpus
 from qa_agent.quality_eval.scoring import digest, refusal_score, retrieval_score, score_answer, snapshot
 
 PACKAGE = Path(__file__).resolve().parents[1]
@@ -125,7 +127,7 @@ class QualityEvaluationTests(unittest.TestCase):
 
     def test_frozen_retrieval_baseline_runs_without_model_or_network(self):
         with patch('socket.socket', side_effect=AssertionError('network forbidden')):
-            result=run(PACKAGE)
+            result=run(PACKAGE, baseline='v2')
         self.assertEqual(result['retrieval']['query_count'],12)
         self.assertEqual(result['retrieval']['macro_recall']['denominator'],11)
         self.assertEqual(result['provider']['calls'],0)
@@ -136,7 +138,84 @@ class QualityEvaluationTests(unittest.TestCase):
     def test_production_or_fixture_drift_is_rejected(self):
         with patch('qa_agent.quality_eval.runner.snapshot', return_value={'digest':'drift'}):
             with self.assertRaisesRegex(ValueError,'source drift'):
-                run(PACKAGE)
+                run(PACKAGE, baseline='v2')
         with patch('qa_agent.quality_eval.runner.digest', return_value='drift'):
             with self.assertRaisesRegex(ValueError,'fixture drift'):
-                run(PACKAGE)
+                run(PACKAGE, baseline='v2')
+
+    def test_v1_remains_frozen_and_rejects_new_production(self):
+        with self.assertRaisesRegex(ValueError,'source drift'):
+            run(PACKAGE)
+
+    def test_invalid_version_and_loaded_source_rejected(self):
+        with self.assertRaisesRegex(ValueError,'version'):
+            run(PACKAGE,baseline='latest')
+        with self.assertRaisesRegex(ValueError,'source mismatch'):
+            run(PACKAGE/'other',baseline='v2')
+
+    def test_real_file_add_delete_and_change_rejected(self):
+        for operation in ('add','delete','change'):
+            with self.subTest(operation=operation), tempfile.TemporaryDirectory() as d:
+                root=Path(d)
+                for directory in ('src','knowledge_sources','tests/fixtures/quality_eval'):
+                    shutil.copytree(PACKAGE/directory,root/directory)
+                target=root/'src/qa_agent/chat/evidence_assessment.py'
+                if operation == 'add':
+                    (target.parent/'unexpected.py').write_text('# unexpected production file\n')
+                elif operation == 'delete':
+                    target.unlink()
+                else:
+                    target.write_text(target.read_text()+'\n# changed\n')
+                with patch('qa_agent.quality_eval.runner.__file__',str(root/'src/qa_agent/quality_eval/runner.py')):
+                    with self.assertRaisesRegex(ValueError,'source drift'):
+                        run(root,baseline='v2')
+
+    def test_manifest_metadata_rejects_version_split_and_duplicate_ids(self):
+        fixtures=PACKAGE/'tests/fixtures/quality_eval/v2'
+        corpus=json.loads((fixtures/'cases.json').read_text())
+        frozen=json.loads((fixtures/'freeze.json').read_text())
+        for change, message in (('version','version/split'),('split','version/split'),('duplicate','duplicate case')):
+            edited=copy.deepcopy(corpus)
+            if change == 'duplicate':
+                edited['queries'].append(edited['queries'][0])
+            else:
+                edited[change]='invalid'
+            with patch('qa_agent.quality_eval.runner.json.loads',side_effect=[edited,frozen]):
+                with self.assertRaisesRegex(ValueError,message):
+                    run(PACKAGE,baseline='v2')
+
+    def test_strict_schema_is_separate_from_hash_binding(self):
+        corpus=json.loads((PACKAGE/'tests/fixtures/quality_eval/v2/cases.json').read_text())
+        for key, value in [('top_k',0),('top_k',-1),('top_k',True),('top_k',2.0),
+                ('version',2.0),('version',True),('assessment_cases',[]),('assessment_cases',None)]:
+            with self.subTest(key=key,value=value), self.assertRaises(ValueError):
+                _validate_corpus({**corpus,key:value},'v2')
+        missing=copy.deepcopy(corpus)
+        missing.pop('assessment_cases')
+        with self.assertRaises(ValueError):
+            _validate_corpus(missing,'v2')
+        for group in ('queries','scoring_cases','assessment_cases'):
+            for identifier in ('', '   ', None, 3):
+                changed=copy.deepcopy(corpus)
+                changed[group][0]['id']=identifier
+                with self.subTest(group=group,identifier=identifier), self.assertRaises(ValueError):
+                    _validate_corpus(changed,'v2')
+        for change in ({'expected':{}},{'values':[True]},{'values':[float('nan')]},{'question':''}):
+            changed=copy.deepcopy(corpus)
+            changed['assessment_cases'][0].update(change)
+            with self.assertRaises(ValueError):
+                _validate_corpus(changed,'v2')
+
+    def test_lazy_assessment_module_from_another_tree_is_rejected(self):
+        import importlib.util
+        import types
+        from unittest.mock import MagicMock
+        name='qa_agent.quality_eval.assessment_cases'
+        fake=types.ModuleType(name)
+        fake.__file__='/tmp/another-qa-tree/assessment_cases.py'
+        fake.__spec__=importlib.util.spec_from_file_location(name,fake.__file__)
+        fake.evaluate_cases=MagicMock(side_effect=AssertionError('must not execute foreign code'))
+        with patch.dict('sys.modules',{name:fake}):
+            with self.assertRaisesRegex(ValueError,'execution source mismatch'):
+                run(PACKAGE,baseline='v2')
+        fake.evaluate_cases.assert_not_called()
