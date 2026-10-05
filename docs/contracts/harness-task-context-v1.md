@@ -96,3 +96,18 @@ Unknown checkpoint versions fail closed. Changes to required port signatures req
 an explicit versioned contract update agreed with B; additions with defaults preserve
 v1. Old run_decision_window and CLI without --task-spec retain their single-window
 behavior and regression coverage. CLI task wiring uses B's real implementations.
+
+## A1 evidence boundary
+
+Task goal success requires an exact `field_meta[condition.metric]` entry bound to
+the current observation ID and capture timestamp, with a positive confidence and
+`vision.<domain>` source present in that observation's completed domains. Required
+domains and nonempty structured evidence are also checked. Aggregate metadata (for
+example only `progress.chapter_panel` for a `progress.current_chapter_id` condition)
+is deliberately insufficient in v1: no guessed prefix-to-field provenance mapping.
+Such tasks stop at their bound rather than claim success. Full model or live vision
+support for every possible Condition path is not claimed by the offline cases.
+
+Checkpoints are local trusted application state, atomically replaced by one owner.
+They provide neither untrusted-checkpoint authenticity nor cross-process CAS/lease.
+Trace and budget failures fail closed; automatic retries are not enabled by A.

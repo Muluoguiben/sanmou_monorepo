@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "split": "development",
+  "independent_holdout": false,
+  "label_review": "developer_authored_not_independent_gold",
+  "source": "recommendation_ready.json synthetic sequence; Condition current_chapter_id >= 3",
+  "evaluation_type": "offline_policy_in_loop",
+  "provider_exercised": false,
+  "live_action": false,
+  "cases": [
+    {"id": "three_observations", "policy": "rule", "field_evidence": true, "max_steps": 3, "status": "succeeded", "reason": "goal_verified", "steps": 3},
+    {"id": "missing_evidence", "policy": "rule", "field_evidence": false, "max_steps": 3, "status": "failed", "reason": "step_limit", "steps": 3},
+    {"id": "false_success", "policy": "fake_succeed", "field_evidence": true, "max_steps": 3, "status": "failed", "reason": "unverified_success_proposal", "steps": 1},
+    {"id": "step_limit", "policy": "rule", "field_evidence": true, "max_steps": 2, "status": "failed", "reason": "step_limit", "steps": 2}
+  ]
+}
