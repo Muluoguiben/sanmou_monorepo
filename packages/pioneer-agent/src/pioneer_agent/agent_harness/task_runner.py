@@ -205,6 +205,7 @@ class TaskRunner:
             self._save()
             self._emit("policy", name=self.policy.policy_id, attempt_id=reservation,
                 observation_id=observation.observation_id, evidence_refs=refs,
+                transport="cancelled" if policy_error == "CancelledError" else "error" if policy_error else "ok",
                 contract="error" if policy_error else "ok", business=outcome,
                 error_type=policy_error, usage=Usage() if reservation else None,
                 metadata={"policy_id": self.policy.policy_id, "task_version": 1})

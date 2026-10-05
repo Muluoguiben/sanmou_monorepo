@@ -8,6 +8,9 @@ from tempfile import TemporaryDirectory
 import unittest
 
 from pioneer_agent.agent_harness.journal import InMemoryJournalStore
+from pioneer_agent.agent_harness.context_builder import BoundedContextBuilder, ContextLimits
+from pioneer_agent.agent_harness.run_budget import RunBudgetLedger, BudgetLimits
+from pioneer_agent.agent_harness.run_trace import InMemoryRunTrace, JsonlRunTrace
 from pioneer_agent.agent_harness.loop import RecommendationHarness
 from pioneer_agent.agent_harness.run_store import JsonRunStore, MemoryRunStore
 from pioneer_agent.agent_harness.task_contracts import (
@@ -102,7 +105,8 @@ def runner(client=None, *, store=None, policy=None, spec=None, budget=None, cont
         clock=lambda: BASE + timedelta(seconds=client.count + 1))
     return TaskRunner(task=spec or task(), run_id="run", harness=harness,
         store=store or MemoryRunStore(), policy=policy or RuleDecisionPolicy(),
-        context_builder=context or PortContext(), budget=budget or PortBudget(), trace=trace or PortTrace())
+        context_builder=context or BoundedContextBuilder(), budget=budget or RunBudgetLedger(),
+        trace=trace or InMemoryRunTrace())
 
 
 class TaskRunnerTests(unittest.IsolatedAsyncioTestCase):
@@ -127,7 +131,8 @@ class TaskRunnerTests(unittest.IsolatedAsyncioTestCase):
         calls = list(client.calls)
         self.assertEqual((await r.run()).status, "succeeded")
         self.assertEqual(client.calls, calls)
-        self.assertEqual(len(r.budget.calls), len(r.budget.settled))
+        self.assertEqual(r.budget.summary()["pending"], 0)
+        self.assertEqual(r.budget.summary()["counts"], {"step": 3, "tool": 12, "model": 0})
         self.assertFalse(result.executable)
 
     async def test_missing_field_evidence_never_succeeds(self):
@@ -279,6 +284,59 @@ class TaskRunnerTests(unittest.IsolatedAsyncioTestCase):
         result = await asyncio.wait_for(running, 1)
         self.assertEqual(result.status, "cancelled")
         self.assertEqual(r._client.calls.count("observe_game"), 1)
+
+    async def test_real_b_context_overflow_prevents_policy(self):
+        policy = FakeDecisionPolicy([PolicyDecision(action="continue", reason="unused")])
+        r = runner(policy=policy, context=BoundedContextBuilder(ContextLimits(max_tokens=100)))
+        self.assertEqual((await r.run()).reason, "context_overflow")
+        self.assertEqual(policy.contexts, [])
+
+    async def test_real_b_model_attempt_unknown_usage_and_trace(self):
+        class FakeModelPolicy(RuleDecisionPolicy):
+            uses_model = True
+            policy_id = "offline-fake-model"
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "trace.jsonl"
+            r = runner(policy=FakeModelPolicy(), trace=JsonlRunTrace(path))
+            self.assertEqual((await r.run()).status, "succeeded")
+            summary = r.budget.summary()
+            self.assertEqual(summary["counts"]["model"], 3)
+            self.assertIsNone(summary["measured_tokens"])
+            self.assertIsNone(summary["measured_cost"])
+            self.assertGreater(summary["charged_tokens"], 0)
+            rows = [json.loads(line) for line in path.read_text().splitlines()]
+            policies = [row for row in rows if row["event"] == "policy"]
+            self.assertEqual(len(policies), 3)
+            self.assertEqual(policies[-1]["step_id"], "run:3")
+            self.assertEqual(rows[-1]["business"], "succeeded")
+
+    async def test_real_b_tool_budget_stops_before_dispatch(self):
+        client = SequenceClient()
+        r = runner(client, budget=RunBudgetLedger(BudgetLimits(max_tool_calls=1)))
+        self.assertEqual((await r.run()).reason, "budget_exhausted")
+        self.assertEqual(client.calls, ["session_status"])
+
+    async def test_real_b_model_budget_stops_before_policy(self):
+        class FakeModelPolicy(FakeDecisionPolicy):
+            uses_model = True
+        policy = FakeModelPolicy([PolicyDecision(action="continue", reason="unused")])
+        r = runner(policy=policy, budget=RunBudgetLedger(BudgetLimits(max_model_attempts=0)))
+        self.assertEqual((await r.run()).reason, "budget_exhausted")
+        self.assertEqual(policy.contexts, [])
+
+    async def test_real_b_restore_does_not_reset_deadline(self):
+        now = [1000.0]
+        clock = lambda: now[0]
+        budget = RunBudgetLedger(clock=clock, monotonic=clock)
+        store = MemoryRunStore()
+        r = runner(store=store, budget=budget, policy=FakeDecisionPolicy([
+            PolicyDecision(action="pause", reason="pause")]))
+        await r.run()
+        now[0] += 301
+        client = SequenceClient(count=1)
+        resumed = runner(client, store=store, budget=RunBudgetLedger(clock=clock, monotonic=clock))
+        self.assertEqual((await resumed.run(resume=True)).reason, "run_deadline")
+        self.assertEqual(client.calls, [])
 
 
 if __name__ == "__main__":

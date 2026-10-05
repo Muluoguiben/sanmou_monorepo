@@ -55,6 +55,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--model-id", default="recommendation-harness-v1")
     parser.add_argument("--mcp-connect-timeout", type=_positive_timeout, default=30.0)
     parser.add_argument("--mcp-request-timeout", type=_positive_timeout, default=60.0)
+    parser.add_argument("--task-spec", type=Path, help="Version 1 read-only TaskSpec JSON")
+    parser.add_argument("--run-state-path", type=Path)
+    parser.add_argument("--run-trace-path", type=Path)
+    parser.add_argument("--resume-task", action="store_true")
+    parser.add_argument("--task-timeout", type=_positive_timeout, default=300.0)
+    parser.add_argument("--task-tool-limit", type=int, default=100)
     return parser
 
 
@@ -66,6 +72,8 @@ def _positive_timeout(value: str) -> float:
 
 
 async def run(args: argparse.Namespace) -> dict:
+    if args.task_spec is not None:
+        return await _run_task(args)
     agent_session_id = args.agent_session_id or f"agent-{uuid4().hex}"
     game_parameters = _game_parameters(args)
     qa_parameters = _qa_parameters(args)
@@ -114,6 +122,59 @@ async def run(args: argparse.Namespace) -> dict:
         )
         if isinstance(exc, asyncio.CancelledError):
             raise
+    return result.model_dump(mode="json")
+
+
+async def _run_task(args: argparse.Namespace, *, game_client=None) -> dict:
+    """Opt-in task mode; default CLI remains a single recommendation window."""
+    from pioneer_agent.agent_harness.context_builder import BoundedContextBuilder
+    from pioneer_agent.agent_harness.run_budget import BudgetLimits, RunBudgetLedger
+    from pioneer_agent.agent_harness.run_store import JsonRunStore
+    from pioneer_agent.agent_harness.run_trace import JsonlRunTrace
+    from pioneer_agent.agent_harness.task_contracts import TaskSpec, TERMINAL_STATUSES
+    from pioneer_agent.agent_harness.task_policy import RuleDecisionPolicy
+    from pioneer_agent.agent_harness.task_runner import TaskRunner
+
+    if args.run_state_path is None or args.run_trace_path is None:
+        raise ValueError("task mode requires --run-state-path and --run-trace-path")
+    if args.qa_question:
+        raise ValueError("task v1 is Game-only; QA remains in single-window mode")
+    task = TaskSpec.model_validate_json(args.task_spec.read_text(encoding="utf-8"))
+    store = JsonRunStore(args.run_state_path)
+    saved = store.load()
+    run_id = args.agent_session_id or (saved.run_id if saved else f"task-{uuid4().hex}")
+    budget = RunBudgetLedger(BudgetLimits(max_steps=task.max_steps,
+        max_tool_calls=args.task_tool_limit, max_model_attempts=0, max_seconds=args.task_timeout))
+    client = game_client or StdioMcpClient(
+        _game_parameters(args), expected_server_name=SERVER_NAME,
+        required_tools=GAME_TOOL_ALLOWLIST, exact_tools=True,
+        connect_timeout_s=args.mcp_connect_timeout, request_timeout_s=args.mcp_request_timeout)
+    harness = RecommendationHarness(game_client=client,
+        journal_store=JsonJournalStore(args.journal_path), tool_log=JsonlToolLog(args.tool_log_path),
+        agent_session_id=run_id, model_id="rule-observe-v1")
+    runner = TaskRunner(task=task, run_id=run_id, harness=harness, store=store,
+        policy=RuleDecisionPolicy(), context_builder=BoundedContextBuilder(),
+        budget=budget, trace=JsonlRunTrace(args.run_trace_path))
+    if runner.state.status in TERMINAL_STATUSES or (
+            runner.state.status == "paused" and not args.resume_task):
+        return (await runner.run()).model_dump(mode="json")
+    try:
+        # The total budget starts before connection, includes waits and cleanup.
+        # StdioMcpClient also retains its independent bounded cleanup contract.
+        async with asyncio.timeout(budget.remaining_seconds()):
+            async with client:
+                result = await runner.run(resume=args.resume_task)
+    except (Exception, asyncio.CancelledError) as exc:
+        reason = "run_deadline" if isinstance(exc, TimeoutError) else f"transport:{type(exc).__name__}"
+        runner._emit("transport_lifecycle", transport="error", business=reason,
+                     error_type=type(exc).__name__)
+        if runner.state.status not in TERMINAL_STATUSES:
+            runner._finish("cancelled" if isinstance(exc, asyncio.CancelledError) else "failed", reason)
+        if isinstance(exc, asyncio.CancelledError):
+            raise
+        # A goal already verified remains terminal even if transport cleanup
+        # fails. Report that separate failure explicitly, never silently pass.
+        return {**runner.state.model_dump(mode="json"), "transport_lifecycle_error": reason}
     return result.model_dump(mode="json")
 
 
