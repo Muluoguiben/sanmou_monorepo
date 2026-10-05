@@ -1,0 +1,11 @@
+test_constructor_identity_primary (__main__.TeardownMatrix.test_constructor_identity_primary) ... ok
+test_direct_runner_cancel_primary (__main__.TeardownMatrix.test_direct_runner_cancel_primary) ... ok
+test_idle_pause_and_cancel_preserve_save_failure (__main__.TeardownMatrix.test_idle_pause_and_cancel_preserve_save_failure) ... ok
+test_owner_context_primary_conflict (__main__.TeardownMatrix.test_owner_context_primary_conflict) ... ok
+test_reacquire_reload_primary (__main__.TeardownMatrix.test_reacquire_reload_primary) ... ok
+test_successful_owner_body_does_not_hide_cleanup_failure (__main__.TeardownMatrix.test_successful_owner_body_does_not_hide_cleanup_failure) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.222s
+
+OK

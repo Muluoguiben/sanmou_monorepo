@@ -1,0 +1,9 @@
+test_original_cancel_identity_and_release (__main__.FinalErrorIdentity.test_original_cancel_identity_and_release) ... ok
+test_original_checkpoint_exception_identity_no_retry_write (__main__.FinalErrorIdentity.test_original_checkpoint_exception_identity_no_retry_write) ... ok
+test_terminal_mcp_cleanup_error_visible_without_state_rewrite (__main__.FinalErrorIdentity.test_terminal_mcp_cleanup_error_visible_without_state_rewrite) ... Executing <Task finished name='Task-12' coro=<FinalErrorIdentity.test_terminal_mcp_cleanup_error_visible_without_state_rewrite() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_final_error_identity.py:69> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.649 seconds
+ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.861s
+
+OK
