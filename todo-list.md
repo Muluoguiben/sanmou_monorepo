@@ -4,7 +4,11 @@
 
 - [x] Q02a final `751df8ee867479b9ad272c9c64ab190f76cd0934` published with matching remote readback; exact CI37352030235 completed/success in all four jobs. Earlier a071176 run37351717604 is cancelled, not accepted as green.
 - [x] Selected bounded harness reliability slice: same-checkpoint single-machine ownership/CAS, legacy migration and offline crash/race tests. [Task and limits](docs/harness-checkpoint-ownership-h06a-2026-10-06.md).
-- [ ] Implement and self-test on an isolated worktree; preserve budget/deadline, stop/cleanup semantics, Game/QA schemas and no-execution boundaries.
+- [x] Implementation and source-bound self-test delivered as `6b7b5caad1cbffc59692d3fe9df6a3b3d88dfa9c`, report `7425d39ca8224f2a8a00d93d169e529f6e3b3d1a`: focused72, Pioneer968+2existing skips, QA394/common2, original probes and native primitives pass. Author self-tests are not independent approval.
+- [x] Initial `44ad8aa` REQUEST_CHANGES from `270d0a4`/`b4ad6c8` identified CR01 cleanup priority, CR02 concurrent old close and CR03 shared-owner accounting. All original red and intermediate sources remain preserved; final source disposition is below.
+- [x] CR01/02/03 independently closed on `96575c30dea99ab58265052987e79bb4e76c0972` by `26d997bc`; all POSIX/full-package and native-primitive checks green, full Windows H06a CI still required.
+- [x] Supplemental `54d4237` rejected965 for CR04 same-harness stale wrapper; final `6b7b5ca` actually resumes successfully, restores only its own wrapper and preserves successor/third-party replacements. Original supplement/approval reports are unchanged.
+- [x] Independent `5ef9bf8a5cf1e8e4c4745dbd5fdfae1026d6616b` APPROVE closes CR01-04 for exact6b source/POSIX/native primitive: full970(968+2skip), QA394/common2, focused72, probes34(31independent+3duplicates), native1 pass. Coordinator checked79 committed artifact hashes, zero mismatch.
 - [ ] Independent adversarial CR, coordinator combined-source tests, scoped publication and exact-final-SHA CI. Device lease/effect exactly-once/live game remain outside H06a.
 
 ## Active Review continuation — Q02a (2026-10-06)
