@@ -1,0 +1,27 @@
+{
+  "source": "94e1464ba3fcff9b5874868138fa2d9f300fb376",
+  "tree": "8fd347c8286ff66061da393d4455779fcf6d9420",
+  "packages_tree": "3c643ef1d3fd0ae376ebea6b055d0aaba564edf8",
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/tmp/sanmou-q02a-integration-94e1464/docs/test-reports/2026-10-06/Q02a-CR-artifacts/guarded_run.py",
+    "/tmp/sanmou-q02a-integration-94e1464",
+    "test_q02a_adversarial",
+    "test_q02a_contract",
+    "-v"
+  ],
+  "cwd": "/tmp/sanmou-q02a-integration-94e1464/packages/qa-agent",
+  "pythonpath": "/tmp/sanmou-q02a-integration-94e1464/packages/qa-agent/src:/tmp/sanmou-q02a-integration-94e1464/packages/pioneer-agent/src:/tmp/sanmou-q02a-integration-94e1464/packages/sanmou-common/src:/tmp/sanmou-q02a-integration-94e1464/packages/qa-agent:/tmp/sanmou-q02a-integration-94e1464/packages/qa-agent/tests:/tmp/sanmou-q02a-integration-94e1464/packages/pioneer-agent/tests:/tmp/sanmou-q02a-integration-94e1464/packages/pioneer-agent/tests/unit:/tmp/sanmou-q02a-integration-94e1464/docs/test-reports/2026-10-06/Q02a-CR-artifacts:/tmp/sanmou-q02a-integration-94e1464/docs/test-reports/2026-10-06/Q02a-CR-recheck-artifacts:/tmp/sanmou-cr-20261005-6155-deps",
+  "exit_code": 0,
+  "seconds": 1.125826011000754,
+  "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+  "dependencies": {
+    "pydantic": "2.12.5",
+    "PyYAML": "6.0.1",
+    "mcp": "1.29.1",
+    "anyio": "4.13.0"
+  },
+  "log_sha256": "615d7c95c1381c65dead6455fdef80dc5e72790742b3075ae389017c9185c07d",
+  "runner_sha256": "be1fd83b5a6243fb31bd3ec5a487c137a17aa9b1e28c1bf8710f5ec4de9c3428"
+}

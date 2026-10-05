@@ -104,3 +104,11 @@
 - Independent reviewer is rerunning immutable40f46d3, with original26 plus additional grammar/alias/domain cases. Neither finding is marked closed until that new decision. No source edits or master publication by coordinator.
 - Preliminary Q02a payload scan covers only authorcd3f2e2 and CReb895ae: eight commits/54 historical blobs, no scoped sensitive payload found; final repair and report still need incremental scanning. Object-set digest0ba96e9ea13989f3d5005497c3d7b4def4cecbb1be9b4bf9f463fb03435e2326.
 - Read-only next-harness candidate is H06a single-checkpoint local process ownership/CAS, not device lease or action exactly-once. It will not start before Q02a exact-final-SHA CI passes.
+
+## Round 2 — independent APPROVE and coordinator combined-tree verification
+
+- Independent APPROVE c68cab94a95731c3e05511d9203e8337e956cd3f binds code40f46d3/tree1351c2432adb0a638997ab9faff7bb22725fba4f; both CR findings closed. Original26/new8/focused71/full394/cross6 independently pass, zero skips; complete1455-file snapshot matches Git before/after. Reviewer pre-test default-SHA setup error retained separately.
+- Coordinator verified all25 recheck artifact hashes then merged fixed author3bebb1a and CRc68cab94 into local integration94e1464ba3fcff9b5874868138fa2d9f300fb376/tree8fd347c8286ff66061da393d4455779fcf6d9420. Packages tree3c643ef1d3fd0ae376ebea6b055d0aaba564edf8 exactly matches approved code; master ref still e17d937.
+- Clean ext4 coordinator run: QA394, Pioneer932+2 Windows-only skips, common2, focused71/original26/new8 all pass. Source worktree remains clean. Explicit v3 output480a448fd7abecfba2f6cd4eb32a46873ff0b8127b6251cd8aeea5e4fe2e82c8 matches premerge, author and independent output. Raw records/helper/hashes archived under Q02a-integration-artifacts.
+- The initial coordinator log search used an unsupported Windows glob path; corrected rg -g read the same untouched logs. No test rerun or expected-value change resulted.
+- Incremental payload scanner through3bebb1a/eb895ae covers163 objects, digest47ce7f0ace2be04e2ed31c10703574c5a1610339faaebd7e05bf4c0ba2870585; no scoped sensitive anomaly. CR/coordinator final evidence still needs final incremental scan. Then publish under standing scope and verify exact-final-SHA CI before H06a.

@@ -5,9 +5,11 @@
 - [x] Q03a final `e17d937a39944b036e90701fecefb6611b1d88d6` published; local/remote master match. Exact-SHA CI run 37341606212 completed successfully in all four jobs.
 - [x] Chosen next bounded slice: nonempty-raw-evidence hero-attribute follow-ups, current accepted-citation/source binding, deterministic re-query and explicit v3 development eval. [Task and gates](docs/qa-referent-resolution-q02a-2026-10-06.md).
 - [x] Author Q02a implementation frozen: code `f3cd9b8814fc085d567063ab23e6576b9c24525f`, report `ce547ba9e6002696b949c7226aacbe9aca21a1f9`; QA391/focused68/cross6 pass, 0 skips. These are self-tests, not CR acceptance; old v1/v2 and formal KB unchanged.
-- [ ] Independent CR `eb895ae4e149a38d65789c19c7e4aebdee0c3c1a` is REQUEST_CHANGES on f3cd9b8: Q02a-CR01 name mention/exclusion is not explicit subject; Q02a-CR02 term/generic HeroStaticProfile is not a hero identity. Regular QA391/focused68/cross6/frozen21 pass, but supplemental probes have three failed assertions. Repair and independently replay before merge.
-- [x] Narrow author repair delivered: code/v3 `40f46d3ea4525639877ad37a8da4ab6e334523e6`, report `005fce84f1eaff4e60a0e04f838c908a9e8da6ae`; full394/focused71/original26/cross6 pass. Setup failures retained; coordinator matched all four original probe hashes. Independent recheck is pending, not APPROVE.
-- [ ] Independent adversarial CR, coordinator combined-source replay, approved publication and exact-final-SHA CI. Full Q02 and provider/human-gold quality remain incomplete.
+- [x] Initial CR `eb895ae4e149a38d65789c19c7e4aebdee0c3c1a` rejected f3cd9b8 for Q02a-CR01 name mention/exclusion and Q02a-CR02 non-hero metadata identity. Original three failed assertions remain preserved; the later exact-source recheck below closes both findings.
+- [x] Narrow author repair delivered: code/v3 `40f46d3ea4525639877ad37a8da4ab6e334523e6`, report `005fce84f1eaff4e60a0e04f838c908a9e8da6ae`; full394/focused71/original26/cross6 pass. Setup failures retained; coordinator matched all four original probe hashes. Author self-tests did not substitute for the later independent decision.
+- [x] Independent recheck `c68cab94a95731c3e05511d9203e8337e956cd3f` APPROVE binds40f46d3; Q02a-CR01/02 closed. Original26/new8/focused71/QA394/cross6 pass, zero skips; 1455 snapshot files match before/after.
+- [x] Coordinator integration `94e1464ba3fcff9b5874868138fa2d9f300fb376` passes QA394, Pioneer932+2 Windows-only skips, common2, focused71/original26/new8; packages match approved source, 25 CR hashes match, v3 output unchanged. [Report](docs/test-reports/2026-10-06/Q02a-integration.md).
+- [ ] Final payload audit, approved publication and exact-final-SHA CI. Full Q02 and provider/human-gold quality remain incomplete; H06a checkpoint ownership/CAS is next planning only.
 
 ## Active Review continuation — Q03a (2026-10-05)
 
