@@ -21,6 +21,8 @@
 
 - CLI 在首次 checkpoint 读取与预算 restore 前 acquire，并持续持有到最后保存及 CLI 自己的 MCP `__aexit__` 完成；连接、调用、清理异常或 async cancellation 均释放。终态重启不连接 MCP。
 - 直接 TaskRunner 在构造时 acquire/load/restore；构造失败释放自持 owner。调用 `run()` 返回/抛错，以及 idle `pause()`/`cancel()` 完成后释放。构造后不调用 run 的调用方必须 `close()`，无需等待垃圾回收。显式传入 ownership 时 lifetime 属于调用方（CLI 使用此模式）。
+- runner 只借用 harness 的 client 槽位：保存原 client 与本次 exact wrapper 身份，close 仅在槽位仍是本 wrapper 时恢复原 client。延迟/重复旧 close 不得覆盖后继 runner 或第三方替换。即使 owner teardown 抛错也先归还自己的槽位；外部 owner 仍由调用方持有到其 cleanup 结束。
+- 暂停/关闭后可顺序重用同一 RecommendationHarness/client/journal 创建 fresh runner/ledger；同一 runner 重入时仅在已持 ownership 且槽位仍是原 client/自身 wrapper 时重新安装。第三方已替换则在 dispatch/save 前拒绝，不覆盖替换、不破坏 checkpoint。仍被其他 TaskRunner wrapper 占用的 harness 在构造取得 checkpoint 前拒绝。短进程内 binding mutex 只保护这些身份检查/安装/恢复，不实现并发共享 harness 或跨 checkpoint device lease。
 - runner 复用必须重新 acquire/load。自身上次保存的预算 checkpoint 未变时继续原 ledger，不重设 deadline；另一 owner 已推进非终态时拒绝复用，要求构造新的 runner 与新 ledger 以恢复最新持久化预算。另一 owner 已结束时只返回最新终态，零工具调用。
 - 本实现不管理调用方在构造直接 runner 之前已打开、或 owned lifetime 之外继续使用的外部 MCP client。
 - `CheckpointConflict` 是独立失败，不走普通 `_finish()`。runner 在 persistence/ownership 失败后停止 settlement/save 重试，保留最后成功落盘的保守 reservation。CLI 返回 `blocked/checkpoint_conflict`，不改赢家状态。

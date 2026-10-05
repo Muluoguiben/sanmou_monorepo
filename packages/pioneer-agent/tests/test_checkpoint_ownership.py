@@ -15,7 +15,7 @@ from unittest.mock import patch
 from pioneer_agent.agent_harness.run_store import JsonRunStore, MemoryRunStore, RunOwnership, CheckpointConflict
 from pioneer_agent.agent_harness._checkpoint_lock import LocalLock, UnsupportedCheckpointBackend
 from pioneer_agent.agent_harness.task_contracts import RunState, PolicyDecision
-from pioneer_agent.agent_harness.task_policy import FakeDecisionPolicy
+from pioneer_agent.agent_harness.task_policy import FakeDecisionPolicy, RuleDecisionPolicy
 from pioneer_agent.agent_harness.run_budget import RunBudgetLedger
 from pioneer_agent.agent_harness.loop import RecommendationHarness
 from pioneer_agent.agent_harness.task_runner import TaskRunner
@@ -645,6 +645,169 @@ class RunnerOwnershipTests(unittest.IsolatedAsyncioTestCase):
                 with JsonRunStore(args.run_state_path).acquire():
                     pass
                 self.assertEqual(client.exits, 0 if phase in ("enter", "async_enter") else 1)
+
+
+class HarnessBindingTests(unittest.IsolatedAsyncioTestCase):
+    def fresh(self, prior, store, **overrides):
+        kwargs = dict(task=prior.state.task, run_id=prior.state.run_id,
+                      harness=prior.harness, store=store, policy=RuleDecisionPolicy(),
+                      context_builder=prior.context_builder, budget=RunBudgetLedger(), trace=prior.trace)
+        kwargs.update(overrides)
+        return TaskRunner(**kwargs)
+
+    def paused_runner(self, client, path):
+        return runner(client, store=JsonRunStore(path), policy=FakeDecisionPolicy([
+            PolicyDecision(action="pause", reason="pause")]))
+
+    async def test_same_harness_fresh_runner_resumes_without_retired_wrapper(self):
+        with TemporaryDirectory() as tmp:
+            path, client = Path(tmp) / "run.json", SequenceClient()
+            first = self.paused_runner(client, path)
+            self.assertEqual((await first.run()).status, "paused")
+            self.assertIs(first.harness.game_client, client)
+            fresh = self.fresh(first, JsonRunStore(path))
+            self.assertIs(fresh._client, client)
+            result = await fresh.run(resume=True)
+            self.assertEqual(result.status, "succeeded")
+            self.assertEqual(result.observation_ids, ["obs-1", "obs-2", "obs-3"])
+            self.assertEqual(len(client.calls), 12)
+            self.assertEqual(fresh.budget.summary()["counts"]["tool"], 12)
+            self.assertIs(first.harness.game_client, client)
+
+    async def test_same_runner_reinstalls_wrapper_without_budget_bypass(self):
+        with TemporaryDirectory() as tmp:
+            path, client = Path(tmp) / "run.json", SequenceClient()
+            first = self.paused_runner(client, path)
+            await first.run()
+            before = first.state.budget_state["deadline"]
+            first.policy = RuleDecisionPolicy()
+            self.assertEqual((await first.run(resume=True)).status, "succeeded")
+            self.assertEqual(first.budget.summary()["counts"]["tool"], len(client.calls))
+            self.assertEqual(first.state.budget_state["deadline"], before)
+            self.assertIs(first.harness.game_client, client)
+
+    async def test_delayed_old_close_cannot_clobber_successor_wrapper(self):
+        with TemporaryDirectory() as tmp:
+            path, client = Path(tmp) / "run.json", SequenceClient()
+            first = self.paused_runner(client, path)
+            await first.run()
+            second = self.fresh(first, JsonRunStore(path))
+            wrapper = second.harness.game_client
+            def check(name=None):
+                first.close()
+                first.close()
+                self.assertIs(second.harness.game_client, wrapper)
+                second._ownership.check()
+                with self.assertRaises(CheckpointConflict):
+                    JsonRunStore(path).acquire()
+            check()
+            client.after_call = check
+            self.assertEqual((await second.run(resume=True)).status, "succeeded")
+            self.assertIs(second.harness.game_client, client)
+
+    async def test_third_party_replacement_survives_old_close_and_reentry(self):
+        with TemporaryDirectory() as tmp:
+            path, client = Path(tmp) / "run.json", SequenceClient()
+            first = self.paused_runner(client, path)
+            await first.run()
+            third_party = SequenceClient(count=1)
+            first.harness.game_client = third_party
+            before, calls = path.read_bytes(), list(client.calls)
+            first.close()
+            self.assertIs(first.harness.game_client, third_party)
+            with self.assertRaises(CheckpointConflict):
+                await first.run(resume=True)
+            self.assertEqual(path.read_bytes(), before)
+            self.assertEqual(client.calls, calls)
+            self.assertEqual(third_party.calls, [])
+            self.assertIs(first.harness.game_client, third_party)
+
+    async def test_occupied_harness_rejected_before_checkpoint_acquire(self):
+        with TemporaryDirectory() as tmp:
+            first = runner(store=JsonRunStore(Path(tmp) / "first.json"))
+            wrapper = first.harness.game_client
+            other = JsonRunStore(Path(tmp) / "other.json")
+            try:
+                with patch.object(other, "acquire", side_effect=AssertionError("must reject before acquire")):
+                    with self.assertRaisesRegex(CheckpointConflict, "harness already bound"):
+                        self.fresh(first, other)
+                self.assertIs(first.harness.game_client, wrapper)
+                first._ownership.check()
+                self.assertFalse(other.path.exists())
+                self.assertFalse(other.path.with_name("other.json.lock").exists())
+                self.assertEqual(first._client.calls, [])
+            finally:
+                first.close()
+
+    async def test_constructor_failure_does_not_replace_harness_client(self):
+        with TemporaryDirectory() as tmp:
+            path, client = Path(tmp) / "run.json", SequenceClient()
+            first = self.paused_runner(client, path)
+            await first.run()
+            before = path.read_bytes()
+            real_close = LocalLock.close
+            def close(lock):
+                real_close(lock)
+                raise OSError("secondary teardown")
+            with patch.object(LocalLock, "close", close):
+                with self.assertRaisesRegex(ValueError, "identity/task") as caught:
+                    self.fresh(first, JsonRunStore(path), task=task(max_steps=2))
+                self.assertIsInstance(caught.exception.__cause__, OSError)
+            self.assertIs(first.harness.game_client, client)
+            self.assertEqual(path.read_bytes(), before)
+            with JsonRunStore(path).acquire():
+                pass
+
+    async def test_owner_cleanup_failure_still_detaches_own_wrapper(self):
+        with TemporaryDirectory() as tmp:
+            path, client = Path(tmp) / "run.json", SequenceClient()
+            real_close = LocalLock.close
+            def close(lock):
+                real_close(lock)
+                raise OSError("secondary teardown")
+            with patch.object(LocalLock, "close", close):
+                first = self.paused_runner(client, path)
+                with self.assertRaises(OSError):
+                    await first.run()
+            self.assertIs(first.harness.game_client, client)
+            second = self.fresh(first, JsonRunStore(path))
+            self.assertEqual((await second.run(resume=True)).status, "succeeded")
+
+    async def test_external_owner_is_held_after_wrapper_detaches(self):
+        with TemporaryDirectory() as tmp:
+            path, client = Path(tmp) / "run.json", SequenceClient()
+            template = runner(client)
+            template.close()
+            store = JsonRunStore(path)
+            with store.acquire() as owner:
+                first = self.fresh(template, store, ownership=owner, policy=FakeDecisionPolicy([
+                    PolicyDecision(action="pause", reason="pause")]))
+                await first.run()
+                self.assertIs(first.harness.game_client, client)
+                owner.check()
+                with self.assertRaises(CheckpointConflict):
+                    JsonRunStore(path).acquire()
+                with self.assertRaises(CheckpointConflict):
+                    self.fresh(first, store, ownership=owner)
+                owner.check()
+                self.assertIs(first.harness.game_client, client)
+            second = self.fresh(first, JsonRunStore(path))
+            self.assertEqual((await second.run(resume=True)).status, "succeeded")
+
+    async def test_replaced_client_before_run_rejects_without_persistence(self):
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "run.json"
+            first = runner(store=JsonRunStore(path))
+            replacement = SequenceClient()
+            first.harness.game_client = replacement
+            with self.assertRaises(CheckpointConflict):
+                await first.run()
+            self.assertIs(first.harness.game_client, replacement)
+            self.assertFalse(path.exists())
+            self.assertEqual(first.budget.summary()["counts"], {"step": 0, "tool": 0, "model": 0})
+            self.assertEqual(replacement.calls, [])
+            with JsonRunStore(path).acquire():
+                pass
 
 
 if __name__ == "__main__":

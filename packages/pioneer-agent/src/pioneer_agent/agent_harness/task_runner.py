@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import asyncio
 from datetime import datetime
+from threading import RLock
 from typing import Any
 
 from pydantic import ValidationError
@@ -24,6 +25,9 @@ from pioneer_agent.mcp_server.contracts import (
 from pioneer_agent.runbook.models import ConditionStatus, evaluate_all, evaluate_any
 
 
+_CLIENT_BINDING_LOCK = RLock()
+
+
 class _Interrupt(BaseException):
     def __init__(self, status: str, reason: str):
         self.status, self.reason = status, reason
@@ -41,6 +45,10 @@ class TaskRunner:
                  budget: RunBudget, trace: RunTrace, ownership: RunOwnership | None = None):
         if harness.qa_client is not None:
             raise ValueError("task v1 uses Game-only windows; legacy QA windows are separate")
+        with _CLIENT_BINDING_LOCK:
+            if isinstance(harness.game_client, _TaskClient):
+                raise CheckpointConflict("harness already bound to a runner")
+            self._client = harness.game_client
         self.harness, self.store, self.policy = harness, store, policy
         self.context_builder, self.budget, self.trace = context_builder, budget, trace
         self._task, self._run_id = task.model_copy(deep=True), run_id
@@ -63,8 +71,26 @@ class TaskRunner:
         self._wake = asyncio.Event()
         self._responses: dict[str, Any] = {}
         self._current_step_id = f"{run_id}:{self.state.completed_steps + 1}"
-        self._client = harness.game_client
-        harness.game_client = _TaskClient(self)
+        self._task_client = _TaskClient(self)
+        try:
+            self._install_client()
+        except BaseException as primary:
+            _close_preserving_primary(self.close, primary)
+            raise
+
+    def _check_client_binding(self):
+        with _CLIENT_BINDING_LOCK:
+            if self.harness.game_client is not self._client and self.harness.game_client is not self._task_client:
+                raise CheckpointConflict("harness client belongs to another lifetime")
+
+    def _install_client(self, *, activate=False):
+        with _CLIENT_BINDING_LOCK:
+            if activate and self._active:
+                raise RuntimeError("runner already active")
+            self._check_client_binding()
+            self.harness.game_client = self._task_client
+            if activate:
+                self._active = True
 
     def _reload(self):
         saved = self._ownership.load()
@@ -82,10 +108,14 @@ class TaskRunner:
             self._budget_checkpoint = saved.budget_state.copy()
 
     def close(self):
-        if getattr(self, "_active", False):
-            raise RuntimeError("cannot close an active runner; cancel and await it")
-        if not self._external_owner:
-            self._ownership.close()
+        with _CLIENT_BINDING_LOCK:
+            if getattr(self, "_active", False):
+                raise RuntimeError("cannot close an active runner; cancel and await it")
+            wrapper = getattr(self, "_task_client", None)
+            if wrapper is not None and self.harness.game_client is wrapper:
+                self.harness.game_client = self._client
+            if not self._external_owner:
+                self._ownership.close()
 
     def _ensure_ownership(self):
         if self._checkpoint_failed:
@@ -185,16 +215,21 @@ class TaskRunner:
     async def run(self, *, resume: bool = False) -> RunState:
         if self._active:
             raise RuntimeError("runner already active")
-        self._ensure_ownership()
         with _checkpoint_cleanup(self.close):
-            return await self._run_owned(resume=resume)
+            self._check_client_binding()
+            self._ensure_ownership()
+            self._install_client(activate=True)
+            try:
+                return await self._run_owned(resume=resume)
+            finally:
+                with _CLIENT_BINDING_LOCK:
+                    self._active = False
 
     async def _run_owned(self, *, resume: bool = False) -> RunState:
         if self.state.status in TERMINAL_STATUSES:
             return self.state.model_copy(deep=True)
         if self.state.status == "paused" and not resume:
             return self.state.model_copy(deep=True)
-        self._active = True
         if resume:
             self._paused = False
             self._wake.clear()
@@ -251,8 +286,6 @@ class TaskRunner:
                 raise
             # Store only class, never exception text that may contain provider data.
             return self._finish("failed", f"runtime_error:{type(exc).__name__}")
-        finally:
-            self._active = False
 
     async def _step(self) -> RunState | None:
         self._responses.clear()
