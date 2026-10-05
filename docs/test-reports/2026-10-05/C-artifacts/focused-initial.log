@@ -1,0 +1,19 @@
+test_answer_and_evidence_binding (tests.test_quality_eval.QualityEvaluationTests.test_answer_and_evidence_binding) ... ok
+test_candidate_evidence_does_not_count_as_citation (tests.test_quality_eval.QualityEvaluationTests.test_candidate_evidence_does_not_count_as_citation) ... ok
+test_correct_id_does_not_establish_fact_or_context_support (tests.test_quality_eval.QualityEvaluationTests.test_correct_id_does_not_establish_fact_or_context_support) ... ok
+test_empty_evidence_invalidates_id (tests.test_quality_eval.QualityEvaluationTests.test_empty_evidence_invalidates_id) ... ok
+test_frozen_retrieval_baseline_runs_without_model_or_network (tests.test_quality_eval.QualityEvaluationTests.test_frozen_retrieval_baseline_runs_without_model_or_network) ... ok
+test_mixed_claim_missing_citation_not_hidden_by_first_claim (tests.test_quality_eval.QualityEvaluationTests.test_mixed_claim_missing_citation_not_hidden_by_first_claim) ... ok
+test_portable_snapshot_binds_paths_and_content (tests.test_quality_eval.QualityEvaluationTests.test_portable_snapshot_binds_paths_and_content) ... ok
+test_production_or_fixture_drift_is_rejected (tests.test_quality_eval.QualityEvaluationTests.test_production_or_fixture_drift_is_rejected) ... ok
+test_refusal_precision_recall_distinct (tests.test_quality_eval.QualityEvaluationTests.test_refusal_precision_recall_distinct) ... ok
+test_retrieval_denominators_and_duplicates (tests.test_quality_eval.QualityEvaluationTests.test_retrieval_denominators_and_duplicates) ... ok
+test_supported_label_requires_bound_evidence (tests.test_quality_eval.QualityEvaluationTests.test_supported_label_requires_bound_evidence) ... ok
+test_supported_synthetic_control (tests.test_quality_eval.QualityEvaluationTests.test_supported_synthetic_control) ... ok
+test_unannotated_gaps_and_overlap_rejected (tests.test_quality_eval.QualityEvaluationTests.test_unannotated_gaps_and_overlap_rejected) ... ok
+test_unknown_and_unreviewed_are_not_semantic_passes (tests.test_quality_eval.QualityEvaluationTests.test_unknown_and_unreviewed_are_not_semantic_passes) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 3.407s
+
+OK
