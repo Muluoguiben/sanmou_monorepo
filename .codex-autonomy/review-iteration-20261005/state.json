@@ -6,7 +6,7 @@
   "batch": "Q02a bounded hero-attribute referent resolution",
   "base_commit": "e17d937a39944b036e90701fecefb6611b1d88d6",
   "branch": "codex/qa-referent-q02a-20261006",
-  "summary": "Q02a independent CR eb895ae requests changes on frozen f3cd9b8: excluded/quoted name promoted to subject and non-hero metadata accepted as hero. Author is repairing these two bounded gates; no merge/publication.",
+  "summary": "Q02a narrow repair delivered as 40f46d3, report005fce8; author full394/focused71/original26/cross6 pass. Independent recheck is in progress; two findings remain open until exact-source approval, no merge/publication.",
   "current_task": "docs/qa-referent-resolution-q02a-2026-10-06.md",
   "prior_round": {
     "batch":"Q03a bounded evidence assessment",
@@ -27,11 +27,11 @@
   "coordinator_integration": {"status":"not_started"},
   "open_findings": ["Q02a-CR01", "Q02a-CR02"],
   "closed_findings": [],
-  "independent_review": {"status":"request_changes","plan_commit":"0b9d514c1ffe76d85de209dc9f8802dcf2c2aba7","review_target":"f3cd9b8814fc085d567063ab23e6576b9c24525f","review_target_tree":"b73cf4b49fc311d55b50b7caf56a7a7b2fb0b01e","report_commit":"eb895ae4e149a38d65789c19c7e4aebdee0c3c1a","regular_tests":"QA391/focused68/cross6/frozen21 pass, zero skips","supplemental":"5 methods; 2 failing methods / 3 failed assertions","snapshot_blobs":1445,"snapshot_mismatches":0},
+  "independent_review": {"status":"recheck_in_progress_not_approved","plan_commit":"0b9d514c1ffe76d85de209dc9f8802dcf2c2aba7","review_target":"40f46d3ea4525639877ad37a8da4ab6e334523e6","review_target_tree":"1351c2432adb0a638997ab9faff7bb22725fba4f","report_commit":null,"initial_request_changes":"eb895ae4e149a38d65789c19c7e4aebdee0c3c1a","initial_code":"f3cd9b8814fc085d567063ab23e6576b9c24525f"},
   "coordinator_premerge": {"status":"not_approval","source":"f3cd9b8814fc085d567063ab23e6576b9c24525f","freeze_blob_sha256":"b0121b9e3f9f755dcf575f3b800e16edd0bdde011337bf21b2e3ca17f77a7a4a","production_commit":"a2726c24eba982245fb83e46fdfd6ce0f41880d8","git_blobs":186,"mismatches":0},
-  "delivery": {"production_commit":"a2726c24eba982245fb83e46fdfd6ce0f41880d8","code_commit":"f3cd9b8814fc085d567063ab23e6576b9c24525f","code_tree":"b73cf4b49fc311d55b50b7caf56a7a7b2fb0b01e","report_commit":"ce547ba9e6002696b949c7226aacbe9aca21a1f9","author_tests":{"qa":391,"focused":68,"cross_package":6,"skipped":0},"report":"docs/test-reports/2026-10-06/Q02a.md","review_status":"pending"},
+  "delivery": {"production_commit":"90e51683343e7971ec43ca2afcf731fcd66faf4e","code_commit":"40f46d3ea4525639877ad37a8da4ab6e334523e6","code_tree":"1351c2432adb0a638997ab9faff7bb22725fba4f","packages_tree":"3c643ef1d3fd0ae376ebea6b055d0aaba564edf8","report_commit":"005fce84f1eaff4e60a0e04f838c908a9e8da6ae","author_tests":{"qa":394,"focused":71,"original_independent":26,"cross_package":6,"skipped":0},"report":"docs/test-reports/2026-10-06/Q02a-repair.md","review_status":"pending","author_setup_failures_preserved":["MCP child missing QA PYTHONPATH on first full run","initial text-display probe copy had extra trailing LF"],"coordinator_exact_probe_hashes":4,"probe_hash_mismatches":0},
   "agents": {"implementation":"/root/q03a_implementation","independent_review":"/root/rag_eval_review"},
-  "next_step": "Reproduce unchanged independent red probes, repair Q02a-CR01/02, freeze new production/code and explicit v3 binding, then independent re-review before any integration",
+  "next_step": "Complete independent recheck of40f46d3, then exact combined-source coordinator tests, incremental payload audit, approved publication and final-SHA CI; H06a remains read-only next-slice planning",
   "authorization": {
     "user_text": "按review 迭代的方向持续迭代",
     "source_thread": "01a10c00-93d2-778b-8395-bf9d496c503d",

@@ -6,6 +6,7 @@
 - [x] Chosen next bounded slice: nonempty-raw-evidence hero-attribute follow-ups, current accepted-citation/source binding, deterministic re-query and explicit v3 development eval. [Task and gates](docs/qa-referent-resolution-q02a-2026-10-06.md).
 - [x] Author Q02a implementation frozen: code `f3cd9b8814fc085d567063ab23e6576b9c24525f`, report `ce547ba9e6002696b949c7226aacbe9aca21a1f9`; QA391/focused68/cross6 pass, 0 skips. These are self-tests, not CR acceptance; old v1/v2 and formal KB unchanged.
 - [ ] Independent CR `eb895ae4e149a38d65789c19c7e4aebdee0c3c1a` is REQUEST_CHANGES on f3cd9b8: Q02a-CR01 name mention/exclusion is not explicit subject; Q02a-CR02 term/generic HeroStaticProfile is not a hero identity. Regular QA391/focused68/cross6/frozen21 pass, but supplemental probes have three failed assertions. Repair and independently replay before merge.
+- [x] Narrow author repair delivered: code/v3 `40f46d3ea4525639877ad37a8da4ab6e334523e6`, report `005fce84f1eaff4e60a0e04f838c908a9e8da6ae`; full394/focused71/original26/cross6 pass. Setup failures retained; coordinator matched all four original probe hashes. Independent recheck is pending, not APPROVE.
 - [ ] Independent adversarial CR, coordinator combined-source replay, approved publication and exact-final-SHA CI. Full Q02 and provider/human-gold quality remain incomplete.
 
 ## Active Review continuation — Q03a (2026-10-05)
