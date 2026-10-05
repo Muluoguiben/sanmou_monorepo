@@ -1,0 +1,65 @@
+{
+  "code_commit": "c902d19601e2b16a4529fa874445fdef3814f5a8",
+  "code_tree": "0818587711158ef2c4dd3e5bfecf9ca3fa28f245",
+  "a0_commit": "5269a1a5d09bddcf268d180a3f016f323c27cb95",
+  "b_commit": "9430107ab24a740e751321ca41a98c0e282e2954",
+  "logs": [
+    {
+      "name": "full-first",
+      "source_commit": "c902d19601e2b16a4529fa874445fdef3814f5a8",
+      "original_path": "/tmp/sanmou-A-full-first.log",
+      "original_sha256": "602f682942547a13a90969ab1ee838c9fadfbae6b2c77ea6903f6407486bf4b1",
+      "gzip_sha256": "2e5516d4f1ea15f0496da8ae331f45bba5877f9f34ddf5b8b84d101ce2a5acdc",
+      "summary": [
+        "ERROR: unit.test_advisor_api_upload_cleanup (unittest.loader._FailedTest.unit.test_advisor_api_upload_cleanup)",
+        "Ran 922 tests in 39.766s",
+        "FAILED (errors=1, skipped=8)"
+      ]
+    },
+    {
+      "name": "full-with-api",
+      "source_commit": "c902d19601e2b16a4529fa874445fdef3814f5a8",
+      "original_path": "/tmp/sanmou-A-full-with-api.log",
+      "original_sha256": "8afb8fc135b6b5ca60c7ba6834df926fb2ff93faecc5882d8f1b2ed723d52ca4",
+      "gzip_sha256": "929f15434135e96449d0fa1d5e562ce001898f6e9548b857abda0dadb7584da7",
+      "summary": [
+        "Ran 926 tests in 37.764s",
+        "OK (skipped=2)"
+      ]
+    },
+    {
+      "name": "common",
+      "source_commit": "c902d19601e2b16a4529fa874445fdef3814f5a8",
+      "original_path": "/tmp/sanmou-A-common.log",
+      "original_sha256": "4d8dca2441b4d841101e1bbb41dad136adeabc90ca4be929faddea433b21ca8b",
+      "gzip_sha256": "ffb657d946544e8066ca1c4a735fe0fa7e620bc062dc3dfebc367a07c2a7b452",
+      "summary": [
+        "Ran 2 tests in 0.028s",
+        "OK"
+      ]
+    },
+    {
+      "name": "focused-A1",
+      "source_commit": "precommit source subsequently committed as 0a54c54be7115d2652dbd86e946cb59edeefc1c7",
+      "original_path": "/tmp/sanmou-A-focused-second.log",
+      "original_sha256": "86be214ed8a7583ce2bd7f9323a684479d41c27c0dc9fb2d307209368c56e645",
+      "gzip_sha256": "fdbe71eb09d0b57dfb010f464e94b01ccac697bac678e6205421912badec0dea",
+      "summary": [
+        "Ran 49 tests in 0.964s",
+        "OK"
+      ]
+    },
+    {
+      "name": "focused-AB",
+      "source_commit": "precommit source subsequently committed as c902d19601e2b16a4529fa874445fdef3814f5a8",
+      "original_path": "/tmp/sanmou-AB-cli.log",
+      "original_sha256": "a327f3482a89848a65cb7431a332ccf11b48c9d5d1e497ffb77bbd30d10ee9c4",
+      "gzip_sha256": "2f49f2aea24613d1ea4295bcc3c266d00072ad9b9a8d924ac5d97312bdef0da5",
+      "summary": [
+        "Ran 93 tests in 1.620s",
+        "OK"
+      ]
+    }
+  ],
+  "development_cases_sha256": "c620bdb18c3270cde920484ec98b76d41cea7c8615cfe20e0467a050607ecd62"
+}
