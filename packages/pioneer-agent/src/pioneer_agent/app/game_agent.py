@@ -126,10 +126,27 @@ async def run(args: argparse.Namespace) -> dict:
 
 
 async def _run_task(args: argparse.Namespace, *, game_client=None) -> dict:
+    from pioneer_agent.agent_harness.run_store import CheckpointConflict, JsonRunStore
+
+    if args.run_state_path is None or args.run_trace_path is None:
+        raise ValueError("task mode requires --run-state-path and --run-trace-path")
+    if args.qa_question:
+        raise ValueError("task v1 is Game-only; QA remains in single-window mode")
+    store = JsonRunStore(args.run_state_path)
+    try:
+        # Includes initial checkpoint read, budget restore and MCP cleanup.
+        with store.acquire() as ownership:
+            return await _run_owned_task(args, store=store, ownership=ownership, game_client=game_client)
+    except CheckpointConflict:
+        return {"status": "blocked", "reason": "checkpoint_conflict",
+                "execution_authority": "none", "executable": False}
+
+
+async def _run_owned_task(args, *, store, ownership, game_client=None):
     """Opt-in task mode; default CLI remains a single recommendation window."""
     from pioneer_agent.agent_harness.context_builder import BoundedContextBuilder
     from pioneer_agent.agent_harness.run_budget import BudgetLimits, RunBudgetLedger
-    from pioneer_agent.agent_harness.run_store import JsonRunStore
+    from pioneer_agent.agent_harness.run_store import CheckpointConflict
     from pioneer_agent.agent_harness.run_trace import JsonlRunTrace
     from pioneer_agent.agent_harness.task_contracts import TaskSpec, TERMINAL_STATUSES
     from pioneer_agent.agent_harness.task_policy import RuleDecisionPolicy
@@ -140,8 +157,7 @@ async def _run_task(args: argparse.Namespace, *, game_client=None) -> dict:
     if args.qa_question:
         raise ValueError("task v1 is Game-only; QA remains in single-window mode")
     task = TaskSpec.model_validate_json(args.task_spec.read_text(encoding="utf-8"))
-    store = JsonRunStore(args.run_state_path)
-    saved = store.load()
+    saved = ownership.load()
     run_id = args.agent_session_id or (saved.run_id if saved else f"task-{uuid4().hex}")
     budget = RunBudgetLedger(BudgetLimits(max_steps=task.max_steps,
         max_tool_calls=args.task_tool_limit, max_model_attempts=0, max_seconds=args.task_timeout))
@@ -154,7 +170,7 @@ async def _run_task(args: argparse.Namespace, *, game_client=None) -> dict:
         agent_session_id=run_id, model_id="rule-observe-v1")
     runner = TaskRunner(task=task, run_id=run_id, harness=harness, store=store,
         policy=RuleDecisionPolicy(), context_builder=BoundedContextBuilder(),
-        budget=budget, trace=JsonlRunTrace(args.run_trace_path))
+        budget=budget, trace=JsonlRunTrace(args.run_trace_path), ownership=ownership)
     if runner.state.status in TERMINAL_STATUSES or (
             runner.state.status == "paused" and not args.resume_task):
         return (await runner.run()).model_dump(mode="json")
@@ -164,7 +180,11 @@ async def _run_task(args: argparse.Namespace, *, game_client=None) -> dict:
         async with asyncio.timeout(budget.remaining_seconds()):
             async with client:
                 result = await runner.run(resume=args.resume_task)
+    except CheckpointConflict:
+        raise
     except (Exception, asyncio.CancelledError) as exc:
+        if runner._checkpoint_failed:
+            raise
         reason = "run_deadline" if isinstance(exc, TimeoutError) else f"transport:{type(exc).__name__}"
         runner._emit("transport_lifecycle", transport="error", business=reason,
                      error_type=type(exc).__name__)
