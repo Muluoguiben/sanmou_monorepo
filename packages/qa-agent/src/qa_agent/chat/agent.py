@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import logging
 import re
+from copy import deepcopy
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import TYPE_CHECKING
@@ -10,6 +11,9 @@ from typing import TYPE_CHECKING
 from qa_agent.chat.llm_client import LLMClient, build_llm_client
 from qa_agent.chat.prompts import QUERY_REWRITE_PROMPT, SYSTEM_PROMPT
 from qa_agent.chat.evidence_assessment import EvidenceAssessment, assess_evidence
+from qa_agent.chat.referent_resolution import (
+    AcceptedReferent, CLARIFY_REFERENT_ANSWER, accept_referent, followup_suffix, hero_identity,
+)
 from qa_agent.knowledge.models import Domain
 from qa_agent.retrieval.retriever import RetrievedChunk, Retriever
 
@@ -44,6 +48,8 @@ class ChatReply:
     unresolved_entities: list[str] = field(default_factory=list)
     vision_raw_text: str = ""
     assessment: EvidenceAssessment | None = None
+    resolved_question: str | None = None
+    referent_resolution: str = 'not_applicable'
 
 
 class ChatAgent:
@@ -62,12 +68,14 @@ class ChatAgent:
         self.total_evidence_cap = total_evidence_cap
         self._image_extractor = image_extractor
         self.history: list[ChatTurn] = []
+        self._referent: AcceptedReferent | None = None
 
     @classmethod
     def from_knowledge_dir(cls, knowledge_dir: Path) -> "ChatAgent":
         return cls(retriever=Retriever.from_knowledge_dir(knowledge_dir))
 
     def reset(self) -> None:
+        self._referent = None
         self.history.clear()
 
     def ask(
@@ -76,6 +84,13 @@ class ChatAgent:
         *,
         images: list[str] | None = None,
     ) -> ChatReply:
+        # Consume first, including on exceptions and image/unsupported turns.
+        previous_referent, self._referent = self._referent, None
+        suffix = followup_suffix(question) if images is None else None
+        retrieval = Retriever(deepcopy(self.retriever.entries)) if suffix else self.retriever
+        resolved_question = None
+        resolution = 'not_applicable'
+        clarify = False
         from qa_agent.vision.image_loader import prepare_image_inputs
 
         vision: "VisionExtraction | None" = None
@@ -97,12 +112,25 @@ class ChatAgent:
             if name not in queries:
                 queries.append(name)
 
-        chunks = self.retriever.retrieve_multi(
+        chunks = retrieval.retrieve_multi(
             queries,
             top_k_per_query=self.top_k_per_query,
             total_cap=self.total_evidence_cap,
         )
-        if chunks and self.history:
+        if suffix:
+            resolution = 'raw_not_found' if not chunks else 'clarify'
+            if chunks:
+                resolved_question = previous_referent.resolve(self.history,retrieval.entries,suffix) if previous_referent else None
+                chunks = []
+                if resolved_question:
+                    queries = [resolved_question,previous_referent.canonical]
+                    candidates = retrieval.retrieve_multi(queries,top_k_per_query=self.top_k_per_query,total_cap=self.total_evidence_cap)
+                    chunks = [c for c in candidates if hero_identity(c.entry)==previous_referent.canonical]
+                if chunks:
+                    resolution = 'resolved'
+                else:
+                    clarify = True
+        elif chunks and self.history:
             queries = list(dict.fromkeys([*self._rewrite_queries(question), *identified]))
             chunks = self.retriever.retrieve_multi(
                 queries,
@@ -112,12 +140,17 @@ class ChatAgent:
         answer = NO_EVIDENCE_ANSWER
         prompt_tokens = output_tokens = 0
         elapsed_s = 0.0
-        assessment = assess_evidence(question, chunks, catalog=self.retriever.entries)
-        if assessment.decision == 'disclose_conflict':
+        effective_question = resolved_question or question
+        assessment = assess_evidence(effective_question, chunks, catalog=retrieval.entries)
+        valid_citations: list[str] = []
+        evidence_snapshot = deepcopy(chunks)
+        if clarify:
+            answer = CLARIFY_REFERENT_ANSWER
+        elif assessment.decision == 'disclose_conflict':
             answer = assessment.conflict_answer()
         elif chunks:
             user_message = self._compose_user_message(
-                question, chunks, identified=identified, unresolved=unresolved,
+                effective_question, chunks, identified=identified, unresolved=unresolved,
                 assessment=assessment,
             )
             resp = self.client.generate(
@@ -130,6 +163,8 @@ class ChatAgent:
             allowed_ids = {c.entry.id for c in chunks}
             if not citations or any(citation not in allowed_ids for citation in citations):
                 answer = INVALID_CITATION_ANSWER
+            else:
+                valid_citations = citations
             prompt_tokens = resp.prompt_tokens
             output_tokens = resp.output_tokens
             elapsed_s = resp.elapsed_s
@@ -143,6 +178,9 @@ class ChatAgent:
             )
         )
 
+        if images is None and suffix is None and valid_citations:
+            self._referent = accept_referent(question,valid_citations,evidence_snapshot,self.retriever.entries,self.history)
+
         return ChatReply(
             answer=answer,
             evidence=chunks,
@@ -154,6 +192,8 @@ class ChatAgent:
             unresolved_entities=unresolved,
             vision_raw_text=vision.raw_text if vision else "",
             assessment=assessment,
+            resolved_question=resolved_question,
+            referent_resolution=resolution,
         )
 
     def _get_image_extractor(self) -> "ImageExtractor":
