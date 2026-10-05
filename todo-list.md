@@ -1,5 +1,18 @@
 # Todo List
 
+## Active Review continuation — Q03a (2026-10-05)
+
+- [x] Previous final master f879915 CI run 37321475905 independently read: all four jobs success. Older d6b5a36 run 37321087930 remains cancelled; no CI rerun or result rewriting.
+- [x] Q03a bounded hero scalar assessment + actual ChatAgent gate + explicit v2 development baseline implemented; historical v1 and previous evidence unchanged.
+- [x] Three new Q03a P2 findings repaired and independently closed: mixed imported source/digest, invalid v2 shapes, incomparable notes scope. Approved code `3b2b137679bd6b72a5681874bf9ab6ea0ac8f0c9`, review `146433ffef1d087bdbf72148a21d7d8746e90d3e`.
+- [x] Independent QA367/original17/focused44/new8/cross6 pass; 1336 snapshot blobs and 30 coordinator-rechecked CR artifact hashes match. This is bounded offline evidence, not general Q03/provider/human-gold certification.
+- [ ] Integrate and coordinator-recheck exact Q03a source, push origin/master under verified standing authorization, then check CI for that exact final SHA.
+- [ ] Continue the next incomplete Review slice after Q03a closes; likely Q02 safe referent resolution or remaining Q03/Q05 evidence scope, not six-model integration or CUA live control as prerequisites.
+
+The user has authorized same-repository Review implementation/testing/independent CR/approved integration/push/CI without repeated publication confirmation. Secrets/private real data, other repositories, deployment, account/security/persistent-access changes, paid services/models and unauthorized game operations remain outside scope. Progress stays in this original coordinator; no new main chat or automation.
+
+[Q03a task and limits](docs/qa-evidence-assessment-q03a-2026-10-05.md) · [Persistent iteration state](.codex-autonomy/review-iteration-20261005/state.json).
+
 ## Integration verified and published — 2026-10-05
 
 - [x] A/B/C first offline slice and real A↔B wiring integrated locally as `5569d11eb25bab4119e0bf733df58ccca17ee143`; packages tree exactly matches the independent approved source.
