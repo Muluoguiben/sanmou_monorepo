@@ -9,6 +9,7 @@ from typing import TYPE_CHECKING
 
 from qa_agent.chat.llm_client import LLMClient, build_llm_client
 from qa_agent.chat.prompts import QUERY_REWRITE_PROMPT, SYSTEM_PROMPT
+from qa_agent.chat.evidence_assessment import EvidenceAssessment, assess_evidence
 from qa_agent.knowledge.models import Domain
 from qa_agent.retrieval.retriever import RetrievedChunk, Retriever
 
@@ -42,6 +43,7 @@ class ChatReply:
     identified_entities: list[str] = field(default_factory=list)
     unresolved_entities: list[str] = field(default_factory=list)
     vision_raw_text: str = ""
+    assessment: EvidenceAssessment | None = None
 
 
 class ChatAgent:
@@ -110,9 +112,13 @@ class ChatAgent:
         answer = NO_EVIDENCE_ANSWER
         prompt_tokens = output_tokens = 0
         elapsed_s = 0.0
-        if chunks:
+        assessment = assess_evidence(question, chunks, catalog=self.retriever.entries)
+        if assessment.decision == 'disclose_conflict':
+            answer = assessment.conflict_answer()
+        elif chunks:
             user_message = self._compose_user_message(
-                question, chunks, identified=identified, unresolved=unresolved
+                question, chunks, identified=identified, unresolved=unresolved,
+                assessment=assessment,
             )
             resp = self.client.generate(
                 system_prompt=SYSTEM_PROMPT,
@@ -147,6 +153,7 @@ class ChatAgent:
             identified_entities=identified,
             unresolved_entities=unresolved,
             vision_raw_text=vision.raw_text if vision else "",
+            assessment=assessment,
         )
 
     def _get_image_extractor(self) -> "ImageExtractor":
@@ -218,11 +225,20 @@ class ChatAgent:
         *,
         identified: list[str] | None = None,
         unresolved: list[str] | None = None,
+        assessment: EvidenceAssessment | None = None,
     ) -> str:
         if not chunks:
             evidence_block = "(evidence 为空 — 知识库未匹配到任何相关条目)"
         else:
             evidence_block = "\n\n".join(c.as_prompt_block() for c in chunks)
+            # Summary lines include only the first note. Missing structured
+            # slots must not hide prose that may already answer the question.
+            for chunk in chunks:
+                notes = getattr(chunk.entry.structured_data, 'notes', [])
+                if len(notes) > 1:
+                    evidence_block += f'\n[{chunk.entry.id}] notes: ' + '；'.join(notes[1:])
+            if assessment is not None and assessment.prompt_block():
+                evidence_block += '\n\n结构化字段（仅字段存在性检查，不证明事实真实性）：\n' + assessment.prompt_block()
         parts = [f"<evidence>\n{evidence_block}\n</evidence>"]
         if identified:
             parts.append(
