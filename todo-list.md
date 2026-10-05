@@ -1,12 +1,12 @@
 # Todo List
 
-## Local integration verified — 2026-10-05 (publication authorized, push pending)
+## Integration verified and published — 2026-10-05
 
 - [x] A/B/C first offline slice and real A↔B wiring integrated locally as `5569d11eb25bab4119e0bf733df58ccca17ee143`; packages tree exactly matches the independent approved source.
 - [x] CR01–CR03 independently closed; APPROVE bound to `374f970fbfae13eeadf0b3a4c57a554441f9a23e`, report `4b9a8eeeecbaeecb18e89d0a5534414c1a2b93cf`.
 - [x] Original coordinator ext4 rerun: adversarial 7/7, focused 101/101, Pioneer 932 pass + 2 Windows-only skips, QA 343/343, common 2/2; 35 CR evidence hashes match. No extra production source changes.
 - [x] Frozen QA development retrieval reproduced: 12 queries, Recall@5/MRR 10/11; zero provider calls/human-reviewed labels, no independent holdout. This completes C's development baseline, not real RAG-quality approval.
-- [ ] Publish the integrated master/history/reports/logs to `Muluoguiben/sanmou_monorepo`: user explicitly replied `ok` to the original coordinator's destination/payload request, resolving the prior C/CR scope block. Actual push/readback pending; no alternate-branch/upload workaround.
+- [x] Published the integrated master/history/reports/logs to `Muluoguiben/sanmou_monorepo` after the user explicitly replied `ok` to the exact destination/payload request. Remote master readback matched `d6b5a36ed0b075c45431eecdf588e74c9543ab75`; this documentation-only successor records the result. No alternate-branch/upload workaround.
 - [ ] Remaining gates: real provider/task/vision eval, human gold and independent QA holdout, native Windows coverage, CUA live flows/recovery, cross-process ownership and production readiness. No execution/publish authority expansion.
 
 [Coordinator source-bound report](docs/test-reports/2026-10-05/integration.md) · [Batch manifest](docs/development-batch-2026-10-05-tasks.json).

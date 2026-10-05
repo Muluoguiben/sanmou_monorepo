@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "LOCAL_INTEGRATION_VERIFIED_PUBLICATION_AUTHORIZED_PENDING_PUSH",
+  "status": "INTEGRATED_AND_PUBLISHED_OFFLINE_PATCH",
   "code_commit": "5569d11eb25bab4119e0bf733df58ccca17ee143",
   "code_tree": "a0dbef6342f4fd07885089521222285c5ee6c575",
   "approved_commit": "374f970fbfae13eeadf0b3a4c57a554441f9a23e",
@@ -69,11 +69,12 @@
     "production readiness"
   ],
   "remote_publication": {
-    "attempted": false,
-    "status": "authorized_pending_push",
+    "attempted": true,
+    "status": "published_and_remote_payload_sha_verified",
+    "verified_payload_commit": "d6b5a36ed0b075c45431eecdf588e74c9543ab75",
     "explicit_user_authorization": "2026-10-05: ok in reply to the exact destination/full-history/report/log/environment-metadata request",
     "destination": "github.com/Muluoguiben/sanmou_monorepo refs/heads/master",
-    "last_observed_remote_master": "78708c9552fd82b0b049e2c32dc9b10d7fb16e7e",
+    "pre_integration_remote_master": "78708c9552fd82b0b049e2c32dc9b10d7fb16e7e",
     "includes": "full C/CR code and history, fixtures, reports, red/green logs, scripts, JSON metrics and local-path environment metadata"
   },
   "artifacts_sha256": {

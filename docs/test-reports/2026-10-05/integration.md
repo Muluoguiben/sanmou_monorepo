@@ -1,4 +1,4 @@
-# Coordinator integration — locally verified, publication authorized
+# Coordinator integration — verified and published
 
 Date: 2026-10-05. Coordinator: the original `Review 迭代方向` conversation.
 
@@ -65,7 +65,10 @@ rejected by automatic approval review; changing the destination branch to master
 not bypass that rejection. Local code integration is complete under the user's explicit
 CR-passed condition. The user subsequently replied `ok` to the original coordinator's
 explicit target/payload request, authorizing the same integrated history/reports/logs.
-At this report checkpoint, publication is authorized and awaiting the actual push/readback.
+The authorized push succeeded and remote `refs/heads/master` was read back as
+`d6b5a36ed0b075c45431eecdf588e74c9543ab75`, matching local HEAD. That commit contains
+the integrated code plus coordinator verification. A documentation-only successor
+records this publication; it does not alter the approved packages tree.
 
 Requested target: `github.com/Muluoguiben/sanmou_monorepo`, `refs/heads/master`.
 The prospective push includes C/CR code and full inherited history, frozen development
@@ -88,5 +91,6 @@ This completes the first offline read-only integration slice, not production rea
 Native Windows, real model/vision accuracy, game input/live replay, human gold/independent
 QA holdout, cross-process leases and the CUA real-client loop remain outside this approval.
 No game/client operation, model API request, KB publish or worktree cleanup was performed.
-Original developer worktrees and all first-failure evidence remain intact. Remote
-publication must be recorded separately after its authorized push succeeds.
+Original developer worktrees and all first-failure evidence remain intact. Only the
+authorized master destination was pushed; no C/CR feature branch or separate log-upload
+route was used. Hosted CI status was not checked in this coordinator validation.
