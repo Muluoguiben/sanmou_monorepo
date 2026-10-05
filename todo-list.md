@@ -9,7 +9,8 @@
 - [x] Narrow author repair delivered: code/v3 `40f46d3ea4525639877ad37a8da4ab6e334523e6`, report `005fce84f1eaff4e60a0e04f838c908a9e8da6ae`; full394/focused71/original26/cross6 pass. Setup failures retained; coordinator matched all four original probe hashes. Author self-tests did not substitute for the later independent decision.
 - [x] Independent recheck `c68cab94a95731c3e05511d9203e8337e956cd3f` APPROVE binds40f46d3; Q02a-CR01/02 closed. Original26/new8/focused71/QA394/cross6 pass, zero skips; 1455 snapshot files match before/after.
 - [x] Coordinator integration `94e1464ba3fcff9b5874868138fa2d9f300fb376` passes QA394, Pioneer932+2 Windows-only skips, common2, focused71/original26/new8; packages match approved source, 25 CR hashes match, v3 output unchanged. [Report](docs/test-reports/2026-10-06/Q02a-integration.md).
-- [ ] Final payload audit, approved publication and exact-final-SHA CI. Full Q02 and provider/human-gold quality remain incomplete; H06a checkpoint ownership/CAS is next planning only.
+- [x] Final payload audit bound `a071176c799c6e50c42d1d025f8eccf8260e30a0`: 227 objects/16 commits/119 paths, 167 protected paths and 42 original logs preserved; no scoped sensitive blocker. Pushed origin/master and fetched exact matching SHA; packages unchanged.
+- [ ] Exact-final-SHA CI after this documentation-only status successor. Initial payload run 37351717604 was in progress at first read. Full Q02/provider/human-gold quality remain incomplete; H06a checkpoint ownership/CAS is next planning only.
 
 ## Active Review continuation — Q03a (2026-10-05)
 

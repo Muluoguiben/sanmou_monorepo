@@ -1,6 +1,6 @@
 # Q02a coordinator integration verification
 
-Date: 2026-10-06. Exact-source independent approval and local combined-tree verification passed. Publication and exact-final-SHA CI remain separate gates, tracked in iteration state. This is a bounded offline slice, not production readiness.
+Date: 2026-10-06. Exact-source independent approval and local combined-tree verification passed. Payload `a071176c799c6e50c42d1d025f8eccf8260e30a0` was pushed to master and explicitly fetched with matching SHA. Exact-final-SHA CI remains a separate gate tracked in iteration state. This is a bounded offline slice, not production readiness.
 
 ## Source and approval
 
@@ -36,5 +36,7 @@ Integrated v3 result SHA256 `480a448fd7abecfba2f6cd4eb32a46873ff0b8127b6251cd8ae
 ## Publication and limitations
 
 Same-repository code/synthetic fixtures/full history/reports/logs/disclosed path metadata are within the independently verified standing user authorization. Initial and repair payload scans found no scoped sensitive-payload blocker; their bounds were fixed commits, not a blanket guarantee about future files. Final CR/coordinator evidence requires the final incremental scan before push. No new confirmation is needed within that authorized route; secrets/private data, other repositories, deployment, account/security changes, paid models and game control remain excluded.
+
+Final incremental scan bound to a071176 completed before push: cumulative 227 Git objects, 16 commits, 119 paths (113 new/six modified); 167 protected paths unchanged, all 42 original raw logs unchanged. No scoped publication blocker was found; finite scanning is not an absolute secret-free proof. Object-set digest: `ba02d741f95f8f507832192fa0c1857d0b6ca5e9b5a29433af58da736ec00685`. Author, independent and coordinator v3 outputs are the same Git blob `a3996426f30053c80754a131863434736ae8ba18`. The payload's initial CI read was run 37351717604/in-progress, not a green result. This status-only successor changes no packages/apps/scripts/workflow source and needs its own final-SHA CI check.
 
 Q02a supports one adjacent text-only follow-up from a finite explicit seed grammar, unique eligible hero citations, full source/history binding and fresh in-memory retrieval. It does not cover arbitrary intent/coreference/refusal semantics, disk KB refresh, whole-KB conflict scanning, real provider quality, human gold, independent holdout, native Windows full-suite validation or production/game execution. After exact-final-SHA CI, the next planned slice is H06a same-checkpoint single-machine ownership/CAS; it has not started.

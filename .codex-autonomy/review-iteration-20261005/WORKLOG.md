@@ -112,3 +112,9 @@
 - Clean ext4 coordinator run: QA394, Pioneer932+2 Windows-only skips, common2, focused71/original26/new8 all pass. Source worktree remains clean. Explicit v3 output480a448fd7abecfba2f6cd4eb32a46873ff0b8127b6251cd8aeea5e4fe2e82c8 matches premerge, author and independent output. Raw records/helper/hashes archived under Q02a-integration-artifacts.
 - The initial coordinator log search used an unsupported Windows glob path; corrected rg -g read the same untouched logs. No test rerun or expected-value change resulted.
 - Incremental payload scanner through3bebb1a/eb895ae covers163 objects, digest47ce7f0ace2be04e2ed31c10703574c5a1610339faaebd7e05bf4c0ba2870585; no scoped sensitive anomaly. CR/coordinator final evidence still needs final incremental scan. Then publish under standing scope and verify exact-final-SHA CI before H06a.
+
+## Round 2 — approved publication and final CI handoff
+
+- Final source-bound coordinator report commit a071176c799c6e50c42d1d025f8eccf8260e30a0 validates17 artifact hashes and20 report links, zero mismatches/missing links. Raw stdout padding remains unmodified. Final independent payload audit:227 objects/16 commits/119 paths,167 protected paths and42 logs unchanged; no scoped sensitive blocker. Object-set digest ba02d741f95f8f507832192fa0c1857d0b6ca5e9b5a29433af58da736ec00685.
+- Local master fast-forwarded to a071176, pushed under verified standing authorization and explicitly fetched. HEAD/origin-master both a071176, clean; packages tree remains3c643ef1d3fd0ae376ebea6b055d0aaba564edf8. No force push, deployment or game operation.
+- First exact payload CI read: run37351717604 in_progress. This documentation-only successor records the successful publication; its final SHA still requires separate CI acceptance. Do not call the earlier in-progress run green or start H06a prematurely.
