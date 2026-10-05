@@ -1,0 +1,285 @@
+"""Adversarial checks for the standalone task evaluator, not its runtime implementation."""
+import copy
+import json
+import subprocess
+import sys
+import tempfile
+import types
+import unittest
+from pathlib import Path
+from unittest.mock import patch
+
+from pioneer_agent.agent_harness._task_eval_inputs import (
+    Fixture, Inputs, InputError, Suite, decode, digest, safe_path,
+)
+from pioneer_agent.agent_harness._task_eval_source import SourceBinding
+from pioneer_agent.agent_harness.task_eval import execute, score, stable_projection, write_new
+from pioneer_agent.agent_harness.task_runner import TaskRunner
+from pioneer_agent.agent_harness import task_eval
+
+
+ROOT = Path(__file__).resolve().parents[3]
+DATA = ROOT / "packages/pioneer-agent/evaluation/task/development-v1"
+
+
+def suite():
+    return Suite.model_validate(decode((DATA / "suite.json").read_bytes()))
+
+
+class TaskEvalTests(unittest.IsolatedAsyncioTestCase):
+    async def run_case(self, case, inputs=None):
+        with tempfile.TemporaryDirectory() as directory:
+            actual = await execute(case.execution, inputs or Inputs(DATA), Path(directory))
+        return actual, score(actual, case.expected)
+
+    async def test_eight_cases_real_runtime(self):
+        for case in suite().cases:
+            with self.subTest(case=case.id):
+                actual, scored = await self.run_case(case)
+                self.assertFalse(actual["infra_errors"])
+                self.assertTrue(scored["control_pass"], [k for k, v in scored["assertions"].items() if not v])
+
+    async def test_expected_only_change_never_changes_execution(self):
+        original = suite().cases[0]
+        changed = original.model_copy(deep=True)
+        changed.expected.phases[0].reason = "wrong-label"
+        first, _ = await self.run_case(original)
+        second, scored = await self.run_case(changed)
+        def projection(actual):
+            report = {"cases": [{"id": "same", "actual": actual}]}
+            return stable_projection(report)
+        self.assertEqual(projection(first), projection(second))
+        self.assertFalse(scored["control_pass"])
+
+    async def test_goal_fact_survives_expected_tool_label_mismatch(self):
+        case = suite().cases[0]
+        actual, before = await self.run_case(case)
+        case.expected.phases[0].tool_calls = []
+        after = score(actual, case.expected)
+        self.assertTrue(before["goal_success"] and after["goal_success"])
+        self.assertFalse(after["control_pass"])
+
+    async def test_artifact_write_and_read_failure_preserve_actual(self):
+        for boundary in ("write_new", "decode"):
+            with self.subTest(boundary=boundary), patch(
+                    "pioneer_agent.agent_harness.task_eval." + boundary, side_effect=OSError("artifact failure")):
+                actual, scored = await self.run_case(suite().cases[0])
+            self.assertTrue(scored["infra_error"])
+            self.assertTrue(scored["observed_goal_verified"])
+            self.assertFalse(scored["goal_success"] or scored["control_pass"])
+            phase = actual["phases"][0]
+            self.assertEqual(len(phase["tool_calls"]), 12)
+            self.assertEqual(len(phase["policy_calls"]), 3)
+            self.assertEqual(sum(e["event"] == "tool" for e in phase["trace"]), 12)
+
+    async def test_cleanup_failure_preserves_actual(self):
+        close = TaskRunner.close
+
+        def fail_after_close(runner):
+            close(runner)
+            raise OSError("cleanup failure")
+
+        with patch.object(TaskRunner, "close", fail_after_close):
+            actual, scored = await self.run_case(suite().cases[0])
+        self.assertTrue(scored["infra_error"])
+        self.assertEqual(len(actual["phases"][0]["tool_calls"]), 12)
+        self.assertEqual(len(actual["phases"][0]["policy_calls"]), 3)
+        self.assertFalse(scored["control_pass"])
+
+    async def test_finalization_failures_retain_cases_and_revoke_gate(self):
+        # Provenance has separate real-byte/import tests. Isolate the finalization
+        # fault here while still executing all eight cases through the real runner.
+        for fault in ("artifact_digest", "projection"):
+            with self.subTest(fault=fault), tempfile.TemporaryDirectory() as directory:
+                output = Path(directory) / "report"
+                read_bytes = Path.read_bytes
+
+                def broken_read(path):
+                    if path.name == "phase-1.json" and path.is_relative_to(output):
+                        raise OSError("digest read failed")
+                    return read_bytes(path)
+
+                boundary = (patch.object(Path, "read_bytes", broken_read) if fault == "artifact_digest" else
+                            patch.object(task_eval, "stable_projection", side_effect=ValueError("projection failed")))
+                with patch.object(task_eval, "SourceBinding") as source, boundary:
+                    source.return_value.report.return_value = {"source_verified": True}
+                    report, code = await task_eval.evaluate(source_root=ROOT, suite_root=DATA,
+                        suite_path="suite.json", output=output)
+                self.assertEqual(code, 2)
+                self.assertEqual(len(report["cases"]), 8)
+                self.assertEqual(len(report["cases"][0]["actual"]["phases"][0]["tool_calls"]), 12)
+                self.assertTrue(report["infra_errors"])
+                self.assertFalse(report["complete"] or report["gate_pass"])
+                self.assertEqual(json.loads((output / "report.json").read_bytes()), report)
+                if fault == "artifact_digest":
+                    self.assertTrue(report["artifact_errors"])
+                    self.assertTrue(report["artifacts"])
+
+    async def mutated_fixture(self, index, mutate):
+        case = suite().cases[index]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            fixtures = root / "fixtures"
+            fixtures.mkdir()
+            for phase in case.execution.phases:
+                data = decode((DATA / phase.fixture.path).read_bytes())
+                mutate(data)
+                raw = json.dumps(data).encode()
+                (root / phase.fixture.path).write_bytes(raw)
+                phase.fixture.sha256 = digest(raw)
+            return await self.run_case(case, Inputs(root))
+
+    async def test_new_id_old_capture_time_stops_before_state(self):
+        def mutate(data):
+            for call in data["calls"][4:8]:
+                observation = call["response"]["structuredContent"].get("observation")
+                if observation:
+                    observation["captured_at"] = "2026-10-06T00:00:01+00:00"
+        actual, scored = await self.mutated_fixture(0, mutate)
+        self.assertEqual(actual["phases"][0]["state"]["reason"], "nonincreasing_capture_time")
+        self.assertEqual(len(actual["phases"][0]["tool_calls"]), 6)
+        self.assertFalse(scored["goal_success"])
+
+    async def test_fixture_sequence_exhaustion_is_infra_not_safe_stop(self):
+        actual, scored = await self.mutated_fixture(0, lambda data: data["calls"].__delitem__(slice(1, None)))
+        self.assertTrue(scored["infra_error"])
+        self.assertFalse(scored["control_pass"])
+        self.assertEqual(actual["phases"][0]["script_errors"], ["response_sequence_exhausted"])
+
+    async def test_checkpoint_failure_not_safety_pass(self):
+        case = suite().cases[0]
+        with patch("pioneer_agent.agent_harness.run_store.JsonRunStore.acquire", side_effect=OSError("write-failure")):
+            actual, scored = await self.run_case(case)
+        self.assertTrue(scored["infra_error"])
+        self.assertFalse(scored["control_pass"])
+        self.assertEqual(actual["phases"][0]["tool_calls"], [])
+
+    async def test_resume_does_not_grant_extra_budget(self):
+        case = suite().cases[5]
+        case.execution.budget = case.execution.budget.model_copy(update={"max_tool_calls": 5})
+        actual, scored = await self.run_case(case)
+        self.assertEqual(actual["phases"][-1]["state"]["reason"], "budget_exhausted")
+        self.assertEqual(sum(len(p["tool_calls"]) for p in actual["phases"]), 5)
+        self.assertTrue(scored["assertions"]["phase_2.resume_no_refill"])
+
+    async def test_trace_budget_mismatch_fails(self):
+        actual, _ = await self.run_case(suite().cases[0])
+        actual["phases"][0]["trace"][0]["attempt_id"] = "forged"
+        self.assertFalse(score(actual, suite().cases[0].expected)["control_pass"])
+
+    def test_empty_duplicate_and_extra_suite_fields_rejected(self):
+        for mutate in (lambda d: d.update(cases=[]),
+                       lambda d: d["cases"][1].update(id=d["cases"][0]["id"]),
+                       lambda d: d.update(provider="live")):
+            data = suite().model_dump(mode="json")
+            mutate(data)
+            with self.assertRaises(ValueError):
+                Suite.model_validate(data)
+
+    def test_unknown_tool_rejected(self):
+        data = decode((DATA / "fixtures/first-observation.json").read_bytes())
+        data["calls"][0]["tool"] = "click_game"
+        with self.assertRaises(ValueError):
+            Fixture.model_validate(data)
+
+    def test_category_cannot_disguise_goal_as_safe_stop(self):
+        data = suite().model_dump(mode="json")
+        data["cases"][0]["expected"]["category"] = "safety_stop"
+        data["cases"][1]["expected"]["category"] = "goal"
+        with self.assertRaises(ValueError):
+            Suite.model_validate(data)
+
+    def test_fixture_bytes_and_parsing_same_buffer(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / "fixture.json"
+            path.write_bytes(b'{"x":1}')
+            inputs = Inputs(root)
+            first = inputs.read("fixture.json")
+            path.write_bytes(b'{"x":2}')
+            self.assertEqual(inputs.read("fixture.json"), first)
+            with self.assertRaises(InputError):
+                inputs.read("fixture.json", digest(path.read_bytes()))
+
+    def test_path_escape_and_symlink_rejected(self):
+        with self.assertRaises(InputError):
+            safe_path(DATA, "../suite.json")
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "linked.json"
+            try:
+                path.symlink_to(DATA / "suite.json")
+            except OSError:
+                self.skipTest("host does not grant symlink creation")
+            with self.assertRaises(InputError):
+                safe_path(Path(directory), "linked.json")
+
+    def test_duplicate_json_and_output_overwrite_rejected(self):
+        with self.assertRaises(InputError):
+            decode(b'{"x":1,"x":2}')
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "report.json"
+            write_new(path, {"first": True})
+            with self.assertRaises(FileExistsError):
+                write_new(path, {"first": False})
+
+    def test_lazy_shadow_import_detected(self):
+        binding = SourceBinding.__new__(SourceBinding)
+        binding.root = ROOT
+        binding.modules = {}
+        binding.manifest = {}
+        # A lone shadow is sufficient; unrelated modules are isolated for this check.
+        module = types.ModuleType("pioneer_agent.lazy_shadow")
+        module.__file__ = "/tmp/shadow.py"
+        module.__spec__ = types.SimpleNamespace(origin="/tmp/shadow.py")
+        remaining = {name: value for name, value in sys.modules.items()
+                     if not name.startswith(("pioneer_agent", "sanmou_common"))}
+        remaining["pioneer_agent.lazy_shadow"] = module
+        with patch.dict(sys.modules, remaining, clear=True):
+            with self.assertRaisesRegex(InputError, "shadow_import"):
+                binding.verify_imports()
+
+    def test_actual_main_entrypoint_module_direct_and_unbound(self):
+        binding = SourceBinding.__new__(SourceBinding)
+        binding.root = ROOT
+        relative = "packages/pioneer-agent/src/pioneer_agent/app/task_eval.py"
+        path = ROOT / relative
+        binding.manifest = {relative: {"sha256": digest(path.read_bytes())}}
+        module = types.ModuleType("__main__")
+        module.__file__ = str(path)
+        module.__spec__ = None
+        with patch.dict(sys.modules, {"__main__": module}):
+            self.assertTrue(binding._launcher_info()["bound"])
+            module.__spec__ = types.SimpleNamespace(origin=str(path), name="pioneer_agent.app.task_eval")
+            self.assertTrue(binding._launcher_info()["bound"])
+            module.__file__ = "/tmp/copied-cli.py"
+            self.assertFalse(binding._launcher_info()["bound"])
+            module.__file__ = str(path)
+            module.__spec__.origin = "/tmp/copied-cli.py"
+            self.assertFalse(binding._launcher_info()["bound"])
+
+    def test_source_drift_and_untracked_source_detected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / "packages/pioneer-agent/src/test.py"
+            path.parent.mkdir(parents=True)
+            path.write_bytes(b"x = 1\n")
+            def git(*args):
+                return subprocess.run(["git", "-C", str(root), *args], check=True, capture_output=True).stdout
+            git("init", "-q")
+            git("add", ".")
+            git("-c", "user.name=Offline Test", "-c", "user.email=offline@example.invalid", "commit", "-qm", "fixture")
+            binding = SourceBinding.__new__(SourceBinding)
+            binding.root, binding.manifest = root, {}
+            binding.commit = git("rev-parse", "HEAD").decode().strip()
+            binding.verify_bytes()
+            path.write_bytes(b"x = 2\n")
+            with self.assertRaisesRegex(InputError, "source_byte_drift"):
+                binding.verify_bytes()
+            path.write_bytes(b"x = 1\n")
+            (path.parent / "untracked.py").write_bytes(b"x = 3\n")
+            with self.assertRaisesRegex(InputError, "untracked_source"):
+                binding.verify_bytes()
+
+
+if __name__ == "__main__":
+    unittest.main()

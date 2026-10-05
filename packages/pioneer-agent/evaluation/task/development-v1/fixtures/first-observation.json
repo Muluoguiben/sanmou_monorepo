@@ -1,0 +1,151 @@
+{
+  "version": "task-responses-v1",
+  "source": "explicit_synthetic_canonical_envelopes",
+  "calls": [
+    {
+      "tool": "session_status",
+      "arguments": {},
+      "response": {
+        "isError": false,
+        "structuredContent": {
+          "contract_version": "sanmou-game/v1",
+          "status": "ok",
+          "execution_authority": "none",
+          "session": {
+            "session_id": "synthetic-session",
+            "active": true,
+            "started_at": "2026-10-06T00:00:00+00:00",
+            "source_id": "synthetic-source",
+            "source_type": "synthetic_offline",
+            "platform": "offline",
+            "resolution": [
+              1920,
+              1080
+            ],
+            "observe_only": true,
+            "live_capture": false,
+            "reliable_window_info": false,
+            "capture_health": "ready"
+          }
+        }
+      }
+    },
+    {
+      "tool": "observe_game",
+      "arguments": {},
+      "response": {
+        "isError": false,
+        "structuredContent": {
+          "contract_version": "sanmou-game/v1",
+          "status": "ok",
+          "execution_authority": "none",
+          "observation": {
+            "session_id": "synthetic-session",
+            "observation_id": "obs-alpha",
+            "frame_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "captured_at": "2026-10-06T00:00:01+00:00",
+            "domains_run": [
+              "chapter_panel"
+            ],
+            "unknown_domains": [],
+            "structured_evidence": [
+              {
+                "kind": "synthetic_chapter",
+                "chapter": 1
+              }
+            ],
+            "confidence": 1,
+            "execution_authority": "none"
+          }
+        }
+      }
+    },
+    {
+      "tool": "get_runtime_state",
+      "arguments": {},
+      "response": {
+        "isError": false,
+        "structuredContent": {
+          "contract_version": "sanmou-game/v1",
+          "status": "ok",
+          "execution_authority": "none",
+          "observation": {
+            "session_id": "synthetic-session",
+            "observation_id": "obs-alpha",
+            "frame_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "captured_at": "2026-10-06T00:00:01+00:00",
+            "domains_run": [
+              "chapter_panel"
+            ],
+            "unknown_domains": [],
+            "structured_evidence": [
+              {
+                "kind": "synthetic_chapter",
+                "chapter": 1
+              }
+            ],
+            "confidence": 1,
+            "execution_authority": "none"
+          },
+          "runtime_state": {
+            "progress": {
+              "current_chapter_id": 1
+            },
+            "field_meta": {
+              "progress.current_chapter_id": {
+                "source": "vision.chapter_panel",
+                "observation_id": "obs-alpha",
+                "updated_at": "2026-10-06T00:00:01+00:00",
+                "confidence": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "tool": "list_action_candidates",
+      "arguments": {},
+      "response": {
+        "isError": false,
+        "structuredContent": {
+          "contract_version": "sanmou-game/v1",
+          "status": "ok",
+          "execution_authority": "none",
+          "observation": {
+            "session_id": "synthetic-session",
+            "observation_id": "obs-alpha",
+            "frame_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "captured_at": "2026-10-06T00:00:01+00:00",
+            "domains_run": [
+              "chapter_panel"
+            ],
+            "unknown_domains": [],
+            "structured_evidence": [
+              {
+                "kind": "synthetic_chapter",
+                "chapter": 1
+              }
+            ],
+            "confidence": 1,
+            "execution_authority": "none"
+          },
+          "candidates": [
+            {
+              "action_id": "synthetic-wait",
+              "action_type": "wait_for_resource",
+              "score": 1,
+              "confidence": 1,
+              "blockers": [
+                "advisor_mode"
+              ],
+              "executable": false,
+              "execution_authority": "none",
+              "execution_blocked_reason": "advisor_mode"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+test_checkpoint_failure_not_safety_pass (test_task_eval.TaskEvalTests.test_checkpoint_failure_not_safety_pass) ... ok
+test_duplicate_json_and_output_overwrite_rejected (test_task_eval.TaskEvalTests.test_duplicate_json_and_output_overwrite_rejected) ... ok
+test_eight_cases_real_runtime (test_task_eval.TaskEvalTests.test_eight_cases_real_runtime) ... Executing <Task finished name='Task-11' coro=<TaskEvalTests.test_eight_cases_real_runtime() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_task_eval.py:33> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 2.745 seconds
+ok
+test_empty_duplicate_and_extra_suite_fields_rejected (test_task_eval.TaskEvalTests.test_empty_duplicate_and_extra_suite_fields_rejected) ... ok
+test_expected_only_change_never_changes_execution (test_task_eval.TaskEvalTests.test_expected_only_change_never_changes_execution) ... Executing <Task finished name='Task-20' coro=<TaskEvalTests.test_expected_only_change_never_changes_execution() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_task_eval.py:40> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.993 seconds
+ok
+test_fixture_bytes_and_parsing_same_buffer (test_task_eval.TaskEvalTests.test_fixture_bytes_and_parsing_same_buffer) ... ok
+test_fixture_sequence_exhaustion_is_infra_not_safe_stop (test_task_eval.TaskEvalTests.test_fixture_sequence_exhaustion_is_infra_not_safe_stop) ... ok
+test_lazy_shadow_import_detected (test_task_eval.TaskEvalTests.test_lazy_shadow_import_detected) ... ok
+test_new_id_old_capture_time_stops_before_state (test_task_eval.TaskEvalTests.test_new_id_old_capture_time_stops_before_state) ... Executing <Task finished name='Task-38' coro=<TaskEvalTests.test_new_id_old_capture_time_stops_before_state() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_task_eval.py:66> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.217 seconds
+ok
+test_path_escape_and_symlink_rejected (test_task_eval.TaskEvalTests.test_path_escape_and_symlink_rejected) ... ok
+test_resume_does_not_grant_extra_budget (test_task_eval.TaskEvalTests.test_resume_does_not_grant_extra_budget) ... Executing <Task finished name='Task-47' coro=<TaskEvalTests.test_resume_does_not_grant_extra_budget() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_task_eval.py:91> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.363 seconds
+ok
+test_source_drift_and_untracked_source_detected (test_task_eval.TaskEvalTests.test_source_drift_and_untracked_source_detected) ... ok
+test_trace_budget_mismatch_fails (test_task_eval.TaskEvalTests.test_trace_budget_mismatch_fails) ... Executing <Task finished name='Task-56' coro=<TaskEvalTests.test_trace_budget_mismatch_fails() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_task_eval.py:99> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.517 seconds
+ok
+test_unknown_tool_rejected (test_task_eval.TaskEvalTests.test_unknown_tool_rejected) ... ok
+test_budget_exhaustion_dispatches_no_extra_tool (test_task_runner.TaskRunnerTests.test_budget_exhaustion_dispatches_no_extra_tool) ... ok
+test_cancel_after_call_prevents_next_call (test_task_runner.TaskRunnerTests.test_cancel_after_call_prevents_next_call) ... ok
+test_cancelled_error_persisted_and_propagated (test_task_runner.TaskRunnerTests.test_cancelled_error_persisted_and_propagated) ... ok
+test_crash_pending_call_reobserves_and_preserves_cursor (test_task_runner.TaskRunnerTests.test_crash_pending_call_reobserves_and_preserves_cursor) ... ok
+test_disallowed_tool_never_dispatched (test_task_runner.TaskRunnerTests.test_disallowed_tool_never_dispatched) ... ok
+test_frozen_development_policy_cases (test_task_runner.TaskRunnerTests.test_frozen_development_policy_cases) ... ok
+test_inactive_or_control_session_rejected (test_task_runner.TaskRunnerTests.test_inactive_or_control_session_rejected) ... ok
+test_missing_field_evidence_never_succeeds (test_task_runner.TaskRunnerTests.test_missing_field_evidence_never_succeeds) ... ok
+test_old_field_metadata_cannot_prove_current_goal (test_task_runner.TaskRunnerTests.test_old_field_metadata_cannot_prove_current_goal) ... ok
+test_pause_after_call_prevents_next_call (test_task_runner.TaskRunnerTests.test_pause_after_call_prevents_next_call) ... ok
+test_pause_and_restart_reobserves_without_repeating_cursor (test_task_runner.TaskRunnerTests.test_pause_and_restart_reobserves_without_repeating_cursor) ... Executing <Task finished name='Task-115' coro=<TaskRunnerTests.test_pause_and_restart_reobserves_without_repeating_cursor() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_task_runner.py:147> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.438 seconds
+ok
+test_policy_cannot_assert_success (test_task_runner.TaskRunnerTests.test_policy_cannot_assert_success) ... ok
+test_policy_context_mutation_cannot_rewrite_goal (test_task_runner.TaskRunnerTests.test_policy_context_mutation_cannot_rewrite_goal) ... ok
+test_real_b_context_overflow_prevents_policy (test_task_runner.TaskRunnerTests.test_real_b_context_overflow_prevents_policy) ... ok
+test_real_b_model_attempt_unknown_usage_and_trace (test_task_runner.TaskRunnerTests.test_real_b_model_attempt_unknown_usage_and_trace) ... Executing <Task finished name='Task-135' coro=<TaskRunnerTests.test_real_b_model_attempt_unknown_usage_and_trace() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_task_runner.py:296> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.103 seconds
+ok
+test_real_b_model_budget_stops_before_policy (test_task_runner.TaskRunnerTests.test_real_b_model_budget_stops_before_policy) ... ok
+test_real_b_restore_does_not_reset_deadline (test_task_runner.TaskRunnerTests.test_real_b_restore_does_not_reset_deadline) ... ok
+test_real_b_tool_budget_stops_before_dispatch (test_task_runner.TaskRunnerTests.test_real_b_tool_budget_stops_before_dispatch) ... ok
+test_restart_rejects_old_observation (test_task_runner.TaskRunnerTests.test_restart_rejects_old_observation) ... ok
+test_schema_error_has_no_success_log (test_task_runner.TaskRunnerTests.test_schema_error_has_no_success_log) ... ok
+test_session_changes_stop_before_observe (test_task_runner.TaskRunnerTests.test_session_changes_stop_before_observe) ... ok
+test_stale_policy_result_is_rejected (test_task_runner.TaskRunnerTests.test_stale_policy_result_is_rejected) ... ok
+test_stop_condition_wins_over_success (test_task_runner.TaskRunnerTests.test_stop_condition_wins_over_success) ... ok
+test_three_fresh_observations_and_terminal_noop (test_task_runner.TaskRunnerTests.test_three_fresh_observations_and_terminal_noop) ... ok
+test_wait_can_be_cancelled_without_next_observation (test_task_runner.TaskRunnerTests.test_wait_can_be_cancelled_without_next_observation) ... ok
+test_cr01_cancel_after_checkpoint_before_tool_or_policy (test_task_cr_regressions.TaskCRRegressions.test_cr01_cancel_after_checkpoint_before_tool_or_policy) ... ok
+test_cr01_cancel_wins_when_inflight_tool_or_policy_times_out (test_task_cr_regressions.TaskCRRegressions.test_cr01_cancel_wins_when_inflight_tool_or_policy_times_out) ... ok
+test_cr02_pause_after_checkpoint_before_tool_or_policy (test_task_cr_regressions.TaskCRRegressions.test_cr02_pause_after_checkpoint_before_tool_or_policy) ... Executing <Task finished name='Task-201' coro=<TaskCRRegressions.test_cr02_pause_after_checkpoint_before_tool_or_policy() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_task_cr_regressions.py:61> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.185 seconds
+ok
+test_cr03_async_cancel_does_not_validate (test_task_cr_regressions.TaskCRRegressions.test_cr03_async_cancel_does_not_validate) ... ok
+test_cr03_connection_failure_does_not_validate (test_task_cr_regressions.TaskCRRegressions.test_cr03_connection_failure_does_not_validate) ... ok
+test_cr03_invalid_return_is_transport_ok_contract_error (test_task_cr_regressions.TaskCRRegressions.test_cr03_invalid_return_is_transport_ok_contract_error) ... ok
+test_cr03_policy_timeout_does_not_validate (test_task_cr_regressions.TaskCRRegressions.test_cr03_policy_timeout_does_not_validate) ... ok
+test_cr03_valid_business_stop_is_separate (test_task_cr_regressions.TaskCRRegressions.test_cr03_valid_business_stop_is_separate) ... ok
+test_authority_and_catalog_cannot_expand (test_task_contracts.TaskContractTests.test_authority_and_catalog_cannot_expand) ... ok
+test_checkpoint_round_trip_and_version (test_task_contracts.TaskContractTests.test_checkpoint_round_trip_and_version) ... ok
+test_nonempty_goal_evidence (test_task_contracts.TaskContractTests.test_nonempty_goal_evidence) ... ok
+test_policy_never_grants_execution (test_task_contracts.TaskContractTests.test_policy_never_grants_execution) ... ok
+test_reuses_three_valued_conditions (test_task_contracts.TaskContractTests.test_reuses_three_valued_conditions) ... ok
+test_cli_real_services_and_terminal_restart_without_connection (test_task_cli.TaskCliTests.test_cli_real_services_and_terminal_restart_without_connection) ... Executing <Task finished name='Task-231' coro=<TaskCliTests.test_cli_real_services_and_terminal_restart_without_connection() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_task_cli.py:36> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.613 seconds
+ok
+test_qa_questions_not_silently_ignored (test_task_cli.TaskCliTests.test_qa_questions_not_silently_ignored) ... ok
+test_task_paths_required_before_any_connection (test_task_cli.TaskCliTests.test_task_paths_required_before_any_connection) ... ok
+
+----------------------------------------------------------------------
+Ran 55 tests in 7.220s
+
+OK

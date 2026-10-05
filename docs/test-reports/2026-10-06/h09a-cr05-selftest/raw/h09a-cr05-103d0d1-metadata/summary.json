@@ -1,0 +1,31 @@
+{
+  "source_commit": "103d0d1594a11af905515182913731d2d8bb4ac9",
+  "git_status_porcelain": "",
+  "generated_metadata": {
+    "packages/pioneer-agent/src/pioneer_agent.egg-info/PKG-INFO": {
+      "bytes": 183,
+      "sha256": "1d8daccd649ac9463064c8acd3a64708f4432fb0df7a462afbce6569ec9e0da7"
+    },
+    "packages/pioneer-agent/src/pioneer_agent.egg-info/SOURCES.txt": {
+      "bytes": 7758,
+      "sha256": "bb1828484f0afe61df11f6ef957748f741bda19508497cf7468ad1ce798ef04c"
+    },
+    "packages/pioneer-agent/src/pioneer_agent.egg-info/dependency_links.txt": {
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    "packages/pioneer-agent/src/pioneer_agent.egg-info/requires.txt": {
+      "bytes": 361,
+      "sha256": "df1e26577b642e01bd172fcb8f5aad08ec19066a06bb9626e90791ec19b642c9"
+    },
+    "packages/pioneer-agent/src/pioneer_agent.egg-info/top_level.txt": {
+      "bytes": 14,
+      "sha256": "4cdfd683cb38d5932e8219b22c090484cff612d3aaeaf2b5cdfa571b5f9af5c2"
+    }
+  },
+  "cli_exit": 0,
+  "source_verified": true,
+  "gate_pass": true,
+  "diagnostic": "",
+  "expected_behavior": "ordinary non-source setuptools metadata should not invalidate otherwise unchanged committed source"
+}

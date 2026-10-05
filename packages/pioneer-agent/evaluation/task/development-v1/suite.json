@@ -1,0 +1,609 @@
+{
+  "version": "task-development-v1",
+  "split": "development",
+  "provenance": "developer_authored_not_independent_gold",
+  "independent_holdout": false,
+  "provider_exercised": false,
+  "live_action": false,
+  "cases": [
+    {
+      "id": "three-observation-goal",
+      "execution": {
+        "task": {
+          "task_id": "observe-chapter",
+          "goal": "observe evidence-supported chapter 3",
+          "success_when": [
+            {
+              "metric": "progress.current_chapter_id",
+              "op": ">=",
+              "value": 3
+            }
+          ],
+          "required_domains": [
+            "chapter_panel"
+          ],
+          "max_steps": 3
+        },
+        "budget": {
+          "max_steps": 3,
+          "max_tool_calls": 12,
+          "max_model_attempts": 0,
+          "max_tokens": 100000,
+          "max_seconds": 60
+        },
+        "context": {
+          "max_tokens": 32000,
+          "output_tokens": 1024
+        },
+        "observation_clock": "2026-10-06T00:00:04+00:00",
+        "phases": [
+          {
+            "mode": "run",
+            "fixture": {
+              "path": "fixtures/three-observations.json",
+              "sha256": "27dee51b9d006fd58fbf506e5d5c3f43ca41703f0e94ffa00997cee4035bb5be"
+            },
+            "policy": {
+              "kind": "rule",
+              "decisions": []
+            }
+          }
+        ]
+      },
+      "expected": {
+        "category": "goal",
+        "phases": [
+          {
+            "status": "succeeded",
+            "reason": "goal_verified",
+            "completed_steps": 3,
+            "tool_calls": [
+              "session_status",
+              "observe_game",
+              "get_runtime_state",
+              "list_action_candidates",
+              "session_status",
+              "observe_game",
+              "get_runtime_state",
+              "list_action_candidates",
+              "session_status",
+              "observe_game",
+              "get_runtime_state",
+              "list_action_candidates"
+            ],
+            "policy_calls": [
+              "rule-observe-v1",
+              "rule-observe-v1",
+              "rule-observe-v1"
+            ],
+            "observation_ids": [
+              "obs-alpha",
+              "obs-bravo",
+              "obs-charlie"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "missing-field-evidence",
+      "execution": {
+        "task": {
+          "task_id": "observe-chapter",
+          "goal": "observe evidence-supported chapter 3",
+          "success_when": [
+            {
+              "metric": "progress.current_chapter_id",
+              "op": ">=",
+              "value": 3
+            }
+          ],
+          "required_domains": [
+            "chapter_panel"
+          ],
+          "max_steps": 3
+        },
+        "budget": {
+          "max_steps": 3,
+          "max_tool_calls": 12,
+          "max_model_attempts": 0,
+          "max_tokens": 100000,
+          "max_seconds": 60
+        },
+        "context": {
+          "max_tokens": 32000,
+          "output_tokens": 1024
+        },
+        "observation_clock": "2026-10-06T00:00:04+00:00",
+        "phases": [
+          {
+            "mode": "run",
+            "fixture": {
+              "path": "fixtures/missing-evidence.json",
+              "sha256": "7484098dfae7cde704986006437ee231f54f1c9c7e31602edff437fa08aab7b8"
+            },
+            "policy": {
+              "kind": "rule",
+              "decisions": []
+            }
+          }
+        ]
+      },
+      "expected": {
+        "category": "safety_stop",
+        "phases": [
+          {
+            "status": "failed",
+            "reason": "step_limit",
+            "completed_steps": 3,
+            "tool_calls": [
+              "session_status",
+              "observe_game",
+              "get_runtime_state",
+              "list_action_candidates",
+              "session_status",
+              "observe_game",
+              "get_runtime_state",
+              "list_action_candidates",
+              "session_status",
+              "observe_game",
+              "get_runtime_state",
+              "list_action_candidates"
+            ],
+            "policy_calls": [
+              "rule-observe-v1",
+              "rule-observe-v1",
+              "rule-observe-v1"
+            ],
+            "observation_ids": [
+              "obs-alpha",
+              "obs-bravo",
+              "obs-charlie"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "false-success-proposal",
+      "execution": {
+        "task": {
+          "task_id": "observe-chapter",
+          "goal": "observe evidence-supported chapter 3",
+          "success_when": [
+            {
+              "metric": "progress.current_chapter_id",
+              "op": ">=",
+              "value": 3
+            }
+          ],
+          "required_domains": [
+            "chapter_panel"
+          ],
+          "max_steps": 3
+        },
+        "budget": {
+          "max_steps": 3,
+          "max_tool_calls": 12,
+          "max_model_attempts": 0,
+          "max_tokens": 100000,
+          "max_seconds": 60
+        },
+        "context": {
+          "max_tokens": 32000,
+          "output_tokens": 1024
+        },
+        "observation_clock": "2026-10-06T00:00:04+00:00",
+        "phases": [
+          {
+            "mode": "run",
+            "fixture": {
+              "path": "fixtures/first-observation.json",
+              "sha256": "70712c3530f8bdbac860fbe8f3b789ef95c1b97324d67913a378eca58735251e"
+            },
+            "policy": {
+              "kind": "fake",
+              "decisions": [
+                {
+                  "action": "succeed",
+                  "reason": "explicit offline succeed"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "expected": {
+        "category": "safety_stop",
+        "phases": [
+          {
+            "status": "failed",
+            "reason": "unverified_success_proposal",
+            "completed_steps": 1,
+            "tool_calls": [
+              "session_status",
+              "observe_game",
+              "get_runtime_state",
+              "list_action_candidates"
+            ],
+            "policy_calls": [
+              "fake-script-v1"
+            ],
+            "observation_ids": [
+              "obs-alpha"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "replayed-observation",
+      "execution": {
+        "task": {
+          "task_id": "observe-chapter",
+          "goal": "observe evidence-supported chapter 3",
+          "success_when": [
+            {
+              "metric": "progress.current_chapter_id",
+              "op": ">=",
+              "value": 3
+            }
+          ],
+          "required_domains": [
+            "chapter_panel"
+          ],
+          "max_steps": 3
+        },
+        "budget": {
+          "max_steps": 3,
+          "max_tool_calls": 12,
+          "max_model_attempts": 0,
+          "max_tokens": 100000,
+          "max_seconds": 60
+        },
+        "context": {
+          "max_tokens": 32000,
+          "output_tokens": 1024
+        },
+        "observation_clock": "2026-10-06T00:00:04+00:00",
+        "phases": [
+          {
+            "mode": "run",
+            "fixture": {
+              "path": "fixtures/replayed-observation.json",
+              "sha256": "b126a7c0f5bd6dd29ab35a072e4aea0a548b114e28729a9823439a05f6914834"
+            },
+            "policy": {
+              "kind": "rule",
+              "decisions": []
+            }
+          }
+        ]
+      },
+      "expected": {
+        "category": "safety_stop",
+        "phases": [
+          {
+            "status": "failed",
+            "reason": "reused_observation",
+            "completed_steps": 1,
+            "tool_calls": [
+              "session_status",
+              "observe_game",
+              "get_runtime_state",
+              "list_action_candidates",
+              "session_status",
+              "observe_game"
+            ],
+            "policy_calls": [
+              "rule-observe-v1"
+            ],
+            "observation_ids": [
+              "obs-alpha"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "tool-budget-five",
+      "execution": {
+        "task": {
+          "task_id": "observe-chapter",
+          "goal": "observe evidence-supported chapter 3",
+          "success_when": [
+            {
+              "metric": "progress.current_chapter_id",
+              "op": ">=",
+              "value": 3
+            }
+          ],
+          "required_domains": [
+            "chapter_panel"
+          ],
+          "max_steps": 3
+        },
+        "budget": {
+          "max_steps": 3,
+          "max_tool_calls": 5,
+          "max_model_attempts": 0,
+          "max_tokens": 100000,
+          "max_seconds": 60
+        },
+        "context": {
+          "max_tokens": 32000,
+          "output_tokens": 1024
+        },
+        "observation_clock": "2026-10-06T00:00:04+00:00",
+        "phases": [
+          {
+            "mode": "run",
+            "fixture": {
+              "path": "fixtures/three-observations.json",
+              "sha256": "27dee51b9d006fd58fbf506e5d5c3f43ca41703f0e94ffa00997cee4035bb5be"
+            },
+            "policy": {
+              "kind": "rule",
+              "decisions": []
+            }
+          }
+        ]
+      },
+      "expected": {
+        "category": "safety_stop",
+        "phases": [
+          {
+            "status": "failed",
+            "reason": "budget_exhausted",
+            "completed_steps": 1,
+            "tool_calls": [
+              "session_status",
+              "observe_game",
+              "get_runtime_state",
+              "list_action_candidates",
+              "session_status"
+            ],
+            "policy_calls": [
+              "rule-observe-v1"
+            ],
+            "observation_ids": [
+              "obs-alpha"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "pause-fresh-resume",
+      "execution": {
+        "task": {
+          "task_id": "observe-chapter",
+          "goal": "observe evidence-supported chapter 3",
+          "success_when": [
+            {
+              "metric": "progress.current_chapter_id",
+              "op": ">=",
+              "value": 3
+            }
+          ],
+          "required_domains": [
+            "chapter_panel"
+          ],
+          "max_steps": 3
+        },
+        "budget": {
+          "max_steps": 3,
+          "max_tool_calls": 12,
+          "max_model_attempts": 0,
+          "max_tokens": 100000,
+          "max_seconds": 60
+        },
+        "context": {
+          "max_tokens": 32000,
+          "output_tokens": 1024
+        },
+        "observation_clock": "2026-10-06T00:00:04+00:00",
+        "phases": [
+          {
+            "mode": "run",
+            "fixture": {
+              "path": "fixtures/first-observation.json",
+              "sha256": "70712c3530f8bdbac860fbe8f3b789ef95c1b97324d67913a378eca58735251e"
+            },
+            "policy": {
+              "kind": "fake",
+              "decisions": [
+                {
+                  "action": "pause",
+                  "reason": "explicit offline pause"
+                }
+              ]
+            }
+          },
+          {
+            "mode": "fresh_runner_resume",
+            "fixture": {
+              "path": "fixtures/resume-observations.json",
+              "sha256": "ccfb30f250f5fe51cc5df6842d7776d39669bc25080642e3f917626b2b5c4910"
+            },
+            "policy": {
+              "kind": "rule",
+              "decisions": []
+            }
+          }
+        ]
+      },
+      "expected": {
+        "category": "goal",
+        "phases": [
+          {
+            "status": "paused",
+            "reason": "policy_pause",
+            "completed_steps": 1,
+            "tool_calls": [
+              "session_status",
+              "observe_game",
+              "get_runtime_state",
+              "list_action_candidates"
+            ],
+            "policy_calls": [
+              "fake-script-v1"
+            ],
+            "observation_ids": [
+              "obs-alpha"
+            ]
+          },
+          {
+            "status": "succeeded",
+            "reason": "goal_verified",
+            "completed_steps": 3,
+            "tool_calls": [
+              "session_status",
+              "observe_game",
+              "get_runtime_state",
+              "list_action_candidates",
+              "session_status",
+              "observe_game",
+              "get_runtime_state",
+              "list_action_candidates"
+            ],
+            "policy_calls": [
+              "rule-observe-v1",
+              "rule-observe-v1"
+            ],
+            "observation_ids": [
+              "obs-alpha",
+              "obs-bravo",
+              "obs-charlie"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-overflow",
+      "execution": {
+        "task": {
+          "task_id": "observe-chapter",
+          "goal": "observe evidence-supported chapter 3",
+          "success_when": [
+            {
+              "metric": "progress.current_chapter_id",
+              "op": ">=",
+              "value": 3
+            }
+          ],
+          "required_domains": [
+            "chapter_panel"
+          ],
+          "max_steps": 3
+        },
+        "budget": {
+          "max_steps": 3,
+          "max_tool_calls": 12,
+          "max_model_attempts": 0,
+          "max_tokens": 100000,
+          "max_seconds": 60
+        },
+        "context": {
+          "max_tokens": 100,
+          "output_tokens": 1024
+        },
+        "observation_clock": "2026-10-06T00:00:04+00:00",
+        "phases": [
+          {
+            "mode": "run",
+            "fixture": {
+              "path": "fixtures/first-observation.json",
+              "sha256": "70712c3530f8bdbac860fbe8f3b789ef95c1b97324d67913a378eca58735251e"
+            },
+            "policy": {
+              "kind": "rule",
+              "decisions": []
+            }
+          }
+        ]
+      },
+      "expected": {
+        "category": "safety_stop",
+        "phases": [
+          {
+            "status": "failed",
+            "reason": "context_overflow",
+            "completed_steps": 0,
+            "tool_calls": [
+              "session_status",
+              "observe_game",
+              "get_runtime_state",
+              "list_action_candidates"
+            ],
+            "policy_calls": [],
+            "observation_ids": [
+              "obs-alpha"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "non-read-only-session",
+      "execution": {
+        "task": {
+          "task_id": "observe-chapter",
+          "goal": "observe evidence-supported chapter 3",
+          "success_when": [
+            {
+              "metric": "progress.current_chapter_id",
+              "op": ">=",
+              "value": 3
+            }
+          ],
+          "required_domains": [
+            "chapter_panel"
+          ],
+          "max_steps": 3
+        },
+        "budget": {
+          "max_steps": 3,
+          "max_tool_calls": 12,
+          "max_model_attempts": 0,
+          "max_tokens": 100000,
+          "max_seconds": 60
+        },
+        "context": {
+          "max_tokens": 32000,
+          "output_tokens": 1024
+        },
+        "observation_clock": "2026-10-06T00:00:04+00:00",
+        "phases": [
+          {
+            "mode": "run",
+            "fixture": {
+              "path": "fixtures/non-read-only-session.json",
+              "sha256": "bc84e2a4f984eed947729beec75d4551a6e6b0ad0fb9643427f0601598fb30e2"
+            },
+            "policy": {
+              "kind": "rule",
+              "decisions": []
+            }
+          }
+        ]
+      },
+      "expected": {
+        "category": "safety_stop",
+        "phases": [
+          {
+            "status": "failed",
+            "reason": "session_permission_violation",
+            "completed_steps": 0,
+            "tool_calls": [
+              "session_status"
+            ],
+            "policy_calls": [],
+            "observation_ids": []
+          }
+        ]
+      }
+    }
+  ]
+}

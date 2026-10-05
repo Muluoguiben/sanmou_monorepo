@@ -1,0 +1,22 @@
+{
+  "source_commit": "fece4163d04af5057493549da2db74a8fa65ed06",
+  "source_tree": "4c25f8fa14ea99d8aca09d49cf6c3c911c5c2f8e",
+  "handoff_commit": "08c97024b4c0566c26f5c2b0461c1efb3e5d3c23",
+  "handoff_tree": "7ba048c425de6813ab5bf4a899421f9c0b0159f9",
+  "report_only_additions": 299,
+  "packages_tree_unchanged": true,
+  "author_manifest_sha256": "a193b156f42a1d36dd9560d924db7f1f5572161c3717e767e86d39073c83b85f",
+  "author_report_sha256": "557e92eacc32097f6a3883a540966b14fda50bf74b4809cf3c098c782c319f92",
+  "manifest_files_verified": 297,
+  "source_blobs_per_formal_report": 179,
+  "formal_reports_verified": 3,
+  "input_blobs_per_report": 7,
+  "author_and_independent_stable_projection_equal": true,
+  "probe_archive_counts": {
+    "regular": 252,
+    "symlink": 1,
+    "directory": 88
+  },
+  "safe_read": "regular tar members read in memory; no extraction and no symlink following",
+  "h06_windows_accepted": false
+}

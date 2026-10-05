@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "-c",
+    "from setuptools import setup; setup(script_args=['egg_info'])"
+  ],
+  "cwd": "/tmp/sanmou-h09a-cr05-metadata-103d0d1/packages/pioneer-agent",
+  "code": 0,
+  "stdout": "running egg_info\ncreating src/pioneer_agent.egg-info\nwriting src/pioneer_agent.egg-info/PKG-INFO\nwriting dependency_links to src/pioneer_agent.egg-info/dependency_links.txt\nwriting requirements to src/pioneer_agent.egg-info/requires.txt\nwriting top-level names to src/pioneer_agent.egg-info/top_level.txt\nwriting manifest file 'src/pioneer_agent.egg-info/SOURCES.txt'\nreading manifest file 'src/pioneer_agent.egg-info/SOURCES.txt'\nwriting manifest file 'src/pioneer_agent.egg-info/SOURCES.txt'\n",
+  "stderr": ""
+}

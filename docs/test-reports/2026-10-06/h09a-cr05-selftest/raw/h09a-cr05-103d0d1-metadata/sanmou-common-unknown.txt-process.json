@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "-m",
+    "pioneer_agent.app.task_eval",
+    "--output",
+    "/tmp/h09a-cr05-103d0d1-metadata/sanmou-common-unknown.txt"
+  ],
+  "cwd": "/tmp/sanmou-h09a-cr05-metadata-103d0d1",
+  "code": 2,
+  "stdout": "{\"complete\": false, \"gate_pass\": false, \"totals\": null, \"output\": \"/tmp/h09a-cr05-103d0d1-metadata/sanmou-common-unknown.txt\"}\n",
+  "stderr": ""
+}

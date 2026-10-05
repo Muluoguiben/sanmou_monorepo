@@ -1,0 +1,13 @@
+test_binary_metadata_rejected (test_task_eval_packaging.PackagingBoundaryTests.test_binary_metadata_rejected) ... ok
+test_executable_metadata_rejected (test_task_eval_packaging.PackagingBoundaryTests.test_executable_metadata_rejected) ... ok
+test_extra_files_and_nested_cache_rejected_in_both_roots (test_task_eval_packaging.PackagingBoundaryTests.test_extra_files_and_nested_cache_rejected_in_both_roots) ... ok
+test_hardlinked_metadata_rejected (test_task_eval_packaging.PackagingBoundaryTests.test_hardlinked_metadata_rejected) ... ok
+test_metadata_byte_change_after_snapshot_rejected (test_task_eval_packaging.PackagingBoundaryTests.test_metadata_byte_change_after_snapshot_rejected) ... ok
+test_symlink_metadata_rejected (test_task_eval_packaging.PackagingBoundaryTests.test_symlink_metadata_rejected) ... ok
+test_two_exact_roots_five_standard_files_are_recorded_not_source (test_task_eval_packaging.PackagingBoundaryTests.test_two_exact_roots_five_standard_files_are_recorded_not_source) ... ok
+test_unknown_metadata_directory_is_not_ignored (test_task_eval_packaging.PackagingBoundaryTests.test_unknown_metadata_directory_is_not_ignored) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.582s
+
+OK
