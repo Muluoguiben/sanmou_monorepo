@@ -1,0 +1,31 @@
+{
+  "source": "5569d11eb25bab4119e0bf733df58ccca17ee143",
+  "tree": "a0dbef6342f4fd07885089521222285c5ee6c575",
+  "packages_tree": "94186df4485421eec6ddf116a4777d7a393cd789",
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_*.py",
+    "-v"
+  ],
+  "cwd": "/home/lan/projects/sanmou_monorepo/packages/sanmou-common",
+  "pythonpath": "/home/lan/projects/sanmou_monorepo/packages/pioneer-agent/src:/home/lan/projects/sanmou_monorepo/packages/qa-agent/src:/home/lan/projects/sanmou_monorepo/packages/sanmou-common/src:/home/lan/projects/sanmou_monorepo/packages/pioneer-agent/tests:/home/lan/projects/sanmou_monorepo/packages/pioneer-agent/tests/unit:/home/lan/projects/sanmou_monorepo/packages/qa-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+  "exit_code": 0,
+  "timed_out": false,
+  "seconds": 0.06411050799943041,
+  "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+  "dependencies": {
+    "pydantic": "2.12.5",
+    "PyYAML": "6.0.1",
+    "mcp": "1.29.1",
+    "anyio": "4.13.0"
+  },
+  "log_sha256": "7e9438edca6c90738e3f3983beb89cc2e47795af9815f716b6f41a24af9285f3",
+  "runner_sha256": "f2031aa5ef2bd92b1791032f01192376865e013ce752b24234ffc46c7b258eeb"
+}

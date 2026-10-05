@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "status": "LOCAL_INTEGRATION_VERIFIED_PUBLICATION_AUTHORIZED_PENDING_PUSH",
+  "code_commit": "5569d11eb25bab4119e0bf733df58ccca17ee143",
+  "code_tree": "a0dbef6342f4fd07885089521222285c5ee6c575",
+  "approved_commit": "374f970fbfae13eeadf0b3a4c57a554441f9a23e",
+  "approved_tree": "6fdad1d9d3c81a487d742cc87410514ec4f09ae6",
+  "packages_tree": "94186df4485421eec6ddf116a4777d7a393cd789",
+  "approval_report_commit": "4b9a8eeeecbaeecb18e89d0a5534414c1a2b93cf",
+  "all_non_document_source_matches_approval": true,
+  "mcp_contracts_and_formal_kb_unchanged_from_dispatch": true,
+  "tests": {
+    "adversarial": {
+      "total": 7,
+      "passed": 7,
+      "skipped": 0,
+      "exit_code": 0
+    },
+    "focused": {
+      "total": 101,
+      "passed": 101,
+      "skipped": 0,
+      "exit_code": 0
+    },
+    "pioneer-full": {
+      "total": 934,
+      "passed": 932,
+      "skipped": 2,
+      "exit_code": 0
+    },
+    "qa-full": {
+      "total": 343,
+      "passed": 343,
+      "skipped": 0,
+      "exit_code": 0
+    },
+    "common-full": {
+      "total": 2,
+      "passed": 2,
+      "skipped": 0,
+      "exit_code": 0
+    },
+    "qa-retrieval": {
+      "exit_code": 0,
+      "split": "development",
+      "queries": 12,
+      "recall_at_5": {
+        "numerator": 10,
+        "denominator": 11
+      },
+      "mrr": {
+        "numerator": 10,
+        "denominator": 11
+      },
+      "provider_calls": 0,
+      "human_reviewed_labels": 0,
+      "independent_holdout": "not_established"
+    }
+  },
+  "cr_artifact_hashes_checked": 35,
+  "cr_artifact_hash_mismatches": 0,
+  "execution_authority": "none",
+  "executable": false,
+  "unverified": [
+    "native Windows",
+    "real provider/vision",
+    "live game actions/live replay",
+    "human gold/independent QA holdout",
+    "production readiness"
+  ],
+  "remote_publication": {
+    "attempted": false,
+    "status": "authorized_pending_push",
+    "explicit_user_authorization": "2026-10-05: ok in reply to the exact destination/full-history/report/log/environment-metadata request",
+    "destination": "github.com/Muluoguiben/sanmou_monorepo refs/heads/master",
+    "last_observed_remote_master": "78708c9552fd82b0b049e2c32dc9b10d7fb16e7e",
+    "includes": "full C/CR code and history, fixtures, reports, red/green logs, scripts, JSON metrics and local-path environment metadata"
+  },
+  "artifacts_sha256": {
+    ".gitattributes": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+    "adversarial.json": "036fcbe9128b75ea5304e3130fb9a36b10405d8fc114a185b78a4f54ed57af15",
+    "adversarial.log": "3e3e1607d056820ed7d31a84fa9a08614d57065dbd5ba1038a563ccd6ea48e99",
+    "common-full.json": "91d9c13408bac4060653f0dcd6f6a839fdfebbac152396cfbd88ee925aaeb4f2",
+    "common-full.log": "7e9438edca6c90738e3f3983beb89cc2e47795af9815f716b6f41a24af9285f3",
+    "focused.json": "bf624f8f3c5c7691b9d5d85d4bb681222afd2d022dd16cb0919bf3b3839418d8",
+    "focused.log": "d509816f5b4d1ed8c76383283a9393455d54646d0c209bce97bb832cda61f91f",
+    "pioneer-full.json": "2b1c929770fb811943309854532da64b8741c1d47d334b4537bb916296ed4750",
+    "pioneer-full.log": "4f33b6066e0a11a8c375e6c9969cdf60cfbcce43f9108c094c3fdfb5847611fc",
+    "qa-full.json": "255a0649cf2228063ac497317a401d4785688251bb8fb57e36d3e7ddcefb2234",
+    "qa-full.log": "07b9d8507d5ff18e6dbb205d1b2e42b0a5939f041b4ee20d8a999a9dba53b6c8",
+    "qa-retrieval.json": "27fbd8bf36b93c1e2aeec5482ddbe3da762637586b73994a01b5f2c3e04b49b5",
+    "qa-retrieval.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "retrieval-baseline.json": "86a8a8f8fbcc04793e506d4f14d06d0aa664699bd91e88eff13f83b9a1edfc67",
+    "run_checks.py": "f2031aa5ef2bd92b1791032f01192376865e013ce752b24234ffc46c7b258eeb"
+  }
+}
