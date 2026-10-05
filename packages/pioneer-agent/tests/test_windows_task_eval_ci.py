@@ -212,6 +212,27 @@ class WindowsTaskEvalCITests(unittest.TestCase):
         self.assertEqual(gate.decode_log(lines), raw)
         self.assertEqual(gate.decode_log(["2026-10-06T12:34:56.123Z " + s for s in lines]), raw)
 
+    def test_empty_report_evidence_roundtrip(self):
+        lines = list(gate.evidence_lines(b""))
+        self.assertEqual(len(lines), 2)
+        self.assertEqual(lines[0].split()[2:], ["0", gate.sha(b""), "0"])
+        self.assertEqual(gate.decode_log(lines), b"")
+        with self.assertRaises(ValueError):
+            gate.decode(b"")
+
+    def test_exit_zero_empty_report_retained_but_gate_red(self):
+        original = self.save_artifacts
+        def empty_report():
+            original()
+            (self.output / "report.json").write_bytes(b"")
+        self.save_artifacts = empty_report
+        code, log, _ = self.orchestration()
+        self.assertEqual(code, 1)
+        self.assertIn('"child_returncode": 0', log)
+        self.assertEqual(gate.decode_log(log.splitlines()), b"")
+        self.assertIn('"error_type": "JSONDecodeError"', log)
+        self.assertNotIn('"h09b_gate_pass": true', log)
+
     def test_log_corruption_missing_duplicate_order_limits(self):
         lines = list(gate.evidence_lines(self.raw()))
         variants = [lines[:-1], lines[1:], lines[:1] + lines[2:], lines[:2] + lines[1:],

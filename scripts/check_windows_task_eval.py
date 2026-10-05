@@ -223,7 +223,7 @@ def validate_report(raw, *, root, output, commit, tree, executable, inputs, trac
 
 
 def evidence_lines(raw):
-    require(0 < len(raw) <= MAX_REPORT, "report_size")
+    require(len(raw) <= MAX_REPORT, "report_size")
     token = uuid.uuid4().hex
     count = (len(raw) + CHUNK - 1) // CHUNK
     yield f"H09B_REPORT_BEGIN {token} {len(raw)} {sha(raw)} {count}"
@@ -253,7 +253,7 @@ def decode_log(lines):
             _, token, length, digest, count = fields
             require(bool(re.fullmatch(r"[0-9a-f]{32}", token)) and bool(re.fullmatch(r"[0-9a-f]{64}", digest)), "invalid_header")
             length, count = int(length), int(count)
-            require(0 < length <= MAX_REPORT and count == (length + CHUNK - 1) // CHUNK, "evidence_limit")
+            require(0 <= length <= MAX_REPORT and count == (length + CHUNK - 1) // CHUNK, "evidence_limit")
             header = (token, length, digest, count)
         elif fields[0] == "H09B_REPORT_CHUNK":
             require(header is not None and len(fields) == 4, "chunk_without_begin")
