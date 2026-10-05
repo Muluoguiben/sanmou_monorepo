@@ -1,0 +1,25 @@
+test_category_cannot_disguise_goal_as_safe_stop (test_task_eval.TaskEvalTests.test_category_cannot_disguise_goal_as_safe_stop) ... ok
+test_checkpoint_failure_not_safety_pass (test_task_eval.TaskEvalTests.test_checkpoint_failure_not_safety_pass) ... ok
+test_duplicate_json_and_output_overwrite_rejected (test_task_eval.TaskEvalTests.test_duplicate_json_and_output_overwrite_rejected) ... ok
+test_eight_cases_real_runtime (test_task_eval.TaskEvalTests.test_eight_cases_real_runtime) ... Executing <Task finished name='Task-15' coro=<TaskEvalTests.test_eight_cases_real_runtime() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_task_eval.py:33> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 2.857 seconds
+ok
+test_empty_duplicate_and_extra_suite_fields_rejected (test_task_eval.TaskEvalTests.test_empty_duplicate_and_extra_suite_fields_rejected) ... ok
+test_expected_only_change_never_changes_execution (test_task_eval.TaskEvalTests.test_expected_only_change_never_changes_execution) ... Executing <Task finished name='Task-24' coro=<TaskEvalTests.test_expected_only_change_never_changes_execution() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_task_eval.py:40> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 1.000 seconds
+ok
+test_fixture_bytes_and_parsing_same_buffer (test_task_eval.TaskEvalTests.test_fixture_bytes_and_parsing_same_buffer) ... ok
+test_fixture_sequence_exhaustion_is_infra_not_safe_stop (test_task_eval.TaskEvalTests.test_fixture_sequence_exhaustion_is_infra_not_safe_stop) ... ok
+test_lazy_shadow_import_detected (test_task_eval.TaskEvalTests.test_lazy_shadow_import_detected) ... ok
+test_new_id_old_capture_time_stops_before_state (test_task_eval.TaskEvalTests.test_new_id_old_capture_time_stops_before_state) ... Executing <Task finished name='Task-42' coro=<TaskEvalTests.test_new_id_old_capture_time_stops_before_state() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_task_eval.py:66> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.224 seconds
+ok
+test_path_escape_and_symlink_rejected (test_task_eval.TaskEvalTests.test_path_escape_and_symlink_rejected) ... ok
+test_resume_does_not_grant_extra_budget (test_task_eval.TaskEvalTests.test_resume_does_not_grant_extra_budget) ... Executing <Task finished name='Task-51' coro=<TaskEvalTests.test_resume_does_not_grant_extra_budget() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_task_eval.py:91> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.407 seconds
+ok
+test_source_drift_and_untracked_source_detected (test_task_eval.TaskEvalTests.test_source_drift_and_untracked_source_detected) ... ok
+test_trace_budget_mismatch_fails (test_task_eval.TaskEvalTests.test_trace_budget_mismatch_fails) ... Executing <Task finished name='Task-60' coro=<TaskEvalTests.test_trace_budget_mismatch_fails() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_task_eval.py:99> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.501 seconds
+ok
+test_unknown_tool_rejected (test_task_eval.TaskEvalTests.test_unknown_tool_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 5.274s
+
+OK
