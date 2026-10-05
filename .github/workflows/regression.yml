@@ -65,6 +65,9 @@ jobs:
       - name: Windows H06a checkpoint ownership and lifecycle
         working-directory: packages/pioneer-agent/tests
         run: python -m unittest test_checkpoint_lock_native test_checkpoint_ownership test_task_runner test_task_cli test_task_cr_regressions -v
+      # Existing CLI; exact report bytes retained in bounded log chunks.
+      - name: Windows H09b offline task evaluation
+        run: python scripts/check_windows_task_eval.py
       - name: Desktop dependencies
         working-directory: apps/sanmou-advisor-desktop
         run: npm ci

@@ -1,0 +1,129 @@
+{
+  "source_commit": "f961c1594018651d584bbe622547a79e5648c5a7",
+  "source_tree": "bef7699f43bcb9659b35f02f53834f744fe51d10",
+  "checker_sha256": "6d8ce6b97fc1a1dabf5888be794501a464270923e066b9dc0d643da22395ed19",
+  "python": "3.14.3 (tags/v3.14.3:323c59a, Feb  3 2026, 16:04:56) [MSC v.1944 64 bit (AMD64)]",
+  "executable": "C:\\Users\\Lan\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+  "os_name": "nt",
+  "evidence_class": "native stdlib + synthetic checker probes, NOT actual evaluator CLI",
+  "probes": [
+    {
+      "name": "native_local_checkout_physical",
+      "expected_rejection": false,
+      "passed": true
+    },
+    {
+      "name": "max_report_roundtrip_with_ci_timestamps",
+      "expected_rejection": false,
+      "passed": true
+    },
+    {
+      "name": "truncated_last_payload",
+      "expected_rejection": true,
+      "passed": true,
+      "error": "ValueError:chunk_size"
+    },
+    {
+      "name": "wrong_digest",
+      "expected_rejection": true,
+      "passed": true,
+      "error": "ValueError:incomplete_evidence"
+    },
+    {
+      "name": "mixed_second_frame",
+      "expected_rejection": true,
+      "passed": true,
+      "error": "ValueError:extra_evidence_record"
+    },
+    {
+      "name": "chunk_after_end",
+      "expected_rejection": true,
+      "passed": true,
+      "error": "ValueError:extra_evidence_record"
+    },
+    {
+      "name": "unexpected_marker",
+      "expected_rejection": true,
+      "passed": true,
+      "error": "ValueError:unknown_evidence_record"
+    },
+    {
+      "name": "no_begin",
+      "expected_rejection": true,
+      "passed": true,
+      "error": "ValueError:chunk_without_begin"
+    },
+    {
+      "name": "no_end",
+      "expected_rejection": true,
+      "passed": true,
+      "error": "ValueError:missing_end"
+    },
+    {
+      "name": "duplicate_chunk",
+      "expected_rejection": true,
+      "passed": true,
+      "error": "ValueError:chunk_sequence"
+    },
+    {
+      "name": "swapped_chunks",
+      "expected_rejection": true,
+      "passed": true,
+      "error": "ValueError:chunk_sequence"
+    },
+    {
+      "name": "empty_report_evidence_roundtrip",
+      "expected_rejection": false,
+      "passed": false,
+      "error": "ValueError:report_size"
+    },
+    {
+      "name": "aggregate_green_case_false",
+      "expected_rejection": true,
+      "passed": true,
+      "error": "ValueError:case_control_pass"
+    },
+    {
+      "name": "checkpoint_authority_drift",
+      "expected_rejection": true,
+      "passed": true,
+      "error": "ValueError:checkpoint_authority"
+    },
+    {
+      "name": "nested_boolean_model_limit",
+      "expected_rejection": true,
+      "passed": true,
+      "error": "ValueError:model_limit:type"
+    },
+    {
+      "name": "phase_budget_pending_boolean",
+      "expected_rejection": true,
+      "passed": true,
+      "error": "ValueError:pending:type"
+    },
+    {
+      "name": "linux_report",
+      "expected_rejection": true,
+      "passed": true,
+      "error": "ValueError:report_not_windows"
+    },
+    {
+      "name": "source_tree_drift",
+      "expected_rejection": true,
+      "passed": true,
+      "error": "ValueError:source_tree"
+    },
+    {
+      "name": "holdout_drift",
+      "expected_rejection": true,
+      "passed": true,
+      "error": "ValueError:report_suite.independent_holdout"
+    },
+    {
+      "name": "mock_exit_zero_empty_report_retention",
+      "expected_rejection": false,
+      "passed": false,
+      "error": "ValueError:missing_end"
+    }
+  ]
+}
