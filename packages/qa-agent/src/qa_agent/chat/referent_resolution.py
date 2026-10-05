@@ -37,7 +37,11 @@ def entry_fingerprint(entry: KnowledgeEntry) -> str:
     return _digest(entry.model_dump(mode='json'))
 
 
-def _history_fingerprint(history: list[ChatTurn]) -> str:
+def _history_fingerprint(history: list[ChatTurn]) -> str | None:
+    if any(not isinstance(getattr(turn,'role',None),str) or not isinstance(getattr(turn,'content',None),str)
+           or not isinstance(getattr(turn,'evidence_ids',None),list)
+           or any(not isinstance(identifier,str) for identifier in turn.evidence_ids) for turn in history):
+        return None
     return _digest([{'role':turn.role,'content':turn.content,'evidence_ids':turn.evidence_ids} for turn in history])
 
 
@@ -106,4 +110,7 @@ def accept_referent(question: str, cited_ids: list[str], evidence: list[Retrieve
     fingerprints={i:entry_fingerprint(e) for i,e in cited.items()}
     if any(entry_fingerprint(current[i])!=fingerprint for i,fingerprint in fingerprints.items()):
         return None
-    return AcceptedReferent(canonical,fingerprints,history,_history_fingerprint(history),len(history))
+    history_digest=_history_fingerprint(history)
+    if history_digest is None:
+        return None
+    return AcceptedReferent(canonical,fingerprints,history,history_digest,len(history))

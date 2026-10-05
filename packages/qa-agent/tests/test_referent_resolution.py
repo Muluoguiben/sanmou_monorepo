@@ -241,3 +241,20 @@ class ReferentResolutionTests(unittest.TestCase):
         with patch('qa_agent.vision.image_loader.prepare_image_inputs',return_value=[]):
             agent.ask('甲将初始武力多少',images=['synthetic-image'])
         self.assert_clarifies(agent,client)
+
+    def test_preexisting_uncited_source_is_not_filtered_by_old_citation_ids(self):
+        agent,client=agent_with([hero(),hero('hero-b','甲将',1),background()])
+        agent.ask('甲将')
+        client.reset_mock()
+        reply=agent.ask('他初始武力多少')
+        self.assertEqual(reply.assessment.status,'conflicting')
+        self.assertIn('[hero-a]',reply.answer)
+        self.assertIn('[hero-b]',reply.answer)
+        client.generate.assert_not_called()
+        client.generate_json.assert_not_called()
+
+    def test_malformed_history_content_invalidates_without_model(self):
+        agent,client=agent_with()
+        agent.ask('甲将')
+        agent.history[0]={'role':'user','content':'甲将'}
+        self.assert_clarifies(agent,client)
