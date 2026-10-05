@@ -1,6 +1,6 @@
 # CR verification record — 2026-10-05
 
-Status: **PENDING_DELIVERIES**, not APPROVE and not a completed integration test.
+Status: **REQUEST_CHANGES** for frozen combination 9189bb10ffb97453730802f7634f68ee1d34bfd4. Historical preparation notes follow; final results and author handoff are at the end.
 
 - Cwd: `C:\Users\Lan\.codex\worktrees\6155\sanmou_monorepo`.
 - Entry HEAD: `965ef6713b58048c0765654e8061c5cffda6c59d`, clean detached HEAD.
@@ -62,3 +62,66 @@ and creates logs exclusively. Author results were not substituted for this rerun
 C's immutable report explicitly documents an automatic-review rejection of its
 remote push. CR therefore only merged C locally and has not pushed the inherited
 C source/log payload. Local review can proceed; publication remains separate.
+
+## Final combined review pass: REQUEST_CHANGES
+
+Frozen A code/report: c902d19601e2b16a4529fa874445fdef3814f5a8 /
+262a18343d2966b22b4fb3a4d35e18a9fa2e8544.
+Frozen B code/report: 9430107ab24a740e751321ca41a98c0e282e2954 /
+68611c7938911593bc317e9c5bd9e1ec87ce88ba.
+Frozen C code/report: 621cf8baf324902b9e77d056b3b03f288f07baf6 /
+bd062f3548026b74798dd8f7178cbb615fe7e9cf.
+
+Tested combination: 9189bb10ffb97453730802f7634f68ee1d34bfd4;
+tree c49f53a86172c8edaf105a972c135e43459ad4e3. B ancestor check exit 0.
+Final A/B reports were read after testing; they bind the same source, and no new
+implementation or manually resolved source conflict entered the tested tree.
+
+| Run label (CR-artifacts) | Result | Exit |
+| --- | --- | --- |
+| c-focused | 20 pass | 0 |
+| abc-pioneer-agent-initial | 926 total: 924 pass, 2 Windows-only skip | 0 |
+| abc-qa-agent-initial | 343 total: 341 pass, 2 CRLF shell failures | 1 |
+| abc-qa-agent-lf | 343 pass after exact Git LF restoration | 0 |
+| abc-sanmou-common-initial | 2 pass | 0 |
+| abc-adversarial-initial / diagnostic | 4 failures; 2 lifecycle probes invalid (see below) | 1 |
+| abc-adversarial-corrected / evidence | 4 deterministic failures establishing CR01–CR03 | 1 |
+
+Each label has JSON with exact command, source/tree, cwd, Python version, elapsed time
+and captured subprocess return code, plus an exclusive raw log. Final reproducer is
+[adversarial.py](CR-artifacts/adversarial.py), using real A/B runner services and synthetic
+MCP/policy data. Re-run with run_checks.py and a fresh output label. No actual model,
+vision, user screenshot, game input or knowledge publication was used.
+
+Corrected interruption observations:
+- cancel during checkpoint -> failed/run_deadline, no client calls (CR01).
+- pause during checkpoint -> paused/pause_requested, one session_status call (CR02).
+- invalid policy return -> transport error / contract error (expected ok/error).
+- ConnectionError policy -> error/error (expected error/not_checked), both CR03.
+
+The first call_soon probe was a test-device mistake: Fake coroutine did not yield,
+so the callback ran after success. Those lifecycle results are explicitly withdrawn.
+We preserved them and corrected the injection; they are not evidence for a race.
+
+Environment repair: PyPI direct install timed out, exit 1. A bounded existing-proxy
+install into /tmp/sanmou-cr-20261005-6155-deps succeeded, exit 0: FastAPI 0.116.1,
+Starlette 0.47.3, python-multipart 0.0.20. Global Python was unchanged. The first
+unescaped version-range WSL command was rejected by the shell and created one empty
+redirect file; that exact observed file was removed. It did not install dependencies.
+QA's CRLF script was checked against HEAD after LF normalization before restoring
+exact Git bytes; git diff --exit-code -- packages scripts/bilibili_video_knowledge_workflow.sh
+returned 0 after the run. Expected digest fixtures were not edited.
+
+Windows-only skips are native proxy synthetic-capture launch and retired-entrypoint
+tombstone execution; neither is counted as native coverage. WSL dependency versions:
+Python 3.12.3, pydantic 2.12.5, PyYAML 6.0.1, mcp 1.29.1, anyio 4.13.0.
+
+Handoff is REQUEST_CHANGES to A for CR01–CR03 in the review document. Reviewer made
+no author production-source fixes. New immutable repairs and source-bound tests are
+required before any approval. Combined branch remains local due C publication block.
+
+CR artifacts use a local `* -text` attribute so committed raw evidence retains its
+original bytes; [sha256.json](CR-artifacts/sha256.json) records those bytes. Raw log
+trailing whitespace is retained intentionally. Review/report Markdown diff check
+passed after removing extra EOF blanks. The tested shell script's checkout CRLF
+was restored afterward; final status contains no author production-source change.
