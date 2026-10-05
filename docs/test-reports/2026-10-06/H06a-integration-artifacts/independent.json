@@ -1,0 +1,42 @@
+{
+  "source": "645a413b704a954fe7de573e412b4ed5dda1545e",
+  "tree": "f7aa204cb88620ab189a1ec4bad7ccf7d4657915",
+  "packages_tree": "f1a11b5e69de7ac040c74a4a4bce98515e4dfee2",
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "-m",
+    "unittest",
+    "test_independent_lifecycle",
+    "test_primary_conflict",
+    "test_concurrent_close",
+    "test_shared_external_owner",
+    "test_independent_store",
+    "test_independent_crash",
+    "test_independent_cli_race",
+    "test_shared_owner_admission",
+    "test_owner_cleanup_primary",
+    "test_teardown_matrix",
+    "test_final_error_identity",
+    "test_sequential_harness_reuse",
+    "test_wrapper_lifetimes_v2",
+    "-v"
+  ],
+  "cwd": "/tmp/sanmou-h06a-integration-645a413/packages/pioneer-agent/tests",
+  "pythonpath": "/tmp/sanmou-h06a-integration-645a413/packages/pioneer-agent/src:/tmp/sanmou-h06a-integration-645a413/packages/qa-agent/src:/tmp/sanmou-h06a-integration-645a413/packages/sanmou-common/src:/tmp/sanmou-h06a-integration-645a413/packages/pioneer-agent/tests:/tmp/sanmou-h06a-integration-645a413/packages/pioneer-agent/tests/unit:/tmp/sanmou-h06a-integration-645a413/packages/qa-agent/tests:/tmp/sanmou-h06a-integration-645a413/docs/test-reports/2026-10-06/H06a-CR-artifacts:/tmp/sanmou-cr-20261005-6155-deps",
+  "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "native_windows": false,
+  "coverage": "offline-integration",
+  "exit_code": 0,
+  "seconds": 20.506215212000825,
+  "dependencies": {
+    "pydantic": "2.12.5",
+    "PyYAML": "6.0.1",
+    "mcp": "1.29.1",
+    "anyio": "4.13.0"
+  },
+  "log_sha256": "ce24b831b85b6047d9521ec08a289bd61cd025cf46737f7e3b933539032ed946",
+  "runner_sha256": "61a898f7d222cb917cfe85755a8371f0a76571b1d7072282b340acd2d0ca86f5",
+  "source_clean_after": true
+}

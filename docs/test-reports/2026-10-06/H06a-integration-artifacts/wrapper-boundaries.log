@@ -1,0 +1,13 @@
+test_cleanup_failure_detaches_and_preserves_cancel_object (test_wrapper_lifetimes.WrapperLifetimes.test_cleanup_failure_detaches_and_preserves_cancel_object) ... ok
+test_failed_second_constructor_preserves_first_binding (test_wrapper_lifetimes.WrapperLifetimes.test_failed_second_constructor_preserves_first_binding) ... ok
+test_old_close_preserves_new_wrapper_and_same_runner_reinstalls (test_wrapper_lifetimes.WrapperLifetimes.test_old_close_preserves_new_wrapper_and_same_runner_reinstalls) ... Executing <Task finished name='Task-12' coro=<WrapperLifetimes.test_old_close_preserves_new_wrapper_and_same_runner_reinstalls() done, defined at /tmp/sanmou-h06a-integration-645a413/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_wrapper_lifetimes.py:25> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.418 seconds
+ok
+test_same_runner_paused_resume_restores_borrowed_slot (test_wrapper_lifetimes.WrapperLifetimes.test_same_runner_paused_resume_restores_borrowed_slot) ... Executing <Task finished name='Task-17' coro=<WrapperLifetimes.test_same_runner_paused_resume_restores_borrowed_slot() done, defined at /tmp/sanmou-h06a-integration-645a413/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_wrapper_lifetimes.py:43> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.398 seconds
+ok
+test_third_party_replacement_not_overwritten_and_reuse_nonmutating (test_wrapper_lifetimes.WrapperLifetimes.test_third_party_replacement_not_overwritten_and_reuse_nonmutating) ... Executing <Task finished name='Task-22' coro=<WrapperLifetimes.test_third_party_replacement_not_overwritten_and_reuse_nonmutating() done, defined at /tmp/sanmou-h06a-integration-645a413/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_wrapper_lifetimes.py:55> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.141 seconds
+ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.035s
+
+OK

@@ -1,0 +1,44 @@
+test_async_cancellation_survives_cleanup_failure (test_independent_lifecycle.IndependentLifecycle.test_async_cancellation_survives_cleanup_failure) ... ok
+test_delayed_close_cannot_release_successor (test_independent_lifecycle.IndependentLifecycle.test_delayed_close_cannot_release_successor) ... ok
+test_same_instance_concurrent_entry_retains_owner (test_independent_lifecycle.IndependentLifecycle.test_same_instance_concurrent_entry_retains_owner) ... ok
+test_cli_real_services_and_terminal_restart_without_connection (test_task_cli.TaskCliTests.test_cli_real_services_and_terminal_restart_without_connection) ... Executing <Task finished name='Task-19' coro=<TaskCliTests.test_cli_real_services_and_terminal_restart_without_connection() done, defined at /tmp/sanmou-h06a-integration-645a413/packages/pioneer-agent/tests/test_task_cli.py:36> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.612 seconds
+ok
+test_qa_questions_not_silently_ignored (test_task_cli.TaskCliTests.test_qa_questions_not_silently_ignored) ... ok
+test_task_paths_required_before_any_connection (test_task_cli.TaskCliTests.test_task_paths_required_before_any_connection) ... ok
+test_checkpoint_conflict_survives_secondary_cleanup_error (test_primary_conflict.PrimaryConflict.test_checkpoint_conflict_survives_secondary_cleanup_error) ... ok
+test_delayed_concurrent_old_close_does_not_invalidate_successor (test_concurrent_close.ConcurrentClose.test_delayed_concurrent_old_close_does_not_invalidate_successor) ... {'backend': 'memory', 'successor_intact': True, 'third_acquired': False, 'delayed_errors': []}
+{'backend': 'json', 'successor_intact': True, 'third_acquired': False, 'delayed_errors': []}
+ok
+test_shared_owner_does_not_lose_duplicate_dispatch_accounting (test_shared_external_owner.SharedExternalOwner.test_shared_owner_does_not_lose_duplicate_dispatch_accounting) ... Executing <Task finished name='Task-41' coro=<TaskRunner.run() done, defined at /tmp/sanmou-h06a-integration-645a413/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_runner.py:215> result=RunState(vers...cutable=False) created at /usr/lib/python3.12/asyncio/tasks.py:695> took 0.146 seconds
+{'runners': 1, 'actual_calls': 4, 'charged_calls': 4, 'results': ['paused']}
+ok
+test_changed_budget_reuse_refuses_without_write (test_independent_store.IndependentStore.test_changed_budget_reuse_refuses_without_write) ... ok
+test_equal_budget_reload_nonbudget_state_is_authoritative (test_independent_store.IndependentStore.test_equal_budget_reload_nonbudget_state_is_authoritative) ... ok
+test_legacy_full_state_roundtrip_and_invalid_envelope (test_independent_store.IndependentStore.test_legacy_full_state_roundtrip_and_invalid_envelope) ... ok
+test_real_spawn_competes_across_replacements (test_independent_store.IndependentStore.test_real_spawn_competes_across_replacements) ... ok
+test_stale_identity_revision_are_nonmutating (test_independent_store.IndependentStore.test_stale_identity_revision_are_nonmutating) ... ok
+test_three_acknowledged_process_deaths (test_independent_crash.IndependentCrash.test_three_acknowledged_process_deaths) ... ok
+test_loser_zero_effects_before_connect_and_during_cleanup (test_independent_cli_race.IndependentCliRace.test_loser_zero_effects_before_connect_and_during_cleanup) ... ok
+test_second_construction_is_zero_effect_and_first_keeps_owner (test_shared_owner_admission.SharedOwnerAdmission.test_second_construction_is_zero_effect_and_first_keeps_owner) ... Executing <Task finished name='Task-76' coro=<SharedOwnerAdmission.test_second_construction_is_zero_effect_and_first_keeps_owner() done, defined at /tmp/sanmou-h06a-integration-645a413/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_shared_owner_admission.py:21> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.152 seconds
+ok
+test_cli_cancel_survives_lock_cleanup_error (test_owner_cleanup_primary.OwnerCleanupPrimary.test_cli_cancel_survives_lock_cleanup_error) ... ok
+test_constructor_identity_primary (test_teardown_matrix.TeardownMatrix.test_constructor_identity_primary) ... ok
+test_direct_runner_cancel_primary (test_teardown_matrix.TeardownMatrix.test_direct_runner_cancel_primary) ... ok
+test_idle_pause_and_cancel_preserve_save_failure (test_teardown_matrix.TeardownMatrix.test_idle_pause_and_cancel_preserve_save_failure) ... ok
+test_owner_context_primary_conflict (test_teardown_matrix.TeardownMatrix.test_owner_context_primary_conflict) ... ok
+test_reacquire_reload_primary (test_teardown_matrix.TeardownMatrix.test_reacquire_reload_primary) ... ok
+test_successful_owner_body_does_not_hide_cleanup_failure (test_teardown_matrix.TeardownMatrix.test_successful_owner_body_does_not_hide_cleanup_failure) ... ok
+test_original_cancel_identity_and_release (test_final_error_identity.FinalErrorIdentity.test_original_cancel_identity_and_release) ... ok
+test_original_checkpoint_exception_identity_no_retry_write (test_final_error_identity.FinalErrorIdentity.test_original_checkpoint_exception_identity_no_retry_write) ... ok
+test_terminal_mcp_cleanup_error_visible_without_state_rewrite (test_final_error_identity.FinalErrorIdentity.test_terminal_mcp_cleanup_error_visible_without_state_rewrite) ... Executing <Task finished name='Task-126' coro=<FinalErrorIdentity.test_terminal_mcp_cleanup_error_visible_without_state_rewrite() done, defined at /tmp/sanmou-h06a-integration-645a413/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_final_error_identity.py:69> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.643 seconds
+ok
+test_fresh_harness_control_succeeds (test_sequential_harness_reuse.SequentialHarnessReuse.test_fresh_harness_control_succeeds) ... Executing <Task finished name='Task-131' coro=<SequentialHarnessReuse.test_fresh_harness_control_succeeds() done, defined at /tmp/sanmou-h06a-integration-645a413/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_sequential_harness_reuse.py:46> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.412 seconds
+ok
+test_fresh_runner_same_harness_can_resume_or_reject_without_damage (test_sequential_harness_reuse.SequentialHarnessReuse.test_fresh_runner_same_harness_can_resume_or_reject_without_damage) ... {'status': 'succeeded', 'reason': 'goal_verified', 'new_physical_calls': ['session_status', 'observe_game', 'get_runtime_state', 'list_action_candidates', 'session_status', 'observe_game', 'get_runtime_state', 'list_action_candidates'], 'before_reservations': 5, 'after_reservations': 15}
+Executing <Task finished name='Task-136' coro=<SequentialHarnessReuse.test_fresh_runner_same_harness_can_resume_or_reject_without_damage() done, defined at /tmp/sanmou-h06a-integration-645a413/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_sequential_harness_reuse.py:17> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.416 seconds
+ok
+
+----------------------------------------------------------------------
+Ran 29 tests in 19.170s
+
+OK

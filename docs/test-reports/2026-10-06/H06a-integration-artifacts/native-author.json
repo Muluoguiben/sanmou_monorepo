@@ -1,0 +1,29 @@
+{
+  "source": "645a413b704a954fe7de573e412b4ed5dda1545e",
+  "tree": "f7aa204cb88620ab189a1ec4bad7ccf7d4657915",
+  "packages_tree": "f1a11b5e69de7ac040c74a4a4bce98515e4dfee2",
+  "command": [
+    "C:\\Users\\Lan\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+    "-B",
+    "\\\\wsl$\\Ubuntu\\tmp\\sanmou-h06a-integration-645a413\\packages\\pioneer-agent\\tests\\test_checkpoint_lock_native.py",
+    "-v"
+  ],
+  "cwd": "C:\\Users\\Lan\\AppData\\Local\\Temp",
+  "pythonpath": null,
+  "python": "3.14.3 (tags/v3.14.3:323c59a, Feb  3 2026, 16:04:56) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "native_windows": true,
+  "coverage": "lock-primitive-only",
+  "exit_code": 0,
+  "seconds": 1.135586200049147,
+  "dependencies": {
+    "pydantic": null,
+    "PyYAML": "6.0.3",
+    "mcp": null,
+    "anyio": null
+  },
+  "log_sha256": "f7d70f4ed9728cd5e01be23381961daa569bc8d1372f38ad15a304ed8670d28e",
+  "runner_sha256": "61a898f7d222cb917cfe85755a8371f0a76571b1d7072282b340acd2d0ca86f5",
+  "source_clean_after": true,
+  "helper_sha256": "80603a20c15c049402acf248cc2848a8fef3f661351911d1294a86186b72d52c"
+}
