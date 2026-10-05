@@ -9,7 +9,9 @@ from pydantic import ValidationError
 
 from pioneer_agent.agent_harness.contracts import structured_content, validate_game_response
 from pioneer_agent.agent_harness.loop import RecommendationHarness, DecisionWindowStatus
-from pioneer_agent.agent_harness.run_store import CheckpointConflict, RunOwnership, RunStore
+from pioneer_agent.agent_harness.run_store import (
+    CheckpointConflict, RunOwnership, RunStore, _checkpoint_cleanup, _close_preserving_primary,
+)
 from pioneer_agent.agent_harness.task_contracts import (
     BudgetExceeded, BudgetRequest, ContextBuilder, ContextOverflow, ContextRequest,
     DecisionPolicy, PolicyDecision, RunBudget, RunState, RunTrace, TaskSpec,
@@ -45,14 +47,15 @@ class TaskRunner:
         self._external_owner = ownership is not None
         self._ownership = ownership or store.acquire()
         self._checkpoint_failed = False
+        self._checkpoint_error: BaseException | None = None
         self._budget_checkpoint = None
         try:
             if self._ownership.store is not store:
                 raise CheckpointConflict("foreign checkpoint owner")
             self._ownership.bind_runner(self)
             self._reload()
-        except BaseException:
-            self.close()
+        except BaseException as primary:
+            _close_preserving_primary(self.close, primary)
             raise
         self._cancelled = False
         self._paused = False
@@ -92,8 +95,8 @@ class TaskRunner:
             try:
                 self._ownership.bind_runner(self)
                 self._reload()
-            except BaseException:
-                self.close()
+            except BaseException as primary:
+                _close_preserving_primary(self.close, primary)
                 raise
         self._ownership.check()
 
@@ -109,10 +112,8 @@ class TaskRunner:
             self.budget.cancel()
             self._wake.set()
             if not self._active:
-                try:
+                with _checkpoint_cleanup(self.close):
                     self._finish("cancelled", "cancel_requested")
-                finally:
-                    self.close()
         elif not self._active:
             self.close()
 
@@ -123,20 +124,21 @@ class TaskRunner:
             self._paused = True
             self._wake.set()
             if not self._active:
-                try:
+                with _checkpoint_cleanup(self.close):
                     self._finish("paused", "pause_requested")
-                finally:
-                    self.close()
         elif not self._active:
             self.close()
 
     def _check(self) -> None:
         if self._checkpoint_failed:
+            if self._checkpoint_error is not None:
+                raise self._checkpoint_error
             raise CheckpointConflict("runner checkpoint failed")
         try:
             self._ownership.check()
-        except CheckpointConflict:
+        except CheckpointConflict as exc:
             self._checkpoint_failed = True
+            self._checkpoint_error = exc
             raise
         if self._cancelled:
             raise _Interrupt("cancelled", "cancel_requested")
@@ -156,13 +158,16 @@ class TaskRunner:
 
     def _save(self) -> None:
         if self._checkpoint_failed:
+            if self._checkpoint_error is not None:
+                raise self._checkpoint_error
             raise CheckpointConflict("checkpoint persistence already failed")
         self.state.budget_state = self.budget.snapshot()
         try:
             self._ownership.save(self.state)
             self._budget_checkpoint = self.state.model_copy(deep=True).budget_state
-        except BaseException:
+        except BaseException as exc:
             self._checkpoint_failed = True
+            self._checkpoint_error = exc
             raise
 
     def _emit(self, event: str, **kwargs) -> None:
@@ -181,10 +186,8 @@ class TaskRunner:
         if self._active:
             raise RuntimeError("runner already active")
         self._ensure_ownership()
-        try:
+        with _checkpoint_cleanup(self.close):
             return await self._run_owned(resume=resume)
-        finally:
-            self.close()
 
     async def _run_owned(self, *, resume: bool = False) -> RunState:
         if self.state.status in TERMINAL_STATUSES:

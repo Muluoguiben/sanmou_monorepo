@@ -138,9 +138,13 @@ async def _run_task(args: argparse.Namespace, *, game_client=None) -> dict:
         # Includes initial checkpoint read, budget restore and MCP cleanup.
         with store.acquire() as ownership:
             return await _run_owned_task(args, store=store, ownership=ownership, game_client=game_client)
-    except CheckpointConflict:
-        return {"status": "blocked", "reason": "checkpoint_conflict",
-                "execution_authority": "none", "executable": False}
+    except CheckpointConflict as exc:
+        result = {"status": "blocked", "reason": "checkpoint_conflict",
+                  "execution_authority": "none", "executable": False}
+        cleanup_errors = getattr(exc, "_checkpoint_cleanup_errors", ())
+        if cleanup_errors:
+            result["checkpoint_cleanup_errors"] = list(cleanup_errors)
+        return result
 
 
 async def _run_owned_task(args, *, store, ownership, game_client=None):

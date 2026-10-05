@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import os
+from contextlib import contextmanager
 from pathlib import Path
 from typing import Protocol
 from threading import Lock, RLock
@@ -14,6 +15,30 @@ from pioneer_agent.agent_harness.task_contracts import CheckpointEnvelope, RunSt
 
 class CheckpointConflict(RuntimeError):
     """Ownership or CAS lost. Never convert this into a checkpoint write."""
+
+
+def _close_preserving_primary(close, primary=None):
+    """Owned teardown is observable, but must not replace an existing failure."""
+    try:
+        close()
+    except BaseException as cleanup:
+        if primary is None or cleanup is primary:
+            raise
+        primary.add_note(f"checkpoint_cleanup_error:{type(cleanup).__name__}")
+        primary._checkpoint_cleanup_errors = (*getattr(primary, "_checkpoint_cleanup_errors", ()),
+                                              type(cleanup).__name__)
+        raise primary from cleanup
+
+
+@contextmanager
+def _checkpoint_cleanup(close):
+    try:
+        yield
+    except BaseException as primary:
+        _close_preserving_primary(close, primary)
+        raise
+    else:
+        close()  # With no primary, a cleanup failure must remain visible.
 
 
 class RunStore(Protocol):
@@ -41,8 +66,8 @@ class RunOwnership:
         self.check()
         return self
 
-    def __exit__(self, *args):
-        self.close()
+    def __exit__(self, exc_type, primary, traceback):
+        _close_preserving_primary(self.close, primary)
 
     def check(self):
         if self._released or not self.active or self.pid != os.getpid() or self.store._owner is not self:
@@ -51,6 +76,7 @@ class RunOwnership:
     def close(self):
         if self.pid != os.getpid():
             return  # Never unlock the parent's inherited flock after fork.
+        failure = None
         with self._mutex:
             if self._released:
                 return
@@ -62,8 +88,13 @@ class RunOwnership:
             # check() consults it even before the public active flag is updated.
             self._released = True
             self.store._owner = None
-            self._release()
+            try:
+                self._release()
+            except BaseException as exc:
+                failure = exc
         self.active = False
+        if failure is not None:
+            raise failure
 
     def bind_runner(self, runner):
         self.check()

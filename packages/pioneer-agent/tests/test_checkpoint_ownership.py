@@ -313,6 +313,119 @@ class CheckpointOwnershipTests(unittest.TestCase):
 
 
 class RunnerOwnershipTests(unittest.IsolatedAsyncioTestCase):
+    async def test_cli_primary_survives_owner_cleanup_and_success_exposes_it(self):
+        for mode in ("cancel", "conflict", "success"):
+            with self.subTest(mode=mode), TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                args = test_task_cli.TaskCliTests().args(root)
+                real_close, real_save = LocalLock.close, JsonRunStore.save
+                primary = asyncio.CancelledError() if mode == "cancel" else CheckpointConflict("primary")
+                def close(lock):
+                    real_close(lock)
+                    raise OSError("secondary after release")
+                def save(store, state, **kwargs):
+                    if mode == "conflict" and state.pending_call == "session_status":
+                        raise primary
+                    return real_save(store, state, **kwargs)
+                class Client(test_task_cli.ManagedSequence):
+                    async def call_tool(self, name, arguments):
+                        if mode == "cancel":
+                            raise primary
+                        return await super().call_tool(name, arguments)
+                client = Client()
+                def harness(**kwargs):
+                    return RecommendationHarness(**kwargs, clock=lambda: BASE + timedelta(seconds=client.count + 1))
+                with patch.object(LocalLock, "close", close), patch.object(JsonRunStore, "save", save), patch.object(game_agent, "RecommendationHarness", side_effect=harness):
+                    if mode == "conflict":
+                        result = await game_agent._run_task(args, game_client=client)
+                        self.assertEqual(result["reason"], "checkpoint_conflict")
+                        self.assertEqual(result["checkpoint_cleanup_errors"], ["OSError"])
+                    else:
+                        with self.assertRaises(asyncio.CancelledError if mode == "cancel" else OSError) as caught:
+                            await game_agent._run_task(args, game_client=client)
+                        if mode == "cancel":
+                            self.assertIs(caught.exception, primary)
+                            self.assertIsInstance(primary.__cause__, OSError)
+                with JsonRunStore(args.run_state_path).acquire() as owner:
+                    self.assertEqual(owner.load().status, {"cancel": "cancelled", "conflict": "running", "success": "succeeded"}[mode])
+
+    async def test_direct_primary_survives_owner_cleanup_and_success_exposes_it(self):
+        for mode in ("cancel", "conflict", "success"):
+            with self.subTest(mode=mode), TemporaryDirectory() as tmp:
+                path = Path(tmp) / "run.json"
+                primary = asyncio.CancelledError() if mode == "cancel" else CheckpointConflict("primary")
+                real_close, real_save = LocalLock.close, JsonRunStore.save
+                def close(lock):
+                    real_close(lock)
+                    raise OSError("secondary after release")
+                def save(store, state, **kwargs):
+                    if mode == "conflict" and state.pending_call == "session_status":
+                        raise primary
+                    return real_save(store, state, **kwargs)
+                async def cancel(*args):
+                    raise primary
+                with patch.object(LocalLock, "close", close), patch.object(JsonRunStore, "save", save):
+                    r = runner(store=JsonRunStore(path))
+                    if mode == "cancel":
+                        r._client.call_tool = cancel
+                    with self.assertRaises({"cancel": asyncio.CancelledError, "conflict": CheckpointConflict, "success": OSError}[mode]) as caught:
+                        await r.run()
+                if mode != "success":
+                    self.assertIs(caught.exception, primary)
+                    self.assertIsInstance(primary.__cause__, OSError)
+                with JsonRunStore(path).acquire():
+                    pass
+
+    async def test_constructor_and_reload_primary_survive_owner_cleanup(self):
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "run.json"
+            first = runner(store=JsonRunStore(path))
+            first.pause()
+            real_close = LocalLock.close
+            def close(lock):
+                real_close(lock)
+                raise OSError("secondary after release")
+            with patch.object(LocalLock, "close", close):
+                with self.assertRaisesRegex(ValueError, "identity/task") as caught:
+                    runner(store=JsonRunStore(path), spec=task(max_steps=2))
+                self.assertIsInstance(caught.exception.__cause__, OSError)
+            second = runner(store=JsonRunStore(path), policy=FakeDecisionPolicy([
+                PolicyDecision(action="pause", reason="advance")]))
+            await second.run(resume=True)
+            winner = path.read_bytes()
+            with patch.object(LocalLock, "close", close):
+                with self.assertRaisesRegex(CheckpointConflict, "fresh runner") as caught:
+                    await first.run(resume=True)
+                self.assertIsInstance(caught.exception.__cause__, OSError)
+            self.assertEqual(path.read_bytes(), winner)
+            with JsonRunStore(path).acquire():
+                pass
+
+    async def test_idle_pause_cancel_primary_survive_owner_cleanup(self):
+        for action in ("pause", "cancel"):
+            for fail_save in (False, True):
+                with self.subTest(action=action, fail_save=fail_save), TemporaryDirectory() as tmp:
+                    path = Path(tmp) / "run.json"
+                    primary = CheckpointConflict("primary")
+                    real_close, real_save = LocalLock.close, JsonRunStore.save
+                    def close(lock):
+                        real_close(lock)
+                        raise OSError("secondary after release")
+                    def save(store, state, **kwargs):
+                        if fail_save:
+                            raise primary
+                        return real_save(store, state, **kwargs)
+                    with patch.object(LocalLock, "close", close), patch.object(JsonRunStore, "save", save):
+                        r = runner(store=JsonRunStore(path))
+                        with self.assertRaises(CheckpointConflict if fail_save else OSError) as caught:
+                            getattr(r, action)()
+                    if fail_save:
+                        self.assertIs(caught.exception, primary)
+                        self.assertIsInstance(primary.__cause__, OSError)
+                        self.assertFalse(path.exists())
+                    with JsonRunStore(path).acquire():
+                        pass
+
     async def test_primary_cancel_and_conflict_survive_cleanup_failure(self):
         for primary in ("cancel", "conflict"):
             with self.subTest(primary=primary), TemporaryDirectory() as tmp:

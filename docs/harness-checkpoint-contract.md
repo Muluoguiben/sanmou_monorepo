@@ -25,6 +25,7 @@
 - 本实现不管理调用方在构造直接 runner 之前已打开、或 owned lifetime 之外继续使用的外部 MCP client。
 - `CheckpointConflict` 是独立失败，不走普通 `_finish()`。runner 在 persistence/ownership 失败后停止 settlement/save 重试，保留最后成功落盘的保守 reservation。CLI 返回 `blocked/checkpoint_conflict`，不改赢家状态。
 - MCP cleanup 不能覆盖或吞掉 body 的 primary failure/cancellation。CLI 在原有总 timeout 内保留 primary，cleanup 错误作为 exception cause 和 class-only `transport_cleanup` trace；原 CancelledError/CheckpointConflict 继续传播到对应安全出口。deadline 仍由外层 `asyncio.timeout` 转换，cleanup 结束前不释放 ownership。
+- 相同优先级适用于 ownership context 退出、直接 runner 的 finally、构造/reload 失败清理、idle pause/cancel 清理。已有 primary 的 cleanup failure 保留为 cause 与 class-only note；无 primary 的独立 teardown failure 必须显式抛出，不能伪报成功或一律吞错。
 - 恢复沿用现有预算算法，不退还崩溃前 reservations，不重置时限；决策前仍经 session check 与新 observe，旧观察和执行权限不可继承。
 
 ## 支持范围与安全边界
