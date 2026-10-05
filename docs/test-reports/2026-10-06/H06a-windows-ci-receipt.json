@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "source_commit": "b338b73f44699ce6ad93a02c16267c54058df68f",
+  "workflow_run": 37365931923,
+  "attempt": 3,
+  "run_url": "https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/37365931923/attempts/3",
+  "conclusion": "success",
+  "all_four_jobs": "success",
+  "windows_job": 111988924489,
+  "windows_job_url": "https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/37365931923/job/111988924489",
+  "step": "Windows H06a checkpoint ownership and lifecycle",
+  "step_conclusion": "success",
+  "command": "python -m unittest test_checkpoint_lock_native test_checkpoint_ownership test_task_runner test_task_cli test_task_cr_regressions -v",
+  "tests": 72,
+  "passed": 72,
+  "skipped": 0,
+  "unittest_seconds": 17.173,
+  "os": "Microsoft Windows Server 2025",
+  "python": "3.12.10",
+  "python_jobs": "same-SHA successes retained from initial run, not falsely claimed re-executed",
+  "prior_attempts": [
+    {
+      "attempt": 1,
+      "windows_job": 111950972893,
+      "run": "failure",
+      "windows": "cancelled",
+      "steps": 0,
+      "annotation": "The job was not acquired by Runner of type hosted even after multiple attempts"
+    },
+    {
+      "attempt": 2,
+      "windows_job": 111957496519,
+      "run": "failure",
+      "windows": "cancelled",
+      "steps": 0,
+      "annotation": "The job was not acquired by Runner of type hosted even after multiple attempts"
+    }
+  ],
+  "retry_basis": {
+    "url": "https://www.githubstatus.com/incidents/3q1yb5m7ltvb",
+    "update_utc": "2026-10-05T21:32:31.462Z",
+    "evidence": "Actions mitigations applied; queued jobs clearing; new jobs not delayed",
+    "whole_incident_resolved": false
+  },
+  "log_excerpt": {
+    "path": "H06a-windows-ci-attempt3.log",
+    "format": "selected original step text with UTF-8/LF line endings; not a byte-identical full-job archive",
+    "sha256": "28c75b5e933893a3f10429dc79f5cc9474a2865f89c1f025c7aad7ba4f7a1720"
+  },
+  "scope": "H06a selected native Windows lifecycle/API/Desktop CI gate only; not H09a native Windows/drvfs or production/live-game approval"
+}

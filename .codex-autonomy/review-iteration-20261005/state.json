@@ -1,38 +1,183 @@
 {
   "goal": "按已确认 Review 路线持续迭代，逐小批次实现、测试、独立审查、发布和验证 CI",
   "status": "in_progress",
-  "last_completed_round": 2,
-  "current_round": 3,
-  "batch": "H06a single-checkpoint local process ownership and CAS",
-  "base_commit": "751df8ee867479b9ad272c9c64ab190f76cd0934",
-  "branch": "master",
-  "summary": "H06a approved integration/evidence published as c173161 with exact remote readback. Final documentation-only successor still requires all exact-SHA CI jobs, especially the new full Windows H06a step, before round3 closes.",
-  "current_task": "docs/harness-checkpoint-ownership-h06a-2026-10-06.md",
+  "last_completed_round": 3,
+  "current_round": 4,
+  "batch": "H09a versioned offline task-control eval",
+  "primary_branch": "master",
+  "base_commit": "b338b73f44699ce6ad93a02c16267c54058df68f",
+  "integration_branch": "codex/h09a-integration-20261006",
+  "summary": "H06a exact final SHA is accepted by all four CI jobs including72 native Windows tests after two preserved no-runner failures. H09a exact103 independently approved and combined2d07 fully revalidated; report6eab payload audit passed. Preparing a coordination-only publication successor; no new source changes.",
+  "current_task": "docs/harness-task-eval-h09a-2026-10-06.md",
+  "earlier_rounds": [
+    {
+      "batch": "Q03a",
+      "final_commit": "e17d937a39944b036e90701fecefb6611b1d88d6",
+      "ci_run": 37341606212,
+      "ci": "success",
+      "report": "docs/test-reports/2026-10-06/Q03a-integration.md"
+    },
+    {
+      "batch": "Q02a bounded hero-attribute referent resolution",
+      "status": "published_exact_sha_ci_passed",
+      "final_commit": "751df8ee867479b9ad272c9c64ab190f76cd0934",
+      "approved_code": "40f46d3ea4525639877ad37a8da4ab6e334523e6",
+      "approval_report": "c68cab94a95731c3e05511d9203e8337e956cd3f",
+      "packages_tree": "3c643ef1d3fd0ae376ebea6b055d0aaba564edf8",
+      "closed_findings": [
+        "Q02a-CR01",
+        "Q02a-CR02"
+      ],
+      "coordinator_report": "docs/test-reports/2026-10-06/Q02a-integration.md",
+      "coordinator_tests": "QA394; Pioneer932 pass+2 Windows-only skips; common2; focused71; original26; new8",
+      "final_ci": {
+        "run": 37352030235,
+        "status": "completed",
+        "conclusion": "success",
+        "all_four_jobs": "success",
+        "remote_readback_matches": true
+      },
+      "earlier_payload_ci": {
+        "sha": "a071176c799c6e50c42d1d025f8eccf8260e30a0",
+        "run": 37351717604,
+        "status": "completed",
+        "conclusion": "cancelled"
+      },
+      "v3_output_sha256": "480a448fd7abecfba2f6cd4eb32a46873ff0b8127b6251cd8aeea5e4fe2e82c8",
+      "payload_object_set_sha256": "ba02d741f95f8f507832192fa0c1857d0b6ca5e9b5a29433af58da736ec00685"
+    }
+  ],
   "prior_round": {
-    "batch": "Q02a bounded hero-attribute referent resolution",
-    "status": "published_exact_sha_ci_passed",
-    "final_commit": "751df8ee867479b9ad272c9c64ab190f76cd0934",
-    "approved_code": "40f46d3ea4525639877ad37a8da4ab6e334523e6",
-    "approval_report": "c68cab94a95731c3e05511d9203e8337e956cd3f",
-    "packages_tree": "3c643ef1d3fd0ae376ebea6b055d0aaba564edf8",
-    "closed_findings": ["Q02a-CR01", "Q02a-CR02"],
-    "coordinator_report": "docs/test-reports/2026-10-06/Q02a-integration.md",
-    "coordinator_tests": "QA394; Pioneer932 pass+2 Windows-only skips; common2; focused71; original26; new8",
-    "final_ci": {"run":37352030235,"status":"completed","conclusion":"success","all_four_jobs":"success","remote_readback_matches":true},
-    "earlier_payload_ci": {"sha":"a071176c799c6e50c42d1d025f8eccf8260e30a0","run":37351717604,"status":"completed","conclusion":"cancelled"},
-    "v3_output_sha256": "480a448fd7abecfba2f6cd4eb32a46873ff0b8127b6251cd8aeea5e4fe2e82c8",
-    "payload_object_set_sha256": "ba02d741f95f8f507832192fa0c1857d0b6ca5e9b5a29433af58da736ec00685"
+    "batch": "H06a local single-checkpoint ownership/CAS",
+    "status": "published_exact_sha_all_ci_passed",
+    "final_commit": "b338b73f44699ce6ad93a02c16267c54058df68f",
+    "approved_code": "6b7b5caad1cbffc59692d3fe9df6a3b3d88dfa9c",
+    "approval_report": "5ef9bf8a5cf1e8e4c4745dbd5fdfae1026d6616b",
+    "packages_tree": "f1a11b5e69de7ac040c74a4a4bce98515e4dfee2",
+    "ci": {
+      "run": 37365931923,
+      "final_attempt": 3,
+      "status": "completed",
+      "conclusion": "success",
+      "all_four_jobs": "success",
+      "windows_job": 111988924489,
+      "h06_selected_native_tests": 72,
+      "native_skipped": 0,
+      "os": "Windows Server 2025",
+      "python": "3.12.10",
+      "prior_attempts": [
+        {
+          "conclusion": "failure",
+          "python_jobs": "success",
+          "windows_job": 111950972893,
+          "windows_conclusion": "cancelled",
+          "windows_steps": 0,
+          "runner_name": "",
+          "annotation": "The job was not acquired by Runner of type hosted even after multiple attempts",
+          "completed_at": "2026-10-05T20:05:04Z"
+        },
+        {
+          "trigger": "rerun only cancelled Windows job; no code or workflow change",
+          "windows_job": 111957496519,
+          "status": "completed",
+          "conclusion": "failure",
+          "windows_conclusion": "cancelled",
+          "windows_steps": 0,
+          "annotation": "The job was not acquired by Runner of type hosted even after multiple attempts",
+          "annotation_independently_read": true,
+          "completed_at": "2026-10-05T20:23:53Z",
+          "new_h06a_step": "not_run"
+        }
+      ],
+      "recovery_basis": "official21:32UTC Actions mitigation: queues clearing and new jobs not delayed",
+      "whole_incident_resolved": false
+    },
+    "earlier_payload_ci": {
+      "sha": "c173161a32ae1796d26a32228b19fd79f8b7661d",
+      "run": 37365711173,
+      "conclusion": "cancelled"
+    },
+    "receipt": "docs/test-reports/2026-10-06/H06a-windows-ci-receipt.json",
+    "native_log_excerpt_sha256": "28c75b5e933893a3f10429dc79f5cc9474a2865f89c1f025c7aad7ba4f7a1720"
   },
-  "earlier_rounds": [{"batch":"Q03a","final_commit":"e17d937a39944b036e90701fecefb6611b1d88d6","ci_run":37341606212,"ci":"success","report":"docs/test-reports/2026-10-06/Q03a-integration.md"}],
-  "open_findings": [],
-  "closed_findings": ["H06a-CR01", "H06a-CR02", "H06a-CR03", "H06a-CR04"],
-  "delivery": {"status":"reviewed_source_ready_for_integration","initial_code":"44ad8aa82c7a8d7cd4ac48abcc8fb42af91046f7","intermediate_codes":["9f7cb1f4a7a22e51abdec17627ca95be6e8144b4","dea73e062b70eb6d34108de87f843e40794d97df","96575c30dea99ab58265052987e79bb4e76c0972"],"code_commit":"6b7b5caad1cbffc59692d3fe9df6a3b3d88dfa9c","code_tree":"bb2636242bad0e796ded0b43d6fc1a5142a839f9","packages_tree":"f1a11b5e69de7ac040c74a4a4bce98515e4dfee2","report_commit":"7425d39ca8224f2a8a00d93d169e529f6e3b3d1a","prior_report_commit":"bbf486c9d1ed8f13416c4106ffa7d0cfa99c2189","report":"docs/test-reports/2026-10-06/H06a-CR04-selftest/README.md","author_tests":"focused72; Pioneer968pass+2Windows-onlyskip; QA394; common2; original probes23+CR04two (includes3 imported duplicates); nativeprimitive3+original1 replay","report_artifact_hashes":28,"native_full_integration":"pending new exact-final-SHA Windows H06a CI step"},
-  "independent_review": {"status":"approve_reviewed_source_posix_native_primitive","plan_commit":"6b3164a7af1351912440ae989fd8209a8cc38811","review_target":"6b7b5caad1cbffc59692d3fe9df6a3b3d88dfa9c","approved_code":"6b7b5caad1cbffc59692d3fe9df6a3b3d88dfa9c","approved_tree":"bb2636242bad0e796ded0b43d6fc1a5142a839f9","current_report_commit":"5ef9bf8a5cf1e8e4c4745dbd5fdfae1026d6616b","native_full_integration":"pending Windows H06a checkpoint ownership and lifecycle step at exact final SHA","prior_scoped_approval_retained":"26d997bc0d37e05888de4765e09ac66c8468a535","prior_red_reports":["270d0a4d92071dc5db2a7cdd420f81dfa6b10de2","b4ad6c88de30145c476aaf3e6400fa422b022a33","509c1165de38d94326936aa2f3bf68650592caa8","abe17cdac6557451e6d811e1812d65c0025ad8de","54d423755b9d8a33b95592c79956cdbb2bd9f2b5"],"snapshot_blobs":1639,"snapshot_mismatches":0,"green_controls":"Pioneer970=968pass+2skip; QA394; common2; focused72; 34probe methods(31independent+3duplicates); nativeprimitive1"},
-  "coordinator_premerge": {"cr_artifact_git_blobs":79,"mismatches":0,"manifest_sha256":"c52a0428db218f286dd7e0c7673d58df31480551c63a1f7197ea4863896bc72f"},
-  "coordinator_integration": {"status":"local_checks_passed","source":"645a413b704a954fe7de573e412b4ed5dda1545e","tree":"f7aa204cb88620ab189a1ec4bad7ccf7d4657915","packages_tree":"f1a11b5e69de7ac040c74a4a4bce98515e4dfee2","pioneer_pass":968,"pioneer_existing_windows_skips":2,"qa_pass":394,"common_pass":2,"focused_pass":72,"probe_collection":"29+5=34, 31independent+3imported duplicates","native_windows_primitive":"3+1 pass; not full MCP/runner/CLI","execution_records":9,"artifact_hashes":21,"qa_v3_sha256":"480a448fd7abecfba2f6cd4eb32a46873ff0b8127b6251cd8aeea5e4fe2e82c8","report":"docs/test-reports/2026-10-06/H06a-integration.md","full_windows_h06a":"pending final-SHA CI"},
-  "publication": {"status":"published","payload_commit":"c173161a32ae1796d26a32228b19fd79f8b7661d","remote_readback":"c173161a32ae1796d26a32228b19fd79f8b7661d","payload_ci_run":37365711173,"payload_ci_status":"queued_at_first_read","final_payload_audit":{"objects":399,"commits":20,"paths":238,"raw_logs_unchanged":150,"qa_protected_paths":216,"prior_h06_evidence_paths":191,"object_set_sha256":"5d7cc8ce8807a3c6159a6a9cf9ff437f301840fc3b0d6f729c2d084926a5cfe5","scoped_blockers":0},"status_successor":"this documentation-only commit","final_sha_ci":"pending","windows_h06a_step":"pending"},
-  "agents": {"implementation":"/root/h06a_implementation","independent_review":"/root/h06a_review","model":"gpt-6-astra"},
-  "next_step": "Publish documentation-only status successor, then verify its exact-SHA Windows H06a checkpoint ownership and lifecycle step plus every CI job; repair/re-review any real failure before closing H06a or starting another implementation slice",
+  "delivery": {
+    "status": "independently_approved_and_locally_integrated",
+    "code": "103d0d1594a11af905515182913731d2d8bb4ac9",
+    "tree": "e9b80b3a76b494b73e0266cb383793cacb3e246d",
+    "packages_tree": "fee69c4090f882c87b48857cc8a251a2de3dfdbc",
+    "author_report": "4b1aef41d0265de6ed61062483aecdf41d70ea24",
+    "author_report_manifest_sha256": "e9a1adea0cbea3fabc9414d6adb4af8eab787ac8db4a8f0d53f0b4a8ca8a1f33",
+    "prior_author_report": "08c97024b4c0566c26f5c2b0461c1efb3e5d3c23",
+    "tests": "Pioneer998=996pass+2existingWindowsSkips; QA394; common2; frozen21 includes1historical64;6positiveCLI8/8 and16formalmetadata rejections",
+    "rejected_sources": [
+      "64adbfbb951754a36cfd9189f4294d70b323eb28",
+      "134d73b0960d51b6361fb4085a58a3d598a74595",
+      "2cc7b2f885b3d33b46c719b89fb3c85d2ade2e96",
+      "fece4163d04af5057493549da2db74a8fa65ed06"
+    ]
+  },
+  "independent_review": {
+    "status": "approve",
+    "code": "103d0d1594a11af905515182913731d2d8bb4ac9",
+    "report": "74d711e29db0a1e86e781bd65e420787a1cb2210",
+    "scope": "eight developer-authored deterministic task-control cases on Linux ext4; not nativeWindows/drvfs/provider/vision/live/holdout/production or later combined tree",
+    "closed_findings": [
+      "CR01",
+      "CR02",
+      "CR03",
+      "CR03b",
+      "CR04",
+      "CR05"
+    ],
+    "red_reports": [
+      "2bcd73e7b474c32f5aaf28f77e81c5bfc1cd2082",
+      "c81533eac0ec7121231c56b7cceb715a89ae4663",
+      "0c40a7b426f16930dc1928abd903e2d249f14b2a"
+    ],
+    "archive_sha256": "933d83d3c7b1bcd7d67fcdc185dcb823671b635749f3011a3f9b9299bf9cb88f",
+    "tests": "full998(996+2skip)/394/2;21frozen;3cleanCLI;actualmetadata positive and25SourceBinding negative checks;source drift/untracked formalCLI"
+  },
+  "coordinator_integration": {
+    "status": "local_checks_passed",
+    "source": "2d07e1b82de3d09ab809ad9018b70dc3095ff5bb",
+    "tree": "12bbc84a2a159d30f3691e6786a7584615686c8e",
+    "packages_tree": "fee69c4090f882c87b48857cc8a251a2de3dfdbc",
+    "report_commit": "6eab509ef8a6bb3ed5a5a4173301bfae5dc2e9fb",
+    "report": "docs/test-reports/2026-10-06/H09a-integration.md",
+    "tests": "Pioneer998=996pass+2Windows skips;QA394;common2;21frozen(1historic);8currentpositive reports8/8;25SourceBinding rejects+16formalCLI rejects;source1635/protected831 bytes unchanged",
+    "qa_v3_sha256": "480a448fd7abecfba2f6cd4eb32a46873ff0b8127b6251cd8aeea5e4fe2e82c8",
+    "stable_projection_sha256": "702db19d483defb06a4644eb26c51e62470aef801107c417aa412b2b10496c09",
+    "evidence_archive_sha256": "5bb112acb9a80fb7455df8004d1172a65c7bc4461eec35393c8ab510d614d830",
+    "archive_types": "619regular/200directory/1symlink;never wholesale extract/follow;10jpg names are12byte fixed-test placeholders"
+  },
+  "payload_audit": {
+    "endpoint": "6eab509ef8a6bb3ed5a5a4173301bfae5dc2e9fb",
+    "objects": 706,
+    "commits": 15,
+    "paths": 582,
+    "protected_paths": 831,
+    "old_author_paths": 515,
+    "old_cr_paths": 40,
+    "object_set_sha256": "771141f9dd525de238988883dae4a10efe34984d537fc3f65193ffae67b51c7b",
+    "scoped_blockers": 0,
+    "final_coordination_increment": "pending",
+    "archive_mode_binding": "coordinator typed inventory binds sizes/hashes/types, not mode; actual headers checked for special permissions"
+  },
+  "publication": {
+    "status": "reviewed_candidate_prepared; final coordination audit and external publication/CI still pending at preparation",
+    "master_at_preparation": "b338b73f44699ce6ad93a02c16267c54058df68f",
+    "report_head": "6eab509ef8a6bb3ed5a5a4173301bfae5dc2e9fb",
+    "post_publish_refresh_required": true,
+    "final_sha_ci": "not_yet_evaluated_for_this_coordination_successor"
+  },
+  "agents": {
+    "implementation": "/root/h09a_implementation",
+    "review": "/root/h09a_review",
+    "integration": "/root/h09a_integration_verify",
+    "audit": "/root/harness_context_eval_audit",
+    "model": "gpt-6-astra"
+  },
+  "next_step": "Refresh remote state; after the final coordination increment audit, publish this reviewed candidate if not already present, then verify its exact final SHA CI before closing round4. Primary coordinator WIP is preserved in this commit. No game/provider/deployment or production claim.",
   "authorization": {
     "user_text": "按review 迭代的方向持续迭代",
     "source_thread": "01a10c00-93d2-778b-8395-bf9d496c503d",
@@ -51,5 +196,6 @@
     "new_automation_or_extra_notifications": false
   },
   "updated_at": "2026-10-06",
+  "open_findings": [],
   "blockers": []
 }

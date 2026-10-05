@@ -1,12 +1,14 @@
 # Todo List
 
-## Local-only integration — H09a (2026-10-06)
+## Publication candidate — H09a (2026-10-06)
 
-- [x] Independent APPROVE `74d711e29db0a1e86e781bd65e420787a1cb2210` binds code `103d0d1594a11af905515182913731d2d8bb4ac9`; original CR01–CR05 red evidence remains intact.
+- [x] Frozen [task contract](docs/harness-task-eval-h09a-2026-10-06.md)813ff402; author code `103d0d1594a11af905515182913731d2d8bb4ac9` / report4b1aef41 and independent APPROVE `74d711e29db0a1e86e781bd65e420787a1cb2210`. All CR01/02/03/03b/04/05 closed; every original red retained. Scope is Linux ext4 deterministic offline control only, not H09 native Windows/drvfs/model/game/production.
 - [x] Coordinator tested exact local combination `2d07e1b82de3d09ab809ad9018b70dc3095ff5bb`, packages `fee69c4090f882c87b48857cc8a251a2de3dfdbc`: Pioneer996+2Windows skips, QA394/common2, frozen21 (one historical64 check), three clean CLIs, actual setuptools plus25 boundary rejections and16 formal CLI rejections; QA v3 hash and831 protected records unchanged. [Source-bound report](docs/test-reports/2026-10-06/H09a-integration.md).
-- [ ] Not published: H06 final Windows attempts obtained no runner and executed no steps; GitHub outage does not satisfy acceptance. No master merge/push/CI retry. This temporary integration branch does not release the H06 gate; later H06 source changes require renewed combination verification.
+- [x] H06 prerequisite now satisfied on exactb338/run37365931923/attempt3: all4jobs success, selected native Windows72pass/0skip. Original2no-runner failures retained; one bounded retry followed official21:32 recovery evidence. [Gate receipt](docs/test-reports/2026-10-06/H06a-windows-ci-gate.md).
+- [x] Payload through report6eab509 audited:706objects/15commits/582paths;831protected plus old report/CR blobs unchanged. Offline evidence archive619regular/200dirs/1intentional symlink is typed and hash-bound;10jpg names are12-byte fixed-test placeholders, not real captures. No generic archive extraction/following links.
+- [ ] Final coordination-only successor still requires its small payload increment audit, master publication/readback, and exact-final-SHA CI. No automatic live-game/provider/deployment authority; do not confuse H06 native coverage with H09 Windows approval.
 
-## Active Review continuation — H06a (2026-10-06)
+## Completed Review continuation — H06a (2026-10-06)
 
 - [x] Q02a final `751df8ee867479b9ad272c9c64ab190f76cd0934` published with matching remote readback; exact CI37352030235 completed/success in all four jobs. Earlier a071176 run37351717604 is cancelled, not accepted as green.
 - [x] Selected bounded harness reliability slice: same-checkpoint single-machine ownership/CAS, legacy migration and offline crash/race tests. [Task and limits](docs/harness-checkpoint-ownership-h06a-2026-10-06.md).
@@ -17,7 +19,7 @@
 - [x] Independent `5ef9bf8a5cf1e8e4c4745dbd5fdfae1026d6616b` APPROVE closes CR01-04 for exact6b source/POSIX/native primitive: full970(968+2skip), QA394/common2, focused72, probes34(31independent+3duplicates), native1 pass. Coordinator checked79 committed artifact hashes, zero mismatch.
 - [x] Coordinator combined source `645a413b704a954fe7de573e412b4ed5dda1545e` passes Pioneer968+2existing skips, QA394/common2, focused72, original probes29+standalone wrapper5, native Windows primitives3+1; 79 CR hashes match and QA v3 output unchanged. [Platform-separated report](docs/test-reports/2026-10-06/H06a-integration.md).
 - [x] Final scoped payload audit bound `c173161a32ae1796d26a32228b19fd79f8b7661d`: 399 objects/20commits/238paths, no scoped blocker; protected paths and150 rawlogs preserved. Pushed master and fetched matching SHA; packages still approved f1a11b5.
-- [ ] Exact-final-SHA CI after this documentation-only status successor, explicitly including `Windows H06a checkpoint ownership and lifecycle`; initial payload run37365711173 was queued. Device lease/effect exactly-once/live game remain outside H06a.
+- [x] Exact final `b338b73f44699ce6ad93a02c16267c54058df68f` run37365931923/attempt3 completed/success in all4jobs; `Windows H06a checkpoint ownership and lifecycle` actually ran72tests, allpass/no skip. Attempt1/2 failed with no hosted runner/zero steps; payloadc173 run37365711173 remains cancelled. [Native gate evidence](docs/test-reports/2026-10-06/H06a-windows-ci-gate.md). Device lease/effect exactly-once/live game remain outside H06a.
 
 ## Active Review continuation — Q02a (2026-10-06)
 

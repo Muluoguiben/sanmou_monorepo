@@ -1,0 +1,110 @@
+2026-10-05T21:38:52.0957192Z ##[group]Run python -m unittest test_checkpoint_lock_native test_checkpoint_ownership test_task_runner test_task_cli test_task_cr_regressions -v
+2026-10-05T21:38:52.0958551Z [36;1mpython -m unittest test_checkpoint_lock_native test_checkpoint_ownership test_task_runner test_task_cli test_task_cr_regressions -v[0m
+2026-10-05T21:38:52.1030088Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-05T21:38:52.1030439Z env:
+2026-10-05T21:38:52.1030613Z   GIT_CONFIG_COUNT: 1
+2026-10-05T21:38:52.1030824Z   GIT_CONFIG_KEY_0: core.autocrlf
+2026-10-05T21:38:52.1031068Z   GIT_CONFIG_VALUE_0: false
+2026-10-05T21:38:52.1031299Z   CSC_IDENTITY_AUTO_DISCOVERY: false
+2026-10-05T21:38:52.1031628Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.12.10\x64
+2026-10-05T21:38:52.1032112Z   PKG_CONFIG_PATH: C:\hostedtoolcache\windows\Python\3.12.10\x64/lib/pkgconfig
+2026-10-05T21:38:52.1032590Z   Python_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.12.10\x64
+2026-10-05T21:38:52.1033039Z   Python2_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.12.10\x64
+2026-10-05T21:38:52.1033442Z   Python3_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.12.10\x64
+2026-10-05T21:38:52.1033755Z ##[endgroup]
+2026-10-05T21:38:54.2013845Z test_native_hardlink_checkpoint_refused (test_checkpoint_lock_native.NativeLockTests.test_native_hardlink_checkpoint_refused) ... ok
+2026-10-05T21:38:54.2047666Z test_native_independent_paths_and_same_process_contention (test_checkpoint_lock_native.NativeLockTests.test_native_independent_paths_and_same_process_contention) ... ok
+2026-10-05T21:38:54.3108012Z test_native_process_exit_releases_stable_lock (test_checkpoint_lock_native.NativeLockTests.test_native_process_exit_releases_stable_lock) ... ok
+2026-10-05T21:38:54.3118392Z test_backend_rejects_without_checkpoint_or_sidecar (test_checkpoint_ownership.CheckpointOwnershipTests.test_backend_rejects_without_checkpoint_or_sidecar) ... ok
+2026-10-05T21:38:54.3168385Z test_concurrent_old_close_cannot_release_successor (test_checkpoint_ownership.CheckpointOwnershipTests.test_concurrent_old_close_cannot_release_successor) ... ok
+2026-10-05T21:38:54.3373182Z test_exclusive_owner_revision_and_released_owner (test_checkpoint_ownership.CheckpointOwnershipTests.test_exclusive_owner_revision_and_released_owner) ... ok
+2026-10-05T21:38:54.3390251Z test_foreign_store_owner_cannot_save (test_checkpoint_ownership.CheckpointOwnershipTests.test_foreign_store_owner_cannot_save) ... ok
+2026-10-05T21:38:54.3606482Z test_identity_and_legacy_migration (test_checkpoint_ownership.CheckpointOwnershipTests.test_identity_and_legacy_migration) ... ok
+2026-10-05T21:38:54.3722330Z test_malformed_unknown_and_strict_revision_never_rewritten (test_checkpoint_ownership.CheckpointOwnershipTests.test_malformed_unknown_and_strict_revision_never_rewritten) ... ok
+2026-10-05T21:38:57.0424435Z test_real_process_cli_race_loser_zero_connect_calls_writes (test_checkpoint_ownership.CheckpointOwnershipTests.test_real_process_cli_race_loser_zero_connect_calls_writes) ... ok
+2026-10-05T21:39:03.2311852Z test_real_process_crash_boundaries_preserve_budget_and_reobserve (test_checkpoint_ownership.CheckpointOwnershipTests.test_real_process_crash_boundaries_preserve_budget_and_reobserve) ... ok
+2026-10-05T21:39:03.2563066Z test_replaced_checkpoint_does_not_replace_lock (test_checkpoint_ownership.CheckpointOwnershipTests.test_replaced_checkpoint_does_not_replace_lock) ... ok
+2026-10-05T21:39:03.2743960Z test_stale_revision_owner_and_terminal_rollback_preserve_winner (test_checkpoint_ownership.CheckpointOwnershipTests.test_stale_revision_owner_and_terminal_rollback_preserve_winner) ... ok
+2026-10-05T21:39:03.4456525Z test_constructor_failure_does_not_replace_harness_client (test_checkpoint_ownership.HarnessBindingTests.test_constructor_failure_does_not_replace_harness_client) ... Executing <Task finished name='Task-20' coro=<HarnessBindingTests.test_constructor_failure_does_not_replace_harness_client() done, defined at D:\a\sanmou_monorepo\sanmou_monorepo\packages\pioneer-agent\tests\test_checkpoint_ownership.py:742> result=None created at C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\runners.py:100> took 0.125 seconds
+2026-10-05T21:39:03.4462774Z ok
+2026-10-05T21:39:03.8233847Z test_delayed_old_close_cannot_clobber_successor_wrapper (test_checkpoint_ownership.HarnessBindingTests.test_delayed_old_close_cannot_clobber_successor_wrapper) ... Executing <Task finished name='Task-25' coro=<HarnessBindingTests.test_delayed_old_close_cannot_clobber_successor_wrapper() done, defined at D:\a\sanmou_monorepo\sanmou_monorepo\packages\pioneer-agent\tests\test_checkpoint_ownership.py:689> result=None created at C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\runners.py:100> took 0.359 seconds
+2026-10-05T21:39:03.8243107Z ok
+2026-10-05T21:39:04.1663373Z test_external_owner_is_held_after_wrapper_detaches (test_checkpoint_ownership.HarnessBindingTests.test_external_owner_is_held_after_wrapper_detaches) ... Executing <Task finished name='Task-30' coro=<HarnessBindingTests.test_external_owner_is_held_after_wrapper_detaches() done, defined at D:\a\sanmou_monorepo\sanmou_monorepo\packages\pioneer-agent\tests\test_checkpoint_ownership.py:776> result=None created at C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\runners.py:100> took 0.344 seconds
+2026-10-05T21:39:04.1673247Z ok
+2026-10-05T21:39:04.1740990Z test_occupied_harness_rejected_before_checkpoint_acquire (test_checkpoint_ownership.HarnessBindingTests.test_occupied_harness_rejected_before_checkpoint_acquire) ... ok
+2026-10-05T21:39:04.5157884Z test_owner_cleanup_failure_still_detaches_own_wrapper (test_checkpoint_ownership.HarnessBindingTests.test_owner_cleanup_failure_still_detaches_own_wrapper) ... Executing <Task finished name='Task-40' coro=<HarnessBindingTests.test_owner_cleanup_failure_still_detaches_own_wrapper() done, defined at D:\a\sanmou_monorepo\sanmou_monorepo\packages\pioneer-agent\tests\test_checkpoint_ownership.py:761> result=None created at C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\runners.py:100> took 0.329 seconds
+2026-10-05T21:39:04.5167223Z ok
+2026-10-05T21:39:04.5238665Z test_replaced_client_before_run_rejects_without_persistence (test_checkpoint_ownership.HarnessBindingTests.test_replaced_client_before_run_rejects_without_persistence) ... ok
+2026-10-05T21:39:04.8739745Z test_same_harness_fresh_runner_resumes_without_retired_wrapper (test_checkpoint_ownership.HarnessBindingTests.test_same_harness_fresh_runner_resumes_without_retired_wrapper) ... Executing <Task finished name='Task-50' coro=<HarnessBindingTests.test_same_harness_fresh_runner_resumes_without_retired_wrapper() done, defined at D:\a\sanmou_monorepo\sanmou_monorepo\packages\pioneer-agent\tests\test_checkpoint_ownership.py:662> result=None created at C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\runners.py:100> took 0.344 seconds
+2026-10-05T21:39:04.8748709Z ok
+2026-10-05T21:39:05.2481875Z test_same_runner_reinstalls_wrapper_without_budget_bypass (test_checkpoint_ownership.HarnessBindingTests.test_same_runner_reinstalls_wrapper_without_budget_bypass) ... Executing <Task finished name='Task-55' coro=<HarnessBindingTests.test_same_runner_reinstalls_wrapper_without_budget_bypass() done, defined at D:\a\sanmou_monorepo\sanmou_monorepo\packages\pioneer-agent\tests\test_checkpoint_ownership.py:677> result=None created at C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\runners.py:100> took 0.359 seconds
+2026-10-05T21:39:05.2491238Z ok
+2026-10-05T21:39:05.3619076Z test_third_party_replacement_survives_old_close_and_reentry (test_checkpoint_ownership.HarnessBindingTests.test_third_party_replacement_survives_old_close_and_reentry) ... Executing <Task finished name='Task-60' coro=<HarnessBindingTests.test_third_party_replacement_survives_old_close_and_reentry() done, defined at D:\a\sanmou_monorepo\sanmou_monorepo\packages\pioneer-agent\tests\test_checkpoint_ownership.py:708> result=None created at C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\runners.py:100> took 0.109 seconds
+2026-10-05T21:39:05.3626944Z ok
+2026-10-05T21:39:05.4146720Z test_active_close_cannot_release_inflight_owner (test_checkpoint_ownership.RunnerOwnershipTests.test_active_close_cannot_release_inflight_owner) ... ok
+2026-10-05T21:39:05.7512547Z test_borrowed_owner_cannot_bind_two_runners (test_checkpoint_ownership.RunnerOwnershipTests.test_borrowed_owner_cannot_bind_two_runners) ... Executing <Task finished name='Task-70' coro=<RunnerOwnershipTests.test_borrowed_owner_cannot_bind_two_runners() done, defined at D:\a\sanmou_monorepo\sanmou_monorepo\packages\pioneer-agent\tests\test_checkpoint_ownership.py:481> result=None created at C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\runners.py:100> took 0.344 seconds
+2026-10-05T21:39:05.7521316Z ok
+2026-10-05T21:39:05.7813437Z test_cleanup_preservation_keeps_timeout_conversion (test_checkpoint_ownership.RunnerOwnershipTests.test_cleanup_preservation_keeps_timeout_conversion) ... ok
+2026-10-05T21:39:07.7946660Z test_cli_holds_through_cleanup_and_releases_on_all_exits (test_checkpoint_ownership.RunnerOwnershipTests.test_cli_holds_through_cleanup_and_releases_on_all_exits) ... Executing <Task finished name='Task-81' coro=<RunnerOwnershipTests.test_cli_holds_through_cleanup_and_releases_on_all_exits() done, defined at D:\a\sanmou_monorepo\sanmou_monorepo\packages\pioneer-agent\tests\test_checkpoint_ownership.py:600> result=None created at C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\runners.py:100> took 2.000 seconds
+2026-10-05T21:39:07.7956417Z ok
+2026-10-05T21:39:08.4128420Z test_cli_primary_survives_owner_cleanup_and_success_exposes_it (test_checkpoint_ownership.RunnerOwnershipTests.test_cli_primary_survives_owner_cleanup_and_success_exposes_it) ... Executing <Task finished name='Task-86' coro=<RunnerOwnershipTests.test_cli_primary_survives_owner_cleanup_and_success_exposes_it() done, defined at D:\a\sanmou_monorepo\sanmou_monorepo\packages\pioneer-agent\tests\test_checkpoint_ownership.py:316> result=None created at C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\runners.py:100> took 0.610 seconds
+2026-10-05T21:39:08.4137840Z ok
+2026-10-05T21:39:08.4386274Z test_conflict_never_settles_or_retries_finish (test_checkpoint_ownership.RunnerOwnershipTests.test_conflict_never_settles_or_retries_finish) ... ok
+2026-10-05T21:39:08.5676101Z test_constructor_and_reload_primary_survive_owner_cleanup (test_checkpoint_ownership.RunnerOwnershipTests.test_constructor_and_reload_primary_survive_owner_cleanup) ... Executing <Task finished name='Task-96' coro=<RunnerOwnershipTests.test_constructor_and_reload_primary_survive_owner_cleanup() done, defined at D:\a\sanmou_monorepo\sanmou_monorepo\packages\pioneer-agent\tests\test_checkpoint_ownership.py:379> result=None created at C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\runners.py:100> took 0.125 seconds
+2026-10-05T21:39:08.5684475Z ok
+2026-10-05T21:39:08.6818531Z test_direct_cancel_pause_async_and_runtime_release (test_checkpoint_ownership.RunnerOwnershipTests.test_direct_cancel_pause_async_and_runtime_release) ... Executing <Task finished name='Task-101' coro=<RunnerOwnershipTests.test_direct_cancel_pause_async_and_runtime_release() done, defined at D:\a\sanmou_monorepo\sanmou_monorepo\packages\pioneer-agent\tests\test_checkpoint_ownership.py:577> result=None created at C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\runners.py:100> took 0.109 seconds
+2026-10-05T21:39:08.6827273Z ok
+2026-10-05T21:39:09.0691254Z test_direct_primary_survives_owner_cleanup_and_success_exposes_it (test_checkpoint_ownership.RunnerOwnershipTests.test_direct_primary_survives_owner_cleanup_and_success_exposes_it) ... Executing <Task finished name='Task-106' coro=<RunnerOwnershipTests.test_direct_primary_survives_owner_cleanup_and_success_exposes_it() done, defined at D:\a\sanmou_monorepo\sanmou_monorepo\packages\pioneer-agent\tests\test_checkpoint_ownership.py:352> result=None created at C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\runners.py:100> took 0.391 seconds
+2026-10-05T21:39:09.0699839Z ok
+2026-10-05T21:39:09.0883657Z test_failed_construction_and_explicit_close_release (test_checkpoint_ownership.RunnerOwnershipTests.test_failed_construction_and_explicit_close_release) ... ok
+2026-10-05T21:39:09.1433137Z test_idle_pause_cancel_primary_survive_owner_cleanup (test_checkpoint_ownership.RunnerOwnershipTests.test_idle_pause_cancel_primary_survive_owner_cleanup) ... ok
+2026-10-05T21:39:09.1671649Z test_independent_runner_refused_then_pause_releases (test_checkpoint_ownership.RunnerOwnershipTests.test_independent_runner_refused_then_pause_releases) ... ok
+2026-10-05T21:39:09.5080107Z test_other_owner_progress_requires_fresh_nonterminal_ledger (test_checkpoint_ownership.RunnerOwnershipTests.test_other_owner_progress_requires_fresh_nonterminal_ledger) ... Executing <Task finished name='Task-126' coro=<RunnerOwnershipTests.test_other_owner_progress_requires_fresh_nonterminal_ledger() done, defined at D:\a\sanmou_monorepo\sanmou_monorepo\packages\pioneer-agent\tests\test_checkpoint_ownership.py:558> result=None created at C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\runners.py:100> took 0.344 seconds
+2026-10-05T21:39:09.5089327Z ok
+2026-10-05T21:39:09.6370875Z test_primary_cancel_and_conflict_survive_cleanup_failure (test_checkpoint_ownership.RunnerOwnershipTests.test_primary_cancel_and_conflict_survive_cleanup_failure) ... Executing <Task finished name='Task-131' coro=<RunnerOwnershipTests.test_primary_cancel_and_conflict_survive_cleanup_failure() done, defined at D:\a\sanmou_monorepo\sanmou_monorepo\packages\pioneer-agent\tests\test_checkpoint_ownership.py:429> result=None created at C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\runners.py:100> took 0.125 seconds
+2026-10-05T21:39:09.6379247Z ok
+2026-10-05T21:39:09.6453213Z test_budget_exhaustion_dispatches_no_extra_tool (test_task_runner.TaskRunnerTests.test_budget_exhaustion_dispatches_no_extra_tool) ... ok
+2026-10-05T21:39:09.6519052Z test_cancel_after_call_prevents_next_call (test_task_runner.TaskRunnerTests.test_cancel_after_call_prevents_next_call) ... ok
+2026-10-05T21:39:09.6654347Z test_cancelled_error_persisted_and_propagated (test_task_runner.TaskRunnerTests.test_cancelled_error_persisted_and_propagated) ... ok
+2026-10-05T21:39:09.7054935Z test_crash_pending_call_reobserves_and_preserves_cursor (test_task_runner.TaskRunnerTests.test_crash_pending_call_reobserves_and_preserves_cursor) ... ok
+2026-10-05T21:39:09.7112315Z test_disallowed_tool_never_dispatched (test_task_runner.TaskRunnerTests.test_disallowed_tool_never_dispatched) ... ok
+2026-10-05T21:39:09.8147103Z test_frozen_development_policy_cases (test_task_runner.TaskRunnerTests.test_frozen_development_policy_cases) ... Executing <Task finished name='Task-163' coro=<TaskRunnerTests.test_frozen_development_policy_cases() done, defined at D:\a\sanmou_monorepo\sanmou_monorepo\packages\pioneer-agent\tests\test_task_runner.py:113> result=None created at C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\runners.py:100> took 0.109 seconds
+2026-10-05T21:39:09.8157946Z ok
+2026-10-05T21:39:09.8249705Z test_inactive_or_control_session_rejected (test_task_runner.TaskRunnerTests.test_inactive_or_control_session_rejected) ... ok
+2026-10-05T21:39:09.8658279Z test_missing_field_evidence_never_succeeds (test_task_runner.TaskRunnerTests.test_missing_field_evidence_never_succeeds) ... ok
+2026-10-05T21:39:09.9096104Z test_old_field_metadata_cannot_prove_current_goal (test_task_runner.TaskRunnerTests.test_old_field_metadata_cannot_prove_current_goal) ... ok
+2026-10-05T21:39:09.9163264Z test_pause_after_call_prevents_next_call (test_task_runner.TaskRunnerTests.test_pause_after_call_prevents_next_call) ... ok
+2026-10-05T21:39:10.2532880Z test_pause_and_restart_reobserves_without_repeating_cursor (test_task_runner.TaskRunnerTests.test_pause_and_restart_reobserves_without_repeating_cursor) ... Executing <Task finished name='Task-188' coro=<TaskRunnerTests.test_pause_and_restart_reobserves_without_repeating_cursor() done, defined at D:\a\sanmou_monorepo\sanmou_monorepo\packages\pioneer-agent\tests\test_task_runner.py:147> result=None created at C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\runners.py:100> took 0.344 seconds
+2026-10-05T21:39:10.2542388Z ok
+2026-10-05T21:39:10.2681425Z test_policy_cannot_assert_success (test_task_runner.TaskRunnerTests.test_policy_cannot_assert_success) ... ok
+2026-10-05T21:39:10.2818563Z test_policy_context_mutation_cannot_rewrite_goal (test_task_runner.TaskRunnerTests.test_policy_context_mutation_cannot_rewrite_goal) ... ok
+2026-10-05T21:39:10.2941389Z test_real_b_context_overflow_prevents_policy (test_task_runner.TaskRunnerTests.test_real_b_context_overflow_prevents_policy) ... ok
+2026-10-05T21:39:10.4307278Z test_real_b_model_attempt_unknown_usage_and_trace (test_task_runner.TaskRunnerTests.test_real_b_model_attempt_unknown_usage_and_trace) ... Executing <Task finished name='Task-208' coro=<TaskRunnerTests.test_real_b_model_attempt_unknown_usage_and_trace() done, defined at D:\a\sanmou_monorepo\sanmou_monorepo\packages\pioneer-agent\tests\test_task_runner.py:296> result=None created at C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\runners.py:100> took 0.125 seconds
+2026-10-05T21:39:10.4316180Z ok
+2026-10-05T21:39:10.4462650Z test_real_b_model_budget_stops_before_policy (test_task_runner.TaskRunnerTests.test_real_b_model_budget_stops_before_policy) ... ok
+2026-10-05T21:39:10.5169126Z test_real_b_restore_does_not_reset_deadline (test_task_runner.TaskRunnerTests.test_real_b_restore_does_not_reset_deadline) ... ok
+2026-10-05T21:39:10.5236874Z test_real_b_tool_budget_stops_before_dispatch (test_task_runner.TaskRunnerTests.test_real_b_tool_budget_stops_before_dispatch) ... ok
+2026-10-05T21:39:10.5424364Z test_restart_rejects_old_observation (test_task_runner.TaskRunnerTests.test_restart_rejects_old_observation) ... ok
+2026-10-05T21:39:10.5508271Z test_schema_error_has_no_success_log (test_task_runner.TaskRunnerTests.test_schema_error_has_no_success_log) ... ok
+2026-10-05T21:39:10.5669353Z test_session_changes_stop_before_observe (test_task_runner.TaskRunnerTests.test_session_changes_stop_before_observe) ... ok
+2026-10-05T21:39:10.5800406Z test_stale_policy_result_is_rejected (test_task_runner.TaskRunnerTests.test_stale_policy_result_is_rejected) ... ok
+2026-10-05T21:39:10.5936982Z test_stop_condition_wins_over_success (test_task_runner.TaskRunnerTests.test_stop_condition_wins_over_success) ... ok
+2026-10-05T21:39:10.6327434Z test_three_fresh_observations_and_terminal_noop (test_task_runner.TaskRunnerTests.test_three_fresh_observations_and_terminal_noop) ... ok
+2026-10-05T21:39:10.6484292Z test_wait_can_be_cancelled_without_next_observation (test_task_runner.TaskRunnerTests.test_wait_can_be_cancelled_without_next_observation) ... ok
+2026-10-05T21:39:11.1580979Z test_cli_real_services_and_terminal_restart_without_connection (test_task_cli.TaskCliTests.test_cli_real_services_and_terminal_restart_without_connection) ... Executing <Task finished name='Task-264' coro=<TaskCliTests.test_cli_real_services_and_terminal_restart_without_connection() done, defined at D:\a\sanmou_monorepo\sanmou_monorepo\packages\pioneer-agent\tests\test_task_cli.py:36> result=None created at C:\hostedtoolcache\windows\Python\3.12.10\x64\Lib\asyncio\runners.py:100> took 0.516 seconds
+2026-10-05T21:39:11.1590188Z ok
+2026-10-05T21:39:11.1656061Z test_qa_questions_not_silently_ignored (test_task_cli.TaskCliTests.test_qa_questions_not_silently_ignored) ... ok
+2026-10-05T21:39:11.1718095Z test_task_paths_required_before_any_connection (test_task_cli.TaskCliTests.test_task_paths_required_before_any_connection) ... ok
+2026-10-05T21:39:11.1907344Z test_cr01_cancel_after_checkpoint_before_tool_or_policy (test_task_cr_regressions.TaskCRRegressions.test_cr01_cancel_after_checkpoint_before_tool_or_policy) ... ok
+2026-10-05T21:39:11.2065806Z test_cr01_cancel_wins_when_inflight_tool_or_policy_times_out (test_task_cr_regressions.TaskCRRegressions.test_cr01_cancel_wins_when_inflight_tool_or_policy_times_out) ... ok
+2026-10-05T21:39:11.2869856Z test_cr02_pause_after_checkpoint_before_tool_or_policy (test_task_cr_regressions.TaskCRRegressions.test_cr02_pause_after_checkpoint_before_tool_or_policy) ... ok
+2026-10-05T21:39:11.3007773Z test_cr03_async_cancel_does_not_validate (test_task_cr_regressions.TaskCRRegressions.test_cr03_async_cancel_does_not_validate) ... ok
+2026-10-05T21:39:11.3142018Z test_cr03_connection_failure_does_not_validate (test_task_cr_regressions.TaskCRRegressions.test_cr03_connection_failure_does_not_validate) ... ok
+2026-10-05T21:39:11.3277306Z test_cr03_invalid_return_is_transport_ok_contract_error (test_task_cr_regressions.TaskCRRegressions.test_cr03_invalid_return_is_transport_ok_contract_error) ... ok
+2026-10-05T21:39:11.3556303Z test_cr03_policy_timeout_does_not_validate (test_task_cr_regressions.TaskCRRegressions.test_cr03_policy_timeout_does_not_validate) ... ok
+2026-10-05T21:39:11.3692913Z test_cr03_valid_business_stop_is_separate (test_task_cr_regressions.TaskCRRegressions.test_cr03_valid_business_stop_is_separate) ... ok
+2026-10-05T21:39:11.3707908Z 
+2026-10-05T21:39:11.3708383Z ----------------------------------------------------------------------
+2026-10-05T21:39:11.3709024Z Ran 72 tests in 17.173s
+2026-10-05T21:39:11.3709320Z 
+2026-10-05T21:39:11.3709475Z OK
