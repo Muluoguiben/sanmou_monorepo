@@ -9,6 +9,7 @@
 - owner 绑定 store 对象、当前 PID 和活动 lifetime；显式借用的同一 owner 也只能附着一个 TaskRunner，不能让两个 runner 共享 token 并发执行。释放/旧 owner、错误 run/task、非整数或过时 revision 一律失败且不写 checkpoint。正常保存 revision 严格加一。终态不能转回非终态。
 - 保存先校验完整内层 RunState，再写唯一临时文件、flush/fsync、原子 replace；Linux 再 fsync 父目录。锁绑定 sidecar，而不是被 replace 的 checkpoint inode。临时文件不是恢复来源，崩溃残留不会被自动提升为 checkpoint。
 - sidecar 永远不被本实现 unlink 或 replace，进程退出由内核释放锁。维护者不能通过删除活动 sidecar“修复”争锁。
+- owner 的 load/save/bind/release 通过本地 lifecycle 锁序列化。close 的作废标记可重复，但只有一次序列化 release 能清除 store owner 和释放 OS 锁；延迟的旧 close 不能清除/解锁后继 owner。活动 runner 必须 cancel 并等待返回，不能直接提前释放 owner。
 
 ## 存储格式与兼容
 
@@ -23,6 +24,7 @@
 - runner 复用必须重新 acquire/load。自身上次保存的预算 checkpoint 未变时继续原 ledger，不重设 deadline；另一 owner 已推进非终态时拒绝复用，要求构造新的 runner 与新 ledger 以恢复最新持久化预算。另一 owner 已结束时只返回最新终态，零工具调用。
 - 本实现不管理调用方在构造直接 runner 之前已打开、或 owned lifetime 之外继续使用的外部 MCP client。
 - `CheckpointConflict` 是独立失败，不走普通 `_finish()`。runner 在 persistence/ownership 失败后停止 settlement/save 重试，保留最后成功落盘的保守 reservation。CLI 返回 `blocked/checkpoint_conflict`，不改赢家状态。
+- MCP cleanup 不能覆盖或吞掉 body 的 primary failure/cancellation。CLI 在原有总 timeout 内保留 primary，cleanup 错误作为 exception cause 和 class-only `transport_cleanup` trace；原 CancelledError/CheckpointConflict 继续传播到对应安全出口。deadline 仍由外层 `asyncio.timeout` 转换，cleanup 结束前不释放 ownership。
 - 恢复沿用现有预算算法，不退还崩溃前 reservations，不重置时限；决策前仍经 session check 与新 observe，旧观察和执行权限不可继承。
 
 ## 支持范围与安全边界

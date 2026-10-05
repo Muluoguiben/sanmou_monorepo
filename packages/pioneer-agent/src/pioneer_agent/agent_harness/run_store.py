@@ -5,7 +5,7 @@ import json
 import os
 from pathlib import Path
 from typing import Protocol
-from threading import Lock
+from threading import Lock, RLock
 from uuid import uuid4
 
 from pioneer_agent.agent_harness._checkpoint_lock import LocalLock
@@ -34,6 +34,8 @@ class RunOwnership:
         self._identity = None
         self._prior_owner = None
         self._runner = None
+        self._mutex = RLock()
+        self._released = False
 
     def __enter__(self):
         self.check()
@@ -43,23 +45,40 @@ class RunOwnership:
         self.close()
 
     def check(self):
-        if not self.active or self.pid != os.getpid() or self.store._owner is not self:
+        if self._released or not self.active or self.pid != os.getpid() or self.store._owner is not self:
             raise CheckpointConflict("inactive checkpoint owner")
 
     def close(self):
-        if self.active:
-            self.active = False
-            if self.pid == os.getpid():
-                self.store._owner = None
-                self._release()
+        if self.pid != os.getpid():
+            return  # Never unlock the parent's inherited flock after fork.
+        with self._mutex:
+            if self._released:
+                return
+            if self.store._owner is not self:
+                raise CheckpointConflict("cannot release a foreign checkpoint owner")
+            if self._runner is not None and getattr(self._runner, "_active", False):
+                raise RuntimeError("cannot release an active runner; cancel and await it")
+            # This serialized transition revokes authorization before teardown;
+            # check() consults it even before the public active flag is updated.
+            self._released = True
+            self.store._owner = None
+            self._release()
+        self.active = False
 
     def bind_runner(self, runner):
         self.check()
-        if self._runner is not None and self._runner is not runner:
-            raise CheckpointConflict("checkpoint owner already bound to a runner")
-        self._runner = runner
+        with self._mutex:
+            self.check()
+            if self._runner is not None and self._runner is not runner:
+                raise CheckpointConflict("checkpoint owner already bound to a runner")
+            self._runner = runner
 
     def load(self) -> RunState | None:
+        self.check()
+        with self._mutex:
+            return self._load_owned()
+
+    def _load_owned(self) -> RunState | None:
         self.check()
         state, revision, prior_owner = self.store._read()
         if self._loaded and (revision, prior_owner) != (self.revision, self._prior_owner):
@@ -84,6 +103,11 @@ class _ConditionalStore:
             return owner.load()
 
     def save(self, state: RunState, *, owner: RunOwnership, expected_revision: int):
+        owner.check()
+        with owner._mutex:
+            return self._save_owned(state, owner=owner, expected_revision=expected_revision)
+
+    def _save_owned(self, state: RunState, *, owner: RunOwnership, expected_revision: int):
         owner.check()
         if owner.store is not self or not owner._loaded:
             raise CheckpointConflict("checkpoint must be loaded by its owner")

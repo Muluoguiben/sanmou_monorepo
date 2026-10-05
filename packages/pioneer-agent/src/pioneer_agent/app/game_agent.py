@@ -8,6 +8,7 @@ import json
 import math
 import os
 import time
+from contextlib import asynccontextmanager
 from datetime import UTC, datetime
 from pathlib import Path
 import sys
@@ -178,7 +179,7 @@ async def _run_owned_task(args, *, store, ownership, game_client=None):
         # The total budget starts before connection, includes waits and cleanup.
         # StdioMcpClient also retains its independent bounded cleanup contract.
         async with asyncio.timeout(budget.remaining_seconds()):
-            async with client:
+            async with _task_client_lifetime(client, runner):
                 result = await runner.run(resume=args.resume_task)
     except CheckpointConflict:
         raise
@@ -196,6 +197,37 @@ async def _run_owned_task(args, *, store, ownership, game_client=None):
         # fails. Report that separate failure explicitly, never silently pass.
         return {**runner.state.model_dump(mode="json"), "transport_lifecycle_error": reason}
     return result.model_dump(mode="json")
+
+
+@asynccontextmanager
+async def _task_client_lifetime(client, runner):
+    """Cleanup cannot suppress/replace a body failure, especially cancel/CAS.
+
+    Keep this inside the existing timeout so deadline cancellation retains the
+    standard asyncio.timeout conversion after client cleanup has completed.
+    """
+    primary = None
+    try:
+        async with client:
+            try:
+                yield
+            except BaseException as exc:
+                primary = exc
+                raise
+    except BaseException as cleanup:
+        if primary is not None and cleanup is not primary:
+            primary.add_note(f"task_cleanup_error:{type(cleanup).__name__}")
+            try:
+                runner._emit("transport_cleanup", transport="error",
+                    error_type=type(cleanup).__name__,
+                    metadata={"primary_error_type": type(primary).__name__})
+            except Exception as trace_error:
+                primary.add_note(f"cleanup_trace_error:{type(trace_error).__name__}")
+            raise primary from cleanup
+        raise
+    if primary is not None:
+        # A managed client returning True must not swallow task cancellation/CAS.
+        raise primary
 
 
 def main(argv: list[str] | None = None) -> int:

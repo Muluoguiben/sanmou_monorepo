@@ -2,13 +2,17 @@
 import json
 import asyncio
 import multiprocessing
+import inspect
+import hashlib
+import sys
+import threading
 from datetime import timedelta
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
 from unittest.mock import patch
 
-from pioneer_agent.agent_harness.run_store import JsonRunStore, CheckpointConflict
+from pioneer_agent.agent_harness.run_store import JsonRunStore, MemoryRunStore, RunOwnership, CheckpointConflict
 from pioneer_agent.agent_harness._checkpoint_lock import LocalLock, UnsupportedCheckpointBackend
 from pioneer_agent.agent_harness.task_contracts import RunState, PolicyDecision
 from pioneer_agent.agent_harness.task_policy import FakeDecisionPolicy
@@ -72,6 +76,52 @@ def _crash_child(path, boundary, pipe):
 
 
 class CheckpointOwnershipTests(unittest.TestCase):
+    def test_concurrent_old_close_cannot_release_successor(self):
+        lines, start = inspect.getsourcelines(RunOwnership.close)
+        cut = next(start + i for i, line in enumerate(lines) if "self.active = False" in line)
+        with TemporaryDirectory() as tmp:
+            for store in (MemoryRunStore(), JsonRunStore(Path(tmp) / "run.json")):
+                with self.subTest(store=type(store).__name__):
+                    old = store.acquire()
+                    old.load()
+                    parked, resume = threading.Event(), threading.Event()
+                    errors = []
+                    def trace(frame, event, arg):
+                        if frame.f_code is RunOwnership.close.__code__ and event == "line" and frame.f_lineno == cut:
+                            parked.set()
+                            if not resume.wait(5):
+                                raise RuntimeError("test rendezvous timeout")
+                        return trace
+                    def delayed():
+                        sys.settrace(trace)
+                        try:
+                            old.close()
+                        except BaseException as exc:
+                            errors.append(type(exc).__name__)
+                        finally:
+                            sys.settrace(None)
+                    worker = threading.Thread(target=delayed)
+                    worker.start()
+                    successor = None
+                    try:
+                        self.assertTrue(parked.wait(5))
+                        old.close()
+                        successor = store.acquire()
+                        successor.load()
+                        resume.set()
+                        worker.join(5)
+                        self.assertFalse(worker.is_alive())
+                        self.assertEqual(errors, [])
+                        successor.check()
+                        with self.assertRaises(CheckpointConflict):
+                            store.acquire()
+                    finally:
+                        resume.set()
+                        worker.join(5)
+                        if successor:
+                            successor.close()
+                        old.close()
+
     def test_exclusive_owner_revision_and_released_owner(self):
         with TemporaryDirectory() as tmp:
             path = Path(tmp) / "run.json"
@@ -263,6 +313,58 @@ class CheckpointOwnershipTests(unittest.TestCase):
 
 
 class RunnerOwnershipTests(unittest.IsolatedAsyncioTestCase):
+    async def test_primary_cancel_and_conflict_survive_cleanup_failure(self):
+        for primary in ("cancel", "conflict"):
+            with self.subTest(primary=primary), TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                args = test_task_cli.TaskCliTests().args(root)
+                original = JsonRunStore.save
+                saves = []
+                def save(store, state, **kwargs):
+                    saves.append(state.pending_call)
+                    if primary == "conflict" and state.pending_call == "session_status":
+                        raise CheckpointConflict("synthetic conflict")
+                    return original(store, state, **kwargs)
+                class Client(test_task_cli.ManagedSequence):
+                    async def call_tool(self, *args):
+                        raise asyncio.CancelledError()
+                    async def __aexit__(self, kind, error, traceback):
+                        self.primary = error
+                        raise RuntimeError("synthetic cleanup")
+                client = Client()
+                with patch.object(JsonRunStore, "save", save):
+                    if primary == "cancel":
+                        with self.assertRaises(asyncio.CancelledError) as caught:
+                            await game_agent._run_task(args, game_client=client)
+                        self.assertIsInstance(caught.exception.__cause__, RuntimeError)
+                    else:
+                        result = await game_agent._run_task(args, game_client=client)
+                        self.assertEqual(result["reason"], "checkpoint_conflict")
+                        self.assertEqual(saves, [None, None, "session_status"])
+                self.assertIsInstance(client.primary, asyncio.CancelledError if primary == "cancel" else CheckpointConflict)
+                with JsonRunStore(args.run_state_path).acquire() as owner:
+                    self.assertEqual(owner.load().status, "cancelled" if primary == "cancel" else "running")
+                traces = [json.loads(line) for line in args.run_trace_path.read_text().splitlines()]
+                cleanup = next(row for row in traces if row["event"] == "transport_cleanup")
+                self.assertEqual(cleanup["error_type"], "RuntimeError")
+                primary_name = type(client.primary).__name__
+                self.assertEqual(cleanup["metadata"]["primary_error_type"], {
+                    "type": "string", "length": len(primary_name),
+                    "sha256": hashlib.sha256(primary_name.encode()).hexdigest(),
+                })
+
+    async def test_cleanup_preservation_keeps_timeout_conversion(self):
+        class Trace:
+            def _emit(self, *args, **kwargs):
+                pass
+        class Client(test_task_cli.ManagedSequence):
+            async def __aexit__(self, *args):
+                raise RuntimeError("cleanup")
+        with self.assertRaises(TimeoutError):
+            async with asyncio.timeout(0.01):
+                async with game_agent._task_client_lifetime(Client(), Trace()):
+                    await asyncio.Event().wait()
+
     async def test_borrowed_owner_cannot_bind_two_runners(self):
         with TemporaryDirectory() as tmp:
             store = JsonRunStore(Path(tmp) / "run.json")
