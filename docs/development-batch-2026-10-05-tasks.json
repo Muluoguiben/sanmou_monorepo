@@ -6,16 +6,25 @@
   "a0_contract_commit": "5269a1a5d09bddcf268d180a3f016f323c27cb95",
   "a0_verification": "Commit object verified by coordinator; A reports 5 focused tests passed. Not an independent final approval.",
   "model": "gpt-6-astra",
-  "status": "dispatched",
-  "status_note": "Launch snapshot verified through wait_threads/read_thread; no implementation is approved or integrated yet. Read each thread for current progress.",
+  "status": "rework_requested",
+  "status_note": "CR01-CR03 require A repairs. Initial author deliveries and independent REQUEST_CHANGES are recorded; no implementation is approved or integrated yet.",
+  "master_integration_authorization": {
+    "granted_by": "user",
+    "date": "2026-10-05",
+    "user_statement": "cr 通过后，可以合入master",
+    "target": "origin/master",
+    "coordinator_only": true,
+    "condition": "Independent CR APPROVE on the exact repaired combined source, followed by coordinator verification and no unreviewed source changes",
+    "status": "waiting_for_cr_approval"
+  },
   "scope": "read-only multi-step harness and offline QA quality baseline",
   "execution_authority": "none",
   "live_model_calls_authorized_in_batch": false,
   "live_game_input_authorized_in_batch": false,
   "tasks": [
-    {"id":"A","title":"Harness A — 任务运行时与接口冻结","branch":"codex/harness-a-runtime-20261005","thread_id":"01a10c00-3644-74b2-814b-b063f3444d42","client_thread_id":"client-new-thread:0af5c048-ab3a-4117-9f30-c3d93c4b6fb1","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/9027/sanmou_monorepo","status":"in_progress","depends_on":[],"code_commit":null,"report_commit":null},
-    {"id":"B","title":"Harness B — 上下文预算与统一追踪","branch":"codex/harness-b-context-budget-20261005","thread_id":"01a10c00-c914-73f0-ac5d-28d952d54ff9","client_thread_id":"client-new-thread:dfe96faa-d2b9-45b3-8e25-83c628bf2b40","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/059a/sanmou_monorepo","status":"in_progress_on_frozen_a0","depends_on":["A0_contract"],"code_commit":null,"report_commit":null},
-    {"id":"C","title":"QA C — 可复现质量基线与评分器","branch":"codex/harness-c-qa-eval-20261005","thread_id":"01a10c00-ef29-78a0-8894-ac2585839654","client_thread_id":"client-new-thread:140fa4b7-9f63-42cc-ac89-5a20ce4fa942","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/a8b3/sanmou_monorepo","status":"in_progress","depends_on":[],"code_commit":null,"report_commit":null},
-    {"id":"CR","title":"Harness CR — 独立对抗性审查与集成验收","branch":"codex/harness-cr-20261005","thread_id":"01a10c01-7f8f-7e91-8e26-d7338bce830a","client_thread_id":"client-new-thread:0d117b0a-7fb6-4cb7-aa63-a49e2f4dcfc4","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/6155/sanmou_monorepo","status":"contract_review_waiting_for_final_deliveries","depends_on":["A_delivery","B_delivery","C_delivery"],"review_plan_commit":"d6b95066c14c0bb861ede3296025fe7e3d51e69f","reviewed_combination":null,"report_commit":null}
+    {"id":"A","title":"Harness A — 任务运行时与接口冻结","branch":"codex/harness-a-runtime-20261005","thread_id":"01a10c00-3644-74b2-814b-b063f3444d42","client_thread_id":"client-new-thread:0af5c048-ab3a-4117-9f30-c3d93c4b6fb1","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/9027/sanmou_monorepo","status":"repairing_cr01_cr02_cr03","depends_on":[],"code_commit":"c902d19601e2b16a4529fa874445fdef3814f5a8","report_commit":"262a18343d2966b22b4fb3a4d35e18a9fa2e8544"},
+    {"id":"B","title":"Harness B — 上下文预算与统一追踪","branch":"codex/harness-b-context-budget-20261005","thread_id":"01a10c00-c914-73f0-ac5d-28d952d54ff9","client_thread_id":"client-new-thread:dfe96faa-d2b9-45b3-8e25-83c628bf2b40","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/059a/sanmou_monorepo","status":"delivered_and_wired_by_a","depends_on":["A0_contract"],"code_commit":"9430107ab24a740e751321ca41a98c0e282e2954","report_commit":"68611c7938911593bc317e9c5bd9e1ec87ce88ba"},
+    {"id":"C","title":"QA C — 可复现质量基线与评分器","branch":"codex/harness-c-qa-eval-20261005","thread_id":"01a10c00-ef29-78a0-8894-ac2585839654","client_thread_id":"client-new-thread:140fa4b7-9f63-42cc-ac89-5a20ce4fa942","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/a8b3/sanmou_monorepo","status":"delivered_locally_publication_blocked","depends_on":[],"code_commit":"621cf8baf324902b9e77d056b3b03f288f07baf6","report_commit":"bd062f3548026b74798dd8f7178cbb615fe7e9cf"},
+    {"id":"CR","title":"Harness CR — 独立对抗性审查与集成验收","branch":"codex/harness-cr-20261005","thread_id":"01a10c01-7f8f-7e91-8e26-d7338bce830a","client_thread_id":"client-new-thread:0d117b0a-7fb6-4cb7-aa63-a49e2f4dcfc4","host_id":"local","worktree":"C:/Users/Lan/.codex/worktrees/6155/sanmou_monorepo","status":"request_changes_waiting_for_a_repair","depends_on":["A_delivery","B_delivery","C_delivery"],"review_plan_commit":"d6b95066c14c0bb861ede3296025fe7e3d51e69f","reviewed_combination":"9189bb10ffb97453730802f7634f68ee1d34bfd4","reviewed_tree":"c49f53a86172c8edaf105a972c135e43459ad4e3","report_commit":"2f9b61402f7baf959e380b3b32a524e1c8856946","findings":["CR01","CR02","CR03"]}
   ]
 }

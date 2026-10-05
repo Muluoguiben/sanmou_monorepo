@@ -38,6 +38,8 @@ Decision: 用户确认后续以 harness 工程为主线；RAG 对象为本仓 `p
 
 派发后进展：A0 契约已提交 `5269a1a5d09bddcf268d180a3f016f323c27cb95`（A 报告 focused 5/5，协调者核实 commit 存在）；B 已读取固定 A0 开始实现。C 报告新增 14 项离线测试通过、全包回归进行中。CR 计划为 `d6b95066c14c0bb861ede3296025fe7e3d51e69f`，已收到有效会话 ID/A0 交接继续工作。以上均非最终交付或 APPROVE，主分支尚未合入本批实现。
 
+最新复审/授权：A/B/C 初次实现已交付（C 仅本地，feature push 被自动审批拒绝）；统一 CR 报告 `2f9b61402f7baf959e380b3b32a524e1c8856946` 对组合 `9189bb10ffb97453730802f7634f68ee1d34bfd4` 判定 REQUEST_CHANGES。CR01 取消误归超时失败、CR02 暂停后仍 dispatch、CR03 policy trace 错误分层均由 A 修复；独立 4 条负例失败，常规 Pioneer 924 pass/2 skip、QA 343、common 2 的绿灯不能替代修复。协调者已重新派发 A 修复和 CR 复验。用户已明确允许 CR 通过后合入 master；当前尚不满足，待新 SHA/报告、独立 APPROVE 与协调复核后再合并。
+
 ## Completed hardening batch — 2026-09-08
 
 Six GPT-6 Astra worktree tasks completed self-tests and committed reports.
