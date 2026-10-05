@@ -1,0 +1,119 @@
+{
+  "source_sha": "dea73e062b70eb6d34108de87f843e40794d97df",
+  "source_tree": "4a754c7c1a329357df6ea25842d8219ffa76d3a0",
+  "runs": [
+    {
+      "name": "test_independent_lifecycle",
+      "probe_sha256": "a24b3a8487d6a9160ce30fa5ee3c8fe44c3a5c8efc7974f0721885e0e9265f03",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_independent_lifecycle.py"
+      ],
+      "cwd": "/tmp/h06a-dea73e0-exact/packages/pioneer-agent/tests",
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "../src:../../sanmou-common/src:.:/tmp/sanmou-cr-20261005-6155-deps"
+      },
+      "exit_code": 0,
+      "log_sha256": "862e946dbdc163111e917250f13b1c98b7c0a2616009d55137c416499a7ffbe7"
+    },
+    {
+      "name": "test_primary_conflict",
+      "probe_sha256": "94bd73d5384dad452a615a729e331b0dc783e59fd6c6c3c49fa44572ffa6bf4b",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_primary_conflict.py"
+      ],
+      "cwd": "/tmp/h06a-dea73e0-exact/packages/pioneer-agent/tests",
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "../src:../../sanmou-common/src:.:/tmp/sanmou-cr-20261005-6155-deps"
+      },
+      "exit_code": 0,
+      "log_sha256": "868e909c67dfdddb4c3a10a61c5cee86cc594d7ca37ddd16534dfe55c694867c"
+    },
+    {
+      "name": "test_concurrent_close",
+      "probe_sha256": "918f4bad345192a011420b5ba3961d17cd7713d99b8dc633343b982130ea76fd",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_concurrent_close.py"
+      ],
+      "cwd": "/tmp/h06a-dea73e0-exact/packages/pioneer-agent/tests",
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "../src:../../sanmou-common/src:.:/tmp/sanmou-cr-20261005-6155-deps"
+      },
+      "exit_code": 0,
+      "log_sha256": "01e1d65cf121505e21b3e0514007daa281dc109c8e99d0c4d9ef8a1d86c8554c"
+    },
+    {
+      "name": "test_independent_store",
+      "probe_sha256": "00cfdfad3028c8b4c0c7aea3d003123a61c3fcf0bc5fe9f3c0ed5a1b4e1b7970",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_independent_store.py"
+      ],
+      "cwd": "/tmp/h06a-dea73e0-exact/packages/pioneer-agent/tests",
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "../src:../../sanmou-common/src:.:/tmp/sanmou-cr-20261005-6155-deps"
+      },
+      "exit_code": 0,
+      "log_sha256": "9cf0bb3369ecc044dd15929bc12551699de84eda00f4b9112fc2950ec26594ce"
+    },
+    {
+      "name": "test_independent_crash",
+      "probe_sha256": "a3433855c536eb5d5133491e95ebe07073fb61bab6def0b7490b23cd5f8f6e2c",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_independent_crash.py"
+      ],
+      "cwd": "/tmp/h06a-dea73e0-exact/packages/pioneer-agent/tests",
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "../src:../../sanmou-common/src:.:/tmp/sanmou-cr-20261005-6155-deps"
+      },
+      "exit_code": 0,
+      "log_sha256": "93dfd2d888c92a08af925850d14266b816c4f5013a6f0fca00ed0963f5596952"
+    },
+    {
+      "name": "test_independent_cli_race",
+      "probe_sha256": "1d8f8abf4734afea3e4242bacb5b289fd29a35ba0bab7cf632527ca81c91c232",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_independent_cli_race.py"
+      ],
+      "cwd": "/tmp/h06a-dea73e0-exact/packages/pioneer-agent/tests",
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "../src:../../sanmou-common/src:.:/tmp/sanmou-cr-20261005-6155-deps"
+      },
+      "exit_code": 0,
+      "log_sha256": "de048033ea1a10205334171b702e02aa90a71211602a3421ce2a94b8e1364e69"
+    },
+    {
+      "name": "test_shared_external_owner",
+      "probe_sha256": "11d283e32aedc3940c84dfac8cc0426e6f95bf76a4a31d8055aff3a2ebeeb8da",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_shared_external_owner.py"
+      ],
+      "cwd": "/tmp/h06a-dea73e0-exact/packages/pioneer-agent/tests",
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "../src:../../sanmou-common/src:.:/tmp/sanmou-cr-20261005-6155-deps"
+      },
+      "exit_code": 0,
+      "log_sha256": "243bc0137d433ed431e1facf4e31b09854f5c8e992c606f54782af4d06e2d908"
+    }
+  ],
+  "shared_owner_note": "Frozen b4ad6c probe accepts construct-time CheckpointConflict. Check its printed runner/call/charge counts; no probe edits are made."
+}

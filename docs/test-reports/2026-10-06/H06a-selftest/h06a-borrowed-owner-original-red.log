@@ -1,0 +1,26 @@
+test_borrowed_owner_cannot_bind_two_runners (test_checkpoint_ownership.RunnerOwnershipTests.test_borrowed_owner_cannot_bind_two_runners) ... FAIL
+
+======================================================================
+FAIL: test_borrowed_owner_cannot_bind_two_runners (test_checkpoint_ownership.RunnerOwnershipTests.test_borrowed_owner_cannot_bind_two_runners)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/unittest/async_case.py", line 90, in _callTestMethod
+    if self._callMaybeAsync(method) is not None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/async_case.py", line 112, in _callMaybeAsync
+    return self._asyncioRunner.run(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_checkpoint_ownership.py", line 279, in test_borrowed_owner_cannot_bind_two_runners
+    with self.assertRaisesRegex(CheckpointConflict, "already bound"):
+AssertionError: CheckpointConflict not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.021s
+
+FAILED (failures=1)

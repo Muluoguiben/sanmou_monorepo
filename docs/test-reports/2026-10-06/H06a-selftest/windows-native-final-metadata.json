@@ -1,0 +1,32 @@
+{
+  "source_sha": "9f7cb1f4a7a22e51abdec17627ca95be6e8144b4",
+  "source_tree": "c70cbac5ce27a61d36ad7891ad78a45801a195e0",
+  "runtime": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "executable": "C:\\Users\\Lan\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "cwd": "C:\\Users\\Lan\\.codex\\worktrees\\qa-evidence-q03-20261005\\sanmou_monorepo",
+  "argv": [
+    "-B",
+    "-m",
+    "unittest",
+    "test_checkpoint_lock_native",
+    "-v"
+  ],
+  "env": {
+    "PYTHONPATH": "packages/pioneer-agent/tests"
+  },
+  "result": "3 tests OK 0 skips",
+  "coverage": "native stdlib lock primitive only; full Windows MCP runner CLI awaits CI",
+  "files": [
+    {
+      "Path": "C:\\Users\\Lan\\.codex\\worktrees\\qa-evidence-q03-20261005\\sanmou_monorepo\\packages\\pioneer-agent\\src\\pioneer_agent\\agent_harness\\_checkpoint_lock.py",
+      "Hash": "80603A20C15C049402ACF248CC2848A8FEF3F661351911D1294A86186B72D52C"
+    },
+    {
+      "Path": "C:\\Users\\Lan\\.codex\\worktrees\\qa-evidence-q03-20261005\\sanmou_monorepo\\packages\\pioneer-agent\\tests\\test_checkpoint_lock_native.py",
+      "Hash": "B1DF8DDB223E3C7510EB941D9C6DCDDDB9A47E115ADADA397BBAFC7FF5804263"
+    }
+  ]
+}

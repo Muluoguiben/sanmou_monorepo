@@ -1,0 +1,15 @@
+test_backend_rejects_without_checkpoint_or_sidecar (test_checkpoint_ownership.CheckpointOwnershipTests.test_backend_rejects_without_checkpoint_or_sidecar) ... ok
+test_exclusive_owner_revision_and_released_owner (test_checkpoint_ownership.CheckpointOwnershipTests.test_exclusive_owner_revision_and_released_owner) ... ok
+test_identity_and_legacy_migration (test_checkpoint_ownership.CheckpointOwnershipTests.test_identity_and_legacy_migration) ... ok
+test_malformed_unknown_and_strict_revision_never_rewritten (test_checkpoint_ownership.CheckpointOwnershipTests.test_malformed_unknown_and_strict_revision_never_rewritten) ... ok
+test_real_process_cli_race_loser_zero_connect_calls_writes (test_checkpoint_ownership.CheckpointOwnershipTests.test_real_process_cli_race_loser_zero_connect_calls_writes) ... ok
+test_real_process_crash_boundaries_preserve_budget_and_reobserve (test_checkpoint_ownership.CheckpointOwnershipTests.test_real_process_crash_boundaries_preserve_budget_and_reobserve) ... ok
+test_replaced_checkpoint_does_not_replace_lock (test_checkpoint_ownership.CheckpointOwnershipTests.test_replaced_checkpoint_does_not_replace_lock) ... ok
+test_conflict_never_settles_or_retries_finish (test_checkpoint_ownership.RunnerOwnershipTests.test_conflict_never_settles_or_retries_finish) ... ok
+test_failed_construction_and_explicit_close_release (test_checkpoint_ownership.RunnerOwnershipTests.test_failed_construction_and_explicit_close_release) ... ok
+test_independent_runner_refused_then_pause_releases (test_checkpoint_ownership.RunnerOwnershipTests.test_independent_runner_refused_then_pause_releases) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 13.160s
+
+OK

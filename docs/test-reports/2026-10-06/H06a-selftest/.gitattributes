@@ -1,0 +1,5 @@
+# Preserve raw evidence bytes and their recorded SHA256 across checkouts.
+* -text
+# Logs retain terminal padding; JSON retains native Windows CRLF bytes.
+*.log -whitespace
+*.json whitespace=cr-at-eol
