@@ -258,3 +258,34 @@ class ReferentResolutionTests(unittest.TestCase):
         agent.ask('甲将')
         agent.history[0]={'role':'user','content':'甲将'}
         self.assert_clarifies(agent,client)
+
+    def test_quoted_excluded_or_extra_clause_mentions_do_not_seed(self):
+        for question in ('不要介绍甲将，请只说明城建。','甲将只是引文中的名字，本题只问城建。',
+                '请介绍甲将','甲将初始武力多少，另外讲城建','甲将与城建','引用：甲将'):
+            with self.subTest(question=question):
+                agent,client=agent_with()
+                reply=agent.ask(question)
+                self.assertEqual(reply.answer,'事实 [hero-a]')
+                client.generate.assert_called_once()  # Existing single-turn route is preserved.
+                self.assert_clarifies(agent,client)
+
+    def test_seed_domain_and_kind_require_real_hero_metadata(self):
+        for domain in ('term','hero'):
+            payload=hero().model_dump()
+            payload.update(domain=domain,entry_kind='generic_rule')
+            item=KnowledgeEntry.model_validate(payload)
+            self.assertIsInstance(item.structured_data,HeroStaticProfile)
+            agent,client=agent_with([item,background()])
+            self.assertEqual(agent.ask('甲将').answer,'事实 [hero-a]')
+            self.assert_clarifies(agent,client)
+
+    def test_anchored_seed_grammar_preserves_bare_alias_and_attribute_positive_cases(self):
+        for question in ('甲将','甲将？',' 甲公。 ','甲公的初始武力是多少？','甲将基础武力多少'):
+            with self.subTest(question=question):
+                agent,client=agent_with([hero(notes=['背景说明']),background()])
+                agent.ask(question)
+                client.reset_mock()
+                reply=agent.ask('他初始武力多少')
+                self.assertEqual(reply.referent_resolution,'resolved')
+                client.generate.assert_called_once()
+                client.generate_json.assert_not_called()

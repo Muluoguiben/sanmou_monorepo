@@ -3,6 +3,9 @@
 Grammar: 他/该武将 + optional 的 + 初始/基础/满级/成长 +
 武力/智力/统率/先攻 + optional 是 + 多少 + optional ？/?/。.
 Outer whitespace is ignored; internal whitespace/extra clauses are not accepted.
+Eligible explicit seeds use a bare canonical/unique alias or that same bounded
+attribute suffix, with the same optional terminal punctuation. Mentions in any
+other question do not establish state; ordinary answering is unchanged.
 History is an integrity binding, never a source of facts. In-memory catalog only.
 """
 from __future__ import annotations
@@ -13,13 +16,14 @@ import json
 import re
 from typing import TYPE_CHECKING
 
-from qa_agent.knowledge.models import HeroStaticProfile, KnowledgeEntry
+from qa_agent.knowledge.models import Domain, EntryKind, HeroStaticProfile, KnowledgeEntry
 from qa_agent.retrieval.retriever import RetrievedChunk
 
 if TYPE_CHECKING:
     from qa_agent.chat.agent import ChatTurn
 
 FOLLOWUP = re.compile(r'(?:他|该武将)的?(初始|基础|满级|成长)(武力|智力|统率|先攻)是?多少[？?。]?')
+_SEED_SUFFIX = r'(?:的?(?:初始|基础|满级|成长)(?:武力|智力|统率|先攻)是?多少)?[？?。]?'
 CLARIFY_REFERENT_ANSWER = '请明确指出要查询的武将名称。'
 _REFUSAL_MARKERS = ('未收录', '无法回答', '无法确定', '不知道', '不清楚', '没有证据', '请明确', '引用未能')
 
@@ -46,7 +50,10 @@ def _history_fingerprint(history: list[ChatTurn]) -> str | None:
 
 
 def hero_identity(entry: KnowledgeEntry) -> str | None:
-    return entry.structured_data.name if isinstance(entry.structured_data,HeroStaticProfile) else None
+    if (entry.domain == Domain.HERO and entry.entry_kind == EntryKind.HERO_PROFILE
+            and isinstance(entry.structured_data,HeroStaticProfile)):
+        return entry.structured_data.name
+    return None
 
 
 def _explicit_hero(question: str, entries: list[KnowledgeEntry]) -> str | None:
@@ -59,7 +66,7 @@ def _explicit_hero(question: str, entries: list[KnowledgeEntry]) -> str | None:
                     aliases.setdefault(alias,set()).add(name)
     found=set()
     for alias,names in aliases.items():
-        if alias in question:
+        if re.fullmatch(re.escape(alias)+_SEED_SUFFIX,question.strip()):
             if len(names) != 1:
                 return None
             found.update(names)
