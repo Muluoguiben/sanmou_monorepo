@@ -1,8 +1,8 @@
 """Bounded scalar checks, not semantic entailment or source truth ranking.
 
-Only an exact single-entity attribute question is assessed. Unconditional
-static profile slots are comparable; free-form constraints are deliberately
-not interpreted. Missing slots say nothing about facts or notes.
+Only an exact single-entity attribute question is assessed. Notes and explicit
+prose scope cues prevent comparison: empty constraints do not certify scope.
+Missing slots say nothing about facts or notes.
 """
 from __future__ import annotations
 
@@ -23,17 +23,28 @@ class FieldEvidence(BaseModel):
     value: int | float | str | None
 
 
+class ApplicabilityEvidence(BaseModel):
+    entry_id: str
+    source_ref: str
+    qualifiers: list[str]
+
+
 class EvidenceAssessment(BaseModel):
     status: Literal['supported', 'partial', 'conflicting', 'not_found']
     check_scope: Literal['scalar_profile', 'unassessed', 'empty']
     decision: Literal['generate', 'disclose_conflict', 'refuse']
     reasons: list[str] = Field(default_factory=list)
     fields: list[FieldEvidence] = Field(default_factory=list)
+    applicability: list[ApplicabilityEvidence] = Field(default_factory=list)
 
     def prompt_block(self) -> str:
-        return '\n'.join(
+        fields = '\n'.join(
             f'[{f.entry_id}] {f.entity} {f.field_path}={f.value} (source={f.source_ref})'
             for f in self.fields if f.value is not None)
+        qualifiers = '\n'.join(
+            f'[{a.entry_id}] 适用性未评估：' + '；'.join(a.qualifiers) + f' (source={a.source_ref})'
+            for a in self.applicability)
+        return '\n'.join(part for part in (fields, qualifiers) if part)
 
     def conflict_answer(self) -> str:
         return '本轮同一实体同一字段的来源取值不一致，无法确定唯一答案：\n' + self.prompt_block()
@@ -66,17 +77,28 @@ def assess_evidence(question: str, chunks: list[RetrievedChunk], *,
                 and c.entry.structured_data.name == entity]
     if not relevant:
         return EvidenceAssessment(**partial, reasons=['entity_not_in_evidence'])
-    if any(e.constraints for e in relevant):
-        return EvidenceAssessment(**partial, reasons=['unassessed_applicability'])
     fields = []
+    applicability = []
     for entry in relevant:
         attrs = getattr(entry.structured_data, root)
         fields.append(FieldEvidence(entry_id=entry.id, source_ref=entry.source_ref,
             entity=entity, field_path=f'{root}.{leaf}', value=getattr(attrs, leaf) if attrs is not None else None))
+        # Notes are arbitrary prose, so none are certified as scope-free. Facts
+        # with explicit bounded scope cues are likewise not silently discarded.
+        # This recognizer is deliberately not general season/NLU inference.
+        scoped_facts = [fact for fact in entry.facts if re.search(
+            r'(?i)(?:\bS\s*\d+\b|赛季|版本|仅|适用|条件|期间|如果|当.+时|前提|阶段)', fact)]
+        qualifiers = list(dict.fromkeys([*entry.constraints, *entry.structured_data.notes, *scoped_facts]))
+        if qualifiers:
+            applicability.append(ApplicabilityEvidence(entry_id=entry.id,
+                source_ref=entry.source_ref, qualifiers=qualifiers))
+    missing = any(f.value is None for f in fields)
+    if applicability:
+        return EvidenceAssessment(**partial, reasons=['unassessed_applicability'] +
+            (['missing_structured_value'] if missing else []), fields=fields, applicability=applicability)
     values = {f.value for f in fields if f.value is not None}
     if len(values) > 1:
         return EvidenceAssessment(status='conflicting', check_scope='scalar_profile',
             decision='disclose_conflict', reasons=['scalar_disagreement'], fields=fields)
-    missing = any(f.value is None for f in fields)
     return EvidenceAssessment(status='partial' if missing else 'supported', check_scope='scalar_profile',
         decision='generate', reasons=['missing_structured_value'] if missing else ['scalar_present'], fields=fields)

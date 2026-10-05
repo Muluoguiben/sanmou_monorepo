@@ -145,3 +145,26 @@ class EvidenceAssessmentTests(unittest.TestCase):
         b.structured_data.name='乙将'
         result=assess_evidence('甲公初始武力是多少',chunks(a,b))
         self.assertEqual(result.check_scope,'unassessed')
+
+    def test_prose_scope_is_not_certified_by_empty_constraints(self):
+        for location in ('notes', 'facts'):
+            a,b=hero(),hero('hero-b',1)
+            for item,season in ((a,'S1'),(b,'S2')):
+                if location == 'notes':
+                    item.structured_data.notes=[f'本记录数值仅适用于 {season}']
+                else:
+                    item.facts=[f'本记录数值仅适用于 {season}']
+            result=assess_evidence('甲将初始武力是多少',chunks(a,b))
+            self.assertEqual(result.check_scope,'unassessed')
+            self.assertEqual(result.status,'partial')
+            self.assertEqual(result.decision,'generate')
+            self.assertEqual(len(result.applicability),2)
+            self.assertIn('S1',result.prompt_block())
+            self.assertIn('S2',result.prompt_block())
+
+    def test_uninterpreted_notes_are_conservatively_unassessed(self):
+        item=hero(value=None)
+        item.structured_data.notes=['自由文本并未经过适用范围判定']
+        result=assess_evidence('甲将初始武力是多少',chunks(item))
+        self.assertEqual(result.check_scope,'unassessed')
+        self.assertIn('missing_structured_value',result.reasons)
