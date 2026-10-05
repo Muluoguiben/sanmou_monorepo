@@ -1,0 +1,33 @@
+{'status': 'failed', 'reason': 'tool_failure', 'new_physical_calls': [], 'before_reservations': 5, 'after_reservations': 7}
+test_fresh_harness_control_succeeds (__main__.SequentialHarnessReuse.test_fresh_harness_control_succeeds) ... Executing <Task finished name='Task-2' coro=<SequentialHarnessReuse.test_fresh_harness_control_succeeds() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_sequential_harness_reuse.py:46> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.438 seconds
+ok
+test_fresh_runner_same_harness_can_resume_or_reject_without_damage (__main__.SequentialHarnessReuse.test_fresh_runner_same_harness_can_resume_or_reject_without_damage) ... Executing <Task finished name='Task-7' coro=<SequentialHarnessReuse.test_fresh_runner_same_harness_can_resume_or_reject_without_damage() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_sequential_harness_reuse.py:17> exception=AssertionError("'failed' != 'succeeded'\n- failed\n+ succeeded\n : retired wrapper corrupts resumed run") created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.209 seconds
+FAIL
+
+======================================================================
+FAIL: test_fresh_runner_same_harness_can_resume_or_reject_without_damage (__main__.SequentialHarnessReuse.test_fresh_runner_same_harness_can_resume_or_reject_without_damage)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/unittest/async_case.py", line 90, in _callTestMethod
+    if self._callMaybeAsync(method) is not None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/async_case.py", line 112, in _callMaybeAsync
+    return self._asyncioRunner.run(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_sequential_harness_reuse.py", line 43, in test_fresh_runner_same_harness_can_resume_or_reject_without_damage
+    self.assertEqual(result.status, "succeeded", "retired wrapper corrupts resumed run")
+AssertionError: 'failed' != 'succeeded'
+- failed
++ succeeded
+ : retired wrapper corrupts resumed run
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.725s
+
+FAILED (failures=1)
