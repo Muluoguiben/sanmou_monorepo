@@ -1,0 +1,30 @@
+test_checkpoint_ownership (unittest.loader._FailedTest.test_checkpoint_ownership) ... ERROR
+
+======================================================================
+ERROR: test_checkpoint_ownership (unittest.loader._FailedTest.test_checkpoint_ownership)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_checkpoint_ownership
+Traceback (most recent call last):
+  File "C:\Users\Lan\AppData\Local\Programs\Python\Python314\Lib\unittest\loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+  File "C:\Users\Lan\.codex\worktrees\qa-evidence-q03-20261005\sanmou_monorepo\packages\pioneer-agent\tests\test_checkpoint_ownership.py", line 7, in <module>
+    from pioneer_agent.agent_harness.run_store import JsonRunStore, CheckpointConflict
+  File "C:\Users\Lan\.codex\worktrees\qa-evidence-q03-20261005\sanmou_monorepo\packages\pioneer-agent\src\pioneer_agent\agent_harness\__init__.py", line 3, in <module>
+    from pioneer_agent.agent_harness.contracts import InProcessMcpClient, McpClient
+  File "C:\Users\Lan\.codex\worktrees\qa-evidence-q03-20261005\sanmou_monorepo\packages\pioneer-agent\src\pioneer_agent\agent_harness\contracts.py", line 8, in <module>
+    from pioneer_agent.mcp_server.contracts import (
+    ...<3 lines>...
+    )
+  File "C:\Users\Lan\.codex\worktrees\qa-evidence-q03-20261005\sanmou_monorepo\packages\pioneer-agent\src\pioneer_agent\mcp_server\__init__.py", line 3, in <module>
+    from .contracts import (
+    ...<7 lines>...
+    )
+  File "C:\Users\Lan\.codex\worktrees\qa-evidence-q03-20261005\sanmou_monorepo\packages\pioneer-agent\src\pioneer_agent\mcp_server\contracts.py", line 8, in <module>
+    from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+ModuleNotFoundError: No module named 'pydantic'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

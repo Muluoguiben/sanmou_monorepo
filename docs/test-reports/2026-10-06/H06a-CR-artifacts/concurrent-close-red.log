@@ -1,0 +1,26 @@
+test_delayed_concurrent_old_close_does_not_invalidate_successor (__main__.ConcurrentClose.test_delayed_concurrent_old_close_does_not_invalidate_successor) ... {'backend': 'memory', 'successor_intact': False, 'third_acquired': True, 'delayed_errors': []}
+
+  test_delayed_concurrent_old_close_does_not_invalidate_successor (__main__.ConcurrentClose.test_delayed_concurrent_old_close_does_not_invalidate_successor) (kind='memory') ... FAIL
+{'backend': 'json', 'successor_intact': False, 'third_acquired': False, 'delayed_errors': []}
+  test_delayed_concurrent_old_close_does_not_invalidate_successor (__main__.ConcurrentClose.test_delayed_concurrent_old_close_does_not_invalidate_successor) (kind='json') ... FAIL
+
+======================================================================
+FAIL: test_delayed_concurrent_old_close_does_not_invalidate_successor (__main__.ConcurrentClose.test_delayed_concurrent_old_close_does_not_invalidate_successor) (kind='memory')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_concurrent_close.py", line 60, in test_delayed_concurrent_old_close_does_not_invalidate_successor
+    self.assertTrue(intact, "old delayed close invalidated current successor")
+AssertionError: False is not true : old delayed close invalidated current successor
+
+======================================================================
+FAIL: test_delayed_concurrent_old_close_does_not_invalidate_successor (__main__.ConcurrentClose.test_delayed_concurrent_old_close_does_not_invalidate_successor) (kind='json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_concurrent_close.py", line 60, in test_delayed_concurrent_old_close_does_not_invalidate_successor
+    self.assertTrue(intact, "old delayed close invalidated current successor")
+AssertionError: False is not true : old delayed close invalidated current successor
+
+----------------------------------------------------------------------
+Ran 1 test in 0.024s
+
+FAILED (failures=2)

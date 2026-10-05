@@ -1,0 +1,4 @@
+# Evidence bytes must match their recorded hashes on every checkout.
+* -text
+*.log -whitespace
+*.json whitespace=cr-at-eol

@@ -1,0 +1,7 @@
+test_cli_cancel_survives_lock_cleanup_error (__main__.OwnerCleanupPrimary.test_cli_cancel_survives_lock_cleanup_error) ... Executing <Task finished name='Task-2' coro=<OwnerCleanupPrimary.test_cli_cancel_survives_lock_cleanup_error() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_owner_cleanup_primary.py:14> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.100 seconds
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.129s
+
+OK

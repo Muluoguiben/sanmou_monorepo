@@ -1,0 +1,12 @@
+test_async_cancellation_survives_cleanup_failure (__main__.IndependentLifecycle.test_async_cancellation_survives_cleanup_failure) ... ok
+test_delayed_close_cannot_release_successor (__main__.IndependentLifecycle.test_delayed_close_cannot_release_successor) ... ok
+test_same_instance_concurrent_entry_retains_owner (__main__.IndependentLifecycle.test_same_instance_concurrent_entry_retains_owner) ... ok
+test_cli_real_services_and_terminal_restart_without_connection (test_task_cli.TaskCliTests.test_cli_real_services_and_terminal_restart_without_connection) ... Executing <Task finished name='Task-19' coro=<TaskCliTests.test_cli_real_services_and_terminal_restart_without_connection() done, defined at /tmp/h06a-dea73e0-exact/packages/pioneer-agent/tests/test_task_cli.py:36> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.564 seconds
+ok
+test_qa_questions_not_silently_ignored (test_task_cli.TaskCliTests.test_qa_questions_not_silently_ignored) ... ok
+test_task_paths_required_before_any_connection (test_task_cli.TaskCliTests.test_task_paths_required_before_any_connection) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.920s
+
+OK

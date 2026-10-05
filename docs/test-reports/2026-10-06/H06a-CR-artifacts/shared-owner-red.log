@@ -1,0 +1,29 @@
+test_shared_owner_does_not_lose_duplicate_dispatch_accounting (__main__.SharedExternalOwner.test_shared_owner_does_not_lose_duplicate_dispatch_accounting) ... Executing <Task finished name='Task-3' coro=<TaskRunner.run() done, defined at /tmp/h06a-cr-44ad8aa/source/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_runner.py:178> result=RunState(vers...cutable=False) created at /usr/lib/python3.12/asyncio/tasks.py:695> took 0.143 seconds
+Executing <Task finished name='Task-4' coro=<TaskRunner.run() done, defined at /tmp/h06a-cr-44ad8aa/source/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_runner.py:178> result=RunState(vers...cutable=False) created at /usr/lib/python3.12/asyncio/tasks.py:695> took 0.135 seconds
+{'runners': 2, 'actual_calls': 8, 'charged_calls': 4, 'results': ['paused', 'paused']}
+FAIL
+
+======================================================================
+FAIL: test_shared_owner_does_not_lose_duplicate_dispatch_accounting (__main__.SharedExternalOwner.test_shared_owner_does_not_lose_duplicate_dispatch_accounting)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/unittest/async_case.py", line 90, in _callTestMethod
+    if self._callMaybeAsync(method) is not None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/async_case.py", line 112, in _callMaybeAsync
+    return self._asyncioRunner.run(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_shared_external_owner.py", line 45, in test_shared_owner_does_not_lose_duplicate_dispatch_accounting
+    self.assertGreaterEqual(charged, actual, "shared owner loses already dispatched call charges")
+AssertionError: 4 not greater than or equal to 8 : shared owner loses already dispatched call charges
+
+----------------------------------------------------------------------
+Ran 1 test in 0.349s
+
+FAILED (failures=1)

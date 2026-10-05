@@ -1,0 +1,8 @@
+test_delayed_concurrent_old_close_does_not_invalidate_successor (__main__.ConcurrentClose.test_delayed_concurrent_old_close_does_not_invalidate_successor) ... {'backend': 'memory', 'successor_intact': True, 'third_acquired': False, 'delayed_errors': []}
+{'backend': 'json', 'successor_intact': True, 'third_acquired': False, 'delayed_errors': []}
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
+
+OK

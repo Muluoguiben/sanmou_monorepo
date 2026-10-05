@@ -1,0 +1,123 @@
+{
+  "source_sha": "6b7b5caad1cbffc59692d3fe9df6a3b3d88dfa9c",
+  "source_tree": "bb2636242bad0e796ded0b43d6fc1a5142a839f9",
+  "root": "/tmp/h06a-6b7b5ca-exact",
+  "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+  "executable": "/usr/bin/python3",
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "os": "posix",
+  "driver_sha256": "6f0e76f26078bf21c92a20b463c4c694ce973e53122c3e96ce5e81afea3cfef8",
+  "driver_argv": [
+    "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-selftest/run_snapshot.py",
+    "/tmp/h06a-6b7b5ca-exact",
+    "/mnt/c/Users/Lan/AppData/Local/Temp/h06a-6b7b5ca-tree.txt",
+    "/tmp/h06a-6b7b5ca-final-evidence",
+    "/tmp/sanmou-cr-20261005-6155-deps",
+    "6b7b5caad1cbffc59692d3fe9df6a3b3d88dfa9c",
+    "bb2636242bad0e796ded0b43d6fc1a5142a839f9"
+  ],
+  "dependencies": {
+    "pydantic": "2.12.5",
+    "mcp": "1.29.1",
+    "anyio": "4.13.0",
+    "PyYAML": "6.0.1"
+  },
+  "before": {
+    "blobs_verified": 1639,
+    "mismatches": []
+  },
+  "runs": [
+    {
+      "name": "focused",
+      "cwd": "/tmp/h06a-6b7b5ca-exact/packages/pioneer-agent",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "test_checkpoint_lock_native",
+        "test_checkpoint_ownership",
+        "test_task_runner",
+        "test_task_cli",
+        "test_task_cr_regressions",
+        "-v"
+      ],
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "src:../sanmou-common/src:tests:/tmp/sanmou-cr-20261005-6155-deps"
+      },
+      "exit_code": 0,
+      "log_sha256": "c3667c09965c37d1cf7af080e2ef16554f22d3bf3e95367628d2e04ac0f610ab"
+    },
+    {
+      "name": "pioneer-full",
+      "cwd": "/tmp/h06a-6b7b5ca-exact/packages/pioneer-agent",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "src:../sanmou-common/src:tests:/tmp/sanmou-cr-20261005-6155-deps"
+      },
+      "exit_code": 0,
+      "log_sha256": "1aa2f39d4d49564741b89adeb516eb719b9f7ce9d58021c5313dd6f5d1b77012"
+    },
+    {
+      "name": "qa-full",
+      "cwd": "/tmp/h06a-6b7b5ca-exact/packages/qa-agent",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "src:../sanmou-common/src:tests:/tmp/sanmou-cr-20261005-6155-deps"
+      },
+      "exit_code": 0,
+      "log_sha256": "1a924df8189df7524984a53ebfedfd32280472631932332451c72a598e1d6c75"
+    },
+    {
+      "name": "common-full",
+      "cwd": "/tmp/h06a-6b7b5ca-exact/packages/sanmou-common",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "src:../sanmou-common/src:tests:/tmp/sanmou-cr-20261005-6155-deps"
+      },
+      "exit_code": 0,
+      "log_sha256": "7e9438edca6c90738e3f3983beb89cc2e47795af9815f716b6f41a24af9285f3"
+    }
+  ],
+  "after": {
+    "blobs_verified": 1639,
+    "mismatches": []
+  }
+}

@@ -1,0 +1,8 @@
+test_native_hardlink_checkpoint_refused (test_checkpoint_lock_native.NativeLockTests.test_native_hardlink_checkpoint_refused) ... ok
+test_native_independent_paths_and_same_process_contention (test_checkpoint_lock_native.NativeLockTests.test_native_independent_paths_and_same_process_contention) ... ok
+test_native_process_exit_releases_stable_lock (test_checkpoint_lock_native.NativeLockTests.test_native_process_exit_releases_stable_lock) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.254s
+
+OK

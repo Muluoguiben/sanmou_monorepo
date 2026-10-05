@@ -1,0 +1,71 @@
+test_cli_cancel_survives_lock_cleanup_error (__main__.OwnerCleanupPrimary.test_cli_cancel_survives_lock_cleanup_error) ... ERROR
+
+======================================================================
+ERROR: test_cli_cancel_survives_lock_cleanup_error (__main__.OwnerCleanupPrimary.test_cli_cancel_survives_lock_cleanup_error)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/h06a-cr-dea73e0/source/packages/pioneer-agent/src/pioneer_agent/app/game_agent.py", line 140, in _run_task
+    return await _run_owned_task(args, store=store, ownership=ownership, game_client=game_client)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/h06a-cr-dea73e0/source/packages/pioneer-agent/src/pioneer_agent/app/game_agent.py", line 183, in _run_owned_task
+    result = await runner.run(resume=args.resume_task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/h06a-cr-dea73e0/source/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_runner.py", line 185, in run
+    return await self._run_owned(resume=resume)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/h06a-cr-dea73e0/source/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_runner.py", line 211, in _run_owned
+    result = await self._step()
+             ^^^^^^^^^^^^^^^^^^
+  File "/tmp/h06a-cr-dea73e0/source/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_runner.py", line 256, in _step
+    result = await self.harness.run_decision_window()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/h06a-cr-dea73e0/source/packages/pioneer-agent/src/pioneer_agent/agent_harness/loop.py", line 101, in run_decision_window
+    status = await self._call_game(SESSION_STATUS_TOOL, {})
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/h06a-cr-dea73e0/source/packages/pioneer-agent/src/pioneer_agent/agent_harness/loop.py", line 303, in _call_game
+    payload = await self._call(self.game_client, name, arguments)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/h06a-cr-dea73e0/source/packages/pioneer-agent/src/pioneer_agent/agent_harness/loop.py", line 322, in _call
+    raw_result = await client.call_tool(name, arguments)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/h06a-cr-dea73e0/source/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_runner.py", line 393, in call_tool
+    raw = await asyncio.wait_for(r._client.call_tool(name, arguments), r.budget.remaining_seconds())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_owner_cleanup_primary.py", line 23, in call_tool
+    raise asyncio.CancelledError("primary cancellation")
+asyncio.exceptions.CancelledError: primary cancellation
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/unittest/async_case.py", line 90, in _callTestMethod
+    if self._callMaybeAsync(method) is not None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/async_case.py", line 112, in _callMaybeAsync
+    return self._asyncioRunner.run(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_owner_cleanup_primary.py", line 26, in test_cli_cancel_survives_lock_cleanup_error
+    await game_agent._run_task(fixtures.TaskCliTests().args(root), game_client=Client())
+  File "/tmp/h06a-cr-dea73e0/source/packages/pioneer-agent/src/pioneer_agent/app/game_agent.py", line 139, in _run_task
+    with store.acquire() as ownership:
+  File "/tmp/h06a-cr-dea73e0/source/packages/pioneer-agent/src/pioneer_agent/agent_harness/run_store.py", line 45, in __exit__
+    self.close()
+  File "/tmp/h06a-cr-dea73e0/source/packages/pioneer-agent/src/pioneer_agent/agent_harness/run_store.py", line 65, in close
+    self._release()
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_owner_cleanup_primary.py", line 20, in failing_close
+    raise OSError("secondary lock cleanup failure")
+OSError: secondary lock cleanup failure
+
+----------------------------------------------------------------------
+Ran 1 test in 0.110s
+
+FAILED (errors=1)

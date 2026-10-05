@@ -3,13 +3,16 @@ from __future__ import annotations
 
 import asyncio
 from datetime import datetime
+from threading import RLock
 from typing import Any
 
 from pydantic import ValidationError
 
 from pioneer_agent.agent_harness.contracts import structured_content, validate_game_response
 from pioneer_agent.agent_harness.loop import RecommendationHarness, DecisionWindowStatus
-from pioneer_agent.agent_harness.run_store import RunStore
+from pioneer_agent.agent_harness.run_store import (
+    CheckpointConflict, RunOwnership, RunStore, _checkpoint_cleanup, _close_preserving_primary,
+)
 from pioneer_agent.agent_harness.task_contracts import (
     BudgetExceeded, BudgetRequest, ContextBuilder, ContextOverflow, ContextRequest,
     DecisionPolicy, PolicyDecision, RunBudget, RunState, RunTrace, TaskSpec,
@@ -22,56 +25,151 @@ from pioneer_agent.mcp_server.contracts import (
 from pioneer_agent.runbook.models import ConditionStatus, evaluate_all, evaluate_any
 
 
+_CLIENT_BINDING_LOCK = RLock()
+
+
 class _Interrupt(BaseException):
     def __init__(self, status: str, reason: str):
         self.status, self.reason = status, reason
 
 
 class TaskRunner:
-    """Single owner only. No checkpoint lease or game effect ledger is claimed."""
+    """Own one checkpoint through run/pause/cancel; no device lease or effect ledger.
+
+    Construction acquires ownership. Call close() if never running the instance.
+    Reuse reacquires and reloads; caller-owned MCP lifetime is not managed here.
+    """
 
     def __init__(self, *, task: TaskSpec, run_id: str, harness: RecommendationHarness,
                  store: RunStore, policy: DecisionPolicy, context_builder: ContextBuilder,
-                 budget: RunBudget, trace: RunTrace):
+                 budget: RunBudget, trace: RunTrace, ownership: RunOwnership | None = None):
         if harness.qa_client is not None:
             raise ValueError("task v1 uses Game-only windows; legacy QA windows are separate")
+        with _CLIENT_BINDING_LOCK:
+            if isinstance(harness.game_client, _TaskClient):
+                raise CheckpointConflict("harness already bound to a runner")
+            self._client = harness.game_client
         self.harness, self.store, self.policy = harness, store, policy
         self.context_builder, self.budget, self.trace = context_builder, budget, trace
-        saved = store.load()
-        if saved and (saved.run_id != run_id or saved.task != task):
-            raise ValueError("checkpoint identity/task mismatch")
-        self.state = saved or RunState(run_id=run_id, task=task.model_copy(deep=True))
-        if saved and saved.budget_state:
-            budget.restore(saved.budget_state)
+        self._task, self._run_id = task.model_copy(deep=True), run_id
+        self._external_owner = ownership is not None
+        self._ownership = ownership or store.acquire()
+        self._checkpoint_failed = False
+        self._checkpoint_error: BaseException | None = None
+        self._budget_checkpoint = None
+        try:
+            if self._ownership.store is not store:
+                raise CheckpointConflict("foreign checkpoint owner")
+            self._ownership.bind_runner(self)
+            self._reload()
+        except BaseException as primary:
+            _close_preserving_primary(self.close, primary)
+            raise
         self._cancelled = False
         self._paused = False
         self._active = False
         self._wake = asyncio.Event()
         self._responses: dict[str, Any] = {}
         self._current_step_id = f"{run_id}:{self.state.completed_steps + 1}"
-        self._client = harness.game_client
-        harness.game_client = _TaskClient(self)
+        self._task_client = _TaskClient(self)
+        try:
+            self._install_client()
+        except BaseException as primary:
+            _close_preserving_primary(self.close, primary)
+            raise
+
+    def _check_client_binding(self):
+        with _CLIENT_BINDING_LOCK:
+            if self.harness.game_client is not self._client and self.harness.game_client is not self._task_client:
+                raise CheckpointConflict("harness client belongs to another lifetime")
+
+    def _install_client(self, *, activate=False):
+        with _CLIENT_BINDING_LOCK:
+            if activate and self._active:
+                raise RuntimeError("runner already active")
+            self._check_client_binding()
+            self.harness.game_client = self._task_client
+            if activate:
+                self._active = True
+
+    def _reload(self):
+        saved = self._ownership.load()
+        if saved and (saved.run_id != self._run_id or saved.task != self._task):
+            raise ValueError("checkpoint identity/task mismatch")
+        self.state = saved or RunState(run_id=self._run_id, task=self._task.model_copy(deep=True))
+        if saved and saved.budget_state:
+            if self._budget_checkpoint is None:
+                self.budget.restore(saved.budget_state)
+            elif saved.budget_state != self._budget_checkpoint and saved.status not in TERMINAL_STATUSES:
+                # Budget ports deliberately cannot restore over a spent ledger.
+                # Another owner progressed: require a fresh runner/ledger, never
+                # silently reuse the old counters or grant a fresh deadline.
+                raise CheckpointConflict("checkpoint advanced; construct a fresh runner and budget")
+            self._budget_checkpoint = saved.budget_state.copy()
+
+    def close(self):
+        with _CLIENT_BINDING_LOCK:
+            if getattr(self, "_active", False):
+                raise RuntimeError("cannot close an active runner; cancel and await it")
+            wrapper = getattr(self, "_task_client", None)
+            if wrapper is not None and self.harness.game_client is wrapper:
+                self.harness.game_client = self._client
+            if not self._external_owner:
+                self._ownership.close()
+
+    def _ensure_ownership(self):
+        if self._checkpoint_failed:
+            raise CheckpointConflict("runner checkpoint failed; construct a new runner")
+        if not self._ownership.active and not self._external_owner:
+            self._ownership = self.store.acquire()
+            try:
+                self._ownership.bind_runner(self)
+                self._reload()
+            except BaseException as primary:
+                _close_preserving_primary(self.close, primary)
+                raise
+        self._ownership.check()
 
     @property
     def step_id(self) -> str:
         return self._current_step_id
 
     def cancel(self) -> None:
+        if not self._active:
+            self._ensure_ownership()
         if self.state.status not in TERMINAL_STATUSES:
             self._cancelled = True
             self.budget.cancel()
             self._wake.set()
             if not self._active:
-                self._finish("cancelled", "cancel_requested")
+                with _checkpoint_cleanup(self.close):
+                    self._finish("cancelled", "cancel_requested")
+        elif not self._active:
+            self.close()
 
     def pause(self) -> None:
+        if not self._active:
+            self._ensure_ownership()
         if self.state.status not in TERMINAL_STATUSES:
             self._paused = True
             self._wake.set()
             if not self._active:
-                self._finish("paused", "pause_requested")
+                with _checkpoint_cleanup(self.close):
+                    self._finish("paused", "pause_requested")
+        elif not self._active:
+            self.close()
 
     def _check(self) -> None:
+        if self._checkpoint_failed:
+            if self._checkpoint_error is not None:
+                raise self._checkpoint_error
+            raise CheckpointConflict("runner checkpoint failed")
+        try:
+            self._ownership.check()
+        except CheckpointConflict as exc:
+            self._checkpoint_failed = True
+            self._checkpoint_error = exc
+            raise
         if self._cancelled:
             raise _Interrupt("cancelled", "cancel_requested")
         if self._paused:
@@ -89,8 +187,18 @@ class TaskRunner:
         return _Interrupt("failed", "run_deadline")
 
     def _save(self) -> None:
+        if self._checkpoint_failed:
+            if self._checkpoint_error is not None:
+                raise self._checkpoint_error
+            raise CheckpointConflict("checkpoint persistence already failed")
         self.state.budget_state = self.budget.snapshot()
-        self.store.save(self.state)
+        try:
+            self._ownership.save(self.state)
+            self._budget_checkpoint = self.state.model_copy(deep=True).budget_state
+        except BaseException as exc:
+            self._checkpoint_failed = True
+            self._checkpoint_error = exc
+            raise
 
     def _emit(self, event: str, **kwargs) -> None:
         self.trace.emit(TraceEvent(run_id=self.state.run_id, step_id=self.step_id,
@@ -107,11 +215,21 @@ class TaskRunner:
     async def run(self, *, resume: bool = False) -> RunState:
         if self._active:
             raise RuntimeError("runner already active")
+        with _checkpoint_cleanup(self.close):
+            self._check_client_binding()
+            self._ensure_ownership()
+            self._install_client(activate=True)
+            try:
+                return await self._run_owned(resume=resume)
+            finally:
+                with _CLIENT_BINDING_LOCK:
+                    self._active = False
+
+    async def _run_owned(self, *, resume: bool = False) -> RunState:
         if self.state.status in TERMINAL_STATUSES:
             return self.state.model_copy(deep=True)
         if self.state.status == "paused" and not resume:
             return self.state.model_copy(deep=True)
-        self._active = True
         if resume:
             self._paused = False
             self._wake.clear()
@@ -130,8 +248,9 @@ class TaskRunner:
                     self._save()
                     result = await self._step()
                 finally:
-                    self.budget.settle(step_reservation, Usage(), outcome=self.state.status)
-                    self._save()
+                    if not self._checkpoint_failed:
+                        self.budget.settle(step_reservation, Usage(), outcome=self.state.status)
+                        self._save()
                 if result is not None:
                     return self.state.model_copy(deep=True)
                 if self.state.task.wait_seconds:
@@ -147,6 +266,8 @@ class TaskRunner:
                     self._check()
                     self.state.status = "running"
             return self._finish("failed", "step_limit")
+        except CheckpointConflict:
+            raise
         except _Interrupt as exc:
             return self._finish(exc.status, exc.reason)
         except BudgetExceeded:
@@ -161,10 +282,10 @@ class TaskRunner:
             interruption = self._timeout_interrupt()
             return self._finish(interruption.status, interruption.reason)
         except Exception as exc:
+            if self._checkpoint_failed:
+                raise
             # Store only class, never exception text that may contain provider data.
             return self._finish("failed", f"runtime_error:{type(exc).__name__}")
-        finally:
-            self._active = False
 
     async def _step(self) -> RunState | None:
         self._responses.clear()
@@ -223,15 +344,16 @@ class TaskRunner:
             policy_error = type(exc).__name__
             raise
         finally:
-            if reservation is not None:
-                self.budget.settle(reservation, Usage(), outcome=outcome)
-            self.state.pending_call = None
-            self._save()
-            self._emit("policy", name=self.policy.policy_id, attempt_id=reservation,
-                observation_id=observation.observation_id, evidence_refs=refs,
-                transport=transport, contract=contract, business=outcome,
-                error_type=policy_error, usage=Usage() if reservation else None,
-                metadata={"policy_id": self.policy.policy_id, "task_version": 1})
+            if not self._checkpoint_failed:
+                if reservation is not None:
+                    self.budget.settle(reservation, Usage(), outcome=outcome)
+                self.state.pending_call = None
+                self._save()
+                self._emit("policy", name=self.policy.policy_id, attempt_id=reservation,
+                    observation_id=observation.observation_id, evidence_refs=refs,
+                    transport=transport, contract=contract, business=outcome,
+                    error_type=policy_error, usage=Usage() if reservation else None,
+                    metadata={"policy_id": self.policy.policy_id, "task_version": 1})
         self._check()
         stale = self.harness.stop_policy.observation_stop(captured_at=observation.captured_at,
             now=self.harness.clock(), unknown_domains=observation.unknown_domains)
@@ -353,7 +475,8 @@ class _TaskClient:
             event.error_type = type(exc).__name__
             raise
         finally:
-            r.budget.settle(reservation, Usage(), outcome=event.business or event.error_type or "error")
-            r.state.pending_call = None
-            r._save()
-            r.trace.emit(event)
+            if not r._checkpoint_failed:
+                r.budget.settle(reservation, Usage(), outcome=event.business or event.error_type or "error")
+                r.state.pending_call = None
+                r._save()
+                r.trace.emit(event)

@@ -1,0 +1,78 @@
+test_native_hardlink_checkpoint_refused (test_checkpoint_lock_native.NativeLockTests.test_native_hardlink_checkpoint_refused) ... ok
+test_native_independent_paths_and_same_process_contention (test_checkpoint_lock_native.NativeLockTests.test_native_independent_paths_and_same_process_contention) ... ok
+test_native_process_exit_releases_stable_lock (test_checkpoint_lock_native.NativeLockTests.test_native_process_exit_releases_stable_lock) ... ok
+test_backend_rejects_without_checkpoint_or_sidecar (test_checkpoint_ownership.CheckpointOwnershipTests.test_backend_rejects_without_checkpoint_or_sidecar) ... ok
+test_concurrent_old_close_cannot_release_successor (test_checkpoint_ownership.CheckpointOwnershipTests.test_concurrent_old_close_cannot_release_successor) ... ok
+test_exclusive_owner_revision_and_released_owner (test_checkpoint_ownership.CheckpointOwnershipTests.test_exclusive_owner_revision_and_released_owner) ... ok
+test_foreign_store_owner_cannot_save (test_checkpoint_ownership.CheckpointOwnershipTests.test_foreign_store_owner_cannot_save) ... ok
+test_identity_and_legacy_migration (test_checkpoint_ownership.CheckpointOwnershipTests.test_identity_and_legacy_migration) ... ok
+test_malformed_unknown_and_strict_revision_never_rewritten (test_checkpoint_ownership.CheckpointOwnershipTests.test_malformed_unknown_and_strict_revision_never_rewritten) ... ok
+test_real_process_cli_race_loser_zero_connect_calls_writes (test_checkpoint_ownership.CheckpointOwnershipTests.test_real_process_cli_race_loser_zero_connect_calls_writes) ... ok
+test_real_process_crash_boundaries_preserve_budget_and_reobserve (test_checkpoint_ownership.CheckpointOwnershipTests.test_real_process_crash_boundaries_preserve_budget_and_reobserve) ... ok
+test_replaced_checkpoint_does_not_replace_lock (test_checkpoint_ownership.CheckpointOwnershipTests.test_replaced_checkpoint_does_not_replace_lock) ... ok
+test_stale_revision_owner_and_terminal_rollback_preserve_winner (test_checkpoint_ownership.CheckpointOwnershipTests.test_stale_revision_owner_and_terminal_rollback_preserve_winner) ... ok
+test_active_close_cannot_release_inflight_owner (test_checkpoint_ownership.RunnerOwnershipTests.test_active_close_cannot_release_inflight_owner) ... ok
+test_borrowed_owner_cannot_bind_two_runners (test_checkpoint_ownership.RunnerOwnershipTests.test_borrowed_owner_cannot_bind_two_runners) ... Executing <Task finished name='Task-25' coro=<RunnerOwnershipTests.test_borrowed_owner_cannot_bind_two_runners() done, defined at /tmp/h06a-96575c3-exact/packages/pioneer-agent/tests/test_checkpoint_ownership.py:481> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.408 seconds
+ok
+test_cleanup_preservation_keeps_timeout_conversion (test_checkpoint_ownership.RunnerOwnershipTests.test_cleanup_preservation_keeps_timeout_conversion) ... ok
+test_cli_holds_through_cleanup_and_releases_on_all_exits (test_checkpoint_ownership.RunnerOwnershipTests.test_cli_holds_through_cleanup_and_releases_on_all_exits) ... Executing <Task finished name='Task-36' coro=<RunnerOwnershipTests.test_cli_holds_through_cleanup_and_releases_on_all_exits() done, defined at /tmp/h06a-96575c3-exact/packages/pioneer-agent/tests/test_checkpoint_ownership.py:600> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 2.072 seconds
+ok
+test_cli_primary_survives_owner_cleanup_and_success_exposes_it (test_checkpoint_ownership.RunnerOwnershipTests.test_cli_primary_survives_owner_cleanup_and_success_exposes_it) ... Executing <Task finished name='Task-41' coro=<RunnerOwnershipTests.test_cli_primary_survives_owner_cleanup_and_success_exposes_it() done, defined at /tmp/h06a-96575c3-exact/packages/pioneer-agent/tests/test_checkpoint_ownership.py:316> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.670 seconds
+ok
+test_conflict_never_settles_or_retries_finish (test_checkpoint_ownership.RunnerOwnershipTests.test_conflict_never_settles_or_retries_finish) ... ok
+test_constructor_and_reload_primary_survive_owner_cleanup (test_checkpoint_ownership.RunnerOwnershipTests.test_constructor_and_reload_primary_survive_owner_cleanup) ... Executing <Task finished name='Task-51' coro=<RunnerOwnershipTests.test_constructor_and_reload_primary_survive_owner_cleanup() done, defined at /tmp/h06a-96575c3-exact/packages/pioneer-agent/tests/test_checkpoint_ownership.py:379> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.161 seconds
+ok
+test_direct_cancel_pause_async_and_runtime_release (test_checkpoint_ownership.RunnerOwnershipTests.test_direct_cancel_pause_async_and_runtime_release) ... Executing <Task finished name='Task-56' coro=<RunnerOwnershipTests.test_direct_cancel_pause_async_and_runtime_release() done, defined at /tmp/h06a-96575c3-exact/packages/pioneer-agent/tests/test_checkpoint_ownership.py:577> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.137 seconds
+ok
+test_direct_primary_survives_owner_cleanup_and_success_exposes_it (test_checkpoint_ownership.RunnerOwnershipTests.test_direct_primary_survives_owner_cleanup_and_success_exposes_it) ... Executing <Task finished name='Task-61' coro=<RunnerOwnershipTests.test_direct_primary_survives_owner_cleanup_and_success_exposes_it() done, defined at /tmp/h06a-96575c3-exact/packages/pioneer-agent/tests/test_checkpoint_ownership.py:352> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.489 seconds
+ok
+test_failed_construction_and_explicit_close_release (test_checkpoint_ownership.RunnerOwnershipTests.test_failed_construction_and_explicit_close_release) ... ok
+test_idle_pause_cancel_primary_survive_owner_cleanup (test_checkpoint_ownership.RunnerOwnershipTests.test_idle_pause_cancel_primary_survive_owner_cleanup) ... ok
+test_independent_runner_refused_then_pause_releases (test_checkpoint_ownership.RunnerOwnershipTests.test_independent_runner_refused_then_pause_releases) ... ok
+test_other_owner_progress_requires_fresh_nonterminal_ledger (test_checkpoint_ownership.RunnerOwnershipTests.test_other_owner_progress_requires_fresh_nonterminal_ledger) ... Executing <Task finished name='Task-81' coro=<RunnerOwnershipTests.test_other_owner_progress_requires_fresh_nonterminal_ledger() done, defined at /tmp/h06a-96575c3-exact/packages/pioneer-agent/tests/test_checkpoint_ownership.py:558> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.447 seconds
+ok
+test_primary_cancel_and_conflict_survive_cleanup_failure (test_checkpoint_ownership.RunnerOwnershipTests.test_primary_cancel_and_conflict_survive_cleanup_failure) ... Executing <Task finished name='Task-86' coro=<RunnerOwnershipTests.test_primary_cancel_and_conflict_survive_cleanup_failure() done, defined at /tmp/h06a-96575c3-exact/packages/pioneer-agent/tests/test_checkpoint_ownership.py:429> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.123 seconds
+ok
+test_budget_exhaustion_dispatches_no_extra_tool (test_task_runner.TaskRunnerTests.test_budget_exhaustion_dispatches_no_extra_tool) ... ok
+test_cancel_after_call_prevents_next_call (test_task_runner.TaskRunnerTests.test_cancel_after_call_prevents_next_call) ... ok
+test_cancelled_error_persisted_and_propagated (test_task_runner.TaskRunnerTests.test_cancelled_error_persisted_and_propagated) ... ok
+test_crash_pending_call_reobserves_and_preserves_cursor (test_task_runner.TaskRunnerTests.test_crash_pending_call_reobserves_and_preserves_cursor) ... ok
+test_disallowed_tool_never_dispatched (test_task_runner.TaskRunnerTests.test_disallowed_tool_never_dispatched) ... ok
+test_frozen_development_policy_cases (test_task_runner.TaskRunnerTests.test_frozen_development_policy_cases) ... ok
+test_inactive_or_control_session_rejected (test_task_runner.TaskRunnerTests.test_inactive_or_control_session_rejected) ... ok
+test_missing_field_evidence_never_succeeds (test_task_runner.TaskRunnerTests.test_missing_field_evidence_never_succeeds) ... ok
+test_old_field_metadata_cannot_prove_current_goal (test_task_runner.TaskRunnerTests.test_old_field_metadata_cannot_prove_current_goal) ... ok
+test_pause_after_call_prevents_next_call (test_task_runner.TaskRunnerTests.test_pause_after_call_prevents_next_call) ... ok
+test_pause_and_restart_reobserves_without_repeating_cursor (test_task_runner.TaskRunnerTests.test_pause_and_restart_reobserves_without_repeating_cursor) ... Executing <Task finished name='Task-143' coro=<TaskRunnerTests.test_pause_and_restart_reobserves_without_repeating_cursor() done, defined at /tmp/h06a-96575c3-exact/packages/pioneer-agent/tests/test_task_runner.py:147> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.416 seconds
+ok
+test_policy_cannot_assert_success (test_task_runner.TaskRunnerTests.test_policy_cannot_assert_success) ... ok
+test_policy_context_mutation_cannot_rewrite_goal (test_task_runner.TaskRunnerTests.test_policy_context_mutation_cannot_rewrite_goal) ... ok
+test_real_b_context_overflow_prevents_policy (test_task_runner.TaskRunnerTests.test_real_b_context_overflow_prevents_policy) ... ok
+test_real_b_model_attempt_unknown_usage_and_trace (test_task_runner.TaskRunnerTests.test_real_b_model_attempt_unknown_usage_and_trace) ... ok
+test_real_b_model_budget_stops_before_policy (test_task_runner.TaskRunnerTests.test_real_b_model_budget_stops_before_policy) ... ok
+test_real_b_restore_does_not_reset_deadline (test_task_runner.TaskRunnerTests.test_real_b_restore_does_not_reset_deadline) ... ok
+test_real_b_tool_budget_stops_before_dispatch (test_task_runner.TaskRunnerTests.test_real_b_tool_budget_stops_before_dispatch) ... ok
+test_restart_rejects_old_observation (test_task_runner.TaskRunnerTests.test_restart_rejects_old_observation) ... ok
+test_schema_error_has_no_success_log (test_task_runner.TaskRunnerTests.test_schema_error_has_no_success_log) ... ok
+test_session_changes_stop_before_observe (test_task_runner.TaskRunnerTests.test_session_changes_stop_before_observe) ... ok
+test_stale_policy_result_is_rejected (test_task_runner.TaskRunnerTests.test_stale_policy_result_is_rejected) ... ok
+test_stop_condition_wins_over_success (test_task_runner.TaskRunnerTests.test_stop_condition_wins_over_success) ... ok
+test_three_fresh_observations_and_terminal_noop (test_task_runner.TaskRunnerTests.test_three_fresh_observations_and_terminal_noop) ... ok
+test_wait_can_be_cancelled_without_next_observation (test_task_runner.TaskRunnerTests.test_wait_can_be_cancelled_without_next_observation) ... ok
+test_cli_real_services_and_terminal_restart_without_connection (test_task_cli.TaskCliTests.test_cli_real_services_and_terminal_restart_without_connection) ... Executing <Task finished name='Task-219' coro=<TaskCliTests.test_cli_real_services_and_terminal_restart_without_connection() done, defined at /tmp/h06a-96575c3-exact/packages/pioneer-agent/tests/test_task_cli.py:36> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.768 seconds
+ok
+test_qa_questions_not_silently_ignored (test_task_cli.TaskCliTests.test_qa_questions_not_silently_ignored) ... ok
+test_task_paths_required_before_any_connection (test_task_cli.TaskCliTests.test_task_paths_required_before_any_connection) ... ok
+test_cr01_cancel_after_checkpoint_before_tool_or_policy (test_task_cr_regressions.TaskCRRegressions.test_cr01_cancel_after_checkpoint_before_tool_or_policy) ... ok
+test_cr01_cancel_wins_when_inflight_tool_or_policy_times_out (test_task_cr_regressions.TaskCRRegressions.test_cr01_cancel_wins_when_inflight_tool_or_policy_times_out) ... ok
+test_cr02_pause_after_checkpoint_before_tool_or_policy (test_task_cr_regressions.TaskCRRegressions.test_cr02_pause_after_checkpoint_before_tool_or_policy) ... ok
+test_cr03_async_cancel_does_not_validate (test_task_cr_regressions.TaskCRRegressions.test_cr03_async_cancel_does_not_validate) ... ok
+test_cr03_connection_failure_does_not_validate (test_task_cr_regressions.TaskCRRegressions.test_cr03_connection_failure_does_not_validate) ... ok
+test_cr03_invalid_return_is_transport_ok_contract_error (test_task_cr_regressions.TaskCRRegressions.test_cr03_invalid_return_is_transport_ok_contract_error) ... ok
+test_cr03_policy_timeout_does_not_validate (test_task_cr_regressions.TaskCRRegressions.test_cr03_policy_timeout_does_not_validate) ... ok
+test_cr03_valid_business_stop_is_separate (test_task_cr_regressions.TaskCRRegressions.test_cr03_valid_business_stop_is_separate) ... ok
+
+----------------------------------------------------------------------
+Ran 63 tests in 13.254s
+
+OK

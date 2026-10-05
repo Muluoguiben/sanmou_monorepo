@@ -46,7 +46,7 @@ class TaskCliTests(unittest.IsolatedAsyncioTestCase):
                 second = await game_agent._run_task(self.args(root), game_client=client)
             self.assertEqual(second["status"], "succeeded")
             self.assertEqual(client.entries, 1)
-            state = json.loads((root / "run.json").read_text())
+            state = json.loads((root / "run.json").read_text())["state"]
             self.assertEqual(len(state["budget_state"]["reservations"]), 15)
             traces = [json.loads(line) for line in (root / "trace.jsonl").read_text().splitlines()]
             self.assertEqual(sum(row["event"] == "policy" for row in traces), 3)

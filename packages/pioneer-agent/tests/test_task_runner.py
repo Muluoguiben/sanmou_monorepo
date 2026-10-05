@@ -264,7 +264,9 @@ class TaskRunnerTests(unittest.IsolatedAsyncioTestCase):
         checkpoint = store.load()
         checkpoint.status = "running"
         checkpoint.pending_call = "get_runtime_state"
-        store.save(checkpoint)
+        with store.acquire() as owner:
+            owner.load()
+            owner.save(checkpoint)
         client = SequenceClient(count=1)
         resumed = runner(client, store=store)
         result = await resumed.run()

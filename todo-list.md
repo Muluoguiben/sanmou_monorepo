@@ -1,5 +1,16 @@
 # Todo List
 
+## Active Review continuation — H06a (2026-10-06)
+
+- [x] Q02a final `751df8ee867479b9ad272c9c64ab190f76cd0934` published with matching remote readback; exact CI37352030235 completed/success in all four jobs. Earlier a071176 run37351717604 is cancelled, not accepted as green.
+- [x] Selected bounded harness reliability slice: same-checkpoint single-machine ownership/CAS, legacy migration and offline crash/race tests. [Task and limits](docs/harness-checkpoint-ownership-h06a-2026-10-06.md).
+- [x] Implementation and source-bound self-test delivered as `6b7b5caad1cbffc59692d3fe9df6a3b3d88dfa9c`, report `7425d39ca8224f2a8a00d93d169e529f6e3b3d1a`: focused72, Pioneer968+2existing skips, QA394/common2, original probes and native primitives pass. Author self-tests are not independent approval.
+- [x] Initial `44ad8aa` REQUEST_CHANGES from `270d0a4`/`b4ad6c8` identified CR01 cleanup priority, CR02 concurrent old close and CR03 shared-owner accounting. All original red and intermediate sources remain preserved; final source disposition is below.
+- [x] CR01/02/03 independently closed on `96575c30dea99ab58265052987e79bb4e76c0972` by `26d997bc`; all POSIX/full-package and native-primitive checks green, full Windows H06a CI still required.
+- [x] Supplemental `54d4237` rejected965 for CR04 same-harness stale wrapper; final `6b7b5ca` actually resumes successfully, restores only its own wrapper and preserves successor/third-party replacements. Original supplement/approval reports are unchanged.
+- [x] Independent `5ef9bf8a5cf1e8e4c4745dbd5fdfae1026d6616b` APPROVE closes CR01-04 for exact6b source/POSIX/native primitive: full970(968+2skip), QA394/common2, focused72, probes34(31independent+3duplicates), native1 pass. Coordinator checked79 committed artifact hashes, zero mismatch.
+- [ ] Independent adversarial CR, coordinator combined-source tests, scoped publication and exact-final-SHA CI. Device lease/effect exactly-once/live game remain outside H06a.
+
 ## Active Review continuation — Q02a (2026-10-06)
 
 - [x] Q03a final `e17d937a39944b036e90701fecefb6611b1d88d6` published; local/remote master match. Exact-SHA CI run 37341606212 completed successfully in all four jobs.
@@ -10,7 +21,7 @@
 - [x] Independent recheck `c68cab94a95731c3e05511d9203e8337e956cd3f` APPROVE binds40f46d3; Q02a-CR01/02 closed. Original26/new8/focused71/QA394/cross6 pass, zero skips; 1455 snapshot files match before/after.
 - [x] Coordinator integration `94e1464ba3fcff9b5874868138fa2d9f300fb376` passes QA394, Pioneer932+2 Windows-only skips, common2, focused71/original26/new8; packages match approved source, 25 CR hashes match, v3 output unchanged. [Report](docs/test-reports/2026-10-06/Q02a-integration.md).
 - [x] Final payload audit bound `a071176c799c6e50c42d1d025f8eccf8260e30a0`: 227 objects/16 commits/119 paths, 167 protected paths and 42 original logs preserved; no scoped sensitive blocker. Pushed origin/master and fetched exact matching SHA; packages unchanged.
-- [ ] Exact-final-SHA CI after this documentation-only status successor. Initial payload run 37351717604 was in progress at first read. Full Q02/provider/human-gold quality remain incomplete; H06a checkpoint ownership/CAS is next planning only.
+- [x] Exact-final-SHA CI: `751df8e` run37352030235 completed/success, all four jobs green. Earlier payload run37351717604 completed/cancelled. Bounded Q02a closes; full Q02/provider/human-gold quality remain incomplete.
 
 ## Active Review continuation — Q03a (2026-10-05)
 

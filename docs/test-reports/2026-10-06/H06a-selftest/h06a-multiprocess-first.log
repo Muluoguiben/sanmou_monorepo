@@ -1,0 +1,46 @@
+test_backend_rejects_without_checkpoint_or_sidecar (test_checkpoint_ownership.CheckpointOwnershipTests.test_backend_rejects_without_checkpoint_or_sidecar) ... ok
+test_exclusive_owner_revision_and_released_owner (test_checkpoint_ownership.CheckpointOwnershipTests.test_exclusive_owner_revision_and_released_owner) ... ok
+test_identity_and_legacy_migration (test_checkpoint_ownership.CheckpointOwnershipTests.test_identity_and_legacy_migration) ... ok
+test_malformed_unknown_and_strict_revision_never_rewritten (test_checkpoint_ownership.CheckpointOwnershipTests.test_malformed_unknown_and_strict_revision_never_rewritten) ... ok
+test_real_process_cli_race_loser_zero_connect_calls_writes (test_checkpoint_ownership.CheckpointOwnershipTests.test_real_process_cli_race_loser_zero_connect_calls_writes) ... ok
+test_real_process_crash_boundaries_preserve_budget_and_reobserve (test_checkpoint_ownership.CheckpointOwnershipTests.test_real_process_crash_boundaries_preserve_budget_and_reobserve) ... 
+  test_real_process_crash_boundaries_preserve_budget_and_reobserve (test_checkpoint_ownership.CheckpointOwnershipTests.test_real_process_crash_boundaries_preserve_budget_and_reobserve) (boundary='reservation-before-dispatch') ... FAIL
+  test_real_process_crash_boundaries_preserve_budget_and_reobserve (test_checkpoint_ownership.CheckpointOwnershipTests.test_real_process_crash_boundaries_preserve_budget_and_reobserve) (boundary='temp-before-replace') ... FAIL
+  test_real_process_crash_boundaries_preserve_budget_and_reobserve (test_checkpoint_ownership.CheckpointOwnershipTests.test_real_process_crash_boundaries_preserve_budget_and_reobserve) (boundary='after-replace') ... FAIL
+test_replaced_checkpoint_does_not_replace_lock (test_checkpoint_ownership.CheckpointOwnershipTests.test_replaced_checkpoint_does_not_replace_lock) ... ok
+test_conflict_never_settles_or_retries_finish (test_checkpoint_ownership.RunnerOwnershipTests.test_conflict_never_settles_or_retries_finish) ... ok
+test_failed_construction_and_explicit_close_release (test_checkpoint_ownership.RunnerOwnershipTests.test_failed_construction_and_explicit_close_release) ... ok
+test_independent_runner_refused_then_pause_releases (test_checkpoint_ownership.RunnerOwnershipTests.test_independent_runner_refused_then_pause_releases) ... ok
+test_cli_real_services_and_terminal_restart_without_connection (test_task_cli.TaskCliTests.test_cli_real_services_and_terminal_restart_without_connection) ... Executing <Task finished name='Task-26' coro=<TaskCliTests.test_cli_real_services_and_terminal_restart_without_connection() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_task_cli.py:36> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.555 seconds
+ok
+test_qa_questions_not_silently_ignored (test_task_cli.TaskCliTests.test_qa_questions_not_silently_ignored) ... ok
+test_task_paths_required_before_any_connection (test_task_cli.TaskCliTests.test_task_paths_required_before_any_connection) ... ok
+
+======================================================================
+FAIL: test_real_process_crash_boundaries_preserve_budget_and_reobserve (test_checkpoint_ownership.CheckpointOwnershipTests.test_real_process_crash_boundaries_preserve_budget_and_reobserve) (boundary='reservation-before-dispatch')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_checkpoint_ownership.py", line 199, in test_real_process_crash_boundaries_preserve_budget_and_reobserve
+    self.assertEqual(durable.budget_state["deadline"], initial["deadline"])
+AssertionError: 1791224302.1781206 != 1791224302.1781209
+
+======================================================================
+FAIL: test_real_process_crash_boundaries_preserve_budget_and_reobserve (test_checkpoint_ownership.CheckpointOwnershipTests.test_real_process_crash_boundaries_preserve_budget_and_reobserve) (boundary='temp-before-replace')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_checkpoint_ownership.py", line 199, in test_real_process_crash_boundaries_preserve_budget_and_reobserve
+    self.assertEqual(durable.budget_state["deadline"], initial["deadline"])
+AssertionError: 1791224305.1754787 != 1791224305.1754794
+
+======================================================================
+FAIL: test_real_process_crash_boundaries_preserve_budget_and_reobserve (test_checkpoint_ownership.CheckpointOwnershipTests.test_real_process_crash_boundaries_preserve_budget_and_reobserve) (boundary='after-replace')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_checkpoint_ownership.py", line 199, in test_real_process_crash_boundaries_preserve_budget_and_reobserve
+    self.assertEqual(durable.budget_state["deadline"], initial["deadline"])
+AssertionError: 1791224308.1501489 != 1791224308.1501493
+
+----------------------------------------------------------------------
+Ran 13 tests in 12.779s
+
+FAILED (failures=3)

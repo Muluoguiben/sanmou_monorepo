@@ -149,3 +149,10 @@ class RunState(ContractModel):
     budget_state: dict[str, Any] = Field(default_factory=dict)
     execution_authority: Literal["none"] = "none"
     executable: Literal[False] = False
+
+
+class CheckpointEnvelope(ContractModel):
+    storage_version: Literal[1] = 1
+    revision: int = Field(ge=1, strict=True)
+    owner_id: str = Field(min_length=1)
+    state: RunState

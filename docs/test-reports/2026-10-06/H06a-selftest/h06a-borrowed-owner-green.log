@@ -1,0 +1,11 @@
+test_borrowed_owner_cannot_bind_two_runners (test_checkpoint_ownership.RunnerOwnershipTests.test_borrowed_owner_cannot_bind_two_runners) ... Executing <Task finished name='Task-2' coro=<RunnerOwnershipTests.test_borrowed_owner_cannot_bind_two_runners() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_checkpoint_ownership.py:266> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.405 seconds
+ok
+test_cli_real_services_and_terminal_restart_without_connection (test_task_cli.TaskCliTests.test_cli_real_services_and_terminal_restart_without_connection) ... Executing <Task finished name='Task-7' coro=<TaskCliTests.test_cli_real_services_and_terminal_restart_without_connection() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_task_cli.py:36> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.557 seconds
+ok
+test_qa_questions_not_silently_ignored (test_task_cli.TaskCliTests.test_qa_questions_not_silently_ignored) ... ok
+test_task_paths_required_before_any_connection (test_task_cli.TaskCliTests.test_task_paths_required_before_any_connection) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.977s
+
+OK

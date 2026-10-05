@@ -15,8 +15,8 @@ class CheckpointInterruptStore(MemoryRunStore):
         self.owner = None
         self.armed = True
 
-    def save(self, state):
-        super().save(state)
+    def save(self, state, **kwargs):
+        super().save(state, **kwargs)
         if self.armed and state.pending_call == self.boundary:
             self.armed = False
             getattr(self.owner, self.action)()

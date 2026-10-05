@@ -1,0 +1,45 @@
+{
+  "source_sha": "96575c30dea99ab58265052987e79bb4e76c0972",
+  "source_tree": "8c305fe09cda5cc9e10e306a05f970f644e735f5",
+  "native3": {
+    "version": "3.12.14",
+    "python": "C:/Users/Lan/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+    "argv": [
+      "-B",
+      "-m",
+      "unittest",
+      "test_checkpoint_lock_native",
+      "-v"
+    ],
+    "env": {
+      "PYTHONPATH": "packages/pioneer-agent/tests"
+    }
+  },
+  "independent1": {
+    "version": "3.14.3",
+    "python": "C:/Users/Lan/AppData/Local/Programs/Python/Python314/python.exe",
+    "argv": [
+      "-B",
+      "C:/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/H06a-CR-artifacts/test_native_independent.py"
+    ],
+    "env": {
+      "H06A_LOCK_SOURCE": "//wsl$/Ubuntu/tmp/h06a-96575c3-exact/packages/pioneer-agent/src/pioneer_agent/agent_harness/_checkpoint_lock.py"
+    }
+  },
+  "cwd": "C:\\Users\\Lan\\.codex\\worktrees\\qa-evidence-q03-20261005\\sanmou_monorepo",
+  "coverage": "Native stdlib lock primitives only; full Windows MCP runner CLI integration still requires new CI step",
+  "files": [
+    {
+      "Path": "C:\\Users\\Lan\\.codex\\worktrees\\qa-evidence-q03-20261005\\sanmou_monorepo\\packages\\pioneer-agent\\src\\pioneer_agent\\agent_harness\\_checkpoint_lock.py",
+      "Hash": "80603A20C15C049402ACF248CC2848A8FEF3F661351911D1294A86186B72D52C"
+    },
+    {
+      "Path": "C:\\Users\\Lan\\.codex\\worktrees\\qa-evidence-q03-20261005\\sanmou_monorepo\\packages\\pioneer-agent\\tests\\test_checkpoint_lock_native.py",
+      "Hash": "B1DF8DDB223E3C7510EB941D9C6DCDDDB9A47E115ADADA397BBAFC7FF5804263"
+    },
+    {
+      "Path": "C:\\Users\\Lan\\.codex\\worktrees\\qa-q03a-review-20261005\\sanmou_monorepo\\docs\\test-reports\\2026-10-06\\H06a-CR-artifacts\\test_native_independent.py",
+      "Hash": "43B44EAD875EB5D07410189BAA8E962421E354B6C8518AFFE1D7A56AE18D8981"
+    }
+  ]
+}

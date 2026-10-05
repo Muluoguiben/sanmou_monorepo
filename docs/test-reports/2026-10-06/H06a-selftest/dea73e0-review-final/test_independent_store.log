@@ -1,0 +1,10 @@
+test_changed_budget_reuse_refuses_without_write (__main__.IndependentStore.test_changed_budget_reuse_refuses_without_write) ... ok
+test_equal_budget_reload_nonbudget_state_is_authoritative (__main__.IndependentStore.test_equal_budget_reload_nonbudget_state_is_authoritative) ... ok
+test_legacy_full_state_roundtrip_and_invalid_envelope (__main__.IndependentStore.test_legacy_full_state_roundtrip_and_invalid_envelope) ... ok
+test_real_spawn_competes_across_replacements (__main__.IndependentStore.test_real_spawn_competes_across_replacements) ... ok
+test_stale_identity_revision_are_nonmutating (__main__.IndependentStore.test_stale_identity_revision_are_nonmutating) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 6.217s
+
+OK
