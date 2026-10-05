@@ -118,3 +118,10 @@
 - Final source-bound coordinator report commit a071176c799c6e50c42d1d025f8eccf8260e30a0 validates17 artifact hashes and20 report links, zero mismatches/missing links. Raw stdout padding remains unmodified. Final independent payload audit:227 objects/16 commits/119 paths,167 protected paths and42 logs unchanged; no scoped sensitive blocker. Object-set digest ba02d741f95f8f507832192fa0c1857d0b6ca5e9b5a29433af58da736ec00685.
 - Local master fast-forwarded to a071176, pushed under verified standing authorization and explicitly fetched. HEAD/origin-master both a071176, clean; packages tree remains3c643ef1d3fd0ae376ebea6b055d0aaba564edf8. No force push, deployment or game operation.
 - First exact payload CI read: run37351717604 in_progress. This documentation-only successor records the successful publication; its final SHA still requires separate CI acceptance. Do not call the earlier in-progress run green or start H06a prematurely.
+
+## Round 2 completed; Round 3 selected — H06a
+
+- Q02a final status751df8ee867479b9ad272c9c64ab190f76cd0934 pushed and fetched exactly, primary master clean. Exact run37352030235 completed/success: three Python jobs and Windows API/Electron all green. Earlier payloada071176 run37351717604 completed/cancelled; not substituted as acceptance.
+- Chose H06a after read-only source review: atomic replace and per-instance flags do not prevent two processes restoring the same checkpoint/budget and last-writer overwrite. Scope is one local checkpoint ownership/CAS, not device lease or live effects.
+- Main read all six canonical design docs, filling the one truncated runtime span. Historical auto-execution goals remain overridden by the current Advisor-first/harness review. No game/provider capability opened.
+- Reused two clean merged worktrees with new implementation/review branches from751df8e; old branches/history preserved. Fresh GPT-6 Astra implementation/review agents will use docs/harness-checkpoint-ownership-h06a-2026-10-06.md. No new coordinator chat or automation.

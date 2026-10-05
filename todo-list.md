@@ -1,5 +1,12 @@
 # Todo List
 
+## Active Review continuation — H06a (2026-10-06)
+
+- [x] Q02a final `751df8ee867479b9ad272c9c64ab190f76cd0934` published with matching remote readback; exact CI37352030235 completed/success in all four jobs. Earlier a071176 run37351717604 is cancelled, not accepted as green.
+- [x] Selected bounded harness reliability slice: same-checkpoint single-machine ownership/CAS, legacy migration and offline crash/race tests. [Task and limits](docs/harness-checkpoint-ownership-h06a-2026-10-06.md).
+- [ ] Implement and self-test on an isolated worktree; preserve budget/deadline, stop/cleanup semantics, Game/QA schemas and no-execution boundaries.
+- [ ] Independent adversarial CR, coordinator combined-source tests, scoped publication and exact-final-SHA CI. Device lease/effect exactly-once/live game remain outside H06a.
+
 ## Active Review continuation — Q02a (2026-10-06)
 
 - [x] Q03a final `e17d937a39944b036e90701fecefb6611b1d88d6` published; local/remote master match. Exact-SHA CI run 37341606212 completed successfully in all four jobs.
@@ -10,7 +17,7 @@
 - [x] Independent recheck `c68cab94a95731c3e05511d9203e8337e956cd3f` APPROVE binds40f46d3; Q02a-CR01/02 closed. Original26/new8/focused71/QA394/cross6 pass, zero skips; 1455 snapshot files match before/after.
 - [x] Coordinator integration `94e1464ba3fcff9b5874868138fa2d9f300fb376` passes QA394, Pioneer932+2 Windows-only skips, common2, focused71/original26/new8; packages match approved source, 25 CR hashes match, v3 output unchanged. [Report](docs/test-reports/2026-10-06/Q02a-integration.md).
 - [x] Final payload audit bound `a071176c799c6e50c42d1d025f8eccf8260e30a0`: 227 objects/16 commits/119 paths, 167 protected paths and 42 original logs preserved; no scoped sensitive blocker. Pushed origin/master and fetched exact matching SHA; packages unchanged.
-- [ ] Exact-final-SHA CI after this documentation-only status successor. Initial payload run 37351717604 was in progress at first read. Full Q02/provider/human-gold quality remain incomplete; H06a checkpoint ownership/CAS is next planning only.
+- [x] Exact-final-SHA CI: `751df8e` run37352030235 completed/success, all four jobs green. Earlier payload run37351717604 completed/cancelled. Bounded Q02a closes; full Q02/provider/human-gold quality remain incomplete.
 
 ## Active Review continuation — Q03a (2026-10-05)
 
