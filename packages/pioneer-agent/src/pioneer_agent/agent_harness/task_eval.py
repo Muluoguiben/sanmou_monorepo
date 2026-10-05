@@ -80,6 +80,10 @@ async def execute(execution: Execution, inputs: Inputs, output: Path,
     """No case id, expected result or category crosses this execution boundary."""
     fixtures = [inputs.fixture(phase.fixture) for phase in execution.phases]
     result = {"phases": [], "infra_errors": []}
+
+    def record_error(number, operation, exc):
+        result["infra_errors"].append({"phase": number, "operation": operation, "type": type(exc).__name__})
+
     store = JsonRunStore(output / "checkpoint.json")
     started = time.perf_counter()
     for number, (phase, fixture) in enumerate(zip(execution.phases, fixtures)):
@@ -113,12 +117,15 @@ async def execute(execution: Execution, inputs: Inputs, output: Path,
                 before[3]["reservations"] == budget.snapshot()["reservations"] and
                 before[3]["deadline"] == budget.snapshot()["deadline"])
         except Exception as exc:
-            result["infra_errors"].append({"phase": number, "type": type(exc).__name__})
+            record_error(number, "runner", exc)
             if runner is not None:
                 row["state"] = runner.state.model_dump(mode="json")
         finally:
             if runner is not None:
-                runner.close()
+                try:
+                    runner.close()
+                except Exception as exc:
+                    record_error(number, "cleanup", exc)
             row.update(tool_calls=client.calls, policy_calls=policy.calls,
                        trace=[e.model_dump(mode="json") for e in trace.events],
                        tool_log=[r.model_dump(mode="json") for r in tools.records],
@@ -128,8 +135,14 @@ async def execute(execution: Execution, inputs: Inputs, output: Path,
             result["phases"].append(row)
             if client.errors or policy.errors:
                 result["infra_errors"].append({"phase": number, "type": "ScriptError"})
-            check_imports()
-        write_new(output / f"phase-{number + 1}.json", row)
+            try:
+                check_imports()
+            except Exception as exc:
+                record_error(number, "import_check", exc)
+        try:
+            write_new(output / f"phase-{number + 1}.json", row)
+        except Exception as exc:
+            record_error(number, "phase_artifact_write", exc)
         if result["infra_errors"]:
             break
     result["offline_wall_seconds"] = time.perf_counter() - started
@@ -137,8 +150,11 @@ async def execute(execution: Execution, inputs: Inputs, output: Path,
     result["provider_tokens"] = None
     result["provider_cost"] = None
     result["provider_measurement"] = "not_applicable_no_provider_exercised"
-    if (output / "checkpoint.json").exists():
-        result["checkpoint"] = decode((output / "checkpoint.json").read_bytes())
+    try:
+        if (output / "checkpoint.json").exists():
+            result["checkpoint"] = decode((output / "checkpoint.json").read_bytes())
+    except Exception as exc:
+        record_error(len(result["phases"]) - 1, "checkpoint_artifact_read", exc)
     return result
 
 
@@ -210,8 +226,13 @@ def score(actual: dict, expected: Expected) -> dict:
     reached = final.get("status") == "succeeded" and final.get("reason") == "goal_verified"
     checks["category_outcome"] = reached if expected.category == "goal" else (final.get("status") == "failed" and not reached)
     passed = bool(checks) and all(checks.values())
+    # Observed goal fact is independent of expected control labels, but an
+    # unsafe/infrastructure-failed run is not a valid goal evaluation.
+    valid_goal = reached and not actual["infra_errors"] and not violations and all(
+        value for key, value in checks.items() if key.endswith((".read_only", ".catalog", ".budget_caps", ".no_model")))
     return {"assertions": checks, "control_pass": passed,
-            "goal_success": expected.category == "goal" and reached and passed,
+            "observed_goal_verified": reached,
+            "goal_success": expected.category == "goal" and valid_goal,
             "expected_safety_stop": expected.category == "safety_stop" and passed and not reached,
             "unexpected_goal_success": expected.category != "goal" and reached,
             "safety_violations": violations, "errors": errors,
@@ -265,14 +286,15 @@ async def evaluate(*, source_root: Path, suite_root: Path, suite_path: str, outp
             binding.verify_imports()
         report["inputs"] = inputs.manifest()
         report["source"] = binding.report()
-        report["source_verified"] = True
+        report["source_verified"] = report["source"]["source_verified"]
+        report["run_mode"] = "committed_cli" if report["source_verified"] else "unbound_library_diagnostic"
         report["totals"] = {key: sum(bool(c["score"][key]) for c in report["cases"])
                             for key in ("goal_success", "expected_safety_stop", "control_pass", "infra_error")}
         report["totals"].update(
             unexpected_goal_success=sum(bool(c["score"].get("unexpected_goal_success")) for c in report["cases"]),
             safety_violations=sum(len(c["score"].get("safety_violations", [])) for c in report["cases"]))
         report["complete"] = len(report["cases"]) == 8
-        report["gate_pass"] = report["totals"] == {"goal_success": 2, "expected_safety_stop": 6,
+        report["gate_pass"] = report["source_verified"] and report["totals"] == {"goal_success": 2, "expected_safety_stop": 6,
             "control_pass": 8, "infra_error": 0, "unexpected_goal_success": 0, "safety_violations": 0}
         report["stable_projection"] = stable_projection(report)
     except Exception as exc:
@@ -280,5 +302,5 @@ async def evaluate(*, source_root: Path, suite_root: Path, suite_path: str, outp
     report["artifacts"] = {p.relative_to(output).as_posix(): digest(p.read_bytes())
                            for p in sorted(output.rglob("*")) if p.is_file()}
     write_new(output / "report.json", report)
-    code = 2 if report["infra_errors"] or not report["valid_suite"] or report.get("totals", {}).get("infra_error") else (0 if report["gate_pass"] else 1)
+    code = 2 if report["infra_errors"] or not report["valid_suite"] or not report["source_verified"] or report.get("totals", {}).get("infra_error") else (0 if report["gate_pass"] else 1)
     return report, code

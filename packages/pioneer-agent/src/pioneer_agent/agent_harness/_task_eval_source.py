@@ -28,6 +28,7 @@ class SourceBinding:
         self._blobs = {}
         self.verify_bytes()
         self.verify_imports()
+        self.launcher = self._launcher_info()
 
     def git(self, *args) -> bytes:
         return subprocess.run(["git", "-C", str(self.root), *args], check=True,
@@ -83,6 +84,8 @@ class SourceBinding:
         self.manifest = manifest
 
     def verify_imports(self):
+        if hasattr(self, "launcher") and self._launcher_info() != self.launcher:
+            raise InputError("entrypoint_changed")
         observed = {}
         for name, module in list(sys.modules.items()):
             package = name.split(".")[0]
@@ -110,10 +113,31 @@ class SourceBinding:
             raise InputError("runtime_not_loaded")
         self.modules = observed
 
+    def _launcher_info(self):
+        main = sys.modules.get("__main__")
+        file = getattr(main, "__file__", None)
+        spec = getattr(main, "__spec__", None)
+        origin = getattr(spec, "origin", None)
+        name = getattr(spec, "name", None)
+        relative = "packages/pioneer-agent/src/pioneer_agent/app/task_eval.py"
+        expected = self.root / relative
+        paths_match = bool(file) and Path(file).absolute() == expected
+        if spec is not None:
+            paths_match = paths_match and bool(origin) and Path(origin).absolute() == expected and name == "pioneer_agent.app.task_eval"
+        bound = paths_match and relative in self.manifest
+        actual_sha = None
+        if bound:
+            actual_sha = digest(safe_path(self.root, relative).read_bytes())
+            bound = actual_sha == self.manifest[relative]["sha256"]
+        return {"bound": bound, "file": file, "spec_origin": origin, "spec_name": name,
+                "raw_sha256": actual_sha,
+                "mode": ("module" if spec is not None else "direct_script") if bound else "unbound_library_diagnostic"}
+
     def report(self):
         self.verify_bytes()
         self.verify_imports()
-        return {"source_verified": True, "commit": self.commit, "tree": self.tree,
+        return {"source_verified": self.launcher["bound"], "module_source_verified": True,
+                "launcher": self.launcher, "commit": self.commit, "tree": self.tree,
                 "root": str(self.root), "raw_byte_manifest": self.manifest,
                 "loaded_modules": self.modules,
                 "threat_model": "trusted local process; not hostile monkeypatch/loader proof"}

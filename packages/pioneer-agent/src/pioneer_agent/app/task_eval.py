@@ -19,7 +19,8 @@ def main(argv=None):
         report, code = asyncio.run(evaluate(source_root=args.source_root, suite_root=args.suite_root,
                                             suite_path=args.suite, output=args.output))
     except Exception as exc:
-        print(json.dumps({"complete": False, "gate_pass": False, "infra_error": type(exc).__name__}))
+        print(json.dumps({"complete": False, "gate_pass": False, "report_available": False,
+                          "infra_error": type(exc).__name__}))
         return 2
     print(json.dumps({"complete": report["complete"], "gate_pass": report["gate_pass"],
                       "totals": report.get("totals"), "output": str(args.output)}))

@@ -14,6 +14,7 @@ from pioneer_agent.agent_harness._task_eval_inputs import (
 )
 from pioneer_agent.agent_harness._task_eval_source import SourceBinding
 from pioneer_agent.agent_harness.task_eval import execute, score, stable_projection, write_new
+from pioneer_agent.agent_harness.task_runner import TaskRunner
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -47,6 +48,41 @@ class TaskEvalTests(unittest.IsolatedAsyncioTestCase):
             report = {"cases": [{"id": "same", "actual": actual}]}
             return stable_projection(report)
         self.assertEqual(projection(first), projection(second))
+        self.assertFalse(scored["control_pass"])
+
+    async def test_goal_fact_survives_expected_tool_label_mismatch(self):
+        case = suite().cases[0]
+        actual, before = await self.run_case(case)
+        case.expected.phases[0].tool_calls = []
+        after = score(actual, case.expected)
+        self.assertTrue(before["goal_success"] and after["goal_success"])
+        self.assertFalse(after["control_pass"])
+
+    async def test_artifact_write_and_read_failure_preserve_actual(self):
+        for boundary in ("write_new", "decode"):
+            with self.subTest(boundary=boundary), patch(
+                    "pioneer_agent.agent_harness.task_eval." + boundary, side_effect=OSError("artifact failure")):
+                actual, scored = await self.run_case(suite().cases[0])
+            self.assertTrue(scored["infra_error"])
+            self.assertTrue(scored["observed_goal_verified"])
+            self.assertFalse(scored["goal_success"] or scored["control_pass"])
+            phase = actual["phases"][0]
+            self.assertEqual(len(phase["tool_calls"]), 12)
+            self.assertEqual(len(phase["policy_calls"]), 3)
+            self.assertEqual(sum(e["event"] == "tool" for e in phase["trace"]), 12)
+
+    async def test_cleanup_failure_preserves_actual(self):
+        close = TaskRunner.close
+
+        def fail_after_close(runner):
+            close(runner)
+            raise OSError("cleanup failure")
+
+        with patch.object(TaskRunner, "close", fail_after_close):
+            actual, scored = await self.run_case(suite().cases[0])
+        self.assertTrue(scored["infra_error"])
+        self.assertEqual(len(actual["phases"][0]["tool_calls"]), 12)
+        self.assertEqual(len(actual["phases"][0]["policy_calls"]), 3)
         self.assertFalse(scored["control_pass"])
 
     async def mutated_fixture(self, index, mutate):
@@ -171,6 +207,25 @@ class TaskEvalTests(unittest.IsolatedAsyncioTestCase):
         with patch.dict(sys.modules, remaining, clear=True):
             with self.assertRaisesRegex(InputError, "shadow_import"):
                 binding.verify_imports()
+
+    def test_actual_main_entrypoint_module_direct_and_unbound(self):
+        binding = SourceBinding.__new__(SourceBinding)
+        binding.root = ROOT
+        relative = "packages/pioneer-agent/src/pioneer_agent/app/task_eval.py"
+        path = ROOT / relative
+        binding.manifest = {relative: {"sha256": digest(path.read_bytes())}}
+        module = types.ModuleType("__main__")
+        module.__file__ = str(path)
+        module.__spec__ = None
+        with patch.dict(sys.modules, {"__main__": module}):
+            self.assertTrue(binding._launcher_info()["bound"])
+            module.__spec__ = types.SimpleNamespace(origin=str(path), name="pioneer_agent.app.task_eval")
+            self.assertTrue(binding._launcher_info()["bound"])
+            module.__file__ = "/tmp/copied-cli.py"
+            self.assertFalse(binding._launcher_info()["bound"])
+            module.__file__ = str(path)
+            module.__spec__.origin = "/tmp/copied-cli.py"
+            self.assertFalse(binding._launcher_info()["bound"])
 
     def test_source_drift_and_untracked_source_detected(self):
         with tempfile.TemporaryDirectory() as directory:
