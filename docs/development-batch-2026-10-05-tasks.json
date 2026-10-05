@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "batch_id": "harness-qa-2026-10-05",
+  "source_base_commit": "12e7ddc73c86665ccad0764c8aa8aec51de39e3a",
+  "dispatch_base_commit": null,
+  "a0_contract_commit": null,
+  "model": "gpt-6-astra",
+  "status": "dispatch_prepared",
+  "scope": "read-only multi-step harness and offline QA quality baseline",
+  "execution_authority": "none",
+  "live_model_calls_authorized_in_batch": false,
+  "live_game_input_authorized_in_batch": false,
+  "tasks": [
+    {"id":"A","title":"Harness A - task runtime","branch":"codex/harness-a-runtime-20261005","thread_id":null,"client_thread_id":null,"host_id":"local","status":"pending_dispatch","depends_on":[],"code_commit":null,"report_commit":null},
+    {"id":"B","title":"Harness B - context budget trace","branch":"codex/harness-b-context-budget-20261005","thread_id":null,"client_thread_id":null,"host_id":"local","status":"pending_dispatch","depends_on":["A0_contract"],"code_commit":null,"report_commit":null},
+    {"id":"C","title":"QA C - quality baseline","branch":"codex/harness-c-qa-eval-20261005","thread_id":null,"client_thread_id":null,"host_id":"local","status":"pending_dispatch","depends_on":[],"code_commit":null,"report_commit":null},
+    {"id":"CR","title":"Harness CR - adversarial integration review","branch":"codex/harness-cr-20261005","thread_id":null,"client_thread_id":null,"host_id":"local","status":"pending_dispatch","depends_on":["A_delivery","B_delivery","C_delivery"],"reviewed_combination":null,"report_commit":null}
+  ]
+}

@@ -34,7 +34,7 @@ Decision: 用户确认后续以 harness 工程为主线；RAG 对象为本仓 `p
 - [ ] Q01 — 在质量基线之后增加有界只读多轮检索规划，与固定 pipeline 对照。
 - [ ] Q08 — 复用 harness 的上下文、总预算和 trace 契约，统计 rewrite/vision/answer 全链路成本；不复制游戏 runtime。
 
-Owner 尚待认领；本轮只落评审/计划，不宣称上述实现完成。每个开发交付必须自测、提交 source-bound 报告并经过独立组合树 review。多样本、知识、真实视觉和独立 eval 持续推进；下方 production gates 不因主线变更而豁免。
+2026-10-05 用户已授权第一批 A/B/C + 统一 CR 会话开发，正在派发，功能仍未完成。边界、依赖和验收见 [本批任务单](docs/development-batch-2026-10-05.md)，实际会话/commit 状态见 [manifest](docs/development-batch-2026-10-05-tasks.json)。A 先冻结接口，B 随后实现上下文/预算/trace，C 独立做 QA 基线，CR 审最终组合树。每个交付必须自测并提交 source-bound 报告。多样本、知识、真实视觉和独立 eval 持续推进；下方 production gates 不因主线变更而豁免。
 
 ## Completed hardening batch — 2026-09-08
 
