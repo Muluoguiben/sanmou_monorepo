@@ -25,7 +25,13 @@ def _validate_corpus(corpus: object, baseline: str) -> None:
         raise ValueError('top_k must be a positive integer')
     if baseline == 'v1' and 'assessment_cases' in corpus:
         raise ValueError('assessment suite requires v2')
-    required = ('queries', 'scoring_cases', 'assessment_cases') if baseline == 'v2' else ('queries', 'scoring_cases')
+    required = ('queries', 'scoring_cases')
+    if baseline in {'v2','v3'}:
+        required += ('assessment_cases',)
+    if baseline == 'v3':
+        required += ('multiturn_cases',)
+    elif 'multiturn_cases' in corpus:
+        raise ValueError('multiturn suite requires v3')
     for group in required:
         cases = corpus.get(group)
         if not isinstance(cases, list) or not cases:
@@ -68,6 +74,20 @@ def _validate_corpus(corpus: object, baseline: str) -> None:
                 or expected['check_scope'] not in ('scalar_profile', 'unassessed', 'empty')
                 or type(expected['answer_calls']) is not int or expected['answer_calls'] not in (0, 1)):
             raise ValueError('invalid assessment expectation')
+    for case in corpus.get('multiturn_cases', []):
+        if case.get('split')!='development' or case.get('review_status')!='developer-authored':
+            raise ValueError('multiturn provenance/split mismatch')
+        if not _nonempty_text(case.get('question')) or case.get('scenario') not in (
+                'alias_success','no_binding','wrong_citation','raw_miss','single_use',
+                'source_withdrawal','new_conflict','history_replace','notes_partial'):
+            raise ValueError('invalid multiturn scenario/question')
+        expected=case.get('expected')
+        if not isinstance(expected,dict) or set(expected)!={'resolution','answer_calls','rewrite_calls','assessment_status'}:
+            raise ValueError('multiturn expectation required')
+        if (expected['resolution'] not in ('resolved','clarify','raw_not_found')
+                or expected['assessment_status'] not in ('supported','partial','conflicting','not_found')
+                or any(type(expected[key]) is not int or expected[key] not in (0,1) for key in ('answer_calls','rewrite_calls'))):
+            raise ValueError('invalid multiturn expectation')
 
 
 def _validate_execution_roots(package: Path) -> None:
@@ -93,7 +113,7 @@ def _validate_execution_roots(package: Path) -> None:
 
 
 def run(package: Path, *, baseline: str = 'v1') -> dict:
-    if baseline not in {'v1', 'v2'}:
+    if baseline not in {'v1', 'v2', 'v3'}:
         raise ValueError('unsupported baseline version')
     if package.resolve() != Path(__file__).resolve().parents[3]:
         raise ValueError('loaded evaluator/package source mismatch')
@@ -113,6 +133,7 @@ def run(package: Path, *, baseline: str = 'v1') -> dict:
     # Import gate dependencies before checking their actual origins. Checking
     # only this runner is insufficient when it is loaded via importlib.
     from qa_agent.quality_eval.assessment_cases import evaluate_cases
+    from qa_agent.quality_eval.referent_cases import evaluate_referent_cases
     _validate_execution_roots(package)
     retriever = Retriever.from_knowledge_dir(package / "knowledge_sources")
     entries = {e.id: e for e in retriever.entries}
@@ -129,6 +150,7 @@ def run(package: Path, *, baseline: str = 'v1') -> dict:
     mocks = [{"id": c["id"], **score_answer(c["answer"], c["evidence"], c["annotation"], context=c["context"])}
              for c in corpus["scoring_cases"]]
     assessments = evaluate_cases(corpus.get('assessment_cases', []))
+    referents = evaluate_referent_cases(corpus.get('multiturn_cases', []))
     _validate_execution_roots(package)
     return {"protocol": 'qa-development-eval/' + baseline, "split": "development",
             'baseline_commit': frozen['baseline_commit'], 'assessment_cases': assessments,
@@ -144,7 +166,9 @@ def run(package: Path, *, baseline: str = 'v1') -> dict:
                               for group in [[r for r in rows if r["category"] == tag]]}, "rows": rows},
             "mock_scoring_only": mocks,
             "refusal": {"status": "not_measured_provider", "denominator": 0},
-            "multiturn": {"status": "raw_followup_retrieval_only_no_history_rewrite", "denominator": 2},
+            "multiturn": ({"status":"developer-authored-fake-client-controls", "denominator":len(referents),
+                           "passed":len(referents),"cases":referents} if baseline=='v3' else
+                          {"status": "raw_followup_retrieval_only_no_history_rewrite", "denominator": 2}),
             "provider": {"calls": 0, "quality": "not_measured"},
             "holdout": {"status": "not_established", "denominator": 0},
             "human_reviewed_labels": 0, "quality_threshold": None}
@@ -153,7 +177,7 @@ def run(package: Path, *, baseline: str = 'v1') -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Offline frozen lexical development baseline; never loads model configuration")
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument('--baseline', choices=('v1','v2'), default='v1')
+    parser.add_argument('--baseline', choices=('v1','v2','v3'), default='v1')
     args = parser.parse_args()
     result = run(Path(__file__).resolve().parents[3], baseline=args.baseline)
     with args.output.open("x", encoding="utf-8") as stream:

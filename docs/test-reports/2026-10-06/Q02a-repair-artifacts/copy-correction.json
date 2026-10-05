@@ -1,0 +1,12 @@
+{
+  "issue": "PowerShell Get-Content display added one LF to copied probes",
+  "first_detected_file": "guarded_run.py",
+  "frozen_git_blob": "0fa46b738500da1ee9db10e891591f1a4ebbbc1d",
+  "initial_copied_git_blob": "b158b8fcf113e168207b1d3912fe76b3778c45c4",
+  "original_tail_hex": "29 0a",
+  "initial_copy_tail_hex": "29 0a 0a",
+  "resolution": "Restored copied files from exact raw original contents; all four final Git blob IDs match eb895ae before final 26-test replay",
+  "assertions_changed": false,
+  "reviewer_originals_changed": false,
+  "final_provenance": "probe-provenance.json"
+}

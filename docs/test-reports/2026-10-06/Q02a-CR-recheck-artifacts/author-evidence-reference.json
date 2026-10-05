@@ -1,0 +1,38 @@
+{
+  "report_commit": "005fce84f1eaff4e60a0e04f838c908a9e8da6ae",
+  "report_tree": "ef78592f3a4b06326ed33f8372738e070c405d73",
+  "docs_only": true,
+  "changed_paths": [
+    "docs/test-reports/2026-10-06/Q02a-repair-artifacts/copy-correction.json",
+    "docs/test-reports/2026-10-06/Q02a-repair-artifacts/cross.log",
+    "docs/test-reports/2026-10-06/Q02a-repair-artifacts/focused.log",
+    "docs/test-reports/2026-10-06/Q02a-repair-artifacts/full-final.log",
+    "docs/test-reports/2026-10-06/Q02a-repair-artifacts/full-first.log",
+    "docs/test-reports/2026-10-06/Q02a-repair-artifacts/git-binding.log",
+    "docs/test-reports/2026-10-06/Q02a-repair-artifacts/grammar.json",
+    "docs/test-reports/2026-10-06/Q02a-repair-artifacts/guarded_run.py",
+    "docs/test-reports/2026-10-06/Q02a-repair-artifacts/independent-before-byte-restore.log",
+    "docs/test-reports/2026-10-06/Q02a-repair-artifacts/independent-final.log",
+    "docs/test-reports/2026-10-06/Q02a-repair-artifacts/probe-provenance.json",
+    "docs/test-reports/2026-10-06/Q02a-repair-artifacts/production.log",
+    "docs/test-reports/2026-10-06/Q02a-repair-artifacts/red.log",
+    "docs/test-reports/2026-10-06/Q02a-repair-artifacts/test_q02a_adversarial.py",
+    "docs/test-reports/2026-10-06/Q02a-repair-artifacts/test_q02a_contract.py",
+    "docs/test-reports/2026-10-06/Q02a-repair-artifacts/v1-rejected.log",
+    "docs/test-reports/2026-10-06/Q02a-repair-artifacts/v2-rejected.log",
+    "docs/test-reports/2026-10-06/Q02a-repair-artifacts/v3.json",
+    "docs/test-reports/2026-10-06/Q02a-repair.md"
+  ],
+  "source_code": "40f46d3ea4525639877ad37a8da4ab6e334523e6",
+  "blob_sha256": {
+    "red.log": "7e8ffb86ad7974c5a0a0fdcbc57b616707210c5d151e74ee06d55c8fb6d8d223",
+    "copy-correction.json": "859fdc1aeb9ac8b1a7f9ddc7029ed87514f891f009ed83a203bb4df17531b1db",
+    "probe-provenance.json": "692983502b3d8294e3cd68960af66b7b8c592b1f51c01cd9bbe871a8e306922a",
+    "full-first.log": "f3c94d45f5429d534777a5b64e18699baf87180b20f5941dd5b0d14810316d62",
+    "full-final.log": "a0dd3a58555667f85386b1de72835279a8c01e6a40919190cc2e4c3050fd7ab7"
+  },
+  "first_full_has_missing_qa_agent": true,
+  "first_full_records_394": true,
+  "final_full_records_394": true,
+  "author_outputs_used_as_independent_pass": false
+}

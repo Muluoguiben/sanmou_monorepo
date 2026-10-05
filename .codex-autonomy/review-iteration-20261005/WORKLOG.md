@@ -74,3 +74,33 @@
 - Independent payload audit bound to 49ffe2d: 12 commits, 114 paths, no scoped publication blocker; old v1/C history untouched, all 36 original logs byte-identical to first-added blobs. No credential/private-screenshot/model-inventory payload found in the finite scan.
 - First exact payload CI read: run 37341366281, in progress. This documentation-only successor records the successful push; final successor SHA still requires its own CI before new implementation. No rerun, release or deployment triggered manually.
 - Read-only next-slice recommendation: Q02a finite hero-attribute follow-ups only after raw evidence is nonempty; use actual accepted citations and fresh current-KB retrieval, never revive empty-evidence generation. Not yet started.
+
+## Round 1 completed; Round 2 selected — Q02a
+
+- Final Q03a status commit `e17d937a39944b036e90701fecefb6611b1d88d6` pushed and explicitly fetched; local/remote master matched and clean. Exact run 37341606212 completed/success: Windows API/Electron and all three Python jobs success. This closes bounded Q03a, not the full roadmap or native full-suite/game/provider gates.
+- Selected Q02a after read-only real-KB probes and pipeline review. Supported follow-ups can raw-match background mechanics but lack the subject; raw misses stay deterministically refused. Freeze narrow grammar and accepted-citation/current-source/history lifecycle tests before implementation.
+- Reused existing clean developer worktree, new branch `codex/qa-referent-q02a-20261006` from e17d937. No new main chat or automation. Prior worktree/branch preserved; no cleanup or reset.
+- Task documented in `docs/qa-referent-resolution-q02a-2026-10-06.md`. Existing implementation/reviewer agents will retain separate source/report ownership. No real model, KB publish, game operation or dependency install authorized.
+
+## Round 2 — immutable author delivery and independent review
+
+- Production `a2726c24eba982245fb83e46fdfd6ce0f41880d8`, code/eval `f3cd9b8814fc085d567063ab23e6576b9c24525f` / tree `b73cf4b49fc311d55b50b7caf56a7a7b2fb0b01e`, report-only successor `ce547ba9e6002696b949c7226aacbe9aca21a1f9`; author worktree clean after delivery.
+- Author QA391/focused68/cross6 all pass, zero skips; v3 nine multi-turn development cases, old 12 queries/six scalar cases retained. Author verified 186 actual production/KB Git blobs. Coordinator confirmed code-to-report diff only ten docs/evidence paths and no changes to old v1/v2, formal KB, MCP/common/Pioneer.
+- Independent plan commit `0b9d514c1ffe76d85de209dc9f8802dcf2c2aba7` froze 21 black-box test methods including 32 grammar combinations before execution. CR now targets f3cd9b8, not moving author files. A coordinator hypothesis about name-mention versus subject identity was forwarded for independent reproduction, not labeled a proven finding.
+- Moved completed Q03a approval/publication into prior_round; Q02a review is explicitly not approved, integration/publication not started. Existing master remains e17d937 clean.
+- Final read of earlier Q03a payload CI run 37341366281: cancelled. Accepted final e17d937 run 37341606212 remains all-four-jobs success. Twenty report/task local links independently checked, none missing.
+
+## Round 2 — independent REQUEST_CHANGES and narrow repair handoff
+
+- Independent report `eb895ae4e149a38d65789c19c7e4aebdee0c3c1a` targets unchanged f3cd9b8. Complete ext4 snapshot: 1445 exact Git blobs, zero mismatches. QA391/focused68/cross6 and frozen21 methods pass; five supplemental methods have two failing methods/three failed assertions.
+- Q02a-CR01: excluded or quoted sole name is incorrectly promoted to an explicit seed subject. Q02a-CR02: a fully model-validated term/generic_rule record carrying HeroStaticProfile can establish a hero binding. Both P2 blockers are reproduced with the real ChatAgent and fake clients, not merely inferred from code.
+- Author received original committed guarded_run.py/test_q02a_adversarial.py/test_q02a_contract.py/grammar.json; preserve their raw bytes and red logs. Fix with anchored finite seed grammar and domain/kind/type identity, not keyword blacklists or public-schema/KB changes. New production commit and explicit v3 rebinding require new exact-source independent review.
+- Coordinator separately verified 186 production/KB blobs directly from immutable Git objects; freeze blob SHA256 b0121b9e3f9f755dcf575f3b800e16edd0bdde011337bf21b2e3ca17f77a7a4a. Source provenance is not behavior approval. Master remains e17d937; Q02a publication not started.
+
+## Round 2 — narrow repair delivered for independent recheck
+
+- Production90e51683343e7971ec43ca2afcf731fcd66faf4e; final code/eval40f46d3ea4525639877ad37a8da4ab6e334523e6/tree1351c2432adb0a638997ab9faff7bb22725fba4f; report005fce84f1eaff4e60a0e04f838c908a9e8da6ae. Packages tree3c643ef1d3fd0ae376ebea6b055d0aaba564edf8 is identical at code and report heads. Only resolver/tests/v3 freeze+README changed relative to the first delivery; old cases/v1/v2 untouched.
+- Author full394/focused71/original26/cross6 pass, zero skips. First full run's MCP child lacked qa_agent PYTHONPATH; coordinator read the actual ModuleNotFoundError and the later separate OK log. Initial display-copy added a trailing LF; final four copied probes independently match the original eb895ae raw Git blobs and SHA256. Original red, environment failure and copy correction remain archived.
+- Independent reviewer is rerunning immutable40f46d3, with original26 plus additional grammar/alias/domain cases. Neither finding is marked closed until that new decision. No source edits or master publication by coordinator.
+- Preliminary Q02a payload scan covers only authorcd3f2e2 and CReb895ae: eight commits/54 historical blobs, no scoped sensitive payload found; final repair and report still need incremental scanning. Object-set digest0ba96e9ea13989f3d5005497c3d7b4def4cecbb1be9b4bf9f463fb03435e2326.
+- Read-only next-harness candidate is H06a single-checkpoint local process ownership/CAS, not device lease or action exactly-once. It will not start before Q02a exact-final-SHA CI passes.

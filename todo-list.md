@@ -1,5 +1,14 @@
 # Todo List
 
+## Active Review continuation — Q02a (2026-10-06)
+
+- [x] Q03a final `e17d937a39944b036e90701fecefb6611b1d88d6` published; local/remote master match. Exact-SHA CI run 37341606212 completed successfully in all four jobs.
+- [x] Chosen next bounded slice: nonempty-raw-evidence hero-attribute follow-ups, current accepted-citation/source binding, deterministic re-query and explicit v3 development eval. [Task and gates](docs/qa-referent-resolution-q02a-2026-10-06.md).
+- [x] Author Q02a implementation frozen: code `f3cd9b8814fc085d567063ab23e6576b9c24525f`, report `ce547ba9e6002696b949c7226aacbe9aca21a1f9`; QA391/focused68/cross6 pass, 0 skips. These are self-tests, not CR acceptance; old v1/v2 and formal KB unchanged.
+- [ ] Independent CR `eb895ae4e149a38d65789c19c7e4aebdee0c3c1a` is REQUEST_CHANGES on f3cd9b8: Q02a-CR01 name mention/exclusion is not explicit subject; Q02a-CR02 term/generic HeroStaticProfile is not a hero identity. Regular QA391/focused68/cross6/frozen21 pass, but supplemental probes have three failed assertions. Repair and independently replay before merge.
+- [x] Narrow author repair delivered: code/v3 `40f46d3ea4525639877ad37a8da4ab6e334523e6`, report `005fce84f1eaff4e60a0e04f838c908a9e8da6ae`; full394/focused71/original26/cross6 pass. Setup failures retained; coordinator matched all four original probe hashes. Independent recheck is pending, not APPROVE.
+- [ ] Independent adversarial CR, coordinator combined-source replay, approved publication and exact-final-SHA CI. Full Q02 and provider/human-gold quality remain incomplete.
+
 ## Active Review continuation — Q03a (2026-10-05)
 
 - [x] Previous final master f879915 CI run 37321475905 independently read: all four jobs success. Older d6b5a36 run 37321087930 remains cancelled; no CI rerun or result rewriting.
@@ -8,8 +17,8 @@
 - [x] Independent QA367/original17/focused44/new8/cross6 pass; 1336 snapshot blobs and 30 coordinator-rechecked CR artifact hashes match. This is bounded offline evidence, not general Q03/provider/human-gold certification.
 - [x] Integrated exact approved packages as `4b158253ab12a0eb9e0600df6d0e95c33b69a603`; coordinator QA367, Pioneer932+2 Windows-only skips, common2, focused44, exact independent17 and new8 pass. V2 output hash unchanged. [Integration report](docs/test-reports/2026-10-06/Q03a-integration.md).
 - [x] Pushed verified integration/evidence `49ffe2d918c4c45cc0db3f8de273f4cdd84c1fdc` to origin/master; remote readback matched, worktree clean. Independent payload audit: 12 commits/114 paths, no scoped publication blocker, old logs/baselines preserved.
-- [ ] Exact-final-SHA CI after this documentation-only status successor; initial payload run 37341366281 was in progress at first read, not yet accepted as green.
-- [ ] Continue the next incomplete Review slice after Q03a closes; likely Q02 safe referent resolution or remaining Q03/Q05 evidence scope, not six-model integration or CUA live control as prerequisites.
+- [x] Exact-final-SHA CI: `e17d937` run 37341606212 completed/success, four jobs green. Earlier payload run's first-read in-progress status is historical, not substituted as acceptance.
+- [x] Continued to bounded Q02a after Q03a CI; general Q02/Q03/Q05 quality and the overall Review route remain unfinished.
 
 The user has authorized same-repository Review implementation/testing/independent CR/approved integration/push/CI without repeated publication confirmation. Secrets/private real data, other repositories, deployment, account/security/persistent-access changes, paid services/models and unauthorized game operations remain outside scope. Progress stays in this original coordinator; no new main chat or automation.
 

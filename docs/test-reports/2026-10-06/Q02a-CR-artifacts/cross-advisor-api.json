@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/Q02a-CR-artifacts/guarded_run.py",
+    "/tmp/q02a-independent-953xps1e",
+    "test_advisor_api",
+    "-v"
+  ],
+  "cwd": "/tmp/q02a-independent-953xps1e/packages/qa-agent",
+  "execution_root": "/tmp/q02a-independent-953xps1e",
+  "code_sha": "f3cd9b8814fc085d567063ab23e6576b9c24525f",
+  "code_tree": "b73cf4b49fc311d55b50b7caf56a7a7b2fb0b01e",
+  "plan_commit": "0b9d514c1ffe76d85de209dc9f8802dcf2c2aba7",
+  "exit_code": 0,
+  "elapsed_s": 3.011775563998526,
+  "log_sha256": "5ccad379e65fb90919cdcba4c4cfe373f11c2de739144cf54cf6e01d292a77ed"
+}

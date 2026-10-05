@@ -1,0 +1,22 @@
+{
+  "status": "prepared_not_executed",
+  "baseline_commit": "e17d937a39944b036e90701fecefb6611b1d88d6",
+  "baseline_tree": "e22764f11b64722a4a84c883bcfa8e6bd0de5983",
+  "task_commit": "e5bfdb2147c17435d24a1d5646dc3cb63895a0e5",
+  "task_blob": "383ea1ff4f7b13349400f43ea08a298b39970dea",
+  "python_ast_parse": "passed_without_importing_test_module",
+  "json_parse": "passed",
+  "prepared_test_methods": 21,
+  "prepared_positive_grammar_matrix_cases": 32,
+  "executed_tests": 0,
+  "provider_calls": 0,
+  "author_moving_source_inspected": false,
+  "new_implementation_reviewed": false,
+  "approval": "not_issued",
+  "sha256": {
+    "test_q02a_contract.py": "b56e0b0bc3b6498ae4dc880c5965f9600366973e1e47d2baf66e91d1464c9f66",
+    "grammar.json": "132c4a48e561098ef17915e1f5213c145ed674c40f6212ba1935a0dda3c0d700"
+  },
+  "baseline_expected_failures": "New Q02a behavior is absent at the baseline; future-contract failures would be expected feature gaps, not new product findings",
+  "static_validation": "Python ast.parse on the script and json.loads on grammar.json only; no qa_agent import or unittest execution"
+}
