@@ -22,6 +22,8 @@ python3 -B -m pioneer_agent.app.task_eval --output /tmp/new-h09a-report
 
 `observed_goal_verified` 保留运行时已验证的目标事实；合法 goal 例的 `goal_success` 不受预期工具标签失配影响，但不把 infra/越权运行计作有效目标成功。`control_pass` 仍要求全部精确标签及控制断言通过。阶段产物写入、checkpoint 读取或清理异常会保留已发生的状态、工具、policy、trace 和预算并单列 infra；若总报告本身无法写出，CLI 明确报告 `report_available=false`。
 
+收尾投影或产物枚举/摘要读取失败时，总报告仍保留已发生的案例事实与可得摘要，`artifact_errors` 明确列出不可得 SHA；`complete=false`、`gate_pass=false`、退出 2。只有全部必需收尾成功后才设置正向标志，不能用成功的运行时指标覆盖报告收尾故障。
+
 非确定字段包括 reservation UUID、checkpoint owner、真实时间及耗时。两次运行比较 `stable_projection`，不比较原始 trace 字节。源码约束面向可信本地进程，不防恶意 monkeypatch/loader；合成 payload 不证明实际游戏状态。
 
 任务契约：[H09a](../../../../../docs/harness-task-eval-h09a-2026-10-06.md)。旧静态 MCP eval、task_cases_v1 和 QA/H06 证据保持不变。

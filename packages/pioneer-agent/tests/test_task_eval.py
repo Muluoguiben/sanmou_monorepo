@@ -15,6 +15,7 @@ from pioneer_agent.agent_harness._task_eval_inputs import (
 from pioneer_agent.agent_harness._task_eval_source import SourceBinding
 from pioneer_agent.agent_harness.task_eval import execute, score, stable_projection, write_new
 from pioneer_agent.agent_harness.task_runner import TaskRunner
+from pioneer_agent.agent_harness import task_eval
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -84,6 +85,35 @@ class TaskEvalTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(len(actual["phases"][0]["tool_calls"]), 12)
         self.assertEqual(len(actual["phases"][0]["policy_calls"]), 3)
         self.assertFalse(scored["control_pass"])
+
+    async def test_finalization_failures_retain_cases_and_revoke_gate(self):
+        # Provenance has separate real-byte/import tests. Isolate the finalization
+        # fault here while still executing all eight cases through the real runner.
+        for fault in ("artifact_digest", "projection"):
+            with self.subTest(fault=fault), tempfile.TemporaryDirectory() as directory:
+                output = Path(directory) / "report"
+                read_bytes = Path.read_bytes
+
+                def broken_read(path):
+                    if path.name == "phase-1.json" and path.is_relative_to(output):
+                        raise OSError("digest read failed")
+                    return read_bytes(path)
+
+                boundary = (patch.object(Path, "read_bytes", broken_read) if fault == "artifact_digest" else
+                            patch.object(task_eval, "stable_projection", side_effect=ValueError("projection failed")))
+                with patch.object(task_eval, "SourceBinding") as source, boundary:
+                    source.return_value.report.return_value = {"source_verified": True}
+                    report, code = await task_eval.evaluate(source_root=ROOT, suite_root=DATA,
+                        suite_path="suite.json", output=output)
+                self.assertEqual(code, 2)
+                self.assertEqual(len(report["cases"]), 8)
+                self.assertEqual(len(report["cases"][0]["actual"]["phases"][0]["tool_calls"]), 12)
+                self.assertTrue(report["infra_errors"])
+                self.assertFalse(report["complete"] or report["gate_pass"])
+                self.assertEqual(json.loads((output / "report.json").read_bytes()), report)
+                if fault == "artifact_digest":
+                    self.assertTrue(report["artifact_errors"])
+                    self.assertTrue(report["artifacts"])
 
     async def mutated_fixture(self, index, mutate):
         case = suite().cases[index]
