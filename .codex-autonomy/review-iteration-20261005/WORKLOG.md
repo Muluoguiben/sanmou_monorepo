@@ -74,3 +74,10 @@
 - Independent payload audit bound to 49ffe2d: 12 commits, 114 paths, no scoped publication blocker; old v1/C history untouched, all 36 original logs byte-identical to first-added blobs. No credential/private-screenshot/model-inventory payload found in the finite scan.
 - First exact payload CI read: run 37341366281, in progress. This documentation-only successor records the successful push; final successor SHA still requires its own CI before new implementation. No rerun, release or deployment triggered manually.
 - Read-only next-slice recommendation: Q02a finite hero-attribute follow-ups only after raw evidence is nonempty; use actual accepted citations and fresh current-KB retrieval, never revive empty-evidence generation. Not yet started.
+
+## Round 1 completed; Round 2 selected — Q02a
+
+- Final Q03a status commit `e17d937a39944b036e90701fecefb6611b1d88d6` pushed and explicitly fetched; local/remote master matched and clean. Exact run 37341606212 completed/success: Windows API/Electron and all three Python jobs success. This closes bounded Q03a, not the full roadmap or native full-suite/game/provider gates.
+- Selected Q02a after read-only real-KB probes and pipeline review. Supported follow-ups can raw-match background mechanics but lack the subject; raw misses stay deterministically refused. Freeze narrow grammar and accepted-citation/current-source/history lifecycle tests before implementation.
+- Reused existing clean developer worktree, new branch `codex/qa-referent-q02a-20261006` from e17d937. No new main chat or automation. Prior worktree/branch preserved; no cleanup or reset.
+- Task documented in `docs/qa-referent-resolution-q02a-2026-10-06.md`. Existing implementation/reviewer agents will retain separate source/report ownership. No real model, KB publish, game operation or dependency install authorized.

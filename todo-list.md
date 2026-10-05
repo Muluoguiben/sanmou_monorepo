@@ -1,5 +1,12 @@
 # Todo List
 
+## Active Review continuation — Q02a (2026-10-06)
+
+- [x] Q03a final `e17d937a39944b036e90701fecefb6611b1d88d6` published; local/remote master match. Exact-SHA CI run 37341606212 completed successfully in all four jobs.
+- [x] Chosen next bounded slice: nonempty-raw-evidence hero-attribute follow-ups, current accepted-citation/source binding, deterministic re-query and explicit v3 development eval. [Task and gates](docs/qa-referent-resolution-q02a-2026-10-06.md).
+- [ ] Implement, self-test and freeze immutable Q02a code/report; preserve raw-empty zero rewrite/answer and original v1/v2 bytes.
+- [ ] Independent adversarial CR, coordinator combined-source replay, approved publication and exact-final-SHA CI. Full Q02 and provider/human-gold quality remain incomplete.
+
 ## Active Review continuation — Q03a (2026-10-05)
 
 - [x] Previous final master f879915 CI run 37321475905 independently read: all four jobs success. Older d6b5a36 run 37321087930 remains cancelled; no CI rerun or result rewriting.
@@ -8,8 +15,8 @@
 - [x] Independent QA367/original17/focused44/new8/cross6 pass; 1336 snapshot blobs and 30 coordinator-rechecked CR artifact hashes match. This is bounded offline evidence, not general Q03/provider/human-gold certification.
 - [x] Integrated exact approved packages as `4b158253ab12a0eb9e0600df6d0e95c33b69a603`; coordinator QA367, Pioneer932+2 Windows-only skips, common2, focused44, exact independent17 and new8 pass. V2 output hash unchanged. [Integration report](docs/test-reports/2026-10-06/Q03a-integration.md).
 - [x] Pushed verified integration/evidence `49ffe2d918c4c45cc0db3f8de273f4cdd84c1fdc` to origin/master; remote readback matched, worktree clean. Independent payload audit: 12 commits/114 paths, no scoped publication blocker, old logs/baselines preserved.
-- [ ] Exact-final-SHA CI after this documentation-only status successor; initial payload run 37341366281 was in progress at first read, not yet accepted as green.
-- [ ] Continue the next incomplete Review slice after Q03a closes; likely Q02 safe referent resolution or remaining Q03/Q05 evidence scope, not six-model integration or CUA live control as prerequisites.
+- [x] Exact-final-SHA CI: `e17d937` run 37341606212 completed/success, four jobs green. Earlier payload run's first-read in-progress status is historical, not substituted as acceptance.
+- [x] Continued to bounded Q02a after Q03a CI; general Q02/Q03/Q05 quality and the overall Review route remain unfinished.
 
 The user has authorized same-repository Review implementation/testing/independent CR/approved integration/push/CI without repeated publication confirmation. Secrets/private real data, other repositories, deployment, account/security/persistent-access changes, paid services/models and unauthorized game operations remain outside scope. Progress stays in this original coordinator; no new main chat or automation.
 
