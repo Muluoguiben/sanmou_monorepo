@@ -1,0 +1,108 @@
+{
+  "archive": "evidence-fece-metadata-red.tar.gz",
+  "sha256": "eaec08dd2272a4365e08b005d14b33b94fd009bb4e7ec599df54d4039b29d58c",
+  "counts": {
+    "regular": 11,
+    "symlink": 0,
+    "directory": 3,
+    "other": 0
+  },
+  "safety": "Read regular tar members only; do not extract wholesale or follow absolute archived symlinks. Links are negative-test artifacts, not trusted input files.",
+  "members": [
+    {
+      "name": "h09a-cr-fece-editable-metadata-evidence",
+      "mode": 493,
+      "size": 0,
+      "type": "directory"
+    },
+    {
+      "name": "h09a-cr-fece-editable-metadata-evidence/source-diagnostic.json",
+      "mode": 420,
+      "size": 897,
+      "type": "regular",
+      "sha256": "6aba7bb43f40976a0d2c916139fca2ae6889422e45c16a48fefc5819c00d10ed"
+    },
+    {
+      "name": "h09a-cr-fece-editable-metadata-evidence/report",
+      "mode": 493,
+      "size": 0,
+      "type": "directory"
+    },
+    {
+      "name": "h09a-cr-fece-editable-metadata-evidence/report/report.json",
+      "mode": 420,
+      "size": 592,
+      "type": "regular",
+      "sha256": "7cf1ee9c370678861879e1fdb92730bfb2e1326d2998046b14480f57101e5392"
+    },
+    {
+      "name": "h09a-cr-fece-editable-metadata-evidence/setuptools-egg-info.json",
+      "mode": 420,
+      "size": 750,
+      "type": "regular",
+      "sha256": "6021966b197c892e5e59c3f8198be4416d2253c760077db79c9a37c5b86eadb1"
+    },
+    {
+      "name": "h09a-cr-fece-editable-metadata-evidence/summary.json",
+      "mode": 420,
+      "size": 1838,
+      "type": "regular",
+      "sha256": "0d8829ba856e389347a35a3d9dd9a97285a216b6ef22a260f9761c087de88e4e"
+    },
+    {
+      "name": "h09a-cr-fece-editable-metadata-evidence/committed-cli.json",
+      "mode": 420,
+      "size": 397,
+      "type": "regular",
+      "sha256": "edf3ce0f21eae054962804b5aee04581b1c5c49f1247cfc4c4b9c37b63ed091b"
+    },
+    {
+      "name": "h09a-cr-fece4163-editable-metadata-first.log",
+      "mode": 420,
+      "size": 2347,
+      "type": "regular",
+      "sha256": "4c7268fe66f09ed839cfd819f5c2ad96ace159119e302619c95edec1666e0679"
+    },
+    {
+      "name": "h09a-cr-fece-editable-metadata/packages/pioneer-agent/src/pioneer_agent.egg-info",
+      "mode": 493,
+      "size": 0,
+      "type": "directory"
+    },
+    {
+      "name": "h09a-cr-fece-editable-metadata/packages/pioneer-agent/src/pioneer_agent.egg-info/SOURCES.txt",
+      "mode": 420,
+      "size": 7724,
+      "type": "regular",
+      "sha256": "ac34813f883ba610c3c9b43a5f5d37cde4cbee688bcfc4dc42be3a6964aa59b7"
+    },
+    {
+      "name": "h09a-cr-fece-editable-metadata/packages/pioneer-agent/src/pioneer_agent.egg-info/PKG-INFO",
+      "mode": 420,
+      "size": 183,
+      "type": "regular",
+      "sha256": "1d8daccd649ac9463064c8acd3a64708f4432fb0df7a462afbce6569ec9e0da7"
+    },
+    {
+      "name": "h09a-cr-fece-editable-metadata/packages/pioneer-agent/src/pioneer_agent.egg-info/dependency_links.txt",
+      "mode": 420,
+      "size": 1,
+      "type": "regular",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "name": "h09a-cr-fece-editable-metadata/packages/pioneer-agent/src/pioneer_agent.egg-info/requires.txt",
+      "mode": 420,
+      "size": 361,
+      "type": "regular",
+      "sha256": "df1e26577b642e01bd172fcb8f5aad08ec19066a06bb9626e90791ec19b642c9"
+    },
+    {
+      "name": "h09a-cr-fece-editable-metadata/packages/pioneer-agent/src/pioneer_agent.egg-info/top_level.txt",
+      "mode": 420,
+      "size": 14,
+      "type": "regular",
+      "sha256": "4cdfd683cb38d5932e8219b22c090484cff612d3aaeaf2b5cdfa571b5f9af5c2"
+    }
+  ]
+}
