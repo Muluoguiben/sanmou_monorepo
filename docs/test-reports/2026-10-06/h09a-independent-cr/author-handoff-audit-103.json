@@ -1,0 +1,32 @@
+{
+  "source_commit": "103d0d1594a11af905515182913731d2d8bb4ac9",
+  "source_tree": "e9b80b3a76b494b73e0266cb383793cacb3e246d",
+  "handoff_commit": "4b1aef41d0265de6ed61062483aecdf41d70ea24",
+  "handoff_tree": "ace17a25e8f5b4c75c66f27a859a449e779e717e",
+  "report_only_additions": 216,
+  "packages_tree_unchanged": true,
+  "old_08c_report_blobs_unchanged": 299,
+  "manifest_sha256": "e9a1adea0cbea3fabc9414d6adb4af8eab787ac8db4a8f0d53f0b4a8ca8a1f33",
+  "report_sha256": "eb916c81c3163d879ebb8be289bbd6adc9eb347d6e6ac20582dad1a1a68bcc3e",
+  "manifest_files_verified": 214,
+  "positive_reports_verified": 6,
+  "negative_reports_verified": 16,
+  "source_blobs_per_positive_report": 179,
+  "inputs_per_positive_report": 7,
+  "author_and_independent_stable_projection_equal": true,
+  "archive_counts": {
+    "probes.tar.gz": {
+      "regular": 305,
+      "symlink": 1,
+      "directory": 107
+    },
+    "generated-metadata.tar.gz": {
+      "regular": 10,
+      "symlink": 0,
+      "directory": 2
+    }
+  },
+  "archive_policy": "Read regular members only; no extraction or symlink following",
+  "platform": "Linux ext4 only; native Windows and drvfs compatibility not accepted",
+  "h06_windows_accepted": false
+}
