@@ -67,3 +67,10 @@
 - V2 result hash remains `66b7b504951f69c0bcc19de7d699d8cc00a506cddc74c3ce4894ee14740ae425`; old v1/report paths untouched. Source-bound records, raw logs and integrity manifest saved under `docs/test-reports/2026-10-06/Q03a-integration-artifacts/`.
 - Standing user publication authority already verified; next fast-forward/push the exact integration and evidence, inspect final-SHA CI, then continue. Read-only next-slice planning runs in parallel; no new implementation started before this batch clears CI.
 - The first staged whitespace check stopped before commit on raw Rich stdout padding. Preserved all log bytes/hashes and scoped the source/document whitespace check to non-log paths; this is report formatting, not a failed test or source repair.
+
+## Round 1 — publication and CI handoff
+
+- Report/evidence commit `49ffe2d918c4c45cc0db3f8de273f4cdd84c1fdc` fast-forwarded local master, then pushed to origin/master under verified standing authorization. Explicit remote fetch matched exactly; worktree clean, packages tree unchanged.
+- Independent payload audit bound to 49ffe2d: 12 commits, 114 paths, no scoped publication blocker; old v1/C history untouched, all 36 original logs byte-identical to first-added blobs. No credential/private-screenshot/model-inventory payload found in the finite scan.
+- First exact payload CI read: run 37341366281, in progress. This documentation-only successor records the successful push; final successor SHA still requires its own CI before new implementation. No rerun, release or deployment triggered manually.
+- Read-only next-slice recommendation: Q02a finite hero-attribute follow-ups only after raw evidence is nonempty; use actual accepted citations and fresh current-KB retrieval, never revive empty-evidence generation. Not yet started.

@@ -1,6 +1,6 @@
 # Q03a coordinator integration verification
 
-Date: 2026-10-06. Local integration passes; publication and exact-final-SHA CI are tracked separately in the iteration state. This is bounded offline acceptance, not production readiness.
+Date: 2026-10-06. Local integration passes. Code and evidence published as `49ffe2d918c4c45cc0db3f8de273f4cdd84c1fdc`; remote master readback matched. Exact-final-SHA CI is tracked separately in the iteration state. This is bounded offline acceptance, not production readiness.
 
 ## Immutable source and independent decision
 
@@ -37,5 +37,7 @@ The initial staged whitespace check stopped before commit because raw Rich-forma
 ## Publication authority and remaining work
 
 The coordinator independently verified the user's actual standing authorization for this same repository's existing Review implementation/test/CR/integration/push/CI route, including the disclosed report/log/history/path metadata. No repeat publication question is needed within that scope. This does not grant other-repository transfer, credentials/private-data publication, paid-model use, deployment, account/security changes or game operations.
+
+Before publication a separate read-only payload audit bound its result to `49ffe2d`: 12 commits, 114 changed files (110 new, four modified), prior 92 historical blob versions plus the 24-file evidence successor examined. No scoped publication blocker or credential/private-screenshot/model-inventory payload was found; this is a finite scan, not an absolute secret-free proof. All 36 raw logs match their first-added Git blobs. The payload's first CI read was run 37341366281, in progress; it is not recorded as successful. This report/status-only successor changes no packages, apps, scripts or workflow source.
 
 Q03a covers explicit single-hero base/max/growth scalar assessment and conservative applicability degradation. It does not complete general Q03 semantic sufficiency, Q05 condition resolution, answer entailment, human-reviewed gold, independent holdout, real provider quality, native Windows full-suite coverage or game closed-loop execution. Following publication and exact-SHA CI, select the next small unfinished Review slice; the overall route remains in progress.
