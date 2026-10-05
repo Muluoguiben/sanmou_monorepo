@@ -9,6 +9,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from qa_agent.quality_eval.runner import run
+from qa_agent.quality_eval.runner import _validate_corpus
 from qa_agent.quality_eval.scoring import digest, refusal_score, retrieval_score, score_answer, snapshot
 
 PACKAGE = Path(__file__).resolve().parents[1]
@@ -182,3 +183,39 @@ class QualityEvaluationTests(unittest.TestCase):
             with patch('qa_agent.quality_eval.runner.json.loads',side_effect=[edited,frozen]):
                 with self.assertRaisesRegex(ValueError,message):
                     run(PACKAGE,baseline='v2')
+
+    def test_strict_schema_is_separate_from_hash_binding(self):
+        corpus=json.loads((PACKAGE/'tests/fixtures/quality_eval/v2/cases.json').read_text())
+        for key, value in [('top_k',0),('top_k',-1),('top_k',True),('top_k',2.0),
+                ('version',2.0),('version',True),('assessment_cases',[]),('assessment_cases',None)]:
+            with self.subTest(key=key,value=value), self.assertRaises(ValueError):
+                _validate_corpus({**corpus,key:value},'v2')
+        missing=copy.deepcopy(corpus)
+        missing.pop('assessment_cases')
+        with self.assertRaises(ValueError):
+            _validate_corpus(missing,'v2')
+        for group in ('queries','scoring_cases','assessment_cases'):
+            for identifier in ('', '   ', None, 3):
+                changed=copy.deepcopy(corpus)
+                changed[group][0]['id']=identifier
+                with self.subTest(group=group,identifier=identifier), self.assertRaises(ValueError):
+                    _validate_corpus(changed,'v2')
+        for change in ({'expected':{}},{'values':[True]},{'values':[float('nan')]},{'question':''}):
+            changed=copy.deepcopy(corpus)
+            changed['assessment_cases'][0].update(change)
+            with self.assertRaises(ValueError):
+                _validate_corpus(changed,'v2')
+
+    def test_lazy_assessment_module_from_another_tree_is_rejected(self):
+        import importlib.util
+        import types
+        from unittest.mock import MagicMock
+        name='qa_agent.quality_eval.assessment_cases'
+        fake=types.ModuleType(name)
+        fake.__file__='/tmp/another-qa-tree/assessment_cases.py'
+        fake.__spec__=importlib.util.spec_from_file_location(name,fake.__file__)
+        fake.evaluate_cases=MagicMock(side_effect=AssertionError('must not execute foreign code'))
+        with patch.dict('sys.modules',{name:fake}):
+            with self.assertRaisesRegex(ValueError,'execution source mismatch'):
+                run(PACKAGE,baseline='v2')
+        fake.evaluate_cases.assert_not_called()

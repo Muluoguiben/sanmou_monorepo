@@ -107,7 +107,7 @@
       "src/qa_agent/chat/__init__.py": "0833f07baf89b305c51d30857eb624642aa790abe39cc29356a61b56bb7c56dc",
       "src/qa_agent/chat/agent.py": "0302f282d09e901f073b1316f76e7a63dcbae3b1a932dcdec552c445e60a0499",
       "src/qa_agent/chat/env.py": "b07311ab07c1e9ef35c0da310f8b468b10c9e1def2be371ef9619df37ecafc98",
-      "src/qa_agent/chat/evidence_assessment.py": "4fd54019ab2f0df9d221306f5ac901283aedd7cd836d228e50694605cd4a68ad",
+      "src/qa_agent/chat/evidence_assessment.py": "d4ada28896c9e6c776f3a12d636f00fb62abf3281b3722c5841d6b93b2e1a397",
       "src/qa_agent/chat/gemini_client.py": "13e6889191adf2f8babe6754a7fffc76e4fa2504970f46da92f914ea3da72cf8",
       "src/qa_agent/chat/llm_client.py": "3d04af7cf77fe96cc33bdb5cc4b48b56023c51cc7270793dedbf2e79e94959ad",
       "src/qa_agent/chat/minimax_client.py": "f666ed9e016057adb249266632ed29539e44a7efe5eebcabdf1dcbcef701d78e",
@@ -194,8 +194,8 @@
       "src/qa_agent/vision/extractor.py": "3fb35bec171704b2bca068bffe6bc3a1ffe3e8e70b7cf760d4879d06caac94c0",
       "src/qa_agent/vision/image_loader.py": "1db464a8f24e54acdb911e6deb9ab61e08584c9efa52cfb22807e6d4e6073944"
     },
-    "digest": "82f30b27fd957235f4afc7ccc70250b85fea9e4ec899836956b02c0a85c9a03c"
+    "digest": "db41262f5574872c4304b752e74e6099056d310b12eb3e0dce71028e3261a804"
   },
   "cases_sha256": "cba23393a15213c4cdb458d42967a080a58b42b00989cd2dd6c25c10682f01f9",
-  "baseline_commit": "23149c06a970da6876cd94403970934f164ed794"
+  "baseline_commit": "2af538b4f9cf03a7757a158dc59b1af6143c4af7"
 }
