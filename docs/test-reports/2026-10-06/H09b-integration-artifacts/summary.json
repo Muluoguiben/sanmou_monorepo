@@ -1,0 +1,179 @@
+{
+  "linux": {
+    "source": "21e279a7efb44840ad4dbda3c06b8eb3514eed77",
+    "tree": "4ebea5d57dc7871f71d7536879531076a962da01",
+    "packages": "c273943f122e9ced51bc7290d3d80b44a6df5e23",
+    "source_byte_records": 2400,
+    "status_before_after": "clean",
+    "runtime": {
+      "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+      "executable": "/usr/bin/python3",
+      "os": "posix",
+      "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+      "source_root": "/tmp/sanmou-h09b-integration-20261006",
+      "source": "21e279a7efb44840ad4dbda3c06b8eb3514eed77",
+      "tree": "4ebea5d57dc7871f71d7536879531076a962da01",
+      "packages": "c273943f122e9ced51bc7290d3d80b44a6df5e23",
+      "mode": "linux"
+    },
+    "codec": {
+      "max_report": 524288,
+      "max_log": 786432,
+      "chunk": 3072,
+      "maximum_roundtrip": true,
+      "zero_roundtrip": true,
+      "empty_five_rejected": [
+        {
+          "name": "negative_length",
+          "error": "evidence_limit"
+        },
+        {
+          "name": "empty_payload_chunk",
+          "error": "chunk_sequence"
+        },
+        {
+          "name": "empty_wrong_digest",
+          "error": "evidence_digest"
+        },
+        {
+          "name": "empty_missing_end",
+          "error": "missing_end"
+        },
+        {
+          "name": "empty_duplicate_end",
+          "error": "extra_evidence_record"
+        }
+      ],
+      "evidence_class": "pure data, not native CLI"
+    }
+  },
+  "windows": {
+    "source": "21e279a7efb44840ad4dbda3c06b8eb3514eed77",
+    "tree": "4ebea5d57dc7871f71d7536879531076a962da01",
+    "packages": "c273943f122e9ced51bc7290d3d80b44a6df5e23",
+    "source_byte_records": 2400,
+    "status_before_after": "clean",
+    "runtime": {
+      "python": "3.14.3 (tags/v3.14.3:323c59a, Feb  3 2026, 16:04:56) [MSC v.1944 64 bit (AMD64)]",
+      "executable": "C:\\Users\\Lan\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "os": "nt",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "source_root": "C:\\Users\\Lan\\AppData\\Local\\Temp\\h09b-integration-21e279a-20261006",
+      "source": "21e279a7efb44840ad4dbda3c06b8eb3514eed77",
+      "tree": "4ebea5d57dc7871f71d7536879531076a962da01",
+      "packages": "c273943f122e9ced51bc7290d3d80b44a6df5e23",
+      "mode": "windows"
+    },
+    "codec": {
+      "max_report": 524288,
+      "max_log": 786432,
+      "chunk": 3072,
+      "maximum_roundtrip": true,
+      "zero_roundtrip": true,
+      "empty_five_rejected": [
+        {
+          "name": "negative_length",
+          "error": "evidence_limit"
+        },
+        {
+          "name": "empty_payload_chunk",
+          "error": "chunk_sequence"
+        },
+        {
+          "name": "empty_wrong_digest",
+          "error": "evidence_digest"
+        },
+        {
+          "name": "empty_missing_end",
+          "error": "missing_end"
+        },
+        {
+          "name": "empty_duplicate_end",
+          "error": "extra_evidence_record"
+        }
+      ],
+      "evidence_class": "pure data, not native CLI"
+    }
+  },
+  "protected_records": 1414,
+  "linux_diagnostic": {
+    "source": "21e279a7efb44840ad4dbda3c06b8eb3514eed77",
+    "tree": "4ebea5d57dc7871f71d7536879531076a962da01",
+    "report_sha256": "606629e6bb17820880a9d89de27edc366f89641e8dd41f0f075e1dc25e3d4987",
+    "report_bytes": 274839,
+    "totals": {
+      "control_pass": 8,
+      "expected_safety_stop": 6,
+      "goal_success": 2,
+      "infra_error": 0,
+      "safety_violations": 0,
+      "unexpected_goal_success": 0
+    },
+    "artifacts_verified": 25,
+    "linux_rejected_as_native": true,
+    "data_only_synthetic_platform_validation": true,
+    "real_native_acceptance": false
+  },
+  "qa_v3_sha256": "480a448fd7abecfba2f6cd4eb32a46873ff0b8127b6251cd8aeea5e4fe2e82c8",
+  "workflow_scope": {
+    "changed": [
+      ".github/workflows/regression.yml",
+      "packages/pioneer-agent/tests/test_windows_task_eval_ci.py",
+      "scripts/check_windows_task_eval.py"
+    ],
+    "added_lines": 3,
+    "old_workflow_sha256": "5fcb29d4c21dac1eba6e07b9b7018ec65dee2ccdb13293fa7cd3b6c883d39b86",
+    "new_workflow_sha256": "026ae4f45fa3814fbe1078c28bb4d635215075ab55be7f2136eda57666a78ce4",
+    "existing_bytes_exactly_preserved": true
+  },
+  "tests": {
+    "pioneer": {
+      "total": 1018,
+      "pass": 1016,
+      "skip": 2,
+      "failure": 0,
+      "seconds": 50.867,
+      "sha256": "7100621c1e00b6d1b8df278adad19959da026d6e2e82de54685cd0f0da37aa75"
+    },
+    "qa": {
+      "total": 394,
+      "pass": 394,
+      "skip": 0,
+      "failure": 0,
+      "seconds": 39.743,
+      "sha256": "ab3b5a95e85dc0f5b9e5d567315a4f3b35dff90a20765a34431facf167cf869b"
+    },
+    "common": {
+      "total": 2,
+      "pass": 2,
+      "skip": 0,
+      "failure": 0,
+      "seconds": 0.003,
+      "sha256": "a0edf3c8009de64cb699625af43fb4b821c60a656c7f787d24bb309ba36b1da4"
+    },
+    "linux_stdlib": {
+      "total": 20,
+      "pass": 20,
+      "skip": 0,
+      "failure": 0,
+      "seconds": 0.323,
+      "sha256": "e67d8688b0754a0ca55d34ec38b78c7d4e4135f054610aa1dc34ccbead25a442"
+    },
+    "windows_stdlib": {
+      "total": 20,
+      "pass": 20,
+      "skip": 0,
+      "failure": 0,
+      "seconds": 2.316,
+      "sha256": "0a6a3f2c1aee6f264c01ea5b059a5caaa17a7275f3a5007f70c31a7a450acb73"
+    }
+  },
+  "frozen_original_probes": 20,
+  "hosted_native_cli_acceptance": "pending; no native evaluator or CI invocation in this task",
+  "archive_sha256": "f219387e4c2dc9dbde4f17395c12c2c509182b031e5b6d4379606ed89b2901fa",
+  "archive_counts": {
+    "regular": 64,
+    "directory": 11,
+    "symlink": 0
+  }
+}

@@ -1,9 +1,11 @@
 # Todo List
 
-## H09b native Windows gate — author candidate (2026-10-06)
+## H09b native Windows gate — local integration verified (2026-10-06)
 
 - [x] Limited three-file gate implementation at `f961c1594018651d584bbe622547a79e5648c5a7` / tree `bef7699f43bcb9659b35f02f53834f744fe51d10`; [source-bound self-test](docs/test-reports/2026-10-06/h09b-selftest/REPORT.md). Native stdlib checker18 pass; detached Linux Pioneer1014+2skip, QA394/common2; actual Linux report rejected as native. Synthetic/mock schema checks are not Windows CLI evidence; original CRLF failure preserved.
-- [ ] Independent CR, combined tree verification, authorized publication and exact-final-SHA existing Windows job must execute the real task_eval CLI; reconstruct original report bytes from that gate step, verify native/source/8case/readonly/model0 and all existing jobs green. No native H09b acceptance claimed yet; no new provider/game/driver work.
+- [x] Final code `9c8db2605d64c08736830585b20c542138d66678`, author handoff `1abcaac29697420de6de0663f2bc8e244f456336`, independent `5440a67` APPROVE_CODE_SCOPED; original empty-report/CRLF failures remain frozen.
+- [x] Coordinator exact combination `21e279a7efb44840ad4dbda3c06b8eb3514eed77`: Linux Pioneer1016+2skip, QA394/common2; native Windows stdlib20 and original identity-only probes20; five empty-frame negatives each platform; actual Linux CLI8/8 with native rejection. Both platforms2400Git bytes stable;1414protected unchanged; workflow only3newlines; QA v3 hash unchanged. [Source-bound report](docs/test-reports/2026-10-06/H09b-integration.md).
+- [ ] Still unpublished: exact-final-SHA existing Windows job must execute the real H09b task_eval CLI; reconstruct original report bytes from that step's raw logs, verify native/source/8case/readonly/model0 and all existing jobs green. Local stdlib/mock/Linux results are not native H09b acceptance. No push/master merge/CI retry in integration verification, no new provider/game/driver work.
 
 ## Publication candidate — H09a (2026-10-06)
 
