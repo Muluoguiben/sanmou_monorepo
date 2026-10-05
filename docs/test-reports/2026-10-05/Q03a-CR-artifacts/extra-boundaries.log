@@ -1,0 +1,20 @@
+test_explicit_disjoint_applicability_in_notes_is_not_hard_conflict (test_q03a_extra.ApplicabilityBoundaryTests.test_explicit_disjoint_applicability_in_notes_is_not_hard_conflict) ... FAIL
+test_historical_commit_label_is_not_verified_by_runner (test_q03a_extra.ApplicabilityBoundaryTests.test_historical_commit_label_is_not_verified_by_runner) ... ok
+
+======================================================================
+FAIL: test_explicit_disjoint_applicability_in_notes_is_not_hard_conflict (test_q03a_extra.ApplicabilityBoundaryTests.test_explicit_disjoint_applicability_in_notes_is_not_hard_conflict)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-05/Q03a-CR-artifacts/test_q03a_extra.py", line 10, in test_explicit_disjoint_applicability_in_notes_is_not_hard_conflict
+    self.assertEqual(reply.assessment.check_scope, "unassessed",
+AssertionError: 'scalar_profile' != 'unassessed'
+- scalar_profile
++ unassessed
+ : {"status":"conflicting","check_scope":"scalar_profile","decision":"disclose_conflict","reasons":["scalar_disagreement"],"fields":[{"entry_id":"review-a","source_ref":"review-source:review-a","entity":"丙将","field_path":"base_attributes.military","value":20},{"entry_id":"review-b","source_ref":"review-source:review-b","entity":"丙将","field_path":"base_attributes.military","value":30}]} ANSWER=本轮同一实体同一字段的来源取值不一致，无法确定唯一答案：
+[review-a] 丙将 base_attributes.military=20 (source=review-source:review-a)
+[review-b] 丙将 base_attributes.military=30 (source=review-source:review-b)
+
+----------------------------------------------------------------------
+Ran 2 tests in 2.035s
+
+FAILED (failures=1)
