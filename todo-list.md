@@ -10,7 +10,8 @@
 - [x] Supplemental `54d4237` rejected965 for CR04 same-harness stale wrapper; final `6b7b5ca` actually resumes successfully, restores only its own wrapper and preserves successor/third-party replacements. Original supplement/approval reports are unchanged.
 - [x] Independent `5ef9bf8a5cf1e8e4c4745dbd5fdfae1026d6616b` APPROVE closes CR01-04 for exact6b source/POSIX/native primitive: full970(968+2skip), QA394/common2, focused72, probes34(31independent+3duplicates), native1 pass. Coordinator checked79 committed artifact hashes, zero mismatch.
 - [x] Coordinator combined source `645a413b704a954fe7de573e412b4ed5dda1545e` passes Pioneer968+2existing skips, QA394/common2, focused72, original probes29+standalone wrapper5, native Windows primitives3+1; 79 CR hashes match and QA v3 output unchanged. [Platform-separated report](docs/test-reports/2026-10-06/H06a-integration.md).
-- [ ] Final scoped payload audit/publication and exact-final-SHA CI, explicitly including new Windows H06a step. Device lease/effect exactly-once/live game remain outside H06a.
+- [x] Final scoped payload audit bound `c173161a32ae1796d26a32228b19fd79f8b7661d`: 399 objects/20commits/238paths, no scoped blocker; protected paths and150 rawlogs preserved. Pushed master and fetched matching SHA; packages still approved f1a11b5.
+- [ ] Exact-final-SHA CI after this documentation-only status successor, explicitly including `Windows H06a checkpoint ownership and lifecycle`; initial payload run37365711173 was queued. Device lease/effect exactly-once/live game remain outside H06a.
 
 ## Active Review continuation — Q02a (2026-10-06)
 

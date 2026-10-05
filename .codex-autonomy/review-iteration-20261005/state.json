@@ -5,8 +5,8 @@
   "current_round": 3,
   "batch": "H06a single-checkpoint local process ownership and CAS",
   "base_commit": "751df8ee867479b9ad272c9c64ab190f76cd0934",
-  "branch": "codex/h06a-integration-20261006",
-  "summary": "H06a approved source integrated as645a413. Coordinator full/focused/29+5 probes and native3+1 pass; QA v3 unchanged. Final payload audit/publication and exact-final-SHA Windows H06a CI remain before closing round3.",
+  "branch": "master",
+  "summary": "H06a approved integration/evidence published as c173161 with exact remote readback. Final documentation-only successor still requires all exact-SHA CI jobs, especially the new full Windows H06a step, before round3 closes.",
   "current_task": "docs/harness-checkpoint-ownership-h06a-2026-10-06.md",
   "prior_round": {
     "batch": "Q02a bounded hero-attribute referent resolution",
@@ -30,9 +30,9 @@
   "independent_review": {"status":"approve_reviewed_source_posix_native_primitive","plan_commit":"6b3164a7af1351912440ae989fd8209a8cc38811","review_target":"6b7b5caad1cbffc59692d3fe9df6a3b3d88dfa9c","approved_code":"6b7b5caad1cbffc59692d3fe9df6a3b3d88dfa9c","approved_tree":"bb2636242bad0e796ded0b43d6fc1a5142a839f9","current_report_commit":"5ef9bf8a5cf1e8e4c4745dbd5fdfae1026d6616b","native_full_integration":"pending Windows H06a checkpoint ownership and lifecycle step at exact final SHA","prior_scoped_approval_retained":"26d997bc0d37e05888de4765e09ac66c8468a535","prior_red_reports":["270d0a4d92071dc5db2a7cdd420f81dfa6b10de2","b4ad6c88de30145c476aaf3e6400fa422b022a33","509c1165de38d94326936aa2f3bf68650592caa8","abe17cdac6557451e6d811e1812d65c0025ad8de","54d423755b9d8a33b95592c79956cdbb2bd9f2b5"],"snapshot_blobs":1639,"snapshot_mismatches":0,"green_controls":"Pioneer970=968pass+2skip; QA394; common2; focused72; 34probe methods(31independent+3duplicates); nativeprimitive1"},
   "coordinator_premerge": {"cr_artifact_git_blobs":79,"mismatches":0,"manifest_sha256":"c52a0428db218f286dd7e0c7673d58df31480551c63a1f7197ea4863896bc72f"},
   "coordinator_integration": {"status":"local_checks_passed","source":"645a413b704a954fe7de573e412b4ed5dda1545e","tree":"f7aa204cb88620ab189a1ec4bad7ccf7d4657915","packages_tree":"f1a11b5e69de7ac040c74a4a4bce98515e4dfee2","pioneer_pass":968,"pioneer_existing_windows_skips":2,"qa_pass":394,"common_pass":2,"focused_pass":72,"probe_collection":"29+5=34, 31independent+3imported duplicates","native_windows_primitive":"3+1 pass; not full MCP/runner/CLI","execution_records":9,"artifact_hashes":21,"qa_v3_sha256":"480a448fd7abecfba2f6cd4eb32a46873ff0b8127b6251cd8aeea5e4fe2e82c8","report":"docs/test-reports/2026-10-06/H06a-integration.md","full_windows_h06a":"pending final-SHA CI"},
-  "publication": {"status":"not_started","required_gate":"current exact-source independent APPROVE, coordinator integration verification and scoped payload audit"},
+  "publication": {"status":"published","payload_commit":"c173161a32ae1796d26a32228b19fd79f8b7661d","remote_readback":"c173161a32ae1796d26a32228b19fd79f8b7661d","payload_ci_run":37365711173,"payload_ci_status":"queued_at_first_read","final_payload_audit":{"objects":399,"commits":20,"paths":238,"raw_logs_unchanged":150,"qa_protected_paths":216,"prior_h06_evidence_paths":191,"object_set_sha256":"5d7cc8ce8807a3c6159a6a9cf9ff437f301840fc3b0d6f729c2d084926a5cfe5","scoped_blockers":0},"status_successor":"this documentation-only commit","final_sha_ci":"pending","windows_h06a_step":"pending"},
   "agents": {"implementation":"/root/h06a_implementation","independent_review":"/root/h06a_review","model":"gpt-6-astra"},
-  "next_step": "Validate final report/hash/link records, scan final payload increment, publish approved integration under standing scope, then verify exact-final-SHA Windows H06a step plus all CI jobs; keep round in_progress until then",
+  "next_step": "Publish documentation-only status successor, then verify its exact-SHA Windows H06a checkpoint ownership and lifecycle step plus every CI job; repair/re-review any real failure before closing H06a or starting another implementation slice",
   "authorization": {
     "user_text": "按review 迭代的方向持续迭代",
     "source_thread": "01a10c00-93d2-778b-8395-bf9d496c503d",

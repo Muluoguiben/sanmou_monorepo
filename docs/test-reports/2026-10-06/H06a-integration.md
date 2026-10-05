@@ -1,6 +1,6 @@
 # H06a 协调集成验收
 
-日期：2026-10-06。源码审查、组合树 Linux 回归和本机 Windows 锁原语复验通过。**完整 Windows checkpoint / runner / CLI 仍须发布后精确最终 SHA 的新增 H06a CI 步骤通过**，不能用旧 API/Electron 绿灯代替。当前不是 production 或游戏执行批准。
+日期：2026-10-06。源码审查、组合树 Linux 回归和本机 Windows 锁原语复验通过。载荷 `c173161a32ae1796d26a32228b19fd79f8b7661d` 已推送 master 并回读一致。**完整 Windows checkpoint / runner / CLI 仍须精确最终 SHA 的新增 H06a CI 步骤通过**，不能用旧 API/Electron 绿灯代替。当前不是 production 或游戏执行批准。
 
 ## 不可变来源
 
@@ -49,6 +49,8 @@ Linux：Python 3.12.3、pydantic 2.12.5、PyYAML 6.0.1、MCP 1.29.1、AnyIO 4.13
 ## 发布与最后门禁
 
 用户已经明确授权本仓既定 Review 开发、自测、独立 CR、组合验收、代码/合成 fixture/完整历史/报告日志及已披露路径元数据发布和 CI；不重复请求同范围确认。秘密、私人真实数据、其他仓库、部署/账号安全、付费模型及游戏操作仍在范围外。已扫作者5da631f/CR5ef9bf8的累计集合为 363 对象/18 commits/215 paths；无范围内敏感异常，旧 216 QA 保护路径、138 H06a 证据文件和141原日志不变。新协调报告仍须最终增量审计；有限扫描不是绝对无秘密证明。
+
+最终增量审计已于推送前绑定 c173161：累计399对象、20commits、238路径（227新增/11修改）；216旧QA保护路径、191此前H06a证据路径和150原日志不变，无范围内发布阻断。集合摘要 `5d7cc8ce8807a3c6159a6a9cf9ff437f301840fc3b0d6f729c2d084926a5cfe5`。master快进/推送后显式fetch回读一致且工作树干净。初始载荷CI为run37365711173/queued；本纯文档后继需检查自己的最终SHA，不能把排队状态或旧SHA结果当通过。
 
 发布后必须读取最终 SHA 的 workflow run，并确认 Windows H06a 新增 step 及其他三个 Python/Windows整体 job 完成成功。该 step 命令：
 
