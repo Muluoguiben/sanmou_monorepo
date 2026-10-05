@@ -1,5 +1,10 @@
 # Todo List
 
+## H09b native Windows gate — author candidate (2026-10-06)
+
+- [x] Limited three-file gate implementation at `f961c1594018651d584bbe622547a79e5648c5a7` / tree `bef7699f43bcb9659b35f02f53834f744fe51d10`; [source-bound self-test](docs/test-reports/2026-10-06/h09b-selftest/REPORT.md). Native stdlib checker18 pass; detached Linux Pioneer1014+2skip, QA394/common2; actual Linux report rejected as native. Synthetic/mock schema checks are not Windows CLI evidence; original CRLF failure preserved.
+- [ ] Independent CR, combined tree verification, authorized publication and exact-final-SHA existing Windows job must execute the real task_eval CLI; reconstruct original report bytes from that gate step, verify native/source/8case/readonly/model0 and all existing jobs green. No native H09b acceptance claimed yet; no new provider/game/driver work.
+
 ## Publication candidate — H09a (2026-10-06)
 
 - [x] Frozen [task contract](docs/harness-task-eval-h09a-2026-10-06.md)813ff402; author code `103d0d1594a11af905515182913731d2d8bb4ac9` / report4b1aef41 and independent APPROVE `74d711e29db0a1e86e781bd65e420787a1cb2210`. All CR01/02/03/03b/04/05 closed; every original red retained. Scope is Linux ext4 deterministic offline control only, not H09 native Windows/drvfs/model/game/production.

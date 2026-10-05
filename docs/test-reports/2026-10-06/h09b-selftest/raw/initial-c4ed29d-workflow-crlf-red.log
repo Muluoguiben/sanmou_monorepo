@@ -1,0 +1,152 @@
+.github/workflows/regression.yml:1: trailing whitespace.
++name: Offline regression gates
+.github/workflows/regression.yml:2: trailing whitespace.
++
+.github/workflows/regression.yml:3: trailing whitespace.
++on:
+.github/workflows/regression.yml:4: trailing whitespace.
++  push:
+.github/workflows/regression.yml:5: trailing whitespace.
++  pull_request:
+.github/workflows/regression.yml:6: trailing whitespace.
++  workflow_dispatch:
+.github/workflows/regression.yml:7: trailing whitespace.
++
+.github/workflows/regression.yml:8: trailing whitespace.
++permissions:
+.github/workflows/regression.yml:9: trailing whitespace.
++  contents: read
+.github/workflows/regression.yml:10: trailing whitespace.
++
+.github/workflows/regression.yml:11: trailing whitespace.
++concurrency:
+.github/workflows/regression.yml:12: trailing whitespace.
++  group: regression-${{ github.workflow }}-${{ github.ref }}
+.github/workflows/regression.yml:13: trailing whitespace.
++  cancel-in-progress: true
+.github/workflows/regression.yml:14: trailing whitespace.
++
+.github/workflows/regression.yml:15: trailing whitespace.
++jobs:
+.github/workflows/regression.yml:16: trailing whitespace.
++  python:
+.github/workflows/regression.yml:17: trailing whitespace.
++    name: Python / ${{ matrix.package }}
+.github/workflows/regression.yml:18: trailing whitespace.
++    runs-on: ubuntu-latest
+.github/workflows/regression.yml:19: trailing whitespace.
++    timeout-minutes: 20
+.github/workflows/regression.yml:20: trailing whitespace.
++    strategy:
+.github/workflows/regression.yml:21: trailing whitespace.
++      fail-fast: false
+.github/workflows/regression.yml:22: trailing whitespace.
++      matrix:
+.github/workflows/regression.yml:23: trailing whitespace.
++        package: [sanmou-common, pioneer-agent, qa-agent]
+.github/workflows/regression.yml:24: trailing whitespace.
++    steps:
+.github/workflows/regression.yml:25: trailing whitespace.
++      - uses: actions/checkout@v4
+.github/workflows/regression.yml:26: trailing whitespace.
++      - uses: actions/setup-python@v5
+.github/workflows/regression.yml:27: trailing whitespace.
++        with:
+.github/workflows/regression.yml:28: trailing whitespace.
++          python-version: '3.12'
+.github/workflows/regression.yml:29: trailing whitespace.
++      - name: Install package, API and official MCP SDK dependencies
+.github/workflows/regression.yml:30: trailing whitespace.
++        run: python -m pip install -e packages/sanmou-common -e packages/pioneer-agent -e packages/qa-agent httpx
+.github/workflows/regression.yml:31: trailing whitespace.
++      - name: Require API and SDK dependencies
+.github/workflows/regression.yml:32: trailing whitespace.
++        run: python -c "import fastapi, httpx, multipart; from mcp import ClientSession; from mcp.client.stdio import stdio_client"
+.github/workflows/regression.yml:33: trailing whitespace.
++      - name: Package tests (offline)
+.github/workflows/regression.yml:34: trailing whitespace.
++        working-directory: packages/${{ matrix.package }}
+.github/workflows/regression.yml:35: trailing whitespace.
++        run: python -m unittest discover -s tests -p 'test_*.py' -v
+.github/workflows/regression.yml:36: trailing whitespace.
++
+.github/workflows/regression.yml:37: trailing whitespace.
++  windows:
+.github/workflows/regression.yml:38: trailing whitespace.
++    name: Windows API and Electron
+.github/workflows/regression.yml:39: trailing whitespace.
++    runs-on: windows-latest
+.github/workflows/regression.yml:40: trailing whitespace.
++    timeout-minutes: 30
+.github/workflows/regression.yml:41: trailing whitespace.
++    env:
+.github/workflows/regression.yml:42: trailing whitespace.
++      # Keep SHA-bound fixture bytes identical on Linux and Windows checkouts.
+.github/workflows/regression.yml:43: trailing whitespace.
++      GIT_CONFIG_COUNT: '1'
+.github/workflows/regression.yml:44: trailing whitespace.
++      GIT_CONFIG_KEY_0: core.autocrlf
+.github/workflows/regression.yml:45: trailing whitespace.
++      GIT_CONFIG_VALUE_0: 'false'
+.github/workflows/regression.yml:46: trailing whitespace.
++      CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+.github/workflows/regression.yml:47: trailing whitespace.
++    steps:
+.github/workflows/regression.yml:48: trailing whitespace.
++      - uses: actions/checkout@v4
+.github/workflows/regression.yml:49: trailing whitespace.
++      - uses: actions/setup-python@v5
+.github/workflows/regression.yml:50: trailing whitespace.
++        with:
+.github/workflows/regression.yml:51: trailing whitespace.
++          python-version: '3.12'
+.github/workflows/regression.yml:52: trailing whitespace.
++      - uses: actions/setup-node@v4
+.github/workflows/regression.yml:53: trailing whitespace.
++        with:
+.github/workflows/regression.yml:54: trailing whitespace.
++          # Desktop build dependencies require Node >=22.12.0.
+.github/workflows/regression.yml:55: trailing whitespace.
++          node-version: '24.14.0'
+.github/workflows/regression.yml:56: trailing whitespace.
++          cache: npm
+.github/workflows/regression.yml:57: trailing whitespace.
++          cache-dependency-path: apps/sanmou-advisor-desktop/package-lock.json
+.github/workflows/regression.yml:58: trailing whitespace.
++      - name: Install API and official MCP SDK dependencies
+.github/workflows/regression.yml:59: trailing whitespace.
++        run: python -m pip install -e packages/sanmou-common -e packages/pioneer-agent -e packages/qa-agent httpx
+.github/workflows/regression.yml:60: trailing whitespace.
++      - name: Require API and SDK dependencies
+.github/workflows/regression.yml:61: trailing whitespace.
++        run: python -c "import fastapi, httpx, multipart; from mcp import ClientSession"
+.github/workflows/regression.yml:72: trailing whitespace.
++        working-directory: apps/sanmou-advisor-desktop
+.github/workflows/regression.yml:73: trailing whitespace.
++        run: npm ci
+.github/workflows/regression.yml:74: trailing whitespace.
++      - name: Desktop typecheck
+.github/workflows/regression.yml:75: trailing whitespace.
++        working-directory: apps/sanmou-advisor-desktop
+.github/workflows/regression.yml:76: trailing whitespace.
++        run: npm run typecheck
+.github/workflows/regression.yml:77: trailing whitespace.
++      - name: Desktop build
+.github/workflows/regression.yml:78: trailing whitespace.
++        working-directory: apps/sanmou-advisor-desktop
+.github/workflows/regression.yml:79: trailing whitespace.
++        run: npm run build
+.github/workflows/regression.yml:80: trailing whitespace.
++      # Supplied by task E; run real Electron on the Windows runner.
+.github/workflows/regression.yml:81: trailing whitespace.
++      - name: Desktop regression tests
+.github/workflows/regression.yml:82: trailing whitespace.
++        working-directory: apps/sanmou-advisor-desktop
+.github/workflows/regression.yml:83: trailing whitespace.
++        run: npm test
+.github/workflows/regression.yml:84: trailing whitespace.
++      - name: Unsigned Windows package (no release)
+.github/workflows/regression.yml:85: trailing whitespace.
++        working-directory: apps/sanmou-advisor-desktop
+.github/workflows/regression.yml:86: trailing whitespace.
++        run: npm run dist:win
