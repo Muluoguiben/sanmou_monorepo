@@ -1,0 +1,21 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-05/Q03a-CR-recheck-artifacts/guarded_recheck.py",
+    "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo",
+    "test_evidence_assessment",
+    "test_quality_eval",
+    "test_review_d_regressions.ChatGroundingRegressionTests",
+    "-v"
+  ],
+  "cwd": "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/qa-agent",
+  "execution_root": "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo",
+  "reviewed_code": "3b2b137679bd6b72a5681874bf9ab6ea0ac8f0c9",
+  "reviewed_tree": "ec1d8f04ff42156c90a151b4d0e4c3fbddf765c6",
+  "author_head_before": "3986047adafa6a5334bc7a27a055d0800ddf259d",
+  "author_head_after": "3986047adafa6a5334bc7a27a055d0800ddf259d",
+  "exit_code": 0,
+  "elapsed_s": 21.974687727000855,
+  "log_sha256": "53c2e4c9f85fc27b989268b809ee9488e8232cec51f420429097f941f3f78856"
+}

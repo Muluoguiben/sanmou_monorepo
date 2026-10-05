@@ -1,0 +1,25 @@
+{
+  "root": "/tmp/q03a-cr-recheck-wxyqqyk_",
+  "code": "3b2b137679bd6b72a5681874bf9ab6ea0ac8f0c9",
+  "tree": "ec1d8f04ff42156c90a151b4d0e4c3fbddf765c6",
+  "archive_command": [
+    "/mnt/c/Program Files/Git/cmd/git.exe",
+    "-C",
+    "C:\\Users\\Lan\\.codex\\worktrees\\qa-evidence-q03-20261005\\sanmou_monorepo",
+    "-c",
+    "core.autocrlf=false",
+    "-c",
+    "core.eol=lf",
+    "archive",
+    "--format=tar",
+    "3b2b137679bd6b72a5681874bf9ab6ea0ac8f0c9",
+    ".",
+    ":(exclude)packages/qa-agent/.env.example"
+  ],
+  "archive_sha256": "f8a7debecf6e6243de3ce74932170a9e1233af251003dead8b882ea293545074",
+  "verified_file_count": 1336,
+  "verified_symlink_count": 0,
+  "blob_mismatches": 0,
+  "excluded_config": "packages/qa-agent/.env.example",
+  "reviewer_source_edit": false
+}

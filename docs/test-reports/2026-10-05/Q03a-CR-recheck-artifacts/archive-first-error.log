@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-05/Q03a-CR-recheck-artifacts/recheck.py", line 179, in <module>
+    main()
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-05/Q03a-CR-recheck-artifacts/recheck.py", line 155, in main
+    raise RuntimeError("archive blob mismatch: " + name)
+RuntimeError: archive blob mismatch: packages/pioneer-agent/CLAUDE.md

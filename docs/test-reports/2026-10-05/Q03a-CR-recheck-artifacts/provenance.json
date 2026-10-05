@@ -1,0 +1,34 @@
+{
+  "reviewed_code": "3b2b137679bd6b72a5681874bf9ab6ea0ac8f0c9",
+  "reviewed_tree": "ec1d8f04ff42156c90a151b4d0e4c3fbddf765c6",
+  "actual_author_head": "3986047adafa6a5334bc7a27a055d0800ddf259d",
+  "actual_author_tree": "0629b700e2e76009a6edf07e304e77f2a4e35b4a",
+  "report_only_paths": [
+    "docs/test-reports/2026-10-05/Q03a-repair-artifacts/independent-final.log",
+    "docs/test-reports/2026-10-05/Q03a-repair-artifacts/mixed-green.log",
+    "docs/test-reports/2026-10-05/Q03a-repair-artifacts/mixed-red.log",
+    "docs/test-reports/2026-10-05/Q03a-repair-artifacts/mixed_import_probe.py",
+    "docs/test-reports/2026-10-05/Q03a-repair-artifacts/red.log",
+    "docs/test-reports/2026-10-05/Q03a-repair-artifacts/test_independent_q03a.py",
+    "docs/test-reports/2026-10-05/Q03a-repair-artifacts/test_q03a_extra.py",
+    "docs/test-reports/2026-10-05/Q03a-repair-artifacts/v1-rejected.log",
+    "docs/test-reports/2026-10-05/Q03a-repair.md"
+  ],
+  "author_status": "?? .codex-autonomy/review-iteration-20261005/\n?? docs/qa-evidence-assessment-q03a-2026-10-05.md\n",
+  "probe_sha256": {
+    "mixed_import_probe.py": "565c67da5b63bac8209194372d79b2b898a885a4be3f7372bdf3288112c4f1e8",
+    "test_independent_q03a.py": "9d4ab6c15bad527c665117c0de29f445582957bdafacfc687404631685c4dd3e",
+    "test_q03a_extra.py": "85cdf0e1b9832602445600e0ec0b62284f71a4f03750a1153d6f95e97a5faa55"
+  },
+  "baseline_commit": "2af538b4f9cf03a7757a158dc59b1af6143c4af7",
+  "resolved_commit": "2af538b4f9cf03a7757a158dc59b1af6143c4af7",
+  "manifest_blob_count": 185,
+  "manifest_mismatches": 0,
+  "production_digest": "db41262f5574872c4304b752e74e6099056d310b12eb3e0dce71028e3261a804",
+  "production_changed_paths": [
+    "src/qa_agent/chat/evidence_assessment.py"
+  ],
+  "kb_unchanged": true,
+  "cases_hash_unchanged": true,
+  "limitation": "Local commit/blob check; runtime commit label remains format-only"
+}

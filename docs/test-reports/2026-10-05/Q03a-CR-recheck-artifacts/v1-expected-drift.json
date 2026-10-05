@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "-m",
+    "qa_agent.quality_eval.runner",
+    "--output",
+    "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-05/Q03a-CR-recheck-artifacts/v1-must-not-exist.json"
+  ],
+  "cwd": "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/qa-agent",
+  "execution_root": "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo",
+  "reviewed_code": "3b2b137679bd6b72a5681874bf9ab6ea0ac8f0c9",
+  "reviewed_tree": "ec1d8f04ff42156c90a151b4d0e4c3fbddf765c6",
+  "author_head_before": "3986047adafa6a5334bc7a27a055d0800ddf259d",
+  "author_head_after": "3986047adafa6a5334bc7a27a055d0800ddf259d",
+  "exit_code": 1,
+  "elapsed_s": 1.9523346499991021,
+  "log_sha256": "b3876301b37cfe585c98956040d75fa240e01ab392cc12995fa1484783063b97"
+}

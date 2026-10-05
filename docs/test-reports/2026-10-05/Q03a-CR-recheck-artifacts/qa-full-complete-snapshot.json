@@ -1,0 +1,23 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-05/Q03a-CR-recheck-artifacts/guarded_recheck.py",
+    "/tmp/q03a-cr-recheck-wxyqqyk_",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_*.py",
+    "-v"
+  ],
+  "cwd": "/tmp/q03a-cr-recheck-wxyqqyk_/packages/qa-agent",
+  "execution_root": "/tmp/q03a-cr-recheck-wxyqqyk_",
+  "reviewed_code": "3b2b137679bd6b72a5681874bf9ab6ea0ac8f0c9",
+  "reviewed_tree": "ec1d8f04ff42156c90a151b4d0e4c3fbddf765c6",
+  "author_head_before": "3986047adafa6a5334bc7a27a055d0800ddf259d",
+  "author_head_after": "3986047adafa6a5334bc7a27a055d0800ddf259d",
+  "exit_code": 0,
+  "elapsed_s": 40.51839544100221,
+  "log_sha256": "460cb6f56709ee5a0b6ac198feb319c12109c4995f0b54a6da69dfb39c6ca412"
+}
