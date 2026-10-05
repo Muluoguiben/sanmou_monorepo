@@ -1,5 +1,7 @@
 # 三国 SLG Agent 架构设计文档
 
+> 2026-10-05 工程主线更新：当前能力与迭代优先级见 [Harness 评审](harness-engineering-review-2026-10-05.md)、[QA RAG 评审](qa-agent-rag-review-2026-10-05.md) 和 [todo](../todo-list.md)。本 ADR 保留历史研究与领域设计；候选 HybridRAG/GraphRAG、成熟度评分和计划指标不能当作已实现/已测达标。共享 ports、安全隔离与 Advisor-first 产品边界继续有效。
+
 **从 Advisor 到可托管 Agent 的演进路线**
 
 > sanmou_monorepo 内部架构 ADR · v1.0 · 2026-05-18

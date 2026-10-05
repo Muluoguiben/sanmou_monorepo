@@ -1,5 +1,41 @@
 # Todo List
 
+## Current mainline — Harness + QA RAG（2026-10-05）
+
+Decision: 用户确认后续以 harness 工程为主线；RAG 对象为本仓 `packages/qa-agent`，不新建/改名 package。产品仍为 Advisor-first，Game/QA trust domains 与只读权限不变。
+
+- [x] 更新 [Harness 评审](docs/harness-engineering-review-2026-10-05.md) 和 [QA RAG 专项评审](docs/qa-agent-rag-review-2026-10-05.md)，同步 README、AGENTS、模块设计和共享项目记忆。
+- [x] 当前源码 `a9759557` 的 QA 检索/grounding/adapter/ingestion 离线回归 40/40；不是全包重跑、真实模型准确率或生产验收。
+
+### 第一交付：最小只读任务 harness（H-M0 → H-M1）
+
+- [ ] H01 — DecisionPolicy port：规则/Fake/可选模型可替换，安全门禁不可替换。
+- [ ] H02 — TaskSpec + 多步决策：复用 Runbook 条件，目标、成功证据、允许工具、停止条件明确；至少三次新观察的任务回归。
+- [ ] H03 — RunState/checkpoint：持久化生命周期和步骤，暂停/取消/崩溃恢复后重观察，不继承过期授权。
+- [ ] H04 — ContextBuilder：token/工具结果/图片预算、压缩与证据引用；不把日志摘要当完整上下文管理。
+- [ ] H05 — Run budget：总时长/步数/调用/token/cost、有界只读重试与错误分类。
+- [ ] H09 — Task eval：冻结任务与标签，先规则/Fake 回归，再受控 provider-in-loop 对照；与静态 replay/vision/live evidence 分栏。
+- [ ] H10 — Unified trace：run/turn/model/tool/outcome、版本与真实 usage 关联，敏感数据最小化。
+
+### 后续 harness（H-M2 → H-M3）
+
+- [ ] H06 — 跨进程设备 lease、决策幂等/CAS、故障注入和恢复；不自动 reset 真实账号。
+- [ ] H08 — reviewed skill registry/version/preconditions/eval；draft 与 live replay 不获自动授权。
+- [ ] H07 — 持久化人工交接与未来 effect ledger；可先模拟，实机执行须独立审批/验证，不能以一次性 grant 宣称 exactly-once。
+
+### QA RAG 并行主线（Q-M0 → Q-M3）
+
+- [ ] Q07 / Q-E0 — 先冻结 KB/query/gold evidence/claim 标签和 split，预先定义分层指标与阈值，测当前词法 RAG 基线。
+- [ ] Q02 — 用仍有效的历史证据 ID 做确定性指代消解，保留无关空证据零生成门禁。
+- [ ] Q03 — supported/partial/conflicting/not_found；关键证据不足时追问或拒答。
+- [ ] Q04 — claim→evidence/revision/span 与引用完整性/语义支持评测；ID 合法不能代替事实正确。
+- [ ] Q05 — season/version/as-of 过滤、冲突披露和知识撤回。
+- [ ] Q06 — 明确 operator import 与 reviewed staging 的准入和审计，版本化知识 snapshot；不向 agent 暴露 publish。
+- [ ] Q01 — 在质量基线之后增加有界只读多轮检索规划，与固定 pipeline 对照。
+- [ ] Q08 — 复用 harness 的上下文、总预算和 trace 契约，统计 rewrite/vision/answer 全链路成本；不复制游戏 runtime。
+
+Owner 尚待认领；本轮只落评审/计划，不宣称上述实现完成。每个开发交付必须自测、提交 source-bound 报告并经过独立组合树 review。多样本、知识、真实视觉和独立 eval 持续推进；下方 production gates 不因主线变更而豁免。
+
 ## Completed hardening batch — 2026-09-08
 
 Six GPT-6 Astra worktree tasks completed self-tests and committed reports.

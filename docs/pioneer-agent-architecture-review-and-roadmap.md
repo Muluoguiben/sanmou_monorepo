@@ -1,5 +1,7 @@
 # Sanmou Monorepo / Pioneer Agent 架构评审与路线图
 
+> 2026-10-05 当前主线：[Harness 工程评审](harness-engineering-review-2026-10-05.md) 与 [QA RAG 专项评审](qa-agent-rag-review-2026-10-05.md) 更新当前优先级和验收。下文“QA 尚未接入”、成熟度评分及旧缺口是历史快照，不能作为当前事实；现已有 KnowledgeProvider 集成、只读 MCP/harness 和 CI。产品仍 Advisor-first，游戏执行门禁不因工程主线变化而开放。
+
 > Updated: 2026-05-17. 本次更新将低风险真实自动化闭环、动作后 verifier、safety/recovery、fixture/eval/replay、qa-agent strategy snapshot 明确前置为 P0。
 
 > 2026-07-10 follow-up: 旧 `AgentRuntime.run_once` / `ActionRunner(not_implemented)` / `pioneer_agent.app.main` scaffold 已删除；当前运行入口只保留 Advisor、Replay 与显式 guarded `AutonomousLoop`。下文对旧 scaffold 的描述仅作为当时审计记录。

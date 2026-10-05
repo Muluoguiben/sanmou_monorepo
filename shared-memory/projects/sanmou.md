@@ -3,9 +3,24 @@
 ## Current Direction
 
 - Product focus:全端截图 Advisor.
+- Engineering mainline (2026-10-05): task-level read-only harness in pioneer-agent; existing qa-agent evolves from basic RAG toward constrained agentic retrieval. Task lifecycle/context/budgets/trace are runtime concerns; KB evidence/retrieval/answer quality remain QA concerns.
 - Main loop: screenshot/capture -> perception -> RuntimeState -> derivation -> selector -> AdvisorReport -> Desktop GUI / chat.
 - Automation is not the MVP default. Click-class actions require safety, verifier, trace, recovery, and kill switch.
 - NSLG client reverse-engineering is paused as a mainline effort unless the user explicitly approves a small capped research phase.
+
+## 2026-10-05 - Harness-first and same-repo QA RAG
+
+- Decision: User confirmed that “qa-pioneer” means `packages/qa-agent`; no rename or new repository. Follow H01–H10 and Q01–Q08 in the new reviews; preserve Advisor-first product and recommendation-only/no-publish boundaries.
+- Evidence: Source reviewed at `a9759557b109bc7e8a297880471c145e46e0a422`. Existing harness is a decision window, QA already has basic RAG/KnowledgeProvider. Forty focused offline QA tests passed this review; no live LLM or game operation. Prior September QA correctness/security review is not complete RAG-quality certification.
+- Owner: Future task owners to claim entries in `todo-list.md`; no new development session dispatched by this documentation update.
+- Blocker: Independent RAG gold/holdout/provider-quality results and task-level harness lifecycle/context/budget/eval remain incomplete; production and live-action gates are not waived.
+- Next: H-M0/H-M1 TaskSpec + DecisionPolicy + RunState with bounded read-only progression; in parallel Q-M0 frozen RAG baseline, then evidence quality and controlled retrieval planning. Reuse contracts, avoid duplicate runtimes/package cycles.
+- Links:
+  - [Harness review](../../docs/harness-engineering-review-2026-10-05.md)
+  - [QA RAG review](../../docs/qa-agent-rag-review-2026-10-05.md)
+  - [Current todo](../../todo-list.md)
+
+Older dated sections below preserve their original branch/blocker snapshots; current integration status is in the root todo and September final CR, not those historical handoffs.
 
 ## 2026-08-26 - Game MCP read-only contract hardened
 

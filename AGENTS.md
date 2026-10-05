@@ -6,6 +6,8 @@
 
 当前商业化 MVP 方向是 **全端截图 Advisor**：先通过截图上传/观察、状态识别、知识问答和策略建议服务玩家；全自动托管只作为后续在测试账号和可验证 adapter 上逐步开放的能力。
 
+**工程主线（2026-10-05）**：优先完善可复用的只读任务 harness；`packages/qa-agent` 从已有基础 RAG 演进为受约束的 agentic RAG。以 `docs/harness-engineering-review-2026-10-05.md`、`docs/qa-agent-rag-review-2026-10-05.md` 与根 `todo-list.md` 为当前优先级和验收依据。复用 Runbook 条件、唯一 MCP catalog 和 common KnowledgeProvider，不复制调度器或引入 package 循环依赖。训练模型、向量库、多 agent 与开放游戏执行都不是首批前置条件。
+
 ## Repository Layout
 
 ```
@@ -32,10 +34,10 @@ Desktop app calls the local `pioneer-agent` Advisor API over `127.0.0.1`; it mus
 ## How to Run
 
 ```bash
-# Tests — pioneer-agent (736 tests; 6 advisor_api tests skip if FastAPI deps are absent)
+# Tests — pioneer-agent (2026-09-08 recorded baseline: 857 total, 855 pass / 2 Windows-only skips)
 cd packages/pioneer-agent && PYTHONPATH=src:../sanmou-common/src python3 -m unittest discover -s tests -p "test_*.py" -v
 
-# Tests — qa-agent (303 tests)
+# Tests — qa-agent (2026-09-08 recorded full baseline: 327 pass)
 cd packages/qa-agent && PYTHONPATH=src python3 -m unittest discover -s tests -p "test_*.py" -v
 
 # Local Advisor API, mock mode does not call a vision model
@@ -115,7 +117,7 @@ Priority rules (hard overrides before score ranking):
 **Two surfaces over the same KB:**
 
 1. **Structured MCP tools** (`qa_agent.mcp_server`): `lookup_topic`, `answer_rule_question`, `resolve_term` — deterministic lookup for programmatic callers (e.g. pioneer-agent).
-2. **Conversational RAG** (`qa_agent.chat` + `qa_agent.retrieval`): ChatAgent composes query-rewrite → retrieve → LLM answer with strict citation prompts. Retrieval uses whole-query normalized match + Chinese n-gram fallback for natural phrasing. LLM is swappable via `LLMClient` Protocol (Gemini / MiniMax / OpenAI-compatible sub2api); default `gpt-5.4-mini`. Never fabricates — empty-evidence queries return a fixed "未收录" response. CLI: `qa_agent.app.chat`.
+2. **Conversational RAG** (`qa_agent.chat` + `qa_agent.retrieval`): ChatAgent composes initial retrieval → optional history rewrite/retrieval → LLM answer with current-evidence citation-ID validation. Retrieval uses whole-query normalized match + Chinese n-gram fallback for natural phrasing. LLM is swappable via `LLMClient` Protocol (Gemini / MiniMax / OpenAI-compatible sub2api); default `gpt-5.4-mini`. Empty-evidence queries return a fixed "未收录" response without generation; valid citation IDs do not prove semantic support. CLI: `qa_agent.app.chat`. Agentic retrieval, evidence sufficiency/version conflict handling and claim-level quality eval are planned, not completed.
 
 **Knowledge storage** — YAML under `qa-agent/knowledge_sources/`:
 - Domain rules: building, chapter, combat, resource/team, terms, hero/skill schema, mechanic rules (stamina/land/bonds/troop/profession/recruit/season), including a time-bounded player-observed land-occupation countdown rule
@@ -124,7 +126,7 @@ Priority rules (hard overrides before score ranking):
 
 **Ingestion pipeline**: raw YAML → normalize (alias/enum mapping) → publish to bucket files. Dedup by `topic`; existing entries updated in-place preserving original `id`. Bilibili video workflow extracts lineup/hero/skill/combat knowledge from transcripts via a scripted closed loop (see Codex Workflows).
 
-**Regression**: `scripts/chat_regression.py` runs 20 single-turn + 5 multi-turn fixtures against the live LLM (pacing-aware, provider-agnostic).
+**Regression**: `scripts/chat_regression.py` has 30 single-turn questions + 5 multi-turn groups for live LLM smoke (pacing-aware, provider-agnostic); it is separate from unittest and its keyword/ID checks are not an independent RAG-quality gate. The 2026-10-05 review reran 40 focused offline tests only, not this live smoke.
 
 ### Sanmou-Common — Shared Config
 
@@ -153,11 +155,12 @@ Do not move game logic into Electron. TypeScript should stay limited to UI state
 - Chapter tasks are condition-driven, not duration-based.
 - First 48h: optimize around one Top1 lineup template rotating through team containers.
 - Team slots are stamina/level containers; purple carriers enable lossless transfers.
-- QA agent never fabricates answers — returns `not_found` with nearby topic suggestions.
+- QA must not fabricate: deterministic misses return `not_found` with nearby topics; ChatAgent refuses on empty evidence. Claim-level semantic grounding remains a separate uncompleted quality gate.
 
 ## Canonical Design Docs
 
 Read these before making architectural changes:
+0. [Harness 工程主线](docs/harness-engineering-review-2026-10-05.md) and [QA RAG 专项评审](docs/qa-agent-rag-review-2026-10-05.md) — current priorities, boundaries and acceptance criteria; supersede conflicting historical maturity/ordering claims below.
 1. [MVP 状态模型](docs/sanguo-agent-mvp-model.md) — RuntimeState field design
 2. [运行时设计](docs/sanguo-agent-runtime-design.md) — Action evaluation & execution loop
 3. [工程落地方案](docs/sanguo-agent-mvp-engineering-plan.md) — Implementation phases & milestones
@@ -251,7 +254,7 @@ git branch -d feat/<branch-name>
 - Package structure: `src/<package_name>/` with `PYTHONPATH=src` for running.
 - Tests use `unittest`; fixtures are JSON files in `tests/fixtures/`.
 - Knowledge entries follow strict schema — see `docs/batch-ingestion-guide.md` under qa-agent.
-- No embeddings or vector DB — qa-agent uses deterministic alias/substring matching + priority scoring.
+- Current baseline has no embeddings or vector DB — qa-agent uses deterministic alias/substring/n-gram matching + priority scoring. Any retrieval replacement needs measured benefit, an explicit ADR and a rollback path; agentic RAG does not require a vector DB.
 - Chinese names are canonical; aliases map to canonical names via `configs/hero_aliases.yaml` and `configs/skill_aliases.yaml`.
 
 ## Safety Rules
@@ -271,10 +274,13 @@ git branch -d feat/<branch-name>
 ### What's Working
 - **Desktop Advisor**: `apps/sanmou-advisor-desktop` Electron + React + Vite GUI with screenshot upload/preview, device/account metadata, AdvisorReport display, and chat panel; `npm run typecheck` and `npm run build` pass.
 - **Advisor API**: `pioneer_agent.app.advisor_api` FastAPI service with `/api/health`, `/api/advisor/analyze`, `/api/advisor/chat`, screenshot upload, mock mode, local `reports.jsonl` logging, and desktop CORS.
-- **Pioneer agent**: capture/control adapter split, platform-neutral device/session models, `AdvisorLoop`, sync → derive → select pipeline with 8 action types, OpenAI/Gemini vision provider support, fail-closed perception domains, bbox locator, UI layout registry, guarded UI primitives, runbook-driven autonomous loop, observation/verifier/window/semantic-ROI gates, one-shot operator confirmation, loop logger, default dry-run, and kill switch; 736 tests pass (6 advisor API skips when FastAPI deps are absent).
+- **Pioneer agent**: capture/control adapter split, platform-neutral device/session models, `AdvisorLoop`, sync → derive → select pipeline with 8 action types, OpenAI/Gemini vision provider support, fail-closed perception domains, bbox locator, UI layout registry, guarded UI primitives, runbook-driven autonomous loop, observation/verifier/window/semantic-ROI gates, one-shot operator confirmation, loop logger, default dry-run, and kill switch. Recorded 2026-09-08 integration: 857 tests, 855 pass and 2 Windows-only skips with separate native coverage; see `docs/test-reports/2026-09-08/integration.md`, not a fresh full-suite claim.
 - **QA agent**: 104 heroes + 123 skills + 62 mechanic rules KB; MCP server with 6 tools (`lookup_topic`, `answer_rule_question`, `resolve_term`, `advisor_golden_replay_status`, `advisor_fixture_eval`, `advisor_terminal_source_evidence_eval`); raw live traces have a pending-only staging CLI with pinned `dir_fd` / no-symlink / no-clobber writes and never auto-grant review; ingestion pipeline with `--publish`; conversational RAG via `qa_agent/chat/` with Gemini/MiniMax/OpenAI providers; `qa_agent/vision/` grounded image understanding; bilibili video knowledge workflow closed loop.
 
 ### Current Focus
+- **Harness mainline**: TaskSpec + DecisionPolicy + RunState, bounded read-only multi-step loop, checkpoint/reobserve, context/run budget and task-level eval; follow H01–H10 in the current review. Existing decision-window harness, logs and transport deadlines are foundations, not a finished task runtime.
+- **QA RAG mainline**: freeze a quality baseline first, then evidence sufficiency/citations/season validity and constrained multi-query planning; follow Q01–Q08. Reuse shared contracts; preserve empty-evidence zero-generation and no game-control/no auto-publish authority.
+- The domain-specific work below remains necessary evidence/production work; it does not supersede the read-only harness-first milestone or grant execution authority.
 - **Advisor MVP hardening**: the reviewed set now includes two fail-closed battle reports plus a four-ROI level-5 occupation transition (`02:35→hidden`, territory `54/60→55/60`). Still collect privacy-approved full-frame `map_land` positive/negative samples and provider-exercised vision eval; keep Desktop history/report rendering aligned with the Python Advisor API.
 - **M1a low-risk closure**: claim/recruit/upgrade have semantic targets, target-bound verifiers, same-frame observation gates, action/target/frame/ROI/timestamp-bound one-shot operator confirmation, guarded LIVE window dispatch, and new-frame post-action verification. Formal `--execute` remains hard-disabled; each action still needs a privacy-approved live terminal trace proving the exact target, confirmation, dispatch, and post-action delta before the closure gate may turn green.
 - **M1b attack preparation**: fail-closed map/battle perception, attack ledger metrics, and Runbook target constraints are implemented. Keep `attack_land` execution disabled until real map/battle fixtures, action-correlated verifiers, calibration, and recovery are complete.
@@ -296,4 +302,4 @@ git branch -d feat/<branch-name>
 - **Verifier/recovery/safety**: verifier registry, safety guard, high-risk confirmation, bridge health checks, manual kill switch, observation freshness, one-shot action-bound confirmation, semantic ROI guard, and LIVE window identity guards exist. Remaining gaps are real confirmation/dispatch evidence, mature high-risk verifiers, a bridge health monitor, calibrated guarded key dispatch, and LIVE recovery; automatic LIVE ESC remains disabled until then.
 - **Scoring config**: only `opening_sprint` phase weights are defined in `config/scoring.yaml`; other phases TBD
 - **Sanmou-common enrichment**: config YAMLs are minimal templates, need real game data
-- **CI/CD**: no automated Python + desktop test pipeline or linting configured
+- **CI/CD**: Python/desktop regression workflow exists in `.github/workflows/regression.yml`; configured CI is not proof of a fresh hosted pass. Dependency/security gates, native platform coverage, linting and signed release/update/rollback readiness remain separate work.

@@ -4,6 +4,14 @@
 
 当前商业化 MVP 路线优先做 **全端截图 Advisor**：用户上传或粘贴截图，系统识别游戏状态并给出开荒、配将、地图、资源和风险建议；不在首版承诺自动点击或全自动托管。
 
+## 当前工程主线（2026-10-05）
+
+- **Harness-first**：以现有只读 decision-window harness 为基础，先补 TaskSpec、可替换 DecisionPolicy、多步 run lifecycle、恢复、上下文/总预算和任务级 eval。不是先训练模型或放开游戏执行。
+- **QA → 受约束的 agentic RAG**：目标就是本仓 `packages/qa-agent`；已有基础 RAG 和 KnowledgeProvider 集成，先建立独立质量基线，再补证据充分性/版本冲突、逐 claim 引用支持和多轮检索规划。
+- 产品继续 Advisor-first；真实视觉、知识、多样本与独立 eval 持续建设。Game MCP 保持 `execution_authority=none`、proposal `executable=false`，不自动发布 QA 知识。
+
+当前评审与验收见 [Harness 路线](docs/harness-engineering-review-2026-10-05.md)、[QA RAG 路线](docs/qa-agent-rag-review-2026-10-05.md) 和 [任务清单](todo-list.md)。旧文档成熟度评分与迭代顺序是历史快照，不作为当前完成证据。
+
 与 Advisor 并行的个人自动化路线采用**分层自治**：Python runtime 跑 tick 循环（截图只进无状态 vision API），LLM 只做低频策略仲裁与巡检，Claude Code / Codex 不进 tick 循环。方向决策、runbook 阶段机与 Goal 见 [开荒分层自治：Runbook 架构与 Goal](docs/opening-runbook-architecture.md)。
 
 ## 仓库结构
@@ -72,8 +80,9 @@ PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay r
 # replay 只输出离线计划；--execute 会被拒绝
 PYTHONPATH=src:../sanmou-common/src python3 -m pioneer_agent.app.record_replay replay <session-dir>
 
-# 运行测试（当前 pioneer-agent 575 tests / 6 skipped；qa-agent 303 tests）
-cd packages/pioneer-agent && python3 -m unittest discover -s tests -p "test_*.py" -v
+# 运行测试；最近完整记录见 docs/test-reports/2026-09-08/integration.md
+# 该历史基线：Pioneer 857（855 pass / 2 Windows-only skips），QA 327
+cd packages/pioneer-agent && PYTHONPATH=src:../sanmou-common/src python3 -m unittest discover -s tests -p "test_*.py" -v
 cd packages/qa-agent && PYTHONPATH=src python3 -m unittest discover -s tests -p "test_*.py" -v
 
 # 桌面端 Advisor（Electron + React）
@@ -86,6 +95,8 @@ npm run dev
 
 ## 设计文档
 
+- [Harness 工程评审与迭代主线（2026-10-05）](docs/harness-engineering-review-2026-10-05.md)
+- [QA Agent RAG 专项评审与路线（2026-10-05）](docs/qa-agent-rag-review-2026-10-05.md)
 - [MVP 状态模型](docs/sanguo-agent-mvp-model.md)
 - [运行时设计](docs/sanguo-agent-runtime-design.md)
 - [工程落地方案](docs/sanguo-agent-mvp-engineering-plan.md)

@@ -1,5 +1,7 @@
 # Sanmou Monorepo 架构与迭代路径
 
+> 2026-10-05 优先级更新：后续按 [Harness 工程主线](harness-engineering-review-2026-10-05.md) 和 [同仓 QA RAG 路线](qa-agent-rag-review-2026-10-05.md) 迭代。本文保留原有领域边界和历史输入；冲突的阶段顺序/成熟度描述以新评审和根 todo 为准。基础 RAG、KnowledgeProvider 接入与只读 MCP 已存在，不从零重建，也不解除原有执行安全门禁。
+
 > 2026-07-10 safety update: LIVE 自动 ESC recovery 已禁用，直到 guarded key dispatch 完成实机校准；旧文中的 immediate ESC 描述只代表历史实现，不是当前授权能力。
 
 > 2026-07-11 evidence update: Windows guarded click 已绑定真实 capture rect/origin（不再用 outer window origin），`--evidence-action` 会在当前帧内约束 selector，且只有 action/target/verifier/post-delta/new-frame 全绑定才 exit 0。新增 5 级地胜利战报与占领前后 ROI 只补充离线证据，不解除 full-frame map/provider eval 或 claim/recruit/upgrade live closure（仍 0/3）。
