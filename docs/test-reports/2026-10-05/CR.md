@@ -125,3 +125,8 @@ original bytes; [sha256.json](CR-artifacts/sha256.json) records those bytes. Raw
 trailing whitespace is retained intentionally. Review/report Markdown diff check
 passed after removing extra EOF blanks. The tested shell script's checkout CRLF
 was restored afterward; final status contains no author production-source change.
+
+Post-commit blob verification initially found one checksum mismatch for the already
+tracked run_checks.py helper: Git had normalized its line endings before the new
+raw-evidence attribute was introduced. The manifest was corrected to its actual
+committed blob hash; no raw test log or production source was changed.
