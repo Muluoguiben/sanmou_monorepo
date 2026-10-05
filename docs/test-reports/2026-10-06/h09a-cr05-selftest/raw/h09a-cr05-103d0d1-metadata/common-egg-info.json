@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "-c",
+    "import setuptools; print(setuptools.__version__); setuptools.setup(script_args=['egg_info'])"
+  ],
+  "cwd": "/tmp/sanmou-h09a-cr05-metadata-103d0d1/packages/sanmou-common",
+  "code": 0,
+  "stdout": "68.1.2\nrunning egg_info\ncreating src/sanmou_common.egg-info\nwriting src/sanmou_common.egg-info/PKG-INFO\nwriting dependency_links to src/sanmou_common.egg-info/dependency_links.txt\nwriting requirements to src/sanmou_common.egg-info/requires.txt\nwriting top-level names to src/sanmou_common.egg-info/top_level.txt\nwriting manifest file 'src/sanmou_common.egg-info/SOURCES.txt'\nreading manifest file 'src/sanmou_common.egg-info/SOURCES.txt'\nwriting manifest file 'src/sanmou_common.egg-info/SOURCES.txt'\n",
+  "stderr": ""
+}

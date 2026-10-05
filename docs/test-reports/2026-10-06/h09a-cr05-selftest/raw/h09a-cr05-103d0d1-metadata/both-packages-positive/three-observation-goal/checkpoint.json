@@ -1,0 +1,316 @@
+{
+  "storage_version": 1,
+  "revision": 43,
+  "owner_id": "932b597bafcc46e8a35b42910c59f0b4",
+  "state": {
+    "version": 1,
+    "run_id": "offline-run",
+    "task": {
+      "version": 1,
+      "task_id": "observe-chapter",
+      "goal": "observe evidence-supported chapter 3",
+      "success_when": [
+        {
+          "metric": "progress.current_chapter_id",
+          "op": ">=",
+          "value": 3
+        }
+      ],
+      "stop_when": [],
+      "required_domains": [
+        "chapter_panel"
+      ],
+      "allowed_tools": [
+        "evaluate_fixture",
+        "get_advisor_report",
+        "get_last_trace",
+        "get_runtime_state",
+        "list_action_candidates",
+        "observe_game",
+        "session_status"
+      ],
+      "max_steps": 3,
+      "wait_seconds": 0.0,
+      "execution_authority": "none",
+      "executable": false
+    },
+    "status": "succeeded",
+    "reason": "goal_verified",
+    "completed_steps": 3,
+    "pending_call": null,
+    "observation_ids": [
+      "obs-alpha",
+      "obs-bravo",
+      "obs-charlie"
+    ],
+    "session_id": "synthetic-session",
+    "window_identity": null,
+    "last_captured_at": "2026-10-06T00:00:03Z",
+    "evidence_refs": [
+      "observation:obs-charlie",
+      "frame_sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    ],
+    "budget_state": {
+      "version": 1,
+      "limits": {
+        "max_steps": 3,
+        "max_tool_calls": 12,
+        "max_model_attempts": 0,
+        "max_tokens": 100000,
+        "max_seconds": 60.0,
+        "max_cost": null
+      },
+      "prices": null,
+      "run_id": "offline-run",
+      "deadline": 1791235167.3745644,
+      "saved_at": 1791235108.1139357,
+      "remaining": 59.26062822341919,
+      "cancelled": false,
+      "overrun": false,
+      "reservations": {
+        "58cfda90055942e793e39967347b6e38": {
+          "request": {
+            "run_id": "offline-run",
+            "step_id": "offline-run:1",
+            "kind": "step",
+            "name": "decision_window",
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "usage": {
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null
+          },
+          "outcome": "running"
+        },
+        "cb91636b213d465fba764c8d2a7cedda": {
+          "request": {
+            "run_id": "offline-run",
+            "step_id": "offline-run:1",
+            "kind": "tool",
+            "name": "session_status",
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "usage": {
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null
+          },
+          "outcome": "ok"
+        },
+        "acafc1dfd8c249c58cdc326f9c12ec41": {
+          "request": {
+            "run_id": "offline-run",
+            "step_id": "offline-run:1",
+            "kind": "tool",
+            "name": "observe_game",
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "usage": {
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null
+          },
+          "outcome": "ok"
+        },
+        "3f984cc1ac9f45619ffe925afa9850e0": {
+          "request": {
+            "run_id": "offline-run",
+            "step_id": "offline-run:1",
+            "kind": "tool",
+            "name": "get_runtime_state",
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "usage": {
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null
+          },
+          "outcome": "ok"
+        },
+        "aac9e70591344e70adb716294dcac9db": {
+          "request": {
+            "run_id": "offline-run",
+            "step_id": "offline-run:1",
+            "kind": "tool",
+            "name": "list_action_candidates",
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "usage": {
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null
+          },
+          "outcome": "ok"
+        },
+        "e93272cad58b44f8a961f69b1fb0aa60": {
+          "request": {
+            "run_id": "offline-run",
+            "step_id": "offline-run:2",
+            "kind": "step",
+            "name": "decision_window",
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "usage": {
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null
+          },
+          "outcome": "running"
+        },
+        "5a05add03d524402ae71deb8fc95973c": {
+          "request": {
+            "run_id": "offline-run",
+            "step_id": "offline-run:2",
+            "kind": "tool",
+            "name": "session_status",
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "usage": {
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null
+          },
+          "outcome": "ok"
+        },
+        "910351e12b4a4950819b1febc63f4f88": {
+          "request": {
+            "run_id": "offline-run",
+            "step_id": "offline-run:2",
+            "kind": "tool",
+            "name": "observe_game",
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "usage": {
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null
+          },
+          "outcome": "ok"
+        },
+        "2b109aebaad4447bab80eeeab4b5b6c6": {
+          "request": {
+            "run_id": "offline-run",
+            "step_id": "offline-run:2",
+            "kind": "tool",
+            "name": "get_runtime_state",
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "usage": {
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null
+          },
+          "outcome": "ok"
+        },
+        "de0e24fadc824a82b50307b412f7d53a": {
+          "request": {
+            "run_id": "offline-run",
+            "step_id": "offline-run:2",
+            "kind": "tool",
+            "name": "list_action_candidates",
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "usage": {
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null
+          },
+          "outcome": "ok"
+        },
+        "2c5a77cc69f24178aa37e20159ea9be1": {
+          "request": {
+            "run_id": "offline-run",
+            "step_id": "offline-run:3",
+            "kind": "step",
+            "name": "decision_window",
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "usage": {
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null
+          },
+          "outcome": "succeeded"
+        },
+        "8990ee6e24f441b39c04f6e51886f8d5": {
+          "request": {
+            "run_id": "offline-run",
+            "step_id": "offline-run:3",
+            "kind": "tool",
+            "name": "session_status",
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "usage": {
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null
+          },
+          "outcome": "ok"
+        },
+        "7a284ceb64e643b897e0f90bdacc8e4f": {
+          "request": {
+            "run_id": "offline-run",
+            "step_id": "offline-run:3",
+            "kind": "tool",
+            "name": "observe_game",
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "usage": {
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null
+          },
+          "outcome": "ok"
+        },
+        "60071a98b8a5429eb946d8ed1a92c541": {
+          "request": {
+            "run_id": "offline-run",
+            "step_id": "offline-run:3",
+            "kind": "tool",
+            "name": "get_runtime_state",
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "usage": {
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null
+          },
+          "outcome": "ok"
+        },
+        "5ee2473172ae4df0b7539a474323007f": {
+          "request": {
+            "run_id": "offline-run",
+            "step_id": "offline-run:3",
+            "kind": "tool",
+            "name": "list_action_candidates",
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "usage": {
+            "input_tokens": null,
+            "output_tokens": null,
+            "cost": null
+          },
+          "outcome": "ok"
+        }
+      }
+    },
+    "execution_authority": "none",
+    "executable": false
+  }
+}

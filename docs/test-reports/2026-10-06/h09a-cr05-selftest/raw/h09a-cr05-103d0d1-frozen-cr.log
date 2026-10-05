@@ -1,0 +1,47 @@
+probes f3a635f982f6e68ceed1030e3663e4823bc4559d3447173c51fe83f47ef7db90
+PROBE_OUTPUT=/tmp/h09a-independent-probes-1vpfgodb
+supplemental_probes e49cc6acb63705dbfca027b5ab5594240371b119693a5df168db09fe05441551
+SUPPLEMENT_OUTPUT=/tmp/h09a-supplemental-06iv38r8
+finalization_probes_2cc 7460128a6d7111731b53c69b1985d13ef65f08927fb8bfa57eae7fea1a2ed808
+FINALIZATION_OUTPUT=/tmp/h09a-finalization-2cc-1cu6i8l5
+committed_finalization_2cc 1e8e3b7736e64d8d593eb2026dfd482da7b2e8f8b2624504f45b38374d098508
+COMMITTED_FINALIZATION_OUTPUT=/tmp/h09a-committed-finalization-2cc-__091rq6
+final_boundaries_fece a11211e1e7ec35132774f778c3ee20281b7beca069bd8bc6c823618a966c3f22
+FINAL_BOUNDARIES_OUTPUT=/tmp/h09a-final-boundaries-fece-mss1nfhc
+test_baseline_eight_and_independent_accounting (probes.Independent.test_baseline_eight_and_independent_accounting) ... Executing <Task finished name='Task-2' coro=<Independent.test_baseline_eight_and_independent_accounting() done, defined at /tmp/h09a-frozen-probes-0c40a7b/docs/test-reports/2026-10-06/h09a-independent-cr/probes.py:52> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 3.399 seconds
+ok
+test_checkpoint_write_failure_preserves_actual (probes.Independent.test_checkpoint_write_failure_preserves_actual) ... ok
+test_exhausted_response_is_infra (probes.Independent.test_exhausted_response_is_infra) ... Executing <Task finished name='Task-12' coro=<Independent.test_exhausted_response_is_infra() done, defined at /tmp/h09a-frozen-probes-0c40a7b/docs/test-reports/2026-10-06/h09a-independent-cr/probes.py:106> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.120 seconds
+ok
+test_expected_and_id_do_not_change_execution (probes.Independent.test_expected_and_id_do_not_change_execution) ... Executing <Task finished name='Task-17' coro=<Independent.test_expected_and_id_do_not_change_execution() done, defined at /tmp/h09a-frozen-probes-0c40a7b/docs/test-reports/2026-10-06/h09a-independent-cr/probes.py:65> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.848 seconds
+ok
+test_fixture_drift_paths_and_single_buffer (probes.Independent.test_fixture_drift_paths_and_single_buffer) ... ok
+test_infra_case_keeps_denominator (probes.Independent.test_infra_case_keeps_denominator) ... Executing <Task finished name='Task-26' coro=<Independent.test_infra_case_keeps_denominator() done, defined at /tmp/h09a-frozen-probes-0c40a7b/docs/test-reports/2026-10-06/h09a-independent-cr/probes.py:174> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 4.116 seconds
+ok
+test_new_id_equal_capture_time (probes.Independent.test_new_id_equal_capture_time) ... Executing <Task finished name='Task-31' coro=<Independent.test_new_id_equal_capture_time() done, defined at /tmp/h09a-frozen-probes-0c40a7b/docs/test-reports/2026-10-06/h09a-independent-cr/probes.py:78> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.370 seconds
+ok
+test_output_no_clobber (probes.Independent.test_output_no_clobber) ... ok
+test_real_lazy_shadow_and_package_path (probes.Independent.test_real_lazy_shadow_and_package_path) ... ok
+test_resume_budget_five_no_sixth_dispatch (probes.Independent.test_resume_budget_five_no_sixth_dispatch) ... Executing <Task finished name='Task-45' coro=<Independent.test_resume_budget_five_no_sixth_dispatch() done, defined at /tmp/h09a-frozen-probes-0c40a7b/docs/test-reports/2026-10-06/h09a-independent-cr/probes.py:89> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.354 seconds
+ok
+test_resume_observation_reuse (probes.Independent.test_resume_observation_reuse) ... Executing <Task finished name='Task-50' coro=<Independent.test_resume_observation_reuse() done, defined at /tmp/h09a-frozen-probes-0c40a7b/docs/test-reports/2026-10-06/h09a-independent-cr/probes.py:98> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.396 seconds
+ok
+test_schema_empty_duplicate_unknown_tool_and_clock (probes.Independent.test_schema_empty_duplicate_unknown_tool_and_clock) ... ok
+test_unbound_executed_cli_must_not_be_source_verified (probes.Independent.test_unbound_executed_cli_must_not_be_source_verified) ... ok
+test_goal_success_not_redefined_by_expected_tool_labels (supplemental_probes.Supplements.test_goal_success_not_redefined_by_expected_tool_labels) ... Executing <Task finished name='Task-63' coro=<Supplements.test_goal_success_not_redefined_by_expected_tool_labels() done, defined at /tmp/h09a-frozen-probes-0c40a7b/docs/test-reports/2026-10-06/h09a-independent-cr/supplemental_probes.py:17> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.680 seconds
+ok
+test_phase_output_failure_preserves_execution_facts_in_failed_report (supplemental_probes.Supplements.test_phase_output_failure_preserves_execution_facts_in_failed_report) ... Executing <Task finished name='Task-68' coro=<Supplements.test_phase_output_failure_preserves_execution_facts_in_failed_report() done, defined at /tmp/h09a-frozen-probes-0c40a7b/docs/test-reports/2026-10-06/h09a-independent-cr/supplemental_probes.py:30> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 5.004 seconds
+ok
+test_two_formal_runs_stable_and_source_bound (supplemental_probes.Supplements.test_two_formal_runs_stable_and_source_bound) ... ok
+test_artifact_hash_read_failure_keeps_failed_report (finalization_probes_2cc.Finalization.test_artifact_hash_read_failure_keeps_failed_report) ... Executing <Task finished name='Task-77' coro=<Finalization.test_artifact_hash_read_failure_keeps_failed_report() done, defined at /tmp/h09a-frozen-probes-0c40a7b/docs/test-reports/2026-10-06/h09a-independent-cr/finalization_probes_2cc.py:16> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 4.825 seconds
+ok
+test_projection_failure_cannot_leave_green_gate (finalization_probes_2cc.Finalization.test_projection_failure_cannot_leave_green_gate) ... Executing <Task finished name='Task-82' coro=<Finalization.test_projection_failure_cannot_leave_green_gate() done, defined at /tmp/h09a-frozen-probes-0c40a7b/docs/test-reports/2026-10-06/h09a-independent-cr/finalization_probes_2cc.py:36> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 4.922 seconds
+ok
+test_projection_exception_resets_committed_cli_gate (committed_finalization_2cc.CommittedFinalization.test_projection_exception_resets_committed_cli_gate) ... ok
+test_artifact_enumeration_failure_preserves_cases_without_green (final_boundaries_fece.FinalBoundaries.test_artifact_enumeration_failure_preserves_cases_without_green) ... ok
+test_unwritable_final_report_is_explicit_unavailable (final_boundaries_fece.FinalBoundaries.test_unwritable_final_report_is_explicit_unavailable) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 46.559s
+
+OK

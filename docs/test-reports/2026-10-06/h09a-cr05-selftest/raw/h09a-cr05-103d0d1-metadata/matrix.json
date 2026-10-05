@@ -1,0 +1,133 @@
+{
+  "source": "103d0d1594a11af905515182913731d2d8bb4ac9",
+  "cases": [
+    {
+      "name": "both-packages-positive",
+      "expected_pass": true,
+      "exit": 0,
+      "source_verified": true,
+      "gate_pass": true
+    },
+    {
+      "name": "pioneer-agent-extra.py",
+      "expected_pass": false,
+      "exit": 2,
+      "source_verified": false,
+      "gate_pass": false
+    },
+    {
+      "name": "pioneer-agent-native.so",
+      "expected_pass": false,
+      "exit": 2,
+      "source_verified": false,
+      "gate_pass": false
+    },
+    {
+      "name": "pioneer-agent-hook.pth",
+      "expected_pass": false,
+      "exit": 2,
+      "source_verified": false,
+      "gate_pass": false
+    },
+    {
+      "name": "pioneer-agent-unknown.txt",
+      "expected_pass": false,
+      "exit": 2,
+      "source_verified": false,
+      "gate_pass": false
+    },
+    {
+      "name": "pioneer-agent-__pycache__-hidden.py",
+      "expected_pass": false,
+      "exit": 2,
+      "source_verified": false,
+      "gate_pass": false
+    },
+    {
+      "name": "pioneer-agent-executable",
+      "expected_pass": false,
+      "exit": 2,
+      "source_verified": false,
+      "gate_pass": false
+    },
+    {
+      "name": "pioneer-agent-symlink",
+      "expected_pass": false,
+      "exit": 2,
+      "source_verified": false,
+      "gate_pass": false
+    },
+    {
+      "name": "pioneer-agent-hardlink",
+      "expected_pass": false,
+      "exit": 2,
+      "source_verified": false,
+      "gate_pass": false
+    },
+    {
+      "name": "sanmou-common-extra.py",
+      "expected_pass": false,
+      "exit": 2,
+      "source_verified": false,
+      "gate_pass": false
+    },
+    {
+      "name": "sanmou-common-native.so",
+      "expected_pass": false,
+      "exit": 2,
+      "source_verified": false,
+      "gate_pass": false
+    },
+    {
+      "name": "sanmou-common-hook.pth",
+      "expected_pass": false,
+      "exit": 2,
+      "source_verified": false,
+      "gate_pass": false
+    },
+    {
+      "name": "sanmou-common-unknown.txt",
+      "expected_pass": false,
+      "exit": 2,
+      "source_verified": false,
+      "gate_pass": false
+    },
+    {
+      "name": "sanmou-common-__pycache__-hidden.py",
+      "expected_pass": false,
+      "exit": 2,
+      "source_verified": false,
+      "gate_pass": false
+    },
+    {
+      "name": "sanmou-common-executable",
+      "expected_pass": false,
+      "exit": 2,
+      "source_verified": false,
+      "gate_pass": false
+    },
+    {
+      "name": "sanmou-common-symlink",
+      "expected_pass": false,
+      "exit": 2,
+      "source_verified": false,
+      "gate_pass": false
+    },
+    {
+      "name": "sanmou-common-hardlink",
+      "expected_pass": false,
+      "exit": 2,
+      "source_verified": false,
+      "gate_pass": false
+    },
+    {
+      "name": "restored-both-packages-positive",
+      "expected_pass": true,
+      "exit": 0,
+      "source_verified": true,
+      "gate_pass": true
+    }
+  ],
+  "metadata_only_no_install": true,
+  "git_status_clean": true
+}
