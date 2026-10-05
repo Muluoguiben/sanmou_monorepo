@@ -1,5 +1,12 @@
 # Todo List
 
+## Active Review continuation — H09b (2026-10-06)
+
+- [x] Frozen finite taskcb1509ef36317815f8a454d7dd6a6b1474c46f39; existing Windows job + stdlib checker + one unittest file only. No new dependency/action/job/runner/permissions/runtime/fixture or live access. Task file `docs/harness-native-windows-eval-h09b-2026-10-06.md` is currently on the isolated branches.
+- [x] GPT-6 Astra author9c8db2605d64c08736830585b20c542138d66678/report1abcaac2 and independent5440a67d91727fcb9837fe327ca1f842e00fdf6c APPROVE_CODE_SCOPED: original empty-report P2 closed by unchanged20probes, Windowsstdlib20 and extra5emptyframe negatives. Original5b0 reds/CRLF records retained. Native stdlib/mock/LinuxCLI results are not real hosted evaluator proof.
+- [x] Coordinator exact local combination21e279a7efb44840ad4dbda3c06b8eb3514eed77/tree4ebea5d57dc7871f71d7536879531076a962da01/packagesc273943f verified; report02577df0a0eac3da1503c5d5068283a88ced8236. Fixed payload through02577 audited112objects/11commits/46paths, setaf15a195c06b3ae94791c6ff12f990bae6439626465a6407ae09e94918b41cfd;1414protected/34oldreports preserved. Only this coordination increment remains unaudited; no publication/native-hosted acceptance yet.
+- [ ] Exact-source self-test + scoped CR + combination + final published SHA's actual new Windows gate and reconstructable report, then close H09b slice. Existing broader Review route remains in progress; later offline slices need their own finite scope, not automatic provider/game/deployment authority.
+
 ## H09b native Windows gate — local integration verified (2026-10-06)
 
 - [x] Limited three-file gate implementation at `f961c1594018651d584bbe622547a79e5648c5a7` / tree `bef7699f43bcb9659b35f02f53834f744fe51d10`; [source-bound self-test](docs/test-reports/2026-10-06/h09b-selftest/REPORT.md). Native stdlib checker18 pass; detached Linux Pioneer1014+2skip, QA394/common2; actual Linux report rejected as native. Synthetic/mock schema checks are not Windows CLI evidence; original CRLF failure preserved.
@@ -7,13 +14,13 @@
 - [x] Coordinator exact combination `21e279a7efb44840ad4dbda3c06b8eb3514eed77`: Linux Pioneer1016+2skip, QA394/common2; native Windows stdlib20 and original identity-only probes20; five empty-frame negatives each platform; actual Linux CLI8/8 with native rejection. Both platforms2400Git bytes stable;1414protected unchanged; workflow only3newlines; QA v3 hash unchanged. [Source-bound report](docs/test-reports/2026-10-06/H09b-integration.md).
 - [ ] Still unpublished: exact-final-SHA existing Windows job must execute the real H09b task_eval CLI; reconstruct original report bytes from that step's raw logs, verify native/source/8case/readonly/model0 and all existing jobs green. Local stdlib/mock/Linux results are not native H09b acceptance. No push/master merge/CI retry in integration verification, no new provider/game/driver work.
 
-## Publication candidate — H09a (2026-10-06)
+## Completed Review continuation — H09a (2026-10-06)
 
 - [x] Frozen [task contract](docs/harness-task-eval-h09a-2026-10-06.md)813ff402; author code `103d0d1594a11af905515182913731d2d8bb4ac9` / report4b1aef41 and independent APPROVE `74d711e29db0a1e86e781bd65e420787a1cb2210`. All CR01/02/03/03b/04/05 closed; every original red retained. Scope is Linux ext4 deterministic offline control only, not H09 native Windows/drvfs/model/game/production.
 - [x] Coordinator tested exact local combination `2d07e1b82de3d09ab809ad9018b70dc3095ff5bb`, packages `fee69c4090f882c87b48857cc8a251a2de3dfdbc`: Pioneer996+2Windows skips, QA394/common2, frozen21 (one historical64 check), three clean CLIs, actual setuptools plus25 boundary rejections and16 formal CLI rejections; QA v3 hash and831 protected records unchanged. [Source-bound report](docs/test-reports/2026-10-06/H09a-integration.md).
 - [x] H06 prerequisite now satisfied on exactb338/run37365931923/attempt3: all4jobs success, selected native Windows72pass/0skip. Original2no-runner failures retained; one bounded retry followed official21:32 recovery evidence. [Gate receipt](docs/test-reports/2026-10-06/H06a-windows-ci-gate.md).
 - [x] Payload through report6eab509 audited:706objects/15commits/582paths;831protected plus old report/CR blobs unchanged. Offline evidence archive619regular/200dirs/1intentional symlink is typed and hash-bound;10jpg names are12-byte fixed-test placeholders, not real captures. No generic archive extraction/following links.
-- [ ] Final coordination-only successor still requires its small payload increment audit, master publication/readback, and exact-final-SHA CI. No automatic live-game/provider/deployment authority; do not confuse H06 native coverage with H09 Windows approval.
+- [x] Final `b7cee26a23f743df5f6950d4144bfddd67927154` published/read back exactly; run37381273409 attempt1 completed/success in all4jobs. Final719-object/16commit/587path scoped payload audit passed (setb9c4fc31f38a96673cbe0affa1338b11387489db7d14cf08423350de66f81256). No status-only successor was pushed; this status refresh belongs to the next normal slice. H09a approval remains Linux ext4 offline control, not H09 nativeWindows or production.
 
 ## Completed Review continuation — H06a (2026-10-06)
 
