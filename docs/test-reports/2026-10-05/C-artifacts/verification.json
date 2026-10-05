@@ -1,0 +1,41 @@
+{
+  "code_commit": "621cf8baf324902b9e77d056b3b03f288f07baf6",
+  "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "dependencies": {
+    "pydantic": "2.12.5",
+    "PyYAML": "6.0.1",
+    "mcp": "1.29.1"
+  },
+  "results": {
+    "qa-full-bound": {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "/mnt/c/Users/Lan/.codex/worktrees/a8b3/sanmou_monorepo/packages/qa-agent",
+      "returncode": 0
+    },
+    "focused-bound": {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "tests.test_quality_eval",
+        "tests.test_review_d_regressions.ChatGroundingRegressionTests",
+        "-v"
+      ],
+      "cwd": "/mnt/c/Users/Lan/.codex/worktrees/a8b3/sanmou_monorepo/packages/qa-agent",
+      "returncode": 0
+    }
+  }
+}

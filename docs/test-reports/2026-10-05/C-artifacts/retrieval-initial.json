@@ -1,0 +1,825 @@
+{
+  "protocol": "qa-development-eval/v1",
+  "split": "development",
+  "execution_authority": "none",
+  "executable": false,
+  "kb": {
+    "algorithm": "sha256-utf8-lf-v1",
+    "files": {
+      "knowledge_sources/building.yaml": "3dada83e67f3491ebe8845451174eb19cbd35634135304d94092f6c80d759ada",
+      "knowledge_sources/chapter.yaml": "0371e93d382719c53782a4f9304623ac61eba158499db39fc16da39b522d2e9b",
+      "knowledge_sources/combat.yaml": "3874a3d2e4b030e3a1f01b983052f35e6be94bd1bcfc4a4e50c49745c81ddd75",
+      "knowledge_sources/glossary/statuses/buffs.yaml": "bb9642d1553af5e17ce01d33873be013deb56bedb45b2a40ff36e2208a22c308",
+      "knowledge_sources/glossary/statuses/debuffs.yaml": "7d2cc532f677cd298e210e0ddd8e5a285393e1e31d6e34ba36578483019ff916",
+      "knowledge_sources/glossary/statuses/profiles-buffs.yaml": "8773aa591a1f26eb29a2dd4a9f0183e48ae2c2c0aee306773e82d488390ef937",
+      "knowledge_sources/glossary/statuses/profiles-debuffs.yaml": "8107d2415176b11feec18e7be28584d359e71ed9b98f4b67503c56f61b3be648",
+      "knowledge_sources/glossary/statuses/registry.yaml": "12e7bdf6d4c9958ea49ca6bc576d1ae06a42f05812663a5979cdf477a1ce95c1",
+      "knowledge_sources/hero_skill.yaml": "9b558c57634156fec739e9e6dee5063c9ecbb944a8cb48806b41cf1b1b62655c",
+      "knowledge_sources/opening_baseline.yaml": "d39a04948ba39bf4d3447496ca8c77db95fa3802a12e49a8501ccf15a599ccc3",
+      "knowledge_sources/profiles/heroes/minor.yaml": "0cf5002d40d1bb466b56db1ec6fb99c699b5059f84e72dfc447fcc46ae3cfe34",
+      "knowledge_sources/profiles/heroes/other.yaml": "5239a7754876b9a70871c45e41f1bd9abbd91ed2de67af926c1cfcc9c9377d51",
+      "knowledge_sources/profiles/heroes/qun.yaml": "954a10419540995be7f1e1498ae5dda26db7df9658b243537dba3c834184f079",
+      "knowledge_sources/profiles/heroes/registry.yaml": "063b3c41f28e7bf90b980511f655268efc636b6d2de6ec96cb9e8369f3793f48",
+      "knowledge_sources/profiles/heroes/shu.yaml": "f0f84950716802b81fb310938c95a8207d18cda1a578da6fad9f4c05676a6f3f",
+      "knowledge_sources/profiles/heroes/wei.yaml": "0926c82549a784073c74a525963cbcd4dc1303d6ec4fcc603e7728d9712e9068",
+      "knowledge_sources/profiles/heroes/wu.yaml": "58a636cd03a7b15ef768cadebbd4f2a57e4e785fd521dd62ccd011aa83b76521",
+      "knowledge_sources/profiles/skills/active.yaml": "abe3f6235e901b51df130ea5dc55c043386c5372e63f5d46964eb6541a0f5926",
+      "knowledge_sources/profiles/skills/command.yaml": "9f33e684f0dceec624f12eba26b51a268acb9382cc35fd6c6ad5be17d2cb5de1",
+      "knowledge_sources/profiles/skills/passive.yaml": "bd8ce2adbcf7d4991298823f2ddfe22af492f4326fdd2387be951a814138b52c",
+      "knowledge_sources/profiles/skills/pursuit.yaml": "d009caefee9a6cfec80cb77bafcd29d3873671951c692aca00c608fafc705f04",
+      "knowledge_sources/profiles/skills/registry.yaml": "c815b48e6112454613e0793971ed311d3f54c6fbff1a7eab7ea08d35bea365cb",
+      "knowledge_sources/resource_team.yaml": "2e668c8e0533420be1e7d0b585325da76762be8b85fb1ed6ab116aadae63e8ce",
+      "knowledge_sources/solutions/lineups/rating-taxonomy.yaml": "b7722734102d8ded66f83045f772f85be8a6b9b7ead749b0d8a1b05cb6f97b86",
+      "knowledge_sources/solutions/lineups/registry.yaml": "ab0d4c0b2c5821a7dd4d75db524bf509557f0e072df1c582f5065cd15f083953",
+      "knowledge_sources/solutions/lineups/season-misc.yaml": "1e6aeb97ec027663baedc3122ec9b3bdc385eda204ae354e5d448a61b91f19cb",
+      "knowledge_sources/solutions/lineups/season-s1.yaml": "2e59ad62c9a4218575e765066d737604eedcf6c8e3a8b34296c975180756d986",
+      "knowledge_sources/solutions/lineups/season-s11.yaml": "40520135d574b048e83daae75c5d13af2a3eb09a5b0378bec7209984b4bec931",
+      "knowledge_sources/solutions/lineups/season-s12.yaml": "06305acee71d80f23ae1dcd4d9e00fb32979b746cafcba5a8b1d9b36e674d7ff",
+      "knowledge_sources/solutions/lineups/season-s13.yaml": "c331cff413310494fadeeeb7ec8c04f20bc035b39d9b30be0185dd40aa07e936",
+      "knowledge_sources/solutions/lineups/season-s14.yaml": "f0dfc8f92f5d3b760fd63499b383db6511d4015f06e80de753ca35deb00e9e73",
+      "knowledge_sources/solutions/lineups/season-s2.yaml": "a795beacf32bcb24ffb507d257f522135811765e1f91ffd75f855f06b5a33199",
+      "knowledge_sources/solutions/lineups/season-s4业铸山河.yaml": "2771f9fb3602d4919c3505296d2a4dd43b4f27f3260a0259b1567a2a6ad81308",
+      "knowledge_sources/terms.yaml": "dd896561c370069f27e1527b18540aefd76676252f098bd0bc539ef8232ab773"
+    },
+    "digest": "3b4d9ec9183bf7ac22761a659abdae7da16ddc2ef21fe5078f3f48c240287959"
+  },
+  "production": {
+    "algorithm": "sha256-utf8-lf-v1",
+    "files": {
+      "src/qa_agent/__init__.py": "8c14e8c56c1a240fe97f2cf418c34d65cdbae32245f392ca788cf9b0bc96d7c6",
+      "src/qa_agent/adapters/__init__.py": "f14d98797f97b34b72dfa7df9a3604a23c45925e27190c9f150899094f7b3557",
+      "src/qa_agent/adapters/knowledge_provider.py": "a9551809da4c4db95a148393e103da2202d8d9503e99150dc227b7d2189cc0ea",
+      "src/qa_agent/app/__init__.py": "16dc8ad246393d2b0c5000e8cda77bf8deb81a16c943e0c02cbec237ed32b813",
+      "src/qa_agent/app/advisor_terminal_source_preflight.py": "40874db2dac7712ef24a20c7087f81c1cbc6bb2053effba724f7ce026df8d312",
+      "src/qa_agent/app/aggregate_bilibili_batch_outputs.py": "f7c40d4a36ae26c29cb539857e846f65ad810b261a4d164d965d839e3d733172",
+      "src/qa_agent/app/audit_client_decoded_heroes.py": "fa2a2d129afeac3141c9a3af3a019e42ea3fd4a588e0c10887444406655c3042",
+      "src/qa_agent/app/backfill_chencang_lineups.py": "9f1cce7b324412aa63a2a02b1b450d4661a796d2b3ac875772c2980b4d93f26d",
+      "src/qa_agent/app/build_client_evidence_bundle.py": "10b6fb71a4f3c2233b45532cd38b91b544b0b9d3c22d3623a77602458b0ab5ba",
+      "src/qa_agent/app/build_client_import_queue.py": "4bc91aa709cf1466c2d2e0bd7dbd6e2da0d804da58e9795af5e8622d2c9c5a84",
+      "src/qa_agent/app/build_video_evidence.py": "2150ef468e115dda5f5f80d20c4efa9ef509a2635caef5d3119d199b3db33151",
+      "src/qa_agent/app/catalog_luascripts_textassets.py": "4df3e0dcaac85ff6eeb0b074a2f831415d03dd6596e181234e0b979823b5087c",
+      "src/qa_agent/app/chat.py": "6c5637958dfcdb7430515122baaf8e5d32e2d34ac48ff369e32e3ccdd3002b74",
+      "src/qa_agent/app/discover_bilibili.py": "6fe6489f924a930d4752d7b3b7d4ba5c81b4a4e29344be53ffea7d38ce68aa30",
+      "src/qa_agent/app/eval_lineup_vision.py": "67c83800e180afc121b32a0aa0b48550ec6b70f715134bdda2bf1b3eb8d0be3e",
+      "src/qa_agent/app/export_strategy_snapshot.py": "16450f59b9c409026501dd5372283ca3862e035b54e72defc9a9ea1c21efe02e",
+      "src/qa_agent/app/fetch_bilibili_bundle.py": "ac384b94b0450639aac98b4a22b6c8ebb78e855d25e936dc799c4a10ddce5097",
+      "src/qa_agent/app/normalize_ingestion.py": "e06367cbabc5d8a6a4d41868cd80c2aedaa295a88412b4cca5d527ecf829e58d",
+      "src/qa_agent/app/process_bilibili_discovery_batch.py": "82a2315ca652241270629a54d8964e2af0bcceefc01d50172de3da89481f3a6a",
+      "src/qa_agent/app/publish_rules.py": "346d63252f18fe2c407e1a6653a028d30d4228c4b737d914c3ac2574895ded30",
+      "src/qa_agent/app/publish_staging.py": "185f2b8719d43d5e910e20722eae67a19962004b05e5f2d5d02621db1fd22c83",
+      "src/qa_agent/app/query.py": "24a904db8bf5ba2e2b825a4dd0eb05ab50f6890459deecbd92bbfc4313862332",
+      "src/qa_agent/app/run_video_pipeline.py": "bc2976303c2761d46b913a56ea35500c4a197b60a3d691d44215e06f8690ea8d",
+      "src/qa_agent/app/scan_nslg_client.py": "7fdaf0252b8f563c9a2abbb69371ebf04d0e9ac5b72ab801a6a99df3e073b1ca",
+      "src/qa_agent/app/stage_advisor_terminal_source.py": "5320d5bff6dae1a1af2c8b106cda6c43d26fe29b33cff7a00ad1106102a96efb",
+      "src/qa_agent/app/stage_client_decoded_heroes.py": "0ef6af2c17c0d62133be4cc0484eefa21df4d95ef3624f37b6e657a702bdb3aa",
+      "src/qa_agent/app/summarize_client_resource_surface_gap_scan.py": "444c93828fc5bb73e14705e3aeffcc05fee058b15d3c01f0c6ddd5a1dd08b3c7",
+      "src/qa_agent/app/summarize_gameassembly_codegen_module_probe.py": "fab5bcd1343d7ea0ee42a1b8dfa52ecf990c2f9b81000a39e91481a8fb58af63",
+      "src/qa_agent/app/summarize_gameassembly_function_pointer_table_probe.py": "1525eaace4a4c3035a0a5e5e4763f4138ec27e220ed028ec5a192657e06e6fab",
+      "src/qa_agent/app/summarize_gameassembly_global_metadata_owner_probe.py": "863461c56b91748373d733ca72a0878da5ecf47c687c309d9586c9c1df31cc1d",
+      "src/qa_agent/app/summarize_gameassembly_initializer_dispatch_trace.py": "7e59bd9ea305a62f2bf3504e7dc1d5b4810335a8d23fb479e49d3ed8e626c856",
+      "src/qa_agent/app/summarize_gameassembly_metadata_registration_candidate_taxonomy.py": "36c3793891403349db0558b10a3e98ef14120ce9829cd826f40ec37bc4c46b9c",
+      "src/qa_agent/app/summarize_gameassembly_registration_anchor_probe.py": "45be2069a6ba24f035bfaab881b775b1f2f538de4ed750b4063e3ce5d6b5cf30",
+      "src/qa_agent/app/summarize_gameassembly_registration_layout_probe.py": "a548854541bedf675ab5271c78aa37b79dae923310825c734f8e2bcda91b56d7",
+      "src/qa_agent/app/summarize_gameassembly_registration_pair_context_probe.py": "7ba3f94a626cce1c7e8c8461d2958ecd1f52e1be771120484938032fc5b6e6e3",
+      "src/qa_agent/app/summarize_gameassembly_resolver_caller_trace.py": "2474f4c0f6e06bf2d828702e7240fc8d11603f05e8ef372ffb9429632f8c6318",
+      "src/qa_agent/app/summarize_gameassembly_resolver_trace.py": "766a46f262eeb924fb81fe3f0e65ca612628015d5cc9c7b02d26df663ec7141e",
+      "src/qa_agent/app/summarize_gameassembly_route_trace.py": "1ec40b1b5269b012733a317e6276cf78fa3a4885686609c77f3fc90bb5f240a5",
+      "src/qa_agent/app/summarize_global_metadata_loader_scan.py": "d94bd3a3dd2f9f40b1d3032cbf3ce143e95ea0baf55084d006c86d179e0d8f8a",
+      "src/qa_agent/app/summarize_global_metadata_transform_probe.py": "d9067da8e078408794345dd8e63f8ad29057904d1766cdf2ff197562dec312c8",
+      "src/qa_agent/app/summarize_luascripts_crypto_evidence.py": "6bd7f5dedf2c38647c2fed8775b8005f3ff33dd289ea8f1e08634d010c78d69e",
+      "src/qa_agent/app/summarize_luascripts_payload_cipher_profile.py": "82d5ba3b5379f866183365527736125dc68cb4028e2d8adffd8d8eb9aaad502d",
+      "src/qa_agent/app/summarize_luascripts_payload_variant_corpus.py": "65f40634b4859574f1ed56a4885cae424762af9fc098111d97fc1632e4e95cb8",
+      "src/qa_agent/app/summarize_native_loadbuffer_boundary.py": "b300e7c51b080b5eaf151bda5347f5b2591b9d0ac909f6446beaad242655fb9a",
+      "src/qa_agent/app/summarize_nep2_file_helper_caller_provenance.py": "12a4ccdbc01474cc597f417c50ce862afa795d2f4499e3667497c6c4f01c5f76",
+      "src/qa_agent/app/summarize_nep2_init_bridge.py": "28bf083ce22d8cee82709c512a79d0d2e4b4225facda88958b751b7208adf1ec",
+      "src/qa_agent/app/summarize_nep2_init_data_owner_scan.py": "352e209642490fea83a9dd48cc9f545d5d853af9c3865b09da21d219dcd4ac05",
+      "src/qa_agent/app/summarize_nep2_luascripts_evidence.py": "36e4d48d05c940e9065ba467068521b38117891efab99da5e6c78aa392bae1b1",
+      "src/qa_agent/app/summarize_nep2_metadata_loader_deep_slice.py": "59028eff80a4af165c1f1b609cd019c48b8b7dc8f32dc78cdba8f9739dc38eba",
+      "src/qa_agent/app/summarize_nep2_provenance_closures.py": "60ed791839c4abc98caa75e50ae12a2519a44c39d293755e1c9022d3e754b913",
+      "src/qa_agent/app/summarize_nep2_read_mapping_owner_scan.py": "82b288e910367bec6d4bac3cc0d63ba5101a09a883dca62f18bba3d1a559a1b4",
+      "src/qa_agent/app/summarize_nep2_vector_candidate_provenance.py": "36986ddb1b21b34ff9dd9b7c07c8524d54ae87f7334c84f54b437eb5f43ce7a8",
+      "src/qa_agent/app/summarize_nep2_vector_wrapper_owner_probe.py": "370ae746667ebe7ecf522ae39cad8fa6d2d6eb5a2a6be9299b313e688f57e381",
+      "src/qa_agent/app/summarize_ns_bundle_format_index.py": "f4a94e9bb1018840da46c2a4503cc55e516e19e66c36d2c89d725654a3ca34a1",
+      "src/qa_agent/app/summarize_resolved_payload_native_anchor_scan.py": "5b8b872558ff7800daa127279d30281c231dcd94256dfb0adcb6a914dfd8d16e",
+      "src/qa_agent/app/summarize_runtime_init_metadata_route.py": "5b21236046c556f5959c4fd7dcd8b430dc3a403ee92637da9ed928b3aa202b50",
+      "src/qa_agent/app/summarize_runtime_init_registry_probe.py": "c173c5d85e76d08b78e6c370a470146bf76effe27b29ed8f807cba962a18d88e",
+      "src/qa_agent/app/summarize_serialized_textasset_layout.py": "ab0967aedb7cbac11cd90fc01fa0c26d35d699cfbb690c5b70a69e1690e935c5",
+      "src/qa_agent/app/summarize_serialized_textasset_resolution.py": "5682697a49602063b76c6185a30e3ce6da99fa075f857958a8bd101bdad8593f",
+      "src/qa_agent/app/summarize_textasset_payload_owner_trace.py": "59104f73a4035a66e450b62e87460aa33dc2fecb64aa87705b23465414dd499f",
+      "src/qa_agent/app/summarize_textasset_xlua_boundary_ledger.py": "f88b0d0d277887e43947446c4c709ebcdaabe9b72d0861d8cd635438cd85cd50",
+      "src/qa_agent/app/video_extract.py": "5ac46cd233b77fc528d24d97154fb56558836d2072fd87994bcbafff14692da5",
+      "src/qa_agent/chat/__init__.py": "0833f07baf89b305c51d30857eb624642aa790abe39cc29356a61b56bb7c56dc",
+      "src/qa_agent/chat/agent.py": "cb09d8c79e5eaa419ece0af271c71b4084c5aaf949824d7843967241ddbdf0ce",
+      "src/qa_agent/chat/env.py": "b07311ab07c1e9ef35c0da310f8b468b10c9e1def2be371ef9619df37ecafc98",
+      "src/qa_agent/chat/gemini_client.py": "13e6889191adf2f8babe6754a7fffc76e4fa2504970f46da92f914ea3da72cf8",
+      "src/qa_agent/chat/llm_client.py": "3d04af7cf77fe96cc33bdb5cc4b48b56023c51cc7270793dedbf2e79e94959ad",
+      "src/qa_agent/chat/minimax_client.py": "f666ed9e016057adb249266632ed29539e44a7efe5eebcabdf1dcbcef701d78e",
+      "src/qa_agent/chat/openai_client.py": "4321962fbb175958d5b42606c911485d535c855fa0602430c269b62ababa86bc",
+      "src/qa_agent/chat/prompts.py": "07ebe052700bfe323cf3ca0150f2f0a4931a656352695bbefde129114be99947",
+      "src/qa_agent/index/__init__.py": "47d2bc86697a0924a0ce2f2b2b9ded427ed94f59002f756e4965d62545b801d6",
+      "src/qa_agent/index/search_index.py": "570b0c3811d31b03d69b3c4efc87d7358e67b1bc9945c625ec66401ed5898a96",
+      "src/qa_agent/ingestion/__init__.py": "92679471b3d86ea47847c2f11b9f08c86fa09502a599f55b6ca3d368bb920653",
+      "src/qa_agent/ingestion/client_codegen_module_probe.py": "74c5e59e63ecb5b699a46fa5fdcc3dc1807a5e6d9614ffb825b4c75ce5cb00c1",
+      "src/qa_agent/ingestion/client_decoded.py": "3f5b7a9ef2f8477fd7b8db76f6e9aa27824eec72874ac0fd9d9b291da57f0cb8",
+      "src/qa_agent/ingestion/client_decoded_audit.py": "de6d9354af8b554f7296dba00f262155dd7ce3b8c5198f4cc7e2a935864c39d1",
+      "src/qa_agent/ingestion/client_evidence_bundle.py": "703327a3d56069799151d86ef735b7dcbd4ca20feb83d76c091077f838863a76",
+      "src/qa_agent/ingestion/client_function_pointer_table_probe.py": "c3af9f2ae76f1e41377297bc238b6c634d4af06f6b1b77e4921fe6724ad0120b",
+      "src/qa_agent/ingestion/client_gameassembly_global_metadata_owner_probe.py": "d2b8f961e41a0345800da096901c43b38f1c711b753f7c1454a0895e7cb1d91b",
+      "src/qa_agent/ingestion/client_gameassembly_resolver_caller_trace.py": "0cd1ddbe3c4664a5ebd8aba461a2845213ea3225e8699b35f422ea46c8574b16",
+      "src/qa_agent/ingestion/client_gameassembly_resolver_trace.py": "5fcc19a20d47b935bc8ecf134878aba7580e42155004b457f24c1292e1e4d19c",
+      "src/qa_agent/ingestion/client_gameassembly_trace.py": "e62c71ee72aaeb28a13e4920ac20a068b56ed1d3146bf0062d9ffb8c479a2e95",
+      "src/qa_agent/ingestion/client_global_metadata_loader_scan.py": "7f3abc4f089705c34a0d3ca5b3e12852cfd9ccd194f0bb3b9cc7d6c40953900e",
+      "src/qa_agent/ingestion/client_global_metadata_transform_probe.py": "da63dbdbfdbb6f35231bd3d258833e48e090c1f09cd9860fc6f5b59d95557f37",
+      "src/qa_agent/ingestion/client_import_queue.py": "671be25d0108fb293bdfbd03717de9b3cabadf0bf9068c1ff2e4c9ee67100d9f",
+      "src/qa_agent/ingestion/client_initializer_dispatch_trace.py": "e0878250ffe45dc913575933e7f126967059899a36ee2921f69c9540cbf1e978",
+      "src/qa_agent/ingestion/client_lua_crypto.py": "a23b5bf49c00e67edf3558b61902f41f4fe6b3e8ee522db700b33dbaf337d2f8",
+      "src/qa_agent/ingestion/client_luascripts.py": "095e6a9d019d22bcd533e2c8262e50e930267fb1b006b7478c45e5fb39512373",
+      "src/qa_agent/ingestion/client_luascripts_variant_corpus.py": "4da12b907ea909f2fe98bd3718c638ad03debaf4d50ce2bf0accbf5609b26e1b",
+      "src/qa_agent/ingestion/client_metadata_registration_candidate_taxonomy.py": "be413748fe66591d017f9914e340569957f1ec23fbd052288a0ab052bdb7887e",
+      "src/qa_agent/ingestion/client_native_boundary_trace.py": "7353e994db00b9b24ab0cffb28196cbb28d591ae7f0453d293638443677f77cb",
+      "src/qa_agent/ingestion/client_nep2_bridge.py": "2e0abfe7d35614152689fc24401b9e8f5752ad1d13b79c31039cfc892d60c5e3",
+      "src/qa_agent/ingestion/client_nep2_file_helper_caller_provenance.py": "e14275408347375c13fac3da6d64379b6a9dd192b8dfff6067c6702d1dc36291",
+      "src/qa_agent/ingestion/client_nep2_init_data_owner_scan.py": "90cceeb758641db9e75946b5fb2169fed226868a61062f511cd4ab927344a3ca",
+      "src/qa_agent/ingestion/client_nep2_luascripts.py": "cbbac9675b0d0f2b184f11db41a404074ad5de623ff61809643c579df2447c18",
+      "src/qa_agent/ingestion/client_nep2_metadata_loader_deep_slice.py": "cf2ad820c029aab1e9cceef4205562a10d8784b48f9068dcd9e4ddb25dddcd93",
+      "src/qa_agent/ingestion/client_nep2_provenance.py": "67ae3030fee8475f0b8d3685b3d31bac2d0ff6081f24f325714b1960251ec314",
+      "src/qa_agent/ingestion/client_nep2_read_mapping_owner_scan.py": "46b3606f717bd2bc0ca6e7972565c8286a2c83016123c8003332ab3d245aa669",
+      "src/qa_agent/ingestion/client_nep2_vector_candidate_provenance.py": "723e825daebcbc335f33c8349d67c783c53f741f92831f0e711913eb64737a14",
+      "src/qa_agent/ingestion/client_nep2_vector_wrapper_owner_probe.py": "1553252f7e23062e44fc03fd331fc69320f568413e36cca7467041ad184f752c",
+      "src/qa_agent/ingestion/client_ns_bundle_format_index.py": "1fd6b54420ac554fd11775bac2714bb20b8b1ce72c019c919070c5d78a16d498",
+      "src/qa_agent/ingestion/client_package.py": "8d04fa83f8daeaf6661d6348b2961cc505962f8c53042f662604066e455eaa71",
+      "src/qa_agent/ingestion/client_payload_cipher_profile.py": "41e04bdc1a02565403b76184f579dde0d2543e78944e8d05fcbc1ff5ea54fc72",
+      "src/qa_agent/ingestion/client_registration_anchor_probe.py": "fa043f7abcd61081f405161cc09fccd9e108858e66f594b12f15a0de6ffe14a1",
+      "src/qa_agent/ingestion/client_registration_layout_probe.py": "678f55fec76008c12f3419df71d07c12822bacd878ab01d8dadbe2e570e4ab47",
+      "src/qa_agent/ingestion/client_registration_pair_context_probe.py": "3148993d5de783d7d8f0738830fedc718412b29812f1fed61e936e64882cfa0d",
+      "src/qa_agent/ingestion/client_resolved_payload_native_anchor_scan.py": "72d0c8aa25c98d0f8a0652749c3cfb14c4f1daed883fda4cf58af0101b1fe31c",
+      "src/qa_agent/ingestion/client_resource_surface_gap_scan.py": "d39a208a339fc3d4cbd4b16bcffc14e23a898f90709b8db61e5c630d5404c126",
+      "src/qa_agent/ingestion/client_runtime_init_registry_probe.py": "1b506071e8ea8bcfe2493e082970fac80a7c45fa3cb3b695e204ac7105b476b3",
+      "src/qa_agent/ingestion/client_runtime_init_route.py": "d2e2f0fdbd0a9fb0f6c8a9e202a482d26baba8132b12bf6f2f6b7675b7791910",
+      "src/qa_agent/ingestion/client_serialized_textasset_layout.py": "54225aa29eb8ea353594cbad45e2e1f1b2dcd311bf9dde52b7d4cc5321b36d29",
+      "src/qa_agent/ingestion/client_serialized_textasset_resolution.py": "07c4e5bb353084c1dc65e3dc7b20bd1efff998461e1fd6725a36b9a8a4b0eaad",
+      "src/qa_agent/ingestion/client_textasset_payload_owner_trace.py": "c77f6d396cf6679e72d978ce87d1ba073800ad67b06f177e4f56c09b9951de91",
+      "src/qa_agent/ingestion/client_textasset_xlua_boundary_ledger.py": "22c31e1be8af4b8f9294fefae498100de11fbeaa80fa05c1f7c9186076b0125c",
+      "src/qa_agent/ingestion/config.py": "10431a98db2cec79955315fb91a02e4a3a60b9ab07b16e9651e791ca8d212d05",
+      "src/qa_agent/ingestion/loader.py": "e6a0fde008d4dee7c58d68c07c46f027dd4771d7a3999e9cbdf11ba76f187c61",
+      "src/qa_agent/ingestion/models.py": "12e566f6c0af158eb83787c4ef7cfa8ba7fb17a1dce2999cb64cd2cc2d358d25",
+      "src/qa_agent/ingestion/normalize.py": "73a7783188ca83e25486f7a66eb1b70d00575c21dea8a9a98f8a5b6efab16d1d",
+      "src/qa_agent/ingestion/publish.py": "8e5afea6a9778d73c809d2150b81a11736556b1d16ab8964b2c8f0841e46997a",
+      "src/qa_agent/knowledge/__init__.py": "4e7b89e626377af308ee7927b3f4b49c59ea566dd4742b181c01af99868c7d14",
+      "src/qa_agent/knowledge/loader.py": "552ae3bc093c3c5f0247f549b2d414c8dd984c22e915d6ca979a16c34aac6c74",
+      "src/qa_agent/knowledge/models.py": "1e02926cb204f742d62db91b5b05a9a103742e7f35cdfecbebfd3f7eab007d56",
+      "src/qa_agent/knowledge/source_paths.py": "21462ae823c912af385b6322053259258112a68fdc4987b69d93543afb22919d",
+      "src/qa_agent/mcp_server/__init__.py": "92e99eed596708ecbf01b754059bafb74f4ca95cbcc638e053f84204fc622045",
+      "src/qa_agent/mcp_server/advisor_tools.py": "18f032cde3ed722ece89d685705e8070b031531b65e088811d5334228d9e19aa",
+      "src/qa_agent/mcp_server/server.py": "264afe5ca4856995c67fce5da2230274978b5cdb7b23b34ff34b1a62fe9a604d",
+      "src/qa_agent/mcp_server/stdio_server.py": "bb6626f99df3aba8e16e834a966c5021a66b84dbaaae43a249907ac8467eccf2",
+      "src/qa_agent/mcp_server/tooling.py": "3f60c875cf3448f4f5f43be545087c3c65ad9bf500edc984ef8c00e602e972a4",
+      "src/qa_agent/retrieval/__init__.py": "0d1686d58203bb6234681c2457003f019c6f4dd7e88265efd1d9ee1870dba71f",
+      "src/qa_agent/retrieval/retriever.py": "b72a188e3fd8ea9272ee8b20c6c4158019a010acc51712903ff72e83e2603b86",
+      "src/qa_agent/service/__init__.py": "db46329cb7b85a8f6020ecb5561a018752e94bb900daaa477476ebed5d327653",
+      "src/qa_agent/service/query_service.py": "5523a198582528a69a425f61b37528d034e75fcf2fc407ab813c96b37972adee",
+      "src/qa_agent/video/__init__.py": "c822a6ad751a5a9c6d35f0acd33eec156c72329244fff543d1b48ed87cf8d004",
+      "src/qa_agent/video/asr.py": "41cd5cf84ad16dc41198712489f37ffc17c3e58b4e2855f60340293b38fef1a0",
+      "src/qa_agent/video/builder.py": "b858af961ae5d2d6f2cb68329189958ff362d5a9f4d9241ac23684f28f998eef",
+      "src/qa_agent/video/evidence_quality.py": "f9780d2efca5e90c4929a92d1173f9760a38be8b26b1a6cd295194a68d860a58",
+      "src/qa_agent/video/frame_sampler.py": "6d1fabb8cb38c8e822ac783fb5e18efcf85419cafa2521ffd01b4b5e39892343",
+      "src/qa_agent/video/gemini.py": "c8ca6b86b71b5f54b6bceb10ea04ef62d0dc286b26f82031c22f261183add311",
+      "src/qa_agent/video/heuristic.py": "ecc523bf586e5889eb06f8877865e117f97d70aa87947460ac272b30fc6baef4",
+      "src/qa_agent/video/lineup_frame_extractor.py": "24dc1a758950d22c35cd6945f12879179f0aff0991e9368c702638326f3d1d5d",
+      "src/qa_agent/video/loader.py": "3d1544c0851c66d0b66e16250e727c69cf3ed7ffa7be502db94af9705a6bf133",
+      "src/qa_agent/video/mapper.py": "8bd1d2cffa0858d157079d22dd12d64548bc37acf5a1542bb11edaacce24e044",
+      "src/qa_agent/video/models.py": "82dc47c99925eb717b8562732d678d96e5ff8b50520cc68bba459771224b3e25",
+      "src/qa_agent/video/openai.py": "e8f7616938babbc79eb057665c588cd76a6b4585330aa1c95b7bcb9e318dcd94",
+      "src/qa_agent/video/subtitle_normalizer.py": "4c9bfba9e6bf6ea0460f100b4e3975318a9388a64c4d664f472a2a530c5ccbcd",
+      "src/qa_agent/video/video_download.py": "fcf800c669f152f34c1be08495c0835a185c1e4d4057d5c75c59668fa569b25e",
+      "src/qa_agent/video/vision_enrichment.py": "6346daca9236527c76c194c73e4446c5fa0c9d7607522f3996ff1fbf808a28dd",
+      "src/qa_agent/vision/__init__.py": "db7f965c78c37bc494abe6d24caf0cef4c8c124c364d83e4968df9bbb89b8d6a",
+      "src/qa_agent/vision/extractor.py": "3fb35bec171704b2bca068bffe6bc3a1ffe3e8e70b7cf760d4879d06caac94c0",
+      "src/qa_agent/vision/image_loader.py": "1db464a8f24e54acdb911e6deb9ab61e08584c9efa52cfb22807e6d4e6073944"
+    },
+    "digest": "e093738d8fe76f4de40cafce02fab4a6c575a82684ba05470730785152b0ac11"
+  },
+  "cases_sha256": "2bcc348598c77c1cc36d80f30e9842f192aafe3c52ab8aaaf1a799ef5e1bc48a",
+  "eval_source": {
+    "algorithm": "sha256-utf8-lf-v1",
+    "files": {
+      "src/qa_agent/quality_eval/__init__.py": "dcf77ddd5f789553278cef7e1617c22286fcb23571054593c4342771b03baa6e",
+      "src/qa_agent/quality_eval/runner.py": "afa598c839ee48a084f59a424a86b0bd6f59b8e135c3ef297d3949436fcaa2a7",
+      "src/qa_agent/quality_eval/scoring.py": "1d530a52d3850d0d18c99f5c96a04aec831c066870952ce3b96cd7d9a22930c0"
+    },
+    "digest": "8c1102f6c6af146272bd3fbda203ad96ebb77316df54ada01e2ed2c1ba0d2e5a"
+  },
+  "retrieval": {
+    "top_k": 5,
+    "query_count": 12,
+    "macro_recall": {
+      "numerator": 10.0,
+      "denominator": 11,
+      "value": 0.9090909090909091
+    },
+    "mrr": {
+      "numerator": 10.0,
+      "denominator": 11,
+      "value": 0.9090909090909091
+    },
+    "by_category": {
+      "alias": {
+        "count": 2,
+        "macro_recall": {
+          "numerator": 2.0,
+          "denominator": 2,
+          "value": 1.0
+        }
+      },
+      "canonical": {
+        "count": 4,
+        "macro_recall": {
+          "numerator": 4.0,
+          "denominator": 4,
+          "value": 1.0
+        }
+      },
+      "coreference": {
+        "count": 1,
+        "macro_recall": {
+          "numerator": 0.0,
+          "denominator": 1,
+          "value": 0.0
+        }
+      },
+      "natural": {
+        "count": 2,
+        "macro_recall": {
+          "numerator": 2.0,
+          "denominator": 2,
+          "value": 1.0
+        }
+      },
+      "no_answer": {
+        "count": 1,
+        "macro_recall": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "season": {
+        "count": 1,
+        "macro_recall": {
+          "numerator": 1.0,
+          "denominator": 1,
+          "value": 1.0
+        }
+      },
+      "topic_switch": {
+        "count": 1,
+        "macro_recall": {
+          "numerator": 1.0,
+          "denominator": 1,
+          "value": 1.0
+        }
+      }
+    },
+    "rows": [
+      {
+        "id": "q01",
+        "query": "君王殿",
+        "category": "canonical",
+        "history": [],
+        "split": "development",
+        "review_status": "developer-authored",
+        "source": "repository KB mapping; not independent gold",
+        "evidence_labels": [
+          {
+            "id": "building-main-city",
+            "source_ref": "KB-RULE-BUILDING-001",
+            "facts_sha256": "eb78cf66a630fae0047d5af346d2c701439647eb79d2ee56540a66a93f0c40af"
+          }
+        ],
+        "retrieved_ids": [
+          "building-main-city",
+          "kdocs-walkthrough-s1"
+        ],
+        "recall": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "reciprocal_rank": 1.0,
+        "empty_retrieval": false
+      },
+      {
+        "id": "q02",
+        "query": "建筑升级",
+        "category": "canonical",
+        "history": [],
+        "split": "development",
+        "review_status": "developer-authored",
+        "source": "repository KB mapping; not independent gold",
+        "evidence_labels": [
+          {
+            "id": "building-upgrade",
+            "source_ref": "KB-RULE-BUILDING-002",
+            "facts_sha256": "82e68b215d3dbf0bd21b6c1848ea200b6b06bf9b6b4ce3739b043c7a7d82a499"
+          }
+        ],
+        "retrieved_ids": [
+          "building-upgrade",
+          "opening-baseline-priority",
+          "building-prerequisite",
+          "resource-basics",
+          "kdocs-walkthrough-s1"
+        ],
+        "recall": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "reciprocal_rank": 1.0,
+        "empty_retrieval": false
+      },
+      {
+        "id": "q03",
+        "query": "补兵",
+        "category": "alias",
+        "history": [],
+        "split": "development",
+        "review_status": "developer-authored",
+        "source": "repository KB mapping; not independent gold",
+        "evidence_labels": [
+          {
+            "id": "team-recruit",
+            "source_ref": "KB-RULE-TEAM-003",
+            "facts_sha256": "8f9541438a8c01fab471af8d98db27e28363acd0d224faabb519834914fde595"
+          }
+        ],
+        "retrieved_ids": [
+          "team-recruit",
+          "mech-troop-reserve",
+          "mech-recruit-zizhong",
+          "mech-item-xingjundan",
+          "team-troops"
+        ],
+        "recall": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "reciprocal_rank": 1.0,
+        "empty_retrieval": false
+      },
+      {
+        "id": "q04",
+        "query": "队伍体力",
+        "category": "alias",
+        "history": [],
+        "split": "development",
+        "review_status": "developer-authored",
+        "source": "repository KB mapping; not independent gold",
+        "evidence_labels": [
+          {
+            "id": "team-stamina",
+            "source_ref": "KB-RULE-TEAM-001",
+            "facts_sha256": "e8f919d840ccd65071ba3606b62d00ea6b0d1a7e8086399192476243d235a4a0"
+          }
+        ],
+        "retrieved_ids": [
+          "team-stamina",
+          "team-general",
+          "team-slot",
+          "mech-stamina-basics",
+          "mech-stamina-wuweizi"
+        ],
+        "recall": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "reciprocal_rank": 1.0,
+        "empty_retrieval": false
+      },
+      {
+        "id": "q05",
+        "query": "当体力不足时应该怎么办？",
+        "category": "natural",
+        "history": [],
+        "split": "development",
+        "review_status": "developer-authored",
+        "source": "repository KB mapping; not independent gold",
+        "evidence_labels": [
+          {
+            "id": "team-stamina",
+            "source_ref": "KB-RULE-TEAM-001",
+            "facts_sha256": "e8f919d840ccd65071ba3606b62d00ea6b0d1a7e8086399192476243d235a4a0"
+          }
+        ],
+        "retrieved_ids": [
+          "team-stamina",
+          "kdocs-walkthrough-s1",
+          "opening-land-risk-baseline",
+          "mech-stamina-basics",
+          "mech-stamina-wuweizi"
+        ],
+        "recall": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "reciprocal_rank": 1.0,
+        "empty_retrieval": false
+      },
+      {
+        "id": "q06",
+        "query": "兵力不足会影响打地吗？",
+        "category": "natural",
+        "history": [],
+        "split": "development",
+        "review_status": "developer-authored",
+        "source": "repository KB mapping; not independent gold",
+        "evidence_labels": [
+          {
+            "id": "team-troops",
+            "source_ref": "KB-RULE-TEAM-002",
+            "facts_sha256": "c3e0d2f83f2bfca3cf0bab7c0462c9eb58021807038db4b78ca3610fe7f46389"
+          }
+        ],
+        "retrieved_ids": [
+          "team-troops",
+          "combat-march",
+          "opening-land-risk-baseline",
+          "mech-land-difficulty-factors",
+          "kdocs-walkthrough-s1"
+        ],
+        "recall": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "reciprocal_rank": 1.0,
+        "empty_retrieval": false
+      },
+      {
+        "id": "q07",
+        "query": "资源",
+        "category": "canonical",
+        "history": [],
+        "split": "development",
+        "review_status": "developer-authored",
+        "source": "repository KB mapping; not independent gold",
+        "evidence_labels": [
+          {
+            "id": "resource-basics",
+            "source_ref": "KB-RULE-RESOURCE-001",
+            "facts_sha256": "c27514f11c1adafec164b111f6755cb4e1600bdde4d7260b812952e341052f42"
+          }
+        ],
+        "retrieved_ids": [
+          "resource-basics",
+          "mech-land-outer-city",
+          "mech-recruit-resource",
+          "kdocs-expedition-tech-chapter12",
+          "kdocs-resource-exchange-warning"
+        ],
+        "recall": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "reciprocal_rank": 1.0,
+        "empty_retrieval": false
+      },
+      {
+        "id": "q08",
+        "query": "红度",
+        "category": "canonical",
+        "history": [],
+        "split": "development",
+        "review_status": "developer-authored",
+        "source": "repository KB mapping; not independent gold",
+        "evidence_labels": [
+          {
+            "id": "term-hongdu",
+            "source_ref": "user_clarification:2026-04-16",
+            "facts_sha256": "8e6f04aaf02e034fcdcf38e740924cfc33810ed42164d49cd3e0a555903bc742"
+          }
+        ],
+        "retrieved_ids": [
+          "term-hongdu",
+          "mech-s14-chencang-open9-redline",
+          "mech-land-difficulty-factors",
+          "kdocs-tip-wubingying-kai8",
+          "kdocs-walkthrough-s12"
+        ],
+        "recall": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "reciprocal_rank": 1.0,
+        "empty_retrieval": false
+      },
+      {
+        "id": "q09",
+        "query": "S 码与 W 码的区别",
+        "category": "season",
+        "history": [],
+        "split": "development",
+        "review_status": "developer-authored",
+        "source": "repository KB mapping; not independent gold",
+        "evidence_labels": [
+          {
+            "id": "term-season-code-vs-wcode",
+            "source_ref": "community_synthesis:2026-04-16",
+            "facts_sha256": "01ea2ce485f793c076a19aaec85abf091bafc76d4bb10d0c68465f381a8eeb0c"
+          }
+        ],
+        "retrieved_ids": [
+          "term-season-code-vs-wcode",
+          "mech-season-timeline",
+          "mech-skill-attribute-scaling",
+          "kdocs-walkthrough-s12",
+          "kdocs-walkthrough-s13"
+        ],
+        "recall": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "reciprocal_rank": 1.0,
+        "empty_retrieval": false
+      },
+      {
+        "id": "q10",
+        "query": "zzzz_unrecorded_9842",
+        "category": "no_answer",
+        "history": [],
+        "split": "development",
+        "review_status": "developer-authored",
+        "source": "repository KB mapping; not independent gold",
+        "evidence_labels": [],
+        "retrieved_ids": [],
+        "recall": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "reciprocal_rank": null,
+        "empty_retrieval": true
+      },
+      {
+        "id": "q11",
+        "query": "再详细说说它",
+        "category": "coreference",
+        "history": [
+          "君王殿"
+        ],
+        "split": "development",
+        "review_status": "developer-authored",
+        "source": "repository KB mapping; not independent gold",
+        "evidence_labels": [
+          {
+            "id": "building-main-city",
+            "source_ref": "KB-RULE-BUILDING-001",
+            "facts_sha256": "eb78cf66a630fae0047d5af346d2c701439647eb79d2ee56540a66a93f0c40af"
+          }
+        ],
+        "retrieved_ids": [],
+        "recall": {
+          "numerator": 0,
+          "denominator": 1,
+          "value": 0.0
+        },
+        "reciprocal_rank": 0,
+        "empty_retrieval": true
+      },
+      {
+        "id": "q12",
+        "query": "补兵",
+        "category": "topic_switch",
+        "history": [
+          "君王殿"
+        ],
+        "split": "development",
+        "review_status": "developer-authored",
+        "source": "repository KB mapping; not independent gold",
+        "evidence_labels": [
+          {
+            "id": "team-recruit",
+            "source_ref": "KB-RULE-TEAM-003",
+            "facts_sha256": "8f9541438a8c01fab471af8d98db27e28363acd0d224faabb519834914fde595"
+          }
+        ],
+        "retrieved_ids": [
+          "team-recruit",
+          "mech-troop-reserve",
+          "mech-recruit-zizhong",
+          "mech-item-xingjundan",
+          "team-troops"
+        ],
+        "recall": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "reciprocal_rank": 1.0,
+        "empty_retrieval": false
+      }
+    ]
+  },
+  "mock_scoring_only": [
+    {
+      "id": "supported",
+      "review_status": "developer-authored",
+      "claims": 1,
+      "unjudged_claims": 0,
+      "citation_id_validity": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0
+      },
+      "claim_support": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0
+      },
+      "supported_citation_completeness": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0
+      },
+      "semantic_method": "external-span-adjudication; no automatic entailment"
+    },
+    {
+      "id": "wrong_number",
+      "review_status": "developer-authored",
+      "claims": 1,
+      "unjudged_claims": 0,
+      "citation_id_validity": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0
+      },
+      "claim_support": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "supported_citation_completeness": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "semantic_method": "external-span-adjudication; no automatic entailment"
+    },
+    {
+      "id": "wrong_entity",
+      "review_status": "developer-authored",
+      "claims": 1,
+      "unjudged_claims": 0,
+      "citation_id_validity": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0
+      },
+      "claim_support": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "supported_citation_completeness": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "semantic_method": "external-span-adjudication; no automatic entailment"
+    },
+    {
+      "id": "missing_citation",
+      "review_status": "developer-authored",
+      "claims": 1,
+      "unjudged_claims": 0,
+      "citation_id_validity": {
+        "numerator": 0,
+        "denominator": 0,
+        "value": null
+      },
+      "claim_support": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0
+      },
+      "supported_citation_completeness": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "semantic_method": "external-span-adjudication; no automatic entailment"
+    },
+    {
+      "id": "no_evidence",
+      "review_status": "developer-authored",
+      "claims": 1,
+      "unjudged_claims": 0,
+      "citation_id_validity": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "claim_support": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "supported_citation_completeness": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "semantic_method": "external-span-adjudication; no automatic entailment"
+    },
+    {
+      "id": "stale_coreference",
+      "review_status": "developer-authored",
+      "claims": 1,
+      "unjudged_claims": 0,
+      "citation_id_validity": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0
+      },
+      "claim_support": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "supported_citation_completeness": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "semantic_method": "external-span-adjudication; no automatic entailment"
+    },
+    {
+      "id": "topic_switch_old_answer",
+      "review_status": "developer-authored",
+      "claims": 1,
+      "unjudged_claims": 0,
+      "citation_id_validity": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0
+      },
+      "claim_support": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "supported_citation_completeness": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "semantic_method": "external-span-adjudication; no automatic entailment"
+    },
+    {
+      "id": "unknown",
+      "review_status": "developer-authored",
+      "claims": 1,
+      "unjudged_claims": 1,
+      "citation_id_validity": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0
+      },
+      "claim_support": {
+        "numerator": 0,
+        "denominator": 0,
+        "value": null
+      },
+      "supported_citation_completeness": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "semantic_method": "external-span-adjudication; no automatic entailment"
+    }
+  ],
+  "refusal": {
+    "status": "not_measured_provider",
+    "denominator": 0
+  },
+  "multiturn": {
+    "status": "raw_followup_retrieval_only_no_history_rewrite",
+    "denominator": 2
+  },
+  "provider": {
+    "calls": 0,
+    "quality": "not_measured"
+  },
+  "holdout": {
+    "status": "not_established",
+    "denominator": 0
+  },
+  "human_reviewed_labels": 0,
+  "quality_threshold": null
+}
