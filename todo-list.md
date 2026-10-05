@@ -4,7 +4,8 @@
 
 - [x] Q03a final `e17d937a39944b036e90701fecefb6611b1d88d6` published; local/remote master match. Exact-SHA CI run 37341606212 completed successfully in all four jobs.
 - [x] Chosen next bounded slice: nonempty-raw-evidence hero-attribute follow-ups, current accepted-citation/source binding, deterministic re-query and explicit v3 development eval. [Task and gates](docs/qa-referent-resolution-q02a-2026-10-06.md).
-- [ ] Implement, self-test and freeze immutable Q02a code/report; preserve raw-empty zero rewrite/answer and original v1/v2 bytes.
+- [x] Author Q02a implementation frozen: code `f3cd9b8814fc085d567063ab23e6576b9c24525f`, report `ce547ba9e6002696b949c7226aacbe9aca21a1f9`; QA391/focused68/cross6 pass, 0 skips. These are self-tests, not CR acceptance; old v1/v2 and formal KB unchanged.
+- [ ] Independent CR in progress, frozen plan `0b9d514c1ffe76d85de209dc9f8802dcf2c2aba7`; inspect name-mention versus explicit-subject ambiguity and execute independent black-box/lifecycle/eval-source cases.
 - [ ] Independent adversarial CR, coordinator combined-source replay, approved publication and exact-final-SHA CI. Full Q02 and provider/human-gold quality remain incomplete.
 
 ## Active Review continuation — Q03a (2026-10-05)

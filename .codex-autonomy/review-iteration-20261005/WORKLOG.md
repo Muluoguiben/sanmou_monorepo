@@ -81,3 +81,11 @@
 - Selected Q02a after read-only real-KB probes and pipeline review. Supported follow-ups can raw-match background mechanics but lack the subject; raw misses stay deterministically refused. Freeze narrow grammar and accepted-citation/current-source/history lifecycle tests before implementation.
 - Reused existing clean developer worktree, new branch `codex/qa-referent-q02a-20261006` from e17d937. No new main chat or automation. Prior worktree/branch preserved; no cleanup or reset.
 - Task documented in `docs/qa-referent-resolution-q02a-2026-10-06.md`. Existing implementation/reviewer agents will retain separate source/report ownership. No real model, KB publish, game operation or dependency install authorized.
+
+## Round 2 — immutable author delivery and independent review
+
+- Production `a2726c24eba982245fb83e46fdfd6ce0f41880d8`, code/eval `f3cd9b8814fc085d567063ab23e6576b9c24525f` / tree `b73cf4b49fc311d55b50b7caf56a7a7b2fb0b01e`, report-only successor `ce547ba9e6002696b949c7226aacbe9aca21a1f9`; author worktree clean after delivery.
+- Author QA391/focused68/cross6 all pass, zero skips; v3 nine multi-turn development cases, old 12 queries/six scalar cases retained. Author verified 186 actual production/KB Git blobs. Coordinator confirmed code-to-report diff only ten docs/evidence paths and no changes to old v1/v2, formal KB, MCP/common/Pioneer.
+- Independent plan commit `0b9d514c1ffe76d85de209dc9f8802dcf2c2aba7` froze 21 black-box test methods including 32 grammar combinations before execution. CR now targets f3cd9b8, not moving author files. A coordinator hypothesis about name-mention versus subject identity was forwarded for independent reproduction, not labeled a proven finding.
+- Moved completed Q03a approval/publication into prior_round; Q02a review is explicitly not approved, integration/publication not started. Existing master remains e17d937 clean.
+- Final read of earlier Q03a payload CI run 37341366281: cancelled. Accepted final e17d937 run 37341606212 remains all-four-jobs success. Twenty report/task local links independently checked, none missing.
