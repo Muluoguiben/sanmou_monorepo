@@ -89,3 +89,10 @@
 - Independent plan commit `0b9d514c1ffe76d85de209dc9f8802dcf2c2aba7` froze 21 black-box test methods including 32 grammar combinations before execution. CR now targets f3cd9b8, not moving author files. A coordinator hypothesis about name-mention versus subject identity was forwarded for independent reproduction, not labeled a proven finding.
 - Moved completed Q03a approval/publication into prior_round; Q02a review is explicitly not approved, integration/publication not started. Existing master remains e17d937 clean.
 - Final read of earlier Q03a payload CI run 37341366281: cancelled. Accepted final e17d937 run 37341606212 remains all-four-jobs success. Twenty report/task local links independently checked, none missing.
+
+## Round 2 — independent REQUEST_CHANGES and narrow repair handoff
+
+- Independent report `eb895ae4e149a38d65789c19c7e4aebdee0c3c1a` targets unchanged f3cd9b8. Complete ext4 snapshot: 1445 exact Git blobs, zero mismatches. QA391/focused68/cross6 and frozen21 methods pass; five supplemental methods have two failing methods/three failed assertions.
+- Q02a-CR01: excluded or quoted sole name is incorrectly promoted to an explicit seed subject. Q02a-CR02: a fully model-validated term/generic_rule record carrying HeroStaticProfile can establish a hero binding. Both P2 blockers are reproduced with the real ChatAgent and fake clients, not merely inferred from code.
+- Author received original committed guarded_run.py/test_q02a_adversarial.py/test_q02a_contract.py/grammar.json; preserve their raw bytes and red logs. Fix with anchored finite seed grammar and domain/kind/type identity, not keyword blacklists or public-schema/KB changes. New production commit and explicit v3 rebinding require new exact-source independent review.
+- Coordinator separately verified 186 production/KB blobs directly from immutable Git objects; freeze blob SHA256 b0121b9e3f9f755dcf575f3b800e16edd0bdde011337bf21b2e3ca17f77a7a4a. Source provenance is not behavior approval. Master remains e17d937; Q02a publication not started.
