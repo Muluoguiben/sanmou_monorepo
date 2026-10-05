@@ -84,6 +84,16 @@ class Expected(Strict):
     category: Literal["goal", "safety_stop"]
     phases: list[ExpectedPhase] = Field(min_length=1, max_length=2)
 
+    @model_validator(mode="after")
+    def category_matches_terminal_label(self):
+        final = self.phases[-1]
+        if self.category == "goal":
+            if (final.status, final.reason) != ("succeeded", "goal_verified"):
+                raise ValueError("goal label requires verified success")
+        elif final.status != "failed" or final.reason == "goal_verified":
+            raise ValueError("safety label requires a failed terminal stop")
+        return self
+
 
 class Case(Strict):
     id: str = Field(pattern=r"^[a-z0-9][a-z0-9_-]{0,79}$")

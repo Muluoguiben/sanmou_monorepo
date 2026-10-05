@@ -116,6 +116,13 @@ class TaskEvalTests(unittest.IsolatedAsyncioTestCase):
         with self.assertRaises(ValueError):
             Fixture.model_validate(data)
 
+    def test_category_cannot_disguise_goal_as_safe_stop(self):
+        data = suite().model_dump(mode="json")
+        data["cases"][0]["expected"]["category"] = "safety_stop"
+        data["cases"][1]["expected"]["category"] = "goal"
+        with self.assertRaises(ValueError):
+            Suite.model_validate(data)
+
     def test_fixture_bytes_and_parsing_same_buffer(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
