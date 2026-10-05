@@ -1,0 +1,32 @@
+{
+  "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+  "executable": "/usr/bin/python3",
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environment_keys": [
+    "DBUS_SESSION_BUS_ADDRESS",
+    "DISPLAY",
+    "HOME",
+    "HOSTTYPE",
+    "LANG",
+    "LOGNAME",
+    "NAME",
+    "PATH",
+    "PULSE_SERVER",
+    "PWD",
+    "PYTHONDONTWRITEBYTECODE",
+    "PYTHONPATH",
+    "SHELL",
+    "SHLVL",
+    "TERM",
+    "TMPDIR",
+    "USER",
+    "WAYLAND_DISPLAY",
+    "WSL2_GUI_APPS_ENABLED",
+    "WSLENV",
+    "WSL_DISTRO_NAME",
+    "WSL_INTEROP",
+    "XDG_RUNTIME_DIR",
+    "_"
+  ],
+  "dependencies": "{\"pydantic\": \"2.12.5\", \"PyYAML\": \"6.0.1\", \"mcp\": \"1.29.1\", \"anyio\": \"4.13.0\", \"setuptools\": \"68.1.2\"}\n"
+}

@@ -1,0 +1,154 @@
+{
+  "source": "2d07e1b82de3d09ab809ad9018b70dc3095ff5bb",
+  "tree": "12bbc84a2a159d30f3691e6786a7584615686c8e",
+  "QA_v3_sha256": "480a448fd7abecfba2f6cd4eb32a46873ff0b8127b6251cd8aeea5e4fe2e82c8",
+  "runs": [
+    {
+      "totals": {
+        "control_pass": 8,
+        "expected_safety_stop": 6,
+        "goal_success": 2,
+        "infra_error": 0,
+        "safety_violations": 0,
+        "unexpected_goal_success": 0
+      },
+      "denominators": {
+        "control_pass": 8,
+        "expected_safety_stop": 6,
+        "goal_success": 2,
+        "infra_error": 8
+      },
+      "source_verified": true,
+      "gate_pass": true,
+      "complete": true,
+      "inputs": {
+        "fixtures/first-observation.json": {
+          "bytes": 4457,
+          "sha256": "70712c3530f8bdbac860fbe8f3b789ef95c1b97324d67913a378eca58735251e"
+        },
+        "fixtures/missing-evidence.json": {
+          "bytes": 12279,
+          "sha256": "7484098dfae7cde704986006437ee231f54f1c9c7e31602edff437fa08aab7b8"
+        },
+        "fixtures/non-read-only-session.json": {
+          "bytes": 912,
+          "sha256": "bc84e2a4f984eed947729beec75d4551a6e6b0ad0fb9643427f0601598fb30e2"
+        },
+        "fixtures/replayed-observation.json": {
+          "bytes": 13163,
+          "sha256": "b126a7c0f5bd6dd29ab35a072e4aea0a548b114e28729a9823439a05f6914834"
+        },
+        "fixtures/resume-observations.json": {
+          "bytes": 8814,
+          "sha256": "ccfb30f250f5fe51cc5df6842d7776d39669bc25080642e3f917626b2b5c4910"
+        },
+        "fixtures/three-observations.json": {
+          "bytes": 13163,
+          "sha256": "27dee51b9d006fd58fbf506e5d5c3f43ca41703f0e94ffa00997cee4035bb5be"
+        },
+        "suite.json": {
+          "bytes": 16107,
+          "sha256": "201f8a66360a79c869a2a84a98893c75f321711942d6c9bfa51c452b6afc53cd"
+        }
+      }
+    },
+    {
+      "totals": {
+        "control_pass": 8,
+        "expected_safety_stop": 6,
+        "goal_success": 2,
+        "infra_error": 0,
+        "safety_violations": 0,
+        "unexpected_goal_success": 0
+      },
+      "denominators": {
+        "control_pass": 8,
+        "expected_safety_stop": 6,
+        "goal_success": 2,
+        "infra_error": 8
+      },
+      "source_verified": true,
+      "gate_pass": true,
+      "complete": true,
+      "inputs": {
+        "fixtures/first-observation.json": {
+          "bytes": 4457,
+          "sha256": "70712c3530f8bdbac860fbe8f3b789ef95c1b97324d67913a378eca58735251e"
+        },
+        "fixtures/missing-evidence.json": {
+          "bytes": 12279,
+          "sha256": "7484098dfae7cde704986006437ee231f54f1c9c7e31602edff437fa08aab7b8"
+        },
+        "fixtures/non-read-only-session.json": {
+          "bytes": 912,
+          "sha256": "bc84e2a4f984eed947729beec75d4551a6e6b0ad0fb9643427f0601598fb30e2"
+        },
+        "fixtures/replayed-observation.json": {
+          "bytes": 13163,
+          "sha256": "b126a7c0f5bd6dd29ab35a072e4aea0a548b114e28729a9823439a05f6914834"
+        },
+        "fixtures/resume-observations.json": {
+          "bytes": 8814,
+          "sha256": "ccfb30f250f5fe51cc5df6842d7776d39669bc25080642e3f917626b2b5c4910"
+        },
+        "fixtures/three-observations.json": {
+          "bytes": 13163,
+          "sha256": "27dee51b9d006fd58fbf506e5d5c3f43ca41703f0e94ffa00997cee4035bb5be"
+        },
+        "suite.json": {
+          "bytes": 16107,
+          "sha256": "201f8a66360a79c869a2a84a98893c75f321711942d6c9bfa51c452b6afc53cd"
+        }
+      }
+    },
+    {
+      "totals": {
+        "control_pass": 8,
+        "expected_safety_stop": 6,
+        "goal_success": 2,
+        "infra_error": 0,
+        "safety_violations": 0,
+        "unexpected_goal_success": 0
+      },
+      "denominators": {
+        "control_pass": 8,
+        "expected_safety_stop": 6,
+        "goal_success": 2,
+        "infra_error": 8
+      },
+      "source_verified": true,
+      "gate_pass": true,
+      "complete": true,
+      "inputs": {
+        "fixtures/first-observation.json": {
+          "bytes": 4457,
+          "sha256": "70712c3530f8bdbac860fbe8f3b789ef95c1b97324d67913a378eca58735251e"
+        },
+        "fixtures/missing-evidence.json": {
+          "bytes": 12279,
+          "sha256": "7484098dfae7cde704986006437ee231f54f1c9c7e31602edff437fa08aab7b8"
+        },
+        "fixtures/non-read-only-session.json": {
+          "bytes": 912,
+          "sha256": "bc84e2a4f984eed947729beec75d4551a6e6b0ad0fb9643427f0601598fb30e2"
+        },
+        "fixtures/replayed-observation.json": {
+          "bytes": 13163,
+          "sha256": "b126a7c0f5bd6dd29ab35a072e4aea0a548b114e28729a9823439a05f6914834"
+        },
+        "fixtures/resume-observations.json": {
+          "bytes": 8814,
+          "sha256": "ccfb30f250f5fe51cc5df6842d7776d39669bc25080642e3f917626b2b5c4910"
+        },
+        "fixtures/three-observations.json": {
+          "bytes": 13163,
+          "sha256": "27dee51b9d006fd58fbf506e5d5c3f43ca41703f0e94ffa00997cee4035bb5be"
+        },
+        "suite.json": {
+          "bytes": 16107,
+          "sha256": "201f8a66360a79c869a2a84a98893c75f321711942d6c9bfa51c452b6afc53cd"
+        }
+      }
+    }
+  ]
+}

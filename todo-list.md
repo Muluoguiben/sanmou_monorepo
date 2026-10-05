@@ -1,5 +1,11 @@
 # Todo List
 
+## Local-only integration — H09a (2026-10-06)
+
+- [x] Independent APPROVE `74d711e29db0a1e86e781bd65e420787a1cb2210` binds code `103d0d1594a11af905515182913731d2d8bb4ac9`; original CR01–CR05 red evidence remains intact.
+- [x] Coordinator tested exact local combination `2d07e1b82de3d09ab809ad9018b70dc3095ff5bb`, packages `fee69c4090f882c87b48857cc8a251a2de3dfdbc`: Pioneer996+2Windows skips, QA394/common2, frozen21 (one historical64 check), three clean CLIs, actual setuptools plus25 boundary rejections and16 formal CLI rejections; QA v3 hash and831 protected records unchanged. [Source-bound report](docs/test-reports/2026-10-06/H09a-integration.md).
+- [ ] Not published: H06 final Windows attempts obtained no runner and executed no steps; GitHub outage does not satisfy acceptance. No master merge/push/CI retry. This temporary integration branch does not release the H06 gate; later H06 source changes require renewed combination verification.
+
 ## Active Review continuation — H06a (2026-10-06)
 
 - [x] Q02a final `751df8ee867479b9ad272c9c64ab190f76cd0934` published with matching remote readback; exact CI37352030235 completed/success in all four jobs. Earlier a071176 run37351717604 is cancelled, not accepted as green.
