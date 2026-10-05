@@ -79,6 +79,15 @@ class TaskRunner:
         if self.budget.remaining_seconds() <= 0:
             raise _Interrupt("failed", "run_deadline")
 
+    def _timeout_interrupt(self) -> _Interrupt:
+        # Cancellation makes a real budget's remaining time zero. It must not
+        # be reclassified as deadline failure if it races with an awaited call.
+        if self._cancelled:
+            return _Interrupt("cancelled", "cancel_requested")
+        if self._paused:
+            return _Interrupt("paused", "pause_requested")
+        return _Interrupt("failed", "run_deadline")
+
     def _save(self) -> None:
         self.state.budget_state = self.budget.snapshot()
         self.store.save(self.state)
@@ -149,7 +158,8 @@ class TaskRunner:
             self._finish("cancelled", "async_cancelled")
             raise
         except TimeoutError:
-            return self._finish("failed", "run_deadline")
+            interruption = self._timeout_interrupt()
+            return self._finish(interruption.status, interruption.reason)
         except Exception as exc:
             # Store only class, never exception text that may contain provider data.
             return self._finish("failed", f"runtime_error:{type(exc).__name__}")
@@ -188,13 +198,27 @@ class TaskRunner:
                 step_id=self.step_id, kind="model", name=self.policy.policy_id,
                 input_tokens=context.estimated_input_tokens, output_tokens=context.reserved_output_tokens))
         self.state.pending_call = f"policy:{self.policy.policy_id}"
-        self._save()
         outcome = "error"
         policy_error = None
+        transport = "not_attempted"
+        contract = "not_checked"
         try:
+            self._save()
+            self._check()
+            transport = "error"  # Attempted, but no returned response yet.
             raw = await asyncio.wait_for(self.policy.decide(context), self.budget.remaining_seconds())
+            transport = "ok"
+            contract = "error"  # A returned value exists; validation may fail.
             decision = PolicyDecision.model_validate(raw.model_dump() if isinstance(raw, PolicyDecision) else raw)
+            contract = "ok"
             outcome = decision.action
+        except _Interrupt as exc:
+            outcome = exc.reason
+            raise
+        except asyncio.CancelledError:
+            transport = "cancelled"
+            policy_error = "CancelledError"
+            raise
         except BaseException as exc:
             policy_error = type(exc).__name__
             raise
@@ -205,8 +229,7 @@ class TaskRunner:
             self._save()
             self._emit("policy", name=self.policy.policy_id, attempt_id=reservation,
                 observation_id=observation.observation_id, evidence_refs=refs,
-                transport="cancelled" if policy_error == "CancelledError" else "error" if policy_error else "ok",
-                contract="error" if policy_error else "ok", business=outcome,
+                transport=transport, contract=contract, business=outcome,
                 error_type=policy_error, usage=Usage() if reservation else None,
                 metadata={"policy_id": self.policy.policy_id, "task_version": 1})
         self._check()
@@ -280,6 +303,7 @@ class _TaskClient:
         r.state.pending_call = name
         try:
             r._save()
+            r._check()
             raw = await asyncio.wait_for(r._client.call_tool(name, arguments), r.budget.remaining_seconds())
             event.transport = "ok"
             response = validate_game_response(name, structured_content(raw))
@@ -317,7 +341,9 @@ class _TaskClient:
         except TimeoutError:
             event.transport = "error"
             event.error_type = "TimeoutError"
-            raise _Interrupt("failed", "run_deadline") from None
+            interruption = r._timeout_interrupt()
+            event.business = interruption.reason
+            raise interruption from None
         except _Interrupt as exc:
             event.business = exc.reason
             raise
