@@ -127,7 +127,7 @@ class QualityEvaluationTests(unittest.TestCase):
 
     def test_frozen_retrieval_baseline_runs_without_model_or_network(self):
         with patch('socket.socket', side_effect=AssertionError('network forbidden')):
-            result=run(PACKAGE, baseline='v2')
+            result=run(PACKAGE, baseline='v3')
         self.assertEqual(result['retrieval']['query_count'],12)
         self.assertEqual(result['retrieval']['macro_recall']['denominator'],11)
         self.assertEqual(result['provider']['calls'],0)
@@ -138,20 +138,38 @@ class QualityEvaluationTests(unittest.TestCase):
     def test_production_or_fixture_drift_is_rejected(self):
         with patch('qa_agent.quality_eval.runner.snapshot', return_value={'digest':'drift'}):
             with self.assertRaisesRegex(ValueError,'source drift'):
-                run(PACKAGE, baseline='v2')
+                run(PACKAGE, baseline='v3')
         with patch('qa_agent.quality_eval.runner.digest', return_value='drift'):
             with self.assertRaisesRegex(ValueError,'fixture drift'):
-                run(PACKAGE, baseline='v2')
+                run(PACKAGE, baseline='v3')
 
     def test_v1_remains_frozen_and_rejects_new_production(self):
         with self.assertRaisesRegex(ValueError,'source drift'):
             run(PACKAGE)
+        with self.assertRaisesRegex(ValueError,'source drift'):
+            run(PACKAGE,baseline='v2')
+
+    def test_v3_requires_nonempty_valid_multiturn_suite(self):
+        corpus=json.loads((PACKAGE/'tests/fixtures/quality_eval/v3/cases.json').read_text())
+        for value in (None,[],{},[{}]):
+            with self.assertRaises(ValueError):
+                _validate_corpus({**corpus,'multiturn_cases':value},'v3')
+        missing=copy.deepcopy(corpus)
+        missing.pop('multiturn_cases')
+        with self.assertRaises(ValueError): _validate_corpus(missing,'v3')
+        for key,value in (('id',''),('scenario','unknown'),('split','holdout')):
+            changed=copy.deepcopy(corpus)
+            changed['multiturn_cases'][0][key]=value
+            with self.assertRaises(ValueError): _validate_corpus(changed,'v3')
+        duplicate=copy.deepcopy(corpus)
+        duplicate['multiturn_cases'].append(duplicate['multiturn_cases'][0])
+        with self.assertRaises(ValueError): _validate_corpus(duplicate,'v3')
 
     def test_invalid_version_and_loaded_source_rejected(self):
         with self.assertRaisesRegex(ValueError,'version'):
             run(PACKAGE,baseline='latest')
         with self.assertRaisesRegex(ValueError,'source mismatch'):
-            run(PACKAGE/'other',baseline='v2')
+            run(PACKAGE/'other',baseline='v3')
 
     def test_real_file_add_delete_and_change_rejected(self):
         for operation in ('add','delete','change'):
@@ -168,10 +186,10 @@ class QualityEvaluationTests(unittest.TestCase):
                     target.write_text(target.read_text()+'\n# changed\n')
                 with patch('qa_agent.quality_eval.runner.__file__',str(root/'src/qa_agent/quality_eval/runner.py')):
                     with self.assertRaisesRegex(ValueError,'source drift'):
-                        run(root,baseline='v2')
+                        run(root,baseline='v3')
 
     def test_manifest_metadata_rejects_version_split_and_duplicate_ids(self):
-        fixtures=PACKAGE/'tests/fixtures/quality_eval/v2'
+        fixtures=PACKAGE/'tests/fixtures/quality_eval/v3'
         corpus=json.loads((fixtures/'cases.json').read_text())
         frozen=json.loads((fixtures/'freeze.json').read_text())
         for change, message in (('version','version/split'),('split','version/split'),('duplicate','duplicate case')):
@@ -182,29 +200,29 @@ class QualityEvaluationTests(unittest.TestCase):
                 edited[change]='invalid'
             with patch('qa_agent.quality_eval.runner.json.loads',side_effect=[edited,frozen]):
                 with self.assertRaisesRegex(ValueError,message):
-                    run(PACKAGE,baseline='v2')
+                    run(PACKAGE,baseline='v3')
 
     def test_strict_schema_is_separate_from_hash_binding(self):
-        corpus=json.loads((PACKAGE/'tests/fixtures/quality_eval/v2/cases.json').read_text())
+        corpus=json.loads((PACKAGE/'tests/fixtures/quality_eval/v3/cases.json').read_text())
         for key, value in [('top_k',0),('top_k',-1),('top_k',True),('top_k',2.0),
-                ('version',2.0),('version',True),('assessment_cases',[]),('assessment_cases',None)]:
+                ('version',3.0),('version',True),('assessment_cases',[]),('assessment_cases',None)]:
             with self.subTest(key=key,value=value), self.assertRaises(ValueError):
-                _validate_corpus({**corpus,key:value},'v2')
+                _validate_corpus({**corpus,key:value},'v3')
         missing=copy.deepcopy(corpus)
         missing.pop('assessment_cases')
         with self.assertRaises(ValueError):
-            _validate_corpus(missing,'v2')
+            _validate_corpus(missing,'v3')
         for group in ('queries','scoring_cases','assessment_cases'):
             for identifier in ('', '   ', None, 3):
                 changed=copy.deepcopy(corpus)
                 changed[group][0]['id']=identifier
                 with self.subTest(group=group,identifier=identifier), self.assertRaises(ValueError):
-                    _validate_corpus(changed,'v2')
+                    _validate_corpus(changed,'v3')
         for change in ({'expected':{}},{'values':[True]},{'values':[float('nan')]},{'question':''}):
             changed=copy.deepcopy(corpus)
             changed['assessment_cases'][0].update(change)
             with self.assertRaises(ValueError):
-                _validate_corpus(changed,'v2')
+                _validate_corpus(changed,'v3')
 
     def test_lazy_assessment_module_from_another_tree_is_rejected(self):
         import importlib.util
@@ -217,5 +235,5 @@ class QualityEvaluationTests(unittest.TestCase):
         fake.evaluate_cases=MagicMock(side_effect=AssertionError('must not execute foreign code'))
         with patch.dict('sys.modules',{name:fake}):
             with self.assertRaisesRegex(ValueError,'execution source mismatch'):
-                run(PACKAGE,baseline='v2')
+                run(PACKAGE,baseline='v3')
         fake.evaluate_cases.assert_not_called()
