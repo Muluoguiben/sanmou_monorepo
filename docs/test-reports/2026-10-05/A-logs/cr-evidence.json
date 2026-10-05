@@ -1,0 +1,73 @@
+{
+  "code_commit": "58df02b22a26802c1bee6293e7afa8583e654468",
+  "code_tree": "e8bca4ffd066fdf724e64539c95bc944f239f9ab",
+  "cr_reference_commit": "2f9b61402f7baf959e380b3b32a524e1c8856946",
+  "b_dependency": "9430107ab24a740e751321ca41a98c0e282e2954",
+  "logs": [
+    {
+      "name": "cr-red",
+      "source_binding": "original runtime c902d19601e2b16a4529fa874445fdef3814f5a8; uncommitted new regression inputs before final trace assertions",
+      "original_path": "/tmp/sanmou-A-CR-red.log",
+      "sha256": "18869260c30818d33dc2feda3d6194452e05e75076d81049e4de47bbc52888fc",
+      "gzip_sha256": "0de44c546644d1ebf02fc5150e86aa22da1749150bc751b2fd84c3914fb87bc7",
+      "summary": [
+        "FAIL: test_cr01_cancel_after_checkpoint_before_tool_or_policy (test_task_cr_regressions.TaskCRRegressions.test_cr01_cancel_after_checkpoint_before_tool_or_policy) (boundary='session_status')",
+        "FAIL: test_cr01_cancel_after_checkpoint_before_tool_or_policy (test_task_cr_regressions.TaskCRRegressions.test_cr01_cancel_after_checkpoint_before_tool_or_policy) (boundary='policy:cr-policy')",
+        "FAIL: test_cr01_cancel_wins_when_inflight_tool_or_policy_times_out (test_task_cr_regressions.TaskCRRegressions.test_cr01_cancel_wins_when_inflight_tool_or_policy_times_out) (boundary='tool')",
+        "FAIL: test_cr01_cancel_wins_when_inflight_tool_or_policy_times_out (test_task_cr_regressions.TaskCRRegressions.test_cr01_cancel_wins_when_inflight_tool_or_policy_times_out) (boundary='policy')",
+        "FAIL: test_cr02_pause_after_checkpoint_before_tool_or_policy (test_task_cr_regressions.TaskCRRegressions.test_cr02_pause_after_checkpoint_before_tool_or_policy) (boundary='session_status')",
+        "FAIL: test_cr02_pause_after_checkpoint_before_tool_or_policy (test_task_cr_regressions.TaskCRRegressions.test_cr02_pause_after_checkpoint_before_tool_or_policy) (boundary='policy:cr-policy')",
+        "FAIL: test_cr03_async_cancel_does_not_validate (test_task_cr_regressions.TaskCRRegressions.test_cr03_async_cancel_does_not_validate)",
+        "FAIL: test_cr03_connection_failure_does_not_validate (test_task_cr_regressions.TaskCRRegressions.test_cr03_connection_failure_does_not_validate)",
+        "FAIL: test_cr03_invalid_return_is_transport_ok_contract_error (test_task_cr_regressions.TaskCRRegressions.test_cr03_invalid_return_is_transport_ok_contract_error)",
+        "FAIL: test_cr03_policy_timeout_does_not_validate (test_task_cr_regressions.TaskCRRegressions.test_cr03_policy_timeout_does_not_validate)",
+        "Ran 8 tests in 0.314s",
+        "FAILED (failures=10)"
+      ]
+    },
+    {
+      "name": "cr-focused",
+      "source_binding": "58df02b22a26802c1bee6293e7afa8583e654468",
+      "original_path": "/tmp/sanmou-A-CR-focused-bound.log",
+      "sha256": "6f2d5137bef980cb2b9dfde0cd2f98c615f42cd295f6ec9654b00a6a1e74038b",
+      "gzip_sha256": "26bd98a810270334b394fbbe6e76d32b508677945d0564fef8dee83f8e9c75e4",
+      "summary": [
+        "Ran 101 tests in 2.044s",
+        "OK"
+      ]
+    },
+    {
+      "name": "cr-original",
+      "source_binding": "58df02b22a26802c1bee6293e7afa8583e654468",
+      "original_path": "/tmp/sanmou-A-CR-original-bound.log",
+      "sha256": "0c3d7befdc19942f0c000ddaeb21d8c1ef32ac6d87930f6f82f5945f5ca17c92",
+      "gzip_sha256": "170b3b88e4581f09858ee6849b0eec166113682f4c1a957477eabfffd13fedf8",
+      "summary": [
+        "Ran 4 tests in 0.027s",
+        "OK"
+      ]
+    },
+    {
+      "name": "cr-full",
+      "source_binding": "58df02b22a26802c1bee6293e7afa8583e654468",
+      "original_path": "/tmp/sanmou-A-CR-full.log",
+      "sha256": "f18fef98c9d5697ff7b481b8d3f105d62d4ee15fbc1150dc5592ec2f190da10e",
+      "gzip_sha256": "e607643c22876ea0fe184ced93a1b4a2ddaec08a1065fa277b4812e7124443fd",
+      "summary": [
+        "Ran 934 tests in 39.751s",
+        "OK (skipped=2)"
+      ]
+    },
+    {
+      "name": "cr-common",
+      "source_binding": "58df02b22a26802c1bee6293e7afa8583e654468",
+      "original_path": "/tmp/sanmou-A-CR-common.log",
+      "sha256": "f1b9a8f59d430598b262642aa9e14dc7b560adcac88a54428cdc98a65b3aeac7",
+      "gzip_sha256": "33afeb4b0d2518ba9d3f7f37bb5a1e545de5bbce2b554660072c77ac0c3b1a80",
+      "summary": [
+        "Ran 2 tests in 0.023s",
+        "OK"
+      ]
+    }
+  ]
+}

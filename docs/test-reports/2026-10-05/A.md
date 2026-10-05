@@ -1,5 +1,75 @@
 # A — read-only task runtime and A/B integration
 
+## CR01–CR03 repair delivery (current)
+
+Date: 2026-10-05. Author repair complete; independent re-review pending. The earlier
+code `c902d196...` received REQUEST_CHANGES and is not approved by its green unit suite.
+No master operation or CR/C branch import occurred during repairs.
+
+- Fixed code: [58df02b22a26802c1bee6293e7afa8583e654468](https://github.com/Muluoguiben/sanmou_monorepo/commit/58df02b22a26802c1bee6293e7afa8583e654468).
+- Fixed A+B tree: `e8bca4ffd066fdf724e64539c95bc944f239f9ab`.
+- A0 remains `5269a1a5d09bddcf268d180a3f016f323c27cb95`; B remains
+  `9430107ab24a740e751321ca41a98c0e282e2954` and is already included in A.
+- Independent red report/reproducer read with `git show` from
+  `2f9b61402f7baf959e380b3b32a524e1c8856946`. Only its inspected four-test script
+  was extracted to `/tmp/sanmou-A-original-cr.py` for execution. No merge/cherry-pick
+  of the CR combination or C payload was performed.
+- Repair report commit follows the fixed code and is identified in the final handoff.
+
+Changes are confined to A's task_runner.py and new test_task_cr_regressions.py:
+
+1. CR01/CR02: after checkpoint persistence, recheck cancellation/pause before invoking
+   either the underlying tool or policy. The check stays inside the reservation's
+   try/finally, so undispatched reservations are still settled and counted. Policy
+   checkpoint persistence itself is now inside that finally-protected region.
+2. Timeout classification gives explicit cancel/pause priority over deadline failure
+   for both tool and policy boundaries. A cancellation that makes remaining time zero
+   persists cancelled/cancel_requested rather than failed/run_deadline.
+3. CR03: policy transport and validation stages are tracked independently. Invalid
+   returned payload is ok/error; ConnectionError or timeout before response is
+   error/not_checked; async cancellation is cancelled/not_checked; valid business
+   stop is ok/ok with business=stop. Pre-dispatch interruption is
+   not_attempted/not_checked. Unknown Usage remains null and reserved usage charged.
+
+Eight new tests include tool/policy checkpoint cut points, cancelled checkpoint
+restart with zero calls, pause/resume with reobservation and retained consumed quota,
+zero pending reservations after settlement, in-flight timeout/cancel precedence,
+invalid return, ConnectionError, actual asyncio timeout, cancellation and business stop.
+All use the real B context/budget/trace implementations and synthetic MCP/policy calls.
+
+| Verification | Result | Exit |
+| --- | --- | --- |
+| New regressions on original runtime, before fix | 8 tests, 10 failures including subcases | 1 |
+| New regressions after fix | 8 pass, 0 skip, 0.114s | 0 |
+| Original independent CR script on fixed SHA | 4 pass, 0 skip, 0.027s | 0 |
+| Fixed-SHA focused A/B/legacy suite | 101 pass, 0 skip, 2.044s | 0 |
+| Fixed-SHA Pioneer full suite | 934 total, 932 pass, 2 Windows-only skips, 39.751s | 0 |
+| Fixed-SHA common suite | 2 pass, 0 skip, 0.023s | 0 |
+
+Fixed-SHA focused command, from `packages/pioneer-agent`:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:../sanmou-common/src:tests:tests/unit \
+python3 -B -m unittest test_task_cr_regressions test_task_cli test_task_runner \
+  test_harness_b test_task_contracts test_agent_harness test_agent_harness_lifecycle \
+  test_game_agent_cli -v
+```
+
+Original CR script: same cwd, `PYTHONDONTWRITEBYTECODE=1
+PYTHONPATH=src:../sanmou-common/src:tests python3 -B /tmp/sanmou-A-original-cr.py`.
+Full Pioneer/common commands and environment are unchanged from the historical
+record below, including the temporary API dependency directory. The final two skips
+remain native Windows proxy/tombstone checks; they are not passes. Logs and SHA-256
+bindings: [cr-evidence.json](A-logs/cr-evidence.json), `A-logs/cr-*.log.gz`.
+The local red run used the old committed runtime plus new uncommitted regression
+inputs; the fixed-SHA focused/full logs bind the final committed test source.
+
+Provider, vision, game input, live replay and native Windows coverage remain unrun.
+Game/QA catalogs and none/false execution authority are unchanged. CR01–CR03 are
+submitted for independent closure; this report is not a replacement CR approval.
+
+## Historical initial delivery (retained; superseded for approval)
+
 Date: 2026-10-05 (Asia/Shanghai). Scope: H01/H02/H03 and offline H09.
 Status: author implementation and combined A/B self-test complete; independent CR pending.
 No master merge/push. No live provider, vision, game input, publishing or control broker.
