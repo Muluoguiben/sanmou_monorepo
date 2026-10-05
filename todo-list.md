@@ -36,6 +36,8 @@ Decision: 用户确认后续以 harness 工程为主线；RAG 对象为本仓 `p
 
 2026-10-05 第一批 A/B/C + 统一 CR 四个 GPT-6 Astra 会话已启动，各有隔离 worktree，功能仍未完成。边界、依赖和验收见 [本批任务单](docs/development-batch-2026-10-05.md)，实际会话 ID/分支/交付 commit 见 [manifest](docs/development-batch-2026-10-05-tasks.json)。启动核验：A 冻结接口，B 准备负例并等待 A0，C 实现/测试离线 QA 基线，CR 准备独立审查并等待不可变交付。A 最终必须完成 B 的真实 wiring 后再交付，CR 审组合树。每个交付必须自测并提交 source-bound 报告。多样本、知识、真实视觉和独立 eval 持续推进；下方 production gates 不因主线变更而豁免。
 
+派发后进展：A0 契约已提交 `5269a1a5d09bddcf268d180a3f016f323c27cb95`（A 报告 focused 5/5，协调者核实 commit 存在）；B 已读取固定 A0 开始实现。C 报告新增 14 项离线测试通过、全包回归进行中。CR 计划为 `d6b95066c14c0bb861ede3296025fe7e3d51e69f`，已收到有效会话 ID/A0 交接继续工作。以上均非最终交付或 APPROVE，主分支尚未合入本批实现。
+
 ## Completed hardening batch — 2026-09-08
 
 Six GPT-6 Astra worktree tasks completed self-tests and committed reports.
