@@ -130,3 +130,16 @@ Post-commit blob verification initially found one checksum mismatch for the alre
 tracked run_checks.py helper: Git had normalized its line endings before the new
 raw-evidence attribute was introduced. The manifest was corrected to its actual
 committed blob hash; no raw test log or production source was changed.
+
+## Repair review preparation
+
+Coordinator handed CR01–CR03 to A. CR independently froze expanded acceptance at
+547d9e3c0feb6659f773650dc5c23326de23d350 before importing repairs. The expanded
+script includes the original four negatives plus tool/policy interruption accounting,
+restart/resume and five policy error/business outcomes. On the old implementation,
+7 tests produced 12 failures (subcases included), exit 1; raw evidence is
+repair-expanded-before.log/json. Its initial tree argument was the earlier business
+combination tree; JSON retains that argument and explicitly corrects tree to the
+actual 547d9e3 commit. Results and logs were not edited. The CR script's final line
+was normalized to LF after a whitespace check; test semantics are unchanged.
+Repair code/report and new combination verification remain pending at this checkpoint.
