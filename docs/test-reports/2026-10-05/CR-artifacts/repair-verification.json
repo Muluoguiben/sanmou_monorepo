@@ -1,0 +1,70 @@
+{
+  "decision": "APPROVE_OFFLINE_PATCH_ONLY",
+  "combination_commit": "374f970fbfae13eeadf0b3a4c57a554441f9a23e",
+  "combination_tree": "6fdad1d9d3c81a487d742cc87410514ec4f09ae6",
+  "packages_tree": "94186df4485421eec6ddf116a4777d7a393cd789",
+  "A": {
+    "code": "58df02b22a26802c1bee6293e7afa8583e654468",
+    "report": "b6feb8dcbae5a2fd7ba2b07a0d5e71bfc4dc7130"
+  },
+  "B": {
+    "code": "9430107ab24a740e751321ca41a98c0e282e2954",
+    "report": "68611c7938911593bc317e9c5bd9e1ec87ce88ba"
+  },
+  "C": {
+    "code": "621cf8baf324902b9e77d056b3b03f288f07baf6",
+    "report": "bd062f3548026b74798dd8f7178cbb615fe7e9cf"
+  },
+  "closed_findings": [
+    "CR01",
+    "CR02",
+    "CR03"
+  ],
+  "tests": {
+    "repair-adversarial": {
+      "exit_code": 0,
+      "sha256": {
+        "repair-adversarial.json": "a46f3588e5a02b3895d50dd84e161172a1d38e5d90bf13d64a95b5a14a4a9758",
+        "repair-adversarial.log": "9ea06825e52cac416ba55cfb03973dd171b1a3ba7cc4d639a30a8571b098319c"
+      }
+    },
+    "repair-focused": {
+      "exit_code": 0,
+      "sha256": {
+        "repair-focused.json": "0ad9740a3827aedf679437d944b04336b1e97a4c399a0ededc9728de0584a206",
+        "repair-focused.log": "36663e22e5a781a387c3e9bcfb7920bc9136e7ed543f2e2ba9c95ddcf8a8ce95"
+      }
+    },
+    "repair-pioneer-agent": {
+      "exit_code": 0,
+      "sha256": {
+        "repair-pioneer-agent.json": "61c55d494ff6fcfb7b02e461fc2c23e4722038a64ae91694f8192ac7bfa78391",
+        "repair-pioneer-agent.log": "c3eb14e5828a6abf2df1bdb8a4b1763b8018e939db564e1c75021f9d8b015b7b"
+      }
+    },
+    "repair-qa-agent": {
+      "exit_code": 0,
+      "sha256": {
+        "repair-qa-agent.json": "fbebc9b601d691c71c10a582a546c6dd06d87d45853755892a0c62f67950d4f8",
+        "repair-qa-agent.log": "20347a98fe21bcd4b87a940cee7db553c054ed0774b0bf1dbf3d4389a0ff4862"
+      }
+    },
+    "repair-sanmou-common": {
+      "exit_code": 0,
+      "sha256": {
+        "repair-sanmou-common.json": "77395379ef833201ffdaea380cc3beeefa66d62ecc02fd4cbf03fca14a83d9ce",
+        "repair-sanmou-common.log": "88dfe7cf8d3b200b3ba0d7fa8d80100bea801a36201585f61290b251ff100a4d"
+      }
+    }
+  },
+  "execution_authority": "none",
+  "executable": false,
+  "not_verified": [
+    "native Windows",
+    "provider/vision",
+    "live game actions",
+    "independent QA holdout",
+    "production readiness"
+  ],
+  "publication": "local only; C/CR publication block not bypassed"
+}

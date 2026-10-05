@@ -1,3 +1,43 @@
+# Current CR result — APPROVE (offline patch only)
+
+The source approved on 2026-10-05 is combination
+`374f970fbfae13eeadf0b3a4c57a554441f9a23e`, tree
+`6fdad1d9d3c81a487d742cc87410514ec4f09ae6`. CR01–CR03 closed by independent reruns.
+A code/report: `58df02b22a26802c1bee6293e7afa8583e654468` /
+`b6feb8dcbae5a2fd7ba2b07a0d5e71bfc4dc7130`.
+B code/report: `9430107ab24a740e751321ca41a98c0e282e2954` /
+`68611c7938911593bc317e9c5bd9e1ec87ce88ba`.
+C code/report: `621cf8baf324902b9e77d056b3b03f288f07baf6` /
+`bd062f3548026b74798dd8f7178cbb615fe7e9cf`.
+
+Final labels in CR-artifacts (each has exact-command JSON and raw log):
+- repair-adversarial: 7 tests pass including the unchanged original four; exit 0.
+- repair-focused: 101 pass, no skip; exit 0.
+- repair-pioneer-agent: 934 total / 932 pass / 2 native Windows skips; exit 0.
+- repair-qa-agent: 343 pass, no skip; exit 0.
+- repair-sanmou-common: 2 pass, no skip; exit 0.
+
+[repair-verification.json](CR-artifacts/repair-verification.json) pins source/report
+identities, package tree, final command/log hashes and unverified boundaries.
+[sha256.json](CR-artifacts/sha256.json) binds historical and new raw artifacts.
+The expanded test's original tree-argument correction is explicitly retained in its
+metadata; no raw red/green output was rewritten. The previously tracked helper hash
+correction and invalid first lifecycle probe remain documented below.
+
+Repair reruns used the same WSL/dependency environment documented below. QA shell
+bytes were verified equal to the committed script after LF normalization and tested
+as the exact Git LF blob; original checkout CRLF restored afterward. No production
+source diff remained. Game/QA contract source and formal KB comparison with dispatch
+returned exit 0. B and C ancestry checks returned exit 0. A's final report is a
+report-only commit over the reviewed fix; read-only inspection confirmed the binding.
+
+This approves no native Windows behavior, real provider/vision, game action, independent
+QA holdout or production release. No source changes were made by the reviewer. No
+master operation or remote publication occurred. The coordinator owns integration.
+
+---
+
+# Historical CR record (original findings and failures retained)
 # CR verification record — 2026-10-05
 
 Status: **REQUEST_CHANGES** for frozen combination 9189bb10ffb97453730802f7634f68ee1d34bfd4. Historical preparation notes follow; final results and author handoff are at the end.

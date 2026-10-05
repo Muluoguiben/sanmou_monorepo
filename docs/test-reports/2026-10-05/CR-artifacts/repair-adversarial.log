@@ -1,0 +1,14 @@
+test_checkpoint_interrupts_tool_and_policy_preserve_accounting (__main__.RepairAcceptance.test_checkpoint_interrupts_tool_and_policy_preserve_accounting) ... ok
+test_model_transport_contract_business_layers_and_unknown_usage (__main__.RepairAcceptance.test_model_transport_contract_business_layers_and_unknown_usage) ... ok
+test_tool_schema_failure_is_not_transport_failure (__main__.RepairAcceptance.test_tool_schema_failure_is_not_transport_failure) ... ok
+test_cancel_during_checkpoint_before_client_dispatch (adversarial.ReviewNegatives.test_cancel_during_checkpoint_before_client_dispatch) ... ok
+test_invalid_policy_response_has_successful_transport (adversarial.ReviewNegatives.test_invalid_policy_response_has_successful_transport) ... ok
+test_pause_during_checkpoint_before_client_dispatch (adversarial.ReviewNegatives.test_pause_during_checkpoint_before_client_dispatch) ... ok
+test_policy_transport_failure_does_not_claim_schema_check (adversarial.ReviewNegatives.test_policy_transport_failure_does_not_claim_schema_check) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.138s
+
+OK
+INTERRUPT cancel cancelled cancel_requested []
+INTERRUPT pause paused pause_requested []

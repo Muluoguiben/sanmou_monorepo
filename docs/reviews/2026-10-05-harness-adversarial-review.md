@@ -1,3 +1,73 @@
+# Unified adversarial CR — APPROVE (offline patch only)
+
+Date: 2026-10-05. CR01–CR03 are independently closed on the repaired combination.
+This supersedes the REQUEST_CHANGES decision for the old source below; the original
+findings, withdrawn test-device probe and all red logs remain intact.
+
+## Exact approved source and reports
+
+- Combined commit: `374f970fbfae13eeadf0b3a4c57a554441f9a23e`.
+- Combined tree: `6fdad1d9d3c81a487d742cc87410514ec4f09ae6`.
+- A repaired code: `58df02b22a26802c1bee6293e7afa8583e654468`;
+  report: `b6feb8dcbae5a2fd7ba2b07a0d5e71bfc4dc7130`.
+- B unchanged code: `9430107ab24a740e751321ca41a98c0e282e2954`;
+  report: `68611c7938911593bc317e9c5bd9e1ec87ce88ba`.
+- C unchanged code: `621cf8baf324902b9e77d056b3b03f288f07baf6`;
+  report: `bd062f3548026b74798dd8f7178cbb615fe7e9cf`.
+
+B is already included in A's DAG; no duplicate B import. C's report is included.
+A's new report was inspected by immutable SHA and only changes documentation/evidence
+relative to its code SHA. No author source was edited by CR and no source conflict
+was resolved manually. Subsequent CR report commits do not extend source approval.
+
+## Independent closure evidence
+
+| Gate | Result | Exit |
+| --- | --- | --- |
+| Corrected original four negatives plus independent expanded acceptance | 7 tests pass (includes subcases) | 0 |
+| A/B/CLI/legacy focused | 101 pass | 0 |
+| Pioneer full | 934 total: 932 pass, 2 Windows-only skip | 0 |
+| QA full | 343 pass | 0 |
+| Common full | 2 pass | 0 |
+
+CR01: tool/policy checkpoint cancellation persists cancelled, no underlying dispatch,
+no pending reservations, charged attempts retained, cancelled restart remains terminal.
+CR02: tool/policy checkpoint pause causes zero underlying dispatch; resume reobserves
+without replaying an accepted observation or resetting quota/cursor.
+CR03: invalid returned policy payload is ok/error; connection failure and timeout are
+error/not_checked; cancellation is cancelled/not_checked; valid stop is ok/ok/stop.
+All synthetic model cases retain unknown Usage, not fabricated zero. Tool schema
+failure also remains transport ok / contract error and legacy success=false.
+
+The independent expanded test was frozen before importing A's repair; it failed on
+old code (7 tests / 12 subcase failures), then passed unchanged in semantics on new
+code. The original corrected four-case script was not weakened. A's extra regression
+file is also included in both focused and full runs. No rerun-until-green occurred.
+
+Machine source/report bindings and final log hashes:
+[repair-verification.json](../test-reports/2026-10-05/CR-artifacts/repair-verification.json).
+All historical/current artifact blob hashes:
+[sha256.json](../test-reports/2026-10-05/CR-artifacts/sha256.json).
+Detailed commands/environment/history: [CR.md](../test-reports/2026-10-05/CR.md).
+
+## Limits and coordinator handoff
+
+Approval is limited to this offline read-only patch. WSL Python 3.12.3 tests are not
+native Windows coverage; skipped native proxy and tombstone checks remain unverified.
+Real provider/vision, game input/live replay, human gold/independent QA holdout,
+cross-process leases and production readiness are not approved. Game seven/QA six
+contract sources and formal KB remain byte-identical at Git source level to dispatch;
+execution_authority=none and executable=false remain unchanged.
+
+The coordinator may integrate the exact approved source under the user's authorization,
+then independently recheck master and update root todo/manifest. CR has not merged or
+pushed master. The combination/report remain local because the C publication rejection
+has not been bypassed. Any source change invalidates this precise-source approval and
+requires another bound review/test pass.
+
+---
+
+# Historical first review (preserved)
 # Unified adversarial CR — REQUEST_CHANGES
 
 Review date: 2026-10-05. This decision applies only to the code combination below.
