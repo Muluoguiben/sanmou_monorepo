@@ -1,0 +1,23 @@
+{
+  "schema": "q02a-independent-plan/v1",
+  "status": "prepared_not_executed",
+  "baseline": "e17d937a39944b036e90701fecefb6611b1d88d6",
+  "label_origin": "reviewer-authored synthetic contract cases; not human game-truth gold",
+  "provider_calls_observed": null,
+  "pronouns": ["他", "该武将"],
+  "stages": {"初始": "base_attributes", "基础": "base_attributes", "满级": "max_attributes", "成长": "growth_attributes"},
+  "attributes": {"武力": "military", "智力": "intelligence", "统率": "command", "先攻": "initiative"},
+  "positive_template": "{pronoun}的{stage}{attribute}是多少？",
+  "unsupported_examples": [
+    "那个武将的初始武力是多少？",
+    "她的初始武力是多少？",
+    "他俩的初始武力是多少？",
+    "他的初始武力是多少？另一个问题是怎么配队？",
+    "他的S1初始武力是多少？"
+  ],
+  "baseline_expectation": {
+    "new_resolution_and_lifecycle": "expected_feature_gap_not_regression",
+    "raw_miss_and_existing_citation_guards": "expected_existing_behavior",
+    "runtime_result": "not_run"
+  }
+}
