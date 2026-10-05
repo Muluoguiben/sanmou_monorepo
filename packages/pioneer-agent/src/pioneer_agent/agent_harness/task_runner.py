@@ -49,6 +49,7 @@ class TaskRunner:
         try:
             if self._ownership.store is not store:
                 raise CheckpointConflict("foreign checkpoint owner")
+            self._ownership.bind_runner(self)
             self._reload()
         except BaseException:
             self.close()
@@ -89,6 +90,7 @@ class TaskRunner:
         if not self._ownership.active and not self._external_owner:
             self._ownership = self.store.acquire()
             try:
+                self._ownership.bind_runner(self)
                 self._reload()
             except BaseException:
                 self.close()

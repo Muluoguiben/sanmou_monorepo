@@ -14,6 +14,7 @@ from pioneer_agent.agent_harness.task_contracts import RunState, PolicyDecision
 from pioneer_agent.agent_harness.task_policy import FakeDecisionPolicy
 from pioneer_agent.agent_harness.run_budget import RunBudgetLedger
 from pioneer_agent.agent_harness.loop import RecommendationHarness
+from pioneer_agent.agent_harness.task_runner import TaskRunner
 from pioneer_agent.app import game_agent
 import test_task_cli
 from test_task_runner import BASE, SequenceClient, runner, task
@@ -262,6 +263,24 @@ class CheckpointOwnershipTests(unittest.TestCase):
 
 
 class RunnerOwnershipTests(unittest.IsolatedAsyncioTestCase):
+    async def test_borrowed_owner_cannot_bind_two_runners(self):
+        with TemporaryDirectory() as tmp:
+            store = JsonRunStore(Path(tmp) / "run.json")
+            with store.acquire() as owner:
+                template = runner()
+                template.close()
+                kwargs = dict(task=task(), run_id="run", harness=template.harness,
+                              store=store, ownership=owner, policy=template.policy,
+                              context_builder=template.context_builder, budget=RunBudgetLedger(),
+                              trace=template.trace)
+                # Restore the original fake client; do not nest a prior runner wrapper.
+                template.harness.game_client = template._client
+                first = TaskRunner(**kwargs)
+                with self.assertRaisesRegex(CheckpointConflict, "already bound"):
+                    TaskRunner(**kwargs)
+                self.assertTrue(owner.active)
+                self.assertEqual((await first.run()).status, "succeeded")
+
     async def test_active_close_cannot_release_inflight_owner(self):
         with TemporaryDirectory() as tmp:
             path = Path(tmp) / "run.json"

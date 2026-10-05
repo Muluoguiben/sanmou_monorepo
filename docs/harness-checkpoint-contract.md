@@ -6,7 +6,7 @@
 
 - `with store.acquire() as owner` 非阻塞取得 stable `<checkpoint>.lock` 的 OS 排他锁。Linux 使用 `flock(LOCK_EX | LOCK_NB)`，Windows 使用 `msvcrt.locking(LK_NBLCK)` 单字节锁；没有轮询、TTL 或强制抢锁。
 - 必须先 `owner.load()` 再 `owner.save(state)`。公开 `store.load()` 只是受锁保护的快照读取，不能赋予调用者保存能力。底层 `store.save` 必须提供当前 owner 和 `expected_revision`。
-- owner 绑定 store 对象、当前 PID 和活动 lifetime；释放/旧 owner、错误 run/task、非整数或过时 revision 一律失败且不写 checkpoint。正常保存 revision 严格加一。终态不能转回非终态。
+- owner 绑定 store 对象、当前 PID 和活动 lifetime；显式借用的同一 owner 也只能附着一个 TaskRunner，不能让两个 runner 共享 token 并发执行。释放/旧 owner、错误 run/task、非整数或过时 revision 一律失败且不写 checkpoint。正常保存 revision 严格加一。终态不能转回非终态。
 - 保存先校验完整内层 RunState，再写唯一临时文件、flush/fsync、原子 replace；Linux 再 fsync 父目录。锁绑定 sidecar，而不是被 replace 的 checkpoint inode。临时文件不是恢复来源，崩溃残留不会被自动提升为 checkpoint。
 - sidecar 永远不被本实现 unlink 或 replace，进程退出由内核释放锁。维护者不能通过删除活动 sidecar“修复”争锁。
 

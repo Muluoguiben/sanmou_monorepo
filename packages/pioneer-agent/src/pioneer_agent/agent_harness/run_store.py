@@ -33,6 +33,7 @@ class RunOwnership:
         self._loaded = False
         self._identity = None
         self._prior_owner = None
+        self._runner = None
 
     def __enter__(self):
         self.check()
@@ -51,6 +52,12 @@ class RunOwnership:
             if self.pid == os.getpid():
                 self.store._owner = None
                 self._release()
+
+    def bind_runner(self, runner):
+        self.check()
+        if self._runner is not None and self._runner is not runner:
+            raise CheckpointConflict("checkpoint owner already bound to a runner")
+        self._runner = runner
 
     def load(self) -> RunState | None:
         self.check()
