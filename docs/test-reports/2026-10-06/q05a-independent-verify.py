@@ -61,7 +61,8 @@ def methods(raw):
 old_methods, new_methods = methods(git("show", BASE + ":" + test_path)), methods((root / test_path).read_bytes())
 class VersionMigration(ast.NodeTransformer):
     def visit_Constant(self, node):
-        return ast.copy_location(ast.Constant(value="v4"), node) if node.value == "v3" else node
+        replacements = {"v3": "v4", "tests/fixtures/quality_eval/v3": "tests/fixtures/quality_eval/v4"}
+        return ast.copy_location(ast.Constant(value=replacements[node.value]), node) if type(node.value) is str and node.value in replacements else node
 for name, old in old_methods.items():
     assert ast.dump(new_methods[name]) in {ast.dump(old), ast.dump(VersionMigration().visit(copy.deepcopy(old)))}, name
 assert set(new_methods) - set(old_methods) == {"test_v3_rejects_new_production_without_changing_its_freeze"}
