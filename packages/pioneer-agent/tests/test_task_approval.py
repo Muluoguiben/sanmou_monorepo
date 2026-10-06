@@ -400,6 +400,120 @@ class ApprovalLifecycleTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual((await fresh.run(resume=True)).reason, "approval_revalidation_interrupted")
         self.assertEqual((fresh._client.calls, fresh.policy.contexts), ([], []))
 
+    async def test_postconsume_clock_rollback_at_each_revalidation_boundary(self):
+        for boundary in ("consumed", "observation", "revalidated", "policy"):
+            with self.subTest(boundary=boundary):
+                store = MemoryRunStore()
+                now = [BASE + timedelta(seconds=2)]
+                spec = task()
+                if boundary != "policy": spec.success_when[0].value = 2
+                saved = await make_runner(store=store, now=now, spec=spec).run()
+                now[0] += timedelta(seconds=1)
+                r = make_runner(store=store, now=now, spec=spec, client=SequenceClient(count=1))
+                write = store._write
+                rolled = []
+                def rollback(envelope):
+                    write(envelope)
+                    state = envelope.state
+                    hit = ((boundary == "consumed" and state.reason == "approval_consumed")
+                        or (boundary == "observation" and state.status == "revalidating_approval"
+                            and state.observation_ids[-1] == "obs-2")
+                        or (boundary == "revalidated" and state.reason == "approval_revalidated")
+                        or (boundary == "policy" and state.pending_call == "policy:fake-script-v1"))
+                    if hit and not rolled:
+                        rolled.append(True)
+                        now[0] -= timedelta(milliseconds=500)
+                store._write = rollback
+                result = await r.resume_synthetic(response_for(saved))
+                self.assertTrue(rolled)
+                self.assertEqual((result.status, result.reason), ("failed", "approval_clock_rollback"))
+                self.assertEqual(r.policy.contexts, [])
+                self.assertEqual(result.approval.last_checked_at, result.approval.consumed_at)
+
+    async def test_revalidation_advances_watermark_then_rejects_rollback_above_consumed(self):
+        for boundary in ("watermark_write", "revalidated", "policy", "after_policy"):
+            with self.subTest(boundary=boundary):
+                store = MemoryRunStore()
+                now = [BASE + timedelta(seconds=2)]
+                saved = await make_runner(store=store, now=now).run()
+                now[0] += timedelta(seconds=1)
+                policy = FakeDecisionPolicy([PolicyDecision(action="continue", reason="observe")])
+                r = make_runner(store=store, now=now, client=SequenceClient(count=1), policy=policy)
+                write = store._write
+                advanced, rolled = [], []
+                def advance_then_rollback(envelope):
+                    write(envelope)
+                    state = envelope.state
+                    if (state.status == "revalidating_approval" and state.observation_ids[-1] == "obs-2"
+                            and not advanced):
+                        advanced.append(True)
+                        now[0] = BASE + timedelta(seconds=5)
+                    if state.approval.last_checked_at != BASE + timedelta(seconds=5):
+                        return
+                    hit = ((boundary == "watermark_write" and state.status == "revalidating_approval")
+                        or (boundary == "revalidated" and state.reason == "approval_revalidated")
+                        or (boundary == "policy" and state.pending_call == "policy:fake-script-v1")
+                        or (boundary == "after_policy" and len(policy.contexts) == 1 and state.pending_call is None))
+                    if hit and not rolled:
+                        rolled.append(True)
+                        now[0] = BASE + timedelta(seconds=4.5)
+                store._write = advance_then_rollback
+                result = await r.resume_synthetic(response_for(saved))
+                self.assertTrue(advanced and rolled)
+                self.assertEqual((result.status, result.reason), ("failed", "approval_clock_rollback"))
+                self.assertEqual(result.approval.consumed_at, BASE + timedelta(seconds=3))
+                self.assertEqual(result.approval.last_checked_at, BASE + timedelta(seconds=5))
+                self.assertEqual(len(policy.contexts), 1 if boundary == "after_policy" else 0)
+                self.assertEqual(r._client.count, 2)
+
+    async def test_revalidation_watermark_progress_is_persisted_without_reconsuming(self):
+        store = MemoryRunStore()
+        now = [BASE + timedelta(seconds=2)]
+        spec = task()
+        spec.success_when[0].value = 2
+        saved = await make_runner(store=store, now=now, spec=spec).run()
+        now[0] += timedelta(seconds=1)
+        r = make_runner(store=store, now=now, spec=spec, client=SequenceClient(count=1))
+        write = store._write
+        advanced = []
+        def advance(envelope):
+            write(envelope)
+            if envelope.state.status == "revalidating_approval" and envelope.state.observation_ids[-1] == "obs-2" and not advanced:
+                advanced.append(True)
+                now[0] += timedelta(seconds=2)
+        store._write = advance
+        result = await r.resume_synthetic(response_for(saved))
+        self.assertEqual(result.status, "succeeded")
+        self.assertEqual(store.load().approval.last_checked_at, BASE + timedelta(seconds=5))
+        self.assertEqual(store.load().approval.consumed_at, BASE + timedelta(seconds=3))
+        self.assertEqual(store.load().approval.request, saved.approval.request)
+        self.assertEqual(r.policy.contexts, [])
+        self.assertEqual(r.budget.summary()["counts"], {"step": 2, "tool": 8, "model": 0})
+
+    async def test_revalidation_watermark_write_failure_has_no_policy_and_no_reusable_permit(self):
+        store = MemoryRunStore()
+        now = [BASE + timedelta(seconds=2)]
+        saved = await make_runner(store=store, now=now).run()
+        now[0] += timedelta(seconds=1)
+        r = make_runner(store=store, now=now, client=SequenceClient(count=1))
+        write = store._write
+        failure = OSError("synthetic revalidation watermark write")
+        def fail_watermark(envelope):
+            if envelope.state.approval.last_checked_at > envelope.state.approval.consumed_at:
+                raise failure
+            write(envelope)
+            if envelope.state.observation_ids[-1] == "obs-2":
+                now[0] = BASE + timedelta(seconds=5)
+        store._write = fail_watermark
+        with self.assertRaises(OSError) as caught:
+            await r.resume_synthetic(response_for(saved))
+        self.assertIs(caught.exception, failure)
+        self.assertEqual(r.policy.contexts, [])
+        store._write = write
+        fresh = make_runner(store=store, now=now, client=SequenceClient(count=2))
+        self.assertEqual((await fresh.run()).reason, "approval_revalidation_interrupted")
+        self.assertEqual((fresh._client.calls, fresh.policy.contexts), ([], []))
+
 
 class ApprovalStorageTests(unittest.TestCase):
     def test_frozen_v1_compatibility_fixture(self):

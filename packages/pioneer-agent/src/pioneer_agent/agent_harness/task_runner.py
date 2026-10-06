@@ -438,11 +438,14 @@ class TaskRunner:
                     transport=transport, contract=contract, business=outcome,
                     error_type=policy_error, usage=Usage() if reservation else None,
                     metadata={"policy_id": self.policy.policy_id, "task_version": 1})
-        self._check()
-        stale = self.harness.stop_policy.observation_stop(captured_at=observation.captured_at,
-            now=self.harness.clock(), unknown_domains=observation.unknown_domains)
-        if stale.should_stop:
-            return self._finish("failed", stale.reason.value)
+        if approval_revalidation:
+            self._check_approval_observation(observation)
+        else:
+            self._check()
+            stale = self.harness.stop_policy.observation_stop(captured_at=observation.captured_at,
+                now=self.harness.clock(), unknown_domains=observation.unknown_domains)
+            if stale.should_stop:
+                return self._finish("failed", stale.reason.value)
         # Policy cannot change the goal, and all condition evaluation uses the
         # original validated state, never the context projection or history.
         task = self.state.task
@@ -484,11 +487,25 @@ class TaskRunner:
 
     def _check_approval_observation(self, observation: LiveObservation) -> None:
         """Persistence/context work can spend the deadline or age the fresh frame."""
-        self._check()
-        stale = self.harness.stop_policy.observation_stop(captured_at=observation.captured_at,
-            now=self.harness.clock(), unknown_domains=observation.unknown_domains)
-        if stale.should_stop:
-            raise _Interrupt("failed", stale.reason.value)
+        # At most one watermark write per boundary; recheck that write as well.
+        # A later post-write sample stays in memory until the next owned save.
+        for persist in (True, False):
+            self._check()
+            now = self.harness.clock()
+            item = self.state.approval
+            if now.tzinfo is None or now.utcoffset() is None:
+                raise _Interrupt("failed", "approval_clock_invalid")
+            if now < item.last_checked_at:
+                raise _Interrupt("failed", "approval_clock_rollback")
+            stale = self.harness.stop_policy.observation_stop(captured_at=observation.captured_at,
+                now=now, unknown_domains=observation.unknown_domains)
+            if stale.should_stop:
+                raise _Interrupt("failed", stale.reason.value)
+            advanced = now > item.last_checked_at
+            item.last_checked_at = now
+            if not persist or not advanced:
+                return
+            self._save()
 
     def _goal_evidence(self, current: dict, observation: LiveObservation) -> bool:
         task = self.state.task
