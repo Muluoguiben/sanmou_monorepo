@@ -74,7 +74,8 @@ class CausalTraceProducer:
             context_digest=None if context is None else canonical_digest(context.model_dump(mode="json")),
             model=component, prompt=component, skill=component, kb=component)
 
-    def invocation(self, context=None):
+    def prepare_invocation(self, context=None):
+        """Prepare detached values; only actual guarded dispatch may publish them."""
         self.check()
         try:
             detached = None if context is None else PolicyContext.model_validate(context.model_dump(mode="json"))
