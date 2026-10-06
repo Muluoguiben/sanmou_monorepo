@@ -118,7 +118,7 @@ claim_spans.run(Path(sys.argv[2]))
         self.assertIn("source mismatch", result.stderr)
         self.assertIn("scoring", result.stderr)
         wrong = self.cli([sys.executable, "-B", "-c",
-            "from pathlib import Path; from qa_agent.quality_eval.claim_spans import run; run(Path('.').parent)"])
+            "from pathlib import Path; from qa_agent.quality_eval.claim_spans import run; run(Path('.').resolve().parent)"])
         self.assertNotEqual(wrong.returncode, 0)
         self.assertIn("source mismatch", wrong.stderr)
 
