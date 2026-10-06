@@ -10,7 +10,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from uuid import uuid4
 
-from .task_contracts import TraceEvent
+from .task_contracts import CausalTraceEvent, TraceEvent
 from .tool_log import summarize_arguments
 
 
@@ -57,7 +57,7 @@ class InMemoryRunTrace:
 
     def emit(self, event: TraceEvent) -> None:
         with self._lock:
-            self._events.append(_safe_event(event))
+            self._events.append(_safe_causal_event(event) if isinstance(event, CausalTraceEvent) else _safe_event(event))
 
 
 class JsonlRunTrace:
@@ -67,13 +67,28 @@ class JsonlRunTrace:
         self._lock = threading.RLock()
 
     def emit(self, event: TraceEvent) -> None:
-        safe = _safe_event(event)
-        record = {"trace_version": 1, "event_id": uuid4().hex,
-                  "emitted_at": datetime.now(UTC).isoformat(),
-                  "trace_id": safe.run_id, **safe.model_dump(mode="json")}
+        if isinstance(event, CausalTraceEvent):
+            record = _safe_causal_event(event).model_dump(mode="json")
+        else:
+            safe = _safe_event(event)
+            record = {"trace_version": 1, "event_id": uuid4().hex,
+                      "emitted_at": datetime.now(UTC).isoformat(),
+                      "trace_id": safe.run_id, **safe.model_dump(mode="json")}
         with self._lock:
             self.path.parent.mkdir(parents=True, exist_ok=True)
             with self.path.open("a", encoding="utf-8") as handle:
                 handle.write(json.dumps(record, ensure_ascii=False, allow_nan=False) + "\n")
                 handle.flush()
                 os.fsync(handle.fileno())
+
+
+def _safe_causal_event(event: CausalTraceEvent) -> CausalTraceEvent:
+    raw = CausalTraceEvent.model_validate(event.model_dump(mode="json")).model_dump(mode="json")
+    base = _safe_event(TraceEvent.model_validate({key: raw[key] for key in TraceEvent.model_fields}))
+    raw.update(base.model_dump(mode="json"))
+    provenance = raw["provenance"]
+    provenance["policy_id"] = _identifier(provenance["policy_id"])
+    for key in ("policy_version", "model", "prompt", "skill", "kb"):
+        if provenance[key]["value"] is not None:
+            provenance[key]["value"] = _identifier(provenance[key]["value"])
+    return CausalTraceEvent.model_validate(raw)

@@ -125,6 +125,85 @@ class TraceEvent(ContractModel):
     metadata: dict[str, Any] = Field(default_factory=dict)
 
 
+class TraceEmissionError(RuntimeError):
+    """Opt-in trace failed; no further invocation may be dispatched this entry."""
+
+
+class TraceDeclaration(ContractModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+    status: Literal["declared", "absent", "unknown"]
+    value: str | None = Field(default=None, min_length=1, max_length=160)
+
+    @model_validator(mode="after")
+    def declaration_shape(self):
+        if (self.status == "declared") != (self.value is not None):
+            raise ValueError("declared trace value required only for declared status")
+        return self
+
+
+class TraceProvenance(ContractModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+    task_digest: str = Field(pattern=r"^[0-9a-f]{64}$")
+    task_version: int = Field(strict=True, ge=1)
+    state_version: int = Field(strict=True, ge=1)
+    policy_id: str = Field(min_length=1, max_length=160)
+    policy_version: TraceDeclaration
+    context_digest: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
+    model: TraceDeclaration
+    prompt: TraceDeclaration
+    skill: TraceDeclaration
+    kb: TraceDeclaration
+
+
+class CausalTraceEvent(TraceEvent):
+    """Explicit opt-in v2. TraceEvent itself and all v1 wire fields stay unchanged."""
+    model_config = ConfigDict(extra="forbid", frozen=True)
+    trace_version: Literal[2] = 2
+    event: Literal["lifetime_start", "lifetime_end", "window_start", "tool", "observation",
+                   "policy", "outcome", "control", "lifecycle", "approval"]
+    event_id: str = Field(pattern=r"^[0-9a-f]{32}$")
+    emitted_at: datetime
+    lifetime_id: str = Field(pattern=r"^[0-9a-f]{32}$")
+    window_id: str | None = Field(default=None, pattern=r"^[0-9a-f]{32}$")
+    parent_event_id: str | None = Field(default=None, pattern=r"^[0-9a-f]{32}$")
+    invocation_id: str | None = Field(default=None, pattern=r"^[0-9a-f]{32}$")
+    provenance: TraceProvenance
+
+    @field_validator("trace_version", mode="before")
+    @classmethod
+    def strict_trace_version(cls, value):
+        if type(value) is not int or value != 2:
+            raise ValueError("unsupported causal trace version")
+        return value
+
+    @model_validator(mode="after")
+    def causal_shape(self):
+        if self.emitted_at.tzinfo is None or self.emitted_at.utcoffset() is None:
+            raise ValueError("trace time must be aware")
+        if self.contract == "ok" and self.transport != "ok":
+            raise ValueError("contract_ok_requires_transport_ok")
+        if self.event == "lifetime_start":
+            if self.event_id != self.lifetime_id or self.parent_event_id is not None or self.window_id is not None:
+                raise ValueError("invalid lifetime root")
+        elif self.parent_event_id is None or self.parent_event_id == self.event_id:
+            raise ValueError("non-root trace requires a distinct parent")
+        if self.event == "window_start" and (self.window_id != self.event_id or self.parent_event_id != self.lifetime_id):
+            raise ValueError("invalid window root")
+        if self.event in {"tool", "policy", "observation"} and self.window_id is None:
+            raise ValueError("window-bound event requires window")
+        if self.event in {"tool", "policy"}:
+            if (self.invocation_id is None) != (self.transport == "not_attempted"):
+                raise ValueError("invocation identity requires an attempted call")
+        elif self.invocation_id is not None:
+            raise ValueError("non-invocation event cannot claim invocation")
+        if self.event == "policy" and self.invocation_id is not None:
+            if self.provenance.context_digest is None:
+                raise ValueError("policy invocation requires input digest")
+        elif self.provenance.context_digest is not None:
+            raise ValueError("input digest belongs only to an invoked policy")
+        return self
+
+
 class RunTrace(Protocol):
     def emit(self, event: TraceEvent) -> None: ...
 

@@ -4,6 +4,7 @@ from pioneer_agent.agent_harness.task_contracts import PolicyContext, PolicyDeci
 
 class RuleDecisionPolicy:
     policy_id = "rule-observe-v1"
+    policy_version = "1"
     uses_model = False
 
     async def decide(self, context: PolicyContext) -> PolicyDecision:
@@ -12,6 +13,7 @@ class RuleDecisionPolicy:
 
 class FakeDecisionPolicy:
     policy_id = "fake-script-v1"
+    policy_version = "1"
     uses_model = False
 
     def __init__(self, decisions: list[PolicyDecision]):
