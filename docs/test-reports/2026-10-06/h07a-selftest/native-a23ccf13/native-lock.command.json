@@ -1,0 +1,21 @@
+{
+  "source": "a23ccf13049d289bcf827265b726bff2956a6948",
+  "tree": "dd12dbcab10648314a8aefd8f8929dc4df442d68",
+  "argv": [
+    "C:\\Users\\Lan\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_checkpoint_lock_native.py",
+    "-v"
+  ],
+  "cwd": "C:\\Users\\Lan\\AppData\\Local\\Temp\\h07a-a23ccf13-native-source\\packages\\pioneer-agent",
+  "PYTHONPATH": "C:\\Users\\Lan\\AppData\\Local\\Temp\\h07a-a23ccf13-native-source\\packages\\pioneer-agent\\src;C:\\Users\\Lan\\AppData\\Local\\Temp\\h07a-a23ccf13-native-source\\packages\\qa-agent\\src;C:\\Users\\Lan\\AppData\\Local\\Temp\\h07a-a23ccf13-native-source\\packages\\sanmou-common\\src;C:\\Users\\Lan\\AppData\\Local\\Temp\\h07a-a23ccf13-native-source\\packages\\pioneer-agent\\tests",
+  "exit": 0,
+  "expected_exit": 0,
+  "seconds": 0.502023458480835
+}
