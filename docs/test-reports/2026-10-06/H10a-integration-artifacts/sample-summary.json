@@ -1,0 +1,57 @@
+{
+  "source": "4e3fb5c82b7e6f1b36698918731ed52c8fd46117",
+  "tree": "e6cc4cfa4053168d029182937da637b3e8c676e8",
+  "events": 27,
+  "event_counts": {
+    "lifetime_start": 1,
+    "window_start": 3,
+    "tool": 12,
+    "observation": 3,
+    "policy": 3,
+    "outcome": 3,
+    "lifecycle": 1,
+    "lifetime_end": 1
+  },
+  "raw_jsonl_sha256": "960956294e916c64acef8fa100ff063a73f3663d95531f553e5171abbfa85794",
+  "raw_bytes": 29169,
+  "memory_rows_persisted": false,
+  "memory_jsonl_equal_asserted_in_actual_run": true,
+  "canonical_memory_rows_sha256": "b3fa6dad5d5f48e1f89c2ab56fb404c6f5a2891bac5495361f73840ada1dbf5c",
+  "canonical_jsonl_rows_sha256": "b3fa6dad5d5f48e1f89c2ab56fb404c6f5a2891bac5495361f73840ada1dbf5c",
+  "actual_tool_calls": [
+    "session_status",
+    "observe_game",
+    "get_runtime_state",
+    "list_action_candidates",
+    "session_status",
+    "observe_game",
+    "get_runtime_state",
+    "list_action_candidates",
+    "session_status",
+    "observe_game",
+    "get_runtime_state",
+    "list_action_candidates"
+  ],
+  "actual_policy_observation_ids": [
+    "obs-1",
+    "obs-2",
+    "obs-3"
+  ],
+  "actual_context_digests": [
+    "7667edc6b9dc89575ed85bde759590c1c1862718928bcb32d6e02864fcfcc902",
+    "794bd0cd2085d2e02955c38b83c75d348ce21d92ce81275ff2287e1f703320df",
+    "ea672b7bcd7624940466fd1efe6f2f2443d3ff5f544fcb7b1304de82e63f9afb"
+  ],
+  "task_digest": "1234be48d8a37c928fcf4fa2d50e1227cecf4bae8266836ac26ab49ab9041ed5",
+  "ledger_counts": {
+    "step": 3,
+    "tool": 12,
+    "model": 0
+  },
+  "unique_actual_invocation_ids": 15,
+  "graph_checked_independently": true,
+  "state": "succeeded",
+  "execution_authority": "none",
+  "executable": false,
+  "native_h10": "not_executed"
+}

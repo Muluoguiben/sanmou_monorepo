@@ -1,0 +1,10 @@
+test_default_v1_entire_event_sequence_matches_frozen_baseline (__main__.PublicMemoProbes.test_default_v1_entire_event_sequence_matches_frozen_baseline) ... ok
+test_policy_primary_is_not_replaced_by_secondary_trace_failure (__main__.PublicMemoProbes.test_policy_primary_is_not_replaced_by_secondary_trace_failure) ... ok
+test_same_object_and_fresh_runner_reentry_do_not_cross_lifetimes (__main__.PublicMemoProbes.test_same_object_and_fresh_runner_reentry_do_not_cross_lifetimes) ... ok
+test_three_observations_match_actual_call_ledger_and_graph (__main__.PublicMemoProbes.test_three_observations_match_actual_call_ledger_and_graph) ... ok
+test_tool_completion_sink_failure_is_visible_and_never_redispatches (__main__.PublicMemoProbes.test_tool_completion_sink_failure_is_visible_and_never_redispatches) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.072s
+
+OK

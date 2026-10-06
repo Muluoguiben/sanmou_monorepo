@@ -1,11 +1,21 @@
 # Todo List
 
+## Active Review continuation — H10a causal trace (2026-10-06)
+
+- [x] Select bounded offline H10a after H07a/native35 final CI: [contract](docs/harness-causal-trace-h10a-2026-10-06.md), commit358df146ba184a771d3673428915a70fe8aa4c9c; basepublishedae03.
+- [x] Interface memo34242e0cefa8fe4decab38bc1adb010055711a7e and independent planfda28a5aeb370b8f032dfe04e0acb094d00811dd frozen; root/reviewer approved explicit trace-error propagation, original-primary precedence and per-lifetime isolation before implementation.
+- [x] Finalcode2128fb88329b1a38b410ad63e09c37034d08e8c7/author762855b6488bf1f0650bba6f6263597638b87fd8 and independent2313e78ac72888470f66a6ee3ccf121010a85492 scopedAPPROVE closeF1-F4+ambient; originals/R1-R3reds preserved. Defaultv1/checkpoint/approval/budget/MCP/QA/common/CI unchanged.
+- [x] Exactcombo4e3fb5c82b7e6f1b36698918731ed52c8fd46117 passed8frozenprobes/fullv1oracle,causal32/focused177/H07a35/Pioneer1083+2skip/QA394/common2/H09/v3. Fresh27events dualsink/ledger3-12-0/graph/task-contextdigests agree;memory equality is runtimeassertion,notsecondpersistedcopy. [Source-bound report](docs/test-reports/2026-10-06/H10a-integration.md).
+- [ ] One plain-evidence/coordinator candidate awaits finalpayload audit,authorizedpublication/exactfinalCI. H10native not_executed;oldH07Windows35 is notH10coverage. No model/game/bridge/install/runtime-framework expansion orstatus-onlysuccessor.
+- Q06a archive reading and publication remain paused_by_user; do not read historical archive members/bodies or inherit its unpublished payload. Preserve the three existing H07 post-CI coordination updates with this normal delivery.
+
 ## H07a follow-up: durable recovery and native gate (2026-10-06)
 
 - [x] Scope frozen at `ecf50e0012c336c131f75b9bc6c102530a0d1876`, independent plan `04a919b2609265db6e721eab1b39cd5a368953cc`; start only from published ca04. [Contract](docs/harness-h07a-native-recovery-followup-2026-10-06.md).
 - [x] Five new tests on codeb785458e9b322707e38f0b424ab78a9512abd8d1, author61132b6962f45c95d5adb916bc90ff1c4319950b and independent4750e7ec264d0d6e9f57f8c9868f63ca502211e1 code/Linux APPROVE. RealJSON/new-reader and actualspawn recovery verified; prior30/alloldAST/none-false preserved.
 - [x] Exactcombo943b052e6054f913feca89683a7aa00d4497625d: Linuxmodule35/0skip,focused109,Pioneer1051+2skip,QA394/common2,H09CLI8,v3unchanged;893Gitbytes/protection/oldreports preserved. [Compact source-bound report](docs/test-reports/2026-10-06/H07a-native-recovery-integration.md).
-- [ ] One normalhandoff candidate awaits finalpayload audit/publication/exact-SHA HostedWindows newstep35pass/0skip andalljobsgreen. Localnativewholemodule notrun afterpywintypes/rpds limits; noinstall/mock/skip-as-pass. Historicalca04CI success is not this new gate.
+- [x] Final candidate `ae03faf0862f9930c58f7811d625de4b632f05ba` passed H07-only payload audit and was pushed to master; explicit remote fetch/readback matches. Local native dependencies were not installed or mocked.
+- [x] Exact-SHA CI run37409132607/attempt1 completed/success in all4jobs. Windows job112093365283 step9 actually ran35 H07a tests:35pass/0skip in5.842s; rawlog35entries andOK verified. H09 and existing desktop gates also passed. [Final CI](https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/37409132607). This bounded synthetic/read-only followup is complete, not real approval/game/production enablement; final-CI facts remain local WIP for the next normal delivery, not another status-only push.
 - Q06a archive reads and publication remain explicitly paused by the user. No historical archive content/member reads; no Q06 payload or unpublished history enters this follow-up.
 
 ## H07a completed independent delivery (2026-10-06)
