@@ -489,6 +489,79 @@ class CausalFaultTests(unittest.IsolatedAsyncioTestCase):
 
 
 class CausalDispatchTests(unittest.IsolatedAsyncioTestCase):
+    async def test_budget_sampling_cannot_replace_the_bound_policy_or_callable(self):
+        for target in ("runner", "callable"):
+            with self.subTest(target=target):
+                state, calls = {"prepared": False, "swapped": False}, []
+                class Original:
+                    policy_id, uses_model = "policy-P", False
+                    @property
+                    def policy_version(self):
+                        if state["runner"].state.pending_call == "policy:policy-P":
+                            state["prepared"] = True
+                        return "P-1"
+                    async def decide(self, context):
+                        calls.append("policy-P")
+                        return PolicyDecision(action="stop", reason="stop")
+                class Replacement:
+                    policy_id, policy_version, uses_model = "policy-Q", "Q-1", True
+                    async def decide(self, context):
+                        calls.append("policy-Q")
+                        return PolicyDecision(action="stop", reason="stop")
+                original, replacement = Original(), Replacement()
+                class Budget(RunBudgetLedger):
+                    def remaining_seconds(self):
+                        remaining = super().remaining_seconds()
+                        if state["prepared"] and not state["swapped"]:
+                            state["swapped"] = True
+                            if target == "runner":
+                                state["runner"].policy = replacement
+                            else:
+                                original.decide = replacement.decide
+                        return remaining
+                budget = Budget(BudgetLimits(max_model_attempts=0))
+                r = runner(policy=original, budget=budget)
+                state["runner"] = r
+                await r.run()
+                self.assertTrue(state["swapped"])
+                self.assertEqual(calls, ["policy-P"])
+                event = next(e for e in r.trace.events if e.event == "policy")
+                self.assertEqual((event.name, event.provenance.policy_id, event.provenance.policy_version.value),
+                                 ("policy-P", "policy-P", "P-1"))
+                self.assertIsNone(event.attempt_id)
+                self.assertEqual(budget.summary()["counts"]["model"], 0)
+
+    async def test_reservation_and_provenance_share_the_same_captured_policy(self):
+        state, calls = {"swapped": False}, []
+        class Original:
+            policy_id, policy_version, uses_model = "policy-P", "P-1", True
+            async def decide(self, context):
+                calls.append("policy-P")
+                return PolicyDecision(action="stop", reason="stop")
+        class Replacement:
+            policy_id, policy_version, uses_model = "policy-Q", "Q-1", False
+            async def decide(self, context):
+                calls.append("policy-Q")
+                return PolicyDecision(action="stop", reason="stop")
+        class Budget(RunBudgetLedger):
+            def reserve(self, request):
+                reservation = super().reserve(request)
+                if request.kind == "model":
+                    state["swapped"] = True
+                    state["runner"].policy = Replacement()
+                return reservation
+        budget = Budget(BudgetLimits(max_model_attempts=1))
+        r = runner(policy=Original(), budget=budget)
+        state["runner"] = r
+        await r.run()
+        self.assertTrue(state["swapped"])
+        self.assertEqual(calls, ["policy-P"])
+        event = next(e for e in r.trace.events if e.event == "policy")
+        self.assertEqual((event.name, event.provenance.policy_id, event.provenance.policy_version.value),
+                         ("policy-P", "policy-P", "P-1"))
+        self.assertEqual(budget.snapshot()["reservations"][event.attempt_id]["request"]["name"], "policy-P")
+        self.assertEqual(budget.summary()["counts"]["model"], 1)
+
     async def test_provenance_deadline_keeps_reservations_without_invocations(self):
         for boundary in ("tool", "policy", "model-policy"):
             with self.subTest(boundary=boundary):

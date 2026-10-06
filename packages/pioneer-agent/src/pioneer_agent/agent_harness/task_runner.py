@@ -502,11 +502,19 @@ class TaskRunner:
         self._check()
         reservation = None
         invocation_id = provenance = None
-        if self.policy.uses_model:
+        prepared_provenance = policy_binding = None
+        if self._causal is not None:
+            selected_policy = self.policy
+            uses_model = selected_policy.uses_model
+            policy_binding = (selected_policy, selected_policy.policy_id, uses_model)
+            policy_call = selected_policy.decide  # Bind the callable without creating its awaitable.
+        else:
+            uses_model = self.policy.uses_model
+        if uses_model:
             reservation = self.budget.reserve(BudgetRequest(run_id=self.state.run_id,
-                step_id=self.step_id, kind="model", name=self.policy.policy_id,
+                step_id=self.step_id, kind="model", name=policy_binding[1] if policy_binding is not None else self.policy.policy_id,
                 input_tokens=context.estimated_input_tokens, output_tokens=context.reserved_output_tokens))
-        self.state.pending_call = f"policy:{self.policy.policy_id}"
+        self.state.pending_call = f"policy:{policy_binding[1] if policy_binding is not None else self.policy.policy_id}"
         outcome = "error"
         policy_error = None
         policy_primary = None
@@ -523,7 +531,7 @@ class TaskRunner:
                 if (context.run_id, context.step_id, context.observation_id) != (
                         self.state.run_id, self.step_id, observation.observation_id):
                     return self._finish("failed", "context_binding_mismatch")
-                prepared_id, prepared_provenance = self._causal.prepare_invocation(context)
+                prepared_id, prepared_provenance = self._causal.prepare_invocation(context, policy_binding=policy_binding)
                 async def dispatch_policy():
                     nonlocal invocation_id, provenance, transport
                     if approval_revalidation:
@@ -536,7 +544,7 @@ class TaskRunner:
                         raise _Interrupt("failed", "context_binding_mismatch")
                     invocation_id, provenance = prepared_id, prepared_provenance
                     transport = "error"  # The guarded call is entering, not merely prepared.
-                    return await self.policy.decide(context)
+                    return await policy_call(context)
                 raw = await asyncio.wait_for(dispatch_policy(), self.budget.remaining_seconds())
             else:
                 transport = "error"  # Attempted, but no returned response yet.
@@ -565,7 +573,8 @@ class TaskRunner:
                     self.budget.settle(reservation, Usage(), outcome=outcome)
                 self.state.pending_call = None
                 self._save()
-                policy_identity = provenance.policy_id if provenance is not None else self.policy.policy_id
+                policy_identity = provenance.policy_id if provenance is not None else (
+                    policy_binding[1] if policy_binding is not None else self.policy.policy_id)
                 values = dict(name=policy_identity, attempt_id=reservation,
                     observation_id=observation.observation_id, evidence_refs=refs,
                     transport=transport, contract=contract, business=outcome,
@@ -574,8 +583,11 @@ class TaskRunner:
                 if self._causal is not None:
                     if invocation_id is None:
                         values.update(transport="not_attempted", contract="not_checked")
+                    completion_provenance = provenance
+                    if completion_provenance is None and prepared_provenance is not None:
+                        completion_provenance = prepared_provenance.model_copy(update={"context_digest": None})
                     self._causal.emit(self._causal.event("policy", **values), primary=policy_primary,
-                        invocation_id=invocation_id, provenance=provenance)
+                        invocation_id=invocation_id, provenance=completion_provenance, policy_binding=policy_binding)
                 else:
                     self._emit("policy", **values)
         if self._causal is not None:
