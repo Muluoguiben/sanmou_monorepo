@@ -1,0 +1,45 @@
+test_consumption_save_and_cleanup_preserve_primary (__main__.IndependentApprovalProbes.test_consumption_save_and_cleanup_preserve_primary) ... ok
+test_observed_wait_clock_rollback_rejects_before_calls (__main__.IndependentApprovalProbes.test_observed_wait_clock_rollback_rejects_before_calls)
+A rollback above created_at is still a previously observed rollback. ... ok
+test_request_response_mutability_does_not_change_checkpoint (__main__.IndependentApprovalProbes.test_request_response_mutability_does_not_change_checkpoint) ... ok
+test_slow_revalidation_checkpoint_cannot_outlive_budget (__main__.IndependentApprovalProbes.test_slow_revalidation_checkpoint_cannot_outlive_budget)
+A complete ledger deadline can elapse during synchronous persistence. ... ok
+test_slow_revalidation_checkpoint_cannot_verify_stale_goal (__main__.IndependentApprovalProbes.test_slow_revalidation_checkpoint_cannot_verify_stale_goal)
+The frame can expire during the post-observation checkpoint write. ... FAIL
+
+======================================================================
+FAIL: test_slow_revalidation_checkpoint_cannot_verify_stale_goal (__main__.IndependentApprovalProbes.test_slow_revalidation_checkpoint_cannot_verify_stale_goal)
+The frame can expire during the post-observation checkpoint write.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/unittest/async_case.py", line 90, in _callTestMethod
+    if self._callMaybeAsync(method) is not None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/async_case.py", line 112, in _callMaybeAsync
+    return self._asyncioRunner.run(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h07a-independent-probes.py", line 60, in test_slow_revalidation_checkpoint_cannot_verify_stale_goal
+    self.assertEqual((bool(delayed), result.status, result.reason),
+AssertionError: Tuples differ: (True, 'failed', 'observation_stale') != (True, 'failed', 'stale_observation')
+
+First differing element 2:
+'observation_stale'
+'stale_observation'
+
+- (True, 'failed', 'observation_stale')
+?                              ------
+
++ (True, 'failed', 'stale_observation')
+?                   ++++++
+
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.158s
+
+FAILED (failures=1)

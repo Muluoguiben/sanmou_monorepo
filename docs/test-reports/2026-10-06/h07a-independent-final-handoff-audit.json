@@ -1,0 +1,36 @@
+{
+  "handoff": "f04646cc72cc92f8ea928942dd287b88667fe749",
+  "source": "b3efd271c79908241b0c7e1acabafbd81c683051",
+  "tree": "7b81ac676314fce3423e07979849b676758aa87c",
+  "checked": {
+    "linux-b3efd271": {
+      "verified_files": 53,
+      "exits": {
+        "focused.command.json": 0,
+        "h09-cli.command.json": 0,
+        "independent-canonical.command.json": 0,
+        "independent-original.command.json": 1,
+        "independent-postconsume.command.json": 0,
+        "independent-progression.command.json": 0,
+        "pioneer-agent-full.command.json": 0,
+        "qa-agent-full.command.json": 0,
+        "qa-v3.command.json": 0,
+        "sanmou-common-full.command.json": 0
+      },
+      "manifest_sha256": "5178d7985405168e1b478d705d39338199352ff6fcc34405496eb0fd6f679203"
+    },
+    "native-b3efd271": {
+      "verified_files": 4,
+      "exits": {
+        "native-lock.command.json": 0
+      },
+      "manifest_sha256": "b3aef5851db31d02b908d1675912d1dfa66ca6ca05ea7daecce46f52d30e22cd"
+    }
+  },
+  "source_byte_binding_equal": true,
+  "qa_v3_bytes_equal": true,
+  "h09_stable_equal": true,
+  "actual_old_reader_equal": true,
+  "frozen_probe_hashes_equal": true,
+  "archive_member_reads": 0
+}

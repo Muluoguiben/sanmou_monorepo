@@ -1,0 +1,15 @@
+{
+  "source": "b3efd271c79908241b0c7e1acabafbd81c683051",
+  "tree": "7b81ac676314fce3423e07979849b676758aa87c",
+  "cwd": "\\\\wsl$\\Ubuntu\\tmp\\h07a-cr-b3-20261006\\packages\\pioneer-agent",
+  "command": ["C:\\Users\\Lan\\AppData\\Local\\Programs\\Python\\Python314\\python.exe", "-B", "-m", "unittest", "discover", "-s", "tests", "-p", "test_checkpoint_lock_native.py", "-v"],
+  "exit": 0,
+  "tests": 3,
+  "passed": 3,
+  "skipped": 0,
+  "source_files_sha256": {
+    "src/pioneer_agent/agent_harness/_checkpoint_lock.py": "80603a20c15c049402acf248cc2848a8fef3f661351911d1294a86186b72d52c",
+    "tests/test_checkpoint_lock_native.py": "b1df8ddb223e3c7510eb941d9c6dcdddb9a47e115adada397bbafc7ff5804263"
+  },
+  "scope": "Windows native stdlib lock primitives only; not full native MCP or live game coverage"
+}
