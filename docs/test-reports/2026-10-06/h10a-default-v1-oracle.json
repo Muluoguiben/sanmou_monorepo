@@ -1,0 +1,579 @@
+{
+  "fields": [
+    "attempt_id",
+    "business",
+    "contract",
+    "error_type",
+    "event",
+    "evidence_refs",
+    "metadata",
+    "name",
+    "observation_id",
+    "run_id",
+    "step_id",
+    "transport",
+    "usage"
+  ],
+  "events": [
+    {
+      "run_id": "run",
+      "step_id": "run:1",
+      "event": "tool",
+      "name": "session_status",
+      "attempt_id": "2",
+      "observation_id": null,
+      "evidence_refs": [],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:1",
+      "event": "tool",
+      "name": "observe_game",
+      "attempt_id": "3",
+      "observation_id": "obs-1",
+      "evidence_refs": [
+        "frame_sha256:0000000000000000000000000000000000000000000000000000000000000001"
+      ],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:1",
+      "event": "tool",
+      "name": "get_runtime_state",
+      "attempt_id": "4",
+      "observation_id": null,
+      "evidence_refs": [],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:1",
+      "event": "tool",
+      "name": "list_action_candidates",
+      "attempt_id": "5",
+      "observation_id": null,
+      "evidence_refs": [],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:1",
+      "event": "policy",
+      "name": "rule-observe-v1",
+      "attempt_id": null,
+      "observation_id": "obs-1",
+      "evidence_refs": [
+        "observation:obs-1",
+        "frame_sha256:0000000000000000000000000000000000000000000000000000000000000001"
+      ],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "continue",
+      "error_type": null,
+      "usage": null,
+      "metadata": {
+        "policy_id": "rule-observe-v1",
+        "task_version": 1
+      }
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:2",
+      "event": "tool",
+      "name": "session_status",
+      "attempt_id": "7",
+      "observation_id": null,
+      "evidence_refs": [],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:2",
+      "event": "tool",
+      "name": "observe_game",
+      "attempt_id": "8",
+      "observation_id": "obs-2",
+      "evidence_refs": [
+        "frame_sha256:0000000000000000000000000000000000000000000000000000000000000002"
+      ],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:2",
+      "event": "tool",
+      "name": "get_runtime_state",
+      "attempt_id": "9",
+      "observation_id": null,
+      "evidence_refs": [],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:2",
+      "event": "tool",
+      "name": "list_action_candidates",
+      "attempt_id": "10",
+      "observation_id": null,
+      "evidence_refs": [],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:2",
+      "event": "policy",
+      "name": "rule-observe-v1",
+      "attempt_id": null,
+      "observation_id": "obs-2",
+      "evidence_refs": [
+        "observation:obs-2",
+        "frame_sha256:0000000000000000000000000000000000000000000000000000000000000002"
+      ],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "continue",
+      "error_type": null,
+      "usage": null,
+      "metadata": {
+        "policy_id": "rule-observe-v1",
+        "task_version": 1
+      }
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:3",
+      "event": "tool",
+      "name": "session_status",
+      "attempt_id": "12",
+      "observation_id": null,
+      "evidence_refs": [],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:3",
+      "event": "tool",
+      "name": "observe_game",
+      "attempt_id": "13",
+      "observation_id": "obs-3",
+      "evidence_refs": [
+        "frame_sha256:0000000000000000000000000000000000000000000000000000000000000003"
+      ],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:3",
+      "event": "tool",
+      "name": "get_runtime_state",
+      "attempt_id": "14",
+      "observation_id": null,
+      "evidence_refs": [],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:3",
+      "event": "tool",
+      "name": "list_action_candidates",
+      "attempt_id": "15",
+      "observation_id": null,
+      "evidence_refs": [],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:3",
+      "event": "policy",
+      "name": "rule-observe-v1",
+      "attempt_id": null,
+      "observation_id": "obs-3",
+      "evidence_refs": [
+        "observation:obs-3",
+        "frame_sha256:0000000000000000000000000000000000000000000000000000000000000003"
+      ],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "continue",
+      "error_type": null,
+      "usage": null,
+      "metadata": {
+        "policy_id": "rule-observe-v1",
+        "task_version": 1
+      }
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:3",
+      "event": "lifecycle",
+      "name": null,
+      "attempt_id": null,
+      "observation_id": null,
+      "evidence_refs": [],
+      "transport": "not_attempted",
+      "contract": "not_checked",
+      "business": "succeeded",
+      "error_type": null,
+      "usage": null,
+      "metadata": {
+        "reason": {
+          "type": "string",
+          "length": 13,
+          "sha256": "db5f566f9d739dba89db9e41368cb42bdc68b07ddd338dacac85a796217550e8"
+        }
+      }
+    }
+  ],
+  "after_terminal_events": [
+    {
+      "run_id": "run",
+      "step_id": "run:1",
+      "event": "tool",
+      "name": "session_status",
+      "attempt_id": "2",
+      "observation_id": null,
+      "evidence_refs": [],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:1",
+      "event": "tool",
+      "name": "observe_game",
+      "attempt_id": "3",
+      "observation_id": "obs-1",
+      "evidence_refs": [
+        "frame_sha256:0000000000000000000000000000000000000000000000000000000000000001"
+      ],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:1",
+      "event": "tool",
+      "name": "get_runtime_state",
+      "attempt_id": "4",
+      "observation_id": null,
+      "evidence_refs": [],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:1",
+      "event": "tool",
+      "name": "list_action_candidates",
+      "attempt_id": "5",
+      "observation_id": null,
+      "evidence_refs": [],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:1",
+      "event": "policy",
+      "name": "rule-observe-v1",
+      "attempt_id": null,
+      "observation_id": "obs-1",
+      "evidence_refs": [
+        "observation:obs-1",
+        "frame_sha256:0000000000000000000000000000000000000000000000000000000000000001"
+      ],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "continue",
+      "error_type": null,
+      "usage": null,
+      "metadata": {
+        "policy_id": "rule-observe-v1",
+        "task_version": 1
+      }
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:2",
+      "event": "tool",
+      "name": "session_status",
+      "attempt_id": "7",
+      "observation_id": null,
+      "evidence_refs": [],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:2",
+      "event": "tool",
+      "name": "observe_game",
+      "attempt_id": "8",
+      "observation_id": "obs-2",
+      "evidence_refs": [
+        "frame_sha256:0000000000000000000000000000000000000000000000000000000000000002"
+      ],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:2",
+      "event": "tool",
+      "name": "get_runtime_state",
+      "attempt_id": "9",
+      "observation_id": null,
+      "evidence_refs": [],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:2",
+      "event": "tool",
+      "name": "list_action_candidates",
+      "attempt_id": "10",
+      "observation_id": null,
+      "evidence_refs": [],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:2",
+      "event": "policy",
+      "name": "rule-observe-v1",
+      "attempt_id": null,
+      "observation_id": "obs-2",
+      "evidence_refs": [
+        "observation:obs-2",
+        "frame_sha256:0000000000000000000000000000000000000000000000000000000000000002"
+      ],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "continue",
+      "error_type": null,
+      "usage": null,
+      "metadata": {
+        "policy_id": "rule-observe-v1",
+        "task_version": 1
+      }
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:3",
+      "event": "tool",
+      "name": "session_status",
+      "attempt_id": "12",
+      "observation_id": null,
+      "evidence_refs": [],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:3",
+      "event": "tool",
+      "name": "observe_game",
+      "attempt_id": "13",
+      "observation_id": "obs-3",
+      "evidence_refs": [
+        "frame_sha256:0000000000000000000000000000000000000000000000000000000000000003"
+      ],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:3",
+      "event": "tool",
+      "name": "get_runtime_state",
+      "attempt_id": "14",
+      "observation_id": null,
+      "evidence_refs": [],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:3",
+      "event": "tool",
+      "name": "list_action_candidates",
+      "attempt_id": "15",
+      "observation_id": null,
+      "evidence_refs": [],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "ok",
+      "error_type": null,
+      "usage": null,
+      "metadata": {}
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:3",
+      "event": "policy",
+      "name": "rule-observe-v1",
+      "attempt_id": null,
+      "observation_id": "obs-3",
+      "evidence_refs": [
+        "observation:obs-3",
+        "frame_sha256:0000000000000000000000000000000000000000000000000000000000000003"
+      ],
+      "transport": "ok",
+      "contract": "ok",
+      "business": "continue",
+      "error_type": null,
+      "usage": null,
+      "metadata": {
+        "policy_id": "rule-observe-v1",
+        "task_version": 1
+      }
+    },
+    {
+      "run_id": "run",
+      "step_id": "run:3",
+      "event": "lifecycle",
+      "name": null,
+      "attempt_id": null,
+      "observation_id": null,
+      "evidence_refs": [],
+      "transport": "not_attempted",
+      "contract": "not_checked",
+      "business": "succeeded",
+      "error_type": null,
+      "usage": null,
+      "metadata": {
+        "reason": {
+          "type": "string",
+          "length": 13,
+          "sha256": "db5f566f9d739dba89db9e41368cb42bdc68b07ddd338dacac85a796217550e8"
+        }
+      }
+    }
+  ],
+  "statuses": [
+    "succeeded",
+    "succeeded"
+  ],
+  "calls": [
+    "session_status",
+    "observe_game",
+    "get_runtime_state",
+    "list_action_candidates",
+    "session_status",
+    "observe_game",
+    "get_runtime_state",
+    "list_action_candidates",
+    "session_status",
+    "observe_game",
+    "get_runtime_state",
+    "list_action_candidates"
+  ]
+}
