@@ -309,6 +309,77 @@ class ApprovalLifecycleTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual((await r.run()).reason, "run_deadline")
         self.assertEqual(r._client.calls, [])
 
+    async def test_waiting_clock_watermark_survives_restart_and_never_regresses(self):
+        for restart in (False, True):
+            with self.subTest(restart=restart):
+                store = MemoryRunStore()
+                now = [BASE + timedelta(seconds=2)]
+                r = make_runner(store=store, now=now)
+                saved = await r.run()
+                now[0] += timedelta(seconds=10)
+                self.assertEqual((await r.run(resume=True)).status, "awaiting_approval")
+                watermark = store.load().approval.last_checked_at
+                self.assertEqual(watermark, now[0])
+                now[0] -= timedelta(seconds=5)
+                if restart:
+                    r = make_runner(store=store, now=now, client=SequenceClient(count=1))
+                calls, policies = len(r._client.calls), len(r.policy.contexts)
+                result = await r.resume_synthetic(response_for(saved))
+                self.assertEqual(result.reason, "approval_clock_rollback")
+                self.assertEqual((len(r._client.calls), len(r.policy.contexts)), (calls, policies))
+                self.assertEqual(store.load().approval.last_checked_at, watermark)
+
+    async def test_waiting_watermark_save_failure_preserves_error_and_no_followup(self):
+        store = MemoryRunStore()
+        now = [BASE + timedelta(seconds=2)]
+        r = make_runner(store=store, now=now)
+        saved = await r.run()
+        now[0] += timedelta(seconds=10)
+        failure = OSError("synthetic waiting watermark failure")
+        store._write = lambda envelope: (_ for _ in ()).throw(failure)
+        before = len(r._client.calls)
+        with self.assertRaises(OSError) as caught:
+            await r.run()
+        self.assertIs(caught.exception, failure)
+        self.assertEqual(len(r._client.calls), before)
+        self.assertEqual(store.load().approval.last_checked_at, saved.approval.last_checked_at)
+
+    async def test_both_revalidation_persistence_cuts_recheck_freshness_budget_and_cancel(self):
+        for boundary in ("observation", "revalidated", "policy"):
+            for expired in ("stale", "deadline", "cancel"):
+                with self.subTest(boundary=boundary, expired=expired):
+                    clock = [1000.]
+                    now = [BASE + timedelta(seconds=2)]
+                    budget = lambda: RunBudgetLedger(BudgetLimits(max_model_attempts=0, max_seconds=30.),
+                        clock=lambda: clock[0], monotonic=lambda: clock[0])
+                    spec = task()
+                    if boundary != "policy": spec.success_when[0].value = 2
+                    store = MemoryRunStore()
+                    saved = await make_runner(store=store, now=now, spec=spec, budget=budget()).run()
+                    now[0] += timedelta(seconds=1)
+                    r = make_runner(store=store, now=now, spec=spec, client=SequenceClient(count=1), budget=budget())
+                    original = store._write
+                    delayed = []
+                    def write(envelope):
+                        original(envelope)
+                        state = envelope.state
+                        hit = ((boundary == "observation" and state.status == "revalidating_approval"
+                                and state.observation_ids[-1] == "obs-2")
+                            or (boundary == "revalidated" and state.reason == "approval_revalidated")
+                            or (boundary == "policy" and state.pending_call == "policy:fake-script-v1"))
+                        if hit and not delayed:
+                            delayed.append(True)
+                            if expired == "stale": now[0] += timedelta(seconds=120)
+                            elif expired == "deadline": clock[0] += 31
+                            else: r.cancel()
+                    store._write = write
+                    result = await r.resume_synthetic(response_for(saved))
+                    self.assertTrue(delayed)
+                    self.assertEqual(result.status, "cancelled" if expired == "cancel" else "failed")
+                    self.assertEqual(result.reason, {"stale": "observation_stale", "deadline": "run_deadline",
+                                                     "cancel": "cancel_requested"}[expired])
+                    self.assertEqual(r.policy.contexts, [])
+
     async def test_revalidation_failure_saves_no_permit_for_later_runner(self):
         store = MemoryRunStore()
         saved = await make_runner(store=store).run()
@@ -404,6 +475,19 @@ class ApprovalStorageTests(unittest.TestCase):
             owner.load()
             with self.assertRaisesRegex(CheckpointConflict, "terminal checkpoint cannot resume"):
                 owner.save(saved)
+
+    def test_store_rejects_watermark_rollback(self):
+        store = MemoryRunStore()
+        now = [BASE + timedelta(seconds=2)]
+        r = make_runner(store=store, now=now)
+        asyncio.run(r.run())
+        now[0] += timedelta(seconds=10)
+        asyncio.run(r.run())
+        with store.acquire() as owner:
+            state = owner.load()
+            state.approval.last_checked_at -= timedelta(seconds=5)
+            with self.assertRaisesRegex(CheckpointConflict, "watermark cannot regress"):
+                owner.save(state)
 
 
 class ApprovalProcessTests(unittest.TestCase):

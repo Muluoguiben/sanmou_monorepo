@@ -21,6 +21,7 @@ def main():
     parser.add_argument("output", type=Path)
     parser.add_argument("source")
     parser.add_argument("--native", action="store_true")
+    parser.add_argument("--probe-dir", type=Path)
     args = parser.parse_args()
     root, out = args.root.resolve(), args.output.resolve()
     out.mkdir(parents=True, exist_ok=False)
@@ -70,15 +71,15 @@ def main():
     env["PYTHONPATH"] = os.pathsep.join(map(str, paths)) + ("" if args.native else os.pathsep + DEPS)
     failures = []
 
-    def run(name, argv, cwd):
+    def run(name, argv, cwd, expected=0):
         start = time.time()
         with (out / (name + ".log")).open("xb") as handle:
             result = subprocess.run(argv, cwd=cwd, env=env, stdout=handle, stderr=subprocess.STDOUT, timeout=900)
         row = {"source": code, "tree": tree, "argv": argv, "cwd": str(cwd), "PYTHONPATH": env["PYTHONPATH"],
-               "exit": result.returncode, "seconds": time.time() - start}
+               "exit": result.returncode, "expected_exit": expected, "seconds": time.time() - start}
         save(name + ".command.json", row)
         print(json.dumps({"name": name, **row}), flush=True)
-        if result.returncode:
+        if result.returncode != expected:
             failures.append(name)
 
     if args.native:
@@ -88,6 +89,21 @@ def main():
         pioneer = root / "packages/pioneer-agent"
         run("focused", [sys.executable, "-B", "-m", "unittest", "test_task_approval", "test_task_runner",
             "test_task_contracts", "test_task_cli", "test_checkpoint_ownership", "test_task_cr_regressions", "-v"], pioneer)
+        if args.probe_dir:
+            pinned = {
+                "h07a-independent-probes.py": "9c047a03ac85df4ba188025fd37225af5e6ed1d90d448d0154253834d3172d12",
+                "h07a-independent-probes-canonical.py": "8fffd7e104ce54e5e37b3c01c3fd70dcf26b6cc2ec5b073e05339e586ecdf960",
+            }
+            for name, digest in pinned.items():
+                assert hashlib.sha256((args.probe_dir / name).read_bytes()).hexdigest() == digest
+            save("independent-probes.json", {"original_commit": "339aa56156cced5fe0b8ea274695a943f5cab576",
+                "canonical_commit": "dcba32214ddce912bd9713f3f06b7711a1734202", "files": pinned})
+            run("independent-original", [sys.executable, "-B", str(args.probe_dir / "h07a-independent-probes.py")],
+                pioneer, expected=1)
+            original = (out / "independent-original.log").read_text()
+            assert "FAILED (failures=1)" in original
+            assert "(True, 'failed', 'observation_stale') != (True, 'failed', 'stale_observation')" in original
+            run("independent-canonical", [sys.executable, "-B", str(args.probe_dir / "h07a-independent-probes-canonical.py")], pioneer)
         for package in ("pioneer-agent", "qa-agent", "sanmou-common"):
             run(package + "-full", [sys.executable, "-B", "-m", "unittest", "discover", "-s", "tests",
                 "-p", "test_*.py", "-v"], root / "packages" / package)

@@ -271,17 +271,20 @@ class TaskRunner:
                 now = self.harness.clock()
                 if now.tzinfo is None or now.utcoffset() is None:
                     return self._finish("failed", "approval_clock_invalid")
-                if now < request.created_at:
+                if now < self.state.approval.last_checked_at:
                     return self._finish("failed", "approval_clock_rollback")
                 if now >= request.expires_at:
                     return self._finish("failed", "approval_expired")
                 if response is None:
+                    if now > self.state.approval.last_checked_at:
+                        self.state.approval.last_checked_at = now
+                        self._save()  # Remember observed waiting time across owners/restarts.
                     return self.state.model_copy(deep=True)
                 rejection = check_response(request, response, task=self.state.task, now=now)
                 if rejection:
                     return self._finish("failed", rejection)
                 item = self.state.approval.model_dump()
-                item.update(response=response.model_dump(), consumed_at=now)
+                item.update(response=response.model_dump(), consumed_at=now, last_checked_at=now)
                 denied = response.decision == "deny"
                 self.state = parse_run_state({**self.state.model_dump(), "approval": item,
                     "status": "failed" if denied else "revalidating_approval",
@@ -362,8 +365,10 @@ class TaskRunner:
         self.state.window_identity = observation.window_identity.model_dump() if observation.window_identity else None
         self.state.last_captured_at = observation.captured_at
         self.state.evidence_refs = refs
+        approval_revalidation = self.state.status == "revalidating_approval"
         self._save()
-        if self.state.status == "revalidating_approval":
+        if approval_revalidation:
+            self._check_approval_observation(observation)
             task = self.state.task
             if task.stop_when and evaluate_any(task.stop_when, current).status != ConditionStatus.NOT_SATISFIED:
                 return self._finish("failed", "approval_stop_condition")
@@ -377,6 +382,7 @@ class TaskRunner:
             self._emit("approval", business="approval_revalidated", observation_id=observation.observation_id,
                 evidence_refs=refs, metadata={"request_id": self.state.approval.request.request_id,
                                              "approval_origin": "synthetic"})
+            self._check_approval_observation(observation)
             if evaluate_all(task.success_when, current).status == ConditionStatus.SATISFIED:
                 self.state.completed_steps += 1
                 return self._finish("succeeded", "goal_verified")
@@ -400,7 +406,10 @@ class TaskRunner:
         contract = "not_checked"
         try:
             self._save()
-            self._check()
+            if approval_revalidation:
+                self._check_approval_observation(observation)
+            else:
+                self._check()
             transport = "error"  # Attempted, but no returned response yet.
             raw = await asyncio.wait_for(self.policy.decide(context), self.budget.remaining_seconds())
             transport = "ok"
@@ -456,7 +465,7 @@ class TaskRunner:
                 remaining_seconds=self.budget.remaining_seconds(), reason=decision.reason)
             self.state = SyntheticApprovalRunState.model_validate({**self.state.model_dump(),
                 "version": 2, "status": "awaiting_approval", "reason": "policy_request_approval",
-                "approval": SyntheticApprovalRecord(request=request).model_dump()})
+                "approval": SyntheticApprovalRecord(request=request, last_checked_at=request.created_at).model_dump()})
             self._save()
             self._emit("approval", business="awaiting_approval", observation_id=observation.observation_id,
                 evidence_refs=refs, metadata={"request_id": request.request_id,
@@ -472,6 +481,14 @@ class TaskRunner:
             self._emit("lifecycle", business="waiting", metadata={"reason": self.state.reason})
         self._save()
         return None
+
+    def _check_approval_observation(self, observation: LiveObservation) -> None:
+        """Persistence/context work can spend the deadline or age the fresh frame."""
+        self._check()
+        stale = self.harness.stop_policy.observation_stop(captured_at=observation.captured_at,
+            now=self.harness.clock(), unknown_domains=observation.unknown_domains)
+        if stale.should_stop:
+            raise _Interrupt("failed", stale.reason.value)
 
     def _goal_evidence(self, current: dict, observation: LiveObservation) -> bool:
         task = self.state.task

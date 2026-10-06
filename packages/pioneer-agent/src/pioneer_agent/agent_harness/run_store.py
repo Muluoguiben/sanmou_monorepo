@@ -166,6 +166,8 @@ class _ConditionalStore:
                 raise CheckpointConflict("approval task digest mismatch")
             previous = prior.approval if isinstance(prior, SyntheticApprovalRunState) else None
             if previous and previous.request == item.request:
+                if item.last_checked_at < previous.last_checked_at:
+                    raise CheckpointConflict("approval clock watermark cannot regress")
                 if previous.response is not None and previous.response != item.response:
                     raise CheckpointConflict("approval consumption cannot regress")
                 if previous.consumed_at is not None and previous.consumed_at != item.consumed_at:
