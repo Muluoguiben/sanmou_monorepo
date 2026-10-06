@@ -37,6 +37,16 @@ revalidation safety helper compare current approval clock to its persisted
 last_checked_at/consumed_at and reject regression before success/policy. Retain
 existing budget module and do not lower the watermark or reset request expiry.
 
+The same clock matrix also requires advancing the high-water mark: supplemental
+probe `h07a-independent-watermark-progression.py`, frozen before running at
+`f7e32f0d90504cf87c8a79ead7773e5a13feaaa8` (SHA256
+`7e6a6b4a3e00b88607d3c66d60e194fe12a72fb3d8d7faee2ebbbccd16fad226`), lets the
+post-observation check see t+10, then the revalidated-state save returns at t+8,
+still above consumed t+3. Actual fixed-a23 result is again succeeded/goal_verified,
+one test/one failure/exit 1. Raw output: `h07a-independent-a23ccf1-watermark-red.log`.
+This is another concrete F3 trigger, not a separate scope or framework requirement.
+Checking only the initial consumed timestamp would not satisfy this case.
+
 Reproduction, cwd `/tmp/h07a-cr-a23-20261006`:
 
 ```

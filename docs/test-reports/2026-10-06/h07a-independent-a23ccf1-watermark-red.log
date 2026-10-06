@@ -1,0 +1,33 @@
+test_observed_later_revalidation_time_cannot_regress_above_consumed (__main__.RevalidationWatermarkProgression.test_observed_later_revalidation_time_cannot_regress_above_consumed) ... FAIL
+
+======================================================================
+FAIL: test_observed_later_revalidation_time_cannot_regress_above_consumed (__main__.RevalidationWatermarkProgression.test_observed_later_revalidation_time_cannot_regress_above_consumed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/unittest/async_case.py", line 90, in _callTestMethod
+    if self._callMaybeAsync(method) is not None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/async_case.py", line 112, in _callMaybeAsync
+    return self._asyncioRunner.run(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h07a-independent-watermark-progression.py", line 37, in test_observed_later_revalidation_time_cannot_regress_above_consumed
+    self.assertEqual((phases, result.status, result.reason, r.policy.decide.call_count),
+AssertionError: Tuples differ: (['observed_t10', 'regressed_t8'], 'succeeded', 'goal_verified', 0) != (['observed_t10', 'regressed_t8'], 'failed', 'approval_clock_rollback', 0)
+
+First differing element 1:
+'succeeded'
+'failed'
+
+- (['observed_t10', 'regressed_t8'], 'succeeded', 'goal_verified', 0)
++ (['observed_t10', 'regressed_t8'], 'failed', 'approval_clock_rollback', 0)
+
+----------------------------------------------------------------------
+Ran 1 test in 0.062s
+
+FAILED (failures=1)
