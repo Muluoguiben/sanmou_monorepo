@@ -1,0 +1,17 @@
+{
+  "source": "b3efd271c79908241b0c7e1acabafbd81c683051",
+  "tree": "7b81ac676314fce3423e07979849b676758aa87c",
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "-m",
+    "pioneer_agent.app.task_eval",
+    "--output",
+    "/tmp/h07a-author-b3efd271-linux/h09-cli"
+  ],
+  "cwd": "/tmp/h07a-b3efd271-source",
+  "PYTHONPATH": "/tmp/h07a-b3efd271-source/packages/pioneer-agent/src:/tmp/h07a-b3efd271-source/packages/qa-agent/src:/tmp/h07a-b3efd271-source/packages/sanmou-common/src:/tmp/h07a-b3efd271-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+  "exit": 0,
+  "expected_exit": 0,
+  "seconds": 4.574812173843384
+}

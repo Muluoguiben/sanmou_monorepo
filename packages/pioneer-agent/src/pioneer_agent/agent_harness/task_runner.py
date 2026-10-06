@@ -13,10 +13,12 @@ from pioneer_agent.agent_harness.loop import RecommendationHarness, DecisionWind
 from pioneer_agent.agent_harness.run_store import (
     CheckpointConflict, RunOwnership, RunStore, _checkpoint_cleanup, _close_preserving_primary,
 )
+from pioneer_agent.agent_harness.task_approval import check_response, request_approval, task_digest
 from pioneer_agent.agent_harness.task_contracts import (
     BudgetExceeded, BudgetRequest, ContextBuilder, ContextOverflow, ContextRequest,
     DecisionPolicy, PolicyDecision, RunBudget, RunState, RunTrace, TaskSpec,
-    TERMINAL_STATUSES, TraceEvent, Usage,
+    TERMINAL_STATUSES, TraceEvent, Usage, SyntheticApprovalRecord, SyntheticApprovalResponse,
+    SyntheticApprovalRunState, parse_run_state,
 )
 from pioneer_agent.mcp_server.contracts import (
     GET_RUNTIME_STATE_TOOL, OBSERVE_GAME_TOOL, SESSION_STATUS_TOOL,
@@ -42,7 +44,8 @@ class TaskRunner:
 
     def __init__(self, *, task: TaskSpec, run_id: str, harness: RecommendationHarness,
                  store: RunStore, policy: DecisionPolicy, context_builder: ContextBuilder,
-                 budget: RunBudget, trace: RunTrace, ownership: RunOwnership | None = None):
+                 budget: RunBudget, trace: RunTrace, ownership: RunOwnership | None = None,
+                 synthetic_approval: bool = False):
         if harness.qa_client is not None:
             raise ValueError("task v1 uses Game-only windows; legacy QA windows are separate")
         with _CLIENT_BINDING_LOCK:
@@ -51,6 +54,7 @@ class TaskRunner:
             self._client = harness.game_client
         self.harness, self.store, self.policy = harness, store, policy
         self.context_builder, self.budget, self.trace = context_builder, budget, trace
+        self._synthetic_approval = synthetic_approval is True
         self._task, self._run_id = task.model_copy(deep=True), run_id
         self._external_owner = ownership is not None
         self._ownership = ownership or store.acquire()
@@ -97,6 +101,9 @@ class TaskRunner:
         if saved and (saved.run_id != self._run_id or saved.task != self._task):
             raise ValueError("checkpoint identity/task mismatch")
         self.state = saved or RunState(run_id=self._run_id, task=self._task.model_copy(deep=True))
+        if isinstance(self.state, SyntheticApprovalRunState):
+            if self.state.approval.request.task_digest != task_digest(self.state.task):
+                raise ValueError("approval task digest mismatch")
         if saved and saved.budget_state:
             if self._budget_checkpoint is None:
                 self.budget.restore(saved.budget_state)
@@ -151,6 +158,10 @@ class TaskRunner:
         if not self._active:
             self._ensure_ownership()
         if self.state.status not in TERMINAL_STATUSES:
+            if self.state.status in {"awaiting_approval", "revalidating_approval"}:
+                if not self._active:
+                    self.close()
+                return  # An ordinary pause must not erase the approval gate.
             self._paused = True
             self._wake.set()
             if not self._active:
@@ -209,10 +220,24 @@ class TaskRunner:
         self.state.reason = reason
         self.state.pending_call = None
         self._save()
-        self._emit("lifecycle", business=status, metadata={"reason": reason})
+        metadata = {"reason": reason}
+        if isinstance(self.state, SyntheticApprovalRunState):
+            metadata.update(request_id=self.state.approval.request.request_id,
+                            approval_origin="synthetic", scope="resume_read_only_task")
+        self._emit("lifecycle", business=status, metadata=metadata)
         return self.state.model_copy(deep=True)
 
     async def run(self, *, resume: bool = False) -> RunState:
+        return await self._run_entry(resume=resume)
+
+    async def resume_synthetic(self, response: SyntheticApprovalResponse) -> RunState:
+        """Consume only a synthetic read-only response; there is no dispatch port."""
+        if not self._synthetic_approval:
+            raise ValueError("synthetic approval is not enabled")
+        response = SyntheticApprovalResponse.model_validate(response.model_dump())
+        return await self._run_entry(resume=True, response=response)
+
+    async def _run_entry(self, *, resume=False, response=None) -> RunState:
         if self._active:
             raise RuntimeError("runner already active")
         with _checkpoint_cleanup(self.close):
@@ -220,12 +245,14 @@ class TaskRunner:
             self._ensure_ownership()
             self._install_client(activate=True)
             try:
-                return await self._run_owned(resume=resume)
+                return await self._run_owned(resume=resume, response=response)
             finally:
                 with _CLIENT_BINDING_LOCK:
                     self._active = False
 
-    async def _run_owned(self, *, resume: bool = False) -> RunState:
+    async def _run_owned(self, *, resume: bool = False, response=None) -> RunState:
+        if response is not None and self.state.status != "awaiting_approval":
+            raise ValueError("approval is not awaiting a response")
         if self.state.status in TERMINAL_STATUSES:
             return self.state.model_copy(deep=True)
         if self.state.status == "paused" and not resume:
@@ -235,7 +262,41 @@ class TaskRunner:
             self._wake.clear()
         try:
             self._check()
-            self.state.status = "running"
+            if self.state.status == "revalidating_approval":
+                return self._finish("failed", "approval_revalidation_interrupted")
+            if self.state.status == "awaiting_approval":
+                if self.state.completed_steps >= self.state.task.max_steps:
+                    return self._finish("failed", "step_limit")
+                request = self.state.approval.request
+                now = self.harness.clock()
+                if now.tzinfo is None or now.utcoffset() is None:
+                    return self._finish("failed", "approval_clock_invalid")
+                if now < self.state.approval.last_checked_at:
+                    return self._finish("failed", "approval_clock_rollback")
+                if now >= request.expires_at:
+                    return self._finish("failed", "approval_expired")
+                if response is None:
+                    if now > self.state.approval.last_checked_at:
+                        self.state.approval.last_checked_at = now
+                        self._save()  # Remember observed waiting time across owners/restarts.
+                    return self.state.model_copy(deep=True)
+                rejection = check_response(request, response, task=self.state.task, now=now)
+                if rejection:
+                    return self._finish("failed", rejection)
+                item = self.state.approval.model_dump()
+                item.update(response=response.model_dump(), consumed_at=now, last_checked_at=now)
+                denied = response.decision == "deny"
+                self.state = parse_run_state({**self.state.model_dump(), "approval": item,
+                    "status": "failed" if denied else "revalidating_approval",
+                    "reason": "approval_denied" if denied else "approval_consumed"})
+                self._save()  # Durable one-shot consumption before any follow-up call.
+                self._emit("approval", business=self.state.reason,
+                    metadata={"request_id": request.request_id, "approval_origin": "synthetic",
+                              "scope": "resume_read_only_task"})
+                if denied:
+                    return self.state.model_copy(deep=True)
+            else:
+                self.state.status = "running"
             self.state.reason = "reobserve_before_decision"
             self.state.pending_call = None
             self._save()
@@ -304,7 +365,27 @@ class TaskRunner:
         self.state.window_identity = observation.window_identity.model_dump() if observation.window_identity else None
         self.state.last_captured_at = observation.captured_at
         self.state.evidence_refs = refs
+        approval_revalidation = self.state.status == "revalidating_approval"
         self._save()
+        if approval_revalidation:
+            self._check_approval_observation(observation)
+            task = self.state.task
+            if task.stop_when and evaluate_any(task.stop_when, current).status != ConditionStatus.NOT_SATISFIED:
+                return self._finish("failed", "approval_stop_condition")
+            if not self._goal_evidence(current, observation):
+                return self._finish("failed", "approval_insufficient_evidence")
+            item = self.state.approval.model_dump()
+            item["revalidated_observation_id"] = observation.observation_id
+            self.state = parse_run_state({**self.state.model_dump(), "status": "running", "approval": item,
+                                         "reason": "approval_revalidated"})
+            self._save()
+            self._emit("approval", business="approval_revalidated", observation_id=observation.observation_id,
+                evidence_refs=refs, metadata={"request_id": self.state.approval.request.request_id,
+                                             "approval_origin": "synthetic"})
+            self._check_approval_observation(observation)
+            if evaluate_all(task.success_when, current).status == ConditionStatus.SATISFIED:
+                self.state.completed_steps += 1
+                return self._finish("succeeded", "goal_verified")
         request = ContextRequest(run_id=self.state.run_id, step_id=self.step_id,
             task=self.state.task.model_copy(deep=True), observation_id=observation.observation_id,
             authoritative_state=current, evidence_refs=refs)
@@ -325,7 +406,10 @@ class TaskRunner:
         contract = "not_checked"
         try:
             self._save()
-            self._check()
+            if approval_revalidation:
+                self._check_approval_observation(observation)
+            else:
+                self._check()
             transport = "error"  # Attempted, but no returned response yet.
             raw = await asyncio.wait_for(self.policy.decide(context), self.budget.remaining_seconds())
             transport = "ok"
@@ -354,11 +438,14 @@ class TaskRunner:
                     transport=transport, contract=contract, business=outcome,
                     error_type=policy_error, usage=Usage() if reservation else None,
                     metadata={"policy_id": self.policy.policy_id, "task_version": 1})
-        self._check()
-        stale = self.harness.stop_policy.observation_stop(captured_at=observation.captured_at,
-            now=self.harness.clock(), unknown_domains=observation.unknown_domains)
-        if stale.should_stop:
-            return self._finish("failed", stale.reason.value)
+        if approval_revalidation:
+            self._check_approval_observation(observation)
+        else:
+            self._check()
+            stale = self.harness.stop_policy.observation_stop(captured_at=observation.captured_at,
+                now=self.harness.clock(), unknown_domains=observation.unknown_domains)
+            if stale.should_stop:
+                return self._finish("failed", stale.reason.value)
         # Policy cannot change the goal, and all condition evaluation uses the
         # original validated state, never the context projection or history.
         task = self.state.task
@@ -371,6 +458,22 @@ class TaskRunner:
             return self._finish("failed", "policy_stop")
         if decision.action == "pause":
             return self._finish("paused", "policy_pause")
+        if decision.action == "request_approval":
+            if not self._synthetic_approval:
+                return self._finish("failed", "synthetic_approval_disabled")
+            if not sufficient:
+                return self._finish("failed", "approval_insufficient_evidence")
+            request = request_approval(self.state, step_id=self.step_id,
+                frame_sha256=observation.frame_sha256, now=self.harness.clock(),
+                remaining_seconds=self.budget.remaining_seconds(), reason=decision.reason)
+            self.state = SyntheticApprovalRunState.model_validate({**self.state.model_dump(),
+                "version": 2, "status": "awaiting_approval", "reason": "policy_request_approval",
+                "approval": SyntheticApprovalRecord(request=request, last_checked_at=request.created_at).model_dump()})
+            self._save()
+            self._emit("approval", business="awaiting_approval", observation_id=observation.observation_id,
+                evidence_refs=refs, metadata={"request_id": request.request_id,
+                    "approval_origin": "synthetic", "scope": "resume_read_only_task"})
+            return self.state.model_copy(deep=True)
         if reached:
             return self._finish("succeeded", "goal_verified")
         if decision.action == "succeed":
@@ -381,6 +484,28 @@ class TaskRunner:
             self._emit("lifecycle", business="waiting", metadata={"reason": self.state.reason})
         self._save()
         return None
+
+    def _check_approval_observation(self, observation: LiveObservation) -> None:
+        """Persistence/context work can spend the deadline or age the fresh frame."""
+        # At most one watermark write per boundary; recheck that write as well.
+        # A later post-write sample stays in memory until the next owned save.
+        for persist in (True, False):
+            self._check()
+            now = self.harness.clock()
+            item = self.state.approval
+            if now.tzinfo is None or now.utcoffset() is None:
+                raise _Interrupt("failed", "approval_clock_invalid")
+            if now < item.last_checked_at:
+                raise _Interrupt("failed", "approval_clock_rollback")
+            stale = self.harness.stop_policy.observation_stop(captured_at=observation.captured_at,
+                now=now, unknown_domains=observation.unknown_domains)
+            if stale.should_stop:
+                raise _Interrupt("failed", stale.reason.value)
+            advanced = now > item.last_checked_at
+            item.last_checked_at = now
+            if not persist or not advanced:
+                return
+            self._save()
 
     def _goal_evidence(self, current: dict, observation: LiveObservation) -> bool:
         task = self.state.task

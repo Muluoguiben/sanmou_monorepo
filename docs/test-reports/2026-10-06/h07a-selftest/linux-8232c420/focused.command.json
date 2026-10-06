@@ -1,0 +1,21 @@
+{
+  "source": "8232c420b5c3a7533975293c9cd00380b439386e",
+  "tree": "49d47d87d261cfef68632b66feded7a40baff0d0",
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "-m",
+    "unittest",
+    "test_task_approval",
+    "test_task_runner",
+    "test_task_contracts",
+    "test_task_cli",
+    "test_checkpoint_ownership",
+    "test_task_cr_regressions",
+    "-v"
+  ],
+  "cwd": "/tmp/h07a-8232c420-source/packages/pioneer-agent",
+  "PYTHONPATH": "/tmp/h07a-8232c420-source/packages/pioneer-agent/src:/tmp/h07a-8232c420-source/packages/qa-agent/src:/tmp/h07a-8232c420-source/packages/sanmou-common/src:/tmp/h07a-8232c420-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+  "exit": 0,
+  "seconds": 20.254356622695923
+}

@@ -1,0 +1,12 @@
+test_consumption_save_and_cleanup_preserve_primary (__main__.CanonicalApprovalProbes.test_consumption_save_and_cleanup_preserve_primary) ... ok
+test_observed_wait_clock_rollback_rejects_before_calls (__main__.CanonicalApprovalProbes.test_observed_wait_clock_rollback_rejects_before_calls)
+A rollback above created_at is still a previously observed rollback. ... ok
+test_request_response_mutability_does_not_change_checkpoint (__main__.CanonicalApprovalProbes.test_request_response_mutability_does_not_change_checkpoint) ... ok
+test_slow_revalidation_checkpoint_cannot_outlive_budget (__main__.CanonicalApprovalProbes.test_slow_revalidation_checkpoint_cannot_outlive_budget)
+A complete ledger deadline can elapse during synchronous persistence. ... ok
+test_slow_revalidation_checkpoint_cannot_verify_stale_goal (__main__.CanonicalApprovalProbes.test_slow_revalidation_checkpoint_cannot_verify_stale_goal) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.153s
+
+OK

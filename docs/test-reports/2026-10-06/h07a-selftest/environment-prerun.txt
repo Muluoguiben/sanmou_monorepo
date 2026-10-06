@@ -1,0 +1,22 @@
+Original tool-result excerpts (preflight only; no business suite started).
+Source: 8232c420b5c3a7533975293c9cd00380b439386e
+
+1. Linux verifier against the Windows author worktree, exit 1:
+fatal: not a git repository: //wsl$/Ubuntu/home/lan/projects/sanmou_monorepo/.git/worktrees/sanmou_monorepo11
+verify.py line 44: code = git("rev-parse", "HEAD").decode().strip()
+subprocess.CalledProcessError: Command '['git', '-c', 'core.autocrlf=false', '-C', '/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo', 'rev-parse', 'HEAD']' returned non-zero exit status 128.
+
+2. Native verifier against the Windows author worktree, exit 1:
+verify.py line 61: assert blob == row.split()[2], name
+AssertionError: packages/pioneer-agent/data/perception/latest_state.json
+Read-only diagnosis:
+100644 2225ab1bb55a4736889cf8587235bbfe4af49503 0 packages/pioneer-agent/data/perception/latest_state.json
+i/lf w/crlf
+
+3. Proposed checkout-index of all package .py/.json/.yaml/.yml files was rejected before execution:
+The forceful checkout-index rewrites every tracked Python/JSON/YAML file under packages and could overwrite unrelated uncommitted work; the target scope is broader than the authorized candidate and was not prechecked as clean.
+
+No forceful rewrite was carried out. Read-only author status and diff were empty.
+Safer alternative: new detached checkouts at previously nonexistent destinations,
+/tmp/h07a-8232c420-source and C:/Users/Lan/AppData/Local/Temp/h07a-8232c420-native-source.
+Both at exact source SHA; original author/main worktrees were not overwritten.
