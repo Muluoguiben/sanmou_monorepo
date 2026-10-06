@@ -1,0 +1,36 @@
+test_malformed_season_schema_is_not_a_false_control_result (__main__.V4IntegrationControls.test_malformed_season_schema_is_not_a_false_control_result) ... ok
+test_real_foreign_lazy_season_module_origin_is_rejected (__main__.V4IntegrationControls.test_real_foreign_lazy_season_module_origin_is_rejected) ... ok
+test_v4_required_groups_are_not_masked_by_source_drift (__main__.V4IntegrationControls.test_v4_required_groups_are_not_masked_by_source_drift) ... ok
+test_valid_wrong_expected_saves_failed_report_then_exit1_and_no_clobber (__main__.V4IntegrationControls.test_valid_wrong_expected_saves_failed_report_then_exit1_and_no_clobber) ... FAIL
+
+======================================================================
+FAIL: test_valid_wrong_expected_saves_failed_report_then_exit1_and_no_clobber (__main__.V4IntegrationControls.test_valid_wrong_expected_saves_failed_report_then_exit1_and_no_clobber)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/q05a-v4-integration-probes.py", line 63, in test_valid_wrong_expected_saves_failed_report_then_exit1_and_no_clobber
+    self.assertTrue(path.exists(), run.stderr)
+AssertionError: False is not true : Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/tmp/q05a-v4-cr-rlr5jiy6/qa-agent/src/qa_agent/quality_eval/runner.py", line 201, in <module>
+    main()
+  File "/tmp/q05a-v4-cr-rlr5jiy6/qa-agent/src/qa_agent/quality_eval/runner.py", line 192, in main
+    result = run(Path(__file__).resolve().parents[3], baseline=args.baseline)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/q05a-v4-cr-rlr5jiy6/qa-agent/src/qa_agent/quality_eval/runner.py", line 145, in run
+    validate_cases(corpus['season_cases'])
+  File "/tmp/q05a-v4-cr-rlr5jiy6/qa-agent/src/qa_agent/quality_eval/season_cases.py", line 85, in validate_cases
+    parsed = [_Case.model_validate(case) for case in cases]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 716, in model_validate
+    return cls.__pydantic_validator__.validate_python(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for _Case
+  Value error, expected ID not in input entries [type=value_error, input_value={'id': 'three-classes', '...not_lineup_solution'}]}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/value_error
+
+
+----------------------------------------------------------------------
+Ran 4 tests in 13.613s
+
+FAILED (failures=1)

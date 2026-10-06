@@ -1,0 +1,31 @@
+test_splits_and_upscales (test_lineup_frame_extractor.CropIntoColumnsTests.test_splits_and_upscales) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.021s
+
+OK
+{
+  "mode": "baseline",
+  "tests_run": 1,
+  "successful": true,
+  "resource_warnings": [
+    {
+      "category": "ResourceWarning",
+      "message": "unclosed file <_io.BufferedReader name='/tmp/tmpo2tnsk0l/cols/BVx-frame-001-0s-col1of3.png'>",
+      "filename": "/tmp/q05a-cr-baseline-3711-20261006/packages/qa-agent/tests/test_lineup_frame_extractor.py",
+      "lineno": 172
+    },
+    {
+      "category": "ResourceWarning",
+      "message": "unclosed file <_io.BufferedReader name='/tmp/tmpo2tnsk0l/cols/BVx-frame-001-0s-col2of3.png'>",
+      "filename": "/tmp/q05a-cr-baseline-3711-20261006/packages/qa-agent/tests/test_lineup_frame_extractor.py",
+      "lineno": 172
+    },
+    {
+      "category": "ResourceWarning",
+      "message": "unclosed file <_io.BufferedReader name='/tmp/tmpo2tnsk0l/cols/BVx-frame-001-0s-col3of3.png'>",
+      "filename": "/tmp/q05a-cr-baseline-3711-20261006/packages/qa-agent/tests/test_lineup_frame_extractor.py",
+      "lineno": 172
+    }
+  ]
+}

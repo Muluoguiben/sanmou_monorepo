@@ -1,0 +1,138 @@
+{
+  "source": "3d8257bf03d47bb86fb80994c924987033b1858a",
+  "tree": "0aa22ba210af5fb112b9ad073939428961511b4d",
+  "author_report": "17e82effff23e8701629c0cbdd5e3f611ada3853",
+  "manifest_sha256": "97776a6de7c59eaee6cc7173c4bed8dbd37a09cd8620454e2bf3333d3935bee9",
+  "report_sha256": "ea48f1925483371f0429122bf7d052ee8ff9a37cbb5656f74e57eed4b11a0535",
+  "final_logs_verified": [
+    {
+      "name": "q05-targeted",
+      "exit": 0,
+      "tests": 44,
+      "skips": 0,
+      "bytes": 6591,
+      "sha256": "b7656eafc95e6d44e18807728cf1a7894d1a3f3a837376cdc5c53571568dd5ff"
+    },
+    {
+      "name": "q04-targeted",
+      "exit": 0,
+      "tests": 25,
+      "skips": 0,
+      "bytes": 3540,
+      "sha256": "f27a9e9b5948cc2282a59c9cd07d05f0c55276763a63388c0e131e3da21e1a77"
+    },
+    {
+      "name": "resource-close",
+      "exit": 0,
+      "tests": 1,
+      "skips": 0,
+      "bytes": 205,
+      "sha256": "09c82e5188fccbc2fa2c032afe2d1630a9de5fff75250669593f774ea79cdb8c"
+    },
+    {
+      "name": "h07a",
+      "exit": 0,
+      "tests": 35,
+      "skips": 0,
+      "bytes": 8316,
+      "sha256": "c40251e4f9c49375454117e8548baae49a97c3868fe9ef86740182103fd5a30b"
+    },
+    {
+      "name": "h10-causal",
+      "exit": 0,
+      "tests": 32,
+      "skips": 0,
+      "bytes": 6182,
+      "sha256": "76ad6ff3ac197b5ccb7f1ccf91d2ee95c4cf63ef04aa318357cbcf5f4ca3d163"
+    },
+    {
+      "name": "qa-agent-full",
+      "exit": 0,
+      "tests": 440,
+      "skips": 0,
+      "bytes": 71264,
+      "sha256": "4e4b405cc3648d315751b9ff0412b4d68ea898d442c092d7830453e0a04bb87f"
+    },
+    {
+      "name": "pioneer-agent-full",
+      "exit": 0,
+      "tests": 1085,
+      "skips": 2,
+      "bytes": 343816,
+      "sha256": "603675f07d37a90b1bc6d4ffa31cf7f0c4ec041d40ba797daac37bfe69c4f494"
+    },
+    {
+      "name": "sanmou-common-full",
+      "exit": 0,
+      "tests": 2,
+      "skips": 0,
+      "bytes": 335,
+      "sha256": "7e9438edca6c90738e3f3983beb89cc2e47795af9815f716b6f41a24af9285f3"
+    },
+    {
+      "name": "v1-cli",
+      "exit": 1,
+      "tests": null,
+      "skips": 0,
+      "bytes": 815,
+      "sha256": "99cd509bd46eec09c1f957b6ca4c7db08320120c42441bf1eff7f370d74b894c"
+    },
+    {
+      "name": "v2-cli",
+      "exit": 1,
+      "tests": null,
+      "skips": 0,
+      "bytes": 815,
+      "sha256": "99cd509bd46eec09c1f957b6ca4c7db08320120c42441bf1eff7f370d74b894c"
+    },
+    {
+      "name": "v3-cli",
+      "exit": 1,
+      "tests": null,
+      "skips": 0,
+      "bytes": 815,
+      "sha256": "99cd509bd46eec09c1f957b6ca4c7db08320120c42441bf1eff7f370d74b894c"
+    },
+    {
+      "name": "v4-cli",
+      "exit": 0,
+      "tests": null,
+      "skips": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "q04-cli",
+      "exit": 0,
+      "tests": null,
+      "skips": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "h09-cli",
+      "exit": 0,
+      "tests": null,
+      "skips": 0,
+      "bytes": 230,
+      "sha256": "da9b4cf0a7316ad1d37932469ef1e3d4ea8cb08c2fe714b9f9b907044472f38b"
+    }
+  ],
+  "baseline_log_count": 4,
+  "preserved_author_history": {
+    "pre-format-diff-check.log": {
+      "sha256": "0f4fcfa48646ea0484198c1e1b42748f346de74dafe6ea0834a4e1784b4c0f3f",
+      "bytes": 56058
+    },
+    "q05a-author-targeted-01.log": {
+      "sha256": "1f393de687cbfe5bbecaa8ffe7e9258a2854acce6e0320f00ce3a6208c720c77",
+      "bytes": 9348
+    },
+    "q05a-author-targeted-02.log": {
+      "sha256": "0221ab73fa327fce2acbe1b62180fd5fc23ad4bfd02e33d907c52d9c946b5364",
+      "bytes": 6592
+    }
+  },
+  "matches_independent_runs": true,
+  "native": "pending"
+}

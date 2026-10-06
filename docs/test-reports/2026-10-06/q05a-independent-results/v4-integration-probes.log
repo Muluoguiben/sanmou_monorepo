@@ -1,0 +1,9 @@
+test_malformed_season_schema_is_not_a_false_control_result (__main__.V4IntegrationControls.test_malformed_season_schema_is_not_a_false_control_result) ... ok
+test_real_foreign_lazy_season_module_origin_is_rejected (__main__.V4IntegrationControls.test_real_foreign_lazy_season_module_origin_is_rejected) ... ok
+test_v4_required_groups_are_not_masked_by_source_drift (__main__.V4IntegrationControls.test_v4_required_groups_are_not_masked_by_source_drift) ... ok
+test_valid_wrong_expected_saves_failed_report_then_exit1_and_no_clobber (__main__.V4IntegrationControls.test_valid_wrong_expected_saves_failed_report_then_exit1_and_no_clobber) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 15.975s
+
+OK
