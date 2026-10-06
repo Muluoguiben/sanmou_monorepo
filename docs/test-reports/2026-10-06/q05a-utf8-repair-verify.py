@@ -22,7 +22,8 @@ def save(name, value):
 assert git("rev-parse", "HEAD").decode().strip() == CODE
 assert git("rev-parse", "HEAD^{tree}").decode().strip() == TREE
 paths = ["packages/qa-agent/tests/test_quality_eval.py", "packages/qa-agent/tests/test_seasonal_retriever.py"]
-assert git("diff", "--name-only", OLD, CODE).decode().splitlines() == paths
+changed = git("diff", "--name-only", OLD, CODE).decode().splitlines()
+assert sorted(path for path in changed if not path.startswith("docs/")) == paths
 unchanged = {}
 for path in ("packages/qa-agent/src", "packages/qa-agent/tests/fixtures", ".github",
              "packages/pioneer-agent", "packages/sanmou-common"):
