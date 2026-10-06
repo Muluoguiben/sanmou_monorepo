@@ -8,7 +8,7 @@ TaskRunner 原 keyword-only 参数末尾新增 `skill_compilation: SkillCompilat
 
 registry 新增 `validate_skill_binding(compilation: SkillCompilation, task: TaskSpec) -> SkillTraceBinding`。`SkillTraceBinding` 为 strict/extra-forbid/frozen Pydantic 模型，**仅两个字段**：`declaration_value: str`（最多160字符）、`task_digest: str`（64小写hex）；两者皆不可变标量，无TaskSpec/compilation/Condition引用或嵌套可变TraceDeclaration。runner私有持有自己生成的binding，不接受调用者提供binding对象。
 
-声明值精确 `recipe:chapter-observer@1.0.0#sha256=<template_digest>`，通过现有160上限（本版103字符）；producer每次构造新的 `TraceDeclaration(status="declared",value=...)`。其他provenance字段、H10捕获的policy/callable和budget attempt_id语义保持原样。这里只绑定内容，不声称compile函数确实调用过。
+声明值精确 `recipe:chapter-observer@1.0.0#sha256=<template_digest>`，通过现有160上限（本版101字符）；producer每次构造新的 `TraceDeclaration(status="declared",value=...)`。其他provenance字段、H10捕获的policy/callable和budget attempt_id语义保持原样。这里只绑定内容，不声称compile函数确实调用过。
 
 ## 唯一模板与严格内容校验
 
