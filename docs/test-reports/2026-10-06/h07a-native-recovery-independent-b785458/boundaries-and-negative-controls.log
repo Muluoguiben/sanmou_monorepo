@@ -1,0 +1,112 @@
+test_json_waiting_new_reader_preserves_watermark_deadline_and_reservations (test_task_approval.ApprovalDiskRecoveryTests.test_json_waiting_new_reader_preserves_watermark_deadline_and_reservations) ... Executing <Task finished name='Task-2' coro=<ApprovalDiskRecoveryTests.test_json_waiting_new_reader_preserves_watermark_deadline_and_reservations() done, defined at /tmp/h07a-native-cr-b785458-20261006/packages/pioneer-agent/tests/test_task_approval.py:138> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.283 seconds
+ok
+test_json_waiting_fresh_runner_clock_rollback_stops_without_calls (test_task_approval.ApprovalDiskRecoveryTests.test_json_waiting_fresh_runner_clock_rollback_stops_without_calls) ... Executing <Task finished name='Task-7' coro=<ApprovalDiskRecoveryTests.test_json_waiting_fresh_runner_clock_rollback_stops_without_calls() done, defined at /tmp/h07a-native-cr-b785458-20261006/packages/pioneer-agent/tests/test_task_approval.py:160> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.328 seconds
+ok
+test_json_waiting_fresh_runner_expired_deadline_stops_without_calls (test_task_approval.ApprovalDiskRecoveryTests.test_json_waiting_fresh_runner_expired_deadline_stops_without_calls) ... Executing <Task finished name='Task-12' coro=<ApprovalDiskRecoveryTests.test_json_waiting_fresh_runner_expired_deadline_stops_without_calls() done, defined at /tmp/h07a-native-cr-b785458-20261006/packages/pioneer-agent/tests/test_task_approval.py:176> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.283 seconds
+ok
+test_actual_process_crash_after_revalidated_fresh_runner_reobserves_and_keeps_charges (test_task_approval.ApprovalProcessTests.test_actual_process_crash_after_revalidated_fresh_runner_reobserves_and_keeps_charges) ... ok
+test_actual_process_crash_after_revalidated_replayed_observation_never_reaches_policy (test_task_approval.ApprovalProcessTests.test_actual_process_crash_after_revalidated_replayed_observation_never_reaches_policy) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 5.399s
+
+OK
+test_json_waiting_new_reader_preserves_watermark_deadline_and_reservations (test_task_approval.ApprovalDiskRecoveryTests.test_json_waiting_new_reader_preserves_watermark_deadline_and_reservations) ... Executing <Task finished name='Task-32' coro=<ApprovalDiskRecoveryTests.test_json_waiting_new_reader_preserves_watermark_deadline_and_reservations() done, defined at /tmp/h07a-native-cr-b785458-20261006/packages/pioneer-agent/tests/test_task_approval.py:138> exception=AssertionError("{} != {'1ea7f166988f4738a7687961cb6a110b': {'req[1258 chars]ok'}}\nDiff is 3525 characters long. Set self.maxDiff to None to see it.") created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.159 seconds
+FAIL
+
+======================================================================
+FAIL: test_json_waiting_new_reader_preserves_watermark_deadline_and_reservations (test_task_approval.ApprovalDiskRecoveryTests.test_json_waiting_new_reader_preserves_watermark_deadline_and_reservations)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/unittest/async_case.py", line 90, in _callTestMethod
+    if self._callMaybeAsync(method) is not None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/async_case.py", line 112, in _callMaybeAsync
+    return self._asyncioRunner.run(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/tmp/h07a-native-cr-b785458-20261006/packages/pioneer-agent/tests/test_task_approval.py", line 150, in test_json_waiting_new_reader_preserves_watermark_deadline_and_reservations
+    self.assertEqual(fresh.budget.snapshot()["reservations"], waiting.budget_state["reservations"])
+AssertionError: {} != {'1ea7f166988f4738a7687961cb6a110b': {'req[1258 chars]ok'}}
+Diff is 3525 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 1 test in 0.175s
+
+FAILED (failures=1)
+test_actual_process_crash_after_revalidated_fresh_runner_reobserves_and_keeps_charges (test_task_approval.ApprovalProcessTests.test_actual_process_crash_after_revalidated_fresh_runner_reobserves_and_keeps_charges) ... FAIL
+
+======================================================================
+FAIL: test_actual_process_crash_after_revalidated_fresh_runner_reobserves_and_keeps_charges (test_task_approval.ApprovalProcessTests.test_actual_process_crash_after_revalidated_fresh_runner_reobserves_and_keeps_charges)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/h07a-native-cr-b785458-20261006/packages/pioneer-agent/tests/test_task_approval.py", line 792, in test_actual_process_crash_after_revalidated_fresh_runner_reobserves_and_keeps_charges
+    self.assertEqual(fresh._client.calls, ["session_status", "observe_game", "get_runtime_state", "list_action_candidates"])
+AssertionError: Lists differ: [] != ['session_status', 'observe_game', 'get_ru[34 chars]tes']
+
+Second list contains 4 additional elements.
+First extra element 0:
+'session_status'
+
+- []
++ ['session_status',
++  'observe_game',
++  'get_runtime_state',
++  'list_action_candidates']
+
+----------------------------------------------------------------------
+Ran 1 test in 2.074s
+
+FAILED (failures=1)
+{
+  "new_boundaries_passed": 5,
+  "skips": 0,
+  "spawn_events": [
+    {
+      "event": "spawn",
+      "pid": 2674244,
+      "method": "spawn"
+    },
+    {
+      "event": "join",
+      "pid": 2674244,
+      "exitcode": -15,
+      "alive": false
+    },
+    {
+      "event": "join",
+      "pid": 2674244,
+      "exitcode": -15,
+      "alive": false
+    },
+    {
+      "event": "spawn",
+      "pid": 2674253,
+      "method": "spawn"
+    },
+    {
+      "event": "join",
+      "pid": 2674253,
+      "exitcode": -15,
+      "alive": false
+    },
+    {
+      "event": "join",
+      "pid": 2674253,
+      "exitcode": -15,
+      "alive": false
+    }
+  ],
+  "negative_controls": {
+    "refund_reservations": "detected_by_unchanged_new_assertion",
+    "skip_fresh_observation": "detected_by_unchanged_new_assertion"
+  },
+  "native": false,
+  "live_transport": false,
+  "provider_calls": 0
+}
