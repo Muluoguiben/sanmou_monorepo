@@ -3,12 +3,12 @@
   "status": "in_progress",
   "last_completed_round": 7,
   "current_round": 7,
-  "batch": "Q04b native claim-span CI wiring",
-  "base_commit": "b37e7ed34e5c9df63d668349436b198bd8b0b27d",
+  "batch": "Q05a explicit season retrieval and bounded UTF8 test repair",
+  "base_commit": "3711e92d38786418e8e955d19a56cd6c72611389",
   "primary_branch": "master",
-  "current_task": "docs/qa-native-claim-spans-q04b-2026-10-06.md",
-  "task_commit": "b41aae48bd0b14fdb2ea343183d4cecce253d94d",
-  "summary": "Q04b exact combination658be passed eight Linux lanes, unchanged899 package inputs and packages tree, inverse workflow bytes/YAML equalb37. Native not executed locally; final published SHA Hosted25/0skip/all4 pending. Q04a prior exactCI37463863357 retained; Q06 paused.",
+  "current_task": "docs/qa-season-retrieval-q05a-2026-10-06.md",
+  "task_commit": "bcdf07b65440921b1c2a015a432629263ed36205",
+  "summary": "Q05a repaired exact a0 combination passed full Linux matrix, inherited v4/Q04 projections and real nonUTF text/UTF8 filesystem old27errors versus new44pass. Strict ASCII-filesystem red remains unfixed; Hosted original25+new44 pending. All earlier reds/preUTF2e evidence and Q04b exactCI facts preserved;Q06paused.",
   "earlier_rounds": [
     {
       "batch": "Q03a",
@@ -300,7 +300,7 @@
     "model": "gpt-6-astra",
     "current_roles": "same roles continuing H10a"
   },
-  "next_step": "Final candidate payload audit, publish and exact Hosted Windows25/0skip/qualified-name/all4 gate by root; then continue bounded Q05a explicit-label isolation under existing continuous authority. Q06 reading/publication paused; no new provider/access/game/deploy authority.",
+  "next_step": "Root final candidate payload audit/publication/exact Hosted original25+Q05-44/0skip/all4; then next feasible bounded offline route under continuing authority. Do not claim Windows or ASCII-filesystem fix before evidence; Q06 archive reading/publication remain paused; provider/access/game/deploy boundaries unchanged.",
   "authorization": {
     "user_text": "按review 迭代的方向持续迭代",
     "source_thread": "01a10c00-93d2-778b-8395-bf9d496c503d",
@@ -534,7 +534,7 @@
     "final_commit": "ca04ae1ef396576c5983f887502bf20b7d6f0015",
     "final_ci_run": 37403073979
   },
-  "latest_published_master": "b37e7ed34e5c9df63d668349436b198bd8b0b27d",
+  "latest_published_master": "3711e92d38786418e8e955d19a56cd6c72611389",
   "coordination_migration": {
     "main_read_only": true,
     "main_head": "110bd7594e095c3ea0e1940ab2fc4bec5f4d7a77",
@@ -702,9 +702,182 @@
     "archive_content_reads": 0,
     "q06_inherited": false
   },
-  "active_work_item": "q04b_native_claim_spans",
-  "q04b_native_claim_spans": {
+  "active_work_item": "q05a_season_retrieval",
+  "q05a_season_retrieval": {
     "status": "publication_candidate",
+    "locale_repair_review": {
+      "report": "c6426c7bdaa27ec2121b381b0890bda87d9d1880",
+      "status": "APPROVE_test_UTF8_IO_with_UTF8_filesystem_native_pending",
+      "source": "e0d9d6ef6083f5dc8f3c71daae6e46ed0793c750",
+      "strict_C_ascii_filesystem_fixed": false,
+      "exact_AST_added_encoding_keywords": 15,
+      "original_test_count": 44
+    },
+    "locale_followup_contract": "e677f1a13589490c9eff652d5c9db48a5b453d11:docs/qa-q05a-utf8-test-io-followup-2026-10-06.md",
+    "locale_finding": {
+      "id": "Q05a-P1",
+      "status": "closed_for_tested_nonUTF_text_with_UTF8_filesystem_Hosted_pending",
+      "request_changes": "0ef24f21a290545e5ae4d79067ecca2cab5a1724",
+      "original_source": "3d8257bf03d47bb86fb80994c924987033b1858a",
+      "windows_stdlib_observation": "filesystem=utf-8/surrogatepass,text/defaultopen=cp936,utf8_mode0;defaultPath.read_text UnicodeDecodeError(gbk,start183)",
+      "fixture_sha256": "16b0218cee40dbe9d4796568474697324a51a71ced9f12901b2d60126794cc7a",
+      "fixture_gitblob": "fdb7f31ce56144fedbe538aa9324984c75971d7c",
+      "fixture_bytes": 31024,
+      "fixture_non_ascii_bytes": 1116,
+      "strict_C_probe": "faefc08f0dd055ff2abfb8e9fc56c9b7063dc61d",
+      "strict_C_original": "44tests/1failure27errors;ASCII filesystem adds surrogate boundary",
+      "strict_C_fixed": "44tests/8failures2errors;existingASCII-filesystem boundary notfixed",
+      "isolating_probe": "8bb4a1dc7f6183daf883045bfd1a81c2bf79f9dc",
+      "isolating_conditions": "UTF8 filesystem startup,utf8_mode0,realLC_CTYPE=C/defaultfileASCII,stdoutUTF8;spawnedCLIs inheritC.UTF8",
+      "isolating_original": "44tests/27errors/exit1",
+      "isolating_fixed": "44pass/0skip/exit0",
+      "fix_code": "e0d9d6ef6083f5dc8f3c71daae6e46ed0793c750",
+      "fix_tree": "94abdeb7aa1e391c02eefaf415893b23eb7d741a",
+      "author_report": "dacf8a0aea62eef7bd9415779cdcf03e6faffe70",
+      "scope": "only15 explicitUTF8 read/write_text keywords across14lines in2tests;production/fixtures/freeze/CI unchanged;v4c30d/Q04b965 unchanged"
+    },
+    "pre_utf8_combination": {
+      "source": "2e0d7b9fb61563f82fbcea6239993fef28970c9a",
+      "tree": "3f9415f750529b0caf02c90e639eada004cd006d",
+      "packages": "62ee9b7dfcb0ff3aac082b9765e5c6b222402474",
+      "github": "20db19b28ae98b89bcfdd5444bddbe2652eeb878",
+      "status": "all_normal_Linux_checks_passed_but_candidate_stopped_for_locale_finding",
+      "artifact_commit": "e677f1a13589490c9eff652d5c9db48a5b453d11",
+      "artifact_directory": "docs/test-reports/2026-10-06/Q05a-pre-utf8-integration-artifacts",
+      "manifest_sha256": "8a027f937c46333943ac55c214ab7f955bf860d4f03b920124463b15f9ce7d5c",
+      "plain_files": 28,
+      "plain_bytes": 766231,
+      "move_hashes_before_after_verified": true,
+      "main_wip_migrated": false,
+      "candidate_created": false
+    },
+    "independent_review": {
+      "report": "52b2642cc0956a59b5dd573bcd838dc3c91ef8c6",
+      "status": "APPROVE_fixed_source_Linux_native_pending",
+      "source": "3d8257bf03d47bb86fb80994c924987033b1858a",
+      "findings": [],
+      "preserved_probe_corrections": "b9f nonexistentexpected-ID originalred;51497 lawfulwrongexpected input;cf472 AST normalization construction correctedwithoutoldassertionchange"
+    },
+    "combination": {
+      "source": "a0e71c62c042e15877a5942b2d6e22611c40b301",
+      "tree": "570510cf9480178b1a523b0334dac6475a1fa6e4",
+      "packages": "00e356dcae98b08a2c26a91fb0f8b728c8cd96fb",
+      "github": "20db19b28ae98b89bcfdd5444bddbe2652eeb878",
+      "status": "passed_normal_and_bounded_nonUTF_text_locale",
+      "report": "docs/test-reports/2026-10-06/Q05a-integration.md",
+      "results": "public5/v4int4/resource1/Q05-44/Q04-25/H07-35/H10-32/QA440/Pioneer1083pass+2oldskip/common2/v4CLI8/Q04CLI12/H09CLI8 pass;v1-v3 expected source-drift exit1;fresh3711 quality23/v3db72/Q04c74e passed;904input before-after exact;v4 six-field-only andQ04 precise eval_source projections equal",
+      "manifest_sha256": "c6c623353828e5c72c0be468c92b7e3b90c79f92c93098c15d8a40cef5382f1d",
+      "ordinary_input_digest": "563ece4412b43a6a4609ed29dc1ba16b1a28d048b9c65860fcf4fdd3b8ac452a"
+    },
+    "independent_plan": "f6b42207200d25628d70db83119599f18e115238",
+    "interface_memo": "ad1d07320bd0aa8eca37bba7bde4a7094c2cb32b",
+    "independent_public_probes": "356f09f02ba5fb8923e2bf4f706293edfe21b0dd",
+    "independent_v4_cli_probes": "b9f2fc5d8ef0c208cd73f83f513187c76bf3ce2f",
+    "independent_old_baseline": {
+      "report": "9b70e88e4227d46887449299b31e57689e2ea979",
+      "probe": "c5dcdeacc1c54b53c7ac57a9867e9cf706fcc217",
+      "source": "3711e92d38786418e8e955d19a56cd6c72611389",
+      "old_quality": 23,
+      "v3_sha256": "db72e1c3616cadb2062c86a676596c21f1412dfa3ce6691a8f22c9576a259aec",
+      "q04_sha256": "c74e39ee833365f3fb3c6d035c52b230c603da9806e8fa347fa15b2b6fc45120",
+      "resource_warning_events": 3,
+      "ranking_counterexample_proven": true,
+      "duplicate_global_guard_proven": true
+    },
+    "transition": {
+      "commit": "9b7eb40b8b2f570cf6cc68c61b499ef45143a50c",
+      "status": "not_final_source_EOL_diffcheck_red_retained",
+      "pre_freeze_targeted": 18,
+      "expected_v3_production_drift_logged": true,
+      "format_repair_scope": "only already-modified runner/test_quality_eval/test_lineup_frame_extractor LF bytes; no oldgold/freeze change",
+      "next": "explicit command exit checks, new clean fixedcode SHA before v4 freeze; preserve original red andcommit"
+    },
+    "fixed_source": {
+      "production_freeze_commit": "27b73de689cc5863ed02a0dd30526fde8533d080",
+      "production_tree": "80211d357ed594f268d1bcd12e2d90eac5c67a3b",
+      "initial_complete_code": "3d8257bf03d47bb86fb80994c924987033b1858a",
+      "tree": "0aa22ba210af5fb112b9ad073939428961511b4d",
+      "root_verified_src_diff_after_production_freeze": "none",
+      "root_scope": "12 allowedpaths only; runner/qualitytest version migrations, exact imagecontext-close and3workflow lines read"
+    },
+    "author_process_notes": {
+      "first_complete_targeted": "43tests/1error retained: new test patch.dict(sys.modules) restored all lazy imports and left Pydantic generic cache inconsistent; fixed only single-module restoration with same zero-call/source-mismatch assertions",
+      "second_targeted": "44pass=20season+24quality; adds real valid-wrongexpected CLI savedreport/exit1",
+      "fixed_source_progress": "44/Q04-25/H07-35/H10-32/fullQA440 passed; imageassertion1 passes withResourceWarnings3->0; remainingfullmatrix/report pending"
+    },
+    "independent_process_notes": "public5/resource controls passed27b; originalnonexistent-expected-ID probe will retain its red then use lawful wrongexpected by removing declaredmatchID, per memo subset binding; final3d fullCR underway",
+    "author_report": "17e82effff23e8701629c0cbdd5e3f611ada3853",
+    "author_final_results": "fixed3d:44/Q04-25/H07-35/H10-32/QA440/Pioneer1083+2oldskip/common2/v4CLI8/H09CLI8 passed; currentv1-v3 expectedexit1/nooutput; resourcewarnings3->0;904Gitinputs/oldAST/oldfixtures/workflowinverse verified; nativeQ05pending",
+    "new_report_hashes": {
+      "v4": "c30d4129f16930fd554c502d6a6b7f5787f657367df86e8ace5cd454db58858c",
+      "q04": "b9658bf88a197cf0a6a421dd66133bade253281961acc85f59c744b62732f0b6",
+      "comparison": "onlysix declared v4 top-level differences and preciseQ04 runner/newseason_cases eval_source delta; entire inherited projections equal"
+    },
+    "independent_progress": "full3d matrix/probes/resource1/old3711 exactprojections andauthor14final+4baseline rawhash crosscheck passed; no contract-scope product finding; finalreport commit pending",
+    "interface_review": "no blocker; season-only gate_pass/controls, valid failedcontrol saved create-only thenCLIexit1; malformedstrictreject; no seventh top-level delta or oldmetric change",
+    "base_commit": "3711e92d38786418e8e955d19a56cd6c72611389",
+    "contract_commit": "bcdf07b65440921b1c2a015a432629263ed36205",
+    "contract": "docs/qa-season-retrieval-q05a-2026-10-06.md",
+    "scope": "opt-in explicit season-tag facade with versioned v4 dev baseline; unchanged default QA/KB/scorer/oldgold; targeted native step and exact known test-image handle closure only",
+    "author": "h07a_implementation reused",
+    "reviewer": "h07a_review reused independently",
+    "implementation_released": true,
+    "baseline_rule": "new production requires explicitv4; oldv3 must pass on3711 and reject legitimate new-tree drift; inherited metric projection unchanged, never hide sources or rewriteoldgold",
+    "q04_compatibility": "12controls and allnon-eval_source reportfields unchanged; explicitly verify only runner/newseason eval_source delta",
+    "q06a_archive_reading": "paused_by_user",
+    "q06a_publication": "paused_by_user",
+    "next_step": "Root final candidate payload audit/publication/exact Hosted original25+Q05-44/0skip/all4; then next feasible bounded offline route under continuing authority. Do not claim Windows or ASCII-filesystem fix before evidence; Q06 archive reading/publication remain paused; provider/access/game/deploy boundaries unchanged.",
+    "prior_current_context": {
+      "batch": "Q04b native claim-span CI wiring",
+      "base_commit": "b37e7ed34e5c9df63d668349436b198bd8b0b27d",
+      "current_task": "docs/qa-native-claim-spans-q04b-2026-10-06.md",
+      "task_commit": "b41aae48bd0b14fdb2ea343183d4cecce253d94d",
+      "summary": "Q04b completed on published3711e92d38786418e8e955d19a56cd6c72611389, matching remote. Exactrun37467691552 attempt1 all4jobs success; Windowsstep12 rawlog25names exactly matchfinalGitAST,25pass/0skip in1.044s includingrealCLI/create-only, zero targeted diagnostics. Native claim-span gap closed forsynthetic scope. ContinueQ05a explicitseasonlabel facade plus reviewedv4 baseline;Q06paused andoldwarninghistory preserved.",
+      "next_step": "Q04b exactnative gateclosed. Freeze Q05a opt-in explicitseasonlabel retrieval andv4 baseline migration; preserve oldv1-v3/gold/defaultChatAgent/KB/MCP, independently define filtering/duplicate-ID/top-k/unknown contracts beforecode. CarrypostCI3WIP innextnormaldelivery;Q06 stayspaused andno newprovider/game/access/deploy scope.",
+      "round_status": "q04b_completed_native_and_exact_ci_passed",
+      "active_work_item": "q05a_season_retrieval",
+      "latest_published_master": "3711e92d38786418e8e955d19a56cd6c72611389"
+    },
+    "prior_verification_status": {
+      "status": "locale_repair_approved_new_exact_combination_handed_to_verifier",
+      "next_step": "verify exacta0e71c6 repairedcombination including 8bb4 realnonUTF-text control andnormal matrix/projections, preserve root3WIP andalloriginalevidence, singlecandidate/finalpayload/push/exactHosted25+44/all4",
+      "combination_status": "verification_pending_including_real_nonUTF_text_locale"
+    },
+    "coordinator_locale_revalidation": {
+      "strict_C_rerun": false,
+      "assertions_names_unchanged": true,
+      "exact_added_encoding_keywords": 15,
+      "probe": "8bb4a1dc7f6183daf883045bfd1a81c2bf79f9dc",
+      "old_3d": "44tests/27errors/exit1 fresh raw retained",
+      "new_a0": "44pass/0skip/exit0",
+      "status": "closed_only_for_tested_nonUTF_text_with_UTF8_filesystem_Hosted_pending",
+      "scope": "startup UTF8 filesystem/utf8_mode0 then actual LC_CTYPE=C/default file ASCII; subprocess CLIs inherit C.UTF8; not Windows",
+      "strict_C_ascii_filesystem_fixed": false,
+      "source": "a0e71c62c042e15877a5942b2d6e22611c40b301"
+    },
+    "final_ci": "pending exact-final-SHA Hosted Windows original25 plus new44 names eachok/0skip/exit0 and same-run all4jobs",
+    "publication": "not performed",
+    "coordinator_native_executed": false,
+    "coordinator_wip_migration": {
+      "original_sha256": {
+        "todo": "aa0f9fc2909d69cf1ff3b4da3ebb6bf5924f0feb7f3b2d819d6b6fb6f370bffe",
+        "worklog": "34c1cd1e8ba32bac3d1c9e70ef1413467cb1e9100fe10aeefdd63fa5413802e6",
+        "state": "b3c400fbc547cbb4d14834e3e742a871550395432c92aeba4c6e238919aab6af"
+      },
+      "history_permissions_continuous_authority_prior_final_ci_and_reds_preserved": true,
+      "main_head": "3711e92d38786418e8e955d19a56cd6c72611389",
+      "main_untouched": true,
+      "full_worklog_prefix_preserved": true,
+      "original_bytes": {
+        "todo": 154005,
+        "worklog": 121241,
+        "state": 92014
+      }
+    }
+  },
+  "q04b_native_claim_spans": {
+    "status": "completed_native_and_exact_ci_passed",
+    "payload_audit": {"status": "no_blocker_scoped_candidate", "candidate": "3711e92d38786418e8e955d19a56cd6c72611389", "tree": "9352ea3eaee2d0a41ecce44e9dc4fc188c35d3cf", "objects": 80, "commits": 8, "paths": 45, "object_set_sha256": "9ce2d8756d3c12a9154fbb243a471ca2c6c851b7fca86fe42a138cf83927d455", "manifest_records": 13, "plain_bytes": 729405, "manifest_sha256": "031e1afd1a1ea133932ad78f0a1e3416e7d422e33c3d0199cce992153ce77b83", "protected_paths": 3182, "old_reports": 1933, "archive_metadata": 30, "archive_content_reads": 0, "q06_inherited": false},
     "independent_review": {
       "report": "206e47477bf08671fa86d4d94ce9522fb5fdecb0",
       "status": "APPROVE_code_wiring_Linux_native_pending",
@@ -733,11 +906,11 @@
     "author": "h07a_implementation reused",
     "reviewer": "h07a_review reused independently",
     "implementation_released": true,
-    "native_status": "pending_exact_final_hosted25_0skip_all4jobs",
+    "native_status": "verified_exact_final_hosted25_0skip_targeted_diagnostics0_all4jobs",
     "local_native_dependency_exploration": false,
     "q06a_archive_reading": "paused_by_user",
     "q06a_publication": "paused_by_user",
-    "next_step": "Final candidate payload audit, publish and exact Hosted Windows25/0skip/qualified-name/all4 gate by root; then continue bounded Q05a explicit-label isolation under existing continuous authority. Q06 reading/publication paused; no new provider/access/game/deploy authority.",
+    "next_step": "Completed3711/run37467691552/all4success/actualWindows25names exact0skip. Continue separateQ05a explicitseasonlabel andv4 baseline contract underexistingoffline authority;keep priorlocal0tests andQAResourceWarnings ashistory,notcurrentnativeproof. Q06paused.",
     "prior_current_context": {
       "batch": "Q04a offline claim-to-evidence spans",
       "base_commit": "5791ca397507007b9397c78763b3523b8ec16421",
@@ -754,8 +927,8 @@
       "status": "independent_approved_exact_combination_handed_to_verifier",
       "combination_status": "verification_pending"
     },
-    "final_ci": "pending exact-final-SHA Hosted Windows25 qualified names all ok/0skip/exit0 plus same-run all4jobs",
-    "publication": "not performed",
+    "final_ci": {"commit": "3711e92d38786418e8e955d19a56cd6c72611389", "run": 37467691552, "attempt": 1, "status": "completed", "conclusion": "success", "all_four_jobs": "success", "windows_job": 112282761025, "qa_job": 112282761336, "common_job": 112282761381, "pioneer_job": 112282761504, "step": 12, "native_passed": 25, "native_skipped": 0, "elapsed_seconds": 1.044, "names_exact": true, "real_cli_create_only_test_included": true, "targeted_diagnostic_lines": 0, "checked_diagnostics": ["ResourceWarning", "RuntimeWarning", "was never awaited", "Exception ignored in", "Traceback"], "raw_log_verified": true, "remote_readback_matches": true},
+    "publication": "3711e92d38786418e8e955d19a56cd6c72611389 pushed and explicit remote fetch/readback matches",
     "coordinator_native_executed": false,
     "warning_notes": "Root classified local QAfull and prior Q04a Hosted QA as6 ResourceWarning-related lines each:3 unclosed Image.open files at existing tests/test_lineup_frame_extractor.py:172 plus3 Enable tracemalloc lines. Targeted25 has none; RuntimeWarning/unawaited/Exception ignored categories0. Historical Q04a final_ci.warning_count=0 checked only these latter categories, not all warning types; original field preserved. Original logs unchanged; no code repair or rerun.",
     "coordinator_wip_migration": {
@@ -1320,6 +1493,7 @@
   },
   "q04a_claim_spans": {
     "status": "completed_offline_exact_ci_passed",
+    "final_ci_warning_scope": {"run": 37463863357, "job": 112269856616, "warning_count_zero_covers": "RuntimeWarning, was-never-awaited, Exception-ignored categories only", "resource_warning_events": 3, "resource_warning_related_lines": 6, "origin": "existing test_lineup_frame_extractor.py:172 Image.open(p).size; three synthetic image readers plus three tracemalloc hints", "new_claim_tests_warning_count": 0, "raw_log_rechecked": true},
     "payload_audit": {"status": "no_blocker_scoped_candidate", "candidate": "b37e7ed34e5c9df63d668349436b198bd8b0b27d", "tree": "b5686b2f1e0e3877107cc7e93487d14cad14568f", "objects": 161, "commits": 17, "paths": 81, "object_set_sha256": "296372ca60cb3520a35dedbabae01be207a056e1b9aa59abbacb3e6c5c50bb48", "manifest_records": 23, "plain_bytes": 778621, "manifest_sha256": "ac91be9ba18cb935054bb7b49b48c804a58d7915abcdac674e7a577b1bf4e1eb", "protected_paths": 3105, "old_reports": 1883, "archive_metadata": 30, "archive_content_reads": 0, "q06_inherited": false},
     "independent_review": {
       "report": "962408d5ad23cb7c3084fd771335d088eb428229",

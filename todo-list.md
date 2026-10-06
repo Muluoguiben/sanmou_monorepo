@@ -1,12 +1,23 @@
 # Todo List
 
+## Active Review continuation — Q05a explicit season retrieval (2026-10-06)
+
+- [x] Q04b exact3711/run37467691552 all4jobs/Windows25names0skip complete. Freeze [contract](docs/qa-season-retrieval-q05a-2026-10-06.md) atbcdf07b65440921b1c2a015a432629263ed36205 frompublished3711; rootreadactualrunner/tests/index/models andQAroadmap.
+- [x] Independentplanf6b422 frozenbeforememo/code; author memo ad1d073 fullyread/root+reviewer approved. FullIndex duplicatecheck beforethreepoolRetrieve,≤3top_k,strictlabels/defaultunchanged/two-stagev4. Addseason-only gate_pass/CLIreportthenexit1 andstrictschema clarification; implementation released.
+- [x] Initialcompletecode3d8257b/tree0aa22ba adds scopedfacade/v4/test/native step,freeze bindsprior27b productioncommit withsrczero-diff. Rootreadnewmodules/tests andlimitedoldtest/CI changes; oldgold/KB/defaultpaths unchanged. Author44/Q04-25/QA440 pass; fullreport/independentCR pending,notfinalapproval.
+- [x] Author17e82 andindependent52b2642 APPROVE fixed3d825/tree0aa22 inLinux scope;public5/v4int4/resource1/44/Q04-25/QA440/Pioneer1083+2skip/common2/H07/H10/H09 allverified,old3711 projections exact,originalreds retained. Native25+44 pending.
+- [x] Exact2e0d normalLinux matrix passed but publicationstopped onQ05a-P1: Windowscp936 defaultread cannotdecodeUTF8fixture. Original28plain evidence retainedbyte-exact ine677f1a;no candidate ormainWIP migration occurred.
+- [x] Locale test-only e0d9/reportdacf independentlyapproved c6426c7:15preciseUTF8 keywords/original44AST,realfilelocaleold27errors→new44pass,normalQA440/c30d/b965 unchanged. StrictASCII-filesystem red/0efR1 remain,notclaimedfixed.
+- [x] Newexactcomboa0e71c62c042e15877a5942b2d6e22611c40b301/tree570510c/packages00e356/github20db19b passedfullmatrix+8bb4 realnonUTFtext (old27errors/new44pass),904Gitinputs/projections intact. [Integration](docs/test-reports/2026-10-06/Q05a-integration.md). Singlecandidate finalpayload/publish/exactHosted25+44 stillpending;ASCII-filesystem notfixed,notWindowsclaim. Q06stillpaused.
+
 ## Active Review continuation — Q04b native claim-span CI (2026-10-06)
 
 - [x] Q04a exact b37/run37463863357 all4jobs passed; new25 validated inLinux QA rawlog, native gap remains. Freeze [contract](docs/qa-native-claim-spans-q04b-2026-10-06.md) atb41aae48bd0b14fdb2ea343183d4cecce253d94d; reuse clean author/reviewer worktrees.
 - [x] Independentplan64666ca frozen/read before release; fixedcodeebcd5d1/treee624451 adds exact3lines atrequired position, rootdiff-check/packages e849 verified. No package/dependency/runner/job/permission changes or local dependency probing.
 - [x] Authora9ab andindependent206e474 approve fixedebcd forcode/wiring/Linux;25/23/QA419,CLI/oldrefusals/v3db72 and8rawhashes checked. Nativepending, no productionchange.
 - [x] Exactcombo658be762abf192799e4b4711b8b85d05f0c79ea9/tree09f146c,packages=e849/github=60cbfa8 passed8lanes:25/QA419/Pioneer1083+2skip/common2/H07-35/H10-32/H098/v3db72;899Gitinputs unchanged,workflow inverse bytes+YAML=b37,25names exact. [Report](docs/test-reports/2026-10-06/Q04b-integration.md);singlecandidate awaits finalpayload/publish/exactCI,not nativepassed.
-- [ ] Exactcombo/payload/publish and finalHosted25names/0skip/exit0/all4jobs; prior native missingyaml/0tests remains historical, not acceptance. CarryQ04a finalCI threeWIP in normaldelivery; Q06archive reading/publication paused. Continue Q05a only after this gate.
+- [x] Finalcandidate3711e92d38786418e8e955d19a56cd6c72611389 passedpayload80objects/13hashes androot104967B prefix/oldstate preservation;masterFF/push/remote-readbackmatch. Q04a warning_count0 scope clarified asRuntime/unawaited/ignored only;3ResourceWarnings+3hints retained.
+- [x] Exactrun37467691552/attempt1 on3711e92 all4jobs success. Windowsjob112282761025 step12 actual25names exactly matchfinalGitAST,25pass/0skip in1.044s,realCLI/create-only included,targeteddiagnostics0. [Final native CI](https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/37467691552). BoundedQ04b nativegap closed;priorlocalmissingyaml remainshistory. CarryfinalCI3WIP innextnormalQ05a delivery;Q06archives/publicationpaused.
 
 ## Active Review continuation — Q04a evidence spans (2026-10-06)
 

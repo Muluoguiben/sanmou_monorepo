@@ -1,0 +1,42 @@
+{
+  "source": "a0e71c62c042e15877a5942b2d6e22611c40b301",
+  "tree": "570510cf9480178b1a523b0334dac6475a1fa6e4",
+  "baseline": "3711e92d38786418e8e955d19a56cd6c72611389",
+  "baseline_root": "/tmp/q05a-cr-baseline-3711-20261006",
+  "helper_hashes": {
+    "q05a-independent-verify.py": "d0eba7ea7ecfc087e57ee1faeeb8e09805d1ae360ada20e92511c67a30457630",
+    "q05a-baseline-verify.py": "a0f712f3613d14fa152ab047856b45eb66c560c8a99ce950f31d1591b374cae2",
+    "q05a-independent-probes.py": "8401687d29c4f11787a59567e7efd3abff7179d21e01409c405cdee4e3b85faa",
+    "q05a-v4-integration-probes.py": "0a5831b60f3e68ba8717afff0d079de9443470dd87d7e73783a21bf5a8bc975b",
+    "q05a-resource-warning-probe.py": "d6b066ade8376197f26e2d5fa02fec76e1757b65181b457ff2c8039fdc2150e4",
+    "q05a-file-locale-probe.py": "c1f5509fece9b3f7ebb09bcb77854ee56f4befc09dc76851227c483b059862a4"
+  },
+  "adaptation": "CODE/TREE plus transitive AST gate: entire current two-test AST equals3d after exactly15 added UTF8 keywords; original3711-to3d literal assertion gate retained; probes unchanged",
+  "encoding_additions": [
+    "packages/qa-agent/tests/test_quality_eval.py/body/13/body/0/body/0/value/generators/0/iter/value/args/0",
+    "packages/qa-agent/tests/test_quality_eval.py/body/13/body/20/body/0/value/args/0",
+    "packages/qa-agent/tests/test_quality_eval.py/body/13/body/22/body/0/body/0/body/3/body/0/value",
+    "packages/qa-agent/tests/test_quality_eval.py/body/13/body/22/body/0/body/0/body/3/orelse/0/orelse/0/value",
+    "packages/qa-agent/tests/test_quality_eval.py/body/13/body/22/body/0/body/0/body/3/orelse/0/orelse/0/value/args/0/left",
+    "packages/qa-agent/tests/test_quality_eval.py/body/13/body/23/body/1/value/args/0",
+    "packages/qa-agent/tests/test_quality_eval.py/body/13/body/23/body/2/value/args/0",
+    "packages/qa-agent/tests/test_quality_eval.py/body/13/body/24/body/0/value/args/0",
+    "packages/qa-agent/tests/test_seasonal_retriever.py/body/23/body/15/body/0/value/args/0",
+    "packages/qa-agent/tests/test_seasonal_retriever.py/body/23/body/16/body/1/value/args/0",
+    "packages/qa-agent/tests/test_seasonal_retriever.py/body/23/body/16/body/2/value/args/0",
+    "packages/qa-agent/tests/test_seasonal_retriever.py/body/23/body/18/body/1/body/1/body/2/value/args/0/args/0",
+    "packages/qa-agent/tests/test_seasonal_retriever.py/body/23/body/19/body/0/body/3/value/args/0",
+    "packages/qa-agent/tests/test_seasonal_retriever.py/body/23/body/19/body/0/body/7/value/args/0",
+    "packages/qa-agent/tests/test_seasonal_retriever.py/body/23/body/19/body/0/body/16/value/args/0"
+  ],
+  "ordinary_inputs": 904,
+  "before_digest": "563ece4412b43a6a4609ed29dc1ba16b1a28d048b9c65860fcf4fdd3b8ac452a",
+  "protected_metadata_paths": 3220,
+  "old_report_paths": 1931,
+  "archive_body_reads": 0,
+  "runtime": {
+    "executable": "/usr/bin/python3",
+    "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39"
+  }
+}

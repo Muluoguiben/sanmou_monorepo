@@ -1,0 +1,6 @@
+{"source": "3d8257bf03d47bb86fb80994c924987033b1858a", "locale": {"startup": {"locale": "C.UTF-8", "filesystem_encoding": "utf-8", "utf8_mode": 0}, "target_test_process": {"locale": "C", "locale_encoding": "ANSI_X3.4-1968", "file_encoding": "ANSI_X3.4-1968", "filesystem_encoding": "utf-8", "utf8_mode": 0, "stdout_encoding": "utf-8"}, "spawned_interpreter": {"locale": "C.UTF-8", "file_encoding": "UTF-8", "filesystem_encoding": "utf-8", "utf8_mode": 0}, "scope": "44 tests execute under C text locale; nested CLI processes inherit C.UTF-8 environment", "tests_run": 44, "failures": 0, "errors": 27, "skips": 0}, "exit": 1}
+Traceback (most recent call last):
+  File "/tmp/sanmou-h07a-integration-20261006/docs/test-reports/2026-10-06/q05a-file-locale-probe.py", line 64, in <module>
+    assert result.returncode == 0, "targeted tests must pass under real non-UTF text locale"
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: targeted tests must pass under real non-UTF text locale
