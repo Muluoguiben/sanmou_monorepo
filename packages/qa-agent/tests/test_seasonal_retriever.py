@@ -4,7 +4,10 @@ import copy
 from datetime import date
 import importlib.util
 import json
+import os
 from pathlib import Path
+import shutil
+import subprocess
 import sys
 import tempfile
 import types
@@ -14,6 +17,7 @@ from unittest.mock import MagicMock, patch
 from qa_agent.knowledge.models import Domain, EntryKind, KnowledgeEntry, LineupSolutionProfile
 from qa_agent.quality_eval import runner
 from qa_agent.quality_eval.season_cases import evaluate_season_cases, validate_cases
+from qa_agent.quality_eval.scoring import digest
 from qa_agent.retrieval.retriever import Retriever
 from qa_agent.retrieval.seasonal import retrieve_lineups_for_season
 
@@ -187,8 +191,14 @@ class SeasonalRetrieverTests(unittest.TestCase):
         fake.__spec__ = importlib.util.spec_from_file_location(name, fake.__file__)
         fake.validate_cases = MagicMock(side_effect=AssertionError("foreign validation"))
         fake.evaluate_season_cases = MagicMock(side_effect=AssertionError("foreign evaluation"))
-        with patch.dict(sys.modules, {name: fake}):
+        original = sys.modules[name]
+        sys.modules[name] = fake
+        try:
             with self.assertRaisesRegex(ValueError, "source mismatch"): runner.run(PACKAGE, baseline="v4")
+        finally:
+            # Restore only this target, not every unrelated lazy import. Clearing
+            # fresh Pydantic/MCP imports leaves their generic class caches stale.
+            sys.modules[name] = original
         fake.validate_cases.assert_not_called()
         fake.evaluate_season_cases.assert_not_called()
 
@@ -203,6 +213,31 @@ class SeasonalRetrieverTests(unittest.TestCase):
                 original = path.read_bytes()
                 with self.assertRaises(FileExistsError): runner.main()
                 self.assertEqual(path.read_bytes(), original)
+
+    def test_real_v4_cli_wrong_expected_saves_failed_report(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for path in ("src", "knowledge_sources", "tests/fixtures/quality_eval/v4"):
+                shutil.copytree(PACKAGE / path, root / path)
+            fixtures = root / "tests/fixtures/quality_eval/v4"
+            corpus = json.loads((fixtures / "cases.json").read_text())
+            corpus["season_cases"][0]["expected"]["match_ids"] = []
+            raw = json.dumps(corpus, ensure_ascii=False, indent=2) + "\n"
+            (fixtures / "cases.json").write_text(raw, encoding="utf-8")
+            frozen = json.loads((fixtures / "freeze.json").read_text())
+            frozen["cases_sha256"] = digest(raw)
+            (fixtures / "freeze.json").write_text(json.dumps(frozen), encoding="utf-8")
+            output = root / "failed-report.json"
+            env = dict(os.environ, PYTHONPATH=str(root / "src") + os.pathsep + os.environ.get("PYTHONPATH", ""))
+            env.pop("SANMOU_CAPTURE_TOKEN", None)
+            args = [sys.executable, "-B", "-m", "qa_agent.quality_eval.runner", "--baseline", "v4", "--output", str(output)]
+            result = subprocess.run(args, cwd=root, env=env, capture_output=True, timeout=60)
+            self.assertEqual(result.returncode, 1, result.stderr.decode())
+            report = json.loads(output.read_text())
+            self.assertFalse(report["season"]["gate_pass"])
+            self.assertEqual(report["season"]["passed"], report["season"]["denominator"] - 1)
+            self.assertIsNone(report["quality_threshold"])
+            self.assertEqual(report["multiturn"]["denominator"], 9)
 
 
 if __name__ == "__main__":
