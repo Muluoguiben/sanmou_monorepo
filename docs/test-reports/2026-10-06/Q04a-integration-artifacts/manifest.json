@@ -1,0 +1,102 @@
+{
+  "source": "7562b425aa0dd88882f14205399f2f7a8694b46d",
+  "tree": "f95667e7fac80866fc17a4d7ff41e1ae425ddf81",
+  "files": {
+    "baseline-manual-oracles.log": {
+      "bytes": 7657,
+      "sha256": "777ad736ff5e980551c13742153004ffa6913e44e473036cf53c3c7318bf228b"
+    },
+    "public-probes.log": {
+      "bytes": 779,
+      "sha256": "3b77407f4d3a5e506805c6c69c833afc0039b3c93b9bddfea9c2d5a280e8ba91"
+    },
+    "integration-probes.log": {
+      "bytes": 694,
+      "sha256": "c84ae0d844f3c4a2fafa77bfd6aa79812f69478f72303f581edbf8ca77b8bfdb"
+    },
+    "old-v1.log": {
+      "bytes": 848,
+      "sha256": "2208a1cabb01bbb5d8113c29676d10cfd6e21db243cf99303ffa4f18c8a2b245"
+    },
+    "old-v2.log": {
+      "bytes": 848,
+      "sha256": "2208a1cabb01bbb5d8113c29676d10cfd6e21db243cf99303ffa4f18c8a2b245"
+    },
+    "old-v3.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "new-v1.log": {
+      "bytes": 854,
+      "sha256": "d8fe233ec5c4f5b42ee53effad49a5fc2c24b5b4afc8d99c7e1057339e65da60"
+    },
+    "new-v2.log": {
+      "bytes": 854,
+      "sha256": "d8fe233ec5c4f5b42ee53effad49a5fc2c24b5b4afc8d99c7e1057339e65da60"
+    },
+    "new-v3.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "claim-module.log": {
+      "bytes": 3540,
+      "sha256": "4e901806f0b52d7ef9ef9f9bbeca4cc0d56bb1d53c6a752754c3e3bab23efa48"
+    },
+    "legacy-module.log": {
+      "bytes": 3423,
+      "sha256": "86aae0a96169e838c0e07fea93eeb1a65f4bd397ee052082f4364cfb0a3d0c69"
+    },
+    "causal-module.log": {
+      "bytes": 6208,
+      "sha256": "3ff0d232de8068478f8f24433ea111a40b6ab47132864c3cb72f3141f86c3361"
+    },
+    "h07-module.log": {
+      "bytes": 8407,
+      "sha256": "a2e0112f6d3225b4fd407580c0c5cc96d537b8602d0b1833277853ee6161c7a3"
+    },
+    "qa-agent.log": {
+      "bytes": 69029,
+      "sha256": "e8ad213323d0a6cad33f2fc86b559a5f9cbd6c4631c48229fce0bef1e4ac268b"
+    },
+    "pioneer-agent.log": {
+      "bytes": 343644,
+      "sha256": "41cabe01a509b05f13e71b1f92d6bf79cfbff8bbd8212c0f89c0e88036f6800c"
+    },
+    "sanmou-common.log": {
+      "bytes": 335,
+      "sha256": "7e9438edca6c90738e3f3983beb89cc2e47795af9815f716b6f41a24af9285f3"
+    },
+    "new-cli.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "h09-cli.log": {
+      "bytes": 254,
+      "sha256": "ad2ce1ef474adbf0dfa553dbd5f945f011087c8b807a84d2d1c0732d862a4fe7"
+    },
+    "summary.json": {
+      "bytes": 25699,
+      "sha256": "2cd4226ff4e296f31af69bc46985af1bda33498362c913f74f9e829bb177cf29"
+    },
+    "claim-spans.json": {
+      "bytes": 20850,
+      "sha256": "c74e39ee833365f3fb3c6d035c52b230c603da9806e8fa347fa15b2b6fc45120"
+    },
+    "legacy-compatibility.json": {
+      "bytes": 1863,
+      "sha256": "75275a12adbd8837d014294b25f0b3a85d73da043c5f36351298cdd8564a8913"
+    },
+    "h09-report.json": {
+      "bytes": 275849,
+      "sha256": "a2c368f085220e5190552274c702b5fc1611ebffafc064ab9ae52fed171823ab"
+    },
+    "verify.py": {
+      "bytes": 6986,
+      "sha256": "4ba112a282198902da9e279a3d7744d34914cbb97a55d6872b7838daa99ec80c"
+    }
+  },
+  "archives_created": 0,
+  "archive_reads": 0,
+  "external_matrix_root": "/tmp/q04a-integration-7562b42-20261006/matrix",
+  "native_q04": "no coordinator native execution; prior root missing-yaml import exit1,zero newtests; not pass/not product failure"
+}

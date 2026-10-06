@@ -1,0 +1,296 @@
+{
+  "manual_controls": 10,
+  "all_match_unchanged_legacy_scorer": true,
+  "controls": [
+    {
+      "id": "paraphrase-not-substring",
+      "expected_legacy": {
+        "review_status": "developer-authored",
+        "claims": 1,
+        "unjudged_claims": 0,
+        "citation_id_validity": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "claim_support": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "supported_citation_completeness": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "context_correctness": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "semantic_method": "external-span-adjudication; no automatic entailment"
+      }
+    },
+    {
+      "id": "wrong-number-valid-span",
+      "expected_legacy": {
+        "review_status": "developer-authored",
+        "claims": 1,
+        "unjudged_claims": 0,
+        "citation_id_validity": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "claim_support": {
+          "numerator": 0,
+          "denominator": 1,
+          "value": 0.0
+        },
+        "supported_citation_completeness": {
+          "numerator": 0,
+          "denominator": 1,
+          "value": 0.0
+        },
+        "context_correctness": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "semantic_method": "external-span-adjudication; no automatic entailment"
+      }
+    },
+    {
+      "id": "wrong-citation-is-data",
+      "expected_legacy": {
+        "review_status": "developer-authored",
+        "claims": 1,
+        "unjudged_claims": 0,
+        "citation_id_validity": {
+          "numerator": 0,
+          "denominator": 1,
+          "value": 0.0
+        },
+        "claim_support": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "supported_citation_completeness": {
+          "numerator": 0,
+          "denominator": 1,
+          "value": 0.0
+        },
+        "context_correctness": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "semantic_method": "external-span-adjudication; no automatic entailment"
+      }
+    },
+    {
+      "id": "missing-citation-is-data",
+      "expected_legacy": {
+        "review_status": "developer-authored",
+        "claims": 1,
+        "unjudged_claims": 0,
+        "citation_id_validity": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "claim_support": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "supported_citation_completeness": {
+          "numerator": 0,
+          "denominator": 1,
+          "value": 0.0
+        },
+        "context_correctness": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "semantic_method": "external-span-adjudication; no automatic entailment"
+      }
+    },
+    {
+      "id": "unknown-conflict",
+      "expected_legacy": {
+        "review_status": "developer-authored",
+        "claims": 1,
+        "unjudged_claims": 1,
+        "citation_id_validity": {
+          "numerator": 2,
+          "denominator": 2,
+          "value": 1.0
+        },
+        "claim_support": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "supported_citation_completeness": {
+          "numerator": 0,
+          "denominator": 1,
+          "value": 0.0
+        },
+        "context_correctness": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "semantic_method": "external-span-adjudication; no automatic entailment"
+      }
+    },
+    {
+      "id": "unreviewed-not-pass",
+      "expected_legacy": {
+        "review_status": "unreviewed",
+        "claims": 1,
+        "unjudged_claims": 1,
+        "citation_id_validity": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "claim_support": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "supported_citation_completeness": {
+          "numerator": 0,
+          "denominator": 1,
+          "value": 0.0
+        },
+        "context_correctness": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "semantic_method": "external-span-adjudication; no automatic entailment"
+      }
+    },
+    {
+      "id": "empty-evidence-nonclaim",
+      "expected_legacy": {
+        "review_status": "developer-authored",
+        "claims": 0,
+        "unjudged_claims": 0,
+        "citation_id_validity": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "claim_support": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "supported_citation_completeness": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "context_correctness": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "semantic_method": "external-span-adjudication; no automatic entailment"
+      }
+    },
+    {
+      "id": "human-is-external-declaration",
+      "expected_legacy": {
+        "review_status": "human-reviewed",
+        "claims": 1,
+        "unjudged_claims": 0,
+        "citation_id_validity": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "claim_support": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "supported_citation_completeness": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "context_correctness": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "semantic_method": "external-span-adjudication; no automatic entailment"
+      }
+    },
+    {
+      "id": "two-spans-one-claim-id",
+      "expected_legacy": {
+        "review_status": "developer-authored",
+        "claims": 1,
+        "unjudged_claims": 0,
+        "citation_id_validity": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "claim_support": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "supported_citation_completeness": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "context_correctness": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "semantic_method": "external-span-adjudication; no automatic entailment"
+      }
+    },
+    {
+      "id": "codepoints-crlf-combining",
+      "expected_legacy": {
+        "review_status": "developer-authored",
+        "claims": 1,
+        "unjudged_claims": 0,
+        "citation_id_validity": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "claim_support": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "supported_citation_completeness": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "context_correctness": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "semantic_method": "external-span-adjudication; no automatic entailment"
+      }
+    }
+  ]
+}

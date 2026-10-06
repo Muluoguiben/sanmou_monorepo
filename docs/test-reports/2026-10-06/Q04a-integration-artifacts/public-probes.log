@@ -1,0 +1,10 @@
+test_bare_cr_and_unencodable_text_are_rejected (__main__.PublicSpanControls.test_bare_cr_and_unencodable_text_are_rejected) ... ok
+test_each_content_binding_rejects_drift_independently (__main__.PublicSpanControls.test_each_content_binding_rejects_drift_independently) ... ok
+test_manual_semantic_and_denominator_controls (__main__.PublicSpanControls.test_manual_semantic_and_denominator_controls) ... ok
+test_schema_offsets_duplicates_and_label_constraints (__main__.PublicSpanControls.test_schema_offsets_duplicates_and_label_constraints) ... ok
+test_unicode_is_codepoint_not_byte_utf16_or_nfc (__main__.PublicSpanControls.test_unicode_is_codepoint_not_byte_utf16_or_nfc) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.014s
+
+OK

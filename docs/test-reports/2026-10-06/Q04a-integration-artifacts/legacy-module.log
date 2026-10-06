@@ -1,0 +1,28 @@
+test_answer_and_evidence_binding (test_quality_eval.QualityEvaluationTests.test_answer_and_evidence_binding) ... ok
+test_candidate_evidence_does_not_count_as_citation (test_quality_eval.QualityEvaluationTests.test_candidate_evidence_does_not_count_as_citation) ... ok
+test_context_binding (test_quality_eval.QualityEvaluationTests.test_context_binding) ... ok
+test_correct_id_does_not_establish_fact_or_context_support (test_quality_eval.QualityEvaluationTests.test_correct_id_does_not_establish_fact_or_context_support) ... ok
+test_empty_evidence_invalidates_id (test_quality_eval.QualityEvaluationTests.test_empty_evidence_invalidates_id) ... ok
+test_frozen_retrieval_baseline_runs_without_model_or_network (test_quality_eval.QualityEvaluationTests.test_frozen_retrieval_baseline_runs_without_model_or_network) ... ok
+test_invalid_version_and_loaded_source_rejected (test_quality_eval.QualityEvaluationTests.test_invalid_version_and_loaded_source_rejected) ... ok
+test_lazy_assessment_module_from_another_tree_is_rejected (test_quality_eval.QualityEvaluationTests.test_lazy_assessment_module_from_another_tree_is_rejected) ... ok
+test_manifest_metadata_rejects_version_split_and_duplicate_ids (test_quality_eval.QualityEvaluationTests.test_manifest_metadata_rejects_version_split_and_duplicate_ids) ... ok
+test_mixed_claim_missing_citation_not_hidden_by_first_claim (test_quality_eval.QualityEvaluationTests.test_mixed_claim_missing_citation_not_hidden_by_first_claim) ... ok
+test_portable_snapshot_binds_paths_and_content (test_quality_eval.QualityEvaluationTests.test_portable_snapshot_binds_paths_and_content) ... ok
+test_production_or_fixture_drift_is_rejected (test_quality_eval.QualityEvaluationTests.test_production_or_fixture_drift_is_rejected) ... ok
+test_real_file_add_delete_and_change_rejected (test_quality_eval.QualityEvaluationTests.test_real_file_add_delete_and_change_rejected) ... ok
+test_refusal_precision_recall_distinct (test_quality_eval.QualityEvaluationTests.test_refusal_precision_recall_distinct) ... ok
+test_retrieval_denominators_and_duplicates (test_quality_eval.QualityEvaluationTests.test_retrieval_denominators_and_duplicates) ... ok
+test_strict_schema_is_separate_from_hash_binding (test_quality_eval.QualityEvaluationTests.test_strict_schema_is_separate_from_hash_binding) ... ok
+test_supported_label_requires_bound_evidence (test_quality_eval.QualityEvaluationTests.test_supported_label_requires_bound_evidence) ... ok
+test_supported_synthetic_control (test_quality_eval.QualityEvaluationTests.test_supported_synthetic_control) ... ok
+test_true_but_off_topic_is_context_failure_not_false_fact (test_quality_eval.QualityEvaluationTests.test_true_but_off_topic_is_context_failure_not_false_fact) ... ok
+test_unannotated_gaps_and_overlap_rejected (test_quality_eval.QualityEvaluationTests.test_unannotated_gaps_and_overlap_rejected) ... ok
+test_unknown_and_unreviewed_are_not_semantic_passes (test_quality_eval.QualityEvaluationTests.test_unknown_and_unreviewed_are_not_semantic_passes) ... ok
+test_v1_remains_frozen_and_rejects_new_production (test_quality_eval.QualityEvaluationTests.test_v1_remains_frozen_and_rejects_new_production) ... ok
+test_v3_requires_nonempty_valid_multiturn_suite (test_quality_eval.QualityEvaluationTests.test_v3_requires_nonempty_valid_multiturn_suite) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 1.484s
+
+OK

@@ -1,0 +1,30 @@
+test_answer_gaps_overlaps_and_bool_coordinates (test_claim_spans.ClaimSpanTests.test_answer_gaps_overlaps_and_bool_coordinates) ... ok
+test_bad_or_absent_citations_remain_scored (test_claim_spans.ClaimSpanTests.test_bad_or_absent_citations_remain_scored) ... ok
+test_bare_cr_and_unencodable_text_rejected_everywhere (test_claim_spans.ClaimSpanTests.test_bare_cr_and_unencodable_text_rejected_everywhere) ... ok
+test_codepoint_link_can_address_emoji_and_combining_character (test_claim_spans.ClaimSpanTests.test_codepoint_link_can_address_emoji_and_combining_character) ... ok
+test_context_answer_evidence_and_label_hash_drift (test_claim_spans.ClaimSpanTests.test_context_answer_evidence_and_label_hash_drift) ... ok
+test_corpus_strictness_duplicates_and_unreviewed_allowed (test_claim_spans.ClaimSpanTests.test_corpus_strictness_duplicates_and_unreviewed_allowed) ... ok
+test_drift_during_scoring_rejected (test_claim_spans.ClaimSpanTests.test_drift_during_scoring_rejected) ... ok
+test_duplicate_json_keys_and_bare_cr_file_rejected (test_claim_spans.ClaimSpanTests.test_duplicate_json_keys_and_bare_cr_file_rejected) ... ok
+test_evidence_mapping_and_entry_id_validation (test_claim_spans.ClaimSpanTests.test_evidence_mapping_and_entry_id_validation) ... ok
+test_frozen_controls_and_no_network (test_claim_spans.ClaimSpanTests.test_frozen_controls_and_no_network) ... ok
+test_frozen_fixture_drift_rejected (test_claim_spans.ClaimSpanTests.test_frozen_fixture_drift_rejected) ... ok
+test_generic_human_label_is_only_unauthenticated_declaration (test_claim_spans.ClaimSpanTests.test_generic_human_label_is_only_unauthenticated_declaration) ... ok
+test_link_bad_identity_hash_offsets_and_exact_duplicate (test_claim_spans.ClaimSpanTests.test_link_bad_identity_hash_offsets_and_exact_duplicate) ... ok
+test_no_unicode_normalization_or_strip (test_claim_spans.ClaimSpanTests.test_no_unicode_normalization_or_strip) ... ok
+test_nonclaim_and_supported_link_rules (test_claim_spans.ClaimSpanTests.test_nonclaim_and_supported_link_rules) ... ok
+test_partial_citation_remains_in_all_claims_denominator (test_claim_spans.ClaimSpanTests.test_partial_citation_remains_in_all_claims_denominator) ... ok
+test_real_cli_create_only_and_explicit_version (test_claim_spans.ClaimSpanTests.test_real_cli_create_only_and_explicit_version) ... ok
+test_same_id_multiple_spans_do_not_inflate_claim_denominator (test_claim_spans.ClaimSpanTests.test_same_id_multiple_spans_do_not_inflate_claim_denominator) ... ok
+test_strict_annotation_segment_and_link_fields (test_claim_spans.ClaimSpanTests.test_strict_annotation_segment_and_link_fields) ... ok
+test_unicode_crlf_normalized_before_all_binding_and_offsets (test_claim_spans.ClaimSpanTests.test_unicode_crlf_normalized_before_all_binding_and_offsets) ... ok
+test_unknown_unreviewed_and_zero_denominators (test_claim_spans.ClaimSpanTests.test_unknown_unreviewed_and_zero_denominators) ... ok
+test_utf16_byte_or_grapheme_offsets_not_repaired (test_claim_spans.ClaimSpanTests.test_utf16_byte_or_grapheme_offsets_not_repaired) ... ok
+test_valid_links_are_not_semantic_support (test_claim_spans.ClaimSpanTests.test_valid_links_are_not_semantic_support) ... ok
+test_versions_types_and_enum_values (test_claim_spans.ClaimSpanTests.test_versions_types_and_enum_values) ... ok
+test_wrong_package_and_mixed_module_origins_rejected (test_claim_spans.ClaimSpanTests.test_wrong_package_and_mixed_module_origins_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 0.479s
+
+OK

@@ -1,11 +1,22 @@
 # Todo List
 
+## Active Review continuation — Q04a evidence spans (2026-10-06)
+
+- [x] H10b exactnative32/0skip/warningfree/alljobs complete; choose nextboundedofflineQ04a and freeze [contract](docs/qa-claim-spans-q04a-2026-10-06.md) at9e35b34e2540923bd7b253f71b3d1f49da1093fb frompublished5791.
+- [x] Interface memo9637efe and independent plan95865435 frozen before implementation; reviewer found no blocker. Uniform LF/codepoint normalization, bareCR/surrogate rejection, empty evidence map, synthetic developer/unreviewed-only labels and unchanged legacy denominators approved.
+- [x] Initialcode676ac1e adds standalone claim-span module,25tests/12syntheticcontrols only; author report0530fbb binds source/tree and full matrix. Oldscorer/production/KB unchanged; nativeQ04 untested, independentCR still pending. Mechanical span validity never grants supported/human-reviewed truth.
+- [x] Source-bound author0530 and independent962408d APPROVE fixed676ac/tree16b74 in Linux/offline scope. Public5/CLI4 and fullmatrix pass; reviewer-only firstred/audit corrections retained. NativeQ04 attempted but blocked at missingyaml before any newtest, not a pass.
+- [x] Exactcombo7562b425aa0dd88882f14205399f2f7a8694b46d/treef95667e packages=e849/github=29fca independently passed new25/old23/public5/integration4/H07-35/H10-32/QA419/Pioneer1083+2skip/common2/newCLI12/H098;899 Git inputs unchanged. Legacy v3 differs only exact new eval_source entry+digest; v1/v2 expected refusals preserved. See [integration report](docs/test-reports/2026-10-06/Q04a-integration.md).
+- [ ] Single publication candidate awaits final payload audit/publish/exact CI; native Q04 remains environment-blocked (missingyaml,0 newtests), not passed. Continue next scoped offline route under verified continuous authority; Q04b Windows25 then Q05a label isolation are proposed only.
+- CarryH10bfinalCIthreeWIPfiles innextnormaldelivery. Q06archives/publication remainpaused;realprovidercost/credentials/persistentaccess/game/deploy remainoutofscope. Continueunderverifiedcontinuousauthority.
+
 ## Active Review continuation — H10b native causal trace (2026-10-06)
 
 - [x] Confirm native gap on publisheda459: Windows job omits test_causal_trace32. Freeze [contract](docs/harness-native-causal-trace-h10b-2026-10-06.md) at c8b096edc5fce6c87e83198b871ab5c576add1db; reuse completed author/reviewer, both restarted/running without duplicate development sessions.
 - [x] Fixedcodee062adb7dd45d10bb579165a56f1c0d3ccf901d1/author3b31752ecd5c566c8e995c14834c6b736d71f776/independentbc0511bb5cd8bd2a463ccf41019e81ca4e6f0985 scopedwiring+LinuxAPPROVE. Sole3line step;wholeYAML/bytes reverse-exact,packages3d1c and32assertions unchanged.
 - [x] Exactcomboed158e35a34c80aa99be2597bdddc300a6cff62f sevenlanespass:causal32(-Werror)/0skip/no warnings/32actualnames match,H0735,Pioneer1083+2skip,QA394/common2,H09/v3unchanged. [Compact source-bound report](docs/test-reports/2026-10-06/H10b-integration.md).
-- [ ] Singlepublicationcandidate awaitsfinalaudit/FF/push/exactSHA Hostednative32/0skip/warningfree/exit0/all4jobs actualrawlog proof. Linux oroldH07Windows35 doesnotcloseH10nativegap;afterthisgate continue nextboundedofflineReview slice underpreservedcontinuousauthority.
+- [x] H10b finalcandidate5791ca397507007b9397c78763b3523b8ec16421 passedpayload audit,masterFF/push andexplicitremote-readbackmatch;noQ06payload/archives included.
+- [x] Exactrun37456026018/attempt1 all4jobs success on5791. Windowsjob112243731766 step10 rawlog32actualnames=GitAST,32pass/0skip in1.351s,29inlineok+3splitok,noRuntimeWarning/unawaited/errors. [Native final CI](https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/37456026018). H10b gapclosed;continue preparedQ04a offline next,notstatus-onlypush orper-roundreapproval.
 - Continue the next feasible existing offline slice after this gate, under directly verified continuous-iteration/supervision authorization. Preserve H10a post-CI three-file WIP in normal delivery. Q06archive reading/publication stayspaused; provider cost/credentials/persistentaccess/game/deployment boundaries unchanged.
 
 ## Active Review continuation — H10a causal trace (2026-10-06)
