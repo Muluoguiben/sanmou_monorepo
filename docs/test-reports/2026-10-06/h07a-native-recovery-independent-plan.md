@@ -8,8 +8,10 @@ isolated review checkout. Prior `codex/h07a-cr-20261006` branch is preserved.
 
 Read before freezing: current AGENTS.md, code-review skill, published workflow,
 approval tests and TaskRunner/RunBudget recovery boundaries. This plan follows the
-coordinator's explicit small-slice instructions; the incoming frozen contract will
-be checked for consistency before immutable author source handoff is reviewed.
+coordinator's explicit small-slice instructions. The subsequently received frozen
+contract `ecf50e0012c336c131f75b9bc6c102530a0d1876` was read completely before any
+author source/WIP: it matches these oracles and specifies the full regression lanes
+and local-fixed-disk Windows checkpoint requirement below.
 This is a plan, not new implementation or a passing-result claim.
 
 ## Scope and immutable legacy oracles
@@ -61,7 +63,8 @@ diffs as well as normal Git diffs; green from weakened old assertions is rejecte
 5. **Native complete module and CI wiring.** Run the entire updated approval test
    module on actual Windows with existing dependencies and zero skips (expected
    32 tests if exactly two methods are added), recording exact source SHA/tree,
-   interpreter, command, cwd, exit and raw unittest output. Confirm the new CI step
+   interpreter, command, cwd, exit and raw unittest output. Windows checkpoints use
+   a local fixed-disk temp directory, not the UNC source directory. Confirm the new CI step
    really selects this module with usable imports and failure propagation. Preserve
    old Windows steps; no install or dependency changes within this task. Synthetic
    clients on Windows prove native lifecycle behavior, not real MCP transport,
@@ -69,7 +72,8 @@ diffs as well as normal Git diffs; green from weakened old assertions is rejecte
    module, report the specific environment blocker rather than claiming a skip pass.
 6. **Regression/provenance.** Re-run targeted new tests plus the full module on Linux
    and Windows; run existing focused ownership/task/CLI regressions and proportionate
-   full Pioneer regression on fixed source. Check source hashes and unchanged prior
+   full Pioneer/QA/common, actual H09 eight-case CLI and frozen QA-v3 regression on
+   fixed source as required by the frozen contract. Check source hashes and unchanged prior
    oracles. Preserve raw failures before fixes and rerun unchanged assertions. New
    acceptance evidence supersedes neither earlier source-bound results nor separate
    hosted-CI status; report only actually observed checks for the exact revision.
@@ -81,7 +85,7 @@ not tar/zip; do not open any archive member/body, Q06 payload or Q06 ancestry. D
 touch the main checkout's three WIP files. No credentials, .env, provider, game,
 bridge, installation, deployment, push or permission expansion. Keep none/false.
 
-After plan commit, wait for the frozen contract and immutable author SHA/tree plus
+After plan commit, wait for immutable author SHA/tree plus
 actual self-test logs. Independently review and reproduce findings; do not repair
 author production code. Final recommendation names exact source, counts/skips,
 remaining limitations and the report commit. A previous APPROVE or CI pass is not
