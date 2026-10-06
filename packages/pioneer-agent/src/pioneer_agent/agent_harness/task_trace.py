@@ -29,7 +29,7 @@ class CausalTraceProducer:
         self.emitting = False
 
     def remember(self, primary):
-        if primary is not None and not isinstance(primary, TraceEmissionError):
+        if primary is not None and primary is not self.failure:
             if self.primary is None:
                 self.primary = primary
             if self.failure is not None:
@@ -42,7 +42,9 @@ class CausalTraceProducer:
             if exit and self.business_failure is not None:
                 return
             if self.primary is None:
-                raise self.failure
+                self.failure.__cause__ = None
+                self.failure.__context__ = None
+                raise self.failure from None
             if not exit:
                 raise self.primary
 
@@ -55,7 +57,6 @@ class CausalTraceProducer:
         if self.failure is None:
             self.failure = TraceEmissionError("causal_trace_failed:" + type(error).__name__)
             self.failure.error_type = type(error).__name__
-            self.failure.__cause__ = error
         self.remember(primary or self.primary)
 
     def provenance(self, context=None):
@@ -81,7 +82,7 @@ class CausalTraceProducer:
             return uuid4().hex, provenance
         except Exception as error:
             self._failed(error)
-            self.check()
+        self.check()  # Outside the validation handler: do not inherit its private input.
 
     def emit(self, event, *, primary=None, invocation_id=None, provenance=None,
              event_id=None, parent=None, advance=True):

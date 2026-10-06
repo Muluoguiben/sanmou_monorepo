@@ -3,6 +3,7 @@ import asyncio
 import copy
 from datetime import UTC, datetime, timedelta
 import json
+import traceback
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
@@ -210,6 +211,22 @@ class CausalRunnerTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(r.trace.events[0].provenance.task_version, 1)
         self.assertNotEqual(*values)
 
+    async def test_policy_display_identity_is_the_frozen_invocation_identity(self):
+        class MutatingIdentity(RuleDecisionPolicy):
+            policy_id = "before-policy"
+            policy_version = "before-version"
+            async def decide(self, context):
+                self.policy_id = "after-policy"
+                self.policy_version = "after-version"
+                return PolicyDecision(action="stop", reason="stop")
+        r = runner(policy=MutatingIdentity())
+        await r.run()
+        event = next(e for e in r.trace.events if e.event == "policy")
+        self.assertEqual(event.provenance.policy_id, "before-policy")
+        self.assertEqual(event.provenance.policy_version.value, "before-version")
+        self.assertEqual(event.name, "before-policy")
+        self.assertEqual(event.metadata["policy_id"], "before-policy")
+
     async def test_actual_policy_argument_is_detached_from_builder_and_rechecked_at_dispatch(self):
         class Builder(BoundedContextBuilder):
             def build(self, request):
@@ -355,6 +372,33 @@ class CausalRunnerTests(unittest.IsolatedAsyncioTestCase):
 
 
 class CausalFaultTests(unittest.IsolatedAsyncioTestCase):
+    async def test_trace_wrapper_has_no_private_explicit_or_inherited_context(self):
+        sentinel = "H10A_AUTHOR_PRIVATE_SECONDARY"
+        for mode in ("sink", "declaration", "late-declaration", "caller-context"):
+            with self.subTest(mode=mode):
+                trace = FailingTrace(lambda e: e.event == ("tool" if mode == "caller-context" else "lifetime_start"))
+                trace.failure = OSError(sentinel)
+                policy = RuleDecisionPolicy()
+                if mode == "declaration": policy.policy_version = {"private": sentinel}
+                class Builder(BoundedContextBuilder):
+                    def build(self, request):
+                        result = super().build(request)
+                        policy.policy_version = {"private": sentinel}
+                        return result
+                r = runner(policy=policy, trace=trace if mode in {"sink", "caller-context"} else InMemoryRunTrace(),
+                           context=Builder() if mode == "late-declaration" else None)
+                if mode == "caller-context":
+                    try:
+                        raise ValueError(sentinel)
+                    except ValueError:
+                        with self.assertRaises(TraceEmissionError) as caught:
+                            await r.run()
+                else:
+                    with self.assertRaises(TraceEmissionError) as caught:
+                        await r.run()
+                self.assertNotIn(sentinel, "".join(traceback.format_exception(caught.exception)))
+                self.assertIsNone(caught.exception.__cause__)
+
     async def test_sink_failure_at_every_boundary_latches_without_retry_or_derived_success(self):
         for event_name in ("lifetime_start", "window_start", "tool", "observation", "policy", "outcome", "lifetime_end"):
             with self.subTest(event=event_name):

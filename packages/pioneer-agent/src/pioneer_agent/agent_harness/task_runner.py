@@ -4,7 +4,6 @@ from __future__ import annotations
 import asyncio
 from contextlib import contextmanager
 from datetime import datetime
-import sys
 from threading import RLock
 from typing import Any
 
@@ -21,7 +20,6 @@ from pioneer_agent.agent_harness.task_contracts import (
     DecisionPolicy, PolicyContext, PolicyDecision, RunBudget, RunState, RunTrace, TaskSpec,
     TERMINAL_STATUSES, TraceEvent, Usage, SyntheticApprovalRecord, SyntheticApprovalResponse,
     SyntheticApprovalRunState, parse_run_state,
-    TraceEmissionError,
 )
 from pioneer_agent.agent_harness.task_trace import CausalTraceProducer
 from pioneer_agent.mcp_server.contracts import (
@@ -224,7 +222,7 @@ class TaskRunner:
     def _emit(self, event: str, **kwargs) -> None:
         record = TraceEvent(run_id=self.state.run_id, step_id=self.step_id, event=event, **kwargs)
         if self._causal is not None:
-            self._causal.emit(record, primary=sys.exception(), advance=False)
+            self._causal.emit(record, advance=False)
         else:
             self.trace.emit(record)
 
@@ -234,11 +232,15 @@ class TaskRunner:
             yield
             return
         self._causal.start_window()
+        primary = None
         try:
             yield
+        except BaseException as error:
+            primary = error
+            raise
         finally:
-            self._causal.outcome(primary=sys.exception())
-            if sys.exception() is None:
+            self._causal.outcome(primary=primary)
+            if primary is None:
                 self._causal.check(exit=True)
 
     def _causal_control(self, name):
@@ -277,11 +279,13 @@ class TaskRunner:
                     if primary is None:
                         self._causal.check(exit=True)
 
-    def _finish(self, status: str, reason: str) -> RunState:
+    def _finish(self, status: str, reason: str, *, primary=None) -> RunState:
         self.state.status = status
         self.state.reason = reason
         self.state.pending_call = None
         self._save()
+        if self._causal is not None:
+            self._causal.remember(primary)
         if self._causal is not None and status == "failed":
             self._causal.failed_business(reason)
         metadata = {"reason": reason}
@@ -427,23 +431,23 @@ class TaskRunner:
         except CheckpointConflict:
             raise
         except _Interrupt as exc:
-            return self._finish(exc.status, exc.reason)
-        except BudgetExceeded:
-            return self._finish("failed", "budget_exhausted")
-        except ContextOverflow:
-            return self._finish("failed", "context_overflow")
-        except asyncio.CancelledError:
+            return self._finish(exc.status, exc.reason, primary=exc)
+        except BudgetExceeded as exc:
+            return self._finish("failed", "budget_exhausted", primary=exc)
+        except ContextOverflow as exc:
+            return self._finish("failed", "context_overflow", primary=exc)
+        except asyncio.CancelledError as exc:
             self.budget.cancel()
-            self._finish("cancelled", "async_cancelled")
+            self._finish("cancelled", "async_cancelled", primary=exc)
             raise
-        except TimeoutError:
+        except TimeoutError as exc:
             interruption = self._timeout_interrupt()
-            return self._finish(interruption.status, interruption.reason)
+            return self._finish(interruption.status, interruption.reason, primary=exc)
         except Exception as exc:
-            if self._checkpoint_failed or (self._causal is not None and isinstance(exc, TraceEmissionError)):
+            if self._checkpoint_failed or (self._causal is not None and exc is self._causal.failure):
                 raise
             # Store only class, never exception text that may contain provider data.
-            return self._finish("failed", f"runtime_error:{type(exc).__name__}")
+            return self._finish("failed", f"runtime_error:{type(exc).__name__}", primary=exc)
 
     async def _step(self) -> RunState | None:
         self._responses.clear()
@@ -505,6 +509,7 @@ class TaskRunner:
         self.state.pending_call = f"policy:{self.policy.policy_id}"
         outcome = "error"
         policy_error = None
+        policy_primary = None
         transport = "not_attempted"
         contract = "not_checked"
         try:
@@ -527,13 +532,16 @@ class TaskRunner:
             contract = "ok"
             outcome = decision.action
         except _Interrupt as exc:
+            policy_primary = exc
             outcome = exc.reason
             raise
-        except asyncio.CancelledError:
+        except asyncio.CancelledError as exc:
+            policy_primary = exc
             transport = "cancelled"
             policy_error = "CancelledError"
             raise
         except BaseException as exc:
+            policy_primary = exc
             policy_error = type(exc).__name__
             raise
         finally:
@@ -542,15 +550,16 @@ class TaskRunner:
                     self.budget.settle(reservation, Usage(), outcome=outcome)
                 self.state.pending_call = None
                 self._save()
-                values = dict(name=self.policy.policy_id, attempt_id=reservation,
+                policy_identity = provenance.policy_id if provenance is not None else self.policy.policy_id
+                values = dict(name=policy_identity, attempt_id=reservation,
                     observation_id=observation.observation_id, evidence_refs=refs,
                     transport=transport, contract=contract, business=outcome,
                     error_type=policy_error, usage=Usage() if reservation else None,
-                    metadata={"policy_id": self.policy.policy_id, "task_version": 1})
+                    metadata={"policy_id": policy_identity, "task_version": 1})
                 if self._causal is not None:
                     if invocation_id is None:
                         values.update(transport="not_attempted", contract="not_checked")
-                    self._causal.emit(self._causal.event("policy", **values), primary=sys.exception(),
+                    self._causal.emit(self._causal.event("policy", **values), primary=policy_primary,
                         invocation_id=invocation_id, provenance=provenance)
                 else:
                     self._emit("policy", **values)
@@ -669,6 +678,7 @@ class _TaskClient:
                            name=name, attempt_id=reservation)
         r.state.pending_call = name
         invocation_id = provenance = None
+        primary = None
         try:
             r._save()
             r._check()
@@ -701,10 +711,12 @@ class _TaskClient:
             r._responses[name] = response
             return raw
         except ValidationError as exc:
+            primary = exc
             event.contract = "error"
             event.error_type = type(exc).__name__
             raise
-        except asyncio.CancelledError:
+        except asyncio.CancelledError as exc:
+            primary = exc
             event.transport = "cancelled"
             event.error_type = "CancelledError"
             raise
@@ -712,12 +724,15 @@ class _TaskClient:
             event.transport = "error"
             event.error_type = "TimeoutError"
             interruption = r._timeout_interrupt()
+            primary = interruption
             event.business = interruption.reason
             raise interruption from None
         except _Interrupt as exc:
+            primary = exc
             event.business = exc.reason
             raise
         except BaseException as exc:
+            primary = exc
             if event.transport != "ok":
                 event.transport = "error"
             event.error_type = type(exc).__name__
@@ -730,6 +745,6 @@ class _TaskClient:
                 if r._causal is not None:
                     if invocation_id is None:
                         event.transport, event.contract = "not_attempted", "not_checked"
-                    r._causal.emit(event, primary=sys.exception(), invocation_id=invocation_id, provenance=provenance)
+                    r._causal.emit(event, primary=primary, invocation_id=invocation_id, provenance=provenance)
                 else:
                     r.trace.emit(event)
