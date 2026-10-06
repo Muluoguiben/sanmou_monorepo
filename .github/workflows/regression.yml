@@ -68,6 +68,9 @@ jobs:
       - name: Windows H07a synthetic approval lifecycle
         working-directory: packages/pioneer-agent/tests
         run: python -m unittest test_task_approval -v
+      - name: Windows H10b causal trace v2
+        working-directory: packages/pioneer-agent/tests
+        run: python -W error::RuntimeWarning -m unittest test_causal_trace -v
       # Existing CLI; exact report bytes retained in bounded log chunks.
       - name: Windows H09b offline task evaluation
         run: python scripts/check_windows_task_eval.py
