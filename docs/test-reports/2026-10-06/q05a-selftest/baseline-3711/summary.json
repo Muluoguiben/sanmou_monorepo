@@ -1,0 +1,78 @@
+{
+  "source": "3711e92d38786418e8e955d19a56cd6c72611389",
+  "tree": "9352ea3eaee2d0a41ecce44e9dc4fc188c35d3cf",
+  "commands": [
+    {
+      "name": "old-quality",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_quality_eval.py",
+        "-v"
+      ],
+      "cwd": "/tmp/q05a-3711-baseline/packages/qa-agent",
+      "exit": 0,
+      "log": "old-quality.log",
+      "log_sha256": "af5132187b88dbe2c5b30c78f0b2e8490042037e1945c677d6f9e917015c876a"
+    },
+    {
+      "name": "old-v3",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "qa_agent.quality_eval.runner",
+        "--baseline",
+        "v3",
+        "--output",
+        "/tmp/q05a-3711-baseline-results/v3.json"
+      ],
+      "cwd": "/tmp/q05a-3711-baseline/packages/qa-agent",
+      "exit": 0,
+      "log": "old-v3.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "old-q04",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "qa_agent.quality_eval.claim_spans",
+        "--baseline",
+        "claim-spans-v1",
+        "--output",
+        "/tmp/q05a-3711-baseline-results/q04.json"
+      ],
+      "cwd": "/tmp/q05a-3711-baseline/packages/qa-agent",
+      "exit": 0,
+      "log": "old-q04.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "resource-warning",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-W",
+        "always::ResourceWarning",
+        "-m",
+        "unittest",
+        "test_lineup_frame_extractor.CropIntoColumnsTests.test_splits_and_upscales",
+        "-v"
+      ],
+      "cwd": "/tmp/q05a-3711-baseline/packages/qa-agent/tests",
+      "exit": 0,
+      "log": "resource-warning.log",
+      "log_sha256": "71191cab5009dac0be97c85e75d7f5797bc6f021e1a20c8c9730c3ea0f4eede0"
+    }
+  ],
+  "v3_sha256": "db72e1c3616cadb2062c86a676596c21f1412dfa3ce6691a8f22c9576a259aec",
+  "q04_sha256": "c74e39ee833365f3fb3c6d035c52b230c603da9806e8fa347fa15b2b6fc45120"
+}

@@ -1,0 +1,15 @@
+test_splits_and_upscales (test_lineup_frame_extractor.CropIntoColumnsTests.test_splits_and_upscales) ... /tmp/q05a-3711-baseline/packages/qa-agent/tests/test_lineup_frame_extractor.py:172: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/tmp88xkb02h/cols/BVx-frame-001-0s-col1of3.png'>
+  w, h = Image.open(p).size
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/q05a-3711-baseline/packages/qa-agent/tests/test_lineup_frame_extractor.py:172: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/tmp88xkb02h/cols/BVx-frame-001-0s-col2of3.png'>
+  w, h = Image.open(p).size
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/tmp/q05a-3711-baseline/packages/qa-agent/tests/test_lineup_frame_extractor.py:172: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/tmp88xkb02h/cols/BVx-frame-001-0s-col3of3.png'>
+  w, h = Image.open(p).size
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.028s
+
+OK

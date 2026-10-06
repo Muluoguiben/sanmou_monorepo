@@ -1,0 +1,23 @@
+test_exact_three_groups_and_reasons (test_seasonal_retriever.SeasonalRetrieverTests.test_exact_three_groups_and_reasons) ... ok
+test_filter_before_top_k_avoids_wrong_season_flood (test_seasonal_retriever.SeasonalRetrieverTests.test_filter_before_top_k_avoids_wrong_season_flood) ... ok
+test_global_duplicates_even_cross_season_unknown_and_unrelated (test_seasonal_retriever.SeasonalRetrieverTests.test_global_duplicates_even_cross_season_unknown_and_unrelated) ... ok
+test_multitag_exact_case_sensitive_no_unicode_alias (test_seasonal_retriever.SeasonalRetrieverTests.test_multitag_exact_case_sensitive_no_unicode_alias) ... ok
+test_existing_model_strip_and_alias_query_reused (test_seasonal_retriever.SeasonalRetrieverTests.test_existing_model_strip_and_alias_query_reused) ... ok
+test_strict_request_arguments (test_seasonal_retriever.SeasonalRetrieverTests.test_strict_request_arguments) ... ok
+test_invalid_entry_container_types (test_seasonal_retriever.SeasonalRetrieverTests.test_invalid_entry_container_types) ... ok
+test_empty_and_unrelated_pools_no_diagnostic_dump (test_seasonal_retriever.SeasonalRetrieverTests.test_empty_and_unrelated_pools_no_diagnostic_dump) ... ok
+test_each_pool_cap_and_original_order (test_seasonal_retriever.SeasonalRetrieverTests.test_each_pool_cap_and_original_order) ... ok
+test_input_identity_and_default_retrieval_unchanged (test_seasonal_retriever.SeasonalRetrieverTests.test_input_identity_and_default_retrieval_unchanged) ... ok
+test_synthetic_control_and_valid_wrong_expected_fail_gate (test_seasonal_retriever.SeasonalRetrieverTests.test_synthetic_control_and_valid_wrong_expected_fail_gate) ... ok
+test_exact_case_and_expected_keys (test_seasonal_retriever.SeasonalRetrieverTests.test_exact_case_and_expected_keys) ... ok
+test_case_ids_group_types_and_control_metadata (test_seasonal_retriever.SeasonalRetrieverTests.test_case_ids_group_types_and_control_metadata) ... ok
+test_expected_ids_types_duplicates_and_reasons (test_seasonal_retriever.SeasonalRetrieverTests.test_expected_ids_types_duplicates_and_reasons) ... ok
+test_duplicate_entries_rejected_before_evaluating_any_control (test_seasonal_retriever.SeasonalRetrieverTests.test_duplicate_entries_rejected_before_evaluating_any_control) ... ok
+test_v4_requires_inherited_groups_and_season_cases (test_seasonal_retriever.SeasonalRetrieverTests.test_v4_requires_inherited_groups_and_season_cases) ... ok
+test_v4_inherits_v3_cases_exactly (test_seasonal_retriever.SeasonalRetrieverTests.test_v4_inherits_v3_cases_exactly) ... ok
+test_cli_failed_gate_report_saved_create_only (test_seasonal_retriever.SeasonalRetrieverTests.test_cli_failed_gate_report_saved_create_only) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.036s
+
+OK

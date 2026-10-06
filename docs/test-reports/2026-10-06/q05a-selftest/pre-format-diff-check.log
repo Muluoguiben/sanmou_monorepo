@@ -1,0 +1,924 @@
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:1: trailing whitespace.
++from __future__ import annotations
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:2: trailing whitespace.
++
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:3: trailing whitespace.
++import argparse
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:8: trailing whitespace.
++from pathlib import Path
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:9: trailing whitespace.
++
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:10: trailing whitespace.
++from qa_agent.quality_eval.scoring import digest, ratio, retrieval_score, score_answer, snapshot
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:125: trailing whitespace.
++    corpus = json.loads((fixtures / "cases.json").read_text(encoding="utf-8-sig"))
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:130: trailing whitespace.
++    kb = snapshot(package, list((package / "knowledge_sources").rglob("*.yaml")))
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:131: trailing whitespace.
++    production = snapshot(package, [p for p in (package / "src/qa_agent").rglob("*.py")
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:132: trailing whitespace.
++                                    if "quality_eval" not in p.parts])
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:133: trailing whitespace.
++    if kb != frozen["kb"] or production != frozen["production"]:
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:134: trailing whitespace.
++        raise ValueError("frozen KB/production source drift; create a reviewed new baseline version")
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:146: trailing whitespace.
++    retriever = Retriever.from_knowledge_dir(package / "knowledge_sources")
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:147: trailing whitespace.
++    entries = {e.id: e for e in retriever.entries}
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:148: trailing whitespace.
++    rows = []
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:149: trailing whitespace.
++    for case in corpus["queries"]:
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:150: trailing whitespace.
++        for label in case["evidence_labels"]:
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:151: trailing whitespace.
++            entry = entries[label["id"]]
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:152: trailing whitespace.
++            if label["source_ref"] != entry.source_ref or label["facts_sha256"] != digest("\n".join(entry.answer_lines())):
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:153: trailing whitespace.
++                raise ValueError("evidence label source mismatch")
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:154: trailing whitespace.
++        actual = [c.entry.id for c in retriever.retrieve(case["query"], top_k=corpus["top_k"])]
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:155: trailing whitespace.
++        expected = [e["id"] for e in case["evidence_labels"]]
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:156: trailing whitespace.
++        rows.append({**case, "retrieved_ids": actual, **retrieval_score(expected, actual)})
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:157: trailing whitespace.
++    answerable = [r for r in rows if r["evidence_labels"]]
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:158: trailing whitespace.
++    mocks = [{"id": c["id"], **score_answer(c["answer"], c["evidence"], c["annotation"], context=c["context"])}
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:159: trailing whitespace.
++             for c in corpus["scoring_cases"]]
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:166: trailing whitespace.
++            "execution_authority": "none", "executable": False,
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:167: trailing whitespace.
++            "kb": kb, "production": production, "cases_sha256": frozen["cases_sha256"],
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:168: trailing whitespace.
++            "eval_source": snapshot(package, list((package / "src/qa_agent/quality_eval").glob("*.py"))),
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:169: trailing whitespace.
++            "retrieval": {"top_k": corpus["top_k"], "query_count": len(rows),
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:170: trailing whitespace.
++                          "macro_recall": ratio(sum(r["recall"]["value"] for r in answerable), len(answerable)),
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:171: trailing whitespace.
++                          "mrr": ratio(sum(r["reciprocal_rank"] for r in answerable), len(answerable)),
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:172: trailing whitespace.
++                          "by_category": {tag: {"count": len(group),
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:173: trailing whitespace.
++                              "macro_recall": ratio(sum(r["recall"]["value"] for r in group if r["evidence_labels"]), sum(bool(r["evidence_labels"]) for r in group))}
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:174: trailing whitespace.
++                              for tag in sorted({r["category"] for r in rows})
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:175: trailing whitespace.
++                              for group in [[r for r in rows if r["category"] == tag]]}, "rows": rows},
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:176: trailing whitespace.
++            "mock_scoring_only": mocks,
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:177: trailing whitespace.
++            "refusal": {"status": "not_measured_provider", "denominator": 0},
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:181: trailing whitespace.
++            "provider": {"calls": 0, "quality": "not_measured"},
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:182: trailing whitespace.
++            "holdout": {"status": "not_established", "denominator": 0},
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:185: trailing whitespace.
++
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:186: trailing whitespace.
++
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:187: trailing whitespace.
++def main() -> None:
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:188: trailing whitespace.
++    parser = argparse.ArgumentParser(description="Offline frozen lexical development baseline; never loads model configuration")
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:191: trailing whitespace.
++    args = parser.parse_args()
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:193: trailing whitespace.
++    with args.output.open("x", encoding="utf-8") as stream:
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:194: trailing whitespace.
++        json.dump(result, stream, ensure_ascii=False, indent=2)
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:198: trailing whitespace.
++
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:199: trailing whitespace.
++
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:200: trailing whitespace.
++if __name__ == "__main__":
+packages/qa-agent/src/qa_agent/quality_eval/runner.py:201: trailing whitespace.
++    main()
+packages/qa-agent/tests/test_lineup_frame_extractor.py:1: trailing whitespace.
++import sys
+packages/qa-agent/tests/test_lineup_frame_extractor.py:2: trailing whitespace.
++import unittest
+packages/qa-agent/tests/test_lineup_frame_extractor.py:3: trailing whitespace.
++from dataclasses import dataclass, field
+packages/qa-agent/tests/test_lineup_frame_extractor.py:4: trailing whitespace.
++from pathlib import Path
+packages/qa-agent/tests/test_lineup_frame_extractor.py:5: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:6: trailing whitespace.
++sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+packages/qa-agent/tests/test_lineup_frame_extractor.py:7: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:8: trailing whitespace.
++from qa_agent.video.lineup_frame_extractor import (  # noqa: E402
+packages/qa-agent/tests/test_lineup_frame_extractor.py:9: trailing whitespace.
++    FRAME_COUNTER_GRAPH,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:10: trailing whitespace.
++    FRAME_OTHER,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:11: trailing whitespace.
++    FRAME_SCHEME_TABLE,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:12: trailing whitespace.
++    FRAME_SUMMARY_TABLE,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:13: trailing whitespace.
++    BackfillStats,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:14: trailing whitespace.
++    ConsensusLineupExtractor,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:15: trailing whitespace.
++    FrameRef,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:16: trailing whitespace.
++    LineupFrameExtractor,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:17: trailing whitespace.
++    classify_frame_kind,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:18: trailing whitespace.
++    collect_frames_from_bundle,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:19: trailing whitespace.
++    crop_into_columns,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:20: trailing whitespace.
++    frames_in_window,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:21: trailing whitespace.
++    looks_like_lineup_segment,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:22: trailing whitespace.
++    parse_frame_timestamp,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:23: trailing whitespace.
++)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:24: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:25: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:26: trailing whitespace.
++@dataclass
+packages/qa-agent/tests/test_lineup_frame_extractor.py:27: trailing whitespace.
++class _Ent:
+packages/qa-agent/tests/test_lineup_frame_extractor.py:28: trailing whitespace.
++    name: str
+packages/qa-agent/tests/test_lineup_frame_extractor.py:29: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:30: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:31: trailing whitespace.
++@dataclass
+packages/qa-agent/tests/test_lineup_frame_extractor.py:32: trailing whitespace.
++class _Vis:
+packages/qa-agent/tests/test_lineup_frame_extractor.py:33: trailing whitespace.
++    heroes: list = field(default_factory=list)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:34: trailing whitespace.
++    skills: list = field(default_factory=list)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:35: trailing whitespace.
++    text_snippets: list = field(default_factory=list)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:36: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:37: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:38: trailing whitespace.
++class _FakeExtractor:
+packages/qa-agent/tests/test_lineup_frame_extractor.py:39: trailing whitespace.
++    def __init__(self, mapping=None, fail=False):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:40: trailing whitespace.
++        self._mapping = mapping or {}
+packages/qa-agent/tests/test_lineup_frame_extractor.py:41: trailing whitespace.
++        self._fail = fail
+packages/qa-agent/tests/test_lineup_frame_extractor.py:42: trailing whitespace.
++        self.calls = []
+packages/qa-agent/tests/test_lineup_frame_extractor.py:43: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:44: trailing whitespace.
++    def extract(self, image_urls, *, question=None, **kwargs):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:45: trailing whitespace.
++        self.calls.append(list(image_urls))
+packages/qa-agent/tests/test_lineup_frame_extractor.py:46: trailing whitespace.
++        if self._fail:
+packages/qa-agent/tests/test_lineup_frame_extractor.py:47: trailing whitespace.
++            raise RuntimeError("simulated vision outage")
+packages/qa-agent/tests/test_lineup_frame_extractor.py:48: trailing whitespace.
++        key = tuple(sorted(image_urls))
+packages/qa-agent/tests/test_lineup_frame_extractor.py:49: trailing whitespace.
++        h, s = self._mapping.get(key, ([], []))
+packages/qa-agent/tests/test_lineup_frame_extractor.py:50: trailing whitespace.
++        return _Vis(heroes=[_Ent(x) for x in h], skills=[_Ent(x) for x in s])
+packages/qa-agent/tests/test_lineup_frame_extractor.py:51: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:52: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:53: trailing whitespace.
++class ParseFrameTimestampTests(unittest.TestCase):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:54: trailing whitespace.
++    def test_standard_name(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:55: trailing whitespace.
++        self.assertEqual(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:56: trailing whitespace.
++            parse_frame_timestamp("/t/BV1x-frame-002-20s.jpg"), 20.0
+packages/qa-agent/tests/test_lineup_frame_extractor.py:57: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:58: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:59: trailing whitespace.
++    def test_float_seconds(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:60: trailing whitespace.
++        self.assertEqual(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:61: trailing whitespace.
++            parse_frame_timestamp("/t/BV1x-frame-010-135.5s.png"), 135.5
+packages/qa-agent/tests/test_lineup_frame_extractor.py:62: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:63: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:64: trailing whitespace.
++    def test_non_frame_url_returns_none(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:65: trailing whitespace.
++        self.assertIsNone(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:66: trailing whitespace.
++            parse_frame_timestamp("http://i1.hdslb.com/bfs/storyff/x_firsti.jpg")
+packages/qa-agent/tests/test_lineup_frame_extractor.py:67: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:68: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:69: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:70: trailing whitespace.
++class CollectFramesTests(unittest.TestCase):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:71: trailing whitespace.
++    def test_skips_story_urls_keeps_local_sorted(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:72: trailing whitespace.
++        bundle = {
+packages/qa-agent/tests/test_lineup_frame_extractor.py:73: trailing whitespace.
++            "segments": [
+packages/qa-agent/tests/test_lineup_frame_extractor.py:74: trailing whitespace.
++                {
+packages/qa-agent/tests/test_lineup_frame_extractor.py:75: trailing whitespace.
++                    "start_sec": 0.0,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:76: trailing whitespace.
++                    "frame_paths": [
+packages/qa-agent/tests/test_lineup_frame_extractor.py:77: trailing whitespace.
++                        "http://i1.hdslb.com/bfs/storyff/x_firsti.jpg",
+packages/qa-agent/tests/test_lineup_frame_extractor.py:78: trailing whitespace.
++                        "/t/BV1x-frame-003-40s.jpg",
+packages/qa-agent/tests/test_lineup_frame_extractor.py:79: trailing whitespace.
++                        "/t/BV1x-frame-001-0s.jpg",
+packages/qa-agent/tests/test_lineup_frame_extractor.py:80: trailing whitespace.
++                    ],
+packages/qa-agent/tests/test_lineup_frame_extractor.py:81: trailing whitespace.
++                },
+packages/qa-agent/tests/test_lineup_frame_extractor.py:82: trailing whitespace.
++                {
+packages/qa-agent/tests/test_lineup_frame_extractor.py:83: trailing whitespace.
++                    "start_sec": 60.0,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:84: trailing whitespace.
++                    "frame_paths": ["/t/BV1x-frame-004-60s.jpg"],
+packages/qa-agent/tests/test_lineup_frame_extractor.py:85: trailing whitespace.
++                },
+packages/qa-agent/tests/test_lineup_frame_extractor.py:86: trailing whitespace.
++            ]
+packages/qa-agent/tests/test_lineup_frame_extractor.py:87: trailing whitespace.
++        }
+packages/qa-agent/tests/test_lineup_frame_extractor.py:88: trailing whitespace.
++        frames = collect_frames_from_bundle(bundle)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:89: trailing whitespace.
++        self.assertEqual(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:90: trailing whitespace.
++            [f.timestamp_sec for f in frames], [0.0, 40.0, 60.0]
+packages/qa-agent/tests/test_lineup_frame_extractor.py:91: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:92: trailing whitespace.
++        self.assertTrue(all(f.is_local for f in frames))
+packages/qa-agent/tests/test_lineup_frame_extractor.py:93: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:94: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:95: trailing whitespace.
++class FramesInWindowTests(unittest.TestCase):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:96: trailing whitespace.
++    def setUp(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:97: trailing whitespace.
++        self.frames = [FrameRef(f"/t/f{t}.jpg", float(t)) for t in range(0, 200, 20)]
+packages/qa-agent/tests/test_lineup_frame_extractor.py:98: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:99: trailing whitespace.
++    def test_window_with_margin(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:100: trailing whitespace.
++        got = frames_in_window(self.frames, 80, 100, margin_sec=8)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:101: trailing whitespace.
++        self.assertEqual(sorted(f.timestamp_sec for f in got), [80.0, 100.0])
+packages/qa-agent/tests/test_lineup_frame_extractor.py:102: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:103: trailing whitespace.
++    def test_subsamples_when_over_cap(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:104: trailing whitespace.
++        got = frames_in_window(self.frames, 0, 200, margin_sec=0, max_frames=3)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:105: trailing whitespace.
++        self.assertEqual(len(got), 3)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:106: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:107: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:108: trailing whitespace.
++class LooksLikeLineupTests(unittest.TestCase):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:109: trailing whitespace.
++    def test_positive(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:110: trailing whitespace.
++        self.assertTrue(looks_like_lineup_segment("这是第一队首发阵容", []))
+packages/qa-agent/tests/test_lineup_frame_extractor.py:111: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:112: trailing whitespace.
++    def test_negative(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:113: trailing whitespace.
++        self.assertFalse(looks_like_lineup_segment("今天天气不错", []))
+packages/qa-agent/tests/test_lineup_frame_extractor.py:114: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:115: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:116: trailing whitespace.
++class ClassifyFrameKindTests(unittest.TestCase):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:117: trailing whitespace.
++    def test_summary_table(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:118: trailing whitespace.
++        self.assertEqual(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:119: trailing whitespace.
++            classify_frame_kind(["三国谋定天下", "全流程阵容汇总"]),
+packages/qa-agent/tests/test_lineup_frame_extractor.py:120: trailing whitespace.
++            FRAME_SUMMARY_TABLE,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:121: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:122: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:123: trailing whitespace.
++    def test_scheme_table(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:124: trailing whitespace.
++        self.assertEqual(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:125: trailing whitespace.
++            classify_frame_kind(["S14 陈仓之围 六队共存 方案A"]),
+packages/qa-agent/tests/test_lineup_frame_extractor.py:126: trailing whitespace.
++            FRAME_SCHEME_TABLE,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:127: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:128: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:129: trailing whitespace.
++    def test_route_table_is_summary(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:130: trailing whitespace.
++        # eval finding: this title was misclassified `other`
+packages/qa-agent/tests/test_lineup_frame_extractor.py:131: trailing whitespace.
++        self.assertEqual(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:132: trailing whitespace.
++            classify_frame_kind(["三谋 S14·W11·陈仓之战·出队路线5.0-最终版"]),
+packages/qa-agent/tests/test_lineup_frame_extractor.py:133: trailing whitespace.
++            FRAME_SUMMARY_TABLE,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:134: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:135: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:136: trailing whitespace.
++    def test_scheme_wins_over_route_when_both_present(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:137: trailing whitespace.
++        self.assertEqual(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:138: trailing whitespace.
++            classify_frame_kind(["六队共存多套方案 出队路线5.0"]),
+packages/qa-agent/tests/test_lineup_frame_extractor.py:139: trailing whitespace.
++            FRAME_SCHEME_TABLE,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:140: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:141: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:142: trailing whitespace.
++    def test_counter_graph(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:143: trailing whitespace.
++        self.assertEqual(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:144: trailing whitespace.
++            classify_frame_kind(["S14首发队伍克制关系图"]), FRAME_COUNTER_GRAPH
+packages/qa-agent/tests/test_lineup_frame_extractor.py:145: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:146: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:147: trailing whitespace.
++    def test_other(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:148: trailing whitespace.
++        self.assertEqual(classify_frame_kind(["主播口播镜头"]), FRAME_OTHER)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:149: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:150: trailing whitespace.
++    def test_summary_precedence_over_counter(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:151: trailing whitespace.
++        # a 方案 table cell may mention 克制; title cue wins
+packages/qa-agent/tests/test_lineup_frame_extractor.py:152: trailing whitespace.
++        self.assertEqual(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:153: trailing whitespace.
++            classify_frame_kind(["方案A", "本队克制周瑜"]), FRAME_SCHEME_TABLE
+packages/qa-agent/tests/test_lineup_frame_extractor.py:154: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:155: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:156: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:157: trailing whitespace.
++class CropIntoColumnsTests(unittest.TestCase):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:158: trailing whitespace.
++    def test_splits_and_upscales(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:159: trailing whitespace.
++        import tempfile
+packages/qa-agent/tests/test_lineup_frame_extractor.py:160: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:161: trailing whitespace.
++        from PIL import Image
+packages/qa-agent/tests/test_lineup_frame_extractor.py:162: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:163: trailing whitespace.
++        with tempfile.TemporaryDirectory() as td:
+packages/qa-agent/tests/test_lineup_frame_extractor.py:164: trailing whitespace.
++            src = Path(td) / "BVx-frame-001-0s.jpg"
+packages/qa-agent/tests/test_lineup_frame_extractor.py:165: trailing whitespace.
++            Image.new("RGB", (600, 300), "white").save(src)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:166: trailing whitespace.
++            paths = crop_into_columns(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:167: trailing whitespace.
++                str(src), 3, str(Path(td) / "cols"), overlap_frac=0.0, upscale=2
+packages/qa-agent/tests/test_lineup_frame_extractor.py:168: trailing whitespace.
++            )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:169: trailing whitespace.
++            self.assertEqual(len(paths), 3)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:170: trailing whitespace.
++            for p in paths:
+packages/qa-agent/tests/test_lineup_frame_extractor.py:171: trailing whitespace.
++                self.assertTrue(Path(p).exists())
+packages/qa-agent/tests/test_lineup_frame_extractor.py:174: trailing whitespace.
++                # 600/3 = 200 col, upscale 2 → ~400 wide, 300*2=600 tall
+packages/qa-agent/tests/test_lineup_frame_extractor.py:175: trailing whitespace.
++                self.assertEqual(h, 600)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:176: trailing whitespace.
++                self.assertAlmostEqual(w, 400, delta=4)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:177: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:178: trailing whitespace.
++    def test_invalid_n_cols(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:179: trailing whitespace.
++        import tempfile
+packages/qa-agent/tests/test_lineup_frame_extractor.py:180: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:181: trailing whitespace.
++        from PIL import Image
+packages/qa-agent/tests/test_lineup_frame_extractor.py:182: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:183: trailing whitespace.
++        with tempfile.TemporaryDirectory() as td:
+packages/qa-agent/tests/test_lineup_frame_extractor.py:184: trailing whitespace.
++            src = Path(td) / "f.jpg"
+packages/qa-agent/tests/test_lineup_frame_extractor.py:185: trailing whitespace.
++            Image.new("RGB", (100, 100), "white").save(src)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:186: trailing whitespace.
++            with self.assertRaises(ValueError):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:187: trailing whitespace.
++                crop_into_columns(str(src), 0, str(Path(td) / "o"))
+packages/qa-agent/tests/test_lineup_frame_extractor.py:188: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:189: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:190: trailing whitespace.
++class BackfillTests(unittest.TestCase):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:191: trailing whitespace.
++    def _staging(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:192: trailing whitespace.
++        return [
+packages/qa-agent/tests/test_lineup_frame_extractor.py:193: trailing whitespace.
++            {
+packages/qa-agent/tests/test_lineup_frame_extractor.py:194: trailing whitespace.
++                "entry": {
+packages/qa-agent/tests/test_lineup_frame_extractor.py:195: trailing whitespace.
++                    "topic": "S14 空队",
+packages/qa-agent/tests/test_lineup_frame_extractor.py:196: trailing whitespace.
++                    "source_ref": "BILIBILI:BV1x#40-60",
+packages/qa-agent/tests/test_lineup_frame_extractor.py:197: trailing whitespace.
++                    "structured_data": {
+packages/qa-agent/tests/test_lineup_frame_extractor.py:198: trailing whitespace.
++                        "name": "S14 空队",
+packages/qa-agent/tests/test_lineup_frame_extractor.py:199: trailing whitespace.
++                        "hero_names": [],
+packages/qa-agent/tests/test_lineup_frame_extractor.py:200: trailing whitespace.
++                        "core_skills": [],
+packages/qa-agent/tests/test_lineup_frame_extractor.py:201: trailing whitespace.
++                    },
+packages/qa-agent/tests/test_lineup_frame_extractor.py:202: trailing whitespace.
++                }
+packages/qa-agent/tests/test_lineup_frame_extractor.py:203: trailing whitespace.
++            },
+packages/qa-agent/tests/test_lineup_frame_extractor.py:204: trailing whitespace.
++            {
+packages/qa-agent/tests/test_lineup_frame_extractor.py:205: trailing whitespace.
++                "entry": {
+packages/qa-agent/tests/test_lineup_frame_extractor.py:206: trailing whitespace.
++                    "topic": "S14 已满队",
+packages/qa-agent/tests/test_lineup_frame_extractor.py:207: trailing whitespace.
++                    "source_ref": "BILIBILI:BV1x#40-60",
+packages/qa-agent/tests/test_lineup_frame_extractor.py:208: trailing whitespace.
++                    "structured_data": {
+packages/qa-agent/tests/test_lineup_frame_extractor.py:209: trailing whitespace.
++                        "name": "S14 已满队",
+packages/qa-agent/tests/test_lineup_frame_extractor.py:210: trailing whitespace.
++                        "hero_names": ["周瑜"],
+packages/qa-agent/tests/test_lineup_frame_extractor.py:211: trailing whitespace.
++                        "core_skills": ["践墨随敌"],
+packages/qa-agent/tests/test_lineup_frame_extractor.py:212: trailing whitespace.
++                    },
+packages/qa-agent/tests/test_lineup_frame_extractor.py:213: trailing whitespace.
++                }
+packages/qa-agent/tests/test_lineup_frame_extractor.py:214: trailing whitespace.
++            },
+packages/qa-agent/tests/test_lineup_frame_extractor.py:215: trailing whitespace.
++        ]
+packages/qa-agent/tests/test_lineup_frame_extractor.py:216: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:217: trailing whitespace.
++    def _bundle(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:218: trailing whitespace.
++        return {
+packages/qa-agent/tests/test_lineup_frame_extractor.py:219: trailing whitespace.
++            "segments": [
+packages/qa-agent/tests/test_lineup_frame_extractor.py:220: trailing whitespace.
++                {"start_sec": 40.0, "frame_paths": ["/t/BV1x-frame-003-40s.jpg"]},
+packages/qa-agent/tests/test_lineup_frame_extractor.py:221: trailing whitespace.
++                {"start_sec": 60.0, "frame_paths": ["/t/BV1x-frame-004-60s.jpg"]},
+packages/qa-agent/tests/test_lineup_frame_extractor.py:222: trailing whitespace.
++            ]
+packages/qa-agent/tests/test_lineup_frame_extractor.py:223: trailing whitespace.
++        }
+packages/qa-agent/tests/test_lineup_frame_extractor.py:224: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:225: trailing whitespace.
++    def test_fills_only_empty_and_canonicalizes(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:226: trailing whitespace.
++        fake = _FakeExtractor(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:227: trailing whitespace.
++            mapping={
+packages/qa-agent/tests/test_lineup_frame_extractor.py:228: trailing whitespace.
++                ("/t/BV1x-frame-003-40s.jpg", "/t/BV1x-frame-004-60s.jpg"): (
+packages/qa-agent/tests/test_lineup_frame_extractor.py:229: trailing whitespace.
++                    ["黄府松"],
+packages/qa-agent/tests/test_lineup_frame_extractor.py:230: trailing whitespace.
++                    ["金汤"],
+packages/qa-agent/tests/test_lineup_frame_extractor.py:231: trailing whitespace.
++                )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:232: trailing whitespace.
++            }
+packages/qa-agent/tests/test_lineup_frame_extractor.py:233: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:234: trailing whitespace.
++        canon = {"黄府松": "皇甫嵩", "金汤": "金城汤池"}.get
+packages/qa-agent/tests/test_lineup_frame_extractor.py:235: trailing whitespace.
++        ex = LineupFrameExtractor(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:236: trailing whitespace.
++            fake,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:237: trailing whitespace.
++            canonicalize=lambda s: canon(s) or s,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:238: trailing whitespace.
++            prepare_images=lambda paths: paths,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:239: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:240: trailing whitespace.
++        staging, stats = ex.backfill_entries(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:241: trailing whitespace.
++            self._staging(), {"BV1x": self._bundle()},
+packages/qa-agent/tests/test_lineup_frame_extractor.py:242: trailing whitespace.
++            allow_canonical_fill=True,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:243: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:244: trailing whitespace.
++        empty_sd = staging[0]["entry"]["structured_data"]
+packages/qa-agent/tests/test_lineup_frame_extractor.py:245: trailing whitespace.
++        self.assertEqual(empty_sd["hero_names"], ["皇甫嵩"])
+packages/qa-agent/tests/test_lineup_frame_extractor.py:246: trailing whitespace.
++        self.assertEqual(empty_sd["core_skills"], ["金城汤池"])
+packages/qa-agent/tests/test_lineup_frame_extractor.py:247: trailing whitespace.
++        self.assertNotIn("needs_review", empty_sd)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:248: trailing whitespace.
++        self.assertTrue(any("阵容图抽取" in n for n in empty_sd["notes"]))
+packages/qa-agent/tests/test_lineup_frame_extractor.py:249: trailing whitespace.
++        # existing values untouched
+packages/qa-agent/tests/test_lineup_frame_extractor.py:250: trailing whitespace.
++        full_sd = staging[1]["entry"]["structured_data"]
+packages/qa-agent/tests/test_lineup_frame_extractor.py:251: trailing whitespace.
++        self.assertEqual(full_sd["hero_names"], ["周瑜"])
+packages/qa-agent/tests/test_lineup_frame_extractor.py:252: trailing whitespace.
++        self.assertNotIn("notes", full_sd)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:253: trailing whitespace.
++        self.assertEqual(stats.entries_filled_hero, 1)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:254: trailing whitespace.
++        self.assertEqual(stats.entries_filled_skill, 1)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:255: trailing whitespace.
++        self.assertEqual(stats.entries_targeted, 1)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:256: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:257: trailing whitespace.
++    def test_default_is_pending_not_canonical(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:258: trailing whitespace.
++        fake = _FakeExtractor(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:259: trailing whitespace.
++            mapping={
+packages/qa-agent/tests/test_lineup_frame_extractor.py:260: trailing whitespace.
++                ("/t/BV1x-frame-003-40s.jpg", "/t/BV1x-frame-004-60s.jpg"): (
+packages/qa-agent/tests/test_lineup_frame_extractor.py:261: trailing whitespace.
++                    ["黄府松"],
+packages/qa-agent/tests/test_lineup_frame_extractor.py:262: trailing whitespace.
++                    ["金汤"],
+packages/qa-agent/tests/test_lineup_frame_extractor.py:263: trailing whitespace.
++                )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:264: trailing whitespace.
++            }
+packages/qa-agent/tests/test_lineup_frame_extractor.py:265: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:266: trailing whitespace.
++        canon = {"黄府松": "皇甫嵩", "金汤": "金城汤池"}.get
+packages/qa-agent/tests/test_lineup_frame_extractor.py:267: trailing whitespace.
++        ex = LineupFrameExtractor(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:268: trailing whitespace.
++            fake,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:269: trailing whitespace.
++            canonicalize=lambda s: canon(s) or s,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:270: trailing whitespace.
++            prepare_images=lambda paths: paths,
+packages/qa-agent/tests/test_lineup_frame_extractor.py:271: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:272: trailing whitespace.
++        staging, stats = ex.backfill_entries(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:273: trailing whitespace.
++            self._staging(), {"BV1x": self._bundle()}
+packages/qa-agent/tests/test_lineup_frame_extractor.py:274: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:275: trailing whitespace.
++        sd = staging[0]["entry"]["structured_data"]
+packages/qa-agent/tests/test_lineup_frame_extractor.py:276: trailing whitespace.
++        # canonical slots stay empty; candidates + review flag instead
+packages/qa-agent/tests/test_lineup_frame_extractor.py:277: trailing whitespace.
++        self.assertEqual(sd["hero_names"], [])
+packages/qa-agent/tests/test_lineup_frame_extractor.py:278: trailing whitespace.
++        self.assertEqual(sd["core_skills"], [])
+packages/qa-agent/tests/test_lineup_frame_extractor.py:279: trailing whitespace.
++        self.assertEqual(sd["frame_candidate_hero_names"], ["皇甫嵩"])
+packages/qa-agent/tests/test_lineup_frame_extractor.py:280: trailing whitespace.
++        self.assertEqual(sd["frame_candidate_core_skills"], ["金城汤池"])
+packages/qa-agent/tests/test_lineup_frame_extractor.py:281: trailing whitespace.
++        self.assertTrue(sd["needs_review"])
+packages/qa-agent/tests/test_lineup_frame_extractor.py:282: trailing whitespace.
++        self.assertTrue(any("候选待审" in n for n in sd["notes"]))
+packages/qa-agent/tests/test_lineup_frame_extractor.py:283: trailing whitespace.
++        self.assertEqual(stats.entries_filled_hero, 0)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:284: trailing whitespace.
++        self.assertEqual(stats.entries_pending, 1)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:285: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:286: trailing whitespace.
++    def test_vision_failure_is_fail_open(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:287: trailing whitespace.
++        ex = LineupFrameExtractor(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:288: trailing whitespace.
++            _FakeExtractor(fail=True), prepare_images=lambda paths: paths
+packages/qa-agent/tests/test_lineup_frame_extractor.py:289: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:290: trailing whitespace.
++        staging, stats = ex.backfill_entries(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:291: trailing whitespace.
++            self._staging(), {"BV1x": self._bundle()}
+packages/qa-agent/tests/test_lineup_frame_extractor.py:292: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:293: trailing whitespace.
++        self.assertEqual(staging[0]["entry"]["structured_data"]["hero_names"], [])
+packages/qa-agent/tests/test_lineup_frame_extractor.py:294: trailing whitespace.
++        self.assertEqual(stats.vision_errors, 1)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:295: trailing whitespace.
++        self.assertEqual(stats.entries_filled_hero, 0)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:296: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:297: trailing whitespace.
++    def test_image_prep_failure_is_fail_open(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:298: trailing whitespace.
++        def _boom(_paths):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:299: trailing whitespace.
++            raise FileNotFoundError("frame not on disk")
+packages/qa-agent/tests/test_lineup_frame_extractor.py:300: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:301: trailing whitespace.
++        ex = LineupFrameExtractor(_FakeExtractor(), prepare_images=_boom)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:302: trailing whitespace.
++        staging, stats = ex.backfill_entries(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:303: trailing whitespace.
++            self._staging(), {"BV1x": self._bundle()}
+packages/qa-agent/tests/test_lineup_frame_extractor.py:304: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:305: trailing whitespace.
++        self.assertEqual(staging[0]["entry"]["structured_data"]["hero_names"], [])
+packages/qa-agent/tests/test_lineup_frame_extractor.py:306: trailing whitespace.
++        self.assertEqual(stats.vision_errors, 1)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:307: trailing whitespace.
++        self.assertEqual(stats.entries_filled_hero, 0)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:308: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:309: trailing whitespace.
++    def test_missing_bundle_skips(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:310: trailing whitespace.
++        ex = LineupFrameExtractor(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:311: trailing whitespace.
++            _FakeExtractor(), prepare_images=lambda paths: paths
+packages/qa-agent/tests/test_lineup_frame_extractor.py:312: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:313: trailing whitespace.
++        staging, stats = ex.backfill_entries(self._staging(), {})
+packages/qa-agent/tests/test_lineup_frame_extractor.py:314: trailing whitespace.
++        self.assertEqual(stats.entries_targeted, 0)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:315: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:316: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:317: trailing whitespace.
++class _ConsensusFake:
+packages/qa-agent/tests/test_lineup_frame_extractor.py:318: trailing whitespace.
++    """Answers the cheap classify call with a title, dense calls with a team."""
+packages/qa-agent/tests/test_lineup_frame_extractor.py:319: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:320: trailing whitespace.
++    def __init__(self, title, heroes, skills=None):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:321: trailing whitespace.
++        self._title = title
+packages/qa-agent/tests/test_lineup_frame_extractor.py:322: trailing whitespace.
++        self._heroes = heroes
+packages/qa-agent/tests/test_lineup_frame_extractor.py:323: trailing whitespace.
++        self._skills = skills or []
+packages/qa-agent/tests/test_lineup_frame_extractor.py:324: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:325: trailing whitespace.
++    def extract(self, image_urls, *, question=None, **kwargs):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:326: trailing whitespace.
++        if question and "标题" in question:
+packages/qa-agent/tests/test_lineup_frame_extractor.py:327: trailing whitespace.
++            return _Vis(text_snippets=[self._title])
+packages/qa-agent/tests/test_lineup_frame_extractor.py:328: trailing whitespace.
++        return _Vis(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:329: trailing whitespace.
++            heroes=[_Ent(x) for x in self._heroes],
+packages/qa-agent/tests/test_lineup_frame_extractor.py:330: trailing whitespace.
++            skills=[_Ent(x) for x in self._skills],
+packages/qa-agent/tests/test_lineup_frame_extractor.py:331: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:332: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:333: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:334: trailing whitespace.
++class ConsensusExtractorTests(unittest.TestCase):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:335: trailing whitespace.
++    def _staging(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:336: trailing whitespace.
++        return [
+packages/qa-agent/tests/test_lineup_frame_extractor.py:337: trailing whitespace.
++            {
+packages/qa-agent/tests/test_lineup_frame_extractor.py:338: trailing whitespace.
++                "entry": {
+packages/qa-agent/tests/test_lineup_frame_extractor.py:339: trailing whitespace.
++                    "topic": "S14 空队",
+packages/qa-agent/tests/test_lineup_frame_extractor.py:340: trailing whitespace.
++                    "source_ref": "BILIBILI:BV1x#40-60",
+packages/qa-agent/tests/test_lineup_frame_extractor.py:341: trailing whitespace.
++                    "structured_data": {"hero_names": [], "core_skills": []},
+packages/qa-agent/tests/test_lineup_frame_extractor.py:342: trailing whitespace.
++                }
+packages/qa-agent/tests/test_lineup_frame_extractor.py:343: trailing whitespace.
++            }
+packages/qa-agent/tests/test_lineup_frame_extractor.py:344: trailing whitespace.
++        ]
+packages/qa-agent/tests/test_lineup_frame_extractor.py:345: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:346: trailing whitespace.
++    def _bundle(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:347: trailing whitespace.
++        return {
+packages/qa-agent/tests/test_lineup_frame_extractor.py:348: trailing whitespace.
++            "segments": [
+packages/qa-agent/tests/test_lineup_frame_extractor.py:349: trailing whitespace.
++                {"start_sec": 40.0, "frame_paths": ["/t/BV1x-frame-003-40s.jpg"]},
+packages/qa-agent/tests/test_lineup_frame_extractor.py:350: trailing whitespace.
++                {"start_sec": 60.0, "frame_paths": ["/t/BV1x-frame-004-60s.jpg"]},
+packages/qa-agent/tests/test_lineup_frame_extractor.py:351: trailing whitespace.
++            ]
+packages/qa-agent/tests/test_lineup_frame_extractor.py:352: trailing whitespace.
++        }
+packages/qa-agent/tests/test_lineup_frame_extractor.py:353: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:354: trailing whitespace.
++    def _run(self, fa, fb):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:355: trailing whitespace.
++        ex = ConsensusLineupExtractor(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:356: trailing whitespace.
++            fa, fb, prepare_images=lambda paths: paths
+packages/qa-agent/tests/test_lineup_frame_extractor.py:357: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:358: trailing whitespace.
++        return ex.backfill_entries(self._staging(), {"BV1x": self._bundle()})
+packages/qa-agent/tests/test_lineup_frame_extractor.py:359: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:360: trailing whitespace.
++    def test_agreement_on_full_team_emits_pending_candidate(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:361: trailing whitespace.
++        team = ["皇甫嵩", "郝昭", "司马懿"]
+packages/qa-agent/tests/test_lineup_frame_extractor.py:362: trailing whitespace.
++        staging, stats = self._run(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:363: trailing whitespace.
++            _ConsensusFake("全流程阵容汇总表", team, ["金城汤池"]),
+packages/qa-agent/tests/test_lineup_frame_extractor.py:364: trailing whitespace.
++            _ConsensusFake("全流程阵容汇总表", list(reversed(team)), ["金城汤池"]),
+packages/qa-agent/tests/test_lineup_frame_extractor.py:365: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:366: trailing whitespace.
++        sd = staging[0]["entry"]["structured_data"]
+packages/qa-agent/tests/test_lineup_frame_extractor.py:367: trailing whitespace.
++        self.assertEqual(set(sd["frame_candidate_hero_names"]), set(team))
+packages/qa-agent/tests/test_lineup_frame_extractor.py:368: trailing whitespace.
++        self.assertEqual(sd["frame_candidate_core_skills"], ["金城汤池"])
+packages/qa-agent/tests/test_lineup_frame_extractor.py:369: trailing whitespace.
++        self.assertTrue(sd["needs_review"])
+packages/qa-agent/tests/test_lineup_frame_extractor.py:370: trailing whitespace.
++        self.assertEqual(sd["hero_names"], [])
+packages/qa-agent/tests/test_lineup_frame_extractor.py:371: trailing whitespace.
++        self.assertEqual(stats.entries_pending, 1)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:372: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:373: trailing whitespace.
++    def test_disagreement_drops_heroes(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:374: trailing whitespace.
++        staging, _ = self._run(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:375: trailing whitespace.
++            _ConsensusFake("全流程阵容汇总表", ["皇甫嵩", "郝昭", "司马懿"]),
+packages/qa-agent/tests/test_lineup_frame_extractor.py:376: trailing whitespace.
++            _ConsensusFake("全流程阵容汇总表", ["陆逊", "鲁肃", "孙坚"]),
+packages/qa-agent/tests/test_lineup_frame_extractor.py:377: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:378: trailing whitespace.
++        sd = staging[0]["entry"]["structured_data"]
+packages/qa-agent/tests/test_lineup_frame_extractor.py:379: trailing whitespace.
++        self.assertNotIn("frame_candidate_hero_names", sd)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:380: trailing whitespace.
++        self.assertEqual(sd["hero_names"], [])
+packages/qa-agent/tests/test_lineup_frame_extractor.py:381: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:382: trailing whitespace.
++    def test_partial_team_dropped(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:383: trailing whitespace.
++        # both agree but only 2 heroes -> not a complete sanmou team
+packages/qa-agent/tests/test_lineup_frame_extractor.py:384: trailing whitespace.
++        staging, _ = self._run(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:385: trailing whitespace.
++            _ConsensusFake("全流程阵容汇总表", ["皇甫嵩", "郝昭"]),
+packages/qa-agent/tests/test_lineup_frame_extractor.py:386: trailing whitespace.
++            _ConsensusFake("全流程阵容汇总表", ["皇甫嵩", "郝昭"]),
+packages/qa-agent/tests/test_lineup_frame_extractor.py:387: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:388: trailing whitespace.
++        sd = staging[0]["entry"]["structured_data"]
+packages/qa-agent/tests/test_lineup_frame_extractor.py:389: trailing whitespace.
++        self.assertNotIn("frame_candidate_hero_names", sd)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:390: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:391: trailing whitespace.
++    def test_non_table_frame_skipped_entirely(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:392: trailing whitespace.
++        team = ["皇甫嵩", "郝昭", "司马懿"]
+packages/qa-agent/tests/test_lineup_frame_extractor.py:393: trailing whitespace.
++        staging, stats = self._run(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:394: trailing whitespace.
++            _ConsensusFake("主播口播镜头", team),
+packages/qa-agent/tests/test_lineup_frame_extractor.py:395: trailing whitespace.
++            _ConsensusFake("主播口播镜头", team),
+packages/qa-agent/tests/test_lineup_frame_extractor.py:396: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:397: trailing whitespace.
++        sd = staging[0]["entry"]["structured_data"]
+packages/qa-agent/tests/test_lineup_frame_extractor.py:398: trailing whitespace.
++        self.assertNotIn("frame_candidate_hero_names", sd)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:399: trailing whitespace.
++        self.assertNotIn("needs_review", sd)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:400: trailing whitespace.
++        self.assertEqual(stats.entries_pending, 0)
+packages/qa-agent/tests/test_lineup_frame_extractor.py:401: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:402: trailing whitespace.
++    def test_skill_intersection_only(self):
+packages/qa-agent/tests/test_lineup_frame_extractor.py:403: trailing whitespace.
++        team = ["皇甫嵩", "郝昭", "司马懿"]
+packages/qa-agent/tests/test_lineup_frame_extractor.py:404: trailing whitespace.
++        staging, _ = self._run(
+packages/qa-agent/tests/test_lineup_frame_extractor.py:405: trailing whitespace.
++            _ConsensusFake("方案A", team, ["金城汤池", "步步为营"]),
+packages/qa-agent/tests/test_lineup_frame_extractor.py:406: trailing whitespace.
++            _ConsensusFake("方案A", team, ["金城汤池", "未雨绸缪"]),
+packages/qa-agent/tests/test_lineup_frame_extractor.py:407: trailing whitespace.
++        )
+packages/qa-agent/tests/test_lineup_frame_extractor.py:408: trailing whitespace.
++        sd = staging[0]["entry"]["structured_data"]
+packages/qa-agent/tests/test_lineup_frame_extractor.py:409: trailing whitespace.
++        self.assertEqual(sd["frame_candidate_core_skills"], ["金城汤池"])
+packages/qa-agent/tests/test_lineup_frame_extractor.py:410: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:411: trailing whitespace.
++
+packages/qa-agent/tests/test_lineup_frame_extractor.py:412: trailing whitespace.
++if __name__ == "__main__":
+packages/qa-agent/tests/test_lineup_frame_extractor.py:413: trailing whitespace.
++    unittest.main()
