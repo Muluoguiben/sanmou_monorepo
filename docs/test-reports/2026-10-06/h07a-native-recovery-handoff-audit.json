@@ -1,0 +1,48 @@
+{
+  "handoff": "61132b6962f45c95d5adb916bc90ff1c4319950b",
+  "source": "b785458e9b322707e38f0b424ab78a9512abd8d1",
+  "tree": "726d99e49ab3fe0822b0bc306870f7d98d319cb0",
+  "summary_sha256": "a609e92f543c8a4d02b26fd4a174d43b2b8628061b954e52d1d3ce6955eeacc2",
+  "verified_logs": {
+    "approval-module": {
+      "tests": 35,
+      "skipped": 0,
+      "exit": 0
+    },
+    "focused": {
+      "tests": 109,
+      "skipped": 0,
+      "exit": 0
+    },
+    "pioneer-agent-full": {
+      "tests": 1053,
+      "skipped": 2,
+      "exit": 0
+    },
+    "qa-agent-full": {
+      "tests": 394,
+      "skipped": 0,
+      "exit": 0
+    },
+    "sanmou-common-full": {
+      "tests": 2,
+      "skipped": 0,
+      "exit": 0
+    },
+    "h09-cli": {
+      "tests": null,
+      "skipped": 0,
+      "exit": 0
+    },
+    "qa-v3": {
+      "tests": null,
+      "skipped": 0,
+      "exit": 0
+    }
+  },
+  "verifier_hash_matched": true,
+  "h09_source_and_stable_matched": true,
+  "qa_v3_bytes_matched": true,
+  "native_status": "pending_hosted_windows_ci",
+  "archive_reads": 0
+}

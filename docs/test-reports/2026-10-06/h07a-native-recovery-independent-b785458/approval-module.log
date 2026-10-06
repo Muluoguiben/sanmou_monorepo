@@ -1,0 +1,47 @@
+test_json_waiting_fresh_runner_clock_rollback_stops_without_calls (test_task_approval.ApprovalDiskRecoveryTests.test_json_waiting_fresh_runner_clock_rollback_stops_without_calls) ... Executing <Task finished name='Task-2' coro=<ApprovalDiskRecoveryTests.test_json_waiting_fresh_runner_clock_rollback_stops_without_calls() done, defined at /tmp/h07a-native-cr-b785458-20261006/packages/pioneer-agent/tests/test_task_approval.py:160> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.284 seconds
+ok
+test_json_waiting_fresh_runner_expired_deadline_stops_without_calls (test_task_approval.ApprovalDiskRecoveryTests.test_json_waiting_fresh_runner_expired_deadline_stops_without_calls) ... Executing <Task finished name='Task-7' coro=<ApprovalDiskRecoveryTests.test_json_waiting_fresh_runner_expired_deadline_stops_without_calls() done, defined at /tmp/h07a-native-cr-b785458-20261006/packages/pioneer-agent/tests/test_task_approval.py:176> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.277 seconds
+ok
+test_json_waiting_new_reader_preserves_watermark_deadline_and_reservations (test_task_approval.ApprovalDiskRecoveryTests.test_json_waiting_new_reader_preserves_watermark_deadline_and_reservations) ... Executing <Task finished name='Task-12' coro=<ApprovalDiskRecoveryTests.test_json_waiting_new_reader_preserves_watermark_deadline_and_reservations() done, defined at /tmp/h07a-native-cr-b785458-20261006/packages/pioneer-agent/tests/test_task_approval.py:138> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.171 seconds
+ok
+test_approved_reobserves_before_policy_and_never_grants_authority (test_task_approval.ApprovalLifecycleTests.test_approved_reobserves_before_policy_and_never_grants_authority) ... ok
+test_both_revalidation_persistence_cuts_recheck_freshness_budget_and_cancel (test_task_approval.ApprovalLifecycleTests.test_both_revalidation_persistence_cuts_recheck_freshness_budget_and_cancel) ... Executing <Task finished name='Task-22' coro=<ApprovalLifecycleTests.test_both_revalidation_persistence_cuts_recheck_freshness_budget_and_cancel() done, defined at /tmp/h07a-native-cr-b785458-20261006/packages/pioneer-agent/tests/test_task_approval.py:465> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.123 seconds
+ok
+test_cli_consumed_checkpoint_fails_before_connection (test_task_approval.ApprovalLifecycleTests.test_cli_consumed_checkpoint_fails_before_connection) ... Executing <Task finished name='Task-27' coro=<ApprovalLifecycleTests.test_cli_consumed_checkpoint_fails_before_connection() done, defined at /tmp/h07a-native-cr-b785458-20261006/packages/pioneer-agent/tests/test_task_approval.py:394> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.300 seconds
+ok
+test_cli_short_circuits_before_connection (test_task_approval.ApprovalLifecycleTests.test_cli_short_circuits_before_connection) ... Executing <Task finished name='Task-32' coro=<ApprovalLifecycleTests.test_cli_short_circuits_before_connection() done, defined at /tmp/h07a-native-cr-b785458-20261006/packages/pioneer-agent/tests/test_task_approval.py:378> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.254 seconds
+ok
+test_deadline_and_tool_quota_restore_without_dispatch (test_task_approval.ApprovalLifecycleTests.test_deadline_and_tool_quota_restore_without_dispatch) ... ok
+test_deny_expiry_rollback_cancel_and_terminal_refuse (test_task_approval.ApprovalLifecycleTests.test_deny_expiry_rollback_cancel_and_terminal_refuse) ... ok
+test_every_response_binding_is_exact (test_task_approval.ApprovalLifecycleTests.test_every_response_binding_is_exact) ... Executing <Task finished name='Task-47' coro=<ApprovalLifecycleTests.test_every_response_binding_is_exact() done, defined at /tmp/h07a-native-cr-b785458-20261006/packages/pioneer-agent/tests/test_task_approval.py:256> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.130 seconds
+ok
+test_explicit_opt_in_and_policy_cannot_fill_binding (test_task_approval.ApprovalLifecycleTests.test_explicit_opt_in_and_policy_cannot_fill_binding) ... ok
+test_fresh_goal_can_finish_before_policy (test_task_approval.ApprovalLifecycleTests.test_fresh_goal_can_finish_before_policy) ... ok
+test_postconsume_clock_rollback_at_each_revalidation_boundary (test_task_approval.ApprovalLifecycleTests.test_postconsume_clock_rollback_at_each_revalidation_boundary) ... ok
+test_revalidation_advances_watermark_then_rejects_rollback_above_consumed (test_task_approval.ApprovalLifecycleTests.test_revalidation_advances_watermark_then_rejects_rollback_above_consumed) ... ok
+test_revalidation_failure_saves_no_permit_for_later_runner (test_task_approval.ApprovalLifecycleTests.test_revalidation_failure_saves_no_permit_for_later_runner) ... ok
+test_revalidation_replay_time_identity_evidence_and_stop_reject_before_policy (test_task_approval.ApprovalLifecycleTests.test_revalidation_replay_time_identity_evidence_and_stop_reject_before_policy) ... ok
+test_revalidation_watermark_progress_is_persisted_without_reconsuming (test_task_approval.ApprovalLifecycleTests.test_revalidation_watermark_progress_is_persisted_without_reconsuming) ... ok
+test_revalidation_watermark_write_failure_has_no_policy_and_no_reusable_permit (test_task_approval.ApprovalLifecycleTests.test_revalidation_watermark_write_failure_has_no_policy_and_no_reusable_permit) ... ok
+test_same_frame_hash_is_allowed_with_new_observation (test_task_approval.ApprovalLifecycleTests.test_same_frame_hash_is_allowed_with_new_observation) ... ok
+test_save_failures_preserve_original_and_no_followup (test_task_approval.ApprovalLifecycleTests.test_save_failures_preserve_original_and_no_followup) ... ok
+test_stop_condition_priority_and_ordinary_pause_unchanged (test_task_approval.ApprovalLifecycleTests.test_stop_condition_priority_and_ordinary_pause_unchanged) ... ok
+test_waiting_clock_watermark_survives_restart_and_never_regresses (test_task_approval.ApprovalLifecycleTests.test_waiting_clock_watermark_survives_restart_and_never_regresses) ... ok
+test_waiting_elapsed_time_and_reservations_are_not_replenished (test_task_approval.ApprovalLifecycleTests.test_waiting_elapsed_time_and_reservations_are_not_replenished) ... ok
+test_waiting_normal_resume_fresh_runner_and_pause_are_noops (test_task_approval.ApprovalLifecycleTests.test_waiting_normal_resume_fresh_runner_and_pause_are_noops) ... ok
+test_waiting_watermark_save_failure_preserves_error_and_no_followup (test_task_approval.ApprovalLifecycleTests.test_waiting_watermark_save_failure_preserves_error_and_no_followup) ... ok
+test_actual_process_crash_after_consumption_fresh_runner_fails_without_calls (test_task_approval.ApprovalProcessTests.test_actual_process_crash_after_consumption_fresh_runner_fails_without_calls) ... ok
+test_actual_process_crash_after_revalidated_fresh_runner_reobserves_and_keeps_charges (test_task_approval.ApprovalProcessTests.test_actual_process_crash_after_revalidated_fresh_runner_reobserves_and_keeps_charges) ... ok
+test_actual_process_crash_after_revalidated_replayed_observation_never_reaches_policy (test_task_approval.ApprovalProcessTests.test_actual_process_crash_after_revalidated_replayed_observation_never_reaches_policy) ... ok
+test_actual_process_race_only_one_consumes (test_task_approval.ApprovalProcessTests.test_actual_process_race_only_one_consumes) ... ok
+test_cas_version_and_terminal_cannot_regress (test_task_approval.ApprovalStorageTests.test_cas_version_and_terminal_cannot_regress) ... ok
+test_frozen_v1_compatibility_fixture (test_task_approval.ApprovalStorageTests.test_frozen_v1_compatibility_fixture) ... ok
+test_store_rejects_watermark_rollback (test_task_approval.ApprovalStorageTests.test_store_rejects_watermark_rollback) ... ok
+test_timestamp_naive_and_authority_are_rejected (test_task_approval.ApprovalStorageTests.test_timestamp_naive_and_authority_are_rejected) ... ok
+test_v1_exact_fields_and_legacy_flat_envelope_load_does_not_rewrite (test_task_approval.ApprovalStorageTests.test_v1_exact_fields_and_legacy_flat_envelope_load_does_not_rewrite) ... ok
+test_v2_roundtrip_strict_versions_states_and_old_model_rejects (test_task_approval.ApprovalStorageTests.test_v2_roundtrip_strict_versions_states_and_old_model_rejects) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 8.717s
+
+OK

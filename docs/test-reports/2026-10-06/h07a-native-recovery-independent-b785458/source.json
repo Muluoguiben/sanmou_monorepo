@@ -1,0 +1,23 @@
+{
+  "source": "b785458e9b322707e38f0b424ab78a9512abd8d1",
+  "tree": "726d99e49ab3fe0822b0bc306870f7d98d319cb0",
+  "baseline": "ca04ae1ef396576c5983f887502bf20b7d6f0015",
+  "old_test_methods_unchanged": 30,
+  "total_test_methods": 35,
+  "added_tests": [
+    "ApprovalDiskRecoveryTests.test_json_waiting_fresh_runner_clock_rollback_stops_without_calls",
+    "ApprovalDiskRecoveryTests.test_json_waiting_fresh_runner_expired_deadline_stops_without_calls",
+    "ApprovalDiskRecoveryTests.test_json_waiting_new_reader_preserves_watermark_deadline_and_reservations",
+    "ApprovalProcessTests.test_actual_process_crash_after_revalidated_fresh_runner_reobserves_and_keeps_charges",
+    "ApprovalProcessTests.test_actual_process_crash_after_revalidated_replayed_observation_never_reaches_policy"
+  ],
+  "old_workflow_unchanged": true,
+  "production_code_changed": false,
+  "native_status": "pending_hosted_windows_ci",
+  "files_sha256": {
+    "packages/pioneer-agent/tests/test_task_approval.py": "129843462a5835dd450b1024643273d30a415da61291df5bac3d3f3aa1672465",
+    ".github/workflows/regression.yml": "1c763d19661441b46cd32774439e48fab61793bb1aa3e99947f83086adc8997c"
+  },
+  "probe_sha256": "b45f416f1c34f921761b8f39eaa77223887fb04fe59dc70149446a38054cd89e",
+  "archive_reads": 0
+}
