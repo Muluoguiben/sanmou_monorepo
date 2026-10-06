@@ -1,0 +1,75 @@
+{
+  "source": "ebcd5d12546dc66044d0485089a10e2bdc43e4a8",
+  "tree": "e6244518555af134d97c7b952be286b71500ac04",
+  "author_report": "a9abfee3290406c3d8e9fc54da200b3ecb1f4a02",
+  "author_manifest_sha256": "270e7495ee14d9bd924b526f30ba0552d7ae0dca6a43db5556c9434bf602c522",
+  "report_sha256": "3adbd4a7c43325415fc1d4a251336439c553e01825d88f61369bb1f1daed8f82",
+  "verified_logs": [
+    {
+      "name": "claim-spans",
+      "exit": 0,
+      "tests": 25,
+      "skips": 0,
+      "sha256": "392bdc1d5df692d2489c2482f2e55c02724633b9955d27adf719719cd68d4437",
+      "bytes": 3540
+    },
+    {
+      "name": "old-quality-eval",
+      "exit": 0,
+      "tests": 23,
+      "skips": 0,
+      "sha256": "18b2a898d1b21c5739ea721c3bb9daf7ce6be1b6af69a1317795a461050bd280",
+      "bytes": 3423
+    },
+    {
+      "name": "qa-full",
+      "exit": 0,
+      "tests": 419,
+      "skips": 0,
+      "sha256": "33ff36d6d33f9413001afdfbbc2ce06fce7897bc5d8ea949813f4ab336ef54e8",
+      "bytes": 68990
+    },
+    {
+      "name": "claim-spans-cli",
+      "exit": 0,
+      "tests": null,
+      "skips": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "name": "create-only-existing-output",
+      "exit": 1,
+      "tests": null,
+      "skips": 0,
+      "sha256": "3a5cb974a3d00d829b8893f931b4893e6ee20d4fcd1af0d1c082dca3b659c0bc",
+      "bytes": 800
+    },
+    {
+      "name": "old-v1-refusal",
+      "exit": 1,
+      "tests": null,
+      "skips": 0,
+      "sha256": "bec042d247244b95da803574532e8d1402235087bf19434c7e3fc18a3657464c",
+      "bytes": 815
+    },
+    {
+      "name": "old-v2-refusal",
+      "exit": 1,
+      "tests": null,
+      "skips": 0,
+      "sha256": "bec042d247244b95da803574532e8d1402235087bf19434c7e3fc18a3657464c",
+      "bytes": 815
+    },
+    {
+      "name": "qa-v3",
+      "exit": 0,
+      "tests": null,
+      "skips": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  ],
+  "matches_independent_run": true,
+  "native": "pending"
+}
