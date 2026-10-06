@@ -8,7 +8,7 @@
 
 - annotation 精确字段：`protocol="qa-claim-spans/v1"`、`normalization="utf8-crlf-to-lf-codepoint-v1"`、`context_sha256`、`answer_sha256`、`evidence_sha256`（完整 ID→全文 digest）、`review_status`、`source`、`reviewer`、`context_verdict`、`segments`。后三类标签沿用旧枚举；source/reviewer 为非空外部声明，不是身份认证。
 - segment 精确字段：`start,end,verdict,support_spans`；link 精确字段：`entry_id,content_sha256,start,end`。Pydantic v2 严格类型/extra-forbid；offset 只接收真正 int，所有 hash 为小写 64 hex，ID 非空。答案全段恰好覆盖；link 在指定全文内非空且不越界；未知 ID、全文 hash 漂移、重复完全相同 link、错误类型/版本/缺项/多项直接拒绝，不搜索修正。
-- 外层 case 精确字段：`id,context,answer,evidence,annotation,annotation_sha256,expected`；evidence 为非空 ID→字符串映射（可为空映射），case ID 唯一。`annotation_sha256 = digest(json.dumps(annotation, ensure_ascii=False, sort_keys=True, separators=(",", ":")))`，绑定完整标签版本且无自引用；context/answer/evidence 三类 digest 同时独立核验。expected 固定声明完整预期机械/评分结果，不由执行输出生成；无效输入负例由专门测试独立构造。
+- 外层 case 精确字段：`id,context,answer,evidence,annotation,annotation_sha256,expected`；evidence 可为空映射，各存在 ID 必须非空并映射到字符串，case ID 唯一。`annotation_sha256 = digest(json.dumps(annotation, ensure_ascii=False, sort_keys=True, separators=(",", ":")))`，绑定完整标签版本且无自引用；context/answer/evidence 三类 digest 同时独立核验。expected 固定声明完整预期机械/评分结果，不由执行输出生成；无效输入负例由专门测试独立构造。
 
 ## 文本、投影与分母
 
@@ -20,7 +20,7 @@ supported 必须至少一个有效 link；unsupported/unknown 可零或多个 li
 
 ## CLI 来源与诚实报告
 
-fixture 的 `cases.json` 顶层精确声明 protocol、normalization、`split="development"`、`synthetic=true`、`label_origin="developer-authored"`、cases；CLI 只接受 developer-authored 控制。`freeze.json` 绑定 cases digest 与显式版本；使用旧 snapshot/digest 记录 fixture 清单和全部 quality_eval 源码清单，固定源 SHA/tree 由自测/独立报告另绑定。执行前后复用 `_validate_execution_roots(package)`，另核对当前模块（含 `__main__`）实际路径与 package，拒绝混合导入；不把 manifest 的自报 SHA 当 Git 认证。
+fixture 的 `cases.json` 顶层精确声明 protocol、normalization、`split="development"`、`synthetic=true`、`label_origin="developer-authored"`、cases；CLI case 允许 developer-authored 或 unreviewed，拒绝 human-reviewed 升级。`freeze.json` 绑定 cases digest 与显式版本；使用旧 snapshot/digest 记录 fixture 清单和全部 quality_eval 源码清单，固定源 SHA/tree 由自测/独立报告另绑定。执行前后复用 `_validate_execution_roots(package)`，另核对当前模块（含 `__main__`）实际路径与 package，拒绝混合导入；不把 manifest 的自报 SHA 当 Git 认证。
 
 报告分别列机械、外部语义、每 case 控制结果、fixture/eval_source 摘要；显式 `provider.calls=0`、holdout 未建立/false、真人审核未认证、none/false，无 KB 发布能力。通用 scorer 可接受 human-reviewed 外部声明但不升级可信度；synthetic suite 不冒称 human gold。旧 v3 重新运行只允许 eval_source 中新增该模块及其摘要导致的差分，其余完整报告逐字段相同；保留历史 whole-report SHA `480a448fd7abecfba2f6cd4eb32a46873ff0b8127b6251cd8aeea5e4fe2e82c8`，不改 snapshot 选择器隐藏来源。
 
