@@ -1,0 +1,63 @@
+[
+  {
+    "name": "baseline-manual-oracles",
+    "source": "5791ca397507007b9397c78763b3523b8ec16421",
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/q04a-independent-probes.py",
+      "--verify-legacy-oracles"
+    ],
+    "cwd": "/tmp/q04a-cr-baseline-5791-20261006",
+    "PYTHONPATH": "/tmp/q04a-cr-baseline-5791-20261006/packages/qa-agent/src:/tmp/q04a-cr-baseline-5791-20261006/packages/qa-agent/tests:/tmp/q04a-cr-baseline-5791-20261006/packages/pioneer-agent/src:/tmp/q04a-cr-baseline-5791-20261006/packages/pioneer-agent/tests:/tmp/q04a-cr-baseline-5791-20261006/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.3645944489981048,
+    "tests": null,
+    "skipped": 0,
+    "log": "baseline-manual-oracles.log",
+    "bytes": 7657,
+    "sha256": "777ad736ff5e980551c13742153004ffa6913e44e473036cf53c3c7318bf228b"
+  },
+  {
+    "name": "public-probes",
+    "source": "676ac1ed012458ccc00a01df159476747921c181",
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/q04a-independent-probes.py",
+      "-v"
+    ],
+    "cwd": "/tmp/q04a-cr-676ac1e-20261006",
+    "PYTHONPATH": "/tmp/q04a-cr-676ac1e-20261006/packages/qa-agent/src:/tmp/q04a-cr-676ac1e-20261006/packages/qa-agent/tests:/tmp/q04a-cr-676ac1e-20261006/packages/pioneer-agent/src:/tmp/q04a-cr-676ac1e-20261006/packages/pioneer-agent/tests:/tmp/q04a-cr-676ac1e-20261006/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.3646393709932454,
+    "tests": 5,
+    "skipped": 0,
+    "log": "public-probes.log",
+    "bytes": 779,
+    "sha256": "182967de8c6c8b42d70dfc4df06fcba608c266210a8dfeff5f691523e71e9d48"
+  },
+  {
+    "name": "integration-probes",
+    "source": "676ac1ed012458ccc00a01df159476747921c181",
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/q04a-independent-integration.py",
+      "/tmp/q04a-cr-676ac1e-20261006",
+      "-v"
+    ],
+    "cwd": "/tmp/q04a-cr-676ac1e-20261006",
+    "PYTHONPATH": "/tmp/q04a-cr-676ac1e-20261006/packages/qa-agent/src:/tmp/q04a-cr-676ac1e-20261006/packages/qa-agent/tests:/tmp/q04a-cr-676ac1e-20261006/packages/pioneer-agent/src:/tmp/q04a-cr-676ac1e-20261006/packages/pioneer-agent/tests:/tmp/q04a-cr-676ac1e-20261006/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+    "exit": 1,
+    "expected_exit": 0,
+    "seconds": 1.7978775380033767,
+    "tests": 4,
+    "skipped": 0,
+    "log": "integration-probes.log",
+    "bytes": 1307,
+    "sha256": "0c0ff041dba2e8ce17179048f0d16714abe481a4f7b39294a9b365b327338d93"
+  }
+]

@@ -1,0 +1,95 @@
+{
+  "source": "676ac1ed012458ccc00a01df159476747921c181",
+  "tree": "16b74ba49c8bf44288c7e23d9935e56631fea471",
+  "author_handoff": "0530fbbc32804de2e1d2f9176f524fa70227c902",
+  "packages_tree": "e849545fc31473d68835618c2c13ec44c35788c0",
+  "manifest_sha256": "9c063c9803736c0f83949e7e77828e9a24de23095632373f53b5633e592ff499",
+  "author_logs_verified": [
+    {
+      "name": "claim-spans",
+      "exit": 0,
+      "tests": 25,
+      "skipped": 0,
+      "sha256": "d2acbd0ab75c531d8e58ff1ba8a18d50274a03c9de3202ca41e83302d13385a1",
+      "bytes": 3540
+    },
+    {
+      "name": "old-quality-eval",
+      "exit": 0,
+      "tests": 23,
+      "skipped": 0,
+      "sha256": "a19d01ab1e0d93928deba165b5a095f98c64ab8522d8267fb5cf2b62f34e3873",
+      "bytes": 3423
+    },
+    {
+      "name": "causal-module",
+      "exit": 0,
+      "tests": 32,
+      "skipped": 0,
+      "sha256": "b1721e2508181e42fdb52eeeb7468d580e563baabdb4117c4a7f61213ce640c2",
+      "bytes": 6182
+    },
+    {
+      "name": "h07a-module",
+      "exit": 0,
+      "tests": 35,
+      "skipped": 0,
+      "sha256": "34a68145bcd801082796cd57baaa7c7be6e7f6ecb55e1465511c2b87c97abe1d",
+      "bytes": 8316
+    },
+    {
+      "name": "qa-agent-full",
+      "exit": 0,
+      "tests": 419,
+      "skipped": 0,
+      "sha256": "6a18a1cb96a8012b88eeb2f696bfd777121b23524ff797700eb27aab01823b38",
+      "bytes": 68990
+    },
+    {
+      "name": "pioneer-agent-full",
+      "exit": 0,
+      "tests": 1085,
+      "skipped": 2,
+      "sha256": "0e57623fb93f263a27acaf77406e6bd35f0a209b81e68d6cf8b5d6ede92d678e",
+      "bytes": 342925
+    },
+    {
+      "name": "sanmou-common-full",
+      "exit": 0,
+      "tests": 2,
+      "skipped": 0,
+      "sha256": "7e9438edca6c90738e3f3983beb89cc2e47795af9815f716b6f41a24af9285f3",
+      "bytes": 335
+    },
+    {
+      "name": "claim-spans-cli",
+      "exit": 0,
+      "tests": null,
+      "skipped": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "name": "h09-cli",
+      "exit": 0,
+      "tests": null,
+      "skipped": 0,
+      "sha256": "220136e8e536cd3c7cf878681d69c20239bc83e340d20a98e21348b2a7141a36",
+      "bytes": 234
+    },
+    {
+      "name": "qa-v3",
+      "exit": 0,
+      "tests": null,
+      "skipped": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  ],
+  "nul_delimited_source_inputs_checked": 899,
+  "input_manifest_sha256": "aa9937b3295a48f6cc57a68ca5f5954b76d79c6337d5c29c614332c1b53f0995",
+  "source_and_semantic_reports_match_independent_run": true,
+  "author_report_sha256": "8a81dab8b60d279d0fb8fb64f7c2e4bcc08e96c7f778a08f3548043c30b72e5d",
+  "native_q04": "not_executed_by_reviewer",
+  "archive_reads": 0
+}
