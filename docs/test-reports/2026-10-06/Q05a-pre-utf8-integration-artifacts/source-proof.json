@@ -1,0 +1,24 @@
+{
+  "source": "2e0d7b9fb61563f82fbcea6239993fef28970c9a",
+  "tree": "3f9415f750529b0caf02c90e639eada004cd006d",
+  "baseline": "3711e92d38786418e8e955d19a56cd6c72611389",
+  "baseline_root": "/tmp/q05a-cr-baseline-3711-20261006",
+  "helper_hashes": {
+    "q05a-independent-verify.py": "d0eba7ea7ecfc087e57ee1faeeb8e09805d1ae360ada20e92511c67a30457630",
+    "q05a-baseline-verify.py": "a0f712f3613d14fa152ab047856b45eb66c560c8a99ce950f31d1591b374cae2",
+    "q05a-independent-probes.py": "8401687d29c4f11787a59567e7efd3abff7179d21e01409c405cdee4e3b85faa",
+    "q05a-v4-integration-probes.py": "0a5831b60f3e68ba8717afff0d079de9443470dd87d7e73783a21bf5a8bc975b",
+    "q05a-resource-warning-probe.py": "d6b066ade8376197f26e2d5fa02fec76e1757b65181b457ff2c8039fdc2150e4"
+  },
+  "adaptation": "only fixed CODE/TREE identities; original probes including51497 assertions unchanged",
+  "ordinary_inputs": 904,
+  "before_digest": "35a90a847d02ae2bcb2436b651da74f22287e93c14619fa6fd4991608d53679c",
+  "protected_metadata_paths": 3220,
+  "old_report_paths": 1931,
+  "archive_body_reads": 0,
+  "runtime": {
+    "executable": "/usr/bin/python3",
+    "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39"
+  }
+}

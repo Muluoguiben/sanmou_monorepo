@@ -1,0 +1,107 @@
+{
+  "source": "3711e92d38786418e8e955d19a56cd6c72611389",
+  "tree": "9352ea3eaee2d0a41ecce44e9dc4fc188c35d3cf",
+  "commands": [
+    {
+      "name": "ranking-counterexample",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/sanmou-h07a-integration-20261006/docs/test-reports/2026-10-06/q05a-independent-probes.py",
+        "--verify-baseline-controls"
+      ],
+      "cwd": "/tmp/q05a-cr-baseline-3711-20261006/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q05a-cr-baseline-3711-20261006/packages/qa-agent/src:/tmp/q05a-cr-baseline-3711-20261006/packages/qa-agent/tests:/tmp/q05a-cr-baseline-3711-20261006/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": null,
+      "skips": 0,
+      "log": "ranking-counterexample.log",
+      "sha256": "07cfce9dd6b1e2ee71fe2c002d87cabe1f02565ad231676a49d79d2cd4f6a89e",
+      "bytes": 4224
+    },
+    {
+      "name": "old-quality",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "test_quality_eval",
+        "-v"
+      ],
+      "cwd": "/tmp/q05a-cr-baseline-3711-20261006/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q05a-cr-baseline-3711-20261006/packages/qa-agent/src:/tmp/q05a-cr-baseline-3711-20261006/packages/qa-agent/tests:/tmp/q05a-cr-baseline-3711-20261006/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 23,
+      "skips": 0,
+      "log": "old-quality.log",
+      "sha256": "c5a184cd31b2602368af7ab8fa3dc613f2dd0bb4f09cb76421168348fa394ff4",
+      "bytes": 3423
+    },
+    {
+      "name": "old-v3",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "qa_agent.quality_eval.runner",
+        "--baseline",
+        "v3",
+        "--output",
+        "/tmp/q05a-integration-2e0d7b9-20261006/baseline/v3.json"
+      ],
+      "cwd": "/tmp/q05a-cr-baseline-3711-20261006/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q05a-cr-baseline-3711-20261006/packages/qa-agent/src:/tmp/q05a-cr-baseline-3711-20261006/packages/qa-agent/tests:/tmp/q05a-cr-baseline-3711-20261006/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": null,
+      "skips": 0,
+      "log": "old-v3.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "name": "old-q04",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "qa_agent.quality_eval.claim_spans",
+        "--baseline",
+        "claim-spans-v1",
+        "--output",
+        "/tmp/q05a-integration-2e0d7b9-20261006/baseline/q04.json"
+      ],
+      "cwd": "/tmp/q05a-cr-baseline-3711-20261006/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q05a-cr-baseline-3711-20261006/packages/qa-agent/src:/tmp/q05a-cr-baseline-3711-20261006/packages/qa-agent/tests:/tmp/q05a-cr-baseline-3711-20261006/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": null,
+      "skips": 0,
+      "log": "old-q04.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "name": "original-resource-warning",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/sanmou-h07a-integration-20261006/docs/test-reports/2026-10-06/q05a-resource-warning-probe.py",
+        "baseline"
+      ],
+      "cwd": "/tmp/q05a-cr-baseline-3711-20261006/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q05a-cr-baseline-3711-20261006/packages/qa-agent/src:/tmp/q05a-cr-baseline-3711-20261006/packages/qa-agent/tests:/tmp/q05a-cr-baseline-3711-20261006/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 1,
+      "skips": 0,
+      "log": "original-resource-warning.log",
+      "sha256": "06003943ca6edbdafbbe439dd35b803063b1afbf6f9f3568a924c48533f6588f",
+      "bytes": 1184
+    }
+  ],
+  "v3_sha256": "db72e1c3616cadb2062c86a676596c21f1412dfa3ce6691a8f22c9576a259aec",
+  "q04_sha256": "c74e39ee833365f3fb3c6d035c52b230c603da9806e8fa347fa15b2b6fc45120",
+  "resource_warnings": 3,
+  "native": "not_executed",
+  "provider_calls": 0,
+  "archive_reads": 0
+}
