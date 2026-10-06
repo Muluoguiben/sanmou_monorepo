@@ -2,7 +2,9 @@
 from __future__ import annotations
 
 import asyncio
+from contextlib import contextmanager
 from datetime import datetime
+import sys
 from threading import RLock
 from typing import Any
 
@@ -16,10 +18,12 @@ from pioneer_agent.agent_harness.run_store import (
 from pioneer_agent.agent_harness.task_approval import check_response, request_approval, task_digest
 from pioneer_agent.agent_harness.task_contracts import (
     BudgetExceeded, BudgetRequest, ContextBuilder, ContextOverflow, ContextRequest,
-    DecisionPolicy, PolicyDecision, RunBudget, RunState, RunTrace, TaskSpec,
+    DecisionPolicy, PolicyContext, PolicyDecision, RunBudget, RunState, RunTrace, TaskSpec,
     TERMINAL_STATUSES, TraceEvent, Usage, SyntheticApprovalRecord, SyntheticApprovalResponse,
     SyntheticApprovalRunState, parse_run_state,
+    TraceEmissionError,
 )
+from pioneer_agent.agent_harness.task_trace import CausalTraceProducer
 from pioneer_agent.mcp_server.contracts import (
     GET_RUNTIME_STATE_TOOL, OBSERVE_GAME_TOOL, SESSION_STATUS_TOOL,
     LiveObservation, ObserveGameResponse, RuntimeStateResponse, SessionStatusResponse,
@@ -45,7 +49,7 @@ class TaskRunner:
     def __init__(self, *, task: TaskSpec, run_id: str, harness: RecommendationHarness,
                  store: RunStore, policy: DecisionPolicy, context_builder: ContextBuilder,
                  budget: RunBudget, trace: RunTrace, ownership: RunOwnership | None = None,
-                 synthetic_approval: bool = False):
+                 synthetic_approval: bool = False, causal_trace: bool = False):
         if harness.qa_client is not None:
             raise ValueError("task v1 uses Game-only windows; legacy QA windows are separate")
         with _CLIENT_BINDING_LOCK:
@@ -55,6 +59,8 @@ class TaskRunner:
         self.harness, self.store, self.policy = harness, store, policy
         self.context_builder, self.budget, self.trace = context_builder, budget, trace
         self._synthetic_approval = synthetic_approval is True
+        self._causal_enabled = causal_trace is True
+        self._causal = None
         self._task, self._run_id = task.model_copy(deep=True), run_id
         self._external_owner = ownership is not None
         self._ownership = ownership or store.acquire()
@@ -142,6 +148,8 @@ class TaskRunner:
         return self._current_step_id
 
     def cancel(self) -> None:
+        if self._causal_enabled:
+            return self._causal_control("cancel")
         if not self._active:
             self._ensure_ownership()
         if self.state.status not in TERMINAL_STATUSES:
@@ -155,6 +163,8 @@ class TaskRunner:
             self.close()
 
     def pause(self) -> None:
+        if self._causal_enabled:
+            return self._causal_control("pause")
         if not self._active:
             self._ensure_ownership()
         if self.state.status not in TERMINAL_STATUSES:
@@ -212,14 +222,68 @@ class TaskRunner:
             raise
 
     def _emit(self, event: str, **kwargs) -> None:
-        self.trace.emit(TraceEvent(run_id=self.state.run_id, step_id=self.step_id,
-                                   event=event, **kwargs))
+        record = TraceEvent(run_id=self.state.run_id, step_id=self.step_id, event=event, **kwargs)
+        if self._causal is not None:
+            self._causal.emit(record, primary=sys.exception(), advance=False)
+        else:
+            self.trace.emit(record)
+
+    @contextmanager
+    def _trace_window(self):
+        if self._causal is None:
+            yield
+            return
+        self._causal.start_window()
+        try:
+            yield
+        finally:
+            self._causal.outcome(primary=sys.exception())
+            if sys.exception() is None:
+                self._causal.check(exit=True)
+
+    def _causal_control(self, name):
+        idle = not self._active
+        if idle:
+            self._ensure_ownership()
+            self._causal = CausalTraceProducer(self)
+            self._causal.start(name)
+        primary = None
+        try:
+            self._causal.control(name)
+            if self.state.status not in TERMINAL_STATUSES:
+                ignored = name == "pause" and self.state.status in {"awaiting_approval", "revalidating_approval"}
+                if not ignored:
+                    if name == "cancel":
+                        self._cancelled = True
+                        self.budget.cancel()
+                    else:
+                        self._paused = True
+                    self._wake.set()
+                    if idle:
+                        self._finish("cancelled" if name == "cancel" else "paused", name + "_requested")
+        except BaseException as error:
+            primary = error
+            self._causal.remember(error)
+            raise
+        finally:
+            if idle:
+                try:
+                    _close_preserving_primary(self.close, primary)
+                except BaseException as error:
+                    primary = error
+                    raise
+                finally:
+                    self._causal.outcome(primary=primary, end=True)
+                    if primary is None:
+                        self._causal.check(exit=True)
 
     def _finish(self, status: str, reason: str) -> RunState:
         self.state.status = status
         self.state.reason = reason
         self.state.pending_call = None
         self._save()
+        if self._causal is not None and status == "failed":
+            self._causal.failed_business(reason)
         metadata = {"reason": reason}
         if isinstance(self.state, SyntheticApprovalRunState):
             metadata.update(request_id=self.state.approval.request.request_id,
@@ -238,6 +302,8 @@ class TaskRunner:
         return await self._run_entry(resume=True, response=response)
 
     async def _run_entry(self, *, resume=False, response=None) -> RunState:
+        if self._causal_enabled:
+            return await self._run_causal_entry(resume=resume, response=response)
         if self._active:
             raise RuntimeError("runner already active")
         with _checkpoint_cleanup(self.close):
@@ -249,6 +315,36 @@ class TaskRunner:
             finally:
                 with _CLIENT_BINDING_LOCK:
                     self._active = False
+
+    async def _run_causal_entry(self, *, resume=False, response=None):
+        if self._active:
+            raise RuntimeError("runner already active")
+        producer = None
+        primary = None
+        try:
+            with _checkpoint_cleanup(self.close):
+                self._check_client_binding()
+                self._ensure_ownership()
+                producer = self._causal = CausalTraceProducer(self)
+                self._install_client(activate=True)
+                try:
+                    producer.start("resume_synthetic" if response is not None else "resume" if resume else "run")
+                    result = await self._run_owned(resume=resume, response=response)
+                    producer.check(exit=True)
+                    return result
+                finally:
+                    with _CLIENT_BINDING_LOCK:
+                        self._active = False
+        except BaseException as error:
+            primary = error
+            if producer is not None:
+                producer.remember(error)
+            raise
+        finally:
+            if producer is not None:
+                producer.outcome(primary=primary, end=True)
+                if primary is None:
+                    producer.check(exit=True)
 
     async def _run_owned(self, *, resume: bool = False, response=None) -> RunState:
         if response is not None and self.state.status != "awaiting_approval":
@@ -303,15 +399,16 @@ class TaskRunner:
             while self.state.completed_steps < self.state.task.max_steps:
                 self._check()
                 self._current_step_id = f"{self.state.run_id}:{self.state.completed_steps + 1}"
-                step_reservation = self.budget.reserve(BudgetRequest(
-                    run_id=self.state.run_id, step_id=self.step_id, kind="step", name="decision_window"))
-                try:
-                    self._save()
-                    result = await self._step()
-                finally:
-                    if not self._checkpoint_failed:
-                        self.budget.settle(step_reservation, Usage(), outcome=self.state.status)
+                with self._trace_window():
+                    step_reservation = self.budget.reserve(BudgetRequest(
+                        run_id=self.state.run_id, step_id=self.step_id, kind="step", name="decision_window"))
+                    try:
                         self._save()
+                        result = await self._step()
+                    finally:
+                        if not self._checkpoint_failed:
+                            self.budget.settle(step_reservation, Usage(), outcome=self.state.status)
+                            self._save()
                 if result is not None:
                     return self.state.model_copy(deep=True)
                 if self.state.task.wait_seconds:
@@ -343,7 +440,7 @@ class TaskRunner:
             interruption = self._timeout_interrupt()
             return self._finish(interruption.status, interruption.reason)
         except Exception as exc:
-            if self._checkpoint_failed:
+            if self._checkpoint_failed or (self._causal is not None and isinstance(exc, TraceEmissionError)):
                 raise
             # Store only class, never exception text that may contain provider data.
             return self._finish("failed", f"runtime_error:{type(exc).__name__}")
@@ -352,6 +449,8 @@ class TaskRunner:
         self._responses.clear()
         result = await self.harness.run_decision_window()
         self._check()
+        if self._causal is not None:
+            self._causal.check(exit=True)  # A wrapped trace failure is not a genuine tool failure.
         if result.status != DecisionWindowStatus.RECOMMENDED:
             return self._finish("failed", result.stop.reason.value if result.stop.reason else "window_stopped")
         response = self._responses.get(GET_RUNTIME_STATE_TOOL)
@@ -367,6 +466,9 @@ class TaskRunner:
         self.state.evidence_refs = refs
         approval_revalidation = self.state.status == "revalidating_approval"
         self._save()
+        if self._causal is not None:
+            self._causal.emit(self._causal.event("observation", observation_id=observation.observation_id,
+                evidence_refs=refs, business="observation_guarded"))
         if approval_revalidation:
             self._check_approval_observation(observation)
             task = self.state.task
@@ -395,6 +497,7 @@ class TaskRunner:
             return self._finish("failed", "context_binding_mismatch")
         self._check()
         reservation = None
+        invocation_id = provenance = None
         if self.policy.uses_model:
             reservation = self.budget.reserve(BudgetRequest(run_id=self.state.run_id,
                 step_id=self.step_id, kind="model", name=self.policy.policy_id,
@@ -410,6 +513,12 @@ class TaskRunner:
                 self._check_approval_observation(observation)
             else:
                 self._check()
+            if self._causal is not None:
+                context = PolicyContext.model_validate(context.model_dump(mode="json"))
+                if (context.run_id, context.step_id, context.observation_id) != (
+                        self.state.run_id, self.step_id, observation.observation_id):
+                    return self._finish("failed", "context_binding_mismatch")
+                invocation_id, provenance = self._causal.invocation(context)
             transport = "error"  # Attempted, but no returned response yet.
             raw = await asyncio.wait_for(self.policy.decide(context), self.budget.remaining_seconds())
             transport = "ok"
@@ -433,11 +542,20 @@ class TaskRunner:
                     self.budget.settle(reservation, Usage(), outcome=outcome)
                 self.state.pending_call = None
                 self._save()
-                self._emit("policy", name=self.policy.policy_id, attempt_id=reservation,
+                values = dict(name=self.policy.policy_id, attempt_id=reservation,
                     observation_id=observation.observation_id, evidence_refs=refs,
                     transport=transport, contract=contract, business=outcome,
                     error_type=policy_error, usage=Usage() if reservation else None,
                     metadata={"policy_id": self.policy.policy_id, "task_version": 1})
+                if self._causal is not None:
+                    if invocation_id is None:
+                        values.update(transport="not_attempted", contract="not_checked")
+                    self._causal.emit(self._causal.event("policy", **values), primary=sys.exception(),
+                        invocation_id=invocation_id, provenance=provenance)
+                else:
+                    self._emit("policy", **values)
+        if self._causal is not None:
+            self._causal.check(exit=True)
         if approval_revalidation:
             self._check_approval_observation(observation)
         else:
@@ -538,6 +656,8 @@ class _TaskClient:
     async def call_tool(self, name, arguments):
         r = self.runner
         r._check()
+        if r._causal is not None:
+            r._causal.check()
         if name not in r.state.task.allowed_tools:
             raise _Interrupt("failed", "tool_not_allowed")
         try:
@@ -548,9 +668,12 @@ class _TaskClient:
         event = TraceEvent(run_id=r.state.run_id, step_id=r.step_id, event="tool",
                            name=name, attempt_id=reservation)
         r.state.pending_call = name
+        invocation_id = provenance = None
         try:
             r._save()
             r._check()
+            if r._causal is not None:
+                invocation_id, provenance = r._causal.invocation()
             raw = await asyncio.wait_for(r._client.call_tool(name, arguments), r.budget.remaining_seconds())
             event.transport = "ok"
             response = validate_game_response(name, structured_content(raw))
@@ -604,4 +727,9 @@ class _TaskClient:
                 r.budget.settle(reservation, Usage(), outcome=event.business or event.error_type or "error")
                 r.state.pending_call = None
                 r._save()
-                r.trace.emit(event)
+                if r._causal is not None:
+                    if invocation_id is None:
+                        event.transport, event.contract = "not_attempted", "not_checked"
+                    r._causal.emit(event, primary=sys.exception(), invocation_id=invocation_id, provenance=provenance)
+                else:
+                    r.trace.emit(event)

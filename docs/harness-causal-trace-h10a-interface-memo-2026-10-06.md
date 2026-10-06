@@ -35,3 +35,5 @@
 仅 v2 扩展错误处理：业务/取消/持久化主异常优先，trace 次错只附 class-only note；既有取消、结算与 cleanup 仍执行。首个 sink/校验失败后该 lifetime 不再 emit、不重试、不重新派发工具；允许留下明确不完整前缀，不伪造缺失 parent 或成功尾记录。两 sink 无跨文件事务承诺，部分写入也不能被当作 exactly-once。
 
 **请 root 核对一项选择：** 无既有主异常时，建议抛专用 `TraceEmissionError` 并停止后续派发，而非新增/改写 checkpoint 状态；已经持久化的终态不因日志故障回退。这样保持 checkpoint wire/恢复语义，同时不静默吞 trace 故障。默认 v1 的现有处理路径完全不变。核对通过后才实现并冻结专用测试。
+
+已决议：root/reviewer 放行上述方案。每次进入新建 lifetime/failure latch；trace 错被 harness 包装为 tool_failure 不能洗成正常返回，下一派发及出口必须检查 latch。真正主异常/既定业务分类优先，只附类名 note。来源按事件/调用时刻冻结，H07 v1→v2 后记录实际 state version；observation 事件仅表示既有观测 guards 通过，不是 goal_verified。
