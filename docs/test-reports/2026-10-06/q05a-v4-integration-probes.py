@@ -56,7 +56,8 @@ class V4IntegrationControls(unittest.TestCase):
     def test_valid_wrong_expected_saves_failed_report_then_exit1_and_no_clobber(self):
         positive = self.valid_control()
         changed = copy.deepcopy(self.corpus)
-        changed["season_cases"][0]["expected"]["match_ids"].append("independent-intentionally-wrong-id")
+        self.assertTrue(changed["season_cases"][0]["expected"]["match_ids"])
+        changed["season_cases"][0]["expected"]["match_ids"].pop()
         self.rebind(changed)  # Valid schema + valid source and fixture binding.
         run, path = self.cli("wrong-expected")
         self.assertEqual(run.returncode, 1, run.stderr)
