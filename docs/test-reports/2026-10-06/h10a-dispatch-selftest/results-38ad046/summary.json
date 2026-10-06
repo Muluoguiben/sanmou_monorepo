@@ -1,0 +1,405 @@
+{
+  "source": "38ad046d619b5635c27f43914e7a9321656689e3",
+  "tree": "60b36930b9aaabd8004ec44907a361a83a1a5991",
+  "baseline": "358df146ba184a771d3673428915a70fe8aa4c9c",
+  "verifier_sha256": "d6776641c8077f350031ab22beb9afa673d7167bfe0596243447ed27770a798d",
+  "runtime": {
+    "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+    "executable": "/usr/bin/python3",
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39"
+  },
+  "scope": {
+    "changed": [
+      "docs/harness-causal-trace-h10a-interface-memo-2026-10-06.md",
+      "docs/test-reports/2026-10-06/h10a-selftest/REPORT-9e6a8bd.md",
+      "docs/test-reports/2026-10-06/h10a-selftest/debug-original/h10a-context-short-repair.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/debug-original/h10a-focused-r3.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/debug-original/h10a-identity-original-red.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/debug-original/h10a-newtests-r1.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/debug-original/h10a-newtests-r2.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/debug-original/h10a-newtests-r5.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/debug-original/h10a-privacy-author-original-red.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/debug-original/h10a-public-repair.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/debug-original/h10a-targeted-dfa-original-red.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/debug-original/h10a-targeted-dfa-red-r2.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/debug-original/h10a-targeted-repair.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-9e6a8bd/causal-module.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-9e6a8bd/focused.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-9e6a8bd/h07a-module.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-9e6a8bd/h09-cli.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-9e6a8bd/independent-context-short.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-9e6a8bd/independent-probes.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-9e6a8bd/independent-targeted.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-9e6a8bd/pioneer-agent-full.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-9e6a8bd/qa-agent-full.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-9e6a8bd/qa-v3.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-9e6a8bd/sample-v2.jsonl",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-9e6a8bd/sanmou-common-full.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-9e6a8bd/summary.json",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-dfa7fe1/causal-module.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-dfa7fe1/focused.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-dfa7fe1/h07a-module.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-dfa7fe1/h09-cli.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-dfa7fe1/independent-probes.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-dfa7fe1/pioneer-agent-full.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-dfa7fe1/qa-agent-full.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-dfa7fe1/qa-v3.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-dfa7fe1/sample-v2.jsonl",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-dfa7fe1/sanmou-common-full.log",
+      "docs/test-reports/2026-10-06/h10a-selftest/results-dfa7fe1/summary.json",
+      "docs/test-reports/2026-10-06/h10a-selftest/verify-dfa7fe1.py",
+      "docs/test-reports/2026-10-06/h10a-selftest/verify.py",
+      "packages/pioneer-agent/src/pioneer_agent/agent_harness/run_trace.py",
+      "packages/pioneer-agent/src/pioneer_agent/agent_harness/task_contracts.py",
+      "packages/pioneer-agent/src/pioneer_agent/agent_harness/task_policy.py",
+      "packages/pioneer-agent/src/pioneer_agent/agent_harness/task_runner.py",
+      "packages/pioneer-agent/src/pioneer_agent/agent_harness/task_trace.py",
+      "packages/pioneer-agent/tests/test_causal_trace.py"
+    ],
+    "repair_baseline": "b8ef01a7f777c1232f0f62639794fe256d478746",
+    "repair_changed": [
+      "packages/pioneer-agent/src/pioneer_agent/agent_harness/task_runner.py",
+      "packages/pioneer-agent/src/pioneer_agent/agent_harness/task_trace.py",
+      "packages/pioneer-agent/tests/test_causal_trace.py"
+    ],
+    "old_contract_class_asts_unchanged": [
+      "BudgetExceeded",
+      "BudgetRequest",
+      "CheckpointEnvelope",
+      "ContextBuilder",
+      "ContextOverflow",
+      "ContextRequest",
+      "ContractModel",
+      "DecisionPolicy",
+      "PolicyContext",
+      "PolicyDecision",
+      "RunBudget",
+      "RunState",
+      "RunTrace",
+      "SyntheticApprovalRecord",
+      "SyntheticApprovalRequest",
+      "SyntheticApprovalResponse",
+      "SyntheticApprovalRunState",
+      "TaskSpec",
+      "TraceEvent",
+      "Usage"
+    ],
+    "old_tests_fixtures_ci_cli_budget_mcp_unchanged": true,
+    "git_byte_verified_inputs": 895,
+    "input_manifest_sha256": "50580f568910f27447c1726830b1682f70f79888481216f8f177ea68b2523427"
+  },
+  "independent_inputs": {
+    "h10a-independent-probes.py": "2e4bb05676a9bbc30a0136c9d96e243d86034e500ba9ef52e9a5fc27ba69b418",
+    "h10a-default-v1-oracle.json": "327ec7ae64a409b234505d8920056db2fa1f951405560cda43b0e3a491825ed6",
+    "h10a-independent-targeted.py": "4e2378966f30c818fdcce7a3d59f9a298ed6cbcf8c43bfa9f01db0a006d05063",
+    "h10a-independent-trace-context.py": "edc8ff01b960aef71c09493287b8e2a41f69f5054312ae3e26a77f43f911fd8f",
+    "h10a-independent-trace-context-short.py": "71cdf2cae37ef8c6fade5c3bc0cf84625a636cbd315fcddc8b33248bddb01234",
+    "h10a-independent-ambient-primary.py": "8dd9e9a599606c33b74cc6cf76f8ff82c56d443d8a762edd4a454b70def0487e",
+    "h10a-independent-dispatch-deadline.py": "7b177b2da24dc3734eae3d6834ea47527e796c2b3cec57fec192bb2568be7191"
+  },
+  "commands": [
+    {
+      "name": "causal-module",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "test_causal_trace",
+        "-v"
+      ],
+      "cwd": "/tmp/h10a-38ad046-source/packages/pioneer-agent/tests",
+      "PYTHONPATH": "/tmp/h10a-38ad046-source/packages/pioneer-agent/src:/tmp/h10a-38ad046-source/packages/qa-agent/src:/tmp/h10a-38ad046-source/packages/sanmou-common/src:/tmp/h10a-38ad046-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 30,
+      "skipped": 0,
+      "seconds": 2.370399236679077,
+      "log": "causal-module.log",
+      "log_bytes": 5831,
+      "log_sha256": "9024fbe451cf39496c62e79bd65c1dcd20a0b5d7df464b9309d5f214a63f86cb"
+    },
+    {
+      "name": "independent-probes",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h10a-independent-probes.py"
+      ],
+      "cwd": "/tmp/h10a-38ad046-source/packages/pioneer-agent/tests",
+      "PYTHONPATH": "/tmp/h10a-38ad046-source/packages/pioneer-agent/src:/tmp/h10a-38ad046-source/packages/qa-agent/src:/tmp/h10a-38ad046-source/packages/sanmou-common/src:/tmp/h10a-38ad046-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 5,
+      "skipped": 0,
+      "seconds": 2.2710824012756348,
+      "log": "independent-probes.log",
+      "log_bytes": 907,
+      "log_sha256": "4713a74dbfee683dbff2289cf6d1fa7315bcb0f30099db9e33b5ab4334cf0a6b"
+    },
+    {
+      "name": "independent-targeted",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h10a-independent-targeted.py"
+      ],
+      "cwd": "/tmp/h10a-38ad046-source/packages/pioneer-agent/tests",
+      "PYTHONPATH": "/tmp/h10a-38ad046-source/packages/pioneer-agent/src:/tmp/h10a-38ad046-source/packages/qa-agent/src:/tmp/h10a-38ad046-source/packages/sanmou-common/src:/tmp/h10a-38ad046-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 5,
+      "skipped": 0,
+      "seconds": 1.9685962200164795,
+      "log": "independent-targeted.log",
+      "log_bytes": 957,
+      "log_sha256": "4be5d49eec18e928bc6341a52c72f25749519192938472616b6cdd5fdef45b59"
+    },
+    {
+      "name": "independent-context-short",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h10a-independent-trace-context-short.py"
+      ],
+      "cwd": "/tmp/h10a-38ad046-source/packages/pioneer-agent/tests",
+      "PYTHONPATH": "/tmp/h10a-38ad046-source/packages/pioneer-agent/src:/tmp/h10a-38ad046-source/packages/qa-agent/src:/tmp/h10a-38ad046-source/packages/sanmou-common/src:/tmp/h10a-38ad046-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 1,
+      "skipped": 0,
+      "seconds": 1.868159532546997,
+      "log": "independent-context-short.log",
+      "log_bytes": 275,
+      "log_sha256": "261f476bc41674ab96fc1ef54392cf6e31acbc1a6106b34f5a8f66a4263fc353"
+    },
+    {
+      "name": "independent-ambient",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h10a-independent-ambient-primary.py"
+      ],
+      "cwd": "/tmp/h10a-38ad046-source/packages/pioneer-agent/tests",
+      "PYTHONPATH": "/tmp/h10a-38ad046-source/packages/pioneer-agent/src:/tmp/h10a-38ad046-source/packages/qa-agent/src:/tmp/h10a-38ad046-source/packages/sanmou-common/src:/tmp/h10a-38ad046-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 2,
+      "skipped": 0,
+      "seconds": 1.9184622764587402,
+      "log": "independent-ambient.log",
+      "log_bytes": 412,
+      "log_sha256": "8d82b2a29d40be08ee8d1cd60508fae55510f5ca9b28b16d1c3b39ecb528f41c"
+    },
+    {
+      "name": "independent-dispatch",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h10a-independent-dispatch-deadline.py"
+      ],
+      "cwd": "/tmp/h10a-38ad046-source/packages/pioneer-agent/tests",
+      "PYTHONPATH": "/tmp/h10a-38ad046-source/packages/pioneer-agent/src:/tmp/h10a-38ad046-source/packages/qa-agent/src:/tmp/h10a-38ad046-source/packages/sanmou-common/src:/tmp/h10a-38ad046-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 1,
+      "skipped": 0,
+      "seconds": 1.868445873260498,
+      "log": "independent-dispatch.log",
+      "log_bytes": 249,
+      "log_sha256": "ecd5e22336531a712adbcada9cf663dc41ea17dd830e1bfbf7ee5636548aaf72"
+    },
+    {
+      "name": "focused",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "test_causal_trace",
+        "test_harness_b",
+        "test_task_contracts",
+        "test_task_runner",
+        "test_task_cli",
+        "test_task_approval",
+        "test_checkpoint_ownership",
+        "test_task_cr_regressions",
+        "-v"
+      ],
+      "cwd": "/tmp/h10a-38ad046-source/packages/pioneer-agent/tests",
+      "PYTHONPATH": "/tmp/h10a-38ad046-source/packages/pioneer-agent/src:/tmp/h10a-38ad046-source/packages/qa-agent/src:/tmp/h10a-38ad046-source/packages/sanmou-common/src:/tmp/h10a-38ad046-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 175,
+      "skipped": 0,
+      "seconds": 24.771443367004395,
+      "log": "focused.log",
+      "log_bytes": 35273,
+      "log_sha256": "5e1fb179fe64d4a32fcf88c4cb5a5ed6c2a19bd634cb9f0449cd80f40c0fa89d"
+    },
+    {
+      "name": "h07a-module",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "test_task_approval",
+        "-v"
+      ],
+      "cwd": "/tmp/h10a-38ad046-source/packages/pioneer-agent/tests",
+      "PYTHONPATH": "/tmp/h10a-38ad046-source/packages/pioneer-agent/src:/tmp/h10a-38ad046-source/packages/qa-agent/src:/tmp/h10a-38ad046-source/packages/sanmou-common/src:/tmp/h10a-38ad046-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 35,
+      "skipped": 0,
+      "seconds": 8.58511734008789,
+      "log": "h07a-module.log",
+      "log_bytes": 8316,
+      "log_sha256": "a4cf6aecf6d4f1cb00fe3d6bbad25c5307027782735bdd479bd6fab525f82ea8"
+    },
+    {
+      "name": "pioneer-agent-full",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "/tmp/h10a-38ad046-source/packages/pioneer-agent",
+      "PYTHONPATH": "/tmp/h10a-38ad046-source/packages/pioneer-agent/src:/tmp/h10a-38ad046-source/packages/qa-agent/src:/tmp/h10a-38ad046-source/packages/sanmou-common/src:/tmp/h10a-38ad046-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 1083,
+      "skipped": 2,
+      "seconds": 59.36172103881836,
+      "log": "pioneer-agent-full.log",
+      "log_bytes": 342575,
+      "log_sha256": "b95b46f31c896997ec78214d1976ff945eaa0ea1c323b85a2e638f6241a8db5d"
+    },
+    {
+      "name": "qa-agent-full",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "/tmp/h10a-38ad046-source/packages/qa-agent",
+      "PYTHONPATH": "/tmp/h10a-38ad046-source/packages/pioneer-agent/src:/tmp/h10a-38ad046-source/packages/qa-agent/src:/tmp/h10a-38ad046-source/packages/sanmou-common/src:/tmp/h10a-38ad046-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 394,
+      "skipped": 0,
+      "seconds": 39.87695813179016,
+      "log": "qa-agent-full.log",
+      "log_bytes": 65549,
+      "log_sha256": "c4b251ceedbe04e9e559be732ff53c1507d7bb2bc1b7bbe09d4a59f8b80cffad"
+    },
+    {
+      "name": "sanmou-common-full",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "/tmp/h10a-38ad046-source/packages/sanmou-common",
+      "PYTHONPATH": "/tmp/h10a-38ad046-source/packages/pioneer-agent/src:/tmp/h10a-38ad046-source/packages/qa-agent/src:/tmp/h10a-38ad046-source/packages/sanmou-common/src:/tmp/h10a-38ad046-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 2,
+      "skipped": 0,
+      "seconds": 0.06412649154663086,
+      "log": "sanmou-common-full.log",
+      "log_bytes": 335,
+      "log_sha256": "7e9438edca6c90738e3f3983beb89cc2e47795af9815f716b6f41a24af9285f3"
+    },
+    {
+      "name": "h09-cli",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "pioneer_agent.app.task_eval",
+        "--output",
+        "/tmp/h10a-38ad046-results/h09-cli"
+      ],
+      "cwd": "/tmp/h10a-38ad046-source",
+      "PYTHONPATH": "/tmp/h10a-38ad046-source/packages/pioneer-agent/src:/tmp/h10a-38ad046-source/packages/qa-agent/src:/tmp/h10a-38ad046-source/packages/sanmou-common/src:/tmp/h10a-38ad046-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": null,
+      "skipped": 0,
+      "seconds": 4.320319414138794,
+      "log": "h09-cli.log",
+      "log_bytes": 234,
+      "log_sha256": "e4f7867537d597f44a22811b74214bb3dba336a337edee8ef55ba7f224b39e54"
+    },
+    {
+      "name": "qa-v3",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "qa_agent.quality_eval.runner",
+        "--baseline",
+        "v3",
+        "--output",
+        "/tmp/h10a-38ad046-results/qa-v3.json"
+      ],
+      "cwd": "/tmp/h10a-38ad046-source/packages/qa-agent",
+      "PYTHONPATH": "/tmp/h10a-38ad046-source/packages/pioneer-agent/src:/tmp/h10a-38ad046-source/packages/qa-agent/src:/tmp/h10a-38ad046-source/packages/sanmou-common/src:/tmp/h10a-38ad046-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": null,
+      "skipped": 0,
+      "seconds": 1.6669270992279053,
+      "log": "qa-v3.log",
+      "log_bytes": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "failures": [],
+  "results": {
+    "h09": {
+      "complete": true,
+      "gate_pass": true,
+      "totals": {
+        "control_pass": 8,
+        "expected_safety_stop": 6,
+        "goal_success": 2,
+        "infra_error": 0,
+        "safety_violations": 0,
+        "unexpected_goal_success": 0
+      },
+      "raw_path": "/tmp/h10a-38ad046-results/h09-cli/report.json",
+      "raw_bytes": 273315,
+      "raw_sha256": "fc0e90eb8a57876c09b641e9b48d8066e0b90be1b34179e425822570b0407514"
+    },
+    "qa_v3": {
+      "sha256": "480a448fd7abecfba2f6cd4eb32a46873ff0b8127b6251cd8aeea5e4fe2e82c8",
+      "raw_path": "/tmp/h10a-38ad046-results/qa-v3.json"
+    },
+    "sample_v2": {
+      "file": "sample-v2.jsonl",
+      "bytes": 29169,
+      "sha256": "ac0095241ebf09aabac5be10e74046d1b171c3fe4d0db067c1521f48c082762a",
+      "events": 27,
+      "ledger_counts": {
+        "step": 3,
+        "tool": 12,
+        "model": 0
+      },
+      "status": "succeeded",
+      "execution_authority": "none",
+      "executable": false
+    }
+  },
+  "native": "new H10a module not executed natively; existing H07 Windows35 is not H10 native evidence"
+}
