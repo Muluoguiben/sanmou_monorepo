@@ -1,0 +1,264 @@
+{
+  "source": "e0d9d6ef6083f5dc8f3c71daae6e46ed0793c750",
+  "tree": "94abdeb7aa1e391c02eefaf415893b23eb7d741a",
+  "previous_source": "3d8257bf03d47bb86fb80994c924987033b1858a",
+  "unchanged_trees": {
+    "packages/qa-agent/src": "e5b395defe7e476c4d6fe624c41f170d02a0a1cb",
+    "packages/qa-agent/tests/fixtures": "7efd6b74724dc666f248907cb00243b174d40556",
+    ".github": "20db19b28ae98b89bcfdd5444bddbe2652eeb878",
+    "packages/pioneer-agent": "250cf9e14a502b543437ab3169c20b0cd06bd3cd",
+    "packages/sanmou-common": "88f324d674458250fcb3c4b6f6a1327a0c60a769"
+  },
+  "only_ast_delta": "15 explicit encoding=utf-8 keywords on existing read_text/write_text calls",
+  "encoding_additions": [
+    {
+      "path": "packages/qa-agent/tests/test_quality_eval.py",
+      "line": 157,
+      "call": "read_text"
+    },
+    {
+      "path": "packages/qa-agent/tests/test_quality_eval.py",
+      "line": 197,
+      "call": "read_text"
+    },
+    {
+      "path": "packages/qa-agent/tests/test_quality_eval.py",
+      "line": 198,
+      "call": "read_text"
+    },
+    {
+      "path": "packages/qa-agent/tests/test_quality_eval.py",
+      "line": 210,
+      "call": "read_text"
+    },
+    {
+      "path": "packages/qa-agent/tests/test_quality_eval.py",
+      "line": 186,
+      "call": "write_text"
+    },
+    {
+      "path": "packages/qa-agent/tests/test_quality_eval.py",
+      "line": 21,
+      "call": "read_text"
+    },
+    {
+      "path": "packages/qa-agent/tests/test_quality_eval.py",
+      "line": 190,
+      "call": "write_text"
+    },
+    {
+      "path": "packages/qa-agent/tests/test_quality_eval.py",
+      "line": 190,
+      "call": "read_text"
+    },
+    {
+      "path": "packages/qa-agent/tests/test_seasonal_retriever.py",
+      "line": 172,
+      "call": "read_text"
+    },
+    {
+      "path": "packages/qa-agent/tests/test_seasonal_retriever.py",
+      "line": 180,
+      "call": "read_text"
+    },
+    {
+      "path": "packages/qa-agent/tests/test_seasonal_retriever.py",
+      "line": 181,
+      "call": "read_text"
+    },
+    {
+      "path": "packages/qa-agent/tests/test_seasonal_retriever.py",
+      "line": 223,
+      "call": "read_text"
+    },
+    {
+      "path": "packages/qa-agent/tests/test_seasonal_retriever.py",
+      "line": 227,
+      "call": "read_text"
+    },
+    {
+      "path": "packages/qa-agent/tests/test_seasonal_retriever.py",
+      "line": 236,
+      "call": "read_text"
+    },
+    {
+      "path": "packages/qa-agent/tests/test_seasonal_retriever.py",
+      "line": 212,
+      "call": "read_text"
+    }
+  ],
+  "test_inventory": [
+    "test_quality_eval.QualityEvaluationTests.test_answer_and_evidence_binding",
+    "test_quality_eval.QualityEvaluationTests.test_candidate_evidence_does_not_count_as_citation",
+    "test_quality_eval.QualityEvaluationTests.test_context_binding",
+    "test_quality_eval.QualityEvaluationTests.test_correct_id_does_not_establish_fact_or_context_support",
+    "test_quality_eval.QualityEvaluationTests.test_empty_evidence_invalidates_id",
+    "test_quality_eval.QualityEvaluationTests.test_frozen_retrieval_baseline_runs_without_model_or_network",
+    "test_quality_eval.QualityEvaluationTests.test_invalid_version_and_loaded_source_rejected",
+    "test_quality_eval.QualityEvaluationTests.test_lazy_assessment_module_from_another_tree_is_rejected",
+    "test_quality_eval.QualityEvaluationTests.test_manifest_metadata_rejects_version_split_and_duplicate_ids",
+    "test_quality_eval.QualityEvaluationTests.test_mixed_claim_missing_citation_not_hidden_by_first_claim",
+    "test_quality_eval.QualityEvaluationTests.test_portable_snapshot_binds_paths_and_content",
+    "test_quality_eval.QualityEvaluationTests.test_production_or_fixture_drift_is_rejected",
+    "test_quality_eval.QualityEvaluationTests.test_real_file_add_delete_and_change_rejected",
+    "test_quality_eval.QualityEvaluationTests.test_refusal_precision_recall_distinct",
+    "test_quality_eval.QualityEvaluationTests.test_retrieval_denominators_and_duplicates",
+    "test_quality_eval.QualityEvaluationTests.test_strict_schema_is_separate_from_hash_binding",
+    "test_quality_eval.QualityEvaluationTests.test_supported_label_requires_bound_evidence",
+    "test_quality_eval.QualityEvaluationTests.test_supported_synthetic_control",
+    "test_quality_eval.QualityEvaluationTests.test_true_but_off_topic_is_context_failure_not_false_fact",
+    "test_quality_eval.QualityEvaluationTests.test_unannotated_gaps_and_overlap_rejected",
+    "test_quality_eval.QualityEvaluationTests.test_unknown_and_unreviewed_are_not_semantic_passes",
+    "test_quality_eval.QualityEvaluationTests.test_v1_remains_frozen_and_rejects_new_production",
+    "test_quality_eval.QualityEvaluationTests.test_v3_rejects_new_production_without_changing_its_freeze",
+    "test_quality_eval.QualityEvaluationTests.test_v3_requires_nonempty_valid_multiturn_suite",
+    "test_seasonal_retriever.SeasonalRetrieverTests.test_case_ids_group_types_and_control_metadata",
+    "test_seasonal_retriever.SeasonalRetrieverTests.test_cli_failed_gate_report_saved_create_only",
+    "test_seasonal_retriever.SeasonalRetrieverTests.test_duplicate_entries_rejected_before_evaluating_any_control",
+    "test_seasonal_retriever.SeasonalRetrieverTests.test_each_pool_cap_and_original_order",
+    "test_seasonal_retriever.SeasonalRetrieverTests.test_empty_and_unrelated_pools_no_diagnostic_dump",
+    "test_seasonal_retriever.SeasonalRetrieverTests.test_exact_case_and_expected_keys",
+    "test_seasonal_retriever.SeasonalRetrieverTests.test_exact_three_groups_and_reasons",
+    "test_seasonal_retriever.SeasonalRetrieverTests.test_existing_model_strip_and_alias_query_reused",
+    "test_seasonal_retriever.SeasonalRetrieverTests.test_expected_ids_types_duplicates_and_reasons",
+    "test_seasonal_retriever.SeasonalRetrieverTests.test_filter_before_top_k_avoids_wrong_season_flood",
+    "test_seasonal_retriever.SeasonalRetrieverTests.test_foreign_lazy_season_module_rejected_before_call",
+    "test_seasonal_retriever.SeasonalRetrieverTests.test_global_duplicates_even_cross_season_unknown_and_unrelated",
+    "test_seasonal_retriever.SeasonalRetrieverTests.test_input_identity_and_default_retrieval_unchanged",
+    "test_seasonal_retriever.SeasonalRetrieverTests.test_invalid_entry_container_types",
+    "test_seasonal_retriever.SeasonalRetrieverTests.test_multitag_exact_case_sensitive_no_unicode_alias",
+    "test_seasonal_retriever.SeasonalRetrieverTests.test_real_v4_cli_wrong_expected_saves_failed_report",
+    "test_seasonal_retriever.SeasonalRetrieverTests.test_strict_request_arguments",
+    "test_seasonal_retriever.SeasonalRetrieverTests.test_synthetic_control_and_valid_wrong_expected_fail_gate",
+    "test_seasonal_retriever.SeasonalRetrieverTests.test_v4_inherits_v3_cases_exactly",
+    "test_seasonal_retriever.SeasonalRetrieverTests.test_v4_requires_inherited_groups_and_season_cases"
+  ],
+  "commands": [
+    {
+      "name": "public-probes",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/q05a-independent-probes.py",
+        "-v"
+      ],
+      "cwd": "/tmp/q05a-cr-e0d9d6e-20261006/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q05a-cr-e0d9d6e-20261006/packages/qa-agent/src:/tmp/q05a-cr-e0d9d6e-20261006/packages/qa-agent/tests:/tmp/q05a-cr-e0d9d6e-20261006/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 5,
+      "skips": 0,
+      "log": "public-probes.log",
+      "bytes": 807,
+      "sha256": "57b8280f8819f2a50ca66f26e6ad2e8e21dfb64349c6729db4a02e6f893dc1a1"
+    },
+    {
+      "name": "v4-integration-probes",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/q05a-v4-integration-probes.py",
+        "/tmp/q05a-cr-e0d9d6e-20261006",
+        "-v"
+      ],
+      "cwd": "/tmp/q05a-cr-e0d9d6e-20261006/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q05a-cr-e0d9d6e-20261006/packages/qa-agent/src:/tmp/q05a-cr-e0d9d6e-20261006/packages/qa-agent/tests:/tmp/q05a-cr-e0d9d6e-20261006/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 4,
+      "skips": 0,
+      "log": "v4-integration-probes.log",
+      "bytes": 743,
+      "sha256": "a95191c872dad2358dbfcdb4e6ab9b3bfd427f43806b9d88f7f956b80420bd69"
+    },
+    {
+      "name": "targeted-normal",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "test_seasonal_retriever",
+        "test_quality_eval",
+        "-v"
+      ],
+      "cwd": "/tmp/q05a-cr-e0d9d6e-20261006/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q05a-cr-e0d9d6e-20261006/packages/qa-agent/src:/tmp/q05a-cr-e0d9d6e-20261006/packages/qa-agent/tests:/tmp/q05a-cr-e0d9d6e-20261006/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 44,
+      "skips": 0,
+      "log": "targeted-normal.log",
+      "bytes": 6591,
+      "sha256": "b557028bb76fd399a0314c4a68717224bd9c71dfae72d41ac658bde66db2b118"
+    },
+    {
+      "name": "qa-full",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "/tmp/q05a-cr-e0d9d6e-20261006/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q05a-cr-e0d9d6e-20261006/packages/qa-agent/src:/tmp/q05a-cr-e0d9d6e-20261006/packages/qa-agent/tests:/tmp/q05a-cr-e0d9d6e-20261006/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 440,
+      "skips": 0,
+      "log": "qa-full.log",
+      "bytes": 71264,
+      "sha256": "9052d92608b49b361ca013c6b919c8f5ee782e3e2aa2a8eb4bf200590099a9c0"
+    },
+    {
+      "name": "v4-cli",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "qa_agent.quality_eval.runner",
+        "--baseline",
+        "v4",
+        "--output",
+        "/tmp/q05a-cr-e0d9d6e-repair-rerun-results/v4.json"
+      ],
+      "cwd": "/tmp/q05a-cr-e0d9d6e-20261006/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q05a-cr-e0d9d6e-20261006/packages/qa-agent/src:/tmp/q05a-cr-e0d9d6e-20261006/packages/qa-agent/tests:/tmp/q05a-cr-e0d9d6e-20261006/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": null,
+      "skips": 0,
+      "log": "v4-cli.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "q04-cli",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "qa_agent.quality_eval.claim_spans",
+        "--baseline",
+        "claim-spans-v1",
+        "--output",
+        "/tmp/q05a-cr-e0d9d6e-repair-rerun-results/q04.json"
+      ],
+      "cwd": "/tmp/q05a-cr-e0d9d6e-20261006/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q05a-cr-e0d9d6e-20261006/packages/qa-agent/src:/tmp/q05a-cr-e0d9d6e-20261006/packages/qa-agent/tests:/tmp/q05a-cr-e0d9d6e-20261006/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": null,
+      "skips": 0,
+      "log": "q04-cli.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "report_hashes": {
+    "v4": "c30d4129f16930fd554c502d6a6b7f5787f657367df86e8ace5cd454db58858c",
+    "q04": "b9658bf88a197cf0a6a421dd66133bade253281961acc85f59c744b62732f0b6"
+  },
+  "native": "pending_final_Hosted_25_and_44",
+  "strict_C_ASCII_filesystem": "still_fails; not hidden"
+}

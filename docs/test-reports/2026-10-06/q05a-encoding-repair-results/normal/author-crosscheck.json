@@ -1,0 +1,159 @@
+{
+  "source": "e0d9d6ef6083f5dc8f3c71daae6e46ed0793c750",
+  "tree": "94abdeb7aa1e391c02eefaf415893b23eb7d741a",
+  "report": "dacf8a0aea62eef7bd9415779cdcf03e6faffe70",
+  "manifest_sha256": "c7ec220edcd9e83b795e61a46f4c29ab27eac8ebdbbe4509d42516cdee1dfb91",
+  "normal_logs_verified": [
+    {
+      "name": "q05-targeted",
+      "exit": 0,
+      "tests": 44,
+      "skips": 0,
+      "sha256": "f6ef49027f3b3be5c586415e024b8b23211621da7dd78d53b57a4d67bd33699b"
+    },
+    {
+      "name": "q04-targeted",
+      "exit": 0,
+      "tests": 25,
+      "skips": 0,
+      "sha256": "485f3780e880bf1e418db2e0e91f968d1ca4a7bafc6021d39c5ee6e4291151b0"
+    },
+    {
+      "name": "resource-close",
+      "exit": 0,
+      "tests": 1,
+      "skips": 0,
+      "sha256": "09c82e5188fccbc2fa2c032afe2d1630a9de5fff75250669593f774ea79cdb8c"
+    },
+    {
+      "name": "h07a",
+      "exit": 0,
+      "tests": 35,
+      "skips": 0,
+      "sha256": "755525ced75a99492049ce640e4461e1c95cac40b574f9aabba7caeccf1129ea"
+    },
+    {
+      "name": "h10-causal",
+      "exit": 0,
+      "tests": 32,
+      "skips": 0,
+      "sha256": "7f29d91e1822cd81347c3769774438c0e7781399b1f54bcc13dd95933c1eee79"
+    },
+    {
+      "name": "qa-agent-full",
+      "exit": 0,
+      "tests": 440,
+      "skips": 0,
+      "sha256": "043c110f8d7801780189ad8585c216244a855fdac76313518ce308029338026f"
+    },
+    {
+      "name": "pioneer-agent-full",
+      "exit": 0,
+      "tests": 1085,
+      "skips": 2,
+      "sha256": "d1acb3353840efee07d4abd633822c65fb233d3eb6fe34de306feb36aac92cc4"
+    },
+    {
+      "name": "sanmou-common-full",
+      "exit": 0,
+      "tests": 2,
+      "skips": 0,
+      "sha256": "7e9438edca6c90738e3f3983beb89cc2e47795af9815f716b6f41a24af9285f3"
+    },
+    {
+      "name": "v1-cli",
+      "exit": 1,
+      "tests": null,
+      "skips": 0,
+      "sha256": "cd41b50d48fb37f4715be0d0ff3c6589c8299e434b40041f553bc07b5e5ccd59"
+    },
+    {
+      "name": "v2-cli",
+      "exit": 1,
+      "tests": null,
+      "skips": 0,
+      "sha256": "cd41b50d48fb37f4715be0d0ff3c6589c8299e434b40041f553bc07b5e5ccd59"
+    },
+    {
+      "name": "v3-cli",
+      "exit": 1,
+      "tests": null,
+      "skips": 0,
+      "sha256": "cd41b50d48fb37f4715be0d0ff3c6589c8299e434b40041f553bc07b5e5ccd59"
+    },
+    {
+      "name": "v4-cli",
+      "exit": 0,
+      "tests": null,
+      "skips": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "q04-cli",
+      "exit": 0,
+      "tests": null,
+      "skips": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "h09-cli",
+      "exit": 0,
+      "tests": null,
+      "skips": 0,
+      "sha256": "454b2b0cdbe6685702a9b2138150ad654a51d4251a1da3a549cc80ba65e8622d"
+    }
+  ],
+  "locale_records_verified": [
+    {
+      "name": "old-C-red",
+      "source": "3d8257bf03d47bb86fb80994c924987033b1858a",
+      "exit": 1,
+      "locale": {
+        "encoding": "ANSI_X3.4-1968",
+        "utf8_mode": 0,
+        "filesystem_encoding": "ascii",
+        "stdout_encoding": "utf-8"
+      },
+      "log_sha256": "d3fb1dc70fd53260922348304fb6fa089feede3516a81caaa57a58d78404851e"
+    },
+    {
+      "name": "new-C-filesystem-red",
+      "source": "e0d9d6ef6083f5dc8f3c71daae6e46ed0793c750",
+      "exit": 1,
+      "locale": {
+        "encoding": "ANSI_X3.4-1968",
+        "utf8_mode": 0,
+        "filesystem_encoding": "ascii",
+        "stdout_encoding": "utf-8"
+      },
+      "log_sha256": "42fc326c8238a424906f614f149a98fbfac7dd2252ccb95cf590df9a94659e77"
+    },
+    {
+      "name": "old-text-open-red",
+      "source": "3d8257bf03d47bb86fb80994c924987033b1858a",
+      "exit": 1,
+      "locale": {
+        "encoding": "ANSI_X3.4-1968",
+        "utf8_mode": 0,
+        "filesystem_encoding": "utf-8",
+        "stdout_encoding": "utf-8",
+        "default_open_encoding": "ANSI_X3.4-1968"
+      },
+      "log_sha256": "dffe3cb01d7b62523136c8bd236bb956323111b25689469efdd4451d411b77ec"
+    },
+    {
+      "name": "new-text-open-green",
+      "source": "e0d9d6ef6083f5dc8f3c71daae6e46ed0793c750",
+      "exit": 0,
+      "locale": {
+        "encoding": "ANSI_X3.4-1968",
+        "utf8_mode": 0,
+        "filesystem_encoding": "utf-8",
+        "stdout_encoding": "utf-8",
+        "default_open_encoding": "ANSI_X3.4-1968"
+      },
+      "log_sha256": "a40f4c8f932ce8bf2ef017d0b250a12eceb25ba5ff106a9b57e79168208ba41f"
+    }
+  ],
+  "native": "pending_final_exact_Hosted"
+}

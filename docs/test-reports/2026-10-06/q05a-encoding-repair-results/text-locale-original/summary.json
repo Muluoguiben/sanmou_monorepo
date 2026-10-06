@@ -1,0 +1,52 @@
+{
+  "issue": "Q05a-P1",
+  "source": "3d8257bf03d47bb86fb80994c924987033b1858a",
+  "tree": "0aa22ba210af5fb112b9ad073939428961511b4d",
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "-c",
+    "import json, locale, subprocess, sys, unittest\nfrom pathlib import Path\nstartup = {'locale': locale.setlocale(locale.LC_CTYPE), 'filesystem_encoding': sys.getfilesystemencoding(),\n           'utf8_mode': sys.flags.utf8_mode}\nassert startup['filesystem_encoding'].lower().replace('-', '') == 'utf8'\nassert startup['utf8_mode'] == 0\nlocale.setlocale(locale.LC_CTYPE, 'C')\nwith Path(sys.argv[1]).open() as stream:\n    file_encoding = stream.encoding\nruntime = {'locale': locale.setlocale(locale.LC_CTYPE), 'locale_encoding': locale.getencoding(),\n           'file_encoding': file_encoding, 'filesystem_encoding': sys.getfilesystemencoding(),\n           'utf8_mode': sys.flags.utf8_mode, 'stdout_encoding': sys.stdout.encoding}\nassert runtime['file_encoding'].lower() in ('ansi_x3.4-1968', 'ascii', 'us-ascii')\nassert runtime['filesystem_encoding'].lower().replace('-', '') == 'utf8' and runtime['utf8_mode'] == 0\n# In-memory setlocale is NOT inherited by newly spawned interpreters. Record this\n# explicitly; the target tests' CLI subprocesses inherit the same C.UTF-8 env.\nchild_code = 'import json,locale,sys; print(json.dumps(dict(locale=locale.setlocale(locale.LC_CTYPE),file_encoding=locale.getencoding(),filesystem_encoding=sys.getfilesystemencoding(),utf8_mode=sys.flags.utf8_mode)))'\nspawned = json.loads(subprocess.check_output([sys.executable, '-B', '-c', child_code]))\nrecord = {'startup': startup, 'target_test_process': runtime, 'spawned_interpreter': spawned,\n          'scope': '44 tests execute under C text locale; nested CLI processes inherit C.UTF-8 environment'}\nPath(sys.argv[2]).write_text(json.dumps(record, indent=2)+'\\n', encoding='utf-8')\nprint(json.dumps(record), flush=True)\nresult = unittest.main(module=None, argv=['unittest', 'test_seasonal_retriever', 'test_quality_eval', '-v'], exit=False).result\nrecord['tests_run'] = result.testsRun\nrecord['failures'] = len(result.failures)\nrecord['errors'] = len(result.errors)\nrecord['skips'] = len(result.skipped)\nPath(sys.argv[2]).write_text(json.dumps(record, indent=2)+'\\n', encoding='utf-8')\nraise SystemExit(0 if result.wasSuccessful() and result.testsRun == 44 and not result.skipped else 1)\n",
+    "/tmp/q05a-cr-3d8257b-20261006/packages/qa-agent/tests/fixtures/quality_eval/v4/cases.json",
+    "/tmp/q05a-cr-3d8257b-file-locale-red/runtime-locale.json"
+  ],
+  "cwd": "/tmp/q05a-cr-3d8257b-20261006/packages/qa-agent/tests",
+  "PYTHONPATH": "/tmp/q05a-cr-3d8257b-20261006/packages/qa-agent/src:/tmp/q05a-cr-3d8257b-20261006/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+  "environment": {
+    "LC_ALL": "C.UTF-8",
+    "LANG": "C.UTF-8",
+    "PYTHONUTF8": "0",
+    "PYTHONCOERCECLOCALE": "0",
+    "PYTHONIOENCODING": "utf-8"
+  },
+  "locale": {
+    "startup": {
+      "locale": "C.UTF-8",
+      "filesystem_encoding": "utf-8",
+      "utf8_mode": 0
+    },
+    "target_test_process": {
+      "locale": "C",
+      "locale_encoding": "ANSI_X3.4-1968",
+      "file_encoding": "ANSI_X3.4-1968",
+      "filesystem_encoding": "utf-8",
+      "utf8_mode": 0,
+      "stdout_encoding": "utf-8"
+    },
+    "spawned_interpreter": {
+      "locale": "C.UTF-8",
+      "file_encoding": "UTF-8",
+      "filesystem_encoding": "utf-8",
+      "utf8_mode": 0
+    },
+    "scope": "44 tests execute under C text locale; nested CLI processes inherit C.UTF-8 environment",
+    "tests_run": 44,
+    "failures": 0,
+    "errors": 27,
+    "skips": 0
+  },
+  "exit": 1,
+  "log_bytes": 34104,
+  "log_sha256": "b2b700a5c1871c32740ccb2f618adc44867b0c7467861e37df2b0bc1cc01bcf4",
+  "native_windows": "not_executed"
+}
