@@ -1,8 +1,10 @@
 """H07a synthetic-only lifecycle; no model, device, provider or dispatch authority."""
 import asyncio
 import copy
+import hashlib
 import json
 import multiprocessing
+import os
 from datetime import timedelta
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -71,6 +73,122 @@ def _process_consumer(path, response, start, release, pipe, crash=False):
         pipe.send(("result", result.status, client.calls))
     except (CheckpointConflict, ValueError) as exc:
         pipe.send(("rejected", type(exc).__name__, client.calls))
+
+
+def _require_local_checkpoint(path):
+    if os.name == "nt":
+        import ctypes
+        resolved = path.resolve()
+        if (len(resolved.drive) != 2 or resolved.drive[1] != ":"
+                or ctypes.windll.kernel32.GetDriveTypeW(str(resolved.anchor)) != 3):
+            raise AssertionError("Windows checkpoint test requires a local fixed disk")
+
+
+def _process_revalidated_before_policy(path, response, pipe):
+    """Park only after JsonRunStore's real durable write; never call a live client."""
+    path = Path(path)
+    _require_local_checkpoint(path)
+    store = JsonRunStore(path)
+    client = SequenceClient(count=1)
+    policy = FakeDecisionPolicy([PolicyDecision(action="continue", reason="must not reach policy")])
+    original = store._write
+    def write(envelope):
+        original(envelope)
+        if envelope.state.reason == "approval_revalidated":
+            raw = path.read_bytes()
+            pipe.send({"cut": "approval_revalidated", "disk": json.loads(raw),
+                "sha256": hashlib.sha256(raw).hexdigest(), "calls": list(client.calls),
+                "policy_calls": len(policy.contexts)})
+            if not pipe.poll(15):
+                raise RuntimeError("test revalidation rendezvous timed out")
+            pipe.recv()  # Parent terminates only this child before the write returns.
+            raise AssertionError("test child unexpectedly released")
+    store._write = write
+    budget = RunBudgetLedger(BudgetLimits(max_model_attempts=0, max_seconds=60.),
+                            clock=lambda: 1001., monotonic=lambda: 1001.)
+    runner = make_runner(client=client, store=store, policy=policy, budget=budget)
+    result = asyncio.run(runner.resume_synthetic(SyntheticApprovalResponse.model_validate(response)))
+    pipe.send({"unexpected_result": result.status})
+
+
+class ApprovalDiskRecoveryTests(unittest.IsolatedAsyncioTestCase):
+    @staticmethod
+    def budget(clock):
+        return RunBudgetLedger(BudgetLimits(max_model_attempts=0, max_seconds=60.),
+                              clock=lambda: clock[0], monotonic=lambda: clock[0])
+
+    async def waiting_checkpoint(self, path):
+        _require_local_checkpoint(path)
+        clock, now = [1000.], [BASE + timedelta(seconds=2)]
+        runner = make_runner(store=JsonRunStore(path), now=now, budget=self.budget(clock))
+        initial = await runner.run()
+        clock[0] += 10
+        now[0] += timedelta(seconds=10)
+        waiting = await runner.run(resume=True)
+        raw = json.loads(path.read_bytes())
+        self.assertEqual(raw["state"], waiting.model_dump(mode="json"))
+        self.assertEqual((raw["storage_version"], waiting.status), (2, "awaiting_approval"))
+        self.assertEqual(waiting.approval.last_checked_at, now[0])
+        self.assertGreater(waiting.approval.last_checked_at, initial.approval.last_checked_at)
+        self.assertEqual(waiting.approval.request, initial.approval.request)
+        self.assertEqual(waiting.budget_state["reservations"], initial.budget_state["reservations"])
+        self.assertEqual(waiting.budget_state["deadline"], 1060.)
+        return waiting, clock, now
+
+    async def test_json_waiting_new_reader_preserves_watermark_deadline_and_reservations(self):
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "run.json"
+            waiting, clock, now = await self.waiting_checkpoint(path)
+            before = path.read_bytes()
+            self.assertEqual(JsonRunStore(path).load(), waiting)
+            self.assertEqual(path.read_bytes(), before)
+            clock[0] += 5
+            now[0] += timedelta(seconds=5)
+            fresh = make_runner(store=JsonRunStore(path), now=now, client=SequenceClient(count=1),
+                                budget=self.budget(clock))
+            self.assertEqual(fresh.state.approval.last_checked_at, waiting.approval.last_checked_at)
+            self.assertEqual(fresh.budget.snapshot()["reservations"], waiting.budget_state["reservations"])
+            self.assertEqual(fresh.budget.snapshot()["deadline"], 1060.)
+            self.assertEqual(fresh.budget.remaining_seconds(), 45.)
+            result = await fresh.run(resume=True)
+            self.assertEqual(result.status, "awaiting_approval")
+            self.assertEqual((fresh._client.calls, fresh.policy.contexts), ([], []))
+            self.assertEqual(fresh.budget.summary()["counts"], {"step": 1, "tool": 4, "model": 0})
+            self.assertEqual(result.budget_state["reservations"], waiting.budget_state["reservations"])
+            self.assertEqual(JsonRunStore(path).load().approval.last_checked_at, now[0])
+
+    async def test_json_waiting_fresh_runner_clock_rollback_stops_without_calls(self):
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "run.json"
+            waiting, clock, now = await self.waiting_checkpoint(path)
+            clock[0] += 5  # Budget clock stays valid; isolate the persisted approval clock.
+            now[0] -= timedelta(seconds=5)
+            fresh = make_runner(store=JsonRunStore(path), now=now, client=SequenceClient(count=1),
+                                budget=self.budget(clock))
+            result = await fresh.run(resume=True)
+            self.assertEqual((result.status, result.reason), ("failed", "approval_clock_rollback"))
+            self.assertEqual((fresh._client.calls, fresh.policy.contexts), ([], []))
+            saved = JsonRunStore(path).load()
+            self.assertEqual(saved.approval.last_checked_at, waiting.approval.last_checked_at)
+            self.assertEqual(saved.budget_state["reservations"], waiting.budget_state["reservations"])
+            self.assertEqual(saved.budget_state["deadline"], 1060.)
+
+    async def test_json_waiting_fresh_runner_expired_deadline_stops_without_calls(self):
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "run.json"
+            waiting, clock, now = await self.waiting_checkpoint(path)
+            clock[0] = 1061.
+            now[0] += timedelta(seconds=51)
+            fresh = make_runner(store=JsonRunStore(path), now=now, client=SequenceClient(count=1),
+                                budget=self.budget(clock))
+            self.assertEqual(fresh.budget.remaining_seconds(), 0.)
+            result = await fresh.run(resume=True)
+            self.assertEqual((result.status, result.reason), ("failed", "run_deadline"))
+            self.assertEqual((fresh._client.calls, fresh.policy.contexts), ([], []))
+            saved = JsonRunStore(path).load()
+            self.assertEqual(saved.approval.last_checked_at, waiting.approval.last_checked_at)
+            self.assertEqual(saved.budget_state["reservations"], waiting.budget_state["reservations"])
+            self.assertEqual(saved.budget_state["deadline"], 1060.)
 
 
 class ApprovalLifecycleTests(unittest.IsolatedAsyncioTestCase):
@@ -605,6 +723,98 @@ class ApprovalStorageTests(unittest.TestCase):
 
 
 class ApprovalProcessTests(unittest.TestCase):
+    def crash_after_revalidated(self, path):
+        _require_local_checkpoint(path)
+        budget = RunBudgetLedger(BudgetLimits(max_model_attempts=0, max_seconds=60.),
+                                clock=lambda: 1000., monotonic=lambda: 1000.)
+        initial = asyncio.run(make_runner(store=JsonRunStore(path), budget=budget).run())
+        ctx = multiprocessing.get_context("spawn")
+        parent, child_end = ctx.Pipe()
+        child = ctx.Process(target=_process_revalidated_before_policy,
+            args=(str(path), response_for(initial).model_dump(mode="json"), child_end))
+        try:
+            child.start()
+            child_end.close()
+            self.assertTrue(parent.poll(20), "child did not reach the persisted revalidation cut")
+            proof = parent.recv()
+            self.assertEqual(proof["cut"], "approval_revalidated")
+            self.assertEqual(proof["policy_calls"], 0)
+            self.assertEqual(proof["calls"], ["session_status", "observe_game", "get_runtime_state", "list_action_candidates"])
+            self.assertEqual(proof["disk"]["state"]["status"], "running")
+            self.assertEqual(proof["disk"]["state"]["approval"]["revalidated_observation_id"], "obs-2")
+            self.assertTrue(child.is_alive())
+            child.terminate()
+            child.join(10)
+            self.assertFalse(child.is_alive())
+            self.assertIsNotNone(child.exitcode)
+            self.assertNotEqual(child.exitcode, 0)
+            self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(), proof["sha256"])
+            durable = JsonRunStore(path).load()
+            self.assertEqual(durable.model_dump(mode="json"), proof["disk"]["state"])
+            self.assertEqual(durable.reason, "approval_revalidated")
+            self.assertIsNone(durable.pending_call)
+            self.assertEqual(durable.observation_ids, ["obs-1", "obs-2"])
+            self.assertEqual((durable.execution_authority, durable.executable), ("none", False))
+            return initial, durable
+        finally:
+            if child.is_alive():
+                child.terminate()
+                child.join(5)
+                if child.is_alive():
+                    child.kill()
+                    child.join(5)
+            parent.close()
+            child_end.close()
+            if child.pid is not None:
+                child.join(5)
+
+    def test_actual_process_crash_after_revalidated_fresh_runner_reobserves_and_keeps_charges(self):
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "run.json"
+            initial, durable = self.crash_after_revalidated(path)
+            budget = RunBudgetLedger(BudgetLimits(max_model_attempts=0, max_seconds=60.),
+                                    clock=lambda: 1002., monotonic=lambda: 1002.)
+            policy = FakeDecisionPolicy([PolicyDecision(action="continue", reason="fresh evidence only")])
+            fresh = make_runner(store=JsonRunStore(path), client=SequenceClient(count=2), policy=policy, budget=budget)
+            self.assertEqual(budget.snapshot()["reservations"], durable.budget_state["reservations"])
+            self.assertEqual(budget.snapshot()["deadline"], initial.budget_state["deadline"])
+            self.assertEqual(budget.remaining_seconds(), 58.)
+            self.assertEqual(budget.summary()["counts"], {"step": 2, "tool": 8, "model": 0})
+            pending = {key: value for key, value in durable.budget_state["reservations"].items() if value["usage"] is None}
+            self.assertEqual(len(pending), 1)  # The interrupted step remains charged, not magically settled.
+            before = path.read_bytes()
+            with self.assertRaisesRegex(ValueError, "not awaiting"):
+                asyncio.run(fresh.resume_synthetic(response_for(initial)))
+            self.assertEqual(path.read_bytes(), before)
+            self.assertEqual((fresh._client.calls, policy.contexts), ([], []))
+            result = asyncio.run(fresh.run(resume=True))
+            self.assertEqual((result.status, result.reason), ("succeeded", "goal_verified"))
+            self.assertEqual(fresh._client.calls, ["session_status", "observe_game", "get_runtime_state", "list_action_candidates"])
+            self.assertEqual([context.observation_id for context in policy.contexts], ["obs-3"])
+            self.assertEqual(result.observation_ids, ["obs-1", "obs-2", "obs-3"])
+            self.assertEqual(result.approval, durable.approval)
+            self.assertEqual(budget.summary()["counts"], {"step": 3, "tool": 12, "model": 0})
+            self.assertEqual(budget.summary()["pending"], 1)
+            self.assertEqual(result.budget_state["deadline"], initial.budget_state["deadline"])
+            for key, value in durable.budget_state["reservations"].items():
+                self.assertEqual(result.budget_state["reservations"][key], value)
+            self.assertEqual((result.execution_authority, result.executable), ("none", False))
+
+    def test_actual_process_crash_after_revalidated_replayed_observation_never_reaches_policy(self):
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "run.json"
+            initial, durable = self.crash_after_revalidated(path)
+            budget = RunBudgetLedger(BudgetLimits(max_model_attempts=0, max_seconds=60.),
+                                    clock=lambda: 1002., monotonic=lambda: 1002.)
+            fresh = make_runner(store=JsonRunStore(path), client=SequenceClient(count=1), budget=budget)
+            result = asyncio.run(fresh.run(resume=True))
+            self.assertEqual((result.status, result.reason), ("failed", "reused_observation"))
+            self.assertEqual(fresh._client.calls, ["session_status", "observe_game"])
+            self.assertEqual(fresh.policy.contexts, [])
+            self.assertEqual(result.budget_state["deadline"], initial.budget_state["deadline"])
+            for key, value in durable.budget_state["reservations"].items():
+                self.assertEqual(result.budget_state["reservations"][key], value)
+
     def test_actual_process_race_only_one_consumes(self):
         ctx = multiprocessing.get_context("spawn")
         with TemporaryDirectory() as tmp:
