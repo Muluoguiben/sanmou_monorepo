@@ -1,0 +1,110 @@
+test_genuine_policy_primary_still_wins_inside_caller_except (__main__.AmbientExceptionProbes.test_genuine_policy_primary_still_wins_inside_caller_except) ... ok
+test_handled_caller_exception_cannot_hide_trace_failure (__main__.AmbientExceptionProbes.test_handled_caller_exception_cannot_hide_trace_failure) ... 
+  test_handled_caller_exception_cannot_hide_trace_failure (__main__.AmbientExceptionProbes.test_handled_caller_exception_cannot_hide_trace_failure) (boundary='tool') ... FAIL
+  test_handled_caller_exception_cannot_hide_trace_failure (__main__.AmbientExceptionProbes.test_handled_caller_exception_cannot_hide_trace_failure) (boundary='policy') ... FAIL
+  test_handled_caller_exception_cannot_hide_trace_failure (__main__.AmbientExceptionProbes.test_handled_caller_exception_cannot_hide_trace_failure) (boundary='outcome') ... FAIL
+  test_handled_caller_exception_cannot_hide_trace_failure (__main__.AmbientExceptionProbes.test_handled_caller_exception_cannot_hide_trace_failure) (boundary='lifetime_end') ... FAIL
+
+======================================================================
+FAIL: test_handled_caller_exception_cannot_hide_trace_failure (__main__.AmbientExceptionProbes.test_handled_caller_exception_cannot_hide_trace_failure) (boundary='tool')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/h10a-cr-dfa7fe1-20261006/packages/pioneer-agent/src/pioneer_agent/agent_harness/loop.py", line 131, in run_decision_window
+    observed = await self._call_game(OBSERVE_GAME_TOOL, {})
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/h10a-cr-dfa7fe1-20261006/packages/pioneer-agent/src/pioneer_agent/agent_harness/loop.py", line 303, in _call_game
+    payload = await self._call(self.game_client, name, arguments)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/h10a-cr-dfa7fe1-20261006/packages/pioneer-agent/src/pioneer_agent/agent_harness/loop.py", line 322, in _call
+    raw_result = await client.call_tool(name, arguments)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/h10a-cr-dfa7fe1-20261006/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_runner.py", line 660, in call_tool
+    r._causal.check()
+  File "/tmp/h10a-cr-dfa7fe1-20261006/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_trace.py", line 47, in check
+    raise self.primary
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h10a-independent-ambient-primary.py", line 23, in test_handled_caller_exception_cannot_hide_trace_failure
+    raise LookupError("CALLER_ALREADY_HANDLED_PRIVATE")
+LookupError: CALLER_ALREADY_HANDLED_PRIVATE
+trace_emission_error:OSError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h10a-independent-ambient-primary.py", line 25, in test_handled_caller_exception_cannot_hide_trace_failure
+    with self.assertRaises(TraceEmissionError) as caught:
+AssertionError: TraceEmissionError not raised
+
+======================================================================
+FAIL: test_handled_caller_exception_cannot_hide_trace_failure (__main__.AmbientExceptionProbes.test_handled_caller_exception_cannot_hide_trace_failure) (boundary='policy')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/h10a-cr-dfa7fe1-20261006/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_runner.py", line 402, in _run_owned
+    with self._trace_window():
+  File "/usr/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/tmp/h10a-cr-dfa7fe1-20261006/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_runner.py", line 236, in _trace_window
+    self._causal.start_window()
+  File "/tmp/h10a-cr-dfa7fe1-20261006/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_trace.py", line 118, in start_window
+    self.check()
+  File "/tmp/h10a-cr-dfa7fe1-20261006/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_trace.py", line 47, in check
+    raise self.primary
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h10a-independent-ambient-primary.py", line 23, in test_handled_caller_exception_cannot_hide_trace_failure
+    raise LookupError("CALLER_ALREADY_HANDLED_PRIVATE")
+LookupError: CALLER_ALREADY_HANDLED_PRIVATE
+trace_emission_error:OSError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h10a-independent-ambient-primary.py", line 25, in test_handled_caller_exception_cannot_hide_trace_failure
+    with self.assertRaises(TraceEmissionError) as caught:
+AssertionError: TraceEmissionError not raised
+
+======================================================================
+FAIL: test_handled_caller_exception_cannot_hide_trace_failure (__main__.AmbientExceptionProbes.test_handled_caller_exception_cannot_hide_trace_failure) (boundary='outcome')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/h10a-cr-dfa7fe1-20261006/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_runner.py", line 402, in _run_owned
+    with self._trace_window():
+  File "/usr/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/tmp/h10a-cr-dfa7fe1-20261006/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_runner.py", line 236, in _trace_window
+    self._causal.start_window()
+  File "/tmp/h10a-cr-dfa7fe1-20261006/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_trace.py", line 118, in start_window
+    self.check()
+  File "/tmp/h10a-cr-dfa7fe1-20261006/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_trace.py", line 47, in check
+    raise self.primary
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h10a-independent-ambient-primary.py", line 23, in test_handled_caller_exception_cannot_hide_trace_failure
+    raise LookupError("CALLER_ALREADY_HANDLED_PRIVATE")
+LookupError: CALLER_ALREADY_HANDLED_PRIVATE
+trace_emission_error:OSError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h10a-independent-ambient-primary.py", line 25, in test_handled_caller_exception_cannot_hide_trace_failure
+    with self.assertRaises(TraceEmissionError) as caught:
+AssertionError: TraceEmissionError not raised
+
+======================================================================
+FAIL: test_handled_caller_exception_cannot_hide_trace_failure (__main__.AmbientExceptionProbes.test_handled_caller_exception_cannot_hide_trace_failure) (boundary='lifetime_end')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h10a-independent-ambient-primary.py", line 23, in test_handled_caller_exception_cannot_hide_trace_failure
+    raise LookupError("CALLER_ALREADY_HANDLED_PRIVATE")
+LookupError: CALLER_ALREADY_HANDLED_PRIVATE
+trace_emission_error:OSError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h10a-independent-ambient-primary.py", line 25, in test_handled_caller_exception_cannot_hide_trace_failure
+    with self.assertRaises(TraceEmissionError) as caught:
+AssertionError: TraceEmissionError not raised
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.095s
+
+FAILED (failures=4)
