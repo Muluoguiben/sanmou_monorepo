@@ -1,0 +1,271 @@
+{
+  "source": "ebcd5d12546dc66044d0485089a10e2bdc43e4a8",
+  "tree": "e6244518555af134d97c7b952be286b71500ac04",
+  "baseline": "b37e7ed34e5c9df63d668349436b198bd8b0b27d",
+  "contract": "b41aae48bd0b14fdb2ea343183d4cecce253d94d",
+  "packages_tree": "e849545fc31473d68835618c2c13ec44c35788c0",
+  "verifier_sha256": "92b14d97a598b89f6681e9e595f18a7aad7f02837434fbd155929ccb4b6ebc7d",
+  "runtime": {
+    "executable": "/usr/bin/python3",
+    "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]"
+  },
+  "scope": {
+    "unique_step": {
+      "name": "Windows Q04b claim span evaluation",
+      "working-directory": "packages/qa-agent",
+      "run": "python -B -m unittest discover -s tests -p 'test_claim_spans.py' -v"
+    },
+    "step_index": 10,
+    "inverse_bytes_equal": true,
+    "inverse_yaml_equal": true,
+    "workflow_before_sha256": "4a14772f40c130ef707673de01e43f30c7e9bd4f83a2db423d5b06da6ba75f9a",
+    "workflow_after_sha256": "05186e291518d061fe8dcc4570afa593010b7562515c3660009b8a9cac2bea75",
+    "test_blob_unchanged": true,
+    "test_ast_sha256": "e79f2c9ed5d98383633abce2f22ed1ccc07ef5c02f6b21355a7cf1e818dd21d2",
+    "test_names": [
+      "test_claim_spans.ClaimSpanTests.test_answer_gaps_overlaps_and_bool_coordinates",
+      "test_claim_spans.ClaimSpanTests.test_bad_or_absent_citations_remain_scored",
+      "test_claim_spans.ClaimSpanTests.test_bare_cr_and_unencodable_text_rejected_everywhere",
+      "test_claim_spans.ClaimSpanTests.test_codepoint_link_can_address_emoji_and_combining_character",
+      "test_claim_spans.ClaimSpanTests.test_context_answer_evidence_and_label_hash_drift",
+      "test_claim_spans.ClaimSpanTests.test_corpus_strictness_duplicates_and_unreviewed_allowed",
+      "test_claim_spans.ClaimSpanTests.test_drift_during_scoring_rejected",
+      "test_claim_spans.ClaimSpanTests.test_duplicate_json_keys_and_bare_cr_file_rejected",
+      "test_claim_spans.ClaimSpanTests.test_evidence_mapping_and_entry_id_validation",
+      "test_claim_spans.ClaimSpanTests.test_frozen_controls_and_no_network",
+      "test_claim_spans.ClaimSpanTests.test_frozen_fixture_drift_rejected",
+      "test_claim_spans.ClaimSpanTests.test_generic_human_label_is_only_unauthenticated_declaration",
+      "test_claim_spans.ClaimSpanTests.test_link_bad_identity_hash_offsets_and_exact_duplicate",
+      "test_claim_spans.ClaimSpanTests.test_no_unicode_normalization_or_strip",
+      "test_claim_spans.ClaimSpanTests.test_nonclaim_and_supported_link_rules",
+      "test_claim_spans.ClaimSpanTests.test_partial_citation_remains_in_all_claims_denominator",
+      "test_claim_spans.ClaimSpanTests.test_real_cli_create_only_and_explicit_version",
+      "test_claim_spans.ClaimSpanTests.test_same_id_multiple_spans_do_not_inflate_claim_denominator",
+      "test_claim_spans.ClaimSpanTests.test_strict_annotation_segment_and_link_fields",
+      "test_claim_spans.ClaimSpanTests.test_unicode_crlf_normalized_before_all_binding_and_offsets",
+      "test_claim_spans.ClaimSpanTests.test_unknown_unreviewed_and_zero_denominators",
+      "test_claim_spans.ClaimSpanTests.test_utf16_byte_or_grapheme_offsets_not_repaired",
+      "test_claim_spans.ClaimSpanTests.test_valid_links_are_not_semantic_support",
+      "test_claim_spans.ClaimSpanTests.test_versions_types_and_enum_values",
+      "test_claim_spans.ClaimSpanTests.test_wrong_package_and_mixed_module_origins_rejected"
+    ],
+    "git_byte_verified_qa_inputs": 553,
+    "input_manifest_sha256": "e40680cc0b26b301156f9d267892429f43d684591fab67fb657b4eda3f754838"
+  },
+  "commands": [
+    {
+      "name": "claim-spans",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_claim_spans.py",
+        "-v"
+      ],
+      "cwd": "/tmp/q04b-ebcd5d1-source/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q04b-ebcd5d1-source/packages/qa-agent/src:/tmp/q04b-ebcd5d1-source/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "expected_exit": 0,
+      "tests": 25,
+      "skipped": 0,
+      "seconds": 0.7752513885498047,
+      "log": "claim-spans.log",
+      "log_bytes": 3540,
+      "log_sha256": "392bdc1d5df692d2489c2482f2e55c02724633b9955d27adf719719cd68d4437"
+    },
+    {
+      "name": "old-quality-eval",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_quality_eval.py",
+        "-v"
+      ],
+      "cwd": "/tmp/q04b-ebcd5d1-source/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q04b-ebcd5d1-source/packages/qa-agent/src:/tmp/q04b-ebcd5d1-source/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "expected_exit": 0,
+      "tests": 23,
+      "skipped": 0,
+      "seconds": 2.118774652481079,
+      "log": "old-quality-eval.log",
+      "log_bytes": 3423,
+      "log_sha256": "18b2a898d1b21c5739ea721c3bb9daf7ce6be1b6af69a1317795a461050bd280"
+    },
+    {
+      "name": "qa-full",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "/tmp/q04b-ebcd5d1-source/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q04b-ebcd5d1-source/packages/qa-agent/src:/tmp/q04b-ebcd5d1-source/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "expected_exit": 0,
+      "tests": 419,
+      "skipped": 0,
+      "seconds": 42.78259897232056,
+      "log": "qa-full.log",
+      "log_bytes": 68990,
+      "log_sha256": "33ff36d6d33f9413001afdfbbc2ce06fce7897bc5d8ea949813f4ab336ef54e8"
+    },
+    {
+      "name": "claim-spans-cli",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "qa_agent.quality_eval.claim_spans",
+        "--baseline",
+        "claim-spans-v1",
+        "--output",
+        "/tmp/q04b-ebcd5d1-results/claim-spans.json"
+      ],
+      "cwd": "/tmp/q04b-ebcd5d1-source/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q04b-ebcd5d1-source/packages/qa-agent/src:/tmp/q04b-ebcd5d1-source/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "expected_exit": 0,
+      "tests": null,
+      "skipped": 0,
+      "seconds": 0.1642308235168457,
+      "log": "claim-spans-cli.log",
+      "log_bytes": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "create-only-existing-output",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "qa_agent.quality_eval.claim_spans",
+        "--baseline",
+        "claim-spans-v1",
+        "--output",
+        "/tmp/q04b-ebcd5d1-results/claim-spans.json"
+      ],
+      "cwd": "/tmp/q04b-ebcd5d1-source/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q04b-ebcd5d1-source/packages/qa-agent/src:/tmp/q04b-ebcd5d1-source/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 1,
+      "expected_exit": 1,
+      "tests": null,
+      "skipped": 0,
+      "seconds": 0.21486425399780273,
+      "log": "create-only-existing-output.log",
+      "log_bytes": 800,
+      "log_sha256": "3a5cb974a3d00d829b8893f931b4893e6ee20d4fcd1af0d1c082dca3b659c0bc"
+    },
+    {
+      "name": "old-v1-refusal",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "qa_agent.quality_eval.runner",
+        "--baseline",
+        "v1",
+        "--output",
+        "/tmp/q04b-ebcd5d1-results/v1.json"
+      ],
+      "cwd": "/tmp/q04b-ebcd5d1-source/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q04b-ebcd5d1-source/packages/qa-agent/src:/tmp/q04b-ebcd5d1-source/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 1,
+      "expected_exit": 1,
+      "tests": null,
+      "skipped": 0,
+      "seconds": 0.21586227416992188,
+      "log": "old-v1-refusal.log",
+      "log_bytes": 815,
+      "log_sha256": "bec042d247244b95da803574532e8d1402235087bf19434c7e3fc18a3657464c"
+    },
+    {
+      "name": "old-v2-refusal",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "qa_agent.quality_eval.runner",
+        "--baseline",
+        "v2",
+        "--output",
+        "/tmp/q04b-ebcd5d1-results/v2.json"
+      ],
+      "cwd": "/tmp/q04b-ebcd5d1-source/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q04b-ebcd5d1-source/packages/qa-agent/src:/tmp/q04b-ebcd5d1-source/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 1,
+      "expected_exit": 1,
+      "tests": null,
+      "skipped": 0,
+      "seconds": 0.2160792350769043,
+      "log": "old-v2-refusal.log",
+      "log_bytes": 815,
+      "log_sha256": "bec042d247244b95da803574532e8d1402235087bf19434c7e3fc18a3657464c"
+    },
+    {
+      "name": "qa-v3",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "qa_agent.quality_eval.runner",
+        "--baseline",
+        "v3",
+        "--output",
+        "/tmp/q04b-ebcd5d1-results/qa-v3.json"
+      ],
+      "cwd": "/tmp/q04b-ebcd5d1-source/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q04b-ebcd5d1-source/packages/qa-agent/src:/tmp/q04b-ebcd5d1-source/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "expected_exit": 0,
+      "tests": null,
+      "skipped": 0,
+      "seconds": 1.6806652545928955,
+      "log": "qa-v3.log",
+      "log_bytes": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "failures": [],
+  "results": {
+    "qualified_test_names_equal": true,
+    "create_only_preserved_bytes": true,
+    "old_v1_v2_refusal_preserved": true,
+    "qa_v3_sha256": "db72e1c3616cadb2062c86a676596c21f1412dfa3ce6691a8f22c9576a259aec",
+    "claim_spans": {
+      "sha256": "c74e39ee833365f3fb3c6d035c52b230c603da9806e8fa347fa15b2b6fc45120",
+      "controls": {
+        "numerator": 12,
+        "denominator": 12,
+        "value": 1.0
+      },
+      "provider": {
+        "calls": 0,
+        "quality": "not_measured"
+      },
+      "holdout": {
+        "established": false,
+        "denominator": 0
+      }
+    }
+  },
+  "native": "pending exact-final-SHA Hosted Windows 25 names/0skip/exit0 plus all four jobs; no local dependency probing/install"
+}
