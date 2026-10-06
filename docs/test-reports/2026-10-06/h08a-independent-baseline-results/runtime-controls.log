@@ -1,0 +1,10 @@
+test_actual_three_fresh_observations_opaque_id_and_terminal_noop (__main__.RegistryRuntimeControls.test_actual_three_fresh_observations_opaque_id_and_terminal_noop) ... Executing <Task finished name='Task-2' coro=<RegistryRuntimeControls.test_actual_three_fresh_observations_opaque_id_and_terminal_noop() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h08a-independent-probes.py:170> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.494 seconds
+ok
+test_existing_budget_and_pause_stop_dispatch (__main__.RegistryRuntimeControls.test_existing_budget_and_pause_stop_dispatch) ... ok
+test_missing_or_wrong_field_evidence_cannot_use_precheck_as_success (__main__.RegistryRuntimeControls.test_missing_or_wrong_field_evidence_cannot_use_precheck_as_success) ... ok
+test_old_observation_is_rejected_before_policy (__main__.RegistryRuntimeControls.test_old_observation_is_rejected_before_policy) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.597s
+
+OK
