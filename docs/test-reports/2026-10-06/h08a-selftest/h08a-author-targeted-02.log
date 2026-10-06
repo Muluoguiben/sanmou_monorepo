@@ -1,0 +1,51 @@
+test_deep_copy_listing_resolution_compilation_and_input_isolation (test_skill_registry.SkillRegistryTests.test_deep_copy_listing_resolution_compilation_and_input_isolation) ... ok
+test_exact_fixed_task_spec (test_skill_registry.SkillRegistryTests.test_exact_fixed_task_spec) ... ok
+test_explicit_utf8_serialization_roundtrip (test_skill_registry.SkillRegistryTests.test_explicit_utf8_serialization_roundtrip) ... ok
+test_external_catalog_and_self_reviewed_objects_not_admitted (test_skill_registry.SkillRegistryTests.test_external_catalog_and_self_reviewed_objects_not_admitted) ... ok
+test_false_is_blocked_without_task (test_skill_registry.SkillRegistryTests.test_false_is_blocked_without_task) ... ok
+test_flat_metric_precedence_matches_existing_conditions (test_skill_registry.SkillRegistryTests.test_flat_metric_precedence_matches_existing_conditions) ... ok
+test_full_internal_catalog_duplicate_rejected_by_all_entrypoints (test_skill_registry.SkillRegistryTests.test_full_internal_catalog_duplicate_rejected_by_all_entrypoints) ... ok
+test_internal_unknown_or_changed_descriptor_not_allowlisted (test_skill_registry.SkillRegistryTests.test_internal_unknown_or_changed_descriptor_not_allowlisted) ... ok
+test_invalid_or_unknown_identity_never_falls_back (test_skill_registry.SkillRegistryTests.test_invalid_or_unknown_identity_never_falls_back) ... ok
+test_malformed_metrics_container_is_invalid_not_blocked (test_skill_registry.SkillRegistryTests.test_malformed_metrics_container_is_invalid_not_blocked) ... ok
+test_missing_and_bad_metric_types_are_unknown (test_skill_registry.SkillRegistryTests.test_missing_and_bad_metric_types_are_unknown) ... ok
+test_only_explicit_versioned_builtin (test_skill_registry.SkillRegistryTests.test_only_explicit_versioned_builtin) ... ok
+test_parameters_are_exact_and_no_authority_or_budget_override (test_skill_registry.SkillRegistryTests.test_parameters_are_exact_and_no_authority_or_budget_override) ... ok
+test_selection_has_zero_tool_model_and_runtime_calls (test_skill_registry.SkillRegistryTests.test_selection_has_zero_tool_model_and_runtime_calls) ... ok
+test_target_engineering_bounds_without_coercion (test_skill_registry.SkillRegistryTests.test_target_engineering_bounds_without_coercion) ... ok
+test_task_digest_covers_all_fields_and_target (test_skill_registry.SkillRegistryTests.test_task_digest_covers_all_fields_and_target) ... ok
+test_template_digest_exact_full_preimage (test_skill_registry.SkillRegistryTests.test_template_digest_exact_full_preimage) ... ok
+test_budget_stop_still_applies (test_skill_registry.SkillRunnerIntegrationTests.test_budget_stop_still_applies) ... ok
+test_missing_field_evidence_does_not_succeed (test_skill_registry.SkillRunnerIntegrationTests.test_missing_field_evidence_does_not_succeed) ... ok
+test_pause_and_resume_use_existing_runner (test_skill_registry.SkillRunnerIntegrationTests.test_pause_and_resume_use_existing_runner) ... FAIL
+test_preflight_already_met_still_requires_new_runtime_observation (test_skill_registry.SkillRunnerIntegrationTests.test_preflight_already_met_still_requires_new_runtime_observation) ... ok
+test_three_fresh_observations_and_terminal_noop (test_skill_registry.SkillRunnerIntegrationTests.test_three_fresh_observations_and_terminal_noop) ... ok
+test_wrong_field_evidence_does_not_succeed (test_skill_registry.SkillRunnerIntegrationTests.test_wrong_field_evidence_does_not_succeed) ... ok
+
+======================================================================
+FAIL: test_pause_and_resume_use_existing_runner (test_skill_registry.SkillRunnerIntegrationTests.test_pause_and_resume_use_existing_runner)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/unittest/async_case.py", line 90, in _callTestMethod
+    if self._callMaybeAsync(method) is not None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/async_case.py", line 112, in _callMaybeAsync
+    return self._asyncioRunner.run(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_skill_registry.py", line 236, in test_pause_and_resume_use_existing_runner
+    self.assertEqual(resumed.status, "succeeded")
+AssertionError: 'failed' != 'succeeded'
+- failed
++ succeeded
+
+
+----------------------------------------------------------------------
+Ran 23 tests in 0.127s
+
+FAILED (failures=1)
