@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/tmp/h08a-cr-8e0a2a0-20261006/packages/qa-agent/src/qa_agent/quality_eval/runner.py", line 201, in <module>
+    main()
+  File "/tmp/h08a-cr-8e0a2a0-20261006/packages/qa-agent/src/qa_agent/quality_eval/runner.py", line 192, in main
+    result = run(Path(__file__).resolve().parents[3], baseline=args.baseline)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/h08a-cr-8e0a2a0-20261006/packages/qa-agent/src/qa_agent/quality_eval/runner.py", line 134, in run
+    raise ValueError("frozen KB/production source drift; create a reviewed new baseline version")
+ValueError: frozen KB/production source drift; create a reviewed new baseline version

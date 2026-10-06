@@ -1,0 +1,148 @@
+{
+  "source": "8e0a2a0b370a98824669e5d34bd12576c7822bb5",
+  "tree": "55eb8c863db183e7dbd2fa9cfb6d845876162315",
+  "author_report": "1071b52e1266f3dca34f321ce2f68b92c7ba854f",
+  "manifest_sha256": "91c365470a743420f318ef59a7e9fe66964c0d47165130475b336a48cc52d791",
+  "report_sha256": "1ddba11d897c3a5fc4bc5df61c3b6ea806895269a458c46e597ba0e31b156fd1",
+  "verified_final_logs": [
+    {
+      "name": "h08-targeted",
+      "exit": 0,
+      "tests": 23,
+      "skips": 0,
+      "bytes": 3511,
+      "sha256": "986f938a45aa9eeb63c77d3cebe6023100d2eba065286b740df20a4be2ccec5b"
+    },
+    {
+      "name": "h08-nonutf-text",
+      "exit": 0,
+      "tests": 23,
+      "skips": 0,
+      "bytes": 3633,
+      "sha256": "bd405676761d6759eedf183dc546c85324ab43f24e5d09120b06919e93759c80"
+    },
+    {
+      "name": "h07a",
+      "exit": 0,
+      "tests": 35,
+      "skips": 0,
+      "bytes": 8316,
+      "sha256": "777262c9b1f6d513a3a8c01e4895c885e2673b639427bdf5a3ba39bb50a79133"
+    },
+    {
+      "name": "h10-causal",
+      "exit": 0,
+      "tests": 32,
+      "skips": 0,
+      "bytes": 6182,
+      "sha256": "3cc4d4db14622a8702e040250a6a8551415c055b733c212c8aa0b6f6a4675826"
+    },
+    {
+      "name": "q04-targeted",
+      "exit": 0,
+      "tests": 25,
+      "skips": 0,
+      "bytes": 3540,
+      "sha256": "b87ac7ee160c1700d4c8b90ebdb3cab32fbfce4033c33f283e2f32694eb2f5fc"
+    },
+    {
+      "name": "q05-targeted",
+      "exit": 0,
+      "tests": 44,
+      "skips": 0,
+      "bytes": 6591,
+      "sha256": "cf575c3519d1c1f44895d853006989297d1565dfa26ec5e6f43b4e5f120571cb"
+    },
+    {
+      "name": "pioneer-agent-full",
+      "exit": 0,
+      "tests": 1108,
+      "skips": 2,
+      "bytes": 347309,
+      "sha256": "3af5ade351ea21ca2bb2dd9753b50b54a56a732167b7f4231b0765bb585f1612"
+    },
+    {
+      "name": "qa-agent-full",
+      "exit": 0,
+      "tests": 440,
+      "skips": 0,
+      "bytes": 71264,
+      "sha256": "aa325aa4660c7a83f512d6b84402c74afdb992753b92828f4f3a93d39cb38ddb"
+    },
+    {
+      "name": "sanmou-common-full",
+      "exit": 0,
+      "tests": 2,
+      "skips": 0,
+      "bytes": 335,
+      "sha256": "7e9438edca6c90738e3f3983beb89cc2e47795af9815f716b6f41a24af9285f3"
+    },
+    {
+      "name": "h09-cli",
+      "exit": 0,
+      "tests": null,
+      "skips": 0,
+      "bytes": 230,
+      "sha256": "87953b61fb9434cf8a185cbb486172b02441f7609ef778514667e45b0bbdaf44"
+    },
+    {
+      "name": "v1-cli",
+      "exit": 1,
+      "tests": null,
+      "skips": 0,
+      "bytes": 815,
+      "sha256": "351b6429b4c6163c4e7042c41da2ada09a35596c980bb7dddf31f2ab7930a051"
+    },
+    {
+      "name": "v2-cli",
+      "exit": 1,
+      "tests": null,
+      "skips": 0,
+      "bytes": 815,
+      "sha256": "351b6429b4c6163c4e7042c41da2ada09a35596c980bb7dddf31f2ab7930a051"
+    },
+    {
+      "name": "v3-cli",
+      "exit": 1,
+      "tests": null,
+      "skips": 0,
+      "bytes": 815,
+      "sha256": "351b6429b4c6163c4e7042c41da2ada09a35596c980bb7dddf31f2ab7930a051"
+    },
+    {
+      "name": "v4-cli",
+      "exit": 0,
+      "tests": null,
+      "skips": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "q04-cli",
+      "exit": 0,
+      "tests": null,
+      "skips": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "preserved_author_history": [
+    {
+      "log": "h08a-author-targeted-01.log",
+      "sha256": "2d32c51e1f91f31294b0d920ee552614f362dbf01be8d4d8318b8dc8e37f95da",
+      "bytes": 5302
+    },
+    {
+      "log": "h08a-author-targeted-02.log",
+      "sha256": "235cca0452720228b7c413a47cf0b277a055b35b89bc714d622e58640565b228",
+      "bytes": 4771
+    },
+    {
+      "log": "h08a-author-targeted-03.log",
+      "sha256": "4d2f5f09c0a8ce7a237116d105186d45fcbc889a7415b97e8e3b68ba5ae6bf4d",
+      "bytes": 3511
+    }
+  ],
+  "agrees_with_independent_execution": true,
+  "native": "pending_exact_final_Hosted"
+}
