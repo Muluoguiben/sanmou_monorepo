@@ -176,7 +176,8 @@ async def _run_owned_task(args, *, store, ownership, game_client=None):
     runner = TaskRunner(task=task, run_id=run_id, harness=harness, store=store,
         policy=RuleDecisionPolicy(), context_builder=BoundedContextBuilder(),
         budget=budget, trace=JsonlRunTrace(args.run_trace_path), ownership=ownership)
-    if runner.state.status in TERMINAL_STATUSES or (
+    if runner.state.status in TERMINAL_STATUSES or runner.state.status in {
+            "awaiting_approval", "revalidating_approval"} or (
             runner.state.status == "paused" and not args.resume_task):
         return (await runner.run()).model_dump(mode="json")
     try:

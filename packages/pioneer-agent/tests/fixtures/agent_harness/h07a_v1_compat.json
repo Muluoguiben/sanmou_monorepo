@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "run_id": "legacy-run",
+  "task": {
+    "version": 1,
+    "task_id": "legacy-task",
+    "goal": "observe target",
+    "success_when": [{"metric": "progress.current_chapter_id", "op": ">=", "value": 3}],
+    "stop_when": [],
+    "required_domains": [],
+    "allowed_tools": ["evaluate_fixture", "get_advisor_report", "get_last_trace", "get_runtime_state", "list_action_candidates", "observe_game", "session_status"],
+    "max_steps": 10,
+    "wait_seconds": 0,
+    "execution_authority": "none",
+    "executable": false
+  },
+  "status": "created",
+  "reason": "created",
+  "completed_steps": 0,
+  "pending_call": null,
+  "observation_ids": [],
+  "session_id": null,
+  "window_identity": null,
+  "last_captured_at": null,
+  "evidence_refs": [],
+  "budget_state": {},
+  "execution_authority": "none",
+  "executable": false
+}
