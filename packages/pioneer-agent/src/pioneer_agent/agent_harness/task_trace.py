@@ -59,34 +59,37 @@ class CausalTraceProducer:
             self.failure.error_type = type(error).__name__
         self.remember(primary or self.primary)
 
-    def provenance(self, context=None):
+    def provenance(self, context=None, *, policy_binding=None):
         r = self.runner
         task = TaskSpec.model_validate(r.state.task.model_dump(mode="json"))
-        version = getattr(r.policy, "policy_version", None)
+        policy = r.policy if policy_binding is None else policy_binding[0]
+        version = getattr(policy, "policy_version", None)
         declaration = TraceDeclaration(status="unknown") if version is None else TraceDeclaration(status="declared", value=version)
-        builtin = type(r.policy) in (RuleDecisionPolicy, FakeDecisionPolicy)
+        builtin = type(policy) in (RuleDecisionPolicy, FakeDecisionPolicy)
         absent = TraceDeclaration(status="absent")
         unknown = TraceDeclaration(status="unknown")
-        component = absent if builtin and not r.policy.uses_model else unknown
+        uses_model = policy.uses_model if policy_binding is None else policy_binding[2]
+        policy_id = policy.policy_id if policy_binding is None else policy_binding[1]
+        component = absent if builtin and not uses_model else unknown
         return TraceProvenance(task_digest=canonical_digest(task.model_dump(mode="json")),
-            task_version=task.version, state_version=r.state.version, policy_id=r.policy.policy_id,
+            task_version=task.version, state_version=r.state.version, policy_id=policy_id,
             policy_version=declaration,
             context_digest=None if context is None else canonical_digest(context.model_dump(mode="json")),
             model=component, prompt=component, skill=component, kb=component)
 
-    def prepare_invocation(self, context=None):
+    def prepare_invocation(self, context=None, *, policy_binding=None):
         """Prepare detached values; only actual guarded dispatch may publish them."""
         self.check()
         try:
             detached = None if context is None else PolicyContext.model_validate(context.model_dump(mode="json"))
-            provenance = self.provenance(detached)
+            provenance = self.provenance(detached, policy_binding=policy_binding)
             return uuid4().hex, provenance
         except Exception as error:
             self._failed(error)
         self.check()  # Outside the validation handler: do not inherit its private input.
 
     def emit(self, event, *, primary=None, invocation_id=None, provenance=None,
-             event_id=None, parent=None, advance=True):
+             event_id=None, parent=None, advance=True, policy_binding=None):
         self.remember(primary)
         if self.failure is not None:
             return None
@@ -98,7 +101,7 @@ class CausalTraceProducer:
                 event_id=event_id or uuid4().hex, emitted_at=datetime.now(UTC),
                 lifetime_id=self.lifetime, window_id=self.window,
                 parent_event_id=None if event.event == "lifetime_start" else parent if parent is not None else self.parent,
-                invocation_id=invocation_id, provenance=provenance or self.provenance())
+                invocation_id=invocation_id, provenance=provenance or self.provenance(policy_binding=policy_binding))
             self.emitting = True
             self.runner.trace.emit(record)
             if self.failure is None and advance:
