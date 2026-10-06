@@ -1,0 +1,37 @@
+{
+  "source": "e0d9d6ef6083f5dc8f3c71daae6e46ed0793c750",
+  "tree": "94abdeb7aa1e391c02eefaf415893b23eb7d741a",
+  "environment": {
+    "LC_ALL": "C",
+    "PYTHONUTF8": "0",
+    "PYTHONCOERCECLOCALE": "0",
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONPATH": "/tmp/q05a-e0d9d6e-source/packages/qa-agent/src:/tmp/q05a-e0d9d6e-source/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps"
+  },
+  "metadata_argv": [
+    "/usr/bin/python3",
+    "-B",
+    "-c",
+    "import locale,sys,json; print(json.dumps({'encoding':locale.getencoding(),'utf8_mode':sys.flags.utf8_mode,'filesystem_encoding':sys.getfilesystemencoding(),'stdout_encoding':sys.stdout.encoding}))"
+  ],
+  "locale": {
+    "encoding": "ANSI_X3.4-1968",
+    "utf8_mode": 0,
+    "filesystem_encoding": "ascii",
+    "stdout_encoding": "utf-8"
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "-m",
+    "unittest",
+    "test_seasonal_retriever",
+    "test_quality_eval",
+    "-v"
+  ],
+  "cwd": "/tmp/q05a-e0d9d6e-source/packages/qa-agent/tests",
+  "exit": 1,
+  "log": "targeted.log",
+  "log_bytes": 16546,
+  "log_sha256": "42fc326c8238a424906f614f149a98fbfac7dd2252ccb95cf590df9a94659e77"
+}

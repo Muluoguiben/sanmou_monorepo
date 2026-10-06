@@ -1,0 +1,28 @@
+{
+  "source": "e0d9d6ef6083f5dc8f3c71daae6e46ed0793c750",
+  "tree": "94abdeb7aa1e391c02eefaf415893b23eb7d741a",
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "-c",
+    "import json,locale,sys,unittest\nlocale.setlocale(locale.LC_CTYPE, 'C')\nmetadata = dict(encoding=locale.getencoding(), utf8_mode=sys.flags.utf8_mode,\n                filesystem_encoding=sys.getfilesystemencoding(), stdout_encoding=sys.stdout.encoding)\nprint(json.dumps(metadata), flush=True)\nassert metadata['encoding'] == 'ANSI_X3.4-1968' and metadata['utf8_mode'] == 0\nassert metadata['filesystem_encoding'] == 'utf-8'\nunittest.main(module=None, argv=['text-locale', 'test_seasonal_retriever', 'test_quality_eval', '-v'])\n"
+  ],
+  "cwd": "/tmp/q05a-e0d9d6e-source/packages/qa-agent/tests",
+  "exit": 0,
+  "environment": {
+    "LC_ALL": "C.UTF-8",
+    "PYTHONUTF8": "0",
+    "PYTHONCOERCECLOCALE": "0",
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONPATH": "/tmp/q05a-e0d9d6e-source/packages/qa-agent/src:/tmp/q05a-e0d9d6e-source/packages/sanmou-common/src:/tmp/sanmou-cr-20261005-6155-deps"
+  },
+  "locale": {
+    "encoding": "ANSI_X3.4-1968",
+    "utf8_mode": 0,
+    "filesystem_encoding": "utf-8",
+    "stdout_encoding": "utf-8"
+  },
+  "limitation": "Linux supplemental default-text-locale probe; filesystem stays UTF-8. Child CLI processes inherit startup C.UTF-8. Not native Windows.",
+  "log": "targeted.log",
+  "log_sha256": "515f198eaafb431e34bd3c310965aae475e81895b9e5f96bbf3dfbd8cc378a5e"
+}

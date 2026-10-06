@@ -1,0 +1,637 @@
+{
+  "source": "e0d9d6ef6083f5dc8f3c71daae6e46ed0793c750",
+  "tree": "94abdeb7aa1e391c02eefaf415893b23eb7d741a",
+  "baseline": "3711e92d38786418e8e955d19a56cd6c72611389",
+  "frozen_production": "27b73de689cc5863ed02a0dd30526fde8533d080",
+  "verifier_sha256": "58ac954ec5e38cd43df6a940ef377dc97227263140ead6879b964579c2c10314",
+  "runtime": {
+    "executable": "/usr/bin/python3",
+    "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]"
+  },
+  "scope": {
+    "git_byte_verified_inputs": 904,
+    "input_manifest_sha256": "0a2005a44f5a5fff80bc19d57daf3987140462aa2a7e05caf0f75e2cd35fae23",
+    "old_fixtures_unchanged": true,
+    "old_quality_assertion_ast_preserved": true,
+    "lineup_only_context_close": true,
+    "workflow_inverse_bytes_and_yaml_equal": true,
+    "targeted_names": [
+      "test_quality_eval.QualityEvaluationTests.test_answer_and_evidence_binding",
+      "test_quality_eval.QualityEvaluationTests.test_candidate_evidence_does_not_count_as_citation",
+      "test_quality_eval.QualityEvaluationTests.test_context_binding",
+      "test_quality_eval.QualityEvaluationTests.test_correct_id_does_not_establish_fact_or_context_support",
+      "test_quality_eval.QualityEvaluationTests.test_empty_evidence_invalidates_id",
+      "test_quality_eval.QualityEvaluationTests.test_frozen_retrieval_baseline_runs_without_model_or_network",
+      "test_quality_eval.QualityEvaluationTests.test_invalid_version_and_loaded_source_rejected",
+      "test_quality_eval.QualityEvaluationTests.test_lazy_assessment_module_from_another_tree_is_rejected",
+      "test_quality_eval.QualityEvaluationTests.test_manifest_metadata_rejects_version_split_and_duplicate_ids",
+      "test_quality_eval.QualityEvaluationTests.test_mixed_claim_missing_citation_not_hidden_by_first_claim",
+      "test_quality_eval.QualityEvaluationTests.test_portable_snapshot_binds_paths_and_content",
+      "test_quality_eval.QualityEvaluationTests.test_production_or_fixture_drift_is_rejected",
+      "test_quality_eval.QualityEvaluationTests.test_real_file_add_delete_and_change_rejected",
+      "test_quality_eval.QualityEvaluationTests.test_refusal_precision_recall_distinct",
+      "test_quality_eval.QualityEvaluationTests.test_retrieval_denominators_and_duplicates",
+      "test_quality_eval.QualityEvaluationTests.test_strict_schema_is_separate_from_hash_binding",
+      "test_quality_eval.QualityEvaluationTests.test_supported_label_requires_bound_evidence",
+      "test_quality_eval.QualityEvaluationTests.test_supported_synthetic_control",
+      "test_quality_eval.QualityEvaluationTests.test_true_but_off_topic_is_context_failure_not_false_fact",
+      "test_quality_eval.QualityEvaluationTests.test_unannotated_gaps_and_overlap_rejected",
+      "test_quality_eval.QualityEvaluationTests.test_unknown_and_unreviewed_are_not_semantic_passes",
+      "test_quality_eval.QualityEvaluationTests.test_v1_remains_frozen_and_rejects_new_production",
+      "test_quality_eval.QualityEvaluationTests.test_v3_rejects_new_production_without_changing_its_freeze",
+      "test_quality_eval.QualityEvaluationTests.test_v3_requires_nonempty_valid_multiturn_suite",
+      "test_seasonal_retriever.SeasonalRetrieverTests.test_case_ids_group_types_and_control_metadata",
+      "test_seasonal_retriever.SeasonalRetrieverTests.test_cli_failed_gate_report_saved_create_only",
+      "test_seasonal_retriever.SeasonalRetrieverTests.test_duplicate_entries_rejected_before_evaluating_any_control",
+      "test_seasonal_retriever.SeasonalRetrieverTests.test_each_pool_cap_and_original_order",
+      "test_seasonal_retriever.SeasonalRetrieverTests.test_empty_and_unrelated_pools_no_diagnostic_dump",
+      "test_seasonal_retriever.SeasonalRetrieverTests.test_exact_case_and_expected_keys",
+      "test_seasonal_retriever.SeasonalRetrieverTests.test_exact_three_groups_and_reasons",
+      "test_seasonal_retriever.SeasonalRetrieverTests.test_existing_model_strip_and_alias_query_reused",
+      "test_seasonal_retriever.SeasonalRetrieverTests.test_expected_ids_types_duplicates_and_reasons",
+      "test_seasonal_retriever.SeasonalRetrieverTests.test_filter_before_top_k_avoids_wrong_season_flood",
+      "test_seasonal_retriever.SeasonalRetrieverTests.test_foreign_lazy_season_module_rejected_before_call",
+      "test_seasonal_retriever.SeasonalRetrieverTests.test_global_duplicates_even_cross_season_unknown_and_unrelated",
+      "test_seasonal_retriever.SeasonalRetrieverTests.test_input_identity_and_default_retrieval_unchanged",
+      "test_seasonal_retriever.SeasonalRetrieverTests.test_invalid_entry_container_types",
+      "test_seasonal_retriever.SeasonalRetrieverTests.test_multitag_exact_case_sensitive_no_unicode_alias",
+      "test_seasonal_retriever.SeasonalRetrieverTests.test_real_v4_cli_wrong_expected_saves_failed_report",
+      "test_seasonal_retriever.SeasonalRetrieverTests.test_strict_request_arguments",
+      "test_seasonal_retriever.SeasonalRetrieverTests.test_synthetic_control_and_valid_wrong_expected_fail_gate",
+      "test_seasonal_retriever.SeasonalRetrieverTests.test_v4_inherits_v3_cases_exactly",
+      "test_seasonal_retriever.SeasonalRetrieverTests.test_v4_requires_inherited_groups_and_season_cases"
+    ],
+    "repair_only_utf8_text_io_ast_equal": true
+  },
+  "commands": [
+    {
+      "name": "q05-targeted",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "test_seasonal_retriever",
+        "test_quality_eval",
+        "-v"
+      ],
+      "cwd": "/tmp/q05a-e0d9d6e-source/packages/qa-agent/tests",
+      "PYTHONPATH": "/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/src:/tmp/q05a-e0d9d6e-source/packages/qa-agent/src:/tmp/q05a-e0d9d6e-source/packages/sanmou-common/src:/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "expected_exit": 0,
+      "tests": 44,
+      "skipped": 0,
+      "seconds": 3.4719412326812744,
+      "log": "q05-targeted.log",
+      "log_bytes": 6591,
+      "log_sha256": "f6ef49027f3b3be5c586415e024b8b23211621da7dd78d53b57a4d67bd33699b"
+    },
+    {
+      "name": "q04-targeted",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_claim_spans.py",
+        "-v"
+      ],
+      "cwd": "/tmp/q05a-e0d9d6e-source/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/src:/tmp/q05a-e0d9d6e-source/packages/qa-agent/src:/tmp/q05a-e0d9d6e-source/packages/sanmou-common/src:/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "expected_exit": 0,
+      "tests": 25,
+      "skipped": 0,
+      "seconds": 0.6655001640319824,
+      "log": "q04-targeted.log",
+      "log_bytes": 3540,
+      "log_sha256": "485f3780e880bf1e418db2e0e91f968d1ca4a7bafc6021d39c5ee6e4291151b0"
+    },
+    {
+      "name": "resource-close",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-W",
+        "always::ResourceWarning",
+        "-m",
+        "unittest",
+        "test_lineup_frame_extractor.CropIntoColumnsTests.test_splits_and_upscales",
+        "-v"
+      ],
+      "cwd": "/tmp/q05a-e0d9d6e-source/packages/qa-agent/tests",
+      "PYTHONPATH": "/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/src:/tmp/q05a-e0d9d6e-source/packages/qa-agent/src:/tmp/q05a-e0d9d6e-source/packages/sanmou-common/src:/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "expected_exit": 0,
+      "tests": 1,
+      "skipped": 0,
+      "seconds": 1.1163010597229004,
+      "log": "resource-close.log",
+      "log_bytes": 205,
+      "log_sha256": "09c82e5188fccbc2fa2c032afe2d1630a9de5fff75250669593f774ea79cdb8c"
+    },
+    {
+      "name": "h07a",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "test_task_approval",
+        "-v"
+      ],
+      "cwd": "/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/tests",
+      "PYTHONPATH": "/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/src:/tmp/q05a-e0d9d6e-source/packages/qa-agent/src:/tmp/q05a-e0d9d6e-source/packages/sanmou-common/src:/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "expected_exit": 0,
+      "tests": 35,
+      "skipped": 0,
+      "seconds": 8.735835075378418,
+      "log": "h07a.log",
+      "log_bytes": 8316,
+      "log_sha256": "755525ced75a99492049ce640e4461e1c95cac40b574f9aabba7caeccf1129ea"
+    },
+    {
+      "name": "h10-causal",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-W",
+        "error::RuntimeWarning",
+        "-m",
+        "unittest",
+        "test_causal_trace",
+        "-v"
+      ],
+      "cwd": "/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/tests",
+      "PYTHONPATH": "/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/src:/tmp/q05a-e0d9d6e-source/packages/qa-agent/src:/tmp/q05a-e0d9d6e-source/packages/sanmou-common/src:/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "expected_exit": 0,
+      "tests": 32,
+      "skipped": 0,
+      "seconds": 2.2747464179992676,
+      "log": "h10-causal.log",
+      "log_bytes": 6182,
+      "log_sha256": "7f29d91e1822cd81347c3769774438c0e7781399b1f54bcc13dd95933c1eee79"
+    },
+    {
+      "name": "qa-agent-full",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "/tmp/q05a-e0d9d6e-source/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/src:/tmp/q05a-e0d9d6e-source/packages/qa-agent/src:/tmp/q05a-e0d9d6e-source/packages/sanmou-common/src:/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "expected_exit": 0,
+      "tests": 440,
+      "skipped": 0,
+      "seconds": 42.198976039886475,
+      "log": "qa-agent-full.log",
+      "log_bytes": 71264,
+      "log_sha256": "043c110f8d7801780189ad8585c216244a855fdac76313518ce308029338026f"
+    },
+    {
+      "name": "pioneer-agent-full",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "/tmp/q05a-e0d9d6e-source/packages/pioneer-agent",
+      "PYTHONPATH": "/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/src:/tmp/q05a-e0d9d6e-source/packages/qa-agent/src:/tmp/q05a-e0d9d6e-source/packages/sanmou-common/src:/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "expected_exit": 0,
+      "tests": 1085,
+      "skipped": 2,
+      "seconds": 60.13633441925049,
+      "log": "pioneer-agent-full.log",
+      "log_bytes": 342925,
+      "log_sha256": "d1acb3353840efee07d4abd633822c65fb233d3eb6fe34de306feb36aac92cc4"
+    },
+    {
+      "name": "sanmou-common-full",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "/tmp/q05a-e0d9d6e-source/packages/sanmou-common",
+      "PYTHONPATH": "/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/src:/tmp/q05a-e0d9d6e-source/packages/qa-agent/src:/tmp/q05a-e0d9d6e-source/packages/sanmou-common/src:/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "expected_exit": 0,
+      "tests": 2,
+      "skipped": 0,
+      "seconds": 0.06434154510498047,
+      "log": "sanmou-common-full.log",
+      "log_bytes": 335,
+      "log_sha256": "7e9438edca6c90738e3f3983beb89cc2e47795af9815f716b6f41a24af9285f3"
+    },
+    {
+      "name": "v1-cli",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "qa_agent.quality_eval.runner",
+        "--baseline",
+        "v1",
+        "--output",
+        "/tmp/q05a-e0d9d6e-results/v1.json"
+      ],
+      "cwd": "/tmp/q05a-e0d9d6e-source/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/src:/tmp/q05a-e0d9d6e-source/packages/qa-agent/src:/tmp/q05a-e0d9d6e-source/packages/sanmou-common/src:/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 1,
+      "expected_exit": 1,
+      "tests": null,
+      "skipped": 0,
+      "seconds": 0.21532726287841797,
+      "log": "v1-cli.log",
+      "log_bytes": 815,
+      "log_sha256": "cd41b50d48fb37f4715be0d0ff3c6589c8299e434b40041f553bc07b5e5ccd59"
+    },
+    {
+      "name": "v2-cli",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "qa_agent.quality_eval.runner",
+        "--baseline",
+        "v2",
+        "--output",
+        "/tmp/q05a-e0d9d6e-results/v2.json"
+      ],
+      "cwd": "/tmp/q05a-e0d9d6e-source/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/src:/tmp/q05a-e0d9d6e-source/packages/qa-agent/src:/tmp/q05a-e0d9d6e-source/packages/sanmou-common/src:/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 1,
+      "expected_exit": 1,
+      "tests": null,
+      "skipped": 0,
+      "seconds": 0.16481661796569824,
+      "log": "v2-cli.log",
+      "log_bytes": 815,
+      "log_sha256": "cd41b50d48fb37f4715be0d0ff3c6589c8299e434b40041f553bc07b5e5ccd59"
+    },
+    {
+      "name": "v3-cli",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "qa_agent.quality_eval.runner",
+        "--baseline",
+        "v3",
+        "--output",
+        "/tmp/q05a-e0d9d6e-results/v3.json"
+      ],
+      "cwd": "/tmp/q05a-e0d9d6e-source/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/src:/tmp/q05a-e0d9d6e-source/packages/qa-agent/src:/tmp/q05a-e0d9d6e-source/packages/sanmou-common/src:/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 1,
+      "expected_exit": 1,
+      "tests": null,
+      "skipped": 0,
+      "seconds": 0.16470932960510254,
+      "log": "v3-cli.log",
+      "log_bytes": 815,
+      "log_sha256": "cd41b50d48fb37f4715be0d0ff3c6589c8299e434b40041f553bc07b5e5ccd59"
+    },
+    {
+      "name": "v4-cli",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "qa_agent.quality_eval.runner",
+        "--baseline",
+        "v4",
+        "--output",
+        "/tmp/q05a-e0d9d6e-results/v4.json"
+      ],
+      "cwd": "/tmp/q05a-e0d9d6e-source/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/src:/tmp/q05a-e0d9d6e-source/packages/qa-agent/src:/tmp/q05a-e0d9d6e-source/packages/sanmou-common/src:/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "expected_exit": 0,
+      "tests": null,
+      "skipped": 0,
+      "seconds": 1.5232338905334473,
+      "log": "v4-cli.log",
+      "log_bytes": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "q04-cli",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "qa_agent.quality_eval.claim_spans",
+        "--baseline",
+        "claim-spans-v1",
+        "--output",
+        "/tmp/q05a-e0d9d6e-results/q04.json"
+      ],
+      "cwd": "/tmp/q05a-e0d9d6e-source/packages/qa-agent",
+      "PYTHONPATH": "/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/src:/tmp/q05a-e0d9d6e-source/packages/qa-agent/src:/tmp/q05a-e0d9d6e-source/packages/sanmou-common/src:/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "expected_exit": 0,
+      "tests": null,
+      "skipped": 0,
+      "seconds": 0.1647815704345703,
+      "log": "q04-cli.log",
+      "log_bytes": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "h09-cli",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "pioneer_agent.app.task_eval",
+        "--output",
+        "/tmp/q05a-e0d9d6e-results/h09"
+      ],
+      "cwd": "/tmp/q05a-e0d9d6e-source",
+      "PYTHONPATH": "/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/src:/tmp/q05a-e0d9d6e-source/packages/qa-agent/src:/tmp/q05a-e0d9d6e-source/packages/sanmou-common/src:/tmp/q05a-e0d9d6e-source/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "expected_exit": 0,
+      "tests": null,
+      "skipped": 0,
+      "seconds": 4.338766813278198,
+      "log": "h09-cli.log",
+      "log_bytes": 230,
+      "log_sha256": "454b2b0cdbe6685702a9b2138150ad654a51d4251a1da3a549cc80ba65e8622d"
+    }
+  ],
+  "failures": [],
+  "results": {
+    "resource_warnings": {
+      "old": 3,
+      "new": 0
+    },
+    "v4": {
+      "sha256": "c30d4129f16930fd554c502d6a6b7f5787f657367df86e8ace5cd454db58858c",
+      "allowed_delta": [
+        "baseline_commit",
+        "cases_sha256",
+        "eval_source",
+        "production",
+        "protocol",
+        "season"
+      ],
+      "inherited_projection_equal": true,
+      "season": {
+        "status": "developer-authored-synthetic-controls",
+        "synthetic": true,
+        "passed": 8,
+        "denominator": 8,
+        "gate_pass": true,
+        "cases": [
+          {
+            "id": "three-classes",
+            "actual": {
+              "match_ids": [
+                "match"
+              ],
+              "mismatch": [
+                {
+                  "id": "mismatch",
+                  "reason": "season_mismatch"
+                }
+              ],
+              "unknown": [
+                {
+                  "id": "no-tags",
+                  "reason": "missing_season_tags"
+                },
+                {
+                  "id": "non-lineup",
+                  "reason": "not_lineup_solution"
+                }
+              ]
+            },
+            "expected": {
+              "match_ids": [
+                "match"
+              ],
+              "mismatch": [
+                {
+                  "id": "mismatch",
+                  "reason": "season_mismatch"
+                }
+              ],
+              "unknown": [
+                {
+                  "id": "no-tags",
+                  "reason": "missing_season_tags"
+                },
+                {
+                  "id": "non-lineup",
+                  "reason": "not_lineup_solution"
+                }
+              ]
+            },
+            "control_pass": true
+          },
+          {
+            "id": "filter-before-top-k",
+            "actual": {
+              "match_ids": [
+                "correct-low"
+              ],
+              "mismatch": [
+                {
+                  "id": "wrong-first",
+                  "reason": "season_mismatch"
+                }
+              ],
+              "unknown": []
+            },
+            "expected": {
+              "match_ids": [
+                "correct-low"
+              ],
+              "mismatch": [
+                {
+                  "id": "wrong-first",
+                  "reason": "season_mismatch"
+                }
+              ],
+              "unknown": []
+            },
+            "control_pass": true
+          },
+          {
+            "id": "multitag-alias",
+            "actual": {
+              "match_ids": [
+                "multi"
+              ],
+              "mismatch": [],
+              "unknown": []
+            },
+            "expected": {
+              "match_ids": [
+                "multi"
+              ],
+              "mismatch": [],
+              "unknown": []
+            },
+            "control_pass": true
+          },
+          {
+            "id": "case-sensitive",
+            "actual": {
+              "match_ids": [],
+              "mismatch": [
+                {
+                  "id": "upper",
+                  "reason": "season_mismatch"
+                }
+              ],
+              "unknown": []
+            },
+            "expected": {
+              "match_ids": [],
+              "mismatch": [
+                {
+                  "id": "upper",
+                  "reason": "season_mismatch"
+                }
+              ],
+              "unknown": []
+            },
+            "control_pass": true
+          },
+          {
+            "id": "not-prefix",
+            "actual": {
+              "match_ids": [],
+              "mismatch": [
+                {
+                  "id": "season-ten",
+                  "reason": "season_mismatch"
+                }
+              ],
+              "unknown": []
+            },
+            "expected": {
+              "match_ids": [],
+              "mismatch": [
+                {
+                  "id": "season-ten",
+                  "reason": "season_mismatch"
+                }
+              ],
+              "unknown": []
+            },
+            "control_pass": true
+          },
+          {
+            "id": "empty-pool",
+            "actual": {
+              "match_ids": [],
+              "mismatch": [],
+              "unknown": []
+            },
+            "expected": {
+              "match_ids": [],
+              "mismatch": [],
+              "unknown": []
+            },
+            "control_pass": true
+          },
+          {
+            "id": "unrelated-query",
+            "actual": {
+              "match_ids": [],
+              "mismatch": [],
+              "unknown": []
+            },
+            "expected": {
+              "match_ids": [],
+              "mismatch": [],
+              "unknown": []
+            },
+            "control_pass": true
+          },
+          {
+            "id": "model-stripped-tags",
+            "actual": {
+              "match_ids": [
+                "stripped"
+              ],
+              "mismatch": [],
+              "unknown": []
+            },
+            "expected": {
+              "match_ids": [
+                "stripped"
+              ],
+              "mismatch": [],
+              "unknown": []
+            },
+            "control_pass": true
+          }
+        ],
+        "scope": "exact declared season tags; not semantic support or review certification"
+      }
+    },
+    "q04": {
+      "sha256": "b9658bf88a197cf0a6a421dd66133bade253281961acc85f59c744b62732f0b6",
+      "all_non_source_fields_equal": true,
+      "eval_source": {
+        "algorithm": "sha256-utf8-lf-v1",
+        "files": {
+          "src/qa_agent/quality_eval/__init__.py": "dcf77ddd5f789553278cef7e1617c22286fcb23571054593c4342771b03baa6e",
+          "src/qa_agent/quality_eval/assessment_cases.py": "2045a72ec47f823153869f58a610ebd3aae328ea82c8f1968cb298c50e8d598c",
+          "src/qa_agent/quality_eval/claim_spans.py": "062ae64d50609e2b3542b2c2fd35d66614a40df100a02dd253acf42a57df8155",
+          "src/qa_agent/quality_eval/referent_cases.py": "600d434af95213af6ffae2a66170e2c8e4e475d541ca33ed21d717262727ee07",
+          "src/qa_agent/quality_eval/runner.py": "edc8836638ab316facf5945f822f3f9f072ed3a2050932e948ed0ebc4ea80cec",
+          "src/qa_agent/quality_eval/scoring.py": "b49f51cf50d34aec2970214d0b1f8eea4e081b9c31d4249b00786dc0f7182af5",
+          "src/qa_agent/quality_eval/season_cases.py": "d33ecee712cb87afe9c2293329c2cacf9889e077e6e205e36fde34f3546ebe2a"
+        },
+        "digest": "362d033dc66962b43aa3c09a9add9fbaff321f3c64ccb9416b656b9818d91b99"
+      }
+    },
+    "h09": {
+      "sha256": "3f449be1bf8fc0107c598c337bfc06ef2843556c4c445ff24b04338db25dfb3e",
+      "totals": {
+        "control_pass": 8,
+        "expected_safety_stop": 6,
+        "goal_success": 2,
+        "infra_error": 0,
+        "safety_violations": 0,
+        "unexpected_goal_success": 0
+      }
+    }
+  },
+  "native": "Q05a pending exact-final-SHA Hosted targeted names/0skip/exit0; Q04b native25 is separate"
+}
