@@ -523,9 +523,24 @@ class TaskRunner:
                 if (context.run_id, context.step_id, context.observation_id) != (
                         self.state.run_id, self.step_id, observation.observation_id):
                     return self._finish("failed", "context_binding_mismatch")
-                invocation_id, provenance = self._causal.invocation(context)
-            transport = "error"  # Attempted, but no returned response yet.
-            raw = await asyncio.wait_for(self.policy.decide(context), self.budget.remaining_seconds())
+                prepared_id, prepared_provenance = self._causal.prepare_invocation(context)
+                async def dispatch_policy():
+                    nonlocal invocation_id, provenance, transport
+                    if approval_revalidation:
+                        self._check_approval_observation(observation)
+                    else:
+                        self._check()
+                    self._causal.check()
+                    if (context.run_id, context.step_id, context.observation_id) != (
+                            self.state.run_id, self.step_id, observation.observation_id):
+                        raise _Interrupt("failed", "context_binding_mismatch")
+                    invocation_id, provenance = prepared_id, prepared_provenance
+                    transport = "error"  # The guarded call is entering, not merely prepared.
+                    return await self.policy.decide(context)
+                raw = await asyncio.wait_for(dispatch_policy(), self.budget.remaining_seconds())
+            else:
+                transport = "error"  # Attempted, but no returned response yet.
+                raw = await asyncio.wait_for(self.policy.decide(context), self.budget.remaining_seconds())
             transport = "ok"
             contract = "error"  # A returned value exists; validation may fail.
             decision = PolicyDecision.model_validate(raw.model_dump() if isinstance(raw, PolicyDecision) else raw)
@@ -683,8 +698,18 @@ class _TaskClient:
             r._save()
             r._check()
             if r._causal is not None:
-                invocation_id, provenance = r._causal.invocation()
-            raw = await asyncio.wait_for(r._client.call_tool(name, arguments), r.budget.remaining_seconds())
+                prepared_id, prepared_provenance = r._causal.prepare_invocation()
+                async def dispatch_tool():
+                    nonlocal invocation_id, provenance
+                    r._check()
+                    r._causal.check()
+                    if name not in r.state.task.allowed_tools:
+                        raise _Interrupt("failed", "tool_not_allowed")
+                    invocation_id, provenance = prepared_id, prepared_provenance
+                    return await r._client.call_tool(name, arguments)
+                raw = await asyncio.wait_for(dispatch_tool(), r.budget.remaining_seconds())
+            else:
+                raw = await asyncio.wait_for(r._client.call_tool(name, arguments), r.budget.remaining_seconds())
             event.transport = "ok"
             response = validate_game_response(name, structured_content(raw))
             event.contract = "ok"

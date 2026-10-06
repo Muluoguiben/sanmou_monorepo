@@ -486,3 +486,129 @@ class CausalFaultTests(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(policy.usage.cost)
         self.assertEqual(policy.provenance.model.status, "unknown")
         self.assertEqual(r.budget.summary()["counts"]["model"], 1)
+
+
+class CausalDispatchTests(unittest.IsolatedAsyncioTestCase):
+    async def test_provenance_deadline_keeps_reservations_without_invocations(self):
+        for boundary in ("tool", "policy", "model-policy"):
+            with self.subTest(boundary=boundary):
+                clock = [1000.]
+                budget = RunBudgetLedger(BudgetLimits(max_model_attempts=1, max_seconds=1.),
+                    clock=lambda: clock[0], monotonic=lambda: clock[0])
+                class Policy:
+                    policy_id, uses_model = "deadline-policy", boundary == "model-policy"
+                    calls, advanced = 0, False
+                    @property
+                    def policy_version(self):
+                        target = "session_status" if boundary == "tool" else "policy:deadline-policy"
+                        if self.runner.state.pending_call == target and not self.advanced:
+                            self.advanced = True
+                            clock[0] += 2
+                        return "1"
+                    async def decide(self, context):
+                        self.calls += 1
+                        return PolicyDecision(action="continue", reason="continue")
+                policy = Policy()
+                r = runner(policy=policy, budget=budget)
+                policy.runner = r
+                result = await r.run()
+                self.assertEqual((result.status, result.reason), ("failed", "run_deadline"))
+                self.assertTrue(policy.advanced)
+                self.assertEqual((len(r._client.calls), policy.calls), (0 if boundary == "tool" else 4, 0))
+                records = [e for e in r.trace.events if e.event == ("tool" if boundary == "tool" else "policy")]
+                self.assertTrue(records)
+                for event in records:
+                    self.assertEqual(event.transport, "not_attempted")
+                    self.assertIsNone(event.invocation_id)
+                    self.assertIsNone(event.provenance.context_digest)
+                self.assertEqual(budget.summary()["counts"], {
+                    "step": 1, "tool": 1 if boundary == "tool" else 4,
+                    "model": 1 if boundary == "model-policy" else 0})
+
+    async def test_provenance_pause_cancel_prevent_lazy_tool_and_policy_entry(self):
+        for boundary in ("tool", "policy"):
+            for operation in ("pause", "cancel"):
+                with self.subTest(boundary=boundary, operation=operation):
+                    class Policy:
+                        policy_id, uses_model = "control-policy", False
+                        calls, requested = 0, False
+                        @property
+                        def policy_version(self):
+                            target = "session_status" if boundary == "tool" else "policy:control-policy"
+                            if self.runner.state.pending_call == target and not self.requested:
+                                self.requested = True
+                                getattr(self.runner, operation)()
+                            return "1"
+                        async def decide(self, context):
+                            self.calls += 1
+                            return PolicyDecision(action="continue", reason="continue")
+                    policy = Policy()
+                    r = runner(policy=policy)
+                    policy.runner = r
+                    result = await r.run()
+                    self.assertEqual(result.status, "paused" if operation == "pause" else "cancelled")
+                    self.assertTrue(policy.requested)
+                    self.assertEqual((len(r._client.calls), policy.calls), (0 if boundary == "tool" else 4, 0))
+                    records = [e for e in r.trace.events if e.event == boundary]
+                    self.assertTrue(records)
+                    self.assertTrue(all(e.transport == "not_attempted" and e.invocation_id is None
+                        and e.provenance.context_digest is None for e in records))
+
+    async def test_h07_freshness_is_rechecked_after_provenance_before_policy(self):
+        r = runner(policy=FakeDecisionPolicy([PolicyDecision(action="request_approval", reason="handoff")]))
+        saved = await r.run()
+        class Policy:
+            policy_id, uses_model = "stale-policy", False
+            calls, advanced = 0, False
+            @property
+            def policy_version(self):
+                if r.state.pending_call == "policy:stale-policy" and not self.advanced:
+                    self.advanced = True
+                    r._client.count += 120
+                return "1"
+            async def decide(self, context):
+                self.calls += 1
+                return PolicyDecision(action="continue", reason="continue")
+        policy = r.policy = Policy()
+        result = await r.resume_synthetic(response_for(saved))
+        self.assertTrue(policy.advanced)
+        self.assertEqual((result.status, result.reason), ("failed", "observation_stale"))
+        self.assertEqual(policy.calls, 0)
+        event = [e for e in r.trace.events if e.event == "policy"][-1]
+        self.assertEqual(event.transport, "not_attempted")
+        self.assertIsNone(event.invocation_id)
+        self.assertIsNone(event.provenance.context_digest)
+
+    async def test_expired_wrapper_does_not_create_inner_awaitables(self):
+        for boundary in ("tool", "policy"):
+            with self.subTest(boundary=boundary):
+                clock = [1000.]
+                budget = RunBudgetLedger(BudgetLimits(max_model_attempts=0, max_seconds=1.),
+                    clock=lambda: clock[0], monotonic=lambda: clock[0])
+                class Client(SequenceClient):
+                    created = 0
+                    def call_tool(self, name, arguments):
+                        self.created += 1
+                        return super().call_tool(name, arguments)
+                class Policy:
+                    policy_id, uses_model = "lazy-policy", False
+                    created, entered, advanced = 0, 0, False
+                    @property
+                    def policy_version(self):
+                        target = "session_status" if boundary == "tool" else "policy:lazy-policy"
+                        if self.runner.state.pending_call == target and not self.advanced:
+                            self.advanced = True
+                            clock[0] += 2
+                        return "1"
+                    def decide(self, context):
+                        self.created += 1
+                        async def inner():
+                            self.entered += 1
+                            return PolicyDecision(action="continue", reason="continue")
+                        return inner()
+                client, policy = Client(), Policy()
+                r = runner(client=client, policy=policy, budget=budget)
+                policy.runner = r
+                self.assertEqual((await r.run()).reason, "run_deadline")
+                self.assertEqual(client.created, 0 if boundary == "tool" else 4)
+                self.assertEqual((policy.created, policy.entered), (0, 0))
