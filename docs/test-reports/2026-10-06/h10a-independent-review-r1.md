@@ -41,6 +41,19 @@ but do not expose the raw secondary exception in its public cause/context chain;
 ensure ordinary formatted tracebacks stay class-only. Existing genuine-primary
 object preservation and class-only secondary notes must remain unchanged.
 
+F2 additional invocation-time control: frozen `6cf8b1b` changes a declaration only
+after the policy-pending checkpoint, so validation raises inside invocation's
+active exception handler before policy (four tools, zero policy). Its long-marker
+assertion passed, but Pydantic repr truncation makes that an insufficient privacy
+oracle, not proof of sanitization. Without changing that original file, the short-
+marker variant was frozen at `83f1d83a89198de190c6eb12b0c9184d2c1531d5`, SHA256
+`71cdf2cae37ef8c6fade5c3bc0cf84625a636cbd315fcddc8b33248bddb01234`.
+On dfa it fails (one test, exit 1) with the full private value `priv_ctx_17` visible
+from invocation/provenance validation. Retain this cut when removing the explicit
+cause so an implicit context chain cannot reintroduce the same disclosure. Raw
+outputs are `h10a-dfa7fe1-context-long-control.log` and
+`h10a-dfa7fe1-context-short-red.log`. This is F2, not an expanded workstream.
+
 ## Frozen probes and results
 
 Original public probes `3935391` plus full-v1 oracle `3df7f82`: 5/5 pass, exit 0.
