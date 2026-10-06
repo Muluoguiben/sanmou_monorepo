@@ -10,7 +10,10 @@ from threading import Lock, RLock
 from uuid import uuid4
 
 from pioneer_agent.agent_harness._checkpoint_lock import LocalLock
-from pioneer_agent.agent_harness.task_contracts import CheckpointEnvelope, RunState, TERMINAL_STATUSES
+from pioneer_agent.agent_harness.task_contracts import (
+    CheckpointEnvelope, RunState, SyntheticApprovalRunState, TERMINAL_STATUSES, parse_run_state,
+)
+from pioneer_agent.agent_harness.task_approval import task_digest
 
 
 class CheckpointConflict(RuntimeError):
@@ -144,7 +147,7 @@ class _ConditionalStore:
             raise CheckpointConflict("checkpoint must be loaded by its owner")
         if type(expected_revision) is not int or expected_revision != owner.revision:
             raise CheckpointConflict("stale checkpoint revision")
-        state = RunState.model_validate(state.model_dump())
+        state = parse_run_state(state.model_dump())
         prior, revision, prior_owner = self._read()
         if (revision, prior_owner) != (owner.revision, owner._prior_owner):
             raise CheckpointConflict("checkpoint revision changed")
@@ -155,7 +158,27 @@ class _ConditionalStore:
             raise CheckpointConflict("checkpoint identity/task mismatch")
         if prior and prior.status in TERMINAL_STATUSES and state.status != prior.status:
             raise CheckpointConflict("terminal checkpoint cannot resume")
-        envelope = CheckpointEnvelope(revision=revision + 1, owner_id=owner.owner_id, state=state)
+        if prior and state.version < prior.version:
+            raise CheckpointConflict("checkpoint version cannot regress")
+        if isinstance(state, SyntheticApprovalRunState):
+            item = state.approval
+            if item.request.task_digest != task_digest(state.task):
+                raise CheckpointConflict("approval task digest mismatch")
+            previous = prior.approval if isinstance(prior, SyntheticApprovalRunState) else None
+            if previous and previous.request == item.request:
+                if previous.response is not None and previous.response != item.response:
+                    raise CheckpointConflict("approval consumption cannot regress")
+                if previous.consumed_at is not None and previous.consumed_at != item.consumed_at:
+                    raise CheckpointConflict("approval consumption cannot change")
+                if (previous.revalidated_observation_id is not None
+                        and previous.revalidated_observation_id != item.revalidated_observation_id):
+                    raise CheckpointConflict("approval revalidation cannot regress")
+            elif (state.status != "awaiting_approval" or item.response is not None
+                  or (previous and previous.revalidated_observation_id is None)
+                  or (prior and prior.status in TERMINAL_STATUSES)):
+                raise CheckpointConflict("invalid new approval transition")
+        envelope = CheckpointEnvelope(storage_version=state.version,
+            revision=revision + 1, owner_id=owner.owner_id, state=state)
         self._write(envelope)
         owner.revision = envelope.revision
         owner._prior_owner = owner.owner_id
@@ -191,7 +214,7 @@ class JsonRunStore(_ConditionalStore):
             return envelope.state, envelope.revision, envelope.owner_id
         if not isinstance(raw, dict) or type(raw.get("version")) is not int or raw["version"] != 1:
             raise ValueError("unsupported checkpoint format")
-        return RunState.model_validate(raw), 0, None
+        return parse_run_state(raw), 0, None
 
     def _write(self, envelope):
         temporary = self.path.with_name(f".{self.path.name}.{uuid4().hex}.tmp")
