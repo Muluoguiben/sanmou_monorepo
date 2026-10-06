@@ -1,0 +1,203 @@
+{
+  "source": "a23ccf13049d289bcf827265b726bff2956a6948",
+  "tree": "dd12dbcab10648314a8aefd8f8929dc4df442d68",
+  "failures": [],
+  "files": {
+    "focused.command.json": {
+      "bytes": 752,
+      "sha256": "dace14adf5e8e8265d3b5c2235aabf0c964368fc4e3394161c1822f0269b33bd"
+    },
+    "focused.log": {
+      "bytes": 21871,
+      "sha256": "da2cd053bc945afcae95c708033e273b5015afcee6e42a2975e343266af730f4"
+    },
+    "h09-cli/context-overflow/checkpoint.json": {
+      "bytes": 4116,
+      "sha256": "6b4f9830e871d9834acab32990d818f8fb27bb3e4a713ab808fbe5f546a808c1"
+    },
+    "h09-cli/context-overflow/checkpoint.json.lock": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "h09-cli/context-overflow/phase-1.json": {
+      "bytes": 9896,
+      "sha256": "2109c90d71dada1f5df8671eef49cfd6e767897c6f61e00099a861056ed9ba7a"
+    },
+    "h09-cli/false-success-proposal/checkpoint.json": {
+      "bytes": 4127,
+      "sha256": "f049503dcd8c395d5d8c344ea4e092ddd9efa98d5a45b04dc3d6d152d7efb7c6"
+    },
+    "h09-cli/false-success-proposal/checkpoint.json.lock": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "h09-cli/false-success-proposal/phase-1.json": {
+      "bytes": 12036,
+      "sha256": "661fc31802d4e8720aac9e54be00730ddac2f89f56ca0923cbc2793eb220643c"
+    },
+    "h09-cli/missing-field-evidence/checkpoint.json": {
+      "bytes": 8702,
+      "sha256": "b8e733aa74dcfb379fec953daf44ab36479d6daa2c06ee52b6f35ecf7538d145"
+    },
+    "h09-cli/missing-field-evidence/checkpoint.json.lock": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "h09-cli/missing-field-evidence/phase-1.json": {
+      "bytes": 30258,
+      "sha256": "3ef159eeb6c2e574899734faa7b82ca833a8f1d995dc22a4a08db2a9728eed71"
+    },
+    "h09-cli/non-read-only-session/checkpoint.json": {
+      "bytes": 2609,
+      "sha256": "46555f1bc322006ffe2233b9123ef4931326f1c2325785d390287fd0534586f2"
+    },
+    "h09-cli/non-read-only-session/checkpoint.json.lock": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "h09-cli/non-read-only-session/phase-1.json": {
+      "bytes": 4026,
+      "sha256": "b8cc98ce6ea2d38cb1c1d9318b384df843ab223f330e2ee139df45aed9637464"
+    },
+    "h09-cli/pause-fresh-resume/checkpoint.json": {
+      "bytes": 8709,
+      "sha256": "6eda2aa0616260da7276289e28220def7f92e0233ecc1b824df46ab951b61476"
+    },
+    "h09-cli/pause-fresh-resume/checkpoint.json.lock": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "h09-cli/pause-fresh-resume/phase-1.json": {
+      "bytes": 12012,
+      "sha256": "6a71c01fd5f1aba8d98848164b2f1085fa4ddbd3aa1531c7117a9575a385f8a5"
+    },
+    "h09-cli/pause-fresh-resume/phase-2.json": {
+      "bytes": 25332,
+      "sha256": "5566c30f4d185ffd18cd3f1a3fa57636bd2fed807b6582aa8d51d0756ee563d8"
+    },
+    "h09-cli/replayed-observation/checkpoint.json": {
+      "bytes": 5495,
+      "sha256": "25de81b3687ca7c96ac01524fa9faa01602abfe94d2be5d819724bec2c4c8284"
+    },
+    "h09-cli/replayed-observation/checkpoint.json.lock": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "h09-cli/replayed-observation/phase-1.json": {
+      "bytes": 14962,
+      "sha256": "dc606fb870d0f62c6482a0f16934e31fa4fe279e63cb54c06e7f2bd32c891781"
+    },
+    "h09-cli/report.json": {
+      "bytes": 273032,
+      "sha256": "a7970064f5e24e2e31f0acabbaebbfcb9d986d177b1d4814284e7a9bb2ea1978"
+    },
+    "h09-cli/three-observation-goal/checkpoint.json": {
+      "bytes": 8710,
+      "sha256": "d0d3c5ad130a75f69d5ba8e69297b1f325a1f5635a8752d5d927e5aa83a823ad"
+    },
+    "h09-cli/three-observation-goal/checkpoint.json.lock": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "h09-cli/three-observation-goal/phase-1.json": {
+      "bytes": 30814,
+      "sha256": "6c4e1cf6d81f4c689b5604ec534e32fbeae1d5b807a55b8164dffe3be41b6b38"
+    },
+    "h09-cli/tool-budget-five/checkpoint.json": {
+      "bytes": 5026,
+      "sha256": "5de2628462272dbad363aea204a8cd176900725dc3d327e401c4bea056bd5a0e"
+    },
+    "h09-cli/tool-budget-five/checkpoint.json.lock": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "h09-cli/tool-budget-five/phase-1.json": {
+      "bytes": 13931,
+      "sha256": "463f8db343f70865e6b2183f5a85556e69d15b12eb74d6bbfd76a484a6f73d64"
+    },
+    "h09-cli.command.json": {
+      "bytes": 641,
+      "sha256": "ffc3c61b9c1790ee242ceb3ff5f51f897f1dfe92dd8a1216312768271ba64f9b"
+    },
+    "h09-cli.log": {
+      "bytes": 242,
+      "sha256": "039a13e31df799c013b9c072c5b41b713bd25496fc30a2d58862ee309dba683c"
+    },
+    "independent-canonical.command.json": {
+      "bytes": 700,
+      "sha256": "dabaec6db8692756046adc95e8b55e4bd9c1fbeec21acf3c1af0e76d5ca94887"
+    },
+    "independent-canonical.log": {
+      "bytes": 1009,
+      "sha256": "f6a97193844cad86a313e67a01b3e528d8697a86521e570874d550d32dcb9b18"
+    },
+    "independent-original.command.json": {
+      "bytes": 690,
+      "sha256": "fcdf6900352547127ad5fd21248616f1bd86b02f73b30fded251bc431d73610c"
+    },
+    "independent-original.log": {
+      "bytes": 2735,
+      "sha256": "fa8d21fbce9c28ae8ac27c41d9087964792d05fc4c9f793af2d0168992f0f84d"
+    },
+    "independent-probes.json": {
+      "bytes": 365,
+      "sha256": "fe0d10155d8b93ffc637ffcec38044b5cde2eb4d6eb82729776102641660a89b"
+    },
+    "old-reader.json": {
+      "bytes": 327,
+      "sha256": "b3c24739ac3b5b6158e04e2c5d8485b303ea5ffea0ec6e0b1aa05d19d87121dd"
+    },
+    "pioneer-agent-full.command.json": {
+      "bytes": 655,
+      "sha256": "3e2cf07152292878eb565c637555882a0e41611eb87f0df03a7bd59909bd4f79"
+    },
+    "pioneer-agent-full.log": {
+      "bytes": 330735,
+      "sha256": "ff2a5ad2d3f596684ad2687ba264de3fcedfb3051cb91fe47d5efa6af498d7ee"
+    },
+    "qa-agent-full.command.json": {
+      "bytes": 651,
+      "sha256": "bd4faa3907728ad9d2ed934d65c6142958a16c29a70b3cc3cfaa6b99bc2dd6ca"
+    },
+    "qa-agent-full.log": {
+      "bytes": 65552,
+      "sha256": "04d21e947605e20c5117c3eec515a44d04470cbc4252aa90d29a992c24f2da07"
+    },
+    "qa-v3.command.json": {
+      "bytes": 691,
+      "sha256": "58fb6f70c926230da5ad367e8e920c7bfebdb33ac87fec3a8441a85cbece1ac1"
+    },
+    "qa-v3.json": {
+      "bytes": 44435,
+      "sha256": "480a448fd7abecfba2f6cd4eb32a46873ff0b8127b6251cd8aeea5e4fe2e82c8"
+    },
+    "qa-v3.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "runtime.json": {
+      "bytes": 240,
+      "sha256": "5b43405cb235cd851464ae01f6c7a3acf9b4946ddf9f408f89c04076a846a44d"
+    },
+    "sanmou-common-full.command.json": {
+      "bytes": 657,
+      "sha256": "cd68d039389d5c4aae367f72ffc0902306732d920d9ec298038c6288b3b91719"
+    },
+    "sanmou-common-full.log": {
+      "bytes": 335,
+      "sha256": "7e9438edca6c90738e3f3983beb89cc2e47795af9815f716b6f41a24af9285f3"
+    },
+    "source.json": {
+      "bytes": 347946,
+      "sha256": "37536d4465b7c55184ad3878dad905b8b8d0a650ea2d5c8f7c8fa0c6a817b9ed"
+    },
+    "synthetic-v2-checkpoint.json": {
+      "bytes": 3439,
+      "sha256": "af1b89c063d9d6f5a8b3a326d68b23129134a33db9fa1d8c08e4f21284f3f898"
+    },
+    "synthetic-v2-checkpoint.json.lock": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  }
+}

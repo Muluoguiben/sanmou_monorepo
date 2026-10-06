@@ -8,8 +8,8 @@ Fixed source: `a23ccf13049d289bcf827265b726bff2956a6948`, tree
 R1 findings are fixed for their original triggers. Immutable original probes have
 4 pass and the sole documented spelling-only mismatch (exit 1, actual stale result
 `failed/observation_stale`). Canonical probes have 5 pass, exit 0. Independent
-focused tests have 100 pass, exit 0. Full source-bound verification is still running;
-no final approval is implied by these component passes.
+focused tests have 100 pass, exit 0. Full source-bound verification subsequently
+completed; no final approval is implied while F3 remains reproducibly red.
 
 ## F3 [P2]: consumed approval time is not enforced during revalidation
 
@@ -55,5 +55,27 @@ preflight: WSL Git saw historical CRLF files different from LF blobs (for exampl
 AGENTS.md 305 added/305 removed), while Windows Git status was clean. Modified
 task_runner raw blob matched its source tree. No old files were rewritten and no
 assertion was relaxed. A fresh, previously nonexistent ext4 detached worktree was
-created at the exact author SHA, which passed source-byte preflight and is running
-the actual tests. No Q06 or historical archive member was inspected.
+created at the exact author SHA, which passed source-byte preflight and ran the
+actual tests. No Q06 or historical archive member was inspected.
+
+## Independent full regression completion
+
+`h07a-independent-a23ccf1-full/` preserves raw commands, logs, byte-source binding,
+old-reader experiment, H09 checkpoints/report and QA-v3 output. Its manifest SHA256
+is `0da6fa53818eb54b6b7b951a3960cc61f2f40d23fbb34ab290fe85c44111902b`.
+All commands bind to a23ccf1 / dd12dbca, not the reviewer documentation tree.
+
+- Focused: 100/100 pass, zero skips.
+- Pioneer: 1044 collected, 1042 pass, two explicit Windows-only skips; exit 0.
+- QA: 394/394 pass; common: 2/2 pass; exit 0 each.
+- Real H09 CLI: source_verified/complete/valid_suite/gate_pass true, eight controls
+  pass, two expected goals, six expected safety stops, zero infra/safety/unexpected
+  goal errors. This remains synthetic Rule/Fake evaluation.
+- Old QA v3: exit 0; retrieval recall/MRR 10/11, multiturn 9/9, provider calls zero.
+- Actual baseline v1 reader: exact v1 roundtrip, v2 rejected with ValidationError,
+  checkpoint bytes unchanged by load. No load migration.
+- Original probes: four passes and one known spelling-only failure, expected exit 1;
+  canonical probes: 5/5 pass, exit 0. Additional frozen F3 remains one failure.
+
+The verifier's `failures: []` covers its listed lanes, not the separate F3 probe;
+it is not an approval. Native results are not independently claimed by this run.
