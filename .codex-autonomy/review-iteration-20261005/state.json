@@ -1,14 +1,14 @@
 {
   "goal": "按已确认 Review 路线持续迭代，逐小批次实现、测试、独立审查、发布和验证 CI",
   "status": "in_progress",
-  "last_completed_round": 5,
+  "last_completed_round": 7,
   "current_round": 7,
-  "batch": "H07a synthetic read-only approval handoff",
-  "base_commit": "110bd7594e095c3ea0e1940ab2fc4bec5f4d7a77",
+  "batch": "H07a native/recovery follow-up",
+  "base_commit": "ca04ae1ef396576c5983f887502bf20b7d6f0015",
   "primary_branch": "master",
-  "current_task": "docs/harness-synthetic-approval-h07a-2026-10-06.md",
-  "task_commit": "47cfd6f35fd7aeadf7f4001abe59bc63a4bb9a45",
-  "summary": "Independent H07-only combination74654/tree459df/packages46e832 passed actual coordinator matrix. Approvedcodeb3/authorf046/review5bc, synthetic readonly only; original339aa oracle-only1fail remains preserved, canonical5+twoF3probes pass. Q06cd6 is separately frozen/unpublished with archive-member/publication permission false and no inherited ancestry. Main latest published/master remains110bd. Final H07 candidate increment audit and exact-final-SHA CI pending.",
+  "current_task": "docs/harness-h07a-native-recovery-followup-2026-10-06.md",
+  "task_commit": "ecf50e0012c336c131f75b9bc6c102530a0d1876",
+  "summary": "Prior H07ca04 delivery/finalCI remain historical success. This followup approvedb785/author61132/review4750 and exact943 combination passed Linux module35/focused109/fullPioneer1051+2skip/QA394/common2/H09/v3. One normal handoff candidate awaits final payload audit, publication and exact-SHA HostedWindows35/0skip/alljobs. Q06 archives/publication remain paused_by_user and false-permission unchanged.",
   "earlier_rounds": [
     {
       "batch": "Q03a",
@@ -242,12 +242,33 @@
   },
   "delivery": {
     "slice": "H07a",
-    "status": "approved_source_and_author_handoff",
+    "status": "published_exact_sha_ci_passed",
     "code": "b3efd271c79908241b0c7e1acabafbd81c683051",
     "tree": "7b81ac676314fce3423e07979849b676758aa87c",
     "report": "f04646cc72cc92f8ea928942dd287b88667fe749",
     "packages_tree": "46e832a6f4bbfb84e1f49bad517084841dd1b768",
-    "scope": "synthetic readonly approval; no human authentication/dispatch grant/device lease/real game/provider"
+    "scope": "synthetic readonly approval; no human authentication/dispatch grant/device lease/real game/provider",
+    "final_commit": "ca04ae1ef396576c5983f887502bf20b7d6f0015",
+    "final_ci": {
+      "run": 37403073979,
+      "attempt": 1,
+      "source": "ca04ae1ef396576c5983f887502bf20b7d6f0015",
+      "tree": "ba42dc04f2eebde1bd1b36b3063e126b50112cd9",
+      "status": "completed",
+      "conclusion": "success",
+      "all_four_jobs": "success",
+      "url": "https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/37403073979",
+      "jobs": [
+        112074399422,
+        112074399543,
+        112074399575,
+        112074399655
+      ],
+      "windows_h09_step": 9,
+      "windows_h09_report_bytes_reported": 278492,
+      "windows_h09_report_sha256_reported": "fa5f8a269e7e9ef37327ac439a6f6ee27f3dcfbe8efd11acb211202e272834e5",
+      "windows_h09_gate": "onsite checker passed; root inspected structured log summary, did not independently reconstruct raw report this round"
+    }
   },
   "independent_review": {
     "slice": "H07a",
@@ -284,7 +305,7 @@
     "review_branch": "codex/h07a-cr-20261006",
     "model": "gpt-6-astra"
   },
-  "next_step": "Audit this one H07 report/plain-artifacts/threecoordfiles candidate increment, then primary coordinator handles any authorized H07-only publication and exact-final-SHA CI. No selfSHA/status-only successor, no push/mastermerge here. Q06 member reads/publication remain forbidden until direct human permission, and its history/payload must not enter H07.",
+  "next_step": "Audit this fixed normal handoff candidate, then primary coordinator handles authorized H07-only publication and exact-final-SHA Hosted Windows35/0skip plusalljobs. No selfSHA/status-only successor; Q06 reading/publication remains paused_by_user.",
   "authorization": {
     "user_text": "按review 迭代的方向持续迭代",
     "source_thread": "01a10c00-93d2-778b-8395-bf9d496c503d",
@@ -337,8 +358,27 @@
     "archive_content_reads": 0,
     "archive_created": false,
     "q06_history_inherited": false,
-    "final_sha_ci": "pending",
-    "publication": "not performed"
+    "final_sha_ci": {
+      "run": 37403073979,
+      "attempt": 1,
+      "source": "ca04ae1ef396576c5983f887502bf20b7d6f0015",
+      "tree": "ba42dc04f2eebde1bd1b36b3063e126b50112cd9",
+      "status": "completed",
+      "conclusion": "success",
+      "all_four_jobs": "success",
+      "url": "https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/37403073979",
+      "jobs": [
+        112074399422,
+        112074399543,
+        112074399575,
+        112074399655
+      ],
+      "windows_h09_step": 9,
+      "windows_h09_report_bytes_reported": 278492,
+      "windows_h09_report_sha256_reported": "fa5f8a269e7e9ef37327ac439a6f6ee27f3dcfbe8efd11acb211202e272834e5",
+      "windows_h09_gate": "onsite checker passed; root inspected structured log summary, did not independently reconstruct raw report this round"
+    },
+    "publication": "H07_only_published_and_read_back"
   },
   "payload_audit": {
     "slice": "H07a",
@@ -469,11 +509,14 @@
     },
     "slice": "Q06a",
     "archive_member_reads_allowed": false,
-    "publication_allowed": false
+    "publication_allowed": false,
+    "current_master": "ca04ae1ef396576c5983f887502bf20b7d6f0015",
+    "main_field_meaning": "main at original permission request; current_master is separate",
+    "future_merge_requires_new_combined_validation": true
   },
   "active_independent_slice": {
     "name": "H07a",
-    "status": "publication_candidate",
+    "status": "completed",
     "first_code": "8232c420b5c3a7533975293c9cd00380b439386e",
     "latest_code": "b3efd271c79908241b0c7e1acabafbd81c683051",
     "latest_code_tree": "7b81ac676314fce3423e07979849b676758aa87c",
@@ -519,9 +562,11 @@
     "inherited_q06_history": false,
     "combination_verification": "passed",
     "integration_report": "docs/test-reports/2026-10-06/H07a-integration.md",
-    "final_sha_ci": "pending"
+    "final_sha_ci": "pending",
+    "final_commit": "ca04ae1ef396576c5983f887502bf20b7d6f0015",
+    "final_ci_run": 37403073979
   },
-  "latest_published_master": "110bd7594e095c3ea0e1940ab2fc4bec5f4d7a77",
+  "latest_published_master": "ca04ae1ef396576c5983f887502bf20b7d6f0015",
   "coordination_migration": {
     "main_read_only": true,
     "main_head": "110bd7594e095c3ea0e1940ab2fc4bec5f4d7a77",
@@ -532,5 +577,125 @@
     "full_main_history_preserved": true,
     "q06_fields_moved_without_content_read": "pending_publication.q06_validation",
     "single_H07_candidate_commit": true
-  }
+  },
+  "h07a_native_recovery_followup": {
+    "status": "publication_candidate",
+    "base_commit": "ca04ae1ef396576c5983f887502bf20b7d6f0015",
+    "contract_commit": "ecf50e0012c336c131f75b9bc6c102530a0d1876",
+    "contract": "docs/harness-h07a-native-recovery-followup-2026-10-06.md",
+    "independent_plan_commit": "04a919b2609265db6e721eab1b39cd5a368953cc",
+    "scope": "two recovery boundaries realized by five added tests, whole module35 and complete Hosted Windows step; synthetic readonly none/false; production unchanged",
+    "q06a_archive_reading": "paused_by_user",
+    "q06a_publication": "paused_by_user",
+    "next_step": "Audit this fixed normal handoff candidate, then primary coordinator handles authorized H07-only publication and exact-final-SHA Hosted Windows35/0skip plusalljobs. No selfSHA/status-only successor; Q06 reading/publication remains paused_by_user.",
+    "prior_main_followup": {
+      "status": "implementation_and_independent_review",
+      "base_commit": "ca04ae1ef396576c5983f887502bf20b7d6f0015",
+      "contract_commit": "ecf50e0012c336c131f75b9bc6c102530a0d1876",
+      "contract": "docs/harness-h07a-native-recovery-followup-2026-10-06.md",
+      "independent_plan_commit": "04a919b2609265db6e721eab1b39cd5a368953cc",
+      "scope": "two durable restart tests and complete Windows H07a unittest CI step; synthetic read-only none/false",
+      "q06a_archive_reading": "paused_by_user",
+      "q06a_publication": "paused_by_user",
+      "next_step": "fixed source self-tests, independent review, exact combination, one publication and final-SHA CI"
+    },
+    "previous_top_context": {
+      "batch": "H07a synthetic read-only approval handoff",
+      "base_commit": "110bd7594e095c3ea0e1940ab2fc4bec5f4d7a77",
+      "current_task": "docs/harness-synthetic-approval-h07a-2026-10-06.md",
+      "task_commit": "47cfd6f35fd7aeadf7f4001abe59bc63a4bb9a45",
+      "summary": "H07a published as ca04ae1 and read back exactly; final run37403073979 attempt1 completed success in all4jobs. Synthetic-only code and combined-source gates passed; actual native coverage remains scoped. Q06cd6 remains frozen/unpublished with archive permission false; H07 did not inherit its payload.",
+      "next_step": "H07a slice is complete. Preserve this local final-CI state with the next normal delivery, not a status-only push/CI loop. Q06 archive member reads/publication still await direct human approval; its later merge now needs fresh combined validation against H07 master. Further existing-route work needs its own finite contract and retains none/false.",
+      "latest_published_master": "110bd7594e095c3ea0e1940ab2fc4bec5f4d7a77"
+    },
+    "source": "943b052e6054f913feca89683a7aa00d4497625d",
+    "source_tree": "efbab0cce00b1570fe51abf2e7e66a0b459a5fa7",
+    "packages_tree": "8df6ebbd7eec3323f8f3e2054013157de2861c8e",
+    "github_tree": "7235130b9af9859cec2193f3268b47eb8a4d72ca",
+    "author": {
+      "code": "b785458e9b322707e38f0b424ab78a9512abd8d1",
+      "code_tree": "726d99e49ab3fe0822b0bc306870f7d98d319cb0",
+      "report": "61132b6962f45c95d5adb916bc90ff1c4319950b"
+    },
+    "independent_review": {
+      "report": "4750e7ec264d0d6e9f57f8c9868f63ca502211e1",
+      "status": "APPROVE_CODE_AND_LINUX_GATES",
+      "findings": [],
+      "native_acceptance": "pending"
+    },
+    "local_combination": "passed",
+    "combined_results": {
+      "approval_module": "35pass/0skip",
+      "focused": "109pass/0skip",
+      "pioneer": "1053total=1051pass+2existingWindows-onlyskip",
+      "qa": "394pass",
+      "common": "2pass",
+      "h09": "actualCLI8controls/2goals/6expectedstop/0infra;source943;25artifacthashes verified",
+      "h09_report_bytes": 275352,
+      "h09_report_sha256": "0386c590359887cbfcf8894722fdb55e3e93e8fa03637569a8a3f830225911cd",
+      "qa_v3_sha256": "480a448fd7abecfba2f6cd4eb32a46873ff0b8127b6251cd8aeea5e4fe2e82c8",
+      "ordinary_git_input_count": 893,
+      "input_before_after_sha256": "e1c48b1808f679585574870c04af02b9789d7d2d036239259adc3a2d078b5a15",
+      "old_test_methods_AST_preserved": 30,
+      "new_test_methods": 5,
+      "workflow_added_lines": 3,
+      "protected_metadata_count": 2639,
+      "old_report_metadata_count": 1505,
+      "unexpected_failures": 0
+    },
+    "report": "docs/test-reports/2026-10-06/H07a-native-recovery-integration.md",
+    "evidence_manifest": "docs/test-reports/2026-10-06/H07a-native-recovery-integration-artifacts/manifest.json",
+    "evidence_manifest_sha256": "7739f72139286059d5a8473b80b2660add2786a3efbfd612d64170bdd5066107",
+    "evidence": "10newplain files729115bytes plusmanifest:7rawlogs/summary/H09report/helper; no oldmatrix/archive copying",
+    "native_status": "pending_hosted_windows_ci",
+    "final_ci": "pending",
+    "native_gate": {
+      "step": "Windows H07a synthetic approval lifecycle",
+      "cwd": "packages/pioneer-agent/tests",
+      "command": "python -m unittest test_task_approval -v",
+      "required_pass": 35,
+      "required_skip": 0,
+      "all_jobs_success_required": true,
+      "local_whole_module_run": false,
+      "local_dependency_limitation": "previous boundedprobe lacks pywintypes/rpds.rpds; no further exploration/install/mock/skip-as-pass",
+      "old_ca04_ci": "historical delivery.final_ci preserved; not acceptance of this new step/candidate"
+    },
+    "publication": "not performed",
+    "payload_audit": "new candidate plain-evidence/coordinator increment pending final audit",
+    "coordinator_wip_migration": {
+      "main_read_only": true,
+      "main_head": "ca04ae1ef396576c5983f887502bf20b7d6f0015",
+      "main_files": {
+        ".codex-autonomy/review-iteration-20261005/state.json": {
+          "sha256": "50c1ec2745c875b5a47b3c1ea54e51f7a10a537e86165f5944738bab798ffe26",
+          "bytes": 31406
+        },
+        ".codex-autonomy/review-iteration-20261005/WORKLOG.md": {
+          "sha256": "edf0aef6baf8d54f25c3d19d9325d671d724ecb15be59adf763e2c034ec15d4f",
+          "bytes": 68469
+        },
+        "todo-list.md": {
+          "sha256": "169910b983c1c9de598643136c9477b6554e461c810821c50508c27fd7c79250",
+          "bytes": 143213
+        }
+      },
+      "full_history_and_permissions_preserved": true,
+      "old_delivery_final_ci_preserved_as_history": true,
+      "single_normal_candidate": true
+    }
+  },
+  "final_payload_audit": {
+    "candidate": "ca04ae1ef396576c5983f887502bf20b7d6f0015",
+    "objects": 509,
+    "commits": 22,
+    "paths": 388,
+    "object_set_sha256": "1bd0c367d1d82d75716652456b79401c4227e4e6d3d1c5010f9cdb551e2acfb3",
+    "protected_paths": 2400,
+    "old_reports": 1443,
+    "outer_manifest_records": 77,
+    "inner_matrix_records": 53,
+    "archive_content_reads": 0,
+    "q06_inherited": false
+  },
+  "active_work_item": "h07a_native_recovery_followup"
 }

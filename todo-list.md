@@ -1,14 +1,24 @@
 # Todo List
 
-## H07a independent publication candidate (2026-10-06)
+## H07a follow-up: durable recovery and native gate (2026-10-06)
+
+- [x] Scope frozen at `ecf50e0012c336c131f75b9bc6c102530a0d1876`, independent plan `04a919b2609265db6e721eab1b39cd5a368953cc`; start only from published ca04. [Contract](docs/harness-h07a-native-recovery-followup-2026-10-06.md).
+- [x] Five new tests on codeb785458e9b322707e38f0b424ab78a9512abd8d1, author61132b6962f45c95d5adb916bc90ff1c4319950b and independent4750e7ec264d0d6e9f57f8c9868f63ca502211e1 code/Linux APPROVE. RealJSON/new-reader and actualspawn recovery verified; prior30/alloldAST/none-false preserved.
+- [x] Exactcombo943b052e6054f913feca89683a7aa00d4497625d: Linuxmodule35/0skip,focused109,Pioneer1051+2skip,QA394/common2,H09CLI8,v3unchanged;893Gitbytes/protection/oldreports preserved. [Compact source-bound report](docs/test-reports/2026-10-06/H07a-native-recovery-integration.md).
+- [ ] One normalhandoff candidate awaits finalpayload audit/publication/exact-SHA HostedWindows newstep35pass/0skip andalljobsgreen. Localnativewholemodule notrun afterpywintypes/rpds limits; noinstall/mock/skip-as-pass. Historicalca04CI success is not this new gate.
+- Q06a archive reads and publication remain explicitly paused by the user. No historical archive content/member reads; no Q06 payload or unpublished history enters this follow-up.
+
+## H07a completed independent delivery (2026-10-06)
 
 - [x] H07-only base110bd: approved `b3efd271c79908241b0c7e1acabafbd81c683051`, author `f04646cc72cc92f8ea928942dd287b88667fe749`, scoped APPROVE `5bcbe8d1500c61536d16385b6dff53f33e0119e8`; F1–F3 closed without rewriting original failures.
 - [x] Exact combination `74654b608d54c459636bfbf1eff69b06f4aeb2fb` / packages `46e832a6f4bbfb84e1f49bad517084841dd1b768`: focused104, Pioneer1046+2skip, QA394/common2; original339aa4pass+1historicaltypo fail/exit1 retained, canonical5/postconsume1/progression1 pass; actualH09CLI8/v3 unchanged, actual110bd reader compatibility/no-rewrite, native stdliblock3 only. [Plain source-bound report](docs/test-reports/2026-10-06/H07a-integration.md).
-- [ ] H07 publication candidate: known payload through74654 audited426objects/21commits/306paths/set9d853d778842aeaad2e59f87b9342cee1795167ed2aa917c27e0419b2f9ebbe3;2403protection hash755e1452dd03ece413db0d5e9a27ffa2d35f87f0af868808dea3597904515f92. New report/plain evidence/coord increment and final-SHA CI remain pending; no push/mastermerge here.
+- [x] Final H07 `ca04ae1ef396576c5983f887502bf20b7d6f0015` published and read back exactly; run37403073979 attempt1 completed/success in all4jobs, including Windows H09 gate. Final plaintext payload audit509objects/22commits/388paths/set1bd0c367d1d82d75716652456b79401c4227e4e6d3d1c5010f9cdb551e2acfb3;2400protected/1443oldreports unchanged;77/77 outer and53/53 inner artifact hashes match. No Q06 history/payload or archive-content read.
 - [ ] Q06a is separately local-approved but frozen/unpublished candidate `cd6d4929ec611cda1600934dde17aef996142ae0`: archive-member permission and publication permission remain false. Only textual status is retained under pending_publication; no Q06 file/archive/history enters H07, no member read is authorized by H07 success.
-- Latest passed/published master remains110bd. Existing notes below are retained historical state; H07 is synthetic Python API/testing only, none/false authority, no real human approval CLI or game grant.
+- Latest passed/published master isca04ae1. This post-CI local state update is retained for the next normal delivery, not a status-only push that starts anotherCI. H07 is synthetic Python API/testing only, none/false authority, no real human approval CLI or game grant; local native evidence remains3stdliblocks, not fullH07/MCP. A future Q06 merge now requires a fresh combined-tree check against this H07 master after its archive permission is granted.
 
-## Active Review continuation — H09b (2026-10-06)
+## Historical H09b candidate checklist (completed on published110bd)
+
+Actual closure: run37388574594/attempt1/all4success, real Windows H09 step/report independently checked on110bd. The checklist below records the earlier prepublication state, not a current blocker; current ca04 CI also passed the existing Windows H09 gate.
 
 - [x] Frozen finite taskcb1509ef36317815f8a454d7dd6a6b1474c46f39; existing Windows job + stdlib checker + one unittest file only. No new dependency/action/job/runner/permissions/runtime/fixture or live access. Task file `docs/harness-native-windows-eval-h09b-2026-10-06.md` is currently on the isolated branches.
 - [x] GPT-6 Astra author9c8db2605d64c08736830585b20c542138d66678/report1abcaac2 and independent5440a67d91727fcb9837fe327ca1f842e00fdf6c APPROVE_CODE_SCOPED: original empty-report P2 closed by unchanged20probes, Windowsstdlib20 and extra5emptyframe negatives. Original5b0 reds/CRLF records retained. Native stdlib/mock/LinuxCLI results are not real hosted evaluator proof.
