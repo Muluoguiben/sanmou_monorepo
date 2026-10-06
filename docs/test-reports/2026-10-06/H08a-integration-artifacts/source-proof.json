@@ -1,0 +1,27 @@
+{
+  "source": "1dbd7dd6ac9b9237cb682b924a278c8bf5a99278",
+  "tree": "89229486f461b4889ff875133e72ada8d213e7c9",
+  "baseline": "60e3e002c7b38571e76d344dd100b47d053244e2",
+  "helper_pins": {
+    "h08a-independent-verify.py": "55dbe79",
+    "h08a-independent-probes.py": "3ce5a9d9d8ad6cd1cf8f5710aa844516a12e4cca",
+    "h08a-catalog-probes.py": "749ea5fb6649c5b35ef289911d6d00b9e6fd22e3"
+  },
+  "helper_hashes": {
+    "h08a-independent-verify.py": "8e127df0e415ff28f888ba5e51975a2d5ee8f6ccbadf9eecd8d690fe8697753d",
+    "h08a-independent-probes.py": "b06e47e89fe56b7123b95cf6a8bba5c2b2e98c588378117f1c54b08796c49000",
+    "h08a-catalog-probes.py": "16270b3a7a20c0ee22dbb2bd4f8824ecd46b2a80b22a52b84f4c74dfe10ed680"
+  },
+  "adaptation": "only CODE/TREE identities; no assertion changes",
+  "adapted_sha256": "1db044661d85b8cdb5267bbd42f97b3e5ed7966f4e982ae2746ff648ce450791",
+  "ordinary_inputs": 906,
+  "before_digest": "517f9e845a5ca7cb0fe6907a7662eb1cc4831e92321ff13c29af444cbbc54073",
+  "protected_metadata_paths": 3422,
+  "old_report_paths": 2121,
+  "archive_reads": 0,
+  "runtime": {
+    "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+    "executable": "/usr/bin/python3",
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39"
+  }
+}

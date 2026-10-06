@@ -1,5 +1,13 @@
 # Todo List
 
+## Active Review continuation — H08a read-only recipe registry (2026-10-06)
+
+- [x] Q05a exact60e3/run37478150118 native25+44/all4 andQA440 verified. Freeze [contract](docs/harness-readonly-skill-registry-h08a-2026-10-06.md) atdf8447ae8807e2baa97a05ada3b209bfb7e3688b frompublished60e3; reuseTaskSpec/Condition/SequenceClient,onechapter-observer@1.0.0 only.
+- [x] Independentpland73dd03 beforememo312b76a;root+reviewer fullyread/approved. Digestpreimage allDefinition exceptdigestinclnone/false;opaque taskid safelyseparatefromrun_id/path;invalid vs preconditionblocked explicit. Implementation released withzero-call/strictparams/copy gates.
+- [x] Fixedcode8e0a2a0/tree55eb8 withauthor1071 andindependent55dbe79 APPROVE. Onlyregistry/test/CI3lines;11independentprobes/normal23+realnonUTFtext23/fullPioneer1106+2skip/QA440/common2 andQAhashes verified. Oldruntime/QA/R&R unchanged;originaltwo test-input reds retained.
+- [x] Exactcombo1dbd7dd6ac9b9237cb682b924a278c8bf5a99278/tree8922948/packagesf45c/github55f6c passedfrozen11probes/normal23+realnonUTF23/fullPioneer1106+2skip/QA440/common2/oldtargeted/H09/QAhashes,906inputsunchanged. [Integration](docs/test-reports/2026-10-06/H08a-integration.md). Candidate payload/publish/exactHostednew23+old25/44/all4 remainpending;fakeportsnotlive/native.
+- [ ] Source-bound selftest/independentCR/exactcombo/finalCI newnativegroup;carryQ05a finalCI3WIP,retainASCII-FS limitation/Q06pause andnone-false.
+
 ## Active Review continuation — Q05a explicit season retrieval (2026-10-06)
 
 - [x] Q04b exact3711/run37467691552 all4jobs/Windows25names0skip complete. Freeze [contract](docs/qa-season-retrieval-q05a-2026-10-06.md) atbcdf07b65440921b1c2a015a432629263ed36205 frompublished3711; rootreadactualrunner/tests/index/models andQAroadmap.
@@ -9,6 +17,8 @@
 - [x] Exact2e0d normalLinux matrix passed but publicationstopped onQ05a-P1: Windowscp936 defaultread cannotdecodeUTF8fixture. Original28plain evidence retainedbyte-exact ine677f1a;no candidate ormainWIP migration occurred.
 - [x] Locale test-only e0d9/reportdacf independentlyapproved c6426c7:15preciseUTF8 keywords/original44AST,realfilelocaleold27errors→new44pass,normalQA440/c30d/b965 unchanged. StrictASCII-filesystem red/0efR1 remain,notclaimedfixed.
 - [x] Newexactcomboa0e71c62c042e15877a5942b2d6e22611c40b301/tree570510c/packages00e356/github20db19b passedfullmatrix+8bb4 realnonUTFtext (old27errors/new44pass),904Gitinputs/projections intact. [Integration](docs/test-reports/2026-10-06/Q05a-integration.md). Singlecandidate finalpayload/publish/exactHosted25+44 stillpending;ASCII-filesystem notfixed,notWindowsclaim. Q06stillpaused.
+- [x] Final60e3e002c7b38571e76d344dd100b47d053244e2 passed349-object/37-artifact audit androot121241B prefix/oldstate checks,masterFF/push/remote-readbackmatch. Alloriginalreds retained;Q06payloadnotincluded.
+- [x] Exactrun37478150118/attempt1 on60e3 all4jobs success. Windowsjob112318942603 steps12/13 actual25/0skip/0.703s +44/0skip/5.375s,allnames finalGitAST-exact,targeteddiagnostics0;QAjob112318942918 actual440/OK/42.815s,cropassertionok,ResourceWarning0. [Final native CI](https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/37478150118). BoundedQ05a closed;strictASCII-filesystem remainsunfixed/defaultChatAgentunchanged. ContinueH08a design,carry3WIP/Q06pause.
 
 ## Active Review continuation — Q04b native claim-span CI (2026-10-06)
 
