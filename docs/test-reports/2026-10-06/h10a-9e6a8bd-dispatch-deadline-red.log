@@ -1,0 +1,24 @@
+test_provenance_deadline_zero_call_has_no_invoked_trace (__main__.DispatchDeadlineProbe.test_provenance_deadline_zero_call_has_no_invoked_trace) ... 
+  test_provenance_deadline_zero_call_has_no_invoked_trace (__main__.DispatchDeadlineProbe.test_provenance_deadline_zero_call_has_no_invoked_trace) (boundary='tool') ... FAIL
+  test_provenance_deadline_zero_call_has_no_invoked_trace (__main__.DispatchDeadlineProbe.test_provenance_deadline_zero_call_has_no_invoked_trace) (boundary='policy') ... FAIL
+
+======================================================================
+FAIL: test_provenance_deadline_zero_call_has_no_invoked_trace (__main__.DispatchDeadlineProbe.test_provenance_deadline_zero_call_has_no_invoked_trace) (boundary='tool')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h10a-independent-dispatch-deadline.py", line 46, in test_provenance_deadline_zero_call_has_no_invoked_trace
+    self.assertTrue(all(event.invocation_id is None and event.transport == "not_attempted"
+AssertionError: False is not true : [('tool', 'error', 'bea87dc3fb2140afa2ce1f8cf802483d')]
+
+======================================================================
+FAIL: test_provenance_deadline_zero_call_has_no_invoked_trace (__main__.DispatchDeadlineProbe.test_provenance_deadline_zero_call_has_no_invoked_trace) (boundary='policy')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h10a-independent-dispatch-deadline.py", line 46, in test_provenance_deadline_zero_call_has_no_invoked_trace
+    self.assertTrue(all(event.invocation_id is None and event.transport == "not_attempted"
+AssertionError: False is not true : [('policy', 'error', 'b1a572fa1ee2434085df922938691e10')]
+
+----------------------------------------------------------------------
+Ran 1 test in 0.079s
+
+FAILED (failures=2)

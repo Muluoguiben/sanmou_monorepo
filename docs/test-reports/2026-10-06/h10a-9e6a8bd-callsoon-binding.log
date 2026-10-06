@@ -1,0 +1,9 @@
+test_default_v1_still_calls_the_original_bound_policy (__main__.PolicyBindingProbe.test_default_v1_still_calls_the_original_bound_policy) ... {"causal": false, "calls": [["policy-P", "obs-1"]], "model_reservations": 0, "trace_invocations": [], "result": ["failed", "policy_stop"]}
+ok
+test_lazy_dispatch_cannot_substitute_unreserved_policy_under_old_identity (__main__.PolicyBindingProbe.test_lazy_dispatch_cannot_substitute_unreserved_policy_under_old_identity) ... {"causal": true, "calls": [["policy-P", "obs-1"]], "model_reservations": 0, "trace_invocations": [["policy-P", "policy-P", "obs-1"]], "result": ["failed", "policy_stop"]}
+ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.085s
+
+OK

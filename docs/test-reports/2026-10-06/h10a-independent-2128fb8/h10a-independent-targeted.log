@@ -1,0 +1,10 @@
+test_actual_input_digest_is_independent_precall_snapshot (__main__.TargetedProvenanceProbes.test_actual_input_digest_is_independent_precall_snapshot) ... ok
+test_h07_versions_are_event_time_values_and_task_digest_stays_constant (__main__.TargetedProvenanceProbes.test_h07_versions_are_event_time_values_and_task_digest_stays_constant) ... ok
+test_new_trace_wrapper_traceback_does_not_expose_private_secondary_text (__main__.TargetedProvenanceProbes.test_new_trace_wrapper_traceback_does_not_expose_private_secondary_text) ... ok
+test_policy_completion_identity_is_frozen_with_invocation (__main__.TargetedProvenanceProbes.test_policy_completion_identity_is_frozen_with_invocation) ... ok
+test_two_sinks_have_same_minimized_provenance_and_unknown_usage (__main__.TargetedProvenanceProbes.test_two_sinks_have_same_minimized_provenance_and_unknown_usage) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.164s
+
+OK

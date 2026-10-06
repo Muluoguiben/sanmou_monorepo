@@ -1,0 +1,7 @@
+test_timeout_sampling_cannot_switch_actual_policy_under_prepared_identity (__main__.PolicyBudgetBindingProbe.test_timeout_sampling_cannot_switch_actual_policy_under_prepared_identity) ... {"swapped": true, "actual_calls": [["policy-P", "obs-1"]], "trace_calls": [["policy-P", "obs-1"]], "model_reservations": 0, "result": ["failed", "policy_stop"]}
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.036s
+
+OK

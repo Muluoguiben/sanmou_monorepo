@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h10a-final-handoff-audit.py", line 34, in <module>
+    assert re.search(rb"Ran " + str(command["tests"]).encode() + rb" tests", raw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
