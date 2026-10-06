@@ -1,0 +1,49 @@
+{
+  "handoff": "3b31752ecd5c566c8e995c14834c6b736d71f776",
+  "source": "e062adb7dd45d10bb579165a56f1c0d3ccf901d1",
+  "tree": "2892d9525642bc4e279c1b2f0835f0f7b5913fa1",
+  "summary_sha256": "a44674b7a9e43eb19f0616cef014bb95448b83987409b8b1ac9ef37bd1786bb0",
+  "checked_logs": {
+    "causal-module": {
+      "exit": 0,
+      "tests": 32,
+      "skipped": 0
+    },
+    "h07a-module": {
+      "exit": 0,
+      "tests": 35,
+      "skipped": 0
+    },
+    "pioneer-agent-full": {
+      "exit": 0,
+      "tests": 1085,
+      "skipped": 2
+    },
+    "qa-agent-full": {
+      "exit": 0,
+      "tests": 394,
+      "skipped": 0
+    },
+    "sanmou-common-full": {
+      "exit": 0,
+      "tests": 2,
+      "skipped": 0
+    },
+    "h09-cli": {
+      "exit": 0,
+      "tests": null,
+      "skipped": 0
+    },
+    "qa-v3": {
+      "exit": 0,
+      "tests": null,
+      "skipped": 0
+    }
+  },
+  "actual_causal_method_inventory_matched": 32,
+  "warning_lines": [],
+  "h09_source_and_stable_equal": true,
+  "qa_v3_bytes_equal": true,
+  "native_status": "pending_exact_sha_hosted_windows",
+  "archive_reads": 0
+}
