@@ -39,7 +39,8 @@ for entry in manifest["commands"]:
         assert int(counts[-1]) == entry["tests"]
         skipped = re.findall(rb"OK \(skipped=(\d+)\)", raw)
         assert (int(skipped[-1]) if skipped else 0) == entry["skipped"]
-        assert re.search(rb"\nOK(?: \(skipped=\d+\))?\s*$", raw)
+        # unittest writes stderr; buffered test stdout may follow its summary.
+        assert re.search(rb"\nRan \d+ tests? in [^\n]+\n\nOK(?: \(skipped=\d+\))?\n", raw)
     verified.append({"name": entry["name"], "exit": entry["exit"], "tests": entry["tests"],
                      "skipped": entry["skipped"], "sha256": sha(raw), "bytes": len(raw)})
 assert manifest["results"]["qa_v3"]["actual_sha256"] == mine["legacy"]["new_v3_sha256"]
