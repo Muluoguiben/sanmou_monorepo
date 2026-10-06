@@ -1,0 +1,78 @@
+test_budget_sampling_cannot_replace_the_bound_policy_or_callable (test_causal_trace.CausalDispatchTests.test_budget_sampling_cannot_replace_the_bound_policy_or_callable) ... 
+  test_budget_sampling_cannot_replace_the_bound_policy_or_callable (test_causal_trace.CausalDispatchTests.test_budget_sampling_cannot_replace_the_bound_policy_or_callable) (target='runner') ... FAIL
+  test_budget_sampling_cannot_replace_the_bound_policy_or_callable (test_causal_trace.CausalDispatchTests.test_budget_sampling_cannot_replace_the_bound_policy_or_callable) (target='callable') ... FAIL
+test_reservation_and_provenance_share_the_same_captured_policy (test_causal_trace.CausalDispatchTests.test_reservation_and_provenance_share_the_same_captured_policy) ... FAIL
+
+======================================================================
+FAIL: test_budget_sampling_cannot_replace_the_bound_policy_or_callable (test_causal_trace.CausalDispatchTests.test_budget_sampling_cannot_replace_the_bound_policy_or_callable) (target='runner')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_causal_trace.py", line 527, in test_budget_sampling_cannot_replace_the_bound_policy_or_callable
+    self.assertEqual(calls, ["policy-P"])
+AssertionError: Lists differ: ['policy-Q'] != ['policy-P']
+
+First differing element 0:
+'policy-Q'
+'policy-P'
+
+- ['policy-Q']
+?          ^
+
++ ['policy-P']
+?          ^
+
+
+======================================================================
+FAIL: test_budget_sampling_cannot_replace_the_bound_policy_or_callable (test_causal_trace.CausalDispatchTests.test_budget_sampling_cannot_replace_the_bound_policy_or_callable) (target='callable')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_causal_trace.py", line 527, in test_budget_sampling_cannot_replace_the_bound_policy_or_callable
+    self.assertEqual(calls, ["policy-P"])
+AssertionError: Lists differ: ['policy-Q'] != ['policy-P']
+
+First differing element 0:
+'policy-Q'
+'policy-P'
+
+- ['policy-Q']
+?          ^
+
++ ['policy-P']
+?          ^
+
+
+======================================================================
+FAIL: test_reservation_and_provenance_share_the_same_captured_policy (test_causal_trace.CausalDispatchTests.test_reservation_and_provenance_share_the_same_captured_policy)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/unittest/async_case.py", line 90, in _callTestMethod
+    if self._callMaybeAsync(method) is not None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/async_case.py", line 112, in _callMaybeAsync
+    return self._asyncioRunner.run(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_causal_trace.py", line 558, in test_reservation_and_provenance_share_the_same_captured_policy
+    self.assertEqual(calls, ["policy-P"])
+AssertionError: Lists differ: ['policy-Q'] != ['policy-P']
+
+First differing element 0:
+'policy-Q'
+'policy-P'
+
+- ['policy-Q']
+?          ^
+
++ ['policy-P']
+?          ^
+
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.041s
+
+FAILED (failures=3)

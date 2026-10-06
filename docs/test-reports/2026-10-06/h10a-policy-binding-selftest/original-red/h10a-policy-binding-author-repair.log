@@ -1,0 +1,9 @@
+Executing <Task finished name='Task-69' coro=<CausalFaultTests.test_sink_failure_at_every_boundary_latches_without_retry_or_derived_success() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_causal_trace.py:402> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.174 seconds
+Executing <Task finished name='Task-79' coro=<CausalRunnerTests.test_active_and_idle_control_roots_do_not_invent_calls() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_causal_trace.py:355> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.109 seconds
+Executing <Task finished name='Task-99' coro=<CausalRunnerTests.test_custom_version_unknown_or_declared_is_not_source_authentication() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_causal_trace.py:262> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.118 seconds
+Executing <Task finished name='Task-109' coro=<CausalRunnerTests.test_fresh_checkpoint_runner_uses_new_root_and_new_observation() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_causal_trace.py:309> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.481 seconds
+Executing <Task finished name='Task-144' coro=<CausalRunnerTests.test_three_windows_rule_invocations_graph_and_two_sink_equality() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_causal_trace.py:147> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.219 seconds
+----------------------------------------------------------------------
+Ran 32 tests in 2.247s
+
+OK
