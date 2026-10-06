@@ -22,10 +22,22 @@ def sha(raw):
     return hashlib.sha256(raw).hexdigest()
 
 mine = json.loads(Path(sys.argv[1]).read_text())
+# NUL-delimited inventory includes Git-quoted non-ASCII filenames too.
+source_root = Path("/tmp/q04a-cr-676ac1e-20261006")
+verified_inputs = []
+for raw_name in git("ls-tree", "-rz", "--name-only", CODE, "--", "packages").split(b"\0"):
+    if not raw_name:
+        continue
+    name = raw_name.decode()
+    if Path(name).suffix in {".py", ".json", ".yaml", ".yml"}:
+        raw = (source_root / name).read_bytes()
+        assert raw == git("show", CODE + ":" + name)
+        verified_inputs.append([name, sha(raw)])
 manifest_raw = blob(PREFIX + "results-676ac1e/summary.json")
 manifest = json.loads(manifest_raw)
 assert manifest["source"] == mine["source"] == CODE
 assert manifest["tree"] == mine["tree"]
+assert len(verified_inputs) == manifest["scope"]["git_byte_verified_inputs"]
 assert git("rev-parse", REPORT + ":packages") == git("rev-parse", CODE + ":packages")
 assert not git("diff", "--name-only", CODE, REPORT, "--", "packages", ".github")
 verified = []
@@ -53,6 +65,8 @@ assert not manifest["failures"]
 result = {"source": CODE, "tree": mine["tree"], "author_handoff": REPORT,
     "packages_tree": git("rev-parse", CODE + ":packages").decode().strip(),
     "manifest_sha256": sha(manifest_raw), "author_logs_verified": verified,
+    "nul_delimited_source_inputs_checked": len(verified_inputs),
+    "input_manifest_sha256": sha(json.dumps(verified_inputs, ensure_ascii=False, separators=(",", ":")).encode()),
     "source_and_semantic_reports_match_independent_run": True,
     "author_report_sha256": sha(blob(PREFIX + "REPORT-676ac1e.md")),
     "native_q04": "not_executed_by_reviewer", "archive_reads": 0}
