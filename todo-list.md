@@ -1,5 +1,13 @@
 # Todo List
 
+## H07a independent publication candidate (2026-10-06)
+
+- [x] H07-only base110bd: approved `b3efd271c79908241b0c7e1acabafbd81c683051`, author `f04646cc72cc92f8ea928942dd287b88667fe749`, scoped APPROVE `5bcbe8d1500c61536d16385b6dff53f33e0119e8`; F1–F3 closed without rewriting original failures.
+- [x] Exact combination `74654b608d54c459636bfbf1eff69b06f4aeb2fb` / packages `46e832a6f4bbfb84e1f49bad517084841dd1b768`: focused104, Pioneer1046+2skip, QA394/common2; original339aa4pass+1historicaltypo fail/exit1 retained, canonical5/postconsume1/progression1 pass; actualH09CLI8/v3 unchanged, actual110bd reader compatibility/no-rewrite, native stdliblock3 only. [Plain source-bound report](docs/test-reports/2026-10-06/H07a-integration.md).
+- [ ] H07 publication candidate: known payload through74654 audited426objects/21commits/306paths/set9d853d778842aeaad2e59f87b9342cee1795167ed2aa917c27e0419b2f9ebbe3;2403protection hash755e1452dd03ece413db0d5e9a27ffa2d35f87f0af868808dea3597904515f92. New report/plain evidence/coord increment and final-SHA CI remain pending; no push/mastermerge here.
+- [ ] Q06a is separately local-approved but frozen/unpublished candidate `cd6d4929ec611cda1600934dde17aef996142ae0`: archive-member permission and publication permission remain false. Only textual status is retained under pending_publication; no Q06 file/archive/history enters H07, no member read is authorized by H07 success.
+- Latest passed/published master remains110bd. Existing notes below are retained historical state; H07 is synthetic Python API/testing only, none/false authority, no real human approval CLI or game grant.
+
 ## Active Review continuation — H09b (2026-10-06)
 
 - [x] Frozen finite taskcb1509ef36317815f8a454d7dd6a6b1474c46f39; existing Windows job + stdlib checker + one unittest file only. No new dependency/action/job/runner/permissions/runtime/fixture or live access. Task file `docs/harness-native-windows-eval-h09b-2026-10-06.md` is currently on the isolated branches.

@@ -1,0 +1,19 @@
+{
+  "source": "74654b608d54c459636bfbf1eff69b06f4aeb2fb",
+  "tree": "459df67d1ef126a9cb8c7895d5cb0a8aa1d7e50b",
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "-m",
+    "qa_agent.quality_eval.runner",
+    "--baseline",
+    "v3",
+    "--output",
+    "/tmp/h07a-integration-evidence-74654-20261006/linux/matrix/qa-v3.json"
+  ],
+  "cwd": "/tmp/sanmou-h07a-integration-20261006/packages/qa-agent",
+  "PYTHONPATH": "/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/src:/tmp/sanmou-h07a-integration-20261006/packages/qa-agent/src:/tmp/sanmou-h07a-integration-20261006/packages/sanmou-common/src:/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/tests:/tmp/sanmou-cr-20261005-6155-deps",
+  "exit": 0,
+  "expected_exit": 0,
+  "seconds": 1.668337106704712
+}

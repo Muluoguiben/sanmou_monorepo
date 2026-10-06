@@ -1,0 +1,13 @@
+{
+  "path": "docs/test-reports/2026-10-06/h07a-selftest/verify.py",
+  "commit": "f04646cc72cc92f8ea928942dd287b88667fe749",
+  "sha256": "69728e7485f64f50bd3c4af381f5dab391d0587f2ed6c515f012061344450751",
+  "new_actual_runs": true,
+  "probe_commits": {
+    "h07a-independent-probes.py": "339aa56156cced5fe0b8ea274695a943f5cab576",
+    "h07a-independent-probes-canonical.py": "dcba32214ddce912bd9713f3f06b7711a1734202",
+    "h07a-independent-postconsume-clock.py": "d9ade7a7b3e473c7be30b1280086e24a1405d8f1",
+    "h07a-independent-watermark-progression.py": "f7e32f0d90504cf87c8a79ead7773e5a13feaaa8"
+  },
+  "assertions_changed": false
+}

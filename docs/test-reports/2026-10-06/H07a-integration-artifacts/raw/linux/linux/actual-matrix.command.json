@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "/tmp/sanmou-h07a-integration-20261006/docs/test-reports/2026-10-06/h07a-selftest/verify.py",
+    "/tmp/sanmou-h07a-integration-20261006",
+    "/tmp/h07a-integration-evidence-74654-20261006/linux/matrix",
+    "74654b608d54c459636bfbf1eff69b06f4aeb2fb",
+    "--probe-dir",
+    "/tmp/sanmou-h07a-integration-20261006/docs/test-reports/2026-10-06"
+  ],
+  "cwd": "/tmp/sanmou-h07a-integration-20261006",
+  "exit": 0,
+  "seconds": 131.629723072052,
+  "PYTHONPATH": "/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/src:/tmp/sanmou-h07a-integration-20261006/packages/qa-agent/src:/tmp/sanmou-h07a-integration-20261006/packages/sanmou-common/src:/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/tests:/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/tests/unit:/tmp/sanmou-cr-20261005-6155-deps"
+}

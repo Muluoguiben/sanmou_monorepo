@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "C:\\Users\\Lan\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "\\\\wsl$\\Ubuntu\\tmp\\sanmou-h07a-integration-20261006\\packages\\pioneer-agent\\tests",
+    "-p",
+    "test_checkpoint_lock_native.py",
+    "-v"
+  ],
+  "cwd": "C:\\Users\\Lan\\AppData\\Local\\Temp",
+  "exit": 0,
+  "seconds": 1.7667407989501953,
+  "PYTHONPATH": "\\\\wsl$\\Ubuntu\\tmp\\sanmou-h07a-integration-20261006\\packages\\pioneer-agent\\src;\\\\wsl$\\Ubuntu\\tmp\\sanmou-h07a-integration-20261006\\packages\\qa-agent\\src;\\\\wsl$\\Ubuntu\\tmp\\sanmou-h07a-integration-20261006\\packages\\sanmou-common\\src;\\\\wsl$\\Ubuntu\\tmp\\sanmou-h07a-integration-20261006\\packages\\pioneer-agent\\tests;\\\\wsl$\\Ubuntu\\tmp\\sanmou-h07a-integration-20261006\\packages\\pioneer-agent\\tests\\unit"
+}

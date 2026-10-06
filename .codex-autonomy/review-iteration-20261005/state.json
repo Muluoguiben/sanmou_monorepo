@@ -1,14 +1,14 @@
 {
   "goal": "按已确认 Review 路线持续迭代，逐小批次实现、测试、独立审查、发布和验证 CI",
   "status": "in_progress",
-  "last_completed_round": 4,
-  "current_round": 5,
-  "batch": "H09b existing task eval native Windows CI gate",
-  "base_commit": "b7cee26a23f743df5f6950d4144bfddd67927154",
+  "last_completed_round": 5,
+  "current_round": 7,
+  "batch": "H07a synthetic read-only approval handoff",
+  "base_commit": "110bd7594e095c3ea0e1940ab2fc4bec5f4d7a77",
   "primary_branch": "master",
-  "current_task": "docs/harness-native-windows-eval-h09b-2026-10-06.md",
-  "task_commit": "cb1509ef36317815f8a454d7dd6a6b1474c46f39",
-  "summary": "H09a b7 final CI is green. H09b code9c8 has APPROVE_CODE_SCOPED5440; exact combination21e passed source-bound coordinator verification, report02577. Fixed payload through02577 audited112objects/11commits/46paths with1414protected/34oldreports preserved. Actual published-SHA hosted Windows H09b CLI and rawreport reconstruction remain pending.",
+  "current_task": "docs/harness-synthetic-approval-h07a-2026-10-06.md",
+  "task_commit": "47cfd6f35fd7aeadf7f4001abe59bc63a4bb9a45",
+  "summary": "Independent H07-only combination74654/tree459df/packages46e832 passed actual coordinator matrix. Approvedcodeb3/authorf046/review5bc, synthetic readonly only; original339aa oracle-only1fail remains preserved, canonical5+twoF3probes pass. Q06cd6 is separately frozen/unpublished with archive-member/publication permission false and no inherited ancestry. Main latest published/master remains110bd. Final H07 candidate increment audit and exact-final-SHA CI pending.",
   "earlier_rounds": [
     {
       "batch": "Q03a",
@@ -98,90 +98,193 @@
       },
       "receipt": "docs/test-reports/2026-10-06/H06a-windows-ci-receipt.json",
       "native_log_excerpt_sha256": "28c75b5e933893a3f10429dc79f5cc9474a2865f89c1f025c7aad7ba4f7a1720"
+    },
+    {
+      "batch": "H09a versioned offline task-control eval",
+      "status": "published_exact_sha_ci_passed",
+      "final_commit": "b7cee26a23f743df5f6950d4144bfddd67927154",
+      "code": "103d0d1594a11af905515182913731d2d8bb4ac9",
+      "approval": "74d711e29db0a1e86e781bd65e420787a1cb2210",
+      "combined_source": "2d07e1b82de3d09ab809ad9018b70dc3095ff5bb",
+      "report": "6eab509ef8a6bb3ed5a5a4173301bfae5dc2e9fb",
+      "packages_tree": "fee69c4090f882c87b48857cc8a251a2de3dfdbc",
+      "ci": {
+        "run": 37381273409,
+        "attempt": 1,
+        "status": "completed",
+        "conclusion": "success",
+        "all_four_jobs": "success",
+        "url": "https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/37381273409"
+      },
+      "readback_matches": true,
+      "primary_clean_at_delivery": true,
+      "payload_audit": {
+        "objects": 719,
+        "commits": 16,
+        "paths": 587,
+        "object_set_sha256": "b9c4fc31f38a96673cbe0affa1338b11387489db7d14cf08423350de66f81256",
+        "scoped_blockers": 0
+      },
+      "scope": "H09a Linux ext4 offline task control only; b7 Windows CI exercises existingAPI/H06/Desktop, not H09 native CLI"
     }
   ],
   "prior_round": {
-    "batch": "H09a versioned offline task-control eval",
-    "status": "published_exact_sha_ci_passed",
-    "final_commit": "b7cee26a23f743df5f6950d4144bfddd67927154",
-    "code": "103d0d1594a11af905515182913731d2d8bb4ac9",
-    "approval": "74d711e29db0a1e86e781bd65e420787a1cb2210",
-    "combined_source": "2d07e1b82de3d09ab809ad9018b70dc3095ff5bb",
-    "report": "6eab509ef8a6bb3ed5a5a4173301bfae5dc2e9fb",
-    "packages_tree": "fee69c4090f882c87b48857cc8a251a2de3dfdbc",
+    "batch": "H09b existing task eval native Windows CI gate",
+    "status": "published_exact_sha_native_ci_passed",
+    "final_commit": "110bd7594e095c3ea0e1940ab2fc4bec5f4d7a77",
+    "tree": "7747a2c32a77e18a740f88bebd897df82bc76deb",
+    "packages_tree": "c273943f122e9ced51bc7290d3d80b44a6df5e23",
+    "delivery": {
+      "status": "code_scoped_approved",
+      "initial_code": "c4ed29d7831fdf1b669ea07982bb36d3e4d8127d",
+      "initial_crlf_failure_retained": true,
+      "first_review_source": "f961c1594018651d584bbe622547a79e5648c5a7",
+      "first_author_report": "d610182191978e182dbeb97102e51b002f4b2610",
+      "code": "9c8db2605d64c08736830585b20c542138d66678",
+      "tree": "a7d1114304936416cb86d6d8428ccef68a1be0d8",
+      "new_report": "1abcaac29697420de6de0663f2bc8e244f456336",
+      "tests": "Windows native stdlib20;original20 identity-only probes;LinuxPioneer1018=1016pass+2skip,QA394/common2;LinuxCLI8cases. None is hosted nativeH09b proof."
+    },
+    "code_review": {
+      "plan": "a026cd9f9abb72cb65c1992371e0ae0825548622",
+      "red_report": "5b0b972f6ce86dc02f88fd3328893b82e6687561",
+      "status": "APPROVE_CODE_SCOPED",
+      "open_findings": [],
+      "old_results": "f961 Windowsstdlib18pass;independent18/20,2fail sameempty-report defect; originalCRLFsnapshot3fail+2error preserved as environment negative",
+      "report": "5440a67d91727fcb9837fe327ca1f842e00fdf6c",
+      "closed_findings": [
+        "empty_report_original_bytes_retention"
+      ],
+      "results": "Windowsstdlib20/20;frozen20/20;fiveemptyframe negatives;author8rawfile hashes matched;source9c8 only;hostednative pending"
+    },
+    "local_integration_at_time": {
+      "source": "21e279a7efb44840ad4dbda3c06b8eb3514eed77",
+      "tree": "4ebea5d57dc7871f71d7536879531076a962da01",
+      "packages_tree": "c273943f122e9ced51bc7290d3d80b44a6df5e23",
+      "branch": "codex/h09b-integration-20261006",
+      "path": "/tmp/sanmou-h09b-integration-20261006",
+      "status": "passed",
+      "agent": "/root/h09a_integration_verify",
+      "report_commit": "02577df0a0eac3da1503c5d5068283a88ced8236",
+      "report": "docs/test-reports/2026-10-06/H09b-integration.md",
+      "results": {
+        "linux_full": "Pioneer1018=1016pass+2Windows-only skips;QA394pass;common2pass",
+        "linux_checker": "20stdlib pass;real Linux CLI8cases/2goals/6safety/8controls/0infra;25artifact hashes verified;native checker expectedexit1/native_windows_required;data validator rejects report_not_windows",
+        "windows_checker": "native Windows11 Python3.14.3, physical C-drive LF detached21e;20stdlib and original20identity-only probes pass;mock/synthetic only, not actual native evaluator CLI",
+        "codec": "both platforms512KiB and0byte roundtrip;five additional emptyframe negatives rejected each;corrupted/truncated/missing/reordered/oversize coverage retained",
+        "source_integrity": "2400tracked bytes each platform unchanged before/after;1414protected unchanged;workflow exactly3addedlines",
+        "qa_v3_sha256": "480a448fd7abecfba2f6cd4eb32a46873ff0b8127b6251cd8aeea5e4fe2e82c8",
+        "archive_sha256": "f219387e4c2dc9dbde4f17395c12c2c509182b031e5b6d4379606ed89b2901fa",
+        "actual_native_hosted_acceptance": "pending",
+        "synthetic_platform_compatibility": "pure data only; never native proof"
+      }
+    },
+    "previous_coordination_wip_migration": {
+      "source_main_commit": "b7cee26a23f743df5f6950d4144bfddd67927154",
+      "source_main_files": {
+        ".codex-autonomy/review-iteration-20261005/state.json": {
+          "sha256": "3abc7e0f39f60b9c762d050bfa1d9b4999582fca74bd174ac807addcda16c9b4",
+          "bytes": 10798
+        },
+        ".codex-autonomy/review-iteration-20261005/WORKLOG.md": {
+          "sha256": "cde79083db4b044710daadc1a71cb1c376895a447df53a66e49b988d3e8b3929",
+          "bytes": 53100
+        },
+        "todo-list.md": {
+          "sha256": "df9da83233ed7e2b92bcd05eb8de26652da9eaa67701ed253125c4178ac9cda3",
+          "bytes": 138358
+        }
+      },
+      "destination_base": "02577df0a0eac3da1503c5d5068283a88ced8236",
+      "main_wip_read_only": true,
+      "worklog_full_prefix_preserved": true,
+      "todo_both_branches_preserved": true,
+      "scope": "only state.json,WORKLOG.md,todo-list.md; one fixed coordination successor; no push,master merge or CI retry"
+    },
     "ci": {
-      "run": 37381273409,
+      "run": 37388574594,
       "attempt": 1,
       "status": "completed",
       "conclusion": "success",
       "all_four_jobs": "success",
-      "url": "https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/37381273409"
+      "windows_job": 112027926304,
+      "step": 9,
+      "step_name": "Windows H09b offline task evaluation",
+      "published_sha": "110bd7594e095c3ea0e1940ab2fc4bec5f4d7a77",
+      "native_os": "Windows Server 2025",
+      "python": "3.12.10",
+      "child_returncode": 0,
+      "independent_verdict": "ACCEPT_H09B_NATIVE_CI_DATA_BOUND",
+      "report_bytes": 277997,
+      "report_sha256": "65259076838e8f97567163739e5cc2206d26136a904ab13afee0c4e0e846f148",
+      "cases": 8,
+      "phases": 9,
+      "git_source_files": 179,
+      "input_buffers": 7,
+      "artifact_hash_records": 25,
+      "receipt": "docs/test-reports/2026-10-06/H09b-native-ci/independent-acceptance-receipt.json",
+      "receipt_sha256": "4e6e03d579bc800b2b5a36b74a405e7ebf57897b22ae007d623e74427842ae47",
+      "mapping": "docs/test-reports/2026-10-06/H09b-native-ci/evidence-map.json",
+      "verification_boundary": "Independent local Git/log/data; actual remote physical/artifact-byte checks performed onsite by approved checker",
+      "url": "https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/37388574594"
     },
-    "readback_matches": true,
-    "primary_clean_at_delivery": true,
     "payload_audit": {
-      "objects": 719,
-      "commits": 16,
-      "paths": 587,
-      "object_set_sha256": "b9c4fc31f38a96673cbe0affa1338b11387489db7d14cf08423350de66f81256",
+      "endpoint": "110bd7594e095c3ea0e1940ab2fc4bec5f4d7a77",
+      "objects": 119,
+      "commits": 12,
+      "paths": 48,
+      "object_set_sha256": "b2f6e7ae8629e402bd8b2b5d1d391e3fccfaaced961303542f6a1921cd6e5040",
+      "protected_paths": 1414,
+      "old_report_paths": 1145,
       "scoped_blockers": 0
     },
-    "scope": "H09a Linux ext4 offline task control only; b7 Windows CI exercises existingAPI/H06/Desktop, not H09 native CLI"
+    "scope": "H09b finite native offline CLI gate complete; not provider/game/production approval"
   },
   "delivery": {
-    "status": "code_scoped_approved",
-    "initial_code": "c4ed29d7831fdf1b669ea07982bb36d3e4d8127d",
-    "initial_crlf_failure_retained": true,
-    "first_review_source": "f961c1594018651d584bbe622547a79e5648c5a7",
-    "first_author_report": "d610182191978e182dbeb97102e51b002f4b2610",
-    "code": "9c8db2605d64c08736830585b20c542138d66678",
-    "tree": "a7d1114304936416cb86d6d8428ccef68a1be0d8",
-    "new_report": "1abcaac29697420de6de0663f2bc8e244f456336",
-    "tests": "Windows native stdlib20;original20 identity-only probes;LinuxPioneer1018=1016pass+2skip,QA394/common2;LinuxCLI8cases. None is hosted nativeH09b proof."
+    "slice": "H07a",
+    "status": "approved_source_and_author_handoff",
+    "code": "b3efd271c79908241b0c7e1acabafbd81c683051",
+    "tree": "7b81ac676314fce3423e07979849b676758aa87c",
+    "report": "f04646cc72cc92f8ea928942dd287b88667fe749",
+    "packages_tree": "46e832a6f4bbfb84e1f49bad517084841dd1b768",
+    "scope": "synthetic readonly approval; no human authentication/dispatch grant/device lease/real game/provider"
   },
   "independent_review": {
-    "plan": "a026cd9f9abb72cb65c1992371e0ae0825548622",
-    "red_report": "5b0b972f6ce86dc02f88fd3328893b82e6687561",
-    "status": "APPROVE_CODE_SCOPED",
+    "slice": "H07a",
+    "status": "APPROVE_SCOPED_SYNTHETIC_READ_ONLY",
+    "report": "5bcbe8d1500c61536d16385b6dff53f33e0119e8",
+    "approved_source": "b3efd271c79908241b0c7e1acabafbd81c683051",
+    "plan": "eeda927c945e765c78ea0512c3b78cf91c210082",
     "open_findings": [],
-    "old_results": "f961 Windowsstdlib18pass;independent18/20,2fail sameempty-report defect; originalCRLFsnapshot3fail+2error preserved as environment negative",
-    "report": "5440a67d91727fcb9837fe327ca1f842e00fdf6c",
     "closed_findings": [
-      "empty_report_original_bytes_retention"
+      "F1 post-save freshness/deadline",
+      "F2 awaiting clock watermark",
+      "F3 post-consume high-water progression"
     ],
-    "results": "Windowsstdlib20/20;frozen20/20;fiveemptyframe negatives;author8rawfile hashes matched;source9c8 only;hostednative pending"
+    "historical_oracle": "original339aa remains4pass/1reason-typo fail/exit1; canonicaldcba5pass; not relabeled",
+    "scope": "only approved synthetic handoff, not final combination/publication or real approval"
   },
   "scope": {
-    "implementation_files": [
-      ".github/workflows/regression.yml",
-      "scripts/check_windows_task_eval.py",
-      "packages/pioneer-agent/tests/test_windows_task_eval_ci.py"
-    ],
-    "no_runtime_suite_fixture_dependency_job_runner_permission_action_changes": true,
-    "actual_native_acceptance": "requires exactpublishedSHA newWindows H09b step and rawreport reconstruction",
-    "slice_stop": "close H09b only after its finite criteria; broader authorized Review remains inprogress, not automatically stopped"
+    "slice": "H07a",
+    "contract": "docs/harness-synthetic-approval-h07a-2026-10-06.md",
+    "synthetic_only": true,
+    "scope": "resume_read_only_task",
+    "execution_authority": "none",
+    "executable": false,
+    "no_real_grant_game_provider_installation": true,
+    "reuse": "existing TaskRunner/ownership/CAS/budget; v1 preserved, explicit synthetic v2, consume-before-fresh-revalidation",
+    "evidence": "bounded plain text/JSON/hash only; archive protection Git mode/type/blob metadata only",
+    "q06_ancestry_and_payload_allowed": false,
+    "slice_stop": "Final independent H07 candidate payload audit, authorized publication and exact-final-SHA CI before closing this finite slice; no real human approval/dispatch/device effect/production claim."
   },
   "agents": {
-    "implementation": "/root/h09b_implementation",
-    "review": "/root/h09b_review",
-    "model": "gpt-6-astra",
-    "implementation_branch": "codex/h09b-native-windows-eval-20261006",
-    "review_branch": "codex/h09b-cr-20261006"
+    "implementation": "/root/h07a_implementation",
+    "review": "/root/h07a_review",
+    "implementation_branch": "codex/h07a-synthetic-handoff-20261006",
+    "review_branch": "codex/h07a-cr-20261006",
+    "model": "gpt-6-astra"
   },
-  "next_candidate_read_only": {
-    "name": "Q06a read-only KB snapshot/provenance gap audit",
-    "reason": "existing-source identity/revision foundation for Q04/Q05 without altering frozenQA production/eval or inferring human review",
-    "status": "not_started_no_parallel_implementation",
-    "needs_no_new_permission_for_synthetic_or_readonly_code": true,
-    "extra_input_boundaries": [
-      "human gold/independent labels",
-      "realprovider budget",
-      "real game/account/actuator",
-      "knowledge publication/reviewer grants",
-      "deployment/signing/security access"
-    ]
-  },
-  "next_step": "Audit only this fixed three-file coordination successor increment, then the primary coordinator may publish the fixed candidate under existing authority and require its exact-SHA new Windows H09b step, rawreport reconstruction and all existing CI jobs. Do not create status-only successors or start a broader implementation in this handoff; native H09b acceptance remains pending.",
+  "next_step": "Audit this one H07 report/plain-artifacts/threecoordfiles candidate increment, then primary coordinator handles any authorized H07-only publication and exact-final-SHA CI. No selfSHA/status-only successor, no push/mastermerge here. Q06 member reads/publication remain forbidden until direct human permission, and its history/payload must not enter H07.",
   "authorization": {
     "user_text": "按review 迭代的方向持续迭代",
     "source_thread": "01a10c00-93d2-778b-8395-bf9d496c503d",
@@ -202,60 +305,232 @@
   "updated_at": "2026-10-06",
   "blockers": [],
   "coordinator_integration": {
-    "source": "21e279a7efb44840ad4dbda3c06b8eb3514eed77",
-    "tree": "4ebea5d57dc7871f71d7536879531076a962da01",
-    "packages_tree": "c273943f122e9ced51bc7290d3d80b44a6df5e23",
-    "branch": "codex/h09b-integration-20261006",
-    "path": "/tmp/sanmou-h09b-integration-20261006",
+    "slice": "H07a",
     "status": "passed",
-    "agent": "/root/h09a_integration_verify",
-    "report_commit": "02577df0a0eac3da1503c5d5068283a88ced8236",
-    "report": "docs/test-reports/2026-10-06/H09b-integration.md",
+    "source": "74654b608d54c459636bfbf1eff69b06f4aeb2fb",
+    "tree": "459df67d1ef126a9cb8c7895d5cb0a8aa1d7e50b",
+    "packages_tree": "46e832a6f4bbfb84e1f49bad517084841dd1b768",
+    "branch": "codex/h07a-integration-20261006",
+    "path": "/tmp/sanmou-h07a-integration-20261006",
+    "report": "docs/test-reports/2026-10-06/H07a-integration.md",
+    "manifest": "docs/test-reports/2026-10-06/H07a-integration-artifacts/manifest.json",
+    "manifest_sha256": "9cca280c1fbb007679eaff03252eb3cc7eaf63737e743634ca74375846ec748f",
+    "plain_file_records": 77,
     "results": {
-      "linux_full": "Pioneer1018=1016pass+2Windows-only skips;QA394pass;common2pass",
-      "linux_checker": "20stdlib pass;real Linux CLI8cases/2goals/6safety/8controls/0infra;25artifact hashes verified;native checker expectedexit1/native_windows_required;data validator rejects report_not_windows",
-      "windows_checker": "native Windows11 Python3.14.3, physical C-drive LF detached21e;20stdlib and original20identity-only probes pass;mock/synthetic only, not actual native evaluator CLI",
-      "codec": "both platforms512KiB and0byte roundtrip;five additional emptyframe negatives rejected each;corrupted/truncated/missing/reordered/oversize coverage retained",
-      "source_integrity": "2400tracked bytes each platform unchanged before/after;1414protected unchanged;workflow exactly3addedlines",
+      "focused": "104pass",
+      "pioneer": "1048=1046pass+2Windows-onlyskip",
+      "qa": "394pass",
+      "common": "2pass",
+      "original339aa": "4pass+1historicalreason-typo fail,exit1 retained",
+      "canonicaldcba": "5pass",
+      "postconsume": "1pass",
+      "progression": "1pass",
+      "h09": "actual CLI8controls/2goals/6expectedstop/0infra;source74654;25artifacthashes and stableprojection verified",
       "qa_v3_sha256": "480a448fd7abecfba2f6cd4eb32a46873ff0b8127b6251cd8aeea5e4fe2e82c8",
-      "archive_sha256": "f219387e4c2dc9dbde4f17395c12c2c509182b031e5b6d4379606ed89b2901fa",
-      "actual_native_hosted_acceptance": "pending",
-      "synthetic_platform_compatibility": "pure data only; never native proof"
-    }
+      "old_reader": "actual110bd v1exact/v2ValidationError/no checkpoint-byte rewrite; currentv1load alsoexact/unchanged",
+      "native": "existingPython3.12.14 actualstdliblock3pass only, NOT fullH07/MCP",
+      "source_input_bytes": 893,
+      "native_plain_source_files": 2,
+      "unexpected_failures": 0
+    },
+    "archive_member_reads": 0,
+    "archive_content_reads": 0,
+    "archive_created": false,
+    "q06_history_inherited": false,
+    "final_sha_ci": "pending",
+    "publication": "not performed"
   },
   "payload_audit": {
-    "endpoint": "02577df0a0eac3da1503c5d5068283a88ced8236",
-    "objects": 112,
-    "commits": 11,
-    "paths": 46,
-    "protected_paths": 1414,
-    "object_set_sha256": "af15a195c06b3ae94791c6ff12f990bae6439626465a6407ae09e94918b41cfd",
-    "protection_sha256": "75d607d416d5d2f23ca66bca5931750a352992daff7c6a08d8b43d0f53f061da",
-    "rule": "old830 excluding intendedworkflow +584H09a additions; finalworkflow only3addedlines; historicCRLF exactmechanical normalization verified",
-    "current_increment": "Only this three-file coordination successor remains for final incremental audit; prior112object audit is not claimed to include it.",
-    "scoped_blockers": 0,
-    "old_report_paths": 34
+    "slice": "H07a",
+    "status": "known_through_combination_report_coord_increment_pending",
+    "endpoint": "74654b608d54c459636bfbf1eff69b06f4aeb2fb",
+    "objects": 426,
+    "commits": 21,
+    "paths": 306,
+    "object_set_sha256": "9d853d778842aeaad2e59f87b9342cee1795167ed2aa917c27e0419b2f9ebbe3",
+    "protected_paths": 2403,
+    "protection_sha256": "755e1452dd03ece413db0d5e9a27ffa2d35f87f0af868808dea3597904515f92",
+    "excludes": "new H07 integration report/plain artifacts/coordination files in this uncommitted candidate",
+    "archive_verification": "Git mode/type/blob only; no archive content or members",
+    "scoped_blockers": 0
   },
-  "coordination_wip_migration": {
-    "source_main_commit": "b7cee26a23f743df5f6950d4144bfddd67927154",
-    "source_main_files": {
-      ".codex-autonomy/review-iteration-20261005/state.json": {
-        "sha256": "3abc7e0f39f60b9c762d050bfa1d9b4999582fca74bd174ac807addcda16c9b4",
-        "bytes": 10798
+  "round_status": "publication_candidate",
+  "pending_publication": {
+    "candidate": "cd6d4929ec611cda1600934dde17aef996142ae0",
+    "main": "110bd7594e095c3ea0e1940ab2fc4bec5f4d7a77",
+    "published": false,
+    "authorization_requested": true,
+    "authorization_granted": false,
+    "archive_path": "docs/test-reports/2026-10-06/Q06a-integration-artifacts/evidence.tar.gz",
+    "archive_sha256": "e2dfa028dcdc5a5fa33ec4fc26a5ff5544aedb794f2f74acc373b0fe5e380949",
+    "archive_bytes": 1241964,
+    "scope": "Memory-only member digest checks; no extraction to filesystem, execution, links or changes",
+    "refusal": "该审计本身有界且只读，但计划使用 tarfile.open/extractfile 读取归档成员，违反用户明确要求的“不要解包内容”；应改为仅核对归档外层字节、manifest 和元数据。",
+    "refused_process_started": false,
+    "refusal_absolute_time": "unavailable",
+    "existing_child": "exec-13d5a75c-2a51-4689-b0fd-f0d3532dcad3 exit0; child turn completed2026-10-06T00:32:22Z; relative ordering unproven",
+    "outer_audit": "304objects/20commits/247paths;2404protected/1362oldreports unchanged;manifest5/5",
+    "object_set_sha256": "ca063b650e57019f18573a50dcc7005df49ff1ab2c5e883760a2a7c040589fa1",
+    "q06_validation": {
+      "current_task": "docs/qa-knowledge-snapshot-audit-q06a-2026-10-06.md",
+      "task_commit": "9559093169e18ddcb1c1cb45f87c4b91a5019109",
+      "delivery": {
+        "status": "approved_source_and_author_report",
+        "code": "7d2aeb8202747ab856728a9759e2cd2be61ea882",
+        "tree": "93d0440febcf34066c3b7fd177c375d7b03778d1",
+        "report": "583ee3d6030b894366c13c94d193eb8f34290d60",
+        "script_sha256": "6ca603e94df3d2d72aed4869ae7b55be3268ac51588f07099ccd453034924214",
+        "packages_tree": "abc299913f02e607ba7d365641b136628f859bff",
+        "scope": "only two new script/test files; old6ff/red history retained"
       },
-      ".codex-autonomy/review-iteration-20261005/WORKLOG.md": {
-        "sha256": "cde79083db4b044710daadc1a71cb1c376895a447df53a66e49b988d3e8b3929",
-        "bytes": 53100
+      "independent_review": {
+        "status": "APPROVE",
+        "report": "87ec510248860df09f1aad1622566a78657457c8",
+        "approved_source": "7d2aeb8202747ab856728a9759e2cd2be61ea882",
+        "approval_granted": true,
+        "open_findings": [],
+        "closed_findings": [
+          "P1 fsmonitor side effect",
+          "P1 clean filter side effect",
+          "P2 native ordinary-file false rejection",
+          "P2 native NUL false success"
+        ],
+        "scope": "deterministic readonly inventory/compare; not knowledge truth/human review/production/live authority"
       },
-      "todo-list.md": {
-        "sha256": "df9da83233ed7e2b92bcd05eb8de26652da9eaa67701ed253125c4178ac9cda3",
-        "bytes": 138358
-      }
+      "coordinator_integration": {
+        "status": "passed",
+        "source": "68940572a4238532829605f369dd8af85c8175fc",
+        "tree": "ab9b33862afdb342cd91f27d01a01454f68548fa",
+        "packages_tree": "abc299913f02e607ba7d365641b136628f859bff",
+        "report": "docs/test-reports/2026-10-06/Q06a-integration.md",
+        "artifact_manifest": "docs/test-reports/2026-10-06/Q06a-integration-artifacts/manifest.json",
+        "artifact_manifest_sha256": "f7466c4938426ac1b74573090787695e9c0921ef3c2d6bb8f200dc1dbc927fb6",
+        "archive_sha256": "e2dfa028dcdc5a5fa33ec4fc26a5ff5544aedb794f2f74acc373b0fe5e380949",
+        "branch": "codex/q06a-handoff-20261006",
+        "path": "/tmp/sanmou-h09b-integration-20261006",
+        "results": {
+          "linux_full": "QA427=426pass+1skip;Pioneer1018=1016pass+2skip;common2pass",
+          "focused": "Linux33=32pass+1skip;Native33=29pass+4skip",
+          "frozen_probes": "each platform11=8pass+3platformskip;four original files/bytes/assertions unchanged",
+          "native_actual": "C-drive LF detached689;Python3.12.14/Pydantic2.13.5/PyYAML6.0.1purefallback;actual8.3/NUL normal-success thenexit2/noinsidefile,each1pass/0skip",
+          "snapshots": "each platform double byte-identical snapshots+emptycompare;crossplatform files/entries equal;34YAML/453entries/379missingbothseasonlabels",
+          "git_context": "input/toolcontext_only_unverified;dirty=null/notinspected",
+          "qa_v3_sha256": "480a448fd7abecfba2f6cd4eb32a46873ff0b8127b6251cd8aeea5e4fe2e82c8",
+          "tracked_bytes_before_after": 2644,
+          "selected_source_kb_tests_before_after": 203,
+          "protected_noncoord_110bd": 2404,
+          "old_reports_a7_prefix_count": 1137,
+          "all_current_report_files_before_after": 1362,
+          "unexpected_failures": 0
+        },
+        "final_sha_ci": "pending",
+        "publication": "not performed"
+      },
+      "payload_audit": {
+        "status": "known_through_combined_source_passed_report_increment_pending",
+        "endpoint": "68940572a4238532829605f369dd8af85c8175fc",
+        "objects": 286,
+        "commits": 19,
+        "paths": 240,
+        "object_set_sha256": "32ba5a9a6878051dd18cfd042a154c051b4b57adcd97e3ef6114868fde5014ac",
+        "protected_paths": 2404,
+        "manifest_entries_checked": "139/139",
+        "scoped_blockers": 0,
+        "excludes": "this report/artifacts/todo/state/worklog candidate increment; final candidate not yet audited"
+      },
+      "scope": {
+        "implementation_files": [
+          "packages/qa-agent/scripts/knowledge_snapshot_audit.py",
+          "one corresponding new unittest module",
+          "new small synthetic fixture directory if needed"
+        ],
+        "contract": "docs/qa-knowledge-snapshot-audit-q06a-2026-10-06.md",
+        "read_only": true,
+        "no_formal_kb_production_old_eval_pioneer_common_mcp_dependency_workflow_publisher_changes": true,
+        "required": "closed-root bounded same-bytes hash/parse; existing discover_source_paths/KnowledgeEntry and duplicate-ID rejection; deterministic raw-file and validated-entry identities; honest Git binding/dirty/unavailable and governance gaps; strict manifest compare; no-clobber data output",
+        "forbidden": [
+          "invented reviewer/current/validity approvals",
+          "KB publication or deletion",
+          "provider/network ingestion/game/bridge/account/credential reads",
+          "dependency installation",
+          "rewriting old frozen baseline"
+        ],
+        "slice_stop": "Complete only after bounded CLI/negative tests, protected original KB/production/oldfixtures/reports/v3 unchanged, immutable self-test, independent CR, exact combination, publication and final-SHA existing CI green. Does not complete allQ06/Q04/Q05; another slice needs its own finite scope."
+      },
+      "agents": {
+        "implementation": "/root/q06a_implementation",
+        "review": "/root/q06a_review"
+      },
+      "round_status": "publication_candidate",
+      "blockers": [
+        "Archive-member verification approval pending; existing parallel-child success has unproven ordering relative to the refused action and is not used to close this gate."
+      ],
+      "record_source": "main root-owned WIP only; no Q06 filesystem/archive read"
     },
-    "destination_base": "02577df0a0eac3da1503c5d5068283a88ced8236",
-    "main_wip_read_only": true,
-    "worklog_full_prefix_preserved": true,
-    "todo_both_branches_preserved": true,
-    "scope": "only state.json,WORKLOG.md,todo-list.md; one fixed coordination successor; no push,master merge or CI retry"
+    "slice": "Q06a",
+    "archive_member_reads_allowed": false,
+    "publication_allowed": false
+  },
+  "active_independent_slice": {
+    "name": "H07a",
+    "status": "publication_candidate",
+    "first_code": "8232c420b5c3a7533975293c9cd00380b439386e",
+    "latest_code": "b3efd271c79908241b0c7e1acabafbd81c683051",
+    "latest_code_tree": "7b81ac676314fce3423e07979849b676758aa87c",
+    "prior_handoff": "830ab4ae7657defb7279ffc1bedc858c8ddd1899",
+    "r2_request_changes": "be1229aa10b7b70f5862906f2a2f2774f43df579",
+    "oracle_correction": "dcba32214ddce912bd9713f3f06b7711a1734202",
+    "postconsume_probe": "d9ade7a7b3e473c7be30b1280086e24a1405d8f1",
+    "watermark_progression_probe": "f7e32f0d90504cf87c8a79ead7773e5a13feaaa8",
+    "latest_review_status": "APPROVE b3 synthetic-only; exact74654 combined verification passed; finalSHA CI pending",
+    "latest_handoff": "f04646cc72cc92f8ea928942dd287b88667fe749",
+    "final_review": "5bcbe8d1500c61536d16385b6dff53f33e0119e8",
+    "combination": "74654b608d54c459636bfbf1eff69b06f4aeb2fb",
+    "combination_tree": "459df67d1ef126a9cb8c7895d5cb0a8aa1d7e50b",
+    "packages_tree": "46e832a6f4bbfb84e1f49bad517084841dd1b768",
+    "integration_path": "/tmp/sanmou-h07a-integration-20261006",
+    "integration_branch": "codex/h07a-integration-20261006",
+    "first_code_tree": "49d47d87d261cfef68632b66feded7a40baff0d0",
+    "review_request_changes": "e0eace2b4bf80200a2856f8a5412d7b8a9badd7b",
+    "frozen_probe_commit": "339aa56156cced5fe0b8ea274695a943f5cab576",
+    "open_findings": [],
+    "closed_findings": [
+      "F1 post-save freshness/deadline",
+      "F2 awaiting clock watermark",
+      "F3 post-consume high-water progression"
+    ],
+    "first_validation": "author focused96;Pioneer1038pass+2skip;QA394;common2;H09CLI8;QAv3unchanged;native3lock. Independent focused96 pass but original5probes2pass3fail, not approved",
+    "review_plan": "eeda927c945e765c78ea0512c3b78cf91c210082",
+    "design": "preserve v1 model/serialization; separate v2 synthetic state; reuse ownership/CAS/budget; consume-before-fresh-revalidation; restart during revalidation fails closed",
+    "base": "110bd7594e095c3ea0e1940ab2fc4bec5f4d7a77",
+    "task_commit": "47cfd6f35fd7aeadf7f4001abe59bc63a4bb9a45",
+    "task": "docs/harness-synthetic-approval-h07a-2026-10-06.md",
+    "implementation_agent": "/root/h07a_implementation",
+    "review_agent": "/root/h07a_review",
+    "implementation_branch": "codex/h07a-synthetic-handoff-20261006",
+    "review_branch": "codex/h07a-cr-20261006",
+    "model": "gpt-6-astra",
+    "dependency_check": "Pioneer depends only common; TaskRunner rejects qa_client; task_eval ScriptClient; no Q06 scripts/archives needed",
+    "scope": "synthetic only; resume_read_only_task; none/false; no real grant/game/provider/installation",
+    "pending_rounds": [
+      6
+    ],
+    "q06_approval_granted": false,
+    "inherited_q06_history": false,
+    "combination_verification": "passed",
+    "integration_report": "docs/test-reports/2026-10-06/H07a-integration.md",
+    "final_sha_ci": "pending"
+  },
+  "latest_published_master": "110bd7594e095c3ea0e1940ab2fc4bec5f4d7a77",
+  "coordination_migration": {
+    "main_read_only": true,
+    "main_head": "110bd7594e095c3ea0e1940ab2fc4bec5f4d7a77",
+    "state_sha256": "0e85c202665f178922248d3d9005dbe1a1c5aeaed3b6c7b8217d64063f8ca3c3",
+    "worklog_sha256": "1ee626cebe0101f19177eb5a9f8dbe2166f7b84234aca6f36a6a66ebd635c7fc",
+    "state_bytes": 22188,
+    "worklog_bytes": 62435,
+    "full_main_history_preserved": true,
+    "q06_fields_moved_without_content_read": "pending_publication.q06_validation",
+    "single_H07_candidate_commit": true
   }
 }
