@@ -26,12 +26,16 @@ def _validate_corpus(corpus: object, baseline: str) -> None:
     if baseline == 'v1' and 'assessment_cases' in corpus:
         raise ValueError('assessment suite requires v2')
     required = ('queries', 'scoring_cases')
-    if baseline in {'v2','v3'}:
+    if baseline in {'v2','v3','v4'}:
         required += ('assessment_cases',)
-    if baseline == 'v3':
+    if baseline in {'v3','v4'}:
         required += ('multiturn_cases',)
     elif 'multiturn_cases' in corpus:
         raise ValueError('multiturn suite requires v3')
+    if baseline == 'v4':
+        required += ('season_cases',)
+    elif 'season_cases' in corpus:
+        raise ValueError('season suite requires v4')
     for group in required:
         cases = corpus.get(group)
         if not isinstance(cases, list) or not cases:
@@ -113,7 +117,7 @@ def _validate_execution_roots(package: Path) -> None:
 
 
 def run(package: Path, *, baseline: str = 'v1') -> dict:
-    if baseline not in {'v1', 'v2', 'v3'}:
+    if baseline not in {'v1', 'v2', 'v3', 'v4'}:
         raise ValueError('unsupported baseline version')
     if package.resolve() != Path(__file__).resolve().parents[3]:
         raise ValueError('loaded evaluator/package source mismatch')
@@ -134,7 +138,11 @@ def run(package: Path, *, baseline: str = 'v1') -> dict:
     # only this runner is insufficient when it is loaded via importlib.
     from qa_agent.quality_eval.assessment_cases import evaluate_cases
     from qa_agent.quality_eval.referent_cases import evaluate_referent_cases
+    if baseline == 'v4':
+        from qa_agent.quality_eval.season_cases import evaluate_season_cases, validate_cases
     _validate_execution_roots(package)
+    if baseline == 'v4':
+        validate_cases(corpus['season_cases'])
     retriever = Retriever.from_knowledge_dir(package / "knowledge_sources")
     entries = {e.id: e for e in retriever.entries}
     rows = []
@@ -151,6 +159,7 @@ def run(package: Path, *, baseline: str = 'v1') -> dict:
              for c in corpus["scoring_cases"]]
     assessments = evaluate_cases(corpus.get('assessment_cases', []))
     referents = evaluate_referent_cases(corpus.get('multiturn_cases', []))
+    season = evaluate_season_cases(corpus['season_cases']) if baseline == 'v4' else None
     _validate_execution_roots(package)
     return {"protocol": 'qa-development-eval/' + baseline, "split": "development",
             'baseline_commit': frozen['baseline_commit'], 'assessment_cases': assessments,
@@ -167,22 +176,25 @@ def run(package: Path, *, baseline: str = 'v1') -> dict:
             "mock_scoring_only": mocks,
             "refusal": {"status": "not_measured_provider", "denominator": 0},
             "multiturn": ({"status":"developer-authored-fake-client-controls", "denominator":len(referents),
-                           "passed":len(referents),"cases":referents} if baseline=='v3' else
+                           "passed":len(referents),"cases":referents} if baseline in {'v3','v4'} else
                           {"status": "raw_followup_retrieval_only_no_history_rewrite", "denominator": 2}),
             "provider": {"calls": 0, "quality": "not_measured"},
             "holdout": {"status": "not_established", "denominator": 0},
-            "human_reviewed_labels": 0, "quality_threshold": None}
+            "human_reviewed_labels": 0, "quality_threshold": None,
+            **({'season': season} if baseline == 'v4' else {})}
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Offline frozen lexical development baseline; never loads model configuration")
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument('--baseline', choices=('v1','v2','v3'), default='v1')
+    parser.add_argument('--baseline', choices=('v1','v2','v3','v4'), default='v1')
     args = parser.parse_args()
     result = run(Path(__file__).resolve().parents[3], baseline=args.baseline)
     with args.output.open("x", encoding="utf-8") as stream:
         json.dump(result, stream, ensure_ascii=False, indent=2)
         stream.write("\n")
+    if args.baseline == 'v4' and not result['season']['gate_pass']:
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

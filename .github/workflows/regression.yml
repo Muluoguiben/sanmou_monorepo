@@ -77,6 +77,9 @@ jobs:
       - name: Windows Q04b claim span evaluation
         working-directory: packages/qa-agent
         run: python -B -m unittest discover -s tests -p 'test_claim_spans.py' -v
+      - name: Windows Q05a explicit season retrieval
+        working-directory: packages/qa-agent/tests
+        run: python -B -m unittest test_seasonal_retriever test_quality_eval -v
       - name: Desktop dependencies
         working-directory: apps/sanmou-advisor-desktop
         run: npm ci

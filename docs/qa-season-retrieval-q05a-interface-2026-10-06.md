@@ -30,4 +30,6 @@ runner 仅显式增 `baseline="v4"`，CLI 默认仍 v1。v4 的 cases 从原 v3 
 
 旧 lineup-frame test172 仅用 `with Image.open(p) as image:` 读取 size 并关闭句柄，原输入/断言原样，原 ResourceWarning 不回写；另以捕获 ResourceWarning 的有限实测验关闭。Windows 仅在 Q04b 后增加三行 Q05a step：cwd=`packages/qa-agent/tests`，run=`python -B -m unittest test_seasonal_retriever test_quality_eval -v`，其余 workflow 字节不变。独立 native 仍须最终 Hosted 新名单/0skip/exit0 实证。
 
-无待扩权限或额外 production 接线需求；本 commit 只交 memo，root/reviewer 核对后才实现。no Q06/archive/provider/game/凭据/安装/发布/部署/push，主树 WIP 不动。
+准入补充：season 栏内记录 passed/denominator/gate_pass，不新增其他顶层字段。合法 schema 但 expected 不符时返回失败 season 结果；v4 CLI 先以 open("x") 保存完整报告再 exit 1，旧版本/quality_threshold/指标不变。season case 与 expected 精确键、严格基础类型，case ID 非空唯一；预期 IDs 有序、唯一、属于输入且跨组不重复，reason 仅允许相应组的合法值；malformed 直接异常，不降级 control_fail，不从实现输出生成 gold。
+
+接口已获 root/reviewer 准入，无额外 production 接线需求。no Q06/archive/provider/game/凭据/安装/发布/部署/push，主树 WIP 不动。

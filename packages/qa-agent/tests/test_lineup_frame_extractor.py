@@ -169,7 +169,8 @@ class CropIntoColumnsTests(unittest.TestCase):
             self.assertEqual(len(paths), 3)
             for p in paths:
                 self.assertTrue(Path(p).exists())
-                w, h = Image.open(p).size
+                with Image.open(p) as image:
+                    w, h = image.size
                 # 600/3 = 200 col, upscale 2 → ~400 wide, 300*2=600 tall
                 self.assertEqual(h, 600)
                 self.assertAlmostEqual(w, 400, delta=4)
