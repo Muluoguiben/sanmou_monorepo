@@ -18,7 +18,7 @@ FIXTURES = PACKAGE / 'tests/fixtures/quality_eval/v1'
 
 class QualityEvaluationTests(unittest.TestCase):
     def setUp(self):
-        self.cases = {c['id']: c for c in json.loads((FIXTURES / 'cases.json').read_text())['scoring_cases']}
+        self.cases = {c['id']: c for c in json.loads((FIXTURES / 'cases.json').read_text(encoding='utf-8'))['scoring_cases']}
 
     def score(self, name):
         c = self.cases[name]
@@ -154,7 +154,7 @@ class QualityEvaluationTests(unittest.TestCase):
             run(PACKAGE,baseline='v3')
 
     def test_v3_requires_nonempty_valid_multiturn_suite(self):
-        corpus=json.loads((PACKAGE/'tests/fixtures/quality_eval/v3/cases.json').read_text())
+        corpus=json.loads((PACKAGE/'tests/fixtures/quality_eval/v3/cases.json').read_text(encoding='utf-8'))
         for value in (None,[],{},[{}]):
             with self.assertRaises(ValueError):
                 _validate_corpus({**corpus,'multiturn_cases':value},'v3')
@@ -183,19 +183,19 @@ class QualityEvaluationTests(unittest.TestCase):
                     shutil.copytree(PACKAGE/directory,root/directory)
                 target=root/'src/qa_agent/chat/evidence_assessment.py'
                 if operation == 'add':
-                    (target.parent/'unexpected.py').write_text('# unexpected production file\n')
+                    (target.parent/'unexpected.py').write_text('# unexpected production file\n', encoding='utf-8')
                 elif operation == 'delete':
                     target.unlink()
                 else:
-                    target.write_text(target.read_text()+'\n# changed\n')
+                    target.write_text(target.read_text(encoding='utf-8')+'\n# changed\n', encoding='utf-8')
                 with patch('qa_agent.quality_eval.runner.__file__',str(root/'src/qa_agent/quality_eval/runner.py')):
                     with self.assertRaisesRegex(ValueError,'source drift'):
                         run(root,baseline='v4')
 
     def test_manifest_metadata_rejects_version_split_and_duplicate_ids(self):
         fixtures=PACKAGE/'tests/fixtures/quality_eval/v4'
-        corpus=json.loads((fixtures/'cases.json').read_text())
-        frozen=json.loads((fixtures/'freeze.json').read_text())
+        corpus=json.loads((fixtures/'cases.json').read_text(encoding='utf-8'))
+        frozen=json.loads((fixtures/'freeze.json').read_text(encoding='utf-8'))
         for change, message in (('version','version/split'),('split','version/split'),('duplicate','duplicate case')):
             edited=copy.deepcopy(corpus)
             if change == 'duplicate':
@@ -207,7 +207,7 @@ class QualityEvaluationTests(unittest.TestCase):
                     run(PACKAGE,baseline='v4')
 
     def test_strict_schema_is_separate_from_hash_binding(self):
-        corpus=json.loads((PACKAGE/'tests/fixtures/quality_eval/v3/cases.json').read_text())
+        corpus=json.loads((PACKAGE/'tests/fixtures/quality_eval/v3/cases.json').read_text(encoding='utf-8'))
         for key, value in [('top_k',0),('top_k',-1),('top_k',True),('top_k',2.0),
                 ('version',3.0),('version',True),('assessment_cases',[]),('assessment_cases',None)]:
             with self.subTest(key=key,value=value), self.assertRaises(ValueError):

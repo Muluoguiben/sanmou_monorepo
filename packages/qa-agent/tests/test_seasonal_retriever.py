@@ -169,7 +169,7 @@ class SeasonalRetrieverTests(unittest.TestCase):
             retrieve.assert_not_called()
 
     def test_v4_requires_inherited_groups_and_season_cases(self):
-        corpus = json.loads((PACKAGE / "tests/fixtures/quality_eval/v4/cases.json").read_text())
+        corpus = json.loads((PACKAGE / "tests/fixtures/quality_eval/v4/cases.json").read_text(encoding="utf-8"))
         for group in ("assessment_cases", "multiturn_cases", "season_cases"):
             for value in (None, [], {}, [{}]):
                 with self.subTest(group=group, value=value), self.assertRaises(ValueError):
@@ -177,8 +177,8 @@ class SeasonalRetrieverTests(unittest.TestCase):
 
     def test_v4_inherits_v3_cases_exactly(self):
         root = PACKAGE / "tests/fixtures/quality_eval"
-        old = json.loads((root / "v3/cases.json").read_text())
-        new = json.loads((root / "v4/cases.json").read_text())
+        old = json.loads((root / "v3/cases.json").read_text(encoding="utf-8"))
+        new = json.loads((root / "v4/cases.json").read_text(encoding="utf-8"))
         self.assertEqual(new.pop("version"), 4)
         self.assertTrue(new.pop("season_cases"))
         old.pop("version")
@@ -209,7 +209,7 @@ class SeasonalRetrieverTests(unittest.TestCase):
             with patch.object(sys, "argv", ["runner", "--baseline", "v4", "--output", str(path)]), patch.object(runner, "run", return_value=result):
                 with self.assertRaises(SystemExit) as error: runner.main()
                 self.assertEqual(error.exception.code, 1)
-                self.assertEqual(json.loads(path.read_text()), result)
+                self.assertEqual(json.loads(path.read_text(encoding="utf-8")), result)
                 original = path.read_bytes()
                 with self.assertRaises(FileExistsError): runner.main()
                 self.assertEqual(path.read_bytes(), original)
@@ -220,11 +220,11 @@ class SeasonalRetrieverTests(unittest.TestCase):
             for path in ("src", "knowledge_sources", "tests/fixtures/quality_eval/v4"):
                 shutil.copytree(PACKAGE / path, root / path)
             fixtures = root / "tests/fixtures/quality_eval/v4"
-            corpus = json.loads((fixtures / "cases.json").read_text())
+            corpus = json.loads((fixtures / "cases.json").read_text(encoding="utf-8"))
             corpus["season_cases"][0]["expected"]["match_ids"] = []
             raw = json.dumps(corpus, ensure_ascii=False, indent=2) + "\n"
             (fixtures / "cases.json").write_text(raw, encoding="utf-8")
-            frozen = json.loads((fixtures / "freeze.json").read_text())
+            frozen = json.loads((fixtures / "freeze.json").read_text(encoding="utf-8"))
             frozen["cases_sha256"] = digest(raw)
             (fixtures / "freeze.json").write_text(json.dumps(frozen), encoding="utf-8")
             output = root / "failed-report.json"
@@ -233,7 +233,7 @@ class SeasonalRetrieverTests(unittest.TestCase):
             args = [sys.executable, "-B", "-m", "qa_agent.quality_eval.runner", "--baseline", "v4", "--output", str(output)]
             result = subprocess.run(args, cwd=root, env=env, capture_output=True, timeout=60)
             self.assertEqual(result.returncode, 1, result.stderr.decode())
-            report = json.loads(output.read_text())
+            report = json.loads(output.read_text(encoding="utf-8"))
             self.assertFalse(report["season"]["gate_pass"])
             self.assertEqual(report["season"]["passed"], report["season"]["denominator"] - 1)
             self.assertIsNone(report["quality_threshold"])
