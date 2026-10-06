@@ -80,6 +80,9 @@ jobs:
       - name: Windows Q05a explicit season retrieval
         working-directory: packages/qa-agent/tests
         run: python -B -m unittest test_seasonal_retriever test_quality_eval -v
+      - name: Windows H08a readonly skill registry
+        working-directory: packages/pioneer-agent/tests
+        run: python -B -W error::RuntimeWarning -m unittest test_skill_registry -v
       - name: Desktop dependencies
         working-directory: apps/sanmou-advisor-desktop
         run: npm ci

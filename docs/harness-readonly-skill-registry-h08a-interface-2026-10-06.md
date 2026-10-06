@@ -34,4 +34,4 @@
 
 新测试文本IO显式UTF-8；若有文件读取，补真实ASCII文本locale+UTF8filesystem控制，明确child环境，不修旧严格C文件系统边界。Windows在Q05后仅加step：cwd=`packages/pioneer-agent/tests`，run=`python -B -W error::RuntimeWarning -m unittest test_skill_registry -v`，逆删bytes/YAML等基线。旧 v4 whole c30d…858c/Q04 whole b965…f0b6、旧v1-v3拒绝与既有H07/H10/H09均保持；新native名单仍须最终Hosted验证。
 
-本 commit 只交 memo，等待 root/reviewer 准入，无额外设计分岔。no Q06/archive/provider/game/凭据/安装/知识发布/部署/push，主树WIP不动。
+准入已通过。template_digest 的精确 preimage 为 `SkillDefinition.model_dump(mode="json")` 的全部字段，仅排除 `template_digest` 自身；明确包含顶层 execution_authority/executable。task_digest 仍覆盖完整 TaskSpec。没有额外文件/DSL/wire需求。no Q06/archive/provider/game/凭据/安装/知识发布/部署/push，主树WIP不动。
