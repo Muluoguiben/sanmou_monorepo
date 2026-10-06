@@ -1,0 +1,159 @@
+{
+  "global_top_k": [
+    "wrong-a",
+    "wrong-b"
+  ],
+  "post_filter_ids": [],
+  "prefilter_pool_ids": [
+    "right-low"
+  ],
+  "global_duplicate_irrelevant_cross_season_rejected": true,
+  "default_projection": [
+    [
+      {
+        "id": "wrong-a",
+        "domain": "solution",
+        "entry_kind": "lineup_solution",
+        "topic": "wrong-a",
+        "aliases": [
+          "needle"
+        ],
+        "facts": [
+          "needle fallback support"
+        ],
+        "constraints": [],
+        "source_type": "manual_rule",
+        "source_ref": "independent-synthetic:wrong-a",
+        "updated_at": "2026-10-06",
+        "confidence": 0.8,
+        "related_topics": [],
+        "priority": 90,
+        "structured_data": {
+          "name": "wrong-a",
+          "aliases": [],
+          "season_tags": [
+            "S2"
+          ],
+          "lineup_rating": null,
+          "factions": [],
+          "hero_names": [],
+          "core_skills": [],
+          "scenario_tags": [],
+          "notes": []
+        }
+      },
+      1.0,
+      "needle",
+      "[wrong-a] topic=wrong-a domain=solution\naliases: needle\n- needle fallback support\n- S2\nsource: independent-synthetic:wrong-a (confidence=0.80)"
+    ],
+    [
+      {
+        "id": "wrong-b",
+        "domain": "solution",
+        "entry_kind": "lineup_solution",
+        "topic": "wrong-b",
+        "aliases": [
+          "needle"
+        ],
+        "facts": [
+          "needle fallback support"
+        ],
+        "constraints": [],
+        "source_type": "manual_rule",
+        "source_ref": "independent-synthetic:wrong-b",
+        "updated_at": "2026-10-06",
+        "confidence": 0.8,
+        "related_topics": [],
+        "priority": 80,
+        "structured_data": {
+          "name": "wrong-b",
+          "aliases": [],
+          "season_tags": [
+            "S2"
+          ],
+          "lineup_rating": null,
+          "factions": [],
+          "hero_names": [],
+          "core_skills": [],
+          "scenario_tags": [],
+          "notes": []
+        }
+      },
+      1.0,
+      "needle",
+      "[wrong-b] topic=wrong-b domain=solution\naliases: needle\n- needle fallback support\n- S2\nsource: independent-synthetic:wrong-b (confidence=0.80)"
+    ],
+    [
+      {
+        "id": "wrong-c",
+        "domain": "solution",
+        "entry_kind": "lineup_solution",
+        "topic": "wrong-c",
+        "aliases": [
+          "needle"
+        ],
+        "facts": [
+          "needle fallback support"
+        ],
+        "constraints": [],
+        "source_type": "manual_rule",
+        "source_ref": "independent-synthetic:wrong-c",
+        "updated_at": "2026-10-06",
+        "confidence": 0.8,
+        "related_topics": [],
+        "priority": 70,
+        "structured_data": {
+          "name": "wrong-c",
+          "aliases": [],
+          "season_tags": [
+            "S2"
+          ],
+          "lineup_rating": null,
+          "factions": [],
+          "hero_names": [],
+          "core_skills": [],
+          "scenario_tags": [],
+          "notes": []
+        }
+      },
+      1.0,
+      "needle",
+      "[wrong-c] topic=wrong-c domain=solution\naliases: needle\n- needle fallback support\n- S2\nsource: independent-synthetic:wrong-c (confidence=0.80)"
+    ],
+    [
+      {
+        "id": "right-low",
+        "domain": "solution",
+        "entry_kind": "lineup_solution",
+        "topic": "right-low",
+        "aliases": [],
+        "facts": [
+          "needle fallback support"
+        ],
+        "constraints": [],
+        "source_type": "manual_rule",
+        "source_ref": "independent-synthetic:right-low",
+        "updated_at": "2026-10-06",
+        "confidence": 0.8,
+        "related_topics": [],
+        "priority": 0,
+        "structured_data": {
+          "name": "right-low",
+          "aliases": [],
+          "season_tags": [
+            "S1"
+          ],
+          "lineup_rating": null,
+          "factions": [],
+          "hero_names": [],
+          "core_skills": [],
+          "scenario_tags": [],
+          "notes": []
+        }
+      },
+      0.6,
+      "needle",
+      "[right-low] topic=right-low domain=solution\n- needle fallback support\n- S1\nsource: independent-synthetic:right-low (confidence=0.80)"
+    ]
+  ]
+}
