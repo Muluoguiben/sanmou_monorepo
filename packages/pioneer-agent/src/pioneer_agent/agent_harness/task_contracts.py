@@ -217,11 +217,13 @@ class SyntheticApprovalRunState(RunState):
         item = self.approval
         request = item.request
         if (item.last_checked_at.tzinfo is None or item.last_checked_at.utcoffset() is None
-                or not request.created_at <= item.last_checked_at < request.expires_at):
+                or item.last_checked_at < request.created_at):
             raise ValueError("approval clock watermark mismatch")
         if request.run_id != self.run_id or request.observation_id not in self.observation_ids:
             raise ValueError("approval checkpoint binding mismatch")
         if item.response is None:
+            if item.last_checked_at >= request.expires_at:
+                raise ValueError("pending approval watermark must precede expiry")
             if item.consumed_at is not None or item.revalidated_observation_id is not None:
                 raise ValueError("approval not consumed")
             allowed = {"awaiting_approval", "failed", "cancelled"}
@@ -242,7 +244,7 @@ class SyntheticApprovalRunState(RunState):
             if consumed.tzinfo is None or consumed.utcoffset() is None:
                 raise ValueError("approval timestamps must be aware")
             if (not request.created_at <= item.response.responded_at <= consumed < request.expires_at
-                    or consumed < item.last_checked_at):
+                    or consumed > item.last_checked_at):
                 raise ValueError("approval consumption time mismatch")
             if item.response.decision == "deny":
                 allowed = {"failed"}

@@ -93,17 +93,23 @@ def main():
             pinned = {
                 "h07a-independent-probes.py": "9c047a03ac85df4ba188025fd37225af5e6ed1d90d448d0154253834d3172d12",
                 "h07a-independent-probes-canonical.py": "8fffd7e104ce54e5e37b3c01c3fd70dcf26b6cc2ec5b073e05339e586ecdf960",
+                "h07a-independent-postconsume-clock.py": "7a122fc02ff4cb012b3c2ed7105734b8fc38eab47aab442cf23ab3088f6fef0d",
+                "h07a-independent-watermark-progression.py": "7e6a6b4a3e00b88607d3c66d60e194fe12a72fb3d8d7faee2ebbbccd16fad226",
             }
             for name, digest in pinned.items():
                 assert hashlib.sha256((args.probe_dir / name).read_bytes()).hexdigest() == digest
             save("independent-probes.json", {"original_commit": "339aa56156cced5fe0b8ea274695a943f5cab576",
-                "canonical_commit": "dcba32214ddce912bd9713f3f06b7711a1734202", "files": pinned})
+                "canonical_commit": "dcba32214ddce912bd9713f3f06b7711a1734202",
+                "postconsume_commit": "d9ade7a7b3e473c7be30b1280086e24a1405d8f1",
+                "progression_commit": "f7e32f0d90504cf87c8a79ead7773e5a13feaaa8", "files": pinned})
             run("independent-original", [sys.executable, "-B", str(args.probe_dir / "h07a-independent-probes.py")],
                 pioneer, expected=1)
             original = (out / "independent-original.log").read_text()
             assert "FAILED (failures=1)" in original
             assert "(True, 'failed', 'observation_stale') != (True, 'failed', 'stale_observation')" in original
             run("independent-canonical", [sys.executable, "-B", str(args.probe_dir / "h07a-independent-probes-canonical.py")], pioneer)
+            run("independent-postconsume", [sys.executable, "-B", str(args.probe_dir / "h07a-independent-postconsume-clock.py")], pioneer)
+            run("independent-progression", [sys.executable, "-B", str(args.probe_dir / "h07a-independent-watermark-progression.py")], pioneer)
         for package in ("pioneer-agent", "qa-agent", "sanmou-common"):
             run(package + "-full", [sys.executable, "-B", "-m", "unittest", "discover", "-s", "tests",
                 "-p", "test_*.py", "-v"], root / "packages" / package)
