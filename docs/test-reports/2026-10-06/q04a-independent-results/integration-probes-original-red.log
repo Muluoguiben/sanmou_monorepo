@@ -1,0 +1,17 @@
+test_actual_cli_independent_controls_and_no_clobber (__main__.IntegrationControls.test_actual_cli_independent_controls_and_no_clobber) ... ok
+test_fixture_drift_then_rebound_wrong_expected_is_real_failure (__main__.IntegrationControls.test_fixture_drift_then_rebound_wrong_expected_is_real_failure) ... ok
+test_real_mixed_scoring_origin_and_wrong_root_fail (__main__.IntegrationControls.test_real_mixed_scoring_origin_and_wrong_root_fail) ... FAIL
+test_rebound_human_claim_cannot_upgrade_synthetic_suite (__main__.IntegrationControls.test_rebound_human_claim_cannot_upgrade_synthetic_suite) ... ok
+
+======================================================================
+FAIL: test_real_mixed_scoring_origin_and_wrong_root_fail (__main__.IntegrationControls.test_real_mixed_scoring_origin_and_wrong_root_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/q04a-independent-integration.py", line 122, in test_real_mixed_scoring_origin_and_wrong_root_fail
+    self.assertNotEqual(wrong.returncode, 0)
+AssertionError: 0 == 0
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.385s
+
+FAILED (failures=1)

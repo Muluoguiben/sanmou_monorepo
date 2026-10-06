@@ -1,0 +1,29 @@
+{
+  "old_v3_sha256": "480a448fd7abecfba2f6cd4eb32a46873ff0b8127b6251cd8aeea5e4fe2e82c8",
+  "new_v3_sha256": "db72e1c3616cadb2062c86a676596c21f1412dfa3ce6691a8f22c9576a259aec",
+  "all_other_fields_equal": true,
+  "old_eval": {
+    "algorithm": "sha256-utf8-lf-v1",
+    "files": {
+      "src/qa_agent/quality_eval/__init__.py": "dcf77ddd5f789553278cef7e1617c22286fcb23571054593c4342771b03baa6e",
+      "src/qa_agent/quality_eval/assessment_cases.py": "2045a72ec47f823153869f58a610ebd3aae328ea82c8f1968cb298c50e8d598c",
+      "src/qa_agent/quality_eval/referent_cases.py": "600d434af95213af6ffae2a66170e2c8e4e475d541ca33ed21d717262727ee07",
+      "src/qa_agent/quality_eval/runner.py": "68240d1cc7a98c11e814e82686f1bc98e2de285224096b0c25c4d2d45c31606e",
+      "src/qa_agent/quality_eval/scoring.py": "b49f51cf50d34aec2970214d0b1f8eea4e081b9c31d4249b00786dc0f7182af5"
+    },
+    "digest": "1139256ebfa2e5ec7828cd85e75d7c6303e5b2962fd1e649f8cb79294e3b8821"
+  },
+  "new_eval": {
+    "algorithm": "sha256-utf8-lf-v1",
+    "files": {
+      "src/qa_agent/quality_eval/__init__.py": "dcf77ddd5f789553278cef7e1617c22286fcb23571054593c4342771b03baa6e",
+      "src/qa_agent/quality_eval/assessment_cases.py": "2045a72ec47f823153869f58a610ebd3aae328ea82c8f1968cb298c50e8d598c",
+      "src/qa_agent/quality_eval/claim_spans.py": "062ae64d50609e2b3542b2c2fd35d66614a40df100a02dd253acf42a57df8155",
+      "src/qa_agent/quality_eval/referent_cases.py": "600d434af95213af6ffae2a66170e2c8e4e475d541ca33ed21d717262727ee07",
+      "src/qa_agent/quality_eval/runner.py": "68240d1cc7a98c11e814e82686f1bc98e2de285224096b0c25c4d2d45c31606e",
+      "src/qa_agent/quality_eval/scoring.py": "b49f51cf50d34aec2970214d0b1f8eea4e081b9c31d4249b00786dc0f7182af5"
+    },
+    "digest": "caadfdc8ed6dfdc50a82b8b376bda1bc1089a1cc6b1af907de6ba33772a714e2"
+  },
+  "old_v1_v2_refusals_unchanged": true
+}
