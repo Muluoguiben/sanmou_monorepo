@@ -74,6 +74,9 @@ jobs:
       # Existing CLI; exact report bytes retained in bounded log chunks.
       - name: Windows H09b offline task evaluation
         run: python scripts/check_windows_task_eval.py
+      - name: Windows Q04b claim span evaluation
+        working-directory: packages/qa-agent
+        run: python -B -m unittest discover -s tests -p 'test_claim_spans.py' -v
       - name: Desktop dependencies
         working-directory: apps/sanmou-advisor-desktop
         run: npm ci
