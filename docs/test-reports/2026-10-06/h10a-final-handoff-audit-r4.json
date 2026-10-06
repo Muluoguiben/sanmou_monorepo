@@ -1,0 +1,94 @@
+{
+  "handoff": "762855b6488bf1f0650bba6f6263597638b87fd8",
+  "source": "2128fb88329b1a38b410ad63e09c37034d08e8c7",
+  "tree": "3fe1e07f9d2e30b856d95177298fb80692bf396c",
+  "summary_sha256": "66b41ab5e26dcac93a6fb9f8567baf1c1af4b3b1284a75a1ed925b2621d82abe",
+  "verified_logs": {
+    "causal-module": {
+      "tests": 32,
+      "skipped": 0,
+      "exit": 0
+    },
+    "independent-probes": {
+      "tests": 5,
+      "skipped": 0,
+      "exit": 0
+    },
+    "independent-targeted": {
+      "tests": 5,
+      "skipped": 0,
+      "exit": 0
+    },
+    "independent-context-short": {
+      "tests": 1,
+      "skipped": 0,
+      "exit": 0
+    },
+    "independent-ambient": {
+      "tests": 2,
+      "skipped": 0,
+      "exit": 0
+    },
+    "independent-dispatch": {
+      "tests": 1,
+      "skipped": 0,
+      "exit": 0
+    },
+    "independent-policy-binding": {
+      "tests": 1,
+      "skipped": 0,
+      "exit": 0
+    },
+    "focused": {
+      "tests": 177,
+      "skipped": 0,
+      "exit": 0
+    },
+    "h07a-module": {
+      "tests": 35,
+      "skipped": 0,
+      "exit": 0
+    },
+    "pioneer-agent-full": {
+      "tests": 1085,
+      "skipped": 2,
+      "exit": 0
+    },
+    "qa-agent-full": {
+      "tests": 394,
+      "skipped": 0,
+      "exit": 0
+    },
+    "sanmou-common-full": {
+      "tests": 2,
+      "skipped": 0,
+      "exit": 0
+    },
+    "h09-cli": {
+      "tests": null,
+      "skipped": 0,
+      "exit": 0
+    },
+    "qa-v3": {
+      "tests": null,
+      "skipped": 0,
+      "exit": 0
+    }
+  },
+  "h09_source_and_stable_equal": true,
+  "qa_v3_bytes_equal": true,
+  "frozen_input_hashes_equal": true,
+  "sample_counts": {
+    "lifetime_start": 1,
+    "window_start": 3,
+    "tool": 12,
+    "observation": 3,
+    "policy": 3,
+    "outcome": 3,
+    "lifecycle": 1,
+    "lifetime_end": 1
+  },
+  "sample_graph_and_invocations_valid": true,
+  "archive_reads": 0,
+  "native_h10": "not_executed"
+}
