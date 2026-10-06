@@ -3,12 +3,12 @@
   "status": "in_progress",
   "last_completed_round": 7,
   "current_round": 7,
-  "batch": "Q04a offline claim-to-evidence spans",
-  "base_commit": "5791ca397507007b9397c78763b3523b8ec16421",
+  "batch": "Q04b native claim-span CI wiring",
+  "base_commit": "b37e7ed34e5c9df63d668349436b198bd8b0b27d",
   "primary_branch": "master",
-  "current_task": "docs/qa-claim-spans-q04a-2026-10-06.md",
-  "task_commit": "9e35b34e2540923bd7b253f71b3d1f49da1093fb",
-  "summary": "Q04a code676ac/report0530/review962408d source+Linuxapproved; exactcombo7562 fullmatrix/899Gitinputs passed. Legacyv3 changes onlypreciseclaim_spans eval_source entry+digest;allotherfields equal,oldv1/v2refusals preserved. Rootnative attemptmissingyaml/exit1/zero newtests remainsenvironmentblocked,notpass/productred. Singlecandidate finalaudit/publication/CI pending;allpreviousH10CI/history/permissions andQ06paused/false preserved.",
+  "current_task": "docs/qa-native-claim-spans-q04b-2026-10-06.md",
+  "task_commit": "b41aae48bd0b14fdb2ea343183d4cecce253d94d",
+  "summary": "Q04b exact combination658be passed eight Linux lanes, unchanged899 package inputs and packages tree, inverse workflow bytes/YAML equalb37. Native not executed locally; final published SHA Hosted25/0skip/all4 pending. Q04a prior exactCI37463863357 retained; Q06 paused.",
   "earlier_rounds": [
     {
       "batch": "Q03a",
@@ -300,7 +300,7 @@
     "model": "gpt-6-astra",
     "current_roles": "same roles continuing H10a"
   },
-  "next_step": "One finalcandidate payload audit, approvedmaster publication and exact-final-SHA CI byroot; no status-only successor/selfSHA. After gate, independently scope proposed Q04b existingWindows25 step thenQ05a explicit-label isolation; these are readonly next-route suggestions, not implemented/admitted here. Continue under verified continuous offline authority; Q06paused/false andcost/access/game/deploy restrictions unchanged.",
+  "next_step": "Final candidate payload audit, publish and exact Hosted Windows25/0skip/qualified-name/all4 gate by root; then continue bounded Q05a explicit-label isolation under existing continuous authority. Q06 reading/publication paused; no new provider/access/game/deploy authority.",
   "authorization": {
     "user_text": "按review 迭代的方向持续迭代",
     "source_thread": "01a10c00-93d2-778b-8395-bf9d496c503d",
@@ -534,7 +534,7 @@
     "final_commit": "ca04ae1ef396576c5983f887502bf20b7d6f0015",
     "final_ci_run": 37403073979
   },
-  "latest_published_master": "5791ca397507007b9397c78763b3523b8ec16421",
+  "latest_published_master": "b37e7ed34e5c9df63d668349436b198bd8b0b27d",
   "coordination_migration": {
     "main_read_only": true,
     "main_head": "110bd7594e095c3ea0e1940ab2fc4bec5f4d7a77",
@@ -702,7 +702,74 @@
     "archive_content_reads": 0,
     "q06_inherited": false
   },
-  "active_work_item": "q04a_claim_spans",
+  "active_work_item": "q04b_native_claim_spans",
+  "q04b_native_claim_spans": {
+    "status": "publication_candidate",
+    "independent_review": {
+      "report": "206e47477bf08671fa86d4d94ce9522fb5fdecb0",
+      "status": "APPROVE_code_wiring_Linux_native_pending",
+      "source": "ebcd5d12546dc66044d0485089a10e2bdc43e4a8",
+      "findings": []
+    },
+    "combination": {
+      "source": "658be762abf192799e4b4711b8b85d05f0c79ea9",
+      "tree": "09f146c54cd15d7290ba2136a6e80b42058ad918",
+      "packages": "e849545fc31473d68835618c2c13ec44c35788c0",
+      "github": "60cbfa8ec001678a08d3c38a14a875c37c938393",
+      "status": "passed",
+      "report": "docs/test-reports/2026-10-06/Q04b-integration.md",
+      "results": "claim25/QA419/Pioneer1083pass+2oldskip/common2/H07-35/H10-32-Werror/H09-8/v3db72 all exit0;899 Git inputs before-after equal;25 names exact;workflow inverse bytes+YAML=b37;not whole-matrix warningfree",
+      "manifest_sha256": "031e1afd1a1ea133932ad78f0a1e3416e7d422e33c3d0199cce992153ce77b83"
+    },
+    "independent_plan": "64666ca0653a09a9e41e0861ce0ace292ea60044",
+    "initial_code": "ebcd5d12546dc66044d0485089a10e2bdc43e4a8",
+    "initial_code_tree": "e6244518555af134d97c7b952be286b71500ac04",
+    "author_report": "a9abfee3290406c3d8e9fc54da200b3ecb1f4a02",
+    "author_results": "25/23/QA419 all0skip/exit0; realCLI12; expectedcreate-only/v1/v2 refusals retained; v3 whole db72 unchanged; inverse workflow bytes+YAML equalb37;553QAinputGitbytes",
+    "base_commit": "b37e7ed34e5c9df63d668349436b198bd8b0b27d",
+    "contract_commit": "b41aae48bd0b14fdb2ea343183d4cecce253d94d",
+    "contract": "docs/qa-native-claim-spans-q04b-2026-10-06.md",
+    "scope": "one three-line test step in existingWindows job; unchanged25 claim-span tests; no production/dependency/runner/job/permission change",
+    "author": "h07a_implementation reused",
+    "reviewer": "h07a_review reused independently",
+    "implementation_released": true,
+    "native_status": "pending_exact_final_hosted25_0skip_all4jobs",
+    "local_native_dependency_exploration": false,
+    "q06a_archive_reading": "paused_by_user",
+    "q06a_publication": "paused_by_user",
+    "next_step": "Final candidate payload audit, publish and exact Hosted Windows25/0skip/qualified-name/all4 gate by root; then continue bounded Q05a explicit-label isolation under existing continuous authority. Q06 reading/publication paused; no new provider/access/game/deploy authority.",
+    "prior_current_context": {
+      "batch": "Q04a offline claim-to-evidence spans",
+      "base_commit": "5791ca397507007b9397c78763b3523b8ec16421",
+      "current_task": "docs/qa-claim-spans-q04a-2026-10-06.md",
+      "task_commit": "9e35b34e2540923bd7b253f71b3d1f49da1093fb",
+      "summary": "Q04a completed on published b37e7ed34e5c9df63d668349436b198bd8b0b27d with matching remote. Exact run37463863357 attempt1 all4jobs success; QA rawlog419pass and25 new names exactly match fixed Git AST, zero new skips/warnings. This closes bounded offline/Linux claim-span evaluation, not semantic truth or nativeQ04. Continue small Q04b existingWindows25 CI gate; Q06 archives/publication paused and none/false unchanged.",
+      "next_step": "Q04a exactCI gate closed. Freeze bounded Q04b single existingWindows CI step for unchanged25 claim-span tests; no new dependencies/job/runner/production changes or local dependency probing. Independent review and exact hosted25/0skip/alljobs required, then continue Q05a explicit-label isolation. Carry finalCI coordination WIP in next normaldelivery; Q06 stayspaused.",
+      "round_status": "q04a_completed_exact_ci_passed",
+      "active_work_item": "q04b_native_claim_spans",
+      "latest_published_master": "b37e7ed34e5c9df63d668349436b198bd8b0b27d"
+    },
+    "prior_verification_status": {
+      "next_step": "verify exact658be8lane combination, preserve root3WIP in singlecandidate, finalpayload/push/exactHosted25names0skip/all4 gate; thenQ05a",
+      "status": "independent_approved_exact_combination_handed_to_verifier",
+      "combination_status": "verification_pending"
+    },
+    "final_ci": "pending exact-final-SHA Hosted Windows25 qualified names all ok/0skip/exit0 plus same-run all4jobs",
+    "publication": "not performed",
+    "coordinator_native_executed": false,
+    "warning_notes": "Root classified local QAfull and prior Q04a Hosted QA as6 ResourceWarning-related lines each:3 unclosed Image.open files at existing tests/test_lineup_frame_extractor.py:172 plus3 Enable tracemalloc lines. Targeted25 has none; RuntimeWarning/unawaited/Exception ignored categories0. Historical Q04a final_ci.warning_count=0 checked only these latter categories, not all warning types; original field preserved. Original logs unchanged; no code repair or rerun.",
+    "coordinator_wip_migration": {
+      "main_head": "b37e7ed34e5c9df63d668349436b198bd8b0b27d",
+      "original_sha256": {
+        "state": "539166b76732d3cbe3014a43fc9adde136da2f9669f69bec3f75b9ceff70e6df",
+        "worklog": "1a38cc1a75fad24009652b8d78947293faf65733568764a42588ebce48f4871f",
+        "todo": "2ecb7a36794bfd92dd031e555fe059946f3591a73704b8031e0861456deee750"
+      },
+      "full_worklog_prefix_preserved": true,
+      "history_permissions_continuous_authority_q04a_final_ci_preserved": true,
+      "main_untouched": true
+    }
+  },
   "h10a_causal_trace": {
     "status": "completed",
     "base_commit": "ae03faf0862f9930c58f7811d625de4b632f05ba",
@@ -1252,7 +1319,8 @@
     "restrictions_unchanged": "Q06 archives/publication paused; no new real-provider cost, credentials/persistent access, game action or deployment"
   },
   "q04a_claim_spans": {
-    "status": "publication_candidate",
+    "status": "completed_offline_exact_ci_passed",
+    "payload_audit": {"status": "no_blocker_scoped_candidate", "candidate": "b37e7ed34e5c9df63d668349436b198bd8b0b27d", "tree": "b5686b2f1e0e3877107cc7e93487d14cad14568f", "objects": 161, "commits": 17, "paths": 81, "object_set_sha256": "296372ca60cb3520a35dedbabae01be207a056e1b9aa59abbacb3e6c5c50bb48", "manifest_records": 23, "plain_bytes": 778621, "manifest_sha256": "ac91be9ba18cb935054bb7b49b48c804a58d7915abcdac674e7a577b1bf4e1eb", "protected_paths": 3105, "old_reports": 1883, "archive_metadata": 30, "archive_content_reads": 0, "q06_inherited": false},
     "independent_review": {
       "report": "962408d5ad23cb7c3084fd771335d088eb428229",
       "status": "APPROVE_source_and_Linux",
@@ -1340,7 +1408,7 @@
     "compatibility_note": "new quality_eval module legitimately changes eval_source/full legacy report hash; preserve old scorer/KB/production/cases/labels and all old results except exact declared source metadata delta",
     "q06a_archive_reading": "paused_by_user",
     "q06a_publication": "paused_by_user",
-    "next_step": "One finalcandidate payload audit, approvedmaster publication and exact-final-SHA CI byroot; no status-only successor/selfSHA. After gate, independently scope proposed Q04b existingWindows25 step thenQ05a explicit-label isolation; these are readonly next-route suggestions, not implemented/admitted here. Continue under verified continuous offline authority; Q06paused/false andcost/access/game/deploy restrictions unchanged.",
+    "next_step": "Completed b37/exact run37463863357/all4success/QA419 with25new names rawlog-verified. Preserve this offline scope; Q04b will separately close native coverage through existingWindows CI, not local dependency installation or oldH10 reuse. Continue existing offline route withQ06paused.",
     "prior_verification_status": {
       "status": "independent_approved_exact_combination_handed_to_verifier",
       "combination_status": "verification_pending",
@@ -1356,8 +1424,8 @@
       "round_status": "h10b_completed_native_and_exact_ci_passed",
       "latest_published_master": "5791ca397507007b9397c78763b3523b8ec16421"
     },
-    "final_ci": "pending",
-    "publication": "not performed",
+    "final_ci": {"commit": "b37e7ed34e5c9df63d668349436b198bd8b0b27d", "run": 37463863357, "attempt": 1, "status": "completed", "conclusion": "success", "all_four_jobs": "success", "qa_job": 112269856616, "windows_job": 112269856908, "pioneer_job": 112269857015, "common_job": 112269857058, "qa_tests": 419, "qa_elapsed_seconds": 66.448, "new_tests": 25, "new_names_exact": true, "new_skipped": 0, "warning_count": 0, "qa_raw_log_verified": true, "native_q04_exercised": false, "remote_readback_matches": true},
+    "publication": "b37e7ed34e5c9df63d668349436b198bd8b0b27d pushed to master; explicit remote fetch and readback match",
     "coordinator_native_q04": "not_executed;prior root missing-yaml import exit1/0newtests preserved,notpass/notproductred",
     "combination_payload_preaudit": {
       "source": "7562b425aa0dd88882f14205399f2f7a8694b46d",

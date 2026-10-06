@@ -1,0 +1,237 @@
+{
+  "source": "658be762abf192799e4b4711b8b85d05f0c79ea9",
+  "tree": "09f146c54cd15d7290ba2136a6e80b42058ad918",
+  "baseline": "b37e7ed34e5c9df63d668349436b198bd8b0b27d",
+  "published": "b37e7ed34e5c9df63d668349436b198bd8b0b27d",
+  "packages_tree": "e849545fc31473d68835618c2c13ec44c35788c0",
+  "verifier_sha256": "565f241bf2c1fd6c31b40d0c5c49ce26f1a406998589ba439a8071db49dd4bfe",
+  "runtime": {
+    "executable": "/usr/bin/python3",
+    "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39"
+  },
+  "scope": {
+    "changed": [
+      ".github/workflows/regression.yml"
+    ],
+    "unique_step": {
+      "name": "Windows Q04b claim span evaluation",
+      "working-directory": "packages/qa-agent",
+      "run": "python -B -m unittest discover -s tests -p 'test_claim_spans.py' -v"
+    },
+    "step_index": 10,
+    "removal_preserves_original_bytes": true,
+    "removal_preserves_yaml_object": true,
+    "workflow_before_sha256": "4a14772f40c130ef707673de01e43f30c7e9bd4f83a2db423d5b06da6ba75f9a",
+    "workflow_after_sha256": "05186e291518d061fe8dcc4570afa593010b7562515c3660009b8a9cac2bea75",
+    "packages_and_tests_unchanged": true,
+    "git_byte_verified_inputs": 899,
+    "input_manifest_sha256": "ec1e75a5aeceb0cd951cbf24171f438bda48500a5cf973283b40c65f403043a7"
+  },
+  "commands": [
+    {
+      "name": "claim-module",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_claim_spans.py",
+        "-v"
+      ],
+      "cwd": "/tmp/sanmou-h07a-integration-20261006/packages/qa-agent",
+      "PYTHONPATH": "/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/src:/tmp/sanmou-h07a-integration-20261006/packages/qa-agent/src:/tmp/sanmou-h07a-integration-20261006/packages/sanmou-common/src:/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/tests:/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/tests/unit:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 25,
+      "skipped": 0,
+      "seconds": 0.7681655883789062,
+      "log": "claim-module.log",
+      "log_bytes": 3540,
+      "log_sha256": "aaea62f0570842c7cad3071be18935c38c9dc321b1cdfe98d5e37a14d214ea8c"
+    },
+    {
+      "name": "causal-module",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-W",
+        "error::RuntimeWarning",
+        "-m",
+        "unittest",
+        "test_causal_trace",
+        "-v"
+      ],
+      "cwd": "/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/tests",
+      "PYTHONPATH": "/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/src:/tmp/sanmou-h07a-integration-20261006/packages/qa-agent/src:/tmp/sanmou-h07a-integration-20261006/packages/sanmou-common/src:/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/tests:/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/tests/unit:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 32,
+      "skipped": 0,
+      "seconds": 2.6251025199890137,
+      "log": "causal-module.log",
+      "log_bytes": 6208,
+      "log_sha256": "5283421935d3cfdc4934ee910f7018edda192e4890c1983eb590375732e838e4"
+    },
+    {
+      "name": "h07a-module",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "test_task_approval",
+        "-v"
+      ],
+      "cwd": "/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/tests",
+      "PYTHONPATH": "/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/src:/tmp/sanmou-h07a-integration-20261006/packages/qa-agent/src:/tmp/sanmou-h07a-integration-20261006/packages/sanmou-common/src:/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/tests:/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/tests/unit:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 35,
+      "skipped": 0,
+      "seconds": 8.543095588684082,
+      "log": "h07a-module.log",
+      "log_bytes": 8407,
+      "log_sha256": "0636fa876b1d7e035c1017a9e5b48cad682f1d2fa8ccef2f455383c901ccee45"
+    },
+    {
+      "name": "pioneer-agent-full",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent",
+      "PYTHONPATH": "/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/src:/tmp/sanmou-h07a-integration-20261006/packages/qa-agent/src:/tmp/sanmou-h07a-integration-20261006/packages/sanmou-common/src:/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/tests:/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/tests/unit:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 1085,
+      "skipped": 2,
+      "seconds": 60.21106958389282,
+      "log": "pioneer-agent-full.log",
+      "log_bytes": 343644,
+      "log_sha256": "4ba8f5cff19c0d98029e579d12de76fe3262564e3fb3fa113117747ec57dc07c"
+    },
+    {
+      "name": "qa-agent-full",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "/tmp/sanmou-h07a-integration-20261006/packages/qa-agent",
+      "PYTHONPATH": "/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/src:/tmp/sanmou-h07a-integration-20261006/packages/qa-agent/src:/tmp/sanmou-h07a-integration-20261006/packages/sanmou-common/src:/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/tests:/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/tests/unit:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 419,
+      "skipped": 0,
+      "seconds": 41.1868941783905,
+      "log": "qa-agent-full.log",
+      "log_bytes": 69029,
+      "log_sha256": "e064dbdde0b1810f1ddc797dffe245d552bb8470e876f212d72b06d0e73ab811"
+    },
+    {
+      "name": "sanmou-common-full",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "/tmp/sanmou-h07a-integration-20261006/packages/sanmou-common",
+      "PYTHONPATH": "/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/src:/tmp/sanmou-h07a-integration-20261006/packages/qa-agent/src:/tmp/sanmou-h07a-integration-20261006/packages/sanmou-common/src:/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/tests:/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/tests/unit:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": 2,
+      "skipped": 0,
+      "seconds": 0.06402420997619629,
+      "log": "sanmou-common-full.log",
+      "log_bytes": 335,
+      "log_sha256": "a0edf3c8009de64cb699625af43fb4b821c60a656c7f787d24bb309ba36b1da4"
+    },
+    {
+      "name": "h09-cli",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "pioneer_agent.app.task_eval",
+        "--output",
+        "/tmp/q04b-integration-658be76-20261006/run/h09-cli"
+      ],
+      "cwd": "/tmp/sanmou-h07a-integration-20261006",
+      "PYTHONPATH": "/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/src:/tmp/sanmou-h07a-integration-20261006/packages/qa-agent/src:/tmp/sanmou-h07a-integration-20261006/packages/sanmou-common/src:/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/tests:/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/tests/unit:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": null,
+      "skipped": 0,
+      "seconds": 4.420499086380005,
+      "log": "h09-cli.log",
+      "log_bytes": 251,
+      "log_sha256": "846f3520448c3fd65620b6a5d892d0691386124b3a1279468ab4bb0f6077a410"
+    },
+    {
+      "name": "qa-v3",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "qa_agent.quality_eval.runner",
+        "--baseline",
+        "v3",
+        "--output",
+        "/tmp/q04b-integration-658be76-20261006/run/qa-v3.json"
+      ],
+      "cwd": "/tmp/sanmou-h07a-integration-20261006/packages/qa-agent",
+      "PYTHONPATH": "/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/src:/tmp/sanmou-h07a-integration-20261006/packages/qa-agent/src:/tmp/sanmou-h07a-integration-20261006/packages/sanmou-common/src:/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/tests:/tmp/sanmou-h07a-integration-20261006/packages/pioneer-agent/tests/unit:/tmp/sanmou-cr-20261005-6155-deps",
+      "exit": 0,
+      "tests": null,
+      "skipped": 0,
+      "seconds": 1.6164171695709229,
+      "log": "qa-v3.log",
+      "log_bytes": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "failures": [],
+  "results": {
+    "causal_runtime_warning_lines": [],
+    "h09": {
+      "complete": true,
+      "gate_pass": true,
+      "totals": {
+        "control_pass": 8,
+        "expected_safety_stop": 6,
+        "goal_success": 2,
+        "infra_error": 0,
+        "safety_violations": 0,
+        "unexpected_goal_success": 0
+      },
+      "raw_path": "/tmp/q04b-integration-658be76-20261006/run/h09-cli/report.json",
+      "raw_bytes": 275870,
+      "raw_sha256": "d759c58b5cf153e4dc3120baa772c8dbf32f003f14d95cdb213f2a091923f606"
+    },
+    "qa_v3": {
+      "raw_path": "/tmp/q04b-integration-658be76-20261006/run/qa-v3.json",
+      "sha256": "db72e1c3616cadb2062c86a676596c21f1412dfa3ce6691a8f22c9576a259aec"
+    }
+  },
+  "native": "pending exact-final-SHA Hosted Windows claim25/0skip/exact names and all four jobs; no local native execution/install/mock"
+}

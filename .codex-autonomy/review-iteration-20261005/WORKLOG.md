@@ -440,3 +440,46 @@
 - Report docs/test-reports/2026-10-06/Q04a-integration.md;23 bounded plain artifacts, manifest SHA256 ac91be9ba18cb935054bb7b49b48c804a58d7915abcdac674e7a577b1bf4e1eb. No archive contents read or created. Native Q04 coordinator not executed; root missing-yaml attempt exit1/0 newtests remains environment-blocked, not acceptance or product red.
 - Main three locked WIP files migrated without writing main: state8e11298bcbe5e7e63bca51a7e9fb2af8867a465a7ef414825c2975f9481a701a; WORKLOG331c271b208128f28f4eac9b004dbc04cf2b7d8fb2820eae47f16ccafb02dadd; todofc0c59b9c282ccd2d6cb7c46423ddac5cd56fea04e917669d2059c88fa150cfc. Full WORKLOG prefix/todo history, historical H10 final CI, native attempt, permissions and continuous authority retained; only small prior-context fields, no recursive state snapshot.
 - Known preaudit through7562 only:135objects/16commits/53paths/set5eddd784362b269d8c0d75b2fde0079709a223985779e014778ac4b0fad79aea; excludes this report/coord increment. Final candidate audit/publication/exactCI remain pending. Root handles those gates then next bounded offline slice under continuing authority; proposed Q04b Windows25 then Q05a label isolation are next-route suggestions only. Q06 paused_by_user/false and provider-cost/access/game/deploy boundaries unchanged. No push/mainmerge/status successor here.
+
+## Q04a published — exact final CI running
+
+- Candidateb37e7ed34e5c9df63d668349436b198bd8b0b27d/treeb5686b2f1e0e3877107cc7e93487d14cad14568f passed final finitepayload audit:161objects/17commits/81paths/set296372ca60cb3520a35dedbabae01be207a056e1b9aa59abbacb3e6c5c50bb48;23/23plain hashes/778621B exact,3105protected/1883oldreports/30archive metadata unchanged. Archive body/member reads0, noQ06 ancestry.
+- Root independently verified locked3hashes, full96769-byte WORKLOGprefix, historicaltodo suffix, every changed oldtop/Q04 value in named prior fields, samecombination identity and unchanged packages/github. Initial read-only PowerShell helper had a provider-qualified path error; explicit UNC corrected the diagnostic, no write or data mismatch. All preservation assertions then passed.
+- Only already-preserved root3WIP reversed via apply_patch after HEAD/master/index/untracked/path/hash/descendant guards; main clean, non-force FFto b37. Bounded HTTP1.1 push/fetch succeeded, HEAD/origin-master bothb37; previous ls-remote had confirmed5791. Exactrun37463863357 attempt1 nowin_progress, not yetaccepted.
+- This post-publication state goes with next normaldelivery, not a status-onlypush. NativeQ04 remains missingyaml/zero newtests; after exactCI gate, scope small existingWindows25 Q04b before Q05a. Q06 archives/publication staypaused, continuous authority preserved, no provider/game/access/install/deploy expansion.
+
+## Q04a complete — exact final CI succeeded
+
+- Exactb37e7ed34e5c9df63d668349436b198bd8b0b27d run37463863357/attempt1 completed/success inall4jobs:QA112269856616,Windows112269856908,Pioneer112269857015,common112269857058. Root checked finalSHA/runattempt andjobmetadata, with matchinglocal/remote readback.
+- Root parsed QA rawlog:419tests in66.448s/OK. All25 qualifiedtest_claim_spans names from publishedGitblob AST appearexactlyonce withok;newskip0/RuntimeWarning-unawaited-exceptionignored matches0. ExistingWindows job success isnotQ04native coverage because it has no newmodule step.
+- This closes boundedQ04a offline content/spanbindingeval, nottruth/humangold/holdout/modelquality/nativeQ04 orwholeReview. Keep originalnative missingyaml/0newtests. Readonly followup confirmed existingWindows install alreadyincludesQA/PyYAML andcore.autocrlf=false; smallestnextsliceQ04b addsone3line step forunchanged25tests, exacthosted names/0skip/alljobs required, thenQ05a explicitseasonlabel isolation.
+- FinalCI facts remain3localcoordinatorWIP fornextnormaldelivery, no status-onlypush. Continuoushuman authority andQ06archive/publicationpause remain;no newmodelcost/credentials/persistentaccess/game/installation/deployment authority.
+
+## Q04b selected after Q04a exact gate closure
+
+- Root independently inspected existingWindows dependency/step wiring and readonlyaudit confirmed QA declaresPyYAML; existingHosted job suffices without adding dependencies, runners, jobs or permissions. Its missingtest_claim_spans step is a real native coverage gap. Choose Q04b before largerQ05a, keeping Q04a's original0tests environmentblock intact.
+- Contractb41aae48bd0b14fdb2ea343183d4cecce253d94d onreused cleanroot codex/q04b-native-claim-spans-20261006 frompublishedb37. Only3newworkflow lines permitted afterH09/beforeDesktopdeps; packages e849 unchanged. Currentv3 isdb72, notpreQ04a480a. FinalexactHosted25names/0skip/exit0/all4jobs required, notLinux/mock/oldSHA substitution.
+- Reused reviewer andauthor restarted withfollowup_task onisolatedbranches; reviewer freezesplan first, authorbaselineprepares onlyuntilrelease. Main3WIP carryQ04a finalCI andremainroot-owned. Continuousauthority/Q06pause maintained; no newgame/provider/access/deploy orlocalinstallation path.
+
+## Q04b fixed code — self-test and independent review running
+
+- Reviewerplan64666ca0653a09a9e41e0861ce0ace292ea60044 frozen andfullyread before authorrelease. Codeebcd5d12546dc66044d0485089a10e2bdc43e4a8/treee6244518555af134d97c7b952be286b71500ac04 thenfixed. Root read exact3line difference, requiredposition, diff-check andpackages e849 unchanged; notyetfinalapproval.
+- Author self-tests andindependentCR nowparallel onfixedsource; code/reportSHA separated. Integration prepared8lanes usingexistinglightweightpattern, notQ04a public9/oldlargecomparisonmatrix. Native remainsfinalHosted25/0skip/all4 pending, no local dependency exploration. Main3WIP stillpreserveQ04a finalCI andQ06pause.
+
+## Q04b author report delivered
+
+- Authorreporta9abfee3290406c3d8e9fc54da200b3ecb1f4a02 isdocs-only aftercodeebcd5d1; rootreadentirereport andcheckedpackages/.github zero post-testdifference. New25/old23/QA419 passed0skip, realCLI12 andexpectedcreate-only/v1/v2 refusals preserved;v3 wholedb72unchanged.553QAinputs Gitbytesverified, wholeworkflow inversebytes/YAML equalb37,25AST andtestbytes unchanged.
+- Reviewer reports independently matchingfinitechecks withoutproductfinding,nowcrosschecksimmutableauthorrawlogs beforefinalreport. This isnotyetfinalCR/candidate/nativeacceptance. No newscope orlocaldependency exploration;Q06stayspaused.
+
+## Q04b code/wiring APPROVE — exact combination handed over
+
+- Rootreadentireindependentreport206e47477bf08671fa86d4d94ce9522fb5fdecb0:fixedebcd/treee624451 approvedsource/wiring/Linux, nofindings;899inputGitbytes/25AST+actualnames,25/23/QA419/CLI12/no-clobber/v1v2refusals/v3db72 andauthor8rawhashes agree. FinalHostednative remainsseparatependinggate.
+- Cleanrootbranch FFauthora9ab thenmergedreview206 into658be762abf192799e4b4711b8b85d05f0c79ea9/tree09f146c54cd15d7290ba2136a6e80b42058ad918. Packages e849545fc31473d68835618c2c13ec44c35788c0 unchanged;github60cbfa8ec001678a08d3c38a14a875c37c938393 carriesonly3step lines. No master/push yet.
+- Integrationverifier receives solewriteownership ofrootisolatedtree for8lane exactcombo, thenmain3readonlyhashlock/losslessmigration/singlecandidate. Rootstopseditingmain3WIP duringhandoff;preserveQ04a finalCI andsmallpriorfields only. Q06paused/false, no archives/provider/game/install/access/deploy expansion.
+
+## Q04b exact combination passed — publication candidate
+
+- Fixed source658be762abf192799e4b4711b8b85d05f0c79ea9/tree09f146c54cd15d7290ba2136a6e80b42058ad918 independently passed claim25,QA419,Pioneer1083+2oldskip,common2,H07-35,H10-32-Werror,H09 eight real CLI cases,v3 whole db72e1c3616cadb2062c86a676596c21f1412dfa3ce6691a8f22c9576a259aec. Eight lanes exit0;899 ordinary Git inputs before/after equal;25 qualified names exactly match unchanged AST/testbytes. Workflow inverse bytes and YAML equal publishedb37;packages=e849 unchanged. Full matrix is not claimed warning-free; original QA warnings retained, causal32 specified warning check clear.
+- Evidence docs/test-reports/2026-10-06/Q04b-integration.md with13 bounded plain files+manifest031e1afd1a1ea133932ad78f0a1e3416e7d422e33c3d0199cce992153ce77b83.3182 protected old paths/1891 report paths compared by Git metadata only;no archive content access/new archive. No Q04a public9 or old contrast matrix rerun;no local native exploration/install/mock.
+- Full main WIP migrated read-only:state539166b76732d3cbe3014a43fc9adde136da2f9669f69bec3f75b9ceff70e6df;WORKLOG1a38cc1a75fad24009652b8d78947293faf65733568764a42588ebce48f4871f;todo2ecb7a36794bfd92dd031e555fe059946f3591a73704b8031e0861456deee750. Full WORKLOG prefix/todo history/Q04a exactCI37463863357/continuousauthority/permissions retained,small prior fields only. Mainb37 and original three WIP untouched.
+- Candidate awaits root finalpayload/publication/exactHosted Windows25 names eachok/0skip/exit0 and same-run all4jobs;Linux green is notnative acceptance. Prior missingyaml/0tests remains historical. Then continue bounded Q05a under continuing authority;Q06 archives/publication paused_by_user/false and provider-cost/credentials/access/game/deploy restrictions unchanged. No push/mastermerge/status-only successor here.

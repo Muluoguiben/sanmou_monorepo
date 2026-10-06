@@ -1,5 +1,13 @@
 # Todo List
 
+## Active Review continuation — Q04b native claim-span CI (2026-10-06)
+
+- [x] Q04a exact b37/run37463863357 all4jobs passed; new25 validated inLinux QA rawlog, native gap remains. Freeze [contract](docs/qa-native-claim-spans-q04b-2026-10-06.md) atb41aae48bd0b14fdb2ea343183d4cecce253d94d; reuse clean author/reviewer worktrees.
+- [x] Independentplan64666ca frozen/read before release; fixedcodeebcd5d1/treee624451 adds exact3lines atrequired position, rootdiff-check/packages e849 verified. No package/dependency/runner/job/permission changes or local dependency probing.
+- [x] Authora9ab andindependent206e474 approve fixedebcd forcode/wiring/Linux;25/23/QA419,CLI/oldrefusals/v3db72 and8rawhashes checked. Nativepending, no productionchange.
+- [x] Exactcombo658be762abf192799e4b4711b8b85d05f0c79ea9/tree09f146c,packages=e849/github=60cbfa8 passed8lanes:25/QA419/Pioneer1083+2skip/common2/H07-35/H10-32/H098/v3db72;899Gitinputs unchanged,workflow inverse bytes+YAML=b37,25names exact. [Report](docs/test-reports/2026-10-06/Q04b-integration.md);singlecandidate awaits finalpayload/publish/exactCI,not nativepassed.
+- [ ] Exactcombo/payload/publish and finalHosted25names/0skip/exit0/all4jobs; prior native missingyaml/0tests remains historical, not acceptance. CarryQ04a finalCI threeWIP in normaldelivery; Q06archive reading/publication paused. Continue Q05a only after this gate.
+
 ## Active Review continuation — Q04a evidence spans (2026-10-06)
 
 - [x] H10b exactnative32/0skip/warningfree/alljobs complete; choose nextboundedofflineQ04a and freeze [contract](docs/qa-claim-spans-q04a-2026-10-06.md) at9e35b34e2540923bd7b253f71b3d1f49da1093fb frompublished5791.
@@ -7,7 +15,8 @@
 - [x] Initialcode676ac1e adds standalone claim-span module,25tests/12syntheticcontrols only; author report0530fbb binds source/tree and full matrix. Oldscorer/production/KB unchanged; nativeQ04 untested, independentCR still pending. Mechanical span validity never grants supported/human-reviewed truth.
 - [x] Source-bound author0530 and independent962408d APPROVE fixed676ac/tree16b74 in Linux/offline scope. Public5/CLI4 and fullmatrix pass; reviewer-only firstred/audit corrections retained. NativeQ04 attempted but blocked at missingyaml before any newtest, not a pass.
 - [x] Exactcombo7562b425aa0dd88882f14205399f2f7a8694b46d/treef95667e packages=e849/github=29fca independently passed new25/old23/public5/integration4/H07-35/H10-32/QA419/Pioneer1083+2skip/common2/newCLI12/H098;899 Git inputs unchanged. Legacy v3 differs only exact new eval_source entry+digest; v1/v2 expected refusals preserved. See [integration report](docs/test-reports/2026-10-06/Q04a-integration.md).
-- [ ] Single publication candidate awaits final payload audit/publish/exact CI; native Q04 remains environment-blocked (missingyaml,0 newtests), not passed. Continue next scoped offline route under verified continuous authority; Q04b Windows25 then Q05a label isolation are proposed only.
+- [x] Candidate b37e7ed34e5c9df63d668349436b198bd8b0b27d passed finalpayload161objects/23artifact hashes, root lossless-WIP checks, master FF/push and explicit remote readback.
+- [x] Exact run37463863357/attempt1 onb37e7ed all4jobs success. QAjob112269856616 rawlog419pass/66.448s,25new qualifiednames exactly matchGitAST,0skip/no warnings. [Final CI](https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/37463863357). Q04a boundedoffline/Linux closed; nativeQ04 remains environment-blocked, next independent Q04b Windows25 gate thenQ05a, no local dependency installation.
 - CarryH10bfinalCIthreeWIPfiles innextnormaldelivery. Q06archives/publication remainpaused;realprovidercost/credentials/persistentaccess/game/deploy remainoutofscope. Continueunderverifiedcontinuousauthority.
 
 ## Active Review continuation — H10b native causal trace (2026-10-06)

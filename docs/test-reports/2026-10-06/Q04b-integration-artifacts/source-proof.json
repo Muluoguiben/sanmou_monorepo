@@ -1,0 +1,100 @@
+{
+  "source": "658be762abf192799e4b4711b8b85d05f0c79ea9",
+  "tree": "09f146c54cd15d7290ba2136a6e80b42058ad918",
+  "baseline": "b37e7ed34e5c9df63d668349436b198bd8b0b27d",
+  "ordinary_inputs": 899,
+  "before_digest": "de07a802132123f594587f905033d36b612d7c51dc2597b98253eeb75cf200f2",
+  "protected_metadata_paths": 3182,
+  "old_report_paths": 1891,
+  "archive_content_reads": 0,
+  "helper_git_bytes_verified": true,
+  "original_helper_sha256": "565f241bf2c1fd6c31b40d0c5c49ce26f1a406998589ba439a8071db49dd4bfe",
+  "adapted_helper_sha256": "e36b681311fac9082fad01f640f87a4d9f7a5663442725da0df46053b4776613",
+  "replacements": [
+    [
+      "c8b096edc5fce6c87e83198b871ab5c576add1db",
+      "b37e7ed34e5c9df63d668349436b198bd8b0b27d"
+    ],
+    [
+      "a45949233dfc666b91fdbf756b8666d96d93fde3",
+      "b37e7ed34e5c9df63d668349436b198bd8b0b27d"
+    ],
+    [
+      "3d1c4a78faf912f522be764454762601aa1f7409",
+      "e849545fc31473d68835618c2c13ec44c35788c0"
+    ],
+    [
+      "changed = git(\"diff\", \"--name-only\", BASE, CODE).decode().splitlines()",
+      "changed = git(\"diff\", \"--name-only\", BASE, CODE, \"--\", \"packages\", \"scripts\", \".github\").decode().splitlines()"
+    ],
+    [
+      "Windows H10b causal trace v2",
+      "Windows Q04b claim span evaluation"
+    ],
+    [
+      "working-directory: packages/pioneer-agent/tests",
+      "working-directory: packages/qa-agent"
+    ],
+    [
+      "python -W error::RuntimeWarning -m unittest test_causal_trace -v",
+      "python -B -m unittest discover -s tests -p 'test_claim_spans.py' -v"
+    ],
+    [
+      "\"working-directory\": \"packages/pioneer-agent/tests\"",
+      "\"working-directory\": \"packages/qa-agent\""
+    ],
+    [
+      "assert steps[index - 1][\"name\"] == \"Windows H07a synthetic approval lifecycle\"",
+      "assert steps[index - 1][\"name\"] == \"Windows H09b offline task evaluation\""
+    ],
+    [
+      "assert steps[index + 1][\"name\"] == \"Windows H09b offline task evaluation\"",
+      "assert steps[index + 1][\"name\"] == \"Desktop dependencies\""
+    ],
+    [
+      "\"packages/sanmou-common/src\", \"packages/pioneer-agent/tests\"",
+      "\"packages/sanmou-common/src\", \"packages/pioneer-agent/tests\", \"packages/pioneer-agent/tests/unit\""
+    ],
+    [
+      "PY = [sys.executable]",
+      "PY = [sys.executable, \"-B\"]\nrun(\"claim-module\", PY + [\"-m\", \"unittest\", \"discover\", \"-s\", \"tests\", \"-p\", \"test_claim_spans.py\", \"-v\"], ROOT / \"packages/qa-agent\")"
+    ],
+    [
+      "480a448fd7abecfba2f6cd4eb32a46873ff0b8127b6251cd8aeea5e4fe2e82c8",
+      "db72e1c3616cadb2062c86a676596c21f1412dfa3ce6691a8f22c9576a259aec"
+    ],
+    [
+      "pending exact-final-SHA Hosted Windows causal32/0skip and warning-free logs; no local native execution/install/mock",
+      "pending exact-final-SHA Hosted Windows claim25/0skip/exact names and all four jobs; no local native execution/install/mock"
+    ]
+  ],
+  "test_sha256": "d0a97ce4b4eb821a81b1e681df791a824a7bae9ef71b4935251177ac57c16e74",
+  "test_ast_sha256": "e79f2c9ed5d98383633abce2f22ed1ccc07ef5c02f6b21355a7cf1e818dd21d2",
+  "qualified_names": [
+    "test_claim_spans.ClaimSpanTests.test_answer_gaps_overlaps_and_bool_coordinates",
+    "test_claim_spans.ClaimSpanTests.test_bad_or_absent_citations_remain_scored",
+    "test_claim_spans.ClaimSpanTests.test_bare_cr_and_unencodable_text_rejected_everywhere",
+    "test_claim_spans.ClaimSpanTests.test_codepoint_link_can_address_emoji_and_combining_character",
+    "test_claim_spans.ClaimSpanTests.test_context_answer_evidence_and_label_hash_drift",
+    "test_claim_spans.ClaimSpanTests.test_corpus_strictness_duplicates_and_unreviewed_allowed",
+    "test_claim_spans.ClaimSpanTests.test_drift_during_scoring_rejected",
+    "test_claim_spans.ClaimSpanTests.test_duplicate_json_keys_and_bare_cr_file_rejected",
+    "test_claim_spans.ClaimSpanTests.test_evidence_mapping_and_entry_id_validation",
+    "test_claim_spans.ClaimSpanTests.test_frozen_controls_and_no_network",
+    "test_claim_spans.ClaimSpanTests.test_frozen_fixture_drift_rejected",
+    "test_claim_spans.ClaimSpanTests.test_generic_human_label_is_only_unauthenticated_declaration",
+    "test_claim_spans.ClaimSpanTests.test_link_bad_identity_hash_offsets_and_exact_duplicate",
+    "test_claim_spans.ClaimSpanTests.test_no_unicode_normalization_or_strip",
+    "test_claim_spans.ClaimSpanTests.test_nonclaim_and_supported_link_rules",
+    "test_claim_spans.ClaimSpanTests.test_partial_citation_remains_in_all_claims_denominator",
+    "test_claim_spans.ClaimSpanTests.test_real_cli_create_only_and_explicit_version",
+    "test_claim_spans.ClaimSpanTests.test_same_id_multiple_spans_do_not_inflate_claim_denominator",
+    "test_claim_spans.ClaimSpanTests.test_strict_annotation_segment_and_link_fields",
+    "test_claim_spans.ClaimSpanTests.test_unicode_crlf_normalized_before_all_binding_and_offsets",
+    "test_claim_spans.ClaimSpanTests.test_unknown_unreviewed_and_zero_denominators",
+    "test_claim_spans.ClaimSpanTests.test_utf16_byte_or_grapheme_offsets_not_repaired",
+    "test_claim_spans.ClaimSpanTests.test_valid_links_are_not_semantic_support",
+    "test_claim_spans.ClaimSpanTests.test_versions_types_and_enum_values",
+    "test_claim_spans.ClaimSpanTests.test_wrong_package_and_mixed_module_origins_rejected"
+  ]
+}
