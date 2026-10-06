@@ -1,0 +1,53 @@
+test_approved_reobserves_before_policy_and_never_grants_authority (test_task_approval.ApprovalLifecycleTests.test_approved_reobserves_before_policy_and_never_grants_authority) ... FAIL
+test_cli_short_circuits_before_connection (test_task_approval.ApprovalLifecycleTests.test_cli_short_circuits_before_connection) ... Executing <Task finished name='Task-7' coro=<ApprovalLifecycleTests.test_cli_short_circuits_before_connection() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_task_approval.py:258> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.155 seconds
+ok
+test_deadline_and_tool_quota_restore_without_dispatch (test_task_approval.ApprovalLifecycleTests.test_deadline_and_tool_quota_restore_without_dispatch) ... ok
+test_deny_expiry_rollback_cancel_and_terminal_refuse (test_task_approval.ApprovalLifecycleTests.test_deny_expiry_rollback_cancel_and_terminal_refuse) ... ok
+test_every_response_binding_is_exact (test_task_approval.ApprovalLifecycleTests.test_every_response_binding_is_exact) ... Executing <Task finished name='Task-22' coro=<ApprovalLifecycleTests.test_every_response_binding_is_exact() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_task_approval.py:136> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.181 seconds
+ok
+test_explicit_opt_in_and_policy_cannot_fill_binding (test_task_approval.ApprovalLifecycleTests.test_explicit_opt_in_and_policy_cannot_fill_binding) ... ok
+test_fresh_goal_can_finish_before_policy (test_task_approval.ApprovalLifecycleTests.test_fresh_goal_can_finish_before_policy) ... ok
+test_revalidation_replay_time_identity_evidence_and_stop_reject_before_policy (test_task_approval.ApprovalLifecycleTests.test_revalidation_replay_time_identity_evidence_and_stop_reject_before_policy) ... Executing <Task finished name='Task-37' coro=<ApprovalLifecycleTests.test_revalidation_replay_time_identity_evidence_and_stop_reject_before_policy() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_task_approval.py:180> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.208 seconds
+ok
+test_same_frame_hash_is_allowed_with_new_observation (test_task_approval.ApprovalLifecycleTests.test_same_frame_hash_is_allowed_with_new_observation) ... ok
+test_save_failures_preserve_original_and_no_followup (test_task_approval.ApprovalLifecycleTests.test_save_failures_preserve_original_and_no_followup) ... ok
+test_stop_condition_priority_and_ordinary_pause_unchanged (test_task_approval.ApprovalLifecycleTests.test_stop_condition_priority_and_ordinary_pause_unchanged) ... ok
+test_waiting_normal_resume_fresh_runner_and_pause_are_noops (test_task_approval.ApprovalLifecycleTests.test_waiting_normal_resume_fresh_runner_and_pause_are_noops) ... ok
+test_actual_process_crash_after_consumption_fresh_runner_fails_without_calls (test_task_approval.ApprovalProcessTests.test_actual_process_crash_after_consumption_fresh_runner_fails_without_calls) ... ok
+test_actual_process_race_only_one_consumes (test_task_approval.ApprovalProcessTests.test_actual_process_race_only_one_consumes) ... ok
+test_cas_version_and_terminal_cannot_regress (test_task_approval.ApprovalStorageTests.test_cas_version_and_terminal_cannot_regress) ... ok
+test_timestamp_naive_and_authority_are_rejected (test_task_approval.ApprovalStorageTests.test_timestamp_naive_and_authority_are_rejected) ... ok
+test_v1_exact_fields_and_legacy_flat_envelope_load_does_not_rewrite (test_task_approval.ApprovalStorageTests.test_v1_exact_fields_and_legacy_flat_envelope_load_does_not_rewrite) ... ok
+test_v2_roundtrip_strict_versions_states_and_old_model_rejects (test_task_approval.ApprovalStorageTests.test_v2_roundtrip_strict_versions_states_and_old_model_rejects) ... ok
+test_cli_real_services_and_terminal_restart_without_connection (test_task_cli.TaskCliTests.test_cli_real_services_and_terminal_restart_without_connection) ... Executing <Task finished name='Task-80' coro=<TaskCliTests.test_cli_real_services_and_terminal_restart_without_connection() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_task_cli.py:36> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.564 seconds
+ok
+test_qa_questions_not_silently_ignored (test_task_cli.TaskCliTests.test_qa_questions_not_silently_ignored) ... ok
+test_task_paths_required_before_any_connection (test_task_cli.TaskCliTests.test_task_paths_required_before_any_connection) ... ok
+
+======================================================================
+FAIL: test_approved_reobserves_before_policy_and_never_grants_authority (test_task_approval.ApprovalLifecycleTests.test_approved_reobserves_before_policy_and_never_grants_authority)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/unittest/async_case.py", line 90, in _callTestMethod
+    if self._callMaybeAsync(method) is not None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/async_case.py", line 112, in _callMaybeAsync
+    return self._asyncioRunner.run(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_task_approval.py", line 110, in test_approved_reobserves_before_policy_and_never_grants_authority
+    self.assertEqual(result.status, "succeeded")
+AssertionError: 'failed' != 'succeeded'
+- failed
++ succeeded
+
+
+----------------------------------------------------------------------
+Ran 21 tests in 7.639s
+
+FAILED (failures=1)
