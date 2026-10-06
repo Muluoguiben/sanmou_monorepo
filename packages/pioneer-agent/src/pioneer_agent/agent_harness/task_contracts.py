@@ -200,6 +200,7 @@ class SyntheticApprovalResponse(ContractModel):
 
 class SyntheticApprovalRecord(ContractModel):
     request: SyntheticApprovalRequest
+    last_checked_at: datetime
     response: SyntheticApprovalResponse | None = None
     consumed_at: datetime | None = None
     revalidated_observation_id: str | None = None
@@ -215,6 +216,9 @@ class SyntheticApprovalRunState(RunState):
     def consistent_lifecycle(self):
         item = self.approval
         request = item.request
+        if (item.last_checked_at.tzinfo is None or item.last_checked_at.utcoffset() is None
+                or not request.created_at <= item.last_checked_at < request.expires_at):
+            raise ValueError("approval clock watermark mismatch")
         if request.run_id != self.run_id or request.observation_id not in self.observation_ids:
             raise ValueError("approval checkpoint binding mismatch")
         if item.response is None:
@@ -237,7 +241,8 @@ class SyntheticApprovalRunState(RunState):
             consumed = item.consumed_at
             if consumed.tzinfo is None or consumed.utcoffset() is None:
                 raise ValueError("approval timestamps must be aware")
-            if not request.created_at <= item.response.responded_at <= consumed < request.expires_at:
+            if (not request.created_at <= item.response.responded_at <= consumed < request.expires_at
+                    or consumed < item.last_checked_at):
                 raise ValueError("approval consumption time mismatch")
             if item.response.decision == "deny":
                 allowed = {"failed"}
