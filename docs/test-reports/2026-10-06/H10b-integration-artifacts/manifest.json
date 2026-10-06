@@ -1,0 +1,51 @@
+{
+  "source": "ed158e35a34c80aa99be2597bdddc300a6cff62f",
+  "tree": "3f1223fbd43b54948c169cf55f562e0522c2bfe3",
+  "files": {
+    "causal-module.log": {
+      "bytes": 6208,
+      "sha256": "6fa7cd8dbb1e2e3b743715a3e2e1cf86bfce3282c68b4d559b3b2c3191a790fe"
+    },
+    "h07a-module.log": {
+      "bytes": 8407,
+      "sha256": "6b0536ac7b13696dff3603ddb1576a318875de09353a5bf91454aa2c1da4edf2"
+    },
+    "pioneer-agent-full.log": {
+      "bytes": 343644,
+      "sha256": "0f8f09f86da4569814d5cfd31d607bee79bf7bc937d8bf6171c6ea0880a19fbf"
+    },
+    "qa-agent-full.log": {
+      "bytes": 65588,
+      "sha256": "90ce087c5fbe0284205709e87bb4e7652c8532dfc899d4e9e23773f2722f8f3d"
+    },
+    "sanmou-common-full.log": {
+      "bytes": 335,
+      "sha256": "7e9438edca6c90738e3f3983beb89cc2e47795af9815f716b6f41a24af9285f3"
+    },
+    "h09-cli.log": {
+      "bytes": 251,
+      "sha256": "2cd893750ba33b0f14715c3e9c4f58e9ea4a236376a80625e473f7cea1109fa9"
+    },
+    "qa-v3.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "summary.json": {
+      "bytes": 12994,
+      "sha256": "4b83e02bb39158862805f27f8f86e7c6b394f116a96e72daa0fae8052b919a4e"
+    },
+    "h09-report.json": {
+      "bytes": 275861,
+      "sha256": "b6bf2a3886835ac1b38e7e7f280eb54cc7eaaa1ac8e49b31000b4817116fef24"
+    },
+    "verify.py": {
+      "bytes": 6096,
+      "sha256": "aa2e40b9d094d4013ec70aac49493dc0ea0a09b7105dd7744d643c51c15b79da"
+    }
+  },
+  "archive_reads": 0,
+  "archives_created": 0,
+  "native": "pending_final_Hosted32_0skip_warningfree_alljobs",
+  "external_h09_root": "/tmp/h10b-integration-ed158e3-20261006/run/h09-cli",
+  "external_qa_v3": "/tmp/h10b-integration-ed158e3-20261006/run/qa-v3.json"
+}

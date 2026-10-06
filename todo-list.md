@@ -1,12 +1,21 @@
 # Todo List
 
+## Active Review continuation — H10b native causal trace (2026-10-06)
+
+- [x] Confirm native gap on publisheda459: Windows job omits test_causal_trace32. Freeze [contract](docs/harness-native-causal-trace-h10b-2026-10-06.md) at c8b096edc5fce6c87e83198b871ab5c576add1db; reuse completed author/reviewer, both restarted/running without duplicate development sessions.
+- [x] Fixedcodee062adb7dd45d10bb579165a56f1c0d3ccf901d1/author3b31752ecd5c566c8e995c14834c6b736d71f776/independentbc0511bb5cd8bd2a463ccf41019e81ca4e6f0985 scopedwiring+LinuxAPPROVE. Sole3line step;wholeYAML/bytes reverse-exact,packages3d1c and32assertions unchanged.
+- [x] Exactcomboed158e35a34c80aa99be2597bdddc300a6cff62f sevenlanespass:causal32(-Werror)/0skip/no warnings/32actualnames match,H0735,Pioneer1083+2skip,QA394/common2,H09/v3unchanged. [Compact source-bound report](docs/test-reports/2026-10-06/H10b-integration.md).
+- [ ] Singlepublicationcandidate awaitsfinalaudit/FF/push/exactSHA Hostednative32/0skip/warningfree/exit0/all4jobs actualrawlog proof. Linux oroldH07Windows35 doesnotcloseH10nativegap;afterthisgate continue nextboundedofflineReview slice underpreservedcontinuousauthority.
+- Continue the next feasible existing offline slice after this gate, under directly verified continuous-iteration/supervision authorization. Preserve H10a post-CI three-file WIP in normal delivery. Q06archive reading/publication stayspaused; provider cost/credentials/persistentaccess/game/deployment boundaries unchanged.
+
 ## Active Review continuation — H10a causal trace (2026-10-06)
 
 - [x] Select bounded offline H10a after H07a/native35 final CI: [contract](docs/harness-causal-trace-h10a-2026-10-06.md), commit358df146ba184a771d3673428915a70fe8aa4c9c; basepublishedae03.
 - [x] Interface memo34242e0cefa8fe4decab38bc1adb010055711a7e and independent planfda28a5aeb370b8f032dfe04e0acb094d00811dd frozen; root/reviewer approved explicit trace-error propagation, original-primary precedence and per-lifetime isolation before implementation.
 - [x] Finalcode2128fb88329b1a38b410ad63e09c37034d08e8c7/author762855b6488bf1f0650bba6f6263597638b87fd8 and independent2313e78ac72888470f66a6ee3ccf121010a85492 scopedAPPROVE closeF1-F4+ambient; originals/R1-R3reds preserved. Defaultv1/checkpoint/approval/budget/MCP/QA/common/CI unchanged.
 - [x] Exactcombo4e3fb5c82b7e6f1b36698918731ed52c8fd46117 passed8frozenprobes/fullv1oracle,causal32/focused177/H07a35/Pioneer1083+2skip/QA394/common2/H09/v3. Fresh27events dualsink/ledger3-12-0/graph/task-contextdigests agree;memory equality is runtimeassertion,notsecondpersistedcopy. [Source-bound report](docs/test-reports/2026-10-06/H10a-integration.md).
-- [ ] One plain-evidence/coordinator candidate awaits finalpayload audit,authorizedpublication/exactfinalCI. H10native not_executed;oldH07Windows35 is notH10coverage. No model/game/bridge/install/runtime-framework expansion orstatus-onlysuccessor.
+- [x] H10-only candidate `a45949233dfc666b91fdbf756b8666d96d93fde3` passed final payload audit, was pushed to master, and explicit remote fetch/readback matches.
+- [x] Exact final CI run37437969165/attempt1 completed/success inall4jobs for a459. Pioneer rawlog1085total/2existing skips,all32newcausaltests explicitlyok;existingWindows H07/H09/Desktop/package steps passed. [Final CI](https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/37437969165). H10native remainsnot_executed;boundedH10a iscomplete,notallReview/production. Final-CI facts staylocal fornextnormaldelivery,notstatus-onlypush.
 - Q06a archive reading and publication remain paused_by_user; do not read historical archive members/bodies or inherit its unpublished payload. Preserve the three existing H07 post-CI coordination updates with this normal delivery.
 
 ## H07a follow-up: durable recovery and native gate (2026-10-06)
