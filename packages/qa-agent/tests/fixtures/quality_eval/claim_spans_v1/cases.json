@@ -1,0 +1,836 @@
+{
+  "protocol": "qa-claim-spans/v1",
+  "normalization": "utf8-crlf-to-lf-codepoint-v1",
+  "split": "development",
+  "synthetic": true,
+  "label_origin": "developer-authored",
+  "cases": [
+    {
+      "id": "unicode-crlf-supported",
+      "context": "甲的上限？\r\n仅回答甲。",
+      "answer": "甲🙂é\r\n上限20。[a]",
+      "evidence": {
+        "a": "甲🙂é\r\n上限20。"
+      },
+      "annotation": {
+        "protocol": "qa-claim-spans/v1",
+        "normalization": "utf8-crlf-to-lf-codepoint-v1",
+        "context_sha256": "29aac868ae5e2f41f894456166a90fb70b7ec91fa68f0efbc4465981535b3a1d",
+        "answer_sha256": "48ec1eae2bdf5ef618ead9056e47c91911b8306b09e01e10ae7483cbac23509b",
+        "evidence_sha256": {
+          "a": "3869966a9b390a612c2f5cd391471e344802e5e399b2132ff8de866a5d3625a7"
+        },
+        "review_status": "developer-authored",
+        "source": "synthetic-development-control",
+        "reviewer": "developer-authored-not-human-gold",
+        "context_verdict": "unknown",
+        "segments": [
+          {
+            "start": 0,
+            "end": 13,
+            "verdict": "supported",
+            "support_spans": [
+              {
+                "entry_id": "a",
+                "content_sha256": "3869966a9b390a612c2f5cd391471e344802e5e399b2132ff8de866a5d3625a7",
+                "start": 0,
+                "end": 9
+              }
+            ]
+          }
+        ]
+      },
+      "annotation_sha256": "efd745f6e6965b98bfe2960c08f20f8a40cbd5a85b4dbe7320e619323b6ef719",
+      "expected": {
+        "mechanical": {
+          "valid_links": {
+            "numerator": 1,
+            "denominator": 1,
+            "value": 1.0
+          }
+        },
+        "semantic": {
+          "review_status": "developer-authored",
+          "claims": 1,
+          "unjudged_claims": 0,
+          "citation_id_validity": {
+            "numerator": 1,
+            "denominator": 1,
+            "value": 1.0
+          },
+          "claim_support": {
+            "numerator": 1,
+            "denominator": 1,
+            "value": 1.0
+          },
+          "supported_citation_completeness": {
+            "numerator": 1,
+            "denominator": 1,
+            "value": 1.0
+          },
+          "context_correctness": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "semantic_method": "external-span-adjudication; no automatic entailment"
+        }
+      }
+    },
+    {
+      "id": "multiple-spans-one-id",
+      "context": "甲的上限？\r\n仅回答甲。",
+      "answer": "甲上限20。[a]",
+      "evidence": {
+        "a": "甲🙂é\r\n上限20。"
+      },
+      "annotation": {
+        "protocol": "qa-claim-spans/v1",
+        "normalization": "utf8-crlf-to-lf-codepoint-v1",
+        "context_sha256": "29aac868ae5e2f41f894456166a90fb70b7ec91fa68f0efbc4465981535b3a1d",
+        "answer_sha256": "28a54b9fc111dba8dcb49ae1fa67e608df78132309f0e2f236f1dbfb76be8c63",
+        "evidence_sha256": {
+          "a": "3869966a9b390a612c2f5cd391471e344802e5e399b2132ff8de866a5d3625a7"
+        },
+        "review_status": "developer-authored",
+        "source": "synthetic-development-control",
+        "reviewer": "developer-authored-not-human-gold",
+        "context_verdict": "unknown",
+        "segments": [
+          {
+            "start": 0,
+            "end": 9,
+            "verdict": "supported",
+            "support_spans": [
+              {
+                "entry_id": "a",
+                "content_sha256": "3869966a9b390a612c2f5cd391471e344802e5e399b2132ff8de866a5d3625a7",
+                "start": 0,
+                "end": 1
+              },
+              {
+                "entry_id": "a",
+                "content_sha256": "3869966a9b390a612c2f5cd391471e344802e5e399b2132ff8de866a5d3625a7",
+                "start": 5,
+                "end": 9
+              }
+            ]
+          }
+        ]
+      },
+      "annotation_sha256": "4de4d3ad577190e362cddeed6f49624af56e53065ad9f70d3374bdc54f19da69",
+      "expected": {
+        "mechanical": {
+          "valid_links": {
+            "numerator": 2,
+            "denominator": 2,
+            "value": 1.0
+          }
+        },
+        "semantic": {
+          "review_status": "developer-authored",
+          "claims": 1,
+          "unjudged_claims": 0,
+          "citation_id_validity": {
+            "numerator": 1,
+            "denominator": 1,
+            "value": 1.0
+          },
+          "claim_support": {
+            "numerator": 1,
+            "denominator": 1,
+            "value": 1.0
+          },
+          "supported_citation_completeness": {
+            "numerator": 1,
+            "denominator": 1,
+            "value": 1.0
+          },
+          "context_correctness": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "semantic_method": "external-span-adjudication; no automatic entailment"
+        }
+      }
+    },
+    {
+      "id": "wrong-number",
+      "context": "甲的上限？\r\n仅回答甲。",
+      "answer": "甲上限99。[a]",
+      "evidence": {
+        "a": "甲🙂é\r\n上限20。"
+      },
+      "annotation": {
+        "protocol": "qa-claim-spans/v1",
+        "normalization": "utf8-crlf-to-lf-codepoint-v1",
+        "context_sha256": "29aac868ae5e2f41f894456166a90fb70b7ec91fa68f0efbc4465981535b3a1d",
+        "answer_sha256": "b30abd39a8b653ee32015d535d17690a398094a671d8f9558e9e2d093db1e12a",
+        "evidence_sha256": {
+          "a": "3869966a9b390a612c2f5cd391471e344802e5e399b2132ff8de866a5d3625a7"
+        },
+        "review_status": "developer-authored",
+        "source": "synthetic-development-control",
+        "reviewer": "developer-authored-not-human-gold",
+        "context_verdict": "unknown",
+        "segments": [
+          {
+            "start": 0,
+            "end": 9,
+            "verdict": "unsupported",
+            "support_spans": [
+              {
+                "entry_id": "a",
+                "content_sha256": "3869966a9b390a612c2f5cd391471e344802e5e399b2132ff8de866a5d3625a7",
+                "start": 5,
+                "end": 9
+              }
+            ]
+          }
+        ]
+      },
+      "annotation_sha256": "c5598255b75f37a3d025edf7a59b60d7f79e2f88e6ec717c8b8f3afa823e381d",
+      "expected": {
+        "mechanical": {
+          "valid_links": {
+            "numerator": 1,
+            "denominator": 1,
+            "value": 1.0
+          }
+        },
+        "semantic": {
+          "review_status": "developer-authored",
+          "claims": 1,
+          "unjudged_claims": 0,
+          "citation_id_validity": {
+            "numerator": 1,
+            "denominator": 1,
+            "value": 1.0
+          },
+          "claim_support": {
+            "numerator": 0,
+            "denominator": 1,
+            "value": 0.0
+          },
+          "supported_citation_completeness": {
+            "numerator": 0,
+            "denominator": 1,
+            "value": 0.0
+          },
+          "context_correctness": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "semantic_method": "external-span-adjudication; no automatic entailment"
+        }
+      }
+    },
+    {
+      "id": "wrong-entity",
+      "context": "甲的上限？\r\n仅回答甲。",
+      "answer": "乙上限20。[a]",
+      "evidence": {
+        "a": "甲🙂é\r\n上限20。"
+      },
+      "annotation": {
+        "protocol": "qa-claim-spans/v1",
+        "normalization": "utf8-crlf-to-lf-codepoint-v1",
+        "context_sha256": "29aac868ae5e2f41f894456166a90fb70b7ec91fa68f0efbc4465981535b3a1d",
+        "answer_sha256": "17dabf2487eaa63e40e0a991939ffe1e6beeeb0af923ae0fda2b9c86ceb64656",
+        "evidence_sha256": {
+          "a": "3869966a9b390a612c2f5cd391471e344802e5e399b2132ff8de866a5d3625a7"
+        },
+        "review_status": "developer-authored",
+        "source": "synthetic-development-control",
+        "reviewer": "developer-authored-not-human-gold",
+        "context_verdict": "unknown",
+        "segments": [
+          {
+            "start": 0,
+            "end": 9,
+            "verdict": "unsupported",
+            "support_spans": [
+              {
+                "entry_id": "a",
+                "content_sha256": "3869966a9b390a612c2f5cd391471e344802e5e399b2132ff8de866a5d3625a7",
+                "start": 0,
+                "end": 9
+              }
+            ]
+          }
+        ]
+      },
+      "annotation_sha256": "3bedd885c8b836519ee1da50d04efdb152e42f63e358515b0581b3af819fda42",
+      "expected": {
+        "mechanical": {
+          "valid_links": {
+            "numerator": 1,
+            "denominator": 1,
+            "value": 1.0
+          }
+        },
+        "semantic": {
+          "review_status": "developer-authored",
+          "claims": 1,
+          "unjudged_claims": 0,
+          "citation_id_validity": {
+            "numerator": 1,
+            "denominator": 1,
+            "value": 1.0
+          },
+          "claim_support": {
+            "numerator": 0,
+            "denominator": 1,
+            "value": 0.0
+          },
+          "supported_citation_completeness": {
+            "numerator": 0,
+            "denominator": 1,
+            "value": 0.0
+          },
+          "context_correctness": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "semantic_method": "external-span-adjudication; no automatic entailment"
+        }
+      }
+    },
+    {
+      "id": "missing-citation",
+      "context": "甲的上限？\r\n仅回答甲。",
+      "answer": "甲上限20。",
+      "evidence": {
+        "a": "甲🙂é\r\n上限20。"
+      },
+      "annotation": {
+        "protocol": "qa-claim-spans/v1",
+        "normalization": "utf8-crlf-to-lf-codepoint-v1",
+        "context_sha256": "29aac868ae5e2f41f894456166a90fb70b7ec91fa68f0efbc4465981535b3a1d",
+        "answer_sha256": "1b070e586487855b2621b2d543c096e4907a6379924586f3997cdfdd23496d9a",
+        "evidence_sha256": {
+          "a": "3869966a9b390a612c2f5cd391471e344802e5e399b2132ff8de866a5d3625a7"
+        },
+        "review_status": "developer-authored",
+        "source": "synthetic-development-control",
+        "reviewer": "developer-authored-not-human-gold",
+        "context_verdict": "unknown",
+        "segments": [
+          {
+            "start": 0,
+            "end": 6,
+            "verdict": "supported",
+            "support_spans": [
+              {
+                "entry_id": "a",
+                "content_sha256": "3869966a9b390a612c2f5cd391471e344802e5e399b2132ff8de866a5d3625a7",
+                "start": 5,
+                "end": 9
+              }
+            ]
+          }
+        ]
+      },
+      "annotation_sha256": "a4b9630ed36925704b3612d877b2f59a2162ea18d6a836cc56c5a20216267c77",
+      "expected": {
+        "mechanical": {
+          "valid_links": {
+            "numerator": 1,
+            "denominator": 1,
+            "value": 1.0
+          }
+        },
+        "semantic": {
+          "review_status": "developer-authored",
+          "claims": 1,
+          "unjudged_claims": 0,
+          "citation_id_validity": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "claim_support": {
+            "numerator": 1,
+            "denominator": 1,
+            "value": 1.0
+          },
+          "supported_citation_completeness": {
+            "numerator": 0,
+            "denominator": 1,
+            "value": 0.0
+          },
+          "context_correctness": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "semantic_method": "external-span-adjudication; no automatic entailment"
+        }
+      }
+    },
+    {
+      "id": "wrong-citation",
+      "context": "甲的上限？\r\n仅回答甲。",
+      "answer": "甲上限20。[absent]",
+      "evidence": {
+        "a": "甲🙂é\r\n上限20。"
+      },
+      "annotation": {
+        "protocol": "qa-claim-spans/v1",
+        "normalization": "utf8-crlf-to-lf-codepoint-v1",
+        "context_sha256": "29aac868ae5e2f41f894456166a90fb70b7ec91fa68f0efbc4465981535b3a1d",
+        "answer_sha256": "44ae64c599f695c3563f53e62922c9856bf905cc5028211ba14834b91166f601",
+        "evidence_sha256": {
+          "a": "3869966a9b390a612c2f5cd391471e344802e5e399b2132ff8de866a5d3625a7"
+        },
+        "review_status": "developer-authored",
+        "source": "synthetic-development-control",
+        "reviewer": "developer-authored-not-human-gold",
+        "context_verdict": "unknown",
+        "segments": [
+          {
+            "start": 0,
+            "end": 14,
+            "verdict": "supported",
+            "support_spans": [
+              {
+                "entry_id": "a",
+                "content_sha256": "3869966a9b390a612c2f5cd391471e344802e5e399b2132ff8de866a5d3625a7",
+                "start": 5,
+                "end": 9
+              }
+            ]
+          }
+        ]
+      },
+      "annotation_sha256": "1d5e74fb0f2c7247253fb0a65c45b0904b7fbf9ef283782c0fcc9419a96e317a",
+      "expected": {
+        "mechanical": {
+          "valid_links": {
+            "numerator": 1,
+            "denominator": 1,
+            "value": 1.0
+          }
+        },
+        "semantic": {
+          "review_status": "developer-authored",
+          "claims": 1,
+          "unjudged_claims": 0,
+          "citation_id_validity": {
+            "numerator": 0,
+            "denominator": 1,
+            "value": 0.0
+          },
+          "claim_support": {
+            "numerator": 1,
+            "denominator": 1,
+            "value": 1.0
+          },
+          "supported_citation_completeness": {
+            "numerator": 0,
+            "denominator": 1,
+            "value": 0.0
+          },
+          "context_correctness": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "semantic_method": "external-span-adjudication; no automatic entailment"
+        }
+      }
+    },
+    {
+      "id": "conflicting-sources",
+      "context": "甲的上限？\r\n仅回答甲。",
+      "answer": "甲上限不确定。[a][b]",
+      "evidence": {
+        "a": "甲上限20。",
+        "b": "甲上限30。"
+      },
+      "annotation": {
+        "protocol": "qa-claim-spans/v1",
+        "normalization": "utf8-crlf-to-lf-codepoint-v1",
+        "context_sha256": "29aac868ae5e2f41f894456166a90fb70b7ec91fa68f0efbc4465981535b3a1d",
+        "answer_sha256": "354288e8289823449f6ade62064c5ef8de6b38d1177caf9492ebaa364ad4a277",
+        "evidence_sha256": {
+          "a": "1b070e586487855b2621b2d543c096e4907a6379924586f3997cdfdd23496d9a",
+          "b": "b7642e5e32a3bdf49a2ad89753220c8a03c3f8906659686ef48b2ecd7c55ea1d"
+        },
+        "review_status": "developer-authored",
+        "source": "synthetic-development-control",
+        "reviewer": "developer-authored-not-human-gold",
+        "context_verdict": "unknown",
+        "segments": [
+          {
+            "start": 0,
+            "end": 13,
+            "verdict": "unknown",
+            "support_spans": [
+              {
+                "entry_id": "a",
+                "content_sha256": "1b070e586487855b2621b2d543c096e4907a6379924586f3997cdfdd23496d9a",
+                "start": 0,
+                "end": 6
+              },
+              {
+                "entry_id": "b",
+                "content_sha256": "b7642e5e32a3bdf49a2ad89753220c8a03c3f8906659686ef48b2ecd7c55ea1d",
+                "start": 0,
+                "end": 6
+              }
+            ]
+          }
+        ]
+      },
+      "annotation_sha256": "11bfb81369846e74e03eb2735d97c9157fc61fbbc1653c6a79e3e019c4e3de06",
+      "expected": {
+        "mechanical": {
+          "valid_links": {
+            "numerator": 2,
+            "denominator": 2,
+            "value": 1.0
+          }
+        },
+        "semantic": {
+          "review_status": "developer-authored",
+          "claims": 1,
+          "unjudged_claims": 1,
+          "citation_id_validity": {
+            "numerator": 2,
+            "denominator": 2,
+            "value": 1.0
+          },
+          "claim_support": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "supported_citation_completeness": {
+            "numerator": 0,
+            "denominator": 1,
+            "value": 0.0
+          },
+          "context_correctness": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "semantic_method": "external-span-adjudication; no automatic entailment"
+        }
+      }
+    },
+    {
+      "id": "unreviewed",
+      "context": "甲的上限？\r\n仅回答甲。",
+      "answer": "甲上限20。[a]",
+      "evidence": {
+        "a": "甲🙂é\r\n上限20。"
+      },
+      "annotation": {
+        "protocol": "qa-claim-spans/v1",
+        "normalization": "utf8-crlf-to-lf-codepoint-v1",
+        "context_sha256": "29aac868ae5e2f41f894456166a90fb70b7ec91fa68f0efbc4465981535b3a1d",
+        "answer_sha256": "28a54b9fc111dba8dcb49ae1fa67e608df78132309f0e2f236f1dbfb76be8c63",
+        "evidence_sha256": {
+          "a": "3869966a9b390a612c2f5cd391471e344802e5e399b2132ff8de866a5d3625a7"
+        },
+        "review_status": "unreviewed",
+        "source": "synthetic-development-control",
+        "reviewer": "developer-authored-not-human-gold",
+        "context_verdict": "unknown",
+        "segments": [
+          {
+            "start": 0,
+            "end": 9,
+            "verdict": "supported",
+            "support_spans": [
+              {
+                "entry_id": "a",
+                "content_sha256": "3869966a9b390a612c2f5cd391471e344802e5e399b2132ff8de866a5d3625a7",
+                "start": 5,
+                "end": 9
+              }
+            ]
+          }
+        ]
+      },
+      "annotation_sha256": "33e946a39a044018558e7c8b3de7034bb109905fcc0a8db3ecac0541b24a1504",
+      "expected": {
+        "mechanical": {
+          "valid_links": {
+            "numerator": 1,
+            "denominator": 1,
+            "value": 1.0
+          }
+        },
+        "semantic": {
+          "review_status": "unreviewed",
+          "claims": 1,
+          "unjudged_claims": 1,
+          "citation_id_validity": {
+            "numerator": 1,
+            "denominator": 1,
+            "value": 1.0
+          },
+          "claim_support": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "supported_citation_completeness": {
+            "numerator": 0,
+            "denominator": 1,
+            "value": 0.0
+          },
+          "context_correctness": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "semantic_method": "external-span-adjudication; no automatic entailment"
+        }
+      }
+    },
+    {
+      "id": "unknown-no-links",
+      "context": "甲的上限？\r\n仅回答甲。",
+      "answer": "甲上限未知。",
+      "evidence": {},
+      "annotation": {
+        "protocol": "qa-claim-spans/v1",
+        "normalization": "utf8-crlf-to-lf-codepoint-v1",
+        "context_sha256": "29aac868ae5e2f41f894456166a90fb70b7ec91fa68f0efbc4465981535b3a1d",
+        "answer_sha256": "5949325462fb8d864a17f4046791bd75adae7f22676d0b60281f41562db4ef1d",
+        "evidence_sha256": {},
+        "review_status": "developer-authored",
+        "source": "synthetic-development-control",
+        "reviewer": "developer-authored-not-human-gold",
+        "context_verdict": "unknown",
+        "segments": [
+          {
+            "start": 0,
+            "end": 6,
+            "verdict": "unknown",
+            "support_spans": []
+          }
+        ]
+      },
+      "annotation_sha256": "6683ec093c791a28f62d933e134baf2464db73a50f04f686ad95bf6359f51348",
+      "expected": {
+        "mechanical": {
+          "valid_links": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          }
+        },
+        "semantic": {
+          "review_status": "developer-authored",
+          "claims": 1,
+          "unjudged_claims": 1,
+          "citation_id_validity": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "claim_support": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "supported_citation_completeness": {
+            "numerator": 0,
+            "denominator": 1,
+            "value": 0.0
+          },
+          "context_correctness": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "semantic_method": "external-span-adjudication; no automatic entailment"
+        }
+      }
+    },
+    {
+      "id": "empty-evidence-bad-citation",
+      "context": "甲的上限？\r\n仅回答甲。",
+      "answer": "甲上限20。[a]",
+      "evidence": {},
+      "annotation": {
+        "protocol": "qa-claim-spans/v1",
+        "normalization": "utf8-crlf-to-lf-codepoint-v1",
+        "context_sha256": "29aac868ae5e2f41f894456166a90fb70b7ec91fa68f0efbc4465981535b3a1d",
+        "answer_sha256": "28a54b9fc111dba8dcb49ae1fa67e608df78132309f0e2f236f1dbfb76be8c63",
+        "evidence_sha256": {},
+        "review_status": "developer-authored",
+        "source": "synthetic-development-control",
+        "reviewer": "developer-authored-not-human-gold",
+        "context_verdict": "unknown",
+        "segments": [
+          {
+            "start": 0,
+            "end": 9,
+            "verdict": "unsupported",
+            "support_spans": []
+          }
+        ]
+      },
+      "annotation_sha256": "65e7fb7aa48dd6a406e3faf8571de1c2f095346320550b79b24dca5ce8240699",
+      "expected": {
+        "mechanical": {
+          "valid_links": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          }
+        },
+        "semantic": {
+          "review_status": "developer-authored",
+          "claims": 1,
+          "unjudged_claims": 0,
+          "citation_id_validity": {
+            "numerator": 0,
+            "denominator": 1,
+            "value": 0.0
+          },
+          "claim_support": {
+            "numerator": 0,
+            "denominator": 1,
+            "value": 0.0
+          },
+          "supported_citation_completeness": {
+            "numerator": 0,
+            "denominator": 1,
+            "value": 0.0
+          },
+          "context_correctness": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "semantic_method": "external-span-adjudication; no automatic entailment"
+        }
+      }
+    },
+    {
+      "id": "nonclaim",
+      "context": "甲的上限？\r\n仅回答甲。",
+      "answer": "你好。",
+      "evidence": {},
+      "annotation": {
+        "protocol": "qa-claim-spans/v1",
+        "normalization": "utf8-crlf-to-lf-codepoint-v1",
+        "context_sha256": "29aac868ae5e2f41f894456166a90fb70b7ec91fa68f0efbc4465981535b3a1d",
+        "answer_sha256": "81fddea03ec6aa29ed52fc9b346ca130613650a71fd8d3ffc93077bc27806bc1",
+        "evidence_sha256": {},
+        "review_status": "developer-authored",
+        "source": "synthetic-development-control",
+        "reviewer": "developer-authored-not-human-gold",
+        "context_verdict": "unknown",
+        "segments": [
+          {
+            "start": 0,
+            "end": 3,
+            "verdict": "nonclaim",
+            "support_spans": []
+          }
+        ]
+      },
+      "annotation_sha256": "65971059a5dd0899201bba59ebc5374ee95fbea58810ee0d9048a26ef015c3c2",
+      "expected": {
+        "mechanical": {
+          "valid_links": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          }
+        },
+        "semantic": {
+          "review_status": "developer-authored",
+          "claims": 0,
+          "unjudged_claims": 0,
+          "citation_id_validity": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "claim_support": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "supported_citation_completeness": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "context_correctness": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "semantic_method": "external-span-adjudication; no automatic entailment"
+        }
+      }
+    },
+    {
+      "id": "empty-answer",
+      "context": "甲的上限？\r\n仅回答甲。",
+      "answer": "",
+      "evidence": {},
+      "annotation": {
+        "protocol": "qa-claim-spans/v1",
+        "normalization": "utf8-crlf-to-lf-codepoint-v1",
+        "context_sha256": "29aac868ae5e2f41f894456166a90fb70b7ec91fa68f0efbc4465981535b3a1d",
+        "answer_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "evidence_sha256": {},
+        "review_status": "developer-authored",
+        "source": "synthetic-development-control",
+        "reviewer": "developer-authored-not-human-gold",
+        "context_verdict": "unknown",
+        "segments": []
+      },
+      "annotation_sha256": "941f2c7c112b3310b3d960af99273b4be293c2cfec0a6400bbfcd8c20fcb30d3",
+      "expected": {
+        "mechanical": {
+          "valid_links": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          }
+        },
+        "semantic": {
+          "review_status": "developer-authored",
+          "claims": 0,
+          "unjudged_claims": 0,
+          "citation_id_validity": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "claim_support": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "supported_citation_completeness": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "context_correctness": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          },
+          "semantic_method": "external-span-adjudication; no automatic entailment"
+        }
+      }
+    }
+  ]
+}

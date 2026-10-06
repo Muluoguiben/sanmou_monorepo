@@ -24,4 +24,4 @@ fixture 的 `cases.json` 顶层精确声明 protocol、normalization、`split="d
 
 报告分别列机械、外部语义、每 case 控制结果、fixture/eval_source 摘要；显式 `provider.calls=0`、holdout 未建立/false、真人审核未认证、none/false，无 KB 发布能力。通用 scorer 可接受 human-reviewed 外部声明但不升级可信度；synthetic suite 不冒称 human gold。旧 v3 重新运行只允许 eval_source 中新增该模块及其摘要导致的差分，其余完整报告逐字段相同；保留历史 whole-report SHA `480a448fd7abecfba2f6cd4eb32a46873ff0b8127b6251cd8aeea5e4fe2e82c8`，不改 snapshot 选择器隐藏来源。
 
-提请核对一个边界选择：裸 CR 采用安全拒绝（不默默折叠为 LF）；其余按冻结契约实现。此 commit 仅 memo，核对前不实现代码。
+准入已核对：裸 CR 安全拒绝；answer/context/evidence 一律先 CRLF→LF，再校验位置及投影；空 evidence 映射合法，各存在 ID 非空。synthetic 顶层 label_origin 为 developer-authored，但 case 可为 developer-authored 或 unreviewed，拒绝 human-reviewed 升级。旧 completeness 分母始终是全部 claims，所以 unknown/unreviewed 可以是 0/非零，不更改为零分母。以下实现遵守此已决议说明。
