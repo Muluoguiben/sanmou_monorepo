@@ -1,0 +1,63 @@
+test_trace_wrapper_has_no_private_explicit_or_inherited_context (test_causal_trace.CausalFaultTests.test_trace_wrapper_has_no_private_explicit_or_inherited_context) ... 
+  test_trace_wrapper_has_no_private_explicit_or_inherited_context (test_causal_trace.CausalFaultTests.test_trace_wrapper_has_no_private_explicit_or_inherited_context) (mode='sink') ... FAIL
+  test_trace_wrapper_has_no_private_explicit_or_inherited_context (test_causal_trace.CausalFaultTests.test_trace_wrapper_has_no_private_explicit_or_inherited_context) (mode='declaration') ... FAIL
+  test_trace_wrapper_has_no_private_explicit_or_inherited_context (test_causal_trace.CausalFaultTests.test_trace_wrapper_has_no_private_explicit_or_inherited_context) (mode='late-declaration') ... FAIL
+  test_trace_wrapper_has_no_private_explicit_or_inherited_context (test_causal_trace.CausalFaultTests.test_trace_wrapper_has_no_private_explicit_or_inherited_context) (mode='caller-context') ... FAIL
+
+======================================================================
+FAIL: test_trace_wrapper_has_no_private_explicit_or_inherited_context (test_causal_trace.CausalFaultTests.test_trace_wrapper_has_no_private_explicit_or_inherited_context) (mode='sink')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_causal_trace.py", line 399, in test_trace_wrapper_has_no_private_explicit_or_inherited_context
+    self.assertNotIn(sentinel, "".join(traceback.format_exception(caught.exception)))
+AssertionError: 'H10A_AUTHOR_PRIVATE_SECONDARY' unexpectedly found in 'Traceback (most recent call last):\n  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_trace.py", line 101, in emit\n    self.runner.trace.emit(record)\n  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_causal_trace.py", line 53, in emit\n    raise self.failure\nOSError: H10A_AUTHOR_PRIVATE_SECONDARY\n\nThe above exception was the direct cause of the following exception:\n\npioneer_agent.agent_harness.task_contracts.TraceEmissionError: causal_trace_failed:OSError\n'
+
+======================================================================
+FAIL: test_trace_wrapper_has_no_private_explicit_or_inherited_context (test_causal_trace.CausalFaultTests.test_trace_wrapper_has_no_private_explicit_or_inherited_context) (mode='declaration')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_causal_trace.py", line 399, in test_trace_wrapper_has_no_private_explicit_or_inherited_context
+    self.assertNotIn(sentinel, "".join(traceback.format_exception(caught.exception)))
+AssertionError: 'H10A_AUTHOR_PRIVATE_SECONDARY' unexpectedly found in 'Traceback (most recent call last):\n  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_trace.py", line 99, in emit\n    invocation_id=invocation_id, provenance=provenance or self.provenance())\n                                                          ^^^^^^^^^^^^^^^^^\n  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_trace.py", line 65, in provenance\n    declaration = TraceDeclaration(status="unknown") if version is None else TraceDeclaration(status="declared", value=version)\n                                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 250, in __init__\n    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\npydantic_core._pydantic_core.ValidationError: 1 validation error for TraceDeclaration\nvalue\n  Input should be a valid string [type=string_type, input_value={\'private\': \'H10A_AUTHOR_PRIVATE_SECONDARY\'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type\n\nThe above exception was the direct cause of the following exception:\n\npioneer_agent.agent_harness.task_contracts.TraceEmissionError: causal_trace_failed:ValidationError\n'
+
+======================================================================
+FAIL: test_trace_wrapper_has_no_private_explicit_or_inherited_context (test_causal_trace.CausalFaultTests.test_trace_wrapper_has_no_private_explicit_or_inherited_context) (mode='late-declaration')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_causal_trace.py", line 399, in test_trace_wrapper_has_no_private_explicit_or_inherited_context
+    self.assertNotIn(sentinel, "".join(traceback.format_exception(caught.exception)))
+AssertionError: 'H10A_AUTHOR_PRIVATE_SECONDARY' unexpectedly found in 'Traceback (most recent call last):\n  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_trace.py", line 80, in invocation\n    provenance = self.provenance(detached)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_trace.py", line 65, in provenance\n    declaration = TraceDeclaration(status="unknown") if version is None else TraceDeclaration(status="declared", value=version)\n                                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 250, in __init__\n    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\npydantic_core._pydantic_core.ValidationError: 1 validation error for TraceDeclaration\nvalue\n  Input should be a valid string [type=string_type, input_value={\'private\': \'H10A_AUTHOR_PRIVATE_SECONDARY\'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type\n\nThe above exception was the direct cause of the following exception:\n\npioneer_agent.agent_harness.task_contracts.TraceEmissionError: causal_trace_failed:ValidationError\n'
+
+======================================================================
+FAIL: test_trace_wrapper_has_no_private_explicit_or_inherited_context (test_causal_trace.CausalFaultTests.test_trace_wrapper_has_no_private_explicit_or_inherited_context) (mode='caller-context')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/src/pioneer_agent/agent_harness/loop.py", line 131, in run_decision_window
+    observed = await self._call_game(OBSERVE_GAME_TOOL, {})
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/src/pioneer_agent/agent_harness/loop.py", line 303, in _call_game
+    payload = await self._call(self.game_client, name, arguments)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/src/pioneer_agent/agent_harness/loop.py", line 322, in _call
+    raw_result = await client.call_tool(name, arguments)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_runner.py", line 661, in call_tool
+    r._causal.check()
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_trace.py", line 47, in check
+    raise self.primary
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_causal_trace.py", line 392, in test_trace_wrapper_has_no_private_explicit_or_inherited_context
+    raise ValueError(sentinel)
+ValueError: H10A_AUTHOR_PRIVATE_SECONDARY
+trace_emission_error:OSError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo/packages/pioneer-agent/tests/test_causal_trace.py", line 394, in test_trace_wrapper_has_no_private_explicit_or_inherited_context
+    with self.assertRaises(TraceEmissionError) as caught:
+AssertionError: TraceEmissionError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.060s
+
+FAILED (failures=4)

@@ -1,0 +1,55 @@
+test_actual_input_digest_is_independent_precall_snapshot (__main__.TargetedProvenanceProbes.test_actual_input_digest_is_independent_precall_snapshot) ... ok
+test_h07_versions_are_event_time_values_and_task_digest_stays_constant (__main__.TargetedProvenanceProbes.test_h07_versions_are_event_time_values_and_task_digest_stays_constant) ... ok
+test_new_trace_wrapper_traceback_does_not_expose_private_secondary_text (__main__.TargetedProvenanceProbes.test_new_trace_wrapper_traceback_does_not_expose_private_secondary_text) ... 
+  test_new_trace_wrapper_traceback_does_not_expose_private_secondary_text (__main__.TargetedProvenanceProbes.test_new_trace_wrapper_traceback_does_not_expose_private_secondary_text) (mode='sink') ... FAIL
+  test_new_trace_wrapper_traceback_does_not_expose_private_secondary_text (__main__.TargetedProvenanceProbes.test_new_trace_wrapper_traceback_does_not_expose_private_secondary_text) (mode='declaration') ... FAIL
+test_policy_completion_identity_is_frozen_with_invocation (__main__.TargetedProvenanceProbes.test_policy_completion_identity_is_frozen_with_invocation) ... FAIL
+test_two_sinks_have_same_minimized_provenance_and_unknown_usage (__main__.TargetedProvenanceProbes.test_two_sinks_have_same_minimized_provenance_and_unknown_usage) ... ok
+
+======================================================================
+FAIL: test_new_trace_wrapper_traceback_does_not_expose_private_secondary_text (__main__.TargetedProvenanceProbes.test_new_trace_wrapper_traceback_does_not_expose_private_secondary_text) (mode='sink')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h10a-independent-targeted.py", line 93, in test_new_trace_wrapper_traceback_does_not_expose_private_secondary_text
+    self.assertNotIn(SENTINEL, formatted)
+AssertionError: 'H10A_PRIVATE_SINK_OR_INPUT_71c9a2' unexpectedly found in 'Traceback (most recent call last):\n  File "/tmp/h10a-dfa7fe1-source/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_trace.py", line 101, in emit\n    self.runner.trace.emit(record)\n  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h10a-independent-targeted.py", line 82, in emit\n    def emit(self, event): raise self.failure\n                           ^^^^^^^^^^^^^^^^^^\nOSError: H10A_PRIVATE_SINK_OR_INPUT_71c9a2\n\nThe above exception was the direct cause of the following exception:\n\npioneer_agent.agent_harness.task_contracts.TraceEmissionError: causal_trace_failed:OSError\n'
+
+======================================================================
+FAIL: test_new_trace_wrapper_traceback_does_not_expose_private_secondary_text (__main__.TargetedProvenanceProbes.test_new_trace_wrapper_traceback_does_not_expose_private_secondary_text) (mode='declaration')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h10a-independent-targeted.py", line 93, in test_new_trace_wrapper_traceback_does_not_expose_private_secondary_text
+    self.assertNotIn(SENTINEL, formatted)
+AssertionError: 'H10A_PRIVATE_SINK_OR_INPUT_71c9a2' unexpectedly found in 'Traceback (most recent call last):\n  File "/tmp/h10a-dfa7fe1-source/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_trace.py", line 99, in emit\n    invocation_id=invocation_id, provenance=provenance or self.provenance())\n                                                          ^^^^^^^^^^^^^^^^^\n  File "/tmp/h10a-dfa7fe1-source/packages/pioneer-agent/src/pioneer_agent/agent_harness/task_trace.py", line 65, in provenance\n    declaration = TraceDeclaration(status="unknown") if version is None else TraceDeclaration(status="declared", value=version)\n                                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 250, in __init__\n    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\npydantic_core._pydantic_core.ValidationError: 1 validation error for TraceDeclaration\nvalue\n  Input should be a valid string [type=string_type, input_value={\'private\': \'H10A_PRIVATE_SINK_OR_INPUT_71c9a2\'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type\n\nThe above exception was the direct cause of the following exception:\n\npioneer_agent.agent_harness.task_contracts.TraceEmissionError: causal_trace_failed:ValidationError\n'
+
+======================================================================
+FAIL: test_policy_completion_identity_is_frozen_with_invocation (__main__.TargetedProvenanceProbes.test_policy_completion_identity_is_frozen_with_invocation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/unittest/async_case.py", line 90, in _callTestMethod
+    if self._callMaybeAsync(method) is not None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/async_case.py", line 112, in _callMaybeAsync
+    return self._asyncioRunner.run(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-06/h10a-independent-targeted.py", line 75, in test_policy_completion_identity_is_frozen_with_invocation
+    self.assertEqual((event.name, event.metadata["policy_id"], event.provenance.policy_id,
+AssertionError: Tuples differ: ('after-call', 'after-call', 'before-call', 'before-version') != ('before-call', 'before-call', 'before-call', 'before-version')
+
+First differing element 0:
+'after-call'
+'before-call'
+
+- ('after-call', 'after-call', 'before-call', 'before-version')
++ ('before-call', 'before-call', 'before-call', 'before-version')
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.234s
+
+FAILED (failures=3)

@@ -1,0 +1,31 @@
+test_budget_primary_is_not_replaced_by_outcome_sink_failure (test_causal_trace.CausalFaultTests.test_budget_primary_is_not_replaced_by_outcome_sink_failure) ... ok
+test_cancel_and_checkpoint_primary_objects_survive_sink_failure (test_causal_trace.CausalFaultTests.test_cancel_and_checkpoint_primary_objects_survive_sink_failure) ... ok
+test_fake_model_unknown_usage_not_fabricated_from_log_label (test_causal_trace.CausalFaultTests.test_fake_model_unknown_usage_not_fabricated_from_log_label) ... ok
+test_genuine_business_result_is_not_mistaken_for_wrapped_trace_failure (test_causal_trace.CausalFaultTests.test_genuine_business_result_is_not_mistaken_for_wrapped_trace_failure) ... ok
+test_genuine_tool_failure_retains_classification_and_primary_note (test_causal_trace.CausalFaultTests.test_genuine_tool_failure_retains_classification_and_primary_note) ... ok
+test_policy_and_schema_failures_preserve_original_classification (test_causal_trace.CausalFaultTests.test_policy_and_schema_failures_preserve_original_classification) ... ok
+test_sink_failure_at_every_boundary_latches_without_retry_or_derived_success (test_causal_trace.CausalFaultTests.test_sink_failure_at_every_boundary_latches_without_retry_or_derived_success) ... ok
+test_active_and_idle_control_roots_do_not_invent_calls (test_causal_trace.CausalRunnerTests.test_active_and_idle_control_roots_do_not_invent_calls) ... ok
+test_actual_policy_argument_is_detached_from_builder_and_rechecked_at_dispatch (test_causal_trace.CausalRunnerTests.test_actual_policy_argument_is_detached_from_builder_and_rechecked_at_dispatch) ... ok
+test_bad_version_declaration_and_bad_context_binding_never_invoke_policy (test_causal_trace.CausalRunnerTests.test_bad_version_declaration_and_bad_context_binding_never_invoke_policy) ... ok
+test_context_snapshot_is_actual_precall_and_mutation_cannot_rewrite_it (test_causal_trace.CausalRunnerTests.test_context_snapshot_is_actual_precall_and_mutation_cannot_rewrite_it) ... ok
+test_custom_version_unknown_or_declared_is_not_source_authentication (test_causal_trace.CausalRunnerTests.test_custom_version_unknown_or_declared_is_not_source_authentication) ... ok
+test_default_runner_has_no_new_events_or_ids_even_terminal_noop (test_causal_trace.CausalRunnerTests.test_default_runner_has_no_new_events_or_ids_even_terminal_noop) ... ok
+test_fresh_checkpoint_runner_uses_new_root_and_new_observation (test_causal_trace.CausalRunnerTests.test_fresh_checkpoint_runner_uses_new_root_and_new_observation) ... Executing <Task finished name='Task-67' coro=<CausalRunnerTests.test_fresh_checkpoint_runner_uses_new_root_and_new_observation() done, defined at /tmp/h10a-dfa7fe1-source/packages/pioneer-agent/tests/test_causal_trace.py:292> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.421 seconds
+ok
+test_h07_state_version_transition_is_sampled_per_event (test_causal_trace.CausalRunnerTests.test_h07_state_version_transition_is_sampled_per_event) ... ok
+test_no_policy_paths_have_honest_outcomes (test_causal_trace.CausalRunnerTests.test_no_policy_paths_have_honest_outcomes) ... ok
+test_observation_event_does_not_claim_goal_verified (test_causal_trace.CausalRunnerTests.test_observation_event_does_not_claim_goal_verified) ... ok
+test_reentry_new_lifetimes_and_same_step_retry_are_distinct (test_causal_trace.CausalRunnerTests.test_reentry_new_lifetimes_and_same_step_retry_are_distinct) ... ok
+test_task_content_changes_digest_without_changing_version (test_causal_trace.CausalRunnerTests.test_task_content_changes_digest_without_changing_version) ... ok
+test_three_windows_rule_invocations_graph_and_two_sink_equality (test_causal_trace.CausalRunnerTests.test_three_windows_rule_invocations_graph_and_two_sink_equality) ... Executing <Task finished name='Task-97' coro=<CausalRunnerTests.test_three_windows_rule_invocations_graph_and_two_sink_equality() done, defined at /tmp/h10a-dfa7fe1-source/packages/pioneer-agent/tests/test_causal_trace.py:146> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.205 seconds
+ok
+test_canonical_outer_order_but_actual_text_not_reinterpreted (test_causal_trace.CausalWireTests.test_canonical_outer_order_but_actual_text_not_reinterpreted) ... ok
+test_default_v1_wire_and_memory_shape_unchanged (test_causal_trace.CausalWireTests.test_default_v1_wire_and_memory_shape_unchanged) ... ok
+test_same_event_has_identical_sink_identity_digest_and_minimization (test_causal_trace.CausalWireTests.test_same_event_has_identical_sink_identity_digest_and_minimization) ... ok
+test_v2_strict_versions_fields_relationships_and_frozen_identity (test_causal_trace.CausalWireTests.test_v2_strict_versions_fields_relationships_and_frozen_identity) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 0.909s
+
+OK
