@@ -1,0 +1,86 @@
+{
+  "synthetic": true,
+  "label_origin": "developer-authored-test-input",
+  "entries": [
+    {
+      "id": "hero-a", "domain": "hero", "entry_kind": "hero_profile",
+      "topic": "甲将", "aliases": ["甲一"],
+      "facts": ["合成来源甲记载初始武力为10。", "这不是实际游戏数值。"],
+      "constraints": ["仅用于离线测试。", "未知当前游戏版本，不得外推。"],
+      "source_ref": "synthetic:source-a", "updated_at": "2026-10-18",
+      "confidence": 0.4, "related_topics": [], "priority": 0,
+      "structured_data": {
+        "name": "甲将", "aliases": ["甲一"], "faction": "测试阵营", "rarity": null,
+        "troop_types": ["测试兵种"], "role_tags": ["测试定位"],
+        "base_attributes": {"military": 10, "intelligence": 20, "command": 30, "initiative": 40},
+        "growth_attributes": {"military": 1.1, "intelligence": 1.2, "command": 1.3, "initiative": 1.4},
+        "max_attributes": {"military": 60, "intelligence": 70, "command": 80, "initiative": 90},
+        "signature_skills": ["甲术", "乙术", "丙术", "第四战法不得截断"],
+        "notes": ["第一条备注", "第二条限定不得截断", "第三条备注"]
+      },
+      "raw_only_qualification": {"scope": "未知字段中的限定也须保留", "version": null}
+    },
+    {
+      "id": "hero-b", "domain": "hero", "entry_kind": "hero_profile",
+      "topic": "甲将另一份记录", "aliases": ["甲将"],
+      "facts": ["合成来源乙记载初始武力为99，与来源甲不一致。"],
+      "constraints": ["不得自动裁定任一来源为真。"],
+      "source_ref": "synthetic:source-b", "updated_at": "2026-10-17",
+      "confidence": 0.3, "related_topics": [], "priority": 0,
+      "structured_data": {
+        "name": "甲将", "aliases": [], "base_attributes": {"military": 99},
+        "notes": ["冲突材料须与来源甲一起保留。"]
+      }
+    },
+    {
+      "id": "resource-a", "domain": "resource", "entry_kind": "generic_rule",
+      "topic": "合成资源规则", "aliases": [],
+      "facts": ["这是没有赛季与版本资料的合成规则。"],
+      "constraints": ["未知不表示所有赛季均适用。"],
+      "source_ref": "synthetic:source-resource", "updated_at": "2026-10-18",
+      "confidence": 0.2, "related_topics": [], "priority": 0,
+      "structured_data": null
+    },
+    {
+      "id": "skill-a", "domain": "skill", "entry_kind": "skill_profile",
+      "topic": "乙术", "aliases": [],
+      "facts": ["乙术通过related_topics与甲将形成一跳元数据关系。"],
+      "constraints": ["关系提示不是正确答案或真值认证。"],
+      "source_ref": "synthetic:source-skill", "updated_at": "2026-10-18",
+      "confidence": 0.3, "related_topics": ["甲将"], "priority": 0,
+      "structured_data": {
+        "name": "乙术", "aliases": [], "rarity": null, "skill_type": "测试类型",
+        "trigger_type": "测试触发", "target_scope": "测试目标", "effect_tags": ["合成效果"],
+        "preferred_roles": ["合成定位"], "notes": ["首条", "完整保留的第二条战法限定"]
+      }
+    },
+    {
+      "id": "solution-a", "domain": "solution", "entry_kind": "lineup_solution",
+      "topic": "合成阵容", "aliases": [],
+      "facts": ["这只是测试完整字段保留的阵容。"],
+      "constraints": ["仅列出的合成赛季标签，不是全版本适用。"],
+      "source_ref": "synthetic:source-solution", "updated_at": "2026-10-18",
+      "confidence": 0.2, "related_topics": [], "priority": 0,
+      "structured_data": {
+        "name": "合成阵容", "aliases": [], "season_tags": ["TEST-S1", "TEST-S2", "TEST-S3"],
+        "lineup_rating": null, "factions": ["测试阵营"],
+        "hero_names": ["甲将", "乙将", "丙将", "第四武将不得截断"],
+        "core_skills": ["甲术", "乙术", "丙术", "第四核心战法不得截断"],
+        "scenario_tags": ["合成场景"], "notes": ["首条阵容备注", "第二条阵容限定"]
+      }
+    },
+    {
+      "id": "status-a", "domain": "status", "entry_kind": "status_profile",
+      "topic": "丙态", "aliases": [],
+      "facts": ["丙态只通过乙术与甲将形成两跳关系。"],
+      "constraints": ["甲将任务不得把两跳递归结果伪装成一跳。"],
+      "source_ref": "synthetic:source-status", "updated_at": "2026-10-18",
+      "confidence": 0.2, "related_topics": ["乙术"], "priority": 0,
+      "structured_data": {
+        "name": "丙态", "aliases": [], "status_group": "测试状态", "polarity": null,
+        "trigger_notes": ["第一触发条件", "第二触发限定"], "effect_tags": ["合成效果"],
+        "removable_by": ["测试解除方式"], "notes": ["第一状态备注", "第二状态备注"]
+      }
+    }
+  ]
+}
