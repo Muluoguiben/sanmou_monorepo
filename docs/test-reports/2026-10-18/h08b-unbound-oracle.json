@@ -1,0 +1,3744 @@
+{
+  "False": {
+    "before": [
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "tool",
+        "name": "session_status",
+        "attempt_id": "2",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "tool",
+        "name": "observe_game",
+        "attempt_id": "3",
+        "observation_id": "obs-1",
+        "evidence_refs": [
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000001"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "tool",
+        "name": "get_runtime_state",
+        "attempt_id": "4",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "tool",
+        "name": "list_action_candidates",
+        "attempt_id": "5",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "policy",
+        "name": "rule-observe-v1",
+        "attempt_id": null,
+        "observation_id": "obs-1",
+        "evidence_refs": [
+          "observation:obs-1",
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000001"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "continue",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "policy_id": "rule-observe-v1",
+          "task_version": 1
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "tool",
+        "name": "session_status",
+        "attempt_id": "7",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "tool",
+        "name": "observe_game",
+        "attempt_id": "8",
+        "observation_id": "obs-2",
+        "evidence_refs": [
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000002"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "tool",
+        "name": "get_runtime_state",
+        "attempt_id": "9",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "tool",
+        "name": "list_action_candidates",
+        "attempt_id": "10",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "policy",
+        "name": "rule-observe-v1",
+        "attempt_id": null,
+        "observation_id": "obs-2",
+        "evidence_refs": [
+          "observation:obs-2",
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000002"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "continue",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "policy_id": "rule-observe-v1",
+          "task_version": 1
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "tool",
+        "name": "session_status",
+        "attempt_id": "12",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "tool",
+        "name": "observe_game",
+        "attempt_id": "13",
+        "observation_id": "obs-3",
+        "evidence_refs": [
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000003"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "tool",
+        "name": "get_runtime_state",
+        "attempt_id": "14",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "tool",
+        "name": "list_action_candidates",
+        "attempt_id": "15",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "policy",
+        "name": "rule-observe-v1",
+        "attempt_id": null,
+        "observation_id": "obs-3",
+        "evidence_refs": [
+          "observation:obs-3",
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000003"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "continue",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "policy_id": "rule-observe-v1",
+          "task_version": 1
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "lifecycle",
+        "name": null,
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": "succeeded",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "reason": {
+            "type": "string",
+            "length": 13,
+            "sha256": "db5f566f9d739dba89db9e41368cb42bdc68b07ddd338dacac85a796217550e8"
+          }
+        }
+      }
+    ],
+    "after": [
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "tool",
+        "name": "session_status",
+        "attempt_id": "2",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "tool",
+        "name": "observe_game",
+        "attempt_id": "3",
+        "observation_id": "obs-1",
+        "evidence_refs": [
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000001"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "tool",
+        "name": "get_runtime_state",
+        "attempt_id": "4",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "tool",
+        "name": "list_action_candidates",
+        "attempt_id": "5",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "policy",
+        "name": "rule-observe-v1",
+        "attempt_id": null,
+        "observation_id": "obs-1",
+        "evidence_refs": [
+          "observation:obs-1",
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000001"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "continue",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "policy_id": "rule-observe-v1",
+          "task_version": 1
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "tool",
+        "name": "session_status",
+        "attempt_id": "7",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "tool",
+        "name": "observe_game",
+        "attempt_id": "8",
+        "observation_id": "obs-2",
+        "evidence_refs": [
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000002"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "tool",
+        "name": "get_runtime_state",
+        "attempt_id": "9",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "tool",
+        "name": "list_action_candidates",
+        "attempt_id": "10",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "policy",
+        "name": "rule-observe-v1",
+        "attempt_id": null,
+        "observation_id": "obs-2",
+        "evidence_refs": [
+          "observation:obs-2",
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000002"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "continue",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "policy_id": "rule-observe-v1",
+          "task_version": 1
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "tool",
+        "name": "session_status",
+        "attempt_id": "12",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "tool",
+        "name": "observe_game",
+        "attempt_id": "13",
+        "observation_id": "obs-3",
+        "evidence_refs": [
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000003"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "tool",
+        "name": "get_runtime_state",
+        "attempt_id": "14",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "tool",
+        "name": "list_action_candidates",
+        "attempt_id": "15",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {}
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "policy",
+        "name": "rule-observe-v1",
+        "attempt_id": null,
+        "observation_id": "obs-3",
+        "evidence_refs": [
+          "observation:obs-3",
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000003"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "continue",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "policy_id": "rule-observe-v1",
+          "task_version": 1
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "lifecycle",
+        "name": null,
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": "succeeded",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "reason": {
+            "type": "string",
+            "length": 13,
+            "sha256": "db5f566f9d739dba89db9e41368cb42bdc68b07ddd338dacac85a796217550e8"
+          }
+        }
+      }
+    ],
+    "statuses": [
+      "succeeded",
+      "succeeded"
+    ],
+    "calls": [
+      "session_status",
+      "observe_game",
+      "get_runtime_state",
+      "list_action_candidates",
+      "session_status",
+      "observe_game",
+      "get_runtime_state",
+      "list_action_candidates",
+      "session_status",
+      "observe_game",
+      "get_runtime_state",
+      "list_action_candidates"
+    ],
+    "budget_calls": [
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "kind": "step",
+        "name": "decision_window",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "kind": "tool",
+        "name": "session_status",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "kind": "tool",
+        "name": "observe_game",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "kind": "tool",
+        "name": "get_runtime_state",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "kind": "tool",
+        "name": "list_action_candidates",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "kind": "step",
+        "name": "decision_window",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "kind": "tool",
+        "name": "session_status",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "kind": "tool",
+        "name": "observe_game",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "kind": "tool",
+        "name": "get_runtime_state",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "kind": "tool",
+        "name": "list_action_candidates",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "kind": "step",
+        "name": "decision_window",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "kind": "tool",
+        "name": "session_status",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "kind": "tool",
+        "name": "observe_game",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "kind": "tool",
+        "name": "get_runtime_state",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "kind": "tool",
+        "name": "list_action_candidates",
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    ],
+    "budget_settled": [
+      "2",
+      "3",
+      "4",
+      "5",
+      "1",
+      "7",
+      "8",
+      "9",
+      "10",
+      "6",
+      "12",
+      "13",
+      "14",
+      "15",
+      "11"
+    ]
+  },
+  "True": {
+    "before": [
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "lifetime_start",
+        "name": "run",
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": null,
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-1",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": null,
+        "parent_event_id": null,
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "window_start",
+        "name": null,
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": null,
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-2",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-2",
+        "parent_event_id": "causal-1",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "tool",
+        "name": "session_status",
+        "attempt_id": "2",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-3",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-2",
+        "parent_event_id": "causal-2",
+        "invocation_id": "causal-4",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "tool",
+        "name": "observe_game",
+        "attempt_id": "3",
+        "observation_id": "obs-1",
+        "evidence_refs": [
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000001"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-5",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-2",
+        "parent_event_id": "causal-3",
+        "invocation_id": "causal-6",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "tool",
+        "name": "get_runtime_state",
+        "attempt_id": "4",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-7",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-2",
+        "parent_event_id": "causal-5",
+        "invocation_id": "causal-8",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "tool",
+        "name": "list_action_candidates",
+        "attempt_id": "5",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-9",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-2",
+        "parent_event_id": "causal-7",
+        "invocation_id": "causal-10",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "observation",
+        "name": null,
+        "attempt_id": null,
+        "observation_id": "obs-1",
+        "evidence_refs": [
+          "observation:obs-1",
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000001"
+        ],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": "observation_guarded",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-11",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-2",
+        "parent_event_id": "causal-9",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "policy",
+        "name": "rule-observe-v1",
+        "attempt_id": null,
+        "observation_id": "obs-1",
+        "evidence_refs": [
+          "observation:obs-1",
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000001"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "continue",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "policy_id": "rule-observe-v1",
+          "task_version": 1
+        },
+        "trace_version": 2,
+        "event_id": "causal-12",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-2",
+        "parent_event_id": "causal-11",
+        "invocation_id": "causal-13",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": "b800353b0835543de00dce091c332b71960bd9b0cf22ed17b77fc606c0e9270d",
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "outcome",
+        "name": "goal_not_reached",
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": "running",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "reason": {
+            "type": "string",
+            "length": 16,
+            "sha256": "ac13fe71fe192773abe45aa7dcbabec5fa447403194b11d51de722aa338d072b"
+          }
+        },
+        "trace_version": 2,
+        "event_id": "causal-14",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-2",
+        "parent_event_id": "causal-12",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "window_start",
+        "name": null,
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": null,
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-15",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-15",
+        "parent_event_id": "causal-1",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "tool",
+        "name": "session_status",
+        "attempt_id": "7",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-16",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-15",
+        "parent_event_id": "causal-15",
+        "invocation_id": "causal-17",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "tool",
+        "name": "observe_game",
+        "attempt_id": "8",
+        "observation_id": "obs-2",
+        "evidence_refs": [
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000002"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-18",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-15",
+        "parent_event_id": "causal-16",
+        "invocation_id": "causal-19",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "tool",
+        "name": "get_runtime_state",
+        "attempt_id": "9",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-20",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-15",
+        "parent_event_id": "causal-18",
+        "invocation_id": "causal-21",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "tool",
+        "name": "list_action_candidates",
+        "attempt_id": "10",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-22",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-15",
+        "parent_event_id": "causal-20",
+        "invocation_id": "causal-23",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "observation",
+        "name": null,
+        "attempt_id": null,
+        "observation_id": "obs-2",
+        "evidence_refs": [
+          "observation:obs-2",
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000002"
+        ],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": "observation_guarded",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-24",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-15",
+        "parent_event_id": "causal-22",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "policy",
+        "name": "rule-observe-v1",
+        "attempt_id": null,
+        "observation_id": "obs-2",
+        "evidence_refs": [
+          "observation:obs-2",
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000002"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "continue",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "policy_id": "rule-observe-v1",
+          "task_version": 1
+        },
+        "trace_version": 2,
+        "event_id": "causal-25",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-15",
+        "parent_event_id": "causal-24",
+        "invocation_id": "causal-26",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": "b1a49f0688988c3bd11417a800fd6949d8a51164477a43505f2ba2cc4e7102c1",
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "outcome",
+        "name": "goal_not_reached",
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": "running",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "reason": {
+            "type": "string",
+            "length": 16,
+            "sha256": "ac13fe71fe192773abe45aa7dcbabec5fa447403194b11d51de722aa338d072b"
+          }
+        },
+        "trace_version": 2,
+        "event_id": "causal-27",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-15",
+        "parent_event_id": "causal-25",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "window_start",
+        "name": null,
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": null,
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-28",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-28",
+        "parent_event_id": "causal-1",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "tool",
+        "name": "session_status",
+        "attempt_id": "12",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-29",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-28",
+        "parent_event_id": "causal-28",
+        "invocation_id": "causal-30",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "tool",
+        "name": "observe_game",
+        "attempt_id": "13",
+        "observation_id": "obs-3",
+        "evidence_refs": [
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000003"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-31",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-28",
+        "parent_event_id": "causal-29",
+        "invocation_id": "causal-32",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "tool",
+        "name": "get_runtime_state",
+        "attempt_id": "14",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-33",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-28",
+        "parent_event_id": "causal-31",
+        "invocation_id": "causal-34",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "tool",
+        "name": "list_action_candidates",
+        "attempt_id": "15",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-35",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-28",
+        "parent_event_id": "causal-33",
+        "invocation_id": "causal-36",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "observation",
+        "name": null,
+        "attempt_id": null,
+        "observation_id": "obs-3",
+        "evidence_refs": [
+          "observation:obs-3",
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000003"
+        ],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": "observation_guarded",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-37",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-28",
+        "parent_event_id": "causal-35",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "policy",
+        "name": "rule-observe-v1",
+        "attempt_id": null,
+        "observation_id": "obs-3",
+        "evidence_refs": [
+          "observation:obs-3",
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000003"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "continue",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "policy_id": "rule-observe-v1",
+          "task_version": 1
+        },
+        "trace_version": 2,
+        "event_id": "causal-38",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-28",
+        "parent_event_id": "causal-37",
+        "invocation_id": "causal-39",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": "ced222ba944bd4d36dc9d2ced5a9e6dc25935fc3013d5b329e88f0b51c7315db",
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "lifecycle",
+        "name": null,
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": "succeeded",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "reason": {
+            "type": "string",
+            "length": 13,
+            "sha256": "db5f566f9d739dba89db9e41368cb42bdc68b07ddd338dacac85a796217550e8"
+          }
+        },
+        "trace_version": 2,
+        "event_id": "causal-40",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-28",
+        "parent_event_id": "causal-38",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "outcome",
+        "name": "goal_verified",
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": "succeeded",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "reason": {
+            "type": "string",
+            "length": 13,
+            "sha256": "db5f566f9d739dba89db9e41368cb42bdc68b07ddd338dacac85a796217550e8"
+          }
+        },
+        "trace_version": 2,
+        "event_id": "causal-41",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-28",
+        "parent_event_id": "causal-38",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "lifetime_end",
+        "name": "goal_verified",
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": "succeeded",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "reason": {
+            "type": "string",
+            "length": 13,
+            "sha256": "db5f566f9d739dba89db9e41368cb42bdc68b07ddd338dacac85a796217550e8"
+          }
+        },
+        "trace_version": 2,
+        "event_id": "causal-42",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": null,
+        "parent_event_id": "causal-41",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      }
+    ],
+    "after": [
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "lifetime_start",
+        "name": "run",
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": null,
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-1",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": null,
+        "parent_event_id": null,
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "window_start",
+        "name": null,
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": null,
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-2",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-2",
+        "parent_event_id": "causal-1",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "tool",
+        "name": "session_status",
+        "attempt_id": "2",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-3",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-2",
+        "parent_event_id": "causal-2",
+        "invocation_id": "causal-4",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "tool",
+        "name": "observe_game",
+        "attempt_id": "3",
+        "observation_id": "obs-1",
+        "evidence_refs": [
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000001"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-5",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-2",
+        "parent_event_id": "causal-3",
+        "invocation_id": "causal-6",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "tool",
+        "name": "get_runtime_state",
+        "attempt_id": "4",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-7",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-2",
+        "parent_event_id": "causal-5",
+        "invocation_id": "causal-8",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "tool",
+        "name": "list_action_candidates",
+        "attempt_id": "5",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-9",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-2",
+        "parent_event_id": "causal-7",
+        "invocation_id": "causal-10",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "observation",
+        "name": null,
+        "attempt_id": null,
+        "observation_id": "obs-1",
+        "evidence_refs": [
+          "observation:obs-1",
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000001"
+        ],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": "observation_guarded",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-11",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-2",
+        "parent_event_id": "causal-9",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "policy",
+        "name": "rule-observe-v1",
+        "attempt_id": null,
+        "observation_id": "obs-1",
+        "evidence_refs": [
+          "observation:obs-1",
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000001"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "continue",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "policy_id": "rule-observe-v1",
+          "task_version": 1
+        },
+        "trace_version": 2,
+        "event_id": "causal-12",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-2",
+        "parent_event_id": "causal-11",
+        "invocation_id": "causal-13",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": "b800353b0835543de00dce091c332b71960bd9b0cf22ed17b77fc606c0e9270d",
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "event": "outcome",
+        "name": "goal_not_reached",
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": "running",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "reason": {
+            "type": "string",
+            "length": 16,
+            "sha256": "ac13fe71fe192773abe45aa7dcbabec5fa447403194b11d51de722aa338d072b"
+          }
+        },
+        "trace_version": 2,
+        "event_id": "causal-14",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-2",
+        "parent_event_id": "causal-12",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "window_start",
+        "name": null,
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": null,
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-15",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-15",
+        "parent_event_id": "causal-1",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "tool",
+        "name": "session_status",
+        "attempt_id": "7",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-16",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-15",
+        "parent_event_id": "causal-15",
+        "invocation_id": "causal-17",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "tool",
+        "name": "observe_game",
+        "attempt_id": "8",
+        "observation_id": "obs-2",
+        "evidence_refs": [
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000002"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-18",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-15",
+        "parent_event_id": "causal-16",
+        "invocation_id": "causal-19",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "tool",
+        "name": "get_runtime_state",
+        "attempt_id": "9",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-20",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-15",
+        "parent_event_id": "causal-18",
+        "invocation_id": "causal-21",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "tool",
+        "name": "list_action_candidates",
+        "attempt_id": "10",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-22",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-15",
+        "parent_event_id": "causal-20",
+        "invocation_id": "causal-23",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "observation",
+        "name": null,
+        "attempt_id": null,
+        "observation_id": "obs-2",
+        "evidence_refs": [
+          "observation:obs-2",
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000002"
+        ],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": "observation_guarded",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-24",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-15",
+        "parent_event_id": "causal-22",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "policy",
+        "name": "rule-observe-v1",
+        "attempt_id": null,
+        "observation_id": "obs-2",
+        "evidence_refs": [
+          "observation:obs-2",
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000002"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "continue",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "policy_id": "rule-observe-v1",
+          "task_version": 1
+        },
+        "trace_version": 2,
+        "event_id": "causal-25",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-15",
+        "parent_event_id": "causal-24",
+        "invocation_id": "causal-26",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": "b1a49f0688988c3bd11417a800fd6949d8a51164477a43505f2ba2cc4e7102c1",
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "event": "outcome",
+        "name": "goal_not_reached",
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": "running",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "reason": {
+            "type": "string",
+            "length": 16,
+            "sha256": "ac13fe71fe192773abe45aa7dcbabec5fa447403194b11d51de722aa338d072b"
+          }
+        },
+        "trace_version": 2,
+        "event_id": "causal-27",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-15",
+        "parent_event_id": "causal-25",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "window_start",
+        "name": null,
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": null,
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-28",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-28",
+        "parent_event_id": "causal-1",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "tool",
+        "name": "session_status",
+        "attempt_id": "12",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-29",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-28",
+        "parent_event_id": "causal-28",
+        "invocation_id": "causal-30",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "tool",
+        "name": "observe_game",
+        "attempt_id": "13",
+        "observation_id": "obs-3",
+        "evidence_refs": [
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000003"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-31",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-28",
+        "parent_event_id": "causal-29",
+        "invocation_id": "causal-32",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "tool",
+        "name": "get_runtime_state",
+        "attempt_id": "14",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-33",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-28",
+        "parent_event_id": "causal-31",
+        "invocation_id": "causal-34",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "tool",
+        "name": "list_action_candidates",
+        "attempt_id": "15",
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "ok",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-35",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-28",
+        "parent_event_id": "causal-33",
+        "invocation_id": "causal-36",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "observation",
+        "name": null,
+        "attempt_id": null,
+        "observation_id": "obs-3",
+        "evidence_refs": [
+          "observation:obs-3",
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000003"
+        ],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": "observation_guarded",
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-37",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-28",
+        "parent_event_id": "causal-35",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "policy",
+        "name": "rule-observe-v1",
+        "attempt_id": null,
+        "observation_id": "obs-3",
+        "evidence_refs": [
+          "observation:obs-3",
+          "frame_sha256:0000000000000000000000000000000000000000000000000000000000000003"
+        ],
+        "transport": "ok",
+        "contract": "ok",
+        "business": "continue",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "policy_id": "rule-observe-v1",
+          "task_version": 1
+        },
+        "trace_version": 2,
+        "event_id": "causal-38",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-28",
+        "parent_event_id": "causal-37",
+        "invocation_id": "causal-39",
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": "ced222ba944bd4d36dc9d2ced5a9e6dc25935fc3013d5b329e88f0b51c7315db",
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "lifecycle",
+        "name": null,
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": "succeeded",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "reason": {
+            "type": "string",
+            "length": 13,
+            "sha256": "db5f566f9d739dba89db9e41368cb42bdc68b07ddd338dacac85a796217550e8"
+          }
+        },
+        "trace_version": 2,
+        "event_id": "causal-40",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-28",
+        "parent_event_id": "causal-38",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "outcome",
+        "name": "goal_verified",
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": "succeeded",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "reason": {
+            "type": "string",
+            "length": 13,
+            "sha256": "db5f566f9d739dba89db9e41368cb42bdc68b07ddd338dacac85a796217550e8"
+          }
+        },
+        "trace_version": 2,
+        "event_id": "causal-41",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": "causal-28",
+        "parent_event_id": "causal-38",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "lifetime_end",
+        "name": "goal_verified",
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": "succeeded",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "reason": {
+            "type": "string",
+            "length": 13,
+            "sha256": "db5f566f9d739dba89db9e41368cb42bdc68b07ddd338dacac85a796217550e8"
+          }
+        },
+        "trace_version": 2,
+        "event_id": "causal-42",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-1",
+        "window_id": null,
+        "parent_event_id": "causal-41",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "lifetime_start",
+        "name": "run",
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": null,
+        "error_type": null,
+        "usage": null,
+        "metadata": {},
+        "trace_version": 2,
+        "event_id": "causal-43",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-43",
+        "window_id": null,
+        "parent_event_id": null,
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "event": "lifetime_end",
+        "name": "goal_verified",
+        "attempt_id": null,
+        "observation_id": null,
+        "evidence_refs": [],
+        "transport": "not_attempted",
+        "contract": "not_checked",
+        "business": "succeeded",
+        "error_type": null,
+        "usage": null,
+        "metadata": {
+          "reason": {
+            "type": "string",
+            "length": 13,
+            "sha256": "db5f566f9d739dba89db9e41368cb42bdc68b07ddd338dacac85a796217550e8"
+          }
+        },
+        "trace_version": 2,
+        "event_id": "causal-44",
+        "emitted_at": "<nondeterministic-emitted-at>",
+        "lifetime_id": "causal-43",
+        "window_id": null,
+        "parent_event_id": "causal-43",
+        "invocation_id": null,
+        "provenance": {
+          "task_digest": "6e1d16d3d2ff73a27251a32336316c749834c8bfada45e7ca386870ad3d8dbfc",
+          "task_version": 1,
+          "state_version": 1,
+          "policy_id": "rule-observe-v1",
+          "policy_version": {
+            "status": "declared",
+            "value": "1"
+          },
+          "context_digest": null,
+          "model": {
+            "status": "absent",
+            "value": null
+          },
+          "prompt": {
+            "status": "absent",
+            "value": null
+          },
+          "skill": {
+            "status": "absent",
+            "value": null
+          },
+          "kb": {
+            "status": "absent",
+            "value": null
+          }
+        }
+      }
+    ],
+    "statuses": [
+      "succeeded",
+      "succeeded"
+    ],
+    "calls": [
+      "session_status",
+      "observe_game",
+      "get_runtime_state",
+      "list_action_candidates",
+      "session_status",
+      "observe_game",
+      "get_runtime_state",
+      "list_action_candidates",
+      "session_status",
+      "observe_game",
+      "get_runtime_state",
+      "list_action_candidates"
+    ],
+    "budget_calls": [
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "kind": "step",
+        "name": "decision_window",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "kind": "tool",
+        "name": "session_status",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "kind": "tool",
+        "name": "observe_game",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "kind": "tool",
+        "name": "get_runtime_state",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:1",
+        "kind": "tool",
+        "name": "list_action_candidates",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "kind": "step",
+        "name": "decision_window",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "kind": "tool",
+        "name": "session_status",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "kind": "tool",
+        "name": "observe_game",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "kind": "tool",
+        "name": "get_runtime_state",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:2",
+        "kind": "tool",
+        "name": "list_action_candidates",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "kind": "step",
+        "name": "decision_window",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "kind": "tool",
+        "name": "session_status",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "kind": "tool",
+        "name": "observe_game",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "kind": "tool",
+        "name": "get_runtime_state",
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      {
+        "run_id": "run",
+        "step_id": "run:3",
+        "kind": "tool",
+        "name": "list_action_candidates",
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    ],
+    "budget_settled": [
+      "2",
+      "3",
+      "4",
+      "5",
+      "1",
+      "7",
+      "8",
+      "9",
+      "10",
+      "6",
+      "12",
+      "13",
+      "14",
+      "15",
+      "11"
+    ]
+  }
+}

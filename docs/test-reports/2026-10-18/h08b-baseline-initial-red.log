@@ -1,0 +1,34 @@
+Source: a3985a9217ad815778bf743ec3f840be5ebaa5d3
+Environment: WSL Ubuntu Python 3.12.3, checkout and TMPDIR under /mnt/c.
+Command: python3 -B -W error::RuntimeWarning -m unittest test_skill_registry test_causal_trace -v
+This bounded transcription preserves the first run's failing test and traceback;
+the full 55-test name stream remains in the original tool result. Not a raw log.
+
+ERROR: test_fresh_checkpoint_runner_uses_new_root_and_new_observation (test_causal_trace.CausalRunnerTests.test_fresh_checkpoint_runner_uses_new_root_and_new_observation)
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/unittest/async_case.py", line 90, in _callTestMethod
+    if self._callMaybeAsync(method) is not None:
+  File "/usr/lib/python3.12/unittest/async_case.py", line 112, in _callMaybeAsync
+    return self._asyncioRunner.run(
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+  File "packages/pioneer-agent/tests/test_causal_trace.py", line 313, in test_fresh_checkpoint_runner_uses_new_root_and_new_observation
+    first = runner(store=JsonRunStore(path), trace=trace, policy=FakeDecisionPolicy([
+  File "packages/pioneer-agent/tests/test_causal_trace.py", line 34, in runner
+    return TaskRunner(task=spec or task(), run_id="run", harness=RecommendationHarness(
+  File "packages/pioneer-agent/src/pioneer_agent/agent_harness/task_runner.py", line 64, in __init__
+    self._ownership = ownership or store.acquire()
+  File "packages/pioneer-agent/src/pioneer_agent/agent_harness/run_store.py", line 200, in acquire
+    lock.acquire()
+  File "packages/pioneer-agent/src/pioneer_agent/agent_harness/_checkpoint_lock.py", line 58, in acquire
+    self._validate_backend()
+  File "packages/pioneer-agent/src/pioneer_agent/agent_harness/_checkpoint_lock.py", line 53, in _validate_backend
+    raise UnsupportedCheckpointBackend("unsupported local checkpoint filesystem")
+pioneer_agent.agent_harness._checkpoint_lock.UnsupportedCheckpointBackend: unsupported local checkpoint filesystem
+
+Ran 55 tests in 2.685s
+FAILED (errors=1)
+Exit 1; 54 passed, 1 error, 0 skips.
+No new H08b binding probe was run; no assertion/backend guard changed.
