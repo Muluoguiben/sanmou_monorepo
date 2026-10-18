@@ -22,6 +22,9 @@ from pioneer_agent.agent_harness.task_contracts import (
     SyntheticApprovalRunState, parse_run_state,
 )
 from pioneer_agent.agent_harness.task_trace import CausalTraceProducer
+from pioneer_agent.agent_harness.skill_registry import (
+    SkillCompilation, _raise_binding_error, _snapshot_binding_task, validate_skill_binding,
+)
 from pioneer_agent.mcp_server.contracts import (
     GET_RUNTIME_STATE_TOOL, OBSERVE_GAME_TOOL, SESSION_STATUS_TOOL,
     LiveObservation, ObserveGameResponse, RuntimeStateResponse, SessionStatusResponse,
@@ -47,7 +50,14 @@ class TaskRunner:
     def __init__(self, *, task: TaskSpec, run_id: str, harness: RecommendationHarness,
                  store: RunStore, policy: DecisionPolicy, context_builder: ContextBuilder,
                  budget: RunBudget, trace: RunTrace, ownership: RunOwnership | None = None,
-                 synthetic_approval: bool = False, causal_trace: bool = False):
+                 synthetic_approval: bool = False, causal_trace: bool = False,
+                 skill_compilation: SkillCompilation | None = None):
+        binding = None
+        if skill_compilation is not None:
+            if causal_trace is not True:
+                _raise_binding_error("skill_binding_requires_causal_trace")
+            bound_task = _snapshot_binding_task(task)
+            binding = validate_skill_binding(skill_compilation, bound_task)
         if harness.qa_client is not None:
             raise ValueError("task v1 uses Game-only windows; legacy QA windows are separate")
         with _CLIENT_BINDING_LOCK:
@@ -59,7 +69,8 @@ class TaskRunner:
         self._synthetic_approval = synthetic_approval is True
         self._causal_enabled = causal_trace is True
         self._causal = None
-        self._task, self._run_id = task.model_copy(deep=True), run_id
+        self._skill_binding = binding
+        self._task, self._run_id = bound_task if binding is not None else task.model_copy(deep=True), run_id
         self._external_owner = ownership is not None
         self._ownership = ownership or store.acquire()
         self._checkpoint_failed = False

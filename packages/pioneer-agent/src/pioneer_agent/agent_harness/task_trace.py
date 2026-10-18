@@ -9,6 +9,7 @@ from .task_contracts import (
     TraceEvent, TraceProvenance,
 )
 from .task_policy import FakeDecisionPolicy, RuleDecisionPolicy
+from .skill_registry import _raise_binding_error, _snapshot_binding_task
 
 
 def canonical_digest(value):
@@ -38,12 +39,24 @@ class CausalTraceProducer:
                     primary.add_note(note)
 
     def check(self, *, exit=False):
+        if self.failure is None:
+            try:
+                self._check_skill_binding()
+            except Exception as error:
+                self._failed(error)
         if self.failure is not None:
             if exit and self.business_failure is not None:
                 return
             if self.primary is None:
                 self.failure.__cause__ = None
                 self.failure.__context__ = None
+                if self.runner._skill_binding is not None:
+                    try:
+                        raise self.failure from None
+                    finally:
+                        # An ambient caller handler is attached by raise itself.
+                        self.failure.__cause__ = None
+                        self.failure.__context__ = None
                 raise self.failure from None
             if not exit:
                 raise self.primary
@@ -59,8 +72,19 @@ class CausalTraceProducer:
             self.failure.error_type = type(error).__name__
         self.remember(primary or self.primary)
 
+    def _check_skill_binding(self, provenance=None):
+        binding = self.runner._skill_binding
+        if binding is None:
+            return
+        task = _snapshot_binding_task(self.runner.state.task)
+        if (canonical_digest(task.model_dump(mode="json")) != binding.task_digest
+                or provenance is not None and (provenance.task_digest != binding.task_digest
+                    or provenance.skill.status != "declared" or provenance.skill.value != binding.declaration_value)):
+            _raise_binding_error("skill_task_drift")
+
     def provenance(self, context=None, *, policy_binding=None):
         r = self.runner
+        self._check_skill_binding()
         task = TaskSpec.model_validate(r.state.task.model_dump(mode="json"))
         policy = r.policy if policy_binding is None else policy_binding[0]
         version = getattr(policy, "policy_version", None)
@@ -71,11 +95,12 @@ class CausalTraceProducer:
         uses_model = policy.uses_model if policy_binding is None else policy_binding[2]
         policy_id = policy.policy_id if policy_binding is None else policy_binding[1]
         component = absent if builtin and not uses_model else unknown
+        skill = component if r._skill_binding is None else TraceDeclaration(status="declared", value=r._skill_binding.declaration_value)
         return TraceProvenance(task_digest=canonical_digest(task.model_dump(mode="json")),
             task_version=task.version, state_version=r.state.version, policy_id=policy_id,
             policy_version=declaration,
             context_digest=None if context is None else canonical_digest(context.model_dump(mode="json")),
-            model=component, prompt=component, skill=component, kb=component)
+            model=component, prompt=component, skill=skill, kb=component)
 
     def prepare_invocation(self, context=None, *, policy_binding=None):
         """Prepare detached values; only actual guarded dispatch may publish them."""
@@ -97,11 +122,13 @@ class CausalTraceProducer:
             self._failed(RuntimeError("reentrant_trace_emission"), primary)
             return None
         try:
+            self._check_skill_binding(provenance)
             record = CausalTraceEvent(**event.model_dump(), trace_version=2,
                 event_id=event_id or uuid4().hex, emitted_at=datetime.now(UTC),
                 lifetime_id=self.lifetime, window_id=self.window,
                 parent_event_id=None if event.event == "lifetime_start" else parent if parent is not None else self.parent,
                 invocation_id=invocation_id, provenance=provenance or self.provenance(policy_binding=policy_binding))
+            self._check_skill_binding(record.provenance)
             self.emitting = True
             self.runner.trace.emit(record)
             if self.failure is None and advance:

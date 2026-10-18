@@ -8,7 +8,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, model_validator
 
 from pioneer_agent.agent_harness.task_contracts import TaskSpec
-from pioneer_agent.runbook.models import Condition, ConditionSetResult, ConditionStatus, _resolve_metric, evaluate_all
+from pioneer_agent.runbook.models import Condition, ConditionEvaluation, ConditionSetResult, ConditionStatus, _resolve_metric, evaluate_all
 
 
 class _Strict(BaseModel):
@@ -77,6 +77,66 @@ class SkillCompilation(_Strict):
         return self
 
 
+class SkillBindingError(ValueError):
+    """Finite payload-free rejection at the optional recipe binding boundary."""
+
+
+class SkillTraceBinding(_Strict):
+    model_config = ConfigDict(strict=True, extra="forbid", frozen=True)
+    declaration_value: StrictStr = Field(min_length=1, max_length=160)
+    task_digest: StrictStr = Field(pattern=r"^[0-9a-f]{64}$")
+
+
+def _raise_binding_error(reason="invalid_skill_binding"):
+    error = SkillBindingError(reason)
+    try:
+        raise error from None
+    finally:
+        # Raising inside the caller's except attaches an ambient context even
+        # with `from None`. Clear it AFTER Python has connected that context.
+        error.__cause__ = None
+        error.__context__ = None
+
+
+def _binding_data(value):
+    """Read only this boundary's model content, retaining visible extra data."""
+    if isinstance(value, BaseModel):
+        if type(value) not in (SkillCompilation, ChapterParameters, ConditionSetResult,
+                               ConditionEvaluation, TaskSpec, Condition):
+            raise ValueError("unsupported binding model")
+        fields = type(value).model_fields
+        if set(value.__dict__) - set(fields) or value.__pydantic_extra__:
+            raise ValueError("extra binding model data")
+        return {key: _binding_data(item) for key, item in value.__dict__.items()}
+    if type(value) is ConditionStatus:
+        return value
+    if type(value) is list:
+        return [_binding_data(item) for item in value]
+    if value is None or type(value) in (str, int, float, bool):
+        return value
+    raise ValueError("unsupported binding value")
+
+
+def _revalidate_binding_model(value, model):
+    if type(value) is not model:
+        raise ValueError("unsupported binding model")
+    raw = _binding_data(value)
+    # Retain enum types for strict Python validation; JSON parsing would accept
+    # a mutated string status. No admitted binding field has a dict value.
+    parsed = model.model_validate(raw, strict=True)
+    if _digest(raw) != _digest(_binding_data(parsed)):
+        raise ValueError("binding normalization is not allowed")
+    return parsed
+
+
+def _snapshot_binding_task(task):
+    try:
+        return _revalidate_binding_model(task, TaskSpec)
+    except Exception:
+        pass
+    _raise_binding_error()
+
+
 def _digest(value: dict) -> str:
     raw = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False)
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
@@ -126,6 +186,43 @@ def resolve_skill(skill_id: str, version: str) -> SkillDefinition:
     return definition.model_copy(deep=True)
 
 
+def _build_task(definition, params):
+    target = params.target_chapter
+    template = definition.template
+    return TaskSpec(version=1, task_id=f"chapter-observer@1.0.0:target-{target}",
+        goal=f"Observe chapter >= {target} (read-only)",
+        success_when=[Condition(metric="progress.current_chapter_id", op=">=", value=target)],
+        stop_when=[], required_domains=list(template.required_domains),
+        allowed_tools=list(template.allowed_tools), max_steps=3, wait_seconds=0,
+        execution_authority="none", executable=False)
+
+
+def validate_skill_binding(compilation: SkillCompilation, task: TaskSpec) -> SkillTraceBinding:
+    try:
+        supplied = _revalidate_binding_model(compilation, SkillCompilation)
+        actual = _revalidate_binding_model(task, TaskSpec)
+        definition = resolve_skill(supplied.skill_id, supplied.version)
+        expected_task = _build_task(definition, supplied.parameters)
+        expected_digest = _digest(expected_task.model_dump(mode="json"))
+        # This is the exact satisfied declaration, NOT reconstructed metrics.
+        # ConditionEvaluation.value is the threshold (1), not an observation.
+        preflight = ConditionSetResult(status=ConditionStatus.SATISFIED, evaluations=[
+            ConditionEvaluation(metric=condition.metric, op=condition.op, value=condition.value,
+                                status=ConditionStatus.SATISFIED) for condition in definition.preconditions])
+        expected = SkillCompilation(status="ready", reason="preconditions_satisfied",
+            skill_id=definition.skill_id, version=definition.version,
+            template_digest=definition.template_digest, parameters=supplied.parameters,
+            preflight=preflight, missing_metrics=[], task=expected_task, task_digest=expected_digest)
+        if (_digest(_binding_data(supplied)) != _digest(_binding_data(expected))
+                or _digest(_binding_data(actual)) != expected_digest):
+            raise ValueError("recipe/task content mismatch")
+        return SkillTraceBinding(declaration_value=f"recipe:{definition.skill_id}@{definition.version}#sha256={definition.template_digest}",
+                                 task_digest=expected_digest)
+    except Exception:
+        pass
+    _raise_binding_error()
+
+
 def compile_skill(skill_id: str, version: str, parameters: dict, *, metrics: dict[str, Any]) -> SkillCompilation:
     definition = resolve_skill(skill_id, version)
     if type(parameters) is not dict:
@@ -145,13 +242,6 @@ def compile_skill(skill_id: str, version: str, parameters: dict, *, metrics: dic
     if preflight.status != ConditionStatus.SATISFIED:
         reason = "precondition_not_satisfied" if preflight.status == ConditionStatus.NOT_SATISFIED else "precondition_unknown"
         return SkillCompilation(status="blocked", reason=reason, task=None, task_digest=None, **common)
-    target = params.target_chapter
-    template = definition.template
-    task = TaskSpec(version=1, task_id=f"chapter-observer@1.0.0:target-{target}",
-        goal=f"Observe chapter >= {target} (read-only)",
-        success_when=[Condition(metric=metric, op=">=", value=target)],
-        stop_when=[], required_domains=list(template.required_domains),
-        allowed_tools=list(template.allowed_tools), max_steps=3, wait_seconds=0,
-        execution_authority="none", executable=False)
+    task = _build_task(definition, params)
     return SkillCompilation(status="ready", reason="preconditions_satisfied", task=task,
         task_digest=_digest(task.model_dump(mode="json")), **common)
