@@ -1,0 +1,32 @@
+{
+  "product_source": "81c4a315d36e08979c76f1b9395045ed75cd3e76",
+  "review_source": "7c0be267187604226940ab69212817e69827ccb0",
+  "review_tree": "9e4de8142c6a85359e350382ff3cb9aa2ce16022",
+  "packages_tree": "d954918d8218eb8b1b1c744aff75c7091c693cfd",
+  "exact_text_files": 564,
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "-W",
+    "error::RuntimeWarning",
+    "docs/test-reports/2026-10-18/qa-e0-prep-git-context-probes.py",
+    "-v"
+  ],
+  "cwd": "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo",
+  "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+  "environment": {
+    "PYTHONPATH": "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/packages/qa-agent/src:/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/packages/qa-agent/tests:/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/packages/sanmou-common/src:/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/packages/pioneer-agent/src",
+    "TMPDIR": "/home/lan/projects/sanmou_monorepo/data/agent_runs/h08b-20261018/reviewer-tmp",
+    "LANG": "C.UTF-8",
+    "LC_ALL": null,
+    "PYTHONUTF8": null,
+    "GIT_DIR": null,
+    "GIT_WORK_TREE": null
+  },
+  "exit": 1,
+  "timed_out": false,
+  "tests": 3,
+  "bytes": 2808,
+  "sha256": "ae973facbe79de0174442a055256217fced2a7d53ccb9776d8795607ce482cb3",
+  "log": "git-context-81c4-original-red.log"
+}

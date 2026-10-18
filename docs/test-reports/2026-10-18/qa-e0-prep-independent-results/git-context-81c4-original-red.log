@@ -1,0 +1,32 @@
+test_existing_wsl_git_exe_fallback_retains_explicit_cwd_and_clean_environment (__main__.GitContextBoundaryProbes.test_existing_wsl_git_exe_fallback_retains_explicit_cwd_and_clean_environment) ... FAIL
+test_inherited_git_context_is_not_forwarded_to_metadata_subprocesses (__main__.GitContextBoundaryProbes.test_inherited_git_context_is_not_forwarded_to_metadata_subprocesses) ... FAIL
+test_initial_metadata_root_must_match_script_repository (__main__.GitContextBoundaryProbes.test_initial_metadata_root_must_match_script_repository) ... FAIL
+
+======================================================================
+FAIL: test_existing_wsl_git_exe_fallback_retains_explicit_cwd_and_clean_environment (__main__.GitContextBoundaryProbes.test_existing_wsl_git_exe_fallback_retains_explicit_cwd_and_clean_environment)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/qa-e0-prep-git-context-probes.py", line 74, in test_existing_wsl_git_exe_fallback_retains_explicit_cwd_and_clean_environment
+    self.assertIsInstance(kwargs.get("env"), dict)
+AssertionError: None is not an instance of <class 'dict'>
+
+======================================================================
+FAIL: test_inherited_git_context_is_not_forwarded_to_metadata_subprocesses (__main__.GitContextBoundaryProbes.test_inherited_git_context_is_not_forwarded_to_metadata_subprocesses)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/qa-e0-prep-git-context-probes.py", line 37, in test_inherited_git_context_is_not_forwarded_to_metadata_subprocesses
+    self.assertIsInstance(kwargs.get("env"), dict, "implicit inheritance can redirect repository identity")
+AssertionError: None is not an instance of <class 'dict'> : implicit inheritance can redirect repository identity
+
+======================================================================
+FAIL: test_initial_metadata_root_must_match_script_repository (__main__.GitContextBoundaryProbes.test_initial_metadata_root_must_match_script_repository)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/qa-e0-prep-git-context-probes.py", line 54, in test_initial_metadata_root_must_match_script_repository
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 3 tests in 2.557s
+
+FAILED (failures=3)
