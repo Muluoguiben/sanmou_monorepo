@@ -4,7 +4,8 @@
 
 - [x] 整理 [REA公开研究快照](docs/research/rea/2026-10-18/README.md)：217武将、1159技能、327装备相关、64缘分、64机制覆盖及2份战报摘要；保留冲突、未知、版本和来源认证限制。
 - [x] 新增字段投影、输入摘要与快照核验；Windows/WSL各13项自测通过。未复制原始采样、截图、字节码、二进制、数据库、凭据或Q06未发布内容；不改正式KB、不授予review、不开放执行。
-- [ ] 主会话择机审查并合并 `codex/rea-stage-results-20261018`；侧会话仅交付独立分支，主master及3处既有协调WIP保持原样。下一阶段按快照内REA-R01/R02/R03推进；本条不授权启动采样。
+- [x] 成果提交 [16df894c7957f13d4c46fbfaa2c620ab6cbdd953](https://github.com/Muluoguiben/sanmou_monorepo/commit/16df894c7957f13d4c46fbfaa2c620ab6cbdd953) 已推送至独立分支并通过远端SHA回读；当次远端master仍为155817a。公开快照17文件清单核验通过；全量本地原件没有上传或改写。
+- [ ] 主会话择机审查并合并 `codex/rea-stage-results-20261018`；本侧会话未写主master或3处既有协调WIP（检查期间观察到它们有并发更新，未覆盖）。下一阶段按快照内REA-R01/R02/R03推进；本条不授权启动采样。
 
 ## Active Review continuation — H08a read-only recipe registry (2026-10-06)
 
