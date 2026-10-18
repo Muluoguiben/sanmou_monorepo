@@ -55,6 +55,8 @@ REVIEW 中所有非可信内容是经 HTML 字符转义和动态长度 fenced co
 
 仅允许当前仓库或已登记且仍存在的 worktree 的 gitignored `data/agent_runs/` 下新目录；父目录须已经存在。拒绝链接／reparse 路径、逃逸和已有目标，不写 src、KB、.git，不覆盖、删除或自动清理部分产物。
 
+Git 元数据查询显式移除继承的全部 `GIT_*` 上下文并禁用交互，先核对 show-toplevel 确为脚本所属仓库，再读取该仓库的 worktree 列表。已有 Windows/WSL 路径转换及已安装 git.exe 兼容路径保留；不是通用 Git 安全框架。
+
 主要文件是 `review-tasks.json`、`REVIEW.md`、最后提交的 `manifest.json`。同一输入的 task ID、顺序和内容确定，不含生成时刻、随机值或绝对目录；JSON/Markdown 文件均 UTF-8/LF。manifest 绑定上游 freeze/cases、KB、脚本内容 hash、选择算法／IDs、任务和产物 hash，不哈希自身、不引用未来 commit。
 
 来源先由既有 v4/claim-spans 运行器验证，构建材料使用已校验文本快照；生成前后重校验源文件、模块归属、脚本、新 freeze。最终提交前还重读已写产物并核对完整字节。先独占写并 fsync `manifest.pending.json`，最后以不覆盖目标的硬链接提交 `manifest.json`；不支持该语义就失败。只有最终 manifest 可解析且全部 hash 一致才是完整包。pending 永远不是权威完成标记，即使内容看似完整；失败保留草稿／部分目录，再运行必须选新目录。

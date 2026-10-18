@@ -10,6 +10,7 @@ import json
 import os
 from pathlib import Path
 import re
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -216,6 +217,52 @@ class PrepareE0ReviewTests(unittest.TestCase):
         for path in paths:
             with self.subTest(path=str(path)), self.assertRaises((ValueError, OSError)):
                 prep._output_root(Path(path))
+
+    def test_git_subprocess_context_is_isolated_including_platform_fallback(self):
+        injected = {"GIT_DIR": "synthetic-foreign-git", "GIT_WORK_TREE": "synthetic-foreign-tree",
+            "GIT_COMMON_DIR": "synthetic-foreign-common", "GIT_CONFIG_COUNT": "1",
+            "GIT_CONFIG_KEY_0": "core.worktree", "GIT_CONFIG_VALUE_0": "synthetic-foreign-config",
+            "GIT_INDEX_FILE": "synthetic-index", "GIT_CONFIG_GLOBAL": "synthetic-global",
+            "GIT_EXEC_PATH": "synthetic-exec", "E0_KEEP_PLATFORM": "unchanged"}
+        observed = []
+        def run(command, **kwargs):
+            observed.append((command, kwargs))
+            code = int(os.name == "posix" and len(observed) == 1)
+            return subprocess.CompletedProcess(command, code, "synthetic-output", "")
+        with patch.dict(os.environ, injected), patch.object(prep.shutil, "which", return_value="git.exe"), \
+                patch.object(prep.subprocess, "run", side_effect=run):
+            self.assertEqual(prep._git("rev-parse", "--show-toplevel"), "synthetic-output")
+        self.assertEqual(len(observed), 2 if os.name == "posix" else 1)
+        for command, kwargs in observed:
+            environment = kwargs["env"]
+            self.assertEqual({key: value for key, value in environment.items()
+                              if key.upper().startswith("GIT_")}, {"GIT_TERMINAL_PROMPT": "0"})
+            self.assertEqual(environment["E0_KEEP_PLATFORM"], "unchanged")
+            self.assertEqual(command[1:3], ["-c", "core.autocrlf=false"])
+            self.assertEqual(kwargs["cwd"], REPOSITORY)
+        if os.name == "posix":
+            self.assertEqual([command[0] for command, _ in observed], ["git", "git.exe"])
+
+    def test_foreign_repository_metadata_is_rejected_before_worktree_listing(self):
+        scratch = REPOSITORY / "data/agent_runs"
+        scratch.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=scratch) as temporary:
+            output = Path(temporary) / "not-created"
+            foreign = REPOSITORY.parent / "synthetic-other-repository"
+            with patch.object(prep, "_git", return_value=str(foreign)) as call, self.assertRaisesRegex(
+                    ValueError, "repository_metadata_root_mismatch"):
+                prep._output_root(output)
+            self.assertEqual(call.call_count, 1)
+            self.assertEqual(call.call_args.args, ("rev-parse", "--show-toplevel"))
+            self.assertFalse(output.exists())
+
+    def test_current_registered_ignored_worktree_output_is_allowed_without_writing_leaf(self):
+        scratch = REPOSITORY / "data/agent_runs"
+        scratch.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=scratch) as temporary:
+            output = Path(temporary) / "not-created"
+            self.assertEqual(prep._output_root(output), output.absolute())
+            self.assertFalse(output.exists())
 
     def test_writer_rejects_promoted_identity_or_prefilled_answers_before_io(self):
         mutations = (

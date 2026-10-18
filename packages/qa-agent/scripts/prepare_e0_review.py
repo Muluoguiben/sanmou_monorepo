@@ -313,9 +313,11 @@ def _git(*args, cwd=REPOSITORY):
     programs = ["git"]
     if os.name == "posix" and shutil.which("git.exe"):
         programs.append("git.exe")
+    environment = {key: value for key, value in os.environ.items() if not key.upper().startswith("GIT_")}
+    environment["GIT_TERMINAL_PROMPT"] = "0"
     for program in programs:
         result = subprocess.run([program, "-c", "core.autocrlf=false", *args], cwd=cwd,
-            capture_output=True, text=True, encoding="utf-8", timeout=15)
+            capture_output=True, text=True, encoding="utf-8", timeout=15, env=environment)
         if result.returncode == 0:
             return result.stdout
     raise ValueError("repository_metadata_unavailable")
@@ -327,6 +329,9 @@ def _output_root(output: Path) -> Path:
         raise FileExistsError("output_must_not_exist")
     if not output.parent.is_dir():
         raise ValueError("output_parent_must_exist")
+    actual_root = _native_path(_git("rev-parse", "--show-toplevel").strip()).resolve()
+    if actual_root != REPOSITORY.resolve():
+        raise ValueError("repository_metadata_root_mismatch")
     roots = [_native_path(line[9:]) for line in _git("worktree", "list", "--porcelain").splitlines()
              if line.startswith("worktree ")]
     for root in roots:
