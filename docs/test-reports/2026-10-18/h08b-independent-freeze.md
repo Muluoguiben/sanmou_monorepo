@@ -36,3 +36,18 @@ filesystem guards were changed; no missing-interface red was manufactured.
 No product/CI/root WIP changes, archives, provider/game/bridge, credentials,
 dependency installation, publication, push or merge. Further fixed-SHA review,
 original H10 F1-F4/probes, exact composition and final native CI remain pending.
+
+Coordinator subsequently authorized one existing-main-repository ext4 ignored
+scratch path: `/home/lan/projects/sanmou_monorepo/data/agent_runs/h08b-20261018/reviewer-tmp`.
+Only runtime temporary files may use it; review sources/logs remain in this tree.
+Probe `directory()` now honors this explicit TMPDIR, with no assertion changes.
+The original drvfs error above remains retained, not overwritten by the rerun.
+
+Ext4 rerun: the same unchanged 55 tests pass, 0 skips, exit 0. First collection
+finished all 55 successfully but its metadata wrapper failed because Linux Git
+cannot interpret this Windows worktree's UNC gitdir; its original `.log` remains.
+The bounded collector now maps that known UNC gitdir into WSL and explicitly
+requires clean product/CI paths. A second run captured complete metadata and
+55-pass log, SHA256
+`adadd59d8ff7cdb525c3c9db4fd3023bad7584a7af11a1939b116781de93d338`.
+Neither filesystem nor collector repair changed test assertions or product code.

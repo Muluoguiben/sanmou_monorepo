@@ -1,6 +1,7 @@
 """H08b memo-only public probes, frozen before author implementation access.
 
-No provider/network/game or outside-worktree temporary files. Baseline mode never
+No provider/network/game; temporary files use the explicitly authorized TMPDIR.
+Baseline mode never
 passes the absent skill_compilation keyword. Actual binding tests require a fixed
 implementing source. Keep original assertions/results across repair rounds.
 """
@@ -11,6 +12,7 @@ import copy
 import hashlib
 import importlib.util
 import json
+import os
 from pathlib import Path
 import sys
 import traceback
@@ -41,7 +43,7 @@ def compilation(target=3):
 
 
 def directory():
-    result = SCRATCH / uuid4().hex
+    result = Path(os.environ.get("TMPDIR", str(SCRATCH))) / uuid4().hex
     result.mkdir(parents=True, exist_ok=False)
     return result
 

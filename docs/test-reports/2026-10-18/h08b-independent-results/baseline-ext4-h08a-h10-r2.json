@@ -1,0 +1,30 @@
+{
+  "source": "b8ce6a5c0e9b36a38fb6c5295606026dcbbc9817",
+  "tree": "405e26af1d7fce697dd73e3eaf7ee8cce2e23a24",
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "-W",
+    "error::RuntimeWarning",
+    "-m",
+    "unittest",
+    "test_skill_registry",
+    "test_causal_trace",
+    "-v"
+  ],
+  "cwd": "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo",
+  "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+  "environment": {
+    "PYTHONPATH": "packages/pioneer-agent/src:packages/sanmou-common/src:packages/pioneer-agent/tests",
+    "TMPDIR": "/home/lan/projects/sanmou_monorepo/data/agent_runs/h08b-20261018/reviewer-tmp",
+    "LC_ALL": null,
+    "LANG": "C.UTF-8",
+    "PYTHONUTF8": null,
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exit": 0,
+  "tests": 55,
+  "bytes": 12399,
+  "sha256": "adadd59d8ff7cdb525c3c9db4fd3023bad7584a7af11a1939b116781de93d338",
+  "log": "baseline-ext4-h08a-h10-r2.log"
+}
