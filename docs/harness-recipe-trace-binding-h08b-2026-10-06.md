@@ -40,3 +40,13 @@
 Q06a归档body/member读取和发布持续paused_by_user/false，不继承其未发布历史或payload。无真实provider费用、游戏/bridge控制、.env/凭据、依赖安装、知识发布、部署或持久访问。保持recommendation-only、execution_authority=none、executable=false。
 
 主树H08a最终CI三项协调WIP随本次正常交付无损迁移；完整WORKLOG前缀、todo历史、旧state与所有授权/限制/原red保留。不递归复制整个state，不制造状态专用push。本片完成后继续既定可行离线路线，不宣称完整H08/Review/production完成。
+
+## 实现前范围澄清：双 sink 固定声明格式
+
+作者在实现时发现现有 `run_trace.py:_safe_causal_event` 把所有declaration.value交给 `_identifier`；其固定字符表不接受本合同声明中的 `#` 与 `=`，会把合法声明转换成另一串sha256。Root完整核对该文件后，允许额外修改第4个产品文件 `run_trace.py`，仅增加以下窄例外，不改本合同声明编码：
+
+- 仅在provenance的 `skill` 槽位、status=declared、value完整匹配 `recipe:chapter-observer@1.0.0#sha256=` 加64位小写十六进制时原样保留。必须整串匹配；拒绝作为例外的近似格式、其他版本、前后缀、末尾换行、Unicode替代及非64lowerhex。
+- 其他值仍调用原 `_identifier`，其他provenance槽位即使含同一串也仍按原规则哈希。通用字符表、v1、其他event字段、默认无绑定v2行为不变。
+- 两sink的固定声明精确一致；补充允许格式与越界负例、跨slot对照及原默认oracle。该格式例外不是sink对catalog、签名或真实来源的认证；真正绑定仍在registry/runner执行有限内容验证。
+
+本澄清只解决既有隐私投影与已冻结格式的兼容性，不扩展动态技能、权限、其他schema或外部行动。原3产品文件范围在这一点上扩为4，其他保护与全部Q06暂停边界不变。

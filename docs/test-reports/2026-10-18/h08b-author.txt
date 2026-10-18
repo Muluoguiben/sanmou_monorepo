@@ -1,0 +1,120 @@
+H08b author implementation and bounded verification, 2026-10-18
+
+Source tested: f2017c826a9bd798c66be404e99b8e3f8b0ffa50
+Source tree: a587315486e70b63faedcc1293c942ddb8c4f892
+Source URL (local commit, not pushed by author):
+https://github.com/Muluoguiben/sanmou_monorepo/commit/f2017c826a9bd798c66be404e99b8e3f8b0ffa50
+Worktree: C:/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo
+Branch: codex/h08b-recipe-trace-binding-impl-20261006
+Input HEAD: 06fd1803a660173a8c7e1f95563cbfaeac37a65c
+Contract read in full: 41be91e4a83896e1481f8350945d2d36ed0cd708,
+docs/harness-recipe-trace-binding-h08b-2026-10-06.md, including run_trace exception.
+Interface memo: input HEAD; independent pre-implementation plan: a3985a9.
+Contract-only merge: c30de21ddd9b701161b46a0e00c759f43e2d800d
+https://github.com/Muluoguiben/sanmou_monorepo/commit/c30de21ddd9b701161b46a0e00c759f43e2d800d
+This merges only 41be's ten contract clarification lines into the feature branch.
+Product tree and workflow tree remain exactly those tested at f2017c8:
+packages=970efcd960fcb694502938d7cefb22785b05e1cf
+.github=53b95f66600d981c0ba1866b15dc1396eef0bd50
+
+Implementation
+
+- Existing four authorized WIP files were preserved and completed, not reset.
+- One shared recipe task builder preserves old compilation output and digest.
+- Binding accepts exact existing models, strict parameter/preflight/task content,
+  and the sole builtin definition. It rejects extra fields, unsupported nested
+  models/dicts, enum-to-number/string-to-enum reconstruction, and normalization.
+- Constructor validation precedes harness access, ownership, checkpoint loading,
+  client installation and trace/tool/model calls. The runner holds the detached
+  validated task snapshot; the returned binding has two frozen scalar fields.
+- Each bound provenance/emit/check validates actual owned task content, including
+  prepared completion provenance and lazy dispatch after budget sampling.
+- New validation errors are finite and payload-free. Bound trace failures clear
+  ambient cause/context after raising. Existing genuine primary failures retain
+  their object/classification and class-only trace notes.
+- run_trace preserves only skill/status=declared and the exact fullmatch
+  recipe:chapter-observer@1.0.0#sha256=<64 lowercase hex>. Other slots, approximate
+  values, v1 values and the general identifier regex retain prior behavior.
+- This is content matching, not proof of compile invocation, human approval,
+  signature, trusted/fresh preflight observations, or game execution authority.
+
+Fixed-source verification
+
+Environment: existing WSL Ubuntu Python 3.12.3, Pydantic 2.12.5, PyYAML 6.0.1;
+Linux 6.6.87.2-microsoft-standard-WSL2, glibc 2.39. No dependencies installed.
+Existing mcp is available; fastapi is absent. No native-Windows claim is made.
+Test cwd: <worktree>/packages/pioneer-agent/tests
+PYTHONPATH=../src:../../sanmou-common/src
+PYTHONDONTWRITEBYTECODE=1; python3 -B -W error::RuntimeWarning
+Root-authorized exclusive ext4 temporary location:
+/home/lan/projects/sanmou_monorepo/data/agent_runs/h08b-20261018/author-tmp
+Only test-managed temporary files used that location; no other main-tree writes.
+
+1. python3 -B -W error::RuntimeWarning -m unittest
+   test_skill_trace_binding test_skill_registry test_causal_trace test_task_approval -v
+   Result: 121 tests, 0 skipped, exit 0 (31 H08b + 23 H08a + 32 H10 + 35 H07).
+   Existing H08a/H10/H07 assertions and fixtures were not edited.
+2. New H08b suite under actual non-UTF text / UTF-8 filesystem:
+   Start with LC_ALL=C.UTF-8 and PYTHONUTF8=0, then call
+   locale.setlocale(locale.LC_CTYPE, 'C') before unittest loading/running.
+   Observed default text encoding ANSI_X3.4-1968, filesystem encoding utf-8,
+   sys.flags.utf8_mode=0. Result: 31 tests, 0 skipped, exit 0.
+   This is an actual locale change, not an open/read mock. No strict-C ASCII
+   filesystem repair or result is claimed.
+3. Git scope: exactly four product files, new test_skill_trace_binding.py, and
+   the permitted three workflow lines differ from the input HEAD. Removing that
+   exact block from committed workflow bytes restores the entire baseline bytes.
+   Baseline workflow SHA256:
+   a91f3de7d864c733716049c07dfe43ded8059a7a6138e7d26e5af708d73fc772
+   New test Git blob: 2d3f1e4286e604a64114342fb63b50f5c4317475
+   git diff --check passed; source worktree was clean before this report.
+
+New tests cover exact 101-character binding; no metrics replay; strict roots,
+parameters, full task/digest and ready/preflight; real JsonRunStore external owner
+zero-side-effect rejection; caller mutation at acquire and after construction;
+both trace sinks and narrow format boundaries; three fresh offline observations;
+pause/resume/idle controls, terminal noop and explicit/unbound/rebound restart;
+evidence and budget guards; owned-task drift before entry, after actual tool,
+after provenance preparation, and at tool/policy budget-clock dispatch cuts;
+ambient exception privacy and policy/cancellation/checkpoint primary priority.
+Prepared-drift tests deliberately accept existing CheckpointConflict priority:
+the changed owned task cannot be saved under the original checkpoint identity.
+They still require no next dispatch and no false bound completion event.
+
+Read-only concurrent review found two gaps before the source was fixed: nested
+dict/string-enum rematerialization and ambient trace-error context attachment.
+Both were repaired with unchanged original rejecting probe expectations. Final
+limited probes on f2017c8 reported no remaining reproducible blocker. This helper
+review is not the coordinator's independent fixed-SHA CR acceptance gate.
+
+Preserved plain logs (relative to worktree; ignored runtime evidence, no archive)
+
+data/agent_runs/h08b-20261018/author-dev-01.log
+  10463 bytes; SHA256 782e4c262729644a8f170b5c6a3777b29944a49af367a9f6b6083750f23ed0ef
+  Initial WIP: 30 tests, 28 pass, 2 errors, exit 1. Both errors are genuine
+  UnsupportedCheckpointBackend on the author's /mnt/c filesystem when TMPDIR
+  was confined there. No security gate/test assertion was weakened or mocked.
+data/agent_runs/h08b-20261018/author-dev-02.log
+  17841 bytes; SHA256 17f133ebe0b91fda626d75abbcbf3da84f333053afdd52bc65dd8159bd41604d
+  Pre-commit WIP after one additional strict-type test: 86 pass, 0 skipped, exit 0.
+data/agent_runs/h08b-20261018/f2017c8-targeted.log
+  27964 bytes; SHA256 fc066db63b2eadda90796b7f42dbdd3075b139a477d13ed33239006d3663b4b7
+  Fixed-source 121-test result above.
+data/agent_runs/h08b-20261018/f2017c8-nonutf-text.log
+  6894 bytes; SHA256 da1e4c4f686d97fd444daacec97a168383d7a4d214ee630b592049234b683e66
+  Fixed-source actual locale metadata and 31-test result above.
+data/agent_runs/h08b-20261018/f2017c8-scope.log
+  318 bytes; SHA256 e79a6fc5bbc09f9a419d12a3fe17c1b0e2f810680ad8888dab71cf871aba9768
+  Fixed-source exact allowed-path and inverse-workflow Git-byte assertions.
+
+Boundaries / next gate
+
+No full Pioneer/QA/common, H09 CLI or v4/Q04 hash rerun is claimed by this author
+report; coordinator owns exact combination verification and independent CR.
+No source push, merge to master, publication, deployment, game/bridge/provider
+call, .env/credential access, dependency installation, archive/member read or
+existing-data deletion occurred. Q06a remains paused; no unpublished Q06a payload
+was inherited. recommendation-only, execution_authority=none, executable=false.
+Coordinator may perform its separately authorized conditional feature push and
+exact-SHA hosted checks after independent CR. Windows 31-name/0skip/exit0 and
+same-run four-job acceptance remain pending, not inferred from local tests.
