@@ -1,0 +1,18 @@
+test_all_nineteen_fate_conflicts_preserved (test_snapshot.SnapshotTests.test_all_nineteen_fate_conflicts_preserved) ... ok
+test_counts_and_unique_identities (test_snapshot.SnapshotTests.test_counts_and_unique_identities) ... ok
+test_disclosure_guard (test_snapshot.SnapshotTests.test_disclosure_guard) ... ok
+test_evolution_float_boundary_not_erased (test_snapshot.SnapshotTests.test_evolution_float_boundary_not_erased) ... ok
+test_gear_units_and_unknown_random_pool (test_snapshot.SnapshotTests.test_gear_units_and_unknown_random_pool) ... ok
+test_hero_variants_and_missing_references (test_snapshot.SnapshotTests.test_hero_variants_and_missing_references) ... ok
+test_json_rejects_duplicate_and_nonfinite (test_snapshot.SnapshotTests.test_json_rejects_duplicate_and_nonfinite) ... ok
+test_manifest_rejects_digest_mismatch (test_snapshot.SnapshotTests.test_manifest_rejects_digest_mismatch) ... ok
+test_manifest_rejects_escape_before_read (test_snapshot.SnapshotTests.test_manifest_rejects_escape_before_read) ... ok
+test_public_snapshot_remains_pending (test_snapshot.SnapshotTests.test_public_snapshot_remains_pending) ... ok
+test_report_completeness_is_not_authentication (test_snapshot.SnapshotTests.test_report_completeness_is_not_authentication) ... ok
+test_skill_launch_is_not_effect_probability (test_snapshot.SnapshotTests.test_skill_launch_is_not_effect_probability) ... ok
+test_ui_observation_not_promoted_to_raw_event (test_snapshot.SnapshotTests.test_ui_observation_not_promoted_to_raw_event) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.662s
+
+OK

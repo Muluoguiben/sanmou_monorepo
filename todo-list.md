@@ -1,5 +1,11 @@
 # Todo List
 
+## REA 阶段成果公开快照（2026-10-18，独立分支）
+
+- [x] 整理 [REA公开研究快照](docs/research/rea/2026-10-18/README.md)：217武将、1159技能、327装备相关、64缘分、64机制覆盖及2份战报摘要；保留冲突、未知、版本和来源认证限制。
+- [x] 新增字段投影、输入摘要与快照核验；Windows/WSL各13项自测通过。未复制原始采样、截图、字节码、二进制、数据库、凭据或Q06未发布内容；不改正式KB、不授予review、不开放执行。
+- [ ] 主会话择机审查并合并 `codex/rea-stage-results-20261018`；侧会话仅交付独立分支，主master及3处既有协调WIP保持原样。下一阶段按快照内REA-R01/R02/R03推进；本条不授权启动采样。
+
 ## Active Review continuation — H08a read-only recipe registry (2026-10-06)
 
 - [x] Q05a exact60e3/run37478150118 native25+44/all4 andQA440 verified. Freeze [contract](docs/harness-readonly-skill-registry-h08a-2026-10-06.md) atdf8447ae8807e2baa97a05ada3b209bfb7e3688b frompublished60e3; reuseTaskSpec/Condition/SequenceClient,onechapter-observer@1.0.0 only.

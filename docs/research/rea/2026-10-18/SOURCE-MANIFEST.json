@@ -1,0 +1,58 @@
+{
+  "schema": "sanmou-rea-local-source-binding/v1",
+  "bundle_manifest_sha256": "173aa0b7317f5cac0090c161a159d7075f7d42e1e30285c38a3906a4d536e17f",
+  "sources": {
+    "heroes": {
+      "relative_path": "materials/nslg-all-heroes-2026-10-13/profiles.json",
+      "bytes": 6036831,
+      "sha256": "b15ad586f052d6047c739d815c387f7a9426336960aa17eebb32cafad25172a0",
+      "source_bundle_sha256": "9e13ef52196cc1ac00d727bffcc7ae4c95802a80ac8b06081353f777110ab46d"
+    },
+    "skills": {
+      "relative_path": "materials/nslg-all-skill-cards-2026-10-13/skills.json",
+      "bytes": 24140404,
+      "sha256": "b2514a81dd6f75ab7921c7ee3e147a5e87d5b3ed9ba7d787e23d643dbdf6b3b7",
+      "source_bundle_sha256": "9e13ef52196cc1ac00d727bffcc7ae4c95802a80ac8b06081353f777110ab46d"
+    },
+    "gear": {
+      "relative_path": "materials/nslg-gear-cards-2026-10-13/catalog.json",
+      "bytes": 10591134,
+      "sha256": "8710c94f1a040d8a180687b61adacd0d46db332eacc30eadfba6614a48ced663",
+      "source_bundle_sha256": "9e13ef52196cc1ac00d727bffcc7ae4c95802a80ac8b06081353f777110ab46d"
+    },
+    "mechanics": {
+      "relative_path": "materials/nslg-clarity-control-ui-10510132850058-2026-10-16/evidence-status-matrix.json",
+      "bytes": 802019,
+      "sha256": "404f9a8aece214a7f4642278470a0c92402f99133ce225b0e5ae6b3a59c17081",
+      "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+    },
+    "report_a": {
+      "relative_path": "materials/nslg-battle-10504369850058-2026-10-15/report.json",
+      "bytes": 1209421,
+      "sha256": "ddac67345a18550317efcfd62f46abc5699927af51c8e46f858ffe9768db0af1",
+      "source_bundle_sha256": null
+    },
+    "report_b": {
+      "relative_path": "materials/nslg-battle-10507264650058-2026-10-16/report.json",
+      "bytes": 1787290,
+      "sha256": "405acd15b4514521c13b371d0bf7151345c755ad13ac6dbab29d82d8647c3c7f",
+      "source_bundle_sha256": null
+    }
+  },
+  "source_bundle_files_excluding_manifest": 9676,
+  "source_package_count": 13,
+  "source_file_bytes": 448614550,
+  "full_source_bundle_in_repository": false,
+  "exclusions": [
+    "archives",
+    "bytecode",
+    "native_binaries",
+    "metadata_database",
+    "network_captures",
+    "raw_battle_events",
+    "raw_screenshots",
+    "credentials",
+    "absolute_source_paths",
+    "Q06a"
+  ]
+}
