@@ -1,10 +1,22 @@
 # Todo List
 
+## Q-E0-dev freeze and user annotation preparation (2026-10-18)
+
+- [x] H08b finalf9135/run39114544126 attempt1 all4success; Windows31+23+32+35+25+44 names matchfinalGitAST,0skip,diagnostics0; H09 native8/8,17nonefalse states/9model0. LinuxPioneer1139/2oldWindows skips. [Receipt](docs/test-reports/2026-10-18/H08b-final-native-ci.md).
+- [x] Freeze [scope](docs/qa-e0-review-preparation-2026-10-18.md) at88bd5a0fb641d147548ed6a5eb8284106ec3caa2 fromf9135; user will perform final human review. Reuse existing author/reviewer worktrees, no newworktree.
+- [x] Author memo b02ebb and independent plan78c74b4 fully read; both root/reviewer approve interface, implementation released. Immutable evidence pack, separate human response copy; raw fields isolated from machine status; pending manifest is not approval.
+- [x] Bounded verify/prepare CLI fixedb859, authorreport16335 and independent56db APPROVE. Git-contextP2 repaired with original3negativeassertions unchanged; author23/QA463 andindependent20/new23/nonUTF23/QA463 passed0skip,oldv4/Q04hashes intact.
+- [x] Exactcombo00f9996 packages9157 matchesreviewedsource; root23/actual50prepare passed. Verified213candidate occurrences/34sources/allhashes/blankhumanfields. [Integration](docs/test-reports/2026-10-18/Q-E0-preparation-integration.md). Immutablepack andseparateblankreply stayignored, notgold/holdout.
+- [ ] Finalfeaturecandidate/payload/push/exactCI; no mastermerge. User's50-task annotation material andfuturelabels mustnot enterGit payload.
+- [ ] User reviews material before Q07 independentquality gate may close; existing12development queries remainexposeddevelopment. H01-H05 already have minimumruntime and will be gap-checked afterbaseline review, not rebuilt.
+- Conditionalfeaturepush afterCR remainsallowed; no mastermerge/knowledgepublication/deployment/game/originaldata deletion. Q06archive reads/publication staypaused.
+
 ## Current instruction override — gated feature-branch continuation (2026-10-18)
 
 - [x] Read persisted state/WORKLOG/todo and inspect existing worktrees. H08b author06fd has four owned implementation WIP files; reviewer a398 is clean. Old `/tmp` integration worktree no longer exists; do not prune/delete/recreate or disturb other worktrees.
 - [x] H08b codef2017c/authorffa73a independentlyAPPROVED bycfceaf336. Root combination39aeeaa/tree5684624 passed121 targeted+QA440+common2; packages970efcd/github53b95f equalapprovedsource. [Integration](docs/test-reports/2026-10-18/H08b-integration.md). Preserve original reds; localfullPioneer stillmissingFastAPI,notgreen.
-- [ ] Final new-source native CI is pending. H08a155817a/run37487788315 is historical green, not H08b validation. Latest user reply permits feature push after independent adversarial CR and requirements completion; root will push only after exact local combination. Local bundled Python lacks yaml/mcp/API dependencies; no installation performed.
+- [x] H08b exact f9135/run39114544126 native gate now passed (receipt above); historical H08a green was not substituted. Local bundled Python dependency limit remains recorded; no installation performed.
+- [x] Candidatef9135b4dc438711a64d42c8879589cf341131669 passedfinalpayload audit and waspushed onlyto codex/h08b-recipe-trace-binding-20261018; explicitremote fetch/readback matches. Exactrun39114544126 attempt1 nowrunning. Masternotmerged; remote masterbb859 hasseparateREA docs commits, notoverwritten.
 - [ ] Then freeze Q-E0/Q07 data/labels/splits/metrics, then assess and complete remaining H01-H05 minimum readonly harness. Do not duplicate already implemented components or count developer labels as human gold.
 - User will personally review Q-E0 annotation materials; prepare pending review tasks afterH08b acceptance, retain existing12 exposedqueries asdevelopment, and do not claim independentholdout/humangold before actual review.
 - Current user permits edits only in current repository/existing worktrees and local commits; subsequent explicit reply permits gated feature push. No merge master, knowledge publication/deployment, game operations or data deletion. Q06a archive reading/publication remains paused. Historical broad publication instructions remain superseded.
