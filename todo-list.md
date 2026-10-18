@@ -1,12 +1,28 @@
 # Todo List
 
+## Current instruction override — gated feature-branch continuation (2026-10-18)
+
+- [x] Read persisted state/WORKLOG/todo and inspect existing worktrees. H08b author06fd has four owned implementation WIP files; reviewer a398 is clean. Old `/tmp` integration worktree no longer exists; do not prune/delete/recreate or disturb other worktrees.
+- [x] H08b codef2017c/authorffa73a independentlyAPPROVED bycfceaf336. Root combination39aeeaa/tree5684624 passed121 targeted+QA440+common2; packages970efcd/github53b95f equalapprovedsource. [Integration](docs/test-reports/2026-10-18/H08b-integration.md). Preserve original reds; localfullPioneer stillmissingFastAPI,notgreen.
+- [ ] Final new-source native CI is pending. H08a155817a/run37487788315 is historical green, not H08b validation. Latest user reply permits feature push after independent adversarial CR and requirements completion; root will push only after exact local combination. Local bundled Python lacks yaml/mcp/API dependencies; no installation performed.
+- [ ] Then freeze Q-E0/Q07 data/labels/splits/metrics, then assess and complete remaining H01-H05 minimum readonly harness. Do not duplicate already implemented components or count developer labels as human gold.
+- User will personally review Q-E0 annotation materials; prepare pending review tasks afterH08b acceptance, retain existing12 exposedqueries asdevelopment, and do not claim independentholdout/humangold before actual review.
+- Current user permits edits only in current repository/existing worktrees and local commits; subsequent explicit reply permits gated feature push. No merge master, knowledge publication/deployment, game operations or data deletion. Q06a archive reading/publication remains paused. Historical broad publication instructions remain superseded.
+
+## Active Review continuation — H08b explicit recipe trace binding (2026-10-06)
+
+- [x] H08a final155817a/run37487788315 all4/native23+25+44 exact-name gate passed. Freeze [contract](docs/harness-recipe-trace-binding-h08b-2026-10-06.md) at399791ee551a15499af6bd20829a4fbfe4ad52e5; reused isolated author/reviewer workers.
+- [x] Author memo06fd180 and independent plana3985a9 read fully by root. Bind only explicit compilation with causal_trace=True, detached immutable content declaration, pre-owner validation, actual-task drift guard, no new schema/authority/default behavior. Reviewer memo check and public probes pending.
+- [ ] Implement, source-bound selftest, independent adversarial CR, exact combined regressions, single candidate/payload audit, publish and exact final native CI. Preserve all original failures; Q06 archives/publication remain paused.
+
 ## Active Review continuation — H08a read-only recipe registry (2026-10-06)
 
 - [x] Q05a exact60e3/run37478150118 native25+44/all4 andQA440 verified. Freeze [contract](docs/harness-readonly-skill-registry-h08a-2026-10-06.md) atdf8447ae8807e2baa97a05ada3b209bfb7e3688b frompublished60e3; reuseTaskSpec/Condition/SequenceClient,onechapter-observer@1.0.0 only.
 - [x] Independentpland73dd03 beforememo312b76a;root+reviewer fullyread/approved. Digestpreimage allDefinition exceptdigestinclnone/false;opaque taskid safelyseparatefromrun_id/path;invalid vs preconditionblocked explicit. Implementation released withzero-call/strictparams/copy gates.
 - [x] Fixedcode8e0a2a0/tree55eb8 withauthor1071 andindependent55dbe79 APPROVE. Onlyregistry/test/CI3lines;11independentprobes/normal23+realnonUTFtext23/fullPioneer1106+2skip/QA440/common2 andQAhashes verified. Oldruntime/QA/R&R unchanged;originaltwo test-input reds retained.
 - [x] Exactcombo1dbd7dd6ac9b9237cb682b924a278c8bf5a99278/tree8922948/packagesf45c/github55f6c passedfrozen11probes/normal23+realnonUTF23/fullPioneer1106+2skip/QA440/common2/oldtargeted/H09/QAhashes,906inputsunchanged. [Integration](docs/test-reports/2026-10-06/H08a-integration.md). Candidate payload/publish/exactHostednew23+old25/44/all4 remainpending;fakeportsnotlive/native.
-- [ ] Source-bound selftest/independentCR/exactcombo/finalCI newnativegroup;carryQ05a finalCI3WIP,retainASCII-FS limitation/Q06pause andnone-false.
+- [x] Final155817a444718366c3dbd56ac91fff8d52500fa5 passed147-object/23-artifact audit androot130356B prefix/oldstate checks,masterFF/push/remote-readbackmatch. Q06payloadnotincluded,oldsource/history preserved.
+- [x] Exactrun37487788315/attempt1 on155817a all4 success. Windows112352280007 actual23/0skip/0.214s +25/0skip/1.001s +44/0skip/7.053s, each final Git AST name exactly once/ok and targeted diagnostics0. [Final native CI](https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/37487788315). Carry these3postCIWIP into normal H08b delivery; no status-only push/Q06 access/autoexecute.
 
 ## Active Review continuation — Q05a explicit season retrieval (2026-10-06)
 
