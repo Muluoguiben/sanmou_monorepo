@@ -214,6 +214,58 @@ class BindingBoundaryProbes(unittest.TestCase):
 
 
 class BindingLifetimeProbes(unittest.IsolatedAsyncioTestCase):
+    async def test_cached_tool_completion_rechecks_drift_after_budget_settlement(self):
+        state = {"changed": False}
+        class Budget(PortBudget):
+            def settle(self, reservation_id, usage, *, outcome):
+                super().settle(reservation_id, usage, outcome=outcome)
+                run = state["run"]
+                if run.state.pending_call == "session_status" and not state["changed"]:
+                    state["changed"] = True
+                    state["rows"] = len(run.trace.events)
+                    run.state.task.goal = "drift during settlement"
+        run = make(bind=True, budget=Budget())
+        state["run"] = run
+        original_save = run._ownership.save
+        def save_original_task(snapshot):
+            # Isolate trace completion from the separate checkpoint-conflict cut.
+            detached = snapshot.model_copy(deep=True)
+            detached.task = compilation().task
+            return original_save(detached)
+        run._ownership.save = save_original_task
+        with self.assertRaises(TraceEmissionError):
+            await run.run()
+        self.assertTrue(state["changed"])
+        self.assertEqual(run._client.calls, ["session_status"])
+        self.assertEqual(len(run.trace.events), state["rows"])
+        self.assertEqual(len(run.budget.settled), len(set(run.budget.settled)))
+        self.assertIsNotNone(run._causal.failure)
+
+    async def test_terminal_already_saved_is_not_rolled_back_on_late_drift(self):
+        path = directory() / "checkpoint.json"
+        store = JsonRunStore(path)
+        run = make(bind=True, store=store)
+        save = run._ownership.save
+        state = {"changed": False}
+        def late_drift(snapshot):
+            result = save(snapshot)
+            if snapshot.status == "succeeded" and not state["changed"]:
+                state["changed"] = True
+                state["rows"] = len(run.trace.events)
+                run.state.task.goal = "drift after durable success"
+            return result
+        run._ownership.save = late_drift
+        try:
+            await run.run()
+        except BaseException:
+            pass  # A real subsequent checkpoint conflict must retain priority.
+        self.assertTrue(state["changed"])
+        self.assertEqual((store.load().status, store.load().reason), ("succeeded", "goal_verified"))
+        self.assertEqual(store.load().task, compilation().task)
+        self.assertEqual(len(run._client.calls), 12)
+        self.assertEqual(len(run.trace.events), state["rows"])
+        self.assertIsNotNone(run._causal.failure)
+
     async def test_prepared_provenance_then_budget_drift_stops_lazy_dispatch(self):
         for cut, uses_model in (("session_status", False), ("policy:drift-probe", False),
                                 ("policy:drift-probe", True)):
@@ -299,8 +351,9 @@ class BindingLifetimeProbes(unittest.IsolatedAsyncioTestCase):
         for slot in ("policy_version", "model", "prompt", "skill", "kb"):
             for value in values:
                 with self.subTest(slot=slot, value=value):
-                    record = original.model_copy(deep=True)
-                    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+                    declaration = TraceDeclaration(status="declared", value=value)
+                    provenance = original.provenance.model_copy(deep=True, update={slot: declaration})
+                    record = original.model_copy(deep=True, update={"provenance": provenance})
                     memory = InMemoryRunTrace()
                     path = directory() / "trace.jsonl"
                     disk = JsonlRunTrace(path)

@@ -1,0 +1,1060 @@
+test_exact_types_and_complete_preflight_are_required (__main__.BindingBoundaryProbes.test_exact_types_and_complete_preflight_are_required) ... ok
+test_invalid_constructor_has_no_external_side_effects (__main__.BindingBoundaryProbes.test_invalid_constructor_has_no_external_side_effects) ... ok
+test_mutated_and_constructed_models_do_not_bypass_strict_binding (__main__.BindingBoundaryProbes.test_mutated_and_constructed_models_do_not_bypass_strict_binding) ... ok
+test_nested_extra_fields_cannot_disappear_during_serialization (__main__.BindingBoundaryProbes.test_nested_extra_fields_cannot_disappear_during_serialization) ... ok
+test_validation_error_is_clean_inside_ambient_exception (__main__.BindingBoundaryProbes.test_validation_error_is_clean_inside_ambient_exception) ... ok
+test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) ... 
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value='recipe:chapter-observer@1.0.0#sha256=0000000000000000000000000000000000000000000000000000000000000000') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365\n') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365\r\n') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value=' recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365a') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a36') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value='recipe:chapter-observer@1.0.1#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value='recipe:chapter-observer@1.0.0#sha256=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value='recipe:chapter-observer@1.0.0＃sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value='recipe:chapter-observer@1.0.0#sha256＝b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value='recipe:chapter-observer@1.0.0#sha256=0000000000000000000000000000000000000000000000000000000000000000') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365\n') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365\r\n') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value=' recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365a') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a36') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value='recipe:chapter-observer@1.0.1#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value='recipe:chapter-observer@1.0.0#sha256=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value='recipe:chapter-observer@1.0.0＃sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value='recipe:chapter-observer@1.0.0#sha256＝b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value='recipe:chapter-observer@1.0.0#sha256=0000000000000000000000000000000000000000000000000000000000000000') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365\n') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365\r\n') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value=' recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365a') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a36') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value='recipe:chapter-observer@1.0.1#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value='recipe:chapter-observer@1.0.0#sha256=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value='recipe:chapter-observer@1.0.0＃sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value='recipe:chapter-observer@1.0.0#sha256＝b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value='recipe:chapter-observer@1.0.0#sha256=0000000000000000000000000000000000000000000000000000000000000000') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365\n') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365\r\n') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value=' recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365a') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a36') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value='recipe:chapter-observer@1.0.1#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value='recipe:chapter-observer@1.0.0#sha256=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value='recipe:chapter-observer@1.0.0＃sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value='recipe:chapter-observer@1.0.0#sha256＝b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value='recipe:chapter-observer@1.0.0#sha256=0000000000000000000000000000000000000000000000000000000000000000') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365\n') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365\r\n') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value=' recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365a') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a36') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value='recipe:chapter-observer@1.0.1#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value='recipe:chapter-observer@1.0.0#sha256=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value='recipe:chapter-observer@1.0.0＃sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+  test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value='recipe:chapter-observer@1.0.0#sha256＝b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365') ... ERROR
+Executing <Task finished name='Task-2' coro=<BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls() done, defined at /mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py:290> result=None created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.178 seconds
+test_prepared_provenance_then_budget_drift_stops_lazy_dispatch (__main__.BindingLifetimeProbes.test_prepared_provenance_then_budget_drift_stops_lazy_dispatch) ... ok
+test_runtime_drift_failure_is_not_hidden_by_ambient_exception (__main__.BindingLifetimeProbes.test_runtime_drift_failure_is_not_hidden_by_ambient_exception) ... ok
+test_same_task_snapshot_survives_acquire_hook_and_caller_mutation (__main__.BindingLifetimeProbes.test_same_task_snapshot_survives_acquire_hook_and_caller_mutation) ... ok
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+policy_version
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value='recipe:chapter-observer@1.0.0#sha256=0000000000000000000000000000000000000000000000000000000000000000')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+policy_version
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...0000000000000000000000'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+policy_version
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...a65915f424aef6f8a365\n'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365\r\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+policy_version
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...5915f424aef6f8a365\r\n'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value=' recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+policy_version
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365a')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+policy_version
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...ca65915f424aef6f8a365a'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a36')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+policy_version
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...8dca65915f424aef6f8a36'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value='recipe:chapter-observer@1.0.1#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+policy_version
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value='recipe:chapter-observer@1.0.0#sha256=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+policy_version
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...AAAAAAAAAAAAAAAAAAAAAA'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value='recipe:chapter-observer@1.0.0＃sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+policy_version
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='policy_version', value='recipe:chapter-observer@1.0.0#sha256＝b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+policy_version
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+model
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value='recipe:chapter-observer@1.0.0#sha256=0000000000000000000000000000000000000000000000000000000000000000')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+model
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...0000000000000000000000'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+model
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...a65915f424aef6f8a365\n'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365\r\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+model
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...5915f424aef6f8a365\r\n'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value=' recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+model
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365a')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+model
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...ca65915f424aef6f8a365a'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a36')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+model
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...8dca65915f424aef6f8a36'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value='recipe:chapter-observer@1.0.1#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+model
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value='recipe:chapter-observer@1.0.0#sha256=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+model
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...AAAAAAAAAAAAAAAAAAAAAA'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value='recipe:chapter-observer@1.0.0＃sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+model
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='model', value='recipe:chapter-observer@1.0.0#sha256＝b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+model
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+prompt
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value='recipe:chapter-observer@1.0.0#sha256=0000000000000000000000000000000000000000000000000000000000000000')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+prompt
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...0000000000000000000000'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+prompt
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...a65915f424aef6f8a365\n'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365\r\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+prompt
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...5915f424aef6f8a365\r\n'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value=' recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+prompt
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365a')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+prompt
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...ca65915f424aef6f8a365a'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a36')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+prompt
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...8dca65915f424aef6f8a36'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value='recipe:chapter-observer@1.0.1#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+prompt
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value='recipe:chapter-observer@1.0.0#sha256=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+prompt
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...AAAAAAAAAAAAAAAAAAAAAA'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value='recipe:chapter-observer@1.0.0＃sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+prompt
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='prompt', value='recipe:chapter-observer@1.0.0#sha256＝b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+prompt
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+skill
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value='recipe:chapter-observer@1.0.0#sha256=0000000000000000000000000000000000000000000000000000000000000000')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+skill
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...0000000000000000000000'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+skill
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...a65915f424aef6f8a365\n'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365\r\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+skill
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...5915f424aef6f8a365\r\n'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value=' recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+skill
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365a')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+skill
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...ca65915f424aef6f8a365a'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a36')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+skill
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...8dca65915f424aef6f8a36'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value='recipe:chapter-observer@1.0.1#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+skill
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value='recipe:chapter-observer@1.0.0#sha256=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+skill
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...AAAAAAAAAAAAAAAAAAAAAA'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value='recipe:chapter-observer@1.0.0＃sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+skill
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='skill', value='recipe:chapter-observer@1.0.0#sha256＝b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+skill
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+kb
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value='recipe:chapter-observer@1.0.0#sha256=0000000000000000000000000000000000000000000000000000000000000000')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+kb
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...0000000000000000000000'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+kb
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...a65915f424aef6f8a365\n'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365\r\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+kb
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...5915f424aef6f8a365\r\n'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value=' recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+kb
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365a')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+kb
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...ca65915f424aef6f8a365a'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value='recipe:chapter-observer@1.0.0#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a36')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+kb
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...8dca65915f424aef6f8a36'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value='recipe:chapter-observer@1.0.1#sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+kb
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value='recipe:chapter-observer@1.0.0#sha256=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+kb
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...AAAAAAAAAAAAAAAAAAAAAA'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value='recipe:chapter-observer@1.0.0＃sha256=b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+kb
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+======================================================================
+ERROR: test_dual_sink_exact_exception_and_cross_slot_controls (__main__.BindingLifetimeProbes.test_dual_sink_exact_exception_and_cross_slot_controls) (slot='kb', value='recipe:chapter-observer@1.0.0#sha256＝b375bf689be7802f86b24fa122535bfad9d8e7d6f8dca65915f424aef6f8a365')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo/docs/test-reports/2026-10-18/h08b-independent-public-probes.py", line 303, in test_dual_sink_exact_exception_and_cross_slot_controls
+    setattr(record.provenance, slot, TraceDeclaration(status="declared", value=value))
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 1068, in _setattr_handler
+    _check_frozen(cls, name, value)
+  File "/home/lan/.local/lib/python3.12/site-packages/pydantic/main.py", line 89, in _check_frozen
+    raise ValidationError.from_exception_data(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TraceProvenance
+kb
+  Instance is frozen [type=frozen_instance, input_value=TraceDeclaration(status='...dca65915f424aef6f8a365'), input_type=TraceDeclaration]
+    For further information visit https://errors.pydantic.dev/2.12/v/frozen_instance
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.721s
+
+FAILED (errors=55)

@@ -1,0 +1,28 @@
+{
+  "source": "695ec15a8570097c30b9d74380485001b9e53939",
+  "tree": "d1044d4fe0a20713798bc89d1d16b5fe42a86198",
+  "exact_text_files": 956,
+  "packages_tree": "970efcd960fcb694502938d7cefb22785b05e1cf",
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "-W",
+    "error::RuntimeWarning",
+    "docs/test-reports/2026-10-06/h10a-independent-ambient-primary.py"
+  ],
+  "cwd": "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo",
+  "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+  "environment": {
+    "PYTHONPATH": "packages/pioneer-agent/src:packages/sanmou-common/src:packages/pioneer-agent/tests:packages/qa-agent/src:packages/qa-agent/tests",
+    "TMPDIR": "/home/lan/projects/sanmou_monorepo/data/agent_runs/h08b-20261018/reviewer-tmp",
+    "LC_ALL": null,
+    "LANG": "C.UTF-8",
+    "PYTHONUTF8": null,
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exit": 0,
+  "tests": 2,
+  "bytes": 412,
+  "sha256": "a977982e1a7a012fda80b0ba57eb686d443b8b3c82b124efe9f6a7d6928cf098",
+  "log": "lf-h10-ambient-primary.log"
+}

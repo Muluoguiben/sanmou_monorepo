@@ -1,0 +1,11 @@
+Review source: 695ec15a8570097c30b9d74380485001b9e53939
+Product source: f2017c826a9bd798c66be404e99b8e3f8b0ffa50
+Outer evidence collector result: subprocess.TimeoutExpired after 300 seconds.
+This is a transcription of the tool exception, not CLI raw stdout.
+Command: /usr/bin/python3 -B -W error::RuntimeWarning -m pioneer_agent.app.task_eval --output /home/lan/projects/sanmou_monorepo/data/agent_runs/h08b-20261018/reviewer-tmp/h09-lf-20261018-independent-r3
+GIT_DIR=/home/lan/projects/sanmou_monorepo/.git/worktrees/sanmou_monorepo12
+GIT_WORK_TREE=/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo
+Original lf-h09-cli-r3.log remains empty; no metadata was produced by the old collector.
+All eight case directories existed at termination, but report.json did not exist.
+No successful aggregate gate, source-finalization, or case total is claimed.
+No product task budget, source verification, fixture, or assertion was changed.

@@ -1,0 +1,415 @@
+{
+  "product_source": "f2017c826a9bd798c66be404e99b8e3f8b0ffa50",
+  "review_source": "695ec15a8570097c30b9d74380485001b9e53939",
+  "packages_tree": "970efcd960fcb694502938d7cefb22785b05e1cf",
+  "exact_text_files": 956,
+  "workflow_inverse_bytes_and_yaml": true,
+  "new_31_names_exact": true,
+  "commands": [
+    {
+      "tag": "baseline-ext4-h08a-h10-r2",
+      "exit": 0,
+      "tests": 55,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "baseline-ext4-h08a-h10-r2.log",
+      "bytes": 12399,
+      "sha256": "adadd59d8ff7cdb525c3c9db4fd3023bad7584a7af11a1939b116781de93d338"
+    },
+    {
+      "tag": "f2017c-dedicated",
+      "exit": 0,
+      "tests": 86,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "f2017c-dedicated.log",
+      "bytes": 19728,
+      "sha256": "49e7f8b3e3360a4b39a431318ba690e4432bdb459dc1e6b57af7720bcd2efe23"
+    },
+    {
+      "tag": "f2017c-default-oracle",
+      "exit": 0,
+      "tests": null,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "f2017c-default-oracle.log",
+      "bytes": 74,
+      "sha256": "6b5a6b9f353049eabec933bb9c4aef5d4dca1399480e98bbe9cbd8fb9ab9427e"
+    },
+    {
+      "tag": "f2017c-public-r2",
+      "exit": 0,
+      "tests": 9,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "f2017c-public-r2.log",
+      "bytes": 1901,
+      "sha256": "ad63c60989896ce36593f3089a6defcff3a71f2648c089b09c7383cbff54e1ca"
+    },
+    {
+      "tag": "f2017c-public",
+      "exit": 1,
+      "tests": 9,
+      "errors": 55,
+      "failures": 0,
+      "skipped": 0,
+      "log": "f2017c-public.log",
+      "bytes": 105601,
+      "sha256": "f26842e6144e04ab6ca5fcb1fa6eddb3fccd023d2bb4c35963c9d1a9be251fe7"
+    },
+    {
+      "tag": "lf-common-full",
+      "exit": 0,
+      "tests": 2,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-common-full.log",
+      "bytes": 335,
+      "sha256": "010a89da9c92be4d17ab4a71de5841afdb0822c849762faa17d173e7ad94fd05"
+    },
+    {
+      "tag": "lf-dedicated",
+      "exit": 0,
+      "tests": 86,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-dedicated.log",
+      "bytes": 19747,
+      "sha256": "6149e8b531708a4f16de70b1948c02626c98c90755b0cacb5c1355fbf54c7cf9"
+    },
+    {
+      "tag": "lf-default",
+      "exit": 0,
+      "tests": null,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-default.log",
+      "bytes": 74,
+      "sha256": "6b5a6b9f353049eabec933bb9c4aef5d4dca1399480e98bbe9cbd8fb9ab9427e"
+    },
+    {
+      "tag": "lf-h07-q04-q05",
+      "exit": 0,
+      "tests": 104,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-h07-q04-q05.log",
+      "bytes": 19333,
+      "sha256": "4361ba6776a8272753bff13903f29a0e926c780bcd32d2da00f7b9c79b958f0a"
+    },
+    {
+      "tag": "lf-h09-cli-r2",
+      "exit": 2,
+      "tests": null,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-h09-cli-r2.log",
+      "bytes": 178,
+      "sha256": "9ac63bb46b2a38c2aba4f3a4f9c982b720f7c40abd1f4b01e4ef0de7f13a6993"
+    },
+    {
+      "tag": "lf-h09-cli-r4",
+      "exit": 0,
+      "tests": null,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-h09-cli-r4.log",
+      "bytes": 309,
+      "sha256": "0b2bacad28cff9f3a0a78c4d5bd91f9131b4d1d35eb8ed2f7a667327ef98489d"
+    },
+    {
+      "tag": "lf-h09-cli",
+      "exit": 2,
+      "tests": null,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-h09-cli.log",
+      "bytes": 175,
+      "sha256": "6f34f4b265dd9d055bb029ccb15898e9c0c07f7d7f68053756c9ac86b9e0c1e5"
+    },
+    {
+      "tag": "lf-h10-ambient-primary",
+      "exit": 0,
+      "tests": 2,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-h10-ambient-primary.log",
+      "bytes": 412,
+      "sha256": "a977982e1a7a012fda80b0ba57eb686d443b8b3c82b124efe9f6a7d6928cf098"
+    },
+    {
+      "tag": "lf-h10-dispatch-deadline",
+      "exit": 0,
+      "tests": 1,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-h10-dispatch-deadline.log",
+      "bytes": 249,
+      "sha256": "e4518e879e93ed03a9c131e16caa802ac171578a0618c934c2f60dc01070357c"
+    },
+    {
+      "tag": "lf-h10-policy-binding-budget-cut",
+      "exit": 0,
+      "tests": 1,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-h10-policy-binding-budget-cut.log",
+      "bytes": 449,
+      "sha256": "6737e23f79631f7dda96544d4575d836966c266826c87d252a4e05f34499321e"
+    },
+    {
+      "tag": "lf-h10-policy-binding",
+      "exit": 0,
+      "tests": 2,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-h10-policy-binding.log",
+      "bytes": 738,
+      "sha256": "00b314df7991a0d71e3db41731bbf98fd1528c967fc602af00c941e4e37991dc"
+    },
+    {
+      "tag": "lf-h10-probes",
+      "exit": 0,
+      "tests": 5,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-h10-probes.log",
+      "bytes": 907,
+      "sha256": "61cea4736207fe0e2379706ef755e0c0e15ffb8be7680f55c1ead8dfb00c0f54"
+    },
+    {
+      "tag": "lf-h10-targeted",
+      "exit": 0,
+      "tests": 5,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-h10-targeted.log",
+      "bytes": 957,
+      "sha256": "6e88b4473ec01d1c2c0dcf0c86d0f1ec4ffdbc1b28967ffc51012642fb6ad951"
+    },
+    {
+      "tag": "lf-h10-trace-context-short",
+      "exit": 0,
+      "tests": 1,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-h10-trace-context-short.log",
+      "bytes": 275,
+      "sha256": "297db8b3b18471cfedb8ac85845deab4ea4d3b93a67d46c7dbe4adcfcc914448"
+    },
+    {
+      "tag": "lf-h10-trace-context",
+      "exit": 0,
+      "tests": 1,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-h10-trace-context.log",
+      "bytes": 258,
+      "sha256": "9406f5bcaf0b94d6000e2ff9925018115bf1f181a861bb7356a4065d07c9a556"
+    },
+    {
+      "tag": "lf-nonutf",
+      "exit": 0,
+      "tests": 31,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-nonutf.log",
+      "bytes": 7041,
+      "sha256": "27735a9c77ed3be2cf859aae00347d2136bd9e460c346189fb8a7da15fc9f430"
+    },
+    {
+      "tag": "lf-pioneer-full-r2",
+      "exit": 1,
+      "tests": 1135,
+      "errors": 1,
+      "failures": 0,
+      "skipped": 8,
+      "log": "lf-pioneer-full-r2.log",
+      "bytes": 389940,
+      "sha256": "4722a8cfbe69a7f3aeb013ae0e2033db370ea8a589e50af0576d25ef2b3b0a64"
+    },
+    {
+      "tag": "lf-pioneer-full",
+      "exit": 1,
+      "tests": 885,
+      "errors": 17,
+      "failures": 0,
+      "skipped": 6,
+      "log": "lf-pioneer-full.log",
+      "bytes": 354919,
+      "sha256": "71359d931e64358888e9e409c1f1a76863386769c9c3c1ebd3008a94cc61db56"
+    },
+    {
+      "tag": "lf-public",
+      "exit": 0,
+      "tests": 11,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-public.log",
+      "bytes": 2614,
+      "sha256": "c949dc521e2ff8e75962f0249210e1a0419af2e7ce4cf5302f00c2396d799ae4"
+    },
+    {
+      "tag": "lf-q04-cli",
+      "exit": 0,
+      "tests": null,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-q04-cli.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "lf-qa-full-r2",
+      "exit": 1,
+      "tests": 440,
+      "errors": 0,
+      "failures": 2,
+      "skipped": 0,
+      "log": "lf-qa-full-r2.log",
+      "bytes": 72471,
+      "sha256": "ebcc8c339ada6fd324e1bea3e794498b6c781b8abdcc0dd5e4e5a9d2c63fdf48"
+    },
+    {
+      "tag": "lf-qa-full-r3",
+      "exit": 0,
+      "tests": 440,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-qa-full-r3.log",
+      "bytes": 71265,
+      "sha256": "16258774f8971710915b51be51666525bf2bfbc15f3e98269730d1c32aead52c"
+    },
+    {
+      "tag": "lf-qa-full",
+      "exit": 1,
+      "tests": 429,
+      "errors": 2,
+      "failures": 2,
+      "skipped": 0,
+      "log": "lf-qa-full.log",
+      "bytes": 72829,
+      "sha256": "96e8be51a762dfb9629b216d9e6b346325252a89687883bd807756cf7dfab112"
+    },
+    {
+      "tag": "lf-qa-v1",
+      "exit": 1,
+      "tests": null,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-qa-v1.log",
+      "bytes": 962,
+      "sha256": "ae2855c0159a2e01053a2bbc115a062bda0025a7afd89cd17c1773710db85617"
+    },
+    {
+      "tag": "lf-qa-v2",
+      "exit": 1,
+      "tests": null,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-qa-v2.log",
+      "bytes": 962,
+      "sha256": "ae2855c0159a2e01053a2bbc115a062bda0025a7afd89cd17c1773710db85617"
+    },
+    {
+      "tag": "lf-qa-v3",
+      "exit": 1,
+      "tests": null,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-qa-v3.log",
+      "bytes": 962,
+      "sha256": "ae2855c0159a2e01053a2bbc115a062bda0025a7afd89cd17c1773710db85617"
+    },
+    {
+      "tag": "lf-qa-v4",
+      "exit": 0,
+      "tests": null,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-qa-v4.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "lf-source-audit",
+      "exit": 0,
+      "tests": null,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "log": "lf-source-audit.log",
+      "bytes": 4446,
+      "sha256": "88a2e0abfeae7b2eab2045ecb47f0b8e4f8c0a4cc0a341996bcb8d1de3f527e6"
+    }
+  ],
+  "retained_unpaired_logs": [
+    {
+      "log": "baseline-ext4-h08a-h10.log",
+      "bytes": 11866,
+      "sha256": "5ff7236791972a258a7b7a3d8058ab9ee93f3579b10d6eda2cfe213e61910388"
+    },
+    {
+      "log": "lf-h09-cli-r3.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "retained_timeout_transcription": "h08b-independent-results/lf-h09-cli-r3-outer-timeout.txt",
+  "whole_output_sha256": {
+    "qa_v4": "c30d4129f16930fd554c502d6a6b7f5787f657367df86e8ace5cd454db58858c",
+    "q04": "b9658bf88a197cf0a6a421dd66133bade253281961acc85f59c744b62732f0b6"
+  },
+  "h09": {
+    "path": "/home/lan/projects/sanmou_monorepo/data/agent_runs/h08b-20261018/reviewer-tmp/h09-lf-20261018-independent-r4/report.json",
+    "sha256": "31b53a863e3af6709b56d62d220996c62100174f98cfeb768022210c84acb550",
+    "complete": true,
+    "gate_pass": true,
+    "source_verified": true,
+    "source_commit": "695ec15a8570097c30b9d74380485001b9e53939",
+    "source_tree": "d1044d4fe0a20713798bc89d1d16b5fe42a86198",
+    "cases": 8,
+    "totals": {
+      "control_pass": 8,
+      "expected_safety_stop": 6,
+      "goal_success": 2,
+      "infra_error": 0,
+      "safety_violations": 0,
+      "unexpected_goal_success": 0
+    }
+  },
+  "final_native_ci": "pending; this local review is not native acceptance",
+  "product_edits_by_reviewer": 0,
+  "provider_calls": 0,
+  "live_game_or_bridge_actions": 0,
+  "protected_q06_archive_body_reads": 0,
+  "dependency_installs": 0,
+  "pushes": 0
+}

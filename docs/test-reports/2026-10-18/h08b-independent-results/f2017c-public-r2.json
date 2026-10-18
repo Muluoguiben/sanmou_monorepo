@@ -1,0 +1,28 @@
+{
+  "source": "695ec15a8570097c30b9d74380485001b9e53939",
+  "tree": "d1044d4fe0a20713798bc89d1d16b5fe42a86198",
+  "product_status": "",
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "-W",
+    "error::RuntimeWarning",
+    "docs/test-reports/2026-10-18/h08b-independent-public-probes.py",
+    "-v"
+  ],
+  "cwd": "/mnt/c/Users/Lan/.codex/worktrees/qa-q03a-review-20261005/sanmou_monorepo",
+  "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+  "environment": {
+    "PYTHONPATH": "packages/pioneer-agent/src:packages/sanmou-common/src:packages/pioneer-agent/tests",
+    "TMPDIR": "/home/lan/projects/sanmou_monorepo/data/agent_runs/h08b-20261018/reviewer-tmp",
+    "LC_ALL": null,
+    "LANG": "C.UTF-8",
+    "PYTHONUTF8": null,
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exit": 0,
+  "tests": 9,
+  "bytes": 1901,
+  "sha256": "ad63c60989896ce36593f3089a6defcff3a71f2648c089b09c7383cbff54e1ca",
+  "log": "f2017c-public-r2.log"
+}
