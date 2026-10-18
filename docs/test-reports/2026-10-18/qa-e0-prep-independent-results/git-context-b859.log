@@ -1,0 +1,8 @@
+test_existing_wsl_git_exe_fallback_retains_explicit_cwd_and_clean_environment (__main__.GitContextBoundaryProbes.test_existing_wsl_git_exe_fallback_retains_explicit_cwd_and_clean_environment) ... ok
+test_inherited_git_context_is_not_forwarded_to_metadata_subprocesses (__main__.GitContextBoundaryProbes.test_inherited_git_context_is_not_forwarded_to_metadata_subprocesses) ... ok
+test_initial_metadata_root_must_match_script_repository (__main__.GitContextBoundaryProbes.test_initial_metadata_root_must_match_script_repository) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 3.129s
+
+OK
