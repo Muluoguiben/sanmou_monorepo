@@ -8,7 +8,8 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[3]
-FIXED = "81c4a315d36e08979c76f1b9395045ed75cd3e76"
+FIXED = os.environ.get("QE0_PRODUCT_SHA", "81c4a315d36e08979c76f1b9395045ed75cd3e76")
+assert re.fullmatch(r"[0-9a-f]{40}", FIXED)
 tag, *args = sys.argv[1:]
 assert re.fullmatch(r"[a-z0-9][a-z0-9-]{0,79}", tag)
 out = Path(__file__).with_name("qa-e0-prep-independent-results")
