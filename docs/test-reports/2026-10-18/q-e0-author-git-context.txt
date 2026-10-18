@@ -1,0 +1,63 @@
+Q-E0 Git-context repair: fixed-source author verification, 2026-10-18
+
+Source: b8595f5b24309f9ee67dc27b3dd085adab6db078
+https://github.com/Muluoguiben/sanmou_monorepo/commit/b8595f5b24309f9ee67dc27b3dd085adab6db078
+Tree: a8742b9c9059be04e3bf53f73242b96b7ca3ed32
+Packages: 9157fe91f7f0e5a3ed0a3df86e73eeb210ac1bb7
+Workflow: 53b95f66600d981c0ba1866b15dc1396eef0bd50 (unchanged)
+Script normalized SHA256:
+43266461f9affb3003e018fe77c17040a61d8dbabadeb6c725c57572b198449e
+
+The earlier report q-e0-author.txt and all 81c4a31 evidence remain unchanged,
+including the original CRLF checkout failures and authorized canonical-LF repair.
+This report supplements that result; it does not relabel the earlier source.
+
+Independent review identified that inherited GIT_DIR/GIT_WORK_TREE/GIT_COMMON_DIR,
+GIT_CONFIG_* and related variables could redirect output-root metadata queries.
+The bounded repair removes every inherited GIT_* variable from the explicit Git
+subprocess environment, sets GIT_TERMINAL_PROMPT=0, and requires the initial
+show-toplevel to resolve to the script's REPOSITORY before worktree listing.
+Native Git / already-installed git.exe fallback and valid ignored worktree
+outputs remain supported. No external-repository experiment or external write.
+Three finite author regressions cover env/fallback isolation, mismatched metadata
+root rejection before listing, and a real registered ignored-worktree positive.
+The new script freeze hash and protocol were updated; no old frozen source changed.
+
+Author reruns AFTER b8595f5 existed, using the same existing WSL/Python 3.12.3 and
+authorized scratch/environment documented in q-e0-author.txt:
+
+- python3 -B -W error::RuntimeWarning -m unittest test_prepare_e0_review -v
+  23 passed, 0 skipped, exit 0; 36.784 seconds.
+- python3 -B -W error::RuntimeWarning -m unittest discover -s tests -p test_*.py -v
+  Complete QA package: 463 passed, 0 skipped, exit 0; 281.916 seconds.
+- python3 -B scripts/prepare_e0_review.py verify: exit 0.
+- Existing v4 runner and claim-spans-v1 CLIs: both exit 0; complete report hashes
+  retain c30d4129f16930fd554c502d6a6b7f5787f657367df86e8ace5cd454db58858c and
+  b9658bf88a197cf0a6a421dd66133bade253281961acc85f59c744b62732f0b6 respectively.
+- Protected-path Git diff and git diff --check are clean. Production src, formal
+  KB, old v1-v4/claim-spans fixtures, scorers/MCP, Pioneer/common/CI/deps unchanged.
+
+New plain evidence under author ignored data/agent_runs/q-e0-20261018/:
+
+b8595f5-targeted.log
+  4271 bytes; fd3ee1fa6602e0a78fb82d5f14363a48e64f8d1340c3eb3280588db3cab7cda6
+b8595f5-qa-full.log
+  75952 bytes; 3a62260d073562ad64cc0669cea41135636e16a44a54cbc6400bc2a0c92aa6da
+b8595f5-verify-cli.log
+  3040 bytes; d4a5f7e889399a9657cd9957df3a24d397270e3e8477abcff46f763db761f4ea
+b8595f5-v4.json
+  49046 bytes; c30d4129f16930fd554c502d6a6b7f5787f657367df86e8ace5cd454db58858c
+b8595f5-q04.json
+  20969 bytes; b9658bf88a197cf0a6a421dd66133bade253281961acc85f59c744b62732f0b6
+
+Separately, root relayed that the independent reviewer's original three Git-context
+probes passed unchanged on the repair, with log SHA256
+427e5b90c024b029cf213d59f53dc3612de8cb58993aff6533f4ad32d32886a7.
+That is reviewer-reported evidence, not an author rerun or substitute for the
+author results above; the coordinator owns its final independent acceptance.
+
+No actual 50-item material pack, human labels, provider answers, native-Windows
+proof or holdout quality was produced by the author. No push, master merge,
+knowledge publication/deployment/game action, dependency install, credentials/.env
+read or Q06 archive/member access. Current outputs remain pending review only;
+Q07 independent quality, human gold and reviewer identity are not established.
