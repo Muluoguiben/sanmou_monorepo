@@ -1,0 +1,116 @@
+Q-E0 review preparation: bounded author verification, 2026-10-18
+
+Fixed source: 81c4a315d36e08979c76f1b9395045ed75cd3e76
+https://github.com/Muluoguiben/sanmou_monorepo/commit/81c4a315d36e08979c76f1b9395045ed75cd3e76
+Source tree: 53cb594aadc1cc5dda86975b98ae102279a4e221
+Package tree: d954918d8218eb8b1b1c744aff75c7091c693cfd
+Workflow tree (unchanged): 53b95f66600d981c0ba1866b15dc1396eef0bd50
+Contract: 88bd5a0fb641d147548ed6a5eb8284106ec3caa2
+Interface memo: b02ebbdef0bbe0f9b0b8b3b0c8b32e66ff537afe
+Worktree: C:/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo
+Branch: codex/q-e0-review-prep-impl-20261018
+
+Scope and result
+
+Added only the fixed-source prepare_e0_review.py script, one 20-test unittest,
+six finite synthetic records, a small upstream-reference freeze manifest and
+the review protocol, following the earlier memo-only commit. No production src,
+formal KB, old v1-v4/claim_spans fixtures, scorer, MCP, Pioneer, common, CI or
+dependencies changed. Git protected-path diff is empty; git diff --check passes.
+
+The script reuses the existing v4 and claim-spans run functions, origin checks,
+snapshot normalization, metrics and denominators. It does not construct a real
+LLM client, read model configuration or assign human labels. Full source text,
+parsed raw records and complete normalized KnowledgeEntry data are distinguished.
+No summary truncation replaces constraints, notes, attributes or structured lists.
+All human fields start null; raw-record metadata cannot override machine identity.
+
+Create-only output uses an existing ignored repository/worktree parent, exclusive
+files and an fsynced non-authoritative pending manifest. The final manifest is
+linked only after source/script and written-content revalidation. Failures retain
+their partial directory/draft; retries must use a new directory. Hashes/hardlinks
+are not signatures, human authentication or malicious-concurrency protection.
+Immutable task/evidence materials are not the human answer file. The protocol and
+REVIEW instruct the user to start with ten tasks, copy task_id/human_review to an
+independent answer file or reply, and keep source support separate from current
+game truth. Local one-hop candidate labels are not exhaustive KB retrieval gold.
+
+Verification environment
+
+Existing WSL Ubuntu Python 3.12.3, Pydantic 2.12.5, PyYAML 6.0.1; no installation.
+All Git commands issued for this work used -c core.autocrlf=false.
+Test TMPDIR was the root-authorized exclusive existing ext4 scratch:
+/home/lan/projects/sanmou_monorepo/data/agent_runs/h08b-20261018/author-tmp
+Tests only created their own temporary content there. Logs/output stayed under
+the author's ignored data/agent_runs/q-e0-20261018. No native-Windows claim.
+
+All tests below were run AFTER the implementing source commit existed:
+
+1. In packages/qa-agent/tests, PYTHONPATH=../src:../../sanmou-common/src:
+   python3 -B -W error::RuntimeWarning -m unittest test_prepare_e0_review -v
+   Result: 20 passed, 0 skipped, exit 0.
+   Covers deterministic domain/ID selection, exact positive integer/count limits,
+   duplicate IDs and query/old-ID deduplication, complete qualifiers and raw data,
+   one-hop non-exhaustive candidates, pending identity, date encoding, safe literal
+   rendering, immutable-answer instructions, path rejection, reproducible outputs,
+   no overwrite, fsync/link/revalidation/readback failures and zero provider calls.
+
+2. In packages/qa-agent, PYTHONPATH=src:../sanmou-common/src:
+   python3 -B -W error::RuntimeWarning -m unittest discover -s tests -p test_*.py -v
+   Initial result: 460 tests, 458 passed / 2 failures, exit 1; preserved below.
+   Both failures were old test_bilibili_workflow_script cases returning 127.
+   git ls-files --eol showed index LF / worktree CRLF for the existing shell script.
+   Root explicitly authorized only its mechanical CRLF-to-LF restoration, only
+   after the candidate's raw Git blob exactly matched the fixed source HEAD.
+   Original bytes 2493, normalized bytes 2423; mode remained 100755.
+   Original raw blob: 95222c87ab19edd890131b06c5d1db18ea41a31b
+   Candidate, verified worktree and HEAD blob:
+   44863bc50e518673e6cc0a8705ff6c51a5ca42e8
+   No reset/checkout or assertion edit; only index stat refresh after identical
+   content restoration. Staged and unstaged Git diffs remained empty.
+   Same fixed-source full rerun: 460 passed, 0 skipped, exit 0, 264.184 seconds.
+
+3. Real script CLI verify, PYTHONPATH=src:
+   python3 -B scripts/prepare_e0_review.py verify
+   Exit 0; confirms fixed counts/identities, provider_calls=0, human_gold=false,
+   independent_holdout=false and quality_threshold=null. This is mechanical
+   development-baseline verification, not human semantic or production quality.
+
+4. Actual existing CLIs, PYTHONPATH=src, both exit 0:
+   python3 -B -m qa_agent.quality_eval.runner --baseline v4 --output <new-file>
+   python3 -B -m qa_agent.quality_eval.claim_spans --baseline claim-spans-v1 --output <new-file>
+   Whole report SHA256 values retain the frozen contract oracles:
+   v4:  c30d4129f16930fd554c502d6a6b7f5787f657367df86e8ace5cd454db58858c
+   Q04: b9658bf88a197cf0a6a421dd66133bade253281961acc85f59c744b62732f0b6
+   Old version-refusal assertions ran unchanged within the full QA suite.
+
+Preserved local plain evidence, relative to author worktree
+
+data/agent_runs/q-e0-20261018/81c4a31-targeted.log
+  3675 bytes; SHA256 6a750c94b643a02d519567b451609d7bf811280ed35f59d4a5b99c3713093637
+data/agent_runs/q-e0-20261018/81c4a31-qa-full.log
+  76580 bytes; SHA256 f4fba1583a36e4ac8b3081a355a01a936d8ff36582176cb1c01cfa80225deb09
+  Original two-failure run, retained without rewriting.
+data/agent_runs/q-e0-20261018/81c4a31-shell-lf-diagnostic.log
+  448 bytes; SHA256 470bd74a7038e5cb0985784b537ba3144a8f40c683f8c20fb0622fbb3447e98b
+data/agent_runs/q-e0-20261018/81c4a31-qa-full-lf.log
+  75356 bytes; SHA256 e4b7c05805f7dff751beb0758a008948cb8ff6ff608a22b0779d89b9aaf87a39
+data/agent_runs/q-e0-20261018/81c4a31-verify-cli.log
+  3040 bytes; SHA256 892f9328060eb208e5ec0bee1be04e8206192e5827b41aa6a5504d8028d47a14
+data/agent_runs/q-e0-20261018/81c4a31-v4.json
+  49046 bytes; SHA256 as v4 oracle above.
+data/agent_runs/q-e0-20261018/81c4a31-q04.json
+  20969 bytes; SHA256 as Q04 oracle above.
+
+Stop boundary
+
+No actual 50-item review package was generated by the author. Only synthetic
+writer tests created temporary packages. Coordinator owns independent fixed-SHA
+CR, final combination verification, the real ignored 50-item output and any
+conditionally authorized feature-branch push. Author has not pushed or merged
+master, installed dependencies, published knowledge, deployed, operated the game,
+read credentials/.env or accessed Q06 archive/member payloads.
+
+Q07 independent quality gate remains open; human gold and independent holdout are
+not established. The new tool, protocol, reviewed answers, identity authentication
+and provider quality measurements must not be conflated.
