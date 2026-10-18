@@ -15,6 +15,7 @@ from .tool_log import summarize_arguments
 
 
 _IDENTIFIER = re.compile(r"[A-Za-z0-9_.:@+-]{1,160}\Z")
+_SKILL_RECIPE = re.compile(r"recipe:chapter-observer@1\.0\.0#sha256=[0-9a-f]{64}")
 _VERSION_KEYS = frozenset({"policy_id", "policy_version", "model_id", "model_version",
                            "prompt_version", "skill_version", "kb_version"})
 
@@ -89,6 +90,11 @@ def _safe_causal_event(event: CausalTraceEvent) -> CausalTraceEvent:
     provenance = raw["provenance"]
     provenance["policy_id"] = _identifier(provenance["policy_id"])
     for key in ("policy_version", "model", "prompt", "skill", "kb"):
-        if provenance[key]["value"] is not None:
-            provenance[key]["value"] = _identifier(provenance[key]["value"])
+        declaration = provenance[key]
+        if declaration["value"] is not None:
+            # Format preservation only; the producer owns recipe validation.
+            if (key == "skill" and declaration["status"] == "declared"
+                    and _SKILL_RECIPE.fullmatch(declaration["value"])):
+                continue
+            declaration["value"] = _identifier(declaration["value"])
     return CausalTraceEvent.model_validate(raw)
