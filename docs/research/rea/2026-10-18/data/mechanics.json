@@ -1,0 +1,6146 @@
+{
+  "schema": "sanmou-rea-research-projection/v1",
+  "review_state": "pending_domain_review",
+  "knowledge_publishable": false,
+  "execution_authority": "none",
+  "executable": false,
+  "records": [
+    {
+      "id": "F001",
+      "origin": "foundation",
+      "title": "四兵种克制环",
+      "category": "兵种",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "具体伤害合成公式、部分特殊战法是否忽略克制、双方不同兵种配对时的最终结算仍需引擎或定向战报证明。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F001",
+        "statement": "盾克弓、弓克枪、枪克骑、骑克盾。客户端说明为克制方造成伤害提升，被克制方造成伤害降低。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_tutorial_desc[125].desc_hash:translated",
+          "arms_advanced_arms_advanced[1].Arms_name,title_desc,Arms_type",
+          "arms_advanced_arms_advanced[2].Arms_name,title_desc,Arms_type",
+          "arms_advanced_arms_advanced[3].Arms_name,title_desc,Arms_type",
+          "arms_advanced_arms_advanced[4].Arms_name,title_desc,Arms_type"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F002",
+      "origin": "foundation",
+      "title": "克制的初始系数",
+      "category": "兵种",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "最终计算在哪一层乘算、是否受特殊效果改写、运行时最终值未恢复。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F002",
+        "statement": "当前属性表中，兵种克制系数与兵种被克制系数的初始值均为0.15。这是15%的编译初始参数，尚不能单独当成完整伤害公式。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "fightprop_BattleProp[137].Ename,Initial,Name",
+          "fightprop_BattleProp[301].Ename,Initial,Name"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F003",
+      "origin": "foundation",
+      "title": "盾兵同兵种加成",
+      "category": "兵种",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "部分片段已核对",
+      "battle_observed_scope": "旧报出现兵种加成-盾兵5002，皇甫嵩/袁术/朱儁均记录受到伤害降低3.50个百分点；左慈已有阵型减伤时该步为3.29个百分点。",
+      "still_missing": [
+        "未独立核对当时上阵武将的运行时兵种数量，不能把出现盾兵加成当作2盾条件已验证。",
+        "3盾5%分支未验证；没有复原该加成对最终伤害的完整计算。",
+        "加成对象与其他来源增减伤的合成方式，仍不以配置名称推定。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F003",
+        "statement": "2名盾兵：受到伤害降低3.5%；3名盾兵：受到伤害降低5%。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_tutorial_desc[125].desc_hash:translated",
+          "buff_buff[5002].name,description",
+          "buff_buff[5001].name,description",
+          "game_config_battle_config[infantry_buff_two].content",
+          "game_config_battle_config[infantry_buff_three].content"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10504369850058",
+          "source_index": 41,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BattleSoldierType"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 42,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 43,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BuffAdd"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 44,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 45,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BuffAdd"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 46,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 47,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BuffAdd"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 48,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BattleSoldierType"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 49,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 50,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BuffAdd"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 51,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 52,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BuffAdd"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 53,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 54,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BuffAdd"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "F004",
+      "origin": "foundation",
+      "title": "弓兵同兵种加成",
+      "category": "兵种",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "部分片段已核对",
+      "battle_observed_scope": "新报出现兵种加成-弓兵5008，诸葛亮/诸葛瑾/周瑜均记录造成伤害增加3.50个百分点，诸葛亮与周瑜已有14%时结果成为17.50%。",
+      "still_missing": [
+        "未独立核对运行时兵种数量，不能仅据日志名称证明2弓触发条件。",
+        "3弓5%分支、克制及最终伤害合成未验证。",
+        "加成对象与其他来源增减伤的合成方式，仍不以配置名称推定。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F004",
+        "statement": "2名弓兵：造成伤害提升3.5%；3名弓兵：造成伤害提升5%。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_tutorial_desc[125].desc_hash:translated",
+          "buff_buff[5008].name,description",
+          "buff_buff[5007].name,description",
+          "game_config_battle_config[archer_buff_two].content",
+          "game_config_battle_config[archer_buff_three].content"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10507264650058",
+          "source_index": 39,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BattleSoldierType"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 40,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 41,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BuffAdd"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 42,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 43,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BuffAdd"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 44,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 45,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BuffAdd"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "F005",
+      "origin": "foundation",
+      "title": "枪兵同兵种加成",
+      "category": "兵种",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "加成对象与其他来源增减伤的合成方式，仍不以配置名称推定。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F005",
+        "statement": "2名枪兵：造成伤害提升2.1%、受到伤害降低1.4%；3名枪兵：分别为3%、2%。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_tutorial_desc[125].desc_hash:translated",
+          "buff_buff[5004].name,description",
+          "buff_buff[5003].name,description",
+          "game_config_battle_config[spearman_buff_two].content",
+          "game_config_battle_config[spearman_buff_three].content"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F006",
+      "origin": "foundation",
+      "title": "骑兵同兵种加成",
+      "category": "兵种",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "加成对象与其他来源增减伤的合成方式，仍不以配置名称推定。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F006",
+        "statement": "2名骑兵：造成伤害提升1.4%、受到伤害降低2.1%；3名骑兵：分别为2%、3%。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_tutorial_desc[125].desc_hash:translated",
+          "buff_buff[5006].name,description",
+          "buff_buff[5005].name,description",
+          "game_config_battle_config[cavalry_buff_two].content",
+          "game_config_battle_config[cavalry_buff_three].content"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F007",
+      "origin": "foundation",
+      "title": "武力的用途",
+      "category": "属性与伤害",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "属性影响不是已还原的伤害函数，不能据此直接计算任意一次伤害。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F007",
+        "statement": "基础属性，主要影响造成的兵刃伤害。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "game_config_attribute_config[1].name,desc",
+          "rookie_rookie_glossary[263].content_hash:translated"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F008",
+      "origin": "foundation",
+      "title": "智力的用途",
+      "category": "属性与伤害",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "属性影响不是已还原的伤害函数，不能据此直接计算任意一次伤害。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F008",
+        "statement": "基础属性，主要影响造成的恢复效果，造成和受到的谋略伤害。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "game_config_attribute_config[2].name,desc",
+          "rookie_rookie_glossary[264].content_hash:translated"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F009",
+      "origin": "foundation",
+      "title": "统率的用途",
+      "category": "属性与伤害",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "属性影响不是已还原的伤害函数，不能据此直接计算任意一次伤害。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F009",
+        "statement": "基础属性，主要影响受到的兵刃和谋略伤害。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "game_config_attribute_config[3].name,desc",
+          "rookie_rookie_glossary[266].content_hash:translated"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F010",
+      "origin": "foundation",
+      "title": "先攻的用途",
+      "category": "属性与伤害",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "属性影响不是已还原的伤害函数，不能据此直接计算任意一次伤害。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F010",
+        "statement": "基础属性，主要影响每个回合的行动顺序。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "game_config_attribute_config[4].name,desc",
+          "rookie_rookie_glossary[265].content_hash:translated"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F011",
+      "origin": "foundation",
+      "title": "先攻不是双方六人直接排一个固定序列",
+      "category": "行动顺序",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "等于70的边界、差距0至70的概率公式、先攻相同如何打破并列，以及先攻中途改变是否重排未恢复。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F011",
+        "statement": "每回合开始前重新判定；己方先按先攻高低排序，双方再依次比拼优先行动概率。差距越大，先手概率越高；差距超过70时，先攻高的一方必定先行动。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_tutorial_desc[119].desc_hash:translated",
+          "message_message[Battle_act_sequence_desc].message",
+          "game_config_battle_config[speed_rules].content"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F012",
+      "origin": "foundation",
+      "title": "同一时点的战法按本回合战斗顺序依次结算",
+      "category": "行动顺序",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "BM09只证明这一份回合尾记录的先后，不满足不同战法同节点按战斗顺序结算的完整对照，因此没有升级F012为战报已验。",
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "这是游戏百科说明；嵌套触发、反应链、同武将多战法和优先级例外尚需逐项战报验证。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F012",
+        "statement": "客户端战斗流程说明写明：不同战法在同一时序点（例如回合开始或回合结束）生效时，双方按当前回合的战斗顺序依次结算。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_tutorial_desc[144].desc_hash:translated"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F013",
+      "origin": "foundation",
+      "title": "行动内的战法顺序",
+      "category": "准备与打断",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "准备跳过、追加行动、反击和其他事件插队规则不由该概括说明穷尽。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F013",
+        "statement": "常规行动按指挥或被动效果、主动战法、普通攻击、追击战法的顺序结算。被动的具体发动时点仍以该战法说明为准。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_tutorial_desc[144].desc_hash:translated",
+          "rookie_tutorial_desc[121].desc_hash:translated"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F014",
+      "origin": "foundation",
+      "title": "准备战法可以被打断",
+      "category": "准备与打断",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "部分片段已核对",
+      "battle_observed_scope": "旧报田丰第三回合e757准备一计决胜，之后仍普攻；第四回合e1144发动并造成损兵。证明本场这一次准备与下一回合发动的先后。第五回合又准备后田丰退场，不能据此补写一条打断事件。",
+      "still_missing": [
+        "规则标题中的“准备可被打断”本轮没有准备后实际打断的正面证据。",
+        "水淹七军示例未在两报中验证。",
+        "isInterrupted=0的无法释放提示不是准备后被打断；各种控制打断/暂停/重新判概率的规则仍缺样本。",
+        "哪些控制必定打断、仅暂时失效还是取消准备、打断后重新判发动概率，仍待定向战报确认。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F014",
+        "statement": "需要准备的主动战法开始准备后，延后对应回合发动，准备过程可以被打断。例如水淹七军配置准备1回合。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_tutorial_desc[121].desc_hash:translated",
+          "skills_skills[20140].name,prepare_time,type,description"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10504369850058",
+          "source_index": 291,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "SkillInterrupted"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 292,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "SkillInterrupted"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 710,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BattleRound"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 757,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "PrepareSkillInitiate"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 758,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "NormalAttack"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 759,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "SoldierNumLossNormal"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1084,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "BattleRound"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1144,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "SkillLaunch"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1146,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "SoldierNumLossByHeroSkill"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1414,
+          "index_base": 1,
+          "round": 5,
+          "event_name": "PrepareSkillInitiate"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1477,
+          "index_base": 1,
+          "round": 5,
+          "event_name": "BattleHeroSolderNumToZero"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "F015",
+      "origin": "foundation",
+      "title": "指挥战法随武将阵亡失效的文案规则",
+      "category": "准备与打断",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "部分片段已核对",
+      "battle_observed_scope": "新报荀彧兵力归零后，紧随多份调和阴阳状态移除；仅为这个来源与这些状态的本场关联。",
+      "still_missing": [
+        "没有重放来源清理器，不能从先后关系证明所有指挥战法都遵循相同清理过程。",
+        "永久属性、衍生效果与特定例外未逐项验证。",
+        "已施加的永久属性、衍生效果及特定战法例外是否回收，不能仅据此文案一概处理。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F015",
+        "statement": "客户端战法类型说明：指挥战法在战斗中较先发动，施放武将阵亡后其指挥战法失效。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_tutorial_desc[121].desc_hash:translated"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10507264650058",
+          "source_index": 248,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "SkillLaunch"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 249,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BuffAdd"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 250,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BuffAdd"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2530,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "FatalEffect"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2531,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2532,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BattleHeroSolderNumToZero"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2533,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2534,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2535,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2536,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2537,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2538,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2539,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2540,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2541,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2542,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2543,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2544,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2545,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2546,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2547,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2548,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2549,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2550,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2551,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2552,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2553,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2554,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2555,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2556,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2557,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2558,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2559,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2560,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2561,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2562,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2563,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2564,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2565,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2566,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyIncrease"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "F016",
+      "origin": "foundation",
+      "title": "基础目标筛选范围",
+      "category": "目标选择",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "混乱、嘲讽和无合法目标时的改写顺序待验。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F016",
+        "statement": "配置注释区分：self为自己；teammate排除自己；team包含自己；enemy为敌方；all为敌我双方随机。因此“队友”和“我军”不能默认等义。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "__skills_skills_Reg.target_filter"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F017",
+      "origin": "foundation",
+      "title": "重复目标由字段单独决定",
+      "category": "目标选择",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "随机数分布、目标死亡后的补选和多组目标之间是否共享排重集合尚未恢复。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F017",
+        "statement": "target_repeatable=0表示同组不能重复选择同一个目标；=1表示允许重复抽取合法目标。目标数1-2在注释中表示1至2个。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "__skills_skills_Reg.target_repeatable",
+          "__skills_skills_Reg.target_num"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F018",
+      "origin": "foundation",
+      "title": "优先前排和最低兵力是两种选择",
+      "category": "目标选择",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "前排不存在时的候选顺序、最低兵力并列裁决、治疗0时是否另选对象待验。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F018",
+        "statement": "洞若观火的治疗目标为我军随机单体，优先前排；青囊急救则选择我军兵力最低单体。不能把“优先前排”改写成“最低兵力”，也不能把兵力绝对值当成兵力比例。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "skills_skills[20060].name,description,target_filter,target_num",
+          "skills_skills[20300].name,description,target_filter,target_num"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F019",
+      "origin": "foundation",
+      "title": "青囊急救先驱散再治疗",
+      "category": "治疗与减伤",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "具体被驱散状态挑选顺序、无法驱散时的处理、治疗公式和取整未闭合；拓印变体不能混为同一治疗属性。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F019",
+        "statement": "普通青囊急救配置写明：先驱散我军兵力最低单体3种负面状态，再恢复其兵力；buff_add_time=1对应在技能伤害/治疗生效前添加该效果。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "skills_skills[20300].name,description,buff_add_time,buff_id,heal_ratio,heal_ratio_levelup,heal_effected_by_status",
+          "__skills_skills_Reg.buff_add_time"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F020",
+      "origin": "foundation",
+      "title": "治疗施放方与受治疗方有独立属性",
+      "category": "治疗与减伤",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "加减项乘算位置、最终治疗上限、伤兵限制和取整尚无完整函数证据。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F020",
+        "statement": "当前属性表分别定义“造成治疗效果提升/降低”和“受到治疗效果提升/降低”。两者属于不同字段，不能都当成同一个治疗加成。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "fightprop_BattleProp[66].Ename,Name,Initial,Min,Max",
+          "fightprop_BattleProp[67].Ename,Name,Initial,Min,Max",
+          "fightprop_BattleProp[68].Ename,Name,Initial,Min,Max",
+          "fightprop_BattleProp[69].Ename,Name,Initial,Min,Max"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F021",
+      "origin": "foundation",
+      "title": "虚弱",
+      "category": "状态与控制",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "部分片段已核对",
+      "battle_observed_scope": "旧报一计决胜施加虚弱后，两次普攻均显示ForbidDamage.weakRatio=70，随后仍造成77、72损兵。本场记录支持“提示减少70%，仍能造成正数伤害”。",
+      "still_missing": [
+        "没有同一攻击在无虚弱情况下的反事实对照，不能从77/72独立计算完整伤害函数或验证所有伤害类别的最终乘算阶段。",
+        "不同来源虚弱竞争与特殊伤害例外未验证。",
+        "这是当前客户端术语说明；与其他控制、保护或特殊伤害相遇时的顺序与例外需战报确认。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F021",
+        "statement": "虚弱使造成的最终伤害降低70%，不是完全无法造成伤害。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_rookie_glossary[276].content_hash:translated"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1151,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "BuffAdd"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1171,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "BuffAdd"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1325,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "NormalAttack"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1326,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "ForbidDamage"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1327,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "SoldierNumLossNormal"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1341,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "NormalAttack"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1342,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "ForbidDamage"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1343,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "SoldierNumLossNormal"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "F022",
+      "origin": "foundation",
+      "title": "断粮",
+      "category": "状态与控制",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "部分片段已核对",
+      "battle_observed_scope": "旧报皇甫嵩断粮存在时，三次ForbidHeal.badlyHurtRatio均为30，随后分别恢复660、873、821兵力。本场支持“保留30%恢复，而非完全禁疗”的记录。",
+      "still_missing": [
+        "没有无断粮的同条件治疗对照，未独立复算基础治疗与70%降低的所有合成/取整。",
+        "不同强度/来源断粮、驱散与治疗同节点顺序未验证。",
+        "这是当前客户端术语说明；与其他控制、保护或特殊伤害相遇时的顺序与例外需战报确认。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F022",
+        "statement": "断粮使受到的恢复兵力效果降低70%，不是完全禁止治疗。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_rookie_glossary[277].content_hash:translated"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10504369850058",
+          "source_index": 595,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffAdd"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 613,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "ForbidHeal"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 614,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "RecoverHeroSoldierNum"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 899,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffRefresh"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1022,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "ForbidHeal"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1023,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "RecoverHeroSoldierNum"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1693,
+          "index_base": 1,
+          "round": 6,
+          "event_name": "BuffRefresh"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1710,
+          "index_base": 1,
+          "round": 6,
+          "event_name": "ForbidHeal"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1711,
+          "index_base": 1,
+          "round": 6,
+          "event_name": "RecoverHeroSoldierNum"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "F023",
+      "origin": "foundation",
+      "title": "清醒",
+      "category": "状态与控制",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端可见战报片段已核对（无完整原始JSON）",
+      "battle_observed_scope": "候选B战报10510132850058第一回合：张辽先记录清醒已施加；皇甫嵩《汉将之略》之后，日志明确记录张辽技穷已施加，紧接着提示“持有清醒，技穷暂时失效”。这补上同一目标先有清醒、随后记录技穷施加及暂时抑制的UI正面碰撞。",
+      "still_missing": [
+        "控制先施加、清醒后到的相反顺序，尚未验证。",
+        "清醒到期时，如果技穷仍有剩余时长，是否以及何时恢复作用，尚未验证。",
+        "这段有限截图没有确认张辽在暂失效期间成功发动主动战法；普攻与风袭逍遥-袭效果不能替代该证据。",
+        "其他控制、单项免技穷、所谓全部免控和其他赛季/版本不能从这一例推导。",
+        "只取得客户端可见历史战报片段；完整原始事件JSON、每层内部状态及服务器实现未取得。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F023",
+        "statement": "清醒使受到的控制状态暂时失去作用；这段当前文案没有说清空所有负面状态，也没有说免疫所有BUFF。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_rookie_glossary[288].content_hash:translated"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": [
+        {
+          "evidence_kind": "ordinary_client_ui_visible_battle_log",
+          "observation_id": "B-S3-01",
+          "battle_id": "10510132850058",
+          "source_json_available": false,
+          "round": 1,
+          "quote": "[张辽]执行来自【风袭逍遥】的「风袭逍遥」效果",
+          "raw_event_index_available": false,
+          "index_policy": "Observation ID identifies a screenshot transcription; it is not a raw-event sourceIndex or event ordering counter.",
+          "screenshot_sha256": "38bf6ce18e6b44ef55dc0e7bbae132a160d8a520fadf7559f5ed655e6193f610"
+        },
+        {
+          "evidence_kind": "ordinary_client_ui_visible_battle_log",
+          "observation_id": "B-S3-02",
+          "battle_id": "10510132850058",
+          "source_json_available": false,
+          "round": 1,
+          "quote": "[张辽]的「清醒」效果已施加",
+          "raw_event_index_available": false,
+          "index_policy": "Observation ID identifies a screenshot transcription; it is not a raw-event sourceIndex or event ordering counter.",
+          "screenshot_sha256": "38bf6ce18e6b44ef55dc0e7bbae132a160d8a520fadf7559f5ed655e6193f610"
+        },
+        {
+          "evidence_kind": "ordinary_client_ui_visible_battle_log",
+          "observation_id": "B-S3-03",
+          "battle_id": "10510132850058",
+          "source_json_available": false,
+          "round": 1,
+          "quote": "[皇甫嵩]执行来自【《汉将之略》】的「韬略-《汉将之略》」效果",
+          "raw_event_index_available": false,
+          "index_policy": "Observation ID identifies a screenshot transcription; it is not a raw-event sourceIndex or event ordering counter.",
+          "screenshot_sha256": "38bf6ce18e6b44ef55dc0e7bbae132a160d8a520fadf7559f5ed655e6193f610"
+        },
+        {
+          "evidence_kind": "ordinary_client_ui_visible_battle_log",
+          "observation_id": "B-S3-04",
+          "battle_id": "10510132850058",
+          "source_json_available": false,
+          "round": 1,
+          "quote": "[张辽]的「技穷」效果已施加",
+          "raw_event_index_available": false,
+          "index_policy": "Observation ID identifies a screenshot transcription; it is not a raw-event sourceIndex or event ordering counter.",
+          "screenshot_sha256": "38bf6ce18e6b44ef55dc0e7bbae132a160d8a520fadf7559f5ed655e6193f610"
+        },
+        {
+          "evidence_kind": "ordinary_client_ui_visible_battle_log",
+          "observation_id": "B-S3-05",
+          "battle_id": "10510132850058",
+          "source_json_available": false,
+          "round": 1,
+          "quote": "[张辽]持有清醒，技穷暂时失效",
+          "raw_event_index_available": false,
+          "index_policy": "Observation ID identifies a screenshot transcription; it is not a raw-event sourceIndex or event ordering counter.",
+          "screenshot_sha256": "38bf6ce18e6b44ef55dc0e7bbae132a160d8a520fadf7559f5ed655e6193f610"
+        }
+      ]
+    },
+    {
+      "id": "F024",
+      "origin": "foundation",
+      "title": "抵御",
+      "category": "状态与控制",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "部分片段已核对",
+      "battle_observed_scope": "两报8次ResistEffect均记消耗1次，属性71紧随从1降至0；显示减伤比例在71%至86%之间，之后仍有正数损兵。这里只确认记录中的消耗与减伤提示，不把抵御说成免伤。",
+      "still_missing": [
+        "最高实测只有1层；客户端说明的2层上限尚未通过持有2层或第三次授予的碰撞实测。",
+        "不同来源合并/强度择优与完整伤害前后计算未验证。",
+        "无同条件无抵御对照，显示比例与特殊逃兵伤害的实际应用仍需单独确认。",
+        "这是当前客户端术语说明；与其他控制、保护或特殊伤害相遇时的顺序与例外需战报确认。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F024",
+        "statement": "抵御最多持有两层；受到伤害时消耗一层，使该次伤害降低70%至90%。不能直接写成免疫整次伤害。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_rookie_glossary[289].content_hash:translated"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10504369850058",
+          "source_index": 339,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 340,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "ResistEffect"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 341,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 342,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 617,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "NormalAttack"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 618,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "ResistEffect"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 619,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 620,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "SoldierNumLossNormal"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 883,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 884,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "ResistEffect"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 885,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 886,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1147,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1148,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "ResistEffect"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1149,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1150,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1234,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1235,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "ResistEffect"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1236,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1237,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1434,
+          "index_base": 1,
+          "round": 5,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1435,
+          "index_base": 1,
+          "round": 5,
+          "event_name": "ResistEffect"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1436,
+          "index_base": 1,
+          "round": 5,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1437,
+          "index_base": 1,
+          "round": 5,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 339,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 340,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "ResistEffect"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 341,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 342,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 366,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 367,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "ResistEffect"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 368,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 369,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "SoldierNumLossByBuff"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "F025",
+      "origin": "foundation",
+      "title": "震慑",
+      "category": "状态与控制",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "这是当前客户端术语说明；与其他控制、保护或特殊伤害相遇时的顺序与例外需战报确认。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F025",
+        "statement": "震慑使武将无法行动。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_rookie_glossary[271].content_hash:translated"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F026",
+      "origin": "foundation",
+      "title": "缴械",
+      "category": "状态与控制",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "这是当前客户端术语说明；与其他控制、保护或特殊伤害相遇时的顺序与例外需战报确认。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F026",
+        "statement": "缴械使武将无法进行普通攻击。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_rookie_glossary[272].content_hash:translated"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F027",
+      "origin": "foundation",
+      "title": "技穷",
+      "category": "状态与控制",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "部分片段已核对",
+      "battle_observed_scope": "旧报孙坚技穷在场时，诛凶殄逆和斩将夺旗显示无法释放，普通攻击继续；第二回合技穷消失后诛凶殄逆成功发动。",
+      "still_missing": [
+        "这里只验证这两个主动的这次行动；不同战法类型、准备已开始时的处理及免技穷碰撞仍缺证据。",
+        "这是当前客户端术语说明；与其他控制、保护或特殊伤害相遇时的顺序与例外需战报确认。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F027",
+        "statement": "技穷使武将无法发动主动战法。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_rookie_glossary[273].content_hash:translated"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10504369850058",
+          "source_index": 237,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffAdd"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 290,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BattleStartAct"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 291,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "SkillInterrupted"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 292,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "SkillInterrupted"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 293,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "NormalAttack"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 512,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BattleStartAct"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 513,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 519,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "SkillLaunch"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "F028",
+      "origin": "foundation",
+      "title": "连击",
+      "category": "状态与控制",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "部分片段已核对",
+      "battle_observed_scope": "新报王异e1977明确记录进行连击，随后e1981记录一次普通攻击。该行动还穿插多次追魂相关普攻，不能把本行动全部普攻都算作连击。",
+      "still_missing": [
+        "只核对一次连击提示及随后普攻，未独立重放额外一次的调度条件、概率和多种追加普攻间的归属。",
+        "这是当前客户端术语说明；与其他控制、保护或特殊伤害相遇时的顺序与例外需战报确认。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F028",
+        "statement": "连击使武将可额外进行一次普通攻击。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_rookie_glossary[285].content_hash:translated"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1344,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BattleStartAct"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1348,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "NormalAttack"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1699,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "NormalAttack"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1793,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "NormalAttack"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1977,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "NormalAttackDouble"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1978,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1979,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1980,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1981,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "NormalAttack"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1982,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "SoldierNumLossNormal"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "F029",
+      "origin": "foundation",
+      "title": "规避",
+      "category": "状态与控制",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "部分片段已核对",
+      "battle_observed_scope": "旧报皇甫嵩三次明确记成功规避；例如左慈普攻后有治疗反应，随后出现规避成功，本攻击窗口未出现对应的皇甫嵩损兵行。",
+      "still_missing": [
+        "不能用3次成功计算规避概率；未验证所有伤害类型/必中/规避被压制的例外与完整计算阶段。",
+        "这是当前客户端术语说明；与其他控制、保护或特殊伤害相遇时的顺序与例外需战报确认。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F029",
+        "statement": "规避在受到伤害时，有概率使该次伤害无效。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_rookie_glossary[287].content_hash:translated"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10504369850058",
+          "source_index": 402,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "NormalAttack"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 403,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 404,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "RecoverHeroSoldierNum"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 405,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "RecoverHeroSoldierNum"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 406,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "EvadeDamageSuccess"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 407,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BattleRoundActionEnd"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 600,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "NormalAttack"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 601,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 602,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "RecoverHeroSoldierNum"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 603,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "RecoverHeroSoldierNum"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 604,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "EvadeDamageSuccess"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 914,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "EvadeDamageSuccess"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "F030",
+      "origin": "foundation",
+      "title": "会心和奇谋的基础幅度",
+      "category": "属性与伤害",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "最终会心/奇谋伤害可以被其他战法改写；这里只说明基础值，不保证每次触发都恰好1.5倍。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F030",
+        "statement": "会心对应兵刃伤害，奇谋对应谋略伤害；当前术语说明为触发时该次伤害提升50%，对应初始伤害倍率1.5。触发率与伤害倍率是不同属性。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_rookie_glossary[279].content_hash:translated",
+          "rookie_rookie_glossary[280].content_hash:translated",
+          "fightprop_BattleProp[35].Name,Ename,Initial",
+          "fightprop_BattleProp[36].Name,Ename,Initial",
+          "fightprop_BattleProp[37].Name,Ename,Initial",
+          "fightprop_BattleProp[38].Name,Ename,Initial"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F031",
+      "origin": "foundation",
+      "title": "补给不足的两档伤害惩罚",
+      "category": "补给",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "边界40/80的实际代码比较和惩罚与其他增减伤的合成位置，仍需运行证据。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F031",
+        "statement": "当前通用文案：补给不足80时，战斗伤害降低25%；不足40时，降低50%。常量表对应40,0.5|80,0.25。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "game_config_common_config[lack_supply_attack_reduce].content",
+          "message_message[MapFindPathUI_morale_tips_1].message",
+          "message_message[MapFindPathUI_morale_tips_2].message"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F032",
+      "origin": "foundation",
+      "title": "补给恢复、流失与区域",
+      "category": "补给",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "当前正在运行的具体剧本未由本静态工作证明；同盟大营是否另受辎重等供给条件约束，还需继续核验建筑实现。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F032",
+        "statement": "22个剧本共用的补给说明：回到建筑回满；补给区内每分钟恢复2点，区外每分钟降低1点。区域包括同盟城池境内、主城周围5格、攻城大营和同盟大营周围12格。另一个剧本文案有战场内不流失补给的例外，不能合并成所有玩法统一规则。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "message_message[morale_tips_desc]:all-scenario-variants",
+          "game_config_common_config[increase_supply_cost_time].content",
+          "game_config_common_config[maincity_supply_range].content",
+          "game_config_common_config[siege_camp_supply_range].content",
+          "game_config_common_config[granary_supply_range].content"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F033",
+      "origin": "foundation",
+      "title": "补给效果在战斗开始布阵阶段结算的说明",
+      "category": "补给",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "部分片段已核对",
+      "battle_observed_scope": "两报均在列队布阵之后、第一回合之前记录双方补给100、造成伤害降低0%。这是布阵阶段补给结算的已观察片段。",
+      "still_missing": [
+        "两报都没有低补给样本，未验证不足80/40惩罚。",
+        "不能证明战斗发生瞬间与读取时间完全一致，战斗中补给变化是否重算及玩法例外未验证。",
+        "战斗中补给变化是否重算，以及特定玩法例外，仍需实际战斗数据确认。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F033",
+        "statement": "游戏百科的战斗流程说明：按发生战斗瞬间的双方补给值，在布阵阶段结算伤害降低效果。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_tutorial_desc[144].desc_hash:translated"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BattleTeamFormat"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 3,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BattleMoraleAffect"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 4,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BattleMoraleAffect"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 233,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BattleRound"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BattleTeamFormat"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 3,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BattleMoraleAffect"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 4,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BattleMoraleAffect"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 289,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BattleRound"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "F034",
+      "origin": "foundation",
+      "title": "一字阵",
+      "category": "阵型",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "target_prob/target_prob_end的切换条件、普通攻击与特殊选人是否同用该分布、无效/死亡目标后如何重分配尚未恢复。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F034",
+        "statement": "前排受到伤害降低8%",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "formation_formation[101].name,desc,position,effect1,effect2,effect3,target_prob,target_prob_end"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F035",
+      "origin": "foundation",
+      "title": "箕形阵",
+      "category": "阵型",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "部分片段已核对",
+      "battle_observed_scope": "旧报箕形阵标记后，左慈受到伤害降低6.00个百分点，田丰与孙坚造成伤害各提高12.00个百分点；原始字段与该配置数值一致。",
+      "still_missing": [
+        "只确认本场这组属性变化，不由阵型名称升级整条规则。",
+        "本轮未独立重建上阵位置表；前后排映射、换位/死亡后的选人、目标概率及最终伤害合成未验证。",
+        "target_prob/target_prob_end的切换条件、普通攻击与特殊选人是否同用该分布、无效/死亡目标后如何重分配尚未恢复。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F035",
+        "statement": "前排受到伤害降低6%\n后排造成伤害提升12%",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "formation_formation[201].name,desc,position,effect1,effect2,effect3,target_prob,target_prob_end"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10504369850058",
+          "source_index": 11,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BattleFormationAffect"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 12,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 13,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 14,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertySetIncrease"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "F036",
+      "origin": "foundation",
+      "title": "雁形阵",
+      "category": "阵型",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "target_prob/target_prob_end的切换条件、普通攻击与特殊选人是否同用该分布、无效/死亡目标后如何重分配尚未恢复。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F036",
+        "statement": "前排统率提升20点\n后排造成伤害提升15%",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "formation_formation[301].name,desc,position,effect1,effect2,effect3,target_prob,target_prob_end"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F037",
+      "origin": "foundation",
+      "title": "鱼鳞阵",
+      "category": "阵型",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "部分片段已核对",
+      "battle_observed_scope": "旧报鱼鳞阵标记后，皇甫嵩规避增加12.00个百分点，袁术与朱儁会心/奇谋几率各增加8.00个百分点。",
+      "still_missing": [
+        "未独立重建运行时位置和目标分布，不能由同名阵型证明位置映射及最终触发概率全部成立。",
+        "target_prob/target_prob_end的切换条件、普通攻击与特殊选人是否同用该分布、无效/死亡目标后如何重分配尚未恢复。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F037",
+        "statement": "前排规避率提升12%\n后排会心和奇谋几率提升8%",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "formation_formation[401].name,desc,position,effect1,effect2,effect3,target_prob,target_prob_end"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10504369850058",
+          "source_index": 5,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BattleFormationAffect"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 6,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 7,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 8,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 9,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 10,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertyIncrease"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "F038",
+      "origin": "foundation",
+      "title": "锥形阵",
+      "category": "阵型",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "target_prob/target_prob_end的切换条件、普通攻击与特殊选人是否同用该分布、无效/死亡目标后如何重分配尚未恢复。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F038",
+        "statement": "前排造成伤害提升16%\n后排受到伤害降低5%",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "formation_formation[501].name,desc,position,effect1,effect2,effect3,target_prob,target_prob_end"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F039",
+      "origin": "foundation",
+      "title": "方圆阵",
+      "category": "阵型",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "部分片段已核对",
+      "battle_observed_scope": "新报方圆阵标记后，曹操与荀彧受到伤害各降低5.00个百分点，王异连击率增加40.00个百分点。",
+      "still_missing": [
+        "只确认本场对应属性变化；运行时前后排位置映射、40%是否为独立掷骰概率、目标分布及特殊选人未验证。",
+        "target_prob/target_prob_end的切换条件、普通攻击与特殊选人是否同用该分布、无效/死亡目标后如何重分配尚未恢复。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F039",
+        "statement": "前排受到伤害降低5%\n后排连击率提升40%",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "formation_formation[601].name,desc,position,effect1,effect2,effect3,target_prob,target_prob_end"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10507264650058",
+          "source_index": 9,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BattleFormationAffect"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 10,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 11,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 12,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertyIncrease"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "F040",
+      "origin": "foundation",
+      "title": "钩行阵",
+      "category": "阵型",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "target_prob/target_prob_end的切换条件、普通攻击与特殊选人是否同用该分布、无效/死亡目标后如何重分配尚未恢复。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F040",
+        "statement": "前排受到伤害降低8%\n后排连击率提升25%",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "formation_formation[701].name,desc,position,effect1,effect2,effect3,target_prob,target_prob_end"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F041",
+      "origin": "foundation",
+      "title": "偃月阵",
+      "category": "阵型",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "部分片段已核对",
+      "battle_observed_scope": "新报偃月阵标记后，诸葛亮与周瑜造成伤害各增加14.00个百分点，诸葛瑾受到伤害降低5.00个百分点。",
+      "still_missing": [
+        "只确认本场对应属性变化；未独立重建运行时前后排位置表，不能把“两人14%”任意归类或推出所有位置/场景结算。",
+        "目标概率、换位和最终伤害合成未验证。",
+        "target_prob/target_prob_end的切换条件、普通攻击与特殊选人是否同用该分布、无效/死亡目标后如何重分配尚未恢复。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F041",
+        "statement": "前排造成伤害提升14%\n后排受到伤害降低5%",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "formation_formation[801].name,desc,position,effect1,effect2,effect3,target_prob,target_prob_end"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10507264650058",
+          "source_index": 5,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BattleFormationAffect"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 6,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 7,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 8,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "HeroPorpertySetIncrease"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "F042",
+      "origin": "foundation",
+      "title": "减伤配置采用剩余比例增量表达",
+      "category": "阵型",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "战斗引擎调用位置、其他属性合成阶段和属性最终截限尚未恢复。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F042",
+        "statement": "一字阵的三个位置都写为 injury_reduce+=(1-injury_reduce)*0.08。例如仅按这条表达式计算，原减伤20%时会变成26.4%，增加6.4个百分点，而不是直接变成28%。这是此配置表达式的算术含义，不能推广为所有减伤效果通用叠加规则。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "formation_formation[101].effect1,effect2,effect3",
+          "fightprop_BattleProp[29].Ename,Name"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F043",
+      "origin": "foundation",
+      "title": "八回合与胜负的百科规则",
+      "category": "战斗流程",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "部分片段已核对",
+      "battle_observed_scope": "旧报守方田丰、左慈、孙坚分别兵力归零，最终报告攻方胜；新报另一方三人也先后归零并有对方胜利结果。只覆盖双方中一队全归零后的胜负片段。",
+      "still_missing": [
+        "没有8回合平局、连续第8次平局或特殊玩法胜负样本；不得把两次胜利报告当作整条复合规则都已实证。",
+        "特定玩法胜负条件与连续平局跨报告关联仍须实测，不拿单份战报证明全部规则。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F043",
+        "statement": "客户端说明：武将兵力先全部降为0的一方战败；一轮最多8回合，未分胜负则平局。流程说明还写明连续平局至第8次时双方全部战败。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_tutorial_desc[144].desc_hash:translated",
+          "game_config_battle_config[battle_max_turn].content",
+          "game_config_battle_config[battle_max_draw_time].content"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1477,
+          "index_base": 1,
+          "round": 5,
+          "event_name": "BattleHeroSolderNumToZero"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1732,
+          "index_base": 1,
+          "round": 6,
+          "event_name": "BattleHeroSolderNumToZero"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1768,
+          "index_base": 1,
+          "round": 6,
+          "event_name": "BattleHeroSolderNumToZero"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1794,
+          "index_base": 1,
+          "round": 6,
+          "event_name": "BattleResult"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2532,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BattleHeroSolderNumToZero"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2634,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BattleHeroSolderNumToZero"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2688,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BattleHeroSolderNumToZero"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2709,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BattleResult"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "F044",
+      "origin": "foundation",
+      "title": "完整伤害公式仍未取得",
+      "category": "属性与伤害",
+      "client_basis_status": "静态缺口边界已查：空表及未还原函数体，不等于完整伤害公式已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "当前取得的是“公式未取得”的静态边界，不能统计为完整伤害公式已解。",
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "基础伤害、兵力衰减、攻防属性影响、浮动、克制、会心、增减伤和取整的完整计算链均未闭合。"
+      ],
+      "original_foundation_status_unchanged": "unresolved_with_bounded_negative_evidence",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F044",
+        "statement": "当前Data/formula.lua实际只初始化一个空formula_formula表，不能从文件名推断已取得伤害公式。武力/智力影响函数CalBaseAttrInfluence在战法参数中仍是引用，未还原其函数体。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "module:formula",
+          "skills_skills[100001].buff_data_tool"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F045",
+      "origin": "foundation",
+      "title": "死兵与伤兵不应混为一个数",
+      "category": "治疗与减伤",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "特定地图/主城/战斗失败时的死伤处理、可治疗上限及最终结算公式待验。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F045",
+        "statement": "当前百科说明：战斗中受到伤害的一部分转为死兵，战后伤兵还会有一部分转为死兵。战斗中死兵率文案为玩家战斗20%、其余15%，常量表与其相符。",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "rookie_rookie_glossary[344].content_hash:translated",
+          "rookie_tutorial_desc[448].desc_hash:translated",
+          "game_config_battle_config[pvp_soldier_loss_rate_in_battle].content",
+          "game_config_battle_config[soldier_loss_rate_in_battle].content"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F046",
+      "origin": "foundation",
+      "title": "鏖战",
+      "category": "兵种特性",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "本规则为所有已提取剧本一致的特性文案；哪些武将当前可装备、解锁条件及战斗触发顺序需另行关联。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F046",
+        "statement": "受到伤害降低3%。第4回合起，造成的伤害提升8%，持续至战斗结束",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "arms_advanced_arms_advanced_effect[1].name,description,buff,group"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F047",
+      "origin": "foundation",
+      "title": "破敌",
+      "category": "兵种特性",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "本规则为所有已提取剧本一致的特性文案；哪些武将当前可装备、解锁条件及战斗触发顺序需另行关联。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F047",
+        "statement": "普通攻击后，有65%概率使目标受到伤害提升3.5%，持续2回合，该效果可叠加2次",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "arms_advanced_arms_advanced_effect[2].name,description,buff,group"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F048",
+      "origin": "foundation",
+      "title": "疾驰",
+      "category": "兵种特性",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "本规则为所有已提取剧本一致的特性文案；哪些武将当前可装备、解锁条件及战斗触发顺序需另行关联。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F048",
+        "statement": "战斗开始前3回合，规避率提升3%，伤害提升5%",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "arms_advanced_arms_advanced_effect[3].name,description,buff,group"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F049",
+      "origin": "foundation",
+      "title": "坚韧",
+      "category": "兵种特性",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "本规则为所有已提取剧本一致的特性文案；哪些武将当前可装备、解锁条件及战斗触发顺序需另行关联。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F049",
+        "statement": "统率提升10点，自身处于异常状态时，受到伤害降低5%",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "arms_advanced_arms_advanced_effect[4].name,description,buff,group"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F050",
+      "origin": "foundation",
+      "title": "洞悉",
+      "category": "兵种特性",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "本规则为所有已提取剧本一致的特性文案；哪些武将当前可装备、解锁条件及战斗触发顺序需另行关联。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F050",
+        "statement": "每回合首次造成伤害后令目标受到伤害提升5%，持续1回合",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "arms_advanced_arms_advanced_effect[5].name,description,buff,group"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F051",
+      "origin": "foundation",
+      "title": "劲弩",
+      "category": "兵种特性",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "本规则为所有已提取剧本一致的特性文案；哪些武将当前可装备、解锁条件及战斗触发顺序需另行关联。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F051",
+        "statement": "对目标造成伤害提升5%；目标每存在一种异常状态额外提升1%，可提升3次",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "arms_advanced_arms_advanced_effect[6].name,description,buff,group"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F052",
+      "origin": "foundation",
+      "title": "不屈",
+      "category": "兵种特性",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "本规则为所有已提取剧本一致的特性文案；哪些武将当前可装备、解锁条件及战斗触发顺序需另行关联。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F052",
+        "statement": "每回合开始时，令自身受到伤害降低8%，持续1回合，自身行动结束后降低至4%",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "arms_advanced_arms_advanced_effect[7].name,description,buff,group"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "F053",
+      "origin": "foundation",
+      "title": "专注",
+      "category": "兵种特性",
+      "client_basis_status": "客户端说明/编译配置依据已解",
+      "battle_evidence_status": "客户端依据已解，当前两报未验证",
+      "battle_observed_scope": "本矩阵未给该条认定任何满足条件的战报实证；未验证不表示不存在或不适用。",
+      "still_missing": [
+        "该条所述行为/条件尚未在这两份报告逐项验证。",
+        "本规则为所有已提取剧本一致的特性文案；哪些武将当前可装备、解锁条件及战斗触发顺序需另行关联。"
+      ],
+      "original_foundation_status_unchanged": "client_documented_or_configured",
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "da201fbdae04010bf25f2b8ac87e74c6e843e1255fc82bf54b29dafd1e207b30",
+        "rule_id": "F053",
+        "statement": "首次受到控制状态时，有55%的概率令自身获得清醒状态，持续1回合",
+        "version": "NSLG 1.37 frozen Lua bundle 3f81a9282ed5",
+        "evidence_refs": [
+          "arms_advanced_arms_advanced_effect[8].name,description,buff,group"
+        ],
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [],
+      "ui_references": []
+    },
+    {
+      "id": "BM01",
+      "origin": "battle",
+      "title": "践墨随敌：首次满3层仍生效，已满后再触发不重复扣这一项属性",
+      "category": "战报实证",
+      "client_basis_status": "相关编译配置已解，仅作当前战报注释",
+      "battle_evidence_status": "已审查的限定战报观察",
+      "battle_observed_scope": "王异的践墨随敌从1层到2层，再首次到3层时，每层仍记录智力降低75.40；第三次提示已满层3次之后紧跟最后一笔扣减。随后已经是3层的多次触发，只出现满层提示，没有再附带这一项智力扣减。",
+      "still_missing": [
+        "这里75.40是本场智力变化的游戏显示值；raw为754079，单位1/10000，不能当作战法在所有属性/等级下的常数。",
+        "未附带属性扣减是明确的连续记录窗口观察，不证明所有隐藏刷新状态都不存在。",
+        "满层提示单独不足以判断最后一层是否有效，必须比较此前层数和紧随的属性记录。",
+        "仅适用于引用战报中描述的片段，不是全版本/所有战法的通用引擎规则。"
+      ],
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "01355c6fc8c8d15ac8004910ede86c86bcecd328abf56cdbe0eae33bd821cf88",
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10507264650058",
+          "source_index": 569,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 570,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 571,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 572,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 625,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 626,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 627,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPropertyUnChanged"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 628,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 683,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 684,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 685,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPropertyUnChanged"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 686,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 701,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 702,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 703,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 842,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 843,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 862,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 866,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 928,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 961,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 962,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 967,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 979,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 980,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 981,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1066,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1067,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1132,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1171,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 861,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 862,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 863,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 864,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 868,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 869,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffMerge"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "BM02",
+      "origin": "battle",
+      "title": "践墨随敌：清掉一层后可以再补到3层",
+      "category": "战报实证",
+      "client_basis_status": "相关编译配置已解，仅作当前战报注释",
+      "battle_evidence_status": "已审查的限定战报观察",
+      "battle_observed_scope": "第一回合王异发动追魂阵枢相关效果后，践墨随敌由3层降到2层，智力恢复75.40；稍后再被践墨随敌影响，又从2层回到3层，并重新降低同一笔75.40。满层不等于之后整场永远不能再叠。",
+      "still_missing": [
+        "#995位于追魂阵枢的清除记录链中，前后有dispel=1的消失记录；不能写成践墨自然到期。",
+        "减少层数的BuffMerge本身不带dispel字段，具体是哪一个内部移除调用仍未重放。",
+        "本场只验证一次3→2→3循环，不证明所有驱散都固定只减一层。",
+        "仅适用于引用战报中描述的片段，不是全版本/所有战法的通用引擎规则。"
+      ],
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "01355c6fc8c8d15ac8004910ede86c86bcecd328abf56cdbe0eae33bd821cf88",
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10507264650058",
+          "source_index": 984,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 985,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 986,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffRefresh"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 987,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 988,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 989,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 990,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 991,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 992,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 993,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 994,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 995,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 996,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1027,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1028,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1029,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPropertyUnChanged"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1030,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "BM03",
+      "origin": "battle",
+      "title": "践墨随敌：回合末可一条消失记录返还多层；下一回合重积",
+      "category": "战报实证",
+      "client_basis_status": "相关编译配置已解，仅作当前战报注释",
+      "battle_evidence_status": "已审查的限定战报观察",
+      "battle_observed_scope": "王异在前两个完整回合的尾部，各只有一条践墨随敌消失提示，却各恢复226.22点智力；原始恢复量均为754079的3倍。第二回合再受影响时又从1层开始。武力此前已降到0，消失时只恢复本场实际扣掉的50.47，不能照抄智力的三倍算法。",
+      "still_missing": [
+        "本场在第三回合中途结束，不能据此验证第三回合自然尾部清理。",
+        "返还的聚合记录不能用于推断内部有几个buff对象，或哪一层的剩余时长被刷新。",
+        "这里只说明属性0下限及本场实际变化，不倒推出完整属性结算器。",
+        "仅适用于引用战报中描述的片段，不是全版本/所有战法的通用引擎规则。"
+      ],
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "01355c6fc8c8d15ac8004910ede86c86bcecd328abf56cdbe0eae33bd821cf88",
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10507264650058",
+          "source_index": 570,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 571,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 626,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 627,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPropertyUnChanged"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 684,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 685,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPropertyUnChanged"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1185,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BattleRoundActionEnd"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1255,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1256,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1257,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1260,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1261,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1262,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1265,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1266,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1267,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1280,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BattleRound"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1314,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1315,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1730,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2152,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BattleRoundActionEnd"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2226,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2227,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2228,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2233,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2234,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2235,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2252,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BattleRound"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2287,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffMerge"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "BM04",
+      "origin": "battle",
+      "title": "调和阴阳：荀彧和曹操各有3次额度，回合开始补充",
+      "category": "战报实证",
+      "client_basis_status": "相关编译配置已解，仅作当前战报注释",
+      "battle_evidence_status": "已审查的限定战报观察",
+      "battle_observed_scope": "前两个完整回合，荀彧与曹操各自的调和阴阳次数都从3依次扣到2、1、0，合计每回合各用3次；这不是整队共享3次。第二、第三回合开始都再次显示两人各恢复到3。",
+      "still_missing": [
+        "三次额度的持有者是字段中的heroId；曹操执行的相关效果srcHeroId仍是荀彧，不能说是两名战法施加者。",
+        "这里完整用尽后补到3，未验证剩余1或2次跨回合时具体采用置3还是加3再截断。",
+        "第三回合只用到两人各1次，荀彧随后退场；不能补写其余额度的使用。",
+        "仅适用于引用战报中描述的片段，不是全版本/所有战法的通用引擎规则。"
+      ],
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "01355c6fc8c8d15ac8004910ede86c86bcecd328abf56cdbe0eae33bd821cf88",
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10507264650058",
+          "source_index": 248,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "SkillLaunch"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 249,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BuffAdd"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 250,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BuffAdd"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 298,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 299,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 300,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 301,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 357,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 358,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 434,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 574,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 575,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 631,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 744,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 773,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1280,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BattleRound"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1283,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1284,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1285,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1286,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1412,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1478,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1503,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1564,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1633,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1891,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2252,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BattleRound"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2255,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2256,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2257,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2258,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyIncrease"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "BM05",
+      "origin": "battle",
+      "title": "调和阴阳：次数刷新不等于敌方的谋略输出压制层数清空",
+      "category": "战报实证",
+      "client_basis_status": "相关编译配置已解，仅作当前战报注释",
+      "battle_evidence_status": "已审查的限定战报观察",
+      "battle_observed_scope": "第一回合诸葛亮、周瑜身上的调和阴阳各积到3层；第二回合再次被影响时直接显示第4层，诸葛亮还继续到7层。每层在本场降低3.18个造成谋略伤害百分点。次数额度按回合补充，敌方这项负面层数可以跨回合留下。",
+      "still_missing": [
+        "本场只到7层，不能把配置中10层上限算作已实测。",
+        "第二回合末前，周瑜与诸葛亮各有两份dispel=1的调和阴阳移除，每份恢复3.18个百分点；这与次数补充、自然到期是不同事件。",
+        "同名BuffMerge没有来源字段，不能仅凭层数推断多个独立施加者的覆盖优先级。",
+        "仅适用于引用战报中描述的片段，不是全版本/所有战法的通用引擎规则。"
+      ],
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "01355c6fc8c8d15ac8004910ede86c86bcecd328abf56cdbe0eae33bd821cf88",
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10507264650058",
+          "source_index": 360,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 361,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 436,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 437,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 577,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 578,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 633,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 634,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 746,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 747,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 775,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 776,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1284,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1286,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1414,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1415,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1480,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1481,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1505,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1506,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1566,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1567,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1635,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1636,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1893,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1894,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2109,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BattleStartAct"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2110,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2111,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2112,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2113,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2114,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2143,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BattleStartAct"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2144,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2145,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2146,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2147,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2148,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertySetIncrease"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "BM06",
+      "origin": "battle",
+      "title": "焰燎江天：周瑜的2次额度与执行效果的诸葛亮分开看",
+      "category": "战报实证",
+      "client_basis_status": "相关编译配置已解，仅作当前战报注释",
+      "battle_evidence_status": "已审查的限定战报观察",
+      "battle_observed_scope": "三个回合都记录周瑜的焰燎江天可触发次数先补到2，再依次扣到1和0。诸葛亮身上可以显示执行焰燎江天，但被扣额度、随后焰燎伤害归属的是周瑜；不能看到诸葛亮的执行提示就把次数和伤害都算给诸葛亮。",
+      "still_missing": [
+        "两次额度不是两条伤害文本：一次触发能对多名武将记损兵，并穿插其他效果。",
+        "同名执行提示3018012每次触发有多条，不能按提示条数算发动次数；这里按属性524的扣减统计。",
+        "三个回合均用尽后再补满，未验证尚有余次时的重置算法。",
+        "仅适用于引用战报中描述的片段，不是全版本/所有战法的通用引擎规则。"
+      ],
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "01355c6fc8c8d15ac8004910ede86c86bcecd328abf56cdbe0eae33bd821cf88",
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10507264650058",
+          "source_index": 262,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "SkillLaunch"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 263,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BuffAdd"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 302,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 303,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 373,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 374,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 375,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 409,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 410,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 411,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 704,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 705,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 706,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 741,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffRefresh"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 742,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 753,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 782,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 801,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1287,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1288,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1356,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1357,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1358,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1393,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffRefresh"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1394,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1395,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1524,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1525,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1526,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1561,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffRefresh"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1562,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1573,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1591,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1607,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2259,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2260,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2334,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2335,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2336,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2490,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2491,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2492,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2515,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffRefresh"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2516,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2518,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2531,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2592,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "SoldierNumLossByBuff"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "BM07",
+      "origin": "battle",
+      "title": "追魂阵枢：攒进度与当回合次数是两项计数，进度可以跨回合",
+      "category": "战报实证",
+      "client_basis_status": "相关编译配置已解，仅作当前战报注释",
+      "battle_evidence_status": "已审查的限定战报观察",
+      "battle_observed_scope": "王异第一回合追晦次数攒到3后一次扣掉3，追魂阵枢次数变成1，随后出现清除负面状态的记录。她后来又攒2次追晦，第二回合没有清掉这2次，只再加1便到3并再次触发。第二回合又攒到3时，当回合的追魂阵枢次数仍为1，后续没有第二次扣3和清除链；第三回合开始才把该次数降回0。",
+      "still_missing": [
+        "本场与每回合至多触发一次的限制相符；单场事件尚不能独立证明控制条件或引擎完整调用关系。",
+        "没有观察到第三回合已有3追晦时再触发相关动作的完整窗口，不能承诺第三回合必定立即触发。",
+        "追晦536与追魂543名称相近但语义不同，不可合成一个计数；536为攒进度，543为已触发次数的本场解释。",
+        "剩余3追晦跨到新回合后，何时触发阈值检查，是否必须等下一次特定行动。",
+        "仅适用于引用战报中描述的片段，不是全版本/所有战法的通用引擎规则。"
+      ],
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "01355c6fc8c8d15ac8004910ede86c86bcecd328abf56cdbe0eae33bd821cf88",
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10507264650058",
+          "source_index": 296,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 297,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPropertyUnChanged"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 869,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 870,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 903,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 904,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 905,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffRefresh"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 984,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 985,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 986,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffRefresh"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 987,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 988,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 989,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 990,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 991,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 992,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 995,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 996,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1070,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1071,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1107,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1108,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1109,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffRefresh"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1280,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BattleRound"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1281,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1282,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1776,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1777,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1778,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffRefresh"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1779,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1780,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1781,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1782,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1783,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1785,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1787,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1838,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1839,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1926,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1927,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1974,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1975,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1976,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffRefresh"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2029,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2030,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPropertyUnChanged"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2031,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffRefresh"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2077,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2078,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPropertyUnChanged"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2079,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffRefresh"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2252,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BattleRound"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2253,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2254,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyDecrease"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "BM08",
+      "origin": "battle",
+      "title": "振锋宝器：统率与智力分开计层，清理逐笔扣回",
+      "category": "战报实证",
+      "client_basis_status": "相关编译配置已解，仅作当前战报注释",
+      "battle_evidence_status": "已审查的限定战报观察",
+      "battle_observed_scope": "王异第一回合的振锋-统积到4层，每层加12点统率；第5次只显示满4层，没有第5笔12点。回合尾部四笔各扣12。第二回合同时积了振锋-智2层和振锋-统4层，尾部各按2笔和4笔撤回；不能把振锋所有属性笼统合成总共4层。",
+      "still_missing": [
+        "新场实测统率最多4层、智力只到2层，未实测智力第4层和第5次触发。",
+        "回合尾部清理会与孟德新书等其他状态清理穿插，不能把数值总差都归到振锋。",
+        "旧场验证的是孙坚振锋-武；新场补上王异振锋-统/智表现，不推广至所有同名宝器版本。",
+        "仅适用于引用战报中描述的片段，不是全版本/所有战法的通用引擎规则。"
+      ],
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "01355c6fc8c8d15ac8004910ede86c86bcecd328abf56cdbe0eae33bd821cf88",
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10507264650058",
+          "source_index": 866,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 867,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 868,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 900,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 901,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 902,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 981,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 982,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 983,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1067,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1068,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1069,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1105,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1106,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1107,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1185,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BattleRoundActionEnd"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1270,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1271,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1272,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1273,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1274,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1275,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1276,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1277,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1278,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1279,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1280,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BattleRound"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1773,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1774,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1775,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1835,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1836,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1837,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1923,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1924,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1925,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1971,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1972,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1973,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2026,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2027,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2028,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2074,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2075,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2076,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2152,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BattleRoundActionEnd"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2236,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2237,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2238,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2239,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2240,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2241,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2242,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2243,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2244,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2245,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2246,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2247,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2248,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2249,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2250,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2251,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2252,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BattleRound"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 263,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 264,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 423,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 424,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 425,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BattleRound"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1275,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1276,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1376,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1377,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1378,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1379,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1380,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1381,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1382,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10504369850058",
+          "source_index": 1383,
+          "index_base": 1,
+          "round": 4,
+          "event_name": "HeroPorpertyDecrease"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "BM09",
+      "origin": "battle",
+      "title": "一回合行动结束后，仍有回合尾效果和清理，再进入下一回合",
+      "category": "战报实证",
+      "client_basis_status": "相关编译配置已解，仅作当前战报注释",
+      "battle_evidence_status": "已审查的限定战报观察",
+      "battle_observed_scope": "前两个完整回合的全员行动结束标记之后，先能看到慎思笃行追加效果及损兵，再记录践墨、振锋等属性回退；随后才出现下一回合标题、次数补充和行动顺序判断。回合标题出现不代表此前所有尾部效果都能忽略。",
+      "still_missing": [
+        "行动结束标记是客户端详情中隐藏的重放元数据，不能当作一行游戏可见文字。",
+        "这是选中战报编码顺序及客户端显示顺序，不是服务器或原生战斗引擎完整调度表；不据此为所有反应、伤害和到期事件排名。",
+        "仅适用于引用战报中描述的片段，不是全版本/所有战法的通用引擎规则。"
+      ],
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "01355c6fc8c8d15ac8004910ede86c86bcecd328abf56cdbe0eae33bd821cf88",
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1185,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BattleRoundActionEnd"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1186,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1187,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1188,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1189,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1190,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "FatalEffect"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1191,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1255,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1260,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1265,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1270,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1278,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1280,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BattleRound"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1281,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1282,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1283,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1284,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1287,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1288,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1289,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BattleHeroSpeedReady"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2152,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BattleRoundActionEnd"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2153,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2154,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2155,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2156,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2157,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "FatalEffect"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2158,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2226,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2233,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2236,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2240,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2242,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2250,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2252,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BattleRound"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2253,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2254,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2255,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2256,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2259,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2260,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2261,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BattleHeroSpeedReady"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "BM10",
+      "origin": "battle",
+      "title": "荀彧退场后紧随多份调和阴阳移除，不能统一叫自然到期",
+      "category": "战报实证",
+      "client_basis_status": "相关编译配置已解，仅作当前战报注释",
+      "battle_evidence_status": "已审查的限定战报观察",
+      "battle_observed_scope": "第三回合荀彧被焰燎伤害打到0兵后，诸葛亮、周瑜身上的多份调和阴阳相继消失；两人各逐笔恢复5份、每份3.18个谋略伤害百分点，曹操的调和阴阳承载效果也随后消失。不能把这些记录一律解释成目标到了自然回合末。",
+      "still_missing": [
+        "这些BuffGone的dispel=0，仅能说明不是该事件格式的显式驱散标记；dispel=0本身不区分到期、来源清理等原因。",
+        "荀彧退场与这些状态消失的关联在本场很强，但未重放清理器，不能泛化为所有状态一律随施加者退场而消失。",
+        "第三回合中途清理窗口也夹有空城、建计举人等移除，应按具体buff拆开看。",
+        "仅适用于引用战报中描述的片段，不是全版本/所有战法的通用引擎规则。"
+      ],
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "01355c6fc8c8d15ac8004910ede86c86bcecd328abf56cdbe0eae33bd821cf88",
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10507264650058",
+          "source_index": 248,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "SkillLaunch"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 249,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BuffAdd"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 250,
+          "index_base": 1,
+          "round": 0,
+          "event_name": "BuffAdd"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2530,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "FatalEffect"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2531,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2532,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BattleHeroSolderNumToZero"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2533,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2534,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2535,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2536,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2537,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2538,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2539,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2540,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2541,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2542,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2543,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2544,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2545,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2546,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2547,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2548,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2549,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2550,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2551,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2552,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2553,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2554,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2555,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2556,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2557,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2558,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2559,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2560,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2561,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2562,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2563,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2564,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2565,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "BuffGone"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2566,
+          "index_base": 1,
+          "round": 3,
+          "event_name": "HeroPorpertyIncrease"
+        }
+      ],
+      "ui_references": []
+    },
+    {
+      "id": "BM11",
+      "origin": "battle",
+      "title": "反应链按实际对象解读，记录先后不等于通用结算优先级",
+      "category": "战报实证",
+      "client_basis_status": "相关编译配置已解，仅作当前战报注释",
+      "battle_evidence_status": "已审查的限定战报观察",
+      "battle_observed_scope": "第一回合一条焰燎伤害后，先记录周瑜破胆阵枢加智，再记录慎思笃行加层与受到伤害属性变化。另一个窗口里周瑜执行的慎思笃行来自诸葛瑾，损兵文案写作由于诸葛瑾的慎思笃行，但原始伤害来源字段damageSourceHeroId明确是周瑜。发动来源、执行者、受害者、伤害来源须分开查，不能只看同名提示或team侧就串成因果。",
+      "still_missing": [
+        "这里仅把记录中的对象和先后排清楚；不认定记录先出现的一定在底层最先计算。",
+        "伤害源字段说明原始记录的归属，不足以独立重建本次采用谁的全部攻击属性、加成和取整过程。",
+        "仅适用于引用战报中描述的片段，不是全版本/所有战法的通用引擎规则。"
+      ],
+      "full_compound_rule_battle_verified": false,
+      "client_basis": {
+        "sha256": "01355c6fc8c8d15ac8004910ede86c86bcecd328abf56cdbe0eae33bd821cf88",
+        "source_bundle_sha256": "3f81a9282ed5eca0125390891b8d9173a6f606024add303337da537c7bd8dd7f"
+      },
+      "event_references": [
+        {
+          "battle_id": "10507264650058",
+          "source_index": 409,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 410,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 411,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 412,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 413,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 414,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 415,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 416,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BuffMerge"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 417,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertySetDecrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1185,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "BattleRoundActionEnd"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1186,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1187,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1188,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1189,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1190,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "FatalEffect"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 1191,
+          "index_base": 1,
+          "round": 1,
+          "event_name": "SoldierNumLossByBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2153,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2154,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2155,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "HeroPorpertyIncrease"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2156,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "DoTargetSkillTargetBuff"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2157,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "FatalEffect"
+        },
+        {
+          "battle_id": "10507264650058",
+          "source_index": 2158,
+          "index_base": 1,
+          "round": 2,
+          "event_name": "SoldierNumLossByBuff"
+        }
+      ],
+      "ui_references": []
+    }
+  ]
+}

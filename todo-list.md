@@ -4,7 +4,8 @@
 
 - [x] User replied go to the concrete proposal to align latest master, run combined checks and merge; master merge/push authorized for reviewed feature dfb4435. Actual human annotation is a separate step.
 - [x] Fresh fetch: origin/master bb8592796e5cd19b866369e392ec6395059fcfe2; feature dfb44356fff20f0082da0e2699ba2669672660fb unchanged. Master adds17REA docs plus todo only; business source/workflow unchanged.
-- [ ] Preserve3ownedcoordWIP, compose in existing review worktree, retain both todo histories, verify identical reviewed packages/workflow and local material exclusion, targeted tests and independent review, master fast-forward/push/exactCI.
+- [x] Preserve3ownedcoordWIP in localcheckpoint0370e83; compose in existing review worktree, retain both todo histories. Master source contribution is17REA docs andtodo only.
+- [ ] Verify identical reviewed packages/workflow and local material exclusion, targeted tests and independent review, master fast-forward/push/exactCI.
 - Q06archive reads/publication remainpaused; actual50-task material/answers stayignored; userreview/gold/holdout/Q07 notcompleted by code merge.
 
 ## Q-E0-dev freeze and user annotation preparation (2026-10-18)
@@ -34,6 +35,14 @@
 - [x] H08a final155817a/run37487788315 all4/native23+25+44 exact-name gate passed. Freeze [contract](docs/harness-recipe-trace-binding-h08b-2026-10-06.md) at399791ee551a15499af6bd20829a4fbfe4ad52e5; reused isolated author/reviewer workers.
 - [x] Author memo06fd180 and independent plana3985a9 read fully by root. Bind only explicit compilation with causal_trace=True, detached immutable content declaration, pre-owner validation, actual-task drift guard, no new schema/authority/default behavior. Reviewer memo check and public probes pending.
 - [ ] Implement, source-bound selftest, independent adversarial CR, exact combined regressions, single candidate/payload audit, publish and exact final native CI. Preserve all original failures; Q06 archives/publication remain paused.
+
+## REA 阶段成果公开快照（2026-10-18，已合入master）
+
+- [x] 整理 [REA公开研究快照](docs/research/rea/2026-10-18/README.md)：217武将、1159技能、327装备相关、64缘分、64机制覆盖及2份战报摘要；保留冲突、未知、版本和来源认证限制。
+- [x] 新增字段投影、输入摘要与快照核验；Windows/WSL各13项自测通过。未复制原始采样、截图、字节码、二进制、数据库、凭据或Q06未发布内容；不改正式KB、不授予review、不开放执行。
+- [x] 成果提交 [16df894c7957f13d4c46fbfaa2c620ab6cbdd953](https://github.com/Muluoguiben/sanmou_monorepo/commit/16df894c7957f13d4c46fbfaa2c620ab6cbdd953) 已推送至独立分支并通过远端SHA回读；当次远端master仍为155817a。公开快照17文件清单核验通过；全量本地原件没有上传或改写。
+- [x] 用户明确要求合入后，已将成果分支快进到远端master，回读为 [4ec9fcd9f980b94f33396290f9f51c6c892cdf3f](https://github.com/Muluoguiben/sanmou_monorepo/commit/4ec9fcd9f980b94f33396290f9f51c6c892cdf3f)。合入前重验17文件清单、Windows/WSL各13项测试及diff检查；packages/apps/workflow/AGENTS与原基线无差异。
+- [ ] 本地主工作树由主会话在保留现有3项协调WIP后同步远端；侧会话未stash/reset/覆盖它们。后续按快照内REA-R01/R02/R03推进，但本次合入不授权启动采样或解除Q06暂停。
 
 ## Active Review continuation — H08a read-only recipe registry (2026-10-06)
 

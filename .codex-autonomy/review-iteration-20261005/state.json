@@ -399,6 +399,19 @@
     "scope": "only current CI step and new plain report/coord evidence;no Q06 archive/history"
   },
   "round_status": "authorized_master_integration_in_progress",
+  "master_integration_20261021": {
+    "status": "composed_targeted_checks_and_independent_review_pending",
+    "reviewed_feature": "dfb44356fff20f0082da0e2699ba2669672660fb",
+    "upstream_master": "bb8592796e5cd19b866369e392ec6395059fcfe2",
+    "owned_wip_checkpoint": "0370e83ad5a95a7ad0ed07bfb85c48d798c61335",
+    "checkpoint_merge": "362a57ef7bb132e8bb15827d7668ca935ae65344",
+    "branch": "codex/merge-reviewed-harness-qa-20261021",
+    "upstream_scope": "17 REA research documents plus todo; no package/workflow/app change",
+    "resolution": "retain current and upstream todo sections; preserve all owned coordination checkpoint content",
+    "packages_tree": "9157fe91f7f0e5a3ed0a3df86e73eeb210ac1bb7",
+    "github_tree": "53b95f66600d981c0ba1866b15dc1396eef0bd50",
+    "labels_and_q07": "user review remains pending; code merge does not create human gold"
+  },
   "pending_publication": {
     "candidate": "cd6d4929ec611cda1600934dde17aef996142ae0",
     "main": "110bd7594e095c3ea0e1940ab2fc4bec5f4d7a77",

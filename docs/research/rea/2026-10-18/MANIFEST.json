@@ -1,0 +1,94 @@
+{
+  "schema": "sanmou-rea-public-snapshot-manifest/v1",
+  "files": [
+    {
+      "path": "data/fates.json",
+      "bytes": 58748,
+      "sha256": "bcf9fb0a7b71eba17b2290073613004796a1aebe60fb5ad828836ef7d82d040e"
+    },
+    {
+      "path": "data/gear.json",
+      "bytes": 506860,
+      "sha256": "98bf528ba1f643fdb6c77e2c47db082ce1472a8e7a114814ac90cf550ad419bb"
+    },
+    {
+      "path": "data/heroes.json",
+      "bytes": 744168,
+      "sha256": "7bdc9f9b2b272b336d1f7363bfd44a2f329f20f92868361d96f2d5f9fb2e22ff"
+    },
+    {
+      "path": "data/mechanics.json",
+      "bytes": 216013,
+      "sha256": "3b92825eb8278b8d2e057dc0209b230b01438ec604a36ce40ddfb7b17b83a036"
+    },
+    {
+      "path": "data/reports.json",
+      "bytes": 2540,
+      "sha256": "c0bff460e8e256d0c21cf6810e57aa276864375268e0b7b89dbe7ac4ddc0dd22"
+    },
+    {
+      "path": "data/skills.json",
+      "bytes": 13151203,
+      "sha256": "0fade599679730f4f9bd02276240666646e59fdddb20e529f4e052d219609582"
+    },
+    {
+      "path": "NEXT-STEPS.md",
+      "bytes": 14797,
+      "sha256": "67bf6f0692f0df1768f7ded85aba80dc79a278a5ac61ba1460bc726133cc4d39"
+    },
+    {
+      "path": "RAG-REVIEW.md",
+      "bytes": 29785,
+      "sha256": "c2bbae97418806353f9fd15b06fd23fe5b63bff80ead044d8dc901537680a48e"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5042,
+      "sha256": "43043f7ff3ae8fbe569d006d07457e3201a46737d5d8a8669edd58eb81016549"
+    },
+    {
+      "path": "snapshot.py",
+      "bytes": 13147,
+      "sha256": "05f2600a7184604b8dcda170c5c40a89b922bc0211fb4133e63ac69d76d3394d"
+    },
+    {
+      "path": "SOURCE-DOCUMENTS.json",
+      "bytes": 640,
+      "sha256": "d8404183dfa6bb8218ac2127510c8d49d7ed1f98252219ac30fd249827a9ad80"
+    },
+    {
+      "path": "SOURCE-MANIFEST.json",
+      "bytes": 2330,
+      "sha256": "597c017435c1bd70677cd4b1353beda32abc8b09dd8cc126472186d415be5f89"
+    },
+    {
+      "path": "test_snapshot.py",
+      "bytes": 6107,
+      "sha256": "26693bd0832b0e0ba5f13e49518a0e10553e2dcabe3fd8f52637e8ebc0cf7ac9"
+    },
+    {
+      "path": "validation/windows-unittest.log",
+      "bytes": 1614,
+      "sha256": "77d16d4072e22631783e0bce19d62c7e3b89c070360757300a061554dcc2ece7"
+    },
+    {
+      "path": "validation/wsl-unittest.log",
+      "bytes": 1614,
+      "sha256": "321bd3beb29343f8e98ad86554b1ae6cb6eba22c330b0500163aadac6aafd225"
+    },
+    {
+      "path": "VALIDATION.md",
+      "bytes": 3234,
+      "sha256": "ff4f8f248bb8a14b21cc5b01649733fb49294e01f7945806bd392162cc9c8949"
+    }
+  ],
+  "self_hash_excluded": true,
+  "counts": {
+    "heroes": 217,
+    "skills": 1159,
+    "gear": 327,
+    "fates": 64,
+    "mechanics": 64,
+    "reports": 2
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "schema": "sanmou-rea-research-projection/v1",
+  "review_state": "pending_domain_review",
+  "knowledge_publishable": false,
+  "execution_authority": "none",
+  "executable": false,
+  "records": [
+    {
+      "source_label": "report_a",
+      "battle_id": "10504369850058",
+      "sample_kind": "user-provided",
+      "event_count": 1794,
+      "slice_count": 1,
+      "event_integer_width": 8,
+      "decode_complete": true,
+      "decode_complete_scope": "Complete supplied selected 1..N slices and event integers only; no real report acquisition or connection completeness proof.",
+      "real_battle_verified": false,
+      "source_association_independently_authenticated": false,
+      "complete_tcp_connection": false,
+      "native_control_acceptance_observed": false,
+      "client_dispatch_not_replayed": true,
+      "control_condition_unobserved": true,
+      "warnings": [
+        "user_provided_not_authenticated",
+        "server_only_bytes_cannot_exclude_client_rekey;single_epoch_assumption_required",
+        "tag1_conditional_payload_interpreted;control_condition_unobserved;client_dispatch_not_replayed",
+        "CombatInfo_only_battleID_checked;other_nested_fields_opaque",
+        "JSON_numbers_require_lossless_integer_reader;no_float_conversion"
+      ],
+      "terminal_event_name": "BattleResult",
+      "raw_events_included": false
+    },
+    {
+      "source_label": "report_b",
+      "battle_id": "10507264650058",
+      "sample_kind": "user-provided",
+      "event_count": 2709,
+      "slice_count": 1,
+      "event_integer_width": 8,
+      "decode_complete": true,
+      "decode_complete_scope": "Complete supplied selected 1..N slices and event integers only; no real report acquisition or connection completeness proof.",
+      "real_battle_verified": false,
+      "source_association_independently_authenticated": false,
+      "complete_tcp_connection": false,
+      "native_control_acceptance_observed": false,
+      "client_dispatch_not_replayed": true,
+      "control_condition_unobserved": true,
+      "warnings": [
+        "user_provided_not_authenticated",
+        "server_only_bytes_cannot_exclude_client_rekey;single_epoch_assumption_required",
+        "tag1_conditional_payload_interpreted;control_condition_unobserved;client_dispatch_not_replayed",
+        "CombatInfo_only_battleID_checked;other_nested_fields_opaque",
+        "JSON_numbers_require_lossless_integer_reader;no_float_conversion"
+      ],
+      "terminal_event_name": "BattleResult",
+      "raw_events_included": false
+    }
+  ]
+}

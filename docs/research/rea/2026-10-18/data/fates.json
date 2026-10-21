@@ -1,0 +1,2615 @@
+{
+  "schema": "sanmou-rea-research-projection/v1",
+  "review_state": "pending_domain_review",
+  "knowledge_publishable": false,
+  "execution_authority": "none",
+  "executable": false,
+  "records": [
+    {
+      "id": 1,
+      "data": {
+        "name": "吴宫冷闭",
+        "description": "部队中缘分武将智力提升<color=#68DA81>20</color>点",
+        "need_hero_number": 2,
+        "hero": [
+          3003,
+          3004,
+          5026
+        ],
+        "effect_one": [
+          "intelligence"
+        ],
+        "effect_value_one": [
+          10
+        ],
+        "effect_buff": [
+          91000
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 3003,
+          "name": "小乔"
+        },
+        {
+          "hero_id": 3004,
+          "name": "大乔"
+        },
+        {
+          "hero_id": 5026,
+          "name": "步练师"
+        }
+      ],
+      "conflicts": [
+        {
+          "fate_id": 1,
+          "name": "吴宫冷闭",
+          "display_text": "部队中缘分武将智力提升20点",
+          "effect_one": [
+            "intelligence"
+          ],
+          "effect_value_one": [
+            10
+          ],
+          "effect_buff": [
+            91000
+          ],
+          "classification": "unadjudicated_mismatch",
+          "comparison": "中文为智力提升20点，平行字段 intelligence=10。",
+          "adjudication": "保留中文描述和原始平行字段；未裁决最终战斗行为，不擅自选取其中之一作为实际效果。"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "data": {
+        "name": "顾曲唱和",
+        "description": "部队中缘分武将主动战法发动率提升<color=#68DA81>4%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          3007,
+          3018,
+          3003
+        ],
+        "effect_one": [
+          "pFatal"
+        ],
+        "effect_value_one": [
+          0.05
+        ],
+        "effect_buff": [
+          91010
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 3007,
+          "name": "周瑜"
+        },
+        {
+          "hero_id": 3018,
+          "name": "周瑜"
+        },
+        {
+          "hero_id": 3003,
+          "name": "小乔"
+        }
+      ],
+      "conflicts": [
+        {
+          "fate_id": 2,
+          "name": "顾曲唱和",
+          "display_text": "部队中缘分武将主动战法发动率提升4%",
+          "effect_one": [
+            "pFatal"
+          ],
+          "effect_value_one": [
+            0.05
+          ],
+          "effect_buff": [
+            91010
+          ],
+          "classification": "unadjudicated_mismatch",
+          "comparison": "中文为主动战法发动率提升4%，平行字段 pFatal=0.05。",
+          "adjudication": "保留中文描述和原始平行字段；未裁决最终战斗行为，不擅自选取其中之一作为实际效果。"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "data": {
+        "name": "馨香俎豆",
+        "description": "部队中缘分武将统率提升<color=#68DA81>20</color>点",
+        "need_hero_number": 2,
+        "hero": [
+          3001,
+          3004
+        ],
+        "effect_one": [
+          "might"
+        ],
+        "effect_value_one": [
+          10
+        ],
+        "effect_buff": [
+          91020
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 3001,
+          "name": "孙策"
+        },
+        {
+          "hero_id": 3004,
+          "name": "大乔"
+        }
+      ],
+      "conflicts": [
+        {
+          "fate_id": 3,
+          "name": "馨香俎豆",
+          "display_text": "部队中缘分武将统率提升20点",
+          "effect_one": [
+            "might"
+          ],
+          "effect_value_one": [
+            10
+          ],
+          "effect_buff": [
+            91020
+          ],
+          "classification": "unadjudicated_mismatch",
+          "comparison": "中文为统率提升20点，平行字段 might=10。",
+          "adjudication": "保留中文描述和原始平行字段；未裁决最终战斗行为，不擅自选取其中之一作为实际效果。"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "data": {
+        "name": "志继江东",
+        "description": "部队中缘分武将造成伤害提升<color=#68DA81>7%</color>",
+        "need_hero_number": 3,
+        "hero": [
+          3013,
+          3001,
+          3000,
+          3002,
+          4032
+        ],
+        "effect_one": [
+          "damage_increase"
+        ],
+        "effect_value_one": [
+          0.07
+        ],
+        "effect_buff": [
+          91030
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 3013,
+          "name": "孙坚"
+        },
+        {
+          "hero_id": 3001,
+          "name": "孙策"
+        },
+        {
+          "hero_id": 3000,
+          "name": "孙权"
+        },
+        {
+          "hero_id": 3002,
+          "name": "孙尚香"
+        },
+        {
+          "hero_id": 4032,
+          "name": "孙坚"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 5,
+      "data": {
+        "name": "三分天下",
+        "description": "部队中缘分武将受到伤害降低<color=#68DA81>6%</color>",
+        "need_hero_number": 3,
+        "hero": [
+          1000,
+          2000,
+          3000
+        ],
+        "effect_one": [
+          "injury_reduce"
+        ],
+        "effect_value_one": [
+          0.05
+        ],
+        "effect_buff": [
+          91040
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 1000,
+          "name": "曹操"
+        },
+        {
+          "hero_id": 2000,
+          "name": "刘备"
+        },
+        {
+          "hero_id": 3000,
+          "name": "孙权"
+        }
+      ],
+      "conflicts": [
+        {
+          "fate_id": 5,
+          "name": "三分天下",
+          "display_text": "部队中缘分武将受到伤害降低6%",
+          "effect_one": [
+            "injury_reduce"
+          ],
+          "effect_value_one": [
+            0.05
+          ],
+          "effect_buff": [
+            91040
+          ],
+          "classification": "unadjudicated_mismatch",
+          "comparison": "中文为受到伤害降低6%，平行字段 injury_reduce=0.05。",
+          "adjudication": "保留中文描述和原始平行字段；未裁决最终战斗行为，不擅自选取其中之一作为实际效果。"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "data": {
+        "name": "折冲左右",
+        "description": "部队中缘分武将武力提升<color=#68DA81>20</color>点",
+        "need_hero_number": 3,
+        "hero": [
+          3000,
+          3006,
+          3014
+        ],
+        "effect_one": [
+          "defence"
+        ],
+        "effect_value_one": [
+          10
+        ],
+        "effect_buff": [
+          91050
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 3000,
+          "name": "孙权"
+        },
+        {
+          "hero_id": 3006,
+          "name": "甘宁"
+        },
+        {
+          "hero_id": 3014,
+          "name": "周泰"
+        }
+      ],
+      "conflicts": [
+        {
+          "fate_id": 6,
+          "name": "折冲左右",
+          "display_text": "部队中缘分武将武力提升20点",
+          "effect_one": [
+            "defence"
+          ],
+          "effect_value_one": [
+            10
+          ],
+          "effect_buff": [
+            91050
+          ],
+          "classification": "unadjudicated_mismatch",
+          "comparison": "中文为武力提升20点，平行字段 defence=10。",
+          "adjudication": "保留中文描述和原始平行字段；未裁决最终战斗行为，不擅自选取其中之一作为实际效果。"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "data": {
+        "name": "东吴大都督",
+        "description": "部队中缘分武将获得<color=#68DA81>8%</color>攻心",
+        "need_hero_number": 3,
+        "hero": [
+          3007,
+          3018,
+          3005,
+          3010,
+          3008
+        ],
+        "effect_one": [
+          "mDam_increase"
+        ],
+        "effect_value_one": [
+          0.08
+        ],
+        "effect_buff": [
+          91060
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 3007,
+          "name": "周瑜"
+        },
+        {
+          "hero_id": 3018,
+          "name": "周瑜"
+        },
+        {
+          "hero_id": 3005,
+          "name": "鲁肃"
+        },
+        {
+          "hero_id": 3010,
+          "name": "吕蒙"
+        },
+        {
+          "hero_id": 3008,
+          "name": "陆逊"
+        }
+      ],
+      "conflicts": [
+        {
+          "fate_id": 7,
+          "name": "东吴大都督",
+          "display_text": "部队中缘分武将获得8%攻心",
+          "effect_one": [
+            "mDam_increase"
+          ],
+          "effect_value_one": [
+            0.08
+          ],
+          "effect_buff": [
+            91060
+          ],
+          "classification": "unadjudicated_mismatch",
+          "comparison": "中文为攻心8%，平行字段 mDam_increase=0.08；效果语义存在差异。",
+          "adjudication": "保留中文描述和原始平行字段；未裁决最终战斗行为，不擅自选取其中之一作为实际效果。"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "data": {
+        "name": "士别三日",
+        "description": "战斗第3回合开始时，部队中缘分武将受到主动战法伤害降低<color=#68DA81>12%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          3010,
+          3005
+        ],
+        "effect_one": [
+          "dodge"
+        ],
+        "effect_value_one": [
+          0.05
+        ],
+        "effect_buff": [
+          91070
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 3010,
+          "name": "吕蒙"
+        },
+        {
+          "hero_id": 3005,
+          "name": "鲁肃"
+        }
+      ],
+      "conflicts": [
+        {
+          "fate_id": 8,
+          "name": "士别三日",
+          "display_text": "战斗第3回合开始时，部队中缘分武将受到主动战法伤害降低12%",
+          "effect_one": [
+            "dodge"
+          ],
+          "effect_value_one": [
+            0.05
+          ],
+          "effect_buff": [
+            91070
+          ],
+          "classification": "unadjudicated_mismatch",
+          "comparison": "中文为第3回合开始受到主动战法伤害降低12%，平行字段 dodge=0.05。",
+          "adjudication": "保留中文描述和原始平行字段；未裁决最终战斗行为，不擅自选取其中之一作为实际效果。"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "data": {
+        "name": "五谋臣",
+        "description": "部队中缘分武将看破提升<color=#68DA81>5%</color>，受到伤害降低<color=#68DA81>4%</color>",
+        "need_hero_number": 3,
+        "hero": [
+          1005,
+          1019,
+          1008,
+          1003,
+          1004
+        ],
+        "effect_one": [
+          "mFatal"
+        ],
+        "effect_value_one": [
+          0.1
+        ],
+        "effect_buff": [
+          91090
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 1005,
+          "name": "郭嘉"
+        },
+        {
+          "hero_id": 1019,
+          "name": "程昱"
+        },
+        {
+          "hero_id": 1008,
+          "name": "荀彧"
+        },
+        {
+          "hero_id": 1003,
+          "name": "荀攸"
+        },
+        {
+          "hero_id": 1004,
+          "name": "贾诩"
+        }
+      ],
+      "conflicts": [
+        {
+          "fate_id": 10,
+          "name": "五谋臣",
+          "display_text": "部队中缘分武将看破提升5%，受到伤害降低4%",
+          "effect_one": [
+            "mFatal"
+          ],
+          "effect_value_one": [
+            0.1
+          ],
+          "effect_buff": [
+            91090
+          ],
+          "classification": "unadjudicated_mismatch",
+          "comparison": "中文为看破提升5%并受到伤害降低4%，平行字段 mFatal=0.1。",
+          "adjudication": "保留中文描述和原始平行字段；未裁决最终战斗行为，不擅自选取其中之一作为实际效果。"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "data": {
+        "name": "虎卫御侮",
+        "description": "部队中缘分武将普通攻击伤害提升<color=#68DA81>12%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          1000,
+          1001,
+          1002
+        ],
+        "effect_one": [
+          "fightback_probability"
+        ],
+        "effect_value_one": [
+          0.3
+        ],
+        "effect_buff": [
+          91100
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 1000,
+          "name": "曹操"
+        },
+        {
+          "hero_id": 1001,
+          "name": "许褚"
+        },
+        {
+          "hero_id": 1002,
+          "name": "典韦"
+        }
+      ],
+      "conflicts": [
+        {
+          "fate_id": 11,
+          "name": "虎卫御侮",
+          "display_text": "部队中缘分武将普通攻击伤害提升12%",
+          "effect_one": [
+            "fightback_probability"
+          ],
+          "effect_value_one": [
+            0.3
+          ],
+          "effect_buff": [
+            91100
+          ],
+          "classification": "unadjudicated_mismatch",
+          "comparison": "中文为普通攻击伤害提升12%，平行字段 fightback_probability=0.3。",
+          "adjudication": "保留中文描述和原始平行字段；未裁决最终战斗行为，不擅自选取其中之一作为实际效果。"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "data": {
+        "name": "五虎上将",
+        "description": "部队中缘分武将会心几率提升<color=#68DA81>10%</color>",
+        "need_hero_number": 3,
+        "hero": [
+          2001,
+          2002,
+          2007,
+          2012,
+          2015
+        ],
+        "effect_one": [
+          "pFatal"
+        ],
+        "effect_value_one": [
+          0.05
+        ],
+        "effect_buff": [
+          91110
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 2001,
+          "name": "关羽"
+        },
+        {
+          "hero_id": 2002,
+          "name": "张飞"
+        },
+        {
+          "hero_id": 2007,
+          "name": "黄忠"
+        },
+        {
+          "hero_id": 2012,
+          "name": "赵云"
+        },
+        {
+          "hero_id": 2015,
+          "name": "马超"
+        }
+      ],
+      "conflicts": [
+        {
+          "fate_id": 12,
+          "name": "五虎上将",
+          "display_text": "部队中缘分武将会心几率提升10%",
+          "effect_one": [
+            "pFatal"
+          ],
+          "effect_value_one": [
+            0.05
+          ],
+          "effect_buff": [
+            91110
+          ],
+          "classification": "unadjudicated_mismatch",
+          "comparison": "中文为会心几率提升10%，平行字段 pFatal=0.05。",
+          "adjudication": "保留中文描述和原始平行字段；未裁决最终战斗行为，不擅自选取其中之一作为实际效果。"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "data": {
+        "name": "西蜀之智",
+        "description": "部队中缘分武将受到谋略伤害降低<color=#68DA81>8%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          2003,
+          2022,
+          2005,
+          2004,
+          2018
+        ],
+        "effect_one": [
+          "probability"
+        ],
+        "effect_value_one": [
+          0.05
+        ],
+        "effect_buff": [
+          91120
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 2003,
+          "name": "诸葛亮"
+        },
+        {
+          "hero_id": 2022,
+          "name": "诸葛亮"
+        },
+        {
+          "hero_id": 2005,
+          "name": "徐庶"
+        },
+        {
+          "hero_id": 2004,
+          "name": "庞统"
+        },
+        {
+          "hero_id": 2018,
+          "name": "法正"
+        }
+      ],
+      "conflicts": [
+        {
+          "fate_id": 13,
+          "name": "西蜀之智",
+          "display_text": "部队中缘分武将受到谋略伤害降低8%",
+          "effect_one": [
+            "probability"
+          ],
+          "effect_value_one": [
+            0.05
+          ],
+          "effect_buff": [
+            91120
+          ],
+          "classification": "unadjudicated_mismatch",
+          "comparison": "中文为受到谋略伤害降低8%，平行字段 probability=0.05。",
+          "adjudication": "保留中文描述和原始平行字段；未裁决最终战斗行为，不擅自选取其中之一作为实际效果。"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "data": {
+        "name": "国之栋梁",
+        "description": "部队中缘分武将谋略伤害提升<color=#68DA81>8%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          2003,
+          2022,
+          3007,
+          3018,
+          1009
+        ],
+        "effect_one": [
+          "mAtt_pene"
+        ],
+        "effect_value_one": [
+          0.08
+        ],
+        "effect_buff": [
+          91130
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 2003,
+          "name": "诸葛亮"
+        },
+        {
+          "hero_id": 2022,
+          "name": "诸葛亮"
+        },
+        {
+          "hero_id": 3007,
+          "name": "周瑜"
+        },
+        {
+          "hero_id": 3018,
+          "name": "周瑜"
+        },
+        {
+          "hero_id": 1009,
+          "name": "司马懿"
+        }
+      ],
+      "conflicts": [
+        {
+          "fate_id": 14,
+          "name": "国之栋梁",
+          "display_text": "部队中缘分武将谋略伤害提升8%",
+          "effect_one": [
+            "mAtt_pene"
+          ],
+          "effect_value_one": [
+            0.08
+          ],
+          "effect_buff": [
+            91130
+          ],
+          "classification": "unadjudicated_mismatch",
+          "comparison": "中文为谋略伤害提升8%，平行字段 mAtt_pene=0.08；效果语义存在差异。",
+          "adjudication": "保留中文描述和原始平行字段；未裁决最终战斗行为，不擅自选取其中之一作为实际效果。"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "data": {
+        "name": "桃园结义",
+        "description": "第3回合时，部队中缘分武将行动前驱散自身所有负面状态",
+        "need_hero_number": 3,
+        "hero": [
+          2000,
+          2001,
+          2002
+        ],
+        "effect_one": [
+          "pAtt_pene"
+        ],
+        "effect_value_one": [
+          0.06
+        ],
+        "effect_buff": [
+          91140
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 2000,
+          "name": "刘备"
+        },
+        {
+          "hero_id": 2001,
+          "name": "关羽"
+        },
+        {
+          "hero_id": 2002,
+          "name": "张飞"
+        }
+      ],
+      "conflicts": [
+        {
+          "fate_id": 15,
+          "name": "桃园结义",
+          "display_text": "第3回合时，部队中缘分武将行动前驱散自身所有负面状态",
+          "effect_one": [
+            "pAtt_pene"
+          ],
+          "effect_value_one": [
+            0.06
+          ],
+          "effect_buff": [
+            91140
+          ],
+          "classification": "unadjudicated_mismatch",
+          "comparison": "中文为第3回合行动前驱散自身全部负面状态，平行字段 pAtt_pene=0.06。",
+          "adjudication": "保留中文描述和原始平行字段；未裁决最终战斗行为，不擅自选取其中之一作为实际效果。"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "data": {
+        "name": "才堪相配",
+        "description": "部队中缘分武将受到的治疗效果提升<color=#68DA81>8%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          2003,
+          2022,
+          2009
+        ],
+        "effect_one": [
+          "healed_ratio_increase"
+        ],
+        "effect_value_one": [
+          0.06
+        ],
+        "effect_buff": [
+          91150
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 2003,
+          "name": "诸葛亮"
+        },
+        {
+          "hero_id": 2022,
+          "name": "诸葛亮"
+        },
+        {
+          "hero_id": 2009,
+          "name": "黄月英"
+        }
+      ],
+      "conflicts": [
+        {
+          "fate_id": 16,
+          "name": "才堪相配",
+          "display_text": "部队中缘分武将受到的治疗效果提升8%",
+          "effect_one": [
+            "healed_ratio_increase"
+          ],
+          "effect_value_one": [
+            0.06
+          ],
+          "effect_buff": [
+            91150
+          ],
+          "classification": "unadjudicated_mismatch",
+          "comparison": "中文为受到的治疗效果提升8%，平行字段 healed_ratio_increase=0.06。",
+          "adjudication": "保留中文描述和原始平行字段；未裁决最终战斗行为，不擅自选取其中之一作为实际效果。"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "data": {
+        "name": "义薄云天",
+        "description": "部队中缘分武将破甲提升<color=#68DA81>6%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          2001,
+          5016,
+          5020,
+          2011
+        ],
+        "effect_one": [
+          "speed"
+        ],
+        "effect_value_one": [
+          12
+        ],
+        "effect_buff": [
+          91160
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 2001,
+          "name": "关羽"
+        },
+        {
+          "hero_id": 5016,
+          "name": "关平"
+        },
+        {
+          "hero_id": 5020,
+          "name": "周仓"
+        },
+        {
+          "hero_id": 2011,
+          "name": "关银屏"
+        }
+      ],
+      "conflicts": [
+        {
+          "fate_id": 17,
+          "name": "义薄云天",
+          "display_text": "部队中缘分武将破甲提升6%",
+          "effect_one": [
+            "speed"
+          ],
+          "effect_value_one": [
+            12
+          ],
+          "effect_buff": [
+            91160
+          ],
+          "classification": "unadjudicated_mismatch",
+          "comparison": "中文为破甲提升6%，平行字段 speed=12。",
+          "adjudication": "保留中文描述和原始平行字段；未裁决最终战斗行为，不擅自选取其中之一作为实际效果。"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "data": {
+        "name": "乱世红颜",
+        "description": "战斗开始时，部队中缘分武将获得<color=#68DA81>2</color>层抵御",
+        "need_hero_number": 3,
+        "hero": [
+          4023,
+          4002,
+          4029,
+          1026,
+          1020,
+          3002,
+          2019,
+          3019
+        ],
+        "effect_one": [
+          "dodge"
+        ],
+        "effect_value_one": [
+          0.05
+        ],
+        "effect_buff": [
+          91170
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 4023,
+          "name": "貂蝉"
+        },
+        {
+          "hero_id": 4002,
+          "name": "蔡文姬"
+        },
+        {
+          "hero_id": 4029,
+          "name": "邹氏"
+        },
+        {
+          "hero_id": 1026,
+          "name": "甄洛"
+        },
+        {
+          "hero_id": 1020,
+          "name": "王异"
+        },
+        {
+          "hero_id": 3002,
+          "name": "孙尚香"
+        },
+        {
+          "hero_id": 2019,
+          "name": "甘夫人"
+        },
+        {
+          "hero_id": 3019,
+          "name": "吴国太"
+        }
+      ],
+      "conflicts": [
+        {
+          "fate_id": 18,
+          "name": "乱世红颜",
+          "display_text": "战斗开始时，部队中缘分武将获得2层抵御",
+          "effect_one": [
+            "dodge"
+          ],
+          "effect_value_one": [
+            0.05
+          ],
+          "effect_buff": [
+            91170
+          ],
+          "classification": "unadjudicated_mismatch",
+          "comparison": "中文为战斗开始获得2层抵御，平行字段 dodge=0.05。",
+          "adjudication": "保留中文描述和原始平行字段；未裁决最终战斗行为，不擅自选取其中之一作为实际效果。"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "data": {
+        "name": "西凉铁骑",
+        "description": "部队中缘分武将追击战法伤害提升<color=#68DA81>8%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          2015,
+          2013,
+          4015
+        ],
+        "effect_one": [
+          "normal_attack_damage"
+        ],
+        "effect_value_one": [
+          0.1
+        ],
+        "effect_buff": [
+          91180
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 2015,
+          "name": "马超"
+        },
+        {
+          "hero_id": 2013,
+          "name": "马云禄"
+        },
+        {
+          "hero_id": 4015,
+          "name": "马腾"
+        }
+      ],
+      "conflicts": [
+        {
+          "fate_id": 19,
+          "name": "西凉铁骑",
+          "display_text": "部队中缘分武将追击战法伤害提升8%",
+          "effect_one": [
+            "normal_attack_damage"
+          ],
+          "effect_value_one": [
+            0.1
+          ],
+          "effect_buff": [
+            91180
+          ],
+          "classification": "unadjudicated_mismatch",
+          "comparison": "中文为追击战法伤害提升8%，平行字段 normal_attack_damage=0.1。",
+          "adjudication": "保留中文描述和原始平行字段；未裁决最终战斗行为，不擅自选取其中之一作为实际效果。"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "data": {
+        "name": "秋波送情",
+        "description": "部队中缘分武将受到普通攻击伤害和追击战法伤害降低<color=#68DA81>12%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          4000,
+          4023
+        ],
+        "effect_one": [
+          "damage_increase"
+        ],
+        "effect_value_one": [
+          0.07
+        ],
+        "effect_buff": [
+          91190
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 4000,
+          "name": "吕布"
+        },
+        {
+          "hero_id": 4023,
+          "name": "貂蝉"
+        }
+      ],
+      "conflicts": [
+        {
+          "fate_id": 20,
+          "name": "秋波送情",
+          "display_text": "部队中缘分武将受到普通攻击伤害和追击战法伤害降低12%",
+          "effect_one": [
+            "damage_increase"
+          ],
+          "effect_value_one": [
+            0.07
+          ],
+          "effect_buff": [
+            91190
+          ],
+          "classification": "unadjudicated_mismatch",
+          "comparison": "中文为受到普通攻击和追击战法伤害降低12%，平行字段 damage_increase=0.07。",
+          "adjudication": "保留中文描述和原始平行字段；未裁决最终战斗行为，不擅自选取其中之一作为实际效果。"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "data": {
+        "name": "骁龙飞将",
+        "description": "部队中缘分武将倒戈提升<color=#68DA81>10%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          4000,
+          4001,
+          4013
+        ],
+        "effect_one": [
+          "combo_rate"
+        ],
+        "effect_value_one": [
+          0.1
+        ],
+        "effect_buff": [
+          91200
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 4000,
+          "name": "吕布"
+        },
+        {
+          "hero_id": 4001,
+          "name": "张辽"
+        },
+        {
+          "hero_id": 4013,
+          "name": "陈宫"
+        }
+      ],
+      "conflicts": [
+        {
+          "fate_id": 21,
+          "name": "骁龙飞将",
+          "display_text": "部队中缘分武将倒戈提升10%",
+          "effect_one": [
+            "combo_rate"
+          ],
+          "effect_value_one": [
+            0.1
+          ],
+          "effect_buff": [
+            91200
+          ],
+          "classification": "unadjudicated_mismatch",
+          "comparison": "中文为倒戈提升10%，平行字段 combo_rate=0.1；效果语义存在差异。",
+          "adjudication": "保留中文描述和原始平行字段；未裁决最终战斗行为，不擅自选取其中之一作为实际效果。"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "data": {
+        "name": "五子良将",
+        "description": "部队中缘分武将破甲提升<color=#68DA81>6%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          1007,
+          1010,
+          1013,
+          4001,
+          1014
+        ],
+        "effect_buff": [
+          91220
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 1007,
+          "name": "于禁"
+        },
+        {
+          "hero_id": 1010,
+          "name": "张郃"
+        },
+        {
+          "hero_id": 1013,
+          "name": "徐晃"
+        },
+        {
+          "hero_id": 4001,
+          "name": "张辽"
+        },
+        {
+          "hero_id": 1014,
+          "name": "乐进"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 25,
+      "data": {
+        "name": "河北庭将",
+        "description": "部队中缘分武将武力提升<color=#68DA81>20</color>点",
+        "need_hero_number": 2,
+        "hero": [
+          4017,
+          4018,
+          1010
+        ],
+        "effect_buff": [
+          91240
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 4017,
+          "name": "颜良"
+        },
+        {
+          "hero_id": 4018,
+          "name": "文丑"
+        },
+        {
+          "hero_id": 1010,
+          "name": "张郃"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 26,
+      "data": {
+        "name": "黄巾起义",
+        "description": "战斗前2回合，部队中缘分武将主动战法发动率提升<color=#68DA81>8%</color>",
+        "need_hero_number": 3,
+        "hero": [
+          4011,
+          5055,
+          5048,
+          5044,
+          4024
+        ],
+        "effect_buff": [
+          91250
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 4011,
+          "name": "张角"
+        },
+        {
+          "hero_id": 5055,
+          "name": "张宝"
+        },
+        {
+          "hero_id": 5048,
+          "name": "张梁"
+        },
+        {
+          "hero_id": 5044,
+          "name": "张曼成"
+        },
+        {
+          "hero_id": 4024,
+          "name": "张宁"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 28,
+      "data": {
+        "name": "江表虎臣",
+        "description": "部队中缘分武将统率提升<color=#68DA81>10</color>点，受到伤害降低<color=#68DA81>3%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          3012,
+          3006,
+          5034,
+          3009,
+          3014,
+          3015,
+          5028,
+          5029,
+          5027,
+          5025,
+          5023,
+          5032
+        ],
+        "effect_buff": [
+          91270
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 3012,
+          "name": "黄盖"
+        },
+        {
+          "hero_id": 3006,
+          "name": "甘宁"
+        },
+        {
+          "hero_id": 5034,
+          "name": "徐盛"
+        },
+        {
+          "hero_id": 3009,
+          "name": "程普"
+        },
+        {
+          "hero_id": 3014,
+          "name": "周泰"
+        },
+        {
+          "hero_id": 3015,
+          "name": "凌统"
+        },
+        {
+          "hero_id": 5028,
+          "name": "蒋钦"
+        },
+        {
+          "hero_id": 5029,
+          "name": "丁奉"
+        },
+        {
+          "hero_id": 5027,
+          "name": "董袭"
+        },
+        {
+          "hero_id": 5025,
+          "name": "韩当"
+        },
+        {
+          "hero_id": 5023,
+          "name": "陈武"
+        },
+        {
+          "hero_id": 5032,
+          "name": "潘璋"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 29,
+      "data": {
+        "name": "四世三公",
+        "description": "部队中缘分武将受到谋略伤害降低<color=#68DA81>3%</color>，受到兵刃伤害降低<color=#68DA81>3%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          4004,
+          4027
+        ],
+        "effect_buff": [
+          91280
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 4004,
+          "name": "袁绍"
+        },
+        {
+          "hero_id": 4027,
+          "name": "袁术"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 30,
+      "data": {
+        "name": "汉末兴乱",
+        "description": "部队中缘分武将统率提升<color=#68DA81>20</color>点",
+        "need_hero_number": 2,
+        "hero": [
+          4028,
+          4000,
+          4010,
+          4014
+        ],
+        "effect_buff": [
+          91290
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 4028,
+          "name": "董卓"
+        },
+        {
+          "hero_id": 4000,
+          "name": "吕布"
+        },
+        {
+          "hero_id": 4010,
+          "name": "李儒"
+        },
+        {
+          "hero_id": 4014,
+          "name": "华雄"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 31,
+      "data": {
+        "name": "苦肉计",
+        "description": "部队中缘分武将首次受到来自友方的伤害后，受到主动战法伤害降低<color=#68DA81>12%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          3007,
+          3018,
+          3012
+        ],
+        "effect_buff": [
+          91300
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 3007,
+          "name": "周瑜"
+        },
+        {
+          "hero_id": 3018,
+          "name": "周瑜"
+        },
+        {
+          "hero_id": 3012,
+          "name": "黄盖"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 32,
+      "data": {
+        "name": "曹魏宗将",
+        "description": "部队中缘分武将最高属性提升<color=#68DA81>15</color>点",
+        "need_hero_number": 2,
+        "hero": [
+          1023,
+          1016,
+          1024,
+          1015,
+          5006,
+          5004
+        ],
+        "effect_buff": [
+          91310
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 1023,
+          "name": "夏侯惇"
+        },
+        {
+          "hero_id": 1016,
+          "name": "夏侯渊"
+        },
+        {
+          "hero_id": 1024,
+          "name": "曹仁"
+        },
+        {
+          "hero_id": 1015,
+          "name": "曹纯"
+        },
+        {
+          "hero_id": 5006,
+          "name": "曹真"
+        },
+        {
+          "hero_id": 5004,
+          "name": "曹洪"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 33,
+      "data": {
+        "name": "神亭酣战",
+        "description": "部队中缘分武将武力提升<color=#68DA81>20</color>点",
+        "need_hero_number": 2,
+        "hero": [
+          3011,
+          3001
+        ],
+        "effect_buff": [
+          91320
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 3011,
+          "name": "太史慈"
+        },
+        {
+          "hero_id": 3001,
+          "name": "孙策"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 34,
+      "data": {
+        "name": "弯弓饮羽",
+        "description": "部队中缘分武将普通攻击伤害提升<color=#68DA81>8%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          3011,
+          3006,
+          3015
+        ],
+        "effect_buff": [
+          91330
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 3011,
+          "name": "太史慈"
+        },
+        {
+          "hero_id": 3006,
+          "name": "甘宁"
+        },
+        {
+          "hero_id": 3015,
+          "name": "凌统"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 35,
+      "data": {
+        "name": "珠联璧合",
+        "description": "部队中缘分武将受到谋略伤害降低<color=#68DA81>6%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          2000,
+          3002
+        ],
+        "effect_buff": [
+          91340
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 2000,
+          "name": "刘备"
+        },
+        {
+          "hero_id": 3002,
+          "name": "孙尚香"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 36,
+      "data": {
+        "name": "老当益壮",
+        "description": "部队中缘分武将受到伤害降低<color=#68DA81>5%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          3009,
+          3012,
+          2007,
+          2006
+        ],
+        "effect_buff": [
+          91350
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 3009,
+          "name": "程普"
+        },
+        {
+          "hero_id": 3012,
+          "name": "黄盖"
+        },
+        {
+          "hero_id": 2007,
+          "name": "黄忠"
+        },
+        {
+          "hero_id": 2006,
+          "name": "严颜"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 37,
+      "data": {
+        "name": "夺射锦袍",
+        "description": "部队中缘分武将破甲提升<color=#68DA81>5%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          1013,
+          1001
+        ],
+        "effect_buff": [
+          91360
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 1013,
+          "name": "徐晃"
+        },
+        {
+          "hero_id": 1001,
+          "name": "许褚"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 38,
+      "data": {
+        "name": "缘系皇思",
+        "description": "部队中缘分武将受到兵刃伤害降低<color=#68DA81>6%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          2000,
+          2019
+        ],
+        "effect_buff": [
+          91370
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 2000,
+          "name": "刘备"
+        },
+        {
+          "hero_id": 2019,
+          "name": "甘夫人"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 39,
+      "data": {
+        "name": "道法自然",
+        "description": "战斗前3回合，部队中缘分武将发动准备战法时，有<color=#68DA81>20%</color>概率跳过1回合",
+        "need_hero_number": 3,
+        "hero": [
+          4011,
+          4008,
+          4012
+        ],
+        "effect_buff": [
+          91380
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 4011,
+          "name": "张角"
+        },
+        {
+          "hero_id": 4008,
+          "name": "于吉"
+        },
+        {
+          "hero_id": 4012,
+          "name": "左慈"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 40,
+      "data": {
+        "name": "薪火相传",
+        "description": "部队中缘分武将智力和统率提升<color=#68DA81>6%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          2003,
+          2022,
+          2021
+        ],
+        "effect_buff": [
+          91390
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 2003,
+          "name": "诸葛亮"
+        },
+        {
+          "hero_id": 2022,
+          "name": "诸葛亮"
+        },
+        {
+          "hero_id": 2021,
+          "name": "姜维"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 41,
+      "data": {
+        "name": "共承天地",
+        "description": "部队中缘分武将前3回合受到伤害降低<color=#68DA81>12%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          3000,
+          5026
+        ],
+        "effect_buff": [
+          91400
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 3000,
+          "name": "孙权"
+        },
+        {
+          "hero_id": 5026,
+          "name": "步练师"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 42,
+      "data": {
+        "name": "懿德芳姿",
+        "description": "部队中缘分武将受到伤害时，有<color=#68DA81>35%</color>概率令伤害来源降低<color=#68DA81>5</color>点最高属性，可叠加5次",
+        "need_hero_number": 2,
+        "hero": [
+          1020,
+          5026,
+          3004,
+          1026,
+          1017,
+          3019
+        ],
+        "effect_buff": [
+          91500
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 1020,
+          "name": "王异"
+        },
+        {
+          "hero_id": 5026,
+          "name": "步练师"
+        },
+        {
+          "hero_id": 3004,
+          "name": "大乔"
+        },
+        {
+          "hero_id": 1026,
+          "name": "甄洛"
+        },
+        {
+          "hero_id": 1017,
+          "name": "张春华"
+        },
+        {
+          "hero_id": 3019,
+          "name": "吴国太"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 43,
+      "data": {
+        "name": "西州雄骏",
+        "description": "部队中缘分武将兵刃伤害提升<color=#68DA81>5%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          4015,
+          2015
+        ],
+        "effect_buff": [
+          91600
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 4015,
+          "name": "马腾"
+        },
+        {
+          "hero_id": 2015,
+          "name": "马超"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 44,
+      "data": {
+        "name": "汉末栋梁",
+        "description": "部队中缘分武将受到伤害降低<color=#68DA81>5%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          4030,
+          4007,
+          5051,
+          5047
+        ],
+        "effect_buff": [
+          91700
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 4030,
+          "name": "皇甫嵩"
+        },
+        {
+          "hero_id": 4007,
+          "name": "朱儁"
+        },
+        {
+          "hero_id": 5051,
+          "name": "卢植"
+        },
+        {
+          "hero_id": 5047,
+          "name": "皇甫嵩"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 45,
+      "data": {
+        "name": "仙人抚顶",
+        "description": "部队中缘分武将受到谋略伤害降低<color=#68DA81>6%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          4012,
+          4024
+        ],
+        "effect_buff": [
+          91800
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 4012,
+          "name": "左慈"
+        },
+        {
+          "hero_id": 4024,
+          "name": "张宁"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 46,
+      "data": {
+        "name": "承继太平",
+        "description": "部队中缘分武将受到兵刃伤害降低<color=#68DA81>6%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          4011,
+          4024
+        ],
+        "effect_buff": [
+          91810
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 4011,
+          "name": "张角"
+        },
+        {
+          "hero_id": 4024,
+          "name": "张宁"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 47,
+      "data": {
+        "name": "枭鸾同谋",
+        "description": "部队中缘分武将造成谋略伤害时有<color=#68DA81>35%</color>概率获得1种布阵状态（优先获得不同状态），每个回合可触发1次",
+        "need_hero_number": 2,
+        "hero": [
+          1017,
+          1009
+        ],
+        "effect_buff": [
+          91900
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 1017,
+          "name": "张春华"
+        },
+        {
+          "hero_id": 1009,
+          "name": "司马懿"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 48,
+      "data": {
+        "name": "柱石之臣",
+        "description": "部队中缘分武将对持有异常状态的目标造成的伤害提升<color=#68DA81>8%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          3017,
+          3008,
+          3007,
+          3018,
+          3016,
+          5033
+        ],
+        "effect_buff": [
+          91910
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 3017,
+          "name": "张昭"
+        },
+        {
+          "hero_id": 3008,
+          "name": "陆逊"
+        },
+        {
+          "hero_id": 3007,
+          "name": "周瑜"
+        },
+        {
+          "hero_id": 3018,
+          "name": "周瑜"
+        },
+        {
+          "hero_id": 3016,
+          "name": "陆抗"
+        },
+        {
+          "hero_id": 5033,
+          "name": "诸葛瑾"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 50,
+      "data": {
+        "name": "魏武雄姿",
+        "description": "问鼎赛季时，我军全体激活的阵营加成-【魏】效果提升<color=#68DA81>50%</color>",
+        "need_hero_number": 1,
+        "hero": [
+          1000
+        ],
+        "effect_buff": [
+          91850
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 1000,
+          "name": "曹操"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 51,
+      "data": {
+        "name": "仁义昭烈",
+        "description": "问鼎赛季时，我军全体激活的阵营加成-【蜀】效果提升<color=#68DA81>50%</color>",
+        "need_hero_number": 1,
+        "hero": [
+          2000
+        ],
+        "effect_buff": [
+          91860
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 2000,
+          "name": "刘备"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 52,
+      "data": {
+        "name": "承业制衡",
+        "description": "问鼎赛季时，我军全体激活的阵营加成-【吴】效果提升<color=#68DA81>50%</color>",
+        "need_hero_number": 1,
+        "hero": [
+          3000
+        ],
+        "effect_buff": [
+          91870
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 3000,
+          "name": "孙权"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 53,
+      "data": {
+        "name": "嗣业承乾",
+        "description": "部队中缘分武将统率提升<color=#68DA81>20</color>点",
+        "need_hero_number": 2,
+        "hero": [
+          1000,
+          1011
+        ],
+        "effect_buff": [
+          91880
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 1000,
+          "name": "曹操"
+        },
+        {
+          "hero_id": 1011,
+          "name": "曹丕"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 54,
+      "data": {
+        "name": "锋矢陷阵",
+        "description": "部队中缘分武将兵刃伤害提升<color=#68DA81>5%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          4000,
+          4031
+        ],
+        "effect_buff": [
+          91890
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 4000,
+          "name": "吕布"
+        },
+        {
+          "hero_id": 4031,
+          "name": "高顺"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 55,
+      "data": {
+        "name": "魏阙凝妆",
+        "description": "部队中缘分武将受到兵刃伤害降低<color=#68DA81>6%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          1011,
+          1026
+        ],
+        "effect_buff": [
+          91891
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 1011,
+          "name": "曹丕"
+        },
+        {
+          "hero_id": 1026,
+          "name": "甄洛"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 56,
+      "data": {
+        "name": "义烈同途",
+        "description": "部队中缘分武将行动时，有<color=#68DA81>50%</color>概率对敌军随机单体施加畏惧效果",
+        "need_hero_number": 2,
+        "hero": [
+          2017,
+          2007
+        ],
+        "effect_buff": [
+          91920
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 2017,
+          "name": "魏延"
+        },
+        {
+          "hero_id": 2007,
+          "name": "黄忠"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 57,
+      "data": {
+        "name": "懿范长存",
+        "description": "部队中缘分武将前3回合受到兵刃伤害降低<color=#68DA81>15%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          1027,
+          1011
+        ],
+        "effect_buff": [
+          91930
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 1027,
+          "name": "卞夫人"
+        },
+        {
+          "hero_id": 1011,
+          "name": "曹丕"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 58,
+      "data": {
+        "name": "武皇宣后",
+        "description": "部队中缘分武将前3回合受到谋略伤害降低<color=#68DA81>15%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          1027,
+          1000
+        ],
+        "effect_buff": [
+          91931
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 1027,
+          "name": "卞夫人"
+        },
+        {
+          "hero_id": 1000,
+          "name": "曹操"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 59,
+      "data": {
+        "name": "南疆烽彻",
+        "description": "部队中缘分武将视作夷族，我军每存在一个夷族武将，全体夷族受到伤害降低<color=#68DA81>6%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          4005,
+          4006,
+          4033,
+          5022
+        ],
+        "effect_buff": [
+          91932
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 4005,
+          "name": "孟获"
+        },
+        {
+          "hero_id": 4006,
+          "name": "祝融夫人"
+        },
+        {
+          "hero_id": 4033,
+          "name": "木鹿大王"
+        },
+        {
+          "hero_id": 5022,
+          "name": "沙摩柯"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 60,
+      "data": {
+        "name": "诸葛望族",
+        "description": "部队中缘分武将破甲和看破提升，我军每存在一个诸葛望族缘分中的武将，诸葛望族缘分中全体武将破甲和看破提升<color=#68DA81>5%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          5033,
+          2003,
+          2022
+        ],
+        "effect_buff": [
+          91940
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 5033,
+          "name": "诸葛瑾"
+        },
+        {
+          "hero_id": 2003,
+          "name": "诸葛亮"
+        },
+        {
+          "hero_id": 2022,
+          "name": "诸葛亮"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 61,
+      "data": {
+        "name": "陈仓双壁",
+        "description": "部队中缘分武将前4回合受到伤害降低<color=#68DA81>10%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          1022,
+          1028
+        ],
+        "effect_buff": [
+          91943
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 1022,
+          "name": "郝昭"
+        },
+        {
+          "hero_id": 1028,
+          "name": "王双"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 62,
+      "data": {
+        "name": "当阳血战",
+        "description": "部队中缘分武将规避率提升，我军每存在一个当阳血战缘分武将，提升<color=#68DA81>3%</color>，且成功规避后有<color=#68DA81>15%</color>概率（每存在1名当阳血战缘分武将，额外提升<color=#68DA81>20%</color>）令敌军随机1-2人获得畏惧状态，持续1回合，每回合每人最多触发1次",
+        "need_hero_number": 2,
+        "hero": [
+          2012,
+          2019,
+          2002,
+          2000,
+          2017,
+          2003,
+          2022,
+          2001
+        ],
+        "effect_buff": [
+          91950
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 2012,
+          "name": "赵云"
+        },
+        {
+          "hero_id": 2019,
+          "name": "甘夫人"
+        },
+        {
+          "hero_id": 2002,
+          "name": "张飞"
+        },
+        {
+          "hero_id": 2000,
+          "name": "刘备"
+        },
+        {
+          "hero_id": 2017,
+          "name": "魏延"
+        },
+        {
+          "hero_id": 2003,
+          "name": "诸葛亮"
+        },
+        {
+          "hero_id": 2022,
+          "name": "诸葛亮"
+        },
+        {
+          "hero_id": 2001,
+          "name": "关羽"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 63,
+      "data": {
+        "name": "赤壁焚江",
+        "description": "部队中缘分武将对处于异常状态敌军伤害提升，我军每存在一个赤壁焚江缘分武将，提升<color=#68DA81>3%</color>，且自带战法造成伤害后令自身智力、统率提升<color=#68DA81>2</color>点（每存在1名赤壁焚江缘分武将，额外提升<color=#68DA81>2</color>点），最多可叠加4次，持续到回合结束",
+        "need_hero_number": 2,
+        "hero": [
+          3007,
+          3018,
+          3012,
+          3005,
+          3014,
+          3000,
+          5033,
+          5034,
+          3008
+        ],
+        "effect_buff": [
+          91955
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 3007,
+          "name": "周瑜"
+        },
+        {
+          "hero_id": 3018,
+          "name": "周瑜"
+        },
+        {
+          "hero_id": 3012,
+          "name": "黄盖"
+        },
+        {
+          "hero_id": 3005,
+          "name": "鲁肃"
+        },
+        {
+          "hero_id": 3014,
+          "name": "周泰"
+        },
+        {
+          "hero_id": 3000,
+          "name": "孙权"
+        },
+        {
+          "hero_id": 5033,
+          "name": "诸葛瑾"
+        },
+        {
+          "hero_id": 5034,
+          "name": "徐盛"
+        },
+        {
+          "hero_id": 3008,
+          "name": "陆逊"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 64,
+      "data": {
+        "name": "乌林背水",
+        "description": "部队中缘分武将普攻伤害提升，我军每存在一个乌林背水缘分武将，提升<color=#68DA81>10%</color>，且每回合结束时，有<color=#68DA81>10%</color>概率（每存在1名乌林背水缘分武将，额外提升<color=#68DA81>15%</color>）使我军随机单体（优先前排）与敌军统率最低单体交换一次普攻（无视缴械，前3回合无法触发追击）",
+        "need_hero_number": 2,
+        "hero": [
+          1000,
+          4001,
+          1002,
+          1014,
+          1016,
+          1001,
+          1024,
+          1015
+        ],
+        "effect_buff": [
+          91963
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 1000,
+          "name": "曹操"
+        },
+        {
+          "hero_id": 4001,
+          "name": "张辽"
+        },
+        {
+          "hero_id": 1002,
+          "name": "典韦"
+        },
+        {
+          "hero_id": 1014,
+          "name": "乐进"
+        },
+        {
+          "hero_id": 1016,
+          "name": "夏侯渊"
+        },
+        {
+          "hero_id": 1001,
+          "name": "许褚"
+        },
+        {
+          "hero_id": 1024,
+          "name": "曹仁"
+        },
+        {
+          "hero_id": 1015,
+          "name": "曹纯"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 65,
+      "data": {
+        "name": "托孤辅主",
+        "description": "部队中缘分武将造成伤害提升7%",
+        "need_hero_number": 2,
+        "hero": [
+          2023,
+          2003,
+          2022
+        ],
+        "effect_buff": [
+          91944
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 2023,
+          "name": "刘禅"
+        },
+        {
+          "hero_id": 2003,
+          "name": "诸葛亮"
+        },
+        {
+          "hero_id": 2022,
+          "name": "诸葛亮"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 66,
+      "data": {
+        "name": "昭烈承嗣",
+        "description": "部队中缘分武将受到伤害降低6%",
+        "need_hero_number": 2,
+        "hero": [
+          2023,
+          2019,
+          2000
+        ],
+        "effect_buff": [
+          91945
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 2023,
+          "name": "刘禅"
+        },
+        {
+          "hero_id": 2019,
+          "name": "甘夫人"
+        },
+        {
+          "hero_id": 2000,
+          "name": "刘备"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 67,
+      "data": {
+        "name": "长坂怀主",
+        "description": "部队中缘分武将规避提升6%",
+        "need_hero_number": 2,
+        "hero": [
+          2023,
+          2012
+        ],
+        "effect_buff": [
+          91946
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 2023,
+          "name": "刘禅"
+        },
+        {
+          "hero_id": 2012,
+          "name": "赵云"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 68,
+      "data": {
+        "name": "乱世相依",
+        "description": "部队中缘分武将受到谋略伤害降低6%",
+        "need_hero_number": 2,
+        "hero": [
+          2024,
+          2000
+        ],
+        "effect_buff": [
+          91947
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 2024,
+          "name": "糜夫人"
+        },
+        {
+          "hero_id": 2000,
+          "name": "刘备"
+        }
+      ],
+      "conflicts": []
+    },
+    {
+      "id": 69,
+      "data": {
+        "name": "三贤同殒",
+        "description": "部队中缘分武将智力和武力提升<color=#68DA81>5%</color>",
+        "need_hero_number": 2,
+        "hero": [
+          2021,
+          1025,
+          1012
+        ],
+        "effect_buff": [
+          91948
+        ]
+      },
+      "members": [
+        {
+          "hero_id": 2021,
+          "name": "姜维"
+        },
+        {
+          "hero_id": 1025,
+          "name": "钟会"
+        },
+        {
+          "hero_id": 1012,
+          "name": "邓艾"
+        }
+      ],
+      "conflicts": []
+    }
+  ]
+}
