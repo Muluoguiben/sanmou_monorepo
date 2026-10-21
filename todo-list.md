@@ -5,7 +5,8 @@
 - [x] User replied go to the concrete proposal to align latest master, run combined checks and merge; master merge/push authorized for reviewed feature dfb4435. Actual human annotation is a separate step.
 - [x] Fresh fetch: origin/master bb8592796e5cd19b866369e392ec6395059fcfe2; feature dfb44356fff20f0082da0e2699ba2669672660fb unchanged. Master adds17REA docs plus todo only; business source/workflow unchanged.
 - [x] Preserve3ownedcoordWIP in localcheckpoint0370e83; compose in existing review worktree, retain both todo histories. Master source contribution is17REA docs andtodo only.
-- [ ] Verify identical reviewed packages/workflow and local material exclusion, targeted tests and independent review, master fast-forward/push/exactCI.
+- [x] Combined28249f9 keepsreviewedpackages9157/.github53b95/apps57f andall17upstreamREA files; 54targetedtests pass0skip. Independentmerge review APPROVE: checkpoint/history preserved, Q06excluded,7materialpaths ignored/0tracked. [Report](docs/test-reports/2026-10-21/master-integration.md).
+- [ ] Master fast-forward/nonforcepush andexactnewCI; do not substitute previousfeature CI for thismerge.
 - Q06archive reads/publication remainpaused; actual50-task material/answers stayignored; userreview/gold/holdout/Q07 notcompleted by code merge.
 
 ## Q-E0-dev freeze and user annotation preparation (2026-10-18)

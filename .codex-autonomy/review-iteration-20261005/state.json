@@ -400,7 +400,12 @@
   },
   "round_status": "authorized_master_integration_in_progress",
   "master_integration_20261021": {
-    "status": "composed_targeted_checks_and_independent_review_pending",
+    "status": "combined_checks_and_independent_review_passed_master_push_pending",
+    "combined_source": "28249f96ac0c9fcb38ea1e175ab742813f069421",
+    "combined_tree": "dc71c0412d80d54c1add90d8a3a2fcd324bfa565",
+    "targeted_tests": {"qa_preparation": 23, "h08b": 31, "total": 54, "skipped": 0, "exit": 0},
+    "independent_merge_review": "APPROVE 28249f9; no blocking findings; checkpoint/todo/REA/source bytes/Q06 exclusion/ignored materials/log hashes verified",
+    "report": "docs/test-reports/2026-10-21/master-integration.md",
     "reviewed_feature": "dfb44356fff20f0082da0e2699ba2669672660fb",
     "upstream_master": "bb8592796e5cd19b866369e392ec6395059fcfe2",
     "owned_wip_checkpoint": "0370e83ad5a95a7ad0ed07bfb85c48d798c61335",
