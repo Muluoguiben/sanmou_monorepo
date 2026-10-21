@@ -1,5 +1,21 @@
 {
-  "goal": "按2026-10-18用户顺序完成H08b实现测试独立审查组合与原生CI，再冻结Q-E0/Q07，再推进H01-H05；独立对抗CR通过且满足需求后允许功能分支push，禁止master合并/知识发布/部署/游戏/删除原数据",
+  "goal": "按2026-10-21用户go将已审H08b及Q-E0准备工具与最新master组合、验证、合并并推送，核验新提交CI；随后等待用户实际标注，Q06归档读取发布仍暂停，知识发布/部署/游戏/删除原数据不在范围",
+  "instruction_override_20261021": {
+    "source": "user go in reply to proposal: align latest master, combined regression, then merge master",
+    "scope": "merge reviewed H08b and Q-E0 preparation feature dfb44356fff20f0082da0e2699ba2669672660fb into current master after combination review and verification",
+    "local_commit_allowed": true,
+    "push_allowed": true,
+    "merge_master_allowed": true,
+    "master_push_allowed": true,
+    "knowledge_publication_allowed": false,
+    "deployment_allowed": false,
+    "game_control_allowed": false,
+    "delete_original_data_allowed": false,
+    "execution_authority": "none",
+    "executable": false,
+    "q06_archive_reading_publication": "paused_by_user",
+    "previous_no_master_merge": "superseded only for this reviewed integration; retained in historical 2026-10-18 record"
+  },
   "instruction_override_20261018": {
     "prior_goal": "按已确认 Review 路线持续迭代，逐小批次实现、测试、独立审查、发布和验证 CI",
     "source": "current direct user annotation",
@@ -28,7 +44,7 @@
   "primary_branch": "master",
   "current_task": "docs/qa-e0-review-preparation-2026-10-18.md",
   "task_commit": "88bd5a0fb641d147548ed6a5eb8284106ec3caa2",
-  "summary": "H08b f9135 exactCI39114544126 attempt1 all4 success; native31/23/32/35/25/44 names exact0skip andH09 native8/8/sourceverified/17nonefalse/9model0; LinuxPioneer1139 with2oldWindows skips closeslocalAPI dependency gap. Masterunmerged. NowQ-E0-dev scope88bd: freeze existingformalKB/development references, pending50task annotation material for userreview, nothumanGold/independentholdout; memo andindependentplan beforeimplementation.",
+  "summary": "H08b f9135/exactnativeCI complete. Q-E0 preparation dfb4435 reviewed and feature-pushed; exact39120053829 attempt1 all4success, QA463/new23 exact-name pass, Pioneer1139/2oldWindows skips, Windows API/Electron/nativeH08b31 pass. Real50 ignored review tasks plus separate blank response prepared and independently hash-verified. User owns actual labels; humanGold/independentholdout/Q07 remainopen. No mastermerge, knowledgepublish, game or Q06 access.",
   "earlier_rounds": [
     {
       "batch": "Q03a",
@@ -320,7 +336,7 @@
     "model": "gpt-6-astra",
     "current_roles": "same roles continuing H10a"
   },
-  "next_step": "Implement Q-E0 preparation under approved b02ebb memo and 78c74b4 independent plan; fixed-source selftest/independentCR/combination, then root creates ignored50 review_queue materials for user. Feature push only after gates; no gold/holdout promotion, mastermerge, knowledgepublish, game, deletion or Q06 access. Actual user review is required before Q07 gate/next-phase implementation.",
+  "next_step": "Preserve three owned coordinator WIP files in a local checkpoint, compose reviewed dfb4435 with current origin/master bb859 in the existing review worktree, resolve todo preserving both histories, run targeted regressions and independent merge review, then fast-forward local master and push the reviewed candidate; verify exact new CI. User labels remain a separate pending step.",
   "authorization": {
     "user_text": "按review 迭代的方向持续迭代",
     "source_thread": "01a10c00-93d2-778b-8395-bf9d496c503d",
@@ -339,7 +355,7 @@
     "new_automation_or_extra_notifications": false
   },
   "updated_at": "2026-10-18",
-  "blockers": [],
+  "blockers": ["Q07 independent quality gate awaits actual user-reviewed labels and later independent split/threshold agreement; preparation tool is complete, not a human-gold claim"],
   "coordinator_integration": {
     "status": "passed",
     "source": "ed158e35a34c80aa99be2597bdddc300a6cff62f",
@@ -382,7 +398,7 @@
     "tested_source": "ed158e35a34c80aa99be2597bdddc300a6cff62f",
     "scope": "only current CI step and new plain report/coord evidence;no Q06 archive/history"
   },
-  "round_status": "h08b_completed_qe0_preparation_implementation_released",
+  "round_status": "authorized_master_integration_in_progress",
   "pending_publication": {
     "candidate": "cd6d4929ec611cda1600934dde17aef996142ae0",
     "main": "110bd7594e095c3ea0e1940ab2fc4bec5f4d7a77",
@@ -724,7 +740,10 @@
   },
   "active_work_item": "qe0_review_preparation",
   "qe0_review_preparation": {
-    "status": "combination_passed_fifty_materials_ready_user_review_pending",
+    "status": "preparation_completed_exact_ci_passed_user_review_pending",
+    "feature_publication": {"commit": "dfb44356fff20f0082da0e2699ba2669672660fb", "tree": "d063a92e17f9a0a106478f4528a93910b7e5a6f8", "branch": "codex/q-e0-review-materials-20261018", "push_exit": 0, "explicit_remote_fetch_readback_matches": true, "master_merged": false},
+    "final_payload_audit": {"status": "no_blocker", "commits": 15, "paths": 63, "new_paths": 60, "coord_modified": 3, "q06_inherited": false, "ignored_material_paths": 7, "material_paths_tracked": 0, "human_null_fields": 900, "root_coord_bytes_equal_before_push": true},
+    "final_ci": {"run": 39120053829, "attempt": 1, "commit": "dfb44356fff20f0082da0e2699ba2669672660fb", "status": "completed", "conclusion": "success", "all_four_jobs": "success", "jobs": {"windows": 117653645654, "common": 117653645825, "qa": 117653645840, "pioneer": 117653645854}, "qa_tests": 463, "qa_seconds": 51.036, "new_tests": 23, "new_names_exactly_once_ok": true, "qa_diagnostics": 0, "pioneer_tests": 1139, "pioneer_skipped": 2, "pioneer_seconds": 51.367, "native_h08b_tests": 31, "native_h08b_unique_ok": 31, "windows_unittest_totals": [11,72,35,32,25,44,23,31], "windows_unittest_endings_all_ok": true, "windows_warnings": 0, "new_qe0_native_windows_claim": false, "raw_logs_checked": true, "url": "https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/39120053829"},
     "material_verification": {"tasks": 50, "candidate_occurrences": 213, "sources": 34, "all_human_fields_null": true, "all_content_hashes_match": true, "manifest_sha256": "9c95cd9dbaf07efc3bf1dbcb187107222110e7896b9255318998dbe85a66ef89", "response_sha256": "79f28fe047a47fd8c08f108c917b9b2a125df963dcc85c648f6fd697902ac3dc", "root_targeted_tests": 23, "prepare_exit": 0, "materials_and_prepare_logs_ignored_not_for_push": true},
     "closed_finding": "Q-E0 P2: inherited Git environment could redirect worktree metadata/output roots; b859 isolates Git context and verifies repository toplevel; unchanged three independent assertions now pass",
     "author_final_report": "16335e7e5511e3209ccbefe1d9d6b77473a47cfc",
@@ -752,7 +771,7 @@
     "scope": "existing formalKB/v4/claimspan references plus verify/prepare CLI, pending50review_queue, protocol and tests; no src/KB/oldfreeze/scorer/CI change",
     "implementation_released": true,
     "q06_archive_reading_publication": "paused_by_user",
-    "next_step": "audit single final feature candidate and ignored materials/blank reply; conditional feature push and exactCI; user reviews50 materials before independentgold/holdout/Q07 or next-phase implementation"
+    "next_step": "user reviews ignored50 material via separate response template (start10); tool and exactCI complete, but labels/independentholdout/Q07 remainpending; no next-phase implementation before review"
   },
   "h08b_recipe_trace_binding": {
     "status": "completed_exact_native_ci_passed",

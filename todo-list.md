@@ -1,5 +1,12 @@
 # Todo List
 
+## Reviewed Harness / Q-E0 master integration (2026-10-21)
+
+- [x] User replied go to the concrete proposal to align latest master, run combined checks and merge; master merge/push authorized for reviewed feature dfb4435. Actual human annotation is a separate step.
+- [x] Fresh fetch: origin/master bb8592796e5cd19b866369e392ec6395059fcfe2; feature dfb44356fff20f0082da0e2699ba2669672660fb unchanged. Master adds17REA docs plus todo only; business source/workflow unchanged.
+- [ ] Preserve3ownedcoordWIP, compose in existing review worktree, retain both todo histories, verify identical reviewed packages/workflow and local material exclusion, targeted tests and independent review, master fast-forward/push/exactCI.
+- Q06archive reads/publication remainpaused; actual50-task material/answers stayignored; userreview/gold/holdout/Q07 notcompleted by code merge.
+
 ## Q-E0-dev freeze and user annotation preparation (2026-10-18)
 
 - [x] H08b finalf9135/run39114544126 attempt1 all4success; Windows31+23+32+35+25+44 names matchfinalGitAST,0skip,diagnostics0; H09 native8/8,17nonefalse states/9model0. LinuxPioneer1139/2oldWindows skips. [Receipt](docs/test-reports/2026-10-18/H08b-final-native-ci.md).
@@ -7,7 +14,8 @@
 - [x] Author memo b02ebb and independent plan78c74b4 fully read; both root/reviewer approve interface, implementation released. Immutable evidence pack, separate human response copy; raw fields isolated from machine status; pending manifest is not approval.
 - [x] Bounded verify/prepare CLI fixedb859, authorreport16335 and independent56db APPROVE. Git-contextP2 repaired with original3negativeassertions unchanged; author23/QA463 andindependent20/new23/nonUTF23/QA463 passed0skip,oldv4/Q04hashes intact.
 - [x] Exactcombo00f9996 packages9157 matchesreviewedsource; root23/actual50prepare passed. Verified213candidate occurrences/34sources/allhashes/blankhumanfields. [Integration](docs/test-reports/2026-10-18/Q-E0-preparation-integration.md). Immutablepack andseparateblankreply stayignored, notgold/holdout.
-- [ ] Finalfeaturecandidate/payload/push/exactCI; no mastermerge. User's50-task annotation material andfuturelabels mustnot enterGit payload.
+- [x] Finaldfb44356fff20f0082da0e2699ba2669672660fb passed15commit/63path payload audit andpushedonlycodex/q-e0-review-materials-20261018; explicitfetch/readback match. All7material/run paths ignored/0tracked; no mastermerge.
+- [x] ExactnewCI [39120053829](https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/39120053829) attempt1 ondfb4435 all4success. RawQA463/new23 uniqueok/diagnostics0;Pioneer1139/2oldWindows skips;WindowsAPI/Electron andnativeH08b31 uniqueok. Q-E0 new23 areLinuxCI evidence,notnewnativeWindowscoverage. No status-onlypush.
 - [ ] User reviews material before Q07 independentquality gate may close; existing12development queries remainexposeddevelopment. H01-H05 already have minimumruntime and will be gap-checked afterbaseline review, not rebuilt.
 - Conditionalfeaturepush afterCR remainsallowed; no mastermerge/knowledgepublication/deployment/game/originaldata deletion. Q06archive reads/publication staypaused.
 
