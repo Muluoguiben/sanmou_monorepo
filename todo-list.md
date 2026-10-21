@@ -1,12 +1,48 @@
 # Todo List
 
+## Reviewed Harness / Q-E0 master integration (2026-10-21)
+
+- [x] User replied go to the concrete proposal to align latest master, run combined checks and merge; master merge/push authorized for reviewed feature dfb4435. Actual human annotation is a separate step.
+- [x] Fresh fetch: origin/master bb8592796e5cd19b866369e392ec6395059fcfe2; feature dfb44356fff20f0082da0e2699ba2669672660fb unchanged. Master adds17REA docs plus todo only; business source/workflow unchanged.
+- [ ] Preserve3ownedcoordWIP, compose in existing review worktree, retain both todo histories, verify identical reviewed packages/workflow and local material exclusion, targeted tests and independent review, master fast-forward/push/exactCI.
+- Q06archive reads/publication remainpaused; actual50-task material/answers stayignored; userreview/gold/holdout/Q07 notcompleted by code merge.
+
+## Q-E0-dev freeze and user annotation preparation (2026-10-18)
+
+- [x] H08b finalf9135/run39114544126 attempt1 all4success; Windows31+23+32+35+25+44 names matchfinalGitAST,0skip,diagnostics0; H09 native8/8,17nonefalse states/9model0. LinuxPioneer1139/2oldWindows skips. [Receipt](docs/test-reports/2026-10-18/H08b-final-native-ci.md).
+- [x] Freeze [scope](docs/qa-e0-review-preparation-2026-10-18.md) at88bd5a0fb641d147548ed6a5eb8284106ec3caa2 fromf9135; user will perform final human review. Reuse existing author/reviewer worktrees, no newworktree.
+- [x] Author memo b02ebb and independent plan78c74b4 fully read; both root/reviewer approve interface, implementation released. Immutable evidence pack, separate human response copy; raw fields isolated from machine status; pending manifest is not approval.
+- [x] Bounded verify/prepare CLI fixedb859, authorreport16335 and independent56db APPROVE. Git-contextP2 repaired with original3negativeassertions unchanged; author23/QA463 andindependent20/new23/nonUTF23/QA463 passed0skip,oldv4/Q04hashes intact.
+- [x] Exactcombo00f9996 packages9157 matchesreviewedsource; root23/actual50prepare passed. Verified213candidate occurrences/34sources/allhashes/blankhumanfields. [Integration](docs/test-reports/2026-10-18/Q-E0-preparation-integration.md). Immutablepack andseparateblankreply stayignored, notgold/holdout.
+- [x] Finaldfb44356fff20f0082da0e2699ba2669672660fb passed15commit/63path payload audit andpushedonlycodex/q-e0-review-materials-20261018; explicitfetch/readback match. All7material/run paths ignored/0tracked; no mastermerge.
+- [x] ExactnewCI [39120053829](https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/39120053829) attempt1 ondfb4435 all4success. RawQA463/new23 uniqueok/diagnostics0;Pioneer1139/2oldWindows skips;WindowsAPI/Electron andnativeH08b31 uniqueok. Q-E0 new23 areLinuxCI evidence,notnewnativeWindowscoverage. No status-onlypush.
+- [ ] User reviews material before Q07 independentquality gate may close; existing12development queries remainexposeddevelopment. H01-H05 already have minimumruntime and will be gap-checked afterbaseline review, not rebuilt.
+- Conditionalfeaturepush afterCR remainsallowed; no mastermerge/knowledgepublication/deployment/game/originaldata deletion. Q06archive reads/publication staypaused.
+
+## Current instruction override — gated feature-branch continuation (2026-10-18)
+
+- [x] Read persisted state/WORKLOG/todo and inspect existing worktrees. H08b author06fd has four owned implementation WIP files; reviewer a398 is clean. Old `/tmp` integration worktree no longer exists; do not prune/delete/recreate or disturb other worktrees.
+- [x] H08b codef2017c/authorffa73a independentlyAPPROVED bycfceaf336. Root combination39aeeaa/tree5684624 passed121 targeted+QA440+common2; packages970efcd/github53b95f equalapprovedsource. [Integration](docs/test-reports/2026-10-18/H08b-integration.md). Preserve original reds; localfullPioneer stillmissingFastAPI,notgreen.
+- [x] H08b exact f9135/run39114544126 native gate now passed (receipt above); historical H08a green was not substituted. Local bundled Python dependency limit remains recorded; no installation performed.
+- [x] Candidatef9135b4dc438711a64d42c8879589cf341131669 passedfinalpayload audit and waspushed onlyto codex/h08b-recipe-trace-binding-20261018; explicitremote fetch/readback matches. Exactrun39114544126 attempt1 nowrunning. Masternotmerged; remote masterbb859 hasseparateREA docs commits, notoverwritten.
+- [ ] Then freeze Q-E0/Q07 data/labels/splits/metrics, then assess and complete remaining H01-H05 minimum readonly harness. Do not duplicate already implemented components or count developer labels as human gold.
+- User will personally review Q-E0 annotation materials; prepare pending review tasks afterH08b acceptance, retain existing12 exposedqueries asdevelopment, and do not claim independentholdout/humangold before actual review.
+- Current user permits edits only in current repository/existing worktrees and local commits; subsequent explicit reply permits gated feature push. No merge master, knowledge publication/deployment, game operations or data deletion. Q06a archive reading/publication remains paused. Historical broad publication instructions remain superseded.
+
+## Active Review continuation — H08b explicit recipe trace binding (2026-10-06)
+
+- [x] H08a final155817a/run37487788315 all4/native23+25+44 exact-name gate passed. Freeze [contract](docs/harness-recipe-trace-binding-h08b-2026-10-06.md) at399791ee551a15499af6bd20829a4fbfe4ad52e5; reused isolated author/reviewer workers.
+- [x] Author memo06fd180 and independent plana3985a9 read fully by root. Bind only explicit compilation with causal_trace=True, detached immutable content declaration, pre-owner validation, actual-task drift guard, no new schema/authority/default behavior. Reviewer memo check and public probes pending.
+- [ ] Implement, source-bound selftest, independent adversarial CR, exact combined regressions, single candidate/payload audit, publish and exact final native CI. Preserve all original failures; Q06 archives/publication remain paused.
+
 ## Active Review continuation — H08a read-only recipe registry (2026-10-06)
 
 - [x] Q05a exact60e3/run37478150118 native25+44/all4 andQA440 verified. Freeze [contract](docs/harness-readonly-skill-registry-h08a-2026-10-06.md) atdf8447ae8807e2baa97a05ada3b209bfb7e3688b frompublished60e3; reuseTaskSpec/Condition/SequenceClient,onechapter-observer@1.0.0 only.
 - [x] Independentpland73dd03 beforememo312b76a;root+reviewer fullyread/approved. Digestpreimage allDefinition exceptdigestinclnone/false;opaque taskid safelyseparatefromrun_id/path;invalid vs preconditionblocked explicit. Implementation released withzero-call/strictparams/copy gates.
 - [x] Fixedcode8e0a2a0/tree55eb8 withauthor1071 andindependent55dbe79 APPROVE. Onlyregistry/test/CI3lines;11independentprobes/normal23+realnonUTFtext23/fullPioneer1106+2skip/QA440/common2 andQAhashes verified. Oldruntime/QA/R&R unchanged;originaltwo test-input reds retained.
 - [x] Exactcombo1dbd7dd6ac9b9237cb682b924a278c8bf5a99278/tree8922948/packagesf45c/github55f6c passedfrozen11probes/normal23+realnonUTF23/fullPioneer1106+2skip/QA440/common2/oldtargeted/H09/QAhashes,906inputsunchanged. [Integration](docs/test-reports/2026-10-06/H08a-integration.md). Candidate payload/publish/exactHostednew23+old25/44/all4 remainpending;fakeportsnotlive/native.
-- [ ] Source-bound selftest/independentCR/exactcombo/finalCI newnativegroup;carryQ05a finalCI3WIP,retainASCII-FS limitation/Q06pause andnone-false.
+- [x] Final155817a444718366c3dbd56ac91fff8d52500fa5 passed147-object/23-artifact audit androot130356B prefix/oldstate checks,masterFF/push/remote-readbackmatch. Q06payloadnotincluded,oldsource/history preserved.
+- [x] Exactrun37487788315/attempt1 on155817a all4 success. Windows112352280007 actual23/0skip/0.214s +25/0skip/1.001s +44/0skip/7.053s, each final Git AST name exactly once/ok and targeted diagnostics0. [Final native CI](https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/37487788315). Carry these3postCIWIP into normal H08b delivery; no status-only push/Q06 access/autoexecute.
 
 ## Active Review continuation — Q05a explicit season retrieval (2026-10-06)
 
