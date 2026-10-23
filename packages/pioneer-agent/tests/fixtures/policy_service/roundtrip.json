@@ -1,0 +1,32 @@
+[
+  {
+    "choices": [{
+      "index": 0,
+      "finish_reason": "tool_calls",
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [{
+          "id": "call-knowledge-1",
+          "type": "function",
+          "function": {"name": "query_knowledge", "arguments": "{\"query\":\"建筑升级\"}"}
+        }]
+      }
+    }]
+  },
+  {
+    "choices": [{
+      "index": 0,
+      "finish_reason": "tool_calls",
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [{
+          "id": "call-complete-2",
+          "type": "function",
+          "function": {"name": "complete_task", "arguments": "{\"reason\":\"已收到模拟知识结果\"}"}
+        }]
+      }
+    }]
+  }
+]

@@ -1,0 +1,121 @@
+[
+  {
+    "protocol": "knowledge-provenance-v1",
+    "source": {
+      "category": "basic_knowledge",
+      "document_id": "synthetic:basic",
+      "source_ref": "fixture://basic",
+      "author": null,
+      "original_sha256": "98e1bd40cdd3faa07e5788609fa23719d3525fc053f6d2c71fb2755a09d0f249",
+      "revision": "synthetic-r1",
+      "published_at": null,
+      "collected_at": "2026-10-23T00:00:00Z",
+      "time_unknown_reason": "合成样例没有真实发布时间",
+      "parser_version": null
+    },
+    "nature": "unverified_statement",
+    "entity_id": "synthetic-entity:basic",
+    "entity_name": "同名合成对象",
+    "aliases": [
+      "合成别名"
+    ],
+    "assertion_key": "synthetic-assertion",
+    "location": {
+      "kind": "yaml_pointer",
+      "reference": "/0/facts/0"
+    },
+    "content": "合成示例：建筑甲需先满足条件乙。",
+    "content_sha256": "98e1bd40cdd3faa07e5788609fa23719d3525fc053f6d2c71fb2755a09d0f249",
+    "applicability": {
+      "game_version": null,
+      "season_tags": [],
+      "valid_from": null,
+      "valid_until": null,
+      "unknown_reason": "合成样例不表达任何真实版本适用性"
+    },
+    "review": {
+      "status": "unreviewed"
+    },
+    "synthetic": true
+  },
+  {
+    "protocol": "knowledge-provenance-v1",
+    "source": {
+      "category": "rea_export",
+      "document_id": "synthetic:rea",
+      "source_ref": "fixture://rea",
+      "author": null,
+      "original_sha256": "f7caf8c31b35019558093b760941f9fd34fc234967fb6b0e342a77426985db0b",
+      "revision": "synthetic-r1",
+      "published_at": null,
+      "collected_at": "2026-10-23T00:00:00Z",
+      "time_unknown_reason": "合成样例没有真实发布时间",
+      "parser_version": "synthetic-export-v1"
+    },
+    "nature": "client_field",
+    "entity_id": "synthetic-entity:rea",
+    "entity_name": "同名合成对象",
+    "aliases": [
+      "合成别名"
+    ],
+    "assertion_key": "synthetic-assertion",
+    "location": {
+      "kind": "json_pointer",
+      "reference": "/objects/100/stamina_cost"
+    },
+    "content": "合成示例：配置对象 100 的字段 stamina_cost=5，实际规则未核对。",
+    "content_sha256": "f7caf8c31b35019558093b760941f9fd34fc234967fb6b0e342a77426985db0b",
+    "applicability": {
+      "game_version": null,
+      "season_tags": [],
+      "valid_from": null,
+      "valid_until": null,
+      "unknown_reason": "合成样例不表达任何真实版本适用性"
+    },
+    "review": {
+      "status": "unreviewed"
+    },
+    "synthetic": true
+  },
+  {
+    "protocol": "knowledge-provenance-v1",
+    "source": {
+      "category": "player_guide",
+      "document_id": "synthetic:guide",
+      "source_ref": "fixture://guide",
+      "author": "synthetic-author",
+      "original_sha256": "6e9ff3d3750d65ecf2f07085d3a9281de368108fb8c2412f0e89c2e8c4bddf18",
+      "revision": "synthetic-r1",
+      "published_at": null,
+      "collected_at": "2026-10-23T00:00:00Z",
+      "time_unknown_reason": "合成样例没有真实发布时间",
+      "parser_version": null
+    },
+    "nature": "player_experience",
+    "entity_id": "synthetic-entity:guide",
+    "entity_name": "同名合成对象",
+    "aliases": [
+      "合成别名"
+    ],
+    "assertion_key": "synthetic-assertion",
+    "location": {
+      "kind": "video_time",
+      "reference": "synthetic-video",
+      "start_seconds": 10.0,
+      "end_seconds": 16.0
+    },
+    "content": "合成示例：玩家在未确认版本中观察到一次资源变化。",
+    "content_sha256": "6e9ff3d3750d65ecf2f07085d3a9281de368108fb8c2412f0e89c2e8c4bddf18",
+    "applicability": {
+      "game_version": null,
+      "season_tags": [],
+      "valid_from": null,
+      "valid_until": null,
+      "unknown_reason": "合成样例不表达任何真实版本适用性"
+    },
+    "review": {
+      "status": "unreviewed"
+    },
+    "synthetic": true
+  }
+]

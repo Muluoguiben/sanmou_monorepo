@@ -1,0 +1,54 @@
+{
+  "schema_version": "sanmou-serving-manifest-v1",
+  "deployment_id": null,
+  "policy_version": null,
+  "prompt_sha256": null,
+  "input_schema_version": "policy-service-v1",
+  "engine": {
+    "name": "sglang",
+    "image": null,
+    "version": null,
+    "dependencies": {"torch": null, "transformers": null}
+  },
+  "model": {
+    "id": "Qwen/Qwen3.5-9B",
+    "revision": null,
+    "artifact_kind": "base",
+    "artifact_sha256": null,
+    "files": {
+      "config.json": null,
+      "tokenizer.json": null,
+      "tokenizer_config.json": null,
+      "chat_template.jinja": null,
+      "model.safetensors": null
+    },
+    "adapter": null,
+    "merge": null
+  },
+  "runtime": {
+    "gpu_count": 1,
+    "tensor_parallel_size": 1,
+    "replicas": 1,
+    "dtype": "bfloat16",
+    "language_model_only": true,
+    "quantization": null,
+    "context_length": 8192,
+    "host": "0.0.0.0",
+    "port": 30000,
+    "tool_call_parser": null,
+    "reasoning_parser": null,
+    "api_key_file": "/run/secrets/sanmou-api-key",
+    "admin_api_key_file": "/run/secrets/sanmou-admin-api-key"
+  },
+  "sampling": {
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "top_k": -1,
+    "max_new_tokens": 256,
+    "seed": 0
+  },
+  "validation": {
+    "gpu_status": "not_run",
+    "gpu_report": null
+  }
+}

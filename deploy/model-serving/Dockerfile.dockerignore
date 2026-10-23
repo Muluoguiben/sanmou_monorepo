@@ -1,0 +1,10 @@
+# Build from the repository root, but never send repository data or credentials.
+**
+!scripts/
+!scripts/model-serving/
+!scripts/model-serving/validate_manifest.py
+!deploy/
+!deploy/model-serving/
+!deploy/model-serving/launch.py
+!deploy/model-serving/Dockerfile
+!deploy/model-serving/Dockerfile.dockerignore

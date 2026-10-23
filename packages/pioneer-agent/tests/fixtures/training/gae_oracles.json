@@ -1,0 +1,10 @@
+{
+  "version": "ms0-v4-g1-g6",
+  "G1": {"returns": [0.98, 1.0, 1.0], "advantages": [0.78, 0.7, 0.6]},
+  "G2_truncated": {"returns": [0.38, 0.4], "advantages": [0.18, 0.1]},
+  "G2_terminal": {"returns": [-0.02, 0.0], "advantages": [-0.22, -0.3]},
+  "G3": {"returns": [0.98, 0.98, 1.0], "advantages": [0.88, 0.78, 0.7]},
+  "G4": {"increments": [-0.02, -0.02, -0.02, -0.02, -0.02, 0.0], "total": 0.8},
+  "G6_discount_terminal": {"returns": [0.60984, 0.772, 1.0], "advantages": [0.40984, 0.472, 0.6]},
+  "G6_discount_truncated": {"returns": [0.32472, 0.376, 0.45], "advantages": [0.12472, 0.076, 0.05]}
+}

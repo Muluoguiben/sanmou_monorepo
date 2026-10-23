@@ -194,7 +194,7 @@ class SeasonalRetrieverTests(unittest.TestCase):
         original = sys.modules[name]
         sys.modules[name] = fake
         try:
-            with self.assertRaisesRegex(ValueError, "source mismatch"): runner.run(PACKAGE, baseline="v4")
+            with self.assertRaisesRegex(ValueError, "source mismatch"): runner.run(PACKAGE, baseline="v5")
         finally:
             # Restore only this target, not every unrelated lazy import. Clearing
             # fresh Pydantic/MCP imports leaves their generic class caches stale.
@@ -206,7 +206,7 @@ class SeasonalRetrieverTests(unittest.TestCase):
         result = {"quality_threshold": None, "season": evaluate_season_cases([{**case(), "expected": dict(match_ids=[], mismatch=[], unknown=[])}])}
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "report.json"
-            with patch.object(sys, "argv", ["runner", "--baseline", "v4", "--output", str(path)]), patch.object(runner, "run", return_value=result):
+            with patch.object(sys, "argv", ["runner", "--baseline", "v5", "--output", str(path)]), patch.object(runner, "run", return_value=result):
                 with self.assertRaises(SystemExit) as error: runner.main()
                 self.assertEqual(error.exception.code, 1)
                 self.assertEqual(json.loads(path.read_text(encoding="utf-8")), result)
@@ -214,12 +214,12 @@ class SeasonalRetrieverTests(unittest.TestCase):
                 with self.assertRaises(FileExistsError): runner.main()
                 self.assertEqual(path.read_bytes(), original)
 
-    def test_real_v4_cli_wrong_expected_saves_failed_report(self):
+    def test_real_v5_cli_wrong_expected_saves_failed_report(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            for path in ("src", "knowledge_sources", "tests/fixtures/quality_eval/v4"):
+            for path in ("src", "knowledge_sources", "tests/fixtures/quality_eval/v5"):
                 shutil.copytree(PACKAGE / path, root / path)
-            fixtures = root / "tests/fixtures/quality_eval/v4"
+            fixtures = root / "tests/fixtures/quality_eval/v5"
             corpus = json.loads((fixtures / "cases.json").read_text(encoding="utf-8"))
             corpus["season_cases"][0]["expected"]["match_ids"] = []
             raw = json.dumps(corpus, ensure_ascii=False, indent=2) + "\n"
@@ -230,7 +230,7 @@ class SeasonalRetrieverTests(unittest.TestCase):
             output = root / "failed-report.json"
             env = dict(os.environ, PYTHONPATH=str(root / "src") + os.pathsep + os.environ.get("PYTHONPATH", ""))
             env.pop("SANMOU_CAPTURE_TOKEN", None)
-            args = [sys.executable, "-B", "-m", "qa_agent.quality_eval.runner", "--baseline", "v4", "--output", str(output)]
+            args = [sys.executable, "-B", "-m", "qa_agent.quality_eval.runner", "--baseline", "v5", "--output", str(output)]
             result = subprocess.run(args, cwd=root, env=env, capture_output=True, timeout=60)
             self.assertEqual(result.returncode, 1, result.stderr.decode())
             report = json.loads(output.read_text(encoding="utf-8"))

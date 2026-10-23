@@ -2,7 +2,22 @@
 
 更新：2026-10-23。依据：[规划 v10](docs/sanmou-multimodal-agent-plan-2026-10-23-v10.md) · [MS0 接口约定 v4](docs/contracts/harness-ms0-episode-contract-v4.md)。已有的只读任务调度和知识问答功能继续复用，下面列的是需要补齐的工作。
 
-历史进展与验收记录见[历史归档](docs/archive/todo-history/2026-10-23.md)。分工和任务清单已整理；本轮只把说明改得更易读，下面的新增功能仍待开发。
+历史进展与验收记录见[历史归档](docs/archive/todo-history/2026-10-23.md)。下面的大阶段保留整体验收状态；Mac 首批本地实现单独记录，不把模拟结果算成云 GPU 或 Windows 实机通过。
+
+## 2026-10-23 Mac 首批施工
+
+用户已授权主管拆分并行开发、统一接口、验收及合并推送。起点 `4ebf078`；工作树根目录 `/private/tmp/sanmou-mac-batch1.IUpu51/`，各分支独立，主仓保持干净。共同接口说明见 [policy-service-v1](docs/contracts/policy-service-v1.md)。
+
+| 状态 | 负责人／分支／工作目录 | 本批文件范围与完成条件 |
+|---|---|---|
+| [ ] 集成中 | Mac 主管；`feat/mac-batch1-integration`；`integration/` | common 策略接口、跨模块测试、文档和最终集成；所有本地检查和独立审查通过后合并 |
+| [x] 本地完成 | 训练 agent；`feat/mac-batch1-training`；`training/` | 新 `pioneer_agent/training/` 与对应测试；G1–G6 数值、奖励差分、边界资格和回填通过，真实 verl 接线待验 |
+| [x] 本地完成 | 策略服务 agent；`feat/mac-batch1-policy`；`policy/` | 新 `adapters/policy_service.py`、测试与模拟 CLI；两轮往返及超时／取消／重复响应检查通过 |
+| [ ] 集成中 | QA agent；`feat/mac-batch1-qa`；`qa/` | 来源旁挂格式、只读盘点、同源分组与对应测试；旧冻结记录保留，新增源码对应的评测准备记录待封存 |
+| [x] 本地完成 | 部署准备 agent；`feat/mac-batch1-deploy`；`deploy/` | `deploy/model-serving/`、清单校验和测试；未填版本拒绝，镜像／GPU 尚未运行 |
+| [x] 首轮通过 | 独立审查 agent | 已复测修复历史工具调用编号冲突、解析／结算期间超时仍返回提议两项问题；最终组合回归仍需收口 |
+
+共同前置：仅 CPU、固定样本、已有知识资料；不读取暂停原包、不发布知识、不调用真实模型或游戏。验收命令及源码绑定报告将放入 `docs/test-reports/2026-10-23/`。整个 MS0 仍需 Windows 的25场景与联调，SV1仍需真实GPU，QK4仍需人工标准答案和独立最终测试集。
 
 ## 分工
 

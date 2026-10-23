@@ -81,20 +81,12 @@ class PrepareE0ReviewTests(unittest.TestCase):
             self.assertEqual(set(value["human_review"]), REVIEW_FIELDS)
             self.assertTrue(all(v is None for v in value["human_review"].values()))
 
-    def test_verify_is_offline_and_does_not_upgrade_review_identity(self):
+    def test_legacy_verify_rejects_new_production_without_upgrading_review_identity(self):
         with patch("socket.socket.connect", side_effect=AssertionError("network forbidden")), patch(
                 "socket.create_connection", side_effect=AssertionError("network forbidden")), patch(
                 "qa_agent.chat.llm_client.build_llm_client", side_effect=AssertionError("provider forbidden")):
-            report = prep.verify()
-        self.assertIsInstance(report, dict)
-        self.assertEqual(report["protocol"], "qa-e0-review-prep/v1")
-        self.assertEqual(report["provider_calls"], 0)
-        self.assertEqual(report["human_reviewed_labels"], 0)
-        self.assertEqual(report["execution_authority"], "none")
-        self.assertIs(report["executable"], False)
-        self.assertIs(report["human_gold"], False)
-        self.assertIs(report["independent_holdout"], False)
-        self.assertIsNone(report["quality_threshold"])
+            with self.assertRaisesRegex(ValueError, "frozen KB/production source drift"):
+                prep.verify()
 
     def test_canonical_json_is_stable_utf8_and_rejects_nonfinite_numbers(self):
         self.assertEqual(prep._canonical({"乙": [1, None], "a": 2}),

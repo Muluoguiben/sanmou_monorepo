@@ -127,7 +127,7 @@ class QualityEvaluationTests(unittest.TestCase):
 
     def test_frozen_retrieval_baseline_runs_without_model_or_network(self):
         with patch('socket.socket', side_effect=AssertionError('network forbidden')):
-            result=run(PACKAGE, baseline='v4')
+            result=run(PACKAGE, baseline='v5')
         self.assertEqual(result['retrieval']['query_count'],12)
         self.assertEqual(result['retrieval']['macro_recall']['denominator'],11)
         self.assertEqual(result['provider']['calls'],0)
@@ -138,10 +138,10 @@ class QualityEvaluationTests(unittest.TestCase):
     def test_production_or_fixture_drift_is_rejected(self):
         with patch('qa_agent.quality_eval.runner.snapshot', return_value={'digest':'drift'}):
             with self.assertRaisesRegex(ValueError,'source drift'):
-                run(PACKAGE, baseline='v4')
+                run(PACKAGE, baseline='v5')
         with patch('qa_agent.quality_eval.runner.digest', return_value='drift'):
             with self.assertRaisesRegex(ValueError,'fixture drift'):
-                run(PACKAGE, baseline='v4')
+                run(PACKAGE, baseline='v5')
 
     def test_v1_remains_frozen_and_rejects_new_production(self):
         with self.assertRaisesRegex(ValueError,'source drift'):
@@ -152,6 +152,18 @@ class QualityEvaluationTests(unittest.TestCase):
     def test_v3_rejects_new_production_without_changing_its_freeze(self):
         with self.assertRaisesRegex(ValueError,'source drift'):
             run(PACKAGE,baseline='v3')
+
+    def test_v4_rejects_new_production_without_changing_its_freeze(self):
+        with self.assertRaisesRegex(ValueError, 'source drift'):
+            run(PACKAGE, baseline='v4')
+
+    def test_v5_inherits_all_v4_cases_without_relabeling(self):
+        root = PACKAGE/'tests/fixtures/quality_eval'
+        old = json.loads((root/'v4/cases.json').read_text(encoding='utf-8'))
+        new = json.loads((root/'v5/cases.json').read_text(encoding='utf-8'))
+        self.assertEqual(new.pop('version'), 5)
+        self.assertEqual(old.pop('version'), 4)
+        self.assertEqual(old, new)
 
     def test_v3_requires_nonempty_valid_multiturn_suite(self):
         corpus=json.loads((PACKAGE/'tests/fixtures/quality_eval/v3/cases.json').read_text(encoding='utf-8'))
@@ -173,7 +185,7 @@ class QualityEvaluationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'version'):
             run(PACKAGE,baseline='latest')
         with self.assertRaisesRegex(ValueError,'source mismatch'):
-            run(PACKAGE/'other',baseline='v4')
+            run(PACKAGE/'other',baseline='v5')
 
     def test_real_file_add_delete_and_change_rejected(self):
         for operation in ('add','delete','change'):
@@ -190,10 +202,10 @@ class QualityEvaluationTests(unittest.TestCase):
                     target.write_text(target.read_text(encoding='utf-8')+'\n# changed\n', encoding='utf-8')
                 with patch('qa_agent.quality_eval.runner.__file__',str(root/'src/qa_agent/quality_eval/runner.py')):
                     with self.assertRaisesRegex(ValueError,'source drift'):
-                        run(root,baseline='v4')
+                        run(root,baseline='v5')
 
     def test_manifest_metadata_rejects_version_split_and_duplicate_ids(self):
-        fixtures=PACKAGE/'tests/fixtures/quality_eval/v4'
+        fixtures=PACKAGE/'tests/fixtures/quality_eval/v5'
         corpus=json.loads((fixtures/'cases.json').read_text(encoding='utf-8'))
         frozen=json.loads((fixtures/'freeze.json').read_text(encoding='utf-8'))
         for change, message in (('version','version/split'),('split','version/split'),('duplicate','duplicate case')):
@@ -204,7 +216,7 @@ class QualityEvaluationTests(unittest.TestCase):
                 edited[change]='invalid'
             with patch('qa_agent.quality_eval.runner.json.loads',side_effect=[edited,frozen]):
                 with self.assertRaisesRegex(ValueError,message):
-                    run(PACKAGE,baseline='v4')
+                    run(PACKAGE,baseline='v5')
 
     def test_strict_schema_is_separate_from_hash_binding(self):
         corpus=json.loads((PACKAGE/'tests/fixtures/quality_eval/v3/cases.json').read_text(encoding='utf-8'))
@@ -239,5 +251,5 @@ class QualityEvaluationTests(unittest.TestCase):
         fake.evaluate_cases=MagicMock(side_effect=AssertionError('must not execute foreign code'))
         with patch.dict('sys.modules',{name:fake}):
             with self.assertRaisesRegex(ValueError,'execution source mismatch'):
-                run(PACKAGE,baseline='v4')
+                run(PACKAGE,baseline='v5')
         fake.evaluate_cases.assert_not_called()
