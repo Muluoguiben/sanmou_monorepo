@@ -1,10 +1,12 @@
-# 三谋多模态 Agent 设计基线 v10
+# 三谋多模态 Agent 项目规划 v10
 
 2026-10-23。策略基模保持 **Qwen3.5-9B**；首版采用固定 Gemini 感知＋RAG＋文本策略，训练保持 **LoRA SFT → PPO**。接口细节见 [MS0 Episode 契约 v4](contracts/harness-ms0-episode-contract-v4.md)。
 
-在本机 Windows 多开三谋客户端，每个窗口由独立 Agent 推进角色。Harness 负责模型与工具循环、上下文、权限、调度、持久化、Trace、Eval 和恢复；完整轨迹用于 SFT 与 PPO。暂不建设云游戏 worker。
+在本机 Windows 多开三谋客户端，每个窗口由独立 Agent 推进角色。Harness 是 Agent 的运行框架：给模型准备输入、调用工具、检查权限、协调窗口、保存过程、测试效果和恢复故障。完整操作轨迹用于 SFT（学习示范动作）与 PPO（根据奖励改进策略）。游戏客户端暂不放到云端运行。
 
-本版采纳独立 review 的三项修订：固定跨步骤 policy-token GAE、奖励归属与截断合同；TV2必须走最终verl FSDP2 worker；MS7恢复清单明确到验收阶段。Transformers＋PEFT＋TRL SFT、verl FSDP2＋SGLang同步PPO／GAE、9B LoRA Actor＋2B Critic／value head、单A10080GB与SV1–SV3选型不变。对应MS0文档v4，基础episode schema仍为v3.ms0，训练投影新增ppo-token-gae-v1。复用映射审阅于`6e304b79`，本轮已快进到`b7efac4`，远程仅更新协调／todo记录，业务源码无变化。已有只读TaskRunner、Context、预算、checkpoint、Trace和Eval继续复用；施工队列见[根todo](../todo-list.md)。
+v10补齐三件事：多个决策步骤之间如何计算GAE训练优势、奖励算到哪一步、采样中断后如何处理；TV2必须在最终使用的verl FSDP2训练程序中验收；MS7前逐项完成恢复测试。训练仍用Transformers＋PEFT＋TRL做SFT，verl FSDP2＋SGLang做同步PPO；9B决策模型（Actor）只训练LoRA，2B回报估计模型（Critic）连同价值输出层一起训练。单A100 80GB和SV1–SV3部署计划不变。
+
+接口说明是MS0 v4；一次任务的基础数据格式仍叫v3.ms0，新增训练数据转换格式ppo-token-gae-v1。代码复用核对记录对应`6e304b79`，此前同步到`b7efac4`时仅更新了协调／待办记录。已有只读TaskRunner、上下文、预算、任务存档、运行记录和评测继续复用；当前任务见[根Todo](../todo-list.md)。
 
 ## 技术选择
 
@@ -13,13 +15,13 @@
 | 感知基线 | Gemini 3.8 Flash，HIGH；固定模型、prompt 与观察 schema |
 | 策略基模 | Qwen/Qwen3.5-9B；首版使用文本输入路径 |
 | 策略输入 | 目标、结构化观察、RAG、历史、工具定义和约束 |
-| SFT | Transformers＋PEFT＋TRL SFTTrainer；Qwen3.5-9B 文本路径、BF16 LoRA、显式动作 token mask |
-| PPO | verl FSDP2＋SGLang，同步 PPO／GAE；不改成 GRPO，不自研 PPO trainer |
+| SFT示范学习 | Transformers＋PEFT＋TRL SFTTrainer；Qwen3.5-9B文本输入、BF16 LoRA；明确标出哪些动作token参与训练 |
+| PPO奖励驱动训练 | verl FSDP2＋SGLang，同步PPO／GAE；不改成GRPO，不自研训练器 |
 | Actor／Critic | 9B Actor：冻结合并 SFT 底座＋新 PPO LoRA；2B Critic：Qwen3.5-2B 语言骨干＋scalar value head，全参训练、不用 LoRA |
 | Reference／奖励 | 固定 SFT 底座作为 KL Reference；实际业务奖励仍由 Harness 独立结算，不增加奖励模型 |
 | 游戏环境 | 本机 Windows，同一登录账号、多区服角色、每窗口一个 Agent |
 | 共享服务 | 视觉 API、Qwen 推理、只读知识库；角色状态和上下文隔离 |
-| Harness 观测与数据工作台 | LangSmith：Trace 查看、人工标注、SFT 素材整理与 Eval 实验对照；本地原始记录／训练制品继续保留，不以接入 LangGraph 为前置 |
+| 查看运行过程和整理数据 | LangSmith：查看调用与动作记录、人工标注、整理SFT样本、比较测试结果；保留本地原始记录和模型文件，不必先接LangGraph |
 | 推理 Demo | SGLang 主选，vLLM 仅备选；Qwen3.5-9B 文本路径、BF16、单 GPU／单副本；先基模，MS3 后接离线合并的 SFT LoRA 制品 |
 | 部署 Demo | 固定 Docker 镜像 → 单 GPU Linux 节点上的 K8s／Helm；私有访问、就绪检查、监控和维护窗口回滚 |
 | 算力 | 单张 A100 80GB；microbatch 1、CPU offload、分阶段驻留，宿主 RAM 建议128GB；峰值与吞吐由 TV4 实测 |
@@ -33,46 +35,46 @@ Qwen checkpoint 本身保留多模态能力，直接看截图留作后续对照�
 |---|---|---|
 | Windows Harness | H1–H9、客户端与 Bridge、感知接线、工具执行、录制、角色状态、账本、实机验证与恢复 | Windows 本机；每角色独立会话，共用输入互斥 |
 | Mac 模型工程 | PolicyAdapter／服务协议、SGLang、Docker／Helm、SFT／PPO、模型制品与发布 | Mac 开发；云端 Linux A100 执行 CUDA 推理和训练 |
-| QA-agent RAG | 游戏基础知识、REA 解析产物、玩家攻略的采集归一、审核、检索、引用和质量评测 | 独立跨平台工作区，默认 Mac 开发；只读知识服务可本地或私网部署 |
-| 跨端联调 | Windows ↔ 云模型服务的请求、版本、采样和故障合同；QA 通过现有 common port 提供证据 | Windows 保持游戏执行与奖励判定权；Mac 不作为必经中转 |
+| QA-agent RAG | 采集三类知识来源，整理成统一格式，再审核、检索、引用并测试效果 | 独立跨平台工作区，默认 Mac 开发；只读知识服务可本地或私网部署 |
+| 两端连接与测试 | 统一 Windows 与云模型服务的请求、版本、采样和错误处理；QA 通过现有共享接口提供资料 | Windows 保持游戏执行与奖励判定权；Mac 不作为必经中转 |
 
-最小联调分两条：推理链为 Windows 封存 Context → 云端返回策略提议 → 本地工具执行／验证 → 下一轮；训练链为固定 batch／行为策略版本 → Windows 新轨迹与云端采样记录关联 → 完整 artifact 经受控通道交给 trainer → 更新后核验新版本再采下一批。缺失 artifact 不以 LangSmith 摘要补造。
+先连接两条流程：① Windows保存实际模型输入 → 云端返回动作建议 → 本地执行工具并检查结果 → 下一轮；② 固定采样批次和策略版本 → 关联Windows新轨迹与云端生成记录 → 将完整数据文件交给训练程序 → 更新后检查新版本，再采下一批。缺失的原始数据不能用LangSmith摘要补写。
 
-双方先冻结输入、工具、响应、版本、因果 ID 和错误语义；验证超时、取消、重复响应／上传及断网恢复，防止重复执行和混批。仍不建设云游戏 worker；SV 部署演练与 PPO 训练分时占用同一张 GPU。
+双方先确定输入、工具、响应、版本、关联编号和错误含义；测试超时、取消、重复响应／上传及断网恢复，避免重复执行或混用不同批次的数据。游戏仍在Windows本机运行；SV部署演练与PPO训练分时使用同一张GPU。
 
-## Roadmap 与 Milestones
+## 开发路线与阶段目标（Roadmap／Milestones）
 
 游戏与学习主线仍为 **工程闭环 → SFT 与多窗口 → PPO 与过夜运行**；新增独立的 **SV1 推理服务 → SV2 集群部署 → SV3 运维 Demo** 支线。数字和阈值是首版验收规格，不是已测成绩。
 
 - MS0 → MS1 → MS2 为主线；MS2 早期单窗口切片可与 MS1 采集准备并行，不等待完整训练集。
 - MS3 SFT 与 MS4 双窗口隔离可在 MS2 后并行；MS3 → MS5 → MS6 是学习线。
-- MS0先冻结训练投影和G1–G6纯数值oracle，不加载模型；跨行GAE与奖励映射通过后才实现PPO数据接线。TV1并入MS3起步，TV2在最终verl worker验证2B Critic，TV3验证固定Reference与已接入的GAE投影，TV4在MS5起步完成两轮单卡闭环。TV1–TV4是训练验收检查点，不新增主线milestone。
+- MS0先确定轨迹转训练数据的规则，用G1–G6预先算好的结果检查GAE和奖励计算，不加载模型。通过后再接入PPO训练。TV1在MS3开始时检查SFT；TV2在最终verl训练程序中验证2B Critic；TV3检查固定参考模型与GAE数据；TV4在MS5开始时用单卡完成两轮更新。TV1–TV4是检查项，不另加开发阶段。
 - MS3＋MS4及R1–R6实机恢复清单通过后推进MS7；R5整机断电耐久性归属MS4后／MS7前，未验保持pending。可用稳定SFT过夜采样，新PPO发布仍需MS6。
 - SV1 在 MS0 输入／模型接口约定冻结后，可用固定状态与工具样本、原始 Qwen 独立启动；SV1 → SV2 → SV3 不以 PPO、多窗口或过夜运行为前置，也不成为 MS1–MS7 的统一前置。
 - MS3 后把已验收的 SFT 制品接入服务，重跑 SV1 质量回归与 SV3 发布／回退；这是服务支线的最终模型交接点。若 MS7 改用该 endpoint，先通过 SV3；否则继续使用原稳定推理路径。
-- 复用已有 TaskRunner、Context、预算、checkpoint、Trace、Eval，通过版本化 episode adapter 补齐学习型循环；同一角色会话只保留一个执行 owner。
+- 复用已有TaskRunner、上下文、预算、任务存档、运行记录和评测；通过带版本号的任务接口接入模型决策，同一角色会话只由一个运行程序控制。
 - H9 LangSmith：接口冻结后接 Trace，随 MS1 接审核／导出，随 MS3／MS6 接实验对照；不阻塞本地 MS0。
-- QA 的 QK1–QK7 独立推进：先来源合同与质量基线，再采集／审核、检索与有依据回答；QK7 接口与 MS0 并行，MS1 的知识输入绑定已审核快照。完整知识覆盖不作为 MS0 的前置，任务所需知识缺口须在 MS2／MS3 前解决或明确限制任务范围。
+- QA的QK1–QK7独立推进：先确定资料记录格式、测清当前效果，再补采集、审核、检索和回答。QK7接口与MS0并行，MS1记录使用的是哪个已审核知识库版本。MS0不用等全部知识补齐；MS2／MS3开始前，要补齐当前任务所需知识，或缩小任务范围。
 
-| Milestone | 目标与主要交付 | 过关条件 | 前置 |
+| 阶段 | 要做什么 | 怎样算完成 | 先完成什么 |
 |---|---|---|---|
-| MS0 最小协议闭环 | v4文档、v3.ms0基础adapter、mock tools／ledger／goal verifier、实际输入快照、ppo-token-gae-v1投影与Eval | 原8组25子场景＋G1–G6纯数值oracle和契约不变量通过；保留v1只读回归；不加载模型或开放实机输入 | 无 |
-| MS1 数据可训练 | Gemini 接线、单窗口录制、3–5 条示范、语义标注、教师采样入口、manifest | 角色／目标／上下文来源／动作／反馈可追溯；训练与保留集隔离；导出读回通过 | MS0 |
-| MS2 单窗口闭环 | 初始化、章节／建筑语义工具、现有 guarded chain、单资源 owner/fence 出口复查、账本与恢复 | 一轮选服／创角／教程／预算抽卡；3 个不同起点短任务成功；断连、重复请求、错目标与结果不明反例通过 | MS0＋MS1；早期切片可并行 |
+| MS0 跑通基础接口 | v4接口说明、v3.ms0适配、模拟工具／动作账本／目标检查、实际模型输入记录、ppo-token-gae-v1训练数据转换与测试 | 原8组25个场景、G1–G6计算检查和全部接口约束通过；旧v1只读测试仍通过；不加载模型、不发送实机输入 | 无 |
+| MS1 准备可训练数据 | 接入Gemini、单窗口录制、3–5条示范、标注动作含义、接入教师模型采样、保存数据文件清单 | 角色／目标／上下文来源／动作／反馈可追溯；训练与保留集隔离；导出读回通过 | MS0 |
+| MS2 跑通单窗口任务 | 初始化、章节／建筑操作工具、现有安全检查；发送输入前复查控制权与版本号，保存动作账本并支持恢复 | 一轮选服／创角／教程／预算抽卡；3 个不同起点短任务成功；断连、重复请求、错目标与结果不明反例通过 | MS0＋MS1；早期切片可并行 |
 | MS3 SFT 策略 | TRL＋PEFT 的9B BF16 LoRA、动作 mask、训练／合并制品、模型概率适配；并行准备2B Critic | TV1 通过；SFT 合并前后与重载一致性通过；至少20个未见短任务首次动作合法率≥95%、任务成功率≥80%；报告各基线及失败分母 | MS1＋MS2 |
-| MS4 双窗口隔离 | 跨窗口队列、公平调度、角色绑定、fence 实机切换验证与独立状态 | 60分钟、至少60次输入事务、每窗口至少20次、至少20次跨窗切换；零串窗／重复写，故障恢复通过 | MS2 |
-| MS5 PPO 工程通路 | verl FSDP2＋SGLang；9B LoRA Actor＋2B全参Critic，固定SFT Reference、跨行token-chain GAE、单卡错峰 | TV2–TV4与接入层G1–G6通过；优势／奖励无默认路径覆盖或重复结算；至少一批真实新游戏rollout完成Actor／Critic更新、重载与评测；mock小跑单列 | MS3＋MS0投影oracle；SV1请求／采样对应检查，不依赖SV2／SV3 |
+| MS4 两个窗口互不干扰 | 多窗口排队、避免长期等不到执行、绑定角色；实测控制权换手后旧请求被拒绝，各窗口状态分开 | 60分钟、至少60次输入事务、每窗口至少20次、至少20次跨窗切换；零串窗／重复写，故障恢复通过 | MS2 |
+| MS5 跑通PPO训练 | verl FSDP2＋SGLang；9B LoRA Actor＋2B全参Critic，固定SFT Reference、跨行token-chain GAE、单卡错峰 | TV2–TV4与接入层G1–G6通过；优势／奖励无默认路径覆盖或重复结算；至少一批真实新游戏rollout完成Actor／Critic更新、重载与评测；mock小跑单列 | MS3＋MS0训练数据计算检查；SV1请求／采样检查，不依赖SV2／SV3 |
 | MS6 PPO 收益验证 | 冻结评测、SFT／PPO 对比、发布记录 | 预先固定主指标、分层、样本量与阈值；收益达到规格且系统不退化再发布 | MS5 |
-| MS7 过夜运行 | watchdog、恢复、通知、配额、R1–R6验收与运行报告 | 恢复清单全部通过再先2小时、后8小时；轨迹完整，无串窗／重复消耗；未通过仅做有人值守短测试 | MS3＋MS4＋R1–R6；使用服务Demo endpoint时另须SV3 |
+| MS7 过夜运行 | 异常检测、恢复、通知、额度、R1–R6验收与运行报告 | 恢复清单全部通过再先2小时、后8小时；轨迹完整，无串窗／重复消耗；未通过仅做有人值守短测试 | MS3＋MS4＋R1–R6；使用服务Demo endpoint时另须SV3 |
 | SV1 推理与 Docker Demo | 单 GPU SGLang＋Qwen BF16 服务、固定镜像／配置、现有模型 adapter 接入、最小请求集 | 容器真实加载模型；多轮文本状态＋工具往返→可解析提议；鉴权、版本绑定、超时／取消及采样记录读回通过；保存单请求和并发基线 | MS0 输入约定＋可控 GPU 环境；可先用基模 |
 | SV2 K8s／Helm Demo | 一份 chart、单副本 Deployment／Service、GPU 资源、缓存、Secret 引用与 probes | 在真实 GPU 节点完成 Helm 安装、就绪、请求、Pod 重建；镜像／模型版本可复现；模板检查与真实部署分别记录 | SV1 |
 | SV3 运维与交付 Demo | 最小指标／日志、一次配置对照、故障恢复、升级回退和操作说明 | 完成下文固定负载报告、2 类故障演练、A→B→A 服务版本回退与复部署；MS3 后再用 SFT 制品完成交接回归 | SV2；SFT 交接追加依赖 MS3 |
 
-MS2／MS4 可用规则或脚本验证执行基础，MS3／MS6 单独比较模型收益。MS3 保留首次失败，重试后的成功另报；20 个任务仅是首版 gate，不作为广泛泛化证明。
+MS2／MS4可用规则或脚本验证工具能否正确执行，MS3／MS6再比较模型效果。MS3保留首次失败，重试后的成功另报；20个任务是首版验收数量，不代表各种任务都已测过。
 
-### 尽早做真实可行性切片
+### 尽早跑通一个真实小任务
 
-不另造只有 JSONL 的临时 Agent，也不增加独立 MS-1：
+在现有代码上验证，不额外增加一个 MS-1 阶段：
 
 1. 在现有只读 Harness 上完成单窗口观察、状态检查与策略建议，比较 Qwen／教师的提议，分类感知、工具、策略和环境错误。
 2. MS2 中先接通一个“章节要求的建筑升级”任务；实机写操作前具备单窗口独占、持久意图、既有守卫与效果核对。
@@ -80,9 +82,9 @@ MS2／MS4 可用规则或脚本验证执行基础，MS3／MS6 单独比较模型
 
 不预设“1–2 周完成”“平均每任务10分钟”或“过夜可采几百条”。10分钟是首轮预算上限，实际吞吐要包括初始化、等待、输入串行和模型耗时。
 
-### 当前工作顺序
+### 当前开发顺序
 
-Windows 先做 MS0 Harness 接口／mock，Mac 并行做 GAE 数值投影和 SV1 服务适配，QA 并行做 QK1／QK4 与 QK7 接口。输入接口冻结后即可在云 GPU 验证 SV1；MS0 组合验收后，Windows 推进 MS1／MS2 与 H9，随后推进 MS3 SFT、MS4 双窗口，再联调 MS5 PPO。SV2／SV3 和 RAG 增强按各自门禁推进，不成为所有主线的统一前置。详细施工包与验收见[根 Todo](../todo-list.md)。
+Windows先做MS0接口和模拟测试，Mac并行整理训练数据转换、GAE计算及SV1服务接口，QA做QK1／QK4与QK7接口。模型输入格式确定后即可在云GPU验证SV1；MS0整体测试通过后，Windows推进MS1／MS2与H9，再做MS3 SFT、MS4双窗口和MS5 PPO。SV2／SV3、知识检索改进各自验收，不要求所有工作都等它们完成。具体任务见[根Todo](../todo-list.md)。
 
 ## 项目总任务树
 
@@ -104,19 +106,19 @@ flowchart LR
 
     root --> harness["3 Harness"]
     harness --> loop["Agent Loop：任务状态、预算、停止与恢复"]
-    harness --> tools["Tool Use：注册、Schema、解析、重试与幂等"]
-    harness --> context["Context：状态、工作记忆、RAG、预算与压缩"]
+    harness --> tools["工具调用：登记工具、检查参数、解析、重试与防重复执行"]
+    harness --> context["模型输入：当前状态、历史、检索资料、长度与费用限制"]
     harness --> permissions["权限：角色窗口、动作范围、额度与审批"]
-    harness --> scheduling["调度：会话隔离、输入互斥、版本与租约"]
+    harness --> scheduling["窗口协调：状态分开、输入排队、操作权与有效期"]
     harness --> storage["存储：JSONL 日志、SQLite 账本、证据文件"]
-    harness --> trace["Trace：因果链、上下文快照、调用与数据溯源"]
-    harness --> eval["Eval：工具、上下文、权限、策略与端到端"]
-    harness --> langsmith["LangSmith：Trace 查看、人工标注、SFT 数据整理与 Eval 对照"]
+    harness --> trace["运行记录：保存实际模型输入，关联调用、动作与资料来源"]
+    harness --> eval["测试：工具、模型输入、权限、策略与完整任务"]
+    harness --> langsmith["LangSmith：查看运行过程、审核训练样本、比较版本效果"]
 
     root --> data["4 轨迹与数据集"]
     data --> demos["录制 3–5 条完整人工示范"]
-    data --> annotation["语义分段：观察、动作来源、反馈、验证"]
-    data --> splits["按角色与任务划分：训练、开发、保留集"]
+    data --> annotation["给操作记录分段标注：观察、谁选的动作、反馈与验证"]
+    data --> splits["按角色与任务划分：训练、开发、最终测试集"]
 
     root --> learning["5 SFT 与 PPO"]
     learning --> sft["TRL 与 PEFT：9B LoRA SFT、动作 token mask"]
@@ -134,85 +136,85 @@ flowchart LR
     roadmap --> foundation["MS0 契约 → MS1 采集 → MS2 工具闭环"]
     roadmap --> functional["MS2 后：MS3 SFT 与 MS4 多窗口可并行"]
     roadmap --> trainingRoad["MS3 → MS5 PPO 更新 → MS6 收益验证"]
-    roadmap --> autonomous["MS3 与 MS4 及恢复 gate → MS7 过夜"]
+    roadmap --> autonomous["MS3 与 MS4 及恢复测试通过 → MS7 过夜"]
     roadmap --> serviceRoad["MS0 输入约定 → SV1 → SV2 → SV3；MS3 后交接 SFT"]
 ```
 
-## H1 Agent Loop 与恢复
+## H1 让 Agent 连续做任务，并能暂停和恢复
 
-每个角色按观察 → Context → 策略提议 → 工具校验 → 执行／验证 → 持久化推进。已有只读 TaskRunner 继续服务 v1；新 EpisodeCoordinator／Runner 通过版本化 adapter 承担新增 episode，不同时启动两个可独立操纵同一会话的循环。
+每个角色按观察画面 → 准备模型输入 → 模型提出动作 → 检查工具调用 → 执行并验证 → 保存进度的顺序运行。已有只读TaskRunner继续服务v1；新增EpisodeCoordinator／Runner通过带版本号的接口接管模型任务，不允许两个运行程序同时独立操作同一会话。
 
-- 目标、budget、deadline、pending call／operation 和模型版本持久绑定；恢复不换任务或补满额度。
-- goal satisfied／not_satisfied／unknown 独立判定；模型 complete_task 只是提议。
+- 保存目标、预算（budget）、截止时间（deadline）、未完成调用／操作和模型版本；恢复时不换任务、不补满额度。
+- 由结果检查程序判断目标已达成、未达成或尚不确定（satisfied／not_satisfied／unknown）；模型调用complete_task只是提出完成请求。
 - 宏动作选择一次后固定意图，新观察只重绑定原目标；取消／abort／撤权仍立即生效。
 - 输入前取消可以终止未发送操作；输入后取消／断连保留结果不明状态，先核对，不能重放整个动作。
-- watchdog 按游戏、Bridge、模型和磁盘分别报告；故障与策略失败分开记录。
+- 异常检测程序（watchdog）分别报告游戏、Bridge、模型和磁盘故障；系统故障与模型选错动作分开记录。
 
-**验收重点**：实际效果与任务游标一致；取消不会被误解为游戏回滚；重启不导致重复消耗。
+**验收重点**：游戏实际效果与保存的任务进度一致；取消不会撤销已经发生的游戏变化；重启不导致重复消耗。
 
-## H2 Tool Use
+## H2 工具调用与结果检查
 
-服务端注册工具名／版本、输入输出 schema、state_effect、window_effect、timeout、retry、权限、预算与 verifier。模型只能填写允许的语义参数，不决定副作用类别、bbox、角色事实或授权。
+服务端统一登记工具名、版本、输入输出格式（schema）、是否改变游戏状态（state_effect）、是否操作窗口（window_effect）、超时、重试、权限、预算和结果检查程序（verifier）。模型只填写允许的动作参数，不能自行决定工具影响、点击区域（bbox）、角色状态或授权。
 
-每 DecisionStep 可并发多个被动只读调用，最多一个其他调用。数量限制与输入租约分别判断：wait_ticks、complete_task 计入其他调用，但不占窗口。批次含依赖时拆成下一 step；并行结果按请求顺序写回。
+每个决策步骤（DecisionStep）可同时调用多个不改变游戏状态、也不操作窗口的只读工具；其他工具每步最多调用一个。调用次数限制与鼠标键盘操作权分开检查：wait_ticks、complete_task算在“其他工具”内，但不占用窗口。工具之间有先后依赖就拆到下一步；并行结果按请求顺序写回。
 
 工具覆盖知识、当前画面、带导航的观察、语义游戏动作和任务控制。查看面板需要切页／聚焦时也属于输入。未来实机 adapter 必须解析为可信 CandidateAction，经过现有 DispatchGuard、UIActionRunner、帧／目标／确认／verifier 与 Bridge；mock 不连接真实设备，dry-run 不输入。
 
 **验收重点**：稳定错误码、参数与引用可核对；未知工具／错误批次零派发；协议成功、实际效果和任务成功分开。
 
-## H3 Context 与输入快照
+## H3 给模型准备上下文，保存实际输入
 
-复用 BoundedContextBuilder 的 mandatory-first 和 detached projection，通过 adapter 增加真实模型序列化与完整工具往返。
+复用BoundedContextBuilder：先保留必需信息（mandatory-first），并使用与原状态分离的数据副本（detached projection）。补充模型实际请求格式，完整保存每次工具调用及返回结果。
 
 | 内容 | 规则 |
 |---|---|
 | 任务／身份／权限／未决操作 | 固定且优先保留，模型不能回写 |
 | 当前观察 | 角色绑定、同帧来源、未知项和时间；与历史合并状态分开 |
-| 工作记忆／近期历史 | 有界、带来源，assistant 调用与全部 tool replies 成组保留 |
-| RAG | 保存实际内容与 KB／entry hash、适用性、检索版本 |
-| 版本与实际请求 | 模型／adapter／tokenizer／template／prompt／sampling、actual_messages、actual_tools、渲染输入或 token artifact |
+| 工作记忆／近期历史 | 限制长度、注明来源；模型发起的工具调用与全部返回结果成组保留 |
+| 检索资料 | 保存实际提供给模型的内容、知识库与条目校验值（hash）、适用条件和检索程序版本 |
+| 版本与实际请求 | 保存模型、适配器、分词器、模板、提示词、采样设置的版本；保留actual_messages、actual_tools，以及最终输入文本或token数据文件 |
 
-快照深拷贝、重校验、确定性序列化封存；frozen=True 不充当嵌套不可变保证。哈希覆盖实际输入及版本内容，后续 usage／响应另关联，不改旧快照。
+保存输入时深拷贝全部内容、重新检查，再按固定格式写入只读记录；仅设置frozen=True不能保证内部嵌套数据不会被修改。校验值覆盖实际输入和版本信息；后续用量统计与响应另行关联，不改原输入。
 
-估算输入＋输出预留不超过模型上下文限制；mandatory 超限零模型调用。压缩和裁剪保存 manifest，不能吞掉未知项、未决操作或接管边界。RunBudget 在模型调用前 reserve，成功／异常／未知 usage 都 settle；恢复保留原限额、deadline 和未决预留。
+输入长度加预留输出长度不能超过模型上限；必需信息已超限时不调用模型。压缩和裁剪要留下明细，不能丢掉未知项、未完成操作或人工接管位置。RunBudget在调用前预留额度，成功、异常或用量未知时都按规则结算；恢复时保留原限额、截止时间和未结算额度。
 
 ## H4 权限与运行控制
 
-scope 绑定角色／窗口、工具／目标、资源额度、有效期、确认方式与撤销。实际能力取 scope、模式、设备能力、已注册实现、Runbook 与既有 guards 的交集。RAG、工具输出和模型提议不能改变权限。
+授权范围（scope）写清角色、窗口、工具、目标、资源额度、有效期、确认和撤销方式。实际操作必须同时符合授权、运行模式、设备能力、已实现工具、任务步骤规则（Runbook）和已有安全检查；检索资料、工具返回内容或模型建议不能改变权限。
 
-MS0 只验证 mock／dry-run；真实导航和变更仍受当前执行开关和实机 evidence gate 约束。输入前检查 `0 <= observation_age <= ttl`，时间需带时区；未来时间、旧绑定和过期帧拒绝。
+MS0只做模拟测试或不发送输入的试运行（mock／dry-run）；真实切页和游戏操作仍需符合当前执行开关与实机证据要求。输入前检查 `0 <= observation_age <= ttl`，时间需带时区；拒绝未来时间、旧角色窗口绑定和过期画面。
 
 保留限频、预算和异常停机：登录失效、验证码／限制提示、身份异常或重复失败时暂停相关操作并通知。随机间隔不作为可靠保障。同账号多角色不等于账号风险隔离；账号选择保持用户既定方案，不自动换账号或扩张操作范围。
 
-## H5 多窗口调度
+## H5 协调多个游戏窗口
 
 AccountIdentity → RoleSession → DeviceSession，各角色独立历史与状态，共享模型／RAG。状态接受检查 binding revision、source generation、capture sequence 与 state revision；迟到感知只能归档，不能覆盖新状态。
 
-输入资源按 Windows 交互桌面互斥。lease 有 owner、expiry、单调 fence 和撤销语义，实际派发端验证；取得租约后重查当前帧、角色、目标、取消和预算。在途输入未静止，不因 lease 到期重授；长等待释放输入资源。
+同一个Windows交互桌面的鼠标键盘一次只交给一个任务。操作权凭据（lease）包含持有人（owner）、有效期（expiry）、递增控制编号（fence）和撤销规则，由实际发送输入的一端检查；取得操作权后再查当前画面、角色、目标、取消状态和预算。上一批输入还未停止，不能只因凭据过期就把控制权交给别人；长时间等待应释放操作权。
 
 MS0 定义并 mock 验证这些接口；MS2 做真实单窗口独占与复查；MS4 才建设完整跨窗口队列、公平性和切换实证。已有因果 ID／Trace 不推迟，LangSmith 查看与评测接入按 H9 推进；其他可视化或 OTel 后端仍为可选后续工作。
 
-## H6 存储、幂等与恢复
+## H6 保存进度、处理重复请求与故障恢复
 
 | 数据 | 权威来源与边界 |
 |---|---|
-| v1 只读任务 | 既有 JsonRunStore／RunOwnership checkpoint，格式与恢复身份不改 |
-| v3 episode | 新版本 EpisodeStore，单写者／revision；可引用 v1 子运行，不复制成第二份主状态 |
+| v1只读任务 | 继续用JsonRunStore／RunOwnership保存任务与控制权；存档格式和恢复身份不变 |
+| v3任务 | 新版EpisodeStore保存进度，同一记录仅一个写入者并带版本号；可引用v1子任务，不复制出第二份主状态 |
 | Runbook 阶段 | 原 RunbookStateStore 与阶段确认，不与 episode 混同 |
-| 业务副作用 | SQLite ActionLedger：operation／step／attempt、游戏资源预留和效果核对 |
-| 输入／证据 | 不可变 Context 与 artifact，原始帧、内容 hash、ready 状态 |
-| Trace／日志 | 既有因果事件、JSONL 与 outbox 投影，不作为是否可以重发的唯一依据 |
-| 数据集／评测 | 版本化 manifest、split、标签、源码与运行证据 |
+| 实际游戏操作 | SQLite ActionLedger记录业务动作、步骤、尝试次数、资源预留和实际效果 |
+| 输入与证据文件 | 只读保存实际模型输入、原画面、内容校验值和文件是否准备好（ready） |
+| 运行记录与日志 | 保留相关事件、JSONL日志和待同步副本；不能仅凭日志决定是否重发游戏操作 |
+| 数据集与测试 | 保存带版本的数据清单、分组、标签、代码版本和运行证据 |
 
 业务 operation 固定角色、任务、动作、目标、期望变化和意图序号；网络重传、模型换 call ID 或更新截图不自动生成新的业务意图。同 key 不同 payload 拒绝。宏动作下一步骤与同一步重试分开。
 
-派发状态与效果分开：not_sent／applied／no_effect／partial／unknown。只有已确认未发送或无效果才可核准重试；unknown 保留预留并对账，partial 以关联恢复意图处理。
+分别记录是否发送及实际效果：未发送（not_sent）、已生效（applied）、无效果（no_effect）、部分生效（partial）、尚不确定（unknown）。只有确认未发送或无效果，才可批准重试；效果不明时保留资源预留并核对游戏状态，部分生效时建立与原动作关联的恢复操作。
 
 真实不可逆输入前持久提交 intent、资源预留和 dispatch_started；关键账本采用 WAL＋synchronous=FULL，失败不输入。账本与事件去重同事务，文件先核 hash 再发布 ready。进程崩溃和断电耐久性分别验收；当前文档不承诺外部游戏 exactly-once。
 
-## H7 Trace、奖励事件与训练归属
+## H7 记录操作过程，确定奖励和训练数据归属
 
-复用现有 causal trace，关联 episode／decision／invocation／logical call／operation／step／attempt、角色、观察、Context、权限、执行和结果。原始日志、审核标注与训练导出分开。
+复用现有因果运行记录（causal trace），把任务、决策、模型调用、逻辑调用、业务动作、步骤和尝试次数的编号关联起来，再挂上角色、观察、模型输入、权限、执行和结果。原始日志、审核标注与训练导出分别保存。
 
 actor_origin 由 Harness 或审核层写入，覆盖 policy、rule、teacher、human、bootstrap、recovery。记录输入输出和实际行动，不补造隐藏思维过程。
 
@@ -220,59 +222,61 @@ actor_origin 由 Harness 或审核层写入，覆盖 policy、rule、teacher、h
 
 PPO transition 连接前后输入、实际动作 token、旧概率、value、mask、reward event、terminated/truncated 和 learning segment。缺必需字段的记录仍保留作诊断或合格 SFT，不伪装成 on-policy rollout。
 
-## H8 Eval 与发布
+## H8 测试效果，检查新版本能否发布
 
 MS0 使用 v4 沿用的8组25个子场景，并增加G1–G6纯数值oracle；分别报告输入、终态、错误码、精确S／I／D／R、真实mock dispatch数以及raw advantages／returns；不用“成功或失败都通过”或“去重或崩溃恢复任选其一”。原有只读 task_eval 回归单独保留。
 
-感知、上下文、权限、效果 verifier、策略与端到端分别评测。成功／失败、超时、取消、身份错、预算耗尽、结果不明、lease失效、深拷贝与重启对账都要有确定性负例。运行环境、真实模型调用与输入模式分别标明。
+分别测试画面识别、模型输入、权限、动作结果检查、策略和完整任务。成功／失败、超时、取消、身份错误、预算耗尽、效果不明、操作权失效、输入副本被改动和重启后核对状态，都要有预期结果明确的测试。注明运行环境、是否真实调用模型、是否发送游戏输入。
 
-开发集、发布回归集、最终保留集独立。保留集不参与调参；吸收其失败案例前先转开发用途并建立新的未见集。发布流程：候选 checkpoint → 冻结 Eval → 小范围运行 → 扩大采样；未过门禁继续用稳定策略。
+开发用样本、发布回归样本和最终测试集分开；最终测试集不参与训练或调参。要拿其中失败案例改进系统，先把它转为开发样本，并另建未见过的最终测试集。新模型按固定评测、小范围运行、扩大采样的顺序发布；未通过就继续用稳定版本。
 
-## H9 LangSmith：观测、审核与评测
+## H9 LangSmith：查看运行过程、审核样本、比较效果
 
-作为现有 Harness／QA 的工作台，接 Trace、标注和数据集，不以 LangGraph 为前置。当前仅完成规划，接线待实现。
+把LangSmith接到现有Harness和QA，用来查看运行过程、审核样本和比较测试结果，不要求先接入LangGraph。目前是规划，功能仍待开发。
 
-| 工作包 | 交付与最小验收 | 阶段／主责 |
+| 工作 | 要做什么、怎样算完成 | 阶段与负责人 |
 |---|---|---|
-| H9.1 Trace | 统一 episode／step／invocation／operation ID，关联观察、RAG、策略与工具结果；有界异步 outbox、去重、断网补传。至少3步链路可查，断网不阻塞本地记录，恢复后无重复事件 | MS0 接口冻结后；Windows 主责，Mac／QA 接服务侧 Trace |
-| H9.2 审核与导出 | 导入一条人工示范和一条模型来源样本，审核含通过／拒绝步骤，修订另存；原件与来源可回查。导出保留实际输入、工具往返、source cutoff 和版本；按角色／完整轨迹 split，仅审核动作入 SFT loss，仍过 TV1 | MS1 → MS3；Windows 录制／标注，Mac 导出 |
-| H9.3 Eval | 冻结数据集比较基模／SFT，MS6 加 PPO；QA 比较检索／回答候选。平台与本地样本 ID、分母、分数一致，可查看失败样本；离线与实机结果分开 | 策略随MS3／MS6，QA随QK4／QK5独立推进；Mac汇总 |
+| H9.1 查看运行过程 | 用任务、步骤、调用和动作编号，串起画面观察、知识检索、模型决策和工具结果；设置有容量上限的后台同步队列，识别重复记录、支持断网补传。至少能查看3步完整过程；断网时本地继续记录，恢复后不产生重复事件 | MS0接口确定后；Windows主责，Mac／QA补服务端记录 |
+| H9.2 审核并导出训练样本 | 导入一条人工示范和一条模型记录，分别审核通过／拒绝的步骤；修改另存，保留原件与来源。导出完整模型输入和工具问答，只使用当步已知信息，记清版本；按角色和完整轨迹分组，仅审核合格动作参与SFT训练，仍需通过TV1 | MS1 → MS3；Windows录制／标注，Mac导出 |
+| H9.3 比较不同版本效果 | 用固定测试集比较基模与SFT，MS6再加PPO；QA单独比较检索和回答方案。本地与平台使用相同样本，统计总数和分数一致，能查看失败案例；离线测试与实机结果分开 | 策略随MS3／MS6，QA随QK4／QK5；Mac汇总 |
 
-本地原件、输入快照、账本和 verifier 为事实源；LangSmith 是可重建副本，不替代 H7／MS0 的奖励与 PPO 数据合同。仅同步获准的脱敏内容，截图单独审核，凭据不上传；本地关键审计失败的停机规则保持。复用平台审核界面，不自建复杂标注后台。
+本地原件、实际模型输入、动作账本和结果验证记录是依据；LangSmith保存可重建的副本，不替代H7／MS0的奖励计算或PPO训练数据。只同步获准且已去除敏感信息的内容；截图单独审核，凭据不上传。本地关键记录写入失败时仍按原规则停止操作。使用平台已有审核界面，不另建复杂后台。
 
-参考：[Trace](https://docs.langchain.com/langsmith/observability)、[标注队列](https://docs.langchain.com/langsmith/annotation-queues)、[数据集与导出](https://docs.langchain.com/langsmith/manage-datasets)。
+参考：[运行过程查看](https://docs.langchain.com/langsmith/observability)、[标注队列](https://docs.langchain.com/langsmith/annotation-queues)、[数据集与导出](https://docs.langchain.com/langsmith/manage-datasets)。
 
-## QA-agent RAG 建设（QK1–QK7）
+## QA-agent：知识库与问答建设（QK1–QK7）
 
-QA 为策略提供可更新的知识与证据；Harness 保存当次实际使用的内容，SFT／PPO 学习决策。现有 QueryService／QA MCP／KnowledgeProvider、别名与词法检索、视频抽取及部分证据检查继续复用。当前正式 SourceType 仍只有 manual_rule，ChatAgent 仍是固定检索／改写／回答流程；三源治理、完整 agentic retrieval 与独立质量门禁尚未完成。
+QA负责查找游戏知识和回答问题；Harness保存当时实际给模型看的资料，SFT／PPO负责学习如何决策。现有QueryService、QA MCP、KnowledgeProvider、别名与词语匹配检索、视频提取和部分证据检查继续复用。
 
-### 三类知识基础
+当前SourceType只有manual_rule这一类；ChatAgent按固定顺序检索、改写问题、回答。还需补齐三类知识来源的统一记录、信息不足时继续查找的流程，以及独立的效果测试。
 
-| 来源 | 建设内容 | 必须保留的依据 |
+### 三类知识来源
+
+| 来源 | 整理什么 | 记录哪些依据 |
 |---|---|---|
-| 游戏基础知识 | 术语、武将／战法／建筑／章节等实体、基础机制与规则覆盖表 | 出处、实体 ID、适用赛季／条件、确认状态；未知规则列缺口 |
-| REA 原包解析数据 | 复用已有解析投影，整理配置、文案、实体关系与数值语义 | 客户端／资源版本、原件 hash、字段定位、解析版本与未知项；客户端配置不直接等同服务端规则 |
-| 玩家自投攻略 | 三方平台视频、图文与在线文档；抽取经验、观察、配队和操作建议 | 作者、URL、发布时间／采集时间、赛季；视频时间戳、段落／图片位置、文档章节／修订及可用范围 |
+| 游戏基础知识 | 术语、武将、战法、建筑、章节和基础规则，列清哪些已有、哪些缺失 | 出处、对象编号、适用赛季与条件、是否已经确认；不知道的规则明确留空 |
+| REA原包解析数据 | 已从游戏原包提取的字段数据，包括配置、文案、对象关系和数值含义 | 客户端／资源版本、原件校验值（hash）、字段位置、解析程序版本和未知项；客户端字段不直接等于服务器实际规则 |
+| 玩家自投攻略 | 三方平台视频、图文和在线文档中的经验、观察、配队与操作建议 | 作者、URL、发布／采集时间、适用赛季，以及视频时间点、段落／图片位置、文档章节／修订版本和可用范围 |
 
-统一保留来源类型和主张类型：已确认规则、原包字段、玩家经验不能混成同一种事实。基础知识也要追溯最初依据，转载和交叉整理保留同源关系。外部正文是待审资料，不成为执行或发布指令。
+来源和内容性质分别记录：已确认规则、原包字段和玩家经验不能混成同一种事实。基础知识也要能查到最初出处；转载、摘录和交叉整理注明来自哪份原资料。外部资料里的指令只当作待审内容，不能因此操作游戏或发布知识。
 
-### 施工与验收
+### 开发任务与完成标准
 
-| 工作包 | 交付 | 最小验收 |
+| 工作 | 要做什么 | 怎样算完成 |
 |---|---|---|
-| QK1 来源与领域合同 | 覆盖清单、来源／主张类型、实体别名、版本／时间、定位、hash 与审核状态；兼容旧条目 | 三类来源均有样例；未知版本、同名变体与冲突可表达 |
-| QK2 多格式解析 | 复用基础 YAML、REA 已有投影、视频字幕／必要帧证据；补图文和在线文档适配，归一为实体、片段和主张 | 基础规则、REA 投影、视频、图文、在线文档各一份样本可追溯；重复导入不重复产出 |
-| QK3 审核与快照 | staging → 人工审核 → 版本化知识快照；去重、冲突、增量更新、撤回与重建索引 | 未审核条目不进入新 reviewed snapshot；更正／撤回可回查旧版，重复构建结果一致；历史 operator import 保留原来源 |
-| QK4 质量基线 | 完成 Q-E0 人工 gold，补三源覆盖和独立 holdout；冻结 query／KB／证据／claim 标签、指标与门槛 | 先测现有词法基线；报告召回、claim 支持、引用完整性、拒答、冲突处理及失败分母；开发／保留集样本按同源族切分，转载与派生片段不跨集，holdout 题目与标签不回流 |
-| QK5 检索与适用性 | 结构化实体查询＋词法召回，贯穿赛季、版本、as-of、撤回状态；hybrid／rerank 作为可选对照 | 错实体、跨赛季、过期、未知与冲突用例通过；增强方案与冻结基线实测比较后再选 |
-| QK6 有依据回答与多跳 | 复用充分性／claim spans，补有界查询→检查→补查→回答／追问；调用、时间与费用预算 | 引用定位到原文；空证据零生成、冲突披露、追问和超时退出有测试；不得调知识发布或游戏控制工具 |
-| QK7 Harness／训练接线 | 复用 common KnowledgeProvider／KnowledgeAnswer，按需版本化扩展证据和快照引用；接 H3／H7／H9 | 一条 episode 能回查 query→snapshot→证据→实际 Context；QA 断连按任务配置停止或降级；旧轨迹不补入未来知识 |
+| QK1 统一知识记录格式，检查缺哪些知识 | 列出知识覆盖清单；记录资料来源、内容性质、对象及别名、版本、时间、原文位置、内容校验值和审核状态；兼容已有条目 | 三类知识来源各有样例；能明确记录版本未知、同名不同对象和资料矛盾 |
+| QK2 提取不同格式的资料 | 复用现有规则YAML、REA提取字段、视频字幕和必要画面；补图文与在线文档读取，把内容整理为游戏对象、原文片段和具体说法 | 规则文件、REA数据、视频、图文、在线文档各跑通一份；可查回原资料，重复导入不生成重复条目 |
+| QK3 审核资料，保存知识库版本 | 新资料先放待审区，人工审核后加入新版本；处理重复和矛盾内容，支持补充更新、撤回和重建检索索引 | 未审核内容不进入新的已审核知识库版本；更正和撤回可查旧版，相同数据重复建索引结果一致；以前人工导入的内容保留原来源 |
+| QK4 先测清楚当前效果 | 完成Q-E0人工核对的标准答案和不参与训练、调参的最终测试集，覆盖三类来源；固定题目、知识库版本、正确证据、每条结论的判断标准和通过门槛 | 先测现有按词语匹配的方案；检查相关资料找回比例、回答是否有依据、引用完整性、拒答和冲突处理，报告失败数量及对应的全部样本数。同一原资料及其转载、摘录、改写只分到同一数据集，最终测试题目与答案不用于调参 |
+| QK5 提高查找资料的准确性 | 按武将、战法等对象查询并按词语匹配，筛选符合赛季、版本、问题指定时间且未撤回的资料；关键词与向量结合检索、结果重新排序作为可选实验 | 测试查错对象、跨赛季、过期、版本未知和互相矛盾的资料；与固定的原方案对比效果后再决定是否采用新方法 |
+| QK6 根据证据回答，资料不足时继续查找 | 复用已有证据检查和原文定位：先查资料，判断是否够用，不够再查，仍缺关键信息就向用户追问；限制查询次数、时间和费用，到上限停止 | 回答的具体结论能定位到原文；完全无依据时不调用生成模型。测试资料矛盾时的说明、缺信息追问和超时退出；只能查资料，不能调用知识发布或游戏控制工具 |
+| QK7 把知识检索接入Agent和训练流程 | 复用common中的KnowledgeProvider／KnowledgeAnswer接口，按需增加带版本号的资料信息；与H3模型输入、H7运行记录、H9工作台连接 | 能从一次任务回查检索问题、知识库版本、证据及实际模型输入；QA断连时按任务设置停止或降级；不能用后来更新的知识补写旧轨迹输入 |
 
-顺序：QK1＋QK4 基线先行 → QK2／QK3 → QK5 → QK6；QK7 接口与 MS0 并行，真实知识接入依赖已审核快照。新来源逐批进入开发集并形成新基线版本，最终保留集不用于调参。任务知识、检索器和策略分别做对照，避免把 KB 更新误当训练收益。
+顺序：先做QK1和QK4，再做QK2／QK3、QK5、QK6；QK7接口可与MS0并行，正式接入的知识必须已有审核版本。新增资料逐批加入开发样本，重新记录对照成绩；最终测试集不用于调参。分别比较知识库、检索方法和策略模型的改动，避免把补充知识带来的提升算成训练收益。
 
-REA 先消费[已有字段投影](research/rea/2026-10-18/README.md)，仍需领域审核；本轮不读取原包、不重启暂停的 Q06／REA 解析或发布流程。新解析作为独立后续任务确认范围，原始二进制、账号材料和私密原件不进入公开知识库。
+REA先使用[已提取并整理的字段数据](research/rea/2026-10-18/README.md)，仍需核对游戏含义。本轮不读取原包、不重启暂停的Q06／REA解析或发布流程；新的解析工作另行确认范围。原始二进制、账号材料和私密原件不进入公开知识库。
 
-复用入口：[QA 模块](modules/qa-agent-design.md)、[RAG 评审](qa/qa-agent-rag-review-2026-10-05.md)、[Q-E0](qa/qa-e0-review-preparation-2026-10-18.md)、[视频工作流](runbooks/bilibili-video-knowledge-workflow.md)。
+已有模块与流程：[QA模块](modules/qa-agent-design.md)、[RAG评审](qa/qa-agent-rag-review-2026-10-05.md)、[Q-E0评测准备](qa/qa-e0-review-preparation-2026-10-18.md)、[视频处理流程](runbooks/bilibili-video-knowledge-workflow.md)。
 
 ## 版本、部署与感知实验
 
@@ -500,7 +504,7 @@ MS0验证进程故障的mock语义，MS2验证单窗口真实恢复，MS4验证�
 | checkpoint | [RunStore](../packages/pioneer-agent/src/pioneer_agent/agent_harness/run_store.py) | v3 EpisodeStore 与副作用账本，不重写 v1 格式 |
 | Trace／Eval | [task trace](../packages/pioneer-agent/src/pioneer_agent/agent_harness/task_trace.py)、[task eval](../packages/pioneer-agent/src/pioneer_agent/agent_harness/task_eval.py) | invocation／operation／reward lineage 与新副作用 mock 子场景 |
 | 游戏执行 | [AutonomousLoop](../packages/pioneer-agent/src/pioneer_agent/runtime/autonomous_loop.py)、[DispatchGuard](../packages/pioneer-agent/src/pioneer_agent/runtime/dispatch_guard.py)、[UIActionRunner](../packages/pioneer-agent/src/pioneer_agent/executor/ui_runner.py) | 固定意图续跑、可靠对账和后续输入租约集成 |
-| QA 知识服务 | [KnowledgeProvider](../packages/sanmou-common/src/sanmou_common/ports.py)、QA QueryService／ChatAgent、现有采集管线 | QK1–QK7：三源治理、审核快照、检索／引用／质量评测及 Harness 接线 |
+| QA 知识服务 | [KnowledgeProvider](../packages/sanmou-common/src/sanmou_common/ports.py)、QA QueryService／ChatAgent、现有采集管线 | QK1–QK7：管理三类知识来源、审核并保存版本、检索与引用、效果测试，以及接入Agent运行流程 |
 | 感知 | [VisionSync](../packages/pioneer-agent/src/pioneer_agent/perception/vision_sync.py) | 环境配置、观察版本与独立感知对照 |
 | 模型服务与部署 | 复用现有模型 client／新策略 adapter 接口、Context 版本和 Trace；尚无本版 GPU 服务验收 | SV1–SV3：独立推理服务、Docker、单副本 K8s／Helm、指标、配置对照与回退；不承担游戏执行 |
 | SFT／PPO训练 | 复用轨迹、Context、RewardEvent与Eval边界；本版训练栈尚未接入 | TRL／PEFT SFT与verl FSDP2／SGLang薄适配、9B Actor／2B Critic、TV1–TV4；不自研训练框架 |
@@ -527,4 +531,4 @@ MS0验证进程故障的mock语义，MS2验证单窗口真实恢复，MS4验证�
 - [旧 v9／v8／v7／v6／v5 与 MS0 v3／v2](archive/design-review-2026-10-23/README.md)、[更早总体方案](archive/sanmou-multimodal-agent/README.md)
 - [Qwen 官方模型卡](https://huggingface.co/Qwen/Qwen3.5-9B)、[SGLang RL 集成](https://docs.sglang.io/docs/advanced_features/sglang_for_rl)、[SQLite durability](https://www.sqlite.org/pragma.html#pragma_synchronous)
 
-本轮补充 Windows Harness／Mac 模型工程分工、云端联调及 QA 三源 RAG 主线，精简 H9；仍为 v10／MS0 v4，选型与奖励公式不变。仅更新文档，未实现业务代码、部署服务、上传知识或运行模型／游戏／训练；历史同步与验收记录见[Todo 归档](archive/todo-history/2026-10-23.md)。
+本版保留Windows运行框架、Mac模型工程、云端连接和三类知识来源的建设计划；本轮只把规划与待办改成直白说明，仍为v10／MS0 v4。技术选择、阶段先后关系和奖励公式不变，代码与历史归档未改。历史进展见[Todo归档](archive/todo-history/2026-10-23.md)。
