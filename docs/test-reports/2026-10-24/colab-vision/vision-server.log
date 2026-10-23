@@ -1,0 +1,98 @@
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/launch_server.py:71: UserWarning: 'python -m sglang.launch_server' is still supported, but 'sglang serve' is the recommended entrypoint.
+  Example: sglang serve --model-path <model> [options]
+  warnings.warn(
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[2026-10-23 17:58:59] using attn output gate!
+
+Multi-thread loading shards:   0% Completed | 0/4 [00:00<?, ?it/s]
+Multi-thread loading shards:  25% Completed | 1/4 [00:01<00:04,  1.40s/it]
+Multi-thread loading shards:  50% Completed | 2/4 [00:02<00:02,  1.41s/it]
+Multi-thread loading shards:  75% Completed | 3/4 [00:04<00:01,  1.44s/it]
+Multi-thread loading shards: 100% Completed | 4/4 [00:05<00:00,  1.28s/it]
+Multi-thread loading shards: 100% Completed | 4/4 [00:05<00:00,  1.33s/it]
+[2026-10-23 17:59:10] post-warmup freeze_gc failed
+Traceback (most recent call last):
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/urllib3/connection.py", line 239, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/urllib3/connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/urllib3/connectionpool.py", line 499, in _make_request
+    conn.request(
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/urllib3/connection.py", line 567, in request
+    self.endheaders()
+  File "/usr/lib/python3.12/http/client.py", line 1360, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.12/http/client.py", line 1120, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.12/http/client.py", line 1064, in send
+    self.connect()
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/urllib3/connection.py", line 398, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/urllib3/connection.py", line 254, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: HTTPConnection(host='127.0.0.1', port=41895): Failed to establish a new connection: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/urllib3/connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/urllib3/util/retry.py", line 555, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=41895): Max retries exceeded with url: /freeze_gc (Caused by NewConnectionError("HTTPConnection(host='127.0.0.1', port=41895): Failed to establish a new connection: [Errno 111] Connection refused"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/srt/entrypoints/http_server.py", line 2470, in _freeze_gc_after_server_warmup
+    res = requests.post(
+          ^^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/requests/api.py", line 134, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/requests/api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/requests/sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/requests/sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/requests/adapters.py", line 729, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=41895): Max retries exceeded with url: /freeze_gc (Caused by NewConnectionError("HTTPConnection(host='127.0.0.1', port=41895): Failed to establish a new connection: [Errno 111] Connection refused"))
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/srt/entrypoints/http_server.py:476: FastAPIDeprecationWarning: ORJSONResponse is deprecated, FastAPI now serializes data directly to JSON bytes via Pydantic when a return type or response model is set, which is faster and doesn't need a custom response class. Read more in the FastAPI docs: https://fastapi.tiangolo.com/advanced/custom-response/#orjson-or-response-model and https://fastapi.tiangolo.com/tutorial/response-model/
+  return await original_handler(ORJSONRequest(request.scope, request.receive))
+[2026-10-23 18:02:09] SIGTERM received. signum=None frame=None. Draining requests and shutting down...
+[2026-10-23 18:02:10] Subprocess scheduler_0 (pid=31742) crashed with exit code -15. Triggering SIGQUIT for cleanup...
+[2026-10-23 18:02:10] SIGQUIT received. signum=None, frame=None. It usually means one child failed.
+[2026-10-23 18:02:15] No live scheduler processes found; skipping py-spy and CUDA coredump.

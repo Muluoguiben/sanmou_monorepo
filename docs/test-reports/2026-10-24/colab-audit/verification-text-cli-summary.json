@@ -1,0 +1,99 @@
+{
+  "schema": "sanmou-colab-text-offline-audit-v1",
+  "status": "passed",
+  "source_commit": "ff121f14758847b897ae4f049cbb8a14cd9b3dfe",
+  "parser_source_sha256": {
+    "packages/sanmou-common/src/sanmou_common/policy_contracts.py": "219145d535ef55d667d22d2808aeeac29a887845191a33c46d2d3c3759aebda2",
+    "packages/pioneer-agent/src/pioneer_agent/adapters/policy_http.py": "3d994587d1971e8a64d5f1673f2f2550aba0f76d133e644df6f520b42bad8823",
+    "packages/pioneer-agent/src/pioneer_agent/adapters/policy_service.py": "6b400a7e25a98c0275fa54a4c6e6a2f421cf53378e20da8dc016e48dcf2bcb48"
+  },
+  "verifier_script_sha256": "b3ff122f1eb3275ed5cacab9abc2325224b666a5c437f24bea545c4820cb0452",
+  "evidence_index_sha256": "3c3229ba050d528bbcdf2062954da033b9876c7a7bd58dc6a21dbdc9ac2ea2dc",
+  "verified_files": 29,
+  "verified_bytes": 64524,
+  "redacted_log_files": [
+    "server.log",
+    "server-2.log",
+    "server-3.log"
+  ],
+  "check_count": 204,
+  "rounds": [
+    {
+      "name": "ready",
+      "status": "passed",
+      "request_sha256": "19c35f8924c3a8281203029cd622188fc40adf435ec3b63d63495e7c69085504",
+      "response_sha256": "314df5a2ca575a066ee6e885422a8728ca6ff6362d496a30bb877fa1c3a17ccc",
+      "response_id": "94eb0b7779e9461784cb98cfc878e4c4",
+      "input_tokens": 17,
+      "output_tokens": 2,
+      "triples": 2,
+      "finish_reason": "stop",
+      "parsed_calls": [],
+      "receipt_seconds": 63.04858221299946,
+      "probability_kind": "unavailable"
+    },
+    {
+      "name": "round-1",
+      "status": "passed",
+      "request_sha256": "17ddaa7fa3d87475900ce292667bc3d282977c4d8da185fc5088289bbe2d59a0",
+      "response_sha256": "b5bbe4470014cdf7eb065d98dcec41522eaa8380f937565102511295191dd2cf",
+      "response_id": "38d5348b35704dc8b72eba00b3c360bc",
+      "input_tokens": 414,
+      "output_tokens": 28,
+      "triples": 28,
+      "finish_reason": "tool_calls",
+      "parsed_calls": [
+        {
+          "call_id": "call_38c853f5a893413c80b329f5",
+          "tool": "query_knowledge",
+          "arguments": {
+            "query": "building upgrade rule"
+          }
+        }
+      ],
+      "receipt_seconds": 2.024897360999603,
+      "probability_kind": "unavailable"
+    },
+    {
+      "name": "round-2",
+      "status": "passed",
+      "request_sha256": "0ac451f743ecc987530c6ce9eeb721b7cc2753815431f1e01061ca6a7638e4ba",
+      "response_sha256": "1dc6cf679a1029f6173fe0c2816fd982a4e3d06ce0ffeb0a822d758a66ba4947",
+      "response_id": "0aca86c78a2247f1a019c906d2c134f7",
+      "input_tokens": 492,
+      "output_tokens": 41,
+      "triples": 41,
+      "finish_reason": "tool_calls",
+      "parsed_calls": [
+        {
+          "call_id": "call_305660dc3dfc4e7298676810",
+          "tool": "complete_task",
+          "arguments": {
+            "reason": "For this test only: upgrades complete immediately when resources and requirements are satisfied."
+          }
+        }
+      ],
+      "receipt_seconds": 1.9127703920003114,
+      "probability_kind": "unavailable"
+    }
+  ],
+  "model_manifest": {
+    "revision": "c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+    "file_count": 13,
+    "listed_bytes": 19329302904,
+    "recorded_lfs_checks": 5,
+    "local_weight_binary_rehash": false
+  },
+  "scope": {
+    "mode": "offline_readback_of_native_gpu_responses",
+    "new_network_or_model_calls": 0,
+    "real_gateway_validated": false,
+    "j2_validated": false,
+    "ppo_eligible": false,
+    "original_receipts_modified": false,
+    "synthetic_tool_result": true
+  },
+  "detailed_result_sha256": "c05597f08693ecb116a4ca7c2037a85f2ee6ebd515733686b952436dded6a872",
+  "history_check": "actual second request equals original messages + assistant_message(actual first response) + correctly ID-bound synthetic tool reply",
+  "common_schema_check": "both native message/tool arrays pass explicitly offline-reconstructed PolicyRequest to_wire/from_wire roundtrip"
+}

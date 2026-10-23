@@ -1,0 +1,80 @@
+{
+  "schema": "sanmou-colab-vision-evidence-v1",
+  "files": {
+    "vision-fixture.png": {
+      "bytes": 6060,
+      "sha256": "910cb002105d8e8e7eb135d621ec60c4ebbbe9d1f7c27dc1b51e3793ecb9cc7f",
+      "redacted": false
+    },
+    "vision-fixture-2.png": {
+      "bytes": 6684,
+      "sha256": "c127eb9b72e11e02806cb27776b2eef299c195a306f11c639376ba27d1accf20",
+      "redacted": false
+    },
+    "vision-expected.json": {
+      "bytes": 172,
+      "sha256": "e3a08d459ccf1a5e6a8de5c554c94a69c38829aa644a6a0c5c950a32b649bb53",
+      "redacted": false
+    },
+    "vision-expected-2.json": {
+      "bytes": 171,
+      "sha256": "e78d900cc635228e5391f42a2912ce299e6b5303af4fa4e82c9cbb925f274f27",
+      "redacted": false
+    },
+    "vision-launch-public.json": {
+      "bytes": 580,
+      "sha256": "9b1873c4484a291b8c8eadb1e244dda2033cf2a241f438aafe94d14ad27e88ab",
+      "redacted": false
+    },
+    "vision-checks.json": {
+      "bytes": 899,
+      "sha256": "cd5dec9c73de9ea38ec0d91cea8eacec8b81826ea836435312e81b47e2d545c4",
+      "redacted": false
+    },
+    "vision-gpu.txt": {
+      "bytes": 55,
+      "sha256": "be58cfccbd7ea21acd3a3b5e09144c9625a54d2781fd5ca83b6145a23907b115",
+      "redacted": false
+    },
+    "vision-shutdown.json": {
+      "bytes": 154,
+      "sha256": "518367219ff41a457fdd447352dbf6efbb4b9163165911384f1cb111b5e5eded",
+      "redacted": false
+    },
+    "vision-request.json": {
+      "bytes": 8816,
+      "sha256": "8c7db1949b53fa331d0ccc0cbe8605b034041057366e925d61167dd307cb906b",
+      "redacted": false
+    },
+    "vision-response.json": {
+      "bytes": 12554,
+      "sha256": "303ef19b723af1b699759dd9c050bed05ace18b57b1073d0605ff09d3141dc7d",
+      "redacted": false
+    },
+    "vision-timing.json": {
+      "bytes": 44,
+      "sha256": "aff157726ebc83914d1e949ed7491e13192b596b16bc6c22befb04a0247c2f26",
+      "redacted": false
+    },
+    "vision-2-request.json": {
+      "bytes": 9689,
+      "sha256": "4ee0c9d335845414b2e595a1a6fd827888fbc0b68cc2574ed6c4e225b91fe89e",
+      "redacted": false
+    },
+    "vision-2-response.json": {
+      "bytes": 11298,
+      "sha256": "31d9cb85de200d5e37266feca47afd0f830002b9a88f3e756427b5b702ab52ed",
+      "redacted": false
+    },
+    "vision-2-timing.json": {
+      "bytes": 46,
+      "sha256": "5828e523fa314f1c93fb837f6f32fe1efd7416276da2bf89ae6ce9b8786f3a4f",
+      "redacted": false
+    },
+    "vision-server.log": {
+      "bytes": 7655,
+      "sha256": "d4969f2fc05b33138cb0b818e017d876484976c9e40efe021a4a695f472053c6",
+      "redacted": true
+    }
+  }
+}

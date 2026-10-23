@@ -1,6 +1,6 @@
 # Sanmou 文档索引
 
-更新日期：2026-10-23。工作目录：`/Users/lanull/dev/sanmou_monorepo`。
+更新日期：2026-10-24。工作目录：`/Users/lanull/dev/sanmou_monorepo`。
 
 ## 先读这两份
 
@@ -11,7 +11,9 @@
 
 ## 分类查阅
 
-2026-10-24 第二批完成HTTP网关／原生SGLang请求映射、本地训练包校验和三类资料待审准备；见[验收报告](test-reports/2026-10-24/mac-batch2.md)、[训练包协议](contracts/training-bundle-v1.md)、[Colab接入记录](runbooks/colab-access.md)。真实模型/GPU小跑另行验收。
+2026-10-24 Colab A100已完成Qwen3.5-9B真实文本、两轮工具往返和两张合成图片测试；见[原生模型实测报告](test-reports/2026-10-24/colab-native-smoke.md)。原生token与现有解析器离线核验通过，Docker／实时gateway／J2／训练验收仍分别待做。
+
+2026-10-24 第二批完成HTTP网关／原生SGLang请求映射、本地训练包校验和三类资料待审准备；见[验收报告](test-reports/2026-10-24/mac-batch2.md)、[训练包协议](contracts/training-bundle-v1.md)、[Colab接入记录](runbooks/colab-access.md)。CPU回归与上方GPU小跑分别计数。
 
 2026-10-23 Mac 首批本地实现已交付：策略服务封套与模拟往返、训练数值投影、QA来源旁挂／分组、Docker前置检查。见[共同接口](contracts/policy-service-v1.md)和[CPU Linux验收报告](test-reports/2026-10-23/mac-batch1.md)；整个MS0、GPU训练与Windows实机尚未验收。
 

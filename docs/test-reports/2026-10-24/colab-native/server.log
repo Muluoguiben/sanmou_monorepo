@@ -1,0 +1,93 @@
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/launch_server.py:71: UserWarning: 'python -m sglang.launch_server' is still supported, but 'sglang serve' is the recommended entrypoint.
+  Example: sglang serve --model-path <model> [options]
+  warnings.warn(
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[2026-10-23 17:44:49] using attn output gate!
+
+Multi-thread loading shards:   0% Completed | 0/4 [00:00<?, ?it/s]
+Multi-thread loading shards:  25% Completed | 1/4 [00:01<00:04,  1.40s/it]
+Multi-thread loading shards:  50% Completed | 2/4 [00:03<00:03,  1.55s/it]
+Multi-thread loading shards:  75% Completed | 3/4 [00:04<00:01,  1.61s/it]
+Multi-thread loading shards: 100% Completed | 4/4 [00:06<00:00,  1.47s/it]
+Multi-thread loading shards: 100% Completed | 4/4 [00:06<00:00,  1.50s/it]
+[2026-10-23 17:45:03] Scheduler hit an exception: Traceback (most recent call last):
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/srt/managers/scheduler.py", line 6134, in run_scheduler_process
+    scheduler.run_event_loop()
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/srt/managers/scheduler.py", line 1924, in run_event_loop
+    dispatch_event_loop(self)
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/srt/managers/scheduler.py", line 5981, in dispatch_event_loop
+    return _dispatch_event_loop_once(scheduler)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/srt/managers/scheduler.py", line 5997, in _dispatch_event_loop_once
+    scheduler.event_loop_overlap()
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/srt/managers/scheduler.py", line 2023, in event_loop_overlap
+    batch_result = self.run_batch(batch)
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/srt/observability/scheduler_stage_metrics.py", line 186, in wrapper
+    return profiled_func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/srt/utils/nvtx_utils.py", line 109, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/srt/managers/scheduler.py", line 4567, in run_batch
+    batch_result = self.model_worker.forward_batch_generation(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/srt/managers/tp_worker.py", line 647, in forward_batch_generation
+    out = self.model_runner.forward(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/srt/model_executor/model_runner.py", line 1829, in forward
+    output = self._forward_raw(
+             ^^^^^^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/srt/model_executor/model_runner.py", line 2021, in _forward_raw
+    ret = self.eager_runner.execute(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/srt/model_executor/runner/eager_runner.py", line 224, in execute
+    return self._execute_extend(forward_batch, pp_proxy_tensors)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/srt/model_executor/runner/eager_runner.py", line 322, in _execute_extend
+    model_runner.attn_backend.init_forward_metadata(forward_batch)
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/srt/layers/attention/hybrid_linear_attn_backend.py", line 1348, in init_forward_metadata
+    attn_backend.init_forward_metadata(forward_batch)
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/srt/layers/attention/flashinfer_backend.py", line 1035, in init_forward_metadata
+    self.indices_updater_prefill.update(
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/srt/layers/attention/flashinfer_backend.py", line 1927, in update_single_wrapper
+    self.call_begin_forward(
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/srt/layers/attention/flashinfer_backend.py", line 2335, in call_begin_forward
+    wrapper_paged.begin_forward(
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/flashinfer/prefill.py", line 2991, in plan
+    self._cached_module = get_batch_prefill_module(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/flashinfer/prefill.py", line 545, in get_batch_prefill_module
+    module = _gen_batch_prefill_primary_module(backend, *args).build_and_load()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/flashinfer/jit/core.py", line 357, in build_and_load
+    self.build()
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/flashinfer/jit/core.py", line 599, in build
+    run_ninja(self.build_dir, self.ninja_path, verbose)
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/flashinfer/jit/cpp_ext.py", line 433, in run_ninja
+    subprocess.run(
+  File "/usr/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'ninja'
+
+[2026-10-23 17:45:03] SIGQUIT received. signum=None, frame=None. It usually means one child failed.
+[2026-10-23 17:45:08] No live scheduler processes found; skipping py-spy and CUDA coredump.

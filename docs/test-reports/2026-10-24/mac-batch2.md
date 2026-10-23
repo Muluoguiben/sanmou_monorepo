@@ -2,6 +2,8 @@
 
 日期：2026-10-24。本批完成本地 HTTP 往返、可校验的训练文件交接和三类知识来源的待审整理。CPU Linux 完整回归共 **1821 个唯一用例，1819 通过、2 项 Windows 平台跳过**；真实 SGLang／GPU、远程轨迹传输和知识发布不计入本批成绩。
 
+本批GitHub CI [39993469595](https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/39993469595)四个作业通过。随后完成的Colab真实文本／图片小跑另见[独立报告](colab-native-smoke.md)，不改变本报告的CPU测试分母。
+
 ## 源码与证据绑定
 
 | 对象 | 绑定版本与说明 |

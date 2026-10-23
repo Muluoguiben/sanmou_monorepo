@@ -1,0 +1,31 @@
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/launch_server.py:71: UserWarning: 'python -m sglang.launch_server' is still supported, but 'sglang serve' is the recommended entrypoint.
+  Example: sglang serve --model-path <model> [options]
+  warnings.warn(
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[2026-10-23 17:46:46] using attn output gate!
+
+Multi-thread loading shards:   0% Completed | 0/4 [00:00<?, ?it/s]
+Multi-thread loading shards:  25% Completed | 1/4 [00:01<00:04,  1.40s/it]
+Multi-thread loading shards:  50% Completed | 2/4 [00:02<00:02,  1.43s/it]
+Multi-thread loading shards:  75% Completed | 3/4 [00:04<00:01,  1.47s/it]
+Multi-thread loading shards: 100% Completed | 4/4 [00:05<00:00,  1.31s/it]
+Multi-thread loading shards: 100% Completed | 4/4 [00:05<00:00,  1.36s/it]
+/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/srt/entrypoints/openai/serving_chat.py:2318: FastAPIDeprecationWarning: ORJSONResponse is deprecated, FastAPI now serializes data directly to JSON bytes via Pydantic when a return type or response model is set, which is faster and doesn't need a custom response class. Read more in the FastAPI docs: https://fastapi.tiangolo.com/advanced/custom-response/#orjson-or-response-model and https://fastapi.tiangolo.com/tutorial/response-model/
+  return self.create_error_response(str(e))
+[2026-10-23 17:46:58] Initialization failed. warmup error: Traceback (most recent call last):
+  File "/content/sanmou-sv1-02ig1v2p/venv312/lib/python3.12/site-packages/sglang/srt/entrypoints/http_server.py", line 2423, in _execute_server_warmup
+    assert res.status_code == 200, f"{res.text}"
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {"object":"error","message":"Image count 1 exceeds limit 0 per request.","type":"BadRequestError","param":null,"code":400}
+

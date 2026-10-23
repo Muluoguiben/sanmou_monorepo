@@ -1,5 +1,14 @@
 # Sanmou Project Memory
 
+## 2026-10-24 - Colab真实文本与图片小跑
+
+- Decision: 复用用户现有A100运行时，使用独立Python3.12环境与临时官方MCP传输；用户明确授权保存／提交脱敏证据，并追加图片测试。
+- Evidence: Qwen3.5-9B固定revision与文件hash核对，真实READY、两轮工具提议及模拟回复通过；两张合成图片12项内容判断吻合，第二张严格JSON通过。文本29文件64524B、图片15文件64877B分别封存，原生token与现有解析器离线复核。部署修复`ff121f14758847b897ae4f049cbb8a14cd9b3dfe`，23项相关测试通过。
+- Owner: Mac主管运行／整合；部署agent修复文本入口与预热；独立agent审核代码和证据。
+- Blocker: 尚非Docker／实时gateway／Windows J2验收，真实游戏图像质量、超时取消、并发和TV1–TV4／PPO仍待验。视觉塔未检查模块驻留，不宣称剥离；native概率不授训练资格。
+- Next: 用当前冻结环境补项目gateway真实链路，再补容器与故障项；图片能力先有独立测试证据，不自动改变文本policy合同。测试进程停止后GPU计算进程为空；用户运行时和模型保留，临时MCP桥接关闭，SSH模板已保存但SSH未实连。
+- Links: [GPU报告](../../docs/test-reports/2026-10-24/colab-native-smoke.md)、[连接模板](../../docs/runbooks/colab-access.md)、[待办](../../todo-list.md)。
+
 ## 2026-10-24 - Mac第二批与Colab接入
 
 - Decision: 用户要求继续推进，并提供Colab A100环境；明确要求保存SSH命令模板，已写项目连接说明和用户指定的记忆更新笔记，未修改全局SSH配置。

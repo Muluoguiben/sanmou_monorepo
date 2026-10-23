@@ -1,0 +1,16 @@
+[
+  {
+    "credential_mode": "missing",
+    "status": 401,
+    "body": {
+      "error": "Unauthorized"
+    }
+  },
+  {
+    "credential_mode": "wrong",
+    "status": 401,
+    "body": {
+      "error": "Unauthorized"
+    }
+  }
+]

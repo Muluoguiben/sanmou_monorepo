@@ -1,0 +1,95 @@
+{
+  "schema": "sanmou-colab-vision-offline-audit-v1",
+  "status": "passed",
+  "source_commit": "ff121f14758847b897ae4f049cbb8a14cd9b3dfe",
+  "parser_source_sha256": {
+    "packages/sanmou-common/src/sanmou_common/policy_contracts.py": "219145d535ef55d667d22d2808aeeac29a887845191a33c46d2d3c3759aebda2",
+    "packages/pioneer-agent/src/pioneer_agent/adapters/policy_http.py": "3d994587d1971e8a64d5f1673f2f2550aba0f76d133e644df6f520b42bad8823"
+  },
+  "verifier_script_sha256": "2992371a458e1f9412efbae14a4348db45e8c7c659e14dea40d501646a9b1659",
+  "evidence_index_sha256": "8befedf6dc31670aa67c1917042c404b45ca0552d572259daa4c570a2704d505",
+  "verified_files": 15,
+  "verified_bytes": 64877,
+  "redacted_log_files": [
+    "vision-server.log"
+  ],
+  "check_count": 105,
+  "cases": [
+    {
+      "case": "vision",
+      "fixture_sha256": "910cb002105d8e8e7eb135d621ec60c4ebbbe9d1f7c27dc1b51e3793ecb9cc7f",
+      "dimensions": [
+        640,
+        384
+      ],
+      "request_sha256": "8c7db1949b53fa331d0ccc0cbe8605b034041057366e925d61167dd307cb906b",
+      "response_sha256": "303ef19b723af1b699759dd9c050bed05ace18b57b1073d0605ff09d3141dc7d",
+      "data_uri_matches_fixture_bytes": true,
+      "visual_fixture_inspection": true,
+      "response_format": null,
+      "strict_json": false,
+      "fence_removed_for_offline_comparison": true,
+      "matching_fields": 6,
+      "total_fields": 6,
+      "expected_and_actual": {
+        "text": "CODE 47",
+        "red_circles": 2,
+        "blue_squares": 1,
+        "green_triangles": 1,
+        "triangle_relative_to_circles": "below",
+        "square_relative_to_circles": "right"
+      },
+      "prompt_tokens": 314,
+      "image_tokens": 240,
+      "output_tokens": 74,
+      "triples": 74,
+      "finish_reason": "stop",
+      "receipt_seconds": 9.16550668400032,
+      "probability_kind": "unavailable"
+    },
+    {
+      "case": "vision-2",
+      "fixture_sha256": "c127eb9b72e11e02806cb27776b2eef299c195a306f11c639376ba27d1accf20",
+      "dimensions": [
+        640,
+        384
+      ],
+      "request_sha256": "4ee0c9d335845414b2e595a1a6fd827888fbc0b68cc2574ed6c4e225b91fe89e",
+      "response_sha256": "31d9cb85de200d5e37266feca47afd0f830002b9a88f3e756427b5b702ab52ed",
+      "data_uri_matches_fixture_bytes": true,
+      "visual_fixture_inspection": true,
+      "response_format": {
+        "type": "json_object"
+      },
+      "strict_json": true,
+      "fence_removed_for_offline_comparison": false,
+      "matching_fields": 6,
+      "total_fields": 6,
+      "expected_and_actual": {
+        "text": "CODE 83",
+        "red_circles": 1,
+        "blue_squares": 2,
+        "green_triangles": 1,
+        "triangle_relative_to_circles": "above",
+        "square_relative_to_circles": "left"
+      },
+      "prompt_tokens": 314,
+      "image_tokens": 240,
+      "output_tokens": 69,
+      "triples": 69,
+      "finish_reason": "stop",
+      "receipt_seconds": 3.7002170200003093,
+      "probability_kind": "unavailable"
+    }
+  ],
+  "scope": {
+    "mode": "offline_readback_of_native_image_responses",
+    "synthetic_fixture_images": 2,
+    "real_game_screenshot_quality_validated": false,
+    "new_gpu_or_network_calls": 0,
+    "gateway_or_j2_validated": false,
+    "ppo_eligible": false,
+    "original_receipts_modified": false,
+    "first_case_is_not_strict_json_success": true
+  }
+}

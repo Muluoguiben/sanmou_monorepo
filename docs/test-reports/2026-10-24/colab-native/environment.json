@@ -1,0 +1,23 @@
+{
+  "time_utc": "2026-10-23T17:54:33.671433+00:00",
+  "python": "Python 3.12.3",
+  "sglang_source_sha256": {
+    "srt/server_args.py": "d1b9ffc79edcbc857efd02a47d47eed9b414f8ac44bc4e3214d78a7922e90e03",
+    "srt/arg_groups/model_hook.py": "3a89e31d3ddba628c032d5f60c8485357bfc403cff0e40f1ffcd8635b95f622c",
+    "srt/entrypoints/http_server.py": "a89d20bb2fa8a86c511ab4d9d054f74d707423ab220f733ff25e62fcc0e49979",
+    "srt/entrypoints/openai/serving_chat.py": "de02cd317a4208c7357f6860644e1a7d114cc3a3c55affa68829ab06bd2322c0",
+    "srt/layers/sampler.py": "98a36e61762f5b1b1ae06666c5a42f126e8bca1cec7d5b5fa63b32f9ebe75c1d"
+  },
+  "env_overrides": {
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1",
+    "venv_bin_prepended_to_PATH": true
+  },
+  "launch_profile": "colab-native-text-v1",
+  "vision_tower_status": "not_inspected",
+  "base_environment_changed": false,
+  "real_generation_requests": 3,
+  "game_input_dispatches": 0,
+  "ppo_eligible": false,
+  "ms5_ready": false
+}
