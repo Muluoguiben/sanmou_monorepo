@@ -4,6 +4,8 @@
 
 当前目录为 /Users/lanull/dev/sanmou_monorepo。先读[文档索引](docs/README.md)、[总体方案 v10](docs/sanmou-multimodal-agent-plan-2026-10-23-v10.md)、[MS0 契约 v4](docs/contracts/harness-ms0-episode-contract-v4.md)与[根todo顶部施工队列](todo-list.md)。选型与奖励公式保持；新增ppo-token-gae-v1投影、最终verl worker TV2验收及R1–R6恢复清单。基础episode schema仍为v3.ms0；旧v9／文档v3及更早版本归档。优先复用已实现Harness，不将规划或远程同步当作新代码／GPU／实机验收通过。
 
+2026-10-23 施工分工补充：Windows 主建 Harness H1–H9／客户端，Mac 主建模型工程，CUDA 推理与训练在云 Linux A100；QA-agent 独立推进 QK1–QK7 三源 RAG（基础知识、REA 解析产物、玩家攻略），联调 J1–J4 以根 Todo 为准。LangSmith 为观测／审核副本，不替代本地账本与训练合同；本次仅更新规划，现有暂停的 REA／发布范围不变。
+
 ## Project Overview
 
 《三国：谋定天下》Agent 大仓。包含截图 Advisor 桌面端、开荒决策 Agent、游戏知识问答 Agent 和共享游戏领域包。

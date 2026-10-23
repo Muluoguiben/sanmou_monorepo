@@ -11,6 +11,8 @@
 
 ## 分类查阅
 
+施工分为 Windows Harness H1–H9、Mac 模型／云 GPU、QA-agent RAG QK1–QK7 与跨端联调 J1–J4。RAG 覆盖游戏基础知识、REA 原包解析产物和玩家视频／图文／在线文档攻略；H9 精简为 LangSmith Trace、审核／导出、实验对照。详见总体方案和[根待办](../todo-list.md)；均为待实现规划。
+
 | 目录 | 内容与主要入口 |
 |---|---|
 | [harness/](harness/) | [工程评审](harness/harness-engineering-review-2026-10-05.md)、[checkpoint](harness/harness-checkpoint-contract.md)、[task eval](harness/harness-task-eval-h09a-2026-10-06.md)、Trace、registry、接口备忘与原生验证说明 |
