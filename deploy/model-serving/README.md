@@ -1,6 +1,6 @@
 # SV1 推理服务准备包
 
-本批提供 **不使用 GPU 的部署前置检查**：待填版本清单、只复制启动代码的 Dockerfile、离线校验与启动前核对。`manifest.example.json` 中尚未核验的字段保留 `null`，直接校验应失败。本批未下载模型、构建镜像、启动 Docker、调用真实 SGLang 或运行 GPU；SV1 仍待实测。
+本目录提供 **部署前置检查**：待填版本清单、只复制启动代码的 Dockerfile、离线校验与启动前核对。`manifest.example.json` 中尚未核验的字段保留 `null`，直接校验应失败。本目录的检查结果仍为 `gpu_status: not_run`；独立 GPU 实测另记报告，完整 SV1 尚未通过。
 
 总体要求见[方案 v10 的 SV1](../../docs/sanmou-multimodal-agent-plan-2026-10-23-v10.md)。本目录不包含 Helm／K8s，不改变游戏执行权限。
 
@@ -13,9 +13,13 @@ python3 -m unittest discover -s packages/pioneer-agent/tests -p test_serving_man
 python3 scripts/model-serving/validate_manifest.py deploy/model-serving/manifest.example.json
 ```
 
-第二条命令预期退出码为 **2**：示例未填镜像、模型与模板的实际版本。填全后的有效清单只返回 `manifest_valid: true, gpu_validated: false`；这证明声明格式和约束一致，不证明镜像存在、模型兼容或性能达标。测试中的版本号与 hash 均为合成数据，不可用于部署。
+第二条命令预期退出码为 **2**：示例未填镜像、模型与模板的实际版本。填全后的有效清单返回 `manifest_valid: true, gpu_validated: false, vision_tower_status: not_inspected`；这证明声明格式和约束一致，不证明镜像存在、模型兼容或性能达标。测试中的 hash 均为合成数据，不可用于部署。
 
-检查固定为单 GPU、单副本、BF16、无量化、仅语言模型、显式 parser、完整模型文件清单，以及仅引用运行时文件的两把独立密钥。未知字段、重复 JSON 字段、浮点 NaN、可变分支 revision、没有 digest 的镜像和 `latest` 均拒绝。初始上下文 8192、输出 256 只是可调整的待验参数。
+检查固定为单 GPU、单副本、BF16、无量化、仅接收文本请求、显式 parser、完整模型文件清单，以及仅引用运行时文件的两把独立密钥。未知字段、重复 JSON 字段、浮点 NaN、可变分支 revision、没有 digest 的镜像和 `latest` 均拒绝。初始上下文 8192、输出 256 只是可调整的待验参数。
+
+Qwen3.5-9B 保留原始配置与权重并正常加载。SGLang 0.5.22 的 `--language-model-only` [允许列表](https://github.com/sgl-project/sglang/blob/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/server_args.py#L334-L339)没有该模型，启动前会[拒绝这个组合](https://github.com/sgl-project/sglang/blob/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/model_hook.py#L1055-L1085)。因此 manifest 的 `runtime.language_model_only` 必须明确为 `false`，启动配置完全省略此 flag。启动器固定 `limit-mm-data-per-request: {image: 0, video: 0, audio: 0}`，由服务[请求检查](https://github.com/sgl-project/sglang/blob/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/managers/tokenizer_manager.py#L1472-L1485)拒绝媒体输入。视觉塔可能仍驻留；检查器固定报告 `not_inspected`，不声明已剥离或已验证显存收益。
+
+该版的[默认服务预热](https://github.com/sgl-project/sglang/blob/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/entrypoints/http_server.py#L2250-L2435)会根据 Qwen 的多模态架构主动发送图片，与上述零图片限制冲突并导致启动失败。此准备包固定 `skip-server-warmup: true`。启动后必须另发带正确认证、固定策略别名和 `enable_thinking: false` 的短文本生成请求，读回完整响应、结束原因与 token 记录成功后，才能把文本推理标为 ready。HTTP 进程存活或 `/health` 返回 200 都不替代这一步；文本预热通过也不等于完整 SV1 通过。
 
 ## 先填写实际版本清单
 
@@ -33,6 +37,7 @@ python3 scripts/model-serving/validate_manifest.py deploy/model-serving/manifest
 | `model.artifact_sha256` | 上述路径→hash 清单的规范 JSON 的 SHA256，计算方式见下文；用它绑定最终制品 |
 | `model.adapter`／`merge` | 基模填 `null`；离线合并 SFT 制品必须保留 adapter id/revision/hash 与 merge method/version/code hash |
 | `runtime.*_parser` | 在所选 SGLang 镜像中确认支持的具体名称；禁止 `auto`；明确不使用 reasoning parser 时填 `none` |
+| `runtime.language_model_only` | 固定 `false`：原权重正常加载，媒体输入由请求限制拒绝；不表示视觉塔已检查 |
 | `sampling` | 固定负载的采样参数；由后续 transport 在每次请求发送并核对，不依赖服务默认值 |
 | `validation` | 本准备格式仅接受 `gpu_status: not_run, gpu_report: null`；真实验收报告另存 `docs/test-reports/` |
 
@@ -80,6 +85,8 @@ docker run --name sanmou-sv1 --gpus '"device=0"' --shm-size=2g \
 ```
 
 `Dockerfile.dockerignore` 仅允许启动器和校验器进入构建上下文。构建没有默认镜像；启动还会核对镜像记录、安装的包版本、全部制品 hash，缺少任一条件就停止。密钥在启动时从只读挂载文件读取，仅写入容器 tmpfs 上的 `0600` 配置文件；不会作为 CLI 参数、镜像层或本脚本输出。SGLang 使用警告级日志且关闭请求日志，实际所选版本的认证和日志脱敏仍要在 GPU 验收中核对。
+
+配置文件保留 `.yaml` 后缀，内容以 JSON 编码；0.5.22 的[配置解析器](https://github.com/sgl-project/sglang/blob/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/utils/server_args_config_parser.py#L132-L177)会把媒体限制字典编码成一个 JSON 参数，后由该参数的 `json.loads` 解析。首次排查若需要关闭 CUDA Graph，使用 `cuda-graph-backend-decode: disabled` 和 `cuda-graph-backend-prefill: disabled`；旧 `disable-cuda-graph` 是自定义弃用 action，不放进此版 YAML。认证失败测试使用模型请求接口，`/health` 是探针豁免接口。
 
 端口仅绑定宿主 loopback，远端经受控隧道接入。`2g` 共享内存是初始候选值，需随实际内存／吞吐测量调整。不要同时占用同一 GPU 训练或做其他服务压测。记录构建后的 image ID／发布后 digest，再开始基线采集。
 

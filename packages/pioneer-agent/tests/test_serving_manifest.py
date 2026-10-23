@@ -41,7 +41,7 @@ def fixture() -> dict:
     data["model"]["revision"] = hashlib.sha1(b"synthetic-test-revision").hexdigest()
     data["model"]["files"] = {name: digest(name) for name in data["model"]["files"]}
     data["model"]["artifact_sha256"] = validator.artifact_digest(data["model"]["files"])
-    data["runtime"].update(tool_call_parser="qwen", reasoning_parser="qwen3")
+    data["runtime"].update(tool_call_parser="qwen3_coder", reasoning_parser="qwen3")
     return data
 
 
@@ -72,7 +72,9 @@ class ServingManifestTests(unittest.TestCase):
             (("runtime", "tensor_parallel_size"), 2),
             (("runtime", "replicas"), 2),
             (("runtime", "dtype"), "auto"),
-            (("runtime", "language_model_only"), False),
+            (("runtime", "language_model_only"), True),
+            (("runtime", "language_model_only"), 0),
+            (("runtime", "language_model_only"), "false"),
             (("runtime", "quantization"), "fp8"),
             (("runtime", "context_length"), 0),
             (("runtime", "port"), 80),
@@ -154,13 +156,18 @@ class ServingManifestTests(unittest.TestCase):
         with patch.object(validator, "load_manifest", return_value=fixture()):
             with contextlib.redirect_stdout(io.StringIO()) as output:
                 self.assertEqual(validator.main(["unused"]), 0)
-        self.assertFalse(json.loads(output.getvalue())["gpu_validated"])
+        status = json.loads(output.getvalue())
+        self.assertFalse(status["gpu_validated"])
+        self.assertEqual(status["vision_tower_status"], "not_inspected")
 
     def test_native_server_configuration_is_not_policy_envelope(self):
         config = launcher.server_config(fixture())
         self.assertEqual(config["model-path"], "/model")
         self.assertEqual(config["dtype"], "bfloat16")
-        self.assertTrue(config["language-model-only"])
+        self.assertNotIn("language-model-only", config)
+        self.assertNotIn("language-only", config)
+        self.assertEqual(config["limit-mm-data-per-request"], {"image": 0, "video": 0, "audio": 0})
+        self.assertIs(config["skip-server-warmup"], True)
         self.assertEqual(config["tensor-parallel-size"], 1)
         self.assertEqual(config["data-parallel-size"], 1)
         self.assertEqual(config["served-model-name"], "test-only-policy")
@@ -168,6 +175,39 @@ class ServingManifestTests(unittest.TestCase):
         self.assertFalse(config["log-requests"])
         self.assertNotIn("api-key", config)
         self.assertNotIn("schema_version", config)
+
+    def test_qwen_0_5_22_rejects_previous_language_only_profile(self):
+        # This was the actual unsupported option in the first deployment profile.
+        # The pinned upstream allowlist excludes Qwen3_5ForConditionalGeneration.
+        data = fixture()
+        data["engine"]["version"] = "0.5.22"
+        data["runtime"]["language_model_only"] = True
+        with self.assertRaisesRegex(validator.ManifestError, "language-only loading"):
+            validator.validate_manifest(data)
+        # Direct config callers must not silently bypass that manifest check.
+        with self.assertRaises(validator.ManifestError):
+            launcher.server_config(data)
+
+    def test_text_admission_limits_survive_runtime_yaml_serialization(self):
+        data = fixture()
+        data["engine"]["version"] = "0.5.22"
+        original_model = json.dumps(data["model"], sort_keys=True)
+        config = launcher.server_config(data)
+        root = Path(tempfile.mkdtemp(prefix="sanmou-serving-test-"))
+        # JSON is valid YAML; the native config merger serializes this dict to
+        # one JSON argv value for limit-mm-data-per-request's json.loads parser.
+        path = Path(launcher.write_runtime_config(config, root))
+        restored = json.loads(path.read_text())
+        self.assertEqual(path.suffix, ".yaml")
+        self.assertNotIn("language-model-only", restored)
+        # Otherwise SGLang 0.5.22 sends its automatic image warmup into the
+        # zero-image limit and aborts startup before any text request can run.
+        self.assertIs(restored["skip-server-warmup"], True)
+        limits = restored["limit-mm-data-per-request"]
+        self.assertEqual(limits, {"image": 0, "video": 0, "audio": 0})
+        self.assertTrue(all(type(value) is int for value in limits.values()))
+        self.assertEqual(json.dumps(data["model"], sort_keys=True), original_model)
+        self.assertEqual(data["validation"], {"gpu_status": "not_run", "gpu_report": None})
 
     def test_launch_rejects_image_mismatch_before_reading_secrets(self):
         with patch.object(launcher, "load_manifest", return_value=fixture()):

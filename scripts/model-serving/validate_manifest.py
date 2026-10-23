@@ -126,8 +126,11 @@ def validate_manifest(data: object) -> dict:
         _integer(runtime[name], 1, 1, f"runtime.{name}")
     if runtime["dtype"] != "bfloat16" or runtime["quantization"] is not None:
         raise ManifestError("runtime: BF16 without quantization is required")
-    if runtime["language_model_only"] is not True:
-        raise ManifestError("runtime.language_model_only: text-only serving is required")
+    if runtime["language_model_only"] is not False:
+        raise ManifestError(
+            "runtime.language_model_only: Qwen text requests use the original checkpoint; "
+            "language-only loading has not been validated"
+        )
     _integer(runtime["context_length"], 1, 1048576, "runtime.context_length")
     _integer(runtime["port"], 1024, 65535, "runtime.port")
     if runtime["host"] != "0.0.0.0":
@@ -196,6 +199,7 @@ def main(argv: list[str] | None = None) -> int:
         print(manifest["engine"]["image"])
     else:
         print(json.dumps({"manifest_valid": True, "gpu_validated": False,
+                          "vision_tower_status": "not_inspected",
                           "deployment_id": manifest["deployment_id"]}, ensure_ascii=False))
     return 0
 

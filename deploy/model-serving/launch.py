@@ -11,7 +11,7 @@ from pathlib import Path
 import sys
 import tempfile
 
-from validate_manifest import ManifestError, load_manifest
+from validate_manifest import ManifestError, load_manifest, validate_manifest
 
 
 def verify_artifacts(manifest: dict, root: Path) -> None:
@@ -54,6 +54,7 @@ def verify_artifacts(manifest: dict, root: Path) -> None:
 
 def server_config(manifest: dict) -> dict:
     """Translate deployment fields to documented native SGLang server settings."""
+    validate_manifest(manifest)
     runtime = manifest["runtime"]
     config = {
         "model-path": "/model",
@@ -61,7 +62,14 @@ def server_config(manifest: dict) -> dict:
         "chat-template": "/model/chat_template.jinja",
         "served-model-name": manifest["policy_version"],
         "dtype": "bfloat16",
-        "language-model-only": True,
+        # SGLang 0.5.22 rejects Qwen3.5 in its language-model-only allowlist.
+        # Load the original checkpoint; reject non-text inputs at admission.
+        # Omit the unsupported bool flag entirely, including a false spelling.
+        "limit-mm-data-per-request": {"image": 0, "video": 0, "audio": 0},
+        # Native warmup sends an image for Qwen's multimodal architecture,
+        # which the text admission profile correctly rejects. A caller must
+        # complete its own authenticated text generation before marking ready.
+        "skip-server-warmup": True,
         "load-format": "safetensors",
         "tensor-parallel-size": 1,
         "data-parallel-size": 1,
