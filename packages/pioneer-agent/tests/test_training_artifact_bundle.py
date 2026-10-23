@@ -154,9 +154,9 @@ class BundleBuilder:
 
 class TrainingArtifactBundleTests(unittest.TestCase):
     def setUp(self):
-        self.temporary = tempfile.TemporaryDirectory(prefix="sanmou-bundle-test-", dir="/private/tmp")
+        self.temporary = tempfile.TemporaryDirectory(prefix="sanmou-bundle-test-")
         self.addCleanup(self.temporary.cleanup)
-        self.root = Path(self.temporary.name)
+        self.root = Path(self.temporary.name).resolve()
 
     def builder(self, both=True):
         builder = BundleBuilder()
