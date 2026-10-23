@@ -11,6 +11,8 @@
 
 ## 分类查阅
 
+2026-10-23 Mac 首批本地实现已交付：策略服务封套与模拟往返、训练数值投影、QA来源旁挂／分组、Docker前置检查。见[共同接口](contracts/policy-service-v1.md)和[CPU Linux验收报告](test-reports/2026-10-23/mac-batch1.md)；整个MS0、GPU训练与Windows实机尚未验收。
+
 开发分为四部分：Windows完善Agent运行框架（H1–H9），Mac开发模型并在云GPU运行，QA建设知识库与问答（QK1–QK7），双方连接并测试（J1–J4）。三类知识来源是游戏基础知识、REA原包解析数据、玩家视频／图文／在线文档攻略。H9使用LangSmith查看运行过程、审核导出样本、比较版本效果。详见总体方案和[根待办](../todo-list.md)；新增功能仍待开发。
 
 | 目录 | 内容与主要入口 |

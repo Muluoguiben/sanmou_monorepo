@@ -10,14 +10,14 @@
 
 | 状态 | 负责人／分支／工作目录 | 本批文件范围与完成条件 |
 |---|---|---|
-| [ ] 集成中 | Mac 主管；`feat/mac-batch1-integration`；`integration/` | common 策略接口、跨模块测试、文档和最终集成；所有本地检查和独立审查通过后合并 |
+| [x] 本批验收完成 | Mac 主管；`feat/mac-batch1-integration`；`integration/` | common 策略接口、跨模块测试与集成完成；CPU Linux三包1728项，1726通过／2跳过，独立审查闭环 |
 | [x] 本地完成 | 训练 agent；`feat/mac-batch1-training`；`training/` | 新 `pioneer_agent/training/` 与对应测试；G1–G6 数值、奖励差分、边界资格和回填通过，真实 verl 接线待验 |
 | [x] 本地完成 | 策略服务 agent；`feat/mac-batch1-policy`；`policy/` | 新 `adapters/policy_service.py`、测试与模拟 CLI；两轮往返及超时／取消／重复响应检查通过 |
-| [ ] 集成中 | QA agent；`feat/mac-batch1-qa`；`qa/` | 来源旁挂格式、只读盘点、同源分组与对应测试；旧冻结记录保留，新增源码对应的评测准备记录待封存 |
+| [x] 本地完成 | QA agent；`feat/mac-batch1-qa`；`qa/` | 来源旁挂格式、只读盘点、同源分组完成；保留旧冻结，新v5／v2绑定`a7bbc1f`，人工gold／独立最终测试集仍待完成 |
 | [x] 本地完成 | 部署准备 agent；`feat/mac-batch1-deploy`；`deploy/` | `deploy/model-serving/`、清单校验和测试；未填版本拒绝，镜像／GPU 尚未运行 |
-| [x] 首轮通过 | 独立审查 agent | 已复测修复历史工具调用编号冲突、解析／结算期间超时仍返回提议两项问题；最终组合回归仍需收口 |
+| [x] 通过 | 独立审查 agent | 核心两项问题及QA同文档原hash冲突已修复；冻结迁移与最终组合检查完成 |
 
-共同前置：仅 CPU、固定样本、已有知识资料；不读取暂停原包、不发布知识、不调用真实模型或游戏。验收命令及源码绑定报告将放入 `docs/test-reports/2026-10-23/`。整个 MS0 仍需 Windows 的25场景与联调，SV1仍需真实GPU，QK4仍需人工标准答案和独立最终测试集。
+共同前置：仅 CPU、固定样本、已有知识资料；不读取暂停原包、不发布知识、不调用真实模型或游戏。详见[源码绑定报告](docs/test-reports/2026-10-23/mac-batch1.md)。整个 MS0 仍需 Windows 的25场景与联调，SV1仍需真实GPU，QK4仍需人工标准答案和独立最终测试集。
 
 ## 分工
 

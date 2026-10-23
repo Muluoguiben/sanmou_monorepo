@@ -1,5 +1,14 @@
 # Sanmou Project Memory
 
+## 2026-10-23 - Mac 首批本地实现
+
+- Decision: 用户授权Mac主管并行分工、统一接口、验收及合并推送；四个实现agent使用独立worktree，另做独立审查。
+- Evidence: 源码`a7bbc1fb434a62b029957d849e0a704fe8e6d1fe`实现policy-service-v1、CPU训练投影、QA来源旁挂／分组和Docker前置；Linux三包1728项，1726通过／2跳过；实际模拟往返零模型／零游戏输入。
+- Owner: Mac主管负责common协议与集成；Windows保持H1–H9／客户端主责。
+- Blocker: 全MS0的Windows25场景／联调、真实SGLang与TV1–TV4、人工gold／独立最终测试集未完成。Mac旧checkpoint及renameat2平台限制保留，不放宽门禁。
+- Next: Windows按共同封套接入模拟工具；Mac再实现真实SGLang transport并在可控GPU验收；QA开始逐条补来源与人工复核。旧KB与历史冻结原字节保留，新v5/v2只做评测准备。
+- Links: [接口](../../docs/contracts/policy-service-v1.md)、[报告](../../docs/test-reports/2026-10-23/mac-batch1.md)、[当前待办](../../todo-list.md)。
+
 ## 2026-10-23 - 文档整理授权提交
 
 - Decision: 用户明确授权核对本次及历次文档整理／归档后提交推送，无关WIP不动。

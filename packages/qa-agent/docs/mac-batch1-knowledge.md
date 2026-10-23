@@ -42,7 +42,16 @@ PYTHONPATH=src:../sanmou-common/src python3.12 -B -m qa_agent.app.knowledge_inve
 
 ## 已有冻结评测
 
-原 v4 开发基线严格冻结 34 个 YAML 和 153 个 production Python 文件。新增来源/盘点模块会改变 production 文件清单；旧 v4 应当明确拒绝 source drift，不能重写旧 hash 或忽略新增文件来恢复通过。新版本迁移的文件范围与最终源码绑定由本批集成记录说明。
+原 v4 开发基线严格冻结 34 个 YAML 和 153 个 production Python 文件。新增来源/盘点模块会改变 production 文件清单；旧 v4 明确拒绝 source drift，旧 hash 不改。
+
+本批增加显式 v5 与 `e0_review_prep_v2`。v5 的题目/标签与 v4 相同，只有顶层版本号改变；冻结 155 个 production Python 文件及原 34 个 YAML，`baseline_commit` 为实际存在的源码提交 `a7bbc1fb434a62b029957d849e0a704fe8e6d1fe`。166 份源码、脚本和 v5 cases 已逐字节与该提交核对。旧 v1–v4、claim-spans、e0-v1 的冻结文件与原准备脚本保持原字节。
+
+```bash
+PYTHONPATH=src:../sanmou-common/src python3.12 -B -m qa_agent.quality_eval.runner --baseline v5 --output <new-json-file>
+PYTHONPATH=src:../sanmou-common/src python3.12 -B scripts/verify_e0_review_v2.py
+```
+
+v2 验证器固定核对 v5、原 claim-spans 控制、完整当前源码及自身脚本 hash；v5/v2 的材料或代码漂移仍拒绝。它只验证准备状态，不生成、替换或批准人工材料。原 v1 准备工具在当前新源码上应拒绝，不能用它覆盖用户已有的待审包。人工 gold、独立 holdout、真实 provider 效果和质量阈值仍未建立。
 
 ## 本批验证
 
