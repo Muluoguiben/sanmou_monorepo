@@ -2,6 +2,29 @@
 
 日期：2026-10-24（Asia/Singapore；云端日志使用 UTC）。Qwen3.5-9B 在用户现有 Colab A100 上完成 **3 次文本生成和 2 次图片生成**。两轮工具提议、鉴权拒绝、原生 token 读回通过；两张合成图片各 6 项内容判断正确。完整 SV1、J2 和训练验收仍未完成。
 
+## 今日收口与明日交接
+
+今天分别完成了两段验收：项目HTTP接口与合成上游的本地往返，以及Colab上的真实原生模型请求。**真实模型尚未经过项目网关完整运行**，这是用户指定的明天第一优先级；今晚只整理交接，不继续开发或分配GPU。
+
+| 今天完成 | 已有证据 |
+|---|---|
+| 本地HTTP接口、预算／版本／异常处理，训练文件交接包，三类知识来源待审包 | [第二批报告](mac-batch2.md)；CPU回归1821项，1819通过／2项平台跳过，知识仍未发布 |
+| A100上的文本、两轮工具提议、鉴权与原生token读回 | 本报告及原始文本证据；工具回复为模拟数据 |
+| 两张合成图片 | 内容判断12／12；首张带代码围栏，第二张在JSON约束下严格解析通过；不是游戏图像质量评测 |
+| 部署兼容修复与独立复核 | `ff121f1`；23项相关测试通过；代码及原始证据经独立审核 |
+| 主干集成 | 源码／证据提交`14b209b5c14b10875f7874055505aadee78d9f72`的[CI 40001210808](https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/40001210808)四个作业全部通过 |
+
+**最终资源状态**：小跑先停止自建SGLang服务，随后用户明确确认关闭并删除整份A100运行时。已在Colab页面执行并核验“重新连接”按钮、空的活动会话列表。笔记本与Mac／仓库证据保留；临时模型、venv、运行时变量及旧连接不能继续使用。Mac保存了版本清单和证据，没有把19GB权重或整个venv备份到本地。下次需重建，见[连接与重建说明](../../runbooks/colab-access.md)。
+
+明天由Mac主管统一接线与验收，按以下顺序执行：
+
+1. **恢复运行条件**：确认可用GPU及受控连接，按本报告成功版本重建独立环境与固定模型；重新核对文件hash、服务配置、模板和parser。旧临时路径和凭据不得直接当作有效连接。
+2. **走真实项目接口**：从项目`PolicyServiceAdapter`经`HttpPolicyTransport`进入`policy_gateway`，由`SGLangChatBackend`请求真实Qwen。记录每个组件的所在主机和连接方式，保留回环绑定／受控访问。至少完成“模型提出工具调用→模拟工具回复→模型下一轮提议”，不能用原生直连或事后封套重建替代这项实测。
+3. **按同一批次核验**：保存实际`PolicyRequest`、网关转出的原生请求和完整响应，绑定invocation／context／request hash／manifest hash，逐项对齐真实token IDs、usage和结束原因。两轮共用预算账本，每轮只预留和结算一次，结束无未结算账目。无密钥、错密钥、错版本由网关拒绝，且有证据表明未增加上游真实模型调用。模拟工具调用与游戏输入分开计数，游戏输入为0；概率含义未验证时保持`unavailable`，不授PPO资格。
+4. **独立复核再提交**：原始记录脱敏、保存并读回，由独立agent核对；更新根Todo，提交对应源码与报告。只把“项目网关与真实模型两轮联通”标为完成。
+
+后续待办继续保留：真实游戏截图质量、Windows请求云模型并衔接本地工具（J2）、Docker GPU与完整服务验收（SV1）、超时／断连后的后端取消与并发证据、训练文件远程传输、QA人工gold／待审来源审核，以及LoRA／Critic／PPO真实训练（TV1–TV4）。这些不因明日最小链路通过而自动完成。
+
 ## 环境与模型绑定
 
 - GPU：NVIDIA A100-SXM4-80GB，81920 MiB，驱动 580.82.07。
@@ -67,6 +90,6 @@ verify_vision_receipts.py --source-root SOURCE --evidence-root IMAGE_RECEIPTS --
 
 部署修复提交 [`ff121f14758847b897ae4f049cbb8a14cd9b3dfe`](https://github.com/Muluoguiben/sanmou_monorepo/commit/ff121f14758847b897ae4f049cbb8a14cd9b3dfe)，18 项部署测试与 5 项 manifest 转换测试通过，主管复验和独立代码审查通过。正常加载原模型，不宣称剥离视觉塔；未检查实际模块驻留明细，`vision_tower_status=not_inspected`。参考[官方 allowlist 检查](https://github.com/sgl-project/sglang/blob/baa9befa381511cd4d56f83980951e5a45fffc6d/python/sglang/srt/arg_groups/model_hook.py#L1055-L1085)。
 
-文本请求后显存观测 45562 MiB，图片请求后 46423 MiB，包含配置的缓存池，不是权重或训练显存估算。结束时只向本轮自建服务进程组发送 SIGTERM，观察到退出码 -9，随后 GPU 计算进程列表为空；不声称优雅退出或请求取消链路已验收。见[文本停止记录](colab-native/shutdown.json)与[图片停止记录](colab-vision/vision-shutdown.json)。用户运行时、原单元格、模型文件和独立环境保留。
+文本请求后显存观测 45562 MiB，图片请求后 46423 MiB，包含配置的缓存池，不是权重或训练显存估算。小跑结束时先向本轮自建服务进程组发送 SIGTERM，观察到退出码 -9，随后 GPU 计算进程列表为空；不声称优雅退出或请求取消链路已验收。见[文本停止记录](colab-native/shutdown.json)与[图片停止记录](colab-vision/vision-shutdown.json)。两份JSON记录的是当时仅停止服务、尚未删除运行时的状态，原字节保留；后来按用户确认删除整份运行时的结果见本报告顶部交接记录。
 
 剩余：Docker GPU 镜像、完整项目 gateway 的实时链路、错版本／超时／断连后的后端取消证据、并发基线、Windows J2、真实游戏图像评测、TV1–TV4 与 PPO。此次成功不改变这些阶段的待验状态。

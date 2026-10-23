@@ -1,12 +1,21 @@
 # Sanmou Project Memory
 
+## 2026-10-24 - 今晚收工与明日优先级
+
+- Decision: 用户要求将今日成果／剩余待办写入文档，今晚收工；明天第一优先级是项目网关连接真实云模型。本轮仅文档交接，不继续分配GPU或开展开发。
+- Evidence: `14b209b5c14b10875f7874055505aadee78d9f72`的CI `40001210808`四作业全部通过。已分别跑通本地合成HTTP与云端原生推理，不能视作完整实时链路。用户再次确认后已在Colab删除A100运行时，页面为“重新连接”，活动会话列表为空。
+- Owner: Mac主管统一接线／预算／验收与提交；独立agent复核证据。Windows工具链及QA人工审核仍分开推进。
+- Blocker: 云端临时模型和环境已失效，只有笔记本、版本／模型hash清单、Mac及仓库证据保留；下次需要重建并确认受控连接。SSH没有实连，临时MCP桥接已关闭。
+- Next: 下次开工先恢复GPU与成功环境，再跑项目adapter→HTTP transport→gateway→真实SGLang两轮；中间模拟工具，核对拒绝请求不上游、Context／版本／token／预算关联，独立复核后提交。Docker、Windows J2、真实游戏图片、训练远程传输、QA人工gold、TV1–TV4／PPO继续待验。
+- Links: [明日待办](../../todo-list.md)、[交接与验收条件](../../docs/test-reports/2026-10-24/colab-native-smoke.md)、[连接状态](../../docs/runbooks/colab-access.md)。
+
 ## 2026-10-24 - Colab真实文本与图片小跑
 
 - Decision: 复用用户现有A100运行时，使用独立Python3.12环境与临时官方MCP传输；用户明确授权保存／提交脱敏证据，并追加图片测试。
 - Evidence: Qwen3.5-9B固定revision与文件hash核对，真实READY、两轮工具提议及模拟回复通过；两张合成图片12项内容判断吻合，第二张严格JSON通过。文本29文件64524B、图片15文件64877B分别封存，原生token与现有解析器离线复核。部署修复`ff121f14758847b897ae4f049cbb8a14cd9b3dfe`，23项相关测试通过。
 - Owner: Mac主管运行／整合；部署agent修复文本入口与预热；独立agent审核代码和证据。
 - Blocker: 尚非Docker／实时gateway／Windows J2验收，真实游戏图像质量、超时取消、并发和TV1–TV4／PPO仍待验。视觉塔未检查模块驻留，不宣称剥离；native概率不授训练资格。
-- Next: 用当前冻结环境补项目gateway真实链路，再补容器与故障项；图片能力先有独立测试证据，不自动改变文本policy合同。测试进程停止后GPU计算进程为空；用户运行时和模型保留，临时MCP桥接关闭，SSH模板已保存但SSH未实连。
+- Next: 小跑当时停止测试进程并保留运行时，后来已按用户确认删除；以本页顶部收工状态为准。下次按冻结版本重建环境后优先补项目gateway真实链路；图片能力不自动改变文本policy合同。SSH模板已保存但SSH未实连。
 - Links: [GPU报告](../../docs/test-reports/2026-10-24/colab-native-smoke.md)、[连接模板](../../docs/runbooks/colab-access.md)、[待办](../../todo-list.md)。
 
 ## 2026-10-24 - Mac第二批与Colab接入
