@@ -13,7 +13,7 @@
 
 ## 实现与冻结范围
 
-生产变更限于 `run_store.py`、`task_contracts.py`、`task_runner.py`、`app/game_agent.py`，以及 stdlib-only 私有平台 helper `_checkpoint_lock.py`。内部契约见 [harness-checkpoint-contract.md](../../../harness-checkpoint-contract.md)。另有 scoped 测试与协调者授权的单条 Windows CI step；未新增依赖。
+生产变更限于 `run_store.py`、`task_contracts.py`、`task_runner.py`、`app/game_agent.py`，以及 stdlib-only 私有平台 helper `_checkpoint_lock.py`。内部契约见 [harness-checkpoint-contract.md](../../../harness/harness-checkpoint-contract.md)。另有 scoped 测试与协调者授权的单条 Windows CI step；未新增依赖。
 
 - Stable sidecar OS 非阻塞锁；checkpoint replace 不替换锁 inode；进程退出释放，代码从不删除活动 sidecar。
 - PID/store/lifetime/单 runner binding、严格递增 revision、run/task identity 与 CAS；失效/错误保存不覆盖后继者。legacy RunState v1 首次持锁保存迁移为 versioned envelope，内层契约不变。

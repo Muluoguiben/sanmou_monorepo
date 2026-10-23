@@ -7,7 +7,7 @@ description: Run Sanmou Advisor fixture replay, golden expectation checks, and l
 
 ## Workflow
 
-1. Check repo state and read `AGENTS.md`, `docs/advisor-browser-smoke.md`, and `docs/codex-workflow-verification.md`.
+1. Check repo state and read `AGENTS.md`, `docs/runbooks/advisor-browser-smoke.md`, and `docs/reference/validation-and-evidence-2026-10-22-v1.md`.
 2. Run the MCP or CLI replay status first:
 
 ```bash

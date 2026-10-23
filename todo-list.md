@@ -1,5 +1,49 @@
 # Todo List
 
+## 当前施工队列（2026-10-23，v10／MS0文档v4）
+
+当前入口：[规划v10](docs/sanmou-multimodal-agent-plan-2026-10-23-v10.md)、[MS0契约v4](docs/contracts/harness-ms0-episode-contract-v4.md)。基础episode schema为v3.ms0，训练投影为ppo-token-gae-v1。此处是新的施工顺序；下方带日期记录保留原时点，不因旧“Current／Highest Priority”标题重新抢占优先级。
+
+### 已收尾的准备工作
+
+- [x] 合入独立review三项修订：跨步骤policy-token GAE／奖励差分／截断；TV2最终verl FSDP2 worker验收；MS7的R1–R6恢复清单。v9／MS0文档v3归档，相关入口与术语同步。
+- [x] 文档链接／格式检查与GAE示例纯算术核对完成；这是文档验证，不是MS0实现或TV1–TV4通过。
+- [x] 保护本地WIP后执行git pull --ff-only origin master：6e304b79 → [b7efac4be12dc3860ec27a71cb03417a72693cd4](https://github.com/Muluoguiben/sanmou_monorepo/commit/b7efac4be12dc3860ec27a71cb03417a72693cd4)，HEAD与origin/master一致。远程仅变更WORKLOG、协调state.json和本文件；packages／apps／scripts／.github无变化。
+- [x] 仅临时stash本文件后已成功恢复本地链接调整，其他既有改动保持；保留备份，不清理旧stash／worktree。此次未手工修改业务代码、未跑模型／训练／游戏，也未重跑CI。
+- [x] 用户已授权收口文档整理／归档：按精确清单审阅入口、旧正文去向、历史JSON、链接与敏感内容，本条所在docs-only提交冻结v10／v4及归档。后续隔离worktree从该提交或其后代建立；业务代码、原始材料、既有stash／其他worktree不纳入本提交，远程发布以回读为准。
+- [x] 提交前补验：667个本地链接有效；两份历史tasks JSON字节保持；冻结Q-E0准备文档原文恢复；McpToolTests.test_advisor_golden_replay_status_reports_expectation_failures离线1／1通过。测试依赖仅置于临时环境，项目依赖未改；未声称全套回归或新实机验收。
+
+### 首批施工：先做 A／B，再做 C
+
+所有实现项当前未开始。A与B可在独立工作区并行，C验证组合结果；不重建已有只读TaskRunner、Context、Budget、checkpoint、Trace和Eval。
+
+| 状态 | 工作包 | 范围与退出条件 | 依赖 |
+|---|---|---|---|
+| [ ] | A：MS0复用薄切片 | 对照当前源码补episode adapter、封存真实输入、mock tools／owner／ledger／goal verifier；原v1只读路径与执行门禁保持 | v10／v4冻结；确认施工文档可见 |
+| [ ] | B：训练投影＋GAE数值链 | 实现ppo-token-gae-v1的事件归属、累计差分、跨row后继与bootstrap资格；G1–G6全部oracle（含非单位折扣、mask位置、封顶／重放／接管）与负例通过；不加载模型 | v4第8节；与A共享版本化artifact接口 |
+| [ ] | C：MS0组合验收 | 原8组25个mock子场景＋G1–G6＋v1回归；证明实际dispatch数、权限／幂等／恢复、优势不被二次覆盖；独立review、source-bound报告后关闭MS0 | A＋B |
+
+### 后续顺序
+
+- [ ] MS1：Windows录制、语义标注、Context来源与数据split；3–5条示范只是录制管线起点，不等于训练规模／质量通过。
+- [ ] MS2：单窗口受控闭环与真实效果核对；早期切片可与MS1准备并行，真实输入仍须已有守卫和许可。
+- [ ] MS3／TV1：TRL＋PEFT的9B SFT；真实collator动作mask、更新、恢复、合并制品与SGLang加载；完成冻结任务评测。
+- [ ] TV2／TV3：最终verl FSDP2 worker中的2B Critic加载／梯度／恢复再更新；固定SFT Reference和跨步骤GAE接线验证。裸HF探针不单独算通过。
+- [ ] MS4：双窗口身份／输入互斥／公平调度／恢复；与MS3可并行。
+- [ ] MS5／TV4：单A100上两轮新采样→奖励→GAE→Actor／Critic更新→SGLang同步；逐阶段实测GPU／CPU峰值；另需至少一批真实新游戏rollout更新，mock结果单列。
+- [ ] MS6：冻结保留集比较SFT／PPO收益，失败候选不发布；不将跑通更新当成效果提升。
+- [ ] MS7前：完成R1–R6实机恢复清单，含MS4后／MS7前的R5隔离掉电耐久性。未过门禁保持有人值守短测试；通过后再2小时→8小时。
+- [ ] 独立SV支线：SV1基模SGLang／Docker → SV2单副本K8s／Helm → SV3压测／恢复／回滚；MS0不等SV，MS5只依赖SV1对应采样接口，非整个K8s部署；MS3后交接SFT制品。
+
+### 独立状态与边界
+
+- Q-E0／Q07人工标注与独立质量门禁继续待完成。远端记录的10／50项用户反馈不等于atomic gold、完整holdout或质量验收。
+- Q06归档读取／自动发布及原暂停的REA主线不因此恢复；本轮不启动新采样、不发布KB、不扩大游戏权限。
+- 旧H01–H10／Q02–Q05中已合入的切片按当前源码及对应报告复用，不因历史未勾选条目重复施工；实机closure、原生平台和独立语义质量门禁仍各自验收。
+- 下方导入的远端CI记录属于其指定SHA历史证据；本轮没有新业务代码提交，也不宣称产生新的CI／GPU／Windows验收。
+
+## 历史进展（保留原日期、证据和状态）
+
 ## Reviewed Harness / Q-E0 master integration (2026-10-21)
 
 - [x] User replied go to the concrete proposal to align latest master, run combined checks and merge; master merge/push authorized for reviewed feature dfb4435. Actual human annotation is a separate step.
@@ -18,7 +62,7 @@
 ## Q-E0-dev freeze and user annotation preparation (2026-10-18)
 
 - [x] H08b finalf9135/run39114544126 attempt1 all4success; Windows31+23+32+35+25+44 names matchfinalGitAST,0skip,diagnostics0; H09 native8/8,17nonefalse states/9model0. LinuxPioneer1139/2oldWindows skips. [Receipt](docs/test-reports/2026-10-18/H08b-final-native-ci.md).
-- [x] Freeze [scope](docs/qa-e0-review-preparation-2026-10-18.md) at88bd5a0fb641d147548ed6a5eb8284106ec3caa2 fromf9135; user will perform final human review. Reuse existing author/reviewer worktrees, no newworktree.
+- [x] Freeze [scope](docs/qa/qa-e0-review-preparation-2026-10-18.md) at88bd5a0fb641d147548ed6a5eb8284106ec3caa2 fromf9135; user will perform final human review. Reuse existing author/reviewer worktrees, no newworktree.
 - [x] Author memo b02ebb and independent plan78c74b4 fully read; both root/reviewer approve interface, implementation released. Immutable evidence pack, separate human response copy; raw fields isolated from machine status; pending manifest is not approval.
 - [x] Bounded verify/prepare CLI fixedb859, authorreport16335 and independent56db APPROVE. Git-contextP2 repaired with original3negativeassertions unchanged; author23/QA463 andindependent20/new23/nonUTF23/QA463 passed0skip,oldv4/Q04hashes intact.
 - [x] Exactcombo00f9996 packages9157 matchesreviewedsource; root23/actual50prepare passed. Verified213candidate occurrences/34sources/allhashes/blankhumanfields. [Integration](docs/test-reports/2026-10-18/Q-E0-preparation-integration.md). Immutablepack andseparateblankreply stayignored, notgold/holdout.
@@ -39,7 +83,7 @@
 
 ## Active Review continuation — H08b explicit recipe trace binding (2026-10-06)
 
-- [x] H08a final155817a/run37487788315 all4/native23+25+44 exact-name gate passed. Freeze [contract](docs/harness-recipe-trace-binding-h08b-2026-10-06.md) at399791ee551a15499af6bd20829a4fbfe4ad52e5; reused isolated author/reviewer workers.
+- [x] H08a final155817a/run37487788315 all4/native23+25+44 exact-name gate passed. Freeze [contract](docs/harness/harness-recipe-trace-binding-h08b-2026-10-06.md) at399791ee551a15499af6bd20829a4fbfe4ad52e5; reused isolated author/reviewer workers.
 - [x] Author memo06fd180 and independent plana3985a9 read fully by root. Bind only explicit compilation with causal_trace=True, detached immutable content declaration, pre-owner validation, actual-task drift guard, no new schema/authority/default behavior. Reviewer memo check and public probes pending.
 - [ ] Implement, source-bound selftest, independent adversarial CR, exact combined regressions, single candidate/payload audit, publish and exact final native CI. Preserve all original failures; Q06 archives/publication remain paused.
 
@@ -53,7 +97,7 @@
 
 ## Active Review continuation — H08a read-only recipe registry (2026-10-06)
 
-- [x] Q05a exact60e3/run37478150118 native25+44/all4 andQA440 verified. Freeze [contract](docs/harness-readonly-skill-registry-h08a-2026-10-06.md) atdf8447ae8807e2baa97a05ada3b209bfb7e3688b frompublished60e3; reuseTaskSpec/Condition/SequenceClient,onechapter-observer@1.0.0 only.
+- [x] Q05a exact60e3/run37478150118 native25+44/all4 andQA440 verified. Freeze [contract](docs/harness/harness-readonly-skill-registry-h08a-2026-10-06.md) atdf8447ae8807e2baa97a05ada3b209bfb7e3688b frompublished60e3; reuseTaskSpec/Condition/SequenceClient,onechapter-observer@1.0.0 only.
 - [x] Independentpland73dd03 beforememo312b76a;root+reviewer fullyread/approved. Digestpreimage allDefinition exceptdigestinclnone/false;opaque taskid safelyseparatefromrun_id/path;invalid vs preconditionblocked explicit. Implementation released withzero-call/strictparams/copy gates.
 - [x] Fixedcode8e0a2a0/tree55eb8 withauthor1071 andindependent55dbe79 APPROVE. Onlyregistry/test/CI3lines;11independentprobes/normal23+realnonUTFtext23/fullPioneer1106+2skip/QA440/common2 andQAhashes verified. Oldruntime/QA/R&R unchanged;originaltwo test-input reds retained.
 - [x] Exactcombo1dbd7dd6ac9b9237cb682b924a278c8bf5a99278/tree8922948/packagesf45c/github55f6c passedfrozen11probes/normal23+realnonUTF23/fullPioneer1106+2skip/QA440/common2/oldtargeted/H09/QAhashes,906inputsunchanged. [Integration](docs/test-reports/2026-10-06/H08a-integration.md). Candidate payload/publish/exactHostednew23+old25/44/all4 remainpending;fakeportsnotlive/native.
@@ -62,7 +106,7 @@
 
 ## Active Review continuation — Q05a explicit season retrieval (2026-10-06)
 
-- [x] Q04b exact3711/run37467691552 all4jobs/Windows25names0skip complete. Freeze [contract](docs/qa-season-retrieval-q05a-2026-10-06.md) atbcdf07b65440921b1c2a015a432629263ed36205 frompublished3711; rootreadactualrunner/tests/index/models andQAroadmap.
+- [x] Q04b exact3711/run37467691552 all4jobs/Windows25names0skip complete. Freeze [contract](docs/qa/qa-season-retrieval-q05a-2026-10-06.md) atbcdf07b65440921b1c2a015a432629263ed36205 frompublished3711; rootreadactualrunner/tests/index/models andQAroadmap.
 - [x] Independentplanf6b422 frozenbeforememo/code; author memo ad1d073 fullyread/root+reviewer approved. FullIndex duplicatecheck beforethreepoolRetrieve,≤3top_k,strictlabels/defaultunchanged/two-stagev4. Addseason-only gate_pass/CLIreportthenexit1 andstrictschema clarification; implementation released.
 - [x] Initialcompletecode3d8257b/tree0aa22ba adds scopedfacade/v4/test/native step,freeze bindsprior27b productioncommit withsrczero-diff. Rootreadnewmodules/tests andlimitedoldtest/CI changes; oldgold/KB/defaultpaths unchanged. Author44/Q04-25/QA440 pass; fullreport/independentCR pending,notfinalapproval.
 - [x] Author17e82 andindependent52b2642 APPROVE fixed3d825/tree0aa22 inLinux scope;public5/v4int4/resource1/44/Q04-25/QA440/Pioneer1083+2skip/common2/H07/H10/H09 allverified,old3711 projections exact,originalreds retained. Native25+44 pending.
@@ -74,7 +118,7 @@
 
 ## Active Review continuation — Q04b native claim-span CI (2026-10-06)
 
-- [x] Q04a exact b37/run37463863357 all4jobs passed; new25 validated inLinux QA rawlog, native gap remains. Freeze [contract](docs/qa-native-claim-spans-q04b-2026-10-06.md) atb41aae48bd0b14fdb2ea343183d4cecce253d94d; reuse clean author/reviewer worktrees.
+- [x] Q04a exact b37/run37463863357 all4jobs passed; new25 validated inLinux QA rawlog, native gap remains. Freeze [contract](docs/qa/qa-native-claim-spans-q04b-2026-10-06.md) atb41aae48bd0b14fdb2ea343183d4cecce253d94d; reuse clean author/reviewer worktrees.
 - [x] Independentplan64666ca frozen/read before release; fixedcodeebcd5d1/treee624451 adds exact3lines atrequired position, rootdiff-check/packages e849 verified. No package/dependency/runner/job/permission changes or local dependency probing.
 - [x] Authora9ab andindependent206e474 approve fixedebcd forcode/wiring/Linux;25/23/QA419,CLI/oldrefusals/v3db72 and8rawhashes checked. Nativepending, no productionchange.
 - [x] Exactcombo658be762abf192799e4b4711b8b85d05f0c79ea9/tree09f146c,packages=e849/github=60cbfa8 passed8lanes:25/QA419/Pioneer1083+2skip/common2/H07-35/H10-32/H098/v3db72;899Gitinputs unchanged,workflow inverse bytes+YAML=b37,25names exact. [Report](docs/test-reports/2026-10-06/Q04b-integration.md);singlecandidate awaits finalpayload/publish/exactCI,not nativepassed.
@@ -83,7 +127,7 @@
 
 ## Active Review continuation — Q04a evidence spans (2026-10-06)
 
-- [x] H10b exactnative32/0skip/warningfree/alljobs complete; choose nextboundedofflineQ04a and freeze [contract](docs/qa-claim-spans-q04a-2026-10-06.md) at9e35b34e2540923bd7b253f71b3d1f49da1093fb frompublished5791.
+- [x] H10b exactnative32/0skip/warningfree/alljobs complete; choose nextboundedofflineQ04a and freeze [contract](docs/qa/qa-claim-spans-q04a-2026-10-06.md) at9e35b34e2540923bd7b253f71b3d1f49da1093fb frompublished5791.
 - [x] Interface memo9637efe and independent plan95865435 frozen before implementation; reviewer found no blocker. Uniform LF/codepoint normalization, bareCR/surrogate rejection, empty evidence map, synthetic developer/unreviewed-only labels and unchanged legacy denominators approved.
 - [x] Initialcode676ac1e adds standalone claim-span module,25tests/12syntheticcontrols only; author report0530fbb binds source/tree and full matrix. Oldscorer/production/KB unchanged; nativeQ04 untested, independentCR still pending. Mechanical span validity never grants supported/human-reviewed truth.
 - [x] Source-bound author0530 and independent962408d APPROVE fixed676ac/tree16b74 in Linux/offline scope. Public5/CLI4 and fullmatrix pass; reviewer-only firstred/audit corrections retained. NativeQ04 attempted but blocked at missingyaml before any newtest, not a pass.
@@ -94,7 +138,7 @@
 
 ## Active Review continuation — H10b native causal trace (2026-10-06)
 
-- [x] Confirm native gap on publisheda459: Windows job omits test_causal_trace32. Freeze [contract](docs/harness-native-causal-trace-h10b-2026-10-06.md) at c8b096edc5fce6c87e83198b871ab5c576add1db; reuse completed author/reviewer, both restarted/running without duplicate development sessions.
+- [x] Confirm native gap on publisheda459: Windows job omits test_causal_trace32. Freeze [contract](docs/harness/harness-native-causal-trace-h10b-2026-10-06.md) at c8b096edc5fce6c87e83198b871ab5c576add1db; reuse completed author/reviewer, both restarted/running without duplicate development sessions.
 - [x] Fixedcodee062adb7dd45d10bb579165a56f1c0d3ccf901d1/author3b31752ecd5c566c8e995c14834c6b736d71f776/independentbc0511bb5cd8bd2a463ccf41019e81ca4e6f0985 scopedwiring+LinuxAPPROVE. Sole3line step;wholeYAML/bytes reverse-exact,packages3d1c and32assertions unchanged.
 - [x] Exactcomboed158e35a34c80aa99be2597bdddc300a6cff62f sevenlanespass:causal32(-Werror)/0skip/no warnings/32actualnames match,H0735,Pioneer1083+2skip,QA394/common2,H09/v3unchanged. [Compact source-bound report](docs/test-reports/2026-10-06/H10b-integration.md).
 - [x] H10b finalcandidate5791ca397507007b9397c78763b3523b8ec16421 passedpayload audit,masterFF/push andexplicitremote-readbackmatch;noQ06payload/archives included.
@@ -103,7 +147,7 @@
 
 ## Active Review continuation — H10a causal trace (2026-10-06)
 
-- [x] Select bounded offline H10a after H07a/native35 final CI: [contract](docs/harness-causal-trace-h10a-2026-10-06.md), commit358df146ba184a771d3673428915a70fe8aa4c9c; basepublishedae03.
+- [x] Select bounded offline H10a after H07a/native35 final CI: [contract](docs/harness/harness-causal-trace-h10a-2026-10-06.md), commit358df146ba184a771d3673428915a70fe8aa4c9c; basepublishedae03.
 - [x] Interface memo34242e0cefa8fe4decab38bc1adb010055711a7e and independent planfda28a5aeb370b8f032dfe04e0acb094d00811dd frozen; root/reviewer approved explicit trace-error propagation, original-primary precedence and per-lifetime isolation before implementation.
 - [x] Finalcode2128fb88329b1a38b410ad63e09c37034d08e8c7/author762855b6488bf1f0650bba6f6263597638b87fd8 and independent2313e78ac72888470f66a6ee3ccf121010a85492 scopedAPPROVE closeF1-F4+ambient; originals/R1-R3reds preserved. Defaultv1/checkpoint/approval/budget/MCP/QA/common/CI unchanged.
 - [x] Exactcombo4e3fb5c82b7e6f1b36698918731ed52c8fd46117 passed8frozenprobes/fullv1oracle,causal32/focused177/H07a35/Pioneer1083+2skip/QA394/common2/H09/v3. Fresh27events dualsink/ledger3-12-0/graph/task-contextdigests agree;memory equality is runtimeassertion,notsecondpersistedcopy. [Source-bound report](docs/test-reports/2026-10-06/H10a-integration.md).
@@ -113,7 +157,7 @@
 
 ## H07a follow-up: durable recovery and native gate (2026-10-06)
 
-- [x] Scope frozen at `ecf50e0012c336c131f75b9bc6c102530a0d1876`, independent plan `04a919b2609265db6e721eab1b39cd5a368953cc`; start only from published ca04. [Contract](docs/harness-h07a-native-recovery-followup-2026-10-06.md).
+- [x] Scope frozen at `ecf50e0012c336c131f75b9bc6c102530a0d1876`, independent plan `04a919b2609265db6e721eab1b39cd5a368953cc`; start only from published ca04. [Contract](docs/harness/harness-h07a-native-recovery-followup-2026-10-06.md).
 - [x] Five new tests on codeb785458e9b322707e38f0b424ab78a9512abd8d1, author61132b6962f45c95d5adb916bc90ff1c4319950b and independent4750e7ec264d0d6e9f57f8c9868f63ca502211e1 code/Linux APPROVE. RealJSON/new-reader and actualspawn recovery verified; prior30/alloldAST/none-false preserved.
 - [x] Exactcombo943b052e6054f913feca89683a7aa00d4497625d: Linuxmodule35/0skip,focused109,Pioneer1051+2skip,QA394/common2,H09CLI8,v3unchanged;893Gitbytes/protection/oldreports preserved. [Compact source-bound report](docs/test-reports/2026-10-06/H07a-native-recovery-integration.md).
 - [x] Final candidate `ae03faf0862f9930c58f7811d625de4b632f05ba` passed H07-only payload audit and was pushed to master; explicit remote fetch/readback matches. Local native dependencies were not installed or mocked.
@@ -132,7 +176,7 @@
 
 Actual closure: run37388574594/attempt1/all4success, real Windows H09 step/report independently checked on110bd. The checklist below records the earlier prepublication state, not a current blocker; current ca04 CI also passed the existing Windows H09 gate.
 
-- [x] Frozen finite taskcb1509ef36317815f8a454d7dd6a6b1474c46f39; existing Windows job + stdlib checker + one unittest file only. No new dependency/action/job/runner/permissions/runtime/fixture or live access. Task file `docs/harness-native-windows-eval-h09b-2026-10-06.md` is currently on the isolated branches.
+- [x] Frozen finite taskcb1509ef36317815f8a454d7dd6a6b1474c46f39; existing Windows job + stdlib checker + one unittest file only. No new dependency/action/job/runner/permissions/runtime/fixture or live access. Task file `docs/harness/harness-native-windows-eval-h09b-2026-10-06.md` is currently on the isolated branches.
 - [x] GPT-6 Astra author9c8db2605d64c08736830585b20c542138d66678/report1abcaac2 and independent5440a67d91727fcb9837fe327ca1f842e00fdf6c APPROVE_CODE_SCOPED: original empty-report P2 closed by unchanged20probes, Windowsstdlib20 and extra5emptyframe negatives. Original5b0 reds/CRLF records retained. Native stdlib/mock/LinuxCLI results are not real hosted evaluator proof.
 - [x] Coordinator exact local combination21e279a7efb44840ad4dbda3c06b8eb3514eed77/tree4ebea5d57dc7871f71d7536879531076a962da01/packagesc273943f verified; report02577df0a0eac3da1503c5d5068283a88ced8236. Fixed payload through02577 audited112objects/11commits/46paths, setaf15a195c06b3ae94791c6ff12f990bae6439626465a6407ae09e94918b41cfd;1414protected/34oldreports preserved. Only this coordination increment remains unaudited; no publication/native-hosted acceptance yet.
 - [ ] Exact-source self-test + scoped CR + combination + final published SHA's actual new Windows gate and reconstructable report, then close H09b slice. Existing broader Review route remains in progress; later offline slices need their own finite scope, not automatic provider/game/deployment authority.
@@ -146,7 +190,7 @@ Actual closure: run37388574594/attempt1/all4success, real Windows H09 step/repor
 
 ## Completed Review continuation — H09a (2026-10-06)
 
-- [x] Frozen [task contract](docs/harness-task-eval-h09a-2026-10-06.md)813ff402; author code `103d0d1594a11af905515182913731d2d8bb4ac9` / report4b1aef41 and independent APPROVE `74d711e29db0a1e86e781bd65e420787a1cb2210`. All CR01/02/03/03b/04/05 closed; every original red retained. Scope is Linux ext4 deterministic offline control only, not H09 native Windows/drvfs/model/game/production.
+- [x] Frozen [task contract](docs/harness/harness-task-eval-h09a-2026-10-06.md)813ff402; author code `103d0d1594a11af905515182913731d2d8bb4ac9` / report4b1aef41 and independent APPROVE `74d711e29db0a1e86e781bd65e420787a1cb2210`. All CR01/02/03/03b/04/05 closed; every original red retained. Scope is Linux ext4 deterministic offline control only, not H09 native Windows/drvfs/model/game/production.
 - [x] Coordinator tested exact local combination `2d07e1b82de3d09ab809ad9018b70dc3095ff5bb`, packages `fee69c4090f882c87b48857cc8a251a2de3dfdbc`: Pioneer996+2Windows skips, QA394/common2, frozen21 (one historical64 check), three clean CLIs, actual setuptools plus25 boundary rejections and16 formal CLI rejections; QA v3 hash and831 protected records unchanged. [Source-bound report](docs/test-reports/2026-10-06/H09a-integration.md).
 - [x] H06 prerequisite now satisfied on exactb338/run37365931923/attempt3: all4jobs success, selected native Windows72pass/0skip. Original2no-runner failures retained; one bounded retry followed official21:32 recovery evidence. [Gate receipt](docs/test-reports/2026-10-06/H06a-windows-ci-gate.md).
 - [x] Payload through report6eab509 audited:706objects/15commits/582paths;831protected plus old report/CR blobs unchanged. Offline evidence archive619regular/200dirs/1intentional symlink is typed and hash-bound;10jpg names are12-byte fixed-test placeholders, not real captures. No generic archive extraction/following links.
@@ -155,7 +199,7 @@ Actual closure: run37388574594/attempt1/all4success, real Windows H09 step/repor
 ## Completed Review continuation — H06a (2026-10-06)
 
 - [x] Q02a final `751df8ee867479b9ad272c9c64ab190f76cd0934` published with matching remote readback; exact CI37352030235 completed/success in all four jobs. Earlier a071176 run37351717604 is cancelled, not accepted as green.
-- [x] Selected bounded harness reliability slice: same-checkpoint single-machine ownership/CAS, legacy migration and offline crash/race tests. [Task and limits](docs/harness-checkpoint-ownership-h06a-2026-10-06.md).
+- [x] Selected bounded harness reliability slice: same-checkpoint single-machine ownership/CAS, legacy migration and offline crash/race tests. [Task and limits](docs/harness/harness-checkpoint-ownership-h06a-2026-10-06.md).
 - [x] Implementation and source-bound self-test delivered as `6b7b5caad1cbffc59692d3fe9df6a3b3d88dfa9c`, report `7425d39ca8224f2a8a00d93d169e529f6e3b3d1a`: focused72, Pioneer968+2existing skips, QA394/common2, original probes and native primitives pass. Author self-tests are not independent approval.
 - [x] Initial `44ad8aa` REQUEST_CHANGES from `270d0a4`/`b4ad6c8` identified CR01 cleanup priority, CR02 concurrent old close and CR03 shared-owner accounting. All original red and intermediate sources remain preserved; final source disposition is below.
 - [x] CR01/02/03 independently closed on `96575c30dea99ab58265052987e79bb4e76c0972` by `26d997bc`; all POSIX/full-package and native-primitive checks green, full Windows H06a CI still required.
@@ -168,7 +212,7 @@ Actual closure: run37388574594/attempt1/all4success, real Windows H09 step/repor
 ## Active Review continuation — Q02a (2026-10-06)
 
 - [x] Q03a final `e17d937a39944b036e90701fecefb6611b1d88d6` published; local/remote master match. Exact-SHA CI run 37341606212 completed successfully in all four jobs.
-- [x] Chosen next bounded slice: nonempty-raw-evidence hero-attribute follow-ups, current accepted-citation/source binding, deterministic re-query and explicit v3 development eval. [Task and gates](docs/qa-referent-resolution-q02a-2026-10-06.md).
+- [x] Chosen next bounded slice: nonempty-raw-evidence hero-attribute follow-ups, current accepted-citation/source binding, deterministic re-query and explicit v3 development eval. [Task and gates](docs/qa/qa-referent-resolution-q02a-2026-10-06.md).
 - [x] Author Q02a implementation frozen: code `f3cd9b8814fc085d567063ab23e6576b9c24525f`, report `ce547ba9e6002696b949c7226aacbe9aca21a1f9`; QA391/focused68/cross6 pass, 0 skips. These are self-tests, not CR acceptance; old v1/v2 and formal KB unchanged.
 - [x] Initial CR `eb895ae4e149a38d65789c19c7e4aebdee0c3c1a` rejected f3cd9b8 for Q02a-CR01 name mention/exclusion and Q02a-CR02 non-hero metadata identity. Original three failed assertions remain preserved; the later exact-source recheck below closes both findings.
 - [x] Narrow author repair delivered: code/v3 `40f46d3ea4525639877ad37a8da4ab6e334523e6`, report `005fce84f1eaff4e60a0e04f838c908a9e8da6ae`; full394/focused71/original26/cross6 pass. Setup failures retained; coordinator matched all four original probe hashes. Author self-tests did not substitute for the later independent decision.
@@ -190,7 +234,7 @@ Actual closure: run37388574594/attempt1/all4success, real Windows H09 step/repor
 
 The user has authorized same-repository Review implementation/testing/independent CR/approved integration/push/CI without repeated publication confirmation. Secrets/private real data, other repositories, deployment, account/security/persistent-access changes, paid services/models and unauthorized game operations remain outside scope. Progress stays in this original coordinator; no new main chat or automation.
 
-[Q03a task and limits](docs/qa-evidence-assessment-q03a-2026-10-05.md) · [Persistent iteration state](.codex-autonomy/review-iteration-20261005/state.json).
+[Q03a task and limits](docs/qa/qa-evidence-assessment-q03a-2026-10-05.md) · [Persistent iteration state](.codex-autonomy/review-iteration-20261005/state.json).
 
 ## Integration verified and published — 2026-10-05
 
@@ -201,14 +245,14 @@ The user has authorized same-repository Review implementation/testing/independen
 - [x] Published the integrated master/history/reports/logs to `Muluoguiben/sanmou_monorepo` after the user explicitly replied `ok` to the exact destination/payload request. Remote master readback matched `d6b5a36ed0b075c45431eecdf588e74c9543ab75`; this documentation-only successor records the result. No alternate-branch/upload workaround.
 - [ ] Remaining gates: real provider/task/vision eval, human gold and independent QA holdout, native Windows coverage, CUA live flows/recovery, cross-process ownership and production readiness. No execution/publish authority expansion.
 
-[Coordinator source-bound report](docs/test-reports/2026-10-05/integration.md) · [Batch manifest](docs/development-batch-2026-10-05-tasks.json).
+[Coordinator source-bound report](docs/test-reports/2026-10-05/integration.md) · [Batch manifest](docs/archive/coordination-2026-10-22/development-batch-2026-10-05-tasks.json).
 The planning checklist and earlier launch/REQUEST_CHANGES snapshots below are historical/full-roadmap context; this section is the current delivery state.
 
 ## Current mainline — Harness + QA RAG（2026-10-05）
 
 Decision: 用户确认后续以 harness 工程为主线；RAG 对象为本仓 `packages/qa-agent`，不新建/改名 package。产品仍为 Advisor-first，Game/QA trust domains 与只读权限不变。
 
-- [x] 更新 [Harness 评审](docs/harness-engineering-review-2026-10-05.md) 和 [QA RAG 专项评审](docs/qa-agent-rag-review-2026-10-05.md)，同步 README、AGENTS、模块设计和共享项目记忆。
+- [x] 更新 [Harness 评审](docs/harness/harness-engineering-review-2026-10-05.md) 和 [QA RAG 专项评审](docs/qa/qa-agent-rag-review-2026-10-05.md)，同步 README、AGENTS、模块设计和共享项目记忆。
 - [x] 当前源码 `a9759557` 的 QA 检索/grounding/adapter/ingestion 离线回归 40/40；不是全包重跑、真实模型准确率或生产验收。
 
 ### 第一交付：最小只读任务 harness（H-M0 → H-M1）
@@ -238,7 +282,7 @@ Decision: 用户确认后续以 harness 工程为主线；RAG 对象为本仓 `p
 - [ ] Q01 — 在质量基线之后增加有界只读多轮检索规划，与固定 pipeline 对照。
 - [ ] Q08 — 复用 harness 的上下文、总预算和 trace 契约，统计 rewrite/vision/answer 全链路成本；不复制游戏 runtime。
 
-2026-10-05 第一批 A/B/C + 统一 CR 四个 GPT-6 Astra 会话已启动，各有隔离 worktree，功能仍未完成。边界、依赖和验收见 [本批任务单](docs/development-batch-2026-10-05.md)，实际会话 ID/分支/交付 commit 见 [manifest](docs/development-batch-2026-10-05-tasks.json)。启动核验：A 冻结接口，B 准备负例并等待 A0，C 实现/测试离线 QA 基线，CR 准备独立审查并等待不可变交付。A 最终必须完成 B 的真实 wiring 后再交付，CR 审组合树。每个交付必须自测并提交 source-bound 报告。多样本、知识、真实视觉和独立 eval 持续推进；下方 production gates 不因主线变更而豁免。
+2026-10-05 第一批 A/B/C + 统一 CR 四个 GPT-6 Astra 会话已启动，各有隔离 worktree，功能仍未完成。边界、依赖和验收见 [本批任务单](docs/archive/coordination-2026-10-22/development-batch-2026-10-05.md)，实际会话 ID/分支/交付 commit 见 [manifest](docs/archive/coordination-2026-10-22/development-batch-2026-10-05-tasks.json)。启动核验：A 冻结接口，B 准备负例并等待 A0，C 实现/测试离线 QA 基线，CR 准备独立审查并等待不可变交付。A 最终必须完成 B 的真实 wiring 后再交付，CR 审组合树。每个交付必须自测并提交 source-bound 报告。多样本、知识、真实视觉和独立 eval 持续推进；下方 production gates 不因主线变更而豁免。
 
 派发后进展：A0 契约已提交 `5269a1a5d09bddcf268d180a3f016f323c27cb95`（A 报告 focused 5/5，协调者核实 commit 存在）；B 已读取固定 A0 开始实现。C 报告新增 14 项离线测试通过、全包回归进行中。CR 计划为 `d6b95066c14c0bb861ede3296025fe7e3d51e69f`，已收到有效会话 ID/A0 交接继续工作。以上均非最终交付或 APPROVE，主分支尚未合入本批实现。
 
@@ -249,7 +293,7 @@ Decision: 用户确认后续以 harness 工程为主线；RAG 对象为本仓 `p
 Six GPT-6 Astra worktree tasks completed self-tests and committed reports.
 Unified adversarial CR approved the final patch in 36defd9; R01–R26 and CR01–CR08
 are closed. [Final review](docs/reviews/2026-09-08-adversarial-review.md),
-[task/SHA manifest](docs/development-batch-2026-09-08-tasks.json),
+[task/SHA manifest](docs/archive/coordination-2026-10-22/development-batch-2026-09-08-tasks.json),
 [coordinator integration tests](docs/test-reports/2026-09-08/integration.md).
 
 - [x] A: observer security R01/R02/R06/R07 — 3d68e5d; report A.md.
@@ -367,7 +411,7 @@ status above and the final unified CR report supersede those historical snapshot
 
 ### M0 — `sanmou-game` read-only MCP contract
 
-- [x] 新增 ADR `docs/sanmou-game-mcp-architecture.md`，冻结 server/service/trust-boundary、tool schema、错误模型、session lifecycle、缓存/刷新语义、原始截图资源边界和版本策略。
+- [x] 新增 ADR `docs/runbooks/sanmou-game-mcp-architecture.md`，冻结 server/service/trust-boundary、tool schema、错误模型、session lifecycle、缓存/刷新语义、原始截图资源边界和版本策略。
 - [x] 新增 `packages/pioneer-agent/src/pioneer_agent/mcp_server/`，采用已验证的官方 Python MCP SDK v1 FastMCP（`mcp>=1.29,<1.30`）；stdio 为唯一 transport，不开放 HTTP/TCP listener，不访问 SDK 私有 registry/model 字段。
 - [x] 定义并实现首批 7 个只读工具：
   - `session_status`：只读报告会话、device/window/capture health、最新 observation/report 时间；不触发截图。
@@ -414,7 +458,7 @@ status above and the final unified CR report supersede those historical snapshot
 
 ### Windows trusted broker（独立安全项目）
 
-- [x] Trusted observer broker 安全设计（2026-08-26）：`docs/windows-trusted-observer-broker.md` 已冻结代码来源、安装 ACL/SDDL、更新签名、UAC、Job Object child lifetime、Known Folder/output root、reparse/hardlink、named pipe peer identity/ACL、audit、卸载和故障恢复；`docs/windows-trusted-observer-broker-test-plan.md` 给出全 P0 安装/取消/ACL/签名/IPC/lifecycle/卸载矩阵与 go/no-go。当前仍为 design-only No-Go，未实现或运行 broker。
+- [x] Trusted observer broker 安全设计（2026-08-26）：`docs/reference/windows-trusted-observer-broker.md` 已冻结代码来源、安装 ACL/SDDL、更新签名、UAC、Job Object child lifetime、Known Folder/output root、reparse/hardlink、named pipe peer identity/ACL、audit、卸载和故障恢复；`docs/reference/windows-trusted-observer-broker-test-plan.md` 给出全 P0 安装/取消/ACL/签名/IPC/lifecycle/卸载矩阵与 go/no-go。当前仍为 design-only No-Go，未实现或运行 broker。
 - [ ] broker 必须是冻结/签名的最小二进制，安装在普通用户不可写目录；不得提升 user-writable Python、WSL UNC helper、repo 文件、`sitecustomize` 或用户虚拟环境。
 - [ ] broker 创建 `JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE`，外层取消/崩溃时不能遗留无限运行的高权限 observer。
 - [ ] 高权限侧不信任继承 `LOCALAPPDATA`；通过 Known Folder API 获取路径，拒绝 reparse/hardlink，或只采集并把落盘交给普通权限侧。
@@ -428,7 +472,7 @@ status above and the final unified CR report supersede those historical snapshot
 #### Session A — Game MCP contract/server
 
 - [x] 分支：`feat/game-mcp-readonly`；worktree：`~/projects/sanmou-game-mcp-dev`。
-- [x] 范围：`docs/sanmou-game-mcp-architecture.md`、`pioneer_agent/mcp_server/`、对应 MCP contract tests。
+- [x] 范围：`docs/runbooks/sanmou-game-mcp-architecture.md`、`pioneer_agent/mcp_server/`、对应 MCP contract tests。
 - [x] 交付：ADR、FastMCP stdio contract skeleton、7 个 read-only tools、service parity/no-control tests、客户端 smoke 配置；生产 live provider 明确不在本次已完成声明内。
 - [x] 禁止：未修改 executor/control bridge，未添加 mutating tools 或 HTTP listener，未在 MCP handler 复制 runtime 业务逻辑。
 
@@ -503,7 +547,7 @@ status above and the final unified CR report supersede those historical snapshot
 
 - [x] M1a Phase 5c 同帧 observation / freshness 门禁（2026-07-10；2026-07-11 geometry/exit 回归完成）：`VisionSync` 对 Path 只读取一次，所有 page/domain extractor 共用同一份 frame bytes，并生成绑定 SHA256、尺寸、aware captured_at 与 observation_id 的 `ObservationSnapshot`；dispatch 只接受当前 frame 的页面、domain、field_meta、唯一目标和精确 semantic bbox。claim/recruit 为 A→点击→C 新帧，upgrade 为 A→入口→B dialog→确认→C 新帧；post 必须是 dispatch 后且 SHA 不同的新 observation，未来/过期/复用帧、同图模型抖动以及 merged residual 均拒绝。LIVE 还必须携带 server-attested capture geometry，UI 坐标按 capture origin 换算。required UI action 在点击前必须暴露并通过 input-authority check，低风险 runner 必须支持 observation-bound protocol；loop 与 runner 的 UI 实例不一致直接 fail-fast。离线 `runtime_fixture` 只能显式绑定非 live 的 `SCREENSHOT_FILE` source，真实 window session 无法借 fixture 点击。剩余 blocker 是 claim/recruit 完整 UI 流、claim/recruit/upgrade privacy-approved terminal live trace 与真实 post-delta（0/3）、以及未来可重算的正式 closure；在此之前不标记真实闭环。
 
-> **G1：在真实 Windows 客户端上无人值守连续运行 4 小时开荒例行（收菜 + 打地内循环），期间 Claude Code / Codex 不在 tick 循环内。** 验收：晚上启动、早上仍按 runbook 正确推进，trace.jsonl 完整，escalation 只在设计内位置发生。方向论证与阶段机设计见 `docs/opening-runbook-architecture.md`。
+> **G1：在真实 Windows 客户端上无人值守连续运行 4 小时开荒例行（收菜 + 打地内循环），期间 Claude Code / Codex 不在 tick 循环内。** 验收：晚上启动、早上仍按 runbook 正确推进，trace.jsonl 完整，escalation 只在设计内位置发生。方向论证与阶段机设计见 `docs/reference/opening-runbook-architecture.md`。
 
 - [x] M2-spine Runbook 阶段机（2026-07-05，已合 master）：`pioneer_agent/runbook/`（三值条件求值——缺指标以 `unknown_metrics` escalation 上报而非静默失败；entry/exit AND、abort OR；`human_gate` 二拖一/远征；planner `override_phase`）+ `pioneer_agent/config/opening_runbook_s15.yaml` S15 赤壁惊涛种子数据（墨镜老表攻略人工转录，全部 `needs_review`，有回归测试强制）+ 25 单测；pioneer-agent 全量 262 tests OK。
 - [x] Codex review 修复（2026-07-05，已合 master；后续 f35f43f 修正文档漂移：路径/测试计数/gate 持久化注意事项）：①abort 指标 unknown 不再静默——每次求值发 `unknown_metrics(checked=abort_when)` escalation，且 exit 满足时 hold `abort_metrics_unknown` 禁止带安全盲区 transition；②runbook YAML 移入 package data（`pioneer_agent/config/`，pyproject 已含 `config/*.yaml`），非 editable `pip install --target` 实测可加载，默认路径缺失记 warning；③`human_gate` 改为对当前阶段在 `evaluate()` 校验，`start_phase_id`/`override_phase`/重启恢复不可绕过，未确认时 selector_hints 为空。
@@ -530,9 +574,9 @@ status above and the final unified CR report supersede those historical snapshot
 
 ## Highest Priority — Architecture Iteration
 
-- [ ] Architecture Iteration 收口（最高优先级）：以原始 ADR `docs/sanmou-architecture-design.md` 为架构源文档，按派生执行路线 `docs/sanmou-monorepo-architecture-iteration-path.md` 推进 Advisor 可信闭环；所有新功能/自动化任务默认让位于结构化 evidence、entry_id 校验、vision semantic validators、golden replay 扩展和低风险 verifier。
-- [x] 模块设计文档入库：新增 `docs/modules/sanmou-common-design.md`、`docs/modules/qa-agent-design.md`、`docs/modules/pioneer-agent-design.md`、`docs/modules/sanmou-advisor-desktop-design.md`，后续模块级改动先对齐对应设计文档。
-- [x] 架构审查修正入库：`docs/sanmou-monorepo-architecture-iteration-path.md` 明确 ports 已完成、LLM-as-Judge 仅实验、ActionDSL 暂不进 common、离线 vision 与实时 perception 不合并、TOS/隐私/停止条件前置。
+- [ ] Architecture Iteration 收口（最高优先级）：以原始 ADR `docs/archive/legacy-design-2026-10-22/sanmou-architecture-design.md` 为架构源文档，按派生执行路线 `docs/archive/legacy-design-2026-10-22/sanmou-monorepo-architecture-iteration-path.md` 推进 Advisor 可信闭环；所有新功能/自动化任务默认让位于结构化 evidence、entry_id 校验、vision semantic validators、golden replay 扩展和低风险 verifier。
+- [x] 模块设计文档入库：新增 `docs/modules/sanmou-common-design.md`、`docs/modules/qa-agent-design.md`、`docs/archive/legacy-design-2026-10-22/pioneer-agent-design.md`、`docs/modules/sanmou-advisor-desktop-design.md`，后续模块级改动先对齐对应设计文档。
+- [x] 架构审查修正入库：`docs/archive/legacy-design-2026-10-22/sanmou-monorepo-architecture-iteration-path.md` 明确 ports 已完成、LLM-as-Judge 仅实验、ActionDSL 暂不进 common、离线 vision 与实时 perception 不合并、TOS/隐私/停止条件前置。
 - [x] PR-1 结构化 evidence（2026-05-19）：`AdvisorReport/ActionRecommendation` 新增 `structured_evidence`，保留旧 `evidence: list[str]` 兼容 UI/API。
 - [x] PR-2 Evidence validator（2026-05-19）：推荐引用的 `entry_id` 必须来自 QA 检索结果或 `strategy_snapshot.yaml`，伪造/缺失 evidence 有 regression tests。
 - [x] PR-3 `strategy_snapshot.entry_ids` 贯通（2026-05-19）：建筑升级 scoring 的 priority 与 evidence 同时输出，推荐层可反查 QA knowledge。
@@ -589,8 +633,8 @@ status above and the final unified CR report supersede those historical snapshot
 
 ## Architecture Iteration Path — 2026-05-19
 
-- [x] 原始架构 ADR 入库：从 `/Users/bytedance/Downloads/sanmou-architecture-design.md` 原样复制为 `docs/sanmou-architecture-design.md`，作为仓库内 canonical 架构 Markdown。
-- [x] 派生执行路线入库：新增 `docs/sanmou-monorepo-architecture-iteration-path.md`，在原始 ADR 基础上补充当前代码校正结论、P0-P3 路线和下一批 PR 建议。
+- [x] 原始架构 ADR 入库：从 `/Users/bytedance/Downloads/sanmou-architecture-design.md` 原样复制为 `docs/archive/legacy-design-2026-10-22/sanmou-architecture-design.md`，作为仓库内 canonical 架构 Markdown。
+- [x] 派生执行路线入库：新增 `docs/archive/legacy-design-2026-10-22/sanmou-monorepo-architecture-iteration-path.md`，在原始 ADR 基础上补充当前代码校正结论、P0-P3 路线和下一批 PR 建议。
 - [x] 跨包最小契约：新增 `sanmou_common.ports`，定义 `Evidence`、`KnowledgeAnswer`、`KnowledgeProvider`、`ModelAdapter`，避免 `pioneer-agent` 长期直接绑定 `qa-agent` 内部模型。
 - [x] QA 知识适配器：新增 `qa_agent.adapters.QaKnowledgeProvider`，把现有 `QueryService` 输出转换为 common 契约；Advisor API 懒加载改为使用该 adapter。
 - [x] Advisor 结构化 evidence（2026-05-19）：`ActionRecommendation/AdvisorReport` 输出结构化 `structured_evidence`，旧字符串 evidence 继续兼容。
@@ -628,7 +672,7 @@ status above and the final unified CR report supersede those historical snapshot
 - [x] Screenshot / coordinate trace metadata（2026-05-17）：`VisionClient` 记录每次 vision 的原图/prepared 图尺寸与 resize/token 信息；`UIActions` 自动缓冲 click/drag/key trace，`AutonomousLoop` 写入 `TraceStore.screenshot.metadata/coordinates`，包含 window/display 坐标空间、scale、normalized bbox、pixel bbox、实际点击点。
 - [x] Trace Store schema（2026-05-17）：新增 `pioneer_agent.storage.trace_store`，并把 `AutonomousLoop` 接入可选 `TraceStore`；每个 traced tick 记录 observe/decide/act/verify/trace/recover 阶段、状态快照、vision summary、selected/ranked action、execution、verification、recovery 和截图尺寸。
 - [x] Golden replay tests（2026-05-17）：新增 `GoldenReplayRunner`，校验 `loop.jsonl` 引用的 screenshot 存在，并用 RuntimeState fixture 重放 selector，比较 loop 记录的推荐动作与重放输出；覆盖匹配、mismatch、缺 screenshot 三类测试。
-- [x] Action-loop 模型路由策略（2026-05-17）：新增 `docs/action-loop-model-routing.md` 与 `pioneer_agent.perception.vision.model_routing`，把 realtime/recovery/verifier/dense_table/eval 五类 profile 固化；OpenAI vision 支持 `PIONEER_VISION_MODEL_PROFILE`、`openai:<profile>`、per-call `reasoning_effort/image_detail/verbosity/max_tokens`；runbook 明确强模型结果仍需 canonical/GT 校验，误填率优先于召回率，真实点击仍受 allowlist/safety/verifier 约束。
+- [x] Action-loop 模型路由策略（2026-05-17）：新增 `docs/runbooks/action-loop-model-routing.md` 与 `pioneer_agent.perception.vision.model_routing`，把 realtime/recovery/verifier/dense_table/eval 五类 profile 固化；OpenAI vision 支持 `PIONEER_VISION_MODEL_PROFILE`、`openai:<profile>`、per-call `reasoning_effort/image_detail/verbosity/max_tokens`；runbook 明确强模型结果仍需 canonical/GT 校验，误填率优先于召回率，真实点击仍受 allowlist/safety/verifier 约束。
 - [x] `event_tournament` / `mode_hub` perception domain（2026-05-17）：新增 `perception.domains.mode_hub` 与 vision schema/sync，识别演武大会、征战入口、远征/军演/养士兴功等页面的入口、积分、排名、倒计时、阶段状态、可进入/可领取/可重置/可报名及按钮 bbox，写入 `global_state.event_tournament/mode_hub`。
 - [ ] TeamSnapshot 全队详情 fixture/eval：补充孟获、诸葛亮2 的详情页截图 fixture，让 `TeamSnapshot` 从“祝融夫人单将详情已覆盖”推进到 3/3 武将详情覆盖，并校验最终可进入 PVP/PVE/远征 ready/needs_review 判断。
 - [x] Desktop Advisor 历史记录（2026-05-17）：`advisor_api` 为 `reports.jsonl + uploads/` 增加 history list/detail/screenshot API；历史条目记录上传截图、`DeviceProfile`、`RuntimeState`/`AdvisorReport` 摘要，桌面端侧栏可浏览最近记录并重新打开保存的截图和报告。
@@ -681,10 +725,10 @@ status above and the final unified CR report supersede those historical snapshot
 
 - [ ] CI/CD：配置 Python unittest、desktop typecheck/build、lint 检查。
 - [ ] Electron 打包发布：Windows/macOS/Linux 构建、签名、升级通道、崩溃日志。
-- [ ] 多 agent 协作约定：补 `notes/agent-collab.md` 或项目协作说明，约定 @Claude / @Codex 收到任务先 ack、谁 claim 谁负责、长时间无响应时如何转单。
-- [x] Repo-local runbook 收敛（2026-05-17）：新增 `docs/repo-local-runbook.md`，收敛 `AGENTS.md` / `CLAUDE.md` 风格说明，覆盖 knowledge ingestion、Advisor fixture/eval、computer-use safety、model probing、automation execution、发布/回滚与 handoff 规则。
-- [x] Workflow / session boundary（2026-05-17）：`docs/repo-local-runbook.md` 明确 knowledge ingestion、model probing、Advisor fixture/eval、automation execution 四类独立 workflow/session 的输入、输出/日志和禁止跨 session 复用的上下文。
-- [x] Codex workflow operating layer（2026-05-21）：新增 `docs/codex-operating-model.md`、`docs/advisor-browser-smoke.md`、`docs/qa-agent-mcp-connector.md` 与 `shared-memory/` vault；`AGENTS.md` 明确 `$browser` / `@chrome` / `@computer` / MCP / skills / automations / shared-memory 边界，并固化完成可验证工作后默认 commit + push + 回报 URL 的交付规则。
+- [ ] 多 agent 协作约定：补 `docs/archive/legacy-design-2026-10-22/agent-collab.md` 或项目协作说明，约定 @Claude / @Codex 收到任务先 ack、谁 claim 谁负责、长时间无响应时如何转单。
+- [x] Repo-local runbook 收敛（2026-05-17）：新增 `docs/runbooks/repo-local-runbook.md`，收敛 `AGENTS.md` / `CLAUDE.md` 风格说明，覆盖 knowledge ingestion、Advisor fixture/eval、computer-use safety、model probing、automation execution、发布/回滚与 handoff 规则。
+- [x] Workflow / session boundary（2026-05-17）：`docs/runbooks/repo-local-runbook.md` 明确 knowledge ingestion、model probing、Advisor fixture/eval、automation execution 四类独立 workflow/session 的输入、输出/日志和禁止跨 session 复用的上下文。
+- [x] Codex workflow operating layer（2026-05-21）：新增 `docs/runbooks/codex-operating-model.md`、`docs/runbooks/advisor-browser-smoke.md`、`docs/runbooks/qa-agent-mcp-connector.md` 与 `shared-memory/` vault；`AGENTS.md` 明确 `$browser` / `@chrome` / `@computer` / MCP / skills / automations / shared-memory 边界，并固化完成可验证工作后默认 commit + push + 回报 URL 的交付规则。
 - [x] Codex workflow executable slice（2026-05-21）：新增 repo-local skills `sanmou-advisor-golden-replay` / `sanmou-qa-knowledge-review` / `sanmou-computer-use-safety`；qa-agent MCP 增加 `advisor_golden_replay_status` 与 `advisor_fixture_eval`，并于 2026-05-30 暴露 PR5 dispatch gate coverage；pioneer-agent 增加 Advisor fixture expectation baseline；Desktop Advisor mock smoke 已验证上传 fixture 后 preview/evidence/risk/confidence/history。
 - [ ] ADB capture adapter：安卓模拟器/真机 live screenshot，不默认启用 input control。
 - [ ] MapGridState 可视化：截图坐标映射到地图逻辑格子，支持土地规划、格子占用、资源分配。

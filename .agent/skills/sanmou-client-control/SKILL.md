@@ -24,7 +24,7 @@ independent security evidence remain required before that boundary can change.
 1. Use an existing user-provided or privacy-approved screenshot when possible.
 2. For a coordinated live observation, use `WindowsBridgeCaptureAdapter` and
    `CaptureBridgeClient` with the matching protocol-v2 `win_bridge_server.py`.
-   See `docs/bridge-architecture.md` for authentication and environment setup.
+   See `docs/runbooks/bridge-architecture.md` for authentication and environment setup.
 3. The user must already have made the target visible and non-minimized. A failed
    capture is a blocker; never restore, foreground, move or click the window.
 4. The server accepts observation commands only. There is no control opt-in.

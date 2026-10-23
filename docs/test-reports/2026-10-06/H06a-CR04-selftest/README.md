@@ -5,7 +5,7 @@
 ## 不可变身份与范围
 
 - 新 production/code：[6b7b5caad1cbffc59692d3fe9df6a3b3d88dfa9c](https://github.com/Muluoguiben/sanmou_monorepo/commit/6b7b5caad1cbffc59692d3fe9df6a3b3d88dfa9c)，tree `bb2636242bad0e796ded0b43d6fc1a5142a839f9`。
-- 基于原 report-only `bbf486c9d1ed8f13416c4106ffa7d0cfa99c2189`，业务基线为 `96575c30dea99ab58265052987e79bb4e76c0972`。只改 `task_runner.py`、原 `test_checkpoint_ownership.py` 与 [内部契约](../../../harness-checkpoint-contract.md)，未改预算算法、RunStore/CAS、MCP schemas、QA/KB、common 或 CI。
+- 基于原 report-only `bbf486c9d1ed8f13416c4106ffa7d0cfa99c2189`，业务基线为 `96575c30dea99ab58265052987e79bb4e76c0972`。只改 `task_runner.py`、原 `test_checkpoint_ownership.py` 与 [内部契约](../../../harness/harness-checkpoint-contract.md)，未改预算算法、RunStore/CAS、MCP schemas、QA/KB、common 或 CI。
 - Windows worktree `C:/Users/Lan/.codex/worktrees/qa-evidence-q03-20261005/sanmou_monorepo`；branch `codex/harness-checkpoint-h06a-20261006`。作者未 push/merge；协调者 state/todo/worklog 三个 WIP 保留未 stage。
 - 完整 Git archive 通过 `git -c core.autocrlf=false archive` 导出到 ext4 `/tmp/h06a-6b7b5ca-exact`。**1639 blobs** 在全套测试前后逐一对照 Git blob SHA-1，零差异。数量增加是基线已包含原 82 个报告文件，不是修改了旧证据。
 

@@ -1,12 +1,16 @@
 # AGENTS.md
 
+## 2026-10-23 当前文档入口
+
+当前目录为 /Users/lanull/dev/sanmou_monorepo。先读[文档索引](docs/README.md)、[总体方案 v10](docs/sanmou-multimodal-agent-plan-2026-10-23-v10.md)、[MS0 契约 v4](docs/contracts/harness-ms0-episode-contract-v4.md)与[根todo顶部施工队列](todo-list.md)。选型与奖励公式保持；新增ppo-token-gae-v1投影、最终verl worker TV2验收及R1–R6恢复清单。基础episode schema仍为v3.ms0；旧v9／文档v3及更早版本归档。优先复用已实现Harness，不将规划或远程同步当作新代码／GPU／实机验收通过。
+
 ## Project Overview
 
 《三国：谋定天下》Agent 大仓。包含截图 Advisor 桌面端、开荒决策 Agent、游戏知识问答 Agent 和共享游戏领域包。
 
 当前商业化 MVP 方向是 **全端截图 Advisor**：先通过截图上传/观察、状态识别、知识问答和策略建议服务玩家；全自动托管只作为后续在测试账号和可验证 adapter 上逐步开放的能力。
 
-**工程主线（2026-10-05）**：优先完善可复用的只读任务 harness；`packages/qa-agent` 从已有基础 RAG 演进为受约束的 agentic RAG。以 `docs/harness-engineering-review-2026-10-05.md`、`docs/qa-agent-rag-review-2026-10-05.md` 与根 `todo-list.md` 为当前优先级和验收依据。复用 Runbook 条件、唯一 MCP catalog 和 common KnowledgeProvider，不复制调度器或引入 package 循环依赖。训练模型、向量库、多 agent 与开放游戏执行都不是首批前置条件。
+**历史工程主线（2026-10-05，复用参考）**：优先完善可复用的只读任务 harness；`packages/qa-agent` 从已有基础 RAG 演进为受约束的 agentic RAG。以 `docs/harness/harness-engineering-review-2026-10-05.md`、`docs/qa/qa-agent-rag-review-2026-10-05.md` 与根 `todo-list.md` 为当时优先级和验收参考；当前施工以根todo顶部队列为准。复用 Runbook 条件、唯一 MCP catalog 和 common KnowledgeProvider，不复制调度器或引入 package 循环依赖。训练模型、向量库、多 agent 与开放游戏执行都不是首批前置条件。
 
 ## Repository Layout
 
@@ -159,14 +163,14 @@ Do not move game logic into Electron. TypeScript should stay limited to UI state
 
 ## Canonical Design Docs
 
-Read these before making architectural changes:
-0. [Harness 工程主线](docs/harness-engineering-review-2026-10-05.md) and [QA RAG 专项评审](docs/qa-agent-rag-review-2026-10-05.md) — current priorities, boundaries and acceptance criteria; supersede conflicting historical maturity/ordering claims below.
-1. [MVP 状态模型](docs/sanguo-agent-mvp-model.md) — RuntimeState field design
-2. [运行时设计](docs/sanguo-agent-runtime-design.md) — Action evaluation & execution loop
-3. [工程落地方案](docs/sanguo-agent-mvp-engineering-plan.md) — Implementation phases & milestones
-4. [状态快照字段指南](docs/state-snapshot-field-guide.md) — Field catalog & bootstrap guidance
-5. [Pioneer Agent 架构评审与路线图](docs/pioneer-agent-architecture-review-and-roadmap.md) — Runtime maturity, gaps, and roadmap
-6. [Codex Operating Model](docs/codex-operating-model.md) — Codex tool selection, shared memory, MCP, browser/chrome/computer boundaries
+先读[文档索引](docs/README.md)和[副本对齐](docs/archive/coordination-2026-10-22/workspace-alignment-2026-10-22.md)，再按任务选择：
+
+1. [已实现 task/context](docs/contracts/harness-task-context-v1.md)与[checkpoint](docs/harness/harness-checkpoint-contract.md)。
+2. [Harness 评审](docs/harness/harness-engineering-review-2026-10-05.md)与[QA RAG 评审](docs/qa/qa-agent-rag-review-2026-10-05.md)；当时待办对照后续源码／报告。
+3. [领域与规则](docs/reference/game-domain-and-rule-baseline-2026-10-22-v1.md)、[字段指南](docs/reference/state-snapshot-field-guide.md)、[Runbook 组件](docs/reference/opening-runbook-architecture.md)。
+4. [验证与证据](docs/reference/validation-and-evidence-2026-10-22-v1.md)、[Bridge](docs/runbooks/bridge-architecture.md)、[Codex 操作模型](docs/runbooks/codex-operating-model.md)。
+
+当前学习型 Agent 设计以 v10／MS0 v4 为准；v1 只读协议和执行门禁保持原状。旧总架构与迭代路径只留兼容指针；历史全文见[归档索引](docs/archive/legacy-design-2026-10-22/README.md)与[v9及更早方案／MS0 v3与v2](docs/archive/design-review-2026-10-23/README.md)。
 
 ## Workflow Rules
 
@@ -174,7 +178,7 @@ Read these before making architectural changes:
 
 - `$browser` is the default for local web verification: Vite, localhost, file previews, Desktop Advisor browser smoke, screenshot upload, history, evidence/degraded rendering.
 - `@chrome` is only for remote pages that need the user's real Chrome profile, cookies, extensions, or logged-in sessions, such as Bilibili, Kdocs, GitHub, or Slack. Do not use it for ordinary localhost checks.
-- `@computer` / GUI control is only for local desktop or NSLG/Sanmou client observation and calibrated low-risk workflows. It must obey `docs/repo-local-runbook.md`, `.agent/skills/sanmou-client-control/SKILL.md`, safety guard, verifier, allowlist, trace, and kill switch rules.
+- `@computer` / GUI control is only for local desktop or NSLG/Sanmou client observation and calibrated low-risk workflows. It must obey `docs/runbooks/repo-local-runbook.md`, `.agent/skills/sanmou-client-control/SKILL.md`, safety guard, verifier, allowlist, trace, and kill switch rules.
 - qa-agent MCP is the preferred structured knowledge surface for Codex: `lookup_topic`, `answer_rule_question`, `resolve_term`, `advisor_golden_replay_status`, and `advisor_fixture_eval`. It may query reviewed KB and committed Advisor replay baselines, not pending staging or unreviewed reverse-engineering outputs.
 - Repo/local skills should capture repeated workflows, especially `.agent/skills/sanmou-advisor-golden-replay`, `.agent/skills/sanmou-qa-knowledge-review`, `.agent/skills/sanmou-computer-use-safety`, and Sanmou client-control safety. Do not leave durable workflow logic only in chat history.
 - Automations are for low-noise recurring checks such as golden replay summaries, stale todo review, test/build summaries, and commit URL reminders. They must not auto-publish knowledge, auto-click the game, or restart uncapped reverse-engineering loops.
@@ -278,7 +282,7 @@ git branch -d feat/<branch-name>
 - **QA agent**: 104 heroes + 123 skills + 62 mechanic rules KB; MCP server with 6 tools (`lookup_topic`, `answer_rule_question`, `resolve_term`, `advisor_golden_replay_status`, `advisor_fixture_eval`, `advisor_terminal_source_evidence_eval`); raw live traces have a pending-only staging CLI with pinned `dir_fd` / no-symlink / no-clobber writes and never auto-grant review; ingestion pipeline with `--publish`; conversational RAG via `qa_agent/chat/` with Gemini/MiniMax/OpenAI providers; `qa_agent/vision/` grounded image understanding; bilibili video knowledge workflow closed loop.
 
 ### Current Focus
-- **Harness mainline**: TaskSpec + DecisionPolicy + RunState, bounded read-only multi-step loop, checkpoint/reobserve, context/run budget and task-level eval; follow H01–H10 in the current review. Existing decision-window harness, logs and transport deadlines are foundations, not a finished task runtime.
+- **Harness implementation baseline**: TaskSpec/DecisionPolicy/RunState, TaskRunner, bounded context and run budgets, checkpoint ownership/reobserve, causal trace and task_eval are implemented for read-only tasks. H01–H10's 2026-10-05 gap table is historical planning; use current contracts and source-bound integration evidence for delivered scope. Game side effects and learning-policy extensions remain separate.
 - **QA RAG mainline**: freeze a quality baseline first, then evidence sufficiency/citations/season validity and constrained multi-query planning; follow Q01–Q08. Reuse shared contracts; preserve empty-evidence zero-generation and no game-control/no auto-publish authority.
 - The domain-specific work below remains necessary evidence/production work; it does not supersede the read-only harness-first milestone or grant execution authority.
 - **Advisor MVP hardening**: the reviewed set now includes two fail-closed battle reports plus a four-ROI level-5 occupation transition (`02:35→hidden`, territory `54/60→55/60`). Still collect privacy-approved full-frame `map_land` positive/negative samples and provider-exercised vision eval; keep Desktop history/report rendering aligned with the Python Advisor API.

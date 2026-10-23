@@ -1,5 +1,7 @@
 # CLAUDE.md
 
+当前入口：[文档索引](../docs/README.md)，旧方案仅作历史追溯。
+
 ## Project Overview
 
 《三国：谋定天下》Agent 大仓。包含截图 Advisor 桌面端、开荒决策 Agent、游戏知识问答 Agent 和共享游戏领域包。
@@ -99,7 +101,7 @@ Current execution status: waits are implemented; claim/recruit/upgrade have guar
 
 Phase system: `opening_sprint` → `growth_window` → `chapter_push` → `settlement_sprint`.
 
-Opening orchestration: `pioneer_agent/runbook/` serializes the season opening guide into an ordered phase machine (`RunbookEngine`) with three-valued condition evaluation (missing metrics escalate as `unknown_metrics` instead of silently failing; unknown abort metrics also block phase transitions), AND entry/exit vs OR abort semantics, `human_gate` phases (二拖一 / 远征) enforced on the current phase so `start_phase_id` / `override_phase` / restart cannot bypass them, and planner `override_phase`. Seed data ships as package data: `pioneer_agent/config/opening_runbook_s15.yaml` (all thresholds `needs_review` until manually verified against the source guide). The autonomous loop integrates it via `--runbook`: decisions land in `global_state["runbook"]`, blocking holds (`abort_triggered` / `human_gate_pending`) and `allowed_action_types` filters stop dispatch (wait actions exempt), decisions/escalations go to loop.jsonl + TickTrace metadata, and the cursor/gate state persists in `runbook_state.json` (operator CLI: `pioneer_agent.app.runbook_gate confirm <phase_id>`). See `docs/opening-runbook-architecture.md`.
+Opening orchestration: `pioneer_agent/runbook/` serializes the season opening guide into an ordered phase machine (`RunbookEngine`) with three-valued condition evaluation (missing metrics escalate as `unknown_metrics` instead of silently failing; unknown abort metrics also block phase transitions), AND entry/exit vs OR abort semantics, `human_gate` phases (二拖一 / 远征) enforced on the current phase so `start_phase_id` / `override_phase` / restart cannot bypass them, and planner `override_phase`. Seed data ships as package data: `pioneer_agent/config/opening_runbook_s15.yaml` (all thresholds `needs_review` until manually verified against the source guide). The autonomous loop integrates it via `--runbook`: decisions land in `global_state["runbook"]`, blocking holds (`abort_triggered` / `human_gate_pending`) and `allowed_action_types` filters stop dispatch (wait actions exempt), decisions/escalations go to loop.jsonl + TickTrace metadata, and the cursor/gate state persists in `runbook_state.json` (operator CLI: `pioneer_agent.app.runbook_gate confirm <phase_id>`). See `docs/reference/opening-runbook-architecture.md`.
 
 Priority rules (hard overrides before score ranking):
 1. Claim chapter if claimable
@@ -156,12 +158,12 @@ Do not move game logic into Electron. TypeScript should stay limited to UI state
 ## Canonical Design Docs
 
 Read these before making architectural changes:
-1. [MVP 状态模型](docs/sanguo-agent-mvp-model.md) — RuntimeState field design
-2. [运行时设计](docs/sanguo-agent-runtime-design.md) — Action evaluation & execution loop
-3. [工程落地方案](docs/sanguo-agent-mvp-engineering-plan.md) — Implementation phases & milestones
-4. [状态快照字段指南](docs/state-snapshot-field-guide.md) — Field catalog & bootstrap guidance
-5. [Pioneer Agent 架构评审与路线图](docs/pioneer-agent-architecture-review-and-roadmap.md) — Runtime maturity, gaps, and roadmap
-6. [开荒分层自治：Runbook 架构与 Goal](docs/opening-runbook-architecture.md) — Automation-chain direction, phase machine, Goal G1 & milestones
+1. [MVP 状态模型](../docs/reference/game-domain-and-rule-baseline-2026-10-22-v1.md) — RuntimeState field design
+2. [运行时设计](../docs/reference/game-domain-and-rule-baseline-2026-10-22-v1.md) — Action evaluation & execution loop
+3. [工程落地方案](../docs/reference/game-domain-and-rule-baseline-2026-10-22-v1.md) — Implementation phases & milestones
+4. [状态快照字段指南](../docs/reference/state-snapshot-field-guide.md) — Field catalog & bootstrap guidance
+5. [Pioneer Agent 架构评审与路线图](../docs/archive/coordination-2026-10-22/workspace-alignment-2026-10-22.md) — Runtime maturity, gaps, and roadmap
+6. [Runbook 当前组件说明](../docs/reference/opening-runbook-architecture.md) — 现有阶段机与目标约束；历史目标已归档
 
 ## Workflow Rules
 
@@ -254,7 +256,7 @@ git branch -d feat/<branch-name>
 - **QA agent**: 104 heroes + 123 skills + 61 mechanic rules KB; MCP server with 3 tools; ingestion pipeline with `--publish`; conversational RAG via `qa_agent/chat/` with Gemini/MiniMax/OpenAI providers; `qa_agent/vision/` grounded image understanding; bilibili video knowledge workflow closed loop.
 
 ### Current Focus
-- **开荒分层自治 (automation chain)**: Goal G1 = 真实客户端无人值守 4 小时开荒例行，Claude Code/Codex 不在 tick 循环内。Runbook 阶段机 + AutonomousLoop 集成 + 状态落盘已落地（`pioneer_agent/runbook/`、`--runbook` 入口、`runbook_gate` 确认 CLI）；接下来 M1a 收菜校准 → M1b 打地闭环 → planner 事件接入。见 `docs/opening-runbook-architecture.md`。
+- **开荒分层自治 (automation chain)**: Goal G1 = 真实客户端无人值守 4 小时开荒例行，Claude Code/Codex 不在 tick 循环内。Runbook 阶段机 + AutonomousLoop 集成 + 状态落盘已落地（`pioneer_agent/runbook/`、`--runbook` 入口、`runbook_gate` 确认 CLI）；接下来 M1a 收菜校准 → M1b 打地闭环 → planner 事件接入。见 `docs/reference/opening-runbook-architecture.md`。
 - **Advisor MVP hardening**: run the desktop app on real PC/emulator/phone/iOS screenshots, collect screenshot fixtures, add vision eval, and improve GUI history.
 - **qa-agent integration**: replace local template chat in Advisor API with qa-agent `QueryService` / `ChatAgent` using `AdvisorReport` as state context.
 - **Perception domains**: implement `chapter_panel`, `recruit_panel`, `team_panel`, `map_land`, and `battle_result` before prioritizing click automation.

@@ -1,5 +1,7 @@
 # AGENTS.md
 
+当前入口：[文档索引](../docs/README.md)，旧方案仅作历史追溯。
+
 ## Project
 
 Sanmou monorepo — automation agents for 《三国：谋定天下》.
@@ -21,10 +23,10 @@ docs/                Cross-project design documents
 
 ## Canonical Docs
 
-1. [sanguo-agent-mvp-model.md](../docs/sanguo-agent-mvp-model.md)
-2. [sanguo-agent-runtime-design.md](../docs/sanguo-agent-runtime-design.md)
-3. [sanguo-agent-mvp-engineering-plan.md](../docs/sanguo-agent-mvp-engineering-plan.md)
-4. [pioneer-agent-architecture-review-and-roadmap.md](../docs/pioneer-agent-architecture-review-and-roadmap.md)
+1. [sanguo-agent-mvp-model.md](../docs/reference/game-domain-and-rule-baseline-2026-10-22-v1.md)
+2. [sanguo-agent-runtime-design.md](../docs/reference/game-domain-and-rule-baseline-2026-10-22-v1.md)
+3. [sanguo-agent-mvp-engineering-plan.md](../docs/reference/game-domain-and-rule-baseline-2026-10-22-v1.md)
+4. [pioneer-agent-architecture-review-and-roadmap.md](../docs/archive/coordination-2026-10-22/workspace-alignment-2026-10-22.md)
 
 ## Package Dependencies
 

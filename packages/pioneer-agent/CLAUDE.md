@@ -1,5 +1,7 @@
 # Pioneer Agent — Package Scope
 
+当前入口：[文档索引](../../docs/README.md)，旧方案仅作历史追溯。
+
 本会话主要负责 `packages/pioneer-agent/` 内的代码和数据。与桌面 Advisor 相关的联动文件在 `../../apps/sanmou-advisor-desktop/`，只有在明确处理 GUI/API 集成时才修改。
 
 ## 职责范围
@@ -76,8 +78,8 @@ python3 -m pioneer_agent.app.vision_probe --vision-provider openai:dense_table -
 
 ## 设计文档
 改动架构前先读：
-- [MVP 状态模型](../../docs/sanguo-agent-mvp-model.md)
-- [运行时设计](../../docs/sanguo-agent-runtime-design.md)
-- [工程落地方案](../../docs/sanguo-agent-mvp-engineering-plan.md)
-- [Pioneer Agent 架构评审与路线图](../../docs/pioneer-agent-architecture-review-and-roadmap.md)
-- [开荒分层自治：Runbook 架构与 Goal](../../docs/opening-runbook-architecture.md)
+- [MVP 状态模型](../../docs/reference/game-domain-and-rule-baseline-2026-10-22-v1.md)
+- [运行时设计](../../docs/reference/game-domain-and-rule-baseline-2026-10-22-v1.md)
+- [工程落地方案](../../docs/reference/game-domain-and-rule-baseline-2026-10-22-v1.md)
+- [Pioneer Agent 架构评审与路线图](../../docs/archive/coordination-2026-10-22/workspace-alignment-2026-10-22.md)
+- [开荒分层自治：Runbook 架构与 Goal](../../docs/reference/opening-runbook-architecture.md)

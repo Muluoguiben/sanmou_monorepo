@@ -1,18 +1,20 @@
 # Sanmou Monorepo
 
+> 当前入口：[文档索引](docs/README.md)、[副本对齐](docs/archive/coordination-2026-10-22/workspace-alignment-2026-10-22.md)。新仓已实现的只读 Harness 与 MS0 目标契约分开阅读；旧文档已归档。
+
 《三国：谋定天下》Agent 大仓，包含截图 Advisor 桌面端、开荒决策 Agent、游戏知识问答 Agent 和共享游戏知识包。
 
 当前商业化 MVP 路线优先做 **全端截图 Advisor**：用户上传或粘贴截图，系统识别游戏状态并给出开荒、配将、地图、资源和风险建议；不在首版承诺自动点击或全自动托管。
 
-## 当前工程主线（2026-10-05）
+## 当前工程基线（2026-10-22 对齐）
 
-- **Harness-first**：以现有只读 decision-window harness 为基础，先补 TaskSpec、可替换 DecisionPolicy、多步 run lifecycle、恢复、上下文/总预算和任务级 eval。不是先训练模型或放开游戏执行。
-- **QA → 受约束的 agentic RAG**：目标就是本仓 `packages/qa-agent`；已有基础 RAG 和 KnowledgeProvider 集成，先建立独立质量基线，再补证据充分性/版本冲突、逐 claim 引用支持和多轮检索规划。
+- **现有只读 Harness**：TaskSpec、DecisionPolicy、TaskRunner、Context、预算、checkpoint、因果 Trace 和 task_eval 已有实现；复用边界见[当前契约](docs/contracts/harness-task-context-v1.md)与[副本对齐](docs/archive/coordination-2026-10-22/workspace-alignment-2026-10-22.md)。它们不等于游戏副作用或训练能力已完成。
+- **QA → 受约束的 agentic RAG**：保留 KnowledgeProvider 及后续指代、证据判断、claim spans、赛季检索等已合入能力；独立质量基线与后续检索规划按对应实现和 source-bound 报告判断。
 - 产品继续 Advisor-first；真实视觉、知识、多样本与独立 eval 持续建设。Game MCP 保持 `execution_authority=none`、proposal `executable=false`，不自动发布 QA 知识。
 
-当前评审与验收见 [Harness 路线](docs/harness-engineering-review-2026-10-05.md)、[QA RAG 路线](docs/qa-agent-rag-review-2026-10-05.md) 和 [任务清单](todo-list.md)。旧文档成熟度评分与迭代顺序是历史快照，不作为当前完成证据。
+既有评审与验收见 [Harness 路线](docs/harness/harness-engineering-review-2026-10-05.md)、[QA RAG 路线](docs/qa/qa-agent-rag-review-2026-10-05.md) 和 [任务清单](todo-list.md)。旧文档成熟度评分与迭代顺序是历史快照，不作为当前完成证据。
 
-与 Advisor 并行的个人自动化路线采用**分层自治**：Python runtime 跑 tick 循环（截图只进无状态 vision API），LLM 只做低频策略仲裁与巡检，Claude Code / Codex 不进 tick 循环。方向决策、runbook 阶段机与 Goal 见 [开荒分层自治：Runbook 架构与 Goal](docs/opening-runbook-architecture.md)。
+现有规则自动化路径继续使用Runbook、selector与执行守卫；组件合同见[Runbook说明](docs/reference/opening-runbook-architecture.md)。学习型Agent按[总体方案 v10](docs/sanmou-multimodal-agent-plan-2026-10-23-v10.md)、[MS0 契约 v4](docs/contracts/harness-ms0-episode-contract-v4.md)与[根todo顶部施工队列](todo-list.md)推进；TRL＋PEFT、verl＋SGLang、9B Actor＋2B Critic及奖励公式不变。本版补齐GAE／奖励／截断接线、TV2最终worker与MS7恢复清单；旧v9／MS0文档v3归档。
 
 ## 仓库结构
 
@@ -95,16 +97,11 @@ npm run dev
 
 ## 设计文档
 
-- [Harness 工程评审与迭代主线（2026-10-05）](docs/harness-engineering-review-2026-10-05.md)
-- [QA Agent RAG 专项评审与路线（2026-10-05）](docs/qa-agent-rag-review-2026-10-05.md)
-- [MVP 状态模型](docs/sanguo-agent-mvp-model.md)
-- [运行时设计](docs/sanguo-agent-runtime-design.md)
-- [工程落地方案](docs/sanguo-agent-mvp-engineering-plan.md)
-- [状态快照字段指南](docs/state-snapshot-field-guide.md)
-- [Pioneer Agent 架构评审与路线图](docs/pioneer-agent-architecture-review-and-roadmap.md)
-- [开荒分层自治：Runbook 架构与 Goal](docs/opening-runbook-architecture.md)
-- [Codex 操作模型](docs/codex-operating-model.md)
-- [Codex 工作流验证矩阵](docs/codex-workflow-verification.md)
-- [Desktop Advisor Browser Smoke](docs/advisor-browser-smoke.md)
-- [Windows Record & Replay](docs/windows-record-replay.md)
-- [QA Agent MCP Connector](docs/qa-agent-mcp-connector.md)
+- [Harness 工程评审与迭代主线（2026-10-05）](docs/harness/harness-engineering-review-2026-10-05.md)
+- [QA Agent RAG 专项评审与路线（2026-10-05）](docs/qa/qa-agent-rag-review-2026-10-05.md)
+- [状态快照字段指南](docs/reference/state-snapshot-field-guide.md)
+- [开荒分层自治：Runbook 架构与 Goal](docs/reference/opening-runbook-architecture.md)
+- [Codex 操作模型](docs/runbooks/codex-operating-model.md)
+- [Desktop Advisor Browser Smoke](docs/runbooks/advisor-browser-smoke.md)
+- [Windows Record & Replay](docs/runbooks/windows-record-replay.md)
+- [QA Agent MCP Connector](docs/runbooks/qa-agent-mcp-connector.md)

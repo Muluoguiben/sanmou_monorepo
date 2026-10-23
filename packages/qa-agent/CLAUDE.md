@@ -77,3 +77,5 @@ Desktop Advisor 的首版 chat 目前在 `pioneer-agent` API 内是本地模板�
 避免：`gpt-5.4-nano`（网关 400）、`gpt-5.2`（JSON 有时返回 array 或 fenced）。
 
 切其他 provider：`LLM_PROVIDER=minimax|gemini`。MiniMax-M2.7 纯文本不支持 vision；Gemini 免费档 20 req/day 仅用于兜底。
+
+文档入口：[统一索引](../../docs/README.md)、[验证参考](../../docs/reference/validation-and-evidence-2026-10-22-v1.md)。
