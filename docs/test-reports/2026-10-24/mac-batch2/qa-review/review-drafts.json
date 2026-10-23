@@ -1,0 +1,360 @@
+[
+  {
+    "applicability": {
+      "game_version": null,
+      "season_tags": [],
+      "unknown_reason": "Game version, season and validity require human source review.",
+      "valid_from": null,
+      "valid_until": null
+    },
+    "content": "{\"aliases\":[\"主城\",\"主城建筑\",\"main_hall\"],\"confidence\":0.94,\"constraints\":[\"具体升级前置和资源消耗以当前版本建筑面板为准。\"],\"domain\":\"building\",\"facts\":[\"君王殿是多数城建解锁和章节推进的核心建筑之一。\",\"提升君王殿等级通常会带动更多功能、建筑前置和资源上限开放。\"],\"id\":\"building-main-city\",\"priority\":90,\"related_topics\":[\"建筑升级\",\"章节任务\",\"主城\"],\"source_ref\":\"KB-RULE-BUILDING-001\",\"source_type\":\"manual_rule\",\"topic\":\"君王殿\",\"updated_at\":\"2026-03-29\"}",
+    "content_encoding": "canonical-json-of-source-node-v1",
+    "content_sha256": "5f0c8e9d93f829eedb2613491df50377f6d56ef13a9177604fd5d93c00606cdf",
+    "declared_content_nature": "unverified_statement",
+    "execution_authority": "none",
+    "gaps": [
+      "author_unknown",
+      "game_version_unknown",
+      "human_review_pending",
+      "original_collection_time_unknown",
+      "publication_time_unknown",
+      "season_unknown",
+      "validity_interval_unknown"
+    ],
+    "human_gold": false,
+    "human_review": {
+      "content_nature": null,
+      "entity_mapping": null,
+      "game_version": null,
+      "published_at": null,
+      "required_qualifiers": null,
+      "reviewed_at": null,
+      "reviewer": null,
+      "season_tags": null,
+      "source_author": null
+    },
+    "identity_meaning": "source-native identity only; no cross-source semantic match is certified",
+    "knowledge_publishable": false,
+    "legacy_binding": {
+      "legacy_entry_id": "building-main-city",
+      "legacy_entry_sha256": "fd5e7b452ed2c4b6b3b07a225535cb95773de18060dd73182e03c11d639ed3cc"
+    },
+    "mapping_id": "basic-junwangdian",
+    "record_pointer": "/0",
+    "review_status": "unreviewed",
+    "source": {
+      "author": null,
+      "category": "basic_knowledge",
+      "collected_at": null,
+      "document_id": "repo:packages/qa-agent/knowledge_sources/building.yaml",
+      "original_sha256": "3dada83e67f3491ebe8845451174eb19cbd35634135304d94092f6c80d759ada",
+      "published_at": null,
+      "revision": "git:1ac503c80d353a3ecfcbc045b38bba4a1034780b",
+      "source_ref": "KB-RULE-BUILDING-001",
+      "time_unknown_reason": "Original publication and collection times are not established by this mapping."
+    },
+    "source_identity": {
+      "entity_id": "knowledge-entry:building-main-city",
+      "entity_name": "君王殿"
+    },
+    "source_node": {
+      "aliases": [
+        "主城",
+        "主城建筑",
+        "main_hall"
+      ],
+      "confidence": 0.94,
+      "constraints": [
+        "具体升级前置和资源消耗以当前版本建筑面板为准。"
+      ],
+      "domain": "building",
+      "facts": [
+        "君王殿是多数城建解锁和章节推进的核心建筑之一。",
+        "提升君王殿等级通常会带动更多功能、建筑前置和资源上限开放。"
+      ],
+      "id": "building-main-city",
+      "priority": 90,
+      "related_topics": [
+        "建筑升级",
+        "章节任务",
+        "主城"
+      ],
+      "source_ref": "KB-RULE-BUILDING-001",
+      "source_type": "manual_rule",
+      "topic": "君王殿",
+      "updated_at": "2026-03-29"
+    },
+    "synthetic": false
+  },
+  {
+    "applicability": {
+      "game_version": null,
+      "season_tags": [],
+      "unknown_reason": "Game version, season and validity require human source review.",
+      "valid_from": null,
+      "valid_until": null
+    },
+    "content": "{\"aliases\":[\"S14开9等级\",\"陈仓之围开9红度\",\"开9红度对应表\"],\"confidence\":0.88,\"constraints\":[\"依赖核心装备/战法配齐，词条不全时实际等级门槛会上升。\"],\"domain\":\"chapter\",\"entry_kind\":\"generic_rule\",\"facts\":[\"满红 30 级可开 9（抢榜 29 级开局）。\",\"高红 31 级可开 9。\",\"中红 32 级可开 9。\",\"低红/白板第一天不建议开 9；第二天解锁雁行阵后 33 级可开 9（32.5 级也接近）。\",\"该表对应第一天首发阶段，第二天门槛会下降 1-2 级。\"],\"id\":\"mech-s14-chencang-open9-redline\",\"priority\":80,\"related_topics\":[\"开荒\",\"红度\",\"9级地\",\"雁行阵\"],\"source_ref\":\"BILIBILI:BV142QnBAE8a#121-167\",\"source_type\":\"manual_rule\",\"topic\":\"S14 陈仓之围第一天开 9 级地的红度-等级对应\",\"updated_at\":\"2026-04-17\"}",
+    "content_encoding": "canonical-json-of-source-node-v1",
+    "content_sha256": "f2294056d028ffca25583c8f45ea41a12ce35e2b0022b4d71c3f81cd22686cd9",
+    "declared_content_nature": "player_experience",
+    "execution_authority": "none",
+    "gaps": [
+      "author_unknown",
+      "entity_correspondence_unresolved",
+      "formal_qa_entry_mapping_unknown",
+      "game_version_unknown",
+      "human_review_pending",
+      "original_collection_time_unknown",
+      "publication_time_unknown",
+      "season_unknown",
+      "validity_interval_unknown"
+    ],
+    "human_gold": false,
+    "human_review": {
+      "content_nature": null,
+      "entity_mapping": null,
+      "game_version": null,
+      "published_at": null,
+      "required_qualifiers": null,
+      "reviewed_at": null,
+      "reviewer": null,
+      "season_tags": null,
+      "source_author": null
+    },
+    "identity_meaning": "source-native identity only; no cross-source semantic match is certified",
+    "knowledge_publishable": false,
+    "legacy_binding": {},
+    "mapping_id": "guide-s14-first-rule",
+    "record_pointer": "/0",
+    "review_status": "unreviewed",
+    "source": {
+      "author": null,
+      "category": "player_guide",
+      "collected_at": null,
+      "document_id": "repo:packages/qa-agent/ingestion/raw/rules/bilibili-s14-mechanics-2026-04-17.yaml",
+      "original_sha256": "3089a608386cd57cd7f25f1a4e9ddab141197142943b67beac338782cb33a859",
+      "published_at": null,
+      "revision": "git:1ac503c80d353a3ecfcbc045b38bba4a1034780b",
+      "source_ref": "BILIBILI:BV142QnBAE8a#121-167",
+      "time_unknown_reason": "Original publication and collection times are not established by this mapping."
+    },
+    "source_identity": null,
+    "source_node": {
+      "aliases": [
+        "S14开9等级",
+        "陈仓之围开9红度",
+        "开9红度对应表"
+      ],
+      "confidence": 0.88,
+      "constraints": [
+        "依赖核心装备/战法配齐，词条不全时实际等级门槛会上升。"
+      ],
+      "domain": "chapter",
+      "entry_kind": "generic_rule",
+      "facts": [
+        "满红 30 级可开 9（抢榜 29 级开局）。",
+        "高红 31 级可开 9。",
+        "中红 32 级可开 9。",
+        "低红/白板第一天不建议开 9；第二天解锁雁行阵后 33 级可开 9（32.5 级也接近）。",
+        "该表对应第一天首发阶段，第二天门槛会下降 1-2 级。"
+      ],
+      "id": "mech-s14-chencang-open9-redline",
+      "priority": 80,
+      "related_topics": [
+        "开荒",
+        "红度",
+        "9级地",
+        "雁行阵"
+      ],
+      "source_ref": "BILIBILI:BV142QnBAE8a#121-167",
+      "source_type": "manual_rule",
+      "topic": "S14 陈仓之围第一天开 9 级地的红度-等级对应",
+      "updated_at": "2026-04-17"
+    },
+    "synthetic": false
+  },
+  {
+    "applicability": {
+      "game_version": null,
+      "season_tags": [],
+      "unknown_reason": "Game version, season and validity require human source review.",
+      "valid_from": null,
+      "valid_until": null
+    },
+    "content": "{\"annotations\":{\"classifications\":[\"配置隐藏\",\"配置外放\",\"有同名独立记录\"],\"config_flags\":{\"is_baye\":0,\"is_custom\":0,\"is_show\":0,\"is_story\":0,\"official\":1},\"mapped_identity\":{\"group\":{\"id\":4,\"label\":\"群\"},\"quality\":{\"code\":\"A\",\"id\":4},\"soldier_type\":{\"id\":3,\"label\":\"枪兵\"}},\"name_status\":\"resolved\",\"passes_regular_list_static_flags\":false,\"same_name_other_ids\":[81,82,93,94,95],\"season_eligibility\":\"not_evaluated\",\"tags\":{\"arena_position\":{\"id\":0,\"label\":null},\"arena_status\":{\"id\":0,\"label\":null},\"feature\":[{\"id\":6,\"label\":\"防御\",\"namespace\":\"hero_feature_summary\",\"note\":\"擅长防御\",\"source\":\"heros_heros.field_notes.feature\"}],\"position\":{\"id\":0,\"label\":null,\"tips\":null},\"status\":[]},\"warnings\":[\"同名记录不合并，战法、数值、缘分均按此ID直接关联。\",\"不满足普通武将列表的全部静态筛选项；不据此判定删除、测试或当前可招募。\"],\"zero_placeholder_pattern\":false},\"attributes\":[{\"base\":100,\"field\":\"might\",\"growth\":1.8,\"name\":\"武力\"},{\"base\":50,\"field\":\"intelligence\",\"growth\":0.6,\"name\":\"智力\"},{\"base\":100,\"field\":\"defence\",\"growth\":1.5,\"name\":\"统率\"},{\"base\":50,\"field\":\"speed\",\"growth\":0.5,\"name\":\"先攻\"},{\"base\":50,\"field\":\"politics\",\"growth\":0.5,\"name\":\"政治\"},{\"base\":50,\"field\":\"charm\",\"growth\":0.5,\"name\":\"魅力\"},{\"base\":100,\"field\":\"siege\",\"growth\":0,\"name\":\"攻城\"}],\"display_name\":\"黄巾义士\",\"fate_ids\":[],\"hero_id\":80,\"innate_skill\":{\"found\":true,\"missing_status\":null,\"reference_id\":700022},\"name\":\"黄巾义士\"}",
+    "content_encoding": "canonical-json-of-source-node-v1",
+    "content_sha256": "57b423a9dd845e53856a2cc4aefa0cdcaf098a4a365e8a57b1901bafd2c214d7",
+    "declared_content_nature": "client_field",
+    "execution_authority": "none",
+    "gaps": [
+      "author_unknown",
+      "client_field_game_semantics_unreviewed",
+      "formal_qa_entry_mapping_unknown",
+      "game_version_unknown",
+      "human_review_pending",
+      "original_collection_time_unknown",
+      "original_extraction_parser_unknown",
+      "publication_time_unknown",
+      "season_unknown",
+      "validity_interval_unknown"
+    ],
+    "human_gold": false,
+    "human_review": {
+      "content_nature": null,
+      "entity_mapping": null,
+      "game_version": null,
+      "published_at": null,
+      "required_qualifiers": null,
+      "reviewed_at": null,
+      "reviewer": null,
+      "season_tags": null,
+      "source_author": null
+    },
+    "identity_meaning": "source-native identity only; no cross-source semantic match is certified",
+    "knowledge_publishable": false,
+    "legacy_binding": {},
+    "mapping_id": "rea-hero-config-80",
+    "record_pointer": "/records/0",
+    "review_status": "unreviewed",
+    "source": {
+      "author": null,
+      "category": "rea_export",
+      "collected_at": null,
+      "document_id": "repo:docs/research/rea/2026-10-18/data/heroes.json",
+      "original_sha256": "7bdc9f9b2b272b336d1f7363bfd44a2f329f20f92868361d96f2d5f9fb2e22ff",
+      "published_at": null,
+      "revision": "git:1ac503c80d353a3ecfcbc045b38bba4a1034780b",
+      "source_ref": "repo:docs/research/rea/2026-10-18/data/heroes.json",
+      "time_unknown_reason": "Original publication and collection times are not established by this mapping."
+    },
+    "source_identity": {
+      "entity_id": "rea.hero:80",
+      "entity_name": "黄巾义士"
+    },
+    "source_node": {
+      "annotations": {
+        "classifications": [
+          "配置隐藏",
+          "配置外放",
+          "有同名独立记录"
+        ],
+        "config_flags": {
+          "is_baye": 0,
+          "is_custom": 0,
+          "is_show": 0,
+          "is_story": 0,
+          "official": 1
+        },
+        "mapped_identity": {
+          "group": {
+            "id": 4,
+            "label": "群"
+          },
+          "quality": {
+            "code": "A",
+            "id": 4
+          },
+          "soldier_type": {
+            "id": 3,
+            "label": "枪兵"
+          }
+        },
+        "name_status": "resolved",
+        "passes_regular_list_static_flags": false,
+        "same_name_other_ids": [
+          81,
+          82,
+          93,
+          94,
+          95
+        ],
+        "season_eligibility": "not_evaluated",
+        "tags": {
+          "arena_position": {
+            "id": 0,
+            "label": null
+          },
+          "arena_status": {
+            "id": 0,
+            "label": null
+          },
+          "feature": [
+            {
+              "id": 6,
+              "label": "防御",
+              "namespace": "hero_feature_summary",
+              "note": "擅长防御",
+              "source": "heros_heros.field_notes.feature"
+            }
+          ],
+          "position": {
+            "id": 0,
+            "label": null,
+            "tips": null
+          },
+          "status": []
+        },
+        "warnings": [
+          "同名记录不合并，战法、数值、缘分均按此ID直接关联。",
+          "不满足普通武将列表的全部静态筛选项；不据此判定删除、测试或当前可招募。"
+        ],
+        "zero_placeholder_pattern": false
+      },
+      "attributes": [
+        {
+          "base": 100,
+          "field": "might",
+          "growth": 1.8,
+          "name": "武力"
+        },
+        {
+          "base": 50,
+          "field": "intelligence",
+          "growth": 0.6,
+          "name": "智力"
+        },
+        {
+          "base": 100,
+          "field": "defence",
+          "growth": 1.5,
+          "name": "统率"
+        },
+        {
+          "base": 50,
+          "field": "speed",
+          "growth": 0.5,
+          "name": "先攻"
+        },
+        {
+          "base": 50,
+          "field": "politics",
+          "growth": 0.5,
+          "name": "政治"
+        },
+        {
+          "base": 50,
+          "field": "charm",
+          "growth": 0.5,
+          "name": "魅力"
+        },
+        {
+          "base": 100,
+          "field": "siege",
+          "growth": 0,
+          "name": "攻城"
+        }
+      ],
+      "display_name": "黄巾义士",
+      "fate_ids": [],
+      "hero_id": 80,
+      "innate_skill": {
+        "found": true,
+        "missing_status": null,
+        "reference_id": 700022
+      },
+      "name": "黄巾义士"
+    },
+    "synthetic": false
+  }
+]

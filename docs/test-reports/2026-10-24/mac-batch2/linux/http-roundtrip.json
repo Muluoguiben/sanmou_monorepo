@@ -1,0 +1,45 @@
+{
+  "evidence_kind": "loopback_http_synthetic_upstream",
+  "real_model_calls": 0,
+  "game_input_dispatches": 0,
+  "native_http_calls": 2,
+  "rounds": [
+    {
+      "request_sha256": "220d6969039424fbc6caf4420fbbb199f97a576fb217b7a4288a105a3193562c",
+      "status": "ok",
+      "provider_response_id": "synthetic-native-1",
+      "generation_availability": "unavailable",
+      "probability_kind": "unavailable"
+    },
+    {
+      "request_sha256": "333af5a7c0b3dc222cab92cc838db1edbde509f7a9c2f2b858c9bcf19cb7bbfc",
+      "status": "ok",
+      "provider_response_id": "synthetic-native-2",
+      "generation_availability": "unavailable",
+      "probability_kind": "unavailable"
+    }
+  ],
+  "checks": {
+    "two_rounds": true,
+    "wrong_key_401": true,
+    "wrong_version_409": true,
+    "failures_no_upstream_call": true
+  },
+  "budget": {
+    "counts": {
+      "step": 0,
+      "tool": 0,
+      "model": 2
+    },
+    "charged_tokens": 388,
+    "charged_cost": null,
+    "measured_tokens": null,
+    "measured_cost": null,
+    "unknown_token_attempts": 1,
+    "unknown_cost_attempts": 2,
+    "pending": 0,
+    "remaining_seconds": 299.45703033300015,
+    "cancelled": false,
+    "overrun": false
+  }
+}

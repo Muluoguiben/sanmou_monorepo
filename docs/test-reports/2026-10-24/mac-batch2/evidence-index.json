@@ -1,0 +1,164 @@
+{
+  "copy_verification": "all destination bytes equal originals",
+  "credential_pattern_scan": {
+    "files": 23,
+    "findings": 0,
+    "patterns": [
+      "private_key",
+      "api_key_literal",
+      "bearer_literal",
+      "credential_assignment",
+      "colab_toolstate"
+    ]
+  },
+  "excluded": [
+    "qa-review-final/manifest.pending.json",
+    "all Colab authentication and tool state material"
+  ],
+  "files": [
+    {
+      "bytes": 4185,
+      "original": "linux-evidence/environment.json",
+      "path": "linux/environment.json",
+      "sha256": "6c5f7cd21e7472103bb57d63b0415b5d458a2665e22a75f2aa8d74d78e84c47b"
+    },
+    {
+      "bytes": 1205,
+      "original": "linux-evidence/http-roundtrip.json",
+      "path": "linux/http-roundtrip.json",
+      "sha256": "c50b2d25ab4f052d8094021b183d508de65449bd514909b26d7fc3301e608915"
+    },
+    {
+      "bytes": 279,
+      "original": "linux-evidence/http-roundtrip.log",
+      "path": "linux/http-roundtrip.log",
+      "sha256": "2c4263eef5b0fb1fea0186d23c75092dfec5bdc60721f4e651e0c7176c3078ac"
+    },
+    {
+      "bytes": 918,
+      "original": "linux-evidence/http-roundtrip.metadata.json",
+      "path": "linux/http-roundtrip.metadata.json",
+      "sha256": "93c3372ce9a53845d7ec51f5638247055b92cf90374be947164df0486c9d4f81"
+    },
+    {
+      "bytes": 256350,
+      "original": "linux-evidence/pioneer-agent-recheck.log",
+      "path": "linux/pioneer-agent-recheck.log",
+      "sha256": "5e275aab2f2e08962d9ab69cf90677e8ad3cb315d1f16d368efd2ce9da01bd6a"
+    },
+    {
+      "bytes": 1991,
+      "original": "linux-evidence/pioneer-agent-recheck.metadata.json",
+      "path": "linux/pioneer-agent-recheck.metadata.json",
+      "sha256": "6071bc74860dd9925ec260fa322de6d1214dc4392f0c50cafabc717175992c09"
+    },
+    {
+      "bytes": 291080,
+      "original": "linux-evidence/pioneer-agent.log",
+      "path": "linux/pioneer-agent.log",
+      "sha256": "acd9a7efec65b70cb8060760879b2617da3c8c7d01752dfbec23319961dd304a"
+    },
+    {
+      "bytes": 951,
+      "original": "linux-evidence/pioneer-agent.metadata.json",
+      "path": "linux/pioneer-agent.metadata.json",
+      "sha256": "7fc3e1349f4e0b3e95fea8b8675bbcd8b33d674f86ff38f4bdc31cab0723e8b3"
+    },
+    {
+      "bytes": 840,
+      "original": "linux-evidence/portable-test-fix.diff",
+      "path": "linux/portable-test-fix.diff",
+      "sha256": "bb98de6ef235f7ebb13683867b0d06e48d2eb332696985dcd301b40d7e0879d3"
+    },
+    {
+      "bytes": 81497,
+      "original": "linux-evidence/qa-agent.log",
+      "path": "linux/qa-agent.log",
+      "sha256": "dcb21b63a1eab69411a0a60dceb0c16fb73c301551593d3e717639e1274a91f0"
+    },
+    {
+      "bytes": 908,
+      "original": "linux-evidence/qa-agent.metadata.json",
+      "path": "linux/qa-agent.metadata.json",
+      "sha256": "63a37b3bb76f84d19793c11e00089ba808b7fd0e2c9a1dc0cdc7525b52fac396"
+    },
+    {
+      "bytes": 1975,
+      "original": "linux-evidence/sanmou-common.log",
+      "path": "linux/sanmou-common.log",
+      "sha256": "d297b6ace5f10cf391c0252824b642494935b2a8984894206c4220663977faaf"
+    },
+    {
+      "bytes": 921,
+      "original": "linux-evidence/sanmou-common.metadata.json",
+      "path": "linux/sanmou-common.metadata.json",
+      "sha256": "b3995e9ef0236789c55baab0d5c37f8bae60bb9ca4d230d76f96d3dcd39f93a5"
+    },
+    {
+      "bytes": 4241,
+      "original": "linux-evidence/summary.json",
+      "path": "linux/summary.json",
+      "sha256": "1f216f7964166fd6bae9dd529b62c15e2c2c844428ac4fd7ad2921ac1c347ba6"
+    },
+    {
+      "bytes": 23329,
+      "original": "sanmou-mac-batch2.O5SPf0/targeted-core.log",
+      "path": "targeted-core.log",
+      "sha256": "a0a4e0f9cfceb9e4ba52c3477a82a72ab8eb2927cc523f37becefd7a6f4fba4f"
+    },
+    {
+      "bytes": 4506,
+      "original": "sanmou-mac-batch2.O5SPf0/integration-qa-targeted.log",
+      "path": "integration-qa-targeted.log",
+      "sha256": "eda6a79f45b260759d5ef138ca246c9029bab3ad87236a17c2694e7f6a0a3f56"
+    },
+    {
+      "bytes": 1204,
+      "original": "sanmou-mac-batch2.O5SPf0/integration-http-roundtrip.json",
+      "path": "integration-http-roundtrip.json",
+      "sha256": "16cfcc083ba9e4a19511b856ad57ea6c050638b1c86d836c628b5093bdb4913d"
+    },
+    {
+      "bytes": 679,
+      "original": "qa-review-final/REVIEW.md",
+      "path": "qa-review/REVIEW.md",
+      "sha256": "d2921c38ff5edae1718f4deeb1325597f4ec3a40ae6633c7f016ae53e2ed36cf"
+    },
+    {
+      "bytes": 941,
+      "original": "qa-review-final/gap-report.json",
+      "path": "qa-review/gap-report.json",
+      "sha256": "b7923418aa5a766a42a207c1b0184c0e22c4117a128188c620f5d95540464c13"
+    },
+    {
+      "bytes": 2093,
+      "original": "qa-review-final/manifest.json",
+      "path": "qa-review/manifest.json",
+      "sha256": "642647e7c948fc27fcffb7c5774341f5e3ff894b4a953c6fe2ea3c54f268b7bd"
+    },
+    {
+      "bytes": 1534,
+      "original": "qa-review-final/mapping.json",
+      "path": "qa-review/mapping.json",
+      "sha256": "ed83ca304fe242ad4c0aa121f9a89078cf52cb3224f146a22357cf3bec0f0031"
+    },
+    {
+      "bytes": 14283,
+      "original": "qa-review-final/review-drafts.json",
+      "path": "qa-review/review-drafts.json",
+      "sha256": "23e97a74b4c566451cf668fc00b9bea81372565ff6a6ccc59374f94d0e9d62e8"
+    },
+    {
+      "bytes": 5946,
+      "original": "qa-review-final/sidecars.json",
+      "path": "qa-review/sidecars.json",
+      "sha256": "f351f2a4414f6f28110518e5100f97bf9338819566aafe48920777e6eeb0518f"
+    }
+  ],
+  "portable_test_fix_commit": "c51e38d93fee9b37335442d153183cc5e27c9e03",
+  "protocol": "mac-batch2-evidence-index-v1",
+  "qa_generator_sha256": "82aad05e9596173e64afd020e27c5509e9723fd7cb5157582c550c7dec0d9986",
+  "qa_manifest_artifacts_verified": 5,
+  "qa_source_git_blobs_verified": 3,
+  "source_commit": "152272df9dd63ab9aeb3011237b456e32296e90b"
+}

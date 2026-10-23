@@ -1,0 +1,5 @@
+# Keep copied evidence bytes stable across platforms and Git configuration.
+*.log -text -whitespace
+*.json -text
+*.diff -text -whitespace
+qa-review/REVIEW.md -text

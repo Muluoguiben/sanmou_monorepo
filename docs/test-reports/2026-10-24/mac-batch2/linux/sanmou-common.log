@@ -1,0 +1,20 @@
+test_opening_baseline_config_loads (test_config_loader.ConfigLoaderTests.test_opening_baseline_config_loads) ... ok
+test_canonical_order (test_policy_contracts.PolicyContractTests.test_canonical_order) ... ok
+test_complete_parallel_tool_history (test_policy_contracts.PolicyContractTests.test_complete_parallel_tool_history) ... ok
+test_context_limit_and_strict_counts (test_policy_contracts.PolicyContractTests.test_context_limit_and_strict_counts) ... ok
+test_existing_knowledge_port_snapshot_preserves_actual_content (test_policy_contracts.PolicyContractTests.test_existing_knowledge_port_snapshot_preserves_actual_content) ... ok
+test_failure_has_no_proposals (test_policy_contracts.PolicyContractTests.test_failure_has_no_proposals) ... ok
+test_generation_alignment_and_unavailable (test_policy_contracts.PolicyContractTests.test_generation_alignment_and_unavailable) ... ok
+test_reject_invalid_json_and_hash (test_policy_contracts.PolicyContractTests.test_reject_invalid_json_and_hash) ... ok
+test_request_exact_bytes_and_roundtrip (test_policy_contracts.PolicyContractTests.test_request_exact_bytes_and_roundtrip) ... ok
+test_response_binding_requires_hashes (test_policy_contracts.PolicyContractTests.test_response_binding_requires_hashes) ... ok
+test_seal_detaches_and_json_roundtrips (test_policy_contracts.PolicyContractTests.test_seal_detaches_and_json_roundtrips) ... ok
+test_tool_definitions (test_policy_contracts.PolicyContractTests.test_tool_definitions) ... ok
+test_unknown_envelope_fields_rejected (test_policy_contracts.PolicyContractTests.test_unknown_envelope_fields_rejected) ... ok
+test_wire_reader_roundtrip_and_explicit_versions (test_policy_contracts.PolicyContractTests.test_wire_reader_roundtrip_and_explicit_versions) ... ok
+test_knowledge_provider_is_runtime_checkable (test_ports.PortsTests.test_knowledge_provider_is_runtime_checkable) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.008s
+
+OK

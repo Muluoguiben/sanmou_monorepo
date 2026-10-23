@@ -1,5 +1,14 @@
 # Sanmou Project Memory
 
+## 2026-10-24 - Mac第二批与Colab接入
+
+- Decision: 用户要求继续推进，并提供Colab A100环境；明确要求保存SSH命令模板，已写项目连接说明和用户指定的记忆更新笔记，未修改全局SSH配置。
+- Evidence: 功能源码`152272df9dd63ab9aeb3011237b456e32296e90b`，测试路径修复`c51e38d93fee9b37335442d153183cc5e27c9e03`；Linux唯一1821用例，1819通过／2跳过。HTTP真实loopback合成往返、训练包原件与prefix核对、QA两条未审核sidecar和一条draft均已验证。
+- Owner: Mac主管统一接口与提交；各实现工作树隔离，独立审查修复闭环。
+- Blocker: 已通过临时MCP桥接实际查询Colab A100-SXM4-80GB与driver580.82.07；不含真实模型加载或训练验收。完整官方MCP安装的Python3.13下载超时，当前连接使用已核对官方WebSocket传输模块与现有MCP SDK，不能记录为Codex永久插件已安装。
+- Next: 在Colab独立环境完成依赖解析与最小SGLang/Qwen推理；保持普通logprobs不授PPO资格。Docker/K8s、Windows与远程传输按原阶段验收。
+- Links: [第二批报告](../../docs/test-reports/2026-10-24/mac-batch2.md)、[数据包](../../docs/contracts/training-bundle-v1.md)、[Colab连接模板](../../docs/runbooks/colab-access.md)。
+
 ## 2026-10-23 - Mac 首批本地实现
 
 - Decision: 用户授权Mac主管并行分工、统一接口、验收及合并推送；四个实现agent使用独立worktree，另做独立审查。

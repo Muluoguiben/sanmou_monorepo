@@ -1,0 +1,39 @@
+{
+  "protocol": "provenance-review-map-v1",
+  "source_commit": "1ac503c80d353a3ecfcbc045b38bba4a1034780b",
+  "synthetic": false,
+  "items": [
+    {
+      "mapping_id": "basic-junwangdian",
+      "source_path": "packages/qa-agent/knowledge_sources/building.yaml",
+      "source_sha256": "3dada83e67f3491ebe8845451174eb19cbd35634135304d94092f6c80d759ada",
+      "source_category": "basic_knowledge",
+      "content_nature": "unverified_statement",
+      "record_pointer": "/0",
+      "entity_id_pointer": "/0/id",
+      "entity_name_pointer": "/0/topic",
+      "entity_namespace": "knowledge-entry",
+      "original_ref_pointer": "/0/source_ref"
+    },
+    {
+      "mapping_id": "rea-hero-config-80",
+      "source_path": "docs/research/rea/2026-10-18/data/heroes.json",
+      "source_sha256": "7bdc9f9b2b272b336d1f7363bfd44a2f329f20f92868361d96f2d5f9fb2e22ff",
+      "source_category": "rea_export",
+      "content_nature": "client_field",
+      "record_pointer": "/records/0",
+      "entity_id_pointer": "/records/0/hero_id",
+      "entity_name_pointer": "/records/0/name",
+      "entity_namespace": "rea.hero"
+    },
+    {
+      "mapping_id": "guide-s14-first-rule",
+      "source_path": "packages/qa-agent/ingestion/raw/rules/bilibili-s14-mechanics-2026-04-17.yaml",
+      "source_sha256": "3089a608386cd57cd7f25f1a4e9ddab141197142943b67beac338782cb33a859",
+      "source_category": "player_guide",
+      "content_nature": "player_experience",
+      "record_pointer": "/0",
+      "original_ref_pointer": "/0/source_ref"
+    }
+  ]
+}

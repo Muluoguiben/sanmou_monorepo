@@ -1,0 +1,58 @@
+{
+  "artifacts": {
+    "REVIEW.md": {
+      "bytes": 679,
+      "sha256": "d2921c38ff5edae1718f4deeb1325597f4ec3a40ae6633c7f016ae53e2ed36cf"
+    },
+    "gap-report.json": {
+      "bytes": 941,
+      "sha256": "b7923418aa5a766a42a207c1b0184c0e22c4117a128188c620f5d95540464c13"
+    },
+    "mapping.json": {
+      "bytes": 1534,
+      "sha256": "ed83ca304fe242ad4c0aa121f9a89078cf52cb3224f146a22357cf3bec0f0031"
+    },
+    "review-drafts.json": {
+      "bytes": 14283,
+      "sha256": "23e97a74b4c566451cf668fc00b9bea81372565ff6a6ccc59374f94d0e9d62e8"
+    },
+    "sidecars.json": {
+      "bytes": 5946,
+      "sha256": "f351f2a4414f6f28110518e5100f97bf9338819566aafe48920777e6eeb0518f"
+    }
+  },
+  "complete": true,
+  "completion_rule": "Only manifest.json with matching artifact hashes is complete; pending files are not acceptance.",
+  "execution_authority": "none",
+  "generator": {
+    "script_path": "packages/qa-agent/scripts/prepare_provenance_review.py",
+    "sha256": "82aad05e9596173e64afd020e27c5509e9723fd7cb5157582c550c7dec0d9986",
+    "source_commit": "c51e38d93fee9b37335442d153183cc5e27c9e03",
+    "status": "committed_exact_bytes"
+  },
+  "human_gold": false,
+  "identity_authentication": "none",
+  "knowledge_publishable": false,
+  "mapping_sha256": "ed83ca304fe242ad4c0aa121f9a89078cf52cb3224f146a22357cf3bec0f0031",
+  "protocol": "provenance-review-bundle-v1",
+  "review_status": "unreviewed",
+  "source_commit": "1ac503c80d353a3ecfcbc045b38bba4a1034780b",
+  "sources": [
+    {
+      "bytes": 744168,
+      "path": "docs/research/rea/2026-10-18/data/heroes.json",
+      "sha256": "7bdc9f9b2b272b336d1f7363bfd44a2f329f20f92868361d96f2d5f9fb2e22ff"
+    },
+    {
+      "bytes": 3978,
+      "path": "packages/qa-agent/ingestion/raw/rules/bilibili-s14-mechanics-2026-04-17.yaml",
+      "sha256": "3089a608386cd57cd7f25f1a4e9ddab141197142943b67beac338782cb33a859"
+    },
+    {
+      "bytes": 1711,
+      "path": "packages/qa-agent/knowledge_sources/building.yaml",
+      "sha256": "3dada83e67f3491ebe8845451174eb19cbd35634135304d94092f6c80d759ada"
+    }
+  ],
+  "synthetic": false
+}

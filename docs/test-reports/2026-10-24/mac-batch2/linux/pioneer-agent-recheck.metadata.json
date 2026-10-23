@@ -1,0 +1,51 @@
+{
+  "suite": "pioneer-agent-recheck",
+  "source_sha": "c51e38d93fee9b37335442d153183cc5e27c9e03",
+  "previous_source_sha": "152272df9dd63ab9aeb3011237b456e32296e90b",
+  "source_status_after": "",
+  "changed_files": [
+    "packages/pioneer-agent/tests/test_training_artifact_bundle.py"
+  ],
+  "unchanged_trees": {
+    "packages/pioneer-agent/src": {
+      "old": "eebf7d4bb9426621c353215950df9ca0a934e2a0",
+      "new": "eebf7d4bb9426621c353215950df9ca0a934e2a0"
+    },
+    "packages/sanmou-common": {
+      "old": "6914b27b972c9d0f43e96ff666489574d4dd88d9",
+      "new": "6914b27b972c9d0f43e96ff666489574d4dd88d9"
+    },
+    "packages/qa-agent": {
+      "old": "f8e3459db0b86f382135435df850029a359ad9d7",
+      "new": "f8e3459db0b86f382135435df850029a359ad9d7"
+    }
+  },
+  "command": [
+    "/tmp/sanmou-batch2/venv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_*.py",
+    "-v"
+  ],
+  "cwd": "/tmp/sanmou-batch2/repo/packages/pioneer-agent",
+  "environment_ref": "environment.json",
+  "environment_note": "Same Linux/venv/dependencies as original run; source SHA and test fix differ as explicitly recorded here.",
+  "TMPDIR": "/tmp/sanmou-batch2/test-tmp",
+  "PYTHONPATH": "/tmp/sanmou-batch2/repo/packages/sanmou-common/src:/tmp/sanmou-batch2/repo/packages/qa-agent/src:/tmp/sanmou-batch2/repo/packages/pioneer-agent/src",
+  "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+  "started_at_utc": "2026-10-23T16:41:50.655987+00:00",
+  "duration_seconds": 36.460265,
+  "returncode": 0,
+  "status": "passed",
+  "log_file": "pioneer-agent-recheck.log",
+  "log_sha256": "5e275aab2f2e08962d9ab69cf90677e8ad3cb315d1f16d368efd2ce9da01bd6a",
+  "fix_diff_file": "portable-test-fix.diff",
+  "fix_diff_sha256": "bb98de6ef235f7ebb13683867b0d06e48d2eb332696985dcd301b40d7e0879d3",
+  "portable_bundle_sha256": "4e436c35f773cfba2410b8feaa77f71ba31a2d3e42d08e228f5f0a399e96b7fa",
+  "test_count": 1283,
+  "unittest_summary": "OK (skipped=2)"
+}

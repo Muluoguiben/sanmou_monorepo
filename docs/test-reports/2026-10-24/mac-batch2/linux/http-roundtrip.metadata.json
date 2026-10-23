@@ -1,0 +1,23 @@
+{
+  "suite": "http-roundtrip",
+  "source_sha": "152272df9dd63ab9aeb3011237b456e32296e90b",
+  "cwd": "/tmp/sanmou-batch2/repo",
+  "command": [
+    "/tmp/sanmou-batch2/venv/bin/python",
+    "scripts/model-serving/http_roundtrip.py",
+    "--output",
+    "/tmp/sanmou-batch2/evidence/http-roundtrip.json"
+  ],
+  "started_at_utc": "2026-10-23T16:37:46.837697+00:00",
+  "duration_seconds": 1.443764,
+  "environment_ref": "environment.json",
+  "TMPDIR": "/tmp/sanmou-batch2/test-tmp",
+  "PYTHONPATH": "/tmp/sanmou-batch2/repo/packages/sanmou-common/src:/tmp/sanmou-batch2/repo/packages/qa-agent/src:/tmp/sanmou-batch2/repo/packages/pioneer-agent/src",
+  "python_executable": "/tmp/sanmou-batch2/venv/bin/python",
+  "returncode": 0,
+  "status": "passed",
+  "log_file": "http-roundtrip.log",
+  "log_sha256": "2c4263eef5b0fb1fea0186d23c75092dfec5bdc60721f4e651e0c7176c3078ac",
+  "test_count": null,
+  "unittest_summary": null
+}

@@ -1,0 +1,28 @@
+{
+  "suite": "sanmou-common",
+  "source_sha": "152272df9dd63ab9aeb3011237b456e32296e90b",
+  "cwd": "/tmp/sanmou-batch2/repo/packages/sanmou-common",
+  "command": [
+    "/tmp/sanmou-batch2/venv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_*.py",
+    "-v"
+  ],
+  "started_at_utc": "2026-10-23T16:36:24.571507+00:00",
+  "duration_seconds": 0.123283,
+  "environment_ref": "environment.json",
+  "TMPDIR": "/tmp/sanmou-batch2/test-tmp",
+  "PYTHONPATH": "/tmp/sanmou-batch2/repo/packages/sanmou-common/src:/tmp/sanmou-batch2/repo/packages/qa-agent/src:/tmp/sanmou-batch2/repo/packages/pioneer-agent/src",
+  "python_executable": "/tmp/sanmou-batch2/venv/bin/python",
+  "returncode": 0,
+  "status": "passed",
+  "log_file": "sanmou-common.log",
+  "log_sha256": "d297b6ace5f10cf391c0252824b642494935b2a8984894206c4220663977faaf",
+  "test_count": 15,
+  "unittest_summary": "OK"
+}
