@@ -44,7 +44,7 @@
   "primary_branch": "master",
   "current_task": "docs/qa-e0-review-preparation-2026-10-18.md",
   "task_commit": "88bd5a0fb641d147548ed6a5eb8284106ec3caa2",
-  "summary": "H08b f9135/exactnativeCI complete. Q-E0 preparation dfb4435 reviewed and feature-pushed; exact39120053829 attempt1 all4success, QA463/new23 exact-name pass, Pioneer1139/2oldWindows skips, Windows API/Electron/nativeH08b31 pass. Real50 ignored review tasks plus separate blank response prepared and independently hash-verified. User owns actual labels; humanGold/independentholdout/Q07 remainopen. No mastermerge, knowledgepublish, game or Q06 access.",
+  "summary": "Reviewed H08b/Q-E0 preparation and upstream REA docs are merged into local/remote master6e304b79f4cf130414811ccd0c2fd33cf9f40a90. Independent merge review and54targeted tests passed; exactmasterCI39539579421 attempt1 all4success, QA463/new23 exact-name pass, Pioneer1137pass+2platformskips, WindowsAPI/Electron/nativeH08b31 pass. Three prior coordination WIP saved in037 beforemerge. User feedback is recorded privately for10/50items and30prompt-statement responses; fully annotated tasks remain0. Continue item14; whole-task labels/gold/holdout/Q07 remainpending, Q06paused.",
   "earlier_rounds": [
     {
       "batch": "Q03a",
@@ -336,7 +336,7 @@
     "model": "gpt-6-astra",
     "current_roles": "same roles continuing H10a"
   },
-  "next_step": "Preserve three owned coordinator WIP files in a local checkpoint, compose reviewed dfb4435 with current origin/master bb859 in the existing review worktree, resolve todo preserving both histories, run targeted regressions and independent merge review, then fast-forward local master and push the reviewed candidate; verify exact new CI. User labels remain a separate pending step.",
+  "next_step": "Item13 actual feedback is privately recorded; continue human review at item14. Prefer existing client skill exports for skill descriptions and numbers, escalating unresolved mechanics/version conflicts to the separate REA sessions. This chat may read and check existing exports only, not launch new REA investigation. Frozen materials stay unchanged; Q06 paused; no automatic gold/holdout or knowledge publication.",
   "authorization": {
     "user_text": "按review 迭代的方向持续迭代",
     "source_thread": "01a10c00-93d2-778b-8395-bf9d496c503d",
@@ -354,7 +354,7 @@
     "deployment_or_account_security_persistent_access": false,
     "new_automation_or_extra_notifications": false
   },
-  "updated_at": "2026-10-18",
+  "updated_at": "2026-10-23",
   "blockers": ["Q07 independent quality gate awaits actual user-reviewed labels and later independent split/threshold agreement; preparation tool is complete, not a human-gold claim"],
   "coordinator_integration": {
     "status": "passed",
@@ -398,9 +398,15 @@
     "tested_source": "ed158e35a34c80aa99be2597bdddc300a6cff62f",
     "scope": "only current CI step and new plain report/coord evidence;no Q06 archive/history"
   },
-  "round_status": "authorized_master_integration_in_progress",
+  "round_status": "master_integration_completed_exact_ci_passed_user_review_pending",
   "master_integration_20261021": {
-    "status": "combined_checks_and_independent_review_passed_master_push_pending",
+    "status": "completed_master_push_and_exact_ci_passed",
+    "master_commit": "6e304b79f4cf130414811ccd0c2fd33cf9f40a90",
+    "master_tree": "f5f99a02917b5066a25a48b85fa526de0fab912d",
+    "master_push_exit": 0,
+    "local_and_remote_readback_match": true,
+    "final_delivery_review": "APPROVE 6e304b7; only 8 report/artifact/coord paths since282, source trees unchanged",
+    "final_ci": {"run": 39539579421, "attempt": 1, "commit": "6e304b79f4cf130414811ccd0c2fd33cf9f40a90", "branch": "master", "status": "completed", "conclusion": "success", "all_four_jobs": "success", "jobs": {"qa":119023992457,"common":119023992632,"pioneer":119023992697,"windows":119023992790}, "qa_tests":463,"qa_seconds":70.243,"qa_new_tests":23,"qa_new_names_exact_once_ok":true,"pioneer_tests":1139,"pioneer_skipped":2,"pioneer_seconds":45.658,"windows_unittest_totals":[11,72,35,32,25,44,23,31],"windows_unittest_endings_all_ok":true,"h08b_native_unique_ok":31,"python_runtime_resource_unawaited_warning_count":0,"raw_logs_verified":true,"new_qe0_native_windows_claim":false,"url": "https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/39539579421"},
     "combined_source": "28249f96ac0c9fcb38ea1e175ab742813f069421",
     "combined_tree": "dc71c0412d80d54c1add90d8a3a2fcd324bfa565",
     "targeted_tests": {"qa_preparation": 23, "h08b": 31, "total": 54, "skipped": 0, "exit": 0},
@@ -415,7 +421,7 @@
     "resolution": "retain current and upstream todo sections; preserve all owned coordination checkpoint content",
     "packages_tree": "9157fe91f7f0e5a3ed0a3df86e73eeb210ac1bb7",
     "github_tree": "53b95f66600d981c0ba1866b15dc1396eef0bd50",
-    "labels_and_q07": "user review remains pending; code merge does not create human gold"
+    "labels_and_q07": "user review remains pending; first building-prerequisite question sent using async input; no answer or human labels inferred"
   },
   "pending_publication": {
     "candidate": "cd6d4929ec611cda1600934dde17aef996142ae0",
@@ -759,7 +765,7 @@
   "active_work_item": "qe0_review_preparation",
   "qe0_review_preparation": {
     "status": "preparation_completed_exact_ci_passed_user_review_pending",
-    "feature_publication": {"commit": "dfb44356fff20f0082da0e2699ba2669672660fb", "tree": "d063a92e17f9a0a106478f4528a93910b7e5a6f8", "branch": "codex/q-e0-review-materials-20261018", "push_exit": 0, "explicit_remote_fetch_readback_matches": true, "master_merged": false},
+    "feature_publication": {"commit": "dfb44356fff20f0082da0e2699ba2669672660fb", "tree": "d063a92e17f9a0a106478f4528a93910b7e5a6f8", "branch": "codex/q-e0-review-materials-20261018", "push_exit": 0, "explicit_remote_fetch_readback_matches": true, "master_merged": true, "master_commit": "6e304b79f4cf130414811ccd0c2fd33cf9f40a90"},
     "final_payload_audit": {"status": "no_blocker", "commits": 15, "paths": 63, "new_paths": 60, "coord_modified": 3, "q06_inherited": false, "ignored_material_paths": 7, "material_paths_tracked": 0, "human_null_fields": 900, "root_coord_bytes_equal_before_push": true},
     "final_ci": {"run": 39120053829, "attempt": 1, "commit": "dfb44356fff20f0082da0e2699ba2669672660fb", "status": "completed", "conclusion": "success", "all_four_jobs": "success", "jobs": {"windows": 117653645654, "common": 117653645825, "qa": 117653645840, "pioneer": 117653645854}, "qa_tests": 463, "qa_seconds": 51.036, "new_tests": 23, "new_names_exactly_once_ok": true, "qa_diagnostics": 0, "pioneer_tests": 1139, "pioneer_skipped": 2, "pioneer_seconds": 51.367, "native_h08b_tests": 31, "native_h08b_unique_ok": 31, "windows_unittest_totals": [11,72,35,32,25,44,23,31], "windows_unittest_endings_all_ok": true, "windows_warnings": 0, "new_qe0_native_windows_claim": false, "raw_logs_checked": true, "url": "https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/39120053829"},
     "material_verification": {"tasks": 50, "candidate_occurrences": 213, "sources": 34, "all_human_fields_null": true, "all_content_hashes_match": true, "manifest_sha256": "9c95cd9dbaf07efc3bf1dbcb187107222110e7896b9255318998dbe85a66ef89", "response_sha256": "79f28fe047a47fd8c08f108c917b9b2a125df963dcc85c648f6fd697902ac3dc", "root_targeted_tests": 23, "prepare_exit": 0, "materials_and_prepare_logs_ignored_not_for_push": true},
@@ -784,12 +790,16 @@
     "contract": "docs/qa-e0-review-preparation-2026-10-18.md",
     "base_commit": "f9135b4dc438711a64d42c8879589cf341131669",
     "user_review_owner": "user explicitly replied: 由我复核，先准备标注材料",
+    "annotation_progress": {"tasks_with_user_feedback":10,"total_tasks":50,"feedback_statement_count":30,"feedback_count_unit":"prompt-statement responses, not atomic gold claims","fully_annotated_tasks":0,"last_feedback_date":"2026-10-22","next_task_index":14,"clarification_pending":false,"clarification_kind":null,"next_unasked_task_index":15,"deferred_followups":[{"index":7,"kind":"boundary-case conditions","status":"pending_details"},{"index":9,"kind":"relative-time reference anchor","status":"not_independently_specified"}],"developer_items_deferred":[{"index":4,"reason":"engineering ingestion specification, no gameplay facts; user review remains blank"},{"index":10,"reason":"Advisor engineering observation checklist; user review remains blank"}],"overlapping_items_deferred":[{"index":11,"overlaps_with":2,"reason":"chapter-task/reward semantics overlap; no human labels copied or independent gold claimed"}],"feedback_location":"ignored response copy only; verdicts not included in repository records","current_response_sha256":"2e247784f6df0ea54ef45f40503e55b3aafc7e5eb61bfa8fd1ffb5d2c0021c19","evidence_package_unchanged":true,"other49responses_unchanged":true},
+    "rea_verification_followups": [{"index":8,"scope":"status duration endpoint and existing-control removal/immunity boundaries","status":"handoff_to_other_session","source":"user requested later REA verification","authority":"read-only within existing authorized scope; no Q06 archive read/publication or game input"},{"index":9,"scope":"profession skills and granted-consumable version/applicability differences, especially S1/S2 comparison","status":"handoff_to_other_session","source":"user requested later profession-skill REA analysis on2026-10-22","authority":"read-only within existing authorized scope; no Q06 archive read/publication or game input"},{"index":12,"scope":"land attack/sweep/siege stamina consumption and level-gap exemption conditions","status":"handoff_to_other_session","source":"user requested REA then explicitly moved it to another session on2026-10-22","authority":"read-only within existing authorized scope; no Q06 archive read/publication or game input"}],
+    "skill_export_review_policy": {"instruction_date":"2026-10-22","mode":"read_only_existing_exports_first","fresh_rea_investigation_in_current_session":false,"preferred_input_root":"D:/codex_playground/sanmou-rea/outputs","latest_check":"data/agent_runs/q-e0-skill-export-check-20261022-396e15f8.json","limits":"Bind stable IDs, snapshot and source hashes; distinguish description/configuration checks from execution and current-version proof. Preserve conflicts and missing scope; do not auto-approve other skills or change the frozen review pack."},
+    "rea_routing": {"instruction_date":"2026-10-22","execution_in_current_session":false,"handoff_prompt_requested":true,"stopped_subagent":"/root/rea_land_stamina","activity_limit":"skill/reference reads and one interrupted readonly session-status query; no returned Evidence ID/mechanism conclusion, no target open/change, no analysis file writes reported"},
     "human_gold_established": false,
     "independent_holdout_established": false,
     "scope": "existing formalKB/v4/claimspan references plus verify/prepare CLI, pending50review_queue, protocol and tests; no src/KB/oldfreeze/scorer/CI change",
     "implementation_released": true,
     "q06_archive_reading_publication": "paused_by_user",
-    "next_step": "user reviews ignored50 material via separate response template (start10); tool and exactCI complete, but labels/independentholdout/Q07 remainpending; no next-phase implementation before review"
+    "next_step": "Continue item14 strategy review; skill-only items use bounded existing-export checks first, not repeated basic skill questions to the user. Preserve private responses, source/version qualifiers and unresolved cases; no next-phase implementation or automatic gold/holdout/publication."
   },
   "h08b_recipe_trace_binding": {
     "status": "completed_exact_native_ci_passed",

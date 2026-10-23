@@ -6,7 +6,13 @@
 - [x] Fresh fetch: origin/master bb8592796e5cd19b866369e392ec6395059fcfe2; feature dfb44356fff20f0082da0e2699ba2669672660fb unchanged. Master adds17REA docs plus todo only; business source/workflow unchanged.
 - [x] Preserve3ownedcoordWIP in localcheckpoint0370e83; compose in existing review worktree, retain both todo histories. Master source contribution is17REA docs andtodo only.
 - [x] Combined28249f9 keepsreviewedpackages9157/.github53b95/apps57f andall17upstreamREA files; 54targetedtests pass0skip. Independentmerge review APPROVE: checkpoint/history preserved, Q06excluded,7materialpaths ignored/0tracked. [Report](docs/test-reports/2026-10-21/master-integration.md).
-- [ ] Master fast-forward/nonforcepush andexactnewCI; do not substitute previousfeature CI for thismerge.
+- [x] Localmaster fast-forwarded to6e304b79f4cf130414811ccd0c2fd33cf9f40a90 andnonforcepushed; explicitremote fetch/readback matches. Final8path report/coord-onlyincrement independentlyAPPROVED.
+- [x] Exactmaster CI [39539579421](https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/39539579421) attempt1 on6e304b7 all4success. RawQA463/new23uniqueok;Pioneer1137pass+2oldplatformskips;WindowsAPI/Electron andnativeH08b31uniqueok;targetedwarnings0.
+- [x] Received userfeedback for10/50items (30prompt-statementresponses, notatomicgoldclaims), including item13 feedback, recorded onlyinignoredresponsecopy; evidencepackage unchanged andeachupdatepreservesother49responses. Scope/complete-task labels remainpending.
+- [x] Item6wordingclarification follow-up recorded inignoredreply; examplesremainhypothetical, evidenceunchanged.
+- [ ] Continue chatreview item14; item7boundaryconditions anditem9relative-time anchor remainpending. Items4/10areengineering-only, item11overlapsitem2; allremainunlabeled. Skill-only questions use bounded existing-export checks first; new REA investigation remains in separate sessions.
+- [ ] REA统一移交其他session，本会话不执行：优先攻地/扫荡/攻城体力扣除与等级差免耗，再核清醒持续/免疫边界、青囊职业技能及赠药规则版本差异。只读边界及Q06暂停保持，不自动发布知识。
+- [x] 按用户要求停止本会话REA子任务；子任务未产出机制结论或分析文件，未打开/修改目标。提供可复制prompt供用户自行交接。
 - Q06archive reads/publication remainpaused; actual50-task material/answers stayignored; userreview/gold/holdout/Q07 notcompleted by code merge.
 
 ## Q-E0-dev freeze and user annotation preparation (2026-10-18)
@@ -43,7 +49,7 @@
 - [x] 新增字段投影、输入摘要与快照核验；Windows/WSL各13项自测通过。未复制原始采样、截图、字节码、二进制、数据库、凭据或Q06未发布内容；不改正式KB、不授予review、不开放执行。
 - [x] 成果提交 [16df894c7957f13d4c46fbfaa2c620ab6cbdd953](https://github.com/Muluoguiben/sanmou_monorepo/commit/16df894c7957f13d4c46fbfaa2c620ab6cbdd953) 已推送至独立分支并通过远端SHA回读；当次远端master仍为155817a。公开快照17文件清单核验通过；全量本地原件没有上传或改写。
 - [x] 用户明确要求合入后，已将成果分支快进到远端master，回读为 [4ec9fcd9f980b94f33396290f9f51c6c892cdf3f](https://github.com/Muluoguiben/sanmou_monorepo/commit/4ec9fcd9f980b94f33396290f9f51c6c892cdf3f)。合入前重验17文件清单、Windows/WSL各13项测试及diff检查；packages/apps/workflow/AGENTS与原基线无差异。
-- [ ] 本地主工作树由主会话在保留现有3项协调WIP后同步远端；侧会话未stash/reset/覆盖它们。后续按快照内REA-R01/R02/R03推进，但本次合入不授权启动采样或解除Q06暂停。
+- [x] 本地主工作树已由主会话将3项协调WIP保存为0370e83，再同步包含REA与已审Harness/Q-E0的6e304b7并推送/回读一致。原记录和REA文件完整保留；本次合入未启动采样或解除Q06暂停。
 
 ## Active Review continuation — H08a read-only recipe registry (2026-10-06)
 
