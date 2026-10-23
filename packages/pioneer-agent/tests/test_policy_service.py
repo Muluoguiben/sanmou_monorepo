@@ -101,6 +101,21 @@ class HangingTransport:
 
 
 class PolicyServiceTests(unittest.IsolatedAsyncioTestCase):
+    async def test_native_optional_tool_index_preserves_raw_response(self):
+        indexed = {**call(), "index": 0}
+        raw = proposal(indexed)
+        adapter = self.adapter(MockPolicyTransport([raw]))
+        result = await adapter.decide(make_request())
+        self.assertEqual(result.status, "ok")
+        self.assertEqual(result.raw_response, raw)
+        self.assertEqual(result.proposed_calls[0].call_id, indexed["id"])
+        for index in (True, -1, "0", 0.5):
+            with self.subTest(index=index):
+                other = self.adapter(MockPolicyTransport([proposal({**call(), "index": index})]))
+                result = await other.decide(make_request())
+                self.assertEqual((result.status, result.error_code), ("failed", "parse_error"))
+                self.assertEqual(result.proposed_calls, ())
+
     def adapter(self, transport=None, **kwargs):
         self.transport = transport or MockPolicyTransport(fixtures())
         self.budget = RunBudgetLedger(BudgetLimits(max_tokens=1000, max_model_attempts=5))

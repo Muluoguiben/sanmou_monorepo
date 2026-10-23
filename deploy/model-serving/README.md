@@ -23,7 +23,7 @@ python3 scripts/model-serving/validate_manifest.py deploy/model-serving/manifest
 
 | 字段 | 填什么 |
 |---|---|
-| `deployment_id`、`policy_version` | 独立部署编号、策略编号；后者对应共享 `policy-manifest-v1` 的 `policy_id` |
+| `deployment_id`、`policy_version` | 独立部署编号、原生服务别名；别名对应 `PolicyManifest.model`，转换脚本另把完整部署摘要加入 `policy_id` |
 | `input_schema_version` | 固定 `policy-service-v1`，表示本地策略封套版本 |
 | `prompt_sha256` | 固定提示词原件的 SHA256；对应策略清单的 `prompt_revision`，由调用端核对 |
 | `engine.image` | 用户选定的 SGLang 镜像 `registry/repository@sha256:...`，没有默认镜像 |
@@ -85,7 +85,7 @@ docker run --name sanmou-sv1 --gpus '"device=0"' --shm-size=2g \
 
 ## 共同接口与仍需完成的验收
 
-`policy-service-v1`／`policy-manifest-v1` 是项目封套，**SGLang 原生接口不能直接接收它们**。这里启动的是原生 SGLang 服务，尚未提供封套 HTTP 网关。后续 transport 必须把 messages/tools 和固定采样配置映射为所选版本的原生请求，同时保留 invocation、context、实际模型／模板／策略版本绑定。`served-model-name` 只标识请求名称，不单独证明实际权重版本。
+`policy-service-v1`／`policy-manifest-v1` 是项目封套，**SGLang原生接口不能直接接收它们**。这里启动原生SGLang；第二批已提供独立[HTTP网关](../../scripts/model-serving/README.md)，把messages/tools和固定采样配置映射为原生请求，并保留invocation/context及部署声明绑定。网关已做本地合成上游测试，真实GPU仍待验。`served-model-name` 只标识请求名称，不证明实际权重版本。
 
 GPU 端仍需真实加载 Qwen，验证仅文本路径、parser／模板配合、多轮工具问答、正常和错误工具输出、无密钥／错误密钥、错版本拒绝、超时／取消／断连，以及实际生成 token、逐 token 概率和结束原因的保存读回。不能从解析后的工具 JSON 反推 token。记录单请求和并发基线后，再讨论 SV1 通过；本准备包不授予工具执行权限。
 

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "synthetic-native-1", "object": "chat.completion", "model": "cpu-fake-qwen",
+    "choices": [{"index": 0, "finish_reason": "tool_calls", "message": {
+      "role": "assistant", "content": "", "reasoning_content": null,
+      "tool_calls": [{"index": 0, "id": "http-call-1", "type": "function",
+        "function": {"name": "query_knowledge", "arguments": "{\"query\":\"建筑升级\"}"}}]
+    }, "prompt_token_ids": [11, 12], "response_token_ids": [21, 22],
+    "meta_info": {"output_token_logprobs": [[-0.2, 21, "synthetic-a"], [-0.3, 22, "synthetic-b"]]}}],
+    "usage": {"prompt_tokens": 2, "completion_tokens": 2, "total_tokens": 4}
+  },
+  {
+    "id": "synthetic-native-2", "object": "chat.completion", "model": "cpu-fake-qwen",
+    "choices": [{"index": 0, "finish_reason": "tool_calls", "message": {
+      "role": "assistant", "content": "", "reasoning_content": "",
+      "tool_calls": [{"index": 0, "id": "http-call-2", "type": "function",
+        "function": {"name": "complete_task", "arguments": "{\"reason\":\"收到模拟知识结果\"}"}}]
+    }}]
+  }
+]

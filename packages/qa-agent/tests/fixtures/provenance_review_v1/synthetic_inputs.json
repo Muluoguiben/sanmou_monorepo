@@ -1,0 +1,87 @@
+{
+  "synthetic": true,
+  "description": "All names and statements here are synthetic safety controls, not game evidence.",
+  "documents": [
+    {
+      "path": "packages/qa-agent/knowledge_sources/synthetic.yaml",
+      "category": "basic_knowledge",
+      "nature": "unverified_statement",
+      "format": "yaml",
+      "document": [
+        {
+          "id": "synthetic-building",
+          "domain": "building",
+          "topic": "合成建筑",
+          "facts": [
+            "合成规则甲",
+            "合成规则乙"
+          ],
+          "constraints": [
+            "仅限合成条件"
+          ],
+          "source_type": "manual_rule",
+          "source_ref": "SYNTHETIC:basic",
+          "updated_at": "2026-01-01",
+          "confidence": 0.7
+        }
+      ],
+      "record_pointer": "/0",
+      "entity_id_pointer": "/0/id",
+      "entity_name_pointer": "/0/topic",
+      "entity_namespace": "synthetic.kb",
+      "original_ref_pointer": "/0/source_ref"
+    },
+    {
+      "path": "docs/research/rea/2026-10-18/data/heroes.json",
+      "category": "rea_export",
+      "nature": "client_field",
+      "format": "json",
+      "document": {
+        "schema": "synthetic-only",
+        "records": [
+          {
+            "hero_id": 80,
+            "name": "合成武将",
+            "attributes": [
+              {
+                "field": "might",
+                "base": 100
+              }
+            ],
+            "season_eligibility": "not_evaluated"
+          }
+        ]
+      },
+      "record_pointer": "/records/0",
+      "entity_id_pointer": "/records/0/hero_id",
+      "entity_name_pointer": "/records/0/name",
+      "entity_namespace": "synthetic.rea"
+    },
+    {
+      "path": "packages/qa-agent/ingestion/raw/videos/synthetic/guide.yaml",
+      "category": "player_guide",
+      "nature": "player_experience",
+      "format": "yaml",
+      "document": [
+        {
+          "id": "synthetic-guide",
+          "topic": "合成攻略",
+          "facts": [
+            "在合成条件下观察到一次变化"
+          ],
+          "constraints": [
+            "只记录一次，不外推"
+          ],
+          "source_ref": "SYNTHETIC:video#10-20",
+          "alternate_ref": "SYNTHETIC:repost",
+          "updated_at": "2026-01-01"
+        }
+      ],
+      "record_pointer": "/0",
+      "entity_id_pointer": "/0/id",
+      "entity_name_pointer": "/0/topic",
+      "entity_namespace": "synthetic.guide",
+      "original_ref_pointer": "/0/source_ref"
+    }
+  ]
+}

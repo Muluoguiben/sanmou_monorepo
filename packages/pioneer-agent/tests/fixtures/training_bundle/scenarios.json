@@ -1,0 +1,9 @@
+{
+  "source_kind": "synthetic",
+  "batch_id": "batch-1",
+  "episodes": [
+    {"episode_id": "episode-1", "values": [0.2, 0.3, 0.4], "returns": [0.98, 1.0, 1.0]},
+    {"episode_id": "episode-2", "values": [0.1, 0.2], "returns": [0.98, 1.0]}
+  ],
+  "bootstrap": {"value": 0.4, "returns": [0.38, 0.4]}
+}

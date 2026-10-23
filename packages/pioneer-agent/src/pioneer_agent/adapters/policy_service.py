@@ -102,9 +102,14 @@ class ToolRegistry:
         identities: set[str] = set()
         active_count = 0
         for call in calls:
-            if (not isinstance(call, dict) or set(call) != {"id", "type", "function"}
+            if (not isinstance(call, dict) or not {"id", "type", "function"} <= set(call)
+                    or set(call) - {"id", "type", "function", "index"}
                     or call.get("type") != "function"
                     or not isinstance(call.get("id"), str) or not call["id"].strip()):
+                raise _Rejected("parse_error")
+            # Native OpenAI-compatible servers may retain their tool-array index.
+            # It is response framing, never an execution or identity authority.
+            if "index" in call and (type(call["index"]) is not int or call["index"] < 0):
                 raise _Rejected("parse_error")
             if call["id"] in identities:
                 raise _Rejected("duplicate_call_id")

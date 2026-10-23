@@ -115,6 +115,17 @@ class PolicyManifest(_Contract):
     sampling: SealedJson
     model_context_limit: int = Field(gt=0)
 
+    @classmethod
+    def from_wire(cls, value: dict[str, Any]) -> PolicyManifest:
+        """Decode the explicit transport shape, without mutating caller input."""
+        wire = decode_json(canonical_json(value))
+        if not isinstance(wire, dict) or wire.get("schema_version") != "policy-manifest-v1":
+            raise ValueError("unsupported policy manifest wire version")
+        if "sampling" not in wire:
+            raise ValueError("missing sampling configuration")
+        wire["sampling"] = SealedJson.from_value(wire["sampling"])
+        return cls.model_validate(wire)
+
     @model_validator(mode="after")
     def sampling_object(self) -> PolicyManifest:
         if not isinstance(self.sampling.value(), dict):
@@ -219,6 +230,26 @@ class PolicyRequest(_Contract):
     knowledge: SealedJson | None = None
     estimated_input_tokens: int = Field(ge=0)
     reserved_output_tokens: int = Field(gt=0)
+
+    @classmethod
+    def from_wire(cls, value: dict[str, Any]) -> PolicyRequest:
+        """Read exactly to_wire()/payload; network callers must use decode_json.
+
+        JSON parsing with duplicate-key rejection precedes this method. The
+        model's default versions are conveniences for local construction only;
+        received wire envelopes must declare their supported versions.
+        """
+        wire = decode_json(canonical_json(value))
+        if not isinstance(wire, dict) or wire.get("schema_version") != "policy-service-v1":
+            raise ValueError("unsupported policy request wire version")
+        if any(name not in wire for name in ("manifest", "messages", "tools")):
+            raise ValueError("missing policy request wire fields")
+        wire["manifest"] = PolicyManifest.from_wire(wire["manifest"])
+        wire["messages"] = SealedJson.from_value(wire["messages"])
+        wire["tools"] = SealedJson.from_value(wire["tools"])
+        if wire.get("knowledge") is not None:
+            wire["knowledge"] = SealedJson.from_value(wire["knowledge"])
+        return cls.model_validate(wire)
 
     @model_validator(mode="after")
     def validate_input(self) -> PolicyRequest:

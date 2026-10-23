@@ -1,8 +1,22 @@
 # Todo List
 
-更新：2026-10-23。依据：[规划 v10](docs/sanmou-multimodal-agent-plan-2026-10-23-v10.md) · [MS0 接口约定 v4](docs/contracts/harness-ms0-episode-contract-v4.md)。已有的只读任务调度和知识问答功能继续复用，下面列的是需要补齐的工作。
+更新：2026-10-24。依据：[规划 v10](docs/sanmou-multimodal-agent-plan-2026-10-23-v10.md) · [MS0 接口约定 v4](docs/contracts/harness-ms0-episode-contract-v4.md)。已有的只读任务调度和知识问答功能继续复用，下面列的是需要补齐的工作。
 
 历史进展与验收记录见[历史归档](docs/archive/todo-history/2026-10-23.md)。下面的大阶段保留整体验收状态；Mac 首批本地实现单独记录，不把模拟结果算成云 GPU 或 Windows 实机通过。
+
+## 2026-10-24 Mac 第二批施工
+
+从 `1ac503c` 继续，主工作树保持隔离。工作树根目录 `/private/tmp/sanmou-mac-batch2.O5SPf0/`；协议与算法不变，第一批已实现模块继续复用。
+
+| 状态 | 负责人／分支／目录 | 文件范围与验收 |
+|---|---|---|
+| [ ] 集成中 | Mac主管；`feat/mac-batch2-integration`；`integration/` | common wire解码、原生index兼容、部署清单桥接、跨模块测试；全包回归与独立审查后合并 |
+| [x] 本地完成 | HTTP agent；`feat/mac-batch2-http`；`http/` | policy_http／policy_gateway、新测试与HTTP CLI；真实loopback两轮、鉴权／版本／取消／并发拒绝通过，GPU未验 |
+| [x] 本地完成 | 数据包 agent；`feat/mac-batch2-artifacts`；`artifacts/` | artifact_bundle、新测试／fixture；原件hash、身份、prefix、路径与无覆盖写入通过；不是远程传输或on-policy验收 |
+| [x] 本地完成 | QA agent；`feat/mac-batch2-qa`；`qa/` | 来源待审准备脚本与测试；三类真实资料各一小份，未知项不补造；正式KB／生产源码／旧freeze不变 |
+| [x] 独立复核 | Review agent＋原生协议核查agent | HTTP诊断丢失／并发超额、片段重叠／任务错绑、来源定位／输出目录竞争已修复；最终组合证据待封存 |
+
+本批只接本地服务与既有公开资料。真实SGLang/GPU、人工审核、Windows实机和远程训练传输仍需后续验收；仍不重启REA原包流程或发布知识。
 
 ## 2026-10-23 Mac 首批施工
 

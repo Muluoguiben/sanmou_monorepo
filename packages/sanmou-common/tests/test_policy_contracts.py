@@ -33,6 +33,23 @@ def request(**changes):
 
 
 class PolicyContractTests(unittest.TestCase):
+    def test_wire_reader_roundtrip_and_explicit_versions(self):
+        original = request()
+        wire = original.to_wire()
+        restored = PolicyRequest.from_wire(wire)
+        self.assertEqual(restored.payload, original.payload)
+        self.assertEqual(restored.sha256, original.sha256)
+        wire["messages"][0]["content"] = "caller mutation"
+        self.assertEqual(restored.payload, original.payload)
+        for bad in ([], {**original.to_wire(), "schema_version": "future"},
+                    {k: v for k, v in original.to_wire().items() if k != "schema_version"},
+                    {**original.to_wire(), "unexpected": "not accepted"},
+                    {**original.to_wire(), "estimated_input_tokens": "32"},
+                    {**original.to_wire(), "manifest": {k: v for k, v in original.manifest.to_wire().items()
+                                                       if k != "schema_version"}}):
+            with self.subTest(wire=bad), self.assertRaises(ValueError):
+                PolicyRequest.from_wire(bad)
+
     def test_existing_knowledge_port_snapshot_preserves_actual_content(self):
         answer = KnowledgeAnswer(answer="模拟答案", evidence=(Evidence(
             entry_id="e1", topic="模拟", domain="building", summary="当时实际提供的资料",

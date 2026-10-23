@@ -56,3 +56,13 @@ python scripts/model-serving/mock_roundtrip.py
 组合测试明确使用合成 token 和 Critic 数值，检查真实封存的请求经过适配器后能绑定到数值投影，且解析失败的负反馈不会被丢掉。模拟往返输出真实模型调用数 0、游戏输入数 0；它的生成概率保持 unavailable。
 
 Docker 前置文件与待填版本清单见 [服务准备包](../../deploy/model-serving/README.md)。K8s／Helm、模型加载、实际概率对齐与 TV1–TV4 不在本批完成范围。
+
+## 2026-10-24 第二批补充
+
+`PolicyRequest.from_wire()` 是现有 `to_wire()` 的严格逆向入口，收到的请求和策略清单必须显式声明版本。原始工具响应允许 SGLang 的非负整数 `index` 字段，完整响应不改写；历史投影保留原 arguments 字符串。
+
+已增加 `HttpPolicyTransport → policy_gateway → SGLangChatBackend` 路径及实际回环网络测试。网关使用Bearer鉴权、固定manifest、正文大小和在途数量限制；超时／断连只证明本地请求取消，不能宣称GPU已停止。实际启动与原生协议见[HTTP使用说明](../../scripts/model-serving/README.md)。
+
+原生层检查服务封套和生成元数据；length截断、错误工具参数、普通文本等模型输出仍保留原件、token和已知用量，交给策略层记录失败。普通SGLang logprobs默认不当作PPO行为概率，保留在原响应并标unavailable，不重分词或制造mask／Critic数据。
+
+`make_policy_manifest.py` 从完整部署声明生成兼容接口：`model` 使用原生服务别名，`policy_id` 包含部署声明和固定原生接线版本摘要，引擎／parser变化也会改变绑定；权重、tokenizer、模板和prompt分别绑定hash。这不证明GPU实际加载。训练文件交接见[本地包协议](training-bundle-v1.md)。
