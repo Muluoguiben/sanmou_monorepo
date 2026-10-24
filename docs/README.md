@@ -11,7 +11,7 @@
 
 ## 分类查阅
 
-项目网关真实模型联调已恢复施工，见[当前待办](../todo-list.md)和[Colab联调步骤与验收条件](runbooks/live-gateway-colab.md)。先完成CPU准备，实际需要GPU时通知用户开Colab；上次原生模型成功不替代本轮项目网关实测。
+项目网关真实模型联调已完成[CPU准备验收](test-reports/2026-10-24/live-gateway-preparation.md)：Mac专项66项、CPU Linux相关234项及`a1ab51e`四个CI作业通过，实际源码包已校验。已通知用户开启Colab，真实网关实测仍待执行；见[当前待办](../todo-list.md)和[联调步骤](runbooks/live-gateway-colab.md)。
 
 2026-10-24今晚收工：[今日成果与明日验收条件](test-reports/2026-10-24/colab-native-smoke.md)、[根待办](../todo-list.md)已更新。A100运行时已按用户确认删除；明天下次开工先重建环境，第一优先级为项目网关连接真实云模型。`14b209b`的四个CI作业均通过；不把已有本地合成HTTP与原生GPU请求合并记成真实项目全链路通过。
 

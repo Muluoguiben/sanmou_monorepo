@@ -1,0 +1,13 @@
+{
+  "tested_file_count": 627,
+  "all_code_and_tests_match": true,
+  "documentation_differences": [
+    {
+      "path": "scripts/model-serving/native-runtime.md",
+      "tested_sha256": "576e26eb1922a7b7a260e28d0d9297f7529d22a0d2acec9f6ae835da737a189d",
+      "current_sha256": "518d87eba73cf9b8b138e687f9cd8e5bace0b910c9fc10be938af454a3fad2d4"
+    }
+  ],
+  "vm_stopped": true,
+  "docker_context_unchanged": "colima"
+}

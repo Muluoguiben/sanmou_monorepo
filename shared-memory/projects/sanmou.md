@@ -3,11 +3,11 @@
 ## 2026-10-24 - 恢复项目网关实连施工
 
 - Decision: 用户要求继续按文档打通项目网关到真实云模型，在需要时通知其开Colab；先完成本地准备，不自行分配GPU。
-- Evidence: 新联调runner、native绑定生成器、可重复源码打包／环境准备脚本均经独立审核；合并后Mac专项66项、专用CPU Linux相关234项通过。按需导出修复使网关无需加载Vision／MCP SDK，原公共API兼容，前轮SGLang lock不改。
+- Evidence: 整合提交`a1ab51e5ab3df30fd3da749b3e52502053f4dfae`已推送，CI `40087648831`四作业全部通过；Mac专项66项、CPU Linux相关234项通过，独立审核闭环。已从该提交生成205文件／414626字节tar源码包并验证解包、导入与场景hash。按需导出修复不改变原公共API或SGLang锁。
 - Owner: Mac主管整合、实际云端操作与提交；三个隔离实现工作树和两个独立审核角色，位于`/private/tmp/sanmou-live-gateway.PUqwzu/`。
 - Blocker: 上次GPU运行时已删除，本轮真实GPU、环境采集及项目HTTP两轮尚待执行。CPU通过不授予完整SV1／Windows J2／PPO资格。
-- Next: 从提交后的完整版本导出并校验实际上传包，通知用户开A100，再重建环境、核验制品、启动受认证的回环服务并运行两轮；保存原始请求响应与预算、负例计数后独立复核。专用本地CPU VM已停止，默认Docker context未改。
-- Links: [当前待办](../../todo-list.md)、[联调步骤](../../docs/runbooks/live-gateway-colab.md)、[上次GPU报告](../../docs/test-reports/2026-10-24/colab-native-smoke.md)。
+- Next: 已通知用户开启A100，等待其连接信息；收到后重建环境、核验制品、启动受认证的回环服务并运行两轮，保存原始请求响应与预算／负例计数，再独立复核。当前没有执行本轮Colab上传或GPU请求。专用本地CPU VM已停止，默认Docker context未改。
+- Links: [CPU准备报告](../../docs/test-reports/2026-10-24/live-gateway-preparation.md)、[当前待办](../../todo-list.md)、[联调步骤](../../docs/runbooks/live-gateway-colab.md)、[上次GPU报告](../../docs/test-reports/2026-10-24/colab-native-smoke.md)。
 
 ## 2026-10-24 - 今晚收工与明日优先级
 

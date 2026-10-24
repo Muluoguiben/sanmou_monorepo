@@ -1,0 +1,451 @@
+test_gateway_and_budget_import_without_vision_or_mcp_sdks (test_gateway_import_boundary.GatewayImportBoundaryTests.test_gateway_and_budget_import_without_vision_or_mcp_sdks) ... ok
+test_public_harness_exports_resolve_to_original_objects (test_gateway_import_boundary.GatewayImportBoundaryTests.test_public_harness_exports_resolve_to_original_objects) ... ok
+test_public_mcp_service_exports_still_work (test_gateway_import_boundary.GatewayImportBoundaryTests.test_public_mcp_service_exports_still_work) ... ok
+test_unknown_public_attributes_raise_attribute_error (test_gateway_import_boundary.GatewayImportBoundaryTests.test_unknown_public_attributes_raise_attribute_error) ... ok
+test_bound_service_version_mismatch_preserves_unknown_reserve (test_policy_service.PolicyServiceTests.test_bound_service_version_mismatch_preserves_unknown_reserve) ... ok
+test_budget_cancel_during_request_stops_transport (test_policy_service.PolicyServiceTests.test_budget_cancel_during_request_stops_transport) ... ok
+test_cancel_event_interrupts_inflight_and_settles (test_policy_service.PolicyServiceTests.test_cancel_event_interrupts_inflight_and_settles) ... ok
+test_constructed_request_is_revalidated_before_dispatch (test_policy_service.PolicyServiceTests.test_constructed_request_is_revalidated_before_dispatch) ... ok
+test_deadline_or_cancellation_during_parse_or_settle_blocks_publication (test_policy_service.PolicyServiceTests.test_deadline_or_cancellation_during_parse_or_settle_blocks_publication) ... ok
+test_duplicate_call_ids_reject_batch (test_policy_service.PolicyServiceTests.test_duplicate_call_ids_reject_batch) ... ok
+test_duplicate_invocation_never_calls_twice (test_policy_service.PolicyServiceTests.test_duplicate_invocation_never_calls_twice) ... ok
+test_historical_call_id_reuse_rejects_entire_batch (test_policy_service.PolicyServiceTests.test_historical_call_id_reuse_rejects_entire_batch) ... ok
+test_invalid_params_fail_closed (test_policy_service.PolicyServiceTests.test_invalid_params_fail_closed) ... ok
+test_known_usage_settles_even_after_parse_failure (test_policy_service.PolicyServiceTests.test_known_usage_settles_even_after_parse_failure) ... ok
+test_model_metadata_cannot_replace_trusted_response_metadata (test_policy_service.PolicyServiceTests.test_model_metadata_cannot_replace_trusted_response_metadata) ... ok
+test_multiple_passive_calls_are_returned_in_request_order (test_policy_service.PolicyServiceTests.test_multiple_passive_calls_are_returned_in_request_order) ... ok
+test_native_optional_tool_index_preserves_raw_response (test_policy_service.PolicyServiceTests.test_native_optional_tool_index_preserves_raw_response) ... ok
+test_new_call_id_after_completed_history_remains_valid (test_policy_service.PolicyServiceTests.test_new_call_id_after_completed_history_remains_valid) ... ok
+test_noncooperative_transport_late_success_cannot_be_accepted (test_policy_service.PolicyServiceTests.test_noncooperative_transport_late_success_cannot_be_accepted) ... ok
+test_pre_cancel_has_zero_transport_and_reservations (test_policy_service.PolicyServiceTests.test_pre_cancel_has_zero_transport_and_reservations) ... ok
+test_quota_exhaustion_blocks_second_request_without_retry (test_policy_service.PolicyServiceTests.test_quota_exhaustion_blocks_second_request_without_retry) ... ok
+test_replayed_provider_response_is_rejected_for_new_request (test_policy_service.PolicyServiceTests.test_replayed_provider_response_is_rejected_for_new_request) ... ok
+test_request_version_mismatch_does_not_call_or_reserve (test_policy_service.PolicyServiceTests.test_request_version_mismatch_does_not_call_or_reserve) ... ok
+test_same_budget_cancellation_stops_new_calls (test_policy_service.PolicyServiceTests.test_same_budget_cancellation_stops_new_calls) ... ok
+test_settlement_failure_does_not_replace_primary_cancellation (test_policy_service.PolicyServiceTests.test_settlement_failure_does_not_replace_primary_cancellation) ... ok
+test_settlement_failure_never_publishes_ok_or_retries_settlement (test_policy_service.PolicyServiceTests.test_settlement_failure_never_publishes_ok_or_retries_settlement) ... ok
+test_task_cancellation_propagates_and_keeps_record (test_policy_service.PolicyServiceTests.test_task_cancellation_propagates_and_keeps_record) ... ok
+test_timeout_cancels_transport_and_settles_unknown (test_policy_service.PolicyServiceTests.test_timeout_cancels_transport_and_settles_unknown) ... ok
+test_tool_catalog_mismatch_does_not_call (test_policy_service.PolicyServiceTests.test_tool_catalog_mismatch_does_not_call) ... ok
+test_transport_failure_does_not_retry_and_retains_reserve (test_policy_service.PolicyServiceTests.test_transport_failure_does_not_retry_and_retains_reserve) ... ok
+test_truncated_and_reasoning_only_output_fail (test_policy_service.PolicyServiceTests.test_truncated_and_reasoning_only_output_fail) ... ok
+test_two_active_control_and_navigation_are_rejected (test_policy_service.PolicyServiceTests.test_two_active_control_and_navigation_are_rejected) ... ok
+test_two_rounds_preserve_actual_input_reply_order_and_unknown_usage (test_policy_service.PolicyServiceTests.test_two_rounds_preserve_actual_input_reply_order_and_unknown_usage) ... ok
+test_unknown_tool_rejects_entire_mixed_batch (test_policy_service.PolicyServiceTests.test_unknown_tool_rejects_entire_mixed_batch) ... ok
+test_wrong_invocation_or_input_hash_is_rejected (test_policy_service.PolicyServiceTests.test_wrong_invocation_or_input_hash_is_rejected) ... ok
+test_endpoint_and_sampling_overrides_are_rejected (test_policy_http.PolicyHttpTests.test_endpoint_and_sampling_overrides_are_rejected) ... ok
+test_explicit_raw_declaration_preserves_native_triples (test_policy_http.PolicyHttpTests.test_explicit_raw_declaration_preserves_native_triples) ... HTTP Request: POST http://127.0.0.1/v1/chat/completions "HTTP/1.1 200 OK"
+ok
+test_external_cancellation_propagates (test_policy_http.PolicyHttpTests.test_external_cancellation_propagates) ... ok
+test_failures_are_single_attempt_and_redacted (test_policy_http.PolicyHttpTests.test_failures_are_single_attempt_and_redacted) ... HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 409 Conflict"
+HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 429 Too Many Requests"
+HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 500 Internal Server Error"
+HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 503 Service Unavailable"
+HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 307 Temporary Redirect"
+ok
+test_gateway_response_metadata_is_checked_again (test_policy_http.PolicyHttpTests.test_gateway_response_metadata_is_checked_again) ... HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 200 OK"
+ok
+test_history_projection_keeps_exact_arguments_and_raw_unmodified (test_policy_http.PolicyHttpTests.test_history_projection_keeps_exact_arguments_and_raw_unmodified) ... ok
+test_manifest_mismatch_never_calls_upstream (test_policy_http.PolicyHttpTests.test_manifest_mismatch_never_calls_upstream) ... ok
+test_missing_native_tokens_stay_unavailable (test_policy_http.PolicyHttpTests.test_missing_native_tokens_stay_unavailable) ... HTTP Request: POST http://127.0.0.1/v1/chat/completions "HTTP/1.1 200 OK"
+ok
+test_model_errors_preserve_raw_usage_tokens_for_adapter_rejection (test_policy_http.PolicyHttpTests.test_model_errors_preserve_raw_usage_tokens_for_adapter_rejection) ... HTTP Request: POST http://127.0.0.1/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1/v1/chat/completions "HTTP/1.1 200 OK"
+ok
+test_native_invalid_fields_fail_closed (test_policy_http.PolicyHttpTests.test_native_invalid_fields_fail_closed) ... HTTP Request: POST http://127.0.0.1/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1/v1/chat/completions "HTTP/1.1 200 OK"
+ok
+test_native_mapping_exact_payload_and_metadata (test_policy_http.PolicyHttpTests.test_native_mapping_exact_payload_and_metadata) ... HTTP Request: POST http://127.0.0.1:30000/v1/chat/completions "HTTP/1.1 200 OK"
+ok
+test_oversized_or_non_json_response_rejected (test_policy_http.PolicyHttpTests.test_oversized_or_non_json_response_rejected) ... HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 200 OK"
+ok
+test_reasoning_output_is_preserved_but_history_helper_refuses_loss (test_policy_http.PolicyHttpTests.test_reasoning_output_is_preserved_but_history_helper_refuses_loss) ... HTTP Request: POST http://127.0.0.1/v1/chat/completions "HTTP/1.1 200 OK"
+ok
+test_sampling_types_ranges_and_missing_defaults_rejected (test_policy_http.PolicyHttpTests.test_sampling_types_ranges_and_missing_defaults_rejected) ... ok
+test_timeout_cancels_once_without_retry (test_policy_http.PolicyHttpTests.test_timeout_cancels_once_without_retry) ... ok
+test_auth_missing_wrong_and_duplicate_reject_before_backend (test_policy_gateway.GatewayTests.test_auth_missing_wrong_and_duplicate_reject_before_backend) ... HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+ok
+test_backend_metadata_mismatch_is_not_rebound_to_request (test_policy_gateway.GatewayTests.test_backend_metadata_mismatch_is_not_rebound_to_request) ... HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 502 Bad Gateway"
+ok
+test_health_has_no_key_manifest_or_upstream_and_no_docs (test_policy_gateway.GatewayTests.test_health_has_no_key_manifest_or_upstream_and_no_docs) ... HTTP Request: GET http://127.0.0.1/health "HTTP/1.1 200 OK"
+HTTP Request: GET http://127.0.0.1/docs "HTTP/1.1 404 Not Found"
+HTTP Request: GET http://127.0.0.1/openapi.json "HTTP/1.1 404 Not Found"
+ok
+test_internal_exception_does_not_echo_prompt_or_secrets (test_policy_gateway.GatewayTests.test_internal_exception_does_not_echo_prompt_or_secrets) ... HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 502 Bad Gateway"
+ok
+test_invalid_json_schema_and_orphan_history_rejected (test_policy_gateway.GatewayTests.test_invalid_json_schema_and_orphan_history_rejected) ... HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 400 Bad Request"
+HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 400 Bad Request"
+HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 400 Bad Request"
+HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 400 Bad Request"
+ok
+test_real_http_timeout_and_disconnect_cancel_backend_no_retry (test_policy_gateway.GatewayTests.test_real_http_timeout_and_disconnect_cancel_backend_no_retry) ... <Server sockets=(<asyncio.TransportSocket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 52383)>,)> is serving
+HTTP Request: POST http://127.0.0.1:52383/v1/policy/decide "HTTP/1.1 504 Gateway Timeout"
+<Server sockets=(<asyncio.TransportSocket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 37697)>,)> is serving
+ok
+test_real_http_two_rounds_and_auth_version_errors (test_policy_gateway.GatewayTests.test_real_http_two_rounds_and_auth_version_errors) ... <Server sockets=(<asyncio.TransportSocket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 38161)>,)> is serving
+<Server sockets=(<asyncio.TransportSocket fd=8, family=2, type=1, proto=0, laddr=('127.0.0.1', 41055)>,)> is serving
+HTTP Request: POST http://127.0.0.1:38161/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:41055/v1/policy/decide "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:38161/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:41055/v1/policy/decide "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:41055/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:41055/v1/policy/decide "HTTP/1.1 409 Conflict"
+ok
+test_real_http_upstream_error_is_not_retried (test_policy_gateway.GatewayTests.test_real_http_upstream_error_is_not_retried) ... <Server sockets=(<asyncio.TransportSocket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 46763)>,)> is serving
+<Server sockets=(<asyncio.TransportSocket fd=8, family=2, type=1, proto=0, laddr=('127.0.0.1', 52681)>,)> is serving
+HTTP Request: POST http://127.0.0.1:46763/v1/chat/completions "HTTP/1.1 503 Service Unavailable"
+HTTP Request: POST http://127.0.0.1:52681/v1/policy/decide "HTTP/1.1 502 Bad Gateway"
+ok
+test_request_size_stream_limit_rejects_without_backend (test_policy_gateway.GatewayTests.test_request_size_stream_limit_rejects_without_backend) ... HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 413 Request Entity Too Large"
+ok
+test_slow_body_concurrency_cannot_bypass_max_inflight (test_policy_gateway.GatewayTests.test_slow_body_concurrency_cannot_bypass_max_inflight) ... HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 503 Service Unavailable"
+HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 200 OK"
+ok
+test_version_mismatch_has_zero_backend_calls (test_policy_gateway.GatewayTests.test_version_mismatch_has_zero_backend_calls) ... HTTP Request: POST http://127.0.0.1/v1/policy/decide "HTTP/1.1 409 Conflict"
+ok
+test_authority_and_catalog_cannot_expand (test_task_contracts.TaskContractTests.test_authority_and_catalog_cannot_expand) ... ok
+test_checkpoint_round_trip_and_version (test_task_contracts.TaskContractTests.test_checkpoint_round_trip_and_version) ... ok
+test_nonempty_goal_evidence (test_task_contracts.TaskContractTests.test_nonempty_goal_evidence) ... ok
+test_policy_never_grants_execution (test_task_contracts.TaskContractTests.test_policy_never_grants_execution) ... ok
+test_reuses_three_valued_conditions (test_task_contracts.TaskContractTests.test_reuses_three_valued_conditions) ... ok
+test_budget_exhaustion_dispatches_no_extra_tool (test_task_runner.TaskRunnerTests.test_budget_exhaustion_dispatches_no_extra_tool) ... ok
+test_cancel_after_call_prevents_next_call (test_task_runner.TaskRunnerTests.test_cancel_after_call_prevents_next_call) ... ok
+test_cancelled_error_persisted_and_propagated (test_task_runner.TaskRunnerTests.test_cancelled_error_persisted_and_propagated) ... ok
+test_crash_pending_call_reobserves_and_preserves_cursor (test_task_runner.TaskRunnerTests.test_crash_pending_call_reobserves_and_preserves_cursor) ... ok
+test_disallowed_tool_never_dispatched (test_task_runner.TaskRunnerTests.test_disallowed_tool_never_dispatched) ... ok
+test_frozen_development_policy_cases (test_task_runner.TaskRunnerTests.test_frozen_development_policy_cases) ... ok
+test_inactive_or_control_session_rejected (test_task_runner.TaskRunnerTests.test_inactive_or_control_session_rejected) ... ok
+test_missing_field_evidence_never_succeeds (test_task_runner.TaskRunnerTests.test_missing_field_evidence_never_succeeds) ... ok
+test_old_field_metadata_cannot_prove_current_goal (test_task_runner.TaskRunnerTests.test_old_field_metadata_cannot_prove_current_goal) ... ok
+test_pause_after_call_prevents_next_call (test_task_runner.TaskRunnerTests.test_pause_after_call_prevents_next_call) ... ok
+test_pause_and_restart_reobserves_without_repeating_cursor (test_task_runner.TaskRunnerTests.test_pause_and_restart_reobserves_without_repeating_cursor) ... ok
+test_policy_cannot_assert_success (test_task_runner.TaskRunnerTests.test_policy_cannot_assert_success) ... ok
+test_policy_context_mutation_cannot_rewrite_goal (test_task_runner.TaskRunnerTests.test_policy_context_mutation_cannot_rewrite_goal) ... ok
+test_real_b_context_overflow_prevents_policy (test_task_runner.TaskRunnerTests.test_real_b_context_overflow_prevents_policy) ... ok
+test_real_b_model_attempt_unknown_usage_and_trace (test_task_runner.TaskRunnerTests.test_real_b_model_attempt_unknown_usage_and_trace) ... ok
+test_real_b_model_budget_stops_before_policy (test_task_runner.TaskRunnerTests.test_real_b_model_budget_stops_before_policy) ... ok
+test_real_b_restore_does_not_reset_deadline (test_task_runner.TaskRunnerTests.test_real_b_restore_does_not_reset_deadline) ... ok
+test_real_b_tool_budget_stops_before_dispatch (test_task_runner.TaskRunnerTests.test_real_b_tool_budget_stops_before_dispatch) ... ok
+test_restart_rejects_old_observation (test_task_runner.TaskRunnerTests.test_restart_rejects_old_observation) ... ok
+test_schema_error_has_no_success_log (test_task_runner.TaskRunnerTests.test_schema_error_has_no_success_log) ... ok
+test_session_changes_stop_before_observe (test_task_runner.TaskRunnerTests.test_session_changes_stop_before_observe) ... ok
+test_stale_policy_result_is_rejected (test_task_runner.TaskRunnerTests.test_stale_policy_result_is_rejected) ... ok
+test_stop_condition_wins_over_success (test_task_runner.TaskRunnerTests.test_stop_condition_wins_over_success) ... ok
+test_three_fresh_observations_and_terminal_noop (test_task_runner.TaskRunnerTests.test_three_fresh_observations_and_terminal_noop) ... ok
+test_wait_can_be_cancelled_without_next_observation (test_task_runner.TaskRunnerTests.test_wait_can_be_cancelled_without_next_observation) ... ok
+test_json_store_round_trip_preserves_sections (unit.test_agent_harness.JournalTests.test_json_store_round_trip_preserves_sections) ... ok
+test_observed_and_inferred_entries_require_evidence (unit.test_agent_harness.JournalTests.test_observed_and_inferred_entries_require_evidence) ... ok
+test_all_blocked_fixture_stops_without_recommendation (unit.test_agent_harness.RecommendationHarnessTests.test_all_blocked_fixture_stops_without_recommendation) ... ok
+test_checkpoint_staleness_stops_when_fresh_observation_misses_domain (unit.test_agent_harness.RecommendationHarnessTests.test_checkpoint_staleness_stops_when_fresh_observation_misses_domain) ... ok
+test_harness_consumes_canonical_contract_and_has_no_control_import (unit.test_agent_harness.RecommendationHarnessTests.test_harness_consumes_canonical_contract_and_has_no_control_import) ... ok
+test_human_confirmation_candidate_is_reported_then_stops (unit.test_agent_harness.RecommendationHarnessTests.test_human_confirmation_candidate_is_reported_then_stops) ... ok
+test_non_none_execution_authority_fails_closed (unit.test_agent_harness.RecommendationHarnessTests.test_non_none_execution_authority_fails_closed) ... ok
+test_ready_fixture_runs_fixed_read_only_order_and_recommends (unit.test_agent_harness.RecommendationHarnessTests.test_ready_fixture_runs_fixed_read_only_order_and_recommends) ... ok
+test_stale_observation_stops (unit.test_agent_harness.RecommendationHarnessTests.test_stale_observation_stops) ... ok
+test_two_consecutive_qa_failures_stop_without_proposals (unit.test_agent_harness.RecommendationHarnessTests.test_two_consecutive_qa_failures_stop_without_proposals) ... ok
+test_unknown_critical_domain_stops_before_state_or_proposals (unit.test_agent_harness.RecommendationHarnessTests.test_unknown_critical_domain_stops_before_state_or_proposals) ... ok
+test_window_identity_change_from_journal_stops_before_observe (unit.test_agent_harness.RecommendationHarnessTests.test_window_identity_change_from_journal_stops_before_observe) ... ok
+test_argument_summary_redacts_secrets_and_hashes_text (unit.test_agent_harness.ToolLogTests.test_argument_summary_redacts_secrets_and_hashes_text) ... ok
+test_jsonl_log_round_trip (unit.test_agent_harness.ToolLogTests.test_jsonl_log_round_trip) ... ok
+test_composed_surface_has_no_mutating_tool_or_control_import (unit.test_agent_harness_game_mcp_integration.AgentHarnessGameMCPIntegrationTests.test_composed_surface_has_no_mutating_tool_or_control_import) ... ok
+test_live_server_order_privacy_and_recommendation_only_authority (unit.test_agent_harness_game_mcp_integration.AgentHarnessGameMCPIntegrationTests.test_live_server_order_privacy_and_recommendation_only_authority) ... ok
+test_unknown_stale_and_blocked_cycles_stop_fail_closed (unit.test_agent_harness_game_mcp_integration.AgentHarnessGameMCPIntegrationTests.test_unknown_stale_and_blocked_cycles_stop_fail_closed) ... ok
+test_r17_map_refresh_does_not_refresh_recruit_timer (unit.test_agent_harness_lifecycle.HarnessLifecycleTests.test_r17_map_refresh_does_not_refresh_recruit_timer) ... ok
+test_r17_repeated_real_domains_refresh_timer_checkpoint (unit.test_agent_harness_lifecycle.HarnessLifecycleTests.test_r17_repeated_real_domains_refresh_timer_checkpoint) ... ok
+test_r17_unknown_source_never_refreshes_checkpoint (unit.test_agent_harness_lifecycle.HarnessLifecycleTests.test_r17_unknown_source_never_refreshes_checkpoint) ... ok
+test_r18_restart_changed_or_missing_identity_preserves_baseline (unit.test_agent_harness_lifecycle.HarnessLifecycleTests.test_r18_restart_changed_or_missing_identity_preserves_baseline) ... ok
+test_r18_restart_reobserves_before_comparing_persisted_identity (unit.test_agent_harness_lifecycle.HarnessLifecycleTests.test_r18_restart_reobserves_before_comparing_persisted_identity) ... ok
+test_r19_downstream_binding_cannot_change_provenance (unit.test_agent_harness_lifecycle.HarnessLifecycleTests.test_r19_downstream_binding_cannot_change_provenance) ... ok
+test_r19_slow_qa_and_candidate_calls_cannot_return_stale_advice (unit.test_agent_harness_lifecycle.HarnessLifecycleTests.test_r19_slow_qa_and_candidate_calls_cannot_return_stale_advice) ... ok
+test_r20_cancelled_call_is_logged_and_journaled (unit.test_agent_harness_lifecycle.HarnessLifecycleTests.test_r20_cancelled_call_is_logged_and_journaled) ... ok
+test_cancel_and_initialize_error_race_retrieves_ready_exception (unit.test_agent_harness_shutdown.ShutdownRaceTests.test_cancel_and_initialize_error_race_retrieves_ready_exception) ... ok
+test_cancelled_initialization_drains_late_stdout (unit.test_agent_harness_shutdown.ShutdownRaceTests.test_cancelled_initialization_drains_late_stdout) ... ok
+test_continuous_late_output_cannot_outlive_shutdown_budget (unit.test_agent_harness_shutdown.ShutdownRaceTests.test_continuous_late_output_cannot_outlive_shutdown_budget) ... ok
+test_immediate_shutdown_closes_dormant_receive_endpoint (unit.test_agent_harness_shutdown.ShutdownRaceTests.test_immediate_shutdown_closes_dormant_receive_endpoint) ... ok
+test_initialize_uses_connect_budget_not_tool_request_budget (unit.test_agent_harness_shutdown.ShutdownRaceTests.test_initialize_uses_connect_budget_not_tool_request_budget) ... execute program '/tmp/sanmou-live-gateway-linux.UhQEsM/venv/bin/python': <_UnixSubprocessTransport pid=2578 running stdin=<_UnixWritePipeTransport fd=8 idle bufsize=0> stdout=<_UnixReadPipeTransport fd=9 polling>>
+<_UnixReadPipeTransport fd=9 polling> was closed by peer
+<_UnixSubprocessTransport pid=2578 running stdin=<_UnixWritePipeTransport closed fd=8 closed> stdout=<_UnixReadPipeTransport closed fd=9 closed>> exited with return code 0
+ok
+test_late_stdout_after_session_close_preserves_original_deadline (unit.test_agent_harness_shutdown.ShutdownRaceTests.test_late_stdout_after_session_close_preserves_original_deadline) ... ok
+test_mixed_cleanup_exception_group_is_preserved (unit.test_agent_harness_shutdown.ShutdownRaceTests.test_mixed_cleanup_exception_group_is_preserved) ... ok
+test_nested_real_clients_and_repeated_close_leave_no_tasks (unit.test_agent_harness_shutdown.ShutdownRaceTests.test_nested_real_clients_and_repeated_close_leave_no_tasks) ... execute program '/tmp/sanmou-live-gateway-linux.UhQEsM/venv/bin/python': <_UnixSubprocessTransport pid=2579 running stdin=<_UnixWritePipeTransport fd=8 idle bufsize=0> stdout=<_UnixReadPipeTransport fd=9 polling>>
+execute program '/tmp/sanmou-live-gateway-linux.UhQEsM/venv/bin/python': <_UnixSubprocessTransport pid=2580 running stdin=<_UnixWritePipeTransport fd=11 idle bufsize=0> stdout=<_UnixReadPipeTransport fd=12 polling>>
+<_UnixReadPipeTransport fd=9 polling> was closed by peer
+<_UnixSubprocessTransport pid=2579 running stdin=<_UnixWritePipeTransport closed fd=8 closed> stdout=<_UnixReadPipeTransport closed fd=9 closed>> exited with return code 0
+<_UnixReadPipeTransport fd=12 polling> was closed by peer
+<_UnixSubprocessTransport pid=2580 running stdin=<_UnixWritePipeTransport closed fd=11 closed> stdout=<_UnixReadPipeTransport closed fd=12 closed>> exited with return code 0
+ok
+test_normal_response_is_not_consumed_by_shutdown_drain (unit.test_agent_harness_shutdown.ShutdownRaceTests.test_normal_response_is_not_consumed_by_shutdown_drain) ... ok
+test_real_child_continuing_output_is_terminated_on_shutdown (unit.test_agent_harness_shutdown.ShutdownRaceTests.test_real_child_continuing_output_is_terminated_on_shutdown) ... execute program '/tmp/sanmou-live-gateway-linux.UhQEsM/venv/bin/python': <_UnixSubprocessTransport pid=2581 running stdin=<_UnixWritePipeTransport fd=8 idle bufsize=0> stdout=<_UnixReadPipeTransport fd=9 polling>>
+<_UnixReadPipeTransport fd=9 polling> was closed by peer
+<_UnixSubprocessTransport pid=2581 running stdin=<_UnixWritePipeTransport closed fd=8 closed> stdout=<_UnixReadPipeTransport closed fd=9 closed>> exited with return code -15
+ok
+test_unrelated_cleanup_exception_is_not_suppressed (unit.test_agent_harness_shutdown.ShutdownRaceTests.test_unrelated_cleanup_exception_is_not_suppressed) ... ok
+test_official_stdio_clients_bind_real_game_and_qa_servers (unit.test_agent_harness_stdio_client.AgentHarnessStdioClientTests.test_official_stdio_clients_bind_real_game_and_qa_servers) ... Processing request of type ListToolsRequest
+Processing request of type ListToolsRequest
+Processing request of type CallToolRequest
+Processing request of type CallToolRequest
+ok
+test_bridge_without_capture_credential_does_not_invent_one (unit.test_agent_harness_timeouts.StdioDeadlineTests.test_bridge_without_capture_credential_does_not_invent_one) ... ok
+test_capture_credential_is_absent_from_failure_journal_log_and_result (unit.test_agent_harness_timeouts.StdioDeadlineTests.test_capture_credential_is_absent_from_failure_journal_log_and_result) ... ok
+test_capture_credential_only_reaches_explicit_bridge_child (unit.test_agent_harness_timeouts.StdioDeadlineTests.test_capture_credential_only_reaches_explicit_bridge_child) ... ok
+test_cli_startup_failure_writes_structured_stop_and_private_log (unit.test_agent_harness_timeouts.StdioDeadlineTests.test_cli_startup_failure_writes_structured_stop_and_private_log) ... execute program '/tmp/sanmou-live-gateway-linux.UhQEsM/venv/bin/python': <_UnixSubprocessTransport pid=2588 running stdin=<_UnixWritePipeTransport fd=8 idle bufsize=0> stdout=<_UnixReadPipeTransport fd=9 polling>>
+<_UnixReadPipeTransport fd=9 polling> was closed by peer
+<_UnixSubprocessTransport pid=2588 running stdin=<_UnixWritePipeTransport closed fd=8 closed> stdout=<_UnixReadPipeTransport closed fd=9 closed>> exited with return code 0
+ok
+test_connection_creation_deadline_cancels_transport (unit.test_agent_harness_timeouts.StdioDeadlineTests.test_connection_creation_deadline_cancels_transport) ... ok
+test_external_cancellation_closes_owner_and_child (unit.test_agent_harness_timeouts.StdioDeadlineTests.test_external_cancellation_closes_owner_and_child) ... execute program '/tmp/sanmou-live-gateway-linux.UhQEsM/venv/bin/python': <_UnixSubprocessTransport pid=2589 running stdin=<_UnixWritePipeTransport fd=8 idle bufsize=0> stdout=<_UnixReadPipeTransport fd=9 polling>>
+<_UnixReadPipeTransport fd=9 polling> was closed by peer
+<_UnixSubprocessTransport pid=2589 running stdin=<_UnixWritePipeTransport closed fd=8 closed> stdout=<_UnixReadPipeTransport closed fd=9 closed>> exited with return code 0
+ok
+test_initialization_cancellation_closes_transport (unit.test_agent_harness_timeouts.StdioDeadlineTests.test_initialization_cancellation_closes_transport) ... execute program '/tmp/sanmou-live-gateway-linux.UhQEsM/venv/bin/python': <_UnixSubprocessTransport pid=2590 running stdin=<_UnixWritePipeTransport fd=8 idle bufsize=0> stdout=<_UnixReadPipeTransport fd=9 polling>>
+<_UnixReadPipeTransport fd=9 polling> was closed by peer
+<_UnixSubprocessTransport pid=2590 running stdin=<_UnixWritePipeTransport closed fd=8 closed> stdout=<_UnixReadPipeTransport closed fd=9 closed>> exited with return code 0
+ok
+test_nonfinite_or_unbounded_timeouts_are_rejected (unit.test_agent_harness_timeouts.StdioDeadlineTests.test_nonfinite_or_unbounded_timeouts_are_rejected) ... ok
+test_official_stdio_child_receives_only_selected_capture_environment (unit.test_agent_harness_timeouts.StdioDeadlineTests.test_official_stdio_child_receives_only_selected_capture_environment) ... execute program '/tmp/sanmou-live-gateway-linux.UhQEsM/venv/bin/python': <_UnixSubprocessTransport pid=2591 running stdin=<_UnixWritePipeTransport fd=8 idle bufsize=0> stdout=<_UnixReadPipeTransport fd=9 polling>>
+<_UnixReadPipeTransport fd=9 polling> was closed by peer
+<_UnixSubprocessTransport pid=2591 running stdin=<_UnixWritePipeTransport closed fd=8 closed> stdout=<_UnixReadPipeTransport closed fd=9 closed>> exited with return code 0
+execute program '/tmp/sanmou-live-gateway-linux.UhQEsM/venv/bin/python': <_UnixSubprocessTransport pid=2592 running stdin=<_UnixWritePipeTransport fd=8 idle bufsize=0> stdout=<_UnixReadPipeTransport fd=9 polling>>
+<_UnixReadPipeTransport fd=9 polling> was closed by peer
+<_UnixSubprocessTransport pid=2592 running stdin=<_UnixWritePipeTransport closed fd=8 closed> stdout=<_UnixReadPipeTransport closed fd=9 closed>> exited with return code 0
+execute program '/tmp/sanmou-live-gateway-linux.UhQEsM/venv/bin/python': <_UnixSubprocessTransport pid=2593 running stdin=<_UnixWritePipeTransport fd=8 idle bufsize=0> stdout=<_UnixReadPipeTransport fd=9 polling>>
+<_UnixReadPipeTransport fd=9 polling> was closed by peer
+<_UnixSubprocessTransport pid=2593 running stdin=<_UnixWritePipeTransport closed fd=8 closed> stdout=<_UnixReadPipeTransport closed fd=9 closed>> exited with return code 0
+execute program '/tmp/sanmou-live-gateway-linux.UhQEsM/venv/bin/python': <_UnixSubprocessTransport pid=2594 running stdin=<_UnixWritePipeTransport fd=8 idle bufsize=0> stdout=<_UnixReadPipeTransport fd=9 polling>>
+<_UnixReadPipeTransport fd=9 polling> was closed by peer
+<_UnixSubprocessTransport pid=2594 running stdin=<_UnixWritePipeTransport closed fd=8 closed> stdout=<_UnixReadPipeTransport closed fd=9 closed>> exited with return code 0
+execute program '/tmp/sanmou-live-gateway-linux.UhQEsM/venv/bin/python': <_UnixSubprocessTransport pid=2595 running stdin=<_UnixWritePipeTransport fd=8 idle bufsize=0> stdout=<_UnixReadPipeTransport fd=9 polling>>
+<_UnixReadPipeTransport fd=9 polling> was closed by peer
+<_UnixSubprocessTransport pid=2595 running stdin=<_UnixWritePipeTransport closed fd=8 closed> stdout=<_UnixReadPipeTransport closed fd=9 closed>> exited with return code 0
+execute program '/tmp/sanmou-live-gateway-linux.UhQEsM/venv/bin/python': <_UnixSubprocessTransport pid=2596 running stdin=<_UnixWritePipeTransport fd=8 idle bufsize=0> stdout=<_UnixReadPipeTransport fd=9 polling>>
+<_UnixReadPipeTransport fd=9 polling> was closed by peer
+<_UnixSubprocessTransport pid=2596 running stdin=<_UnixWritePipeTransport closed fd=8 closed> stdout=<_UnixReadPipeTransport closed fd=9 closed>> exited with return code 0
+ok
+test_silent_initialization_and_catalog_are_bounded_and_cleaned (unit.test_agent_harness_timeouts.StdioDeadlineTests.test_silent_initialization_and_catalog_are_bounded_and_cleaned) ... execute program '/tmp/sanmou-live-gateway-linux.UhQEsM/venv/bin/python': <_UnixSubprocessTransport pid=2597 running stdin=<_UnixWritePipeTransport fd=8 idle bufsize=0> stdout=<_UnixReadPipeTransport fd=9 polling>>
+<_UnixReadPipeTransport fd=9 polling> was closed by peer
+<_UnixSubprocessTransport pid=2597 running stdin=<_UnixWritePipeTransport closed fd=8 closed> stdout=<_UnixReadPipeTransport closed fd=9 closed>> exited with return code 0
+execute program '/tmp/sanmou-live-gateway-linux.UhQEsM/venv/bin/python': <_UnixSubprocessTransport pid=2598 running stdin=<_UnixWritePipeTransport fd=8 idle bufsize=0> stdout=<_UnixReadPipeTransport fd=9 polling>>
+<_UnixReadPipeTransport fd=9 polling> was closed by peer
+<_UnixSubprocessTransport pid=2598 running stdin=<_UnixWritePipeTransport closed fd=8 closed> stdout=<_UnixReadPipeTransport closed fd=9 closed>> exited with return code 0
+ok
+test_silent_tool_call_closes_nested_client_and_is_not_reused (unit.test_agent_harness_timeouts.StdioDeadlineTests.test_silent_tool_call_closes_nested_client_and_is_not_reused) ... execute program '/tmp/sanmou-live-gateway-linux.UhQEsM/venv/bin/python': <_UnixSubprocessTransport pid=2599 running stdin=<_UnixWritePipeTransport fd=8 idle bufsize=0> stdout=<_UnixReadPipeTransport fd=9 polling>>
+execute program '/tmp/sanmou-live-gateway-linux.UhQEsM/venv/bin/python': <_UnixSubprocessTransport pid=2600 running stdin=<_UnixWritePipeTransport fd=11 idle bufsize=0> stdout=<_UnixReadPipeTransport fd=12 polling>>
+<_UnixReadPipeTransport fd=9 polling> was closed by peer
+<_UnixSubprocessTransport pid=2599 running stdin=<_UnixWritePipeTransport closed fd=8 closed> stdout=<_UnixReadPipeTransport closed fd=9 closed>> exited with return code 0
+<_UnixReadPipeTransport fd=12 polling> was closed by peer
+<_UnixSubprocessTransport pid=2600 running stdin=<_UnixWritePipeTransport closed fd=11 closed> stdout=<_UnixReadPipeTransport closed fd=12 closed>> exited with return code 0
+ok
+test_silent_tool_failure_is_persisted_by_harness (unit.test_agent_harness_timeouts.StdioDeadlineTests.test_silent_tool_failure_is_persisted_by_harness) ... execute program '/tmp/sanmou-live-gateway-linux.UhQEsM/venv/bin/python': <_UnixSubprocessTransport pid=2601 running stdin=<_UnixWritePipeTransport fd=8 idle bufsize=0> stdout=<_UnixReadPipeTransport fd=9 polling>>
+<_UnixReadPipeTransport fd=9 polling> was closed by peer
+<_UnixSubprocessTransport pid=2601 running stdin=<_UnixWritePipeTransport closed fd=8 closed> stdout=<_UnixReadPipeTransport closed fd=9 closed>> exited with return code 0
+ok
+test_action_proposal_cannot_be_executable (unit.test_game_mcp_contract.GameMCPContractTests.test_action_proposal_cannot_be_executable) ... ok
+test_live_observation_rejects_conflicting_domain_status (unit.test_game_mcp_contract.GameMCPContractTests.test_live_observation_rejects_conflicting_domain_status) ... ok
+test_live_observation_requires_aware_timestamp (unit.test_game_mcp_contract.GameMCPContractTests.test_live_observation_requires_aware_timestamp) ... ok
+test_non_success_response_requires_structured_error (unit.test_game_mcp_contract.GameMCPContractTests.test_non_success_response_requires_structured_error) ... ok
+test_status_and_payload_form_a_discriminated_response (unit.test_game_mcp_contract.GameMCPContractTests.test_status_and_payload_form_a_discriminated_response) ... ok
+test_explicit_live_composition_observes_and_never_executes (unit.test_game_mcp_live_provider.GameMCPLiveProviderTests.test_explicit_live_composition_observes_and_never_executes) ... /tmp/sanmou-live-gateway-linux.UhQEsM/repo-r2/packages/pioneer-agent/src/pioneer_agent/selector/action_selector.py:150: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  current_time = self._get_current_time(state) or datetime.utcnow()
+ok
+test_live_composition_has_no_executor_or_control_import (unit.test_game_mcp_live_provider.GameMCPLiveProviderTests.test_live_composition_has_no_executor_or_control_import) ... ok
+test_live_entrypoint_requires_an_explicit_source (unit.test_game_mcp_live_provider.GameMCPLiveProviderTests.test_live_entrypoint_requires_an_explicit_source) ... usage: python -m unittest [-h]
+                          (--screenshot SCREENSHOT | --watch-folder WATCH_FOLDER | --windows-bridge)
+                          [--platform {pc_client,android_emulator,android,ios,unknown}]
+                          [--vision-provider VISION_PROVIDER]
+                          [--fixture-root FIXTURE_ROOT]
+                          [--trace-path TRACE_PATH]
+                          [--account-label ACCOUNT_LABEL]
+                          [--server-id SERVER_ID] [--season-id SEASON_ID]
+                          [--role-name ROLE_NAME]
+python -m unittest: error: one of the arguments --screenshot --watch-folder --windows-bridge is required
+ok
+test_deep_gear_and_readiness_are_preserved_without_arbitrary_metadata (unit.test_game_mcp_public_payload.GameMCPPublicPayloadTests.test_deep_gear_and_readiness_are_preserved_without_arbitrary_metadata) ... ok
+test_nested_domain_shapes_reject_private_and_misplaced_keys (unit.test_game_mcp_public_payload.GameMCPPublicPayloadTests.test_nested_domain_shapes_reject_private_and_misplaced_keys) ... ok
+test_projection_bounds_collections_and_strings_and_preserves_unknown (unit.test_game_mcp_public_payload.GameMCPPublicPayloadTests.test_projection_bounds_collections_and_strings_and_preserves_unknown) ... ok
+test_real_domain_builders_survive_service_and_canonical_consumer (unit.test_game_mcp_public_payload.GameMCPPublicPayloadTests.test_real_domain_builders_survive_service_and_canonical_consumer) ... ok
+test_default_is_contract_skeleton_and_live_factory_requires_provider (unit.test_game_mcp_server.GameMCPServerTests.test_default_is_contract_skeleton_and_live_factory_requires_provider) ... ok
+test_generic_client_smoke_config_matches_module_entrypoint (unit.test_game_mcp_server.GameMCPServerTests.test_generic_client_smoke_config_matches_module_entrypoint) ... ok
+test_mcp_handler_output_matches_service_output (unit.test_game_mcp_server.GameMCPServerTests.test_mcp_handler_output_matches_service_output) ... ok
+test_mcp_sdk_compatibility_window_is_the_verified_v1_minor (unit.test_game_mcp_server.GameMCPServerTests.test_mcp_sdk_compatibility_window_is_the_verified_v1_minor) ... ok
+test_mcp_server_has_no_direct_control_import_or_mutating_tool (unit.test_game_mcp_server.GameMCPServerTests.test_mcp_server_has_no_direct_control_import_or_mutating_tool) ... ok
+test_stdio_initialize_list_and_call_smoke (unit.test_game_mcp_server.GameMCPServerTests.test_stdio_initialize_list_and_call_smoke) ... Processing request of type ListToolsRequest
+Processing request of type CallToolRequest
+Processing request of type CallToolRequest
+Processing request of type CallToolRequest
+Processing request of type CallToolRequest
+ok
+test_tool_list_annotations_and_strict_schemas (unit.test_game_mcp_server.GameMCPServerTests.test_tool_list_annotations_and_strict_schemas) ... ok
+test_unknown_input_is_rejected_before_handler (unit.test_game_mcp_server.GameMCPServerTests.test_unknown_input_is_rejected_before_handler) ... ok
+test_empty_service_is_explicit_and_does_not_observe (unit.test_game_mcp_service.GameMCPServiceTests.test_empty_service_is_explicit_and_does_not_observe) ... ok
+test_failed_refresh_preserves_previous_cache (unit.test_game_mcp_service.GameMCPServiceTests.test_failed_refresh_preserves_previous_cache) ... ok
+test_fixture_evaluation_is_closed_root_and_never_uses_live_provider (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluation_is_closed_root_and_never_uses_live_provider) ... ok
+test_fixture_evaluator_never_imports_or_calls_runner_modules (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_never_imports_or_calls_runner_modules) ... ok
+test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_evaluator_receives_pinned_bytes_not_a_reopenable_path) ... ok
+test_fixture_read_is_bounded_no_follow_and_hardlink_safe (unit.test_game_mcp_service.GameMCPServiceTests.test_fixture_read_is_bounded_no_follow_and_hardlink_safe) ... ok
+test_last_trace_is_bounded_and_does_not_expose_paths (unit.test_game_mcp_service.GameMCPServiceTests.test_last_trace_is_bounded_and_does_not_expose_paths) ... ok
+test_live_outputs_use_explicit_privacy_projection (unit.test_game_mcp_service.GameMCPServiceTests.test_live_outputs_use_explicit_privacy_projection) ... ok
+test_observe_game_is_single_flight (unit.test_game_mcp_service.GameMCPServiceTests.test_observe_game_is_single_flight) ... ok
+test_only_observe_game_refreshes_provider_and_cached_tools_have_parity (unit.test_game_mcp_service.GameMCPServiceTests.test_only_observe_game_refreshes_provider_and_cached_tools_have_parity) ... ok
+test_real_fixture_evaluator_returns_advisory_projection (unit.test_game_mcp_service.GameMCPServiceTests.test_real_fixture_evaluator_returns_advisory_projection) ... ok
+test_refresh_rejects_reused_observation_id (unit.test_game_mcp_service.GameMCPServiceTests.test_refresh_rejects_reused_observation_id) ... ok
+test_directory_swap_at_open_is_rejected_without_writing_sentinel_directory (test_live_gateway_roundtrip.LiveGatewayRunnerTests.test_directory_swap_at_open_is_rejected_without_writing_sentinel_directory) ... ok
+test_existing_output_is_never_modified (test_live_gateway_roundtrip.LiveGatewayRunnerTests.test_existing_output_is_never_modified) ... ok
+test_index_failure_cannot_leave_success_summary (test_live_gateway_roundtrip.LiveGatewayRunnerTests.test_index_failure_cannot_leave_success_summary) ... <Server sockets=(<asyncio.TransportSocket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 48969)>,)> is serving
+<Server sockets=(<asyncio.TransportSocket fd=10, family=2, type=1, proto=0, laddr=('127.0.0.1', 45897)>,)> is serving
+HTTP Request: POST http://127.0.0.1:45897/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:45897/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:45897/v1/policy/decide "HTTP/1.1 409 Conflict"
+HTTP Request: POST http://127.0.0.1:48969/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:45897/v1/policy/decide "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:48969/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:45897/v1/policy/decide "HTTP/1.1 200 OK"
+ok
+test_manifest_receipt_mismatch_stops_before_network (test_live_gateway_roundtrip.LiveGatewayRunnerTests.test_manifest_receipt_mismatch_stops_before_network) ... ok
+test_missing_token_usage_or_logprob_readback_cannot_pass (test_live_gateway_roundtrip.LiveGatewayRunnerTests.test_missing_token_usage_or_logprob_readback_cannot_pass) ... <Server sockets=(<asyncio.TransportSocket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 48471)>,)> is serving
+<Server sockets=(<asyncio.TransportSocket fd=10, family=2, type=1, proto=0, laddr=('127.0.0.1', 52301)>,)> is serving
+HTTP Request: POST http://127.0.0.1:52301/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:52301/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:52301/v1/policy/decide "HTTP/1.1 409 Conflict"
+HTTP Request: POST http://127.0.0.1:48471/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:52301/v1/policy/decide "HTTP/1.1 200 OK"
+<Server sockets=(<asyncio.TransportSocket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 56121)>,)> is serving
+<Server sockets=(<asyncio.TransportSocket fd=10, family=2, type=1, proto=0, laddr=('127.0.0.1', 40657)>,)> is serving
+HTTP Request: POST http://127.0.0.1:40657/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:40657/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:40657/v1/policy/decide "HTTP/1.1 409 Conflict"
+HTTP Request: POST http://127.0.0.1:56121/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:40657/v1/policy/decide "HTTP/1.1 200 OK"
+<Server sockets=(<asyncio.TransportSocket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 55941)>,)> is serving
+<Server sockets=(<asyncio.TransportSocket fd=10, family=2, type=1, proto=0, laddr=('127.0.0.1', 35431)>,)> is serving
+HTTP Request: POST http://127.0.0.1:35431/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:35431/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:35431/v1/policy/decide "HTTP/1.1 409 Conflict"
+HTTP Request: POST http://127.0.0.1:55941/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:35431/v1/policy/decide "HTTP/1.1 200 OK"
+<Server sockets=(<asyncio.TransportSocket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 48783)>,)> is serving
+<Server sockets=(<asyncio.TransportSocket fd=10, family=2, type=1, proto=0, laddr=('127.0.0.1', 45425)>,)> is serving
+HTTP Request: POST http://127.0.0.1:45425/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:45425/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:45425/v1/policy/decide "HTTP/1.1 409 Conflict"
+HTTP Request: POST http://127.0.0.1:48783/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:45425/v1/policy/decide "HTTP/1.1 200 OK"
+ok
+test_native_timeout_retains_partial_response_and_settles_once (test_live_gateway_roundtrip.LiveGatewayRunnerTests.test_native_timeout_retains_partial_response_and_settles_once) ... <Server sockets=(<asyncio.TransportSocket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 36085)>,)> is serving
+<Server sockets=(<asyncio.TransportSocket fd=10, family=2, type=1, proto=0, laddr=('127.0.0.1', 33059)>,)> is serving
+HTTP Request: POST http://127.0.0.1:33059/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:33059/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:33059/v1/policy/decide "HTTP/1.1 409 Conflict"
+HTTP Request: POST http://127.0.0.1:33059/v1/policy/decide "HTTP/1.1 504 Gateway Timeout"
+ok
+test_non_200_original_is_captured_without_retry (test_live_gateway_roundtrip.LiveGatewayRunnerTests.test_non_200_original_is_captured_without_retry) ... <Server sockets=(<asyncio.TransportSocket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 41489)>,)> is serving
+<Server sockets=(<asyncio.TransportSocket fd=10, family=2, type=1, proto=0, laddr=('127.0.0.1', 59809)>,)> is serving
+HTTP Request: POST http://127.0.0.1:59809/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:59809/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:59809/v1/policy/decide "HTTP/1.1 409 Conflict"
+HTTP Request: POST http://127.0.0.1:41489/v1/chat/completions "HTTP/1.1 503 Service Unavailable"
+HTTP Request: POST http://127.0.0.1:59809/v1/policy/decide "HTTP/1.1 502 Bad Gateway"
+ok
+test_parse_failure_preserves_native_original_and_known_budget_usage (test_live_gateway_roundtrip.LiveGatewayRunnerTests.test_parse_failure_preserves_native_original_and_known_budget_usage) ... <Server sockets=(<asyncio.TransportSocket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 48655)>,)> is serving
+<Server sockets=(<asyncio.TransportSocket fd=10, family=2, type=1, proto=0, laddr=('127.0.0.1', 35393)>,)> is serving
+HTTP Request: POST http://127.0.0.1:35393/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:35393/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:35393/v1/policy/decide "HTTP/1.1 409 Conflict"
+HTTP Request: POST http://127.0.0.1:48655/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:35393/v1/policy/decide "HTTP/1.1 200 OK"
+ok
+test_prompt_hash_and_sampling_are_stable (test_live_gateway_roundtrip.LiveGatewayRunnerTests.test_prompt_hash_and_sampling_are_stable) ... ok
+test_response_capture_byte_limit_is_bounded_even_for_non_200 (test_live_gateway_roundtrip.LiveGatewayRunnerTests.test_response_capture_byte_limit_is_bounded_even_for_non_200) ... <Server sockets=(<asyncio.TransportSocket fd=9, family=2, type=1, proto=0, laddr=('127.0.0.1', 49713)>,)> is serving
+ok
+test_response_containing_key_is_not_saved_and_stops_generation (test_live_gateway_roundtrip.LiveGatewayRunnerTests.test_response_containing_key_is_not_saved_and_stops_generation) ... <Server sockets=(<asyncio.TransportSocket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 39389)>,)> is serving
+<Server sockets=(<asyncio.TransportSocket fd=10, family=2, type=1, proto=0, laddr=('127.0.0.1', 46765)>,)> is serving
+HTTP Request: POST http://127.0.0.1:46765/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:46765/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:46765/v1/policy/decide "HTTP/1.1 409 Conflict"
+HTTP Request: POST http://127.0.0.1:39389/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:46765/v1/policy/decide "HTTP/1.1 502 Bad Gateway"
+ok
+test_summary_fsync_after_write_failure_never_publishes_final_success (test_live_gateway_roundtrip.LiveGatewayRunnerTests.test_summary_fsync_after_write_failure_never_publishes_final_success) ... <Server sockets=(<asyncio.TransportSocket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 41555)>,)> is serving
+<Server sockets=(<asyncio.TransportSocket fd=10, family=2, type=1, proto=0, laddr=('127.0.0.1', 37445)>,)> is serving
+HTTP Request: POST http://127.0.0.1:37445/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:37445/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:37445/v1/policy/decide "HTTP/1.1 409 Conflict"
+HTTP Request: POST http://127.0.0.1:41555/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:37445/v1/policy/decide "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:41555/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:37445/v1/policy/decide "HTTP/1.1 200 OK"
+ok
+test_two_real_http_hops_bind_receipt_capture_actual_bytes_and_reject_three_probes (test_live_gateway_roundtrip.LiveGatewayRunnerTests.test_two_real_http_hops_bind_receipt_capture_actual_bytes_and_reject_three_probes) ... <Server sockets=(<asyncio.TransportSocket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 57381)>,)> is serving
+<Server sockets=(<asyncio.TransportSocket fd=10, family=2, type=1, proto=0, laddr=('127.0.0.1', 59397)>,)> is serving
+HTTP Request: POST http://127.0.0.1:59397/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:59397/v1/policy/decide "HTTP/1.1 401 Unauthorized"
+HTTP Request: POST http://127.0.0.1:59397/v1/policy/decide "HTTP/1.1 409 Conflict"
+HTTP Request: POST http://127.0.0.1:57381/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:59397/v1/policy/decide "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:57381/v1/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:59397/v1/policy/decide "HTTP/1.1 200 OK"
+ok
+test_writable_by_other_users_parent_is_rejected (test_live_gateway_roundtrip.LiveGatewayRunnerTests.test_writable_by_other_users_parent_is_rejected) ... ok
+test_wrong_endpoint_port_stops_before_network (test_live_gateway_roundtrip.LiveGatewayRunnerTests.test_wrong_endpoint_port_stops_before_network) ... ok
+test_wrong_scenario_binding_stops_before_network (test_live_gateway_roundtrip.LiveGatewayRunnerTests.test_wrong_scenario_binding_stops_before_network) ... ok
+test_changed_installed_sglang_source_is_rejected (test_native_runtime_manifest.NativeCollectorTests.test_changed_installed_sglang_source_is_rejected) ... ok
+test_changed_model_is_rejected_instead_of_believing_expected_hash (test_native_runtime_manifest.NativeCollectorTests.test_changed_model_is_rejected_instead_of_believing_expected_hash) ... ok
+test_changed_source_is_rejected (test_native_runtime_manifest.NativeCollectorTests.test_changed_source_is_rejected) ... ok
+test_cli_collects_then_writes_and_does_not_clobber (test_native_runtime_manifest.NativeCollectorTests.test_cli_collects_then_writes_and_does_not_clobber) ... ok
+test_collector_reads_actual_bytes_without_git_or_gpu (test_native_runtime_manifest.NativeCollectorTests.test_collector_reads_actual_bytes_without_git_or_gpu) ... ok
+test_extra_model_file_is_rejected (test_native_runtime_manifest.NativeCollectorTests.test_extra_model_file_is_rejected) ... ok
+test_lock_reread_is_checked_against_source_inventory (test_native_runtime_manifest.NativeCollectorTests.test_lock_reread_is_checked_against_source_inventory) ... ok
+test_metadata_version_must_match_exported_lock (test_native_runtime_manifest.NativeCollectorTests.test_metadata_version_must_match_exported_lock) ... ok
+test_binding_changes_with_config_dependency_source_sampling_and_prompt (test_native_runtime_manifest.NativeRuntimeManifestTests.test_binding_changes_with_config_dependency_source_sampling_and_prompt) ... ok
+test_bundle_is_create_only_and_roundtrips_exact_manifest (test_native_runtime_manifest.NativeRuntimeManifestTests.test_bundle_is_create_only_and_roundtrips_exact_manifest) ... ok
+test_bundle_refuses_a_symlink_parent (test_native_runtime_manifest.NativeRuntimeManifestTests.test_bundle_refuses_a_symlink_parent) ... ok
+test_bundle_refuses_group_or_other_writable_parent (test_native_runtime_manifest.NativeRuntimeManifestTests.test_bundle_refuses_group_or_other_writable_parent) ... ok
+test_bundle_refuses_preexisting_directory_substitution (test_native_runtime_manifest.NativeRuntimeManifestTests.test_bundle_refuses_preexisting_directory_substitution) ... ok
+test_hashes_types_required_fields_and_acceptance_are_not_claimable (test_native_runtime_manifest.NativeRuntimeManifestTests.test_hashes_types_required_fields_and_acceptance_are_not_claimable) ... ok
+test_index_fsync_failure_does_not_publish_completion_marker (test_native_runtime_manifest.NativeRuntimeManifestTests.test_index_fsync_failure_does_not_publish_completion_marker) ... ok
+test_local_reader_refuses_symlink_hardlink_and_duplicate_json (test_native_runtime_manifest.NativeRuntimeManifestTests.test_local_reader_refuses_symlink_hardlink_and_duplicate_json) ... ok
+test_metadata_reader_rejects_env_path_without_opening_it (test_native_runtime_manifest.NativeRuntimeManifestTests.test_metadata_reader_rejects_env_path_without_opening_it) ... ok
+test_partial_bundle_has_no_complete_index (test_native_runtime_manifest.NativeRuntimeManifestTests.test_partial_bundle_has_no_complete_index) ... ok
+test_private_or_unsealed_public_config_is_rejected (test_native_runtime_manifest.NativeRuntimeManifestTests.test_private_or_unsealed_public_config_is_rejected) ... ok
+test_reviewed_model_anchor_matches_archived_inventory (test_native_runtime_manifest.NativeRuntimeManifestTests.test_reviewed_model_anchor_matches_archived_inventory) ... ok
+test_source_inventory_cannot_include_credentials_or_escape (test_native_runtime_manifest.NativeRuntimeManifestTests.test_source_inventory_cannot_include_credentials_or_escape) ... ok
+test_source_inventory_requires_gateway_contract_and_lock (test_native_runtime_manifest.NativeRuntimeManifestTests.test_source_inventory_requires_gateway_contract_and_lock) ... ok
+test_unsafe_config_values_are_rejected (test_native_runtime_manifest.NativeRuntimeManifestTests.test_unsafe_config_values_are_rejected) ... ok
+test_valid_receipt_builds_detached_native_manifest (test_native_runtime_manifest.NativeRuntimeManifestTests.test_valid_receipt_builds_detached_native_manifest) ... ok
+test_bundle_tamper_extra_file_and_link_rejected (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_bundle_tamper_extra_file_and_link_rejected) ... ok
+test_changed_historical_lock_is_not_reused_as_verified_lock (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_changed_historical_lock_is_not_reused_as_verified_lock) ... ok
+test_download_is_fixed_revision_anonymous_and_private_cache (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_download_is_fixed_revision_anonymous_and_private_cache) ... ok
+test_exact_pip_plan_and_bounded_steps (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_exact_pip_plan_and_bounded_steps) ... ok
+test_extract_rejects_altered_payload_before_writing (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_extract_rejects_altered_payload_before_writing) ... ok
+test_idle_a100_preflight_rules (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_idle_a100_preflight_rules) ... ok
+test_logs_redact_credentials_and_step_failure_has_status (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_logs_redact_credentials_and_step_failure_has_status) ... ok
+test_mutable_ref_or_wrong_object_rejected (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_mutable_ref_or_wrong_object_rejected) ... ok
+test_native_collector_source_contract_when_integrated (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_native_collector_source_contract_when_integrated) ... ok
+test_only_allowlisted_committed_regular_source_and_no_git_history (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_only_allowlisted_committed_regular_source_and_no_git_history) ... ok
+test_output_and_extract_never_overwrite_existing_data (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_output_and_extract_never_overwrite_existing_data) ... ok
+test_preflight_disk_threshold_without_running_nvidia (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_preflight_disk_threshold_without_running_nvidia) ... ok
+test_prepare_extracts_without_gpu_subprocess_or_network (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_prepare_extracts_without_gpu_subprocess_or_network) ... ok
+test_required_source_set_and_private_names (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_required_source_set_and_private_names) ... ok
+test_same_commit_produces_identical_tar_inventory_and_manifest (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_same_commit_produces_identical_tar_inventory_and_manifest) ... ok
+test_status_atomic_publication_is_create_only (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_status_atomic_publication_is_create_only) ... ok
+test_status_fsync_failure_cannot_leave_success_completion_marker (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_status_fsync_failure_cannot_leave_success_completion_marker) ... ok
+test_subprocess_environment_ignores_package_indexes_and_auth (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_subprocess_environment_ignores_package_indexes_and_auth) ... ok
+test_tar_links_escape_duplicate_extra_and_mode_rejected (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_tar_links_escape_duplicate_extra_and_mode_rejected) ... ok
+test_timeout_targets_only_created_process_group (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_timeout_targets_only_created_process_group) ... ok
+test_tracked_credential_in_ordinary_code_is_rejected (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_tracked_credential_in_ordinary_code_is_rejected) ... ok
+test_tracked_symlink_is_rejected (test_colab_gateway_bootstrap.ColabGatewayBootstrapTests.test_tracked_symlink_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 234 tests in 19.717s
+
+OK

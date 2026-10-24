@@ -1,0 +1,2551 @@
+{
+  "schema": "sanmou-linux-test-snapshot-v1",
+  "source_kind": "staged_uncommitted_integration_snapshot",
+  "root": "/private/tmp/sanmou-live-gateway.PUqwzu/integration",
+  "base_head": "aa70e484c64594befe4e182b0d3046ef7cbd8803",
+  "captured_at_utc": "2026-10-24T10:46:10.403911+00:00",
+  "allowed_prefixes": [
+    "packages/sanmou-common/src/",
+    "packages/pioneer-agent/src/",
+    "packages/pioneer-agent/tests/",
+    "scripts/model-serving/",
+    "docs/test-reports/2026-10-24/colab-native/"
+  ],
+  "source_files": {
+    "docs/test-reports/2026-10-24/colab-native/auth-results.json": {
+      "sha256": "cc657f73f88a79e8e51436b6bb99c7bc24d6771dc5fc021b82103504754a1a24",
+      "bytes": 224
+    },
+    "docs/test-reports/2026-10-24/colab-native/cuda-probe.txt": {
+      "sha256": "b92134770ee0836439dfb288512d269cc46ad59181826c5bfc86607820fda938",
+      "bytes": 162
+    },
+    "docs/test-reports/2026-10-24/colab-native/environment.json": {
+      "sha256": "53b20fc3ac06da00b9986be50e9a2e0080afeec80b2e0c15ba56a8214c6dfc63",
+      "bytes": 986
+    },
+    "docs/test-reports/2026-10-24/colab-native/evidence-index.json": {
+      "sha256": "3c3229ba050d528bbcdf2062954da033b9876c7a7bd58dc6a21dbdc9ac2ea2dc",
+      "bytes": 4821
+    },
+    "docs/test-reports/2026-10-24/colab-native/gpu-after-requests.txt": {
+      "sha256": "5588c087b970622a436a32cc419d206438fc217dec0c31628883cf6be047fd97",
+      "bytes": 55
+    },
+    "docs/test-reports/2026-10-24/colab-native/installed-packages.json": {
+      "sha256": "26a916070d5984649ed5db313c4a0598882ca3be67dad36e3dbf85fcb388dc4e",
+      "bytes": 9485
+    },
+    "docs/test-reports/2026-10-24/colab-native/launch-public-2.json": {
+      "sha256": "4f42586d572d45d6c617e3bec715dd0039519be87351b1fa754077a8bea8fa7d",
+      "bytes": 550
+    },
+    "docs/test-reports/2026-10-24/colab-native/launch-public-3.json": {
+      "sha256": "1d639bd19c0569edcd6bed07d7ce39c5f70d70a3a9e67443949557bd3b249e0e",
+      "bytes": 580
+    },
+    "docs/test-reports/2026-10-24/colab-native/launch-public.json": {
+      "sha256": "b4c1be9dae33387b3a0c0a7870bd0ea6969b8c50e6e07e992c6ba254e100c437",
+      "bytes": 465
+    },
+    "docs/test-reports/2026-10-24/colab-native/media-rejected-request.json": {
+      "sha256": "d2557575d90bc19a2966595aa6de0a9d4d19b31b83fc273a70affce57044ec5b",
+      "bytes": 566
+    },
+    "docs/test-reports/2026-10-24/colab-native/media-rejected-response.json": {
+      "sha256": "4a6436e161554bd0a70de6a2339852b83abc1b59fe4e6f85367af2f537394f08",
+      "bytes": 122
+    },
+    "docs/test-reports/2026-10-24/colab-native/media-rejected-timing.json": {
+      "sha256": "ee21525200e26752828dcce22b902baf075265c607fc9d422d792de144f923cf",
+      "bytes": 48
+    },
+    "docs/test-reports/2026-10-24/colab-native/model-files.json": {
+      "sha256": "46e99d82dbb99e87895ec267b9d5165f513c26cc4e432582aaeeeef66edccb1a",
+      "bytes": 1848
+    },
+    "docs/test-reports/2026-10-24/colab-native/model-revision-proof.json": {
+      "sha256": "0b97b08806442100d08068d56573e352cdbf352fccfbfddab083abaea843ec8a",
+      "bytes": 410
+    },
+    "docs/test-reports/2026-10-24/colab-native/pip-check.txt": {
+      "sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09",
+      "bytes": 30
+    },
+    "docs/test-reports/2026-10-24/colab-native/ready-request.json": {
+      "sha256": "19c35f8924c3a8281203029cd622188fc40adf435ec3b63d63495e7c69085504",
+      "bytes": 395
+    },
+    "docs/test-reports/2026-10-24/colab-native/ready-response.json": {
+      "sha256": "314df5a2ca575a066ee6e885422a8728ca6ff6362d496a30bb877fa1c3a17ccc",
+      "bytes": 1450
+    },
+    "docs/test-reports/2026-10-24/colab-native/ready-timing.json": {
+      "sha256": "b8893f369664b6abe8e687a0005a226d83b0b9983f6da71eb07c7c2182aa540c",
+      "bytes": 45
+    },
+    "docs/test-reports/2026-10-24/colab-native/requirements-py312.lock": {
+      "sha256": "df23671ad3932e276ac023a9b6327beac87dc15f1efbbf2bab3f0814bd0dc228",
+      "bytes": 4064
+    },
+    "docs/test-reports/2026-10-24/colab-native/round-1-request.json": {
+      "sha256": "17ddaa7fa3d87475900ce292667bc3d282977c4d8da185fc5088289bbe2d59a0",
+      "bytes": 1146
+    },
+    "docs/test-reports/2026-10-24/colab-native/round-1-response.json": {
+      "sha256": "b5bbe4470014cdf7eb065d98dcec41522eaa8380f937565102511295191dd2cf",
+      "bytes": 6771
+    },
+    "docs/test-reports/2026-10-24/colab-native/round-1-timing.json": {
+      "sha256": "609d44f731882b8abc25561dbce5402a88d67e6d94d447bbc3a028fdc15f6bd9",
+      "bytes": 45
+    },
+    "docs/test-reports/2026-10-24/colab-native/round-2-request.json": {
+      "sha256": "0ac451f743ecc987530c6ce9eeb721b7cc2753815431f1e01061ca6a7638e4ba",
+      "bytes": 1578
+    },
+    "docs/test-reports/2026-10-24/colab-native/round-2-response.json": {
+      "sha256": "1dc6cf679a1029f6173fe0c2816fd982a4e3d06ce0ffeb0a822d758a66ba4947",
+      "bytes": 8947
+    },
+    "docs/test-reports/2026-10-24/colab-native/round-2-timing.json": {
+      "sha256": "3787f430321afa054ca4c9129304f6abce35e70abf7e25180b97e66e0d6b03cc",
+      "bytes": 46
+    },
+    "docs/test-reports/2026-10-24/colab-native/server-2.log": {
+      "sha256": "7bf537460c4654ba18dd52f5b7614027a829ba3bf874b408f9232fb8fa831a2e",
+      "bytes": 3034
+    },
+    "docs/test-reports/2026-10-24/colab-native/server-3.log": {
+      "sha256": "5badf9450125ad530c8e4feaa1309d23c67dd17515e884e0d0d63a895f16e66a",
+      "bytes": 10702
+    },
+    "docs/test-reports/2026-10-24/colab-native/server.log": {
+      "sha256": "cf5aaa93cb3813d75c5414c0998df9ea9d282985c913df6f3eec47ee79c15382",
+      "bytes": 7589
+    },
+    "docs/test-reports/2026-10-24/colab-native/shutdown.json": {
+      "sha256": "32abc618fea615fde6b6eb64af7a69cb4c0a2d61b385237cc02ae765369a7972",
+      "bytes": 154
+    },
+    "docs/test-reports/2026-10-24/colab-native/token-checks.json": {
+      "sha256": "0452e1e53d58be88fbc5930b9616641b6df2813d209376fcf3ade41019d9bfdd",
+      "bytes": 3027
+    },
+    "packages/pioneer-agent/src/pioneer_agent/__init__.py": {
+      "sha256": "eec92cff268fa45609a1f350907921fd31ea2b5df3121ce90b6f188d7cc027cc",
+      "bytes": 64
+    },
+    "packages/pioneer-agent/src/pioneer_agent/adapters/__init__.py": {
+      "sha256": "c57191bdbcac7f272dff4e4668387801331417ff81f3135a6cff5866397abf38",
+      "bytes": 744
+    },
+    "packages/pioneer-agent/src/pioneer_agent/adapters/bridge_client.py": {
+      "sha256": "8593ddbd172fe06dc2f9627bf7e5b00ec4ffe2967579e1fe404a9afd4498310d",
+      "bytes": 19118
+    },
+    "packages/pioneer-agent/src/pioneer_agent/adapters/bridge_proxy.py": {
+      "sha256": "620f84e137739cf3df9f453334e7b8286ac0d4cd750c17ea9249232ab4b0a863",
+      "bytes": 4155
+    },
+    "packages/pioneer-agent/src/pioneer_agent/adapters/capture.py": {
+      "sha256": "4f41e07923200d9e8566946ae3bbd0e931722f9ad012d4bea471a35900e24bc7",
+      "bytes": 8727
+    },
+    "packages/pioneer-agent/src/pioneer_agent/adapters/capture_bridge_client.py": {
+      "sha256": "f8bc27f80b8e61db527891b04ee114a39ebc34489aca8d71316b37d46de6fbf9",
+      "bytes": 10273
+    },
+    "packages/pioneer-agent/src/pioneer_agent/adapters/control.py": {
+      "sha256": "ed65ad3e548b39061a6ce0f4c35d8948928ef5991f148acb29ee245a2458b61c",
+      "bytes": 2955
+    },
+    "packages/pioneer-agent/src/pioneer_agent/adapters/health.py": {
+      "sha256": "8d38617b52f192ab1df8599e5f9caf2f22d5bc65115b95d1970f715c721b1bbf",
+      "bytes": 4047
+    },
+    "packages/pioneer-agent/src/pioneer_agent/adapters/policy_http.py": {
+      "sha256": "3d994587d1971e8a64d5f1673f2f2550aba0f76d133e644df6f520b42bad8823",
+      "bytes": 17025
+    },
+    "packages/pioneer-agent/src/pioneer_agent/adapters/policy_service.py": {
+      "sha256": "6b400a7e25a98c0275fa54a4c6e6a2f421cf53378e20da8dc016e48dcf2bcb48",
+      "bytes": 16863
+    },
+    "packages/pioneer-agent/src/pioneer_agent/adapters/win_bridge_server.py": {
+      "sha256": "a1ee80a5ed7a88abe1262c8294a16ce441b99bb41bf9944ca1a2ba30155240d7",
+      "bytes": 37752
+    },
+    "packages/pioneer-agent/src/pioneer_agent/adapters/win_capture.py": {
+      "sha256": "a1784de6fd0a92c0341bdf357eca663648c2a5563b1753129a0d06119010ecec",
+      "bytes": 17642
+    },
+    "packages/pioneer-agent/src/pioneer_agent/adapters/win_record_replay.py": {
+      "sha256": "faff44461b102b68869e8f2ad377e38c03754c9e148dc6be30171388315c2444",
+      "bytes": 51254
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/__init__.py": {
+      "sha256": "8ad095a3b474dd6d7b7261f218f8487364e6de4adedf47532dd9825827c62a13",
+      "bytes": 1302
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/_checkpoint_lock.py": {
+      "sha256": "80603a20c15c049402acf248cc2848a8fef3f661351911d1294a86186b72d52c",
+      "bytes": 3658
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/_task_eval_inputs.py": {
+      "sha256": "6bf2bd9ee494aceb98650e0ff13f61b81ce923eb877f54c6927e4dedb3b73ae7",
+      "bytes": 7280
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/_task_eval_source.py": {
+      "sha256": "f7b6632be00a641df59bdb96c30230dfa7c9fa634bdcf28136a378f87cd8dcd0",
+      "bytes": 9292
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/context_builder.py": {
+      "sha256": "e9dc2305c55189801a4d48e65b0b449edf351e957c6f50d934c5adee490448be",
+      "bytes": 4645
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/contracts.py": {
+      "sha256": "e9e93c5732ea90758721d30cab76db86a47d402670f36470b4d5cb3046fcf9e5",
+      "bytes": 2458
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/journal.py": {
+      "sha256": "c16360b94d059560882f92b42fc3c8eac55d91efea8c08abee832bbb77dc5af9",
+      "bytes": 5612
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/loop.py": {
+      "sha256": "395c47db140e313ddc3ca733c7cb980c3b37f246cfc40d5bede8e1a4f4c9a312",
+      "bytes": 26491
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/policy.py": {
+      "sha256": "effdb1af3c20ec9771a29936a5ecb9a75928d5c4c2d49c4f3ec6d7b2e3593713",
+      "bytes": 7938
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/read_only_retry.py": {
+      "sha256": "11d20a2e0628761629abd1fc411c90cac8129ec99bc6a6c9219d8a2418f61915",
+      "bytes": 3875
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/run_budget.py": {
+      "sha256": "a102793e5d4a46f37bd322704036cdc46c26618729462146b1ed93af3c8c6058",
+      "bytes": 10266
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/run_store.py": {
+      "sha256": "3b77033f6505543636d1f03f383cbe9116b76b373a7a1a753301967d59d80f4f",
+      "bytes": 10716
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/run_trace.py": {
+      "sha256": "91e5aebe5e7445d46ae3149f5d4548d2f01a154c28ad06369c312bf5b6c11ffb",
+      "bytes": 4126
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/skill_registry.py": {
+      "sha256": "e0cd44a569cc22e4de85add501c7aa70bb757a100062e29883ffd573e09703bb",
+      "bytes": 11729
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/stdio_client.py": {
+      "sha256": "485edb6bc371469629ac64f1ae5e1b7fafa5bc8077a19479d132f59ac91b3379",
+      "bytes": 8406
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/task_approval.py": {
+      "sha256": "acaec02d56ac60a14c3cb444c74c92642ed87806cd327f7f66d6fd32a86bb044",
+      "bytes": 2127
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/task_contracts.py": {
+      "sha256": "d294f8de119e5f3efdb6fc235c455329467a16277289f752677c5568928a4265",
+      "bytes": 15983
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/task_eval.py": {
+      "sha256": "77ec031249004ec7f6b8a2728a913c1aed2c9080e430498bbf62f11547f41bfb",
+      "bytes": 18590
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/task_policy.py": {
+      "sha256": "a6b51e4014482a4b4981c339e1c8a21e536d8185b07b9c7bc6335761563a913b",
+      "bytes": 965
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/task_runner.py": {
+      "sha256": "e15c37c5f8a20d204b009e2d2fe79a13a8495011d3d6be81e7c168145f575455",
+      "bytes": 40163
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/task_trace.py": {
+      "sha256": "eee7e0feefe52421b048628b32ff7f99a9c807c47125d1a95811e1b39a0fa6ed",
+      "bytes": 8220
+    },
+    "packages/pioneer-agent/src/pioneer_agent/agent_harness/tool_log.py": {
+      "sha256": "b460c4da4289d699caa226c975a71699b2f5e2e47cfadc0a690ee06b910ac63b",
+      "bytes": 6388
+    },
+    "packages/pioneer-agent/src/pioneer_agent/app/__init__.py": {
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "bytes": 1
+    },
+    "packages/pioneer-agent/src/pioneer_agent/app/advisor_api.py": {
+      "sha256": "4b8c3f0c2e864608a93c14784809a054a843a66f000a42f7e92223679f9edf4b",
+      "bytes": 27859
+    },
+    "packages/pioneer-agent/src/pioneer_agent/app/advisor_fixture.py": {
+      "sha256": "6be4dd026a91857d4881eb16c3301a5a835148310525ca2b5deef2f7e4b231f7",
+      "bytes": 5066
+    },
+    "packages/pioneer-agent/src/pioneer_agent/app/advisor_observe.py": {
+      "sha256": "1a394cb810f1190d3cb889ce28c3e5545016653df02c4e07bcbc2d69c44a8d41",
+      "bytes": 2717
+    },
+    "packages/pioneer-agent/src/pioneer_agent/app/autonomous.py": {
+      "sha256": "6888d4c5b4f536c1f602e219a266636e30ae954c4c32ac4bde196f21ac916ec5",
+      "bytes": 21697
+    },
+    "packages/pioneer-agent/src/pioneer_agent/app/cli_utils.py": {
+      "sha256": "d180eb0d44dab93b76271e711772d409ce355708bed1add147daf16063f467f0",
+      "bytes": 360
+    },
+    "packages/pioneer-agent/src/pioneer_agent/app/export_state_fixture.py": {
+      "sha256": "a9303932a9e061a64c0a7ec9c48f0d29cc8ec9db9e3ef66ef3ce5cbc09104e86",
+      "bytes": 1602
+    },
+    "packages/pioneer-agent/src/pioneer_agent/app/game_agent.py": {
+      "sha256": "99183519b7effc65fe4e6f66733fb6804554e34002c2e3391e20ccffb7f14245",
+      "bytes": 13961
+    },
+    "packages/pioneer-agent/src/pioneer_agent/app/game_mcp.py": {
+      "sha256": "dc7cd650d2c62c1d5af393502c6e5d668b7c116f512451c132c9b771ad1986cb",
+      "bytes": 4490
+    },
+    "packages/pioneer-agent/src/pioneer_agent/app/init_db.py": {
+      "sha256": "5d2763f0864be60bab41eeebaaa3d2d2c955822e3e9c7084fac543966d8c9712",
+      "bytes": 339
+    },
+    "packages/pioneer-agent/src/pioneer_agent/app/loop_inspect.py": {
+      "sha256": "664296e219d723185634d5581f9b997e44047e087a00b24f05914c7c2dab02c0",
+      "bytes": 2843
+    },
+    "packages/pioneer-agent/src/pioneer_agent/app/mcp_eval.py": {
+      "sha256": "e6f95750725e3d09e9d5290f6f27ed8a17e0c5ad2fa0f20266f0693329a249ba",
+      "bytes": 3997
+    },
+    "packages/pioneer-agent/src/pioneer_agent/app/operator_confirmation.py": {
+      "sha256": "7ca055201cfc9d97adb2fdbf0796ac09040d9f01565d16a3176411de6f252080",
+      "bytes": 2686
+    },
+    "packages/pioneer-agent/src/pioneer_agent/app/policy_gateway.py": {
+      "sha256": "2a16aaee1ca7c516736efa17b31d5b2844c4841ae5b26588d5238fd3f6c0b279",
+      "bytes": 7235
+    },
+    "packages/pioneer-agent/src/pioneer_agent/app/record_replay.py": {
+      "sha256": "6fc61fbf16aac104023c616d17f13887b7850897bf47bd1f9e413ca64b3580c0",
+      "bytes": 16224
+    },
+    "packages/pioneer-agent/src/pioneer_agent/app/record_replay_evaluator.py": {
+      "sha256": "c1d18bd02bdce260588fd6b68b54798498253384c8aba7fb51419d6a3ef1cfd1",
+      "bytes": 3426
+    },
+    "packages/pioneer-agent/src/pioneer_agent/app/replay_fixture.py": {
+      "sha256": "bcaf8930a7b66e37c3a51fbc5ece959f82da2adfdc4a8737599bf6254a1aa1dd",
+      "bytes": 2481
+    },
+    "packages/pioneer-agent/src/pioneer_agent/app/runbook_gate.py": {
+      "sha256": "2512678b2cdc535790fe24e4f205e9802f82ad9d942087ae62f58badcb861a55",
+      "bytes": 4293
+    },
+    "packages/pioneer-agent/src/pioneer_agent/app/task_eval.py": {
+      "sha256": "91ebf955ec4fab75c764d2e872da625091d2fac62faab73ad785f6efe26e3a36",
+      "bytes": 1323
+    },
+    "packages/pioneer-agent/src/pioneer_agent/app/ui_calibrate.py": {
+      "sha256": "b90a26f65df2b2663113fa9039e9b0909e14e9f3bf7ee3f626b96f73f1fdb444",
+      "bytes": 4408
+    },
+    "packages/pioneer-agent/src/pioneer_agent/app/vision_probe.py": {
+      "sha256": "1b6a4d0ea7134ad612fafe45219866e8e02c0f55feb984bafb2f864dcccc9ebd",
+      "bytes": 4452
+    },
+    "packages/pioneer-agent/src/pioneer_agent/config/__init__.py": {
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "bytes": 1
+    },
+    "packages/pioneer-agent/src/pioneer_agent/config/opening_runbook_s15.yaml": {
+      "sha256": "4b4cdd33a9c84f9162be610df4a01f71bcb27857e03db94fad494d8f0ae8dd76",
+      "bytes": 5466
+    },
+    "packages/pioneer-agent/src/pioneer_agent/config/safety.yaml": {
+      "sha256": "cced5b263d2ec59fadd689b2cf91765f5f383f384a8918217627bd473a4e6ffa",
+      "bytes": 92
+    },
+    "packages/pioneer-agent/src/pioneer_agent/config/scoring.yaml": {
+      "sha256": "cfb4de75d296f493db2c15773d173d0fe5fbd0d8fb6ab5886a378b978c7e574d",
+      "bytes": 157
+    },
+    "packages/pioneer-agent/src/pioneer_agent/config/ui_layout.yaml": {
+      "sha256": "d4fb395ab76fc6fbab8955f70776d712595acdb56df669a794b1d6c5bf379982",
+      "bytes": 1787
+    },
+    "packages/pioneer-agent/src/pioneer_agent/core/__init__.py": {
+      "sha256": "f5cf20afdad9a0dbe02bf8a9b742193fd968e89d63d175bc3a5d61e74c39ab34",
+      "bytes": 591
+    },
+    "packages/pioneer-agent/src/pioneer_agent/core/device.py": {
+      "sha256": "626a76b97efb5b78fea1d0738950bcf820502e584626b5b8495caefd8f81019a",
+      "bytes": 8319
+    },
+    "packages/pioneer-agent/src/pioneer_agent/core/enums.py": {
+      "sha256": "afc833156c92a496471596a93ce45eecb0f7d1bfc2ab562fc887f8f8ee5a8504",
+      "bytes": 459
+    },
+    "packages/pioneer-agent/src/pioneer_agent/core/models.py": {
+      "sha256": "faaace4abf4a707d4108f40fc8d05c7b3579ab4835cd50442ca3e57e55bc6be2",
+      "bytes": 7656
+    },
+    "packages/pioneer-agent/src/pioneer_agent/core/risk.py": {
+      "sha256": "f56d7317276f3b9b13a6b0d50a6a335c294932eda2a7af13d83c1ea17823866e",
+      "bytes": 1490
+    },
+    "packages/pioneer-agent/src/pioneer_agent/core/runtime_state_io.py": {
+      "sha256": "b26feb3e8af319464eafd9b2e3b2128dbefa9b9ecb6af3e3bbdca469b372f9a4",
+      "bytes": 3575
+    },
+    "packages/pioneer-agent/src/pioneer_agent/derivation/__init__.py": {
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "bytes": 1
+    },
+    "packages/pioneer-agent/src/pioneer_agent/derivation/phase.py": {
+      "sha256": "ca2cc99171acf0c657f5d3a81e2c97bc84c994de336104df2667deebb0847326",
+      "bytes": 364
+    },
+    "packages/pioneer-agent/src/pioneer_agent/derivation/readiness.py": {
+      "sha256": "12c46dc50852bad0cd9b3f9cbcca733a57a0208049b0a567648c5d8a647ec232",
+      "bytes": 1397
+    },
+    "packages/pioneer-agent/src/pioneer_agent/derivation/state_deriver.py": {
+      "sha256": "714c21defd472b4f79432e4b7c1efe1582553f731d76bdf33a668bcc1c96a153",
+      "bytes": 21119
+    },
+    "packages/pioneer-agent/src/pioneer_agent/derivation/team_snapshot.py": {
+      "sha256": "4a53d279e2540f6e3690c21a6274d7f8ad1e9b4247a5ff3c22eb9a9cba9e6e3c",
+      "bytes": 12915
+    },
+    "packages/pioneer-agent/src/pioneer_agent/executor/__init__.py": {
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "bytes": 1
+    },
+    "packages/pioneer-agent/src/pioneer_agent/executor/action_handlers.py": {
+      "sha256": "1cf8c0ef55c61015349616765ac49b3fca7770edaa7c029d261bc5570d94791a",
+      "bytes": 11548
+    },
+    "packages/pioneer-agent/src/pioneer_agent/executor/input_policy.py": {
+      "sha256": "fadabebb926b79679eaa123e9d5e2ac8c7bd9a23c6aa6de07860e027fb459dca",
+      "bytes": 3789
+    },
+    "packages/pioneer-agent/src/pioneer_agent/executor/operator_confirmation.py": {
+      "sha256": "4a2bf35be9c4093a4d76c27294c857cfe88423e047f7be2c3cb39e2949066081",
+      "bytes": 32091
+    },
+    "packages/pioneer-agent/src/pioneer_agent/executor/semantic_frame_guard.py": {
+      "sha256": "4a60eeee25a92faa3bf2e25ada9a9f33acd4e9a16865d4b3539a1544c5ca7fc0",
+      "bytes": 7332
+    },
+    "packages/pioneer-agent/src/pioneer_agent/executor/ui_actions.py": {
+      "sha256": "9a9d929a92e04f2722630baa0c4455ac8044875163f2609ba064688d6301a70a",
+      "bytes": 23810
+    },
+    "packages/pioneer-agent/src/pioneer_agent/executor/ui_runner.py": {
+      "sha256": "bd0d34b5e962eb2986e6252b1fbc39fa9f277ae902300358e35ccded4368b2d0",
+      "bytes": 23667
+    },
+    "packages/pioneer-agent/src/pioneer_agent/knowledge/__init__.py": {
+      "sha256": "7a20fc9469ed0e6b5bd521c2d0dfcb87fa6b4ad37fe30fe26b69fbe49e90d9e1",
+      "bytes": 219
+    },
+    "packages/pioneer-agent/src/pioneer_agent/knowledge/strategy_snapshot.py": {
+      "sha256": "4e8cccb6f6e1dffc9a9c01ea8608e4fe536b2461f01ce321cb068feff0abf46d",
+      "bytes": 3906
+    },
+    "packages/pioneer-agent/src/pioneer_agent/mcp_eval/__init__.py": {
+      "sha256": "a035722c2e6716b0161bb68d78cb8d8adc182dc244c667d9bcb92b6cf38d8aa2",
+      "bytes": 205
+    },
+    "packages/pioneer-agent/src/pioneer_agent/mcp_eval/models.py": {
+      "sha256": "66fb35b858ed20e9423df1fe827fb0e7a005406c4d46cb8bbcf8ad30c34953d7",
+      "bytes": 28223
+    },
+    "packages/pioneer-agent/src/pioneer_agent/mcp_eval/runner.py": {
+      "sha256": "964eff4b6fd07db97ab5cfdda6f09a9e82e71da84077a9287191c5c84dac01ce",
+      "bytes": 9585
+    },
+    "packages/pioneer-agent/src/pioneer_agent/mcp_eval/scoring.py": {
+      "sha256": "c7674fe61635abdc541f8d1cf8a27dcb79c2f5d19f690d22eeac6826d0ebd7ab",
+      "bytes": 11861
+    },
+    "packages/pioneer-agent/src/pioneer_agent/mcp_eval/source_bindings.py": {
+      "sha256": "af5dfef60eacbbf9488be242161850b30b03fe31a6fb5348445a12b087863461",
+      "bytes": 6271
+    },
+    "packages/pioneer-agent/src/pioneer_agent/mcp_server/__init__.py": {
+      "sha256": "fac72fd8e70ac0545b855fafff1ea263c7ad34d052b49175dbb4953d676039ec",
+      "bytes": 1079
+    },
+    "packages/pioneer-agent/src/pioneer_agent/mcp_server/__main__.py": {
+      "sha256": "917c0647487823fd4176a4efd5857a7fce8d2ccd4ec2e91b3911027cf73d38f8",
+      "bytes": 65
+    },
+    "packages/pioneer-agent/src/pioneer_agent/mcp_server/client-smoke.example.json": {
+      "sha256": "d56a87b1271890057e4dd6783bcac030cb3ae4bae68363ff46f706512934e9c3",
+      "bytes": 432
+    },
+    "packages/pioneer-agent/src/pioneer_agent/mcp_server/contracts.py": {
+      "sha256": "c0d91b876f3ab450b92083844ffb879f690a9bd74a34c7874e6b1e883960c6ba",
+      "bytes": 9677
+    },
+    "packages/pioneer-agent/src/pioneer_agent/mcp_server/live_provider.py": {
+      "sha256": "8d957eb43701e87b90de63e55268c4e2b02749777695f370b23cf5e3d46548bf",
+      "bytes": 627
+    },
+    "packages/pioneer-agent/src/pioneer_agent/mcp_server/privacy.py": {
+      "sha256": "890b730975f569f38f9f769ed2b606389637069f57597824178a4dd3ae3cea0b",
+      "bytes": 24994
+    },
+    "packages/pioneer-agent/src/pioneer_agent/mcp_server/server.py": {
+      "sha256": "e1bf29a20f1edc1d859bccf64a7b18429aafe18060801996231f5fc7017d2fe7",
+      "bytes": 6220
+    },
+    "packages/pioneer-agent/src/pioneer_agent/mcp_server/service.py": {
+      "sha256": "f6ba2ef3f57f98dd09b239d11a5b7cfc7742a6251a2583551e1addd26d8a0382",
+      "bytes": 24250
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/__init__.py": {
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "bytes": 1
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/domains/__init__.py": {
+      "sha256": "9124ac40c5d6cbe0a2a92aa218c7766a2c04a156d3768fed92c2982cee7463ee",
+      "bytes": 1945
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/domains/battle_report.py": {
+      "sha256": "b1d97909bdc4f2b9f9a51d68706f3be940da63cfab3ed81b7dc2b2cee7634cda",
+      "bytes": 12715
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/domains/chapter_panel.py": {
+      "sha256": "21648b3f86e69d67aa48371815e80a290c2b0f6398e4ed3fa0b9458e5cebc30e",
+      "bytes": 3301
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/domains/city_buildings.py": {
+      "sha256": "99c1bfe2bb5523f30b4e8881f14f4e4c40d59c73afc9ff8df7c060f9298190a7",
+      "bytes": 3496
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/domains/map_land.py": {
+      "sha256": "12a2131bc8441d0da5f3fe7867ddcaded9edc3b4a632aaba19b25df01ad2ce9a",
+      "bytes": 10274
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/domains/merge.py": {
+      "sha256": "16b1db15d204975e55ea07c38ef727ff4e4dcc4e2ec236271ed1e4c2d105ad34",
+      "bytes": 31555
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/domains/mode_hub.py": {
+      "sha256": "590a9c9a36f639327313c01340e2246dbccb491c193aacef663f08a12989feb4",
+      "bytes": 3079
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/domains/popup.py": {
+      "sha256": "9850a940cda66ff01d77a289dae96e34808e470c06868d5699316d615cb0cd73",
+      "bytes": 2460
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/domains/recruit_panel.py": {
+      "sha256": "67cb5749d0c20a07f7942da776a187ea4a80b88907be31df80e77e7a65ea8f60",
+      "bytes": 3571
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/domains/resource_bar.py": {
+      "sha256": "2625d9b85cecbc58b891ee482b700713195562419d4585d7ed2b8be586cd7248",
+      "bytes": 3616
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/domains/team_detail.py": {
+      "sha256": "41bb66d968e1d7a34a19de2ddb4dfcddd2189a61ffc1317fb9952a97161abbab",
+      "bytes": 8198
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/domains/team_panel.py": {
+      "sha256": "943d4230cd5721d306142755bb4f09dc73dfed6536097ae61eef147f657cb9bc",
+      "bytes": 7257
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/domains/upgrade_dialog.py": {
+      "sha256": "7884309eff1afc9f942b69d85ab361b009d57a9051770f250f318fae27f6b55f",
+      "bytes": 3472
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/map_filter_transition.py": {
+      "sha256": "4a834364759186602823f64ab1613af6bfc170f9054bda67ce890346585beb4c",
+      "bytes": 35518
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/screenshot_interpreter.py": {
+      "sha256": "be2ae7189e150694b624bd8851a9f92981defa33d61cc1bf3473b30ad5926fe9",
+      "bytes": 3232
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/sync_service.py": {
+      "sha256": "b7fc1cd29e5985934573d6119cb3c0ca70454e0c414c8827e07bfd81d6faa94b",
+      "bytes": 7537
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/ui_registry.py": {
+      "sha256": "a0367e4b38a98e061c9cded0f1eb1558554674756bd013522d52064bbe884948",
+      "bytes": 1880
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/vision/__init__.py": {
+      "sha256": "dd1ad10c56d3d73f27dc59a7edc32eb53102eeb50703dbb5c0b8c50d7bde5e9d",
+      "bytes": 580
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/vision/client.py": {
+      "sha256": "62d1e82893f23fb169f77c38c38f46759dde0ba4db08fcdb017c774aed563813",
+      "bytes": 5153
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/vision/env.py": {
+      "sha256": "67b21d0fcf10e9bafe074a77592b3a2db878e26f578df4e1987f0ee6dc9adc9e",
+      "bytes": 1049
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/vision/factory.py": {
+      "sha256": "8e58b4265eb1474684f916cc3864583f25d3612d64aa729df4d65d6efa955f8b",
+      "bytes": 1130
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/vision/image.py": {
+      "sha256": "6134a84978f0b27e5e1620aea871bf5447e8434e66483061f339d07fd4d8e7c3",
+      "bytes": 3767
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/vision/locator.py": {
+      "sha256": "65d3eb8352dd31e7e28530b84a9e8280263f261c47e728ab1cbd364a12c41b02",
+      "bytes": 2237
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/vision/model_routing.py": {
+      "sha256": "e3a9789e66545ba484861c00cc3d68d6f3941d0fa567e648ef7f4832a68897b4",
+      "bytes": 3663
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/vision/openai_client.py": {
+      "sha256": "9852a782b0ef46e3529204f1727caee42e3f7cb0ff4defe6fab0831abced16c4",
+      "bytes": 10155
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/vision/prompts.py": {
+      "sha256": "0e39b8dcaded6d088a0bc3d2ab6064e050cf42934c8814ffa96d18b7ca5c7682",
+      "bytes": 75285
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/vision_eval.py": {
+      "sha256": "07c1ea1878ec6b284432731765d115b5d42c579e9f2f1b95ebad16b0fadead4a",
+      "bytes": 13399
+    },
+    "packages/pioneer-agent/src/pioneer_agent/perception/vision_sync.py": {
+      "sha256": "8514ee20930b3411d4938040733884bd885cea7eaad97b4ae3f56e8b6a149a29",
+      "bytes": 13376
+    },
+    "packages/pioneer-agent/src/pioneer_agent/record_replay/__init__.py": {
+      "sha256": "9e825d819d1fe87e8af978860716f9149a77437c53e6b2333268fe35b0e6c205",
+      "bytes": 345
+    },
+    "packages/pioneer-agent/src/pioneer_agent/record_replay/annotations.py": {
+      "sha256": "fd8a8a3d0387198c61d7b1f54fa688cce3a432772dbb8ac28d237450eb5093c5",
+      "bytes": 37273
+    },
+    "packages/pioneer-agent/src/pioneer_agent/record_replay/compiler.py": {
+      "sha256": "65d9e8b2249476fc60a237c37c7f2bed0fc54862a9a77ea90a7700476a83f912",
+      "bytes": 6603
+    },
+    "packages/pioneer-agent/src/pioneer_agent/record_replay/corpus_catalog.py": {
+      "sha256": "512da37c0871401151fa4d656c7c377f4eb3ebcbc56c67ab822aa0fb4c9205ed",
+      "bytes": 28094
+    },
+    "packages/pioneer-agent/src/pioneer_agent/record_replay/dataset_registry.py": {
+      "sha256": "aa64526c9fef44b85efccaf194907f743af464f1d683fd81965867cd60ce1be4",
+      "bytes": 37453
+    },
+    "packages/pioneer-agent/src/pioneer_agent/record_replay/holdout_eval.py": {
+      "sha256": "861ae42b331a73873cbef2eb869c0e45d79015e60697ec61d728bcbed494e756",
+      "bytes": 44709
+    },
+    "packages/pioneer-agent/src/pioneer_agent/record_replay/models.py": {
+      "sha256": "90676e0257aaef22271f7222e3b557de6a74f7068a4c9059aebb2fa3a6511231",
+      "bytes": 16194
+    },
+    "packages/pioneer-agent/src/pioneer_agent/record_replay/replayer.py": {
+      "sha256": "06448f72126b64d8fa893b517c788fb6e006483313a18c821770e7742232c967",
+      "bytes": 4109
+    },
+    "packages/pioneer-agent/src/pioneer_agent/record_replay/session_store.py": {
+      "sha256": "2d1fe41b74b72b50fe39a51e0ac5f94817c9f77b0d76490d440cdbf7536367ce",
+      "bytes": 17825
+    },
+    "packages/pioneer-agent/src/pioneer_agent/record_replay/validation.py": {
+      "sha256": "454ad99ed86fc91ad0b2e8e0422590534c8e2e0eb2c3ce151a774b0a5330385d",
+      "bytes": 9088
+    },
+    "packages/pioneer-agent/src/pioneer_agent/record_replay/visual_fingerprint.py": {
+      "sha256": "bba20cf3aff25d0a136aaf92efadca169d1a78a7ec1836a8ef04826a96ce320c",
+      "bytes": 11626
+    },
+    "packages/pioneer-agent/src/pioneer_agent/runbook/__init__.py": {
+      "sha256": "fed7d18cc539584694099abfb9c673bab2acf8899bea16fe70b97334b5de68d1",
+      "bytes": 1249
+    },
+    "packages/pioneer-agent/src/pioneer_agent/runbook/action_filter.py": {
+      "sha256": "7d93ff77a29c576088e6cd5aede41940506facf1e3882e669b0e5e9b0b47ad28",
+      "bytes": 9331
+    },
+    "packages/pioneer-agent/src/pioneer_agent/runbook/attack_ledger.py": {
+      "sha256": "1eed7568b6a95c38a317bf5e8e6572136b399523a64ac6c556c56fdeb071a051",
+      "bytes": 12139
+    },
+    "packages/pioneer-agent/src/pioneer_agent/runbook/engine.py": {
+      "sha256": "5c36dd5039569d385ecea458f78c8fd43aa313cf5dba70623deade98511b3487",
+      "bytes": 12306
+    },
+    "packages/pioneer-agent/src/pioneer_agent/runbook/lineup_binding.py": {
+      "sha256": "d44357631570155fc2af876074acee54ec8d1e9d3560c1bc700c3ffc8b8033e7",
+      "bytes": 7990
+    },
+    "packages/pioneer-agent/src/pioneer_agent/runbook/loader.py": {
+      "sha256": "11a068f1eaf7a958c0a020e3016654590cacbd960fde506bbe46596a0fd4b46f",
+      "bytes": 4841
+    },
+    "packages/pioneer-agent/src/pioneer_agent/runbook/models.py": {
+      "sha256": "df29de5087f722dfb858eb336d2c7b1756d5e7b9b4cbe089219ca8e437e0a640",
+      "bytes": 10784
+    },
+    "packages/pioneer-agent/src/pioneer_agent/runbook/state_store.py": {
+      "sha256": "5debdb701e2a8e0f433897b914901c8e09600017861a87b01a3d1dd5bad44414",
+      "bytes": 10488
+    },
+    "packages/pioneer-agent/src/pioneer_agent/runtime/__init__.py": {
+      "sha256": "bcffe4133b22960f9423fcb18a16e807194165591aaa9b53a73a2a17eeb0491a",
+      "bytes": 1258
+    },
+    "packages/pioneer-agent/src/pioneer_agent/runtime/advisor_loop.py": {
+      "sha256": "d382110ef0c0275995659574ed656e0ce98a07bf5ccb5b5c7f149996acba22e0",
+      "bytes": 12846
+    },
+    "packages/pioneer-agent/src/pioneer_agent/runtime/architecture_gates.py": {
+      "sha256": "53d6c48adbb5004251f8cd6df7f1217913b5f1a6fce9ead86f0625c5e13cdcc1",
+      "bytes": 16797
+    },
+    "packages/pioneer-agent/src/pioneer_agent/runtime/autonomous_loop.py": {
+      "sha256": "4eb6d02b4c4a5554fc0571e73e44b769e452e9219413a4a77c5e104e7d471636",
+      "bytes": 77062
+    },
+    "packages/pioneer-agent/src/pioneer_agent/runtime/dispatch_guard.py": {
+      "sha256": "8858296aac8f1bbdf2893ed65ce4f516d43adb245d4310dbcaa9556d8361027e",
+      "bytes": 3429
+    },
+    "packages/pioneer-agent/src/pioneer_agent/runtime/evidence.py": {
+      "sha256": "3e73acca947599813d3246e0204151ac8a9189ca620799f5f8166673b1947e69",
+      "bytes": 3421
+    },
+    "packages/pioneer-agent/src/pioneer_agent/runtime/golden_replay.py": {
+      "sha256": "1cfb89b79937bc3b6cc1db66cd98f80c445e246ce5239c224e69cfabff11c428",
+      "bytes": 2544
+    },
+    "packages/pioneer-agent/src/pioneer_agent/runtime/loop_contract.py": {
+      "sha256": "0ed2fc2216c7e8ed8d8b3cd0aad6aa0e5a33cec97c61ee1855492dd4009f3c20",
+      "bytes": 1194
+    },
+    "packages/pioneer-agent/src/pioneer_agent/runtime/observation_gate.py": {
+      "sha256": "fc63f735972e4fbcb840ccba46970b33c0aebcb972cf296170ebc2f636ae14fd",
+      "bytes": 17576
+    },
+    "packages/pioneer-agent/src/pioneer_agent/runtime/replay_runtime.py": {
+      "sha256": "9464fc0b9545b29a11d4cb0e389a2b7ac7454f7ed886816c33b31d26c7da5942",
+      "bytes": 7451
+    },
+    "packages/pioneer-agent/src/pioneer_agent/safety/__init__.py": {
+      "sha256": "fecc0adf211c82706321602ab61af3c2fb016244967347e852d81457120dd47d",
+      "bytes": 319
+    },
+    "packages/pioneer-agent/src/pioneer_agent/safety/guard.py": {
+      "sha256": "3b332800966656117e2179d0a20e666eb57f2a50d64810e883817904b29ee26c",
+      "bytes": 7260
+    },
+    "packages/pioneer-agent/src/pioneer_agent/safety/kill_switch.py": {
+      "sha256": "64f260792618410e6e07cc3f6999f8d7012686f2371402ab9a83129f02b14937",
+      "bytes": 910
+    },
+    "packages/pioneer-agent/src/pioneer_agent/scoring/__init__.py": {
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "bytes": 1
+    },
+    "packages/pioneer-agent/src/pioneer_agent/scoring/attack_land.py": {
+      "sha256": "877defac20e147ee0db17e8ea259b2562ea077ecf6dd661bf379a0795fa85ec5",
+      "bytes": 1238
+    },
+    "packages/pioneer-agent/src/pioneer_agent/scoring/recruit.py": {
+      "sha256": "7e647d5c011126a1f9903ae9f53697b4de5df1c8098d25ac04b5ad18145e35ad",
+      "bytes": 988
+    },
+    "packages/pioneer-agent/src/pioneer_agent/scoring/transfer.py": {
+      "sha256": "8f140a78a01ad71ee5438a514a1e9a70a5194c67e589f4e35fb6d575b6968d45",
+      "bytes": 1685
+    },
+    "packages/pioneer-agent/src/pioneer_agent/scoring/upgrade_building.py": {
+      "sha256": "b9c9d6d151a5414fe1ff549b9bdea5e62eb3ddcf0dddab235ad39299194cfcee",
+      "bytes": 1234
+    },
+    "packages/pioneer-agent/src/pioneer_agent/scoring/wait.py": {
+      "sha256": "124c88982b37eda7f8a775dcb5527a51a4923499153b70bbf61a9709d9a8b406",
+      "bytes": 1726
+    },
+    "packages/pioneer-agent/src/pioneer_agent/selector/__init__.py": {
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "bytes": 1
+    },
+    "packages/pioneer-agent/src/pioneer_agent/selector/action_selector.py": {
+      "sha256": "e52d56fe1dbd4b7c9d49019a6eb3138d4bfd0a8e4bf30bcadd44ad9a6a3db23b",
+      "bytes": 13920
+    },
+    "packages/pioneer-agent/src/pioneer_agent/selector/candidate_generator.py": {
+      "sha256": "7132cf3499e3bf7fcf158272ba1d5102b7cf3b7cdcb0c3cd92a7685b47a9d8a0",
+      "bytes": 32824
+    },
+    "packages/pioneer-agent/src/pioneer_agent/selector/filters.py": {
+      "sha256": "1184f399584013c89610a6c37ba7abf062abdd2d99d6473c493a1826cffc56ab",
+      "bytes": 7154
+    },
+    "packages/pioneer-agent/src/pioneer_agent/selector/priority_rules.py": {
+      "sha256": "b288656af26e2ab921c13d9d369852f982615ede5c48db9f2d4fa2be8576305f",
+      "bytes": 6901
+    },
+    "packages/pioneer-agent/src/pioneer_agent/storage/__init__.py": {
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "bytes": 1
+    },
+    "packages/pioneer-agent/src/pioneer_agent/storage/db.py": {
+      "sha256": "11c04331ab89f5b0480233fe6f89e520739bc3579e35032ea4974f1e6208258a",
+      "bytes": 234
+    },
+    "packages/pioneer-agent/src/pioneer_agent/storage/init_db.py": {
+      "sha256": "fc342a0acc075cd0747d3af49475d8a9376e838438608f0e33303a085de8592c",
+      "bytes": 600
+    },
+    "packages/pioneer-agent/src/pioneer_agent/storage/loop_logger.py": {
+      "sha256": "ff8bfcbd768525346bc7a7a0c7c2f54b4da641af580844b238c076ca957751c7",
+      "bytes": 4045
+    },
+    "packages/pioneer-agent/src/pioneer_agent/storage/schema.sql": {
+      "sha256": "4827719d037f2c4cc4a07cdd07b3ecfa0c8a21ced6d991a27fdc2bbf9cd0ac4d",
+      "bytes": 611
+    },
+    "packages/pioneer-agent/src/pioneer_agent/storage/trace_store.py": {
+      "sha256": "8df4f8ce382e26e9028bed2367ebc6d4e554f067384f73cac1621237dc44b5ea",
+      "bytes": 7570
+    },
+    "packages/pioneer-agent/src/pioneer_agent/training/__init__.py": {
+      "sha256": "68d739ba88911890ce8ec812588c9f5d2c2ad310569fa31d00b7ffb4299d208c",
+      "bytes": 218
+    },
+    "packages/pioneer-agent/src/pioneer_agent/training/artifact_bundle.py": {
+      "sha256": "cc957068aa13141aa199c76834835c8bd43ff047f9d3221040b7afa0b45cedfc",
+      "bytes": 27421
+    },
+    "packages/pioneer-agent/src/pioneer_agent/training/contracts.py": {
+      "sha256": "a6ffbd139f9f7a5676fe40edbc29185b5ba088232a1a8e872bfddd08adade00c",
+      "bytes": 14709
+    },
+    "packages/pioneer-agent/src/pioneer_agent/training/projection.py": {
+      "sha256": "4c81334296d389c82a87dc7e34d239cc80cb9dd1a395aeb37bb25e2e4105480b",
+      "bytes": 9538
+    },
+    "packages/pioneer-agent/src/pioneer_agent/training/token_chain_gae.py": {
+      "sha256": "0f57266b27155679d447b5dce3565814ec7248e37a762aab9a6f4e75394732ad",
+      "bytes": 4491
+    },
+    "packages/pioneer-agent/src/pioneer_agent/verifier/__init__.py": {
+      "sha256": "7c9b5016347199bbb5be2acb890c70d13542a5fd6efb72a75ee243582fc0728a",
+      "bytes": 921
+    },
+    "packages/pioneer-agent/src/pioneer_agent/verifier/base.py": {
+      "sha256": "510ee97d36b6970e9acafb1a6b4cf39eb5fd0aa0a866fdefc99b907249a4a322",
+      "bytes": 18903
+    },
+    "packages/pioneer-agent/src/pioneer_agent/verifier/eval.py": {
+      "sha256": "d55341cae8223e95eb743e4b07f30cad5d8510ba85e55423a734a4abb6c08b30",
+      "bytes": 3293
+    },
+    "packages/pioneer-agent/src/pioneer_agent/verifier/registry.py": {
+      "sha256": "296bf7f027319dced131f4db98fff0d498b2b937ac6cbae05f71935349ddfa63",
+      "bytes": 11425
+    },
+    "packages/pioneer-agent/tests/__init__.py": {
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "bytes": 1
+    },
+    "packages/pioneer-agent/tests/fixtures/agent_harness/all_blocked.json": {
+      "sha256": "5ae19ae409c64ff78fe70b93481271bea515f9f1ed569f8ce8cc9e5a70b020ed",
+      "bytes": 4101
+    },
+    "packages/pioneer-agent/tests/fixtures/agent_harness/h07a_v1_compat.json": {
+      "sha256": "0ea0d5feb462da4ea887ae3274b306b8062457cb5cb875cdf4fce8be7a232067",
+      "bytes": 842
+    },
+    "packages/pioneer-agent/tests/fixtures/agent_harness/recommendation_ready.json": {
+      "sha256": "4fdf85fd910a534911b68b57901399e439c10ef7dc5699ba639e37d77c29753e",
+      "bytes": 7863
+    },
+    "packages/pioneer-agent/tests/fixtures/agent_harness/task_cases_v1.json": {
+      "sha256": "c620bdb18c3270cde920484ec98b76d41cea7c8615cfe20e0467a050607ecd62",
+      "bytes": 961
+    },
+    "packages/pioneer-agent/tests/fixtures/chapter_claimable_state.json": {
+      "sha256": "7964ee6a66e825c8f677e2cd2ec95c03e9937a0852c244d0ee0966561013acf8",
+      "bytes": 2767
+    },
+    "packages/pioneer-agent/tests/fixtures/from_real_sync_log.json": {
+      "sha256": "9e1b4157c7c18028cca22caf4dcf76de8914c18970d2166439b8eb519ebab456",
+      "bytes": 7350
+    },
+    "packages/pioneer-agent/tests/fixtures/policy_service/roundtrip.json": {
+      "sha256": "4bd40927a35aa6dce5a6f74a3b04dc195ee4d7a7a7fb0247bc0fb1fe99ef1e43",
+      "bytes": 750
+    },
+    "packages/pioneer-agent/tests/fixtures/policy_service/sglang_http_roundtrip.json": {
+      "sha256": "2296d1db39248b7c76ab023abaa0bb65d3b748451529e29febbca1d42ccb1401",
+      "bytes": 1084
+    },
+    "packages/pioneer-agent/tests/fixtures/pr20_upgrade_confirm_terminal_state.json": {
+      "sha256": "6e4249319f74a9aa7e598f832c70a0d8cb528bd76d049aa6c131741b5f53736a",
+      "bytes": 2471
+    },
+    "packages/pioneer-agent/tests/fixtures/pr21_chapter_claim_terminal_state.json": {
+      "sha256": "629069852f31acc033fa7e325cdf0a84bdb1cc7ee9dfcd4999b7b2e319c99361",
+      "bytes": 1427
+    },
+    "packages/pioneer-agent/tests/fixtures/pr22_recruit_terminal_state.json": {
+      "sha256": "48130301a5433640855620d7c442000cc2e52ba3e068e851d6fdf8fd35137902",
+      "bytes": 1989
+    },
+    "packages/pioneer-agent/tests/fixtures/pr5_building_upgrade_state.json": {
+      "sha256": "4a476a4d10554c672400d41a2d8c6d8e5a7f22e203eb02e10df7d6c57b997964",
+      "bytes": 2187
+    },
+    "packages/pioneer-agent/tests/fixtures/pr5_chapter_main_task_state.json": {
+      "sha256": "58bfb1885d0a81cda8512e4300f6cf98f2104b35e0aae3f751d58232eb3cfbc3",
+      "bytes": 1073
+    },
+    "packages/pioneer-agent/tests/fixtures/pr5_city_inside_state.json": {
+      "sha256": "23f4e0b9cefc49c5010921e9b7f11d709376cb25a5ad74002d0c8d9b94b4ada9",
+      "bytes": 1712
+    },
+    "packages/pioneer-agent/tests/fixtures/pr5_home_entry_state.json": {
+      "sha256": "d13eed0bd60dee4fa8e1fc29919e813bf7a08d14f3e895a36c326efb4cf9c604",
+      "bytes": 782
+    },
+    "packages/pioneer-agent/tests/fixtures/pr5_recruit_guard_camp_state.json": {
+      "sha256": "b943de4911dd960f2a60cb3ce24f7db8fecf310b070cc8947ade778f3a31f188",
+      "bytes": 1627
+    },
+    "packages/pioneer-agent/tests/fixtures/pr5_team_panel_state.json": {
+      "sha256": "6d34add3e46c06bff404ddb6eda5ad37eaea9915d9229d23e418a5ab33af8251",
+      "bytes": 2415
+    },
+    "packages/pioneer-agent/tests/fixtures/recruit_priority_state.json": {
+      "sha256": "2381750f7b9536e3eac5b5e8b0a4f0a6d141053bb41f881cd8e34a9e623d156e",
+      "bytes": 2017
+    },
+    "packages/pioneer-agent/tests/fixtures/recruit_rule_state.json": {
+      "sha256": "a379ec439ea96f10805b2ec5847fb9d01b1d081ef793890e0cb4a5f82873cb85",
+      "bytes": 2048
+    },
+    "packages/pioneer-agent/tests/fixtures/sample_state.json": {
+      "sha256": "b075d130a4209b679bd381f127e8bf9dd285b31da6e97c02867e1ea32a571083",
+      "bytes": 3356
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/android/team_snapshot/20260514-team-panel.png": {
+      "sha256": "6f99d5056999d87b8422452ae13d6f72b57e6c1af8c26c07902b3373ab350ea4",
+      "bytes": 1519455
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/android/team_snapshot/20260514-zhurong-attribute-points.png": {
+      "sha256": "d98ddb50068388c535ad36540efd8a3a4e44fbfccc17de18fa3b6e1a3e505547",
+      "bytes": 1695649
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/android/team_snapshot/20260514-zhurong-books.png": {
+      "sha256": "8d8da2d5ff422cc78026eb62310b700eb84161cc3fea556d03c485e59ee1c34f",
+      "bytes": 1803895
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/android/team_snapshot/20260514-zhurong-equipment-mount.png": {
+      "sha256": "f84a5d92abff14e47c66071bd1c0b60ed34f61ef5caa62785d29aac8ca21774a",
+      "bytes": 1967095
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/android/team_snapshot/20260514-zhurong-tactics.png": {
+      "sha256": "aac2d07d643681a2d97cc6f4fd1301ae01d615d678a7d75c4111e62b12196ed2",
+      "bytes": 1924850
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/pc_client/live_20260518/main_city_weekly_panel.jpg": {
+      "sha256": "16b332158a4ab7f705a8fe2b9934b0133e5026344390e15201e6d73ae07fd93e",
+      "bytes": 216427
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/pc_client/live_20260518/manifest.json": {
+      "sha256": "ec4568235d886849f5dab7d4a8b206ec20c775c173c06961a4bec8075a49852c",
+      "bytes": 2553
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/pc_client/live_20260518/map_target_647_905.jpg": {
+      "sha256": "7d1f8c81d548ca9326d0df456a1985cb29f117ff69ac0c5f48a13528e89bdcad",
+      "bytes": 205503
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/pc_client/live_20260518/notice_popup.jpg": {
+      "sha256": "095a9b73eee5b0cee80a75b281ea235d86802a8f278c4f09d5a75231c7093d6d",
+      "bytes": 108791
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/pc_client/live_20260518/server_page.jpg": {
+      "sha256": "c080d2f3e782ea32ba1ea149f98d4f01b1cc3ab8e2aa7e253d32a00c4899ca2e",
+      "bytes": 51418
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/pc_client/live_20260710/battle_report_partial_redacted.webp": {
+      "sha256": "d66af6979bf6a416cc623a76ffc7b85f2b446194c61a43eda1dd20f872de8619",
+      "bytes": 50670
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/pc_client/live_20260711/battle_report_level5_pending_redacted.webp": {
+      "sha256": "01a2818d472ac6ba372c6c8d3ad4688fee99da66f5c3f15680257084cf55d27c",
+      "bytes": 42630
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/pc_client/live_20260711/occupation_level5_roi_manifest.json": {
+      "sha256": "2f05b15bca7c7da979745de57f762b97d063762517cf8f40177407f4fc46a934",
+      "bytes": 5428
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/pc_client/live_20260711/occupation_level5_target_after.webp": {
+      "sha256": "5e1aed86f9659d2e219d711d13fddec2bf615a7cc412812124c0cd3b2ac80efc",
+      "bytes": 14974
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/pc_client/live_20260711/occupation_level5_target_before.webp": {
+      "sha256": "d3a91d69ab7eb12cc8adf11a5ac516cd9ff3d75fc34cc691d036c2cbb0ceed6a",
+      "bytes": 15010
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/pc_client/live_20260711/occupation_level5_territory_after.webp": {
+      "sha256": "600a4620073db16a551a7450d918a65a678127a9b2d44fcc5644600e3f6d39ef",
+      "bytes": 2420
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/pc_client/live_20260711/occupation_level5_territory_before.webp": {
+      "sha256": "04900874c7e97e52a9a9440fd6d2c9a30eb11b35d1b806e48435fef8221b9d48",
+      "bytes": 2410
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/pc_client/pr5_20260529/building_select_20260529.jpg": {
+      "sha256": "a5d915954abd4664f936cb240c0dd893c393b690fd8f838d368bcb039ad7c434",
+      "bytes": 162734
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/pc_client/pr5_20260529/chapter_main_task_20260529.jpg": {
+      "sha256": "568a7a664b14eb1703705c101585126137a55e027adc6ae7c7d788a2fe9a9a55",
+      "bytes": 97046
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/pc_client/pr5_20260529/city_inside_20260529.jpg": {
+      "sha256": "5a3d04935ed7180d700baa3a4169fbb895e19a12251496775e6da497b7d01eda",
+      "bytes": 243236
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/pc_client/pr5_20260529/home_server_entry.jpg": {
+      "sha256": "cc946c3e3b9a4d94122b16d0fee4fdd7282e288ee3a9819efef1f50dfec27ede",
+      "bytes": 54688
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/pc_client/pr5_20260529/manifest.json": {
+      "sha256": "814dabcd2793f91ad739a5c83c8e339b0bc83146e0f92f2eb62aeceb07c6f091",
+      "bytes": 2732
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/pc_client/pr5_20260529/recruit_guard_camp_20260529.jpg": {
+      "sha256": "0c7bc2c00e7bced865b8ec374e4dc40ac95f3aeb0c79725b73e20fdc7ed534d6",
+      "bytes": 123214
+    },
+    "packages/pioneer-agent/tests/fixtures/screenshots/pc_client/pr5_20260529/team_panel_20260529.jpg": {
+      "sha256": "abf8bda84d9effac3e419b57ad1446967852eb2ba0c2a6e66acc52c13c6ef56a",
+      "bytes": 134622
+    },
+    "packages/pioneer-agent/tests/fixtures/team_panel_state.json": {
+      "sha256": "fbe5f3e43b18c3f6dfbb4b9d54ae5c9b6cb61c9c486ff720c84de60f01ace17e",
+      "bytes": 2553
+    },
+    "packages/pioneer-agent/tests/fixtures/team_snapshot_ready_state.json": {
+      "sha256": "b848b2501299085cac9b3bb7e71cd1731b309a343632a7b274e7ad87c86c6c6c",
+      "bytes": 5425
+    },
+    "packages/pioneer-agent/tests/fixtures/template_runtime_state.json": {
+      "sha256": "ef76d86393805d689514141a8efee7b0e9c1aa8fd0d2156e530c08f5c47c1c6b",
+      "bytes": 919
+    },
+    "packages/pioneer-agent/tests/fixtures/training/gae_oracles.json": {
+      "sha256": "08b752141ce9cf4b56ea20948e005f055b375e874e0ed877d941961b3572b4f8",
+      "bytes": 601
+    },
+    "packages/pioneer-agent/tests/fixtures/training_bundle/scenarios.json": {
+      "sha256": "009b459792cb8b33e983d4250807643785ace6e672a1cb211196f0f388990831",
+      "bytes": 301
+    },
+    "packages/pioneer-agent/tests/fixtures/transfer_priority_state.json": {
+      "sha256": "a582dbfc81078d8e9b78dbb0c1a557d7f1b6ffa2ceaaeb30c29df97846cd3181",
+      "bytes": 2571
+    },
+    "packages/pioneer-agent/tests/fixtures/verifier/action_verifier_eval.json": {
+      "sha256": "716beced5d1043cbbf820a0c4fe5fde270c5710e4c933d877e19cc8d32720f0f",
+      "bytes": 10113
+    },
+    "packages/pioneer-agent/tests/fixtures/vision/battle_report_level5_pending_20260711.json": {
+      "sha256": "eecc72951cc8b6973d732ab661b39e5646d2d52582d3082554018f3e94515029",
+      "bytes": 5535
+    },
+    "packages/pioneer-agent/tests/fixtures/vision/battle_report_pc_20260710.json": {
+      "sha256": "c33775d3f981baf19c239bb1293edbfd2f84cba5a06b9147419c7f542e646fb4",
+      "bytes": 4904
+    },
+    "packages/pioneer-agent/tests/fixtures/vision/map_battle_real_fixture_inventory.json": {
+      "sha256": "2263e8e4a0dca3259ee4672ce6c946bc6abc40b55b6e40cd08c50c4f99e034f2",
+      "bytes": 5754
+    },
+    "packages/pioneer-agent/tests/fixtures/vision/real_screenshot_review_registry.json": {
+      "sha256": "c790b0b1419c8beb754bb1afb9ed3f35a6757e0d1cfaade4d64cd15f803debb0",
+      "bytes": 10188
+    },
+    "packages/pioneer-agent/tests/fixtures/vision/team_snapshot_mobile_20260514.json": {
+      "sha256": "ae4c9029f10afb768883334d6bc38fced9c731f60cec7f08cea4ba3efa2be2b9",
+      "bytes": 16661
+    },
+    "packages/pioneer-agent/tests/fixtures/wait_resource_state.json": {
+      "sha256": "7f30eef43f5a37382497921d127c00753d30dcafadc232af70d31283c55d7be6",
+      "bytes": 2214
+    },
+    "packages/pioneer-agent/tests/fixtures/wait_stamina_state.json": {
+      "sha256": "e533611eb2e78b3f1a09c6acd1977ee4a4f287c8081057f7e511577055bce862",
+      "bytes": 2048
+    },
+    "packages/pioneer-agent/tests/golden/advisor_fixture_expectations.json": {
+      "sha256": "7959f032a8f0688ec418706cc6396840bda7836867ec7cbbef6f9dd4baaecb1a",
+      "bytes": 8039
+    },
+    "packages/pioneer-agent/tests/test_causal_trace.py": {
+      "sha256": "20843dda55a696dcfbcb695ee3b975a1ac44b887f2b0226f05cd885b825b96c3",
+      "bytes": 38053
+    },
+    "packages/pioneer-agent/tests/test_checkpoint_lock_native.py": {
+      "sha256": "b1df8ddb223e3c7510eb941d9c6dcdddb9a47e115adada397bbafc7ff5804263",
+      "bytes": 2945
+    },
+    "packages/pioneer-agent/tests/test_checkpoint_ownership.py": {
+      "sha256": "70e3674c7d7e259593f165a025ed7e2229b047feaae85ac83c2146815eec9876",
+      "bytes": 43451
+    },
+    "packages/pioneer-agent/tests/test_colab_gateway_bootstrap.py": {
+      "sha256": "20af559f04ca65d4f8b37200088c1c7b054329a539f7191c4883e32e80dc8c87",
+      "bytes": 20802
+    },
+    "packages/pioneer-agent/tests/test_gateway_import_boundary.py": {
+      "sha256": "367ad5d43da3241c2ed494f408c159da0947d16d30624c80b32057433e70734a",
+      "bytes": 4075
+    },
+    "packages/pioneer-agent/tests/test_harness_b.py": {
+      "sha256": "ea6e2eec3527310c910c88eeec54f9d5820304d2c22c2fc47548fa535727e8c0",
+      "bytes": 23178
+    },
+    "packages/pioneer-agent/tests/test_live_gateway_roundtrip.py": {
+      "sha256": "7c217e1231bfff59dde2204f06ce49159d47e5c5f36f4db8ffdae63567831280",
+      "bytes": 19071
+    },
+    "packages/pioneer-agent/tests/test_mac_batch1_integration.py": {
+      "sha256": "5a8320d8138febb80a84f8b8ab74baff8688d758115603bad8b0fb4ac00d60f4",
+      "bytes": 7578
+    },
+    "packages/pioneer-agent/tests/test_native_runtime_manifest.py": {
+      "sha256": "cc124457c13bf95ffd841d2e1d3d59cd127231a79fd5c1a52b5ad9a5568ed03a",
+      "bytes": 21744
+    },
+    "packages/pioneer-agent/tests/test_policy_capture_bundle.py": {
+      "sha256": "848fb15e9de36984cdeedba51b5b46ea2fc5d160bc879bbf71f95f84a2d59b48",
+      "bytes": 6851
+    },
+    "packages/pioneer-agent/tests/test_policy_gateway.py": {
+      "sha256": "dd4f0a2b1795312bb932221b1c429a9df144fa5f71ed369d9b968f35cae0148b",
+      "bytes": 13284
+    },
+    "packages/pioneer-agent/tests/test_policy_http.py": {
+      "sha256": "02462b7eed1470c083e53df2f64104e0a145c691d69e31b1db0fc618204155e3",
+      "bytes": 15883
+    },
+    "packages/pioneer-agent/tests/test_policy_manifest_bridge.py": {
+      "sha256": "977f558a94941008e99f5a15cfb8c545fae524803603c29f27ef824af2ecf265",
+      "bytes": 4297
+    },
+    "packages/pioneer-agent/tests/test_policy_service.py": {
+      "sha256": "e8083ae43b399a172e045a9349d78f0eabf8cee5bbc1e3b606c7395bd4419676",
+      "bytes": 25962
+    },
+    "packages/pioneer-agent/tests/test_serving_manifest.py": {
+      "sha256": "4cb1a14b6879713445e764f4c24d573de1a6fcfa31c9823f416f8dd23112e1d7",
+      "bytes": 15042
+    },
+    "packages/pioneer-agent/tests/test_skill_registry.py": {
+      "sha256": "297f5ae635d12f6edf195b37767d859538ad4d1dc19d79455f7a753b39126048",
+      "bytes": 14287
+    },
+    "packages/pioneer-agent/tests/test_skill_trace_binding.py": {
+      "sha256": "047fff862dceace665540f5358f6be526db46b4d4709de412fa78eaf939d89b7",
+      "bytes": 32916
+    },
+    "packages/pioneer-agent/tests/test_task_approval.py": {
+      "sha256": "129843462a5835dd450b1024643273d30a415da61291df5bac3d3f3aa1672465",
+      "bytes": 51684
+    },
+    "packages/pioneer-agent/tests/test_task_cli.py": {
+      "sha256": "3d182638f158998ffc795044eb6aad2c53acfcaa5ccc284d4904c14d38309e1d",
+      "bytes": 3152
+    },
+    "packages/pioneer-agent/tests/test_task_contracts.py": {
+      "sha256": "8a637e00b28d1d3fe650aa5faf897e61f4be53ca4b92174603e3fe0068cd26b5",
+      "bytes": 1606
+    },
+    "packages/pioneer-agent/tests/test_task_cr_regressions.py": {
+      "sha256": "a7238f323083af691bbc85062f5c7266c873c08d1645ee9847b9359128f38ced",
+      "bytes": 8351
+    },
+    "packages/pioneer-agent/tests/test_task_eval.py": {
+      "sha256": "c92b2f8f2abb100dfef7caa7a4915f1bcace91965a90687c82505ca34c6cf8fe",
+      "bytes": 14087
+    },
+    "packages/pioneer-agent/tests/test_task_eval_packaging.py": {
+      "sha256": "e70471674b1bb9e1956cdec71ea4f7c818cd5cb78742f0d23a0c75b905ed4098",
+      "bytes": 5699
+    },
+    "packages/pioneer-agent/tests/test_task_runner.py": {
+      "sha256": "e22203f214befdddbe3b3dd9c43a659eecb0edd5bc548ca3879e1cfbf7ce0b5c",
+      "bytes": 16795
+    },
+    "packages/pioneer-agent/tests/test_training_artifact_bundle.py": {
+      "sha256": "aaa9bc569befb39e657b968a9e5877a5e1f5511223a6eaaef3e1db09d5c2eaed",
+      "bytes": 33924
+    },
+    "packages/pioneer-agent/tests/test_training_projection.py": {
+      "sha256": "89ff3a087401deef06262fa4b8c1a30ae88c50dcb74311775d158803da937ad7",
+      "bytes": 22177
+    },
+    "packages/pioneer-agent/tests/test_windows_task_eval_ci.py": {
+      "sha256": "89fab2be6c3e258658ce070a448cb37e4d09bec95b67399a1aa3dd6c49752a43",
+      "bytes": 17512
+    },
+    "packages/pioneer-agent/tests/unit/__init__.py": {
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "bytes": 1
+    },
+    "packages/pioneer-agent/tests/unit/capture_geometry_fixtures.py": {
+      "sha256": "704bf7ab7181b89871046d17f69b58ea554f7edd10c4d2644f987870e14d8cf7",
+      "bytes": 1648
+    },
+    "packages/pioneer-agent/tests/unit/record_replay_fixtures.py": {
+      "sha256": "964d16974d779c24a1e6ceac94021484ea4033ac576d8397817a69cd88fab68f",
+      "bytes": 5195
+    },
+    "packages/pioneer-agent/tests/unit/test_action_handlers.py": {
+      "sha256": "97fbb6cc4f6fe478a7d79d09141006f8a953b99482378902b184687dee4f539d",
+      "bytes": 39497
+    },
+    "packages/pioneer-agent/tests/unit/test_action_selector_pipeline.py": {
+      "sha256": "2147adf31ecd7cd0a7088515785eea0dd37cd49af9c40cfb23e4ccb93549f9cd",
+      "bytes": 2863
+    },
+    "packages/pioneer-agent/tests/unit/test_action_selector_strategy_snapshot.py": {
+      "sha256": "5d69eb1cedc181174d7409b1d5b82b6b1fb8a202e04ac376951ef83054ffc7b5",
+      "bytes": 7674
+    },
+    "packages/pioneer-agent/tests/unit/test_action_verifier_eval.py": {
+      "sha256": "121b89aaa03a21a6f789647d2d40b36c770dfa103964bc28d96c94039c6c3b0e",
+      "bytes": 3657
+    },
+    "packages/pioneer-agent/tests/unit/test_advisor_api.py": {
+      "sha256": "f077c436868cfd9e490f0bebdee440f1768e05568fab66f000e41825f36c2351",
+      "bytes": 10632
+    },
+    "packages/pioneer-agent/tests/unit/test_advisor_api_upload_cleanup.py": {
+      "sha256": "ce8b5043bbef16583c654b377ab897b2eb63a8fe1281b927a585a602d10447b2",
+      "bytes": 5163
+    },
+    "packages/pioneer-agent/tests/unit/test_advisor_loop.py": {
+      "sha256": "0c92b545a103062575d9de3f8dd162c5cbbb67f9fe63f88c009f9a2c5f6ce498",
+      "bytes": 18442
+    },
+    "packages/pioneer-agent/tests/unit/test_agent_harness.py": {
+      "sha256": "6d35060e35bf7c8caeb9ce592b37a4db20816d9e696f4f01a59cc5c16f17d9ba",
+      "bytes": 14926
+    },
+    "packages/pioneer-agent/tests/unit/test_agent_harness_game_mcp_integration.py": {
+      "sha256": "3c1e3fdb95ddec415064961c317942dd6d48fd5168397818408742c98f5cfb3b",
+      "bytes": 12001
+    },
+    "packages/pioneer-agent/tests/unit/test_agent_harness_lifecycle.py": {
+      "sha256": "ab412c94e420b693972972dedec2ef4712c7d7ec31e77f51c28a84ecb07a3b70",
+      "bytes": 8057
+    },
+    "packages/pioneer-agent/tests/unit/test_agent_harness_shutdown.py": {
+      "sha256": "eb8c5e42d54ebf3717b21b1f45d37d8e927d87931ed7dd9c821201e3db9efc74",
+      "bytes": 15676
+    },
+    "packages/pioneer-agent/tests/unit/test_agent_harness_stdio_client.py": {
+      "sha256": "8f560a4b08672a827a971f2832dc1248297dc314b116e792cc2612ca12638cd9",
+      "bytes": 3004
+    },
+    "packages/pioneer-agent/tests/unit/test_agent_harness_timeouts.py": {
+      "sha256": "f8d7d43cd773b1afaabe383e95387106328822a688855e612962277f8ad0a7be",
+      "bytes": 12734
+    },
+    "packages/pioneer-agent/tests/unit/test_architecture_gates.py": {
+      "sha256": "418da81954354416d5894e001f94a4dfda3b6760f4636207b269614eb1061d6e",
+      "bytes": 13700
+    },
+    "packages/pioneer-agent/tests/unit/test_attack_ledger.py": {
+      "sha256": "5b9173b0fbd343a9d0d9c03cd97003ee000c97d9ba23f7ff4756524118f0b752",
+      "bytes": 11776
+    },
+    "packages/pioneer-agent/tests/unit/test_autonomous_cli.py": {
+      "sha256": "38db6c5cc0914267e7c397082050586cda0b576fdd0c3fa41f04b976885c0b56",
+      "bytes": 17461
+    },
+    "packages/pioneer-agent/tests/unit/test_autonomous_loop.py": {
+      "sha256": "adb35abee08efd0d2836adb039b71e128a5fb885ae501b272c1871e860961758",
+      "bytes": 63426
+    },
+    "packages/pioneer-agent/tests/unit/test_battle_report_domain.py": {
+      "sha256": "def8257813d17f036d7607119d9fdabda908fa9dd72449074fe5d637e70e5654",
+      "bytes": 10372
+    },
+    "packages/pioneer-agent/tests/unit/test_bridge_client.py": {
+      "sha256": "b78eb223b3925a15856a1278c9e3487c315ffa9d2fb12f0fb50cf4d5412dba34",
+      "bytes": 15536
+    },
+    "packages/pioneer-agent/tests/unit/test_bridge_health.py": {
+      "sha256": "f0bec965835b236e01e52bf8f4a1c8a847fc8c888e96ead5e0c22616b56cef8c",
+      "bytes": 2482
+    },
+    "packages/pioneer-agent/tests/unit/test_capture_adapters.py": {
+      "sha256": "1739b98df84ad3b80cef2eb55c2848e18ba43461e951ffe480cb3c1823780ee1",
+      "bytes": 2284
+    },
+    "packages/pioneer-agent/tests/unit/test_capture_bridge_paths.py": {
+      "sha256": "29ca7973ae21157d7c4a32e55e6ee84d2c40230cf71d9ded1504f934ae60a090",
+      "bytes": 4369
+    },
+    "packages/pioneer-agent/tests/unit/test_capture_bridge_security.py": {
+      "sha256": "2d4d073a9c75887a08975d19ca62352ba0fd38c014832353fc5f01f0e79c110f",
+      "bytes": 16471
+    },
+    "packages/pioneer-agent/tests/unit/test_chapter_panel_domain.py": {
+      "sha256": "5684f30d5e7fe2b740b26dc0c0435a1d6a5ebcbd3add84b218319d45a8d02f7a",
+      "bytes": 3493
+    },
+    "packages/pioneer-agent/tests/unit/test_city_buildings_domain.py": {
+      "sha256": "4a2055c1fea653dbe4a48640353474e3a9bd350a12058201fce9237b8fad0498",
+      "bytes": 7223
+    },
+    "packages/pioneer-agent/tests/unit/test_device_models.py": {
+      "sha256": "c550739e8a278c266d89c4b3ba9bd5720ec8d613708fce82cc50471346ab2bf2",
+      "bytes": 3355
+    },
+    "packages/pioneer-agent/tests/unit/test_dispatch_guard.py": {
+      "sha256": "b7cfe59a7eb1a8702f453fb143f32777f237fd3f5c5221cbb6a5256a513a93a7",
+      "bytes": 9712
+    },
+    "packages/pioneer-agent/tests/unit/test_evidence_action_selection.py": {
+      "sha256": "88ccfedc9e5f811e778ff47d51d2d3fa2024f408c5b3f32b0585b6a7e22898de",
+      "bytes": 5804
+    },
+    "packages/pioneer-agent/tests/unit/test_evidence_validator.py": {
+      "sha256": "4b154c2f0f8651284e09c0b60a997d39de2097bba8e02db7e9f70dcc51ba1db1",
+      "bytes": 2258
+    },
+    "packages/pioneer-agent/tests/unit/test_game_agent_cli.py": {
+      "sha256": "be1c76517bf2a53a513b09d9dfdd09369744d528429a880c26b19ccdab1e7011",
+      "bytes": 2137
+    },
+    "packages/pioneer-agent/tests/unit/test_game_mcp_contract.py": {
+      "sha256": "376871875469d9baaa43a3830b4b8ad9454b3b958b3d4d528ecf342b1990f8e0",
+      "bytes": 3396
+    },
+    "packages/pioneer-agent/tests/unit/test_game_mcp_live_provider.py": {
+      "sha256": "e8d75a291a2513118e0ca141de4518514237d635c735849d73c05a91504b0bdf",
+      "bytes": 7409
+    },
+    "packages/pioneer-agent/tests/unit/test_game_mcp_public_payload.py": {
+      "sha256": "96e1290ef5d7ac7f4fb86e752705ac58412ab151e473bfd0c82fef5966a695a9",
+      "bytes": 10215
+    },
+    "packages/pioneer-agent/tests/unit/test_game_mcp_server.py": {
+      "sha256": "56241b87bb7da91b67ce535df39800153d71821b353981c5a06564c441b1fa49",
+      "bytes": 10118
+    },
+    "packages/pioneer-agent/tests/unit/test_game_mcp_service.py": {
+      "sha256": "542e1e5e4eb21d7564fd0edcfb7e1919f757e2052ce259268e6b441c4323f7e7",
+      "bytes": 21469
+    },
+    "packages/pioneer-agent/tests/unit/test_golden_replay.py": {
+      "sha256": "3d4a8731e63923513aa8b8ead63ffb3ff535231b83e99990e600d13fde6ab970",
+      "bytes": 3374
+    },
+    "packages/pioneer-agent/tests/unit/test_input_policy.py": {
+      "sha256": "44da2cf7efba51d0f0b0ab71acbb498eced91d3307cfdd01c088ec567fc7b02f",
+      "bytes": 2399
+    },
+    "packages/pioneer-agent/tests/unit/test_live_operator_confirmation.py": {
+      "sha256": "01fa531e1391b83f1a343693636ce1a830ef84837335b73621f7d79890a2f098",
+      "bytes": 18565
+    },
+    "packages/pioneer-agent/tests/unit/test_live_upgrade_candidate.py": {
+      "sha256": "941d8ba4885737d9f622bef15349e9b0ee3ac6937900eb4c1fcd31b1fa9fdb95",
+      "bytes": 13908
+    },
+    "packages/pioneer-agent/tests/unit/test_loop_contract.py": {
+      "sha256": "8633c002a0919a8518b1c50a7f45cd7f01322a01b24fc4aed33554b6c5cc4e53",
+      "bytes": 1693
+    },
+    "packages/pioneer-agent/tests/unit/test_loop_logger.py": {
+      "sha256": "1b5402cba710a4afb6e695c73bd1a723909f4273adb6f282a438c147272c8aff",
+      "bytes": 4358
+    },
+    "packages/pioneer-agent/tests/unit/test_map_filter_transition.py": {
+      "sha256": "5f29d0f08e5d5a7be1a206e9b9089645a749d62e2cb9e1be8d6989a2e90c2320",
+      "bytes": 51623
+    },
+    "packages/pioneer-agent/tests/unit/test_map_land_domain.py": {
+      "sha256": "0a00db1ad8d1b1824701f4a36d46004f96c5c3dec16d92ed59d6e30b582c72c0",
+      "bytes": 32293
+    },
+    "packages/pioneer-agent/tests/unit/test_mcp_eval.py": {
+      "sha256": "2afe0d91c9dfa52fdf1951cfae32f071dce5129a68713f6347ad228bcfbf8f8c",
+      "bytes": 18559
+    },
+    "packages/pioneer-agent/tests/unit/test_mcp_eval_regressions.py": {
+      "sha256": "40798ed7724fd9d2badaa2f623d3b4c5147f925c785b560d3580822ce5143335",
+      "bytes": 10446
+    },
+    "packages/pioneer-agent/tests/unit/test_mode_hub_domain.py": {
+      "sha256": "ec3a925a050bf90010ca11656b389fec09c3926e53b6005ba64192db45c02db4",
+      "bytes": 3163
+    },
+    "packages/pioneer-agent/tests/unit/test_observation_gate.py": {
+      "sha256": "f8298bab83d2839d3a0b129b8682cd59548a98666b76e675ae93a39d18c83716",
+      "bytes": 15673
+    },
+    "packages/pioneer-agent/tests/unit/test_openai_vision_client.py": {
+      "sha256": "9384ea6cf367d31d09210bf7bf3c17f366df5d2eb6d922303202f463a96509db",
+      "bytes": 10321
+    },
+    "packages/pioneer-agent/tests/unit/test_operator_confirmation.py": {
+      "sha256": "1b1f35d8526a61b6cce2121616db502f52ca99d7c8898bde0a9ebb9dd2c1de56",
+      "bytes": 5741
+    },
+    "packages/pioneer-agent/tests/unit/test_operator_confirmation_wait.py": {
+      "sha256": "93a0117885e85958a72906358b2ebda80b719269a6a3b3c66e4b80d973046ff4",
+      "bytes": 11359
+    },
+    "packages/pioneer-agent/tests/unit/test_pc_client_screenshot_fixtures.py": {
+      "sha256": "fc3ac728db925f2027265fd91925018064b249bb7ebd3ba1754a708e7093000a",
+      "bytes": 3088
+    },
+    "packages/pioneer-agent/tests/unit/test_phase.py": {
+      "sha256": "d0ac9135ef89c0f1a6a4ab29cb9c730269f6ca7fa7c705c8f67f57cc396d12fd",
+      "bytes": 296
+    },
+    "packages/pioneer-agent/tests/unit/test_popup_domain.py": {
+      "sha256": "5002aef85b0558a3137132df82f5708621f40d47325b5adf7cb7a8df7bd51152",
+      "bytes": 2838
+    },
+    "packages/pioneer-agent/tests/unit/test_pr5_advisor_golden_replay.py": {
+      "sha256": "ab0981542f78f94c34209a849d44454fc4af47c5d0bd60d6457b39094f48dedb",
+      "bytes": 14756
+    },
+    "packages/pioneer-agent/tests/unit/test_prepare_image.py": {
+      "sha256": "463a2b05ab1dce8c107b54c230ef367fb1c071e7a567e23ed048f8169b35c934",
+      "bytes": 2337
+    },
+    "packages/pioneer-agent/tests/unit/test_readiness.py": {
+      "sha256": "19d1d42e730f2500d3bcb3fcfc1dd58ab8e7c7aba22f85b272688399e6df1cb5",
+      "bytes": 558
+    },
+    "packages/pioneer-agent/tests/unit/test_real_level5_evidence_fixtures.py": {
+      "sha256": "529920c6a31cd8a0cd76794e32dc86b6626546aaf45975be3e28c97e993b18ac",
+      "bytes": 13156
+    },
+    "packages/pioneer-agent/tests/unit/test_record_replay_annotations.py": {
+      "sha256": "d82f417e9eef36e4cb4b77f8ce62eca66adbadde665b7b199541956261f5e3af",
+      "bytes": 49302
+    },
+    "packages/pioneer-agent/tests/unit/test_record_replay_compiler.py": {
+      "sha256": "4a07575f6ae2bf901fde5af7cf439446fa12ea3766e41d788797ec27f8b285f0",
+      "bytes": 5755
+    },
+    "packages/pioneer-agent/tests/unit/test_record_replay_dataset_registry.py": {
+      "sha256": "49ce55471445a531ae049614a0543b41d5d8c1798fe14d1a9a02d52a9f1de07f",
+      "bytes": 63868
+    },
+    "packages/pioneer-agent/tests/unit/test_record_replay_holdout_eval.py": {
+      "sha256": "65e837bd2a7bfd83e140e92c039eaa38a0ccfbcc61b0f402e0e01374d638dd17",
+      "bytes": 20241
+    },
+    "packages/pioneer-agent/tests/unit/test_record_replay_models.py": {
+      "sha256": "76464bb9cac469840fa507949c863219a601b8cbdfa1a941e8832e016df9fecd",
+      "bytes": 6641
+    },
+    "packages/pioneer-agent/tests/unit/test_record_replay_session.py": {
+      "sha256": "a7aaa683422b1c1906b4c8e37582c2cadec25075cd2db8bac053b3463cec3280",
+      "bytes": 27660
+    },
+    "packages/pioneer-agent/tests/unit/test_record_replay_validation_standalone.py": {
+      "sha256": "292b17a1c2c5e294bb246136c9181ea155d62c41d1a4c7bd3c2b2aadc73a2a56",
+      "bytes": 3311
+    },
+    "packages/pioneer-agent/tests/unit/test_record_replay_visual_fingerprint.py": {
+      "sha256": "c7dec60699f9b36c681c12aa9602fe51ba4c7380548d8d748becb0a95001501a",
+      "bytes": 7670
+    },
+    "packages/pioneer-agent/tests/unit/test_record_replay_windows_adapter.py": {
+      "sha256": "f67507367ac2d9f12daf51cca47fad61114c46cfaa2dd9351b4b480504ae73f5",
+      "bytes": 13349
+    },
+    "packages/pioneer-agent/tests/unit/test_recruit_panel_domain.py": {
+      "sha256": "049dcbdca8f3012a91bdff5b9c372f192523eb47abf7063a1ec0c4c35955aa72",
+      "bytes": 3637
+    },
+    "packages/pioneer-agent/tests/unit/test_resource_bar_domain.py": {
+      "sha256": "6aaa04e7664ef4ed0406956ae69352480e3bfe9e8beaa7cc9d70680d1fbb6dc8",
+      "bytes": 3642
+    },
+    "packages/pioneer-agent/tests/unit/test_resource_bar_merge.py": {
+      "sha256": "d88b8f563d16aefec77515c3b6f10a99b32c9fb91e13062da81fc50ab467285e",
+      "bytes": 3640
+    },
+    "packages/pioneer-agent/tests/unit/test_runbook_candidate_facts.py": {
+      "sha256": "34b6ba286a600bff90821b49226309a40c0293355737d4006100115ffe819ac5",
+      "bytes": 3664
+    },
+    "packages/pioneer-agent/tests/unit/test_runbook_candidate_filter.py": {
+      "sha256": "c52baa256db3cdd32137b59116dad826d9079777ae6831f54ec0e92acb8a5714",
+      "bytes": 8869
+    },
+    "packages/pioneer-agent/tests/unit/test_runbook_engine.py": {
+      "sha256": "dad10697bf93a35caf3673c6ce4fd64cb2bc55c60ad798bb6b834b877eb534c7",
+      "bytes": 10206
+    },
+    "packages/pioneer-agent/tests/unit/test_runbook_lineup_binding.py": {
+      "sha256": "cbe46c8490c551dd1efa6a01ddac698de54126e1bc76f945c1bf54e78122130a",
+      "bytes": 6275
+    },
+    "packages/pioneer-agent/tests/unit/test_runbook_loader.py": {
+      "sha256": "cf25952345f7336fb7248f087fb17dcfbe5ffbda51a0148315b83b77871f5757",
+      "bytes": 13040
+    },
+    "packages/pioneer-agent/tests/unit/test_runbook_loop_integration.py": {
+      "sha256": "1e614c099904550e08178975af1945b580caba1373abb6ff731c69c1ac6cfa9f",
+      "bytes": 63198
+    },
+    "packages/pioneer-agent/tests/unit/test_safety_guard.py": {
+      "sha256": "921f7056cc75efc1fe60e8668d799818a64606aaff39b47d9ebc142f9d94e14e",
+      "bytes": 5041
+    },
+    "packages/pioneer-agent/tests/unit/test_screenshot_interpreter.py": {
+      "sha256": "dc688a288c8a4e22626562b7f6b37b0c59eee2a3e3256317ff8da3b4379dbba2",
+      "bytes": 2107
+    },
+    "packages/pioneer-agent/tests/unit/test_semantic_frame_guard.py": {
+      "sha256": "fe7ab26eeb7e2ead2d06778e869528a5f1575c27d39130269a4b7d7d21591657",
+      "bytes": 4608
+    },
+    "packages/pioneer-agent/tests/unit/test_strategy_snapshot.py": {
+      "sha256": "21b73a474cdcf978be50bd0aaa2f63f7ef9a8682a22c76f7dc0304e36700ba5f",
+      "bytes": 3202
+    },
+    "packages/pioneer-agent/tests/unit/test_sync_and_replay_cycle.py": {
+      "sha256": "77ba7055f711d583fb4697fdaee8ccf1b1ef87d7e461ac0896b621c4f69be64f",
+      "bytes": 1282
+    },
+    "packages/pioneer-agent/tests/unit/test_team_detail_domain.py": {
+      "sha256": "dfa92a72b56759bd30bc087143fe91ac2f488471d53a04baa7e1b89c2834b641",
+      "bytes": 10338
+    },
+    "packages/pioneer-agent/tests/unit/test_team_panel_domain.py": {
+      "sha256": "8062dffa21e0c1073fa032033abf61a737c1e19fc1885c93de7f418d9c44fb76",
+      "bytes": 4571
+    },
+    "packages/pioneer-agent/tests/unit/test_team_roster_merge.py": {
+      "sha256": "604eb3ec27bb0e9551d5b6bdb264b1e11ac2c47d46c9808c8651a1833736b59d",
+      "bytes": 6117
+    },
+    "packages/pioneer-agent/tests/unit/test_team_snapshot_judgement.py": {
+      "sha256": "2c7a1d05795601bff2a46e686c7b3dc4bb293530bec4622588024c4e3fcb7b6d",
+      "bytes": 4436
+    },
+    "packages/pioneer-agent/tests/unit/test_team_snapshot_screenshot_eval.py": {
+      "sha256": "f476ef8f954279ee76392d3569573d9c31cc6ad532d82ad3ca642f76cea6654b",
+      "bytes": 5152
+    },
+    "packages/pioneer-agent/tests/unit/test_trace_store.py": {
+      "sha256": "9926d122c60a659ae42b4a62dd0d528dce224187e2ff8cfd3db38a021eecd6ef",
+      "bytes": 6940
+    },
+    "packages/pioneer-agent/tests/unit/test_ui_actions.py": {
+      "sha256": "9601f511059ec232fb9bc008515ec0d493204db65a9458f66ff846ecf91fb858",
+      "bytes": 11401
+    },
+    "packages/pioneer-agent/tests/unit/test_ui_registry.py": {
+      "sha256": "3e0638827dcb438775dd9c7b19cf60c5bf9ff4be477360534b6256e9c36d5927",
+      "bytes": 2890
+    },
+    "packages/pioneer-agent/tests/unit/test_upgrade_dialog_domain.py": {
+      "sha256": "88fad3513e3911d7eab967d89cadc7cff867a436c853cd8511324eb023ce9913",
+      "bytes": 4641
+    },
+    "packages/pioneer-agent/tests/unit/test_verifier_base.py": {
+      "sha256": "8d8eafcf05a6516a145db5bc306e95f071d9c27cadf008ab98d0975ac9aa8597",
+      "bytes": 13422
+    },
+    "packages/pioneer-agent/tests/unit/test_verifier_registry.py": {
+      "sha256": "a6891d1184dcf365525b08e451f44a9bf43cee653e2ed12265aa651b92b54a49",
+      "bytes": 8825
+    },
+    "packages/pioneer-agent/tests/unit/test_vision_eval.py": {
+      "sha256": "dd9c8110ec311d21e6a1eb01cd9e05424d2fe907a07976bae377423ad83c7871",
+      "bytes": 10054
+    },
+    "packages/pioneer-agent/tests/unit/test_vision_locator.py": {
+      "sha256": "d1d9d45835341e021a3ea09c6bcf692542fd20bd9d79ce7099a0aad3274c592b",
+      "bytes": 3414
+    },
+    "packages/pioneer-agent/tests/unit/test_vision_probe.py": {
+      "sha256": "8d28dd5335fb8529094cc6af9f57d78f31f3cd4339bcd90146860dca789ef672",
+      "bytes": 2758
+    },
+    "packages/pioneer-agent/tests/unit/test_vision_semantic_validators.py": {
+      "sha256": "239369809981280ce1dd4738eaf795b53ee77b9851090030aef3a628062a6fb6",
+      "bytes": 4916
+    },
+    "packages/pioneer-agent/tests/unit/test_vision_sync.py": {
+      "sha256": "6de96d2221b6a714ec4f73ea731b7b142176db6bcffeed822dd57bfdabd36a02",
+      "bytes": 29061
+    },
+    "packages/pioneer-agent/tests/unit/test_win_bridge_server_guard.py": {
+      "sha256": "3f291f8656ea6cd50dbefd92c02ef0f03398beacd143ac1ab78a93a9bfd68cb0",
+      "bytes": 24301
+    },
+    "packages/pioneer-agent/tests/unit/test_win_capture_boundary.py": {
+      "sha256": "51ece347978a9781edbe38c1a9d47f6c3d645f15424a1730f2d032843ff5f5d0",
+      "bytes": 3090
+    },
+    "packages/sanmou-common/src/sanmou_common/__init__.py": {
+      "sha256": "6cfb12ef136310f1dd441bf2542734b1d227bff6b5d78d33464cecf605f57cdf",
+      "bytes": 222
+    },
+    "packages/sanmou-common/src/sanmou_common/config/__init__.py": {
+      "sha256": "ea67bee0e8d080c0703fa313f85212761e70ac91f0dfe54299653b309bfd9391",
+      "bytes": 1104
+    },
+    "packages/sanmou-common/src/sanmou_common/config/buildings.yaml": {
+      "sha256": "e1647f77787b4175553c1321c64a6038efa12aa5f67e5c38621121e0d1dec5e8",
+      "bytes": 135
+    },
+    "packages/sanmou-common/src/sanmou_common/config/chapters.yaml": {
+      "sha256": "5374ae343e40287fdf2bad41a2a4f174e7dd30c9f7fb855f13d62d2ba7870537",
+      "bytes": 59
+    },
+    "packages/sanmou-common/src/sanmou_common/config/lands.yaml": {
+      "sha256": "d57590a4ec06aa019de1c34e4a9c60af114a5b61e08f76cd2e18b4723b19e869",
+      "bytes": 32
+    },
+    "packages/sanmou-common/src/sanmou_common/config/lineups.yaml": {
+      "sha256": "d1054571b788deb3314942313e119770392dc68e7f9b77ed65ce5d8011818943",
+      "bytes": 76
+    },
+    "packages/sanmou-common/src/sanmou_common/config/opening_baseline.yaml": {
+      "sha256": "761500fb751cadd06bc4b7f9a882c52b7e4cd3ef0e9fc9f81d04c991d3690169",
+      "bytes": 1382
+    },
+    "packages/sanmou-common/src/sanmou_common/glossary/__init__.py": {
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "bytes": 1
+    },
+    "packages/sanmou-common/src/sanmou_common/policy_contracts.py": {
+      "sha256": "219145d535ef55d667d22d2808aeeac29a887845191a33c46d2d3c3759aebda2",
+      "bytes": 15382
+    },
+    "packages/sanmou-common/src/sanmou_common/ports.py": {
+      "sha256": "e4ab1cdc5bf69a0ce3a484135d654d24b86c3bad784909110d137be71a0ae0f1",
+      "bytes": 1180
+    },
+    "scripts/model-serving/README.md": {
+      "sha256": "61f2831c0cc33a3468e61452773affeb737b052ef70eb7e01ccdf676b735a73e",
+      "bytes": 9097
+    },
+    "scripts/model-serving/colab_gateway_README.md": {
+      "sha256": "7f26ca07ee42829e7c4245e3280a3d46e0b61d89e6fcc58a45c8444f88cba63e",
+      "bytes": 5175
+    },
+    "scripts/model-serving/colab_gateway_bootstrap.py": {
+      "sha256": "d1065e3dd71cc21f756be82a8710196751dbe06964b32a0a9f04c686baf39d9f",
+      "bytes": 31159
+    },
+    "scripts/model-serving/http_roundtrip.py": {
+      "sha256": "3698099f7f47fbbc2c966705fd3619c917a982d7f0694ee902daf20395209378",
+      "bytes": 7630
+    },
+    "scripts/model-serving/live_gateway_roundtrip.py": {
+      "sha256": "850e964a3689c253080640026d5eeca3675673ed9cb919f07c8e40b81ed11781",
+      "bytes": 31890
+    },
+    "scripts/model-serving/live_gateway_scenario.json": {
+      "sha256": "a63570c8e4cca4b2da1c958ce7322c462e5b7f9341be768c015a6aa474792c5f",
+      "bytes": 1085
+    },
+    "scripts/model-serving/make_policy_manifest.py": {
+      "sha256": "2aaa431b6f17ff45899de157e3fa867f2e655832d8825334e2d5beb7e10ce65c",
+      "bytes": 3291
+    },
+    "scripts/model-serving/mock_roundtrip.py": {
+      "sha256": "09e4cb3a732ffac08361a75b2947b865e58846b0340a7f9abafb22f53a4baf2e",
+      "bytes": 4687
+    },
+    "scripts/model-serving/native-runtime.md": {
+      "sha256": "576e26eb1922a7b7a260e28d0d9297f7529d22a0d2acec9f6ae835da737a189d",
+      "bytes": 8140
+    },
+    "scripts/model-serving/native_runtime_manifest.py": {
+      "sha256": "8287bc183aabc0a3f18b0285abc11b91d380a040ce48d9163cf160e2fc221408",
+      "bytes": 26303
+    },
+    "scripts/model-serving/prepare_colab_gateway_bundle.py": {
+      "sha256": "5bd62aec9cd8ab53da4d7cd0271d2b4845094b750113a58ad47a66a21d5b4017",
+      "bytes": 6062
+    },
+    "scripts/model-serving/validate_manifest.py": {
+      "sha256": "392de97fe42e0484a0b7a2e1c236cb072a59a9540e6a48a97ef2bfd32daf82d2",
+      "bytes": 10122
+    },
+    "packages/pioneer-agent/pyproject.toml": {
+      "sha256": "bde02180109c422d8d4bd4f273b7716da1761610d76d4b39a89f3ffdfa099464",
+      "bytes": 1087
+    },
+    "packages/qa-agent/configs/client_decoded_mappings.yaml": {
+      "sha256": "fac2141f366def3075ed90202934a64ae647ed1acc61fe8f0af10c5ee6a4875a",
+      "bytes": 8964
+    },
+    "packages/qa-agent/configs/enums.yaml": {
+      "sha256": "ef565c9dad727b797e478df87a3724829d39563e0a2c4420848a6193a6fc6562",
+      "bytes": 732
+    },
+    "packages/qa-agent/configs/hero_aliases.yaml": {
+      "sha256": "fdabc34c53153038c9379033ba694f168680f4e30b5ebe11b98a846b31d6b4f8",
+      "bytes": 357
+    },
+    "packages/qa-agent/configs/skill_aliases.yaml": {
+      "sha256": "1bd54fe9b584eb5db08e0add9cd70b3c9a70c807e3c8d278ffaaf801b4ce18d8",
+      "bytes": 566
+    },
+    "packages/qa-agent/configs/video_text_corrections.yaml": {
+      "sha256": "e50c93704d08c53c80968e18ac138f461dd2b062d166a80612995f92049ee92b",
+      "bytes": 95
+    },
+    "packages/qa-agent/knowledge_sources/.gitkeep": {
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "bytes": 1
+    },
+    "packages/qa-agent/knowledge_sources/building.yaml": {
+      "sha256": "3dada83e67f3491ebe8845451174eb19cbd35634135304d94092f6c80d759ada",
+      "bytes": 1711
+    },
+    "packages/qa-agent/knowledge_sources/chapter.yaml": {
+      "sha256": "0371e93d382719c53782a4f9304623ac61eba158499db39fc16da39b522d2e9b",
+      "bytes": 9339
+    },
+    "packages/qa-agent/knowledge_sources/combat.yaml": {
+      "sha256": "3874a3d2e4b030e3a1f01b983052f35e6be94bd1bcfc4a4e50c49745c81ddd75",
+      "bytes": 22524
+    },
+    "packages/qa-agent/knowledge_sources/glossary/statuses/buffs.yaml": {
+      "sha256": "bb9642d1553af5e17ce01d33873be013deb56bedb45b2a40ff36e2208a22c308",
+      "bytes": 589
+    },
+    "packages/qa-agent/knowledge_sources/glossary/statuses/debuffs.yaml": {
+      "sha256": "7d2cc532f677cd298e210e0ddd8e5a285393e1e31d6e34ba36578483019ff916",
+      "bytes": 590
+    },
+    "packages/qa-agent/knowledge_sources/glossary/statuses/profiles-buffs.yaml": {
+      "sha256": "8773aa591a1f26eb29a2dd4a9f0183e48ae2c2c0aee306773e82d488390ef937",
+      "bytes": 3291
+    },
+    "packages/qa-agent/knowledge_sources/glossary/statuses/profiles-debuffs.yaml": {
+      "sha256": "8107d2415176b11feec18e7be28584d359e71ed9b98f4b67503c56f61b3be648",
+      "bytes": 4296
+    },
+    "packages/qa-agent/knowledge_sources/glossary/statuses/registry.yaml": {
+      "sha256": "12e7bdf6d4c9958ea49ca6bc576d1ae06a42f05812663a5979cdf477a1ce95c1",
+      "bytes": 644
+    },
+    "packages/qa-agent/knowledge_sources/hero_skill.yaml": {
+      "sha256": "9b558c57634156fec739e9e6dee5063c9ecbb944a8cb48806b41cf1b1b62655c",
+      "bytes": 31913
+    },
+    "packages/qa-agent/knowledge_sources/opening_baseline.yaml": {
+      "sha256": "d39a04948ba39bf4d3447496ca8c77db95fa3802a12e49a8501ccf15a599ccc3",
+      "bytes": 3222
+    },
+    "packages/qa-agent/knowledge_sources/profiles/heroes/minor.yaml": {
+      "sha256": "0cf5002d40d1bb466b56db1ec6fb99c699b5059f84e72dfc447fcc46ae3cfe34",
+      "bytes": 16527
+    },
+    "packages/qa-agent/knowledge_sources/profiles/heroes/other.yaml": {
+      "sha256": "5239a7754876b9a70871c45e41f1bd9abbd91ed2de67af926c1cfcc9c9377d51",
+      "bytes": 4
+    },
+    "packages/qa-agent/knowledge_sources/profiles/heroes/qun.yaml": {
+      "sha256": "954a10419540995be7f1e1498ae5dda26db7df9658b243537dba3c834184f079",
+      "bytes": 61651
+    },
+    "packages/qa-agent/knowledge_sources/profiles/heroes/registry.yaml": {
+      "sha256": "063b3c41f28e7bf90b980511f655268efc636b6d2de6ec96cb9e8369f3793f48",
+      "bytes": 584
+    },
+    "packages/qa-agent/knowledge_sources/profiles/heroes/shu.yaml": {
+      "sha256": "f0f84950716802b81fb310938c95a8207d18cda1a578da6fad9f4c05676a6f3f",
+      "bytes": 36597
+    },
+    "packages/qa-agent/knowledge_sources/profiles/heroes/wei.yaml": {
+      "sha256": "0926c82549a784073c74a525963cbcd4dc1303d6ec4fcc603e7728d9712e9068",
+      "bytes": 60606
+    },
+    "packages/qa-agent/knowledge_sources/profiles/heroes/wu.yaml": {
+      "sha256": "58a636cd03a7b15ef768cadebbd4f2a57e4e785fd521dd62ccd011aa83b76521",
+      "bytes": 46373
+    },
+    "packages/qa-agent/knowledge_sources/profiles/skills/active.yaml": {
+      "sha256": "abe3f6235e901b51df130ea5dc55c043386c5372e63f5d46964eb6541a0f5926",
+      "bytes": 62929
+    },
+    "packages/qa-agent/knowledge_sources/profiles/skills/command.yaml": {
+      "sha256": "9f33e684f0dceec624f12eba26b51a268acb9382cc35fd6c6ad5be17d2cb5de1",
+      "bytes": 35261
+    },
+    "packages/qa-agent/knowledge_sources/profiles/skills/passive.yaml": {
+      "sha256": "bd8ce2adbcf7d4991298823f2ddfe22af492f4326fdd2387be951a814138b52c",
+      "bytes": 31896
+    },
+    "packages/qa-agent/knowledge_sources/profiles/skills/pursuit.yaml": {
+      "sha256": "d009caefee9a6cfec80cb77bafcd29d3873671951c692aca00c608fafc705f04",
+      "bytes": 25353
+    },
+    "packages/qa-agent/knowledge_sources/profiles/skills/registry.yaml": {
+      "sha256": "c815b48e6112454613e0793971ed311d3f54c6fbff1a7eab7ea08d35bea365cb",
+      "bytes": 599
+    },
+    "packages/qa-agent/knowledge_sources/resource_team.yaml": {
+      "sha256": "2e668c8e0533420be1e7d0b585325da76762be8b85fb1ed6ab116aadae63e8ce",
+      "bytes": 40442
+    },
+    "packages/qa-agent/knowledge_sources/solutions/lineups/rating-taxonomy.yaml": {
+      "sha256": "b7722734102d8ded66f83045f772f85be8a6b9b7ead749b0d8a1b05cb6f97b86",
+      "bytes": 612
+    },
+    "packages/qa-agent/knowledge_sources/solutions/lineups/registry.yaml": {
+      "sha256": "ab0d4c0b2c5821a7dd4d75db524bf509557f0e072df1c582f5065cd15f083953",
+      "bytes": 673
+    },
+    "packages/qa-agent/knowledge_sources/solutions/lineups/season-misc.yaml": {
+      "sha256": "1e6aeb97ec027663baedc3122ec9b3bdc385eda204ae354e5d448a61b91f19cb",
+      "bytes": 10693
+    },
+    "packages/qa-agent/knowledge_sources/solutions/lineups/season-s1.yaml": {
+      "sha256": "2e59ad62c9a4218575e765066d737604eedcf6c8e3a8b34296c975180756d986",
+      "bytes": 22409
+    },
+    "packages/qa-agent/knowledge_sources/solutions/lineups/season-s11.yaml": {
+      "sha256": "40520135d574b048e83daae75c5d13af2a3eb09a5b0378bec7209984b4bec931",
+      "bytes": 11652
+    },
+    "packages/qa-agent/knowledge_sources/solutions/lineups/season-s12.yaml": {
+      "sha256": "06305acee71d80f23ae1dcd4d9e00fb32979b746cafcba5a8b1d9b36e674d7ff",
+      "bytes": 12886
+    },
+    "packages/qa-agent/knowledge_sources/solutions/lineups/season-s13.yaml": {
+      "sha256": "c331cff413310494fadeeeb7ec8c04f20bc035b39d9b30be0185dd40aa07e936",
+      "bytes": 13072
+    },
+    "packages/qa-agent/knowledge_sources/solutions/lineups/season-s14.yaml": {
+      "sha256": "f0dfc8f92f5d3b760fd63499b383db6511d4015f06e80de753ca35deb00e9e73",
+      "bytes": 20315
+    },
+    "packages/qa-agent/knowledge_sources/solutions/lineups/season-s2.yaml": {
+      "sha256": "a795beacf32bcb24ffb507d257f522135811765e1f91ffd75f855f06b5a33199",
+      "bytes": 1370
+    },
+    "packages/qa-agent/knowledge_sources/solutions/lineups/season-s4业铸山河.yaml": {
+      "sha256": "2771f9fb3602d4919c3505296d2a4dd43b4f27f3260a0259b1567a2a6ad81308",
+      "bytes": 11241
+    },
+    "packages/qa-agent/knowledge_sources/terms.yaml": {
+      "sha256": "dd896561c370069f27e1527b18540aefd76676252f098bd0bc539ef8232ab773",
+      "bytes": 4398
+    },
+    "packages/qa-agent/pyproject.toml": {
+      "sha256": "1f01153646b513d45b3e6adc24eefd9ea0888834a4b809be8ae1bacbc5a7b616",
+      "bytes": 463
+    },
+    "packages/qa-agent/src/qa_agent/__init__.py": {
+      "sha256": "8c14e8c56c1a240fe97f2cf418c34d65cdbae32245f392ca788cf9b0bc96d7c6",
+      "bytes": 181
+    },
+    "packages/qa-agent/src/qa_agent/adapters/__init__.py": {
+      "sha256": "f14d98797f97b34b72dfa7df9a3604a23c45925e27190c9f150899094f7b3557",
+      "bytes": 87
+    },
+    "packages/qa-agent/src/qa_agent/adapters/knowledge_provider.py": {
+      "sha256": "a9551809da4c4db95a148393e103da2202d8d9503e99150dc227b7d2189cc0ea",
+      "bytes": 1914
+    },
+    "packages/qa-agent/src/qa_agent/app/__init__.py": {
+      "sha256": "16dc8ad246393d2b0c5000e8cda77bf8deb81a16c943e0c02cbec237ed32b813",
+      "bytes": 47
+    },
+    "packages/qa-agent/src/qa_agent/app/advisor_terminal_source_preflight.py": {
+      "sha256": "40874db2dac7712ef24a20c7087f81c1cbc6bb2053effba724f7ce026df8d312",
+      "bytes": 6925
+    },
+    "packages/qa-agent/src/qa_agent/app/aggregate_bilibili_batch_outputs.py": {
+      "sha256": "f7c40d4a36ae26c29cb539857e846f65ad810b261a4d164d965d839e3d733172",
+      "bytes": 11304
+    },
+    "packages/qa-agent/src/qa_agent/app/audit_client_decoded_heroes.py": {
+      "sha256": "fa2a2d129afeac3141c9a3af3a019e42ea3fd4a588e0c10887444406655c3042",
+      "bytes": 2542
+    },
+    "packages/qa-agent/src/qa_agent/app/backfill_chencang_lineups.py": {
+      "sha256": "9f1cce7b324412aa63a2a02b1b450d4661a796d2b3ac875772c2980b4d93f26d",
+      "bytes": 5946
+    },
+    "packages/qa-agent/src/qa_agent/app/build_client_evidence_bundle.py": {
+      "sha256": "10b6fb71a4f3c2233b45532cd38b91b544b0b9d3c22d3623a77602458b0ab5ba",
+      "bytes": 10860
+    },
+    "packages/qa-agent/src/qa_agent/app/build_client_import_queue.py": {
+      "sha256": "4bc91aa709cf1466c2d2e0bd7dbd6e2da0d804da58e9795af5e8622d2c9c5a84",
+      "bytes": 10635
+    },
+    "packages/qa-agent/src/qa_agent/app/build_video_evidence.py": {
+      "sha256": "2150ef468e115dda5f5f80d20c4efa9ef509a2635caef5d3119d199b3db33151",
+      "bytes": 1643
+    },
+    "packages/qa-agent/src/qa_agent/app/catalog_luascripts_textassets.py": {
+      "sha256": "4df3e0dcaac85ff6eeb0b074a2f831415d03dd6596e181234e0b979823b5087c",
+      "bytes": 1675
+    },
+    "packages/qa-agent/src/qa_agent/app/chat.py": {
+      "sha256": "6c5637958dfcdb7430515122baaf8e5d32e2d34ac48ff369e32e3ccdd3002b74",
+      "bytes": 3339
+    },
+    "packages/qa-agent/src/qa_agent/app/discover_bilibili.py": {
+      "sha256": "6fe6489f924a930d4752d7b3b7d4ba5c81b4a4e29344be53ffea7d38ce68aa30",
+      "bytes": 10915
+    },
+    "packages/qa-agent/src/qa_agent/app/eval_lineup_vision.py": {
+      "sha256": "67c83800e180afc121b32a0aa0b48550ec6b70f715134bdda2bf1b3eb8d0be3e",
+      "bytes": 10456
+    },
+    "packages/qa-agent/src/qa_agent/app/export_strategy_snapshot.py": {
+      "sha256": "16450f59b9c409026501dd5372283ca3862e035b54e72defc9a9ea1c21efe02e",
+      "bytes": 5499
+    },
+    "packages/qa-agent/src/qa_agent/app/fetch_bilibili_bundle.py": {
+      "sha256": "ac384b94b0450639aac98b4a22b6c8ebb78e855d25e936dc799c4a10ddce5097",
+      "bytes": 22226
+    },
+    "packages/qa-agent/src/qa_agent/app/knowledge_inventory.py": {
+      "sha256": "14adf0b8f0a4ffdf0fd08efd9f51fc1c58c055d022e867acc7c105f9a6571ae8",
+      "bytes": 7376
+    },
+    "packages/qa-agent/src/qa_agent/app/normalize_ingestion.py": {
+      "sha256": "e06367cbabc5d8a6a4d41868cd80c2aedaa295a88412b4cca5d527ecf829e58d",
+      "bytes": 2814
+    },
+    "packages/qa-agent/src/qa_agent/app/process_bilibili_discovery_batch.py": {
+      "sha256": "82a2315ca652241270629a54d8964e2af0bcceefc01d50172de3da89481f3a6a",
+      "bytes": 22040
+    },
+    "packages/qa-agent/src/qa_agent/app/publish_rules.py": {
+      "sha256": "346d63252f18fe2c407e1a6653a028d30d4228c4b737d914c3ac2574895ded30",
+      "bytes": 2799
+    },
+    "packages/qa-agent/src/qa_agent/app/publish_staging.py": {
+      "sha256": "185f2b8719d43d5e910e20722eae67a19962004b05e5f2d5d02621db1fd22c83",
+      "bytes": 2006
+    },
+    "packages/qa-agent/src/qa_agent/app/query.py": {
+      "sha256": "24a904db8bf5ba2e2b825a4dd0eb05ab50f6890459deecbd92bbfc4313862332",
+      "bytes": 1588
+    },
+    "packages/qa-agent/src/qa_agent/app/run_video_pipeline.py": {
+      "sha256": "bc2976303c2761d46b913a56ea35500c4a197b60a3d691d44215e06f8690ea8d",
+      "bytes": 9505
+    },
+    "packages/qa-agent/src/qa_agent/app/scan_nslg_client.py": {
+      "sha256": "7fdaf0252b8f563c9a2abbb69371ebf04d0e9ac5b72ab801a6a99df3e073b1ca",
+      "bytes": 1939
+    },
+    "packages/qa-agent/src/qa_agent/app/stage_advisor_terminal_source.py": {
+      "sha256": "5320d5bff6dae1a1af2c8b106cda6c43d26fe29b33cff7a00ad1106102a96efb",
+      "bytes": 25908
+    },
+    "packages/qa-agent/src/qa_agent/app/stage_client_decoded_heroes.py": {
+      "sha256": "0ef6af2c17c0d62133be4cc0484eefa21df4d95ef3624f37b6e657a702bdb3aa",
+      "bytes": 1911
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_client_resource_surface_gap_scan.py": {
+      "sha256": "444c93828fc5bb73e14705e3aeffcc05fee058b15d3c01f0c6ddd5a1dd08b3c7",
+      "bytes": 1703
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_codegen_module_probe.py": {
+      "sha256": "fab5bcd1343d7ea0ee42a1b8dfa52ecf990c2f9b81000a39e91481a8fb58af63",
+      "bytes": 2025
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_function_pointer_table_probe.py": {
+      "sha256": "1525eaace4a4c3035a0a5e5e4763f4138ec27e220ed028ec5a192657e06e6fab",
+      "bytes": 2255
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_global_metadata_owner_probe.py": {
+      "sha256": "863461c56b91748373d733ca72a0878da5ecf47c687c309d9586c9c1df31cc1d",
+      "bytes": 1835
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_initializer_dispatch_trace.py": {
+      "sha256": "7e59bd9ea305a62f2bf3504e7dc1d5b4810335a8d23fb479e49d3ed8e626c856",
+      "bytes": 2198
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_metadata_registration_candidate_taxonomy.py": {
+      "sha256": "36c3793891403349db0558b10a3e98ef14120ce9829cd826f40ec37bc4c46b9c",
+      "bytes": 2288
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_registration_anchor_probe.py": {
+      "sha256": "45be2069a6ba24f035bfaab881b775b1f2f538de4ed750b4063e3ce5d6b5cf30",
+      "bytes": 2118
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_registration_layout_probe.py": {
+      "sha256": "a548854541bedf675ab5271c78aa37b79dae923310825c734f8e2bcda91b56d7",
+      "bytes": 2198
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_registration_pair_context_probe.py": {
+      "sha256": "7ba3f94a626cce1c7e8c8461d2958ecd1f52e1be771120484938032fc5b6e6e3",
+      "bytes": 2211
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_resolver_caller_trace.py": {
+      "sha256": "2474f4c0f6e06bf2d828702e7240fc8d11603f05e8ef372ffb9429632f8c6318",
+      "bytes": 1909
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_resolver_trace.py": {
+      "sha256": "766a46f262eeb924fb81fe3f0e65ca612628015d5cc9c7b02d26df663ec7141e",
+      "bytes": 1881
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_route_trace.py": {
+      "sha256": "1ec40b1b5269b012733a317e6276cf78fa3a4885686609c77f3fc90bb5f240a5",
+      "bytes": 1707
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_global_metadata_loader_scan.py": {
+      "sha256": "d94bd3a3dd2f9f40b1d3032cbf3ce143e95ea0baf55084d006c86d179e0d8f8a",
+      "bytes": 1997
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_global_metadata_transform_probe.py": {
+      "sha256": "d9067da8e078408794345dd8e63f8ad29057904d1766cdf2ff197562dec312c8",
+      "bytes": 1775
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_luascripts_crypto_evidence.py": {
+      "sha256": "6bd7f5dedf2c38647c2fed8775b8005f3ff33dd289ea8f1e08634d010c78d69e",
+      "bytes": 1709
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_luascripts_payload_cipher_profile.py": {
+      "sha256": "82d5ba3b5379f866183365527736125dc68cb4028e2d8adffd8d8eb9aaad502d",
+      "bytes": 1818
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_luascripts_payload_variant_corpus.py": {
+      "sha256": "65f40634b4859574f1ed56a4885cae424762af9fc098111d97fc1632e4e95cb8",
+      "bytes": 1812
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_native_loadbuffer_boundary.py": {
+      "sha256": "b300e7c51b080b5eaf151bda5347f5b2591b9d0ac909f6446beaad242655fb9a",
+      "bytes": 1955
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_nep2_file_helper_caller_provenance.py": {
+      "sha256": "12a4ccdbc01474cc597f417c50ce862afa795d2f4499e3667497c6c4f01c5f76",
+      "bytes": 1793
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_nep2_init_bridge.py": {
+      "sha256": "28bf083ce22d8cee82709c512a79d0d2e4b4225facda88958b751b7208adf1ec",
+      "bytes": 1606
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_nep2_init_data_owner_scan.py": {
+      "sha256": "352e209642490fea83a9dd48cc9f545d5d853af9c3865b09da21d219dcd4ac05",
+      "bytes": 1704
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_nep2_luascripts_evidence.py": {
+      "sha256": "36e4d48d05c940e9065ba467068521b38117891efab99da5e6c78aa392bae1b1",
+      "bytes": 1884
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_nep2_metadata_loader_deep_slice.py": {
+      "sha256": "59028eff80a4af165c1f1b609cd019c48b8b7dc8f32dc78cdba8f9739dc38eba",
+      "bytes": 1950
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_nep2_provenance_closures.py": {
+      "sha256": "60ed791839c4abc98caa75e50ae12a2519a44c39d293755e1c9022d3e754b913",
+      "bytes": 1931
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_nep2_read_mapping_owner_scan.py": {
+      "sha256": "82b288e910367bec6d4bac3cc0d63ba5101a09a883dca62f18bba3d1a559a1b4",
+      "bytes": 1766
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_nep2_vector_candidate_provenance.py": {
+      "sha256": "36986ddb1b21b34ff9dd9b7c07c8524d54ae87f7334c84f54b437eb5f43ce7a8",
+      "bytes": 1736
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_nep2_vector_wrapper_owner_probe.py": {
+      "sha256": "370ae746667ebe7ecf522ae39cad8fa6d2d6eb5a2a6be9299b313e688f57e381",
+      "bytes": 1804
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_ns_bundle_format_index.py": {
+      "sha256": "f4a94e9bb1018840da46c2a4503cc55e516e19e66c36d2c89d725654a3ca34a1",
+      "bytes": 1657
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_resolved_payload_native_anchor_scan.py": {
+      "sha256": "5b8b872558ff7800daa127279d30281c231dcd94256dfb0adcb6a914dfd8d16e",
+      "bytes": 1950
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_runtime_init_metadata_route.py": {
+      "sha256": "5b21236046c556f5959c4fd7dcd8b430dc3a403ee92637da9ed928b3aa202b50",
+      "bytes": 1880
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_runtime_init_registry_probe.py": {
+      "sha256": "c173c5d85e76d08b78e6c370a470146bf76effe27b29ed8f807cba962a18d88e",
+      "bytes": 2208
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_serialized_textasset_layout.py": {
+      "sha256": "ab0967aedb7cbac11cd90fc01fa0c26d35d699cfbb690c5b70a69e1690e935c5",
+      "bytes": 1850
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_serialized_textasset_resolution.py": {
+      "sha256": "5682697a49602063b76c6185a30e3ce6da99fa075f857958a8bd101bdad8593f",
+      "bytes": 1993
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_textasset_payload_owner_trace.py": {
+      "sha256": "59104f73a4035a66e450b62e87460aa33dc2fecb64aa87705b23465414dd499f",
+      "bytes": 1834
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_textasset_xlua_boundary_ledger.py": {
+      "sha256": "f88b0d0d277887e43947446c4c709ebcdaabe9b72d0861d8cd635438cd85cd50",
+      "bytes": 1745
+    },
+    "packages/qa-agent/src/qa_agent/app/video_extract.py": {
+      "sha256": "5ac46cd233b77fc528d24d97154fb56558836d2072fd87994bcbafff14692da5",
+      "bytes": 6243
+    },
+    "packages/qa-agent/src/qa_agent/chat/__init__.py": {
+      "sha256": "0833f07baf89b305c51d30857eb624642aa790abe39cc29356a61b56bb7c56dc",
+      "bytes": 465
+    },
+    "packages/qa-agent/src/qa_agent/chat/agent.py": {
+      "sha256": "4f16bfef4d2c109cfddf4b41075ae808f5a94b13c06441dfd013636d573dd757",
+      "bytes": 12392
+    },
+    "packages/qa-agent/src/qa_agent/chat/env.py": {
+      "sha256": "b07311ab07c1e9ef35c0da310f8b468b10c9e1def2be371ef9619df37ecafc98",
+      "bytes": 701
+    },
+    "packages/qa-agent/src/qa_agent/chat/evidence_assessment.py": {
+      "sha256": "d4ada28896c9e6c776f3a12d636f00fb62abf3281b3722c5841d6b93b2e1a397",
+      "bytes": 5429
+    },
+    "packages/qa-agent/src/qa_agent/chat/gemini_client.py": {
+      "sha256": "13e6889191adf2f8babe6754a7fffc76e4fa2504970f46da92f914ea3da72cf8",
+      "bytes": 4076
+    },
+    "packages/qa-agent/src/qa_agent/chat/llm_client.py": {
+      "sha256": "3d04af7cf77fe96cc33bdb5cc4b48b56023c51cc7270793dedbf2e79e94959ad",
+      "bytes": 1720
+    },
+    "packages/qa-agent/src/qa_agent/chat/minimax_client.py": {
+      "sha256": "f666ed9e016057adb249266632ed29539e44a7efe5eebcabdf1dcbcef701d78e",
+      "bytes": 5615
+    },
+    "packages/qa-agent/src/qa_agent/chat/openai_client.py": {
+      "sha256": "4321962fbb175958d5b42606c911485d535c855fa0602430c269b62ababa86bc",
+      "bytes": 6965
+    },
+    "packages/qa-agent/src/qa_agent/chat/prompts.py": {
+      "sha256": "07ebe052700bfe323cf3ca0150f2f0a4931a656352695bbefde129114be99947",
+      "bytes": 1760
+    },
+    "packages/qa-agent/src/qa_agent/chat/referent_resolution.py": {
+      "sha256": "b3a246912726f05331b6a17cc9c09c1b114ce4cc6c5118a4f62e28709db51f78",
+      "bytes": 5706
+    },
+    "packages/qa-agent/src/qa_agent/index/__init__.py": {
+      "sha256": "47d2bc86697a0924a0ce2f2b2b9ded427ed94f59002f756e4965d62545b801d6",
+      "bytes": 39
+    },
+    "packages/qa-agent/src/qa_agent/index/search_index.py": {
+      "sha256": "570b0c3811d31b03d69b3c4efc87d7358e67b1bc9945c625ec66401ed5898a96",
+      "bytes": 3475
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/__init__.py": {
+      "sha256": "92679471b3d86ea47847c2f11b9f08c86fa09502a599f55b6ca3d368bb920653",
+      "bytes": 66
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_codegen_module_probe.py": {
+      "sha256": "74c5e59e63ecb5b699a46fa5fdcc3dc1807a5e6d9614ffb825b4c75ce5cb00c1",
+      "bytes": 10064
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_decoded.py": {
+      "sha256": "3f5b7a9ef2f8477fd7b8db76f6e9aa27824eec72874ac0fd9d9b291da57f0cb8",
+      "bytes": 10233
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_decoded_audit.py": {
+      "sha256": "de6d9354af8b554f7296dba00f262155dd7ce3b8c5198f4cc7e2a935864c39d1",
+      "bytes": 11273
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_evidence_bundle.py": {
+      "sha256": "703327a3d56069799151d86ef735b7dcbd4ca20feb83d76c091077f838863a76",
+      "bytes": 137343
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_function_pointer_table_probe.py": {
+      "sha256": "c3af9f2ae76f1e41377297bc238b6c634d4af06f6b1b77e4921fe6724ad0120b",
+      "bytes": 12895
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_gameassembly_global_metadata_owner_probe.py": {
+      "sha256": "d2b8f961e41a0345800da096901c43b38f1c711b753f7c1454a0895e7cb1d91b",
+      "bytes": 7942
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_gameassembly_resolver_caller_trace.py": {
+      "sha256": "0cd1ddbe3c4664a5ebd8aba461a2845213ea3225e8699b35f422ea46c8574b16",
+      "bytes": 5065
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_gameassembly_resolver_trace.py": {
+      "sha256": "5fcc19a20d47b935bc8ecf134878aba7580e42155004b457f24c1292e1e4d19c",
+      "bytes": 4670
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_gameassembly_trace.py": {
+      "sha256": "e62c71ee72aaeb28a13e4920ac20a068b56ed1d3146bf0062d9ffb8c479a2e95",
+      "bytes": 16599
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_global_metadata_loader_scan.py": {
+      "sha256": "7f3abc4f089705c34a0d3ca5b3e12852cfd9ccd194f0bb3b9cc7d6c40953900e",
+      "bytes": 8608
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_global_metadata_transform_probe.py": {
+      "sha256": "da63dbdbfdbb6f35231bd3d258833e48e090c1f09cd9860fc6f5b59d95557f37",
+      "bytes": 7246
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_import_queue.py": {
+      "sha256": "671be25d0108fb293bdfbd03717de9b3cabadf0bf9068c1ff2e4c9ee67100d9f",
+      "bytes": 177748
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_initializer_dispatch_trace.py": {
+      "sha256": "e0878250ffe45dc913575933e7f126967059899a36ee2921f69c9540cbf1e978",
+      "bytes": 11383
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_lua_crypto.py": {
+      "sha256": "a23b5bf49c00e67edf3558b61902f41f4fe6b3e8ee522db700b33dbaf337d2f8",
+      "bytes": 7325
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_luascripts.py": {
+      "sha256": "095e6a9d019d22bcd533e2c8262e50e930267fb1b006b7478c45e5fb39512373",
+      "bytes": 8020
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_luascripts_variant_corpus.py": {
+      "sha256": "4da12b907ea909f2fe98bd3718c638ad03debaf4d50ce2bf0accbf5609b26e1b",
+      "bytes": 9368
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_metadata_registration_candidate_taxonomy.py": {
+      "sha256": "be413748fe66591d017f9914e340569957f1ec23fbd052288a0ab052bdb7887e",
+      "bytes": 8179
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_native_boundary_trace.py": {
+      "sha256": "7353e994db00b9b24ab0cffb28196cbb28d591ae7f0453d293638443677f77cb",
+      "bytes": 6087
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_nep2_bridge.py": {
+      "sha256": "2e0abfe7d35614152689fc24401b9e8f5752ad1d13b79c31039cfc892d60c5e3",
+      "bytes": 7640
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_nep2_file_helper_caller_provenance.py": {
+      "sha256": "e14275408347375c13fac3da6d64379b6a9dd192b8dfff6067c6702d1dc36291",
+      "bytes": 7380
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_nep2_init_data_owner_scan.py": {
+      "sha256": "90cceeb758641db9e75946b5fb2169fed226868a61062f511cd4ab927344a3ca",
+      "bytes": 8387
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_nep2_luascripts.py": {
+      "sha256": "cbbac9675b0d0f2b184f11db41a404074ad5de623ff61809643c579df2447c18",
+      "bytes": 9755
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_nep2_metadata_loader_deep_slice.py": {
+      "sha256": "cf2ad820c029aab1e9cceef4205562a10d8784b48f9068dcd9e4ddb25dddcd93",
+      "bytes": 7484
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_nep2_provenance.py": {
+      "sha256": "67ae3030fee8475f0b8d3685b3d31bac2d0ff6081f24f325714b1960251ec314",
+      "bytes": 10398
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_nep2_read_mapping_owner_scan.py": {
+      "sha256": "46b3606f717bd2bc0ca6e7972565c8286a2c83016123c8003332ab3d245aa669",
+      "bytes": 8644
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_nep2_vector_candidate_provenance.py": {
+      "sha256": "723e825daebcbc335f33c8349d67c783c53f741f92831f0e711913eb64737a14",
+      "bytes": 7610
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_nep2_vector_wrapper_owner_probe.py": {
+      "sha256": "1553252f7e23062e44fc03fd331fc69320f568413e36cca7467041ad184f752c",
+      "bytes": 7525
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_ns_bundle_format_index.py": {
+      "sha256": "1fd6b54420ac554fd11775bac2714bb20b8b1ce72c019c919070c5d78a16d498",
+      "bytes": 8857
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_package.py": {
+      "sha256": "8d04fa83f8daeaf6661d6348b2961cc505962f8c53042f662604066e455eaa71",
+      "bytes": 11538
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_payload_cipher_profile.py": {
+      "sha256": "41e04bdc1a02565403b76184f579dde0d2543e78944e8d05fcbc1ff5ea54fc72",
+      "bytes": 6945
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_registration_anchor_probe.py": {
+      "sha256": "fa043f7abcd61081f405161cc09fccd9e108858e66f594b12f15a0de6ffe14a1",
+      "bytes": 7221
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_registration_layout_probe.py": {
+      "sha256": "678f55fec76008c12f3419df71d07c12822bacd878ab01d8dadbe2e570e4ab47",
+      "bytes": 12990
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_registration_pair_context_probe.py": {
+      "sha256": "3148993d5de783d7d8f0738830fedc718412b29812f1fed61e936e64882cfa0d",
+      "bytes": 10268
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_resolved_payload_native_anchor_scan.py": {
+      "sha256": "72d0c8aa25c98d0f8a0652749c3cfb14c4f1daed883fda4cf58af0101b1fe31c",
+      "bytes": 8950
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_resource_surface_gap_scan.py": {
+      "sha256": "d39a208a339fc3d4cbd4b16bcffc14e23a898f90709b8db61e5c630d5404c126",
+      "bytes": 8202
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_runtime_init_registry_probe.py": {
+      "sha256": "1b506071e8ea8bcfe2493e082970fac80a7c45fa3cb3b695e204ac7105b476b3",
+      "bytes": 9199
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_runtime_init_route.py": {
+      "sha256": "d2e2f0fdbd0a9fb0f6c8a9e202a482d26baba8132b12bf6f2f6b7675b7791910",
+      "bytes": 4788
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_serialized_textasset_layout.py": {
+      "sha256": "54225aa29eb8ea353594cbad45e2e1f1b2dcd311bf9dde52b7d4cc5321b36d29",
+      "bytes": 8713
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_serialized_textasset_resolution.py": {
+      "sha256": "07c4e5bb353084c1dc65e3dc7b20bd1efff998461e1fd6725a36b9a8a4b0eaad",
+      "bytes": 9208
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_textasset_payload_owner_trace.py": {
+      "sha256": "c77f6d396cf6679e72d978ce87d1ba073800ad67b06f177e4f56c09b9951de91",
+      "bytes": 7937
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_textasset_xlua_boundary_ledger.py": {
+      "sha256": "22c31e1be8af4b8f9294fefae498100de11fbeaa80fa05c1f7c9186076b0125c",
+      "bytes": 6084
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/config.py": {
+      "sha256": "10431a98db2cec79955315fb91a02e4a3a60b9ab07b16e9651e791ca8d212d05",
+      "bytes": 1169
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/loader.py": {
+      "sha256": "e6a0fde008d4dee7c58d68c07c46f027dd4771d7a3999e9cbdf11ba76f187c61",
+      "bytes": 610
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/models.py": {
+      "sha256": "12e566f6c0af158eb83787c4ef7cfa8ba7fb17a1dce2999cb64cd2cc2d358d25",
+      "bytes": 3896
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/normalize.py": {
+      "sha256": "73a7783188ca83e25486f7a66eb1b70d00575c21dea8a9a98f8a5b6efab16d1d",
+      "bytes": 6302
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/publish.py": {
+      "sha256": "8e5afea6a9778d73c809d2150b81a11736556b1d16ab8964b2c8f0841e46997a",
+      "bytes": 5664
+    },
+    "packages/qa-agent/src/qa_agent/knowledge/__init__.py": {
+      "sha256": "4e7b89e626377af308ee7927b3f4b49c59ea566dd4742b181c01af99868c7d14",
+      "bytes": 47
+    },
+    "packages/qa-agent/src/qa_agent/knowledge/loader.py": {
+      "sha256": "552ae3bc093c3c5f0247f549b2d414c8dd984c22e915d6ca979a16c34aac6c74",
+      "bytes": 819
+    },
+    "packages/qa-agent/src/qa_agent/knowledge/models.py": {
+      "sha256": "1e02926cb204f742d62db91b5b05a9a103742e7f35cdfecbebfd3f7eab007d56",
+      "bytes": 11486
+    },
+    "packages/qa-agent/src/qa_agent/knowledge/provenance.py": {
+      "sha256": "4c5871adbd360eab5e483689562a28e2829e6776c212386241d339e538220007",
+      "bytes": 10713
+    },
+    "packages/qa-agent/src/qa_agent/knowledge/source_paths.py": {
+      "sha256": "21462ae823c912af385b6322053259258112a68fdc4987b69d93543afb22919d",
+      "bytes": 192
+    },
+    "packages/qa-agent/src/qa_agent/mcp_server/__init__.py": {
+      "sha256": "92e99eed596708ecbf01b754059bafb74f4ca95cbcc638e053f84204fc622045",
+      "bytes": 51
+    },
+    "packages/qa-agent/src/qa_agent/mcp_server/advisor_tools.py": {
+      "sha256": "18f032cde3ed722ece89d685705e8070b031531b65e088811d5334228d9e19aa",
+      "bytes": 206696
+    },
+    "packages/qa-agent/src/qa_agent/mcp_server/server.py": {
+      "sha256": "264afe5ca4856995c67fce5da2230274978b5cdb7b23b34ff34b1a62fe9a604d",
+      "bytes": 5578
+    },
+    "packages/qa-agent/src/qa_agent/mcp_server/stdio_server.py": {
+      "sha256": "bb6626f99df3aba8e16e834a966c5021a66b84dbaaae43a249907ac8467eccf2",
+      "bytes": 1036
+    },
+    "packages/qa-agent/src/qa_agent/mcp_server/tooling.py": {
+      "sha256": "3f60c875cf3448f4f5f43be545087c3c65ad9bf500edc984ef8c00e602e972a4",
+      "bytes": 8083
+    },
+    "packages/qa-agent/src/qa_agent/quality_eval/__init__.py": {
+      "sha256": "dcf77ddd5f789553278cef7e1617c22286fcb23571054593c4342771b03baa6e",
+      "bytes": 80
+    },
+    "packages/qa-agent/src/qa_agent/quality_eval/assessment_cases.py": {
+      "sha256": "2045a72ec47f823153869f58a610ebd3aae328ea82c8f1968cb298c50e8d598c",
+      "bytes": 1707
+    },
+    "packages/qa-agent/src/qa_agent/quality_eval/claim_spans.py": {
+      "sha256": "062ae64d50609e2b3542b2c2fd35d66614a40df100a02dd253acf42a57df8155",
+      "bytes": 11566
+    },
+    "packages/qa-agent/src/qa_agent/quality_eval/referent_cases.py": {
+      "sha256": "600d434af95213af6ffae2a66170e2c8e4e475d541ca33ed21d717262727ee07",
+      "bytes": 3425
+    },
+    "packages/qa-agent/src/qa_agent/quality_eval/runner.py": {
+      "sha256": "ee45efbc964c30dc6ec3bbbff08662af4a87bb055bdfdfde69ff09e3f36ed12d",
+      "bytes": 12353
+    },
+    "packages/qa-agent/src/qa_agent/quality_eval/scoring.py": {
+      "sha256": "b49f51cf50d34aec2970214d0b1f8eea4e081b9c31d4249b00786dc0f7182af5",
+      "bytes": 4947
+    },
+    "packages/qa-agent/src/qa_agent/quality_eval/season_cases.py": {
+      "sha256": "d33ecee712cb87afe9c2293329c2cacf9889e077e6e205e36fde34f3546ebe2a",
+      "bytes": 3992
+    },
+    "packages/qa-agent/src/qa_agent/quality_eval/source_groups.py": {
+      "sha256": "28675cf48dbc0dae834d74399c2993cc13c800e9e7ff041905300edfae00b7eb",
+      "bytes": 6931
+    },
+    "packages/qa-agent/src/qa_agent/retrieval/__init__.py": {
+      "sha256": "0d1686d58203bb6234681c2457003f019c6f4dd7e88265efd1d9ee1870dba71f",
+      "bytes": 110
+    },
+    "packages/qa-agent/src/qa_agent/retrieval/retriever.py": {
+      "sha256": "b72a188e3fd8ea9272ee8b20c6c4158019a010acc51712903ff72e83e2603b86",
+      "bytes": 6845
+    },
+    "packages/qa-agent/src/qa_agent/retrieval/seasonal.py": {
+      "sha256": "4fdeb3f5e79f0a17ca16bfc1eb318fb560cd582980cbc770e027b849cbab1549",
+      "bytes": 3365
+    },
+    "packages/qa-agent/src/qa_agent/service/__init__.py": {
+      "sha256": "db46329cb7b85a8f6020ecb5561a018752e94bb900daaa477476ebed5d327653",
+      "bytes": 32
+    },
+    "packages/qa-agent/src/qa_agent/service/query_service.py": {
+      "sha256": "5523a198582528a69a425f61b37528d034e75fcf2fc407ab813c96b37972adee",
+      "bytes": 4940
+    },
+    "packages/qa-agent/src/qa_agent/video/__init__.py": {
+      "sha256": "c822a6ad751a5a9c6d35f0acd33eec156c72329244fff543d1b48ed87cf8d004",
+      "bytes": 1233
+    },
+    "packages/qa-agent/src/qa_agent/video/asr.py": {
+      "sha256": "41cd5cf84ad16dc41198712489f37ffc17c3e58b4e2855f60340293b38fef1a0",
+      "bytes": 2432
+    },
+    "packages/qa-agent/src/qa_agent/video/builder.py": {
+      "sha256": "b858af961ae5d2d6f2cb68329189958ff362d5a9f4d9241ac23684f28f998eef",
+      "bytes": 2594
+    },
+    "packages/qa-agent/src/qa_agent/video/evidence_quality.py": {
+      "sha256": "f9780d2efca5e90c4929a92d1173f9760a38be8b26b1a6cd295194a68d860a58",
+      "bytes": 13663
+    },
+    "packages/qa-agent/src/qa_agent/video/frame_sampler.py": {
+      "sha256": "6d1fabb8cb38c8e822ac783fb5e18efcf85419cafa2521ffd01b4b5e39892343",
+      "bytes": 10678
+    },
+    "packages/qa-agent/src/qa_agent/video/gemini.py": {
+      "sha256": "c8ca6b86b71b5f54b6bceb10ea04ef62d0dc286b26f82031c22f261183add311",
+      "bytes": 5537
+    },
+    "packages/qa-agent/src/qa_agent/video/heuristic.py": {
+      "sha256": "ecc523bf586e5889eb06f8877865e117f97d70aa87947460ac272b30fc6baef4",
+      "bytes": 18632
+    },
+    "packages/qa-agent/src/qa_agent/video/lineup_frame_extractor.py": {
+      "sha256": "24dc1a758950d22c35cd6945f12879179f0aff0991e9368c702638326f3d1d5d",
+      "bytes": 22018
+    },
+    "packages/qa-agent/src/qa_agent/video/loader.py": {
+      "sha256": "3d1544c0851c66d0b66e16250e727c69cf3ed7ffa7be502db94af9705a6bf133",
+      "bytes": 618
+    },
+    "packages/qa-agent/src/qa_agent/video/mapper.py": {
+      "sha256": "8bd1d2cffa0858d157079d22dd12d64548bc37acf5a1542bb11edaacce24e044",
+      "bytes": 7538
+    },
+    "packages/qa-agent/src/qa_agent/video/models.py": {
+      "sha256": "82dc47c99925eb717b8562732d678d96e5ff8b50520cc68bba459771224b3e25",
+      "bytes": 8692
+    },
+    "packages/qa-agent/src/qa_agent/video/openai.py": {
+      "sha256": "e8f7616938babbc79eb057665c588cd76a6b4585330aa1c95b7bcb9e318dcd94",
+      "bytes": 3560
+    },
+    "packages/qa-agent/src/qa_agent/video/subtitle_normalizer.py": {
+      "sha256": "4c9bfba9e6bf6ea0460f100b4e3975318a9388a64c4d664f472a2a530c5ccbcd",
+      "bytes": 32040
+    },
+    "packages/qa-agent/src/qa_agent/video/video_download.py": {
+      "sha256": "fcf800c669f152f34c1be08495c0835a185c1e4d4057d5c75c59668fa569b25e",
+      "bytes": 5006
+    },
+    "packages/qa-agent/src/qa_agent/video/vision_enrichment.py": {
+      "sha256": "6346daca9236527c76c194c73e4446c5fa0c9d7607522f3996ff1fbf808a28dd",
+      "bytes": 6671
+    },
+    "packages/qa-agent/src/qa_agent/vision/__init__.py": {
+      "sha256": "db7f965c78c37bc494abe6d24caf0cef4c8c124c364d83e4968df9bbb89b8d6a",
+      "bytes": 581
+    },
+    "packages/qa-agent/src/qa_agent/vision/extractor.py": {
+      "sha256": "3fb35bec171704b2bca068bffe6bc3a1ffe3e8e70b7cf760d4879d06caac94c0",
+      "bytes": 7860
+    },
+    "packages/qa-agent/src/qa_agent/vision/image_loader.py": {
+      "sha256": "1db464a8f24e54acdb911e6deb9ab61e08584c9efa52cfb22807e6d4e6073944",
+      "bytes": 1761
+    },
+    "packages/sanmou-common/pyproject.toml": {
+      "sha256": "978bcb511599e8d40f2be6c4e11e2cc5f8e4f863610359de61e3993ff7bfce89",
+      "bytes": 470
+    }
+  },
+  "archive_sha256": "f894e787ea94d534f79454196bbb2f70901ddff22a334ce9d25afe53b9c1536a",
+  "modules": [
+    "test_gateway_import_boundary",
+    "test_policy_service",
+    "test_policy_http",
+    "test_policy_gateway",
+    "test_task_contracts",
+    "test_task_runner",
+    "unit.test_agent_harness",
+    "unit.test_agent_harness_game_mcp_integration",
+    "unit.test_agent_harness_lifecycle",
+    "unit.test_agent_harness_shutdown",
+    "unit.test_agent_harness_stdio_client",
+    "unit.test_agent_harness_timeouts",
+    "unit.test_game_mcp_contract",
+    "unit.test_game_mcp_live_provider",
+    "unit.test_game_mcp_public_payload",
+    "unit.test_game_mcp_server",
+    "unit.test_game_mcp_service",
+    "test_live_gateway_roundtrip",
+    "test_native_runtime_manifest",
+    "test_colab_gateway_bootstrap"
+  ],
+  "expected_test_count": 234,
+  "linux_deps_archive_sha256": "8eb6b797c8978304e5ef7d73b94bfcf09b5829d51fb157894a56f5de9c972447",
+  "prior_snapshot_sha256": "acc465c2661b8eb55791c5aeae0b8787406bddf0da071d980e8547e8e59fa05c",
+  "supplement_sha256": "f895375a2cbf64a66ae7eb2e99343782e3a0a8a41bef64b970cb15a9e8ab7c16"
+}

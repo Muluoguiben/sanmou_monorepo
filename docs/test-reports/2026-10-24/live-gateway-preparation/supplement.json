@@ -1,0 +1,1048 @@
+{
+  "schema": "sanmou-linux-test-supplement-v1",
+  "purpose": "existing regression dependencies only; not Colab sourcepack",
+  "committed_source": "aa70e484c64594befe4e182b0d3046ef7cbd8803",
+  "integration_bytes_match": true,
+  "files": {
+    "packages/pioneer-agent/pyproject.toml": {
+      "sha256": "bde02180109c422d8d4bd4f273b7716da1761610d76d4b39a89f3ffdfa099464",
+      "bytes": 1087,
+      "git_blob": "a1ed699a30f903550b67406f1d65c37cbf8f0d5f"
+    },
+    "packages/qa-agent/configs/client_decoded_mappings.yaml": {
+      "sha256": "fac2141f366def3075ed90202934a64ae647ed1acc61fe8f0af10c5ee6a4875a",
+      "bytes": 8964,
+      "git_blob": "4701ce19b0b2917c5f57ba095575a8dd6bfa24e9"
+    },
+    "packages/qa-agent/configs/enums.yaml": {
+      "sha256": "ef565c9dad727b797e478df87a3724829d39563e0a2c4420848a6193a6fc6562",
+      "bytes": 732,
+      "git_blob": "d7a2e4d6e220d74f7362c261b36ee1350e5972c0"
+    },
+    "packages/qa-agent/configs/hero_aliases.yaml": {
+      "sha256": "fdabc34c53153038c9379033ba694f168680f4e30b5ebe11b98a846b31d6b4f8",
+      "bytes": 357,
+      "git_blob": "d54af6571441e8fbe23434988d3ffecfc97e3179"
+    },
+    "packages/qa-agent/configs/skill_aliases.yaml": {
+      "sha256": "1bd54fe9b584eb5db08e0add9cd70b3c9a70c807e3c8d278ffaaf801b4ce18d8",
+      "bytes": 566,
+      "git_blob": "108b56bd38ddd00761d4d174602bfdbe8417456c"
+    },
+    "packages/qa-agent/configs/video_text_corrections.yaml": {
+      "sha256": "e50c93704d08c53c80968e18ac138f461dd2b062d166a80612995f92049ee92b",
+      "bytes": 95,
+      "git_blob": "d12f1c16bf01d27070de0e48ca4ae3d2c4250419"
+    },
+    "packages/qa-agent/knowledge_sources/.gitkeep": {
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "bytes": 1,
+      "git_blob": "8b137891791fe96927ad78e64b0aad7bded08bdc"
+    },
+    "packages/qa-agent/knowledge_sources/building.yaml": {
+      "sha256": "3dada83e67f3491ebe8845451174eb19cbd35634135304d94092f6c80d759ada",
+      "bytes": 1711,
+      "git_blob": "04a04f64bbd6b8491ca3a8671144407f07a71242"
+    },
+    "packages/qa-agent/knowledge_sources/chapter.yaml": {
+      "sha256": "0371e93d382719c53782a4f9304623ac61eba158499db39fc16da39b522d2e9b",
+      "bytes": 9339,
+      "git_blob": "c194c113c22d4155ee65de8f089ea9bc72667be6"
+    },
+    "packages/qa-agent/knowledge_sources/combat.yaml": {
+      "sha256": "3874a3d2e4b030e3a1f01b983052f35e6be94bd1bcfc4a4e50c49745c81ddd75",
+      "bytes": 22524,
+      "git_blob": "a15a4ac954a3a28c183bb7d7c427fd4c66d2d8f9"
+    },
+    "packages/qa-agent/knowledge_sources/glossary/statuses/buffs.yaml": {
+      "sha256": "bb9642d1553af5e17ce01d33873be013deb56bedb45b2a40ff36e2208a22c308",
+      "bytes": 589,
+      "git_blob": "a6eca9909c8d3df9950ebdb227bb8f63bedfc1bb"
+    },
+    "packages/qa-agent/knowledge_sources/glossary/statuses/debuffs.yaml": {
+      "sha256": "7d2cc532f677cd298e210e0ddd8e5a285393e1e31d6e34ba36578483019ff916",
+      "bytes": 590,
+      "git_blob": "704ab0f5d083f42f23dea0c031af8ecada5995ec"
+    },
+    "packages/qa-agent/knowledge_sources/glossary/statuses/profiles-buffs.yaml": {
+      "sha256": "8773aa591a1f26eb29a2dd4a9f0183e48ae2c2c0aee306773e82d488390ef937",
+      "bytes": 3291,
+      "git_blob": "f0ff85c474ef335773ece28f8c0314e443bf5952"
+    },
+    "packages/qa-agent/knowledge_sources/glossary/statuses/profiles-debuffs.yaml": {
+      "sha256": "8107d2415176b11feec18e7be28584d359e71ed9b98f4b67503c56f61b3be648",
+      "bytes": 4296,
+      "git_blob": "04b84ad4e6c087cd5e1f1e79ab15ef87bf353b2a"
+    },
+    "packages/qa-agent/knowledge_sources/glossary/statuses/registry.yaml": {
+      "sha256": "12e7bdf6d4c9958ea49ca6bc576d1ae06a42f05812663a5979cdf477a1ce95c1",
+      "bytes": 644,
+      "git_blob": "43ecb53cf13c997a50c90e1ca9e873a3daa47a95"
+    },
+    "packages/qa-agent/knowledge_sources/hero_skill.yaml": {
+      "sha256": "9b558c57634156fec739e9e6dee5063c9ecbb944a8cb48806b41cf1b1b62655c",
+      "bytes": 31913,
+      "git_blob": "2ebcb23bc34ce7aff8d56f53201e329f99aaa612"
+    },
+    "packages/qa-agent/knowledge_sources/opening_baseline.yaml": {
+      "sha256": "d39a04948ba39bf4d3447496ca8c77db95fa3802a12e49a8501ccf15a599ccc3",
+      "bytes": 3222,
+      "git_blob": "8f0303a24d340fa58f2d2e5e252a6d43520e079b"
+    },
+    "packages/qa-agent/knowledge_sources/profiles/heroes/minor.yaml": {
+      "sha256": "0cf5002d40d1bb466b56db1ec6fb99c699b5059f84e72dfc447fcc46ae3cfe34",
+      "bytes": 16527,
+      "git_blob": "7df7ff6cdd506f36e761e65f7a645badf5e96026"
+    },
+    "packages/qa-agent/knowledge_sources/profiles/heroes/other.yaml": {
+      "sha256": "5239a7754876b9a70871c45e41f1bd9abbd91ed2de67af926c1cfcc9c9377d51",
+      "bytes": 4,
+      "git_blob": "7dd4387521924cdacfc5aa3714bc73771f0bce85"
+    },
+    "packages/qa-agent/knowledge_sources/profiles/heroes/qun.yaml": {
+      "sha256": "954a10419540995be7f1e1498ae5dda26db7df9658b243537dba3c834184f079",
+      "bytes": 61651,
+      "git_blob": "a62ee36b1a17b70cab1ee71d21ac257d058ea08d"
+    },
+    "packages/qa-agent/knowledge_sources/profiles/heroes/registry.yaml": {
+      "sha256": "063b3c41f28e7bf90b980511f655268efc636b6d2de6ec96cb9e8369f3793f48",
+      "bytes": 584,
+      "git_blob": "942b75651e2e729af0806f7eaf0878779427800b"
+    },
+    "packages/qa-agent/knowledge_sources/profiles/heroes/shu.yaml": {
+      "sha256": "f0f84950716802b81fb310938c95a8207d18cda1a578da6fad9f4c05676a6f3f",
+      "bytes": 36597,
+      "git_blob": "3cdb4ae196056f39ac2343c897fa443f9d1c0c82"
+    },
+    "packages/qa-agent/knowledge_sources/profiles/heroes/wei.yaml": {
+      "sha256": "0926c82549a784073c74a525963cbcd4dc1303d6ec4fcc603e7728d9712e9068",
+      "bytes": 60606,
+      "git_blob": "805f367376da627bc8649a5bb5e2e92919eb93ef"
+    },
+    "packages/qa-agent/knowledge_sources/profiles/heroes/wu.yaml": {
+      "sha256": "58a636cd03a7b15ef768cadebbd4f2a57e4e785fd521dd62ccd011aa83b76521",
+      "bytes": 46373,
+      "git_blob": "3739b9c7ff37eb7107c072f00df45df8cdf06bea"
+    },
+    "packages/qa-agent/knowledge_sources/profiles/skills/active.yaml": {
+      "sha256": "abe3f6235e901b51df130ea5dc55c043386c5372e63f5d46964eb6541a0f5926",
+      "bytes": 62929,
+      "git_blob": "95ea41674914ef69ee573fe6f376c386d3f4031d"
+    },
+    "packages/qa-agent/knowledge_sources/profiles/skills/command.yaml": {
+      "sha256": "9f33e684f0dceec624f12eba26b51a268acb9382cc35fd6c6ad5be17d2cb5de1",
+      "bytes": 35261,
+      "git_blob": "e5089f5ad6345230cade22e574f91cfc231062ff"
+    },
+    "packages/qa-agent/knowledge_sources/profiles/skills/passive.yaml": {
+      "sha256": "bd8ce2adbcf7d4991298823f2ddfe22af492f4326fdd2387be951a814138b52c",
+      "bytes": 31896,
+      "git_blob": "1dcb602f861b6b8baefb0e65c2f3ce9975e1727f"
+    },
+    "packages/qa-agent/knowledge_sources/profiles/skills/pursuit.yaml": {
+      "sha256": "d009caefee9a6cfec80cb77bafcd29d3873671951c692aca00c608fafc705f04",
+      "bytes": 25353,
+      "git_blob": "119089c6378b7171cc769c44e6a2d5b8c738c178"
+    },
+    "packages/qa-agent/knowledge_sources/profiles/skills/registry.yaml": {
+      "sha256": "c815b48e6112454613e0793971ed311d3f54c6fbff1a7eab7ea08d35bea365cb",
+      "bytes": 599,
+      "git_blob": "cdbc5dd4631562577a29fb882f74ed794f11e30b"
+    },
+    "packages/qa-agent/knowledge_sources/resource_team.yaml": {
+      "sha256": "2e668c8e0533420be1e7d0b585325da76762be8b85fb1ed6ab116aadae63e8ce",
+      "bytes": 40442,
+      "git_blob": "bcde42f95643c6b07959b29a07ff1b7f1a50f181"
+    },
+    "packages/qa-agent/knowledge_sources/solutions/lineups/rating-taxonomy.yaml": {
+      "sha256": "b7722734102d8ded66f83045f772f85be8a6b9b7ead749b0d8a1b05cb6f97b86",
+      "bytes": 612,
+      "git_blob": "cd9a962297830c2aab75da24635227d48cad74a3"
+    },
+    "packages/qa-agent/knowledge_sources/solutions/lineups/registry.yaml": {
+      "sha256": "ab0d4c0b2c5821a7dd4d75db524bf509557f0e072df1c582f5065cd15f083953",
+      "bytes": 673,
+      "git_blob": "d32c8402f233591c3a085d68c358dbdcf3f87941"
+    },
+    "packages/qa-agent/knowledge_sources/solutions/lineups/season-misc.yaml": {
+      "sha256": "1e6aeb97ec027663baedc3122ec9b3bdc385eda204ae354e5d448a61b91f19cb",
+      "bytes": 10693,
+      "git_blob": "28a35cfd3f51b525673ae6e76aa2261559dc1d77"
+    },
+    "packages/qa-agent/knowledge_sources/solutions/lineups/season-s1.yaml": {
+      "sha256": "2e59ad62c9a4218575e765066d737604eedcf6c8e3a8b34296c975180756d986",
+      "bytes": 22409,
+      "git_blob": "feb8f622d2ac5dd466615887ad339e38c1315fd8"
+    },
+    "packages/qa-agent/knowledge_sources/solutions/lineups/season-s11.yaml": {
+      "sha256": "40520135d574b048e83daae75c5d13af2a3eb09a5b0378bec7209984b4bec931",
+      "bytes": 11652,
+      "git_blob": "aa54528d821861a3f96668cf615e4d1fdd980c76"
+    },
+    "packages/qa-agent/knowledge_sources/solutions/lineups/season-s12.yaml": {
+      "sha256": "06305acee71d80f23ae1dcd4d9e00fb32979b746cafcba5a8b1d9b36e674d7ff",
+      "bytes": 12886,
+      "git_blob": "6eb9284f8d61eaaa8c203f30d75cc6cfbc2628c8"
+    },
+    "packages/qa-agent/knowledge_sources/solutions/lineups/season-s13.yaml": {
+      "sha256": "c331cff413310494fadeeeb7ec8c04f20bc035b39d9b30be0185dd40aa07e936",
+      "bytes": 13072,
+      "git_blob": "b46fa5675939b287be71bc51c5e1086141cd488f"
+    },
+    "packages/qa-agent/knowledge_sources/solutions/lineups/season-s14.yaml": {
+      "sha256": "f0dfc8f92f5d3b760fd63499b383db6511d4015f06e80de753ca35deb00e9e73",
+      "bytes": 20315,
+      "git_blob": "fb2d5c81f7c7af0c2f06e714a622855682e5a00a"
+    },
+    "packages/qa-agent/knowledge_sources/solutions/lineups/season-s2.yaml": {
+      "sha256": "a795beacf32bcb24ffb507d257f522135811765e1f91ffd75f855f06b5a33199",
+      "bytes": 1370,
+      "git_blob": "7ffce748769c65cba621566497bbd9b9b12642e3"
+    },
+    "packages/qa-agent/knowledge_sources/solutions/lineups/season-s4业铸山河.yaml": {
+      "sha256": "2771f9fb3602d4919c3505296d2a4dd43b4f27f3260a0259b1567a2a6ad81308",
+      "bytes": 11241,
+      "git_blob": "fc7450edcf29407976b4aa58e8c03a1a7eedf314"
+    },
+    "packages/qa-agent/knowledge_sources/terms.yaml": {
+      "sha256": "dd896561c370069f27e1527b18540aefd76676252f098bd0bc539ef8232ab773",
+      "bytes": 4398,
+      "git_blob": "443b109c94437918902be4181d762cccba586b6b"
+    },
+    "packages/qa-agent/pyproject.toml": {
+      "sha256": "1f01153646b513d45b3e6adc24eefd9ea0888834a4b809be8ae1bacbc5a7b616",
+      "bytes": 463,
+      "git_blob": "724e099111250fa320e6bdec5023116b83915a37"
+    },
+    "packages/qa-agent/src/qa_agent/__init__.py": {
+      "sha256": "8c14e8c56c1a240fe97f2cf418c34d65cdbae32245f392ca788cf9b0bc96d7c6",
+      "bytes": 181,
+      "git_blob": "43c2d94850ea63111e8b9cc082c8ace5d2b39fa7"
+    },
+    "packages/qa-agent/src/qa_agent/adapters/__init__.py": {
+      "sha256": "f14d98797f97b34b72dfa7df9a3604a23c45925e27190c9f150899094f7b3557",
+      "bytes": 87,
+      "git_blob": "afdcb25f91bc7a316e9eaae1553817dd74124f59"
+    },
+    "packages/qa-agent/src/qa_agent/adapters/knowledge_provider.py": {
+      "sha256": "a9551809da4c4db95a148393e103da2202d8d9503e99150dc227b7d2189cc0ea",
+      "bytes": 1914,
+      "git_blob": "b07c3db5770cb3a1a779bece34aa405bde5a92a4"
+    },
+    "packages/qa-agent/src/qa_agent/app/__init__.py": {
+      "sha256": "16dc8ad246393d2b0c5000e8cda77bf8deb81a16c943e0c02cbec237ed32b813",
+      "bytes": 47,
+      "git_blob": "30e5c39e1c91a817ed613b9b2d602cfdc812162f"
+    },
+    "packages/qa-agent/src/qa_agent/app/advisor_terminal_source_preflight.py": {
+      "sha256": "40874db2dac7712ef24a20c7087f81c1cbc6bb2053effba724f7ce026df8d312",
+      "bytes": 6925,
+      "git_blob": "6329d74fcbea7766bbc813bba95865e1cade1cce"
+    },
+    "packages/qa-agent/src/qa_agent/app/aggregate_bilibili_batch_outputs.py": {
+      "sha256": "f7c40d4a36ae26c29cb539857e846f65ad810b261a4d164d965d839e3d733172",
+      "bytes": 11304,
+      "git_blob": "e7a732123a8a96eb7a2046cc0e8532765954876f"
+    },
+    "packages/qa-agent/src/qa_agent/app/audit_client_decoded_heroes.py": {
+      "sha256": "fa2a2d129afeac3141c9a3af3a019e42ea3fd4a588e0c10887444406655c3042",
+      "bytes": 2542,
+      "git_blob": "de5df4e90c35e2272ce25a1e7b30077decb56956"
+    },
+    "packages/qa-agent/src/qa_agent/app/backfill_chencang_lineups.py": {
+      "sha256": "9f1cce7b324412aa63a2a02b1b450d4661a796d2b3ac875772c2980b4d93f26d",
+      "bytes": 5946,
+      "git_blob": "2420812154d86d881c3625c3c97da787f2aa96fb"
+    },
+    "packages/qa-agent/src/qa_agent/app/build_client_evidence_bundle.py": {
+      "sha256": "10b6fb71a4f3c2233b45532cd38b91b544b0b9d3c22d3623a77602458b0ab5ba",
+      "bytes": 10860,
+      "git_blob": "3bb233c48dd6a451953b369c29a29e686c41ed4f"
+    },
+    "packages/qa-agent/src/qa_agent/app/build_client_import_queue.py": {
+      "sha256": "4bc91aa709cf1466c2d2e0bd7dbd6e2da0d804da58e9795af5e8622d2c9c5a84",
+      "bytes": 10635,
+      "git_blob": "4329b0ef682e1c70c2deb136b8a8653b7b6a15fc"
+    },
+    "packages/qa-agent/src/qa_agent/app/build_video_evidence.py": {
+      "sha256": "2150ef468e115dda5f5f80d20c4efa9ef509a2635caef5d3119d199b3db33151",
+      "bytes": 1643,
+      "git_blob": "d0d74e97b68b04ca8d47b64d875869f08f327de6"
+    },
+    "packages/qa-agent/src/qa_agent/app/catalog_luascripts_textassets.py": {
+      "sha256": "4df3e0dcaac85ff6eeb0b074a2f831415d03dd6596e181234e0b979823b5087c",
+      "bytes": 1675,
+      "git_blob": "0a28f2b428e3009a8af9f481d6d15aba18673da1"
+    },
+    "packages/qa-agent/src/qa_agent/app/chat.py": {
+      "sha256": "6c5637958dfcdb7430515122baaf8e5d32e2d34ac48ff369e32e3ccdd3002b74",
+      "bytes": 3339,
+      "git_blob": "5c75ad6b0d13c38733e58ced8b1875f8048849d4"
+    },
+    "packages/qa-agent/src/qa_agent/app/discover_bilibili.py": {
+      "sha256": "6fe6489f924a930d4752d7b3b7d4ba5c81b4a4e29344be53ffea7d38ce68aa30",
+      "bytes": 10915,
+      "git_blob": "df41b1de750fe579db0685f8df2cf244ea245074"
+    },
+    "packages/qa-agent/src/qa_agent/app/eval_lineup_vision.py": {
+      "sha256": "67c83800e180afc121b32a0aa0b48550ec6b70f715134bdda2bf1b3eb8d0be3e",
+      "bytes": 10456,
+      "git_blob": "258d316ccd9d111534af4d9186f1af8828e5973c"
+    },
+    "packages/qa-agent/src/qa_agent/app/export_strategy_snapshot.py": {
+      "sha256": "16450f59b9c409026501dd5372283ca3862e035b54e72defc9a9ea1c21efe02e",
+      "bytes": 5499,
+      "git_blob": "5fd2f0a4adf0cfd0ab5c2ccfd0c5c36325cfe169"
+    },
+    "packages/qa-agent/src/qa_agent/app/fetch_bilibili_bundle.py": {
+      "sha256": "ac384b94b0450639aac98b4a22b6c8ebb78e855d25e936dc799c4a10ddce5097",
+      "bytes": 22226,
+      "git_blob": "2e60ae24c3a7b393f724c5652d78dd8c45b60560"
+    },
+    "packages/qa-agent/src/qa_agent/app/knowledge_inventory.py": {
+      "sha256": "14adf0b8f0a4ffdf0fd08efd9f51fc1c58c055d022e867acc7c105f9a6571ae8",
+      "bytes": 7376,
+      "git_blob": "7d2ed5e5cb467eceeab7a0d6e88f7c4fddcd644c"
+    },
+    "packages/qa-agent/src/qa_agent/app/normalize_ingestion.py": {
+      "sha256": "e06367cbabc5d8a6a4d41868cd80c2aedaa295a88412b4cca5d527ecf829e58d",
+      "bytes": 2814,
+      "git_blob": "b58c0b4366ad03ccbf3e3a8525dfc100608790bb"
+    },
+    "packages/qa-agent/src/qa_agent/app/process_bilibili_discovery_batch.py": {
+      "sha256": "82a2315ca652241270629a54d8964e2af0bcceefc01d50172de3da89481f3a6a",
+      "bytes": 22040,
+      "git_blob": "7bd36acef7c608f04bfff1046eb87141318945b9"
+    },
+    "packages/qa-agent/src/qa_agent/app/publish_rules.py": {
+      "sha256": "346d63252f18fe2c407e1a6653a028d30d4228c4b737d914c3ac2574895ded30",
+      "bytes": 2799,
+      "git_blob": "bbe33a0cf64970d3f5624f9eb1ae59ccfe2515cd"
+    },
+    "packages/qa-agent/src/qa_agent/app/publish_staging.py": {
+      "sha256": "185f2b8719d43d5e910e20722eae67a19962004b05e5f2d5d02621db1fd22c83",
+      "bytes": 2006,
+      "git_blob": "60361d1e1430f63778fae5976478086a6ae68425"
+    },
+    "packages/qa-agent/src/qa_agent/app/query.py": {
+      "sha256": "24a904db8bf5ba2e2b825a4dd0eb05ab50f6890459deecbd92bbfc4313862332",
+      "bytes": 1588,
+      "git_blob": "7021230a265d014864b20ff4444032ea11f202e1"
+    },
+    "packages/qa-agent/src/qa_agent/app/run_video_pipeline.py": {
+      "sha256": "bc2976303c2761d46b913a56ea35500c4a197b60a3d691d44215e06f8690ea8d",
+      "bytes": 9505,
+      "git_blob": "92ea20f7fdb7e8cbd1e18337c003234991230edf"
+    },
+    "packages/qa-agent/src/qa_agent/app/scan_nslg_client.py": {
+      "sha256": "7fdaf0252b8f563c9a2abbb69371ebf04d0e9ac5b72ab801a6a99df3e073b1ca",
+      "bytes": 1939,
+      "git_blob": "0cebd3f6b2802e90c07f178806cd102849829c9e"
+    },
+    "packages/qa-agent/src/qa_agent/app/stage_advisor_terminal_source.py": {
+      "sha256": "5320d5bff6dae1a1af2c8b106cda6c43d26fe29b33cff7a00ad1106102a96efb",
+      "bytes": 25908,
+      "git_blob": "f4eb8b1c30276a594b2e781f16e741746685f834"
+    },
+    "packages/qa-agent/src/qa_agent/app/stage_client_decoded_heroes.py": {
+      "sha256": "0ef6af2c17c0d62133be4cc0484eefa21df4d95ef3624f37b6e657a702bdb3aa",
+      "bytes": 1911,
+      "git_blob": "f555bb2f0b1b17d0a3ce34088135891ce860a98e"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_client_resource_surface_gap_scan.py": {
+      "sha256": "444c93828fc5bb73e14705e3aeffcc05fee058b15d3c01f0c6ddd5a1dd08b3c7",
+      "bytes": 1703,
+      "git_blob": "6039d32c8fcaedbc1eeb9c7f853cd5a040dffc85"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_codegen_module_probe.py": {
+      "sha256": "fab5bcd1343d7ea0ee42a1b8dfa52ecf990c2f9b81000a39e91481a8fb58af63",
+      "bytes": 2025,
+      "git_blob": "c61ba1fac4fb4a7ca8cc1978a7303d6895a97bdf"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_function_pointer_table_probe.py": {
+      "sha256": "1525eaace4a4c3035a0a5e5e4763f4138ec27e220ed028ec5a192657e06e6fab",
+      "bytes": 2255,
+      "git_blob": "6e477a338a582931bc8d5a9b5b11871d039baace"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_global_metadata_owner_probe.py": {
+      "sha256": "863461c56b91748373d733ca72a0878da5ecf47c687c309d9586c9c1df31cc1d",
+      "bytes": 1835,
+      "git_blob": "2ea0288bd9887907cd15d2a31d6469517dc314b0"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_initializer_dispatch_trace.py": {
+      "sha256": "7e59bd9ea305a62f2bf3504e7dc1d5b4810335a8d23fb479e49d3ed8e626c856",
+      "bytes": 2198,
+      "git_blob": "65b493908f4456cd42aea8a2212f17327c3fe5af"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_metadata_registration_candidate_taxonomy.py": {
+      "sha256": "36c3793891403349db0558b10a3e98ef14120ce9829cd826f40ec37bc4c46b9c",
+      "bytes": 2288,
+      "git_blob": "260d9ed835a979d466dd07e13a7b1084f3ef28f9"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_registration_anchor_probe.py": {
+      "sha256": "45be2069a6ba24f035bfaab881b775b1f2f538de4ed750b4063e3ce5d6b5cf30",
+      "bytes": 2118,
+      "git_blob": "f123cb30cae33f3bcfd406ee04e1688adb64b7af"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_registration_layout_probe.py": {
+      "sha256": "a548854541bedf675ab5271c78aa37b79dae923310825c734f8e2bcda91b56d7",
+      "bytes": 2198,
+      "git_blob": "1a6cffe29dd9ce0ff5bd86792c86468e44249ee6"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_registration_pair_context_probe.py": {
+      "sha256": "7ba3f94a626cce1c7e8c8461d2958ecd1f52e1be771120484938032fc5b6e6e3",
+      "bytes": 2211,
+      "git_blob": "e7caefcf3dd440411fc86a98e35cf15109613a3f"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_resolver_caller_trace.py": {
+      "sha256": "2474f4c0f6e06bf2d828702e7240fc8d11603f05e8ef372ffb9429632f8c6318",
+      "bytes": 1909,
+      "git_blob": "b94949b2bd3834c5d2a1554a96022da70573e5c3"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_resolver_trace.py": {
+      "sha256": "766a46f262eeb924fb81fe3f0e65ca612628015d5cc9c7b02d26df663ec7141e",
+      "bytes": 1881,
+      "git_blob": "3b22931b51175d991c66d09b384afb0dae7ccf23"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_gameassembly_route_trace.py": {
+      "sha256": "1ec40b1b5269b012733a317e6276cf78fa3a4885686609c77f3fc90bb5f240a5",
+      "bytes": 1707,
+      "git_blob": "5c9af848b51a8e925ddfb6ff61db9a24f6936257"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_global_metadata_loader_scan.py": {
+      "sha256": "d94bd3a3dd2f9f40b1d3032cbf3ce143e95ea0baf55084d006c86d179e0d8f8a",
+      "bytes": 1997,
+      "git_blob": "3435f1678935718a4f8fca12043e6f13dc26a254"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_global_metadata_transform_probe.py": {
+      "sha256": "d9067da8e078408794345dd8e63f8ad29057904d1766cdf2ff197562dec312c8",
+      "bytes": 1775,
+      "git_blob": "89774184ea9335d2bd01b248a01fa9197ea4caf8"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_luascripts_crypto_evidence.py": {
+      "sha256": "6bd7f5dedf2c38647c2fed8775b8005f3ff33dd289ea8f1e08634d010c78d69e",
+      "bytes": 1709,
+      "git_blob": "991f4d2cc6fe6fcc0a0bcbe9ea019df1fc920a83"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_luascripts_payload_cipher_profile.py": {
+      "sha256": "82d5ba3b5379f866183365527736125dc68cb4028e2d8adffd8d8eb9aaad502d",
+      "bytes": 1818,
+      "git_blob": "095efe87ced1b6764a4c563a1248bec9f1be8a9e"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_luascripts_payload_variant_corpus.py": {
+      "sha256": "65f40634b4859574f1ed56a4885cae424762af9fc098111d97fc1632e4e95cb8",
+      "bytes": 1812,
+      "git_blob": "5d35266a432098e581172a9e0160e5fe266b51e7"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_native_loadbuffer_boundary.py": {
+      "sha256": "b300e7c51b080b5eaf151bda5347f5b2591b9d0ac909f6446beaad242655fb9a",
+      "bytes": 1955,
+      "git_blob": "bfb613da9ffc1026e7c169656905569282fdcaec"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_nep2_file_helper_caller_provenance.py": {
+      "sha256": "12a4ccdbc01474cc597f417c50ce862afa795d2f4499e3667497c6c4f01c5f76",
+      "bytes": 1793,
+      "git_blob": "caff2ba3ae4d478bad12d86ae5fdd8c3687b193f"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_nep2_init_bridge.py": {
+      "sha256": "28bf083ce22d8cee82709c512a79d0d2e4b4225facda88958b751b7208adf1ec",
+      "bytes": 1606,
+      "git_blob": "6ebcfebf1e98c42294415acdb70dc39e107ca87c"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_nep2_init_data_owner_scan.py": {
+      "sha256": "352e209642490fea83a9dd48cc9f545d5d853af9c3865b09da21d219dcd4ac05",
+      "bytes": 1704,
+      "git_blob": "f2d2aebe3e660f8157fb1e319216e590a5510566"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_nep2_luascripts_evidence.py": {
+      "sha256": "36e4d48d05c940e9065ba467068521b38117891efab99da5e6c78aa392bae1b1",
+      "bytes": 1884,
+      "git_blob": "39e51a8beb6da3d2aff216cc5b85a288e180cb41"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_nep2_metadata_loader_deep_slice.py": {
+      "sha256": "59028eff80a4af165c1f1b609cd019c48b8b7dc8f32dc78cdba8f9739dc38eba",
+      "bytes": 1950,
+      "git_blob": "b7c47d97edb9d305e634afe728ffd179f953b155"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_nep2_provenance_closures.py": {
+      "sha256": "60ed791839c4abc98caa75e50ae12a2519a44c39d293755e1c9022d3e754b913",
+      "bytes": 1931,
+      "git_blob": "18c46be147b646564908ab878bde4c5549ea9bd9"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_nep2_read_mapping_owner_scan.py": {
+      "sha256": "82b288e910367bec6d4bac3cc0d63ba5101a09a883dca62f18bba3d1a559a1b4",
+      "bytes": 1766,
+      "git_blob": "29dea474f98173f1bada619a1706c281e86e90da"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_nep2_vector_candidate_provenance.py": {
+      "sha256": "36986ddb1b21b34ff9dd9b7c07c8524d54ae87f7334c84f54b437eb5f43ce7a8",
+      "bytes": 1736,
+      "git_blob": "167b1f6b99482b2871dfc640760f19564cb58af6"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_nep2_vector_wrapper_owner_probe.py": {
+      "sha256": "370ae746667ebe7ecf522ae39cad8fa6d2d6eb5a2a6be9299b313e688f57e381",
+      "bytes": 1804,
+      "git_blob": "5d0a2ebe4e154dcfcbcccd613d9a13e76767fadf"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_ns_bundle_format_index.py": {
+      "sha256": "f4a94e9bb1018840da46c2a4503cc55e516e19e66c36d2c89d725654a3ca34a1",
+      "bytes": 1657,
+      "git_blob": "7c38a474d3d8782582a850e23f8802ef0f5bf659"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_resolved_payload_native_anchor_scan.py": {
+      "sha256": "5b8b872558ff7800daa127279d30281c231dcd94256dfb0adcb6a914dfd8d16e",
+      "bytes": 1950,
+      "git_blob": "75e4df302d3bfcf0511e7341446e76325c7dd046"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_runtime_init_metadata_route.py": {
+      "sha256": "5b21236046c556f5959c4fd7dcd8b430dc3a403ee92637da9ed928b3aa202b50",
+      "bytes": 1880,
+      "git_blob": "28fb1bd9faf3106b310dcc6fdfb6522061eddbbc"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_runtime_init_registry_probe.py": {
+      "sha256": "c173c5d85e76d08b78e6c370a470146bf76effe27b29ed8f807cba962a18d88e",
+      "bytes": 2208,
+      "git_blob": "deb323d45ff46eb39cbf92ab5761965aca74dbb7"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_serialized_textasset_layout.py": {
+      "sha256": "ab0967aedb7cbac11cd90fc01fa0c26d35d699cfbb690c5b70a69e1690e935c5",
+      "bytes": 1850,
+      "git_blob": "b525bbc07ea8fb80c89d003260bd92270a4286c3"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_serialized_textasset_resolution.py": {
+      "sha256": "5682697a49602063b76c6185a30e3ce6da99fa075f857958a8bd101bdad8593f",
+      "bytes": 1993,
+      "git_blob": "90f39bbee6110475a1882a1406c66b4760500f28"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_textasset_payload_owner_trace.py": {
+      "sha256": "59104f73a4035a66e450b62e87460aa33dc2fecb64aa87705b23465414dd499f",
+      "bytes": 1834,
+      "git_blob": "f4ca368d3f4d1422aa9af9dda412815d6c9b1828"
+    },
+    "packages/qa-agent/src/qa_agent/app/summarize_textasset_xlua_boundary_ledger.py": {
+      "sha256": "f88b0d0d277887e43947446c4c709ebcdaabe9b72d0861d8cd635438cd85cd50",
+      "bytes": 1745,
+      "git_blob": "43a9d8b6ac0fea07046d48bb6bb7b3573e80d06b"
+    },
+    "packages/qa-agent/src/qa_agent/app/video_extract.py": {
+      "sha256": "5ac46cd233b77fc528d24d97154fb56558836d2072fd87994bcbafff14692da5",
+      "bytes": 6243,
+      "git_blob": "e129bd2a54eab3927bb26ea406ac5b21039cdb12"
+    },
+    "packages/qa-agent/src/qa_agent/chat/__init__.py": {
+      "sha256": "0833f07baf89b305c51d30857eb624642aa790abe39cc29356a61b56bb7c56dc",
+      "bytes": 465,
+      "git_blob": "9cedcef42964ec40f7d9b69e08c83124f6c3c55a"
+    },
+    "packages/qa-agent/src/qa_agent/chat/agent.py": {
+      "sha256": "4f16bfef4d2c109cfddf4b41075ae808f5a94b13c06441dfd013636d573dd757",
+      "bytes": 12392,
+      "git_blob": "ca0b34f76bd50c61d63a17bd6ede9d57e792c783"
+    },
+    "packages/qa-agent/src/qa_agent/chat/env.py": {
+      "sha256": "b07311ab07c1e9ef35c0da310f8b468b10c9e1def2be371ef9619df37ecafc98",
+      "bytes": 701,
+      "git_blob": "40c1a92b1b9d71965bc957e4f63e4220326abe72"
+    },
+    "packages/qa-agent/src/qa_agent/chat/evidence_assessment.py": {
+      "sha256": "d4ada28896c9e6c776f3a12d636f00fb62abf3281b3722c5841d6b93b2e1a397",
+      "bytes": 5429,
+      "git_blob": "3ff231f6360d3f7645c1c7cf6d978c62160d3d81"
+    },
+    "packages/qa-agent/src/qa_agent/chat/gemini_client.py": {
+      "sha256": "13e6889191adf2f8babe6754a7fffc76e4fa2504970f46da92f914ea3da72cf8",
+      "bytes": 4076,
+      "git_blob": "440b0fa86920dd0422b5e71d9225a877cafd2c09"
+    },
+    "packages/qa-agent/src/qa_agent/chat/llm_client.py": {
+      "sha256": "3d04af7cf77fe96cc33bdb5cc4b48b56023c51cc7270793dedbf2e79e94959ad",
+      "bytes": 1720,
+      "git_blob": "65337447447dc58b6ba657dbbf6a0922a0e97c48"
+    },
+    "packages/qa-agent/src/qa_agent/chat/minimax_client.py": {
+      "sha256": "f666ed9e016057adb249266632ed29539e44a7efe5eebcabdf1dcbcef701d78e",
+      "bytes": 5615,
+      "git_blob": "d2b8bb67254c1dc656d2b6bf40d30f7931123209"
+    },
+    "packages/qa-agent/src/qa_agent/chat/openai_client.py": {
+      "sha256": "4321962fbb175958d5b42606c911485d535c855fa0602430c269b62ababa86bc",
+      "bytes": 6965,
+      "git_blob": "eb5c94371016232d12eab21e4393a06262140e90"
+    },
+    "packages/qa-agent/src/qa_agent/chat/prompts.py": {
+      "sha256": "07ebe052700bfe323cf3ca0150f2f0a4931a656352695bbefde129114be99947",
+      "bytes": 1760,
+      "git_blob": "303f131e3ad3711190f426d333d600ea3dbc2114"
+    },
+    "packages/qa-agent/src/qa_agent/chat/referent_resolution.py": {
+      "sha256": "b3a246912726f05331b6a17cc9c09c1b114ce4cc6c5118a4f62e28709db51f78",
+      "bytes": 5706,
+      "git_blob": "7f57ecf698c67568fe546d12d2ef9ed0196dc51e"
+    },
+    "packages/qa-agent/src/qa_agent/index/__init__.py": {
+      "sha256": "47d2bc86697a0924a0ce2f2b2b9ded427ed94f59002f756e4965d62545b801d6",
+      "bytes": 39,
+      "git_blob": "eb91c9f47262b6f6fe054d6ba6607e2193394fec"
+    },
+    "packages/qa-agent/src/qa_agent/index/search_index.py": {
+      "sha256": "570b0c3811d31b03d69b3c4efc87d7358e67b1bc9945c625ec66401ed5898a96",
+      "bytes": 3475,
+      "git_blob": "3a6e53f948d859ce2a5b9c069c17c2ccd0d0a5ff"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/__init__.py": {
+      "sha256": "92679471b3d86ea47847c2f11b9f08c86fa09502a599f55b6ca3d368bb920653",
+      "bytes": 66,
+      "git_blob": "613bdf5fa70160d53ec0508ab0bbf054562ada71"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_codegen_module_probe.py": {
+      "sha256": "74c5e59e63ecb5b699a46fa5fdcc3dc1807a5e6d9614ffb825b4c75ce5cb00c1",
+      "bytes": 10064,
+      "git_blob": "678ccc8d6fed4b5c682cb9fff53e2f96d2c05ee9"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_decoded.py": {
+      "sha256": "3f5b7a9ef2f8477fd7b8db76f6e9aa27824eec72874ac0fd9d9b291da57f0cb8",
+      "bytes": 10233,
+      "git_blob": "b65ae15271fe369addcf43f3dc858c4906c68d45"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_decoded_audit.py": {
+      "sha256": "de6d9354af8b554f7296dba00f262155dd7ce3b8c5198f4cc7e2a935864c39d1",
+      "bytes": 11273,
+      "git_blob": "415dc844ef05ecff94cf51274ffe60ed59d8aac7"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_evidence_bundle.py": {
+      "sha256": "703327a3d56069799151d86ef735b7dcbd4ca20feb83d76c091077f838863a76",
+      "bytes": 137343,
+      "git_blob": "3d2434450ee1d638c33e0e73c3ae7fba1ad6d21e"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_function_pointer_table_probe.py": {
+      "sha256": "c3af9f2ae76f1e41377297bc238b6c634d4af06f6b1b77e4921fe6724ad0120b",
+      "bytes": 12895,
+      "git_blob": "8f85e027308cfd134d49b055ac617b3de6f5da18"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_gameassembly_global_metadata_owner_probe.py": {
+      "sha256": "d2b8f961e41a0345800da096901c43b38f1c711b753f7c1454a0895e7cb1d91b",
+      "bytes": 7942,
+      "git_blob": "3a0cb5370b14dffdde855b4b46ec9b51a9e16414"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_gameassembly_resolver_caller_trace.py": {
+      "sha256": "0cd1ddbe3c4664a5ebd8aba461a2845213ea3225e8699b35f422ea46c8574b16",
+      "bytes": 5065,
+      "git_blob": "b345c2182b3c1a1ea5987fd7bd07ff921301c715"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_gameassembly_resolver_trace.py": {
+      "sha256": "5fcc19a20d47b935bc8ecf134878aba7580e42155004b457f24c1292e1e4d19c",
+      "bytes": 4670,
+      "git_blob": "de870460d37626ee7e2a69c6f78806e32142be85"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_gameassembly_trace.py": {
+      "sha256": "e62c71ee72aaeb28a13e4920ac20a068b56ed1d3146bf0062d9ffb8c479a2e95",
+      "bytes": 16599,
+      "git_blob": "9e19316bcd66bd93b9ef5060b003dfbdc57c0744"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_global_metadata_loader_scan.py": {
+      "sha256": "7f3abc4f089705c34a0d3ca5b3e12852cfd9ccd194f0bb3b9cc7d6c40953900e",
+      "bytes": 8608,
+      "git_blob": "f925a815b459a7a7e99aff5dd50a092ac754821d"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_global_metadata_transform_probe.py": {
+      "sha256": "da63dbdbfdbb6f35231bd3d258833e48e090c1f09cd9860fc6f5b59d95557f37",
+      "bytes": 7246,
+      "git_blob": "c2161bea9c91070dca86000ffdac964f253c5e1a"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_import_queue.py": {
+      "sha256": "671be25d0108fb293bdfbd03717de9b3cabadf0bf9068c1ff2e4c9ee67100d9f",
+      "bytes": 177748,
+      "git_blob": "79e5d2aa059fa16e29548a278caa0595b1f558bb"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_initializer_dispatch_trace.py": {
+      "sha256": "e0878250ffe45dc913575933e7f126967059899a36ee2921f69c9540cbf1e978",
+      "bytes": 11383,
+      "git_blob": "7b154ecaa760ba1718b20ff7df89d9debb60e35e"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_lua_crypto.py": {
+      "sha256": "a23b5bf49c00e67edf3558b61902f41f4fe6b3e8ee522db700b33dbaf337d2f8",
+      "bytes": 7325,
+      "git_blob": "30e5e0f047fc0dd6df41e399410e4377c0b9e345"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_luascripts.py": {
+      "sha256": "095e6a9d019d22bcd533e2c8262e50e930267fb1b006b7478c45e5fb39512373",
+      "bytes": 8020,
+      "git_blob": "8ad1a78628037b731ec335e620f22927381dd282"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_luascripts_variant_corpus.py": {
+      "sha256": "4da12b907ea909f2fe98bd3718c638ad03debaf4d50ce2bf0accbf5609b26e1b",
+      "bytes": 9368,
+      "git_blob": "e9d288bf3c97f9d5f4a17c1c94b3d05b8e3cfd37"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_metadata_registration_candidate_taxonomy.py": {
+      "sha256": "be413748fe66591d017f9914e340569957f1ec23fbd052288a0ab052bdb7887e",
+      "bytes": 8179,
+      "git_blob": "3e2f9b688a61b394b4b7a2d6c6b9852babaddbc2"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_native_boundary_trace.py": {
+      "sha256": "7353e994db00b9b24ab0cffb28196cbb28d591ae7f0453d293638443677f77cb",
+      "bytes": 6087,
+      "git_blob": "6873ee3ce20ec1f87f1328b722f77adb0563007e"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_nep2_bridge.py": {
+      "sha256": "2e0abfe7d35614152689fc24401b9e8f5752ad1d13b79c31039cfc892d60c5e3",
+      "bytes": 7640,
+      "git_blob": "8aee85ba5c5cf66e9544c31e6be2066f92548f6c"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_nep2_file_helper_caller_provenance.py": {
+      "sha256": "e14275408347375c13fac3da6d64379b6a9dd192b8dfff6067c6702d1dc36291",
+      "bytes": 7380,
+      "git_blob": "373bb913d2aa0a6b972dce7d83aea5315165368e"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_nep2_init_data_owner_scan.py": {
+      "sha256": "90cceeb758641db9e75946b5fb2169fed226868a61062f511cd4ab927344a3ca",
+      "bytes": 8387,
+      "git_blob": "951a5fde791fa6b65e05f8830a5825d7efd28bdf"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_nep2_luascripts.py": {
+      "sha256": "cbbac9675b0d0f2b184f11db41a404074ad5de623ff61809643c579df2447c18",
+      "bytes": 9755,
+      "git_blob": "00bb4cc499b88d893b15092766969ec47c12d89a"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_nep2_metadata_loader_deep_slice.py": {
+      "sha256": "cf2ad820c029aab1e9cceef4205562a10d8784b48f9068dcd9e4ddb25dddcd93",
+      "bytes": 7484,
+      "git_blob": "9221cb9615f4f46746f3e2a08b6eba1d53ab1922"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_nep2_provenance.py": {
+      "sha256": "67ae3030fee8475f0b8d3685b3d31bac2d0ff6081f24f325714b1960251ec314",
+      "bytes": 10398,
+      "git_blob": "a8312a2b7a88eb3ff640283f81bbf7c7542f0aad"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_nep2_read_mapping_owner_scan.py": {
+      "sha256": "46b3606f717bd2bc0ca6e7972565c8286a2c83016123c8003332ab3d245aa669",
+      "bytes": 8644,
+      "git_blob": "f698b1268808bf89b86526ec43b34feecdd0f10c"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_nep2_vector_candidate_provenance.py": {
+      "sha256": "723e825daebcbc335f33c8349d67c783c53f741f92831f0e711913eb64737a14",
+      "bytes": 7610,
+      "git_blob": "26b32862d738be971b8217b093f27b48404f0636"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_nep2_vector_wrapper_owner_probe.py": {
+      "sha256": "1553252f7e23062e44fc03fd331fc69320f568413e36cca7467041ad184f752c",
+      "bytes": 7525,
+      "git_blob": "de8486c25f1c727cc3faa5ab99e59988aeb3fe36"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_ns_bundle_format_index.py": {
+      "sha256": "1fd6b54420ac554fd11775bac2714bb20b8b1ce72c019c919070c5d78a16d498",
+      "bytes": 8857,
+      "git_blob": "3a9cc39ef44b89b5a6df144570f200ae7c6aee51"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_package.py": {
+      "sha256": "8d04fa83f8daeaf6661d6348b2961cc505962f8c53042f662604066e455eaa71",
+      "bytes": 11538,
+      "git_blob": "3a5553253ddc2c4448ae46f56931d368fc1d1bb5"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_payload_cipher_profile.py": {
+      "sha256": "41e04bdc1a02565403b76184f579dde0d2543e78944e8d05fcbc1ff5ea54fc72",
+      "bytes": 6945,
+      "git_blob": "1dba42f2c8438629e504463906503b1d28f50e4d"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_registration_anchor_probe.py": {
+      "sha256": "fa043f7abcd61081f405161cc09fccd9e108858e66f594b12f15a0de6ffe14a1",
+      "bytes": 7221,
+      "git_blob": "950f56ce2a751cd877dee66d7bee1a7456f5315f"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_registration_layout_probe.py": {
+      "sha256": "678f55fec76008c12f3419df71d07c12822bacd878ab01d8dadbe2e570e4ab47",
+      "bytes": 12990,
+      "git_blob": "59f9a91f366aec538008fef77c7aac353294ed06"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_registration_pair_context_probe.py": {
+      "sha256": "3148993d5de783d7d8f0738830fedc718412b29812f1fed61e936e64882cfa0d",
+      "bytes": 10268,
+      "git_blob": "289d8718497a03763d749d3bd0db85ac510e96bb"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_resolved_payload_native_anchor_scan.py": {
+      "sha256": "72d0c8aa25c98d0f8a0652749c3cfb14c4f1daed883fda4cf58af0101b1fe31c",
+      "bytes": 8950,
+      "git_blob": "f305df5fdd5c58257874532100d8363a91436ef7"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_resource_surface_gap_scan.py": {
+      "sha256": "d39a208a339fc3d4cbd4b16bcffc14e23a898f90709b8db61e5c630d5404c126",
+      "bytes": 8202,
+      "git_blob": "6eb7f5575510b42045d94a46d9f2bed5e5c964ed"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_runtime_init_registry_probe.py": {
+      "sha256": "1b506071e8ea8bcfe2493e082970fac80a7c45fa3cb3b695e204ac7105b476b3",
+      "bytes": 9199,
+      "git_blob": "7dc7f5137d10e84a1754b21ee2b4240ec3510ccf"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_runtime_init_route.py": {
+      "sha256": "d2e2f0fdbd0a9fb0f6c8a9e202a482d26baba8132b12bf6f2f6b7675b7791910",
+      "bytes": 4788,
+      "git_blob": "616548c2947b19efdc8f4f00c1fdbe1d9fc53064"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_serialized_textasset_layout.py": {
+      "sha256": "54225aa29eb8ea353594cbad45e2e1f1b2dcd311bf9dde52b7d4cc5321b36d29",
+      "bytes": 8713,
+      "git_blob": "f38419d3eb403d8606e09df6f93c9e32085ea220"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_serialized_textasset_resolution.py": {
+      "sha256": "07c4e5bb353084c1dc65e3dc7b20bd1efff998461e1fd6725a36b9a8a4b0eaad",
+      "bytes": 9208,
+      "git_blob": "77433a9399b5d4922735b6511799fdb4c58a4e30"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_textasset_payload_owner_trace.py": {
+      "sha256": "c77f6d396cf6679e72d978ce87d1ba073800ad67b06f177e4f56c09b9951de91",
+      "bytes": 7937,
+      "git_blob": "505ff3ef9ddecde2973b3d8fa1853de2edb0f30d"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/client_textasset_xlua_boundary_ledger.py": {
+      "sha256": "22c31e1be8af4b8f9294fefae498100de11fbeaa80fa05c1f7c9186076b0125c",
+      "bytes": 6084,
+      "git_blob": "1ae1de4fb42df10ce4a1ce98246186baac69c764"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/config.py": {
+      "sha256": "10431a98db2cec79955315fb91a02e4a3a60b9ab07b16e9651e791ca8d212d05",
+      "bytes": 1169,
+      "git_blob": "c9695abbb3c149e163d7496ff923ffe0345c80fa"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/loader.py": {
+      "sha256": "e6a0fde008d4dee7c58d68c07c46f027dd4771d7a3999e9cbdf11ba76f187c61",
+      "bytes": 610,
+      "git_blob": "3998dd9686a27f4a49de25d23e2ac47db696e60f"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/models.py": {
+      "sha256": "12e566f6c0af158eb83787c4ef7cfa8ba7fb17a1dce2999cb64cd2cc2d358d25",
+      "bytes": 3896,
+      "git_blob": "f20495bf882bea515e53ff49b5f8b887fe32e820"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/normalize.py": {
+      "sha256": "73a7783188ca83e25486f7a66eb1b70d00575c21dea8a9a98f8a5b6efab16d1d",
+      "bytes": 6302,
+      "git_blob": "cec67d115fb63f25b6228e10cb918359485e1204"
+    },
+    "packages/qa-agent/src/qa_agent/ingestion/publish.py": {
+      "sha256": "8e5afea6a9778d73c809d2150b81a11736556b1d16ab8964b2c8f0841e46997a",
+      "bytes": 5664,
+      "git_blob": "361beeb2c9c770528b048242170475066e3543a6"
+    },
+    "packages/qa-agent/src/qa_agent/knowledge/__init__.py": {
+      "sha256": "4e7b89e626377af308ee7927b3f4b49c59ea566dd4742b181c01af99868c7d14",
+      "bytes": 47,
+      "git_blob": "9d5fd48a5f268fc2494f161360d5c954498d4846"
+    },
+    "packages/qa-agent/src/qa_agent/knowledge/loader.py": {
+      "sha256": "552ae3bc093c3c5f0247f549b2d414c8dd984c22e915d6ca979a16c34aac6c74",
+      "bytes": 819,
+      "git_blob": "f0a5c954b675d7560810803ca1764c3826d9a8b0"
+    },
+    "packages/qa-agent/src/qa_agent/knowledge/models.py": {
+      "sha256": "1e02926cb204f742d62db91b5b05a9a103742e7f35cdfecbebfd3f7eab007d56",
+      "bytes": 11486,
+      "git_blob": "64a8289c068529eef8a5d9163cf310c4494fb7ba"
+    },
+    "packages/qa-agent/src/qa_agent/knowledge/provenance.py": {
+      "sha256": "4c5871adbd360eab5e483689562a28e2829e6776c212386241d339e538220007",
+      "bytes": 10713,
+      "git_blob": "a789116c64744ec28d20ebe76673d4a29957e5d8"
+    },
+    "packages/qa-agent/src/qa_agent/knowledge/source_paths.py": {
+      "sha256": "21462ae823c912af385b6322053259258112a68fdc4987b69d93543afb22919d",
+      "bytes": 192,
+      "git_blob": "daa53fcb17302cf7e58775615e105314c25ffada"
+    },
+    "packages/qa-agent/src/qa_agent/mcp_server/__init__.py": {
+      "sha256": "92e99eed596708ecbf01b754059bafb74f4ca95cbcc638e053f84204fc622045",
+      "bytes": 51,
+      "git_blob": "9f1db84b38df905d6948e5ed4b1d14f5666c5e9c"
+    },
+    "packages/qa-agent/src/qa_agent/mcp_server/advisor_tools.py": {
+      "sha256": "18f032cde3ed722ece89d685705e8070b031531b65e088811d5334228d9e19aa",
+      "bytes": 206696,
+      "git_blob": "ad5358208103ad38438258086f434c1f9f1447eb"
+    },
+    "packages/qa-agent/src/qa_agent/mcp_server/server.py": {
+      "sha256": "264afe5ca4856995c67fce5da2230274978b5cdb7b23b34ff34b1a62fe9a604d",
+      "bytes": 5578,
+      "git_blob": "8cb794e8707184f37fe0557f9f0ca16eb4dee00b"
+    },
+    "packages/qa-agent/src/qa_agent/mcp_server/stdio_server.py": {
+      "sha256": "bb6626f99df3aba8e16e834a966c5021a66b84dbaaae43a249907ac8467eccf2",
+      "bytes": 1036,
+      "git_blob": "91d616a75fd29093d281217f9cdfe91d417fe198"
+    },
+    "packages/qa-agent/src/qa_agent/mcp_server/tooling.py": {
+      "sha256": "3f60c875cf3448f4f5f43be545087c3c65ad9bf500edc984ef8c00e602e972a4",
+      "bytes": 8083,
+      "git_blob": "67b911c7be77115702906183c1bf1ca15b26457a"
+    },
+    "packages/qa-agent/src/qa_agent/quality_eval/__init__.py": {
+      "sha256": "dcf77ddd5f789553278cef7e1617c22286fcb23571054593c4342771b03baa6e",
+      "bytes": 80,
+      "git_blob": "66bb7038b2a5b07ac3e42793b2416502917e1d0a"
+    },
+    "packages/qa-agent/src/qa_agent/quality_eval/assessment_cases.py": {
+      "sha256": "2045a72ec47f823153869f58a610ebd3aae328ea82c8f1968cb298c50e8d598c",
+      "bytes": 1707,
+      "git_blob": "faf3c64fa44981bd3163bd939ba5447a080cacf1"
+    },
+    "packages/qa-agent/src/qa_agent/quality_eval/claim_spans.py": {
+      "sha256": "062ae64d50609e2b3542b2c2fd35d66614a40df100a02dd253acf42a57df8155",
+      "bytes": 11566,
+      "git_blob": "c4df39ecc377cb65d42b1fb3afaeb470dff76de2"
+    },
+    "packages/qa-agent/src/qa_agent/quality_eval/referent_cases.py": {
+      "sha256": "600d434af95213af6ffae2a66170e2c8e4e475d541ca33ed21d717262727ee07",
+      "bytes": 3425,
+      "git_blob": "6f626d810c5cf0ee05f263a2a4d3a9ca2cc6928e"
+    },
+    "packages/qa-agent/src/qa_agent/quality_eval/runner.py": {
+      "sha256": "ee45efbc964c30dc6ec3bbbff08662af4a87bb055bdfdfde69ff09e3f36ed12d",
+      "bytes": 12353,
+      "git_blob": "e399fb8f6f6d6a93bcdf249f843c9ddc3a103760"
+    },
+    "packages/qa-agent/src/qa_agent/quality_eval/scoring.py": {
+      "sha256": "b49f51cf50d34aec2970214d0b1f8eea4e081b9c31d4249b00786dc0f7182af5",
+      "bytes": 4947,
+      "git_blob": "efcae60564286f0d09523f0436ede09d04b1d400"
+    },
+    "packages/qa-agent/src/qa_agent/quality_eval/season_cases.py": {
+      "sha256": "d33ecee712cb87afe9c2293329c2cacf9889e077e6e205e36fde34f3546ebe2a",
+      "bytes": 3992,
+      "git_blob": "c189bd114cd4c353700c0e2c9418857edfc046bd"
+    },
+    "packages/qa-agent/src/qa_agent/quality_eval/source_groups.py": {
+      "sha256": "28675cf48dbc0dae834d74399c2993cc13c800e9e7ff041905300edfae00b7eb",
+      "bytes": 6931,
+      "git_blob": "af4cb54812fed0f67992a5f3ddf149ce58519ef2"
+    },
+    "packages/qa-agent/src/qa_agent/retrieval/__init__.py": {
+      "sha256": "0d1686d58203bb6234681c2457003f019c6f4dd7e88265efd1d9ee1870dba71f",
+      "bytes": 110,
+      "git_blob": "e4c26478d420f5e4f3cc9d150de42e740dc8fbff"
+    },
+    "packages/qa-agent/src/qa_agent/retrieval/retriever.py": {
+      "sha256": "b72a188e3fd8ea9272ee8b20c6c4158019a010acc51712903ff72e83e2603b86",
+      "bytes": 6845,
+      "git_blob": "40c4551f34e01da36881bdd86085d603bb951a31"
+    },
+    "packages/qa-agent/src/qa_agent/retrieval/seasonal.py": {
+      "sha256": "4fdeb3f5e79f0a17ca16bfc1eb318fb560cd582980cbc770e027b849cbab1549",
+      "bytes": 3365,
+      "git_blob": "021d44dcd52907652dc724cb0a8698d588427bde"
+    },
+    "packages/qa-agent/src/qa_agent/service/__init__.py": {
+      "sha256": "db46329cb7b85a8f6020ecb5561a018752e94bb900daaa477476ebed5d327653",
+      "bytes": 32,
+      "git_blob": "c5f297badc05a95df613ba7236c264f14907576a"
+    },
+    "packages/qa-agent/src/qa_agent/service/query_service.py": {
+      "sha256": "5523a198582528a69a425f61b37528d034e75fcf2fc407ab813c96b37972adee",
+      "bytes": 4940,
+      "git_blob": "24a4fb7bcb6960c6d6c41f7cab3e0e3a1872131a"
+    },
+    "packages/qa-agent/src/qa_agent/video/__init__.py": {
+      "sha256": "c822a6ad751a5a9c6d35f0acd33eec156c72329244fff543d1b48ed87cf8d004",
+      "bytes": 1233,
+      "git_blob": "b85d9ce00c56aa566c14467c5d402f82043c9548"
+    },
+    "packages/qa-agent/src/qa_agent/video/asr.py": {
+      "sha256": "41cd5cf84ad16dc41198712489f37ffc17c3e58b4e2855f60340293b38fef1a0",
+      "bytes": 2432,
+      "git_blob": "27ce2a48394101c56ce39d3e6157b90e646de7b6"
+    },
+    "packages/qa-agent/src/qa_agent/video/builder.py": {
+      "sha256": "b858af961ae5d2d6f2cb68329189958ff362d5a9f4d9241ac23684f28f998eef",
+      "bytes": 2594,
+      "git_blob": "b3bad35af095dbf3a4758d2ecc718297eecc6729"
+    },
+    "packages/qa-agent/src/qa_agent/video/evidence_quality.py": {
+      "sha256": "f9780d2efca5e90c4929a92d1173f9760a38be8b26b1a6cd295194a68d860a58",
+      "bytes": 13663,
+      "git_blob": "5965d79e3cc173a4fc0a2fe668b1e6c4644f9f1c"
+    },
+    "packages/qa-agent/src/qa_agent/video/frame_sampler.py": {
+      "sha256": "6d1fabb8cb38c8e822ac783fb5e18efcf85419cafa2521ffd01b4b5e39892343",
+      "bytes": 10678,
+      "git_blob": "c1744bec105355cf4553b3527962de6c5d9c0079"
+    },
+    "packages/qa-agent/src/qa_agent/video/gemini.py": {
+      "sha256": "c8ca6b86b71b5f54b6bceb10ea04ef62d0dc286b26f82031c22f261183add311",
+      "bytes": 5537,
+      "git_blob": "686e58813d3440ca11749a6f2864125e3c44b203"
+    },
+    "packages/qa-agent/src/qa_agent/video/heuristic.py": {
+      "sha256": "ecc523bf586e5889eb06f8877865e117f97d70aa87947460ac272b30fc6baef4",
+      "bytes": 18632,
+      "git_blob": "344cb96d725da8c562499700fbadc635d6c4d41c"
+    },
+    "packages/qa-agent/src/qa_agent/video/lineup_frame_extractor.py": {
+      "sha256": "24dc1a758950d22c35cd6945f12879179f0aff0991e9368c702638326f3d1d5d",
+      "bytes": 22018,
+      "git_blob": "e78b03f1d75e58bc2763eae2edd07f4663dbbc83"
+    },
+    "packages/qa-agent/src/qa_agent/video/loader.py": {
+      "sha256": "3d1544c0851c66d0b66e16250e727c69cf3ed7ffa7be502db94af9705a6bf133",
+      "bytes": 618,
+      "git_blob": "eaba3ac6cb5430884ff53bf436168fe9dda54a13"
+    },
+    "packages/qa-agent/src/qa_agent/video/mapper.py": {
+      "sha256": "8bd1d2cffa0858d157079d22dd12d64548bc37acf5a1542bb11edaacce24e044",
+      "bytes": 7538,
+      "git_blob": "4770c4836cf059deacb7d1bc19858f0227ee3f39"
+    },
+    "packages/qa-agent/src/qa_agent/video/models.py": {
+      "sha256": "82dc47c99925eb717b8562732d678d96e5ff8b50520cc68bba459771224b3e25",
+      "bytes": 8692,
+      "git_blob": "b1d9e0c0b6971381d21bb64abe3a5d5ce2a409f0"
+    },
+    "packages/qa-agent/src/qa_agent/video/openai.py": {
+      "sha256": "e8f7616938babbc79eb057665c588cd76a6b4585330aa1c95b7bcb9e318dcd94",
+      "bytes": 3560,
+      "git_blob": "e26eeaa26ea1fcf199795bb3b0e7ab14aa935ad5"
+    },
+    "packages/qa-agent/src/qa_agent/video/subtitle_normalizer.py": {
+      "sha256": "4c9bfba9e6bf6ea0460f100b4e3975318a9388a64c4d664f472a2a530c5ccbcd",
+      "bytes": 32040,
+      "git_blob": "cd346e32b30dc98257c644d916c36f383b3e83d2"
+    },
+    "packages/qa-agent/src/qa_agent/video/video_download.py": {
+      "sha256": "fcf800c669f152f34c1be08495c0835a185c1e4d4057d5c75c59668fa569b25e",
+      "bytes": 5006,
+      "git_blob": "689e53bc1142b7b83ded97615e071545e4e4106c"
+    },
+    "packages/qa-agent/src/qa_agent/video/vision_enrichment.py": {
+      "sha256": "6346daca9236527c76c194c73e4446c5fa0c9d7607522f3996ff1fbf808a28dd",
+      "bytes": 6671,
+      "git_blob": "25a971888e759c80786bedbc2232c9562e5f33d9"
+    },
+    "packages/qa-agent/src/qa_agent/vision/__init__.py": {
+      "sha256": "db7f965c78c37bc494abe6d24caf0cef4c8c124c364d83e4968df9bbb89b8d6a",
+      "bytes": 581,
+      "git_blob": "27356b04ce1746d768be521498f5a9a95db4bdab"
+    },
+    "packages/qa-agent/src/qa_agent/vision/extractor.py": {
+      "sha256": "3fb35bec171704b2bca068bffe6bc3a1ffe3e8e70b7cf760d4879d06caac94c0",
+      "bytes": 7860,
+      "git_blob": "7ef3a29ae1d4336c99d420d85a440972e1c8cc20"
+    },
+    "packages/qa-agent/src/qa_agent/vision/image_loader.py": {
+      "sha256": "1db464a8f24e54acdb911e6deb9ab61e08584c9efa52cfb22807e6d4e6073944",
+      "bytes": 1761,
+      "git_blob": "c9d70b77ea10050e45e6219977b60572320d840a"
+    },
+    "packages/sanmou-common/pyproject.toml": {
+      "sha256": "978bcb511599e8d40f2be6c4e11e2cc5f8e4f863610359de61e3993ff7bfce89",
+      "bytes": 470,
+      "git_blob": "4f5d757551f5e2bf0ee70e38ddb889210f7fbba8"
+    }
+  },
+  "allowed_prefixes": [
+    "packages/qa-agent/src/",
+    "packages/qa-agent/knowledge_sources/",
+    "packages/qa-agent/configs/"
+  ],
+  "allowed_exact_files": [
+    "packages/pioneer-agent/pyproject.toml",
+    "packages/qa-agent/pyproject.toml",
+    "packages/sanmou-common/pyproject.toml"
+  ]
+}

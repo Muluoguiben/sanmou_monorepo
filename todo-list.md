@@ -16,7 +16,7 @@
 | [x] CPU实现完成 | 启动包agent；`feat/mac-live-gateway-bootstrap`；`bootstrap/` | 固定提交导出与独立环境重建脚本通过；排除.git历史／凭据，实际上传与云端安装待执行 |
 | [x] 实现及CPU复核完成 | 独立review agent／启动包review agent | 捕获／token／版本／目录置换／失败成功标记等问题闭环；合并后Mac专项66项、Linux相关234项通过，云端原件仍待独立复核 |
 
-CPU合成验证与云GPU真实验收分别记录。网关需要的任务／预算导入已与可选Vision／MCP SDK解耦，原公共导出兼容测试通过，保留原SGLang依赖锁。按[联调说明](docs/runbooks/live-gateway-colab.md)从已提交整合版本生成并校验实际上传包，再通知用户开启A100；本轮真实模型链路仍未通过。Linux测试后只更新了一处native说明文档，所有代码与测试保持已测字节。
+CPU合成验证与云GPU真实验收分别记录。整合版本`a1ab51e`已提交推送且四个CI作业通过；实际205文件上传包已导出、解包、校验导入及场景hash，用户已被通知开启A100。网关需要的任务／预算导入已与可选Vision／MCP SDK解耦，原公共导出兼容，原SGLang依赖锁不变。本轮真实模型链路仍待开卡后验收，见[CPU准备报告](docs/test-reports/2026-10-24/live-gateway-preparation.md)与[联调说明](docs/runbooks/live-gateway-colab.md)。Linux测试后只更新了一处native说明文档，所有代码与测试保持已测字节。
 
 ## 上次收工与下次优先级（2026-10-24交接）
 
