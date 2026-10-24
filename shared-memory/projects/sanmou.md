@@ -1,5 +1,14 @@
 # Sanmou Project Memory
 
+## 2026-10-24 - 恢复项目网关实连施工
+
+- Decision: 用户要求继续按文档打通项目网关到真实云模型，在需要时通知其开Colab；先完成本地准备，不自行分配GPU。
+- Evidence: 新联调runner、native绑定生成器、可重复源码打包／环境准备脚本均经独立审核；合并后Mac专项66项、专用CPU Linux相关234项通过。按需导出修复使网关无需加载Vision／MCP SDK，原公共API兼容，前轮SGLang lock不改。
+- Owner: Mac主管整合、实际云端操作与提交；三个隔离实现工作树和两个独立审核角色，位于`/private/tmp/sanmou-live-gateway.PUqwzu/`。
+- Blocker: 上次GPU运行时已删除，本轮真实GPU、环境采集及项目HTTP两轮尚待执行。CPU通过不授予完整SV1／Windows J2／PPO资格。
+- Next: 从提交后的完整版本导出并校验实际上传包，通知用户开A100，再重建环境、核验制品、启动受认证的回环服务并运行两轮；保存原始请求响应与预算、负例计数后独立复核。专用本地CPU VM已停止，默认Docker context未改。
+- Links: [当前待办](../../todo-list.md)、[联调步骤](../../docs/runbooks/live-gateway-colab.md)、[上次GPU报告](../../docs/test-reports/2026-10-24/colab-native-smoke.md)。
+
 ## 2026-10-24 - 今晚收工与明日优先级
 
 - Decision: 用户要求将今日成果／剩余待办写入文档，今晚收工；明天第一优先级是项目网关连接真实云模型。本轮仅文档交接，不继续分配GPU或开展开发。

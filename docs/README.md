@@ -11,6 +11,8 @@
 
 ## 分类查阅
 
+项目网关真实模型联调已恢复施工，见[当前待办](../todo-list.md)和[Colab联调步骤与验收条件](runbooks/live-gateway-colab.md)。先完成CPU准备，实际需要GPU时通知用户开Colab；上次原生模型成功不替代本轮项目网关实测。
+
 2026-10-24今晚收工：[今日成果与明日验收条件](test-reports/2026-10-24/colab-native-smoke.md)、[根待办](../todo-list.md)已更新。A100运行时已按用户确认删除；明天下次开工先重建环境，第一优先级为项目网关连接真实云模型。`14b209b`的四个CI作业均通过；不把已有本地合成HTTP与原生GPU请求合并记成真实项目全链路通过。
 
 2026-10-24 Colab A100已完成Qwen3.5-9B真实文本、两轮工具往返和两张合成图片测试；见[原生模型实测报告](test-reports/2026-10-24/colab-native-smoke.md)。原生token与现有解析器离线核验通过，Docker／实时gateway／J2／训练验收仍分别待做。

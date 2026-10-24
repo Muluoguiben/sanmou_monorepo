@@ -4,9 +4,23 @@
 
 历史进展与验收记录见[历史归档](docs/archive/todo-history/2026-10-23.md)。下面的大阶段保留整体验收状态；Mac 首批本地实现单独记录，不把模拟结果算成云 GPU 或 Windows 实机通过。
 
-## 今晚收口与明天第一优先级（2026-10-25）
+## 当前施工：项目网关连接真实云模型
 
-用户已指定今晚收工，本次只完成文档交接；明天下次开工优先**打通项目网关到真实云模型**，由Mac主管负责，复用已实现接口。今天已完成的本地工程、原生模型与图片结果见下方及[交接报告](docs/test-reports/2026-10-24/colab-native-smoke.md)。
+用户已要求继续，先完成CPU准备，确实需要GPU时再通知用户开启Colab。起点`aa70e48`；工作树根目录`/private/tmp/sanmou-live-gateway.PUqwzu/`。上次运行时已删除，当前不假定有可用GPU或旧连接。
+
+| 状态 | 负责人／分支／目录 | 本次交付与验收 |
+|---|---|---|
+| [ ] 进行中 | Mac主管；`feat/mac-live-gateway-integration`；`integration/` | 统一接口、组合验收、通知用户开Colab后运行并保存真实证据、独立复核及合并提交 |
+| [x] CPU实现完成 | 接口agent；`feat/mac-live-gateway-runner`；`runner/` | 复用现有adapter／HTTP／gateway／SGLang backend；联调入口已通过合成TCP两轮、拒绝请求与预算／原件检查；真实GPU待运行 |
+| [x] CPU实现完成 | 部署agent；`feat/mac-live-gateway-deploy`；`deploy/` | 独立native运行声明与PolicyManifest绑定、模型／配置／源码校验已实现；本轮实际云环境采集待执行 |
+| [x] CPU实现完成 | 启动包agent；`feat/mac-live-gateway-bootstrap`；`bootstrap/` | 固定提交导出与独立环境重建脚本通过；排除.git历史／凭据，实际上传与云端安装待执行 |
+| [x] 实现及CPU复核完成 | 独立review agent／启动包review agent | 捕获／token／版本／目录置换／失败成功标记等问题闭环；合并后Mac专项66项、Linux相关234项通过，云端原件仍待独立复核 |
+
+CPU合成验证与云GPU真实验收分别记录。网关需要的任务／预算导入已与可选Vision／MCP SDK解耦，原公共导出兼容测试通过，保留原SGLang依赖锁。按[联调说明](docs/runbooks/live-gateway-colab.md)从已提交整合版本生成并校验实际上传包，再通知用户开启A100；本轮真实模型链路仍未通过。Linux测试后只更新了一处native说明文档，所有代码与测试保持已测字节。
+
+## 上次收工与下次优先级（2026-10-24交接）
+
+上次用户指定收工时只完成文档交接；本轮已恢复上方施工，优先**打通项目网关到真实云模型**，由Mac主管负责，复用已实现接口。已有本地工程、原生模型与图片结果见下方及[交接报告](docs/test-reports/2026-10-24/colab-native-smoke.md)。
 
 - [x] 源码与证据已合入`master`；`14b209b`对应[CI 40001210808](https://github.com/Muluoguiben/sanmou_monorepo/actions/runs/40001210808)四个作业全部通过，包括Windows API／Electron。
 - [x] 用户确认后已在Colab执行“断开连接并删除运行时”；页面显示“重新连接”，活动会话列表为空。笔记本与已提交证据保留，临时模型／环境不再可复用；今晚不重新分配GPU。
