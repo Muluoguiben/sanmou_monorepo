@@ -1,5 +1,14 @@
 # Sanmou Project Memory
 
+## 2026-10-27 - 项目网关真实模型两轮完成
+
+- Decision: 用户重新连接A100并说明旧代码不见；从仓库固定`a1ab51e`恢复205文件启动包，重建独立环境，继续既定网关实连目标。
+- Evidence: 同一Colab宿主的项目adapter→HTTP→gateway→真实SGLang两轮通过；401／401／409拒绝不增加上游调用。两轮480＋29、546＋33 token，共1088，预算各预留／结算2次、pending0；独立原生预热另1次。61份云端原件218880B读回，源码、模型、请求与预算由独立agent复核通过。
+- Owner: Mac主管执行／归档；独立review agent离线核验。真实运行未修改源码a1，原SGLang依赖锁保持。
+- Blocker: 完整SV1、跨机器Mac／Windows客户端与工具、后端取消／并发、Docker、真实游戏截图质量和训练仍待后续；本次只完成同云宿主网关两轮。
+- Next: 原件和笔记本代码备份已保存，模型服务已停止、GPU计算进程为空；用户运行时暂保留。恢复流程以仓库启动脚本为准，控制日志放在五文件bundle目录之外。下一步建立受控跨机器访问，再接Windows工具。
+- Links: [实测报告](../../docs/test-reports/2026-10-27/live-gateway.md)、[笔记本备份](../../docs/test-reports/2026-10-27/colab-gateway-session.ipynb)、[当前待办](../../todo-list.md)。
+
 ## 2026-10-24 - 恢复项目网关实连施工
 
 - Decision: 用户要求继续按文档打通项目网关到真实云模型，在需要时通知其开Colab；先完成本地准备，不自行分配GPU。

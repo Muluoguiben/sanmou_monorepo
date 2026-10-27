@@ -1,0 +1,98 @@
+{
+  "schema": "sanmou-live-gateway-offline-verification-v1",
+  "status": "passed",
+  "checked_at_utc": "2026-10-27T06:00:58.500282+00:00",
+  "source_commit": "a1ab51e5ab3df30fd3da749b3e52502053f4dfae",
+  "evidence_index_sha256": "06db40d56f5157bdac418020fb7d841ffc590d36cc8ad518ec3d133cd08aab8a",
+  "verified_receipt_files": 61,
+  "verified_receipt_bytes": 218880,
+  "verified_source_files": 205,
+  "checks": [
+    "receipt index and exact file set",
+    "gateway index and published summary",
+    "native binding originals",
+    "manifest and receipt hash binding",
+    "all 205 source files match a1ab51e",
+    "model and engine locked",
+    "19 declared dependencies match frozen lock",
+    "actual public configuration and endpoint binding",
+    "policy model fields",
+    "scenario prompt sampling binding",
+    "five gateway responses and two native responses",
+    "rejected without upstream missing_key",
+    "rejected without upstream wrong_key",
+    "rejected without upstream wrong_manifest",
+    "round 1 original HTTP mapping, identity, tools, token usage and logprobs",
+    "round 2 original HTTP mapping, identity, tools, token usage and logprobs",
+    "second request has exact ID-bound tool history",
+    "two calls settled exactly once",
+    "provision artifact binding",
+    "launch configuration binding",
+    "warmup is separate from two gateway calls",
+    "owned service shutdown and retained runtime",
+    "summary scope"
+  ],
+  "manifest_sha256": "30de6366ce431c1f1f1d5bf91bae5a90d963bc65019c827bbcc5adfce88b5c72",
+  "summary_sha256": "69b2d6ba74eaf9ce9b57a6e283fa1bdfd904662899f86ee0c329b02afaa9395f",
+  "scope": "real project gateway to SGLang on the same cloud host, two model rounds with synthetic tool feedback",
+  "rounds": [
+    {
+      "round": 1,
+      "tool_name": "query_knowledge",
+      "arguments": {
+        "query": "gateway_roundtrip_check"
+      },
+      "input_tokens": 480,
+      "output_tokens": 29,
+      "native_logprob_triples": 29,
+      "gateway_http_seconds": 2.8086239019999084,
+      "native_http_seconds": 2.744037816999935
+    },
+    {
+      "round": 2,
+      "tool_name": "complete_task",
+      "arguments": {
+        "reason": "Gateway roundtrip check completed successfully."
+      },
+      "input_tokens": 546,
+      "output_tokens": 33,
+      "native_logprob_triples": 33,
+      "gateway_http_seconds": 1.610030347999782,
+      "native_http_seconds": 1.5460296579999522
+    }
+  ],
+  "gateway_http_statuses": [
+    401,
+    401,
+    409,
+    200,
+    200
+  ],
+  "negative_probes_added_upstream_calls": 0,
+  "budget": {
+    "reserve_calls": 2,
+    "settle_calls": 2,
+    "pending": 0,
+    "overrun": false,
+    "tokens": 1088
+  },
+  "warmup": {
+    "model_calls": 1,
+    "seconds": 103.02720065099993,
+    "result": "READY"
+  },
+  "total_model_calls_in_run": 3,
+  "shutdown": {
+    "owned_process_pid": 11940,
+    "requested_signal": "SIGTERM",
+    "runtime_stopped": false,
+    "exit_code": -9,
+    "gpu_processes_after": ""
+  },
+  "game_input_dispatches": 0,
+  "cross_machine_connection_verified": false,
+  "probability_kind": "unavailable",
+  "ppo_eligible": false,
+  "new_gpu_or_network_calls_by_review": 0,
+  "original_receipts_modified": false
+}

@@ -8,7 +8,7 @@
 
 面向用户的规划和待办用直白中文说明“做什么、怎样算完成”；不使用不直观的自造缩写，不堆叠未解释的术语。必要的接口名、算法名首次出现时解释含义，代码标识、公式和具体约束保持准确。
 
-2026-10-24 Mac第二批已实现HTTP网关／SGLang请求映射、原件绑定的本地训练交接包、三类现有资料的待审准备脚本；[完整CPU Linux验收](docs/test-reports/2026-10-24/mac-batch2.md)1821项中1819通过／2跳过。Colab已完成MCP连接和A100只读探针，真实模型加载／GPU推理仍待实测；不能把硬件查询或本地HTTP假上游计为SV1通过。
+2026-10-24 Mac第二批已实现HTTP网关／SGLang请求映射、原件绑定的本地训练交接包、三类现有资料的待审准备脚本；[完整CPU Linux验收](docs/test-reports/2026-10-24/mac-batch2.md)1821项中1819通过／2跳过。同日另完成[原生模型文本与图片实测](docs/test-reports/2026-10-24/colab-native-smoke.md)。2026-10-27已在Colab同一云宿主跑通[项目网关到真实模型两轮](docs/test-reports/2026-10-27/live-gateway.md)，含鉴权／版本拒绝和token／预算读回，独立复核通过。跨机器客户端、Windows真实工具、Docker与训练仍按根Todo推进，完整SV1尚未通过。
 
 ## Project Overview
 

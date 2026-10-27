@@ -1,6 +1,6 @@
 # Sanmou 文档索引
 
-更新日期：2026-10-24。工作目录：`/Users/lanull/dev/sanmou_monorepo`。
+更新日期：2026-10-27。工作目录：`/Users/lanull/dev/sanmou_monorepo`。
 
 ## 先读这两份
 
@@ -11,7 +11,9 @@
 
 ## 分类查阅
 
-项目网关真实模型联调已完成[CPU准备验收](test-reports/2026-10-24/live-gateway-preparation.md)：Mac专项66项、CPU Linux相关234项及`a1ab51e`四个CI作业通过，实际源码包已校验。已通知用户开启Colab，真实网关实测仍待执行；见[当前待办](../todo-list.md)和[联调步骤](runbooks/live-gateway-colab.md)。
+2026-10-27已完成[项目网关到真实云模型两轮验收](test-reports/2026-10-27/live-gateway.md)：同一Colab A100宿主内的完整项目HTTP链路、三类拒绝、原生token与预算读回通过，独立复核完成；另存[本轮笔记本代码备份](test-reports/2026-10-27/colab-gateway-session.ipynb)。后续推进跨机器客户端、Windows工具与完整部署／训练验收。
+
+项目网关的[CPU准备验收](test-reports/2026-10-24/live-gateway-preparation.md)记录Mac专项66项、CPU Linux相关234项及`a1ab51e`四个CI作业通过；后续真实实测见上方2026-10-27报告。当前队列与操作入口见[待办](../todo-list.md)和[联调步骤](runbooks/live-gateway-colab.md)。
 
 2026-10-24今晚收工：[今日成果与明日验收条件](test-reports/2026-10-24/colab-native-smoke.md)、[根待办](../todo-list.md)已更新。A100运行时已按用户确认删除；明天下次开工先重建环境，第一优先级为项目网关连接真实云模型。`14b209b`的四个CI作业均通过；不把已有本地合成HTTP与原生GPU请求合并记成真实项目全链路通过。
 
