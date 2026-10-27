@@ -6,11 +6,15 @@
 
 本入口先在同一云Linux宿主运行项目客户端、网关与SGLang，两个HTTP连接都使用回环地址。它验证项目接口到真实模型，不把Mac／Windows跨机器访问、Docker、完整SV1、J2或PPO标为通过。
 
+2026-10-27此项已完成，见[真实两轮报告](../test-reports/2026-10-27/live-gateway.md)与[笔记本代码备份](../test-reports/2026-10-27/colab-gateway-session.ipynb)。以下步骤继续作为重建入口。
+
 上次Colab运行时已删除。先完成本地源码和模拟验证，准备好后再通知用户开启A100 80GB；不能使用旧端口、凭据或`/content`路径。用户开启后，重新查询GPU、已有进程、Python与磁盘，条件不满足即停止准备。
 
 ## 源码与环境准备
 
 从已经提交的整合版本生成新源码包，步骤见[启动包说明](../../scripts/model-serving/colab_gateway_README.md)。只导出允许的源码与前轮冻结清单，没有Git历史、私钥或未跟踪文件。默认`prepare`只校验和解包；`provision`在已经存在的运行时中创建独立Python3.12环境、安装固定依赖、检查导入并下载固定模型，不自行开卡或启动服务。
+
+上传目录严格只放五个包文件。运行日志、控制脚本和Python导入缓存放在独立目录，不把`bootstrap-run.log`或`__pycache__`写进bundle目录；本轮曾因日志混放被包校验拒绝，分开目录后恢复。
 
 `agent_harness`和`mcp_server`保留原公共导出，但仅在请求相应服务／客户端时加载可选SDK。模型网关只复用任务与预算合同，不需要因包初始化而加载视觉provider和MCP stdio客户端。独立环境沿用前轮SGLang锁；不会给它安装完整桌面／游戏依赖或修改原Colab base环境。
 

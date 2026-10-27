@@ -1,22 +1,28 @@
 # Todo List
 
-更新：2026-10-24。依据：[规划 v10](docs/sanmou-multimodal-agent-plan-2026-10-23-v10.md) · [MS0 接口约定 v4](docs/contracts/harness-ms0-episode-contract-v4.md)。已有的只读任务调度和知识问答功能继续复用，下面列的是需要补齐的工作。
+更新：2026-10-27。依据：[规划 v10](docs/sanmou-multimodal-agent-plan-2026-10-23-v10.md) · [MS0 接口约定 v4](docs/contracts/harness-ms0-episode-contract-v4.md)。已有的只读任务调度和知识问答功能继续复用，下面列的是需要补齐的工作。
 
 历史进展与验收记录见[历史归档](docs/archive/todo-history/2026-10-23.md)。下面的大阶段保留整体验收状态；Mac 首批本地实现单独记录，不把模拟结果算成云 GPU 或 Windows 实机通过。
 
-## 当前施工：项目网关连接真实云模型
+## 2026-10-27 已完成：项目网关连接真实云模型
 
-用户已要求继续，先完成CPU准备，确实需要GPU时再通知用户开启Colab。起点`aa70e48`；工作树根目录`/private/tmp/sanmou-live-gateway.PUqwzu/`。上次运行时已删除，当前不假定有可用GPU或旧连接。
+用户重新开启A100后，从已提交`a1ab51e`恢复源码包和独立环境，在同一Colab云宿主完成实际项目网关两轮。客户端→网关→SGLang走真实回环HTTP，独立复核通过；见[实测报告](docs/test-reports/2026-10-27/live-gateway.md)。本轮工作树为`/private/tmp/sanmou-live-20261027.xNRqrH/integration`，未使用主仓未跟踪设计草稿。
 
 | 状态 | 负责人／分支／目录 | 本次交付与验收 |
 |---|---|---|
-| [ ] 进行中 | Mac主管；`feat/mac-live-gateway-integration`；`integration/` | 统一接口、组合验收、通知用户开Colab后运行并保存真实证据、独立复核及合并提交 |
-| [x] CPU实现完成 | 接口agent；`feat/mac-live-gateway-runner`；`runner/` | 复用现有adapter／HTTP／gateway／SGLang backend；联调入口已通过合成TCP两轮、拒绝请求与预算／原件检查；真实GPU待运行 |
-| [x] CPU实现完成 | 部署agent；`feat/mac-live-gateway-deploy`；`deploy/` | 独立native运行声明与PolicyManifest绑定、模型／配置／源码校验已实现；本轮实际云环境采集待执行 |
-| [x] CPU实现完成 | 启动包agent；`feat/mac-live-gateway-bootstrap`；`bootstrap/` | 固定提交导出与独立环境重建脚本通过；排除.git历史／凭据，实际上传与云端安装待执行 |
-| [x] 实现及CPU复核完成 | 独立review agent／启动包review agent | 捕获／token／版本／目录置换／失败成功标记等问题闭环；合并后Mac专项66项、Linux相关234项通过，云端原件仍待独立复核 |
+| [x] 子项验收完成 | Mac主管；`feat/mac-live-gateway-20261027` | 两轮真实网关请求通过，61份原件已读回；错误请求不上游，预算各预留／结算2次，合计1088 token |
+| [x] 真实联调完成 | 接口agent／主管 | 三类拒绝401／401／409；两轮480＋29和546＋33 token，HTTP耗时2.809／1.610秒 |
+| [x] 实际采集完成 | 部署agent／主管 | 重新核对13份模型、205份源码、19项依赖及公开配置，生成并验证本轮native绑定 |
+| [x] 云端重建完成 | 启动包agent／主管 | 恢复固定源码包，独立Python3.12环境、导入检查与固定模型下载全部通过 |
+| [x] 原件复核完成 | 独立review agent | 内外索引、模型与源码绑定、两轮历史、token／usage／概率记录和预算逐项吻合 |
 
-CPU合成验证与云GPU真实验收分别记录。整合版本`a1ab51e`已提交推送且四个CI作业通过；实际205文件上传包已导出、解包、校验导入及场景hash，用户已被通知开启A100。网关需要的任务／预算导入已与可选Vision／MCP SDK解耦，原公共导出兼容，原SGLang依赖锁不变。本轮真实模型链路仍待开卡后验收，见[CPU准备报告](docs/test-reports/2026-10-24/live-gateway-preparation.md)与[联调说明](docs/runbooks/live-gateway-colab.md)。Linux测试后只更新了一处native说明文档，所有代码与测试保持已测字节。
+本轮新增3次真实模型请求（1次原生预热＋2次网关生成），无游戏输入。源码`a1ab51e`未修改，CPU准备阶段的66项Mac专项／234项Linux相关测试及四作业CI不重复计数。原始证据、报告及[笔记本代码备份](docs/test-reports/2026-10-27/colab-gateway-session.ipynb)已保存。模型服务已停止，Colab运行时暂时保留。
+
+接续待办：
+
+- [ ] 建立Mac／Windows到云端网关的受控连接，再串联Windows本地工具（J2）。
+- [ ] 补齐后端超时／取消／断连与并发实测，以及Docker GPU部署，完成SV1其余要求。
+- [ ] 使用真实游戏截图评测感知效果；QA人工审核、远程训练交接和TV1–TV4／PPO仍按原队列推进。
 
 ## 上次收工与下次优先级（2026-10-24交接）
 
