@@ -6,8 +6,6 @@
 
 ## 当前施工：项目网关连接真实云模型
 
-设计交付（2026-10-27）：[三谋 Personal Agent 可点击原型 v2](docs/design/personal-agent-v2/index.html)与[页面总览](docs/design/personal-agent-v2/screens.html)已完成。按温和渐变、对话优先设计，包含8个主要页面及任务确认、暂停／取消／接管、断连恢复和资料审核。所有操作使用示例数据；现有GPU、Windows与训练待办状态不变，业务实现后续按本清单推进。[v1](docs/design/personal-agent-v1/index.html)保留作视觉对比。
-
 用户已要求继续，先完成CPU准备，确实需要GPU时再通知用户开启Colab。起点`aa70e48`；工作树根目录`/private/tmp/sanmou-live-gateway.PUqwzu/`。上次运行时已删除，当前不假定有可用GPU或旧连接。
 
 | 状态 | 负责人／分支／目录 | 本次交付与验收 |

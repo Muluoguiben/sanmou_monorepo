@@ -11,8 +11,6 @@
 
 ## 分类查阅
 
-2026-10-27 新增[Personal Agent 交互设计](design/README.md)：[v2 可点击原型](design/personal-agent-v2/index.html)与[完整页面预览](design/personal-agent-v2/screens.html)。采用用户指定的温和渐变风格；覆盖8个主要页面、PVE／PVP场景与任务／审核／接管等交互。仅设计示例，不代表业务功能已实现；v1工作台版保留对比。
-
 项目网关真实模型联调已完成[CPU准备验收](test-reports/2026-10-24/live-gateway-preparation.md)：Mac专项66项、CPU Linux相关234项及`a1ab51e`四个CI作业通过，实际源码包已校验。已通知用户开启Colab，真实网关实测仍待执行；见[当前待办](../todo-list.md)和[联调步骤](runbooks/live-gateway-colab.md)。
 
 2026-10-24今晚收工：[今日成果与明日验收条件](test-reports/2026-10-24/colab-native-smoke.md)、[根待办](../todo-list.md)已更新。A100运行时已按用户确认删除；明天下次开工先重建环境，第一优先级为项目网关连接真实云模型。`14b209b`的四个CI作业均通过；不把已有本地合成HTTP与原生GPU请求合并记成真实项目全链路通过。
