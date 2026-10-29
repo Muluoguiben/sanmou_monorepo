@@ -1,0 +1,89 @@
+{
+  "schema": "sanmou-gpu-resilience-evidence-v1",
+  "files": {
+    "baseline.json": {
+      "bytes": 681,
+      "sha256": "61e72a4e915b7c784a03d90b5adc86c331be5977754f49dc12f3dec0891fae96"
+    },
+    "concurrency-result.json": {
+      "bytes": 1636,
+      "sha256": "9b903d159ab34a1e74925416010b58a2abb5d46f15ff34116a4112cf1ff89143"
+    },
+    "disconnect-result.json": {
+      "bytes": 1572,
+      "sha256": "7151adee72886b51e8670569bb5e93d4c725e6a39eac4acdbd440433c9f86213"
+    },
+    "fixture-status.json": {
+      "bytes": 549,
+      "sha256": "ce500fdbf20381e93a4e6f2ebb8ccc5e5c81cf06b64e62e646d42b4f9c1b6585"
+    },
+    "long-baseline.py": {
+      "bytes": 3095,
+      "sha256": "ea9c38022e1b8f1cc5426e38e0a0aca91d668085b1dbaa69728e9fbd2c431844"
+    },
+    "long-binding/policy-manifest.json": {
+      "bytes": 991,
+      "sha256": "e17451e37d75087d02c76fc90932b41c2067f7465097c1f5b6d1d3813607f59b"
+    },
+    "long-binding/runtime-receipt.json": {
+      "bytes": 37260,
+      "sha256": "a2f217a1487a1e6cdbdf47c0dc23f47768defe4e46e21ad6baf99672e258ad84"
+    },
+    "policy-request.json": {
+      "bytes": 3193,
+      "sha256": "d36c56cbb3c5acb4bfe8090dd91f9e14bcfa1d7897fd68e6b97141ce28a9172e"
+    },
+    "prepare-longrun-fixture.py": {
+      "bytes": 8191,
+      "sha256": "81f97fdde59f37cc0fcd57dcfb4fc0c76750722ca3027bb4d7c4e27f0b22a817"
+    },
+    "prompt-fixture.json": {
+      "bytes": 1266,
+      "sha256": "c4191c534954adad86be42d4f79d6a0afca5efa5715d429723cc30e83c85ab90"
+    },
+    "provision-status.json": {
+      "bytes": 7335,
+      "sha256": "52096f2f93f819fa150e5c346debd3cce23fe2bcf2998d0b5c9267dd685b55d1"
+    },
+    "public-runtime.json": {
+      "bytes": 874,
+      "sha256": "9274c183ee4d3625bdffd6728258a328e1c06e8cf4e8cfcd5c989df0fcd23437"
+    },
+    "ready.json": {
+      "bytes": 452,
+      "sha256": "8f0333c7130e75c076996790dfb654509b8f3b40384692e491129d95d0f56a63"
+    },
+    "recovery-mac-results.json": {
+      "bytes": 39307,
+      "sha256": "8a5f3ca9dcd3abe0e8536c88d0b3d7a2b82a6a3090053ecac076bcc6a1a8f43f"
+    },
+    "restart-binding/policy-manifest.json": {
+      "bytes": 991,
+      "sha256": "44d1d5222c069cbc268b7e0f79a6e4efe2c2bc89991fc1d82b46f563b8224af4"
+    },
+    "restart-binding/runtime-receipt.json": {
+      "bytes": 37260,
+      "sha256": "18fbeac3a5b01c9d88d40887108ca15fb3d84f101358f7e839b571de9b281fb6"
+    },
+    "run-probe-remote.py": {
+      "bytes": 1593,
+      "sha256": "65690428ce17039569a3b9a27017c32d9bf96de1c098cf8910919cd3b19dcf1b"
+    },
+    "runtime-release-check.json": {
+      "bytes": 89,
+      "sha256": "5d814f542103e9baffba06ae20215b02776172e3244cf025a44eb454c83c2818"
+    },
+    "sampling.json": {
+      "bytes": 185,
+      "sha256": "c2a2a1dc6fa7c17e610710d190ea2008919f7902f1dff851a2efe231b0b4ba6d"
+    },
+    "shutdown.json": {
+      "bytes": 184,
+      "sha256": "266ecdc508003d106117743b2da406c853714e6b11a85732c66f71439c68eac7"
+    },
+    "timeout-result.json": {
+      "bytes": 1553,
+      "sha256": "0ba94118402f875e30429167fe087f77a63ee68bcca8b87fc9497e4f16f62bca"
+    }
+  }
+}

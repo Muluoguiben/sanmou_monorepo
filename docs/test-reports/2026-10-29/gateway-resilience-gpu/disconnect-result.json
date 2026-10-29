@@ -1,0 +1,51 @@
+{
+  "mode": "disconnect",
+  "status": null,
+  "request_sha256": "3fe9f145d5957a01f02b701268e1854749463288f6a2521ff792f51a0927e3c9",
+  "second_request_sha256": null,
+  "gateway_counts": {
+    "accepted": 1,
+    "succeeded": 0,
+    "failed": 0,
+    "timeout": 0,
+    "cancelled": 1
+  },
+  "backend_idle_and_native_load_zero": true,
+  "engine_abort_verified": false,
+  "engine_abort_reason": "native_request_id_and_decode_stop_not_observed",
+  "outcome": "observed",
+  "schema": "gateway-resilience-probe-v1",
+  "manifest_sha256": "a208cde6e8797e3b70704abd8a502487f6518e5caed8b4a008bac535860dc126",
+  "binding_sha256": "a2f217a1487a1e6cdbdf47c0dc23f47768defe4e46e21ad6baf99672e258ad84",
+  "prompt_sha256": "fc5252f5f080d9c1df945628fe1a07f007c9e9667d2c4a0bf6e51c0631e8d433",
+  "sampling_sha256": "cc1183026e9e6ced2d0ba050a80c0cda28d78ac2f4464e0635e230f9d9200b87",
+  "events": [
+    {
+      "kind": "backend_enter",
+      "invocation": "probe-disconnect-a",
+      "monotonic": 2374.041371834
+    },
+    {
+      "kind": "native_http_body_sent",
+      "invocation": "probe-disconnect-a",
+      "monotonic": 2374.043221007
+    },
+    {
+      "kind": "native_running_observed",
+      "invocation": "probe-disconnect-a",
+      "monotonic": 2374.198117872
+    },
+    {
+      "kind": "backend_cancelled",
+      "invocation": "probe-disconnect-a",
+      "monotonic": 2374.207087054
+    },
+    {
+      "kind": "backend_exit",
+      "invocation": "probe-disconnect-a",
+      "monotonic": 2374.207090519
+    }
+  ],
+  "native_observer": "isolated_v1_loads",
+  "game_input_dispatches": 0
+}

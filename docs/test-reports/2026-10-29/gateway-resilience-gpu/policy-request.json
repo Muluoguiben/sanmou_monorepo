@@ -1,0 +1,92 @@
+{
+  "schema_version": "policy-service-v1",
+  "episode_id": "synthetic-longrun",
+  "run_id": "synthetic-longrun",
+  "decision_id": "decision-longrun",
+  "invocation_id": "invocation-longrun",
+  "context_id": "context-longrun",
+  "task_ref": "synthetic-longrun-v1",
+  "binding_ref": "a2f217a1487a1e6cdbdf47c0dc23f47768defe4e46e21ad6baf99672e258ad84",
+  "observation_ref": "synthetic-no-game-observation",
+  "estimated_input_tokens": 1024,
+  "reserved_output_tokens": 2048,
+  "manifest": {
+    "schema_version": "policy-manifest-v1",
+    "policy_id": "sanmou-qwen35-9b-gateway@native-sha256:313618e16396cb659d5d7703ecfa52d2c84983c1c98b837333b64ee6fde5367a",
+    "model": "sanmou-qwen35-9b-gateway",
+    "checkpoint_revision": "sha256:99b9436a621d009d9d0945d072a0eb0a4afe5f451b37ef60734b0a7b95677876",
+    "adapter_revision": "none",
+    "tokenizer_revision": "sha256:5bc92a7b180bf860d60e2553d88eb7dc8ea12ab88201bbeb500ad232442247d2",
+    "chat_template_revision": "sha256:a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+    "prompt_revision": "sha256:fc5252f5f080d9c1df945628fe1a07f007c9e9667d2c4a0bf6e51c0631e8d433",
+    "model_context_limit": 8192,
+    "sampling": {
+      "frequency_penalty": 0.0,
+      "min_p": 0.0,
+      "presence_penalty": 0.0,
+      "repetition_penalty": 1.0,
+      "seed": 0,
+      "stop": null,
+      "temperature": 0.0,
+      "top_k": -1,
+      "top_p": 1.0
+    }
+  },
+  "messages": [
+    {
+      "content": "This is a synthetic performance test, unrelated to any game or user data. Return exactly one complete_task tool call, with no prose outside the tool call. In its reason string, write 180 numbered, distinct, fictional observations. Each observation should be a full sentence of roughly 10 words about imaginary colors, shapes, weather, and numbers. Include all 180 observations in the single reason field. Never request or execute any game input.",
+      "role": "system"
+    },
+    {
+      "content": "Produce the long synthetic reason now; use one complete_task call.",
+      "role": "user"
+    }
+  ],
+  "tools": [
+    {
+      "function": {
+        "description": "Read the fixed gateway-check fixture.",
+        "name": "query_knowledge",
+        "parameters": {
+          "additionalProperties": false,
+          "properties": {
+            "query": {
+              "minLength": 1,
+              "title": "Query",
+              "type": "string"
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "title": "QueryKnowledgeArguments",
+          "type": "object"
+        }
+      },
+      "type": "function"
+    },
+    {
+      "function": {
+        "description": "Propose completion after receiving the fixture response.",
+        "name": "complete_task",
+        "parameters": {
+          "additionalProperties": false,
+          "properties": {
+            "reason": {
+              "minLength": 1,
+              "title": "Reason",
+              "type": "string"
+            }
+          },
+          "required": [
+            "reason"
+          ],
+          "title": "CompleteTaskArguments",
+          "type": "object"
+        }
+      },
+      "type": "function"
+    }
+  ],
+  "knowledge": null
+}

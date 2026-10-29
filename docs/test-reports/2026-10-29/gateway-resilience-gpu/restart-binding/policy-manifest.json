@@ -1,0 +1,16 @@
+{
+  "schema_version": "policy-manifest-v1",
+  "policy_id": "sanmou-qwen35-9b-gateway@native-sha256:209b21751214656d435546680a15495904c8102014cef05c7cadfe19eaf06d81",
+  "model": "sanmou-qwen35-9b-gateway",
+  "checkpoint_revision": "sha256:99b9436a621d009d9d0945d072a0eb0a4afe5f451b37ef60734b0a7b95677876",
+  "adapter_revision": "none",
+  "tokenizer_revision": "sha256:5bc92a7b180bf860d60e2553d88eb7dc8ea12ab88201bbeb500ad232442247d2",
+  "chat_template_revision": "sha256:a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+  "prompt_revision": "sha256:725ca696214f9e2c924582772b434f7a88e9f5cad2e68f63f8fca46d6dd28674",
+  "sampling": {
+    "schema_version": "sealed-json-v1",
+    "payload": "{\"frequency_penalty\":0.0,\"min_p\":0.0,\"presence_penalty\":0.0,\"repetition_penalty\":1.0,\"seed\":0,\"stop\":null,\"temperature\":0.0,\"top_k\":-1,\"top_p\":1.0}",
+    "sha256": "cc1183026e9e6ced2d0ba050a80c0cda28d78ac2f4464e0635e230f9d9200b87"
+  },
+  "model_context_limit": 8192
+}

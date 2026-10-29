@@ -11,6 +11,8 @@
 
 ## 分类查阅
 
+2026-10-29 已在 CLI 创建的 A100 上验证网关并发拒绝、超时与断连后的后端协程清理，以及 Mac 客户端恢复；引擎请求级取消和跨机器断网仍待验收，见[验收记录](test-reports/2026-10-29/gateway-resilience-preparation.md)。
+
 2026-10-29 Mac 通过受控 SSH 隧道访问 Colab 项目网关并完成真实模型两轮；见[实测报告](test-reports/2026-10-29/mac-colab-gateway.md)与[Mac SSH 接入手册](runbooks/colab-mac-ssh.md)。Windows 与真实工具链仍待验收。
 
 2026-10-27已完成[项目网关到真实云模型两轮验收](test-reports/2026-10-27/live-gateway.md)：同一Colab A100宿主内的完整项目HTTP链路、三类拒绝、原生token与预算读回通过，独立复核完成；另存[本轮笔记本代码备份](test-reports/2026-10-27/colab-gateway-session.ipynb)。后续推进跨机器客户端、Windows工具与完整部署／训练验收。

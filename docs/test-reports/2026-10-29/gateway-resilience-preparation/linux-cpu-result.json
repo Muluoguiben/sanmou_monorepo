@@ -1,0 +1,20 @@
+{
+  "schema": "sanmou-linux-cpu-proc-smoke-v1",
+  "run_exit": 0,
+  "linux_result": {
+    "result": "passed",
+    "source_sha256": "8e2769a64ef2a9b911c5be34ac3061c42ca5bc9da9cea71730668dd9dc9e4b16",
+    "owned_listener": true,
+    "foreign_listener_rejected": true,
+    "wildcard_listener_rejected": true,
+    "foreign_requests": 0,
+    "wildcard_requests": 0,
+    "gateway_health_verified": true,
+    "owned_groups_stopped": true
+  },
+  "sessions_read_success": true,
+  "baseline_count": 1,
+  "post_count": 1,
+  "new_session_lines_remaining": 0,
+  "baseline_lines_missing": 0
+}

@@ -1,0 +1,26 @@
+{
+  "schema": "long-baseline-v1",
+  "http_status": 200,
+  "seconds": 100.429,
+  "request_sha256": "d07c4c55b36316ab821180fea9ff6f65d1fba635e8231516c8771b1636b7d28c",
+  "prompt_sha256": "fc5252f5f080d9c1df945628fe1a07f007c9e9667d2c4a0bf6e51c0631e8d433",
+  "manifest_sha256": "a208cde6e8797e3b70704abd8a502487f6518e5caed8b4a008bac535860dc126",
+  "gateway_counts": {
+    "accepted": 1,
+    "succeeded": 1,
+    "failed": 0,
+    "timeout": 0,
+    "cancelled": 0
+  },
+  "game_input_dispatches": 0,
+  "usage": {
+    "input_tokens": 512,
+    "output_tokens": 2048,
+    "cost": null
+  },
+  "finish_reason": "length",
+  "tool_names": [
+    "complete_task"
+  ],
+  "output_token_count": 2048
+}
