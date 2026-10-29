@@ -1,0 +1,37 @@
+{
+  "schema": "sanmou-mac-colab-gateway-evidence-v1",
+  "files": {
+    "mac-client-results.json": {
+      "bytes": 39311,
+      "sha256": "8b60b8050bfd1f855d831de0f2c49e475e5fce8ee7d63ffa4a8d3b9d7dbb4b07"
+    },
+    "policy-manifest.json": {
+      "bytes": 991,
+      "sha256": "b9e4037eb1ada77336248c463ac9855e8fd63d13ab42566e83423b128ad5946c"
+    },
+    "runtime-receipt.json": {
+      "bytes": 37260,
+      "sha256": "036b17cdcf0dcdfbaf9a7515202832cd4b1eb690fce1f722b66142b6174d0fca"
+    },
+    "mac-client.py": {
+      "bytes": 4611,
+      "sha256": "b8575b3145603967c1247974cf770005229fdfff7a70df2a73d73a3c34c8d4fc"
+    },
+    "cloud-start.py": {
+      "bytes": 5310,
+      "sha256": "490f071eb27a0a87931cd550c61a81e1725afe7ec6623f70f3e8856dc2b6affb"
+    },
+    "negative-probes.json": {
+      "bytes": 12419,
+      "sha256": "eff403dd039f044c593e25bd03d649bc9bdd8cd21396678f245706b228f048e2"
+    },
+    "shutdown-recheck.json": {
+      "bytes": 140,
+      "sha256": "003ecbd3c8de5b4cd4e147babc4c55152bba1d783172ea06722b969beea6499d"
+    },
+    "helper-tunnel.txt": {
+      "bytes": 188,
+      "sha256": "69ebe2f47a3c8c3d60697c26a3aeac35c3e78bd1159199a6df32b5775bc7085e"
+    }
+  }
+}

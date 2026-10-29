@@ -1,6 +1,6 @@
 # Sanmou 文档索引
 
-更新日期：2026-10-27。工作目录：`/Users/lanull/dev/sanmou_monorepo`。
+更新日期：2026-10-29。工作目录：`/Users/lanull/dev/sanmou_monorepo`。
 
 ## 先读这两份
 
@@ -10,6 +10,8 @@
 当前规划是v10，接口说明是v4；技术选择、每步工具调用规则和奖励公式不变。任务数据格式仍叫v3.ms0，新增ppo-token-gae-v1，用于将轨迹转换成训练数据。v10补齐跨步骤GAE、奖励归属和采样中断处理，明确TV2必须在最终verl训练程序中验证，以及MS7前的R1–R6恢复清单。旧版已归档；开发顺序见[根待办](../todo-list.md)，尚未实现的功能仍标为待做。
 
 ## 分类查阅
+
+2026-10-29 Mac 通过受控 SSH 隧道访问 Colab 项目网关并完成真实模型两轮；见[实测报告](test-reports/2026-10-29/mac-colab-gateway.md)与[Mac SSH 接入手册](runbooks/colab-mac-ssh.md)。Windows 与真实工具链仍待验收。
 
 2026-10-27已完成[项目网关到真实云模型两轮验收](test-reports/2026-10-27/live-gateway.md)：同一Colab A100宿主内的完整项目HTTP链路、三类拒绝、原生token与预算读回通过，独立复核完成；另存[本轮笔记本代码备份](test-reports/2026-10-27/colab-gateway-session.ipynb)。后续推进跨机器客户端、Windows工具与完整部署／训练验收。
 

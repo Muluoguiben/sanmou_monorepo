@@ -1,0 +1,325 @@
+{
+  "schema": "sanmou-crosshost-negative-probes-v1",
+  "manifest_sha256": "53a37f2758b0f936de6af2ed27304e71d9ddf13ddf591224eaf96418de058a7c",
+  "binding_sha256": "036b17cdcf0dcdfbaf9a7515202832cd4b1eb690fce1f722b66142b6174d0fca",
+  "scenario_prompt_sha256": "725ca696214f9e2c924582772b434f7a88e9f5cad2e68f63f8fca46d6dd28674",
+  "auth_headers_recorded": false,
+  "dynamic_upstream_observed": false,
+  "probes": [
+    {
+      "name": "missing_key",
+      "status_code": 401,
+      "expected_status_code": 401,
+      "request_sha256": "05e1bdf826b2c3eddf0729bc6cfe28e04a1ca98ebeda85972bb66532f0098030",
+      "request_payload": {
+        "binding_ref": "036b17cdcf0dcdfbaf9a7515202832cd4b1eb690fce1f722b66142b6174d0fca",
+        "context_id": "negative-valid",
+        "decision_id": "negative-valid",
+        "episode_id": "mac-colab-gateway-check",
+        "estimated_input_tokens": 1024,
+        "invocation_id": "negative-valid",
+        "knowledge": null,
+        "manifest": {
+          "adapter_revision": "none",
+          "chat_template_revision": "sha256:a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+          "checkpoint_revision": "sha256:99b9436a621d009d9d0945d072a0eb0a4afe5f451b37ef60734b0a7b95677876",
+          "model": "sanmou-qwen35-9b-gateway",
+          "model_context_limit": 8192,
+          "policy_id": "sanmou-qwen35-9b-gateway@native-sha256:aeb4a533c34ad57731ae2e80cef091fe5971eb8f86bebdbaf0678f14d67f6593",
+          "prompt_revision": "sha256:725ca696214f9e2c924582772b434f7a88e9f5cad2e68f63f8fca46d6dd28674",
+          "sampling": {
+            "frequency_penalty": 0.0,
+            "min_p": 0.0,
+            "presence_penalty": 0.0,
+            "repetition_penalty": 1.0,
+            "seed": 0,
+            "stop": null,
+            "temperature": 0.0,
+            "top_k": -1,
+            "top_p": 1.0
+          },
+          "schema_version": "policy-manifest-v1",
+          "tokenizer_revision": "sha256:5bc92a7b180bf860d60e2553d88eb7dc8ea12ab88201bbeb500ad232442247d2"
+        },
+        "messages": [
+          {
+            "content": "You are checking a policy gateway. Return exactly one tool call per turn and no prose. First call query_knowledge with query set to gateway_roundtrip_check. After receiving that tool's response, call complete_task with a short nonempty reason. Never request or execute game input.",
+            "role": "system"
+          },
+          {
+            "content": "Check the gateway tool roundtrip: query the fixture, then propose completion after its tool response.",
+            "role": "user"
+          }
+        ],
+        "observation_ref": "synthetic-no-game-observation",
+        "reserved_output_tokens": 192,
+        "run_id": "mac-colab-gateway-check",
+        "schema_version": "policy-service-v1",
+        "task_ref": "query-then-complete-v1",
+        "tools": [
+          {
+            "function": {
+              "description": "Read the fixed gateway-check fixture.",
+              "name": "query_knowledge",
+              "parameters": {
+                "additionalProperties": false,
+                "properties": {
+                  "query": {
+                    "minLength": 1,
+                    "title": "Query",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "query"
+                ],
+                "title": "QueryKnowledgeArguments",
+                "type": "object"
+              }
+            },
+            "type": "function"
+          },
+          {
+            "function": {
+              "description": "Propose completion after receiving the fixture response.",
+              "name": "complete_task",
+              "parameters": {
+                "additionalProperties": false,
+                "properties": {
+                  "reason": {
+                    "minLength": 1,
+                    "title": "Reason",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "reason"
+                ],
+                "title": "CompleteTaskArguments",
+                "type": "object"
+              }
+            },
+            "type": "function"
+          }
+        ]
+      },
+      "response_body": {
+        "error": {
+          "code": "unauthorized"
+        }
+      },
+      "seconds": 0.5023975000076462,
+      "passed": true
+    },
+    {
+      "name": "wrong_key",
+      "status_code": 401,
+      "expected_status_code": 401,
+      "request_sha256": "05e1bdf826b2c3eddf0729bc6cfe28e04a1ca98ebeda85972bb66532f0098030",
+      "request_payload": {
+        "binding_ref": "036b17cdcf0dcdfbaf9a7515202832cd4b1eb690fce1f722b66142b6174d0fca",
+        "context_id": "negative-valid",
+        "decision_id": "negative-valid",
+        "episode_id": "mac-colab-gateway-check",
+        "estimated_input_tokens": 1024,
+        "invocation_id": "negative-valid",
+        "knowledge": null,
+        "manifest": {
+          "adapter_revision": "none",
+          "chat_template_revision": "sha256:a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+          "checkpoint_revision": "sha256:99b9436a621d009d9d0945d072a0eb0a4afe5f451b37ef60734b0a7b95677876",
+          "model": "sanmou-qwen35-9b-gateway",
+          "model_context_limit": 8192,
+          "policy_id": "sanmou-qwen35-9b-gateway@native-sha256:aeb4a533c34ad57731ae2e80cef091fe5971eb8f86bebdbaf0678f14d67f6593",
+          "prompt_revision": "sha256:725ca696214f9e2c924582772b434f7a88e9f5cad2e68f63f8fca46d6dd28674",
+          "sampling": {
+            "frequency_penalty": 0.0,
+            "min_p": 0.0,
+            "presence_penalty": 0.0,
+            "repetition_penalty": 1.0,
+            "seed": 0,
+            "stop": null,
+            "temperature": 0.0,
+            "top_k": -1,
+            "top_p": 1.0
+          },
+          "schema_version": "policy-manifest-v1",
+          "tokenizer_revision": "sha256:5bc92a7b180bf860d60e2553d88eb7dc8ea12ab88201bbeb500ad232442247d2"
+        },
+        "messages": [
+          {
+            "content": "You are checking a policy gateway. Return exactly one tool call per turn and no prose. First call query_knowledge with query set to gateway_roundtrip_check. After receiving that tool's response, call complete_task with a short nonempty reason. Never request or execute game input.",
+            "role": "system"
+          },
+          {
+            "content": "Check the gateway tool roundtrip: query the fixture, then propose completion after its tool response.",
+            "role": "user"
+          }
+        ],
+        "observation_ref": "synthetic-no-game-observation",
+        "reserved_output_tokens": 192,
+        "run_id": "mac-colab-gateway-check",
+        "schema_version": "policy-service-v1",
+        "task_ref": "query-then-complete-v1",
+        "tools": [
+          {
+            "function": {
+              "description": "Read the fixed gateway-check fixture.",
+              "name": "query_knowledge",
+              "parameters": {
+                "additionalProperties": false,
+                "properties": {
+                  "query": {
+                    "minLength": 1,
+                    "title": "Query",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "query"
+                ],
+                "title": "QueryKnowledgeArguments",
+                "type": "object"
+              }
+            },
+            "type": "function"
+          },
+          {
+            "function": {
+              "description": "Propose completion after receiving the fixture response.",
+              "name": "complete_task",
+              "parameters": {
+                "additionalProperties": false,
+                "properties": {
+                  "reason": {
+                    "minLength": 1,
+                    "title": "Reason",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "reason"
+                ],
+                "title": "CompleteTaskArguments",
+                "type": "object"
+              }
+            },
+            "type": "function"
+          }
+        ]
+      },
+      "response_body": {
+        "error": {
+          "code": "unauthorized"
+        }
+      },
+      "seconds": 0.2503347090096213,
+      "passed": true
+    },
+    {
+      "name": "wrong_manifest",
+      "status_code": 409,
+      "expected_status_code": 409,
+      "request_sha256": "9e926951333f09845292752855ec0b70bc87fdec2ef78950924f1ba2ba918c0d",
+      "request_payload": {
+        "binding_ref": "036b17cdcf0dcdfbaf9a7515202832cd4b1eb690fce1f722b66142b6174d0fca",
+        "context_id": "negative-wrong-manifest",
+        "decision_id": "negative-wrong-manifest",
+        "episode_id": "mac-colab-gateway-check",
+        "estimated_input_tokens": 1024,
+        "invocation_id": "negative-wrong-manifest",
+        "knowledge": null,
+        "manifest": {
+          "adapter_revision": "none",
+          "chat_template_revision": "sha256:a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+          "checkpoint_revision": "sha256:99b9436a621d009d9d0945d072a0eb0a4afe5f451b37ef60734b0a7b95677876",
+          "model": "sanmou-qwen35-9b-gateway",
+          "model_context_limit": 8192,
+          "policy_id": "sanmou-qwen35-9b-gateway@native-sha256:aeb4a533c34ad57731ae2e80cef091fe5971eb8f86bebdbaf0678f14d67f6593",
+          "prompt_revision": "0000000000000000000000000000000000000000000000000000000000000000",
+          "sampling": {
+            "frequency_penalty": 0.0,
+            "min_p": 0.0,
+            "presence_penalty": 0.0,
+            "repetition_penalty": 1.0,
+            "seed": 0,
+            "stop": null,
+            "temperature": 0.0,
+            "top_k": -1,
+            "top_p": 1.0
+          },
+          "schema_version": "policy-manifest-v1",
+          "tokenizer_revision": "sha256:5bc92a7b180bf860d60e2553d88eb7dc8ea12ab88201bbeb500ad232442247d2"
+        },
+        "messages": [
+          {
+            "content": "You are checking a policy gateway. Return exactly one tool call per turn and no prose. First call query_knowledge with query set to gateway_roundtrip_check. After receiving that tool's response, call complete_task with a short nonempty reason. Never request or execute game input.",
+            "role": "system"
+          },
+          {
+            "content": "Check the gateway tool roundtrip: query the fixture, then propose completion after its tool response.",
+            "role": "user"
+          }
+        ],
+        "observation_ref": "synthetic-no-game-observation",
+        "reserved_output_tokens": 192,
+        "run_id": "mac-colab-gateway-check",
+        "schema_version": "policy-service-v1",
+        "task_ref": "query-then-complete-v1",
+        "tools": [
+          {
+            "function": {
+              "description": "Read the fixed gateway-check fixture.",
+              "name": "query_knowledge",
+              "parameters": {
+                "additionalProperties": false,
+                "properties": {
+                  "query": {
+                    "minLength": 1,
+                    "title": "Query",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "query"
+                ],
+                "title": "QueryKnowledgeArguments",
+                "type": "object"
+              }
+            },
+            "type": "function"
+          },
+          {
+            "function": {
+              "description": "Propose completion after receiving the fixture response.",
+              "name": "complete_task",
+              "parameters": {
+                "additionalProperties": false,
+                "properties": {
+                  "reason": {
+                    "minLength": 1,
+                    "title": "Reason",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "reason"
+                ],
+                "title": "CompleteTaskArguments",
+                "type": "object"
+              }
+            },
+            "type": "function"
+          }
+        ]
+      },
+      "response_body": {
+        "error": {
+          "code": "policy_version_mismatch"
+        }
+      },
+      "seconds": 0.24996720801573247,
+      "passed": true
+    }
+  ]
+}

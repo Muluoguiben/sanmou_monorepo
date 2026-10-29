@@ -1,0 +1,9 @@
+first attempt:
+tunnel_smoke_failed: TimeoutError remote_ready_timeout
+proxy_http_429: False
+proxy_http_404: False
+
+retry:
+loopback_tunnel_http_200: true
+response_matches: true
+ssh_exit: 0

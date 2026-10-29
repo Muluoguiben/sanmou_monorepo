@@ -1,8 +1,18 @@
 # Todo List
 
-更新：2026-10-27。依据：[规划 v10](docs/sanmou-multimodal-agent-plan-2026-10-23-v10.md) · [MS0 接口约定 v4](docs/contracts/harness-ms0-episode-contract-v4.md)。已有的只读任务调度和知识问答功能继续复用，下面列的是需要补齐的工作。
+更新：2026-10-29。依据：[规划 v10](docs/sanmou-multimodal-agent-plan-2026-10-23-v10.md) · [MS0 接口约定 v4](docs/contracts/harness-ms0-episode-contract-v4.md)。已有的只读任务调度和知识问答功能继续复用，下面列的是需要补齐的工作。
 
 历史进展与验收记录见[历史归档](docs/archive/todo-history/2026-10-23.md)。下面的大阶段保留整体验收状态；Mac 首批本地实现单独记录，不把模拟结果算成云 GPU 或 Windows 实机通过。
+
+## 2026-10-29 已完成：Mac 连接 Colab 真实网关
+
+Mac 本地项目客户端经 SSH 回环隧道访问用户现有 Colab A100 上的项目网关与 Qwen3.5-9B，两轮真实模型请求通过，中间使用固定模拟工具回复；共 1088 token，预算待结算为 0。205 份源码与固定清单逐项一致。见[本轮实测](docs/test-reports/2026-10-29/mac-colab-gateway.md)。
+
+- [x] Mac 到现有 A100 的 SSH 转发和项目客户端真实双轮联通。
+- [x] 核对并停止本任务网关和模型进程组，GPU 计算进程列表为空；Colab 运行时未删除。
+- [ ] 用 Windows 客户端连接云端网关并串联本地工具；本次未验收 Windows 或真实游戏输入。
+- [x] 跨机器无密钥、错密钥和错版本请求分别返回 401、401、409；源码中的拒绝路径位于调用后端之前。
+- [ ] 补本次跨机器负例不上游的动态计数证据，继续测试断连／取消、并发、Docker GPU 和训练流程。
 
 ## 2026-10-27 已完成：项目网关连接真实云模型
 
@@ -20,7 +30,7 @@
 
 接续待办：
 
-- [ ] 建立Mac／Windows到云端网关的受控连接，再串联Windows本地工具（J2）。
+- [ ] 建立Windows到云端网关的受控连接，再串联Windows本地工具（J2）；Mac 受控连接已于2026-10-29完成双轮实测。
 - [ ] 补齐后端超时／取消／断连与并发实测，以及Docker GPU部署，完成SV1其余要求。
 - [ ] 使用真实游戏截图评测感知效果；QA人工审核、远程训练交接和TV1–TV4／PPO仍按原队列推进。
 
