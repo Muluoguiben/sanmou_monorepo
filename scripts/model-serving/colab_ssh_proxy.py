@@ -83,11 +83,12 @@ def main(argv=None):
     args = parser.parse_args(argv)
     if args.operation == 'proxy' and not args.identity:
         parser.error('--identity is required for proxy')
-    logging.disable(logging.CRITICAL)
     captured = io.StringIO()
     old_input = builtins.input
-    builtins.input = _no_input
+    old_disable = logging.root.manager.disable
     try:
+        logging.disable(logging.CRITICAL)
+        builtins.input = _no_input
         # Keep OAuth prompts, proxy URLs and exception details out of stdout and stderr.
         with contextlib.redirect_stdout(captured), contextlib.redirect_stderr(captured):
             from colab_cli.common import state
@@ -120,6 +121,7 @@ def main(argv=None):
         return 1
     finally:
         builtins.input = old_input
+        logging.disable(old_disable)
 
 
 if __name__ == '__main__':

@@ -1,6 +1,8 @@
+import builtins
 import contextlib
 import importlib.util
 import io
+import logging
 import os
 from pathlib import Path
 import tempfile
@@ -74,12 +76,23 @@ class ProxyTest(unittest.TestCase):
             'colab_cli.state': state_mod, 'colab_cli.commands': types.ModuleType('colab_cli.commands'),
             'colab_cli.commands.ssh': ssh_mod}
         out, err = io.StringIO(), io.StringIO()
+        original_input = builtins.input
+        original_disable = logging.root.manager.disable
+        self.addCleanup(logging.disable, original_disable)
+        logging.disable(logging.INFO)
         with patch.dict('sys.modules', modules), contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
             self.assertEqual(proxy.main(['pin', '--target', str(self.target)]), 0)
+            self.assertIs(builtins.input, original_input)
+            self.assertEqual(logging.root.manager.disable, logging.INFO)
             self.assertEqual(proxy.main(['proxy', '--target', str(self.target), '--identity', '/private/key']), 1)
+            self.assertIs(builtins.input, original_input)
+            self.assertEqual(logging.root.manager.disable, logging.INFO)
         self.assertNotIn('PRIVATE_TOKEN', out.getvalue() + err.getvalue())
         self.assertNotIn('PRIVATE_URL', out.getvalue() + err.getvalue())
         self.assertEqual(calls, [])
+        with self.assertLogs('colab-proxy-regression', level='WARNING') as captured:
+            logging.getLogger('colab-proxy-regression').warning('logging restored')
+        self.assertEqual(len(captured.records), 1)
 
 
 if __name__ == '__main__': unittest.main()
