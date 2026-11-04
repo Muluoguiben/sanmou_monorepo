@@ -14,9 +14,12 @@
 
 body {
   margin: 0;
-  min-width: 1080px;
   min-height: 720px;
   background: #f4f6f8;
+}
+
+.app-shell {
+  min-width: 1080px;
 }
 
 button,
