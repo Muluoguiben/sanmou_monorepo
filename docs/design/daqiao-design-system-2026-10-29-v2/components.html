@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>大乔设计规范 v2 组件样板</title>
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="components.css">
+  <script src="lucide.js" defer></script>
+</head>
+<body>
+<div id="ds-root"></div>
+<script>
+const icon = (name, cls = '') => `<i data-lucide="${name}" class="${cls}" aria-hidden="true"></i>`;
+const caption = text => `<span class="caption">${text}</span>`;
+const section = (title, sub = '') => `<div class="section-heading"><h2>${title}</h2>${sub ? caption(sub) : ''}</div>`;
+const button = (text, cls = '', attrs = '') => `<button type="button" class="dq-button ${cls}" ${attrs}>${text}</button>`;
+const tip = (name, label, attrs = '') => `<span class="tip-wrap">${button(icon(name), 'icon-button ghost', `aria-label="${label}" ${attrs}`)}<span class="tooltip" role="tooltip">${label}</span></span>`;
+const status = (text, cls, name) => `<span class="status ${cls}">${icon(name)}${text}</span>`;
+let loadingTimer;
+
+const views = {
+  foundations: () => `
+    <div class="two-col">
+      <section class="board">${section('文字层级', 'CSS px · 关键状态与控件同级')}
+        ${[
+          ['页面标题 · 24 / 32 · 600', 'type-title', '今天先做重要的事'],
+          ['分组标题 · 20 / 28 · 600', 'type-section', '我的任务'],
+          ['小标题 · 16 / 24 · 600', 'type-subhead', '长风 · S1'],
+          ['对话正文 · 15 / 26 · 400', 'type-body', '已整理当前进度，下一步先完成章节目标。'],
+          ['控件与关键状态 · 14 / 20 · 500', 'type-status', '进行中　结果待核对　离线待上传'],
+          ['辅助说明 · 13 / 20 · 400', 'type-secondary', '截图仅作对话参考，不更新当前游戏状态。'],
+          ['时间与标注 · 12 / 18 · 400', 'type-caption', '更新于 09:14 · 示例内容']
+        ].map(([label, cls, text]) => `<div class="type-sample"><div class="spec">${label}</div><div class="${cls}">${text}</div></div>`).join('')}
+      </section>
+      <section class="board">${section('颜色与表面', '柔和背景，清晰信息')}
+        <div class="swatch-grid">${[
+          ['primary', '主要操作', '#476D89'], ['text-primary', '主要文字', '#31495B'],
+          ['text-secondary', '辅助文字', '#52697A'], ['text-muted', '白卡标注', '#607487'],
+          ['surface', '实体白底', '#FFFFFF'], ['surface-soft', '轻交互底', '#E7F0F6'],
+          ['surface-user', '用户消息', '#CEDFE9'], ['border-control', '控件边界', '#6D8394']
+        ].map(([token, label, hex]) => `<div class="swatch"><div class="swatch-color" style="background:var(--dq-${token})"></div><strong>${label}</strong><code>${hex}</code></div>`).join('')}</div>
+        <div class="gradient-sample">雾蓝 → 暖白<small>#DCE8F1 · #EAF0F3 · #F4EEE7</small></div>
+        <div class="status-wrap">${status('已完成', 'success', 'circle-check')}${status('待确认', 'warning', 'circle-help')}${status('未完成', 'danger', 'circle-alert')}</div>
+        <p class="caption">错误占位文字与文字按钮悬停均使用深色前景。</p>
+      </section>
+    </div>
+    <div class="two-col below">
+      <section class="board">${section('间距', '4px 基础网格')}<div class="space-scale">${[4,8,12,16,20,24,32,40,48].map(n => `<div><span class="space-bar" style="width:${n}px"></span><code>${n}</code></div>`).join('')}</div><p class="caption">图标间距 8px · 气泡 16 / 20px · 卡片 24px · 页面 32px</p></section>
+      <section class="board">${section('圆角', '固定档位，不另造近似值')}<div class="radius-row">${[['xs','8'],['sm','12'],['md','16'],['lg','20'],['xl','24'],['pill','胶囊']].map(([key, label]) => `<div><span style="border-radius:var(--dq-radius-${key})"></span><code>${label}</code></div>`).join('')}</div></section>
+    </div>`,
+
+  controls: () => `
+    <section class="board">${section('按钮与加载', '保持焦点和宽度，不重复提交')}
+      <div class="button-states">${[
+        [button('保存设置', 'primary'), '默认'], [button('保存设置', 'primary is-hover'), '悬停'],
+        [button('保存设置', 'primary is-pressed'), '按下'], [button('保存设置', 'primary is-focus'), '键盘焦点'],
+        [button(icon('loader-circle','spinner') + '验证中', 'primary is-loading', 'aria-busy="true" aria-disabled="true" data-static-loading'), '加载示意'],
+        [button('保存设置', 'primary', 'disabled'), '缺少必填项']
+      ].map(([markup, label]) => `<div>${markup}${caption(label)}</div>`).join('')}</div>
+      <div class="button-types">${button(icon('plus') + '添加服务', 'secondary')}${button('返回对话', 'ghost', 'data-ghost')}${button(icon('trash-2') + '删除服务', 'danger')}${tip('settings','设置示例')}${button(icon('play') + '<span data-load-label>测试加载效果</span>', 'primary', 'data-load aria-busy="false" aria-disabled="false"')}</div>
+      <div class="button-sizes">${button('小按钮 32', 'secondary sm', 'data-size="sm"')}${button('标准按钮 36', 'secondary', 'data-size="md"')}${button('大按钮 44', 'secondary lg', 'data-size="lg"')}<span class="caption">尺寸来自 control-sm / md / lg</span></div>
+    </section>
+    <div class="two-col below">
+      <section class="board">${section('表单', '只读可选中，禁用不可操作')}
+        <div class="field-grid">
+          <label>服务名称<input value="我的云端服务" aria-label="服务名称示例"></label>
+          <label>当前聚焦<input class="is-focus" value="我的本地模型" aria-label="聚焦输入示例"></label>
+          <label>校验失败<input class="is-error" placeholder="请输入服务名称" aria-label="错误输入示例" aria-invalid="true" aria-describedby="sample-error"><span id="sample-error" class="field-error">${icon('circle-alert')}服务名称不能为空</span></label>
+          <label>只读版本<input data-readonly readonly value="Qwen3.5-9B · stable" aria-label="只读策略版本"><span class="caption">可选择复制，不能编辑</span></label>
+          <label>暂不可设置<input disabled value="请先验证模型" aria-label="禁用输入示例"></label>
+          <label>服务位置<select aria-label="服务位置"><option>云端 API</option><option>本机／局域网</option></select></label>
+        </div>
+      </section>
+      <section class="board">${section('选择与页签', '开关有文字，页签支持完整键盘操作')}
+        <div class="switch-row"><div><strong>Dev 调试</strong><p>只控制调试入口是否显示</p></div><label class="switch-control"><input id="dev-switch" class="switch" type="checkbox" role="switch" aria-label="Dev 调试示例"><span data-switch-label>已关闭</span></label></div>
+        <div class="check-row"><label><input type="checkbox" disabled>未验证模型不可启用</label><label><input type="checkbox" data-model-enable>已验证模型：允许自动分配</label></div>
+        <div class="sample-tabs" role="tablist" aria-label="任务详情内页签">${[['process','过程'],['evidence','证据'],['models','模型']].map(([key,label], i) => `<button type="button" id="tab-${key}" role="tab" aria-selected="${i===0}" aria-controls="tab-panel" tabindex="${i===0?0:-1}" data-tab="${key}">${label}</button>`).join('')}</div>
+        <div id="tab-panel" class="tab-panel" role="tabpanel" aria-labelledby="tab-process">查看任务当前步骤与实际结果。</div>
+        <div class="focus-note">${icon('keyboard')}左右键切换；Home / End 到首尾；仅选中项进入 Tab 顺序。</div>
+      </section>
+    </div>
+    <div class="feedback" data-feedback aria-live="polite">组件仅改变本页示例，不读取文件或调用 API。</div>`,
+
+  patterns: () => `
+    <div class="two-col">
+      <section class="board">${section('聊天与附件', '白底消息和输入区，至少两行输入')}
+        <div class="message user-message">先推进章节，阵容晚点再调整。</div>
+        <div class="message assistant-message">好，章节优先。阵容调整已追加。</div>
+        <div class="composer"><div class="attachment">${icon('image')}<span>阵容截图.png<small>待发送</small></span>${tip('x','移除示例附件','data-remove')}</div><textarea rows="2" aria-label="示例消息草稿" placeholder="和大乔聊聊，或粘贴图片、文件…"></textarea><div class="compose-footer">${tip('paperclip','添加附件示例')}<span>模型：自动分配</span>${button(icon('arrow-up'),'icon-button primary','data-send aria-label="发送示例消息" title="发送示例消息"')}</div></div>
+      </section>
+      <section class="board">${section('任务状态与效果标记', '状态 14 / 20；列宽统一变化')}
+        <div class="task-group" data-task-group><div class="task-head"><strong>长风 · S1</strong><span>2 项待处理</span></div><div class="task-row"><span>完成第三章任务<small>暂停原因：结果核对未完成</small></span><span class="task-state">已暂停</span></div><div class="task-row"><span>调整第二队阵容<small>新任务默认追加</small></span><span class="task-state">排队中</span></div></div>
+        <div class="status-wrap">${status('结果待核对','warning','scan-eye')}${status('已取消','neutral','circle-x')}</div>
+        <p class="caption">任务已取消，也可以保留“结果待核对”标记；核对不翻转取消结果。</p>
+        <div class="sync-actions">${button('切换长状态示例','secondary sm','data-wide-status')}</div>
+      </section>
+    </div>
+    <section class="board below">${section('统一图标', 'Lucide · 2px 描边 · 默认显示 20px')}
+      <div class="icon-grid">${[['message-square','对话'],['list-todo','任务'],['settings','设置'],['paperclip','附件'],['image','截图'],['copy','复制'],['pause','暂停'],['play','继续'],['x','关闭'],['arrow-up','发送'],['refresh-cw','同步'],['bug','调试']].map(([name,label])=>`<div>${icon(name)}<span>${label}</span><code>${name}</code></div>`).join('')}</div>
+      <div class="icon-sizes"><span>${icon('settings','size-sm')}16px 行内</span><span>${icon('settings')}20px 工具栏</span><span>${icon('settings','size-lg')}24px 强调入口</span><span>图标按钮 36px；触摸热区至少 44px。</span></div>
+    </section>
+    <div class="feedback" data-feedback aria-live="polite">可移除附件、编辑并发送示例消息；不会上传文件或操作游戏。</div>`,
+
+  sync: () => `
+    <div class="two-col">
+      <section class="board">${section('聊天同步状态', '与游戏任务状态分开显示')}
+        <div class="sync-list">
+          <div class="sync-row"><div>已同步<small>服务端已确认本条消息</small></div>${status('已同步','success','cloud-check')}</div>
+          <div class="sync-row"><div>同步中<small>正在上传或拉取新记录</small></div>${status('同步中','neutral','refresh-cw')}</div>
+          <div class="sync-row"><div>离线待上传<small>只在本机保存，Agent 尚未收到</small></div>${status('离线待上传','warning','cloud-off')}</div>
+          <div class="sync-row"><div>同步失败<small>保留同一条消息，重试不重复创建</small></div>${status('需要重试','danger','circle-alert')}</div>
+          <div class="sync-row"><div>身份已失效<small>重新登录后再继续同步</small></div>${status('需要登录','warning','log-in')}</div>
+        </div>
+      </section>
+      <section class="board">${section('Mac 账号续聊示例', '聊天同步不会授予远程游戏操作权')}
+        <div class="device-note">${icon('laptop')}<span>可以继续讨论账号策略；游戏执行、批准与生效规则变更仍在 Windows 完成。</span></div>
+        <div class="message user-message">分析一下刚才的章节结果。</div>
+        <div data-sync-message-status><span class="sync-status warning">${icon('cloud-off')}离线待上传</span></div>
+        <p class="small-note" data-sync-note>本机草稿已保存，其他设备尚未看到；Agent 未读取。</p>
+        <div class="sync-actions">${button('演示恢复同步','primary','data-sync-retry aria-busy="false" aria-disabled="false"')}${button('演示需要登录','ghost','data-sync-login')}</div>
+        <div class="tab-panel">未同步消息不显示“已送达”；模型回复和任务结果也不凭本机动画伪造。</div>
+      </section>
+    </div>
+    <section class="board below">${section('同步信息的层级', '重要状态 14px，时间 12px')}
+      <div class="task-group"><div class="task-head"><strong>长风 · S1 会话</strong><span>聊天记录</span></div><div class="task-row"><span>消息与已生成的结果卡<small>来自同一会话；不因同步而重新生成或执行</small></span><span class="task-state">已同步</span></div><div class="task-row"><span>Windows 游戏执行权限<small>不是同步内容，不随聊天下发到其他设备</small></span><span class="task-state">不转移</span></div></div>
+    </section>
+    <div class="feedback" data-feedback aria-live="polite">同步演示不连接服务器，不传输真实聊天记录。</div>`
+};
+
+function renderIcons() { window.lucide?.createIcons({attrs:{width:20,height:20,'stroke-width':2}}); }
+function render() {
+  clearTimeout(loadingTimer);
+  const requested=location.hash.slice(1)||'foundations';
+  const id=Object.hasOwn(views,requested)?requested:'foundations';
+  document.getElementById('ds-root').innerHTML=`<div id="ds-app" data-view="${id}"><header class="page-header"><div class="brand"><span class="brand-mark">乔</span><div><strong>大乔设计规范</strong><small>白蓝渐变 · 组件样板 v2</small></div></div><nav class="route-nav" aria-label="设计规范页面">${[['foundations','基础规范'],['controls','控件与状态'],['patterns','组合与图标'],['sync','聊天同步']].map(([key,label])=>`<a href="#${key}" ${key===id?'aria-current="page"':''}>${label}</a>`).join('')}</nav><span class="draft-mark">评审稿</span></header><main>${views[id]()}</main><footer>设计样板 · 示例数据 · 无真实服务调用</footer></div>`;
+  renderIcons(); bind();
+}
+function activateTab(button) {
+  document.querySelectorAll('[data-tab]').forEach(tab=>{tab.setAttribute('aria-selected',String(tab===button));tab.tabIndex=tab===button?0:-1;});
+  const panel=document.getElementById('tab-panel');
+  panel.setAttribute('aria-labelledby',button.id);
+  panel.textContent={process:'查看任务当前步骤与实际结果。',evidence:'查看对应步骤的截图、资料来源与采集时间。',models:'查看实际使用的模型版本与调用结果。'}[button.dataset.tab];
+}
+function bind() {
+  const feedback=document.querySelector('[data-feedback]');
+  document.querySelector('[data-load]')?.addEventListener('click',event=>{
+    const b=event.currentTarget;if(b.getAttribute('aria-busy')==='true')return;
+    b.style.width=b.getBoundingClientRect().width+'px';
+    b.setAttribute('aria-busy','true');b.setAttribute('aria-disabled','true');b.classList.add('is-loading');
+    b.innerHTML=icon('loader-circle','spinner')+'<span data-load-label>正在验证…</span>';renderIcons();
+    feedback.textContent='正在演示加载：保留按钮焦点，不接受重复触发。';
+    loadingTimer=setTimeout(()=>{b.setAttribute('aria-busy','false');b.setAttribute('aria-disabled','false');b.classList.remove('is-loading');b.innerHTML=icon('play')+'<span data-load-label>测试加载效果</span>';renderIcons();b.style.removeProperty('width');feedback.textContent='加载示意完成；没有发送真实请求。';},900);
+  });
+  document.querySelectorAll('[data-tab]').forEach(button=>{
+    button.addEventListener('click',()=>activateTab(button));
+    button.addEventListener('keydown',event=>{
+      if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
+      event.preventDefault();const tabs=[...document.querySelectorAll('[data-tab]')];
+      let index=tabs.indexOf(button);
+      if(event.key==='Home')index=0;else if(event.key==='End')index=tabs.length-1;else index=(index+(event.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;
+      tabs[index].focus();activateTab(tabs[index]);
+    });
+  });
+  document.getElementById('dev-switch')?.addEventListener('change',event=>{
+    document.querySelector('[data-switch-label]').textContent=event.target.checked?'已开启':'已关闭';
+    feedback.textContent=event.target.checked?'Dev 开启示意：正式产品出现调试入口。':'Dev 关闭示意：隐藏调试入口，不删除记录。';
+  });
+  document.querySelector('[data-remove]')?.addEventListener('click',event=>{event.currentTarget.closest('.attachment').remove();feedback.textContent='已移除待发送附件；未删除任何本地文件。';});
+  document.querySelector('[data-send]')?.addEventListener('click',()=>{
+    const input=document.querySelector('textarea');
+    if(!input.value.trim()&&!document.querySelector('.attachment')){feedback.textContent='请输入文字或添加附件。';input.focus();return;}
+    input.value='';document.querySelector('.attachment')?.remove();feedback.textContent='发送交互示意完成，未调用模型或上传文件。';
+  });
+  document.querySelector('[data-wide-status]')?.addEventListener('click',event=>{
+    const group=document.querySelector('[data-task-group]'),wide=group.classList.toggle('wide-status');
+    group.querySelector('.task-head>span').textContent=wide?'12 项待处理':'2 项待处理';
+    group.querySelector('.task-state').textContent=wide?'已暂停 · 需处理':'已暂停';
+    event.currentTarget.textContent=wide?'恢复基准列宽':'切换长状态示例';
+    feedback.textContent=wide?'本组状态列同步扩至132px；状态文字仍为14px。':'恢复88px基准列；内容过长仍可完整换行。';
+  });
+  document.querySelector('[data-sync-retry]')?.addEventListener('click',event=>{
+    const b=event.currentTarget;if(b.getAttribute('aria-busy')==='true')return;
+    b.setAttribute('aria-busy','true');b.setAttribute('aria-disabled','true');
+    document.querySelector('[data-sync-message-status]').innerHTML=status('同步中','neutral','refresh-cw');renderIcons();
+    document.querySelector('[data-sync-note]').textContent='正在演示上传同一条消息，不创建第二条记录。';
+    loadingTimer=setTimeout(()=>{b.setAttribute('aria-busy','false');b.setAttribute('aria-disabled','false');document.querySelector('[data-sync-message-status]').innerHTML=status('已同步','success','cloud-check');renderIcons();document.querySelector('[data-sync-note]').textContent='演示服务端确认后的状态；不会触发远程游戏操作。';feedback.textContent='仅同步状态演示，没有真实服务器请求。';},900);
+  });
+  document.querySelector('[data-sync-login]')?.addEventListener('click',()=>{
+    clearTimeout(loadingTimer);const b=document.querySelector('[data-sync-retry]');b.setAttribute('aria-busy','false');b.setAttribute('aria-disabled','false');
+    document.querySelector('[data-sync-message-status]').innerHTML=status('需要登录','warning','log-in');renderIcons();
+    document.querySelector('[data-sync-note]').textContent='本地未上传记录保留；登录失效不显示为已同步。';
+  });
+}
+window.addEventListener('hashchange',render);
+window.addEventListener('DOMContentLoaded',render);
+</script>
+</body>
+</html>

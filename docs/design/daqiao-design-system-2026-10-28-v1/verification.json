@@ -1,0 +1,207 @@
+{
+  "date": "2026-10-28",
+  "scope": "design specification and component samples only",
+  "contrast": [
+    {
+      "foreground": "text-primary",
+      "background": "bg-start",
+      "ratio": 7.543,
+      "target": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "text-secondary",
+      "background": "bg-start",
+      "ratio": 4.605,
+      "target": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "text-secondary",
+      "background": "surface-soft",
+      "ratio": 4.97,
+      "target": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "text-muted",
+      "background": "surface",
+      "ratio": 4.833,
+      "target": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "text-muted",
+      "background": "surface-subtle",
+      "ratio": 4.611,
+      "target": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "on-primary",
+      "background": "primary",
+      "ratio": 5.502,
+      "target": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "on-primary",
+      "background": "primary-hover",
+      "ratio": 6.551,
+      "target": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "on-primary",
+      "background": "primary-pressed",
+      "ratio": 8.104,
+      "target": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "success",
+      "background": "success-bg",
+      "ratio": 5.503,
+      "target": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "warning",
+      "background": "warning-bg",
+      "ratio": 5.444,
+      "target": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "danger",
+      "background": "danger-bg",
+      "ratio": 5.593,
+      "target": 4.5,
+      "pass": true
+    },
+    {
+      "foreground": "border-control",
+      "background": "bg-start",
+      "ratio": 3.166,
+      "target": 3,
+      "pass": true
+    },
+    {
+      "foreground": "border-control",
+      "background": "surface-soft",
+      "ratio": 3.417,
+      "target": 3,
+      "pass": true
+    },
+    {
+      "foreground": "border-control",
+      "background": "surface-subtle",
+      "ratio": 3.763,
+      "target": 3,
+      "pass": true
+    },
+    {
+      "foreground": "focus",
+      "background": "bg-start",
+      "ratio": 5.436,
+      "target": 3,
+      "pass": true
+    }
+  ],
+  "screens": [
+    {
+      "scene": "foundations",
+      "width": 1280,
+      "height": 900,
+      "icons": 3,
+      "unrenderedIcons": 0,
+      "overflow": false
+    },
+    {
+      "scene": "controls",
+      "width": 1280,
+      "height": 900,
+      "icons": 6,
+      "unrenderedIcons": 0,
+      "overflow": false
+    },
+    {
+      "scene": "patterns",
+      "width": 1280,
+      "height": 900,
+      "icons": 22,
+      "unrenderedIcons": 0,
+      "overflow": false
+    }
+  ],
+  "interactions": {
+    "tabs": true,
+    "dev": true,
+    "loading": {
+      "disabled": true,
+      "widthStable": true
+    },
+    "attachmentRemoved": true,
+    "send": true,
+    "statusAlignment": [
+      {
+        "x": 1112,
+        "width": 88
+      },
+      {
+        "x": 1112,
+        "width": 88
+      },
+      {
+        "x": 1112,
+        "width": 88
+      }
+    ]
+  },
+  "errors": [],
+  "tokens": {
+    "used": 65,
+    "missing": []
+  },
+  "report": {
+    "images": 3,
+    "overflow": false,
+    "headings": 13,
+    "zoom": true,
+    "mobileOverflow": false
+  },
+  "links": [
+    {
+      "href": "../daqiao-prd-2026-10-28-v1/PRD.html",
+      "exists": true
+    },
+    {
+      "href": "components.html#foundations",
+      "exists": true
+    },
+    {
+      "href": "tokens.json",
+      "exists": true
+    },
+    {
+      "href": "tokens.css",
+      "exists": true
+    },
+    {
+      "href": "assets/01-foundations.png",
+      "exists": true
+    },
+    {
+      "href": "assets/02-controls.png",
+      "exists": true
+    },
+    {
+      "href": "assets/03-patterns.png",
+      "exists": true
+    },
+    {
+      "href": "../daqiao-prd-2026-10-28-v1/PRD.md",
+      "exists": true
+    }
+  ]
+}

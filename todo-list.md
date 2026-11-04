@@ -4,6 +4,8 @@
 
 历史进展与验收记录见[历史归档](docs/archive/todo-history/2026-10-23.md)。下面的大阶段保留整体验收状态；Mac 首批本地实现单独记录，不把模拟结果算成云 GPU 或 Windows 实机通过。
 
+设计交付（2026-10-29）：当前依据为[大乔 PRD v2](docs/design/daqiao-prd-2026-10-29-v2/PRD.md)与[设计规范 v2](docs/design/daqiao-design-system-2026-10-29-v2/DESIGN-SYSTEM.md)，[样图与交互](docs/design/daqiao-prd-2026-10-29-v2/mockups.html)仅使用示例数据。已修订模型验证启用、账号身份与规则、任务生命周期、页面入口、组件一致性及文档入口；新增跨设备聊天同步规划（Mac续聊但不远程执行）。上述功能仍待业务实现和验收，GPU／Windows／训练主线状态不变。旧Personal Agent v1／v2与大乔文档v1见[历史设计入口](docs/design/README.md)，不再作为当前施工规格。
+
 ## 2026-10-29 进展：网关重启与异常处理验收
 
 - [x] 完成本地自动化测试与独立复核：为已有 Colab 环境准备重复启动脚本，并为网关断连、超时和并发准备可观测的测试。主管组合回归 24 项通过（启动器 14 项、探针 10 项），见[准备说明](docs/test-reports/2026-10-29/gateway-resilience-preparation.md)。

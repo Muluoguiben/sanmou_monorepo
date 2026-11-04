@@ -1,0 +1,171 @@
+{
+  "document": "大乔 三谋个人 Agent PRD v1",
+  "date": "2026-10-28",
+  "scope": "documentation and static mockups only",
+  "screens": [
+    {
+      "scene": "chat",
+      "file": "assets/01-chat.png",
+      "width": 1280,
+      "height": 860,
+      "clipped": [],
+      "text": "乔\n大乔\n你的三谋个人助手\n通用\n乔\n大乔\n讨论、安排与总结\n我的账号\n风\n长风 · S1\n开荒中 · 已连接\n舟\n云舟 · S2\n战斗准备 · 已连接\n＋\n添加账号\nWindows · 本机运行\n⚙\n设置\n和大乔聊聊\n对话\n任务\n⚙\n乔\n大乔\n懂游戏，也记得你的安排\n今天 · 09:10（示例）\n帮长风推进章节，云舟"
+    },
+    {
+      "scene": "account",
+      "file": "assets/02-account.png",
+      "width": 1280,
+      "height": 860,
+      "clipped": [],
+      "text": "乔\n大乔\n你的三谋个人助手\n通用\n乔\n大乔\n讨论、安排与总结\n我的账号\n风\n长风 · S1\n开荒中 · 已连接\n舟\n云舟 · S2\n战斗准备 · 已连接\n＋\n添加账号\nWindows · 本机运行\n⚙\n设置\n长风 · S1\n对话\n任务\n⚙\n长风 · S1\n\n已绑定区服账号 · 当前处于开荒阶段\n\n账号规则\n看一下现在卡"
+    },
+    {
+      "scene": "tasks",
+      "file": "assets/03-tasks.png",
+      "width": 1280,
+      "height": 860,
+      "clipped": [],
+      "text": "乔\n大乔\n你的三谋个人助手\n通用\n乔\n大乔\n讨论、安排与总结\n我的账号\n风\n长风 · S1\n开荒中 · 已连接\n舟\n云舟 · S2\n战斗准备 · 已连接\n＋\n添加账号\nWindows · 本机运行\n⚙\n设置\n我的任务\n对话\n任务\n⚙\n任务\n\n按账号查看当前安排，点开任务查看过程。\n\n新任务通过聊天创建\n当前任务\n定时安"
+    },
+    {
+      "scene": "task-detail",
+      "file": "assets/04-task-detail.png",
+      "width": 1280,
+      "height": 860,
+      "clipped": [],
+      "text": "乔\n大乔\n你的三谋个人助手\n通用\n乔\n大乔\n讨论、安排与总结\n我的账号\n风\n长风 · S1\n开荒中 · 已连接\n舟\n云舟 · S2\n战斗准备 · 已连接\n＋\n添加账号\nWindows · 本机运行\n⚙\n设置\n我的任务\n对话\n任务\n⚙\n完成第三章任务\n\n长风 · S1　／　任务详情\n\n返回任务\n执行过程\n进行中\n查看当前"
+    },
+    {
+      "scene": "models",
+      "file": "assets/05-models.png",
+      "width": 1280,
+      "height": 860,
+      "clipped": [],
+      "text": "乔\n大乔\n你的三谋个人助手\n通用\n乔\n大乔\n讨论、安排与总结\n我的账号\n风\n长风 · S1\n开荒中 · 已连接\n舟\n云舟 · S2\n战斗准备 · 已连接\n＋\n添加账号\nWindows · 本机运行\n⚙\n设置\n设置\n对话\n任务\n⚙\n设置\n\n模型与服务\n\n模型与服务\n通知\n详细设置待评审\n数据与存储\n详细设置待评审\n开发者"
+    },
+    {
+      "scene": "add-service",
+      "file": "assets/06-add-service.png",
+      "width": 1280,
+      "height": 860,
+      "clipped": [],
+      "text": "乔\n大乔\n你的三谋个人助手\n通用\n乔\n大乔\n讨论、安排与总结\n我的账号\n风\n长风 · S1\n开荒中 · 已连接\n舟\n云舟 · S2\n战斗准备 · 已连接\n＋\n添加账号\nWindows · 本机运行\n⚙\n设置\n设置\n对话\n任务\n⚙\n添加模型服务\n\n一个接口配置一次，可以管理多个模型。\n\n返回设置\n连接信息\n导入 .env"
+    },
+    {
+      "scene": "brief",
+      "file": "assets/07-brief.png",
+      "width": 1280,
+      "height": 860,
+      "clipped": [],
+      "text": "乔\n大乔\n你的三谋个人助手\n通用\n乔\n大乔\n讨论、安排与总结\n我的账号\n风\n长风 · S1\n开荒中 · 已连接\n舟\n云舟 · S2\n战斗准备 · 已连接\n＋\n添加账号\nWindows · 本机运行\n⚙\n设置\n和大乔聊聊\n对话\n任务\n⚙\n乔\n大乔\n今天的事情，帮你收个尾\n今晚的账号小结\n22:00 · 晚间总报（示例）\n"
+    },
+    {
+      "scene": "dev",
+      "file": "assets/08-dev.png",
+      "width": 1280,
+      "height": 860,
+      "clipped": [],
+      "text": "乔\n大乔\n你的三谋个人助手\n通用\n乔\n大乔\n讨论、安排与总结\n我的账号\n风\n长风 · S1\n开荒中 · 已连接\n舟\n云舟 · S2\n战斗准备 · 已连接\n＋\n添加账号\nWindows · 本机运行\n⚙\n设置\n开发者模式\n对话\n任务\n调试\nDev 已开启\n⚙\n调试\n\n按任务查看模型、检索和工具的详细运行记录。\n\n关闭 D"
+    },
+    {
+      "scene": "binding",
+      "file": "assets/09-binding.png",
+      "width": 1280,
+      "height": 860,
+      "clipped": [],
+      "text": "乔\n大乔\n你的三谋个人助手\n通用\n乔\n大乔\n讨论、安排与总结\n我的账号\n风\n长风 · S1\n开荒中 · 已连接\n舟\n云舟 · S2\n战斗准备 · 已连接\n＋\n添加账号\nWindows · 本机运行\n⚙\n设置\n长风 · S1\n对话\n任务\n⚙\n添加账号\n\n一个账号 Agent 固定对应一个区服账号。\n\n返回对话\n选择游戏窗"
+    },
+    {
+      "scene": "account-rules",
+      "file": "assets/10-account-rules.png",
+      "width": 1280,
+      "height": 860,
+      "clipped": [],
+      "text": "乔\n大乔\n你的三谋个人助手\n通用\n乔\n大乔\n讨论、安排与总结\n我的账号\n风\n长风 · S1\n开荒中 · 已连接\n舟\n云舟 · S2\n战斗准备 · 已连接\n＋\n添加账号\nWindows · 本机运行\n⚙\n设置\n长风 · S1\n对话\n任务\n⚙\n账号规则\n\n长风 · S1　／　也可以直接在这个账号的对话中修改。\n\n返回账号会"
+    }
+  ],
+  "errors": [],
+  "links": [
+    {
+      "href": "mockups.html#chat",
+      "exists": true
+    },
+    {
+      "href": "PRD.html",
+      "exists": true
+    },
+    {
+      "href": "assets/01-chat.png",
+      "exists": true
+    },
+    {
+      "href": "assets/02-account.png",
+      "exists": true
+    },
+    {
+      "href": "assets/09-binding.png",
+      "exists": true
+    },
+    {
+      "href": "assets/10-account-rules.png",
+      "exists": true
+    },
+    {
+      "href": "assets/03-tasks.png",
+      "exists": true
+    },
+    {
+      "href": "assets/04-task-detail.png",
+      "exists": true
+    },
+    {
+      "href": "assets/05-models.png",
+      "exists": true
+    },
+    {
+      "href": "assets/06-add-service.png",
+      "exists": true
+    },
+    {
+      "href": "assets/07-brief.png",
+      "exists": true
+    },
+    {
+      "href": "assets/08-dev.png",
+      "exists": true
+    },
+    {
+      "href": "../../sanmou-multimodal-agent-plan-2026-10-23-v10.md",
+      "exists": true
+    },
+    {
+      "href": "../../contracts/harness-ms0-episode-contract-v4.md",
+      "exists": true
+    },
+    {
+      "href": "../../../todo-list.md",
+      "exists": true
+    },
+    {
+      "href": "../personal-agent-v2/design-review-2026-10-27-v1.md",
+      "exists": true
+    }
+  ],
+  "report": {
+    "desktop": {
+      "headings": 17,
+      "tables": 11,
+      "images": 10,
+      "loadedImages": 10,
+      "overflow": false
+    },
+    "imageZoom": true,
+    "mobile": {
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": false
+    },
+    "embeddedImages": 10
+  },
+  "sourceHash": "a9c6b92c8210cf3ebff76faa168c927825b5c0fa51844fbf56f2fb4b852977dc"
+}
