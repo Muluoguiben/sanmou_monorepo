@@ -1,6 +1,6 @@
 # Sanmou 文档索引
 
-更新日期：2026-10-29。工作目录：`/Users/lanull/dev/sanmou_monorepo`。产品／设计入口与工程验收记录分别保留，状态沿用各报告原日期。
+更新日期：2026-11-04。工作目录：`/Users/lanull/dev/sanmou_monorepo`。产品／设计入口与工程验收记录分别保留，状态沿用各报告原日期。
 
 ## 先读这两份
 
@@ -10,6 +10,8 @@
 当前规划是v10，接口说明是v4；技术选择、每步工具调用规则和奖励公式不变。任务数据格式仍叫v3.ms0，新增ppo-token-gae-v1，用于将轨迹转换成训练数据。v10补齐跨步骤GAE、奖励归属和采样中断处理，明确TV2必须在最终verl训练程序中验证，以及MS7前的R1–R6恢复清单。旧版已归档；开发顺序见[根待办](../todo-list.md)，尚未实现的功能仍标为待做。
 
 ## 分类查阅
+
+2026-11-04 已提交大乔设计交付，后续按[根Todo的D0–D3首批开发](../todo-list.md)分工：接口统筹、桌面界面、聊天同步、账号任务接入。仅先做CPU／本地可验证切片，真实同步、Windows输入、GPU与训练各自验收。
 
 当前产品与界面依据：[大乔 PRD v2](design/daqiao-prd-2026-10-29-v2/PRD.md)（[含样图阅读版](design/daqiao-prd-2026-10-29-v2/PRD.html)）与[设计规范 v2](design/daqiao-design-system-2026-10-29-v2/DESIGN-SYSTEM.md)（[组件阅读版](design/daqiao-design-system-2026-10-29-v2/DESIGN-SYSTEM.html)）。本轮补齐六组评审问题与跨设备聊天同步：Mac可查看和续聊，但不远程触发Windows游戏操作。旧Personal Agent v1／v2原型和大乔PRD／规范v1均只作历史对照，不能据其恢复已删除入口。完整版本入口见[设计索引](design/README.md)。这是设计交付，不表示产品代码、同步服务或游戏执行已实现。
 
